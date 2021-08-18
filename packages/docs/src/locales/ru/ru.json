@@ -6,8 +6,7 @@
         "docs": "Документация",
         "discord": "Зайти в Discord",
         "translation": "Добавить перевод...",
-        "language": "Язык",
-        "star": "Star"
+        "language": "Язык"
       }
     },
     "preview": {
@@ -17,10 +16,6 @@
         "github": "Открыть на GitHub"
       },
       "features": {
-        "nuxt": {
-          "title": "Поддержка Nuxt",
-          "text": "Руководство по интеграции Nuxt"
-        },
         "components": {
           "title": "52 Адаптивных Компонента",
           "text": "Документация компонентов"
@@ -70,8 +65,7 @@
       "text": "Попробуйте Vuestic UI Framework в действии.",
       "buttons": {
         "github": "Открыть на GitHub",
-        "demo": "Демонстрация",
-        "star": "Star"
+        "demo": "Демонстрация"
       },
       "features": {
         "opensource": "Открытая лицензия MIT",

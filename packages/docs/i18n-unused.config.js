@@ -1,5 +1,5 @@
 module.exports = {
-  extensions: ['ts', 'vue'],
+  srcExtensions: ['ts', 'vue'],
   srcPath: 'src',
   localesPath: 'src/locales',
   excludeKey: ['.props.'],

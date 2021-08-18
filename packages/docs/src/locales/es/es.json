@@ -15,10 +15,6 @@
         "github": "View on GitHub"
       },
       "features": {
-        "nuxt": {
-          "title": "Nuxt Support",
-          "text": "Nuxt integration guides"
-        },
         "components": {
           "title": "52 Responsive Components",
           "text": "Available components docs"
@@ -68,8 +64,7 @@
       "text": "Check out Vuestic UI Framework in action.",
       "buttons": {
         "github": "View on GitHub",
-        "demo": "Live Demo",
-        "star": "Star"
+        "demo": "Live Demo"
       },
       "features": {
         "opensource": "Open source MIT license",
