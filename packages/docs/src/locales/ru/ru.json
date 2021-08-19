@@ -1048,11 +1048,8 @@
     "rating": "Rating",
     "modal": "Modal",
     "tabs": "Tabs",
-    "treeView": "Tree view",
     "slider": "Slider",
     "switch": "Switch",
-    "popovers": "Popovers",
-    "chat": "Chat",
     "pagination": "Pagination",
     "fileUpload": "File Upload",
     "form": "Form",
@@ -1078,7 +1075,6 @@
     "parallax": "Parallax",
     "popover": "Popover",
     "backtop": "Backtop",
-    "reset": "Reset",
     "colorPicker": "Color Picker",
     "colorInput": "Color Input",
     "colorSlider": "Color Slider",
@@ -1092,10 +1088,8 @@
     "innerLoading": "Inner Loading",
     "installation": "Установка",
     "roadmap": "План развития",
-    "nuxtIntegration": "Nuxt Integration",
     "accessibilityGuide": "Навигация",
     "configurationGuide": "Настройки",
-    "browsersList": "Список браузеров",
     "overview": "Обзор",
     "translation": "Перевод",
     "browserSupport": "Поддрежка браузеров",
@@ -1229,10 +1223,6 @@
       "withIcon": {
         "title": "Иконки",
         "text": "Свойство `icon` используется для отображения иконок внутри аватара."
-      },
-      "withEmail": {
-        "title": "Gravatar",
-        "text": "Свойство `email` и [gravatar](https://en.gravatar.com/support/what-is-gravatar/)[[target=_blank]] используются для получения изображения профиля пользователя."
       }
     }
   },
@@ -1311,9 +1301,6 @@
       },
       "position": {
         "title": "Позиционирование"
-      },
-      "overlap": {
-        "title": "Перекрытие"
       },
       "dot": {
         "title": "Точка"
@@ -1939,8 +1926,7 @@
     "summaryText": "Компонент `va-image` используется для отображения адаптивных изображений, в нем есть функции, облегчающие работу с изображениями.",
     "examples": {
       "default": {
-        "title": "Базовое использование",
-        "text": "Базовое использование изображений."
+        "title": "Базовое использование"
       },
       "contain": {
         "title": "Содержание",
@@ -1949,9 +1935,6 @@
       "ratio": {
         "title": "Соотношение",
         "text": "Свойство `ratio` изменяет исходное соотношение сторон."
-      },
-      "slots": {
-        "title": "Слоты"
       },
       "defaultSlot": {
         "title": "Слот по умолчанию",
@@ -2558,16 +2541,6 @@
       "more": "Полный список всех примененных стилей можно посмотреть здесь [reset.scss](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/styles/global/reset.scss)[[target=_blank]] stylesheet."
     }
   },
-  "colorPicker": {
-    "title": "Color Picker",
-    "summaryText": "Компонент который помогает выбрать цвет. Мы используем [vue-color](https://github.com/xiaokaike/vue-color)[[target=_blank]] библиотеку для этого компонента. Будет изменено в следующих версиях.",
-    "examples": {
-      "default": {
-        "title": "Базовое использование",
-        "text": "По умолчанию используйте компонент с `v-model`."
-      }
-    }
-  },
   "colorInput": {
     "title": "Color Input",
     "summaryText": "Компонент `va-color-input` позволяет выбрать цвет.",
@@ -2576,32 +2549,13 @@
         "title": "Базовое использование",
         "text": "По умолчанию компонент `va-color-input` обменивается значением через `v-model`."
       },
-      "selected": {
-        "title": "Selected",
-        "text": "Dot style changes can be applied."
-      },
       "disabled": {
         "title": "Недоступное поле ввода",
         "text": "Свойство `disabled` запрещает любые действия с полем ввода"
-      },
-      "advanced": {
-        "title": "Advanced",
-        "text": "It's a heavier component which provides an ability to pick color by click."
       }
     },
     "api": {
-      "colorInput": "API компонента `va-color-input`",
-      "colorInputAdvanced": "Color Input Advanced API"
-    }
-  },
-  "colorSlider": {
-    "title": "Color Slider",
-    "summaryText": "Slider компонент для выбора цвета.",
-    "examples": {
-      "default": {
-        "title": "Базовое использование",
-        "text": "По умолчанию используйте этот компонент с `v-model`."
-      }
+      "colorInput": "API компонента `va-color-input`"
     }
   },
   "colorPalette": {
@@ -2615,15 +2569,10 @@
       "indicator": {
         "title": "Индикатор",
         "text": "Вы можете применять к индикатору разные стили, доступны: `dot` и `square`."
-      },
-      "advanced": {
-        "title": "Advanced",
-        "text": "The component has an advanced version with an input component and color picker."
       }
     },
     "api": {
-      "colorPalette": "API компонента `va-color-palette`",
-      "colorPaletteAdvanced": "Color Palette Advanced API"
+      "colorPalette": "API компонента `va-color-palette`"
     }
   },
   "datePicker": {
@@ -2818,11 +2767,6 @@
   "installation": {
     "title": "Установка",
     "description": "Начните работу с Vuestic UI, чтобы создавать многофункциональные и удобные приложения благодаря нашей гибко настраиваемой структуре. Мы максимально упростили процесс установки, чтобы сэкономить ваши усилия. Установка возможна несколькими способами.",
-    "subtitle": "Вы можете начать использовать Vuestic с простых шагов, как вам удобнее.",
-    "prerequisites": "Во-первых, убедитесь, что у вас установлены все необходимые зависимости:",
-    "node": "[Node.js](https://nodejs.org/en/)[[target=_blank]] ( >=14.*)",
-    "npm": "[npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)[[target=_blank]] версия 3+ (или [yarn](https://yarnpkg.com/lang/en/docs/install)[[target=_blank]] версия 1.16+) и [Git](https://git-scm.com/)[[target=_blank]]",
-    "afterCheck": "После проверки предварительных требований установите Vuestic UI через `npm/yarn`:",
     "fonts": {
       "title": "Установка шрифтов",
       "description": "По умолчанию Vuestic UI использует шрифты `Source Sans Pro` и `Material Icons`. Вам необходимо вручную добавить эти шрифты в свой проект. Ниже приведены несколько примеров.",
@@ -2836,14 +2780,18 @@
     "cli": {
       "title": "Установка через Vue CLI",
       "prepare": "Перед установкой убедитесь, что [Vue CLI](https://cli.vuejs.org/guide/installation.html)[[target=_blank]] установлен глобально и имеет версию 4+:",
-      "upgrade": "Ознакомьтесь с [руководством](https://cli.vuejs.org/migrating-from-v3/#migrating-from-v3)[[target=_blank]] для Vue CLI версии 3, которое поможет вам обновить приложение",
+      "upgrade": "Ознакомьтесь с [руководством](https://cli.vuejs.org/migrating-from-v3/#migrating-from-v3)[[target=_blank]] для Vue CLI версии 3, которое поможет вам обновить приложение.",
       "description": "Простой способ, если вы используете настройку через Vue-CLI или хотите опробовать Vuestic UI в новом проекте.",
       "attention": "Установка Vuestic UI изменит файлы `package.json` и `main.(js`&#124;`ts)`. Убедитесь, что вы закоммитили свой код перед его установкой, чтобы избежать потери данных",
       "codeAnnotation": "Затем установите Vuestic UI как плагин Vue-CLI:"
     },
     "manual": {
       "title": "Ручная установка",
-      "description": "Простой способ, если вы используете настройку через Vue-CLI или хотите опробовать Vuestic UI в новом проекте"
+      "subtitle": "Если вы решили установить Vuestic UI вручную, все, что вам нужно сделать, это установить пакет NPM, пару других необходимых ресурсов (таких как шрифты и стили CSS) и немного изменить точку входа вашего приложения (скорее всего, `index.js` или `main.js`, в зависимости от ваших настроек).",
+      "prerequisites": "Во-первых, убедитесь, что у вас установлены все необходимые зависимости:",
+      "node": "[Node.js](https://nodejs.org/en/)[[target=_blank]] ( >=14.*)",
+      "npm": "[npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)[[target=_blank]] версия 3+ (или [yarn](https://yarnpkg.com/lang/en/docs/install)[[target=_blank]] версия 1.16+) и [Git](https://git-scm.com/)[[target=_blank]]",
+      "afterCheck": "После проверки предварительных требований установите Vuestic UI через `npm/yarn`:"
     },
     "treeShaking": {
       "title": "Tree shaking",
@@ -2902,9 +2850,6 @@
       "title": "Архив",
       "description": "Следующие выпуски являются старыми и не поддерживаются minor и major версиями:"
     }
-  },
-  "nuxtIntegration": {
-    "title": "Work In Progress"
   },
   "accessibilityGuide": {
     "title": "Навигация",
@@ -3082,10 +3027,8 @@
   },
   "iconsConfig": {
     "title": "Конфигурация иконок",
-    "about": "По умолчанию в Vuestic UI используется [Material Icons](https://fonts.google.com/icons)[[target=_blank]]. Если вы хотите использовать другие библиотеки шрифтов, вы можете настроить VaIcon для их использования.",
-    "readMore": "Подробнее",
-    "readBeforeStart": "Подробнее про компонент иконок",
-    "example": "Пример",
+    "about": "По умолчанию в Vuestic UI используется `Material Design Icons`. Если вы хотите использовать другие библиотеки шрифтов, вы можете настроить VaIcon для их использования.",
+    "readBeforeStart": "Подробнее про компонент иконок VaIcon",
     "problem": {
       "definition": "Есть проблема с библиотеками иконок: они обычно используют разные интерфейсы для отображения иконок.",
       "materialIcons": "Например, material-icons требует, чтобы мы установили класс `material-icons` и подставили имя значка внутри тега `span`.",
@@ -3133,11 +3076,6 @@
       "rotation": "Поворачивает иконку под определенным углом.",
       "spin": "Применяет анимацию вращения к иконке."
     }
-  },
-  "advancedIconsConfig": {
-    "title": "Advanced icons config",
-    "subtitle": "Icons config is a flat array. VaIcon looks for first appropriate name (strict string, regex or dynamic segment). Then, if config has a `to` prop it looks for additional config that appropriate for `to`.",
-    "priority": "Here you can see how its works"
   },
   "componentsConfig": {
     "title": "Конфигурация компонентов",
@@ -3306,18 +3244,14 @@
     "title": "Типографика",
     "description": "В Vuestic UI применяются следующие стили типографики.",
     "headings": "Заголовки",
-    "affected": "Применено",
-    "primary": "Стиль текста по умолчанию",
-    "other": "Другие типографические стили",
-    "lists": "Списки",
-    "links": "Ссылки",
-    "otherElements": "Другие элементы",
-    "titled": "Title heading",
+    "titled": "Title заголовка",
     "textStyles": "Стили текста",
     "codeSnippet": "Фрагмент кода",
     "textCode": "Код в тексте",
+    "other": "Другие типографические стили",
     "orderedList": "Нумерованный список",
     "unorderedList": "Ненумерованный список",
+    "links": "Ссылки",
     "textHighlighted": "Выделенный текст",
     "blockquote": "Цитата",
     "textBlock": "Текстовый блок"
