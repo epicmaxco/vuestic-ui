@@ -1,6 +1,10 @@
 <template>
   <h5>
-    <MarkdownView tag="span" inline :value="textComputed" />
+    <MarkdownView
+      tag="span"
+      inline
+      :value="textComputed"
+    />
     <DocsAnchor :text="linkTextComputed" />
   </h5>
 </template>

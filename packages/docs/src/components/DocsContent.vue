@@ -42,8 +42,7 @@
       <MarkdownView
         v-else-if="block.type === BlockType.LIST"
         :key="block.type + index"
-        :value="`${block.translationStringList.map(translationString=>'- ' + $tie(translationString))
-                                              .join('\n')}`"
+        :value="translateAndMark(block.translationStringList)"
       />
       <DocsTable
         v-else-if="block.type === BlockType.TABLE"
@@ -105,6 +104,12 @@ const PropsMixin = Vue.with(Props)
 export default class DocsContent extends mixins(PropsMixin) {
   get BlockType () {
     return BlockType
+  }
+
+  translateAndMark (translations: string[]): string {
+    return translations
+      .map((t: string): string => `- ${(this as any).$tie(t)}`)
+      .join('\n')
   }
 }
 </script>
