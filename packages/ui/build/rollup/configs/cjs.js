@@ -2,7 +2,6 @@ import { defineConfig } from 'rollup'
 import typescriptPlugin from 'rollup-plugin-typescript2'
 import vuePlugin from 'rollup-plugin-vue'
 import postcssPlugin from 'rollup-plugin-postcss'
-import nodeBuiltinsPlugin from 'rollup-plugin-node-builtins'
 import commonjsPlugin from '@rollup/plugin-commonjs'
 import { nodeResolve as nodeResolvePlugin } from '@rollup/plugin-node-resolve'
 import typescriptDeclarationPlugin from '../plugins/rollup-typescript-declaration'
@@ -36,7 +35,6 @@ export function createCJSConfig ({ input, outDir = 'dist/', minify = false, decl
 
   if (minify) { config.plugins.push(terserPlugin({ compress: { ecma: 2015, pure_getters: true } })) }
   if (declaration) { config.plugins.push(typescriptDeclarationPlugin({ outDir })) }
-  if (!ssr) { config.plugins.push(nodeBuiltinsPlugin({ crypto: true })) }
 
   return config
 }
