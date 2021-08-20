@@ -27,9 +27,9 @@ app.use(VuesticPlugin, {
 `
 
 const iconsInstall = `
-yarn add material-design-icons-iconfont -D
+yarn add material-design-icons
 // $t('all.code.or')
-npm install material-design-icons-iconfont -D
+npm install material-design-icons
 `
 
 const iconsConfig = `
