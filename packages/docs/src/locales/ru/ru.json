@@ -1036,6 +1036,7 @@
     "introduction": "Введение",
     "gettingStarted": "Начало работы",
     "styles": "Стили",
+    "reset": "Сброс CSS",
     "uiElements": "Элементы UI",
     "contribution": "Помощь в разработке",
     "documentationPage": "Документация",
@@ -2532,11 +2533,11 @@
     }
   },
   "reset": {
-    "title": "CSS Reset",
+    "title": "Сброс CSS",
     "description": "Мы используем `reset.scss` чтобы сбросить и нормализовать базовые `CSS` стили",
     "features": {
       "title": "Reset возможности",
-      "info": "Ниже находится список возможностей которые предоставляет reset.scss:",
+      "info": "Ниже находится список возможностей, которые предоставляет reset.scss:",
       "list": "* Margin и padding reset. \n * Border reset. \n * Hide quotes. \n * Font reset. \n * Hidden-attribute fix для более новых браузеров. \n * HTML5 display-role reset для более старых браузеров",
       "more": "Полный список всех примененных стилей можно посмотреть здесь [reset.scss](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/styles/global/reset.scss)[[target=_blank]] stylesheet."
     }
