@@ -238,12 +238,6 @@
   "radio": {
     "title": "-- Here is the title --"
   },
-  "expand": {
-    "title": "-- Here is the title --"
-  },
-  "expandGroup": {
-    "title": "-- Here is the title --"
-  },
   "tag": {
     "title": "-- Here is the title --"
   },
@@ -263,13 +257,7 @@
   "reset": {
     "title": "-- Here is the title --"
   },
-  "colorPicker": {
-    "title": "-- Here is the title --"
-  },
   "colorInput": {
-    "title": "-- Here is the title --"
-  },
-  "colorSlider": {
     "title": "-- Here is the title --"
   },
   "colorPalette": {
@@ -294,9 +282,6 @@
     "title": "Trabajo En Progreso"
   },
   "roadmap": {
-    "title": "Trabajo En Progreso"
-  },
-  "nuxtIntegration": {
     "title": "Trabajo En Progreso"
   },
   "accessibilityGuide": {

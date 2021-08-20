@@ -1,5 +1,5 @@
-import { ApiDocsBlock } from '../../../../types/configTypes'
-import { DocsHelper } from '../../../../helpers/DocsHelper'
+import { ApiDocsBlock } from '@/types/configTypes'
+import { DocsHelper } from '@/helpers/DocsHelper'
 
 export default [
   DocsHelper.title('table.title'),
@@ -22,5 +22,4 @@ export default [
   DocsHelper.headline('table.examples.clickable.title'),
   DocsHelper.paragraph('table.examples.clickable.text'),
   DocsHelper.example('va-table/Clickable'),
-
 ] as ApiDocsBlock[]

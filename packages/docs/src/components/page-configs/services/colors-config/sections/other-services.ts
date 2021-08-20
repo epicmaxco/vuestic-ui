@@ -1,8 +1,6 @@
-import { ApiDocsBlock } from '../../../../../types/configTypes'
-import { DocsHelper } from '../../../../../helpers/DocsHelper'
-import { componentsConfigCode, iconsConfigCode } from '../code'
-
-const p = (t: string) => `colorsConfig.otherServices.${t}`
+import { ApiDocsBlock } from '@/types/configTypes'
+import { DocsHelper } from '@/helpers/DocsHelper'
+import { componentsConfigCode, iconsConfigCode } from '../code-examples'
 
 export default [
   DocsHelper.subtitle('colorsConfig.otherServices.subtitle'),

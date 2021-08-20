@@ -1,35 +1,6 @@
-import { ApiDocsBlock } from '../../../../types/configTypes'
-import { DocsHelper } from '../../../../helpers/DocsHelper'
-
-const npmScripts = `
-# Run vue-book dev server
-$ yarn serve:book
-
-# Generate all needed files for component (component itself, docs, tests)
-$ yarn generate:component
-
-# Build vue-book bundle
-$ yarn build:book
-
-# Lint everything
-$ yarn lint
-
-# Run tests
-$ yarn test:unit
-
-# Run vuepress dev server
-$ yarn serve:docs
-
-# Build vuepress bundle
-$ yarn build:docs
-`
-
-const componentFolderStructure = `
-  va-checkbox // component directory
-  |- VaCheckbox.vue // component itself
-  |- VaCheckbox.demo.vue // component demo
-  |- VaCheckbox.spec.js // component tests
-`
+import { ApiDocsBlock } from '@/types/configTypes'
+import { DocsHelper } from '@/helpers/DocsHelper'
+import { npmScripts, componentFolderStructure } from './code-examples'
 
 export default [
   DocsHelper.title('guide.title'),
@@ -82,5 +53,4 @@ export default [
 
   DocsHelper.subtitle('guide.credits.title'),
   DocsHelper.paragraph('guide.credits.description'),
-
 ] as ApiDocsBlock[]

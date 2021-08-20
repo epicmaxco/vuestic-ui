@@ -1,28 +1,12 @@
-import { BlockType, ApiDocsBlock } from '../../../types/configTypes'
+import { ApiDocsBlock } from '@/types/configTypes'
+import { DocsHelper } from '@/helpers/DocsHelper'
 
 export default [
-  {
-    type: BlockType.TITLE,
-    translationString: 'reset.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'reset.description',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'reset.features.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'reset.features.info',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'reset.features.list',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'reset.features.more',
-  },
+  DocsHelper.title('reset.title'),
+  DocsHelper.paragraph('reset.description'),
+
+  DocsHelper.headline('reset.features.title'),
+  DocsHelper.paragraph('reset.features.info'),
+  DocsHelper.paragraph('reset.features.list'),
+  DocsHelper.paragraph('reset.features.more'),
 ] as ApiDocsBlock[]

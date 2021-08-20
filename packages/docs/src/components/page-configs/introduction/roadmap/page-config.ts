@@ -1,5 +1,5 @@
-import { ApiDocsBlock } from '../../../../types/configTypes'
-import { DocsHelper } from '../../../../helpers/DocsHelper'
+import { ApiDocsBlock } from '@/types/configTypes'
+import { DocsHelper } from '@/helpers/DocsHelper'
 
 export default [
   DocsHelper.title('roadmap.title'),

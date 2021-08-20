@@ -1,6 +1,6 @@
-import { LinkOptions } from '../../../../types/configTypes'
+import { LinkOptions } from '@/types/configTypes'
 
-export default {
+export const linkOptions = {
   preText: 'prefix with **markdown** text',
   afterText: 'suffix',
 } as LinkOptions
