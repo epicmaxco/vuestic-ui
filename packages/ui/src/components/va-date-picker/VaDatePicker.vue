@@ -140,8 +140,8 @@ export default defineComponent({
     const { colorsToCSSVariable } = useColors()
 
     const colorsStyle = colorsToCSSVariable({
-      color: props.color,
-      'weekends-color': props.weekendsColor,
+      color: props.color as string,
+      'weekends-color': props.weekendsColor as string,
     }, 'va-date-picker')
 
     const currentPicker = ref<ComponentOptions | null>(null)

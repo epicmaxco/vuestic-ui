@@ -33,7 +33,7 @@ export default defineComponent({
   props: {
     to: {
       type: [String, Object] as PropType<string | Record<string, any>>,
-      default: {},
+      default: () => ({}),
     },
     active: { type: Boolean, default: false },
     textColor: { type: String, default: undefined },
