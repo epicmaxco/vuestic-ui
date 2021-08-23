@@ -71,13 +71,7 @@
       "yarn lint --fix"
     ],
     "*.vue": [
-      "yarn lint --fix",
-      "yarn lint:style --fix",
-      "yarn stylelint '**/*.{vue,html,css,scss}' --fix"
-    ],
-    ".{htm,html,css,sss,less,scss}": [
-      "yarn lint:style --fix",
-      "yarn stylelint '**/*.{vue,html,css,scss}' --fix"
+      "yarn lint --fix"
     ]
   }
 }
