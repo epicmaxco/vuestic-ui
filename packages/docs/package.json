@@ -10,8 +10,9 @@
     "generate:component": "plop --plopfile src/scripts/generators/index.ts",
     "generate:docspage": "plop --plopfile src/scripts/generators/documentation.ts",
     "generate:translation": "plop --plopfile src/scripts/generators/language.ts",
-    "sync:translation": "i18n-unused sync en",
-    "find:unused:translation": "i18n-unused display-unused",
+    "sync:translation": "i18n-unused sync en.json",
+    "search:unused:translation": "i18n-unused display-unused",
+    "search:missed:translation": "i18n-unused display-missed",
     "server:webapp": "npx http-server dist --push-state"
   },
   "dependencies": {
@@ -53,7 +54,7 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.1.0",
     "eslint-plugin-vue": "^7.5.0",
-    "i18n-unused": "^0.0.3",
+    "i18n-unused": "^0.4.1",
     "node-sass": "^5.0.0",
     "plop": "^2.7.0",
     "sass-loader": "^10.1.1",

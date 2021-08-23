@@ -1,6 +1,6 @@
 {
   "name": "vuestic-ui",
-  "version": "1.2.3",
+  "version": "1.2.5",
   "license": "MIT",
   "repository": "https://github.com/epicmaxco/vuestic-ui",
   "main": "dist/cjs/main.js",
@@ -44,6 +44,7 @@
     "flatpickr": "4.6.9",
     "lodash-es": "^4.17.21",
     "normalize.css": "^8.0.1",
+    "tslib": "^2.2.0",
     "vue-flatpickr-component": "^9.0.3"
   },
   "devDependencies": {
@@ -98,7 +99,6 @@
     "postcss-loader": "^4.1.0",
     "rollup": "^2.53.1",
     "rollup-plugin-copy": "^3.4.0",
-    "rollup-plugin-node-builtins": "^2.1.2",
     "rollup-plugin-postcss": "^4.0.0",
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.30.0",
@@ -112,7 +112,6 @@
     "ts-jest": "^26.5.4",
     "ts-loader": "^8.0.14",
     "ts-node": "^9.1.1",
-    "tslib": "^2.3.0",
     "typescript": "^4.1.3",
     "vue": "^3.0.4",
     "vue-book": "0.2.0-alpha.0",

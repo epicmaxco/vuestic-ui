@@ -9,6 +9,7 @@ import DocsContent from '@/components/DocsContent.vue'
 import documentationPageConfig from '@/components/page-configs/contribution/documentation-page/page-config'
 
 @Options({
+  name: 'DocsDocumentationPage',
   components: {
     DocsContent,
   },

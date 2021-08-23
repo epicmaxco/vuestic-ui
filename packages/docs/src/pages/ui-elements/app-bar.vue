@@ -8,6 +8,7 @@ import DocsContent from '../../components/DocsContent.vue'
 import appBarConfig from '../../components/page-configs/ui-elements/va-app-bar/page-config'
 
 @Options({
+  name: 'DocsAppBar',
   components: {
     DocsContent,
   },

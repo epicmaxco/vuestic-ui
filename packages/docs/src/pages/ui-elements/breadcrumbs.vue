@@ -8,6 +8,7 @@ import DocsContent from '../../components/DocsContent.vue'
 import breadcrumbsConfig from '../../components/page-configs/ui-elements/va-breadcrumbs/page-config'
 
 @Options({
+  name: 'DocsBreadcrumbs',
   components: {
     DocsContent,
   },

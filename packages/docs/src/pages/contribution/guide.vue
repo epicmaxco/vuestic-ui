@@ -8,6 +8,7 @@ import DocsContent from '@/components/DocsContent.vue'
 import guideConfig from '@/components/page-configs/contribution/guide/page-config'
 
 @Options({
+  name: 'DocsGuide',
   components: {
     DocsContent,
   },

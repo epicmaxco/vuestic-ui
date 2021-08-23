@@ -8,6 +8,7 @@ import DocsContent from '../../components/DocsContent.vue'
 import selectConfig from '../../components/page-configs/ui-elements/va-select/page-config'
 
 @Options({
+  name: 'DocsSelect',
   components: {
     DocsContent,
   },

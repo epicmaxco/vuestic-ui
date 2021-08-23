@@ -8,6 +8,7 @@ import DocsContent from '../../components/DocsContent.vue'
 import parallaxConfig from '../../components/page-configs/ui-elements/va-parallax/page-config'
 
 @Options({
+  name: 'DocsParallax',
   components: {
     DocsContent,
   },

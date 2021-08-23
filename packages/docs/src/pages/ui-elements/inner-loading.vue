@@ -8,6 +8,7 @@ import DocsContent from '../../components/DocsContent.vue'
 import innerLoadingConfig from '../../components/page-configs/ui-elements/va-inner-loading/page-config'
 
 @Options({
+  name: 'DocsInnerLoading',
   components: {
     DocsContent,
   },

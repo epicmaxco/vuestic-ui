@@ -76,6 +76,12 @@
   </section>
 </template>
 
+<script>
+export default {
+  name: 'LandingPreview',
+}
+</script>
+
 <style lang="scss" scoped>
 @import "src/assets/main";
 

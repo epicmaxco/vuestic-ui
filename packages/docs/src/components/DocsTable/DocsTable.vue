@@ -17,10 +17,10 @@
             <strong>{{ colData }}</strong>
           </template>
           <template v-else-if="columnsComputed[index].type === 'markdown'">
-            <MarkdownView :value="$te(colData) ? $t(colData) : colData"/>
+            <MarkdownView :value="$te(colData) ? $t(colData) : colData" />
           </template>
           <template v-else-if="columnsComputed[index].type === 'code'">
-            <MarkdownView :value="`\`${colData}\``"/>
+            <MarkdownView :value="`\`${colData}\``" />
           </template>
           <template v-else-if="columnsComputed[index].type === 'pre'">
             <pre>{{ colData }}</pre>
@@ -51,6 +51,7 @@ class Props {
 const PropsMixin = Vue.with(Props)
 
 @Options({
+  name: 'DocsTable',
   components: { MarkdownView },
 })
 export default class DocsTable extends mixins(PropsMixin) {

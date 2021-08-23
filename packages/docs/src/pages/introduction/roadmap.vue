@@ -8,6 +8,7 @@ import DocsContent from '../../components/DocsContent.vue'
 import roadmapConfig from '../../components/page-configs/introduction/roadmap/page-config'
 
 @Options({
+  name: 'DocsRoadmap',
   components: {
     DocsContent,
   },

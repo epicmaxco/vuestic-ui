@@ -2,10 +2,10 @@
   <div class="mb-3">
     <component :is="component" />
     <template v-if="!exampleOptions.hideCode">
-      <va-button class="mt-2 d-block docs-example__show-code-button" style="background: transparent !important; box-shadow: none !important;" :rounded="false" flat size="small" color="primary" @click="showCode = !showCode">
+      <va-button v-if="!exampleOptions.forceShowCode" class="mt-2 d-block docs-example__show-code-button" style="background: transparent !important; box-shadow: none !important;" :rounded="false" flat size="small" color="primary" @click="showCode = !showCode">
         {{ $t('docsExample.showCode') }}
       </va-button>
-      <va-content v-if="showCode">
+      <va-content v-if="showCode || exampleOptions.forceShowCode">
         <DocsNavigation :code="parsed.template" :git-url="file" />
         <DocsCode :code="parsed.template" language="markup" :class="[parsed.script ? 'docs-example__code--with-margin' : '']" />
         <DocsCode v-if="parsed.script" :code="parsed.script" language="markup" />
@@ -19,9 +19,10 @@
 // import VaContent from '../../ui/src/components/va-content/VaContent'
 import DocsCode from './DocsCode'
 import DocsNavigation from './DocsNavigation'
-import { readComponent, readTemplate } from '../utilities/utils'
+import { readComponent, readTemplate } from '@/utilities/utils'
 
 export default {
+  name: 'DocsExample',
   components: { DocsCode, DocsNavigation },
   props: {
     value: {

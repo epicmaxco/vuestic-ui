@@ -8,6 +8,7 @@ import DocsContent from '../../components/DocsContent.vue'
 import ratingConfig from '../../components/page-configs/ui-elements/va-rating/page-config'
 
 @Options({
+  name: 'DocsRating',
   components: {
     DocsContent,
   },

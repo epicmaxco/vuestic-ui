@@ -21,6 +21,7 @@ import { getColors } from 'vuestic-ui/src/main'
 import { computed, defineComponent } from 'vue'
 
 export default defineComponent({
+  name: 'DocsColorDropdown',
   setup () {
     const capitalizeFirstLetter = (text: string) => text.charAt(0).toUpperCase() + text.slice(1)
 

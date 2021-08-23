@@ -12,7 +12,7 @@
       <Header />
       <Preview />
     </div>
-    <Seamless />
+    <SeamlessIntegration />
     <Customize />
     <OpenSource />
     <Admin />
@@ -22,23 +22,24 @@
 
 <script lang="ts">
 // @ts-nocheck
-import { Options, Vue, setup } from 'vue-class-component'
+import { Options, Vue } from 'vue-class-component'
 import Header from '@/components/landing/Header.vue'
 import Preview from '@/components/landing/Preview.vue'
 import Admin from '@/components/landing/Admin.vue'
 import Footer from '@/components/landing/Footer.vue'
 import OpenSource from '@/components/landing/OpenSource.vue'
-import Seamless from '@/components/landing/Seamless.vue'
+import SeamlessIntegration from '@/components/landing/SeamlessIntegration/SeamlessIntegration.vue'
 import Customize from '@/components/landing/Customize.vue'
 
 @Options({
+  name: 'DocsLandingPage',
   components: {
     Header,
     Preview,
     Footer,
     OpenSource,
     Admin,
-    Seamless,
+    SeamlessIntegration,
     Customize,
   },
 })

@@ -8,6 +8,7 @@ import DocsContent from '../../components/DocsContent.vue'
 import avatarConfig from '../../components/page-configs/ui-elements/va-avatar/page-config'
 
 @Options({
+  name: 'DocsAvatar',
   components: {
     DocsContent,
   },

@@ -8,6 +8,7 @@ import DocsContent from '../../components/DocsContent.vue'
 import toastConfig from '../../components/page-configs/ui-elements/va-toast/page-config'
 
 @Options({
+  name: 'DocsToast',
   components: {
     DocsContent,
   },

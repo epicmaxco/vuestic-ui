@@ -8,6 +8,7 @@ import DocsContent from '../../components/DocsContent.vue'
 import collapseConfig from '../../components/page-configs/ui-elements/va-collapse/page-config'
 
 @Options({
+  name: 'DocsCollapse',
   components: {
     DocsContent,
   },

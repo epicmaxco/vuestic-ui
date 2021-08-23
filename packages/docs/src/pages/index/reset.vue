@@ -8,6 +8,7 @@ import DocsContent from '../../components/DocsContent.vue'
 import resetConfig from '../../components/page-configs/reset/page-config'
 
 @Options({
+  name: 'DocsReset',
   components: {
     DocsContent,
   },

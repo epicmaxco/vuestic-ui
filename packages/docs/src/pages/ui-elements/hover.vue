@@ -8,6 +8,7 @@ import DocsContent from '../../components/DocsContent.vue'
 import hoverConfig from '../../components/page-configs/ui-elements/va-hover/page-config'
 
 @Options({
+  name: 'DocsHover',
   components: {
     DocsContent,
   },

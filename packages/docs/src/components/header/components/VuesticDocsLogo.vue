@@ -11,11 +11,11 @@
 </template>
 
 <script>
-import { Options, setup, Vue } from 'vue-class-component'
+import { Options, Vue } from 'vue-class-component'
 import { getColors } from 'vuestic-ui/src/services/color-config/color-config'
 
 @Options({
-  name: 'vuestic-logo',
+  name: 'DocsVuesticLogo',
 })
 export default class VuesticLogo extends Vue {
   get colors () {

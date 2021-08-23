@@ -8,6 +8,7 @@ import DocsContent from '../../components/DocsContent.vue'
 import accordionConfig from '../../components/page-configs/ui-elements/va-accordion/page-config'
 
 @Options({
+  name: 'DocsAccordion',
   components: {
     DocsContent,
   },

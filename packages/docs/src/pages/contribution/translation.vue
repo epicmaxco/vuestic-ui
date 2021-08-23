@@ -9,6 +9,7 @@ import DocsContent from '@/components/DocsContent.vue'
 import translationConfig from '@/components/page-configs/contribution/translation/page-config'
 
 @Options({
+  name: 'DocsTranslation',
   components: {
     DocsContent,
   },

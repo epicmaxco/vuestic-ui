@@ -8,6 +8,7 @@ import DocsContent from '../../components/DocsContent.vue'
 import alertConfig from '../../components/page-configs/ui-elements/va-alert/page-config'
 
 @Options({
+  name: 'DocsAlert',
   components: {
     DocsContent,
   },
