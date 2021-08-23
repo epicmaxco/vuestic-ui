@@ -15,7 +15,7 @@
           <th
             v-for="column in columns"
             :title="column.headerTitle"
-            @click.exact="column.sortable && sortByColumn(column)"
+            @click.exact="toggleSorting(column)"
             :style="getHeadCSSVariables(column)"
           >
 <!--            Render a custom `head(columnKey)` slot if it's provided, or a custom common `head` (also if provided) or the column's label-->
@@ -25,7 +25,7 @@
             </slot>
 
 <!--            Sorting arrow (down is descending sorting, up is ascending)-->
-            <va-icon v-if="sortedBy?.key === column.key" :name="sortingOrder === 'asc' ? 'expand_less' : 'expand_more'" size="small"/>
+            <va-icon v-if="sortBy === column.key && sortingOrder !== null" :name="sortingOrder === 'asc' ? 'expand_less' : 'expand_more'" size="small"/>
           </th>
         </tr>
 
@@ -126,7 +126,8 @@ export default defineComponent({
       default: "primary",
     },
     sortBy: {
-      type: String as PropType<string>
+      type: String as PropType<string>,
+      default: "",
     },
     sortingOrder: {
       type: String as PropType<TSortingOrder>,
@@ -146,7 +147,7 @@ export default defineComponent({
     }
   },
 
-  emits: ["update:modelValue"],
+  emits: ["update:modelValue", "update:sortBy", "update:sortingOrder"],
 
   setup(props, {slots, emit}) {
     // columns and rows
@@ -176,7 +177,7 @@ export default defineComponent({
 
     // sorting
     const {sortBy, sortingOrder} = toRefs(props);
-    const {sortByProxy, sortingOrderProxy, sortByColumn} = useSortable(columns, rows, sortBy, sortingOrder);
+    const {sortByProxy, sortingOrderProxy, toggleSorting} = useSortable(columns, rows, sortBy, sortingOrder, emit);
 
     // styling
     const {selectable, selectedColor} = toRefs(props);
@@ -200,7 +201,7 @@ export default defineComponent({
       severalRowsSelected,
       sortBy: sortByProxy,
       sortingOrder: sortingOrderProxy,
-      sortByColumn,
+      toggleSorting,
       getHeadCSSVariables,
       rowCSSVariables,
       getCellCSSVariables,

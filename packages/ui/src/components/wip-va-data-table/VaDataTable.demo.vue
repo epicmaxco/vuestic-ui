@@ -369,7 +369,7 @@
     </VbCard>
 
     <VbCard title="Initially sorted table (by `idSquared`) (desc)" class="demo">
-      <va-data-table :items="evenItemsShuffled" :columns="evenColumnsSortable" sort-by="idSquared" sorting-order="desc"/>
+      <va-data-table :items="evenItemsShuffled" :columns="evenColumnsSortable" v-model:sort-by="sortByModel" v-model:sorting-order="sortingOrderModel"/>
     </VbCard>
   </VbDemo>
 </template>
@@ -514,6 +514,9 @@ export default defineComponent({
       ],
 
       evenItemsShuffled,
+
+      sortByModel: "idSquared",
+      sortingOrderModel: "desc",
     }
   },
 

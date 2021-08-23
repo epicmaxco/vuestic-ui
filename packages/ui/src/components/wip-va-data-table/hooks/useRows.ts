@@ -7,9 +7,11 @@ export type ITableItem = Record<string, any>
 // the inner representation of table rows
 export class TableRow {
   // accepts a raw item (in the form a user provided it through the `items` prop) and all the table's columns
-  constructor(rawItem: ITableItem, columns: TableColumn[]) {
+  constructor(rawItem: ITableItem, initialIndex: number, columns: TableColumn[]) {
     // save the initial item's definition
     this.source = rawItem;
+
+    this.initialIndex = initialIndex;
 
     // store the cells in the `cells` property in the form of TableCell objects
     this.cells = columns.map(column => {
@@ -18,6 +20,7 @@ export class TableRow {
   }
 
   source: ITableItem;
+  initialIndex: number;
   cells: TableCell[];
 }
 
@@ -41,8 +44,8 @@ export class TableCell {
 export default function useRows(rawItems: Ref<ITableItem[]>, columns: Ref<TableColumn[]>) {
   // build table rows (and thus the cell internally, see the TableRow's constructor) from the items provided via the `items` prop
   const rows = computed(() => {
-    return rawItems.value.map(rawItem => {
-      return new TableRow(rawItem, columns.value);
+    return rawItems.value.map((rawItem, index) => {
+      return new TableRow(rawItem, index, columns.value);
     });
   });
 
