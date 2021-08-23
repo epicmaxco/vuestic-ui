@@ -2542,7 +2542,7 @@
       "title": "Reset возможности",
       "info": "Ниже находится список возможностей которые предоставляет reset.scss:",
       "list": "* Margin и padding reset. \n * Border reset. \n * Hide quotes. \n * Font reset. \n * Hidden-attribute fix для более новых браузеров. \n * HTML5 display-role reset для более старых браузеров",
-      "more": "Полный список всех примененных стилей можно посмотреть здесь [reset.scss](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/vuestic-sass/global/reset.scss)[[target=_blank]] stylesheet."
+      "more": "Полный список всех примененных стилей можно посмотреть здесь [reset.scss](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/styles/global/reset.scss)[[target=_blank]] stylesheet."
     }
   },
   "colorPicker": {
