@@ -71,14 +71,14 @@
   },
   "lint-staged": {
     "*.{js,ts}": [
-      "vue-cli-service lint"
+      "vue-cli-service lint --fix"
     ],
     "*.vue": [
-      "vue-cli-service lint",
-      "stylelint '**/*.{vue,html,css,scss}'"
+      "vue-cli-service lint --fix",
+      "stylelint '**/*.{vue,html,css,scss}' --fix"
     ],
     ".{htm,html,css,sss,less,scss}": [
-      "stylelint '**/*.{vue,html,css,scss}'"
+      "stylelint '**/*.{vue,html,css,scss}' --fix"
     ]
   }
 }
