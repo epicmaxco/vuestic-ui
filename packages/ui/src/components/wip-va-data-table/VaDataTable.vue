@@ -38,11 +38,11 @@
         <slot name="body.prepend" />
 
 <!--        Render rows (`tr`s). Select a row on click or select a bunch of rows on shift-click-->
-        <tr v-for="row in rows" @click.exact="toggleRowSelection(row)" @click.shift.exact="shiftSelectRows(row)" :class="{ selectable, selected: isRowSelected(row) }" :style="rowCSSVariables">
+        <tr v-for="row in rows" @click.exact="toggleRowSelection(row)" @click.ctrl.exact="ctrlSelectRow(row)" @click.shift.exact="shiftSelectRows(row)" :class="{ selectable, selected: isRowSelected(row) }" :style="rowCSSVariables">
 
 <!--          Render an additional column (for selectable tables only) with checkboxes to toggle selection-->
           <td v-if="selectable">
-            <input type="checkbox" :checked="isRowSelected(row)">
+            <input type="checkbox" :checked="isRowSelected(row)" @click.stop="ctrlSelectRow(row)">
           </td>
 
 <!--          Render cells for a given row-->
@@ -167,17 +167,16 @@ export default defineComponent({
     const {
       selectedItemsProxy,
       toggleRowSelection,
+      ctrlSelectRow,
       shiftSelectRows,
       toggleBulkSelection,
       isRowSelected,
-      noRowsSelected,
       severalRowsSelected,
-      allRowsSelected,
     } = useSelectable(rows, selectedItems, selectMode, emit);
 
     // sorting
-    const {sortBy: initiallySortedBy, sortingOrder: initialSortingOrder} = toRefs(props);
-    const {sortedBy, sortingOrder, sortByColumn} = useSortable(columns, rows, initiallySortedBy, initialSortingOrder);
+    const {sortBy, sortingOrder} = toRefs(props);
+    const {sortByProxy, sortingOrderProxy, sortByColumn} = useSortable(columns, rows, sortBy, sortingOrder);
 
     // styling
     const {selectable, selectedColor} = toRefs(props);
@@ -194,12 +193,13 @@ export default defineComponent({
       selectable,
       selectedItems: selectedItemsProxy,
       toggleRowSelection,
+      ctrlSelectRow,
       shiftSelectRows,
       toggleBulkSelection,
       isRowSelected,
       severalRowsSelected,
-      sortedBy,
-      sortingOrder,
+      sortBy: sortByProxy,
+      sortingOrder: sortingOrderProxy,
       sortByColumn,
       getHeadCSSVariables,
       rowCSSVariables,

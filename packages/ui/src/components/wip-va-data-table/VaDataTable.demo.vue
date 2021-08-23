@@ -508,7 +508,6 @@ export default defineComponent({
           label: "Id Squared",
           sortable: true,
           sortingFn: (a, b) => {
-            console.log(a, b)
             return -1;
           }
         },

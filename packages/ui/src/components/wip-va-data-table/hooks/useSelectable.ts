@@ -34,15 +34,11 @@ export default function useSelectable(rows: Ref<TableRow[]>, selectedItems: Ref<
 
   // exposed
   function toggleRowSelection(row: TableRow) {
-    if (selectMode.value === "multiple") {
-      isRowSelected(row) ? unselectRow(row) : selectRow(row);
+    if (isRowSelected(row) && selectedItemsProxy.value.length === 1) {
+      unselectRow(row);
     } else {
-      if (isRowSelected(row)) {
-        unselectRow(row);
-      } else {
-        unselectAllRows();
-        selectRow(row);
-      }
+      unselectAllRows();
+      selectRow(row);
     }
 
     prevSelectedRowIndex.value = rows.value.indexOf(row);
@@ -52,9 +48,19 @@ export default function useSelectable(rows: Ref<TableRow[]>, selectedItems: Ref<
   const prevSelectedRowIndex = ref(0);
   const prevShiftSelectedRows = ref<TableRow[]>([]);
 
+  function ctrlSelectRow(row: TableRow) {
+    if (selectMode.value === "single") return toggleRowSelection(row);
+
+    if (isRowSelected(row)) {
+      unselectRow(row);
+    } else {
+      selectRow(row);
+    }
+  }
+
   // exposed
   function shiftSelectRows(row: TableRow) {
-    if (selectMode.value === "single") return;
+    if (selectMode.value === "single") return toggleRowSelection(row);
 
     if (prevShiftSelectedRows) {
       prevShiftSelectedRows.value.forEach(prevShiftSelectedRow => {
@@ -113,6 +119,7 @@ export default function useSelectable(rows: Ref<TableRow[]>, selectedItems: Ref<
   return {
     selectedItemsProxy,
     toggleRowSelection,
+    ctrlSelectRow,
     shiftSelectRows,
     toggleBulkSelection,
     isRowSelected,
