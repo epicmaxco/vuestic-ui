@@ -91,7 +91,7 @@
     "identity-obj-proxy": "^3.0.0",
     "ionicons": "^3.0.0",
     "jsdom": "^16.2.2",
-    "lint-staged": "^10.1.2",
+    "lint-staged": "^11.1.2",
     "mini-css-extract-plugin": "^1.3.0",
     "node-sass": "^5.0.0",
     "optimize-css-assets-webpack-plugin": "^5.0.4",
@@ -107,8 +107,8 @@
     "sass-loader": "^10.1.0",
     "semver": "^7.3.5",
     "style-loader": "^2.0.0",
-    "stylelint": "^13.2.1",
-    "stylelint-config-standard": "^20.0.0",
+    "stylelint": "^13.13.1",
+    "stylelint-config-standard": "^22.0.0",
     "ts-jest": "^26.5.4",
     "ts-loader": "^8.0.14",
     "ts-node": "^9.1.1",
@@ -129,16 +129,14 @@
   },
   "lint-staged": {
     "*.{js,ts}": [
-      "yarn lint --fix"
+      "vue-cli-service lint"
     ],
     "*.vue": [
-      "yarn lint --fix",
-      "yarn lint:style --fix",
-      "yarn stylelint '**/*.{vue,html,css,scss}' --fix"
+      "vue-cli-service lint",
+      "stylelint '**/*.{vue,html,css,scss}'"
     ],
     ".{htm,html,css,sss,less,scss}": [
-      "yarn lint:style --fix",
-      "yarn stylelint '**/*.{vue,html,css,scss}' --fix"
+      "stylelint '**/*.{vue,html,css,scss}'"
     ]
   }
 }
