@@ -1,6 +1,6 @@
 {
   "name": "vuestic-ui",
-  "version": "1.2.3",
+  "version": "1.2.5",
   "license": "MIT",
   "repository": "https://github.com/epicmaxco/vuestic-ui",
   "main": "dist/cjs/main.js",
@@ -99,7 +99,6 @@
     "postcss-loader": "^4.1.0",
     "rollup": "^2.53.1",
     "rollup-plugin-copy": "^3.4.0",
-    "rollup-plugin-node-builtins": "^2.1.2",
     "rollup-plugin-postcss": "^4.0.0",
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.30.0",
@@ -130,16 +129,14 @@
   },
   "lint-staged": {
     "*.{js,ts}": [
-      "yarn lint --fix"
+      "vue-cli-service lint"
     ],
     "*.vue": [
-      "yarn lint --fix",
-      "yarn lint:style --fix",
-      "yarn stylelint '**/*.{vue,html,css,scss}' --fix"
+      "vue-cli-service lint",
+      "stylelint '**/*.{vue,html,css,scss}'"
     ],
     ".{htm,html,css,sss,less,scss}": [
-      "yarn lint:style --fix",
-      "yarn stylelint '**/*.{vue,html,css,scss}' --fix"
+      "stylelint '**/*.{vue,html,css,scss}'"
     ]
   }
 }

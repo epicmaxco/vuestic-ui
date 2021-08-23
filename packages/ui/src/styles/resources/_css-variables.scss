@@ -33,7 +33,6 @@
   --va-info: var(--va-theme-blue);
   --va-success: var(--va-vue-green);
   --va-secondary: #babfc2;
-  --va-light-gray2: #eff4f5;
   --va-dark-gray: #282828;
   --va-gray: #adb3b9;
   --va-default-gray: #8396a5;
@@ -49,7 +48,8 @@
   --va-letter-spacing: 0.0375rem;
   --va-background-color: #ffffff;
   --va-swing-transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1); /* swing */
-  --va-box-shadow: 0 0.125rem 0.2rem 0 rgba(0, 0, 0, 0.2);
+
+  /* --va-box-shadow: 0 0.125rem 0.2rem 0 rgba(0, 0, 0, 0.2); // overlaps below */
 
   /* Primary block-type items styles */
   --va-block-border-radius: 0.375rem;
@@ -69,9 +69,10 @@
 
   /* Square */
   --va-square-border-radius: 0.25rem;
-  --va-box-shadow: 0 2px 3px 0 rgba(52, 56, 85, 0.25);
   --va-form-padding: 1.25rem;
   --va-form-border-radius: 0.125rem;
+
+  /* --va-box-shadow: 0 2px 3px 0 rgba(52, 56, 85, 0.25); // overlaps below */
 
   /* Typography */
   --va-text-selected: #b3d4fc;
