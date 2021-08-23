@@ -75,9 +75,9 @@ export default {
 }
   `),
   DocsHelper.headline('globalConfig.links.readMore'),
-  DocsHelper.link('globalConfig.links.components', `/services/components-config`),
-  DocsHelper.link('globalConfig.links.colors', `/services/colors-config`),
-  DocsHelper.link('globalConfig.links.icons', `/services/icons-config`),
+  DocsHelper.link('globalConfig.links.components', '/services/components-config'),
+  DocsHelper.link('globalConfig.links.colors', '/services/colors-config'),
+  DocsHelper.link('globalConfig.links.icons', '/services/icons-config'),
   DocsHelper.subtitle('all.api'),
   DocsHelper.table(
     ['params', { title: 'type', type: 'code' }, { title: 'Description', type: 'markdown' }],

@@ -1,0 +1,57 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	0.0.0	//
+\\.(css|less)$	packages/ui/jest.config.js	/^    '\\\\.(css|less)$': 'identity-obj-proxy',$/;"	p	class:module.exports.moduleNameMapper
+^.+\\.vue$	packages/ui/jest.config.js	/^    '^.+\\\\.vue$': 'vue-jest',$/;"	p	class:module.exports.transform
+^.+\\js$	packages/ui/jest.config.js	/^    '^.+\\\\js$': 'babel-jest',$/;"	p	class:module.exports.transform
+app	packages/vue-cli-example/src/main.js	/^const app = createApp(App)$/;"	C
+autoprefixer	packages/ui/postcss.config.js	/^    autoprefixer: {},$/;"	p	class:module.exports.plugins
+autoprefixer	postcss.config.js	/^    autoprefixer: {},$/;"	p	class:module.exports.plugins
+collectCoverage	packages/ui/jest.config.js	/^  collectCoverage: false,$/;"	p	class:module.exports
+collectCoverageFrom	packages/ui/jest.config.js	/^  collectCoverageFrom: [$/;"	p	class:module.exports
+configureWebpack	packages/ui/vue.config.js	/^  configureWebpack: {$/;"	c	class:module.exports
+coverageReporters	packages/ui/jest.config.js	/^  coverageReporters: ['text', 'text-summary'],$/;"	p	class:module.exports
+defaultBuildParams	packages/ui/rollup.config.js	/^const defaultBuildParams = { input: '.\/src\/main.ts', minify: true, sourcemap: true }$/;"	c
+devServer	packages/ui/vue.config.js	/^  devServer: {$/;"	c	class:module.exports
+diagnostics	packages/ui/jest.config.js	/^      diagnostics: false,$/;"	p	class:module.exports.globals.ts-jest
+disableHostCheck	packages/ui/vue.config.js	/^    disableHostCheck: true,$/;"	p	class:module.exports.devServer
+entry	packages/ui/vue.config.js	/^      entry: 'src\/vue-book\/book-main.ts',$/;"	p	class:module.exports.pages.index
+exports	packages/ui/babel.config.js	/^module.exports = {$/;"	c	class:module
+exports	packages/ui/jest.config.js	/^module.exports = {$/;"	c	class:module
+exports	packages/ui/postcss.config.js	/^module.exports = {$/;"	c	class:module
+exports	packages/ui/vue.config.js	/^module.exports = {$/;"	c	class:module
+exports	packages/vue-cli-example/babel.config.js	/^module.exports = {$/;"	c	class:module
+exports	packages/vue-cli-example/vue.config.js	/^module.exports = {$/;"	c	class:module
+exports	postcss.config.js	/^module.exports = {$/;"	c	class:module
+fs	packages/vue-cli-plugin/generator/index.js	/^  const fs = require('fs')$/;"	C
+getLastCommitHash	packages/ui/vue.config.js	/^const getLastCommitHash = () => {$/;"	C
+globals	packages/ui/jest.config.js	/^  globals: {$/;"	c	class:module.exports
+hash	packages/ui/vue.config.js	/^  const hash = require('child_process').execSync('git rev-parse HEAD').toString()$/;"	C
+index	packages/ui/vue.config.js	/^    index: {$/;"	c	class:module.exports.pages
+input	packages/ui/rollup.config.js	/^const defaultBuildParams = { input: '.\/src\/main.ts', minify: true, sourcemap: true }$/;"	p	class:defaultBuildParams
+insertVuesticPlugin	packages/vue-cli-plugin/generator/index.js	/^const insertVuesticPlugin = (lines) => {$/;"	C
+lintOnSave	packages/ui/vue.config.js	/^  lintOnSave: false,$/;"	p	class:module.exports
+lintOnSave	packages/vue-cli-example/vue.config.js	/^  lintOnSave: false$/;"	p	class:module.exports
+minify	packages/ui/rollup.config.js	/^const defaultBuildParams = { input: '.\/src\/main.ts', minify: true, sourcemap: true }$/;"	p	class:defaultBuildParams
+moduleFileExtensions	packages/ui/jest.config.js	/^  moduleFileExtensions: ['vue', 'js', 'json', 'jsx', 'ts', 'tsx', 'node'],$/;"	p	class:module.exports
+moduleNameMapper	packages/ui/jest.config.js	/^  moduleNameMapper: {$/;"	c	class:module.exports
+pages	packages/ui/vue.config.js	/^  pages: {$/;"	c	class:module.exports
+plugins	packages/ui/postcss.config.js	/^  plugins: {$/;"	c	class:module.exports
+plugins	packages/ui/vue.config.js	/^    plugins: [$/;"	p	class:module.exports.configureWebpack
+plugins	postcss.config.js	/^  plugins: {$/;"	c	class:module.exports
+preset	packages/ui/jest.config.js	/^  preset: '@vue\/cli-plugin-unit-jest\/presets\/typescript-and-babel',$/;"	p	class:module.exports
+presets	packages/ui/babel.config.js	/^  presets: [$/;"	p	class:module.exports
+presets	packages/vue-cli-example/babel.config.js	/^  presets: [$/;"	p	class:module.exports
+renderIndex	packages/vue-cli-plugin/generator/index.js	/^  const renderIndex = lines.findIndex(line => line.match(\/app\\.mount\/))$/;"	C
+router	packages/vue-cli-example/src/router/index.js	/^const router = createRouter({$/;"	C
+routes	packages/vue-cli-example/src/router/index.js	/^const routes = [$/;"	C
+sourcemap	packages/ui/rollup.config.js	/^const defaultBuildParams = { input: '.\/src\/main.ts', minify: true, sourcemap: true }$/;"	p	class:defaultBuildParams
+template	packages/ui/vue.config.js	/^      template: 'public\/index.html',$/;"	p	class:module.exports.pages.index
+testEnvironment	packages/ui/jest.config.js	/^  testEnvironment: 'jsdom',$/;"	p	class:module.exports
+testMatch	packages/ui/jest.config.js	/^  testMatch: [$/;"	p	class:module.exports
+transform	packages/ui/jest.config.js	/^  transform: {$/;"	c	class:module.exports
+ts-jest	packages/ui/jest.config.js	/^    'ts-jest': {$/;"	c	class:module.exports.globals

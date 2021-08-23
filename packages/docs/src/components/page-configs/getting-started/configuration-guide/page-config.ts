@@ -91,7 +91,7 @@ export default [
   DocsHelper.subtitle('configurationGuide.colors.title'),
   DocsHelper.paragraph('configurationGuide.colors.description'),
   DocsHelper.code(colorsConfig),
-  DocsHelper.link('configurationGuide.readMore', `/services/colors-config`),
+  DocsHelper.link('configurationGuide.readMore', '/services/colors-config'),
 
   DocsHelper.subtitle('configurationGuide.icons.title'),
   DocsHelper.paragraph('configurationGuide.icons.description'),
@@ -99,7 +99,7 @@ export default [
   DocsHelper.headline('configurationGuide.icons.subtitle'),
   DocsHelper.paragraph('configurationGuide.icons.subDescription'),
   DocsHelper.code(iconsConfig),
-  DocsHelper.link('configurationGuide.readMore', `/services/icons-config`),
+  DocsHelper.link('configurationGuide.readMore', '/services/icons-config'),
 
   DocsHelper.subtitle('configurationGuide.components.title'),
   DocsHelper.paragraph('configurationGuide.components.intro'),
@@ -111,5 +111,5 @@ export default [
   DocsHelper.example('config/PageConfigButton', { hideCode: true }),
   DocsHelper.paragraph('configurationGuide.components.example'),
   DocsHelper.paragraph('configurationGuide.components.more'),
-  DocsHelper.link('configurationGuide.readMore', `/services/components-config`),
+  DocsHelper.link('configurationGuide.readMore', '/services/components-config'),
 ] as ApiDocsBlock[]

@@ -1,6 +1,6 @@
-import { ApiDocsBlock } from '../../../../types/configTypes';
+import { ApiDocsBlock } from '../../../../types/configTypes'
 import { DocsHelper } from '../../../../helpers/DocsHelper'
-import { TranslationStatusPath, languages } from '../../../../locales';
+import { TranslationStatusPath, languages } from '../../../../locales'
 
 const translationStatusPaths: TranslationStatusPath = {
   full: 'translation.status.full',
@@ -10,19 +10,19 @@ const translationStatusPaths: TranslationStatusPath = {
 const translationStatuses = languages.map((lang) => [
   lang.translationPath,
   lang.code,
-  translationStatusPaths[lang.status as keyof TranslationStatusPath]
+  translationStatusPaths[lang.status as keyof TranslationStatusPath],
 ])
 
-export const translationSync = `yarn sync:translation <target locale file>`
-export const searchUnusedTranslations = `yarn search:unused:translation`
-export const searchMissedTranslations = `yarn search:missed:translation`
+export const translationSync = 'yarn sync:translation <target locale file>'
+export const searchUnusedTranslations = 'yarn search:unused:translation'
+export const searchMissedTranslations = 'yarn search:missed:translation'
 
 export default [
   DocsHelper.title('translation.title'),
   DocsHelper.paragraph('translation.description'),
   DocsHelper.table(
     ['translation.table.language', 'translation.table.code', 'translation.table.supported'],
-    translationStatuses
+    translationStatuses,
   ),
 
   DocsHelper.subtitle('translation.sync.title'),
@@ -35,5 +35,5 @@ export default [
 
   DocsHelper.subtitle('translation.missed.title'),
   DocsHelper.paragraph('translation.missed.description'),
-  DocsHelper.code(searchMissedTranslations, 'bash')
+  DocsHelper.code(searchMissedTranslations, 'bash'),
 ] as ApiDocsBlock[]

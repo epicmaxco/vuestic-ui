@@ -7,7 +7,7 @@ const prefix = (text: string) => `iconsConfig.${text}`
 export default [
   DocsHelper.title('iconsConfig.title'),
   DocsHelper.paragraph('iconsConfig.about'),
-  DocsHelper.link('iconsConfig.readBeforeStart', `/ui-elements/icon`),
+  DocsHelper.link('iconsConfig.readBeforeStart', '/ui-elements/icon'),
 
   ...problem,
   ...fonts,

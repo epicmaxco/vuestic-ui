@@ -10,6 +10,6 @@ export default [
     'overview.featureRich',
     'overview.configurable',
     'overview.responsive',
-    'overview.translatable'
-  ])
+    'overview.translatable',
+  ]),
 ] as ApiDocsBlock[]
