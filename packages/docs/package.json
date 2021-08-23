@@ -71,7 +71,7 @@
   },
   "lint-staged": {
     "*.{js,ts}": [
-      "yarn lint --fix"
+      "vue-cli-service lint"
     ],
     "*.vue": [
       "yarn lint --fix",
