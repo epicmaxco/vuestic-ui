@@ -27,8 +27,7 @@
       border-radius: 50%;
       background: #ffffff;
       margin-top: -5px;
-      box-shadow: 1px 1px 2px rgba(#000, 0.5);
-
+      box-shadow: 1px 1px 2px rgba(#000000, 0.5);
       cursor: pointer;
     }
 
@@ -37,7 +36,6 @@
       height: 9px;
       background: #bdbdbd;
       border-radius: 3rem;
-
       transition: all 0.5s;
       cursor: pointer;
     }
@@ -52,8 +50,8 @@
       width: 60%;
       cursor: pointer;
       height: 9px;
-
       transition: all 0.5s;
+
       /* Hides the slider so custom styles can be added */
       background: transparent;
       border-color: transparent;
@@ -66,8 +64,7 @@
       border-radius: 50%;
       background: #ffffff;
       margin-top: -5px;
-      box-shadow: 1px 1px 2px rgba(#000, 0.5);
-
+      box-shadow: 1px 1px 2px rgba(#000000, 0.5);
       cursor: pointer;
     }
 
@@ -75,13 +72,16 @@
       background: #bdbdbd;
       border-radius: 3rem;
     }
+
     &:focus::-ms-fill-lower {
       background: #ff6e40;
     }
+
     &::-ms-fill-upper {
       background: #bdbdbd;
       border-radius: 3rem;
     }
+
     &:focus::-ms-fill-upper {
       background: #ff6e40;
     }
@@ -93,8 +93,7 @@
       border-radius: 50%;
       background: #ffffff;
       margin-top: -5px;
-      box-shadow: 1px 1px 2px rgba(#000, 0.5);
-
+      box-shadow: 1px 1px 2px rgba(#000000, 0.5);
       cursor: pointer;
     }
 
@@ -103,10 +102,10 @@
       height: 9px;
       background: #bdbdbd;
       border-radius: 3rem;
-
       transition: all 0.5s;
       cursor: pointer;
     }
+
     &:hover::-moz-range-track {
       background: #ff6e40;
     }

@@ -62,6 +62,7 @@ export default defineComponent({
     &::-ms-expand {
       display: none;
     }
+
     outline: none;
 
     &:focus + .focus {
@@ -82,24 +83,21 @@ export default defineComponent({
 
   min-width: 15ch;
   max-width: 30ch;
-
-  border: 1px solid #777;
+  border: 1px solid #777777;
   border-radius: 0.25em;
   padding: 0.25em 0.5em;
-
   font-size: 1.25rem;
   cursor: pointer;
   line-height: 1.1;
-
-  background-color: #fff;
-  background-image: linear-gradient(to top, #f9f9f9, #fff 33%);
+  background-color: #ffffff;
+  background-image: linear-gradient(to top, #f9f9f9, #ffffff 33%);
 
   &:not(.seamless-another-select--multiple)::after {
     content: "";
     justify-self: end;
     width: 0.8em;
     height: 0.5em;
-    background-color: #777;
+    background-color: #777777;
     clip-path: polygon(100% 0%, 0 0%, 50% 100%);
   }
 }
