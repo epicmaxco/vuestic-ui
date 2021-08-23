@@ -43,6 +43,7 @@ export default {
   display: flex;
   align-items: center;
 }
+
 .name {
   padding-right: 0.5rem;
   width: 33%;

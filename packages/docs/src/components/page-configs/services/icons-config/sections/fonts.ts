@@ -18,5 +18,5 @@ export const config = [
   DocsHelper.paragraph('iconsConfig.fonts.example.explain'),
   DocsHelper.code(fontTransformationsExample),
 
-  DocsHelper.link('iconsConfig.fonts.advancedFontsUsage', `/services/global-config`, { preText: 'iconsConfig.fonts.readMore' }),
+  DocsHelper.link('iconsConfig.fonts.advancedFontsUsage', '/services/global-config', { preText: 'iconsConfig.fonts.readMore' }),
 ]

@@ -41,20 +41,20 @@ export default [
     'guide.pullRequests.description.dontSubmitToMaster',
     'guide.pullRequests.description.checkoutFeat',
     'guide.pullRequests.description.multipleSmallCommits',
-    'guide.pullRequests.description.fixBugSteps'
+    'guide.pullRequests.description.fixBugSteps',
   ]),
 
   DocsHelper.subtitle('guide.branches.title'),
   DocsHelper.list([
     'guide.branches.publicBranches',
-    'guide.branches.localBranches'
+    'guide.branches.localBranches',
   ]),
 
   DocsHelper.subtitle('guide.fileNaming.title'),
   DocsHelper.list([
     'guide.fileNaming.camelCase',
     'guide.fileNaming.kebabCase',
-    'guide.fileNaming.pascalCase'
+    'guide.fileNaming.pascalCase',
   ]),
 
   DocsHelper.subtitle('guide.forCoreContributors.title'),
@@ -68,7 +68,7 @@ export default [
     'guide.forCoreContributors.weUseYarn',
     'guide.forCoreContributors.beProactive',
     'guide.forCoreContributors.recommendedTools',
-    'guide.forCoreContributors.workInBook'
+    'guide.forCoreContributors.workInBook',
   ]),
 
   DocsHelper.subtitle('guide.componentFolderStructure.title'),

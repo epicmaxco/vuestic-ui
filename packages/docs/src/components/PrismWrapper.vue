@@ -28,12 +28,12 @@ export default {
   },
 
   computed: {
-    syntaxHighlightClasses() {
-      return `${this.$attrs.class} language-${this.lang}`;
+    syntaxHighlightClasses () {
+      return `${this.$attrs.class} language-${this.lang}`
     },
-    highlightedCode() {
-      return Prism.highlight(this.code, Prism.languages[this.lang]);
+    highlightedCode () {
+      return Prism.highlight(this.code, Prism.languages[this.lang])
     },
   },
-};
+}
 </script>
