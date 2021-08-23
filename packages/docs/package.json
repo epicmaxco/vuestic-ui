@@ -74,11 +74,11 @@
       "vue-cli-service lint"
     ],
     "*.vue": [
-      "yarn lint --fix",
-      "yarn lint:style --fix"
+      "vue-cli-service lint",
+      "stylelint '**/*.{vue,html,css,scss}'"
     ],
     ".{htm,html,css,sss,less,scss}": [
-      "yarn lint:style --fix"
+      "stylelint '**/*.{vue,html,css,scss}'"
     ]
   }
 }
