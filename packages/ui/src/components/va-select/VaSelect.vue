@@ -368,7 +368,7 @@ export default defineComponent({
       return props.options.find((option: any) => compareOptions(option, valueComputed.value))
     })
 
-    const { exceedsMaxSelections, addOption } = useMaxSelections(valueComputed, ref(props.maxSelections as number), context.emit)
+    const { exceedsMaxSelections, addOption } = useMaxSelections(valueComputed, ref(props.maxSelections), context.emit)
 
     const selectOption = (option: any): void => {
       if (hoveredOption.value === null) {
