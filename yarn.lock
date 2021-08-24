@@ -16959,11 +16959,6 @@ smart-buffer@^4.1.0:
   resolved "https://registry.yarnpkg.com/smart-buffer/-/smart-buffer-4.2.0.tgz#6e1d71fa4f18c05f7d0ff216dd16a481d0e8d9ae"
   integrity sha512-94hK0Hh8rPqQl2xXc3HsaBoOXKV20MToPkcXvwbISWLEs+64sBq5kFgn2kJDHb1Pry9yrP0dxrCI9RRci7RXKg==
 
-smart-grid@^2.1.2:
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/smart-grid/-/smart-grid-2.1.2.tgz#9f69cd0e3f8f95c2f4c616efa3630b1934377322"
-  integrity sha512-O5BYpBH5zMVMt12xAdbbCdQKwXpLWI4bqLJpaXRcNXHs4IfAVJd2K9XOilplRA7byBKva5Ysg1EtckwwqnoYeg==
-
 snake-case@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/snake-case/-/snake-case-2.1.0.tgz#41bdb1b73f30ec66a04d4e2cad1b76387d4d6d9f"
