@@ -11,7 +11,7 @@ const columns: TableColumn[] = [
 const tableData: TableData = [
   [
     'ComponentConfig',
-    '{ [componentName: string]: string; }',
+    'Record<[componentName: string], Record<[componentProp: string], any>>',
     'componentsConfig.api.ComponentConfig',
   ],
 ]
