@@ -78,7 +78,7 @@ import { Options, Vue, prop, mixins } from 'vue-class-component'
 import ColorMixin from '../../services/color-config/ColorMixin'
 import { SizeMixin } from '../../mixins/SizeMixin'
 
-import VaDropdown from '../va-dropdown'
+import VaDropdown, { VaDropdownContent } from '../va-dropdown'
 import VaButton from '../va-button'
 import VaButtonGroup from '../va-button-group'
 
@@ -114,7 +114,7 @@ const ButtonDropdownPropsMixin = Vue.with(ButtonDropdownProps)
 
 @Options({
   name: 'VaButtonDropdown',
-  components: { VaButtonGroup, VaButton, VaDropdown },
+  components: { VaButtonGroup, VaButton, VaDropdown, VaDropdownContent },
   emits: ['click', 'main-button-click', 'update:modelValue'],
 })
 export default class VaButtonDropdown extends mixins(
