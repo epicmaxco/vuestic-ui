@@ -17,24 +17,24 @@
           </thead>
           <tbody>
             <tr
-              v-for="(propRow, key) in sortObject(apiTableData.props)"
+              v-for="(apiPropOption, key) in sortObject(apiTableData.props)"
               :key="key"
               class="ApiDocs__table__row"
             >
               <td>
-                <strong>{{ propRow.name }}</strong>
+                <strong>{{ apiPropOption.name }}</strong>
               </td>
               <td>
-                <MarkdownView :value="$t(propRow.description)" />
+                <MarkdownView :value="$t(apiPropOption.description)" />
               </td>
               <td>
-                <MarkdownView :value="propRow.types" />
+                <MarkdownView :value="apiPropOption.types" />
               </td>
               <td>
-                <MarkdownView :value="propRow.default" />
+                <MarkdownView :value="apiPropOption.default" />
               </td>
-              <td>{{ propRow.required ? "+" : "" }}</td>
-              <td>{{ propRow.version }}</td>
+              <td>{{ apiPropOption.required ? "+" : "" }}</td>
+              <td>{{ apiPropOption.version }}</td>
             </tr>
           </tbody>
         </table>
@@ -55,14 +55,12 @@
           </thead>
           <tbody>
             <tr
-              v-for="(apiEventOption, eventName) in sortObject(
-                apiTableData.events
-              )"
-              :key="eventName"
+              v-for="(apiEventOption, key) in sortObject(apiTableData.events)"
+              :key="key"
               class="ApiDocs__table__row"
             >
               <td>
-                <strong>{{ eventName }}</strong>
+                <strong>{{ apiEventOption.name }}</strong>
               </td>
               <td>
                 <MarkdownView :value="$t(apiEventOption.description)" />
@@ -93,14 +91,12 @@
           </thead>
           <tbody>
             <tr
-              v-for="(apiSlotOption, slotName) in sortObject(
-                apiTableData.slots
-              )"
-              :key="slotName"
+              v-for="(apiSlotOption, key) in sortObject(apiTableData.slots)"
+              :key="key"
               class="ApiDocs__table__row"
             >
               <td>
-                <strong>{{ slotName }}</strong>
+                <strong>{{ apiSlotOption.name }}</strong>
               </td>
               <td>
                 <MarkdownView :value="$t(apiSlotOption.description)" />
@@ -129,14 +125,12 @@
           </thead>
           <tbody>
             <tr
-              v-for="(apiMethodOption, methodName) in sortObject(
-                apiTableData.methods
-              )"
-              :key="methodName"
+              v-for="(apiMethodOption, key) in sortObject(apiTableData.methods)"
+              :key="key"
               class="ApiDocs__table__row"
             >
               <td>
-                <strong>{{ methodName }}</strong>
+                <strong>{{ apiMethodOption.name }}</strong>
               </td>
               <td>
                 <MarkdownView :value="$t(apiMethodOption.description)" />
@@ -171,7 +165,7 @@ import MarkdownView from '../../utilities/markdown-view/MarkdownView.vue'
 import { defaultApiOptions } from './default-api-options'
 import DocsTable from '../DocsTable/DocsTable.vue'
 import { merge } from 'lodash'
-import { sortObject } from '@/helpers/SortObjectHelper'
+import { sortObjectByPropNames } from '../../helpers/SortHelper'
 
 class Props {
   componentOptions = prop<DefineComponent | VueConstructor>({ required: true });
@@ -187,13 +181,10 @@ const PropsMixin = Vue.with(Props)
 export default class ApiDocs extends mixins(PropsMixin) {
   get apiTableData () {
     const options = merge(this.apiOptions, defaultApiOptions)
-
     return getApiTableData(this.componentOptions, options)
   }
 
-  sortObject (obj: any) {
-    return sortObject(obj)
-  }
+  sortObject = sortObjectByPropNames;
 
   isEmpty (object: Record<string, any>): boolean {
     return !Object.keys(object).length
