@@ -818,14 +818,6 @@
         "default": "Dropdown content slot."
       }
     },
-    "VaColorPicker": {
-      "props": {
-        "value": "Current picked color."
-      },
-      "events": {},
-      "methods": {},
-      "slots": {}
-    },
     "VaColorInput": {
       "props": {
         "value": "Current color.",
@@ -835,37 +827,7 @@
       "methods": {},
       "slots": {}
     },
-    "VaColorInputAdvanced": {
-      "props": {
-        "value": "Current color.",
-        "selected": "Select the indicator.",
-        "mode": "Sets the mode of the component.",
-        "palette": "An array of colors to palette mode."
-      },
-      "events": {},
-      "methods": {},
-      "slots": {
-        "default": "Component content"
-      }
-    },
-    "VaColorSlider": {
-      "props": {
-        "value": "Current color"
-      },
-      "events": {},
-      "methods": {},
-      "slots": {}
-    },
     "VaColorPalette": {
-      "props": {
-        "value": "Current color",
-        "palette": "An array of colors"
-      },
-      "events": {},
-      "methods": {},
-      "slots": {}
-    },
-    "VaColorPaletteAdvanced": {
       "props": {
         "value": "Current color",
         "palette": "An array of colors"

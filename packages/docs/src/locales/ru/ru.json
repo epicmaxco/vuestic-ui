@@ -819,14 +819,6 @@
         "default": "Контент выпадающего меню"
       }
     },
-    "VaColorPicker": {
-      "props": {
-        "value": "Current picked color."
-      },
-      "events": {},
-      "methods": {},
-      "slots": {}
-    },
     "VaColorInput": {
       "props": {
         "value": "Текущий цвет.",
@@ -836,40 +828,10 @@
       "methods": {},
       "slots": {}
     },
-    "VaColorInputAdvanced": {
-      "props": {
-        "value": "Текущий цвет.",
-        "selected": "Выбирает индикатор.",
-        "mode": "Выбирает режим компонента.",
-        "palette": "Массив цветоя для `palette` режима."
-      },
-      "events": {},
-      "methods": {},
-      "slots": {
-        "default": "Контент"
-      }
-    },
-    "VaColorSlider": {
-      "props": {
-        "value": "Текущий цвет"
-      },
-      "events": {},
-      "methods": {},
-      "slots": {}
-    },
     "VaColorPalette": {
       "props": {
         "value": "Текущее значение компонента",
         "palette": "Список цветов для выбора"
-      },
-      "events": {},
-      "methods": {},
-      "slots": {}
-    },
-    "VaColorPaletteAdvanced": {
-      "props": {
-        "value": "Текущий цвет",
-        "palette": "Массив цветов"
       },
       "events": {},
       "methods": {},
