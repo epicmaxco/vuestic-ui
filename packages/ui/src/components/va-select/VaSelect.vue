@@ -151,7 +151,7 @@ import { useColor } from '../../composables/useColor'
 import { useMaxSelections, useMaxSelectionsProps } from '../../composables/useMaxSelections'
 
 import { warn } from '../../services/utils'
-import VaDropdown from '../va-dropdown'
+import VaDropdown, { VaDropdownContent } from '../va-dropdown'
 import VaIcon from '../va-icon'
 import VaInput, { VaInputWrapper } from '../va-input'
 
@@ -168,6 +168,7 @@ export default defineComponent({
     VaSelectOptionList,
     VaIcon,
     VaDropdown,
+    VaDropdownContent,
     VaInput,
     VaInputWrapper,
   },
