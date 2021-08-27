@@ -43,7 +43,7 @@ export default function useSortable(columns: Ref<TableColumn[]>, rows: Ref<Table
 
     const columnIndex = columns.value.indexOf(column);
 
-    rows.value = rows.value.sort((a, b) => {
+    rows.value.sort((a, b) => {
       const firstValString = a.cells[columnIndex].value;
       const secondValString = b.cells[columnIndex].value;
       const firstValInitial = a.cells[columnIndex].source;
