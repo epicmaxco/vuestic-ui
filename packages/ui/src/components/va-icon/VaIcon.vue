@@ -70,7 +70,8 @@ export default class VaIcon extends mixins(
       transform: this.rotation && 'rotate(' + this.rotation + 'deg)',
       cursor: this.$attrs.onClick ? 'pointer' : null,
       color: this.$props.color !== undefined ? this.colorComputed : this.iconConfig.color,
-      fontSize: this.sizeComputed,
+      // TODO: change this to 'fontSize: this.sizeComputed' when global config issue #1054 will be resolved
+      fontSize: this.$props.size === '' ? '24px' : this.sizeComputed,
     }
   }
 
