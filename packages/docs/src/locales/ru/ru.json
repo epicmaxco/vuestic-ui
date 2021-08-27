@@ -1273,7 +1273,7 @@
     },
     "api": {
       "item": {
-        "title": "`va-breadcrumb-item` API",
+        "title": "Item API",
         "text": "API для компонента `va-breadcrumb-item`."
       }
     },
