@@ -1,8 +1,9 @@
 import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
+import { DocsHelper } from '../../../../helpers/DocsHelper'
 import VaHover from 'vuestic-ui/src/components/va-hover/VaHover.vue'
 import apiOptions from './api-options'
 
-export default [
+const config: ApiDocsBlock[] = [
   {
     type: BlockType.TITLE,
     translationString: 'hover.title',
@@ -55,11 +56,9 @@ export default [
     type: BlockType.SUBTITLE,
     translationString: 'all.api',
   },
-  {
-    type: BlockType.API,
-    componentOptions: VaHover,
-    apiOptions,
-  },
+
+  DocsHelper.api(VaHover, apiOptions),
+
   {
     type: BlockType.SUBTITLE,
     translationString: 'all.faq',
@@ -72,4 +71,6 @@ export default [
     type: BlockType.PARAGRAPH,
     translationString: 'hover.faq.questions[0].answer',
   },
-] as ApiDocsBlock[]
+]
+
+export default config

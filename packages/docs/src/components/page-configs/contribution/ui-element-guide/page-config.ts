@@ -1,7 +1,7 @@
-import { ApiDocsBlock } from '@/types/configTypes'
-import { DocsHelper } from '@/helpers/DocsHelper'
+import { ApiDocsBlock } from '../../../../types/configTypes'
+import { DocsHelper } from '../../../../helpers/DocsHelper'
 
-export default [
+const config: ApiDocsBlock[] = [
   DocsHelper.title('uiElementGuide.title'),
   DocsHelper.paragraph('uiElementGuide.description'),
   DocsHelper.subtitle('uiElementGuide.highLevelStrategy.title'),
@@ -15,4 +15,6 @@ export default [
     'uiElementGuide.coreFeatures.description.keyboardNavigation',
     'uiElementGuide.coreFeatures.description.statelessSupport',
   ]),
-] as ApiDocsBlock[]
+]
+
+export default config

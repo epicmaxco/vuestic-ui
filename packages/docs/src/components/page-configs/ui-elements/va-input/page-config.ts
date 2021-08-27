@@ -1,9 +1,9 @@
 import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
-import VaInput
-  from 'vuestic-ui/src/components/va-input/VaInput.vue'
+import { DocsHelper } from '../../../../helpers/DocsHelper'
+import VaInput from 'vuestic-ui/src/components/va-input/VaInput.vue'
 import apiOptions from './api-options'
 
-export default [
+const config: ApiDocsBlock[] = [
   {
     type: BlockType.TITLE,
     translationString: 'input.title',
@@ -104,9 +104,8 @@ export default [
     type: BlockType.SUBTITLE,
     translationString: 'all.api',
   },
-  {
-    apiOptions,
-    type: BlockType.API,
-    componentOptions: VaInput,
-  },
-] as ApiDocsBlock[]
+
+  DocsHelper.api(VaInput, apiOptions),
+]
+
+export default config

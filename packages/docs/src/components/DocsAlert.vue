@@ -9,7 +9,7 @@
 <script lang="ts">
 import { Options, Vue, mixins, prop } from 'vue-class-component'
 import MarkdownView from '../utilities/markdown-view/MarkdownView.vue'
-import { TranslationString } from '@/components/DocsApi/ManualApiOptions'
+import { TranslationString } from '../components/DocsApi/ManualApiOptions'
 
 class Props {
   text = prop<TranslationString>({ type: String })

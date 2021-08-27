@@ -1,8 +1,9 @@
 import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
+import { DocsHelper } from '../../../../helpers/DocsHelper'
 import VaChip from 'vuestic-ui/src/components/va-chip/VaChip.vue'
 import apiOptions from './api-options'
 
-export default [
+const config: ApiDocsBlock[] = [
   {
     type: BlockType.TITLE,
     translationString: 'chip.title',
@@ -139,9 +140,8 @@ export default [
     type: BlockType.SUBTITLE,
     translationString: 'all.api',
   },
-  {
-    type: BlockType.API,
-    componentOptions: VaChip,
-    apiOptions,
-  },
-] as ApiDocsBlock[]
+
+  DocsHelper.api(VaChip, apiOptions),
+]
+
+export default config

@@ -1,8 +1,9 @@
 import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
+import { DocsHelper } from '../../../../helpers/DocsHelper'
 import VaOptionList from 'vuestic-ui/src/components/va-option-list/VaOptionList.vue'
 import apiOptions from './api-options'
 
-export default [
+const config: ApiDocsBlock[] = [
   {
     type: BlockType.TITLE,
     translationString: 'optionList.title',
@@ -63,9 +64,8 @@ export default [
     type: BlockType.EXAMPLE,
     component: 'va-option-list/WithComplexData',
   },
-  {
-    type: BlockType.API,
-    componentOptions: VaOptionList,
-    apiOptions,
-  },
-] as ApiDocsBlock[]
+
+  DocsHelper.api(VaOptionList, apiOptions),
+]
+
+export default config

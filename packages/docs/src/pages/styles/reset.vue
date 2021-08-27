@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component'
 import DocsContent from '../../components/DocsContent.vue'
-import resetConfig from '../../components/page-configs/reset/page-config'
+import resetConfig from '../../components/page-configs/styles/reset/page-config'
 
 @Options({
   name: 'DocsReset',

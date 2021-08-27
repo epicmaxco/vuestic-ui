@@ -1,4 +1,4 @@
-import { TableData, TableColumn } from '../../../DocsTable/DocsTable'
+import { TableData, TableColumn } from '../../../../../components/DocsTable/DocsTable'
 
 export const columns: TableColumn[] = [
   'col1',

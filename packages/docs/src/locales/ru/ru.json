@@ -6,8 +6,7 @@
         "docs": "Документация",
         "discord": "Зайти в Discord",
         "translation": "Добавить перевод...",
-        "language": "Язык",
-        "star": "Star"
+        "language": "Язык"
       }
     },
     "preview": {
@@ -17,10 +16,6 @@
         "github": "Открыть на GitHub"
       },
       "features": {
-        "nuxt": {
-          "title": "Поддержка Nuxt",
-          "text": "Руководство по интеграции Nuxt"
-        },
         "components": {
           "title": "52 Адаптивных Компонента",
           "text": "Документация компонентов"
@@ -70,8 +65,7 @@
       "text": "Попробуйте Vuestic UI Framework в действии.",
       "buttons": {
         "github": "Открыть на GitHub",
-        "demo": "Демонстрация",
-        "star": "Star"
+        "demo": "Демонстрация"
       },
       "features": {
         "opensource": "Открытая лицензия MIT",
@@ -100,7 +94,9 @@
         "clickPrepend": "Событие вызывается при клике по слоту `prepend`",
         "clickPrependInner": "Событие вызывается при клике по слоту `prependInner`",
         "clickAppend": "Событие вызывается при клике по слоту `append`",
-        "clickAppendInner": "Событие вызывается при клике по слоту `appendInner`"
+        "clickAppendInner": "Событие вызывается при клике по слоту `appendInner`",
+        "updateModelValue": "Событие запускается, когда компоненту необходимо изменить модель. Также используется `v-model`",
+        "updateFocused": "Событие запускается, когда компоненту необходимо переключить `focus`"
       },
       "props": {
         "align": "Задает горизонтальное позиционирование (основано на `flex`), доступны следующие опции: `left`, `center`, `right`, `between`, `around` и `stretch`",
@@ -143,6 +139,7 @@
         "gradient": "Добавляет градиент фона",
         "modelValue": "Значение биндинга `v-model`",
         "activeButtonTextColor": "Цвет текста активной кнопки (поддерживаемые темой опции или `HEX`)",
+        "indeterminate": "Добавляет состояние, в котором невозможно сказать, в состоянии `on` или `off` находится компонент",
         "indeterminateValue": "Переопределяет не установленное значение состояния",
         "borderColor": "Цвет css стиля `border` (поддерживаемые темой опции или `HEX`)",
         "clearableIcon": "Устанавливает иконку кнопки очистки",
@@ -372,8 +369,7 @@
         "value": "Значение переключателя",
         "trueValue": "Значение включенного переключателя",
         "falseValue": "Значение выключенного переключателя",
-        "arrayValue": "Переключает возвращаемое значение в тип `Array`",
-        "indeterminate": "Добавляет состояние, в котором невозможно сказать, включен или выключен переключатель"
+        "arrayValue": "Переключает возвращаемое значение в тип `Array`"
       },
       "slots": {
         "default": "Название переключателя",
@@ -426,7 +422,10 @@
         "render": "Функция рендеринга для использования настраиваемого содержимого",
         "multiLine": "Делает уведомление с большим пространством"
       },
-      "events": {},
+      "events": {
+        "onClick": "Событие вызывается при клике по уведомлению",
+        "onClose": "Событие вызывается при клике на кнопку закрытия уведомления"
+      },
       "methods": {},
       "slots": {}
     },
@@ -436,7 +435,8 @@
         "stripeColor": "Задает цвет полоски (предопределенные опции цвета или `HEX`)",
         "gradient": "Добавляет градиент в тело компонента",
         "bordered": "Включает контур компонента",
-        "outlined": "Включает тень компонента"
+        "outlined": "Включает тень компонента",
+        "dark": "Применяет темные color и background к карточке"
       }
     },
     "VaSidebar": {
@@ -480,7 +480,7 @@
         "input": "Событие вызывается при изменении значения"
       },
       "slots": {
-        "default": "Используется для отображения элементов. Доступные свойства:\n`option: String | Object`\n`isDisabled: Boolean`\n`name: String`\n`color: String`\n`leftLabel: Boolean`\n`getText: (option: String | Object) => String` \n `selectedValue: Array<String | Object>`\n`index: Number`"
+        "default": "Используется для отображения элементов. Доступные свойства:\n`option: String `&#124;` Object`,\n`isDisabled: Boolean`,\n`name: String`,\n`color: String`,\n`leftLabel: Boolean`,\n`getText: (option: String `&#124;` Object) => String`,\n`selectedValue: Array<String `&#124;` Object>`,\n`index: Number`"
       }
     },
     "VaAvatar": {
@@ -497,7 +497,6 @@
     "VaCheckbox": {
       "props": {
         "value": "Значение чекбокса",
-        "indeterminate": "То же, что и нативный `indeterminate` - состояние, в котором невозможно сказать, включен ли `on` или `off`",
         "checkedIcon": "Заменяет иконку `checked`",
         "indeterminateIcon": "Заменяет иконку `indeterminate`"
       },
@@ -618,7 +617,8 @@
         "closeable": "Предоставляет возможность закрыть тег",
         "outline": "Применяет контур, убирает фон",
         "flat": "Убирает фон и контур",
-        "icon": "Отображаемая внутри компонента иконка"
+        "icon": "Отображаемая внутри компонента иконка",
+        "shadow": "Применяет box-shadow к компоненту"
       },
       "events": {},
       "methods": {},
@@ -646,7 +646,10 @@
         "errorMessages": "Отображает сообщения или сообщение об ошибке, если используются данные типа `String`",
         "errorCount": "Количество отображаемых сообщений об ошибках",
         "clearable": "Добавляет кнопку сброса значения поля ввода",
-        "bordered": "Применяет подчеркивание"
+        "bordered": "Применяет подчеркивание",
+        "tabindex": "Устанавливает `tabindex`",
+        "focused": "Применяет `focus` стиль",
+        "canBeFocused": "Если `false`, тогда компонент не может получить фокус, используя мышь или клавиатуру."
       },
       "events": {
         "input": "Событие вызывается при изменении значения компонента",
@@ -659,7 +662,8 @@
         "click-append": "Событие вызывается при клике по слоту `append`",
         "click-append-inner": "Событие вызывается при клике по слоту `appendInner`",
         "keyup": "Событие вызывается когда пользователь отпустил кнопку на клавиатуре",
-        "keydown": "Событие вызывается когда пользователь нажал кнопку на клавиатуре"
+        "keydown": "Событие вызывается когда пользователь нажал кнопку на клавиатуре",
+        "cleared": "Событие вызывается при сбросе значения компонента"
       },
       "methods": {
         "focus": "Устанавливает фокус в поле ввода",
@@ -839,14 +843,44 @@
     },
     "VaDatePicker": {
       "props": {
-        "value": "Устанавливает входное значение",
-        "weekDays": "Добавляет дни в таблицу",
-        "placeholder": "Устанавливает placeholder",
-        "config": "Объект с настройками для date picker"
+        "modelValue": "Дата, массив дат или период",
+        "monthNames": "Массив из названий 12 месяцев года",
+        "weekdayNames": "Массив из названий 7 дней недели",
+        "firstWeekday": "Название первого дня недели. Может быть `Monday` или `Sunday`",
+        "hideWeekDays": "Скрывает название дней недели сверху day picker",
+        "view": "Это свойство указывает, какой год и месяц будут показаны пользователю. Кроме того, вы можете указать тип и показать выбор года, месяца или дня",
+        "type": "Это свойство указывает, какое значение следует выбрать пользователю",
+        "showOtherMonths": "Если `true`, дни другого месяца будут показаны в day picker",
+        "highlightWeekend": "Если `true` выходные дни будут выделены цветом",
+        "highlightToday": "Если `true` текущий день будет выделен цветом",
+        "allowedDays": "Функция, которая принимает дату и возвращает `false`, если день не разрешен",
+        "allowedMonths": "Функция, которая принимает дату и возвращает `false`, если месяц не разрешен",
+        "allowedYears": "Функция, которая принимает дату и возвращает `false`, если год не разрешен",
+        "weekends": "Функция, которая принимает дату и возвращает `true`, если дата является выходным днем",
+        "startYear": "Первый год, который пользователь может выбрать. По умолчаниюю: 1970",
+        "endYear": "Последний год, который пользователь может выбрать. По умолчанию: текущий год + 50 лет",
+        "weekendsColor": "Цвет ячеек выходных дней (theme string or HEX string).",
+        "mode": "Устанавливает режим date picker: один день, массив дней или период"
       },
-      "events": {},
+      "events": {
+        "updateView": "Событие запускается, когда компоненту необходимо изменить `view`",
+        "hoverYear": "Событие срабатывает при наведении курсора мыши на ячейку года",
+        "clickYear": "Событие запускается при нажатии на ячейку года",
+        "hoverDay": "Событие срабатывает при наведении курсора мыши на ячейку дня",
+        "clickDay": "Событие запускается при нажатии на ячейку дня",
+        "hoverMonth": "Событие срабатывает при наведении курсора мыши на ячейку месяца",
+        "clickMonth": "Событие запускается при нажатии на ячейку месяца"
+      },
       "methods": {},
-      "slots": {}
+      "slots": {
+        "buttonPrev": "Кнопка для отображения предыдущего месяца или года.",
+        "buttonNext": "Кнопка для отображения следующего месяца или года.",
+        "header": "Слот отображает год или месяц между кнопками в header.",
+        "year": "Используется для изменения способа отображения года в заголовке и ячейке выбора.",
+        "month": "Используется для изменения способа отображения месяца в заголовке и ячейке выбора.",
+        "weekday": "Используется для изменения способа отображения дня недели в ячейке выбора.",
+        "day": "Используется для изменения способа отображения для в ячейке выбора."
+      }
     },
     "VaDateInput": {
       "props": {
@@ -894,8 +928,17 @@
         "errorMessages": "Отображает сообщения или сообщение об ошибке, если используются данные типа `String`",
         "errorCount": "Количество отображаемых сообщений об ошибках"
       },
-
-      "events": {},
+      "events": {
+        "updateView": "Событие запускается, когда компоненту необходимо изменить `view`",
+        "updateMonth": "Событие запускается, когда компоненту необходимо изменить месяц",
+        "updateYear": "Событие запускается, когда компоненту необходимо изменить год",
+        "updateIsOpen": "Событие запускается, когда компоненту необходимо переключить состояние `is-open`",
+        "updateText": "Событие запускается, когда компоненту необходимо изменить текст поля ввода",
+        "hoverDay": "Событие срабатывает при наведении курсора мыши на ячейку дня",
+        "hoverMonth": "Событие срабатывает при наведении курсора мыши на ячейку месяца",
+        "clickDay": "Событие запускается при нажатии на ячейку дня",
+        "clickMonth": "Событие запускается при нажатии на ячейку месяца"
+      },
       "methods": {},
       "slots": {}
     },
@@ -976,6 +1019,10 @@
       "wip": {
         "text": "wip",
         "title": "Работа в процессе"
+      },
+      "new": {
+        "text": "new",
+        "title": "Недавно добавленный"
       }
     },
     "categories": {
@@ -989,6 +1036,7 @@
     "introduction": "Введение",
     "gettingStarted": "Начало работы",
     "styles": "Стили",
+    "reset": "Сброс CSS",
     "uiElements": "Элементы UI",
     "contribution": "Помощь в разработке",
     "documentationPage": "Документация",
@@ -1001,11 +1049,8 @@
     "rating": "Rating",
     "modal": "Modal",
     "tabs": "Tabs",
-    "treeView": "Tree view",
     "slider": "Slider",
     "switch": "Switch",
-    "popovers": "Popovers",
-    "chat": "Chat",
     "pagination": "Pagination",
     "fileUpload": "File Upload",
     "form": "Form",
@@ -1031,7 +1076,6 @@
     "parallax": "Parallax",
     "popover": "Popover",
     "backtop": "Backtop",
-    "reset": "Reset",
     "colorPicker": "Color Picker",
     "colorInput": "Color Input",
     "colorSlider": "Color Slider",
@@ -1045,10 +1089,8 @@
     "innerLoading": "Inner Loading",
     "installation": "Установка",
     "roadmap": "План развития",
-    "nuxtIntegration": "Nuxt Integration",
     "accessibilityGuide": "Навигация",
     "configurationGuide": "Настройки",
-    "browsersList": "Список браузеров",
     "overview": "Обзор",
     "translation": "Перевод",
     "browserSupport": "Поддрежка браузеров",
@@ -1182,10 +1224,6 @@
       "withIcon": {
         "title": "Иконки",
         "text": "Свойство `icon` используется для отображения иконок внутри аватара."
-      },
-      "withEmail": {
-        "title": "Gravatar",
-        "text": "Свойство `email` и [gravatar](https://en.gravatar.com/support/what-is-gravatar/)[[target=_blank]] используются для получения изображения профиля пользователя."
       }
     }
   },
@@ -1264,9 +1302,6 @@
       },
       "position": {
         "title": "Позиционирование"
-      },
-      "overlap": {
-        "title": "Перекрытие"
       },
       "dot": {
         "title": "Точка"
@@ -1892,8 +1927,7 @@
     "summaryText": "Компонент `va-image` используется для отображения адаптивных изображений, в нем есть функции, облегчающие работу с изображениями.",
     "examples": {
       "default": {
-        "title": "Базовое использование",
-        "text": "Базовое использование изображений."
+        "title": "Базовое использование"
       },
       "contain": {
         "title": "Содержание",
@@ -1902,9 +1936,6 @@
       "ratio": {
         "title": "Соотношение",
         "text": "Свойство `ratio` изменяет исходное соотношение сторон."
-      },
-      "slots": {
-        "title": "Слоты"
       },
       "defaultSlot": {
         "title": "Слот по умолчанию",
@@ -2208,7 +2239,7 @@
   },
   "accordion": {
     "title": "Accordion",
-    "summaryText": "Позволяет управлять группой [раскрываемых панелей](https://vuestic.dev/ui-elements/collapse)[[target=_blank]].",
+    "summaryText": "Позволяет управлять группой [раскрываемых панелей](ui-elements/collapse).",
     "examples": {
       "default": {
         "title": "Базовое использование",
@@ -2267,6 +2298,10 @@
       "link": {
         "title": "Ссылка",
         "text": "Свойство `to` делает фишку кликабельной ссылкой."
+      },
+      "shadow": {
+        "title": "Тень",
+        "text": "Вы можете установить тень."
       }
     }
   },
@@ -2356,7 +2391,7 @@
           "`.justify-self--start` - элементы расположены на одном уровне друг с другом в начале выравнивающего контейнера по соответствующей оси",
           "`.justify-self--end` - элементы расположены на одном уровне друг с другом в конце выравнивающего контейнера по соответствующей оси",
           "`.justify-self--center` - для элементов, которые не являются дочерними по отношению к flex контейнеру, это значение обрабатывается как начало (start)",
-          "`.justify-self--baseline`"
+          "`.justify-self--baseline` - элементы выравниваются согласно базовых линий (baselines)"
         ]
       }
     }
@@ -2498,23 +2533,13 @@
     }
   },
   "reset": {
-    "title": "CSS Reset",
+    "title": "Сброс CSS",
     "description": "Мы используем `reset.scss` чтобы сбросить и нормализовать базовые `CSS` стили",
     "features": {
       "title": "Reset возможности",
-      "info": "Ниже находится список возможностей которые предоставляет reset.scss:",
+      "info": "Ниже находится список возможностей, которые предоставляет reset.scss:",
       "list": "* Margin и padding reset. \n * Border reset. \n * Hide quotes. \n * Font reset. \n * Hidden-attribute fix для более новых браузеров. \n * HTML5 display-role reset для более старых браузеров",
       "more": "Полный список всех примененных стилей можно посмотреть здесь [reset.scss](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/styles/global/reset.scss)[[target=_blank]] stylesheet."
-    }
-  },
-  "colorPicker": {
-    "title": "Color Picker",
-    "summaryText": "Компонент который помогает выбрать цвет. Мы используем [vue-color](https://github.com/xiaokaike/vue-color)[[target=_blank]] библиотеку для этого компонента. Будет изменено в следующих версиях.",
-    "examples": {
-      "default": {
-        "title": "Базовое использование",
-        "text": "По умолчанию используйте компонент с `v-model`."
-      }
     }
   },
   "colorInput": {
@@ -2525,32 +2550,13 @@
         "title": "Базовое использование",
         "text": "По умолчанию компонент `va-color-input` обменивается значением через `v-model`."
       },
-      "selected": {
-        "title": "Selected",
-        "text": "Dot style changes can be applied."
-      },
       "disabled": {
         "title": "Недоступное поле ввода",
         "text": "Свойство `disabled` запрещает любые действия с полем ввода"
-      },
-      "advanced": {
-        "title": "Advanced",
-        "text": "It's a heavier component which provides an ability to pick color by click."
       }
     },
     "api": {
-      "colorInput": "API компонента `va-color-input`",
-      "colorInputAdvanced": "Color Input Advanced API"
-    }
-  },
-  "colorSlider": {
-    "title": "Color Slider",
-    "summaryText": "Slider компонент для выбора цвета.",
-    "examples": {
-      "default": {
-        "title": "Базовое использование",
-        "text": "По умолчанию используйте этот компонент с `v-model`."
-      }
+      "colorInput": "API компонента `va-color-input`"
     }
   },
   "colorPalette": {
@@ -2564,61 +2570,60 @@
       "indicator": {
         "title": "Индикатор",
         "text": "Вы можете применять к индикатору разные стили, доступны: `dot` и `square`."
-      },
-      "advanced": {
-        "title": "Advanced",
-        "text": "The component has an advanced version with an input component and color picker."
       }
     },
     "api": {
-      "colorPalette": "API компонента `va-color-palette`",
-      "colorPaletteAdvanced": "Color Palette Advanced API"
+      "colorPalette": "API компонента `va-color-palette`"
     }
   },
   "datePicker": {
     "title": "Date Picker",
-    "description": "Работа в процессе",
-    "summaryText": "Компонент для выбора даты.",
+    "description": "Компонент выбора даты позволяет пользователю выбирать одну, несколько или диапазон дат, месяцев и лет. Вы можете настроить его так, как хотите. Существует возможность изменить все строки и форматы.\n\nОн основан на собственных датах js, поэтому вы можете использовать Date Picker с любой библиотекой дат, которую хотите.",
+    "lookAtDateInput": "Посмотрите также Date Input",
     "examples": {
       "default": {
-        "title": "Basic usage",
-        "text": "By default, use this component with v-model."
+        "title": "Базовое использование",
+        "text": "По умолчанию этот компонент используется с `v-model`."
       },
-      "placeholder": {
-        "title": "Placeholder",
-        "text": "You can set the input component placeholder."
+      "mode": {
+        "title": "Режим",
+        "text": "Вы можете использовать компонент выбора даты тремя разными способами. По умолчанию для выбора даты используется режим (`mode`) `auto`. Это означает, что режим будет выбран на основе `modelValue`. Есть три режима: `single`, `multiple` и `range`. Для разных режимов требуются разные значения `modelValue`."
       },
-      "weekDays": {
-        "title": "Days of the week",
-        "text": "Passing `week-days` shows weekdays in picker."
+      "stateful": {
+        "title": "С сохранением состояния",
+        "text": "Date picker может иметь состояние. Начальное значение будет `undefined`, но пользователь может его изменить."
       },
-      "successError": {
-        "title": "Success & Error",
-        "text": "You can apply success and error styles."
+      "firstWeekday": {
+        "title": "Первый день недели",
+        "text": "Если вы хотите всегда использовать `Monday` в качестве первого дня недели, вы можете установить эту опцию в `GlobalConfig`."
       },
-      "disabled": {
-        "title": "Disabled",
-        "text": "You can apply disabled styles and disable interaction with the component."
+      "weekends": {
+        "title": "Выходные дни",
+        "text": "Вы можете выделить выходные дни с помощью свойства `highlight-weekends`. Кроме того, вы можете установить свои собственные выходные дни с помощью функции `weekends`."
       },
-      "disabledDays": {
-        "title": "Disabled days",
-        "text": "You can provide a config object with a `disable` property to disable the array of days."
+      "otherMonths": {
+        "title": "Дни других месяцев",
+        "text": "Вы можете показывать дни других (смежных) месяцев, используя свойство `show-other-months`, вместо пустых ячеек в календаре."
       },
-      "range": {
-        "title": "Range",
-        "text": "You can provide a config object with a `mode: range` property to add the ability to set a date range."
+      "slots": {
+        "title": "Слоты",
+        "text": "На данный момент мы не поддерживаем локализацию с использованием свойства. Но у вас есть возможность локализовать компонент самостоятельно, используя слоты."
       },
-      "dayTime": {
-        "title": "Day time",
-        "text": "You can provide a config object with an `enableTime` property to add the ability to set a time."
+      "view": {
+        "title": "Вид",
+        "text": "Вы можете установить конкретный вид для выбора даты. С помощью свойства `view` вы можете определить, как будет отображаться окно выбора даты, а также год и месяц, которые будут отображаться."
       },
-      "multiple": {
-        "title": "Multiple",
-        "text": "You can provide a config object with an `mode: multiple` property to add the ability to select multiple dates."
+      "type": {
+        "title": "Тип",
+        "text": "Если вы хотите, чтобы пользователь мог выбирать только месяц или год, вы можете сделать это с помощью свойства `type`."
       },
-      "inline": {
-        "title": "Inline",
-        "text": "You can provide a config object with an `inline` property to add the ability to select multiple dates."
+      "disabledDates": {
+        "title": "Отключение дат",
+        "text": "Вы можете отключить определенные даты, месяцы или годы, используя свойства `allowedDays`, `allowedMonth` или `allowedYear`."
+      },
+      "colors": {
+        "title": "Цвета",
+        "text": "Вы можете изменить цвета с помощью переменных `CSS` для более глубокой настройки, но также вы можете просто изменить цвета с помощью этого свойства."
       }
     }
   },
@@ -2763,11 +2768,6 @@
   "installation": {
     "title": "Установка",
     "description": "Начните работу с Vuestic UI, чтобы создавать многофункциональные и удобные приложения благодаря нашей гибко настраиваемой структуре. Мы максимально упростили процесс установки, чтобы сэкономить ваши усилия. Установка возможна несколькими способами.",
-    "subtitle": "Вы можете начать использовать Vuestic с простых шагов, как вам удобнее.",
-    "prerequisites": "Во-первых, убедитесь, что у вас установлены все необходимые зависимости:",
-    "node": "[Node.js](https://nodejs.org/en/)[[target=_blank]] ( >=14.*)",
-    "npm": "[npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)[[target=_blank]] версия 3+ (или [yarn](https://yarnpkg.com/lang/en/docs/install)[[target=_blank]] версия 1.16+) и [Git](https://git-scm.com/)[[target=_blank]]",
-    "afterCheck": "После проверки предварительных требований установите Vuestic UI через `npm/yarn`:",
     "fonts": {
       "title": "Установка шрифтов",
       "description": "По умолчанию Vuestic UI использует шрифты `Source Sans Pro` и `Material Icons`. Вам необходимо вручную добавить эти шрифты в свой проект. Ниже приведены несколько примеров.",
@@ -2781,18 +2781,39 @@
     "cli": {
       "title": "Установка через Vue CLI",
       "prepare": "Перед установкой убедитесь, что [Vue CLI](https://cli.vuejs.org/guide/installation.html)[[target=_blank]] установлен глобально и имеет версию 4+:",
-      "upgrade": "Ознакомьтесь с [руководством](https://cli.vuejs.org/migrating-from-v3/#migrating-from-v3)[[target=_blank]] для Vue CLI версии 3, которое поможет вам обновить приложение",
+      "upgrade": "Ознакомьтесь с [руководством](https://cli.vuejs.org/migrating-from-v3/#migrating-from-v3)[[target=_blank]] для Vue CLI версии 3, которое поможет вам обновить приложение.",
       "description": "Простой способ, если вы используете настройку через Vue-CLI или хотите опробовать Vuestic UI в новом проекте.",
-      "attention": "Установка Vuestic UI изменит файлы package.json и main.js (ts). Убедитесь, что вы закоммитили свой код перед его установкой, чтобы избежать потери данных",
+      "attention": "Установка Vuestic UI изменит файлы `package.json` и `main.(js`&#124;`ts)`. Убедитесь, что вы закоммитили свой код перед его установкой, чтобы избежать потери данных",
       "codeAnnotation": "Затем установите Vuestic UI как плагин Vue-CLI:"
-    },
-    "nuxt": {
-      "title": "Установка с Nuxt",
-      "description": "Vuestic UI может быть добавлен как поагин после установки. Создайте плагин и включите его в `nuxt.config.js`:"
     },
     "manual": {
       "title": "Ручная установка",
-      "description": "Простой способ, если вы используете настройку через Vue-CLI или хотите опробовать Vuestic UI в новом проекте"
+      "subtitle": "Если вы решили установить Vuestic UI вручную, все, что вам нужно сделать, это установить пакет NPM, пару других необходимых ресурсов (таких как шрифты и стили CSS) и немного изменить точку входа вашего приложения (скорее всего, `index.js` или `main.js`, в зависимости от ваших настроек).",
+      "prerequisites": "Во-первых, убедитесь, что у вас установлены все необходимые зависимости:",
+      "node": "[Node.js](https://nodejs.org/en/)[[target=_blank]] ( >=14.*)",
+      "npm": "[npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)[[target=_blank]] версия 3+ (или [yarn](https://yarnpkg.com/lang/en/docs/install)[[target=_blank]] версия 1.16+) и [Git](https://git-scm.com/)[[target=_blank]]",
+      "afterCheck": "После проверки предварительных требований установите Vuestic UI через `npm/yarn`:"
+    },
+    "treeShaking": {
+      "title": "Tree shaking",
+      "description": "Если вы планируете использовать только несколько компонентов в своем приложении и, таким образом, хотите уменьшить размер вашего пакета, вы можете использовать сборку Vuestic ESM. Webpack (vue-cli) и Vite делают это автоматически.",
+      "example": {
+        "title": "Во-первых, вам не нужно использовать `VuesticPlugin`, поскольку он регистрирует все компоненты `vuestic` глобально. Вместо этого вы можете импортировать определенные компоненты из пакета `vuestic-ui`.",
+        "footer": "Как вариант, вы можете импортировать их прямо в ваши файлы `.vue`."
+      },
+      "plugins": {
+        "title": "В таком случае вам также придется самостоятельно зарегистрировать плагины `Vuestic`. Рекомендуем использовать все из них:",
+        "GlobalConfigPlugin": "`GlobalConfigPlugin` - используется для переназначения компонента `VaConfig` и глобальных свойств. [Подробнее](/services/global-config).",
+        "ToastInstall": "`ToastInstall` - используется компонентом `VaToast`.",
+        "ColorHelpersPlugin": "`ColorHelpersPlugin` - используется для создания реактивных переменных `CSS`. Требуется `GlobalConfigPlugin`. [Подробнее](/services/colors-config).",
+        "DropdownPopperSubplugin": "`DropdownPopperSubplugin` - используется компонентом `VaDropdown`.",
+        "example": {
+          "title": "Все эти плагины также доступны через `VuesticPluginsWithoutComponents`:"
+        }
+      },
+      "attention": {
+        "cssLoader": "Поскольку код всех компонентов разделен, вам может потребоваться загрузчик `CSS` для загрузки стилей для конкретных компонентов.\nНо, вероятно, он у вас уже есть."
+      }
     }
   },
   "roadmap": {
@@ -2830,9 +2851,6 @@
       "title": "Архив",
       "description": "Следующие выпуски являются старыми и не поддерживаются minor и major версиями:"
     }
-  },
-  "nuxtIntegration": {
-    "title": "Work In Progress"
   },
   "accessibilityGuide": {
     "title": "Навигация",
@@ -3010,10 +3028,8 @@
   },
   "iconsConfig": {
     "title": "Конфигурация иконок",
-    "about": "По умолчанию в Vuestic UI используется [Material Icons](https://fonts.google.com/icons)[[target=_blank]]. Если вы хотите использовать другие библиотеки шрифтов, вы можете настроить VaIcon для их использования.",
-    "readMore": "Подробнее",
-    "readBeforeStart": "Подробнее про компонент иконок",
-    "example": "Пример",
+    "about": "По умолчанию в Vuestic UI используется `Material Design Icons`. Если вы хотите использовать другие библиотеки шрифтов, вы можете настроить VaIcon для их использования.",
+    "readBeforeStart": "Подробнее про компонент иконок VaIcon",
     "problem": {
       "definition": "Есть проблема с библиотеками иконок: они обычно используют разные интерфейсы для отображения иконок.",
       "materialIcons": "Например, material-icons требует, чтобы мы установили класс `material-icons` и подставили имя значка внутри тега `span`.",
@@ -3062,11 +3078,6 @@
       "spin": "Применяет анимацию вращения к иконке."
     }
   },
-  "advancedIconsConfig": {
-    "title": "Advanced icons config",
-    "subtitle": "Icons config is a flat array. VaIcon looks for first appropriate name (strict string, regex or dynamic segment). Then, if config has a `to` prop it looks for additional config that appropriate for `to`.",
-    "priority": "Here you can see how its works"
-  },
   "componentsConfig": {
     "title": "Конфигурация компонентов",
     "subtitle": "С помощью конфигурации компонента мы можем переопределить свойства по умолчанию для любого компонента vuestic, который мы хотим. Конфигурация компонентов - это объект, ключ которого - имя компонента, а значение - свойства компонента, который мы хотим перезаписать. Например:",
@@ -3106,6 +3117,7 @@
       "ColorConfig": "Объект, где ключ - это имя цвета, а значение - валидный цвет CSS",
       "ColorInput": " Валидный цвет CSS",
       "methods": "Методы",
+      "useColor": "Возвращает методы для работы с цветом",
       "setColors": "Используется для объединения новых цветов в конфигурацию или обновления существующих цветов",
       "getColors": "Возвращает текущую конфигурацию цветов",
       "getColor": "Возвращает цвет по имени",
@@ -3234,12 +3246,17 @@
     "title": "Типографика",
     "description": "В Vuestic UI применяются следующие стили типографики.",
     "headings": "Заголовки",
-    "affected": "Применено",
-    "primary": "Стиль текста по умолчанию",
+    "titled": "Title заголовка",
+    "textStyles": "Стили текста",
+    "codeSnippet": "Фрагмент кода",
+    "textCode": "Код в тексте",
     "other": "Другие типографические стили",
-    "lists": "Списки",
+    "orderedList": "Нумерованный список",
+    "unorderedList": "Ненумерованный список",
     "links": "Ссылки",
-    "otherElements": "Другие элементы"
+    "textHighlighted": "Выделенный текст",
+    "blockquote": "Цитата",
+    "textBlock": "Текстовый блок"
   },
   "ag-grid-wrapper": {
     "title": "AG Grid Wrapper",

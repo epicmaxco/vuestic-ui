@@ -1,9 +1,9 @@
 import { ApiDocsBlock } from '../../../../types/configTypes'
+import { DocsHelper } from '../../../../helpers/DocsHelper'
 import VaButtonGroup from 'vuestic-ui/src/components/va-button-group/VaButtonGroup.vue'
 import apiOptions from './api-options'
-import { DocsHelper } from '../../../../helpers/DocsHelper'
 
-export default [
+const config: ApiDocsBlock[] = [
   DocsHelper.title('buttonGroup.title'),
   DocsHelper.paragraph('buttonGroup.summaryText'),
 
@@ -41,4 +41,6 @@ export default [
 
   DocsHelper.subtitle('all.api'),
   DocsHelper.api(VaButtonGroup, apiOptions),
-] as ApiDocsBlock[]
+]
+
+export default config

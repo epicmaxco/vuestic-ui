@@ -8,105 +8,21 @@
         "translation": "Agregar traducción..."
       }
     },
-    "preview": {
-      "title": "Biblioteca de IU de Vue.js",
-      "buttons": {
-        "start": "Get started",
-        "github": "View on GitHub"
-      },
-      "features": {
-        "nuxt": {
-          "title": "Nuxt Support",
-          "text": "Nuxt integration guides"
-        },
-        "components": {
-          "title": "52 Responsive Components",
-          "text": "Available components docs"
-        },
-        "keyboard": {
-          "title": "Keyboard Navigation",
-          "text": "Accessibility guides"
-        },
-        "browsers": {
-          "title": "Modern Browsers Support",
-          "text": "Supported browsers list"
-        }
-      }
-    },
-    "seamless": {
-      "title": "Seamless Integration",
-      "text": "Use Vuestic UI with other component libraries without any conflicts.",
-      "compare": {
-        "vuestic": "Vuestic UI components",
-        "other": "Other components"
-      }
-    },
-    "customize": {
-      "title": "Customize Everything",
-      "text": "Make Vuestic UI components match your designs with powerful dynamic configs.",
-      "tabs": [
-        "Large Modern",
-        "Styles",
-        "Multiple Themes"
-      ],
-      "copy": "Copied to clipboard",
-      "configuration": "See our configuration guides"
-    },
-    "opensource": {
-      "title": "Open Source",
-      "text": [
-        "Vuestic UI is forever free and open to contributions. See our",
-        "issues",
-        "contributing guide",
-        "and",
-        "discord server",
-        "to help us improve Vuestic UI experience."
-      ]
-    },
-    "admin": {
-      "title": "Vuestic Admin",
-      "text": "Check out Vuestic UI Framework in action.",
-      "buttons": {
-        "github": "View on GitHub",
-        "demo": "Live Demo",
-        "star": "Star"
-      },
-      "features": {
-        "opensource": "Open source MIT license",
-        "themes": "Two built-in color schemes",
-        "responsive": "Cross-browser & responsive",
-        "i18n": "i18n-ready"
-      }
-    },
-    "footer": {
-      "text": "Open source, free to use. Development inquiries:",
-      "buttons": {
-        "epicmax": "About Epicmax",
-        "admin": "Vuestic Admin",
-        "spinners": "Epic Spinners"
-      }
-    }
+    "preview": {},
+    "seamless": {},
+    "customize": {},
+    "opensource": {},
+    "admin": {},
+    "footer": {}
   },
   "api": {
     "all": {
-      "props": {
-        "tag": "sfdfReplaces html with provided value. This is useful for semantics and also to allow for valid markup in some cases (`ul > li` and `tr > td` etc.)."
-      }
+      "props": {}
     },
     "VaForm": {
-      "props": {
-        "autofocus": "sdfsdfFocus on first form-component <!-- TODO Add link --> on render"
-      },
-      "events": {
-        "validation": "Triggered on validation update"
-      },
-      "methods": {
-        "validate": "sfddfPerforms validation and updates error state for each form component. Works with nested forms.",
-        "focus": "Focus on first focusable form-component in the form.",
-        "focusInvalid": "sdfsfdFocus on first focusable invalid form-component in the form. This is useful for longer forms and allows to bring user attention to invalid field.",
-        "resetValidation": "Reset validation for all validateable <!-- TODO Add link --> form-components.",
-        "reset": "Reset values and validation state for all form-components"
-      }
+      "props": {},
+      "events": {},
+      "methods": {}
     },
     "VaProgressBar": {
       "props": {},
@@ -296,58 +212,7 @@
       "slots": {}
     }
   },
-  "menu": {
-    "modals": "Modals",
-    "uiElements": "Elementos UI",
-    "progressBar": "Progress Bar",
-    "progressCircle": "Progress Circle",
-    "hover": "Hover",
-    "checkbox": "Checkbox",
-    "image": "Image",
-    "alert": "Alert",
-    "icon": "Icon",
-    "expand": "Expand",
-    "expandGroup": "Expand Group",
-    "radio": "Radio",
-    "tag": "Tag",
-    "input": "Input",
-    "list": "List",
-    "select": "Select",
-    "parallax": "Parallax",
-    "backtop": "Backtop",
-    "normalize": "Normalize",
-    "colorPicker": "Color Picker",
-    "colorInput": "Color Input",
-    "colorSlider": "Color Slider",
-    "colorPalette": "Color Palette",
-    "datePicker": "Date Picker",
-    "buttonGroup": "Button Group",
-    "buttonToggle": "Button Toggle",
-    "appBar": "App Bar",
-    "innerLoading": "Inner Loading",
-    "installation": "Installation",
-    "roadmap": "Roadmap",
-    "nuxtIntegration": "Nuxt Integration",
-    "accessibilityGuide": "Accessibility Guide",
-    "configurationGuide": "Configuration Guide",
-    "overview": "Overview",
-    "translation": "Translation",
-    "browserSupport": "Browser Support",
-    "table": "Table",
-    "guide": "Guide",
-    "iconsConfig": "Icons Config",
-    "services": "Services",
-    "globalConfig": "Global Config",
-    "advancedIconsConfig": "Advanced Icons Config",
-    "componentsConfig": "Components Config",
-    "colorsConfig": "Colors Config",
-    "sidebarItem": "Sidebar Item",
-    "navbar": "Navbar",
-    "typography": "Typography",
-    "agGridWrapper": "AG Grid Wrapper",
-    "dataTable": "Data Table",
-    "uiElementGuide": "Ui Element Guide"
-  },
+  "menu": {},
   "hover": {
     "title": "-- Here is the title --"
   },
@@ -373,12 +238,6 @@
   "radio": {
     "title": "-- Here is the title --"
   },
-  "expand": {
-    "title": "-- Here is the title --"
-  },
-  "expandGroup": {
-    "title": "-- Here is the title --"
-  },
   "tag": {
     "title": "-- Here is the title --"
   },
@@ -398,13 +257,7 @@
   "reset": {
     "title": "-- Here is the title --"
   },
-  "colorPicker": {
-    "title": "-- Here is the title --"
-  },
   "colorInput": {
-    "title": "-- Here is the title --"
-  },
-  "colorSlider": {
     "title": "-- Here is the title --"
   },
   "colorPalette": {
@@ -429,9 +282,6 @@
     "title": "Trabajo En Progreso"
   },
   "roadmap": {
-    "title": "Trabajo En Progreso"
-  },
-  "nuxtIntegration": {
     "title": "Trabajo En Progreso"
   },
   "accessibilityGuide": {

@@ -1,10 +1,9 @@
 import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
-import VaSidebar
-  from 'vuestic-ui/src/components/va-sidebar/VaSidebar.vue'
-import apiOptions from './api-options'
 import { DocsHelper } from '../../../../helpers/DocsHelper'
+import VaSidebar from 'vuestic-ui/src/components/va-sidebar/VaSidebar.vue'
+import apiOptions from './api-options'
 
-export default [
+const config: ApiDocsBlock[] = [
   {
     type: BlockType.TITLE,
     translationString: 'sidebar.title',
@@ -77,11 +76,13 @@ export default [
     type: BlockType.EXAMPLE,
     component: 'va-sidebar/Color',
   },
+
   ...DocsHelper.exampleBlock(
     'sidebar.examples.gradient.title',
     'sidebar.examples.gradient.text',
     'va-sidebar/Gradient',
   ),
+
   {
     type: BlockType.HEADLINE,
     translationString: 'sidebar.examples.position.title',
@@ -130,13 +131,9 @@ export default [
     type: BlockType.PARAGRAPH,
     translationString: 'sidebar.faq.questions[0].answer',
   },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'all.api',
-  },
-  {
-    type: BlockType.API,
-    componentOptions: VaSidebar,
-    apiOptions,
-  },
-] as ApiDocsBlock[]
+
+  DocsHelper.subtitle('all.api'),
+  DocsHelper.api(VaSidebar, apiOptions),
+]
+
+export default config

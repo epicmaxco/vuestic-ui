@@ -1,9 +1,9 @@
 import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
-import VaAvatar
-  from 'vuestic-ui/src/components/va-avatar/VaAvatar.vue'
+import { DocsHelper } from '../../../../helpers/DocsHelper'
+import VaAvatar from 'vuestic-ui/src/components/va-avatar/VaAvatar.vue'
 import apiOptions from './api-options'
 
-export default [
+const config: ApiDocsBlock[] = [
   {
     type: BlockType.TITLE,
     translationString: 'avatar.title',
@@ -76,9 +76,8 @@ export default [
     type: BlockType.SUBTITLE,
     translationString: 'all.api',
   },
-  {
-    apiOptions,
-    type: BlockType.API,
-    componentOptions: VaAvatar,
-  },
-] as ApiDocsBlock[]
+
+  DocsHelper.api(VaAvatar, apiOptions),
+]
+
+export default config

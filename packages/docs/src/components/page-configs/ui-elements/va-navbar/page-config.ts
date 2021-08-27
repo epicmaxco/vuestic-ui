@@ -1,9 +1,9 @@
 import { ApiDocsBlock } from '../../../../types/configTypes'
+import { DocsHelper } from '../../../../helpers/DocsHelper'
 import VaNavbar from 'vuestic-ui/src/components/va-navbar/VaNavbar.vue'
 import apiOptions from './api-options'
-import { DocsHelper } from '../../../../helpers/DocsHelper'
 
-export default [
+const config: ApiDocsBlock[] = [
   DocsHelper.title('navbar.title'),
 
   DocsHelper.subtitle('all.examples'),
@@ -28,4 +28,6 @@ export default [
   ),
 
   DocsHelper.api(VaNavbar, apiOptions),
-] as ApiDocsBlock[]
+]
+
+export default config

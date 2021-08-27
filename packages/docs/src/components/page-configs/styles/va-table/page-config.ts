@@ -1,7 +1,7 @@
 import { ApiDocsBlock } from '../../../../types/configTypes'
 import { DocsHelper } from '../../../../helpers/DocsHelper'
 
-export default [
+const config: ApiDocsBlock[] = [
   DocsHelper.title('table.title'),
   DocsHelper.paragraph('table.summaryText'),
 
@@ -22,5 +22,6 @@ export default [
   DocsHelper.headline('table.examples.clickable.title'),
   DocsHelper.paragraph('table.examples.clickable.text'),
   DocsHelper.example('va-table/Clickable'),
+]
 
-] as ApiDocsBlock[]
+export default config

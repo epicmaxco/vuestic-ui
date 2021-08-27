@@ -10005,10 +10005,10 @@ humps@^2.0.1:
   resolved "https://registry.yarnpkg.com/humps/-/humps-2.0.1.tgz#dd02ea6081bd0568dc5d073184463957ba9ef9aa"
   integrity sha1-3QLqYIG9BWjcXQcxhEY5V7qe+ao=
 
-i18n-unused@^0.4.1:
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/i18n-unused/-/i18n-unused-0.4.1.tgz#76c38e06ba763a68bfe99567afc945417b6d72c8"
-  integrity sha512-1GnL58oAMQE8Ep7dReorR0Sd6Nc7VBXG16eRqNztoKdvCtvoe8GqdTnAyb+JnlCzPcl64WrSh6f6gKAMLWImxA==
+i18n-unused@^0.4.2:
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/i18n-unused/-/i18n-unused-0.4.2.tgz#ae775ddfb892fc860b655210a30c5c8645efe201"
+  integrity sha512-MarVFvQDJLix06X57Y0QSuVK8iiEemBqnrhSsZJnLbJPGAen8KBshcLOUrc3Nhrf2I0hcTnYvOO2HOBN9l00hA==
   dependencies:
     commander "^8.0.0"
     esm "^3.2.25"

@@ -1,7 +1,7 @@
 import { ApiDocsBlock } from '../../../../types/configTypes'
 import { DocsHelper } from '../../../../helpers/DocsHelper'
 
-export default [
+const config: ApiDocsBlock[] = [
   DocsHelper.title('overview.title'),
   DocsHelper.paragraph('overview.description'),
   DocsHelper.subtitle('overview.featuresOverview'),
@@ -12,4 +12,6 @@ export default [
     'overview.responsive',
     'overview.translatable',
   ]),
-] as ApiDocsBlock[]
+]
+
+export default config

@@ -6,8 +6,7 @@
         "docs": "Docs",
         "discord": "Join on Discord",
         "translation": "Add translation...",
-        "language": "Language",
-        "star": "Star"
+        "language": "Language"
       }
     },
     "preview": {
@@ -17,10 +16,6 @@
         "github": "View on GitHub"
       },
       "features": {
-        "nuxt": {
-          "title": "Nuxt Support",
-          "text": "Nuxt integration guides"
-        },
         "components": {
           "title": "52 Responsive Components",
           "text": "Available components docs"
@@ -70,8 +65,7 @@
       "text": "Check out Vuestic UI Framework in action.",
       "buttons": {
         "github": "View on GitHub",
-        "demo": "Live Demo",
-        "star": "Star"
+        "demo": "Live Demo"
       },
       "features": {
         "opensource": "Open source MIT license",
@@ -100,7 +94,9 @@
         "clickPrepend": "The event is triggered by clicking on the `prepend` slot",
         "clickPrependInner": "The event is triggered by clicking on the `prependInner` slot",
         "clickAppend": "The event is triggered by clicking on the `append` slot",
-        "clickAppendInner": "The event is triggered by clicking on the `appendInner` slot"
+        "clickAppendInner": "The event is triggered by clicking on the `appendInner` slot",
+        "updateModelValue": "The event is triggered when the component needs to change the model. Is also used by v-model",
+        "updateFocused": "The event is triggered when the component needs to toggle the focus"
       },
       "props": {
         "align": "Customizes horizontal position of component (flex based). Available values are strings: 'left', 'center', 'right', 'between', 'around', 'stretch'.",
@@ -143,6 +139,7 @@
         "gradient": "Adds a background gradient.",
         "modelValue": "The value of the `v-model` bindings.",
         "activeButtonTextColor": "The color of the text of the active button (options supported by the theme or `HEX`).",
+        "indeterminate": "Same as native `indeterminate` - a state in which it's impossible to say whether the item is toggled `on` or `off`",
         "indeterminateValue": "Overrides a state value that is not set.",
         "borderColor": "Color css style `border` (theme supported options or `HEX`).",
         "clearableIcon": "Sets the cleaning button icon.",
@@ -294,7 +291,8 @@
         "beforeOpen": "Emits before modal's open after transition started",
         "open": "Emits when modal's is open and transition is complete",
         "beforeClose": "Emits before modal's start closing after transition started",
-        "close": "Emits when modal's is closed and transition is complete"
+        "close": "Emits when modal's is closed and transition is complete",
+        "cancel": "Emits when the user closes the modal window without side effects"
       },
       "methods": {
         "hide": "Hide modal. On stateless modal only emits `input`",
@@ -424,7 +422,10 @@
         "render": "Render function to use a custom content",
         "multiLine": "Sets more space for the Toast component"
       },
-      "events": {},
+      "events": {
+        "onClick": "Emits when toast is clicked",
+        "onClose": "Emits when close button is clicked"
+      },
       "methods": {},
       "slots": {}
     },
@@ -434,7 +435,8 @@
         "stripeColor": "Customize stripe color (theme string or *HEX* string).",
         "gradient": "Adds color gradient to `va-card` body.",
         "bordered": "Toggles borders of a card component.",
-        "outlined": "Toggles shadow of `va-card`"
+        "outlined": "Toggles shadow of `va-card`",
+        "dark": "Applies dark color and background to card"
       }
     },
     "VaSidebar": {
@@ -478,14 +480,15 @@
         "input": "Emitted on value change."
       },
       "slots": {
-        "default": "Used to render items. Available props are:\n`option: String | Object`\n`isDisabled: Boolean`\n`name: String`\n`color: String`\n`leftLabel: Boolean`\n`getText: (option: String | Object) => String` \n `selectedValue: Array<String | Object>`\n`index: Number`"
+        "default": "Used to render items. Available props are:\n`option: String `&#124;` Object`,\n`isDisabled: Boolean`,\n`name: String`,\n`color: String`,\n`leftLabel: Boolean`,\n`getText: (option: String `&#124;` Object) => String`,\n`selectedValue: Array<String `&#124;` Object>`,\n`index: Number`"
       }
     },
     "VaAvatar": {
       "props": {
         "icon": "The icon to be displayed inside a container",
         "src": "URL to the image (will be placed inside `src` attribute of image tag)",
-        "fontSize": "The font-size of text inside avatar"
+        "fontSize": "The font-size of text inside avatar",
+        "email": "Будет отображать `gravatar` для предоставленного email"
       },
       "slots": {
         "default": "Use this slot to replace default content to be displayed inside the component"
@@ -494,7 +497,6 @@
     "VaCheckbox": {
       "props": {
         "value": "The value of the checkbox",
-        "indeterminate": "Same as native `indeterminate` - a state in which it's impossible to say whether the item is toggled `on` or `off`",
         "checkedIcon": "Overrides the `checked` icon",
         "indeterminateIcon": "Overrides the `indeterminate` icon"
       },
@@ -655,12 +657,13 @@
         "blur": "Emitted when the input is blurred",
         "focus": "Emitted when input is focused",
         "click": "Emitted when user clicked on input",
-        "click:prepend": "Emitted when user clicked on `prepend` slot",
-        "click:prepend-inner": "Emitted when user clicked on `prependInner` slot",
-        "click:append": "Emitted when user clicked on `append` slot",
-        "click:append-inner": "Emitted when user clicked on `appendInner` slot",
         "keyup": "Emitted when the user releases a key on the keyboard",
-        "keydown": "Emitted when any key is pressed"
+        "keydown": "Emitted when any key is pressed",
+        "cleared": "Emitted if input value has been cleared",
+        "click-prepend": "Событие вызывается при клике по слоту `prepend`",
+        "click-prepend-inner": "Событие вызывается при клике по слоту `prependInner`",
+        "click-append": "Событие вызывается при клике по слоту `append`",
+        "click-append-inner": "Событие вызывается при клике по слоту `appendInner`"
       },
       "methods": {
         "focus": "Setting focus on input",
@@ -742,9 +745,11 @@
         "fixed": "Sets dropdown position strategy",
         "clearable": "Sets ability to clear selection",
         "hideSelected": "Sets ability to hide selected options",
-        "allowCreate": "Allow creating new options. Can be setted to `unique` if you want to create only unique options",
+        "allowCreate": "Allow creating new options. Can be set to `unique` if you want to create only unique options",
         "clearIcon": "Sets the clear icon",
-        "dropdownIcon": "Sets the dropdown icon. Can be object if you want to sets different open/close icons"
+        "dropdownIcon": "Sets the dropdown icon. Can be object if you want to sets different open/close icons",
+        "bordered": "Применяет подчеркивание",
+        "separator": "Текст для разделения выбранных значений"
       },
       "events": {
         "clear": "Emitted if select value has been cleared",
@@ -839,9 +844,6 @@
     "VaDatePicker": {
       "props": {
         "modelValue": "Date, date array or date period",
-        "weekDays": "Adds days to the table",
-        "placeholder": "Sets input placeholder",
-        "config": "Object with settings for date picker",
         "monthNames": "Array of 12 month names",
         "weekdayNames": "Array of 7 weekday names",
         "firstWeekday": "Name of first weekday. Can be `Monday` or `Sunday`",
@@ -860,15 +862,23 @@
         "weekendsColor": "Color of the weekend cells (theme string or HEX string).",
         "mode": "Specify if picker value is single date, multiple dates or date range."
       },
-      "events": {},
+      "events": {
+        "updateView": "The event is triggered when the component needs to change the view",
+        "hoverYear": "The event is triggered when the mouse hover the year cell",
+        "clickYear": "The event is triggered when clicked the year cell",
+        "hoverDay": "The event is triggered when the mouse hover the day cell",
+        "clickDay": "The event is triggered when clicked the day cell",
+        "hoverMonth": "The event is triggered when the mouse hover the month cell",
+        "clickMonth": "The event is triggered when clicked the month cell"
+      },
       "methods": {},
       "slots": {
         "buttonPrev": "Button show previous month or year.",
         "buttonNext": "Button show next month or year.",
         "header": "This slot is showing year and month between header buttons.",
         "year": "Used to change how year will be displayed in header and picker cell.",
-        "month": "Used to change how year will be displayed in header and picker cell.",
-        "weekday": "Used to change how weekday will be displayed in picker.",
+        "month": "Used to change how month will be displayed in header and picker cell.",
+        "weekday": "Used to change how weekday will be displayed in picker cell.",
         "day": "Used to change how day will be displayed in picker cell."
       }
     },
@@ -918,8 +928,17 @@
         "errorMessages": "Displays a list of error messages or message if using a string",
         "errorCount": "Number of error messages displayed"
       },
-
-      "events": {},
+      "events": {
+        "updateView": "The event is triggered when the component needs to change the view",
+        "updateMonth": "The event is triggered when the component needs to change the month",
+        "updateYear": "The event is triggered when the component needs to change the year",
+        "updateIsOpen": "The event is triggered when the component needs to toggle the 'is-open'",
+        "updateText": "The event is triggered when the component needs to change the input text",
+        "hoverDay": "The event is triggered when the mouse hover the day cell",
+        "hoverMonth": "The event is triggered when the mouse hover the month cell",
+        "clickDay": "The event is triggered when clicked the day cell",
+        "clickMonth": "The event is triggered when clicked the month cell"
+      },
       "methods": {},
       "slots": {}
     },
@@ -933,7 +952,8 @@
         "options": "The array of objects with `label` and `value` properties",
         "value": "Current toggle state",
         "size": "Specify size for component. \"small\", \"medium\", \"large\" sizes are available",
-        "toggleColor": "Color of the toggle button"
+        "toggleColor": "Color of the toggle button",
+        "activeButtonTextColor": "Цвет текста кнопки с выбранным значением"
       },
       "events": {
         "input": "Emits when toggling to the different button"
@@ -1016,6 +1036,7 @@
     "introduction": "Introduction",
     "gettingStarted": "Getting Started",
     "styles": "Styles",
+    "reset": "CSS Reset",
     "uiElements": "UI Elements",
     "contribution": "Contribution",
     "documentationPage": "Documentation Page",
@@ -1028,11 +1049,8 @@
     "rating": "Rating",
     "modal": "Modal",
     "tabs": "Tabs",
-    "treeView": "Tree view",
     "slider": "Slider",
     "switch": "Switch",
-    "popovers": "Popovers",
-    "chat": "Chat",
     "pagination": "Pagination",
     "fileUpload": "File Upload",
     "form": "Form",
@@ -1058,7 +1076,6 @@
     "parallax": "Parallax",
     "popover": "Popover",
     "backtop": "Backtop",
-    "reset": "Reset",
     "colorPicker": "Color Picker",
     "colorInput": "Color Input",
     "colorSlider": "Color Slider",
@@ -1072,10 +1089,8 @@
     "innerLoading": "Inner Loading",
     "installation": "Installation",
     "roadmap": "Roadmap",
-    "nuxtIntegration": "Nuxt Integration",
     "accessibilityGuide": "Accessibility Guide",
     "configurationGuide": "Configuration Guide",
-    "browsersList": "Browsers List",
     "overview": "Overview",
     "translation": "Translation",
     "browserSupport": "Browser Support",
@@ -1287,9 +1302,6 @@
       },
       "position": {
         "title": "Position left and bottom"
-      },
-      "overlap": {
-        "title": "Overlap"
       },
       "dot": {
         "title": "Dot"
@@ -1915,8 +1927,7 @@
     "summaryText": "The `va-image` component is used to display responsive images. It has some features to make your work with images easier.",
     "examples": {
       "default": {
-        "title": "Default",
-        "text": "Default usage of image component."
+        "title": "Default"
       },
       "contain": {
         "title": "Contain",
@@ -1925,9 +1936,6 @@
       "ratio": {
         "title": "Ratio",
         "text": "Change image original ratio, show part of image to fit new ratio."
-      },
-      "slots": {
-        "title": "Slots"
       },
       "defaultSlot": {
         "title": "Default slot",
@@ -2231,7 +2239,7 @@
   },
   "accordion": {
     "title": "Accordion",
-    "summaryText": "Allows you to control group of collapses",
+    "summaryText": "Allows you to control group of [collapses](ui-elements/collapse).",
     "examples": {
       "default": {
         "title": "Default",
@@ -2253,7 +2261,7 @@
   },
   "chip": {
     "title": "Chip",
-    "summaryText": "",
+    "summaryText": "Chip - it is a compact element for displaying data or performing an action.",
     "examples": {
       "default": {
         "title": "Default",
@@ -2383,7 +2391,7 @@
           "`.justify-self--start` - The item is packed flush to each other toward the start edge of the alignment container in the appropriate axis.",
           "`.justify-self--end` - The item is packed flush to each other toward the end edge of the alignment container in the appropriate axis.",
           "`.justify-self--center` - For items that are not children of a flex container, this value is treated as `.justify-self--start`.",
-          "`.justify-self--baseline`"
+          "`.justify-self--baseline` - The items are aligned according to baselines"
         ]
       }
     }
@@ -2534,16 +2542,6 @@
       "more": "For a complete list of all applied styles, see the [reset.scss](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/styles/global/reset.scss)[[target=_blank]] stylesheet."
     }
   },
-  "colorPicker": {
-    "title": "Color Picker",
-    "summaryText": "A component which helps to pick the color. We use the [vue-color](https://github.com/xiaokaike/vue-color)[[target=_blank]] library for this component. Will be replaced in next versions.",
-    "examples": {
-      "default": {
-        "title": "Basic usage",
-        "text": "By default use this component with `v-model`."
-      }
-    }
-  },
   "colorInput": {
     "title": "Color Input",
     "summaryText": "Input component that allows you to select a color.",
@@ -2552,32 +2550,13 @@
         "title": "Basic usage",
         "text": "By default use this component with `v-model`."
       },
-      "selected": {
-        "title": "Selected",
-        "text": "Dot style changes can be applied."
-      },
       "disabled": {
         "title": "Disabled",
         "text": "All user interactions can be disabled."
-      },
-      "advanced": {
-        "title": "Advanced",
-        "text": "It's a heavier component which provides an ability to pick color by click."
       }
     },
     "api": {
-      "colorInput": "Color Input API",
-      "colorInputAdvanced": "Color Input Advanced API"
-    }
-  },
-  "colorSlider": {
-    "title": "Color Slider",
-    "summaryText": "Slider component for color pick.",
-    "examples": {
-      "default": {
-        "title": "Basic usage",
-        "text": "By default use this component with `v-model`."
-      }
+      "colorInput": "Color Input API"
     }
   },
   "colorPalette": {
@@ -2591,21 +2570,15 @@
       "indicator": {
         "title": "Indicator",
         "text": "You can apply different styles to the indicator: `dot` and `square` are available. "
-      },
-      "advanced": {
-        "title": "Advanced",
-        "text": "The component has an advanced version with an input component and color picker."
       }
     },
     "api": {
-      "colorPalette": "Color Palette API",
-      "colorPaletteAdvanced": "Color Palette Advanced API"
+      "colorPalette": "Color Palette API"
     }
   },
   "datePicker": {
     "title": "Date Picker",
     "description": "Date picker component allows user to select single, multiple or range of dates, months and years. You can customize it the way you want. There is a option to change all string and formats.\n\nIt based on native js dates so you can use this Date Picker with any date library you want.",
-    "summaryText": "Input component for data selection.",
     "lookAtDateInput": "Also, look at Date Input",
     "examples": {
       "default": {
@@ -2795,11 +2768,6 @@
   "installation": {
     "title": "Installation",
     "description": "You can create a new project or integrate Vuestic UI into an existing application. The installation process is mostly the same for both cases: you can either *install Vuestic UI manually* or use specifically designed *Vue CLI plugin*. Both ways provide you with a **full tree-shaking support**. Choose the one that fits your needs the most.",
-    "subtitle": "If you decide to install Vuestic UI manually, all you need to do is to install a NPM package, a couple of other necessary assets (such as fonts and CSS styles) and slightly modify your application's entry point (most probably `index.js` or `main.js`, depending on your setup).",
-    "prerequisites": "But first, make sure you've got all the following prerequisites installed:",
-    "node": "[Node.js](https://nodejs.org/en/)[[target=_blank]] (>=v14.0.0)",
-    "npm": "[npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)[[target=_blank]] (>=v3.0.0) (or [yarn](https://yarnpkg.com/lang/en/docs/install)[[target=_blank]] (>= v1.16.0)) and [Git](https://git-scm.com/)[[target=_blank]]",
-    "afterCheck": "After checking the prerequisites, install Vuestic UI via npm or yarn:",
     "fonts": {
       "title": "Assets installation",
       "description": "By default Vuestic UI uses `Source Sans Pro` and `Material Icons` fonts. You should manually add them into your project. In order to do so you can either:",
@@ -2813,7 +2781,7 @@
     "cli": {
       "title": "Vue CLI installation",
       "description": "Another way to install Vuestic UI is using the Vue CLI plugin.",
-      "attention": "Installing Vuestic UI via the plugin would modify your `package.json` and `main.(js|ts)` files, so make sure you’ve committed your code before proceeding to avoid data loss.",
+      "attention": "Installing Vuestic UI via the plugin would modify your `package.json` and `main.(js`&#124;`ts)` files, so make sure you’ve committed your code before proceeding to avoid data loss.",
       "prepare": "First, make sure you've got [Vue CLI](https://cli.vuejs.org/guide/installation.html)[[target=_blank]] installed globally:",
       "upgrade": "Notice also that the minimum supported version of Vue CLI is v4.0.0. In case you've got an older version installed, please, consider [upgrading](https://cli.vuejs.org/migrating-from-v3/#migrating-from-v3)[[target=_blank]] it.",
       "codeAnnotation": "If everything's fine then you can finally install the plugin with the following command (**don't forget to commit**):"
@@ -2839,13 +2807,13 @@
         "cssLoader": "As all components' code is separated, you may need a CSS loader to load component-specific CSS.\nBut you probably already have one."
       }
     },
-    "nuxt": {
-      "title": "Nuxt installation",
-      "description": "Vuestic UI can be added by adding plugin after installation. Create plugin and include it into `nuxt.config.js`:"
-    },
     "manual": {
       "title": "Manual installation",
-      "description": "The easy way if you use the Vue-CLI setup or you want to try out the Vuestic on the scratch project."
+      "subtitle": "If you decide to install Vuestic UI manually, all you need to do is to install a NPM package, a couple of other necessary assets (such as fonts and CSS styles) and slightly modify your application's entry point (most probably `index.js` or `main.js`, depending on your setup).",
+      "prerequisites": "But first, make sure you've got all the following prerequisites installed:",
+      "node": "[Node.js](https://nodejs.org/en/)[[target=_blank]] (>=v14.0.0)",
+      "npm": "[npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)[[target=_blank]] (>=v3.0.0) (or [yarn](https://yarnpkg.com/lang/en/docs/install)[[target=_blank]] (>= v1.16.0)) and [Git](https://git-scm.com/)[[target=_blank]]",
+      "afterCheck": "After checking the prerequisites, install Vuestic UI via npm or yarn:"
     }
   },
   "roadmap": {
@@ -2883,9 +2851,6 @@
       "title": "Archive",
       "description": "The following releases are old and unsupported minor and major versions:"
     }
-  },
-  "nuxtIntegration": {
-    "title": "Work In Progress"
   },
   "accessibilityGuide": {
     "title": "Accessibility",
@@ -3063,10 +3028,8 @@
   },
   "iconsConfig": {
     "title": "Icons config",
-    "about": "By default Vuestic UI uses [Material Icons](https://fonts.google.com/icons)[[target=_blank]]. If you want to use other font libraries you can configure `VaIcon` to use them.",
-    "readMore": "Read more",
-    "readBeforeStart": "Find out more about the `VaIcon` component",
-    "example": "Example",
+    "about": "By default Vuestic UI uses [Material Design icons](https://fonts.google.com/icons)[[target=_blank]]. If you want to use other font libraries you can configure `VaIcon` to use them.",
+    "readBeforeStart": "Find out more about the VaIcon component",
     "problem": {
       "definition": "There is a problem with icon libraries however: they usually use different interfaces to render icons.",
       "materialIcons": "For example Material Icons wants us to set `material-icons` class and provide icon name inside the `span` tag.",
@@ -3115,11 +3078,6 @@
       "spin": "Applies the spin animation to the icon"
     }
   },
-  "advancedIconsConfig": {
-    "title": "Advanced icons config",
-    "subtitle": "Icons config is a flat array. VaIcon looks for a first appropriate name (strict string, regex or dynamic segment). Then, if config has a `to` prop, it looks for an additional config that is appropriate for `to`.",
-    "priority": "Here you can see how its works"
-  },
   "componentsConfig": {
     "title": "Components config",
     "subtitle": "Component config allows you to override default props' values for any Vuestic component. It is an object where the keys are component names and the values are prop-value pairs you want to overwrite. For example:",
@@ -3159,12 +3117,13 @@
       "ColorConfig": "An object where the keys are the color names and the values are valid CSS colors.",
       "ColorInput": "A valid CSS color",
       "methods": "Methods",
+      "useColor": "Return colors methods",
       "setColors": "Used to merge new colors into config or update existing colors.",
       "getColors": "Returns current color config",
       "getColor": "Return color by name",
       "getBoxShadowColor": "Return a color that is appropriate to be used for the `box-shadow`.",
-      "getHoverColor": "Return a color that you can use as a hover color.",
-      "getFocusColor": "Return a color that you can use as a focus color.",
+      "getHoverColor": "Return a color that you can use as a `hover` color.",
+      "getFocusColor": "Return a color that you can use as a `focus` color.",
       "getGradientBackground": "Return a gradient-color that you can use as a `background-image` CSS property's value.",
       "hookMethods": "useColors hook methods"
     }
@@ -3291,17 +3250,13 @@
     "textStyles": "Text styles",
     "codeSnippet": "Code snippet",
     "textCode": "Text-code",
+    "other": "Other typography styles",
     "orderedList": "Ordered list",
     "unorderedList": "Unordered list",
+    "links": "Links",
     "textHighlighted": "Highlighted text",
     "blockquote": "Blockquote",
-    "textBlock": "Text block",
-    "affected": "Affected",
-    "primary": "Default text style",
-    "other": "Other typography styles",
-    "lists": "Lists",
-    "links": "Links",
-    "otherElements": "Other elements"
+    "textBlock": "Text block"
   },
   "ag-grid-wrapper": {
     "title": "AG Grid wrapper",

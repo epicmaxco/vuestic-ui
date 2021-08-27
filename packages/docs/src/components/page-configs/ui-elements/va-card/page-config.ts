@@ -1,8 +1,9 @@
 import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
+import { DocsHelper } from '../../../../helpers/DocsHelper'
 import VaCard from 'vuestic-ui/src/components/va-card/VaCard.vue'
 import apiOptions from './api-options'
 
-export default [
+const config: ApiDocsBlock[] = [
   {
     type: BlockType.TITLE,
     translationString: 'card.title',
@@ -111,11 +112,9 @@ export default [
     type: BlockType.SUBTITLE,
     translationString: 'all.api',
   },
-  {
-    type: BlockType.API,
-    componentOptions: VaCard,
-    apiOptions,
-  },
+
+  DocsHelper.api(VaCard, apiOptions),
+
   {
     type: BlockType.SUBTITLE,
     translationString: 'all.faq',
@@ -136,4 +135,6 @@ export default [
     type: BlockType.PARAGRAPH,
     translationString: 'card.faq.questions[1].answer',
   },
-] as ApiDocsBlock[]
+]
+
+export default config

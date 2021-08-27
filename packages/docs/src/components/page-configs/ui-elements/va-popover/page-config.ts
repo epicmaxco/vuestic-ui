@@ -1,8 +1,8 @@
 import VaPopover from 'vuestic-ui/src/components/va-popover/VaPopover.vue'
+import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
 import apiOptions from './api-options'
-import { BlockType, ApiDocsBlock } from '@/types/configTypes'
 
-export default [
+const config: ApiDocsBlock[] = [
   {
     type: BlockType.TITLE,
     translationString: 'popover.title',
@@ -96,4 +96,6 @@ export default [
     componentOptions: VaPopover,
     apiOptions,
   },
-] as ApiDocsBlock[]
+]
+
+export default config

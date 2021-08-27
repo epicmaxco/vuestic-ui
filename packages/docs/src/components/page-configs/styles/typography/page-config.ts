@@ -1,7 +1,7 @@
 import { ApiDocsBlock } from '../../../../types/configTypes'
 import { DocsHelper } from '../../../../helpers/DocsHelper'
 
-export default [
+const config: ApiDocsBlock[] = [
   DocsHelper.title('typography.title'),
   DocsHelper.paragraph('typography.description'),
 
@@ -39,4 +39,6 @@ export default [
 
   DocsHelper.headline('typography.textBlock'),
   DocsHelper.example('typography/textBlock'),
-] as ApiDocsBlock[]
+]
+
+export default config

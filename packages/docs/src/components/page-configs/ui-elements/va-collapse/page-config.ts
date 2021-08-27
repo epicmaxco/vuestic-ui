@@ -1,9 +1,9 @@
 import { ApiDocsBlock } from '../../../../types/configTypes'
+import { DocsHelper } from '../../../../helpers/DocsHelper'
 import VaCollapse from 'vuestic-ui/src/components/va-collapse/VaCollapse.vue'
 import apiOptions from './api-options'
-import { DocsHelper } from '../../../../helpers/DocsHelper'
 
-export default [
+const config: ApiDocsBlock[] = [
   DocsHelper.title('collapse.title'),
 
   DocsHelper.paragraph('collapse.summaryText'),
@@ -36,4 +36,6 @@ export default [
   ),
 
   DocsHelper.api(VaCollapse, apiOptions),
-] as ApiDocsBlock[]
+]
+
+export default config

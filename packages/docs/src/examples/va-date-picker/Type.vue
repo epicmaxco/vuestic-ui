@@ -1,5 +1,5 @@
 <template>
-  <div class="layout gutter--md row">
+  <div class="flex row">
     <div class="flex">
       <va-date-picker stateful type="day" />
     </div>

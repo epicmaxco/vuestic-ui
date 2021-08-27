@@ -1,8 +1,9 @@
+import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
+import { DocsHelper } from '../../../../helpers/DocsHelper'
 import VaToast from 'vuestic-ui/src/components/va-toast/VaToast.vue'
 import apiOptions from './api-options'
-import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
 
-export default [
+const config: ApiDocsBlock[] = [
   {
     type: BlockType.TITLE,
     translationString: 'toast.title',
@@ -87,15 +88,10 @@ export default [
     type: BlockType.EXAMPLE,
     component: 'va-toast/Click',
   },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'all.api',
-  },
-  {
-    type: BlockType.API,
-    componentOptions: VaToast,
-    apiOptions,
-  },
+
+  DocsHelper.subtitle('all.api'),
+  DocsHelper.api(VaToast, apiOptions),
+
   {
     type: BlockType.SUBTITLE,
     translationString: 'all.faq',
@@ -108,4 +104,6 @@ export default [
     type: BlockType.PARAGRAPH,
     translationString: 'toast.faq.questions[0].answer',
   },
-] as ApiDocsBlock[]
+]
+
+export default config

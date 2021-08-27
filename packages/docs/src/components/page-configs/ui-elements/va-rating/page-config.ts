@@ -1,9 +1,9 @@
 import { ApiDocsBlock, BlockType } from '../../../../types/configTypes'
+import { DocsHelper } from '../../../../helpers/DocsHelper'
 import VaRating from 'vuestic-ui/src/components/va-rating/VaRating.vue'
 import apiOptions from './api-options'
-import { VueConstructor } from 'vue-class-component'
 
-export default [
+const config: ApiDocsBlock[] = [
   {
     type: BlockType.TITLE,
     translationString: 'rating.title',
@@ -124,11 +124,9 @@ export default [
     type: BlockType.EXAMPLE,
     component: 'va-rating/CustomIcons',
   },
-  {
-    type: BlockType.API,
-    componentOptions: VaRating,
-    apiOptions: apiOptions as unknown as VueConstructor,
-  },
+
+  DocsHelper.api(VaRating, apiOptions),
+
   {
     type: BlockType.SUBTITLE,
     translationString: 'rating.faq.subtitle',
@@ -149,4 +147,6 @@ export default [
     type: BlockType.PARAGRAPH,
     translationString: 'rating.faq.questions[1].answer',
   },
-] as ApiDocsBlock[]
+]
+
+export default config
