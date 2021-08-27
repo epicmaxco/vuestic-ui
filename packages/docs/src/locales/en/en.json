@@ -2261,7 +2261,7 @@
   },
   "chip": {
     "title": "Chip",
-    "summaryText": "Chip - это компактный элемент для отображения данных или выполнения действия.",
+    "summaryText": "Chip - it is a compact element for displaying data or performing an action.",
     "examples": {
       "default": {
         "title": "Default",
