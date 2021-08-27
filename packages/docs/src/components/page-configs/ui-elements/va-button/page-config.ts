@@ -1,141 +1,63 @@
-import { ApiDocsBlock, BlockType } from '../../../../types/configTypes'
+import { ApiDocsBlock } from '../../../../types/configTypes'
 import { DocsHelper } from '../../../../helpers/DocsHelper'
 import VaButton from 'vuestic-ui/src/components/va-button/VaButton.vue'
 import apiOptions from './api-options'
 
 const config: ApiDocsBlock[] = [
-  {
-    type: BlockType.TITLE,
-    translationString: 'button.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'button.summaryText',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'all.examples',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'button.examples.default.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'button.examples.default.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-button/Default',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'button.examples.withColor.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'button.examples.withColor.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-button/WithColor',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'button.examples.withGradient.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'button.examples.withGradient.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-button/WithGradient',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'button.examples.withTextColor.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'button.examples.withTextColor.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-button/WithTextColor',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'button.examples.withSize.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'button.examples.withSize.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-button/WithSize',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'button.examples.withStyle.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'button.examples.withStyle.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-button/WithStyle',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'button.examples.withIcon.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'button.examples.withIcon.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-button/WithIcon',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'button.examples.withConfig.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'button.examples.withConfig.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-button/WithConfig',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'button.examples.withLoading.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'button.examples.withLoading.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-button/WithLoading',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'button.examples.disabled.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'button.examples.disabled.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-button/Disabled',
-  },
+  DocsHelper.title('button.title'),
+  DocsHelper.paragraph('button.summaryText'),
+
+  DocsHelper.subtitle('all.examples'),
+  ...DocsHelper.exampleBlock(
+    'button.examples.default.title',
+    'button.examples.default.text',
+    'va-button/Default',
+  ),
+  ...DocsHelper.exampleBlock(
+    'button.examples.withColor.title',
+    'button.examples.withColor.text',
+    'va-button/WithColor',
+  ),
+  ...DocsHelper.exampleBlock(
+    'button.examples.withGradient.title',
+    'button.examples.withGradient.text',
+    'va-button/WithGradient',
+  ),
+  ...DocsHelper.exampleBlock(
+    'button.examples.withTextColor.title',
+    'button.examples.withTextColor.text',
+    'va-button/WithTextColor',
+  ),
+  ...DocsHelper.exampleBlock(
+    'button.examples.withSize.title',
+    'button.examples.withSize.text',
+    'va-button/WithSize',
+  ),
+  ...DocsHelper.exampleBlock(
+    'button.examples.withStyle.title',
+    'button.examples.withStyle.text',
+    'va-button/WithStyle',
+  ),
+  ...DocsHelper.exampleBlock(
+    'button.examples.withIcon.title',
+    'button.examples.withIcon.text',
+    'va-button/WithIcon',
+  ),
+  ...DocsHelper.exampleBlock(
+    'button.examples.withConfig.title',
+    'button.examples.withConfig.text',
+    'va-button/WithConfig',
+  ),
+  ...DocsHelper.exampleBlock(
+    'button.examples.withLoading.title',
+    'button.examples.withLoading.text',
+    'va-button/WithLoading',
+  ),
+  ...DocsHelper.exampleBlock(
+    'button.examples.disabled.title',
+    'button.examples.disabled.text',
+    'va-button/Disabled',
+  ),
 
   DocsHelper.subtitle('all.api'),
   DocsHelper.api(VaButton, apiOptions),
