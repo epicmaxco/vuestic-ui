@@ -2239,7 +2239,7 @@
   },
   "accordion": {
     "title": "Accordion",
-    "summaryText": "Allows you to control group of collapses",
+    "summaryText": "Allows you to control group of [collapses](ui-elements/collapse).",
     "examples": {
       "default": {
         "title": "Default",

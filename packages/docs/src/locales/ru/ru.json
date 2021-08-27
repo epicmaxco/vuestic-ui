@@ -2239,7 +2239,7 @@
   },
   "accordion": {
     "title": "Accordion",
-    "summaryText": "Позволяет управлять группой [раскрываемых панелей](https://vuestic.dev/ui-elements/collapse)[[target=_blank]].",
+    "summaryText": "Позволяет управлять группой [раскрываемых панелей](ui-elements/collapse).",
     "examples": {
       "default": {
         "title": "Базовое использование",
