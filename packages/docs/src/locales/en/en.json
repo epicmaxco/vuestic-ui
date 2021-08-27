@@ -1232,13 +1232,13 @@
     "summaryText": "The affix component is created to fix any content in a proper position relative to a container.",
     "examples": {
       "top": {
-        "title": "Fixed at the top."
+        "title": "Fixed at the top"
       },
       "bottom": {
-        "title": "Fixed at them bottom."
+        "title": "Fixed at them bottom"
       },
       "target": {
-        "title": "Fixes element relative to custom container."
+        "title": "Fixes element relative to custom container"
       }
     }
   },
