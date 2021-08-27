@@ -1,82 +1,38 @@
-import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
+import { ApiDocsBlock } from '../../../../types/configTypes'
 import { DocsHelper } from '../../../../helpers/DocsHelper'
 import VaBadge from 'vuestic-ui/src/components/va-badge/VaBadge.vue'
 import apiOptions from './api-options'
 
 const config: ApiDocsBlock[] = [
-  {
-    type: BlockType.TITLE,
-    translationString: 'badge.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'badge.summaryText',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'all.examples',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'badge.examples.default.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'badge.examples.default.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-badge/Default',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'badge.examples.position.title',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-badge/Position',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'badge.examples.color.title',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-badge/Color',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'badge.examples.dot.title',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-badge/Dot',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'badge.examples.transparent.title',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-badge/Transparent',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'badge.examples.withCard.title',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-badge/WithCard',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'badge.examples.withAvatar.title',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-badge/WithAvatar',
-  },
+  DocsHelper.title('badge.title'),
+  DocsHelper.paragraph('badge.summaryText'),
 
+  DocsHelper.subtitle('all.examples'),
+  ...DocsHelper.exampleBlock(
+    'badge.examples.default.title',
+    'badge.examples.default.text',
+    'va-badge/Default',
+  ),
+
+  DocsHelper.headline('badge.examples.position.title'),
+  DocsHelper.example('va-badge/Position'),
+
+  DocsHelper.headline('badge.examples.color.title'),
+  DocsHelper.example('va-badge/Color'),
+
+  DocsHelper.headline('badge.examples.dot.title'),
+  DocsHelper.example('va-badge/Dot'),
+
+  DocsHelper.headline('badge.examples.transparent.title'),
+  DocsHelper.example('va-badge/Transparent'),
+
+  DocsHelper.headline('badge.examples.withCard.title'),
+  DocsHelper.example('va-badge/WithCard'),
+
+  DocsHelper.headline('badge.examples.withAvatar.title'),
+  DocsHelper.example('va-badge/WithAvatar'),
+
+  DocsHelper.subtitle('all.api'),
   DocsHelper.api(VaBadge, apiOptions),
 ]
 
