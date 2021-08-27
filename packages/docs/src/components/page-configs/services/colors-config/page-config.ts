@@ -1,8 +1,8 @@
-import { ApiDocsBlock } from '@/types/configTypes'
-import { DocsHelper } from '@/helpers/DocsHelper'
+import { ApiDocsBlock } from '../../../../types/configTypes'
+import { DocsHelper } from '../../../../helpers/DocsHelper'
 import { api, reactivity, otherServices } from './sections'
 
-export default [
+const config: ApiDocsBlock[] = [
   DocsHelper.title('colorsConfig.title'),
   DocsHelper.paragraph('colorsConfig.about'),
 
@@ -13,4 +13,6 @@ export default [
   ...reactivity,
   ...otherServices,
   ...api,
-] as ApiDocsBlock[]
+]
+
+export default config

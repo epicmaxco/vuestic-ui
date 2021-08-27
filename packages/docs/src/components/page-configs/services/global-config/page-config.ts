@@ -1,5 +1,5 @@
-import { ApiDocsBlock } from '@/types/configTypes'
-import { DocsHelper } from '@/helpers/DocsHelper'
+import { ApiDocsBlock } from '../../../../types/configTypes'
+import { DocsHelper } from '../../../../helpers/DocsHelper'
 import {
   setupExampleCode,
   reactiveUpdateExampleCode,
@@ -8,7 +8,7 @@ import {
 } from './code-examples'
 import { api } from './sections'
 
-export default [
+const config: ApiDocsBlock[] = [
   DocsHelper.title('globalConfig.title'),
   DocsHelper.paragraph('globalConfig.subtitle'),
   DocsHelper.paragraph('globalConfig.structure'),
@@ -31,4 +31,6 @@ export default [
   DocsHelper.link('globalConfig.links.icons', '/services/icons-config'),
 
   ...api,
-] as ApiDocsBlock[]
+]
+
+export default config

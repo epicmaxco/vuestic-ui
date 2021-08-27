@@ -1,7 +1,7 @@
-import { ApiDocsBlock } from '@/types/configTypes'
-import { DocsHelper } from '@/helpers/DocsHelper'
+import { ApiDocsBlock } from '../../../../types/configTypes'
+import { DocsHelper } from '../../../../helpers/DocsHelper'
 
-export default [
+const config: ApiDocsBlock[] = [
   DocsHelper.title('grid.title'),
   DocsHelper.paragraph('grid.summaryText'),
 
@@ -67,4 +67,6 @@ export default [
   DocsHelper.paragraph('grid.api.justifySelf.variants[1]'),
   DocsHelper.paragraph('grid.api.justifySelf.variants[2]'),
   DocsHelper.paragraph('grid.api.justifySelf.variants[3]'),
-] as ApiDocsBlock[]
+]
+
+export default config

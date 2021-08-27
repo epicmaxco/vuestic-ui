@@ -1,9 +1,9 @@
 import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
-import VaSelect
-  from 'vuestic-ui/src/components/va-select/VaSelect.vue'
+import { DocsHelper } from '../../../../helpers/DocsHelper'
+import VaSelect from 'vuestic-ui/src/components/va-select/VaSelect.vue'
 import apiOptions from './api-options'
 
-export default [
+const config: ApiDocsBlock[] = [
   {
     type: BlockType.TITLE,
     translationString: 'select.title',
@@ -171,9 +171,8 @@ export default [
     type: BlockType.SUBTITLE,
     translationString: 'all.api',
   },
-  {
-    type: BlockType.API,
-    componentOptions: VaSelect,
-    apiOptions,
-  },
-] as ApiDocsBlock[]
+
+  DocsHelper.api(VaSelect, apiOptions),
+]
+
+export default config

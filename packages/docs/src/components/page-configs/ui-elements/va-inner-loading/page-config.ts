@@ -1,8 +1,9 @@
 import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
+import { DocsHelper } from '../../../../helpers/DocsHelper'
 import VaInnerLoading from 'vuestic-ui/src/components/va-inner-loading/VaInnerLoading.vue'
 import apiOptions from './api-options'
 
-export default [
+const config: ApiDocsBlock[] = [
   {
     type: BlockType.TITLE,
     translationString: 'innerLoading.title',
@@ -67,9 +68,8 @@ export default [
     type: BlockType.SUBTITLE,
     translationString: 'all.api',
   },
-  {
-    type: BlockType.API,
-    componentOptions: VaInnerLoading,
-    apiOptions,
-  },
-] as ApiDocsBlock[]
+
+  DocsHelper.api(VaInnerLoading, apiOptions),
+]
+
+export default config

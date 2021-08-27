@@ -1,6 +1,6 @@
-import { ApiDocsBlock } from '@/types/configTypes'
-import { DocsHelper } from '@/helpers/DocsHelper'
-import { TableData, TableColumn } from '@/components/DocsTable/DocsTable'
+import { ApiDocsBlock } from '../../../../../types/configTypes'
+import { DocsHelper } from '../../../../../helpers/DocsHelper'
+import { TableData, TableColumn } from '../../../../../components/DocsTable/DocsTable'
 
 const columns: TableColumn[] = [
   'Prop',
@@ -37,7 +37,7 @@ const tableData: TableData = [
   ['spin', "`'clockwise' | 'counter-clockwise' | undefined`", 'iconsConfig.api.spin'],
 ]
 
-export const config = [
+export const config: ApiDocsBlock[] = [
   DocsHelper.subtitle('iconsConfig.api.title'),
   DocsHelper.table(columns, tableData),
-] as ApiDocsBlock[]
+]

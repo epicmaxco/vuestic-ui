@@ -1,5 +1,5 @@
-import { ApiDocsBlock } from '@/types/configTypes'
-import { DocsHelper } from '@/helpers/DocsHelper'
+import { ApiDocsBlock } from '../../../../types/configTypes'
+import { DocsHelper } from '../../../../helpers/DocsHelper'
 import {
   installation,
   quickStart,
@@ -10,7 +10,7 @@ import {
   treeShakingPluginExample,
 } from './code-examples'
 
-export default [
+const config: ApiDocsBlock[] = [
   DocsHelper.title('installation.title'),
   DocsHelper.paragraph('installation.description'),
   DocsHelper.subtitle('installation.manual.title'),
@@ -59,4 +59,6 @@ export default [
   DocsHelper.code(treeShakingPluginExample),
 
   DocsHelper.alert('installation.treeShaking.attention.cssLoader', 'info'),
-] as ApiDocsBlock[]
+]
+
+export default config

@@ -1,5 +1,5 @@
-import { ApiDocsBlock } from '@/types/configTypes'
-import { DocsHelper } from '@/helpers/DocsHelper'
+import { ApiDocsBlock } from '../../../../types/configTypes'
+import { DocsHelper } from '../../../../helpers/DocsHelper'
 import { linkOptions, tableData, columns } from './options'
 import {
   codeForCodeblock,
@@ -9,7 +9,7 @@ import {
   apiOptions,
 } from './code-examples'
 
-export default [
+const config: ApiDocsBlock[] = [
   DocsHelper.title('documentationPage.title'),
   DocsHelper.paragraph('documentationPage.description'),
 
@@ -108,4 +108,6 @@ export default [
   DocsHelper.code('DocsHelper.alert(\'translation.path\', \'#ff0000\')'),
   DocsHelper.paragraph('documentationPage.compilesTo'),
   DocsHelper.alert('documentationPage.blocktypes.alert.example', '#ff0000'),
-] as ApiDocsBlock[]
+]
+
+export default config

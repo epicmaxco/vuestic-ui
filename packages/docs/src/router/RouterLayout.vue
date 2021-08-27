@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import layouts from '@/layouts'
+import layouts from '../layouts'
 
 export default {
   name: 'DocsRouterLayout',

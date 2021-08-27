@@ -1,10 +1,10 @@
 import { ApiDocsBlock } from '../../../../types/configTypes'
+import { DocsHelper } from '../../../../helpers/DocsHelper'
 import VaProgressCircle
   from 'vuestic-ui/src/components/va-progress-bar/progress-types/VaProgressCircle.vue'
 import apiOptions from './api-options'
-import { DocsHelper } from '../../../../helpers/DocsHelper'
 
-export default [
+const config: ApiDocsBlock[] = [
   DocsHelper.title('progressCircle.title'),
   DocsHelper.paragraph('progressCircle.summaryText'),
 
@@ -42,4 +42,6 @@ export default [
 
   DocsHelper.subtitle('all.api'),
   DocsHelper.api(VaProgressCircle, apiOptions),
-] as ApiDocsBlock[]
+]
+
+export default config

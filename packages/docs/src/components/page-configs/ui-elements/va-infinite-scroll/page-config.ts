@@ -1,8 +1,9 @@
 import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
+import { DocsHelper } from '../../../../helpers/DocsHelper'
 import VaInfiniteScroll from 'vuestic-ui/src/components/va-infinite-scroll/VaInfiniteScroll.vue'
 import apiOptions from './api-options'
 
-export default [
+const config: ApiDocsBlock[] = [
   {
     type: BlockType.TITLE,
     translationString: 'infiniteScroll.title',
@@ -63,9 +64,8 @@ export default [
     type: BlockType.EXAMPLE,
     component: 'va-infinite-scroll/CustomTarget',
   },
-  {
-    type: BlockType.API,
-    componentOptions: VaInfiniteScroll,
-    apiOptions,
-  },
-] as ApiDocsBlock[]
+
+  DocsHelper.api(VaInfiniteScroll, apiOptions),
+]
+
+export default config

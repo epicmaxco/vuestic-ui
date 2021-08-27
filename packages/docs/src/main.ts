@@ -9,7 +9,7 @@ import AlgoliaColorPlugin from './components/sidebar/algolia-search/algolia-colo
 import { VuesticPlugin } from 'vuestic-ui/src/main'
 import { VuesticConfig } from './config/vuestic-config'
 import { useGtag } from './services/gtag'
-import { useMeta } from '@/services/vue-meta'
+import { useMeta } from './services/vue-meta'
 
 export const i18n = createI18n({
   locale: DEFAULT_LANGUAGE,

@@ -1,7 +1,7 @@
-import { ApiDocsBlock } from '@/types/configTypes'
-import { DocsHelper } from '@/helpers/DocsHelper'
+import { ApiDocsBlock } from '../../../../../types/configTypes'
+import { DocsHelper } from '../../../../../helpers/DocsHelper'
 
-export const config = [
+export const config: ApiDocsBlock[] = [
   DocsHelper.paragraph('iconsConfig.problem.definition'),
   DocsHelper.paragraph('iconsConfig.problem.materialIcons'),
   DocsHelper.code('<span class="material-icons">star</span>'),
@@ -10,4 +10,4 @@ export const config = [
   DocsHelper.code('<i class="fas fa-star"></i>'),
 
   DocsHelper.paragraph('iconsConfig.problem.summary'),
-] as ApiDocsBlock[]
+]

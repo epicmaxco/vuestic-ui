@@ -1,10 +1,10 @@
 import { ApiDocsBlock } from '../../../../types/configTypes'
+import { DocsHelper } from '../../../../helpers/DocsHelper'
 import VaSidebarItem from 'vuestic-ui/src/components/va-sidebar/VaSidebarItem/VaSidebarItem.vue'
 import apiOptions from './api-options'
-import { DocsHelper } from '../../../../helpers/DocsHelper'
 import { icons, simple, components, active } from './examples'
 
-export default [
+const config: ApiDocsBlock[] = [
   DocsHelper.title('sidebarItem.title'),
   DocsHelper.paragraph('sidebarItem.summaryText'),
 
@@ -19,5 +19,7 @@ export default [
   ...icons,
   ...components,
 
-  DocsHelper.api(VaSidebarItem as any, apiOptions),
-] as ApiDocsBlock[]
+  DocsHelper.api(VaSidebarItem, apiOptions),
+]
+
+export default config

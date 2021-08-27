@@ -1,8 +1,8 @@
-import { ApiDocsBlock } from '@/types/configTypes'
-import { DocsHelper } from '@/helpers/DocsHelper'
+import { ApiDocsBlock } from '../../../../types/configTypes'
+import { DocsHelper } from '../../../../helpers/DocsHelper'
 import { npmScripts, componentFolderStructure } from './code-examples'
 
-export default [
+const config: ApiDocsBlock[] = [
   DocsHelper.title('guide.title'),
   DocsHelper.paragraph('guide.description'),
 
@@ -53,4 +53,6 @@ export default [
 
   DocsHelper.subtitle('guide.credits.title'),
   DocsHelper.paragraph('guide.credits.description'),
-] as ApiDocsBlock[]
+]
+
+export default config

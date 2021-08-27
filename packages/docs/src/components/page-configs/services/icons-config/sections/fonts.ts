@@ -1,8 +1,8 @@
-import { ApiDocsBlock } from '@/types/configTypes'
-import { DocsHelper } from '@/helpers/DocsHelper'
+import { ApiDocsBlock } from '../../../../../types/configTypes'
+import { DocsHelper } from '../../../../../helpers/DocsHelper'
 import { fontCodeExample, fontTransformationsExample } from '../code-examples'
 
-export const config = [
+export const config: ApiDocsBlock[] = [
   DocsHelper.subtitle('iconsConfig.fonts.title'),
   DocsHelper.paragraph('iconsConfig.fonts.about'),
 
@@ -21,4 +21,4 @@ export const config = [
     '/services/global-config',
     { preText: 'iconsConfig.fonts.readMore' },
   ),
-] as ApiDocsBlock[]
+]

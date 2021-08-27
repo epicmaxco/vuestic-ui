@@ -1,8 +1,9 @@
 import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
+import { DocsHelper } from '../../../../helpers/DocsHelper'
 import VaColorPalette from 'vuestic-ui/src/components/va-color-palette/VaColorPalette.vue'
-import apiOptions, { apiOptionsAdvanced } from './api-options'
+import apiOptions from './api-options'
 
-export default [
+const config: ApiDocsBlock[] = [
   {
     type: BlockType.TITLE,
     translationString: 'colorPalette.title',
@@ -39,25 +40,12 @@ export default [
     type: BlockType.EXAMPLE,
     component: 'va-color-palette/Indicator',
   },
-  // {
-  //   type: BlockType.HEADLINE,
-  //   translationString: 'colorPalette.examples.advanced.title',
-  // },
-  // {
-  //   type: BlockType.PARAGRAPH,
-  //   translationString: 'colorPalette.examples.advanced.text',
-  // },
-  // {
-  //   type: BlockType.EXAMPLE,
-  //   component: 'va-color-palette/Advanced',
-  // },
   {
     type: BlockType.SUBTITLE,
     translationString: 'colorPalette.api.colorPalette',
   },
-  {
-    type: BlockType.API,
-    componentOptions: VaColorPalette,
-    apiOptions,
-  },
-] as ApiDocsBlock[]
+
+  DocsHelper.api(VaColorPalette, apiOptions),
+]
+
+export default config

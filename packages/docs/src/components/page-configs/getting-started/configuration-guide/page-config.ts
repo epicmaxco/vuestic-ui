@@ -7,7 +7,7 @@ import {
   componentsConfig,
 } from './code-examples'
 
-export default [
+const config: ApiDocsBlock[] = [
   DocsHelper.title('configurationGuide.title'),
   DocsHelper.paragraph('configurationGuide.description'),
   DocsHelper.subtitle('configurationGuide.colors.title'),
@@ -35,4 +35,6 @@ export default [
   DocsHelper.paragraph('configurationGuide.components.example'),
   DocsHelper.paragraph('configurationGuide.components.more'),
   DocsHelper.link('configurationGuide.readMore', '/services/components-config'),
-] as ApiDocsBlock[]
+]
+
+export default config

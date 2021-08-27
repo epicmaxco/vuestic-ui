@@ -1,7 +1,7 @@
-import { ApiDocsBlock } from '@/types/configTypes'
-import { DocsHelper } from '@/helpers/DocsHelper'
-import { TranslationStatusPath, languages } from '@/locales'
-import { TableData, TableColumn } from '@/components/DocsTable/DocsTable'
+import { ApiDocsBlock } from '../../../../types/configTypes'
+import { DocsHelper } from '../../../../helpers/DocsHelper'
+import { TranslationStatusPath, languages } from '../../../../locales'
+import { TableData, TableColumn } from '../../../../components/DocsTable/DocsTable'
 
 const columns: TableColumn[] = [
   'translation.table.language',
@@ -24,7 +24,7 @@ export const translationSync = 'yarn sync:translation <target locale file>'
 export const searchUnusedTranslations = 'yarn search:unused:translation'
 export const searchMissedTranslations = 'yarn search:missed:translation'
 
-export default [
+const config: ApiDocsBlock[] = [
   DocsHelper.title('translation.title'),
   DocsHelper.paragraph('translation.description'),
   DocsHelper.table(columns, translationStatuses),
@@ -40,4 +40,6 @@ export default [
   DocsHelper.subtitle('translation.missed.title'),
   DocsHelper.paragraph('translation.missed.description'),
   DocsHelper.code(searchMissedTranslations, 'bash'),
-] as ApiDocsBlock[]
+]
+
+export default config

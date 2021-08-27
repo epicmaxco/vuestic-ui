@@ -1,10 +1,9 @@
 import { ApiDocsBlock, BlockType } from '../../../../types/configTypes'
-import VaTabs
-  from 'vuestic-ui/src/components/va-tabs/VaTabs.vue'
+import { DocsHelper } from '../../../../helpers/DocsHelper'
+import VaTabs from 'vuestic-ui/src/components/va-tabs/VaTabs.vue'
 import apiOptions from './api-options'
-import { VueConstructor } from 'vue-class-component'
 
-export default [
+const config: ApiDocsBlock[] = [
   {
     type: BlockType.TITLE,
     translationString: 'tabs.title',
@@ -65,15 +64,10 @@ export default [
     type: BlockType.EXAMPLE,
     component: 'va-tabs/Stateful',
   },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'all.api',
-  },
-  {
-    type: BlockType.API,
-    componentOptions: VaTabs as unknown as VueConstructor,
-    apiOptions: apiOptions,
-  },
+
+  DocsHelper.subtitle('all.api'),
+  DocsHelper.api(VaTabs, apiOptions),
+
   {
     type: BlockType.SUBTITLE,
     translationString: 'tabs.faq.subtitle',
@@ -86,4 +80,6 @@ export default [
     type: BlockType.PARAGRAPH,
     translationString: 'tabs.faq.questions[0].answer',
   },
-] as ApiDocsBlock[]
+]
+
+export default config

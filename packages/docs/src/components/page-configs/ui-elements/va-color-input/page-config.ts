@@ -1,8 +1,9 @@
 import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
+import { DocsHelper } from '../../../../helpers/DocsHelper'
 import VaColorInput from 'vuestic-ui/src/components/va-color-input/VaColorInput.vue'
 import apiOptions from './api-options'
 
-export default [
+const config: ApiDocsBlock[] = [
   {
     type: BlockType.TITLE,
     translationString: 'colorInput.title',
@@ -71,9 +72,8 @@ export default [
     type: BlockType.SUBTITLE,
     translationString: 'colorInput.api.colorInput',
   },
-  {
-    type: BlockType.API,
-    componentOptions: VaColorInput,
-    apiOptions,
-  },
-] as ApiDocsBlock[]
+
+  DocsHelper.api(VaColorInput, apiOptions),
+]
+
+export default config

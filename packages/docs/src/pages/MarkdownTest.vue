@@ -5,7 +5,7 @@
 <script lang="ts">
 // @ts-ignore
 import { Options, Vue } from 'vue-class-component'
-import MdView from '@/utilities/markdown-view/MarkdownView.vue'
+import MdView from '../utilities/markdown-view/MarkdownView.vue'
 
 @Options({
   name: 'MarkdownTest',

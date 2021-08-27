@@ -1,7 +1,7 @@
-import { ApiDocsBlock } from '@/types/configTypes'
-import { DocsHelper } from '@/helpers/DocsHelper'
+import { ApiDocsBlock } from '../../../../types/configTypes'
+import { DocsHelper } from '../../../../helpers/DocsHelper'
 
-export default [
+const config: ApiDocsBlock[] = [
   DocsHelper.title('reset.title'),
   DocsHelper.paragraph('reset.description'),
 
@@ -9,4 +9,6 @@ export default [
   DocsHelper.paragraph('reset.features.info'),
   DocsHelper.paragraph('reset.features.list'),
   DocsHelper.paragraph('reset.features.more'),
-] as ApiDocsBlock[]
+]
+
+export default config

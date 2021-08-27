@@ -1,9 +1,9 @@
-import { ApiDocsBlock } from '@/types/configTypes'
-import { DocsHelper } from '@/helpers/DocsHelper'
+import { ApiDocsBlock } from '../../../../types/configTypes'
+import { DocsHelper } from '../../../../helpers/DocsHelper'
 import { componentsConfigCodeExample } from './code-examples'
 import { api } from './sections'
 
-export default [
+const config: ApiDocsBlock[] = [
   DocsHelper.title('componentsConfig.title'),
   DocsHelper.paragraph('componentsConfig.subtitle'),
   DocsHelper.code(componentsConfigCodeExample),
@@ -17,4 +17,6 @@ export default [
   DocsHelper.paragraph('componentsConfig.vaConfig.explain'),
 
   ...api,
-] as ApiDocsBlock[]
+]
+
+export default config

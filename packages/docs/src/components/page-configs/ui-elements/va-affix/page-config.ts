@@ -1,10 +1,9 @@
 import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
-import { VueConstructor } from 'vue-class-component'
-import VaAffix
-  from 'vuestic-ui/src/components/va-affix/VaAffix.vue'
+import { DocsHelper } from '../../../../helpers/DocsHelper'
+import VaAffix from 'vuestic-ui/src/components/va-affix/VaAffix.vue'
 import apiOptions from './api-options'
 
-export default [
+const config: ApiDocsBlock[] = [
   {
     type: BlockType.TITLE,
     translationString: 'affix.title',
@@ -45,9 +44,8 @@ export default [
     type: BlockType.SUBTITLE,
     translationString: 'all.api',
   },
-  {
-    type: BlockType.API,
-    componentOptions: VaAffix as unknown as VueConstructor,
-    apiOptions,
-  },
-] as ApiDocsBlock[]
+
+  DocsHelper.api(VaAffix, apiOptions),
+]
+
+export default config

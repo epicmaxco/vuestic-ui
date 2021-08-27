@@ -71,7 +71,7 @@
 // @ts-nocheck
 import { watch } from 'vue'
 import { Options, Vue } from 'vue-class-component'
-import { ThemeName, ThemeNameIterator } from '@/config/theme-config'
+import { ThemeName, ThemeNameIterator } from '../../config/theme-config'
 import { capitalize } from 'lodash'
 import { getColors } from 'vuestic-ui/src/services/color-config/color-config'
 

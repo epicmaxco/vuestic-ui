@@ -1,8 +1,8 @@
-import { ApiDocsBlock } from '@/types/configTypes'
-import { DocsHelper } from '@/helpers/DocsHelper'
+import { ApiDocsBlock } from '../../../../types/configTypes'
+import { DocsHelper } from '../../../../helpers/DocsHelper'
 import { generalScheme, componentScheme, overriding } from './code-examples'
 
-export default [
+const config: ApiDocsBlock[] = [
   DocsHelper.title('cssVariables.title'),
   DocsHelper.paragraph('cssVariables.description'),
 
@@ -14,4 +14,6 @@ export default [
   DocsHelper.subtitle('cssVariables.overriding.title'),
   DocsHelper.paragraph('cssVariables.overriding.description'),
   DocsHelper.code(overriding, 'scss'),
-] as ApiDocsBlock[]
+]
+
+export default config

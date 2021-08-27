@@ -1,6 +1,6 @@
-import { ApiDocsBlock } from '@/types/configTypes'
-import { DocsHelper } from '@/helpers/DocsHelper'
-import { TableData, TableColumn } from '@/components/DocsTable/DocsTable'
+import { ApiDocsBlock } from '../../../../../types/configTypes'
+import { DocsHelper } from '../../../../../helpers/DocsHelper'
+import { TableData, TableColumn } from '../../../../../components/DocsTable/DocsTable'
 
 export const columns: TableColumn[] = [
   'params',
@@ -14,7 +14,7 @@ export const tableData: TableData = [
   ['colors', 'ColorsConfig', 'globalConfig.api.colors'],
 ]
 
-export const config = [
+export const config: ApiDocsBlock[] = [
   DocsHelper.subtitle('all.api'),
   DocsHelper.table(columns, tableData),
-] as ApiDocsBlock[]
+]

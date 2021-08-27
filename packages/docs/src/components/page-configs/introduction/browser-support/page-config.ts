@@ -1,6 +1,6 @@
-import { ApiDocsBlock } from '@/types/configTypes'
-import { DocsHelper } from '@/helpers/DocsHelper'
-import { TableData, TableColumn } from '@/components/DocsTable/DocsTable'
+import { ApiDocsBlock } from '../../../../types/configTypes'
+import { DocsHelper } from '../../../../helpers/DocsHelper'
+import { TableData, TableColumn } from '../../../../components/DocsTable/DocsTable'
 
 const columns: TableColumn[] = [
   'browserSupport.table.browser',
@@ -15,8 +15,10 @@ const tableData: TableData = [
   ['IE11/Safari 9', '-'],
 ]
 
-export default [
+const config: ApiDocsBlock[] = [
   DocsHelper.title('browserSupport.title'),
   DocsHelper.paragraph('browserSupport.description'),
   DocsHelper.table(columns, tableData),
-] as ApiDocsBlock[]
+]
+
+export default config
