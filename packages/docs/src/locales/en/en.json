@@ -552,7 +552,7 @@
         "closeable": "Add a close alert area",
         "center": "Center the title and description of the alert",
         "borderColor": "Border color of the alert",
-        "border": "Stripe border for alert. 'top', 'right', 'bottom', 'left' sizes are available.",
+        "border": "Stripe border for alert. `top`, `right`, `bottom`, `left` sizes are available.",
         "dense": "Reduces alert paddings"
       },
       "methods": {
