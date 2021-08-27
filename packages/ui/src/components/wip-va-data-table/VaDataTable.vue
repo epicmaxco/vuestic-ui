@@ -38,22 +38,24 @@
         <slot name="body.prepend" />
 
 <!--        Render rows (`tr`s). Select a row on click or select a bunch of rows on shift-click-->
-        <tr v-for="row in rows" @click.exact="toggleRowSelection(row)" @click.ctrl.exact="ctrlSelectRow(row)" @click.shift.exact="shiftSelectRows(row)" :class="{ selectable, selected: isRowSelected(row) }" :style="rowCSSVariables">
-
+        <tr v-for="(row, index) in rows" @click.exact="toggleRowSelection(row)" @click.ctrl.exact="ctrlSelectRow(row)" @click.shift.exact="shiftSelectRows(row)" :class="{ selectable, selected: isRowSelected(row) }" :style="rowCSSVariables">
+<!--          Pagination. If there's some value to the `per-page` prop, then check if the element with that index should be visible. If no `per-page` then just render anyway.      -->
+          <template v-if="perPage ? (index > perPage * (currentPage - 1)) && (index < perPage * currentPage) : true">
 <!--          Render an additional column (for selectable tables only) with checkboxes to toggle selection-->
-          <td v-if="selectable">
-            <input type="checkbox" :checked="isRowSelected(row)" @click.stop="ctrlSelectRow(row)">
-          </td>
+            <td v-if="selectable">
+              <input type="checkbox" :checked="isRowSelected(row)" @click.stop="ctrlSelectRow(row)">
+            </td>
 
 <!--          Render cells for a given row-->
-          <td v-for="cell in row.cells" :style="getCellCSSVariables(cell)">
+            <td v-for="cell in row.cells" :style="getCellCSSVariables(cell)">
 
 <!--            Substitute cell's content with with `cell(columnKey)` slot's value or common `cell` slot's value or (if neither exists) with that cell's actual value-->
-            <slot v-if="`cell(${cell.column.key})` in slots" :name="`cell(${cell.column.key})`" v-bind="cell"/>
-            <slot v-else name="cell" v-bind="cell">
-              {{ cell.value }}
-            </slot>
-          </td>
+              <slot v-if="`cell(${cell.column.key})` in slots" :name="`cell(${cell.column.key})`" v-bind="cell"/>
+              <slot v-else name="cell" v-bind="cell">
+                {{ cell.value }}
+              </slot>
+            </td>
+          </template>
         </tr>
 
 <!--        Append rows to tbody (ignored if no such slots provided)-->
@@ -132,6 +134,12 @@ export default defineComponent({
     sortingOrder: {
       type: String as PropType<TSortingOrder>,
       default: "asc",
+    },
+    perPage: {
+      type: Number,
+    },
+    currentPage: {
+      type: Number,
     },
     loading: {
       type: Boolean,

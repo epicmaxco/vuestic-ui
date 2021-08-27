@@ -371,6 +371,12 @@
     <VbCard title="Initially sorted table (by `idSquared`) (desc)" class="demo">
       <va-data-table :items="evenItemsShuffled" :columns="evenColumnsSortable" v-model:sort-by="sortByModel" v-model:sorting-order="sortingOrderModel"/>
     </VbCard>
+
+    <VbCard title="Pagination" class="demo">
+      {{ currentPage }}
+      <va-data-table :items="manyItems" :per-page="10" :current-page="currentPage" />
+      <va-pagination v-model.number="currentPage" input :pages="100" />
+    </VbCard>
   </VbDemo>
 </template>
 
@@ -406,6 +412,14 @@ export default defineComponent({
     excessiveItems[5]["anotherExcessiveProp"] = "The other excessive prop's value"
 
     const evenItemsShuffled = shuffle(evenItems);
+
+    const manyItems = Array.from(Array(1000), (u, i) => {
+      return {
+        id: i,
+        name: `Number ${i}`,
+        idSquared: `The squared index is ${i ** 2}`
+      }
+    });
 
     return {
       evenColumns: [
@@ -517,6 +531,9 @@ export default defineComponent({
 
       sortByModel: "idSquared",
       sortingOrderModel: "desc",
+
+      manyItems,
+      currentPage: 1,
     }
   },
 
