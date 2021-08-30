@@ -78,6 +78,7 @@ const config: ApiDocsBlock[] = [
     'va-date-picker/Color',
   ),
 
+  DocsHelper.subtitle('all.api'),
   DocsHelper.api(VaDatePicker, apiOptions),
 ]
 
