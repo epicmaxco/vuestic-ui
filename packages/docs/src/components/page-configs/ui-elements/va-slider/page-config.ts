@@ -1,182 +1,81 @@
-import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
+import { ApiDocsBlock } from '../../../../types/configTypes'
 import { DocsHelper } from '../../../../helpers/DocsHelper'
 import VaSlider from 'vuestic-ui/src/components/va-slider/VaSlider.vue'
 import apiOptions from './api-options'
 
 const config: ApiDocsBlock[] = [
-  {
-    type: BlockType.TITLE,
-    translationString: 'slider.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'slider.summaryText',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'all.examples',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'slider.examples.default.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'slider.examples.default.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-slider/Default',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'slider.examples.color.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'slider.examples.color.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-slider/Color',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'slider.examples.minmax.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'slider.examples.minmax.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-slider/MinMax',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'slider.examples.state.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'slider.examples.state.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-slider/State',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'slider.examples.range.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'slider.examples.range.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-slider/Range',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'slider.examples.step.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'slider.examples.step.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-slider/Step',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'slider.examples.pins.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'slider.examples.pins.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-slider/Pins',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'slider.examples.label.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'slider.examples.label.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-slider/Label',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'slider.examples.slots.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'slider.examples.slots.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-slider/Slots',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'slider.examples.icon.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'slider.examples.icon.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-slider/Icon',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'slider.examples.track.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'slider.examples.track.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-slider/Track',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'slider.examples.trackLabel.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'slider.examples.trackLabel.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-slider/TrackLabel',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'slider.examples.vertical.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'slider.examples.vertical.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-slider/Vertical',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'all.api',
-  },
+  DocsHelper.title('slider.title'),
+  DocsHelper.paragraph('slider.summaryText'),
 
+  DocsHelper.subtitle('all.examples'),
+
+  ...DocsHelper.exampleBlock(
+    'slider.examples.default.title',
+    'slider.examples.default.text',
+    'va-slider/Default',
+  ),
+  ...DocsHelper.exampleBlock(
+    'slider.examples.color.title',
+    'slider.examples.color.text',
+    'va-slider/Color',
+  ),
+  ...DocsHelper.exampleBlock(
+    'slider.examples.minmax.title',
+    'slider.examples.minmax.text',
+    'va-slider/MinMax',
+  ),
+  ...DocsHelper.exampleBlock(
+    'slider.examples.state.title',
+    'slider.examples.state.text',
+    'va-slider/State',
+  ),
+  ...DocsHelper.exampleBlock(
+    'slider.examples.range.title',
+    'slider.examples.range.text',
+    'va-slider/Range',
+  ),
+  ...DocsHelper.exampleBlock(
+    'slider.examples.step.title',
+    'slider.examples.step.text',
+    'va-slider/Step',
+  ),
+  ...DocsHelper.exampleBlock(
+    'slider.examples.pins.title',
+    'slider.examples.pins.text',
+    'va-slider/Pins',
+  ),
+  ...DocsHelper.exampleBlock(
+    'slider.examples.label.title',
+    'slider.examples.label.text',
+    'va-slider/Label',
+  ),
+  ...DocsHelper.exampleBlock(
+    'slider.examples.slots.title',
+    'slider.examples.slots.text',
+    'va-slider/Slots',
+  ),
+  ...DocsHelper.exampleBlock(
+    'slider.examples.icon.title',
+    'slider.examples.icon.text',
+    'va-slider/Icon',
+  ),
+  ...DocsHelper.exampleBlock(
+    'slider.examples.track.title',
+    'slider.examples.track.text',
+    'va-slider/Track',
+  ),
+  ...DocsHelper.exampleBlock(
+    'slider.examples.trackLabel.title',
+    'slider.examples.trackLabel.text',
+    'va-slider/TrackLabel',
+  ),
+  ...DocsHelper.exampleBlock(
+    'slider.examples.vertical.title',
+    'slider.examples.vertical.text',
+    'va-slider/Vertical',
+  ),
+
+  DocsHelper.subtitle('all.api'),
   DocsHelper.api(VaSlider, apiOptions),
 ]
 
