@@ -2554,9 +2554,6 @@
         "title": "Disabled",
         "text": "All user interactions can be disabled."
       }
-    },
-    "api": {
-      "colorInput": "Color Input API"
     }
   },
   "colorPalette": {

@@ -2554,9 +2554,6 @@
         "title": "Недоступное поле ввода",
         "text": "Свойство `disabled` запрещает любые действия с полем ввода"
       }
-    },
-    "api": {
-      "colorInput": "API компонента `va-color-input`"
     }
   },
   "colorPalette": {
