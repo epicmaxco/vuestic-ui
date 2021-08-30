@@ -2450,7 +2450,9 @@
         "title": "Variants",
         "text": "Includes single or multiple selects."
       },
-      "decorators": "Decorators",
+      "decorators": {
+        "title": "Decorators"
+      },
       "objectOptions": {
         "title": "Objects as options"
       },
