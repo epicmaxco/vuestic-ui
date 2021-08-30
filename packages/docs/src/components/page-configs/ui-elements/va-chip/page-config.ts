@@ -1,146 +1,66 @@
-import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
+import { ApiDocsBlock } from '../../../../types/configTypes'
 import { DocsHelper } from '../../../../helpers/DocsHelper'
 import VaChip from 'vuestic-ui/src/components/va-chip/VaChip.vue'
 import apiOptions from './api-options'
 
 const config: ApiDocsBlock[] = [
-  {
-    type: BlockType.TITLE,
-    translationString: 'chip.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'chip.summaryText',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'all.examples',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'chip.examples.default.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'chip.examples.default.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-chip/Default',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'chip.examples.outline.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'chip.examples.outline.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-chip/Outline',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'chip.examples.flat.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'chip.examples.flat.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-chip/Flat',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'chip.examples.square.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'chip.examples.square.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-chip/Square',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'chip.examples.color.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'chip.examples.color.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-chip/Color',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'chip.examples.size.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'chip.examples.size.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-chip/Size',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'chip.examples.icon.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'chip.examples.icon.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-chip/Icon',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'chip.examples.closeable.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'chip.examples.closeable.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-chip/Closeable',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'chip.examples.link.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'chip.examples.link.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-chip/Link',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'chip.examples.shadow.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'chip.examples.shadow.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-chip/Shadow',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'all.api',
-  },
+  DocsHelper.title('chip.title'),
+  DocsHelper.paragraph('chip.summaryText'),
 
+  DocsHelper.subtitle('all.examples'),
+
+  ...DocsHelper.exampleBlock(
+    'chip.examples.default.title',
+    'chip.examples.default.text',
+    'va-chip/Default',
+  ),
+  ...DocsHelper.exampleBlock(
+    'chip.examples.outline.title',
+    'chip.examples.outline.text',
+    'va-chip/Outline',
+  ),
+  ...DocsHelper.exampleBlock(
+    'chip.examples.flat.title',
+    'chip.examples.flat.text',
+    'va-chip/Flat',
+  ),
+  ...DocsHelper.exampleBlock(
+    'chip.examples.square.title',
+    'chip.examples.square.text',
+    'va-chip/Square',
+  ),
+  ...DocsHelper.exampleBlock(
+    'chip.examples.color.title',
+    'chip.examples.color.text',
+    'va-chip/Color',
+  ),
+  ...DocsHelper.exampleBlock(
+    'chip.examples.size.title',
+    'chip.examples.size.text',
+    'va-chip/Size',
+  ),
+  ...DocsHelper.exampleBlock(
+    'chip.examples.icon.title',
+    'chip.examples.icon.text',
+    'va-chip/Icon',
+  ),
+  ...DocsHelper.exampleBlock(
+    'chip.examples.closeable.title',
+    'chip.examples.closeable.text',
+    'va-chip/Closeable',
+  ),
+  ...DocsHelper.exampleBlock(
+    'chip.examples.link.title',
+    'chip.examples.link.text',
+    'va-chip/Link',
+  ),
+  ...DocsHelper.exampleBlock(
+    'chip.examples.shadow.title',
+    'chip.examples.shadow.text',
+    'va-chip/Shadow',
+  ),
+
+  DocsHelper.subtitle('all.api'),
   DocsHelper.api(VaChip, apiOptions),
 ]
 
