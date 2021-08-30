@@ -1,74 +1,36 @@
-import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
+import { ApiDocsBlock } from '../../../../types/configTypes'
 import { DocsHelper } from '../../../../helpers/DocsHelper'
 import VaParallax from 'vuestic-ui/src/components/va-parallax/VaParallax.vue'
 import apiOptions from './api-options'
 
 const config: ApiDocsBlock[] = [
-  {
-    type: BlockType.TITLE,
-    translationString: 'parallax.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'parallax.summaryText',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'all.examples',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'parallax.examples.default.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'parallax.examples.default.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-parallax/Default',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'parallax.examples.custom.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'parallax.examples.custom.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-parallax/Custom',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'parallax.examples.reversed.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'parallax.examples.reversed.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-parallax/Reversed',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'parallax.examples.slot.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'parallax.examples.slot.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-parallax/Slot',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'all.api',
-  },
+  DocsHelper.title('parallax.title'),
+  DocsHelper.paragraph('parallax.summaryText'),
 
+  DocsHelper.subtitle('all.examples'),
+
+  ...DocsHelper.exampleBlock(
+    'parallax.examples.default.title',
+    'parallax.examples.default.text',
+    'va-parallax/Default',
+  ),
+  ...DocsHelper.exampleBlock(
+    'parallax.examples.custom.title',
+    'parallax.examples.custom.text',
+    'va-parallax/Custom',
+  ),
+  ...DocsHelper.exampleBlock(
+    'parallax.examples.reversed.title',
+    'parallax.examples.reversed.text',
+    'va-parallax/Reversed',
+  ),
+  ...DocsHelper.exampleBlock(
+    'parallax.examples.slot.title',
+    'parallax.examples.slot.text',
+    'va-parallax/Slot',
+  ),
+
+  DocsHelper.subtitle('all.api'),
   DocsHelper.api(VaParallax, apiOptions),
 ]
 

@@ -2482,15 +2482,15 @@
   },
   "parallax": {
     "title": "Parallax",
-    "summaryText": "Parallax is a component where the background image is moved at a different speed than the foreground content while scrolling.",
+    "summaryText": "Parallax (`va-parallax`) is a component where the background image is moved at a different speed than the foreground content while scrolling.",
     "examples": {
       "default": {
         "title": "Default",
-        "text": "A block with a background image is displayed by default. You need to pass the 'src' property."
+        "text": "A block with a background image is displayed by default. You need to pass the `src` property."
       },
       "custom": {
         "title": "Custom height and speed",
-        "text": "You can adjust parallax height and scroll speed. Attention, the scrolling speed depends on the ratio of the parallax height to the image height."
+        "text": "You can adjust parallax `height` and scroll `speed`. Attention, the scrolling speed depends on the ratio of the parallax height to the image height."
       },
       "reversed": {
         "title": "Reversed",
