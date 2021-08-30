@@ -1892,7 +1892,7 @@
   },
   "sidebarItem": {
     "title": "Sidebar Item",
-    "summaryText": "Компонент `va-sidebar-item` используется как ссылка в [боковой панели](https://vuestic.dev/ui-elements/sidebar)[[target=_blank]].",
+    "summaryText": "Компонент `va-sidebar-item` используется как ссылка в компоненте `va-sidebar`.",
     "examples": {
       "simple": {
         "title": "Базовое использование",
@@ -1908,11 +1908,11 @@
       },
       "icons": {
         "title": "Компоненты `va-sidebar-title` и `va-icon`",
-        "text": "`va-sidebar-title` используется для заполнения всего оставшегося свободного места в `va-sidebar-item`. Вы также можете добавить любые другие компоненты (например [иконки](https://vuestic.dev/ui-elements/icon)[[target=_blank]], [фишки](https://vuestic.dev/ui-elements/chip)[[target=_blank]] или [кнопки](https://vuestic.dev/ui-elements/button)[[target=_blank]])."
+        "text": "`va-sidebar-title` используется для заполнения всего оставшегося свободного места в `va-sidebar-item`. Вы также можете добавить любые другие компоненты (например `va-icon`, `va-chip` или `va-button`)."
       },
       "components": {
         "title": "Продвинутый пример с `va-accordion`",
-        "text": "Компонент `va-sidebar-item` может быть использован с компонентами [va-accordion](https://vuestic.dev/ui-elements/accordion)[[target=_blank]] и [va-сollapse](https://vuestic.dev/ui-elements/сollapse)[[target=_blank]]."
+        "text": "Компонент `va-sidebar-item` может быть использован с компонентами `va-accordion` и `va-сollapse`."
       }
     }
   },

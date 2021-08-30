@@ -1892,7 +1892,7 @@
   },
   "sidebarItem": {
     "title": "Sidebar item",
-    "summaryText": "Used as link in your sidebar.",
+    "summaryText": "Used as link in your `VaSidebar`.",
     "examples": {
       "simple": {
         "title": "Simple usage example",
