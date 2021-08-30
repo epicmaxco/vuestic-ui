@@ -1641,7 +1641,6 @@
       }
     },
     "faq": {
-      "subtitle": "FAQ",
       "questions": [
         {
           "question": "Что произойдет, если будут установлены оба свойства `pages` и `total`?",

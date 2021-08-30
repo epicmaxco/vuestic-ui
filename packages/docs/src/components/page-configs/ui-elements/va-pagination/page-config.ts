@@ -1,132 +1,60 @@
-import { ApiDocsBlock, BlockType } from '../../../../types/configTypes'
+import { ApiDocsBlock } from '../../../../types/configTypes'
 import { DocsHelper } from '../../../../helpers/DocsHelper'
 import VaPagination from 'vuestic-ui/src/components/va-pagination/VaPagination.vue'
 import apiOptions from './api-options'
 
 const config: ApiDocsBlock[] = [
-  {
-    type: BlockType.TITLE,
-    translationString: 'pagination.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'pagination.summaryText',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'all.examples',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'pagination.examples.default.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'pagination.examples.default.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-pagination/Default',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'pagination.examples.colors.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'pagination.examples.colors.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-pagination/Colors',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'pagination.examples.sizes.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'pagination.examples.sizes.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-pagination/Sizes',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'pagination.examples.limitVisible.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'pagination.examples.limitVisible.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-pagination/LimitVisible',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'pagination.examples.icons.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'pagination.examples.icons.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-pagination/Icons',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'pagination.examples.withInput.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'pagination.examples.withInput.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-pagination/WithInput',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'pagination.examples.totalAndPageSize.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'pagination.examples.totalAndPageSize.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-pagination/TotalAndPageSize',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'all.api',
-  },
+  DocsHelper.title('pagination.title'),
+  DocsHelper.paragraph('pagination.summaryText'),
 
+  DocsHelper.subtitle('all.examples'),
+
+  ...DocsHelper.exampleBlock(
+    'pagination.examples.default.title',
+    'pagination.examples.default.text',
+    'va-pagination/Default',
+  ),
+  ...DocsHelper.exampleBlock(
+    'pagination.examples.colors.title',
+    'pagination.examples.colors.text',
+    'va-pagination/Colors',
+  ),
+  ...DocsHelper.exampleBlock(
+    'pagination.examples.sizes.title',
+    'pagination.examples.sizes.text',
+    'va-pagination/Sizes',
+  ),
+  ...DocsHelper.exampleBlock(
+    'pagination.examples.limitVisible.title',
+    'pagination.examples.limitVisible.text',
+    'va-pagination/LimitVisible',
+  ),
+  ...DocsHelper.exampleBlock(
+    'pagination.examples.icons.title',
+    'pagination.examples.icons.text',
+    'va-pagination/Icons',
+  ),
+  ...DocsHelper.exampleBlock(
+    'pagination.examples.withInput.title',
+    'pagination.examples.withInput.text',
+    'va-pagination/WithInput',
+  ),
+  ...DocsHelper.exampleBlock(
+    'pagination.examples.totalAndPageSize.title',
+    'pagination.examples.totalAndPageSize.text',
+    'va-pagination/TotalAndPageSize',
+  ),
+
+  DocsHelper.subtitle('all.api'),
   DocsHelper.api(VaPagination, apiOptions),
 
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'pagination.faq.subtitle',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'pagination.faq.questions[0].question',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'pagination.faq.questions[0].answer',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'pagination.faq.questions[1].question',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'pagination.faq.questions[1].answer',
-  },
+  DocsHelper.subtitle('all.faq'),
+
+  DocsHelper.headline('pagination.faq.questions[0].question'),
+  DocsHelper.paragraph('pagination.faq.questions[0].answer'),
+
+  DocsHelper.headline('pagination.faq.questions[1].question'),
+  DocsHelper.paragraph('pagination.faq.questions[1].answer'),
 ]
 
 export default config

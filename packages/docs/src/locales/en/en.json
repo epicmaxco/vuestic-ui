@@ -1641,7 +1641,6 @@
       }
     },
     "faq": {
-      "subtitle": "FAQ",
       "questions": [
         {
           "question": "What will happen if both `pages` and `total` props are set?",
