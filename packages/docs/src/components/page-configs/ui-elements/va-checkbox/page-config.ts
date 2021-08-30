@@ -1,90 +1,43 @@
-import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
+import { ApiDocsBlock } from '../../../../types/configTypes'
 import { DocsHelper } from '../../../../helpers/DocsHelper'
 import VaCheckbox from 'vuestic-ui/src/components/va-checkbox/VaCheckbox.vue'
 import apiOptions from './api-options'
 
 const config: ApiDocsBlock[] = [
-  {
-    type: BlockType.TITLE,
-    translationString: 'checkbox.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'checkbox.summaryText',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'all.examples',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'checkbox.examples.default.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'checkbox.examples.default.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-checkbox/Default',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'checkbox.examples.label.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'checkbox.examples.label.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-checkbox/Label',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'checkbox.examples.indeterminate.title',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-checkbox/Indeterminate',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'checkbox.examples.coloring.title',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-checkbox/Coloring',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'checkbox.examples.array.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'checkbox.examples.array.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-checkbox/Array',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'checkbox.examples.error.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'checkbox.examples.error.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-checkbox/Error',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'all.api',
-  },
+  DocsHelper.title('checkbox.title'),
+  DocsHelper.paragraph('checkbox.summaryText'),
 
+  DocsHelper.subtitle('all.examples'),
+
+  ...DocsHelper.exampleBlock(
+    'checkbox.examples.default.title',
+    'checkbox.examples.default.text',
+    'va-checkbox/Default',
+  ),
+  ...DocsHelper.exampleBlock(
+    'checkbox.examples.label.title',
+    'checkbox.examples.label.text',
+    'va-checkbox/Label',
+  ),
+
+  DocsHelper.headline('checkbox.examples.indeterminate.title'),
+  DocsHelper.example('va-checkbox/Indeterminate'),
+
+  DocsHelper.headline('checkbox.examples.coloring.title'),
+  DocsHelper.example('va-checkbox/Coloring'),
+
+  ...DocsHelper.exampleBlock(
+    'checkbox.examples.array.title',
+    'checkbox.examples.array.text',
+    'va-checkbox/Array',
+  ),
+  ...DocsHelper.exampleBlock(
+    'checkbox.examples.error.title',
+    'checkbox.examples.error.text',
+    'va-checkbox/Error',
+  ),
+
+  DocsHelper.subtitle('all.api'),
   DocsHelper.api(VaCheckbox, apiOptions),
 ]
 
