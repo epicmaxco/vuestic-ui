@@ -2568,9 +2568,6 @@
         "title": "Indicator",
         "text": "You can apply different styles to the indicator: `dot` and `square` are available. "
       }
-    },
-    "api": {
-      "colorPalette": "Color Palette API"
     }
   },
   "datePicker": {

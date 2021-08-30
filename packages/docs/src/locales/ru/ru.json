@@ -2568,9 +2568,6 @@
         "title": "Индикатор",
         "text": "Вы можете применять к индикатору разные стили, доступны: `dot` и `square`."
       }
-    },
-    "api": {
-      "colorPalette": "API компонента `va-color-palette`"
     }
   },
   "datePicker": {
