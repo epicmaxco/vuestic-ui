@@ -1012,6 +1012,21 @@
       "events": {},
       "methods": {},
       "slots": {}
+    },
+    "VaPopover": {
+      "props": {
+        "title": "Sets the title of the popover",
+        "message": "Message which showed in a popover",
+        "trigger": "Event on which popover is triggered",
+        "open": "Shows popover",
+        "placement": "Sets a popover position",
+        "autoHide": "Adds the ability to hide popover when clicked outside",
+        "hoverOverTimeout": "Delay before opening",
+        "hoverOutTimeout": "Delay before closing"
+      },
+      "events": {},
+      "methods": {},
+      "slots": {}
     }
   },
   "menu": {
@@ -3173,26 +3188,13 @@
       }
     }
   },
-  "VaPopover": {
-    "props": {
-      "title": "Sets the title of the popover",
-      "message": "Message which showed in a popover",
-      "trigger": "Event on which popover is triggered",
-      "open": "Shows popover",
-      "placement": "Sets a popover position",
-      "autoHide": "Adds the ability to hide popover when clicked outside"
-    },
-    "events": {},
-    "methods": {},
-    "slots": {}
-  },
   "popover": {
     "title": "Popover",
     "summaryText": "A `va-popover` can be used to display some text on top of the component.",
     "examples": {
       "default": {
         "title": "Basic usage",
-        "text": "Wrap your component in a `va-popover` tag and provide a message property with text."
+        "text": "Wrap your component in a `va-popover` tag and provide a `message` property with text."
       },
       "color": {
         "title": "Color",

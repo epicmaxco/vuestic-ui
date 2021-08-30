@@ -112,8 +112,8 @@
         "errorMessages": "Сообщения об ошибках для компонента",
         "errorCount": "Количество отображаемых сообщений об ошибках",
         "stateful": "Добавляет возможность работы с компонентом без настройки `v-model`",
-        "color": "Цвет компонента (поддерживаемые темой опции или `HEX`)",
-        "textColor": "Цвет текста (поддерживаемые темой опции или `HEX`)",
+        "color": "Цвет компонента (поддерживаемый темой опции или `HEX`)",
+        "textColor": "Цвет текста (поддерживаемый темой опции или `HEX`)",
         "rules": "Правила валидации <!-- TODO Add link -->",
         "to": "Целевой маршрут ссылки, [подробнее](https://router.vuejs.org/api/#to \"Vue router docs\")[[target=_blank]]",
         "replace": "Если установлено, при навигации вызывается `router.replace()` вместо `router.push()`, поэтому запись в истории не сохраняется. [Подробнее](https://router.vuejs.org/api/#replace \"Vue router docs\")[[target=_blank]]",
@@ -1008,6 +1008,21 @@
     "VaNavbar": {
       "props": {
         "shape": "Задает отображение фигуры на фоне"
+      },
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaPopover": {
+      "props": {
+        "title": "Устанавливает заголовок всплывающего окна",
+        "message": "Сообщение, отображаемое во всплывающем окне",
+        "trigger": "Событие, при котором запускается всплывающее окно",
+        "open": "Показывает всплывающее окно",
+        "placement": "Устанавливает позицию всплывающего окна",
+        "autoHide": "Добавляет возможность скрывать всплывающее окно при нажатии снаружи",
+        "hoverOverTimeout": "Задержка перед открытием",
+        "hoverOutTimeout": "Задержка перед закрытием"
       },
       "events": {},
       "methods": {},
@@ -3173,46 +3188,33 @@
       }
     }
   },
-  "VaPopover": {
-    "props": {
-      "title": "Sets the title of the popover",
-      "message": "Message which showed in a popover",
-      "trigger": "Event on which popover is triggered",
-      "open": "Shows popover",
-      "placement": "Sets a popover position",
-      "autoHide": "Adds the ability to hide popover when clicked outside"
-    },
-    "events": {},
-    "methods": {},
-    "slots": {}
-  },
   "popover": {
     "title": "Popover",
-    "summaryText": "A `va-popover` can be used to display some text on top of the component.",
+    "summaryText": "Компонент `va-popover` может использоваться для отображения текста поверх компонента.",
     "examples": {
       "default": {
-        "title": "Basic usage",
-        "text": "Wrap your component in a `va-popover` tag and provide a message property with text."
+        "title": "Базовое использование",
+        "text": "Оберните компонент тегом `va-popover` и укажите свойство `message`."
       },
       "color": {
-        "title": "Color",
-        "text": "You can set different background colors to the component."
+        "title": "Цвет",
+        "text": "Вы можете установить компоненту разные цвета фона."
       },
       "placement": {
-        "title": "Placement",
-        "text": "A component can be set in a different position. Use a position property to set it: `top`, `left`, `right` and `bottom` are available."
+        "title": "Размещение",
+        "text": "Компонент можно установить в разные позиции. Используйте свойство `position`, чтобы установить его: доступны `top`, `left`, `right` и `bottom`."
       },
       "icon": {
-        "title": "Icon",
-        "text": "You can set an icon to the component."
+        "title": "Иконка",
+        "text": "Вы можете установить компоненту иконку."
       },
       "title": {
-        "title": "Title",
-        "text": "You can set a title to the popover."
+        "title": "Заголовок",
+        "text": "Вы можете установить заголовок для всплывающего окна."
       },
       "trigger": {
-        "title": "Trigger",
-        "text": "Events triggering the popover separated with spaces: `hover`, `click` or `focus`."
+        "title": "Триггер",
+        "text": "События, запускающие всплывающее окно, разделенные пробелами: `hover`, `click` или `focus`."
       }
     }
   },
