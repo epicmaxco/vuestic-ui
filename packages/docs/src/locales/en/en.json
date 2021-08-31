@@ -1689,7 +1689,6 @@
       }
     },
     "faq": {
-      "subtitle": "FAQ",
       "questions": [
         {
           "question": "How can I map content to tabs so that only specific tab content will be displayed?",
