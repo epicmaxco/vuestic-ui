@@ -1,8 +1,9 @@
 import { ApiDocsBlock, BlockType } from '../../../../types/configTypes'
+import { DocsHelper } from '../../../../helpers/DocsHelper'
 import VaPagination from 'vuestic-ui/src/components/va-pagination/VaPagination.vue'
 import apiOptions from './api-options'
 
-export default [
+const config: ApiDocsBlock[] = [
   {
     type: BlockType.TITLE,
     translationString: 'pagination.title',
@@ -103,11 +104,9 @@ export default [
     type: BlockType.SUBTITLE,
     translationString: 'all.api',
   },
-  {
-    type: BlockType.API,
-    componentOptions: VaPagination,
-    apiOptions,
-  },
+
+  DocsHelper.api(VaPagination, apiOptions),
+
   {
     type: BlockType.SUBTITLE,
     translationString: 'pagination.faq.subtitle',
@@ -128,4 +127,6 @@ export default [
     type: BlockType.PARAGRAPH,
     translationString: 'pagination.faq.questions[1].answer',
   },
-] as ApiDocsBlock[]
+]
+
+export default config

@@ -1,5 +1,5 @@
 <template>
-  <div class="layout gutter--md row">
+  <div class="flex row">
     <div class="flex">
       <h6>Day, 1st month, 2000 year</h6>
       <va-date-picker stateful v-model:view="dayView" />

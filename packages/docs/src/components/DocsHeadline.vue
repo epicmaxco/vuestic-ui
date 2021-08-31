@@ -24,6 +24,7 @@ export default class DocsHeadline extends mixins(PropsMixin) {
   get textComputed () {
     return this.$t(this.text)
   }
+
   get linkTextComputed () {
     return this.$t(this.text, 'en')
   }

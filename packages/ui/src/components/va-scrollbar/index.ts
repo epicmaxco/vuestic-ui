@@ -1,3 +1,4 @@
+import withConfigTransport from '../../services/config-transport/withConfigTransport'
 import VaScrollbar from './VaScrollbar.vue'
 
-export default VaScrollbar
+export default withConfigTransport(VaScrollbar)

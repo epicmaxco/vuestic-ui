@@ -54,6 +54,7 @@ export type ListBlock = {
 
 export type ApiDocsBlock =
   | TextBlock
+  | ListBlock
   | {
     type: BlockType.EXAMPLE,
     component: PathToExample, // path to example

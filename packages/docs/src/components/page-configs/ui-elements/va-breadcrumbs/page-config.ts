@@ -1,11 +1,11 @@
 import { ApiDocsBlock, BlockType } from '../../../../types/configTypes'
+import { DocsHelper } from '../../../../helpers/DocsHelper'
 import VaBreadcrumbs from 'vuestic-ui/src/components/va-breadcrumbs/VaBreadcrumbs.vue'
 import VaBreadcrumbsItem from 'vuestic-ui/src/components/va-breadcrumbs/VaBreadcrumbsItem/VaBreadcrumbsItem.vue'
-import { VueConstructor } from 'vue-class-component'
 import vaBreadcrumbsApiOptions from './va-breadcrumbs-api-options'
 import vaBreadcrumbsItemApiOptions from './va-breadcrumbs-item-api-options'
 
-export default [
+const config: ApiDocsBlock[] = [
   {
     type: BlockType.TITLE,
     translationString: 'breadcrumbs.title',
@@ -94,11 +94,9 @@ export default [
     type: BlockType.SUBTITLE,
     translationString: 'all.api',
   },
-  {
-    type: BlockType.API,
-    componentOptions: VaBreadcrumbs,
-    apiOptions: vaBreadcrumbsApiOptions as unknown as VueConstructor,
-  },
+
+  DocsHelper.api(VaBreadcrumbs, vaBreadcrumbsApiOptions),
+
   {
     type: BlockType.SUBTITLE,
     translationString: 'breadcrumbs.api.item.title',
@@ -107,11 +105,9 @@ export default [
     type: BlockType.PARAGRAPH,
     translationString: 'breadcrumbs.api.item.text',
   },
-  {
-    type: BlockType.API,
-    componentOptions: VaBreadcrumbsItem,
-    apiOptions: vaBreadcrumbsItemApiOptions as unknown as VueConstructor,
-  },
+
+  DocsHelper.api(VaBreadcrumbsItem, vaBreadcrumbsItemApiOptions),
+
   {
     type: BlockType.SUBTITLE,
     translationString: 'all.faq',
@@ -124,4 +120,6 @@ export default [
     type: BlockType.PARAGRAPH,
     translationString: 'breadcrumbs.faq.questions[0].answer',
   },
-] as ApiDocsBlock[]
+]
+
+export default config

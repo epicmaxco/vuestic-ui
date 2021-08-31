@@ -1,4 +1,5 @@
 import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
+import { DocsHelper } from '../../../../helpers/DocsHelper'
 import VaList from 'vuestic-ui/src/components/va-list/VaList.vue'
 import VaListLabel from 'vuestic-ui/src/components/va-list/VaListLabel.vue'
 import VaListSeparator from 'vuestic-ui/src/components/va-list/VaListSeparator.vue'
@@ -14,7 +15,7 @@ import {
   listItemSectionApiOptions,
 } from './api-options'
 
-export default [
+const config: ApiDocsBlock[] = [
   {
     type: BlockType.TITLE,
     translationString: 'list.title',
@@ -95,11 +96,9 @@ export default [
     type: BlockType.PARAGRAPH,
     translationString: 'list.api.list.text',
   },
-  {
-    type: BlockType.API,
-    componentOptions: VaList,
-    apiOptions: listApiOptions,
-  },
+
+  DocsHelper.api(VaList, listApiOptions),
+
   {
     type: BlockType.SUBTITLE,
     translationString: 'list.api.listLabel.title',
@@ -108,11 +107,9 @@ export default [
     type: BlockType.PARAGRAPH,
     translationString: 'list.api.listLabel.text',
   },
-  {
-    type: BlockType.API,
-    componentOptions: VaListLabel,
-    apiOptions: listLabelApiOptions,
-  },
+
+  DocsHelper.api(VaListLabel, listLabelApiOptions),
+
   {
     type: BlockType.SUBTITLE,
     translationString: 'list.api.listSeparator.title',
@@ -121,11 +118,9 @@ export default [
     type: BlockType.PARAGRAPH,
     translationString: 'list.api.listSeparator.text',
   },
-  {
-    type: BlockType.API,
-    componentOptions: VaListSeparator,
-    apiOptions: listSeparatorApiOptions,
-  },
+
+  DocsHelper.api(VaListSeparator, listSeparatorApiOptions),
+
   {
     type: BlockType.SUBTITLE,
     translationString: 'list.api.listItem.title',
@@ -134,11 +129,9 @@ export default [
     type: BlockType.PARAGRAPH,
     translationString: 'list.api.listItem.text',
   },
-  {
-    type: BlockType.API,
-    componentOptions: VaListItem,
-    apiOptions: listItemApiOptions,
-  },
+
+  DocsHelper.api(VaListItem, listItemApiOptions),
+
   {
     type: BlockType.SUBTITLE,
     translationString: 'list.api.listItemLabel.title',
@@ -147,11 +140,9 @@ export default [
     type: BlockType.PARAGRAPH,
     translationString: 'list.api.listItemLabel.text',
   },
-  {
-    type: BlockType.API,
-    componentOptions: VaListItemLabel,
-    apiOptions: listItemLabelApiOptions,
-  },
+
+  DocsHelper.api(VaListItemLabel, listItemLabelApiOptions),
+
   {
     type: BlockType.SUBTITLE,
     translationString: 'list.api.listItemSection.title',
@@ -160,9 +151,8 @@ export default [
     type: BlockType.PARAGRAPH,
     translationString: 'list.api.listItemSection.text',
   },
-  {
-    type: BlockType.API,
-    componentOptions: VaListItemSection,
-    apiOptions: listItemSectionApiOptions,
-  },
-] as ApiDocsBlock[]
+
+  DocsHelper.api(VaListItemSection, listItemSectionApiOptions),
+]
+
+export default config

@@ -1,7 +1,7 @@
 import { ApiDocsBlock } from '../../../../types/configTypes'
 import { DocsHelper } from '../../../../helpers/DocsHelper'
 
-export default [
+const config: ApiDocsBlock[] = [
   DocsHelper.title('roadmap.title'),
   DocsHelper.paragraph('roadmap.description'),
   DocsHelper.subtitle('roadmap.inDevelopment.title'),
@@ -21,10 +21,6 @@ export default [
 
   DocsHelper.headline('roadmap.0-1.title'),
   DocsHelper.paragraph('roadmap.0-1.description'),
+]
 
-  // DocsHelper.subtitle('roadmap.longTimeSupport.title'),
-  // DocsHelper.paragraph('roadmap.longTimeSupport.description'),
-  //
-  // DocsHelper.subtitle('roadmap.archive.title'),
-  // DocsHelper.paragraph('roadmap.archive.description'),
-] as ApiDocsBlock[]
+export default config

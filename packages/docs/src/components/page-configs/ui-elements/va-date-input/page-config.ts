@@ -1,9 +1,9 @@
 import { ApiDocsBlock } from '../../../../types/configTypes'
+import { DocsHelper } from '../../../../helpers/DocsHelper'
 import VaDateInput from 'vuestic-ui/src/components/va-date-input/VaDateInput.vue'
 import apiOptions from './api-options'
-import { DocsHelper } from '../../../../helpers/DocsHelper'
 
-export default [
+const config: ApiDocsBlock[] = [
   DocsHelper.title('dateInput.title'),
   DocsHelper.paragraph('dateInput.description'),
 
@@ -44,4 +44,6 @@ export default [
   ),
 
   DocsHelper.api(VaDateInput, apiOptions),
-] as ApiDocsBlock[]
+]
+
+export default config

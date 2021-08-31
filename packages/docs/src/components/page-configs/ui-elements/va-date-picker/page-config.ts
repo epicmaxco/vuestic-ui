@@ -1,9 +1,9 @@
 import { ApiDocsBlock } from '../../../../types/configTypes'
+import { DocsHelper } from '../../../../helpers/DocsHelper'
 import VaDatePicker from 'vuestic-ui/src/components/va-date-picker/VaDatePicker.vue'
 import apiOptions from './api-options'
-import { DocsHelper } from '../../../../helpers/DocsHelper'
 
-export default [
+const config: ApiDocsBlock[] = [
   DocsHelper.title('datePicker.title'),
   DocsHelper.paragraph('datePicker.description'),
 
@@ -79,4 +79,6 @@ export default [
   ),
 
   DocsHelper.api(VaDatePicker, apiOptions),
-] as ApiDocsBlock[]
+]
+
+export default config

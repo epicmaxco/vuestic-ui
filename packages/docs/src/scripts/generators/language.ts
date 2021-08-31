@@ -61,7 +61,7 @@ module.exports = (plop: NodePlopAPI) => {
 
         fs.writeFileSync(
           `${config.path}/locales/${code}/${code}.json`,
-          JSON.stringify(locale, null, 2)
+          JSON.stringify(locale, null, 2),
         )
       }
     })

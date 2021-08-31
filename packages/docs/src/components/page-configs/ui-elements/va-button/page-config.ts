@@ -1,8 +1,9 @@
 import { ApiDocsBlock, BlockType } from '../../../../types/configTypes'
-import apiOptions from './api-options'
+import { DocsHelper } from '../../../../helpers/DocsHelper'
 import VaButton from 'vuestic-ui/src/components/va-button/VaButton.vue'
+import apiOptions from './api-options'
 
-export default [
+const config: ApiDocsBlock[] = [
   {
     type: BlockType.TITLE,
     translationString: 'button.title',
@@ -135,9 +136,9 @@ export default [
     type: BlockType.EXAMPLE,
     component: 'va-button/Disabled',
   },
-  {
-    type: BlockType.API,
-    componentOptions: VaButton,
-    apiOptions,
-  },
-] as ApiDocsBlock[]
+
+  DocsHelper.subtitle('all.api'),
+  DocsHelper.api(VaButton, apiOptions),
+]
+
+export default config

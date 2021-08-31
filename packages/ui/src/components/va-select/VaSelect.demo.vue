@@ -141,6 +141,7 @@
         text-by="text"
         key-by="icon"
       />
+      <p>Value: {{ objectSingleSelectWithIcons.value }}</p>
       <va-select
         v-model="objectSingleSelect.value"
         class="mb-4"
@@ -176,6 +177,14 @@
         :options="objectMultiSelect.options"
         text-by="value"
         multiple
+      />
+      <va-select
+        v-model="objectMultiSelect.value"
+        label="Searchable multiselect text-by value"
+        :options="objectMultiSelect.options"
+        text-by="value"
+        multiple
+        searchable
       />
       <p>Value: {{ objectMultiSelect.value }}</p>
     </VbCard>

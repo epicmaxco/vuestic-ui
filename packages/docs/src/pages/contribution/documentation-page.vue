@@ -4,9 +4,8 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
-import DocsContent from '@/components/DocsContent.vue'
-// @ts-ignore
-import documentationPageConfig from '@/components/page-configs/contribution/documentation-page/page-config'
+import DocsContent from '../../components/DocsContent.vue'
+import documentationPageConfig from '../../components/page-configs/contribution/documentation-page/page-config'
 
 @Options({
   name: 'DocsDocumentationPage',

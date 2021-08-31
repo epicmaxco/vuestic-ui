@@ -1,8 +1,9 @@
 import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
-import apiOptions from './api-options'
+import { DocsHelper } from '../../../../helpers/DocsHelper'
 import VaBadge from 'vuestic-ui/src/components/va-badge/VaBadge.vue'
+import apiOptions from './api-options'
 
-export default [
+const config: ApiDocsBlock[] = [
   {
     type: BlockType.TITLE,
     translationString: 'badge.title',
@@ -75,9 +76,8 @@ export default [
     type: BlockType.EXAMPLE,
     component: 'va-badge/WithAvatar',
   },
-  {
-    type: BlockType.API,
-    componentOptions: VaBadge,
-    apiOptions,
-  },
-] as ApiDocsBlock[]
+
+  DocsHelper.api(VaBadge, apiOptions),
+]
+
+export default config

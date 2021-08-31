@@ -9,6 +9,7 @@ export type VersionString = string | '' // vuestic-ui version at which feature w
 // Universal options for props, events, methods, slots.
 export type ManualApiOptionsItem = {
   version?: VersionString;
+  name?: string;
 
   /**
    * Used for custom translation string.

@@ -19,7 +19,7 @@
 // import VaContent from '../../ui/src/components/va-content/VaContent'
 import DocsCode from './DocsCode'
 import DocsNavigation from './DocsNavigation'
-import { readComponent, readTemplate } from '@/utilities/utils'
+import { readComponent, readTemplate } from '../utilities/utils'
 
 export default {
   name: 'DocsExample',

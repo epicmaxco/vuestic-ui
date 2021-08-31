@@ -43,11 +43,11 @@ import { Options, Vue, setup } from 'vue-class-component'
 import type { RouteLocationNormalized } from 'vue-router'
 import Sidebar from '../components/sidebar/Sidebar.vue'
 import Header from '../components/header/Header.vue'
-import { COLOR_THEMES, ThemeName } from '@/config/theme-config'
+import { COLOR_THEMES, ThemeName } from '../config/theme-config'
 import { setColors } from '../../../ui/src/main'
-import { navigationRoutes } from '@/components/sidebar/navigationRoutes'
+import { navigationRoutes } from '../components/sidebar/navigationRoutes'
 import { debounce } from 'lodash'
-import { getSortedNavigationRoutes } from '@/helpers/NavigationRoutesHelper'
+import { getSortedNavigationRoutes } from '../helpers/NavigationRoutesHelper'
 
 @Options({
   name: 'DocsDefaultLayout',

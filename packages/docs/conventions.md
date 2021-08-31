@@ -1,5 +1,7 @@
 ## Components
+
 ### Props
+
 * `color` prop should be used for `background-color`
 * `text-color` prop should be used for css `color`
 * `size` both string and numeric value should be supported (string: `"200px"`, `"2rem""`; numeric: `200`). In case of numeric value we consider it `px`.
@@ -27,18 +29,22 @@ In future we also plan to be :
 * No shortcuts: always `button` and not `btn`. Your naming should be well understood by all developers.
 
 ## TypeScript usage
+
 * You can use `@ts-nocheck` | `@ts-ignore` | `any` where it's appropriate. We want strict typing not to get in way of development. Also some mixins or plugins, such as context are fairly challenging to implement in a way to keep typing intact, and there is no much point given we will transition to Composition API sometime in the future.
 
 ## Style
+
 * BEM is used for styles.
 * Rems are used for sizes (except for cases where it doesn't make sense).
 
 ### Global classes
+
 * Global helpers should be considered a separate library/plugin. Components should not rely on global classes!
 * All vuestic global classes should be prefixed with `va-`.
 * Html tags are unstyled. For example, `table`, `li`, `h1` etc won't give you any styling. Apply styles either via classes or `.content` wrapper.
 
 ### Components
+
 * Mixins should be used for style logic reuse inside components.
 
 ### Fonts
@@ -46,7 +52,12 @@ In future we also plan to be :
 * General text: `https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700`
 * Icons: `https://fonts.googleapis.com/icon?family=Material+Icons`
 
+## Code style
+
+* You should always use a relative path when importing (no aliases)
+
 ## Github tags
+
 We want to keep these consistent across different repos.
 
 * blocked - Blocked by another issue - #778899

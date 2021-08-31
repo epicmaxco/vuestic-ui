@@ -1,9 +1,9 @@
 import { ApiDocsBlock } from '../../../../types/configTypes'
+import { DocsHelper } from '../../../../helpers/DocsHelper'
 import VaAppBar from 'vuestic-ui/src/components/va-app-bar/VaAppBar.vue'
 import apiOptions from './api-options'
-import { DocsHelper } from '../../../../helpers/DocsHelper'
 
-export default [
+const config: ApiDocsBlock[] = [
   DocsHelper.title('appBar.title'),
   DocsHelper.paragraph('appBar.summaryText'),
   DocsHelper.subtitle('all.examples'),
@@ -24,6 +24,6 @@ export default [
   DocsHelper.example('va-app-bar/Shadow'),
   DocsHelper.subtitle('all.api'),
   DocsHelper.api(VaAppBar, apiOptions),
+]
 
-  DocsHelper.api(VaAppBar, apiOptions),
-] as ApiDocsBlock[]
+export default config

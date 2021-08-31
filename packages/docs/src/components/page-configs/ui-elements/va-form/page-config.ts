@@ -1,9 +1,9 @@
 import { ApiDocsBlock, BlockType } from '../../../../types/configTypes'
+import { DocsHelper } from '../../../../helpers/DocsHelper'
 import VaForm from 'vuestic-ui/src/components/va-form/VaForm.vue'
 import apiOptions from './api-options'
-import { VueConstructor } from 'vue-class-component'
 
-export default [
+const config: ApiDocsBlock[] = [
   {
     type: BlockType.TITLE,
     translationString: 'form.title',
@@ -44,9 +44,8 @@ export default [
     type: BlockType.SUBTITLE,
     translationString: 'all.api',
   },
-  {
-    type: BlockType.API,
-    componentOptions: VaForm as unknown as VueConstructor,
-    apiOptions,
-  },
-] as ApiDocsBlock[]
+
+  DocsHelper.api(VaForm, apiOptions),
+]
+
+export default config
