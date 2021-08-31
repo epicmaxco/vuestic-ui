@@ -18,14 +18,18 @@
             @click.exact="toggleSorting(column)"
             :style="getHeadCSSVariables(column)"
           >
+            <div class="th__wrapper">
 <!--            Render a custom `head(columnKey)` slot if it's provided, or a custom common `head` (also if provided) or the column's label-->
             <slot v-if="`head(${column.key})` in slots" :name="`head(${column.key})`" v-bind="column"/>
             <slot v-else name="head" v-bind="column">
               <span>{{ column.label }}</span>
             </slot>
 
+            <div class="th__sorting">
 <!--            Sorting arrow (down is descending sorting, up is ascending)-->
-            <va-icon v-if="sortBy === column.key && sortingOrder !== null" :name="sortingOrder === 'asc' ? 'expand_less' : 'expand_more'" size="small"/>
+              <va-icon v-if="sortBy === column.key && sortingOrder !== null" :name="sortingOrder === 'asc' ? 'expand_less' : 'expand_more'" size="small"/>
+            </div>
+            </div>
           </th>
         </tr>
 
@@ -279,6 +283,16 @@ export default defineComponent({
     text-transform: uppercase;
     letter-spacing: 0.6px;
     cursor: var(--cursor);
+
+    span {
+      //margin-right: auto;
+      line-height: 1.2rem;
+    }
+
+    .th__wrapper {
+      display: flex;
+      justify-content: flex-end;
+    }
   }
 
   thead {
