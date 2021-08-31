@@ -4,7 +4,7 @@ import {getColor} from "../../../services/color-config/color-config";
 import {computed, Ref} from "vue";
 import {TableColumn} from "./useColumns";
 
-export default function useStyleable(selectable: Ref<boolean>, selectedColor: Ref<string>) {
+export default function useStyleable(selectable: Ref<boolean>, selectedColor: Ref<string>, allowFootSorting: Ref<boolean>) {
   function getHeadCSSVariables(column: TableColumn) {
     return {
       "--align": column.alignHead,
@@ -29,9 +29,18 @@ export default function useStyleable(selectable: Ref<boolean>, selectedColor: Re
     }
   }
 
+  function getFootCSSVariables(column: TableColumn) {
+    return {
+      "--align": column.alignHead,
+      "--vertical-align": column.verticalAlignHead,
+      "--cursor": allowFootSorting.value && column.sortable ? "pointer" : "default"
+    }
+  }
+
   return {
     getHeadCSSVariables,
     rowCSSVariables,
-    getCellCSSVariables
+    getCellCSSVariables,
+    getFootCSSVariables,
   }
 }

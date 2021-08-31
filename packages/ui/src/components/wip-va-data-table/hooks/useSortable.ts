@@ -33,7 +33,7 @@ export default function useSortable(
     }
   });
 
-  const sortingOrderFallback = ref(null as TSortingOrder);
+  const sortingOrderFallback = ref("asc" as TSortingOrder);
 
   const sortingOrderProxy = computed<TSortingOrder>({
     get() {
@@ -88,6 +88,11 @@ export default function useSortable(
     if (sortingOrderProxy.value === "desc") {
       rows.value.reverse();
     }
+
+    emit("sort", {
+      sortBy: sortByProxy,
+      sortingOrder: sortingOrderProxy,
+    });
   }
 
   // a function to invoke when a heading of the table is clicked.

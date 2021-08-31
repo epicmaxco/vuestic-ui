@@ -2,19 +2,20 @@
   <VbDemo>
     <VbCard title="Combined example (with v-models wherever possible)">
       <h3>Filtering</h3>
-      <label>Use custom filtering function (searches for the exact math)</label>
       <input type="checkbox" v-model="useCustomFilteringFn">
-      <input type="text" v-model="filterValue" placeholder="Try '161'"/>
-      All rows amount: {{ manyItems.length }}
+      <label>Use custom filtering function (searches for the exact math)</label><br>
+      <label>Filter</label>
+      <input type="text" v-model="filterValue" placeholder="Try '161'"/><br>
+      All rows amount: {{ manyItems.length }}<br>
       Filtered rows amount: {{ visibleRowsAmount }}
 
       <h3>Sorting from outside</h3>
-      <label>Use custom sorting function for ids (will sort like numbers instead of strings)</label>
       <input type="checkbox" v-model="useCustomSortingFnForId">
+      <label>Use custom sorting function for ids (will sort like numbers instead of strings)</label><br>
       <label>Sort by</label>
       <select v-model="sortBy2">
         <option v-for="column in evenColumnsSortable2" :value="column.key">{{column.key}}</option>
-      </select>
+      </select><br>
       <label>Sorting order</label>
       <select v-model="sortingOrder2">
         <option :value="null">Null</option>
@@ -23,19 +24,19 @@
       </select>
 
       <h3>Selection</h3>
-      <p>Selected items' ids ({{selectedItemsIds.length}}) (click to deselect):
+      <p>Selected items' ids (currently <strong>{{selectedItemsIds.length}}</strong> total) (click an id to unselect it):
         <span v-for="selectedItem in selectedItemsIds" @click="selectedItemsIds.splice(selectedItemsIds.indexOf(selectedItem), 1)">
           {{selectedItem.id}},
         </span>
       </p>
-      <label>Use selectable</label>
       <input type="checkbox" v-model="useSelectable">
+      <label>Use selectable</label><br>
       <label>Select mode</label>
       <select v-model="selectMode">
         <option value="single" selected>Single</option>
         <option value="multiple">Multiple</option>
-      </select>
-      <label>Selected color</label>
+      </select><br>
+      <label>Selected item's color</label>
       <select v-model="selectedColor">
         <option value="primary" selected>Primary</option>
         <option value="secondary">Secondary</option>
@@ -45,16 +46,22 @@
       </select>
 
       <h3>Pagination</h3>
-      <label>Use pagination</label>
       <input type="checkbox" v-model="usePagination">
-      <label>Rows per page</label>
+      <label>Use pagination</label><br>
       <input type="number" :disabled="!usePagination" v-model.number="perPage">
-      <label>Current page</label>
+      <label>Rows per page</label><br>
       <input type="number" :disabled="!usePagination" v-model.number="currentPage2">
+      <label>Current page</label>
 
       <h3>Other</h3>
-      <label>Striped style</label>
+      <input type="checkbox" v-model="hideDefaultHeader">
+      <label>Hide default header</label><br>
+      <input type="checkbox" v-model="footClone">
+      <label>Clone header into footer</label><br>
+      <input type="checkbox" :disabled="!footClone" v-model="allowFootSorting">
+      <label>Allow sorting in footer</label><br>
       <input type="checkbox" v-model="isStriped">
+      <label>Striped style</label><br>
       <label>No data (due to filtering) message</label>
       <input type="text" v-model="noDataFilteredHtml">
 
@@ -72,6 +79,9 @@
         :selected-color="selectedColor"
         :per-page="usePagination ? perPage : undefined"
         :current-page="usePagination ? currentPage2 : undefined"
+        :hide-default-header="hideDefaultHeader"
+        :foot-clone="footClone"
+        :allow-foot-sorting="allowFootSorting"
         :no-data-filtered-html="noDataFilteredHtml"
         :striped="isStriped"
       />
@@ -323,8 +333,8 @@
       </va-data-table>
     </VbCard>
 
-    <VbCard title="Selectable (multiple) (default)" class="demo">
-      <va-data-table :items="evenItems" :columns="evenColumns" selectable v-model="selectedItems"/>
+    <VbCard title="Selectable (multiple) (default) (without v-model (stateful))" class="demo">
+      <va-data-table :items="evenItems" :columns="evenColumns" selectable/>
       Count: {{selectedItems.length}} | {{selectedItems}}
     </VbCard>
 
@@ -442,7 +452,7 @@
     </VbCard>
 
     <VbCard title="Initially sorted table (by `id`)" class="demo">
-      <va-data-table :items="evenItemsShuffled" :columns="evenColumnsSortable" sort-by="id"/>
+      <va-data-table :items="evenItemsShuffled" :columns="evenColumnsSortable" v-model:sort-by="sortByModelId"/>
     </VbCard>
 
     <VbCard title="Initially sorted table (by `idSquared`) (desc)" class="demo">
@@ -613,6 +623,7 @@ export default defineComponent({
 
       evenItemsShuffled,
 
+      sortByModelId: "id",
       sortByModel: "idSquared",
       sortingOrderModel: "desc",
 
@@ -651,6 +662,9 @@ export default defineComponent({
       isStriped: true,
       useCustomSortingFnForId: false,
       useCustomFilteringFn: false,
+      hideDefaultHeader: false,
+      footClone: false,
+      allowFootSorting: false,
     }
   },
 
@@ -682,7 +696,7 @@ export default defineComponent({
     },
 
     filter(source) {
-      return source.toString() === this.filterValue;
+      return source?.toString?.() === this.filterValue;
     },
   }
 });

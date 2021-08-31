@@ -1,6 +1,8 @@
 <template>
   <va-inner-loading :loading="loading" :color="loadingColor">
     <table class="va-data-table" :class="{ striped }" v-bind="$attrs">
+      <slot name="colgroup" v-bind="columns" />
+
       <thead>
 <!--        Slot for prepending thead rows-->
         <slot name="head.prepend"/>
@@ -20,15 +22,15 @@
           >
             <div class="th__wrapper">
 <!--            Render a custom `head(columnKey)` slot if it's provided, or a custom common `head` (also if provided) or the column's label-->
-            <slot v-if="`head(${column.key})` in slots" :name="`head(${column.key})`" v-bind="column"/>
-            <slot v-else name="head" v-bind="column">
-              <span>{{ column.label }}</span>
-            </slot>
+              <slot v-if="`head(${column.key})` in slots" :name="`head(${column.key})`" v-bind="column"/>
+              <slot v-else name="head" v-bind="column">
+                <span>{{ column.label }}</span>
+              </slot>
 
-            <div class="th__sorting">
-<!--            Sorting arrow (down is descending sorting, up is ascending)-->
-              <va-icon v-if="sortBy === column.key && sortingOrder !== null" :name="sortingOrder === 'asc' ? 'expand_less' : 'expand_more'" size="small"/>
-            </div>
+              <div class="th__sorting" v-if="column.sortable">
+<!--              Sorting arrow (down is descending sorting, up is ascending)-->
+                <va-icon v-if="sortBy === column.key && sortingOrder !== null" :name="sortingOrder === 'asc' ? 'expand_less' : 'expand_more'" size="small"/>
+              </div>
             </div>
           </th>
         </tr>
@@ -73,12 +75,32 @@
 <!--      Duplicate header into footer if `footClone` prop is true-->
       <tfoot v-if="footClone">
         <slot name="foot.prepend"/>
-        <tr>
-          <th v-for="column in columns" :title="column.headerTitle" v-bind="column">
-            <slot v-if="`foot(${column.key})` in slots" :name="`foot(${column.key})`"/>
-            <slot v-else name="foot" v-bind="column">
-              {{ column.label }}
-            </slot>
+        <tr v-if="!hideDefaultHeader">
+
+<!--          Only if `selectable` prop is true, render an additional column and if `select-mode` is `"multiple"` then render a checkbox clicking which selects/unselects all the rows (rendered as indeterminate if some rows are selected, but not all of them)-->
+          <th v-if="selectable">
+            <input v-if="selectMode === 'multiple'" type="checkbox" :indeterminate="severalRowsSelected" @change="toggleBulkSelection">
+          </th>
+
+<!--          Render the column headings (and apply sorting on clicks on a given heading). `column` here is an instance of `TableColumn`, not a prop, so don't be confused by WebStorm's warnings-->
+          <th
+            v-for="column in columns"
+            :title="column.headerTitle"
+            @click.exact="allowFootSorting ? toggleSorting(column) : () => {}"
+            :style="getFootCSSVariables(column)"
+          >
+            <div class="th__wrapper">
+<!--            Render a custom `foot(columnKey)` slot if it's provided, or a custom common `foot` (also if provided) or the column's label-->
+              <slot v-if="`foot(${column.key})` in slots" :name="`foot(${column.key})`" v-bind="column"/>
+              <slot v-else name="foot" v-bind="column">
+                <span>{{ column.label }}</span>
+              </slot>
+
+              <div class="th__sorting" v-if="allowFootSorting && column.sortable">
+<!--              Sorting arrow (down is descending sorting, up is ascending)-->
+                <va-icon v-if="sortBy === column.key && sortingOrder !== null" :name="sortingOrder === 'asc' ? 'expand_less' : 'expand_more'" size="small"/>
+              </div>
+            </div>
           </th>
         </tr>
         <slot name="foot.append"/>
@@ -179,6 +201,10 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    allowFootSorting: {
+      type: Boolean,
+      default: false,
+    },
     striped: {
       type: Boolean,
       default: false,
@@ -186,7 +212,7 @@ export default defineComponent({
   },
 
   // `modelValue` is selected items
-  emits: ["update:modelValue", "update:sortBy", "update:sortingOrder", "filter"],
+  emits: ["update:modelValue", "update:sortBy", "update:sortingOrder", "filter", "sort", "selectionChange"],
 
   setup(props, {slots, emit}) {
     // columns and rows
@@ -220,11 +246,24 @@ export default defineComponent({
     } = useSelectable(rows, selectedItems, selectMode, emit);
 
     // styling
-    const {selectable, selectedColor} = toRefs(props);
-    const {getHeadCSSVariables, rowCSSVariables, getCellCSSVariables} = useStyleable(selectable, selectedColor);
+    const {selectable, selectedColor, allowFootSorting} = toRefs(props);
+
+    const {
+      getHeadCSSVariables,
+      rowCSSVariables,
+      getCellCSSVariables,
+      getFootCSSVariables
+    } = useStyleable(selectable, selectedColor, allowFootSorting);
 
     // other
-    const {loading, noDataHtml, noDataFilteredHtml, hideDefaultHeader, footClone, striped} = toRefs(props);
+    const {
+      loading,
+      noDataHtml,
+      noDataFilteredHtml,
+      hideDefaultHeader,
+      footClone,
+      striped
+    } = toRefs(props);
 
     const showNoDataHtml = computed(() => {
       return rawItems.value.length < 1;
@@ -253,6 +292,7 @@ export default defineComponent({
       getHeadCSSVariables,
       rowCSSVariables,
       getCellCSSVariables,
+      getFootCSSVariables,
       loading,
       showNoDataHtml,
       noDataHtml,
@@ -260,6 +300,7 @@ export default defineComponent({
       noDataFilteredHtml,
       hideDefaultHeader,
       footClone,
+      allowFootSorting,
       striped,
     };
   }
@@ -270,11 +311,11 @@ export default defineComponent({
 // The variables used here are taken from a respective element's `style` attribute. See the `useStyleable` hook
 
 .va-data-table {
+  width: 100%;
   cursor: default;
 
   th {
     padding: 0.625rem;
-    line-height: 1.2;
     text-align: var(--align);
     vertical-align: var(--vertical-align);
     color: #34495e;
@@ -284,14 +325,14 @@ export default defineComponent({
     letter-spacing: 0.6px;
     cursor: var(--cursor);
 
-    .th__wrapper {
-      display: flex;
-      align-items: center;
-    }
-
     span {
       line-height: 1.2rem;
       flex-grow: 1;
+    }
+
+    .th__wrapper {
+      display: flex;
+      align-items: center;
     }
 
     .th__sorting {

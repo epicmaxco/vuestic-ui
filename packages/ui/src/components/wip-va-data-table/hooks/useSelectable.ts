@@ -135,6 +135,14 @@ export default function useSelectable(rows: Ref<TableRow[]>, selectedItems: Ref<
     return selectedItemsProxy.value.length
   });
 
+  // emit the "selection-change" event each time the selection changes
+  watch(selectedItemsProxy, (currentlySelectedItems, previouslySelectedItems) => {
+    emit("selectionChange", {
+      currentlySelectedItems,
+      previouslySelectedItems
+    })
+  });
+
   return {
     selectedItemsProxy,
     toggleRowSelection,
