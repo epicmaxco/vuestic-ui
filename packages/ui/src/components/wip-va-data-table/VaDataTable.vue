@@ -126,15 +126,12 @@ export default defineComponent({
     },
     sortBy: { // model-able
       type: String,
-      default: "",
     },
     sortingOrder: { // model-able
       type: String as PropType<TSortingOrder>,
-      default: "asc",
     },
     modelValue: { // model-able
       type: Array as PropType<ITableItem[]>,
-      default: () => [],
     },
     selectable: {
       type: Boolean,

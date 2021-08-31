@@ -6,13 +6,17 @@
       All rows amount: {{ manyItems.length }}
       Filtered rows amount: {{ visibleRowsAmount }}
 
-      <h3>Pagination</h3>
-      <label>Use pagination</label>
-      <input type="checkbox" v-model="usePagination">
-      <label>Rows per page</label>
-      <input type="number" :disabled="!usePagination" v-model.number="perPage">
-      <label>Current page</label>
-      <input type="number" :disabled="!usePagination" v-model.number="currentPage2">
+      <h3>Sorting from outside</h3>
+      <label>Sort by</label>
+      <select v-model="sortBy2">
+        <option v-for="column in evenColumnsSortable2" :value="column.key">{{column.key}}</option>
+      </select>
+      <label>Sorting order</label>
+      <select v-model="sortingOrder2">
+        <option :value="null">Null</option>
+        <option value="asc">Ascending</option>
+        <option value="desc">Descending</option>
+      </select>
 
       <h3>Selection</h3>
       <p>Selected items' ids ({{selectedItemsIds.length}}): {{ selectedItemsIds.map(selectedItem => selectedItem.id) }}</p>
@@ -23,7 +27,6 @@
         <option value="single" selected>Single</option>
         <option value="multiple">Multiple</option>
       </select>
-
       <label>Selected color</label>
       <select v-model="selectedColor">
         <option value="primary" selected>Primary</option>
@@ -33,6 +36,14 @@
         <option value="success">Success</option>
       </select>
 
+      <h3>Pagination</h3>
+      <label>Use pagination</label>
+      <input type="checkbox" v-model="usePagination">
+      <label>Rows per page</label>
+      <input type="number" :disabled="!usePagination" v-model.number="perPage">
+      <label>Current page</label>
+      <input type="number" :disabled="!usePagination" v-model.number="currentPage2">
+
       <h3>Other</h3>
       <label>Striped style</label>
       <input type="checkbox" v-model="isStriped">
@@ -40,10 +51,12 @@
       <input type="text" v-model="noDataFilteredHtml">
 
       <va-data-table
-        :columns="evenColumns"
-        :items="manyItems"
+        :columns="evenColumnsSortable2"
+        :items="manyItemsShuffled"
         :filter="filterValue"
         @filter="visibleRowsAmount = $event"
+        v-model:sort-by="sortBy2"
+        v-model:sorting-order="sortingOrder2"
         :selectable="useSelectable"
         v-model="selectedItemsIds"
         :select-mode="selectMode"
@@ -481,6 +494,8 @@ export default defineComponent({
       }
     });
 
+    const manyItemsShuffled = shuffle(manyItems);
+
     return {
       evenColumns: [
         "idSquared",
@@ -598,13 +613,31 @@ export default defineComponent({
       filterValue: "",
       visibleRowsAmount: manyItems.length,
 
-      usePagination: true,
-      perPage: 10,
-      currentPage2: 1,
+      manyItemsShuffled,
+      evenColumnsSortable2: [
+        {
+          key: "idSquared",
+          sortable: true,
+        },
+        {
+          key: "name",
+          sortable: true,
+        },
+        {
+          key: "id",
+          sortable: true,
+        },
+      ],
+
+      sortBy2: "",
+      sortingOrder2: null,
       useSelectable: true,
       selectedItemsIds: [],
       selectMode: "single",
       selectedColor: "primary",
+      usePagination: true,
+      perPage: 10,
+      currentPage2: 1,
       noDataFilteredHtml: "No Items Found",
       isStriped: true,
     }

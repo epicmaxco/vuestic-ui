@@ -1,5 +1,5 @@
 import {TableColumn} from "./useColumns";
-import {computed, Ref, watch} from "vue";
+import {computed, ref, Ref, watch} from "vue";
 import {TableRow} from "./useRows";
 
 export type TSortingOrder = "asc" | "desc" | null;
@@ -8,28 +8,48 @@ export type TSortingOrder = "asc" | "desc" | null;
 export default function useSortable(
   columns: Ref<TableColumn[]>,
   rows: Ref<TableRow[]>,
-  sortBy: Ref<string>,
-  sortingOrder: Ref<TSortingOrder>,
+  sortBy: Ref<string | undefined>,
+  sortingOrder: Ref<TSortingOrder | undefined>,
   emit: any
 ) {
+  const sortByFallback = ref("");
+
   // the standard proxying approach for v-models
   const sortByProxy = computed<string>({
     get() {
-      return sortBy.value;
+      if (sortBy.value === undefined) {
+        return sortByFallback.value;
+      } else {
+        return sortBy.value;
+      }
     },
 
-    set(sortBy) {
-      emit("update:sortBy", sortBy);
+    set(value) {
+      if (sortBy.value === undefined) {
+        sortByFallback.value = value;
+      }
+
+      emit("update:sortBy", value);
     }
   });
 
+  const sortingOrderFallback = ref(null as TSortingOrder);
+
   const sortingOrderProxy = computed<TSortingOrder>({
     get() {
-      return sortingOrder.value;
+      if (sortingOrder.value === undefined) {
+        return sortingOrderFallback.value;
+      } else {
+        return sortingOrder.value;
+      }
     },
 
-    set(sortingOrder) {
-      emit("update:sortingOrder", sortingOrder);
+    set(value) {
+      if (sortingOrder.value === undefined) {
+        sortingOrderFallback.value = value;
+      }
+
+      emit("update:sortingOrder", value);
     }
   })
 

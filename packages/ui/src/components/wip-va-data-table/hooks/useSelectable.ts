@@ -5,14 +5,24 @@ import {TableRow, ITableItem} from "./useRows";
 export type TSelectMode = "single" | "multiple";
 
 // TODO: the `emit` shouldn't be any!
-export default function useSelectable(rows: Ref<TableRow[]>, selectedItems: Ref<ITableItem[]>, selectMode: Ref<TSelectMode>, emit: any) {
+export default function useSelectable(rows: Ref<TableRow[]>, selectedItems: Ref<ITableItem[] | undefined>, selectMode: Ref<TSelectMode>, emit: any) {
+  const selectedItemsFallback = ref([] as ITableItem[]);
+
   // the standard proxying approach to work with modeled data
   const selectedItemsProxy = computed<ITableItem[]>({
     get() {
-      return selectedItems.value;
+      if (selectedItems.value === undefined) {
+        return selectedItemsFallback.value;
+      } else {
+        return selectedItems.value;
+      }
     },
 
     set(modelValue) {
+      if (selectedItems.value === undefined) {
+        selectedItemsFallback.value = modelValue;
+      }
+
       emit("update:modelValue", modelValue);
     }
   });
