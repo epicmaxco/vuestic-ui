@@ -1,35 +1,44 @@
-import {computed, Ref, ref} from "vue";
-import {ITableItem} from "./useRows";
-import {merge, startCase} from "lodash-es";
+import { computed, Ref } from "vue";
+import { ITableItem } from "./useRows";
+import { merge, startCase } from "lodash-es";
 
 // available alignment options
 export type TAlignOptions = "left" | "center" | "right";
 export type TVerticalAlignOptions = "top" | "middle" | "bottom";
 
-// provided column definitions (<va-data-table `:columns="myColumns"` />) should look like an array of the following objects (or strings)
+// provided column definitions (<va-data-table `:columns="myColumns"` />) should look like an array of the following
+// objects (and/or strings)
 export interface ITableColumn {
   key: string; // name of an item's property
   label?: string; // what to display in the respective heading
   headerTitle?: string; // <th>'s `title` attribute's value
   sortable?: boolean, // whether the table can be sorted by that column
-  sortingFn?: (a: string, b: string) => number; // a custom sorting function. `a` and `b` are currently compared cells' values. Must return a number (see the standard JS Array.prototype.sort)
+  sortingFn?: (a: any, b: any) => number; // a custom sorting function. `a` and `b` are currently compared cells'
+  // original values (sources). Must return a number (see the standard JS's Array.prototype.sort)
   alignHead?: TAlignOptions; // horizontal alignment of the column's heading
   verticalAlignHead?: TVerticalAlignOptions; // vertical alignment of the column's heading
   align?: TAlignOptions; // horizontal <td>'s alignment
-  verticalAlign?: TVerticalAlignOptions; // vertical
+  verticalAlign?: TVerticalAlignOptions; // vertical <td>'s alignment
 }
 
 // inner representation of the columns
-export class TableColumn implements ITableColumn {
-  // takes either a string or a ITableColumn as an input and returns a new Object (which implements the ITableColumn interface).
-  // Guarantees that the `key` and the `label` will present. All the other fields are optional (a user might provide them
-  // or they might not). `source` holds the initial column's definition (in the form the user provided it).
+export class TableColumn {
+  // takes either a string or a ITableColumn as an input and returns a new Object that describes the column. Guarantees
+  // that the all the fields has a value to them. The `source` field holds the initial column's definition (in the form
+  // the user provided it).
   constructor(input: string | ITableColumn) {
     this.source = input;
 
     if (typeof input === "string") {
       this.key = input;
       this.label = startCase(input);
+      this.headerTitle = this.label;
+      this.sortable = false;
+      this.sortingFn = undefined;
+      this.alignHead = "left";
+      this.verticalAlignHead = "top";
+      this.align = "left";
+      this.verticalAlign = "top";
     } else {
       this.key = input.key;
       this.label = input.label || startCase(input.key);
@@ -43,25 +52,26 @@ export class TableColumn implements ITableColumn {
     }
   }
 
-  source: string | ITableColumn;
-  key;
-  label;
-  headerTitle?;
-  sortable?;
-  sortingFn?;
-  alignHead?;
-  verticalAlignHead?;
-  align?;
-  verticalAlign?;
+  readonly source: string | ITableColumn;
+  readonly key;
+  readonly label;
+  readonly headerTitle;
+  readonly sortable;
+  readonly sortingFn;
+  readonly alignHead: TAlignOptions;
+  readonly verticalAlignHead: TVerticalAlignOptions;
+  readonly align: TAlignOptions;
+  readonly verticalAlign: TVerticalAlignOptions;
 }
 
-// `rawColumns` and `rawItems` are the columns and the items respectively in the form the user provided them (i.e. raw props)
-export default function useColumns(rawColumns: Ref<string[] | ITableColumn[] | undefined>, rawItems: Ref<ITableItem[]>) {
+// `rawColumns` and `rawItems` are the columns and the items respectively in the form the user provided them (i.e. raw
+// props)
+export default function useColumns(rawColumns: Ref<(string | ITableColumn)[]>, rawItems: Ref<ITableItem[]>) {
   const columns = computed(() => {
-    // `columns` is an optional prop, so it may not be provided (=== undefined)
-    if (rawColumns.value !== undefined) {
+    // if the `columns` prop is not provided, it defaults to an empty array
+    if (rawColumns.value.length >= 1) {
       // if it's provided, then build the columns' inner representations from that `columns` prop's value
-      return rawColumns.value.map((column: string | ITableColumn) => {
+      return rawColumns.value.map(column => {
         return new TableColumn(column);
       });
     } else {

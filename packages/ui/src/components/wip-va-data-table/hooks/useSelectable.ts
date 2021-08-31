@@ -18,8 +18,14 @@ export default function useSelectable(rows: Ref<TableRow[]>, selectedItems: Ref<
   });
 
   // clear all the selected rows when the `select-mode`'s value changes
-  watch([selectMode], () => {
+  watch(selectMode, () => {
     unselectAllRows();
+  });
+
+  // watch for rows changes (happens when filtering is applied e.g.) and deselect all the rows that don't exist anymore
+  watch(rows, (newRows, oldRows) => {
+    const removedRows = oldRows.filter(oldRow => !newRows.includes(oldRow));
+    removedRows.forEach(row => isRowSelected(row) ? unselectRow(row) : void 0)
   });
 
   // private. The one calling this function must guarantee that the row isn't already selected

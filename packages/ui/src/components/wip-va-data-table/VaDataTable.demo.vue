@@ -1,5 +1,60 @@
 <template>
   <VbDemo>
+    <VbCard title="Combined example (with v-models wherever possible)">
+      <h3>Filtering</h3>
+      <input type="text" v-model="filterValue" placeholder="Try '161'"/>
+      All rows amount: {{ manyItems.length }}
+      Filtered rows amount: {{ visibleRowsAmount }}
+
+      <h3>Pagination</h3>
+      <label>Use pagination</label>
+      <input type="checkbox" v-model="usePagination">
+      <label>Rows per page</label>
+      <input type="number" :disabled="!usePagination" v-model.number="perPage">
+      <label>Current page</label>
+      <input type="number" :disabled="!usePagination" v-model.number="currentPage2">
+
+      <h3>Selection</h3>
+      <p>Selected items' ids ({{selectedItemsIds.length}}): {{ selectedItemsIds.map(selectedItem => selectedItem.id) }}</p>
+      <label>Use selectable</label>
+      <input type="checkbox" v-model="useSelectable">
+      <label>Select mode</label>
+      <select v-model="selectMode">
+        <option value="single" selected>Single</option>
+        <option value="multiple">Multiple</option>
+      </select>
+
+      <label>Selected color</label>
+      <select v-model="selectedColor">
+        <option value="primary" selected>Primary</option>
+        <option value="secondary">Secondary</option>
+        <option value="danger">Danger</option>
+        <option value="warning">Warning</option>
+        <option value="success">Success</option>
+      </select>
+
+      <h3>Other</h3>
+      <label>Striped style</label>
+      <input type="checkbox" v-model="isStriped">
+      <label>No data (due to filtering) message</label>
+      <input type="text" v-model="noDataFilteredHtml">
+
+      <va-data-table
+        :columns="evenColumns"
+        :items="manyItems"
+        :filter="filterValue"
+        @filter="visibleRowsAmount = $event"
+        :selectable="useSelectable"
+        v-model="selectedItemsIds"
+        :select-mode="selectMode"
+        :selected-color="selectedColor"
+        :per-page="usePagination ? perPage : undefined"
+        :current-page="usePagination ? currentPage2 : undefined"
+        :no-data-filtered-html="noDataFilteredHtml"
+        :striped="isStriped"
+      />
+    </VbCard>
+
     <VbCard title="Controls">
       <va-button @click="deleteLast5EvenItems">Delete last 5 even data rows</va-button>
     </VbCard>
@@ -377,6 +432,11 @@
       <va-data-table :items="manyItems" :per-page="10" :current-page="currentPage" />
       <va-pagination v-model.number="currentPage" input :pages="100" />
     </VbCard>
+
+    <VbCard title="Filtering" class="demo">
+      <input type="text" v-model="filterValue">
+      <va-data-table :items="evenItems" :filter="filterValue"/>
+    </VbCard>
   </VbDemo>
 </template>
 
@@ -392,7 +452,7 @@ export default defineComponent({
     VaDataTable
   },
 
-  data () {
+  data() {
     const evenItems = Array.from(Array(10), (u, i) => {
       return {
         id: i,
@@ -534,6 +594,19 @@ export default defineComponent({
 
       manyItems,
       currentPage: 1,
+
+      filterValue: "",
+      visibleRowsAmount: manyItems.length,
+
+      usePagination: true,
+      perPage: 10,
+      currentPage2: 1,
+      useSelectable: true,
+      selectedItemsIds: [],
+      selectMode: "single",
+      selectedColor: "primary",
+      noDataFilteredHtml: "No Items Found",
+      isStriped: true,
     }
   },
 

@@ -1,6 +1,6 @@
 <template>
-  <va-inner-loading :loading="loading" color="primary">
-    <table class="va-data-table" v-bind="$attrs">
+  <va-inner-loading :loading="loading" :color="loadingColor">
+    <table class="va-data-table" :class="{ striped }" v-bind="$attrs">
       <thead>
 <!--        Slot for prepending thead rows-->
         <slot name="head.prepend"/>
@@ -37,10 +37,14 @@
 <!--        Prepend tbody with rows (if any)-->
         <slot name="body.prepend" />
 
+<!--        Show the respective placeholder when there's no items either due to they're not provided or due to the harsh filtering conditions applied. When setting the colspan, make sure to account the possibly visible checkbox column-->
+        <tr v-if="showNoDataHtml" class="no-data"><td :colspan="columns.length + (selectable ? 1 : 0)" v-html="noDataHtml"/></tr>
+        <tr v-if="showNoDataFilteredHtml" class="no-data"><td :colspan="columns.length + (selectable ? 1 : 0)" v-html="noDataFilteredHtml"/></tr>
+
 <!--        Render rows (`tr`s). Select a row on click or select a bunch of rows on shift-click-->
         <tr v-for="(row, index) in rows" @click.exact="toggleRowSelection(row)" @click.ctrl.exact="ctrlSelectRow(row)" @click.shift.exact="shiftSelectRows(row)" :class="{ selectable, selected: isRowSelected(row) }" :style="rowCSSVariables">
 <!--          Pagination. If there's some value to the `per-page` prop, then check if the element with that index should be visible. If no `per-page` then just render anyway.      -->
-          <template v-if="perPage ? (index > perPage * (currentPage - 1)) && (index < perPage * currentPage) : true">
+          <template v-if="perPage ? (index >= perPage * (currentPage - 1)) && (index < perPage * currentPage) : true">
 <!--          Render an additional column (for selectable tables only) with checkboxes to toggle selection-->
             <td v-if="selectable">
               <input type="checkbox" :checked="isRowSelected(row)" @click.stop="ctrlSelectRow(row)">
@@ -80,38 +84,55 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, PropType, toRefs} from "vue";
-import useColumns, {ITableColumn} from "./hooks/useColumns";
-import useRows, {ITableItem} from "./hooks/useRows";
-import useSelectable, {TSelectMode} from "./hooks/useSelectable";
+import {computed, defineComponent, PropType, toRefs} from "vue";
+import useColumns, { ITableColumn } from "./hooks/useColumns";
+import useRows, { ITableItem } from "./hooks/useRows";
+import useFilterable, { TFilteringFn } from "./hooks/useFilterable";
+import useSortable, { TSortingOrder } from "./hooks/useSortable";
+import useSelectable, { TSelectMode } from "./hooks/useSelectable";
 import useStyleable from "./hooks/useStyleable";
-import useSortable, {TSortingOrder} from "./hooks/useSortable";
 
 /*
-TODO: consider a possibility to lazy-load the hooks with dynamic imports based on respective props' values. E.G.
+  TODO: consider a possibility to lazy-load the hooks with dynamic imports based on respective props' values. E.G.
 
-if (selectable.value) {
-  const {default: useSelectable} = await import("./hooks/useSelectable");
-}
+  if (selectable.value) {
+    const { default: useSelectable } = await import("./hooks/useSelectable");
+  }
 
-Would be a could feature (if possible at all).
-* */
+  // Would be a cool feature (if possible at all).
+*/
 
 export default defineComponent({
   name: "VaDataTable",
 
-  // so that the attributes could be bypassed to the <table>, not applied to <va-inner-loading>
+  // so that the attributes could be bypassed to the <table> element rather then applied to <va-inner-loading>
   inheritAttrs: false,
 
   props: {
     columns: {
-      type: Array as PropType<string[] | ITableColumn[]>,
+      type: Array as PropType<(string | ITableColumn)[]>,
+      default: () => [] as (string | ITableColumn)[]
     },
     items: {
       type: Array as PropType<ITableItem[]>,
-      required: true,
+      default: () => [] as ITableItem[]
     },
-    modelValue: {
+    filter: {
+      type: String,
+      default: "",
+    },
+    filteringFn: {
+      type: Function as PropType<TFilteringFn>
+    },
+    sortBy: { // model-able
+      type: String,
+      default: "",
+    },
+    sortingOrder: { // model-able
+      type: String as PropType<TSortingOrder>,
+      default: "asc",
+    },
+    modelValue: { // model-able
       type: Array as PropType<ITableItem[]>,
       default: () => [],
     },
@@ -124,16 +145,8 @@ export default defineComponent({
       default: "multiple",
     },
     selectedColor: {
-      type: String as PropType<string>,
+      type: String,
       default: "primary",
-    },
-    sortBy: {
-      type: String as PropType<string>,
-      default: "",
-    },
-    sortingOrder: {
-      type: String as PropType<TSortingOrder>,
-      default: "asc",
     },
     perPage: {
       type: Number,
@@ -145,6 +158,18 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    loadingColor: {
+      type: String,
+      default: "primary",
+    },
+    noDataHtml: {
+      type: String,
+      default: "No items",
+    },
+    noDataFilteredHtml: {
+      type: String,
+      default: "No items match the provided filtering condition"
+    },
     hideDefaultHeader: {
       type: Boolean,
       default: false,
@@ -152,10 +177,15 @@ export default defineComponent({
     footClone: {
       type: Boolean,
       default: false,
+    },
+    striped: {
+      type: Boolean,
+      default: false,
     }
   },
 
-  emits: ["update:modelValue", "update:sortBy", "update:sortingOrder"],
+  // `modelValue` is selected items
+  emits: ["update:modelValue", "update:sortBy", "update:sortingOrder", "filter"],
 
   setup(props, {slots, emit}) {
     // columns and rows
@@ -165,13 +195,18 @@ export default defineComponent({
     } = toRefs(props);
 
     const {columns} = useColumns(rawColumns, rawItems);
-    const {rows} = useRows(rawItems, columns);
+    const {rows: unfilteredRows} = useRows(rawItems, columns);
+
+    // filtering
+    const {filter, filteringFn} = toRefs(props);
+    const {filteredRows: rows} = useFilterable(unfilteredRows, filter, filteringFn, emit);
+
+    // sorting
+    const {sortBy, sortingOrder} = toRefs(props);
+    const {sortByProxy, sortingOrderProxy, toggleSorting} = useSortable(columns, rows, sortBy, sortingOrder, emit);
 
     // selection
-    const {
-      selectMode,
-      modelValue: selectedItems
-    } = toRefs(props);
+    const {selectMode, modelValue: selectedItems} = toRefs(props);
 
     const {
       selectedItemsProxy,
@@ -183,16 +218,20 @@ export default defineComponent({
       severalRowsSelected,
     } = useSelectable(rows, selectedItems, selectMode, emit);
 
-    // sorting
-    const {sortBy, sortingOrder} = toRefs(props);
-    const {sortByProxy, sortingOrderProxy, toggleSorting} = useSortable(columns, rows, sortBy, sortingOrder, emit);
-
     // styling
     const {selectable, selectedColor} = toRefs(props);
     const {getHeadCSSVariables, rowCSSVariables, getCellCSSVariables} = useStyleable(selectable, selectedColor);
 
     // other
-    const {loading, hideDefaultHeader, footClone} = toRefs(props);
+    const {loading, noDataHtml, noDataFilteredHtml, hideDefaultHeader, footClone, striped} = toRefs(props);
+
+    const showNoDataHtml = computed(() => {
+      return rawItems.value.length < 1;
+    });
+
+    const showNoDataFilteredHtml = computed(() => {
+      return rows.value.length < 1;
+    });
 
     // expose
     return {
@@ -214,8 +253,13 @@ export default defineComponent({
       rowCSSVariables,
       getCellCSSVariables,
       loading,
+      showNoDataHtml,
+      noDataHtml,
+      showNoDataFilteredHtml,
+      noDataFilteredHtml,
       hideDefaultHeader,
-      footClone
+      footClone,
+      striped,
     };
   }
 })
@@ -261,6 +305,27 @@ export default defineComponent({
       padding: 0.625rem;
       text-align: var(--align);
       vertical-align: var(--vertical-align);
+    }
+  }
+
+  &.striped {
+    tbody {
+      .no-data {
+        text-align: center;
+        vertical-align: middle;
+      }
+
+      tr:nth-child(2n) {
+        background-color: #f5f8f9;
+
+        &:hover {
+          background-color: var(--hover-color);
+        }
+
+        &.selected {
+          background-color: var(--selected-color);
+        }
+      }
     }
   }
 
