@@ -53,8 +53,9 @@ export default function useSortable(
     }
   })
 
-  // sort each time the sortBy or sortingOrder is changed (and also initially)
-  watch([sortByProxy, sortingOrderProxy], () => {
+  // sort each time the sortBy or sortingOrder is changed (and also initially). Also if columns definitions are changed
+  // (because that potentially means that the user runtime-introduced a custom sorting function for a specific column)
+  watch([sortByProxy, sortingOrderProxy, columns], () => {
     sort();
   }, {
     immediate: true

@@ -7,6 +7,8 @@
       Filtered rows amount: {{ visibleRowsAmount }}
 
       <h3>Sorting from outside</h3>
+      <label>Use custom sorting function for ids (will sort like numbers instead of strings)</label>
+      <input type="checkbox" v-model="useCustomSortingFnForId">
       <label>Sort by</label>
       <select v-model="sortBy2">
         <option v-for="column in evenColumnsSortable2" :value="column.key">{{column.key}}</option>
@@ -19,7 +21,11 @@
       </select>
 
       <h3>Selection</h3>
-      <p>Selected items' ids ({{selectedItemsIds.length}}): {{ selectedItemsIds.map(selectedItem => selectedItem.id) }}</p>
+      <p>Selected items' ids ({{selectedItemsIds.length}}) (click to deselect):
+        <span v-for="selectedItem in selectedItemsIds" @click="selectedItemsIds.splice(selectedItemsIds.indexOf(selectedItem), 1)">
+          {{selectedItem.id}},
+        </span>
+      </p>
       <label>Use selectable</label>
       <input type="checkbox" v-model="useSelectable">
       <label>Select mode</label>
@@ -640,7 +646,20 @@ export default defineComponent({
       currentPage2: 1,
       noDataFilteredHtml: "No Items Found",
       isStriped: true,
+      useCustomSortingFnForId: false,
     }
+  },
+
+  watch: {
+    useCustomSortingFnForId(value) {
+      if (value) {
+        this.evenColumnsSortable2[2].sortingFn = (a: number, b: number) => {
+          return a - b;
+        };
+      } else {
+        this.evenColumnsSortable2[2].sortingFn = undefined;
+      }
+    },
   },
 
   methods: {
