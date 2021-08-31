@@ -1,5 +1,6 @@
 import {Ref, computed, watch, ref} from "vue";
 import {TableRow, ITableItem} from "./useRows";
+import {TableColumn} from "./useColumns";
 
 // the available options for the `select-mode` prop
 export type TSelectMode = "single" | "multiple";
@@ -142,6 +143,14 @@ export default function useSelectable(rows: Ref<TableRow[]>, selectedItems: Ref<
       previouslySelectedItems
     })
   });
+
+  // expose methods as instances' properties. Useful for slots usage
+  TableRow.prototype.selectRow = function() { selectRow(this) };
+  TableRow.prototype.unselectRow = function() { unselectRow(this) };
+  TableRow.prototype.toggleRowSelection = function() { toggleRowSelection(this) };
+  TableRow.prototype.selectAllRows = selectAllRows;
+  TableRow.prototype.unselectAllRows = unselectAllRows;
+  TableRow.prototype.toggleBulkSelection = toggleBulkSelection;
 
   return {
     selectedItemsProxy,

@@ -26,8 +26,11 @@ export class TableColumn {
   // takes either a string or a ITableColumn as an input and returns a new Object that describes the column. Guarantees
   // that the all the fields has a value to them. The `source` field holds the initial column's definition (in the form
   // the user provided it).
-  constructor(input: string | ITableColumn) {
+  constructor(input: string | ITableColumn, initialIndex: number) {
     this.source = input;
+
+    // save the initial column's index. May come useful later
+    this.initialIndex = initialIndex;
 
     if (typeof input === "string") {
       this.key = input;
@@ -53,6 +56,7 @@ export class TableColumn {
   }
 
   readonly source: string | ITableColumn;
+  readonly initialIndex: number;
   readonly key;
   readonly label;
   readonly headerTitle;
@@ -71,13 +75,13 @@ export default function useColumns(rawColumns: Ref<(string | ITableColumn)[]>, r
     // if the `columns` prop is not provided, it defaults to an empty array
     if (rawColumns.value.length >= 1) {
       // if it's provided, then build the columns' inner representations from that `columns` prop's value
-      return rawColumns.value.map(column => {
-        return new TableColumn(column);
+      return rawColumns.value.map((column, index) => {
+        return new TableColumn(column, index);
       });
     } else {
       // if no column definitions provided then build them based on provided rawItems
       // e.g. if provided items look like `[{a: 1}, {b: 2}]` then there should be 2 columns: A and B
-      return Object.keys(merge({}, ...rawItems.value)).map(columnName => new TableColumn(columnName));
+      return Object.keys(merge({}, ...rawItems.value)).map((columnName, index) => new TableColumn(columnName, index));
     }
   });
 
