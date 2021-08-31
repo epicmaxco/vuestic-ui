@@ -2,6 +2,8 @@
   <VbDemo>
     <VbCard title="Combined example (with v-models wherever possible)">
       <h3>Filtering</h3>
+      <label>Use custom filtering function (searches for the exact math)</label>
+      <input type="checkbox" v-model="useCustomFilteringFn">
       <input type="text" v-model="filterValue" placeholder="Try '161'"/>
       All rows amount: {{ manyItems.length }}
       Filtered rows amount: {{ visibleRowsAmount }}
@@ -60,6 +62,7 @@
         :columns="evenColumnsSortable2"
         :items="manyItemsShuffled"
         :filter="filterValue"
+        :filtering-fn="filteringFn"
         @filter="visibleRowsAmount = $event"
         v-model:sort-by="sortBy2"
         v-model:sorting-order="sortingOrder2"
@@ -647,6 +650,7 @@ export default defineComponent({
       noDataFilteredHtml: "No Items Found",
       isStriped: true,
       useCustomSortingFnForId: false,
+      useCustomFilteringFn: false,
     }
   },
 
@@ -662,6 +666,12 @@ export default defineComponent({
     },
   },
 
+  computed: {
+    filteringFn() {
+      return this.useCustomFilteringFn ? this.filter : undefined;
+    }
+  },
+
   methods: {
     deleteLast5EvenItems() {
       this.evenItems.splice(this.evenItems.length - 5, this.evenItems.length)
@@ -669,7 +679,11 @@ export default defineComponent({
 
     toggleIdAndNumber() {
       this.evenColumns.splice(2, 1, this.evenColumns[2] === "id" ? "number" : "id");
-    }
+    },
+
+    filter(source) {
+      return source.toString() === this.filterValue;
+    },
   }
 });
 </script>
