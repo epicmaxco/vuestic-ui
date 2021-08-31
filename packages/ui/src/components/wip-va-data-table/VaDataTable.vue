@@ -284,14 +284,18 @@ export default defineComponent({
     letter-spacing: 0.6px;
     cursor: var(--cursor);
 
-    span {
-      //margin-right: auto;
-      line-height: 1.2rem;
-    }
-
     .th__wrapper {
       display: flex;
-      justify-content: flex-end;
+      align-items: center;
+    }
+
+    span {
+      line-height: 1.2rem;
+      flex-grow: 1;
+    }
+
+    .th__sorting {
+      justify-self: end;
     }
   }
 
