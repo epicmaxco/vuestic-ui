@@ -27,9 +27,12 @@ export default function useSelectable(rows: Ref<TableRow[]>, selectedItems: Ref<
     }
   });
 
-  // clear all the selected rows when the `select-mode`'s value changes
-  watch(selectMode, () => {
-    unselectAllRows();
+  // clear all the selected rows when the `select-mode`'s value changes from multiple to single (though it's safe enough
+  // to leave a selected item when changing from single to multiple
+  watch(selectMode, (newSelectMode, oldSelectMode) => {
+    if (newSelectMode === "single" && oldSelectMode === "multiple") {
+      unselectAllRows();
+    }
   });
 
   // watch for rows changes (happens when filtering is applied e.g.) and deselect all the rows that don't exist anymore
