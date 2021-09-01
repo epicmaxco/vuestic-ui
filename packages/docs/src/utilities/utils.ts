@@ -37,7 +37,7 @@ const removeFirstLineBreakIfExists = (code: string) => {
   return newCode
 }
 
-const applyTranslation = (code: string, $t: any) => {
+export const applyTranslation = (code: string, $t: any) => {
   const replaces =
     removeFirstLineBreakIfExists(code).match(/(?:\$t)\(.*?\)/g) || []
 
@@ -45,6 +45,17 @@ const applyTranslation = (code: string, $t: any) => {
     const translation = replaceSource.replace(/(\$t|'|\(|\)|\[\d\])/gi, '')
 
     return acc.replace(replaceSource, `'${$t(translation)}'`)
+  }, code)
+}
+
+export const applyTranslationWithoutQuote = (code: string, $t: any) => {
+  const replaces =
+    removeFirstLineBreakIfExists(code).match(/(?:\$t)\(.*?\)/g) || []
+
+  return replaces.reduce((acc, replaceSource) => {
+    const translation = replaceSource.replace(/(\$t|'|\(|\)|\[\d\])/gi, '')
+
+    return acc.replace(replaceSource, `${$t(translation)}`)
   }, code)
 }
 
