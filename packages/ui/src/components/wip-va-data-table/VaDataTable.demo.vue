@@ -91,6 +91,14 @@
       <va-button @click="deleteLast5EvenItems">Delete last 5 even data rows</va-button>
     </VbCard>
 
+    <VbCard title="Items" class="demo">
+      <va-data-table :items="itemsTest"/>
+    </VbCard>
+
+    <VbCard title="Columns strings`" class="demo">
+      <va-data-table :items="itemsTest2" :columns="columnsTest2"/>
+    </VbCard>
+
     <VbCard title="Even `items` no `columns`" class="demo">
       <va-data-table :items="evenItems"/>
     </VbCard>
@@ -665,6 +673,9 @@ export default defineComponent({
       hideDefaultHeader: false,
       footClone: false,
       allowFootSorting: false,
+
+      columnsTest2: ["columnOne", "columnTwo"],
+      itemsTest2: [{columnOne: 1, columnThree: 3}, {columnTwo: 2, columnOne: 1}],
     }
   },
 
