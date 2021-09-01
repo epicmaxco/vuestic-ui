@@ -1,7 +1,10 @@
 <template>
   <va-inner-loading :loading="loading" :color="loadingColor">
     <table class="va-data-table" :class="{ striped }" v-bind="$attrs">
-      <slot name="colgroup" v-bind="columns" />
+<!--      Columns configuration (optional) through the colgroup slot-->
+      <colgroup v-if="'colgroup' in slots">
+        <slot name="colgroup" v-bind="columns" />
+      </colgroup>
 
       <thead>
 <!--        Slot for prepending thead rows-->
