@@ -34,7 +34,7 @@ export default {
       default: 'colorsConfig.example.code.currentColorText',
     },
   },
-  setup() {
+  setup () {
     const { setColors, getColor } = useColors()
 
     const colorsToChange = [
@@ -46,10 +46,10 @@ export default {
     ]
 
     const primaryColor = computed({
-      get() {
+      get () {
         return getColor('primary')
       },
-      set(value) {
+      set (value) {
         setColors({ primary: value })
       },
     })
@@ -70,12 +70,13 @@ export default {
 .primary-danger-gradient {
   width: 100%;
   height: 4rem;
-  background: linear-gradient(
-    90deg,
-    var(--va-primary) 0%,
-    var(--va-success) 50%,
-    var(--va-danger) 100%
-  );
+  background:
+    linear-gradient(
+      90deg,
+      var(--va-primary) 0%,
+      var(--va-success) 50%,
+      var(--va-danger) 100%
+    );
 
   span {
     background: var(--secondary);

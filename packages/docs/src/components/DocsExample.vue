@@ -70,31 +70,31 @@ export default {
   }),
 
   computed: {
-    internalValue() {
+    internalValue () {
       if (this.value === Object(this.value)) {
         return this.value
       }
 
       return { file: this.value }
     },
-    file() {
+    file () {
       return this.internalValue.file
     },
   },
-  mounted() {
+  mounted () {
     this.importComponent()
     this.getFiles()
   },
   methods: {
-    async getFiles() {
+    async getFiles () {
       this.loading = true
       await this.importTemplate()
       this.loading = false
     },
-    async importComponent() {
+    async importComponent () {
       this.component = (await readComponent(this.file)).default
     },
-    async importTemplate() {
+    async importTemplate () {
       const componentTemplate = (await readTemplate(this.file)).default
       this.parsed = parseComponent(componentTemplate, this.$t)
     },
