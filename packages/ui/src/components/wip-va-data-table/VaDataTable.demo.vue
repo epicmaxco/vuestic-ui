@@ -470,7 +470,7 @@
     <VbCard title="Pagination" class="demo">
       {{ currentPage }}
       <va-data-table :items="manyItems" :per-page="10" :current-page="currentPage" />
-      <va-pagination v-model.number="currentPage" input :pages="100" />
+      <va-pagination v-model="currentPage" input :pages="100" />
     </VbCard>
 
     <VbCard title="Filtering" class="demo">
