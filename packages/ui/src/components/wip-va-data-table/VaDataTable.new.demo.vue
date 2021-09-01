@@ -1,0 +1,288 @@
+<template>
+  <VbDemo>
+    <VbCard title="Reactive data">
+      <button @click="shuffleItems">Shuffle</button>
+      <va-data-table :items="items" />
+    </VbCard>
+
+    <VbCard title="Use custom slots for address and company">
+      <va-data-table :items="items">
+        <template #head(address)>Street</template>
+        <template #head(company)>Company Name</template>
+
+        <template #cell(address)="{ source: address }">{{ address.street }}</template>
+        <template #cell(company)="{ source:company }">{{ company.name }}</template>
+      </va-data-table>
+    </VbCard>
+
+    <VbCard title="Show footer and append static rows everywhere">
+      <va-data-table :items="items" foot-clone>
+        <template #head.append>
+          <tr>
+            <th colspan="4">User info</th>
+            <th colspan="4">Contact info</th>
+          </tr>
+        </template>
+
+        <template #body.append>
+          <tr>
+            <td colspan="8">Custom cell which span 8 cells</td>
+          </tr>
+        </template>
+
+        <template #foot.append>
+          <tr>
+            <th colspan="8">Span 8 cells</th>
+          </tr>
+        </template>
+      </va-data-table>
+    </VbCard>
+
+    <VbCard title="Use `colgroup` slot to set 2nd column's width to 50px">
+      <va-data-table :items="items">
+        <template #colgroup>
+          <col>
+          <col width="50">
+        </template>
+      </va-data-table>
+    </VbCard>
+
+    <VbCard title="Filtering">
+      <p>Number of filtered items: {{filteredCount}}</p>
+      <input type="text" v-model="filter">
+
+      <input id="ucf" type="checkbox" v-model="useCustomFilteringFn">
+      <label for="ucf">Use custom filtering function (looks for an exact match)</label>
+
+      <va-data-table :items="items" :filter="filter" :filtering-fn="customFilteringFn" @filter="filteredCount = $event"/>
+    </VbCard>
+
+    <VbCard title="Use `columns` prop, enable sorting and use custom sorting function (always returns -1) for the `id` column">
+      <label for="sb">Sort by</label>
+      <select id="sb" v-model="sortBy">
+        <option v-for="column in columns" :value="column.key">{{ column.key }}</option>
+      </select><br>
+
+      <label for="so">Sorting order</label>
+      <select id="so" v-model="sortingOrder">
+        <option value="asc">asc</option>
+        <option value="desc">desc</option>
+        <option :value="null">null</option>
+      </select>
+
+      <va-data-table :items="items" :columns="columns" v-model:sort-by="sortBy" v-model:sorting-order="sortingOrder" />
+    </VbCard>
+
+    <VbCard title="Selection (bound to model)">
+      <p>
+        Selected items (click to un-select):
+        <button v-for="item in selectedItems" @click="selectedItems.splice(selectedItems.indexOf(item), 1)">{{item.id}}, </button>
+      </p>
+
+      <input id="isS" type="checkbox" v-model="selectable">
+      <label for="isS">Selectable</label><br>
+
+      <label for="sm">Select mode</label>
+      <select id="sm" v-model="selectMode">
+        <option value="single">single</option>
+        <option value="multiple">Multiple</option>
+      </select><br>
+
+      <label for="sc">Selected color</label>
+      <select id="sc" v-model="selectedColor">
+        <option value="primary">primary</option>
+        <option value="danger">danger</option>
+        <option value="warning">warning</option>
+      </select>
+
+      <va-data-table :items="items" :columns="columns" :selectable="selectable" v-model="selectedItems" :select-mode="selectMode" :selected-color="selectedColor"/>
+    </VbCard>
+
+    <VbCard title="Selection (bound to model)">
+      <input id="pp" type="number" v-model="perPage">
+      <label for="pp">Items per page</label><br>
+
+      <input id="cp" type="number" v-model="currentPage">
+      <label for="cp">Current page</label><br>
+
+      <va-data-table :items="items" :per-page="perPage" :current-page="currentPage"/>
+    </VbCard>
+  </VbDemo>
+</template>
+
+<script lang="ts">
+import {defineComponent} from "vue";
+import VaDataTable from "./";
+import {cloneDeep, shuffle} from "lodash-es";
+
+export default defineComponent({
+  name: "VaDataTableNewDemo",
+
+  components: {
+    VaDataTable,
+  },
+
+  data() {
+    const users = [
+      {
+        "id": 1,
+        "name": "Leanne Graham",
+        "username": "Bret",
+        "email": "Sincere@april.biz",
+        "address": {
+          "street": "Kulas Light",
+          "suite": "Apt. 556",
+          "city": "Gwenborough",
+          "zipcode": "92998-3874",
+          "geo": {
+            "lat": "-37.3159",
+            "lng": "81.1496"
+          }
+        },
+        "phone": "1-770-736-8031 x56442",
+        "website": "hildegard.org",
+        "company": {
+          "name": "Romaguera-Crona",
+          "catchPhrase": "Multi-layered client-server neural-net",
+          "bs": "harness real-time e-markets"
+        }
+      },
+      {
+        "id": 2,
+        "name": "Ervin Howell",
+        "username": "Antonette",
+        "email": "Shanna@melissa.tv",
+        "address": {
+          "street": "Victor Plains",
+          "suite": "Suite 879",
+          "city": "Wisokyburgh",
+          "zipcode": "90566-7771",
+          "geo": {
+            "lat": "-43.9509",
+            "lng": "-34.4618"
+          }
+        },
+        "phone": "010-692-6593 x09125",
+        "website": "anastasia.net",
+        "company": {
+          "name": "Deckow-Crist",
+          "catchPhrase": "Proactive didactic contingency",
+          "bs": "synergize scalable supply-chains"
+        }
+      },
+      {
+        "id": 3,
+        "name": "Clementine Bauch",
+        "username": "Samantha",
+        "email": "Nathan@yesenia.net",
+        "address": {
+          "street": "Douglas Extension",
+          "suite": "Suite 847",
+          "city": "McKenziehaven",
+          "zipcode": "59590-4157",
+          "geo": {
+            "lat": "-68.6102",
+            "lng": "-47.0653"
+          }
+        },
+        "phone": "1-463-123-4447",
+        "website": "ramiro.info",
+        "company": {
+          "name": "Romaguera-Jacobson",
+          "catchPhrase": "Face to face bifurcated interface",
+          "bs": "e-enable strategic applications"
+        }
+      },
+      {
+        "id": 4,
+        "name": "Patricia Lebsack",
+        "username": "Karianne",
+        "email": "Julianne.OConner@kory.org",
+        "address": {
+          "street": "Hoeger Mall",
+          "suite": "Apt. 692",
+          "city": "South Elvis",
+          "zipcode": "53919-4257",
+          "geo": {
+            "lat": "29.4572",
+            "lng": "-164.2990"
+          }
+        },
+        "phone": "493-170-9623 x156",
+        "website": "kale.biz",
+        "company": {
+          "name": "Robel-Corkery",
+          "catchPhrase": "Multi-tiered zero tolerance productivity",
+          "bs": "transition cutting-edge web services"
+        }
+      },
+      {
+        "id": 5,
+        "name": "Chelsey Dietrich",
+        "username": "Kamren",
+        "email": "Lucio_Hettinger@annie.ca",
+        "address": {
+          "street": "Skiles Walks",
+          "suite": "Suite 351",
+          "city": "Roscoeview",
+          "zipcode": "33263",
+          "geo": {
+            "lat": "-31.8129",
+            "lng": "62.5342"
+          }
+        },
+        "phone": "(254)954-1289",
+        "website": "demarco.info",
+        "company": {
+          "name": "Keebler LLC",
+          "catchPhrase": "User-centric fault-tolerant solution",
+          "bs": "revolutionize end-to-end systems"
+        }
+      },
+    ];
+
+    const columns = [
+      {key: "username", sortable: true},
+      {key: "email", sortable: true},
+      {key: "name", sortable: true},
+      {key: "id", sortable: true, sortingFn: () => -1}
+    ]
+
+    return {
+      items: shuffle(cloneDeep(users)),
+      columns,
+
+      filter: "",
+      useCustomFilteringFn: false,
+      filteredCount: users.length,
+
+      sortBy: "username",
+      sortingOrder: "asc",
+
+      selectable: true,
+      selectedItems: [],
+      selectMode: "single",
+      selectedColor: "danger",
+
+      perPage: 2,
+      currentPage: 1
+    }
+  },
+
+  computed: {
+    customFilteringFn() {
+      return this.useCustomFilteringFn ? this.filterExact : undefined;
+    },
+  },
+
+  methods: {
+    shuffleItems() {
+      this.items = shuffle(this.items);
+    },
+
+    filterExact(source) {
+      return source?.toString?.() === this.filter;
+    },
+  }
+})
+</script>
