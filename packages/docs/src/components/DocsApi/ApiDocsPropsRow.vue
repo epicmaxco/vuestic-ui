@@ -1,7 +1,7 @@
 <template>
   <tr class="ApiDocsPropsRow">
     <td>{{ propRow.name }}</td>
-    <td><MarkdownView :value="$tie(propRow.description)" /></td>
+    <td><MarkdownView :value="$t(propRow.description)" /></td>
     <td><MarkdownView :value="propRow.types" /></td>
     <td><pre>{{propRow.default}}</pre></td>
     <td>{{ propRow.required }}</td>

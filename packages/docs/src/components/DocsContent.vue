@@ -22,7 +22,7 @@
       <MarkdownView
         v-else-if="block.type === BlockType.TITLE"
         :key="block.type + index"
-        :value="`# ${$tie(block.translationString)}`"
+        :value="`# ${$t(block.translationString)}`"
       />
       <DocsSubtitle
         v-else-if="block.type === BlockType.SUBTITLE"
@@ -108,7 +108,7 @@ export default class DocsContent extends mixins(PropsMixin) {
 
   translateAndMark (translations: string[]): string {
     return translations
-      .map((t: string): string => `- ${(this as any).$tie(t)}`)
+      .map((t: string): string => `- ${this.$tie(t)}`)
       .join('\n')
   }
 }

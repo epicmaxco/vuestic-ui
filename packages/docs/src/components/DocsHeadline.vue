@@ -8,6 +8,7 @@
     <DocsAnchor :text="linkTextComputed" />
   </h5>
 </template>
+
 <script lang='ts'>
 import { TranslationString } from '../components/DocsApi/ManualApiOptions'
 import { Options, Vue, mixins, prop } from 'vue-class-component'
@@ -26,11 +27,11 @@ const PropsMixin = Vue.with(Props)
 })
 export default class DocsHeadline extends mixins(PropsMixin) {
   get textComputed () {
-    return (this as any).$tie(this.text)
+    return this.$tie(this.text)
   }
 
   get linkTextComputed () {
-    return (this as any).$tie(this.text, 'en')
+    return this.$tie(this.text, 'en')
   }
 }
 </script>
