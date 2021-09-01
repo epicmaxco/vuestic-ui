@@ -14,7 +14,7 @@
 <script>
 export default {
   methods: {
-    clickHandler() {
+    clickHandler () {
       alert('clicked')
     },
   },

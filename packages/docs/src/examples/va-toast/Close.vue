@@ -23,7 +23,7 @@
 <script>
 export default {
   methods: {
-    closeHandler() {
+    closeHandler () {
       alert('Toast closed')
     },
   },

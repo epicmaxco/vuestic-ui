@@ -25,7 +25,7 @@
 import message from './popup-message'
 
 export default {
-  data() {
+  data () {
     return {
       showModalSizeSmall: false,
       showModalSizeMedium: false,

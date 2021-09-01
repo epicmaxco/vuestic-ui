@@ -45,7 +45,7 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       isCloseableAlertVisible: true,
     }

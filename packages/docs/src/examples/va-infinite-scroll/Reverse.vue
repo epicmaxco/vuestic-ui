@@ -13,13 +13,13 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       records: [{}, {}, {}, {}, {}, {}, {}, {}],
     }
   },
   methods: {
-    async appendRecordsAsync() {
+    async appendRecordsAsync () {
       await new Promise((resolve) => setTimeout(resolve, 1000))
       this.records.push({}, {}, {})
     },

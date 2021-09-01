@@ -27,18 +27,18 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       recordsRef: [{}, {}, {}, {}, {}, {}, {}, {}],
       recordsId: [{}, {}, {}, {}, {}, {}, {}, {}],
     }
   },
   methods: {
-    async appendRecordsAsyncRef() {
+    async appendRecordsAsyncRef () {
       await new Promise(resolve => setTimeout(resolve, 1000))
       this.recordsRef.push({}, {}, {})
     },
-    async appendRecordsAsyncId() {
+    async appendRecordsAsyncId () {
       await new Promise(resolve => setTimeout(resolve, 1000))
       this.recordsId.push({}, {}, {})
     },

@@ -21,7 +21,7 @@
 import message from '../popup-message'
 
 export default {
-  data() {
+  data () {
     return {
       showStatefulModal: false,
       message,

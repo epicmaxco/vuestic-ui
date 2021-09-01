@@ -10,18 +10,18 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       slotImageSize: 1500,
     }
   },
   computed: {
-    slotImagePath() {
+    slotImagePath () {
       return this.getImagePath(this.slotImageSize)
     },
   },
   methods: {
-    getImagePath(width, height = width) {
+    getImagePath (width, height = width) {
       return `https://picsum.photos/${width}/${height}`
     },
   },

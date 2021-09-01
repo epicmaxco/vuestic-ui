@@ -27,7 +27,7 @@ export default {
       default: 'colorsConfig.example.code.buttonText',
     },
   },
-  setup() {
+  setup () {
     const { setColors, getColor } = useColors()
 
     const colorsToChange = [
@@ -39,10 +39,10 @@ export default {
     ]
 
     const primaryColor = computed({
-      get() {
+      get () {
         return getColor('primary')
       },
-      set(value) {
+      set (value) {
         setColors({ primary: value })
       },
     })
