@@ -552,7 +552,7 @@
         "closeable": "Добавляет зону закрытия",
         "center": "Центрирование заголовка и сообщения",
         "borderColor": "Цвет для border",
-        "border": "Полоса border. Доступные опции расположения: `top`, `right`, `bottom`, `left`.",
+        "border": "Полоса border. Доступные опции расположения: `top`, `right`, `bottom`, `left`",
         "dense": "Уменьшает отступы вокруг сообщения"
       },
       "methods": {
@@ -863,7 +863,7 @@
         "mode": "Устанавливает режим date picker: один день, массив дней или период"
       },
       "events": {
-        "updateView": "Событие запускается, когда компоненту необходимо изменить `view`",
+        "updateView": "Вызывается при изменении \"типа представления (view)\" компонента. Типы представлений компонента: `\"year\"`, `\"month\"`, `\"day\"`.",
         "hoverYear": "Событие срабатывает при наведении курсора мыши на ячейку года",
         "clickYear": "Событие запускается при нажатии на ячейку года",
         "hoverDay": "Событие срабатывает при наведении курсора мыши на ячейку дня",
@@ -3252,7 +3252,7 @@
     "highLevelStrategy": {
       "title": "Высокоуровневая стратегия",
       "description": {
-        "userExpectations": "Компоненты должны быть такими, какими их ожидает видеть пользователь. Мы достигаем этого, изучая следующие проекты ([Vuetify](https://vuetifyjs.com)[[target=_blank]], [Quasar](https://quasar.dev)[[target=_blank]], [Ant Design](https://ant.design)[[target=_blank]], [iView](http://iview.talkingdata.com)[[target=_blank]], [Element UI](https://element.eleme.io), etc.)[[target=_blank]].",
+        "userExpectations": "Компоненты должны быть такими, какими их ожидает видеть пользователь. Мы достигаем этого, изучая следующие проекты ([Vuetify](https://vuetifyjs.com)[[target=_blank]], [Quasar](https://quasar.dev)[[target=_blank]], [Ant Design](https://ant.design)[[target=_blank]], [iView](http://iview.talkingdata.com)[[target=_blank]], [Element UI](https://element.eleme.io)[[target=_blank]] и т.п.).",
         "qualityComponents": "Компоненты должны быть качественными. Мы достигаем этого путем ручного тестирования особых случаев + раннего и частого рефакторинга."
       }
     },
@@ -3261,7 +3261,7 @@
       "description": {
         "visualFeedback": "**Визуальная обратная связь** - когда пользователь взаимодействует с компонентом, он должен видеть результат своих действий (может быть реализован с помощью :active селектора или как-то иначе в зависимости от компонента).",
         "keyboardNavigation": "**Клавиатурная навигация** - Вы должны убедиться, что элементы пользовательского интерфейса доступны с клавиатуры, или же отключить эту функцию для элементов, которые не должны получать фокус через клавиатуру.",
-        "statelessSupport": "Поддержка **внутреннего состояния** компонента (прочтите об [StatefulMixin](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/vuestic-mixins/StatefulMixin/README.md)[[target=_blank]])."
+        "statelessSupport": "Поддержка **внутреннего состояния** компонента (прочтите об [StatefulMixin](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/mixins/StatefulMixin/README.md)[[target=_blank]])."
       }
     }
   }

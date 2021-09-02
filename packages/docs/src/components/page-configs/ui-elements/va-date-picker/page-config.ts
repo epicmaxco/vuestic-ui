@@ -6,12 +6,10 @@ import apiOptions from './api-options'
 const config: ApiDocsBlock[] = [
   DocsHelper.title('datePicker.title'),
   DocsHelper.paragraph('datePicker.description'),
-
   DocsHelper.link('datePicker.lookAtDateInput', '/ui-elements/date-input'),
 
   DocsHelper.subtitle('all.examples'),
 
-  // examples
   ...DocsHelper.exampleBlock(
     'datePicker.examples.default.title',
     'datePicker.examples.default.text',

@@ -8,6 +8,7 @@ const config: ApiDocsBlock[] = [
   DocsHelper.paragraph('avatar.summaryText'),
 
   DocsHelper.subtitle('all.examples'),
+
   ...DocsHelper.exampleBlock(
     'avatar.examples.default.title',
     'avatar.examples.default.text',
@@ -23,12 +24,12 @@ const config: ApiDocsBlock[] = [
   ...DocsHelper.exampleBlock(
     'avatar.examples.withImage.title',
     'avatar.examples.withImage.text',
-    'va-avatar/withImage',
+    'va-avatar/WithImage',
   ),
   ...DocsHelper.exampleBlock(
     'avatar.examples.withIcon.title',
     'avatar.examples.withIcon.text',
-    'va-avatar/withIcon',
+    'va-avatar/WithIcon',
   ),
 
   DocsHelper.subtitle('all.api'),
