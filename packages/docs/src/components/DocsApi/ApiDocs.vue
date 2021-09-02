@@ -9,7 +9,7 @@
             <tr>
               <th>Name</th>
               <th>Description</th>
-              <th style="min-width: 200px">Types</th>
+              <th style="min-width: 200px;">Types</th>
               <th>Default</th>
               <th>Required</th>
               <th>Version</th>
