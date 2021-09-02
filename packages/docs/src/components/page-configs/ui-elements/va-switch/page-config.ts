@@ -1,134 +1,61 @@
-import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
+import { ApiDocsBlock } from '../../../../types/configTypes'
 import { DocsHelper } from '../../../../helpers/DocsHelper'
 import VaSwitch from 'vuestic-ui/src/components/va-switch/VaSwitch.vue'
 import apiOptions from './api-options'
 
 const config: ApiDocsBlock[] = [
-  {
-    type: BlockType.TITLE,
-    translationString: 'switch.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'switch.summaryText',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'all.examples',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'switch.examples.default.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'switch.examples.default.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-switch/Default',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'switch.examples.color.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'switch.examples.color.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-switch/Color',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'switch.examples.label.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'switch.examples.label.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-switch/Label',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'switch.examples.customLabel.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'switch.examples.customLabel.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-switch/CustomLabel',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'switch.examples.innerLabel.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'switch.examples.innerLabel.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-switch/InnerLabel',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'switch.examples.size.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'switch.examples.size.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-switch/Size',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'switch.examples.state.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'switch.examples.state.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-switch/State',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'switch.examples.loading.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'switch.examples.loading.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-switch/Loading',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'switch.examples.error.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'switch.examples.error.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-switch/Error',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'all.api',
-  },
+  DocsHelper.title('switch.title'),
+  DocsHelper.paragraph('switch.summaryText'),
 
+  DocsHelper.subtitle('all.examples'),
+
+  ...DocsHelper.exampleBlock(
+    'switch.examples.default.title',
+    'switch.examples.default.text',
+    'va-switch/Default',
+  ),
+  ...DocsHelper.exampleBlock(
+    'switch.examples.color.title',
+    'switch.examples.color.text',
+    'va-switch/Color',
+  ),
+  ...DocsHelper.exampleBlock(
+    'switch.examples.label.title',
+    'switch.examples.label.text',
+    'va-switch/Label',
+  ),
+  ...DocsHelper.exampleBlock(
+    'switch.examples.customLabel.title',
+    'switch.examples.customLabel.text',
+    'va-switch/CustomLabel',
+  ),
+  ...DocsHelper.exampleBlock(
+    'switch.examples.innerLabel.title',
+    'switch.examples.innerLabel.text',
+    'va-switch/InnerLabel',
+  ),
+  ...DocsHelper.exampleBlock(
+    'switch.examples.size.title',
+    'switch.examples.size.text',
+    'va-switch/Size',
+  ),
+  ...DocsHelper.exampleBlock(
+    'switch.examples.state.title',
+    'switch.examples.state.text',
+    'va-switch/State',
+  ),
+  ...DocsHelper.exampleBlock(
+    'switch.examples.loading.title',
+    'switch.examples.loading.text',
+    'va-switch/Loading',
+  ),
+  ...DocsHelper.exampleBlock(
+    'switch.examples.error.title',
+    'switch.examples.error.text',
+    'va-switch/Error',
+  ),
+
+  DocsHelper.subtitle('all.api'),
   DocsHelper.api(VaSwitch, apiOptions),
 ]
 

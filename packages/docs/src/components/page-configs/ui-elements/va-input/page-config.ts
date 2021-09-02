@@ -1,110 +1,51 @@
-import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
+import { ApiDocsBlock } from '../../../../types/configTypes'
 import { DocsHelper } from '../../../../helpers/DocsHelper'
 import VaInput from 'vuestic-ui/src/components/va-input/VaInput.vue'
 import apiOptions from './api-options'
 
 const config: ApiDocsBlock[] = [
-  {
-    type: BlockType.TITLE,
-    translationString: 'input.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'input.summaryText',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'all.examples',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'input.examples.default.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'input.examples.default.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-input/Default',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'input.examples.styles.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'input.examples.styles.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-input/Styles',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'input.examples.hint.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'input.examples.hint.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-input/Hint',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'input.examples.validate.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'input.examples.validate.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-input/Validate',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'input.examples.slots.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'input.examples.slots.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-input/Slots',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'input.examples.textarea.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'input.examples.textarea.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-input/Textarea',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'input.examples.mask.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'input.examples.mask.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-input/Mask',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'all.api',
-  },
+  DocsHelper.title('input.title'),
+  DocsHelper.paragraph('input.summaryText'),
 
+  DocsHelper.subtitle('all.examples'),
+
+  ...DocsHelper.exampleBlock(
+    'input.examples.default.title',
+    'input.examples.default.text',
+    'va-input/Default',
+  ),
+  ...DocsHelper.exampleBlock(
+    'input.examples.styles.title',
+    'input.examples.styles.text',
+    'va-input/Styles',
+  ),
+  ...DocsHelper.exampleBlock(
+    'input.examples.hint.title',
+    'input.examples.hint.text',
+    'va-input/Hint',
+  ),
+  ...DocsHelper.exampleBlock(
+    'input.examples.validate.title',
+    'input.examples.validate.text',
+    'va-input/Validate',
+  ),
+  ...DocsHelper.exampleBlock(
+    'input.examples.slots.title',
+    'input.examples.slots.text',
+    'va-input/Slots',
+  ),
+  ...DocsHelper.exampleBlock(
+    'input.examples.textarea.title',
+    'input.examples.textarea.text',
+    'va-input/Textarea',
+  ),
+  ...DocsHelper.exampleBlock(
+    'input.examples.mask.title',
+    'input.examples.mask.text',
+    'va-input/Mask',
+  ),
+
+  DocsHelper.subtitle('all.api'),
   DocsHelper.api(VaInput, apiOptions),
 ]
 

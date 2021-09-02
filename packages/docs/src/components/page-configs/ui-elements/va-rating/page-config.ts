@@ -1,152 +1,70 @@
-import { ApiDocsBlock, BlockType } from '../../../../types/configTypes'
+import { ApiDocsBlock } from '../../../../types/configTypes'
 import { DocsHelper } from '../../../../helpers/DocsHelper'
 import VaRating from 'vuestic-ui/src/components/va-rating/VaRating.vue'
 import apiOptions from './api-options'
 
 const config: ApiDocsBlock[] = [
-  {
-    type: BlockType.TITLE,
-    translationString: 'rating.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'rating.summaryText',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'all.examples',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'rating.examples.default.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'rating.examples.default.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-rating/Default',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'rating.examples.color.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'rating.examples.color.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-rating/Color',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'rating.examples.size.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'rating.examples.size.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-rating/Size',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'rating.examples.hover.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'rating.examples.hover.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-rating/Hover',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'rating.examples.halves.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'rating.examples.halves.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-rating/Halves',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'rating.examples.numbers.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'rating.examples.numbers.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-rating/Numbers',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'rating.examples.texts.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'rating.examples.texts.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-rating/Texts',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'rating.examples.clearable.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'rating.examples.clearable.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-rating/Clearable',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'rating.examples.customIcons.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'rating.examples.customIcons.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-rating/CustomIcons',
-  },
+  DocsHelper.title('rating.title'),
+  DocsHelper.paragraph('rating.summaryText'),
 
+  DocsHelper.subtitle('all.examples'),
+
+  ...DocsHelper.exampleBlock(
+    'rating.examples.default.title',
+    'rating.examples.default.text',
+    'va-rating/Default',
+  ),
+  ...DocsHelper.exampleBlock(
+    'rating.examples.color.title',
+    'rating.examples.color.text',
+    'va-rating/Color',
+  ),
+  ...DocsHelper.exampleBlock(
+    'rating.examples.size.title',
+    'rating.examples.size.text',
+    'va-rating/Size',
+  ),
+  ...DocsHelper.exampleBlock(
+    'rating.examples.hover.title',
+    'rating.examples.hover.text',
+    'va-rating/Hover',
+  ),
+  ...DocsHelper.exampleBlock(
+    'rating.examples.halves.title',
+    'rating.examples.halves.text',
+    'va-rating/Halves',
+  ),
+  ...DocsHelper.exampleBlock(
+    'rating.examples.numbers.title',
+    'rating.examples.numbers.text',
+    'va-rating/Numbers',
+  ),
+  ...DocsHelper.exampleBlock(
+    'rating.examples.texts.title',
+    'rating.examples.texts.text',
+    'va-rating/Texts',
+  ),
+  ...DocsHelper.exampleBlock(
+    'rating.examples.clearable.title',
+    'rating.examples.clearable.text',
+    'va-rating/Clearable',
+  ),
+  ...DocsHelper.exampleBlock(
+    'rating.examples.customIcons.title',
+    'rating.examples.customIcons.text',
+    'va-rating/CustomIcons',
+  ),
+
+  DocsHelper.subtitle('all.api'),
   DocsHelper.api(VaRating, apiOptions),
 
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'rating.faq.subtitle',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'rating.faq.questions[0].question',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'rating.faq.questions[0].answer',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'rating.faq.questions[1].question',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'rating.faq.questions[1].answer',
-  },
+  DocsHelper.subtitle('all.faq'),
+
+  DocsHelper.headline('rating.faq.questions[0].question'),
+  DocsHelper.paragraph('rating.faq.questions[0].answer'),
+
+  DocsHelper.headline('rating.faq.questions[1].question'),
+  DocsHelper.paragraph('rating.faq.questions[1].answer'),
 ]
 
 export default config

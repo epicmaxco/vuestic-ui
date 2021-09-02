@@ -1,74 +1,36 @@
-import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
+import { ApiDocsBlock } from '../../../../types/configTypes'
 import { DocsHelper } from '../../../../helpers/DocsHelper'
 import VaInnerLoading from 'vuestic-ui/src/components/va-inner-loading/VaInnerLoading.vue'
 import apiOptions from './api-options'
 
 const config: ApiDocsBlock[] = [
-  {
-    type: BlockType.TITLE,
-    translationString: 'innerLoading.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'innerLoading.summaryText',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'all.examples',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'innerLoading.examples.default.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'innerLoading.examples.default.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-inner-loading/Default',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'innerLoading.examples.color.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'innerLoading.examples.color.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-inner-loading/Color',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'innerLoading.examples.size.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'innerLoading.examples.size.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-inner-loading/Size',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'innerLoading.examples.icon.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'innerLoading.examples.icon.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-inner-loading/Icon',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'all.api',
-  },
+  DocsHelper.title('innerLoading.title'),
+  DocsHelper.paragraph('innerLoading.summaryText'),
 
+  DocsHelper.subtitle('all.examples'),
+
+  ...DocsHelper.exampleBlock(
+    'innerLoading.examples.default.title',
+    'innerLoading.examples.default.text',
+    'va-inner-loading/Default',
+  ),
+  ...DocsHelper.exampleBlock(
+    'innerLoading.examples.color.title',
+    'innerLoading.examples.color.text',
+    'va-inner-loading/Color',
+  ),
+  ...DocsHelper.exampleBlock(
+    'innerLoading.examples.size.title',
+    'innerLoading.examples.size.text',
+    'va-inner-loading/Size',
+  ),
+  ...DocsHelper.exampleBlock(
+    'innerLoading.examples.icon.title',
+    'innerLoading.examples.icon.text',
+    'va-inner-loading/Icon',
+  ),
+
+  DocsHelper.subtitle('all.api'),
   DocsHelper.api(VaInnerLoading, apiOptions),
 ]
 

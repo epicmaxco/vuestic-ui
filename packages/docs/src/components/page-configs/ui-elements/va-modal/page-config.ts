@@ -1,182 +1,70 @@
-import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
+import { ApiDocsBlock } from '../../../../types/configTypes'
 import { DocsHelper } from '../../../../helpers/DocsHelper'
 import VaModal from 'vuestic-ui/src/components/va-modal/VaModal.vue'
 import apiOptions from './api-options'
 
 const config: ApiDocsBlock[] = [
-  {
-    type: BlockType.TITLE,
-    translationString: 'modal.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'modal.description',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'modal.overview.subtitle',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'modal.overview.paragraphs[0]',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'modal.overview.paragraphs[1]',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-modal/Overview',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'modal.stateful.subtitle',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'modal.stateful.paragraph',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-modal/Stateful',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'modal.fullscreen.subtitle',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'modal.fullscreen.paragraphs[0]',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'modal.fullscreen.paragraphs[1]',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-modal/Fullscreen',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'modal.toggleVisibility.subtitle',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'modal.toggleVisibility.paragraph',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'modal.toggleVisibility.sections[0].headline',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'modal.toggleVisibility.sections[0].paragraph',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'modal.toggleVisibility.sections[1].headline',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'modal.toggleVisibility.sections[1].paragraph',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-modal/toggle-visibility/InstanceMethods',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'modal.disableAnimation.subtitle',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'modal.disableAnimation.paragraph',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-modal/DisableAnimation',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'modal.modalSizing.subtitle',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'modal.modalSizing.paragraph',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-modal/ModalSizing',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'modal.hidingOverlay.subtitle',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'modal.hidingOverlay.paragraphs[0]',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'modal.hidingOverlay.paragraphs[1]',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-modal/HidingOverlay',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'modal.scrollingLongContent.subtitle',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'modal.scrollingLongContent.paragraphs[0]',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'modal.scrollingLongContent.paragraphs[1]',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-modal/ScrollingLongContent',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'modal.customization.subtitle',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'modal.customization.paragraphs[0]',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'modal.customization.paragraphs[1]',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'modal.customization.paragraphs[2]',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-modal/Customization',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'modal.nestedModals.subtitle',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'modal.nestedModals.paragraph',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-modal/NestedModals',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'modal.api.subtitle',
-  },
+  DocsHelper.title('modal.title'),
+  DocsHelper.paragraph('modal.summaryText'),
 
+  DocsHelper.subtitle('all.examples'),
+
+  ...DocsHelper.exampleBlock(
+    'modal.overview.title',
+    'modal.overview.text',
+    'va-modal/Overview',
+  ),
+  ...DocsHelper.exampleBlock(
+    'modal.stateful.title',
+    'modal.stateful.text',
+    'va-modal/Stateful',
+  ),
+  ...DocsHelper.exampleBlock(
+    'modal.fullscreen.title',
+    'modal.fullscreen.text',
+    'va-modal/Fullscreen',
+  ),
+
+  DocsHelper.headline('modal.toggleVisibility.title'),
+  DocsHelper.paragraph('modal.toggleVisibility.text'),
+  DocsHelper.headline('modal.toggleVisibility.sections[0].title'),
+  DocsHelper.paragraph('modal.toggleVisibility.sections[0].text'),
+  DocsHelper.headline('modal.toggleVisibility.sections[1].title'),
+  DocsHelper.paragraph('modal.toggleVisibility.sections[1].text'),
+  DocsHelper.example('va-modal/toggle-visibility/InstanceMethods'),
+
+  ...DocsHelper.exampleBlock(
+    'modal.disableAnimation.title',
+    'modal.disableAnimation.text',
+    'va-modal/DisableAnimation',
+  ),
+  ...DocsHelper.exampleBlock(
+    'modal.modalSizing.title',
+    'modal.modalSizing.text',
+    'va-modal/ModalSizing',
+  ),
+  ...DocsHelper.exampleBlock(
+    'modal.hidingOverlay.title',
+    'modal.hidingOverlay.text',
+    'va-modal/HidingOverlay',
+  ),
+  ...DocsHelper.exampleBlock(
+    'modal.scrollingLongContent.title',
+    'modal.scrollingLongContent.text',
+    'va-modal/ScrollingLongContent',
+  ),
+  ...DocsHelper.exampleBlock(
+    'modal.customization.title',
+    'modal.customization.text',
+    'va-modal/Customization',
+  ),
+  ...DocsHelper.exampleBlock(
+    'modal.nestedModals.title',
+    'modal.nestedModals.text',
+    'va-modal/NestedModals',
+  ),
+
+  DocsHelper.subtitle('all.api'),
   DocsHelper.api(VaModal, apiOptions),
 ]
 

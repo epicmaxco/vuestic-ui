@@ -43,6 +43,7 @@ const config: ApiDocsBlock[] = [
     'va-date-input/inputProps',
   ),
 
+  DocsHelper.subtitle('all.api'),
   DocsHelper.api(VaDateInput, apiOptions),
 ]
 

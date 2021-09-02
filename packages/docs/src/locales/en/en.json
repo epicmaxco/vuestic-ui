@@ -104,7 +104,7 @@
         "name": "Applies `name` to internal input component. Useful for native forms.",
         "tag": "Replaces html tag. This is useful for semantics and also to allow for valid markup in some cases (`ul > li` and `tr > td` etc.).",
         "size": "Specify size for component. 'small', 'medium', 'large' sizes are available. If you want more control, you can provide number (will be used as `px`) or string value (`rem` and `px` sizes are supported).",
-        "disabled": "Applies *disabled* style and removes all user interaction effects.",
+        "disabled": "Applies `disabled` style and removes all user interaction effects.",
         "readonly": "Doesn't look disabled, but acts like one. Mostly useful for wrapper components.",
         "success": "Show component in success state.",
         "error": "Show component in error state.",
@@ -552,7 +552,7 @@
         "closeable": "Add a close alert area",
         "center": "Center the title and description of the alert",
         "borderColor": "Border color of the alert",
-        "border": "Stripe border for alert. 'top', 'right', 'bottom', 'left' sizes are available.",
+        "border": "Stripe border for alert. `top`, `right`, `bottom`, `left` sizes are available.",
         "dense": "Reduces alert paddings"
       },
       "methods": {
@@ -1012,6 +1012,21 @@
       "events": {},
       "methods": {},
       "slots": {}
+    },
+    "VaPopover": {
+      "props": {
+        "title": "Sets the title of the popover",
+        "message": "Message which showed in a popover",
+        "trigger": "Event on which popover is triggered",
+        "open": "Shows popover",
+        "placement": "Sets a popover position",
+        "autoHide": "Adds the ability to hide popover when clicked outside",
+        "hoverOverTimeout": "Delay before opening",
+        "hoverOutTimeout": "Delay before closing"
+      },
+      "events": {},
+      "methods": {},
+      "slots": {}
     }
   },
   "menu": {
@@ -1232,13 +1247,13 @@
     "summaryText": "The affix component is created to fix any content in a proper position relative to a container.",
     "examples": {
       "top": {
-        "title": "Fixed at the top."
+        "title": "Fixed at the top"
       },
       "bottom": {
-        "title": "Fixed at them bottom."
+        "title": "Fixed at them bottom"
       },
       "target": {
-        "title": "Fixes element relative to custom container."
+        "title": "Fixes element relative to custom container"
       }
     }
   },
@@ -1502,7 +1517,6 @@
       }
     },
     "faq": {
-      "subtitle": "FAQ",
       "questions": [
         {
           "question": "Is rating component keyboard accessible?",
@@ -1555,75 +1569,56 @@
   },
   "modal": {
     "title": "Modal",
-    "description": "Classic modal overlay which represents a dialog box or other interactive component, such as a dismissible alert, sub-window, etc.",
+    "summaryText": "Classic modal overlay which represents a dialog box or other interactive component, such as a dismissible alert, sub-window, etc.",
     "overview": {
-      "subtitle": "Overview",
-      "paragraphs": [
-        "`<va-modal>`, by default, has the **OK** and **Cancel** buttons in the footer. You can provide a custom message and title with the `message` and `title` props respectively.",
-        "`<va-modal>` supports close on **Esc** (enabled by default) and close on overlay click (enabled by default). These features may be disabled by setting the props `no-esc-dismiss` and `no-outside-dismiss` respectively, or `no-dismiss` as a shorthand to disable both of them."
-      ]
+      "title": "Overview",
+      "text": "`<va-modal>`, by default, has the **OK** and **Cancel** buttons in the footer. You can provide a custom message and title with the `message` and `title` props respectively.\n\n`<va-modal>` supports close on **Esc** (enabled by default) and close on overlay click (enabled by default). These features may be disabled by setting the props `no-esc-dismiss` and `no-outside-dismiss` respectively, or `no-dismiss` as a shorthand to disable both of them."
     },
     "stateful": {
-      "subtitle": "Stateful",
-      "paragraph": "By default `va-modal` is stateless. You can change it by setting the `stateful` prop"
+      "title": "Stateful",
+      "text": "By default `va-modal` is stateless. You can change it by setting the `stateful` prop"
     },
     "fullscreen": {
-      "subtitle": "Full screen",
-      "paragraphs": [
-        "Add the `fullscreen` prop to cover the whole page.",
-        "Note that `va-modal` is full screen on mobile viewports by default. You can change it by setting the `mobile-fullscreen` prop to `false`"
-      ]
+      "title": "Full screen",
+      "text": "Add the `fullscreen` prop to cover the whole page.\n\nNote that `va-modal` is full screen on mobile viewports by default. You can change it by setting the `mobile-fullscreen` prop to `false`."
     },
     "modalSizing": {
-      "subtitle": "Modal sizing",
-      "paragraph": "Modals have three optional sizes, available via the prop `size`. These sizes kick in at certain breakpoints to avoid horizontal scrollbars on narrower viewports. Valid optional sizes are `small`, `medium` (default), and `large`."
+      "title": "Modal sizing",
+      "text": "Modals have three optional sizes, available via the prop `size`. These sizes kick in at certain breakpoints to avoid horizontal scrollbars on narrower viewports. Valid optional sizes are `small`, `medium` (default), and `large`."
     },
     "toggleVisibility": {
-      "subtitle": "Toggle modal visibility",
-      "paragraph": "There are several methods that you can employ to toggle the visibility of `<va-modal>`.",
+      "title": "Toggle modal visibility",
+      "text": "There are several methods that you can employ to toggle the visibility of `<va-modal>`.",
       "sections": [
         {
-          "headline": "Using `v-model` property",
-          "paragraph": "`v-model` property is always automatically synced with `<va-modal>` visible state and you can show/hide using `v-model`."
+          "title": "Using `v-model` property",
+          "text": "`v-model` property is always automatically synced with `<va-modal>` visible state and you can show/hide using `v-model`."
         },
         {
-          "headline": "Using `show()`, `hide()`, and `toggle()` component methods.",
-          "paragraph": "You can access modal using `ref` attribute and then call the `show()`, `hide()` or `toggle()` methods."
+          "title": "Using `show()`, `hide()`, and `toggle()` component methods",
+          "text": "You can access modal using `ref` attribute and then call the `show()`, `hide()` or `toggle()` methods."
         }
       ]
     },
     "disableAnimation": {
-      "subtitle": "Disable open and close animation",
-      "paragraph": "To disable the transition/animation when modal opens and closes, set the prop `without-transitions`."
+      "title": "Disable open and close animation",
+      "text": "To disable the transition/animation when modal opens and closes, set the prop `without-transitions`."
     },
     "hidingOverlay": {
-      "subtitle": "Hiding the overlay",
-      "paragraphs": [
-        "Hide the modal's overlay via setting the `overlay` prop to `false`.",
-        "Note that clicking outside of the modal will still close the modal even though the overlay is hidden. You can disable this behaviour by setting the `no-outside-dismiss` prop on `<va-modal>`."
-      ]
+      "title": "Hiding the overlay",
+      "text": "Hide the modal's overlay via setting the `overlay` prop to `false`.\n\nNote that clicking outside of the modal will still close the modal even though the overlay is hidden. You can disable this behaviour by setting the `no-outside-dismiss` prop on `<va-modal>`."
     },
     "scrollingLongContent": {
-      "subtitle": "Scrolling long content",
-      "paragraphs": [
-        "When modals become too long for the user's viewport or device, they allow the scrolling of the modal body. Try the demo below to see what we mean.",
-        "You can also allow scrolling only content in modal via setting the `fixed-layout` prop. Title and actions will be fixed."
-      ]
+      "title": "Scrolling long content",
+      "text": "When modals become too long for the user's viewport or device, they allow the scrolling of the modal body. Try the demo below to see what we mean.\n\nYou can also allow scrolling only content in modal via setting the `fixed-layout` prop. Title and actions will be fixed."
     },
     "customization": {
-      "subtitle": "Customization",
-      "paragraphs": [
-        "`<va-modal>` provides several slots (`default`, `header` and `footer`), that you can use to customize the content of various sections of the modal.",
-        "You can set custom text for **Cancel** and **Ok** buttons via `ok-text` and `cancel-text` props respectively, or you can hide them via `hide-default-actions` prop.",
-        "`va-modal` also supports custom `overlay-opacity` as well as `z-index`, `max-width` and `max-height` for a modal."
-      ]
+      "title": "Customization",
+      "text": "`<va-modal>` provides several slots (`default`, `header` and `footer`), that you can use to customize the content of various sections of the modal.\n\nYou can set custom text for **Cancel** and **Ok** buttons via `ok-text` and `cancel-text` props respectively, or you can hide them via `hide-default-actions` prop.\n\n`va-modal` also supports custom `overlay-opacity` as well as `z-index`, `max-width` and `max-height` for a modal."
     },
     "nestedModals": {
-      "subtitle": "Nested modals",
-      "paragraph": "Modals can be nested: you can open one modal from another."
-    },
-    "api": {
-      "subtitle": "API"
+      "title": "Nested modals",
+      "text": "Modals can be nested: you can open one modal from another."
     }
   },
   "pagination": {
@@ -1660,7 +1655,6 @@
       }
     },
     "faq": {
-      "subtitle": "FAQ",
       "questions": [
         {
           "question": "What will happen if both `pages` and `total` props are set?",
@@ -1695,7 +1689,6 @@
       }
     },
     "faq": {
-      "subtitle": "FAQ",
       "questions": [
         {
           "question": "How can I map content to tabs so that only specific tab content will be displayed?",
@@ -1898,7 +1891,7 @@
   },
   "sidebarItem": {
     "title": "Sidebar item",
-    "summaryText": "Used as link in your sidebar.",
+    "summaryText": "Used as link in your `VaSidebar`.",
     "examples": {
       "simple": {
         "title": "Simple usage example",
@@ -2456,7 +2449,9 @@
         "title": "Variants",
         "text": "Includes single or multiple selects."
       },
-      "decorators": "Decorators",
+      "decorators": {
+        "title": "Decorators"
+      },
       "objectOptions": {
         "title": "Objects as options"
       },
@@ -2502,15 +2497,15 @@
   },
   "parallax": {
     "title": "Parallax",
-    "summaryText": "Parallax is a component where the background image is moved at a different speed than the foreground content while scrolling.",
+    "summaryText": "Parallax (`va-parallax`) is a component where the background image is moved at a different speed than the foreground content while scrolling.",
     "examples": {
       "default": {
         "title": "Default",
-        "text": "A block with a background image is displayed by default. You need to pass the 'src' property."
+        "text": "A block with a background image is displayed by default. You need to pass the `src` property."
       },
       "custom": {
         "title": "Custom height and speed",
-        "text": "You can adjust parallax height and scroll speed. Attention, the scrolling speed depends on the ratio of the parallax height to the image height."
+        "text": "You can adjust parallax `height` and scroll `speed`. Attention, the scrolling speed depends on the ratio of the parallax height to the image height."
       },
       "reversed": {
         "title": "Reversed",
@@ -2554,9 +2549,6 @@
         "title": "Disabled",
         "text": "All user interactions can be disabled."
       }
-    },
-    "api": {
-      "colorInput": "Color Input API"
     }
   },
   "colorPalette": {
@@ -2571,9 +2563,6 @@
         "title": "Indicator",
         "text": "You can apply different styles to the indicator: `dot` and `square` are available. "
       }
-    },
-    "api": {
-      "colorPalette": "Color Palette API"
     }
   },
   "datePicker": {
@@ -3199,26 +3188,13 @@
       }
     }
   },
-  "VaPopover": {
-    "props": {
-      "title": "Sets the title of the popover",
-      "message": "Message which showed in a popover",
-      "trigger": "Event on which popover is triggered",
-      "open": "Shows popover",
-      "placement": "Sets a popover position",
-      "autoHide": "Adds the ability to hide popover when clicked outside"
-    },
-    "events": {},
-    "methods": {},
-    "slots": {}
-  },
   "popover": {
     "title": "Popover",
     "summaryText": "A `va-popover` can be used to display some text on top of the component.",
     "examples": {
       "default": {
         "title": "Basic usage",
-        "text": "Wrap your component in a `va-popover` tag and provide a message property with text."
+        "text": "Wrap your component in a `va-popover` tag and provide a `message` property with text."
       },
       "color": {
         "title": "Color",
