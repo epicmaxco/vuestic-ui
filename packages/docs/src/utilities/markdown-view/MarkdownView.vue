@@ -63,15 +63,13 @@ export default defineComponent({
 
 .MarkdownView__link--external {
   position: relative;
-  padding-right: 0.85rem;
 
   &::after {
     content: '\279A';
-    position: absolute;
-    right: 0;
-    top: 0;
-    opacity: 0.4;
+    position: relative;
+    opacity: 0.35;
     line-height: 1;
+    vertical-align: text-top;
   }
 }
 </style>

@@ -1,6 +1,6 @@
 import { DefineComponent, ComponentOptions } from 'vue'
 import { kebabCase, camelCase } from 'lodash'
-import { te as translationExists, fallbackLocale } from '../../helpers/I18nHelper'
+import { te as translationExists, fallbackLocale } from '../../locales/i18n'
 
 import { ManualPropApiOptions, ManualApiOptions, ManualSlotApiOptions, ManualMethodApiOptions } from './ManualApiOptions'
 import { compileComponentOptions, CompiledComponentOptions } from './component-options-compiler'

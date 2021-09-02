@@ -3,7 +3,7 @@
     <table class="DocsTable__table">
       <thead>
       <tr>
-        <th v-for="c in columnsComputed" :key="c.title">{{ $te(c.title) ? $t(c.title) : c.title }}</th>
+        <th v-for="c in columnsComputed" :key="c.title">{{ $tie(c.title) }}</th>
       </tr>
       </thead>
       <tbody>
@@ -17,7 +17,7 @@
             <strong>{{ colData }}</strong>
           </template>
           <template v-else-if="columnsComputed[index].type === 'markdown'">
-            <MarkdownView :value="$te(colData) ? $t(colData) : colData" />
+            <MarkdownView :value="$tie(colData)" />
           </template>
           <template v-else-if="columnsComputed[index].type === 'code'">
             <MarkdownView :value="`\`${colData}\``" />
@@ -26,10 +26,10 @@
             <pre>{{ colData }}</pre>
           </template>
           <template v-else-if="columnsComputed[index].type === 'translationString'">
-            {{ $t(colData) }}
+            {{ $tie(colData) }}
           </template>
           <template v-else>
-            {{ $te(colData) ? $t(colData) : colData }}
+            {{ $tie(colData) }}
           </template>
         </td>
       </tr>
