@@ -4226,6 +4226,16 @@ address@^1.1.2:
   resolved "https://registry.yarnpkg.com/address/-/address-1.1.2.tgz#bf1116c9c758c51b7a933d296b72c221ed9428b6"
   integrity sha512-aT6camzM4xEA54YVJYSqxz1kv4IHnQZRtThJJHhUMRExaU5spC7jX5ugSwTaTgJliIgs4VhZOk7htClvQ/LmRA==
 
+ag-grid-community@^26.0.0:
+  version "26.0.0"
+  resolved "https://registry.yarnpkg.com/ag-grid-community/-/ag-grid-community-26.0.0.tgz#2f26d4e89f5d2b8264065e8a542c42973e1cb306"
+  integrity sha512-ewm640koOut+1nl+rDf/pUyM6/V2xbZ8T7VTzM0NZQNhn8TFG3grKs5iEzsKel8mwMWCSIO82xr356QNE11Hog==
+
+ag-grid-vue3@^26.0.0:
+  version "26.0.0"
+  resolved "https://registry.yarnpkg.com/ag-grid-vue3/-/ag-grid-vue3-26.0.0.tgz#555b9cb29c0f19c6fec724b770e8cac442c6b77b"
+  integrity sha512-lobzqo+UWTzAoDgxaJ0Uen8azbEDhyz7gBJa6UzyrQe3GOTyu7XyLF5TI3aoj6hRsHxih5Av2u+S4FGHpZAZHQ==
+
 agent-base@4, agent-base@^4.1.0, agent-base@^4.3.0:
   version "4.3.0"
   resolved "https://registry.yarnpkg.com/agent-base/-/agent-base-4.3.0.tgz#8165f01c436009bccad0b1d122f05ed770efc6ee"

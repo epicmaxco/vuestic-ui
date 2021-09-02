@@ -3,9 +3,8 @@ import { DocsHelper } from '../../../../helpers/DocsHelper'
 
 const config: ApiDocsBlock[] = [
   DocsHelper.title('ag-grid-wrapper.title'),
-  DocsHelper.paragraph('ag-grid-wrapper.description'),
-  DocsHelper.headline('ag-grid-wrapper.related'),
-  DocsHelper.link('ag-grid-wrapper.styledTablesLink', '/styles/table'),
+  DocsHelper.paragraph('Если нужен более гибкая настройка отображения таблиц, то мы рекомендуем воспользоваться библиотекой <a href="https://www.ag-grid.com/vue-data-grid/getting-started">AG Grid</a>'),
+  DocsHelper.example('grid/AgGrid'),
 ]
 
 export default config
