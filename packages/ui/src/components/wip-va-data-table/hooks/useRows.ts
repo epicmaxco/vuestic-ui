@@ -25,13 +25,6 @@ export class TableRow {
   readonly source: ITableItem;
   readonly initialIndex: number;
   readonly cells: TableCell[];
-
-  declare selectRow: () => void;
-  declare unselectRow: () => void;
-  declare toggleRowSelection: () => void;
-  declare selectAllRows: () => void;
-  declare unselectAllRows: () => void;
-  declare toggleBulkSelection: () => void;
 }
 
 // the inner cell representation. Holds references to a row and a column it belongs to

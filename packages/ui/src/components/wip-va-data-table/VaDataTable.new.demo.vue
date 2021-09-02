@@ -98,7 +98,7 @@
       <va-data-table :items="items" :columns="columns" :selectable="selectable" v-model="selectedItems" :select-mode="selectMode" :selected-color="selectedColor"/>
     </VbCard>
 
-    <VbCard title="Selection (bound to model)">
+    <VbCard title="Pagination">
       <input id="pp" type="number" v-model="perPage">
       <label for="pp">Items per page</label><br>
 
