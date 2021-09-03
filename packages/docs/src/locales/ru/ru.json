@@ -1122,7 +1122,7 @@
     "navbar": "Navbar",
     "toast": "Toast",
     "typography": "Типографика",
-    "agGridWrapper": "AG Grid Wrapper",
+    "agGrid": "AG Grid",
     "dataTable": "Data Table",
     "uiElementGuide": "Разработка элементов UI"
   },
@@ -3234,11 +3234,14 @@
     "blockquote": "Цитата",
     "textBlock": "Текстовый блок"
   },
-  "ag-grid-wrapper": {
-    "title": "AG Grid Wrapper",
-    "description": "Работа в процессе",
-    "related": "Связанные материалы",
-    "styledTablesLink": "Стилизованные таблицы"
+  "ag-grid": {
+    "title": "AG Grid",
+    "description": "Если нужна более гибкая настройка отображения таблиц, то мы рекомендуем воспользоваться библиотекой <a href='https://www.ag-grid.com/vue-data-grid/getting-started'>AG Grid</a>. Vuestic UI предостовляет готовую тему стилей для этой библиотеки.",
+    "installation": "Установка AG Grid",
+    "dependencies": "Для того чтобы начать пользоваться AG Grid, установите зависимости в свой проект.",
+    "importStyles": "Затем сделайте импорт стилей, которые задают каркас таблиц и примените тему `ag-theme-vuestic` на компоненте таблицы.",
+    "simpleTableTitle": "Стилизация простой таблицы",
+    "setOfParams": "Для правильного рендеринга размеров ячеек необходимо передать компоненту таблицы минимальный набор свойст: rowHeight, headerHeight и minColWidth."
   },
   "dataTable": {
     "title": "Data Table",

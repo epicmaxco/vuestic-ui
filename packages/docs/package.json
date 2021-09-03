@@ -19,6 +19,8 @@
     "precommit": "lint-staged --concurrent=false"
   },
   "dependencies": {
+    "ag-grid-community": "^26.0.0",
+    "ag-grid-vue3": "^26.0.0",
     "codesandbox": "^2.2.3",
     "core-js": "^3.12.1",
     "dedent": "^0.7.0",
@@ -58,8 +60,8 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.1.0",
     "eslint-plugin-vue": "^7.5.0",
-    "lint-staged": "^11.1.2",
     "i18n-unused": "^0.4.2",
+    "lint-staged": "^11.1.2",
     "node-sass": "^5.0.0",
     "plop": "^2.7.0",
     "sass-loader": "^10.1.1",
@@ -75,10 +77,10 @@
   },
   "lint-staged": {
     "*.{js,ts}": [
-      "vue-cli-service lint --fix"
+      "vue-cli-service lint"
     ],
     "*.vue": [
-      "vue-cli-service lint --fix",
+      "vue-cli-service lint",
       "stylelint '**/*.{vue,html,css,scss}' --fix"
     ],
     ".{htm,html,css,sss,less,scss}": [

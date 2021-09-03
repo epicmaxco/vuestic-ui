@@ -138,6 +138,51 @@
   }
 }
 
+@mixin ag-theme-vuestic {
+  .ag-header-cell-label,
+  .ag-cell {
+    text-align: left;
+    padding: 0.625rem;
+  }
+
+  .ag-header-cell-label {
+    @include va-title();
+
+    color: $vue-darkest-blue;
+    border-bottom: 2px solid $vue-darkest-blue;
+  }
+
+  .ag-cell {
+    vertical-align: top;
+  }
+
+  &--striped {
+    .ag-row {
+      &:nth-child(even) {
+        .ag-cell {
+          background-color: $light-gray3;
+        }
+      }
+    }
+  }
+
+  &--hoverable {
+    .ag-row {
+      &:hover {
+        .ag-cell {
+          background-color: $light-gray2;
+        }
+      }
+    }
+  }
+
+  &--clickable {
+    .ag-cell {
+      cursor: pointer;
+    }
+  }
+}
+
 @mixin va-modal-transition($is-overlay: false) {
   $modal-transition: $modal-opacity-transition, $modal-transform-transition;
 

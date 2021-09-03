@@ -1122,7 +1122,7 @@
     "navbar": "Navbar",
     "toast": "Toast",
     "typography": "Typography",
-    "agGridWrapper": "AG Grid Wrapper",
+    "agGrid": "AG Grid",
     "dataTable": "Data Table",
     "uiElementGuide": "UI Element Guide"
   },
@@ -3234,11 +3234,14 @@
     "blockquote": "Blockquote",
     "textBlock": "Text block"
   },
-  "ag-grid-wrapper": {
-    "title": "AG Grid wrapper",
-    "description": "Work in progress",
-    "related": "Related",
-    "styledTablesLink": "Styled tables"
+  "ag-grid": {
+    "title": "AG Grid",
+    "description": "If you need more flexible customization of the display of tables, we recommend using the <a href='https://www.ag-grid.com/vue-data-grid/getting-started'> AG Grid </a> library. Vuestic UI provides a ready-made style theme for this library.",
+    "installation": "AG Grid installation",
+    "dependencies": "To start using AG Grid, install the dependencies in your project.",
+    "importStyles": "Then import the stylesheet that define the grid \"structure\" and apply the `ag-theme-vuestic` theme on the grid component.",
+    "simpleTableTitle": "Styling a simple table",
+    "setOfParams": "To render the cell sizes correctly, you must pass the minimum set of properties to the table component: rowHeight, headerHeight, and minColWidth."
   },
   "dataTable": {
     "title": "Data table",
