@@ -841,6 +841,54 @@
       "methods": {},
       "slots": {}
     },
+    "VaDataTable": {
+      "props": {
+        "columns": "",
+        "items": "",
+        "filter": "",
+        "filteringFn": "",
+        "sortBy": "",
+        "sortingOrder": "",
+        "modelValue": "",
+        "selectable": "",
+        "selectMode": "",
+        "selectedColor": "",
+        "perPage": "",
+        "currentPage": "",
+        "loading": "",
+        "loadingColor": "",
+        "noDataHtml": "",
+        "noDataFilteredHtml": "",
+        "hideDefaultHeader": "",
+        "footClone": "",
+        "allowFootSorting": "",
+        "striped": ""
+      },
+      "events": {
+        "update:modelValue": "",
+        "update:sortBy": "",
+        "update:sortingOrder": "",
+        "filter": "",
+        "sort": "",
+        "selectionChange": ""
+      },
+      "methods": {},
+      "slots": {
+        "colgroup": "",
+        "headPrepend": "",
+        "head": "",
+        "head(key)": "",
+        "headAppend": "",
+        "bodyPrepend": "",
+        "cell": "",
+        "cell(key)": "",
+        "bodyAppend": "",
+        "footPrepend": "",
+        "foot": "",
+        "foot(key)": "",
+        "footAppend": ""
+      }
+    },
     "VaDatePicker": {
       "props": {
         "modelValue": "Дата, массив дат или период",
