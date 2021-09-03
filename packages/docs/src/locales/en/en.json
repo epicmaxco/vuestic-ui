@@ -1122,7 +1122,7 @@
     "navbar": "Navbar",
     "toast": "Toast",
     "typography": "Typography",
-    "agGridWrapper": "AG Grid Wrapper",
+    "agGrid": "AG Grid",
     "dataTable": "Data Table",
     "uiElementGuide": "UI Element Guide"
   },

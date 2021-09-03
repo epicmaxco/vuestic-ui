@@ -1,7 +1,7 @@
 <template>
   <ag-grid-vue
-    style="height: 300px;"
     class="ag-theme-vuestic"
+    domLayout="autoHeight"
     :columnDefs="columnDefs"
     :rowData="rowData"
     :rowHeight="46"
