@@ -7,7 +7,7 @@ npm install ag-grid-vue3 ag-grid-community vue-class-component@next
 yarn add ag-grid-vue3 ag-grid-community vue-class-component@next`
 
 const setClass = `<template>
-  <ag-grid-vue class='ag-grid-vuestic' ... />
+  <ag-grid-vue class='ag-theme-vuestic' ... />
 </template>`
 
 const importStyles = `<style lang="scss">
