@@ -4,6 +4,8 @@
     class="ag-theme-vuestic"
     :columnDefs="columnDefs"
     :rowData="rowData"
+    :rowHeight="46"
+    :headerHeight="38"
   />
 </template>
 
