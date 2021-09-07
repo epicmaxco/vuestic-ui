@@ -67,5 +67,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "ag-grid-community/dist/styles/ag-grid.css";
+@import "../../../../../node_modules/ag-grid-community/dist/styles/ag-grid.css";
+@import "vuestic-ui/dist/ag-theme-vuestic.css";
 </style>

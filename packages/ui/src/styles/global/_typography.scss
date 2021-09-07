@@ -192,10 +192,6 @@ ol.va-ordered {
   @include va-table();
 }
 
-.ag-theme-vuestic {
-  @include ag-theme-vuestic();
-}
-
 .vue-misc {
   margin-top: 5.625rem;
   margin-bottom: 2rem;
