@@ -7,8 +7,6 @@
         domLayout="autoHeight"
         :columnDefs="columnDefs"
         :rowData="rowData"
-        :rowHeight="46"
-        :headerHeight="38"
       />
     </VbCard>
   </VbDemo>

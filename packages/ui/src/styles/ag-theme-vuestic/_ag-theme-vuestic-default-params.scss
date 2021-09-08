@@ -2,9 +2,16 @@
 
 $ag-theme-vuestic-default-params: (
     // COLOURS
+
     // BORDERS
+    borders: false,
+
     // SIZING
+    row-height: ag-derived(grid-size, $times: 11.5),
+    header-height: ag-derived(grid-size, $times: 9.5),
+
     // FONTS
+
     // MISC
 );
 
