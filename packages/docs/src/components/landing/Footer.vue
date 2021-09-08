@@ -3,74 +3,83 @@
     <div class="footer__wrapper">
       <div class="footer__inner">
         <div class="footer__buttons">
-          <va-button class="footer__buttons__button"
-                     href="https://epicmax.co/about"
-                     target="blank"
-                     :rounded="false"
-                     color="primary"
-                     flat
+          <va-button
+            class="footer__buttons__button"
+            href="https://epicmax.co/about"
+            target="blank"
+            :rounded="false"
+            color="primary"
+            flat
           >
             <va-icon class="button-icon" :component="IconEpicmax" />
-            {{ $t('landing.footer.buttons.epicmax') }}
+            {{ $t("landing.footer.buttons.epicmax") }}
           </va-button>
-          <va-button class="footer__buttons__button"
-                     href="https://github.com/epicmaxco/vuestic-admin"
-                     target="blank"
-                     :rounded="false"
-                     color="primary"
-                     flat
+          <va-button
+            class="footer__buttons__button"
+            href="https://github.com/epicmaxco/vuestic-admin"
+            target="blank"
+            :rounded="false"
+            color="primary"
+            flat
           >
             <va-icon class="button-icon" :component="IconAdmin" />
-            {{ $t('landing.footer.buttons.admin') }}
+            {{ $t("landing.footer.buttons.admin") }}
           </va-button>
-          <va-button class="footer__buttons__button"
-                     href="https://github.com/epicmaxco/epic-spinners"
-                     target="blank"
-                     :rounded="false"
-                     color="primary"
-                     flat
+          <va-button
+            class="footer__buttons__button"
+            href="https://github.com/epicmaxco/epic-spinners"
+            target="blank"
+            :rounded="false"
+            color="primary"
+            flat
           >
             <va-icon class="button-icon" :component="IconSpinners" />
-            {{ $t('landing.footer.buttons.spinners') }}
+            {{ $t("landing.footer.buttons.spinners") }}
           </va-button>
         </div>
         <div class="footer__social">
-          <va-button class="footer__social__item"
-                     href="https://github.com/epicmaxco/vuestic-ui/"
-                     target="blank"
-                     color="primary"
-                     flat
+          <va-button
+            class="footer__social__item"
+            href="https://github.com/epicmaxco/vuestic-ui/"
+            target="blank"
+            color="primary"
+            flat
           >
             <va-icon class="mdi mdi-github" />
           </va-button>
-          <va-button class="footer__social__item"
-                     href="https://discord.gg/u7fQdqQt8c"
-                     target="blank"
-                     color="primary"
-                     flat
+          <va-button
+            class="footer__social__item"
+            href="https://discord.gg/u7fQdqQt8c"
+            target="blank"
+            color="primary"
+            flat
           >
             <va-icon class="mdi mdi-discord" />
           </va-button>
-          <va-button class="footer__social__item"
-                     href="https://www.facebook.com/epicmaxco/"
-                     target="blank"
-                     color="primary"
-                     flat
+          <va-button
+            class="footer__social__item"
+            href="https://www.facebook.com/epicmaxco/"
+            target="blank"
+            color="primary"
+            flat
           >
             <va-icon class="mdi mdi-facebook" />
           </va-button>
-          <va-button class="footer__social__item"
-                     href="https://twitter.com/epicmaxco"
-                     target="blank"
-                     color="primary"
-                     flat
+          <va-button
+            class="footer__social__item"
+            href="https://twitter.com/epicmaxco"
+            target="blank"
+            color="primary"
+            flat
           >
             <va-icon class="mdi mdi-twitter" />
           </va-button>
         </div>
         <div class="footer__subtitle">
-          {{ $t('landing.footer.text') }}
-          <a :style="{ color: primaryColor }" href="mailto:hello@epicmax.co">hello@epicmax.co</a>
+          {{ $t("landing.footer.text") }}
+          <a :style="{ color: primaryColor }" href="mailto:hello@epicmax.co">
+            hello@epicmax.co
+          </a>
         </div>
       </div>
     </div>
@@ -83,14 +92,15 @@ import IconEpicmax from './icons/IconEpicmax.vue'
 import IconAdmin from './icons/IconAdmin.vue'
 import IconSpinners from './icons/IconSpinners.vue'
 import { getColor } from 'vuestic-ui/src/main'
+import { markRaw } from 'vue'
 
 @Options({
   name: 'LandingFooter',
 })
 export default class Footer extends Vue {
-  IconEpicmax = IconEpicmax
-  IconAdmin = IconAdmin
-  IconSpinners = IconSpinners
+  IconEpicmax = markRaw(IconEpicmax);
+  IconAdmin = markRaw(IconAdmin);
+  IconSpinners = markRaw(IconSpinners);
 
   get primaryColor () {
     return getColor('primary')
