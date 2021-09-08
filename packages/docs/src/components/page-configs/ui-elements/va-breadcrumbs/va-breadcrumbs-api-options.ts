@@ -1,24 +1,8 @@
-// @ts-ignore
-import { ManualApiOptions } from 'vuestic-ui/src/services/api-docs/ManualApiOptions'
+import { defineManualApi } from '../../../DocsApi/ManualApiOptions'
 
-export default {
-  props: {
-    activeColor: {
-      local: true,
-    },
-    separator: {
-      local: true,
-    },
-    separatorColor: {
-      local: true,
-    },
-  },
+export default defineManualApi({
   slots: {
-    default: {
-      local: true,
-    },
-    separator: {
-      local: true,
-    },
+    default: { },
+    separator: { },
   },
-} as ManualApiOptions
+})

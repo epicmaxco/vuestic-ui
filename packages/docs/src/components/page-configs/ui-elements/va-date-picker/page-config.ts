@@ -1,148 +1,83 @@
 import { ApiDocsBlock } from '../../../../types/configTypes'
 import { DocsHelper } from '../../../../helpers/DocsHelper'
+import VaDatePicker from 'vuestic-ui/src/components/va-date-picker/VaDatePicker.vue'
+import apiOptions from './api-options'
 
-export default [
+const config: ApiDocsBlock[] = [
   DocsHelper.title('datePicker.title'),
   DocsHelper.paragraph('datePicker.description'),
-  // {
-  //   type: BlockType.TITLE,
-  //   translationString: 'datePicker.title',
-  // },
-  // {
-  //   type: BlockType.PARAGRAPH,
-  //   translationString: 'datePicker.summaryText',
-  // },
-  // {
-  //   type: BlockType.SUBTITLE,
-  //   translationString: 'all.examples',
-  // },
-  // {
-  //   type: BlockType.HEADLINE,
-  //   translationString: 'datePicker.examples.default.title',
-  // },
-  // {
-  //   type: BlockType.PARAGRAPH,
-  //   translationString: 'datePicker.examples.default.text',
-  // },
-  // {
-  //   type: BlockType.EXAMPLE,
-  //   component: 'va-date-picker/Default',
-  // },
-  // {
-  //   type: BlockType.HEADLINE,
-  //   translationString: 'datePicker.examples.placeholder.title',
-  // },
-  // {
-  //   type: BlockType.PARAGRAPH,
-  //   translationString: 'datePicker.examples.placeholder.text',
-  // },
-  // {
-  //   type: BlockType.EXAMPLE,
-  //   component: 'va-date-picker/Placeholder',
-  // },
-  // {
-  //   type: BlockType.HEADLINE,
-  //   translationString: 'datePicker.examples.weekDays.title',
-  // },
-  // {
-  //   type: BlockType.PARAGRAPH,
-  //   translationString: 'datePicker.examples.weekDays.text',
-  // },
-  // {
-  //   type: BlockType.EXAMPLE,
-  //   component: 'va-date-picker/WeekDays',
-  // },
-  // {
-  //   type: BlockType.HEADLINE,
-  //   translationString: 'datePicker.examples.successError.title',
-  // },
-  // {
-  //   type: BlockType.PARAGRAPH,
-  //   translationString: 'datePicker.examples.successError.text',
-  // },
-  // {
-  //   type: BlockType.EXAMPLE,
-  //   component: 'va-date-picker/SuccessError',
-  // },
-  // {
-  //   type: BlockType.HEADLINE,
-  //   translationString: 'datePicker.examples.disabled.title',
-  // },
-  // {
-  //   type: BlockType.PARAGRAPH,
-  //   translationString: 'datePicker.examples.disabled.text',
-  // },
-  // {
-  //   type: BlockType.EXAMPLE,
-  //   component: 'va-date-picker/Disabled',
-  // },
-  // {
-  //   type: BlockType.HEADLINE,
-  //   translationString: 'datePicker.examples.disabledDays.title',
-  // },
-  // {
-  //   type: BlockType.PARAGRAPH,
-  //   translationString: 'datePicker.examples.disabledDays.text',
-  // },
-  // {
-  //   type: BlockType.EXAMPLE,
-  //   component: 'va-date-picker/DisabledDays',
-  // },
-  // {
-  //   type: BlockType.HEADLINE,
-  //   translationString: 'datePicker.examples.dayTime.title',
-  // },
-  // {
-  //   type: BlockType.PARAGRAPH,
-  //   translationString: 'datePicker.examples.dayTime.text',
-  // },
-  // {
-  //   type: BlockType.EXAMPLE,
-  //   component: 'va-date-picker/DayTime',
-  // },
-  // {
-  //   type: BlockType.HEADLINE,
-  //   translationString: 'datePicker.examples.range.title',
-  // },
-  // {
-  //   type: BlockType.PARAGRAPH,
-  //   translationString: 'datePicker.examples.range.text',
-  // },
-  // {
-  //   type: BlockType.EXAMPLE,
-  //   component: 'va-date-picker/Range',
-  // },
-  // {
-  //   type: BlockType.HEADLINE,
-  //   translationString: 'datePicker.examples.multiple.title',
-  // },
-  // {
-  //   type: BlockType.PARAGRAPH,
-  //   translationString: 'datePicker.examples.multiple.text',
-  // },
-  // {
-  //   type: BlockType.EXAMPLE,
-  //   component: 'va-date-picker/Multiple',
-  // },
-  // {
-  //   type: BlockType.HEADLINE,
-  //   translationString: 'datePicker.examples.inline.title',
-  // },
-  // {
-  //   type: BlockType.PARAGRAPH,
-  //   translationString: 'datePicker.examples.inline.text',
-  // },
-  // {
-  //   type: BlockType.EXAMPLE,
-  //   component: 'va-date-picker/Inline',
-  // },
-  // {
-  //   type: BlockType.SUBTITLE,
-  //   translationString: 'all.api',
-  // },
-  // {
-  //   type: BlockType.API,
-  //   componentOptions: VaDatePicker,
-  //   apiOptions,
-  // },
-] as ApiDocsBlock[]
+  DocsHelper.link('datePicker.lookAtDateInput', '/ui-elements/date-input'),
+
+  DocsHelper.subtitle('all.examples'),
+
+  ...DocsHelper.exampleBlock(
+    'datePicker.examples.default.title',
+    'datePicker.examples.default.text',
+    'va-date-picker/Default',
+  ),
+
+  ...DocsHelper.exampleBlock(
+    'datePicker.examples.mode.title',
+    'datePicker.examples.mode.text',
+    'va-date-picker/Mode',
+  ),
+
+  ...DocsHelper.exampleBlock(
+    'datePicker.examples.stateful.title',
+    'datePicker.examples.stateful.text',
+    'va-date-picker/Stateful',
+  ),
+
+  ...DocsHelper.exampleBlock(
+    'datePicker.examples.firstWeekday.title',
+    'datePicker.examples.firstWeekday.text',
+    'va-date-picker/FirstWeekday',
+  ),
+
+  ...DocsHelper.exampleBlock(
+    'datePicker.examples.weekends.title',
+    'datePicker.examples.weekends.text',
+    'va-date-picker/Weekends',
+  ),
+
+  ...DocsHelper.exampleBlock(
+    'datePicker.examples.otherMonths.title',
+    'datePicker.examples.otherMonths.text',
+    'va-date-picker/OtherMonths',
+  ),
+
+  ...DocsHelper.exampleBlock(
+    'datePicker.examples.slots.title',
+    'datePicker.examples.slots.text',
+    'va-date-picker/Slots',
+  ),
+
+  ...DocsHelper.exampleBlock(
+    'datePicker.examples.view.title',
+    'datePicker.examples.view.text',
+    'va-date-picker/View',
+  ),
+
+  ...DocsHelper.exampleBlock(
+    'datePicker.examples.type.title',
+    'datePicker.examples.type.text',
+    'va-date-picker/Type',
+  ),
+
+  ...DocsHelper.exampleBlock(
+    'datePicker.examples.disabledDates.title',
+    'datePicker.examples.disabledDates.text',
+    'va-date-picker/DisabledDates',
+  ),
+
+  ...DocsHelper.exampleBlock(
+    'datePicker.examples.colors.title',
+    'datePicker.examples.colors.text',
+    'va-date-picker/Color',
+  ),
+
+  DocsHelper.subtitle('all.api'),
+  DocsHelper.api(VaDatePicker, apiOptions),
+]
+
+export default config

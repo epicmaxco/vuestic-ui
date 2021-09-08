@@ -1,142 +1,66 @@
-import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
-import VaSidebar
-  from 'vuestic-ui/src/components/vuestic-components/va-sidebar/VaSidebar.vue'
-import apiOptions from './api-options'
+import { ApiDocsBlock } from '../../../../types/configTypes'
 import { DocsHelper } from '../../../../helpers/DocsHelper'
+import VaSidebar from 'vuestic-ui/src/components/va-sidebar/VaSidebar.vue'
+import apiOptions from './api-options'
 
-export default [
-  {
-    type: BlockType.TITLE,
-    translationString: 'sidebar.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'sidebar.summaryText',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'all.examples',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'sidebar.examples.default.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'sidebar.examples.default.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-sidebar/Default',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'sidebar.examples.minimized.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'sidebar.examples.minimized.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-sidebar/Minimized',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'sidebar.examples.width.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'sidebar.examples.width.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-sidebar/Width',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'sidebar.examples.minimizedWidth.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'sidebar.examples.minimizedWidth.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-sidebar/MinimizedWidth',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'sidebar.examples.color.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'sidebar.examples.color.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-sidebar/Color',
-  },
+const config: ApiDocsBlock[] = [
+  DocsHelper.title('sidebar.title'),
+  DocsHelper.paragraph('sidebar.summaryText'),
+
+  DocsHelper.subtitle('all.examples'),
+
+  ...DocsHelper.exampleBlock(
+    'sidebar.examples.default.title',
+    'sidebar.examples.default.text',
+    'va-sidebar/Default',
+  ),
+  ...DocsHelper.exampleBlock(
+    'sidebar.examples.minimized.title',
+    'sidebar.examples.minimized.text',
+    'va-sidebar/Minimized',
+  ),
+  ...DocsHelper.exampleBlock(
+    'sidebar.examples.width.title',
+    'sidebar.examples.width.text',
+    'va-sidebar/Width',
+  ),
+  ...DocsHelper.exampleBlock(
+    'sidebar.examples.minimizedWidth.title',
+    'sidebar.examples.minimizedWidth.text',
+    'va-sidebar/MinimizedWidth',
+  ),
+  ...DocsHelper.exampleBlock(
+    'sidebar.examples.color.title',
+    'sidebar.examples.color.text',
+    'va-sidebar/Color',
+  ),
   ...DocsHelper.exampleBlock(
     'sidebar.examples.gradient.title',
     'sidebar.examples.gradient.text',
     'va-sidebar/Gradient',
   ),
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'sidebar.examples.position.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'sidebar.examples.position.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-sidebar/Position',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'sidebar.examples.hoverable.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'sidebar.examples.hoverable.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-sidebar/Hoverable',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'sidebar.examples.vModel.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'sidebar.examples.vModel.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-sidebar/VModel',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'all.faq',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'sidebar.faq.questions[0].question',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'sidebar.faq.questions[0].answer',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'all.api',
-  },
-  {
-    type: BlockType.API,
-    componentOptions: VaSidebar,
-    apiOptions,
-  },
-] as ApiDocsBlock[]
+  ...DocsHelper.exampleBlock(
+    'sidebar.examples.position.title',
+    'sidebar.examples.position.text',
+    'va-sidebar/Position',
+  ),
+  ...DocsHelper.exampleBlock(
+    'sidebar.examples.hoverable.title',
+    'sidebar.examples.hoverable.text',
+    'va-sidebar/Hoverable',
+  ),
+  ...DocsHelper.exampleBlock(
+    'sidebar.examples.vModel.title',
+    'sidebar.examples.vModel.text',
+    'va-sidebar/VModel',
+  ),
+
+  DocsHelper.subtitle('all.api'),
+  DocsHelper.api(VaSidebar, apiOptions),
+
+  DocsHelper.subtitle('all.faq'),
+  DocsHelper.headline('sidebar.faq.questions[0].question'),
+  DocsHelper.paragraph('sidebar.faq.questions[0].answer'),
+]
+
+export default config

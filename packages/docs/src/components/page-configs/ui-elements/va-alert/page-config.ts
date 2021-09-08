@@ -1,135 +1,61 @@
-import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
-import VaAlert from 'vuestic-ui/src/components/vuestic-components/va-alert/VaAlert.vue'
+import { ApiDocsBlock } from '../../../../types/configTypes'
+import { DocsHelper } from '../../../../helpers/DocsHelper'
+import VaAlert from 'vuestic-ui/src/components/va-alert/VaAlert.vue'
 import apiOptions from './api-options'
 
-export default [
-  {
-    type: BlockType.TITLE,
-    translationString: 'alert.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'alert.summaryText',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'all.examples',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'alert.examples.default.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'alert.examples.default.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-alert/Default',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'alert.examples.styles.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'alert.examples.styles.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-alert/Styles',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'alert.examples.color.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'alert.examples.color.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-alert/Color',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'alert.examples.border.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'alert.examples.border.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-alert/Border',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'alert.examples.dense.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'alert.examples.dense.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-alert/Dense',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'alert.examples.title.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'alert.examples.title.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-alert/Title',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'alert.examples.icon.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'alert.examples.icon.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-alert/Icon',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'alert.examples.closeable.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'alert.examples.closeable.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-alert/Closeable',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'alert.examples.center.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'alert.examples.center.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-alert/Center',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'all.api',
-  },
-  {
-    type: BlockType.API,
-    componentOptions: VaAlert,
-    apiOptions,
-  },
-] as ApiDocsBlock[]
+const config: ApiDocsBlock[] = [
+  DocsHelper.title('alert.title'),
+  DocsHelper.paragraph('alert.summaryText'),
+
+  DocsHelper.subtitle('all.examples'),
+  ...DocsHelper.exampleBlock(
+    'alert.examples.default.title',
+    'alert.examples.default.text',
+    'va-alert/Default',
+  ),
+  ...DocsHelper.exampleBlock(
+    'alert.examples.styles.title',
+    'alert.examples.styles.text',
+    'va-alert/Styles',
+  ),
+  ...DocsHelper.exampleBlock(
+    'alert.examples.color.title',
+    'alert.examples.color.text',
+    'va-alert/Color',
+  ),
+  ...DocsHelper.exampleBlock(
+    'alert.examples.border.title',
+    'alert.examples.border.text',
+    'va-alert/Border',
+  ),
+  ...DocsHelper.exampleBlock(
+    'alert.examples.dense.title',
+    'alert.examples.dense.text',
+    'va-alert/Dense',
+  ),
+  ...DocsHelper.exampleBlock(
+    'alert.examples.title.title',
+    'alert.examples.title.text',
+    'va-alert/Title',
+  ),
+  ...DocsHelper.exampleBlock(
+    'alert.examples.icon.title',
+    'alert.examples.icon.text',
+    'va-alert/Icon',
+  ),
+  ...DocsHelper.exampleBlock(
+    'alert.examples.closeable.title',
+    'alert.examples.closeable.text',
+    'va-alert/Closeable',
+  ),
+  ...DocsHelper.exampleBlock(
+    'alert.examples.center.title',
+    'alert.examples.center.text',
+    'va-alert/Center',
+  ),
+
+  DocsHelper.subtitle('all.api'),
+  DocsHelper.api(VaAlert, apiOptions),
+]
+
+export default config

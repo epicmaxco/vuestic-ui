@@ -1,104 +1,29 @@
-import { ApiDocsBlock } from '@/types/configTypes'
-import { DocsHelper } from '@/helpers/DocsHelper'
+import { ApiDocsBlock } from '../../../../types/configTypes'
+import { DocsHelper } from '../../../../helpers/DocsHelper'
+import {
+  installation,
+  quickStart,
+  fontInstallationCSS,
+  fontInstallationHTML,
+  cliPrepare,
+  treeShakingExample,
+  treeShakingPluginExample,
+} from './code-examples'
 
-const config = (path: string) => {
-  return `installation.${path}`
-}
-
-const installation = `
-npm install vuestic-ui
-// or
-yarn add vuestic-ui
-`
-
-const nuxtInstallation = `
-// plugins/vuestic.js
-import Vue from 'vue'
-import { VuesticPlugin } from 'vuestic-ui'
-
-Vue.use(VuesticPlugin)
-`
-
-const nuxtConfig = `
-// nuxt.config.js
-  plugins: [
-    ...
-    { src: '~/plugins/vuestic.ts' }
-  ],
-`
-
-const quickStart = `
-//main.js
-import { createApp } from 'vue'
-import App from './App.vue'
-import { VuesticPlugin } from 'vuestic-ui' // <-
-import 'vuestic-ui/dist/vuestic-ui.css' // <-
-//...
-const app = createApp(App)
-app.use(VuesticPlugin) // <-
-//...
-`
-
-const colorsConfig = `
-//main.js
-...
-import { VuesticPlugin } from 'vuestic-ui'
-import 'vuestic-ui/dist/vuestic-ui.css'
-
-const app = createApp(App)
-app.use(VuesticPlugin, {
-  colors: {
-    default: {
-      primary: '#23e066',
-      secondary: '#002c85',
-      success: '#40e583',
-      info: '#2c82e0',
-      danger: '#e34b4a',
-      warning: '#ffc200',
-      gray: '#babfc2',
-      dark: '#34495e',
-    },
-    corporate: {
-      primary: '#6c7fee',
-      secondary: '#6e7ff1',
-      success: '#8ddc88',
-      info: '#71baff',
-      danger: '#f8706d',
-      warning: '#ffd652',
-      gray: '#8396a5',
-      dark: '#34495e',
-    },
-  }
-})
-`
-
-const fontInstallationHTML = `
-<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;1,700&display=swap" rel="stylesheet"> 
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-`
-
-const fontInstallationCSS = `
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;1,700&display=swap');
-@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
-`
-
-const cliPrepare = `
-vue --version
-`
-export default [
+const config: ApiDocsBlock[] = [
   DocsHelper.title('installation.title'),
   DocsHelper.paragraph('installation.description'),
   DocsHelper.subtitle('installation.manual.title'),
-  DocsHelper.paragraph('installation.subtitle'),
-  DocsHelper.paragraph('installation.prerequisites'),
-  DocsHelper.list(['installation.node','installation.npm']),
-  DocsHelper.paragraph('installation.afterCheck'),
+  DocsHelper.paragraph('installation.manual.subtitle'),
+  DocsHelper.paragraph('installation.manual.prerequisites'),
+  DocsHelper.list(['installation.manual.node', 'installation.manual.npm']),
+  DocsHelper.paragraph('installation.manual.afterCheck'),
   DocsHelper.code(installation, 'bash'),
 
   DocsHelper.headline('installation.fonts.title'),
   DocsHelper.paragraph('installation.fonts.description'),
   DocsHelper.paragraph('installation.fonts.htmlExampleTitle'),
-  DocsHelper.code(fontInstallationHTML),
+  DocsHelper.code(fontInstallationHTML, 'html'),
   DocsHelper.paragraph('installation.fonts.cssExampleTitle'),
   DocsHelper.code(fontInstallationCSS),
 
@@ -115,9 +40,25 @@ export default [
   DocsHelper.paragraph('installation.cli.codeAnnotation'),
   DocsHelper.code('vue add vuestic-ui', 'bash'),
 
-  // TODO Reenable when nuxt support is added back.
-  // DocsHelper.subtitle(config('nuxt.title')),
-  // DocsHelper.paragraph(config('nuxt.description')),
-  // DocsHelper.code(nuxtInstallation),
-  // DocsHelper.code(nuxtConfig),
-] as ApiDocsBlock[]
+  DocsHelper.subtitle('installation.treeShaking.title'),
+  DocsHelper.paragraph('installation.treeShaking.description'),
+
+  DocsHelper.paragraph('installation.treeShaking.example.title'),
+  DocsHelper.code(treeShakingExample),
+  DocsHelper.paragraph('installation.treeShaking.example.footer'),
+
+  DocsHelper.paragraph('installation.treeShaking.plugins.title'),
+  DocsHelper.list([
+    'installation.treeShaking.plugins.GlobalConfigPlugin',
+    'installation.treeShaking.plugins.ColorHelpersPlugin',
+    'installation.treeShaking.plugins.ToastInstall',
+    'installation.treeShaking.plugins.DropdownPopperSubplugin',
+  ]),
+
+  DocsHelper.paragraph('installation.treeShaking.plugins.example.title'),
+  DocsHelper.code(treeShakingPluginExample),
+
+  DocsHelper.alert('installation.treeShaking.attention.cssLoader', 'info'),
+]
+
+export default config

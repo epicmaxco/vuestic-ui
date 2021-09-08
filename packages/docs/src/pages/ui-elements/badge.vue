@@ -8,6 +8,7 @@ import DocsContent from '../../components/DocsContent.vue'
 import badgeConfig from '../../components/page-configs/ui-elements/va-badge/page-config'
 
 @Options({
+  name: 'DocsBadge',
   components: {
     DocsContent,
   },

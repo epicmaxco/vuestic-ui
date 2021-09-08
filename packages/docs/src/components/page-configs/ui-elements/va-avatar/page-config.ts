@@ -1,84 +1,39 @@
-import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
-import VaAvatar
-  from 'vuestic-ui/src/components/vuestic-components/va-avatar/VaAvatar.vue'
+import { ApiDocsBlock } from '../../../../types/configTypes'
+import { DocsHelper } from '../../../../helpers/DocsHelper'
+import VaAvatar from 'vuestic-ui/src/components/va-avatar/VaAvatar.vue'
 import apiOptions from './api-options'
 
-export default [
-  {
-    type: BlockType.TITLE,
-    translationString: 'avatar.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'avatar.summaryText',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'all.examples',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'avatar.examples.default.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'avatar.examples.default.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-avatar/Default',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'avatar.examples.color.title',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-avatar/Color',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'avatar.examples.size.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'avatar.examples.size.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-avatar/Size',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'avatar.examples.withImage.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'avatar.examples.withImage.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-avatar/WithImage',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'avatar.examples.withIcon.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'avatar.examples.withIcon.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-avatar/WithIcon',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'all.api',
-  },
-  {
-    apiOptions,
-    type: BlockType.API,
-    componentOptions: VaAvatar,
-  },
-] as ApiDocsBlock[]
+const config: ApiDocsBlock[] = [
+  DocsHelper.title('avatar.title'),
+  DocsHelper.paragraph('avatar.summaryText'),
+
+  DocsHelper.subtitle('all.examples'),
+
+  ...DocsHelper.exampleBlock(
+    'avatar.examples.default.title',
+    'avatar.examples.default.text',
+    'va-avatar/Default',
+  ),
+  DocsHelper.headline('avatar.examples.color.title'),
+  DocsHelper.example('va-avatar/Color'),
+  ...DocsHelper.exampleBlock(
+    'avatar.examples.size.title',
+    'avatar.examples.size.text',
+    'va-avatar/Size',
+  ),
+  ...DocsHelper.exampleBlock(
+    'avatar.examples.withImage.title',
+    'avatar.examples.withImage.text',
+    'va-avatar/WithImage',
+  ),
+  ...DocsHelper.exampleBlock(
+    'avatar.examples.withIcon.title',
+    'avatar.examples.withIcon.text',
+    'va-avatar/WithIcon',
+  ),
+
+  DocsHelper.subtitle('all.api'),
+  DocsHelper.api(VaAvatar, apiOptions),
+]
+
+export default config

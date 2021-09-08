@@ -11,8 +11,7 @@
 
 <script>
 import { useGlobalConfig, useColors } from 'vuestic-ui'
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import HelloWorld from '../components/HelloWorld.vue'
 
 export default {
   name: 'Home',

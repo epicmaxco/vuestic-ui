@@ -1,95 +1,45 @@
-import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
-import VaImage from 'vuestic-ui/src/components/vuestic-components/va-image/VaImage.vue'
+import { ApiDocsBlock } from '../../../../types/configTypes'
+import { DocsHelper } from '../../../../helpers/DocsHelper'
+import VaImage from 'vuestic-ui/src/components/va-image/VaImage.vue'
 import apiOptions from './api-options'
 
-export default [
-  {
-    type: BlockType.TITLE,
-    translationString: 'image.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'image.summaryText',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'all.examples',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'image.examples.default.title',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-image/Default',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'image.examples.ratio.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'image.examples.ratio.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-image/Ratio',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'image.examples.contain.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'image.examples.contain.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-image/Contain',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'image.examples.defaultSlot.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'image.examples.defaultSlot.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-image/DefaultSlot',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'image.examples.loaderSlot.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'image.examples.loaderSlot.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-image/LoaderSlot',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'image.examples.errorSlot.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'image.examples.errorSlot.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-image/ErrorSlot',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'all.api',
-  },
-  {
-    type: BlockType.API,
-    componentOptions: VaImage,
-    apiOptions,
-  },
-] as ApiDocsBlock[]
+const config: ApiDocsBlock[] = [
+  DocsHelper.title('image.title'),
+  DocsHelper.paragraph('image.summaryText'),
+
+  DocsHelper.subtitle('all.examples'),
+
+  DocsHelper.headline('image.examples.default.title'),
+  DocsHelper.example('va-image/Default'),
+
+  ...DocsHelper.exampleBlock(
+    'image.examples.ratio.title',
+    'image.examples.ratio.text',
+    'va-image/Ratio',
+  ),
+  ...DocsHelper.exampleBlock(
+    'image.examples.contain.title',
+    'image.examples.contain.text',
+    'va-image/Contain',
+  ),
+  ...DocsHelper.exampleBlock(
+    'image.examples.defaultSlot.title',
+    'image.examples.defaultSlot.text',
+    'va-image/DefaultSlot',
+  ),
+  ...DocsHelper.exampleBlock(
+    'image.examples.loaderSlot.title',
+    'image.examples.loaderSlot.text',
+    'va-image/LoaderSlot',
+  ),
+  ...DocsHelper.exampleBlock(
+    'image.examples.errorSlot.title',
+    'image.examples.errorSlot.text',
+    'va-image/ErrorSlot',
+  ),
+
+  DocsHelper.subtitle('all.api'),
+  DocsHelper.api(VaImage, apiOptions),
+]
+
+export default config

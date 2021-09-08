@@ -8,6 +8,7 @@ import DocsContent from '../../components/DocsContent.vue'
 import dataTableConfig from '../../components/page-configs/ui-elements/va-data-table/page-config'
 
 @Options({
+  name: 'DocsDataTable',
   components: {
     DocsContent,
   },

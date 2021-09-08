@@ -1,10 +1,10 @@
 <template>
   <div class="base-layout">
     <div class="base-layout__header">
-      <Header v-model:is-sidebar-visible="isSidebarVisible"/>
+      <Header v-model:is-sidebar-visible="isSidebarVisible" />
     </div>
     <main id="base-layout" class="base-layout__main">
-      <Sidebar v-model:visible="isSidebarVisible" :navigationRoutes="navigationRoutes" :mobile="isSmallScreenDevice"/>
+      <Sidebar v-model:visible="isSidebarVisible" :navigationRoutes="navigationRoutes" :mobile="isSmallScreenDevice" />
       <div
         class="base-layout__content"
         :class="{ 'base-layout__content--expanded': !isSidebarVisible }"
@@ -40,15 +40,17 @@
 // @ts-nocheck
 import { provide, reactive, watch } from 'vue'
 import { Options, Vue, setup } from 'vue-class-component'
+import type { RouteLocationNormalized } from 'vue-router'
 import Sidebar from '../components/sidebar/Sidebar.vue'
 import Header from '../components/header/Header.vue'
 import { COLOR_THEMES, ThemeName } from '../config/theme-config'
 import { setColors } from '../../../ui/src/main'
 import { navigationRoutes } from '../components/sidebar/navigationRoutes'
 import { debounce } from 'lodash'
-import { getSortedNavigationRoutes } from '@/helpers/NavigationRoutesHelper'
+import { getSortedNavigationRoutes } from '../helpers/NavigationRoutesHelper'
 
 @Options({
+  name: 'DocsDefaultLayout',
   components: {
     Header,
     Sidebar,
@@ -81,7 +83,11 @@ export default class DocsLayout extends Vue {
 
   mounted () {
     if (this.$route.hash) {
-      document.querySelector(this.$route.hash).scrollIntoView()
+      const el = document.querySelector(this.$route.hash)
+
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' })
+      }
     }
 
     this.isSmallScreenDevice = window.innerWidth <= 575
@@ -140,7 +146,24 @@ export default class DocsLayout extends Vue {
   //   }, [] as { [key: string]: string, }[])
   // }
 
-  onRouteChange () {
+  onRouteChange (newRoute: RouteLocationNormalized, oldRoute: RouteLocationNormalized) {
+    if (newRoute.path === oldRoute.path && newRoute.hash) {
+      const el = document.querySelector(newRoute.hash)
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' })
+        return
+      }
+    }
+
+    if (newRoute.path !== oldRoute.path && newRoute.hash) {
+      this.$nextTick(() => {
+        const el = document.querySelector(newRoute.hash)
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' })
+        }
+      })
+    }
+
     const pageContent: Element | undefined = this.$refs['page-content']
 
     if (pageContent) {

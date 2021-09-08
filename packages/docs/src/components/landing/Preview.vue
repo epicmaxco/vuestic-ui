@@ -18,7 +18,7 @@
             color="primary"
             flat
           >
-            <va-icon class="fa fa-github" style="margin-right: 0.5rem" />
+            <va-icon class="fa fa-github" style="margin-right: 0.5rem;" />
             {{$t('landing.preview.buttons.github')}}
           </va-button>
         </div>
@@ -75,6 +75,12 @@
     </div>
   </section>
 </template>
+
+<script>
+export default {
+  name: 'LandingPreview',
+}
+</script>
 
 <style lang="scss" scoped>
 @import "src/assets/main";

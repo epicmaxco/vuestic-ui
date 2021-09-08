@@ -8,6 +8,7 @@ import DocsContent from '../../components/DocsContent.vue'
 import componentsConfigConfig from '../../components/page-configs/services/components-config/page-config'
 
 @Options({
+  name: 'DocsComponentConfig',
   components: {
     DocsContent,
   },

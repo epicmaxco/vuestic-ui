@@ -20,7 +20,12 @@
 
 <script lang="ts">
 // @ts-nocheck
-import { Vue } from 'vue-class-component'
+import { Options, Vue } from 'vue-class-component'
+import VaIcon from 'vuestic-ui/src/components/va-icon'
+
+@Options({
+  name: 'DocsVersionDropdown',
+})
 
 export default class VersionDropdown extends Vue {
   data () {

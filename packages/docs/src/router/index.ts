@@ -1,5 +1,7 @@
 import { createWebHistory, createRouter, RouterView } from 'vue-router'
 import routes from 'vue-auto-routing'
+import { i18n } from '../locales/i18n'
+import { DEFAULT_LANGUAGE } from '../locales'
 
 /**
  * We can not use aliases because then we lose the opportunity to update the route path.
@@ -25,4 +27,14 @@ export const router = createRouter({
       children: routes.map((r) => ({ ...r, name: undefined })),
     },
   ],
+})
+
+// Update i18n locale if needed.
+router.beforeEach((to) => {
+  const newLocale = to.params.locale as string || DEFAULT_LANGUAGE
+  const currentLocale = i18n.global.locale
+
+  if (newLocale === currentLocale) { return }
+
+  i18n.global.locale = newLocale
 })

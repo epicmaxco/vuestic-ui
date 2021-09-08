@@ -111,7 +111,7 @@
             <div class="customize__content--second">
               <div class="code-wrapper" @click="copyText">
                 <div class="code-subwrapper">
-                  <prism :key="code" class="code" language="javascript">{{ code }}</prism>
+                  <prism class="code" :code="code" />
                   <input type="hidden" ref="codeInput" :value="code">
                 </div>
               </div>
@@ -135,11 +135,12 @@ import ColorTab from './ColorTab.vue'
 import 'prismjs'
 import dedent from 'dedent'
 // @ts-ignore
-import Prism from 'vue-prism-component'
-import { shiftHSLAColor } from '../../../../ui/src/services/color-config/color-functions'
-import { getColors } from '../../../../ui/src/services/color-config/color-config'
+import Prism from '../PrismWrapper'
+import { shiftHSLAColor } from 'vuestic-ui/src/services/color-config/color-functions'
+import { getColors } from 'vuestic-ui/src/services/color-config/color-config'
 
 @Options({
+  name: 'LandingCustomize',
   components: { Prism, ColorTab },
 })
 export default class Customize extends Vue {
@@ -215,7 +216,7 @@ export default class Customize extends Vue {
     switch (this.tabValue) {
     case 1:
       return dedent`
-          <template>
+      <template>
             <div class="components">
               <div class="component">
                 <va-button @click="btnClick">
@@ -276,138 +277,138 @@ export default class Customize extends Vue {
         `
     case 2:
       return dedent`
-        <template>
-          <table class="va-table va-table--striped va-table--hoverable">
-            <thead>
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Country</th>
-              <th>Status</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr v-for="user in users" :key="user.id">
-              <td>{{ user.fullName }}</td>
-              <td>{{ user.email }}</td>
-              <td>{{ user.country }}</td>
-              <td>
-                <va-badge
-                  :text="user.status"
-                  :color="user.status"
-                />
-              </td>
-            </tr>
-            </tbody>
-          </table>
-        </template>
+      <template>
+            <table class="va-table va-table--striped va-table--hoverable">
+              <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Country</th>
+                <th>Status</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr v-for="user in users" :key="user.id">
+                <td>{{ user.fullName }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.country }}</td>
+                <td>
+                  <va-badge
+                    :text="user.status"
+                    :color="user.status"
+                  />
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </template>
 
-        ${'<' + 'script>'}
-        export default {
-          data() {
-            return {
-              users: [{
-                id: 1,
-                fullName: 'Ashley Mcdaniel',
-                email: 'ashleymcdaniel@nebulean.com',
-                country: 'Cayman Islands',
-                status: 'warning',
-              },
-              {
-                id: 2,
-                fullName: 'Todd Sellers',
-                email: 'sellerstodd@nebulean.com',
-                country: 'Togo',
-                status: 'info',
-              },
-              {
-                id: 3,
-                fullName: 'Sherman Knowles',
-                email: 'shermanknowles@nebulean.com',
-                country: 'Central African Republic',
-                status: 'warning',
-              },
-              {
-                id: 4,
-                fullName: 'Vasquez Lawson',
-                email: 'vasquezlawson@nebulean.com',
-                country: 'Bouvet Island',
-                status: 'info',
-              }]
+          ${'<' + 'script>'}
+          export default {
+            data() {
+              return {
+                users: [{
+                  id: 1,
+                  fullName: 'Ashley Mcdaniel',
+                  email: 'ashleymcdaniel@nebulean.com',
+                  country: 'Cayman Islands',
+                  status: 'warning',
+                },
+                {
+                  id: 2,
+                  fullName: 'Todd Sellers',
+                  email: 'sellerstodd@nebulean.com',
+                  country: 'Togo',
+                  status: 'info',
+                },
+                {
+                  id: 3,
+                  fullName: 'Sherman Knowles',
+                  email: 'shermanknowles@nebulean.com',
+                  country: 'Central African Republic',
+                  status: 'warning',
+                },
+                {
+                  id: 4,
+                  fullName: 'Vasquez Lawson',
+                  email: 'vasquezlawson@nebulean.com',
+                  country: 'Bouvet Island',
+                  status: 'info',
+                }]
+              }
             }
           }
-        }
-        ${'</' + 'script>'}
+          ${'</' + 'script>'}
       `
     case 3:
       return dedent`
-        <template>
-          <div class="components">
-            <div class="component">
-              <va-button-toggle
-                v-model="theme"
-                color="primary"
-                :options="themeToggleOptions"
-                @input="updateTheme"
-              />
+      <template>
+            <div class="components">
+              <div class="component">
+                <va-button-toggle
+                  v-model="theme"
+                  color="primary"
+                  :options="themeToggleOptions"
+                  @input="updateTheme"
+                />
+              </div>
+
+              <div class="component">
+                <va-switch
+                  v-model="switchValue"
+                  color="primary"
+                />
+              </div>
+
+              <div class="component">
+                <va-alert color="primary">
+                  Important alert message
+                </va-alert>
+              </div>
+
+              <div class="component">
+                <va-button color="primary">
+                  Submit
+                </va-button>
+              </div>
             </div>
+          </template>
 
-            <div class="component">
-              <va-switch
-                v-model="switchValue"
-                color="primary"
-              />
-            </div>
+          ${'<' + 'script>'}
+          import { useColors } from 'vuestic-ui'
 
-            <div class="component">
-              <va-alert color="primary">
-                Important alert message
-              </va-alert>
-            </div>
+          export default {
+            setup () {
+              const { getTheme, setTheme } = useColors()
 
-            <div class="component">
-              <va-button color="primary">
-                Submit
-              </va-button>
-            </div>
-          </div>
-        </template>
+              return {
+                getTheme,
+                setTheme
+              }
+            },
 
-        ${'<' + 'script>'}
-        import { useColors } from 'vuestic-ui'
+            data() {
+              return {
+                theme: ${this.theme},
+                themeToggleOptions: [{
+                  label: 'Light',
+                  value: 'light',
+                }, {
+                  label: 'Dark',
+                  value: 'dark',
+                }]
+              }
+            },
 
-        export default {
-          setup () {
-            const { getTheme, setTheme } = useColors()
-
-            return {
-              getTheme,
-              setTheme
-            }
-          },
-
-          data() {
-            return {
-              theme: ${this.theme},
-              themeToggleOptions: [{
-                label: 'Light',
-                value: 'light',
-              }, {
-                label: 'Dark',
-                value: 'dark',
-              }]
-            }
-          },
-
-          methods: {
-            updateTheme (value) {
-              this.setTheme({
-                primary: value === 'light' ? '#2C82E0' : '#042F83'
-              })
+            methods: {
+              updateTheme (value) {
+                this.setTheme({
+                  primary: value === 'light' ? '#2C82E0' : '#042F83'
+                })
+              }
             }
           }
-        }
-        ${'</' + 'script>'}
+          ${'</' + 'script>'}
       `
     default:
       return ''

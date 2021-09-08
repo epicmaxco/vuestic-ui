@@ -27,7 +27,9 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
-@Options({})
+@Options({
+  name: 'LandingOpenSource',
+})
 export default class OpenSource extends Vue {}
 </script>
 

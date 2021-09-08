@@ -1,52 +1,27 @@
-import { ApiDocsBlock, BlockType } from '../../../../types/configTypes'
-import VaForm from 'vuestic-ui/src/components/vuestic-components/va-form/VaForm.vue'
+import { ApiDocsBlock } from '../../../../types/configTypes'
+import { DocsHelper } from '../../../../helpers/DocsHelper'
+import VaForm from 'vuestic-ui/src/components/va-form/VaForm.vue'
 import apiOptions from './api-options'
-import { VueConstructor } from 'vue-class-component'
 
-export default [
-  {
-    type: BlockType.TITLE,
-    translationString: 'form.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'form.summaryText',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'all.examples',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'form.examples.default.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'form.examples.default.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-form/Default',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'form.examples.advanced.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'form.examples.advanced.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-form/WithInputs',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'all.api',
-  },
-  {
-    type: BlockType.API,
-    componentOptions: VaForm as unknown as VueConstructor,
-    apiOptions,
-  },
-] as ApiDocsBlock[]
+const config: ApiDocsBlock[] = [
+  DocsHelper.title('form.title'),
+  DocsHelper.paragraph('form.summaryText'),
+
+  DocsHelper.subtitle('all.examples'),
+
+  ...DocsHelper.exampleBlock(
+    'form.examples.default.title',
+    'form.examples.default.text',
+    'va-form/Default',
+  ),
+  ...DocsHelper.exampleBlock(
+    'form.examples.advanced.title',
+    'form.examples.advanced.text',
+    'va-form/WithInputs',
+  ),
+
+  DocsHelper.subtitle('all.api'),
+  DocsHelper.api(VaForm, apiOptions),
+]
+
+export default config

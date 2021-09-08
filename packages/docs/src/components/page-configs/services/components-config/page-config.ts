@@ -1,37 +1,22 @@
 import { ApiDocsBlock } from '../../../../types/configTypes'
 import { DocsHelper } from '../../../../helpers/DocsHelper'
-import { t } from '../../../../helpers/I18nHelper'
+import { componentsConfigCodeExample } from './code-examples'
 import { api } from './sections'
 
-const cc = (text: string) => (`componentsConfig.${text}`)
-const vc = (text: string) => cc(`vaConfig.${text}`)
-
-export default [
+const config: ApiDocsBlock[] = [
   DocsHelper.title('componentsConfig.title'),
   DocsHelper.paragraph('componentsConfig.subtitle'),
-  DocsHelper.code(`
-...
-components: {
-  VaAvatar: {
-    square: true,
-    icon: 'spinner'
-  },
-  VaCard: {
-    color: 'secondary',
-  },
-  VaTabs: {
-    grow: true,
-  },
-},
-...
-  `),
+  DocsHelper.code(componentsConfigCodeExample),
+
   DocsHelper.paragraph('componentsConfig.demoTitle'),
   DocsHelper.example('components-config/button'),
 
-  DocsHelper.subtitle(vc('title')),
-  DocsHelper.paragraph(vc('subtitle')),
+  DocsHelper.subtitle('componentsConfig.vaConfig.title'),
+  DocsHelper.paragraph('componentsConfig.vaConfig.subtitle'),
   DocsHelper.example('components-config/va-config'),
-  DocsHelper.paragraph(vc('explain')),
+  DocsHelper.paragraph('componentsConfig.vaConfig.explain'),
 
   ...api,
-] as ApiDocsBlock[]
+]
+
+export default config

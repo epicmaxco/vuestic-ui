@@ -15,6 +15,7 @@
 import { defineComponent, onBeforeMount, ref } from 'vue'
 
 export default defineComponent({
+  name: 'LandingStarsButton',
   props: {
     /** @example epicmaxco/vuestic-ui */
     repo: { type: String, required: true },

@@ -56,6 +56,10 @@ export const navigationRoutes: NavigationRoute[] = [
     disabled: true,
     children: [
       {
+        name: 'reset',
+        displayName: 'menu.reset',
+      },
+      {
         name: 'grid',
         displayName: 'menu.grid',
       },
@@ -72,8 +76,8 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: 'menu.typography',
       },
       {
-        name: 'ag-grid-wrapper',
-        displayName: 'menu.agGridWrapper',
+        name: 'ag-grid',
+        displayName: 'menu.agGrid',
         meta: {
           badge: 'wip',
         },
@@ -93,6 +97,10 @@ export const navigationRoutes: NavigationRoute[] = [
         category: 'menu.categories.view',
         name: 'avatar',
         displayName: 'menu.avatar',
+      },
+      {
+        name: 'badge',
+        displayName: 'menu.badge',
       },
       {
         name: 'button',
@@ -178,16 +186,22 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'file-upload',
         displayName: 'menu.fileUpload',
       },
-      // Temporary removed.
-      // {
-      //   name: 'popover',
-      //   displayName: 'menu.popover',
-      // },
+      {
+        name: 'popover',
+        displayName: 'menu.popover',
+      },
       {
         name: 'date-picker',
         displayName: 'menu.datePicker',
         meta: {
-          badge: 'wip',
+          badge: 'new',
+        },
+      },
+      {
+        name: 'date-input',
+        displayName: 'menu.dateInput',
+        meta: {
+          badge: 'new',
         },
       },
       {
@@ -223,10 +237,6 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: 'breadcrumbs',
         displayName: 'menu.breadcrumbs',
-      },
-      {
-        name: 'badge',
-        displayName: 'menu.badge',
       },
       {
         name: 'navbar',
@@ -317,6 +327,10 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: 'guide',
         displayName: 'menu.guide',
+      },
+      {
+        name: 'ui-element-guide',
+        displayName: 'menu.uiElementGuide',
       },
       // GENERATOR_ADD - contribution
     ],

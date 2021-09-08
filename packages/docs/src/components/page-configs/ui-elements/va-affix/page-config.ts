@@ -1,53 +1,24 @@
-import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
-import { VueConstructor } from 'vue-class-component'
-import VaAffix
-  from 'vuestic-ui/src/components/vuestic-components/va-affix/VaAffix.vue'
+import { ApiDocsBlock } from '../../../../types/configTypes'
+import { DocsHelper } from '../../../../helpers/DocsHelper'
+import VaAffix from 'vuestic-ui/src/components/va-affix/VaAffix.vue'
 import apiOptions from './api-options'
 
-export default [
-  {
-    type: BlockType.TITLE,
-    translationString: 'affix.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'affix.summaryText',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'all.examples',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'affix.examples.top.title',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-affix/Top',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'affix.examples.target.title',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-affix/Target',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'affix.examples.bottom.title',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-affix/Bottom',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'all.api',
-  },
-  {
-    type: BlockType.API,
-    componentOptions: VaAffix as unknown as VueConstructor,
-    apiOptions,
-  },
-] as ApiDocsBlock[]
+const config: ApiDocsBlock[] = [
+  DocsHelper.title('affix.title'),
+  DocsHelper.paragraph('affix.summaryText'),
+
+  DocsHelper.subtitle('all.examples'),
+  DocsHelper.headline('affix.examples.top.title'),
+  DocsHelper.example('va-affix/Top'),
+
+  DocsHelper.headline('affix.examples.target.title'),
+  DocsHelper.example('va-affix/Target'),
+
+  DocsHelper.headline('affix.examples.bottom.title'),
+  DocsHelper.example('va-affix/Bottom'),
+
+  DocsHelper.subtitle('all.api'),
+  DocsHelper.api(VaAffix, apiOptions),
+]
+
+export default config

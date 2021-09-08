@@ -8,6 +8,7 @@ import DocsContent from '../../components/DocsContent.vue'
 import cardConfig from '../../components/page-configs/ui-elements/va-card/page-config'
 
 @Options({
+  name: 'DocsCard',
   components: {
     DocsContent,
   },

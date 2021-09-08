@@ -33,9 +33,10 @@ import { computed, defineComponent } from 'vue'
 import { getColors } from 'vuestic-ui/src/main'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
-import { languages } from './../../languages'
+import { languages } from '../../../locales'
 
 export default defineComponent({
+  name: 'DocsLanguageDropdown',
   setup () {
     const { locale, t } = useI18n()
     const router = useRouter()
@@ -51,6 +52,8 @@ export default defineComponent({
 
     const setLanguage = (newLocale: string) => {
       if (locale.value === newLocale) { return }
+
+      localStorage.setItem('language', newLocale)
 
       const currentPathWithoutLocale = getCurrentPathWithoutLocale()
 

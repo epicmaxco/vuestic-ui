@@ -47,6 +47,7 @@ class Props {
 const PropsMixin = Vue.with(Props)
 
 @Options({
+  name: 'DocsHeader',
   components: {
     HeaderSelector,
     LanguageDropdown,
@@ -92,9 +93,9 @@ export default class Header extends mixins(PropsMixin) {
 </script>
 
 <style lang="scss" scoped>
-@import "~vuestic-ui/src/components/vuestic-sass/resources/resources";
-@import "~vuestic-ui/src/components/vuestic-sass/grid/grid-global-styles";
-@import "~vuestic-ui/src/components/vuestic-sass/global/typography";
+@import "~vuestic-ui/src/styles/resources/resources";
+@import "~vuestic-ui/src/styles/grid/grid-global-styles";
+@import "~vuestic-ui/src/styles/global/typography";
 
 .header {
   width: 100%;

@@ -8,6 +8,7 @@ import DocsContent from '../../components/DocsContent.vue'
 import iconsConfigConfig from '../../components/page-configs/services/icons-config/page-config'
 
 @Options({
+  name: 'DocsIconsConfig',
   components: {
     DocsContent,
   },

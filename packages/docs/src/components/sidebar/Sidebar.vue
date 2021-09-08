@@ -35,7 +35,9 @@
             :to="`/${$root.$i18n.locale}/${route.name}/${childRoute.name}`"
             :active="isActiveChildRoute(childRoute, route)"
             :activeColor="activeColor"
+            :hover-color="hoverColor"
             border-color="primary"
+            text-color="dark"
             @click="onSidebarItemClick"
           >
             <va-sidebar-item-content>
@@ -43,7 +45,13 @@
                 {{ $t(childRoute.displayName) }}
               </va-sidebar-item-title>
               <div class="va-sidebar-item-badges" v-if="childRoute.meta && childRoute.meta.badge">
-                <va-chip :title="$t(`menu.badges.${childRoute.meta.badge}.title`)" size="small">{{ $t(`menu.badges.${childRoute.meta.badge}.text`) }}</va-chip>
+                <va-chip
+                  size="small"
+                  :color="badgeColors[childRoute.meta.badge]"
+                  :title="$t(`menu.badges.${childRoute.meta.badge}.title`)"
+                >
+                  {{ $t(`menu.badges.${childRoute.meta.badge}.text`) }}
+                </va-chip>
               </div>
             </va-sidebar-item-content>
           </va-sidebar-item>
@@ -67,6 +75,7 @@ class Props {
 }
 
 @Options({
+  name: 'DocsSidebar',
   components: { AlgoliaSearch, VaSidebarLink },
 })
 export default class Sidebar extends Vue.with(Props) {
@@ -80,8 +89,18 @@ export default class Sidebar extends Vue.with(Props) {
     return getColor(color)
   }
 
+  badgeColors = { wip: 'primary', new: 'success' }
+
   get activeColor () {
-    return '#b8c9ec'
+    const { getColor, getFocusColor } = useColors()
+    const color = getColor('primary')
+    return getFocusColor(color)
+  }
+
+  get hoverColor () {
+    const { getColor, getHoverColor } = useColors()
+    const color = getColor('primary')
+    return getHoverColor(color)
   }
 
   onRouteChange () {
@@ -125,10 +144,11 @@ export default class Sidebar extends Vue.with(Props) {
 </script>
 
 <style lang="scss" scoped>
-@import "~vuestic-ui/src/components/vuestic-sass/resources/resources.scss";
+@import "~vuestic-ui/src/styles/resources/resources.scss";
 
 .sidebar {
   &__collapse-custom-header {
+    position: relative;
     padding: 1rem 1.2rem;
     display: flex;
     justify-content: space-between;
@@ -139,16 +159,31 @@ export default class Sidebar extends Vue.with(Props) {
     line-height: 20px;
     cursor: pointer;
 
-    &:hover {
-      background-color: rgba(184, 201, 236, 0.2);
+    ::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: var(--va-primary);
+      opacity: 0;
     }
 
-    &--active {
-      color: var(--primary, #4591e3);
+    &:hover {
+      ::before {
+        opacity: 0.2;
+      }
     }
 
     &--keyboard-focused {
-      background-color: rgba(184, 201, 236, 0.2);
+      ::before {
+        opacity: 0.3;
+      }
+    }
+
+    &--active {
+      color: var(--va-primary);
     }
   }
 

@@ -7,7 +7,7 @@
       color="gray"
       @click="copy"
     >
-      <i class="docs-navigation__button__icon" :class="copyIcon"/>
+      <i class="docs-navigation__button__icon" :class="copyIcon" />
       <span class="docs-navigation__button__text">{{ copyText }}</span>
     </va-button>
 
@@ -20,12 +20,12 @@
       :href="link.url"
       target="_blank"
     >
-      <i class="docs-navigation__button__icon" :class="link.icon"/>
+      <i class="docs-navigation__button__icon" :class="link.icon" />
       <span class="docs-navigation__button__text">{{ link.text }}</span>
     </va-button>
 
     <form :action="sandboxDefineUrl" method="POST" target="_blank">
-      <input type="hidden" name="parameters" :value="sandboxParams"/>
+      <input type="hidden" name="parameters" :value="sandboxParams" />
       <va-button
         flat
         type="submit"
@@ -33,7 +33,7 @@
         class="docs-navigation__button"
         color="gray"
       >
-        <i class="docs-navigation__button__icon" :class="codeIcon"/>
+        <i class="docs-navigation__button__icon" :class="codeIcon" />
         <span class="docs-navigation__button__text">Open in CodeSandbox</span>
       </va-button>
     </form>
@@ -45,6 +45,7 @@ import { getParameters } from 'codesandbox/lib/api/define'
 import packageUi from '../../../ui/package'
 
 export default {
+  name: 'DocsNavigation',
   props: {
     code: {
       type: String,
@@ -71,10 +72,17 @@ export default {
     }
   },
   methods: {
-    copy () {
-      this.$clipboard(this.code)
-      this.copyIcon = 'fa fa-check'
-      this.copyText = 'Copied'
+    updateCopyButton (icon, text) {
+      this.copyIcon = icon
+      this.copyText = text
+    },
+    async copy () {
+      try {
+        await window.navigator.clipboard.writeText(this.code)
+        this.updateCopyButton('fa fa-check', 'Copied')
+      } catch (e) {
+        if (e.message === 'NotAllowedError') { this.updateCopyButton('fa fa-times', 'Permission failure!') }
+      }
       setTimeout(() => {
         this.copyText = 'Copy code'
         this.copyIcon = 'fa fa-files-o'
@@ -141,7 +149,7 @@ app.mount("#app");
 </script>
 
 <style lang="scss">
-@import "~vuestic-ui/src/components/vuestic-sass/resources/resources";
+@import "~vuestic-ui/src/styles/resources/resources";
 
 .docs-navigation {
   background: $prism-background;

@@ -8,6 +8,7 @@ import DocsContent from '../../components/DocsContent.vue'
 import gridConfig from '../../components/page-configs/styles/grid/page-config'
 
 @Options({
+  name: 'DocsStylesGrid',
   components: {
     DocsContent,
   },

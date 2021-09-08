@@ -1,0 +1,29 @@
+{
+  "name": "vue-lib-tree-shaking-test",
+  "private": true,
+  "version": "0.0.1",
+  "scripts": {
+    "build": "rm -rf ./dist && yarn build:vite && yarn build:vue-cli",
+    "build:vite": "vue-tsc --noEmit && vite build",
+    "build:vue-cli": "vue-cli-service build",
+    "dev:vite": "vite",
+    "dev:vue-cli": "vue-cli-service serve",
+    "serve:vite": "vite preview",
+    "serve:vue-cli": "serve -s dist/vue-cli",
+    "test": "jest",
+    "reinstall": "rm -rf ./node_modules && yarn"
+  },
+  "dependencies": {
+    "@vue/cli-service": "^4.5.13",
+    "jest": "^27.0.6",
+    "ts-node": "^10.1.0",
+    "vue": "^3.0.5"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^1.3.0",
+    "serve": "^12.0.0",
+    "typescript": "^4.3.2",
+    "vite": "^2.4.4",
+    "vue-tsc": "^0.2.2"
+  }
+}

@@ -1,14 +1,16 @@
 <template>
-  <VuePrismComponent class="DocsCode" :language="language">{{ formatedCode }}</VuePrismComponent>
+  <prism-wrapper
+    :code="formattedCode"
+    :lang="language"
+    class="DocsCode"
+  />
 </template>
 
 <script>
-import 'prismjs'
-import 'prismjs/components/prism-scss'
-import 'prismjs/components/prism-bash'
-import VuePrismComponent from 'vue-prism-component'
+import PrismWrapper from './PrismWrapper'
 
 export default {
+  name: 'DocsCode',
   props: {
     language: {
       type: String,
@@ -19,12 +21,22 @@ export default {
       default: '',
     },
   },
+  data () {
+    return {
+      doShowCode: true,
+    }
+  },
   components: {
-    VuePrismComponent,
+    PrismWrapper,
   },
   computed: {
-    formatedCode () {
-      return this.removeFirstLineBreakIfExists(this.code)
+    formattedCode () {
+      let { code } = this
+
+      code = this.removeFirstLineBreakIfExists(code)
+      code = this.applyTranslations(code)
+
+      return code
     },
   },
   methods: {
@@ -48,12 +60,32 @@ export default {
       }
       return newCode
     },
+    applyTranslations (code) {
+      const replaces = code.match(/(?:\$t)\(.*?\)/) || []
+
+      return replaces.reduce((acc, replaceSource) => {
+        const translation = replaceSource.replace(/(\$t|'|\(|\)|\[\d\])/gi, '')
+
+        return acc.replace(replaceSource, this.$t(translation))
+      }, code)
+    },
+  },
+  watch: {
+    code: {
+      handler () {
+        this.doShowCode = false
+        this.$nextTick(() => {
+          this.doShowCode = true // $nextTick() triggers v-if, that causes re-rendering of component.
+        })
+      },
+      immediate: true,
+    },
   },
 }
 </script>
 
 <style lang="scss">
-@import "~vuestic-ui/src/components/vuestic-sass/resources/resources";
+@import "~vuestic-ui/src/styles/resources/resources";
 
 /* PrismJS 1.20.0
 https://prismjs.com/download.html#themes=prism&languages=css */
@@ -63,12 +95,14 @@ https://prismjs.com/download.html#themes=prism&languages=css */
  * Based on dabblet (http://dabblet.com)
  * @author Lea Verou
  */
-// TODO This pre is a bit weird here and exists because of how vue-prism-component applies class.
+// @TODO After removing vue-prism-component need to update markup
+// This pre is a bit weird here and exists because of how vue-prism-component applies class
+// The structure is temporarily saved.
 // Notably it has structure like this: pre.DocsCode > code.DocsCode.
 // Here class is being applied twice, while it should have been applied only on external container
 pre.DocsCode {
   background: #f4f8fa;
-  padding: 1.2rem 2rem;
+  padding-top: 1.3rem;
   font-size: calc(1rem / 1.4);
 
   code[class*='language-'],

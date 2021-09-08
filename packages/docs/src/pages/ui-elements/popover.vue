@@ -8,6 +8,7 @@ import DocsContent from '../../components/DocsContent.vue'
 import popoverConfig from '../../components/page-configs/ui-elements/va-popover/page-config'
 
 @Options({
+  name: 'DocsPopover',
   components: {
     DocsContent,
   },

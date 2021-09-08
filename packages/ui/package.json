@@ -1,20 +1,28 @@
 {
   "name": "vuestic-ui",
-  "version": "1.1.1",
+  "version": "1.2.7",
   "license": "MIT",
   "repository": "https://github.com/epicmaxco/vuestic-ui",
-  "main": "dist/vuestic-ui.js",
-  "jsdelivr": "dist/vuestic-ui.js",
-  "unpkg": "dist/vuestic-ui.js",
-  "types": "dist/main.d.ts",
+  "main": "dist/cjs/main.js",
+  "module": "dist/esm/main.js",
+  "jsdelivr": "dist/iife/main.js",
+  "unpkg": "dist/iife/main.js",
+  "types": "dist/types/main.d.ts",
   "bugs": {
     "url": "https://github.com/epicmaxco/vuestic-ui/issues"
   },
+  "sideEffects": [
+    "*.css",
+    "*.vue"
+  ],
   "scripts": {
     "serve": "vue-cli-service serve --mode book",
-    "build": "tsc build/config.ts && webpack --config build/config.js --progress",
-    "build:prod": "NODE_ENV=production yarn build",
+    "build:dev": "tsc build/config.ts && webpack --config build/config.js --progress",
+    "build": "yarn build:rollup && yarn build:types",
+    "build:rollup": "rollup -c",
+    "build:types": "tsc --declaration --emitDeclarationOnly --outDir dist/types",
     "build:book": "vue-cli-service build --mode book",
+    "build-and-release": "ts-node build/bump-version.ts && yarn build && npm publish",
     "lint": "vue-cli-service lint",
     "lint:style": "stylelint '**/*.{vue,html,css,scss}'",
     "test:unit": "vue-cli-service test:unit -w 1",
@@ -34,9 +42,9 @@
     "detect-browser": "^5.2.0",
     "element-resize-detector": "^1.2.1",
     "flatpickr": "4.6.9",
-    "lodash": "^4.17.20",
+    "lodash-es": "^4.17.21",
     "normalize.css": "^8.0.1",
-    "vue": "^3.0.4",
+    "tslib": "^2.2.0",
     "vue-flatpickr-component": "^9.0.3"
   },
   "devDependencies": {
@@ -47,11 +55,14 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
     "@fortawesome/vue-fontawesome": "^3.0.0-2",
+    "@rollup/plugin-commonjs": "^19.0.0",
+    "@rollup/plugin-node-resolve": "^13.0.0",
     "@types/cleave.js": "^1.4.3",
     "@types/jest": "^26.0.20",
     "@types/lodash": "^4.14.161",
     "@types/lodash-es": "^4.17.3",
     "@types/mini-css-extract-plugin": "^1.2.1",
+    "@types/semver": "^7.3.6",
     "@typescript-eslint/eslint-plugin": "^4.12.0",
     "@typescript-eslint/parser": "^4.12.0",
     "@vue/cli-plugin-babel": "^5.0.0-alpha.3",
@@ -61,7 +72,7 @@
     "@vue/cli-plugin-typescript": "^5.0.0-alpha.3",
     "@vue/cli-plugin-unit-jest": "^5.0.0-alpha.3",
     "@vue/cli-service": "^5.0.0-alpha.3",
-    "@vue/compiler-sfc": "^3.0.0",
+    "@vue/compiler-sfc": "^3.1.4",
     "@vue/eslint-config-standard": "^6.0.0",
     "@vue/eslint-config-typescript": "^7.0.0",
     "@vue/test-utils": "^2.0.0-beta.14",
@@ -80,43 +91,52 @@
     "identity-obj-proxy": "^3.0.0",
     "ionicons": "^3.0.0",
     "jsdom": "^16.2.2",
-    "lint-staged": "^10.1.2",
+    "lint-staged": "^11.1.2",
     "mini-css-extract-plugin": "^1.3.0",
     "node-sass": "^5.0.0",
     "optimize-css-assets-webpack-plugin": "^5.0.4",
     "postcss": "^8.2.1",
     "postcss-loader": "^4.1.0",
+    "rollup": "^2.53.1",
+    "rollup-plugin-copy": "^3.4.0",
+    "rollup-plugin-postcss": "^4.0.0",
+    "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-typescript2": "^0.30.0",
+    "rollup-plugin-vue": "^6.0.0",
     "sass": "^1.26.5",
     "sass-loader": "^10.1.0",
+    "semver": "^7.3.5",
     "style-loader": "^2.0.0",
-    "stylelint": "^13.2.1",
-    "stylelint-config-standard": "^20.0.0",
+    "stylelint": "^13.13.1",
+    "stylelint-config-standard": "^22.0.0",
     "ts-jest": "^26.5.4",
     "ts-loader": "^8.0.14",
     "ts-node": "^9.1.1",
     "typescript": "^4.1.3",
+    "vue": "^3.0.4",
     "vue-book": "0.2.0-alpha.0",
     "vue-class-component": "^8.0.0-rc.1",
     "vue-jest": "^5.0.0-alpha.7",
-    "vue-loader": "^16.1.2",
+    "vue-loader": "^16.3.0",
     "vuelidate": "^0.7.5",
     "webpack": "^5.4.1",
     "webpack-bundle-analyzer": "^4.1.0",
     "webpack-cli": "^4.4.0",
     "webpack-merge": "^5.5.0"
   },
+  "peerDependencies": {
+    "vue": "^3.0.4"
+  },
   "lint-staged": {
     "*.{js,ts}": [
-      "yarn lint --fix"
+      "vue-cli-service lint --fix"
     ],
     "*.vue": [
-      "yarn lint --fix",
-      "yarn lint:style --fix",
-      "yarn stylelint '**/*.{vue,html,css,scss}' --fix"
+      "vue-cli-service lint --fix",
+      "stylelint '**/*.{vue,html,css,scss}' --fix"
     ],
     ".{htm,html,css,sss,less,scss}": [
-      "yarn lint:style --fix",
-      "yarn stylelint '**/*.{vue,html,css,scss}' --fix"
+      "stylelint '**/*.{vue,html,css,scss}' --fix"
     ]
   }
 }

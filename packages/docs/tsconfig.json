@@ -21,6 +21,7 @@
     },
     "types": [
       "webpack-env",
+      "jest",
       "node",
     ],
     "lib": [

@@ -1,33 +1,80 @@
 <template>
   <p>
-    {{ $te(preText) ? $t(preText) : preText }}
-    <router-link :to="href">
-      {{ $te(text) ? $t(text) : text }}
+    <MarkdownView
+      class="DocsLink__pre"
+      inline
+      tag="span"
+      v-if="preText"
+      :value="$tie(preText)"
+    />
+    <router-link :to="linkHref">
+      {{ $tie(text) }}
     </router-link>
-    {{ $te(afterText) ? $t(afterText) : afterText }}
+    <MarkdownView
+      class="DocsLink__after"
+      inline
+      tag="span"
+      v-if="afterText"
+      :value="$tie(afterText)"
+    />
   </p>
 </template>
 
 <script lang="ts">
-import { Options, Vue, prop, mixins } from 'vue-class-component'
 import MarkdownView from '../utilities/markdown-view/MarkdownView.vue'
+import { defineComponent, computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 
-class Props {
-  text = prop<string>({ type: String, required: true })
-  href = prop<string>({ type: String, required: true })
+export default defineComponent({
+  name: 'DocsLink',
+  components: {
+    MarkdownView,
+  },
+  props: {
+    text: {
+      type: String,
+      required: true,
+    },
+    href: {
+      type: String,
+      required: true,
+    },
+    preText: {
+      type: String,
+      required: false,
+      default: '',
+    },
+    afterText: {
+      type: String,
+      required: false,
+      default: '',
+    },
+  },
+  setup (props) {
+    const { locale } = useI18n()
 
-  preText = prop<string>({ type: String, required: false, default: '' })
-  afterText = prop<string>({ type: String, required: false, default: '' })
-}
+    const linkHref = computed(() => {
+      if (props.href.startsWith('/')) {
+        return `/${locale.value}${props.href}`
+      }
+      return `/${locale.value}/${props.href}`
+    })
 
-const PropsMixin = Vue.with(Props)
-
-@Options({
-  components: { MarkdownView },
+    return {
+      linkHref,
+    }
+  },
 })
-export default class DocsLink extends mixins(PropsMixin) {}
 </script>
 
 <style lang="scss">
-@import "~vuestic-ui/src/components/vuestic-sass/resources/resources";
+@import "~vuestic-ui/src/styles/resources/resources";
+
+.DocsLink__pre {
+  margin-right: 0.3rem;
+}
+
+.DocsLink__after {
+  margin-left: 0.3rem;
+}
 </style>

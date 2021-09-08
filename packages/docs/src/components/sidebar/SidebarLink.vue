@@ -16,7 +16,7 @@
 </template>
 <script lang='ts'>
 import { Options, Vue, prop, mixins } from 'vue-class-component'
-import { getHoverColor } from '../../../../ui/src/services/color-config/color-functions'
+import { getHoverColor } from 'vuestic-ui/src/services/color-config/color-functions'
 import ColorMixin from '../../../../ui/src/services/color-config/ColorMixin'
 
 class SidebarLinkProps {
@@ -25,7 +25,9 @@ class SidebarLinkProps {
 
 const SidebarLinkPropsMixin = Vue.with(SidebarLinkProps)
 
-@Options({})
+@Options({
+  name: 'DocsSidebarLink',
+})
 export default class SidebarLink extends mixins(ColorMixin, SidebarLinkPropsMixin) {
   isHovered = false
 
@@ -39,7 +41,7 @@ export default class SidebarLink extends mixins(ColorMixin, SidebarLinkPropsMixi
 </script>
 
 <style lang="scss" scoped>
-@import "../../../../ui/src/components/vuestic-sass/resources/resources";
+@import "../../../../ui/src/styles/resources/resources";
 
 .sidebar__link {
   display: block;

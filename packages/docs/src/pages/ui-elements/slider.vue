@@ -8,6 +8,7 @@ import DocsContent from '../../components/DocsContent.vue'
 import sliderConfig from '../../components/page-configs/ui-elements/va-slider/page-config'
 
 @Options({
+  name: 'DocsSlider',
   components: {
     DocsContent,
   },

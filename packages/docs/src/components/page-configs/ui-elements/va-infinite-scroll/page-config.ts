@@ -1,71 +1,37 @@
-import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
-import VaInfiniteScroll from 'vuestic-ui/src/components/vuestic-components/va-infinite-scroll/VaInfiniteScroll.vue'
+import { ApiDocsBlock } from '../../../../types/configTypes'
+import { DocsHelper } from '../../../../helpers/DocsHelper'
+import VaInfiniteScroll from 'vuestic-ui/src/components/va-infinite-scroll/VaInfiniteScroll.vue'
 import apiOptions from './api-options'
 
-export default [
-  {
-    type: BlockType.TITLE,
-    translationString: 'infiniteScroll.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'infiniteScroll.summaryText',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'all.examples',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'infiniteScroll.examples.default.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'infiniteScroll.examples.default.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-infinite-scroll/Default',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'infiniteScroll.examples.reverse.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'infiniteScroll.examples.reverse.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-infinite-scroll/Reverse',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'infiniteScroll.examples.disabled.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'infiniteScroll.examples.disabled.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-infinite-scroll/Disabled',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'infiniteScroll.examples.customTarget.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'infiniteScroll.examples.customTarget.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-infinite-scroll/CustomTarget',
-  },
-  {
-    type: BlockType.API,
-    componentOptions: VaInfiniteScroll,
-    apiOptions,
-  },
-] as ApiDocsBlock[]
+const config: ApiDocsBlock[] = [
+  DocsHelper.title('infiniteScroll.title'),
+  DocsHelper.paragraph('infiniteScroll.summaryText'),
+
+  DocsHelper.subtitle('all.examples'),
+
+  ...DocsHelper.exampleBlock(
+    'infiniteScroll.examples.default.title',
+    'infiniteScroll.examples.default.text',
+    'va-infinite-scroll/Default',
+  ),
+  ...DocsHelper.exampleBlock(
+    'infiniteScroll.examples.reverse.title',
+    'infiniteScroll.examples.reverse.text',
+    'va-infinite-scroll/Reverse',
+  ),
+  ...DocsHelper.exampleBlock(
+    'infiniteScroll.examples.disabled.title',
+    'infiniteScroll.examples.disabled.text',
+    'va-infinite-scroll/Disabled',
+  ),
+  ...DocsHelper.exampleBlock(
+    'infiniteScroll.examples.customTarget.title',
+    'infiniteScroll.examples.customTarget.text',
+    'va-infinite-scroll/CustomTarget',
+  ),
+
+  DocsHelper.subtitle('all.api'),
+  DocsHelper.api(VaInfiniteScroll, apiOptions),
+]
+
+export default config
