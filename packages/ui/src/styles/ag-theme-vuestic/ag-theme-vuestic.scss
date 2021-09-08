@@ -4,5 +4,5 @@
 // @import ag-theme-vuestic-mixin.scss and @include ag-theme-vuestic($params) instead of using this file.
 
 .ag-theme-vuestic {
-    @include ag-theme-vuestic($ag-theme-vuestic-default-params);
+  @include ag-theme-vuestic($ag-theme-vuestic-default-params);
 }
