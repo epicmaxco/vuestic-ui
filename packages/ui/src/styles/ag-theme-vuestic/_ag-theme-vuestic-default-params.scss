@@ -1,18 +1,28 @@
 @import "~ag-grid-community/dist/styles/ag-theme-base/sass/ag-theme-base-default-params";
 
 $ag-theme-vuestic-default-params: (
-    // COLOURS
-
+    //
     // BORDERS
+    //
+
+    // Draw borders around most UI elements
     borders: false,
 
-    // SIZING
+    //
+    // SIZING / PADDING / SPACING
+    //
+
+    // grid-size is the main control for affecting how tightly data and UI elements are packed together. All padding and spacing in the grid is defined as a multiple of grid-size, so increasing it will make most components larger by increasing their internal white space while leaving the size of text and icons unchanged.
+    grid-size: 4px,
+
+    // Height of grid rows
     row-height: ag-derived(grid-size, $times: 11.5),
+
+    // Height of header rows
     header-height: ag-derived(grid-size, $times: 9.5),
 
-    // FONTS
-
-    // MISC
+    // Horizontal padding for grid and header cells (vertical padding is not set explicitly, but inferred from row-height / header-height
+    cell-horizontal-padding: ag-derived(grid-size, $times: 0),
 );
 
 $ag-theme-vuestic-default-params: map-merge($ag-theme-base-default-params, $ag-theme-vuestic-default-params);
