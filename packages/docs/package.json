@@ -62,7 +62,6 @@
     "eslint-plugin-vue": "^7.5.0",
     "i18n-unused": "^0.4.2",
     "lint-staged": "^11.1.2",
-    "node-sass": "^5.0.0",
     "plop": "^2.7.0",
     "sass-loader": "^10.1.1",
     "stylelint": "^13.13.1",
