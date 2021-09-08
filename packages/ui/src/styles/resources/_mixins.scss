@@ -16,7 +16,7 @@
 
 @mixin va-header-margin($element) {
   margin-top: map_get($display-margins, $element);
-  margin-bottom: map_get($display-margins, $element) / 2;
+  margin-bottom: map_get($display-margins, $element) * 0.5;
 }
 
 @mixin va-display($element) {
