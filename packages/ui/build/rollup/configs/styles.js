@@ -4,17 +4,17 @@ import { nodeResolve as nodeResolvePlugin } from '@rollup/plugin-node-resolve'
 import deleteJunkPlugin from '../plugins/rollup-delete-junk'
 import copyPlugin from 'rollup-plugin-copy'
 
-export function createAgThemeConfig ({ input, outDir = 'dist/', minify = false }) {
+export function createAgThemeConfig () {
   return defineConfig({
-    input,
+    input: './src/styles/ag-theme-vuestic/ag-theme-vuestic.scss',
     output: {
-      dir: outDir,
+      dir: 'dist',
     },
     plugins: [
       postcssPlugin({
-        minimize: minify,
+        minimize: true,
         extract: 'ag-theme-vuestic.css',
-        include: 'src/styles/ag-theme-vuestic.scss'
+        include: 'src/styles/ag-theme-vuestic/ag-theme-vuestic.scss',
       }),
     ],
   })

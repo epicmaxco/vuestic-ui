@@ -1,0 +1,12 @@
+@import "~ag-grid-community/dist/styles/ag-theme-base/sass/ag-theme-base-default-params";
+
+$ag-theme-vuestic-default-params: (
+    // COLOURS
+    // BORDERS
+    // SIZING
+    // FONTS
+    // MISC
+);
+
+$ag-theme-vuestic-default-params: map-merge($ag-theme-base-default-params, $ag-theme-vuestic-default-params);
+

@@ -12,6 +12,6 @@ export default [
   createESMConfig({ ...defaultBuildParams, outDir: 'dist/esm-ssr', ssr: true, minify: true }),
   createIIFEConfig({ ...defaultBuildParams, outDir: 'dist/iife', minify: true }),
   createCJSConfig({ ...defaultBuildParams, outDir: 'dist/cjs', minify: true }),
-  createAgThemeConfig({ ...defaultBuildParams, outDir: 'dist', minify: true, input: './src/styles/ag-theme-vuestic.scss' }),
+  createAgThemeConfig(),
   createStylesConfig({ ...defaultBuildParams, outDir: 'dist', minify: true, input: './src/styles/vuestic-styles.scss' }),
 ]
