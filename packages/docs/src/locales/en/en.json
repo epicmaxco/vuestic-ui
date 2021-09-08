@@ -13,7 +13,7 @@
       "title": "Vue.js 3.0 UI Framework",
       "buttons": {
         "start": "Get started",
-        "github": "View on GitHub"
+        "github": "Star us on GitHub"
       },
       "features": {
         "components": {
@@ -64,7 +64,7 @@
       "title": "Vuestic Admin",
       "text": "Check out Vuestic UI Framework in action.",
       "buttons": {
-        "github": "View on GitHub",
+        "github": "Star us on GitHub",
         "demo": "Live Demo"
       },
       "features": {
