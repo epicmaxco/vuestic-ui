@@ -6,6 +6,7 @@ function resolve (dir) {
 
 module.exports = {
   lintOnSave: false,
+  parallel: !process.env.CIRCLECI, // Prevents breaking on circleci
   chainWebpack: (config) => {
     config.optimization.minimizer('terser').tap((args) => {
       args[0].terserOptions.keep_fnames = true
