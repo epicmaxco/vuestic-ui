@@ -844,7 +844,7 @@
     "VaDataTable": {
       "props": {
         "columns": "The property must be an array of strings or objects (implementing the `ITableColumn` interface) that configures the columns of the table. \n `ITableColumn` &#123; `key: string;` `label?: string;` `headerTitle?: string;` `sortable?: boolean;` `sortingFn?: (a: any, b: any) => number;` `alignHead?: TAlignOptions;` `verticalAlignHead?: TVerticalAlignOptions;` `align?: TAlignOptions;` `verticalAlign?: TVerticalAlignOptions;` &#125;",
-        "items": "Array of objects with table data",
+        "items": "Array (`ITableItem[]`) of objects with table data (`ITableItem: Record<string, any>`). The `va-data-table` automatically calculates the amount and the titles of columns (if not specified otherwise with the `columns` prop) based on these object's keys. When calculating the columns' names based on the item's objects' keys `va-data-table` uses [Lodash's startCase](https://lodash.com/docs/4.17.15#startCase)[[target=_blank]] internally. Faulty values are replaced with an empty string",
         "filter": "If a `filter` is provided, only rows in which at least one cell contains the specified value will be displayed. To disable filtering at runtime (clear `filter`), specify an empty string",
         "filteringFn": "A custom filtering function (`(source: any) => boolean`). The function takes the initial value of the currently checked cell (the `source` is a formal parameter) and should return a `boolean` value, indicating whether to include the row containing this cell or not",
         "sortBy": "Sets the column to sort by. **Don't** use without `v-model`",
@@ -3288,9 +3288,43 @@
   },
   "dataTable": {
     "title": "Data table",
-    "description": "Work in progress.",
+    "description": "The `va-data-table` component is used for displaying tabular data. Features include sorting, searching, pagination, row selection, ability to add additional row(s) to table `header`, `body` or `footer` and other functions.",
     "related": "Related",
-    "styledTablesLink": "Styled tables"
+    "styledTablesLink": "Styled tables",
+    "examples": {
+      "default": {
+        "title": "Basic usage",
+        "text": "The standard `va-data-table` will by default render your data as simple rows."
+      },
+      "slots": {
+        "title": "Slots",
+        "text": "..."
+      },
+      "filtering": {
+        "title": "Filtering",
+        "text": "..."
+      },
+      "sorting": {
+        "title": "Sorting",
+        "text": "..."
+      },
+      "selection": {
+        "title": "Selection",
+        "text": "..."
+      },
+      "pagination": {
+        "title": "Pagination",
+        "text": "..."
+      },
+      "alignment": {
+        "title": "Alignment",
+        "text": "..."
+      },
+      "other": {
+        "title": "Other",
+        "text": "..."
+      }
+    }
   },
   "uiElementGuide": {
     "title": "UI Element Requirements",
