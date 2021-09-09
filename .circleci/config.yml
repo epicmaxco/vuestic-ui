@@ -69,7 +69,6 @@ jobs:
 
   deploy-docs:
     <<: *defaults
-    resource_class: xlarge
     steps:
       - add_ssh_keys:
           fingerprints:
