@@ -72,7 +72,7 @@ export default class Header extends mixins(PropsMixin) {
         //   target: '_blank',
         // },
         {
-          text: 'GitHub',
+          text: this.$t('menu.github'),
           icon: 'fa fa-github',
           url: 'https://github.com/epicmaxco/vuestic-ui',
           target: '_blank',
