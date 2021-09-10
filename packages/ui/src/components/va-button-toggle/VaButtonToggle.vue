@@ -81,6 +81,8 @@ export default class VaButtonToggle extends mixins(
       return {
         textColor: this.activeButtonTextColor,
         color: this.toggleColor ? this.theme.getColor(this.toggleColor) : this.colorComputed,
+        outline: false,
+        flat: false,
       }
     }
 
