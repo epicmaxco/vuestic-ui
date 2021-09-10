@@ -17,20 +17,20 @@
 
     <VbCard title="Show footer and append static rows everywhere">
       <va-data-table :items="items" foot-clone>
-        <template #head.append>
+        <template #headAppend>
           <tr>
             <th colspan="4">User info</th>
             <th colspan="4">Contact info</th>
           </tr>
         </template>
 
-        <template #body.append>
+        <template #bodyAppend>
           <tr>
             <td colspan="8">Custom cell which span 8 cells</td>
           </tr>
         </template>
 
-        <template #foot.append>
+        <template #footAppend>
           <tr>
             <th colspan="8">Span 8 cells</th>
           </tr>
@@ -48,19 +48,30 @@
     </VbCard>
 
     <VbCard title="Filtering">
-      <p>Number of filtered items: {{filteredCount}}</p>
+      <p>Number of filtered items: {{ filteredCount }}</p>
       <input type="text" v-model="filter">
 
       <input id="ucf" type="checkbox" v-model="useCustomFilteringFn">
       <label for="ucf">Use custom filtering function (looks for an exact match)</label>
 
-      <va-data-table :items="items" :filter="filter" :filtering-fn="customFilteringFn" @filter="filteredCount = $event"/>
+      <va-data-table
+        :items="items"
+        :filter="filter"
+        :filtering-fn="customFilteringFn"
+        @filter="filteredCount = $event"
+      />
     </VbCard>
 
     <VbCard title="Use `columns` prop, enable sorting and use custom sorting function (always returns -1) for the `id` column">
       <label for="sb">Sort by</label>
       <select id="sb" v-model="sortBy">
-        <option v-for="column in columns" :value="column.key">{{ column.key }}</option>
+        <option
+          v-for="column in columns"
+          :key="column.key"
+          :value="column.key"
+        >
+          {{ column.key }}
+        </option>
       </select><br>
 
       <label for="so">Sorting order</label>
@@ -70,13 +81,24 @@
         <option :value="null">null</option>
       </select>
 
-      <va-data-table :items="items" :columns="columns" v-model:sort-by="sortBy" v-model:sorting-order="sortingOrder" />
+      <va-data-table
+        :items="items"
+        :columns="columns"
+        v-model:sort-by="sortBy"
+        v-model:sorting-order="sortingOrder"
+      />
     </VbCard>
 
     <VbCard title="Selection (bound to model)">
       <p>
         Selected items (click to un-select):
-        <button v-for="item in selectedItems" @click="selectedItems.splice(selectedItems.indexOf(item), 1)">{{item.id}}, </button>
+        <button
+          v-for="item in selectedItems"
+          :key="item.id"
+          @click="selectedItems.splice(selectedItems.indexOf(item), 1)"
+        >
+          {{ item.id }}
+        </button>
       </p>
 
       <input id="isS" type="checkbox" v-model="selectable">
@@ -95,7 +117,14 @@
         <option value="warning">warning</option>
       </select>
 
-      <va-data-table :items="items" :columns="columns" :selectable="selectable" v-model="selectedItems" :select-mode="selectMode" :selected-color="selectedColor"/>
+      <va-data-table
+        :items="items"
+        :columns="columns"
+        :selectable="selectable"
+        v-model="selectedItems"
+        :select-mode="selectMode"
+        :selected-color="selectedColor"
+      />
     </VbCard>
 
     <VbCard title="Pagination">
@@ -105,15 +134,19 @@
       <input id="cp" type="number" v-model="currentPage">
       <label for="cp">Current page</label><br>
 
-      <va-data-table :items="items" :per-page="perPage" :current-page="currentPage"/>
+      <va-data-table
+        :items="items"
+        :per-page="perPage"
+        :current-page="currentPage"
+      />
     </VbCard>
   </VbDemo>
 </template>
 
 <script lang="ts">
-import {defineComponent} from "vue";
+import { defineComponent } from "vue";
 import VaDataTable from "./";
-import {cloneDeep, shuffle} from "lodash-es";
+import { cloneDeep, shuffle } from "lodash-es";
 
 export default defineComponent({
   name: "VaDataTableNewDemo",
@@ -242,10 +275,10 @@ export default defineComponent({
     ];
 
     const columns = [
-      {key: "username", sortable: true},
-      {key: "email", sortable: true},
-      {key: "name", sortable: true},
-      {key: "id", sortable: true, sortingFn: () => -1}
+      { key: "username", sortable: true },
+      { key: "email", sortable: true },
+      { key: "name", sortable: true },
+      { key: "id", sortable: true, sortingFn: () => -1 }
     ]
 
     return {
@@ -270,17 +303,17 @@ export default defineComponent({
   },
 
   computed: {
-    customFilteringFn() {
+    customFilteringFn () {
       return this.useCustomFilteringFn ? this.filterExact : undefined;
     },
   },
 
   methods: {
-    shuffleItems() {
+    shuffleItems () {
       this.items = shuffle(this.items);
     },
 
-    filterExact(source) {
+    filterExact (source) {
       return source?.toString?.() === this.filter;
     },
   }
