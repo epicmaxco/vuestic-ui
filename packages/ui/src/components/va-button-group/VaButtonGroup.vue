@@ -120,6 +120,15 @@ export default class VaButtonGroup extends Vue.with(Props) {
     border-bottom-right-radius: 0;
     padding-right: 0.5rem;
     border-right: 0;
+
+    .va-button__content {
+      /**
+        We need to prevent minus margin because we had:
+          border-right: 2px;
+          maring-right: -2px;
+      */
+      margin-right: 0;
+    }
   }
 
   & > .va-button + .va-button {
@@ -127,6 +136,15 @@ export default class VaButtonGroup extends Vue.with(Props) {
     border-bottom-left-radius: 0;
     padding-left: 0.5rem;
     border-left: 0;
+
+    .va-button__content {
+      /**
+        We need to prevent minus margin because we had:
+          border-left: 2px;
+          maring-left: -2px;
+      */
+      margin-left: 0;
+    }
   }
 }
 </style>
