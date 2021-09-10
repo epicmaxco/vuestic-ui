@@ -48,7 +48,7 @@ import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'
 import { Accordion, AccordionServiceKey } from '../va-accordion/VaAccordion.vue'
 
 class Props {
-  value = prop<boolean>({ type: Boolean, default: false })
+  modelValue = prop<boolean>({ type: Boolean, default: false })
   disabled = prop<boolean>({ type: Boolean, default: false })
   header = prop<string>({ type: String, default: '' })
   icon = prop<string>({ type: String, default: '' })
@@ -207,14 +207,18 @@ export default class VaCollapse extends mixins(
   mounted () {
     this.getHeight()
 
+    this.setCollapseParams()
+
     this.mutationObserver = new MutationObserver(() => {
       this.setCollapseParams()
     })
+
     this.mutationObserver.observe(this.body, {
       attributes: true,
       childList: true,
       subtree: true,
     })
+
     if (this.accordion.isInsideAccordion) {
       this.accordion.onChildMounted(this)
     }
