@@ -1,12 +1,17 @@
-import {Ref, computed, watch, ref} from "vue";
-import {TableRow, ITableItem} from "./useRows";
-import {TableColumn} from "./useColumns";
+import { Ref, computed, watch, ref } from "vue";
+import { TableRow, ITableItem } from "./useRows";
 
 // the available options for the `select-mode` prop
 export type TSelectMode = "single" | "multiple";
 
 // TODO: the `emit` shouldn't be any!
-export default function useSelectable(rows: Ref<TableRow[]>, selectedItems: Ref<ITableItem[] | undefined>, selectMode: Ref<TSelectMode>, emit: any) {
+export default function useSelectable(
+  rows: Ref<TableRow[]>,
+  selectedItems: Ref<ITableItem[] | undefined>,
+  selectable: Ref<boolean>,
+  selectMode: Ref<TSelectMode>,
+  emit: any
+) {
   const selectedItemsFallback = ref([] as ITableItem[]);
 
   // the standard proxying approach to work with modeled data
@@ -54,6 +59,10 @@ export default function useSelectable(rows: Ref<TableRow[]>, selectedItems: Ref<
 
   // exposed
   function toggleRowSelection(row: TableRow) {
+    if (!selectable.value) {
+      return;
+    }
+
     if (isRowSelected(row) && selectedItemsProxy.value.length === 1) {
       unselectRow(row);
     } else {
@@ -69,7 +78,13 @@ export default function useSelectable(rows: Ref<TableRow[]>, selectedItems: Ref<
   const prevShiftSelectedRows = ref<TableRow[]>([]);
 
   function ctrlSelectRow(row: TableRow) {
-    if (selectMode.value === "single") return toggleRowSelection(row);
+    if (!selectable.value) {
+      return;
+    }
+
+    if (selectMode.value === "single") {
+      return toggleRowSelection(row);
+    }
 
     if (isRowSelected(row)) {
       unselectRow(row);
@@ -80,7 +95,13 @@ export default function useSelectable(rows: Ref<TableRow[]>, selectedItems: Ref<
 
   // exposed
   function shiftSelectRows(row: TableRow) {
-    if (selectMode.value === "single") return toggleRowSelection(row);
+    if (!selectable.value) {
+      return;
+    }
+
+    if (selectMode.value === "single") {
+      return toggleRowSelection(row);
+    }
 
     if (prevShiftSelectedRows) {
       prevShiftSelectedRows.value.forEach(prevShiftSelectedRow => {

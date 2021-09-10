@@ -2,7 +2,7 @@
   <va-inner-loading :loading="loading" :color="loadingColor">
     <table
       class="va-data-table"
-      :class="{ striped }"
+      :class="{ striped, selectable }"
       v-bind="$attrs"
     >
 <!--      Columns configuration (optional) through the colgroup slot-->
@@ -352,8 +352,12 @@ export default defineComponent({
     } = useSortable(columns, rows, sortBy, sortingOrder, emit);
 
     // selection
-    const { selectMode, modelValue: selectedItems } = toRefs(props);
-
+    const {
+      selectable,
+      selectMode,
+      modelValue: selectedItems,
+    } = toRefs(props);
+  
     const {
       selectedItemsProxy,
       toggleRowSelection,
@@ -363,10 +367,10 @@ export default defineComponent({
       isRowSelected,
       severalRowsSelected,
       allRowsSelected,
-    } = useSelectable(rows, selectedItems, selectMode, emit);
+    } = useSelectable(rows, selectedItems, selectable, selectMode, emit);
 
     // styling
-    const { selectable, selectedColor, allowFootSorting } = toRefs(props);
+    const { selectedColor, allowFootSorting } = toRefs(props);
 
     const {
       getHeadCSSVariables,
@@ -494,7 +498,13 @@ export default defineComponent({
 
       tr:nth-child(2n) {
         background-color: #f5f8f9;
+      }
+    }
+  }
 
+  &.striped.selectable {
+    tbody {
+      tr:nth-child(2n) {
         &:hover {
           background-color: var(--hover-color);
         }
