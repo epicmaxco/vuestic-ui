@@ -14,7 +14,13 @@
       <label>Use custom sorting function for ids (will sort like numbers instead of strings)</label><br>
       <label>Sort by</label>
       <select v-model="sortBy2">
-        <option v-for="column in evenColumnsSortable2" :value="column.key">{{column.key}}</option>
+        <option
+          v-for="column in evenColumnsSortable2"
+          :key="column.key"
+          :value="column.key"
+        >
+          {{ column.key }}
+        </option>
       </select><br>
       <label>Sorting order</label>
       <select v-model="sortingOrder2">
@@ -25,8 +31,12 @@
 
       <h3>Selection</h3>
       <p>Selected items' ids (currently <strong>{{selectedItemsIds.length}}</strong> total) (click an id to unselect it):
-        <span v-for="selectedItem in selectedItemsIds" @click="selectedItemsIds.splice(selectedItemsIds.indexOf(selectedItem), 1)">
-          {{selectedItem.id}},
+        <span
+          v-for="selectedItem in selectedItemsIds"
+          :key="selectedItem.id"
+          @click="selectedItemsIds.splice(selectedItemsIds.indexOf(selectedItem), 1)"
+        >
+          {{ selectedItem.id }},
         </span>
       </p>
       <input type="checkbox" v-model="useSelectable">
@@ -92,7 +102,7 @@
     </VbCard>
 
     <VbCard title="Items" class="demo">
-      <va-data-table :items="itemsTest"/>
+      <va-data-table :items="itemsTest2"/>
     </VbCard>
 
     <VbCard title="Columns strings`" class="demo">
@@ -153,7 +163,7 @@
 
     <VbCard title="[head] Prepend rows" class="demo">
       <va-data-table :items="evenItems">
-        <template #head.prepend>
+        <template #headPrepend>
           <tr>
             <td>Static 1.1</td>
             <td>Static 1.2</td>
@@ -170,7 +180,7 @@
 
     <VbCard title="[head] Append rows" class="demo">
       <va-data-table :items="evenItems">
-        <template #head.append>
+        <template #headAppend>
           <tr>
             <td>Static 1.1</td>
             <td>Static 1.2</td>
@@ -187,7 +197,7 @@
 
     <VbCard title="[body] Prepend rows" class="demo">
       <va-data-table :items="evenItems">
-        <template #body.prepend>
+        <template #bodyPrepend>
           <tr>
             <td>Static 1.1</td>
             <td>Static 1.2</td>
@@ -204,7 +214,7 @@
 
     <VbCard title="[body] Append rows" class="demo">
       <va-data-table :items="evenItems">
-        <template #body.append>
+        <template #bodyAppend>
           <tr>
             <td>Static 1.1</td>
             <td>Static 1.2</td>
@@ -221,7 +231,7 @@
 
     <VbCard title="[foot] Prepend rows" class="demo">
       <va-data-table :items="evenItems" foot-clone>
-        <template #foot.prepend>
+        <template #footPrepend>
           <tr>
             <td>Static 1.1</td>
             <td>Static 1.2</td>
@@ -238,7 +248,7 @@
 
     <VbCard title="[foot] Append rows" class="demo">
       <va-data-table :items="evenItems" foot-clone>
-        <template #foot.append>
+        <template #footAppend>
           <tr>
             <td>Static 1.1</td>
             <td>Static 1.2</td>
@@ -343,11 +353,11 @@
 
     <VbCard title="Selectable (multiple) (default) (without v-model (stateful))" class="demo">
       <va-data-table :items="evenItems" :columns="evenColumns" selectable/>
-      Count: {{selectedItems.length}} | {{selectedItems}}
+      Count: {{ selectedItems.length }} | {{ selectedItems }}
     </VbCard>
 
     <VbCard title="Selectable (single) with `selected-color='danger'`" class="demo">
-      {{selectedItem}}
+      {{ selectedItem }}
       <va-data-table :items="evenItems" :columns="evenColumns" selectable v-model="selectedItem" select-mode="single" selected-color="danger"/>
     </VbCard>
 
@@ -440,7 +450,7 @@
 
     <VbCard title="Hide default header and use `head.prepend` slot to provide a custom one" class="demo">
       <va-data-table :items="evenItems" :columns="evenColumns" hide-default-header>
-        <template #head.prepend>
+        <template #headPrepend>
           <tr>
             <th>1</th>
             <th>2</th>
@@ -623,7 +633,7 @@ export default defineComponent({
           key: "idSquared",
           label: "Id Squared",
           sortable: true,
-          sortingFn: (a, b) => {
+          sortingFn: () => {
             return -1;
           }
         },
@@ -680,7 +690,7 @@ export default defineComponent({
   },
 
   watch: {
-    useCustomSortingFnForId(value) {
+    useCustomSortingFnForId (value) {
       if (value) {
         this.evenColumnsSortable2[2].sortingFn = (a: number, b: number) => {
           return a - b;
@@ -692,21 +702,21 @@ export default defineComponent({
   },
 
   computed: {
-    filteringFn() {
+    filteringFn () {
       return this.useCustomFilteringFn ? this.filter : undefined;
     }
   },
 
   methods: {
-    deleteLast5EvenItems() {
+    deleteLast5EvenItems () {
       this.evenItems.splice(this.evenItems.length - 5, this.evenItems.length)
     },
 
-    toggleIdAndNumber() {
+    toggleIdAndNumber () {
       this.evenColumns.splice(2, 1, this.evenColumns[2] === "id" ? "number" : "id");
     },
 
-    filter(source) {
+    filter (source) {
       return source?.toString?.() === this.filterValue;
     },
   }

@@ -112,7 +112,7 @@ export default function useSelectable(rows: Ref<TableRow[]>, selectedItems: Ref<
 
   // exposed
   function toggleBulkSelection() {
-    if (selectedItemsProxy.value.length === rows.value.length) {
+    if (allRowsSelected.value) {
       unselectAllRows();
     } else {
       selectAllRows();
@@ -133,7 +133,7 @@ export default function useSelectable(rows: Ref<TableRow[]>, selectedItems: Ref<
   });
 
   const allRowsSelected = computed(() => {
-    return selectedItemsProxy.value.length
+    return selectedItemsProxy.value.length === rows.value.length
   });
 
   // emit the "selection-change" event each time the selection changes
