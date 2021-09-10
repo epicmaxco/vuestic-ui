@@ -7,13 +7,19 @@
     >
 <!--      Columns configuration (optional) through the colgroup slot-->
       <colgroup v-if="'colgroup' in slots">
-        <slot name="colgroup" v-bind="columns" />
+        <slot
+          name="colgroup"
+          v-bind="columns"
+        />
       </colgroup>
 
       <thead>
         <slot name="headPrepend" />
 
-        <tr v-if="!hideDefaultHeader">
+        <tr
+          v-if="!hideDefaultHeader"
+          class="va-data-table__tr"
+        >
 <!--          Only if `selectable` prop is true, render an additional column and if `select-mode` is `"multiple"` then render a checkbox clicking which selects/unselects all the rows (rendered as indeterminate if some rows are selected, but not all of them)-->
           <th v-if="selectable">
             <va-checkbox
@@ -45,7 +51,11 @@
                 />
               </span>
 
-              <slot v-else name="head" v-bind="column">
+              <slot
+                v-else
+                name="head"
+                v-bind="column"
+              >
                 <span>{{ column.label }}</span>
               </slot>
 
@@ -108,7 +118,8 @@
             <td v-if="selectable">
               <va-checkbox
                 :model-value="isRowSelected(row)"
-                @update:modelValue.stop="ctrlSelectRow(row)"
+                @update:modelValue="ctrlSelectRow(row)"
+                @click.stop
                 :color="selectedColor"
               />
             </td>
@@ -125,7 +136,12 @@
                 :name="`cell(${cell.column.key})`"
                 v-bind="cell"
               />
-              <slot v-else name="cell" v-bind="cell">
+
+              <slot
+                v-else
+                name="cell"
+                v-bind="cell"
+              >
                 {{ cell.value }}
               </slot>
             </td>
@@ -139,7 +155,10 @@
       <tfoot v-if="footClone">
         <slot name="footPrepend" />
 
-        <tr v-if="!hideDefaultHeader">
+        <tr
+          v-if="!hideDefaultHeader"
+          class="va-data-table__tr"
+        >
 <!--          Only if `selectable` prop is true, render an additional column and if `select-mode` is `"multiple"` then render a checkbox clicking which selects/unselects all the rows (rendered as indeterminate if some rows are selected, but not all of them)-->
           <th v-if="selectable">
             <va-checkbox
@@ -171,7 +190,11 @@
                 />
               </span>
 
-              <slot v-else name="foot" v-bind="column">
+              <slot
+                v-else
+                name="foot"
+                v-bind="column"
+              >
                 <span>{{ column.label }}</span>
               </slot>
 
@@ -195,7 +218,7 @@
 </template>
 
 <script lang="ts">
-import {computed, defineComponent, PropType, toRefs} from "vue";
+import { computed, defineComponent, PropType, toRefs } from "vue";
 import useColumns, { ITableColumn } from "./hooks/useColumns";
 import useRows, { ITableItem } from "./hooks/useRows";
 import useFilterable, { TFilteringFn } from "./hooks/useFilterable";
@@ -297,28 +320,39 @@ export default defineComponent({
   },
 
   // `modelValue` is selected items
-  emits: ["update:modelValue", "update:sortBy", "update:sortingOrder", "filter", "sort", "selectionChange"],
+  emits: [
+    "update:modelValue",
+    "update:sortBy",
+    "update:sortingOrder",
+    "filter",
+    "sort",
+    "selectionChange",
+  ],
 
-  setup(props, {slots, emit}) {
+  setup(props, { slots, emit }) {
     // columns and rows
     const {
       columns: rawColumns,
       items: rawItems,
     } = toRefs(props);
 
-    const {columns} = useColumns(rawColumns, rawItems);
-    const {rows: unfilteredRows} = useRows(rawItems, columns);
+    const { columns } = useColumns(rawColumns, rawItems);
+    const { rows: unfilteredRows } = useRows(rawItems, columns);
 
     // filtering
-    const {filter, filteringFn} = toRefs(props);
-    const {filteredRows: rows} = useFilterable(unfilteredRows, filter, filteringFn, emit);
+    const { filter, filteringFn } = toRefs(props);
+    const { filteredRows: rows } = useFilterable(unfilteredRows, filter, filteringFn, emit);
 
     // sorting
-    const {sortBy, sortingOrder} = toRefs(props);
-    const {sortByProxy, sortingOrderProxy, toggleSorting} = useSortable(columns, rows, sortBy, sortingOrder, emit);
+    const { sortBy, sortingOrder } = toRefs(props);
+    const {
+      sortByProxy,
+      sortingOrderProxy,
+      toggleSorting,
+    } = useSortable(columns, rows, sortBy, sortingOrder, emit);
 
     // selection
-    const {selectMode, modelValue: selectedItems} = toRefs(props);
+    const { selectMode, modelValue: selectedItems } = toRefs(props);
 
     const {
       selectedItemsProxy,
@@ -332,13 +366,13 @@ export default defineComponent({
     } = useSelectable(rows, selectedItems, selectMode, emit);
 
     // styling
-    const {selectable, selectedColor, allowFootSorting} = toRefs(props);
+    const { selectable, selectedColor, allowFootSorting } = toRefs(props);
 
     const {
       getHeadCSSVariables,
       rowCSSVariables,
       getCellCSSVariables,
-      getFootCSSVariables
+      getFootCSSVariables,
     } = useStyleable(selectable, selectedColor, allowFootSorting);
 
     // other
@@ -348,7 +382,7 @@ export default defineComponent({
       noDataFilteredHtml,
       hideDefaultHeader,
       footClone,
-      striped
+      striped,
     } = toRefs(props);
 
     const showNoDataHtml = computed(() => {
@@ -401,7 +435,7 @@ export default defineComponent({
   width: 100%;
   cursor: default;
 
-  th {
+  .va-data-table__tr th {
     padding: 0.625rem;
     text-align: var(--align);
     vertical-align: var(--vertical-align);
