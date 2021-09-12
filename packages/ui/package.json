@@ -17,6 +17,7 @@
   ],
   "scripts": {
     "serve": "vue-cli-service serve --mode book",
+    "serve:production": "vue-cli-service serve --mode production",
     "build:dev": "tsc build/config.ts && webpack --config build/config.js --progress",
     "build": "yarn build:rollup && yarn build:types",
     "build:rollup": "rollup -c",

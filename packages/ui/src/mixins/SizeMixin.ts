@@ -1,4 +1,5 @@
 import { mixins, Vue, prop } from 'vue-class-component'
+import { getGlobalConfig } from '../services/global-config/global-config'
 
 export const sizesConfig = {
   defaultSize: 48,
@@ -41,15 +42,29 @@ class SizeProps {
 export class SizeMixin extends mixins(Vue.with(SizeProps)) {
   fontRegex = /(?<fontSize>\d+)(?<extension>px|rem)/i
 
+  get sizesConfigGlobal () {
+    const componentName: string | undefined = this.$options?.name
+    return getGlobalConfig().components?.[componentName as string]?.sizesConfig
+  }
+
   get sizeComputed (): string {
     const { defaultSize, sizes } = this.sizesConfig
+    const defaultSizeGlobal = this.sizesConfigGlobal?.defaultSize
 
     if (!this.size) {
-      return `${defaultSize}px`
+      return defaultSizeGlobal
+        ? `${defaultSizeGlobal}px`
+        : `${defaultSize}px`
     }
 
     if (typeof this.size === 'string') {
-      return this.size in sizes ? `${sizes[this.size]}px` : this.size
+      const sizeFromGlobalConfig = this.sizesConfigGlobal?.sizes?.[this.size]
+      const sizeFromSizeMixin = sizes[this.size]
+
+      if (sizeFromGlobalConfig) { return `${sizeFromGlobalConfig}px` }
+      if (sizeFromSizeMixin) { return `${sizeFromSizeMixin}px` }
+
+      return this.size
     }
 
     return `${this.size}px`
