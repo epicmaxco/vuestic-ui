@@ -178,8 +178,7 @@ export default class VaCollapse extends mixins(
       return 0
     }
 
-    // @ts-ignore
-    const nodes = [...(this.body?.childNodes || [])] as HTMLElement[]
+    const nodes = Array.from(this.body?.childNodes) as HTMLElement[]
     return nodes.reduce((result: number, node: HTMLElement) => {
       result += node.nodeType === TEXT_NODE_TYPE ? this.getTextNodeHeight(node) : node.clientHeight
       return result
@@ -210,7 +209,7 @@ export default class VaCollapse extends mixins(
     this.setCollapseParams()
 
     this.mutationObserver = new MutationObserver(() => {
-      this.setCollapseParams()
+      setTimeout(() => this.setCollapseParams(), 1000 / 60)
     })
 
     this.mutationObserver.observe(this.body, {
