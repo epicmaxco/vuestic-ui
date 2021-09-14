@@ -144,6 +144,13 @@ table {
   border: 0;
 }
 
+button:-moz-focusring,
+[type="button"]:-moz-focusring,
+[type="reset"]:-moz-focusring,
+[type="submit"]:-moz-focusring {
+  outline: none;
+}
+
 :focus {
   outline: none;
 }
