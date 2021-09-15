@@ -14,7 +14,8 @@
     </div>
   </va-button-dropdown> -->
   <div style="color: var(--va-primary);">
-    {{ version.value }}
+<!--    {{ version.value }}-->
+    v{{ uiVersion }}
   </div>
 </template>
 
@@ -22,6 +23,7 @@
 // @ts-nocheck
 import { Options, Vue } from 'vue-class-component'
 import VaIcon from 'vuestic-ui/src/components/va-icon'
+import packageUi from 'vuestic-ui/package.json'
 
 @Options({
   name: 'DocsVersionDropdown',
@@ -30,19 +32,23 @@ import VaIcon from 'vuestic-ui/src/components/va-icon'
 export default class VersionDropdown extends Vue {
   data () {
     return {
-      version: { options: ['v1.0'], value: 'v1.0' },
+      // version: { options: ['v1.0'], value: 'v1.0' },
     }
   }
 
-  selectOption (option: string) {
-    this.version.value = option
+  get uiVersion () {
+    return `${packageUi.version}`
   }
+
+  // selectOption (option: string) {
+  //   this.version.value = option
+  // }
 }
 </script>
 
 <style lang="scss">
-  .version-dropdown .va-button__content {
-    font-weight: bold;
-    padding-right: 1rem !important;
-  }
+  //.version-dropdown .va-button__content {
+  //  font-weight: bold;
+  //  padding-right: 1rem !important;
+  //}
 </style>
