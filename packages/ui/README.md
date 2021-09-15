@@ -1,32 +1,27 @@
+<h1 align="center">Vuestic UI</h1>
 <p align="center">
-    <a href="https://vuestic.dev" target="_blank">
-        <img alt="Vuestic UI Logo" width="500" src="src/assets/vuestic-ui-logo.png">
-    </a>
-        <br>
-    Vue.js 3.0 UI Library
-    <br>
-    Developed by <a href="https://epicmax.co">Epicmax</a>. Designed by
-    <a href="https://xxsavitski.com/">Vasili Savitski</a>.
-    <br>
-  </p>
+  <br>
+  Vue.js 3.0 UI Library
+  <br>
+  Developed by <a href="https://epicmax.co">Epicmax</a>. Designed by
+  <a href="https://xxsavitski.com/">Vasili Savitski</a>.
+  <br>
+  <a href="https://app.circleci.com/pipelines/github/epicmaxco/vuestic-ui">
+    <img src="https://img.shields.io/circleci/build/github/epicmaxco/vuestic-ui/develop" alt="CI badge">
+  </a>
+  <a href="https://github.com/epicmaxco/vuestic-ui/blob/develop/LICENSE.MD">
+    <img src="https://img.shields.io/npm/l/vuestic-ui.svg" alt="License">
+  </a>
+  <a href="https://www.npmjs.com/package/vuestic-ui">
+    <img src="https://img.shields.io/github/package-json/v/epicmaxco/vuestic-ui" alt="Version">
+  </a>
+</p>
 
-  <p align="center">
-    <a href="https://app.circleci.com/pipelines/github/epicmaxco/vuestic-ui">
-      <img src="https://img.shields.io/circleci/build/github/epicmaxco/vuestic-ui/develop" alt="CI badge">
-    </a>
-    <a href="https://github.com/epicmaxco/vuestic-ui/blob/develop/LICENSE.MD">
-      <img src="https://img.shields.io/npm/l/vuestic-ui.svg" alt="License">
-    </a>
-    <a href="https://www.npmjs.com/package/vuestic-ui">
-      <img src="https://img.shields.io/github/package-json/v/epicmaxco/vuestic-ui" alt="Version">
-    </a>
-  </p>
-
-  <p align="center">
-    <a href="https://vuestic.dev/">Documentation</a>
-    |
-    <a href="https://discord.gg/u7fQdqQt8c">Discord</a>
-  </p>
+<p align="center">
+  <a href="https://vuestic.dev/">Documentation</a>
+  |
+  <a href="https://discord.gg/u7fQdqQt8c">Discord</a>
+</p>
 
 
 > Vuestic UI is forever free and open to contributions. See our
