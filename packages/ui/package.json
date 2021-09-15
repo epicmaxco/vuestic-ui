@@ -11,10 +11,10 @@
   "unpkg": "dist/iife/main.js",
   "types": "dist/types/main.d.ts",
   "keywords": [
+    "vuestic",
     "vuejs",
     "vue",
-    "vue 3",
-    "vuestic",
+    "vue3",
     "ui",
     "vue framework",
     "ui framework"
