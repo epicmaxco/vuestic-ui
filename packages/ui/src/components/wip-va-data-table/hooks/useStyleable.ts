@@ -4,7 +4,12 @@ import {getColor} from "../../../services/color-config/color-config";
 import {computed, Ref} from "vue";
 import {TableColumn} from "./useColumns";
 
-export default function useStyleable(selectable: Ref<boolean>, selectedColor: Ref<string>, allowFootSorting: Ref<boolean>) {
+export default function useStyleable(
+    hoverable: Ref<boolean>,
+    selectable: Ref<boolean>,
+    selectedColor: Ref<string>,
+    allowFootSorting: Ref<boolean>,
+  ) {
   function getHeadCSSVariables(column: TableColumn) {
     return {
       "--align": column.alignHead,
@@ -18,6 +23,12 @@ export default function useStyleable(selectable: Ref<boolean>, selectedColor: Re
       return {
         "--hover-color": getHoverColor(getColor(selectedColor.value)),
         "--selected-color": getFocusColor(getColor(selectedColor.value)),
+      }
+    }
+
+    if (hoverable.value) {
+      return {
+        "--hover-color": getHoverColor(getColor(selectedColor.value)),
       }
     }
   });
