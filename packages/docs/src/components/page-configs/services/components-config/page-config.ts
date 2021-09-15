@@ -1,6 +1,6 @@
 import { ApiDocsBlock } from '../../../../types/configTypes'
 import { DocsHelper } from '../../../../helpers/DocsHelper'
-import { componentsConfigCodeExample } from './code-examples'
+import { componentsConfigCodeExample, componentsConfigCodeExampleDefaultSizes } from './code-examples'
 import { api } from './sections'
 
 const config: ApiDocsBlock[] = [
@@ -15,6 +15,10 @@ const config: ApiDocsBlock[] = [
   DocsHelper.paragraph('componentsConfig.vaConfig.subtitle'),
   DocsHelper.example('components-config/va-config'),
   DocsHelper.paragraph('componentsConfig.vaConfig.explain'),
+
+  DocsHelper.subtitle('componentsConfig.defaultSizes.title'),
+  DocsHelper.paragraph('componentsConfig.defaultSizes.description'),
+  DocsHelper.code(componentsConfigCodeExampleDefaultSizes),
 
   ...api,
 ]
