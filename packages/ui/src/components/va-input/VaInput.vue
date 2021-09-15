@@ -51,7 +51,7 @@
           >
             <slot
               name="content"
-              v-bind="{ value: computedValue, focus }"
+              v-bind="{ value: computedValue, focus, bind: computedInputAttributes, on: eventListeners }"
             />
           </div>
           <textarea
@@ -249,6 +249,11 @@ export default class VaInput extends mixins(
       value: this.computedValue,
       'aria-label': this.label,
     }
+  }
+
+  /** @public */
+  getCleave () {
+    return this.inputElement
   }
 
   /** @public */

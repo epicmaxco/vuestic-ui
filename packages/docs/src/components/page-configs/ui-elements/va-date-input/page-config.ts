@@ -2,6 +2,7 @@ import { ApiDocsBlock } from '../../../../types/configTypes'
 import { DocsHelper } from '../../../../helpers/DocsHelper'
 import VaDateInput from 'vuestic-ui/src/components/va-date-input/VaDateInput.vue'
 import apiOptions from './api-options'
+import GlobalConfigCode from './code/global-config'
 
 const config: ApiDocsBlock[] = [
   DocsHelper.title('dateInput.title'),
@@ -32,16 +33,31 @@ const config: ApiDocsBlock[] = [
   ),
 
   ...DocsHelper.exampleBlock(
+    'dateInput.examples.inputProps.title',
+    'dateInput.examples.inputProps.text',
+    'va-date-input/inputProps',
+  ),
+
+  ...DocsHelper.exampleBlock(
     'dateInput.examples.formatting.title',
     'dateInput.examples.formatting.text',
     'va-date-input/formatting',
   ),
 
   ...DocsHelper.exampleBlock(
-    'dateInput.examples.inputProps.title',
-    'dateInput.examples.inputProps.text',
-    'va-date-input/inputProps',
+    'dateInput.examples.input.title',
+    'dateInput.examples.input.text',
+    'va-date-input/input',
   ),
+
+  ...DocsHelper.exampleBlock(
+    'dateInput.examples.advancedFormatting.title',
+    'dateInput.examples.advancedFormatting.text',
+    'va-date-input/advancedFormatting',
+  ),
+
+  DocsHelper.paragraph('dateInput.examples.formattingGlobalConfig.text'),
+  DocsHelper.code(GlobalConfigCode),
 
   DocsHelper.subtitle('all.api'),
   DocsHelper.api(VaDateInput, apiOptions),
