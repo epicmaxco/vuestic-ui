@@ -2,7 +2,11 @@
   <va-inner-loading :loading="loading" :color="loadingColor">
     <table
       class="va-data-table"
-      :class="{ striped, selectable }"
+      :class="{
+        striped,
+        selectable,
+        hoverable,
+      }"
       v-bind="$attrs"
     >
 <!--      Columns configuration (optional) through the colgroup slot-->
@@ -108,7 +112,8 @@
           @click.shift.exact="shiftSelectRows(row)"
           :class="{
             selectable,
-            selected: isRowSelected(row)
+            hoverable,
+            selected: isRowSelected(row),
           }"
           :style="rowCSSVariables"
         >
@@ -267,6 +272,10 @@ export default defineComponent({
     modelValue: { // model-able
       type: Array as PropType<ITableItem[]>,
     },
+    hoverable: {
+      type: Boolean,
+      default: false,
+    },
     selectable: {
       type: Boolean,
       default: false,
@@ -370,14 +379,14 @@ export default defineComponent({
     } = useSelectable(rows, selectedItems, selectable, selectMode, emit);
 
     // styling
-    const { selectedColor, allowFootSorting } = toRefs(props);
+    const { hoverable, selectedColor, allowFootSorting } = toRefs(props);
 
     const {
       getHeadCSSVariables,
       rowCSSVariables,
       getCellCSSVariables,
       getFootCSSVariables,
-    } = useStyleable(selectable, selectedColor, allowFootSorting);
+    } = useStyleable(hoverable, selectable, selectedColor, allowFootSorting);
 
     // other
     const {
@@ -402,6 +411,7 @@ export default defineComponent({
       slots,
       columns,
       rows,
+      hoverable,
       selectable,
       selectedItems: selectedItemsProxy,
       toggleRowSelection,
@@ -477,7 +487,7 @@ export default defineComponent({
         background-color: var(--hover-color);
       }
 
-      &.selected {
+      &.selected:not(:hover) {
         background-color: var(--selected-color);
       }
     }
@@ -498,6 +508,16 @@ export default defineComponent({
 
       tr:nth-child(2n) {
         background-color: #f5f8f9;
+      }
+    }
+  }
+
+  &.hoverable:not(.selectable) {
+    tbody {
+      tr {
+        &:hover {
+          background-color: var(--hover-color);
+        }
       }
     }
   }
