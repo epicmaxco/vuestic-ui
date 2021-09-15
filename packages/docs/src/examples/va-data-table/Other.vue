@@ -1,40 +1,51 @@
 <template>
   <div class="flex">
     <div class="flex row">
-      <va-switch
-        class="flex mb-2 md3"
-        label="Striped style"
-        size="small"
-        v-model="isTableStriped"
-      />
+      <div class="flex mb-2 md4">
+        <va-switch
+          label="Hoverable rows"
+          size="small"
+          v-model="isTableHoverable"
+        />
+        <br />
+        <va-switch
+          class="mt-2"
+          label="Striped style"
+          size="small"
+          v-model="isTableStriped"
+        />
+      </div>
 
-      <va-switch
-        class="flex mb-2 md3"
-        label="Loading state"
-        size="small"
-        v-model="isTableLoading"
-      />
+      <div class="flex mb-2 md4">
+        <va-switch
+          label="Loading state"
+          size="small"
+          v-model="isTableLoading"
+        />
+      </div>
 
-      <va-switch
-        class="flex mb-2 md3"
-        label="Hide default header"
-        size="small"
-        v-model="hideDefaultHeader"
-      />
-
-      <va-switch
-        class="flex mb-2 md3"
-        label="Clone header to footer"
-        size="small"
-        v-model="footClone"
-        :disabled="hideDefaultHeader"
-      />
+      <div class="flex mb-2 md4">
+        <va-switch
+          label="Hide default header"
+          size="small"
+          v-model="hideDefaultHeader"
+        />
+        <br />
+        <va-switch
+          class="mt-2"
+          label="Clone header to footer"
+          size="small"
+          v-model="footClone"
+          :disabled="hideDefaultHeader"
+        />
+      </div>
     </div>
 
     <va-data-table
       :items="items"
       :columns="columns"
       :striped="isTableStriped"
+      :hoverable="isTableHoverable"
       :loading="isTableLoading"
       :hide-default-header="hideDefaultHeader"
       :foot-clone="footClone"
@@ -184,6 +195,7 @@ export default defineComponent({
       columns,
       isTableLoading: false,
       isTableStriped: true,
+      isTableHoverable: true,
       hideDefaultHeader: false,
       footClone: true,
     }

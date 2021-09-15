@@ -861,7 +861,8 @@
         "hideDefaultHeader": "Sets whether to show the default headers for columns",
         "footClone": "Sets whether to clone the headers into the footer. Has no effect if the default header is hidden with the `hideDefaultHeader` prop",
         "allowFootSorting": "Allows clicks footer column headers to sort (and to display the sorting status) the rows",
-        "striped": "Sets the striped style to the rows (highlights each 2nd row)"
+        "striped": "Sets the striped style to the rows (highlights each 2nd row)",
+        "hoverable": "Allows the a hover state on table rows within a `<tbody>`"
       },
       "events": {
         "updateSortBy": "Emits when `sortBy` changed",
