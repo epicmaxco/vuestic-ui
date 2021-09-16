@@ -1,13 +1,24 @@
 {
   "name": "vuestic-ui",
   "version": "1.2.7",
+  "description": "Vue 3 UI Framework",
   "license": "MIT",
+  "homepage": "https://vuestic.dev",
   "repository": "https://github.com/epicmaxco/vuestic-ui",
   "main": "dist/cjs/main.js",
   "module": "dist/esm/main.js",
   "jsdelivr": "dist/iife/main.js",
   "unpkg": "dist/iife/main.js",
   "types": "dist/types/main.d.ts",
+  "keywords": [
+    "vuestic",
+    "vuejs",
+    "vue",
+    "vue3",
+    "ui",
+    "vue framework",
+    "ui framework"
+  ],
   "bugs": {
     "url": "https://github.com/epicmaxco/vuestic-ui/issues"
   },
