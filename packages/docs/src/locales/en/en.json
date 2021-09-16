@@ -1139,6 +1139,13 @@
       "button": "Your button"
     }
   },
+  "docsNavigation": {
+    "copyCode": "Copy code",
+    "copyCopied": "Copied",
+    "copyFailure": "Permission failure!",
+    "openGithub": "Open in GitHub",
+    "openCodeSandbox": "Open in CodeSandbox"
+  },
   "docsExample": {
     "showCode": "Show Code"
   },
