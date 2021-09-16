@@ -954,7 +954,7 @@
         "value": "Current toggle state",
         "size": "Specify size for component. \"small\", \"medium\", \"large\" sizes are available",
         "toggleColor": "Color of the toggle button",
-        "activeButtonTextColor": "Цвет текста кнопки с выбранным значением"
+        "activeButtonTextColor": "The color of the button text with the selected value"
       },
       "events": {
         "input": "Emits when toggling to the different button"

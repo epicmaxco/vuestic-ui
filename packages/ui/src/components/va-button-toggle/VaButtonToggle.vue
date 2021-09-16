@@ -10,8 +10,8 @@
     >
       <va-button
         v-for="option in options"
+        v-bind="buttonProps(option.value)"
         :key="option.value"
-        :style="buttonStyle(option.value)"
         :disabled="disabled"
         :size="size"
         :class="buttonClass(option.value)"
@@ -74,18 +74,21 @@ export default class VaButtonToggle extends mixins(
     return buttonValue === this.modelValue && this.toggleColor ? this.toggleColor : this.color
   }
 
-  buttonStyle (buttonValue: any) {
-    if (buttonValue === this.modelValue) {
-      let color = this.activeButtonTextColor ? this.activeButtonTextColor : getTextColor(this.colorComputed)
-      let background = this.toggleColor ? this.theme.getColor(this.toggleColor) : shiftHSLAColor(this.colorComputed, { l: -6 })
-      if (this.outline || this.flat) {
-        background = this.toggleColor ? this.theme.getColor(this.toggleColor) : this.colorComputed
-        color = this.activeButtonTextColor
-      }
+  buttonProps (buttonValue: any) {
+    if (buttonValue !== this.modelValue) { return }
+
+    if (this.outline || this.flat) {
       return {
-        background: background,
-        color: color,
+        textColor: this.activeButtonTextColor,
+        color: this.toggleColor ? this.theme.getColor(this.toggleColor) : this.colorComputed,
+        outline: false,
+        flat: false,
       }
+    }
+
+    return {
+      textColor: this.activeButtonTextColor ? this.activeButtonTextColor : getTextColor(this.colorComputed),
+      color: this.toggleColor ? this.theme.getColor(this.toggleColor) : shiftHSLAColor(this.colorComputed, { l: -6 }),
     }
   }
 
