@@ -1,5 +1,8 @@
 <template>
-  <va-inner-loading :loading="loading" :color="loadingColor">
+  <va-inner-loading
+    :loading="loading"
+    :color="loadingColor"
+  >
     <table
       class="va-data-table"
       :class="{
@@ -223,13 +226,16 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, toRefs } from "vue";
-import useColumns, { ITableColumn } from "./hooks/useColumns";
-import useRows, { ITableItem } from "./hooks/useRows";
-import useFilterable, { TFilteringFn } from "./hooks/useFilterable";
-import useSortable, { TSortingOrder } from "./hooks/useSortable";
-import useSelectable, { TSelectMode } from "./hooks/useSelectable";
-import useStyleable from "./hooks/useStyleable";
+import { computed, defineComponent, PropType, toRefs } from "vue"
+import VaInnerLoading from '../va-inner-loading'
+import VaCheckbox from '../va-checkbox'
+import VaIcon from '../va-icon'
+import useColumns, { ITableColumn } from "./hooks/useColumns"
+import useRows, { ITableItem } from "./hooks/useRows"
+import useFilterable, { TFilteringFn } from "./hooks/useFilterable"
+import useSortable, { TSortingOrder } from "./hooks/useSortable"
+import useSelectable, { TSelectMode } from "./hooks/useSelectable"
+import useStyleable from "./hooks/useStyleable"
 
 /*
   TODO: consider a possibility to lazy-load the hooks with dynamic imports based on respective props' values. E.G.
@@ -243,6 +249,12 @@ import useStyleable from "./hooks/useStyleable";
 
 export default defineComponent({
   name: "VaDataTable",
+
+  components: {
+    VaInnerLoading,
+    VaCheckbox,
+    VaIcon,
+  },
 
   // so that the attributes could be bypassed to the <table> element rather then applied to <va-inner-loading>
   inheritAttrs: false,
