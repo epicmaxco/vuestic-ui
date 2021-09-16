@@ -1,6 +1,6 @@
 import { ApiDocsBlock } from '../../../../types/configTypes'
 import { DocsHelper } from '../../../../helpers/DocsHelper'
-import VaDataTable from 'vuestic-ui/src/components/wip-va-data-table/VaDataTable.vue'
+import VaDataTable from 'vuestic-ui/src/components/va-data-table/VaDataTable.vue'
 import apiOptions from './api-options'
 
 const config: ApiDocsBlock[] = [
