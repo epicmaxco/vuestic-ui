@@ -843,49 +843,49 @@
     },
     "VaDataTable": {
       "props": {
-        "columns": "The property must be an array of strings or objects (implementing the `ITableColumn` interface) that configures the columns of the table. \n `ITableColumn` &#123; `key: string;` `label?: string;` `headerTitle?: string;` `sortable?: boolean;` `sortingFn?: (a: any, b: any) => number;` `alignHead?: TAlignOptions;` `verticalAlignHead?: TVerticalAlignOptions;` `align?: TAlignOptions;` `verticalAlign?: TVerticalAlignOptions;` &#125;",
+        "columns": "The property `columns` must be an array:\n`columns: (string`&#124;`ITableColumn)[]`,\nthat configures the columns of the table. In this case:\n\n `ITableColumn` &#123; `key: string;` `label?: string;` `headerTitle?: string;` `sortable?: boolean;` `sortingFn?: (a: any, b: any) => number;` `alignHead?: TAlignOptions;` `verticalAlignHead?: TVerticalAlignOptions;` `align?: TAlignOptions;` `verticalAlign?: TVerticalAlignOptions;` &#125;;\n\n `TAlignOptions: 'left'`&#124;`'center'`&#124;`'right'`;\n\n `TVerticalAlignOptions: 'top'`&#124;`'middle'`&#124;`'bottom'`",
         "items": "Array (`ITableItem[]`) of objects with table data (`ITableItem: Record<string, any>`). The `va-data-table` automatically calculates the amount and the titles of columns (if not specified otherwise with the `columns` prop) based on these object's keys. When calculating the columns' names based on the item's objects' keys `va-data-table` uses [Lodash's startCase](https://lodash.com/docs/4.17.15#startCase)[[target=_blank]] internally. Faulty values are replaced with an empty string",
         "filter": "If a `filter` is provided, only rows in which at least one cell contains the specified value will be displayed. To disable filtering at runtime (clear `filter`), specify an empty string",
-        "filteringFn": "A custom filtering function (`(source: any) => boolean`). The function takes the initial value of the currently checked cell (the `source` is a formal parameter) and should return a `boolean` value, indicating whether to include the row containing this cell or not",
+        "filteringFn": "A custom filtering function:\n`TFilteringFn: (source: any) => boolean`.\nThe function takes the initial value of the currently checked cell (the `source` is a formal parameter) and should return a `boolean` value, indicating whether to include the row containing this cell or not",
         "sortBy": "Sets the column to sort by. **Don't** use without `v-model`",
-        "sortingOrder": "Sets the sorting order (`TSortingOrder`: `asc` &#124; `desc` &#124; `null`). **Don't** use without `v-model`",
+        "sortingOrder": "Sets the sorting order:\n`TSortingOrder: 'asc'`&#124;`'desc'`&#124;`null`.\n**Don't** use without `v-model`",
         "selectable": "Sets whether the `va-data-table` should have selectable rows or not",
-        "selectMode": "Sets the select mode: `single` &#124; `multiple`. `Single` selection allows for only a single row to be selected at a time, while `multiple` mode allows to select multiple rows by clicking on checkboxes or using the **ctrl**/**shift** keys when clicking rows",
+        "selectMode": "Sets the select mode:\n`TSelectMode: 'single'`&#124;`'multiple'`.\n`'single'` selection allows for only a single row to be selected at a time, while `'multiple'` mode allows to select multiple rows by clicking on checkboxes or using the **ctrl**/**shift** keys when clicking rows",
         "selectedColor": "Sets the highlighting color of the selected row",
-        "perPage": "Sets the amount of items which should be shown on a page",
-        "currentPage": "Sets the number of the current page",
+        "perPage": "Sets the maximum number of rows displayed in the table's `<tbody>`",
+        "currentPage": "Sets the number of the current table page",
         "loading": "Sets the loading state for the table (by displaying the spinning loading-indicator)",
         "loadingColor": "Sets the color of the spinning loading-indicator",
         "noDataHtml": "Sets html-content for cases where there are no items passed in the `items` option at all",
         "noDataFilteredHtml": "Sets html-content for cases where there are no items found when filtering the table using the `filter` prop",
         "hideDefaultHeader": "Sets whether to show the default headers for columns",
-        "footClone": "Sets whether to clone the headers into the footer. Has no effect if the default header is hidden with the `hideDefaultHeader` prop",
-        "allowFootSorting": "Allows clicks footer column headers to sort (and to display the sorting status) the rows",
-        "striped": "Sets the striped style to the rows (highlights each 2nd row)",
-        "hoverable": "Allows the a hover state on table rows within a `<tbody>`"
+        "footClone": "Sets whether to clone the `<thead>` columns into the `<tfoot>`. Has no effect if the default `<thead>` is hidden with the `hide-default-header` prop",
+        "allowFootSorting": "Allows clicks `<tfoot>` column headers to sort (and to display the sorting status) the rows",
+        "striped": "Sets the striped style to the `<tbody>` rows (highlights each 2nd row)",
+        "hoverable": "Allows the a hover state on table rows within a `<tbody>`. The highlighting color of the hover state takes from `selected-color` prop"
       },
       "events": {
-        "updateSortBy": "Emits when `sortBy` changed",
-        "updateSortingOrder": "Emits when `sortingOrder` changed",
+        "updateSortBy": "Emits when `sort-by` changed",
+        "updateSortingOrder": "Emits when `sorting-order` changed",
         "filter": "`va-data-table` emits the `filter` event each time filtering is applied (and when the filter is cleared), passing the number of filtered items",
         "sort": "Each time the table's sorting changes, the `sort` event is thrown, with the following param: \n &#123;\n &nbsp; `sortBy: string`,\n &nbsp; `sortingOrder: TSortingOrder`\n &#125;",
         "selectionChange": "The `selectionChange` event is thrown each time the selection changes. It provides the following object: \n&#123;\n &nbsp; `currentlySelectedItems: ITableItem[]`,\n &nbsp; `previouslySelectedItems: ITableItem[]`\n &#125;"
       },
       "methods": {},
       "slots": {
-        "colgroup": "The contents of this slot is wrapped (if provided) inside the `<colgroup>` tag, allowing to specify certain column options. Bound to `columns` (not the prop, but their internal representation: `TableColumn[]`)",
-        "headPrepend": "Allows to insert custom rows in table header. Isn't bound to anything",
-        "head": "Targets all the table headings. Is bound to `columns`",
-        "headKey": "Targets a specific table header by the column's `key`. Is bound to `column`",
-        "headAppend": "Appends custom rows inside table header",
+        "colgroup": "The contents of this slot is wrapped (if provided) inside the `<colgroup>` tag, allowing to specify certain column options. Bound to columns (not the prop, but their internal representation)",
+        "headPrepend": "Prepends custom rows in table header (`<thead>`). Isn't bound to anything",
+        "head": "Targets all the table headings. Is bound to columns (to their internal representation)",
+        "headKey": "Targets a specific table header by the column's `key`. Is bound to column",
+        "headAppend": "Appends custom rows inside table header (`<thead>`)",
         "bodyPrepend": "Prepends `<tbody>` with custom rows",
-        "cell": "Targets all the cells. Is bound to the current cell (`TableCell`)",
+        "cell": "Targets all the cells. Is bound to the current cell (to it internal representation)",
         "cellKey": "Allows to target only cells of a specified by the given `key` column. Is bound to the current cell",
-        "bodyAppend": "Appends rows to the table's body",
-        "footPrepend": "Prepends rows to the footer",
-        "foot": "Targets all the headers inside `<tfoot>`. Works if there's a `footClone` prop set to `true`",
-        "footKey": "A specific header in footer. Is bound to the `column`. Works if there's a `footClone` prop set to `true`",
-        "footAppend": "Appends rows to the footer"
+        "bodyAppend": "Appends rows to the table's `<tbody>`",
+        "footPrepend": "Prepends rows to the table's `<tfoot>`",
+        "foot": "Targets all the headers inside `<tfoot>`. Works if there's a `foot-clone` prop set to `true`",
+        "footKey": "A specific header in `<tfoot>`. Is bound to the column (to it internal representation) with the given `key`. Works if there's a `foot-clone` prop set to `true`",
+        "footAppend": "Appends rows to the `<tfoot>`"
       }
     },
     "VaDatePicker": {
@@ -3289,7 +3289,7 @@
   },
   "dataTable": {
     "title": "Data table",
-    "description": "The `va-data-table` component is used for displaying tabular data. Features include sorting, searching, pagination, row selection, ability to add additional row(s) to table `header`, `body` or `footer` and other functions.",
+    "description": "The `va-data-table` component is used for displaying tabular data. Features include sorting, searching, pagination, row selection, ability to add additional row(s) to table header (`<thead>`), body (`<tbody>`) or footer (`<tfoot>`) and other functions.",
     "related": "Related",
     "styledTablesLink": "Styled tables",
     "examples": {
@@ -3299,31 +3299,31 @@
       },
       "slots": {
         "title": "Slots",
-        "text": "..."
+        "text": "Slots allow you to control the display of data and their views in different parts of the table. The examples below demonstrate some of these slots and what you can do with each of them."
       },
       "filtering": {
         "title": "Filtering",
-        "text": "..."
+        "text": "`va-data-table` allows to apply a single table-wise filter with the `filter` prop. To use a custom filtering function provide the `va-data-table` with the `filtering-fn` prop.\n\nThe following example shows the use of a custom filtering function (which looks for the exact match rather than the standard one which checks for substring-inclusion) when the respective checkbox is checked."
       },
       "sorting": {
         "title": "Sorting",
-        "text": "..."
+        "text": "You can specify which columns should be sortable by providing a column definition object (see the `columns` prop below) with the `sortable: true` field. Making a column sortable means allowing to click the column's header to toggle the sorting by that column's values.\n\nYou can also provide a custom sorting function for a given column using the `sortingFn` field on the column definition object: `sortingFn: (a: any, b: any) => number`. The function takes two cells' initial values (a, b) (**note: initial values** (i.e. in the form the user provided them, rather than stringified)) and must return a number (-1, 0, +1) indicating whether the two rows should be swapped the places or not. See the standard JS's [Array.prototype.sort](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort)[[target=_blank]] for details. If you want to runtime-disable the custom function and start making use of the built-in one, pass the `undefined` to the `sortingFn`.\n\n`va-data-table` also optionally accepts the `sort-by` and the `sorting-order` modeled props, which allow users to change sorting settings from-outside and to model the changes introduced to the table's sorting by interacting with the table itself. They also allow to provide initial sorting values. **Don't use them without v-model**."
       },
       "selection": {
         "title": "Selection",
-        "text": "..."
+        "text": "Use the `selectable` prop to indicate whether the `va-data-table` should have selectable rows or not. The highlighting color of the selected row might be changed with the `selected-color` prop, passing a string with one of the possible color options: `'primary'`, `'danger'` and so on.\n\nThe selection may optionally be attached to a model with the standard `v-model` (using the `:model-value` prop and the `update:modelValue` event). This also allows to set the initial selection on the `va-data-table`. **Don't use the `:model-value` prop without `v-model`**."
       },
       "pagination": {
         "title": "Pagination",
-        "text": "..."
+        "text": "Use the `per-page` and `current-page` props to enable pagination. The component provide no protection whatsoever for the cases when the `current-page` is set higher then the actual number of pages, so make sure to check it yourself.\n\nThe `va-data-table` component is paginator-agnostic. I.e. it can work with any pagination component you'd like. In the example below, it uses both standard inputs and the `va-pagination` component."
       },
       "alignment": {
         "title": "Alignment",
-        "text": "..."
+        "text": "Should be specified on columns (see the `columns` prop below). Allows to provide different values for headers and for columns' cells. Pretty much the same as for `text-align` and `vertical-align` css properties."
       },
       "other": {
         "title": "Other",
-        "text": "..."
+        "text": "The component has many different properties, some of them are shown below with an example."
       }
     }
   },

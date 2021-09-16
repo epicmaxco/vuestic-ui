@@ -55,11 +55,10 @@
     </div>
 
     <div class="flex mb-2">
-      <h6>Use 'colgroup' slot to set specific className to first and last columns</h6>
+      <h6>Use 'colgroup' slot to set specific className to last columns</h6>
       <va-data-table :items="items">
         <template #colgroup>
-          <col class="table-example--slots">
-          <col span="6">
+          <col span="7">
           <col class="table-example--slots">
         </template>
       </va-data-table>
