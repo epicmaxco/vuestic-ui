@@ -12,7 +12,7 @@
         :rounded="false"
         @click="showCode = !showCode"
       >
-        {{ $tie('docsExample.showCode') }}
+        {{ showCode ? $tie('docsExample.hideCode') : $tie('docsExample.showCode') }}
       </va-button>
       <va-content v-if="showCode || exampleOptions.forceShowCode">
         <DocsNavigation
