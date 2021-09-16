@@ -1139,6 +1139,13 @@
       "button": "Ваша кнопка"
     }
   },
+  "docsNavigation": {
+    "copyCode": "Скопировать код",
+    "copyCopied": "Скопировано",
+    "copyFailure": "Ошибка копирования!",
+    "openGithub": "Открыть на GitHub",
+    "openCodeSandbox": "Открыть на CodeSandbox"
+  },
   "docsExample": {
     "showCode": "Показать код"
   },
