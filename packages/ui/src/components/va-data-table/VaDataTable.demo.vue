@@ -5,7 +5,7 @@
       <input type="checkbox" v-model="useCustomFilteringFn">
       <label>Use custom filtering function (searches for the exact math)</label><br>
       <label>Filter</label>
-      <input type="text" v-model="filterValue" placeholder="Try '161'"/><br>
+      <input type="text" v-model="filterValue" placeholder="Try '161'" /><br>
       All rows amount: {{ manyItems.length }}<br>
       Filtered rows amount: {{ visibleRowsAmount }}
 
@@ -102,23 +102,23 @@
     </VbCard>
 
     <VbCard title="Items" class="demo">
-      <va-data-table :items="itemsTest2"/>
+      <va-data-table :items="itemsTest2" />
     </VbCard>
 
     <VbCard title="Columns strings`" class="demo">
-      <va-data-table :items="itemsTest2" :columns="columnsTest2"/>
+      <va-data-table :items="itemsTest2" :columns="columnsTest2" />
     </VbCard>
 
     <VbCard title="Even `items` no `columns`" class="demo">
-      <va-data-table :items="evenItems"/>
+      <va-data-table :items="evenItems" />
     </VbCard>
 
     <VbCard title="Laking `items` no `columns`" class="demo">
-      <va-data-table :items="lackingItems"/>
+      <va-data-table :items="lackingItems" />
     </VbCard>
 
     <VbCard title="Excessive `items` no `columns`" class="demo">
-      <va-data-table :items="excessiveItems"/>
+      <va-data-table :items="excessiveItems" />
     </VbCard>
 
     <VbCard title="Controls">
@@ -126,39 +126,39 @@
     </VbCard>
 
     <VbCard title="Even `items` with even `columns`" class="demo">
-      <va-data-table :items="evenItems" :columns="evenColumns"/>
+      <va-data-table :items="evenItems" :columns="evenColumns" />
     </VbCard>
 
     <VbCard title="Laking `items` with even `columns`" class="demo">
-      <va-data-table :items="lackingItems" :columns="evenColumns"/>
+      <va-data-table :items="lackingItems" :columns="evenColumns" />
     </VbCard>
 
     <VbCard title="Excessive `items` with even `columns`" class="demo">
-      <va-data-table :items="excessiveItems" :columns="evenColumns"/>
+      <va-data-table :items="excessiveItems" :columns="evenColumns" />
     </VbCard>
 
     <VbCard title="Even `items` with lacking `columns`" class="demo">
-      <va-data-table :items="evenItems" :columns="lackingColumns"/>
+      <va-data-table :items="evenItems" :columns="lackingColumns" />
     </VbCard>
 
     <VbCard title="Laking `items` with lacking `columns`" class="demo">
-      <va-data-table :items="lackingItems" :columns="lackingColumns"/>
+      <va-data-table :items="lackingItems" :columns="lackingColumns" />
     </VbCard>
 
     <VbCard title="Excessive `items` with lacking `columns`" class="demo">
-      <va-data-table :items="excessiveItems" :columns="lackingColumns"/>
+      <va-data-table :items="excessiveItems" :columns="lackingColumns" />
     </VbCard>
 
     <VbCard title="Even `items` with excessive `columns`" class="demo">
-      <va-data-table :items="evenItems" :columns="excessiveColumns"/>
+      <va-data-table :items="evenItems" :columns="excessiveColumns" />
     </VbCard>
 
     <VbCard title="Laking `items` with excessive `columns`" class="demo">
-      <va-data-table :items="lackingItems" :columns="excessiveColumns"/>
+      <va-data-table :items="lackingItems" :columns="excessiveColumns" />
     </VbCard>
 
     <VbCard title="Excessive `items` with excessive `columns`" class="demo">
-      <va-data-table :items="excessiveItems" :columns="excessiveColumns"/>
+      <va-data-table :items="excessiveItems" :columns="excessiveColumns" />
     </VbCard>
 
     <VbCard title="[head] Prepend rows" class="demo">
@@ -292,7 +292,7 @@
     </VbCard>
 
     <VbCard title="foot-clone prop">
-      <va-data-table :items="evenItems" :columns="evenColumns" foot-clone/>
+      <va-data-table :items="evenItems" :columns="evenColumns" foot-clone />
     </VbCard>
 
     <VbCard title="[foot-clone] `foot` slot (static value)" class="demo">
@@ -352,18 +352,18 @@
     </VbCard>
 
     <VbCard title="Selectable (multiple) (default) (without v-model (stateful))" class="demo">
-      <va-data-table :items="evenItems" :columns="evenColumns" selectable/>
+      <va-data-table :items="evenItems" :columns="evenColumns" selectable />
       Count: {{ selectedItems.length }} | {{ selectedItems }}
     </VbCard>
 
     <VbCard title="Selectable (single) with `selected-color='danger'`" class="demo">
       {{ selectedItem }}
-      <va-data-table :items="evenItems" :columns="evenColumns" selectable v-model="selectedItem" select-mode="single" selected-color="danger"/>
+      <va-data-table :items="evenItems" :columns="evenColumns" selectable v-model="selectedItem" select-mode="single" selected-color="danger" />
     </VbCard>
 
     <VbCard title="Loading state" class="demo">
-      <va-switch v-model="isTableLoading" label="Loading state"/>
-      <va-data-table :items="evenItems" :columns="evenColumns" :loading="isTableLoading"/>
+      <va-switch v-model="isTableLoading" label="Loading state" />
+      <va-data-table :items="evenItems" :columns="evenColumns" :loading="isTableLoading" />
     </VbCard>
 
     <VbCard title="Alignment" class="demo">
@@ -445,7 +445,7 @@
         <option value="bottom">Bottom</option>
       </select><br>
 
-      <va-data-table :items="alignItems" :columns="alignColumns"/>
+      <va-data-table :items="alignItems" :columns="alignColumns" />
     </VbCard>
 
     <VbCard title="Hide default header and use `head.prepend` slot to provide a custom one" class="demo">
@@ -461,20 +461,20 @@
     </VbCard>
 
     <VbCard title="Sortable table" class="demo">
-      <va-data-table :items="evenItemsShuffled" :columns="evenColumnsSortable"/>
+      <va-data-table :items="evenItemsShuffled" :columns="evenColumnsSortable" />
     </VbCard>
 
     <VbCard title="Custom sorting function for the last column" class="demo">
       The last column's sorting function always returns -1, thus when the table is sorted by it it should always just reverse the rows.
-      <va-data-table :items="evenItemsShuffled" :columns="evenColumnsSortableWithCustoms"/>
+      <va-data-table :items="evenItemsShuffled" :columns="evenColumnsSortableWithCustoms" />
     </VbCard>
 
     <VbCard title="Initially sorted table (by `id`)" class="demo">
-      <va-data-table :items="evenItemsShuffled" :columns="evenColumnsSortable" v-model:sort-by="sortByModelId"/>
+      <va-data-table :items="evenItemsShuffled" :columns="evenColumnsSortable" v-model:sort-by="sortByModelId" />
     </VbCard>
 
     <VbCard title="Initially sorted table (by `idSquared`) (desc)" class="demo">
-      <va-data-table :items="evenItemsShuffled" :columns="evenColumnsSortable" v-model:sort-by="sortByModel" v-model:sorting-order="sortingOrderModel"/>
+      <va-data-table :items="evenItemsShuffled" :columns="evenColumnsSortable" v-model:sort-by="sortByModel" v-model:sorting-order="sortingOrderModel" />
     </VbCard>
 
     <VbCard title="Pagination" class="demo">
@@ -485,71 +485,77 @@
 
     <VbCard title="Filtering" class="demo">
       <input type="text" v-model="filterValue">
-      <va-data-table :items="evenItems" :filter="filterValue"/>
+      <va-data-table :items="evenItems" :filter="filterValue" />
     </VbCard>
   </VbDemo>
 </template>
 
 <script lang="ts">
-import {defineComponent} from "vue";
-import VaDataTable from './';
-import {cloneDeep, shuffle} from "lodash-es";
+import { defineComponent } from 'vue'
+import VaDataTable from './'
+import { cloneDeep, shuffle } from 'lodash-es'
+
+interface EvenItems {
+    id?: number;
+    name?: string;
+    idSquared?: string;
+    excessiveProp?: string;
+    anotherExcessiveProp?: string;
+}
 
 export default defineComponent({
-  name: "VaDataTableDemo",
-
   components: {
-    VaDataTable
+    VaDataTable,
   },
 
-  data() {
-    const evenItems = Array.from(Array(10), (u, i) => {
+  data () {
+    const evenItems: EvenItems[] = Array.from(Array(10), (u, i) => {
       return {
         id: i,
         name: `Number ${i}`,
-        idSquared: `The squared index is ${i ** 2}`
+        idSquared: `The squared index is ${i ** 2}`,
       }
-    });
+    })
 
-    const lackingItems = cloneDeep(evenItems);
-    delete lackingItems[0].name;
-    delete lackingItems[3].id;
+    const lackingItems = cloneDeep(evenItems)
+    delete lackingItems[0].name
+    delete lackingItems[3].id
     delete lackingItems[5].idSquared
 
-    const excessiveItems = cloneDeep(evenItems);
-    excessiveItems[0]["excessiveProp"] = "Excessive prop's value"
-    excessiveItems[5]["excessiveProp"] = "Excessive prop's value"
-    excessiveItems[5]["anotherExcessiveProp"] = "The other excessive prop's value"
+    const excessiveItems = cloneDeep(evenItems)
+    excessiveItems[0].excessiveProp = "Excessive prop's value"
+    excessiveItems[5].excessiveProp = "Excessive prop's value"
+    excessiveItems[5].anotherExcessiveProp = "The other excessive prop's value"
 
-    const evenItemsShuffled = shuffle(evenItems);
+    const evenItemsShuffled = shuffle(evenItems)
 
     const manyItems = Array.from(Array(1000), (u, i) => {
       return {
         id: i,
         name: `Number ${i}`,
-        idSquared: `The squared index is ${i ** 2}`
+        idSquared: `The squared index is ${i ** 2}`,
       }
-    });
+    })
 
-    const manyItemsShuffled = shuffle(manyItems);
+    const manyItemsShuffled = shuffle(manyItems)
 
     return {
       evenColumns: [
-        "idSquared",
-        "name",
-        "id"
+        'idSquared',
+        'name',
+        'id',
       ],
 
       lackingColumns: [
-        "idSquared",
-        "id"
+        'idSquared',
+        'id',
       ],
 
       excessiveColumns: [
-        "id",
-        "name",
-        "excessiveColumn",
-        "idSquared"
+        'id',
+        'name',
+        'excessiveColumn',
+        'idSquared',
       ],
 
       evenItems,
@@ -563,120 +569,120 @@ export default defineComponent({
 
       alignColumns: [
         {
-          key: "id",
-          label: "A Unique ID",
-          alignHead: "center",
-          verticalAlignHead: "middle",
-          align: "center",
-          verticalAlign: "middle",
+          key: 'id',
+          label: 'A Unique ID',
+          alignHead: 'center',
+          verticalAlignHead: 'middle',
+          align: 'center',
+          verticalAlign: 'middle',
         },
 
         {
-          key: "text",
-          label: "A long text",
-          alignHead: "center",
-          verticalAlignHead: "middle",
-          align: "center",
-          verticalAlign: "middle",
+          key: 'text',
+          label: 'A long text',
+          alignHead: 'center',
+          verticalAlignHead: 'middle',
+          align: 'center',
+          verticalAlign: 'middle',
         },
 
         {
-          key: "target",
-          label: "Target field",
-          alignHead: "center",
-          verticalAlignHead: "middle",
-          align: "center",
-          verticalAlign: "middle",
+          key: 'target',
+          label: 'Target field',
+          alignHead: 'center',
+          verticalAlignHead: 'middle',
+          align: 'center',
+          verticalAlign: 'middle',
         },
       ],
 
       alignItems: [
-        {id: 1, text: "Somewhat long text (I need to expand it a bit so that the text gets wrapped (and thus occupies multiple lines) so that we can see how the other rows are vertically aligned)", target: "Pretty short prop"},
-        {id: 2, text: "Somewhat long text (I need to expand it a bit so that the text gets wrapped (and thus occupies multiple lines) so that we can see how the other rows are vertically aligned)", target: "Pretty short prop"},
-        {id: 3, text: "Somewhat long text (I need to expand it a bit so that the text gets wrapped (and thus occupies multiple lines) so that we can see how the other rows are vertically aligned)", target: "Pretty short prop"},
+        { id: 1, text: 'Somewhat long text (I need to expand it a bit so that the text gets wrapped (and thus occupies multiple lines) so that we can see how the other rows are vertically aligned)', target: 'Pretty short prop' },
+        { id: 2, text: 'Somewhat long text (I need to expand it a bit so that the text gets wrapped (and thus occupies multiple lines) so that we can see how the other rows are vertically aligned)', target: 'Pretty short prop' },
+        { id: 3, text: 'Somewhat long text (I need to expand it a bit so that the text gets wrapped (and thus occupies multiple lines) so that we can see how the other rows are vertically aligned)', target: 'Pretty short prop' },
       ],
 
       evenColumnsSortable: [
         {
-          key: "id",
-          label: "Id",
+          key: 'id',
+          label: 'Id',
           sortable: true,
         },
 
         {
-          key: "name",
-          label: "Name",
+          key: 'name',
+          label: 'Name',
           sortable: true,
         },
 
         {
-          key: "idSquared",
-          label: "Id Squared",
+          key: 'idSquared',
+          label: 'Id Squared',
           sortable: true,
         },
       ],
 
       evenColumnsSortableWithCustoms: [
         {
-          key: "id",
-          label: "Id",
+          key: 'id',
+          label: 'Id',
           sortable: true,
         },
 
         {
-          key: "name",
-          label: "Name",
+          key: 'name',
+          label: 'Name',
           sortable: true,
         },
 
         {
-          key: "idSquared",
-          label: "Id Squared",
+          key: 'idSquared',
+          label: 'Id Squared',
           sortable: true,
           sortingFn: () => {
-            return -1;
-          }
+            return -1
+          },
         },
       ],
 
       evenItemsShuffled,
 
-      sortByModelId: "id",
-      sortByModel: "idSquared",
-      sortingOrderModel: "desc",
+      sortByModelId: 'id',
+      sortByModel: 'idSquared',
+      sortingOrderModel: 'desc',
 
       manyItems,
       currentPage: 1,
 
-      filterValue: "",
+      filterValue: '',
       visibleRowsAmount: manyItems.length,
 
       manyItemsShuffled,
       evenColumnsSortable2: [
         {
-          key: "idSquared",
+          key: 'idSquared',
           sortable: true,
         },
         {
-          key: "name",
+          key: 'name',
           sortable: true,
         },
         {
-          key: "id",
+          key: 'id',
           sortable: true,
         },
       ],
 
-      sortBy2: "",
+      sortBy2: '',
       sortingOrder2: null,
       useSelectable: true,
       selectedItemsIds: [],
-      selectMode: "single",
-      selectedColor: "primary",
+      selectMode: 'single',
+      selectedColor: 'primary',
       usePagination: true,
       perPage: 10,
       currentPage2: 1,
-      noDataFilteredHtml: "No Items Found",
+      noDataFilteredHtml: 'No Items Found',
       isStriped: true,
       useCustomSortingFnForId: false,
       useCustomFilteringFn: false,
@@ -684,43 +690,43 @@ export default defineComponent({
       footClone: false,
       allowFootSorting: false,
 
-      columnsTest2: ["columnOne", "columnTwo"],
-      itemsTest2: [{columnOne: 1, columnThree: 3}, {columnTwo: 2, columnOne: 1}],
+      columnsTest2: ['columnOne', 'columnTwo'],
+      itemsTest2: [{ columnOne: 1, columnThree: 3 }, { columnTwo: 2, columnOne: 1 }],
     }
   },
 
   watch: {
     useCustomSortingFnForId (value) {
       if (value) {
-        this.evenColumnsSortable2[2].sortingFn = (a: number, b: number) => {
-          return a - b;
-        };
+        (this as any).evenColumnsSortable2[2].sortingFn = (a: number, b: number) => {
+          return a - b
+        }
       } else {
-        this.evenColumnsSortable2[2].sortingFn = undefined;
+        (this as any).evenColumnsSortable2[2].sortingFn = undefined
       }
     },
   },
 
   computed: {
     filteringFn () {
-      return this.useCustomFilteringFn ? this.filter : undefined;
-    }
+      return (this as any).useCustomFilteringFn ? (this as any).filter : undefined
+    },
   },
 
   methods: {
     deleteLast5EvenItems () {
-      this.evenItems.splice(this.evenItems.length - 5, this.evenItems.length)
+      (this as any).evenItems.splice((this as any).evenItems.length - 5, (this as any).evenItems.length)
     },
 
     toggleIdAndNumber () {
-      this.evenColumns.splice(2, 1, this.evenColumns[2] === "id" ? "number" : "id");
+      (this as any).evenColumns.splice(2, 1, (this as any).evenColumns[2] === 'id' ? 'number' : 'id')
     },
 
-    filter (source) {
-      return source?.toString?.() === this.filterValue;
+    filter (source: any) {
+      return source?.toString?.() === (this as any).filterValue
     },
-  }
-});
+  },
+})
 </script>
 
 <style lang="scss" scoped>

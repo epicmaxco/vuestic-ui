@@ -16,7 +16,7 @@
       <colgroup v-if="'colgroup' in slots">
         <slot
           name="colgroup"
-          v-bind="columns"
+          v-bind="columnsProxy"
         />
       </colgroup>
 
@@ -43,7 +43,7 @@
 
 <!--          Render the column headings (and apply sorting on clicks on a given heading). `column` here is an instance of `TableColumn`, not a prop, so don't be confused by WebStorm's warnings-->
           <th
-            v-for="column in columns"
+            v-for="column in columnsProxy"
             :key="column.key"
             :title="column.headerTitle"
             @click.exact="toggleSorting(column)"
@@ -67,11 +67,11 @@
               </slot>
 
               <div
-                v-if="column.sortable && sortBy === column.key && sortingOrder !== null"
+                v-if="column.sortable && sortByProxy === column.key && sortingOrderProxy !== null"
                 class="th__sorting"
               >
                 <va-icon
-                  :name="sortingOrder === 'asc' ? 'expand_less' : 'expand_more'"
+                  :name="sortingOrderProxy === 'asc' ? 'expand_less' : 'expand_more'"
                   size="small"
                 />
               </div>
@@ -91,7 +91,7 @@
           class="no-data"
         >
           <td
-            :colspan="columns.length + (selectable ? 1 : 0)"
+            :colspan="columnsProxy.length + (selectable ? 1 : 0)"
             v-html="noDataHtml"
           />
         </tr>
@@ -101,7 +101,7 @@
           class="no-data"
         >
           <td
-            :colspan="columns.length + (selectable ? 1 : 0)"
+            :colspan="columnsProxy.length + (selectable ? 1 : 0)"
             v-html="noDataFilteredHtml"
           />
         </tr>
@@ -183,7 +183,7 @@
 
 <!--          Render the column headings (and apply sorting on clicks on a given heading). `column` here is an instance of `TableColumn`, not a prop, so don't be confused by WebStorm's warnings-->
           <th
-            v-for="column in columns"
+            v-for="column in columnsProxy"
             :key="column.key"
             :title="column.headerTitle"
             @click.exact="allowFootSorting ? toggleSorting(column) : () => {}"
@@ -207,11 +207,11 @@
               </slot>
 
               <div
-                v-if="allowFootSorting && column.sortable && sortBy === column.key && sortingOrder !== null"
+                v-if="allowFootSorting && column.sortable && sortByProxy === column.key && sortingOrderProxy !== null"
                 class="th__sorting"
               >
                 <va-icon
-                  :name="sortingOrder === 'asc' ? 'expand_less' : 'expand_more'"
+                  :name="sortingOrderProxy === 'asc' ? 'expand_less' : 'expand_more'"
                   size="small"
                 />
               </div>
@@ -226,16 +226,16 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, toRefs } from "vue"
+import { computed, defineComponent, PropType, toRefs } from 'vue'
 import VaInnerLoading from '../va-inner-loading'
 import VaCheckbox from '../va-checkbox'
 import VaIcon from '../va-icon'
-import useColumns, { ITableColumn } from "./hooks/useColumns"
-import useRows, { ITableItem } from "./hooks/useRows"
-import useFilterable, { TFilteringFn } from "./hooks/useFilterable"
-import useSortable, { TSortingOrder } from "./hooks/useSortable"
-import useSelectable, { TSelectMode } from "./hooks/useSelectable"
-import useStyleable from "./hooks/useStyleable"
+import useColumns, { ITableColumn } from './hooks/useColumns'
+import useRows, { ITableItem } from './hooks/useRows'
+import useFilterable, { TFilteringFn } from './hooks/useFilterable'
+import useSortable, { TSortingOrder } from './hooks/useSortable'
+import useSelectable, { TSelectMode } from './hooks/useSelectable'
+import useStyleable from './hooks/useStyleable'
 
 /*
   TODO: consider a possibility to lazy-load the hooks with dynamic imports based on respective props' values. E.G.
@@ -248,7 +248,7 @@ import useStyleable from "./hooks/useStyleable"
 */
 
 export default defineComponent({
-  name: "VaDataTable",
+  name: 'VaDataTable',
 
   components: {
     VaInnerLoading,
@@ -262,18 +262,18 @@ export default defineComponent({
   props: {
     columns: {
       type: Array as PropType<(string | ITableColumn)[]>,
-      default: () => [] as (string | ITableColumn)[]
+      default: () => [] as (string | ITableColumn)[],
     },
     items: {
       type: Array as PropType<ITableItem[]>,
-      default: () => [] as ITableItem[]
+      default: () => [] as ITableItem[],
     },
     filter: {
       type: String,
-      default: "",
+      default: '',
     },
     filteringFn: {
-      type: Function as PropType<TFilteringFn>
+      type: Function as PropType<TFilteringFn>,
     },
     sortBy: { // model-able
       type: String,
@@ -294,11 +294,11 @@ export default defineComponent({
     },
     selectMode: {
       type: String as PropType<TSelectMode>,
-      default: "multiple",
+      default: 'multiple',
     },
     selectedColor: {
       type: String,
-      default: "primary",
+      default: 'primary',
     },
     perPage: {
       type: Number,
@@ -312,15 +312,15 @@ export default defineComponent({
     },
     loadingColor: {
       type: String,
-      default: "primary",
+      default: 'primary',
     },
     noDataHtml: {
       type: String,
-      default: "No items",
+      default: 'No items',
     },
     noDataFilteredHtml: {
       type: String,
-      default: "No items match the provided filtering condition"
+      default: 'No items match the provided filtering condition',
     },
     hideDefaultHeader: {
       type: Boolean,
@@ -337,48 +337,48 @@ export default defineComponent({
     striped: {
       type: Boolean,
       default: false,
-    }
+    },
   },
 
   // `modelValue` is selected items
   emits: [
-    "update:modelValue",
-    "update:sortBy",
-    "update:sortingOrder",
-    "filter",
-    "sort",
-    "selectionChange",
+    'update:modelValue',
+    'update:sortBy',
+    'update:sortingOrder',
+    'filter',
+    'sort',
+    'selectionChange',
   ],
 
-  setup(props, { slots, emit }) {
+  setup (props, { slots, emit }) {
     // columns and rows
     const {
       columns: rawColumns,
       items: rawItems,
-    } = toRefs(props);
+    } = toRefs(props)
 
-    const { columns } = useColumns(rawColumns, rawItems);
-    const { rows: unfilteredRows } = useRows(rawItems, columns);
+    const { columns } = useColumns(rawColumns, rawItems)
+    const { rows: unfilteredRows } = useRows(rawItems, columns)
 
     // filtering
-    const { filter, filteringFn } = toRefs(props);
-    const { filteredRows: rows } = useFilterable(unfilteredRows, filter, filteringFn, emit);
+    const { filter, filteringFn } = toRefs(props)
+    const { filteredRows: rows } = useFilterable(unfilteredRows, filter, filteringFn, emit)
 
     // sorting
-    const { sortBy, sortingOrder } = toRefs(props);
+    const { sortBy, sortingOrder } = toRefs(props)
     const {
       sortByProxy,
       sortingOrderProxy,
       toggleSorting,
-    } = useSortable(columns, rows, sortBy, sortingOrder, emit);
+    } = useSortable(columns, rows, sortBy, sortingOrder, emit)
 
     // selection
     const {
       selectable,
       selectMode,
       modelValue: selectedItems,
-    } = toRefs(props);
-  
+    } = toRefs(props)
+
     const {
       selectedItemsProxy,
       toggleRowSelection,
@@ -388,43 +388,31 @@ export default defineComponent({
       isRowSelected,
       severalRowsSelected,
       allRowsSelected,
-    } = useSelectable(rows, selectedItems, selectable, selectMode, emit);
+    } = useSelectable(rows, selectedItems, selectable, selectMode, emit)
 
     // styling
-    const { hoverable, selectedColor, allowFootSorting } = toRefs(props);
+    const { hoverable, selectedColor, allowFootSorting } = toRefs(props)
 
     const {
       getHeadCSSVariables,
       rowCSSVariables,
       getCellCSSVariables,
       getFootCSSVariables,
-    } = useStyleable(hoverable, selectable, selectedColor, allowFootSorting);
-
-    // other
-    const {
-      loading,
-      noDataHtml,
-      noDataFilteredHtml,
-      hideDefaultHeader,
-      footClone,
-      striped,
-    } = toRefs(props);
+    } = useStyleable(hoverable, selectable, selectedColor, allowFootSorting)
 
     const showNoDataHtml = computed(() => {
-      return rawItems.value.length < 1;
-    });
+      return rawItems.value.length < 1
+    })
 
     const showNoDataFilteredHtml = computed(() => {
-      return rows.value.length < 1;
-    });
+      return rows.value.length < 1
+    })
 
     // expose
     return {
       slots,
-      columns,
+      columnsProxy: columns,
       rows,
-      hoverable,
-      selectable,
       selectedItems: selectedItemsProxy,
       toggleRowSelection,
       ctrlSelectRow,
@@ -433,24 +421,17 @@ export default defineComponent({
       isRowSelected,
       severalRowsSelected,
       allRowsSelected,
-      sortBy: sortByProxy,
-      sortingOrder: sortingOrderProxy,
+      sortByProxy,
+      sortingOrderProxy,
       toggleSorting,
       getHeadCSSVariables,
       rowCSSVariables,
       getCellCSSVariables,
       getFootCSSVariables,
-      loading,
       showNoDataHtml,
-      noDataHtml,
       showNoDataFilteredHtml,
-      noDataFilteredHtml,
-      hideDefaultHeader,
-      footClone,
-      allowFootSorting,
-      striped,
-    };
-  }
+    }
+  },
 })
 </script>
 
