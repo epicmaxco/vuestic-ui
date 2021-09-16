@@ -20,7 +20,7 @@
       target="_blank"
     >
       <va-icon class="docs-navigation__button__icon fa fa-github" size="sm" />
-      <span class="docs-navigation__button__text">{{ $tie('docsNavigation.openGithub') }}</span>
+      <span class="docs-navigation__button__text">{{ $t('docsNavigation.openGithub') }}</span>
     </va-button>
 
     <form :action="sandboxDefineUrl" method="POST" target="_blank">
@@ -33,7 +33,7 @@
         color="gray"
       >
         <va-icon class="docs-navigation__button__icon fa fa-code" size="sm" />
-        <span class="docs-navigation__button__text">{{ $tie('docsNavigation.openCodeSandbox') }}</span>
+        <span class="docs-navigation__button__text">{{ $t('docsNavigation.openCodeSandbox') }}</span>
       </va-button>
     </form>
   </div>
@@ -79,9 +79,9 @@ export default {
   computed: {
     copyButton () {
       const buttonStates = {
-        active: { text: this.$tie('docsNavigation.copyCopied'), icon: 'fa fa-check' },
-        error: { text: this.$tie('docsNavigation.copyFailure'), icon: 'fa fa-times' },
-        default: { text: this.$tie('docsNavigation.copyCode'), icon: 'fa fa-files-o' },
+        active: { text: this.$t('docsNavigation.copyCopied'), icon: 'fa fa-check' },
+        error: { text: this.$t('docsNavigation.copyFailure'), icon: 'fa fa-times' },
+        default: { text: this.$t('docsNavigation.copyCode'), icon: 'fa fa-files-o' },
       }
       return buttonStates[this.copyButtonState]
     },
