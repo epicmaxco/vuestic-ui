@@ -144,178 +144,178 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import VaDataTable from "./";
-import { cloneDeep, shuffle } from "lodash-es";
+import { defineComponent } from 'vue'
+import VaDataTable from './'
+import { cloneDeep, shuffle } from 'lodash-es'
 
 export default defineComponent({
-  name: "VaDataTableNewDemo",
+  name: 'VaDataTableNewDemo',
 
   components: {
     VaDataTable,
   },
 
-  data() {
+  data () {
     const users = [
       {
-        "id": 1,
-        "name": "Leanne Graham",
-        "username": "Bret",
-        "email": "Sincere@april.biz",
-        "address": {
-          "street": "Kulas Light",
-          "suite": "Apt. 556",
-          "city": "Gwenborough",
-          "zipcode": "92998-3874",
-          "geo": {
-            "lat": "-37.3159",
-            "lng": "81.1496"
-          }
+        id: 1,
+        name: 'Leanne Graham',
+        username: 'Bret',
+        email: 'Sincere@april.biz',
+        address: {
+          street: 'Kulas Light',
+          suite: 'Apt. 556',
+          city: 'Gwenborough',
+          zipcode: '92998-3874',
+          geo: {
+            lat: '-37.3159',
+            lng: '81.1496',
+          },
         },
-        "phone": "1-770-736-8031 x56442",
-        "website": "hildegard.org",
-        "company": {
-          "name": "Romaguera-Crona",
-          "catchPhrase": "Multi-layered client-server neural-net",
-          "bs": "harness real-time e-markets"
-        }
+        phone: '1-770-736-8031 x56442',
+        website: 'hildegard.org',
+        company: {
+          name: 'Romaguera-Crona',
+          catchPhrase: 'Multi-layered client-server neural-net',
+          bs: 'harness real-time e-markets',
+        },
       },
       {
-        "id": 2,
-        "name": "Ervin Howell",
-        "username": "Antonette",
-        "email": "Shanna@melissa.tv",
-        "address": {
-          "street": "Victor Plains",
-          "suite": "Suite 879",
-          "city": "Wisokyburgh",
-          "zipcode": "90566-7771",
-          "geo": {
-            "lat": "-43.9509",
-            "lng": "-34.4618"
-          }
+        id: 2,
+        name: 'Ervin Howell',
+        username: 'Antonette',
+        email: 'Shanna@melissa.tv',
+        address: {
+          street: 'Victor Plains',
+          suite: 'Suite 879',
+          city: 'Wisokyburgh',
+          zipcode: '90566-7771',
+          geo: {
+            lat: '-43.9509',
+            lng: '-34.4618',
+          },
         },
-        "phone": "010-692-6593 x09125",
-        "website": "anastasia.net",
-        "company": {
-          "name": "Deckow-Crist",
-          "catchPhrase": "Proactive didactic contingency",
-          "bs": "synergize scalable supply-chains"
-        }
+        phone: '010-692-6593 x09125',
+        website: 'anastasia.net',
+        company: {
+          name: 'Deckow-Crist',
+          catchPhrase: 'Proactive didactic contingency',
+          bs: 'synergize scalable supply-chains',
+        },
       },
       {
-        "id": 3,
-        "name": "Clementine Bauch",
-        "username": "Samantha",
-        "email": "Nathan@yesenia.net",
-        "address": {
-          "street": "Douglas Extension",
-          "suite": "Suite 847",
-          "city": "McKenziehaven",
-          "zipcode": "59590-4157",
-          "geo": {
-            "lat": "-68.6102",
-            "lng": "-47.0653"
-          }
+        id: 3,
+        name: 'Clementine Bauch',
+        username: 'Samantha',
+        email: 'Nathan@yesenia.net',
+        address: {
+          street: 'Douglas Extension',
+          suite: 'Suite 847',
+          city: 'McKenziehaven',
+          zipcode: '59590-4157',
+          geo: {
+            lat: '-68.6102',
+            lng: '-47.0653',
+          },
         },
-        "phone": "1-463-123-4447",
-        "website": "ramiro.info",
-        "company": {
-          "name": "Romaguera-Jacobson",
-          "catchPhrase": "Face to face bifurcated interface",
-          "bs": "e-enable strategic applications"
-        }
+        phone: '1-463-123-4447',
+        website: 'ramiro.info',
+        company: {
+          name: 'Romaguera-Jacobson',
+          catchPhrase: 'Face to face bifurcated interface',
+          bs: 'e-enable strategic applications',
+        },
       },
       {
-        "id": 4,
-        "name": "Patricia Lebsack",
-        "username": "Karianne",
-        "email": "Julianne.OConner@kory.org",
-        "address": {
-          "street": "Hoeger Mall",
-          "suite": "Apt. 692",
-          "city": "South Elvis",
-          "zipcode": "53919-4257",
-          "geo": {
-            "lat": "29.4572",
-            "lng": "-164.2990"
-          }
+        id: 4,
+        name: 'Patricia Lebsack',
+        username: 'Karianne',
+        email: 'Julianne.OConner@kory.org',
+        address: {
+          street: 'Hoeger Mall',
+          suite: 'Apt. 692',
+          city: 'South Elvis',
+          zipcode: '53919-4257',
+          geo: {
+            lat: '29.4572',
+            lng: '-164.2990',
+          },
         },
-        "phone": "493-170-9623 x156",
-        "website": "kale.biz",
-        "company": {
-          "name": "Robel-Corkery",
-          "catchPhrase": "Multi-tiered zero tolerance productivity",
-          "bs": "transition cutting-edge web services"
-        }
+        phone: '493-170-9623 x156',
+        website: 'kale.biz',
+        company: {
+          name: 'Robel-Corkery',
+          catchPhrase: 'Multi-tiered zero tolerance productivity',
+          bs: 'transition cutting-edge web services',
+        },
       },
       {
-        "id": 5,
-        "name": "Chelsey Dietrich",
-        "username": "Kamren",
-        "email": "Lucio_Hettinger@annie.ca",
-        "address": {
-          "street": "Skiles Walks",
-          "suite": "Suite 351",
-          "city": "Roscoeview",
-          "zipcode": "33263",
-          "geo": {
-            "lat": "-31.8129",
-            "lng": "62.5342"
-          }
+        id: 5,
+        name: 'Chelsey Dietrich',
+        username: 'Kamren',
+        email: 'Lucio_Hettinger@annie.ca',
+        address: {
+          street: 'Skiles Walks',
+          suite: 'Suite 351',
+          city: 'Roscoeview',
+          zipcode: '33263',
+          geo: {
+            lat: '-31.8129',
+            lng: '62.5342',
+          },
         },
-        "phone": "(254)954-1289",
-        "website": "demarco.info",
-        "company": {
-          "name": "Keebler LLC",
-          "catchPhrase": "User-centric fault-tolerant solution",
-          "bs": "revolutionize end-to-end systems"
-        }
+        phone: '(254)954-1289',
+        website: 'demarco.info',
+        company: {
+          name: 'Keebler LLC',
+          catchPhrase: 'User-centric fault-tolerant solution',
+          bs: 'revolutionize end-to-end systems',
+        },
       },
-    ];
+    ]
 
     const columns = [
-      { key: "username", sortable: true },
-      { key: "email", sortable: true },
-      { key: "name", sortable: true },
-      { key: "id", sortable: true, sortingFn: () => -1 }
+      { key: 'username', sortable: true },
+      { key: 'email', sortable: true },
+      { key: 'name', sortable: true },
+      { key: 'id', sortable: true, sortingFn: () => -1 },
     ]
 
     return {
       items: shuffle(cloneDeep(users)),
       columns,
 
-      filter: "",
+      filter: '',
       useCustomFilteringFn: false,
       filteredCount: users.length,
 
-      sortBy: "username",
-      sortingOrder: "asc",
+      sortBy: 'username',
+      sortingOrder: 'asc',
 
       selectable: true,
       selectedItems: [],
-      selectMode: "single",
-      selectedColor: "danger",
+      selectMode: 'single',
+      selectedColor: 'danger',
 
       perPage: 2,
-      currentPage: 1
+      currentPage: 1,
     }
   },
 
   computed: {
     customFilteringFn () {
-      return this.useCustomFilteringFn ? this.filterExact : undefined;
+      return (this as any).useCustomFilteringFn ? (this as any).filterExact : undefined
     },
   },
 
   methods: {
     shuffleItems () {
-      this.items = shuffle(this.items);
+      (this as any).items = shuffle((this as any).items)
     },
 
-    filterExact (source) {
-      return source?.toString?.() === this.filter;
+    filterExact (source: any) {
+      return source?.toString?.() === (this as any).filter
     },
-  }
+  },
 })
 </script>
