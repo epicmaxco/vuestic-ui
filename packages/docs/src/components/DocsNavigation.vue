@@ -7,8 +7,8 @@
       color="gray"
       @click="copy"
     >
-      <i class="docs-navigation__button__icon" :class="copyBtn.icon" />
-      <span class="docs-navigation__button__text">{{ copyBtn.text }}</span>
+      <va-icon class="docs-navigation__button__icon" :class="copyButton.icon" size="sm" />
+      <span class="docs-navigation__button__text">{{ copyButton.text }}</span>
     </va-button>
 
     <va-button
@@ -19,7 +19,7 @@
       :href="gitLink"
       target="_blank"
     >
-      <i class="docs-navigation__button__icon fa fa-github" />
+      <va-icon class="docs-navigation__button__icon fa fa-github" size="sm" />
       <span class="docs-navigation__button__text">{{ $tie('docsNavigation.openGithub') }}</span>
     </va-button>
 
@@ -32,7 +32,7 @@
         class="docs-navigation__button"
         color="gray"
       >
-        <i class="docs-navigation__button__icon fa fa-code" />
+        <va-icon class="docs-navigation__button__icon fa fa-code" size="sm" />
         <span class="docs-navigation__button__text">{{ $tie('docsNavigation.openCodeSandbox') }}</span>
       </va-button>
     </form>
@@ -58,32 +58,32 @@ export default {
   data () {
     return {
       query: '?query=file=/src/App.vue',
-      copyBtnState: 'default',
+      copyButtonState: 'default',
     }
   },
   methods: {
     async copy () {
       try {
         await window.navigator.clipboard.writeText(this.code)
-        this.copyBtnState = 'active'
+        this.copyButtonState = 'active'
       } catch (e) {
         if (e.message === 'NotAllowedError') {
-          this.copyBtnState = 'error'
+          this.copyButtonState = 'error'
         }
       }
       setTimeout(() => {
-        this.copyBtnState = 'default'
+        this.copyButtonState = 'default'
       }, 1500)
     },
   },
   computed: {
-    copyBtn () {
-      const btnStates = {
+    copyButton () {
+      const buttonStates = {
         active: { text: this.$tie('docsNavigation.copyCopied'), icon: 'fa fa-check' },
         error: { text: this.$tie('docsNavigation.copyFailure'), icon: 'fa fa-times' },
         default: { text: this.$tie('docsNavigation.copyCode'), icon: 'fa fa-files-o' },
       }
-      return btnStates[this.copyBtnState]
+      return buttonStates[this.copyButtonState]
     },
     gitLink () {
       return `https://github.com/epicmaxco/vuestic-ui/tree/develop/packages/docs/src/examples/${this.gitUrl}.vue`
