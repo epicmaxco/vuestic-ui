@@ -36,7 +36,7 @@
     </div>
     <div class="header__prefences sm-hidden flex px-3">
       <version-dropdown class="mr-2" />
-      <!--      <color-dropdown class="mr-1" />-->
+<!--      <color-dropdown class="mr-1" />-->
       <language-dropdown class="mr-1" />
     </div>
   </header>
@@ -51,7 +51,7 @@ import HeaderSelector from './components/HeaderSelector.vue'
 import VuesticLogo from './components/VuesticDocsLogo.vue'
 
 class Props {
-  isSidebarVisible = prop<boolean>({ type: Boolean, default: false });
+  isSidebarVisible = prop<boolean>({ type: Boolean, default: false })
 }
 
 const PropsMixin = Vue.with(Props)
@@ -74,14 +74,8 @@ export default class Header extends mixins(PropsMixin) {
         icon: 'fa fa-eye',
         to: `/${(this as any).$root.$i18n.locale}/introduction/overview`,
       },
-    // {
-    //   text: 'Documentation',
-    //   icon: 'fa fa-cube',
-    //   url: '#', // TODO: add actual links when pages are ready
-    //   target: '_blank',
-    // },
       {
-        text: 'GitHub',
+        text: this.$t('menu.github'),
         icon: 'fa fa-github',
         url: 'https://github.com/epicmaxco/vuestic-ui',
         target: '_blank',
