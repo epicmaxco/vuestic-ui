@@ -72,7 +72,7 @@ const VaInputProps = {
   readonly: { type: Boolean, default: true },
 }
 
-const defaultFormatFunction = (d: Date) => Date.toLocaleString.apply(d)
+const defaultFormatFunction = (d: Date) => d.toLocaleDateString()
 
 export default defineComponent({
   name: 'VaDateInput',
