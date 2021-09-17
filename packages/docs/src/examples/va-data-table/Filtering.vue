@@ -18,7 +18,7 @@
       :items="items"
       :filter="filter"
       :filtering-fn="customFilteringFn"
-      @filter="filteredCount = $event"
+      @filter="filteredCount = $event.length"
     />
 
     <va-alert class="mt-3" border="left">
