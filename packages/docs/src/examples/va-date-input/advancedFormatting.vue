@@ -21,13 +21,13 @@ export default {
   },
   methods: {
     formatDate (date) {
-      return `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`
+      return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
     },
 
     parseDate (text) {
       const [day, month, year] = text.split('/')
 
-      return new Date(year, month, day)
+      return new Date(year, month - 1, day)
     },
   },
 }
