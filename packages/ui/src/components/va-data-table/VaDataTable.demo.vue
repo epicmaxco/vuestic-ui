@@ -80,7 +80,7 @@
         :items="manyItemsShuffled"
         :filter="filterValue"
         :filtering-fn="filteringFn"
-        @filter="visibleRowsAmount = $event"
+        @filter="visibleRowsAmount = $event.length"
         v-model:sort-by="sortBy2"
         v-model:sorting-order="sortingOrder2"
         :selectable="useSelectable"

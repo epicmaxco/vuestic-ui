@@ -58,7 +58,7 @@
         :items="items"
         :filter="filter"
         :filtering-fn="customFilteringFn"
-        @filter="filteredCount = $event"
+        @filter="filteredCount = $event.length"
       />
     </VbCard>
 
