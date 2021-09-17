@@ -1147,7 +1147,8 @@
     "openCodeSandbox": "Открыть на CodeSandbox"
   },
   "docsExample": {
-    "showCode": "Показать код"
+    "showCode": "Показать код",
+    "hideCode": "Скрыть код"
   },
   "documentationPage": {
     "compilesTo": "Компилируется в:",
