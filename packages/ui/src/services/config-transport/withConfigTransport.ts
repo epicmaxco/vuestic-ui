@@ -118,7 +118,8 @@ const withConfigTransport = (component: any): any => {
   const methods: { [key: string]: (...args: any[]) => any } = { ...options.methods }
   const optionsWithoutDefaults = Object.keys(propsOptions)
 
-  const componentName = upperFirst(camelCase(component.name))
+  const vueClassComponent = component.__vccOpts
+  const componentName = upperFirst(camelCase(vueClassComponent ? vueClassComponent.name : component.name))
 
   return {
     name: `WithConfigTransport${componentName || 'Component'}`,
