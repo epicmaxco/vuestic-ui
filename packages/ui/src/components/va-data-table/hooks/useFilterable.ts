@@ -21,7 +21,8 @@ export default function useFilterable (rows: Ref<TableRow[]>, filter: Ref<string
   })
 
   watch([filteredRows], () => {
-    emit('filter', filteredRows.value.length)
+    const filteredRowsSource = filteredRows.value.map(row => row.source)
+    emit('filter', filteredRowsSource)
   })
 
   return {
