@@ -209,7 +209,7 @@ export default class VaCollapse extends mixins(
     this.setCollapseParams()
 
     this.mutationObserver = new MutationObserver(() => {
-      setTimeout(() => this.setCollapseParams(), 1000 / 60)
+      setTimeout(() => this.setCollapseParams(), 16)
     })
 
     this.mutationObserver.observe(this.body, {
