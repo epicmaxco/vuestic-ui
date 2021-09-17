@@ -179,10 +179,6 @@ export default class VaButton extends mixins(
     }
   }
 
-  get shadowStyle () {
-    return '0 0 0.03rem 0.15rem ' + shiftHSLAColor(this.colorComputed, { a: -0.75 })
-  }
-
   get loaderSize () {
     const size = /([0-9]*)(px)/.exec(this.sizeComputed) as null | [string, string, string]
 
@@ -194,7 +190,6 @@ export default class VaButton extends mixins(
   }
 
   get computedStyle () {
-    let boxShadow = ''
     const color = this.textColorComputed
     const borderColor = this.outline ? this.colorComputed : ''
     let background = this.isTransparentBackground ? '#00000000' : this.gradient ? getGradientBackground(this.colorComputed) : this.colorComputed
@@ -205,13 +200,15 @@ export default class VaButton extends mixins(
       background = this.gradient ? getGradientBackground(color) : color
     }
     if (this.focusState) {
-      boxShadow = this.shadowStyle
+      const alpha = this.outline ? -0.8 : -0.7
+      const lightness = 10
+      const color = this.isTransparentBackground ? shiftHSLAColor(this.colorComputed, { a: alpha }) : shiftHSLAColor(this.colorComputed, { l: lightness })
+      background = this.gradient ? getGradientBackground(color) : color
     }
     return {
       color: color,
       borderColor: borderColor,
       background: background,
-      boxShadow: boxShadow,
     }
   }
 
