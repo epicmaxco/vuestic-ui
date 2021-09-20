@@ -72,8 +72,6 @@ const VaInputProps = {
   readonly: { type: Boolean, default: true },
 }
 
-const defaultFormatFunction = (d: Date) => d.toLocaleDateString()
-
 export default defineComponent({
   name: 'VaDateInput',
 
@@ -92,7 +90,7 @@ export default defineComponent({
     isOpen: { type: Boolean },
 
     format: { type: Function as PropType<(date: VaDatePickerModelValue | undefined) => string> },
-    formatDate: { type: Function as PropType<(date: Date) => string>, default: () => defaultFormatFunction },
+    formatDate: { type: Function as PropType<(date: Date) => string>, default: () => (d: Date) => d.toLocaleDateString() },
     parse: { type: Function as PropType<(input: string) => VaDatePickerModelValue> },
     parseDate: { type: Function as PropType<(input: string) => Date> },
 
