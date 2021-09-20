@@ -4,12 +4,12 @@
       <modal-element
         name="va-modal__overlay--transition"
         :isTransition="!$props.withoutTransitions"
+        @click="onOutsideClick"
         appear
       >
         <div
-          v-if="valueComputed && $props.overlay"
           class="va-modal__overlay"
-          :style="computedOverlayStyles"
+          :style="$props.overlay && computedOverlayStyles"
         />
       </modal-element>
       <modal-element
@@ -84,11 +84,9 @@
 <script lang="ts">
 import { watch, h, Transition } from 'vue'
 import { Options, prop, Vue, mixins } from 'vue-class-component'
-import { noop } from 'lodash-es'
 
 import ColorMixin from '../../services/color-config/ColorMixin'
 import { StatefulMixin } from '../../mixins/StatefulMixin/StatefulMixin'
-import ClickOutsideMixin, { ClickOutsideOptions } from '../../mixins/ClickOutsideMixin/ClickOutsideMixin'
 import VaButton from '../va-button'
 import VaIcon from '../va-icon'
 
@@ -121,7 +119,7 @@ class ModalProps {
   overlay = prop<boolean>({ type: Boolean, default: true })
   overlayOpacity = prop<number | string>({
     type: [Number, String],
-    default: undefined,
+    default: 0.6,
   })
 
   zIndex = prop<number | string>({ type: [Number, String], default: undefined })
@@ -161,34 +159,13 @@ class ModalElement extends Vue.with(ModalElementProps) {
 export default class VaModal extends mixins(
   ColorMixin,
   StatefulMixin,
-  ClickOutsideMixin,
   ModalPropsMixin,
 ) {
-  private clearClickOutsideEvents: () => void = noop
-
   created () {
     watch(() => this.valueComputed, (valueComputed: boolean) => {
       if (valueComputed) {
         window.addEventListener('keyup', this.listenKeyUp)
-
-        const options: ClickOutsideOptions = {
-          onClickOutside: () => {
-            this.$emit('click-outside')
-            this.cancel()
-          },
-          disabled: this.$props.noOutsideDismiss || this.$props.noDismiss || false,
-          trigger: 'mousedown',
-        }
-
-        this.$nextTick(() => {
-          const target = this.$refs.modal
-          this.clearClickOutsideEvents = this.registerClickOutsideEvents(
-            target as Element,
-            options,
-          )
-        })
       } else {
-        this.clearClickOutsideEvents()
         window.removeEventListener('keyup', this.listenKeyUp)
       }
     })
@@ -215,9 +192,8 @@ export default class VaModal extends mixins(
     return moreThanOneModalIsOpen
       ? {}
       : {
-        'background-color': `rgba(0, 0, 0, ${this.$props.overlayOpacity || 0.6})`,
-        'z-index':
-          this.$props.zIndex != null ? parseInt(this.$props.zIndex as string) - 10 : undefined,
+        'background-color': `rgba(0, 0, 0, ${this.$props.overlayOpacity})`,
+        'z-index': this.$props.zIndex ? Number(this.$props.zIndex) - 10 : undefined,
       }
   }
 
@@ -267,6 +243,11 @@ export default class VaModal extends mixins(
     }
   }
 
+  onOutsideClick () {
+    this.$emit('click-outside')
+    this.cancel()
+  }
+
   onBeforeEnterTransition (el: HTMLElement) {
     this.$emit('before-open', el)
   }
@@ -290,6 +271,17 @@ export default class VaModal extends mixins(
 @import 'variables';
 
 .va-modal {
+  position: var(--va-modal-container-position);
+  display: var(--va-modal-container-display);
+  align-items: var(--va-modal-container-align-items);
+  justify-content: var(--va-modal-container-justify-content);
+  width: var(--va-modal-container-width);
+  height: var(--va-modal-container-height);
+  top: var(--va-modal-container-top);
+  left: var(--va-modal-container-left);
+  overflow: var(--va-modal-container-overflow);
+  outline: var(--va-modal-container-outline);
+
   &__title {
     margin-bottom: 1.5rem;
 
@@ -297,17 +289,7 @@ export default class VaModal extends mixins(
   }
 
   &__container {
-    position: var(--va-modal-container-position);
-    top: var(--va-modal-container-top);
-    left: var(--va-modal-container-left);
     z-index: var(--va-modal-container-z-index);
-    display: var(--va-modal-container-display);
-    width: var(--va-modal-container-width);
-    height: var(--va-modal-container-height);
-    align-items: var(--va-modal-container-align-items);
-    justify-content: var(--va-modal-container-justify-content);
-    overflow: var(--va-modal-container-overflow);
-    outline: var(--va-modal-container-outline);
 
     &--transition {
       @include va-modal-transition();
