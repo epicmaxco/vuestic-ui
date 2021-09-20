@@ -1,17 +1,27 @@
 <template lang="html">
   <header class="header row justify--space-between">
     <div class="header__logo flex">
-      <header-selector class="header__logo__selector" :minimized="isSidebarVisible" @toggleSidebar="toggleSidebar" />
+      <header-selector
+        class="header__logo__selector"
+        :minimized="isSidebarVisible"
+        @toggleSidebar="toggleSidebar"
+      />
       <router-link to="/" custom v-slot="{ navigate, href }">
         <a :href="href">
-          <vuestic-logo class="header__logo__image"  height="30" width="150" @click="navigate" />
+          <vuestic-logo
+            class="header__logo__image"
+            height="30"
+            width="150"
+            @click="navigate"
+          />
         </a>
       </router-link>
     </div>
     <div class="header__links flex grow justify--center">
       <div class="shrink">
         <va-button
-          v-for="(link, index) in links" :key="index"
+          v-for="(link, index) in links"
+          :key="index"
           flat
           class="header__links__button ml-2"
           color="primary"
@@ -57,33 +67,29 @@ const PropsMixin = Vue.with(Props)
   },
 })
 export default class Header extends mixins(PropsMixin) {
-  data () {
-    return {
-      links: [
-        {
-          text: this.$t('menu.overview'),
-          icon: 'fa fa-eye',
-          to: `/${(this as any).$root.$i18n.locale}/introduction/overview`,
-        },
-        // {
-        //   text: 'Documentation',
-        //   icon: 'fa fa-cube',
-        //   url: '#', // TODO: add actual links when pages are ready
-        //   target: '_blank',
-        // },
-        {
-          text: this.$t('menu.github'),
-          icon: 'fa fa-github',
-          url: 'https://github.com/epicmaxco/vuestic-ui',
-          target: '_blank',
-        },
-        {
-          text: this.$t('menu.contribution'),
-          icon: 'fa fa-share-alt',
-          to: `/${(this as any).$root.$i18n.locale}/contribution/documentation-page`,
-        },
-      ],
-    }
+  get locale () {
+    return this.$root?.$i18n?.locale
+  }
+
+  get links () {
+    return [
+      {
+        text: this.$t('menu.overview'),
+        icon: 'fa fa-eye',
+        to: `/${this.locale}/introduction/overview`,
+      },
+      {
+        text: this.$t('menu.github'),
+        icon: 'fa fa-github',
+        url: 'https://github.com/epicmaxco/vuestic-ui',
+        target: '_blank',
+      },
+      {
+        text: this.$t('menu.contribution'),
+        icon: 'fa fa-share-alt',
+        to: `/${this.locale}/contribution/documentation-page`,
+      },
+    ]
   }
 
   toggleSidebar () {
