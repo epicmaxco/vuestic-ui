@@ -1,7 +1,7 @@
 import { ComponentConfig } from '../../component-config/component-config'
 
 export const getComponentsDefaultConfig = (): ComponentConfig => {
-  // TODO: Should be hanled in size service
+  // TODO: Should be handled in size service
   return {
     VaIcon: {
       sizesConfig: {

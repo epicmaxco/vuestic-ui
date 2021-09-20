@@ -1,9 +1,14 @@
 <template>
   <h3>
-    <MarkdownView tag="span" inline :value="textComputed" />
+    <MarkdownView
+      tag="span"
+      inline
+      :value="textComputed"
+    />
     <DocsAnchor :text="linkTextComputed" />
   </h3>
 </template>
+
 <script lang='ts'>
 import { TranslationString } from '../components/DocsApi/ManualApiOptions'
 import { Options, Vue, mixins, prop } from 'vue-class-component'
@@ -22,11 +27,11 @@ const PropsMixin = Vue.with(Props)
 })
 export default class DocsSubtitle extends mixins(PropsMixin) {
   get textComputed () {
-    return this.$t(this.text)
+    return this.$tie(this.text)
   }
 
   get linkTextComputed () {
-    return this.$t(this.text, 'en')
+    return this.$tie(this.text, 'en')
   }
 }
 </script>

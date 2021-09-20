@@ -5,9 +5,10 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "build:ci": "NODE_OPTIONS=--max_old_space_size=4096 vue-cli-service build",
+    "build:ci": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "lint:style": "stylelint '**/*.{vue,html,css,scss}'",
+    "test:unit": "vue-cli-service test:unit",
     "generate:component": "plop --plopfile src/scripts/generators/index.ts",
     "generate:docspage": "plop --plopfile src/scripts/generators/documentation.ts",
     "generate:translation": "plop --plopfile src/scripts/generators/language.ts",
@@ -18,6 +19,8 @@
     "precommit": "lint-staged --concurrent=false"
   },
   "dependencies": {
+    "ag-grid-community": "^26.0.0",
+    "ag-grid-vue3": "^26.0.0",
     "codesandbox": "^2.2.3",
     "core-js": "^3.12.1",
     "dedent": "^0.7.0",
@@ -37,6 +40,7 @@
   },
   "devDependencies": {
     "@types/dedent": "^0.7.0",
+    "@types/jest": "^26.0.20",
     "@types/lodash": "^4.14.168",
     "@typescript-eslint/eslint-plugin": "^4.14.2",
     "@typescript-eslint/parser": "^4.14.2",
@@ -44,6 +48,7 @@
     "@vue/cli-plugin-eslint": "^5.0.0-alpha.3",
     "@vue/cli-plugin-router": "^5.0.0-alpha.3",
     "@vue/cli-plugin-typescript": "^5.0.0-alpha.3",
+    "@vue/cli-plugin-unit-jest": "^5.0.0-alpha.3",
     "@vue/cli-plugin-vuex": "^5.0.0-alpha.3",
     "@vue/cli-service": "^5.0.0-alpha.3",
     "@vue/compiler-sfc": "^3.0.5",
@@ -55,25 +60,27 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.1.0",
     "eslint-plugin-vue": "^7.5.0",
-    "lint-staged": "^11.1.2",
     "i18n-unused": "^0.4.2",
+    "lint-staged": "^11.1.2",
     "node-sass": "^5.0.0",
     "plop": "^2.7.0",
     "sass-loader": "^10.1.1",
     "stylelint": "^13.13.1",
     "stylelint-config-standard": "^22.0.0",
+    "ts-jest": "^26.5.4",
     "typescript": "^4.2.4",
     "vue-auto-routing": "^1.0.1",
     "vue-class-component": "^8.0.0-rc.1",
     "vue-cli-plugin-auto-routing": "^1.2.0",
+    "vue-jest": "^5.0.0-alpha.7",
     "vue-property-decorator": "^9.1.2"
   },
   "lint-staged": {
     "*.{js,ts}": [
-      "vue-cli-service lint --fix"
+      "vue-cli-service lint"
     ],
     "*.vue": [
-      "vue-cli-service lint --fix",
+      "vue-cli-service lint",
       "stylelint '**/*.{vue,html,css,scss}' --fix"
     ],
     ".{htm,html,css,sss,less,scss}": [

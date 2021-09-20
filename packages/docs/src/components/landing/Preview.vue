@@ -11,16 +11,20 @@
           >
             {{$t('landing.preview.buttons.start')}}
           </va-button>
-          <va-button class="preview__buttons--button"
-            href="https://github.com/epicmaxco/vuestic-ui"
-            target="_blank"
-            :rounded="false"
-            color="primary"
-            flat
+          <va-popover class="preview__buttons--button"
+                      :message="this.$t('landing.preview.buttons.askForStars')"
+                      :model-value="askForStars"
           >
-            <va-icon class="fa fa-github" style="margin-right: 0.5rem;" />
-            {{$t('landing.preview.buttons.github')}}
-          </va-button>
+            <va-button href="https://github.com/epicmaxco/vuestic-ui"
+                       target="_blank"
+                       :rounded="false"
+                       color="primary"
+                       flat
+            >
+              <va-icon class="fa fa-github" style="margin-right: 0.5rem;" />
+              {{$t('landing.preview.buttons.github')}}
+            </va-button>
+          </va-popover>
         </div>
 <!--        <div class="preview__image">-->
 <!--          <div class="components-slideshow">-->
@@ -79,6 +83,9 @@
 <script>
 export default {
   name: 'LandingPreview',
+  data () {
+    return { askForStars: true }
+  },
 }
 </script>
 
@@ -216,6 +223,13 @@ export default {
     line-height: 1.6rem;
     color: $active-blue;
   }
+}
+
+::v-deep(.va-dropdown__anchor) {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
 }
 
 .components-slideshow {

@@ -7,21 +7,20 @@
       color="gray"
       @click="copy"
     >
-      <i class="docs-navigation__button__icon" :class="copyIcon" />
-      <span class="docs-navigation__button__text">{{ copyText }}</span>
+      <va-icon class="docs-navigation__button__icon" :class="copyButton.icon" size="sm" />
+      <span class="docs-navigation__button__text">{{ copyButton.text }}</span>
     </va-button>
 
     <va-button
-      v-for="(link, index) in links" :key="index"
       flat
       size="small"
       class="docs-navigation__button"
       color="gray"
-      :href="link.url"
+      :href="gitLink"
       target="_blank"
     >
-      <i class="docs-navigation__button__icon" :class="link.icon" />
-      <span class="docs-navigation__button__text">{{ link.text }}</span>
+      <va-icon class="docs-navigation__button__icon fa fa-github" size="sm" />
+      <span class="docs-navigation__button__text">{{ $t('docsNavigation.openGithub') }}</span>
     </va-button>
 
     <form :action="sandboxDefineUrl" method="POST" target="_blank">
@@ -33,8 +32,8 @@
         class="docs-navigation__button"
         color="gray"
       >
-        <i class="docs-navigation__button__icon" :class="codeIcon" />
-        <span class="docs-navigation__button__text">Open in CodeSandbox</span>
+        <va-icon class="docs-navigation__button__icon fa fa-code" size="sm" />
+        <span class="docs-navigation__button__text">{{ $t('docsNavigation.openCodeSandbox') }}</span>
       </va-button>
     </form>
   </div>
@@ -59,37 +58,36 @@ export default {
   data () {
     return {
       query: '?query=file=/src/App.vue',
-      links: [
-        {
-          text: 'Open in GitHub',
-          icon: 'fa fa-github',
-          url: `https://github.com/epicmaxco/vuestic-ui/tree/develop/packages/docs/src/examples/${this.gitUrl}.vue`,
-        },
-      ],
-      copyIcon: 'fa fa-files-o',
-      codeIcon: 'fa fa-code',
-      copyText: 'Copy code',
+      copyButtonState: 'default',
     }
   },
   methods: {
-    updateCopyButton (icon, text) {
-      this.copyIcon = icon
-      this.copyText = text
-    },
     async copy () {
       try {
         await window.navigator.clipboard.writeText(this.code)
-        this.updateCopyButton('fa fa-check', 'Copied')
+        this.copyButtonState = 'active'
       } catch (e) {
-        if (e.message === 'NotAllowedError') { this.updateCopyButton('fa fa-times', 'Permission failure!') }
+        if (e.message === 'NotAllowedError') {
+          this.copyButtonState = 'error'
+        }
       }
       setTimeout(() => {
-        this.copyText = 'Copy code'
-        this.copyIcon = 'fa fa-files-o'
+        this.copyButtonState = 'default'
       }, 1500)
     },
   },
   computed: {
+    copyButton () {
+      const buttonStates = {
+        active: { text: this.$t('docsNavigation.copyCopied'), icon: 'fa fa-check' },
+        error: { text: this.$t('docsNavigation.copyFailure'), icon: 'fa fa-times' },
+        default: { text: this.$t('docsNavigation.copyCode'), icon: 'fa fa-files-o' },
+      }
+      return buttonStates[this.copyButtonState]
+    },
+    gitLink () {
+      return `https://github.com/epicmaxco/vuestic-ui/tree/develop/packages/docs/src/examples/${this.gitUrl}.vue`
+    },
     sandboxDefineUrl () {
       return `https://codesandbox.io/api/v1/sandboxes/define${this.query}`
     },

@@ -30,8 +30,8 @@ export function useSelectableList (props: any) {
     return props.options.find((option: any) => value === getValue(option)) || value
   }
 
-  const getText = (option: any) => {
-    return typeof option === 'string'
+  const getText = (option: any): any => {
+    return typeof option === 'string' || typeof option === 'number'
       ? option
       : getProp(option, props.textBy)
   }

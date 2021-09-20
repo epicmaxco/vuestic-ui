@@ -5,17 +5,17 @@
       inline
       tag="span"
       v-if="preText"
-      :value="$t(preText)"
+      :value="$tie(preText)"
     />
     <router-link :to="linkHref">
-      {{ $t(text) }}
+      {{ $tie(text) }}
     </router-link>
     <MarkdownView
       class="DocsLink__after"
       inline
       tag="span"
       v-if="afterText"
-      :value="$t(afterText)"
+      :value="$tie(afterText)"
     />
   </p>
 </template>

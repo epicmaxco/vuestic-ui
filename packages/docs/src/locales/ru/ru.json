@@ -13,7 +13,8 @@
       "title": "Vue.js 3.0 UI Framework",
       "buttons": {
         "start": "Начать",
-        "github": "Открыть на GitHub"
+        "github": "Открыть на GitHub",
+        "askForStars": "Звезда на Github нам очень поможет"
       },
       "features": {
         "components": {
@@ -552,7 +553,7 @@
         "closeable": "Добавляет зону закрытия",
         "center": "Центрирование заголовка и сообщения",
         "borderColor": "Цвет для border",
-        "border": "Полоса border. Доступные опции расположения: `top`, `right`, `bottom`, `left`.",
+        "border": "Полоса border. Доступные опции расположения: `top`, `right`, `bottom`, `left`",
         "dense": "Уменьшает отступы вокруг сообщения"
       },
       "methods": {
@@ -863,7 +864,7 @@
         "mode": "Устанавливает режим date picker: один день, массив дней или период"
       },
       "events": {
-        "updateView": "Событие запускается, когда компоненту необходимо изменить `view`",
+        "updateView": "Вызывается при изменении \"типа представления (view)\" компонента. Типы представлений компонента: `\"year\"`, `\"month\"`, `\"day\"`.",
         "hoverYear": "Событие срабатывает при наведении курсора мыши на ячейку года",
         "clickYear": "Событие запускается при нажатии на ячейку года",
         "hoverDay": "Событие срабатывает при наведении курсора мыши на ячейку дня",
@@ -1123,7 +1124,7 @@
     "navbar": "Navbar",
     "toast": "Toast",
     "typography": "Типографика",
-    "agGridWrapper": "AG Grid Wrapper",
+    "agGrid": "AG Grid",
     "dataTable": "Data Table",
     "uiElementGuide": "Разработка элементов UI"
   },
@@ -1138,8 +1139,16 @@
       "button": "Ваша кнопка"
     }
   },
+  "docsNavigation": {
+    "copyCode": "Скопировать код",
+    "copyCopied": "Скопировано",
+    "copyFailure": "Ошибка копирования!",
+    "openGithub": "Открыть на GitHub",
+    "openCodeSandbox": "Открыть на CodeSandbox"
+  },
   "docsExample": {
-    "showCode": "Показать код"
+    "showCode": "Показать код",
+    "hideCode": "Скрыть код"
   },
   "documentationPage": {
     "compilesTo": "Компилируется в:",
@@ -3078,6 +3087,10 @@
       "subtitle": "Мы можем использовать VaConfig для переопределения свойств компонентов внутри `<va-config></va-config>`. Конфигурация компонентов для всех компонентов внутри тега `va-config` будет перезаписана на значение свойства `components`. Давайте посмотрим на демонстрацию ниже:",
       "explain": "Посмотрите на код. В этой демонстрации мы изменили цвет по умолчанию для всех наших компонентов `VaButton` и `VaIcons`. Также мы передаем свойство третьей кнопке, значение которой имеет более высокий приоритет, чем в scoped конфигурации."
     },
+    "defaultSizes": {
+      "title": "Размер по умолчанию",
+      "description": "Для переопределения размеров компонента по умолчанию можно использовать sizesConfig свойство. Пример использования можно увидеть ниже:"
+    },
     "api": {
       "title": "API конфигурации компонентов",
       "types": "Типы",
@@ -3235,11 +3248,14 @@
     "blockquote": "Цитата",
     "textBlock": "Текстовый блок"
   },
-  "ag-grid-wrapper": {
-    "title": "AG Grid Wrapper",
-    "description": "Работа в процессе",
-    "related": "Связанные материалы",
-    "styledTablesLink": "Стилизованные таблицы"
+  "ag-grid": {
+    "title": "AG Grid",
+    "description": "Если нужна более гибкая настройка отображения таблиц, то мы рекомендуем воспользоваться библиотекой <a href='https://www.ag-grid.com/vue-data-grid/getting-started'>AG Grid</a>. Vuestic UI предостовляет готовую тему стилей для этой библиотеки.",
+    "installation": "Установка AG Grid",
+    "dependencies": "Для того чтобы начать пользоваться AG Grid, установите зависимости в свой проект.",
+    "importStyles": "Затем сделайте импорт стилей, которые задают каркас таблиц и примените тему `ag-theme-vuestic` на компоненте таблицы.",
+    "simpleTableTitle": "Стилизация простой таблицы",
+    "setOfParams": "Для правильного рендеринга размеров ячеек необходимо передать компоненту таблицы минимальный набор свойст: rowHeight, headerHeight и minColWidth."
   },
   "dataTable": {
     "title": "Data Table",
@@ -3253,7 +3269,7 @@
     "highLevelStrategy": {
       "title": "Высокоуровневая стратегия",
       "description": {
-        "userExpectations": "Компоненты должны быть такими, какими их ожидает видеть пользователь. Мы достигаем этого, изучая следующие проекты ([Vuetify](https://vuetifyjs.com)[[target=_blank]], [Quasar](https://quasar.dev)[[target=_blank]], [Ant Design](https://ant.design)[[target=_blank]], [iView](http://iview.talkingdata.com)[[target=_blank]], [Element UI](https://element.eleme.io), etc.)[[target=_blank]].",
+        "userExpectations": "Компоненты должны быть такими, какими их ожидает видеть пользователь. Мы достигаем этого, изучая следующие проекты ([Vuetify](https://vuetifyjs.com)[[target=_blank]], [Quasar](https://quasar.dev)[[target=_blank]], [Ant Design](https://ant.design)[[target=_blank]], [iView](http://iview.talkingdata.com)[[target=_blank]], [Element UI](https://element.eleme.io)[[target=_blank]] и т.п.).",
         "qualityComponents": "Компоненты должны быть качественными. Мы достигаем этого путем ручного тестирования особых случаев + раннего и частого рефакторинга."
       }
     },
@@ -3262,7 +3278,7 @@
       "description": {
         "visualFeedback": "**Визуальная обратная связь** - когда пользователь взаимодействует с компонентом, он должен видеть результат своих действий (может быть реализован с помощью :active селектора или как-то иначе в зависимости от компонента).",
         "keyboardNavigation": "**Клавиатурная навигация** - Вы должны убедиться, что элементы пользовательского интерфейса доступны с клавиатуры, или же отключить эту функцию для элементов, которые не должны получать фокус через клавиатуру.",
-        "statelessSupport": "Поддержка **внутреннего состояния** компонента (прочтите об [StatefulMixin](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/vuestic-mixins/StatefulMixin/README.md)[[target=_blank]])."
+        "statelessSupport": "Поддержка **внутреннего состояния** компонента (прочтите об [StatefulMixin](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/mixins/StatefulMixin/README.md)[[target=_blank]])."
       }
     }
   }

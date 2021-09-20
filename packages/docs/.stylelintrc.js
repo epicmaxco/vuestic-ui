@@ -9,6 +9,7 @@ module.exports = {
     'color-hex-case': 'lower',
     'at-rule-no-unknown': null,
     'selector-pseudo-class-no-unknown': null,
+    'selector-pseudo-element-no-unknown': [true, { "ignorePseudoElements": ["v-deep"] }]
   },
   ignoreFiles: ['dist/**/*'],
 }
