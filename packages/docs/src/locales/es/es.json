@@ -358,5 +358,8 @@
   },
   "colors": {
     "title": "-- Here is the title --"
+  },
+  "treeShakingRequirements": {
+    "title": "-- Here is the title --"
   }
 }

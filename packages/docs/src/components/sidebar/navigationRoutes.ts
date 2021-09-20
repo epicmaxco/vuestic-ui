@@ -337,6 +337,10 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'ui-element-guide',
         displayName: 'menu.uiElementGuide',
       },
+      {
+        name: 'tree-shaking-requirements',
+        displayName: 'menu.treeShakingRequirements',
+      },
       // GENERATOR_ADD - contribution
     ],
   },

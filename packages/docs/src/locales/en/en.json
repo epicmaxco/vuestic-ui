@@ -1241,6 +1241,7 @@
     "agGrid": "AG Grid Theme",
     "dataTable": "Data Table",
     "uiElementGuide": "UI Element Guide",
+    "treeShakingRequirements": "Tree Shaking Requirements",
     "colors": "Colors",
     "timePicker": "Time Picker",
     "timeInput": "Time Input"
@@ -3536,6 +3537,10 @@
         "statelessSupport": "**Stateless support** (see the [StatefulMixin](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/mixins/StatefulMixin/README.md)[[target=_blank]])."
       }
     }
+  },
+  "treeShakingRequirements": {
+    "title": "Tree shaking requirements",
+    "description": "List of requirements that you should follow."
   },
   "timePicker": {
     "title": "Time Picker",
