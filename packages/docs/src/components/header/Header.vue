@@ -67,12 +67,16 @@ const PropsMixin = Vue.with(Props)
   },
 })
 export default class Header extends mixins(PropsMixin) {
+  get locale () {
+    return this.$root?.$i18n?.locale
+  }
+
   get links () {
     return [
       {
         text: this.$t('menu.overview'),
         icon: 'fa fa-eye',
-        to: `/${(this as any).$root.$i18n.locale}/introduction/overview`,
+        to: `/${this.locale}/introduction/overview`,
       },
       {
         text: this.$t('menu.github'),
@@ -83,9 +87,7 @@ export default class Header extends mixins(PropsMixin) {
       {
         text: this.$t('menu.contribution'),
         icon: 'fa fa-share-alt',
-        to: `/${
-          (this as any).$root.$i18n.locale
-        }/contribution/documentation-page`,
+        to: `/${this.locale}/contribution/documentation-page`,
       },
     ]
   }
