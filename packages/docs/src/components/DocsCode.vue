@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import PrismWrapper from './PrismWrapper';
+import PrismWrapper from './PrismWrapper'
 
 export default {
   name: 'DocsCode',
@@ -21,17 +21,22 @@ export default {
       default: '',
     },
   },
+  data () {
+    return {
+      doShowCode: true,
+    }
+  },
   components: {
     PrismWrapper,
   },
   computed: {
     formattedCode () {
-      let { code } = this;
+      let { code } = this
 
       code = this.removeFirstLineBreakIfExists(code)
       code = this.applyTranslations(code)
 
-      return code;
+      return code
     },
   },
   methods: {
@@ -55,14 +60,25 @@ export default {
       }
       return newCode
     },
-    applyTranslations(code) {
-      const replaces = code.match(/(?:\$t)\(.*?\)/) || [];
+    applyTranslations (code) {
+      const replaces = code.match(/(?:\$t)\(.*?\)/) || []
 
       return replaces.reduce((acc, replaceSource) => {
         const translation = replaceSource.replace(/(\$t|'|\(|\)|\[\d\])/gi, '')
 
         return acc.replace(replaceSource, this.$t(translation))
-      }, code);
+      }, code)
+    },
+  },
+  watch: {
+    code: {
+      handler () {
+        this.doShowCode = false
+        this.$nextTick(() => {
+          this.doShowCode = true // $nextTick() triggers v-if, that causes re-rendering of component.
+        })
+      },
+      immediate: true,
     },
   },
 }

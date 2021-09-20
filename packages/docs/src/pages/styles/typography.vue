@@ -1,5 +1,5 @@
 <template>
-  <docs-content :config="configComputed"/>
+  <docs-content :config="configComputed" />
 </template>
 
 <script lang="ts">
@@ -9,6 +9,7 @@ import typographyConfig
   from '../../components/page-configs/styles/typography/page-config'
 
 @Options({
+  name: 'DocsStylesTypography',
   components: {
     DocsContent,
   },

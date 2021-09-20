@@ -111,7 +111,7 @@
             <div class="customize__content--second">
               <div class="code-wrapper" @click="copyText">
                 <div class="code-subwrapper">
-                  <prism class="code" :code="code"/>
+                  <prism class="code" :code="code" />
                   <input type="hidden" ref="codeInput" :value="code">
                 </div>
               </div>
@@ -136,10 +136,11 @@ import 'prismjs'
 import dedent from 'dedent'
 // @ts-ignore
 import Prism from '../PrismWrapper'
-import { shiftHSLAColor } from '../../../../ui/src/services/color-config/color-functions'
-import { getColors } from '../../../../ui/src/services/color-config/color-config'
+import { shiftHSLAColor } from 'vuestic-ui/src/services/color-config/color-functions'
+import { getColors } from 'vuestic-ui/src/services/color-config/color-config'
 
 @Options({
+  name: 'LandingCustomize',
   components: { Prism, ColorTab },
 })
 export default class Customize extends Vue {

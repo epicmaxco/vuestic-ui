@@ -8,6 +8,7 @@ import DocsContent from '../../components/DocsContent.vue'
 import buttonConfig from '../../components/page-configs/ui-elements/va-button/page-config'
 
 @Options({
+  name: 'DocsButton',
   components: {
     DocsContent,
   },

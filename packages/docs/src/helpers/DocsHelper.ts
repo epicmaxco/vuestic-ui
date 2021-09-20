@@ -8,7 +8,7 @@ import {
   CodeString,
   LinkOptions,
   ExampleOptions, CodeLanguage, ListBlock,
-} from '@/types/configTypes'
+} from '../types/configTypes'
 import { DefineComponent } from 'vue'
 import { VueConstructor } from 'vue-class-component'
 import { TableData, TableColumn } from './../components/DocsTable/DocsTable'

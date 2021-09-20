@@ -8,6 +8,7 @@ import DocsContent from '../../components/DocsContent.vue'
 import affixConfig from '../../components/page-configs/ui-elements/va-affix/page-config'
 
 @Options({
+  name: 'DocsAffix',
   components: {
     DocsContent,
   },

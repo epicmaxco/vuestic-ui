@@ -1,7 +1,7 @@
 <template>
   <div class="docs-alert my-3">
     <va-alert :color="color">
-      <MarkdownView tag="span" inline :value="$t(text)" />
+      <MarkdownView tag="span" inline :value="$tie(text)" />
     </va-alert>
   </div>
 </template>
@@ -19,6 +19,7 @@ class Props {
 const PropsMixin = Vue.with(Props)
 
 @Options({
+  name: 'DocsAlert',
   components: { MarkdownView },
 })
 export default class DocsAlert extends mixins(PropsMixin) {

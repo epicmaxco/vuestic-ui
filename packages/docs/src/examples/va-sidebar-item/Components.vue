@@ -13,7 +13,7 @@
         >
           <va-sidebar-item-content>
             <va-sidebar-item-title>
-              {{ $t(route.displayName) }}
+              {{ $tie(route.displayName) }}
             </va-sidebar-item-title>
 
             <va-icon v-if="route.children" :name="accordionValue[idx] ? 'expand_less' : 'expand_more'" />
@@ -25,7 +25,7 @@
         <va-sidebar-item @click="setRouteActive(child)" :active="isRouteActive(child)">
           <va-sidebar-item-content>
             <va-sidebart-item-title>
-              {{ $t(child.displayName) }}
+              {{ $tie(child.displayName) }}
             </va-sidebart-item-title>
           </va-sidebar-item-content>
         </va-sidebar-item>

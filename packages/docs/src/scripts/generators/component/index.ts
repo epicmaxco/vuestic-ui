@@ -29,7 +29,7 @@ module.exports = {
     })
 
     // Generate docs
-    const docsBasePath = process.cwd()
+    const docsBasePath = `${process.cwd()}/src`
     const createDocsActions = [
       {
         type: 'add',
@@ -74,19 +74,19 @@ module.exports = {
     const createUiActions = [
       {
         type: 'add',
-        path: `${uiBasePath}/components/vuestic-components/va-{{kebabCase name}}/Va{{properCase name}}.vue`,
+        path: `${uiBasePath}/components/va-{{kebabCase name}}/Va{{properCase name}}.vue`,
         templateFile: './component/Component.vue.hbs',
         abortOnFail: false,
       },
       {
         type: 'add',
-        path: `${uiBasePath}/components/vuestic-components/va-{{kebabCase name}}/Va{{properCase name}}.demo.vue`,
+        path: `${uiBasePath}/components/va-{{kebabCase name}}/Va{{properCase name}}.demo.vue`,
         templateFile: './component/Component.demo.vue.hbs',
         abortOnFail: false,
       },
       {
         type: 'add',
-        path: `${uiBasePath}/components/vuestic-components/va-{{kebabCase name}}/tests/Va{{properCase name}}.spec.ts`,
+        path: `${uiBasePath}/components/va-{{kebabCase name}}/tests/Va{{properCase name}}.spec.ts`,
         templateFile: './component/Component.spec.ts.hbs',
         abortOnFail: false,
       },

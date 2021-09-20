@@ -84,7 +84,6 @@ video {
   margin: 0;
   padding: 0;
   border: 0;
-  font-style: normal;
   font-size: 100%;
   vertical-align: baseline;
   box-sizing: border-box;
@@ -143,6 +142,13 @@ table {
 
 ::-moz-focus-inner {
   border: 0;
+}
+
+button:-moz-focusring,
+[type="button"]:-moz-focusring,
+[type="reset"]:-moz-focusring,
+[type="submit"]:-moz-focusring {
+  outline: none;
 }
 
 :focus {

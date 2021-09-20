@@ -52,7 +52,9 @@ import { filterComponentProps, extractComponentProps } from '../va-date-picker/u
 import { useRangeModelValueGuard } from './hooks/range-model-value-guard'
 
 import VaDatePicker from '../va-date-picker/VaDatePicker.vue'
+import vaDropdown, { VaDropdownContent } from '../va-dropdown'
 import VaInput from '../va-input'
+import VaIcon from '../va-icon'
 import { VaDatePickerModelValue } from '../va-date-picker/types/types'
 
 const VaInputProps = {
@@ -69,7 +71,13 @@ const VaInputProps = {
 export default defineComponent({
   name: 'VaDateInput',
 
-  components: { VaDatePicker, VaInput },
+  components: {
+    vaDropdown,
+    VaDropdownContent,
+    VaDatePicker,
+    VaInput,
+    VaIcon,
+  },
 
   props: {
     ...extractComponentProps(VaDatePicker),

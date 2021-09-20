@@ -56,6 +56,10 @@ export const navigationRoutes: NavigationRoute[] = [
     disabled: true,
     children: [
       {
+        name: 'reset',
+        displayName: 'menu.reset',
+      },
+      {
         name: 'grid',
         displayName: 'menu.grid',
       },
@@ -72,8 +76,8 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: 'menu.typography',
       },
       {
-        name: 'ag-grid-wrapper',
-        displayName: 'menu.agGridWrapper',
+        name: 'ag-grid',
+        displayName: 'menu.agGrid',
         meta: {
           badge: 'wip',
         },
@@ -182,11 +186,10 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'file-upload',
         displayName: 'menu.fileUpload',
       },
-      // Temporary removed.
-      // {
-      //   name: 'popover',
-      //   displayName: 'menu.popover',
-      // },
+      {
+        name: 'popover',
+        displayName: 'menu.popover',
+      },
       {
         name: 'date-picker',
         displayName: 'menu.datePicker',

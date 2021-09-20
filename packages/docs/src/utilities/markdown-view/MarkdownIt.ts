@@ -1,7 +1,7 @@
 // @ts-ignore
 import MarkdownIt from 'markdown-it'
 import markdownItAttrs from 'markdown-it-attrs'
-import { locale } from '../../helpers/I18nHelper'
+import { locale } from '../../locales/i18n'
 import { setClassAttributeToExternalLinks, AttributesOptions } from './set-class-attribute-to-external-links'
 import {
   setOriginLocationToRelativeLinks,

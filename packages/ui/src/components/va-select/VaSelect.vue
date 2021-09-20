@@ -151,7 +151,7 @@ import { useColor } from '../../composables/useColor'
 import { useMaxSelections, useMaxSelectionsProps } from '../../composables/useMaxSelections'
 
 import { warn } from '../../services/utils'
-import VaDropdown from '../va-dropdown'
+import VaDropdown, { VaDropdownContent } from '../va-dropdown'
 import VaIcon from '../va-icon'
 import VaInput, { VaInputWrapper } from '../va-input'
 
@@ -168,6 +168,7 @@ export default defineComponent({
     VaSelectOptionList,
     VaIcon,
     VaDropdown,
+    VaDropdownContent,
     VaInput,
     VaInputWrapper,
   },
@@ -238,9 +239,9 @@ export default defineComponent({
 
   setup (props, context) {
     // DOM element or component instance will be assigned to these refs after initial render (template refs and reactive refs are unified in Composition API)
-    const select = ref(null as any)
-    const optionList = ref(null as any)
-    const searchBar = ref(null as any)
+    const select = ref<InstanceType<typeof HTMLElement>>()
+    const optionList = ref<InstanceType<typeof VaSelectOptionList>>()
+    const searchBar = ref<InstanceType<typeof VaInput>>()
 
     const { getOptionByValue, getValue, getText, getTrackBy } = useSelectableList(props)
     const { validate, isFocused, computedErrorMessages, computedError } = useFormComponent(props, context)
@@ -360,14 +361,6 @@ export default defineComponent({
       return false
     }
 
-    const selectedOption = computed(() => {
-      if (props.multiple) { return null }
-      if (!valueComputed.value) { return null }
-      if (!props.options) { return null }
-
-      return props.options.find((option: any) => compareOptions(option, valueComputed.value))
-    })
-
     const { exceedsMaxSelections, addOption } = useMaxSelections(valueComputed, ref(props.maxSelections), context.emit)
 
     const selectOption = (option: any): void => {
@@ -402,12 +395,12 @@ export default defineComponent({
         return
       }
 
-      if (allowCreateCheck()) {
+      if (allowedToCreate()) {
         addNewOption()
       }
     }
 
-    const allowCreateCheck = (): boolean => {
+    const allowedToCreate = (): boolean => {
       return !!(props.allowCreate && searchInput.value !== '')
     }
 

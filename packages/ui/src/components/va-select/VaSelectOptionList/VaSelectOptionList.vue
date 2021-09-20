@@ -133,7 +133,7 @@ export default class VaSelectOptionList extends mixins(
     }
 
     return (this.$props.options as []).filter((option: string) => {
-      const optionText = (this.$props.getText as Function)(option).toUpperCase()
+      const optionText = (this.$props.getText as Function)(option).toString().toUpperCase()
       const search = (this.$props.search as string).toUpperCase()
       return optionText.includes(search)
     })

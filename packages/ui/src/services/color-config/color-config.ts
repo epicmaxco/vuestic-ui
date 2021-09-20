@@ -47,11 +47,14 @@ export const getColor = (prop?: string, defaultColor: string = DEFAULT_COLOR): C
   return defaultColor
 }
 
-export const colorsToCSSVariable = (colors: { [colorName: string]: string }, prefix = 'va') => {
+export const colorsToCSSVariable = (colors: { [colorName: string]: string | undefined }, prefix = 'va') => {
   return Object
     .keys(colors)
     .filter((key) => colors[key] !== undefined)
-    .reduce((acc, colorName) => ({ ...acc, [`--${prefix}-${colorName}`]: getColor(colors[colorName]) }), {})
+    .reduce((acc: Record<string, any>, colorName: string) => {
+      acc[`--${prefix}-${colorName}`] = getColor(colors[colorName])
+      return acc
+    }, {})
 }
 
 // Here expose methods that user wants to use in vue component

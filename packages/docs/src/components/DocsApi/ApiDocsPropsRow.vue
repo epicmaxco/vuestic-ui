@@ -11,7 +11,7 @@
 
 <script lang="ts">
 import { Options, Vue, prop, mixins } from 'vue-class-component'
-import MarkdownView from '@/utilities/markdown-view/MarkdownView.vue'
+import MarkdownView from '../../utilities/markdown-view/MarkdownView.vue'
 import { ApiPropRowOptions } from './ApiTableData'
 
 class Props {
@@ -21,6 +21,7 @@ class Props {
 const PropsMixin = Vue.with(Props)
 
 @Options({
+  name: 'ApiDocsPropsRow',
   components: { MarkdownView },
 })
 export default class ApiDocsPropsRow extends mixins(PropsMixin) {

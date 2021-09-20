@@ -1,10 +1,8 @@
 import { ApiDocsBlock } from '../../../../../types/configTypes'
 import { DocsHelper } from '../../../../../helpers/DocsHelper'
-import { componentsConfigCode, iconsConfigCode } from '../code'
+import { componentsConfigCode, iconsConfigCode } from '../code-examples'
 
-const p = (t: string) => `colorsConfig.otherServices.${t}`
-
-export default [
+const config: ApiDocsBlock[] = [
   DocsHelper.subtitle('colorsConfig.otherServices.subtitle'),
 
   DocsHelper.paragraph('colorsConfig.otherServices.components'),
@@ -15,4 +13,6 @@ export default [
 
   DocsHelper.paragraph('colorsConfig.otherServices.css'),
   DocsHelper.example('colors-config/css-variable'),
-] as ApiDocsBlock[]
+]
+
+export default config
