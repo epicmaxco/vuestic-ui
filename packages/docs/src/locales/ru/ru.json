@@ -14,7 +14,7 @@
       "buttons": {
         "start": "Начать",
         "github": "Открыть на GitHub",
-        "askForStars": "Звезда на Github нам очень поможет"
+        "askForStars": "Звезда на Github поможет людям узнать о Vuestic"
       },
       "features": {
         "components": {
