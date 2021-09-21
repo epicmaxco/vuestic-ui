@@ -27,10 +27,10 @@ createApp(App)
       fonts: [
         {
           name: 'fa4-{iconName}',
-          resolve: ({iconName}) => ({ class: \`fa fa-\${code}\` }),
+          resolve: ({iconName}) => ({ class: \`fa fa-\${iconName}\` }),
         },
         {
-          name: 'flag-icon-{countryCode} {flagSize}'/,
+          name: 'flag-icon-{countryCode} {flagSize}',
           resolve: ({countryCode, flagSize}) => ({
             class: \`flag-icon flag-icon-\${countryCode} flag-icon-\${flagSize}\`
           }),
