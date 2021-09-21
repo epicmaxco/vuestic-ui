@@ -37,6 +37,7 @@
 <script>
 // Manually forked from https://github.com/vuetifyjs/vuetify/blob/master/packages/docs/src/components/doc/Example.vue
 // import VaContent from '../../ui/src/components/va-content/VaContent'
+import { ref, reactive, computed, shallowRef } from 'vue'
 import DocsCode from './DocsCode'
 import DocsNavigation from './DocsNavigation'
 import { readComponent, readTemplate } from '../utilities/utils'
@@ -54,63 +55,50 @@ export default {
       default: () => ({}),
     },
   },
-  data: () => ({
-    showCode: false,
-    component: undefined,
-    loading: false,
-    parsed: {
+  setup (props) {
+    const showCode = ref(false)
+    const parsed = reactive({
       template: '',
       style: '',
       script: '',
-    },
-  }),
-
-  computed: {
-    internalValue () {
-      if (this.value === Object(this.value)) {
-        return this.value
+    })
+    const file = computed(() => {
+      if (props.value === Object(props.value)) {
+        return props.value.file
       }
 
-      return { file: this.value }
-    },
-    file () {
-      return this.internalValue.file
-    },
-  },
-  mounted () {
-    this.importComponent()
-    this.getFiles()
-  },
-  methods: {
-    parse (res) {
-      const template = this.parseTemplate('template', res)
-      const style = this.parseTemplate('style', res)
-      const script = this.parseTemplate('script', res)
+      return props.value
+    })
+    const component = shallowRef(null)
 
-      this.parsed = {
-        template,
-        style,
-        script,
-      }
-    },
-    async getFiles () {
-      this.loading = true
-      await this.importTemplate()
-      this.loading = false
-    },
-    async importComponent () {
-      this.component = (await readComponent(this.file)).default
-    },
-    async importTemplate () {
-      const componentTemplate = (await readTemplate(this.file)).default
-      this.parse(componentTemplate)
-    },
-    parseTemplate (target, template) {
+    importComponent()
+    importTemplate()
+
+    async function importComponent () {
+      component.value = (await readComponent(file.value)).default
+    }
+    async function importTemplate () {
+      const componentTemplate = (await readTemplate(file.value)).default
+      parse(componentTemplate)
+    }
+    function parse (res) {
+      parsed.template = parseTemplate('template', res)
+      parsed.style = parseTemplate('style', res)
+      parsed.script = parseTemplate('script', res)
+    }
+    function parseTemplate (target, template) {
       const string = `(<${target}(.*)?>[\\w\\W]*<\\/${target}>)`
       const regex = new RegExp(string, 'g')
       const parsed = regex.exec(template) || []
       return parsed[1] || ''
-    },
+    }
+
+    return {
+      showCode,
+      parsed,
+      component,
+      file,
+    }
   },
 }
 </script>

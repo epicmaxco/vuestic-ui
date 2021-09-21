@@ -14,7 +14,7 @@
         :language="block.language"
       />
       <ApiDocs
-        v-else-if="BlockType.API === block.type"
+        v-else-if="block.type === BlockType.API"
         :key="block.type + index"
         :component-options="block.componentOptions"
         :api-options="block.apiOptions"
