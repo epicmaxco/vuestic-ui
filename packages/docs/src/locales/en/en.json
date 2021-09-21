@@ -268,6 +268,8 @@
         "value": "The current visibility state of the modal",
         "title": "Text content to place in the title",
         "message": "Content of modal body",
+        "attachElement": "A valid selector of element, where modal will be rendered",
+        "disableAttachment": "Ignore `attach-element` prop and render component as it's parent child",
         "size": "Set the size of the modal's width. `small`, `medium` (default) or `large`",
         "okText": "Text string to place in the default footer **Ok** button",
         "cancelText": "Text string to place in the default footer **Cancel** button",
