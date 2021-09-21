@@ -21,7 +21,7 @@ mergeGlobalConfig({
       },
       {
         name: 'pause',
-        to: 'fa4-prev',
+        to: 'fa4-pause',
         color: 'player-icon'
       },
       {

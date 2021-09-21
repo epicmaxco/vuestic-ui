@@ -7,7 +7,7 @@ export default {
 
     const setNewLookForOurApplication = () => {
       mergeGlobalConfig({
-        icons: { { name: 'phone', to: 'fas-phone' } },
+        icons: [{ name: 'phone', to: 'fas-phone' }],
         components: { VaButton: { ... } },
         colors: { 'primary': '#ff0' },
       })

@@ -3,7 +3,7 @@ import { VuesticPlugin } from 'vuestic-ui'
 
 createApp(App)
   .use(VuesticPlugin, {
-    icons: [ ... ],
+    icons: [...],
     components: { ... },
     colors: { ... },
   })

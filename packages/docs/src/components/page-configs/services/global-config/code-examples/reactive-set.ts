@@ -7,7 +7,7 @@ export default {
 
     const setNewLookForOurApplication = () => {
       setGlobalConfig({
-        icons: { ... },
+        icons: [...],
         components: { ... },
         colors: { ... },
       })
