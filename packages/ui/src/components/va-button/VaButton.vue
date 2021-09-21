@@ -350,6 +350,7 @@ export default class VaButton extends mixins(
 
     &.va-button--round {
       width: var(--va-button-lg-size);
+      height: var(--va-button-lg-size);
     }
 
     &.va-button--outline {
@@ -384,6 +385,7 @@ export default class VaButton extends mixins(
 
     &.va-button--round {
       width: var(--va-button-sm-size);
+      height: var(--va-button-sm-size);
     }
 
     &.va-button--outline {
@@ -419,6 +421,7 @@ export default class VaButton extends mixins(
 
     &.va-button--round {
       width: var(--va-button-size);
+      height: var(--va-button-size);
     }
 
     &.va-button--outline {
