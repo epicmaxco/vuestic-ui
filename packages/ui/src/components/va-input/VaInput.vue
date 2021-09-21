@@ -195,6 +195,9 @@ export default class VaInput extends mixins(
     if (this.$props.disabled) {
       classes.push(`${baseclass}_disabled`)
     }
+    if (this.$props.readonly) {
+      classes.push(`${baseclass}_readonly`)
+    }
 
     return classes
   }
@@ -288,6 +291,10 @@ export default class VaInput extends mixins(
   align-items: center;
   color: var(--va-input-text-color);
   cursor: var(--va-input-cursor);
+
+  &_readonly {
+    cursor: default;
+  }
 
   &_disabled {
     @include va-disabled;
