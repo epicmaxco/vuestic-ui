@@ -21,11 +21,12 @@
         @remove="$emit('remove', index)"
       />
     </template>
-    <va-file-upload-single-item
-      v-if="type === 'single' && filesList.length"
-      :file="filesList[filesList.length - 1]"
-      @remove="$emit('removeSingle')"
-    />
+    <template v-if="type === 'single' && filesList.length">
+      <va-file-upload-single-item
+        :file="filesList[filesList.length - 1]"
+        @remove="$emit('removeSingle')"
+      />
+    </template>
   </div>
 </template>
 

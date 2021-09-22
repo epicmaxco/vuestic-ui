@@ -138,7 +138,7 @@ export default defineComponent({
       }
     }
 
-    const removeFile = (index: number) => { files.value = files.value.slice(index, 0) }
+    const removeFile = (index: number) => { files.value = files.value.filter((item, idx) => idx !== index) }
 
     const removeSingleFile = () => { files.value = [] }
 
