@@ -22,6 +22,20 @@
           size="small"
           v-model="isTableLoading"
         />
+        <br />
+        <va-switch
+          class="mt-2"
+          label="Add (prepend) slots"
+          size="small"
+          v-model="prependSlot"
+        />
+        <br />
+        <va-switch
+          class="mt-2"
+          label="Add (append) slots"
+          size="small"
+          v-model="appendSlot"
+        />
       </div>
 
       <div class="flex mb-2 md4">
@@ -38,6 +52,14 @@
           v-model="footClone"
           :disabled="hideDefaultHeader"
         />
+        <br />
+        <va-switch
+          class="mt-2"
+          label="Allow foot sorting"
+          size="small"
+          v-model="footSorting"
+          :disabled="hideDefaultHeader || !footClone"
+        />
       </div>
     </div>
 
@@ -49,7 +71,29 @@
       :loading="isTableLoading"
       :hide-default-header="hideDefaultHeader"
       :foot-clone="footClone"
-    />
+      :allow-foot-sorting="footSorting"
+    >
+      <template #headPrepend v-if="prependSlot">
+        <tr><th colspan="8">Custom cell which span 8 cells (headPrepend slot)</th></tr>
+      </template>
+      <template #headAppend v-if="appendSlot">
+        <tr><th colspan="8">Custom cell which span 8 cells (headAppend slot)</th></tr>
+      </template>
+
+      <template #bodyPrepend v-if="prependSlot">
+        <tr><td colspan="8">Custom cell which span 8 cells (bodyPrepend slot)</td></tr>
+      </template>
+      <template #bodyAppend v-if="appendSlot">
+        <tr><td colspan="8">Custom cell which span 8 cells (bodyAppend slot)</td></tr>
+      </template>
+
+      <template #footPrepend v-if="prependSlot">
+        <tr><th colspan="8">Custom cell which span 8 cells (footPrepend slot)</th></tr>
+      </template>
+      <template #footAppend v-if="appendSlot">
+        <tr><th colspan="8">Custom cell which span 8 cells (footAppend slot)</th></tr>
+      </template>
+    </va-data-table>
   </div>
 </template>
 
@@ -198,6 +242,9 @@ export default defineComponent({
       isTableHoverable: true,
       hideDefaultHeader: false,
       footClone: true,
+      footSorting: true,
+      prependSlot: false,
+      appendSlot: false,
     }
   },
 })

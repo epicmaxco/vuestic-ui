@@ -132,6 +132,7 @@ export default defineComponent({
         verticalAlignHead: 'middle',
         align: 'center',
         verticalAlign: 'middle',
+        sortable: true,
       },
       {
         key: 'text',
@@ -140,6 +141,7 @@ export default defineComponent({
         verticalAlignHead: 'middle',
         align: 'center',
         verticalAlign: 'middle',
+        sortable: true,
       },
       {
         key: 'target',
@@ -148,6 +150,7 @@ export default defineComponent({
         verticalAlignHead: 'middle',
         align: 'center',
         verticalAlign: 'middle',
+        sortable: true,
       },
     ]
 

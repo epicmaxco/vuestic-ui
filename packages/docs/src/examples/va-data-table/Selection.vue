@@ -189,7 +189,7 @@ export default defineComponent({
       columns,
       selectable: true,
       selectedItems: [],
-      selectMode: 'single',
+      selectMode: 'multiple',
       selectedColor: 'danger',
     }
   },
