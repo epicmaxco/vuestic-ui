@@ -176,6 +176,7 @@ $max-image-size: 8.5714rem;
   &--focused {
     .va-file-upload-gallery-item__overlay {
       z-index: 3;
+      opacity: 1;
     }
 
     .va-file-upload-gallery-item {
@@ -194,7 +195,8 @@ $max-image-size: 8.5714rem;
     left: 0;
     flex-direction: column;
     padding: 0.5rem;
-    z-index: 0;
+    z-index: -1;
+    opacity: 0;
   }
 
   &__overlay-background {
