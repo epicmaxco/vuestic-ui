@@ -3,14 +3,17 @@ import { TableRow, ITableItem } from './useRows'
 
 // the available options for the `select-mode` prop
 export type TSelectMode = 'single' | 'multiple';
+export type TSelectableEmits = (
+  event: 'update:modelValue' | 'selectionChange',
+  arg: ITableItem[] | { currentlySelectedItems: ITableItem[], previouslySelectedItems: ITableItem[] }
+) => void;
 
-// TODO: the `emit` shouldn't be any!
 export default function useSelectable (
   rows: Ref<TableRow[]>,
   selectedItems: Ref<ITableItem[] | undefined>,
   selectable: Ref<boolean>,
   selectMode: Ref<TSelectMode>,
-  emit: any,
+  emit: TSelectableEmits,
 ) {
   const selectedItemsFallback = ref([] as ITableItem[])
 
