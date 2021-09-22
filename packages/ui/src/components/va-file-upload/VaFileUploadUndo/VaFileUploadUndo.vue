@@ -34,9 +34,12 @@ export default class VaFileUploadUndo extends Vue {
 
 .va-file-upload-undo {
   height: var(--va-file-upload-undo-height);
+  display: flex;
+  align-items: center;
 
   &__button {
     line-height: var(--va-file-upload-undo-button-line-height);
+    margin-left: var(--va-file-upload-undo-margin-left);
     margin-top: var(--va-file-upload-undo-button-margin-top);
     margin-bottom: var(--va-file-upload-undo-button-margin-bottom);
   }

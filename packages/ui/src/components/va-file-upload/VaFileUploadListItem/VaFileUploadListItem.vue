@@ -83,6 +83,7 @@ export default class VaFileUploadListItem extends mixins(FileUploadListItemProps
 
 <style lang='scss'>
 @import '../../../styles/resources/resources';
+@import 'variables';
 
 .va-file-upload-list-item {
   & + & {
@@ -108,7 +109,7 @@ export default class VaFileUploadListItem extends mixins(FileUploadListItemProps
   }
 
   &__size {
-    color: $gray-light;
+    color: var(--va-file-upload-list-item-size-text-color);
   }
 
   &__delete {
