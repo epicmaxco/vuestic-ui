@@ -1,5 +1,5 @@
 <template>
-  <va-date-input v-model="value" :format="formatFn" :parse="parseFn" :readonly="false" />
+  <va-date-input v-model="value" :format="formatFn" :parse="parseFn" manual-input />
 </template>
 
 <script>

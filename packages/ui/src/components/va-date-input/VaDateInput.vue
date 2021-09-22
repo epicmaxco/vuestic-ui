@@ -9,6 +9,7 @@
             class="va-date-input__input"
             :model-value="valueText"
             :error="!isValid"
+            :readonly="readonly || !manualInput"
             @cleared="onClear"
             @change="onInputTextChanged"
           >
@@ -16,7 +17,7 @@
               <slot name="appendInner" v-bind="slotScope">
                 <va-icon
                   name="calendar_today"
-                  class="va-date-picker__icon"
+                  class="va-date-input__icon"
                   size="small"
                   :color="color"
                 />
@@ -69,7 +70,7 @@ const VaInputProps = {
   tabindex: { type: Number, default: 0 },
   outline: { Boolean, default: false },
   bordered: { type: Boolean, default: false },
-  readonly: { type: Boolean, default: true },
+  readonly: { type: Boolean, default: false },
 }
 
 export default defineComponent({
@@ -96,6 +97,7 @@ export default defineComponent({
 
     delimiter: { type: String, default: ', ' },
     rangeDelimiter: { type: String, default: ' ~ ' },
+    manualInput: { type: Boolean, default: false },
   },
 
   emits: [
@@ -181,7 +183,7 @@ export default defineComponent({
       cursor: pointer;
     }
 
-    &__input {
+    &__input.va-input_readonly {
       cursor: pointer;
     }
 
