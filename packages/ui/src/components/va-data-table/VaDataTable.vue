@@ -16,11 +16,11 @@
       <colgroup v-if="'colgroup' in slots">
         <slot
           name="colgroup"
-          v-bind="columnsProxy"
+          v-bind="columnsModel"
         />
       </colgroup>
 
-      <thead>
+      <thead class="va-data-table__thead">
         <slot name="headPrepend" />
 
         <tr
@@ -28,7 +28,10 @@
           class="va-data-table__tr"
         >
 <!--          Only if `selectable` prop is true, render an additional column and if `select-mode` is `"multiple"` then render a checkbox clicking which selects/unselects all the rows (rendered as indeterminate if some rows are selected, but not all of them)-->
-          <th v-if="selectable">
+          <th
+            v-if="selectable"
+            class="va-data-table__th"
+          >
             <va-checkbox
               v-if="selectMode === 'multiple'"
               :model-value="severalRowsSelected ? 'idl' : allRowsSelected"
@@ -43,11 +46,12 @@
 
 <!--          Render the column headings (and apply sorting on clicks on a given heading). `column` here is an instance of `TableColumn`, not a prop, so don't be confused by WebStorm's warnings-->
           <th
-            v-for="column in columnsProxy"
+            v-for="column in columnsModel"
             :key="column.key"
             :title="column.headerTitle"
             @click.exact="toggleSorting(column)"
             :style="getHeadCSSVariables(column)"
+            class="va-data-table__th"
           >
             <div class="th__wrapper">
 <!--            Render a custom `head(columnKey)` slot if it's provided, or a custom common `head` (also if provided) or the column's label-->
@@ -67,12 +71,14 @@
               </slot>
 
               <div
-                v-if="column.sortable && sortByProxy === column.key && sortingOrderProxy !== null"
+                v-if="column.sortable"
                 class="th__sorting"
               >
                 <va-icon
                   :name="sortingOrderProxy === 'asc' ? 'expand_less' : 'expand_more'"
                   size="small"
+                  class="th__sorting-icon"
+                  :class="{ active: sortByProxy === column.key && sortingOrderProxy !== null }"
                 />
               </div>
             </div>
@@ -82,27 +88,23 @@
         <slot name="headAppend" />
       </thead>
 
-      <tbody>
+      <tbody class="va-data-table__tbody">
         <slot name="bodyPrepend" />
 
 <!--        Show the respective placeholder when there's no items either due to they're not provided or due to the harsh filtering conditions applied. When setting the colspan, make sure to account the possibly visible checkbox column-->
-        <tr
-          v-if="showNoDataHtml"
-          class="no-data"
-        >
+        <tr v-if="showNoDataHtml">
           <td
-            :colspan="columnsProxy.length + (selectable ? 1 : 0)"
+            :colspan="columnsModel.length + (selectable ? 1 : 0)"
             v-html="noDataHtml"
+            class="no-data"
           />
         </tr>
 
-        <tr
-          v-if="showNoDataFilteredHtml"
-          class="no-data"
-        >
+        <tr v-if="showNoDataFilteredHtml">
           <td
-            :colspan="columnsProxy.length + (selectable ? 1 : 0)"
+            :colspan="columnsModel.length + (selectable ? 1 : 0)"
             v-html="noDataFilteredHtml"
+            class="no-data"
           />
         </tr>
 
@@ -113,6 +115,7 @@
           @click.exact="toggleRowSelection(row)"
           @click.ctrl.exact="ctrlSelectRow(row)"
           @click.shift.exact="shiftSelectRows(row)"
+          class="va-data-table__tr"
           :class="{
             selectable,
             hoverable,
@@ -123,7 +126,10 @@
 <!--          Pagination. If there's some value to the `per-page` prop, then check if the element with that index should be visible. If no `per-page` then just render anyway.      -->
           <template v-if="perPage ? (index >= perPage * (currentPage - 1)) && (index < perPage * currentPage) : true">
 <!--          Render an additional column (for selectable tables only) with checkboxes to toggle selection-->
-            <td v-if="selectable">
+            <td
+              v-if="selectable"
+              class="va-data-table__td"
+            >
               <va-checkbox
                 :model-value="isRowSelected(row)"
                 @update:modelValue="ctrlSelectRow(row)"
@@ -137,6 +143,7 @@
               v-for="cell in row.cells"
               :key="cell.column.key + cell.row.initialIndex"
               :style="getCellCSSVariables(cell)"
+              class="va-data-table__td"
             >
 <!--            Substitute cell's content with with `cell(columnKey)` slot's value or common `cell` slot's value or (if neither exists) with that cell's actual value-->
               <slot
@@ -160,7 +167,10 @@
       </tbody>
 
 <!--      Duplicate header into footer if `footClone` prop is true-->
-      <tfoot v-if="footClone">
+      <tfoot
+        v-if="footClone"
+        class="va-data-table__tfoot"
+      >
         <slot name="footPrepend" />
 
         <tr
@@ -168,7 +178,10 @@
           class="va-data-table__tr"
         >
 <!--          Only if `selectable` prop is true, render an additional column and if `select-mode` is `"multiple"` then render a checkbox clicking which selects/unselects all the rows (rendered as indeterminate if some rows are selected, but not all of them)-->
-          <th v-if="selectable">
+          <th
+            v-if="selectable"
+            class="va-data-table__th"
+          >
             <va-checkbox
               v-if="selectMode === 'multiple'"
               :model-value="severalRowsSelected ? 'idl' : allRowsSelected"
@@ -183,11 +196,12 @@
 
 <!--          Render the column headings (and apply sorting on clicks on a given heading). `column` here is an instance of `TableColumn`, not a prop, so don't be confused by WebStorm's warnings-->
           <th
-            v-for="column in columnsProxy"
+            v-for="column in columnsModel"
             :key="column.key"
             :title="column.headerTitle"
             @click.exact="allowFootSorting ? toggleSorting(column) : () => {}"
             :style="getFootCSSVariables(column)"
+            class="va-data-table__th"
           >
             <div class="th__wrapper">
 <!--            Render a custom `foot(columnKey)` slot if it's provided, or a custom common `foot` (also if provided) or the column's label-->
@@ -207,12 +221,14 @@
               </slot>
 
               <div
-                v-if="allowFootSorting && column.sortable && sortByProxy === column.key && sortingOrderProxy !== null"
+                v-if="allowFootSorting && column.sortable"
                 class="th__sorting"
               >
                 <va-icon
                   :name="sortingOrderProxy === 'asc' ? 'expand_less' : 'expand_more'"
                   size="small"
+                  class="th__sorting-icon"
+                  :class="{ active: sortByProxy === column.key && sortingOrderProxy !== null }"
                 />
               </div>
             </div>
@@ -411,7 +427,7 @@ export default defineComponent({
     // expose
     return {
       slots,
-      columnsProxy: columns,
+      columnsModel: columns,
       rows,
       selectedItems: selectedItemsProxy,
       toggleRowSelection,
@@ -442,7 +458,22 @@ export default defineComponent({
   width: 100%;
   cursor: default;
 
-  .va-data-table__tr th {
+  .va-data-table__thead {
+    border-bottom: 2px solid var(--va-dark);
+  }
+
+  .va-data-table__tbody {
+    .no-data {
+      text-align: center;
+      vertical-align: middle;
+    }
+  }
+
+  .va-data-table__tfoot {
+    border-top: 2px solid var(--va-dark);
+  }
+
+  .va-data-table__th {
     padding: 0.625rem;
     text-align: var(--align);
     vertical-align: var(--vertical-align);
@@ -453,11 +484,6 @@ export default defineComponent({
     letter-spacing: 0.6px;
     cursor: var(--cursor);
 
-    span {
-      line-height: 1.2rem;
-      flex-grow: 1;
-    }
-
     .th__wrapper {
       display: flex;
       align-items: center;
@@ -466,14 +492,38 @@ export default defineComponent({
     .th__sorting {
       justify-self: end;
     }
+
+    .th__sorting-icon {
+      opacity: 0;
+      user-select: none;
+      pointer-events: none;
+
+      &.active {
+        opacity: 1;
+        pointer-events: initial;
+      }
+    }
+
+    span {
+      line-height: 1.2rem;
+      flex-grow: 1;
+    }
+
+    &:hover {
+      .th__sorting-icon:not(.active) {
+        opacity: 0.3;
+      }
+    }
   }
 
-  thead {
-    border-bottom: 2px solid var(--va-dark);
+  .va-data-table__td {
+    padding: 0.625rem;
+    text-align: var(--align);
+    vertical-align: var(--vertical-align);
   }
 
-  tbody {
-    tr.selectable {
+  .va-data-table__tr {
+    &.selectable {
       cursor: pointer;
 
       &:hover {
@@ -484,30 +534,19 @@ export default defineComponent({
         background-color: var(--selected-color);
       }
     }
-
-    td {
-      padding: 0.625rem;
-      text-align: var(--align);
-      vertical-align: var(--vertical-align);
-    }
   }
 
   &.striped {
-    tbody {
-      .no-data {
-        text-align: center;
-        vertical-align: middle;
-      }
-
-      tr:nth-child(2n) {
+    .va-data-table__tbody {
+      .va-data-table__tr:nth-child(2n) {
         background-color: #f5f8f9;
       }
     }
   }
 
   &.hoverable:not(.selectable) {
-    tbody {
-      tr {
+    .va-data-table__tbody {
+      .va-data-table__tr {
         &:hover {
           background-color: var(--hover-color);
         }
@@ -516,8 +555,8 @@ export default defineComponent({
   }
 
   &.striped.selectable {
-    tbody {
-      tr:nth-child(2n) {
+    .va-data-table__tbody {
+      .va-data-table__tr:nth-child(2n) {
         &:hover {
           background-color: var(--hover-color);
         }
@@ -527,10 +566,6 @@ export default defineComponent({
         }
       }
     }
-  }
-
-  tfoot {
-    border-top: 2px solid var(--va-dark);
   }
 }
 </style>
