@@ -252,11 +252,6 @@ export default class VaInput extends mixins(
   }
 
   /** @public */
-  getCleave () {
-    return this.inputElement
-  }
-
-  /** @public */
   focus (): void {
     if (this.$refs.input) {
       (this as any).$refs.input.focus({ preventScroll: true })
