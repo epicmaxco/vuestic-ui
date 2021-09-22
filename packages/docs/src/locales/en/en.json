@@ -2623,6 +2623,10 @@
       "colors": {
         "title": "Colors",
         "text": "You can change colors using CSS variables for deeper customization, but also you can simple change colors using props."
+      },
+      "readonly": {
+        "title": "Readonly",
+        "text": "Readonly picker for readonly forms."
       }
     }
   },

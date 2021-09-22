@@ -14,6 +14,7 @@
       'va-date-picker-cell_highlighted-weekend': highlightWeekend && weekend,
       'va-date-picker-cell_selected': selected,
       'va-date-picker-cell_focused': focused,
+      'va-date-picker-cell_readonly': readonly,
     }"
     @click="onClick"
     @keypress.space.enter.prevent.stop="onClick"
@@ -39,6 +40,7 @@ export default defineComponent({
     focused: { type: Boolean, default: false },
     highlightWeekend: { type: Boolean, default: false },
     highlightToday: { type: Boolean, default: false },
+    readonly: { type: Boolean, default: false },
   },
 
   emits: ['click'],
@@ -185,6 +187,14 @@ export default defineComponent({
         background-color: var(--va-date-picker-today-background);
         opacity: var(--va-date-picker-today-background-opacity);
       }
+    }
+  }
+
+  &_readonly {
+    cursor: default;
+
+    &::before {
+      display: none;
     }
   }
 }
