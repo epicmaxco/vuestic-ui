@@ -3,14 +3,17 @@ import { computed, ref, Ref, watch } from 'vue'
 import { TableRow } from './useRows'
 
 export type TSortingOrder = 'asc' | 'desc' | null;
+export type TSortableEmits = (
+  event: 'update:sortBy' | 'update:sortingOrder' | 'sort',
+  args: string | TSortingOrder | { sortBy: string, sortingOrder: TSortingOrder },
+) => void;
 
-// TODO: don't use "any" as a type for emit! There must be a better solution.
 export default function useSortable (
   columns: Ref<TableColumn[]>,
   rows: Ref<TableRow[]>,
   sortBy: Ref<string | undefined>,
   sortingOrder: Ref<TSortingOrder | undefined>,
-  emit: any,
+  emit: TSortableEmits,
 ) {
   const sortByFallback = ref('')
 
@@ -90,8 +93,8 @@ export default function useSortable (
     }
 
     emit('sort', {
-      sortBy: sortByProxy,
-      sortingOrder: sortingOrderProxy,
+      sortBy: sortByProxy.value,
+      sortingOrder: sortingOrderProxy.value,
     })
   }
 
