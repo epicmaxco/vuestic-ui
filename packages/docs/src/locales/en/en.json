@@ -2627,6 +2627,10 @@
       "readonly": {
         "title": "Readonly",
         "text": "Readonly picker for readonly forms."
+      },
+      "disabled": {
+        "title": "Disabled",
+        "text": "Disabled picker that can be used in forms."
       }
     }
   },

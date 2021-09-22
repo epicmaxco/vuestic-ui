@@ -82,6 +82,12 @@ const config: ApiDocsBlock[] = [
     'va-date-picker/Readonly',
   ),
 
+  ...DocsHelper.exampleBlock(
+    'datePicker.examples.disabled.title',
+    'datePicker.examples.disabled.text',
+    'va-date-picker/Disabled',
+  ),
+
   DocsHelper.subtitle('all.api'),
   DocsHelper.api(VaDatePicker, apiOptions),
 ]

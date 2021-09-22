@@ -1,5 +1,5 @@
 <template>
-  <div class="va-date-picker" :class="{ 'va-date-picker__without-week-days': hideWeekDays }" :style="colorsStyle">
+  <div class="va-date-picker" :class="classComputed" :style="colorsStyle">
     <va-date-picker-header
       v-bind="headerProps"
       v-model:view="syncView"
@@ -62,7 +62,7 @@
 </template>
 
 <script lang="ts">
-import { ComponentOptions, defineComponent, nextTick, PropType, ref, watch } from 'vue'
+import { ComponentOptions, computed, defineComponent, nextTick, PropType, ref, watch } from 'vue'
 import { useStateful, statefulComponentOptions } from '../../mixins/StatefulMixin/cStatefulMixin'
 import { useColors } from '../../services/color-config/color-config'
 
@@ -94,6 +94,7 @@ export default defineComponent({
     view: { type: Object as PropType<VaDatePickerView> },
     type: { type: String as PropType<VaDatePickerType>, default: 'day' },
     readonly: { type: Boolean, default: false },
+    disabled: { type: Boolean, default: false },
 
     // Colors
     color: { type: String, default: undefined },
@@ -112,6 +113,11 @@ export default defineComponent({
     const { valueComputed } = useStateful(props, emit, undefined)
 
     const { syncView } = useView(props, emit, { type: props.type })
+
+    const classComputed = computed(() => ({
+      'va-date-picker_without-week-days': props.hideWeekDays,
+      'va-date-picker_disabled': props.disabled,
+    }))
 
     const onDayModelValueUpdate = (modelValue: VaDatePickerModelValue) => {
       if (props.readonly) { return }
@@ -179,6 +185,7 @@ export default defineComponent({
 
       syncView,
 
+      classComputed,
       valueComputed,
 
       onDayModelValueUpdate,
@@ -210,7 +217,7 @@ export default defineComponent({
     height: var(--va-date-picker-content-height);
   }
 
-  &__without-week-days {
+  &_without-week-days {
     --va-date-picker-content-height: calc(var(--va-date-picker-cell-size) * 6 + var(--va-date-picker-cell-gap) * 6);
   }
 
@@ -219,6 +226,19 @@ export default defineComponent({
     .va-month-picker,
     .va-year-picker {
       height: 100%;
+    }
+  }
+
+  &_disabled {
+    opacity: 0.4;
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      z-index: 100;
     }
   }
 }
