@@ -1,97 +1,99 @@
 <template>
-  <div class="va-modal">
-    <modal-element
-      name="va-modal__overlay--transition"
-      :isTransition="!$props.withoutTransitions"
-      appear
-    >
-      <div
-        v-if="valueComputed && $props.overlay"
-        class="va-modal__overlay"
-        :style="computedOverlayStyles"
-      />
-    </modal-element>
-    <modal-element
-      name="va-modal__container--transition"
-      :isTransition="!$props.withoutTransitions"
-      appear
-      @beforeEnter="onBeforeEnterTransition"
-      @afterEnter="onAfterEnterTransition"
-      @beforeLeave="onBeforeLeaveTransition"
-      @afterLeave="onAfterLeaveTransition"
-    >
-      <div
-        v-if="valueComputed"
-        class="va-modal__container"
-        :style="computedModalContainerStyle"
+  <teleport v-if='valueComputed' :to="attachElement" :disabled="disableAttachment">
+    <div class="va-modal">
+      <modal-element
+        name="va-modal__overlay--transition"
+        :isTransition="!$props.withoutTransitions"
+        @click="onOutsideClick"
+        appear
       >
         <div
-          class="va-modal__dialog"
-          :class="computedClass"
-          :style="{ maxWidth: $props.maxWidth, maxHeight: $props.maxHeight }"
-          ref="modal"
+          class="va-modal__overlay"
+          :style="$props.overlay && computedOverlayStyles"
+        />
+      </modal-element>
+      <modal-element
+        name="va-modal__container--transition"
+        :isTransition="!$props.withoutTransitions"
+        appear
+        @beforeEnter="onBeforeEnterTransition"
+        @afterEnter="onAfterEnterTransition"
+        @beforeLeave="onBeforeLeaveTransition"
+        @afterLeave="onAfterLeaveTransition"
+      >
+        <div
+          v-if="valueComputed"
+          class="va-modal__container"
+          :style="computedModalContainerStyle"
         >
-          <va-icon
-            v-if="$props.fullscreen"
-            @click="cancel()"
-            name="close"
-            class="va-modal__close"
-          />
-
           <div
-            class="va-modal__inner"
+            class="va-modal__dialog"
+            :class="computedClass"
             :style="{ maxWidth: $props.maxWidth, maxHeight: $props.maxHeight }"
+            ref="modal"
           >
+            <va-icon
+              v-if="$props.fullscreen"
+              @click="cancel()"
+              name="close"
+              class="va-modal__close"
+            />
+
             <div
-              v-if="title"
-              class="va-modal__title"
-              :style="{ color: theme.getColor('primary') }"
+              class="va-modal__inner"
+              :style="{ maxWidth: $props.maxWidth, maxHeight: $props.maxHeight }"
             >
-              {{ $props.title }}
-            </div>
-            <div v-if="hasHeaderSlot" class="va-modal__header">
-              <slot name="header" />
-            </div>
-            <div v-if="$props.message" class="va-modal__message">
-              {{ $props.message }}
-            </div>
-            <div v-if="hasContentSlot" class="va-modal__message">
-              <slot />
-            </div>
-            <div
-              v-if="($props.cancelText || $props.okText) && !$props.hideDefaultActions"
-              class="va-modal__footer"
-            >
-              <va-button v-if="$props.cancelText" color="gray" class="mr-2" flat @click="cancel">
-                {{ $props.cancelText }}
-              </va-button>
-              <va-button @click="ok">
-                {{ $props.okText }}
-              </va-button>
-            </div>
-            <div v-if="hasFooterSlot" class="va-modal__footer">
-              <slot name="footer" />
+              <div
+                v-if="title"
+                class="va-modal__title"
+                :style="{ color: theme.getColor('primary') }"
+              >
+                {{ $props.title }}
+              </div>
+              <div v-if="hasHeaderSlot" class="va-modal__header">
+                <slot name="header" />
+              </div>
+              <div v-if="$props.message" class="va-modal__message">
+                {{ $props.message }}
+              </div>
+              <div v-if="hasContentSlot" class="va-modal__message">
+                <slot />
+              </div>
+              <div
+                v-if="($props.cancelText || $props.okText) && !$props.hideDefaultActions"
+                class="va-modal__footer"
+              >
+                <va-button v-if="$props.cancelText" color="gray" class="mr-2" flat @click="cancel">
+                  {{ $props.cancelText }}
+                </va-button>
+                <va-button @click="ok">
+                  {{ $props.okText }}
+                </va-button>
+              </div>
+              <div v-if="hasFooterSlot" class="va-modal__footer">
+                <slot name="footer" />
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </modal-element>
-  </div>
+      </modal-element>
+    </div>
+  </teleport>
 </template>
 
 <script lang="ts">
 import { watch, h, Transition } from 'vue'
 import { Options, prop, Vue, mixins } from 'vue-class-component'
-import { noop } from 'lodash-es'
 
 import ColorMixin from '../../services/color-config/ColorMixin'
 import { StatefulMixin } from '../../mixins/StatefulMixin/StatefulMixin'
-import ClickOutsideMixin, { ClickOutsideOptions } from '../../mixins/ClickOutsideMixin/ClickOutsideMixin'
 import VaButton from '../va-button'
 import VaIcon from '../va-icon'
 
 class ModalProps {
   modelValue = prop<boolean>({ type: Boolean, default: false })
+  attachElement = prop<string>({ type: String, default: 'body' })
+  disableAttachment = prop<boolean>({ type: Boolean, default: false })
   title = prop<string>({ type: String, default: '' })
   message = prop<string>({ type: String, default: '' })
   okText = prop<string>({ type: String, default: 'OK' })
@@ -117,7 +119,7 @@ class ModalProps {
   overlay = prop<boolean>({ type: Boolean, default: true })
   overlayOpacity = prop<number | string>({
     type: [Number, String],
-    default: undefined,
+    default: 0.6,
   })
 
   zIndex = prop<number | string>({ type: [Number, String], default: undefined })
@@ -157,34 +159,13 @@ class ModalElement extends Vue.with(ModalElementProps) {
 export default class VaModal extends mixins(
   ColorMixin,
   StatefulMixin,
-  ClickOutsideMixin,
   ModalPropsMixin,
 ) {
-  private clearClickOutsideEvents: () => void = noop
-
   created () {
     watch(() => this.valueComputed, (valueComputed: boolean) => {
       if (valueComputed) {
         window.addEventListener('keyup', this.listenKeyUp)
-
-        const options: ClickOutsideOptions = {
-          onClickOutside: () => {
-            this.$emit('click-outside')
-            this.cancel()
-          },
-          disabled: this.$props.noOutsideDismiss || this.$props.noDismiss || false,
-          trigger: 'mousedown',
-        }
-
-        this.$nextTick(() => {
-          const target = this.$refs.modal
-          this.clearClickOutsideEvents = this.registerClickOutsideEvents(
-            target as Element,
-            options,
-          )
-        })
       } else {
-        this.clearClickOutsideEvents()
         window.removeEventListener('keyup', this.listenKeyUp)
       }
     })
@@ -211,9 +192,8 @@ export default class VaModal extends mixins(
     return moreThanOneModalIsOpen
       ? {}
       : {
-        'background-color': `rgba(0, 0, 0, ${this.$props.overlayOpacity || 0.6})`,
-        'z-index':
-          this.$props.zIndex != null ? parseInt(this.$props.zIndex as string) - 10 : undefined,
+        'background-color': `rgba(0, 0, 0, ${this.$props.overlayOpacity})`,
+        'z-index': this.$props.zIndex ? Number(this.$props.zIndex) - 10 : undefined,
       }
   }
 
@@ -263,6 +243,11 @@ export default class VaModal extends mixins(
     }
   }
 
+  onOutsideClick () {
+    this.$emit('click-outside')
+    this.cancel()
+  }
+
   onBeforeEnterTransition (el: HTMLElement) {
     this.$emit('before-open', el)
   }
@@ -286,6 +271,17 @@ export default class VaModal extends mixins(
 @import 'variables';
 
 .va-modal {
+  position: var(--va-modal-container-position);
+  display: var(--va-modal-container-display);
+  align-items: var(--va-modal-container-align-items);
+  justify-content: var(--va-modal-container-justify-content);
+  width: var(--va-modal-container-width);
+  height: var(--va-modal-container-height);
+  top: var(--va-modal-container-top);
+  left: var(--va-modal-container-left);
+  overflow: var(--va-modal-container-overflow);
+  outline: var(--va-modal-container-outline);
+
   &__title {
     margin-bottom: 1.5rem;
 
@@ -293,17 +289,7 @@ export default class VaModal extends mixins(
   }
 
   &__container {
-    position: var(--va-modal-container-position);
-    top: var(--va-modal-container-top);
-    left: var(--va-modal-container-left);
     z-index: var(--va-modal-container-z-index);
-    display: var(--va-modal-container-display);
-    width: var(--va-modal-container-width);
-    height: var(--va-modal-container-height);
-    align-items: var(--va-modal-container-align-items);
-    justify-content: var(--va-modal-container-justify-content);
-    overflow: var(--va-modal-container-overflow);
-    outline: var(--va-modal-container-outline);
 
     &--transition {
       @include va-modal-transition();
