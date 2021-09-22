@@ -64,9 +64,9 @@
                 </router-link>
               </va-list-item-section>
             </va-list-item>
-            <va-list-item class="star-button-wrapper">
+            <div class="star-button-wrapper">
               <stars-button repo="epicmaxco/vuestic-admin" />
-            </va-list-item>
+            </div>
           </va-list>
         </nav>
       </div>
