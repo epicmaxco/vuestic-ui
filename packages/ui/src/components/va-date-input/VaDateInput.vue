@@ -1,19 +1,23 @@
 <template>
   <div class="va-date-input">
-    <va-dropdown v-model="isOpenSync" :offset="[0, 10]" :close-on-content-click="false">
+    <va-dropdown v-model="isOpenSync" :offset="[0, 10]" :close-on-content-click="false" :disabled="disabled">
       <template #anchor>
         <slot name="input" v-bind="{ valueText, inputProps, color }">
           <va-input
-            v-model="valueText"
             v-bind="inputProps"
+            ref="input"
             class="va-date-input__input"
+            :model-value="valueText"
+            :error="!isValid"
+            :readonly="readonly || !manualInput"
             @cleared="onClear"
+            @change="onInputTextChanged"
           >
             <template #appendInner="slotScope">
               <slot name="appendInner" v-bind="slotScope">
                 <va-icon
                   name="calendar_today"
-                  class="va-date-picker__icon"
+                  class="va-date-input__icon"
                   size="small"
                   :color="color"
                 />
@@ -43,13 +47,14 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, toRefs, watch } from 'vue'
+import { computed, defineComponent, PropType, toRefs, watch, ref } from 'vue'
 import { useStateful } from '../../mixins/StatefulMixin/cStatefulMixin'
 
 import { isRange, isSingleDate, isDates } from '../va-date-picker/hooks/model-value-helper'
 import { useSyncProp } from '../va-date-picker/hooks/sync-prop'
 import { filterComponentProps, extractComponentProps } from '../va-date-picker/utils/child-props'
 import { useRangeModelValueGuard } from './hooks/range-model-value-guard'
+import { useDateParser } from './hooks/date-text-parser'
 
 import VaDatePicker from '../va-date-picker/VaDatePicker.vue'
 import vaDropdown, { VaDropdownContent } from '../va-dropdown'
@@ -64,8 +69,9 @@ const VaInputProps = {
   clearable: { type: Boolean, default: false },
   tabindex: { type: Number, default: 0 },
   outline: { Boolean, default: false },
-  bordered: { Boolean, default: false },
-  readonly: { Boolean, default: true },
+  bordered: { type: Boolean, default: false },
+  readonly: { type: Boolean, default: false },
+  disabled: { type: Boolean, default: false },
 }
 
 export default defineComponent({
@@ -84,7 +90,15 @@ export default defineComponent({
     ...VaInputProps,
     resetOnClose: { type: Boolean, default: true },
     isOpen: { type: Boolean },
+
     format: { type: Function as PropType<(date: VaDatePickerModelValue | undefined) => string> },
+    formatDate: { type: Function as PropType<(date: Date) => string>, default: () => (d: Date) => d.toLocaleDateString() },
+    parse: { type: Function as PropType<(input: string) => VaDatePickerModelValue> },
+    parseDate: { type: Function as PropType<(input: string) => Date> },
+
+    delimiter: { type: String, default: ', ' },
+    rangeDelimiter: { type: String, default: ' ~ ' },
+    manualInput: { type: Boolean, default: false },
   },
 
   emits: [
@@ -105,37 +119,43 @@ export default defineComponent({
     const { valueComputed, reset } = useRangeModelValueGuard(statefulValue, isRangeModelValueGuardDisabled)
     watch(isOpenSync, (isOpened) => { if (!isOpened && !isRangeModelValueGuardDisabled.value) { reset() } })
 
-    const dateOrNothing = (date: Date | undefined | null) => {
-      if (!date) { return '...' }
-      return date.toDateString()
-    }
+    const dateOrNothing = (date: Date | undefined | null) => date ? props.formatDate(date) : '...'
 
-    const valueText = computed({
-      get: () => {
-        if (props.format) {
-          return props.format(valueComputed.value)
-        }
+    const input = ref(0)
 
-        if (!valueComputed.value) { return '' }
+    const { parseDateInputValue, isValid } = useDateParser(props)
 
-        if (isDates(valueComputed.value)) {
-          return valueComputed.value.map((d) => d.toDateString()).join(', ')
-        }
-        if (isSingleDate(valueComputed.value)) {
-          return valueComputed.value.toDateString()
-        }
-        if (isRange(valueComputed.value)) {
-          return dateOrNothing(valueComputed.value.start) + ' ~ ' + dateOrNothing(valueComputed.value.end)
-        }
+    const valueText = computed(() => {
+      if (!isValid.value) {
+        return ''
+      }
 
-        throw new Error('VaDatePicker: Invalid model value. Value should be Date, Date[] or { start: Date, end: Date | null }')
-      },
-      set (value: string) {
-        // TODO: Parse value from input
-      },
+      if (props.format) {
+        return props.format(valueComputed.value)
+      }
+
+      if (!valueComputed.value) { return '' }
+
+      if (isDates(valueComputed.value)) {
+        return valueComputed.value.map((d) => props.formatDate(d)).join(props.delimiter)
+      }
+      if (isSingleDate(valueComputed.value)) {
+        return props.formatDate(valueComputed.value)
+      }
+      if (isRange(valueComputed.value)) {
+        return dateOrNothing(valueComputed.value.start) + props.rangeDelimiter + dateOrNothing(valueComputed.value.end)
+      }
+
+      throw new Error('VaDatePicker: Invalid model value. Value should be Date, Date[] or { start: Date, end: Date | null }')
     })
 
-    watch(valueText, (text) => emit('update:text', text))
+    const onInputTextChanged = (text: string) => {
+      const parsedValue = parseDateInputValue(text)
+
+      if (isValid.value) {
+        valueComputed.value = parsedValue
+      }
+    }
 
     const onClear = () => { valueComputed.value = undefined }
 
@@ -143,7 +163,11 @@ export default defineComponent({
       valueText,
       valueComputed,
       isOpenSync,
+      isValid,
       onClear,
+      onInputTextChanged,
+
+      input,
 
       inputProps: filterComponentProps(props, VaInputProps),
       datePickerProps: filterComponentProps(props, extractComponentProps(VaDatePicker)),
@@ -160,7 +184,7 @@ export default defineComponent({
       cursor: pointer;
     }
 
-    &__input {
+    &__input.va-input_readonly {
       cursor: pointer;
     }
 

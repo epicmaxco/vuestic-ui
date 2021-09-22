@@ -51,7 +51,7 @@
           >
             <slot
               name="content"
-              v-bind="{ value: computedValue, focus }"
+              v-bind="{ value: computedValue, focus, bind: computedInputAttributes, on: eventListeners }"
             />
           </div>
           <textarea

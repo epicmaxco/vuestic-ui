@@ -2625,6 +2625,14 @@
       "colors": {
         "title": "Colors",
         "text": "You can change colors using CSS variables for deeper customization, but also you can simple change colors using props."
+      },
+      "readonly": {
+        "title": "Readonly",
+        "text": "Readonly picker for readonly forms."
+      },
+      "disabled": {
+        "title": "Disabled",
+        "text": "Disabled picker that can be used in forms."
       }
     }
   },
@@ -2646,11 +2654,22 @@
       },
       "formatting": {
         "title": "Formatting",
-        "text": "You can pass the format function to VaDateInput which will format input text like you want to. This way you can use any format that you want. For example, you can use [date-fns](https://date-fns.org/v2.23.0/docs/format)[[target=_blank]]"
+        "text": "You can pass the format function to VaDateInput which will format input text like you want to. This way you can use any format that you want. For example, you can use [date-fns](https://date-fns.org/v2.23.0/docs/format)[[target=_blank]]."
+      },
+      "input": {
+        "title": "Input date",
+        "text": "You can allow user to input text from keyboard. You need to set readonly prop as true. You can pass the parse function to VaDateInput which will parse input text like you want to. This way you can use any format that you want. For example, you can use [date-fns](https://date-fns.org/v2.23.0/docs/format)[[target=_blank]] to parse date string. By default we parse this input using standard `Date.parse` method."
       },
       "inputProps": {
         "title": "Input props",
         "text": "You can pass properties to `VaDateInput`"
+      },
+      "advancedFormatting": {
+        "title": "Advanced formatting",
+        "text": "If you need specific format for multiple or range modes you can use."
+      },
+      "formattingGlobalConfig": {
+        "text": "You can easily use your format functions for all VaDateInputs using [Global Config](/services/components-config) feature."
       }
     }
   },

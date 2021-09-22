@@ -1,5 +1,5 @@
 <template>
-  <div class="va-date-picker" :class="{ 'va-date-picker__without-week-days': hideWeekDays }" :style="colorsStyle">
+  <div class="va-date-picker" :class="classComputed" :style="colorsStyle">
     <va-date-picker-header
       v-bind="headerProps"
       v-model:view="syncView"
@@ -13,9 +13,11 @@
       <va-day-picker
         v-if="syncView.type === 'day'"
         v-bind="dayPickerProps"
-        v-model="valueComputed"
         ref="currentPicker"
+        :model-value="valueComputed"
         :view="syncView"
+        :readonly="isPickerReadonly('day')"
+        @update:model-value="onDayModelValueUpdate"
         @hover:day="(value) => $emit('hover:day', value)"
         @click:day="(value) => $emit('click:day', value)"
       >
@@ -30,6 +32,7 @@
         ref="currentPicker"
         :view="syncView"
         :model-value="valueComputed"
+        :readonly="isPickerReadonly('month')"
         @update:model-value="onMonthModelValueUpdate"
         @hover:month="(value) => $emit('hover:month', value)"
         @click:month="onMonthClick"
@@ -45,6 +48,7 @@
         ref="currentPicker"
         :view="syncView"
         :model-value="valueComputed"
+        :readonly="isPickerReadonly('year')"
         @hover:year="(value) => $emit('hover:year', value)"
         @update:model-value="onYearModelValueUpdate"
         @click:year="onYearClick"
@@ -58,7 +62,7 @@
 </template>
 
 <script lang="ts">
-import { ComponentOptions, defineComponent, nextTick, PropType, ref, watch } from 'vue'
+import { ComponentOptions, computed, defineComponent, nextTick, PropType, ref, watch } from 'vue'
 import { useStateful, statefulComponentOptions } from '../../mixins/StatefulMixin/cStatefulMixin'
 import { useColors } from '../../services/color-config/color-config'
 
@@ -89,6 +93,8 @@ export default defineComponent({
     weekdayNames: { type: Array as PropType<string[]>, required: false, default: DEFAULT_WEEKDAY_NAMES },
     view: { type: Object as PropType<VaDatePickerView> },
     type: { type: String as PropType<VaDatePickerType>, default: 'day' },
+    readonly: { type: Boolean, default: false },
+    disabled: { type: Boolean, default: false },
 
     // Colors
     color: { type: String, default: undefined },
@@ -107,6 +113,18 @@ export default defineComponent({
     const { valueComputed } = useStateful(props, emit, undefined)
 
     const { syncView } = useView(props, emit, { type: props.type })
+
+    const classComputed = computed(() => ({
+      'va-date-picker_without-week-days': props.hideWeekDays,
+      'va-date-picker_disabled': props.disabled,
+    }))
+
+    const onDayModelValueUpdate = (modelValue: VaDatePickerModelValue) => {
+      if (props.readonly) { return }
+
+      // Do not update model value if we just want to change view (We can change it for now, but later we can add here timepicker)
+      if (props.type === 'day') { valueComputed.value = modelValue }
+    }
 
     const onMonthClick = (date: Date) => {
       emit('click:month', date)
@@ -155,6 +173,10 @@ export default defineComponent({
       })
     })
 
+    const isPickerReadonly = (pickerName: 'year' | 'month' | 'day') => {
+      return props.readonly && props.type === pickerName
+    }
+
     return {
       dayPickerProps: filterComponentProps(props, extractComponentProps(VaDayPicker)),
       headerProps: filterComponentProps(props, extractComponentProps(VaDatePickerHeader)),
@@ -163,7 +185,11 @@ export default defineComponent({
 
       syncView,
 
+      classComputed,
       valueComputed,
+
+      onDayModelValueUpdate,
+
       onMonthClick,
       onMonthModelValueUpdate,
 
@@ -172,6 +198,8 @@ export default defineComponent({
 
       colorsStyle,
       currentPicker,
+
+      isPickerReadonly,
     }
   },
 })
@@ -189,7 +217,7 @@ export default defineComponent({
     height: var(--va-date-picker-content-height);
   }
 
-  &__without-week-days {
+  &_without-week-days {
     --va-date-picker-content-height: calc(var(--va-date-picker-cell-size) * 6 + var(--va-date-picker-cell-gap) * 6);
   }
 
@@ -198,6 +226,19 @@ export default defineComponent({
     .va-month-picker,
     .va-year-picker {
       height: 100%;
+    }
+  }
+
+  &_disabled {
+    opacity: 0.4;
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      z-index: 100;
     }
   }
 }
