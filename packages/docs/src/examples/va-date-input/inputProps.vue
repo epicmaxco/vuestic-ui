@@ -7,6 +7,12 @@
 
   <va-date-input
     class="mb-4"
+    label="disabled"
+    disabled
+  />
+
+  <va-date-input
+    class="mb-4"
     label="color"
     color="#ff00ff"
   />

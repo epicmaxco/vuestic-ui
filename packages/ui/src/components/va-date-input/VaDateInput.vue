@@ -1,6 +1,6 @@
 <template>
   <div class="va-date-input">
-    <va-dropdown v-model="isOpenSync" :offset="[0, 10]" :close-on-content-click="false">
+    <va-dropdown v-model="isOpenSync" :offset="[0, 10]" :close-on-content-click="false" :disabled="disabled">
       <template #anchor>
         <slot name="input" v-bind="{ valueText, inputProps, color }">
           <va-input
@@ -71,6 +71,7 @@ const VaInputProps = {
   outline: { Boolean, default: false },
   bordered: { type: Boolean, default: false },
   readonly: { type: Boolean, default: false },
+  disabled: { type: Boolean, default: false },
 }
 
 export default defineComponent({
