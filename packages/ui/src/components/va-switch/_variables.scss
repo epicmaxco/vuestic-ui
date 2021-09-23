@@ -37,7 +37,7 @@
   /* Track */
   --va-switch-track-display: flex;
   --va-switch-track-overflow: hidden;
-  --va-switch-track-border-radius: var(--va-border-radius);
+  --va-switch-track-border-radius: var(--va-border-radius-circle-fixed);
   --va-switch-track-height: 100%;
   --va-switch-track-width: 100%;
   --va-switch-track-background: #ffffff;
@@ -55,7 +55,7 @@
   --va-switch-inner-height: 2rem;
   --va-switch-inner-width: auto;
   --va-switch-inner-min-width: 4rem;
-  --va-switch-inner-border-radius: var(--va-border-radius);
+  --va-switch-inner-border-radius: var(--va-border-radius-circle-fixed);
 
   /* Small */
   --va-switch-sm-inner-height: 1.5rem;

@@ -78,7 +78,7 @@ export default class VaButtonGroup extends Vue.with(Props) {
   justify-content: stretch;
   width: max-content;
   overflow: hidden;
-  border-radius: var(--va-border-radius-circle);
+  border-radius: var(--va-button-group-border-radius);
 
   &_square {
     border-radius: var(--va-button-square-border-radius);
