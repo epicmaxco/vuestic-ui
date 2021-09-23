@@ -63,7 +63,7 @@ export default class VaColorIndicator extends ColorIndicatorPropsMixin {
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  border-radius: 50%;
+  border-radius: var(--va-border-radius-circle);
   text-align: center;
   background-color: #d8dadd;
   border: 0.125rem solid #d8dadd;
@@ -81,7 +81,7 @@ export default class VaColorIndicator extends ColorIndicatorPropsMixin {
   &__core {
     transition: transform 0.1s linear;
     vertical-align: baseline;
-    border-radius: 50%;
+    border-radius: var(--va-border-radius-circle);
     width: 1rem;
     height: 1rem;
   }

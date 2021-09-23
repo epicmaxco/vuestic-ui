@@ -3,7 +3,7 @@
   --va-file-upload-dropzone-background-color: #d6ffd3;
   --va-file-upload-dropzone-padding: 1.5rem 2rem 0.5rem;
   --va-file-upload-dropzone-overflow: hidden;
-  --va-file-upload-dropzone-border-radius: 0.375rem;
+  --va-file-upload-dropzone-border-radius: var(--va-border-radius-square-xl);
   --va-file-upload-dropzone-cursor: pointer;
   --va-file-upload-dropzone-field-padding-bottom: 1rem;
   --va-file-upload-dropzone-field-overflow: hidden;

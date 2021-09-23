@@ -15,7 +15,7 @@
   --va-radio-icon-align-items: center;
   --va-radio-icon-width: 1.4rem;
   --va-radio-icon-height: 1.4rem;
-  --va-radio-icon-border-radius: 100%;
+  --va-radio-icon-border-radius: var(--va-border-radius-circle);
   --va-radio-icon-position: relative;
   --va-radio-icon-border: #adb3b9 solid 0.125rem;
   --va-radio-icon-box-sizing: border-box;
@@ -27,7 +27,7 @@
   --va-radio-dot-left: 50%;
   --va-radio-dot-right: 50%;
   --va-radio-dot-bottom: 50%;
-  --va-radio-dot-border-radius: 100%;
+  --va-radio-dot-border-radius: var(--va-border-radius-circle);
   --va-radio-dot-background-color: inherit;
   --va-radio-dot-opacity: 0;
 
@@ -39,7 +39,7 @@
   --va-radio-background-right: -0.35rem;
   --va-radio-background-bottom: -0.35rem;
   --va-radio-background-background-color: #adb3b9;
-  --va-radio-background-border-radius: 100%;
+  --va-radio-background-border-radius: var(--va-border-radius-circle);
   --va-radio-background-z-index: 0;
   --va-radio-background-opacity: 0;
 

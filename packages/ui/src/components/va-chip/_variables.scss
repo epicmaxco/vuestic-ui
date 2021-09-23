@@ -2,7 +2,7 @@
   --va-chip-display: inline-flex;
   --va-chip-border: 0.125rem solid transparent;
   --va-chip-position: relative;
-  --va-chip-border-radius: 2rem;
+  --va-chip-border-radius: var(--va-border-radius-xl);
   --va-chip-width: auto;
   --va-chip-height: auto;
   --va-chip-min-width: initial;
@@ -23,7 +23,7 @@
   --va-chip-content-line-height: 1.6;
 
   /* Square */
-  --va-chip-square-border-radius: 0.2rem;
+  --va-chip-square-border-radius: var(--va-border-radius-square-x-sm);
 
   /* Small */
   --va-sm-chip-height: 1.5rem;

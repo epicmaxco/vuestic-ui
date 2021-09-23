@@ -10,7 +10,7 @@
   --va-switch-checker-height: 1.5rem;
   --va-switch-checker-width: 1.5rem;
   --va-switch-checker-background-color: #ffffff;
-  --va-switch-checker-border-radius: 50%;
+  --va-switch-checker-border-radius: var(--va-border-radius-circle);
   --va-switch-checker-box-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.3);
   --va-switch-checker-transition: all 0.2s ease;
   --va-switch-checker-display: flex;
@@ -37,7 +37,7 @@
   /* Track */
   --va-switch-track-display: flex;
   --va-switch-track-overflow: hidden;
-  --va-switch-track-border-radius: 1rem;
+  --va-switch-track-border-radius: var(--va-border-radius);
   --va-switch-track-height: 100%;
   --va-switch-track-width: 100%;
   --va-switch-track-background: #ffffff;
@@ -55,7 +55,7 @@
   --va-switch-inner-height: 2rem;
   --va-switch-inner-width: auto;
   --va-switch-inner-min-width: 4rem;
-  --va-switch-inner-border-radius: 1rem;
+  --va-switch-inner-border-radius: var(--va-border-radius);
 
   /* Small */
   --va-switch-sm-inner-height: 1.5rem;

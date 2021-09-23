@@ -100,7 +100,7 @@ export default defineComponent({
 
   &__month-wrapper {
     padding: 1px;
-    border-radius: 6px;
+    border-radius: var(--va-border-radius-square-xl);
     text-align: center;
     user-select: none;
     overflow: hidden;

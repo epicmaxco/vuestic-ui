@@ -4,7 +4,7 @@
   --va-scrollbar-position: relative;
 
   /* Wrapper */
-  --va-scrollbar-wrapper-border-radius: 0.375rem;
+  --va-scrollbar-wrapper-border-radius: var(--va-border-radius-square-xl);
   --va-scrollbar-wrapper-box-shadow: 0 2px 3px 0 rgba(52, 56, 85, 0.25);
   --va-scrollbar-wrapper-position: relative;
   --va-scrollbar-wrapper-overflow: hidden;

@@ -243,7 +243,7 @@ export default {
 .q-popover {
   position: fixed;
   box-shadow: 0 4px 9.6px 0.4px rgba(74, 227, 135, 0.5);
-  border-radius: 3px;
+  border-radius: var(--va-border-radius-square-x-sm);
   background: white;
   z-index: 8000;
   overflow-y: auto;

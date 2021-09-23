@@ -12,7 +12,7 @@
   --va-timeline-separator-center-transition: background-color ease 0.5s;
   --va-timeline-separator-center-width: 0.5rem;
   --va-timeline-separator-center-height: 0.5rem;
-  --va-timeline-separator-center-border-radius: 0.5rem;
+  --va-timeline-separator-center-border-radius: var(--va-border-radius-sm);
 
   /* Vertical */
   --va-timeline-separator-vertical-flex-direction: column;

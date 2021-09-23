@@ -17,7 +17,7 @@
   /* Wrapper */
   --va-progress-bar--wrapper-position: relative;
   --va-progress-bar--wrapper-overflow: hidden;
-  --va-progress-bar--wrapper-border-radius: 0.5rem;
+  --va-progress-bar--wrapper-border-radius: var(--va-border-radius-sm);
 
   /* Square */
   --va-progress-bar-square-border-radius: 0;

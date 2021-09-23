@@ -2,7 +2,7 @@
   --va-toast-display: flex;
   --va-toast-width: 330px;
   --va-toast-padding: 14px 26px 14px 13px;
-  --va-toast-border-radius: 8px;
+  --va-toast-border-radius: var(--va-border-radius-sm);
   --va-toast-box-sizing: border-box;
   --va-toast-border: 1px solid #ebeef5;
   --va-toast-position: fixed;

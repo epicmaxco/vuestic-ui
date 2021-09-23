@@ -176,7 +176,7 @@ export default class VaToast extends mixins(
   width: $toast-width;
   padding: $toast-padding;
   align-items: center;
-  border-radius: $toast-radius;
+  border-radius: var(--va-toast-border-radius);
   box-sizing: border-box;
   border: 1px solid var(--va-toast-border-color);
   position: fixed;

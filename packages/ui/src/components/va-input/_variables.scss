@@ -4,7 +4,7 @@
   --va-input-scroll-color: var(--va-divided, #e1e9f8);
   --va-input-bordered-color: var(--va-divided, #e1e9f8);
   --va-input-border-width: 1px;
-  --va-input-border-radius: 4px;
+  --va-input-border-radius: var(--va-border-radius-square-sm);
   --va-input-min-height: 36px;
   --va-input-cursor: text;
 

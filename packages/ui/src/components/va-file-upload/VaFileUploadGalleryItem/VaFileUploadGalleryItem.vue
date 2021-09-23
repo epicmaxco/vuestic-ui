@@ -147,7 +147,7 @@ $max-image-size: 8.5714rem;
   margin-right: 0.5rem;
   flex-basis: calc(14.2857% - 0.5rem);
   max-width: calc(14.2857% - 0.5rem);
-  border-radius: 0.375rem;
+  border-radius: var(--va-border-radius-square-xl);
   overflow: hidden;
   width: 100%;
   align-items: stretch;

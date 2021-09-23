@@ -117,7 +117,7 @@ export default class VaPopover extends mixins(
 
   &__content-wrapper {
     background-color: white;
-    border-radius: 0.5rem;
+    border-radius: var(--va-border-radius-sm);
   }
 
   &__content {

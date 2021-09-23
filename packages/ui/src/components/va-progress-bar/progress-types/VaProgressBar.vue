@@ -138,7 +138,7 @@ export default class VaProgressBar extends mixins(
   &__progress-bar {
     position: relative;
     overflow: hidden;
-    border-radius: $progress-bar-width-basic;
+    border-radius: var(--va-border-radius-sm);
 
     &__square {
       border-radius: 0;

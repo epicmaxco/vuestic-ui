@@ -306,11 +306,11 @@ export default class VaSwitch extends mixins(
       }
 
       .va-switch--small#{&} {
-        border-radius: 0.75rem;
+        border-radius: var(--va-border-radius-circle-fixed);
       }
 
       .va-switch--large#{&} {
-        border-radius: 1.25rem;
+        border-radius: var(--va-border-radius-circle-fixed);
       }
     }
   }

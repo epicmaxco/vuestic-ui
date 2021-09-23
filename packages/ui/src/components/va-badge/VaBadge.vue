@@ -110,7 +110,7 @@ export default class VaBadge extends mixins(
       min-width: var(--va-badge-dot-size);
       min-height: var(--va-badge-dot-size);
       border-width: 0;
-      border-radius: 100%;
+      border-radius: var(--va-border-radius-circle);
       padding: 0;
     }
 
