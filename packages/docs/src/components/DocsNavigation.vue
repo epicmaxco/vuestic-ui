@@ -159,6 +159,10 @@ app.mount("#app");
     margin: 0 0.5rem;
     font-weight: bold;
 
+    div {
+      color: var(--va-gray);
+    }
+
     &:hover {
       background: none !important;
       opacity: 0.7;
