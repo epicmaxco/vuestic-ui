@@ -150,7 +150,7 @@ ul.va-unordered {
       content: "";
       width: 0.5rem;
       height: 0.5rem;
-      border-radius: 50%;
+      border-radius: var(--va-border-radius-circle-fixed);
       position: absolute;
       left: 0;
       top: 0;
