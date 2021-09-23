@@ -86,12 +86,10 @@ export class TabsService {
   }
 
   tabClick (tab: VaTab) {
-    console.log(1)
     this.parent.selectTab(tab)
   }
 
   tabFocus (tab: VaTab) {
-    console.log(2)
     this.parent.moveToTab(tab)
   }
 

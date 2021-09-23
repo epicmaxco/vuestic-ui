@@ -110,7 +110,6 @@ export default class VaTab extends mixins(
   }
 
   onFocus () {
-    console.log(this.context.hasKeyboardFocus)
     if (this.context.hasKeyboardFocus) {
       this.context.tabsService.tabFocus(this)
     }
