@@ -271,16 +271,17 @@ export default class VaModal extends mixins(
 @import 'variables';
 
 .va-modal {
-  position: var(--va-modal-container-position);
-  display: var(--va-modal-container-display);
-  align-items: var(--va-modal-container-align-items);
-  justify-content: var(--va-modal-container-justify-content);
-  width: var(--va-modal-container-width);
-  height: var(--va-modal-container-height);
-  top: var(--va-modal-container-top);
-  left: var(--va-modal-container-left);
-  overflow: var(--va-modal-container-overflow);
-  outline: var(--va-modal-container-outline);
+  position: var(--va-modal-position);
+  display: var(--va-modal-display);
+  align-items: var(--va-modal-align-items);
+  justify-content: var(--va-modal-justify-content);
+  width: var(--va-modal-width);
+  height: var(--va-modal-height);
+  top: var(--va-modal-top);
+  left: var(--va-modal-left);
+  overflow: var(--va-modal-overflow);
+  outline: var(--va-modal-outline);
+  z-index: var(--va-modal-z-index);
 
   &__title {
     margin-bottom: 1.5rem;
