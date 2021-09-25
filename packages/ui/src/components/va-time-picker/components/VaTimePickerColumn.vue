@@ -6,17 +6,17 @@
     @keydown.up.stop.prevent="focusPrev">
     <div class="va-time-picker-cell va-time-picker-cell--fake" :ref="setItemRef" />
     <div
-      :ref="setItemRef"
       v-for="(item, index) in items" :key="item"
       class="va-time-picker-cell"
       :class="{
         'va-time-picker-cell--active': index == activeItemIndex
       }"
+      :ref="setItemRef"
       @click="focusByIndex(index)"
     >
       {{ item }}
     </div>
-    <div class="va-time-picker-cell va-time-picker-cell--fake" />
+    <div v-if="!hideBottomCell" class="va-time-picker-cell va-time-picker-cell--fake" />
   </div>
 </template>
 
@@ -30,6 +30,7 @@ export default defineComponent({
     items: { type: Array, default: () => [] },
     activeItemIndex: { type: Number, default: 0 },
     animateScroll: { type: Boolean, default: false },
+    hideBottomCell: { type: Boolean, default: false },
   },
 
   setup (props, { emit }) {

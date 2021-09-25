@@ -1,27 +1,18 @@
 <template>
   <div class="va-time-picker">
     <VaTimePickerColumn
-      v-model:activeItemIndex="focusedHour"
-      :items="hoursCount"
-      animate-scroll
-    />
-
-    <VaTimePickerColumn
-      v-model:activeItemIndex="focusedMinute"
-      :items="minutesCount"
-      animate-scroll
-    />
-
-    <VaTimePickerColumn
-      v-model:activeItemIndex="focusedMinute"
-      :items="['AM', 'PM']"
+      v-for="column in columns" :key="column"
+      v-model:activeItemIndex="column.activeItemIndex"
+      :items="column.items"
+      :animate-scroll="column.animateScroll"
+      :hide-bottom-cell="column.hideBottomCell"
     />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, Ref, ref } from 'vue'
-import { useNumbersArray } from './hooks/useNumbersArray'
+import { defineComponent, PropType, Ref, ref } from 'vue'
+import { useTimePicker } from './hooks/useTimePicker'
 import VaTimePickerColumn from './components/VaTimePickerColumn.vue'
 
 export default defineComponent({
@@ -30,28 +21,15 @@ export default defineComponent({
   props: {
     readonly: { type: Boolean, default: false },
     modelValue: { type: Date },
+    period: { type: Boolean, default: true },
+    view: { type: String as PropType<'hours' | 'minutes' | 'seconds'>, default: 'minutes' },
   },
 
-  setup () {
-    const [hoursCount] = useNumbersArray(12)
-    const [minutesCount] = useNumbersArray(60)
-    const showAmPm = ref(false)
-
-    const focusedHour = ref(0)
-    const focusedMinute = ref(0)
-
-    const numberWithZero = (n: number) => n < 10 ? `0${n}` : n
+  setup (props) {
+    const { columns } = useTimePicker(props)
 
     return {
-      hoursCount,
-      minutesCount,
-      showAmPm,
-      focusedHour,
-      focusedMinute,
-
-      numberWithZero,
-
-      log: () => console.log('AA'),
+      columns,
     }
   },
 })

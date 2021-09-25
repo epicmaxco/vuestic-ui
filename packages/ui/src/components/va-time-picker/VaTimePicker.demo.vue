@@ -1,7 +1,19 @@
 <template>
   <VbDemo>
-    <VbCard>
+    <VbCard title="default">
       <VaTimePicker />
+    </VbCard>
+
+    <VbCard title="view">
+      <VaTimePicker :view="'seconds'" />
+      <br />
+      <VaTimePicker :view="'hours'" />
+    </VbCard>
+
+    <VbCard title="period">
+      <VaTimePicker :period="true" />
+      <br />
+      <VaTimePicker :period="false" />
     </VbCard>
   </VbDemo>
 </template>
