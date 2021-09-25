@@ -3,7 +3,9 @@
     tabindex="0"
     class="va-time-picker-column"
     @keydown.down.stop.prevent="focusNext"
-    @keydown.up.stop.prevent="focusPrev">
+    @keydown.up.stop.prevent="focusPrev"
+    ref="rootElement"
+  >
     <div class="va-time-picker-cell va-time-picker-cell--fake" :ref="setItemRef" />
     <div
       v-for="(item, index) in items" :key="item"
@@ -21,9 +23,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, nextTick, Ref, ref } from 'vue'
+import { defineComponent, nextTick, Ref, ref, watch } from 'vue'
 import { useSyncProp } from '../../../composables/useSyncProp'
 import { useArrayRefs } from '../../../composables/useArrayRefs'
+import { useHover } from '../../../composables/useHover'
 
 export default defineComponent({
   props: {
@@ -35,6 +38,11 @@ export default defineComponent({
 
   setup (props, { emit }) {
     const { itemRefs, setItemRef } = useArrayRefs()
+    const rootElement = ref<HTMLElement>()
+
+    const { isHovered } = useHover(rootElement)
+
+    watch(isHovered, (newValue) => { newValue && rootElement.value?.focus() })
 
     const [syncActiveItemIndex] = useSyncProp('activeItemIndex', props, emit)
 
@@ -71,6 +79,8 @@ export default defineComponent({
     }
 
     return {
+      rootElement,
+
       setItemRef,
       focusNext,
       focusPrev,
@@ -127,6 +137,16 @@ export default defineComponent({
 
       &--fake:last-child {
         height: calc(100% - 30px * 2);
+      }
+    }
+
+    &:focus {
+      .va-time-picker-cell {
+        &--active {
+          &::before {
+            opacity: 0.1;
+          }
+        }
       }
     }
   }
