@@ -23,7 +23,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, nextTick, Ref, ref, watch } from 'vue'
+import { defineComponent, nextTick, onMounted, Ref, ref, watch } from 'vue'
 import { useSyncProp } from '../../../composables/useSyncProp'
 import { useArrayRefs } from '../../../composables/useArrayRefs'
 import { useHover } from '../../../composables/useHover'
@@ -77,6 +77,9 @@ export default defineComponent({
 
       nextTick(() => scrollTo(syncActiveItemIndex.value))
     }
+
+    watch(() => syncActiveItemIndex, () => scrollTo(syncActiveItemIndex.value))
+    onMounted(() => scrollTo(syncActiveItemIndex.value))
 
     return {
       rootElement,

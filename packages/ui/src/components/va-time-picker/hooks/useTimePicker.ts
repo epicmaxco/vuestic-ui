@@ -1,4 +1,5 @@
-import { computed, ComputedRef, Ref, ref } from 'vue'
+import { computed, ComputedRef, Ref, ref, watch } from 'vue'
+import { dateToTime } from '../utils/dateToTime'
 import { useNumbersArray } from './useNumbersArray'
 
 const numberWithZero = (n: number) => n < 10 ? `0${n}` : `${n}`
@@ -38,12 +39,14 @@ const createPeriodColumn = (): TimePickerColumn => {
 interface UseTimePickerOptions {
   period?: boolean;
   view?: 'hours' | 'minutes' | 'seconds';
+  modelValue?: Date;
 }
 
-export const useTimePicker = ({ period, view }: UseTimePickerOptions) => {
+export const useTimePicker = ({ period, view, modelValue }: UseTimePickerOptions) => {
   const hours = createNumbersColumn(period ? 12 : 24, 1)
   const minutes = createNumbersColumn(60)
   const seconds = createNumbersColumn(60)
+  const periodColumn = createPeriodColumn()
 
   const columns: Ref<TimePickerColumn[]> = ref([])
 
@@ -56,8 +59,19 @@ export const useTimePicker = ({ period, view }: UseTimePickerOptions) => {
   }
 
   if (period) {
-    columns.value.push(createPeriodColumn())
+    columns.value.push(periodColumn)
   }
+
+  watch(() => modelValue, (newVal) => {
+    if (!newVal) { return }
+
+    const { h, m, s } = dateToTime(newVal)
+    hours.activeItemIndex.value = period ? (h % 12) - 1 : h - 1
+    minutes.activeItemIndex.value = m
+    seconds.activeItemIndex.value = s
+
+    periodColumn.activeItemIndex.value = Number(h > 12) // 0 if less 12, 1 if bigger than 12
+  }, { immediate: true })
 
   return {
     columns,

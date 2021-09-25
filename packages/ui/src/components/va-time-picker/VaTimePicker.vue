@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, Ref, ref } from 'vue'
+import { defineComponent, PropType } from 'vue'
 import { useTimePicker } from './hooks/useTimePicker'
 import VaTimePickerColumn from './components/VaTimePickerColumn.vue'
 
@@ -20,7 +20,7 @@ export default defineComponent({
 
   props: {
     readonly: { type: Boolean, default: false },
-    modelValue: { type: Date },
+    modelValue: { type: Date, required: false },
     period: { type: Boolean, default: true },
     view: { type: String as PropType<'hours' | 'minutes' | 'seconds'>, default: 'minutes' },
   },
