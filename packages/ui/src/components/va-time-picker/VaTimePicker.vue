@@ -10,7 +10,6 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
-// import { useTimePicker } from './hooks/useTimePicker'
 import { useTimePicker } from './hooks/useTimePicker'
 import VaTimePickerColumn from './components/VaTimePickerColumn.vue'
 

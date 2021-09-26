@@ -14,13 +14,13 @@
         'va-time-picker-cell--active': index == activeItemIndex
       }"
       :ref="setItemRef"
-      @click="onCellClick(item, index)"
+      @click="onCellClick(index)"
     >
-      <slot name="cell" v-bind="{ item, index, activeItemIndex, items }">
-        {{ item }}
+      <slot name="cell" v-bind="{ item, index, activeItemIndex, items, formatedItem: formatCell(item) }">
+        {{ formatCell(item) }}
       </slot>
     </div>
-    <div v-if="!hideBottomCell" class="va-time-picker-cell va-time-picker-cell--fake" />
+    <div class="va-time-picker-cell va-time-picker-cell--fake" />
   </div>
 </template>
 
@@ -34,7 +34,6 @@ export default defineComponent({
   props: {
     items: { type: Array, default: () => [] },
     activeItemIndex: { type: Number, default: 0 },
-    hideBottomCell: { type: Boolean, default: false },
   },
 
   emits: ['item-selected', 'update:activeItemIndex'],
@@ -82,8 +81,14 @@ export default defineComponent({
     watch(syncActiveItemIndex, () => scrollTo(syncActiveItemIndex.value))
     onMounted(() => scrollTo(syncActiveItemIndex.value, false))
 
-    const onCellClick = (item: string, index: number) => {
+    const onCellClick = (index: number) => {
       syncActiveItemIndex.value = index
+    }
+
+    const formatCell = (n: number | string): string => {
+      if (!Number.isInteger(n)) { return n as string }
+
+      return n < 10 ? `0${n}` : `${n}`
     }
 
     return {
@@ -95,6 +100,7 @@ export default defineComponent({
       focusByIndex,
 
       onCellClick,
+      formatCell,
     }
   },
 })
