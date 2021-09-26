@@ -1,4 +1,4 @@
-import { computed, ComputedRef, Ref, ref, watch } from 'vue'
+import { computed, ComputedRef, Ref, ref, watch, getCurrentInstance } from 'vue'
 import { dateToTime } from '../utils/dateToTime'
 import { useNumbersArray } from './useNumbersArray'
 
@@ -8,10 +8,11 @@ interface TimePickerColumn {
   items: ComputedRef<string[]> | Ref<string[]>,
   activeItemIndex: Ref<number>,
   animateScroll?: boolean,
-  hideBottomCell?: boolean
+  hideBottomCell?: boolean,
+  onItemSelected?: (o :{ item: number, index: number }) => any
 }
 
-const createNumbersColumn = (size: number, itemsOffset = 0, filterFn?: (n: number, index: number, array: number[]) => boolean): TimePickerColumn => {
+const createNumbersColumn = (size: number, itemsOffset = 0, filterFn?: (n: number, index: number, array: number[]) => boolean, onItemSelected?: (item: number, index: number) => any): TimePickerColumn => {
   const items = useNumbersArray(size)
   const activeItemIndex = ref(0)
 
@@ -53,13 +54,32 @@ interface UseTimePickerOptions {
 export const useTimePicker = ({
   period, view, modelValue,
   hoursFilter, minutesFilter, secondsFilter,
-}: UseTimePickerOptions) => {
+}: UseTimePickerOptions, emit: (...args: any[]) => any) => {
+  const columns: Ref<TimePickerColumn[]> = ref([])
+
+  const updateModelValue = (cb: (d: Date) => any) => {
+    const d = modelValue ? new Date((modelValue).getTime()) : new Date()
+    cb(d)
+    emit('update:modelValue', d)
+  }
+
+  const periodColumn = createPeriodColumn()
+
   const hours = createNumbersColumn(period ? 12 : 24, 1, hoursFilter)
   const minutes = createNumbersColumn(60, 0, minutesFilter)
   const seconds = createNumbersColumn(60, 0, secondsFilter)
-  const periodColumn = createPeriodColumn()
 
-  const columns: Ref<TimePickerColumn[]> = ref([])
+  hours.onItemSelected = ({ item }) => updateModelValue((d) => {
+    if (period) {
+      const h = Number(item) + 12 * periodColumn.activeItemIndex.value
+      d.setHours(h)
+      return
+    }
+
+    d.setHours(item)
+  })
+  minutes.onItemSelected = ({ item }) => updateModelValue((d) => { d.setMinutes(item) })
+  seconds.onItemSelected = ({ item }) => updateModelValue((d) => { d.setSeconds(item) })
 
   if (view === 'hours') {
     columns.value.push(hours)

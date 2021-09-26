@@ -6,6 +6,7 @@
       :items="column.items"
       :animate-scroll="column.animateScroll"
       :hide-bottom-cell="column.hideBottomCell"
+      @item-selected="column.onItemSelected"
     />
   </div>
 </template>
@@ -28,8 +29,8 @@ export default defineComponent({
     secondsFilter: { type: Function as PropType<(h: number) => boolean> },
   },
 
-  setup (props) {
-    const { columns } = useTimePicker(props)
+  setup (props, { emit }) {
+    const { columns } = useTimePicker(props, emit)
 
     return {
       columns,

@@ -14,9 +14,11 @@
         'va-time-picker-cell--active': index == activeItemIndex
       }"
       :ref="setItemRef"
-      @click="focusByIndex(index)"
+      @click="onCellClick(item, index)"
     >
-      {{ item }}
+      <slot name="cell" v-bind="{ item, index, activeItemIndex, items }">
+        {{ item }}
+      </slot>
     </div>
     <div v-if="!hideBottomCell" class="va-time-picker-cell va-time-picker-cell--fake" />
   </div>
@@ -35,6 +37,8 @@ export default defineComponent({
     animateScroll: { type: Boolean, default: false },
     hideBottomCell: { type: Boolean, default: false },
   },
+
+  emits: ['item-selected', 'update:activeItemIndex'],
 
   setup (props, { emit }) {
     const { itemRefs, setItemRef } = useArrayRefs()
@@ -81,6 +85,12 @@ export default defineComponent({
     watch(() => syncActiveItemIndex, () => scrollTo(syncActiveItemIndex.value))
     onMounted(() => scrollTo(syncActiveItemIndex.value))
 
+    const onCellClick = (item: string, index: number) => {
+      focusByIndex(index)
+
+      emit('item-selected', { item, index })
+    }
+
     return {
       rootElement,
 
@@ -88,6 +98,8 @@ export default defineComponent({
       focusNext,
       focusPrev,
       focusByIndex,
+
+      onCellClick,
     }
   },
 })

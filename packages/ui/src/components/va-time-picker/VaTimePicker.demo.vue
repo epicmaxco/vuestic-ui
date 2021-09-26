@@ -19,6 +19,8 @@
     <VbCard title="value">
       23:05:53
       <br />
+      {{ value.getHours() }}:{{ value.getMinutes() }}:{{ value.getSeconds() }}
+      <br />
       <VaTimePicker v-model="value" :period="true" />
       <br />
       <VaTimePicker v-model="value" :period="false" :view="'seconds'" />
