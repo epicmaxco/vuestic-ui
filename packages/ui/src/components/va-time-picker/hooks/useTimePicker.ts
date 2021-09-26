@@ -1,9 +1,4 @@
-import { computed, ref, unref, Ref, toRefs } from 'vue'
-
-interface TimePickerColumn {
-  activeItem: number;
-  items: number[] | string[];
-}
+import { computed, toRefs } from 'vue'
 
 interface TimePickerProps {
   period: boolean;
@@ -24,13 +19,17 @@ const createNumbersArray = (length: number) => Array
 
 const createHoursColumn = (props: TimePickerProps, emit: TimePickerEmit) => {
   const computedSize = computed(() => props.period ? 12 : 24)
-  const computedTimeOffset = computed(() => props.period ? 0 : 0)
+
+  /**
+   * Convert 00:00 -> 12:00 am, 00:01 -> 01:00 am.
+   * So we need to changed 12 and 0 between two formats
+   */
+  const from24to12 = (h: number) => (h === 0 ? 12 : h) - Number(h > 12) * 12
+  const from12to24 = (h: number, isAM = false) => (h === 12 ? 0 : h) + Number(isAM) * 12
 
   const items = computed(() => {
     const array = createNumbersArray(computedSize.value).map((n) => {
-      if (props.period && n === 0) { return 12 }
-
-      return n + computedTimeOffset.value
+      return props.period ? from24to12(n) : n
     })
 
     if (!props.hoursFilter) { return array }
@@ -41,9 +40,8 @@ const createHoursColumn = (props: TimePickerProps, emit: TimePickerEmit) => {
   const activeItem = computed({
     get: () => {
       if (props.period) {
-        const h = props.modelValue.getHours() === 0 ? 12 : props.modelValue.getHours()
-        const v = h - Number(props.modelValue.getHours() > 12) * 12
-        return items.value.findIndex((i) => i === v)
+        const h = from24to12(props.modelValue.getHours())
+        return items.value.findIndex((i) => i === h)
       }
 
       const h = props.modelValue.getHours()
@@ -52,8 +50,7 @@ const createHoursColumn = (props: TimePickerProps, emit: TimePickerEmit) => {
     },
     set: (newIndex) => {
       if (props.period) {
-        const h = items.value[newIndex] === 12 ? 0 : items.value[newIndex]
-        const v = h + Number(props.modelValue.getHours() > 12) * 12
+        const v = from12to24(items.value[newIndex], props.modelValue.getHours() > 12)
 
         emit('update:modelValue', new Date(props.modelValue.setHours(v)))
       } else {
