@@ -23,12 +23,12 @@ export function useSyncProp<
 > (propName: PropName, props: Props, emit: (event: any, newValue: Props[PropName]) => any, defaultValue?: Props[PropName]) {
   if (defaultValue === undefined) {
     return [
-      computed({
+      computed<NonNullable<Props[PropName]>>({
         set (value: Props[PropName]) {
           emit(`update:${propName}`, value)
         },
         get () {
-          return props[propName]
+          return props[propName] as NonNullable<Props[PropName]>
         },
       }),
     ]

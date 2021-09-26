@@ -18,7 +18,7 @@ export default defineComponent({
 
   props: {
     readonly: { type: Boolean, default: false },
-    modelValue: { type: Date, default: () => new Date() },
+    modelValue: { type: Date, default: undefined },
     period: { type: Boolean, default: true },
     view: { type: String as PropType<'hours' | 'minutes' | 'seconds'>, default: 'minutes' },
     hoursFilter: { type: Function as PropType<(h: number) => boolean> },

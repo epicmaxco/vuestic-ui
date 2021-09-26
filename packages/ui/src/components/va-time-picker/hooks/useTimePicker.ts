@@ -1,9 +1,10 @@
-import { computed, toRefs } from 'vue'
+import { useSyncProp } from '../../../composables/useSyncProp'
+import { computed, Ref, toRefs } from 'vue'
 
 interface TimePickerProps {
   period: boolean;
   view: 'hours' | 'minutes' | 'seconds';
-  modelValue: Date;
+  modelValue?: Date;
   hoursFilter?: (h: number) => boolean,
   minutesFilter?: (h: number) => boolean
   secondsFilter?: (h: number) => boolean
@@ -17,7 +18,7 @@ type TimePickerEmit = (
 const createNumbersArray = (length: number) => Array
   .from(Array(length).keys())
 
-const createHoursColumn = (props: TimePickerProps, emit: TimePickerEmit) => {
+const createHoursColumn = (props: TimePickerProps, modelValue: Ref<Date>) => {
   const computedSize = computed(() => props.period ? 12 : 24)
 
   /**
@@ -40,23 +41,23 @@ const createHoursColumn = (props: TimePickerProps, emit: TimePickerEmit) => {
   const activeItem = computed({
     get: () => {
       if (props.period) {
-        const h = from24to12(props.modelValue.getHours())
+        const h = from24to12(modelValue.value.getHours())
         return items.value.findIndex((i) => i === h)
       }
 
-      const h = props.modelValue.getHours()
+      const h = modelValue.value.getHours()
 
       return items.value.findIndex((i) => i === h)
     },
     set: (newIndex) => {
       if (props.period) {
-        const v = from12to24(items.value[newIndex], props.modelValue.getHours() > 12)
+        const v = from12to24(items.value[newIndex], modelValue.value.getHours() > 12)
 
-        emit('update:modelValue', new Date(props.modelValue.setHours(v)))
+        modelValue.value = new Date(modelValue.value.setHours(v))
       } else {
         const v = items.value[newIndex]
 
-        emit('update:modelValue', new Date(props.modelValue.setHours(v)))
+        modelValue.value = new Date(modelValue.value.setHours(v))
       }
     },
   })
@@ -67,7 +68,7 @@ const createHoursColumn = (props: TimePickerProps, emit: TimePickerEmit) => {
   }))
 }
 
-const createMinutesColumn = (props: TimePickerProps, emit: TimePickerEmit) => {
+const createMinutesColumn = (props: TimePickerProps, modelValue: Ref<Date>) => {
   const items = computed(() => {
     const array = createNumbersArray(60)
 
@@ -78,14 +79,14 @@ const createMinutesColumn = (props: TimePickerProps, emit: TimePickerEmit) => {
 
   const activeItem = computed({
     get: () => {
-      const m = props.modelValue.getMinutes()
+      const m = modelValue.value.getMinutes()
 
       return items.value.findIndex((i) => i === m)
     },
     set: (newIndex) => {
       const v = items.value[newIndex]
 
-      emit('update:modelValue', new Date(props.modelValue.setMinutes(v)))
+      modelValue.value = new Date(modelValue.value.setMinutes(v))
     },
   })
 
@@ -95,7 +96,7 @@ const createMinutesColumn = (props: TimePickerProps, emit: TimePickerEmit) => {
   }))
 }
 
-const createSecondsColumn = (props: TimePickerProps, emit: TimePickerEmit) => {
+const createSecondsColumn = (props: TimePickerProps, modelValue: Ref<Date>) => {
   const items = computed(() => {
     const array = createNumbersArray(60)
 
@@ -106,14 +107,14 @@ const createSecondsColumn = (props: TimePickerProps, emit: TimePickerEmit) => {
 
   const activeItem = computed({
     get: () => {
-      const s = props.modelValue.getSeconds()
+      const s = modelValue.value.getSeconds()
 
       return items.value.findIndex((i) => i === s)
     },
     set: (newIndex) => {
       const v = items.value[newIndex]
 
-      emit('update:modelValue', new Date(props.modelValue.setSeconds(v)))
+      modelValue.value = new Date(modelValue.value.setSeconds(v))
     },
   })
 
@@ -123,23 +124,21 @@ const createSecondsColumn = (props: TimePickerProps, emit: TimePickerEmit) => {
   }))
 }
 
-const createPeriodColumn = (props: TimePickerProps, emit: TimePickerEmit) => {
+const createPeriodColumn = (props: TimePickerProps, modelValue: Ref<Date>) => {
   return computed(() => ({
     items: ['AM', 'PM'],
     activeItem: computed({
       get: () => {
-        return Number(props.modelValue.getHours() >= 12)
+        return Number(modelValue.value.getHours() >= 12)
       },
       set: (val) => {
         const isPM = Boolean(val)
-        const h = props.modelValue.getHours()
+        const h = modelValue.value.getHours()
 
         if (isPM && h <= 12) {
-          return emit('update:modelValue', new Date(props.modelValue.setHours(h + 12)))
-        }
-
-        if (!isPM && h >= 12) {
-          emit('update:modelValue', new Date(props.modelValue.setHours(h - 12)))
+          modelValue.value = new Date(modelValue.value.setHours(h + 12))
+        } else if (!isPM && h >= 12) {
+          modelValue.value = new Date(modelValue.value.setHours(h - 12))
         }
       },
     }),
@@ -147,12 +146,13 @@ const createPeriodColumn = (props: TimePickerProps, emit: TimePickerEmit) => {
 }
 
 export const useTimePicker = (props: TimePickerProps, emit: TimePickerEmit) => {
+  const [modelValue] = useSyncProp('modelValue', props, emit, new Date())
   const { view } = toRefs(props)
 
-  const hoursColumn = createHoursColumn(props, emit)
-  const minutesColumn = createMinutesColumn(props, emit)
-  const secondsColumn = createSecondsColumn(props, emit)
-  const periodColumn = createPeriodColumn(props, emit)
+  const hoursColumn = createHoursColumn(props, modelValue)
+  const minutesColumn = createMinutesColumn(props, modelValue)
+  const secondsColumn = createSecondsColumn(props, modelValue)
+  const periodColumn = createPeriodColumn(props, modelValue)
 
   const columns = computed(() => {
     const array = []
