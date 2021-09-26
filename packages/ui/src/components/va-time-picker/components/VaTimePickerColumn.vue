@@ -34,7 +34,6 @@ export default defineComponent({
   props: {
     items: { type: Array, default: () => [] },
     activeItemIndex: { type: Number, default: 0 },
-    animateScroll: { type: Boolean, default: false },
     hideBottomCell: { type: Boolean, default: false },
   },
 
@@ -50,14 +49,12 @@ export default defineComponent({
 
     const [syncActiveItemIndex] = useSyncProp('activeItemIndex', props, emit)
 
-    const scrollTo = (index: number) => {
-      if (!props.animateScroll) { return }
-
+    const scrollTo = (index: number, animate = true) => {
       const element = itemRefs.value[index]
 
       if (!element) { return }
 
-      element.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' })
+      element.scrollIntoView({ behavior: animate ? 'smooth' : 'auto', block: 'start', inline: 'nearest' })
     }
 
     const focusByIndex = (index: number) => {
@@ -82,13 +79,11 @@ export default defineComponent({
       nextTick(() => scrollTo(syncActiveItemIndex.value))
     }
 
-    watch(() => syncActiveItemIndex, () => scrollTo(syncActiveItemIndex.value))
-    onMounted(() => scrollTo(syncActiveItemIndex.value))
+    watch(syncActiveItemIndex, () => scrollTo(syncActiveItemIndex.value))
+    onMounted(() => scrollTo(syncActiveItemIndex.value, false))
 
     const onCellClick = (item: string, index: number) => {
-      focusByIndex(index)
-
-      emit('item-selected', { item, index })
+      syncActiveItemIndex.value = index
     }
 
     return {

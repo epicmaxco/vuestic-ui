@@ -11,9 +11,9 @@
     </VbCard>
 
     <VbCard title="period">
-      <VaTimePicker :period="true" />
+      <VaTimePicker :period="period" />
       <br />
-      <VaTimePicker :period="false" />
+      <VaTimePicker :period="period" />
     </VbCard>
 
     <VbCard title="value">
@@ -44,6 +44,7 @@ export default {
   data () {
     return {
       value: new Date(2021, 2, 20, 23, 5, 53),
+      period: false,
     }
   },
 }

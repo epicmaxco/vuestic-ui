@@ -1,108 +1,178 @@
-import { computed, ComputedRef, Ref, ref, watch, getCurrentInstance } from 'vue'
-import { dateToTime } from '../utils/dateToTime'
-import { useNumbersArray } from './useNumbersArray'
-
-const numberWithZero = (n: number) => n < 10 ? `0${n}` : `${n}`
+import { computed, ref, unref, Ref, toRefs } from 'vue'
 
 interface TimePickerColumn {
-  items: ComputedRef<string[]> | Ref<string[]>,
-  activeItemIndex: Ref<number>,
-  animateScroll?: boolean,
-  hideBottomCell?: boolean,
-  onItemSelected?: (o :{ item: number, index: number }) => any
+  activeItem: number;
+  items: number[] | string[];
 }
 
-const createNumbersColumn = (size: number, itemsOffset = 0, filterFn?: (n: number, index: number, array: number[]) => boolean, onItemSelected?: (item: number, index: number) => any): TimePickerColumn => {
-  const items = useNumbersArray(size)
-  const activeItemIndex = ref(0)
-
-  return {
-    items: computed(() => {
-      let newItems = items.value
-
-      if (filterFn) { newItems = newItems.filter((n, idx) => filterFn(n + itemsOffset, idx, newItems)) }
-
-      return newItems.map((n) => numberWithZero(n + itemsOffset))
-    }),
-    activeItemIndex,
-    animateScroll: true,
-  }
-}
-
-const createPeriodColumn = (): TimePickerColumn => {
-  const items = ref(['AM', 'PM'])
-  const activeItemIndex = ref(0)
-
-  return {
-    items,
-    activeItemIndex,
-    // We can disabled scroll and hide button cell
-    animateScroll: true,
-    // hideBottomCell: true,
-  }
-}
-
-interface UseTimePickerOptions {
-  period?: boolean;
-  view?: 'hours' | 'minutes' | 'seconds';
-  modelValue?: Date;
+interface TimePickerProps {
+  period: boolean;
+  view: 'hours' | 'minutes' | 'seconds';
+  modelValue: Date;
   hoursFilter?: (h: number) => boolean,
   minutesFilter?: (h: number) => boolean
   secondsFilter?: (h: number) => boolean
 }
 
-export const useTimePicker = ({
-  period, view, modelValue,
-  hoursFilter, minutesFilter, secondsFilter,
-}: UseTimePickerOptions, emit: (...args: any[]) => any) => {
-  const columns: Ref<TimePickerColumn[]> = ref([])
+type TimePickerEmit = (
+  event: 'update:modelValue' | any,
+...args: any[]
+) => any
 
-  const updateModelValue = (cb: (d: Date) => any) => {
-    const d = modelValue ? new Date((modelValue).getTime()) : new Date()
-    cb(d)
-    emit('update:modelValue', d)
-  }
+const createNumbersArray = (length: number) => Array
+  .from(Array(length).keys())
 
-  const periodColumn = createPeriodColumn()
+const createHoursColumn = (props: TimePickerProps, emit: TimePickerEmit) => {
+  const computedSize = computed(() => props.period ? 12 : 24)
+  const computedTimeOffset = computed(() => props.period ? 0 : 0)
 
-  const hours = createNumbersColumn(period ? 12 : 24, 1, hoursFilter)
-  const minutes = createNumbersColumn(60, 0, minutesFilter)
-  const seconds = createNumbersColumn(60, 0, secondsFilter)
+  const items = computed(() => {
+    const array = createNumbersArray(computedSize.value).map((n) => {
+      if (props.period && n === 0) { return 12 }
 
-  hours.onItemSelected = ({ item }) => updateModelValue((d) => {
-    if (period) {
-      const h = Number(item) + 12 * periodColumn.activeItemIndex.value
-      d.setHours(h)
-      return
+      return n + computedTimeOffset.value
+    })
+
+    if (!props.hoursFilter) { return array }
+
+    return array.filter(props.hoursFilter)
+  })
+
+  const activeItem = computed({
+    get: () => {
+      if (props.period) {
+        const h = props.modelValue.getHours() === 0 ? 12 : props.modelValue.getHours()
+        const v = h - Number(props.modelValue.getHours() > 12) * 12
+        return items.value.findIndex((i) => i === v)
+      }
+
+      const h = props.modelValue.getHours()
+
+      return items.value.findIndex((i) => i === h)
+    },
+    set: (newIndex) => {
+      if (props.period) {
+        const h = items.value[newIndex] === 12 ? 0 : items.value[newIndex]
+        const v = h + Number(props.modelValue.getHours() > 12) * 12
+
+        emit('update:modelValue', new Date(props.modelValue.setHours(v)))
+      } else {
+        const v = items.value[newIndex]
+
+        emit('update:modelValue', new Date(props.modelValue.setHours(v)))
+      }
+    },
+  })
+
+  return computed(() => ({
+    items: items.value,
+    activeItem: activeItem,
+  }))
+}
+
+const createMinutesColumn = (props: TimePickerProps, emit: TimePickerEmit) => {
+  const items = computed(() => {
+    const array = createNumbersArray(60)
+
+    if (!props.minutesFilter) { return array }
+
+    return array.filter(props.minutesFilter)
+  })
+
+  const activeItem = computed({
+    get: () => {
+      const m = props.modelValue.getMinutes()
+
+      return items.value.findIndex((i) => i === m)
+    },
+    set: (newIndex) => {
+      const v = items.value[newIndex]
+
+      emit('update:modelValue', new Date(props.modelValue.setMinutes(v)))
+    },
+  })
+
+  return computed(() => ({
+    items: items.value,
+    activeItem: activeItem,
+  }))
+}
+
+const createSecondsColumn = (props: TimePickerProps, emit: TimePickerEmit) => {
+  const items = computed(() => {
+    const array = createNumbersArray(60)
+
+    if (!props.secondsFilter) { return array }
+
+    return array.filter(props.secondsFilter)
+  })
+
+  const activeItem = computed({
+    get: () => {
+      const s = props.modelValue.getSeconds()
+
+      return items.value.findIndex((i) => i === s)
+    },
+    set: (newIndex) => {
+      const v = items.value[newIndex]
+
+      emit('update:modelValue', new Date(props.modelValue.setSeconds(v)))
+    },
+  })
+
+  return computed(() => ({
+    items: items.value,
+    activeItem: activeItem,
+  }))
+}
+
+const createPeriodColumn = (props: TimePickerProps, emit: TimePickerEmit) => {
+  return computed(() => ({
+    items: ['AM', 'PM'],
+    activeItem: computed({
+      get: () => {
+        return Number(props.modelValue.getHours() >= 12)
+      },
+      set: (val) => {
+        const isPM = Boolean(val)
+        const h = props.modelValue.getHours()
+
+        if (isPM && h <= 12) {
+          return emit('update:modelValue', new Date(props.modelValue.setHours(h + 12)))
+        }
+
+        if (!isPM && h >= 12) {
+          emit('update:modelValue', new Date(props.modelValue.setHours(h - 12)))
+        }
+      },
+    }),
+  }))
+}
+
+export const useTimePicker = (props: TimePickerProps, emit: TimePickerEmit) => {
+  const { view } = toRefs(props)
+
+  const hoursColumn = createHoursColumn(props, emit)
+  const minutesColumn = createMinutesColumn(props, emit)
+  const secondsColumn = createSecondsColumn(props, emit)
+  const periodColumn = createPeriodColumn(props, emit)
+
+  const columns = computed(() => {
+    const array = []
+
+    if (view.value === 'hours') {
+      array.push(hoursColumn.value)
+    } else if (view.value === 'minutes') {
+      array.push(hoursColumn.value, minutesColumn.value)
+    } else if (view.value === 'seconds') {
+      array.push(hoursColumn.value, minutesColumn.value, secondsColumn.value)
+    }
+    if (props.period) {
+      array.push(periodColumn.value)
     }
 
-    d.setHours(item)
+    return array
   })
-  minutes.onItemSelected = ({ item }) => updateModelValue((d) => { d.setMinutes(item) })
-  seconds.onItemSelected = ({ item }) => updateModelValue((d) => { d.setSeconds(item) })
-
-  if (view === 'hours') {
-    columns.value.push(hours)
-  } else if (view === 'minutes') {
-    columns.value.push(hours, minutes)
-  } else if (view === 'seconds') {
-    columns.value.push(hours, minutes, seconds)
-  }
-
-  if (period) {
-    columns.value.push(periodColumn)
-  }
-
-  watch(() => modelValue, (newVal) => {
-    if (!newVal) { return }
-
-    const { h, m, s } = dateToTime(newVal)
-    hours.activeItemIndex.value = period ? (h % 12) - 1 : h - 1
-    minutes.activeItemIndex.value = m
-    seconds.activeItemIndex.value = s
-
-    periodColumn.activeItemIndex.value = Number(h > 12) // 0 if less 12, 1 if bigger than 12
-  }, { immediate: true })
 
   return {
     columns,
