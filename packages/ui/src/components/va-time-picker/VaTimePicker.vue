@@ -23,6 +23,9 @@ export default defineComponent({
     modelValue: { type: Date, required: false },
     period: { type: Boolean, default: true },
     view: { type: String as PropType<'hours' | 'minutes' | 'seconds'>, default: 'minutes' },
+    hoursFilter: { type: Function as PropType<(h: number) => boolean> },
+    minutesFilter: { type: Function as PropType<(h: number) => boolean> },
+    secondsFilter: { type: Function as PropType<(h: number) => boolean> },
   },
 
   setup (props) {

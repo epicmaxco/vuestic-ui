@@ -23,6 +23,11 @@
       <br />
       <VaTimePicker v-model="value" :period="false" :view="'seconds'" />
     </VbCard>
+
+    <VbCard title="filter">
+      <br />
+      <VaTimePicker :period="false" :hoursFilter="(h) => h >= 9 && h <= 19" :minutesFilter="(m) => m % 10 === 0" />
+    </VbCard>
   </VbDemo>
 </template>
 

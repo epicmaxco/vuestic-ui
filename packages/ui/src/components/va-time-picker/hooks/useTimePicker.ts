@@ -11,13 +11,18 @@ interface TimePickerColumn {
   hideBottomCell?: boolean
 }
 
-const createNumbersColumn = (size: number, itemsOffset = 0): TimePickerColumn => {
+const createNumbersColumn = (size: number, itemsOffset = 0, filterFn?: (n: number, index: number, array: number[]) => boolean): TimePickerColumn => {
   const items = useNumbersArray(size)
   const activeItemIndex = ref(0)
 
   return {
-    items: computed(() => items.value
-      .map((n) => numberWithZero(n + itemsOffset))),
+    items: computed(() => {
+      let newItems = items.value
+
+      if (filterFn) { newItems = newItems.filter((n, idx) => filterFn(n + itemsOffset, idx, newItems)) }
+
+      return newItems.map((n) => numberWithZero(n + itemsOffset))
+    }),
     activeItemIndex,
     animateScroll: true,
   }
@@ -40,12 +45,18 @@ interface UseTimePickerOptions {
   period?: boolean;
   view?: 'hours' | 'minutes' | 'seconds';
   modelValue?: Date;
+  hoursFilter?: (h: number) => boolean,
+  minutesFilter?: (h: number) => boolean
+  secondsFilter?: (h: number) => boolean
 }
 
-export const useTimePicker = ({ period, view, modelValue }: UseTimePickerOptions) => {
-  const hours = createNumbersColumn(period ? 12 : 24, 1)
-  const minutes = createNumbersColumn(60)
-  const seconds = createNumbersColumn(60)
+export const useTimePicker = ({
+  period, view, modelValue,
+  hoursFilter, minutesFilter, secondsFilter,
+}: UseTimePickerOptions) => {
+  const hours = createNumbersColumn(period ? 12 : 24, 1, hoursFilter)
+  const minutes = createNumbersColumn(60, 0, minutesFilter)
+  const seconds = createNumbersColumn(60, 0, secondsFilter)
   const periodColumn = createPeriodColumn()
 
   const columns: Ref<TimePickerColumn[]> = ref([])
