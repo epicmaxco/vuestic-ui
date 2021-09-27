@@ -53,7 +53,10 @@ export default defineComponent({
 
       if (!element) { return }
 
-      element.scrollIntoView({ behavior: animate ? 'smooth' : 'auto', block: 'start', inline: 'nearest' })
+      rootElement.value?.scrollTo({
+        behavior: animate ? 'smooth' : 'auto',
+        top: element.offsetTop - element.parentElement!.offsetTop,
+      })
     }
 
     const focusByIndex = (index: number) => {

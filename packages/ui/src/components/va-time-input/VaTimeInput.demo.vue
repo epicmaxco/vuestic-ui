@@ -1,7 +1,7 @@
 <template>
   <VbDemo>
     <VbCard title="default">
-      <VaTimeInput />
+      <VaTimeInput v-model="value" />
     </VbCard>
   </VbDemo>
 </template>
