@@ -145,8 +145,7 @@ const createPeriodColumn = (props: TimePickerProps, modelValue: Ref<Date>) => {
   }))
 }
 
-export const useTimePicker = (props: TimePickerProps, emit: TimePickerEmit) => {
-  const [modelValue] = useSyncProp('modelValue', props, emit, new Date())
+export const useTimePicker = (props: TimePickerProps, modelValue: Ref<Date>) => {
   const { view } = toRefs(props)
 
   const hoursColumn = createHoursColumn(props, modelValue)

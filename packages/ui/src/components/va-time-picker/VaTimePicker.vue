@@ -12,11 +12,13 @@
 import { defineComponent, PropType } from 'vue'
 import { useTimePicker } from './hooks/useTimePicker'
 import VaTimePickerColumn from './components/VaTimePickerColumn.vue'
+import { useStateful, statefulComponentOptions } from '../../mixins/StatefulMixin/cStatefulMixin'
 
 export default defineComponent({
   components: { VaTimePickerColumn },
 
   props: {
+    ...statefulComponentOptions.props,
     readonly: { type: Boolean, default: false },
     modelValue: { type: Date, default: undefined },
     period: { type: Boolean, default: true },
@@ -26,8 +28,11 @@ export default defineComponent({
     secondsFilter: { type: Function as PropType<(h: number) => boolean> },
   },
 
+  emits: [...statefulComponentOptions.emits],
+
   setup (props, { emit }) {
-    const { columns } = useTimePicker(props, emit)
+    const { valueComputed } = useStateful(props, emit, new Date())
+    const { columns } = useTimePicker(props, valueComputed)
 
     return {
       columns,

@@ -1,19 +1,23 @@
 <template>
   <VbDemo>
     <VbCard title="default">
-      <VaTimePicker />
+      <VaTimePicker v-model="value" />
+    </VbCard>
+
+    <VbCard title="stateful">
+      <VaTimePicker stateful />
     </VbCard>
 
     <VbCard title="view">
-      <VaTimePicker :view="'seconds'" />
+      <VaTimePicker v-model="value" :view="'seconds'" />
       <br />
-      <VaTimePicker :view="'hours'" />
+      <VaTimePicker v-model="value" :view="'hours'" />
     </VbCard>
 
     <VbCard title="period">
-      <VaTimePicker :period="period" />
+      <VaTimePicker v-model="value" :period="period" />
       <br />
-      <VaTimePicker :period="period" />
+      <VaTimePicker v-model="value" :period="period" />
     </VbCard>
 
     <VbCard title="value">
@@ -28,7 +32,7 @@
 
     <VbCard title="filter">
       <br />
-      <VaTimePicker :period="false" :hoursFilter="(h) => h >= 9 && h <= 19" :minutesFilter="(m) => m % 10 === 0" />
+      <VaTimePicker v-model="value" :period="false" :hoursFilter="(h) => h >= 9 && h <= 19" :minutesFilter="(m) => m % 10 === 0" />
     </VbCard>
   </VbDemo>
 </template>
