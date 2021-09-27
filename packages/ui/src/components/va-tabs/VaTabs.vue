@@ -11,6 +11,7 @@
         v-if="showPagination"
         :disabled="disablePaginationLeft"
         class="va-tabs__pagination"
+        :color="color"
         flat
         size="medium"
         :icon="$props.prevIcon"
@@ -42,6 +43,7 @@
         v-if="showPagination"
         :disabled="disablePaginationRight"
         class="va-tabs__pagination"
+        :color="color"
         flat
         size="medium"
         :icon="$props.nextIcon"
