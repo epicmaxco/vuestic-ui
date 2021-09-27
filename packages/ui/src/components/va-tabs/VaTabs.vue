@@ -33,10 +33,13 @@
           >
             <div class="va-tabs__slider" />
           </div>
-          <slot
-            name="tabs"
-            class="va-tabs__tabs-items"
-          />
+
+          <va-config :components="context.tabConfig">
+            <slot
+              name="tabs"
+              class="va-tabs__tabs-items"
+            />
+          </va-config>
         </div>
       </div>
       <va-button
@@ -57,7 +60,7 @@
 </template>
 
 <script lang="ts">
-import { provide, watch, ref } from 'vue'
+import { provide, watch, ref, reactive } from 'vue'
 import { Options, Vue, prop, mixins, setup } from 'vue-class-component'
 
 import { Ref } from '../../utils/decorators'
@@ -146,10 +149,17 @@ export default class VaTabs extends mixins(
   context = setup(() => {
     const tabsService = ref<TabsService | null>(null)
 
+    const tabConfig = reactive({
+      VaTab: {
+        color: this.color,
+      },
+    })
+
     provide(TabsServiceKey, tabsService)
 
     return {
       tabsService,
+      tabConfig,
     }
   })
 
