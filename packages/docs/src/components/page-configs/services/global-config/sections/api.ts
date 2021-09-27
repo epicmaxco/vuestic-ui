@@ -11,6 +11,7 @@ export const columns: TableColumn[] = [
 export const tableData: TableData = [
   ['icons', 'IconsConfig', 'globalConfig.api.icons'],
   ['components', 'ComponentsConfig', 'globalConfig.api.components'],
+  ['componentsAll', 'Props', 'globalConfig.api.componentsAll'],
   ['colors', 'ColorsConfig', 'globalConfig.api.colors'],
 ]
 

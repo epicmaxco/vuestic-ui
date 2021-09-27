@@ -1,7 +1,7 @@
 import { mixins, Vue, prop } from 'vue-class-component'
-import { getGlobalConfig } from '../services/global-config/global-config'
+import { getGlobalConfig, SizeConfig } from '../services/global-config/global-config'
 
-export const sizesConfig = {
+export const sizesConfig: SizeConfig = {
   defaultSize: 48,
   sizes: {
     small: 32,
@@ -10,7 +10,7 @@ export const sizesConfig = {
   },
 }
 
-export const fontSizesConfig = {
+export const fontSizesConfig: SizeConfig = {
   defaultSize: 1,
   sizes: {
     small: 0.75,
@@ -42,7 +42,7 @@ class SizeProps {
 export class SizeMixin extends mixins(Vue.with(SizeProps)) {
   fontRegex = /(?<fontSize>\d+)(?<extension>px|rem)/i
 
-  get sizesConfigGlobal () {
+  get sizesConfigGlobal (): SizeConfig {
     const componentName: string | undefined = this.$options?.name
     return getGlobalConfig().components?.[componentName as string]?.sizesConfig
   }

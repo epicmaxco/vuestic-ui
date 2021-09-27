@@ -1,8 +1,8 @@
-import { ComponentConfig } from '../../component-config/component-config'
+import { ComponentConfig, Props } from '../../component-config/component-config'
 
-export const getComponentsDefaultConfig = (): ComponentConfig => {
+export const getComponentsDefaultConfig = (): ComponentConfig =>
   // TODO: Should be handled in size service
-  return {
+  ({
     VaIcon: {
       sizesConfig: {
         defaultSize: 24,
@@ -23,5 +23,6 @@ export const getComponentsDefaultConfig = (): ComponentConfig => {
         },
       },
     },
-  }
-}
+  })
+
+export const getComponentsAllDefaultConfig = (): Props => ({})

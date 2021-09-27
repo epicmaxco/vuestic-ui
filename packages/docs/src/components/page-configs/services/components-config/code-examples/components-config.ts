@@ -14,6 +14,15 @@ components: {
 },
 ...
 `
+
+export const componentsAllConfigCodeExample = `
+...
+componentsAll: {
+  color: '#d91698',
+  disabled: 'true',
+...
+`
+
 export const componentsConfigCodeExampleDefaultSizes = `
 ...
 components: {

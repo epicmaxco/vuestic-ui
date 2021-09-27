@@ -9,6 +9,7 @@ export default {
       setGlobalConfig({
         icons: [...],
         components: { ... },
+        componentsAll: { ... },
         colors: { ... },
       })
     }

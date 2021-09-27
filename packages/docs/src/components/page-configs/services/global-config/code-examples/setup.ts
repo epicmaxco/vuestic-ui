@@ -5,6 +5,7 @@ createApp(App)
   .use(VuesticPlugin, {
     icons: [...],
     components: { ... },
+    componentsAll: { ... },
     colors: { ... },
   })
   .mount('#app')
