@@ -15,9 +15,8 @@ export default function useSortable (
   sortingOrder: Ref<TSortingOrder | undefined>,
   emit: TSortableEmits,
 ) {
-  const sortByFallback = ref('')
-
   // the standard proxying approach for v-models
+  const sortByFallback = ref('')
   const sortByProxy = computed<string>({
     get () {
       if (sortBy.value === undefined) {
@@ -37,7 +36,6 @@ export default function useSortable (
   })
 
   const sortingOrderFallback = ref('asc' as TSortingOrder)
-
   const sortingOrderProxy = computed<TSortingOrder>({
     get () {
       if (sortingOrder.value === undefined) {
@@ -58,11 +56,11 @@ export default function useSortable (
 
   // sort each time the sortBy or sortingOrder is changed (and also initially). Also if columns definitions are changed
   // (because that potentially means that the user runtime-introduced a custom sorting function for a specific column)
-  watch([sortByProxy, sortingOrderProxy, columns], () => {
-    sort()
-  }, {
-    immediate: true,
-  })
+  watch(
+    [sortByProxy, sortingOrderProxy, columns],
+    () => { sort() },
+    { immediate: true },
+  )
 
   // sorts by string-value of a given row's cell (depending on by which column the table is sorted) if no sortingFn is
   // provided. Otherwise uses that very sortingFn. If sortingOrder is `null` then restores the initial sorting order of
