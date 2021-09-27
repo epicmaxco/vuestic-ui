@@ -3,6 +3,7 @@ import { computed, Ref, toRefs } from 'vue'
 
 interface TimePickerProps {
   period: boolean;
+  hidePeriodSwitch: boolean;
   view: 'hours' | 'minutes' | 'seconds';
   modelValue?: Date;
   hoursFilter?: (h: number) => boolean,
@@ -163,7 +164,7 @@ export const useTimePicker = (props: TimePickerProps, modelValue: Ref<Date>) => 
     } else if (view.value === 'seconds') {
       array.push(hoursColumn.value, minutesColumn.value, secondsColumn.value)
     }
-    if (props.period) {
+    if (props.period && !props.hidePeriodSwitch) {
       array.push(periodColumn.value)
     }
 

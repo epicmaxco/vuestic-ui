@@ -1,17 +1,17 @@
 <template>
   <va-dropdown class="va-time-input" v-model="isOpenSync" :offset="[0, 10]" :close-on-content-click="false" :disabled="disabled">
     <template #anchor>
-      <va-input />
+      <va-input v-model="valueText" />
     </template>
 
     <va-dropdown-content no-padding>
-      <va-time-picker v-model="modelValueSync" />
+      <va-time-picker v-model="modelValueSync" ref="pickerRef" />
     </va-dropdown-content>
   </va-dropdown>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType } from 'vue'
+import { computed, defineComponent, PropType, ref } from 'vue'
 import { VaTimePicker } from '../va-time-picker'
 import { useSyncProp } from '../../composables/useSyncProp'
 
@@ -28,18 +28,21 @@ export default defineComponent({
   setup (props, { emit }) {
     const [isOpenSync] = useSyncProp('isOpen', props, emit)
     const [modelValueSync] = useSyncProp('modelValue', props, emit)
+    const pickerRef = ref()
 
     const valueText = computed(() => {
       if (props.format) { return props.format(modelValueSync.value) }
 
       if (!modelValueSync.value) { return '' }
 
-      return modelValueSync.value.toTimeString()
+      return modelValueSync.value.toLocaleTimeString()
     })
 
     return {
+      pickerRef,
       isOpenSync,
       modelValueSync,
+      valueText,
     }
   },
 })

@@ -22,6 +22,7 @@ export default defineComponent({
     readonly: { type: Boolean, default: false },
     modelValue: { type: Date, default: undefined },
     period: { type: Boolean, default: true },
+    hidePeriodSwitch: { type: Boolean, default: false },
     view: { type: String as PropType<'hours' | 'minutes' | 'seconds'>, default: 'minutes' },
     hoursFilter: { type: Function as PropType<(h: number) => boolean> },
     minutesFilter: { type: Function as PropType<(h: number) => boolean> },
@@ -30,9 +31,24 @@ export default defineComponent({
 
   emits: [...statefulComponentOptions.emits],
 
-  setup (props, { emit }) {
+  setup (props, { emit, expose }) {
     const { valueComputed } = useStateful(props, emit, new Date())
     const { columns } = useTimePicker(props, valueComputed)
+
+    const changePeriod = (isPM: boolean) => {
+      const h = valueComputed.value.getHours()
+
+      if (isPM && h <= 12) {
+        valueComputed.value = new Date(valueComputed.value.setHours(h + 12))
+      } else if (!isPM && h >= 12) {
+        valueComputed.value = new Date(valueComputed.value.setHours(h - 12))
+      }
+    }
+
+    const changePeriodToPm = () => changePeriod(true)
+    const changePeriodToAm = () => changePeriod(false)
+
+    expose({ changePeriodToPm, changePeriodToAm })
 
     return {
       columns,
