@@ -10,32 +10,9 @@ import { PropOptions } from 'vue-class-component'
 
 import { useLocalConfig } from '../../components/va-config/VaConfig'
 import { useGlobalConfig } from '../global-config/global-config'
-import { getLocalConfigWithComponentProp } from './createConfigValueGetter'
-import { ComponentConfig } from '../component-config/component-config'
 
 export type Props = {
   [key: string]: PropOptions;
-}
-
-const createConfigValueGetter = (
-  globalConfig: ComponentConfig,
-  configChain: ComponentConfig[],
-  componentName = '',
-) => (
-  prop: string,
-  defaultValue: any,
-) => {
-  // We have to pass context here as this method will be mainly used in prop default,
-  // and methods are not accessible there.
-  const configLayers = globalConfig ? [globalConfig, ...configChain] : configChain
-
-  const configLayer = getLocalConfigWithComponentProp(configLayers, componentName, prop)
-
-  if (configLayer) {
-    return configLayer[componentName][prop]
-  }
-
-  return typeof defaultValue === 'function' ? defaultValue() : defaultValue
 }
 
 export function getComponentOptions (component: DefineComponent): ComponentOptions {
@@ -114,7 +91,7 @@ const withConfigTransport = (component: any): any => {
   // NOTE: for some reason unit tests work without this feature
   const emits = Object.keys(resolveProps(options, 'emits'))
 
-  const propsOptions: { [key: string]: PropOptions } = { ...props }
+  const propsOptions: Props = { ...props }
   const methods: { [key: string]: (...args: any[]) => any } = { ...options.methods }
   const optionsWithoutDefaults = Object.keys(propsOptions)
 
@@ -131,30 +108,30 @@ const withConfigTransport = (component: any): any => {
         return (this as any).$refs.innerRef[name](...args)
       },
     }), {}),
-    setup (props: Record<string, any>, context: SetupContext) {
-      const configChain = useLocalConfig()
+    setup (props: Props, context: SetupContext) {
+      const localConfig = useLocalConfig()
       const { getGlobalConfig } = useGlobalConfig()
 
       const computedProps = computed(() => {
-        const componentsConfig = getGlobalConfig().components
-        const getConfigValue = createConfigValueGetter(componentsConfig || {}, configChain.value, componentName)
+        const propsFromGlobalConfig: Props = getGlobalConfig().components?.[componentName] || {}
+        const propsFromLocalConfig: Props = localConfig.value
+          .reduce((finalConfig, config) =>
+            config[componentName] ? { ...finalConfig, ...config[componentName] } : finalConfig
+          , {})
+        const propsFromConfigs: Props = { ...propsFromGlobalConfig, ...propsFromLocalConfig }
 
-        const getValue = (name: string, defaultValue: any) => {
-          // We want to fallback to config in 2 cases:
-          // * prop value is undefined (allows user to dynamically enter/exit config).
-          // * prop value is not defined
-          if (!(name in props) || (props[name] === undefined)) {
-            return getConfigValue(name, defaultValue)
-          }
+        const getPropValue = (name: string, defaultValue: any) => {
+          if (props[name] !== undefined) { return props[name] }
+          if (propsFromConfigs[name] !== undefined) { return propsFromConfigs[name] }
 
-          // In other cases we return the prop itself.
-          return props[name]
+          return typeof defaultValue === 'function' ? defaultValue() : defaultValue
         }
 
-        return Object.entries(propsOptions).reduce((computed, [name, definition]) => ({
-          ...computed,
-          [name]: getValue(name, definition.default),
-        }), {})
+        return Object.entries(propsOptions).reduce((finalProps: Props, [name, definition]) => {
+          finalProps[name] = getPropValue(name, definition.default)
+
+          return finalProps
+        }, {})
       })
 
       const proxiedEmits = emits.reduce((acc, emit) => ({
