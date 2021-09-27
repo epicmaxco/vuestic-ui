@@ -221,7 +221,7 @@ export default {
 
     text-align: center;
     line-height: 1.6rem;
-    color: $active-blue;
+    color: var(--va-primary);
   }
 }
 
