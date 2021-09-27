@@ -1,7 +1,6 @@
 import { Ref, computed, watch, ref } from 'vue'
 import { TableRow, ITableItem } from './useRows'
 
-// the available options for the `select-mode` prop
 export type TSelectMode = 'single' | 'multiple';
 export type TSelectableEmits = (
   event: 'update:modelValue' | 'selectionChange',
@@ -15,9 +14,8 @@ export default function useSelectable (
   selectMode: Ref<TSelectMode>,
   emit: TSelectableEmits,
 ) {
-  const selectedItemsFallback = ref([] as ITableItem[])
-
   // the standard proxying approach to work with modeled data
+  const selectedItemsFallback = ref([] as ITableItem[])
   const selectedItemsProxy = computed<ITableItem[]>({
     get () {
       if (selectedItems.value === undefined) {
@@ -56,12 +54,16 @@ export default function useSelectable (
 
   // private. The one calling this function must guarantee that the row isn't already selected
   function selectRow (row: TableRow) {
-    selectedItemsProxy.value.push(row.source)
+    selectedItemsProxy.value = [...selectedItemsProxy.value, row.source]
   }
 
   // private. The one calling this function must guarantee that the row is selected
   function unselectRow (row: TableRow) {
-    selectedItemsProxy.value.splice(selectedItemsProxy.value.findIndex(item => item === row.source), 1)
+    const index = selectedItemsProxy.value.findIndex(item => item === row.source)
+    selectedItemsProxy.value = [
+      ...selectedItemsProxy.value.slice(0, index),
+      ...selectedItemsProxy.value.slice(index + 1),
+    ]
   }
 
   // exposed
@@ -135,7 +137,7 @@ export default function useSelectable (
 
   // private
   function unselectAllRows () {
-    selectedItemsProxy.value.splice(0, selectedItemsProxy.value.length)
+    selectedItemsProxy.value = []
   }
 
   // exposed
@@ -165,15 +167,17 @@ export default function useSelectable (
   })
 
   // emit the "selection-change" event each time the selection changes
-  watch(selectedItemsProxy, (currentlySelectedItems, previouslySelectedItems) => {
-    emit('selectionChange', {
-      currentlySelectedItems,
-      previouslySelectedItems,
-    })
-  })
+  watch(
+    selectedItemsProxy,
+    (currentlySelectedItems, previouslySelectedItems) => {
+      emit('selectionChange', {
+        currentlySelectedItems,
+        previouslySelectedItems,
+      })
+    },
+  )
 
   return {
-    selectedItemsProxy,
     toggleRowSelection,
     ctrlSelectRow,
     shiftSelectRows,

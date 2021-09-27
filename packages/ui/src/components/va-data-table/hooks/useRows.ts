@@ -46,7 +46,10 @@ export class TableCell {
 }
 
 // please, note that the `columns` here are not raw, but rather already built `TableColumn` instances
-export default function useRows (rawItems: Ref<ITableItem[]>, columns: Ref<TableColumn[]>) {
+export default function useRows (
+  rawItems: Ref<ITableItem[]>,
+  columns: Ref<TableColumn[]>,
+) {
   // build table rows (and thus the cell internally, see the TableRow's constructor) from the items provided via the
   // `items` prop
   const rows = computed(() => {

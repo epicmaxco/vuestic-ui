@@ -39,7 +39,7 @@
               :false-value="false"
               indeterminate-value="idl"
               indeterminate
-              @update:modelValue="toggleBulkSelection"
+              @update:model-value="toggleBulkSelection"
               :color="selectedColor"
             />
           </th>
@@ -132,7 +132,7 @@
             >
               <va-checkbox
                 :model-value="isRowSelected(row)"
-                @update:modelValue="ctrlSelectRow(row)"
+                @update:model-value="ctrlSelectRow(row)"
                 @click.stop
                 :color="selectedColor"
               />
@@ -189,7 +189,7 @@
               :false-value="false"
               indeterminate-value="idl"
               indeterminate
-              @update:modelValue="toggleBulkSelection"
+              @update:model-value="toggleBulkSelection"
               :color="selectedColor"
             />
           </th>
@@ -373,15 +373,30 @@ export default defineComponent({
       items: rawItems,
     } = toRefs(props)
 
-    const { columns } = useColumns(rawColumns, rawItems)
-    const { rows: unfilteredRows } = useRows(rawItems, columns)
+    const {
+      columns,
+    } = useColumns(rawColumns, rawItems)
+
+    const {
+      rows: unfilteredRows,
+    } = useRows(rawItems, columns)
 
     // filtering
-    const { filter, filteringFn } = toRefs(props)
-    const { filteredRows: rows } = useFilterable(unfilteredRows, filter, filteringFn, emit)
+    const {
+      filter,
+      filteringFn,
+    } = toRefs(props)
+
+    const {
+      filteredRows: rows,
+    } = useFilterable(unfilteredRows, filter, filteringFn, emit)
 
     // sorting
-    const { sortBy, sortingOrder } = toRefs(props)
+    const {
+      sortBy,
+      sortingOrder,
+    } = toRefs(props)
+
     const {
       sortByProxy,
       sortingOrderProxy,
@@ -392,11 +407,10 @@ export default defineComponent({
     const {
       selectable,
       selectMode,
-      modelValue: selectedItems,
+      modelValue: selectedItemsModelValue,
     } = toRefs(props)
 
     const {
-      selectedItemsProxy,
       toggleRowSelection,
       ctrlSelectRow,
       shiftSelectRows,
@@ -404,10 +418,14 @@ export default defineComponent({
       isRowSelected,
       severalRowsSelected,
       allRowsSelected,
-    } = useSelectable(rows, selectedItems, selectable, selectMode, emit)
+    } = useSelectable(rows, selectedItemsModelValue, selectable, selectMode, emit)
 
     // styling
-    const { hoverable, selectedColor, allowFootSorting } = toRefs(props)
+    const {
+      hoverable,
+      selectedColor,
+      allowFootSorting,
+    } = toRefs(props)
 
     const {
       getHeadCSSVariables,
@@ -424,12 +442,10 @@ export default defineComponent({
       return rows.value.length < 1
     })
 
-    // expose
     return {
       slots,
       columnsModel: columns,
       rows,
-      selectedItems: selectedItemsProxy,
       toggleRowSelection,
       ctrlSelectRow,
       shiftSelectRows,
