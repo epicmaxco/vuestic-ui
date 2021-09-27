@@ -2980,7 +2980,7 @@
     "pullRequests": {
       "title": "Pull Request Guidelines",
       "description": {
-        "localBranches": "The `master` branch keeps the latest stable release plus potentially some cherry-picked hotfixes. All the development should be conducted in local branches.",
+        "localBranches": "The `master` branch keeps the latest stable release plus potentially some cherry-picked hotfixes. All the development should be conducted in local branches (fork of the project).",
         "dontSubmitToMaster": "**Do not submit PRs against the `master` branch.** Use the `develop` one instead.",
         "checkoutFeat": "Checkout a `feat/*` branch from the `develop`, then create a pull request to `develop`.",
         "multipleSmallCommits": "It's OK to have multiple small commits as you work on your PR - we will let GitHub automatically squash them into a single one before merging.",
@@ -3029,7 +3029,7 @@
   "globalConfig": {
     "title": "Global config",
     "subtitle": "With the help of Global config one can configure default values for colors, icons and components' props. ",
-    "structure": "Global config consists of `icons`, `colors` and `components` configs. ",
+    "structure": "Global config consists of `icons`, `colors`, `components` and `componentsAll` configs. ",
     "setupExampleTitle": "You can provide a custom config as the second argument when registering the `VuesticPlugin`:",
     "reactiveUpdateExampleTitle": "Or you can update the configuration partially at the runtime:",
     "reactiveSetExampleTitle": "Alternatively, you can substitute the whole configuration object at the runtime with another one:",
@@ -3043,6 +3043,7 @@
     "api": {
       "icons": "Used to configure icon fonts and aliases.",
       "components": "Used to globally overwrite props of specific components.",
+      "componentsAll": "Used to globally set props of all components. If there are no other source of props.",
       "colors": "Used to define theme colors that components make use of. Here you can redefine default Vuestic-theme colors."
     }
   },
@@ -3103,6 +3104,11 @@
     "subtitle": "Component config allows you to override default props' values for any Vuestic component. It is an object where the keys are component names and the values are prop-value pairs you want to overwrite. For example:",
     "demoTitle": "The example below allows you to change styling of all the buttons for the whole Vuestic Documentation site. Feel free to navigate to Button docs page and take a look at the updated examples.",
     "resetConfig": "Reset config",
+    "componentsAll" : {
+      "title": "All components config",
+      "subtitle": "You could use `componentsAll` global config property to set prop values for all components at once. It will be applied if there are no other source of prop value. For example:",
+      "description": "These prop values will be used as default values if prop is not set somewhere else (inside the component or inside other configs)."
+    },
     "vaConfig": {
       "title": "Scoped config",
       "subtitle": "You can use the `<va-config>` component to overwrite the default props' values for the components inside that tag. Take a look at the demo below:",
@@ -3115,7 +3121,8 @@
     "api": {
       "title": "Component config service API",
       "types": "Types",
-      "ComponentConfig": "Object where the keys are Vuestic component names and the values are the component's new default props"
+      "ComponentConfig": "Object where the keys are Vuestic component names and the values are the component's new default props.",
+      "ComponentsAllConfig": "Object where the keys are prop names and the values are the prop's new default values. Will be applied if there are no other source of prop value."
     }
   },
   "colorsConfig": {

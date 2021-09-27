@@ -6,14 +6,10 @@ import {
   computed,
   SetupContext,
 } from 'vue'
-import { PropOptions } from 'vue-class-component'
+import { Props } from '../component-config/component-config'
 
 import { useLocalConfig } from '../../components/va-config/VaConfig'
 import { useGlobalConfig } from '../global-config/global-config'
-
-export type Props = {
-  [key: string]: PropOptions;
-}
 
 export function getComponentOptions (component: DefineComponent): ComponentOptions {
   switch (true) {
@@ -113,7 +109,7 @@ const withConfigTransport = (component: any): any => {
       const { getGlobalConfig } = useGlobalConfig()
 
       const computedProps = computed(() => {
-        const propsFromGlobalConfig: Props = getGlobalConfig().components?.[componentName] || {}
+        const propsFromGlobalConfig: Props = { ...getGlobalConfig().componentsAll, ...getGlobalConfig().components?.[componentName] }
         const propsFromLocalConfig: Props = localConfig.value
           .reduce((finalConfig, config) =>
             config[componentName] ? { ...finalConfig, ...config[componentName] } : finalConfig

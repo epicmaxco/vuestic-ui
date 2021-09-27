@@ -10,9 +10,14 @@ const columns: TableColumn[] = [
 
 const tableData: TableData = [
   [
-    'ComponentConfig',
-    'Record<[componentName: string], Record<[componentProp: string], any>>',
+    'ComponentsConfig',
+    '{ [componentName: string]: Props }',
     'componentsConfig.api.ComponentConfig',
+  ],
+  [
+    'Props',
+    '{ [propName: string]: any }',
+    'componentsConfig.api.ComponentsAllConfig',
   ],
 ]
 

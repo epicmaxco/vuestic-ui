@@ -1,6 +1,6 @@
 import { ApiDocsBlock } from '../../../../types/configTypes'
 import { DocsHelper } from '../../../../helpers/DocsHelper'
-import { componentsConfigCodeExample, componentsConfigCodeExampleDefaultSizes } from './code-examples'
+import { componentsConfigCodeExample, componentsConfigCodeExampleDefaultSizes, componentsAllConfigCodeExample } from './code-examples'
 import { api } from './sections'
 
 const config: ApiDocsBlock[] = [
@@ -10,6 +10,11 @@ const config: ApiDocsBlock[] = [
 
   DocsHelper.paragraph('componentsConfig.demoTitle'),
   DocsHelper.example('components-config/button'),
+
+  DocsHelper.subtitle('componentsConfig.componentsAll.title'),
+  DocsHelper.paragraph('componentsConfig.componentsAll.subtitle'),
+  DocsHelper.code(componentsAllConfigCodeExample),
+  DocsHelper.paragraph('componentsConfig.componentsAll.description'),
 
   DocsHelper.subtitle('componentsConfig.vaConfig.title'),
   DocsHelper.paragraph('componentsConfig.vaConfig.subtitle'),
