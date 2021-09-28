@@ -13,3 +13,11 @@ export const readComponent = async (fileName: string): Promise<any> => {
     /* webpackMode: "lazy-once" */
     `../examples/${fileName}.vue`)
 }
+
+export const showBuildInfo = () => {
+  console.group('Build info:')
+  console.log(`Vuestic UI: v${VERSION}`)
+  console.log(`Date: ${TIMESTAMP}`)
+  console.log(`Commit: ${COMMIT}`)
+  console.groupEnd()
+}
