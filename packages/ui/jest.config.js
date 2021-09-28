@@ -23,4 +23,5 @@ module.exports = {
       diagnostics: false,
     },
   },
+  transformIgnorePatterns: ['/!node_modules\\/lodash-es/'],
 }
