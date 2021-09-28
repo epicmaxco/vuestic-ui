@@ -35,6 +35,7 @@ const config: ApiDocsBlock[] = [
     'guide.forCoreContributors.smallIssues',
     'guide.forCoreContributors.singlePrPerIssue',
     'guide.forCoreContributors.onePersonPerIssue',
+    'guide.forCoreContributors.checkBuildInfo',
     'guide.forCoreContributors.checkYourCode',
     'guide.forCoreContributors.weUseYarn',
     'guide.forCoreContributors.beProactive',

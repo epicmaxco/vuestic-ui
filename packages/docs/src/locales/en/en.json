@@ -3006,6 +3006,7 @@
       "singlePrPerIssue": "Create a single PR for one issue. If we have several PRs - move all the code into a single PR and close the rest. If one PR covers several issues - either split it in several PRs or mark one of the issues as duplicate.",
       "onePersonPerIssue": "Make sure to assign an issue to only a single person.",
       "checkYourCode": "Check your code: [conventions](https://github.com/epicmaxco/vuestic-ui/blob/master/packages/docs/conventions.md)[[target=_blank]].",
+      "checkBuildInfo": "Check the console log to see build information.",
       "weUseYarn": "We use [yarn](https://yarnpkg.com/lang/en/)[[target=_blank]] for package management.",
       "beProactive": "Be proactive. If you think something is wrong - create an issue or discuss.",
       "recommendedTools": "Recommended tools: [GitKraken](https://www.gitkraken.com/)[[target=_blank]], [WebStorm](https://www.jetbrains.com/webstorm/)[[target=_blank]], [ShareX](https://getsharex.com/)[[target=_blank]].",
