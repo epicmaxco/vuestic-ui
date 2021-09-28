@@ -13,6 +13,8 @@ import { useMeta } from './services/vue-meta'
 
 const app = createApp(App)
 
+console.log(`Version: ${VERSION}, ${TIMESTAMP}, commit: ${COMMIT}`)
+
 app.use(router)
 app.use(i18n)
 app.use(AlgoliaColorPlugin)

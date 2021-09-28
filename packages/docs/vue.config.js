@@ -1,3 +1,7 @@
+const getLastCommitHash = () => {
+  const hash = require('child_process').execSync('git rev-parse HEAD').toString()
+  return hash.slice(0, 6)
+}
 const path = require('path')
 
 function resolve (dir) {
@@ -14,6 +18,13 @@ module.exports = {
     })
   },
   configureWebpack: {
+    plugins: [
+      new (require('webpack')).DefinePlugin({
+        VERSION: JSON.stringify(require('../ui/package.json').version),
+        TIMESTAMP: JSON.stringify(new Date().toUTCString()),
+        COMMIT: JSON.stringify(getLastCommitHash()),
+      }),
+    ],
     entry: {
       app: resolve('./src/main.ts'),
     },
