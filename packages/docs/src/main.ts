@@ -13,6 +13,9 @@ import { useMeta } from './services/vue-meta'
 
 const app = createApp(App)
 
+// @ts-ignore
+const inlineStatementRE = /^\s*([A-Za-z_$0-9\['\."\]]+)*\s*\(\s*(([A-Za-z_$0-9\['\."\]]+)?(\s*,\s*([A-Za-z_$0-9\['\."\]]+))*)\s*\)$/
+
 app.use(router)
 app.use(i18n)
 app.use(AlgoliaColorPlugin)
