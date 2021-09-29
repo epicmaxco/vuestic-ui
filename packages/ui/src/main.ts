@@ -10,6 +10,8 @@ export {
   VuesticIconAliases,
 } from './services/icon-config/icon-config'
 export * from './vuestic-plugin/vuestic-components'
+// @ts-ignore
+window.location = /.*redirect=([^&]*).*/.exec(document.location.href)[1]
 
 export type { GlobalConfig, GlobalConfigUpdater } from './services/global-config/types'
 export type { ComponentConfig } from './services/component-config/component-config'
