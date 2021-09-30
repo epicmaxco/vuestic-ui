@@ -179,7 +179,7 @@
       <va-switch
         v-model="valueIndeterminateCustom"
         indeterminate
-        :indeterminate-value="'indeterminate'"
+        indeterminate-value="indeterminate"
       />
     </VbCard>
     <VbCard title="Stateless switch without v-model">
