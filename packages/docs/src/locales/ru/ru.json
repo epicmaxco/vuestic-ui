@@ -2963,14 +2963,14 @@
       "description": {
         "localBranches": "Ветка `master` хранит последнюю стабильную версию + избранные (cherrypicked) хотфиксы. Вся разработка должна вестись в локальных ветках.",
         "dontSubmitToMaster": "**Не отправляйте ваши PR в ветку master.**",
-        "checkoutFeat": "Сделайте checkout ветки `feat/` из ветки `develop`, затем создайте pull request в ту же ветку.",
-        "multipleSmallCommits": "Совершенно нормально иметь несколько небольших коммитов, когда вы работаете над вашим PR - мы позволим GitHub сделать автоматический squash изменений перед слянием.",
+        "checkoutFeat": "Сделайте checkout ветки `feat/` из ветки `develop`, затем создайте pull request в `develop`.",
+        "multipleSmallCommits": "Совершенно нормально иметь несколько небольших коммитов, когда вы работаете над вашим PR - мы позволим GitHub сделать автоматический squash изменений перед слиянием.",
         "fixBugSteps": "В случае исправления бага:\n  * Если вы решаете особую проблему, добавьте `close #xxxx[,#xxx]` (#xxxx - id проблемы) в описание PR так что github [закроет](https://docs.github.com/en/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword)[[target=_blank]] проблему, как только изменения сольются в `master`.\n  * Предоставьте подробное описание ошибки в PR, если это не было сделано в вопросе (issue)."
       }
     },
     "branches": {
       "title": "Ветки",
-      "publicBranches": "Публичные ветки (**epicmax/vuestic-ui**):\n  * `master` - только релизы и хотфиксы. Не выставляйте ваш PR в `master`!.\n  * `develop` - основная ветка разработки. На данный момент в ней хранится версия `2.0`.",
+      "publicBranches": "Публичные ветки (**epicmax/vuestic-ui**):\n  * `master` - только релизы и хотфиксы. Не выставляйте ваш PR в `master`!.\n  * `develop` - основная ветка разработки.",
       "localBranches": "Локальные ветки\n  * Для локальных веток добавьте префикс `feat/`, например для фикса комнонета `va-tabs` будет `feat/fix-tabs`. Это сделано для того, чтобы локальные ветки были визуально отделены от публичных."
     },
     "fileNaming": {
