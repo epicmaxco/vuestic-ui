@@ -106,8 +106,7 @@ app.mount("#app");
     '@vue/cli-plugin-babel/preset'
   ]
 }`
-      const html = `<link rel="icon" href="<%= BASE_URL %>favicon.ico">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@5.9.55/css/materialdesignicons.min.css">
+      const html = `<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@5.9.55/css/materialdesignicons.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
