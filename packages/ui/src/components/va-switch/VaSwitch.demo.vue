@@ -164,16 +164,20 @@
       />
     </VbCard>
     <VbCard title="Indeterminate">
+      <div>
+        {{ valueIndeterminate }}
+      </div>
       <va-switch
         v-model="valueIndeterminate"
-        :label="valueIndeterminate"
         indeterminate
       />
     </VbCard>
     <VbCard title="Indeterminate with custom indeterminate value">
+      <div>
+        {{ valueIndeterminateCustom }}
+      </div>
       <va-switch
         v-model="valueIndeterminateCustom"
-        :label="valueIndeterminateCustom"
         indeterminate
         :indeterminate-value="'indeterminate'"
       />
