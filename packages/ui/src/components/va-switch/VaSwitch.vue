@@ -172,7 +172,7 @@ export default class VaSwitch extends mixins(
       borderColor: this.$props.error
         ? this.theme.getColor('danger')
         : '',
-      backgroundColor: this.isChecked || this.isIndeterminate
+      backgroundColor: this.isChecked
         ? this.colorComputed
         : this.theme.getColor('gray'),
     }
