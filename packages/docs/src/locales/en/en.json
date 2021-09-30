@@ -1481,9 +1481,16 @@
         "title": "Loading",
         "text": "You can mark a pending state of switch."
       },
+      "customValue": {
+        "title": "Custom Values",
+        "text": "You can set custom values for true and false state of the component."
+      },
+      "indeterminate": {
+        "title": "Indeterminate"
+      },
       "error": {
         "title": "Error",
-        "text": "Switch has an error style"
+        "text": "Switch has an error style."
       }
     }
   },
