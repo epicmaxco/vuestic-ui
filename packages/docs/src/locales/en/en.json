@@ -2321,22 +2321,22 @@
         "title": "Breakpoints",
         "text": "Use the following classes (`breakpoints`) to apply provided styling to screens of certain widths exclusively.",
         "sizes": {
-          "xs": "`.xs` - Extra small devices (such as phones) (<600px)",
-          "sm": "`.sm` - Small devices (e.g. tablets) (≥600px)",
-          "md": "`.md` - Medium devices (desktops) (≥960)",
-          "lg": "`.lg` - Large devices (wide-screen-desktops) (≥1280px)",
-          "xl": "`.xl` - Extra large devices (TV's, etc.) (≥1920px)"
+          "xs": "`.xs` - (< 576px ) - Extra small devices",
+          "sm": "`.sm` - (≥ 576px ) - Small devices",
+          "md": "`.md` - (≥ 768px ) - Medium devices",
+          "lg": "`.lg` - (≥ 992px ) - Large devices",
+          "xl": "`.xl` - (≥ 1200px) - Extra large devices"
         }
       },
       "offsets": {
         "title": "Offsets",
         "text": "You can use the `offset`-classes to set spaces between a given element and the one to the left from it.",
         "sizes": {
-          "xs": "`.offset--xs` - Extra small devices (such as phones) (<600px)",
-          "sm": "`.offset--sm` - Small devices (e.g. tablets) (≥600px)",
-          "md": "`.offset--md` - Medium devices (desktops) (≥960)",
-          "lg": "`.offset--lg` - Large devices (wide-screen-desktops) (≥1280px)",
-          "xl": "`.offset--xl` - Extra large devices (TV's, etc.) (≥1920px)"
+          "xs": "`.offset--xs` - Extra small devices",
+          "sm": "`.offset--sm` - Small devices",
+          "md": "`.offset--md` - Medium devices",
+          "lg": "`.offset--lg` - Large devices",
+          "xl": "`.offset--xl` - Extra large devices"
         }
       },
       "gutters": {
