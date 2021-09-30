@@ -49,6 +49,8 @@ const config: ApiDocsBlock[] = [
     'switch.examples.loading.text',
     'va-switch/Loading',
   ),
+  DocsHelper.headline('switch.examples.indeterminate.title'),
+  DocsHelper.example('va-switch/Indeterminate'),
   ...DocsHelper.exampleBlock(
     'switch.examples.error.title',
     'switch.examples.error.text',
