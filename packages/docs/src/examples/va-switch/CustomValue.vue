@@ -1,11 +1,13 @@
 <template>
-  <va-switch v-model="value" true-value="Agree" false-value="Disagree" />
+  {{ value }}
+  <br />
+  <va-switch v-model="value" true-value="Right" false-value="Left" />
 </template>
 <script>
 export default {
   data () {
     return {
-      value: true,
+      value: 'Right',
     }
   },
 }
