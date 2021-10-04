@@ -8,6 +8,7 @@ import DocsContent from '../../components/DocsContent.vue'
 import globalConfigConfig from '../../components/page-configs/services/global-config/page-config'
 
 @Options({
+  name: 'DocsGlobalConfig',
   components: {
     DocsContent,
   },

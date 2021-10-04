@@ -1,99 +1,47 @@
-import VaPopover from 'vuestic-ui/src/components/vuestic-components/va-popover/VaPopover.vue'
+import { ApiDocsBlock } from '../../../../types/configTypes'
+import { DocsHelper } from '../../../../helpers/DocsHelper'
+import VaPopover from 'vuestic-ui/src/components/va-popover/VaPopover.vue'
 import apiOptions from './api-options'
-import { BlockType, ApiDocsBlock } from '@/types/configTypes'
 
-export default [
-  {
-    type: BlockType.TITLE,
-    translationString: 'popover.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'popover.summaryText',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'all.examples',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'popover.examples.default.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'popover.examples.default.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-popover/Default',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'popover.examples.color.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'popover.examples.color.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-popover/Color',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'popover.examples.placement.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'popover.examples.placement.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-popover/Placement',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'popover.examples.icon.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'popover.examples.icon.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-popover/Icon',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'popover.examples.title.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'popover.examples.title.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-popover/Title',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'popover.examples.trigger.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'popover.examples.trigger.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-popover/Trigger',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'all.api',
-  },
-  {
-    type: BlockType.API,
-    componentOptions: VaPopover,
-    apiOptions,
-  },
-] as ApiDocsBlock[]
+const config: ApiDocsBlock[] = [
+  DocsHelper.title('popover.title'),
+  DocsHelper.paragraph('popover.summaryText'),
+
+  DocsHelper.subtitle('all.examples'),
+
+  ...DocsHelper.exampleBlock(
+    'popover.examples.default.title',
+    'popover.examples.default.text',
+    'va-popover/Default',
+  ),
+  ...DocsHelper.exampleBlock(
+    'popover.examples.color.title',
+    'popover.examples.color.text',
+    'va-popover/Color',
+  ),
+  ...DocsHelper.exampleBlock(
+    'popover.examples.placement.title',
+    'popover.examples.placement.text',
+    'va-popover/Placement',
+  ),
+  ...DocsHelper.exampleBlock(
+    'popover.examples.icon.title',
+    'popover.examples.icon.text',
+    'va-popover/Icon',
+  ),
+  ...DocsHelper.exampleBlock(
+    'popover.examples.title.title',
+    'popover.examples.title.text',
+    'va-popover/Title',
+  ),
+  ...DocsHelper.exampleBlock(
+    'popover.examples.trigger.title',
+    'popover.examples.trigger.text',
+    'va-popover/Trigger',
+  ),
+
+  DocsHelper.subtitle('all.api'),
+  DocsHelper.api(VaPopover, apiOptions),
+]
+
+export default config

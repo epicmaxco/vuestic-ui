@@ -8,6 +8,7 @@ import DocsContent from '../../components/DocsContent.vue'
 import switchConfig from '../../components/page-configs/ui-elements/va-switch/page-config'
 
 @Options({
+  name: 'DocsSwitch',
   components: {
     DocsContent,
   },

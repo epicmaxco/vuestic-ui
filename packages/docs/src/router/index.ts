@@ -1,14 +1,16 @@
-import { createWebHistory } from 'vue-router'
-import { createLangRouter } from 'vue-lang-router'
+import { createWebHistory, createRouter, RouterView } from 'vue-router'
 import routes from 'vue-auto-routing'
-import translations from '../locales'
+import { i18n } from '../locales/i18n'
+import { DEFAULT_LANGUAGE } from '../locales'
 
-const langRouterOptions = {
-  defaultLanguage: 'en',
-  translations,
-}
+/**
+ * We can not use aliases because then we lose the opportunity to update the route path.
+ * If "/en" is the alias of "/" then switching from "/" to "/en" will be the same route.
+ *
+ * https://github.com/vuejs/vue-router-next/issues/613
+ */
 
-const routerOptions = {
+export const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes: [
     {
@@ -18,12 +20,21 @@ const routerOptions = {
       children: routes,
     },
     {
-      path: '/:pathMatch(.*)*',
-      redirect: '/',
+      path: '/:locale/',
+      component: () => import(/* webpackChunkName: "router-layout" */ './RouterLayout.vue'),
+
+      // Remove name from routes to avoid named routes duplicates.
+      children: routes.map((r) => ({ ...r, name: undefined })),
     },
   ],
-}
+})
 
-const router = createLangRouter(langRouterOptions, routerOptions)
+// Update i18n locale if needed.
+router.beforeEach((to) => {
+  const newLocale = to.params.locale as string || DEFAULT_LANGUAGE
+  const currentLocale = i18n.global.locale
 
-export default router
+  if (newLocale === currentLocale) { return }
+
+  i18n.global.locale = newLocale
+})

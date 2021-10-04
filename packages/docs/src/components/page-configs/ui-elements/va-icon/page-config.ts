@@ -1,111 +1,52 @@
-import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
-import VaIcon from 'vuestic-ui/src/components/vuestic-components/va-icon/VaIcon.vue'
+import { ApiDocsBlock } from '../../../../types/configTypes'
+import { DocsHelper } from '../../../../helpers/DocsHelper'
+import VaIcon from 'vuestic-ui/src/components/va-icon/VaIcon.vue'
 import apiOptions from './api-options'
 
-export default [
-  {
-    type: BlockType.TITLE,
-    translationString: 'icon.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'icon.summaryText',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'all.examples',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'icon.examples.default.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'icon.examples.default.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-icon/Default',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'icon.examples.color.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'icon.examples.color.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-icon/Color',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'icon.examples.size.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'icon.examples.size.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-icon/Size',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'icon.examples.rotation.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'icon.examples.rotation.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-icon/Rotation',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'icon.examples.spin.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'icon.examples.spin.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-icon/Spin',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'icon.examples.text.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'icon.examples.text.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-icon/Text',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'icon.examples.tag.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'icon.examples.tag.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-icon/Tag',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'all.api',
-  },
-  {
-    type: BlockType.API,
-    componentOptions: VaIcon,
-    apiOptions,
-  },
-] as ApiDocsBlock[]
+const config: ApiDocsBlock[] = [
+  DocsHelper.title('icon.title'),
+  DocsHelper.paragraph('icon.summaryText'),
+
+  DocsHelper.subtitle('all.examples'),
+
+  ...DocsHelper.exampleBlock(
+    'icon.examples.default.title',
+    'icon.examples.default.text',
+    'va-icon/Default',
+  ),
+  ...DocsHelper.exampleBlock(
+    'icon.examples.color.title',
+    'icon.examples.color.text',
+    'va-icon/Color',
+  ),
+  ...DocsHelper.exampleBlock(
+    'icon.examples.size.title',
+    'icon.examples.size.text',
+    'va-icon/Size',
+  ),
+  ...DocsHelper.exampleBlock(
+    'icon.examples.rotation.title',
+    'icon.examples.rotation.text',
+    'va-icon/Rotation',
+  ),
+  ...DocsHelper.exampleBlock(
+    'icon.examples.spin.title',
+    'icon.examples.spin.text',
+    'va-icon/Spin',
+  ),
+  ...DocsHelper.exampleBlock(
+    'icon.examples.text.title',
+    'icon.examples.text.text',
+    'va-icon/Text',
+  ),
+  ...DocsHelper.exampleBlock(
+    'icon.examples.tag.title',
+    'icon.examples.tag.text',
+    'va-icon/Tag',
+  ),
+
+  DocsHelper.subtitle('all.api'),
+  DocsHelper.api(VaIcon, apiOptions),
+]
+
+export default config

@@ -8,6 +8,7 @@ import DocsContent from '../../components/DocsContent.vue'
 import overviewConfig from '../../components/page-configs/introduction/overview/page-config'
 
 @Options({
+  name: 'DocsOverview',
   components: {
     DocsContent,
   },

@@ -4,6 +4,7 @@
 </template>
 
 <script>
+import { defineComponent } from '@vue/runtime-core'
 import emitter from 'tiny-emitter/instance'
 import { setColors } from '../../ui/src/main'
 import { COLOR_THEMES, ThemeName } from './config/theme-config'
@@ -15,7 +16,8 @@ const eventBus = {
   $emit: (...args) => emitter.emit(...args),
 }
 
-export default {
+export default defineComponent({
+  name: 'App',
   data () {
     return {
       eventBus,
@@ -24,5 +26,5 @@ export default {
   setup () {
     setColors(COLOR_THEMES[ThemeName.DEFAULT])
   },
-}
+})
 </script>

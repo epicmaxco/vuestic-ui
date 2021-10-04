@@ -7,25 +7,24 @@
       color="gray"
       @click="copy"
     >
-      <i class="docs-navigation__button__icon" :class="copyIcon"/>
-      <span class="docs-navigation__button__text">{{ copyText }}</span>
+      <va-icon class="docs-navigation__button__icon" :class="copyButton.icon" size="sm" />
+      <span class="docs-navigation__button__text">{{ copyButton.text }}</span>
     </va-button>
 
     <va-button
-      v-for="(link, index) in links" :key="index"
       flat
       size="small"
       class="docs-navigation__button"
       color="gray"
-      :href="link.url"
+      :href="gitLink"
       target="_blank"
     >
-      <i class="docs-navigation__button__icon" :class="link.icon"/>
-      <span class="docs-navigation__button__text">{{ link.text }}</span>
+      <va-icon class="docs-navigation__button__icon fa fa-github" size="sm" />
+      <span class="docs-navigation__button__text">{{ $t('docsNavigation.openGithub') }}</span>
     </va-button>
 
     <form :action="sandboxDefineUrl" method="POST" target="_blank">
-      <input type="hidden" name="parameters" :value="sandboxParams"/>
+      <input type="hidden" name="parameters" :value="sandboxParams" />
       <va-button
         flat
         type="submit"
@@ -33,8 +32,8 @@
         class="docs-navigation__button"
         color="gray"
       >
-        <i class="docs-navigation__button__icon" :class="codeIcon"/>
-        <span class="docs-navigation__button__text">Open in CodeSandbox</span>
+        <va-icon class="docs-navigation__button__icon fa fa-code" size="sm" />
+        <span class="docs-navigation__button__text">{{ $t('docsNavigation.openCodeSandbox') }}</span>
       </va-button>
     </form>
   </div>
@@ -45,6 +44,7 @@ import { getParameters } from 'codesandbox/lib/api/define'
 import packageUi from '../../../ui/package'
 
 export default {
+  name: 'DocsNavigation',
   props: {
     code: {
       type: String,
@@ -58,30 +58,36 @@ export default {
   data () {
     return {
       query: '?query=file=/src/App.vue',
-      links: [
-        {
-          text: 'Open in GitHub',
-          icon: 'fa fa-github',
-          url: `https://github.com/epicmaxco/vuestic-ui/tree/develop/packages/docs/src/examples/${this.gitUrl}.vue`,
-        },
-      ],
-      copyIcon: 'fa fa-files-o',
-      codeIcon: 'fa fa-code',
-      copyText: 'Copy code',
+      copyButtonState: 'default',
     }
   },
   methods: {
-    copy () {
-      this.$clipboard(this.code)
-      this.copyIcon = 'fa fa-check'
-      this.copyText = 'Copied'
+    async copy () {
+      try {
+        await window.navigator.clipboard.writeText(this.code)
+        this.copyButtonState = 'active'
+      } catch (e) {
+        if (e.message === 'NotAllowedError') {
+          this.copyButtonState = 'error'
+        }
+      }
       setTimeout(() => {
-        this.copyText = 'Copy code'
-        this.copyIcon = 'fa fa-files-o'
+        this.copyButtonState = 'default'
       }, 1500)
     },
   },
   computed: {
+    copyButton () {
+      const buttonStates = {
+        active: { text: this.$t('docsNavigation.copyCopied'), icon: 'fa fa-check' },
+        error: { text: this.$t('docsNavigation.copyFailure'), icon: 'fa fa-times' },
+        default: { text: this.$t('docsNavigation.copyCode'), icon: 'fa fa-files-o' },
+      }
+      return buttonStates[this.copyButtonState]
+    },
+    gitLink () {
+      return `https://github.com/epicmaxco/vuestic-ui/tree/develop/packages/docs/src/examples/${this.gitUrl}.vue`
+    },
     sandboxDefineUrl () {
       return `https://codesandbox.io/api/v1/sandboxes/define${this.query}`
     },
@@ -100,7 +106,13 @@ app.mount("#app");
     '@vue/cli-plugin-babel/preset'
   ]
 }`
-      const html = '<div id="app"></div>'
+      const html = `<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@5.9.55/css/materialdesignicons.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<div id="app"></div>`
 
       return getParameters({
         files: {
@@ -141,7 +153,7 @@ app.mount("#app");
 </script>
 
 <style lang="scss">
-@import "~vuestic-ui/src/components/vuestic-sass/resources/resources";
+@import "~vuestic-ui/src/styles/resources/resources";
 
 .docs-navigation {
   background: $prism-background;
@@ -152,6 +164,10 @@ app.mount("#app");
     padding: 1.5rem 0.5rem;
     margin: 0 0.5rem;
     font-weight: bold;
+
+    div {
+      color: var(--va-gray);
+    }
 
     &:hover {
       background: none !important;

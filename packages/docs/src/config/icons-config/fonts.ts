@@ -19,8 +19,8 @@ export const fonts: IconConfiguration[] = [
     resolve: ({ code }) => ({ class: `icon ion-ios-${code}-outline` }),
   },
   {
-    name: /(brandico|entypo|fontawesome|fontelico|iconicfill|iconicstroke|maki|openwebicons|typicons|zocial)-(.*)/,
-    resolveFromRegex: (font, code) => ({ class: `${font}-${code}` }),
+    name: 'entypo-{code}',
+    resolve: ({ code }) => ({ class: `entypo-${code}` }),
   },
   {
     name: /(fas|far|fal|fad|fab)-(.*)/,

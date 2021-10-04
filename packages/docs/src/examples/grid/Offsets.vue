@@ -1,5 +1,5 @@
 <template>
-  <va-card color="secondary" style="padding: 0.75rem;">
+  <va-card color="background" style="padding: 0.75rem;">
     <div class="row">
       <div class="flex xs1 offset--md3 offset--lg2">
         <div class="item">First</div>
@@ -27,14 +27,14 @@
 </template>
 
 <script>
-import VaCard from 'vuestic-ui/src/components/vuestic-components/va-card/VaCard'
+import VaCard from 'vuestic-ui/src/components/va-card/VaCard'
 export default {
   components: { VaCard },
 }
 </script>
 
 <style lang="scss" scoped>
-@import '~vuestic-ui/src/components/vuestic-sass/resources/resources';
+@import '~vuestic-ui/src/styles/resources/resources';
 
 .item {
   border: 1px solid $gray;

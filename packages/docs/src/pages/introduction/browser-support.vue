@@ -8,6 +8,7 @@ import DocsContent from '../../components/DocsContent.vue'
 import browserSupportConfig from '../../components/page-configs/introduction/browser-support/page-config'
 
 @Options({
+  name: 'DocsBrowserSupport',
   components: {
     DocsContent,
   },

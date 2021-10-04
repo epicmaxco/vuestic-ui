@@ -1,13 +1,17 @@
 import { ApiDocsBlock } from '../../../../types/configTypes'
 import { DocsHelper } from '../../../../helpers/DocsHelper'
 
-export default [
+const config: ApiDocsBlock[] = [
   DocsHelper.title('overview.title'),
   DocsHelper.paragraph('overview.description'),
   DocsHelper.subtitle('overview.featuresOverview'),
-  DocsHelper.paragraph('overview.vueThreeCompatible'),
-  DocsHelper.paragraph('overview.featureRich'),
-  DocsHelper.paragraph('overview.configurable'),
-  DocsHelper.paragraph('overview.responsive'),
-  DocsHelper.paragraph('overview.translatable'),
-] as ApiDocsBlock[]
+  DocsHelper.list([
+    'overview.vueThreeCompatible',
+    'overview.featureRich',
+    'overview.configurable',
+    'overview.responsive',
+    'overview.translatable',
+  ]),
+]
+
+export default config

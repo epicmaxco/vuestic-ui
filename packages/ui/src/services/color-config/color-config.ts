@@ -2,8 +2,9 @@ import { GlobalConfig, setGlobalConfig, getGlobalConfig } from '../global-config
 import {
   getBoxShadowColor,
   getHoverColor, getFocusColor,
-  getGradientBackground, isCssColor,
+  getGradientBackground, isColor,
   getTextColor, shiftHSLAColor,
+  setHSLAColor,
 } from './color-functions'
 
 export type CssColor = string
@@ -23,6 +24,11 @@ export const getColors = (): ColorConfig => {
   return getGlobalConfig().colors || {}
 }
 
+/**
+ * Returns color from config by name or return prop if color is it's valid hex, hsl, hsla, rgb or rgba color.
+ * @param prop - should be color name or color in hex, hsl, hsla, rgb or rgba format
+ * @param defaultColor - this color will be used if prop is invalid
+ */
 export const getColor = (prop?: string, defaultColor: string = DEFAULT_COLOR): CssColor => {
   const colors = getColors()
 
@@ -34,11 +40,21 @@ export const getColor = (prop?: string, defaultColor: string = DEFAULT_COLOR): C
     return colors[prop]
   }
 
-  if (isCssColor(prop)) {
+  if (isColor(prop)) {
     return prop
   }
 
   return defaultColor
+}
+
+export const colorsToCSSVariable = (colors: { [colorName: string]: string | undefined }, prefix = 'va') => {
+  return Object
+    .keys(colors)
+    .filter((key) => colors[key] !== undefined)
+    .reduce((acc: Record<string, any>, colorName: string) => {
+      acc[`--${prefix}-${colorName}`] = getColor(colors[colorName])
+      return acc
+    }, {})
 }
 
 // Here expose methods that user wants to use in vue component
@@ -53,5 +69,7 @@ export const useColors = () => {
     getGradientBackground,
     getTextColor,
     shiftHSLAColor,
+    setHSLAColor,
+    colorsToCSSVariable,
   }
 }

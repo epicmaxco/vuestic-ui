@@ -3,7 +3,7 @@
     <table class="DocsTable__table">
       <thead>
       <tr>
-        <th v-for="c in columnsComputed" :key="c.title">{{ c.title }}</th>
+        <th v-for="c in columnsComputed" :key="c.title">{{ $tie(c.title) }}</th>
       </tr>
       </thead>
       <tbody>
@@ -17,19 +17,19 @@
             <strong>{{ colData }}</strong>
           </template>
           <template v-else-if="columnsComputed[index].type === 'markdown'">
-            <MarkdownView :value="$te(colData) ? $t(colData) : colData"/>
+            <MarkdownView :value="$tie(colData)" />
           </template>
           <template v-else-if="columnsComputed[index].type === 'code'">
-            <MarkdownView :value="`\`${colData}\``"/>
+            <MarkdownView :value="`\`${colData}\``" />
           </template>
           <template v-else-if="columnsComputed[index].type === 'pre'">
             <pre>{{ colData }}</pre>
           </template>
           <template v-else-if="columnsComputed[index].type === 'translationString'">
-            {{ $t(colData) }}
+            {{ $tie(colData) }}
           </template>
           <template v-else>
-            {{ $te(colData) ? $t(colData) : colData }}
+            {{ $tie(colData) }}
           </template>
         </td>
       </tr>
@@ -51,6 +51,7 @@ class Props {
 const PropsMixin = Vue.with(Props)
 
 @Options({
+  name: 'DocsTable',
   components: { MarkdownView },
 })
 export default class DocsTable extends mixins(PropsMixin) {
@@ -61,7 +62,7 @@ export default class DocsTable extends mixins(PropsMixin) {
 </script>
 
 <style lang="scss">
-@import "~vuestic-ui/src/components/vuestic-sass/resources/resources";
+@import "~vuestic-ui/src/styles/resources/resources";
 
 .DocsTable {
   overflow-x: auto;

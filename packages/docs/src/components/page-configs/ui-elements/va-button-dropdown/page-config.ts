@@ -1,9 +1,9 @@
-import VaButtonDropdown from 'vuestic-ui/src/components/vuestic-components/va-button-dropdown/VaButtonDropdown.vue'
-import apiOptions from './api-options'
 import { DocsHelper } from '../../../../helpers/DocsHelper'
 import { ApiDocsBlock } from '../../../../types/configTypes'
+import VaButtonDropdown from 'vuestic-ui/src/components/va-button-dropdown/VaButtonDropdown.vue'
+import apiOptions from './api-options'
 
-export default [
+const config: ApiDocsBlock[] = [
   DocsHelper.title('buttonDropdown.title'),
   DocsHelper.paragraph('buttonDropdown.summaryText'),
   DocsHelper.subtitle('all.examples'),
@@ -47,6 +47,13 @@ export default [
     'buttonDropdown.examples.events.text',
     'va-button-dropdown/Events',
   ),
+  ...DocsHelper.exampleBlock(
+    'buttonDropdown.examples.clickInside.title',
+    'buttonDropdown.examples.clickInside.text',
+    'va-button-dropdown/ClickInside',
+  ),
   DocsHelper.subtitle('all.api'),
   DocsHelper.api(VaButtonDropdown, apiOptions),
-] as ApiDocsBlock[]
+]
+
+export default config

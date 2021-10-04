@@ -1,111 +1,51 @@
-import VaToast from 'vuestic-ui/src/components/vuestic-components/va-toast/VaToast.vue'
+import { ApiDocsBlock } from '../../../../types/configTypes'
+import { DocsHelper } from '../../../../helpers/DocsHelper'
+import VaToast from 'vuestic-ui/src/components/va-toast/VaToast.vue'
 import apiOptions from './api-options'
-import { BlockType, ApiDocsBlock } from '../../../../types/configTypes'
 
-export default [
-  {
-    type: BlockType.TITLE,
-    translationString: 'toast.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'toast.summaryText',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'all.examples',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'toast.examples.default.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'toast.examples.default.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-toast/Default',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'toast.examples.color.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'toast.examples.color.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-toast/Color',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'toast.examples.offset.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'toast.examples.offset.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-toast/Offset',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'toast.examples.position.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'toast.examples.position.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-toast/Position',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'toast.examples.close.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'toast.examples.close.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-toast/Close',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'toast.examples.click.title',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'toast.examples.click.text',
-  },
-  {
-    type: BlockType.EXAMPLE,
-    component: 'va-toast/Click',
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'all.api',
-  },
-  {
-    type: BlockType.API,
-    componentOptions: VaToast,
-    apiOptions,
-  },
-  {
-    type: BlockType.SUBTITLE,
-    translationString: 'all.faq',
-  },
-  {
-    type: BlockType.HEADLINE,
-    translationString: 'toast.faq.questions[0].question',
-  },
-  {
-    type: BlockType.PARAGRAPH,
-    translationString: 'toast.faq.questions[0].answer',
-  },
-] as ApiDocsBlock[]
+const config: ApiDocsBlock[] = [
+  DocsHelper.title('toast.title'),
+  DocsHelper.paragraph('toast.summaryText'),
+
+  DocsHelper.subtitle('all.examples'),
+
+  ...DocsHelper.exampleBlock(
+    'toast.examples.default.title',
+    'toast.examples.default.text',
+    'va-toast/Default',
+  ),
+  ...DocsHelper.exampleBlock(
+    'toast.examples.color.title',
+    'toast.examples.color.text',
+    'va-toast/Color',
+  ),
+  ...DocsHelper.exampleBlock(
+    'toast.examples.offset.title',
+    'toast.examples.offset.text',
+    'va-toast/Offset',
+  ),
+  ...DocsHelper.exampleBlock(
+    'toast.examples.position.title',
+    'toast.examples.position.text',
+    'va-toast/Position',
+  ),
+  ...DocsHelper.exampleBlock(
+    'toast.examples.close.title',
+    'toast.examples.close.text',
+    'va-toast/Close',
+  ),
+  ...DocsHelper.exampleBlock(
+    'toast.examples.click.title',
+    'toast.examples.click.text',
+    'va-toast/Click',
+  ),
+
+  DocsHelper.subtitle('all.api'),
+  DocsHelper.api(VaToast, apiOptions),
+
+  DocsHelper.subtitle('all.faq'),
+  DocsHelper.headline('toast.faq.questions[0].question'),
+  DocsHelper.paragraph('toast.faq.questions[0].answer'),
+]
+
+export default config

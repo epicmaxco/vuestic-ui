@@ -75,6 +75,7 @@ import { Options, Vue } from 'vue-class-component'
 import StarsButton from './StarsButton.vue'
 
 @Options({
+  name: 'LandingAdmin',
   components: { StarsButton },
 })
 export default class Admin extends Vue {}

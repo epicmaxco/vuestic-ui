@@ -14,7 +14,7 @@
         :language="block.language"
       />
       <ApiDocs
-        v-else-if="BlockType.API === block.type"
+        v-else-if="block.type === BlockType.API"
         :key="block.type + index"
         :component-options="block.componentOptions"
         :api-options="block.apiOptions"
@@ -29,15 +29,20 @@
         :key="block.type + index"
         :text="block.translationString"
       />
-      <MarkdownView
+      <DocsHeadline
         v-else-if="block.type === BlockType.HEADLINE"
         :key="block.type + index"
-        :value="`##### ${$t(block.translationString)}`"
+        :text="block.translationString"
       />
       <MarkdownView
         v-else-if="block.type === BlockType.PARAGRAPH"
         :key="block.type + index"
-        :value="`${$t(block.translationString)}`"
+        :value="`${$tie(block.translationString)}`"
+      />
+      <MarkdownView
+        v-else-if="block.type === BlockType.LIST"
+        :key="block.type + index"
+        :value="translateAndMark(block.translationStringList)"
       />
       <DocsTable
         v-else-if="block.type === BlockType.TABLE"
@@ -69,6 +74,7 @@ import { ApiDocsBlock, BlockType } from '../types/configTypes'
 import MarkdownView from '../utilities/markdown-view/MarkdownView.vue'
 import DocsExample from './DocsExample.vue'
 import DocsCode from './DocsCode.vue'
+import DocsHeadline from './DocsHeadline.vue'
 import DocsSubtitle from './DocsSubtitle.vue'
 import ApiDocs from './DocsApi/ApiDocs.vue'
 import DocsTable from './DocsTable/DocsTable.vue'
@@ -82,9 +88,11 @@ class Props {
 const PropsMixin = Vue.with(Props)
 
 @Options({
+  name: 'DocsContent',
   components: {
     DocsExample,
     DocsCode,
+    DocsHeadline,
     DocsSubtitle,
     MarkdownView,
     ApiDocs,
@@ -96,6 +104,12 @@ const PropsMixin = Vue.with(Props)
 export default class DocsContent extends mixins(PropsMixin) {
   get BlockType () {
     return BlockType
+  }
+
+  translateAndMark (translations: string[]): string {
+    return translations
+      .map((t: string): string => `- ${this.$tie(t)}`)
+      .join('\n')
   }
 }
 </script>

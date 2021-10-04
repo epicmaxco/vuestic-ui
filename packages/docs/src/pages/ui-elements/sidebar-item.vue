@@ -8,6 +8,7 @@ import DocsContent from '../../components/DocsContent.vue'
 import sidebarItemConfig from '../../components/page-configs/ui-elements/va-sidebar-item/page-config'
 
 @Options({
+  name: 'DocsSidebarItem',
   components: {
     DocsContent,
   },

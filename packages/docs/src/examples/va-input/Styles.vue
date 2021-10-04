@@ -20,6 +20,7 @@
     <va-input
       class="mb-4"
       v-model="value"
+      placeholder="Default"
       label="Default"
     />
     <va-input

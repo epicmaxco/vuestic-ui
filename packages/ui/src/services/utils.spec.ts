@@ -1,4 +1,4 @@
-import { deepEqual, getProp, getValueByPath, getNestedValue } from './utils'
+import { deepEqual, getProp, getValueByPath, getNestedValue, generateUniqueId } from './utils'
 
 describe('utils', () => {
   it('deepEqual', () => {
@@ -124,5 +124,19 @@ describe('utils', () => {
     expect(getNestedValue(object, ['missing'])).toBeUndefined()
     expect(getNestedValue(object, ['product', 'missing'])).toBeUndefined()
     expect(getNestedValue(object, ['product', 'name', 'missing'])).toBeUndefined()
+  })
+
+  it('generateUuid', () => {
+    const uuid = generateUniqueId()
+
+    expect(uuid).toHaveLength(18)
+    expect(typeof uuid).toBe('string')
+
+    const uuid2 = generateUniqueId()
+
+    expect(uuid2).toHaveLength(18)
+    expect(typeof uuid2).toBe('string')
+
+    expect(uuid2).not.toEqual(uuid)
   })
 })

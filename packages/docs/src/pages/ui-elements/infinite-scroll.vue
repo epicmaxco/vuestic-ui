@@ -8,6 +8,7 @@ import DocsContent from '../../components/DocsContent.vue'
 import infiniteScrollConfig from '../../components/page-configs/ui-elements/va-infinite-scroll/page-config'
 
 @Options({
+  name: 'DocsInfiniteScroll',
   components: {
     DocsContent,
   },

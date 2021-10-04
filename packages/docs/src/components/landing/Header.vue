@@ -53,20 +53,21 @@
                   <span class="language">{{ option.name }}</span>
                 </va-list-item-section>
               </va-list-item>
+              <va-list-item>
+                <va-list-item-section class="mobile-menu__link">
+                  <router-link
+                    class="mobile-menu__language"
+                    :to="`/${$root.$i18n.locale}/contribution/translation`"
+                  >
+                    {{ $t('landing.header.buttons.translation') }}
+                  </router-link>
+                </va-list-item-section>
+              </va-list-item>
             </div>
-            <va-list-item>
-              <va-list-item-section class="mobile-menu__link">
-                <router-link
-                  class="mobile-menu__language"
-                  :to="`/${$root.$i18n.locale}/contribution/translation`"
-                >
-                  {{ $t('landing.header.buttons.translation') }}
-                </router-link>
-              </va-list-item-section>
-            </va-list-item>
-            <va-list-item class="star-button-wrapper">
+
+            <div class="star-button-wrapper">
               <stars-button repo="epicmaxco/vuestic-admin" />
-            </va-list-item>
+            </div>
           </va-list>
         </nav>
       </div>
@@ -77,7 +78,7 @@
 <script lang="ts">
 // @ts-nocheck
 import { Options, Vue } from 'vue-class-component'
-import { languages } from './../languages'
+import { languages } from '../../locales'
 import VuesticLogo from '../header/components/VuesticLogo.vue'
 import LanguageDropdown from '../header/components/LanguageDropdown.vue'
 import StarsButton from './StarsButton.vue'
@@ -271,20 +272,19 @@ export default class Header extends Vue {
   }
 
   &__label {
-    font-size: 12px;
+    font-size: 10px;
     padding-top: 3rem;
-    padding-bottom: 0.8rem;
+    padding-bottom: 0.5rem;
   }
 
   &__link {
     @include link-font();
-
     text-align: center;
 
     span,
     a {
       color: #2550c0;
-      padding: 0.8rem 0;
+      padding: 0.5rem 0;
 
       &:hover {
         color: #1b1a1f;

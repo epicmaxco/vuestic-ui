@@ -8,6 +8,7 @@ import DocsContent from '../../components/DocsContent.vue'
 import colorsConfigConfig from '../../components/page-configs/services/colors-config/page-config'
 
 @Options({
+  name: 'DocsColorsConfig',
   components: {
     DocsContent,
   },

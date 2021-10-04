@@ -27,7 +27,9 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
-@Options({})
+@Options({
+  name: 'LandingOpenSource',
+})
 export default class OpenSource extends Vue {}
 </script>
 
@@ -92,7 +94,7 @@ export default class OpenSource extends Vue {}
     @include sm(text-align, center);
 
     a {
-      color: $active-blue;
+      color: var(--va-primary);
     }
   }
 

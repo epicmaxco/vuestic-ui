@@ -8,6 +8,7 @@ import DocsContent from '../../components/DocsContent.vue'
 import backtopConfig from '../../components/page-configs/ui-elements/va-backtop/page-config'
 
 @Options({
+  name: 'DocsBacktop',
   components: {
     DocsContent,
   },

@@ -56,6 +56,10 @@ export const navigationRoutes: NavigationRoute[] = [
     disabled: true,
     children: [
       {
+        name: 'reset',
+        displayName: 'menu.reset',
+      },
+      {
         name: 'grid',
         displayName: 'menu.grid',
       },
@@ -70,6 +74,13 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: 'typography',
         displayName: 'menu.typography',
+      },
+      {
+        name: 'ag-grid',
+        displayName: 'menu.agGrid',
+        meta: {
+          badge: 'wip',
+        },
       },
       // GENERATOR_ADD - styles
     ],
@@ -86,6 +97,10 @@ export const navigationRoutes: NavigationRoute[] = [
         category: 'menu.categories.view',
         name: 'avatar',
         displayName: 'menu.avatar',
+      },
+      {
+        name: 'badge',
+        displayName: 'menu.badge',
       },
       {
         name: 'button',
@@ -122,6 +137,13 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: 'modal',
         displayName: 'menu.modal',
+      },
+      {
+        name: 'data-table',
+        displayName: 'menu.dataTable',
+        meta: {
+          badge: 'wip',
+        },
       },
       {
         category: 'menu.categories.form',
@@ -164,16 +186,24 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'file-upload',
         displayName: 'menu.fileUpload',
       },
-      // Temporary removed.
-      // {
-      //   name: 'popover',
-      //   displayName: 'menu.popover',
-      // },
-      // Temporary removed.
-      // {
-      //   name: 'date-picker',
-      //   displayName: 'menu.datePicker',
-      // },
+      {
+        name: 'popover',
+        displayName: 'menu.popover',
+      },
+      {
+        name: 'date-picker',
+        displayName: 'menu.datePicker',
+        meta: {
+          badge: 'new',
+        },
+      },
+      {
+        name: 'date-input',
+        displayName: 'menu.dateInput',
+        meta: {
+          badge: 'new',
+        },
+      },
       {
         category: 'menu.categories.layout',
         name: 'card',
@@ -208,28 +238,6 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'breadcrumbs',
         displayName: 'menu.breadcrumbs',
       },
-      {
-        name: 'badge',
-        displayName: 'menu.badge',
-      },
-      // TODO: Color components not released yet
-      // {
-      //   category: 'menu.categories.color',
-      //   name: 'color-picker',
-      //   displayName: 'menu.colorPicker',
-      // },
-      // {
-      //   name: 'color-input',
-      //   displayName: 'menu.colorInput',
-      // },
-      // {
-      //   name: 'color-slider',
-      //   displayName: 'menu.colorSlider',
-      // },
-      // {
-      //   name: 'color-palette',
-      //   displayName: 'menu.colorPalette',
-      // },
       {
         name: 'navbar',
         displayName: 'menu.navbar',
@@ -283,6 +291,24 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'toast',
         displayName: 'menu.toast',
       },
+      // TODO: Color components not released yet
+      // {
+      //   category: 'menu.categories.color',
+      //   name: 'color-picker',
+      //   displayName: 'menu.colorPicker',
+      // },
+      // {
+      //   name: 'color-slider',
+      //   displayName: 'menu.colorSlider',
+      // },
+      {
+        name: 'color-input',
+        displayName: 'menu.colorInput',
+      },
+      {
+        name: 'color-palette',
+        displayName: 'menu.colorPalette',
+      },
       // GENERATOR_ADD - uiElements
     ],
   },
@@ -301,6 +327,10 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: 'guide',
         displayName: 'menu.guide',
+      },
+      {
+        name: 'ui-element-guide',
+        displayName: 'menu.uiElementGuide',
       },
       // GENERATOR_ADD - contribution
     ],

@@ -1,5 +1,5 @@
 <template>
-  <va-card color="secondary" style="padding: 0.75rem;">
+  <va-card color="background" style="padding: 0.75rem;">
     <div class="layout gutter--md">
       <div class="row">
         <div class="flex xs6">
@@ -25,14 +25,14 @@
 </template>
 
 <script>
-import VaCard from 'vuestic-ui/src/components/vuestic-components/va-card/VaCard'
+import VaCard from 'vuestic-ui/src/components/va-card/VaCard'
 export default {
   components: { VaCard },
 }
 </script>
 
 <style lang="scss" scoped>
-@import '~vuestic-ui/src/components/vuestic-sass/resources/resources';
+@import '~vuestic-ui/src/styles/resources/resources';
 
 .layout {
   background-color: $lighter-gray;

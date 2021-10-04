@@ -1,9 +1,9 @@
 import { ApiDocsBlock } from '../../../../types/configTypes'
-import VaButtonToggle from 'vuestic-ui/src/components/vuestic-components/va-button-toggle/VaButtonToggle.vue'
-import apiOptions from './api-options'
 import { DocsHelper } from '../../../../helpers/DocsHelper'
+import VaButtonToggle from 'vuestic-ui/src/components/va-button-toggle/VaButtonToggle.vue'
+import apiOptions from './api-options'
 
-export default [
+const config: ApiDocsBlock[] = [
   DocsHelper.title('buttonToggle.title'),
   DocsHelper.paragraph('buttonToggle.summaryText'),
 
@@ -46,4 +46,6 @@ export default [
 
   DocsHelper.subtitle('all.api'),
   DocsHelper.api(VaButtonToggle, apiOptions),
-] as ApiDocsBlock[]
+]
+
+export default config

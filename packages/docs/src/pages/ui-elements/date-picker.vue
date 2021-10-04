@@ -3,11 +3,12 @@
 </template>
 
 <script lang="ts">
-import { Vue, Options } from 'vue-class-component'
+import { Options, Vue } from 'vue-class-component'
 import DocsContent from '../../components/DocsContent.vue'
 import datePickerConfig from '../../components/page-configs/ui-elements/va-date-picker/page-config'
 
 @Options({
+  name: 'DocsDatePicker',
   components: {
     DocsContent,
   },

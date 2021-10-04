@@ -4,7 +4,7 @@
 
 import { PlopGeneratorConfig } from 'node-plop'
 
-const categories = ['styles', 'contribution', 'gettingStarted', 'introduction', 'services']
+const categories = ['styles', 'contribution', 'gettingStarted', 'introduction', 'services', 'uiElements']
 const categoriesString = categories.join(', ')
 
 module.exports = {

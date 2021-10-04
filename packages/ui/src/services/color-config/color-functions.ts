@@ -26,21 +26,27 @@ export const getFocusColor = (color: ColorInput) => {
 export const shiftHSLAColor = (color: ColorInput, offset: { h?: number; s?: number; l?: number; a?: number }) => {
   const result = new ColorTranslator(color)
 
-  if (offset.h) {
-    result.setH(result.H + offset.h)
-  }
+  if (offset.h) { result.setH(result.H + offset.h) }
 
-  if (offset.s) {
-    result.setS(result.S + offset.s)
-  }
+  if (offset.s) { result.setS(result.S + offset.s) }
 
-  if (offset.l) {
-    result.setL(result.L + offset.l)
-  }
+  if (offset.l) { result.setL(result.L + offset.l) }
 
-  if (offset.a) {
-    result.setA(result.A + offset.a)
-  }
+  if (offset.a) { result.setA(result.A + offset.a) }
+
+  return result.HSLA
+}
+
+export const setHSLAColor = (color: ColorInput, newColor: { h?: number; s?: number; l?: number; a?: number }) => {
+  const result = new ColorTranslator(color)
+
+  if (newColor.h !== undefined) { result.setH(newColor.h) }
+
+  if (newColor.s !== undefined) { result.setS(newColor.s) }
+
+  if (newColor.l !== undefined) { result.setL(newColor.l) }
+
+  if (newColor.a !== undefined) { result.setA(newColor.a) }
 
   return result.HSLA
 }
@@ -92,12 +98,13 @@ export const getGradientBackground = (color: string) => {
 }
 
 /**
- * Check if color is valid css color
- * Taken from https://stackoverflow.com/a/56266358/5783475
+ * Check if color is valid hsl, hsla, rga, rgba or hex color
+ * Taken from https://www.regextester.com/103656
  * @param strColor
  */
-export const isCssColor = (strColor: string): boolean => {
-  const s = new Option().style
-  s.color = strColor
-  return s.color !== ''
+export const isColor = (strColor: string): boolean => {
+  // Need to use Regex instead of DOM methods because we support SSR
+  const cssColorRegex = /^#([\da-f]{3}){1,2}$|^#([\da-f]{4}){1,2}$|(rgb|hsl)a?\((\s*-?\d+%?\s*,){2}(\s*-?\d+%?\s*,?\s*\)?)(,\s*(0?\.\d+)?|1)?\)/
+
+  return cssColorRegex.test(strColor.toLocaleLowerCase())
 }

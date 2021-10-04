@@ -7,15 +7,17 @@
         v-for="(route, key) in navigationRoutes"
         :key="key"
       >
-        <template #header>
-          <va-sidebar-item :activeColor="activeColor">
-            <va-sidebar-item-content :class="{ 'va-sidebar-item--active': isRouteHasActiveChild(route) }">
-              <va-sidebar-item-title>
-                {{ $t(route.displayName) }}
-              </va-sidebar-item-title>
-              <va-icon v-if="route.children" :name="value[key] ? 'expand_less' : 'expand_more'" />
-            </va-sidebar-item-content>
-          </va-sidebar-item>
+        <template #header="{ value, hasKeyboardFocus }">
+          <div
+            class="sidebar__collapse-custom-header"
+            :class="{
+              'sidebar__collapse-custom-header--active': isRouteHasActiveChild(route),
+              'sidebar__collapse-custom-header--keyboard-focused': hasKeyboardFocus
+            }"
+          >
+            {{ $t(route.displayName) }}
+            <va-icon :name="value ? 'expand_less' : 'expand_more'" />
+          </div>
         </template>
         <div
           v-for="(childRoute, index) in route.children"
@@ -33,11 +35,24 @@
             :to="`/${$root.$i18n.locale}/${route.name}/${childRoute.name}`"
             :active="isActiveChildRoute(childRoute, route)"
             :activeColor="activeColor"
+            :hover-color="hoverColor"
             border-color="primary"
+            text-color="dark"
             @click="onSidebarItemClick"
           >
             <va-sidebar-item-content>
-              {{ $t(childRoute.displayName) }}
+              <va-sidebar-item-title>
+                {{ $t(childRoute.displayName) }}
+              </va-sidebar-item-title>
+              <div class="va-sidebar-item-badges" v-if="childRoute.meta && childRoute.meta.badge">
+                <va-chip
+                  size="small"
+                  :color="badgeColors[childRoute.meta.badge]"
+                  :title="$t(`menu.badges.${childRoute.meta.badge}.title`)"
+                >
+                  {{ $t(`menu.badges.${childRoute.meta.badge}.text`) }}
+                </va-chip>
+              </div>
             </va-sidebar-item-content>
           </va-sidebar-item>
         </div>
@@ -60,6 +75,7 @@ class Props {
 }
 
 @Options({
+  name: 'DocsSidebar',
   components: { AlgoliaSearch, VaSidebarLink },
 })
 export default class Sidebar extends Vue.with(Props) {
@@ -73,8 +89,18 @@ export default class Sidebar extends Vue.with(Props) {
     return getColor(color)
   }
 
+  badgeColors = { wip: 'primary', new: 'success' }
+
   get activeColor () {
-    return '#b8c9ec'
+    const { getColor, getFocusColor } = useColors()
+    const color = getColor('primary')
+    return getFocusColor(color)
+  }
+
+  get hoverColor () {
+    const { getColor, getHoverColor } = useColors()
+    const color = getColor('primary')
+    return getHoverColor(color)
   }
 
   onRouteChange () {
@@ -118,58 +144,100 @@ export default class Sidebar extends Vue.with(Props) {
 </script>
 
 <style lang="scss" scoped>
-@import "~vuestic-ui/src/components/vuestic-sass/resources/resources.scss";
+@import "~vuestic-ui/src/styles/resources/resources.scss";
 
-.va-sidebar {
-  z-index: 1;
-  height: 100%;
-  min-width: 16rem;
-  color: var(--va-dark, #323742);
-
-  &.va-sidebar--hidden {
-    min-width: 0;
-  }
-
-  @include media-breakpoint-down(xs) {
-    z-index: 100;
-    position: absolute;
-  }
-
-  .va-sidebar-item-content {
-    cursor: pointer;
-  }
-
-  .va-sidebar-item {
-    cursor: pointer;
-  }
-
-  .va-sidebar-item-title {
+.sidebar {
+  &__collapse-custom-header {
+    position: relative;
+    padding: 1rem 1.2rem;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 56px;
     font-weight: 500;
     font-size: 16px;
     line-height: 20px;
-  }
+    cursor: pointer;
 
-  .va-sidebar-item--active {
-    color: var(--primary, #4591e3);
+    ::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: var(--va-primary);
+      opacity: 0;
+    }
 
-    .va-sidebar-item-title {
-      color: var(--primary, #4591e3);
+    &:hover {
+      ::before {
+        opacity: 0.2;
+      }
+    }
+
+    &--keyboard-focused {
+      ::before {
+        opacity: 0.3;
+      }
+    }
+
+    &--active {
+      color: var(--va-primary);
     }
   }
 
-  &__child {
-    &__label {
-      padding-left: 2rem;
-      text-align: left;
+  .va-sidebar {
+    z-index: 1;
+    height: 100%;
+    min-width: 16rem;
+    color: var(--va-dark, #323742);
+
+    &.va-sidebar--hidden {
+      min-width: 0;
+    }
+
+    @include media-breakpoint-down(xs) {
+      z-index: 100;
+      position: absolute;
     }
 
     .va-sidebar-item-content {
-      padding-left: 3rem;
+      cursor: pointer;
     }
 
-    &:first-child {
-      .va-sidebar__child__label {
-        padding-top: 0;
+    .va-sidebar-item {
+      cursor: pointer;
+    }
+
+    .va-sidebar-item-title {
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 20px;
+    }
+
+    .va-sidebar-item--active {
+      color: var(--primary, #4591e3);
+
+      .va-sidebar-item-title {
+        color: var(--primary, #4591e3);
+      }
+    }
+
+    &__child {
+      &__label {
+        padding-left: 2rem;
+        text-align: left;
+      }
+
+      .va-sidebar-item-content {
+        padding-left: 3rem;
+      }
+
+      &:first-child {
+        .va-sidebar__child__label {
+          padding-top: 0;
+        }
       }
     }
   }

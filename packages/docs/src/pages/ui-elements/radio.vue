@@ -8,6 +8,7 @@ import DocsContent from '../../components/DocsContent.vue'
 import radioConfig from '../../components/page-configs/ui-elements/va-radio/page-config'
 
 @Options({
+  name: 'DocsRadio',
   components: {
     DocsContent,
   },

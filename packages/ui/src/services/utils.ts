@@ -1,7 +1,6 @@
 //  @ts-nocheck
 
-import { v4 as uuidv4 } from 'uuid'
-import { isObject } from 'lodash'
+import { isObject } from 'lodash-es'
 
 export const sleep = (ms = 0) => {
   return new Promise(resolve => setTimeout(resolve, ms))
@@ -90,7 +89,7 @@ export const getValueByPath = <T extends Record<string, unknown>>(option: T, pro
  * @param option - Object to look properties inside
  * @param prop - string or function used to find nested property
  */
-export const getProp = <T extends (Record<string, unknown> | string)> (option: T, prop: string | ((t: T) => any)): any => {
+export const getProp = <T extends (Record<string, unknown> | string)> (option: T, prop: string | ((t: T) => any) | Function): any => {
   if (typeof option === 'string') { return }
   if (!prop || !option) { return option }
   if (typeof prop === 'string') { return getValueByPath(option, prop) }
@@ -98,4 +97,10 @@ export const getProp = <T extends (Record<string, unknown> | string)> (option: T
   return option
 }
 
-export const generateUuid = () => uuidv4()
+const getRandomString = (stringLength = 4): string => {
+  return Math.random().toString(36).substring(2, stringLength + 2)
+}
+
+export const generateUniqueId = () => {
+  return `${getRandomString(8)}-${getRandomString(4)}-${getRandomString(4)}`
+}
