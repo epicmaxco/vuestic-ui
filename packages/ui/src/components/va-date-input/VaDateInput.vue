@@ -176,7 +176,7 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   .va-date-input {
     display: flex;
 
@@ -189,5 +189,9 @@ export default defineComponent({
     }
 
     --va-date-picker-cell-size: 28px;
+
+    .va-dropdown {
+      width: 100%;
+    }
   }
 </style>
