@@ -31,24 +31,9 @@ export default defineComponent({
 
   emits: [...statefulComponentOptions.emits],
 
-  setup (props, { emit, expose }) {
+  setup (props, { emit }) {
     const { valueComputed } = useStateful(props, emit, new Date())
     const { columns } = useTimePicker(props, valueComputed)
-
-    const changePeriod = (isPM: boolean) => {
-      const h = valueComputed.value.getHours()
-
-      if (isPM && h <= 12) {
-        valueComputed.value = new Date(valueComputed.value.setHours(h + 12))
-      } else if (!isPM && h >= 12) {
-        valueComputed.value = new Date(valueComputed.value.setHours(h - 12))
-      }
-    }
-
-    const changePeriodToPm = () => changePeriod(true)
-    const changePeriodToAm = () => changePeriod(false)
-
-    expose({ changePeriodToPm, changePeriodToAm })
 
     return {
       columns,
