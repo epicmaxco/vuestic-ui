@@ -3236,7 +3236,7 @@
   },
   "ag-grid": {
     "title": "AG Grid",
-    "description": "If you need more flexible customization of the display of tables, we recommend using the [AG Grid](https://www.ag-grid.com/vue-data-grid/getting-started') library. Vuestic UI provides a ready-made style theme for this library.",
+    "description": "If you need more flexible customization of the display of tables, we recommend using the [AG Grid](https://www.ag-grid.com/vue-data-grid/getting-started) library. Vuestic UI provides a ready-made style theme for this library.",
     "installation": "AG Grid installation",
     "dependencies": "To start using AG Grid, install the dependencies in your project.",
     "importStyles": "Then import the stylesheet that define the grid \"structure\" and apply the `ag-theme-vuestic` theme on the grid component.",
