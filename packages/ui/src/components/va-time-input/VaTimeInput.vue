@@ -6,30 +6,26 @@
           <slot :name="name" v-bind="bind" />
         </template>
       </va-input>
-      <va-switch></va-switch>
     </template>
 
     <va-dropdown-content no-padding>
-      <va-time-picker v-model="modelValueSync" />
+      <va-time-picker v-bind="timePickerProps" v-model="modelValueSync" />
     </va-dropdown-content>
   </va-dropdown>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent, PropType } from 'vue'
-// import VaTimePicker from '../va-time-picker/VaTimePicker.vue'
 import { VaTimePicker } from '../va-time-picker'
 import { useSyncProp } from '../../composables/useSyncProp'
 import { useTimeParser } from './hooks/time-text-parser'
 import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
 
-// console.log(a)
-
 export default defineComponent({
   components: { VaTimePicker },
 
   props: {
-    // ...extractComponentProps(VaTimePicker),
+    ...extractComponentProps(VaTimePicker),
     isOpen: { type: Boolean },
     disabled: { type: Boolean, default: false },
     modelValue: { type: Date, default: undefined },
@@ -74,12 +70,8 @@ export default defineComponent({
     const changePeriodToPm = () => changePeriod(true)
     const changePeriodToAm = () => changePeriod(false)
 
-    const p = filterComponentProps(props, extractComponentProps(VaTimePicker))
-
-    console.log(extractComponentProps(VaTimePicker))
-
     return {
-      // timePickerProps: [],
+      timePickerProps: filterComponentProps(props, extractComponentProps(VaTimePicker)),
       isOpenSync,
       modelValueSync,
       valueText,

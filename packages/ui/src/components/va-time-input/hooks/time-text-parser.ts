@@ -1,5 +1,4 @@
 import { Ref, ref } from 'vue'
-import { VaDatePickerModelValue } from '../../va-date-picker/types/types'
 
 const defaultParseDateFunction = (text: string) => {
   const d = new Date()
