@@ -296,8 +296,4 @@ export default class VaDropdown extends mixins(
     z-index: var(--va-dropdown-content-wrapper-z-index);
   }
 }
-
-.va-dropdown:not(.va-popover) {
-  width: 100%;
-}
 </style>
