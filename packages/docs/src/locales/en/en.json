@@ -1705,6 +1705,10 @@
       "stateful": {
         "title": "Without value",
         "text": "Sometimes `v-model` is too much and in that case using `stateful` prop you can delegate state handling to the component itself"
+      },
+      "color": {
+        "title": "Color",
+        "text": "Set different colors using the `color` prop. You can either use a theme string or the HEX color value."
       }
     },
     "faq": {

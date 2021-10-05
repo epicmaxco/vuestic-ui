@@ -10,6 +10,9 @@
     :active-class="activeClass"
     :exact-active-class="exactActiveClass"
     :class="classComputed"
+    :style="computedStyle"
+    @mouseenter="updateHoverState(true)"
+    @mouseleave="updateHoverState(false)"
   >
     <div
       class="va-tab__content"
@@ -39,6 +42,7 @@
 import { inject } from 'vue'
 import { Options, mixins, prop, Vue, setup } from 'vue-class-component'
 
+import ColorMixin from '../../../services/color-config/ColorMixin'
 import useKeyboardOnlyFocus from '../../../composables/useKeyboardOnlyFocus'
 import { RouterLinkMixin } from '../../../mixins/RouterLinkMixin/RouterLinkMixin'
 import VaIcon from '../../va-icon'
@@ -52,6 +56,7 @@ type Context = {
 }
 
 class TabProps {
+  color = prop<string>({ type: String, default: undefined })
   icon = prop<string>({ type: String, default: null })
   label = prop<string>({ type: String, default: null })
   disabled = prop<boolean>({ type: Boolean })
@@ -69,11 +74,13 @@ const TabPropsMixin = Vue.with(TabProps)
 export default class VaTab extends mixins(
   RouterLinkMixin,
   TabPropsMixin,
+  ColorMixin,
 ) {
   id: string | number | null = null
   isActive = false
   rightSidePosition = 0
   leftSidePosition = 0
+  hoverState = false
 
   context: Context = setup(() => {
     const tabsService = inject(TabsServiceKey) as TabsService
@@ -89,9 +96,13 @@ export default class VaTab extends mixins(
 
   get classComputed () {
     return {
-      'va-tab--active': this.isActive,
       'va-tab--disabled': this.$props.disabled,
-      'va-tab--on-keyboard-focus': this.context.hasKeyboardFocus,
+    }
+  }
+
+  get computedStyle () {
+    return {
+      color: this.context.hasKeyboardFocus || this.hoverState || this.isActive ? this.colorComputed : 'inherit',
     }
   }
 
@@ -114,6 +125,10 @@ export default class VaTab extends mixins(
       this.context.tabsService.tabFocus(this)
     }
     this.$emit('focus')
+  }
+
+  updateHoverState (isHover: boolean) {
+    this.hoverState = isHover
   }
 
   updateSidePositions () {
@@ -147,10 +162,6 @@ export default class VaTab extends mixins(
   vertical-align: var(--va-tab-vertical-align);
   color: var(--va-tab-color);
 
-  &:not(.va-tab--active) {
-    opacity: 0.7;
-  }
-
   &__content {
     align-items: var(--va-tab-content-align-items);
     color: var(--va-tab-content-color);
@@ -175,14 +186,6 @@ export default class VaTab extends mixins(
     @include va-disabled();
 
     pointer-events: none;
-  }
-
-  &:hover {
-    opacity: 1;
-  }
-
-  &.va-tab--on-keyboard-focus {
-    opacity: 1;
   }
 }
 </style>
