@@ -26,6 +26,10 @@
         </template>
       </VaTimeInput>
     </VbCard>
+
+    <VbCard title="period">
+      <VaTimeInput :period="false" v-model="value" />
+    </VbCard>
   </VbDemo>
 </template>
 

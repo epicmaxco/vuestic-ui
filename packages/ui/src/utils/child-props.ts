@@ -5,13 +5,20 @@ import { ComponentOptionsBase, PropType, computed, ComputedRef, Prop } from 'vue
  *
  * Used to proxy child component props from parent.
  */
-export const filterComponentProps = (propsValues: Record<string, any>, childProps: Record<string, any>): ComputedRef<Record<keyof typeof childProps, any>> => {
-  return computed(() => Object
-    .keys(childProps)
-    .reduce<Record<string, unknown>>((acc, propName) => {
-      acc[propName] = propsValues[propName]
-      return acc
-    }, {}),
+export const filterComponentProps = (propsValues: Record<string, any>, childProps: Record<string, any> | string[]): ComputedRef<Record<keyof typeof childProps, any>> => {
+  return computed(() => {
+    if (Array.isArray(childProps)) {
+      return childProps
+        .map((propName) => propsValues[propName])
+    } else {
+      return Object
+        .keys(childProps)
+        .reduce<Record<string, unknown>>((acc, propName) => {
+          acc[propName] = propsValues[propName]
+          return acc
+        }, {})
+    }
+  },
   )
 }
 
@@ -39,10 +46,17 @@ export function extractComponentProps<T> (component: T, ignoreProps?: string[]):
 
         if (props[propName] === undefined) { return acc }
 
-        acc[propName] = props[propName]
+        acc[propName] = typeof props[propName] === 'string' ? {} : props[propName]
 
         return acc
       }, {}) as ExtractPropsType<T>
+  }
+
+  if (Array.isArray(props)) {
+    return props.reduce((acc, key) => {
+      acc[key] = {}
+      return acc
+    }, {})
   }
 
   return props
