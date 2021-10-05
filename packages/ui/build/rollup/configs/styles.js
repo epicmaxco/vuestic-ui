@@ -36,7 +36,7 @@ export function createStylesConfig ({ input, outDir = 'dist/', minify = false })
         minimize: minify,
         extract: 'vuestic-ui.css',
         include: 'src/styles/**/*.scss',
-        exclude: 'src/styles/ag-theme-vuestic.scss'
+        exclude: 'src/styles/ag-theme-vuestic.scss',
       }),
       nodeResolvePlugin(),
       copyPlugin({
