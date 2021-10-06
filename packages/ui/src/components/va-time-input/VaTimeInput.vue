@@ -1,7 +1,11 @@
 <template>
   <va-dropdown class="va-time-input" v-model="isOpenSync" :offset="[0, 10]" :close-on-content-click="false" :disabled="disabled">
     <template #anchor>
-      <va-input v-model="valueText" @change="onInputTextChanged">
+      <va-input
+        v-model="valueText"
+        :readonly="readonly || !manualInput"
+        @change="onInputTextChanged"
+      >
         <template v-for="(_, name) in $slots" v-slot:[name]="bind">
           <slot :name="name" v-bind="bind" />
         </template>
@@ -24,6 +28,8 @@ import { extractComponentProps, filterComponentProps } from '../../utils/child-p
 export default defineComponent({
   components: { VaTimePicker },
 
+  emits: ['update:modelValue'],
+
   props: {
     ...extractComponentProps(VaTimePicker),
     isOpen: { type: Boolean },
@@ -32,8 +38,6 @@ export default defineComponent({
     format: { type: Function as PropType<(date: Date) => string> },
 
     parse: { type: Function as PropType<(input: string) => Date> },
-    delimiter: { type: String, default: ', ' },
-    rangeDelimiter: { type: String, default: ' ~ ' },
     manualInput: { type: Boolean, default: false },
   },
 

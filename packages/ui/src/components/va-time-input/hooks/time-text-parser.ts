@@ -33,11 +33,9 @@ const defaultParseDateFunction = (text: string) => {
 
 export const useTimeParser = (props: {
   parse?: (input: string, isValidRef?: Ref<boolean>) => Date,
-  delimiter: string,
-  rangeDelimiter: string,
 }) => {
-  const isTextIsMultipleDates = (text: string) => text.includes(props.delimiter)
-  const isTextIsDateRange = (text: string) => text.includes(props.rangeDelimiter)
+  // const isTextIsMultipleDates = (text: string) => text.includes(props.delimiter)
+  // const isTextIsDateRange = (text: string) => text.includes(props.rangeDelimiter)
 
   const getParseDateFn = () => props.parse || defaultParseDateFunction
 

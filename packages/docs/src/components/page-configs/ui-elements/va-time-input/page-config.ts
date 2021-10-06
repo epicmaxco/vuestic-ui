@@ -10,9 +10,15 @@ const config: ApiDocsBlock[] = [
 
   // examples
   ...DocsHelper.exampleBlock(
-    'timeInput.examples.yourExample.title',
-    'timeInput.examples.yourExample.text',
-    'va-time-input/Example',
+    'timeInput.examples.default.title',
+    'timeInput.examples.default.text',
+    'va-time-input/default',
+  ),
+
+  ...DocsHelper.exampleBlock(
+    'timeInput.examples.input.title',
+    'timeInput.examples.input.text',
+    'va-time-input/input',
   ),
 
   DocsHelper.api(VaTimeInput, apiOptions),
