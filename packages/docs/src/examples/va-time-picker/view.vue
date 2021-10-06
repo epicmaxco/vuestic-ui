@@ -1,4 +1,6 @@
 <template>
+  <h6>{{ value.getHours() }}:{{ value.getMinutes() }}:{{ value.getSeconds() }}</h6>
+
   <table>
     <tr>
       <td>Hours</td><td>Minutes</td><td>Seconds</td>

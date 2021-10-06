@@ -6,14 +6,13 @@
     @keydown.up.stop.prevent="focusPrev"
     ref="rootElement"
   >
-    <div class="va-time-picker-cell va-time-picker-cell--fake" :ref="setItemRef" />
+    <div class="va-time-picker-cell va-time-picker-cell--fake" />
     <div
       v-for="(item, index) in items" :key="item"
       class="va-time-picker-cell"
       :class="{
         'va-time-picker-cell--active': index == activeItemIndex
       }"
-      :ref="setItemRef"
       @click="onCellClick(index)"
     >
       <slot name="cell" v-bind="{ item, index, activeItemIndex, items, formatedItem: formatCell(item) }">
@@ -39,7 +38,6 @@ export default defineComponent({
   emits: ['item-selected', 'update:activeItemIndex'],
 
   setup (props, { emit }) {
-    const { itemRefs, setItemRef } = useArrayRefs()
     const rootElement = ref<HTMLElement>()
 
     const { isHovered } = useHover(rootElement)
@@ -50,9 +48,17 @@ export default defineComponent({
 
     const scrollTo = (index: number, animate = true) => {
       nextTick(() => {
-        const element = itemRefs.value[index]
+        const childs = rootElement.value!.children
 
-        if (!element) { return }
+        const element = childs[index] as HTMLElement
+
+        if (!element) {
+          rootElement.value?.scrollTo({
+            behavior: animate ? 'smooth' : 'auto',
+            top: 0,
+          })
+          return
+        }
 
         rootElement.value?.scrollTo({
           behavior: animate ? 'smooth' : 'auto',
@@ -83,7 +89,7 @@ export default defineComponent({
       nextTick(() => scrollTo(syncActiveItemIndex.value))
     }
 
-    watch(syncActiveItemIndex, () => scrollTo(syncActiveItemIndex.value))
+    watch(syncActiveItemIndex, (newVal) => { scrollTo(newVal) })
     onMounted(() => scrollTo(syncActiveItemIndex.value, false))
 
     const onCellClick = (index: number) => {
@@ -99,7 +105,6 @@ export default defineComponent({
     return {
       rootElement,
 
-      setItemRef,
       focusNext,
       focusPrev,
       focusByIndex,

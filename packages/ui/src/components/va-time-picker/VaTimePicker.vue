@@ -24,6 +24,8 @@ export default defineComponent({
     modelValue: { type: Date, required: true },
     period: { type: Boolean, default: true },
     hidePeriodSwitch: { type: Boolean, default: false },
+    // Update model value when switching period authomaticly.
+    periodUpdatesModelValue: { type: Boolean, default: true },
     view: { type: String as PropType<'hours' | 'minutes' | 'seconds'>, default: 'minutes' },
     hoursFilter: { type: Function as PropType<(h: number) => boolean> },
     minutesFilter: { type: Function as PropType<(h: number) => boolean> },

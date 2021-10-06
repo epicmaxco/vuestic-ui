@@ -1,9 +1,10 @@
 import { useSyncProp } from '../../../composables/useSyncProp'
-import { computed, ref, Ref, toRefs } from 'vue'
+import { computed, ref, Ref, toRefs, watch } from 'vue'
 
 interface TimePickerProps {
   period: boolean;
   hidePeriodSwitch: boolean;
+  periodUpdatesModelValue: boolean;
   view: 'hours' | 'minutes' | 'seconds';
   modelValue?: Date;
   hoursFilter?: (h: number) => boolean,
@@ -23,18 +24,14 @@ const createNumbersArray = (length: number) => Array
 const from24to12 = (h: number) => (h === 0 ? 12 : h) - Number(h > 12) * 12
 const from12to24 = (h: number, isAM = false) => (h === 12 ? 0 : h) + Number(isAM) * 12
 
-const createHoursColumn = (props: TimePickerProps, modelValue: Ref<Date>) => {
+const createHoursColumn = (props: TimePickerProps, modelValue: Ref<Date>, isPM: Ref<boolean>) => {
   const computedSize = computed(() => props.period ? 12 : 24)
 
   const items = computed(() => {
     let array = createNumbersArray(computedSize.value)
 
     if (props.hoursFilter) {
-      const isPM = modelValue.value.getHours() >= 12
-
-      array = array.filter((i) => {
-        return props.hoursFilter!(props.period ? i + 12 * Number(isPM) : i)
-      })
+      array = array.filter((i) => props.hoursFilter!(props.period ? i + 12 * Number(isPM.value) : i))
     }
 
     return array.map((n) => {
@@ -45,7 +42,7 @@ const createHoursColumn = (props: TimePickerProps, modelValue: Ref<Date>) => {
   const activeItem = computed({
     get: () => {
       if (props.period) {
-        const h = from24to12(modelValue.value.getHours())
+        const h = modelValue.value.getHours() - 12 * Number(isPM.value)
         return items.value.findIndex((i) => i === h)
       }
 
@@ -57,7 +54,7 @@ const createHoursColumn = (props: TimePickerProps, modelValue: Ref<Date>) => {
       if (props.readonly) { return }
 
       if (props.period) {
-        const v = from12to24(items.value[newIndex], modelValue.value.getHours() >= 12)
+        const v = from12to24(items.value[newIndex], isPM.value)
 
         modelValue.value = new Date(modelValue.value.setHours(v))
       } else {
@@ -134,21 +131,26 @@ const createSecondsColumn = (props: TimePickerProps, modelValue: Ref<Date>) => {
   }))
 }
 
-const createPeriodColumn = (props: TimePickerProps, modelValue: Ref<Date>) => {
+const createPeriodColumn = (props: TimePickerProps, modelValue: Ref<Date>, isPM: Ref<boolean>) => {
   return computed(() => ({
     items: ['AM', 'PM'],
     activeItem: computed({
       get: () => {
-        return Number(modelValue.value.getHours() >= 12)
+        return Number(isPM.value)
+        // return Number(modelValue.value.getHours() >= 12)
       },
       set: (val) => {
-        const isPM = Boolean(val)
+        isPM.value = Boolean(val)
         const h = modelValue.value.getHours()
+        let h24 = isPM.value ? h + 12 : h
 
-        if (isPM && h <= 12) {
-          modelValue.value = new Date(modelValue.value.setHours(h + 12))
-        } else if (!isPM && h >= 12) {
-          modelValue.value = new Date(modelValue.value.setHours(h - 12))
+        if (isPM.value && h <= 12) { h24 = h + 12 }
+        if (!isPM.value && h >= 12) { h24 = h - 12 }
+
+        const isValidFilteredHour = !(props.hoursFilter && !props.hoursFilter(h24))
+
+        if (props.periodUpdatesModelValue && isValidFilteredHour) {
+          modelValue.value = new Date(modelValue.value.setHours(h24))
         }
       },
     }),
@@ -159,11 +161,12 @@ export const useTimePicker = (props: TimePickerProps, modelValue: Ref<Date>) => 
   const { view } = toRefs(props)
 
   const isPM = ref(false)
+  watch(modelValue, () => { isPM.value = modelValue.value.getHours() > 12 }, { immediate: true })
 
-  const hoursColumn = createHoursColumn(props, modelValue)
+  const hoursColumn = createHoursColumn(props, modelValue, isPM)
   const minutesColumn = createMinutesColumn(props, modelValue)
   const secondsColumn = createSecondsColumn(props, modelValue)
-  const periodColumn = createPeriodColumn(props, modelValue)
+  const periodColumn = createPeriodColumn(props, modelValue, isPM)
 
   const columns = computed(() => {
     const array = []

@@ -1,4 +1,5 @@
 <template>
+  <h6>{{ value.getHours() }}:{{ value.getMinutes() }}:{{ value.getSeconds() }}</h6>
   <VaTimePicker
     v-model="value"
     :view="'seconds'"
