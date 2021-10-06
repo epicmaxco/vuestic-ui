@@ -31,7 +31,7 @@
     </VbCard>
 
     <VbCard title="filter">
-      <VaTimePicker v-model="value" :period="false" :hoursFilter="(h) => h >= 9 && h <= 19" :minutesFilter="(m) => m % 10 === 0" />
+      <VaTimePicker v-model="value" :view="'seconds'" :period="false" :hoursFilter="(h) => h >= 9 && h <= 19" :minutesFilter="(m) => m % 10 === 0" :secondsFilter="(s) => s % 20 === 0" />
     </VbCard>
 
     <VbCard title="readonly">

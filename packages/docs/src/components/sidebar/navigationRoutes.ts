@@ -309,6 +309,10 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'color-palette',
         displayName: 'menu.colorPalette',
       },
+      {
+        name: 'time-picker',
+        displayName: 'menu.timePicker',
+      },
       // GENERATOR_ADD - uiElements
     ],
   },

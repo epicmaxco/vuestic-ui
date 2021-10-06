@@ -1030,6 +1030,12 @@
       "events": {},
       "methods": {},
       "slots": {}
+    },
+    "VaTimePicker": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
     }
   },
   "menu": {
@@ -1128,7 +1134,8 @@
     "typography": "Типографика",
     "agGrid": "AG Grid",
     "dataTable": "Data Table",
-    "uiElementGuide": "Разработка элементов UI"
+    "uiElementGuide": "Разработка элементов UI",
+    "timePicker": "Time Picker"
   },
   "all": {
     "examples": "Примеры",
@@ -3283,5 +3290,8 @@
         "statelessSupport": "Поддержка **внутреннего состояния** компонента (прочтите об [StatefulMixin](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/mixins/StatefulMixin/README.md)[[target=_blank]])."
       }
     }
+  },
+  "timePicker": {
+    "title": "-- Here is the title --"
   }
 }

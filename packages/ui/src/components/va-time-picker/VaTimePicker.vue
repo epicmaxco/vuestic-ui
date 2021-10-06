@@ -21,7 +21,7 @@ export default defineComponent({
     ...statefulComponentOptions.props,
     readonly: { type: Boolean, default: false },
     disabled: { type: Boolean, default: false },
-    modelValue: { type: Date, default: undefined },
+    modelValue: { type: Date, required: true },
     period: { type: Boolean, default: true },
     hidePeriodSwitch: { type: Boolean, default: false },
     view: { type: String as PropType<'hours' | 'minutes' | 'seconds'>, default: 'minutes' },
