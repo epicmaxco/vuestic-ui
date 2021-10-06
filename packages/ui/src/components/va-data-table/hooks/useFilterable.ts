@@ -1,13 +1,13 @@
 import { Ref, computed, watch } from 'vue'
 import { TableRow, ITableItem } from './useRows'
 
-export type TFilteringFn = (source: any) => boolean
-export type TFilterableEmits = (event: 'filter', arg: ITableItem[]) => void
+export type TFilterMethod = (source: any) => boolean
+export type TFilterableEmits = (event: 'filtered', arg: ITableItem[]) => void
 
 export default function useFilterable (
   rows: Ref<TableRow[]>,
   filter: Ref<string>,
-  filteringFn: Ref<TFilteringFn | undefined>,
+  filterMethod: Ref<TFilterMethod | undefined>,
   emit: TFilterableEmits,
 ) {
   // if `filter` is an empty string, then simply return all the rows. Else, filter each row's cells' values to contain
@@ -18,8 +18,8 @@ export default function useFilterable (
 
     return rows.value.filter(row => {
       return row.cells.some(cell => {
-        return typeof filteringFn.value === 'function'
-          ? filteringFn.value(cell.source)
+        return typeof filterMethod.value === 'function'
+          ? filterMethod.value(cell.source)
           : cell.value.toLowerCase().includes(filter.value.toLowerCase())
       })
     })
@@ -27,7 +27,7 @@ export default function useFilterable (
 
   watch(filteredRows, () => {
     const filteredRowsSource = filteredRows.value.map(row => row.source)
-    emit('filter', filteredRowsSource)
+    emit('filtered', filteredRowsSource)
   })
 
   return {

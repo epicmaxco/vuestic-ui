@@ -248,7 +248,7 @@ import VaCheckbox from '../va-checkbox'
 import VaIcon from '../va-icon'
 import useColumns, { ITableColumn } from './hooks/useColumns'
 import useRows, { ITableItem } from './hooks/useRows'
-import useFilterable, { TFilteringFn } from './hooks/useFilterable'
+import useFilterable, { TFilterMethod } from './hooks/useFilterable'
 import useSortable, { TSortingOrder } from './hooks/useSortable'
 import useSelectable, { TSelectMode } from './hooks/useSelectable'
 import useStyleable from './hooks/useStyleable'
@@ -288,8 +288,8 @@ export default defineComponent({
       type: String,
       default: '',
     },
-    filteringFn: {
-      type: Function as PropType<TFilteringFn>,
+    filterMethod: {
+      type: Function as PropType<TFilterMethod>,
     },
     sortBy: { // model-able
       type: String,
@@ -361,8 +361,8 @@ export default defineComponent({
     'update:modelValue',
     'update:sortBy',
     'update:sortingOrder',
-    'filter',
-    'sort',
+    'filtered',
+    'sorted',
     'selectionChange',
   ],
 
@@ -384,12 +384,12 @@ export default defineComponent({
     // filtering
     const {
       filter,
-      filteringFn,
+      filterMethod,
     } = toRefs(props)
 
     const {
       filteredRows: rows,
-    } = useFilterable(unfilteredRows, filter, filteringFn, emit)
+    } = useFilterable(unfilteredRows, filter, filterMethod, emit)
 
     // sorting
     const {
