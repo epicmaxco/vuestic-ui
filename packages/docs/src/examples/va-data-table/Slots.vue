@@ -2,6 +2,7 @@
   <div>
     <div class="flex mb-5">
       <h6>Use custom slots</h6>
+      <p>Custom slots (street and company name) display certain data</p>
       <va-data-table :items="items">
         <template #head(address)>Street</template>
         <template #head(company)>Company Name</template>
@@ -13,29 +14,30 @@
 
     <div class="flex mb-5">
       <h6>Show head, body and foot's prepend and append static rows</h6>
-      <va-data-table :items="items" foot-clone>
+      <p>For added (prepended and appended) static rows an additional className with a background color is set</p>
+      <va-data-table :items="items" :columns="columns" foot-clone>
         <template #headPrepend>
           <tr class="table-example--slots slots-head">
-            <th colspan="8">Custom cell which span 8 cells (headPrepend slot)</th>
+            <th colspan="6">Custom cell which span all cells (headPrepend slot)</th>
           </tr>
         </template>
         <template #headAppend>
           <tr class="table-example--slots slots-head">
             <th colspan="1">#</th>
-            <th colspan="3">User info</th>
-            <th colspan="4">Contact info</th>
+            <th colspan="2">User info</th>
+            <th colspan="3">Contact info</th>
           </tr>
         </template>
 
         <template #bodyPrepend>
           <tr class="table-example--slots slots-body">
             <td colspan="4">Custom cell which span 4 cells (bodyPrepend slot)</td>
-            <td colspan="4">Custom cell which span 4 cells (bodyPrepend slot)</td>
+            <td colspan="2">Custom cell which span 2 cells (bodyPrepend slot)</td>
           </tr>
         </template>
         <template #bodyAppend>
           <tr class="table-example--slots slots-body">
-            <td colspan="8">Custom cell which span 8 cells (bodyAppend slot)</td>
+            <td colspan="6">Custom cell which span all cells (bodyAppend slot)</td>
           </tr>
         </template>
 
@@ -43,22 +45,23 @@
           <tr class="table-example--slots slots-foot">
             <th colspan="3">Span 3 cells</th>
             <th colspan="2">Span 2 cells</th>
-            <th colspan="3">Span 3 cells</th>
+            <th colspan="1">Span 1 cells</th>
           </tr>
         </template>
         <template #footAppend>
           <tr class="table-example--slots slots-foot">
-            <th colspan="8">Span 8 cells (footAppend slot)</th>
+            <th colspan="6">Span all cells (footAppend slot)</th>
           </tr>
         </template>
       </va-data-table>
     </div>
 
     <div class="flex mb-2">
-      <h6>Use 'colgroup' slot to set specific className to last columns</h6>
-      <va-data-table :items="items">
+      <h6>Use 'colgroup' slot to set specific attributes to columns</h6>
+      <p>For last column an additional className with a background color is set</p>
+      <va-data-table :items="items" :columns="columns">
         <template #colgroup>
-          <col span="7">
+          <col span="5">
           <col class="table-example--slots">
         </template>
       </va-data-table>
@@ -149,8 +152,18 @@ export default defineComponent({
       },
     ]
 
+    const columns = [
+      { key: 'id' },
+      { key: 'name' },
+      { key: 'username' },
+      { key: 'email' },
+      { key: 'phone' },
+      { key: 'website' },
+    ]
+
     return {
       items: users,
+      columns,
     }
   },
 })

@@ -846,7 +846,7 @@
         "columns": "The property `columns` must be an array:\n`columns: (string`&#124;`ITableColumn)[]`,\nthat configures the columns of the table. In this case:\n\n `ITableColumn` &#123; `key: string;` `label?: string;` `headerTitle?: string;` `sortable?: boolean;` `sortingFn?: (a: any, b: any) => number;` `alignHead?: TAlignOptions;` `verticalAlignHead?: TVerticalAlignOptions;` `align?: TAlignOptions;` `verticalAlign?: TVerticalAlignOptions;` &#125;;\n\n `TAlignOptions: 'left'`&#124;`'center'`&#124;`'right'`;\n\n `TVerticalAlignOptions: 'top'`&#124;`'middle'`&#124;`'bottom'`",
         "items": "Array (`ITableItem[]`) of objects with table data (`ITableItem: Record<string, any>`). The `va-data-table` automatically calculates the amount and the titles of columns (if not specified otherwise with the `columns` prop) based on these object's keys. When calculating the columns' names based on the item's objects' keys `va-data-table` uses [Lodash's startCase](https://lodash.com/docs/4.17.15#startCase)[[target=_blank]] internally. Faulty values are replaced with an empty string",
         "filter": "If a `filter` is provided, only rows in which at least one cell contains the specified value will be displayed. To disable filtering at runtime (clear `filter`), specify an empty string",
-        "filteringFn": "A custom filtering function:\n`TFilteringFn: (source: any) => boolean`.\nThe function takes the initial value of the currently checked cell (the `source` is a formal parameter) and should return a `boolean` value, indicating whether to include the row containing this cell or not",
+        "filterMethod": "A custom filtering function:\n`TFilterMethod: (source: any) => boolean`.\nThe function takes the initial value of the currently checked cell (the `source` is a formal parameter) and should return a `boolean` value, indicating whether to include the row containing this cell or not",
         "sortBy": "Sets the column to sort by. **Don't** use without `v-model`",
         "sortingOrder": "Sets the sorting order:\n`TSortingOrder: 'asc'`&#124;`'desc'`&#124;`null`.\n**Don't** use without `v-model`",
         "selectable": "Sets whether the `va-data-table` should have selectable rows or not",
@@ -867,8 +867,8 @@
       "events": {
         "updateSortBy": "Emits when `sort-by` changed",
         "updateSortingOrder": "Emits when `sorting-order` changed",
-        "filter": "`va-data-table` emits the `filter` event each time filtering is applied (and when the filter is cleared), passing the array of sources of filtered items",
-        "sort": "Each time the table's sorting changes, the `sort` event is thrown, with the following param: \n &#123;\n &nbsp; `sortBy: string`,\n &nbsp; `sortingOrder: TSortingOrder`\n &#125;",
+        "filtered": "`va-data-table` emits the `filtered` event each time filtering is applied (and when the filter is cleared), passing the array of sources of filtered items",
+        "sorted": "Each time the table's sorting changes, the `sorted` event is thrown, with the following param: \n &#123;\n &nbsp; `sortBy: string`,\n &nbsp; `sortingOrder: TSortingOrder`\n &#125;",
         "selectionChange": "The `selectionChange` event is thrown each time the selection changes. It provides the following object: \n&#123;\n &nbsp; `currentlySelectedItems: ITableItem[]`,\n &nbsp; `previouslySelectedItems: ITableItem[]`\n &#125;"
       },
       "methods": {},
@@ -3303,7 +3303,7 @@
       },
       "filtering": {
         "title": "Filtering",
-        "text": "`va-data-table` allows to apply a single table-wise filter with the `filter` prop. To use a custom filtering function provide the `va-data-table` with the `filtering-fn` prop.\n\nThe following example shows the use of a custom filtering function (which looks for the exact match rather than the standard one which checks for substring-inclusion) when the respective checkbox is checked."
+        "text": "`va-data-table` allows to apply a single filter for the entire table with the `filter` prop. To use a custom filtering function provide the `va-data-table` with the `filter-method` prop.\n\nThe following example shows the use of a custom filtering function (which looks for the exact match rather than the standard one which checks for substring-inclusion) when the respective checkbox is checked."
       },
       "sorting": {
         "title": "Sorting",

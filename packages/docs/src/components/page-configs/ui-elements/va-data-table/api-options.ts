@@ -2,13 +2,13 @@ import { defineManualApi } from '../../../DocsApi/ManualApiOptions'
 
 export default defineManualApi({
   events: {
-    filter: {
+    filtered: {
       types: '`() => Number`',
     },
     selectionChange: {
       types: '`() => Object`',
     },
-    sort: {
+    sorted: {
       types: '`() => Object`',
     },
     'update:sortBy': {
