@@ -4,6 +4,7 @@
       <va-input
         v-model="valueText"
         :readonly="readonly || !manualInput"
+        :error="!isValid"
         @change="onInputTextChanged"
       >
         <template v-for="(_, name) in $slots" v-slot:[name]="bind">
@@ -28,7 +29,7 @@ import { extractComponentProps, filterComponentProps } from '../../utils/child-p
 export default defineComponent({
   components: { VaTimePicker },
 
-  emits: ['update:modelValue'],
+  emits: ['update:modelValue', 'update:isOpen'],
 
   props: {
     ...extractComponentProps(VaTimePicker),
@@ -37,7 +38,7 @@ export default defineComponent({
     modelValue: { type: Date, default: undefined },
     format: { type: Function as PropType<(date: Date) => string> },
 
-    parse: { type: Function as PropType<(input: string) => Date> },
+    parseTime: { type: Function as PropType<(input: string) => Date> },
     manualInput: { type: Boolean, default: false },
   },
 
@@ -45,9 +46,11 @@ export default defineComponent({
     const [isOpenSync] = useSyncProp('isOpen', props, emit)
     const [modelValueSync] = useSyncProp('modelValue', props, emit)
 
-    const { parse } = useTimeParser(props)
+    const { parse, isValid } = useTimeParser(props)
 
     const valueText = computed<string>(() => {
+      if (!isValid.value) { return '' }
+
       if (props.format) { return props.format(modelValueSync.value) }
 
       if (!modelValueSync.value) { return '' }
@@ -58,7 +61,9 @@ export default defineComponent({
     const onInputTextChanged = (val: string) => {
       const v = parse(val)
 
-      if (v) { modelValueSync.value = v }
+      if (isValid.value && v) {
+        modelValueSync.value = v
+      }
     }
 
     const changePeriod = (isPM: boolean) => {
@@ -82,6 +87,7 @@ export default defineComponent({
       changePeriodToPm,
       changePeriodToAm,
       onInputTextChanged,
+      isValid,
     }
   },
 })

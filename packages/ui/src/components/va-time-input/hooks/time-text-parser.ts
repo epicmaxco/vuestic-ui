@@ -11,7 +11,7 @@ const parseTime = (text: string) => {
 const parsePeriod = (text: string) => {
   const m = text.match(/PM|pm|Am|am/)
 
-  if (!m) { return 0 }
+  if (!m) { return null }
 
   return Number(m[0].toLowerCase() === 'pm')
 }
@@ -24,20 +24,25 @@ const defaultParseDateFunction = (text: string) => {
 
   if (!h) { return null }
 
-  d.setHours((h || 0) + (period ? 12 : 0))
-  d.setMinutes(m || 0)
-  d.setSeconds(s || 0)
+  const is12format = period !== null
+  const isPM = !!period
+  // Switch 12 to 0, because of 12h format
+  const fh = is12format ? (h === 12 ? 0 : h) : h
+
+  d.setHours(Math.min((fh || 0), is12format ? 12 : 24) + (isPM ? 12 : 0))
+  d.setMinutes(Math.min(m || 0, 60))
+  d.setSeconds(Math.min(s || 0, 60))
 
   return d
 }
 
 export const useTimeParser = (props: {
-  parse?: (input: string, isValidRef?: Ref<boolean>) => Date,
+  parseTime?: (input: string, isValidRef?: Ref<boolean>) => Date,
 }) => {
   // const isTextIsMultipleDates = (text: string) => text.includes(props.delimiter)
   // const isTextIsDateRange = (text: string) => text.includes(props.rangeDelimiter)
 
-  const getParseDateFn = () => props.parse || defaultParseDateFunction
+  const getParseDateFn = () => props.parseTime || defaultParseDateFunction
 
   const isValid = ref(true)
 
@@ -54,9 +59,9 @@ export const useTimeParser = (props: {
   const parse = (text: string) => {
     isValid.value = true
 
-    if (props.parse) {
-      return props.parse(text, isValid)
-    }
+    // if (props.parse) {
+    //   return props.parse(text, isValid)
+    // }
 
     // if (isTextIsMultipleDates(text)) {
     //   return text.split(props.delimiter).map((dateText) => parseDate(dateText))

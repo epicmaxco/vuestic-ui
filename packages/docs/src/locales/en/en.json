@@ -3318,9 +3318,41 @@
     }
   },
   "timePicker": {
-    "title": "Time Picker"
+    "title": "Time Picker",
+    "examples": {
+      "default": {
+        "title": "Default",
+        "text": ""
+      },
+      "readonlyAndDisabled": {
+        "title": "Readonly and disabled",
+        "text": ""
+      },
+      "period": {
+        "title": "Period",
+        "text": "You can specify if you want to use 12-hours clock or 24-hours clock."
+      },
+      "view": {
+        "title": "View",
+        "text": "You can specify if time picker needs to show seconds and minutes."
+      },
+      "filter": {
+        "title": "Filter",
+        "text": "You can hide specific time and user will not be able to select it."
+      }
+    }
   },
   "timeInput": {
-    "title": "-- Here is the title --"
+    "title": "Time Input",
+    "examples": {
+      "default": {
+        "title": "Default",
+        "text": ""
+      },
+      "input": {
+        "title": "Parsing",
+        "text": "By default we parse a lot of time formats, but you can provide your own parse function"
+      }
+    }
   }
 }
