@@ -1036,6 +1036,12 @@
       "events": {},
       "methods": {},
       "slots": {}
+    },
+    "VaTimeInput": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
     }
   },
   "menu": {
@@ -1135,7 +1141,8 @@
     "agGrid": "AG Grid",
     "dataTable": "Data Table",
     "uiElementGuide": "UI Element Guide",
-    "timePicker": "Time Picker"
+    "timePicker": "Time Picker",
+    "timeInput": "Time Input"
   },
   "all": {
     "examples": "Examples",
@@ -3312,5 +3319,8 @@
   },
   "timePicker": {
     "title": "Time Picker"
+  },
+  "timeInput": {
+    "title": "-- Here is the title --"
   }
 }

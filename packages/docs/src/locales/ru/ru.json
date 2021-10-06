@@ -1036,6 +1036,12 @@
       "events": {},
       "methods": {},
       "slots": {}
+    },
+    "VaTimeInput": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
     }
   },
   "menu": {
@@ -1135,7 +1141,8 @@
     "agGrid": "AG Grid",
     "dataTable": "Data Table",
     "uiElementGuide": "Разработка элементов UI",
-    "timePicker": "Time Picker"
+    "timePicker": "Time Picker",
+    "timeInput": "Time Input"
   },
   "all": {
     "examples": "Примеры",
@@ -3292,6 +3299,9 @@
     }
   },
   "timePicker": {
+    "title": "-- Here is the title --"
+  },
+  "timeInput": {
     "title": "-- Here is the title --"
   }
 }
