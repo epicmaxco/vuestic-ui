@@ -5,8 +5,29 @@
         class="ag-theme-vuestic"
         style="width: 800px;"
         domLayout="autoHeight"
-        :columnDefs="columnDefs"
+        :columnDefs="simpleColumnDefs"
         :rowData="rowData"
+      />
+    </VbCard>
+
+    <VbCard title="Filter & Sorting">
+      <ag-grid-vue
+        class="ag-theme-alpine"
+        style="width: 500px;"
+        domLayout="autoHeight"
+        :columnDefs="sortingColumnDefs"
+        :rowData="rowData"
+      />
+    </VbCard>
+
+    <VbCard title="Selection">
+      <ag-grid-vue
+        class="ag-theme-alpine"
+        style="width: 500px;"
+        domLayout="autoHeight"
+        :columnDefs="selectionColumnDefs"
+        :rowData="rowData"
+        rowSelection="multiple"
       />
     </VbCard>
   </VbDemo>
@@ -21,12 +42,6 @@ export default {
   components: { AgGridVue, AgGridBadge },
   data () {
     return {
-      columnDefs: [
-        { headerName: 'Name', field: 'fullName' },
-        { field: 'email' },
-        { field: 'country' },
-        { field: 'status', cellRendererFramework: 'AgGridBadge' },
-      ],
       rowData: [
         {
           fullName: 'Ashley Mcdaniel',
@@ -59,6 +74,24 @@ export default {
           status: 'warning',
         },
       ],
+      simpleColumnDefs: [
+        { headerName: 'Name', field: 'fullName' },
+        { field: 'email' },
+        { field: 'country' },
+        { field: 'status', cellRendererFramework: 'AgGridBadge' },
+      ],
+      sortingColumnDefs: [
+        { field: 'fullName', sortable: true, filter: true },
+        { field: 'email', sortable: true, filter: true },
+        { field: 'country', sortable: true, filter: true },
+        { field: 'status', sortable: true, filter: true },
+      ],
+      selectionColumnDefs: [
+        { field: 'fullName', sortable: true, filter: true, checkboxSelection: true },
+        { field: 'email', sortable: true, filter: true },
+        { field: 'country', sortable: true, filter: true },
+        { field: 'status', sortable: true, filter: true },
+      ],
     }
   },
 }
@@ -67,4 +100,5 @@ export default {
 <style lang="scss">
 @import "../../../../../../node_modules/ag-grid-community/dist/styles/ag-grid.css";
 @import "../../../styles/ag-theme-vuestic/ag-theme-vuestic";
+@import "~ag-grid-community/dist/styles/ag-theme-alpine.css";
 </style>
