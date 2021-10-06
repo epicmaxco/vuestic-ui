@@ -51,20 +51,20 @@
       <p>Number of filtered items: {{ filteredCount }}</p>
       <input type="text" v-model="filter">
 
-      <input id="ucf" type="checkbox" v-model="useCustomFilteringFn">
-      <label for="ucf">Use custom filtering function (looks for an exact match)</label>
+      <input id="useCustomFunction" type="checkbox" v-model="useCustomFilteringFn">
+      <label for="useCustomFunction">Use custom filtering function (looks for an exact match)</label>
 
       <va-data-table
         :items="items"
         :filter="filter"
-        :filtering-fn="customFilteringFn"
-        @filter="filteredCount = $event.length"
+        :filter-method="customFilteringFn"
+        @filtered="filteredCount = $event.length"
       />
     </VbCard>
 
     <VbCard title="Use `columns` prop, enable sorting and use custom sorting function (always returns -1) for the `id` column">
-      <label for="sb">Sort by</label>
-      <select id="sb" v-model="sortBy">
+      <label for="sortingBy">Sort by</label>
+      <select id="sortingBy" v-model="sortBy">
         <option
           v-for="column in columns"
           :key="column.key"
@@ -74,8 +74,8 @@
         </option>
       </select><br>
 
-      <label for="so">Sorting order</label>
-      <select id="so" v-model="sortingOrder">
+      <label for="sortingOrder">Sorting order</label>
+      <select id="sortingOrder" v-model="sortingOrder">
         <option value="asc">asc</option>
         <option value="desc">desc</option>
         <option :value="null">null</option>
@@ -101,17 +101,17 @@
         </button>
       </p>
 
-      <input id="isS" type="checkbox" v-model="selectable">
-      <label for="isS">Selectable</label><br>
+      <input id="isSelectable" type="checkbox" v-model="selectable">
+      <label for="isSelectable">Selectable</label><br>
 
-      <label for="sm">Select mode</label>
-      <select id="sm" v-model="selectMode">
+      <label for="selectMode">Select mode</label>
+      <select id="selectMode" v-model="selectMode">
         <option value="single">single</option>
         <option value="multiple">Multiple</option>
       </select><br>
 
-      <label for="sc">Selected color</label>
-      <select id="sc" v-model="selectedColor">
+      <label for="selectedColor">Selected color</label>
+      <select id="selectedColor" v-model="selectedColor">
         <option value="primary">primary</option>
         <option value="danger">danger</option>
         <option value="warning">warning</option>
@@ -128,11 +128,11 @@
     </VbCard>
 
     <VbCard title="Pagination">
-      <input id="pp" type="number" v-model="perPage">
-      <label for="pp">Items per page</label><br>
+      <input id="perPage" type="number" v-model="perPage">
+      <label for="perPage">Items per page</label><br>
 
-      <input id="cp" type="number" v-model="currentPage">
-      <label for="cp">Current page</label><br>
+      <input id="currentPage" type="number" v-model="currentPage">
+      <label for="currentPage">Current page</label><br>
 
       <va-data-table
         :items="items"

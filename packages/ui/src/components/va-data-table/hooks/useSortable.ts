@@ -4,7 +4,7 @@ import { TableRow } from './useRows'
 
 export type TSortingOrder = 'asc' | 'desc' | null;
 export type TSortableEmits = (
-  event: 'update:sortBy' | 'update:sortingOrder' | 'sort',
+  event: 'update:sortBy' | 'update:sortingOrder' | 'sorted',
   args: string | TSortingOrder | { sortBy: string, sortingOrder: TSortingOrder },
 ) => void;
 
@@ -90,7 +90,7 @@ export default function useSortable (
       rows.value.reverse()
     }
 
-    emit('sort', {
+    emit('sorted', {
       sortBy: sortByProxy.value,
       sortingOrder: sortingOrderProxy.value,
     })
