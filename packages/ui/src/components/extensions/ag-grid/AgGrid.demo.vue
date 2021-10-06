@@ -9,6 +9,23 @@
         :rowData="rowData"
       />
     </VbCard>
+    <VbCard title="Simple table">
+      <ag-grid-vue
+        class="ag-theme-alpine"
+        style="width: 800px;"
+        domLayout="autoHeight"
+        :columnDefs="simpleColumnDefs"
+        :rowData="rowData"
+      />
+    </VbCard>
+    <VbCard title="Simple table">
+      <ag-grid-vue
+        style="width: 800px;"
+        domLayout="autoHeight"
+        :columnDefs="simpleColumnDefs"
+        :rowData="rowData"
+      />
+    </VbCard>
 
     <VbCard title="Filter & Sorting">
       <ag-grid-vue
@@ -75,7 +92,7 @@ export default {
         },
       ],
       simpleColumnDefs: [
-        { headerName: 'Name', field: 'fullName' },
+        { headerName: 'Name', field: 'fullName', sortable: true, filter: true, checkboxSelection: true },
         { field: 'email' },
         { field: 'country' },
         { field: 'status', cellRendererFramework: 'AgGridBadge' },

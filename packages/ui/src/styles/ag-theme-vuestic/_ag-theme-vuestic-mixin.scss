@@ -9,29 +9,28 @@
   $params: ag-process-theme-variables($params, $ag-theme-vuestic-default-params);
 
   @include ag-theme-base($params);
-
-  .ag-header-cell-label,
+  .ag-header {
+    border-bottom-width: 2px;
+  }
+  .ag-pinned-left-header, .ag-cell-last-left-pinned {
+    //border-right-width: 2px;
+  }
+  .ag-pinned-right-header, .ag-cell-last-right-pinned {
+    //border-left-width: 2px;
+  }
   .ag-cell {
-    text-align: left;
-    padding: 0.625rem;
+    border: none;
   }
 
   .ag-header-cell-label {
     @include va-title();
-
-    color: $vue-darkest-blue;
-    border-bottom: 2px solid $vue-darkest-blue;
-  }
-
-  .ag-cell {
-    vertical-align: top;
   }
 
   &--striped {
     .ag-row {
       &:nth-child(even) {
         .ag-cell {
-          background-color: $light-gray3;
+          //background-color: $light-gray3;
         }
       }
     }
@@ -41,7 +40,7 @@
     .ag-row {
       &:hover {
         .ag-cell {
-          background-color: $light-gray2;
+          //background-color: $light-gray2;
         }
       }
     }
@@ -49,11 +48,7 @@
 
   &--clickable {
     .ag-cell {
-      cursor: pointer;
+      //cursor: pointer;
     }
-  }
-
-  .ag-header-icon {
-    color: $vue-darkest-blue;
   }
 }
