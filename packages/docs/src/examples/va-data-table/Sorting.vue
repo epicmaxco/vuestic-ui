@@ -22,7 +22,20 @@
       :columns="columns"
       v-model:sort-by="sortBy"
       v-model:sorting-order="sortingOrder"
+      @sorted="sortedRows = $event.sortedRows.map(({ id }) => id)"
     />
+
+    <va-alert class="mt-3" border="left">
+      <span v-if="sortingOrder">
+        Sorted items order (showing id):
+        <va-chip>{{sortedRows.join(' --> ')}}</va-chip>
+        <va-chip>{{sortingOrder}}</va-chip>
+      </span>
+      <span v-else>
+        Unsorted items order (showing id):
+        <va-chip>{{sortedRows.join(', ')}}</va-chip>
+      </span>
+    </va-alert>
   </div>
 </template>
 
@@ -88,6 +101,7 @@ export default defineComponent({
       columns,
       sortBy: 'username',
       sortingOrder: 'asc',
+      sortedRows: [],
     }
   },
 

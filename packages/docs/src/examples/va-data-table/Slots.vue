@@ -2,7 +2,7 @@
   <div>
     <div class="flex mb-5">
       <h6>Use custom slots</h6>
-      <p>Custom slots (street and company name) display certain data</p>
+      <p>Custom slots ('street' and 'company name') display certain data</p>
       <va-data-table :items="items">
         <template #head(address)>Street</template>
         <template #head(company)>Company Name</template>
