@@ -43,12 +43,12 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-  @import '../../styles/resources/resources';
+  @import './_variables.scss';
 
   .va-time-picker {
-    display: inline-flex;
+    display: var(--va-time-picker-display);
     justify-content: center;
     overflow: hidden;
-    height: 200px;
+    height: var(--va-time-picker-height);
   }
 </style>

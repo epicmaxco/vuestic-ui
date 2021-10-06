@@ -110,6 +110,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+  @import './_variables.scss';
+
   @mixin hiddenYScroll {
     overflow-y: scroll;
     -ms-overflow-style: none;  /* IE and Edge */
@@ -123,18 +125,18 @@ export default defineComponent({
     @include hiddenYScroll();
 
     height: 100%;
-    border-right: 1px solid var(--va-divider);
+    border-right: var(--va-time-picker-column-border-right);
 
     &:last-child {
       border-right: 0;
     }
 
     .va-time-picker-cell {
-      height: 30px;
-      line-height: 30px;
-      width: 40px;
+      height: var(--va-time-picker-cell-height);
+      line-height: var(--va-time-picker-cell-height);
+      width: var(--va-time-picker-cell-width);
       text-align: center;
-      cursor: pointer;
+      cursor: var(--va-time-picker-cell-cursor);
       user-select: none;
 
       &--active {
@@ -142,7 +144,7 @@ export default defineComponent({
         z-index: 0;
 
         &::before {
-          background: var(--va-primary);
+          background: var(--va-time-picker-cell-active-background);
           position: absolute;
           height: 100%;
           width: 100%;
@@ -150,12 +152,12 @@ export default defineComponent({
           right: 0;
           content: '';
           z-index: -1;
-          opacity: 0.05;
+          opacity: var(--va-time-picker-cell-active-background-opacity);
         }
       }
 
       &--fake:last-child {
-        height: calc(100% - 30px * 2);
+        height: calc(100% - var(--va-time-picker-cell-height) * 2);
       }
     }
 
@@ -163,7 +165,7 @@ export default defineComponent({
       .va-time-picker-cell {
         &--active {
           &::before {
-            opacity: 0.1;
+            opacity: var(--va-time-picker-cell-active-background-opacity-hover);
           }
         }
       }
