@@ -9,25 +9,22 @@ interface TimePickerProps {
   hoursFilter?: (h: number) => boolean,
   minutesFilter?: (h: number) => boolean
   secondsFilter?: (h: number) => boolean
-}
 
-type TimePickerEmit = (
-  event: 'update:modelValue' | any,
-...args: any[]
-) => any
+  readonly?: boolean;
+}
 
 const createNumbersArray = (length: number) => Array
   .from(Array(length).keys())
 
+/**
+ * Convert 00:00 -> 12:00 am, 00:01 -> 01:00 am.
+ * So we need to changed 12 and 0 between two formats
+ */
+const from24to12 = (h: number) => (h === 0 ? 12 : h) - Number(h > 12) * 12
+const from12to24 = (h: number, isAM = false) => (h === 12 ? 0 : h) + Number(isAM) * 12
+
 const createHoursColumn = (props: TimePickerProps, modelValue: Ref<Date>) => {
   const computedSize = computed(() => props.period ? 12 : 24)
-
-  /**
-   * Convert 00:00 -> 12:00 am, 00:01 -> 01:00 am.
-   * So we need to changed 12 and 0 between two formats
-   */
-  const from24to12 = (h: number) => (h === 0 ? 12 : h) - Number(h > 12) * 12
-  const from12to24 = (h: number, isAM = false) => (h === 12 ? 0 : h) + Number(isAM) * 12
 
   const items = computed(() => {
     const array = createNumbersArray(computedSize.value).map((n) => {
@@ -51,6 +48,8 @@ const createHoursColumn = (props: TimePickerProps, modelValue: Ref<Date>) => {
       return items.value.findIndex((i) => i === h)
     },
     set: (newIndex) => {
+      if (props.readonly) { return }
+
       if (props.period) {
         const v = from12to24(items.value[newIndex], modelValue.value.getHours() > 12)
 
@@ -85,6 +84,8 @@ const createMinutesColumn = (props: TimePickerProps, modelValue: Ref<Date>) => {
       return items.value.findIndex((i) => i === m)
     },
     set: (newIndex) => {
+      if (props.readonly) { return }
+
       const v = items.value[newIndex]
 
       modelValue.value = new Date(modelValue.value.setMinutes(v))
@@ -113,6 +114,8 @@ const createSecondsColumn = (props: TimePickerProps, modelValue: Ref<Date>) => {
       return items.value.findIndex((i) => i === s)
     },
     set: (newIndex) => {
+      if (props.readonly) { return }
+
       const v = items.value[newIndex]
 
       modelValue.value = new Date(modelValue.value.setSeconds(v))
