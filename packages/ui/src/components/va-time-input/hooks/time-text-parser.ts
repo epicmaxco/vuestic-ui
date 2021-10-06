@@ -1,13 +1,33 @@
 import { Ref, ref } from 'vue'
 
+const parseTime = (text: string) => {
+  const m = text.match(/[0-9]{1,2}/g)
+
+  if (!m) { return [] }
+
+  return m.map((s) => Number(s))
+}
+
+const parsePeriod = (text: string) => {
+  const m = text.match(/PM|pm|Am|am/)
+
+  if (!m) { return 0 }
+
+  return Number(m[0].toLowerCase() === 'pm')
+}
+
 const defaultParseDateFunction = (text: string) => {
   const d = new Date()
-  const time = text.match(/(\d+)(?::(\d\d))?\s*(p?)/)
 
-  if (!time) { return null }
+  const [h, m, s] = parseTime(text)
+  const period = parsePeriod(text)
 
-  d.setHours(parseInt(time[1]) + (time[3] ? 12 : 0))
-  d.setMinutes(parseInt(time[2]) || 0)
+  if (!h) { return null }
+
+  d.setHours((h || 0) + (period ? 12 : 0))
+  d.setMinutes(m || 0)
+  d.setSeconds(s || 0)
+
   return d
 }
 
