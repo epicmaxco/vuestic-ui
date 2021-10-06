@@ -49,7 +49,7 @@
             v-for="column in columnsModel"
             :key="column.key"
             :title="column.headerTitle"
-            @click.exact="toggleSorting(column)"
+            @click.exact="column.sortable ? toggleSorting(column): () => {}"
             :style="getHeadCSSVariables(column)"
             class="va-data-table__th"
           >
@@ -199,7 +199,7 @@
             v-for="column in columnsModel"
             :key="column.key"
             :title="column.headerTitle"
-            @click.exact="allowFootSorting ? toggleSorting(column) : () => {}"
+            @click.exact="allowFootSorting && column.sortable ? toggleSorting(column) : () => {}"
             :style="getFootCSSVariables(column)"
             class="va-data-table__th"
           >

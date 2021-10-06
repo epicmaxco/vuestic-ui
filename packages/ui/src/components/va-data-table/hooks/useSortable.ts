@@ -1,11 +1,11 @@
 import { TableColumn } from './useColumns'
 import { computed, ref, Ref, watch } from 'vue'
-import { TableRow } from './useRows'
+import { TableRow, ITableItem } from './useRows'
 
 export type TSortingOrder = 'asc' | 'desc' | null;
 export type TSortableEmits = (
   event: 'update:sortBy' | 'update:sortingOrder' | 'sorted',
-  args: string | TSortingOrder | { sortBy: string, sortingOrder: TSortingOrder },
+  args: string | TSortingOrder | { sortBy: string, sortingOrder: TSortingOrder, sortedRows: ITableItem[] },
 ) => void;
 
 export default function useSortable (
@@ -80,19 +80,19 @@ export default function useSortable (
       if (sortingOrderProxy.value === null) {
         return a.initialIndex - b.initialIndex
       } else {
+        const sortingOrderRatio = sortingOrderProxy.value === 'desc' ? -1 : 1
         return typeof column.sortingFn === 'function'
-          ? column.sortingFn(firstValInitial, secondValInitial)
-          : firstValString.localeCompare(secondValString)
+          ? column.sortingFn(firstValInitial, secondValInitial) * sortingOrderRatio
+          : firstValString.localeCompare(secondValString) * sortingOrderRatio
       }
     })
 
-    if (sortingOrderProxy.value === 'desc') {
-      rows.value.reverse()
-    }
+    const sortedRowsSource = rows.value.map(row => row.source)
 
     emit('sorted', {
       sortBy: sortByProxy.value,
       sortingOrder: sortingOrderProxy.value,
+      sortedRows: sortedRowsSource,
     })
   }
 
