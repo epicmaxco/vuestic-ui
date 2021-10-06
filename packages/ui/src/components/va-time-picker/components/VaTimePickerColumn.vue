@@ -49,13 +49,15 @@ export default defineComponent({
     const [syncActiveItemIndex] = useSyncProp('activeItemIndex', props, emit)
 
     const scrollTo = (index: number, animate = true) => {
-      const element = itemRefs.value[index]
+      nextTick(() => {
+        const element = itemRefs.value[index]
 
-      if (!element) { return }
+        if (!element) { return }
 
-      rootElement.value?.scrollTo({
-        behavior: animate ? 'smooth' : 'auto',
-        top: element.offsetTop - element.parentElement!.offsetTop,
+        rootElement.value?.scrollTo({
+          behavior: animate ? 'smooth' : 'auto',
+          top: element.offsetTop - element.parentElement!.offsetTop,
+        })
       })
     }
 

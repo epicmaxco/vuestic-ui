@@ -1,5 +1,5 @@
 import { useSyncProp } from '../../../composables/useSyncProp'
-import { computed, Ref, toRefs } from 'vue'
+import { computed, ref, Ref, toRefs } from 'vue'
 
 interface TimePickerProps {
   period: boolean;
@@ -27,13 +27,19 @@ const createHoursColumn = (props: TimePickerProps, modelValue: Ref<Date>) => {
   const computedSize = computed(() => props.period ? 12 : 24)
 
   const items = computed(() => {
-    const array = createNumbersArray(computedSize.value).map((n) => {
+    let array = createNumbersArray(computedSize.value)
+
+    if (props.hoursFilter) {
+      const isPM = modelValue.value.getHours() >= 12
+
+      array = array.filter((i) => {
+        return props.hoursFilter!(props.period ? i + 12 * Number(isPM) : i)
+      })
+    }
+
+    return array.map((n) => {
       return props.period ? from24to12(n) : n
     })
-
-    if (!props.hoursFilter) { return array }
-
-    return array.filter(props.hoursFilter)
   })
 
   const activeItem = computed({
@@ -51,7 +57,7 @@ const createHoursColumn = (props: TimePickerProps, modelValue: Ref<Date>) => {
       if (props.readonly) { return }
 
       if (props.period) {
-        const v = from12to24(items.value[newIndex], modelValue.value.getHours() > 12)
+        const v = from12to24(items.value[newIndex], modelValue.value.getHours() >= 12)
 
         modelValue.value = new Date(modelValue.value.setHours(v))
       } else {
@@ -151,6 +157,8 @@ const createPeriodColumn = (props: TimePickerProps, modelValue: Ref<Date>) => {
 
 export const useTimePicker = (props: TimePickerProps, modelValue: Ref<Date>) => {
   const { view } = toRefs(props)
+
+  const isPM = ref(false)
 
   const hoursColumn = createHoursColumn(props, modelValue)
   const minutesColumn = createMinutesColumn(props, modelValue)
