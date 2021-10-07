@@ -22,11 +22,15 @@
         <DocsCode
           language="markup"
           :code="parsed.template"
-          :class="[parsed.script ? 'docs-example__code--with-margin' : '']"
         />
         <DocsCode
           v-if="parsed.script"
           :code="parsed.script"
+          language="markup"
+        />
+        <DocsCode
+          v-if="parsed.style"
+          :code="parsed.style"
           language="markup"
         />
       </va-content>
@@ -105,12 +109,6 @@ export default {
 
 <style lang="scss">
 .docs-example {
-  &__code {
-    &--with-margin {
-      margin-bottom: 0.2rem !important;
-    }
-  }
-
   &__show-code-button {
     .va-button {
       &__content {
