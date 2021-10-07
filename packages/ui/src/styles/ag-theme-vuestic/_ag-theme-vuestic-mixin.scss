@@ -33,12 +33,10 @@
   }
 
   &--striped {
-    .ag-row {
-      &:nth-child(even) {
-        background-color: $light-gray3;
-        &.ag-row-selected {
-          background-color: $light-gray2;
-        }
+    .ag-row-odd {
+      background-color: $light-gray3;
+      &.ag-row-selected {
+        background-color: $light-gray2;
       }
     }
   }
