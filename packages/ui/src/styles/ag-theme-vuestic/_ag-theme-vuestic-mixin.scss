@@ -9,15 +9,21 @@
   $params: ag-process-theme-variables($params, $ag-theme-vuestic-default-params);
 
   @include ag-theme-base($params);
+
   .ag-header {
     border-bottom-width: 2px;
   }
-  .ag-pinned-left-header, .ag-cell-last-left-pinned {
+
+  .ag-pinned-left-header,
+  .ag-cell-last-left-pinned {
     //border-right-width: 2px;
   }
-  .ag-pinned-right-header, .ag-cell-last-right-pinned {
+
+  .ag-pinned-right-header,
+  .ag-cell-last-right-pinned {
     //border-left-width: 2px;
   }
+
   .ag-cell {
     border: none;
   }
@@ -29,8 +35,9 @@
   &--striped {
     .ag-row {
       &:nth-child(even) {
-        .ag-cell {
-          //background-color: $light-gray3;
+        background-color: $light-gray3;
+        &.ag-row-selected {
+          background-color: $light-gray2;
         }
       }
     }
