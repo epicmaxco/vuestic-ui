@@ -860,7 +860,7 @@
         "noDataFilteredHtml": "Sets html-content for cases where there are no items found when filtering the table using the `filter` prop",
         "hideDefaultHeader": "Sets whether to show the default headers for columns",
         "footClone": "Sets whether to clone the `<thead>` columns into the `<tfoot>`. Has no effect if the default `<thead>` is hidden with the `hide-default-header` prop",
-        "allowFootSorting": "Allows clicks `<tfoot>` column headers to sort (and to display the sorting status) the rows",
+        "allowFootSorting": "Allows clicks on `<tfoot>` column headers to sort (and to display the sorting status) the rows",
         "striped": "Sets the striped style to the `<tbody>` rows (highlights each 2nd row)",
         "hoverable": "Allows the a hover state on table rows within a `<tbody>`. The highlighting color of the hover state takes from `selected-color` prop"
       },
