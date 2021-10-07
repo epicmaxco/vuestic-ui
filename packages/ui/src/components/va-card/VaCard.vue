@@ -114,8 +114,7 @@ export default class VaCard extends mixins(
   }
 
   &--square {
-    // Todo: Maybe here should be 0
-    border-radius: var(--va-border-radius-square);
+    border-radius: 0;
   }
 
   &--outlined {

@@ -19,7 +19,7 @@
   --va-button-line-height: 1.4rem;
   --va-button-border-radius: var(--va-border-radius-circle-fixed);
   --va-button-letter-spacing: 0;
-  --va-button-square-border-radius: var(--va-border-radius-square);
+  --va-button-square-border-radius: var(--va-border-radius-md);
   --va-button-space-between-items: 0.5rem;
   --va-button-margin: 0;
   --va-button-padding: 0;
@@ -32,7 +32,7 @@
   --va-button-lg-line-height: 1.5rem;
   --va-button-lg-border-radius: var(--va-border-radius-circle-fixed);
   --va-button-lg-letter-spacing: 0;
-  --va-button-lg-square-border-radius: var(--va-border-radius-square-xl);
+  --va-button-lg-square-border-radius: var(--va-border-radius-md);
   --va-button-lg-space-between-items: 1rem;
 
   /* Small button */
@@ -43,7 +43,7 @@
   --va-button-sm-line-height: 1.3rem;
   --va-button-sm-border-radius: var(--va-border-radius-circle-fixed);
   --va-button-sm-letter-spacing: 0;
-  --va-button-sm-square-border-radius: var(--va-border-radius-square-x-sm);
+  --va-button-sm-square-border-radius: var(--va-border-radius-sm);
   --va-button-sm-space-between-items: 0.25rem;
 
   /* Outlined */

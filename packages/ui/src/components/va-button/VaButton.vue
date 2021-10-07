@@ -484,7 +484,7 @@ export default class VaButton extends mixins(
   }
 
   &--square {
-    border-radius: var(--va-border-radius-square);
+    border-radius: var(--va-border-radius-md);
   }
 
   &__loader {

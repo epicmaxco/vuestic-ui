@@ -10,7 +10,7 @@
   --va-collapse-header-content-cursor: pointer;
   --va-collapse-header-content-background-color: #f5f8f9;
   --va-collapse-header-content-box-shadow: var(--va-box-shadow);
-  --va-collapse-header-content-border-radius: var(--va-border-radius-square-xl);
+  --va-collapse-header-content-border-radius: var(--va-border-radius-md);
   --va-collapse-header-content-align-items: center;
   --va-collapse-header-content-padding-top: 0.75rem;
   --va-collapse-header-content-padding-bottom: 0.75rem;
@@ -23,11 +23,11 @@
 
   /* Solid */
   --va-collapse-solid-box-shadow: var(--va-box-shadow);
-  --va-collapse-solid-border-radius: var(--va-border-radius-square-xl);
+  --va-collapse-solid-border-radius: var(--va-border-radius-md);
   --va-collapse-solid-header-content-background-color: #f5f8f9;
   --va-collapse-solid-header-content-box-shadow: none;
-  --va-collapse-solid-header-content-border-radius: var(--va-border-radius-square-xl);
+  --va-collapse-solid-header-content-border-radius: var(--va-border-radius-md);
   --va-collapse-solid-header-content-transition: ease-in 0.3s;
-  --va-collapse-solid-body-border-radius: 0 0 var(--va-border-radius-square-xl) var(--va-border-radius-square-xl);
+  --va-collapse-solid-body-border-radius: 0 0 var(--va-border-radius-md) var(--va-border-radius-md);
   --va-collapse-solid-body-margin-top: 0;
 }
