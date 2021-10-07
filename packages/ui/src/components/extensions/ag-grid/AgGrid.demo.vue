@@ -10,16 +10,16 @@
         rowSelection="multiple"
       />
     </VbCard>
-<!--    <VbCard title="Simple table">-->
-<!--      <ag-grid-vue-->
-<!--        class="ag-theme-vuestic ag-theme-vuestic&#45;&#45;clickable"-->
-<!--        style="width: 800px;"-->
-<!--        domLayout="autoHeight"-->
-<!--        :columnDefs="simpleColumnDefs"-->
-<!--        :rowData="rowData"-->
-<!--        rowSelection="multiple"-->
-<!--      />-->
-<!--    </VbCard>-->
+    <VbCard title="Simple table">
+      <ag-grid-vue
+        class="ag-theme-vuestic ag-theme-vuestic--hoverable"
+        style="width: 800px;"
+        domLayout="autoHeight"
+        :columnDefs="simpleColumnDefs"
+        :rowData="rowData"
+        rowSelection="multiple"
+      />
+    </VbCard>
     <VbCard title="Simple striped table">
       <ag-grid-vue
         class="ag-theme-vuestic ag-theme-vuestic--striped"

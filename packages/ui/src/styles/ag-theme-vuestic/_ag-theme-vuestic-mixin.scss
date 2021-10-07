@@ -13,6 +13,10 @@
   .ag-header {
     border-bottom-width: 2px;
   }
+  .ag-ltr .ag-has-focus .ag-cell-focus:not(.ag-cell-range-selected) {
+    border: none;
+    background-color: $light-gray;
+  }
 
   .ag-pinned-left-header,
   .ag-cell-last-left-pinned {
@@ -44,9 +48,7 @@
   &--hoverable {
     .ag-row {
       &:hover {
-        .ag-cell {
-          //background-color: $light-gray2;
-        }
+        background-color: $light-gray2;
       }
     }
   }
