@@ -1,8 +1,8 @@
 <template>
   <VbDemo>
-    <VbCard title="Simple table">
+    <VbCard title="Alpine table">
       <ag-grid-vue
-        class="ag-theme-vuestic"
+        class="ag-theme-alpine"
         style="width: 800px;"
         domLayout="autoHeight"
         :columnDefs="simpleColumnDefs"
@@ -12,7 +12,7 @@
     </VbCard>
     <VbCard title="Simple table">
       <ag-grid-vue
-        class="ag-theme-vuestic ag-theme-vuestic--hoverable"
+        class="ag-theme-vuestic"
         style="width: 800px;"
         domLayout="autoHeight"
         :columnDefs="simpleColumnDefs"
@@ -30,21 +30,21 @@
         rowSelection="multiple"
       />
     </VbCard>
-    <VbCard title="Simple table">
+    <VbCard title="Row drag">
       <ag-grid-vue
-        class="ag-theme-alpine"
+        class="ag-theme-vuestic"
         style="width: 800px;"
         domLayout="autoHeight"
-        :columnDefs="simpleColumnDefs"
+        :columnDefs="rowDragColumnDefs"
         :rowData="rowData"
-        rowSelection="multiple"
+        :rowDragManaged="true"
       />
     </VbCard>
 
     <VbCard title="Filter & Sorting">
       <ag-grid-vue
-        class="ag-theme-alpine"
-        style="width: 500px;"
+        class="ag-theme-vuestic"
+        style="width: 800px;"
         domLayout="autoHeight"
         :columnDefs="sortingColumnDefs"
         :rowData="rowData"
@@ -53,8 +53,8 @@
 
     <VbCard title="Selection">
       <ag-grid-vue
-        class="ag-theme-alpine"
-        style="width: 500px;"
+        class="ag-theme-vuestic"
+        style="width: 800px;"
         domLayout="autoHeight"
         :columnDefs="selectionColumnDefs"
         :rowData="rowData"
@@ -106,7 +106,13 @@ export default {
         },
       ],
       simpleColumnDefs: [
-        { headerName: 'Name', field: 'fullName', sortable: true, filter: true, checkboxSelection: true },
+        { headerName: 'Name', field: 'fullName', sortable: true, filter: true },
+        { field: 'email' },
+        { field: 'country' },
+        { field: 'status', cellRendererFramework: 'AgGridBadge' },
+      ],
+      rowDragColumnDefs: [
+        { headerName: 'Name', field: 'fullName', rowDrag: true },
         { field: 'email' },
         { field: 'country' },
         { field: 'status', cellRendererFramework: 'AgGridBadge' },
