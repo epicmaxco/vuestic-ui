@@ -61,6 +61,29 @@
         rowSelection="multiple"
       />
     </VbCard>
+    <VbCard title="Column group">
+      <ag-grid-vue
+        style="width: 800px;"
+        domLayout="autoHeight"
+        class="ag-theme-vuestic"
+        id="myGrid"
+        :columnDefs="groupColumnDefs"
+        :debug="true"
+        :rowData="rowData2"
+      />
+      <a href="https://www.ag-grid.com/vue-data-grid/column-groups/#example-basic-grouping">Covered source</a>
+    </VbCard>
+    <VbCard title="Column group">
+      <ag-grid-vue
+        style="width: 800px;"
+        domLayout="autoHeight"
+        class="ag-theme-alpine"
+        id="myGrid"
+        :columnDefs="groupColumnDefs"
+        :debug="true"
+        :rowData="rowData2"
+      />
+    </VbCard>
   </VbDemo>
 </template>
 
@@ -105,6 +128,56 @@ export default {
           status: 'warning',
         },
       ],
+      rowData2: [
+        {
+          athlete: 'Michael Phelps',
+          age: 23,
+          country: 'United States',
+          year: 2008,
+          date: '24/08/2008',
+          sport: 'Swimming',
+          gold: 8,
+          silver: 0,
+          bronze: 0,
+          total: 8,
+        },
+        {
+          athlete: 'Michael Phelps',
+          age: 23,
+          country: 'United States',
+          year: 2008,
+          date: '24/08/2008',
+          sport: 'Swimming',
+          gold: 8,
+          silver: 0,
+          bronze: 0,
+          total: 8,
+        },
+        {
+          athlete: 'Michael Phelps',
+          age: 23,
+          country: 'United States',
+          year: 2008,
+          date: '24/08/2008',
+          sport: 'Swimming',
+          gold: 8,
+          silver: 0,
+          bronze: 0,
+          total: 8,
+        },
+        {
+          athlete: 'Michael Phelps',
+          age: 23,
+          country: 'United States',
+          year: 2008,
+          date: '24/08/2008',
+          sport: 'Swimming',
+          gold: 8,
+          silver: 0,
+          bronze: 0,
+          total: 8,
+        },
+      ],
       simpleColumnDefs: [
         { headerName: 'Name', field: 'fullName', sortable: true, filter: true },
         { field: 'email' },
@@ -128,6 +201,60 @@ export default {
         { field: 'email', sortable: true, filter: true },
         { field: 'country', sortable: true, filter: true },
         { field: 'status', sortable: true, filter: true },
+      ],
+      groupColumnDefs: [
+        {
+          headerName: 'Athlete Details',
+          children: [
+            {
+              headerName: 'Athlete',
+              field: 'athlete',
+              width: 180,
+              filter: 'agTextColumnFilter',
+            },
+            {
+              headerName: 'Age',
+              field: 'age',
+              width: 90,
+              filter: 'agNumberColumnFilter',
+            },
+            { headerName: 'Country', field: 'country', width: 140 },
+          ],
+        },
+        {
+          headerName: 'Sports Results',
+          children: [
+            { headerName: 'Sport', field: 'sport', width: 140 },
+            {
+              headerName: 'Total',
+              columnGroupShow: 'closed',
+              field: 'total',
+              width: 100,
+              filter: 'agNumberColumnFilter',
+            },
+            {
+              headerName: 'Gold',
+              columnGroupShow: 'open',
+              field: 'gold',
+              width: 100,
+              filter: 'agNumberColumnFilter',
+            },
+            {
+              headerName: 'Silver',
+              columnGroupShow: 'open',
+              field: 'silver',
+              width: 100,
+              filter: 'agNumberColumnFilter',
+            },
+            {
+              headerName: 'Bronze',
+              columnGroupShow: 'open',
+              field: 'bronze',
+              width: 100,
+              filter: 'agNumberColumnFilter',
+            },
+          ],
+        },
       ],
     }
   },

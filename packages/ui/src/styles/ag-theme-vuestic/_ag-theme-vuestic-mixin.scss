@@ -28,7 +28,7 @@
     border: none;
   }
 
-  .ag-header-cell-label {
+  .ag-header-cell-label, .ag-header-group-cell-label {
     @include va-title();
   }
 
@@ -41,6 +41,7 @@
   .ag-keyboard-focus .ag-header-cell {
     &:focus {
       background: $light-gray;
+
       &::after {
         display: none;
       }
@@ -53,6 +54,7 @@
   &--striped {
     .ag-row-odd {
       background-color: $light-gray3;
+
       &.ag-row-selected {
         background-color: $light-gray2;
       }
