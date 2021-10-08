@@ -5,14 +5,14 @@ import { ref, computed, toRefs } from 'vue'
  * if `stateful` prop is `false`
  * Record<any, any> & Record<'modelValue', T>
  */
-export function useStateful<T> (props: { [key: string]: any, modelValue?: T }, emit: (event: 'update:modelValue', ...args: any[]) => void, defaultValue?: T) {
+export function useStateful<T, D extends T | undefined> (props: { [key: string]: any, modelValue?: T }, emit: (event: 'update:modelValue', ...args: any[]) => void, defaultValue?: D) {
   const valueState = ref(defaultValue === undefined ? props.modelValue : defaultValue)
   const { modelValue } = toRefs(props)
 
-  const valueComputed = computed<T>({
+  const valueComputed = computed<D>({
     get () {
       if (props.stateful) {
-        return valueState.value as T
+        return valueState.value as D
       }
       return modelValue?.value
     },

@@ -110,7 +110,7 @@ export default defineComponent({
   ],
 
   setup (props, { emit }) {
-    const { valueComputed } = useStateful(props, emit, undefined)
+    const { valueComputed } = useStateful(props, emit)
 
     const { syncView } = useView(props, emit, { type: props.type })
 

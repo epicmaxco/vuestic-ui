@@ -4,6 +4,10 @@
       <VaTimePicker v-model="value" />
     </VbCard>
 
+    <VbCard title="without value">
+      <VaTimePicker v-model="undefValue" />
+    </VbCard>
+
     <VbCard title="stateful">
       <VaTimePicker stateful />
     </VbCard>
@@ -55,6 +59,7 @@ export default {
   data () {
     return {
       value: new Date(2021, 2, 20, 23, 5, 53),
+      undefValue: undefined,
       period: false,
     }
   },

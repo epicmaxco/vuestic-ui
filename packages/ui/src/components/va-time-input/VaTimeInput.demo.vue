@@ -4,6 +4,14 @@
       <VaTimeInput v-model="value" />
     </VbCard>
 
+    <VbCard title="manual input">
+      <VaTimeInput v-model="value" manual-input />
+    </VbCard>
+
+    <VbCard title="without value">
+      <VaTimeInput v-model="undefValue" manual-input />
+    </VbCard>
+
     <VbCard title="slots">
       <VaTimeInput v-model="value">
         <template #appendInner>
@@ -44,6 +52,7 @@ export default {
   data () {
     return {
       value: new Date(2021, 2, 20, 23, 5, 53),
+      undefValue: undefined,
       period: false,
     }
   },

@@ -21,7 +21,7 @@ export default defineComponent({
     ...statefulComponentOptions.props,
     readonly: { type: Boolean, default: false },
     disabled: { type: Boolean, default: false },
-    modelValue: { type: Date, required: true },
+    modelValue: { type: Date, required: false },
     period: { type: Boolean, default: true },
     hidePeriodSwitch: { type: Boolean, default: false },
     // Update model value when switching period authomaticly.
@@ -35,7 +35,7 @@ export default defineComponent({
   emits: [...statefulComponentOptions.emits],
 
   setup (props, { emit }) {
-    const { valueComputed } = useStateful(props, emit, new Date())
+    const { valueComputed } = useStateful(props, emit)
     const { columns } = useTimePicker(props, valueComputed)
 
     const computedClass = computed(() => ({
