@@ -8,7 +8,7 @@ import DocsContent from '../../components/DocsContent.vue'
 import config from '../../components/page-configs/extensions/ag-grid/page-config'
 
 @Options({
-  name: 'DocsStylesAgGridWrapper',
+  name: 'AgGrid',
   components: {
     DocsContent,
   },
