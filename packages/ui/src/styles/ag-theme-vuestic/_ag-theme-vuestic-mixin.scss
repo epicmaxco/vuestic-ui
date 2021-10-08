@@ -13,10 +13,6 @@
   .ag-header {
     border-bottom-width: 2px;
   }
-  .ag-ltr .ag-has-focus .ag-cell-focus:not(.ag-cell-range-selected) {
-    border: none;
-    background-color: $light-gray;
-  }
 
   .ag-pinned-left-header,
   .ag-cell-last-left-pinned {
@@ -36,6 +32,24 @@
     @include va-title();
   }
 
+  // keyboard focus
+  .ag-ltr .ag-has-focus .ag-cell-focus:not(.ag-cell-range-selected) {
+    border: none;
+    background-color: $light-gray;
+  }
+
+  .ag-keyboard-focus .ag-header-cell {
+    &:focus {
+      background: $light-gray;
+      &::after {
+        display: none;
+      }
+    }
+  }
+
+  //
+  // STRIPED MODE
+  //
   &--striped {
     .ag-row-odd {
       background-color: $light-gray3;
@@ -45,6 +59,9 @@
     }
   }
 
+  //
+  // HOVERABlE MODE
+  //
   &--hoverable {
     .ag-row {
       &:hover {
@@ -53,6 +70,9 @@
     }
   }
 
+  //
+  // CLICKABLE MODE
+  //
   &--clickable {
     .ag-cell {
       //cursor: pointer;
