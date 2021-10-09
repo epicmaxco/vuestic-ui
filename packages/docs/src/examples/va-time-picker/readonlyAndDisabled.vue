@@ -1,5 +1,6 @@
 <template>
   <va-time-picker v-model="value" readonly />
+  <va-divider vertical />
   <va-time-picker v-model="value" disabled />
 </template>
 

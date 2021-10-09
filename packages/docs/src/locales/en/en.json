@@ -3351,7 +3351,7 @@
       },
       "input": {
         "title": "Parsing",
-        "text": "By default we parse a lot of time formats, but you can provide your own parse function"
+        "text": "By default we parse a lot of time formats, but you can provide your own parse function using `parseTime` prop."
       }
     }
   }
