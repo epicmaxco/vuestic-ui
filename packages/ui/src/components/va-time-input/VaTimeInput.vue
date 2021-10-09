@@ -1,5 +1,12 @@
 <template>
-  <va-dropdown class="va-time-input" v-model="isOpenSync" :offset="[0, 10]" :close-on-content-click="false" :disabled="disabled">
+  <va-dropdown
+    class="va-time-input"
+    v-model="isOpenSync"
+    :offset="[0, 10]"
+    :close-on-content-click="false"
+    :disabled="disabled"
+    position="bottom-start"
+  >
     <template #anchor>
       <va-input
         v-model="valueText"
