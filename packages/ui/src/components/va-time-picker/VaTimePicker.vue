@@ -15,6 +15,8 @@ import VaTimePickerColumn from './components/VaTimePickerColumn.vue'
 import { useStateful, statefulComponentOptions } from '../../mixins/StatefulMixin/cStatefulMixin'
 
 export default defineComponent({
+  name: 'VaTimePicker',
+
   components: { VaTimePickerColumn },
 
   props: {

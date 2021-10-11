@@ -35,18 +35,20 @@ import { useTimeFormatter } from './hooks/time-text-formatter'
 import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
 
 export default defineComponent({
+  name: 'VaTimeInput',
+
   components: { VaTimePicker },
 
   emits: ['update:modelValue', 'update:isOpen'],
 
   props: {
     ...extractComponentProps(VaTimePicker),
-    isOpen: { type: Boolean },
+    isOpen: { type: Boolean, default: false },
     disabled: { type: Boolean, default: false },
     modelValue: { type: Date, default: undefined },
     format: { type: Function as PropType<(date: Date) => string> },
 
-    parseTime: { type: Function as PropType<(input: string) => Date> },
+    parse: { type: Function as PropType<(input: string) => Date> },
     manualInput: { type: Boolean, default: false },
   },
 

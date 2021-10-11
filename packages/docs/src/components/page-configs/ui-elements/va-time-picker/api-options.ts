@@ -1,12 +1,13 @@
-import { ManualApiOptions } from '../../../DocsApi/ManualApiOptions'
+import { defineManualApi } from '../../../DocsApi/ManualApiOptions'
 
-export default {
+export default defineManualApi({
   props: {
+    view: { types: "'hours' | 'minutes' | 'seconds'" },
+    hoursFilter: { types: '(date: Date) => boolean' },
+    minutesFilter: { types: '(date: Date) => boolean' },
+    secondsFilter: { types: '(date: Date) => boolean' },
+
+    // We use this prop in VaTimeInput
+    hidePeriodSwitch: { hidden: true },
   },
-  events: {
-  },
-  methods: {
-  },
-  slots: {
-  },
-} as ManualApiOptions
+})

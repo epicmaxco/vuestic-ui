@@ -1,6 +1,6 @@
 import { Ref, ref } from 'vue'
 
-const parseTime = (text: string) => {
+const parse = (text: string) => {
   const m = text.match(/[0-9]{1,2}/g)
 
   if (!m) { return [] }
@@ -19,7 +19,7 @@ const parsePeriod = (text: string) => {
 const defaultParseDateFunction = (text: string) => {
   const d = new Date()
 
-  const [h, m, s] = parseTime(text)
+  const [h, m, s] = parse(text)
   const period = parsePeriod(text)
 
   if (!h) { return null }
@@ -37,12 +37,12 @@ const defaultParseDateFunction = (text: string) => {
 }
 
 export const useTimeParser = (props: {
-  parseTime?: (input: string, isValidRef?: Ref<boolean>) => Date,
+  parse?: (input: string, isValidRef?: Ref<boolean>) => Date,
 }) => {
   // const isTextIsMultipleDates = (text: string) => text.includes(props.delimiter)
   // const isTextIsDateRange = (text: string) => text.includes(props.rangeDelimiter)
 
-  const getParseDateFn = () => props.parseTime || defaultParseDateFunction
+  const getParseDateFn = () => props.parse || defaultParseDateFunction
 
   const isValid = ref(true)
 

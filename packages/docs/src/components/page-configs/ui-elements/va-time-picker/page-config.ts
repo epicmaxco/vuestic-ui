@@ -27,6 +27,12 @@ const config: ApiDocsBlock[] = [
   ),
 
   ...DocsHelper.exampleBlock(
+    'timePicker.examples.periodUpdatesModelValue.title',
+    'timePicker.examples.periodUpdatesModelValue.text',
+    'va-time-picker/periodUpdatesModelValue',
+  ),
+
+  ...DocsHelper.exampleBlock(
     'timePicker.examples.view.title',
     'timePicker.examples.view.text',
     'va-time-picker/view',
