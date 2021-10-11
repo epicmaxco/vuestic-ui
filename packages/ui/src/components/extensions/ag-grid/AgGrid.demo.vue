@@ -1,85 +1,97 @@
 <template>
   <VbDemo>
     <VbCard title="Alpine table">
-      <ag-grid-vue
-        class="ag-theme-alpine"
-        style="width: 800px;"
-        domLayout="autoHeight"
-        :columnDefs="simpleColumnDefs"
-        :rowData="rowData"
-        rowSelection="multiple"
-      />
+      <div :style="exampleWrapperStyle">
+        <ag-grid-vue
+          class="ag-theme-alpine"
+          style="width: 100%; height: 100%;"
+          :columnDefs="simpleColumnDefs"
+          :rowData="rowData"
+          rowSelection="multiple"
+        />
+      </div>
     </VbCard>
+
     <VbCard title="Simple table">
-      <ag-grid-vue
-        class="ag-theme-vuestic"
-        style="width: 800px;"
-        domLayout="autoHeight"
-        :columnDefs="simpleColumnDefs"
-        :rowData="rowData"
-        rowSelection="multiple"
-      />
+      <div :style="exampleWrapperStyle">
+        <ag-grid-vue
+          class="ag-theme-vuestic"
+          style="width: 100%; height: 100%;"
+          :columnDefs="simpleColumnDefs"
+          :rowData="rowData"
+          rowSelection="multiple"
+        />
+      </div>
     </VbCard>
+
     <VbCard title="Simple striped table">
-      <ag-grid-vue
-        class="ag-theme-vuestic ag-theme-vuestic--striped"
-        style="width: 800px;"
-        domLayout="autoHeight"
-        :columnDefs="simpleColumnDefs"
-        :rowData="rowData"
-        rowSelection="multiple"
-      />
+      <div :style="exampleWrapperStyle">
+        <ag-grid-vue
+          class="ag-theme-vuestic ag-theme-vuestic--striped"
+          style="width: 100%; height: 100%;"
+          :columnDefs="simpleColumnDefs"
+          :rowData="rowData"
+          rowSelection="multiple"
+        />
+      </div>
     </VbCard>
     <VbCard title="Row drag">
-      <ag-grid-vue
-        class="ag-theme-vuestic"
-        style="width: 800px;"
-        domLayout="autoHeight"
-        :columnDefs="rowDragColumnDefs"
-        :rowData="rowData"
-        :rowDragManaged="true"
-      />
+      <div :style="exampleWrapperStyle">
+        <ag-grid-vue
+          class="ag-theme-vuestic"
+          style="width: 100%; height: 100%;"
+          :columnDefs="rowDragColumnDefs"
+          :rowData="rowData"
+          :rowDragManaged="true"
+        />
+      </div>
     </VbCard>
 
     <VbCard title="Filter & Sorting">
-      <ag-grid-vue
-        class="ag-theme-vuestic"
-        style="width: 800px;"
-        domLayout="autoHeight"
-        :columnDefs="sortingColumnDefs"
-        :rowData="rowData"
-      />
+      <div :style="exampleWrapperStyle">
+        <ag-grid-vue
+          class="ag-theme-vuestic"
+          style="width: 100%; height: 100%;"
+          :columnDefs="sortingColumnDefs"
+          :rowData="rowData"
+        />
+      </div>
     </VbCard>
 
     <VbCard title="Selection">
-      <ag-grid-vue
-        class="ag-theme-vuestic"
-        style="width: 800px;"
-        domLayout="autoHeight"
-        :columnDefs="selectionColumnDefs"
-        :rowData="rowData"
-        rowSelection="multiple"
-      />
+      <div :style="exampleWrapperStyle">
+        <ag-grid-vue
+          class="ag-theme-vuestic"
+          style="width: 100%; height: 100%;"
+          :columnDefs="selectionColumnDefs"
+          :rowData="rowData"
+          rowSelection="multiple"
+        />
+      </div>
     </VbCard>
     <VbCard title="Column group">
-      <ag-grid-vue
-        class="ag-theme-vuestic"
-        style="width: 800px;"
-        domLayout="autoHeight"
-        :columnDefs="groupColumnDefs"
-        :rowData="rowData2"
-      />
+      <div :style="exampleWrapperStyle">
+        <ag-grid-vue
+          class="ag-theme-vuestic"
+          style="width: 100%; height: 100%;"
+          :columnDefs="groupColumnDefs"
+          :rowData="rowData"
+        />
+      </div>
       <a href="https://www.ag-grid.com/vue-data-grid/column-groups/#example-basic-grouping" target="_blank">Covered source</a>
     </VbCard>
     <VbCard title="Pinned rows">
-      <ag-grid-vue
-        class="ag-theme-vuestic"
-        style="width: 800px; height: 300px;"
-        :columnDefs="simpleColumnDefs"
-        :rowData="rowData"
-        :pinnedTopRowData="pinnedTopRowData"
-        :pinnedBottomRowData="pinnedBottomRowData"
-      />
+
+      <div :style="exampleWrapperStyle">
+        <ag-grid-vue
+          class="ag-theme-vuestic"
+          style="width: 100%; height: 100%;"
+          :columnDefs="simpleColumnDefs"
+          :rowData="rowData"
+          :pinnedTopRowData="pinnedTopRowData"
+          :pinnedBottomRowData="pinnedBottomRowData"
+        />
+      </div>
       <a href="https://www.ag-grid.com/vue-data-grid/row-pinning/#example-row-pinning" target="_blank">Covered source</a>
     </VbCard>
 <!--    <VbCard title="Pinned rows">-->
@@ -99,139 +111,63 @@
 <script>
 import { AgGridVue } from 'ag-grid-vue3'
 import AgGridBadge from './AgGridBadge'
+import olympicWinnersData from './data'
 
 export default {
   /* eslint-disable vue/no-unused-components */
   components: { AgGridVue, AgGridBadge },
   data () {
     return {
-      rowData: [
-        {
-          fullName: 'Ashley Mcdaniel',
-          email: 'ashleymcdaniel@nebulean.com',
-          country: 'Cayman Islands',
-          status: 'warning',
-        },
-        {
-          fullName: 'Todd Sellers',
-          email: 'sellerstodd@nebulean.com',
-          country: 'Togo',
-          status: 'info',
-        },
-        {
-          fullName: 'Sherman Knowles',
-          email: 'shermanknowles@nebulean.com',
-          country: 'Central African Republic',
-          status: 'warning',
-        },
-        {
-          fullName: 'Vasquez Lawson',
-          email: 'vasquezlawson@nebulean.com',
-          country: 'Bouvet Island',
-          status: 'info',
-        },
-        {
-          fullName: 'April Sykes',
-          email: 'aprilsykes@nebulean.com',
-          country: 'Saint Vincent and The Grenadines',
-          status: 'warning',
-        },
-      ],
-      rowData2: [
-        {
-          athlete: 'Michael Phelps',
-          age: 23,
-          country: 'United States',
-          year: 2008,
-          date: '24/08/2008',
-          sport: 'Swimming',
-          gold: 8,
-          silver: 0,
-          bronze: 0,
-          total: 8,
-        },
-        {
-          athlete: 'Michael Phelps',
-          age: 23,
-          country: 'United States',
-          year: 2008,
-          date: '24/08/2008',
-          sport: 'Swimming',
-          gold: 8,
-          silver: 0,
-          bronze: 0,
-          total: 8,
-        },
-        {
-          athlete: 'Michael Phelps',
-          age: 23,
-          country: 'United States',
-          year: 2008,
-          date: '24/08/2008',
-          sport: 'Swimming',
-          gold: 8,
-          silver: 0,
-          bronze: 0,
-          total: 8,
-        },
-        {
-          athlete: 'Michael Phelps',
-          age: 23,
-          country: 'United States',
-          year: 2008,
-          date: '24/08/2008',
-          sport: 'Swimming',
-          gold: 8,
-          silver: 0,
-          bronze: 0,
-          total: 8,
-        },
-      ],
-      pinnedTopRowData: [
-        {
-          fullName: 'Ashley Mcdaniel',
-          email: 'ashleymcdaniel@nebulean.com',
-          country: 'Cayman Islands',
-          status: 'warning',
-        },
-      ],
-      pinnedBottomRowData: [
-        {
-          fullName: 'Ashley Mcdaniel',
-          email: 'ashleymcdaniel@nebulean.com',
-          country: 'Cayman Islands',
-          status: 'warning',
-        },
-        {
-          fullName: 'Ashley Mcdaniel',
-          email: 'ashleymcdaniel@nebulean.com',
-          country: 'Cayman Islands',
-          status: 'warning',
-        },
-      ],
+      rowData: null,
+      pinnedTopRowData: null,
+      pinnedBottomRowData: null,
       simpleColumnDefs: [
-        { headerName: 'Name', field: 'fullName', sortable: true, filter: true },
-        { field: 'email' },
+        { field: 'athlete', sortable: true },
+        { field: 'age', width: 90 },
         { field: 'country' },
-        { field: 'status', cellRendererFramework: 'AgGridBadge' },
+        { field: 'year', width: 90, unSortIcon: true },
+        { field: 'date' },
+        { field: 'sport' },
+        { field: 'gold' },
+        { field: 'silver' },
+        { field: 'bronze' },
+        { field: 'total' },
       ],
       rowDragColumnDefs: [
-        { headerName: 'Name', field: 'fullName', rowDrag: true },
-        { field: 'email' },
+        { field: 'athlete', rowDrag: true },
+        { field: 'age', width: 90 },
         { field: 'country' },
-        { field: 'status', cellRendererFramework: 'AgGridBadge' },
+        { field: 'year', width: 90, unSortIcon: true },
+        { field: 'date' },
+        { field: 'sport' },
+        { field: 'gold' },
+        { field: 'silver' },
+        { field: 'bronze' },
+        { field: 'total' },
       ],
       sortingColumnDefs: [
-        { field: 'fullName', sortable: true, filter: true },
-        { field: 'email', sortable: true, filter: true },
+        { field: 'athlete', sortable: true, filter: true },
+        { field: 'age', sortable: true, filter: true, width: 90 },
         { field: 'country', sortable: true, filter: true },
-        { field: 'status', sortable: true, filter: true },
+        { field: 'year', sortable: true, filter: true, width: 90, unSortIcon: true },
+        { field: 'date', sortable: true, filter: true },
+        { field: 'sport', sortable: true, filter: true },
+        { field: 'gold', sortable: true, filter: true },
+        { field: 'silver', sortable: true, filter: true },
+        { field: 'bronze', sortable: true, filter: true },
+        { field: 'total', sortable: true, filter: true },
       ],
       selectionColumnDefs: [
-        { field: 'fullName', sortable: true, filter: true, checkboxSelection: true },
-        { field: 'email', sortable: true, filter: true },
-        { field: 'country', sortable: true, filter: true },
-        { field: 'status', sortable: true, filter: true },
+        { field: 'athlete', rowDrag: true },
+        { field: 'age', width: 90 },
+        { field: 'country' },
+        { field: 'year', width: 90, unSortIcon: true },
+        { field: 'date' },
+        { field: 'sport' },
+        { field: 'gold' },
+        { field: 'silver' },
+        { field: 'bronze' },
+        { field: 'total' },
       ],
       groupColumnDefs: [
         {
@@ -288,6 +224,21 @@ export default {
         },
       ],
     }
+  },
+  beforeMount () {
+    setTimeout(() => {
+      this.rowData = olympicWinnersData
+      this.pinnedTopRowData = [olympicWinnersData[0]]
+      this.pinnedBottomRowData = [olympicWinnersData[3], olympicWinnersData[4]]
+    }, 1000)
+  },
+  computed: {
+    exampleWrapperStyle () {
+      return {
+        width: '800px',
+        height: '300px',
+      }
+    },
   },
 }
 </script>
