@@ -63,27 +63,36 @@
     </VbCard>
     <VbCard title="Column group">
       <ag-grid-vue
-        style="width: 800px;"
-        domLayout="autoHeight"
         class="ag-theme-vuestic"
-        id="myGrid"
-        :columnDefs="groupColumnDefs"
-        :debug="true"
-        :rowData="rowData2"
-      />
-      <a href="https://www.ag-grid.com/vue-data-grid/column-groups/#example-basic-grouping">Covered source</a>
-    </VbCard>
-    <VbCard title="Column group">
-      <ag-grid-vue
         style="width: 800px;"
         domLayout="autoHeight"
-        class="ag-theme-alpine"
-        id="myGrid"
         :columnDefs="groupColumnDefs"
-        :debug="true"
         :rowData="rowData2"
       />
+      <a href="https://www.ag-grid.com/vue-data-grid/column-groups/#example-basic-grouping" target="_blank">Covered source</a>
     </VbCard>
+    <VbCard title="Pinned rows">
+      <ag-grid-vue
+        class="ag-theme-vuestic"
+        style="width: 800px; height: 300px;"
+        :columnDefs="simpleColumnDefs"
+        :rowData="rowData"
+        :pinnedTopRowData="pinnedTopRowData"
+        :pinnedBottomRowData="pinnedBottomRowData"
+      />
+      <a href="https://www.ag-grid.com/vue-data-grid/row-pinning/#example-row-pinning" target="_blank">Covered source</a>
+    </VbCard>
+<!--    <VbCard title="Pinned rows">-->
+<!--      <ag-grid-vue-->
+<!--        style="width: 800px; height: 300px"-->
+<!--        class="ag-theme-alpine"-->
+<!--        :columnDefs="simpleColumnDefs"-->
+<!--        :debug="true"-->
+<!--        :rowData="rowData"-->
+<!--        :pinnedTopRowData="pinnedTopRowData"-->
+<!--        :pinnedBottomRowData="pinnedBottomRowData"-->
+<!--      />-->
+<!--    </VbCard>-->
   </VbDemo>
 </template>
 
@@ -176,6 +185,28 @@ export default {
           silver: 0,
           bronze: 0,
           total: 8,
+        },
+      ],
+      pinnedTopRowData: [
+        {
+          fullName: 'Ashley Mcdaniel',
+          email: 'ashleymcdaniel@nebulean.com',
+          country: 'Cayman Islands',
+          status: 'warning',
+        },
+      ],
+      pinnedBottomRowData: [
+        {
+          fullName: 'Ashley Mcdaniel',
+          email: 'ashleymcdaniel@nebulean.com',
+          country: 'Cayman Islands',
+          status: 'warning',
+        },
+        {
+          fullName: 'Ashley Mcdaniel',
+          email: 'ashleymcdaniel@nebulean.com',
+          country: 'Cayman Islands',
+          status: 'warning',
         },
       ],
       simpleColumnDefs: [
