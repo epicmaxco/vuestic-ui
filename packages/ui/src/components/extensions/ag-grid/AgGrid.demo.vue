@@ -118,6 +118,26 @@
         />
       </div>
     </VbCard>
+
+    <VbCard title="Cell editing">
+<!-- TODO: restyle input -->
+      <div :style="exampleWrapperStyle">
+        <ag-grid-vue
+          class="ag-theme-vuestic"
+          style="width: 100%; height: 100%;"
+          :columnDefs="editableColumnDefs"
+          :rowData="rowData"
+        />
+      </div>
+      <div :style="exampleWrapperStyle">
+        <ag-grid-vue
+          class="ag-theme-alpine"
+          style="width: 100%; height: 100%;"
+          :columnDefs="editableColumnDefs"
+          :rowData="rowData"
+        />
+      </div>
+    </VbCard>
 <!--    <VbCard title="Pinned rows">-->
 <!--      <ag-grid-vue-->
 <!--        style="width: 800px; height: 300px"-->
@@ -142,6 +162,7 @@ export default {
   components: { AgGridVue, AgGridBadge },
   data () {
     return {
+      gridApi: null,
       rowData: null,
       pinnedTopRowData: null,
       pinnedBottomRowData: null,
@@ -246,6 +267,18 @@ export default {
             },
           ],
         },
+      ],
+      editableColumnDefs: [
+        { field: 'athlete', editable: true },
+        { field: 'age', width: 90, editable: true },
+        { field: 'country', editable: true },
+        { field: 'year', width: 90, unSortIcon: true, editable: true },
+        { field: 'date', editable: true },
+        { field: 'sport', editable: true },
+        { field: 'gold', editable: true },
+        { field: 'silver', editable: true },
+        { field: 'bronze', editable: true },
+        { field: 'total', editable: true },
       ],
     }
   },
