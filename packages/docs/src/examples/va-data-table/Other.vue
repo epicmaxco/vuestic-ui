@@ -1,66 +1,67 @@
 <template>
-  <div class="flex">
-    <div class="flex row">
-      <div class="flex mb-2 md4">
-        <va-switch
-          label="Hoverable rows"
-          size="small"
-          v-model="isTableHoverable"
-        />
-        <br />
-        <va-switch
-          class="mt-2"
-          label="Striped style"
-          size="small"
-          v-model="isTableStriped"
-        />
-      </div>
+  <div class="flex row">
+    <div class="mb-2 lg4">
+      <va-switch
+        class="mt-2"
+        label="Hoverable rows"
+        size="small"
+        v-model="isTableHoverable"
+      />
+      <br />
+      <va-switch
+        class="mt-2"
+        label="Striped style"
+        size="small"
+        v-model="isTableStriped"
+      />
+    </div>
 
-      <div class="flex mb-2 md4">
-        <va-switch
-          label="Loading state"
-          size="small"
-          v-model="isTableLoading"
-        />
-        <br />
-        <va-switch
-          class="mt-2"
-          label="Add (prepend) slots"
-          size="small"
-          v-model="prependSlot"
-        />
-        <br />
-        <va-switch
-          class="mt-2"
-          label="Add (append) slots"
-          size="small"
-          v-model="appendSlot"
-        />
-      </div>
+    <div class="mb-2 lg4">
+      <va-switch
+        class="mt-2"
+        label="Loading state"
+        size="small"
+        v-model="isTableLoading"
+      />
+      <br />
+      <va-switch
+        class="mt-2"
+        label="Add (prepend) slots"
+        size="small"
+        v-model="prependSlot"
+      />
+      <br />
+      <va-switch
+        class="mt-2"
+        label="Add (append) slots"
+        size="small"
+        v-model="appendSlot"
+      />
+    </div>
 
-      <div class="flex mb-2 md4">
-        <va-switch
-          label="Hide default header"
-          size="small"
-          v-model="hideDefaultHeader"
-        />
-        <br />
-        <va-switch
-          class="mt-2"
-          label="Clone header to footer"
-          size="small"
-          v-model="footClone"
-          :disabled="hideDefaultHeader"
-        />
-        <br />
-        <va-switch
-          class="mt-2"
-          label="Allow foot sorting"
-          size="small"
-          v-model="footSorting"
-          :disabled="hideDefaultHeader || !footClone"
-        />
-      </div>
+    <div class="mb-2 lg4">
+      <va-switch
+        class="mt-2"
+        label="Hide default header"
+        size="small"
+        v-model="hideDefaultHeader"
+      />
+      <br />
+      <va-switch
+        class="mt-2"
+        label="Clone header to footer"
+        size="small"
+        v-model="footerClone"
+        :disabled="hideDefaultHeader"
+      />
+      <br />
+      <va-switch
+        class="mt-2"
+        label="Allow foot sorting"
+        size="small"
+        v-model="footerSorting"
+        :disabled="hideDefaultHeader || !footerClone"
+      />
     </div>
 
     <va-data-table
@@ -70,13 +71,13 @@
       :hoverable="isTableHoverable"
       :loading="isTableLoading"
       :hide-default-header="hideDefaultHeader"
-      :foot-clone="footClone"
-      :allow-foot-sorting="footSorting"
+      :footer-clone="footerClone"
+      :allow-footer-sorting="footerSorting"
     >
-      <template #headPrepend v-if="prependSlot">
+      <template #headerPrepend v-if="prependSlot">
         <tr><th colspan="8">Custom cell which span 8 cells (headPrepend slot)</th></tr>
       </template>
-      <template #headAppend v-if="appendSlot">
+      <template #headerAppend v-if="appendSlot">
         <tr><th colspan="8">Custom cell which span 8 cells (headAppend slot)</th></tr>
       </template>
 
@@ -87,10 +88,10 @@
         <tr><td colspan="8">Custom cell which span 8 cells (bodyAppend slot)</td></tr>
       </template>
 
-      <template #footPrepend v-if="prependSlot">
+      <template #footerPrepend v-if="prependSlot">
         <tr><th colspan="8">Custom cell which span 8 cells (footPrepend slot)</th></tr>
       </template>
-      <template #footAppend v-if="appendSlot">
+      <template #footerAppend v-if="appendSlot">
         <tr><th colspan="8">Custom cell which span 8 cells (footAppend slot)</th></tr>
       </template>
     </va-data-table>
@@ -160,8 +161,8 @@ export default defineComponent({
       isTableStriped: true,
       isTableHoverable: true,
       hideDefaultHeader: false,
-      footClone: true,
-      footSorting: true,
+      footerClone: true,
+      footerSorting: true,
       prependSlot: false,
       appendSlot: false,
     }

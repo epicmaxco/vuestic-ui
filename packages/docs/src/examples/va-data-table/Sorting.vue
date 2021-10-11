@@ -12,7 +12,7 @@
         class="flex mb-2 md6"
         v-model="sortingOrder"
         label="Sorting order"
-        :options="sortingOrderOptions()"
+        :options="sortingOrderOptions"
         :value-by="(option) => option.value"
       />
     </div>
@@ -96,25 +96,25 @@ export default defineComponent({
       { key: 'phone' },
     ]
 
+    const sortingOrderOptions = [
+      { text: 'asc', value: 'asc' },
+      { text: 'desc', value: 'desc' },
+      { text: 'no sorting', value: null },
+    ]
+
     return {
       items: shuffle(users),
       columns,
       sortBy: 'username',
       sortingOrder: 'asc',
       sortedRows: [],
+      sortingOrderOptions,
     }
   },
 
   methods: {
     sortByOptions () {
       return this.columns.map(({ key }) => key)
-    },
-    sortingOrderOptions () {
-      return [
-        { text: 'asc', value: 'asc' },
-        { text: 'desc', value: 'desc' },
-        { text: 'no sorting', value: null },
-      ]
     },
   },
 })

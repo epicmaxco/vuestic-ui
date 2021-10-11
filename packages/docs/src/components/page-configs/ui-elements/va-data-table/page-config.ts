@@ -16,11 +16,16 @@ const config: ApiDocsBlock[] = [
     'dataTable.examples.default.text',
     'va-data-table/Default',
   ),
-  ...DocsHelper.exampleBlock(
-    'dataTable.examples.slots.title',
-    'dataTable.examples.slots.text',
-    'va-data-table/Slots',
-  ),
+
+  DocsHelper.headline('dataTable.examples.slots.title'),
+  DocsHelper.paragraph('dataTable.examples.slots.text[0]'),
+  DocsHelper.paragraph('dataTable.examples.slots.text[1]'),
+  DocsHelper.example('va-data-table/CustomSlots'),
+  DocsHelper.paragraph('dataTable.examples.slots.text[2]'),
+  DocsHelper.example('va-data-table/StaticSlots'),
+  DocsHelper.paragraph('dataTable.examples.slots.text[3]'),
+  DocsHelper.example('va-data-table/ColgroupSlots'),
+
   ...DocsHelper.exampleBlock(
     'dataTable.examples.filtering.title',
     'dataTable.examples.filtering.text',

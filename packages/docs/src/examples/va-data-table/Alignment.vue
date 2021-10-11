@@ -4,39 +4,39 @@
       <va-select
         v-model="columns[0].alignHead"
         label="First heading align"
-        :options="alignOptions()"
+        :options="alignOptions"
       />
       <va-select
         class="mt-2"
         v-model="columns[0].verticalAlignHead"
         label="First heading vertical align"
-        :options="verticalAlignOptions()"
+        :options="verticalAlignOptions"
       />
     </div>
     <div class='flex md4'>
       <va-select
         v-model="columns[1].alignHead"
         label="Second heading align"
-        :options="alignOptions()"
+        :options="alignOptions"
       />
       <va-select
         class="mt-2"
         v-model="columns[1].verticalAlignHead"
         label="Second heading vertical align"
-        :options="verticalAlignOptions()"
+        :options="verticalAlignOptions"
       />
     </div>
     <div class='flex md4'>
       <va-select
         v-model="columns[2].alignHead"
         label="Third heading align"
-        :options="alignOptions()"
+        :options="alignOptions"
       />
       <va-select
         class="mt-2"
         v-model="columns[2].verticalAlignHead"
         label="Third heading vertical align"
-        :options="verticalAlignOptions()"
+        :options="verticalAlignOptions"
       />
     </div>
   </div>
@@ -46,14 +46,14 @@
       <va-select
         v-model="columns[0].align"
         label="First column align"
-        :options="alignOptions()"
+        :options="alignOptions"
         color="#990099"
       />
       <va-select
         class="mt-2"
         v-model="columns[0].verticalAlign"
         label="First column vertical align"
-        :options="verticalAlignOptions()"
+        :options="verticalAlignOptions"
         color="#990099"
       />
     </div>
@@ -61,14 +61,14 @@
       <va-select
         v-model="columns[1].align"
         label="Second column align"
-        :options="alignOptions()"
+        :options="alignOptions"
         color="#990099"
       />
       <va-select
         class="mt-2"
         v-model="columns[1].verticalAlign"
         label="Second column vertical align"
-        :options="verticalAlignOptions()"
+        :options="verticalAlignOptions"
         color="#990099"
       />
     </div>
@@ -76,14 +76,14 @@
       <va-select
         v-model="columns[2].align"
         label="Third column align"
-        :options="alignOptions()"
+        :options="alignOptions"
         color="#990099"
       />
       <va-select
         class="mt-2"
         v-model="columns[2].verticalAlign"
         label="Third column vertical align"
-        :options="verticalAlignOptions()"
+        :options="verticalAlignOptions"
         color="#990099"
       />
     </div>
@@ -154,19 +154,15 @@ export default defineComponent({
       },
     ]
 
+    const verticalAlignOptions = ['top', 'middle', 'bottom']
+    const alignOptions = ['left', 'center', 'right']
+
     return {
       items,
       columns,
+      verticalAlignOptions,
+      alignOptions,
     }
-  },
-
-  methods: {
-    verticalAlignOptions () {
-      return ['top', 'middle', 'bottom']
-    },
-    alignOptions () {
-      return ['left', 'center', 'right']
-    },
   },
 })
 </script>

@@ -11,14 +11,14 @@
         class="flex mb-2 md4"
         v-model="selectMode"
         label="Select mode"
-        :options="selectModeOptions()"
+        :options="selectModeOptions"
       />
 
       <va-select
         class="flex mb-2 md4"
         v-model="selectedColor"
         label="Selected color"
-        :options="selectColorOptions()"
+        :options="selectColorOptions"
       />
     </div>
 
@@ -33,12 +33,12 @@
 
     <va-alert class="mt-3" border="left">
       <span>
-        Selected items (click to un-select):
+        Selected items (click to unselect):
         <va-chip
           class="ml-2"
           :key="item.id"
           v-for="item in selectedItems"
-          @click="selectedItems.splice(selectedItems.indexOf(item), 1)"
+          @click="unselectItem(item)"
         >
           {{item.id}}
         </va-chip>
@@ -103,6 +103,9 @@ export default defineComponent({
       { key: 'phone', sortable: true },
     ]
 
+    const selectModeOptions = ['single', 'multiple']
+    const selectColorOptions = ['primary', 'danger', 'warning', '#888888']
+
     return {
       items: users,
       columns,
@@ -110,15 +113,18 @@ export default defineComponent({
       selectedItems: [],
       selectMode: 'multiple',
       selectedColor: '#888888',
+      selectModeOptions,
+      selectColorOptions,
     }
   },
 
   methods: {
-    selectModeOptions () {
-      return ['single', 'multiple']
-    },
-    selectColorOptions () {
-      return ['primary', 'danger', 'warning', '#888888']
+    unselectItem (item) {
+      const index = this.selectedItems.indexOf(item)
+      this.selectedItems = [
+        ...this.selectedItems.slice(0, index),
+        ...this.selectedItems.slice(index + 1),
+      ]
     },
   },
 })
