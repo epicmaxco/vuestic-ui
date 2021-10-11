@@ -33,9 +33,13 @@
   }
 
   // keyboard focus
-  .ag-ltr .ag-has-focus .ag-cell-focus:not(.ag-cell-range-selected) {
-    border: none;
-    background-color: $light-gray;
+  // ltr - left to right languages
+  // rtl - right to left languages
+  .ag-ltr, .ag-rtl {
+    .ag-has-focus .ag-cell-focus:not(.ag-cell-range-selected) {
+      border: none;
+      background-color: $light-gray;
+    }
   }
 
   .ag-keyboard-focus .ag-header-cell {
