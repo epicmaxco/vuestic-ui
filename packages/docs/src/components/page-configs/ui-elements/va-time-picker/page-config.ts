@@ -21,9 +21,9 @@ const config: ApiDocsBlock[] = [
   ),
 
   ...DocsHelper.exampleBlock(
-    'timePicker.examples.period.title',
-    'timePicker.examples.period.text',
-    'va-time-picker/period',
+    'timePicker.examples.ampm.title',
+    'timePicker.examples.ampm.text',
+    'va-time-picker/ampm',
   ),
 
   ...DocsHelper.exampleBlock(

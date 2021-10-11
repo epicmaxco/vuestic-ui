@@ -34,7 +34,10 @@ declare type ExtractPropsType<T> = {
   }
 }
 
-/* Works only with defineComponent function */
+/**
+ * Works only with defineComponent function.
+ * @notion Be aware that `withConfigTransport` you will lose prop types
+ */
 export function extractComponentProps<T> (component: T, ignoreProps?: string[]): ExtractPropsType<T> {
   const props = (component as any).props
 

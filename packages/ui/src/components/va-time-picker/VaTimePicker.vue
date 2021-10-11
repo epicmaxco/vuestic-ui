@@ -22,7 +22,7 @@ export default defineComponent({
     readonly: { type: Boolean, default: false },
     disabled: { type: Boolean, default: false },
     modelValue: { type: Date, required: false },
-    period: { type: Boolean, default: true },
+    ampm: { type: Boolean, default: false },
     hidePeriodSwitch: { type: Boolean, default: false },
     // Update model value when switching period authomaticly.
     periodUpdatesModelValue: { type: Boolean, default: true },
@@ -36,7 +36,7 @@ export default defineComponent({
 
   setup (props, { emit }) {
     const { valueComputed } = useStateful(props, emit)
-    const { columns } = useTimePicker(props, valueComputed)
+    const { columns, isPM } = useTimePicker(props, valueComputed)
 
     const computedClass = computed(() => ({
       'va-time-picker--readonly': props.readonly,
@@ -46,6 +46,7 @@ export default defineComponent({
     return {
       columns,
       computedClass,
+      isPM,
     }
   },
 })

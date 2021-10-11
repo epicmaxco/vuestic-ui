@@ -9,7 +9,7 @@
   >
     <template #anchor>
       <va-input
-        v-model="valueText"
+        :modelValue="valueText"
         :readonly="readonly || !manualInput"
         :error="!isValid"
         @change="onInputTextChanged"
@@ -28,9 +28,10 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType } from 'vue'
-import { VaTimePicker } from '../va-time-picker'
+import VaTimePicker from '../va-time-picker/VaTimePicker.vue'
 import { useSyncProp } from '../../composables/useSyncProp'
 import { useTimeParser } from './hooks/time-text-parser'
+import { useTimeFormatter } from './hooks/time-text-formatter'
 import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
 
 export default defineComponent({
@@ -54,15 +55,14 @@ export default defineComponent({
     const [modelValueSync] = useSyncProp('modelValue', props, emit)
 
     const { parse, isValid } = useTimeParser(props)
+    const { format } = useTimeFormatter(props)
 
     const valueText = computed<string>(() => {
       if (!isValid.value) { return '' }
 
       if (props.format) { return props.format(modelValueSync.value) }
 
-      if (!modelValueSync.value) { return '' }
-
-      return modelValueSync.value.toLocaleTimeString()
+      return format(modelValueSync.value)
     })
 
     const onInputTextChanged = (val: string) => {

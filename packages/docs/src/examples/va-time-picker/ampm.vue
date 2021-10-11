@@ -4,16 +4,14 @@
   <div class="d-flex">
     <va-time-picker v-model="value" />
     <va-divider vertical />
-    <va-time-picker v-model="value" :period="false" />
+    <va-time-picker v-model="value" ampm />
   </div>
 </template>
 
 <script>
 export default {
   data () {
-    return {
-      value: new Date(),
-    }
+    return { value: new Date() }
   },
 }
 </script>

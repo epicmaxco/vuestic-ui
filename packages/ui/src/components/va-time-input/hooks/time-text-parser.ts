@@ -24,8 +24,8 @@ const defaultParseDateFunction = (text: string) => {
 
   if (!h) { return null }
 
-  const is12format = period !== null
-  const isPM = !!period
+  const is12format = period !== null && h <= 12
+  const isPM = is12format && !!period
   // Switch 12 to 0, because of 12h format
   const fh = is12format ? (h === 12 ? 0 : h) : h
 

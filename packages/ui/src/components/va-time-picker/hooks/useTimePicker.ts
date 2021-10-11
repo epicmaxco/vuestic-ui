@@ -1,7 +1,7 @@
 import { computed, ref, Ref, toRefs, watch } from 'vue'
 
 interface TimePickerProps {
-  period: boolean;
+  ampm: boolean;
   hidePeriodSwitch: boolean;
   periodUpdatesModelValue: boolean;
   view: 'hours' | 'minutes' | 'seconds';
@@ -29,17 +29,17 @@ const from24to12 = (h: number) => (h === 0 ? 12 : h) - Number(h > 12) * 12
 const from12to24 = (h: number, isAM = false) => (h === 12 ? 0 : h) + Number(isAM) * 12
 
 const createHoursColumn = (props: TimePickerProps, modelValue: ModelValueRef, isPM: Ref<boolean>) => {
-  const computedSize = computed(() => props.period ? 12 : 24)
+  const computedSize = computed(() => props.ampm ? 12 : 24)
 
   const items = computed(() => {
     let array = createNumbersArray(computedSize.value)
 
     if (props.hoursFilter) {
-      array = array.filter((i) => props.hoursFilter!(props.period ? i + 12 * Number(isPM.value) : i))
+      array = array.filter((i) => props.hoursFilter!(props.ampm ? i + 12 * Number(isPM.value) : i))
     }
 
     return array.map((n) => {
-      return props.period ? from24to12(n) : n
+      return props.ampm ? from24to12(n) : n
     })
   })
 
@@ -47,7 +47,7 @@ const createHoursColumn = (props: TimePickerProps, modelValue: ModelValueRef, is
     get: () => {
       if (!modelValue.value) { return -1 }
 
-      if (props.period) {
+      if (props.ampm) {
         const h = modelValue.value.getHours() - 12 * Number(isPM.value)
         return items.value.findIndex((i) => i === h)
       }
@@ -59,7 +59,7 @@ const createHoursColumn = (props: TimePickerProps, modelValue: ModelValueRef, is
     set: (newIndex) => {
       if (props.readonly) { return }
 
-      if (props.period) {
+      if (props.ampm) {
         const v = from12to24(items.value[newIndex], isPM.value)
 
         modelValue.value = new Date(safeModelValue(modelValue).setHours(v))
@@ -185,7 +185,7 @@ export const useTimePicker = (props: TimePickerProps, modelValue: ModelValueRef)
     } else if (view.value === 'seconds') {
       array.push(hoursColumn.value, minutesColumn.value, secondsColumn.value)
     }
-    if (props.period && !props.hidePeriodSwitch) {
+    if (props.ampm && !props.hidePeriodSwitch) {
       array.push(periodColumn.value)
     }
 
@@ -194,5 +194,6 @@ export const useTimePicker = (props: TimePickerProps, modelValue: ModelValueRef)
 
   return {
     columns,
+    isPM,
   }
 }

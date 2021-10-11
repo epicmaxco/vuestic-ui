@@ -18,10 +18,10 @@
       <VaTimePicker v-model="value" :view="'hours'" />
     </VbCard>
 
-    <VbCard title="period">
-      <VaTimePicker v-model="value" :period="period" />
+    <VbCard title="ampm">
+      <VaTimePicker v-model="value" :ampm="ampm" />
       <br />
-      <VaTimePicker v-model="value" :period="period" />
+      <VaTimePicker v-model="value" :ampm="ampm" />
     </VbCard>
 
     <VbCard title="value">
@@ -29,13 +29,13 @@
       <br />
       {{ value.getHours() }}:{{ value.getMinutes() }}:{{ value.getSeconds() }}
       <br />
-      <VaTimePicker v-model="value" :period="true" />
+      <VaTimePicker v-model="value" :ampm="true" />
       <br />
-      <VaTimePicker v-model="value" :period="false" :view="'seconds'" />
+      <VaTimePicker v-model="value" :ampm="false" :view="'seconds'" />
     </VbCard>
 
     <VbCard title="filter">
-      <VaTimePicker v-model="value" :view="'seconds'" :period="false" :hoursFilter="(h) => h >= 9 && h <= 19" :minutesFilter="(m) => m % 10 === 0" :secondsFilter="(s) => s % 20 === 0" />
+      <VaTimePicker v-model="value" :view="'seconds'" :ampm="false" :hoursFilter="(h) => h >= 9 && h <= 19" :minutesFilter="(m) => m % 10 === 0" :secondsFilter="(s) => s % 20 === 0" />
     </VbCard>
 
     <VbCard title="readonly">
@@ -60,7 +60,7 @@ export default {
     return {
       value: new Date(2021, 2, 20, 23, 5, 53),
       undefValue: undefined,
-      period: false,
+      ampm: false,
     }
   },
 }

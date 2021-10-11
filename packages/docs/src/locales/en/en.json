@@ -3328,9 +3328,9 @@
         "title": "Readonly and disabled",
         "text": ""
       },
-      "period": {
-        "title": "Period",
-        "text": "You can specify if you want to use 12-hours clock or 24-hours clock."
+      "ampm": {
+        "title": "AM PM",
+        "text": "You can specify `ampm` props if you want to use 12-hours clock format set as true or 24-hours clock set as false."
       },
       "view": {
         "title": "View",
@@ -3344,6 +3344,7 @@
   },
   "timeInput": {
     "title": "Time Input",
+    "description": "Time Input component is a combination of Time Picker and Input components. You can find usage examples using following links:",
     "examples": {
       "default": {
         "title": "Default",
@@ -3351,7 +3352,16 @@
       },
       "input": {
         "title": "Parsing",
-        "text": "By default we parse a lot of time formats, but you can provide your own parse function using `parseTime` prop."
+        "text": "Default parse time function likely cover all of your needs, but you can provide your own parse function using `parseTime` prop.",
+        "notion": "It can parse such inputs: 11, 11:00, 11:00:00, 11 pm, 23, 2300, 11.00, 11somejunk00"
+      },
+      "format": {
+        "title": "Formatting",
+        "text": "We format input text specific to `view` prop. You can pass custom format function that accepts Date and return string."
+      },
+      "ampm": {
+        "title": "AM PM",
+        "text": "VaTimeInput will automatically format input string if you need to use AM PM."
       }
     }
   }

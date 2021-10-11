@@ -6,9 +6,12 @@ import apiOptions from './api-options'
 const config: ApiDocsBlock[] = [
   DocsHelper.title('timeInput.title'),
 
+  DocsHelper.paragraph('timeInput.description'),
+  DocsHelper.link('timePicker.title', '/ui-elements/time-picker'),
+  DocsHelper.link('input.title', '/ui-elements/input'),
+
   DocsHelper.subtitle('all.examples'),
 
-  // examples
   ...DocsHelper.exampleBlock(
     'timeInput.examples.default.title',
     'timeInput.examples.default.text',
@@ -16,9 +19,23 @@ const config: ApiDocsBlock[] = [
   ),
 
   ...DocsHelper.exampleBlock(
+    'timeInput.examples.format.title',
+    'timeInput.examples.format.text',
+    'va-time-input/format',
+  ),
+
+  ...DocsHelper.exampleBlock(
     'timeInput.examples.input.title',
     'timeInput.examples.input.text',
     'va-time-input/input',
+  ),
+
+  DocsHelper.alert('timeInput.examples.input.notion', 'primary'),
+
+  ...DocsHelper.exampleBlock(
+    'timeInput.examples.ampm.title',
+    'timeInput.examples.ampm.text',
+    'va-time-input/ampm',
   ),
 
   DocsHelper.api(VaTimeInput, apiOptions),
