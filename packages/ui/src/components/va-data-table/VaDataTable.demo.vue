@@ -66,9 +66,9 @@
       <h3>Other</h3>
       <input type="checkbox" v-model="hideDefaultHeader">
       <label>Hide default header</label><br>
-      <input type="checkbox" v-model="footClone">
+      <input type="checkbox" v-model="footerClone">
       <label>Clone header into footer</label><br>
-      <input type="checkbox" :disabled="!footClone" v-model="allowFootSorting">
+      <input type="checkbox" :disabled="!footerClone" v-model="allowFooterSorting">
       <label>Allow sorting in footer</label><br>
       <input type="checkbox" v-model="isStriped">
       <label>Striped style</label><br>
@@ -90,8 +90,8 @@
         :per-page="usePagination ? perPage : undefined"
         :current-page="usePagination ? currentPage2 : undefined"
         :hide-default-header="hideDefaultHeader"
-        :foot-clone="footClone"
-        :allow-foot-sorting="allowFootSorting"
+        :footer-clone="footerClone"
+        :allow-footer-sorting="allowFooterSorting"
         :no-data-filtered-html="noDataFilteredHtml"
         :striped="isStriped"
       />
@@ -163,7 +163,7 @@
 
     <VbCard title="[head] Prepend rows" class="demo">
       <va-data-table :items="evenItems">
-        <template #headPrepend>
+        <template #headerPrepend>
           <tr>
             <td>Static 1.1</td>
             <td>Static 1.2</td>
@@ -180,7 +180,7 @@
 
     <VbCard title="[head] Append rows" class="demo">
       <va-data-table :items="evenItems">
-        <template #headAppend>
+        <template #headerAppend>
           <tr>
             <td>Static 1.1</td>
             <td>Static 1.2</td>
@@ -230,8 +230,8 @@
     </VbCard>
 
     <VbCard title="[foot] Prepend rows" class="demo">
-      <va-data-table :items="evenItems" foot-clone>
-        <template #footPrepend>
+      <va-data-table :items="evenItems" footer-clone>
+        <template #footerPrepend>
           <tr>
             <td>Static 1.1</td>
             <td>Static 1.2</td>
@@ -247,8 +247,8 @@
     </VbCard>
 
     <VbCard title="[foot] Append rows" class="demo">
-      <va-data-table :items="evenItems" foot-clone>
-        <template #footAppend>
+      <va-data-table :items="evenItems" footer-clone>
+        <template #footerAppend>
           <tr>
             <td>Static 1.1</td>
             <td>Static 1.2</td>
@@ -265,7 +265,7 @@
 
     <VbCard title="`head` slot (static value)" class="demo">
       <va-data-table :items="evenItems" :columns="evenColumns">
-        <template #head>
+        <template #header>
           Test
         </template>
       </va-data-table>
@@ -273,7 +273,7 @@
 
     <VbCard title="Specific `head(id)` slot (static value)" class="demo">
       <va-data-table :items="evenItems" :columns="evenColumns">
-        <template #head(id)>
+        <template #header(id)>
           A Unique ID
         </template>
       </va-data-table>
@@ -281,50 +281,50 @@
 
     <VbCard title="Specific `head(id)` together with static `head` slot (static values)" class="demo">
       <va-data-table :items="evenItems" :columns="evenColumns">
-        <template #head>
+        <template #header>
           Test
         </template>
 
-        <template #head(id)>
+        <template #header(id)>
           A Unique ID
         </template>
       </va-data-table>
     </VbCard>
 
-    <VbCard title="foot-clone prop">
-      <va-data-table :items="evenItems" :columns="evenColumns" foot-clone />
+    <VbCard title="footer-clone prop">
+      <va-data-table :items="evenItems" :columns="evenColumns" footer-clone />
     </VbCard>
 
-    <VbCard title="[foot-clone] `foot` slot (static value)" class="demo">
-      <va-data-table :items="evenItems" :columns="evenColumns" foot-clone>
-        <template #foot>
+    <VbCard title="[footer-clone] `foot` slot (static value)" class="demo">
+      <va-data-table :items="evenItems" :columns="evenColumns" footer-clone>
+        <template #footer>
           Test
         </template>
       </va-data-table>
     </VbCard>
 
-    <VbCard title="[foot-clone] Specific `foot(id)` slot (static value)" class="demo">
-      <va-data-table :items="evenItems" :columns="evenColumns" foot-clone>
-        <template #foot(id)>
+    <VbCard title="[footer-clone] Specific `foot(id)` slot (static value)" class="demo">
+      <va-data-table :items="evenItems" :columns="evenColumns" footer-clone>
+        <template #footer(id)>
           A Unique ID
         </template>
       </va-data-table>
     </VbCard>
 
-    <VbCard title="[foot-clone] Specific `foot(id)` together with static `foot` slot (static values)" class="demo">
-      <va-data-table :items="evenItems" :columns="evenColumns" foot-clone>
-        <template #foot>
+    <VbCard title="[footer-clone] Specific `foot(id)` together with static `foot` slot (static values)" class="demo">
+      <va-data-table :items="evenItems" :columns="evenColumns" footer-clone>
+        <template #footer>
           Test
         </template>
 
-        <template #foot(id)>
+        <template #footer(id)>
           A Unique ID
         </template>
       </va-data-table>
     </VbCard>
 
     <VbCard title="`cell` slot (static value)" class="demo">
-      <va-data-table :items="evenItems" :columns="evenColumns" foot-clone>
+      <va-data-table :items="evenItems" :columns="evenColumns" footer-clone>
         <template #cell>
           Target each cell
         </template>
@@ -332,7 +332,7 @@
     </VbCard>
 
     <VbCard title="Specific `cell(id)` slot (static value)" class="demo">
-      <va-data-table :items="evenItems" :columns="evenColumns" foot-clone>
+      <va-data-table :items="evenItems" :columns="evenColumns" footer-clone>
         <template #cell(id)>
           'id' column cells
         </template>
@@ -340,7 +340,7 @@
     </VbCard>
 
     <VbCard title="Specific `cell(id)` together with static `cell` slot (static values)" class="demo">
-      <va-data-table :items="evenItems" :columns="evenColumns" foot-clone>
+      <va-data-table :items="evenItems" :columns="evenColumns" footer-clone>
         <template #cell>
           Target each cell
         </template>
@@ -450,7 +450,7 @@
 
     <VbCard title="Hide default header and use `head.prepend` slot to provide a custom one" class="demo">
       <va-data-table :items="evenItems" :columns="evenColumns" hide-default-header>
-        <template #headPrepend>
+        <template #headerPrepend>
           <tr>
             <th>1</th>
             <th>2</th>
@@ -687,8 +687,8 @@ export default defineComponent({
       useCustomSortingFnForId: false,
       useCustomFilteringFn: false,
       hideDefaultHeader: false,
-      footClone: false,
-      allowFootSorting: false,
+      footerClone: false,
+      allowFooterSorting: false,
 
       columnsTest2: ['columnOne', 'columnTwo'],
       itemsTest2: [{ columnOne: 1, columnThree: 3 }, { columnTwo: 2, columnOne: 1 }],
