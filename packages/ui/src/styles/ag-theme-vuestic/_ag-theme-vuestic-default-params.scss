@@ -181,7 +181,7 @@ $ag-theme-vuestic-default-params: (
   //
 
   // grid-size is the main control for affecting how tightly data and UI elements are packed together. All padding and spacing in the grid is defined as a multiple of grid-size, so increasing it will make most components larger by increasing their internal white space while leaving the size of text and icons unchanged.
-        grid-size: 8px,
+        grid-size: 8px, // TODO: VUESTIC-THEME
 
   // The size of square icons and icon-buttons
         icon-size: 10px, // TODO: VUESTIC-THEME

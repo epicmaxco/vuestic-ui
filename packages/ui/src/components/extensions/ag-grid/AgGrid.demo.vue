@@ -120,7 +120,6 @@
     </VbCard>
 
     <VbCard title="Cell editing">
-<!-- TODO: restyle input -->
       <div :style="exampleWrapperStyle">
         <ag-grid-vue
           class="ag-theme-vuestic"
