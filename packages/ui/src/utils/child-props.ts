@@ -1,4 +1,5 @@
 import { ComponentOptionsBase, PropType, computed, ComputedRef, Prop } from 'vue'
+import { getComponentProps } from './resolve-class-component-props'
 
 /**
  * Accepts parent component props and return value only for child component props.
@@ -39,7 +40,7 @@ declare type ExtractPropsType<T> = {
  * @notion Be aware that `withConfigTransport` you will lose prop types
  */
 export function extractComponentProps<T> (component: T, ignoreProps?: string[]): ExtractPropsType<T> {
-  const props = (component as any).props
+  const props: any = getComponentProps(component as any)
 
   if (ignoreProps) {
     return Object

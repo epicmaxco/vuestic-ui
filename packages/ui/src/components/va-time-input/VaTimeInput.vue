@@ -9,9 +9,10 @@
   >
     <template #anchor>
       <va-input
+        v-bind="inputProps"
         :modelValue="valueText"
         :readonly="readonly || !manualInput"
-        :error="!isValid"
+        :error="!isValid || inputProps.error"
         @change="onInputTextChanged"
       >
         <template v-for="(_, name) in $slots" v-slot:[name]="bind">
@@ -29,6 +30,7 @@
 <script lang="ts">
 import { computed, defineComponent, PropType } from 'vue'
 import VaTimePicker from '../va-time-picker/VaTimePicker.vue'
+import VaInput from '../va-input/VaInput.vue'
 import { useSyncProp } from '../../composables/useSyncProp'
 import { useTimeParser } from './hooks/time-text-parser'
 import { useTimeFormatter } from './hooks/time-text-formatter'
@@ -43,8 +45,8 @@ export default defineComponent({
 
   props: {
     ...extractComponentProps(VaTimePicker),
+    ...extractComponentProps(VaInput),
     isOpen: { type: Boolean, default: false },
-    disabled: { type: Boolean, default: false },
     modelValue: { type: Date, default: undefined },
     format: { type: Function as PropType<(date: Date) => string> },
 
@@ -90,6 +92,7 @@ export default defineComponent({
 
     return {
       timePickerProps: filterComponentProps(props, extractComponentProps(VaTimePicker)),
+      inputProps: filterComponentProps(props, extractComponentProps(VaInput)),
       isOpenSync,
       modelValueSync,
       valueText,

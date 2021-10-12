@@ -38,6 +38,11 @@
     <VbCard title="period">
       <VaTimeInput :period="false" v-model="value" />
     </VbCard>
+
+    <VbCard title="readonly and disabled">
+      <VaTimeInput readonly v-model="value" />
+      <VaTimeInput disabled v-model="value" />
+    </VbCard>
   </VbDemo>
 </template>
 
