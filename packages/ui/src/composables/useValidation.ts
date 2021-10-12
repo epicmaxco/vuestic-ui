@@ -90,6 +90,12 @@ export const useValidation = (
   })
 
   return {
+    isFocused,
+    computedError,
+    computedErrorMessages,
     listeners: [onFocus, onBlur],
+    validate,
+    reset,
+    resetValidation,
   }
 }
