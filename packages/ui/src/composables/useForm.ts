@@ -3,13 +3,17 @@ import { computed, PropType } from 'vue'
 export interface UseFormProps {
   disabled: boolean;
   readonly: boolean;
-  id: string | number;
-  name: string | number;
+  id?: string | number;
+  name?: string | number;
 }
 
 export const useFormProps = {
   disabled: { type: Boolean, default: false },
   readonly: { type: Boolean, default: false },
+}
+
+export const useFormPropsWithId = {
+  ...useFormProps,
   id: { type: [String, Number] as PropType<string | number>, default: undefined },
   name: { type: [String, Number] as PropType<string | number>, default: undefined },
 }

@@ -9,10 +9,11 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType } from 'vue'
+import { defineComponent, PropType } from 'vue'
 import { useTimePicker } from './hooks/useTimePicker'
 import VaTimePickerColumn from './components/VaTimePickerColumn.vue'
 import { useStateful, statefulComponentOptions } from '../../mixins/StatefulMixin/cStatefulMixin'
+import { useFormProps, useForm } from '../../composables/useForm'
 
 export default defineComponent({
   name: 'VaTimePicker',
@@ -21,8 +22,7 @@ export default defineComponent({
 
   props: {
     ...statefulComponentOptions.props,
-    readonly: { type: Boolean, default: false },
-    disabled: { type: Boolean, default: false },
+    ...useFormProps,
     modelValue: { type: Date, required: false },
     ampm: { type: Boolean, default: false },
     hidePeriodSwitch: { type: Boolean, default: false },
@@ -40,10 +40,9 @@ export default defineComponent({
     const { valueComputed } = useStateful(props, emit)
     const { columns, isPM } = useTimePicker(props, valueComputed)
 
-    const computedClass = computed(() => ({
-      'va-time-picker--readonly': props.readonly,
-      'va-time-picker--disabled': props.disabled,
-    }))
+    const { createComputedClass } = useForm(props)
+
+    const computedClass = createComputedClass('va-time-picker')
 
     return {
       columns,
