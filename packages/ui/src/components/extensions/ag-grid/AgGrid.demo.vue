@@ -97,6 +97,18 @@
       <a href="https://www.ag-grid.com/vue-data-grid/row-pinning/#example-row-pinning" target="_blank">Covered source</a>
     </VbCard>
 
+    <VbCard title="Cell editing">
+      <div :style="exampleWrapperStyle">
+        <ag-grid-vue
+          class="ag-theme-vuestic"
+          style="width: 100%; height: 100%;"
+          :columnDefs="editableColumnDefs"
+          :rowData="rowData"
+        />
+      </div>
+      <a href="https://www.ag-grid.com/vue-data-grid/cell-editing/#example-cell-editing" target="_blank">Covered source</a>
+    </VbCard>
+
     <VbCard title="No data">
       <div :style="exampleWrapperStyle">
         <ag-grid-vue
@@ -118,36 +130,6 @@
         />
       </div>
     </VbCard>
-
-    <VbCard title="Cell editing">
-      <div :style="exampleWrapperStyle">
-        <ag-grid-vue
-          class="ag-theme-vuestic"
-          style="width: 100%; height: 100%;"
-          :columnDefs="editableColumnDefs"
-          :rowData="rowData"
-        />
-      </div>
-      <div :style="exampleWrapperStyle">
-        <ag-grid-vue
-          class="ag-theme-alpine"
-          style="width: 100%; height: 100%;"
-          :columnDefs="editableColumnDefs"
-          :rowData="rowData"
-        />
-      </div>
-    </VbCard>
-<!--    <VbCard title="Pinned rows">-->
-<!--      <ag-grid-vue-->
-<!--        style="width: 800px; height: 300px"-->
-<!--        class="ag-theme-alpine"-->
-<!--        :columnDefs="simpleColumnDefs"-->
-<!--        :debug="true"-->
-<!--        :rowData="rowData"-->
-<!--        :pinnedTopRowData="pinnedTopRowData"-->
-<!--        :pinnedBottomRowData="pinnedBottomRowData"-->
-<!--      />-->
-<!--    </VbCard>-->
   </VbDemo>
 </template>
 
