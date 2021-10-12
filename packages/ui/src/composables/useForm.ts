@@ -1,24 +1,30 @@
-import { ref, watch } from 'vue'
+import { computed, PropType } from 'vue'
 
-export interface FormComponentProps {
+export interface UseFormProps {
   disabled: boolean;
   readonly: boolean;
+  id: string | number;
+  name: string | number;
 }
 
-const useFocus = () => {
-  const isFocused = ref(false)
+export const useFormProps = {
+  disabled: { type: Boolean, default: false },
+  readonly: { type: Boolean, default: false },
+  id: { type: [String, Number] as PropType<string | number>, default: undefined },
+  name: { type: [String, Number] as PropType<string | number>, default: undefined },
+}
 
-  const focus = () => { isFocused.value = true }
-  const blur = () => { isFocused.value = false }
+export const useForm = (props: UseFormProps) => {
+  /**
+   * Create readonly and disabled BEM modificators.
+   * @returns Object with classes which starts with `prefix` and ends with form state BEM modificator.
+   */
+  const createComputedClass = <Prefix extends string>(prefix: Prefix) => computed(() => ({
+    [`${prefix}--disabled`]: props.disabled,
+    [`${prefix}--readonly`]: props.readonly,
+  }) as Record<`${Prefix}--disabled` | `${Prefix}--readonly`, boolean>)
 
   return {
-    isFocused,
-    listeners: [focus, blur],
-    focus,
-    blur,
+    createComputedClass,
   }
-}
-
-export const useForm = (props: FormComponentProps) => {
-  return useFocus()
 }

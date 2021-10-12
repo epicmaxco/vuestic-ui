@@ -1,34 +1,44 @@
 import { inject, onBeforeUnmount, onMounted, provide, watch } from 'vue'
 import { isString, isFunction, flatten } from 'lodash-es'
-import { useForm, FormComponentProps } from './useForm'
 import { useSyncProp } from './useSyncProp'
 import { FormServiceKey } from 'src/components/va-form/consts'
+import { useFocus } from './useFocus'
+
+type ValidationRule = (() => any | string)
 
 interface ValidationProps {
-  modelValue: any,
+  modelValue: unknown,
   error: boolean;
-  errorMessages: any[] | string;
+  errorMessages: string[] | string;
   errorCount: string | number;
-  rules: any[]
+  rules: ValidationRule[]
   success: boolean
-  messages: any[]
+  messages: string[]
 }
 
-type ValidationRule = (() => any | string)[]
+export const validationProps = {
+  modelValue: { },
+  error: { type: Boolean, default: false },
+  errorMessages: { type: [Array, String], default: [] },
+  errorCount: { type: [String, Number], default: 1 },
+  rules: { type: Array, default: [] },
+  success: { type: Boolean, default: false },
+  messages: { type: [Array, String], default: [] },
+}
 
-const prepareValidations = (messages: string | ValidationRule[] = [], callArguments = null) => {
-  if (isString(messages)) { messages = [messages] as any }
+const normalizeValidationRules = (rules: string | ValidationRule[] = [], callArguments: unknown = null) => {
+  if (isString(rules)) { rules = [rules] as any }
 
-  return (messages as ValidationRule[])
-    .map((message) => isFunction(message) ? message(callArguments) : message)
+  return (rules as ValidationRule[])
+    .map((rule) => isFunction(rule) ? rule(callArguments) : rule)
 }
 
 export const useValidation = (
-  props: ValidationProps & FormComponentProps,
+  props: ValidationProps,
   emit: (event: any) => any,
   reset: () => any,
 ) => {
-  const { isFocused, listeners, focus, blur } = useForm(props)
+  const { isFocused, onFocus, onBlur } = useFocus()
 
   const [computedError] = useSyncProp('error', props, emit)
   const [computedErrorMessages] = useSyncProp('errorMessages', props, emit)
@@ -45,7 +55,7 @@ export const useValidation = (
 
     const rules = flatten(props.rules)
 
-    prepareValidations(rules, props.modelValue)
+    normalizeValidationRules(rules, props.modelValue)
       .forEach((validationResult: boolean | string) => {
         if (isString(validationResult)) {
           computedErrorMessages.value = [...computedErrorMessages.value, validationResult]
@@ -62,8 +72,8 @@ export const useValidation = (
 
   const context = {
     resetValidation,
-    focus,
-    blur,
+    focus: onFocus,
+    blur: onBlur,
     validate,
     reset,
     hasError: () => computedError.value,
@@ -80,6 +90,6 @@ export const useValidation = (
   })
 
   return {
-    listeners,
+    listeners: [onFocus, onBlur],
   }
 }
