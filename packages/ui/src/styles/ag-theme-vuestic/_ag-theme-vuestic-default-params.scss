@@ -205,7 +205,7 @@ $ag-theme-vuestic-default-params: (
         header-height: ag-derived(grid-size, $times: 4, $plus: 1), // TODO: VUESTIC-THEME
 
   // Height of items in lists (example of lists are dropdown select inputs and column menu set filters)
-        list-item-height: ag-derived(grid-size, $times: 5),
+        list-item-height: ag-derived(grid-size, $times: 4, $plus: 4), // TODO: VUESTIC-THEME
 
   // How much to indent child columns in the column tool panel relative to their parent
         column-select-indent-size: ag-derived(grid-size, $plus: icon-size),
