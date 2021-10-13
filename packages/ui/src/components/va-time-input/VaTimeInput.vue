@@ -9,10 +9,11 @@
   >
     <template #anchor>
       <va-input
-        v-bind="inputProps"
+        v-bind="{ ...inputProps, ...validationListeners }"
         :modelValue="valueText"
         :readonly="readonly || !manualInput"
-        :error="!isValid || inputProps.error"
+        :error="!isValid || inputProps.error || computedError"
+        :error-messages="computedErrorMessages"
         @change="onInputTextChanged"
       >
         <template v-for="(_, name) in $slots" v-slot:[name]="bind">
@@ -32,6 +33,7 @@ import { computed, defineComponent, PropType } from 'vue'
 import VaTimePicker from '../va-time-picker/VaTimePicker.vue'
 import VaInput from '../va-input/VaInput.vue'
 import { useSyncProp } from '../../composables/useSyncProp'
+import { useValidation, useValidationProps, useValidationEmits } from '../../composables/useValidation'
 import { useTimeParser } from './hooks/time-text-parser'
 import { useTimeFormatter } from './hooks/time-text-formatter'
 import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
@@ -41,12 +43,15 @@ export default defineComponent({
 
   components: { VaTimePicker },
 
-  emits: ['update:modelValue', 'update:isOpen'],
+  emits: [...useValidationEmits, 'update:modelValue', 'update:isOpen'],
 
   props: {
     ...extractComponentProps(VaTimePicker),
     ...extractComponentProps(VaInput),
-    isOpen: { type: Boolean, default: false },
+
+    ...useValidationProps,
+
+    isOpen: { type: Boolean, default: undefined },
     modelValue: { type: Date, default: undefined },
     format: { type: Function as PropType<(date: Date) => string> },
 
@@ -55,7 +60,7 @@ export default defineComponent({
   },
 
   setup (props, { emit }) {
-    const [isOpenSync] = useSyncProp('isOpen', props, emit)
+    const [isOpenSync] = useSyncProp('isOpen', props, emit, false)
     const [modelValueSync] = useSyncProp('modelValue', props, emit)
 
     const { parse, isValid } = useTimeParser(props)
@@ -63,6 +68,7 @@ export default defineComponent({
 
     const valueText = computed<string>(() => {
       if (!isValid.value) { return '' }
+      if (!modelValueSync.value) { return '' }
 
       if (props.format) { return props.format(modelValueSync.value) }
 
@@ -78,6 +84,8 @@ export default defineComponent({
     }
 
     const changePeriod = (isPM: boolean) => {
+      if (!modelValueSync.value) { return }
+
       const h = modelValueSync.value.getHours()
 
       if (isPM && h <= 12) {
@@ -90,9 +98,18 @@ export default defineComponent({
     const changePeriodToPm = () => changePeriod(true)
     const changePeriodToAm = () => changePeriod(false)
 
+    const {
+      isFocused,
+      listeners: validationListeners,
+      computedError,
+      computedErrorMessages,
+    } = useValidation(props, emit, () => {
+      modelValueSync.value = undefined
+    })
+
     return {
       timePickerProps: filterComponentProps(props, extractComponentProps(VaTimePicker)),
-      inputProps: filterComponentProps(props, extractComponentProps(VaInput)),
+      inputProps: filterComponentProps(props, extractComponentProps(VaInput, ['rules', 'error', 'errorMessages'])),
       isOpenSync,
       modelValueSync,
       valueText,
@@ -100,6 +117,11 @@ export default defineComponent({
       changePeriodToAm,
       onInputTextChanged,
       isValid,
+      isFocused,
+
+      validationListeners,
+      computedError,
+      computedErrorMessages,
     }
   },
 })

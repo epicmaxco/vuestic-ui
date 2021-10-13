@@ -43,6 +43,10 @@
       <VaTimeInput readonly v-model="value" />
       <VaTimeInput disabled v-model="value" />
     </VbCard>
+
+    <VbCard title="validation">
+      <VaTimeInput v-model="value" :rules="validationRules" />
+    </VbCard>
   </VbDemo>
 </template>
 
@@ -59,7 +63,14 @@ export default {
       value: new Date(2021, 2, 20, 23, 5, 53),
       undefValue: undefined,
       period: false,
+      validationRules: [(value) => value.getHours() > 12 || 'Should be PM'],
     }
   },
 }
 </script>
+
+<style lang="scss" scoped>
+  *:focus {
+    border: 1px solid red;
+  }
+</style>
