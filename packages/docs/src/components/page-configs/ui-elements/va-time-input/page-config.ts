@@ -38,6 +38,12 @@ const config: ApiDocsBlock[] = [
     'va-time-input/ampm',
   ),
 
+  ...DocsHelper.exampleBlock(
+    'timeInput.examples.validation.title',
+    'timeInput.examples.validation.text',
+    'va-time-input/validation',
+  ),
+
   DocsHelper.api(VaTimeInput, apiOptions),
 ]
 

@@ -37,7 +37,8 @@ export function useSyncProp<
     ]
   }
 
-  const statefulValue = ref(defaultValue)
+  const currentValue = props[propName]
+  const statefulValue = ref(currentValue === undefined ? defaultValue : currentValue)
 
   watch(() => props[propName], (newVal) => {
     if (newVal === undefined) { return }
@@ -52,7 +53,7 @@ export function useSyncProp<
         emit(`update:${propName}`, value)
       },
       get (): ReturnValue {
-        return statefulValue.value as ReturnValue
+        return (props[propName] === undefined ? statefulValue.value : props[propName]) as ReturnValue
       },
     }),
   ]

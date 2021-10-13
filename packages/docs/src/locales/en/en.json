@@ -3385,6 +3385,10 @@
       "ampm": {
         "title": "AM PM",
         "text": "VaTimeInput will automatically format input string if you need to use AM PM."
+      },
+      "validation": {
+        "title": "Validation",
+        "text": "Validation works the same way as `VaInput` validation, except rules functions should accept `Date` instead of string."
       }
     }
   }
