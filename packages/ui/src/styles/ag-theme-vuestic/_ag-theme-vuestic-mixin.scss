@@ -31,7 +31,9 @@
     }
   }
 
-  // Filter styles
+  ////////////////////////////////////////
+  // Popup
+  ////////////////////////////////////////
   .ag-popup-child {
     //padding: var(--va-dropdown-content-padding);
     padding: 0;
@@ -60,6 +62,30 @@
   // add more space for radio section
   .ag-filter-condition {
     padding: 10px 0;
+  }
+
+  ////////////////////////////////////////
+  // Ghost Element (Drag and Drop)
+  ////////////////////////////////////////
+  &.ag-dnd-ghost {
+    //@include ag-card();
+    //overflow: hidden;
+    //text-overflow: ellipsis;
+    //@include ag-border(secondary);
+    //@include ag-color-property(color, secondary-foreground-color);
+    //height: ag-param(header-height) !important;
+    //line-height: ag-param(header-height);
+    //margin: 0;
+    //padding: 0 ag-param(grid-size) * 2;
+    //transform: translateY(ag-param(grid-size) * 2);
+
+    box-shadow: var(--va-dropdown-content-box-shadow);
+  }
+
+  .ag-dnd-ghost-icon {
+    //margin-right: ag-param(grid-size);
+    //@include ag-color-property(color, foreground-color);
+    color: $vue-darkest-blue;
   }
 
 
