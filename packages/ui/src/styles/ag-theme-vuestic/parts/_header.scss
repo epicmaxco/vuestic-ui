@@ -21,4 +21,17 @@
       }
     }
   }
+
+  .ag-ltr, .ag-rtl {
+    .ag-floating-filter-button {
+      margin: 0;
+      height: 70%;
+    }
+
+    .ag-floating-filter-button-button {
+      height: 100%;
+      width: 20px;
+    }
+  }
+
 }

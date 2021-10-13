@@ -59,6 +59,17 @@
       </div>
     </VbCard>
 
+    <VbCard title="Floating Filter">
+      <div :style="exampleWrapperStyle">
+        <ag-grid-vue
+          class="ag-theme-vuestic"
+          style="width: 100%; height: 100%;"
+          :columnDefs="floatingColumnDefs"
+          :rowData="rowData"
+        />
+      </div>
+    </VbCard>
+
     <VbCard title="Selection">
       <div :style="exampleWrapperStyle">
         <ag-grid-vue
@@ -182,6 +193,18 @@ export default {
         { field: 'silver', sortable: true, filter: true },
         { field: 'bronze', sortable: true, filter: true },
         { field: 'total', sortable: true, filter: true },
+      ],
+      floatingColumnDefs: [
+        { field: 'athlete', filter: true, floatingFilter: true },
+        { field: 'age', filter: true, floatingFilter: true, width: 90 },
+        { field: 'country', filter: true, floatingFilter: true },
+        { field: 'year', filter: true, floatingFilter: true, width: 90, unSortIcon: true },
+        { field: 'date', filter: true, floatingFilter: true },
+        { field: 'sport', filter: true, floatingFilter: true },
+        { field: 'gold', sortable: true, floatingFilter: true },
+        { field: 'silver', filter: true, floatingFilter: true },
+        { field: 'bronze', filter: true, floatingFilter: true },
+        { field: 'total', filter: true, floatingFilter: true },
       ],
       selectionColumnDefs: [
         { field: 'athlete', rowDrag: true },
