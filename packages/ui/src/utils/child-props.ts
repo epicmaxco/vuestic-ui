@@ -44,7 +44,7 @@ export function extractComponentProps<T> (component: T, ignoreProps?: string[]):
 
   if (ignoreProps) {
     return Object
-      .keys((component as any).props)
+      .keys(props)
       .reduce<Record<string, unknown>>((acc, propName) => {
         if (ignoreProps.includes(propName)) { return acc }
 
@@ -54,13 +54,6 @@ export function extractComponentProps<T> (component: T, ignoreProps?: string[]):
 
         return acc
       }, {}) as ExtractPropsType<T>
-  }
-
-  if (Array.isArray(props)) {
-    return props.reduce((acc, key) => {
-      acc[key] = {}
-      return acc
-    }, {})
   }
 
   return props
