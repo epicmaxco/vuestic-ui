@@ -70,6 +70,20 @@
       </div>
     </VbCard>
 
+    <VbCard title="Pagination">
+      <div :style="exampleWrapperStyle">
+        <ag-grid-vue
+          class="ag-theme-vuestic"
+          style="width: 100%; height: 100%;"
+          :paginationAutoPageSize="true"
+          :pagination="true"
+          :columnDefs="simpleColumnDefs"
+          :rowData="rowData"
+        />
+      </div>
+      <a href="https://www.ag-grid.com/vue-data-grid/row-pagination/#example-auto-page-size" target="_blank">Covered source</a>
+    </VbCard>
+
     <VbCard title="Selection">
       <div :style="exampleWrapperStyle">
         <ag-grid-vue

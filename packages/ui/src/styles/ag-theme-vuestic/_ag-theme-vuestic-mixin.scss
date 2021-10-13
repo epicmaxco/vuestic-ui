@@ -5,6 +5,7 @@
 @import "./parts/widgets";
 @import "./parts/header";
 @import "./parts/grid";
+@import "./parts/footer";
 
 @mixin ag-theme-vuestic($params: ()) {
   @include ag-allow-color-param-access-with-ag-param(false);
@@ -15,4 +16,5 @@
   @include ag-vuestic-theme-part-widgets();
   @include ag-vuestic-theme-part-header();
   @include ag-vuestic-theme-part-grid();
+  @include ag-vuestic-theme-part-footer();
 }

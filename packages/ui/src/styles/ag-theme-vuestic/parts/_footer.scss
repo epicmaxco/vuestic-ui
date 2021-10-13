@@ -1,0 +1,59 @@
+@import "../../resources/mixins";
+@import "../../resources/variables";
+
+//
+// See: https://github.com/ag-grid/ag-grid/blob/latest/community-modules/core/src/styles/ag-theme-base/sass/parts/_footer.scss
+//
+@mixin ag-vuestic-theme-part-footer {
+  .ag-paging-panel {
+    @include va-title();
+    //border-top: 1px solid;
+    //@include ag-color-property(border-top-color, border-color);
+    //@include ag-color-property(color, secondary-foreground-color);
+    //height: ag-param(header-height);
+
+    > * {
+      //margin: 0 ag-param(cell-horizontal-padding);
+    }
+  }
+
+  .ag-paging-button {
+    //cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    &:hover {
+      background: $light-gray;
+    }
+  }
+  .ag-paging-button.ag-disabled  {
+    opacity: 0.5;
+    &:hover {
+      background: ag-param(background-color);
+    }
+    &:focus {
+      background: ag-param(background-color);
+      &::after {
+        display: none;
+      }
+    }
+  }
+
+  .ag-keyboard-focus {
+    .ag-paging-button {
+      &:focus {
+        background: $light-gray;
+        &::after {
+          display: none;
+        }
+      }
+    }
+    .ag-paging-button.ag-disabled  {
+      &:focus {
+        background: ag-param(background-color);
+        &::after {
+          display: none;
+        }
+      }
+    }
+  }
+}
