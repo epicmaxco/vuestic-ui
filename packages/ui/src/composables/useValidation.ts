@@ -1,30 +1,32 @@
-import { inject, onBeforeUnmount, onMounted, provide, watch } from 'vue'
+import { inject, onBeforeUnmount, onMounted, PropType, provide, watch } from 'vue'
 import { isString, isFunction, flatten } from 'lodash-es'
 import { useSyncProp } from './useSyncProp'
-import { FormServiceKey } from 'src/components/va-form/consts'
+import { FormServiceKey } from '../components/va-form/consts'
 import { useFocus } from './useFocus'
 
 type ValidationRule = (() => any | string)
 
 interface ValidationProps {
   modelValue: unknown,
-  error: boolean;
-  errorMessages: string[] | string;
+  error?: boolean;
+  errorMessages?: string[] | string;
   errorCount: string | number;
   rules: ValidationRule[]
   success: boolean
-  messages: string[]
+  messages: string[] | string
 }
 
-export const validationProps = {
+export const useValidationProps = {
   modelValue: { },
-  error: { type: Boolean, default: false },
-  errorMessages: { type: [Array, String], default: [] },
+  error: { type: Boolean },
+  errorMessages: { type: [Array, String] as PropType<string[] | string> },
   errorCount: { type: [String, Number], default: 1 },
-  rules: { type: Array, default: [] },
+  rules: { type: Array as PropType<ValidationRule[]>, default: [] },
   success: { type: Boolean, default: false },
-  messages: { type: [Array, String], default: [] },
+  messages: { type: [Array, String] as PropType<string[] | string>, default: [] },
 }
+
+export const useValidationEmits = ['update:error', 'update:errorMessages']
 
 const normalizeValidationRules = (rules: string | ValidationRule[] = [], callArguments: unknown = null) => {
   if (isString(rules)) { rules = [rules] as any }
@@ -40,8 +42,8 @@ export const useValidation = (
 ) => {
   const { isFocused, onFocus, onBlur } = useFocus()
 
-  const [computedError] = useSyncProp('error', props, emit)
-  const [computedErrorMessages] = useSyncProp('errorMessages', props, emit)
+  const [computedError] = useSyncProp('error', props, emit, false)
+  const [computedErrorMessages] = useSyncProp('errorMessages', props, emit, [])
 
   const resetValidation = () => {
     computedError.value = false
@@ -69,6 +71,7 @@ export const useValidation = (
   }
 
   watch(isFocused, (newVal) => newVal === false && validate())
+  watch(() => props.modelValue, () => validate(), { immediate: true })
 
   const context = {
     resetValidation,
@@ -79,7 +82,7 @@ export const useValidation = (
     hasError: () => computedError.value,
   }
 
-  const form = inject(FormServiceKey)
+  const form = inject(FormServiceKey, undefined)
 
   onMounted(() => {
     if (form) { form.onChildMounted(context) }
@@ -93,7 +96,7 @@ export const useValidation = (
     isFocused,
     computedError,
     computedErrorMessages,
-    listeners: [onFocus, onBlur],
+    listeners: { onFocus, onBlur },
     validate,
     reset,
     resetValidation,
