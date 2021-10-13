@@ -1,4 +1,4 @@
-import { ref, computed, Ref, UnwrapRef } from 'vue'
+import { ref, computed, watch } from 'vue'
 
 /**
  * Returns computed that emits update:${propName} on edit.
@@ -20,30 +20,39 @@ export function useSyncProp<
   T,
   PropName extends string,
   Props extends { [key in PropName]?: T },
-> (propName: PropName, props: Props, emit: (event: any, newValue: Props[PropName]) => any, defaultValue?: Props[PropName]) {
+  Emit extends (event: any, newValue: Props[PropName]) => any,
+  DefaultValue extends Props[PropName],
+  ReturnValue extends DefaultValue extends undefined ? Props[PropName] : NonNullable<Props[PropName]>
+> (propName: PropName, props: Props, emit: Emit, defaultValue?: DefaultValue) {
   if (defaultValue === undefined) {
     return [
-      computed<NonNullable<Props[PropName]>>({
-        set (value: Props[PropName]) {
+      computed<ReturnValue>({
+        set (value: ReturnValue) {
           emit(`update:${propName}`, value)
         },
         get () {
-          return props[propName] as NonNullable<Props[PropName]>
+          return props[propName] as ReturnValue
         },
       }),
     ]
   }
 
-  const statefulValue = ref<Props[PropName]>(defaultValue)
+  const statefulValue = ref(defaultValue)
+
+  watch(() => props[propName], (newVal) => {
+    if (newVal === undefined) { return }
+
+    statefulValue.value = newVal as ReturnValue
+  })
 
   return [
-    computed<NonNullable<Props[PropName]>>({
-      set (value: NonNullable<Props[PropName]>) {
-        statefulValue.value = value as UnwrapRef<NonNullable<Props[PropName]>>
+    computed<ReturnValue>({
+      set (value: ReturnValue) {
+        statefulValue.value = value as ReturnValue
         emit(`update:${propName}`, value)
       },
-      get (): NonNullable<Props[PropName]> {
-        return (props[propName] === undefined ? (statefulValue.value) : props[propName]) as NonNullable<Props[PropName]>
+      get (): ReturnValue {
+        return statefulValue.value as ReturnValue
       },
     }),
   ]
