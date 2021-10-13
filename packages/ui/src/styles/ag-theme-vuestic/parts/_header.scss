@@ -1,0 +1,24 @@
+@import "../../resources/mixins";
+@import "../../resources/variables";
+
+//
+// See: https://github.com/ag-grid/ag-grid/blob/latest/community-modules/core/src/styles/ag-theme-base/sass/parts/_header.scss
+//
+@mixin ag-vuestic-theme-part-header {
+  .ag-header {
+    border-bottom-width: 2px;
+  }
+
+  .ag-header-cell-label, .ag-header-group-cell-label {
+    @include va-title();
+  }
+
+  .ag-keyboard-focus .ag-header-cell {
+    &:focus {
+      background: $light-gray;
+      &::after {
+        display: none;
+      }
+    }
+  }
+}
