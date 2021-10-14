@@ -16,6 +16,7 @@
     padding: 0 8px;
     font-family: ag-param(font-family);
     border: 1px solid var(--va-input-color);
+
     &:focus {
       border: 1px solid $light-gray; // keyboard focus color
     }
@@ -36,7 +37,6 @@
     cursor: pointer;
   }
 
-
   ////////////////////////////////////////
   // TODO: Picker
   ////////////////////////////////////////
@@ -48,6 +48,7 @@
       border: 1px solid $light-gray;
       border-radius: var(--va-input-border-radius);
     }
+
     .ag-picker-field-display {
       margin: 0;
     }
@@ -58,6 +59,7 @@
   ////////////////////////////////////////
   .ag-radio-button-input-wrapper {
     $radio-size: 22px;
+
     width: $radio-size;
     height: $radio-size;
 
@@ -86,6 +88,7 @@
 
     .ag-simple-filter-body-wrapper {
       padding: var(--va-dropdown-content-padding);
+
       input[class^=ag-]:not([type]),
       input[class^=ag-][type=text],
       input[class^=ag-][type=number],

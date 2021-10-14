@@ -12,7 +12,6 @@
   $params: ag-process-theme-variables($params, $ag-theme-vuestic-default-params);
 
   @include ag-theme-base($params);
-
   @include ag-vuestic-theme-part-widgets();
   @include ag-vuestic-theme-part-header();
   @include ag-vuestic-theme-part-grid();

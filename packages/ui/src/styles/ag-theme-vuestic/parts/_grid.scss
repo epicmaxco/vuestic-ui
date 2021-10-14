@@ -8,9 +8,10 @@
 @mixin ag-vuestic-theme-part-grid {
   // ltr - left to right languages
   // rtl - right to left languages
-  .ag-ltr, .ag-rtl {
+  .ag-ltr,
+  .ag-rtl {
     .ag-cell {
-      border :none;
+      border: none;
     }
     // keyboard focus
     .ag-has-focus .ag-cell-focus:not(.ag-cell-range-selected) {
@@ -38,7 +39,6 @@
     }
   }
 }
-
 
 ////////////////////////////////////////
 // TODO: HOVERABlE MODE

@@ -9,20 +9,23 @@
     border-bottom-width: 2px;
   }
 
-  .ag-header-cell-label, .ag-header-group-cell-label {
+  .ag-header-cell-label,
+  .ag-header-group-cell-label {
     @include va-title();
   }
 
   .ag-keyboard-focus .ag-header-cell {
     &:focus {
       background: $light-gray;
+
       &::after {
         display: none;
       }
     }
   }
 
-  .ag-ltr, .ag-rtl {
+  .ag-ltr,
+  .ag-rtl {
     .ag-floating-filter-button {
       margin: 0;
       height: 70%;
@@ -33,5 +36,4 @@
       width: 20px;
     }
   }
-
 }

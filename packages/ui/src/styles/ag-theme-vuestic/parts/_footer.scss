@@ -21,17 +21,22 @@
     //cursor: pointer;
     padding: 5px;
     border-radius: 50%;
+
     &:hover {
       background: $light-gray;
     }
   }
-  .ag-paging-button.ag-disabled  {
+
+  .ag-paging-button.ag-disabled {
     opacity: 0.5;
+
     &:hover {
       background: ag-param(background-color);
     }
+
     &:focus {
       background: ag-param(background-color);
+
       &::after {
         display: none;
       }
@@ -42,14 +47,17 @@
     .ag-paging-button {
       &:focus {
         background: $light-gray;
+
         &::after {
           display: none;
         }
       }
     }
-    .ag-paging-button.ag-disabled  {
+
+    .ag-paging-button.ag-disabled {
       &:focus {
         background: ag-param(background-color);
+
         &::after {
           display: none;
         }
