@@ -3245,6 +3245,10 @@
       "default": {
         "title": "Default usage",
         "text": "To render a vuestic-style table correctly, you must provide the table dimensions (`width` and `height`), dataset (`rowData`) and column definitions (` columnDefs`) according to this dataset."
+      },
+      "styles": {
+        "title": "Styles",
+        "text": "The theme supports the use of the classes `ag-theme-vuestic--striped` to highlight each even row of the table and` ag-theme-vuestic--hoverable` to highlight a line on hover."
       }
     }
   },

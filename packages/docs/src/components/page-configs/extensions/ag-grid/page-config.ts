@@ -29,6 +29,11 @@ const config: ApiDocsBlock[] = [
     'ag-grid.examples.default.text',
     'extensions/ag-grid/Default',
   ),
+  ...DocsHelper.exampleBlock(
+    'ag-grid.examples.styles.title',
+    'ag-grid.examples.styles.text',
+    'extensions/ag-grid/Styles',
+  ),
 ]
 
 export default config
