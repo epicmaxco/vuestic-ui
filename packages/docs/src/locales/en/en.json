@@ -3241,8 +3241,12 @@
     "installation": "AG Grid installation",
     "dependencies": "To start using AG Grid, install the dependencies in your project.",
     "importStyles": "Then import the stylesheet that define the grid \"structure\" and apply the `ag-theme-vuestic` theme on the grid component.",
-    "simpleTableTitle": "Styling a simple table",
-    "setOfParams": "To render the cell sizes correctly, you must pass the minimum set of properties to the table component: rowHeight, headerHeight, and minColWidth."
+    "examples": {
+      "default": {
+        "title": "Default usage",
+        "text": "To render a vuestic-style table correctly, you must provide the table dimensions (`width` and `height`), dataset (`rowData`) and column definitions (` columnDefs`) according to this dataset."
+      }
+    }
   },
   "dataTable": {
     "title": "Data table",

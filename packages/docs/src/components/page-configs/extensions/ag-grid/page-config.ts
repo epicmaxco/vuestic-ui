@@ -25,9 +25,9 @@ const config: ApiDocsBlock[] = [
   DocsHelper.code(setClass, 'html'),
   DocsHelper.code(importStyles, 'scss'),
   ...DocsHelper.exampleBlock(
-    'ag-grid.simpleTableTitle',
-    'ag-grid.setOfParams',
-    'grid/AgGrid',
+    'ag-grid.examples.default.title',
+    'ag-grid.examples.default.text',
+    'extensions/ag-grid/Default',
   ),
 ]
 
