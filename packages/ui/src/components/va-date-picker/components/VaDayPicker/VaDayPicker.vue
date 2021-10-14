@@ -14,7 +14,7 @@
     <div
       class="va-day-picker__calendar__day-wrapper"
       v-for="(date, index) in calendarDates"
-      :key="date"
+      :key="index"
       @mouseenter="hoveredIndex = index"
       @mouseleave="hoveredIndex = -1"
     >
@@ -59,6 +59,7 @@ export default defineComponent({
   components: { VaDatePickerCell },
 
   props: {
+    ...VaDatePickerCellProps,
     monthNames: { type: Array as PropType<string[]>, required: true },
     weekdayNames: { type: Array as PropType<string[]>, required: true },
     firstWeekday: { type: String as PropType<'Monday' | 'Sunday'>, default: 'Sunday' },

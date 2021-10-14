@@ -17,7 +17,7 @@
         @change="onInputTextChanged"
       >
         <template v-for="(_, name) in $slots" v-slot:[name]="bind">
-          <slot :name="name" v-bind="bind" />
+          <slot :name="name" v-bind="bind"></slot>
         </template>
       </va-input>
     </template>
@@ -29,7 +29,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType } from 'vue'
+import { ComponentOptionsBase, computed, DefineComponent, defineComponent, PropType } from 'vue'
 import VaTimePicker from '../va-time-picker/VaTimePicker.vue'
 import VaInput from '../va-input/VaInput.vue'
 import { useSyncProp } from '../../composables/useSyncProp'
