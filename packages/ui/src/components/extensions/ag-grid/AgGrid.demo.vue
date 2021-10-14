@@ -1,16 +1,5 @@
 <template>
   <VbDemo>
-    <VbCard title="Alpine table">
-      <div :style="exampleWrapperStyle">
-        <ag-grid-vue
-          class="ag-theme-alpine"
-          style="width: 100%; height: 100%;"
-          :columnDefs="simpleColumnDefs"
-          :rowData="rowData"
-          rowSelection="multiple"
-        />
-      </div>
-    </VbCard>
 
     <VbCard title="Simple table">
       <div :style="exampleWrapperStyle">
@@ -19,7 +8,6 @@
           style="width: 100%; height: 100%;"
           :columnDefs="simpleColumnDefs"
           :rowData="rowData"
-          rowSelection="multiple"
         />
       </div>
     </VbCard>
@@ -321,5 +309,4 @@ export default {
 <style lang="scss">
 @import "../../../../../../node_modules/ag-grid-community/dist/styles/ag-grid.css";
 @import "../../../styles/ag-theme-vuestic/ag-theme-vuestic";
-@import "~ag-grid-community/dist/styles/ag-theme-alpine.css";
 </style>
