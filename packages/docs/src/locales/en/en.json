@@ -1756,7 +1756,7 @@
       },
       "color": {
         "title": "Color",
-        "text": "Set different colors using the `color` prop. You can either use a theme string or the HEX color value."
+        "text": "Set different colors using the `color` prop. You can either use a theme string or the HEX color value. Inactive tabs have `inherit` color. If you need to change inactive tabs color, you can set color for va-tabs using CSS."
       }
     },
     "faq": {
