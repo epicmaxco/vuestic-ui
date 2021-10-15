@@ -18,7 +18,7 @@
       class="va-select__dropdown va-select-dropdown"
       keep-anchor-width
       boundary-body
-      :stateful=false
+      :stateful="false"
     >
       <template #anchor>
         <div
