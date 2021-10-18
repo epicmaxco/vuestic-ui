@@ -1,5 +1,5 @@
 <template>
-  <div class="flex row">
+  <div class="row">
     <va-input
       class="flex mb-2 md3"
       type="number"

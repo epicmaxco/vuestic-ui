@@ -1,42 +1,40 @@
 <template>
-  <div class="flex">
-    <div class="flex row">
-      <va-select
-        class="flex mb-2 md6"
-        v-model="sortBy"
-        label="Sort by"
-        :options="sortByOptions()"
-      />
-
-      <va-select
-        class="flex mb-2 md6"
-        v-model="sortingOrder"
-        label="Sorting order"
-        :options="sortingOrderOptions"
-        :value-by="(option) => option.value"
-      />
-    </div>
-
-    <va-data-table
-      :items="items"
-      :columns="columns"
-      v-model:sort-by="sortBy"
-      v-model:sorting-order="sortingOrder"
-      @sorted="sortedRows = $event.sortedRows.map(({ id }) => id)"
+  <div class="row">
+    <va-select
+      class="flex mb-2 md6"
+      v-model="sortBy"
+      label="Sort by"
+      :options="sortByOptions()"
     />
 
-    <va-alert class="mt-3" border="left">
-      <span v-if="sortingOrder">
-        Sorted items order (showing id):
-        <va-chip>{{sortedRows.join(' --> ')}}</va-chip>
-        <va-chip>{{sortingOrder}}</va-chip>
-      </span>
-      <span v-else>
-        Unsorted items order (showing id):
-        <va-chip>{{sortedRows.join(', ')}}</va-chip>
-      </span>
-    </va-alert>
+    <va-select
+      class="flex mb-2 md6"
+      v-model="sortingOrder"
+      label="Sorting order"
+      :options="sortingOrderOptions"
+      :value-by="(option) => option.value"
+    />
   </div>
+
+  <va-data-table
+    :items="items"
+    :columns="columns"
+    v-model:sort-by="sortBy"
+    v-model:sorting-order="sortingOrder"
+    @sorted="sortedRows = $event.sortedRows.map(({ id }) => id)"
+  />
+
+  <va-alert class="mt-3" border="left">
+    <span v-if="sortingOrder">
+      Sorted items order (showing id):
+      <va-chip>{{sortedRows.join(' --> ')}}</va-chip>
+      <va-chip>{{sortingOrder}}</va-chip>
+    </span>
+    <span v-else>
+      Unsorted items order (showing id):
+      <va-chip>{{sortedRows.join(', ')}}</va-chip>
+    </span>
+  </va-alert>
 </template>
 
 <script>

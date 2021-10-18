@@ -1,50 +1,48 @@
 <template>
-  <div class="flex">
-    <div class="flex row">
-      <va-checkbox
-        class="flex mb-2 md4"
-        label="Selectable"
-        v-model="selectable"
-      />
-
-      <va-select
-        class="flex mb-2 md4"
-        v-model="selectMode"
-        label="Select mode"
-        :options="selectModeOptions"
-      />
-
-      <va-select
-        class="flex mb-2 md4"
-        v-model="selectedColor"
-        label="Selected color"
-        :options="selectColorOptions"
-      />
-    </div>
-
-    <va-data-table
-      :items="items"
-      :columns="columns"
-      :selectable="selectable"
-      v-model="selectedItems"
-      :select-mode="selectMode"
-      :selected-color="selectedColor"
+  <div class="row">
+    <va-checkbox
+      class="flex mb-2 md4"
+      label="Selectable"
+      v-model="selectable"
     />
 
-    <va-alert class="mt-3" border="left">
-      <span>
-        Selected items (click to unselect):
-        <va-chip
-          class="ml-2"
-          :key="item.id"
-          v-for="item in selectedItems"
-          @click="unselectItem(item)"
-        >
-          {{item.id}}
-        </va-chip>
-      </span>
-    </va-alert>
+    <va-select
+      class="flex mb-2 md4"
+      v-model="selectMode"
+      label="Select mode"
+      :options="selectModeOptions"
+    />
+
+    <va-select
+      class="flex mb-2 md4"
+      v-model="selectedColor"
+      label="Selected color"
+      :options="selectColorOptions"
+    />
   </div>
+
+  <va-data-table
+    :items="items"
+    :columns="columns"
+    :selectable="selectable"
+    v-model="selectedItems"
+    :select-mode="selectMode"
+    :selected-color="selectedColor"
+  />
+
+  <va-alert class="mt-3" border="left">
+    <span>
+      Selected items (click to unselect):
+      <va-chip
+        class="ml-2"
+        :key="item.id"
+        v-for="item in selectedItems"
+        @click="unselectItem(item)"
+      >
+        {{item.id}}
+      </va-chip>
+    </span>
+  </va-alert>
 </template>
 
 <script>

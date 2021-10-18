@@ -1,33 +1,31 @@
 <template>
-  <div class="flex">
-    <div class="flex row">
-      <va-input
-        class="flex mb-2 md6"
-        placeholder="Filter..."
-        v-model="filter"
-      />
-
-      <va-checkbox
-        class="flex mb-2 md6"
-        label="Use custom filtering function (looks for an exact match)"
-        v-model="useCustomFilteringFn"
-      />
-    </div>
-
-    <va-data-table
-      :items="items"
-      :filter="filter"
-      :filter-method="customFilteringFn"
-      @filtered="filteredCount = $event.length"
+  <div class="row">
+    <va-input
+      class="flex mb-2 md6"
+      placeholder="Filter..."
+      v-model="filter"
     />
 
-    <va-alert class="mt-3" border="left">
-      <span>
-        Number of filtered items:
-        <va-chip>{{filteredCount}}</va-chip>
-      </span>
-    </va-alert>
+    <va-checkbox
+      class="flex mb-2 md6"
+      label="Use custom filtering function (looks for an exact match)"
+      v-model="useCustomFilteringFn"
+    />
   </div>
+
+  <va-data-table
+    :items="items"
+    :filter="filter"
+    :filter-method="customFilteringFn"
+    @filtered="filteredCount = $event.length"
+  />
+
+  <va-alert class="mt-3" border="left">
+    <span>
+      Number of filtered items:
+      <va-chip>{{filteredCount}}</va-chip>
+    </span>
+  </va-alert>
 </template>
 
 <script>

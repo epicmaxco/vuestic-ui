@@ -1,6 +1,6 @@
 <template>
-  <div class="flex row">
-    <div class="mb-2 lg4">
+  <div class="row">
+    <div class="flex lg4 mb-2">
       <va-switch
         class="mt-2"
         label="Hoverable rows"
@@ -16,7 +16,7 @@
       />
     </div>
 
-    <div class="mb-2 lg4">
+    <div class="flex lg4 mb-2">
       <va-switch
         class="mt-2"
         label="Loading state"
@@ -39,7 +39,7 @@
       />
     </div>
 
-    <div class="mb-2 lg4">
+    <div class="flex lg4 mb-2">
       <va-switch
         class="mt-2"
         label="Hide default header"
@@ -63,39 +63,39 @@
         :disabled="hideDefaultHeader || !footerClone"
       />
     </div>
-
-    <va-data-table
-      :items="items"
-      :columns="columns"
-      :striped="isTableStriped"
-      :hoverable="isTableHoverable"
-      :loading="isTableLoading"
-      :hide-default-header="hideDefaultHeader"
-      :footer-clone="footerClone"
-      :allow-footer-sorting="footerSorting"
-    >
-      <template #headerPrepend v-if="prependSlot">
-        <tr><th colspan="8">Custom cell which span 8 cells (headPrepend slot)</th></tr>
-      </template>
-      <template #headerAppend v-if="appendSlot">
-        <tr><th colspan="8">Custom cell which span 8 cells (headAppend slot)</th></tr>
-      </template>
-
-      <template #bodyPrepend v-if="prependSlot">
-        <tr><td colspan="8">Custom cell which span 8 cells (bodyPrepend slot)</td></tr>
-      </template>
-      <template #bodyAppend v-if="appendSlot">
-        <tr><td colspan="8">Custom cell which span 8 cells (bodyAppend slot)</td></tr>
-      </template>
-
-      <template #footerPrepend v-if="prependSlot">
-        <tr><th colspan="8">Custom cell which span 8 cells (footPrepend slot)</th></tr>
-      </template>
-      <template #footerAppend v-if="appendSlot">
-        <tr><th colspan="8">Custom cell which span 8 cells (footAppend slot)</th></tr>
-      </template>
-    </va-data-table>
   </div>
+
+  <va-data-table
+    :items="items"
+    :columns="columns"
+    :striped="isTableStriped"
+    :hoverable="isTableHoverable"
+    :loading="isTableLoading"
+    :hide-default-header="hideDefaultHeader"
+    :footer-clone="footerClone"
+    :allow-footer-sorting="footerSorting"
+  >
+    <template #headerPrepend v-if="prependSlot">
+      <tr><th colspan="8">Custom cell which span 8 cells (headPrepend slot)</th></tr>
+    </template>
+    <template #headerAppend v-if="appendSlot">
+      <tr><th colspan="8">Custom cell which span 8 cells (headAppend slot)</th></tr>
+    </template>
+
+    <template #bodyPrepend v-if="prependSlot">
+      <tr><td colspan="8">Custom cell which span 8 cells (bodyPrepend slot)</td></tr>
+    </template>
+    <template #bodyAppend v-if="appendSlot">
+      <tr><td colspan="8">Custom cell which span 8 cells (bodyAppend slot)</td></tr>
+    </template>
+
+    <template #footerPrepend v-if="prependSlot">
+      <tr><th colspan="8">Custom cell which span 8 cells (footPrepend slot)</th></tr>
+    </template>
+    <template #footerAppend v-if="appendSlot">
+      <tr><th colspan="8">Custom cell which span 8 cells (footAppend slot)</th></tr>
+    </template>
+  </va-data-table>
 </template>
 
 <script>

@@ -1,5 +1,5 @@
 <template>
-  <div class='flex row mb-4'>
+  <div class='row mb-4'>
     <div class='flex md4'>
       <va-select
         v-model="columns[0].alignHead"
@@ -41,8 +41,8 @@
     </div>
   </div>
 
-  <div class='flex row mb-4'>
-    <div class='flex mb4'>
+  <div class='row mb-4'>
+    <div class='flex md4'>
       <va-select
         v-model="columns[0].align"
         label="First column align"
@@ -57,7 +57,7 @@
         color="#990099"
       />
     </div>
-    <div class='flex mb4'>
+    <div class='flex md4'>
       <va-select
         v-model="columns[1].align"
         label="Second column align"
@@ -72,7 +72,7 @@
         color="#990099"
       />
     </div>
-    <div class='flex mb4'>
+    <div class='flex md4'>
       <va-select
         v-model="columns[2].align"
         label="Third column align"
