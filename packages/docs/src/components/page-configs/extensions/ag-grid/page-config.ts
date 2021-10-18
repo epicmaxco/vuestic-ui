@@ -59,6 +59,7 @@ const config: ApiDocsBlock[] = [
     'ag-grid.examples.editable.text',
     'extensions/ag-grid/Editable',
   ),
+  DocsHelper.alert('ag-grid.attention', 'warning'),
 ]
 
 export default config
