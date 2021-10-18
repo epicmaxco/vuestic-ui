@@ -54,6 +54,11 @@ const config: ApiDocsBlock[] = [
     'ag-grid.examples.pagination.text',
     'extensions/ag-grid/Pagination',
   ),
+  ...DocsHelper.exampleBlock(
+    'ag-grid.examples.editable.title',
+    'ag-grid.examples.editable.text',
+    'extensions/ag-grid/Editable',
+  ),
 ]
 
 export default config
