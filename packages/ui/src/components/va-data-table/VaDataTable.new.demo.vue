@@ -7,8 +7,8 @@
 
     <VbCard title="Use custom slots for address and company">
       <va-data-table :items="items">
-        <template #head(address)>Street</template>
-        <template #head(company)>Company Name</template>
+        <template #header(address)>Street</template>
+        <template #header(company)>Company Name</template>
 
         <template #cell(address)="{ source: address }">{{ address.street }}</template>
         <template #cell(company)="{ source:company }">{{ company.name }}</template>
@@ -16,8 +16,8 @@
     </VbCard>
 
     <VbCard title="Show footer and append static rows everywhere">
-      <va-data-table :items="items" foot-clone>
-        <template #headAppend>
+      <va-data-table :items="items" footer-clone>
+        <template #headerAppend>
           <tr>
             <th colspan="4">User info</th>
             <th colspan="4">Contact info</th>
@@ -30,7 +30,7 @@
           </tr>
         </template>
 
-        <template #footAppend>
+        <template #footerAppend>
           <tr>
             <th colspan="8">Span 8 cells</th>
           </tr>

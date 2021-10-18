@@ -8,9 +8,9 @@ export default function useStyleable (
   hoverable: Ref<boolean>,
   selectable: Ref<boolean>,
   selectedColor: Ref<string>,
-  allowFootSorting: Ref<boolean>,
+  allowFooterSorting: Ref<boolean>,
 ) {
-  function getHeadCSSVariables (column: TableColumn) {
+  function getHeaderCSSVariables (column: TableColumn) {
     return {
       '--align': column.alignHead,
       '--vertical-align': column.verticalAlignHead,
@@ -42,18 +42,18 @@ export default function useStyleable (
     }
   }
 
-  function getFootCSSVariables (column: TableColumn) {
+  function getFooterCSSVariables (column: TableColumn) {
     return {
       '--align': column.alignHead,
       '--vertical-align': column.verticalAlignHead,
-      '--cursor': allowFootSorting.value && column.sortable ? 'pointer' : 'default',
+      '--cursor': allowFooterSorting.value && column.sortable ? 'pointer' : 'default',
     }
   }
 
   return {
-    getHeadCSSVariables,
+    getHeaderCSSVariables,
     rowCSSVariables,
     getCellCSSVariables,
-    getFootCSSVariables,
+    getFooterCSSVariables,
   }
 }

@@ -21,7 +21,7 @@
       </colgroup>
 
       <thead class="va-data-table__thead">
-        <slot name="headPrepend" />
+        <slot name="headerPrepend" />
 
         <tr
           v-if="!hideDefaultHeader"
@@ -50,21 +50,21 @@
             :key="column.key"
             :title="column.headerTitle"
             @click.exact="column.sortable ? toggleSorting(column): () => {}"
-            :style="getHeadCSSVariables(column)"
+            :style="getHeaderCSSVariables(column)"
             class="va-data-table__th"
           >
-            <div class="th__wrapper">
-<!--            Render a custom `head(columnKey)` slot if it's provided, or a custom common `head` (also if provided) or the column's label-->
-              <span v-if="`head(${column.key})` in slots">
+            <div class="va-data-table__th-wrapper">
+<!--            Render a custom `header(columnKey)` slot if it's provided, or a custom common `header` (also if provided) or the column's label-->
+              <span v-if="`header(${column.key})` in slots">
                 <slot
-                  :name="`head(${column.key})`"
+                  :name="`header(${column.key})`"
                   v-bind="column"
                 />
               </span>
 
               <slot
                 v-else
-                name="head"
+                name="header"
                 v-bind="column"
               >
                 <span>{{ column.label }}</span>
@@ -72,12 +72,13 @@
 
               <div
                 v-if="column.sortable"
-                class="th__sorting"
+                class="va-data-table__th-sorting"
+                @selectstart.prevent
               >
                 <va-icon
                   :name="sortingOrderProxy === 'asc' ? 'expand_less' : 'expand_more'"
                   size="small"
-                  class="th__sorting-icon"
+                  class="va-data-table__th-sorting-icon"
                   :class="{ active: sortByProxy === column.key && sortingOrderProxy !== null }"
                 />
               </div>
@@ -85,7 +86,7 @@
           </th>
         </tr>
 
-        <slot name="headAppend" />
+        <slot name="headerAppend" />
       </thead>
 
       <tbody class="va-data-table__tbody">
@@ -112,9 +113,6 @@
         <tr
           v-for="(row, index) in rows"
           :key="row.initialIndex"
-          @click.exact="toggleRowSelection(row)"
-          @click.ctrl.exact="ctrlSelectRow(row)"
-          @click.shift.exact="shiftSelectRows(row)"
           class="va-data-table__tr"
           :class="{
             selectable,
@@ -129,11 +127,13 @@
             <td
               v-if="selectable"
               class="va-data-table__td"
+              @selectstart.prevent
             >
               <va-checkbox
                 :model-value="isRowSelected(row)"
-                @update:model-value="ctrlSelectRow(row)"
-                @click.stop
+                @click.shift.exact="shiftSelectRows(row)"
+                @click.ctrl.exact="ctrlSelectRow(row)"
+                @click.exact="ctrlSelectRow(row)"
                 :color="selectedColor"
               />
             </td>
@@ -166,12 +166,12 @@
         <slot name="bodyAppend" />
       </tbody>
 
-<!--      Duplicate header into footer if `footClone` prop is true-->
+<!--      Duplicate header into footer if `footerClone` prop is true-->
       <tfoot
-        v-if="footClone"
+        v-if="footerClone"
         class="va-data-table__tfoot"
       >
-        <slot name="footPrepend" />
+        <slot name="footerPrepend" />
 
         <tr
           v-if="!hideDefaultHeader"
@@ -199,35 +199,36 @@
             v-for="column in columnsModel"
             :key="column.key"
             :title="column.headerTitle"
-            @click.exact="allowFootSorting && column.sortable ? toggleSorting(column) : () => {}"
-            :style="getFootCSSVariables(column)"
+            @click.exact="allowFooterSorting && column.sortable ? toggleSorting(column) : () => {}"
+            :style="getFooterCSSVariables(column)"
             class="va-data-table__th"
           >
-            <div class="th__wrapper">
-<!--            Render a custom `foot(columnKey)` slot if it's provided, or a custom common `foot` (also if provided) or the column's label-->
-              <span v-if="`foot(${column.key})` in slots">
+            <div class="va-data-table__th-wrapper">
+<!--            Render a custom `footer(columnKey)` slot if it's provided, or a custom common `footer` (also if provided) or the column's label-->
+              <span v-if="`footer(${column.key})` in slots">
                 <slot
-                  :name="`foot(${column.key})`"
+                  :name="`footer(${column.key})`"
                   v-bind="column"
                 />
               </span>
 
               <slot
                 v-else
-                name="foot"
+                name="footer"
                 v-bind="column"
               >
                 <span>{{ column.label }}</span>
               </slot>
 
               <div
-                v-if="allowFootSorting && column.sortable"
-                class="th__sorting"
+                v-if="allowFooterSorting && column.sortable"
+                class="va-data-table__th-sorting"
+                @selectstart.prevent
               >
                 <va-icon
                   :name="sortingOrderProxy === 'asc' ? 'expand_less' : 'expand_more'"
                   size="small"
-                  class="th__sorting-icon"
+                  class="va-data-table__th-sorting-icon"
                   :class="{ active: sortByProxy === column.key && sortingOrderProxy !== null }"
                 />
               </div>
@@ -235,7 +236,7 @@
           </th>
         </tr>
 
-        <slot name="footAppend" />
+        <slot name="footerAppend" />
       </tfoot>
     </table>
   </va-inner-loading>
@@ -342,11 +343,11 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
-    footClone: {
+    footerClone: {
       type: Boolean,
       default: false,
     },
-    allowFootSorting: {
+    allowFooterSorting: {
       type: Boolean,
       default: false,
     },
@@ -407,7 +408,7 @@ export default defineComponent({
     const {
       selectable,
       selectMode,
-      modelValue: selectedItemsModelValue,
+      modelValue,
     } = toRefs(props)
 
     const {
@@ -418,21 +419,21 @@ export default defineComponent({
       isRowSelected,
       severalRowsSelected,
       allRowsSelected,
-    } = useSelectable(rows, selectedItemsModelValue, selectable, selectMode, emit)
+    } = useSelectable(rows, modelValue, selectable, selectMode, emit)
 
     // styling
     const {
       hoverable,
       selectedColor,
-      allowFootSorting,
+      allowFooterSorting,
     } = toRefs(props)
 
     const {
-      getHeadCSSVariables,
+      getHeaderCSSVariables,
       rowCSSVariables,
       getCellCSSVariables,
-      getFootCSSVariables,
-    } = useStyleable(hoverable, selectable, selectedColor, allowFootSorting)
+      getFooterCSSVariables,
+    } = useStyleable(hoverable, selectable, selectedColor, allowFooterSorting)
 
     const showNoDataHtml = computed(() => {
       return rawItems.value.length < 1
@@ -456,10 +457,10 @@ export default defineComponent({
       sortByProxy,
       sortingOrderProxy,
       toggleSorting,
-      getHeadCSSVariables,
+      getHeaderCSSVariables,
       rowCSSVariables,
       getCellCSSVariables,
-      getFootCSSVariables,
+      getFooterCSSVariables,
       showNoDataHtml,
       showNoDataFilteredHtml,
     }
@@ -468,48 +469,50 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-// The variables used here are taken from a respective element's `style` attribute. See the `useStyleable` hook
+@import "./variables";
+// The calculated variables are taken from a respective element's `style` attribute. See the `useStyleable` hook
 
 .va-data-table {
   width: 100%;
   cursor: default;
 
   .va-data-table__thead {
-    border-bottom: 2px solid var(--va-dark);
+    border-bottom: var(--va-data-table-thead-border);
   }
 
   .va-data-table__tbody {
     .no-data {
-      text-align: center;
-      vertical-align: middle;
+      text-align: var(--va-data-table-no-data-text-align);
+      vertical-align: var(--va-data-table-no-data-vertical-align);
     }
   }
 
   .va-data-table__tfoot {
-    border-top: 2px solid var(--va-dark);
+    border-top: var(--va-data-table-thead-border);
   }
 
   .va-data-table__th {
-    padding: 0.625rem;
+    padding: var(--va-data-table-cell-padding);
     text-align: var(--align);
     vertical-align: var(--vertical-align);
-    color: #34495e;
-    font-size: 0.625rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.6px;
+    color: var(--va-data-table-thead-color);
+    font-size: var(--va-data-table-thead-font-size);
+    line-height: var(--va-data-table-thead-line-height);
+    font-weight: var(--va-data-table-thead-font-weight);
+    text-transform: var(--va-data-table-thead-text-transform);
+    letter-spacing: var(--va-data-table-thead-letter-spacing);
     cursor: var(--cursor);
 
-    .th__wrapper {
+    .va-data-table__th-wrapper {
       display: flex;
       align-items: center;
     }
 
-    .th__sorting {
+    .va-data-table__th-sorting {
       justify-self: end;
     }
 
-    .th__sorting-icon {
+    .va-data-table__th-sorting-icon {
       opacity: 0;
       user-select: none;
       pointer-events: none;
@@ -521,27 +524,24 @@ export default defineComponent({
     }
 
     span {
-      line-height: 1.2rem;
       flex-grow: 1;
     }
 
     &:hover {
-      .th__sorting-icon:not(.active) {
-        opacity: 0.3;
+      .va-data-table__th-sorting-icon:not(.active) {
+        opacity: var(--va-data-table-hover-th-opacity);
       }
     }
   }
 
   .va-data-table__td {
-    padding: 0.625rem;
+    padding: var(--va-data-table-cell-padding);
     text-align: var(--align);
     vertical-align: var(--vertical-align);
   }
 
   .va-data-table__tr {
     &.selectable {
-      cursor: pointer;
-
       &:hover {
         background-color: var(--hover-color);
       }
@@ -555,7 +555,7 @@ export default defineComponent({
   &.striped {
     .va-data-table__tbody {
       .va-data-table__tr:nth-child(2n) {
-        background-color: #f5f8f9;
+        background-color: var(--va-light-gray3);
       }
     }
   }
