@@ -34,6 +34,16 @@ const config: ApiDocsBlock[] = [
     'ag-grid.examples.styles.text',
     'extensions/ag-grid/Styles',
   ),
+  ...DocsHelper.exampleBlock(
+    'ag-grid.examples.filter.title',
+    'ag-grid.examples.filter.text',
+    'extensions/ag-grid/Filter',
+  ),
+  ...DocsHelper.exampleBlock(
+    'ag-grid.examples.filter.title',
+    'ag-grid.examples.filter.text',
+    'extensions/ag-grid/Filter',
+  ),
 ]
 
 export default config

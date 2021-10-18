@@ -3249,6 +3249,10 @@
       "styles": {
         "title": "Styles",
         "text": "The theme supports the use of the classes `ag-theme-vuestic--striped` to highlight each even row of the table and` ag-theme-vuestic--hoverable` to highlight a line on hover."
+      },
+      "filter": {
+        "title": "Filters and sorting",
+        "text": "You can provide some options for the definition object to enable filtering and sorting."
       }
     }
   },
