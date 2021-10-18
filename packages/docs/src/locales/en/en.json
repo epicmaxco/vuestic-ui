@@ -3257,6 +3257,10 @@
       "pinning": {
         "title": "Rows pinning",
         "text": "To pin rows at the top or bottom, simply provide an array of rows for the `pinnedTopRowData` and `pinnedBottomRowData` properties."
+      },
+      "pagination": {
+        "title": "Pagination",
+        "text": "You can enable pagination for the table by providing the required properties."
       }
     }
   },

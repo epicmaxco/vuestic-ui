@@ -49,6 +49,11 @@ const config: ApiDocsBlock[] = [
     'ag-grid.examples.pinning.text',
     'extensions/ag-grid/Pinning',
   ),
+  ...DocsHelper.exampleBlock(
+    'ag-grid.examples.pagination.title',
+    'ag-grid.examples.pagination.text',
+    'extensions/ag-grid/Pagination',
+  ),
 ]
 
 export default config
