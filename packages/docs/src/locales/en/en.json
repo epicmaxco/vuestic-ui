@@ -3253,6 +3253,10 @@
       "filter": {
         "title": "Filters and sorting",
         "text": "You can provide some options for the definition object to enable filtering and sorting."
+      },
+      "pinning": {
+        "title": "Rows pinning",
+        "text": "To pin rows at the top or bottom, simply provide an array of rows for the `pinnedTopRowData` and `pinnedBottomRowData` properties."
       }
     }
   },

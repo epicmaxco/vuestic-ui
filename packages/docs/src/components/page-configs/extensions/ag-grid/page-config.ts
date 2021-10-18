@@ -44,6 +44,11 @@ const config: ApiDocsBlock[] = [
     'ag-grid.examples.filter.text',
     'extensions/ag-grid/Filter',
   ),
+  ...DocsHelper.exampleBlock(
+    'ag-grid.examples.pinning.title',
+    'ag-grid.examples.pinning.text',
+    'extensions/ag-grid/Pinning',
+  ),
 ]
 
 export default config
