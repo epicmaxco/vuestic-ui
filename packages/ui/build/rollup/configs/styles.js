@@ -8,6 +8,8 @@ import copyPlugin from 'rollup-plugin-copy'
 export function createStylesConfig ({ input, outDir = 'dist/', minify = false }) {
   const inputPathWithoutFilename = input.split('/').slice(0, -1).join('/')
 
+  const transformSrc = (src) => `./${src.replace(inputPathWithoutFilename, '')}`
+
   return defineConfig({
     input,
     output: {
@@ -24,7 +26,11 @@ export function createStylesConfig ({ input, outDir = 'dist/', minify = false })
       nodeResolvePlugin(),
       copyPlugin({
         targets: [
-          { src: `${inputPathWithoutFilename}/**/*.scss`, dest: `${outDir}/styles/` },
+          {
+            src: `${inputPathWithoutFilename}/**/*.scss`,
+            dest: `${outDir}/styles/`,
+            rename: (name, extension, src) => transformSrc(src),
+          },
         ],
       }),
     ],
