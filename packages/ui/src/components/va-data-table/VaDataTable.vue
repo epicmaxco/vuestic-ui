@@ -92,76 +92,86 @@
       <tbody class="va-data-table__tbody">
         <slot name="bodyPrepend" />
 
-<!--        Show the respective placeholder when there's no items either due to they're not provided or due to the harsh filtering conditions applied. When setting the colspan, make sure to account the possibly visible checkbox column-->
-        <tr v-if="showNoDataHtml">
-          <td
-            :colspan="columnsModel.length + (selectable ? 1 : 0)"
-            v-html="noDataHtml"
-            class="no-data"
-          />
-        </tr>
+        <transition-group
+          :name="animated ? 'table-transition' : null"
+          appear
+        >
+          <tr
+            v-if="showNoDataHtml"
+            key="showNoDataHtml"
+          >
+            <td
+              :colspan="columnsModel.length + (selectable ? 1 : 0)"
+              v-html="noDataHtml"
+              class="no-data"
+            />
+          </tr>
 
-        <tr v-if="showNoDataFilteredHtml">
-          <td
-            :colspan="columnsModel.length + (selectable ? 1 : 0)"
-            v-html="noDataFilteredHtml"
-            class="no-data"
-          />
-        </tr>
+          <tr
+            v-if="showNoDataFilteredHtml"
+            key="showNoDataFilteredHtml"
+          >
+            <td
+              :colspan="columnsModel.length + (selectable ? 1 : 0)"
+              v-html="noDataFilteredHtml"
+              class="no-data"
+            />
+          </tr>
 
 <!--        Render rows (`tr`s). Select a row on click or select a bunch of rows on shift-click-->
-        <tr
-          v-for="(row, index) in rows"
-          :key="row.initialIndex"
-          class="va-data-table__tr"
-          :class="{
-            selectable,
-            hoverable,
-            selected: isRowSelected(row),
-          }"
-          :style="rowCSSVariables"
-        >
+          <tr
+            v-for="(row, index) in rows"
+            :key="row.initialIndex"
+            class="va-data-table__tr"
+            :class="{
+              selectable,
+              hoverable,
+              selected: isRowSelected(row),
+            }"
+            :style="rowCSSVariables"
+          >
 <!--          Pagination. If there's some value to the `per-page` prop, then check if the element with that index should be visible. If no `per-page` then just render anyway.      -->
-          <template v-if="perPage ? (index >= perPage * (currentPage - 1)) && (index < perPage * currentPage) : true">
+            <template v-if="perPage ? (index >= perPage * (currentPage - 1)) && (index < perPage * currentPage) : true">
 <!--          Render an additional column (for selectable tables only) with checkboxes to toggle selection-->
-            <td
-              v-if="selectable"
-              class="va-data-table__td"
-              @selectstart.prevent
-            >
-              <va-checkbox
-                :model-value="isRowSelected(row)"
-                @click.shift.exact="shiftSelectRows(row)"
-                @click.ctrl.exact="ctrlSelectRow(row)"
-                @click.exact="ctrlSelectRow(row)"
-                :color="selectedColor"
-              />
-            </td>
+              <td
+                v-if="selectable"
+                class="va-data-table__td"
+                @selectstart.prevent
+              >
+                <va-checkbox
+                  :model-value="isRowSelected(row)"
+                  @click.shift.exact="shiftSelectRows(row)"
+                  @click.ctrl.exact="ctrlSelectRow(row)"
+                  @click.exact="ctrlSelectRow(row)"
+                  :color="selectedColor"
+                />
+              </td>
 
 <!--          Render cells for a given row-->
-            <td
-              v-for="cell in row.cells"
-              :key="cell.column.key + cell.row.initialIndex"
-              :style="getCellCSSVariables(cell)"
-              class="va-data-table__td"
-            >
-<!--            Substitute cell's content with with `cell(columnKey)` slot's value or common `cell` slot's value or (if neither exists) with that cell's actual value-->
-              <slot
-                v-if="`cell(${cell.column.key})` in slots"
-                :name="`cell(${cell.column.key})`"
-                v-bind="cell"
-              />
-
-              <slot
-                v-else
-                name="cell"
-                v-bind="cell"
+              <td
+                v-for="cell in row.cells"
+                :key="cell.column.key + cell.row.initialIndex"
+                :style="getCellCSSVariables(cell)"
+                class="va-data-table__td"
               >
-                {{ cell.value }}
-              </slot>
-            </td>
-          </template>
-        </tr>
+<!--            Substitute cell's content with with `cell(columnKey)` slot's value or common `cell` slot's value or (if neither exists) with that cell's actual value-->
+                <slot
+                  v-if="`cell(${cell.column.key})` in slots"
+                  :name="`cell(${cell.column.key})`"
+                  v-bind="cell"
+                />
+
+                <slot
+                  v-else
+                  name="cell"
+                  v-bind="cell"
+                >
+                  {{ cell.value }}
+                </slot>
+              </td>
+            </template>
+          </tr>
+        </transition-group>
 
         <slot name="bodyAppend" />
       </tbody>
@@ -304,6 +314,10 @@ export default defineComponent({
     hoverable: {
       type: Boolean,
       default: false,
+    },
+    animated: {
+      type: Boolean,
+      default: true,
     },
     selectable: {
       type: Boolean,
@@ -582,6 +596,27 @@ export default defineComponent({
         }
       }
     }
+  }
+
+  .table-transition-move {
+    transition: var(--va-data-table-transition-move);
+  }
+
+  .table-transition-enter-active,
+  .table-transition-leave-active {
+    transition: var(--va-data-table-transition-active);
+  }
+
+  .table-transition-enter-from,
+  .table-transition-leave-to {
+    opacity: 0;
+    line-height: 0;
+  }
+
+  .table-transition-enter-to,
+  .table-transition-leave-from {
+    opacity: 1;
+    line-height: unset;
   }
 }
 </style>
