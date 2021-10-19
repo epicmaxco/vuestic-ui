@@ -20,8 +20,6 @@ const dependencies: Dependencies = {
   'ag-grid-vue3': '^26.0.1',
   'vue-class-component': '^8.0.0-rc.1',
 }
-const devDependencies: Dependencies = {
-}
 
 const config: ApiDocsBlock[] = [
   DocsHelper.title('ag-grid.title'),
