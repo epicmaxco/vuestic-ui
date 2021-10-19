@@ -16,7 +16,7 @@
       </va-button>
       <va-content v-if="showCode || exampleOptions.forceShowCode">
         <DocsNavigation
-          :code="parsed.template"
+          :code="parsedVueFile"
           :git-url="file"
         />
         <DocsCode
@@ -58,6 +58,7 @@ export default {
     showCode: false,
     component: undefined,
     loading: false,
+    parsedVueFile: '',
     parsed: {
       template: '',
       style: '',
@@ -92,6 +93,7 @@ export default {
         style,
         script,
       }
+      this.parsedVueFile = template + '\n\n' + script + '\n\n' + style
     },
     async getFiles () {
       this.loading = true
