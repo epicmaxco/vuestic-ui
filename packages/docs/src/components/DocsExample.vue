@@ -17,6 +17,7 @@
       <va-content v-if="showCode || exampleOptions.forceShowCode">
         <DocsNavigation
           :code="parsedVueFile"
+          :config="exampleOptions.codesandboxConfig"
           :git-url="file"
         />
         <DocsCode

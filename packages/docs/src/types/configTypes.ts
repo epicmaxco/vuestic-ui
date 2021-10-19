@@ -11,11 +11,22 @@ import { VueConstructor } from 'vue-class-component'
 export type CodeString = string
 export type CodeLanguage = 'javascript' | 'scss' | 'bash' | 'html'
 // example: for `/examples/va-affix/Bottom.vue` use `va-affix/Bottom.vue` here.
+
+export type Dependencies = {
+  [key: string]: string;
+}
+export type CodesandboxConfig = {
+  dependencies?: Dependencies,
+  devDependencies?: Dependencies,
+}
+
 export type PathToExample = string
 export type ExampleOptions = {
   hideCode?: boolean,
   forceShowCode?: boolean
+  codesandboxConfig?: CodesandboxConfig
 }
+
 export type LinkOptions = {
   preText?: string,
   afterText?: string,

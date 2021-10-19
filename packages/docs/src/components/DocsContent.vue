@@ -6,6 +6,7 @@
         :key="block.type + index"
         :value="block.component"
         :example-options="block.exampleOptions"
+        :codesandbox-config="block.codesandboxConfig"
       />
       <DocsCode
         v-else-if="block.type === BlockType.CODE"
