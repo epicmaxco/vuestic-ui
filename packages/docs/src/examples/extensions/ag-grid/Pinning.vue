@@ -13,15 +13,14 @@
 
 <script>
 import { AgGridVue } from 'ag-grid-vue3'
-import data from 'vuestic-ui/src/components/extensions/ag-grid/data'
 
 export default {
   components: { AgGridVue },
   data () {
     return {
-      rowData: data,
-      pinnedTopRowData: [data[0]],
-      pinnedBottomRowData: [data[3], data[4]],
+      rowData: null,
+      pinnedTopRowData: null,
+      pinnedBottomRowData: null,
       columnDefs: [
         { field: 'athlete' },
         { field: 'age' },
@@ -35,6 +34,16 @@ export default {
         { field: 'total' },
       ],
     }
+  },
+
+  beforeMount () {
+    fetch('https://www.ag-grid.com/example-assets/olympic-winners.json')
+      .then(result => result.json())
+      .then(rowData => {
+        this.rowData = rowData
+        this.pinnedTopRowData = [rowData[1]]
+        this.pinnedBottomRowData = [rowData[3], rowData[4]]
+      })
   },
 }
 </script>

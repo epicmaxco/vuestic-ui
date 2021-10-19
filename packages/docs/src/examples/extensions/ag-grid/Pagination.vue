@@ -13,13 +13,12 @@
 
 <script>
 import { AgGridVue } from 'ag-grid-vue3'
-import data from 'vuestic-ui/src/components/extensions/ag-grid/data'
 
 export default {
   components: { AgGridVue },
   data () {
     return {
-      rowData: data,
+      rowData: null,
       columnDefs: [
         { field: 'athlete' },
         { field: 'age' },
@@ -33,6 +32,11 @@ export default {
         { field: 'total' },
       ],
     }
+  },
+  beforeMount () {
+    fetch('https://www.ag-grid.com/example-assets/olympic-winners.json')
+      .then(result => result.json())
+      .then(rowData => { this.rowData = rowData })
   },
 }
 </script>
