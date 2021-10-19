@@ -148,12 +148,10 @@
 
 <script>
 import { AgGridVue } from 'ag-grid-vue3'
-import AgGridBadge from './AgGridBadge'
 import olympicWinnersData from './data'
 
 export default {
-  /* eslint-disable vue/no-unused-components */
-  components: { AgGridVue, AgGridBadge },
+  components: { AgGridVue },
   data () {
     return {
       gridApi: null,
