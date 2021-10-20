@@ -14,6 +14,7 @@ export {
   default as VaCard,
   VaCardContent,
   VaCardTitle,
+  VaCardActions,
 } from '../components/va-card'
 export { default as VaCheckbox } from '../components/va-checkbox'
 export { default as VaChip } from '../components/va-chip'

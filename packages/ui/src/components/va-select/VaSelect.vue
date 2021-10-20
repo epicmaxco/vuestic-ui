@@ -15,7 +15,7 @@
       :fixed="$props.fixed"
       :close-on-content-click="closeOnContentClick"
       trigger="none"
-      class="va-select__dropdown"
+      class="va-select__dropdown va-select-dropdown"
       keep-anchor-width
       boundary-body
       :stateful=false
@@ -93,6 +93,7 @@
 
       <!-- Stop propagation for enter keyup event, to prevent VaDropdown closing -->
       <va-dropdown-content
+        class="va-select-dropdown__content"
         @keyup.enter.stop
         @keydown.esc.prevent="hideAndFocus"
         @keydown.tab="hideDropdown"
@@ -115,7 +116,7 @@
           @keydown.enter.prevent="selectOrAddOption()"
           @focus="hoveredOption = null"
         />
-        <div class="va-select__dropdown__content">
+        <div class="va-select-dropdown__options-wrapper">
           <va-select-option-list
             ref="optionList"
             v-model:hoveredOption="hoveredOption"
@@ -665,28 +666,28 @@ export default defineComponent({
     justify-content: center;
     align-content: center;
   }
+}
 
-  &__dropdown {
-    .va-dropdown__anchor {
-      display: block;
-    }
+.va-select-dropdown {
+  .va-dropdown__anchor {
+    display: block;
+  }
 
-    .va-dropdown__content {
-      overflow: hidden;
-      border-bottom-right-radius: var(--va-select-dropdown-border-radius);
-      border-bottom-left-radius: var(--va-select-dropdown-border-radius);
-      border-top-right-radius: 0;
-      border-top-left-radius: 0;
-      box-shadow: var(--va-select-box-shadow);
-      padding: 0;
-    }
+  &__content {
+    overflow: hidden;
+    border-bottom-right-radius: var(--va-select-dropdown-border-radius);
+    border-bottom-left-radius: var(--va-select-dropdown-border-radius);
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+    box-shadow: var(--va-select-box-shadow);
+    padding: 0;
+  }
 
-    .va-select__dropdown__content {
-      background: var(--va-select-dropdown-background);
-      overflow-y: auto;
+  &__options-wrapper {
+    background: var(--va-select-dropdown-background);
+    overflow-y: auto;
 
-      @include va-scroll(var(--va-select-scroll-color));
-    }
+    @include va-scroll(var(--va-select-scroll-color));
   }
 }
 </style>

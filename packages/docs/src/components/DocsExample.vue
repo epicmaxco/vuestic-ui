@@ -12,22 +12,26 @@
         :rounded="false"
         @click="showCode = !showCode"
       >
-        {{ $tie('docsExample.showCode') }}
+        {{ showCode ? $t('docsExample.hideCode') : $t('docsExample.showCode') }}
       </va-button>
       <va-content v-if="showCode || exampleOptions.forceShowCode">
         <DocsNavigation
-          :code="parsedVueFile"
+          :code="componentTemplate"
           :config="exampleOptions.codesandboxConfig"
           :git-url="file"
         />
         <DocsCode
           language="markup"
           :code="parsed.template"
-          :class="[parsed.script ? 'docs-example__code--with-margin' : '']"
         />
         <DocsCode
           v-if="parsed.script"
           :code="parsed.script"
+          language="markup"
+        />
+        <DocsCode
+          v-if="parsed.style"
+          :code="parsed.style"
           language="markup"
         />
       </va-content>
@@ -38,6 +42,7 @@
 <script>
 // Manually forked from https://github.com/vuetifyjs/vuetify/blob/master/packages/docs/src/components/doc/Example.vue
 // import VaContent from '../../ui/src/components/va-content/VaContent'
+import { ref, reactive, computed, shallowRef } from 'vue'
 import DocsCode from './DocsCode'
 import DocsNavigation from './DocsNavigation'
 import { readComponent, readTemplate } from '../utilities/utils'
@@ -55,77 +60,58 @@ export default {
       default: () => ({}),
     },
   },
-  data: () => ({
-    showCode: false,
-    component: undefined,
-    loading: false,
-    parsedVueFile: '',
-    parsed: {
+  setup (props) {
+    const showCode = ref(false)
+    const parsed = reactive({
       template: '',
       style: '',
       script: '',
-    },
-  }),
-
-  computed: {
-    internalValue () {
-      if (this.value === Object(this.value)) {
-        return this.value
+    })
+    const file = computed(() => {
+      if (props.value === Object(props.value)) {
+        return props.value.file
       }
 
-      return { file: this.value }
-    },
-    file () {
-      return this.internalValue.file
-    },
-  },
-  mounted () {
-    this.importComponent()
-    this.getFiles()
-  },
-  methods: {
-    parse (res) {
-      const template = this.parseTemplate('template', res)
-      const style = this.parseTemplate('style', res)
-      const script = this.parseTemplate('script', res)
+      return props.value
+    })
+    const component = shallowRef(null)
+    const componentTemplate = shallowRef(null)
 
-      this.parsed = {
-        template,
-        style,
-        script,
-      }
-      this.parsedVueFile = template + '\n\n' + script + '\n\n' + style
-    },
-    async getFiles () {
-      this.loading = true
-      await this.importTemplate()
-      this.loading = false
-    },
-    async importComponent () {
-      this.component = (await readComponent(this.file)).default
-    },
-    async importTemplate () {
-      const componentTemplate = (await readTemplate(this.file)).default
-      this.parse(componentTemplate)
-    },
-    parseTemplate (target, template) {
+    importComponent()
+    importTemplate()
+
+    async function importComponent () {
+      component.value = (await readComponent(file.value)).default
+    }
+    async function importTemplate () {
+      componentTemplate.value = (await readTemplate(file.value)).default
+      parse(componentTemplate.value)
+    }
+    function parse (res) {
+      parsed.template = parseTemplate('template', res)
+      parsed.style = parseTemplate('style', res)
+      parsed.script = parseTemplate('script', res)
+    }
+    function parseTemplate (target, template) {
       const string = `(<${target}(.*)?>[\\w\\W]*<\\/${target}>)`
       const regex = new RegExp(string, 'g')
       const parsed = regex.exec(template) || []
       return parsed[1] || ''
-    },
+    }
+
+    return {
+      showCode,
+      parsed,
+      component,
+      componentTemplate,
+      file,
+    }
   },
 }
 </script>
 
 <style lang="scss">
 .docs-example {
-  &__code {
-    &--with-margin {
-      margin-bottom: 0.2rem !important;
-    }
-  }
-
   &__show-code-button {
     .va-button {
       &__content {

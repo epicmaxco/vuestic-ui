@@ -29,6 +29,7 @@
         :focused="hoveredIndex === index"
         :highlight-today="highlightToday"
         :highlight-weekend="highlightWeekend"
+        :readonly="readonly"
         @click="onClick(date); focusedCellIndex = index"
       >
         <span class="va-date-picker-cell__day">
@@ -70,6 +71,7 @@ export default defineComponent({
     weekends: { type: [Function] as PropType<(d: Date) => boolean> },
     highlightWeekend: { type: Boolean, default: false },
     highlightToday: { type: Boolean, default: false },
+    readonly: { type: Boolean, default: false },
   },
 
   emits: ['update:modelValue', 'hover:day', 'click:day'],

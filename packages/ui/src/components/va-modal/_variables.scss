@@ -1,16 +1,17 @@
 :root {
   --va-modal-title-margin-bottom: 1.5rem;
-  --va-modal-container-position: fixed;
-  --va-modal-container-top: 0;
-  --va-modal-container-left: 0;
+  --va-modal-position: fixed;
+  --va-modal-top: 0;
+  --va-modal-left: 0;
+  --va-modal-display: flex;
+  --va-modal-width: 100%;
+  --va-modal-height: 100%;
+  --va-modal-align-items: center;
+  --va-modal-justify-content: center;
+  --va-modal-overflow: hidden;
+  --va-modal-outline: 0;
+  --va-modal-z-index: 99999;
   --va-modal-container-z-index: 1050;
-  --va-modal-container-display: flex;
-  --va-modal-container-width: 100%;
-  --va-modal-container-height: 100%;
-  --va-modal-container-align-items: center;
-  --va-modal-container-justify-content: center;
-  --va-modal-container-overflow: hidden;
-  --va-modal-container-outline: 0;
 
   /* Dialog */
   --va-modal-dialog-background: #ffffff;

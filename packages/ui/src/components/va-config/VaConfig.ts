@@ -21,6 +21,7 @@ export default defineComponent({
   setup (props) {
     const { components } = toRefs(props)
     const prevChain = useLocalConfig()
+    // We want it to be an array and not a merged object for optimization purposes
     const nextChain = computed(() => [...prevChain.value, components.value])
 
     provide(LocalConfigKey, nextChain)

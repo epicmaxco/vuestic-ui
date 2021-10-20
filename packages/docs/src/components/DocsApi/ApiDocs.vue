@@ -31,7 +31,7 @@
                 <MarkdownView :value="apiPropOption.types" />
               </td>
               <td>
-                <MarkdownView :value="apiPropOption.default" />
+                <MarkdownView :value="cleanDefaultValue(apiPropOption.default)" />
               </td>
               <td>{{ apiPropOption.required ? "+" : "" }}</td>
               <td>{{ apiPropOption.version }}</td>
@@ -188,6 +188,22 @@ export default class ApiDocs extends mixins(PropsMixin) {
 
   isEmpty (object: Record<string, any>): boolean {
     return !Object.keys(object).length
+  }
+
+  cleanDefaultValue (o: any) {
+    const str: string = o.toString()
+
+    const defaultFnStartRegex = /function _default\(\) \{\n\s*return\s*/
+
+    if (defaultFnStartRegex.test(str)) {
+      const defaultFnEndRegex = /\s*}$/
+
+      return str
+        .replace(defaultFnStartRegex, '')
+        .replace(defaultFnEndRegex, '')
+    }
+
+    return str
   }
 }
 </script>

@@ -3,8 +3,9 @@ import { VuesticPlugin } from 'vuestic-ui'
 
 createApp(App)
   .use(VuesticPlugin, {
-    icons: [ ... ],
+    icons: [...],
     components: { ... },
+    componentsAll: { ... },
     colors: { ... },
   })
   .mount('#app')

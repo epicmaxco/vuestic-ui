@@ -1,6 +1,4 @@
-import isString from 'lodash/isString'
-import isFunction from 'lodash/isFunction'
-import flatten from 'lodash/flatten'
+import { isString, isFunction, flatten } from 'lodash-es'
 import { computed, inject, onMounted, onUnmounted, PropType, ref } from 'vue'
 import { FormProvider, FormServiceKey } from '../components/va-form/consts'
 

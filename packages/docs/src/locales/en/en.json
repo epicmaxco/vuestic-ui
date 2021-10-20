@@ -13,7 +13,8 @@
       "title": "Vue.js 3.0 UI Framework",
       "buttons": {
         "start": "Get started",
-        "github": "View on GitHub"
+        "github": "View on GitHub",
+        "askForStars": "Star on Github will help people to discover Vuestic"
       },
       "features": {
         "components": {
@@ -267,6 +268,8 @@
         "value": "The current visibility state of the modal",
         "title": "Text content to place in the title",
         "message": "Content of modal body",
+        "attachElement": "A valid selector of element, where modal will be rendered",
+        "disableAttachment": "Ignore `attach-element` prop and render component as it's parent child",
         "size": "Set the size of the modal's width. `small`, `medium` (default) or `large`",
         "okText": "Text string to place in the default footer **Ok** button",
         "cancelText": "Text string to place in the default footer **Cancel** button",
@@ -953,7 +956,7 @@
         "value": "Current toggle state",
         "size": "Specify size for component. \"small\", \"medium\", \"large\" sizes are available",
         "toggleColor": "Color of the toggle button",
-        "activeButtonTextColor": "Цвет текста кнопки с выбранным значением"
+        "activeButtonTextColor": "The color of the button text with the selected value"
       },
       "events": {
         "input": "Emits when toggling to the different button"
@@ -1108,6 +1111,7 @@
     "accessibilityGuide": "Accessibility Guide",
     "configurationGuide": "Configuration Guide",
     "overview": "Overview",
+    "github": "GitHub",
     "translation": "Translation",
     "browserSupport": "Browser Support",
     "table": "Table",
@@ -1138,8 +1142,16 @@
       "button": "Your button"
     }
   },
+  "docsNavigation": {
+    "copyCode": "Copy code",
+    "copyCopied": "Copied",
+    "copyFailure": "Permission failure!",
+    "openGithub": "Open in GitHub",
+    "openCodeSandbox": "Open in CodeSandbox"
+  },
   "docsExample": {
-    "showCode": "Show Code"
+    "showCode": "Show Code",
+    "hideCode": "Hide Code"
   },
   "documentationPage": {
     "compilesTo": "Compiles to:",
@@ -1470,9 +1482,16 @@
         "title": "Loading",
         "text": "You can mark a pending state of switch."
       },
+      "customValue": {
+        "title": "Custom Values",
+        "text": "You can set custom values for true and false state of the component."
+      },
+      "indeterminate": {
+        "title": "Indeterminate"
+      },
       "error": {
         "title": "Error",
-        "text": "Switch has an error style"
+        "text": "Switch has an error style."
       }
     }
   },
@@ -1687,6 +1706,10 @@
       "stateful": {
         "title": "Without value",
         "text": "Sometimes `v-model` is too much and in that case using `stateful` prop you can delegate state handling to the component itself"
+      },
+      "color": {
+        "title": "Color",
+        "text": "Set different colors using the `color` prop. You can either use a theme string or the HEX color value."
       }
     },
     "faq": {
@@ -2310,22 +2333,22 @@
         "title": "Breakpoints",
         "text": "Use the following classes (`breakpoints`) to apply provided styling to screens of certain widths exclusively.",
         "sizes": {
-          "xs": "`.xs` - Extra small devices (such as phones) (<600px)",
-          "sm": "`.sm` - Small devices (e.g. tablets) (≥600px)",
-          "md": "`.md` - Medium devices (desktops) (≥960)",
-          "lg": "`.lg` - Large devices (wide-screen-desktops) (≥1280px)",
-          "xl": "`.xl` - Extra large devices (TV's, etc.) (≥1920px)"
+          "xs": "`.xs` - (< 576px ) - Extra small devices",
+          "sm": "`.sm` - (≥ 576px ) - Small devices",
+          "md": "`.md` - (≥ 768px ) - Medium devices",
+          "lg": "`.lg` - (≥ 992px ) - Large devices",
+          "xl": "`.xl` - (≥ 1200px) - Extra large devices"
         }
       },
       "offsets": {
         "title": "Offsets",
         "text": "You can use the `offset`-classes to set spaces between a given element and the one to the left from it.",
         "sizes": {
-          "xs": "`.offset--xs` - Extra small devices (such as phones) (<600px)",
-          "sm": "`.offset--sm` - Small devices (e.g. tablets) (≥600px)",
-          "md": "`.offset--md` - Medium devices (desktops) (≥960)",
-          "lg": "`.offset--lg` - Large devices (wide-screen-desktops) (≥1280px)",
-          "xl": "`.offset--xl` - Extra large devices (TV's, etc.) (≥1920px)"
+          "xs": "`.offset--xs` - Extra small devices",
+          "sm": "`.offset--sm` - Small devices",
+          "md": "`.offset--md` - Medium devices",
+          "lg": "`.offset--lg` - Large devices",
+          "xl": "`.offset--xl` - Extra large devices"
         }
       },
       "gutters": {
@@ -2614,6 +2637,14 @@
       "colors": {
         "title": "Colors",
         "text": "You can change colors using CSS variables for deeper customization, but also you can simple change colors using props."
+      },
+      "readonly": {
+        "title": "Readonly",
+        "text": "Readonly picker for readonly forms."
+      },
+      "disabled": {
+        "title": "Disabled",
+        "text": "Disabled picker that can be used in forms."
       }
     }
   },
@@ -2635,11 +2666,22 @@
       },
       "formatting": {
         "title": "Formatting",
-        "text": "You can pass the format function to VaDateInput which will format input text like you want to. This way you can use any format that you want. For example, you can use [date-fns](https://date-fns.org/v2.23.0/docs/format)[[target=_blank]]"
+        "text": "You can pass the format function to VaDateInput which will format input text like you want to. This way you can use any format that you want. For example, you can use [date-fns](https://date-fns.org/v2.23.0/docs/format)[[target=_blank]]."
+      },
+      "input": {
+        "title": "Input date",
+        "text": "You can allow user to input text from keyboard. You need to set readonly prop as true. You can pass the parse function to VaDateInput which will parse input text like you want to. This way you can use any format that you want. For example, you can use [date-fns](https://date-fns.org/v2.23.0/docs/format)[[target=_blank]] to parse date string. By default we parse this input using standard `Date.parse` method."
       },
       "inputProps": {
         "title": "Input props",
         "text": "You can pass properties to `VaDateInput`"
+      },
+      "advancedFormatting": {
+        "title": "Advanced formatting",
+        "text": "If you need specific format for multiple or range modes you can use."
+      },
+      "formattingGlobalConfig": {
+        "text": "You can easily use your format functions for all VaDateInputs using [Global Config](/services/components-config) feature."
       }
     }
   },
@@ -2950,16 +2992,16 @@
     "pullRequests": {
       "title": "Pull Request Guidelines",
       "description": {
-        "localBranches": "The `master` branch keeps the latest stable release plus potentially some cherry-picked hotfixes. All the development should be conducted in local branches.",
+        "localBranches": "The `master` branch keeps the latest stable release plus potentially some cherry-picked hotfixes. All the development should be conducted in local branches (fork of the project).",
         "dontSubmitToMaster": "**Do not submit PRs against the `master` branch.** Use the `develop` one instead.",
-        "checkoutFeat": "Checkout a `feat/*` branch from the `develop`, then create a pull request against the last.",
+        "checkoutFeat": "Checkout a `feat/*` branch from the `develop`, then create a pull request to `develop`.",
         "multipleSmallCommits": "It's OK to have multiple small commits as you work on your PR - we will let GitHub automatically squash them into a single one before merging.",
         "fixBugSteps": "If fixing a bug:\n  * If you are resolving a certain issue, add `close #<xxx>[,#<yyy>]` (<xxx>, <yyy> is the related issues' ids) into the PR's description so that GitHub could [automatically close](https://docs.github.com/en/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword)[[target=_blank]] the related issue(s) as soon as the respective commits are merged into the `master` branch (i.e. as soon as a new version of Vuestic UI is out).\n  * Provide detailed description of the bug inside the PR in case the bug is not arranged in the form of a separate issue."
       }
     },
     "branches": {
       "title": "Branches",
-      "publicBranches": "Public branches (**epicmax/vuestic-ui**):\n  * `master` - releases and hotfixes only. Do not submit PR's to `master`!.\n  * `develop` - main development branch. Houses `2.0` at the moment.",
+      "publicBranches": "Public branches (**epicmax/vuestic-ui**):\n  * `master` - releases and hotfixes only. Do not submit PR's to `master`!\n  * `develop` - main development branch.",
       "localBranches": "Local branches\n  * For local branches prepend your messages with `feat/` (e.g. for a tabs-related fix it would be `feat/fix-tabs`). This is necessary to keep local branches visually separated from the public ones."
     },
     "fileNaming": {
@@ -2999,7 +3041,7 @@
   "globalConfig": {
     "title": "Global config",
     "subtitle": "With the help of Global config one can configure default values for colors, icons and components' props. ",
-    "structure": "Global config consists of `icons`, `colors` and `components` configs. ",
+    "structure": "Global config consists of `icons`, `colors`, `components` and `componentsAll` configs. ",
     "setupExampleTitle": "You can provide a custom config as the second argument when registering the `VuesticPlugin`:",
     "reactiveUpdateExampleTitle": "Or you can update the configuration partially at the runtime:",
     "reactiveSetExampleTitle": "Alternatively, you can substitute the whole configuration object at the runtime with another one:",
@@ -3013,6 +3055,7 @@
     "api": {
       "icons": "Used to configure icon fonts and aliases.",
       "components": "Used to globally overwrite props of specific components.",
+      "componentsAll": "Used to globally set props of all components. If there are no other source of props.",
       "colors": "Used to define theme colors that components make use of. Here you can redefine default Vuestic-theme colors."
     }
   },
@@ -3073,15 +3116,25 @@
     "subtitle": "Component config allows you to override default props' values for any Vuestic component. It is an object where the keys are component names and the values are prop-value pairs you want to overwrite. For example:",
     "demoTitle": "The example below allows you to change styling of all the buttons for the whole Vuestic Documentation site. Feel free to navigate to Button docs page and take a look at the updated examples.",
     "resetConfig": "Reset config",
+    "componentsAll" : {
+      "title": "All components config",
+      "subtitle": "You could use `componentsAll` global config property to set prop values for all components at once. It will be applied if there are no other source of prop value. For example:",
+      "description": "These prop values will be used as default values if prop is not set somewhere else (inside the component or inside other configs)."
+    },
     "vaConfig": {
       "title": "Scoped config",
       "subtitle": "You can use the `<va-config>` component to overwrite the default props' values for the components inside that tag. Take a look at the demo below:",
       "explain": "Look at the code. In this demo we have changed the default color for all the `VaButton`s and `VaIcons`s inside the `VaConfig`. We also pass a different value to the third button's `color` prop (direct component's prop takes precedence over the one specified on the `VaConfig`)."
     },
+    "defaultSizes": {
+      "title": "Default sizes",
+      "description": "If you would like to set default sizes for the component you could use sizesConfig property. Feel free to check the example below:"
+    },
     "api": {
       "title": "Component config service API",
       "types": "Types",
-      "ComponentConfig": "Object where the keys are Vuestic component names and the values are the component's new default props"
+      "ComponentConfig": "Object where the keys are Vuestic component names and the values are the component's new default props.",
+      "ComponentsAllConfig": "Object where the keys are prop names and the values are the prop's new default values. Will be applied if there are no other source of prop value."
     }
   },
   "colorsConfig": {
