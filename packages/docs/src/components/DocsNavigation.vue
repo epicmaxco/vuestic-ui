@@ -153,7 +153,7 @@ app.mount("#app");
 </script>
 
 <style lang="scss">
-@import "~vuestic-ui/src/styles/resources/resources";
+@import "~vuestic-ui/src/styles/resources";
 
 .docs-navigation {
   background: $prism-background;

@@ -62,7 +62,7 @@ export default class DocsTable extends mixins(PropsMixin) {
 </script>
 
 <style lang="scss">
-@import "~vuestic-ui/src/styles/resources/resources";
+@import "~vuestic-ui/src/styles/resources";
 
 .DocsTable {
   overflow-x: auto;

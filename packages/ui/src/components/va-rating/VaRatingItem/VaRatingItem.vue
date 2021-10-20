@@ -139,7 +139,7 @@ export default class VaRatingItem extends mixins(
 </script>
 
 <style lang="scss">
-@import "../../../styles/resources/resources";
+@import "../../../styles/resources";
 
 .va-rating-item {
   display: inline-block;

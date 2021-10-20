@@ -34,7 +34,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~vuestic-ui/src/styles/resources/resources';
+@import '~vuestic-ui/src/styles/resources';
 
 .item {
   border: 1px solid $gray;

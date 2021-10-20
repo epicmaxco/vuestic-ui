@@ -56,7 +56,7 @@ export default class VaColorIndicator extends ColorIndicatorPropsMixin {
 </script>
 
 <style lang="scss" scoped>
-@import "../../styles/resources/resources";
+@import "../../styles/resources";
 
 .color-indicator {
   display: inline-flex;

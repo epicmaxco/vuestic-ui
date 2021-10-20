@@ -104,7 +104,7 @@ export default class VaBacktop extends mixins(
 </script>
 
 <style lang="scss">
-@import '../../styles/resources/resources';
+@import '../../styles/resources';
 @import 'variables';
 
 .va-backtop {

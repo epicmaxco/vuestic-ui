@@ -201,7 +201,7 @@ export default class VaInfiniteScroll extends mixins(
 </script>
 
 <style scoped lang="scss">
-@import "../../styles/resources/resources";
+@import "../../styles/resources";
 @import 'variables';
 
 .va-infinite-scroll {

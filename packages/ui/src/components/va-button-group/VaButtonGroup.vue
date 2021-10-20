@@ -70,7 +70,7 @@ export default class VaButtonGroup extends Vue.with(Props) {
 </script>
 
 <style lang="scss">
-@import "../../styles/resources/resources";
+@import "../../styles/resources";
 @import "variables";
 
 .va-button-group {

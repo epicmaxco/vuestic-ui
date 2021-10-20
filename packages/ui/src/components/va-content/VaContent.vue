@@ -11,7 +11,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../../styles/resources/resources';
+@import '../../styles/resources';
 @import '../../styles/global';
 
 .va-content {

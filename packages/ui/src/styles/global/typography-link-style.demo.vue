@@ -32,6 +32,6 @@ export default {}
 </script>
 
 <style scoped lang="scss">
-@import '../resources/resources';
+@import '../resources';
 @import 'typography';
 </style>

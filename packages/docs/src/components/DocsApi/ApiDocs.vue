@@ -209,7 +209,7 @@ export default class ApiDocs extends mixins(PropsMixin) {
 </script>
 
 <style lang="scss">
-@import "~vuestic-ui/src/styles/resources/resources";
+@import "~vuestic-ui/src/styles/resources";
 
 .ApiDocs {
   &__table-wrapper {

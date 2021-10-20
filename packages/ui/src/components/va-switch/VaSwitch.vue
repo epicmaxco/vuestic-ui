@@ -187,7 +187,7 @@ export default class VaSwitch extends mixins(
 </script>
 
 <style lang="scss">
-@import "../../styles/resources/resources";
+@import "../../styles/resources";
 @import 'variables';
 
 .va-switch {

@@ -31,7 +31,7 @@ export default class VaListSeparator extends mixins(
 </script>
 
 <style lang="scss">
-@import "../../styles/resources/resources";
+@import "../../styles/resources";
 
 .va-list-separator {
   height: 1px;
