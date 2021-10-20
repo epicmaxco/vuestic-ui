@@ -30,6 +30,7 @@ const config: ApiDocsBlock[] = [
   DocsHelper.paragraph('ag-grid.importStyles'),
   DocsHelper.code(setClass, 'html'),
   DocsHelper.code(importStyles, 'scss'),
+  DocsHelper.alert('ag-grid.attention', 'warning'),
   ...DocsHelper.exampleBlock(
     'ag-grid.examples.default.title',
     'ag-grid.examples.default.text',
@@ -40,12 +41,6 @@ const config: ApiDocsBlock[] = [
     'ag-grid.examples.styles.title',
     'ag-grid.examples.styles.text',
     'extensions/ag-grid/Styles',
-    { codesandboxConfig: { dependencies } },
-  ),
-  ...DocsHelper.exampleBlock(
-    'ag-grid.examples.filter.title',
-    'ag-grid.examples.filter.text',
-    'extensions/ag-grid/Filter',
     { codesandboxConfig: { dependencies } },
   ),
   ...DocsHelper.exampleBlock(
@@ -78,7 +73,6 @@ const config: ApiDocsBlock[] = [
     'extensions/ag-grid/Custom',
     { codesandboxConfig: { dependencies } },
   ),
-  DocsHelper.alert('ag-grid.attention', 'warning'),
 ]
 
 export default config

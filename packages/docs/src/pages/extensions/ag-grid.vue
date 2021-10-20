@@ -8,12 +8,12 @@ import DocsContent from '../../components/DocsContent.vue'
 import config from '../../components/page-configs/extensions/ag-grid/page-config'
 
 @Options({
-  name: 'AgGrid',
+  name: 'DocsAgGrid',
   components: {
     DocsContent,
   },
 })
-export default class AgGrid extends Vue {
+export default class DocsAgGrid extends Vue {
   get configComputed () {
     return config
   }
