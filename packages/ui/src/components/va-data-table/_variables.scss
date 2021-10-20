@@ -23,6 +23,5 @@
   --va-data-table-no-data-vertical-align: middle;
 
   /* Animated */
-  --va-data-table-transition-move: transform var(--va-swing-transition);
-  --va-data-table-transition-active: all var(--va-swing-transition);
+  --va-data-table-transition: var(--va-swing-transition);
 }
