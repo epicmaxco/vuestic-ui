@@ -50,6 +50,7 @@ import { Options, prop, Vue, mixins } from 'vue-class-component'
 import { getHoverColor } from '../../../services/color-config/color-functions'
 import ColorMixin from '../../../services/color-config/ColorMixin'
 import VaIcon from '../../va-icon/'
+import { scrollToElement } from '../../../utils/scroll-to-element'
 
 class SelectOptionListProps {
   options = prop<any[]>({ type: Array, default: () => [] })
@@ -212,7 +213,7 @@ export default class VaSelectOptionList extends mixins(
   scrollToOption (option: any) {
     const element: HTMLElement = this.itemRefs[(this.$props.getTrackBy as Function)(option)]
 
-    element?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' })
+    scrollToElement(element)
   }
 
   public focus () {
