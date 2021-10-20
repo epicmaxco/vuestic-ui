@@ -15,17 +15,6 @@ type VuesticColorsPreset = {
 
 export const colorsPresets: Record<string, VuesticColorsPreset> = {
   default: {
-    // primary: '#154EC1',
-    // secondary: '#767C88',
-    // success: '#3D9209',
-    // info: '#1E9CE3',
-    // danger: '#E42222',
-    // warning: '#FFD43A',
-    // background: '#F5F9FB',
-    // divider: '#E1E9F8',
-    // gray: '#babfc2',
-    // dark: '#262824',
-    // FIXME: return default colors after development will be finished
     primary: '#2C82E0',
     secondary: '#767C88',
     background: '#f4f8fa',
