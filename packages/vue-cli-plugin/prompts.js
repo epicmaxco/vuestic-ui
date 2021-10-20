@@ -28,6 +28,11 @@ module.exports = pkg => {
           value: 'normalize',
           short: 'Normalize CSS'
         },
+        {
+          name: 'Vuestic Typography module',
+          value: 'typography',
+          short: 'Typography'
+        }
       ]
     },
   ]

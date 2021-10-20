@@ -13,6 +13,10 @@ module.exports = {
       strings.push("import 'vuestic-ui/dist/styles/global/normalize.scss'")
     }
 
+    if (answers.treeshakingOptions.includes('typography')) {
+      strings.push("import 'vuestic-ui/dist/styles/global/typography.scss'")
+    }
+
     return strings
   },
   vueUse: [
