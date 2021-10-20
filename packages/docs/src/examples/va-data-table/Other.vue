@@ -14,6 +14,13 @@
         size="small"
         v-model="isTableStriped"
       />
+      <br />
+      <va-switch
+        class="mt-2"
+        label="Animated rows"
+        size="small"
+        v-model="animated"
+      />
     </div>
 
     <div class="flex lg4 mb-2">
@@ -74,6 +81,7 @@
     :hide-default-header="hideDefaultHeader"
     :footer-clone="footerClone"
     :allow-footer-sorting="footerSorting"
+    :animated="animated"
   >
     <template #headerPrepend v-if="prependSlot">
       <tr><th colspan="8">Custom cell which span 8 cells (headPrepend slot)</th></tr>
@@ -165,6 +173,7 @@ export default defineComponent({
       footerSorting: true,
       prependSlot: false,
       appendSlot: false,
+      animated: true,
     }
   },
 })

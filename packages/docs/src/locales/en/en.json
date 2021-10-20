@@ -862,7 +862,8 @@
         "footerClone": "Sets whether to clone the `<thead>` columns into the `<tfoot>`. Has no effect if the default `<thead>` is hidden with the `hide-default-header` prop",
         "allowFooterSorting": "Allows clicks on `<tfoot>` column headers to sort (and to display the sorting status) the rows",
         "striped": "Sets the striped style to the `<tbody>` rows (highlights each 2nd row)",
-        "hoverable": "Allows the a hover state on table rows within a `<tbody>`. The highlighting color of the hover state takes from `selected-color` prop"
+        "hoverable": "Allows the a hover state on table rows within a `<tbody>`. The highlighting color of the hover state takes from `selected-color` prop",
+        "animated": "Sets css `transition` to table rows"
       },
       "events": {
         "updateSortBy": "Emits when `sort-by` changed",
