@@ -5,11 +5,11 @@ module.exports = {
       "import 'vuestic-ui/dist/styles/essentials.css'",
     ]
 
-    if (answers.useGrid) {
+    if (answers.treeshakingOptions.includes('grid')) {
       strings.push("import 'vuestic-ui/dist/styles/grid/grid.scss'")
     }
 
-    if (answers.useNormalize) {
+    if (answers.treeshakingOptions.includes('normalize')) {
       strings.push("import 'vuestic-ui/dist/styles/global/normalize.scss'")
     }
 

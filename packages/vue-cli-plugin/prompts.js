@@ -10,18 +10,25 @@ module.exports = pkg => {
       default: true
     },
     {
-      type: 'confirm',
-      name: 'useGrid',
-      message: 'Use VuesticUI grid classes?',
-      default: true,
-      when: (answers) => answers.treeshaking
-    },
-    {
-      type: 'confirm',
-      name: 'useNormalize',
-      message: 'Use VuesticUI normalize?',
-      default: true,
-      when: (answers) => answers.treeshaking
+      type: 'checkbox',
+      name: 'treeshakingOptions',
+      message: 'Select features that you want to use',
+      default: [
+        'grid', 'normalize'
+      ],
+      when: (answers) => answers.treeshaking,
+      choices: [
+        {
+          name: 'CSS Grid',
+          value: 'grid',
+          short: 'CSS Grid'
+        },
+        {
+          name: 'Vuestic Normalize CSS module',
+          value: 'normalize',
+          short: 'Normalize CSS'
+        },
+      ]
     },
   ]
 
