@@ -148,6 +148,7 @@ export default class VaSwitch extends mixins(
   get computedClass () {
     return {
       'va-switch--checked': this.isChecked,
+      'va-switch--indeterminate': this.isIndeterminate,
       'va-switch--small': this.$props.size === 'small',
       'va-switch--large': this.$props.size === 'large',
       'va-switch--disabled': this.$props.disabled,
@@ -259,6 +260,19 @@ export default class VaSwitch extends mixins(
 
     .va-switch__label {
       padding: 0 var(--va-switch-label-left-padding) 0 0;
+    }
+  }
+
+  &--indeterminate {
+    .va-switch {
+      &__checker {
+        margin: auto 0;
+        transform: translateX(-50%);
+      }
+
+      &__checker-wrapper {
+        transform: translateX(50%);
+      }
     }
   }
 

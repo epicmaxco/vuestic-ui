@@ -1,4 +1,4 @@
-import type { GlobalConfig } from 'src/main'
+import type { GlobalConfig } from '../main'
 import type { App } from 'vue'
 import { DropdownPopperSubplugin, ToastInstall, GlobalConfigPlugin, ColorHelpersPlugin } from './vuestic-plugins'
 

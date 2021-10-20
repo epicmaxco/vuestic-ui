@@ -163,6 +163,25 @@
         error-messages="Error message"
       />
     </VbCard>
+    <VbCard title="Indeterminate">
+      <div>
+        {{ valueIndeterminate }}
+      </div>
+      <va-switch
+        v-model="valueIndeterminate"
+        indeterminate
+      />
+    </VbCard>
+    <VbCard title="Indeterminate with custom indeterminate value">
+      <div>
+        {{ valueIndeterminateCustom }}
+      </div>
+      <va-switch
+        v-model="valueIndeterminateCustom"
+        indeterminate
+        indeterminate-value="middle"
+      />
+    </VbCard>
     <VbCard title="Stateless switch without v-model">
       <va-switch />
     </VbCard>
@@ -184,6 +203,8 @@ export default {
       customValue: [{ id: 1, name: 'one' }],
       value: true,
       valueStateful: true,
+      valueIndeterminate: true,
+      valueIndeterminateCustom: true,
       customTrueFalse: 'disagree',
       selection: [],
       selectionObjectValues: [],

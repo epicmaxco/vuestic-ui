@@ -25,6 +25,11 @@ const config: ApiDocsBlock[] = [
     'va-tabs/Vertical',
   ),
   ...DocsHelper.exampleBlock(
+    'tabs.examples.color.title',
+    'tabs.examples.color.text',
+    'va-tabs/Color',
+  ),
+  ...DocsHelper.exampleBlock(
     'tabs.examples.stateful.title',
     'tabs.examples.stateful.text',
     'va-tabs/Stateful',

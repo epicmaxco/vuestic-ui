@@ -94,7 +94,7 @@ export default class OpenSource extends Vue {}
     @include sm(text-align, center);
 
     a {
-      color: $active-blue;
+      color: var(--va-primary);
     }
   }
 

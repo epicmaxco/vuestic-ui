@@ -22,13 +22,14 @@
         Upload file
       </va-button>
       <input
-        ref="fileInput"
+        ref="fileInputRef"
         type="file"
         class="va-file-upload__field__input"
         :accept="fileTypes"
         :multiple="type !== 'single'"
         :disabled="disabled"
         @change="changeFieldValue"
+        tabindex="-1"
       >
     </div>
     <va-file-upload-list
@@ -49,124 +50,124 @@
 </template>
 
 <script lang="ts">
-import { Options, prop, mixins, Vue } from 'vue-class-component'
-
-import ColorMixin from '../../services/color-config/ColorMixin'
+import { computed, defineComponent, onMounted, ref } from 'vue'
+import { useColors } from '../../services/color-config/color-config'
 import { shiftHSLAColor } from '../../services/color-config/color-functions'
 import VaButton from '../va-button'
 import VaModal from '../va-modal'
-
 import VaFileUploadList from './VaFileUploadList'
 
-class FileUploadProps {
-  type = prop<string>({
-    type: String,
-    default: 'list',
-    validator (modelValue: string) {
-      return ['list', 'gallery', 'single'].includes(modelValue)
-    },
-  })
-
-  fileTypes = prop<string>({ type: String, default: '' })
-  dropzone = prop<boolean>({ type: Boolean, default: false })
-  modelValue = prop<any[]>({ type: Array, default: () => [] })
-  color = prop<string>({ type: String, default: 'primary' })
-  disabled = prop<boolean>({ type: Boolean, default: false })
-}
-
-const FileUploadPropsMixin = Vue.with(FileUploadProps)
-
-@Options({
+export default defineComponent({
   name: 'VaFileUpload',
+
   components: {
     VaModal,
     VaButton,
     VaFileUploadList,
   },
+
+  props: {
+    fileTypes: { type: String, default: '' },
+    dropzone: { type: Boolean, default: false },
+    color: { type: String, default: 'primary' },
+    disabled: { type: Boolean, default: false },
+
+    modelValue: {
+      type: Array,
+      default: () => [],
+      validator: (value: any) => Array.isArray(value),
+    },
+    type: {
+      type: String,
+      default: 'list',
+      validator: (value: string) => ['list', 'gallery', 'single'].includes(value),
+    },
+  },
+
   emits: ['update:modelValue'],
-})
-export default class VaFileUpload extends mixins(
-  ColorMixin,
-  FileUploadPropsMixin,
-) {
-  modal = false
 
-  get computedStyle () {
-    return {
-      backgroundColor: this.dropzone ? shiftHSLAColor(this.colorComputed, { a: -0.92 }) : 'transparent',
-    }
-  }
+  setup (props, { emit }) {
+    const modal = ref(false)
+    const fileInputRef = ref<any>(null)
 
-  get files () {
-    return this.modelValue
-  }
+    const { getColor } = useColors()
 
-  set files (files) {
-    this.$emit('update:modelValue', files)
-  }
+    const colorComputed = computed(() => getColor(props.color))
 
-  changeFieldValue (e: Event) {
-    this.uploadFile(e)
-    ;(this as any).$refs.fileInput.value = ''
-  }
+    const computedStyle = computed(() => ({
+      backgroundColor: props.dropzone ? shiftHSLAColor(colorComputed.value, { a: -0.92 }) : 'transparent',
+    }))
 
-  uploadFile (e: any) {
-    let files = e.target.files || e.dataTransfer.files
+    const files = computed<any[]>({
+      get () { return props.modelValue },
+      set (files) { emit('update:modelValue', files) },
+    })
 
-    // type validation
-    if (this.fileTypes) {
-      files = this.validateFiles(Array.from(files))
-    }
-    this.files = [...this.files, ...files]
-  }
-
-  removeFile (index: number) {
-    this.files.splice(index, 1)
-  }
-
-  removeSingleFile () {
-    this.files = []
-  }
-
-  validateFiles (files: any) {
-    return files.filter((file: any) => {
+    const validateFiles = (files: any) => files.filter((file: any) => {
       const fileName = file.name || file.url
-      if (!fileName) {
-        return false
-      } else {
-        if (file.url) {
-          return true
-        } else {
-          const MIMETypes = ['audio/*', 'video/*', 'image/*']
-          const isContainedMIMEType = MIMETypes.find((t) => this.fileTypes.includes(t))
+      if (!fileName) { return false }
+      if (file.url) { return true }
 
-          if (isContainedMIMEType) {
-            // Do not validatie MIMEType becouse there is too much to validate.
-            return true
-          }
+      const MIMETypes = ['audio/*', 'video/*', 'image/*']
+      const isContainedMIMEType = MIMETypes.find((t) => props.fileTypes.includes(t))
 
-          const extn = fileName.substring(fileName.lastIndexOf('.') + 1).toLowerCase()
+      if (isContainedMIMEType) {
+        // Do not validatie MIMEType becouse there is too much to validate.
+        return true
+      }
 
-          const isCorrectExt = this.fileTypes.includes(extn)
-          if (!isCorrectExt) {
-            this.modal = true
-          }
+      const extn = fileName.substring(fileName.lastIndexOf('.') + 1).toLowerCase()
 
-          return isCorrectExt
-        }
+      const isCorrectExt = props.fileTypes.includes(extn)
+      if (!isCorrectExt) { modal.value = true }
+
+      return isCorrectExt
+    })
+
+    const uploadFile = (e: any) => {
+      const f = e.target.files || e.dataTransfer.files
+
+      files.value = [...files.value, ...(props.fileTypes ? validateFiles(Array.from(f)) : f)]
+    }
+
+    const changeFieldValue = (e: Event) => {
+      uploadFile(e)
+
+      if (fileInputRef.value) {
+        fileInputRef.value.value = ''
+      }
+    }
+
+    const removeFile = (index: number) => { files.value = files.value.filter((item, idx) => idx !== index) }
+
+    const removeSingleFile = () => { files.value = [] }
+
+    const callFileDialogue = () => {
+      if (fileInputRef.value) {
+        fileInputRef.value.click()
+      }
+    }
+
+    onMounted(() => {
+      if (Array.isArray(files.value)) {
+        files.value = validateFiles(files.value)
       }
     })
-  }
 
-  callFileDialogue () {
-    // HACK Seems like safari fix. If you happen to stumble upon this and have mac - please test.
-    (this as any).$refs.fileInput.click()
-  }
-
-  mounted () {
-    this.files = this.validateFiles(this.files)
-  }
-}
+    return {
+      modal,
+      fileInputRef,
+      colorComputed,
+      computedStyle,
+      uploadFile,
+      changeFieldValue,
+      files,
+      removeFile,
+      removeSingleFile,
+      callFileDialogue,
+    }
+  },
+})
 </script>
 
 <style lang='scss'>

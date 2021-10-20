@@ -12,8 +12,14 @@
 
   <div
     v-else
+    tabindex="0"
     class="va-file-upload-gallery-item"
-    :class="{'file-upload-gallery-item_not-image': !this.previewImage}"
+    :class="{
+      'file-upload-gallery-item_not-image': !this.previewImage,
+      'va-file-upload-gallery-item--focused': isFocused
+    }"
+    @focus="isFocused = true"
+    @blur="isFocused = false"
   >
     <img
       v-if="previewImage"
@@ -23,19 +29,22 @@
     >
     <div
       class="va-file-upload-gallery-item__overlay"
-      :style="overlayStyles"
     >
+      <div class="va-file-upload-gallery-item__overlay-background" :style="overlayStyles" />
       <div
         class="va-file-upload-gallery-item__name"
         :title="file.name"
       >
         {{ file.name }}
       </div>
-      <va-icon
-        name="delete_outline"
+      <va-button
+        flat
         color="danger"
+        icon="delete_outline"
         class="va-file-upload-gallery-item__delete"
         @click="removeImage()"
+        @focus="isFocused = true"
+        @blur="isFocused = false"
       />
     </div>
   </div>
@@ -75,6 +84,7 @@ const FileUploadGalleryItemPropsMixin = Vue.with(FileUploadGalleryItemProps)
 export default class VaFileUploadGalleryItem extends mixins(FileUploadGalleryItemPropsMixin) {
   previewImage = ''
   removed = false
+  isFocused = false
 
   created () {
     watch(() => this.$props.file, () => {
@@ -103,9 +113,8 @@ export default class VaFileUploadGalleryItem extends mixins(FileUploadGalleryIte
   }
 
   convertToImg () {
-    if (!this.$props.file.name) {
-      return
-    }
+    if (!this.$props.file.name) { return }
+
     if (this.$props.file.image && this.$props.file.image.url) {
       this.previewImage = this.$props.file.image.url
     } else {
@@ -126,6 +135,7 @@ export default class VaFileUploadGalleryItem extends mixins(FileUploadGalleryIte
 </script>
 
 <style lang='scss'>
+@import 'variables';
 @import '../../../styles/resources/resources';
 
 $max-image-size: 8.5714rem;
@@ -161,9 +171,18 @@ $max-image-size: 8.5714rem;
     margin-right: 0;
   }
 
-  &:hover {
+  &:hover,
+  &:focus,
+  &--focused {
     .va-file-upload-gallery-item__overlay {
-      z-index: 1;
+      z-index: 3;
+      opacity: 1;
+    }
+
+    .va-file-upload-gallery-item {
+      &__name {
+        color: var(--va-file-upload-gallery-item-text-hover);
+      }
     }
   }
 
@@ -176,18 +195,28 @@ $max-image-size: 8.5714rem;
     left: 0;
     flex-direction: column;
     padding: 0.5rem;
-    background: rgba($lighter-green, 0.8);
+    z-index: -1;
+    opacity: 0;
+  }
+
+  &__overlay-background {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
     z-index: -1;
   }
 
   &__image {
     width: 100%;
-    box-shadow: $card-box-shadow;
+    box-shadow: var(--va-box-shadow);
     object-fit: cover;
+    z-index: 1;
   }
 
   &__name {
-    color: $vue-darkest-blue;
+    color: var(--va-file-upload-gallery-item-text);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -228,5 +257,4 @@ $max-image-size: 8.5714rem;
     display: flex;
   }
 }
-
 </style>

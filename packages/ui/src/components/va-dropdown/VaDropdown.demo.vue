@@ -200,7 +200,7 @@
       </div>
     </VbCard>
 
-    <VbCard title="Fixed flag makes possible to ignore even `position: relative`">
+    <VbCard title="DisableAttachment flag makes possible to render component inside initial parent">
       <div style="width: 50px; height: 50px; overflow: hidden; position: relative; border: 1px gray solid;">
         <va-dropdown>
           <template #anchor>
@@ -214,7 +214,7 @@
         </va-dropdown>
       </div>
       <div style="width: 50px; height: 50px; overflow: hidden; position: relative; border: 1px gray solid;">
-        <va-dropdown fixed>
+        <va-dropdown disableAttachment>
           <template #anchor>
             <button>
               Click

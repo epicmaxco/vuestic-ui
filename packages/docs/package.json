@@ -5,7 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "build:ci": "NODE_OPTIONS=--max_old_space_size=4096 vue-cli-service build",
+    "build:ci": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "lint:style": "stylelint '**/*.{vue,html,css,scss}'",
     "test:unit": "vue-cli-service test:unit",
@@ -28,7 +28,7 @@
     "lodash": "^4.17.21",
     "markdown-it": "^12.0.6",
     "markdown-it-attrs": "^4.0.0",
-    "prismjs": "^1.24.0",
+    "prismjs": "^1.25.0",
     "raw-loader": "^4.0.2",
     "spa-http-server": "^0.9.0",
     "tiny-emitter": "^2.1.0",

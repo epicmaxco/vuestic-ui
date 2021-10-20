@@ -106,6 +106,15 @@
       </va-button>
     </VbCard>
 
+    <VbCard title="Global config -> componentsAll">
+      <div class="center">
+        <va-rating icon="heart" empty-icon="heart_empty" stateful></va-rating>
+        <va-button @click="setComponentsAllColor()">Should set dark red color on click</va-button>
+        <va-button color="#e815e1">Should stay purple</va-button>
+        <va-button @click="resetComponentsAllColor()">Reset componentsAll</va-button>
+      </div>
+    </VbCard>
+
     <VbCard title="Components config">
 
       Current Components config: <br />
@@ -152,11 +161,12 @@
 </template>
 
 <script>
-import { useGlobalConfig } from '../../services/global-config/global-config'
+import { getGlobalConfig, useGlobalConfig } from '../../services/global-config/global-config'
 import ColorMixin from '../../services/color-config/ColorMixin'
 import { useColors } from '../../services/color-config/color-config'
 import VaButton from '../va-button'
-import { computed, watchEffect } from 'vue'
+import { computed } from 'vue'
+import VaRating from '../va-rating/'
 // import VaBadge from '../va-badge'
 
 // import ConfigUsageTest from './ConfigUsageTest.vue'
@@ -166,6 +176,7 @@ import { computed, watchEffect } from 'vue'
 export default {
   mixins: [ColorMixin],
   components: {
+    VaRating,
     VaButton,
     // VaBadge,
     // VaConfig,
@@ -207,7 +218,6 @@ export default {
           ...config.components.VaButton,
           size: 'small',
           icon: 'room',
-          color: 'info',
           outline: true,
         },
         VaIcon: {
@@ -262,6 +272,20 @@ export default {
         },
       })
     },
+    setComponentsAllColor () {
+      this.setGlobalConfig({
+        ...getGlobalConfig(),
+        componentsAll: {
+          color: '#bd1313',
+        },
+      })
+    },
+    resetComponentsAllColor () {
+      this.setGlobalConfig({
+        ...getGlobalConfig(),
+        componentsAll: {},
+      })
+    },
     overrideConfig () {
       const newConfig = {
         components: {
@@ -287,3 +311,11 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+</style>
