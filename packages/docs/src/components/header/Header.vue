@@ -100,7 +100,7 @@ export default class Header extends mixins(PropsMixin) {
 
 <style lang="scss" scoped>
 @import "~vuestic-ui/src/styles/resources/resources";
-@import "~vuestic-ui/src/styles/global/global";
+@import "~vuestic-ui/src/styles/global";
 
 .header {
   width: 100%;

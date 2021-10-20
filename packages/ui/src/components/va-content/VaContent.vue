@@ -12,7 +12,7 @@ export default {
 
 <style lang="scss">
 @import '../../styles/resources/resources';
-@import '../../styles/global/global';
+@import '../../styles/global';
 
 .va-content {
   line-height: $line-height;
