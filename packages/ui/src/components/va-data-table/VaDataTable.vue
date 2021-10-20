@@ -12,7 +12,7 @@
       }"
       v-bind="$attrs"
     >
-<!--      Columns configuration (optional) through the colgroup slot-->
+<!-- Columns configuration (optional) through the colgroup slot-->
       <colgroup v-if="'colgroup' in slots">
         <slot
           name="colgroup"
@@ -27,7 +27,7 @@
           v-if="!hideDefaultHeader"
           class="va-data-table__tr"
         >
-<!--          Only if `selectable` prop is true, render an additional column and if `select-mode` is `"multiple"` then render a checkbox clicking which selects/unselects all the rows (rendered as indeterminate if some rows are selected, but not all of them)-->
+<!-- Only if `selectable` prop is true, render an additional column and if `select-mode` is `"multiple"` then render a checkbox clicking which selects/unselects all the rows (rendered as indeterminate if some rows are selected, but not all of them)-->
           <th
             v-if="selectable"
             class="va-data-table__th"
@@ -44,7 +44,7 @@
             />
           </th>
 
-<!--          Render the column headings (and apply sorting on clicks on a given heading). `column` here is an instance of `TableColumn`, not a prop, so don't be confused by WebStorm's warnings-->
+<!-- Render the column headings (and apply sorting on clicks on a given heading). `column` here is an instance of `TableColumn`, not a prop, so don't be confused by WebStorm's warnings-->
           <th
             v-for="column in columnsModel"
             :key="column.key"
@@ -54,7 +54,7 @@
             class="va-data-table__th"
           >
             <div class="va-data-table__th-wrapper">
-<!--            Render a custom `header(columnKey)` slot if it's provided, or a custom common `header` (also if provided) or the column's label-->
+<!-- Render a custom `header(columnKey)` slot if it's provided, or a custom common `header` (also if provided) or the column's label-->
               <span v-if="`header(${column.key})` in slots">
                 <slot
                   :name="`header(${column.key})`"
@@ -92,33 +92,32 @@
       <tbody class="va-data-table__tbody">
         <slot name="bodyPrepend" />
 
+        <tr
+          v-if="showNoDataHtml"
+          key="showNoDataHtml"
+        >
+          <td
+            :colspan="columnsModel.length + (selectable ? 1 : 0)"
+            v-html="noDataHtml"
+            class="no-data"
+          />
+        </tr>
+
+        <tr
+          v-if="showNoDataFilteredHtml"
+          key="showNoDataFilteredHtml"
+        >
+          <td
+            :colspan="columnsModel.length + (selectable ? 1 : 0)"
+            v-html="noDataFilteredHtml"
+            class="no-data"
+          />
+        </tr>
+
         <transition-group
           :name="animated ? 'table-transition' : null"
           appear
         >
-          <tr
-            v-if="showNoDataHtml"
-            key="showNoDataHtml"
-          >
-            <td
-              :colspan="columnsModel.length + (selectable ? 1 : 0)"
-              v-html="noDataHtml"
-              class="no-data"
-            />
-          </tr>
-
-          <tr
-            v-if="showNoDataFilteredHtml"
-            key="showNoDataFilteredHtml"
-          >
-            <td
-              :colspan="columnsModel.length + (selectable ? 1 : 0)"
-              v-html="noDataFilteredHtml"
-              class="no-data"
-            />
-          </tr>
-
-<!--        Render rows (`tr`s). Select a row on click or select a bunch of rows on shift-click-->
           <tr
             v-for="(row, index) in rows"
             :key="row.initialIndex"
@@ -130,9 +129,9 @@
             }"
             :style="rowCSSVariables"
           >
-<!--          Pagination. If there's some value to the `per-page` prop, then check if the element with that index should be visible. If no `per-page` then just render anyway.      -->
+<!-- Pagination. If there's some value to the `per-page` prop, then check if the element with that index should be visible. If no `per-page` then just render anyway.      -->
             <template v-if="perPage ? (index >= perPage * (currentPage - 1)) && (index < perPage * currentPage) : true">
-<!--          Render an additional column (for selectable tables only) with checkboxes to toggle selection-->
+<!-- Render an additional column (for selectable tables only) with checkboxes to toggle selection-->
               <td
                 v-if="selectable"
                 class="va-data-table__td"
@@ -147,14 +146,14 @@
                 />
               </td>
 
-<!--          Render cells for a given row-->
+<!-- Render cells for a given row-->
               <td
                 v-for="cell in row.cells"
                 :key="cell.column.key + cell.row.initialIndex"
                 :style="getCellCSSVariables(cell)"
                 class="va-data-table__td"
               >
-<!--            Substitute cell's content with with `cell(columnKey)` slot's value or common `cell` slot's value or (if neither exists) with that cell's actual value-->
+<!-- Substitute cell's content with `cell(columnKey)` slot's value or common `cell` slot's value or (if neither exists) with that cell's actual value-->
                 <slot
                   v-if="`cell(${cell.column.key})` in slots"
                   :name="`cell(${cell.column.key})`"
@@ -176,7 +175,7 @@
         <slot name="bodyAppend" />
       </tbody>
 
-<!--      Duplicate header into footer if `footerClone` prop is true-->
+<!-- Duplicate header into footer if `footerClone` prop is true-->
       <tfoot
         v-if="footerClone"
         class="va-data-table__tfoot"
@@ -187,7 +186,7 @@
           v-if="!hideDefaultHeader"
           class="va-data-table__tr"
         >
-<!--          Only if `selectable` prop is true, render an additional column and if `select-mode` is `"multiple"` then render a checkbox clicking which selects/unselects all the rows (rendered as indeterminate if some rows are selected, but not all of them)-->
+<!-- Only if `selectable` prop is true, render an additional column and if `select-mode` is `"multiple"` then render a checkbox clicking which selects/unselects all the rows (rendered as indeterminate if some rows are selected, but not all of them)-->
           <th
             v-if="selectable"
             class="va-data-table__th"
@@ -204,7 +203,7 @@
             />
           </th>
 
-<!--          Render the column headings (and apply sorting on clicks on a given heading). `column` here is an instance of `TableColumn`, not a prop, so don't be confused by WebStorm's warnings-->
+<!-- Render the column headings (and apply sorting on clicks on a given heading). `column` here is an instance of `TableColumn`, not a prop, so don't be confused by WebStorm's warnings-->
           <th
             v-for="column in columnsModel"
             :key="column.key"
@@ -214,7 +213,7 @@
             class="va-data-table__th"
           >
             <div class="va-data-table__th-wrapper">
-<!--            Render a custom `footer(columnKey)` slot if it's provided, or a custom common `footer` (also if provided) or the column's label-->
+<!-- Render a custom `footer(columnKey)` slot if it's provided, or a custom common `footer` (also if provided) or the column's label-->
               <span v-if="`footer(${column.key})` in slots">
                 <slot
                   :name="`footer(${column.key})`"
@@ -371,9 +370,8 @@ export default defineComponent({
     },
   },
 
-  // `modelValue` is selected items
   emits: [
-    'update:modelValue',
+    'update:modelValue', // `modelValue` is selected items
     'update:sortBy',
     'update:sortingOrder',
     'filtered',
@@ -564,6 +562,23 @@ export default defineComponent({
         background-color: var(--selected-color);
       }
     }
+
+    &.table-transition-move {
+      transition: transform var(--va-data-table-transition);
+    }
+
+    &.table-transition-leave-active {
+      transition: opacity var(--va-data-table-transition);
+    }
+
+    &.table-transition-enter-active {
+      transition: opacity var(--va-data-table-transition) 0.3s;
+    }
+
+    &.table-transition-enter-from,
+    &.table-transition-leave-to {
+      opacity: 0;
+    }
   }
 
   &.striped {
@@ -596,27 +611,6 @@ export default defineComponent({
         }
       }
     }
-  }
-
-  .table-transition-move {
-    transition: var(--va-data-table-transition-move);
-  }
-
-  .table-transition-enter-active,
-  .table-transition-leave-active {
-    transition: var(--va-data-table-transition-active);
-  }
-
-  .table-transition-enter-from,
-  .table-transition-leave-to {
-    opacity: 0;
-    line-height: 0;
-  }
-
-  .table-transition-enter-to,
-  .table-transition-leave-from {
-    opacity: 1;
-    line-height: unset;
   }
 }
 </style>
