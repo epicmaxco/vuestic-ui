@@ -29,7 +29,7 @@
 </template>
 
 <script lang="ts">
-import { ComponentOptionsBase, computed, DefineComponent, defineComponent, PropType } from 'vue'
+import { computed, defineComponent, PropType } from 'vue'
 import VaTimePicker from '../va-time-picker/VaTimePicker.vue'
 import VaInput from '../va-input/VaInput.vue'
 import { useSyncProp } from '../../composables/useSyncProp'

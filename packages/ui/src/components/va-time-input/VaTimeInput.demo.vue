@@ -36,7 +36,7 @@
     </VbCard>
 
     <VbCard title="period">
-      <VaTimeInput :period="false" v-model="value" />
+      <VaTimeInput :ampm="true" v-model="value" />
     </VbCard>
 
     <VbCard title="readonly and disabled">
@@ -62,7 +62,6 @@ export default {
     return {
       value: new Date(2021, 2, 20, 23, 5, 53),
       undefValue: undefined,
-      period: false,
       validationRules: [(value) => value.getHours() > 12 || 'Should be PM'],
     }
   },

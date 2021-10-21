@@ -18,8 +18,8 @@ interface ValidationProps {
 
 export const useValidationProps = {
   modelValue: { },
-  error: { type: Boolean },
-  errorMessages: { type: [Array, String] as PropType<string[] | string> },
+  error: { type: Boolean, default: undefined },
+  errorMessages: { type: [Array, String] as PropType<string[] | string>, default: undefined },
   errorCount: { type: [String, Number], default: 1 },
   rules: { type: Array as PropType<ValidationRule[]>, default: [] },
   success: { type: Boolean, default: false },
