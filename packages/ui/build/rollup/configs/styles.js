@@ -1,7 +1,7 @@
 import { defineConfig } from 'rollup'
 import postcssPlugin from 'rollup-plugin-postcss'
-import { nodeResolve as nodeResolvePlugin } from '@rollup/plugin-node-resolve'
 import deleteJunkPlugin from '../plugins/rollup-delete-junk'
+import transformScssPlugin from '../plugins/rollup-transofrm-scss'
 import copyPlugin from 'rollup-plugin-copy'
 
 /** Used for tree-shaking. It creates separate modules in ESM format, that can be tree-shakable by any bundler. */
@@ -17,13 +17,16 @@ export function createStylesConfig ({ input, outDir = 'dist/', minify = false })
     },
 
     plugins: [
-      deleteJunkPlugin({ dirPath: outDir, deleteFilesRegex: /[.]js|[.].js.map$/ }),
       postcssPlugin({
         minimize: minify,
         extract: 'vuestic-ui.css',
         include: 'src/styles/**/*.scss',
       }),
-      nodeResolvePlugin(),
+      transformScssPlugin({
+        inputDir: inputPathWithoutFilename,
+        outDir: `${outDir}/styles`,
+        filter: /.*\.scss/,
+      }),
       copyPlugin({
         targets: [
           {
@@ -33,6 +36,7 @@ export function createStylesConfig ({ input, outDir = 'dist/', minify = false })
           },
         ],
       }),
+      deleteJunkPlugin({ dirPath: outDir, deleteFilesRegex: /[.]js|[.].js.map$/ }),
     ],
   })
 }
