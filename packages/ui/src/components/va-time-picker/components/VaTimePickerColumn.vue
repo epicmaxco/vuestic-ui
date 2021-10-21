@@ -24,14 +24,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, nextTick, onMounted, Ref, ref, watch } from 'vue'
+import { defineComponent, nextTick, onMounted, PropType, ref, watch } from 'vue'
 import { useSyncProp } from '../../../composables/useSyncProp'
-import { useArrayRefs } from '../../../composables/useArrayRefs'
 import { useHover } from '../../../composables/useHover'
 
 export default defineComponent({
   props: {
-    items: { type: Array, default: () => [] },
+    items: { type: Array as PropType<string[] | number[]>, default: () => [] },
     activeItemIndex: { type: Number, default: 0 },
   },
 
