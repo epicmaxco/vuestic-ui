@@ -4,7 +4,7 @@
     v-model="isOpenSync"
     :offset="[0, 10]"
     :close-on-content-click="false"
-    :disabled="disabled"
+    :disabled="disabled || readonly"
     position="bottom-start"
   >
     <template #anchor>
