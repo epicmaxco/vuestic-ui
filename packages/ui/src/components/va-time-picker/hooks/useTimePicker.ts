@@ -48,7 +48,7 @@ const createHoursColumn = (props: TimePickerProps, modelValue: ModelValueRef, is
       if (!modelValue.value) { return -1 }
 
       if (props.ampm) {
-        const h = modelValue.value.getHours() - 12 * Number(isPM.value)
+        const h = from24to12(modelValue.value.getHours() - 12 * Number(isPM.value))
         return items.value.findIndex((i) => i === h)
       }
 
