@@ -1,5 +1,12 @@
 import { ManualApiOptions } from '../../../DocsApi/ManualApiOptions'
 import VaTimePickerAPIOptions from '../va-time-picker/api-options'
+import InputApiOptions from '../va-input/api-options'
+
+const mapObject = <T, K>(obj: Record<string, T>, cb: (item: T, key: string) => K) => {
+  const newObj: Record<string, K> = {}
+  Object.keys(obj).forEach((key) => { newObj[key] = cb(obj[key], key) })
+  return newObj
+}
 
 export default {
   props: {
@@ -13,5 +20,6 @@ export default {
   methods: {
   },
   slots: {
+    ...mapObject(InputApiOptions.slots!, (slot, key) => ({ ...slot, translation: `api.VaInput.slots.${key}` })),
   },
 } as ManualApiOptions
