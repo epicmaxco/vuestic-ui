@@ -143,7 +143,7 @@ export default class Sidebar extends Vue.with(Props) {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import "~vuestic-ui/src/styles/resources/resources.scss";
 
 .sidebar {
@@ -187,7 +187,7 @@ export default class Sidebar extends Vue.with(Props) {
     }
   }
 
-  .va-sidebar {
+  &.va-sidebar {
     z-index: 1;
     height: 100%;
     min-width: 16rem;
@@ -197,7 +197,7 @@ export default class Sidebar extends Vue.with(Props) {
       min-width: 0;
     }
 
-    @include media-breakpoint-down(xs) {
+    @include media-breakpoint-down(sm) {
       z-index: 100;
       position: absolute;
     }
@@ -217,27 +217,27 @@ export default class Sidebar extends Vue.with(Props) {
     }
 
     .va-sidebar-item--active {
-      color: var(--primary, #4591e3);
+      color: var(--va-dark, #323742) !important;
 
       .va-sidebar-item-title {
-        color: var(--primary, #4591e3);
+        color: var(--va-dark, #323742) !important;
       }
     }
+  }
 
-    &__child {
-      &__label {
-        padding-left: 2rem;
-        text-align: left;
-      }
+  .va-sidebar__child {
+    &__label {
+      padding-left: 2rem;
+      text-align: left;
+    }
 
-      .va-sidebar-item-content {
-        padding-left: 3rem;
-      }
+    .va-sidebar-item-content {
+      padding-left: 3rem;
+    }
 
-      &:first-child {
-        .va-sidebar__child__label {
-          padding-top: 0;
-        }
+    &:first-child {
+      .va-sidebar__child__label {
+        padding-top: 0;
       }
     }
   }
