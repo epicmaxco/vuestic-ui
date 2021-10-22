@@ -2814,7 +2814,8 @@
       "codeAnnotation": "If everything's fine then you can finally install the plugin with the following command (**don't forget to commit**):"
     },
     "codesandbox": {
-      "title": "CodeSandbox"
+      "title": "CodeSandbox",
+      "button": "Try Vuestic-UI on CodeSandbox"
     },
     "treeShaking": {
       "title": "Tree shaking",

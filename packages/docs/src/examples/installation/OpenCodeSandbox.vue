@@ -5,8 +5,9 @@
     <va-button
       type="submit"
       outline
+      :rounded="false"
     >
-      {{ $t('all.examplesTexts.button') }}
+      {{ $t('installation.codesandbox.button') }}
     </va-button>
   </form>
   </div>
