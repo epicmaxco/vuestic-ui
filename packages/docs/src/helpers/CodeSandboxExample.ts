@@ -17,7 +17,9 @@ const babel = `export const presets = [
 ];`
 
 const defaultExample = `<template>
-  <div>Hello, Vuestic-UI</div>
+  <div class="pa-4">
+    Hello, Vuestic-UI v${packageUi.version}
+  </div>
 </template>
 `
 
