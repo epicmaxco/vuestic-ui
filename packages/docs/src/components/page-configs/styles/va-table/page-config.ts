@@ -2,6 +2,7 @@ import { ApiDocsBlock } from '../../../../types/configTypes'
 import { DocsHelper } from '../../../../helpers/DocsHelper'
 
 const configPath = 'styles/va-table'
+
 const config: ApiDocsBlock[] = [
   DocsHelper.title('table.title'),
   DocsHelper.paragraph('table.summaryText'),

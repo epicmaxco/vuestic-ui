@@ -6,6 +6,7 @@ import vaBreadcrumbsApiOptions from './va-breadcrumbs-api-options'
 import vaBreadcrumbsItemApiOptions from './va-breadcrumbs-item-api-options'
 
 const configPath = 'ui-elements/va-breadcrumbs'
+
 const config: ApiDocsBlock[] = [
   DocsHelper.title('breadcrumbs.title'),
   DocsHelper.paragraph('breadcrumbs.text'),

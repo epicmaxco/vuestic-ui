@@ -4,6 +4,7 @@ import VaAffix from 'vuestic-ui/src/components/va-affix/VaAffix.vue'
 import apiOptions from './api-options'
 
 const configPath = 'ui-elements/va-affix'
+
 const config: ApiDocsBlock[] = [
   DocsHelper.title('affix.title'),
   DocsHelper.paragraph('affix.summaryText'),

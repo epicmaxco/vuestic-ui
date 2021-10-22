@@ -4,6 +4,7 @@ import VaAlert from 'vuestic-ui/src/components/va-alert/VaAlert.vue'
 import apiOptions from './api-options'
 
 const configPath = 'ui-elements/va-alert'
+
 const config: ApiDocsBlock[] = [
   DocsHelper.title('alert.title'),
   DocsHelper.paragraph('alert.summaryText'),

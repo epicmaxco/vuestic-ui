@@ -4,6 +4,7 @@ import VaButtonGroup from 'vuestic-ui/src/components/va-button-group/VaButtonGro
 import apiOptions from './api-options'
 
 const configPath = 'ui-elements/va-button-group'
+
 const config: ApiDocsBlock[] = [
   DocsHelper.title('buttonGroup.title'),
   DocsHelper.paragraph('buttonGroup.summaryText'),

@@ -4,6 +4,7 @@ import VaAppBar from 'vuestic-ui/src/components/va-app-bar/VaAppBar.vue'
 import apiOptions from './api-options'
 
 const configPath = 'ui-elements/va-app-bar'
+
 const config: ApiDocsBlock[] = [
   DocsHelper.title('appBar.title'),
   DocsHelper.paragraph('appBar.summaryText'),

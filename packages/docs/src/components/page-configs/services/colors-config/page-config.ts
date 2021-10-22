@@ -3,6 +3,7 @@ import { DocsHelper } from '../../../../helpers/DocsHelper'
 import { api, reactivity, otherServices } from './sections'
 
 const configPath = 'services/colors-config'
+
 const config: ApiDocsBlock[] = [
   DocsHelper.title('colorsConfig.title'),
   DocsHelper.paragraph('colorsConfig.about'),

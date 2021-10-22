@@ -2,6 +2,7 @@ import { ApiDocsBlock } from '../../../../types/configTypes'
 import { DocsHelper } from '../../../../helpers/DocsHelper'
 
 const configPath = 'styles/typography'
+
 const config: ApiDocsBlock[] = [
   DocsHelper.title('typography.title'),
   DocsHelper.paragraph('typography.description'),

@@ -4,6 +4,7 @@ import VaBadge from 'vuestic-ui/src/components/va-badge/VaBadge.vue'
 import apiOptions from './api-options'
 
 const configPath = 'ui-elements/va-badge'
+
 const config: ApiDocsBlock[] = [
   DocsHelper.title('badge.title'),
   DocsHelper.paragraph('badge.summaryText'),

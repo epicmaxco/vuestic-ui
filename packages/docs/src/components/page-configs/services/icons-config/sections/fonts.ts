@@ -3,6 +3,7 @@ import { DocsHelper } from '../../../../../helpers/DocsHelper'
 import { fontCodeExample, fontTransformationsExample } from '../code-examples'
 
 const configPath = 'services/icons-config'
+
 export const config: ApiDocsBlock[] = [
   DocsHelper.subtitle('iconsConfig.fonts.title'),
   DocsHelper.paragraph('iconsConfig.fonts.about'),

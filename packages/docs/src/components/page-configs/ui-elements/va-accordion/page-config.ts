@@ -4,6 +4,7 @@ import VaAccordion from 'vuestic-ui/src/components/va-accordion/VaAccordion.vue'
 import apiOptions from './api-options'
 
 const configPath = 'ui-elements/va-accordion'
+
 const config: ApiDocsBlock[] = [
   DocsHelper.title('accordion.title'),
   DocsHelper.paragraph('accordion.summaryText'),

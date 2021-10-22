@@ -4,6 +4,7 @@ import VaBacktop from 'vuestic-ui/src/components/va-backtop/VaBacktop.vue'
 import apiOptions from './api-options'
 
 const configPath = 'ui-elements/va-backtop'
+
 const config: ApiDocsBlock[] = [
   DocsHelper.title('backtop.title'),
   DocsHelper.paragraph('backtop.summaryText'),

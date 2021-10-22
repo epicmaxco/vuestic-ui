@@ -4,6 +4,7 @@ import { componentsConfigCodeExample, componentsConfigCodeExampleDefaultSizes, c
 import { api } from './sections'
 
 const configPath = 'services/components-config'
+
 const config: ApiDocsBlock[] = [
   DocsHelper.title('componentsConfig.title'),
   DocsHelper.paragraph('componentsConfig.subtitle'),

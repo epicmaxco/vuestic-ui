@@ -4,6 +4,7 @@ import VaButtonDropdown from 'vuestic-ui/src/components/va-button-dropdown/VaBut
 import apiOptions from './api-options'
 
 const configPath = 'ui-elements/va-button-dropdown'
+
 const config: ApiDocsBlock[] = [
   DocsHelper.title('buttonDropdown.title'),
   DocsHelper.paragraph('buttonDropdown.summaryText'),

@@ -4,6 +4,7 @@ import VaAvatar from 'vuestic-ui/src/components/va-avatar/VaAvatar.vue'
 import apiOptions from './api-options'
 
 const configPath = 'ui-elements/va-avatar'
+
 const config: ApiDocsBlock[] = [
   DocsHelper.title('avatar.title'),
   DocsHelper.paragraph('avatar.summaryText'),
