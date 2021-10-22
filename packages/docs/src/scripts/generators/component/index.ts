@@ -51,7 +51,7 @@ module.exports = {
       },
       {
         type: 'add',
-        path: `${docsBasePath}/examples/va-{{kebabCase name}}/Example.vue`,
+        path: `${docsBasePath}/components/page-configs/ui-elements/va-{{kebabCase name}}/examples/Example.vue`,
         templateFile: './component/Example.vue.hbs',
         abortOnFail: false,
       },
