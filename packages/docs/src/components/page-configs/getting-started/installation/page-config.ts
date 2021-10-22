@@ -41,7 +41,7 @@ const config: ApiDocsBlock[] = [
   DocsHelper.code('vue add vuestic-ui', 'bash'),
 
   DocsHelper.subtitle('installation.codesandbox.title'),
-  DocsHelper.example('installation/OpenCodeSandbox', { hideCode: true }),
+  DocsHelper.component('getting-started/installation', 'OpenCodeSandbox'),
 
   DocsHelper.subtitle('installation.treeShaking.title'),
   DocsHelper.paragraph('installation.treeShaking.description'),

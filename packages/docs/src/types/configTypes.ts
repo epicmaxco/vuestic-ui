@@ -12,6 +12,8 @@ export type CodeString = string
 export type CodeLanguage = 'javascript' | 'scss' | 'bash' | 'html'
 // example: for `/examples/va-affix/Bottom.vue` use `va-affix/Bottom.vue` here.
 export type PathToExample = string
+// example: for `/page-configs/ui-elements/va-affix/components` use `ui-elements/va-affix` here.
+export type PathToDirectory = string
 export type ExampleOptions = {
   hideCode?: boolean,
   forceShowCode?: boolean
@@ -28,6 +30,7 @@ export enum BlockType {
   PARAGRAPH = 'PARAGRAPH',
   HEADLINE = 'HEADLINE',
   EXAMPLE = 'EXAMPLE',
+  COMPONENT = 'COMPONENT',
   API = 'API',
   CODE = 'CODE',
   TABLE = 'TABLE',
@@ -59,6 +62,11 @@ export type ApiDocsBlock =
     type: BlockType.EXAMPLE,
     component: PathToExample, // path to example
     exampleOptions?: ExampleOptions,
+  }
+  | {
+  type: BlockType.COMPONENT,
+  path: PathToDirectory, // path to directory
+  component: string, // component name
   }
   | {
     type: BlockType.CODE,

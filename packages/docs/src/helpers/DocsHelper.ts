@@ -5,6 +5,7 @@ import {
   ApiDocsBlock,
   TextBlock,
   PathToExample,
+  PathToDirectory,
   CodeString,
   LinkOptions,
   ExampleOptions, CodeLanguage, ListBlock,
@@ -43,6 +44,13 @@ export const DocsHelper = {
       type: BlockType.EXAMPLE,
       component,
       exampleOptions: exampleOptions,
+    }
+  },
+  component: (path: PathToDirectory, component: string): ApiDocsBlock => {
+    return {
+      type: BlockType.COMPONENT,
+      path,
+      component,
     }
   },
   code: (code: CodeString, language: CodeLanguage = 'javascript'): ApiDocsBlock => {
