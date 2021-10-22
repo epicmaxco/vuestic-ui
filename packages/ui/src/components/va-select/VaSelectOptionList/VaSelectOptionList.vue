@@ -74,8 +74,8 @@ class SelectOptionListProps {
   multiple = prop<boolean>({ type: Boolean, default: false })
   search = prop<string>({ type: String, default: '' })
 
-  hoveredOption = prop<string | object>({
-    type: [String, Object],
+  hoveredOption = prop<string | number | object>({
+    type: [String, Number, Object],
     default: null,
   })
 
