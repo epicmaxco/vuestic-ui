@@ -3,6 +3,8 @@ import { DocsHelper } from '../../../../helpers/DocsHelper'
 import VaNavbar from 'vuestic-ui/src/components/va-navbar/VaNavbar.vue'
 import apiOptions from './api-options'
 
+const configPath = 'ui-elements/va-navbar'
+
 const config: ApiDocsBlock[] = [
   DocsHelper.title('navbar.title'),
 
@@ -11,17 +13,20 @@ const config: ApiDocsBlock[] = [
   ...DocsHelper.exampleBlock(
     'navbar.examples.default.title',
     'navbar.examples.default.text',
-    'va-navbar/Default',
+    configPath,
+    'Default',
   ),
   ...DocsHelper.exampleBlock(
     'navbar.examples.colors.title',
     'navbar.examples.colors.text',
-    'va-navbar/Colors',
+    configPath,
+    'Colors',
   ),
   ...DocsHelper.exampleBlock(
     'navbar.examples.shape.title',
     'navbar.examples.shape.text',
-    'va-navbar/Shape',
+    configPath,
+    'Shape',
   ),
 
   DocsHelper.subtitle('all.api'),

@@ -3,6 +3,8 @@ import { DocsHelper } from '../../../../helpers/DocsHelper'
 import VaHover from 'vuestic-ui/src/components/va-hover/VaHover.vue'
 import apiOptions from './api-options'
 
+const configPath = 'ui-elements/va-hover'
+
 const config: ApiDocsBlock[] = [
   DocsHelper.title('hover.title'),
   DocsHelper.paragraph('hover.summaryText'),
@@ -12,17 +14,20 @@ const config: ApiDocsBlock[] = [
   ...DocsHelper.exampleBlock(
     'hover.examples.vModel.title',
     'hover.examples.vModel.text',
-    'va-hover/VModel',
+    configPath,
+    'VModel',
   ),
   ...DocsHelper.exampleBlock(
     'hover.examples.slot.title',
     'hover.examples.slot.text',
-    'va-hover/Slot',
+    configPath,
+    'Slot',
   ),
   ...DocsHelper.exampleBlock(
     'hover.examples.disabled.title',
     'hover.examples.disabled.text',
-    'va-hover/Disabled',
+    configPath,
+    'Disabled',
   ),
 
   DocsHelper.subtitle('all.api'),

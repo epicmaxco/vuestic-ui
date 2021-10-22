@@ -50,6 +50,10 @@ export default {
       type: [Object, String],
       default: undefined,
     },
+    path: {
+      type: String,
+      default: undefined,
+    },
     exampleOptions: {
       type: Object,
       default: () => ({}),
@@ -69,16 +73,17 @@ export default {
 
       return props.value
     })
+    const path = ref(props.path)
     const component = shallowRef(null)
 
     importComponent()
     importTemplate()
 
     async function importComponent () {
-      component.value = (await readComponent(file.value)).default
+      component.value = (await readComponent(path.value, file.value)).default
     }
     async function importTemplate () {
-      const componentTemplate = (await readTemplate(file.value)).default
+      const componentTemplate = (await readTemplate(path.value, file.value)).default
       parse(componentTemplate)
     }
     function parse (res) {

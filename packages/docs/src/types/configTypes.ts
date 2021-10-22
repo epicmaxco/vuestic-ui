@@ -60,7 +60,8 @@ export type ApiDocsBlock =
   | ListBlock
   | {
     type: BlockType.EXAMPLE,
-    component: PathToExample, // path to example
+    path: PathToDirectory, // path to directory
+    component: string, // component name
     exampleOptions?: ExampleOptions,
   }
   | {

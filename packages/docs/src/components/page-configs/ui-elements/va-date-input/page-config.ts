@@ -4,6 +4,8 @@ import VaDateInput from 'vuestic-ui/src/components/va-date-input/VaDateInput.vue
 import apiOptions from './api-options'
 import GlobalConfigCode from './code/global-config'
 
+const configPath = 'ui-elements/va-date-input'
+
 const config: ApiDocsBlock[] = [
   DocsHelper.title('dateInput.title'),
   DocsHelper.paragraph('dateInput.description'),
@@ -17,43 +19,50 @@ const config: ApiDocsBlock[] = [
   ...DocsHelper.exampleBlock(
     'dateInput.examples.default.title',
     'dateInput.examples.default.text',
-    'va-date-input/default',
+    configPath,
+    'default',
   ),
 
   ...DocsHelper.exampleBlock(
     'dateInput.examples.resetOnClose.title',
     'dateInput.examples.resetOnClose.text',
-    'va-date-input/resetOnClose',
+    configPath,
+    'resetOnClose',
   ),
 
   ...DocsHelper.exampleBlock(
     'dateInput.examples.isOpen.title',
     'dateInput.examples.isOpen.text',
-    'va-date-input/isOpen',
+    configPath,
+    'isOpen',
   ),
 
   ...DocsHelper.exampleBlock(
     'dateInput.examples.inputProps.title',
     'dateInput.examples.inputProps.text',
-    'va-date-input/inputProps',
+    configPath,
+    'inputProps',
   ),
 
   ...DocsHelper.exampleBlock(
     'dateInput.examples.formatting.title',
     'dateInput.examples.formatting.text',
-    'va-date-input/formatting',
+    configPath,
+    'formatting',
   ),
 
   ...DocsHelper.exampleBlock(
     'dateInput.examples.input.title',
     'dateInput.examples.input.text',
-    'va-date-input/input',
+    configPath,
+    'input',
   ),
 
   ...DocsHelper.exampleBlock(
     'dateInput.examples.advancedFormatting.title',
     'dateInput.examples.advancedFormatting.text',
-    'va-date-input/advancedFormatting',
+    configPath,
+    'advancedFormatting',
   ),
 
   DocsHelper.paragraph('dateInput.examples.formattingGlobalConfig.text'),

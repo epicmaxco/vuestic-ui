@@ -1,12 +1,14 @@
 import { ApiDocsBlock } from '../../../../types/configTypes'
 import { DocsHelper } from '../../../../helpers/DocsHelper'
 
+const configPath = 'styles/grid'
+
 const config: ApiDocsBlock[] = [
   DocsHelper.title('grid.title'),
   DocsHelper.paragraph('grid.summaryText'),
 
   DocsHelper.headline('grid.examples.default.title'),
-  DocsHelper.example('grid/Default'),
+  DocsHelper.example(configPath, 'Default'),
 
   DocsHelper.headline('grid.examples.breakpoints.title'),
   DocsHelper.paragraph('grid.examples.breakpoints.text'),
@@ -15,7 +17,7 @@ const config: ApiDocsBlock[] = [
   DocsHelper.paragraph('grid.examples.breakpoints.sizes.md'),
   DocsHelper.paragraph('grid.examples.breakpoints.sizes.lg'),
   DocsHelper.paragraph('grid.examples.breakpoints.sizes.xl'),
-  DocsHelper.example('grid/Breakpoints'),
+  DocsHelper.example(configPath, 'Breakpoints'),
 
   DocsHelper.headline('grid.examples.offsets.title'),
   DocsHelper.paragraph('grid.examples.offsets.text'),
@@ -24,7 +26,7 @@ const config: ApiDocsBlock[] = [
   DocsHelper.paragraph('grid.examples.offsets.sizes.md'),
   DocsHelper.paragraph('grid.examples.offsets.sizes.lg'),
   DocsHelper.paragraph('grid.examples.offsets.sizes.xl'),
-  DocsHelper.example('grid/Offsets'),
+  DocsHelper.example(configPath, 'Offsets'),
 
   DocsHelper.headline('grid.examples.gutters.title'),
   DocsHelper.paragraph('grid.examples.gutters.text'),
@@ -33,7 +35,7 @@ const config: ApiDocsBlock[] = [
   DocsHelper.paragraph('grid.examples.gutters.sizes.md'),
   DocsHelper.paragraph('grid.examples.gutters.sizes.lg'),
   DocsHelper.paragraph('grid.examples.gutters.sizes.xl'),
-  DocsHelper.example('grid/Gutters'),
+  DocsHelper.example(configPath, 'Gutters'),
 
   DocsHelper.subtitle('all.api'),
   DocsHelper.headline('grid.api.align.title'),

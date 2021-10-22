@@ -3,6 +3,8 @@ import { DocsHelper } from '../../../../helpers/DocsHelper'
 import VaSelect from 'vuestic-ui/src/components/va-select/VaSelect.vue'
 import apiOptions from './api-options'
 
+const configPath = 'ui-elements/va-select'
+
 const config: ApiDocsBlock[] = [
   DocsHelper.title('select.title'),
   DocsHelper.paragraph('select.summaryText'),
@@ -10,54 +12,62 @@ const config: ApiDocsBlock[] = [
   DocsHelper.subtitle('all.examples'),
 
   DocsHelper.headline('select.examples.default'),
-  DocsHelper.example('va-select/Default'),
+  DocsHelper.example(configPath, 'Default'),
 
   ...DocsHelper.exampleBlock(
     'select.examples.styles.title',
     'select.examples.styles.text',
-    'va-select/Styles',
+    configPath,
+    'Styles',
   ),
   ...DocsHelper.exampleBlock(
     'select.examples.variations.title',
     'select.examples.variations.text',
-    'va-select/Variations',
+    configPath,
+    'Variations',
   ),
 
   DocsHelper.headline('select.examples.decorators.title'),
-  DocsHelper.example('va-select/Decorators'),
+  DocsHelper.example(configPath, 'Decorators'),
 
   DocsHelper.headline('select.examples.objectOptions.title'),
-  DocsHelper.example('va-select/ObjectOptions'),
+  DocsHelper.example(configPath, 'ObjectOptions'),
 
   ...DocsHelper.exampleBlock(
     'select.examples.trackBy.title',
     'select.examples.trackBy.text',
-    'va-select/TrackBy',
+    configPath,
+    'TrackBy',
   ),
   ...DocsHelper.exampleBlock(
     'select.examples.slots.title',
     'select.examples.slots.text',
-    'va-select/Slots',
+    configPath,
+    'Slots',
   ),
   ...DocsHelper.exampleBlock(
     'select.examples.state.title',
     'select.examples.state.text',
-    'va-select/State',
+    configPath,
+    'State',
   ),
   ...DocsHelper.exampleBlock(
     'select.examples.chips.title',
     'select.examples.chips.text',
-    'va-select/Chips',
+    configPath,
+    'Chips',
   ),
   ...DocsHelper.exampleBlock(
     'select.examples.searchable.title',
     'select.examples.searchable.text',
-    'va-select/Searchable',
+    configPath,
+    'Searchable',
   ),
   ...DocsHelper.exampleBlock(
     'select.examples.allowCreate.title',
     'select.examples.allowCreate.text',
-    'va-select/AllowCreate',
+    configPath,
+    'AllowCreate',
   ),
 
   DocsHelper.headline('select.examples.validation.title'),
@@ -66,7 +76,7 @@ const config: ApiDocsBlock[] = [
   DocsHelper.paragraph('select.examples.keyboardNavigation.moves'),
   DocsHelper.paragraph('select.examples.keyboardNavigation.selects'),
   DocsHelper.paragraph('select.examples.keyboardNavigation.hints'),
-  DocsHelper.example('va-select/Validation'),
+  DocsHelper.example(configPath, 'Validation'),
 
   DocsHelper.subtitle('all.api'),
   DocsHelper.api(VaSelect, apiOptions),

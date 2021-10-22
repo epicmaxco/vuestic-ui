@@ -1,17 +1,17 @@
 // File for documentation helper functions
 
-export const readTemplate = async (fileName: string): Promise<any> => {
+export const readTemplate = async (path: string, fileName: string): Promise<any> => {
   return await import(
     /* webpackChunkName: "examples" */
     /* webpackMode: "lazy-once" */
-    `!raw-loader!../examples/${fileName}.vue`)
+    `!raw-loader!../components/page-configs/${path}/examples/${fileName}.vue`)
 }
 
-export const readComponent = async (fileName: string): Promise<any> => {
+export const readComponent = async (path: string, fileName: string): Promise<any> => {
   return await import(
     /* webpackChunkName: "examples" */
     /* webpackMode: "lazy-once" */
-    `../examples/${fileName}.vue`)
+    `../components/page-configs/${path}/examples/${fileName}.vue`)
 }
 
 export const readDocsComponent = async (path: string, fileName: string): Promise<any> => {

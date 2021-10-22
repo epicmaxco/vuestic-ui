@@ -3,6 +3,8 @@ import { DocsHelper } from '../../../../helpers/DocsHelper'
 import VaRating from 'vuestic-ui/src/components/va-rating/VaRating.vue'
 import apiOptions from './api-options'
 
+const configPath = 'ui-elements/va-rating'
+
 const config: ApiDocsBlock[] = [
   DocsHelper.title('rating.title'),
   DocsHelper.paragraph('rating.summaryText'),
@@ -12,47 +14,56 @@ const config: ApiDocsBlock[] = [
   ...DocsHelper.exampleBlock(
     'rating.examples.default.title',
     'rating.examples.default.text',
-    'va-rating/Default',
+    configPath,
+    'Default',
   ),
   ...DocsHelper.exampleBlock(
     'rating.examples.color.title',
     'rating.examples.color.text',
-    'va-rating/Color',
+    configPath,
+    'Color',
   ),
   ...DocsHelper.exampleBlock(
     'rating.examples.size.title',
     'rating.examples.size.text',
-    'va-rating/Size',
+    configPath,
+    'Size',
   ),
   ...DocsHelper.exampleBlock(
     'rating.examples.hover.title',
     'rating.examples.hover.text',
-    'va-rating/Hover',
+    configPath,
+    'Hover',
   ),
   ...DocsHelper.exampleBlock(
     'rating.examples.halves.title',
     'rating.examples.halves.text',
-    'va-rating/Halves',
+    configPath,
+    'Halves',
   ),
   ...DocsHelper.exampleBlock(
     'rating.examples.numbers.title',
     'rating.examples.numbers.text',
-    'va-rating/Numbers',
+    configPath,
+    'Numbers',
   ),
   ...DocsHelper.exampleBlock(
     'rating.examples.texts.title',
     'rating.examples.texts.text',
-    'va-rating/Texts',
+    configPath,
+    'Texts',
   ),
   ...DocsHelper.exampleBlock(
     'rating.examples.clearable.title',
     'rating.examples.clearable.text',
-    'va-rating/Clearable',
+    configPath,
+    'Clearable',
   ),
   ...DocsHelper.exampleBlock(
     'rating.examples.customIcons.title',
     'rating.examples.customIcons.text',
-    'va-rating/CustomIcons',
+    configPath,
+    'CustomIcons',
   ),
 
   DocsHelper.subtitle('all.api'),

@@ -3,6 +3,7 @@ import { DocsHelper } from '../../../../helpers/DocsHelper'
 import VaButtonGroup from 'vuestic-ui/src/components/va-button-group/VaButtonGroup.vue'
 import apiOptions from './api-options'
 
+const configPath = 'ui-elements/va-button-group'
 const config: ApiDocsBlock[] = [
   DocsHelper.title('buttonGroup.title'),
   DocsHelper.paragraph('buttonGroup.summaryText'),
@@ -11,32 +12,38 @@ const config: ApiDocsBlock[] = [
   ...DocsHelper.exampleBlock(
     'buttonGroup.examples.default.title',
     'buttonGroup.examples.default.text',
-    'va-button-group/Default',
+    configPath,
+    'Default',
   ),
   ...DocsHelper.exampleBlock(
     'buttonGroup.examples.colors.title',
     'buttonGroup.examples.colors.text',
-    'va-button-group/Colors',
+    configPath,
+    'Colors',
   ),
   ...DocsHelper.exampleBlock(
     'buttonGroup.examples.gradient.title',
     'buttonGroup.examples.gradient.text',
-    'va-button-group/Gradient',
+    configPath,
+    'Gradient',
   ),
   ...DocsHelper.exampleBlock(
     'buttonGroup.examples.sizes.title',
     'buttonGroup.examples.sizes.text',
-    'va-button-group/Sizes',
+    configPath,
+    'Sizes',
   ),
   ...DocsHelper.exampleBlock(
     'buttonGroup.examples.styles.title',
     'buttonGroup.examples.styles.text',
-    'va-button-group/Styles',
+    configPath,
+    'Styles',
   ),
   ...DocsHelper.exampleBlock(
     'buttonGroup.examples.icons.title',
     'buttonGroup.examples.icons.text',
-    'va-button-group/Icons',
+    configPath,
+    'Icons',
   ),
 
   DocsHelper.subtitle('all.api'),

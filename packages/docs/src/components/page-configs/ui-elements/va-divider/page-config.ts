@@ -3,6 +3,8 @@ import { DocsHelper } from '../../../../helpers/DocsHelper'
 import VaDivider from 'vuestic-ui/src/components/va-divider/VaDivider.vue'
 import apiOptions from './api-options'
 
+const configPath = 'ui-elements/va-divider'
+
 const config: ApiDocsBlock[] = [
   DocsHelper.title('divider.title'),
   DocsHelper.paragraph('divider.summaryText'),
@@ -12,32 +14,38 @@ const config: ApiDocsBlock[] = [
   ...DocsHelper.exampleBlock(
     'divider.examples.default.title',
     'divider.examples.default.text',
-    'va-divider/Default',
+    configPath,
+    'Default',
   ),
   ...DocsHelper.exampleBlock(
     'divider.examples.customContent.title',
     'divider.examples.customContent.text',
-    'va-divider/CustomContent',
+    configPath,
+    'CustomContent',
   ),
   ...DocsHelper.exampleBlock(
     'divider.examples.vertical.title',
     'divider.examples.vertical.text',
-    'va-divider/Vertical',
+    configPath,
+    'Vertical',
   ),
   ...DocsHelper.exampleBlock(
     'divider.examples.inset.title',
     'divider.examples.inset.text',
-    'va-divider/Inset',
+    configPath,
+    'Inset',
   ),
   ...DocsHelper.exampleBlock(
     'divider.examples.dashed.title',
     'divider.examples.dashed.text',
-    'va-divider/Dashed',
+    configPath,
+    'Dashed',
   ),
   ...DocsHelper.exampleBlock(
     'divider.examples.withList.title',
     'divider.examples.withList.text',
-    'va-divider/WithList',
+    configPath,
+    'WithList',
   ),
 
   DocsHelper.subtitle('all.api'),

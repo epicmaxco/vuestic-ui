@@ -3,6 +3,8 @@ import { DocsHelper } from '../../../../helpers/DocsHelper'
 import VaToast from 'vuestic-ui/src/components/va-toast/VaToast.vue'
 import apiOptions from './api-options'
 
+const configPath = 'ui-elements/va-toast'
+
 const config: ApiDocsBlock[] = [
   DocsHelper.title('toast.title'),
   DocsHelper.paragraph('toast.summaryText'),
@@ -12,32 +14,38 @@ const config: ApiDocsBlock[] = [
   ...DocsHelper.exampleBlock(
     'toast.examples.default.title',
     'toast.examples.default.text',
-    'va-toast/Default',
+    configPath,
+    'Default',
   ),
   ...DocsHelper.exampleBlock(
     'toast.examples.color.title',
     'toast.examples.color.text',
-    'va-toast/Color',
+    configPath,
+    'Color',
   ),
   ...DocsHelper.exampleBlock(
     'toast.examples.offset.title',
     'toast.examples.offset.text',
-    'va-toast/Offset',
+    configPath,
+    'Offset',
   ),
   ...DocsHelper.exampleBlock(
     'toast.examples.position.title',
     'toast.examples.position.text',
-    'va-toast/Position',
+    configPath,
+    'Position',
   ),
   ...DocsHelper.exampleBlock(
     'toast.examples.close.title',
     'toast.examples.close.text',
-    'va-toast/Close',
+    configPath,
+    'Close',
   ),
   ...DocsHelper.exampleBlock(
     'toast.examples.click.title',
     'toast.examples.click.text',
-    'va-toast/Click',
+    configPath,
+    'Click',
   ),
 
   DocsHelper.subtitle('all.api'),

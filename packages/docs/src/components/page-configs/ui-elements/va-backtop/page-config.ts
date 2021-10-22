@@ -3,6 +3,7 @@ import { DocsHelper } from '../../../../helpers/DocsHelper'
 import VaBacktop from 'vuestic-ui/src/components/va-backtop/VaBacktop.vue'
 import apiOptions from './api-options'
 
+const configPath = 'ui-elements/va-backtop'
 const config: ApiDocsBlock[] = [
   DocsHelper.title('backtop.title'),
   DocsHelper.paragraph('backtop.summaryText'),
@@ -11,7 +12,8 @@ const config: ApiDocsBlock[] = [
   ...DocsHelper.exampleBlock(
     'backtop.examples.default.title',
     'backtop.examples.default.text',
-    'va-backtop/Default',
+    configPath,
+    'Default',
   ),
 
   DocsHelper.subtitle('all.api'),

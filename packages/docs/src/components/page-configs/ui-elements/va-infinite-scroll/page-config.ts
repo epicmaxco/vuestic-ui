@@ -3,6 +3,8 @@ import { DocsHelper } from '../../../../helpers/DocsHelper'
 import VaInfiniteScroll from 'vuestic-ui/src/components/va-infinite-scroll/VaInfiniteScroll.vue'
 import apiOptions from './api-options'
 
+const configPath = 'ui-elements/va-infinite-scroll'
+
 const config: ApiDocsBlock[] = [
   DocsHelper.title('infiniteScroll.title'),
   DocsHelper.paragraph('infiniteScroll.summaryText'),
@@ -12,22 +14,26 @@ const config: ApiDocsBlock[] = [
   ...DocsHelper.exampleBlock(
     'infiniteScroll.examples.default.title',
     'infiniteScroll.examples.default.text',
-    'va-infinite-scroll/Default',
+    configPath,
+    'Default',
   ),
   ...DocsHelper.exampleBlock(
     'infiniteScroll.examples.reverse.title',
     'infiniteScroll.examples.reverse.text',
-    'va-infinite-scroll/Reverse',
+    configPath,
+    'Reverse',
   ),
   ...DocsHelper.exampleBlock(
     'infiniteScroll.examples.disabled.title',
     'infiniteScroll.examples.disabled.text',
-    'va-infinite-scroll/Disabled',
+    configPath,
+    'Disabled',
   ),
   ...DocsHelper.exampleBlock(
     'infiniteScroll.examples.customTarget.title',
     'infiniteScroll.examples.customTarget.text',
-    'va-infinite-scroll/CustomTarget',
+    configPath,
+    'CustomTarget',
   ),
 
   DocsHelper.subtitle('all.api'),

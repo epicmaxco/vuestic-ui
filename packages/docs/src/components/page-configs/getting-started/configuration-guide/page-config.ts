@@ -7,6 +7,8 @@ import {
   componentsConfig,
 } from './code-examples'
 
+const configPath = 'getting-started/configuration-guide'
+
 const config: ApiDocsBlock[] = [
   DocsHelper.title('configurationGuide.title'),
   DocsHelper.paragraph('configurationGuide.description'),
@@ -27,11 +29,11 @@ const config: ApiDocsBlock[] = [
   DocsHelper.subtitle('configurationGuide.components.title'),
   DocsHelper.paragraph('configurationGuide.components.intro'),
   DocsHelper.paragraph('configurationGuide.components.description'),
-  DocsHelper.example('config/PageConfigButtonDefault', { hideCode: true }),
+  DocsHelper.example(configPath, 'PageConfigButtonDefault', { hideCode: true }),
   DocsHelper.paragraph('configurationGuide.components.action'),
   DocsHelper.code(componentsConfig),
   DocsHelper.paragraph('configurationGuide.components.result'),
-  DocsHelper.example('config/PageConfigButton', { hideCode: true }),
+  DocsHelper.example(configPath, 'PageConfigButton', { hideCode: true }),
   DocsHelper.paragraph('configurationGuide.components.example'),
   DocsHelper.paragraph('configurationGuide.components.more'),
   DocsHelper.link('configurationGuide.readMore', '/services/components-config'),

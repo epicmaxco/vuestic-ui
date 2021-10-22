@@ -3,6 +3,8 @@ import { DocsHelper } from '../../../../helpers/DocsHelper'
 import VaTabs from 'vuestic-ui/src/components/va-tabs/VaTabs.vue'
 import apiOptions from './api-options'
 
+const configPath = 'ui-elements/va-tabs'
+
 const config: ApiDocsBlock[] = [
   DocsHelper.title('tabs.title'),
   DocsHelper.paragraph('tabs.summaryText'),
@@ -12,22 +14,26 @@ const config: ApiDocsBlock[] = [
   ...DocsHelper.exampleBlock(
     'tabs.examples.default.title',
     'tabs.examples.default.text',
-    'va-tabs/Default',
+    configPath,
+    'Default',
   ),
   ...DocsHelper.exampleBlock(
     'tabs.examples.pagination.title',
     'tabs.examples.pagination.text',
-    'va-tabs/Pagination',
+    configPath,
+    'Pagination',
   ),
   ...DocsHelper.exampleBlock(
     'tabs.examples.vertical.title',
     'tabs.examples.vertical.text',
-    'va-tabs/Vertical',
+    configPath,
+    'Vertical',
   ),
   ...DocsHelper.exampleBlock(
     'tabs.examples.stateful.title',
     'tabs.examples.stateful.text',
-    'va-tabs/Stateful',
+    configPath,
+    'Stateful',
   ),
 
   DocsHelper.subtitle('all.api'),

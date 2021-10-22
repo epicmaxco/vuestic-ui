@@ -2,6 +2,8 @@ import { ApiDocsBlock } from '../../../../../types/configTypes'
 import { DocsHelper } from '../../../../../helpers/DocsHelper'
 import { componentsConfigCode, iconsConfigCode } from '../code-examples'
 
+const pathConfig = 'services/colors-config'
+
 const config: ApiDocsBlock[] = [
   DocsHelper.subtitle('colorsConfig.otherServices.subtitle'),
 
@@ -12,7 +14,7 @@ const config: ApiDocsBlock[] = [
   DocsHelper.code(iconsConfigCode),
 
   DocsHelper.paragraph('colorsConfig.otherServices.css'),
-  DocsHelper.example('colors-config/css-variable'),
+  DocsHelper.example(pathConfig, 'css-variable'),
 ]
 
 export default config

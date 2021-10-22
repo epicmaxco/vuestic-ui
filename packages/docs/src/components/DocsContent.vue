@@ -5,6 +5,7 @@
         v-if="block.type === BlockType.EXAMPLE"
         :key="block.type + index"
         :value="block.component"
+        :path="block.path"
         :example-options="block.exampleOptions"
       />
       <DocsComponent

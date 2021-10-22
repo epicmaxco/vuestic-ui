@@ -3,6 +3,8 @@ import { DocsHelper } from '../../../../helpers/DocsHelper'
 import VaSidebar from 'vuestic-ui/src/components/va-sidebar/VaSidebar.vue'
 import apiOptions from './api-options'
 
+const configPath = 'ui-elements/va-sidebar'
+
 const config: ApiDocsBlock[] = [
   DocsHelper.title('sidebar.title'),
   DocsHelper.paragraph('sidebar.summaryText'),
@@ -12,47 +14,56 @@ const config: ApiDocsBlock[] = [
   ...DocsHelper.exampleBlock(
     'sidebar.examples.default.title',
     'sidebar.examples.default.text',
-    'va-sidebar/Default',
+    configPath,
+    'Default',
   ),
   ...DocsHelper.exampleBlock(
     'sidebar.examples.minimized.title',
     'sidebar.examples.minimized.text',
-    'va-sidebar/Minimized',
+    configPath,
+    'Minimized',
   ),
   ...DocsHelper.exampleBlock(
     'sidebar.examples.width.title',
     'sidebar.examples.width.text',
-    'va-sidebar/Width',
+    configPath,
+    'Width',
   ),
   ...DocsHelper.exampleBlock(
     'sidebar.examples.minimizedWidth.title',
     'sidebar.examples.minimizedWidth.text',
-    'va-sidebar/MinimizedWidth',
+    configPath,
+    'MinimizedWidth',
   ),
   ...DocsHelper.exampleBlock(
     'sidebar.examples.color.title',
     'sidebar.examples.color.text',
-    'va-sidebar/Color',
+    configPath,
+    'Color',
   ),
   ...DocsHelper.exampleBlock(
     'sidebar.examples.gradient.title',
     'sidebar.examples.gradient.text',
-    'va-sidebar/Gradient',
+    configPath,
+    'Gradient',
   ),
   ...DocsHelper.exampleBlock(
     'sidebar.examples.position.title',
     'sidebar.examples.position.text',
-    'va-sidebar/Position',
+    configPath,
+    'Position',
   ),
   ...DocsHelper.exampleBlock(
     'sidebar.examples.hoverable.title',
     'sidebar.examples.hoverable.text',
-    'va-sidebar/Hoverable',
+    configPath,
+    'Hoverable',
   ),
   ...DocsHelper.exampleBlock(
     'sidebar.examples.vModel.title',
     'sidebar.examples.vModel.text',
-    'va-sidebar/VModel',
+    configPath,
+    'VModel',
   ),
 
   DocsHelper.subtitle('all.api'),

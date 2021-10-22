@@ -4,6 +4,8 @@ import VaProgressBar
   from 'vuestic-ui/src/components/va-progress-bar/progress-types/VaProgressBar.vue'
 import apiOptions from './api-options'
 
+const configPath = 'ui-elements/va-progress-bar'
+
 const config: ApiDocsBlock[] = [
   DocsHelper.title('progressBar.title'),
   DocsHelper.paragraph('progressBar.summaryText'),
@@ -13,32 +15,38 @@ const config: ApiDocsBlock[] = [
   ...DocsHelper.exampleBlock(
     'progressBar.examples.default.title',
     'progressBar.examples.default.text',
-    'va-progress-bar/Default',
+    configPath,
+    'Default',
   ),
   ...DocsHelper.exampleBlock(
     'progressBar.examples.indeterminate.title',
     'progressBar.examples.indeterminate.text',
-    'va-progress-bar/Indeterminate',
+    configPath,
+    'Indeterminate',
   ),
   ...DocsHelper.exampleBlock(
     'progressBar.examples.coloring.title',
     'progressBar.examples.coloring.text',
-    'va-progress-bar/Coloring',
+    configPath,
+    'Coloring',
   ),
   ...DocsHelper.exampleBlock(
     'progressBar.examples.sizing.title',
     'progressBar.examples.sizing.text',
-    'va-progress-bar/Sizing',
+    configPath,
+    'Sizing',
   ),
   ...DocsHelper.exampleBlock(
     'progressBar.examples.slots.title',
     'progressBar.examples.slots.text',
-    'va-progress-bar/Slots',
+    configPath,
+    'Slots',
   ),
   ...DocsHelper.exampleBlock(
     'progressBar.examples.buffer.title',
     'progressBar.examples.buffer.text',
-    'va-progress-bar/Buffer',
+    configPath,
+    'Buffer',
   ),
 
   DocsHelper.subtitle('all.api'),

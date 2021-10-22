@@ -5,6 +5,7 @@ import VaBreadcrumbsItem from 'vuestic-ui/src/components/va-breadcrumbs/VaBreadc
 import vaBreadcrumbsApiOptions from './va-breadcrumbs-api-options'
 import vaBreadcrumbsItemApiOptions from './va-breadcrumbs-item-api-options'
 
+const configPath = 'ui-elements/va-breadcrumbs'
 const config: ApiDocsBlock[] = [
   DocsHelper.title('breadcrumbs.title'),
   DocsHelper.paragraph('breadcrumbs.text'),
@@ -13,32 +14,38 @@ const config: ApiDocsBlock[] = [
   ...DocsHelper.exampleBlock(
     'breadcrumbs.examples.default.title',
     'breadcrumbs.examples.default.text',
-    'va-breadcrumbs/Default',
+    configPath,
+    'Default',
   ),
   ...DocsHelper.exampleBlock(
     'breadcrumbs.examples.align.title',
     'breadcrumbs.examples.align.text',
-    'va-breadcrumbs/Align',
+    configPath,
+    'Align',
   ),
   ...DocsHelper.exampleBlock(
     'breadcrumbs.examples.separator.title',
     'breadcrumbs.examples.separator.text',
-    'va-breadcrumbs/Separator',
+    configPath,
+    'Separator',
   ),
   ...DocsHelper.exampleBlock(
     'breadcrumbs.examples.color.title',
     'breadcrumbs.examples.color.text',
-    'va-breadcrumbs/Color',
+    configPath,
+    'Color',
   ),
   ...DocsHelper.exampleBlock(
     'breadcrumbs.examples.activeColor.title',
     'breadcrumbs.examples.activeColor.text',
-    'va-breadcrumbs/ActiveColor',
+    configPath,
+    'ActiveColor',
   ),
   ...DocsHelper.exampleBlock(
     'breadcrumbs.examples.item.title',
     'breadcrumbs.examples.item.text',
-    'va-breadcrumbs/Item',
+    configPath,
+    'Item',
   ),
 
   DocsHelper.subtitle('all.api'),

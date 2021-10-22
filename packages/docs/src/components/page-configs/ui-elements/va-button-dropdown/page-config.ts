@@ -3,6 +3,7 @@ import { ApiDocsBlock } from '../../../../types/configTypes'
 import VaButtonDropdown from 'vuestic-ui/src/components/va-button-dropdown/VaButtonDropdown.vue'
 import apiOptions from './api-options'
 
+const configPath = 'ui-elements/va-button-dropdown'
 const config: ApiDocsBlock[] = [
   DocsHelper.title('buttonDropdown.title'),
   DocsHelper.paragraph('buttonDropdown.summaryText'),
@@ -10,47 +11,56 @@ const config: ApiDocsBlock[] = [
   ...DocsHelper.exampleBlock(
     'buttonDropdown.examples.default.title',
     'buttonDropdown.examples.default.text',
-    'va-button-dropdown/Default',
+    configPath,
+    'Default',
   ),
   ...DocsHelper.exampleBlock(
     'buttonDropdown.examples.split.title',
     'buttonDropdown.examples.split.text',
-    'va-button-dropdown/Split',
+    configPath,
+    'Split',
   ),
   ...DocsHelper.exampleBlock(
     'buttonDropdown.examples.colors.title',
     'buttonDropdown.examples.colors.text',
-    'va-button-dropdown/Colors',
+    configPath,
+    'Colors',
   ),
   ...DocsHelper.exampleBlock(
     'buttonDropdown.examples.sizes.title',
     'buttonDropdown.examples.sizes.text',
-    'va-button-dropdown/Sizes',
+    configPath,
+    'Sizes',
   ),
   ...DocsHelper.exampleBlock(
     'buttonDropdown.examples.styles.title',
     'buttonDropdown.examples.styles.text',
-    'va-button-dropdown/Styles',
+    configPath,
+    'Styles',
   ),
   ...DocsHelper.exampleBlock(
     'buttonDropdown.examples.disabled.title',
     'buttonDropdown.examples.disabled.text',
-    'va-button-dropdown/Disabled',
+    configPath,
+    'Disabled',
   ),
   ...DocsHelper.exampleBlock(
     'buttonDropdown.examples.icons.title',
     'buttonDropdown.examples.icons.text',
-    'va-button-dropdown/Icons',
+    configPath,
+    'Icons',
   ),
   ...DocsHelper.exampleBlock(
     'buttonDropdown.examples.events.title',
     'buttonDropdown.examples.events.text',
-    'va-button-dropdown/Events',
+    configPath,
+    'Events',
   ),
   ...DocsHelper.exampleBlock(
     'buttonDropdown.examples.clickInside.title',
     'buttonDropdown.examples.clickInside.text',
-    'va-button-dropdown/ClickInside',
+    configPath,
+    'ClickInside',
   ),
   DocsHelper.subtitle('all.api'),
   DocsHelper.api(VaButtonDropdown, apiOptions),

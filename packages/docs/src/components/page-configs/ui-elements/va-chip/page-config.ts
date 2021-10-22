@@ -3,6 +3,8 @@ import { DocsHelper } from '../../../../helpers/DocsHelper'
 import VaChip from 'vuestic-ui/src/components/va-chip/VaChip.vue'
 import apiOptions from './api-options'
 
+const configPath = 'ui-elements/va-chip'
+
 const config: ApiDocsBlock[] = [
   DocsHelper.title('chip.title'),
   DocsHelper.paragraph('chip.summaryText'),
@@ -12,52 +14,62 @@ const config: ApiDocsBlock[] = [
   ...DocsHelper.exampleBlock(
     'chip.examples.default.title',
     'chip.examples.default.text',
-    'va-chip/Default',
+    configPath,
+    'Default',
   ),
   ...DocsHelper.exampleBlock(
     'chip.examples.outline.title',
     'chip.examples.outline.text',
-    'va-chip/Outline',
+    configPath,
+    'Outline',
   ),
   ...DocsHelper.exampleBlock(
     'chip.examples.flat.title',
     'chip.examples.flat.text',
-    'va-chip/Flat',
+    configPath,
+    'Flat',
   ),
   ...DocsHelper.exampleBlock(
     'chip.examples.square.title',
     'chip.examples.square.text',
-    'va-chip/Square',
+    configPath,
+    'Square',
   ),
   ...DocsHelper.exampleBlock(
     'chip.examples.color.title',
     'chip.examples.color.text',
-    'va-chip/Color',
+    configPath,
+    'Color',
   ),
   ...DocsHelper.exampleBlock(
     'chip.examples.size.title',
     'chip.examples.size.text',
-    'va-chip/Size',
+    configPath,
+    'Size',
   ),
   ...DocsHelper.exampleBlock(
     'chip.examples.icon.title',
     'chip.examples.icon.text',
-    'va-chip/Icon',
+    configPath,
+    'Icon',
   ),
   ...DocsHelper.exampleBlock(
     'chip.examples.closeable.title',
     'chip.examples.closeable.text',
-    'va-chip/Closeable',
+    configPath,
+    'Closeable',
   ),
   ...DocsHelper.exampleBlock(
     'chip.examples.link.title',
     'chip.examples.link.text',
-    'va-chip/Link',
+    configPath,
+    'Link',
   ),
   ...DocsHelper.exampleBlock(
     'chip.examples.shadow.title',
     'chip.examples.shadow.text',
-    'va-chip/Shadow',
+    configPath,
+    'Shadow',
   ),
 
   DocsHelper.subtitle('all.api'),

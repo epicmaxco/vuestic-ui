@@ -3,6 +3,8 @@ import { DocsHelper } from '../../../../helpers/DocsHelper'
 import VaParallax from 'vuestic-ui/src/components/va-parallax/VaParallax.vue'
 import apiOptions from './api-options'
 
+const configPath = 'ui-elements/va-parallax'
+
 const config: ApiDocsBlock[] = [
   DocsHelper.title('parallax.title'),
   DocsHelper.paragraph('parallax.summaryText'),
@@ -12,22 +14,26 @@ const config: ApiDocsBlock[] = [
   ...DocsHelper.exampleBlock(
     'parallax.examples.default.title',
     'parallax.examples.default.text',
-    'va-parallax/Default',
+    configPath,
+    'Default',
   ),
   ...DocsHelper.exampleBlock(
     'parallax.examples.custom.title',
     'parallax.examples.custom.text',
-    'va-parallax/Custom',
+    configPath,
+    'Custom',
   ),
   ...DocsHelper.exampleBlock(
     'parallax.examples.reversed.title',
     'parallax.examples.reversed.text',
-    'va-parallax/Reversed',
+    configPath,
+    'Reversed',
   ),
   ...DocsHelper.exampleBlock(
     'parallax.examples.slot.title',
     'parallax.examples.slot.text',
-    'va-parallax/Slot',
+    configPath,
+    'Slot',
   ),
 
   DocsHelper.subtitle('all.api'),

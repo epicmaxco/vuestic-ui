@@ -3,6 +3,8 @@ import { DocsHelper } from '../../../../helpers/DocsHelper'
 import VaIcon from 'vuestic-ui/src/components/va-icon/VaIcon.vue'
 import apiOptions from './api-options'
 
+const configPath = 'ui-elements/va-icon'
+
 const config: ApiDocsBlock[] = [
   DocsHelper.title('icon.title'),
   DocsHelper.paragraph('icon.summaryText'),
@@ -12,37 +14,44 @@ const config: ApiDocsBlock[] = [
   ...DocsHelper.exampleBlock(
     'icon.examples.default.title',
     'icon.examples.default.text',
-    'va-icon/Default',
+    configPath,
+    'Default',
   ),
   ...DocsHelper.exampleBlock(
     'icon.examples.color.title',
     'icon.examples.color.text',
-    'va-icon/Color',
+    configPath,
+    'Color',
   ),
   ...DocsHelper.exampleBlock(
     'icon.examples.size.title',
     'icon.examples.size.text',
-    'va-icon/Size',
+    configPath,
+    'Size',
   ),
   ...DocsHelper.exampleBlock(
     'icon.examples.rotation.title',
     'icon.examples.rotation.text',
-    'va-icon/Rotation',
+    configPath,
+    'Rotation',
   ),
   ...DocsHelper.exampleBlock(
     'icon.examples.spin.title',
     'icon.examples.spin.text',
-    'va-icon/Spin',
+    configPath,
+    'Spin',
   ),
   ...DocsHelper.exampleBlock(
     'icon.examples.text.title',
     'icon.examples.text.text',
-    'va-icon/Text',
+    configPath,
+    'Text',
   ),
   ...DocsHelper.exampleBlock(
     'icon.examples.tag.title',
     'icon.examples.tag.text',
-    'va-icon/Tag',
+    configPath,
+    'Tag',
   ),
 
   DocsHelper.subtitle('all.api'),

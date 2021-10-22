@@ -3,6 +3,8 @@ import { DocsHelper } from '../../../../helpers/DocsHelper'
 import VaColorPalette from 'vuestic-ui/src/components/va-color-palette/VaColorPalette.vue'
 import apiOptions from './api-options'
 
+const configPath = 'ui-elements/va-color-palette'
+
 const config: ApiDocsBlock[] = [
   DocsHelper.title('colorPalette.title'),
   DocsHelper.paragraph('colorPalette.summaryText'),
@@ -12,12 +14,14 @@ const config: ApiDocsBlock[] = [
   ...DocsHelper.exampleBlock(
     'colorPalette.examples.default.title',
     'colorPalette.examples.default.text',
-    'va-color-palette/Default',
+    configPath,
+    'Default',
   ),
   ...DocsHelper.exampleBlock(
     'colorPalette.examples.indicator.title',
     'colorPalette.examples.indicator.text',
-    'va-color-palette/Indicator',
+    configPath,
+    'Indicator',
   ),
 
   DocsHelper.subtitle('all.api'),

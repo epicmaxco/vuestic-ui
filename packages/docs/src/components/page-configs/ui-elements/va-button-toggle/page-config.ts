@@ -3,6 +3,8 @@ import { DocsHelper } from '../../../../helpers/DocsHelper'
 import VaButtonToggle from 'vuestic-ui/src/components/va-button-toggle/VaButtonToggle.vue'
 import apiOptions from './api-options'
 
+const configPath = 'ui-elements/va-button-toggle'
+
 const config: ApiDocsBlock[] = [
   DocsHelper.title('buttonToggle.title'),
   DocsHelper.paragraph('buttonToggle.summaryText'),
@@ -11,37 +13,44 @@ const config: ApiDocsBlock[] = [
   ...DocsHelper.exampleBlock(
     'buttonToggle.examples.default.title',
     'buttonToggle.examples.default.text',
-    'va-button-toggle/Default',
+    configPath,
+    'Default',
   ),
   ...DocsHelper.exampleBlock(
     'buttonToggle.examples.colors.title',
     'buttonToggle.examples.colors.text',
-    'va-button-toggle/Colors',
+    configPath,
+    'Colors',
   ),
   ...DocsHelper.exampleBlock(
     'buttonToggle.examples.toggleColor.title',
     'buttonToggle.examples.toggleColor.text',
-    'va-button-toggle/ToggleColor',
+    configPath,
+    'ToggleColor',
   ),
   ...DocsHelper.exampleBlock(
     'buttonToggle.examples.gradient.title',
     'buttonToggle.examples.gradient.text',
-    'va-button-toggle/Gradient',
+    configPath,
+    'Gradient',
   ),
   ...DocsHelper.exampleBlock(
     'buttonToggle.examples.sizes.title',
     'buttonToggle.examples.sizes.text',
-    'va-button-toggle/Sizes',
+    configPath,
+    'Sizes',
   ),
   ...DocsHelper.exampleBlock(
     'buttonToggle.examples.styles.title',
     'buttonToggle.examples.styles.text',
-    'va-button-toggle/Styles',
+    configPath,
+    'Styles',
   ),
   ...DocsHelper.exampleBlock(
     'buttonToggle.examples.disabled.title',
     'buttonToggle.examples.disabled.text',
-    'va-button-toggle/Disabled',
+    configPath,
+    'Disabled',
   ),
 
   DocsHelper.subtitle('all.api'),

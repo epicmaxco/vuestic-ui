@@ -15,6 +15,8 @@ import {
   listItemSectionApiOptions,
 } from './api-options'
 
+const configPath = 'ui-elements/va-list'
+
 const config: ApiDocsBlock[] = [
   DocsHelper.title('list.title'),
   DocsHelper.paragraph('list.summaryText'),
@@ -24,27 +26,32 @@ const config: ApiDocsBlock[] = [
   ...DocsHelper.exampleBlock(
     'list.examples.default.title',
     'list.examples.default.text',
-    'va-list/Default',
+    configPath,
+    'Default',
   ),
   ...DocsHelper.exampleBlock(
     'list.examples.disabled.title',
     'list.examples.disabled.text',
-    'va-list/Disabled',
+    configPath,
+    'Disabled',
   ),
   ...DocsHelper.exampleBlock(
     'list.examples.clickable.title',
     'list.examples.clickable.text',
-    'va-list/Clickable',
+    configPath,
+    'Clickable',
   ),
   ...DocsHelper.exampleBlock(
     'list.examples.fit.title',
     'list.examples.fit.text',
-    'va-list/Fit',
+    configPath,
+    'Fit',
   ),
   ...DocsHelper.exampleBlock(
     'list.examples.lines.title',
     'list.examples.lines.text',
-    'va-list/Lines',
+    configPath,
+    'Lines',
   ),
 
   DocsHelper.subtitle('all.api'),

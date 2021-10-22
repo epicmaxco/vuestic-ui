@@ -3,6 +3,7 @@ import { DocsHelper } from '../../../../helpers/DocsHelper'
 import VaAlert from 'vuestic-ui/src/components/va-alert/VaAlert.vue'
 import apiOptions from './api-options'
 
+const configPath = 'ui-elements/va-alert'
 const config: ApiDocsBlock[] = [
   DocsHelper.title('alert.title'),
   DocsHelper.paragraph('alert.summaryText'),
@@ -11,47 +12,56 @@ const config: ApiDocsBlock[] = [
   ...DocsHelper.exampleBlock(
     'alert.examples.default.title',
     'alert.examples.default.text',
-    'va-alert/Default',
+    configPath,
+    'Default',
   ),
   ...DocsHelper.exampleBlock(
     'alert.examples.styles.title',
     'alert.examples.styles.text',
-    'va-alert/Styles',
+    configPath,
+    'Styles',
   ),
   ...DocsHelper.exampleBlock(
     'alert.examples.color.title',
     'alert.examples.color.text',
-    'va-alert/Color',
+    configPath,
+    'Color',
   ),
   ...DocsHelper.exampleBlock(
     'alert.examples.border.title',
     'alert.examples.border.text',
-    'va-alert/Border',
+    configPath,
+    'Border',
   ),
   ...DocsHelper.exampleBlock(
     'alert.examples.dense.title',
     'alert.examples.dense.text',
-    'va-alert/Dense',
+    configPath,
+    'Dense',
   ),
   ...DocsHelper.exampleBlock(
     'alert.examples.title.title',
     'alert.examples.title.text',
-    'va-alert/Title',
+    configPath,
+    'Title',
   ),
   ...DocsHelper.exampleBlock(
     'alert.examples.icon.title',
     'alert.examples.icon.text',
-    'va-alert/Icon',
+    configPath,
+    'Icon',
   ),
   ...DocsHelper.exampleBlock(
     'alert.examples.closeable.title',
     'alert.examples.closeable.text',
-    'va-alert/Closeable',
+    configPath,
+    'Closeable',
   ),
   ...DocsHelper.exampleBlock(
     'alert.examples.center.title',
     'alert.examples.center.text',
-    'va-alert/Center',
+    configPath,
+    'Center',
   ),
 
   DocsHelper.subtitle('all.api'),

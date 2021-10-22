@@ -3,6 +3,8 @@ import { DocsHelper } from '../../../../helpers/DocsHelper'
 import VaInnerLoading from 'vuestic-ui/src/components/va-inner-loading/VaInnerLoading.vue'
 import apiOptions from './api-options'
 
+const configPath = 'ui-elements/va-inner-loading'
+
 const config: ApiDocsBlock[] = [
   DocsHelper.title('innerLoading.title'),
   DocsHelper.paragraph('innerLoading.summaryText'),
@@ -12,22 +14,26 @@ const config: ApiDocsBlock[] = [
   ...DocsHelper.exampleBlock(
     'innerLoading.examples.default.title',
     'innerLoading.examples.default.text',
-    'va-inner-loading/Default',
+    configPath,
+    'Default',
   ),
   ...DocsHelper.exampleBlock(
     'innerLoading.examples.color.title',
     'innerLoading.examples.color.text',
-    'va-inner-loading/Color',
+    configPath,
+    'Color',
   ),
   ...DocsHelper.exampleBlock(
     'innerLoading.examples.size.title',
     'innerLoading.examples.size.text',
-    'va-inner-loading/Size',
+    configPath,
+    'Size',
   ),
   ...DocsHelper.exampleBlock(
     'innerLoading.examples.icon.title',
     'innerLoading.examples.icon.text',
-    'va-inner-loading/Icon',
+    configPath,
+    'Icon',
   ),
 
   DocsHelper.subtitle('all.api'),

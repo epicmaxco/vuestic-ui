@@ -3,6 +3,8 @@ import { DocsHelper } from '../../../../helpers/DocsHelper'
 import VaForm from 'vuestic-ui/src/components/va-form/VaForm.vue'
 import apiOptions from './api-options'
 
+const configPath = 'ui-elements/va-form'
+
 const config: ApiDocsBlock[] = [
   DocsHelper.title('form.title'),
   DocsHelper.paragraph('form.summaryText'),
@@ -12,12 +14,14 @@ const config: ApiDocsBlock[] = [
   ...DocsHelper.exampleBlock(
     'form.examples.default.title',
     'form.examples.default.text',
-    'va-form/Default',
+    configPath,
+    'Default',
   ),
   ...DocsHelper.exampleBlock(
     'form.examples.advanced.title',
     'form.examples.advanced.text',
-    'va-form/WithInputs',
+    configPath,
+    'WithInputs',
   ),
 
   DocsHelper.subtitle('all.api'),

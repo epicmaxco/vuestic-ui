@@ -3,6 +3,8 @@ import { DocsHelper } from '../../../../helpers/DocsHelper'
 import VaModal from 'vuestic-ui/src/components/va-modal/VaModal.vue'
 import apiOptions from './api-options'
 
+const configPath = 'ui-elements/va-modal'
+
 const config: ApiDocsBlock[] = [
   DocsHelper.title('modal.title'),
   DocsHelper.paragraph('modal.summaryText'),
@@ -12,17 +14,20 @@ const config: ApiDocsBlock[] = [
   ...DocsHelper.exampleBlock(
     'modal.overview.title',
     'modal.overview.text',
-    'va-modal/Overview',
+    configPath,
+    'Overview',
   ),
   ...DocsHelper.exampleBlock(
     'modal.stateful.title',
     'modal.stateful.text',
-    'va-modal/Stateful',
+    configPath,
+    'Stateful',
   ),
   ...DocsHelper.exampleBlock(
     'modal.fullscreen.title',
     'modal.fullscreen.text',
-    'va-modal/Fullscreen',
+    configPath,
+    'Fullscreen',
   ),
 
   DocsHelper.headline('modal.toggleVisibility.title'),
@@ -31,37 +36,43 @@ const config: ApiDocsBlock[] = [
   DocsHelper.paragraph('modal.toggleVisibility.sections[0].text'),
   DocsHelper.headline('modal.toggleVisibility.sections[1].title'),
   DocsHelper.paragraph('modal.toggleVisibility.sections[1].text'),
-  DocsHelper.example('va-modal/toggle-visibility/InstanceMethods'),
+  DocsHelper.example(configPath, 'toggle-visibility/InstanceMethods'),
 
   ...DocsHelper.exampleBlock(
     'modal.disableAnimation.title',
     'modal.disableAnimation.text',
-    'va-modal/DisableAnimation',
+    configPath,
+    'DisableAnimation',
   ),
   ...DocsHelper.exampleBlock(
     'modal.modalSizing.title',
     'modal.modalSizing.text',
-    'va-modal/ModalSizing',
+    configPath,
+    'ModalSizing',
   ),
   ...DocsHelper.exampleBlock(
     'modal.hidingOverlay.title',
     'modal.hidingOverlay.text',
-    'va-modal/HidingOverlay',
+    configPath,
+    'HidingOverlay',
   ),
   ...DocsHelper.exampleBlock(
     'modal.scrollingLongContent.title',
     'modal.scrollingLongContent.text',
-    'va-modal/ScrollingLongContent',
+    configPath,
+    'ScrollingLongContent',
   ),
   ...DocsHelper.exampleBlock(
     'modal.customization.title',
     'modal.customization.text',
-    'va-modal/Customization',
+    configPath,
+    'Customization',
   ),
   ...DocsHelper.exampleBlock(
     'modal.nestedModals.title',
     'modal.nestedModals.text',
-    'va-modal/NestedModals',
+    configPath,
+    'NestedModals',
   ),
 
   DocsHelper.subtitle('all.api'),

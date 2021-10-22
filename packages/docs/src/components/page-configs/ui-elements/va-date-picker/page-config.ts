@@ -3,6 +3,8 @@ import { DocsHelper } from '../../../../helpers/DocsHelper'
 import VaDatePicker from 'vuestic-ui/src/components/va-date-picker/VaDatePicker.vue'
 import apiOptions from './api-options'
 
+const configPath = 'ui-elements/va-date-picker'
+
 const config: ApiDocsBlock[] = [
   DocsHelper.title('datePicker.title'),
   DocsHelper.paragraph('datePicker.description'),
@@ -13,79 +15,92 @@ const config: ApiDocsBlock[] = [
   ...DocsHelper.exampleBlock(
     'datePicker.examples.default.title',
     'datePicker.examples.default.text',
-    'va-date-picker/Default',
+    configPath,
+    'Default',
   ),
 
   ...DocsHelper.exampleBlock(
     'datePicker.examples.mode.title',
     'datePicker.examples.mode.text',
-    'va-date-picker/Mode',
+    configPath,
+    'Mode',
   ),
 
   ...DocsHelper.exampleBlock(
     'datePicker.examples.stateful.title',
     'datePicker.examples.stateful.text',
-    'va-date-picker/Stateful',
+    configPath,
+    'Stateful',
   ),
 
   ...DocsHelper.exampleBlock(
     'datePicker.examples.firstWeekday.title',
     'datePicker.examples.firstWeekday.text',
-    'va-date-picker/FirstWeekday',
+    configPath,
+    'FirstWeekday',
   ),
 
   ...DocsHelper.exampleBlock(
     'datePicker.examples.weekends.title',
     'datePicker.examples.weekends.text',
-    'va-date-picker/Weekends',
+    configPath,
+    'Weekends',
   ),
 
   ...DocsHelper.exampleBlock(
     'datePicker.examples.otherMonths.title',
     'datePicker.examples.otherMonths.text',
-    'va-date-picker/OtherMonths',
+    configPath,
+    'OtherMonths',
   ),
 
   ...DocsHelper.exampleBlock(
     'datePicker.examples.slots.title',
     'datePicker.examples.slots.text',
-    'va-date-picker/Slots',
+    configPath,
+    'Slots',
   ),
 
   ...DocsHelper.exampleBlock(
     'datePicker.examples.view.title',
     'datePicker.examples.view.text',
-    'va-date-picker/View',
+    configPath,
+    'View',
   ),
 
   ...DocsHelper.exampleBlock(
     'datePicker.examples.type.title',
     'datePicker.examples.type.text',
-    'va-date-picker/Type',
+    configPath,
+    'Type',
   ),
 
   ...DocsHelper.exampleBlock(
     'datePicker.examples.disabledDates.title',
     'datePicker.examples.disabledDates.text',
-    'va-date-picker/DisabledDates',
+    configPath,
+    'DisabledDates',
   ),
 
   ...DocsHelper.exampleBlock(
     'datePicker.examples.colors.title',
     'datePicker.examples.colors.text',
-    'va-date-picker/Color',
+    configPath,
+    'Color',
   ),
 
   ...DocsHelper.exampleBlock(
     'datePicker.examples.readonly.title',
     'datePicker.examples.readonly.text',
-    'va-date-picker/Readonly',
+    configPath,
+    'Readonly',
   ),
 
   ...DocsHelper.exampleBlock(
     'datePicker.examples.disabled.title',
     'datePicker.examples.disabled.text',
-    'va-date-picker/Disabled',
+    configPath,
+    'Disabled',
   ),
 
   DocsHelper.subtitle('all.api'),

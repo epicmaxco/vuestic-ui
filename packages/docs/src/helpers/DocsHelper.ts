@@ -4,7 +4,6 @@ import {
   BlockType,
   ApiDocsBlock,
   TextBlock,
-  PathToExample,
   PathToDirectory,
   CodeString,
   LinkOptions,
@@ -39,9 +38,10 @@ export const DocsHelper = {
       translationString,
     }
   },
-  example: (component: PathToExample, exampleOptions: ExampleOptions = {}): ApiDocsBlock => {
+  example: (path: PathToDirectory, component: string, exampleOptions: ExampleOptions = {}): ApiDocsBlock => {
     return {
       type: BlockType.EXAMPLE,
+      path,
       component,
       exampleOptions: exampleOptions,
     }
@@ -98,11 +98,11 @@ export const DocsHelper = {
 
   // ********** Higher level helpers ****************
 
-  exampleBlock: (title: TranslationString, description: TranslationString, example: PathToExample): ApiDocsBlock[] => {
+  exampleBlock: (title: TranslationString, description: TranslationString, path: PathToDirectory, example: string): ApiDocsBlock[] => {
     return [
       DocsHelper.headline(title),
       DocsHelper.paragraph(description),
-      DocsHelper.example(example),
+      DocsHelper.example(path, example),
     ]
   },
 }

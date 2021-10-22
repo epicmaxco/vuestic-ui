@@ -3,6 +3,8 @@ import { DocsHelper } from '../../../../helpers/DocsHelper'
 import VaCheckbox from 'vuestic-ui/src/components/va-checkbox/VaCheckbox.vue'
 import apiOptions from './api-options'
 
+const configPath = 'ui-elements/va-checkbox'
+
 const config: ApiDocsBlock[] = [
   DocsHelper.title('checkbox.title'),
   DocsHelper.paragraph('checkbox.summaryText'),
@@ -12,29 +14,33 @@ const config: ApiDocsBlock[] = [
   ...DocsHelper.exampleBlock(
     'checkbox.examples.default.title',
     'checkbox.examples.default.text',
-    'va-checkbox/Default',
+    configPath,
+    'Default',
   ),
   ...DocsHelper.exampleBlock(
     'checkbox.examples.label.title',
     'checkbox.examples.label.text',
-    'va-checkbox/Label',
+    configPath,
+    'Label',
   ),
 
   DocsHelper.headline('checkbox.examples.indeterminate.title'),
-  DocsHelper.example('va-checkbox/Indeterminate'),
+  DocsHelper.example(configPath, 'Indeterminate'),
 
   DocsHelper.headline('checkbox.examples.coloring.title'),
-  DocsHelper.example('va-checkbox/Coloring'),
+  DocsHelper.example(configPath, 'Coloring'),
 
   ...DocsHelper.exampleBlock(
     'checkbox.examples.array.title',
     'checkbox.examples.array.text',
-    'va-checkbox/Array',
+    configPath,
+    'Array',
   ),
   ...DocsHelper.exampleBlock(
     'checkbox.examples.error.title',
     'checkbox.examples.error.text',
-    'va-checkbox/Error',
+    configPath,
+    'Error',
   ),
 
   DocsHelper.subtitle('all.api'),

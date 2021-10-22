@@ -14,6 +14,8 @@ const importStyles = `<style lang="scss">
   @import "ag-grid-community/dist/styles/ag-grid.css";
 </style>`
 
+const configPath = 'styles/ag-grid'
+
 const config: ApiDocsBlock[] = [
   DocsHelper.title('ag-grid.title'),
   DocsHelper.paragraph('ag-grid.description'),
@@ -26,7 +28,8 @@ const config: ApiDocsBlock[] = [
   ...DocsHelper.exampleBlock(
     'ag-grid.simpleTableTitle',
     'ag-grid.setOfParams',
-    'grid/AgGrid',
+    configPath,
+    'AgGrid',
   ),
 ]
 

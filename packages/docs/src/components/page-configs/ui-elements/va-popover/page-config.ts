@@ -3,6 +3,8 @@ import { DocsHelper } from '../../../../helpers/DocsHelper'
 import VaPopover from 'vuestic-ui/src/components/va-popover/VaPopover.vue'
 import apiOptions from './api-options'
 
+const configPath = 'ui-elements/va-popover'
+
 const config: ApiDocsBlock[] = [
   DocsHelper.title('popover.title'),
   DocsHelper.paragraph('popover.summaryText'),
@@ -12,32 +14,38 @@ const config: ApiDocsBlock[] = [
   ...DocsHelper.exampleBlock(
     'popover.examples.default.title',
     'popover.examples.default.text',
-    'va-popover/Default',
+    configPath,
+    'Default',
   ),
   ...DocsHelper.exampleBlock(
     'popover.examples.color.title',
     'popover.examples.color.text',
-    'va-popover/Color',
+    configPath,
+    'Color',
   ),
   ...DocsHelper.exampleBlock(
     'popover.examples.placement.title',
     'popover.examples.placement.text',
-    'va-popover/Placement',
+    configPath,
+    'Placement',
   ),
   ...DocsHelper.exampleBlock(
     'popover.examples.icon.title',
     'popover.examples.icon.text',
-    'va-popover/Icon',
+    configPath,
+    'Icon',
   ),
   ...DocsHelper.exampleBlock(
     'popover.examples.title.title',
     'popover.examples.title.text',
-    'va-popover/Title',
+    configPath,
+    'Title',
   ),
   ...DocsHelper.exampleBlock(
     'popover.examples.trigger.title',
     'popover.examples.trigger.text',
-    'va-popover/Trigger',
+    configPath,
+    'Trigger',
   ),
 
   DocsHelper.subtitle('all.api'),

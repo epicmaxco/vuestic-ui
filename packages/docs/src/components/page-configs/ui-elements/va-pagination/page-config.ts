@@ -3,6 +3,8 @@ import { DocsHelper } from '../../../../helpers/DocsHelper'
 import VaPagination from 'vuestic-ui/src/components/va-pagination/VaPagination.vue'
 import apiOptions from './api-options'
 
+const configPath = 'ui-elements/va-pagination'
+
 const config: ApiDocsBlock[] = [
   DocsHelper.title('pagination.title'),
   DocsHelper.paragraph('pagination.summaryText'),
@@ -12,37 +14,44 @@ const config: ApiDocsBlock[] = [
   ...DocsHelper.exampleBlock(
     'pagination.examples.default.title',
     'pagination.examples.default.text',
-    'va-pagination/Default',
+    configPath,
+    'Default',
   ),
   ...DocsHelper.exampleBlock(
     'pagination.examples.colors.title',
     'pagination.examples.colors.text',
-    'va-pagination/Colors',
+    configPath,
+    'Colors',
   ),
   ...DocsHelper.exampleBlock(
     'pagination.examples.sizes.title',
     'pagination.examples.sizes.text',
-    'va-pagination/Sizes',
+    configPath,
+    'Sizes',
   ),
   ...DocsHelper.exampleBlock(
     'pagination.examples.limitVisible.title',
     'pagination.examples.limitVisible.text',
-    'va-pagination/LimitVisible',
+    configPath,
+    'LimitVisible',
   ),
   ...DocsHelper.exampleBlock(
     'pagination.examples.icons.title',
     'pagination.examples.icons.text',
-    'va-pagination/Icons',
+    configPath,
+    'Icons',
   ),
   ...DocsHelper.exampleBlock(
     'pagination.examples.withInput.title',
     'pagination.examples.withInput.text',
-    'va-pagination/WithInput',
+    configPath,
+    'WithInput',
   ),
   ...DocsHelper.exampleBlock(
     'pagination.examples.totalAndPageSize.title',
     'pagination.examples.totalAndPageSize.text',
-    'va-pagination/TotalAndPageSize',
+    configPath,
+    'TotalAndPageSize',
   ),
 
   DocsHelper.subtitle('all.api'),

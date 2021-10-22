@@ -3,6 +3,8 @@ import { DocsHelper } from '../../../../helpers/DocsHelper'
 import VaCollapse from 'vuestic-ui/src/components/va-collapse/VaCollapse.vue'
 import apiOptions from './api-options'
 
+const configPath = 'ui-elements/va-collapse'
+
 const config: ApiDocsBlock[] = [
   DocsHelper.title('collapse.title'),
 
@@ -14,25 +16,29 @@ const config: ApiDocsBlock[] = [
   ...DocsHelper.exampleBlock(
     'collapse.examples.default.title',
     'collapse.examples.default.text',
-    'va-collapse/Default',
+    configPath,
+    'Default',
   ),
 
   ...DocsHelper.exampleBlock(
     'collapse.examples.solid.title',
     'collapse.examples.solid.text',
-    'va-collapse/Solid',
+    configPath,
+    'Solid',
   ),
 
   ...DocsHelper.exampleBlock(
     'collapse.examples.icon.title',
     'collapse.examples.icon.text',
-    'va-collapse/Icon',
+    configPath,
+    'Icon',
   ),
 
   ...DocsHelper.exampleBlock(
     'collapse.examples.color.title',
     'collapse.examples.color.text',
-    'va-collapse/Color',
+    configPath,
+    'Color',
   ),
 
   DocsHelper.api(VaCollapse, apiOptions),
