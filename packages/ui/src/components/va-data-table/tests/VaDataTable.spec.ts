@@ -1,16 +1,17 @@
-import { mount } from '@vue/test-utils'
+import { shallowMount, VueWrapper } from '@vue/test-utils'
+
 import VaDataTable from '../VaDataTable.vue'
 
 describe('VaDataTable', () => {
-  let wrapper: any
+  let wrapper: VueWrapper<any> | null
 
   afterEach(() => {
-    wrapper.unmount()
+    wrapper?.unmount()
     wrapper = null
   })
 
   it('should render without an error', () => {
-    wrapper = mount(VaDataTable)
-    expect(wrapper.findComponent('VaDataTable')).toBeTruthy()
+    wrapper = shallowMount(VaDataTable)
+    expect(wrapper.exists()).toBeTruthy()
   })
 })

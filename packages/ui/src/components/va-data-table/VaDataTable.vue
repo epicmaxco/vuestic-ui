@@ -1,8 +1,5 @@
 <template>
-  <va-inner-loading
-    :loading="loading"
-    :color="loadingColor"
-  >
+  <va-inner-loading :loading="loading" :color="loadingColor">
     <table
       class="va-data-table"
       :class="{
@@ -12,12 +9,8 @@
       }"
       v-bind="$attrs"
     >
-<!-- Columns configuration (optional) through the colgroup slot-->
       <colgroup v-if="'colgroup' in slots">
-        <slot
-          name="colgroup"
-          v-bind="columnsModel"
-        />
+        <slot name="colgroup" v-bind="columnsModel" />
       </colgroup>
 
       <thead class="va-data-table__thead">
@@ -27,7 +20,6 @@
           v-if="!hideDefaultHeader"
           class="va-data-table__tr"
         >
-<!-- Only if `selectable` prop is true, render an additional column and if `select-mode` is `"multiple"` then render a checkbox clicking which selects/unselects all the rows (rendered as indeterminate if some rows are selected, but not all of them)-->
           <th
             v-if="selectable"
             class="va-data-table__th"
@@ -44,7 +36,6 @@
             />
           </th>
 
-<!-- Render the column headings (and apply sorting on clicks on a given heading). `column` here is an instance of `TableColumn`, not a prop, so don't be confused by WebStorm's warnings-->
           <th
             v-for="column in columnsModel"
             :key="column.key"
@@ -54,19 +45,11 @@
             class="va-data-table__th"
           >
             <div class="va-data-table__th-wrapper">
-<!-- Render a custom `header(columnKey)` slot if it's provided, or a custom common `header` (also if provided) or the column's label-->
               <span v-if="`header(${column.key})` in slots">
-                <slot
-                  :name="`header(${column.key})`"
-                  v-bind="column"
-                />
+                <slot :name="`header(${column.key})`" v-bind="column" />
               </span>
 
-              <slot
-                v-else
-                name="header"
-                v-bind="column"
-              >
+              <slot v-else name="header" v-bind="column">
                 <span>{{ column.label }}</span>
               </slot>
 
@@ -92,10 +75,7 @@
       <tbody class="va-data-table__tbody">
         <slot name="bodyPrepend" />
 
-        <tr
-          v-if="showNoDataHtml"
-          key="showNoDataHtml"
-        >
+        <tr v-if="showNoDataHtml" key="showNoDataHtml">
           <td
             :colspan="columnsModel.length + (selectable ? 1 : 0)"
             v-html="noDataHtml"
@@ -103,10 +83,7 @@
           />
         </tr>
 
-        <tr
-          v-if="showNoDataFilteredHtml"
-          key="showNoDataFilteredHtml"
-        >
+        <tr v-if="showNoDataFilteredHtml" key="showNoDataFilteredHtml">
           <td
             :colspan="columnsModel.length + (selectable ? 1 : 0)"
             v-html="noDataFilteredHtml"
@@ -129,9 +106,7 @@
             }"
             :style="rowCSSVariables"
           >
-<!-- Pagination. If there's some value to the `per-page` prop, then check if the element with that index should be visible. If no `per-page` then just render anyway.      -->
             <template v-if="perPage ? (index >= perPage * (currentPage - 1)) && (index < perPage * currentPage) : true">
-<!-- Render an additional column (for selectable tables only) with checkboxes to toggle selection-->
               <td
                 v-if="selectable"
                 class="va-data-table__td"
@@ -146,25 +121,19 @@
                 />
               </td>
 
-<!-- Render cells for a given row-->
               <td
                 v-for="cell in row.cells"
-                :key="cell.column.key + cell.row.initialIndex"
+                :key="cell.column.key + cell.rowIndex"
                 :style="getCellCSSVariables(cell)"
                 class="va-data-table__td"
               >
-<!-- Substitute cell's content with `cell(columnKey)` slot's value or common `cell` slot's value or (if neither exists) with that cell's actual value-->
                 <slot
                   v-if="`cell(${cell.column.key})` in slots"
                   :name="`cell(${cell.column.key})`"
                   v-bind="cell"
                 />
 
-                <slot
-                  v-else
-                  name="cell"
-                  v-bind="cell"
-                >
+                <slot v-else name="cell" v-bind="cell">
                   {{ cell.value }}
                 </slot>
               </td>
@@ -175,22 +144,11 @@
         <slot name="bodyAppend" />
       </tbody>
 
-<!-- Duplicate header into footer if `footerClone` prop is true-->
-      <tfoot
-        v-if="footerClone"
-        class="va-data-table__tfoot"
-      >
+      <tfoot v-if="footerClone" class="va-data-table__tfoot">
         <slot name="footerPrepend" />
 
-        <tr
-          v-if="!hideDefaultHeader"
-          class="va-data-table__tr"
-        >
-<!-- Only if `selectable` prop is true, render an additional column and if `select-mode` is `"multiple"` then render a checkbox clicking which selects/unselects all the rows (rendered as indeterminate if some rows are selected, but not all of them)-->
-          <th
-            v-if="selectable"
-            class="va-data-table__th"
-          >
+        <tr v-if="!hideDefaultHeader" class="va-data-table__tr">
+          <th v-if="selectable" class="va-data-table__th">
             <va-checkbox
               v-if="selectMode === 'multiple'"
               :model-value="severalRowsSelected ? 'idl' : allRowsSelected"
@@ -203,7 +161,6 @@
             />
           </th>
 
-<!-- Render the column headings (and apply sorting on clicks on a given heading). `column` here is an instance of `TableColumn`, not a prop, so don't be confused by WebStorm's warnings-->
           <th
             v-for="column in columnsModel"
             :key="column.key"
@@ -213,19 +170,11 @@
             class="va-data-table__th"
           >
             <div class="va-data-table__th-wrapper">
-<!-- Render a custom `footer(columnKey)` slot if it's provided, or a custom common `footer` (also if provided) or the column's label-->
               <span v-if="`footer(${column.key})` in slots">
-                <slot
-                  :name="`footer(${column.key})`"
-                  v-bind="column"
-                />
+                <slot :name="`footer(${column.key})`" v-bind="column" />
               </span>
 
-              <slot
-                v-else
-                name="footer"
-                v-bind="column"
-              >
+              <slot v-else name="footer" v-bind="column">
                 <span>{{ column.label }}</span>
               </slot>
 
@@ -256,7 +205,7 @@ import { computed, defineComponent, PropType, toRefs } from 'vue'
 import VaInnerLoading from '../va-inner-loading'
 import VaCheckbox from '../va-checkbox'
 import VaIcon from '../va-icon'
-import useColumns, { ITableColumn } from './hooks/useColumns'
+import useColumns, { TTableColumnSource } from './hooks/useColumns'
 import useRows, { ITableItem } from './hooks/useRows'
 import useFilterable, { TFilterMethod } from './hooks/useFilterable'
 import useSortable, { TSortingOrder } from './hooks/useSortable'
@@ -287,8 +236,8 @@ export default defineComponent({
 
   props: {
     columns: {
-      type: Array as PropType<(string | ITableColumn)[]>,
-      default: () => [] as (string | ITableColumn)[],
+      type: Array as PropType<TTableColumnSource[]>,
+      default: () => [] as TTableColumnSource[],
     },
     items: {
       type: Array as PropType<ITableItem[]>,
@@ -380,7 +329,6 @@ export default defineComponent({
   ],
 
   setup (props, { slots, emit }) {
-    // columns and rows
     const {
       columns: rawColumns,
       items: rawItems,
@@ -394,7 +342,6 @@ export default defineComponent({
       rows: unfilteredRows,
     } = useRows(rawItems, columns)
 
-    // filtering
     const {
       filter,
       filterMethod,
@@ -404,7 +351,6 @@ export default defineComponent({
       filteredRows: rows,
     } = useFilterable(unfilteredRows, filter, filterMethod, emit)
 
-    // sorting
     const {
       sortBy,
       sortingOrder,
@@ -416,7 +362,6 @@ export default defineComponent({
       toggleSorting,
     } = useSortable(columns, rows, sortBy, sortingOrder, emit)
 
-    // selection
     const {
       selectable,
       selectMode,
@@ -433,7 +378,6 @@ export default defineComponent({
       allRowsSelected,
     } = useSelectable(rows, modelValue, selectable, selectMode, emit)
 
-    // styling
     const {
       hoverable,
       selectedColor,
