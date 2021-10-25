@@ -1,0 +1,19 @@
+{
+  "name": "@vuestic-ui/ag-theme-vuestic",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "lint:style": "stylelint '**/*.{vue,html,css,scss}'"
+  },
+  "devDependencies": {
+    "stylelint": "^14.0.0",
+    "stylelint-config-standard": "^23.0.0",
+    "vuestic-ui": "^1.2.8"
+  },
+  "dependencies": {
+    "ag-grid-community": "^26.1.0",
+    "ag-grid-vue3": "^26.1.2",
+    "vue-class-component": "^8.0.0-rc.1"
+  }
+}
