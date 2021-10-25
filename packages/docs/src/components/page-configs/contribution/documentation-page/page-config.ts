@@ -63,7 +63,12 @@ const config: ApiDocsBlock[] = [
 
   DocsHelper.headline('documentationPage.blocktypes.example.title'),
   DocsHelper.paragraph('documentationPage.blocktypes.example.text'),
-  DocsHelper.code('DocsHelper.example(\'va-component/ComponentName\')'),
+  DocsHelper.paragraph('documentationPage.blocktypes.example.aboutPath'),
+  DocsHelper.code('DocsHelper.example(\'path/to/directory\', \'ComponentName\')'),
+
+  DocsHelper.headline('documentationPage.blocktypes.component.title'),
+  DocsHelper.paragraph('documentationPage.blocktypes.component.text'),
+  DocsHelper.code('DocsHelper.component(\'path/to/directory\', \'ComponentName\')'),
 
   DocsHelper.headline('documentationPage.blocktypes.api.title'),
   DocsHelper.paragraph('documentationPage.blocktypes.api.text'),

@@ -1199,7 +1199,12 @@
       },
       "example": {
         "title": "Example",
-        "text": "Shows a component with code preview. Component can use all global services: css classes, colors etc."
+        "text": "Shows a component with code preview. Component can use all global services: css classes, colors etc. Mostly used in the ui-elements section to show examples of use.",
+        "aboutPath": "The path to the directory is similar to the path to the page on which we want to display the component. For example, for this page, the path will be written as *contribution/documentation-page*."
+      },
+      "component": {
+        "title": "Component",
+        "text": "Shows a component that has some logic and is not an example of use."
       },
       "api": {
         "title": "API",
