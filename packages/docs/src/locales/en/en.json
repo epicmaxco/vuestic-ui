@@ -3054,7 +3054,7 @@
     "api": {
       "icons": "Used to configure icon fonts and aliases.",
       "components": "Used to globally overwrite props of specific components.",
-      "componentsAll": "Used to globally set props of all components. If there are no other source of props.",
+      "componentsAll": "Used to globally set props for all components. If there are no other source of props.",
       "colors": "Used to define theme colors that components make use of. Here you can redefine default Vuestic-theme colors."
     }
   },

@@ -277,7 +277,7 @@ export default defineComponent({
         }
 
         if (Array.isArray(value)) {
-          warn('Model value should be a string for a single Select.')
+          warn('Model value should be a string or a number for a single Select.')
 
           if (value.length) {
             return value[value.length - 1]
@@ -292,9 +292,9 @@ export default defineComponent({
       },
     })
 
-    const valueComputedString = computed((): string => {
+    const valueComputedString = computed((): string | number => {
       if (!valueComputed.value) { return props.clearValue }
-      if (typeof valueComputed.value === 'string') { return valueComputed.value }
+      if (typeof valueComputed.value === 'string' || typeof valueComputed.value === 'number') { return valueComputed.value }
       if (Array.isArray(valueComputed.value)) {
         return valueComputed.value.map((value) => getText(value)).join(props.separator) || props.clearValue
       }
@@ -385,7 +385,7 @@ export default defineComponent({
           addOption(option)
         }
       } else {
-        valueComputed.value = typeof option === 'string' ? option : { ...option }
+        valueComputed.value = typeof option === 'string' || typeof option === 'number' ? option : { ...option }
         hideAndFocus()
       }
     }
