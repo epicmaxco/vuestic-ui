@@ -119,10 +119,10 @@ $ag-theme-vuestic-default-params: (
         border-color: ag-derived(secondary-foreground-color),
 
   // Colour for borders used to separate elements within a major UI component
-        secondary-border-color: ag-derived(background-color, $mix: foreground-color 25%),
+        secondary-border-color: transparent,
 
   // Colour of the border between grid rows, or null to display no border
-        row-border-color: ag-derived(secondary-border-color),
+        row-border-color: null,
 
   // Default border for cells. This can be used to specify the border-style and border-color properties e.g. `dashed red` but the border-width is fixed at 1px.
         cell-horizontal-border: solid transparent,

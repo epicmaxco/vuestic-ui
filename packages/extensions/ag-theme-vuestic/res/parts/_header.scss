@@ -6,6 +6,10 @@
 @mixin ag-vuestic-theme-part-header {
   .ag-header {
     border-bottom-width: 2px;
+    .ag-header-cell-label {
+      padding: 0;
+      border: none;
+    }
   }
 
   .ag-header-cell-label,
