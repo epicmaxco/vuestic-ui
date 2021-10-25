@@ -59,15 +59,9 @@ const createHoursColumn = (props: TimePickerProps, modelValue: ModelValueRef, is
     set: (newIndex) => {
       if (props.readonly) { return }
 
-      if (props.ampm) {
-        const v = from12to24(items.value[newIndex], isPM.value)
+      const hours = props.ampm ? from12to24(items.value[newIndex], isPM.value) : items.value[newIndex]
 
-        modelValue.value = new Date(safeModelValue(modelValue).setHours(v))
-      } else {
-        const v = items.value[newIndex]
-
-        modelValue.value = new Date(safeModelValue(modelValue).setHours(v))
-      }
+      modelValue.value = new Date(safeModelValue(modelValue).setHours(hours))
     },
   })
 
@@ -154,7 +148,7 @@ const createPeriodColumn = (props: TimePickerProps, modelValue: ModelValueRef, i
         if (isPM.value && h <= 12) { h24 = h + 12 }
         if (!isPM.value && h >= 12) { h24 = h - 12 }
 
-        const isValidFilteredHour = !(props.hoursFilter && !props.hoursFilter(h24))
+        const isValidFilteredHour = props.hoursFilter && props.hoursFilter(h24)
 
         if (props.periodUpdatesModelValue && isValidFilteredHour) {
           modelValue.value = new Date(safeModelValue(modelValue).setHours(h24))
@@ -168,7 +162,7 @@ export const useTimePicker = (props: TimePickerProps, modelValue: ModelValueRef)
   const { view } = toRefs(props)
 
   const isPM = ref(false)
-  watch(modelValue, () => { isPM.value = safeModelValue(modelValue).getHours() > 12 }, { immediate: true })
+  watch(modelValue, () => { isPM.value = safeModelValue(modelValue).getHours() >= 12 }, { immediate: true })
 
   const hoursColumn = createHoursColumn(props, modelValue, isPM)
   const minutesColumn = createMinutesColumn(props, modelValue)
