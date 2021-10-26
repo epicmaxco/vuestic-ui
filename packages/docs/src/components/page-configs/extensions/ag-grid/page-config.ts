@@ -15,7 +15,7 @@ const importStyles = `<style lang="scss">
 </style>`
 
 const dependencies: Dependencies = {
-  '@kushich/ag-theme-vuestic': 'latest',
+  '@vuestic/ag-theme-vuestic': 'latest',
 }
 
 const config: ApiDocsBlock[] = [

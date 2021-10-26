@@ -44,5 +44,5 @@ export default {
 </script>
 
 <style lang="scss">
-@import "~@kushich/ag-theme-vuestic";
+@import "~@vuestic/ag-theme-vuestic";
 </style>
