@@ -1,7 +1,7 @@
 {
   "name": "@kushich/ag-theme-vuestic",
   "description": "Custom theme with Vuestic UI styles for AG Grid Vue 3.",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "src/index.js",
   "license": "MIT",
   "scripts": {

@@ -40,7 +40,5 @@ export default {
 </script>
 
 <style lang="scss">
-@import "~ag-grid-community/dist/styles/ag-grid.css";
-// TODO: import from extension package for vuestic-ui
-@import "~vuestic-ui/src/styles/ag-theme-vuestic/ag-theme-vuestic";
+@import "~@kushich/ag-theme-vuestic";
 </style>

@@ -1623,6 +1623,15 @@
     "@types/yargs" "^16.0.0"
     chalk "^4.0.0"
 
+"@kushich/ag-theme-vuestic@^0.0.4":
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/@kushich/ag-theme-vuestic/-/ag-theme-vuestic-0.0.4.tgz#5ba9154e4ef9122777c4d5cde88ce9ae49b54f03"
+  integrity sha512-oRSn+ZbHRDDBJxLta6sL6CYldt/lrTlLXEEmUpqO3+jTi4wU3126AUiUZQfoeZPwqjmYS5HHbWRaAxyjXpYMYw==
+  dependencies:
+    ag-grid-community "^26.1.0"
+    ag-grid-vue3 "^26.1.2"
+    vue-class-component "^8.0.0-rc.1"
+
 "@lerna/add@3.21.0":
   version "3.21.0"
   resolved "https://registry.yarnpkg.com/@lerna/add/-/add-3.21.0.tgz#27007bde71cc7b0a2969ab3c2f0ae41578b4577b"
@@ -4257,15 +4266,15 @@ address@^1.1.2:
   resolved "https://registry.yarnpkg.com/address/-/address-1.1.2.tgz#bf1116c9c758c51b7a933d296b72c221ed9428b6"
   integrity sha512-aT6camzM4xEA54YVJYSqxz1kv4IHnQZRtThJJHhUMRExaU5spC7jX5ugSwTaTgJliIgs4VhZOk7htClvQ/LmRA==
 
-ag-grid-community@^26.0.0:
-  version "26.0.0"
-  resolved "https://registry.yarnpkg.com/ag-grid-community/-/ag-grid-community-26.0.0.tgz#2f26d4e89f5d2b8264065e8a542c42973e1cb306"
-  integrity sha512-ewm640koOut+1nl+rDf/pUyM6/V2xbZ8T7VTzM0NZQNhn8TFG3grKs5iEzsKel8mwMWCSIO82xr356QNE11Hog==
+ag-grid-community@^26.1.0:
+  version "26.1.0"
+  resolved "https://registry.yarnpkg.com/ag-grid-community/-/ag-grid-community-26.1.0.tgz#d4ee3e9591b351a5ae477a21dd3dc44491ccd7fa"
+  integrity sha512-vGnbiaxN6TxsDGcC2uIOrgjx+zwXlBK99aYiWcuiyzSPvNpz1fG29nSNx/fMeVRzc3FOru8h8vvk41vszh5AMg==
 
-ag-grid-vue3@^26.0.0:
-  version "26.0.0"
-  resolved "https://registry.yarnpkg.com/ag-grid-vue3/-/ag-grid-vue3-26.0.0.tgz#555b9cb29c0f19c6fec724b770e8cac442c6b77b"
-  integrity sha512-lobzqo+UWTzAoDgxaJ0Uen8azbEDhyz7gBJa6UzyrQe3GOTyu7XyLF5TI3aoj6hRsHxih5Av2u+S4FGHpZAZHQ==
+ag-grid-vue3@^26.1.2:
+  version "26.1.2"
+  resolved "https://registry.yarnpkg.com/ag-grid-vue3/-/ag-grid-vue3-26.1.2.tgz#3aed84ce99792ed866489ea71a9902a5b1396c4d"
+  integrity sha512-omyRdFI5esgh+DQ3EdWaUF/vt2aJEwtxHcFmD1iKDZ4BdvpXEedfyjBqCa0Ubxw4fxMNzsERDM33BJP2W8O0aA==
 
 agent-base@4, agent-base@^4.1.0, agent-base@^4.3.0:
   version "4.3.0"

@@ -19,6 +19,7 @@
     "precommit": "lint-staged --concurrent=false"
   },
   "dependencies": {
+    "@kushich/ag-theme-vuestic": "^0.0.4",
     "codesandbox": "^2.2.3",
     "core-js": "^3.12.1",
     "dedent": "^0.7.0",
