@@ -136,8 +136,6 @@
     "webpack-merge": "^5.5.0"
   },
   "peerDependencies": {
-    "ag-grid-community": "^26.0.0",
-    "ag-grid-vue3": "^26.0.1",
     "vue": "^3.0.4"
   },
   "lint-staged": {
