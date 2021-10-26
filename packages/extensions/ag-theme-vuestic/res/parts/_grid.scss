@@ -14,11 +14,12 @@
       padding-bottom: 0;
       padding-top: 0;
     }
+    .ag-cell-inline-editing {
+      padding: 0;
+    }
     // keyboard focus
     .ag-has-focus .ag-cell-focus:not(.ag-cell-range-selected) {
-      .ag-cell-last-left-pinned {
-        border-right: none;
-      }
+      border: none;
       background-color: $light-gray;
     }
   }
