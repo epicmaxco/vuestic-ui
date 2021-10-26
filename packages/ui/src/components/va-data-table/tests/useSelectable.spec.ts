@@ -32,13 +32,13 @@ const selections = (current: TSources, previous: TSources): TSelectionChange => 
     previouslySelectedItems: sources(previous),
   }
 }
-const doneAfterCheckCallTimes = (done: jest.DoneCallback, times: number) => {
-  nextTick(() => {
-    expect(emit).toHaveBeenCalledTimes(times)
-    done()
-  })
+const doneAfterCheckCallTimes = async (done: jest.DoneCallback, times: number) => {
+  await nextTick()
+  expect(emit).toHaveBeenCalledTimes(times)
+  done()
 }
-const expectSelectionChange = (times: number, current: TSources, previous: TSources) => {
+const expectSelectionChange = async (times: number, current: TSources, previous: TSources) => {
+  await nextTick()
   expect(emit).toHaveBeenCalledTimes(times)
   expect(emit).toHaveBeenLastCalledWith(events[1], selections(current, previous))
 }
@@ -56,131 +56,110 @@ describe('useSelectable (vaDataTable hook)', () => {
     jest.clearAllMocks()
   })
 
-  it('noRowsSelected', (done) => {
+  it('noRowsSelected', async (done) => {
     const { noRowsSelected } = useSelectable(rows, selectedItems, selectable, selectMode, emit)
 
     expect(noRowsSelected.value).toBe(true)
 
     selectedItems.value = sources([0])
-    nextTick(() => {
-      expectSelectionChange(1, [0], [])
-      expect(noRowsSelected.value).toBe(false)
+    await expectSelectionChange(1, [0], [])
+    expect(noRowsSelected.value).toBe(false)
 
-      doneAfterCheckCallTimes(done, 1)
-    })
+    await doneAfterCheckCallTimes(done, 1)
   })
 
-  it('severalRowsSelected', (done) => {
+  it('severalRowsSelected', async (done) => {
     const { severalRowsSelected } = useSelectable(rows, selectedItems, selectable, selectMode, emit)
 
     expect(severalRowsSelected.value).toBe(false)
 
     selectedItems.value = sources([0])
-    nextTick(() => {
-      expectSelectionChange(1, [0], [])
-      expect(severalRowsSelected.value).toBe(true)
+    await expectSelectionChange(1, [0], [])
+    expect(severalRowsSelected.value).toBe(true)
 
-      selectedItems.value = sources('all')
-      nextTick(() => {
-        expectSelectionChange(2, 'all', [0])
-        expect(severalRowsSelected.value).toBe(false)
+    selectedItems.value = sources('all')
+    await expectSelectionChange(2, 'all', [0])
+    expect(severalRowsSelected.value).toBe(false)
 
-        doneAfterCheckCallTimes(done, 2)
-      })
-    })
+    await doneAfterCheckCallTimes(done, 2)
   })
 
-  it('allRowsSelected', (done) => {
+  it('allRowsSelected', async (done) => {
     const rows = ref(rawRows.slice(0, 6))
     const { allRowsSelected } = useSelectable(rows, selectedItems, selectable, selectMode, emit)
 
     expect(allRowsSelected.value).toBe(false)
 
     selectedItems.value = sources([0])
-    nextTick(() => {
-      expectSelectionChange(1, [0], [])
-      expect(allRowsSelected.value).toBe(false)
+    await expectSelectionChange(1, [0], [])
+    expect(allRowsSelected.value).toBe(false)
 
-      selectedItems.value = sources('all')
-      nextTick(() => {
-        expectSelectionChange(2, 'all', [0])
-        expect(allRowsSelected.value).toBe(true)
+    selectedItems.value = sources('all')
+    await expectSelectionChange(2, 'all', [0])
+    expect(allRowsSelected.value).toBe(true)
 
-        rows.value = []
-        nextTick(() => {
-          expectUpdateModelValue(3, [])
-          expect(allRowsSelected.value).toBe(false)
+    rows.value = []
+    await nextTick()
+    expectUpdateModelValue(3, [])
+    expect(allRowsSelected.value).toBe(false)
 
-          doneAfterCheckCallTimes(done, 3)
-        })
-      })
-    })
+    await doneAfterCheckCallTimes(done, 3)
   })
 
-  it('isRowSelected', (done) => {
+  it('isRowSelected', async (done) => {
     const { isRowSelected } = useSelectable(rows, selectedItems, selectable, selectMode, emit)
     const targetRow = rows.value[0]
 
     expect(isRowSelected(targetRow)).toBe(false)
 
     selectedItems.value = sources([0])
-    nextTick(() => {
-      expectSelectionChange(1, [0], [])
-      expect(isRowSelected(targetRow)).toBe(true)
+    await expectSelectionChange(1, [0], [])
+    expect(isRowSelected(targetRow)).toBe(true)
 
-      selectedItems.value = sources('all')
-      nextTick(() => {
-        expectSelectionChange(2, 'all', [0])
-        expect(isRowSelected(targetRow)).toBe(true)
+    selectedItems.value = sources('all')
+    await expectSelectionChange(2, 'all', [0])
+    expect(isRowSelected(targetRow)).toBe(true)
 
-        selectedItems.value = []
-        setTimeout(() => {
-          expectSelectionChange(3, [], 'all')
-          expect(isRowSelected(targetRow)).toBe(false)
+    selectedItems.value = []
+    await expectSelectionChange(3, [], 'all')
+    expect(isRowSelected(targetRow)).toBe(false)
 
-          doneAfterCheckCallTimes(done, 3)
-        })
-      })
-    })
+    await doneAfterCheckCallTimes(done, 3)
   })
 
-  it('toggleBulkSelection', (done) => {
+  it('toggleBulkSelection', async (done) => {
     const { toggleBulkSelection } = useSelectable(rows, selectedItems, selectable, selectMode, emit)
 
     toggleBulkSelection()
     expectUpdateModelValue(1, 'all')
 
     selectedItems.value = sources('all')
-    nextTick(() => {
-      expectSelectionChange(2, 'all', [])
+    await expectSelectionChange(2, 'all', [])
 
-      toggleBulkSelection()
-      expectUpdateModelValue(3, [])
+    toggleBulkSelection()
+    expectUpdateModelValue(3, [])
 
-      selectedItems.value = sources([0])
-      nextTick(() => {
-        expectSelectionChange(4, [0], 'all')
+    selectedItems.value = sources([0])
+    await expectSelectionChange(4, [0], 'all')
 
-        toggleBulkSelection()
-        expectUpdateModelValue(5, 'all')
+    toggleBulkSelection()
+    expectUpdateModelValue(5, 'all')
 
-        doneAfterCheckCallTimes(done, 5)
-      })
-    })
+    await doneAfterCheckCallTimes(done, 5)
   })
 
   describe('toggleRowSelection"', () => {
-    it('selectable = false', (done) => {
+    it('selectable = false', async (done) => {
       const selectableFalse = ref(selectableCases[1])
       const { toggleRowSelection } = useSelectable(rows, selectedItems, selectableFalse, selectMode, emit)
 
       toggleRowSelection(rows.value[0])
       expect(emit).toHaveBeenCalledTimes(0)
 
-      doneAfterCheckCallTimes(done, 0)
+      await doneAfterCheckCallTimes(done, 0)
     })
 
-    it('selectable = true', (done) => {
+    it('selectable = true', async (done) => {
       const { toggleRowSelection } = useSelectable(rows, selectedItems, selectable, selectMode, emit)
       const targetRow = rows.value[0]
 
@@ -188,37 +167,33 @@ describe('useSelectable (vaDataTable hook)', () => {
       expectUpdateModelValue(1, [0])
 
       selectedItems.value = sources([0, 1])
-      nextTick(() => {
-        expectSelectionChange(2, [0, 1], [])
+      await expectSelectionChange(2, [0, 1], [])
 
-        toggleRowSelection(targetRow)
-        expectUpdateModelValue(3, [0])
+      toggleRowSelection(targetRow)
+      expectUpdateModelValue(3, [0])
 
-        selectedItems.value = sources([0])
-        nextTick(() => {
-          expectSelectionChange(4, [0], [0, 1])
+      selectedItems.value = sources([0])
+      await expectSelectionChange(4, [0], [0, 1])
 
-          toggleRowSelection(targetRow)
-          expectUpdateModelValue(5, [])
+      toggleRowSelection(targetRow)
+      expectUpdateModelValue(5, [])
 
-          doneAfterCheckCallTimes(done, 5)
-        })
-      })
+      await doneAfterCheckCallTimes(done, 5)
     })
   })
 
   describe('ctrlSelectRow', () => {
-    it('selectable = false', (done) => {
+    it('selectable = false', async (done) => {
       const selectableFalse = ref(selectableCases[1])
       const { ctrlSelectRow } = useSelectable(rows, selectedItems, selectableFalse, selectMode, emit)
 
       ctrlSelectRow(rows.value[0])
       expect(emit).toHaveBeenCalledTimes(0)
 
-      doneAfterCheckCallTimes(done, 0)
+      await doneAfterCheckCallTimes(done, 0)
     })
 
-    it('selectMode = single', (done) => {
+    it('selectMode = single', async (done) => {
       const singleSelectMode = ref(selectModes[0])
       const { ctrlSelectRow } = useSelectable(rows, selectedItems, selectable, singleSelectMode, emit)
       const targetRow = rows.value[0]
@@ -227,25 +202,21 @@ describe('useSelectable (vaDataTable hook)', () => {
       expectUpdateModelValue(1, [0])
 
       selectedItems.value = sources([0, 1])
-      nextTick(() => {
-        expectSelectionChange(2, [0, 1], [])
+      await expectSelectionChange(2, [0, 1], [])
 
-        ctrlSelectRow(targetRow)
-        expectUpdateModelValue(3, [0])
+      ctrlSelectRow(targetRow)
+      expectUpdateModelValue(3, [0])
 
-        selectedItems.value = sources([0])
-        nextTick(() => {
-          expectSelectionChange(4, [0], [0, 1])
+      selectedItems.value = sources([0])
+      await expectSelectionChange(4, [0], [0, 1])
 
-          ctrlSelectRow(targetRow)
-          expectUpdateModelValue(5, [])
+      ctrlSelectRow(targetRow)
+      expectUpdateModelValue(5, [])
 
-          doneAfterCheckCallTimes(done, 5)
-        })
-      })
+      await doneAfterCheckCallTimes(done, 5)
     })
 
-    it('selectMode = multiple', (done) => {
+    it('selectMode = multiple', async (done) => {
       const { ctrlSelectRow } = useSelectable(rows, selectedItems, selectable, selectMode, emit)
       const targetRow = rows.value[0]
 
@@ -253,37 +224,33 @@ describe('useSelectable (vaDataTable hook)', () => {
       expectUpdateModelValue(1, [0])
 
       selectedItems.value = sources([0, 1])
-      nextTick(() => {
-        expectSelectionChange(2, [0, 1], [])
+      await expectSelectionChange(2, [0, 1], [])
 
-        ctrlSelectRow(targetRow)
-        expectUpdateModelValue(3, [1])
+      ctrlSelectRow(targetRow)
+      expectUpdateModelValue(3, [1])
 
-        selectedItems.value = sources([2, 3])
-        nextTick(() => {
-          expectSelectionChange(4, [2, 3], [0, 1])
+      selectedItems.value = sources([2, 3])
+      await expectSelectionChange(4, [2, 3], [0, 1])
 
-          ctrlSelectRow(targetRow)
-          expectUpdateModelValue(5, [2, 3, 0])
+      ctrlSelectRow(targetRow)
+      expectUpdateModelValue(5, [2, 3, 0])
 
-          doneAfterCheckCallTimes(done, 5)
-        })
-      })
+      await doneAfterCheckCallTimes(done, 5)
     })
   })
 
   describe('shiftSelectRows', () => {
-    it('selectable = false', (done) => {
+    it('selectable = false', async (done) => {
       const selectableFalse = ref(selectableCases[1])
       const { shiftSelectRows } = useSelectable(rows, selectedItems, selectableFalse, selectMode, emit)
 
       shiftSelectRows(rows.value[0])
       expect(emit).toHaveBeenCalledTimes(0)
 
-      doneAfterCheckCallTimes(done, 0)
+      await doneAfterCheckCallTimes(done, 0)
     })
 
-    it('selectMode = single', (done) => {
+    it('selectMode = single', async (done) => {
       const singleSelectMode = ref(selectModes[0])
       const { shiftSelectRows } = useSelectable(rows, selectedItems, selectable, singleSelectMode, emit)
       const targetRow = rows.value[0]
@@ -292,55 +259,45 @@ describe('useSelectable (vaDataTable hook)', () => {
       expectUpdateModelValue(1, [0])
 
       selectedItems.value = sources([0, 1])
-      nextTick(() => {
-        expectSelectionChange(2, [0, 1], [])
+      await expectSelectionChange(2, [0, 1], [])
 
-        shiftSelectRows(targetRow)
-        expectUpdateModelValue(3, [0])
+      shiftSelectRows(targetRow)
+      expectUpdateModelValue(3, [0])
 
-        selectedItems.value = sources([0])
-        nextTick(() => {
-          expectSelectionChange(4, [0], [0, 1])
+      selectedItems.value = sources([0])
+      await expectSelectionChange(4, [0], [0, 1])
 
-          shiftSelectRows(targetRow)
-          expectUpdateModelValue(5, [])
+      shiftSelectRows(targetRow)
+      expectUpdateModelValue(5, [])
 
-          doneAfterCheckCallTimes(done, 5)
-        })
-      })
+      await doneAfterCheckCallTimes(done, 5)
     })
 
-    it('selectMode = multiple', (done) => {
+    it('selectMode = multiple', async (done) => {
       const { shiftSelectRows } = useSelectable(rows, selectedItems, selectable, selectMode, emit)
 
       shiftSelectRows(rows.value[2]) // prevSelectedRowIndex: -1 ==> 2
       expectUpdateModelValue(1, [0, 1, 2])
 
       selectedItems.value = sources([0, 1, 2])
-      nextTick(() => {
-        expectSelectionChange(2, [0, 1, 2], [])
+      await expectSelectionChange(2, [0, 1, 2], [])
 
-        shiftSelectRows(rows.value[4]) // prevSelectedRowIndex: 2 ==> 4
-        expectUpdateModelValue(3, [0, 1, 2, 3, 4])
+      shiftSelectRows(rows.value[4]) // prevSelectedRowIndex: 2 ==> 4
+      expectUpdateModelValue(3, [0, 1, 2, 3, 4])
 
-        selectedItems.value = sources([0, 1])
-        nextTick(() => {
-          expectSelectionChange(4, [0, 1], [0, 1, 2])
+      selectedItems.value = sources([0, 1])
+      await expectSelectionChange(4, [0, 1], [0, 1, 2])
 
-          shiftSelectRows(rows.value[1]) // prevSelectedRowIndex: 4 ==> 1
-          expectUpdateModelValue(5, [0, 1, 2, 3])
+      shiftSelectRows(rows.value[1]) // prevSelectedRowIndex: 4 ==> 1
+      expectUpdateModelValue(5, [0, 1, 2, 3])
 
-          selectedItems.value = sources([3, 4])
-          nextTick(() => {
-            expectSelectionChange(6, [3, 4], [0, 1])
+      selectedItems.value = sources([3, 4])
+      await expectSelectionChange(6, [3, 4], [0, 1])
 
-            shiftSelectRows(rows.value[0]) // prevSelectedRowIndex: 1 ==> 0
-            expectUpdateModelValue(7, [3, 4, 0])
+      shiftSelectRows(rows.value[0]) // prevSelectedRowIndex: 1 ==> 0
+      expectUpdateModelValue(7, [3, 4, 0])
 
-            doneAfterCheckCallTimes(done, 7)
-          })
-        })
-      })
+      await doneAfterCheckCallTimes(done, 7)
     })
   })
 })
