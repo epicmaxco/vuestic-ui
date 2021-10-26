@@ -6,6 +6,7 @@
     "build": "rm -rf ./dist && yarn build:vite && yarn build:vue-cli",
     "build:vite": "vue-tsc --noEmit && vite build",
     "build:vue-cli": "vue-cli-service build",
+    "build:vuestic": ". ./build-vuestic-ui.sh",
     "dev:vite": "vite",
     "dev:vue-cli": "vue-cli-service serve",
     "serve:vite": "vite preview",
