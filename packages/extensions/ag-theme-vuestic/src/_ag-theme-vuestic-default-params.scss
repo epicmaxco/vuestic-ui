@@ -39,7 +39,7 @@ $ag-theme-vuestic-default-params: (
         odd-row-background-color: null,
 
   // Background color of the overlay shown over the grid when it is covered by an overlay, e.g. a data loading indicator.
-        modal-overlay-background-color: rgba(200, 200, 200, 0.5),
+        modal-overlay-background-color: rgba(255, 255, 255, 0.5),
 
   // Background color when hovering over rows in the grid and in dropdown menus, or null for no rollover effect (note - if you want a rollover on one but not the other, set to null and use CSS to achieve the rollover)
         row-hover-color: null,
