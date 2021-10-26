@@ -19,8 +19,6 @@
     "precommit": "lint-staged --concurrent=false"
   },
   "dependencies": {
-    "ag-grid-community": "^26.0.0",
-    "ag-grid-vue3": "^26.0.0",
     "codesandbox": "^2.2.3",
     "core-js": "^3.12.1",
     "dedent": "^0.7.0",
