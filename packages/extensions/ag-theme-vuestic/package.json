@@ -1,14 +1,11 @@
 {
-  "name": "@vuestic-ui/ag-theme-vuestic",
-  "version": "1.0.0",
-  "main": "index.js",
+  "name": "@vuestic/ag-theme-vuestic",
+  "version": "0.0.1",
+  "main": "src/index.js",
   "license": "MIT",
   "scripts": {
-    "lint:style": "stylelint '**/*.{vue,html,css,scss}'"
   },
   "devDependencies": {
-    "stylelint": "^14.0.0",
-    "stylelint-config-standard": "^23.0.0",
     "vuestic-ui": "^1.2.8"
   },
   "dependencies": {
