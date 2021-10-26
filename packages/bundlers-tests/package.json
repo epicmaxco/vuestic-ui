@@ -11,7 +11,8 @@
     "dev:vue-cli": "vue-cli-service serve",
     "serve:vite": "vite preview",
     "serve:vue-cli": "serve -s dist/vue-cli",
-    "test": "jest",
+    "test": "yarn build && jest",
+    "test-without-build": "jest",
     "reinstall": "rm -rf ./node_modules && yarn"
   },
   "dependencies": {

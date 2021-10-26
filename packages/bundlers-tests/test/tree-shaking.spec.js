@@ -1,4 +1,3 @@
-const { execSync } = require('child_process');
 const { readFileSync } = require('fs')
 
 const tests = {
@@ -17,13 +16,7 @@ const tests = {
   }
 }
 
-
-
 describe('Testing vuestic-ui build', () => {
-  test('Build', () => {
-    expect(execSync('yarn build').toString()).toBeTruthy()
-  })
-
   describe('Vue CLI (Webpack)', () => {
     const indexJs = readFileSync('./dist/vue-cli/js/index.js').toString('utf8')
 
