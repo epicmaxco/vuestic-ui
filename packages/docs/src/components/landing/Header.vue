@@ -279,6 +279,7 @@ export default class Header extends Vue {
 
   &__link {
     @include link-font();
+
     text-align: center;
 
     span,
