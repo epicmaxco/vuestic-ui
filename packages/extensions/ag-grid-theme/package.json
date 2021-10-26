@@ -6,8 +6,7 @@
   "repository": "https://github.com/epicmaxco/vuestic-ui",
   "main": "src/index.js",
   "license": "MIT",
-  "scripts": {
-  },
+  "scripts": {},
   "devDependencies": {
     "vuestic-ui": "^1.2.8"
   },
