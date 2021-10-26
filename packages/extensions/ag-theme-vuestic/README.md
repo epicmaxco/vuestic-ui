@@ -13,20 +13,20 @@ yarn add @vuestic/ag-theme-vuestic
 ```
 Import styles to project via entry js/ts file:
 
-```
+```js
 // main.js
 
 import '@vuestic/ag-theme-vuestic/index.scss'
 ```
 or via a scss:
-```
+```scss
 // *.scss or <styles lang="scss">
 
 @import "~@vuestic/ag-theme-vuestic";
 ```
 
 ## Usage
-```
+```vue
 <template>
   <div>
     <ag-grid-vue
@@ -38,7 +38,8 @@ or via a scss:
   </div>
 </template>
 ```
-```
+
+```js
 <script>
 import { AgGridVue } from 'ag-grid-vue3'
 
@@ -69,7 +70,8 @@ export default {
 }
 </script>
 ```
-```
+
+```scss
 <style lang="scss">
 @import "~@vuestic/ag-theme-vuestic";
 </style>
