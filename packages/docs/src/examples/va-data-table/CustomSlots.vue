@@ -3,6 +3,7 @@
     <template #header(address)>Street</template>
     <template #header(company)>Company Name</template>
 
+    <template #cell(username)="{ source: username }"><va-chip>{{ username }}</va-chip></template>
     <template #cell(address)="{ source: address }">{{ address.street }}</template>
     <template #cell(company)="{ source: company }">{{ company.name }}</template>
   </va-data-table>

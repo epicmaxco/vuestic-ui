@@ -1,6 +1,23 @@
 import { defineManualApi } from '../../../DocsApi/ManualApiOptions'
 
 export default defineManualApi({
+  props: {
+    columns: {
+      types: '`(string | ITableColumn)[]`',
+    },
+    filterMethod: {
+      types: '`TFilterMethod: (source: any) => boolean`',
+    },
+    items: {
+      types: '`ITableItem[]`',
+    },
+    selectMode: {
+      types: '`TSelectMode: \'single\'|\'multiple\'`',
+    },
+    sortingOrder: {
+      types: '`TSortingOrder: \'asc\'|\'desc\'|null`',
+    },
+  },
   events: {
     filtered: {
       types: '`() => Number`',
