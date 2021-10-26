@@ -1,6 +1,6 @@
 {
   "name": "@vuestic/ag-grid-theme",
-  "version": "0.1.0",
+  "version": "1.0.0-alpha.0",
   "description": "Custom theme with Vuestic UI styles for AG Grid Vue 3.",
   "homepage": "https://vuestic.dev",
   "repository": "https://github.com/epicmaxco/vuestic-ui",
