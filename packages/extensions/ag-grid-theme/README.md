@@ -5,24 +5,24 @@ Custom theme with Vuestic UI styles for AG Grid Vue 3.
 
 #### npm
 ```
-npm i @vuestic/ag-theme-vuestic
+npm i @vuestic/ag-grid-theme
 ```
 #### yarn
 ```
-yarn add @vuestic/ag-theme-vuestic
+yarn add @vuestic/ag-grid-theme
 ```
 Import styles to project via entry js/ts file:
 
 ```js
 // main.js
 
-import '@vuestic/ag-theme-vuestic/index.scss'
+import '@vuestic/ag-grid-theme/index.scss'
 ```
 or via a scss:
 ```scss
 // *.scss or <styles lang="scss">
 
-@import "~@vuestic/ag-theme-vuestic";
+@import "~@vuestic/ag-grid-theme";
 ```
 
 ## Usage
@@ -73,7 +73,7 @@ export default {
 
 ```scss
 <style lang="scss">
-@import "~@vuestic/ag-theme-vuestic";
+@import "~@vuestic/ag-grid-theme";
 </style>
 ```
 

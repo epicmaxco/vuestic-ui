@@ -2,20 +2,20 @@ import { ApiDocsBlock, Dependencies } from '../../../../types/configTypes'
 import { DocsHelper } from '../../../../helpers/DocsHelper'
 
 const installCommand = `
-npm install @vuestic/ag-theme-vuestic
+npm install @vuestic/ag-grid-theme
 // $t('all.code.or')
-yarn add @vuestic/ag-theme-vuestic`
+yarn add @vuestic/ag-grid-theme`
 
 const setClass = `<template>
   <ag-grid-vue class='ag-theme-vuestic' ... />
 </template>`
 
 const importStyles = `<style lang="scss">
-  @import "~@vuestic/ag-theme-vuestic";
+  @import "~@vuestic/ag-grid-theme";
 </style>`
 
 const dependencies: Dependencies = {
-  '@vuestic/ag-theme-vuestic': 'latest',
+  '@vuestic/ag-grid-theme': 'latest',
 }
 
 const config: ApiDocsBlock[] = [
