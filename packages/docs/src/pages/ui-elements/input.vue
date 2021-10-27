@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component'
 import DocsContent from '../../components/DocsContent.vue'
-import inputConfig from '../../components/page-configs/ui-elements/va-input/page-config'
+import inputConfig from '../../page-configs/ui-elements/input/page-config'
 
 @Options({
   name: 'DocsInput',

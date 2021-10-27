@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component'
 import DocsContent from '../../components/DocsContent.vue'
-import breadcrumbsConfig from '../../components/page-configs/ui-elements/va-breadcrumbs/page-config'
+import breadcrumbsConfig from '../../page-configs/ui-elements/breadcrumbs/page-config'
 
 @Options({
   name: 'DocsBreadcrumbs',

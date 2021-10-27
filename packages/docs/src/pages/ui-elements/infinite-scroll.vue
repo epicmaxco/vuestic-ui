@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component'
 import DocsContent from '../../components/DocsContent.vue'
-import infiniteScrollConfig from '../../components/page-configs/ui-elements/va-infinite-scroll/page-config'
+import infiniteScrollConfig from '../../page-configs/ui-elements/infinite-scroll/page-config'
 
 @Options({
   name: 'DocsInfiniteScroll',

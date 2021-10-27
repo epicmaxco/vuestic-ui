@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component'
 import DocsContent from '../../components/DocsContent.vue'
-import avatarConfig from '../../components/page-configs/ui-elements/va-avatar/page-config'
+import avatarConfig from '../../page-configs/ui-elements/avatar/page-config'
 
 @Options({
   name: 'DocsAvatar',

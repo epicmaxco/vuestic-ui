@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component'
 import DocsContent from '../../components/DocsContent.vue'
-import accordionConfig from '../../components/page-configs/ui-elements/va-accordion/page-config'
+import accordionConfig from '../../page-configs/ui-elements/accordion/page-config'
 
 @Options({
   name: 'DocsAccordion',

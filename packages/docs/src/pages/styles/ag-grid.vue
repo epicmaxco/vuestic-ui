@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component'
 import DocsContent from '../../components/DocsContent.vue'
-import config from '../../components/page-configs/styles/ag-grid/page-config'
+import config from '../../page-configs/styles/ag-grid/page-config'
 
 @Options({
   name: 'DocsStylesAgGridWrapper',

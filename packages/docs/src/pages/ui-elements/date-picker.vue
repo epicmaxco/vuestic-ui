@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
 import DocsContent from '../../components/DocsContent.vue'
-import datePickerConfig from '../../components/page-configs/ui-elements/va-date-picker/page-config'
+import datePickerConfig from '../../page-configs/ui-elements/date-picker/page-config'
 
 @Options({
   name: 'DocsDatePicker',

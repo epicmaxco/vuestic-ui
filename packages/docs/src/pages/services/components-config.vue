@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component'
 import DocsContent from '../../components/DocsContent.vue'
-import componentsConfigConfig from '../../components/page-configs/services/components-config/page-config'
+import componentsConfigConfig from '../../page-configs/services/components-config/page-config'
 
 @Options({
   name: 'DocsComponentConfig',

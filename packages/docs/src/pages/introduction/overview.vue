@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component'
 import DocsContent from '../../components/DocsContent.vue'
-import overviewConfig from '../../components/page-configs/introduction/overview/page-config'
+import overviewConfig from '../../page-configs/introduction/overview/page-config'
 
 @Options({
   name: 'DocsOverview',

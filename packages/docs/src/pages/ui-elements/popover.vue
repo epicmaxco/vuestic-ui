@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component'
 import DocsContent from '../../components/DocsContent.vue'
-import popoverConfig from '../../components/page-configs/ui-elements/va-popover/page-config'
+import popoverConfig from '../../page-configs/ui-elements/popover/page-config'
 
 @Options({
   name: 'DocsPopover',

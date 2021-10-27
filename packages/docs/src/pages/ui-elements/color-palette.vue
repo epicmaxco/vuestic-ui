@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component'
 import DocsContent from '../../components/DocsContent.vue'
-import colorPaletteConfig from '../../components/page-configs/ui-elements/va-color-palette/page-config'
+import colorPaletteConfig from '../../page-configs/ui-elements/color-palette/page-config'
 
 @Options({
   name: 'DocsColorPalette',

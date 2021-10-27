@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component'
 import DocsContent from '../../components/DocsContent.vue'
-import roadmapConfig from '../../components/page-configs/introduction/roadmap/page-config'
+import roadmapConfig from '../../page-configs/introduction/roadmap/page-config'
 
 @Options({
   name: 'DocsRoadmap',
