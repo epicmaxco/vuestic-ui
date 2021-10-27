@@ -13,6 +13,9 @@ module.exports = {
     // This thing turn on Tree Shaking
     optimization: {
       usedExports: true,
+    },
+    output: {
+      chunkFilename: '[name].js',
     }
-  }
+  },
 }
