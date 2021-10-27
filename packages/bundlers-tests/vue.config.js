@@ -5,6 +5,7 @@ module.exports = {
     }
   },
   outputDir: "dist/vue-cli",
+  filenameHashing: false,
   configureWebpack: {
     mode: 'production',
     resolve: {
