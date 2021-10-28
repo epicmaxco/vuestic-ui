@@ -368,7 +368,7 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'ag-grid',
         displayName: 'menu.agGrid',
         meta: {
-          badge: 'wip',
+          badge: 'new',
         },
       },
       // GENERATOR_ADD - extensions

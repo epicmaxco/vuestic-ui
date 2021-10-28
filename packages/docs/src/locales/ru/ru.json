@@ -1127,7 +1127,7 @@
     "navbar": "Navbar",
     "toast": "Toast",
     "typography": "Типографика",
-    "agGrid": "AG Grid",
+    "agGrid": "Тема для AG Grid",
     "dataTable": "Data Table",
     "uiElementGuide": "Разработка элементов UI"
   },
@@ -2948,6 +2948,11 @@
   "table": {
     "title": "Таблицы",
     "summaryText": "Вы можете использовать класс `va-table` для настройки стилей ваших таблиц.",
+    "otherTables": {
+      "text": "Если вам нужны более функциональные рещения, вы можете использовать наш компонент таблицы или нашу тему для AG-Grid:",
+      "dataTable": "Data Table",
+      "agGrid": "Тема для AG Grid"
+    },
     "examples": {
       "default": {
         "title": "Базовое использование",
@@ -3270,8 +3275,13 @@
     "textBlock": "Текстовый блок"
   },
   "ag-grid": {
-    "title": "AG Grid",
+    "title": "Тема для AG Grid",
     "description": "Если нужна более гибкая настройка отображения таблиц, то мы рекомендуем воспользоваться библиотекой [AG Grid](https://www.ag-grid.com/vue-data-grid/getting-started)[[target=_blank]]. Vuestic UI предостовляет готовую тему стилей для этой библиотеки.",
+    "otherTables": {
+      "text": "Также мы предоставляем стили для HTML таблицы и наш собственный компонент таблицы:",
+      "htmlTable": "HTML таблица",
+      "dataTable": "Data Table"
+    },
     "installation": "Установка AG Grid",
     "dependencies": "Для того чтобы начать пользоваться AG Grid, установите зависимости в свой проект.",
     "importStyles": "Затем сделайте импорт стилей, которые задают каркас таблиц и примените тему `ag-theme-vuestic` на компоненте таблицы.",
@@ -3311,7 +3321,11 @@
     "title": "Data Table",
     "description": "Работа в процессе",
     "related": "Связанные материалы",
-    "styledTablesLink": "Стилизованные таблицы"
+    "otherTables": {
+      "text": "Мы также предоставляем стили для HTML таблицы и собственную тему для AG-Grid:",
+      "htmlTable": "HTML таблица",
+      "agGrid": "Тема для AG Grid"
+    }
   },
   "uiElementGuide": {
     "title": "Требования к элементам UI",

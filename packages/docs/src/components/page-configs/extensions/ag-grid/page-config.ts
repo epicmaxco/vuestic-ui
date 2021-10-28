@@ -21,6 +21,9 @@ const dependencies: Dependencies = {
 const config: ApiDocsBlock[] = [
   DocsHelper.title('ag-grid.title'),
   DocsHelper.paragraph('ag-grid.description'),
+  DocsHelper.paragraph('ag-grid.otherTables.text'),
+  DocsHelper.link('ag-grid.otherTables.htmlTable', '/styles/table'),
+  DocsHelper.link('ag-grid.otherTables.dataTable', '/ui-elements/data-table'),
   DocsHelper.headline('ag-grid.installation'),
   DocsHelper.paragraph('ag-grid.dependencies'),
   DocsHelper.code(installCommand, 'bash'),

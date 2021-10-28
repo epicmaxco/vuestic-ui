@@ -1127,7 +1127,7 @@
     "navbar": "Navbar",
     "toast": "Toast",
     "typography": "Typography",
-    "agGrid": "AG Grid",
+    "agGrid": "AG Grid Theme",
     "dataTable": "Data Table",
     "uiElementGuide": "UI Element Guide"
   },
@@ -2966,7 +2966,12 @@
   },
   "table": {
     "title": "Tables",
-    "summaryText": "Feature-rich Data-Tables are currently under development. However, for now you can use plain `<table>`s with the `.va-table` class that would apply Vuestic-theme styles to them. Here is a couple of examples.",
+    "summaryText": "Feature-rich Data-Tables are currently under development. However, for now you can use plain `<table>`s with the `.va-table` class that would apply Vuestic-theme styles to them.",
+    "otherTables": {
+      "text": "If you want more functional solutions, use our data-table component or our theme for AG-Grid:",
+      "dataTable": "Data Table",
+      "agGrid": "AG Grid Theme"
+    },
     "examples": {
       "default": {
         "title": "Basic usage",
@@ -3289,8 +3294,13 @@
     "textBlock": "Text block"
   },
   "ag-grid": {
-    "title": "AG Grid",
+    "title": "AG Grid Theme",
     "description": "If you need more flexible customization of the display of tables, we recommend using the [AG Grid](https://www.ag-grid.com/vue-data-grid/getting-started)[[target=_blank]] library. Vuestic UI provides a ready-made style theme for this library.",
+    "otherTables": {
+      "text": "Also, we provide styles for HTML Table and have own data-table component:",
+      "htmlTable": "HTML Table",
+      "dataTable": "Data Table"
+    },
     "installation": "AG Grid installation",
     "dependencies": "To start using AG Grid, install the dependencies in your project.",
     "importStyles": "Then import the stylesheet that define the grid \"structure\" and apply the `ag-theme-vuestic` theme on the grid component.",
@@ -3330,7 +3340,11 @@
     "title": "Data table",
     "description": "Work in progress.",
     "related": "Related",
-    "styledTablesLink": "Styled tables"
+    "otherTables": {
+      "text": "Also, we provide styles for HTML Table and have own theme for AG-Grid:",
+      "htmlTable": "HTML Table",
+      "agGrid": "AG Grid Theme"
+    }
   },
   "uiElementGuide": {
     "title": "UI Element Requirements",
