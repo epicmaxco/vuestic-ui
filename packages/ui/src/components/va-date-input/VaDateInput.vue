@@ -52,7 +52,7 @@ import { useStateful } from '../../mixins/StatefulMixin/cStatefulMixin'
 
 import { isRange, isSingleDate, isDates } from '../va-date-picker/hooks/model-value-helper'
 import { useSyncProp } from '../va-date-picker/hooks/sync-prop'
-import { filterComponentProps, extractComponentProps } from '../va-date-picker/utils/child-props'
+import { filterComponentProps, extractComponentProps } from '../../utils/child-props'
 import { useRangeModelValueGuard } from './hooks/range-model-value-guard'
 import { useDateParser } from './hooks/date-text-parser'
 

@@ -67,7 +67,7 @@ import { useStateful, statefulComponentOptions } from '../../mixins/StatefulMixi
 import { useColors } from '../../services/color-config/color-config'
 
 import { VaDatePickerModelValue, VaDatePickerType, VaDatePickerView } from './types/types'
-import { filterComponentProps, extractComponentProps, extractComponentEmits } from './utils/child-props'
+import { filterComponentProps, extractComponentProps, extractComponentEmits } from '../../utils/child-props'
 import { useView } from './hooks/view'
 
 import VaDayPicker from './components/VaDayPicker/VaDayPicker.vue'
@@ -110,7 +110,7 @@ export default defineComponent({
   ],
 
   setup (props, { emit }) {
-    const { valueComputed } = useStateful(props, emit, undefined)
+    const { valueComputed } = useStateful(props, emit)
 
     const { syncView } = useView(props, emit, { type: props.type })
 
