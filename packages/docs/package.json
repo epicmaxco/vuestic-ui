@@ -19,7 +19,7 @@
     "precommit": "lint-staged --concurrent=false"
   },
   "dependencies": {
-    "@vuestic/ag-grid-theme": "^0.1.0",
+    "@vuestic/ag-grid-theme": "^1.0.0",
     "codesandbox": "^2.2.3",
     "core-js": "^3.12.1",
     "dedent": "^0.7.0",
