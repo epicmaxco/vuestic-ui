@@ -1,0 +1,27 @@
+:root {
+  --va-data-table-cell-padding: 0.625rem;
+
+  --va-data-table-thead-line-height: 1.6;
+  --va-data-table-thead-font-size: 0.625rem;
+  --va-data-table-thead-font-weight: 700;
+  --va-data-table-thead-text-transform: uppercase;
+  --va-data-table-thead-letter-spacing: 0.6px;
+  --va-data-table-thead-border: 2px solid var(--va-vue-darkest-blue);
+  --va-data-table-thead-color: var(--va-vue-darkest-blue);
+
+  /* hover */
+  --va-data-table-hover-th-opacity: 0.3;
+
+  /* Striped */
+  --va-data-table-striped-tr-background-color: var(--va-light-gray3);
+
+  /* Selectable */
+  --va-data-table-selectable-tr-cursor: pointer;
+
+  /* No-data */
+  --va-data-table-no-data-text-align: center;
+  --va-data-table-no-data-vertical-align: middle;
+
+  /* Animated */
+  --va-data-table-transition: var(--va-swing-transition);
+}

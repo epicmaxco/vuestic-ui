@@ -135,7 +135,7 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'data-table',
         displayName: 'menu.dataTable',
         meta: {
-          badge: 'wip',
+          badge: 'new',
         },
       },
       {

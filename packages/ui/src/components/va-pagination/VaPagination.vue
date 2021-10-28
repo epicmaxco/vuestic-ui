@@ -244,7 +244,7 @@ export default class VaPagination extends mixins(
 </script>
 
 <style lang='scss'>
-@import "../../styles/resources/resources";
+@import "../../styles/resources";
 @import 'variables';
 
 .va-pagination {

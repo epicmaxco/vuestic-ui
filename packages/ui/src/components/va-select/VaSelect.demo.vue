@@ -479,6 +479,7 @@
         label="At least 1 option should be selected"
         :options="validationSelect.options"
         :rules="validationSelect.rules.required"
+        multiple
       />
       <va-select
         v-model="validationSelect.multipleValue"

@@ -238,7 +238,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "../../../styles/resources/resources";
+@import "../../../styles/resources";
 
 .q-popover {
   position: fixed;

@@ -48,7 +48,7 @@ export default class VaMessageList extends mixins(
 </script>
 
 <style lang="scss">
-@import "../../../styles/resources/resources";
+@import "../../../styles/resources";
 
 .va-message-list {
   &__message {

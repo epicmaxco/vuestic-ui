@@ -85,7 +85,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "~vuestic-ui/src/styles/resources/resources";
+@import "~vuestic-ui/src/styles/resources";
 
 /* PrismJS 1.20.0
 https://prismjs.com/download.html#themes=prism&languages=css */
