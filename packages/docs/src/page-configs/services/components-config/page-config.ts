@@ -1,31 +1,32 @@
-import { ApiDocsBlock } from '../../../types/configTypes'
-import { DocsHelper } from '../../../helpers/DocsHelper'
+import { ApiDocsBlock } from '@/types/configTypes'
+import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import { componentsConfigCodeExample, componentsConfigCodeExampleDefaultSizes, componentsAllConfigCodeExample } from './code-examples'
 import { api } from './sections'
 
-const configPath = 'services/components-config'
+const path = 'services/components-config'
+const block = new PageGenerationHelper(path)
 
 const config: ApiDocsBlock[] = [
-  DocsHelper.title('componentsConfig.title'),
-  DocsHelper.paragraph('componentsConfig.subtitle'),
-  DocsHelper.code(componentsConfigCodeExample),
+  block.title('componentsConfig.title'),
+  block.paragraph('componentsConfig.subtitle'),
+  block.code(componentsConfigCodeExample),
 
-  DocsHelper.paragraph('componentsConfig.demoTitle'),
-  DocsHelper.example(configPath, 'button'),
+  block.paragraph('componentsConfig.demoTitle'),
+  block.example('button'),
 
-  DocsHelper.subtitle('componentsConfig.componentsAll.title'),
-  DocsHelper.paragraph('componentsConfig.componentsAll.subtitle'),
-  DocsHelper.code(componentsAllConfigCodeExample),
-  DocsHelper.paragraph('componentsConfig.componentsAll.description'),
+  block.subtitle('componentsConfig.componentsAll.title'),
+  block.paragraph('componentsConfig.componentsAll.subtitle'),
+  block.code(componentsAllConfigCodeExample),
+  block.paragraph('componentsConfig.componentsAll.description'),
 
-  DocsHelper.subtitle('componentsConfig.vaConfig.title'),
-  DocsHelper.paragraph('componentsConfig.vaConfig.subtitle'),
-  DocsHelper.example(configPath, 'va-config'),
-  DocsHelper.paragraph('componentsConfig.vaConfig.explain'),
+  block.subtitle('componentsConfig.vaConfig.title'),
+  block.paragraph('componentsConfig.vaConfig.subtitle'),
+  block.example('va-config'),
+  block.paragraph('componentsConfig.vaConfig.explain'),
 
-  DocsHelper.subtitle('componentsConfig.defaultSizes.title'),
-  DocsHelper.paragraph('componentsConfig.defaultSizes.description'),
-  DocsHelper.code(componentsConfigCodeExampleDefaultSizes),
+  block.subtitle('componentsConfig.defaultSizes.title'),
+  block.paragraph('componentsConfig.defaultSizes.description'),
+  block.code(componentsConfigCodeExampleDefaultSizes),
 
   ...api,
 ]

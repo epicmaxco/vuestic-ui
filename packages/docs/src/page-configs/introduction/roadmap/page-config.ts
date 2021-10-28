@@ -1,26 +1,29 @@
-import { ApiDocsBlock } from '../../../types/configTypes'
-import { DocsHelper } from '../../../helpers/DocsHelper'
+import { ApiDocsBlock } from '@/types/configTypes'
+import { PageGenerationHelper } from '@/helpers/DocsHelper'
+
+const path = 'introduction/roadmap'
+const block = new PageGenerationHelper(path)
 
 const config: ApiDocsBlock[] = [
-  DocsHelper.title('roadmap.title'),
-  DocsHelper.paragraph('roadmap.description'),
-  DocsHelper.subtitle('roadmap.inDevelopment.title'),
-  DocsHelper.paragraph('roadmap.inDevelopment.description'),
+  block.title('roadmap.title'),
+  block.paragraph('roadmap.description'),
+  block.subtitle('roadmap.inDevelopment.title'),
+  block.paragraph('roadmap.inDevelopment.description'),
 
-  DocsHelper.headline('roadmap.1-2.title'),
-  DocsHelper.paragraph('roadmap.1-2.description'),
+  block.headline('roadmap.1-2.title'),
+  block.paragraph('roadmap.1-2.description'),
 
-  DocsHelper.subtitle('roadmap.released.title'),
-  DocsHelper.paragraph('roadmap.released.description'),
+  block.subtitle('roadmap.released.title'),
+  block.paragraph('roadmap.released.description'),
 
-  DocsHelper.headline('roadmap.1-1.title'),
-  DocsHelper.paragraph('roadmap.1-1.description'),
+  block.headline('roadmap.1-1.title'),
+  block.paragraph('roadmap.1-1.description'),
 
-  DocsHelper.headline('roadmap.1-0.title'),
-  DocsHelper.paragraph('roadmap.1-0.description'),
+  block.headline('roadmap.1-0.title'),
+  block.paragraph('roadmap.1-0.description'),
 
-  DocsHelper.headline('roadmap.0-1.title'),
-  DocsHelper.paragraph('roadmap.0-1.description'),
+  block.headline('roadmap.0-1.title'),
+  block.paragraph('roadmap.0-1.description'),
 ]
 
 export default config

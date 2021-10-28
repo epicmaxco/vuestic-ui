@@ -1,5 +1,5 @@
-import { ApiDocsBlock } from '../../../types/configTypes'
-import { DocsHelper } from '../../../helpers/DocsHelper'
+import { ApiDocsBlock } from '@/types/configTypes'
+import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaList from 'vuestic-ui/src/components/va-list/VaList.vue'
 import VaListLabel from 'vuestic-ui/src/components/va-list/VaListLabel.vue'
 import VaListSeparator from 'vuestic-ui/src/components/va-list/VaListSeparator.vue'
@@ -15,69 +15,65 @@ import {
   listItemSectionApiOptions,
 } from './api-options'
 
-const configPath = 'ui-elements/list'
+const path = 'ui-elements/list'
+const block = new PageGenerationHelper(path)
 
 const config: ApiDocsBlock[] = [
-  DocsHelper.title('list.title'),
-  DocsHelper.paragraph('list.summaryText'),
+  block.title('list.title'),
+  block.paragraph('list.summaryText'),
 
-  DocsHelper.subtitle('all.examples'),
+  block.subtitle('all.examples'),
 
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'list.examples.default.title',
     'list.examples.default.text',
-    configPath,
     'Default',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'list.examples.disabled.title',
     'list.examples.disabled.text',
-    configPath,
     'Disabled',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'list.examples.clickable.title',
     'list.examples.clickable.text',
-    configPath,
     'Clickable',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'list.examples.fit.title',
     'list.examples.fit.text',
-    configPath,
     'Fit',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'list.examples.lines.title',
     'list.examples.lines.text',
-    configPath,
     'Lines',
   ),
 
-  DocsHelper.subtitle('all.api'),
+  block.subtitle('all.api'),
 
-  DocsHelper.paragraph('list.api.list.text'),
-  DocsHelper.api(VaList, listApiOptions),
+  block.paragraph('list.api.list.text'),
+  block.api(VaList, listApiOptions),
 
-  DocsHelper.subtitle('list.api.listLabel.title'),
-  DocsHelper.paragraph('list.api.listLabel.text'),
-  DocsHelper.api(VaListLabel, listLabelApiOptions),
+  block.subtitle('list.api.listLabel.title'),
+  block.paragraph('list.api.listLabel.text'),
+  block.api(VaListLabel, listLabelApiOptions),
 
-  DocsHelper.subtitle('list.api.listSeparator.title'),
-  DocsHelper.paragraph('list.api.listSeparator.text'),
-  DocsHelper.api(VaListSeparator, listSeparatorApiOptions),
+  block.subtitle('list.api.listSeparator.title'),
+  block.paragraph('list.api.listSeparator.text'),
+  block.api(VaListSeparator, listSeparatorApiOptions),
 
-  DocsHelper.subtitle('list.api.listItem.title'),
-  DocsHelper.paragraph('list.api.listItem.text'),
-  DocsHelper.api(VaListItem, listItemApiOptions),
+  block.subtitle('list.api.listItem.title'),
+  block.paragraph('list.api.listItem.text'),
+  block.api(VaListItem, listItemApiOptions),
 
-  DocsHelper.subtitle('list.api.listItemLabel.title'),
-  DocsHelper.paragraph('list.api.listItemLabel.text'),
-  DocsHelper.api(VaListItemLabel, listItemLabelApiOptions),
+  block.subtitle('list.api.listItemLabel.title'),
+  block.paragraph('list.api.listItemLabel.text'),
+  block.api(VaListItemLabel, listItemLabelApiOptions),
 
-  DocsHelper.subtitle('list.api.listItemSection.title'),
-  DocsHelper.paragraph('list.api.listItemSection.text'),
-  DocsHelper.api(VaListItemSection, listItemSectionApiOptions),
+  block.subtitle('list.api.listItemSection.title'),
+  block.paragraph('list.api.listItemSection.text'),
+  block.api(VaListItemSection, listItemSectionApiOptions),
 ]
 
 export default config

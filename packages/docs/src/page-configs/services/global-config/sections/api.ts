@@ -1,5 +1,5 @@
-import { ApiDocsBlock } from '../../../../types/configTypes'
-import { DocsHelper } from '../../../../helpers/DocsHelper'
+import { ApiDocsBlock } from '@/types/configTypes'
+import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import { TableData, TableColumn } from '../../../../components/DocsTable/DocsTable'
 
 export const columns: TableColumn[] = [
@@ -15,7 +15,10 @@ export const tableData: TableData = [
   ['colors', 'ColorsConfig', 'globalConfig.api.colors'],
 ]
 
+const path = 'services/global-config'
+const block = new PageGenerationHelper(path)
+
 export const config: ApiDocsBlock[] = [
-  DocsHelper.subtitle('all.api'),
-  DocsHelper.table(columns, tableData),
+  block.subtitle('all.api'),
+  block.table(columns, tableData),
 ]

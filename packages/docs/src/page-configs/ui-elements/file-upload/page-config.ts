@@ -1,43 +1,40 @@
-import { ApiDocsBlock } from '../../../types/configTypes'
-import { DocsHelper } from '../../../helpers/DocsHelper'
+import { ApiDocsBlock } from '@/types/configTypes'
+import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaFileUpload from 'vuestic-ui/src/components/va-file-upload/VaFileUpload.vue'
 import apiOptions from './api-options'
 
-const configPath = 'ui-elements/file-upload'
+const path = 'ui-elements/file-upload'
+const block = new PageGenerationHelper(path)
 
 const config: ApiDocsBlock[] = [
-  DocsHelper.title('fileUpload.title'),
-  DocsHelper.paragraph('fileUpload.summaryText'),
+  block.title('fileUpload.title'),
+  block.paragraph('fileUpload.summaryText'),
 
-  DocsHelper.subtitle('all.examples'),
+  block.subtitle('all.examples'),
 
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'fileUpload.examples.default.title',
     'fileUpload.examples.default.text',
-    configPath,
     'Default',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'fileUpload.examples.dragAndDrop.title',
     'fileUpload.examples.dragAndDrop.text',
-    configPath,
     'DragAndDrop',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'fileUpload.examples.validation.title',
     'fileUpload.examples.validation.text',
-    configPath,
     'Validation',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'fileUpload.examples.gallery.title',
     'fileUpload.examples.gallery.text',
-    configPath,
     'Gallery',
   ),
 
-  DocsHelper.subtitle('all.api'),
-  DocsHelper.api(VaFileUpload, apiOptions),
+  block.subtitle('all.api'),
+  block.api(VaFileUpload, apiOptions),
 ]
 
 export default config

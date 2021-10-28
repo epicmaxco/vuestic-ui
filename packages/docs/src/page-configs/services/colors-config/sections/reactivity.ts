@@ -1,9 +1,12 @@
-import { ApiDocsBlock } from '../../../../types/configTypes'
-import { DocsHelper } from '../../../../helpers/DocsHelper'
+import { ApiDocsBlock } from '@/types/configTypes'
+import { PageGenerationHelper } from '@/helpers/DocsHelper'
+
+const path = 'services/colors-config'
+const block = new PageGenerationHelper(path)
 
 const config: ApiDocsBlock[] = [
-  DocsHelper.subtitle('colorsConfig.reactivity.subtitle'),
-  DocsHelper.paragraph('colorsConfig.reactivity.about'),
+  block.subtitle('colorsConfig.reactivity.subtitle'),
+  block.paragraph('colorsConfig.reactivity.about'),
 ]
 
 export default config

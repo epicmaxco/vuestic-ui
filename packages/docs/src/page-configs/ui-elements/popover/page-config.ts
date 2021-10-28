@@ -1,55 +1,50 @@
-import { ApiDocsBlock } from '../../../types/configTypes'
-import { DocsHelper } from '../../../helpers/DocsHelper'
+import { ApiDocsBlock } from '@/types/configTypes'
+import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaPopover from 'vuestic-ui/src/components/va-popover/VaPopover.vue'
 import apiOptions from './api-options'
 
-const configPath = 'ui-elements/popover'
+const path = 'ui-elements/popover'
+const block = new PageGenerationHelper(path)
 
 const config: ApiDocsBlock[] = [
-  DocsHelper.title('popover.title'),
-  DocsHelper.paragraph('popover.summaryText'),
+  block.title('popover.title'),
+  block.paragraph('popover.summaryText'),
 
-  DocsHelper.subtitle('all.examples'),
+  block.subtitle('all.examples'),
 
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'popover.examples.default.title',
     'popover.examples.default.text',
-    configPath,
     'Default',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'popover.examples.color.title',
     'popover.examples.color.text',
-    configPath,
     'Color',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'popover.examples.placement.title',
     'popover.examples.placement.text',
-    configPath,
     'Placement',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'popover.examples.icon.title',
     'popover.examples.icon.text',
-    configPath,
     'Icon',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'popover.examples.title.title',
     'popover.examples.title.text',
-    configPath,
     'Title',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'popover.examples.trigger.title',
     'popover.examples.trigger.text',
-    configPath,
     'Trigger',
   ),
 
-  DocsHelper.subtitle('all.api'),
-  DocsHelper.api(VaPopover, apiOptions),
+  block.subtitle('all.api'),
+  block.api(VaPopover, apiOptions),
 ]
 
 export default config

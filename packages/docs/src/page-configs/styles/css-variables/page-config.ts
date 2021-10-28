@@ -1,19 +1,22 @@
-import { ApiDocsBlock } from '../../../types/configTypes'
-import { DocsHelper } from '../../../helpers/DocsHelper'
+import { ApiDocsBlock } from '@/types/configTypes'
+import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import { generalScheme, componentScheme, overriding } from './code-examples'
 
+const path = 'styles/css-variables'
+const block = new PageGenerationHelper(path)
+
 const config: ApiDocsBlock[] = [
-  DocsHelper.title('cssVariables.title'),
-  DocsHelper.paragraph('cssVariables.description'),
+  block.title('cssVariables.title'),
+  block.paragraph('cssVariables.description'),
 
-  DocsHelper.subtitle('cssVariables.convention.title'),
-  DocsHelper.paragraph('cssVariables.convention.description'),
-  DocsHelper.code(generalScheme),
-  DocsHelper.code(componentScheme),
+  block.subtitle('cssVariables.convention.title'),
+  block.paragraph('cssVariables.convention.description'),
+  block.code(generalScheme),
+  block.code(componentScheme),
 
-  DocsHelper.subtitle('cssVariables.overriding.title'),
-  DocsHelper.paragraph('cssVariables.overriding.description'),
-  DocsHelper.code(overriding, 'scss'),
+  block.subtitle('cssVariables.overriding.title'),
+  block.paragraph('cssVariables.overriding.description'),
+  block.code(overriding, 'scss'),
 ]
 
 export default config

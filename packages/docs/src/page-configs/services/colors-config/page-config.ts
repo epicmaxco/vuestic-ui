@@ -1,16 +1,17 @@
-import { ApiDocsBlock } from '../../../types/configTypes'
-import { DocsHelper } from '../../../helpers/DocsHelper'
+import { ApiDocsBlock } from '@/types/configTypes'
+import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import { api, reactivity, otherServices } from './sections'
 
-const configPath = 'services/colors-config'
+const path = 'services/colors-config'
+const block = new PageGenerationHelper(path)
 
 const config: ApiDocsBlock[] = [
-  DocsHelper.title('colorsConfig.title'),
-  DocsHelper.paragraph('colorsConfig.about'),
+  block.title('colorsConfig.title'),
+  block.paragraph('colorsConfig.about'),
 
-  DocsHelper.paragraph('colorsConfig.example.about'),
-  DocsHelper.paragraph('colorsConfig.example.demo'),
-  DocsHelper.example(configPath, 'change-colors'),
+  block.paragraph('colorsConfig.example.about'),
+  block.paragraph('colorsConfig.example.demo'),
+  block.example('change-colors'),
 
   ...reactivity,
   ...otherServices,

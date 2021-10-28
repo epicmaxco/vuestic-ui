@@ -1,75 +1,69 @@
-import { ApiDocsBlock } from '../../../types/configTypes'
-import { DocsHelper } from '../../../helpers/DocsHelper'
+import { ApiDocsBlock } from '@/types/configTypes'
+import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaDateInput from 'vuestic-ui/src/components/va-date-input/VaDateInput.vue'
 import apiOptions from './api-options'
 import GlobalConfigCode from './code/global-config'
 
-const configPath = 'ui-elements/date-input'
+const path = 'ui-elements/date-input'
+const block = new PageGenerationHelper(path)
 
 const config: ApiDocsBlock[] = [
-  DocsHelper.title('dateInput.title'),
-  DocsHelper.paragraph('dateInput.description'),
+  block.title('dateInput.title'),
+  block.paragraph('dateInput.description'),
 
-  DocsHelper.link('datePicker.title', '/ui-elements/date-picker'),
-  DocsHelper.link('input.title', '/ui-elements/input'),
+  block.link('datePicker.title', '/ui-elements/date-picker'),
+  block.link('input.title', '/ui-elements/input'),
 
-  DocsHelper.subtitle('all.examples'),
+  block.subtitle('all.examples'),
 
   // examples
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'dateInput.examples.default.title',
     'dateInput.examples.default.text',
-    configPath,
     'default',
   ),
 
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'dateInput.examples.resetOnClose.title',
     'dateInput.examples.resetOnClose.text',
-    configPath,
     'resetOnClose',
   ),
 
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'dateInput.examples.isOpen.title',
     'dateInput.examples.isOpen.text',
-    configPath,
     'isOpen',
   ),
 
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'dateInput.examples.inputProps.title',
     'dateInput.examples.inputProps.text',
-    configPath,
     'inputProps',
   ),
 
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'dateInput.examples.formatting.title',
     'dateInput.examples.formatting.text',
-    configPath,
     'formatting',
   ),
 
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'dateInput.examples.input.title',
     'dateInput.examples.input.text',
-    configPath,
     'input',
   ),
 
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'dateInput.examples.advancedFormatting.title',
     'dateInput.examples.advancedFormatting.text',
-    configPath,
     'advancedFormatting',
   ),
 
-  DocsHelper.paragraph('dateInput.examples.formattingGlobalConfig.text'),
-  DocsHelper.code(GlobalConfigCode),
+  block.paragraph('dateInput.examples.formattingGlobalConfig.text'),
+  block.code(GlobalConfigCode),
 
-  DocsHelper.subtitle('all.api'),
-  DocsHelper.api(VaDateInput, apiOptions),
+  block.subtitle('all.api'),
+  block.api(VaDateInput, apiOptions),
 ]
 
 export default config

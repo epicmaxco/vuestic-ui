@@ -1,50 +1,47 @@
-import { ApiDocsBlock } from '../../../types/configTypes'
-import { DocsHelper } from '../../../helpers/DocsHelper'
+import { ApiDocsBlock } from '@/types/configTypes'
+import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaCheckbox from 'vuestic-ui/src/components/va-checkbox/VaCheckbox.vue'
 import apiOptions from './api-options'
 
-const configPath = 'ui-elements/checkbox'
+const path = 'ui-elements/checkbox'
+const block = new PageGenerationHelper(path)
 
 const config: ApiDocsBlock[] = [
-  DocsHelper.title('checkbox.title'),
-  DocsHelper.paragraph('checkbox.summaryText'),
+  block.title('checkbox.title'),
+  block.paragraph('checkbox.summaryText'),
 
-  DocsHelper.subtitle('all.examples'),
+  block.subtitle('all.examples'),
 
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'checkbox.examples.default.title',
     'checkbox.examples.default.text',
-    configPath,
     'Default',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'checkbox.examples.label.title',
     'checkbox.examples.label.text',
-    configPath,
     'Label',
   ),
 
-  DocsHelper.headline('checkbox.examples.indeterminate.title'),
-  DocsHelper.example(configPath, 'Indeterminate'),
+  block.headline('checkbox.examples.indeterminate.title'),
+  block.example('Indeterminate'),
 
-  DocsHelper.headline('checkbox.examples.coloring.title'),
-  DocsHelper.example(configPath, 'Coloring'),
+  block.headline('checkbox.examples.coloring.title'),
+  block.example('Coloring'),
 
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'checkbox.examples.array.title',
     'checkbox.examples.array.text',
-    configPath,
     'Array',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'checkbox.examples.error.title',
     'checkbox.examples.error.text',
-    configPath,
     'Error',
   ),
 
-  DocsHelper.subtitle('all.api'),
-  DocsHelper.api(VaCheckbox, apiOptions),
+  block.subtitle('all.api'),
+  block.api(VaCheckbox, apiOptions),
 ]
 
 export default config

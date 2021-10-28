@@ -1,79 +1,70 @@
-import { ApiDocsBlock } from '../../../types/configTypes'
-import { DocsHelper } from '../../../helpers/DocsHelper'
+import { ApiDocsBlock } from '@/types/configTypes'
+import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaChip from 'vuestic-ui/src/components/va-chip/VaChip.vue'
 import apiOptions from './api-options'
 
-const configPath = 'ui-elements/chip'
+const path = 'ui-elements/chip'
+const block = new PageGenerationHelper(path)
 
 const config: ApiDocsBlock[] = [
-  DocsHelper.title('chip.title'),
-  DocsHelper.paragraph('chip.summaryText'),
+  block.title('chip.title'),
+  block.paragraph('chip.summaryText'),
 
-  DocsHelper.subtitle('all.examples'),
+  block.subtitle('all.examples'),
 
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'chip.examples.default.title',
     'chip.examples.default.text',
-    configPath,
     'Default',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'chip.examples.outline.title',
     'chip.examples.outline.text',
-    configPath,
     'Outline',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'chip.examples.flat.title',
     'chip.examples.flat.text',
-    configPath,
     'Flat',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'chip.examples.square.title',
     'chip.examples.square.text',
-    configPath,
     'Square',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'chip.examples.color.title',
     'chip.examples.color.text',
-    configPath,
     'Color',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'chip.examples.size.title',
     'chip.examples.size.text',
-    configPath,
     'Size',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'chip.examples.icon.title',
     'chip.examples.icon.text',
-    configPath,
     'Icon',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'chip.examples.closeable.title',
     'chip.examples.closeable.text',
-    configPath,
     'Closeable',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'chip.examples.link.title',
     'chip.examples.link.text',
-    configPath,
     'Link',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'chip.examples.shadow.title',
     'chip.examples.shadow.text',
-    configPath,
     'Shadow',
   ),
 
-  DocsHelper.subtitle('all.api'),
-  DocsHelper.api(VaChip, apiOptions),
+  block.subtitle('all.api'),
+  block.api(VaChip, apiOptions),
 ]
 
 export default config

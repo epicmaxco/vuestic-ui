@@ -1,36 +1,34 @@
-import { ApiDocsBlock } from '../../../types/configTypes'
-import { DocsHelper } from '../../../helpers/DocsHelper'
+import { ApiDocsBlock } from '@/types/configTypes'
+import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaNavbar from 'vuestic-ui/src/components/va-navbar/VaNavbar.vue'
 import apiOptions from './api-options'
 
-const configPath = 'ui-elements/navbar'
+const path = 'ui-elements/navbar'
+const block = new PageGenerationHelper(path)
 
 const config: ApiDocsBlock[] = [
-  DocsHelper.title('navbar.title'),
+  block.title('navbar.title'),
 
-  DocsHelper.subtitle('all.examples'),
+  block.subtitle('all.examples'),
 
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'navbar.examples.default.title',
     'navbar.examples.default.text',
-    configPath,
     'Default',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'navbar.examples.colors.title',
     'navbar.examples.colors.text',
-    configPath,
     'Colors',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'navbar.examples.shape.title',
     'navbar.examples.shape.text',
-    configPath,
     'Shape',
   ),
 
-  DocsHelper.subtitle('all.api'),
-  DocsHelper.api(VaNavbar, apiOptions),
+  block.subtitle('all.api'),
+  block.api(VaNavbar, apiOptions),
 ]
 
 export default config

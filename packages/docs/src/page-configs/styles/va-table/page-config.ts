@@ -1,29 +1,30 @@
-import { ApiDocsBlock } from '../../../types/configTypes'
-import { DocsHelper } from '../../../helpers/DocsHelper'
+import { ApiDocsBlock } from '@/types/configTypes'
+import { PageGenerationHelper } from '@/helpers/DocsHelper'
 
-const configPath = 'styles/va-table'
+const path = 'styles/va-table'
+const block = new PageGenerationHelper(path)
 
 const config: ApiDocsBlock[] = [
-  DocsHelper.title('table.title'),
-  DocsHelper.paragraph('table.summaryText'),
+  block.title('table.title'),
+  block.paragraph('table.summaryText'),
 
-  DocsHelper.subtitle('all.examples'),
+  block.subtitle('all.examples'),
 
-  DocsHelper.headline('table.examples.default.title'),
-  DocsHelper.paragraph('table.examples.default.text'),
-  DocsHelper.example(configPath, 'Default'),
+  block.headline('table.examples.default.title'),
+  block.paragraph('table.examples.default.text'),
+  block.example('Default'),
 
-  DocsHelper.headline('table.examples.hoverable.title'),
-  DocsHelper.paragraph('table.examples.hoverable.text'),
-  DocsHelper.example(configPath, 'Hoverable'),
+  block.headline('table.examples.hoverable.title'),
+  block.paragraph('table.examples.hoverable.text'),
+  block.example('Hoverable'),
 
-  DocsHelper.headline('table.examples.striped.title'),
-  DocsHelper.paragraph('table.examples.striped.text'),
-  DocsHelper.example(configPath, 'Striped'),
+  block.headline('table.examples.striped.title'),
+  block.paragraph('table.examples.striped.text'),
+  block.example('Striped'),
 
-  DocsHelper.headline('table.examples.clickable.title'),
-  DocsHelper.paragraph('table.examples.clickable.text'),
-  DocsHelper.example(configPath, 'Clickable'),
+  block.headline('table.examples.clickable.title'),
+  block.paragraph('table.examples.clickable.text'),
+  block.example('Clickable'),
 ]
 
 export default config

@@ -1,47 +1,44 @@
-import { ApiDocsBlock } from '../../../types/configTypes'
-import { DocsHelper } from '../../../helpers/DocsHelper'
+import { ApiDocsBlock } from '@/types/configTypes'
+import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaCollapse from 'vuestic-ui/src/components/va-collapse/VaCollapse.vue'
 import apiOptions from './api-options'
 
-const configPath = 'ui-elements/collapse'
+const path = 'ui-elements/collapse'
+const block = new PageGenerationHelper(path)
 
 const config: ApiDocsBlock[] = [
-  DocsHelper.title('collapse.title'),
+  block.title('collapse.title'),
 
-  DocsHelper.paragraph('collapse.summaryText'),
+  block.paragraph('collapse.summaryText'),
 
-  DocsHelper.subtitle('all.examples'),
+  block.subtitle('all.examples'),
 
   // examples
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'collapse.examples.default.title',
     'collapse.examples.default.text',
-    configPath,
     'Default',
   ),
 
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'collapse.examples.solid.title',
     'collapse.examples.solid.text',
-    configPath,
     'Solid',
   ),
 
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'collapse.examples.icon.title',
     'collapse.examples.icon.text',
-    configPath,
     'Icon',
   ),
 
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'collapse.examples.color.title',
     'collapse.examples.color.text',
-    configPath,
     'Color',
   ),
 
-  DocsHelper.api(VaCollapse, apiOptions),
+  block.api(VaCollapse, apiOptions),
 ]
 
 export default config

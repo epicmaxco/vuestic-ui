@@ -1,97 +1,85 @@
-import { ApiDocsBlock } from '../../../types/configTypes'
-import { DocsHelper } from '../../../helpers/DocsHelper'
+import { ApiDocsBlock } from '@/types/configTypes'
+import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaSlider from 'vuestic-ui/src/components/va-slider/VaSlider.vue'
 import apiOptions from './api-options'
 
-const configPath = 'ui-elements/slider'
+const path = 'ui-elements/slider'
+const block = new PageGenerationHelper(path)
 
 const config: ApiDocsBlock[] = [
-  DocsHelper.title('slider.title'),
-  DocsHelper.paragraph('slider.summaryText'),
+  block.title('slider.title'),
+  block.paragraph('slider.summaryText'),
 
-  DocsHelper.subtitle('all.examples'),
+  block.subtitle('all.examples'),
 
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'slider.examples.default.title',
     'slider.examples.default.text',
-    configPath,
     'Default',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'slider.examples.color.title',
     'slider.examples.color.text',
-    configPath,
     'Color',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'slider.examples.minmax.title',
     'slider.examples.minmax.text',
-    configPath,
     'MinMax',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'slider.examples.state.title',
     'slider.examples.state.text',
-    configPath,
     'State',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'slider.examples.range.title',
     'slider.examples.range.text',
-    configPath,
     'Range',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'slider.examples.step.title',
     'slider.examples.step.text',
-    configPath,
     'Step',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'slider.examples.pins.title',
     'slider.examples.pins.text',
-    configPath,
     'Pins',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'slider.examples.label.title',
     'slider.examples.label.text',
-    configPath,
     'Label',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'slider.examples.slots.title',
     'slider.examples.slots.text',
-    configPath,
     'Slots',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'slider.examples.icon.title',
     'slider.examples.icon.text',
-    configPath,
     'Icon',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'slider.examples.track.title',
     'slider.examples.track.text',
-    configPath,
     'Track',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'slider.examples.trackLabel.title',
     'slider.examples.trackLabel.text',
-    configPath,
     'TrackLabel',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'slider.examples.vertical.title',
     'slider.examples.vertical.text',
-    configPath,
     'Vertical',
   ),
 
-  DocsHelper.subtitle('all.api'),
-  DocsHelper.api(VaSlider, apiOptions),
+  block.subtitle('all.api'),
+  block.api(VaSlider, apiOptions),
 ]
 
 export default config

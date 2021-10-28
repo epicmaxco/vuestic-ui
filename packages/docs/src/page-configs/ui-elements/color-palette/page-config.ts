@@ -1,31 +1,30 @@
-import { ApiDocsBlock } from '../../../types/configTypes'
-import { DocsHelper } from '../../../helpers/DocsHelper'
+import { ApiDocsBlock } from '@/types/configTypes'
+import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaColorPalette from 'vuestic-ui/src/components/va-color-palette/VaColorPalette.vue'
 import apiOptions from './api-options'
 
-const configPath = 'ui-elements/color-palette'
+const path = 'ui-elements/color-palette'
+const block = new PageGenerationHelper(path)
 
 const config: ApiDocsBlock[] = [
-  DocsHelper.title('colorPalette.title'),
-  DocsHelper.paragraph('colorPalette.summaryText'),
+  block.title('colorPalette.title'),
+  block.paragraph('colorPalette.summaryText'),
 
-  DocsHelper.subtitle('all.examples'),
+  block.subtitle('all.examples'),
 
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'colorPalette.examples.default.title',
     'colorPalette.examples.default.text',
-    configPath,
     'Default',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'colorPalette.examples.indicator.title',
     'colorPalette.examples.indicator.text',
-    configPath,
     'Indicator',
   ),
 
-  DocsHelper.subtitle('all.api'),
-  DocsHelper.api(VaColorPalette, apiOptions),
+  block.subtitle('all.api'),
+  block.api(VaColorPalette, apiOptions),
 ]
 
 export default config

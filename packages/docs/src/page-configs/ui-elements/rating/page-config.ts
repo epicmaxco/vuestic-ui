@@ -1,81 +1,73 @@
-import { ApiDocsBlock } from '../../../types/configTypes'
-import { DocsHelper } from '../../../helpers/DocsHelper'
+import { ApiDocsBlock } from '@/types/configTypes'
+import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaRating from 'vuestic-ui/src/components/va-rating/VaRating.vue'
 import apiOptions from './api-options'
 
-const configPath = 'ui-elements/rating'
+const path = 'ui-elements/rating'
+const block = new PageGenerationHelper(path)
 
 const config: ApiDocsBlock[] = [
-  DocsHelper.title('rating.title'),
-  DocsHelper.paragraph('rating.summaryText'),
+  block.title('rating.title'),
+  block.paragraph('rating.summaryText'),
 
-  DocsHelper.subtitle('all.examples'),
+  block.subtitle('all.examples'),
 
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'rating.examples.default.title',
     'rating.examples.default.text',
-    configPath,
     'Default',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'rating.examples.color.title',
     'rating.examples.color.text',
-    configPath,
     'Color',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'rating.examples.size.title',
     'rating.examples.size.text',
-    configPath,
     'Size',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'rating.examples.hover.title',
     'rating.examples.hover.text',
-    configPath,
     'Hover',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'rating.examples.halves.title',
     'rating.examples.halves.text',
-    configPath,
     'Halves',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'rating.examples.numbers.title',
     'rating.examples.numbers.text',
-    configPath,
     'Numbers',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'rating.examples.texts.title',
     'rating.examples.texts.text',
-    configPath,
     'Texts',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'rating.examples.clearable.title',
     'rating.examples.clearable.text',
-    configPath,
     'Clearable',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'rating.examples.customIcons.title',
     'rating.examples.customIcons.text',
-    configPath,
     'CustomIcons',
   ),
 
-  DocsHelper.subtitle('all.api'),
-  DocsHelper.api(VaRating, apiOptions),
+  block.subtitle('all.api'),
+  block.api(VaRating, apiOptions),
 
-  DocsHelper.subtitle('all.faq'),
+  block.subtitle('all.faq'),
 
-  DocsHelper.headline('rating.faq.questions[0].question'),
-  DocsHelper.paragraph('rating.faq.questions[0].answer'),
+  block.headline('rating.faq.questions[0].question'),
+  block.paragraph('rating.faq.questions[0].answer'),
 
-  DocsHelper.headline('rating.faq.questions[1].question'),
-  DocsHelper.paragraph('rating.faq.questions[1].answer'),
+  block.headline('rating.faq.questions[1].question'),
+  block.paragraph('rating.faq.questions[1].answer'),
 ]
 
 export default config

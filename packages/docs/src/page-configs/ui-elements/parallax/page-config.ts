@@ -1,43 +1,40 @@
-import { ApiDocsBlock } from '../../../types/configTypes'
-import { DocsHelper } from '../../../helpers/DocsHelper'
+import { ApiDocsBlock } from '@/types/configTypes'
+import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaParallax from 'vuestic-ui/src/components/va-parallax/VaParallax.vue'
 import apiOptions from './api-options'
 
-const configPath = 'ui-elements/parallax'
+const path = 'ui-elements/parallax'
+const block = new PageGenerationHelper(path)
 
 const config: ApiDocsBlock[] = [
-  DocsHelper.title('parallax.title'),
-  DocsHelper.paragraph('parallax.summaryText'),
+  block.title('parallax.title'),
+  block.paragraph('parallax.summaryText'),
 
-  DocsHelper.subtitle('all.examples'),
+  block.subtitle('all.examples'),
 
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'parallax.examples.default.title',
     'parallax.examples.default.text',
-    configPath,
     'Default',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'parallax.examples.custom.title',
     'parallax.examples.custom.text',
-    configPath,
     'Custom',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'parallax.examples.reversed.title',
     'parallax.examples.reversed.text',
-    configPath,
     'Reversed',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'parallax.examples.slot.title',
     'parallax.examples.slot.text',
-    configPath,
     'Slot',
   ),
 
-  DocsHelper.subtitle('all.api'),
-  DocsHelper.api(VaParallax, apiOptions),
+  block.subtitle('all.api'),
+  block.api(VaParallax, apiOptions),
 ]
 
 export default config

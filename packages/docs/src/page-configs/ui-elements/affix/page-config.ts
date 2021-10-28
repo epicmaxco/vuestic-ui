@@ -1,26 +1,27 @@
-import { ApiDocsBlock } from '../../../types/configTypes'
-import { DocsHelper } from '../../../helpers/DocsHelper'
+import { ApiDocsBlock } from '@/types/configTypes'
+import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaAffix from 'vuestic-ui/src/components/va-affix/VaAffix.vue'
 import apiOptions from './api-options'
 
-const configPath = 'ui-elements/affix'
+const path = 'ui-elements/affix'
+const block = new PageGenerationHelper(path)
 
 const config: ApiDocsBlock[] = [
-  DocsHelper.title('affix.title'),
-  DocsHelper.paragraph('affix.summaryText'),
+  block.title('affix.title'),
+  block.paragraph('affix.summaryText'),
 
-  DocsHelper.subtitle('all.examples'),
-  DocsHelper.headline('affix.examples.top.title'),
-  DocsHelper.example(configPath, 'Top'),
+  block.subtitle('all.examples'),
+  block.headline('affix.examples.top.title'),
+  block.example('Top'),
 
-  DocsHelper.headline('affix.examples.target.title'),
-  DocsHelper.example(configPath, 'Target'),
+  block.headline('affix.examples.target.title'),
+  block.example('Target'),
 
-  DocsHelper.headline('affix.examples.bottom.title'),
-  DocsHelper.example(configPath, 'Bottom'),
+  block.headline('affix.examples.bottom.title'),
+  block.example('Bottom'),
 
-  DocsHelper.subtitle('all.api'),
-  DocsHelper.api(VaAffix, apiOptions),
+  block.subtitle('all.api'),
+  block.api(VaAffix, apiOptions),
 ]
 
 export default config

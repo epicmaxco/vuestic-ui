@@ -1,11 +1,14 @@
-import { ApiDocsBlock } from '../../../types/configTypes'
-import { DocsHelper } from '../../../helpers/DocsHelper'
+import { ApiDocsBlock } from '@/types/configTypes'
+import { PageGenerationHelper } from '@/helpers/DocsHelper'
+
+const path = 'ui-elements/data-table'
+const block = new PageGenerationHelper(path)
 
 const config: ApiDocsBlock[] = [
-  DocsHelper.title('dataTable.title'),
-  DocsHelper.paragraph('dataTable.description'),
-  DocsHelper.headline('dataTable.related'),
-  DocsHelper.link('dataTable.styledTablesLink', '/styles/table'),
+  block.title('dataTable.title'),
+  block.paragraph('dataTable.description'),
+  block.headline('dataTable.related'),
+  block.link('dataTable.styledTablesLink', '/styles/table'),
 ]
 
 export default config

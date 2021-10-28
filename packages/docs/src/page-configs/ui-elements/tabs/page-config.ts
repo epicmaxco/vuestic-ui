@@ -1,47 +1,44 @@
-import { ApiDocsBlock } from '../../../types/configTypes'
-import { DocsHelper } from '../../../helpers/DocsHelper'
+import { ApiDocsBlock } from '@/types/configTypes'
+import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaTabs from 'vuestic-ui/src/components/va-tabs/VaTabs.vue'
 import apiOptions from './api-options'
 
-const configPath = 'ui-elements/tabs'
+const path = 'ui-elements/tabs'
+const block = new PageGenerationHelper(path)
 
 const config: ApiDocsBlock[] = [
-  DocsHelper.title('tabs.title'),
-  DocsHelper.paragraph('tabs.summaryText'),
+  block.title('tabs.title'),
+  block.paragraph('tabs.summaryText'),
 
-  DocsHelper.subtitle('all.examples'),
+  block.subtitle('all.examples'),
 
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'tabs.examples.default.title',
     'tabs.examples.default.text',
-    configPath,
     'Default',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'tabs.examples.pagination.title',
     'tabs.examples.pagination.text',
-    configPath,
     'Pagination',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'tabs.examples.vertical.title',
     'tabs.examples.vertical.text',
-    configPath,
     'Vertical',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'tabs.examples.stateful.title',
     'tabs.examples.stateful.text',
-    configPath,
     'Stateful',
   ),
 
-  DocsHelper.subtitle('all.api'),
-  DocsHelper.api(VaTabs, apiOptions),
+  block.subtitle('all.api'),
+  block.api(VaTabs, apiOptions),
 
-  DocsHelper.subtitle('all.faq'),
-  DocsHelper.headline('tabs.faq.questions[0].question'),
-  DocsHelper.paragraph('tabs.faq.questions[0].answer'),
+  block.subtitle('all.faq'),
+  block.headline('tabs.faq.questions[0].question'),
+  block.paragraph('tabs.faq.questions[0].answer'),
 ]
 
 export default config

@@ -1,31 +1,30 @@
-import { ApiDocsBlock } from '../../../types/configTypes'
-import { DocsHelper } from '../../../helpers/DocsHelper'
+import { ApiDocsBlock } from '@/types/configTypes'
+import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaForm from 'vuestic-ui/src/components/va-form/VaForm.vue'
 import apiOptions from './api-options'
 
-const configPath = 'ui-elements/form'
+const path = 'ui-elements/form'
+const block = new PageGenerationHelper(path)
 
 const config: ApiDocsBlock[] = [
-  DocsHelper.title('form.title'),
-  DocsHelper.paragraph('form.summaryText'),
+  block.title('form.title'),
+  block.paragraph('form.summaryText'),
 
-  DocsHelper.subtitle('all.examples'),
+  block.subtitle('all.examples'),
 
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'form.examples.default.title',
     'form.examples.default.text',
-    configPath,
     'Default',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'form.examples.advanced.title',
     'form.examples.advanced.text',
-    configPath,
     'WithInputs',
   ),
 
-  DocsHelper.subtitle('all.api'),
-  DocsHelper.api(VaForm, apiOptions),
+  block.subtitle('all.api'),
+  block.api(VaForm, apiOptions),
 ]
 
 export default config

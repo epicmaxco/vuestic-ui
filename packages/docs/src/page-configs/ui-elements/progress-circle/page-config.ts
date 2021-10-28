@@ -1,55 +1,50 @@
-import { ApiDocsBlock } from '../../../types/configTypes'
-import { DocsHelper } from '../../../helpers/DocsHelper'
+import { ApiDocsBlock } from '@/types/configTypes'
+import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaProgressCircle
   from 'vuestic-ui/src/components/va-progress-bar/progress-types/VaProgressCircle.vue'
 import apiOptions from './api-options'
 
-const configPath = 'ui-elements/progress-circle'
+const path = 'ui-elements/progress-circle'
+const block = new PageGenerationHelper(path)
 
 const config: ApiDocsBlock[] = [
-  DocsHelper.title('progressCircle.title'),
-  DocsHelper.paragraph('progressCircle.summaryText'),
+  block.title('progressCircle.title'),
+  block.paragraph('progressCircle.summaryText'),
 
-  DocsHelper.subtitle('all.examples'),
-  ...DocsHelper.exampleBlock(
+  block.subtitle('all.examples'),
+  ...block.exampleBlock(
     'progressCircle.examples.default.title',
     'progressCircle.examples.default.text',
-    configPath,
     'Default',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'progressCircle.examples.indeterminate.title',
     'progressCircle.examples.indeterminate.text',
-    configPath,
     'Indeterminate',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'progressCircle.examples.coloring.title',
     'progressCircle.examples.coloring.text',
-    configPath,
     'Coloring',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'progressCircle.examples.sizing.title',
     'progressCircle.examples.sizing.text',
-    configPath,
     'Sizing',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'progressCircle.examples.slots.title',
     'progressCircle.examples.slots.text',
-    configPath,
     'Slots',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'progressCircle.examples.thickness.title',
     'progressCircle.examples.thickness.text',
-    configPath,
     'Thickness',
   ),
 
-  DocsHelper.subtitle('all.api'),
-  DocsHelper.api(VaProgressCircle, apiOptions),
+  block.subtitle('all.api'),
+  block.api(VaProgressCircle, apiOptions),
 ]
 
 export default config

@@ -1,31 +1,30 @@
-import { ApiDocsBlock } from '../../../types/configTypes'
-import { DocsHelper } from '../../../helpers/DocsHelper'
+import { ApiDocsBlock } from '@/types/configTypes'
+import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaColorInput from 'vuestic-ui/src/components/va-color-input/VaColorInput.vue'
 import apiOptions from './api-options'
 
-const configPath = 'ui-elements/color-input'
+const path = 'ui-elements/color-input'
+const block = new PageGenerationHelper(path)
 
 const config: ApiDocsBlock[] = [
-  DocsHelper.title('colorInput.title'),
-  DocsHelper.paragraph('colorInput.summaryText'),
+  block.title('colorInput.title'),
+  block.paragraph('colorInput.summaryText'),
 
-  DocsHelper.subtitle('all.examples'),
+  block.subtitle('all.examples'),
 
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'colorInput.examples.default.title',
     'colorInput.examples.default.text',
-    configPath,
     'Default',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'colorInput.examples.disabled.title',
     'colorInput.examples.disabled.text',
-    configPath,
     'Disabled',
   ),
 
-  DocsHelper.subtitle('all.api'),
-  DocsHelper.api(VaColorInput, apiOptions),
+  block.subtitle('all.api'),
+  block.api(VaColorInput, apiOptions),
 ]
 
 export default config

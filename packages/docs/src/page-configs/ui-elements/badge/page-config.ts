@@ -1,42 +1,42 @@
-import { ApiDocsBlock } from '../../../types/configTypes'
-import { DocsHelper } from '../../../helpers/DocsHelper'
+import { ApiDocsBlock } from '@/types/configTypes'
+import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaBadge from 'vuestic-ui/src/components/va-badge/VaBadge.vue'
 import apiOptions from './api-options'
 
-const configPath = 'ui-elements/badge'
+const path = 'ui-elements/badge'
+const block = new PageGenerationHelper(path)
 
 const config: ApiDocsBlock[] = [
-  DocsHelper.title('badge.title'),
-  DocsHelper.paragraph('badge.summaryText'),
+  block.title('badge.title'),
+  block.paragraph('badge.summaryText'),
 
-  DocsHelper.subtitle('all.examples'),
-  ...DocsHelper.exampleBlock(
+  block.subtitle('all.examples'),
+  ...block.exampleBlock(
     'badge.examples.default.title',
     'badge.examples.default.text',
-    configPath,
     'Default',
   ),
 
-  DocsHelper.headline('badge.examples.position.title'),
-  DocsHelper.example(configPath, 'Position'),
+  block.headline('badge.examples.position.title'),
+  block.example('Position'),
 
-  DocsHelper.headline('badge.examples.color.title'),
-  DocsHelper.example(configPath, 'Color'),
+  block.headline('badge.examples.color.title'),
+  block.example('Color'),
 
-  DocsHelper.headline('badge.examples.dot.title'),
-  DocsHelper.example(configPath, 'Dot'),
+  block.headline('badge.examples.dot.title'),
+  block.example('Dot'),
 
-  DocsHelper.headline('badge.examples.transparent.title'),
-  DocsHelper.example(configPath, 'Transparent'),
+  block.headline('badge.examples.transparent.title'),
+  block.example('Transparent'),
 
-  DocsHelper.headline('badge.examples.withCard.title'),
-  DocsHelper.example(configPath, 'WithCard'),
+  block.headline('badge.examples.withCard.title'),
+  block.example('WithCard'),
 
-  DocsHelper.headline('badge.examples.withAvatar.title'),
-  DocsHelper.example(configPath, 'WithAvatar'),
+  block.headline('badge.examples.withAvatar.title'),
+  block.example('WithAvatar'),
 
-  DocsHelper.subtitle('all.api'),
-  DocsHelper.api(VaBadge, apiOptions),
+  block.subtitle('all.api'),
+  block.api(VaBadge, apiOptions),
 ]
 
 export default config

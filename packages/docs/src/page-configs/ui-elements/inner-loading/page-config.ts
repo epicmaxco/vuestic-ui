@@ -1,43 +1,40 @@
-import { ApiDocsBlock } from '../../../types/configTypes'
-import { DocsHelper } from '../../../helpers/DocsHelper'
+import { ApiDocsBlock } from '@/types/configTypes'
+import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaInnerLoading from 'vuestic-ui/src/components/va-inner-loading/VaInnerLoading.vue'
 import apiOptions from './api-options'
 
-const configPath = 'ui-elements/inner-loading'
+const path = 'ui-elements/inner-loading'
+const block = new PageGenerationHelper(path)
 
 const config: ApiDocsBlock[] = [
-  DocsHelper.title('innerLoading.title'),
-  DocsHelper.paragraph('innerLoading.summaryText'),
+  block.title('innerLoading.title'),
+  block.paragraph('innerLoading.summaryText'),
 
-  DocsHelper.subtitle('all.examples'),
+  block.subtitle('all.examples'),
 
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'innerLoading.examples.default.title',
     'innerLoading.examples.default.text',
-    configPath,
     'Default',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'innerLoading.examples.color.title',
     'innerLoading.examples.color.text',
-    configPath,
     'Color',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'innerLoading.examples.size.title',
     'innerLoading.examples.size.text',
-    configPath,
     'Size',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'innerLoading.examples.icon.title',
     'innerLoading.examples.icon.text',
-    configPath,
     'Icon',
   ),
 
-  DocsHelper.subtitle('all.api'),
-  DocsHelper.api(VaInnerLoading, apiOptions),
+  block.subtitle('all.api'),
+  block.api(VaInnerLoading, apiOptions),
 ]
 
 export default config

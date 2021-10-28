@@ -1,5 +1,5 @@
-import { ApiDocsBlock } from '../../../../types/configTypes'
-import { DocsHelper } from '../../../../helpers/DocsHelper'
+import { ApiDocsBlock } from '@/types/configTypes'
+import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import { TableData, TableColumn } from '../../../../components/DocsTable/DocsTable'
 
 const columnsApiTypes: TableColumn[] = [
@@ -45,15 +45,18 @@ const tableDataApiHookMethods: TableData = [
   ['getGradientBackground', '(color: string) => string', 'colorsConfig.api.getGradientBackground'],
 ]
 
+const path = 'services/colors-config'
+const block = new PageGenerationHelper(path)
+
 export const config: ApiDocsBlock[] = [
-  DocsHelper.subtitle('colorsConfig.api.title'),
+  block.subtitle('colorsConfig.api.title'),
 
-  DocsHelper.headline('colorsConfig.api.types'),
-  DocsHelper.table(columnsApiTypes, tableDataApiTypes),
+  block.headline('colorsConfig.api.types'),
+  block.table(columnsApiTypes, tableDataApiTypes),
 
-  DocsHelper.headline('colorsConfig.api.methods'),
-  DocsHelper.table(columnsApiMethods, tableDataApiMethods),
+  block.headline('colorsConfig.api.methods'),
+  block.table(columnsApiMethods, tableDataApiMethods),
 
-  DocsHelper.headline('colorsConfig.api.hookMethods'),
-  DocsHelper.table(columnsApiMethods, tableDataApiHookMethods),
+  block.headline('colorsConfig.api.hookMethods'),
+  block.table(columnsApiMethods, tableDataApiHookMethods),
 ]

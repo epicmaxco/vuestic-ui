@@ -1,24 +1,25 @@
-import { ApiDocsBlock } from '../../../../types/configTypes'
-import { DocsHelper } from '../../../../helpers/DocsHelper'
+import { ApiDocsBlock } from '@/types/configTypes'
+import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import { fontCodeExample, fontTransformationsExample } from '../code-examples'
 
-const configPath = 'services/icons-config'
+const path = 'services/icons-config'
+const block = new PageGenerationHelper(path)
 
 export const config: ApiDocsBlock[] = [
-  DocsHelper.subtitle('iconsConfig.fonts.title'),
-  DocsHelper.paragraph('iconsConfig.fonts.about'),
+  block.subtitle('iconsConfig.fonts.title'),
+  block.paragraph('iconsConfig.fonts.about'),
 
-  DocsHelper.headline('iconsConfig.fonts.fontNamePattern.title'),
-  DocsHelper.paragraph('iconsConfig.fonts.fontNamePattern.about'),
-  DocsHelper.example(configPath, 'font'),
+  block.headline('iconsConfig.fonts.fontNamePattern.title'),
+  block.paragraph('iconsConfig.fonts.fontNamePattern.about'),
+  block.example('font'),
 
-  DocsHelper.headline('iconsConfig.fonts.example.title'),
-  DocsHelper.paragraph('iconsConfig.fonts.example.about'),
-  DocsHelper.code(fontCodeExample),
-  DocsHelper.paragraph('iconsConfig.fonts.example.explain'),
-  DocsHelper.code(fontTransformationsExample),
+  block.headline('iconsConfig.fonts.example.title'),
+  block.paragraph('iconsConfig.fonts.example.about'),
+  block.code(fontCodeExample),
+  block.paragraph('iconsConfig.fonts.example.explain'),
+  block.code(fontTransformationsExample),
 
-  DocsHelper.link(
+  block.link(
     'iconsConfig.fonts.advancedFontsUsage',
     '/services/global-config',
     { preText: 'iconsConfig.fonts.readMore' },

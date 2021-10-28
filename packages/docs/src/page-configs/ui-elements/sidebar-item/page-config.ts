@@ -1,49 +1,45 @@
-import { ApiDocsBlock } from '../../../types/configTypes'
-import { DocsHelper } from '../../../helpers/DocsHelper'
+import { ApiDocsBlock } from '@/types/configTypes'
+import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaSidebarItem from 'vuestic-ui/src/components/va-sidebar/VaSidebarItem/VaSidebarItem.vue'
 import apiOptions from './api-options'
 
-const configPath = 'ui-elements/sidebar-item'
+const path = 'ui-elements/sidebar-item'
+const block = new PageGenerationHelper(path)
 
 const config: ApiDocsBlock[] = [
-  DocsHelper.title('sidebarItem.title'),
-  DocsHelper.paragraph('sidebarItem.summaryText'),
+  block.title('sidebarItem.title'),
+  block.paragraph('sidebarItem.summaryText'),
 
-  DocsHelper.subtitle('all.examples'),
+  block.subtitle('all.examples'),
 
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'sidebarItem.examples.simple.title',
     'sidebarItem.examples.simple.text',
-    configPath,
     'Simple',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'sidebarItem.examples.colors.title',
     'sidebarItem.examples.colors.text',
-    configPath,
     'Colors',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'sidebarItem.examples.active.title',
     'sidebarItem.examples.active.text',
-    configPath,
     'Active',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'sidebarItem.examples.icons.title',
     'sidebarItem.examples.icons.text',
-    configPath,
     'Icons',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'sidebarItem.examples.components.title',
     'sidebarItem.examples.components.text',
-    configPath,
     'Components',
   ),
 
-  DocsHelper.subtitle('all.api'),
-  DocsHelper.api(VaSidebarItem, apiOptions),
+  block.subtitle('all.api'),
+  block.api(VaSidebarItem, apiOptions),
 ]
 
 export default config

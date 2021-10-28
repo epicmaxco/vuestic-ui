@@ -1,9 +1,12 @@
-import { ApiDocsBlock } from '../../../types/configTypes'
-import { DocsHelper } from '../../../helpers/DocsHelper'
+import { ApiDocsBlock } from '@/types/configTypes'
+import { PageGenerationHelper } from '@/helpers/DocsHelper'
+
+const path = 'services/advanced-icons-config'
+const block = new PageGenerationHelper(path)
 
 const config: ApiDocsBlock[] = [
-  DocsHelper.title('advancedIconsConfig.title'),
-  DocsHelper.paragraph('advancedIconsConfig.subtitle'),
+  block.title('advancedIconsConfig.title'),
+  block.paragraph('advancedIconsConfig.subtitle'),
 
   // TODO: Draw image example how works searching in flat array.
 

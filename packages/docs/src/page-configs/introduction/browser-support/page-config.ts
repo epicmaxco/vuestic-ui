@@ -1,5 +1,5 @@
-import { ApiDocsBlock } from '../../../types/configTypes'
-import { DocsHelper } from '../../../helpers/DocsHelper'
+import { ApiDocsBlock } from '@/types/configTypes'
+import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import { TableData, TableColumn } from '../../../components/DocsTable/DocsTable'
 
 const columns: TableColumn[] = [
@@ -15,10 +15,13 @@ const tableData: TableData = [
   ['IE11/Safari 9', '-'],
 ]
 
+const path = 'introduction/browser-support'
+const block = new PageGenerationHelper(path)
+
 const config: ApiDocsBlock[] = [
-  DocsHelper.title('browserSupport.title'),
-  DocsHelper.paragraph('browserSupport.description'),
-  DocsHelper.table(columns, tableData),
+  block.title('browserSupport.title'),
+  block.paragraph('browserSupport.description'),
+  block.table(columns, tableData),
 ]
 
 export default config

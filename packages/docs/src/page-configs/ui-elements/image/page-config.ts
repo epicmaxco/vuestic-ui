@@ -1,52 +1,48 @@
-import { ApiDocsBlock } from '../../../types/configTypes'
-import { DocsHelper } from '../../../helpers/DocsHelper'
+import { ApiDocsBlock } from '@/types/configTypes'
+import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaImage from 'vuestic-ui/src/components/va-image/VaImage.vue'
 import apiOptions from './api-options'
 
-const configPath = 'ui-elements/image'
+const path = 'ui-elements/image'
+const block = new PageGenerationHelper(path)
 
 const config: ApiDocsBlock[] = [
-  DocsHelper.title('image.title'),
-  DocsHelper.paragraph('image.summaryText'),
+  block.title('image.title'),
+  block.paragraph('image.summaryText'),
 
-  DocsHelper.subtitle('all.examples'),
+  block.subtitle('all.examples'),
 
-  DocsHelper.headline('image.examples.default.title'),
-  DocsHelper.example(configPath, 'Default'),
+  block.headline('image.examples.default.title'),
+  block.example('Default'),
 
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'image.examples.ratio.title',
     'image.examples.ratio.text',
-    configPath,
     'Ratio',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'image.examples.contain.title',
     'image.examples.contain.text',
-    configPath,
     'Contain',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'image.examples.defaultSlot.title',
     'image.examples.defaultSlot.text',
-    configPath,
     'DefaultSlot',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'image.examples.loaderSlot.title',
     'image.examples.loaderSlot.text',
-    configPath,
     'LoaderSlot',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'image.examples.errorSlot.title',
     'image.examples.errorSlot.text',
-    configPath,
     'ErrorSlot',
   ),
 
-  DocsHelper.subtitle('all.api'),
-  DocsHelper.api(VaImage, apiOptions),
+  block.subtitle('all.api'),
+  block.api(VaImage, apiOptions),
 ]
 
 export default config

@@ -1,20 +1,21 @@
-import { ApiDocsBlock } from '../../../../types/configTypes'
-import { DocsHelper } from '../../../../helpers/DocsHelper'
+import { ApiDocsBlock } from '@/types/configTypes'
+import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import { componentsConfigCode, iconsConfigCode } from '../code-examples'
 
-const pathConfig = 'services/colors-config'
+const path = 'services/colors-config'
+const block = new PageGenerationHelper(path)
 
 const config: ApiDocsBlock[] = [
-  DocsHelper.subtitle('colorsConfig.otherServices.subtitle'),
+  block.subtitle('colorsConfig.otherServices.subtitle'),
 
-  DocsHelper.paragraph('colorsConfig.otherServices.components'),
-  DocsHelper.code(componentsConfigCode),
+  block.paragraph('colorsConfig.otherServices.components'),
+  block.code(componentsConfigCode),
 
-  DocsHelper.paragraph('colorsConfig.otherServices.icons'),
-  DocsHelper.code(iconsConfigCode),
+  block.paragraph('colorsConfig.otherServices.icons'),
+  block.code(iconsConfigCode),
 
-  DocsHelper.paragraph('colorsConfig.otherServices.css'),
-  DocsHelper.example(pathConfig, 'css-variable'),
+  block.paragraph('colorsConfig.otherServices.css'),
+  block.example('css-variable'),
 ]
 
 export default config

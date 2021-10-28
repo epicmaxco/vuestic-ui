@@ -1,11 +1,14 @@
-import { ApiDocsBlock } from '../../../types/configTypes'
-import { DocsHelper } from '../../../helpers/DocsHelper'
+import { ApiDocsBlock } from '@/types/configTypes'
+import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import { problem, fonts, aliases, setup, api } from './sections'
 
+const path = 'services/icons-config'
+const block = new PageGenerationHelper(path)
+
 const config: ApiDocsBlock[] = [
-  DocsHelper.title('iconsConfig.title'),
-  DocsHelper.paragraph('iconsConfig.about'),
-  DocsHelper.link('iconsConfig.readBeforeStart', '/ui-elements/icon'),
+  block.title('iconsConfig.title'),
+  block.paragraph('iconsConfig.about'),
+  block.link('iconsConfig.readBeforeStart', '/ui-elements/icon'),
 
   ...problem,
   ...fonts,

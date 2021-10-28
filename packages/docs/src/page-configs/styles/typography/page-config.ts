@@ -1,46 +1,47 @@
-import { ApiDocsBlock } from '../../../types/configTypes'
-import { DocsHelper } from '../../../helpers/DocsHelper'
+import { ApiDocsBlock } from '@/types/configTypes'
+import { PageGenerationHelper } from '@/helpers/DocsHelper'
 
-const configPath = 'styles/typography'
+const path = 'styles/typography'
+const block = new PageGenerationHelper(path)
 
 const config: ApiDocsBlock[] = [
-  DocsHelper.title('typography.title'),
-  DocsHelper.paragraph('typography.description'),
+  block.title('typography.title'),
+  block.paragraph('typography.description'),
 
-  DocsHelper.subtitle('typography.headings'),
-  DocsHelper.example(configPath, 'headings', { forceShowCode: true }),
+  block.subtitle('typography.headings'),
+  block.example('headings', { forceShowCode: true }),
 
-  DocsHelper.headline('typography.titled'),
-  DocsHelper.example(configPath, 'title'),
+  block.headline('typography.titled'),
+  block.example('title'),
 
-  DocsHelper.headline('typography.textStyles'),
-  DocsHelper.example(configPath, 'textStyles'),
+  block.headline('typography.textStyles'),
+  block.example('textStyles'),
 
-  DocsHelper.headline('typography.codeSnippet'),
-  DocsHelper.example(configPath, 'codeSnippet'),
+  block.headline('typography.codeSnippet'),
+  block.example('codeSnippet'),
 
-  DocsHelper.headline('typography.textCode'),
-  DocsHelper.example(configPath, 'textCode'),
+  block.headline('typography.textCode'),
+  block.example('textCode'),
 
-  DocsHelper.subtitle('typography.other'),
+  block.subtitle('typography.other'),
 
-  DocsHelper.headline('typography.orderedList'),
-  DocsHelper.example(configPath, 'orderedList'),
+  block.headline('typography.orderedList'),
+  block.example('orderedList'),
 
-  DocsHelper.headline('typography.unorderedList'),
-  DocsHelper.example(configPath, 'unorderedList'),
+  block.headline('typography.unorderedList'),
+  block.example('unorderedList'),
 
-  DocsHelper.headline('typography.links'),
-  DocsHelper.example(configPath, 'links'),
+  block.headline('typography.links'),
+  block.example('links'),
 
-  DocsHelper.headline('typography.textHighlighted'),
-  DocsHelper.example(configPath, 'textHighlighted'),
+  block.headline('typography.textHighlighted'),
+  block.example('textHighlighted'),
 
-  DocsHelper.headline('typography.blockquote'),
-  DocsHelper.example(configPath, 'blockquote'),
+  block.headline('typography.blockquote'),
+  block.example('blockquote'),
 
-  DocsHelper.headline('typography.textBlock'),
-  DocsHelper.example(configPath, 'textBlock'),
+  block.headline('typography.textBlock'),
+  block.example('textBlock'),
 ]
 
 export default config

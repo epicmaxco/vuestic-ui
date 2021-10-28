@@ -1,14 +1,17 @@
-import { ApiDocsBlock } from '../../../types/configTypes'
-import { DocsHelper } from '../../../helpers/DocsHelper'
+import { ApiDocsBlock } from '@/types/configTypes'
+import { PageGenerationHelper } from '@/helpers/DocsHelper'
+
+const path = 'styles/reset'
+const block = new PageGenerationHelper(path)
 
 const config: ApiDocsBlock[] = [
-  DocsHelper.title('reset.title'),
-  DocsHelper.paragraph('reset.description'),
+  block.title('reset.title'),
+  block.paragraph('reset.description'),
 
-  DocsHelper.headline('reset.features.title'),
-  DocsHelper.paragraph('reset.features.info'),
-  DocsHelper.paragraph('reset.features.list'),
-  DocsHelper.paragraph('reset.features.more'),
+  block.headline('reset.features.title'),
+  block.paragraph('reset.features.info'),
+  block.paragraph('reset.features.list'),
+  block.paragraph('reset.features.more'),
 ]
 
 export default config

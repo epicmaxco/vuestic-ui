@@ -1,43 +1,40 @@
-import { ApiDocsBlock } from '../../../types/configTypes'
-import { DocsHelper } from '../../../helpers/DocsHelper'
+import { ApiDocsBlock } from '@/types/configTypes'
+import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaRadio from 'vuestic-ui/src/components/va-radio/VaRadio.vue'
 import apiOptions from './api-options'
 
-const configPath = 'ui-elements/radio'
+const path = 'ui-elements/radio'
+const block = new PageGenerationHelper(path)
 
 const config: ApiDocsBlock[] = [
-  DocsHelper.title('radio.title'),
-  DocsHelper.paragraph('radio.summaryText'),
+  block.title('radio.title'),
+  block.paragraph('radio.summaryText'),
 
-  DocsHelper.subtitle('all.examples'),
+  block.subtitle('all.examples'),
 
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'radio.examples.default.title',
     'radio.examples.default.text',
-    configPath,
     'Default',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'radio.examples.color.title',
     'radio.examples.color.text',
-    configPath,
     'Color',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'radio.examples.customLabels.title',
     'radio.examples.customLabels.text',
-    configPath,
     'CustomLabels',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'radio.examples.disabled.title',
     'radio.examples.disabled.text',
-    configPath,
     'Disabled',
   ),
 
-  DocsHelper.subtitle('all.api'),
-  DocsHelper.api(VaRadio, apiOptions),
+  block.subtitle('all.api'),
+  block.api(VaRadio, apiOptions),
 ]
 
 export default config

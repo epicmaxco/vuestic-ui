@@ -1,5 +1,5 @@
-import { ApiDocsBlock } from '../../../types/configTypes'
-import { DocsHelper } from '../../../helpers/DocsHelper'
+import { ApiDocsBlock } from '@/types/configTypes'
+import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import {
   setupExampleCode,
   reactiveUpdateExampleCode,
@@ -8,27 +8,30 @@ import {
 } from './code-examples'
 import { api } from './sections'
 
+const path = 'services/global-config'
+const block = new PageGenerationHelper(path)
+
 const config: ApiDocsBlock[] = [
-  DocsHelper.title('globalConfig.title'),
-  DocsHelper.paragraph('globalConfig.subtitle'),
-  DocsHelper.paragraph('globalConfig.structure'),
+  block.title('globalConfig.title'),
+  block.paragraph('globalConfig.subtitle'),
+  block.paragraph('globalConfig.structure'),
 
-  DocsHelper.paragraph('globalConfig.setupExampleTitle'),
-  DocsHelper.code(setupExampleCode),
+  block.paragraph('globalConfig.setupExampleTitle'),
+  block.code(setupExampleCode),
 
-  DocsHelper.paragraph('globalConfig.reactiveUpdateExampleTitle'),
-  DocsHelper.code(reactiveUpdateExampleCode),
+  block.paragraph('globalConfig.reactiveUpdateExampleTitle'),
+  block.code(reactiveUpdateExampleCode),
 
-  DocsHelper.paragraph('globalConfig.reactiveSetExampleTitle'),
-  DocsHelper.code(reactiveSetExampleCode),
+  block.paragraph('globalConfig.reactiveSetExampleTitle'),
+  block.code(reactiveSetExampleCode),
 
-  DocsHelper.paragraph('globalConfig.useInRuntime'),
-  DocsHelper.code(useInRuntimeCode),
+  block.paragraph('globalConfig.useInRuntime'),
+  block.code(useInRuntimeCode),
 
-  DocsHelper.headline('globalConfig.links.readMore'),
-  DocsHelper.link('globalConfig.links.components', '/services/components-config'),
-  DocsHelper.link('globalConfig.links.colors', '/services/colors-config'),
-  DocsHelper.link('globalConfig.links.icons', '/services/icons-config'),
+  block.headline('globalConfig.links.readMore'),
+  block.link('globalConfig.links.components', '/services/components-config'),
+  block.link('globalConfig.links.colors', '/services/colors-config'),
+  block.link('globalConfig.links.icons', '/services/icons-config'),
 
   ...api,
 ]

@@ -1,63 +1,62 @@
-import { ApiDocsBlock } from '../../../types/configTypes'
-import { DocsHelper } from '../../../helpers/DocsHelper'
+import { ApiDocsBlock } from '@/types/configTypes'
+import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaCard from 'vuestic-ui/src/components/va-card/VaCard.vue'
 import apiOptions from './api-options'
 
-const configPath = 'ui-elements/card'
+const path = 'ui-elements/card'
+const block = new PageGenerationHelper(path)
 
 const config: ApiDocsBlock[] = [
-  DocsHelper.title('card.title'),
-  DocsHelper.paragraph('card.summaryText'),
+  block.title('card.title'),
+  block.paragraph('card.summaryText'),
 
-  DocsHelper.subtitle('all.examples'),
+  block.subtitle('all.examples'),
 
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'card.examples.default.title',
     'card.examples.default.text',
-    configPath,
     'Default',
   ),
 
-  DocsHelper.headline('card.examples.colorAndGradient.title'),
-  DocsHelper.example(configPath, 'ColorAndGradient'),
+  block.headline('card.examples.colorAndGradient.title'),
+  block.example('ColorAndGradient'),
 
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'card.examples.tag.title',
     'card.examples.tag.text',
-    configPath,
     'Tag',
   ),
 
-  DocsHelper.headline('card.examples.borderAndShape.title'),
-  DocsHelper.example(configPath, 'BorderAndShape'),
+  block.headline('card.examples.borderAndShape.title'),
+  block.example('BorderAndShape'),
 
-  DocsHelper.headline('card.examples.disabled.title'),
-  DocsHelper.example(configPath, 'Disabled'),
+  block.headline('card.examples.disabled.title'),
+  block.example('Disabled'),
 
-  DocsHelper.headline('card.examples.link.title'),
-  DocsHelper.example(configPath, 'Link'),
+  block.headline('card.examples.link.title'),
+  block.example('Link'),
 
-  DocsHelper.headline('card.examples.stripe.title'),
-  DocsHelper.example(configPath, 'Stripe'),
+  block.headline('card.examples.stripe.title'),
+  block.example('Stripe'),
 
-  DocsHelper.headline('card.examples.image.title'),
-  DocsHelper.example(configPath, 'Image'),
+  block.headline('card.examples.image.title'),
+  block.example('Image'),
 
-  DocsHelper.headline('card.examples.actions.title'),
-  DocsHelper.paragraph('card.examples.actions.purpose'),
-  DocsHelper.paragraph('card.examples.actions.props'),
-  DocsHelper.paragraph('card.examples.actions.values'),
-  DocsHelper.example(configPath, 'Actions'),
+  block.headline('card.examples.actions.title'),
+  block.paragraph('card.examples.actions.purpose'),
+  block.paragraph('card.examples.actions.props'),
+  block.paragraph('card.examples.actions.values'),
+  block.example('Actions'),
 
-  DocsHelper.subtitle('all.api'),
-  DocsHelper.api(VaCard, apiOptions),
+  block.subtitle('all.api'),
+  block.api(VaCard, apiOptions),
 
-  DocsHelper.subtitle('all.faq'),
-  DocsHelper.headline('card.faq.questions[0].question'),
-  DocsHelper.paragraph('card.faq.questions[0].answer'),
+  block.subtitle('all.faq'),
+  block.headline('card.faq.questions[0].question'),
+  block.paragraph('card.faq.questions[0].answer'),
 
-  DocsHelper.headline('card.faq.questions[1].question'),
-  DocsHelper.paragraph('card.faq.questions[1].answer'),
+  block.headline('card.faq.questions[1].question'),
+  block.paragraph('card.faq.questions[1].answer'),
 ]
 
 export default config

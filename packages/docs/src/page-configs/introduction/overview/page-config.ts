@@ -1,11 +1,14 @@
-import { ApiDocsBlock } from '../../../types/configTypes'
-import { DocsHelper } from '../../../helpers/DocsHelper'
+import { ApiDocsBlock } from '@/types/configTypes'
+import { PageGenerationHelper } from '@/helpers/DocsHelper'
+
+const path = 'introduction/browser-support'
+const block = new PageGenerationHelper(path)
 
 const config: ApiDocsBlock[] = [
-  DocsHelper.title('overview.title'),
-  DocsHelper.paragraph('overview.description'),
-  DocsHelper.subtitle('overview.featuresOverview'),
-  DocsHelper.list([
+  block.title('overview.title'),
+  block.paragraph('overview.description'),
+  block.subtitle('overview.featuresOverview'),
+  block.list([
     'overview.vueThreeCompatible',
     'overview.featureRich',
     'overview.configurable',

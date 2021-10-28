@@ -1,9 +1,12 @@
-import { ApiDocsBlock } from '../../../../types/configTypes'
-import { DocsHelper } from '../../../../helpers/DocsHelper'
+import { ApiDocsBlock } from '@/types/configTypes'
+import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import { setupCodeExample } from '../code-examples'
 
+const path = 'services/icons-config'
+const block = new PageGenerationHelper(path)
+
 export const config: ApiDocsBlock[] = [
-  DocsHelper.subtitle('iconsConfig.setup.title'),
-  DocsHelper.paragraph('iconsConfig.setup.about'),
-  DocsHelper.code(setupCodeExample),
+  block.subtitle('iconsConfig.setup.title'),
+  block.paragraph('iconsConfig.setup.about'),
+  block.code(setupCodeExample),
 ]

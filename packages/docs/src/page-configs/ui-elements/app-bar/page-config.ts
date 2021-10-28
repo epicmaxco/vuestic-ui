@@ -1,31 +1,32 @@
-import { ApiDocsBlock } from '../../../types/configTypes'
-import { DocsHelper } from '../../../helpers/DocsHelper'
+import { ApiDocsBlock } from '@/types/configTypes'
+import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaAppBar from 'vuestic-ui/src/components/va-app-bar/VaAppBar.vue'
 import apiOptions from './api-options'
 
-const configPath = 'ui-elements/app-bar'
+const path = 'ui-elements/app-bar'
+const block = new PageGenerationHelper(path)
 
 const config: ApiDocsBlock[] = [
-  DocsHelper.title('appBar.title'),
-  DocsHelper.paragraph('appBar.summaryText'),
-  DocsHelper.subtitle('all.examples'),
-  DocsHelper.headline('appBar.examples.default.title'),
-  DocsHelper.paragraph('appBar.examples.default.text'),
-  DocsHelper.example(configPath, 'Default'),
-  DocsHelper.headline('appBar.examples.color.title'),
-  DocsHelper.paragraph('appBar.examples.color.text'),
-  DocsHelper.example(configPath, 'Color'),
-  DocsHelper.headline('appBar.examples.bottom.title'),
-  DocsHelper.paragraph('appBar.examples.bottom.text'),
-  DocsHelper.example(configPath, 'Bottom'),
-  DocsHelper.headline('appBar.examples.hide.title'),
-  DocsHelper.paragraph('appBar.examples.hide.text'),
-  DocsHelper.example(configPath, 'Hide'),
-  DocsHelper.headline('appBar.examples.shadow.title'),
-  DocsHelper.paragraph('appBar.examples.shadow.text'),
-  DocsHelper.example(configPath, 'Shadow'),
-  DocsHelper.subtitle('all.api'),
-  DocsHelper.api(VaAppBar, apiOptions),
+  block.title('appBar.title'),
+  block.paragraph('appBar.summaryText'),
+  block.subtitle('all.examples'),
+  block.headline('appBar.examples.default.title'),
+  block.paragraph('appBar.examples.default.text'),
+  block.example('Default'),
+  block.headline('appBar.examples.color.title'),
+  block.paragraph('appBar.examples.color.text'),
+  block.example('Color'),
+  block.headline('appBar.examples.bottom.title'),
+  block.paragraph('appBar.examples.bottom.text'),
+  block.example('Bottom'),
+  block.headline('appBar.examples.hide.title'),
+  block.paragraph('appBar.examples.hide.text'),
+  block.example('Hide'),
+  block.headline('appBar.examples.shadow.title'),
+  block.paragraph('appBar.examples.shadow.text'),
+  block.example('Shadow'),
+  block.subtitle('all.api'),
+  block.api(VaAppBar, apiOptions),
 ]
 
 export default config

@@ -1,61 +1,55 @@
-import { ApiDocsBlock } from '../../../types/configTypes'
-import { DocsHelper } from '../../../helpers/DocsHelper'
+import { ApiDocsBlock } from '@/types/configTypes'
+import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaInput from 'vuestic-ui/src/components/va-input/VaInput.vue'
 import apiOptions from './api-options'
 
-const configPath = 'ui-elements/input'
+const path = 'ui-elements/input'
+const block = new PageGenerationHelper(path)
 
 const config: ApiDocsBlock[] = [
-  DocsHelper.title('input.title'),
-  DocsHelper.paragraph('input.summaryText'),
+  block.title('input.title'),
+  block.paragraph('input.summaryText'),
 
-  DocsHelper.subtitle('all.examples'),
+  block.subtitle('all.examples'),
 
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'input.examples.default.title',
     'input.examples.default.text',
-    configPath,
     'Default',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'input.examples.styles.title',
     'input.examples.styles.text',
-    configPath,
     'Styles',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'input.examples.hint.title',
     'input.examples.hint.text',
-    configPath,
     'Hint',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'input.examples.validate.title',
     'input.examples.validate.text',
-    configPath,
     'Validate',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'input.examples.slots.title',
     'input.examples.slots.text',
-    configPath,
     'Slots',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'input.examples.textarea.title',
     'input.examples.textarea.text',
-    configPath,
     'Textarea',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'input.examples.mask.title',
     'input.examples.mask.text',
-    configPath,
     'Mask',
   ),
 
-  DocsHelper.subtitle('all.api'),
-  DocsHelper.api(VaInput, apiOptions),
+  block.subtitle('all.api'),
+  block.api(VaInput, apiOptions),
 ]
 
 export default config

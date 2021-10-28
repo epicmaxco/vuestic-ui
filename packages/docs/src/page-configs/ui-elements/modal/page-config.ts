@@ -1,82 +1,74 @@
-import { ApiDocsBlock } from '../../../types/configTypes'
-import { DocsHelper } from '../../../helpers/DocsHelper'
+import { ApiDocsBlock } from '@/types/configTypes'
+import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaModal from 'vuestic-ui/src/components/va-modal/VaModal.vue'
 import apiOptions from './api-options'
 
-const configPath = 'ui-elements/modal'
+const path = 'ui-elements/modal'
+const block = new PageGenerationHelper(path)
 
 const config: ApiDocsBlock[] = [
-  DocsHelper.title('modal.title'),
-  DocsHelper.paragraph('modal.summaryText'),
+  block.title('modal.title'),
+  block.paragraph('modal.summaryText'),
 
-  DocsHelper.subtitle('all.examples'),
+  block.subtitle('all.examples'),
 
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'modal.overview.title',
     'modal.overview.text',
-    configPath,
     'Overview',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'modal.stateful.title',
     'modal.stateful.text',
-    configPath,
     'Stateful',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'modal.fullscreen.title',
     'modal.fullscreen.text',
-    configPath,
     'Fullscreen',
   ),
 
-  DocsHelper.headline('modal.toggleVisibility.title'),
-  DocsHelper.paragraph('modal.toggleVisibility.text'),
-  DocsHelper.headline('modal.toggleVisibility.sections[0].title'),
-  DocsHelper.paragraph('modal.toggleVisibility.sections[0].text'),
-  DocsHelper.headline('modal.toggleVisibility.sections[1].title'),
-  DocsHelper.paragraph('modal.toggleVisibility.sections[1].text'),
-  DocsHelper.example(configPath, 'toggle-visibility/InstanceMethods'),
+  block.headline('modal.toggleVisibility.title'),
+  block.paragraph('modal.toggleVisibility.text'),
+  block.headline('modal.toggleVisibility.sections[0].title'),
+  block.paragraph('modal.toggleVisibility.sections[0].text'),
+  block.headline('modal.toggleVisibility.sections[1].title'),
+  block.paragraph('modal.toggleVisibility.sections[1].text'),
+  block.example('toggle-visibility/InstanceMethods'),
 
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'modal.disableAnimation.title',
     'modal.disableAnimation.text',
-    configPath,
     'DisableAnimation',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'modal.modalSizing.title',
     'modal.modalSizing.text',
-    configPath,
     'ModalSizing',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'modal.hidingOverlay.title',
     'modal.hidingOverlay.text',
-    configPath,
     'HidingOverlay',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'modal.scrollingLongContent.title',
     'modal.scrollingLongContent.text',
-    configPath,
     'ScrollingLongContent',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'modal.customization.title',
     'modal.customization.text',
-    configPath,
     'Customization',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'modal.nestedModals.title',
     'modal.nestedModals.text',
-    configPath,
     'NestedModals',
   ),
 
-  DocsHelper.subtitle('all.api'),
-  DocsHelper.api(VaModal, apiOptions),
+  block.subtitle('all.api'),
+  block.api(VaModal, apiOptions),
 ]
 
 export default config

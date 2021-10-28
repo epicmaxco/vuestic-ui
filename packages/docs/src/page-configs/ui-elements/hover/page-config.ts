@@ -1,41 +1,39 @@
-import { ApiDocsBlock } from '../../../types/configTypes'
-import { DocsHelper } from '../../../helpers/DocsHelper'
+import { ApiDocsBlock } from '@/types/configTypes'
+import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaHover from 'vuestic-ui/src/components/va-hover/VaHover.vue'
 import apiOptions from './api-options'
 
-const configPath = 'ui-elements/hover'
+const path = 'ui-elements/hover'
+const block = new PageGenerationHelper(path)
 
 const config: ApiDocsBlock[] = [
-  DocsHelper.title('hover.title'),
-  DocsHelper.paragraph('hover.summaryText'),
+  block.title('hover.title'),
+  block.paragraph('hover.summaryText'),
 
-  DocsHelper.subtitle('all.examples'),
+  block.subtitle('all.examples'),
 
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'hover.examples.vModel.title',
     'hover.examples.vModel.text',
-    configPath,
     'VModel',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'hover.examples.slot.title',
     'hover.examples.slot.text',
-    configPath,
     'Slot',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'hover.examples.disabled.title',
     'hover.examples.disabled.text',
-    configPath,
     'Disabled',
   ),
 
-  DocsHelper.subtitle('all.api'),
-  DocsHelper.api(VaHover, apiOptions),
+  block.subtitle('all.api'),
+  block.api(VaHover, apiOptions),
 
-  DocsHelper.subtitle('all.faq'),
-  DocsHelper.headline('hover.faq.questions[0].question'),
-  DocsHelper.paragraph('hover.faq.questions[0].answer'),
+  block.subtitle('all.faq'),
+  block.headline('hover.faq.questions[0].question'),
+  block.paragraph('hover.faq.questions[0].answer'),
 ]
 
 export default config

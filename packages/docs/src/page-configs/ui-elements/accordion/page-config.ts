@@ -1,33 +1,34 @@
-import { ApiDocsBlock } from '../../../types/configTypes'
-import { DocsHelper } from '../../../helpers/DocsHelper'
+import { ApiDocsBlock } from '@/types/configTypes'
+import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaAccordion from 'vuestic-ui/src/components/va-accordion/VaAccordion.vue'
 import apiOptions from './api-options'
 
-const configPath = 'ui-elements/accordion'
+const path = 'ui-elements/accordion'
+const block = new PageGenerationHelper(path)
 
 const config: ApiDocsBlock[] = [
-  DocsHelper.title('accordion.title'),
-  DocsHelper.paragraph('accordion.summaryText'),
+  block.title('accordion.title'),
+  block.paragraph('accordion.summaryText'),
 
-  DocsHelper.subtitle('all.examples'),
-  DocsHelper.headline('accordion.examples.default.title'),
-  DocsHelper.paragraph('accordion.examples.default.text'),
-  DocsHelper.example(configPath, 'Default'),
+  block.subtitle('all.examples'),
+  block.headline('accordion.examples.default.title'),
+  block.paragraph('accordion.examples.default.text'),
+  block.example('Default'),
 
-  DocsHelper.headline('accordion.examples.multiply.title'),
-  DocsHelper.paragraph('accordion.examples.multiply.text'),
-  DocsHelper.example(configPath, 'Multiply'),
+  block.headline('accordion.examples.multiply.title'),
+  block.paragraph('accordion.examples.multiply.text'),
+  block.example('Multiply'),
 
-  DocsHelper.headline('accordion.examples.inset.title'),
-  DocsHelper.paragraph('accordion.examples.inset.text'),
-  DocsHelper.example(configPath, 'Inset'),
+  block.headline('accordion.examples.inset.title'),
+  block.paragraph('accordion.examples.inset.text'),
+  block.example('Inset'),
 
-  DocsHelper.headline('accordion.examples.popout.title'),
-  DocsHelper.paragraph('accordion.examples.popout.text'),
-  DocsHelper.example(configPath, 'Popout'),
+  block.headline('accordion.examples.popout.title'),
+  block.paragraph('accordion.examples.popout.text'),
+  block.example('Popout'),
 
-  DocsHelper.subtitle('all.api'),
-  DocsHelper.api(VaAccordion, apiOptions),
+  block.subtitle('all.api'),
+  block.api(VaAccordion, apiOptions),
 ]
 
 export default config

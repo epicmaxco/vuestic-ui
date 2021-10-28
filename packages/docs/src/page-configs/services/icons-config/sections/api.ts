@@ -1,5 +1,5 @@
-import { ApiDocsBlock } from '../../../../types/configTypes'
-import { DocsHelper } from '../../../../helpers/DocsHelper'
+import { ApiDocsBlock } from '@/types/configTypes'
+import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import { TableData, TableColumn } from '../../../../components/DocsTable/DocsTable'
 
 const columns: TableColumn[] = [
@@ -37,7 +37,10 @@ const tableData: TableData = [
   ['spin', "`'clockwise' | 'counter-clockwise' | undefined`", 'iconsConfig.api.spin'],
 ]
 
+const path = 'services/icons-config'
+const block = new PageGenerationHelper(path)
+
 export const config: ApiDocsBlock[] = [
-  DocsHelper.subtitle('iconsConfig.api.title'),
-  DocsHelper.table(columns, tableData),
+  block.subtitle('iconsConfig.api.title'),
+  block.table(columns, tableData),
 ]

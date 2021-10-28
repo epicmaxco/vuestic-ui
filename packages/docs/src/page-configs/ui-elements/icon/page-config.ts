@@ -1,61 +1,55 @@
-import { ApiDocsBlock } from '../../../types/configTypes'
-import { DocsHelper } from '../../../helpers/DocsHelper'
+import { ApiDocsBlock } from '@/types/configTypes'
+import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaIcon from 'vuestic-ui/src/components/va-icon/VaIcon.vue'
 import apiOptions from './api-options'
 
-const configPath = 'ui-elements/icon'
+const path = 'ui-elements/icon'
+const block = new PageGenerationHelper(path)
 
 const config: ApiDocsBlock[] = [
-  DocsHelper.title('icon.title'),
-  DocsHelper.paragraph('icon.summaryText'),
+  block.title('icon.title'),
+  block.paragraph('icon.summaryText'),
 
-  DocsHelper.subtitle('all.examples'),
+  block.subtitle('all.examples'),
 
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'icon.examples.default.title',
     'icon.examples.default.text',
-    configPath,
     'Default',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'icon.examples.color.title',
     'icon.examples.color.text',
-    configPath,
     'Color',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'icon.examples.size.title',
     'icon.examples.size.text',
-    configPath,
     'Size',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'icon.examples.rotation.title',
     'icon.examples.rotation.text',
-    configPath,
     'Rotation',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'icon.examples.spin.title',
     'icon.examples.spin.text',
-    configPath,
     'Spin',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'icon.examples.text.title',
     'icon.examples.text.text',
-    configPath,
     'Text',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'icon.examples.tag.title',
     'icon.examples.tag.text',
-    configPath,
     'Tag',
   ),
 
-  DocsHelper.subtitle('all.api'),
-  DocsHelper.api(VaIcon, apiOptions),
+  block.subtitle('all.api'),
+  block.api(VaIcon, apiOptions),
 ]
 
 export default config

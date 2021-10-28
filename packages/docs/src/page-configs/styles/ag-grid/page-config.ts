@@ -1,5 +1,5 @@
-import { ApiDocsBlock } from '../../../types/configTypes'
-import { DocsHelper } from '../../../helpers/DocsHelper'
+import { ApiDocsBlock } from '@/types/configTypes'
+import { PageGenerationHelper } from '@/helpers/DocsHelper'
 
 const installCommand = `
 npm install ag-grid-vue3 ag-grid-community vue-class-component@next
@@ -14,21 +14,21 @@ const importStyles = `<style lang="scss">
   @import "ag-grid-community/dist/styles/ag-grid.css";
 </style>`
 
-const configPath = 'styles/ag-grid'
+const path = 'styles/ag-grid'
+const block = new PageGenerationHelper(path)
 
 const config: ApiDocsBlock[] = [
-  DocsHelper.title('ag-grid.title'),
-  DocsHelper.paragraph('ag-grid.description'),
-  DocsHelper.headline('ag-grid.installation'),
-  DocsHelper.paragraph('ag-grid.dependencies'),
-  DocsHelper.code(installCommand, 'bash'),
-  DocsHelper.paragraph('ag-grid.importStyles'),
-  DocsHelper.code(setClass, 'html'),
-  DocsHelper.code(importStyles, 'scss'),
-  ...DocsHelper.exampleBlock(
+  block.title('ag-grid.title'),
+  block.paragraph('ag-grid.description'),
+  block.headline('ag-grid.installation'),
+  block.paragraph('ag-grid.dependencies'),
+  block.code(installCommand, 'bash'),
+  block.paragraph('ag-grid.importStyles'),
+  block.code(setClass, 'html'),
+  block.code(importStyles, 'scss'),
+  ...block.exampleBlock(
     'ag-grid.simpleTableTitle',
     'ag-grid.setOfParams',
-    configPath,
     'AgGrid',
   ),
 ]

@@ -1,43 +1,40 @@
-import { ApiDocsBlock } from '../../../types/configTypes'
-import { DocsHelper } from '../../../helpers/DocsHelper'
+import { ApiDocsBlock } from '@/types/configTypes'
+import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaOptionList from 'vuestic-ui/src/components/va-option-list/VaOptionList.vue'
 import apiOptions from './api-options'
 
-const configPath = 'ui-elements/option-list'
+const path = 'ui-elements/option-list'
+const block = new PageGenerationHelper(path)
 
 const config: ApiDocsBlock[] = [
-  DocsHelper.title('optionList.title'),
-  DocsHelper.paragraph('optionList.summaryText'),
+  block.title('optionList.title'),
+  block.paragraph('optionList.summaryText'),
 
-  DocsHelper.subtitle('all.examples'),
+  block.subtitle('all.examples'),
 
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'optionList.examples.default.title',
     'optionList.examples.default.text',
-    configPath,
     'Example',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'optionList.examples.withRadio.title',
     'optionList.examples.withRadio.text',
-    configPath,
     'WithRadio',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'optionList.examples.withSwitch.title',
     'optionList.examples.withSwitch.text',
-    configPath,
     'WithSwitch',
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'optionList.examples.withComplexData.title',
     'optionList.examples.withComplexData.text',
-    configPath,
     'WithComplexData',
   ),
 
-  DocsHelper.subtitle('all.api'),
-  DocsHelper.api(VaOptionList, apiOptions),
+  block.subtitle('all.api'),
+  block.api(VaOptionList, apiOptions),
 ]
 
 export default config

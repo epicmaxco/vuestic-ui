@@ -1,24 +1,24 @@
-import { ApiDocsBlock } from '../../../types/configTypes'
-import { DocsHelper } from '../../../helpers/DocsHelper'
+import { ApiDocsBlock } from '@/types/configTypes'
+import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaBacktop from 'vuestic-ui/src/components/va-backtop/VaBacktop.vue'
 import apiOptions from './api-options'
 
-const configPath = 'ui-elements/backtop'
+const path = 'ui-elements/backtop'
+const block = new PageGenerationHelper(path)
 
 const config: ApiDocsBlock[] = [
-  DocsHelper.title('backtop.title'),
-  DocsHelper.paragraph('backtop.summaryText'),
+  block.title('backtop.title'),
+  block.paragraph('backtop.summaryText'),
 
-  DocsHelper.subtitle('all.examples'),
-  ...DocsHelper.exampleBlock(
+  block.subtitle('all.examples'),
+  ...block.exampleBlock(
     'backtop.examples.default.title',
     'backtop.examples.default.text',
-    configPath,
     'Default',
   ),
 
-  DocsHelper.subtitle('all.api'),
-  DocsHelper.api(VaBacktop, apiOptions),
+  block.subtitle('all.api'),
+  block.api(VaBacktop, apiOptions),
 ]
 
 export default config
