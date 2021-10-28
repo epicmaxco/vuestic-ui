@@ -30,7 +30,7 @@ export default defineComponent({
     popout: { type: Boolean, default: false },
   },
   setup (props, ctx) {
-    const stateful = useStateful(props, ctx.emit)
+    const stateful = useStateful(props, ctx.emit, [] as any[])
     const collapses = ref<Collapse[]>([])
 
     const getProps = () => ({ inset: props.inset, popout: props.popout })

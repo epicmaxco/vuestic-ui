@@ -193,13 +193,21 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: 'date-picker',
         displayName: 'menu.datePicker',
+      },
+      {
+        name: 'date-input',
+        displayName: 'menu.dateInput',
+      },
+      {
+        name: 'time-picker',
+        displayName: 'menu.timePicker',
         meta: {
           badge: 'new',
         },
       },
       {
-        name: 'date-input',
-        displayName: 'menu.dateInput',
+        name: 'time-input',
+        displayName: 'menu.timeInput',
         meta: {
           badge: 'new',
         },

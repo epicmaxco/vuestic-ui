@@ -1,0 +1,9 @@
+.va-time-picker-column {
+  --va-time-picker-column-border-right: 1px solid var(--va-divider);
+  --va-time-picker-cell-height: 30px;
+  --va-time-picker-cell-width: 40px;
+  --va-time-picker-cell-cursor: pointer;
+  --va-time-picker-cell-active-background: var(--va-primary);
+  --va-time-picker-cell-active-background-opacity: 0.05;
+  --va-time-picker-cell-active-background-opacity-hover: 0.1;
+}

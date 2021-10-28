@@ -14,7 +14,7 @@
     <div
       class="va-day-picker__calendar__day-wrapper"
       v-for="(date, index) in calendarDates"
-      :key="date"
+      :key="index"
       @mouseenter="hoveredIndex = index"
       @mouseleave="hoveredIndex = -1"
     >
@@ -46,7 +46,7 @@
 import { computed, defineComponent, toRefs, PropType, watch } from 'vue'
 import { useVaDatePickerCalendar } from './va-date-picker-calendar-hook'
 import { VaDatePickerMode, VaDatePickerModelValue, VaDatePickerView } from '../../types/types'
-import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
+import { extractComponentProps, filterComponentProps } from '../../../../utils/child-props'
 import { useGridKeyboardNavigation } from '../../hooks/grid-keyboard-navigation'
 import { useDatePicker } from '../../hooks/use-picker'
 import VaDatePickerCell from '../VaDatePickerCell.vue'
@@ -59,6 +59,7 @@ export default defineComponent({
   components: { VaDatePickerCell },
 
   props: {
+    ...VaDatePickerCellProps,
     monthNames: { type: Array as PropType<string[]>, required: true },
     weekdayNames: { type: Array as PropType<string[]>, required: true },
     firstWeekday: { type: String as PropType<'Monday' | 'Sunday'>, default: 'Sunday' },

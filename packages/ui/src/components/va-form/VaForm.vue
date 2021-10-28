@@ -10,8 +10,7 @@
 <script lang="ts">
 import { inject, provide } from 'vue'
 import { Options, mixins, prop, Vue, setup } from 'vue-class-component'
-import { FormComponentMixin } from '../../mixins/FormComponent/FormComponentMixin'
-import { FormProvider, FormServiceKey } from './consts'
+import { FormProvider, FormServiceKey, FormChild } from './consts'
 
 class FormProps {
   autofocus = prop<boolean>({ type: Boolean, default: false })
@@ -20,9 +19,8 @@ class FormProps {
 
 const FormPropsMixin = Vue.with(FormProps)
 
-interface UniversalFormBlock {
-  reset: () => void;
-  some: () => void;
+const isVaForm = (value: any): value is VaForm => {
+  return !!value.focusInvalid
 }
 
 @Options({
@@ -32,17 +30,15 @@ interface UniversalFormBlock {
 export default class VaForm extends mixins(
   FormPropsMixin,
 ) {
-  nestedFormElements: (FormComponentMixin | VaForm)[] = [];
+  nestedFormElements: (FormChild | VaForm)[] = [];
 
-  parentFormProvider: FormProvider | Record<string, unknown> = setup(() => {
-    return {
-      ...inject(FormServiceKey, undefined),
-    }
+  parentFormProvider = setup(() => {
+    return { ...inject(FormServiceKey, undefined) }
   })
 
   formProvider = setup(() => {
-    const onChildMounted = (child: FormComponentMixin | VaForm) => this.childMountedHandler(child)
-    const onChildUnmounted = (removableChild: FormComponentMixin | VaForm) => this.childUnmountedHandler(removableChild)
+    const onChildMounted = (child: FormChild | VaForm) => this.childMountedHandler(child)
+    const onChildUnmounted = (removableChild: FormChild | VaForm) => this.childUnmountedHandler(removableChild)
 
     const formProvider = {
       onChildMounted,
@@ -54,48 +50,37 @@ export default class VaForm extends mixins(
     return formProvider
   })
 
-  childMountedHandler (child: FormComponentMixin | VaForm) {
+  childMountedHandler (child: FormChild | VaForm) {
     this.nestedFormElements.push(child)
   }
 
-  childUnmountedHandler (removableChild: FormComponentMixin | VaForm) {
+  childUnmountedHandler (removableChild: FormChild | VaForm) {
     this.nestedFormElements = this.nestedFormElements.filter(child => child !== removableChild)
   }
 
   mounted () {
-    if (Object.keys(this.parentFormProvider).length) {
-      // @ts-ignore
-      this.parentFormProvider.onChildMounted(this)
-    }
+    this.parentFormProvider.onChildMounted?.(this)
+
     if (this.autofocus) {
-      this.$nextTick(() => {
-        this.focus()
-      })
+      this.$nextTick(() => { this.focus() })
     }
   }
 
   unmounted () {
-    if (Object.keys(this.parentFormProvider).length) {
-      // @ts-ignore
-      this.parentFormProvider.onChildUnmounted(this)
-    }
+    this.parentFormProvider.onChildUnmounted?.(this)
   }
 
-  // public methods
+  /** @public */
   reset () {
     this.nestedFormElements
       .filter(({ reset }) => reset)
-      .forEach((item) => {
-        item.reset()
-      })
+      .forEach((item) => { item.reset() })
   }
 
   resetValidation () {
     this.nestedFormElements
       .filter(({ resetValidation }) => resetValidation)
-      .forEach((item: any) => {
-        item.resetValidation()
-      })
+      .forEach((item: any) => { item.resetValidation() })
   }
 
   focus () {
@@ -107,18 +92,13 @@ export default class VaForm extends mixins(
 
   focusInvalid () {
     const invalidComponent = this.nestedFormElements
-      // @ts-ignore
-      .filter(({ hasError }) => hasError)
-      // @ts-ignore
-      .find((item) => item.hasError())
+      .find((item) => !isVaForm(item) && item.hasError && item.hasError())
 
     if (invalidComponent) {
       invalidComponent.focus()
     } else {
-      // @ts-ignore
-      const nestedFormComponents = this.nestedFormElements.filter(({ nestedFormElements }) => nestedFormElements)
-      // @ts-ignore
-      nestedFormComponents.forEach(formComponent => formComponent.focusInvalid())
+      this.nestedFormElements
+        .forEach(item => isVaForm(item) && item.focusInvalid())
     }
   }
 
@@ -128,17 +108,13 @@ export default class VaForm extends mixins(
       .filter(({ validate }) => validate)
       .forEach((child) => {
         const isValidChild = child.validate()
-        if (!isValidChild) {
-          formValid = false
-        }
+
+        if (!isValidChild) { formValid = false }
       })
+
     this.$emit('validation', formValid)
+
     return formValid
   }
 }
 </script>
-
-<style lang="scss">
-.va-form {
-}
-</style>
