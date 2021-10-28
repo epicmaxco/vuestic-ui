@@ -1,13 +1,16 @@
-import { ApiDocsBlock } from '../../../types/configTypes'
-import { DocsHelper } from '../../../helpers/DocsHelper'
+import { ApiDocsBlock } from '@/types/configTypes'
+import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import { npmScripts, componentFolderStructure } from './code-examples'
 
-const config: ApiDocsBlock[] = [
-  DocsHelper.title('guide.title'),
-  DocsHelper.paragraph('guide.description'),
+const path = 'contribution/guide'
+const block = new PageGenerationHelper(path)
 
-  DocsHelper.subtitle('guide.pullRequests.title'),
-  DocsHelper.list([
+const config: ApiDocsBlock[] = [
+  block.title('guide.title'),
+  block.paragraph('guide.description'),
+
+  block.subtitle('guide.pullRequests.title'),
+  block.list([
     'guide.pullRequests.description.localBranches',
     'guide.pullRequests.description.dontSubmitToMaster',
     'guide.pullRequests.description.checkoutFeat',
@@ -15,21 +18,21 @@ const config: ApiDocsBlock[] = [
     'guide.pullRequests.description.fixBugSteps',
   ]),
 
-  DocsHelper.subtitle('guide.branches.title'),
-  DocsHelper.list([
+  block.subtitle('guide.branches.title'),
+  block.list([
     'guide.branches.publicBranches',
     'guide.branches.localBranches',
   ]),
 
-  DocsHelper.subtitle('guide.fileNaming.title'),
-  DocsHelper.list([
+  block.subtitle('guide.fileNaming.title'),
+  block.list([
     'guide.fileNaming.camelCase',
     'guide.fileNaming.kebabCase',
     'guide.fileNaming.pascalCase',
   ]),
 
-  DocsHelper.subtitle('guide.forCoreContributors.title'),
-  DocsHelper.list([
+  block.subtitle('guide.forCoreContributors.title'),
+  block.list([
     'guide.forCoreContributors.linkPr',
     'guide.forCoreContributors.assignYourself',
     'guide.forCoreContributors.smallIssues',
@@ -42,17 +45,17 @@ const config: ApiDocsBlock[] = [
     'guide.forCoreContributors.workInBook',
   ]),
 
-  DocsHelper.subtitle('guide.componentFolderStructure.title'),
-  DocsHelper.code(componentFolderStructure),
+  block.subtitle('guide.componentFolderStructure.title'),
+  block.code(componentFolderStructure),
 
-  DocsHelper.subtitle('guide.beforeReleaseWorkflow.title'),
-  DocsHelper.paragraph('guide.beforeReleaseWorkflow.description'),
+  block.subtitle('guide.beforeReleaseWorkflow.title'),
+  block.paragraph('guide.beforeReleaseWorkflow.description'),
 
-  DocsHelper.subtitle('guide.npmScripts.title'),
-  DocsHelper.code(npmScripts),
+  block.subtitle('guide.npmScripts.title'),
+  block.code(npmScripts),
 
-  DocsHelper.subtitle('guide.credits.title'),
-  DocsHelper.paragraph('guide.credits.description'),
+  block.subtitle('guide.credits.title'),
+  block.paragraph('guide.credits.description'),
 ]
 
 export default config

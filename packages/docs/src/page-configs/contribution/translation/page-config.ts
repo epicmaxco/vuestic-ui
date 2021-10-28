@@ -1,5 +1,5 @@
-import { ApiDocsBlock } from '../../../types/configTypes'
-import { DocsHelper } from '../../../helpers/DocsHelper'
+import { ApiDocsBlock } from '@/types/configTypes'
+import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import { TranslationStatusPath, languages } from '../../../locales'
 import { TableData, TableColumn } from '../../../components/DocsTable/DocsTable'
 
@@ -24,22 +24,25 @@ export const translationSync = 'yarn sync:translation <target locale file>'
 export const searchUnusedTranslations = 'yarn search:unused:translation'
 export const searchMissedTranslations = 'yarn search:missed:translation'
 
+const path = 'contribution/translation'
+const block = new PageGenerationHelper(path)
+
 const config: ApiDocsBlock[] = [
-  DocsHelper.title('translation.title'),
-  DocsHelper.paragraph('translation.description'),
-  DocsHelper.table(columns, translationStatuses),
+  block.title('translation.title'),
+  block.paragraph('translation.description'),
+  block.table(columns, translationStatuses),
 
-  DocsHelper.subtitle('translation.sync.title'),
-  DocsHelper.paragraph('translation.sync.description'),
-  DocsHelper.code(translationSync, 'bash'),
+  block.subtitle('translation.sync.title'),
+  block.paragraph('translation.sync.description'),
+  block.code(translationSync, 'bash'),
 
-  DocsHelper.subtitle('translation.unused.title'),
-  DocsHelper.paragraph('translation.unused.description'),
-  DocsHelper.code(searchUnusedTranslations, 'bash'),
+  block.subtitle('translation.unused.title'),
+  block.paragraph('translation.unused.description'),
+  block.code(searchUnusedTranslations, 'bash'),
 
-  DocsHelper.subtitle('translation.missed.title'),
-  DocsHelper.paragraph('translation.missed.description'),
-  DocsHelper.code(searchMissedTranslations, 'bash'),
+  block.subtitle('translation.missed.title'),
+  block.paragraph('translation.missed.description'),
+  block.code(searchMissedTranslations, 'bash'),
 ]
 
 export default config
