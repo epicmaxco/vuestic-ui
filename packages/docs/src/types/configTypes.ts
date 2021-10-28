@@ -10,10 +10,6 @@ import { VueConstructor } from 'vue-class-component'
 
 export type CodeString = string
 export type CodeLanguage = 'javascript' | 'scss' | 'bash' | 'html'
-// example: for `/examples/va-affix/Bottom.vue` use `va-affix/Bottom.vue` here.
-export type PathToExample = string
-// example: for `/page-configs/ui-elements/va-affix/components` use `ui-elements/va-affix` here.
-export type PathToDirectory = string
 export type ExampleOptions = {
   hideCode?: boolean,
   forceShowCode?: boolean
@@ -60,13 +56,13 @@ export type ApiDocsBlock =
   | ListBlock
   | {
     type: BlockType.EXAMPLE,
-    path: PathToDirectory, // path to directory
+    path: string, // path to directory
     component: string, // component name
     exampleOptions?: ExampleOptions,
   }
   | {
   type: BlockType.COMPONENT,
-  path: PathToDirectory, // path to directory
+  path: string, // path to directory
   component: string, // component name
   }
   | {
