@@ -99,7 +99,7 @@ export default class VaProgressCircle extends mixins(
 </script>
 
 <style lang="scss">
-@import "../../styles/resources/resources";
+@import "../../styles/resources";
 
 .va-progress-circle {
   position: var(--va-progress-circle-position);

@@ -67,7 +67,7 @@ export default class VaNavbar extends mixins(ColorMixin, NavbarPropsMixin) {
 </script>
 
 <style lang="scss">
-@import "../../styles/resources/resources";
+@import "../../styles/resources";
 $top-nav-height: 4.0625rem;
 $top-nav-bg: $dark-blue;
 $nav-mobile-px: 1rem;

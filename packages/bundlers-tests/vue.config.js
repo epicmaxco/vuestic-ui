@@ -5,6 +5,7 @@ module.exports = {
     }
   },
   outputDir: "dist/vue-cli",
+  filenameHashing: false,
   configureWebpack: {
     mode: 'production',
     resolve: {
@@ -13,6 +14,9 @@ module.exports = {
     // This thing turn on Tree Shaking
     optimization: {
       usedExports: true,
+    },
+    output: {
+      chunkFilename: '[name].js',
     }
-  }
+  },
 }

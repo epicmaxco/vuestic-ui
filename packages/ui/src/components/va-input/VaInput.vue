@@ -282,7 +282,7 @@ export default class VaInput extends mixins(
 </script>
 
 <style lang='scss'>
-@import '../../styles/resources/resources';
+@import '../../styles/resources';
 @import 'variables';
 
 .va-input {

@@ -70,7 +70,7 @@ export default class VaInputWrapper extends Vue.with(Props) {
 </script>
 
 <style lang='scss'>
-@import '../../../styles/resources/resources';
+@import '../../../styles/resources';
 
 .va-input-wrapper {
   display: flex;

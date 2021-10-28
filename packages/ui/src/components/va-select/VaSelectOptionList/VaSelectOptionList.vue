@@ -225,7 +225,7 @@ export default class VaSelectOptionList extends mixins(
 }
 </script>
 <style lang="scss">
-@import "../../../styles/resources/resources";
+@import "../../../styles/resources";
 @import 'variables';
 
 .va-select-option-list {

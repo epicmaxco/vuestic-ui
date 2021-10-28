@@ -37,7 +37,7 @@ export default class VaListItemLabel extends mixins(
 </script>
 
 <style lang="scss">
-@import "../../styles/resources/resources";
+@import "../../styles/resources";
 @import 'variables';
 
 .va-list-item-label {

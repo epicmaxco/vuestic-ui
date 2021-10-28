@@ -267,7 +267,7 @@ export default class VaModal extends mixins(
 </script>
 
 <style lang="scss">
-@import '../../styles/resources/resources';
+@import '../../styles/resources';
 @import 'variables';
 
 .va-modal {
