@@ -12,9 +12,15 @@ import { DefineComponent } from 'vue'
 import { VueConstructor } from 'vue-class-component'
 import { TableData, TableColumn } from './../components/DocsTable/DocsTable'
 
-export class DocsPageHelper {
+export class PageGenerationHelper {
   path: string
 
+/*
+  The path to the page directory with the page-config.
+  Example: for '@/page-configs/ui-elements/affix/.' use 'ui-elements/affix'
+  which is similar with the documentation url: 'https://www.vuestic.dev/en/ui-elements/affix'
+  and NUXT pages folder '@/pages/ui-elements/affix' for this page.
+*/
   constructor (path: string) {
     this.path = path
   }
