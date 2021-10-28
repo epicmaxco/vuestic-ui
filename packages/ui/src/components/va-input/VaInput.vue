@@ -110,12 +110,16 @@ export default defineComponent({
 
     const computedInputAttributes = computed(() => ({
       ...attrs,
-      ...props,
       ...createListeners(emit),
       ...validationListeners,
       class: attrs.inputClass,
       style: attrs.inputStyle,
       value: computedValue.value,
+      type: props.type,
+      tabindex: props.tabindex,
+      disabled: props.disabled,
+      readonly: props.readonly,
+      placeholder: props.placeholder,
       ariaLabel: props.label,
     }) as InputHTMLAttributes)
 
