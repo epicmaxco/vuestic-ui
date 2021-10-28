@@ -1,12 +1,15 @@
-import { ApiDocsBlock } from '../../../types/configTypes'
-import { DocsHelper } from '../../../helpers/DocsHelper'
+import { ApiDocsBlock } from '@/types/configTypes'
+import { PageGenerationHelper } from '@/helpers/DocsHelper'
+
+const path = 'getting-started/accessibility-guide'
+const block = new PageGenerationHelper(path)
 
 const config: ApiDocsBlock[] = [
-  DocsHelper.title('accessibilityGuide.title'),
-  DocsHelper.paragraph('accessibilityGuide.description'),
+  block.title('accessibilityGuide.title'),
+  block.paragraph('accessibilityGuide.description'),
 
-  DocsHelper.subtitle('accessibilityGuide.keyboardInteractions.title'),
-  DocsHelper.paragraph('accessibilityGuide.keyboardInteractions.description'),
+  block.subtitle('accessibilityGuide.keyboardInteractions.title'),
+  block.paragraph('accessibilityGuide.keyboardInteractions.description'),
 ]
 
 export default config

@@ -1,5 +1,5 @@
-import { ApiDocsBlock } from '../../../types/configTypes'
-import { DocsHelper } from '../../../helpers/DocsHelper'
+import { ApiDocsBlock } from '@/types/configTypes'
+import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import {
   colorsConfig,
   iconsInstall,
@@ -7,36 +7,37 @@ import {
   componentsConfig,
 } from './code-examples'
 
-const configPath = 'getting-started/configuration-guide'
+const path = 'getting-started/configuration-guide'
+const block = new PageGenerationHelper(path)
 
 const config: ApiDocsBlock[] = [
-  DocsHelper.title('configurationGuide.title'),
-  DocsHelper.paragraph('configurationGuide.description'),
-  DocsHelper.subtitle('configurationGuide.colors.title'),
-  DocsHelper.paragraph('configurationGuide.colors.description'),
-  DocsHelper.code(colorsConfig),
-  DocsHelper.link('configurationGuide.readMore', '/services/colors-config'),
+  block.title('configurationGuide.title'),
+  block.paragraph('configurationGuide.description'),
+  block.subtitle('configurationGuide.colors.title'),
+  block.paragraph('configurationGuide.colors.description'),
+  block.code(colorsConfig),
+  block.link('configurationGuide.readMore', '/services/colors-config'),
 
-  DocsHelper.subtitle('configurationGuide.icons.title'),
-  DocsHelper.paragraph('configurationGuide.icons.description'),
-  DocsHelper.code(iconsInstall, 'bash'),
+  block.subtitle('configurationGuide.icons.title'),
+  block.paragraph('configurationGuide.icons.description'),
+  block.code(iconsInstall, 'bash'),
 
-  DocsHelper.headline('configurationGuide.icons.subtitle'),
-  DocsHelper.paragraph('configurationGuide.icons.subDescription'),
-  DocsHelper.code(iconsConfig),
-  DocsHelper.link('configurationGuide.readMore', '/services/icons-config'),
+  block.headline('configurationGuide.icons.subtitle'),
+  block.paragraph('configurationGuide.icons.subDescription'),
+  block.code(iconsConfig),
+  block.link('configurationGuide.readMore', '/services/icons-config'),
 
-  DocsHelper.subtitle('configurationGuide.components.title'),
-  DocsHelper.paragraph('configurationGuide.components.intro'),
-  DocsHelper.paragraph('configurationGuide.components.description'),
-  DocsHelper.example(configPath, 'PageConfigButtonDefault', { hideCode: true }),
-  DocsHelper.paragraph('configurationGuide.components.action'),
-  DocsHelper.code(componentsConfig),
-  DocsHelper.paragraph('configurationGuide.components.result'),
-  DocsHelper.example(configPath, 'PageConfigButton', { hideCode: true }),
-  DocsHelper.paragraph('configurationGuide.components.example'),
-  DocsHelper.paragraph('configurationGuide.components.more'),
-  DocsHelper.link('configurationGuide.readMore', '/services/components-config'),
+  block.subtitle('configurationGuide.components.title'),
+  block.paragraph('configurationGuide.components.intro'),
+  block.paragraph('configurationGuide.components.description'),
+  block.example('PageConfigButtonDefault', { hideCode: true }),
+  block.paragraph('configurationGuide.components.action'),
+  block.code(componentsConfig),
+  block.paragraph('configurationGuide.components.result'),
+  block.example('PageConfigButton', { hideCode: true }),
+  block.paragraph('configurationGuide.components.example'),
+  block.paragraph('configurationGuide.components.more'),
+  block.link('configurationGuide.readMore', '/services/components-config'),
 ]
 
 export default config
