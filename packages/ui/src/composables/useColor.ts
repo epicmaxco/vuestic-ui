@@ -1,4 +1,4 @@
-import { PropType, computed } from 'vue'
+import { PropType, computed, Ref, unref } from 'vue'
 import { getColor } from '../services/color-config/color-config'
 
 /**
@@ -33,3 +33,11 @@ export function useColor (props: any) {
     computeColor,
   }
 }
+
+export const useComputedColor = (color: Ref<string> | string) => {
+  return [
+    computed(() => getColor(unref(color))),
+  ]
+}
+
+export { useColors } from '../services/color-config/color-config'
