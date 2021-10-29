@@ -56,6 +56,8 @@ export default defineComponent({
     }
 
     const updateHeight = () => {
+      if (!props.autosize || !textarea.value) { return }
+
       height.value = textarea.value?.scrollHeight || 0
     }
 
