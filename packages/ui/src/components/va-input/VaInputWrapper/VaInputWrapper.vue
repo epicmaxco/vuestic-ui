@@ -14,7 +14,7 @@
       <div class="va-input-wrapper__message-list-wrapper">
         <va-message-list
           :color="messagesColor"
-          :value="messagesComputed"
+          :model-value="messagesComputed"
           :limit="errorLimit"
         />
       </div>
@@ -33,7 +33,7 @@
 <script lang="ts">
 import { Options, Vue, prop } from 'vue-class-component'
 
-import VaMessageList from '../VaMessageList'
+import VaMessageList from '../components/VaMessageList'
 
 class Props {
   disabled = prop<boolean>({ type: Boolean, default: false })

@@ -1,79 +1,89 @@
 <template>
-  <va-input-wrapper
+  <div
+    class="va-input-wrapper"
     :class="wrapperClass"
-    :disabled="disabled"
-    :success="success"
-    :messages="messages"
-    :error="error"
-    :error-messages="errorMessages"
-    :error-count="errorCount"
-    :color="color"
-    @click:prepend="$emit('click-prepend', $event)"
-    @click:append="$emit('click-append', $event)"
     @click="$emit('click', $event)"
   >
-    <template #prepend v-if="$slots.prepend">
-      <slot name="prepend" />
-    </template>
-
     <div
-      class="va-input__container"
-      ref="container"
-      :style="{ borderColor: borderColorComputed }"
+      v-if="$slots.prepend"
+      class="va-input-wrapper__prepend-inner"
+      @click="$emit('click-prepend')"
     >
+      <slot name="prepend" />
+    </div>
+
+    <div class="va-input-wrapper__content">
       <div
-        v-if="$slots.prependInner"
-        class="va-input__prepend-inner"
-        @click="$emit('click-prepend-inner', $event)"
+        class="va-input__container"
+        ref="container"
+        :style="{ borderColor: borderColorComputed }"
       >
-        <slot name="prependInner" />
-      </div>
+        <div
+          v-if="$slots.prependInner"
+          class="va-input__prepend-inner"
+          @click="$emit('click-prepend-inner', $event)"
+        >
+          <slot name="prependInner" />
+        </div>
 
-      <div class="va-input__content-wrapper">
-        <div class="va-input__content">
-          <label
-            v-if="label"
-            aria-hidden="true"
-            class="va-input__label"
-            :style="{ color: colorComputed }"
-          >
-            {{ label }}
-          </label>
+        <div class="va-input__content-wrapper">
+          <div class="va-input__content">
+            <label
+              v-if="label"
+              aria-hidden="true"
+              class="va-input__label"
+              :style="{ color: colorComputed }"
+            >
+              {{ label }}
+            </label>
 
-          <div v-if="$slots.content" class="va-input__content__input">
-            <slot name="content" />
+            <div v-if="$slots.content" class="va-input__content__input">
+              <slot name="content" />
+            </div>
+            <slot></slot>
           </div>
-          <slot></slot>
+        </div>
+
+        <div
+          v-if="$slots.icon"
+          class="va-input__icons"
+          @click="$emit('click-icon', $event)"
+        >
+          <slot name="icon" />
+        </div>
+
+        <div
+          v-if="$slots.appendInner"
+          class="va-input__append-inner"
+          @click="$emit('click-append-inner', $event)"
+        >
+          <slot name="appendInner" />
         </div>
       </div>
 
       <div
-        v-if="$slots.icon"
-        class="va-input__icons"
-        @click="$emit('click-icon', $event)"
-      >
-        <slot name="icon" />
-      </div>
+        v-if="bordered"
+        class="va-input--bordered__border"
+        :style="{ borderColor: borderColorComputed }"
+      />
 
-      <div
-        v-if="$slots.appendInner"
-        class="va-input__append-inner"
-        @click="$emit('click-append-inner', $event)"
-      >
-        <slot name="appendInner" />
+      <div class="va-input-wrapper__message-list-wrapper">
+        <va-message-list
+          :color="messagesColor"
+          :model-value="messagesComputed"
+          :limit="errorLimit"
+        />
       </div>
     </div>
 
     <div
-      v-if="bordered"
-      class="va-input--bordered__border"
-      :style="{ borderColor: borderColorComputed }"
-    />
-
-    <template #append v-if="$slots.append">
+      v-if="$slots.append"
+      class="va-input-wrapper__append-inner"
+      @click="$emit('click-append')"
+    >
       <slot name="append" />
-    </template>
-  </va-input-wrapper>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
@@ -82,8 +92,11 @@ import { useBem } from '../hooks/useBem'
 import { useFormProps } from '../../../composables/useForm'
 import { useValidationProps } from '../../../composables/useValidation'
 import { getColor } from '../../../services/color-config/color-config'
+import VaMessageList from './VaMessageList'
 
 export default defineComponent({
+  components: { VaMessageList },
+
   props: {
     ...useFormProps,
     ...useValidationProps,
@@ -97,7 +110,14 @@ export default defineComponent({
     success: { type: Boolean, default: false },
   },
 
-  emits: ['click', 'click-prepend', 'click-append', 'click-prepend-inner', 'click-append-inner', 'click-icon'],
+  emits: [
+    'click',
+    'click-prepend',
+    'click-append',
+    'click-prepend-inner',
+    'click-append-inner',
+    'click-icon',
+  ],
 
   setup (props) {
     const { createModifiersClasses } = useBem('va-input')
@@ -118,13 +138,30 @@ export default defineComponent({
       })),
 
       colorComputed,
-      borderColorComputed: computed(() => props.focused ? colorComputed.value : undefined),
+      borderColorComputed: computed(() =>
+        props.focused ? colorComputed.value : undefined,
+      ),
+
+      messagesComputed: computed(() => {
+        return props.error ? props.errorMessages : props.messages
+      }),
+
+      messagesColor: computed(() => {
+        if (props.error) { return 'danger' }
+        if (props.success) { return 'success' }
+
+        return ''
+      }),
+
+      errorLimit: computed(() => {
+        return props.error ? props.errorCount : 99
+      }),
     }
   },
 })
 </script>
 
-<style lang='scss'>
+<style lang="scss">
 @import '../../../styles/resources/resources';
 @import '../variables';
 
@@ -248,7 +285,11 @@ export default defineComponent({
       max-width: var(--va-input-container-label-max-width);
       color: var(--va-input-container-label-color);
       font-size: var(--va-input-container-label-font-size);
-      letter-spacing: var(--va-input-container-label-letter-spacing, var(--va-letter-spacing));
+      letter-spacing:
+        var(
+          --va-input-container-label-letter-spacing,
+          var(--va-letter-spacing)
+        );
       line-height: var(--va-input-container-label-line-height);
       font-weight: var(--va-input-container-label-font-weight);
       text-transform: var(--va-input-container-label-text-transform);
