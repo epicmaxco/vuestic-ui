@@ -1,5 +1,3 @@
-@import "~vuestic-ui/dist/styles/resources";
-
 //
 // See: https://github.com/ag-grid/ag-grid/blob/latest/community-modules/core/src/styles/ag-theme-base/sass/parts/_header.scss
 //
@@ -14,12 +12,17 @@
 
   .ag-header-cell-label,
   .ag-header-group-cell-label {
-    @include va-title();
+    //va-title mixin
+    font-size: 0.625rem;
+    letter-spacing: 0.6px;
+    line-height: 1.2;
+    font-weight: 700;
+    text-transform: uppercase;
   }
 
   .ag-keyboard-focus .ag-header-cell {
     &:focus {
-      background: $light-gray;
+      background: var(--va-light-gray);
 
       &::after {
         display: none;

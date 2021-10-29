@@ -1,28 +1,22 @@
-@import "~vuestic-ui/dist/styles/resources";
-
 //
 // See: https://github.com/ag-grid/ag-grid/blob/latest/community-modules/core/src/styles/ag-theme-base/sass/parts/_footer.scss
 //
 @mixin ag-vuestic-theme-part-footer {
   .ag-paging-panel {
-    @include va-title();
-    //border-top: 1px solid;
-    //@include ag-color-property(border-top-color, border-color);
-    //@include ag-color-property(color, secondary-foreground-color);
-    //height: ag-param(header-height);
-
-    > * {
-      //margin: 0 ag-param(cell-horizontal-padding);
-    }
+    //va-title mixin
+    font-size: 0.625rem;
+    letter-spacing: 0.6px;
+    line-height: 1.2;
+    font-weight: 700;
+    text-transform: uppercase;
   }
 
   .ag-paging-button {
-    //cursor: pointer;
     padding: 5px;
     border-radius: 50%;
 
     &:hover {
-      background: $light-gray;
+      background: var(--va-light-gray);
     }
   }
 
@@ -45,7 +39,7 @@
   .ag-keyboard-focus {
     .ag-paging-button {
       &:focus {
-        background: $light-gray;
+        background: var(--va-light-gray);
 
         &::after {
           display: none;

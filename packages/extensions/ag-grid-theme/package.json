@@ -7,13 +7,13 @@
   "main": "src/index.js",
   "license": "MIT",
   "scripts": {},
-  "devDependencies": {
-    "vuestic-ui": "^1.2.8"
-  },
   "dependencies": {
     "ag-grid-community": "^26.1.0",
     "ag-grid-vue3": "^26.1.2",
     "vue-class-component": "^8.0.0-rc.1"
+  },
+  "peerDependencies": {
+    "vuestic-ui": "^1.2.8"
   },
   "keywords": [
     "vuestic",

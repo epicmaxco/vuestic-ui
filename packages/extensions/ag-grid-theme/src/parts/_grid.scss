@@ -1,5 +1,3 @@
-@import "~vuestic-ui/dist/styles/resources";
-
 //
 // See: https://github.com/ag-grid/ag-grid/blob/latest/community-modules/core/src/styles/ag-theme-base/sass/parts/_grid-borders.scss
 // See: https://github.com/ag-grid/ag-grid/blob/latest/community-modules/core/src/styles/ag-theme-base/sass/parts/_grid-layout.scss
@@ -20,7 +18,7 @@
     // keyboard focus
     .ag-has-focus .ag-cell-focus:not(.ag-cell-range-selected) {
       border: none;
-      background-color: $light-gray;
+      background-color: var(--va-light-gray);
     }
   }
 
@@ -35,7 +33,7 @@
 @mixin vuestic-theme-striped {
   &--striped {
     .ag-row-odd {
-      background-color: $light-gray3;
+      background-color: var(--va-light-gray3);
 
       &.ag-row-selected {
         background-color: ag-param(selected-row-background-color);
@@ -63,7 +61,7 @@
 @mixin vuestic-theme-clickable {
   &--clickable {
     .ag-cell {
-      //cursor: pointer;
+      cursor: pointer;
     }
   }
 }

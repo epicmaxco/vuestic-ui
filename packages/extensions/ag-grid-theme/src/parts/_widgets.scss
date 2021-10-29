@@ -1,5 +1,3 @@
-@import "~vuestic-ui/dist/styles/resources";
-
 //
 // See: https://github.com/ag-grid/ag-grid/blob/latest/community-modules/core/src/styles/ag-theme-base/sass/parts/_widgets.scss
 //
@@ -17,7 +15,7 @@
     border: 1px solid var(--va-input-color);
 
     &:focus {
-      border: 1px solid $light-gray; // keyboard focus color
+      border: 1px solid var(--va-light-gray); // keyboard focus color
     }
   }
 
@@ -26,7 +24,7 @@
   ////////////////////////////////////////
   .ag-list-item {
     &.ag-active-item {
-      background-color: $light-gray2;
+      background-color: var(--va-light-gray2);
     }
   }
 
@@ -44,7 +42,7 @@
       cursor: pointer;
       padding: 0 var(--va-input-content-horizontal-padding);
       background: var(--va-input-color);
-      border: 1px solid $light-gray;
+      border: 1px solid var(--va-light-gray);
       border-radius: var(--va-input-border-radius);
     }
 
@@ -64,13 +62,13 @@
 
     &::after {
       font-size: $radio-size;
-      color: $lighter-gray;
+      color: var(--va-lighter-gray);
       line-height: $radio-size;
     }
 
     &.ag-checked::after {
       font-size: $radio-size;
-      color: $vue-darkest-blue;
+      color: var(--va-vue-darkest-blue);
     }
   }
 
@@ -115,6 +113,6 @@
   }
 
   .ag-dnd-ghost-icon {
-    color: $vue-darkest-blue;
+    color: var(--va-vue-darkest-blue);
   }
 }
