@@ -7,17 +7,20 @@
       :pagination="true"
       :columnDefs="columnDefs"
       :rowData="rowData"
+      :modules="modules"
     />
   </div>
 </template>
 
 <script>
-import { AgGridVue } from 'ag-grid-vue3'
+import { AgGridVue } from '@ag-grid-community/vue3'
+import { ClientSideRowModelModule } from '@ag-grid-community/client-side-row-model'
 
 export default {
   components: { AgGridVue },
   data () {
     return {
+      modules: [ClientSideRowModelModule],
       rowData: null,
       columnDefs: [
         { field: 'athlete' },

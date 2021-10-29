@@ -2,6 +2,23 @@
 # yarn lockfile v1
 
 
+"@ag-grid-community/client-side-row-model@^26.1.0":
+  version "26.1.0"
+  resolved "https://registry.yarnpkg.com/@ag-grid-community/client-side-row-model/-/client-side-row-model-26.1.0.tgz#af935ce30582a174b26b5a4d6358b7ba4cebefdf"
+  integrity sha512-TiucVpkRvZmzuS59JP3Lg1059Frt6dCPKwV1ZUT8LdShjHOdqIaDrquAuQPdTRXMenJdE9/ghOb4Odb4XJkFbw==
+  dependencies:
+    "@ag-grid-community/core" "~26.1.0"
+
+"@ag-grid-community/core@^26.1.0", "@ag-grid-community/core@~26.1.0":
+  version "26.1.0"
+  resolved "https://registry.yarnpkg.com/@ag-grid-community/core/-/core-26.1.0.tgz#2632b54d671f83e0bb843e5d2f3cef255567289a"
+  integrity sha512-oFqPkVnmYYUcPmjv+6ZdrbMcAoiBg13UcyokYCxqHK4OiT+QuV51eTVgZKt3YpcVoQV9Pa3KdSSjJu0IvbALFA==
+
+"@ag-grid-community/vue3@^26.1.0":
+  version "26.1.2"
+  resolved "https://registry.yarnpkg.com/@ag-grid-community/vue3/-/vue3-26.1.2.tgz#f9872639833365a6530354f79b956186b5097c04"
+  integrity sha512-EQ6yerzTgAgTKNT7dYeoDWmOf+M0yByt9Bo8zrRH3XN+i8mOr0WsDZ1Fb1FG4cJJ5yH+jWKyGdZ4eQ2imvD52A==
+
 "@babel/code-frame@7.12.11":
   version "7.12.11"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.12.11.tgz#f4ad435aa263db935b8f10f2c552d23fb716a63f"
@@ -3876,13 +3893,14 @@
   resolved "https://registry.yarnpkg.com/@vue/web-component-wrapper/-/web-component-wrapper-1.3.0.tgz#b6b40a7625429d2bd7c2281ddba601ed05dc7f1a"
   integrity sha512-Iu8Tbg3f+emIIMmI2ycSI8QcEuAUgPTgHwesDU1eKMLE4YC/c/sFbGc70QgMq31ijRftV0R7vCm9co6rldCeOA==
 
-"@vuestic/ag-grid-theme@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@vuestic/ag-grid-theme/-/ag-grid-theme-1.0.1.tgz#8a72e229133416a77d1bd705d2ef6f66e5bea767"
-  integrity sha512-i8xyS74gHhRbuY58GcylZ2yQkN1JnoaVcHnS8Ey4kPT/keK+Bl6ZDcvVN3GWsnXka4dcucVieOyxSYHmeVoAbg==
+"@vuestic/ag-grid-theme@latest":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@vuestic/ag-grid-theme/-/ag-grid-theme-1.0.3.tgz#870d40e7d6e113ec221692dc712383b55029fa04"
+  integrity sha512-SPvrui4+NdkST8rm2vErpFa3xBRApdhtOrYcJYLgeTPOhwwX9/HQsMyCq+ds1zdoo7/EZk8Gfb3pJzxXA60UzA==
   dependencies:
-    ag-grid-community "^26.1.0"
-    ag-grid-vue3 "^26.1.2"
+    "@ag-grid-community/client-side-row-model" "^26.1.0"
+    "@ag-grid-community/core" "^26.1.0"
+    "@ag-grid-community/vue3" "^26.1.0"
     vue-class-component "^8.0.0-rc.1"
 
 "@webassemblyjs/ast@1.11.1":
@@ -4265,16 +4283,6 @@ address@^1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/address/-/address-1.1.2.tgz#bf1116c9c758c51b7a933d296b72c221ed9428b6"
   integrity sha512-aT6camzM4xEA54YVJYSqxz1kv4IHnQZRtThJJHhUMRExaU5spC7jX5ugSwTaTgJliIgs4VhZOk7htClvQ/LmRA==
-
-ag-grid-community@^26.1.0:
-  version "26.1.0"
-  resolved "https://registry.yarnpkg.com/ag-grid-community/-/ag-grid-community-26.1.0.tgz#d4ee3e9591b351a5ae477a21dd3dc44491ccd7fa"
-  integrity sha512-vGnbiaxN6TxsDGcC2uIOrgjx+zwXlBK99aYiWcuiyzSPvNpz1fG29nSNx/fMeVRzc3FOru8h8vvk41vszh5AMg==
-
-ag-grid-vue3@^26.1.2:
-  version "26.1.2"
-  resolved "https://registry.yarnpkg.com/ag-grid-vue3/-/ag-grid-vue3-26.1.2.tgz#3aed84ce99792ed866489ea71a9902a5b1396c4d"
-  integrity sha512-omyRdFI5esgh+DQ3EdWaUF/vt2aJEwtxHcFmD1iKDZ4BdvpXEedfyjBqCa0Ubxw4fxMNzsERDM33BJP2W8O0aA==
 
 agent-base@4, agent-base@^4.1.0, agent-base@^4.3.0:
   version "4.3.0"
