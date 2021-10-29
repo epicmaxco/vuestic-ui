@@ -47,7 +47,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "../../../../styles/resources/resources";
+@import "../../../../styles/resources/index.scss";
 
 .va-message-list {
   &__message {

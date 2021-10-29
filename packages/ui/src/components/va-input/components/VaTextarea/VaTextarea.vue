@@ -27,7 +27,7 @@ export default defineComponent({
 
   props: {
     modelValue: { type: [String, Number], default: '' },
-    autosize: { type: Boolean, default: true },
+    autosize: { type: Boolean, default: false },
     minRows: {
       type: Number,
       default: 1,
