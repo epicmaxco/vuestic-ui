@@ -67,12 +67,6 @@ const config: ApiDocsBlock[] = [
     'extensions/ag-grid/Editable',
     { codesandboxConfig: { dependencies } },
   ),
-  ...DocsHelper.exampleBlock(
-    'ag-grid.examples.custom.title',
-    'ag-grid.examples.custom.text',
-    'extensions/ag-grid/Custom',
-    { codesandboxConfig: { dependencies } },
-  ),
 ]
 
 export default config

@@ -3433,10 +3433,6 @@
       "editable": {
         "title": "Cell editing",
         "text": "Provide `editable` property to column definition and then double click or press Enter on selected cell to enable editing mode."
-      },
-      "custom": {
-        "title": "Custom components",
-        "text": "You can render custom components instead of components that are part of the ag-grid. See [the list of components](https://www.ag-grid.com/vue-data-grid/components/)[[target=_blank]] that you can customize."
       }
     },
     "attention": "Vuestic-UI provides styles for AG-Grid Community and doesn't change any functional. For more examples and differences between Community and Enterprise versions visit the official [AG-Grid documentation page](https://www.ag-grid.com/vue-data-grid/column-properties/)[[target=_blank]]."
