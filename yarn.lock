@@ -1623,15 +1623,6 @@
     "@types/yargs" "^16.0.0"
     chalk "^4.0.0"
 
-"@kushich/ag-theme-vuestic@^0.0.4":
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/@kushich/ag-theme-vuestic/-/ag-theme-vuestic-0.0.4.tgz#5ba9154e4ef9122777c4d5cde88ce9ae49b54f03"
-  integrity sha512-oRSn+ZbHRDDBJxLta6sL6CYldt/lrTlLXEEmUpqO3+jTi4wU3126AUiUZQfoeZPwqjmYS5HHbWRaAxyjXpYMYw==
-  dependencies:
-    ag-grid-community "^26.1.0"
-    ag-grid-vue3 "^26.1.2"
-    vue-class-component "^8.0.0-rc.1"
-
 "@lerna/add@3.21.0":
   version "3.21.0"
   resolved "https://registry.yarnpkg.com/@lerna/add/-/add-3.21.0.tgz#27007bde71cc7b0a2969ab3c2f0ae41578b4577b"
@@ -3884,6 +3875,15 @@
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/@vue/web-component-wrapper/-/web-component-wrapper-1.3.0.tgz#b6b40a7625429d2bd7c2281ddba601ed05dc7f1a"
   integrity sha512-Iu8Tbg3f+emIIMmI2ycSI8QcEuAUgPTgHwesDU1eKMLE4YC/c/sFbGc70QgMq31ijRftV0R7vCm9co6rldCeOA==
+
+"@vuestic/ag-grid-theme@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@vuestic/ag-grid-theme/-/ag-grid-theme-1.0.1.tgz#8a72e229133416a77d1bd705d2ef6f66e5bea767"
+  integrity sha512-i8xyS74gHhRbuY58GcylZ2yQkN1JnoaVcHnS8Ey4kPT/keK+Bl6ZDcvVN3GWsnXka4dcucVieOyxSYHmeVoAbg==
+  dependencies:
+    ag-grid-community "^26.1.0"
+    ag-grid-vue3 "^26.1.2"
+    vue-class-component "^8.0.0-rc.1"
 
 "@webassemblyjs/ast@1.11.1":
   version "1.11.1"

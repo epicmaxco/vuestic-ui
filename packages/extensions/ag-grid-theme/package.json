@@ -8,8 +8,9 @@
   "license": "MIT",
   "scripts": {},
   "dependencies": {
-    "ag-grid-community": "^26.1.0",
-    "ag-grid-vue3": "^26.1.2",
+    "@ag-grid-community/core": "^26.1.0",
+    "@ag-grid-community/vue3": "^26.1.0",
+    "@ag-grid-community/client-side-row-model": "^26.1.0",
     "vue-class-component": "^8.0.0-rc.1"
   },
   "peerDependencies": {
