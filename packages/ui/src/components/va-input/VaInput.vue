@@ -1,5 +1,6 @@
 <template>
   <VaInputField
+    v-bind="fieldListeners"
     :color="color"
     :readonly="readonly"
     :disabled="disabled"
@@ -39,7 +40,15 @@
       />
     </template>
 
+    <VaTextarea
+      v-bind="textareaProps"
+      v-if="type === 'textarea'"
+      class="va-input__content__input"
+      @input="onInput"
+    />
+
     <input
+      v-else
       ref="input"
       v-bind="computedInputAttributes"
       class="va-input__content__input"
@@ -49,24 +58,38 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, InputHTMLAttributes, isRef, ref, Ref, toRef, unref } from 'vue'
+import { computed, defineComponent, InputHTMLAttributes, isRef, PropType, ref, Ref, TextareaHTMLAttributes, toRef, unref } from 'vue'
 import { useFormProps } from '../../composables/useForm'
 import { useValidation, useValidationProps, useValidationEmits } from '../../composables/useValidation'
 import { useCleave, useCleaveProps } from './hooks/useCleave'
 import { useEmitProxy } from './hooks/useEmitProxy'
 import VaInputField from './components/VaInputField.vue'
+import VaTextarea from './components/VaTextarea/VaTextarea.vue'
+import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
 
-const { createEmits, createListeners } = useEmitProxy(
+const VaTextareaProps = extractComponentProps(VaTextarea)
+
+const { createEmits: createInputEmits, createListeners: createInputListeners } = useEmitProxy(
   ['change', 'keyup', 'keypress', 'keydown', 'focus', 'blur'],
 )
 
+const { createEmits: createFieldEmits, createListeners: createFieldListeners } = useEmitProxy([
+  'click',
+  'click-prepend',
+  'click-append',
+  'click-prepend-inner',
+  'click-append-inner',
+  'click-icon',
+])
+
 export default defineComponent({
-  components: { VaInputField },
+  components: { VaInputField, VaTextarea },
 
   props: {
     ...useFormProps,
     ...useValidationProps,
     ...useCleaveProps,
+    ...VaTextareaProps,
 
     // input
     placeholder: { type: String, default: '' },
@@ -75,7 +98,7 @@ export default defineComponent({
     tabindex: { type: Number, default: 0 },
     modelValue: { type: [String, Number], default: '' },
     label: { type: String, default: '' },
-    type: { type: String, default: 'text' },
+    type: { type: String as PropType<'text' | 'textarea'>, default: 'text' },
     loading: { type: Boolean, default: false },
     // style
     color: { tpe: String, default: 'primary' },
@@ -83,7 +106,7 @@ export default defineComponent({
     bordered: { type: Boolean, default: false },
   },
 
-  emits: ['update:modelValue', ...useValidationEmits, ...createEmits()],
+  emits: ['update:modelValue', ...useValidationEmits, ...createInputEmits(), ...createFieldEmits()],
 
   setup (props, { emit, attrs }) {
     const input = ref<HTMLInputElement>()
@@ -110,7 +133,7 @@ export default defineComponent({
 
     const computedInputAttributes = computed(() => ({
       ...attrs,
-      ...createListeners(emit),
+      ...createInputListeners(emit),
       ...validationListeners,
       class: attrs.inputClass,
       style: attrs.inputStyle,
@@ -130,6 +153,7 @@ export default defineComponent({
 
     return {
       input,
+      textareaProps: filterComponentProps(props, VaTextareaProps),
 
       // Validations
       computedError,
@@ -144,6 +168,7 @@ export default defineComponent({
       clearIconColor,
 
       computedInputAttributes,
+      fieldListeners: createFieldListeners(emit),
       reset,
     }
   },

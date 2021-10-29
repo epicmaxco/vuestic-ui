@@ -138,13 +138,7 @@ export default defineComponent({
       })),
 
       colorComputed,
-      borderColorComputed: computed(() =>
-        props.focused ? colorComputed.value : undefined,
-      ),
-
-      messagesComputed: computed(() => {
-        return props.error ? props.errorMessages : props.messages
-      }),
+      borderColorComputed: computed(() => props.focused ? colorComputed.value : undefined),
 
       messagesColor: computed(() => {
         if (props.error) { return 'danger' }
@@ -152,10 +146,8 @@ export default defineComponent({
 
         return ''
       }),
-
-      errorLimit: computed(() => {
-        return props.error ? props.errorCount : 99
-      }),
+      messagesComputed: computed(() => props.error ? props.errorMessages : props.messages),
+      errorLimit: computed(() => props.error ? props.errorCount : 99),
     }
   },
 })
