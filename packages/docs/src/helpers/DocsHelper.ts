@@ -90,11 +90,11 @@ export const DocsHelper = {
 
   // ********** Higher level helpers ****************
 
-  exampleBlock: (title: TranslationString, description: TranslationString, example: PathToExample): ApiDocsBlock[] => {
+  exampleBlock: (title: TranslationString, description: TranslationString, example: PathToExample, exampleOptions: ExampleOptions = {}): ApiDocsBlock[] => {
     return [
       DocsHelper.headline(title),
       DocsHelper.paragraph(description),
-      DocsHelper.example(example),
+      DocsHelper.example(example, exampleOptions),
     ]
   },
 }

@@ -1,0 +1,27 @@
+{
+  "name": "@vuestic/ag-grid-theme",
+  "version": "1.0.3",
+  "description": "Custom theme with Vuestic UI styles for AG Grid Vue 3.",
+  "homepage": "https://vuestic.dev",
+  "repository": "https://github.com/epicmaxco/vuestic-ui",
+  "main": "src/index.js",
+  "license": "MIT",
+  "scripts": {},
+  "dependencies": {
+    "@ag-grid-community/core": "^26.1.0",
+    "@ag-grid-community/vue3": "^26.1.0",
+    "@ag-grid-community/client-side-row-model": "^26.1.0",
+    "vue-class-component": "^8.0.0-rc.1"
+  },
+  "peerDependencies": {
+    "vuestic-ui": "^1.2.8"
+  },
+  "keywords": [
+    "vuestic",
+    "ag grid",
+    "grid",
+    "theme",
+    "vue3",
+    "vue"
+  ]
+}

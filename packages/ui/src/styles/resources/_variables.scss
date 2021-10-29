@@ -1,4 +1,6 @@
 // Colors //
+@use "sass:math";
+
 $gray-light: #acb5be !default;
 $light-gray: #eeeeee !default;
 $light-gray2: #eff4f5 !default;
@@ -6,6 +8,7 @@ $light-gray3: #f5f8f9 !default;
 $lighter-gray: #dddddd !default;
 $charcoal: #555555 !default;
 $darkest-gray: #333333 !default;
+$darkest-gray2: #1b1a1f !default;
 $almost-black: #161616 !default;
 $hover-black: #222222 !default;
 $vue-green: #4ae387 !default;
@@ -362,8 +365,8 @@ $basic-duration: 0.3s;
 
 $zindex-modal: 1050 !default;
 $modal-transform-transition: transform $basic-duration ease !default;
-$modal-opacity-transition: opacity ($basic-duration / 2) cubic-bezier(1, 0.5, 0.8, 1) !default;
-$modal-overlay-opacity-transition: opacity (2 * $basic-duration / 3) cubic-bezier(1, 0.5, 0.8, 1) !default;
+$modal-opacity-transition: opacity ($basic-duration * 0.5) cubic-bezier(1, 0.5, 0.8, 1) !default;
+$modal-overlay-opacity-transition: opacity math.div(2 * $basic-duration, 3) cubic-bezier(1, 0.5, 0.8, 1) !default;
 $modal-padding-top: 1.25rem !default;
 $modal-padding-right: 1.875rem !default;
 $modal-padding-bottom: 1.5rem !default;

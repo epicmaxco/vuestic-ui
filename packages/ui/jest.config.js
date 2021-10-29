@@ -17,12 +17,11 @@ module.exports = {
     '^.+\\.vue$': 'vue-jest',
     '^.+\\js$': 'babel-jest',
   },
-  transformIgnorePatterns: ['<rootDir>/node_modules/'],
+  transformIgnorePatterns: ['<rootDir>/node_modules/', '/!node_modules\\/lodash-es/'],
   moduleFileExtensions: ['vue', 'js', 'json', 'jsx', 'ts', 'tsx', 'node'],
   globals: {
     'ts-jest': {
       diagnostics: false,
     },
   },
-  transformIgnorePatterns: ['/!node_modules\\/lodash-es/'],
 }

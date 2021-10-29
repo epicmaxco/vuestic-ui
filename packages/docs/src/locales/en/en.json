@@ -1160,6 +1160,7 @@
     "reset": "CSS Reset",
     "uiElements": "UI Elements",
     "contribution": "Contribution",
+    "extensions": "Extensions",
     "documentationPage": "Documentation Page",
     "affix": "Affix",
     "avatar": "Avatar",
@@ -1229,7 +1230,7 @@
     "navbar": "Navbar",
     "toast": "Toast",
     "typography": "Typography",
-    "agGrid": "AG Grid",
+    "agGrid": "AG Grid Theme",
     "dataTable": "Data Table",
     "uiElementGuide": "UI Element Guide",
     "timePicker": "Time Picker",
@@ -3070,7 +3071,12 @@
   },
   "table": {
     "title": "Tables",
-    "summaryText": "Feature-rich Data-Tables are currently under development. However, for now you can use plain `<table>`s with the `.va-table` class that would apply Vuestic-theme styles to them. Here is a couple of examples.",
+    "summaryText": "Feature-rich Data-Tables are currently under development. However, for now you can use plain `<table>`s with the `.va-table` class that would apply Vuestic-theme styles to them.",
+    "otherTables": {
+      "text": "If you want more functional solutions, use our data-table component or our theme for AG-Grid:",
+      "dataTable": "Data Table",
+      "agGrid": "AG Grid Theme"
+    },
     "examples": {
       "default": {
         "title": "Basic usage",
@@ -3393,19 +3399,56 @@
     "textBlock": "Text block"
   },
   "ag-grid": {
-    "title": "AG Grid",
-    "description": "If you need more flexible customization of the display of tables, we recommend using the <a href='https://www.ag-grid.com/vue-data-grid/getting-started'> AG Grid </a> library. Vuestic UI provides a ready-made style theme for this library.",
+    "title": "AG Grid Theme",
+    "description": "If you need more flexible customization of the display of tables, we recommend using the [AG Grid](https://www.ag-grid.com/vue-data-grid/getting-started)[[target=_blank]] library. Vuestic UI provides a ready-made style theme for this library.",
+    "otherTables": {
+      "text": "Also, we provide styles for HTML Table and have own data-table component:",
+      "htmlTable": "HTML Table",
+      "dataTable": "Data Table"
+    },
     "installation": "AG Grid installation",
     "dependencies": "To start using AG Grid, install the dependencies in your project.",
     "importStyles": "Then import the stylesheet that define the grid \"structure\" and apply the `ag-theme-vuestic` theme on the grid component.",
-    "simpleTableTitle": "Styling a simple table",
-    "setOfParams": "To render the cell sizes correctly, you must pass the minimum set of properties to the table component: rowHeight, headerHeight, and minColWidth."
+    "examples": {
+      "default": {
+        "title": "Default usage",
+        "text": "To render a vuestic-style table correctly, you must provide the table dimensions (`width` and `height`), dataset (`rowData`) and column definitions (` columnDefs`) according to this dataset."
+      },
+      "styles": {
+        "title": "Styles",
+        "text": "The theme supports the use of the classes `ag-theme-vuestic--striped` to highlight each even row of the table and` ag-theme-vuestic--hoverable` to highlight a line on hover."
+      },
+      "filter": {
+        "title": "Filters and sorting",
+        "text": "You can provide some options for the definition object to enable filtering and sorting."
+      },
+      "pinning": {
+        "title": "Rows pinning",
+        "text": "To pin rows at the top or bottom, simply provide an array of rows for the `pinnedTopRowData` and `pinnedBottomRowData` properties."
+      },
+      "pagination": {
+        "title": "Pagination",
+        "text": "You can enable pagination for the table by providing the required properties."
+      },
+      "editable": {
+        "title": "Cell editing",
+        "text": "Provide `editable` property to column definition and then double click or press Enter on selected cell to enable editing mode."
+      },
+      "custom": {
+        "title": "Custom components",
+        "text": "You can render custom components instead of components that are part of the ag-grid. See [the list of components](https://www.ag-grid.com/vue-data-grid/components/)[[target=_blank]] that you can customize."
+      }
+    },
+    "attention": "Vuestic-UI provides styles for AG-Grid Community and doesn't change any functional. For more examples and differences between Community and Enterprise versions visit the official [AG-Grid documentation page](https://www.ag-grid.com/vue-data-grid/column-properties/)[[target=_blank]]."
   },
   "dataTable": {
     "title": "Data table",
     "description": "The `va-data-table` component is used for displaying tabular data. Features include sorting, searching, pagination, row selection, ability to add additional row(s) to table header (`<thead>`), body (`<tbody>`) or footer (`<tfoot>`) and other functions.",
-    "related": "Related",
-    "styledTablesLink": "Styled tables",
+    "otherTables": {
+      "text": "Also, we provide styles for HTML Table and have own theme for AG-Grid:",
+      "htmlTable": "HTML Table",
+      "agGrid": "AG Grid Theme"
+    },
     "examples": {
       "default": {
         "title": "Basic usage",

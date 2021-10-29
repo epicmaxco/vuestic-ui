@@ -19,8 +19,7 @@
     "precommit": "lint-staged --concurrent=false"
   },
   "dependencies": {
-    "ag-grid-community": "^26.0.0",
-    "ag-grid-vue3": "^26.0.0",
+    "@vuestic/ag-grid-theme": "latest",
     "codesandbox": "^2.2.3",
     "core-js": "^3.12.1",
     "dedent": "^0.7.0",
@@ -62,7 +61,6 @@
     "eslint-plugin-vue": "^7.5.0",
     "i18n-unused": "^0.4.2",
     "lint-staged": "^11.1.2",
-    "node-sass": "^5.0.0",
     "plop": "^2.7.0",
     "sass-loader": "^10.1.1",
     "stylelint": "^13.13.1",

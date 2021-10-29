@@ -5,15 +5,15 @@
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component'
 import DocsContent from '../../components/DocsContent.vue'
-import config from '../../components/page-configs/styles/ag-grid/page-config'
+import config from '../../components/page-configs/extensions/ag-grid/page-config'
 
 @Options({
-  name: 'DocsStylesAgGridWrapper',
+  name: 'DocsAgGrid',
   components: {
     DocsContent,
   },
 })
-export default class Grid extends Vue {
+export default class DocsAgGrid extends Vue {
   get configComputed () {
     return config
   }
