@@ -9,7 +9,7 @@
 <script lang="ts">
 import { computed, defineComponent, onMounted, ref, watch } from 'vue'
 import { useTextareaRowHeight } from './useTextareaRowHeight'
-import { useEmitProxy } from '../../hooks/useEmitProxy'
+import { useEmitProxy } from '../../../../composables/useEmitProxy'
 
 const positiveNumberValidator = (val: number) => {
   if (val > 0 && (val | 0) === val) {

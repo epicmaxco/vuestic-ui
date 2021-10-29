@@ -62,7 +62,7 @@ import { computed, defineComponent, InputHTMLAttributes, isRef, PropType, ref, R
 import { useFormProps } from '../../composables/useForm'
 import { useValidation, useValidationProps, useValidationEmits } from '../../composables/useValidation'
 import { useCleave, useCleaveProps } from './hooks/useCleave'
-import { useEmitProxy } from './hooks/useEmitProxy'
+import { useEmitProxy } from '../../composables/useEmitProxy'
 import VaInputField from './components/VaInputField.vue'
 import VaTextarea from './components/VaTextarea/VaTextarea.vue'
 import { extractComponentProps, filterComponentProps } from '../../utils/child-props'

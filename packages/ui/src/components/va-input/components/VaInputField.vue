@@ -88,7 +88,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, toRef } from 'vue'
-import { useBem } from '../hooks/useBem'
+import { useBem } from '../../../composables/useBem'
 import { useFormProps } from '../../../composables/useForm'
 import { useValidationProps } from '../../../composables/useValidation'
 import { getColor } from '../../../services/color-config/color-config'
