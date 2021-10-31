@@ -6,7 +6,20 @@ import {
   reactiveSetExampleCode,
   useInRuntimeCode,
 } from './code-examples'
-import { api } from './sections'
+import { TableColumn, TableData } from '../../../components/DocsTable/DocsTable'
+
+const columns: TableColumn[] = [
+  'params',
+  { title: 'type', type: 'code' },
+  { title: 'Description', type: 'markdown' },
+]
+
+const tableData: TableData = [
+  ['icons', 'IconsConfig', 'globalConfig.api.icons'],
+  ['components', 'ComponentsConfig', 'globalConfig.api.components'],
+  ['componentsAll', 'Props', 'globalConfig.api.componentsAll'],
+  ['colors', 'ColorsConfig', 'globalConfig.api.colors'],
+]
 
 const block = new PageGenerationHelper(__dirname)
 
@@ -32,7 +45,9 @@ const config: ApiDocsBlock[] = [
   block.link('globalConfig.links.colors', '/services/colors-config'),
   block.link('globalConfig.links.icons', '/services/icons-config'),
 
-  ...api,
+  // api
+  block.subtitle('all.api'),
+  block.table(columns, tableData),
 ]
 
 export default config

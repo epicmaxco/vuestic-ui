@@ -1,7 +1,30 @@
 import { ApiDocsBlock } from '@/types/configTypes'
 import { PageGenerationHelper } from '@/helpers/DocsHelper'
-import { componentsConfigCodeExample, componentsConfigCodeExampleDefaultSizes, componentsAllConfigCodeExample } from './code-examples'
-import { api } from './sections'
+import {
+  componentsConfigCodeExample,
+  componentsConfigCodeExampleDefaultSizes,
+  componentsAllConfigCodeExample,
+} from './code-examples'
+import { TableColumn, TableData } from '../../../components/DocsTable/DocsTable'
+
+const columns: TableColumn[] = [
+  'Name',
+  { title: 'Type', type: 'code' },
+  { title: 'Description', type: 'markdown' },
+]
+
+const tableData: TableData = [
+  [
+    'ComponentsConfig',
+    '{ [componentName: string]: Props }',
+    'componentsConfig.api.ComponentConfig',
+  ],
+  [
+    'Props',
+    '{ [propName: string]: any }',
+    'componentsConfig.api.ComponentsAllConfig',
+  ],
+]
 
 const block = new PageGenerationHelper(__dirname)
 
@@ -27,7 +50,10 @@ const config: ApiDocsBlock[] = [
   block.paragraph('componentsConfig.defaultSizes.description'),
   block.code(componentsConfigCodeExampleDefaultSizes),
 
-  ...api,
+  // api
+  block.subtitle('componentsConfig.api.title'),
+  block.headline('componentsConfig.api.types'),
+  block.table(columns, tableData),
 ]
 
 export default config
