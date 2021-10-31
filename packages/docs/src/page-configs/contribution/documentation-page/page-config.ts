@@ -65,12 +65,11 @@ const config: ApiDocsBlock[] = [
 
   block.headline('documentationPage.blocktypes.example.title'),
   block.paragraph('documentationPage.blocktypes.example.text'),
-  block.paragraph('documentationPage.blocktypes.example.aboutPath'),
-  block.code('block.example(\'path/to/directory\', \'ComponentName\')'),
+  block.code('block.example(\'ComponentName\')'),
 
   block.headline('documentationPage.blocktypes.component.title'),
   block.paragraph('documentationPage.blocktypes.component.text'),
-  block.code('block.component(\'path/to/directory\', \'ComponentName\')'),
+  block.code('block.component(\'ComponentName\')'),
 
   block.headline('documentationPage.blocktypes.api.title'),
   block.paragraph('documentationPage.blocktypes.api.text'),
