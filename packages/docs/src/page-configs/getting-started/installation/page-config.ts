@@ -11,7 +11,7 @@ import {
 } from './code-examples'
 
 const path = 'getting-started/installation'
-const block = new PageGenerationHelper(path)
+const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [
   block.title('installation.title'),

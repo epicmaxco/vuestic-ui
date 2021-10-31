@@ -5,7 +5,7 @@ import apiOptions from './api-options'
 import GlobalConfigCode from './code/global-config'
 
 const path = 'ui-elements/date-input'
-const block = new PageGenerationHelper(path)
+const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [
   block.title('dateInput.title'),

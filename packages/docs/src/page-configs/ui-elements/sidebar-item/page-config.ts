@@ -4,7 +4,7 @@ import VaSidebarItem from 'vuestic-ui/src/components/va-sidebar/VaSidebarItem/Va
 import apiOptions from './api-options'
 
 const path = 'ui-elements/sidebar-item'
-const block = new PageGenerationHelper(path)
+const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [
   block.title('sidebarItem.title'),

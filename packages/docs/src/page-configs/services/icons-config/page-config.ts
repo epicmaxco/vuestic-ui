@@ -3,7 +3,7 @@ import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import { problem, fonts, aliases, setup, api } from './sections'
 
 const path = 'services/icons-config'
-const block = new PageGenerationHelper(path)
+const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [
   block.title('iconsConfig.title'),

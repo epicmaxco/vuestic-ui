@@ -9,7 +9,7 @@ import {
 import { api } from './sections'
 
 const path = 'services/global-config'
-const block = new PageGenerationHelper(path)
+const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [
   block.title('globalConfig.title'),

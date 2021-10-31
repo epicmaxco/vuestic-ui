@@ -4,7 +4,7 @@ import VaTabs from 'vuestic-ui/src/components/va-tabs/VaTabs.vue'
 import apiOptions from './api-options'
 
 const path = 'ui-elements/tabs'
-const block = new PageGenerationHelper(path)
+const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [
   block.title('tabs.title'),

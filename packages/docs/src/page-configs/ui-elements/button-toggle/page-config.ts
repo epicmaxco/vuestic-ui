@@ -4,7 +4,7 @@ import VaButtonToggle from 'vuestic-ui/src/components/va-button-toggle/VaButtonT
 import apiOptions from './api-options'
 
 const path = 'ui-elements/button-toggle'
-const block = new PageGenerationHelper(path)
+const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [
   block.title('buttonToggle.title'),

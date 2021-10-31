@@ -2,7 +2,7 @@ import { ApiDocsBlock } from '@/types/configTypes'
 import { PageGenerationHelper } from '@/helpers/DocsHelper'
 
 const path = 'services/icons-config'
-const block = new PageGenerationHelper(path)
+const block = new PageGenerationHelper(__dirname)
 
 export const config: ApiDocsBlock[] = [
   block.paragraph('iconsConfig.problem.definition'),

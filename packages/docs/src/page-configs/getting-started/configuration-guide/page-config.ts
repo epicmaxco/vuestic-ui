@@ -8,7 +8,7 @@ import {
 } from './code-examples'
 
 const path = 'getting-started/configuration-guide'
-const block = new PageGenerationHelper(path)
+const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [
   block.title('configurationGuide.title'),

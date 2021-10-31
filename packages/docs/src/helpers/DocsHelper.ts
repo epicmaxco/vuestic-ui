@@ -17,12 +17,12 @@ export class PageGenerationHelper {
 
 /*
   The path to the page directory with the page-config.
-  Example: for '@/page-configs/ui-elements/affix/.' use 'ui-elements/affix'
+  Example: for '@/page-configs/ui-elements/affix/.' it will be 'ui-elements/affix'
   which is similar with the documentation url: 'https://www.vuestic.dev/en/ui-elements/affix'
   and NUXT pages folder '@/pages/ui-elements/affix' for this page.
 */
   constructor (path: string) {
-    this.path = path
+    this.path = path.replace('src/', '../')
   }
 
   title (translationString: TranslationString): TextBlock {

@@ -10,7 +10,7 @@ import {
 } from './code-examples'
 
 const path = 'contribution/documentation-page'
-const block = new PageGenerationHelper(path)
+const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [
   block.title('documentationPage.title'),

@@ -16,7 +16,7 @@ const tableData: TableData = [
 ]
 
 const path = 'introduction/browser-support'
-const block = new PageGenerationHelper(path)
+const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [
   block.title('browserSupport.title'),

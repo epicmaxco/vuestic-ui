@@ -25,7 +25,7 @@ export const searchUnusedTranslations = 'yarn search:unused:translation'
 export const searchMissedTranslations = 'yarn search:missed:translation'
 
 const path = 'contribution/translation'
-const block = new PageGenerationHelper(path)
+const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [
   block.title('translation.title'),

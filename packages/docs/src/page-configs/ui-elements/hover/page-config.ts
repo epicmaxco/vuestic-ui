@@ -4,7 +4,7 @@ import VaHover from 'vuestic-ui/src/components/va-hover/VaHover.vue'
 import apiOptions from './api-options'
 
 const path = 'ui-elements/hover'
-const block = new PageGenerationHelper(path)
+const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [
   block.title('hover.title'),

@@ -4,7 +4,7 @@ import VaDatePicker from 'vuestic-ui/src/components/va-date-picker/VaDatePicker.
 import apiOptions from './api-options'
 
 const path = 'ui-elements/date-picker'
-const block = new PageGenerationHelper(path)
+const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [
   block.title('datePicker.title'),

@@ -4,7 +4,7 @@ import { componentsConfigCodeExample, componentsConfigCodeExampleDefaultSizes, c
 import { api } from './sections'
 
 const path = 'services/components-config'
-const block = new PageGenerationHelper(path)
+const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [
   block.title('componentsConfig.title'),

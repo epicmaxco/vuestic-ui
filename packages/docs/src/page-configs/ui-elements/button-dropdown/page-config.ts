@@ -4,7 +4,7 @@ import VaButtonDropdown from 'vuestic-ui/src/components/va-button-dropdown/VaBut
 import apiOptions from './api-options'
 
 const path = 'ui-elements/button-dropdown'
-const block = new PageGenerationHelper(path)
+const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [
   block.title('buttonDropdown.title'),

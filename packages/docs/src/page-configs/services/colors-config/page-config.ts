@@ -3,7 +3,7 @@ import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import { api, reactivity, otherServices } from './sections'
 
 const path = 'services/colors-config'
-const block = new PageGenerationHelper(path)
+const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [
   block.title('colorsConfig.title'),

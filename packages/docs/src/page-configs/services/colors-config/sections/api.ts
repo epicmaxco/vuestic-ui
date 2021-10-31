@@ -46,7 +46,7 @@ const tableDataApiHookMethods: TableData = [
 ]
 
 const path = 'services/colors-config'
-const block = new PageGenerationHelper(path)
+const block = new PageGenerationHelper(__dirname)
 
 export const config: ApiDocsBlock[] = [
   block.subtitle('colorsConfig.api.title'),

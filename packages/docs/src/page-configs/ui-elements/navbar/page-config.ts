@@ -4,7 +4,7 @@ import VaNavbar from 'vuestic-ui/src/components/va-navbar/VaNavbar.vue'
 import apiOptions from './api-options'
 
 const path = 'ui-elements/navbar'
-const block = new PageGenerationHelper(path)
+const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [
   block.title('navbar.title'),

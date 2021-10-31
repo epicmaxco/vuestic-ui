@@ -4,7 +4,7 @@ import VaColorInput from 'vuestic-ui/src/components/va-color-input/VaColorInput.
 import apiOptions from './api-options'
 
 const path = 'ui-elements/color-input'
-const block = new PageGenerationHelper(path)
+const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [
   block.title('colorInput.title'),

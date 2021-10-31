@@ -15,7 +15,7 @@ const importStyles = `<style lang="scss">
 </style>`
 
 const path = 'styles/ag-grid'
-const block = new PageGenerationHelper(path)
+const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [
   block.title('ag-grid.title'),

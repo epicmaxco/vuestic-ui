@@ -4,7 +4,7 @@ import VaInfiniteScroll from 'vuestic-ui/src/components/va-infinite-scroll/VaInf
 import apiOptions from './api-options'
 
 const path = 'ui-elements/infinite-scroll'
-const block = new PageGenerationHelper(path)
+const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [
   block.title('infiniteScroll.title'),

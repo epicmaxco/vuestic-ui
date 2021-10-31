@@ -22,7 +22,7 @@ const tableData: TableData = [
 ]
 
 const path = 'services/components-config'
-const block = new PageGenerationHelper(path)
+const block = new PageGenerationHelper(__dirname)
 
 export const config: ApiDocsBlock[] = [
   block.subtitle('componentsConfig.api.title'),

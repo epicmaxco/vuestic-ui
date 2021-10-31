@@ -4,7 +4,7 @@ import VaPopover from 'vuestic-ui/src/components/va-popover/VaPopover.vue'
 import apiOptions from './api-options'
 
 const path = 'ui-elements/popover'
-const block = new PageGenerationHelper(path)
+const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [
   block.title('popover.title'),

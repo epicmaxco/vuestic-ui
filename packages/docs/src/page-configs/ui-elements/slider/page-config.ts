@@ -4,7 +4,7 @@ import VaSlider from 'vuestic-ui/src/components/va-slider/VaSlider.vue'
 import apiOptions from './api-options'
 
 const path = 'ui-elements/slider'
-const block = new PageGenerationHelper(path)
+const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [
   block.title('slider.title'),

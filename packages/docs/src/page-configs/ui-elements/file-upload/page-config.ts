@@ -4,7 +4,7 @@ import VaFileUpload from 'vuestic-ui/src/components/va-file-upload/VaFileUpload.
 import apiOptions from './api-options'
 
 const path = 'ui-elements/file-upload'
-const block = new PageGenerationHelper(path)
+const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [
   block.title('fileUpload.title'),

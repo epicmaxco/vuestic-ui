@@ -4,7 +4,7 @@ import VaRating from 'vuestic-ui/src/components/va-rating/VaRating.vue'
 import apiOptions from './api-options'
 
 const path = 'ui-elements/rating'
-const block = new PageGenerationHelper(path)
+const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [
   block.title('rating.title'),

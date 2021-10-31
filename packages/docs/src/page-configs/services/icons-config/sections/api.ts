@@ -38,7 +38,7 @@ const tableData: TableData = [
 ]
 
 const path = 'services/icons-config'
-const block = new PageGenerationHelper(path)
+const block = new PageGenerationHelper(__dirname)
 
 export const config: ApiDocsBlock[] = [
   block.subtitle('iconsConfig.api.title'),

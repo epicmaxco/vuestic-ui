@@ -5,7 +5,7 @@ import VaProgressCircle
 import apiOptions from './api-options'
 
 const path = 'ui-elements/progress-circle'
-const block = new PageGenerationHelper(path)
+const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [
   block.title('progressCircle.title'),

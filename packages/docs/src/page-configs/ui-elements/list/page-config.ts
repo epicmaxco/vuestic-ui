@@ -16,7 +16,7 @@ import {
 } from './api-options'
 
 const path = 'ui-elements/list'
-const block = new PageGenerationHelper(path)
+const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [
   block.title('list.title'),

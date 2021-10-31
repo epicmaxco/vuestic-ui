@@ -4,7 +4,7 @@ import VaOptionList from 'vuestic-ui/src/components/va-option-list/VaOptionList.
 import apiOptions from './api-options'
 
 const path = 'ui-elements/option-list'
-const block = new PageGenerationHelper(path)
+const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [
   block.title('optionList.title'),

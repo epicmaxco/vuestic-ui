@@ -4,7 +4,7 @@ import VaButtonGroup from 'vuestic-ui/src/components/va-button-group/VaButtonGro
 import apiOptions from './api-options'
 
 const path = 'ui-elements/button-group'
-const block = new PageGenerationHelper(path)
+const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [
   block.title('buttonGroup.title'),

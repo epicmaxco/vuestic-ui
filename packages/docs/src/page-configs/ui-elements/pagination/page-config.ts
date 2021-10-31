@@ -4,7 +4,7 @@ import VaPagination from 'vuestic-ui/src/components/va-pagination/VaPagination.v
 import apiOptions from './api-options'
 
 const path = 'ui-elements/pagination'
-const block = new PageGenerationHelper(path)
+const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [
   block.title('pagination.title'),

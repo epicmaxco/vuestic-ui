@@ -4,7 +4,7 @@ import VaBacktop from 'vuestic-ui/src/components/va-backtop/VaBacktop.vue'
 import apiOptions from './api-options'
 
 const path = 'ui-elements/backtop'
-const block = new PageGenerationHelper(path)
+const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [
   block.title('backtop.title'),

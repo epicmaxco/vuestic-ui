@@ -4,7 +4,7 @@ import VaInnerLoading from 'vuestic-ui/src/components/va-inner-loading/VaInnerLo
 import apiOptions from './api-options'
 
 const path = 'ui-elements/inner-loading'
-const block = new PageGenerationHelper(path)
+const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [
   block.title('innerLoading.title'),
