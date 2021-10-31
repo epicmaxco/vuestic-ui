@@ -1,17 +1,13 @@
 <template>
-  <div>
-    <va-checkbox v-model="isStriped" label="Striped" />
-    <va-checkbox v-model="isHoverable" label="Hoverable" />
-    <div style="height: 300px; width: 100%;">
-      <ag-grid-vue
-        class="ag-theme-vuestic"
-        :class="{ 'ag-theme-vuestic--striped': isStriped, 'ag-theme-vuestic--hoverable': isHoverable }"
-        style="width: 100%; height: 100%;"
-        :columnDefs="columnDefs"
-        :rowData="rowData"
-        :modules="modules"
-      />
-    </div>
+  <div style="height: 300px; width: 100%;">
+    <ag-grid-vue
+      class="ag-theme-vuestic"
+      style="width: 100%; height: 100%;"
+      :defaultColDef="defaultColDef"
+      :columnDefs="columnDefs"
+      :rowData="rowData"
+      :modules="modules"
+    />
   </div>
 </template>
 
@@ -24,9 +20,10 @@ export default {
   data () {
     return {
       modules: [ClientSideRowModelModule],
-      isStriped: true,
-      isHoverable: true,
       rowData: null,
+      defaultColDef: {
+        editable: true,
+      },
       columnDefs: [
         { field: 'athlete' },
         { field: 'age' },
@@ -50,5 +47,5 @@ export default {
 </script>
 
 <style lang="scss">
-@import "~@vuestic/ag-grid-theme";
+@import "../../../../../../../node_modules/@vuestic/ag-grid-theme/index";
 </style>

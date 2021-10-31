@@ -1,50 +1,52 @@
-import { ApiDocsBlock } from '../../../../types/configTypes'
-import { DocsHelper } from '../../../../helpers/DocsHelper'
+import { ApiDocsBlock } from '@/types/configTypes'
+import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaTimePicker from 'vuestic-ui/src/components/va-time-picker/VaTimePicker.vue'
 import apiOptions from './api-options'
 
+const block = new PageGenerationHelper(__dirname)
+
 const config: ApiDocsBlock[] = [
-  DocsHelper.title('timePicker.title'),
+  block.title('timePicker.title'),
 
-  DocsHelper.subtitle('all.examples'),
+  block.subtitle('all.examples'),
 
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'timePicker.examples.default.title',
     'timePicker.examples.default.text',
-    'va-time-picker/default',
+    'default',
   ),
 
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'timePicker.examples.readonlyAndDisabled.title',
     'timePicker.examples.readonlyAndDisabled.text',
-    'va-time-picker/readonlyAndDisabled',
+    'readonlyAndDisabled',
   ),
 
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'timePicker.examples.ampm.title',
     'timePicker.examples.ampm.text',
-    'va-time-picker/ampm',
+    'ampm',
   ),
 
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'timePicker.examples.periodUpdatesModelValue.title',
     'timePicker.examples.periodUpdatesModelValue.text',
-    'va-time-picker/periodUpdatesModelValue',
+    'periodUpdatesModelValue',
   ),
 
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'timePicker.examples.view.title',
     'timePicker.examples.view.text',
-    'va-time-picker/view',
+    'view',
   ),
 
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'timePicker.examples.filter.title',
     'timePicker.examples.filter.text',
-    'va-time-picker/filter',
+    'filter',
   ),
 
-  DocsHelper.api(VaTimePicker, apiOptions),
+  block.api(VaTimePicker, apiOptions),
 ]
 
 export default config

@@ -1,14 +1,17 @@
 <template>
-  <div style="height: 300px; width: 100%;">
-    <ag-grid-vue
-      class="ag-theme-vuestic"
-      style="width: 100%; height: 100%;"
-      :columnDefs="columnDefs"
-      :rowData="rowData"
-      :pinnedTopRowData="pinnedTopRowData"
-      :pinnedBottomRowData="pinnedBottomRowData"
-      :modules="modules"
-    />
+  <div>
+    <va-checkbox v-model="isStriped" label="Striped" />
+    <va-checkbox v-model="isHoverable" label="Hoverable" />
+    <div style="height: 300px; width: 100%;">
+      <ag-grid-vue
+        class="ag-theme-vuestic"
+        :class="{ 'ag-theme-vuestic--striped': isStriped, 'ag-theme-vuestic--hoverable': isHoverable }"
+        style="width: 100%; height: 100%;"
+        :columnDefs="columnDefs"
+        :rowData="rowData"
+        :modules="modules"
+      />
+    </div>
   </div>
 </template>
 
@@ -21,9 +24,9 @@ export default {
   data () {
     return {
       modules: [ClientSideRowModelModule],
+      isStriped: true,
+      isHoverable: true,
       rowData: null,
-      pinnedTopRowData: null,
-      pinnedBottomRowData: null,
       columnDefs: [
         { field: 'athlete' },
         { field: 'age' },
@@ -38,19 +41,14 @@ export default {
       ],
     }
   },
-
   beforeMount () {
     fetch('https://www.ag-grid.com/example-assets/olympic-winners.json')
       .then(result => result.json())
-      .then(rowData => {
-        this.rowData = rowData
-        this.pinnedTopRowData = [rowData[1]]
-        this.pinnedBottomRowData = [rowData[3], rowData[4]]
-      })
+      .then(rowData => { this.rowData = rowData })
   },
 }
 </script>
 
 <style lang="scss">
-@import "~@vuestic/ag-grid-theme";
+@import "../../../../../../../node_modules/@vuestic/ag-grid-theme/index";
 </style>

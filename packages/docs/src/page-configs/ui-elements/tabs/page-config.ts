@@ -27,6 +27,11 @@ const config: ApiDocsBlock[] = [
     'Vertical',
   ),
   ...block.exampleBlock(
+    'tabs.examples.color.title',
+    'tabs.examples.color.text',
+    'Color',
+  ),
+  ...block.exampleBlock(
     'tabs.examples.stateful.title',
     'tabs.examples.stateful.text',
     'Stateful',

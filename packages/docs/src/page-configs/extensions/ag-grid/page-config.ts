@@ -1,5 +1,5 @@
-import { ApiDocsBlock, Dependencies } from '../../../../types/configTypes'
-import { DocsHelper } from '../../../../helpers/DocsHelper'
+import { ApiDocsBlock, Dependencies } from '@/types/configTypes'
+import { PageGenerationHelper } from '@/helpers/DocsHelper'
 
 const installCommand = `
 npm install @vuestic/ag-grid-theme
@@ -18,53 +18,55 @@ const dependencies: Dependencies = {
   '@vuestic/ag-grid-theme': 'latest',
 }
 
+const block = new PageGenerationHelper(__dirname)
+
 const config: ApiDocsBlock[] = [
-  DocsHelper.title('ag-grid.title'),
-  DocsHelper.paragraph('ag-grid.description'),
-  DocsHelper.paragraph('ag-grid.otherTables.text'),
-  DocsHelper.link('ag-grid.otherTables.htmlTable', '/styles/table'),
-  DocsHelper.link('ag-grid.otherTables.dataTable', '/ui-elements/data-table'),
-  DocsHelper.headline('ag-grid.installation'),
-  DocsHelper.paragraph('ag-grid.dependencies'),
-  DocsHelper.code(installCommand, 'bash'),
-  DocsHelper.paragraph('ag-grid.importStyles'),
-  DocsHelper.code(setClass, 'html'),
-  DocsHelper.code(importStyles, 'scss'),
-  DocsHelper.alert('ag-grid.attention', 'warning'),
-  ...DocsHelper.exampleBlock(
+  block.title('ag-grid.title'),
+  block.paragraph('ag-grid.description'),
+  block.paragraph('ag-grid.otherTables.text'),
+  block.link('ag-grid.otherTables.htmlTable', '/styles/table'),
+  block.link('ag-grid.otherTables.dataTable', '/ui-elements/data-table'),
+  block.headline('ag-grid.installation'),
+  block.paragraph('ag-grid.dependencies'),
+  block.code(installCommand, 'bash'),
+  block.paragraph('ag-grid.importStyles'),
+  block.code(setClass, 'html'),
+  block.code(importStyles, 'scss'),
+  block.alert('ag-grid.attention', 'warning'),
+  ...block.exampleBlock(
     'ag-grid.examples.default.title',
     'ag-grid.examples.default.text',
-    'extensions/ag-grid/Default',
+    'Default',
     { codesandboxConfig: { dependencies } },
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'ag-grid.examples.styles.title',
     'ag-grid.examples.styles.text',
-    'extensions/ag-grid/Styles',
+    'Styles',
     { codesandboxConfig: { dependencies } },
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'ag-grid.examples.filter.title',
     'ag-grid.examples.filter.text',
-    'extensions/ag-grid/Filter',
+    'Filter',
     { codesandboxConfig: { dependencies } },
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'ag-grid.examples.pinning.title',
     'ag-grid.examples.pinning.text',
-    'extensions/ag-grid/Pinning',
+    'Pinning',
     { codesandboxConfig: { dependencies } },
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'ag-grid.examples.pagination.title',
     'ag-grid.examples.pagination.text',
-    'extensions/ag-grid/Pagination',
+    'Pagination',
     { codesandboxConfig: { dependencies } },
   ),
-  ...DocsHelper.exampleBlock(
+  ...block.exampleBlock(
     'ag-grid.examples.editable.title',
     'ag-grid.examples.editable.text',
-    'extensions/ag-grid/Editable',
+    'Editable',
     { codesandboxConfig: { dependencies } },
   ),
 ]

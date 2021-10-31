@@ -3,8 +3,6 @@
     <ag-grid-vue
       class="ag-theme-vuestic"
       style="width: 100%; height: 100%;"
-      :paginationAutoPageSize="true"
-      :pagination="true"
       :columnDefs="columnDefs"
       :rowData="rowData"
       :modules="modules"
@@ -45,5 +43,5 @@ export default {
 </script>
 
 <style lang="scss">
-@import "~@vuestic/ag-grid-theme";
+@import "../../../../../../../node_modules/@vuestic/ag-grid-theme/index";
 </style>

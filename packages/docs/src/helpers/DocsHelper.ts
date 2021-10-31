@@ -119,11 +119,11 @@ export class PageGenerationHelper {
   }
 
   // ********** Higher level helpers ****************
-  exampleBlock (title: TranslationString, description: TranslationString, example: string): ApiDocsBlock[] {
+  exampleBlock (title: TranslationString, description: TranslationString, example: string, exampleOptions: ExampleOptions = {}): ApiDocsBlock[] {
     return [
       this.headline(title),
       this.paragraph(description),
-      this.example(example),
+      this.example(example, exampleOptions),
     ]
   }
 }

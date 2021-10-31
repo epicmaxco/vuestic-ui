@@ -3,9 +3,10 @@
     <ag-grid-vue
       class="ag-theme-vuestic"
       style="width: 100%; height: 100%;"
-      :defaultColDef="defaultColDef"
       :columnDefs="columnDefs"
       :rowData="rowData"
+      :pinnedTopRowData="pinnedTopRowData"
+      :pinnedBottomRowData="pinnedBottomRowData"
       :modules="modules"
     />
   </div>
@@ -21,9 +22,8 @@ export default {
     return {
       modules: [ClientSideRowModelModule],
       rowData: null,
-      defaultColDef: {
-        editable: true,
-      },
+      pinnedTopRowData: null,
+      pinnedBottomRowData: null,
       columnDefs: [
         { field: 'athlete' },
         { field: 'age' },
@@ -38,14 +38,19 @@ export default {
       ],
     }
   },
+
   beforeMount () {
     fetch('https://www.ag-grid.com/example-assets/olympic-winners.json')
       .then(result => result.json())
-      .then(rowData => { this.rowData = rowData })
+      .then(rowData => {
+        this.rowData = rowData
+        this.pinnedTopRowData = [rowData[1]]
+        this.pinnedBottomRowData = [rowData[3], rowData[4]]
+      })
   },
 }
 </script>
 
 <style lang="scss">
-@import "~@vuestic/ag-grid-theme";
+@import "../../../../../../../node_modules/@vuestic/ag-grid-theme/index";
 </style>

@@ -1,6 +1,6 @@
-import { ManualApiOptions } from '../../../DocsApi/ManualApiOptions'
-import VaTimePickerAPIOptions from '../va-time-picker/api-options'
-import InputApiOptions from '../va-input/api-options'
+import { ManualApiOptions } from '@/components/DocsApi/ManualApiOptions'
+import VaTimePickerAPIOptions from '../time-picker/api-options'
+import InputApiOptions from '../input/api-options'
 
 const mapObject = <T, K>(obj: Record<string, T>, cb: (item: T, key: string) => K) => {
   const newObj: Record<string, K> = {}

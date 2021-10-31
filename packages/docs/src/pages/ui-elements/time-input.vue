@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
 import DocsContent from '../../components/DocsContent.vue'
-import timeInputConfig from '../../components/page-configs/ui-elements/va-time-input/page-config'
+import timeInputConfig from '../../page-configs/ui-elements/time-input/page-config'
 
 @Options({
   components: {
