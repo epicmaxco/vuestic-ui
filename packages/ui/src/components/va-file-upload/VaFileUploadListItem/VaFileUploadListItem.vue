@@ -82,7 +82,7 @@ export default class VaFileUploadListItem extends mixins(FileUploadListItemProps
 </script>
 
 <style lang='scss'>
-@import '../../../styles/resources/resources';
+@import '../../../styles/resources';
 @import 'variables';
 
 .va-file-upload-list-item {

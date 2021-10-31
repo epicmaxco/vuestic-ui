@@ -171,7 +171,7 @@ export default defineComponent({
 </script>
 
 <style lang='scss'>
-@import '../../styles/resources/resources';
+@import '../../styles/resources';
 @import 'variables';
 
 .va-file-upload {

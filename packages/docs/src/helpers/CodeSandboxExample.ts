@@ -33,26 +33,30 @@ const html = `<link
 >
 <div id="app"></div>`
 
-const packageJson = JSON.stringify({
-  scripts: {
-    serve: 'vue-cli-service serve',
-  },
-  dependencies: {
+const packageJson = ({ dependencies = {}, devDependencies = {} }) => {
+  const commonDeps = {
     'core-js': '^3.6.5',
     vue: '^3.0.0',
     'vuestic-ui': `${packageUi.version}`,
-  },
-  devDependencies: {
+  }
+  const commonDevDeps = {
     '@vue/cli-plugin-babel': '~4.5.0',
     '@vue/cli-service': '~4.5.0',
     '@vue/compiler-sfc': '^3.0.0',
-  },
-})
+  }
+  return JSON.stringify({
+    scripts: {
+      serve: 'vue-cli-service serve',
+    },
+    dependencies: Object.assign(commonDeps, dependencies),
+    devDependencies: Object.assign(commonDevDeps, devDependencies),
+  })
+}
 
-export default (code: string = defaultExample) => getParameters({
+export default (code: string = defaultExample, config = {}) => getParameters({
   files: {
     'package.json': {
-      content: packageJson,
+      content: packageJson(config),
       isBinary: false,
     },
     'babel.config.js': {

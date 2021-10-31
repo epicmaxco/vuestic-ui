@@ -16,10 +16,15 @@ export const useSelectableListProps = {
 export function useSelectableList (props: any) {
   const isSelectableListComponent = true
 
+  const isStringOrNumber = (option: any): boolean => {
+    const typeOfOption = typeof option
+    return typeOfOption === 'string' || typeOfOption === 'number'
+  }
+
   const getValue = (option: any) => {
     if (!props.valueBy) { return option }
 
-    return typeof option === 'string'
+    return isStringOrNumber(option)
       ? option
       : getProp(option, props.valueBy)
   }
@@ -31,7 +36,7 @@ export function useSelectableList (props: any) {
   }
 
   const getText = (option: any): any => {
-    return typeof option === 'string' || typeof option === 'number'
+    return isStringOrNumber(option)
       ? option
       : getProp(option, props.textBy)
   }
@@ -41,7 +46,7 @@ export function useSelectableList (props: any) {
   }
 
   const getTrackBy = (option: any) => {
-    return typeof option === 'string'
+    return isStringOrNumber(option)
       ? option
       : getProp(option, props.trackBy)
   }

@@ -3,6 +3,7 @@
     <a
       v-bind="$attrs"
       class="va-sidebar__item va-sidebar-item"
+      :class="{ 'va-sidebar-item--active': active }"
       :style="computedStyle"
       :href="href"
       @click="navigate"

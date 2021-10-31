@@ -97,7 +97,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "../../../styles/resources/resources";
+@import "../../../styles/resources";
 @import 'variables';
 
 .va-timeline-item {

@@ -49,6 +49,10 @@ export default {
       type: String,
       default: '',
     },
+    config: {
+      type: Object,
+      default: () => ({}),
+    },
     gitUrl: {
       type: String,
       default: '',
@@ -91,14 +95,14 @@ export default {
       return `https://codesandbox.io/api/v1/sandboxes/define${this.query}`
     },
     sandboxParams () {
-      return getCodesandboxExample(this.code)
+      return getCodesandboxExample(this.code, this.config)
     },
   },
 }
 </script>
 
 <style lang="scss">
-@import "~vuestic-ui/src/styles/resources/resources";
+@import "~vuestic-ui/src/styles/resources";
 
 .docs-navigation {
   background: $prism-background;

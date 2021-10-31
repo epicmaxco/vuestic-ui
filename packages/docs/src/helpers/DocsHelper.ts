@@ -213,11 +213,11 @@ export const DocsHelper = {
 
   // ********** Higher level helpers ****************
 
-  exampleBlock: (title: TranslationString, description: TranslationString, path: string, example: string): ApiDocsBlock[] => {
+  exampleBlock: (title: TranslationString, description: TranslationString, path: string, example: string, exampleOptions: ExampleOptions = {}): ApiDocsBlock[] => {
     return [
       DocsHelper.headline(title),
       DocsHelper.paragraph(description),
-      DocsHelper.example(path, example),
+      DocsHelper.example(path, example, exampleOptions),
     ]
   },
 }

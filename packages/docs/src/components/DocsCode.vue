@@ -85,7 +85,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "~vuestic-ui/src/styles/resources/resources";
+@import "~vuestic-ui/src/styles/resources";
 
 /* PrismJS 1.20.0
 https://prismjs.com/download.html#themes=prism&languages=css */
@@ -101,6 +101,7 @@ https://prismjs.com/download.html#themes=prism&languages=css */
 // Notably it has structure like this: pre.DocsCode > code.DocsCode.
 // Here class is being applied twice, while it should have been applied only on external container
 pre.DocsCode {
+  margin-bottom: 0.2rem;
   background: #f4f8fa;
   padding-top: 1.3rem;
   font-size: calc(1rem / 1.4);

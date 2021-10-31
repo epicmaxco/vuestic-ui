@@ -7,6 +7,7 @@
         :value="block.component"
         :path="block.path"
         :example-options="block.exampleOptions"
+        :codesandbox-config="block.codesandboxConfig"
       />
       <DocsComponent
         v-if="block.type === BlockType.COMPONENT"
