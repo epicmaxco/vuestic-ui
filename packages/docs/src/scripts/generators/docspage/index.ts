@@ -4,9 +4,6 @@
 
 import { PlopGeneratorConfig } from 'node-plop'
 
-const categories = ['styles', 'contribution', 'gettingStarted', 'introduction', 'services', 'uiElements']
-const categoriesString = categories.join(', ')
-
 module.exports = {
   description: 'Generate boilerplate for page. Includes: documentation page, page config.',
   prompts: [
@@ -23,19 +20,10 @@ module.exports = {
       },
     },
     {
-      type: 'input',
+      type: 'list',
       name: 'category',
-      message: `What's the page category (ex.: ${categoriesString})?`,
-      validate: value => {
-        if (/.+/.test(value)) {
-          if (categories.includes(value)) {
-            return true
-          }
-          return 'Name is invalid'
-        }
-
-        return 'The name is required'
-      },
+      choices: ['introduction', 'gettingStarted', 'styles', 'uiElements', 'contribution', 'services', 'extensions'],
+      message: 'What is the page category?',
     },
   ],
   actions: () => {
