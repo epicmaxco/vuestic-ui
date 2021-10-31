@@ -7,6 +7,9 @@ import {
   linkOptionsBlock,
   tableDataBlock,
   apiOptions,
+  configFolderStructure,
+  configFileStructure,
+  blockHelper,
 } from './code-examples'
 
 const block = new PageGenerationHelper(__dirname)
@@ -15,18 +18,33 @@ const config: ApiDocsBlock[] = [
   block.title('documentationPage.title'),
   block.paragraph('documentationPage.description'),
 
-  block.headline('documentationPage.introduction.title'),
+  block.subtitle('documentationPage.introduction.title'),
   block.paragraph('documentationPage.introduction.description'),
 
+  // Page Config
   block.subtitle('documentationPage.pageConfig.title'),
-  block.paragraph('documentationPage.pageConfig.generate'),
-  block.paragraph('documentationPage.pageConfig.description'),
+  block.paragraph('documentationPage.pageConfig.descriptionStructure'),
+  block.code(configFolderStructure, 'bash'),
+  block.paragraph('documentationPage.pageConfig.descriptionFile'),
+  block.code(configFileStructure, 'javascript'),
 
-  block.headline('documentationPage.blocktypes.title.title'),
-  block.paragraph('documentationPage.blocktypes.title.text'),
+  // Generators
+  block.subtitle('documentationPage.generators.title'),
+  block.paragraph('documentationPage.generators.description'),
+  block.paragraph('documentationPage.generators.generateDocsPage'),
+  block.paragraph('documentationPage.generators.generateComponent'),
+
+  // BlockTypes
+  block.subtitle('documentationPage.blocktypes.title'),
+  block.paragraph('documentationPage.blocktypes.descriptionHelper'),
+  block.code(blockHelper, 'javascript'),
+  block.paragraph('documentationPage.blocktypes.description'),
+
+  block.headline('documentationPage.blocktypes.titleBlock.title'),
+  block.paragraph('documentationPage.blocktypes.titleBlock.text'),
   block.code('block.title(\'translation.path\')'),
   block.paragraph('documentationPage.compilesTo'),
-  block.title('documentationPage.blocktypes.title.example'),
+  block.title('documentationPage.blocktypes.titleBlock.example'),
 
   block.headline('documentationPage.blocktypes.subtitle.title'),
   block.paragraph('documentationPage.blocktypes.subtitle.text'),
