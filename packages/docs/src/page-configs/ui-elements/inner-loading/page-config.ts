@@ -3,7 +3,6 @@ import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaInnerLoading from 'vuestic-ui/src/components/va-inner-loading/VaInnerLoading.vue'
 import apiOptions from './api-options'
 
-const path = 'ui-elements/inner-loading'
 const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [

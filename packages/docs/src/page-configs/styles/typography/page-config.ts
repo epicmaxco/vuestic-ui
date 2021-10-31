@@ -1,7 +1,6 @@
 import { ApiDocsBlock } from '@/types/configTypes'
 import { PageGenerationHelper } from '@/helpers/DocsHelper'
 
-const path = 'styles/typography'
 const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [

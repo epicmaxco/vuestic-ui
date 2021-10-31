@@ -4,7 +4,6 @@ import VaProgressCircle
   from 'vuestic-ui/src/components/va-progress-bar/progress-types/VaProgressCircle.vue'
 import apiOptions from './api-options'
 
-const path = 'ui-elements/progress-circle'
 const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [

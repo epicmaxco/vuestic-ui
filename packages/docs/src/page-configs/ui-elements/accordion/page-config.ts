@@ -3,7 +3,6 @@ import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaAccordion from 'vuestic-ui/src/components/va-accordion/VaAccordion.vue'
 import apiOptions from './api-options'
 
-const path = 'ui-elements/accordion'
 const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [

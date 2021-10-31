@@ -3,7 +3,6 @@ import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaToast from 'vuestic-ui/src/components/va-toast/VaToast.vue'
 import apiOptions from './api-options'
 
-const path = 'ui-elements/toast'
 const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [

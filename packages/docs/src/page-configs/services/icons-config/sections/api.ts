@@ -37,7 +37,6 @@ const tableData: TableData = [
   ['spin', "`'clockwise' | 'counter-clockwise' | undefined`", 'iconsConfig.api.spin'],
 ]
 
-const path = 'services/icons-config'
 const block = new PageGenerationHelper(__dirname)
 
 export const config: ApiDocsBlock[] = [

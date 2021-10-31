@@ -3,7 +3,6 @@ import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaImage from 'vuestic-ui/src/components/va-image/VaImage.vue'
 import apiOptions from './api-options'
 
-const path = 'ui-elements/image'
 const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [

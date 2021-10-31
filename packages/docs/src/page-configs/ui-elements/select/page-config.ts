@@ -3,7 +3,6 @@ import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaSelect from 'vuestic-ui/src/components/va-select/VaSelect.vue'
 import apiOptions from './api-options'
 
-const path = 'ui-elements/select'
 const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [

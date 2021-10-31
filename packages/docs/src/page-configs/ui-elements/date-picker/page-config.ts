@@ -3,7 +3,6 @@ import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaDatePicker from 'vuestic-ui/src/components/va-date-picker/VaDatePicker.vue'
 import apiOptions from './api-options'
 
-const path = 'ui-elements/date-picker'
 const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [

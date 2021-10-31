@@ -2,7 +2,6 @@ import { ApiDocsBlock } from '@/types/configTypes'
 import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import { generalScheme, componentScheme, overriding } from './code-examples'
 
-const path = 'styles/css-variables'
 const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [

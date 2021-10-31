@@ -3,7 +3,6 @@ import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaParallax from 'vuestic-ui/src/components/va-parallax/VaParallax.vue'
 import apiOptions from './api-options'
 
-const path = 'ui-elements/parallax'
 const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [

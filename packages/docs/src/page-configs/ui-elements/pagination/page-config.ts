@@ -3,7 +3,6 @@ import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaPagination from 'vuestic-ui/src/components/va-pagination/VaPagination.vue'
 import apiOptions from './api-options'
 
-const path = 'ui-elements/pagination'
 const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [

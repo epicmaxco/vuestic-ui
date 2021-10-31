@@ -8,7 +8,6 @@ import {
 } from './code-examples'
 import { api } from './sections'
 
-const path = 'services/global-config'
 const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [

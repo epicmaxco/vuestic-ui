@@ -3,7 +3,6 @@ import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaForm from 'vuestic-ui/src/components/va-form/VaForm.vue'
 import apiOptions from './api-options'
 
-const path = 'ui-elements/form'
 const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [

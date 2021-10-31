@@ -3,7 +3,6 @@ import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaSidebarItem from 'vuestic-ui/src/components/va-sidebar/VaSidebarItem/VaSidebarItem.vue'
 import apiOptions from './api-options'
 
-const path = 'ui-elements/sidebar-item'
 const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [

@@ -3,7 +3,6 @@ import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaFileUpload from 'vuestic-ui/src/components/va-file-upload/VaFileUpload.vue'
 import apiOptions from './api-options'
 
-const path = 'ui-elements/file-upload'
 const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [

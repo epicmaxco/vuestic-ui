@@ -4,7 +4,6 @@ import VaDateInput from 'vuestic-ui/src/components/va-date-input/VaDateInput.vue
 import apiOptions from './api-options'
 import GlobalConfigCode from './code/global-config'
 
-const path = 'ui-elements/date-input'
 const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [

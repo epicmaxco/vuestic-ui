@@ -3,7 +3,6 @@ import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaHover from 'vuestic-ui/src/components/va-hover/VaHover.vue'
 import apiOptions from './api-options'
 
-const path = 'ui-elements/hover'
 const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [

@@ -5,7 +5,6 @@ import VaBreadcrumbsItem from 'vuestic-ui/src/components/va-breadcrumbs/VaBreadc
 import vaBreadcrumbsApiOptions from './va-breadcrumbs-api-options'
 import vaBreadcrumbsItemApiOptions from './va-breadcrumbs-item-api-options'
 
-const path = 'ui-elements/breadcrumbs'
 const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [

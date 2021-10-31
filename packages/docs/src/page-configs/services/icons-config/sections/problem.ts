@@ -1,7 +1,6 @@
 import { ApiDocsBlock } from '@/types/configTypes'
 import { PageGenerationHelper } from '@/helpers/DocsHelper'
 
-const path = 'services/icons-config'
 const block = new PageGenerationHelper(__dirname)
 
 export const config: ApiDocsBlock[] = [

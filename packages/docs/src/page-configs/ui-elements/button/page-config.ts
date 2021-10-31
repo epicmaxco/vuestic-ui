@@ -3,7 +3,6 @@ import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaButton from 'vuestic-ui/src/components/va-button/VaButton.vue'
 import apiOptions from './api-options'
 
-const path = 'ui-elements/button'
 const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [

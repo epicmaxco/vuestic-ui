@@ -45,7 +45,6 @@ const tableDataApiHookMethods: TableData = [
   ['getGradientBackground', '(color: string) => string', 'colorsConfig.api.getGradientBackground'],
 ]
 
-const path = 'services/colors-config'
 const block = new PageGenerationHelper(__dirname)
 
 export const config: ApiDocsBlock[] = [

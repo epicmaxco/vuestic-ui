@@ -3,7 +3,6 @@ import { ApiDocsBlock } from '@/types/configTypes'
 import VaButtonDropdown from 'vuestic-ui/src/components/va-button-dropdown/VaButtonDropdown.vue'
 import apiOptions from './api-options'
 
-const path = 'ui-elements/button-dropdown'
 const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [

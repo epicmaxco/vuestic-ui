@@ -3,7 +3,6 @@ import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaColorInput from 'vuestic-ui/src/components/va-color-input/VaColorInput.vue'
 import apiOptions from './api-options'
 
-const path = 'ui-elements/color-input'
 const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [

@@ -3,7 +3,6 @@ import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaNavbar from 'vuestic-ui/src/components/va-navbar/VaNavbar.vue'
 import apiOptions from './api-options'
 
-const path = 'ui-elements/navbar'
 const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [

@@ -3,7 +3,6 @@ import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaDivider from 'vuestic-ui/src/components/va-divider/VaDivider.vue'
 import apiOptions from './api-options'
 
-const path = 'ui-elements/divider'
 const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [

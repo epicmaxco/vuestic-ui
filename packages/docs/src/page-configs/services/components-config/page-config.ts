@@ -3,7 +3,6 @@ import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import { componentsConfigCodeExample, componentsConfigCodeExampleDefaultSizes, componentsAllConfigCodeExample } from './code-examples'
 import { api } from './sections'
 
-const path = 'services/components-config'
 const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [

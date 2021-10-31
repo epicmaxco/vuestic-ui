@@ -3,7 +3,6 @@ import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaButtonToggle from 'vuestic-ui/src/components/va-button-toggle/VaButtonToggle.vue'
 import apiOptions from './api-options'
 
-const path = 'ui-elements/button-toggle'
 const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [

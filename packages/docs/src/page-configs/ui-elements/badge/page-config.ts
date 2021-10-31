@@ -3,7 +3,6 @@ import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaBadge from 'vuestic-ui/src/components/va-badge/VaBadge.vue'
 import apiOptions from './api-options'
 
-const path = 'ui-elements/badge'
 const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [

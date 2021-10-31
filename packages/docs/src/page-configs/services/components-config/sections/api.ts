@@ -21,7 +21,6 @@ const tableData: TableData = [
   ],
 ]
 
-const path = 'services/components-config'
 const block = new PageGenerationHelper(__dirname)
 
 export const config: ApiDocsBlock[] = [

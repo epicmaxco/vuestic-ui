@@ -2,7 +2,6 @@ import { ApiDocsBlock } from '@/types/configTypes'
 import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import { npmScripts, componentFolderStructure } from './code-examples'
 
-const path = 'contribution/guide'
 const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [

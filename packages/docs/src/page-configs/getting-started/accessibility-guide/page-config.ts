@@ -1,7 +1,6 @@
 import { ApiDocsBlock } from '@/types/configTypes'
 import { PageGenerationHelper } from '@/helpers/DocsHelper'
 
-const path = 'getting-started/accessibility-guide'
 const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [

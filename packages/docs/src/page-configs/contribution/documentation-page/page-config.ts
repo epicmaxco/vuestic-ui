@@ -9,7 +9,6 @@ import {
   apiOptions,
 } from './code-examples'
 
-const path = 'contribution/documentation-page'
 const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [

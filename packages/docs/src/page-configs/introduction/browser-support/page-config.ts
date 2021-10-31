@@ -15,7 +15,6 @@ const tableData: TableData = [
   ['IE11/Safari 9', '-'],
 ]
 
-const path = 'introduction/browser-support'
 const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [

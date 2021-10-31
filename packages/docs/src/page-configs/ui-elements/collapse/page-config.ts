@@ -3,7 +3,6 @@ import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaCollapse from 'vuestic-ui/src/components/va-collapse/VaCollapse.vue'
 import apiOptions from './api-options'
 
-const path = 'ui-elements/collapse'
 const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [

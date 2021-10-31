@@ -15,7 +15,6 @@ import {
   listItemSectionApiOptions,
 } from './api-options'
 
-const path = 'ui-elements/list'
 const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [

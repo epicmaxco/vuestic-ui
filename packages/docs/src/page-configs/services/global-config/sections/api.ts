@@ -15,7 +15,6 @@ export const tableData: TableData = [
   ['colors', 'ColorsConfig', 'globalConfig.api.colors'],
 ]
 
-const path = 'services/global-config'
 const block = new PageGenerationHelper(__dirname)
 
 export const config: ApiDocsBlock[] = [
