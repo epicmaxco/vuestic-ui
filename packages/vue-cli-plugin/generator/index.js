@@ -18,7 +18,7 @@ const insertVuesticPlugin = (lines) => {
       if (line.match(/\.mount/) != null) {
         return line.replace('.mount', '.use(VuesticPlugin).mount')
       }
-      
+
       return line
     })
   }
@@ -30,7 +30,7 @@ module.exports = (api, options) => {
 
   api.extendPackage({
     dependencies: {
-      'vuestic-ui': '^1.1.1',
+      'vuestic-ui': '^1.3.1',
     },
   })
 
