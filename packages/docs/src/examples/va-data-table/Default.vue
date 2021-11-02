@@ -4,13 +4,8 @@
 
 <script>
 import { defineComponent } from 'vue'
-import VaDataTable from 'vuestic-ui/src/components/va-data-table'
 
 export default defineComponent({
-  components: {
-    VaDataTable,
-  },
-
   data () {
     const users = [
       {

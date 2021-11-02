@@ -1,5 +1,9 @@
 <template>
-  <va-inner-loading :loading="loading" :color="loadingColor">
+  <va-inner-loading
+    class="va-data-table__wrapper"
+    :loading="loading"
+    :color="loadingColor"
+  >
     <table
       class="va-data-table"
       :class="{
@@ -428,133 +432,140 @@ export default defineComponent({
 @import "./variables";
 // The calculated variables are taken from a respective element's `style` attribute. See the `useStyleable` hook
 
-.va-data-table {
-  width: 100%;
-  cursor: default;
+.va-data-table__wrapper {
+  overflow-x: auto;
+  min-width: unset;
 
-  .va-data-table__thead {
-    border-bottom: var(--va-data-table-thead-border);
-  }
+  .va-data-table {
+    width: 100%;
+    cursor: default;
+    white-space: nowrap;
 
-  .va-data-table__tbody {
-    .no-data {
-      text-align: var(--va-data-table-no-data-text-align);
-      vertical-align: var(--va-data-table-no-data-vertical-align);
-    }
-  }
-
-  .va-data-table__tfoot {
-    border-top: var(--va-data-table-thead-border);
-  }
-
-  .va-data-table__th {
-    padding: var(--va-data-table-cell-padding);
-    text-align: var(--align);
-    vertical-align: var(--vertical-align);
-    color: var(--va-data-table-thead-color);
-    font-size: var(--va-data-table-thead-font-size);
-    line-height: var(--va-data-table-thead-line-height);
-    font-weight: var(--va-data-table-thead-font-weight);
-    text-transform: var(--va-data-table-thead-text-transform);
-    letter-spacing: var(--va-data-table-thead-letter-spacing);
-    cursor: var(--cursor);
-
-    .va-data-table__th-wrapper {
-      display: flex;
-      align-items: center;
+    .va-data-table__thead {
+      border-bottom: var(--va-data-table-thead-border);
     }
 
-    .va-data-table__th-sorting {
-      justify-self: end;
-    }
-
-    .va-data-table__th-sorting-icon {
-      opacity: 0;
-      user-select: none;
-      pointer-events: none;
-
-      &.active {
-        opacity: 1;
-        pointer-events: initial;
+    .va-data-table__tbody {
+      .no-data {
+        text-align: var(--va-data-table-no-data-text-align);
+        vertical-align: var(--va-data-table-no-data-vertical-align);
       }
     }
 
-    span {
-      flex-grow: 1;
+    .va-data-table__tfoot {
+      border-top: var(--va-data-table-thead-border);
     }
 
-    &:hover {
-      .va-data-table__th-sorting-icon:not(.active) {
-        opacity: var(--va-data-table-hover-th-opacity);
+    .va-data-table__th {
+      padding: var(--va-data-table-cell-padding);
+      text-align: var(--align);
+      vertical-align: var(--vertical-align);
+      color: var(--va-data-table-thead-color);
+      font-size: var(--va-data-table-thead-font-size);
+      line-height: var(--va-data-table-thead-line-height);
+      font-weight: var(--va-data-table-thead-font-weight);
+      text-transform: var(--va-data-table-thead-text-transform);
+      letter-spacing: var(--va-data-table-thead-letter-spacing);
+      cursor: var(--cursor);
+
+      .va-data-table__th-wrapper {
+        display: flex;
+        align-items: center;
       }
-    }
-  }
 
-  .va-data-table__td {
-    padding: var(--va-data-table-cell-padding);
-    text-align: var(--align);
-    vertical-align: var(--vertical-align);
-  }
+      .va-data-table__th-sorting {
+        justify-self: end;
+      }
 
-  .va-data-table__tr {
-    &.selectable {
+      .va-data-table__th-sorting-icon {
+        opacity: 0;
+        user-select: none;
+        pointer-events: none;
+
+        &.active {
+          opacity: 1;
+          pointer-events: initial;
+        }
+      }
+
+      span {
+        flex-grow: 1;
+      }
+
       &:hover {
-        background-color: var(--hover-color);
-      }
-
-      &.selected:not(:hover) {
-        background-color: var(--selected-color);
-      }
-    }
-
-    &.table-transition-move {
-      transition: transform var(--va-data-table-transition);
-    }
-
-    &.table-transition-leave-active {
-      transition: opacity var(--va-data-table-transition);
-    }
-
-    &.table-transition-enter-active {
-      transition: opacity var(--va-data-table-transition) 0.3s;
-    }
-
-    &.table-transition-enter-from,
-    &.table-transition-leave-to {
-      opacity: 0;
-    }
-  }
-
-  &.striped {
-    .va-data-table__tbody {
-      .va-data-table__tr:nth-child(2n) {
-        background-color: var(--va-light-gray3);
-      }
-    }
-  }
-
-  &.hoverable:not(.selectable) {
-    .va-data-table__tbody {
-      .va-data-table__tr {
-        &:hover {
-          background-color: var(--hover-color);
+        .va-data-table__th-sorting-icon:not(.active) {
+          opacity: var(--va-data-table-hover-th-opacity);
         }
       }
     }
-  }
 
-  &.striped.selectable {
-    .va-data-table__tbody {
-      .va-data-table__tr:nth-child(2n) {
+    .va-data-table__td {
+      padding: var(--va-data-table-cell-padding);
+      text-align: var(--align);
+      vertical-align: var(--vertical-align);
+    }
+
+    .va-data-table__tr {
+      &.selectable {
         &:hover {
           background-color: var(--hover-color);
         }
 
-        &.selected {
+        &.selected:not(:hover) {
           background-color: var(--selected-color);
+        }
+      }
+
+      &.table-transition-move {
+        transition: transform var(--va-data-table-transition);
+      }
+
+      &.table-transition-leave-active {
+        transition: opacity var(--va-data-table-transition);
+      }
+
+      &.table-transition-enter-active {
+        transition: opacity var(--va-data-table-transition) 0.3s;
+      }
+
+      &.table-transition-enter-from,
+      &.table-transition-leave-to {
+        opacity: 0;
+      }
+    }
+
+    &.striped {
+      .va-data-table__tbody {
+        .va-data-table__tr:nth-child(2n) {
+          background-color: var(--va-light-gray3);
+        }
+      }
+    }
+
+    &.hoverable:not(.selectable) {
+      .va-data-table__tbody {
+        .va-data-table__tr {
+          &:hover {
+            background-color: var(--hover-color);
+          }
+        }
+      }
+    }
+
+    &.striped.selectable {
+      .va-data-table__tbody {
+        .va-data-table__tr:nth-child(2n) {
+          &:hover {
+            background-color: var(--hover-color);
+          }
+
+          &.selected {
+            background-color: var(--selected-color);
+          }
         }
       }
     }
   }
 }
+
 </style>
