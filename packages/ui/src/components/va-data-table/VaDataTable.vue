@@ -1,11 +1,11 @@
 <template>
   <va-inner-loading
-    class="va-data-table__wrapper"
+    class="va-data-table"
     :loading="loading"
     :color="loadingColor"
   >
     <table
-      class="va-data-table"
+      class="va-data-table__table"
       :class="{
         striped,
         selectable,
@@ -17,16 +17,16 @@
         <slot name="colgroup" v-bind="columnsModel" />
       </colgroup>
 
-      <thead class="va-data-table__thead">
+      <thead class="va-data-table__table-thead">
         <slot name="headerPrepend" />
 
         <tr
           v-if="!hideDefaultHeader"
-          class="va-data-table__tr"
+          class="va-data-table__table-tr"
         >
           <th
             v-if="selectable"
-            class="va-data-table__th"
+            class="va-data-table__table-th"
           >
             <va-checkbox
               v-if="selectMode === 'multiple'"
@@ -46,9 +46,9 @@
             :title="column.headerTitle"
             @click.exact="column.sortable ? toggleSorting(column): () => {}"
             :style="getHeaderCSSVariables(column)"
-            class="va-data-table__th"
+            class="va-data-table__table-th"
           >
-            <div class="va-data-table__th-wrapper">
+            <div class="va-data-table__table-th-wrapper">
               <span v-if="`header(${column.key})` in slots">
                 <slot :name="`header(${column.key})`" v-bind="column" />
               </span>
@@ -59,13 +59,13 @@
 
               <div
                 v-if="column.sortable"
-                class="va-data-table__th-sorting"
+                class="va-data-table__table-th-sorting"
                 @selectstart.prevent
               >
                 <va-icon
                   :name="sortingOrderProxy === 'asc' ? 'expand_less' : 'expand_more'"
                   size="small"
-                  class="va-data-table__th-sorting-icon"
+                  class="va-data-table__table-th-sorting-icon"
                   :class="{ active: sortByProxy === column.key && sortingOrderProxy !== null }"
                 />
               </div>
@@ -76,7 +76,7 @@
         <slot name="headerAppend" />
       </thead>
 
-      <tbody class="va-data-table__tbody">
+      <tbody class="va-data-table__table-tbody">
         <slot name="bodyPrepend" />
 
         <tr v-if="showNoDataHtml" key="showNoDataHtml">
@@ -102,7 +102,7 @@
           <tr
             v-for="(row, index) in rows"
             :key="row.initialIndex"
-            class="va-data-table__tr"
+            class="va-data-table__table-tr"
             :class="{
               selectable,
               hoverable,
@@ -113,7 +113,7 @@
             <template v-if="perPage ? (index >= perPage * (currentPage - 1)) && (index < perPage * currentPage) : true">
               <td
                 v-if="selectable"
-                class="va-data-table__td"
+                class="va-data-table__table-td"
                 @selectstart.prevent
               >
                 <va-checkbox
@@ -129,7 +129,7 @@
                 v-for="cell in row.cells"
                 :key="cell.column.key + cell.rowIndex"
                 :style="getCellCSSVariables(cell)"
-                class="va-data-table__td"
+                class="va-data-table__table-td"
               >
                 <slot
                   v-if="`cell(${cell.column.key})` in slots"
@@ -148,11 +148,11 @@
         <slot name="bodyAppend" />
       </tbody>
 
-      <tfoot v-if="footerClone" class="va-data-table__tfoot">
+      <tfoot v-if="footerClone" class="va-data-table__table-tfoot">
         <slot name="footerPrepend" />
 
-        <tr v-if="!hideDefaultHeader" class="va-data-table__tr">
-          <th v-if="selectable" class="va-data-table__th">
+        <tr v-if="!hideDefaultHeader" class="va-data-table__table-tr">
+          <th v-if="selectable" class="va-data-table__table-th">
             <va-checkbox
               v-if="selectMode === 'multiple'"
               :model-value="severalRowsSelected ? 'idl' : allRowsSelected"
@@ -171,9 +171,9 @@
             :title="column.headerTitle"
             @click.exact="allowFooterSorting && column.sortable ? toggleSorting(column) : () => {}"
             :style="getFooterCSSVariables(column)"
-            class="va-data-table__th"
+            class="va-data-table__table-th"
           >
-            <div class="va-data-table__th-wrapper">
+            <div class="va-data-table__table-th-wrapper">
               <span v-if="`footer(${column.key})` in slots">
                 <slot :name="`footer(${column.key})`" v-bind="column" />
               </span>
@@ -184,13 +184,13 @@
 
               <div
                 v-if="allowFooterSorting && column.sortable"
-                class="va-data-table__th-sorting"
+                class="va-data-table__table-th-sorting"
                 @selectstart.prevent
               >
                 <va-icon
                   :name="sortingOrderProxy === 'asc' ? 'expand_less' : 'expand_more'"
                   size="small"
-                  class="va-data-table__th-sorting-icon"
+                  class="va-data-table__table-th-sorting-icon"
                   :class="{ active: sortByProxy === column.key && sortingOrderProxy !== null }"
                 />
               </div>
@@ -432,31 +432,31 @@ export default defineComponent({
 @import "./variables";
 // The calculated variables are taken from a respective element's `style` attribute. See the `useStyleable` hook
 
-.va-data-table__wrapper {
+.va-data-table {
   overflow-x: auto;
   min-width: unset;
 
-  .va-data-table {
+  .va-data-table__table {
     width: 100%;
     cursor: default;
     white-space: nowrap;
 
-    .va-data-table__thead {
+    .va-data-table__table-thead {
       border-bottom: var(--va-data-table-thead-border);
     }
 
-    .va-data-table__tbody {
+    .va-data-table__table-tbody {
       .no-data {
         text-align: var(--va-data-table-no-data-text-align);
         vertical-align: var(--va-data-table-no-data-vertical-align);
       }
     }
 
-    .va-data-table__tfoot {
+    .va-data-table__table-tfoot {
       border-top: var(--va-data-table-thead-border);
     }
 
-    .va-data-table__th {
+    .va-data-table__table-th {
       padding: var(--va-data-table-cell-padding);
       text-align: var(--align);
       vertical-align: var(--vertical-align);
@@ -468,16 +468,17 @@ export default defineComponent({
       letter-spacing: var(--va-data-table-thead-letter-spacing);
       cursor: var(--cursor);
 
-      .va-data-table__th-wrapper {
+      .va-data-table__table-th-wrapper {
         display: flex;
         align-items: center;
       }
 
-      .va-data-table__th-sorting {
+      .va-data-table__table-th-sorting {
         justify-self: end;
+        line-height: 1;
       }
 
-      .va-data-table__th-sorting-icon {
+      .va-data-table__table-th-sorting-icon {
         opacity: 0;
         user-select: none;
         pointer-events: none;
@@ -493,19 +494,19 @@ export default defineComponent({
       }
 
       &:hover {
-        .va-data-table__th-sorting-icon:not(.active) {
+        .va-data-table__table-th-sorting-icon:not(.active) {
           opacity: var(--va-data-table-hover-th-opacity);
         }
       }
     }
 
-    .va-data-table__td {
+    .va-data-table__table-td {
       padding: var(--va-data-table-cell-padding);
       text-align: var(--align);
       vertical-align: var(--vertical-align);
     }
 
-    .va-data-table__tr {
+    .va-data-table__table-tr {
       &.selectable {
         &:hover {
           background-color: var(--hover-color);
@@ -535,16 +536,16 @@ export default defineComponent({
     }
 
     &.striped {
-      .va-data-table__tbody {
-        .va-data-table__tr:nth-child(2n) {
+      .va-data-table__table-tbody {
+        .va-data-table__table-tr:nth-child(2n) {
           background-color: var(--va-light-gray3);
         }
       }
     }
 
     &.hoverable:not(.selectable) {
-      .va-data-table__tbody {
-        .va-data-table__tr {
+      .va-data-table__table-tbody {
+        .va-data-table__table-tr {
           &:hover {
             background-color: var(--hover-color);
           }
@@ -553,8 +554,8 @@ export default defineComponent({
     }
 
     &.striped.selectable {
-      .va-data-table__tbody {
-        .va-data-table__tr:nth-child(2n) {
+      .va-data-table__table-tbody {
+        .va-data-table__table-tr:nth-child(2n) {
           &:hover {
             background-color: var(--hover-color);
           }
@@ -567,5 +568,4 @@ export default defineComponent({
     }
   }
 }
-
 </style>
