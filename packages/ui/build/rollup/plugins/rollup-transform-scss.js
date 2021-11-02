@@ -1,6 +1,9 @@
 import { readdirSync, existsSync, mkdirSync, writeFile } from 'fs'
 import { resolve, relative, dirname } from 'path'
 import sass from 'sass'
+import postcss from 'postcss'
+import postcssImport from '../postcss-plugins/postcss-import'
+import cssnano from 'cssnano'
 
 const readDirRecursive = (path) => {
   return readdirSync(path, { withFileTypes: true })
@@ -25,7 +28,7 @@ export default function ({
   filter,
 }) {
   return {
-    name: 'rollup-transofrm-scss',
+    name: 'rollup-transform-scss',
     closeBundle: async (err) => {
       if (err) { return }
 
@@ -38,16 +41,25 @@ export default function ({
       })
 
       await Promise.all(inputFiles.map((filePath, index) => {
-        return new Promise((resolve) => {
+        return new Promise((resolve, reject) => {
           const sassResult = sass.renderSync({ file: filePath })
 
-          if (sassResult.css.toString().length === 0) { return }
+          if (sassResult.css.length === 0) { return }
 
-          const outputFileDir = dirname(outputFiles[index])
+          // Resolve imports from node_modules with postcss
+          postcss()
+            .use(postcssImport())
+            .use(cssnano()) // Minify postcss result and remove comments
+            .process(sassResult.css, { from: filePath })
+            .then((result) => {
+              if (!result || result.content.length === 0) { return }
 
-          if (!existsSync(outputFileDir)) { mkdirSync(outputFileDir) }
+              const outputFileDir = dirname(outputFiles[index])
+              if (!existsSync(outputFileDir)) { mkdirSync(outputFileDir) }
 
-          writeFile(outputFiles[index], sassResult.css, () => resolve())
+              writeFile(outputFiles[index], result.content, () => resolve())
+            })
+            .catch((err) => reject(err))
         })
       }))
     },
