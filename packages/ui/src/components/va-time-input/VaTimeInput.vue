@@ -75,6 +75,9 @@ export default defineComponent({
       return format(modelValueSync.value)
     })
 
+    const timePickerProps = computed(() => filterComponentProps(props, extractComponentProps(VaTimePicker)))
+    const inputProps = computed(() => filterComponentProps(props, extractComponentProps(VaInput, ['rules', 'error', 'errorMessages'])))
+
     const onInputTextChanged = (val: string) => {
       const v = parse(val)
 
@@ -108,8 +111,8 @@ export default defineComponent({
     })
 
     return {
-      timePickerProps: filterComponentProps(props, extractComponentProps(VaTimePicker)),
-      inputProps: filterComponentProps(props, extractComponentProps(VaInput, ['rules', 'error', 'errorMessages'])),
+      timePickerProps,
+      inputProps,
       isOpenSync,
       modelValueSync,
       valueText,
