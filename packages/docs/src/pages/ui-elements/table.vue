@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component'
 import DocsContent from '../../components/DocsContent.vue'
-import tableConfig from '../../components/page-configs/styles/va-table/page-config'
+import tableConfig from '../../components/page-configs/ui-elements/va-table/page-config'
 
 @Options({
   name: 'DocsStylesTable',

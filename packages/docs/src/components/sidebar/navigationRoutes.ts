@@ -64,10 +64,6 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: 'menu.grid',
       },
       {
-        name: 'table',
-        displayName: 'menu.table',
-      },
-      {
         name: 'css-variables',
         displayName: 'menu.cssVariables',
       },
@@ -130,6 +126,10 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: 'modal',
         displayName: 'menu.modal',
+      },
+      {
+        name: 'table',
+        displayName: 'menu.table',
       },
       {
         name: 'data-table',
