@@ -1,8 +1,7 @@
 import VaToast from './VaToast'
 import { NotificationOptions } from './types'
-import { VNode, App, createVNode, render, cloneVNode } from 'vue'
+import { VNode, App, createVNode, render } from 'vue'
 
-const Z_INDEX = 100
 const GAP = 5
 let seed = 1
 
@@ -160,12 +159,11 @@ const createToastInstance = (customProps: NotificationOptions, app: App): VNode 
   const nodeProps = getNodeProps(vNode)
 
   if (el && vNode.el && nodeProps) {
-    document.body.appendChild(el)
+    document.body.appendChild(el.childNodes[0])
     const { offsetX, offsetY, position } = nodeProps
 
     vNode.el.style.display = 'flex'
     vNode.el.id = 'notification_' + seed
-    vNode.el.style.zIndex = Z_INDEX + ''
 
     let transformY = 0
     toastInstances.filter(item => {
