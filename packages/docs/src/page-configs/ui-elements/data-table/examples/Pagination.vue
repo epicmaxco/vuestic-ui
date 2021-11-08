@@ -15,12 +15,25 @@
       label="Current page"
       v-model="currentPage"
     />
+
+    <va-input
+      class="flex mb-2 md3"
+      placeholder="Filter..."
+      v-model="filter"
+    />
   </div>
 
   <va-data-table
     :items="items"
+    :columns="columns"
     :per-page="perPage"
     :current-page="currentPage"
+    :selectable="selectable"
+    :filter="filter"
+    :select-mode="selectMode"
+    v-model="selectedItems"
+    v-model:sort-by="sortBy"
+    v-model:sorting-order="sortingOrder"
   >
     <template #bodyAppend>
       <tr><td colspan="8" class="table-example--pagination">
@@ -82,10 +95,26 @@ export default defineComponent({
       },
     ]
 
+    const columns = [
+      { key: 'id', sortable: true },
+      { key: 'username', sortable: true },
+      { key: 'name', sortable: true },
+      { key: 'email', sortable: true },
+      { key: 'phone', sortable: true },
+      { key: 'website' },
+    ]
+
     return {
       items: users,
-      perPage: 2,
+      columns,
+      perPage: 3,
       currentPage: 1,
+      selectable: true,
+      selectedItems: [],
+      selectMode: 'multiple',
+      filter: '',
+      sortBy: 'username',
+      sortingOrder: 'asc',
     }
   },
 

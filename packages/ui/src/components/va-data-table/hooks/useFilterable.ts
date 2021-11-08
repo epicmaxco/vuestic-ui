@@ -14,7 +14,9 @@ export default function useFilterable (
   // the provided `filter` substring and return only those rows which do have at least one such cell (or use a custom
   // function if it's provided).
   const filteredRows = computed<TableRow[]>(() => {
-    if (filter.value === '') { return rows.value }
+    if (filter.value === '') {
+      return rows.value
+    }
 
     return rows.value.filter(row => {
       return row.cells.some(cell => {
@@ -25,7 +27,7 @@ export default function useFilterable (
     })
   })
 
-  watch(filteredRows, () => {
+  watch(() => filteredRows.value, () => {
     const filteredRowsSource = filteredRows.value.map(row => row.source)
     emit('filtered', filteredRowsSource)
   })

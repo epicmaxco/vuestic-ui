@@ -45,7 +45,7 @@ export default function useSelectable (
   })
 
   // watch for rows changes (happens when filtering is applied e.g.) and deselect all the rows that don't exist anymore
-  watch(rows, (newRows, oldRows) => {
+  watch(() => rows.value, (newRows, oldRows) => {
     const removedRows = oldRows.filter(oldRow => !newRows.includes(oldRow))
 
     selectedItemsProxy.value = selectedItemsProxy.value.filter(row => (
@@ -58,7 +58,7 @@ export default function useSelectable (
   })
 
   // emit the "selection-change" event each time the selection changes
-  watch(selectedItemsProxy, (currentlySelectedItems, previouslySelectedItems) => {
+  watch(() => selectedItemsProxy.value, (currentlySelectedItems, previouslySelectedItems) => {
     emit('selectionChange', {
       currentlySelectedItems,
       previouslySelectedItems,
