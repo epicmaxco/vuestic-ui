@@ -10,6 +10,7 @@ function getTargetElement (target: Element | string | null) {
     if (targetElement) {
       return targetElement
     }
+    return null
   }
 
   return target as Element

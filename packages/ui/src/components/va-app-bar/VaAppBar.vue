@@ -23,10 +23,10 @@ class VaAppBarProps {
   color = prop<string>({ type: String, default: undefined })
 }
 
-const CardPropsMixin = Vue.with(VaAppBarProps)
+const VaAppBarPropsMixin = Vue.with(VaAppBarProps)
 
 @Options({ name: 'VaAppBar' })
-export default class VaAppBar extends mixins(ColorMixin, CardPropsMixin) {
+export default class VaAppBar extends mixins(ColorMixin, VaAppBarPropsMixin) {
   isHidden = false
   doShowShadow = false
 

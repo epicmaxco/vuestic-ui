@@ -1020,7 +1020,8 @@
         "bottom": "Sets the component position to the bottom",
         "hideOnScroll": "Hides component when scrolling target",
         "shadowOnScroll": "Applies box-shadow to the component when scrolling target",
-        "shadowColor": "Sets color to the box-shadow"
+        "shadowColor": "Sets color to the box-shadow",
+        "target": "Target for scrolling"
       },
       "events": {},
       "methods": {},
@@ -2879,19 +2880,19 @@
       },
       "color": {
         "title": "Color",
-        "text": "You can set a background color of the component."
+        "text": "You can set a background color and gradient of the component with `color` and `gradient` props."
       },
       "bottom": {
         "title": "Bottom",
-        "text": "You can make app bar sit at the bottom of the screen."
+        "text": "You can make app bar sit at the bottom of the screen with `bottom` prop."
       },
       "hide": {
         "title": "Hide",
-        "text": "`hide-on-scroll` allows you to hide app bar when you scroll away."
+        "text": "`hide-on-scroll` allows you to hide app bar when you scroll away. You need to define `target`."
       },
       "shadow": {
         "title": "Shadow",
-        "text": "You can set a shadow."
+        "text": "You can set a shadow with `shadow-on-scroll` prop. You need to define `target`."
       }
     }
   },
