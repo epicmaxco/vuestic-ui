@@ -14,7 +14,7 @@ module.exports = pkg => {
       name: 'treeshakingOptions',
       message: 'Select features that you want to use',
       default: [
-        'grid', 'normalize'
+        'grid', 'normalize', 'typography'
       ],
       when: (answers) => answers.treeshaking,
       choices: [
