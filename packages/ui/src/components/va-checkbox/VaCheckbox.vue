@@ -31,6 +31,7 @@
           @focus="onFocus"
           @blur="onBlur($event)"
           class="va-checkbox__input"
+          @click.stop.prevent
           @keypress.prevent="toggleSelection()"
           :disabled="disabled"
           :indeterminate="indeterminate"
