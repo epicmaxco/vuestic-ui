@@ -1,55 +1,38 @@
-const insertVuesticPlugin = (lines) => {
-  /* Vue app stored in variable
-  const app = createApp(App)
-  ...
-  app.mount('#app')
-  */
-  const renderIndex = lines.findIndex(line => line.match(/app\.mount/))
+const fs = require('fs')
+const { EOL } = require('os')
 
-  if (renderIndex !== -1) {
-    lines[renderIndex - 1] += `\n\napp.use(VuesticPlugin);`
+const insertVuesticPlugin = require('./utils/insertPlugin')
+const configs = require('./configs')
+const executeIfFunction = require('./utils/executeIfFunction')
 
-    return lines
-  } else {
-    /* Vue app chained
-    createApp(App).mount('#app')
-    */
-    return lines.map((line) => {
-      if (line.match(/\.mount/) != null) {
-        return line.replace('.mount', '.use(VuesticPlugin).mount')
-      }
+const applyConfig = (api, config, answers) => {
+  if (config.extendPackage) {
+    api.extendPackage(executeIfFunction(config.extendPackage, answers)) 
+  }
+  
+  if (config.templatePath) { api.render(config.templatePath) }
 
-      return line
+  if (config.importStrings) {
+    api.injectImports(api.entryFile, executeIfFunction(config.importStrings, answers))
+  }
+
+  if (config.vueUse) {
+    api.afterInvoke(() => {
+      const contentMain = fs.readFileSync(api.entryFile, { encoding: 'utf-8' })
+      const lines = contentMain.split(/\r?\n/g)
+  
+      const linesWithVuesticPlugin = config.vueUse
+        .reduce((l, pluginName) => insertVuesticPlugin(l, pluginName), lines)
+        
+      fs.writeFileSync(api.resolve(api.entryFile), linesWithVuesticPlugin.join(EOL), { encoding: 'utf-8' })
     })
   }
 }
 
-module.exports = (api, options) => {
-  const fs = require('fs')
-  const { EOL } = require('os')
-
-  api.extendPackage({
-    dependencies: {
-      'vuestic-ui': '^1.3.1',
-    },
-  })
-
-  // Render fonts to index.html
-  api.render('./template')
-
-  // Add imports to main file
-  const importStrings = [
-  "import { VuesticPlugin } from 'vuestic-ui'",
-  "import 'vuestic-ui/dist/vuestic-ui.css'",
-  ]
-  api.injectImports(api.entryFile, importStrings)
-
-  api.afterInvoke(() => {
-    const contentMain = fs.readFileSync(api.entryFile, { encoding: 'utf-8' })
-    const lines = contentMain.split(/\r?\n/g)
-
-    const linesWithVuesticPlugin = insertVuesticPlugin(lines)
-
-    fs.writeFileSync(api.resolve(api.entryFile), linesWithVuesticPlugin.join(EOL), { encoding: 'utf-8' })
-  })
+module.exports = (api, answers) => {
+  if (answers.treeshaking) {
+    applyConfig(api, configs.treeShaking, answers)
+  } else {
+    applyConfig(api, configs.defaultConfig, answers)
+  }
 }
