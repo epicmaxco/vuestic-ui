@@ -52,11 +52,9 @@
     "colortranslator": "^1.7.1",
     "detect-browser": "^5.2.0",
     "element-resize-detector": "^1.2.1",
-    "flatpickr": "4.6.9",
     "lodash-es": "^4.17.21",
     "normalize.css": "^8.0.1",
-    "tslib": "^2.2.0",
-    "vue-flatpickr-component": "^9.0.3"
+    "tslib": "^2.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.3",
