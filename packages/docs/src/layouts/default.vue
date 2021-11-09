@@ -90,10 +90,14 @@ export default class DocsLayout extends Vue {
       }
     }
 
-    this.isSmallScreenDevice = window.innerWidth <= 575
+    const smScreenSize = 768
+
+    this.isSmallScreenDevice = window.innerWidth <= smScreenSize
 
     const onResizeDebounce = debounce(() => {
-      this.isSmallScreenDevice = window.innerWidth <= 575
+      this.isSmallScreenDevice = window.innerWidth <= smScreenSize
+
+      this.isSidebarVisible = !this.isSmallScreenDevice
     }, 500)
     window.addEventListener('resize', () => onResizeDebounce())
 

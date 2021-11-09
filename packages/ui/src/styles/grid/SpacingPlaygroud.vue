@@ -116,7 +116,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "../resources/resources.scss";
+@import "../resources";
 
 .spacing-playground {
   .playground-component {

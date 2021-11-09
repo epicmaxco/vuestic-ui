@@ -1,0 +1,9 @@
+@import "~@ag-grid-community/core/dist/styles/ag-grid.scss";
+@import "src/ag-theme-vuestic-mixin";
+
+// Including this file emits CSS for the Vuestic theme. If you want to extend the Vuestic theme,
+// @import ag-theme-vuestic-mixin.scss and @include ag-theme-vuestic($params) instead of using this file.
+
+.ag-theme-vuestic {
+  @include ag-theme-vuestic($ag-theme-vuestic-default-params);
+}

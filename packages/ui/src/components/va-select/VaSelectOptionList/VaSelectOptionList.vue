@@ -50,6 +50,7 @@ import { Options, prop, Vue, mixins } from 'vue-class-component'
 import { getHoverColor } from '../../../services/color-config/color-functions'
 import ColorMixin from '../../../services/color-config/ColorMixin'
 import VaIcon from '../../va-icon/'
+import { scrollToElement } from '../../../utils/scroll-to-element'
 
 class SelectOptionListProps {
   options = prop<any[]>({ type: Array, default: () => [] })
@@ -74,8 +75,8 @@ class SelectOptionListProps {
   multiple = prop<boolean>({ type: Boolean, default: false })
   search = prop<string>({ type: String, default: '' })
 
-  hoveredOption = prop<string | object>({
-    type: [String, Object],
+  hoveredOption = prop<string | number | object>({
+    type: [String, Number, Object],
     default: null,
   })
 
@@ -210,26 +211,21 @@ export default class VaSelectOptionList extends mixins(
   }
 
   scrollToOption (option: any) {
-    const optionElement: HTMLElement = this.itemRefs[(this.$props.getTrackBy as Function)(option)]
-    if (!optionElement) { return }
+    const element: HTMLElement = this.itemRefs[(this.$props.getTrackBy as Function)(option)]
 
-    // Scroll list to hinted option position
-    optionElement.scrollIntoView({
-      behavior: 'auto',
-      block: 'nearest',
-      inline: 'nearest',
-    })
+    scrollToElement(element)
   }
 
   public focus () {
     if (this.$refs.el) {
-      (this.$refs as any).el.focus()
+      // Prevent scroll since element in dropdown and it cause scrolling to page end.
+      (this.$refs as any).el.focus({ preventScroll: true })
     }
   }
 }
 </script>
 <style lang="scss">
-@import "../../../styles/resources/resources";
+@import "../../../styles/resources";
 @import 'variables';
 
 .va-select-option-list {
@@ -238,6 +234,9 @@ export default class VaSelectOptionList extends mixins(
   width: var(--va-select-option-list-width);
   list-style: var(--va-select-option-list-list-style);
   max-height: 200px;
+  overflow: auto;
+
+  @include va-scroll();
 
   &__option {
     cursor: var(--va-select-option-list-option-cursor);

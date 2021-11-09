@@ -82,7 +82,7 @@ export default class VaImage extends mixins(
 </script>
 
 <style lang="scss">
-@import "../../styles/resources/resources";
+@import "../../styles/resources";
 @import 'variables';
 
 .va-image {

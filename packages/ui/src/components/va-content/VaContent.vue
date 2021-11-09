@@ -11,9 +11,8 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../../styles/resources/resources';
-@import '../..//styles/global/typography';
-@import '../../styles/global/utility-global';
+@import '../../styles/resources';
+@import '../../styles/global';
 
 .va-content {
   line-height: $line-height;

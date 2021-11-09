@@ -77,7 +77,7 @@ export default class VaSidebar extends SidebarPropsMixin {
 </script>
 
 <style lang="scss">
-@import "../../styles/resources/resources";
+@import "../../styles/resources";
 @import 'variables';
 
 .va-sidebar {

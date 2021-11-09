@@ -64,23 +64,12 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: 'menu.grid',
       },
       {
-        name: 'table',
-        displayName: 'menu.table',
-      },
-      {
         name: 'css-variables',
         displayName: 'menu.cssVariables',
       },
       {
         name: 'typography',
         displayName: 'menu.typography',
-      },
-      {
-        name: 'ag-grid',
-        displayName: 'menu.agGrid',
-        meta: {
-          badge: 'wip',
-        },
       },
       // GENERATOR_ADD - styles
     ],
@@ -139,10 +128,14 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: 'menu.modal',
       },
       {
+        name: 'table',
+        displayName: 'menu.table',
+      },
+      {
         name: 'data-table',
         displayName: 'menu.dataTable',
         meta: {
-          badge: 'wip',
+          badge: 'new',
         },
       },
       {
@@ -193,13 +186,21 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: 'date-picker',
         displayName: 'menu.datePicker',
+      },
+      {
+        name: 'date-input',
+        displayName: 'menu.dateInput',
+      },
+      {
+        name: 'time-picker',
+        displayName: 'menu.timePicker',
         meta: {
           badge: 'new',
         },
       },
       {
-        name: 'date-input',
-        displayName: 'menu.dateInput',
+        name: 'time-input',
+        displayName: 'menu.timeInput',
         meta: {
           badge: 'new',
         },
@@ -361,6 +362,24 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: 'menu.colorsConfig',
       },
       // GENERATOR_ADD - services
+    ],
+  },
+  {
+    name: 'extensions',
+    displayName: 'menu.extensions',
+    meta: {
+      iconClass: 'vuestic-iconset-image',
+    },
+    disabled: true,
+    children: [
+      {
+        name: 'ag-grid',
+        displayName: 'menu.agGrid',
+        meta: {
+          badge: 'new',
+        },
+      },
+      // GENERATOR_ADD - extensions
     ],
   },
 ]

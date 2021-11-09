@@ -1,0 +1,118 @@
+//
+// See: https://github.com/ag-grid/ag-grid/blob/latest/community-modules/core/src/styles/ag-theme-base/sass/parts/_widgets.scss
+//
+@mixin ag-vuestic-theme-part-widgets {
+  input[class^=ag-]:not([type]),
+  input[class^=ag-][type=text],
+  input[class^=ag-][type=number],
+  input[class^=ag-][type=tel],
+  input[class^=ag-][type=date],
+  input[class^=ag-][type=datetime-local],
+  textarea[class^=ag-] {
+    background: var(--va-input-color);
+    padding: 0 9px;
+    font-family: ag-param(font-family);
+    border: 1px solid var(--va-input-color);
+
+    &:focus {
+      border: 1px solid var(--va-light-gray); // keyboard focus color
+    }
+  }
+
+  ////////////////////////////////////////
+  // Lists
+  ////////////////////////////////////////
+  .ag-list-item {
+    &.ag-active-item {
+      background-color: var(--va-light-gray2);
+    }
+  }
+
+  .ag-select-list-item {
+    padding-left: 12px;
+    padding-right: 12px;
+    cursor: pointer;
+  }
+
+  ////////////////////////////////////////
+  // Picker
+  ////////////////////////////////////////
+  .ag-select {
+    .ag-picker-field-wrapper {
+      cursor: pointer;
+      padding: 0 var(--va-input-content-horizontal-padding);
+      background: var(--va-input-color);
+      border: 1px solid var(--va-light-gray);
+      border-radius: var(--va-input-border-radius);
+    }
+
+    .ag-picker-field-display {
+      margin: 0;
+    }
+  }
+
+  ////////////////////////////////////////
+  // Radio
+  ////////////////////////////////////////
+  .ag-radio-button-input-wrapper {
+    $radio-size: 22px;
+
+    width: $radio-size;
+    height: $radio-size;
+
+    &::after {
+      font-size: $radio-size;
+      color: var(--va-lighter-gray);
+      line-height: $radio-size;
+    }
+
+    &.ag-checked::after {
+      font-size: $radio-size;
+      color: var(--va-vue-darkest-blue);
+    }
+  }
+
+  ////////////////////////////////////////
+  // Popup
+  ////////////////////////////////////////
+  .ag-popup-child {
+    padding: 0;
+    border-radius: var(--va-dropdown-content-border-radius);
+
+    &:not(.ag-tooltip-custom) {
+      box-shadow: var(--va-dropdown-content-box-shadow);
+    }
+
+    .ag-simple-filter-body-wrapper {
+      padding: var(--va-dropdown-content-padding);
+
+      input[class^=ag-]:not([type]),
+      input[class^=ag-][type=text],
+      input[class^=ag-][type=number],
+      input[class^=ag-][type=tel],
+      input[class^=ag-][type=date],
+      input[class^=ag-][type=datetime-local],
+      textarea[class^=ag-] {
+        height: ag-param(list-item-height);
+        padding: 0 12px;
+        border-radius: var(--va-input-border-radius);
+        border: 1px solid var(--va-input-color);
+      }
+    }
+  }
+  // add more space for radio section
+  .ag-filter-condition {
+    padding: 10px 0;
+  }
+
+  ////////////////////////////////////////
+  // Ghost Element (Drag and Drop)
+  ////////////////////////////////////////
+  &.ag-dnd-ghost {
+    box-shadow: var(--va-dropdown-content-box-shadow);
+  }
+
+  .ag-dnd-ghost-icon {
+    color: var(--va-vue-darkest-blue);
+  }
+}

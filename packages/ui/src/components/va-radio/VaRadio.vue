@@ -133,7 +133,7 @@ export default class VaRadio extends mixins(
 </script>
 
 <style lang="scss">
-@import '../../styles/resources/resources';
+@import '../../styles/resources';
 @import 'variables';
 
 .va-radio {

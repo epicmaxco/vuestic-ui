@@ -210,9 +210,24 @@
       "events": {},
       "methods": {},
       "slots": {}
+    },
+    "VaTimePicker": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaTimeInput": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
     }
   },
-  "menu": {},
+  "menu": {
+    "timePicker": "Time Picker",
+    "timeInput": "Time Input"
+  },
   "hover": {
     "title": "-- Here is the title --"
   },
@@ -333,6 +348,12 @@
     "title": "-- Here is the title --"
   },
   "uiElementGuide": {
+    "title": "-- Here is the title --"
+  },
+  "timePicker": {
+    "title": "-- Here is the title --"
+  },
+  "timeInput": {
     "title": "-- Here is the title --"
   }
 }

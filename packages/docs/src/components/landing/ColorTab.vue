@@ -113,7 +113,7 @@ export default class ColorTab extends Vue {
 </script>
 
 <style lang="scss">
-@import "../../../../ui/src/styles/resources/resources";
+@import "../../../../ui/src/styles/resources";
 
 .color-tab {
   cursor: pointer;

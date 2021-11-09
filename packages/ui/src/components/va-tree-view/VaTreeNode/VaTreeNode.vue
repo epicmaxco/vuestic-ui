@@ -85,7 +85,7 @@ export default class VaTreeNode extends mixins(
 </script>
 
 <style lang="scss">
-@import "../../../styles/resources/resources";
+@import "../../../styles/resources";
 @import 'variables.scss';
 
 .va-tree-node {
