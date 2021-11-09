@@ -10,8 +10,8 @@
   --va-modal-justify-content: center;
   --va-modal-overflow: hidden;
   --va-modal-outline: 0;
-  --va-modal-z-index: 99999;
-  --va-modal-container-z-index: 1050;
+  --va-modal-z-index: var(--va-z-index-teleport-overlay);
+  --va-modal-container-z-index: 100;
 
   /* Dialog */
   --va-modal-dialog-background: #ffffff;

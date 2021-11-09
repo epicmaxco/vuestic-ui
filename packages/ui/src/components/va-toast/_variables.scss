@@ -12,6 +12,7 @@
   --va-toast-box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
   --va-toast-transition: opacity 0.3s, transform 0.3s, left 0.3s, right 0.3s, top 0.4s, bottom 0.3s;
   --va-toast-overflow: hidden;
+  --va-toast-z-index: calc(var(--va-z-index-teleport-overlay) + 100);
 
   /* Group */
   --va-toast-group-margin-left: 13px;
