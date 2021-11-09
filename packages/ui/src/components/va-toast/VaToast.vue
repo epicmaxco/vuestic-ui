@@ -13,7 +13,7 @@
         <h2 v-if="title" class="va-toast__title" v-text="title"></h2>
 
         <div class="va-toast__content" v-show="message">
-          <p v-text="message"></p>
+          <p v-text="(typeof message === 'function') ? message() : message"></p>
         </div>
 
         <div class="va-toast__content" v-if="render">
@@ -33,7 +33,7 @@
 </template>
 
 <script lang="ts">
-import { h, watch } from 'vue'
+import { h } from 'vue'
 import { prop, mixins, Vue, Options } from 'vue-class-component'
 import VaIcon from '../va-icon/VaIcon.vue'
 
