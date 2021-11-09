@@ -17,7 +17,7 @@
     class="mb-2"
     @click="$vaToast.init({ render: getComponent })"
   >
-    HTML code inside
+    Message from render
   </va-button>
 </template>
 
