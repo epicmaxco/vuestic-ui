@@ -64,23 +64,12 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: 'menu.grid',
       },
       {
-        name: 'table',
-        displayName: 'menu.table',
-      },
-      {
         name: 'css-variables',
         displayName: 'menu.cssVariables',
       },
       {
         name: 'typography',
         displayName: 'menu.typography',
-      },
-      {
-        name: 'ag-grid',
-        displayName: 'menu.agGrid',
-        meta: {
-          badge: 'wip',
-        },
       },
       // GENERATOR_ADD - styles
     ],
@@ -137,6 +126,10 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: 'modal',
         displayName: 'menu.modal',
+      },
+      {
+        name: 'table',
+        displayName: 'menu.table',
       },
       {
         name: 'data-table',
@@ -369,6 +362,24 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: 'menu.colorsConfig',
       },
       // GENERATOR_ADD - services
+    ],
+  },
+  {
+    name: 'extensions',
+    displayName: 'menu.extensions',
+    meta: {
+      iconClass: 'vuestic-iconset-image',
+    },
+    disabled: true,
+    children: [
+      {
+        name: 'ag-grid',
+        displayName: 'menu.agGrid',
+        meta: {
+          badge: 'new',
+        },
+      },
+      // GENERATOR_ADD - extensions
     ],
   },
 ]

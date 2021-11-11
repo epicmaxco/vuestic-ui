@@ -185,6 +185,7 @@ export default class VaToast extends mixins(
   box-shadow: $toast-shadow;
   transition: opacity 0.3s, transform 0.3s, left 0.3s, right 0.3s, top 0.4s, bottom 0.3s;
   overflow: hidden;
+  z-index: var(--va-toast-z-index);
 
   &--multiline {
     min-height: 70px;

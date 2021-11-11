@@ -16,7 +16,8 @@
       </va-button>
       <va-content v-if="showCode || exampleOptions.forceShowCode">
         <DocsNavigation
-          :code="parsed.template"
+          :code="componentTemplate"
+          :config="exampleOptions.codesandboxConfig"
           :git-url="file"
         />
         <DocsCode
@@ -74,6 +75,7 @@ export default {
       return props.value
     })
     const component = shallowRef(null)
+    const componentTemplate = shallowRef(null)
 
     importComponent()
     importTemplate()
@@ -82,8 +84,8 @@ export default {
       component.value = (await readComponent(file.value)).default
     }
     async function importTemplate () {
-      const componentTemplate = (await readTemplate(file.value)).default
-      parse(componentTemplate)
+      componentTemplate.value = (await readTemplate(file.value)).default
+      parse(componentTemplate.value)
     }
     function parse (res) {
       parsed.template = parseTemplate('template', res)
@@ -101,6 +103,7 @@ export default {
       showCode,
       parsed,
       component,
+      componentTemplate,
       file,
     }
   },

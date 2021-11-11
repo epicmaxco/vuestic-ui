@@ -1,5 +1,7 @@
 // ----------------- Container ----------------------
 
+@use "sass:math";
+
 @mixin va-container {
   flex: 1 1 100%;
   margin: auto;
@@ -53,9 +55,9 @@
 }
 
 @mixin va-flex--size($portion) {
-  flex-basis: percentage($portion / $grid-columns);
+  flex-basis: percentage(math.div($portion, $grid-columns));
   flex-grow: 0;
-  max-width: percentage($portion / $grid-columns);
+  max-width: percentage(math.div($portion, $grid-columns));
 }
 
 @mixin va-flex--breakpoint($breakpoint) {
@@ -76,7 +78,7 @@
 
 @mixin va-flex--offset($portion) {
   // Offsets can only ever work in row layouts
-  margin-left: percentage($portion / $grid-columns);
+  margin-left: percentage(math.div($portion, $grid-columns));
 }
 
 // ----------------- Breakpoint helpers ----------------------

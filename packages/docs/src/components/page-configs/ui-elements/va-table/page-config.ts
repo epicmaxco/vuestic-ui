@@ -5,6 +5,10 @@ const config: ApiDocsBlock[] = [
   DocsHelper.title('table.title'),
   DocsHelper.paragraph('table.summaryText'),
 
+  DocsHelper.paragraph('table.otherTables.text'),
+  DocsHelper.link('table.otherTables.dataTable', '/ui-elements/data-table'),
+  DocsHelper.link('table.otherTables.agGrid', '/extensions/ag-grid'),
+
   DocsHelper.subtitle('all.examples'),
 
   DocsHelper.headline('table.examples.default.title'),

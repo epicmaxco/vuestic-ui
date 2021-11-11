@@ -50,6 +50,10 @@ export default {
       type: String,
       default: '',
     },
+    config: {
+      type: Object,
+      default: () => ({}),
+    },
     gitUrl: {
       type: String,
       default: '',
@@ -114,6 +118,16 @@ app.mount("#app");
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <div id="app"></div>`
 
+      const commonDeps = {
+        'core-js': '^3.6.5',
+        vue: '^3.0.0',
+        'vuestic-ui': `${packageUi.version}`,
+      }
+      const commonDevDeps = {
+        '@vue/cli-plugin-babel': '~4.5.0',
+        '@vue/cli-service': '~4.5.0',
+        '@vue/compiler-sfc': '^3.0.0',
+      }
       return getParameters({
         files: {
           'package.json': {
@@ -121,16 +135,8 @@ app.mount("#app");
               scripts: {
                 serve: 'vue-cli-service serve',
               },
-              dependencies: {
-                'core-js': '^3.6.5',
-                vue: '^3.0.0',
-                'vuestic-ui': `${packageUi.version}`,
-              },
-              devDependencies: {
-                '@vue/cli-plugin-babel': '~4.5.0',
-                '@vue/cli-service': '~4.5.0',
-                '@vue/compiler-sfc': '^3.0.0',
-              },
+              dependencies: Object.assign(commonDeps, this.config.dependencies),
+              devDependencies: Object.assign(commonDevDeps, this.config.devDependencies),
             },
           },
           'babel.config.js': {
