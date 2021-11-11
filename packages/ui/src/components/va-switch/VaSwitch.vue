@@ -1,5 +1,5 @@
 <template>
-  <va-input-wrapper
+  <VaMessageListWrapper
     class="va-switch"
     :class="computedClass"
     :disabled="$props.disabled"
@@ -25,8 +25,8 @@
           type="checkbox"
           role="switch"
           :aria-checked="isChecked"
-          :id="$props.id"
-          :name="$props.name"
+          :id="String($props.id)"
+          :name="String($props.name)"
           readonly
           :disabled="$props.disabled"
           v-on="SetupContext.keyboardFocusListeners"
@@ -69,7 +69,7 @@
         </slot>
       </div>
     </div>
-  </va-input-wrapper>
+  </VaMessageListWrapper>
 </template>
 
 <script lang="ts">
@@ -79,7 +79,7 @@ import ColorMixin from '../../services/color-config/ColorMixin'
 import { SelectableMixin } from '../../mixins/SelectableMixin/SelectableMixin'
 import { LoadingMixin } from '../../mixins/LoadingMixin/LoadingMixin'
 import { VaProgressCircle } from '../va-progress-bar'
-import { VaInputWrapper } from '../va-input'
+import { VaMessageListWrapper } from '../va-input'
 import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'
 
 class SwitchProps {
@@ -107,7 +107,7 @@ const SwitchPropsMixin = Vue.with(SwitchProps)
 
 @Options({
   name: 'VaSwitch',
-  components: { VaProgressCircle, VaInputWrapper },
+  components: { VaProgressCircle, VaMessageListWrapper },
   emits: ['focus', 'blur', 'update:modelValue'],
 })
 export default class VaSwitch extends mixins(

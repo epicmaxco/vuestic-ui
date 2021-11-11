@@ -34,7 +34,7 @@ export { default as VaHover } from '../components/va-hover'
 export { default as VaIcon } from '../components/va-icon'
 export { default as VaImage } from '../components/va-image'
 export { default as VaInnerLoading } from '../components/va-inner-loading'
-export { default as VaInput, VaInputWrapper } from '../components/va-input'
+export { default as VaInput } from '../components/va-input'
 export {
   default as VaList,
   VaListItem,

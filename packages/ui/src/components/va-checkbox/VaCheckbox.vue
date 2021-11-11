@@ -1,5 +1,5 @@
 <template>
-  <va-input-wrapper
+  <VaMessageListWrapper
     class="va-checkbox"
     :class="computedClass"
     :disabled="disabled"
@@ -22,8 +22,8 @@
       >
         <input
           ref="input"
-          :id="id"
-          :name="name"
+          :id="String(id)"
+          :name="String(name)"
           type="checkbox"
           role="checkbox"
           readonly
@@ -54,7 +54,7 @@
         </slot>
       </div>
     </div>
-  </va-input-wrapper>
+  </VaMessageListWrapper>
 </template>
 
 <script lang="ts">
@@ -63,7 +63,7 @@ import { Options, mixins, prop, setup, Vue } from 'vue-class-component'
 import ColorMixin from '../../services/color-config/ColorMixin'
 import { SelectableMixin } from '../../mixins/SelectableMixin/SelectableMixin'
 import VaIcon from '../va-icon/'
-import { VaInputWrapper } from '../va-input'
+import { VaMessageListWrapper } from '../va-input'
 import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'
 
 type ModelValue = boolean | boolean[] | string | Record<string, unknown>
@@ -83,7 +83,7 @@ const CheckboxPropsMixin = Vue.with(CheckboxProps)
 
 @Options({
   name: 'VaCheckbox',
-  components: { VaInputWrapper, VaIcon },
+  components: { VaMessageListWrapper, VaIcon },
 })
 export default class VaCheckbox extends mixins(
   ColorMixin,

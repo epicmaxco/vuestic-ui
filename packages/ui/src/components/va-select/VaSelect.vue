@@ -1,145 +1,139 @@
 <template>
-  <va-input-wrapper
-    :success="$props.success"
-    :messages="$props.messages"
-    :error="$props.error"
-    :error-messages="computedErrorMessages"
-    :style="{ width: $props.width }"
+  <va-dropdown
+    ref="dropdown"
+    v-model="showDropdownContentComputed"
+    :position="$props.position"
+    :disabled="$props.disabled"
+    :max-height="$props.maxHeight"
+    :fixed="$props.fixed"
+    :close-on-content-click="closeOnContentClick"
+    trigger="none"
+    class="va-select__dropdown va-select-dropdown"
+    keep-anchor-width
+    boundary-body
+    :stateful="false"
   >
-    <va-dropdown
-      ref="dropdown"
-      v-model="showDropdownContentComputed"
-      :position="$props.position"
-      :disabled="$props.disabled"
-      :max-height="$props.maxHeight"
-      :fixed="$props.fixed"
-      :close-on-content-click="closeOnContentClick"
-      trigger="none"
-      class="va-select__dropdown va-select-dropdown"
-      keep-anchor-width
-      boundary-body
-      :stateful="false"
-    >
-      <template #anchor>
-        <div
-          class="va-select"
-          ref="select"
-          :tabindex="tabIndexComputed"
-          @focus="focus"
-          @blur="blur"
-          @keydown.enter.stop.prevent="onSelectClick()"
-          @keydown.space.stop.prevent="onSelectClick()"
-          @click.prevent="onSelectClick()"
-        >
-          <!-- We show messages outside of dropdown to draw dropdown content under the input -->
-          <va-input
-            :model-value="valueComputedString"
-            :success="$props.success"
-            :error="computedError"
-            :clearable="showClearIcon"
-            :clearableIcon="$props.clearableIcon"
-            :color="$props.color"
-            :label="$props.label"
-            :placeholder="$props.placeholder"
-            :loading="$props.loading"
-            :disabled="$props.disabled"
-            :outline="$props.outline"
-            :bordered="$props.bordered"
-            :focused="isFocusedComputed"
-            :tabindex="-1"
-            readonly
-            @cleared="reset"
-          >
-            <template
-              v-if="$slots.prepend"
-              #prepend
-            >
-              <slot name="prepend" />
-            </template>
-
-            <template
-              v-if="$slots.append"
-              #append
-            >
-              <slot name="append" />
-            </template>
-
-            <template
-              v-if="$slots.prependInner"
-              #prependInner
-            >
-              <slot name="prependInner" />
-            </template>
-
-            <template #appendInner>
-              <div class="va-input__append">
-                <slot
-                  v-if="$slots.appendInner"
-                  name="appendInner"
-                />
-                <va-icon
-                  :color="colorComputed"
-                  :name="toggleIcon"
-                />
-              </div>
-            </template>
-
-            <template v-if="$slots.content" #content="{ value, focus }">
-              <slot name="content" v-bind="{ valueString: value, focus, value: valueComputed }" />
-            </template>
-          </va-input>
-        </div>
-      </template>
-
-      <!-- Stop propagation for enter keyup event, to prevent VaDropdown closing -->
-      <va-dropdown-content
-        class="va-select-dropdown__content"
-        @keyup.enter.stop
-        @keydown.esc.prevent="hideAndFocus"
-        @keydown.tab="hideDropdown"
+    <template #anchor>
+      <div
+        class="va-select"
+        ref="select"
+        :tabindex="tabIndexComputed"
+        @focus="focus"
+        @blur="blur"
+        @keydown.enter.stop.prevent="onSelectClick()"
+        @keydown.space.stop.prevent="onSelectClick()"
+        @click.prevent="onSelectClick()"
       >
+        <!-- We show messages outside of dropdown to draw dropdown content under the input -->
         <va-input
-          v-if="showSearchInput"
-          :id="$props.id"
-          ref="searchBar"
-          v-model="searchInput"
-          class="va-select__input"
-          placeholder="Search"
-          removable
-          :name="$props.name"
+          :model-value="valueComputedString"
+          :success="$props.success"
+          :error="computedError"
+          :clearable="showClearIcon"
+          :clearableIcon="$props.clearableIcon"
+          :color="$props.color"
+          :label="$props.label"
+          :placeholder="$props.placeholder"
+          :loading="$props.loading"
+          :disabled="$props.disabled"
+          :outline="$props.outline"
+          :bordered="$props.bordered"
+          :focused="isFocusedComputed"
+          :tabindex="-1"
+          :messages="$props.messages"
+          :error-messages="computedErrorMessages"
+          readonly
+          @cleared="reset"
+        >
+          <template
+            v-if="$slots.prepend"
+            #prepend
+          >
+            <slot name="prepend" />
+          </template>
+
+          <template
+            v-if="$slots.append"
+            #append
+          >
+            <slot name="append" />
+          </template>
+
+          <template
+            v-if="$slots.prependInner"
+            #prependInner
+          >
+            <slot name="prependInner" />
+          </template>
+
+          <template #appendInner>
+            <div class="va-input__append">
+              <slot
+                v-if="$slots.appendInner"
+                name="appendInner"
+              />
+              <va-icon
+                :color="colorComputed"
+                :name="toggleIcon"
+              />
+            </div>
+          </template>
+
+          <template v-if="$slots.content" #content="{ value, focus }">
+            <slot name="content" v-bind="{ valueString: value, focus, value: valueComputed }" />
+          </template>
+        </va-input>
+      </div>
+    </template>
+
+    <!-- Stop propagation for enter keyup event, to prevent VaDropdown closing -->
+    <va-dropdown-content
+      class="va-select-dropdown__content"
+      @keyup.enter.stop
+      @keydown.esc.prevent="hideAndFocus"
+      @keydown.tab="hideDropdown"
+    >
+      <va-input
+        v-if="showSearchInput"
+        :id="$props.id"
+        ref="searchBar"
+        v-model="searchInput"
+        class="va-select__input"
+        placeholder="Search"
+        removable
+        :name="$props.name"
+        :tabindex="tabindex + 1"
+        :bordered="true"
+        @keydown.up.stop.prevent="hoverPreviousOption()"
+        @keydown.left.stop.prevent="hoverPreviousOption()"
+        @keydown.down.stop.prevent="hoverNextOption()"
+        @keydown.right.stop.prevent="hoverNextOption()"
+        @keydown.enter.prevent="selectOrAddOption()"
+        @focus="hoveredOption = null"
+      />
+      <div class="va-select-dropdown__options-wrapper">
+        <va-select-option-list
+          ref="optionList"
+          v-model:hoveredOption="hoveredOption"
+          :style="{ maxHeight: $props.maxHeight }"
+          :options="filteredOptions"
+          :selected-value="valueComputed"
+          :get-selected-state="checkIsOptionSelected"
+          :get-text="getText"
+          :get-track-by="getTrackBy"
+          :search="searchInput"
+          :no-options-text="$props.noOptionsText"
+          :color="$props.color"
           :tabindex="tabindex + 1"
-          :bordered="true"
-          @keydown.up.stop.prevent="hoverPreviousOption()"
-          @keydown.left.stop.prevent="hoverPreviousOption()"
-          @keydown.down.stop.prevent="hoverNextOption()"
-          @keydown.right.stop.prevent="hoverNextOption()"
-          @keydown.enter.prevent="selectOrAddOption()"
-          @focus="hoveredOption = null"
+          @select-option="selectOption"
+          @no-previous-option-to-hover="focusSearchBar()"
+          @keydown.enter.stop.prevent="selectHoveredOption()"
+          @keydown.space.stop.prevent="selectHoveredOption()"
+          @keydown="onHintedSearch"
         />
-        <div class="va-select-dropdown__options-wrapper">
-          <va-select-option-list
-            ref="optionList"
-            v-model:hoveredOption="hoveredOption"
-            :style="{ maxHeight: $props.maxHeight }"
-            :options="filteredOptions"
-            :selected-value="valueComputed"
-            :get-selected-state="checkIsOptionSelected"
-            :get-text="getText"
-            :get-track-by="getTrackBy"
-            :search="searchInput"
-            :no-options-text="$props.noOptionsText"
-            :color="$props.color"
-            :tabindex="tabindex + 1"
-            @select-option="selectOption"
-            @no-previous-option-to-hover="focusSearchBar()"
-            @keydown.enter.stop.prevent="selectHoveredOption()"
-            @keydown.space.stop.prevent="selectHoveredOption()"
-            @keydown="onHintedSearch"
-          />
-        </div>
-      </va-dropdown-content>
-    </va-dropdown>
-  </va-input-wrapper>
+      </div>
+    </va-dropdown-content>
+  </va-dropdown>
 </template>
 
 <script lang="ts">
@@ -154,7 +148,7 @@ import { useMaxSelections, useMaxSelectionsProps } from '../../composables/useMa
 import { warn } from '../../services/utils'
 import VaDropdown, { VaDropdownContent } from '../va-dropdown'
 import VaIcon from '../va-icon'
-import VaInput, { VaInputWrapper } from '../va-input'
+import VaInput from '../va-input'
 
 import VaSelectOptionList from './VaSelectOptionList'
 
@@ -171,7 +165,6 @@ export default defineComponent({
     VaDropdown,
     VaDropdownContent,
     VaInput,
-    VaInputWrapper,
   },
   emits: ['update-search', 'update:modelValue', 'clear'],
   props: {
