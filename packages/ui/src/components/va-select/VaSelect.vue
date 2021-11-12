@@ -7,6 +7,7 @@
     :max-height="$props.maxHeight"
     :fixed="$props.fixed"
     :close-on-content-click="closeOnContentClick"
+    :close-on-anchor-click="$props.closeOnAnchorClick"
     trigger="none"
     class="va-select__dropdown va-select-dropdown"
     keep-anchor-width
@@ -223,6 +224,7 @@ export default defineComponent({
         return isOpenIconString && isCloseIconString
       },
     },
+    closeOnAnchorClick: { type: Boolean as PropType<boolean>, default: false },
 
     // Input style
     outline: { type: Boolean as PropType<boolean>, default: false },
