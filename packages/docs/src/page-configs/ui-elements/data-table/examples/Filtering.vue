@@ -15,6 +15,7 @@
 
   <va-data-table
     :items="items"
+    :columns="columns"
     :filter="filter"
     :filter-method="customFilteringFn"
     @filtered="filteredCount = $event.length"
@@ -76,8 +77,17 @@ export default defineComponent({
       },
     ]
 
+    const columns = [
+      { key: 'id', sortable: true },
+      { key: 'username', sortable: true },
+      { key: 'name', sortable: true },
+      { key: 'email', sortable: true },
+      { key: 'phone' },
+    ]
+
     return {
       items: users,
+      columns,
       filter: '',
       useCustomFilteringFn: false,
       filteredCount: users.length,

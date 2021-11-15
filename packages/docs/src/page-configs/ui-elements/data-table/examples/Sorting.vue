@@ -19,20 +19,21 @@
   <va-data-table
     :items="items"
     :columns="columns"
+    :hoverable="true"
     v-model:sort-by="sortBy"
     v-model:sorting-order="sortingOrder"
-    @sorted="sortedRows = $event.sortedRows.map(({ id }) => id)"
+    @sorted="sortedRows = $event.sortedRows.map(row => row.id)"
   />
 
   <va-alert class="mt-3" border="left">
     <span v-if="sortingOrder">
       Sorted items order (showing id):
-      <va-chip>{{sortedRows.join(' --> ')}}</va-chip>
-      <va-chip>{{sortingOrder}}</va-chip>
+      <va-chip>{{ sortedRows.join(' --> ') }}</va-chip>
+      <va-chip>{{ sortingOrder }}</va-chip>
     </span>
     <span v-else>
       Unsorted items order (showing id):
-      <va-chip>{{sortedRows.join(', ')}}</va-chip>
+      <va-chip>{{ sortedRows.join(', ') }}</va-chip>
     </span>
   </va-alert>
 </template>

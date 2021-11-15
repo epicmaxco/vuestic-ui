@@ -7,13 +7,13 @@ export type TSelectionChange = { currentlySelectedItems: ITableItem[], previousl
 export type TSelectableEmits = (event: TEmits, arg: ITableItem[] | TSelectionChange) => void
 
 export default function useSelectable (
-  rows: Ref<TableRow[]>,
+  sortedRows: Ref<TableRow[]>,
+  rawRows: Ref<TableRow[]>,
   selectedItems: Ref<ITableItem[] | undefined>,
   selectable: Ref<boolean>,
   selectMode: Ref<TSelectMode>,
   emit: TSelectableEmits,
 ) {
-  // the standard proxying approach to work with modeled data
   const selectedItemsFallback = ref([] as ITableItem[])
   const selectedItemsProxy = computed<ITableItem[]>({
     get () {
@@ -35,8 +35,10 @@ export default function useSelectable (
 
   const prevSelectedRowIndex = ref(-1)
 
-  // clear all the selected rows when the `select-mode`'s value changes from multiple to single (though it's safe enough
-  // to leave a selected item when changing from single to multiple
+  const getRowsSource = (rawIndexes: number[]) => rawIndexes.map(rowIndex => rawRows.value[rowIndex].source)
+
+  // clear all the selected rows when the `select-mode`'s value changes from multiple to single
+  // (though it's safe enough to leave a selected item when changing from single to multiple
   watch(selectMode, (newSelectMode, oldSelectMode) => {
     if (newSelectMode === 'single' && oldSelectMode === 'multiple') {
       unselectAllRows()
@@ -45,20 +47,21 @@ export default function useSelectable (
   })
 
   // watch for rows changes (happens when filtering is applied e.g.) and deselect all the rows that don't exist anymore
-  watch(() => rows.value, (newRows, oldRows) => {
-    const removedRows = oldRows.filter(oldRow => !newRows.includes(oldRow))
+  watch(sortedRows, (newSortedRows, oldSortedRows) => {
+    const removedRowsSource = oldSortedRows
+      .filter(oldRow => !newSortedRows.includes(oldRow))
+      .map(row => row.source)
 
-    selectedItemsProxy.value = selectedItemsProxy.value.filter(row => (
-      !removedRows.find(({ source }) => source === row)
-    ))
+    selectedItemsProxy.value = selectedItemsProxy.value.filter(row => !removedRowsSource.includes(row))
 
-    if (removedRows.find(row => row === oldRows[prevSelectedRowIndex.value]) && prevSelectedRowIndex.value !== -1) {
+    const prevSelectedRowSource = oldSortedRows[prevSelectedRowIndex.value]?.source
+    if (prevSelectedRowSource && removedRowsSource.includes(prevSelectedRowSource)) {
       setPrevSelectedRowIndex(-1)
     }
   })
 
   // emit the "selection-change" event each time the selection changes
-  watch(() => selectedItemsProxy.value, (currentlySelectedItems, previouslySelectedItems) => {
+  watch(selectedItemsProxy, (currentlySelectedItems, previouslySelectedItems) => {
     emit('selectionChange', {
       currentlySelectedItems,
       previouslySelectedItems,
@@ -72,15 +75,16 @@ export default function useSelectable (
 
   // exposed
   const severalRowsSelected = computed(() => {
-    return selectedItemsProxy.value.length > 0 && selectedItemsProxy.value.length < rows.value.length
+    return selectedItemsProxy.value.length > 0 && selectedItemsProxy.value.length < sortedRows.value.length
   })
 
   // exposed
   const allRowsSelected = computed(() => {
-    if (rows.value.length === 0) {
+    if (sortedRows.value.length === 0) {
       return false
     }
-    return selectedItemsProxy.value.length === rows.value.length
+
+    return selectedItemsProxy.value.length === sortedRows.value.length
   })
 
   // exposed
@@ -90,7 +94,7 @@ export default function useSelectable (
 
   // private
   function selectAllRows () {
-    selectedItemsProxy.value = rows.value.map(row => row.source)
+    selectedItemsProxy.value = sortedRows.value.map(row => row.source)
   }
 
   // private
@@ -110,7 +114,8 @@ export default function useSelectable (
 
   // private. The one calling this function must guarantee that the row is selected
   function unselectRow (row: TableRow) {
-    const index = selectedItemsProxy.value.findIndex(item => item === row.source)
+    const index = selectedItemsProxy.value.findIndex(selectedItem => selectedItem === row.source)
+
     selectedItemsProxy.value = [
       ...selectedItemsProxy.value.slice(0, index),
       ...selectedItemsProxy.value.slice(index + 1),
@@ -118,19 +123,21 @@ export default function useSelectable (
   }
 
   // private
-  function setPrevSelectedRowIndex (row: TableRow | -1) {
-    row === -1
+  function setPrevSelectedRowIndex (rowInitialIndex: number) {
+    rowInitialIndex === -1
       ? prevSelectedRowIndex.value = -1
-      : prevSelectedRowIndex.value = rows.value.indexOf(row)
+      : prevSelectedRowIndex.value = sortedRows.value.indexOf(rawRows.value[rowInitialIndex])
   }
 
   // private
   function getRowsToSelect (targetIndex: number) {
     let start
     let end
-    const prevSelectedIndex = (prevSelectedRowIndex.value === -1) ? 0 : prevSelectedRowIndex.value
 
-    if (prevSelectedRowIndex.value === -1 || isRowSelected(rows.value[prevSelectedIndex])) {
+    const prevSelectedIndex = (prevSelectedRowIndex.value === -1) ? 0 : prevSelectedRowIndex.value
+    const prevSelectedRow = sortedRows.value[prevSelectedIndex]
+
+    if (prevSelectedRowIndex.value === -1 || isRowSelected(prevSelectedRow)) {
       start = Math.min(prevSelectedIndex, targetIndex)
       end = Math.max(prevSelectedIndex, targetIndex)
     } else {
@@ -138,27 +145,31 @@ export default function useSelectable (
       end = Math.max(prevSelectedIndex - 1, targetIndex)
     }
 
-    return rows.value.slice(start, end + 1)
+    return sortedRows.value.slice(start, end + 1)
   }
 
   // private
   function mergeSelection (rowsToSelect: TableRow[]) {
+    const rowsToSelectSource = rowsToSelect.map(row => row.source)
+
     if (noRowsSelected.value) {
-      selectedItemsProxy.value = rowsToSelect.map(row => row.source)
+      selectedItemsProxy.value = rowsToSelectSource
       return
     }
 
-    const isInternalSelection = rowsToSelect.every(row => selectedItemsProxy.value.includes(row.source))
+    const isInternalSelection = rowsToSelectSource.every(rowSource => selectedItemsProxy.value.includes(rowSource))
+
     if (isInternalSelection) {
-      selectedItemsProxy.value = selectedItemsProxy.value
-        .filter(row => !rowsToSelect.find(({ source }) => source === row))
+      selectedItemsProxy.value = selectedItemsProxy.value.filter(row => !rowsToSelectSource.includes(row))
       return
     }
 
-    selectedItemsProxy.value = [...new Set([
-      ...selectedItemsProxy.value,
-      ...rowsToSelect.map(row => row.source),
-    ])]
+    selectedItemsProxy.value = [
+      ...new Set([
+        ...selectedItemsProxy.value,
+        ...rowsToSelectSource,
+      ]),
+    ]
   }
 
   // exposed
@@ -172,7 +183,7 @@ export default function useSelectable (
       setPrevSelectedRowIndex(-1)
     } else {
       selectOnlyRow(row)
-      setPrevSelectedRowIndex(row)
+      setPrevSelectedRowIndex(row.initialIndex)
     }
   }
 
@@ -189,12 +200,12 @@ export default function useSelectable (
     if (isRowSelected(row)) {
       selectedItemsProxy.value.length === 1
         ? setPrevSelectedRowIndex(-1)
-        : setPrevSelectedRowIndex(row)
+        : setPrevSelectedRowIndex(row.initialIndex)
 
       unselectRow(row)
     } else {
       selectRow(row)
-      setPrevSelectedRowIndex(row)
+      setPrevSelectedRowIndex(row.initialIndex)
     }
   }
 
@@ -208,10 +219,10 @@ export default function useSelectable (
       return toggleRowSelection(row)
     }
 
-    const targetIndex = rows.value.indexOf(row)
+    const targetIndex = sortedRows.value.indexOf(row)
     mergeSelection(getRowsToSelect(targetIndex))
 
-    setPrevSelectedRowIndex(row)
+    setPrevSelectedRowIndex(row.initialIndex)
   }
 
   // exposed

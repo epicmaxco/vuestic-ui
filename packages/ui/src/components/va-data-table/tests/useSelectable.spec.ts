@@ -5,14 +5,16 @@ import useSelectable, { TSelectMode, TSelectionChange } from '../hooks/useSelect
 const selectableCases: boolean[] = [true, false]
 const selectModes: TSelectMode[] = ['single', 'multiple']
 const events = ['update:modelValue', 'selectionChange']
-const rawRows: TableRow[] = [0, 1, 2, 3, 4, 5].map(item => ({
+const rowsIndexes: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+const rawRows: TableRow[] = rowsIndexes.map(item => ({
   source: { id: item, title: String(item) },
   initialIndex: item,
   cells: [],
 }))
 
 // base case arguments
-const rows = ref(rawRows.slice(0, 6))
+const rows = ref(rawRows.slice(0, 9))
+const sortedRows = ref(rawRows.slice(0, 6))
 const selectedItems: Ref<ITableItem[]> = ref([])
 const selectable = ref(selectableCases[0])
 const selectMode = ref(selectModes[1])
@@ -22,9 +24,9 @@ let emit = jest.fn()
 type TSources = number[] | 'all'
 const sources = (rowIndexes: TSources): ITableItem[] => {
   if (rowIndexes === 'all') {
-    return rows.value.map(row => row.source)
+    return sortedRows.value.map(row => row.source)
   }
-  return rowIndexes.map(i => rows.value[i].source)
+  return rowIndexes.map(i => sortedRows.value[i].source)
 }
 const selections = (current: TSources, previous: TSources): TSelectionChange => {
   return {
@@ -57,7 +59,7 @@ describe('useSelectable (vaDataTable hook)', () => {
   })
 
   it('noRowsSelected', async (done) => {
-    const { noRowsSelected } = useSelectable(rows, selectedItems, selectable, selectMode, emit)
+    const { noRowsSelected } = useSelectable(sortedRows, rows, selectedItems, selectable, selectMode, emit)
 
     expect(noRowsSelected.value).toBe(true)
 
@@ -69,7 +71,7 @@ describe('useSelectable (vaDataTable hook)', () => {
   })
 
   it('severalRowsSelected', async (done) => {
-    const { severalRowsSelected } = useSelectable(rows, selectedItems, selectable, selectMode, emit)
+    const { severalRowsSelected } = useSelectable(sortedRows, rows, selectedItems, selectable, selectMode, emit)
 
     expect(severalRowsSelected.value).toBe(false)
 
@@ -85,8 +87,8 @@ describe('useSelectable (vaDataTable hook)', () => {
   })
 
   it('allRowsSelected', async (done) => {
-    const rows = ref(rawRows.slice(0, 6))
-    const { allRowsSelected } = useSelectable(rows, selectedItems, selectable, selectMode, emit)
+    const sortedRows = ref(rawRows.slice(0, 6))
+    const { allRowsSelected } = useSelectable(sortedRows, rows, selectedItems, selectable, selectMode, emit)
 
     expect(allRowsSelected.value).toBe(false)
 
@@ -98,7 +100,7 @@ describe('useSelectable (vaDataTable hook)', () => {
     await expectSelectionChange(2, 'all', [0])
     expect(allRowsSelected.value).toBe(true)
 
-    rows.value = []
+    sortedRows.value = []
     await nextTick()
     expectUpdateModelValue(3, [])
     expect(allRowsSelected.value).toBe(false)
@@ -107,7 +109,7 @@ describe('useSelectable (vaDataTable hook)', () => {
   })
 
   it('isRowSelected', async (done) => {
-    const { isRowSelected } = useSelectable(rows, selectedItems, selectable, selectMode, emit)
+    const { isRowSelected } = useSelectable(sortedRows, rows, selectedItems, selectable, selectMode, emit)
     const targetRow = rows.value[0]
 
     expect(isRowSelected(targetRow)).toBe(false)
@@ -128,7 +130,7 @@ describe('useSelectable (vaDataTable hook)', () => {
   })
 
   it('toggleBulkSelection', async (done) => {
-    const { toggleBulkSelection } = useSelectable(rows, selectedItems, selectable, selectMode, emit)
+    const { toggleBulkSelection } = useSelectable(sortedRows, rows, selectedItems, selectable, selectMode, emit)
 
     toggleBulkSelection()
     expectUpdateModelValue(1, 'all')
@@ -151,7 +153,7 @@ describe('useSelectable (vaDataTable hook)', () => {
   describe('toggleRowSelection"', () => {
     it('selectable = false', async (done) => {
       const selectableFalse = ref(selectableCases[1])
-      const { toggleRowSelection } = useSelectable(rows, selectedItems, selectableFalse, selectMode, emit)
+      const { toggleRowSelection } = useSelectable(sortedRows, rows, selectedItems, selectableFalse, selectMode, emit)
 
       toggleRowSelection(rows.value[0])
       expect(emit).toHaveBeenCalledTimes(0)
@@ -160,7 +162,7 @@ describe('useSelectable (vaDataTable hook)', () => {
     })
 
     it('selectable = true', async (done) => {
-      const { toggleRowSelection } = useSelectable(rows, selectedItems, selectable, selectMode, emit)
+      const { toggleRowSelection } = useSelectable(sortedRows, rows, selectedItems, selectable, selectMode, emit)
       const targetRow = rows.value[0]
 
       toggleRowSelection(targetRow)
@@ -185,7 +187,7 @@ describe('useSelectable (vaDataTable hook)', () => {
   describe('ctrlSelectRow', () => {
     it('selectable = false', async (done) => {
       const selectableFalse = ref(selectableCases[1])
-      const { ctrlSelectRow } = useSelectable(rows, selectedItems, selectableFalse, selectMode, emit)
+      const { ctrlSelectRow } = useSelectable(sortedRows, rows, selectedItems, selectableFalse, selectMode, emit)
 
       ctrlSelectRow(rows.value[0])
       expect(emit).toHaveBeenCalledTimes(0)
@@ -195,7 +197,7 @@ describe('useSelectable (vaDataTable hook)', () => {
 
     it('selectMode = single', async (done) => {
       const singleSelectMode = ref(selectModes[0])
-      const { ctrlSelectRow } = useSelectable(rows, selectedItems, selectable, singleSelectMode, emit)
+      const { ctrlSelectRow } = useSelectable(sortedRows, rows, selectedItems, selectable, singleSelectMode, emit)
       const targetRow = rows.value[0]
 
       ctrlSelectRow(targetRow)
@@ -217,7 +219,7 @@ describe('useSelectable (vaDataTable hook)', () => {
     })
 
     it('selectMode = multiple', async (done) => {
-      const { ctrlSelectRow } = useSelectable(rows, selectedItems, selectable, selectMode, emit)
+      const { ctrlSelectRow } = useSelectable(sortedRows, rows, selectedItems, selectable, selectMode, emit)
       const targetRow = rows.value[0]
 
       ctrlSelectRow(targetRow)
@@ -242,7 +244,7 @@ describe('useSelectable (vaDataTable hook)', () => {
   describe('shiftSelectRows', () => {
     it('selectable = false', async (done) => {
       const selectableFalse = ref(selectableCases[1])
-      const { shiftSelectRows } = useSelectable(rows, selectedItems, selectableFalse, selectMode, emit)
+      const { shiftSelectRows } = useSelectable(sortedRows, rows, selectedItems, selectableFalse, selectMode, emit)
 
       shiftSelectRows(rows.value[0])
       expect(emit).toHaveBeenCalledTimes(0)
@@ -252,7 +254,7 @@ describe('useSelectable (vaDataTable hook)', () => {
 
     it('selectMode = single', async (done) => {
       const singleSelectMode = ref(selectModes[0])
-      const { shiftSelectRows } = useSelectable(rows, selectedItems, selectable, singleSelectMode, emit)
+      const { shiftSelectRows } = useSelectable(sortedRows, rows, selectedItems, selectable, singleSelectMode, emit)
       const targetRow = rows.value[0]
 
       shiftSelectRows(targetRow)
@@ -274,7 +276,7 @@ describe('useSelectable (vaDataTable hook)', () => {
     })
 
     it('selectMode = multiple', async (done) => {
-      const { shiftSelectRows } = useSelectable(rows, selectedItems, selectable, selectMode, emit)
+      const { shiftSelectRows } = useSelectable(sortedRows, rows, selectedItems, selectable, selectMode, emit)
 
       shiftSelectRows(rows.value[2]) // prevSelectedRowIndex: -1 ==> 2
       expectUpdateModelValue(1, [0, 1, 2])

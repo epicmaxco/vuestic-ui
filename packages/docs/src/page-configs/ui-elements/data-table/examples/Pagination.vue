@@ -5,7 +5,7 @@
       type="number"
       placeholder="Items..."
       label="Items per page"
-      v-model="perPage"
+      v-model.number="perPage"
     />
 
     <va-input
@@ -13,7 +13,7 @@
       type="number"
       placeholder="Page..."
       label="Current page"
-      v-model="currentPage"
+      v-model.number="currentPage"
     />
 
     <va-input
@@ -29,11 +29,9 @@
     :per-page="perPage"
     :current-page="currentPage"
     :selectable="selectable"
-    :filter="filter"
     :select-mode="selectMode"
-    v-model="selectedItems"
-    v-model:sort-by="sortBy"
-    v-model:sorting-order="sortingOrder"
+    :filter="filter"
+    @filtered="filtered = $event"
   >
     <template #bodyAppend>
       <tr><td colspan="8" class="table-example--pagination">
@@ -100,7 +98,7 @@ export default defineComponent({
       { key: 'username', sortable: true },
       { key: 'name', sortable: true },
       { key: 'email', sortable: true },
-      { key: 'phone', sortable: true },
+      { key: 'phone' },
       { key: 'website' },
     ]
 
@@ -110,19 +108,17 @@ export default defineComponent({
       perPage: 3,
       currentPage: 1,
       selectable: true,
-      selectedItems: [],
       selectMode: 'multiple',
       filter: '',
-      sortBy: 'username',
-      sortingOrder: 'asc',
+      filtered: users,
     }
   },
 
   computed: {
     pages () {
       return (this.perPage && this.perPage !== '0')
-        ? Math.ceil(this.items.length / this.perPage)
-        : this.items.length
+        ? Math.ceil(this.filtered.length / this.perPage)
+        : this.filtered.length
     },
   },
 })

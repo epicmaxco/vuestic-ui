@@ -104,18 +104,18 @@ export default defineComponent({
     const items = [
       {
         id: 1,
-        text: 'Some text',
-        target: 'Some prop',
+        text: 'Some text 1',
+        target: 'Some prop 1',
       },
       {
         id: 2,
-        text: 'Some text',
-        target: 'Some prop',
+        text: 'Some text 2',
+        target: 'Some prop 2',
       },
       {
         id: 3,
-        text: 'Some text',
-        target: 'Some prop',
+        text: 'Some text 3',
+        target: 'Some prop 3',
       },
     ]
 

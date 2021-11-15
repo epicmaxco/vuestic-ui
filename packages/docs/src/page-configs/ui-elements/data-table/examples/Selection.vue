@@ -111,6 +111,14 @@ export default defineComponent({
     }
   },
 
+  watch: {
+    selectable (value) {
+      if (!value) {
+        this.selectedItems = []
+      }
+    },
+  },
+
   methods: {
     unselectItem (item) {
       const index = this.selectedItems.indexOf(item)

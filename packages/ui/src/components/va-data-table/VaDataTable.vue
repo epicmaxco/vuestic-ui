@@ -79,70 +79,73 @@
       <tbody class="va-data-table__table-tbody">
         <slot name="bodyPrepend" />
 
-        <tr v-if="showNoDataHtml" key="showNoDataHtml">
-          <td
-            :colspan="columnsModel.length + (selectable ? 1 : 0)"
-            v-html="noDataHtml"
-            class="no-data"
-          />
-        </tr>
-
-        <tr v-if="showNoDataFilteredHtml" key="showNoDataFilteredHtml">
-          <td
-            :colspan="columnsModel.length + (selectable ? 1 : 0)"
-            v-html="noDataFilteredHtml"
-            class="no-data"
-          />
-        </tr>
-
         <transition-group
           :name="animated ? 'table-transition' : null"
           appear
         >
-          <tr
-            v-for="(row, index) in rows"
-            :key="row.initialIndex"
-            class="va-data-table__table-tr"
-            :class="{
-              selectable,
-              hoverable,
-              selected: isRowSelected(row),
-            }"
-            :style="rowCSSVariables"
-          >
-            <template v-if="perPage ? (index >= perPage * (currentPage - 1)) && (index < perPage * currentPage) : true">
-              <td
-                v-if="selectable"
-                class="va-data-table__table-td"
-                @selectstart.prevent
-              >
-                <va-checkbox
-                  :model-value="isRowSelected(row)"
-                  @click.shift.exact="shiftSelectRows(row)"
-                  @click.ctrl.exact="ctrlSelectRow(row)"
-                  @click.exact="ctrlSelectRow(row)"
-                  :color="selectedColor"
-                />
-              </td>
-
-              <td
-                v-for="cell in row.cells"
-                :key="cell.column.key + cell.rowIndex"
-                :style="getCellCSSVariables(cell)"
-                class="va-data-table__table-td"
-              >
-                <slot
-                  v-if="`cell(${cell.column.key})` in slots"
-                  :name="`cell(${cell.column.key})`"
-                  v-bind="cell"
-                />
-
-                <slot v-else name="cell" v-bind="cell">
-                  {{ cell.value }}
-                </slot>
-              </td>
-            </template>
+          <tr v-if="showNoDataHtml" key="showNoDataHtml">
+            <td
+              :colspan="columnsModel.length + (selectable ? 1 : 0)"
+              v-html="noDataHtml"
+              class="no-data"
+            />
           </tr>
+
+          <tr v-else-if="showNoDataFilteredHtml" key="showNoDataFilteredHtml">
+            <td
+              :colspan="columnsModel.length + (selectable ? 1 : 0)"
+              v-html="noDataFilteredHtml"
+              class="no-data"
+            />
+          </tr>
+
+          <template v-else>
+            <tr
+              v-for="(row, index) in rows"
+              :key="`table-row_${row.initialIndex}`"
+              class="va-data-table__table-tr"
+              :class="{
+                selectable,
+                hoverable,
+                selected: isRowSelected(row),
+              }"
+              :style="rowCSSVariables"
+            >
+              <template v-if="perPage ? (index >= perPage * (currentPage - 1)) && (index < perPage * currentPage) : true">
+                <td
+                  v-if="selectable"
+                  class="va-data-table__table-td"
+                  :key="`selectable_${row.initialIndex}`"
+                  @selectstart.prevent
+                >
+                  <va-checkbox
+                    :model-value="isRowSelected(row)"
+                    @click.shift.exact="shiftSelectRows(row)"
+                    @click.ctrl.exact="ctrlSelectRow(row)"
+                    @click.exact="ctrlSelectRow(row)"
+                    :color="selectedColor"
+                  />
+                </td>
+
+                <td
+                  v-for="cell in row.cells"
+                  :key="`table-cell_${cell.column.key + cell.rowIndex}`"
+                  :style="getCellCSSVariables(cell)"
+                  class="va-data-table__table-td"
+                >
+                  <slot
+                    v-if="`cell(${cell.column.key})` in slots"
+                    :name="`cell(${cell.column.key})`"
+                    v-bind="cell"
+                  />
+
+                  <slot v-else name="cell" v-bind="cell">
+                    {{ cell.value }}
+                  </slot>
+                </td>
+              </template>
+            </tr>
+          </template>
         </transition-group>
 
         <slot name="bodyAppend" />
@@ -205,7 +208,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, toRefs } from 'vue'
+import { computed, defineComponent, PropType, toRefs, watch, ref } from 'vue'
 import VaInnerLoading from '../va-inner-loading'
 import VaCheckbox from '../va-checkbox'
 import VaIcon from '../va-icon'
@@ -343,7 +346,7 @@ export default defineComponent({
     } = useColumns(rawColumns, rawItems)
 
     const {
-      rows: unfilteredRows,
+      rawRows,
     } = useRows(rawItems, columns)
 
     const {
@@ -352,8 +355,8 @@ export default defineComponent({
     } = toRefs(props)
 
     const {
-      filteredRows: rows,
-    } = useFilterable(unfilteredRows, filter, filterMethod, emit)
+      filteredRows,
+    } = useFilterable(rawRows, filter, filterMethod, emit)
 
     const {
       sortBy,
@@ -364,7 +367,8 @@ export default defineComponent({
       sortByProxy,
       sortingOrderProxy,
       toggleSorting,
-    } = useSortable(columns, rows, sortBy, sortingOrder, emit)
+      sortedRows,
+    } = useSortable(columns, filteredRows, sortBy, sortingOrder, emit)
 
     const {
       selectable,
@@ -380,7 +384,7 @@ export default defineComponent({
       isRowSelected,
       severalRowsSelected,
       allRowsSelected,
-    } = useSelectable(rows, modelValue, selectable, selectMode, emit)
+    } = useSelectable(sortedRows, rawRows, modelValue, selectable, selectMode, emit)
 
     const {
       hoverable,
@@ -400,13 +404,13 @@ export default defineComponent({
     })
 
     const showNoDataFilteredHtml = computed(() => {
-      return rows.value.length < 1
+      return filteredRows.value.length < 1
     })
 
     return {
       slots,
       columnsModel: columns,
-      rows,
+      rows: sortedRows,
       toggleRowSelection,
       ctrlSelectRow,
       shiftSelectRows,
@@ -434,6 +438,7 @@ export default defineComponent({
 
 .va-data-table {
   overflow-x: auto;
+  overflow-y: hidden;
   min-width: unset;
   font-family: var(--va-font-family);
 
