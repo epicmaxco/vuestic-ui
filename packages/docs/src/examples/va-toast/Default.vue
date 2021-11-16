@@ -14,10 +14,20 @@
   </va-button>
 
   <va-button
-    class="mb-2"
+    class="mr-2 mb-2"
     @click="$vaToast.init({ render: getComponent })"
   >
     Message from render
+  </va-button>
+
+  <va-button
+    class="mb-2"
+    @click="$vaToast.init({
+      message: '<em>Message</em> <span style=\'color: red\'>from</span> <strong>HTML</strong>',
+      html: true,
+    })"
+  >
+    Message from html
   </va-button>
 </template>
 

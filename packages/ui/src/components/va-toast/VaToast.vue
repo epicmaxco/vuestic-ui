@@ -13,7 +13,8 @@
         <h2 v-if="title" class="va-toast__title" v-text="title"></h2>
 
         <div class="va-toast__content" v-show="message">
-          <p v-text="(typeof message === 'function') ? message() : message"></p>
+          <p v-if="html" v-html="computedMessage"></p>
+          <p v-else v-text="computedMessage"></p>
         </div>
 
         <div class="va-toast__content" v-if="render">
@@ -45,6 +46,7 @@ class ToastProps {
   offsetY = prop<number>({ type: Number, default: 16 })
   offsetX = prop<number>({ type: Number, default: 16 })
   message = prop<string | Function>({ type: [String, Function] as any, default: '' })
+  html = prop<boolean>({ type: Boolean, default: false })
   icon = prop<string>({ type: String, default: 'close' })
   customClass = prop<string>({ type: String, default: '' })
   duration = prop<number>({ type: Number, default: 5000 })
@@ -110,6 +112,10 @@ export default class VaToast extends mixins(
       [this.positionX]: `${this.offsetX}px`,
       backgroundColor: this.colorComputed,
     }
+  }
+
+  get computedMessage () {
+    return (typeof this.message === 'function') ? this.message() : this.message
   }
 
   destroyElement () {
