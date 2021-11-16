@@ -102,6 +102,10 @@ export default defineComponent({
 
   methods: {
     filterExact (source) {
+      if (this.filter === '') {
+        return true
+      }
+
       return source?.toString?.() === this.filter
     },
   },

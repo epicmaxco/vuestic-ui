@@ -56,7 +56,7 @@ export default function useSortable (
   // sorts by string-value of a given row's cell (depending on by which column the table is sorted) if no sortingFn is
   // provided. Otherwise uses that very sortingFn. If sortingOrder is `null` then restores the initial sorting order of
   // the rows.
-  function getSorted (): TableRow[] {
+  const sortedRows = computed(() => {
     const column = columns.value.find(column => column.key === sortByProxy.value)
 
     if (!column || !column.sortable) {
@@ -83,21 +83,17 @@ export default function useSortable (
         )
       }
     })
-  }
-
-  const sortedRows = ref(getSorted())
+  })
 
   // sort each time the sortBy or sortingOrder is changed (and also initially). Also if columns definitions are changed
   // (because that potentially means that the user runtime-introduced a custom sorting function for a specific column)
-  watch([sortByProxy, sortingOrderProxy, filteredRows, columns], () => {
-    sortedRows.value = getSorted()
-
+  watch(sortedRows, () => {
     emit('sorted', {
       sortBy: sortByProxy.value,
       sortingOrder: sortingOrderProxy.value,
       sortedRows: sortedRows.value.map(row => row.source),
     })
-  })
+  }, { immediate: true })
 
   // a function to invoke when a heading of the table is clicked.
   // Sets the clicked heading's column as a one to sort by and toggles the sorting order from "asc" to "desc" to `null`

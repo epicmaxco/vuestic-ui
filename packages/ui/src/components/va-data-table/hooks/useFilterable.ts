@@ -11,7 +11,7 @@ export default function useFilterable (
   emit: TFilterableEmits,
 ) {
   const filteredRows = computed<TableRow[]>(() => {
-    if (filter.value === '') {
+    if (filter.value === '' && !filterMethod.value) {
       return rawRows.value
     }
 
@@ -25,7 +25,7 @@ export default function useFilterable (
   watch(filteredRows, () => {
     const filteredRowsSource = filteredRows.value.map(row => row.source)
     emit('filtered', filteredRowsSource)
-  })
+  }, { immediate: true })
 
   return {
     filteredRows,

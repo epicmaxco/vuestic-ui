@@ -35,8 +35,6 @@ export default function useSelectable (
 
   const prevSelectedRowIndex = ref(-1)
 
-  const getRowsSource = (rawIndexes: number[]) => rawIndexes.map(rowIndex => rawRows.value[rowIndex].source)
-
   // clear all the selected rows when the `select-mode`'s value changes from multiple to single
   // (though it's safe enough to leave a selected item when changing from single to multiple
   watch(selectMode, (newSelectMode, oldSelectMode) => {
