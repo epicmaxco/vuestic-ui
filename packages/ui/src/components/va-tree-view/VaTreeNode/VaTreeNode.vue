@@ -91,6 +91,7 @@ export default class VaTreeNode extends mixins(
 .va-tree-node {
   display: var(--va-tree-node-display);
   align-items: var(--va-tree-node-align-items);
+  font-family: var(--va-font-family);
 
   .form-group {
     margin-bottom: 0;
@@ -108,6 +109,7 @@ export default class VaTreeNode extends mixins(
     flex-grow: var(--va-tree-node-label-flex-grow);
     word-wrap: var(--va-tree-node-label-word-wrap);
     overflow: var(--va-tree-node-label-overflow);
+    line-height: var(--va-tree-node-label-line-height);
   }
 
   &--highlighted #{&}__label {

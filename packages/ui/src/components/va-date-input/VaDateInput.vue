@@ -177,21 +177,22 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  .va-date-input {
-    display: flex;
+.va-date-input {
+  display: flex;
+  font-family: var(--va-font-family);
 
-    &__icon {
-      cursor: pointer;
-    }
-
-    &__input.va-input_readonly {
-      cursor: pointer;
-    }
-
-    --va-date-picker-cell-size: 28px;
-
-    .va-dropdown {
-      width: 100%;
-    }
+  &__icon {
+    cursor: pointer;
   }
+
+  &__input.va-input_readonly {
+    cursor: pointer;
+  }
+
+  --va-date-picker-cell-size: 28px;
+
+  .va-dropdown {
+    width: 100%;
+  }
+}
 </style>

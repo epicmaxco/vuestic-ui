@@ -246,7 +246,7 @@ export default class VaButton extends mixins(
 
 <style lang='scss'>
 @import '../../styles/resources';
-@import "variables";
+@import 'variables';
 
 .va-button {
   display: var(--va-button-display);
@@ -256,7 +256,7 @@ export default class VaButton extends mixins(
   box-shadow: var(--va-button-box-shadow, var(--va-control-box-shadow));
   outline: var(--va-button-outline);
   border: var(--va-button-border, var(--va-control-border));
-  font-family: var(--va-button-font-family, var(--va-font-family));
+  font-family: var(--va-font-family);
   text-decoration: none !important;
   text-transform: initial;
   cursor: pointer;

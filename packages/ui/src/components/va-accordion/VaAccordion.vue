@@ -81,5 +81,6 @@ export default defineComponent({
 
 <style lang="scss">
 .va-accordion {
+  font-family: var(--va-font-family);
 }
 </style>

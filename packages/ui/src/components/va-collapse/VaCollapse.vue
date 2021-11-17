@@ -240,6 +240,7 @@ export default class VaCollapse extends mixins(
 
 .va-collapse {
   transition: var(--va-collapse-transition, var(--va-swing-transition));
+  font-family: var(--va-font-family);
 
   &__body {
     transition: var(--va-collapse-body-transition);

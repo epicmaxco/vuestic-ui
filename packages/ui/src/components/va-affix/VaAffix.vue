@@ -177,13 +177,14 @@ export default class VaAffix extends mixins(
 </script>
 
 <style lang="scss">
-@import '../../styles/resources';
 @import 'variables';
 
 .va-affix {
+  font-family: var(--va-font-family);
+
   &--affixed {
     position: var(--va-affix-affixed-position);
-    z-index: var(--va-affix-affixed-zindex);
+    z-index: var(--va-affix-affixed-z-index);
   }
 }
 </style>

@@ -176,6 +176,7 @@ export default defineComponent({
 
 .va-file-upload {
   position: var(--va-file-upload-position);
+  font-family: var(--va-font-family);
 
   &--dropzone {
     background-color: var(--va-file-upload-dropzone-background-color);
@@ -217,7 +218,7 @@ export default defineComponent({
 
     &__button {
       margin: var(--va-file-upload-dropzone-field-button-margin);
-      z-index: var(--va-file-upload-dropzone-field-button-zindex);
+      z-index: var(--va-file-upload-dropzone-field-button-z-index);
     }
 
     &__text {

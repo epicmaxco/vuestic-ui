@@ -405,6 +405,7 @@ export default class VaTabs extends mixins(
 
 .va-tabs {
   position: var(--va-tabs-position);
+  font-family: var(--va-font-family);
 
   &__wrapper {
     overflow: hidden;

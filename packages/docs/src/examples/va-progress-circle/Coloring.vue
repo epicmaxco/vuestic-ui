@@ -6,8 +6,8 @@
     />
     <br />
     <va-progress-circle
-      :modelValue="65"
-      color="purple"
+      :modelValue="85"
+      color="#a1a1a1"
     />
   </div>
 </template>

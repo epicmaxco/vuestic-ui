@@ -103,6 +103,7 @@ export default class VaAppBar extends mixins(ColorMixin, CardPropsMixin) {
   height: var(--va-app-bar-height);
   min-height: var(--va-app-bar-height);
   min-width: 100%;
+  font-family: var(--va-font-family);
 
   &--bottom {
     top: 100%;

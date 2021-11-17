@@ -175,13 +175,13 @@ export default {
 </script>
 
 <style lang="scss">
-@import "../../styles/resources";
 @import 'variables';
 
 .va-scrollbar {
   background: var(--va-scrollbar-background);
   transition: var(--va-scrollbar-transition);
   position: var(--va-scrollbar-position);
+  font-family: var(--va-font-family);
 
   .scrollbar-wrapper {
     border-radius: var(--va-scrollbar-wrapper-border-radius);

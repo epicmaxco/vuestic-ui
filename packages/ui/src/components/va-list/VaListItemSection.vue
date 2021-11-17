@@ -34,11 +34,11 @@ export default class VaListItemSection extends mixins(
 </script>
 
 <style lang="scss">
-@import "../../styles/resources";
 @import 'variables';
 
 .va-list-item-section {
   display: flex;
+  font-family: var(--va-font-family);
 
   &--main {
     min-width: 0; // for ellipsis to work correctly

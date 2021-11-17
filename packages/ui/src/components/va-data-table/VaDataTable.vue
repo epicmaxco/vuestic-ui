@@ -429,12 +429,13 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "./variables";
+@import 'variables';
 // The calculated variables are taken from a respective element's `style` attribute. See the `useStyleable` hook
 
 .va-data-table {
   overflow-x: auto;
   min-width: unset;
+  font-family: var(--va-font-family);
 
   .va-data-table__table {
     width: 100%;

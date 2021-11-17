@@ -115,6 +115,7 @@ export default class VaBreadcrumbs extends mixins(
   display: var(--va-breadcrumbs-display);
   width: var(--va-breadcrumbs-width);
   justify-content: var(--va-breadcrumbs-justify-content);
+  font-family: var(--va-font-family);
 
   &__item {
     display: var(--va-breadcrumbs-item-display);

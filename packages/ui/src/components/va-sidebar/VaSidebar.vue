@@ -88,6 +88,7 @@ export default class VaSidebar extends SidebarPropsMixin {
   left: var(--va-sidebar-left);
   transition: var(--va-sidebar-transition);
   z-index: var(--va-sidebar-z-index);
+  font-family: var(--va-font-family);
 
   &__menu {
     max-height: var(--va-sidebar-menu-max-height);

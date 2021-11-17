@@ -20,8 +20,8 @@ export const useFormPropsWithId = {
 
 export const useForm = (props: UseFormProps) => {
   /**
-   * Create readonly and disabled BEM modificators.
-   * @returns Object with classes which starts with `prefix` and ends with form state BEM modificator.
+   * Create readonly and disabled BEM modifiers.
+   * @returns Object with classes which starts with `prefix` and ends with form state BEM modifier.
    */
   const createComputedClass = <Prefix extends string>(prefix: Prefix) => computed(() => ({
     [`${prefix}--disabled`]: props.disabled,
@@ -29,8 +29,8 @@ export const useForm = (props: UseFormProps) => {
   }) as Record<`${Prefix}--disabled` | `${Prefix}--readonly`, boolean>)
 
   /**
-   * Create readonly and disabled BEM modificators.
-   * @returns Object with classes which starts with `prefix` and ends with form state BEM modificator.
+   * Create readonly and disabled BEM modifiers.
+   * @returns Object with classes which starts with `prefix` and ends with form state BEM modifier.
    */
   const createComputedClassArray = <Prefix extends string>(prefix: Prefix) => computed(() => (
     [props.disabled && `${prefix}--disabled`, props.readonly && `${prefix}--readonly`]

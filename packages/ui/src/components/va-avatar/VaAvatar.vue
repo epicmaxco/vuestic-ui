@@ -79,6 +79,7 @@ export default class VaAvatar extends mixins(
   text-align: var(--va-avatar-text-align);
   vertical-align: var(--va-avatar-vertical-align);
   border-radius: var(--va-avatar-border-radius);
+  font-family: var(--va-font-family);
 
   img,
   svg {

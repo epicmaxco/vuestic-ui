@@ -155,6 +155,8 @@ export default class VaTreeCategory extends mixins(
 @import 'variables';
 
 .va-tree-category {
+  font-family: var(--va-font-family);
+
   &__header {
     cursor: var(--va-tree-category-header-cursor);
     display: var(--va-tree-category-header-display);
@@ -190,6 +192,7 @@ export default class VaTreeCategory extends mixins(
   &__header-label {
     word-wrap: var(--va-tree-category-header-label-word-wrap);
     overflow: var(--va-tree-category-header-label-overflow);
+    line-height: var(--va-tree-category-header-label-line-height);
   }
 
   &__list-container {

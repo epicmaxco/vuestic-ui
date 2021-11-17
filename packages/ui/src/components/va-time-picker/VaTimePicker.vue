@@ -26,7 +26,7 @@ export default defineComponent({
     modelValue: { type: Date, required: false },
     ampm: { type: Boolean, default: false },
     hidePeriodSwitch: { type: Boolean, default: false },
-    // Update model value when switching period authomaticly.
+    // Update model value when switching period automatically.
     periodUpdatesModelValue: { type: Boolean, default: true },
     view: { type: String as PropType<'hours' | 'minutes' | 'seconds'>, default: 'minutes' },
     hoursFilter: { type: Function as PropType<(h: number) => boolean> },
@@ -64,7 +64,7 @@ export default defineComponent({
       position: absolute;
       height: 100%;
       width: 100%;
-      z-index: 999;
+      z-index: 1;
     }
   }
 
@@ -73,6 +73,7 @@ export default defineComponent({
     justify-content: center;
     overflow: hidden;
     height: var(--va-time-picker-height);
+    font-family: var(--va-font-family);
 
     &--readonly {
       @include after-overlay();
