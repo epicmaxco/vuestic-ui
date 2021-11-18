@@ -63,5 +63,6 @@ export default class VaTreeRoot extends mixins(ColorMixin) {
 
 .va-tree-root {
   padding: var(--va-tree-root-padding);
+  font-family: var(--va-font-family);
 }
 </style>

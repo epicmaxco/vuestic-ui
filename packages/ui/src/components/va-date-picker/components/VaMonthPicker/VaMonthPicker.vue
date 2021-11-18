@@ -110,7 +110,6 @@ export default defineComponent({
 
   &__month {
     color: var(--va-secondary);
-    font-family: Source Sans Pro;
     font-style: normal;
     font-weight: bold;
     font-size: 12px;

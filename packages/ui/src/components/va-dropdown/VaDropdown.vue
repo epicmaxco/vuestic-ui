@@ -281,11 +281,12 @@ export default class VaDropdown extends mixins(
 
 <style lang="scss">
 @import '../../styles/resources';
-@import "variables";
+@import 'variables';
 
 .va-dropdown {
   /* Solved the alignment problem (if we try to align inline and block elements) */
   line-height: var(--va-dropdown-line-height);
+  font-family: var(--va-font-family);
 
   &--disabled {
     @include va-disabled;

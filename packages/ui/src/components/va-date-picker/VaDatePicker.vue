@@ -206,12 +206,13 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import './_variables.scss';
+@import 'variables';
 
 .va-date-picker {
   --va-date-picker-content-height: calc(var(--va-date-picker-cell-size) * 7 + var(--va-date-picker-cell-gap) * 6);
 
   width: calc(var(--va-date-picker-cell-size) * 7 + var(--va-date-picker-cell-gap) * 6);
+  font-family: var(--va-font-family);
 
   &__picker-wrapper {
     height: var(--va-date-picker-content-height);

@@ -150,6 +150,7 @@ export default class VaCheckbox extends mixins(
 .va-checkbox {
   display: var(--va-checkbox-display);
   max-width: var(--va-checkbox-max-width);
+  font-family: var(--va-font-family);
 
   &__input-container {
     align-items: var(--va-checkbox-input-align-items);

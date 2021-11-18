@@ -88,6 +88,7 @@ export default class VaImage extends mixins(
 .va-image {
   overflow: var(--va-image-overflow);
   position: var(--va-image-position);
+  font-family: var(--va-font-family);
 
   img {
     height: 100%;

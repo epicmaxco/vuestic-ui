@@ -81,7 +81,7 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   textarea {
     padding: 0;
     border: 0;

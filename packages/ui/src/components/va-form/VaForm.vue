@@ -118,3 +118,9 @@ export default class VaForm extends mixins(
   }
 }
 </script>
+
+<style lang='scss'>
+.va-form {
+  font-family: var(--va-font-family);
+}
+</style>

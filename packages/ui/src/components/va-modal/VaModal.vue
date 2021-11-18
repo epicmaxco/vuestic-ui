@@ -282,6 +282,7 @@ export default class VaModal extends mixins(
   overflow: var(--va-modal-overflow);
   outline: var(--va-modal-outline);
   z-index: var(--va-modal-z-index);
+  font-family: var(--va-font-family);
 
   &__title {
     margin-bottom: 1.5rem;

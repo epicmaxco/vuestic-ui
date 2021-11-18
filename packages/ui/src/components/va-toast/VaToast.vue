@@ -192,6 +192,7 @@ export default class VaToast extends mixins(
   transition: opacity 0.3s, transform 0.3s, left 0.3s, right 0.3s, top 0.4s, bottom 0.3s;
   overflow: hidden;
   z-index: var(--va-toast-z-index);
+  font-family: var(--va-font-family);
 
   &--multiline {
     min-height: 70px;

@@ -35,3 +35,9 @@ export default defineComponent({
   },
 })
 </script>
+
+<style lang='scss'>
+.va-message-list-wrapper {
+  font-family: var(--va-font-family);
+}
+</style>

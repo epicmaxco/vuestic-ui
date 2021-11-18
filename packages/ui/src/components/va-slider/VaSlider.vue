@@ -841,6 +841,7 @@ export default class VaSlider extends mixins(
 .va-slider {
   display: var(--va-slider-display);
   align-items: var(--va-slider-align-items);
+  font-family: var(--va-font-family);
 
   &__input-wrapper {
     position: var(--va-slider-input-wrapper-position);

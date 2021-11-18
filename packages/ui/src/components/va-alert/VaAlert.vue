@@ -203,6 +203,7 @@ export default class VaAlert extends mixins(
   align-items: var(--va-alert-align-items);
   border: var(--va-alert-border-width, var(--va-control-border)) solid transparent;
   border-radius: var(--va-alert-border-radius, var(--va-block-border-radius));
+  font-family: var(--va-font-family);
 
   &__border {
     content: '';

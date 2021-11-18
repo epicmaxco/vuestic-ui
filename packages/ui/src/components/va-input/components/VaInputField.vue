@@ -163,6 +163,7 @@ export default defineComponent({
   align-items: center;
   color: var(--va-input-text-color);
   cursor: var(--va-input-cursor);
+  font-family: var(--va-font-family);
 
   &--readonly {
     cursor: default;
@@ -220,7 +221,7 @@ export default defineComponent({
         outline: none;
         line-height: var(--va-input-line-height);
         font-size: var(--va-input-font-size);
-        font-family: var(--va-input-font-family, var(--va-font-family));
+        font-family: inherit;
         font-weight: var(--va-input-font-weight);
         font-style: var(--va-input-font-style);
         font-stretch: var(--va-input-font-stretch);

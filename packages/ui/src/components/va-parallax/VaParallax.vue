@@ -145,6 +145,7 @@ export default class VaParallax extends mixins(
   overflow: var(--va-parallax-overflow);
   width: var(--va-parallax-width);
   z-index: var(--va-parallax-z-index);
+  font-family: var(--va-font-family);
 
   &__image-container {
     position: var(--va-parallax-image-container-position);

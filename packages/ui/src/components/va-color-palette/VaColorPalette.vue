@@ -47,7 +47,7 @@ export default class VaColorPalette extends Vue.with(ColorPaletteProps) {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .va-color-palette {
   padding-top: 3px;
 

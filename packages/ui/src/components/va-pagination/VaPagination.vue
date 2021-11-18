@@ -248,6 +248,8 @@ export default class VaPagination extends mixins(
 @import 'variables';
 
 .va-pagination {
+  font-family: var(--va-font-family);
+
   &__input {
     border-style: var(--va-pagination-input-border-style);
     border-width: var(--va-pagination-input-border-width);
