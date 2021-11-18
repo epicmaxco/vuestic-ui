@@ -4,6 +4,7 @@
       v-for="(column, idx) in columns" :key="idx"
       v-model:activeItemIndex="column.activeItem.value"
       :items="column.items"
+      :tabindex="disabled ? -1 : 0"
     />
   </div>
 </template>
@@ -26,8 +27,7 @@ export default defineComponent({
     modelValue: { type: Date, required: false },
     ampm: { type: Boolean, default: false },
     hidePeriodSwitch: { type: Boolean, default: false },
-    // Update model value when switching period automatically.
-    periodUpdatesModelValue: { type: Boolean, default: true },
+    periodUpdatesModelValue: { type: Boolean, default: true }, // Update model value when switching period automatically
     view: { type: String as PropType<'hours' | 'minutes' | 'seconds'>, default: 'minutes' },
     hoursFilter: { type: Function as PropType<(h: number) => boolean> },
     minutesFilter: { type: Function as PropType<(h: number) => boolean> },
