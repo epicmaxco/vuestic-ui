@@ -9,7 +9,7 @@ const config: ApiDocsBlock[] = [
   block.title('dataTable.title'),
   block.paragraph('dataTable.description'),
   block.paragraph('dataTable.otherTables.text'),
-  block.link('dataTable.otherTables.htmlTable', '/styles/table'),
+  block.link('dataTable.otherTables.htmlTable', '/ui-elements/table'),
   block.link('dataTable.otherTables.agGrid', '/extensions/ag-grid'),
 
   block.subtitle('all.examples'),

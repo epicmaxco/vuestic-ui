@@ -24,7 +24,7 @@ const config: ApiDocsBlock[] = [
   block.title('ag-grid.title'),
   block.paragraph('ag-grid.description'),
   block.paragraph('ag-grid.otherTables.text'),
-  block.link('ag-grid.otherTables.htmlTable', '/styles/table'),
+  block.link('ag-grid.otherTables.htmlTable', '/ui-elements/table'),
   block.link('ag-grid.otherTables.dataTable', '/ui-elements/data-table'),
   block.headline('ag-grid.installation'),
   block.paragraph('ag-grid.dependencies'),
