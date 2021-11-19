@@ -24,7 +24,7 @@
   <va-alert class="mt-3" border="left">
     <span>
       Number of filtered items:
-      <va-chip>{{filteredCount}}</va-chip>
+      <va-chip>{{ filteredCount }}</va-chip>
     </span>
   </va-alert>
 </template>

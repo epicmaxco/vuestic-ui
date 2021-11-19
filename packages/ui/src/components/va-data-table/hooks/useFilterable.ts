@@ -23,9 +23,8 @@ export default function useFilterable (
   })
 
   watch(filteredRows, () => {
-    const filteredRowsSource = filteredRows.value.map(row => row.source)
-    emit('filtered', filteredRowsSource)
-  }, { immediate: true })
+    emit('filtered', filteredRows.value.map(row => row.source))
+  })
 
   return {
     filteredRows,

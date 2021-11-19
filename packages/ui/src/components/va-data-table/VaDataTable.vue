@@ -14,7 +14,7 @@
       v-bind="$attrs"
     >
       <colgroup v-if="'colgroup' in slots">
-        <slot name="colgroup" v-bind="columnsModel" />
+        <slot name="colgroup" v-bind="columnsComputed" />
       </colgroup>
 
       <thead class="va-data-table__table-thead">
@@ -41,7 +41,7 @@
           </th>
 
           <th
-            v-for="column in columnsModel"
+            v-for="column in columnsComputed"
             :key="column.key"
             :title="column.headerTitle"
             @click.exact="column.sortable ? toggleSorting(column): () => {}"
@@ -85,7 +85,7 @@
         >
           <tr v-if="showNoDataHtml" key="showNoDataHtml">
             <td
-              :colspan="columnsModel.length + (selectable ? 1 : 0)"
+              :colspan="columnsComputed.length + (selectable ? 1 : 0)"
               v-html="noDataHtml"
               class="no-data"
             />
@@ -93,7 +93,7 @@
 
           <tr v-else-if="showNoDataFilteredHtml" key="showNoDataFilteredHtml">
             <td
-              :colspan="columnsModel.length + (selectable ? 1 : 0)"
+              :colspan="columnsComputed.length + (selectable ? 1 : 0)"
               v-html="noDataFilteredHtml"
               class="no-data"
             />
@@ -169,7 +169,7 @@
           </th>
 
           <th
-            v-for="column in columnsModel"
+            v-for="column in columnsComputed"
             :key="column.key"
             :title="column.headerTitle"
             @click.exact="allowFooterSorting && column.sortable ? toggleSorting(column) : () => {}"
@@ -208,7 +208,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, toRefs, watch, ref } from 'vue'
+import { computed, defineComponent, PropType, toRefs } from 'vue'
 import VaInnerLoading from '../va-inner-loading'
 import VaCheckbox from '../va-checkbox'
 import VaIcon from '../va-icon'
@@ -409,7 +409,7 @@ export default defineComponent({
 
     return {
       slots,
-      columnsModel: columns,
+      columnsComputed: columns,
       rows: sortedRows,
       toggleRowSelection,
       ctrlSelectRow,

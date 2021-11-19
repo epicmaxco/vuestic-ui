@@ -34,7 +34,7 @@ export default function useSortable (
     },
   })
 
-  const sortingOrderFallback = ref('asc' as TSortingOrder)
+  const sortingOrderFallback = ref(null as TSortingOrder)
   const sortingOrderProxy = computed<TSortingOrder>({
     get () {
       if (sortingOrder.value === undefined) {
@@ -65,7 +65,7 @@ export default function useSortable (
 
     const columnIndex = columns.value.indexOf(column)
 
-    return filteredRows.value.sort((a, b) => {
+    return [...filteredRows.value].sort((a, b) => {
       const firstValString = a.cells[columnIndex].value
       const secondValString = b.cells[columnIndex].value
       const firstValInitial = a.cells[columnIndex].source
@@ -93,7 +93,7 @@ export default function useSortable (
       sortingOrder: sortingOrderProxy.value,
       sortedRows: sortedRows.value.map(row => row.source),
     })
-  }, { immediate: true })
+  })
 
   // a function to invoke when a heading of the table is clicked.
   // Sets the clicked heading's column as a one to sort by and toggles the sorting order from "asc" to "desc" to `null`
