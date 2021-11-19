@@ -1,8 +1,9 @@
 import { defineConfig } from 'rollup'
 import postcssPlugin from 'rollup-plugin-postcss'
 import deleteJunkPlugin from '../plugins/rollup-delete-junk'
-import transformScssPlugin from '../plugins/rollup-transofrm-scss'
+import transformScssPlugin from '../plugins/rollup-transform-scss'
 import copyPlugin from 'rollup-plugin-copy'
+import postcssImport from '../postcss-plugins/postcss-import'
 
 /** Used for tree-shaking. It creates separate modules in ESM format, that can be tree-shakable by any bundler. */
 export function createStylesConfig ({ input, outDir = 'dist/', minify = false }) {
@@ -21,6 +22,7 @@ export function createStylesConfig ({ input, outDir = 'dist/', minify = false })
         minimize: minify,
         extract: 'vuestic-ui.css',
         include: 'src/styles/**/*.scss',
+        plugins: [postcssImport()],
       }),
       transformScssPlugin({
         inputDir: inputPathWithoutFilename,

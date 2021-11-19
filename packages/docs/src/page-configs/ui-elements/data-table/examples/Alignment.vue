@@ -98,45 +98,40 @@
 
 <script>
 import { defineComponent } from 'vue'
-import VaDataTable from 'vuestic-ui/src/components/va-data-table'
 
 export default defineComponent({
-  components: {
-    VaDataTable,
-  },
-
   data () {
     const items = [
       {
         id: 1,
-        text: 'Somewhat long text (I need to expand it a bit so that the text gets wrapped (and thus occupies multiple lines) so that we can see how the other rows are vertically aligned). Somewhat long text (I need to expand it a bit so that the text gets wrapped (and thus occupies multiple lines) so that we can see how the other rows are vertically aligned). Somewhat long text (I need to expand it a bit so that the text gets wrapped (and thus occupies multiple lines) so that we can see how the other rows are vertically aligned)',
-        target: 'Pretty short prop',
+        text: 'Some text',
+        target: 'Some prop',
       },
       {
         id: 2,
-        text: 'Somewhat long text (I need to expand it a bit so that the text gets wrapped (and thus occupies multiple lines) so that we can see how the other rows are vertically aligned). Somewhat long text (I need to expand it a bit so that the text gets wrapped (and thus occupies multiple lines) so that we can see how the other rows are vertically aligned). Somewhat long text (I need to expand it a bit so that the text gets wrapped (and thus occupies multiple lines) so that we can see how the other rows are vertically aligned)',
-        target: 'Pretty short prop',
+        text: 'Some text',
+        target: 'Some prop',
       },
       {
         id: 3,
-        text: 'Somewhat long text (I need to expand it a bit so that the text gets wrapped (and thus occupies multiple lines) so that we can see how the other rows are vertically aligned). Somewhat long text (I need to expand it a bit so that the text gets wrapped (and thus occupies multiple lines) so that we can see how the other rows are vertically aligned). Somewhat long text (I need to expand it a bit so that the text gets wrapped (and thus occupies multiple lines) so that we can see how the other rows are vertically aligned)',
-        target: 'Pretty short prop',
+        text: 'Some text',
+        target: 'Some prop',
       },
     ]
 
     const columns = [
       {
         key: 'id',
-        label: 'A Unique ID',
-        alignHead: 'center',
-        verticalAlignHead: 'middle',
-        align: 'center',
-        verticalAlign: 'middle',
+        label: 'ID',
+        alignHead: 'left',
+        verticalAlignHead: 'top',
+        align: 'left',
+        verticalAlign: 'top',
         sortable: true,
       },
       {
         key: 'text',
-        label: 'A long text',
+        label: 'Text',
         alignHead: 'center',
         verticalAlignHead: 'middle',
         align: 'center',
@@ -145,11 +140,11 @@ export default defineComponent({
       },
       {
         key: 'target',
-        label: 'Target field',
-        alignHead: 'center',
-        verticalAlignHead: 'middle',
-        align: 'center',
-        verticalAlign: 'middle',
+        label: 'Target',
+        alignHead: 'right',
+        verticalAlignHead: 'bottom',
+        align: 'right',
+        verticalAlign: 'bottom',
         sortable: true,
       },
     ]
@@ -168,7 +163,18 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-.table-example--alignment th {
-  background-color: #f0f0f0;
+.table-example--alignment {
+  th {
+    background-color: #f0f0f0;
+    height: 60px;
+  }
+
+  tr {
+    border-bottom: 1px solid #f0f0f0;
+
+    td {
+      height: 80px;
+    }
+  }
 }
 </style>

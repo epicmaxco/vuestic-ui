@@ -1,508 +1,176 @@
 <template>
-  <va-input-wrapper
-    class="va-input"
-    :class="wrapperClass"
+  <VaInputField
+    v-bind="fieldListeners"
+    :color="color"
+    :readonly="readonly"
     :disabled="disabled"
     :success="success"
     :messages="messages"
     :error="computedError"
     :error-messages="computedErrorMessages"
     :error-count="errorCount"
-    @click:prepend="onPrependClick"
-    @click:append="onAppendClick"
-    @click="focus"
+    :label="label"
+    :bordered="bordered"
+    :outline="outline"
+    :focused="isFocused"
+    @click="input?.focus()"
   >
+    <!-- Simply proxy slots to VaInputField -->
     <template
-      v-if="$slots.prepend"
-      #prepend
+      v-for="(_, name) in $slots"
+      :key="name"
+      v-slot:[name]="slotScope"
     >
-      <slot name="prepend" />
+      <slot :name="name" v-bind="slotScope" />
     </template>
 
-    <div
-      class="va-input__container"
-      ref="container"
-      :style="computedBorderColorStyle"
-    >
-      <div
-        v-if="$slots.prependInner"
-        class="va-input__prepend-inner"
-        @click="onPrependInnerClick"
-      >
-        <slot name="prependInner" />
-      </div>
+    <template #icon>
+      <va-icon v-if="success" color="success"
+        name="check_circle" size="small"
+      />
+      <va-icon v-if="computedError" color="danger"
+        name="warning" size="small"
+      />
+      <va-icon  v-if="canBeCleared" :color="clearIconColor"
+        :name="clearableIcon" size="small" @click.stop="reset()"
+      />
+      <va-icon v-if="loading" :color="color"
+        name="loop" size="small"
+        spin="counter-clockwise"
+      />
+    </template>
 
-      <div
-        class="va-input__content-wrapper"
-        @click="focus()"
-      >
-        <div class="va-input__content">
-          <label
-            aria-hidden="true"
-            class="va-input__label"
-            :style="labelStyle"
-          >
-            {{ label }}
-          </label>
-
-          <div
-            v-if="$slots.content"
-            class="va-input__content__input"
-          >
-            <slot
-              name="content"
-              v-bind="{ value: computedValue, focus, bind: computedInputAttributes, on: eventListeners }"
-            />
-          </div>
-          <textarea
-            v-else-if="isTextarea"
-            v-bind="computedInputAttributes"
-            ref="textarea"
-            class="va-input__content__input"
-            :tabindex="tabindex"
-            v-on="eventListeners"
-          />
-          <input
-            v-else
-            v-bind="computedInputAttributes"
-            ref="input"
-            class="va-input__content__input"
-            v-on="eventListeners"
-          >
-        </div>
-      </div>
-
-      <div
-        v-if="showIcon"
-        class="va-input__icons"
-      >
-        <va-icon
-          v-if="success"
-          color="success"
-          name="check_circle"
-          size="small"
-        />
-        <va-icon
-          v-if="computedError"
-          color="danger"
-          name="warning"
-          size="small"
-        />
-        <va-icon
-          v-if="canBeCleared"
-          :name="clearableIcon"
-          size="small"
-          :color="clearIconColor"
-          @click.stop="reset()"
-        />
-        <va-icon
-          v-if="loading"
-          name="loop"
-          size="small"
-          spin="counter-clockwise"
-          :color="colorComputed"
-        />
-      </div>
-
-      <div
-        v-if="$slots.appendInner"
-        class="va-input__append-inner"
-        @click="onAppendInnerClick"
-      >
-        <slot name="appendInner" />
-      </div>
-    </div>
-
-    <div
-      v-if="bordered"
-      class="va-input_bordered__border"
-      :style="computedBorderColorStyle"
+    <VaTextarea
+      v-bind="textareaProps"
+      v-if="type === 'textarea'"
+      class="va-input__content__input"
+      @input="onInput"
     />
 
-    <template
-      v-if="$slots.append"
-      #append
+    <input
+      v-else
+      ref="input"
+      v-bind="computedInputAttributes"
+      class="va-input__content__input"
+      @input="onInput"
     >
-      <slot name="append" />
-    </template>
-  </va-input-wrapper>
+  </VaInputField>
 </template>
 
 <script lang="ts">
-import { Options, mixins, prop, Vue } from 'vue-class-component'
+import { computed, defineComponent, InputHTMLAttributes, isRef, PropType, ref, Ref, TextareaHTMLAttributes, toRef, unref } from 'vue'
+import { useFormProps } from '../../composables/useForm'
+import { useValidation, useValidationProps, useValidationEmits } from '../../composables/useValidation'
+import { useCleave, useCleaveProps } from './hooks/useCleave'
+import { useEmitProxy } from '../../composables/useEmitProxy'
+import VaInputField from './components/VaInputField.vue'
+import VaTextarea from './components/VaTextarea/VaTextarea.vue'
+import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
 
-import ColorMixin from '../../services/color-config/ColorMixin'
-import VaInputWrapper from '../va-input/VaInputWrapper'
-import VaIcon from '../va-icon'
+const VaTextareaProps = extractComponentProps(VaTextarea)
 
-import { InputMixin } from './helpers/InputMixin'
-import { TextareaMixin } from './helpers/TextareaMixin'
+const { createEmits: createInputEmits, createListeners: createInputListeners } = useEmitProxy(
+  ['change', 'keyup', 'keypress', 'keydown', 'focus', 'blur'],
+)
 
-const InputProps = Vue.with(class InputProps {
-  color = prop<string>({ type: String, default: 'primary' })
-  placeholder = prop<string>({ type: String, default: '' })
-  clearable = prop<boolean>({ type: Boolean, default: false })
-  tabindex = prop<number>({ type: Number, default: 0 })
-  outline = prop({ type: Boolean, default: false })
-  bordered = prop({ type: Boolean, default: false })
-})
+const { createEmits: createFieldEmits, createListeners: createFieldListeners } = useEmitProxy([
+  'click',
+  'click-prepend',
+  'click-append',
+  'click-prepend-inner',
+  'click-append-inner',
+  'click-icon',
+])
 
-@Options({
-  name: 'VaInput',
-  components: { VaInputWrapper, VaIcon },
-  emits: ['update:modelValue', 'update:focused', 'change', 'click-prepend', 'click-prepend-inner',
-    'click-append', 'click-append-inner', 'focus', 'blur', 'keyup', 'keydown', 'click', 'cleared'],
-})
-export default class VaInput extends mixins(
-  ColorMixin,
-  InputMixin,
-  TextareaMixin,
-  InputProps,
-) {
-  get labelStyle (): any {
-    return { color: this.colorComputed }
-  }
+export default defineComponent({
+  components: { VaInputField, VaTextarea },
 
-  stateClasses (baseclass: string) {
-    const classes = [baseclass]
+  props: {
+    ...useFormProps,
+    ...useValidationProps,
+    ...useCleaveProps,
+    ...VaTextareaProps,
 
-    if (this.isTextarea) {
-      classes.push(`${baseclass}_textarea`)
-    }
-    if (this.isFocusedComputed) {
-      classes.push(`${baseclass}_focused`)
-    }
+    // input
+    placeholder: { type: String, default: '' },
+    clearable: { type: Boolean, default: false },
+    clearableIcon: { type: String, default: 'highlight_off' },
+    tabindex: { type: Number, default: 0 },
+    modelValue: { type: [String, Number], default: '' },
+    label: { type: String, default: '' },
+    type: { type: String as PropType<'text' | 'textarea'>, default: 'text' },
+    loading: { type: Boolean, default: false },
+    // style
+    color: { tpe: String, default: 'primary' },
+    outline: { type: Boolean, default: false },
+    bordered: { type: Boolean, default: false },
+  },
 
-    if (this.label) {
-      classes.push(`${baseclass}_labeled`)
-    }
+  emits: ['update:modelValue', ...useValidationEmits, ...createInputEmits(), ...createFieldEmits()],
 
-    if (this.$props.outline) {
-      classes.push(`${baseclass}_outline`)
-    } else if (this.$props.bordered) {
-      classes.push(`${baseclass}_bordered`)
-    } else {
-      classes.push(`${baseclass}_solid`)
-    }
+  setup (props, { emit, attrs }) {
+    const input = ref<HTMLInputElement>()
+    const {
+      isFocused,
+      listeners: validationListeners,
+      computedError,
+      computedErrorMessages,
+    } = useValidation(props, emit, () => reset())
 
-    if (this.$props.success) {
-      classes.push(`${baseclass}_success`)
-    }
-    if (this.$props.error || this.computedError) {
-      classes.push(`${baseclass}_error`)
-    }
+    const canBeCleared = computed(() => {
+      return props.clearable && ![null, undefined, ''].includes(props.modelValue as any)
+    })
 
-    if (this.$props.disabled) {
-      classes.push(`${baseclass}_disabled`)
-    }
-    if (this.$props.readonly) {
-      classes.push(`${baseclass}_readonly`)
-    }
+    const clearIconColor = computed(() => {
+      if (isFocused.value) { return props.color }
+      if (computedError.value) { return 'danger' }
+      if (props.success) { return 'success' }
 
-    return classes
-  }
+      return 'grey'
+    })
 
-  get wrapperClass () {
-    return this.stateClasses('va-input')
-  }
+    const { computedValue, onInput } = useCleave(input, props, emit)
 
-  get computedBorderColorStyle () {
-    if (this.isFocusedComputed) {
-      return {
-        'border-color': this.colorComputed,
-      }
-    }
+    const computedInputAttributes = computed(() => ({
+      ...attrs,
+      ...createInputListeners(emit),
+      ...validationListeners,
+      class: attrs.inputClass,
+      style: attrs.inputStyle,
+      value: computedValue.value,
+      type: props.type,
+      tabindex: props.tabindex,
+      disabled: props.disabled,
+      readonly: props.readonly,
+      placeholder: props.placeholder,
+      ariaLabel: props.label,
+    }) as InputHTMLAttributes)
 
-    return {}
-  }
-
-  get clearIconColor () {
-    if (this.isFocusedComputed) {
-      return this.colorComputed
-    }
-
-    if (this.computedError) {
-      return 'danger'
+    const reset = () => {
+      emit('update:modelValue', '')
+      emit('cleared')
     }
 
-    if (this.success) {
-      return 'success'
-    }
-
-    return 'grey'
-  }
-
-  get computedInputAttributes (): Record<string, any> {
     return {
-      ...this.$attrs,
-      id: this.id,
-      name: this.name,
-      type: this.type,
-      placeholder: this.placeholder,
-      disabled: this.disabled,
-      readonly: this.readonly,
-      tabindex: this.tabindex,
-      // Do not inherit style from $attrs
-      style: this.$attrs.inputStyle,
-      // Do not inherit class from $attrs
-      class: this.$attrs.inputClass,
-      value: this.computedValue,
-      'aria-label': this.label,
-    }
-  }
+      input,
+      textareaProps: filterComponentProps(props, VaTextareaProps),
 
-  /** @public */
-  focus (): void {
-    if (this.$refs.input) {
-      (this as any).$refs.input.focus({ preventScroll: true })
-    } else if (this.$refs.textarea) {
-      (this as any).$refs.textarea.focus()
-    } else if (!this.$slots.content) {
-      throw new Error('There is no DOM element to focus')
-    }
-  }
+      // Validations
+      computedError,
+      computedErrorMessages,
+      isFocused,
 
-  /** @public */
-  blur (): void {
-    if (this.$refs.input) {
-      (this as any).$refs.input.blur()
-    } else if (this.$refs.textarea) {
-      (this as any).$refs.textarea.blur()
-    } else if (!this.$slots.content) {
-      throw new Error('There is no DOM element to blur')
-    }
-  }
+      // Cleave
+      onInput,
 
-  /** @public */
-  reset (): void {
-    this.$emit('update:modelValue', '')
-    this.$emit('cleared')
-  }
-}
+      // Icon
+      canBeCleared,
+      clearIconColor,
+
+      computedInputAttributes,
+      fieldListeners: createFieldListeners(emit),
+      reset,
+    }
+  },
+})
 </script>
-
-<style lang='scss'>
-@import '../../styles/resources';
-@import 'variables';
-
-.va-input {
-  position: relative;
-  display: flex;
-  align-items: center;
-  color: var(--va-input-text-color);
-  cursor: var(--va-input-cursor);
-
-  &_readonly {
-    cursor: default;
-  }
-
-  &_disabled {
-    @include va-disabled;
-  }
-
-  &__container {
-    display: flex;
-    position: relative;
-    align-items: center;
-    width: 100%;
-    min-height: var(--va-input-min-height);
-    border-color: var(--va-input-color);
-    border-style: solid;
-    border-width: var(--va-input-border-width);
-    overflow: hidden;
-    padding: 0 var(--va-input-content-horizontal-padding);
-
-    /* Creates gap between prepend, content, validation icons, append */
-    & > * {
-      padding-right: var(--va-input-content-items-gap);
-      line-height: 0;
-
-      &:last-child {
-        padding-right: 0;
-      }
-    }
-  }
-
-  &__content-wrapper {
-    display: flex;
-    align-items: center;
-    width: 100%;
-
-    .va-input__content {
-      width: 100%;
-      position: relative;
-
-      input {
-        cursor: inherit;
-      }
-
-      &__input {
-        @include va-scroll(var(--va-input-scroll-color));
-
-        width: 100%;
-        // Use line-height as min-height for empty content slot
-        min-height: var(--va-input-line-height);
-        color: var(--va-input-text-color);
-        background-color: transparent;
-        border-style: none;
-        outline: none;
-        line-height: var(--va-input-line-height);
-        font-size: var(--va-input-font-size);
-        font-family: var(--va-input-font-family, var(--va-font-family));
-        font-weight: var(--va-input-font-weight);
-        font-style: var(--va-input-font-style);
-        font-stretch: var(--va-input-font-stretch);
-        letter-spacing: var(--va-input-letter-spacing);
-        transform: translateY(-1px);
-
-        &::placeholder {
-          color: var(--va-input-placeholder-text-color);
-        }
-
-        &:disabled {
-          opacity: var(--va-input-disabled-opacity);
-        }
-      }
-    }
-  }
-
-  &__icons {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    & > * {
-      margin-right: calc(var(--va-input-content-items-gap) / 4);
-
-      &:last-child {
-        margin-right: 0;
-      }
-    }
-  }
-
-  textarea {
-    margin: 12px 0;
-    resize: vertical;
-  }
-
-  &_labeled {
-    .va-input__content-wrapper {
-      padding-top: 12px;
-      height: 100%;
-      align-items: flex-end;
-    }
-
-    .va-input__label {
-      @include va-ellipsis();
-
-      height: 12px;
-      transform: translateY(-100%);
-      position: absolute;
-      display: block;
-      left: 0;
-      top: 0;
-      padding-top: 1px;
-      max-width: var(--va-input-container-label-max-width);
-      color: var(--va-input-container-label-color);
-      font-size: var(--va-input-container-label-font-size);
-      letter-spacing: var(--va-input-container-label-letter-spacing, var(--va-letter-spacing));
-      line-height: var(--va-input-container-label-line-height);
-      font-weight: var(--va-input-container-label-font-weight);
-      text-transform: var(--va-input-container-label-text-transform);
-      transform-origin: top left;
-    }
-
-    textarea {
-      margin-top: 0;
-    }
-  }
-
-  /* We have 3 styles and two states for each style separately */
-  &_solid {
-    .va-input__container {
-      background: var(--va-input-color);
-      border-color: var(--va-input-color);
-      border-radius: var(--va-input-border-radius);
-    }
-
-    &.va-input_success {
-      .va-input__container {
-        background: var(--va-input-success-background);
-        border-color: var(--va-input-success-color);
-      }
-    }
-
-    &.va-input_error {
-      .va-input__container {
-        background: var(--va-input-error-background);
-        border-color: var(--va-input-error-color);
-      }
-    }
-  }
-
-  &_outline {
-    .va-input__container {
-      border-radius: 0;
-      border-color: var(--va-input-bordered-color);
-    }
-
-    &.va-input_success {
-      .va-input__container {
-        background: var(--va-input-success-background);
-        border-color: var(--va-input-success-color);
-      }
-    }
-
-    &.va-input_error {
-      .va-input__container {
-        background: var(--va-input-error-background);
-        border-color: var(--va-input-error-color);
-      }
-    }
-  }
-
-  &_bordered {
-    /*
-      We can not just set border-bottom, becouse we also have border on the other sides.
-      We also can not use after or before, becouse we need to set border-color according to
-      color prop
-    */
-    &__border {
-      border-color: var(--va-input-bordered-color);
-      position: absolute;
-      height: 0;
-      border-bottom-width: var(--va-input-border-width);
-      border-bottom-style: solid;
-      width: 100%;
-      bottom: 0;
-    }
-
-    .va-input__container {
-      background: var(--va-input-color);
-      border-top-left-radius: var(--va-input-border-radius);
-      border-top-right-radius: var(--va-input-border-radius);
-      border-color: transparent !important;
-    }
-
-    &.va-input_success {
-      .va-input__container {
-        background: var(--va-input-success-background);
-      }
-
-      .va-input_bordered__border {
-        border-color: var(--va-input-success-color);
-      }
-    }
-
-    &.va-input_error {
-      .va-input__container {
-        background: var(--va-input-error-background);
-      }
-
-      .va-input_bordered__border {
-        border-color: var(--va-input-error-color);
-      }
-    }
-  }
-}
-</style>

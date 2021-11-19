@@ -77,12 +77,12 @@ export default class VaBadge extends mixins(
 </script>
 
 <style lang="scss">
-@import '../../styles/resources';
 @import 'variables';
 
 .va-badge {
   display: inline-flex;
   position: relative;
+  font-family: var(--va-font-family);
 
   &__text-wrapper {
     transition: var(--va-badge-text-wrapper-transition, var(--va-transition));
@@ -90,7 +90,6 @@ export default class VaBadge extends mixins(
     border: var(--va-badge-text-wrapper-border, var(--va-control-border));
     border-radius: var(--va-badge-text-wrapper-border-radius);
     font-weight: var(--va-badge-text-wrapper-font-weight);
-    font-family: var(--va-badge-text-wrapper-font-family, var(--va-font-family));
     line-height: var(--va-badge-text-wrapper-line-height);
     letter-spacing: var(--va-badge-text-wrapper-letter-spacing, var(--va-letter-spacing));
     justify-content: var(--va-badge-text-wrapper-justify-content);

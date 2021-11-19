@@ -4,11 +4,11 @@
   </div>
 </template>
 
-<style lang="scss" scoped>
-  @import '../_variables';
+<style lang="scss">
+@import '../_variables';
 
-  .va-sidebar__title {
-    flex-grow: 1;
-    white-space: var(--va-sidebar-item-title-white-space);
-  }
+.va-sidebar__title {
+  flex-grow: 1;
+  white-space: var(--va-sidebar-item-title-white-space);
+}
 </style>

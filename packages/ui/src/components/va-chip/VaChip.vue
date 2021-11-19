@@ -187,6 +187,7 @@ export default class VaChip extends mixins(
   color: var(--va-chip-color);
   cursor: var(--va-chip-cursor);
   font-size: var(--va-chip-font-size);
+  font-family: var(--va-font-family);
 
   &__inner {
     display: var(--va-chip-inner-display);
@@ -209,8 +210,6 @@ export default class VaChip extends mixins(
 
   &__close-icon {
     cursor: pointer;
-
-    /* z-index: 500; */
 
     @at-root {
       .va-chip--disabled {

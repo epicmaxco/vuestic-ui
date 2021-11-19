@@ -211,6 +211,7 @@ export default class VaRating extends mixins(
 
 .va-rating {
   display: var(--va-rating-display);
+  font-family: var(--va-font-family);
 
   &__number-item {
     @include normalize-button();

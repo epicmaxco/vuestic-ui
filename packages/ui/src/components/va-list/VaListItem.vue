@@ -73,10 +73,11 @@ export default class VaListItem extends mixins(
 </script>
 
 <style lang="scss">
-@import "../../styles/resources";
 @import 'variables';
 
 .va-list-item {
+  font-family: var(--va-font-family);
+
   &__inner {
     display: var(--va-list-item-display);
     align-items: var(--va-list-item-align-items);

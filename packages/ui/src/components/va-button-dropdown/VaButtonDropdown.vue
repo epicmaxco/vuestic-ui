@@ -156,11 +156,11 @@ export default class VaButtonDropdown extends mixins(
 </script>
 
 <style lang="scss">
-@import "../../styles/resources";
-@import "variables";
+@import 'variables';
 
 .va-button-dropdown {
   display: inline-block;
+  font-family: var(--va-font-family);
 
   .va-button {
     margin: var(--va-button-dropdown-button-margin);

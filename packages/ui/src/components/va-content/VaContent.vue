@@ -16,6 +16,7 @@ export default {
 
 .va-content {
   line-height: $line-height;
+  font-family: var(--va-font-family);
 
   h1 {
     @include va-display(1);

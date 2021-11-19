@@ -62,12 +62,12 @@ export default class VaDivider extends mixins(
 </script>
 
 <style lang="scss">
-@import "../../styles/resources";
-@import "variables";
+@import 'variables';
 
 .va-divider {
   display: var(--va-divider-display);
   margin: var(--va-divider-margin);
+  font-family: var(--va-font-family);
 
   &--vertical {
     margin: var(--va-divider-vertical-margin);

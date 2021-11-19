@@ -60,6 +60,10 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: 'menu.reset',
       },
       {
+        name: 'grid',
+        displayName: 'menu.grid',
+      },
+      {
         name: 'table',
         displayName: 'menu.table',
       },
@@ -126,6 +130,10 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: 'modal',
         displayName: 'menu.modal',
+      },
+      {
+        name: 'table',
+        displayName: 'menu.table',
       },
       {
         name: 'data-table',

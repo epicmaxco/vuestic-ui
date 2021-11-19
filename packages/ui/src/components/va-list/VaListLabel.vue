@@ -31,6 +31,8 @@ export default class VaListLabel extends mixins(
 @import 'variables';
 
 .va-list-label {
+  font-family: var(--va-font-family);
+
   @include va-title();
 
   text-align: var(--va-list-label-text-align);

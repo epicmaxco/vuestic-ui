@@ -57,11 +57,10 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .va-date-picker-cell {
   position: relative;
   color: var(--va-date-picker-text-color);
-  font-family: Source Sans Pro;
   font-style: normal;
   font-weight: 600;
   font-size: 12px;

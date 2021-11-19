@@ -86,6 +86,7 @@ $nav-border-side-width: 3.1875rem;
   padding-right: $nav-padding-right;
   background-color: $top-nav-bg;
   display: flex;
+  font-family: var(--va-font-family);
 
   &__content {
     display: flex;

@@ -70,8 +70,7 @@ export default class VaButtonGroup extends Vue.with(Props) {
 </script>
 
 <style lang="scss">
-@import "../../styles/resources";
-@import "variables";
+@import 'variables';
 
 .va-button-group {
   display: flex;
@@ -79,6 +78,7 @@ export default class VaButtonGroup extends Vue.with(Props) {
   width: max-content;
   overflow: hidden;
   border-radius: 9999999px;
+  font-family: var(--va-font-family);
 
   &_square {
     border-radius: var(--va-button-square-border-radius);

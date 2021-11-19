@@ -1,12 +1,12 @@
 <template>
-  <va-input-wrapper
+  <VaMessageListWrapper
     :error="computedError"
     :error-messages="computedErrorMessages"
     :error-count="$props.errorCount"
   >
     <ul
       class="va-option-list__list"
-      :id="$props.id"
+      :id="String($props.id)"
     >
       <li
         v-for="(option, index) in $props.options"
@@ -61,7 +61,7 @@
         </slot>
       </li>
     </ul>
-  </va-input-wrapper>
+  </VaMessageListWrapper>
 </template>
 
 <script lang="ts">
@@ -73,7 +73,7 @@ import { StatefulMixin } from '../../mixins/StatefulMixin/StatefulMixin'
 import VaRadio from '../va-radio'
 import VaCheckbox from '../va-checkbox'
 import VaSwitch from '../va-switch'
-import { VaInputWrapper } from '../va-input'
+import { VaMessageListWrapper } from '../va-input'
 
 class OptionListProps {
   type = prop<string>({
@@ -95,7 +95,7 @@ const OptionListPropsMixin = Vue.with(OptionListProps)
 
 @Options({
   name: 'VaOptionList',
-  components: { VaRadio, VaCheckbox, VaSwitch, VaInputWrapper },
+  components: { VaRadio, VaCheckbox, VaSwitch, VaMessageListWrapper },
 })
 export default class VaOptionList extends mixins(
   SelectableListMixin,

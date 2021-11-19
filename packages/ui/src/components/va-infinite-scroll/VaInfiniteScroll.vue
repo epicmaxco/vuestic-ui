@@ -207,6 +207,7 @@ export default class VaInfiniteScroll extends mixins(
 .va-infinite-scroll {
   display: var(--va-infinite-scroll-display);
   flex-direction: var(--va-infinite-scroll-flex-direction);
+  font-family: var(--va-font-family);
 
   &--reversed {
     flex-direction: var(--va-infinite-scroll-reversed-flex-direction);
