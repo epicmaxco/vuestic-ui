@@ -377,14 +377,13 @@ export default defineComponent({
     } = toRefs(props)
 
     const {
-      toggleRowSelection,
       ctrlSelectRow,
       shiftSelectRows,
       toggleBulkSelection,
       isRowSelected,
       severalRowsSelected,
       allRowsSelected,
-    } = useSelectable(sortedRows, rawRows, modelValue, selectable, selectMode, emit)
+    } = useSelectable(sortedRows, modelValue, selectable, selectMode, emit)
 
     const {
       hoverable,
@@ -411,7 +410,6 @@ export default defineComponent({
       slots,
       columnsComputed: columns,
       rows: sortedRows,
-      toggleRowSelection,
       ctrlSelectRow,
       shiftSelectRows,
       toggleBulkSelection,

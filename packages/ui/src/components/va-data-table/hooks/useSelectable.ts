@@ -8,7 +8,6 @@ export type TSelectableEmits = (event: TEmits, arg: ITableItem[] | TSelectionCha
 
 export default function useSelectable (
   sortedRows: Ref<TableRow[]>,
-  rawRows: Ref<TableRow[]>,
   selectedItems: Ref<ITableItem[] | undefined>,
   selectable: Ref<boolean>,
   selectMode: Ref<TSelectMode>,
@@ -46,16 +45,17 @@ export default function useSelectable (
 
   // watch for rows changes (happens when filtering is applied e.g.) and deselect all the rows that don't exist anymore
   watch(sortedRows, (newSortedRows, oldSortedRows) => {
+    setPrevSelectedRowIndex(-1)
+
     const removedRowsSource = oldSortedRows
       .filter(oldRow => !newSortedRows.includes(oldRow))
       .map(row => row.source)
 
-    selectedItemsProxy.value = selectedItemsProxy.value.filter(row => !removedRowsSource.includes(row))
-
-    const prevSelectedRowSource = oldSortedRows[prevSelectedRowIndex.value]?.source
-    if (prevSelectedRowSource && removedRowsSource.includes(prevSelectedRowSource)) {
-      setPrevSelectedRowIndex(-1)
+    if (!removedRowsSource.length) {
+      return
     }
+
+    selectedItemsProxy.value = selectedItemsProxy.value.filter(row => !removedRowsSource.includes(row))
   })
 
   // emit the "selection-change" event each time the selection changes
@@ -122,9 +122,15 @@ export default function useSelectable (
 
   // private
   function setPrevSelectedRowIndex (rowInitialIndex: number) {
-    rowInitialIndex === -1
-      ? prevSelectedRowIndex.value = -1
-      : prevSelectedRowIndex.value = sortedRows.value.indexOf(rawRows.value[rowInitialIndex])
+    if (rowInitialIndex === -1) {
+      prevSelectedRowIndex.value = -1
+    } else {
+      const prevSelectedRow = sortedRows.value.find(row => row.initialIndex === rowInitialIndex)
+
+      prevSelectedRow
+        ? prevSelectedRowIndex.value = sortedRows.value.indexOf(prevSelectedRow)
+        : prevSelectedRowIndex.value = -1
+    }
   }
 
   // private
@@ -132,15 +138,12 @@ export default function useSelectable (
     let start
     let end
 
-    const prevSelectedIndex = (prevSelectedRowIndex.value === -1) ? 0 : prevSelectedRowIndex.value
-    const prevSelectedRow = sortedRows.value[prevSelectedIndex]
-
-    if (prevSelectedRowIndex.value === -1 || isRowSelected(prevSelectedRow)) {
-      start = Math.min(prevSelectedIndex, targetIndex)
-      end = Math.max(prevSelectedIndex, targetIndex)
+    if (isRowSelected(sortedRows.value[prevSelectedRowIndex.value])) {
+      start = Math.min(prevSelectedRowIndex.value, targetIndex)
+      end = Math.max(prevSelectedRowIndex.value, targetIndex)
     } else {
-      start = Math.min(prevSelectedIndex + 1, targetIndex)
-      end = Math.max(prevSelectedIndex - 1, targetIndex)
+      start = Math.min(prevSelectedRowIndex.value + 1, targetIndex)
+      end = Math.max(prevSelectedRowIndex.value - 1, targetIndex)
     }
 
     return sortedRows.value.slice(start, end + 1)
@@ -170,17 +173,13 @@ export default function useSelectable (
     ]
   }
 
-  // exposed
+  // private
   function toggleRowSelection (row: TableRow) {
-    if (!selectable.value) {
-      return
-    }
-
-    if (isRowSelected(row) && selectedItemsProxy.value.length === 1) {
+    if (isRowSelected(row)) {
       unselectRow(row)
-      setPrevSelectedRowIndex(-1)
+      selectMode.value === 'single' ? setPrevSelectedRowIndex(-1) : setPrevSelectedRowIndex(row.initialIndex)
     } else {
-      selectOnlyRow(row)
+      selectMode.value === 'single' ? selectOnlyRow(row) : selectRow(row)
       setPrevSelectedRowIndex(row.initialIndex)
     }
   }
@@ -191,20 +190,7 @@ export default function useSelectable (
       return
     }
 
-    if (selectMode.value === 'single') {
-      return toggleRowSelection(row)
-    }
-
-    if (isRowSelected(row)) {
-      selectedItemsProxy.value.length === 1
-        ? setPrevSelectedRowIndex(-1)
-        : setPrevSelectedRowIndex(row.initialIndex)
-
-      unselectRow(row)
-    } else {
-      selectRow(row)
-      setPrevSelectedRowIndex(row.initialIndex)
-    }
+    toggleRowSelection(row)
   }
 
   // exposed
@@ -213,14 +199,13 @@ export default function useSelectable (
       return
     }
 
-    if (selectMode.value === 'single') {
+    if (selectMode.value === 'single' || prevSelectedRowIndex.value === -1) {
       return toggleRowSelection(row)
     }
 
     const targetIndex = sortedRows.value.indexOf(row)
     mergeSelection(getRowsToSelect(targetIndex))
-
-    setPrevSelectedRowIndex(row.initialIndex)
+    setPrevSelectedRowIndex(-1)
   }
 
   // exposed
@@ -235,7 +220,6 @@ export default function useSelectable (
   }
 
   return {
-    toggleRowSelection,
     ctrlSelectRow,
     shiftSelectRows,
     toggleBulkSelection,
