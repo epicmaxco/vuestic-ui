@@ -874,7 +874,7 @@
         "updateSortingOrder": "Emits when `sorting-order` changed",
         "filtered": "`va-data-table` emits the `filtered` event each time filtering is applied (and when the filter is cleared), passing the array of sources of filtered items",
         "sorted": "Each time the table's sorting changes, the `sorted` event is thrown, with the following param: \n &#123;\n &nbsp; `sortBy: string`,\n &nbsp; `sortingOrder: TSortingOrder`\n &#125;",
-        "selectionChange": "The `selectionChange` event is thrown each time the selection changes. It provides the following object: \n&#123;\n &nbsp; `currentlySelectedItems: ITableItem[]`,\n &nbsp; `previouslySelectedItems: ITableItem[]`\n &#125;"
+        "selectionChange": "The `selectionChange` event is thrown each time the selection changes. It provides the following object: \n&#123;\n &nbsp; `currentSelectedItems: ITableItem[]`,\n &nbsp; `previousSelectedItems: ITableItem[]`\n &#125;"
       },
       "methods": {},
       "slots": {

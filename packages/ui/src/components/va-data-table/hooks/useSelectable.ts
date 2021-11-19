@@ -3,7 +3,7 @@ import { TableRow, ITableItem } from './useRows'
 
 export type TSelectMode = 'single' | 'multiple'
 export type TEmits = 'update:modelValue' | 'selectionChange'
-export type TSelectionChange = { currentlySelectedItems: ITableItem[], previouslySelectedItems: ITableItem[] }
+export type TSelectionChange = { currentSelectedItems: ITableItem[], previousSelectedItems: ITableItem[] }
 export type TSelectableEmits = (event: TEmits, arg: ITableItem[] | TSelectionChange) => void
 
 export default function useSelectable (
@@ -59,10 +59,10 @@ export default function useSelectable (
   })
 
   // emit the "selection-change" event each time the selection changes
-  watch(selectedItemsProxy, (currentlySelectedItems, previouslySelectedItems) => {
+  watch(selectedItemsProxy, (currentSelectedItems, previousSelectedItems) => {
     emit('selectionChange', {
-      currentlySelectedItems,
-      previouslySelectedItems,
+      currentSelectedItems,
+      previousSelectedItems,
     })
   })
 
@@ -173,8 +173,12 @@ export default function useSelectable (
     ]
   }
 
-  // private
+  // exposed
   function toggleRowSelection (row: TableRow) {
+    if (!selectable.value) {
+      return
+    }
+
     if (isRowSelected(row)) {
       unselectRow(row)
       selectMode.value === 'single' ? setPrevSelectedRowIndex(-1) : setPrevSelectedRowIndex(row.initialIndex)
@@ -222,6 +226,7 @@ export default function useSelectable (
   return {
     ctrlSelectRow,
     shiftSelectRows,
+    toggleRowSelection,
     toggleBulkSelection,
     isRowSelected,
     noRowsSelected,

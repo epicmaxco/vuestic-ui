@@ -28,7 +28,7 @@
     v-model="selectedItems"
     :select-mode="selectMode"
     :selected-color="selectedColor"
-    @selectionChange="selectedItemsEmitted = $event.currentlySelectedItems"
+    @selectionChange="selectedItemsEmitted = $event.currentSelectedItems"
   />
 
   <va-alert class="mt-3" border="left">
