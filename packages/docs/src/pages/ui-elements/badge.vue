@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component'
 import DocsContent from '../../components/DocsContent.vue'
-import badgeConfig from '../../components/page-configs/ui-elements/va-badge/page-config'
+import badgeConfig from '../../page-configs/ui-elements/badge/page-config'
 
 @Options({
   name: 'DocsBadge',

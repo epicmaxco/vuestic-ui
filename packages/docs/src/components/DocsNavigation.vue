@@ -40,8 +40,7 @@
 </template>
 
 <script>
-import { getParameters } from 'codesandbox/lib/api/define'
-import packageUi from '../../../ui/package'
+import getCodesandboxExample from '../helpers/CodeSandboxExample'
 
 export default {
   name: 'DocsNavigation',
@@ -96,63 +95,7 @@ export default {
       return `https://codesandbox.io/api/v1/sandboxes/define${this.query}`
     },
     sandboxParams () {
-      const main = `import { createApp } from "vue";
-import App from "./App.vue";
-import { VuesticPlugin } from "vuestic-ui";
-import 'vuestic-ui/dist/vuestic-ui.css'
-
-const app = createApp(App);
-app.use(VuesticPlugin);
-app.mount("#app");
-`
-      const babel = `module.exports = {
-  presets: [
-    '@vue/cli-plugin-babel/preset'
-  ]
-}`
-      const html = `<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@5.9.55/css/materialdesignicons.min.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400">
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<div id="app"></div>`
-
-      const commonDeps = {
-        'core-js': '^3.6.5',
-        vue: '^3.0.0',
-        'vuestic-ui': `${packageUi.version}`,
-      }
-      const commonDevDeps = {
-        '@vue/cli-plugin-babel': '~4.5.0',
-        '@vue/cli-service': '~4.5.0',
-        '@vue/compiler-sfc': '^3.0.0',
-      }
-      return getParameters({
-        files: {
-          'package.json': {
-            content: {
-              scripts: {
-                serve: 'vue-cli-service serve',
-              },
-              dependencies: Object.assign(commonDeps, this.config.dependencies),
-              devDependencies: Object.assign(commonDevDeps, this.config.devDependencies),
-            },
-          },
-          'babel.config.js': {
-            content: babel,
-          },
-          'src/main.js': {
-            content: main,
-          },
-          'src/App.vue': {
-            content: this.code,
-          },
-          'public/index.html': {
-            content: html,
-          },
-        },
-      })
+      return getCodesandboxExample(this.code, this.config)
     },
   },
 }

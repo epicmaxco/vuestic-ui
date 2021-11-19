@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component'
 import DocsContent from '../../components/DocsContent.vue'
-import iconsConfigConfig from '../../components/page-configs/services/icons-config/page-config'
+import iconsConfigConfig from '../../page-configs/services/icons-config/page-config'
 
 @Options({
   name: 'DocsIconsConfig',

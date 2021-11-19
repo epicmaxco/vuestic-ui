@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component'
 import DocsContent from '../../components/DocsContent.vue'
-import switchConfig from '../../components/page-configs/ui-elements/va-switch/page-config'
+import switchConfig from '../../page-configs/ui-elements/switch/page-config'
 
 @Options({
   name: 'DocsSwitch',

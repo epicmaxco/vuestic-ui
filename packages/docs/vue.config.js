@@ -14,6 +14,9 @@ module.exports = {
     })
   },
   configureWebpack: {
+    node: {
+      __dirname: true,
+    },
     entry: {
       app: resolve('./src/main.ts'),
     },

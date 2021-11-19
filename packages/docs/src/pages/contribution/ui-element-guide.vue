@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component'
 import DocsContent from '../../components/DocsContent.vue'
-import uiElementGuideConfig from '../../components/page-configs/contribution/ui-element-guide/page-config'
+import uiElementGuideConfig from '../../page-configs/contribution/ui-element-guide/page-config'
 
 @Options({
   name: 'UiElementGuide',

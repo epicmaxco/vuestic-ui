@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component'
 import DocsContent from '../../components/DocsContent.vue'
-import alertConfig from '../../components/page-configs/ui-elements/va-alert/page-config'
+import alertConfig from '../../page-configs/ui-elements/alert/page-config'
 
 @Options({
   name: 'DocsAlert',

@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component'
 import DocsContent from '../../components/DocsContent.vue'
-import collapseConfig from '../../components/page-configs/ui-elements/va-collapse/page-config'
+import collapseConfig from '../../page-configs/ui-elements/collapse/page-config'
 
 @Options({
   name: 'DocsCollapse',

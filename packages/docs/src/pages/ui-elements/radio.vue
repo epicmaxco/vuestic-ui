@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component'
 import DocsContent from '../../components/DocsContent.vue'
-import radioConfig from '../../components/page-configs/ui-elements/va-radio/page-config'
+import radioConfig from '../../page-configs/ui-elements/radio/page-config'
 
 @Options({
   name: 'DocsRadio',

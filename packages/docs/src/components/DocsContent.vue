@@ -5,8 +5,15 @@
         v-if="block.type === BlockType.EXAMPLE"
         :key="block.type + index"
         :value="block.component"
+        :path="block.path"
         :example-options="block.exampleOptions"
         :codesandbox-config="block.codesandboxConfig"
+      />
+      <DocsComponent
+        v-if="block.type === BlockType.COMPONENT"
+        :key="block.type + index"
+        :value="block.component"
+        :path="block.path"
       />
       <DocsCode
         v-else-if="block.type === BlockType.CODE"
@@ -74,6 +81,7 @@ import { Options, Vue, prop, mixins } from 'vue-class-component'
 import { ApiDocsBlock, BlockType } from '../types/configTypes'
 import MarkdownView from '../utilities/markdown-view/MarkdownView.vue'
 import DocsExample from './DocsExample.vue'
+import DocsComponent from './DocsComponent.vue'
 import DocsCode from './DocsCode.vue'
 import DocsHeadline from './DocsHeadline.vue'
 import DocsSubtitle from './DocsSubtitle.vue'
@@ -92,6 +100,7 @@ const PropsMixin = Vue.with(Props)
   name: 'DocsContent',
   components: {
     DocsExample,
+    DocsComponent,
     DocsCode,
     DocsHeadline,
     DocsSubtitle,

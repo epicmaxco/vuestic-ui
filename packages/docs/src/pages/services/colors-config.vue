@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component'
 import DocsContent from '../../components/DocsContent.vue'
-import colorsConfigConfig from '../../components/page-configs/services/colors-config/page-config'
+import colorsConfigConfig from '../../page-configs/services/colors-config/page-config'
 
 @Options({
   name: 'DocsColorsConfig',

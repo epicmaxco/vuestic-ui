@@ -1269,11 +1269,21 @@
     },
     "pageConfig": {
       "title": "Page Config",
-      "generate": "If your goal is to document a component from scratch, use the `yarn generate:component` command, which will guide you through the process.",
-      "description": "Translation strings are structured in a flat manner — just a list of blocks. Markdown is supported for all the text blocks. Here is the list of blocks you can use:"
+      "descriptionStructure": "The page configuration must be located in a specific path, which is similar to the page URL. The folder with the page configuration must include the `components` folders for blocks with components and` examples` for blocks with examples. These folders should contain the `* .vue` files. An example of the structure and directory of the configuration folder for the current page:",
+      "descriptionFile": "The configuration file contains `config`, which is an array of page blocks that perform specific functions."
+
+    },
+    "generators": {
+      "title": "Generators",
+      "description": "We have created custom generators to facilitate and automate the creation of new pages..",
+      "generateDocsPage": "* The `yarn generate:docspage` command will generate a page with the specified name in the category selected from the list..",
+      "generateComponent": "* The `yarn generate:component` command will generate a complete structure for a new component: create a component, connect it to a library, make a configuration file for it, and add a clean example to the examples folder."
     },
     "blocktypes": {
-      "title": {
+      "title": "Block Types",
+      "descriptionHelper": "The documentation has a flat structure - a list of blocks. To use blocks, you need to create an object of the `PageGenerationHelper` class, passing the path to the current folder to the constructor. After creating the object, call the methods that will return the required block.",
+      "description": "Translation strings are structured in a flat manner — just a list of blocks. Markdown is supported for all the text blocks. Here is the list of blocks you can use:",
+      "titleBlock": {
         "title": "Title",
         "text": "Page title is **mandatory** for documentation pages.",
         "example": "Title (example)"
@@ -1306,7 +1316,11 @@
       },
       "example": {
         "title": "Example",
-        "text": "Shows a component with code preview. Component can use all global services: css classes, colors etc."
+        "text": "Shows a component with code preview. Component can use all global services: css classes, colors etc. Mostly used in the ui-elements section to show examples of use."
+      },
+      "component": {
+        "title": "Component",
+        "text": "Shows a component that has some logic and is not an example of use."
       },
       "api": {
         "title": "API",
@@ -2923,6 +2937,10 @@
       "prepare": "First, make sure you've got [Vue CLI](https://cli.vuejs.org/guide/installation.html)[[target=_blank]] installed globally:",
       "upgrade": "Notice also that the minimum supported version of Vue CLI is v4.0.0. In case you've got an older version installed, please, consider [upgrading](https://cli.vuejs.org/migrating-from-v3/#migrating-from-v3)[[target=_blank]] it.",
       "codeAnnotation": "If everything's fine then you can finally install the plugin with the following command (**don't forget to commit**):"
+    },
+    "codesandbox": {
+      "title": "CodeSandbox",
+      "button": "Try Vuestic-UI on CodeSandbox"
     },
     "treeShaking": {
       "title": "Tree shaking",

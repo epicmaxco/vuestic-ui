@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component'
 import DocsContent from '../../components/DocsContent.vue'
-import cssVariablesConfig from '../../components/page-configs/styles/css-variables/page-config'
+import cssVariablesConfig from '../../page-configs/styles/css-variables/page-config'
 
 @Options({
   name: 'DocsStylesCssVariables',

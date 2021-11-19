@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component'
 import DocsContent from '../../components/DocsContent.vue'
-import dividerConfig from '../../components/page-configs/ui-elements/va-divider/page-config'
+import dividerConfig from '../../page-configs/ui-elements/divider/page-config'
 
 @Options({
   name: 'DocsDivider',

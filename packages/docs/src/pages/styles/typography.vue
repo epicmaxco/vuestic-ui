@@ -6,7 +6,7 @@
 import { Vue, Options } from 'vue-class-component'
 import DocsContent from '../../components/DocsContent.vue'
 import typographyConfig
-  from '../../components/page-configs/styles/typography/page-config'
+  from '../../page-configs/styles/typography/page-config'
 
 @Options({
   name: 'DocsStylesTypography',

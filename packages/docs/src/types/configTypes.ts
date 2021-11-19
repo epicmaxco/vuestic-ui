@@ -39,6 +39,7 @@ export enum BlockType {
   PARAGRAPH = 'PARAGRAPH',
   HEADLINE = 'HEADLINE',
   EXAMPLE = 'EXAMPLE',
+  COMPONENT = 'COMPONENT',
   API = 'API',
   CODE = 'CODE',
   TABLE = 'TABLE',
@@ -68,8 +69,14 @@ export type ApiDocsBlock =
   | ListBlock
   | {
     type: BlockType.EXAMPLE,
-    component: PathToExample, // path to example
+    path: string, // path to directory
+    component: string, // component name
     exampleOptions?: ExampleOptions,
+  }
+  | {
+  type: BlockType.COMPONENT,
+  path: string, // path to directory
+  component: string, // component name
   }
   | {
     type: BlockType.CODE,

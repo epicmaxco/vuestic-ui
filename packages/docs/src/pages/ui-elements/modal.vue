@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component'
 import DocsContent from '../../components/DocsContent.vue'
-import modalConfig from '../../components/page-configs/ui-elements/va-modal/page-config'
+import modalConfig from '../../page-configs/ui-elements/modal/page-config'
 
 @Options({
   name: 'DocsModal',
