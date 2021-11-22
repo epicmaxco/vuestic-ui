@@ -5,7 +5,7 @@
       type="number"
       placeholder="Items..."
       label="Items per page"
-      v-model="perPage"
+      v-model.number="perPage"
     />
 
     <va-input
@@ -13,14 +13,25 @@
       type="number"
       placeholder="Page..."
       label="Current page"
-      v-model="currentPage"
+      v-model.number="currentPage"
+    />
+
+    <va-input
+      class="flex mb-2 md3"
+      placeholder="Filter..."
+      v-model="filter"
     />
   </div>
 
   <va-data-table
     :items="items"
+    :columns="columns"
     :per-page="perPage"
     :current-page="currentPage"
+    :selectable="selectable"
+    :select-mode="selectMode"
+    :filter="filter"
+    @filtered="filtered = $event"
   >
     <template #bodyAppend>
       <tr><td colspan="8" class="table-example--pagination">
@@ -82,18 +93,32 @@ export default defineComponent({
       },
     ]
 
+    const columns = [
+      { key: 'id', sortable: true },
+      { key: 'username', sortable: true },
+      { key: 'name', sortable: true },
+      { key: 'email', sortable: true },
+      { key: 'phone' },
+      { key: 'website' },
+    ]
+
     return {
       items: users,
-      perPage: 2,
+      columns,
+      perPage: 3,
       currentPage: 1,
+      selectable: true,
+      selectMode: 'multiple',
+      filter: '',
+      filtered: users,
     }
   },
 
   computed: {
     pages () {
       return (this.perPage && this.perPage !== '0')
-        ? Math.ceil(this.items.length / this.perPage)
-        : this.items.length
+        ? Math.ceil(this.filtered.length / this.perPage)
+        : this.filtered.length
     },
   },
 })

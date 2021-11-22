@@ -28,6 +28,7 @@
     v-model="selectedItems"
     :select-mode="selectMode"
     :selected-color="selectedColor"
+    @selectionChange="selectedItemsEmitted = $event.currentSelectedItems"
   />
 
   <va-alert class="mt-3" border="left">
@@ -36,10 +37,10 @@
       <va-chip
         class="ml-2"
         :key="item.id"
-        v-for="item in selectedItems"
+        v-for="item in selectedItemsEmitted"
         @click="unselectItem(item)"
       >
-        {{item.id}}
+        {{ item.id }}
       </va-chip>
     </span>
   </va-alert>
@@ -104,11 +105,20 @@ export default defineComponent({
       columns,
       selectable: true,
       selectedItems: [],
+      selectedItemsEmitted: [],
       selectMode: 'multiple',
       selectedColor: '#888888',
       selectModeOptions,
       selectColorOptions,
     }
+  },
+
+  watch: {
+    selectable (value) {
+      if (!value) {
+        this.selectedItems = []
+      }
+    },
   },
 
   methods: {

@@ -19,20 +19,26 @@
   <va-data-table
     :items="items"
     :columns="columns"
+    :hoverable="true"
     v-model:sort-by="sortBy"
     v-model:sorting-order="sortingOrder"
-    @sorted="sortedRows = $event.sortedRows.map(({ id }) => id)"
+    @sorted="
+      sortedRowsEmitted = $event.sortedRows.map(row => row.id),
+      sortingOrderEmitted = $event.sortingOrder,
+      sortByEmitted = $event.sortBy
+    "
   />
 
   <va-alert class="mt-3" border="left">
     <span v-if="sortingOrder">
       Sorted items order (showing id):
-      <va-chip>{{sortedRows.join(' --> ')}}</va-chip>
-      <va-chip>{{sortingOrder}}</va-chip>
+      <va-chip v-show="!!sortedRowsEmitted.length">{{ sortedRowsEmitted.join(' --> ') }}</va-chip>
+      <va-chip v-show="!!sortingOrderEmitted">{{ sortingOrderEmitted }}</va-chip>
+      <va-chip v-show="!!sortByEmitted">{{ sortByEmitted }}</va-chip>
     </span>
     <span v-else>
       Unsorted items order (showing id):
-      <va-chip>{{sortedRows.join(', ')}}</va-chip>
+      <va-chip v-show="!!sortedRowsEmitted.length">{{ sortedRowsEmitted.join(', ') }}</va-chip>
     </span>
   </va-alert>
 </template>
@@ -100,8 +106,10 @@ export default defineComponent({
       columns,
       sortBy: 'username',
       sortingOrder: 'asc',
-      sortedRows: [],
       sortingOrderOptions,
+      sortByEmitted: '',
+      sortingOrderEmitted: '',
+      sortedRowsEmitted: [],
     }
   },
 

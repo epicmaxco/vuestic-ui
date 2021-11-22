@@ -35,11 +35,11 @@ export default function useRows (
   rawItems: Ref<ITableItem[]>,
   columns: Ref<TableColumn[]>,
 ) {
-  const rows = computed(() => {
+  const rawRows = computed(() => {
     return rawItems.value.map((rawItem, index) => buildTableRow(rawItem, index, columns.value))
   })
 
   return {
-    rows,
+    rawRows,
   }
 }

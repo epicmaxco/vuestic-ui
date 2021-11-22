@@ -2,20 +2,19 @@ import { TableColumn } from './useColumns'
 import { computed, ref, Ref, watch } from 'vue'
 import { TableRow, ITableItem } from './useRows'
 
-export type TSortingOrder = 'asc' | 'desc' | null;
+export type TSortingOrder = 'asc' | 'desc' | null
 export type TSortableEmits = (
   event: 'update:sortBy' | 'update:sortingOrder' | 'sorted',
   args: string | TSortingOrder | { sortBy: string, sortingOrder: TSortingOrder, sortedRows: ITableItem[] },
-) => void;
+) => void
 
 export default function useSortable (
   columns: Ref<TableColumn[]>,
-  rows: Ref<TableRow[]>,
+  filteredRows: Ref<TableRow[]>,
   sortBy: Ref<string | undefined>,
   sortingOrder: Ref<TSortingOrder | undefined>,
   emit: TSortableEmits,
 ) {
-  // the standard proxying approach for v-models
   const sortByFallback = ref('')
   const sortByProxy = computed<string>({
     get () {
@@ -35,7 +34,7 @@ export default function useSortable (
     },
   })
 
-  const sortingOrderFallback = ref('asc' as TSortingOrder)
+  const sortingOrderFallback = ref(null as TSortingOrder)
   const sortingOrderProxy = computed<TSortingOrder>({
     get () {
       if (sortingOrder.value === undefined) {
@@ -54,24 +53,19 @@ export default function useSortable (
     },
   })
 
-  // sort each time the sortBy or sortingOrder is changed (and also initially). Also if columns definitions are changed
-  // (because that potentially means that the user runtime-introduced a custom sorting function for a specific column)
-  watch(
-    [sortByProxy, sortingOrderProxy, columns],
-    () => { sort() },
-    { immediate: true },
-  )
-
   // sorts by string-value of a given row's cell (depending on by which column the table is sorted) if no sortingFn is
   // provided. Otherwise uses that very sortingFn. If sortingOrder is `null` then restores the initial sorting order of
   // the rows.
-  function sort () {
+  const sortedRows = computed(() => {
     const column = columns.value.find(column => column.key === sortByProxy.value)
-    if (!column || !column.sortable) { return }
+
+    if (!column || !column.sortable) {
+      return filteredRows.value
+    }
 
     const columnIndex = columns.value.indexOf(column)
 
-    rows.value.sort((a, b) => {
+    return [...filteredRows.value].sort((a, b) => {
       const firstValString = a.cells[columnIndex].value
       const secondValString = b.cells[columnIndex].value
       const firstValInitial = a.cells[columnIndex].source
@@ -81,20 +75,25 @@ export default function useSortable (
         return a.initialIndex - b.initialIndex
       } else {
         const sortingOrderRatio = sortingOrderProxy.value === 'desc' ? -1 : 1
-        return typeof column.sortingFn === 'function'
-          ? column.sortingFn(firstValInitial, secondValInitial) * sortingOrderRatio
-          : firstValString.localeCompare(secondValString) * sortingOrderRatio
+
+        return sortingOrderRatio * (
+          typeof column.sortingFn === 'function'
+            ? column.sortingFn(firstValInitial, secondValInitial)
+            : firstValString.localeCompare(secondValString)
+        )
       }
     })
+  })
 
-    const sortedRowsSource = rows.value.map(row => row.source)
-
+  // sort each time the sortBy or sortingOrder is changed (and also initially). Also if columns definitions are changed
+  // (because that potentially means that the user runtime-introduced a custom sorting function for a specific column)
+  watch(sortedRows, () => {
     emit('sorted', {
       sortBy: sortByProxy.value,
       sortingOrder: sortingOrderProxy.value,
-      sortedRows: sortedRowsSource,
+      sortedRows: sortedRows.value.map(row => row.source),
     })
-  }
+  })
 
   // a function to invoke when a heading of the table is clicked.
   // Sets the clicked heading's column as a one to sort by and toggles the sorting order from "asc" to "desc" to `null`
@@ -118,5 +117,6 @@ export default function useSortable (
     sortByProxy,
     sortingOrderProxy,
     toggleSorting,
+    sortedRows,
   }
 }

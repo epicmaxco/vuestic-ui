@@ -15,6 +15,7 @@
 
   <va-data-table
     :items="items"
+    :columns="columns"
     :filter="filter"
     :filter-method="customFilteringFn"
     @filtered="filteredCount = $event.length"
@@ -23,7 +24,7 @@
   <va-alert class="mt-3" border="left">
     <span>
       Number of filtered items:
-      <va-chip>{{filteredCount}}</va-chip>
+      <va-chip>{{ filteredCount }}</va-chip>
     </span>
   </va-alert>
 </template>
@@ -76,8 +77,17 @@ export default defineComponent({
       },
     ]
 
+    const columns = [
+      { key: 'id', sortable: true },
+      { key: 'username', sortable: true },
+      { key: 'name', sortable: true },
+      { key: 'email', sortable: true },
+      { key: 'phone' },
+    ]
+
     return {
       items: users,
+      columns,
       filter: '',
       useCustomFilteringFn: false,
       filteredCount: users.length,
@@ -92,6 +102,10 @@ export default defineComponent({
 
   methods: {
     filterExact (source) {
+      if (this.filter === '') {
+        return true
+      }
+
       return source?.toString?.() === this.filter
     },
   },

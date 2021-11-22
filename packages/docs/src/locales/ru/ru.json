@@ -874,7 +874,7 @@
         "updateSortingOrder": "Событие генерируется при изменении `sorting-order`",
         "filtered": "`va-data-table` генерирует событие `filtered` каждый раз, когда применяется фильтрация (и когда фильтр очищается), передавая массив с исходными данными отфильтрованных элементов",
         "sorted": "Каждый раз, когда сортировка таблицы изменяется, генерируется событие `sorted` со следующим параметром: \n &#123;\n &nbsp; `sortBy: string`,\n &nbsp; `sortingOrder: TSortingOrder`\n &#125;",
-        "selectionChange": "Событие `selectionChange` генерируется каждый раз при изменении выделения строк. Он предоставляет следующий объект: \n&#123;\n &nbsp; `currentlySelectedItems: ITableItem[]`,\n &nbsp; `previouslySelectedItems: ITableItem[]`\n &#125;"
+        "selectionChange": "Событие `selectionChange` генерируется каждый раз при изменении выделения строк. Он предоставляет следующий объект: \n&#123;\n &nbsp; `currentSelectedItems: ITableItem[]`,\n &nbsp; `previousSelectedItems: ITableItem[]`\n &#125;"
       },
       "methods": {},
       "slots": {
