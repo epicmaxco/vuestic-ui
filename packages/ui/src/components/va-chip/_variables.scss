@@ -11,7 +11,8 @@
   --va-chip-color: #ffffff;
   --va-chip-cursor: default;
   --va-chip-font-size: 1rem;
-  --va-chip-inner-display: flex;
+  --va-chip-vertical-align: middle;
+  --va-chip-inner-display: inline-flex;
   --va-chip-inner-align-items: center;
   --va-chip-inner-width: 100%;
   --va-chip-hover-opacity: 0.85;
