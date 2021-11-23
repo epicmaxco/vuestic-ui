@@ -19,6 +19,7 @@
       <div
         class="va-checkbox__square"
         :style="inputStyle"
+        @selectstart.prevent
       >
         <input
           ref="input"
