@@ -278,6 +278,10 @@ export default class VaPagination extends mixins(
     &--outline.va-button--disabled {
       opacity: 1;
     }
+
+    &--outline.va-button--disabled > .va-button__content {
+      opacity: 0.4;
+    }
   }
 }
 </style>
