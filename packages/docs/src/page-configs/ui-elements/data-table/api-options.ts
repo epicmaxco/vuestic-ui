@@ -20,7 +20,7 @@ export default defineManualApi({
   },
   events: {
     filtered: {
-      types: '`() => Number`',
+      types: '`() => Object`',
     },
     selectionChange: {
       types: '`() => Object`',

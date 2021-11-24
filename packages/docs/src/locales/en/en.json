@@ -866,14 +866,14 @@
         "footerClone": "Sets whether to clone the `<thead>` columns into the `<tfoot>`. Has no effect if the default `<thead>` is hidden with the `hide-default-header` prop",
         "allowFooterSorting": "Allows clicks on `<tfoot>` column headers to sort (and to display the sorting status) the rows",
         "striped": "Sets the striped style to the `<tbody>` rows (highlights each 2nd row)",
-        "hoverable": "Allows the a hover state on table rows within a `<tbody>`. The highlighting color of the hover state takes from `selected-color` prop",
+        "hoverable": "Allows the hover state on table rows within a `<tbody>`. The highlighting color of the hover state takes from `selected-color` prop",
         "animated": "Sets css `transition` to table rows"
       },
       "events": {
         "updateSortBy": "Emits when `sort-by` changed",
         "updateSortingOrder": "Emits when `sorting-order` changed",
-        "filtered": "`va-data-table` emits the `filtered` event each time filtering is applied (and when the filter is cleared), passing the array of sources of filtered items",
-        "sorted": "Each time the table's sorting changes, the `sorted` event is thrown, with the following param: \n &#123;\n &nbsp; `sortBy: string`,\n &nbsp; `sortingOrder: TSortingOrder`\n &#125;",
+        "filtered": "`va-data-table` emits the `filtered` event each time filtering is applied (and when the filter is cleared), with the following param: \n &#123;\n &nbsp; `items: ITableItem[]`,\n &nbsp; `itemsIndexes: number[]`\n &#125;",
+        "sorted": "Each time the table's sorting changes, the `sorted` event is thrown, with the following param: \n &#123;\n &nbsp; `sortBy: string`,\n &nbsp; `sortingOrder: TSortingOrder`,\n &nbsp; `items: ITableItem[]`,\n &nbsp; `itemsIndexes: number[]`\n &#125;",
         "selectionChange": "The `selectionChange` event is thrown each time the selection changes. It provides the following object: \n&#123;\n &nbsp; `currentSelectedItems: ITableItem[]`,\n &nbsp; `previousSelectedItems: ITableItem[]`\n &#125;"
       },
       "methods": {},

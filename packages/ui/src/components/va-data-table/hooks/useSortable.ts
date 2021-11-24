@@ -3,9 +3,10 @@ import { computed, ref, Ref, watch } from 'vue'
 import { TableRow, ITableItem } from './useRows'
 
 export type TSortingOrder = 'asc' | 'desc' | null
+export type TSortedArgs = { sortBy: string, sortingOrder: TSortingOrder, items: ITableItem[], itemsIndexes: number[] }
 export type TSortableEmits = (
   event: 'update:sortBy' | 'update:sortingOrder' | 'sorted',
-  args: string | TSortingOrder | { sortBy: string, sortingOrder: TSortingOrder, sortedRows: ITableItem[] },
+  args: string | TSortingOrder | TSortedArgs,
 ) => void
 
 export default function useSortable (
@@ -91,7 +92,8 @@ export default function useSortable (
     emit('sorted', {
       sortBy: sortByProxy.value,
       sortingOrder: sortingOrderProxy.value,
-      sortedRows: sortedRows.value.map(row => row.source),
+      items: sortedRows.value.map(row => row.source),
+      itemsIndexes: sortedRows.value.map(row => row.initialIndex),
     })
   })
 
