@@ -41,7 +41,7 @@
 <script lang="ts">
 import { Options, Vue, prop, mixins } from 'vue-class-component'
 import { TableData, TableColumn } from './DocsTable'
-import MarkdownView from '../markdown-view/MarkdownView.vue'
+import MarkdownView from '../MarkdownView/MarkdownView.vue'
 
 class Props {
   columns = prop<TableColumn[]>({ type: Array, required: true })
