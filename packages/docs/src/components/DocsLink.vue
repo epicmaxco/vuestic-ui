@@ -21,7 +21,7 @@
 </template>
 
 <script lang="ts">
-import MarkdownView from '../utilities/markdown-view/MarkdownView.vue'
+import MarkdownView from './markdown-view/MarkdownView.vue'
 import { defineComponent, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 
