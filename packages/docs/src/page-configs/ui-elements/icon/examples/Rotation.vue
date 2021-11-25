@@ -7,14 +7,22 @@
     class="mb-4"
   />
 
+  <va-switch
+    label="Enable rotation"
+    size="small"
+    v-model="isRotation"
+  />
+
   <va-slider
-    v-model="rotation"
     :step="5"
     :min="-180"
     :max="180"
+    :disabled="!isRotation"
     class="mb-4"
+    :model-value="rotation || 0"
+    @update:model-value="isRotation ? rotation = $event : () => {}"
   >
-    <template #prepend>
+    <template #append>
       <va-input
         v-model.number="rotation"
         readonly
@@ -56,7 +64,16 @@ export default defineComponent({
       flipOptions,
       flip: flipOptions[0].value,
       rotation: 0,
+      isRotation: true,
     }
+  },
+
+  watch: {
+    isRotation (value) {
+      if (!value) {
+        this.rotation = undefined
+      }
+    },
   },
 })
 </script>

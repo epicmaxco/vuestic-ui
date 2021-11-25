@@ -70,19 +70,19 @@ export default class VaIcon extends mixins(
     return spin === 'counter-clockwise' ? 'va-icon--spin-reverse' : 'va-icon--spin'
   }
 
-  getTransformStyle () {
+  get transformStyle () {
     const rotation = this.rotation ? 'rotate(' + this.rotation + 'deg)' : ''
 
     const flipY = (this.flip === 'vertical' || this.flip === 'both') ? -1 : 1
     const flipX = (this.flip === 'horizontal' || this.flip === 'both') ? -1 : 1
-    const scale = this.flip === 'off' ? 'scale(1, 1)' : `scale(${flipY}, ${flipX})`
+    const scale = this.flip === 'off' ? '' : `scale(${flipY}, ${flipX})`
 
-    return `${scale} ${rotation}`
+    return `${scale} ${rotation}`.trim()
   }
 
   get computedStyle () {
     return {
-      transform: this.getTransformStyle(),
+      transform: this.transformStyle,
       cursor: this.$attrs.onClick ? 'pointer' : null,
       color: this.$props.color !== undefined ? this.colorComputed : this.iconConfig.color,
       fontSize: this.sizeComputed,
