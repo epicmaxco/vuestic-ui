@@ -12,6 +12,10 @@ export default function useFilterable (
   emit: TFilterableEmits,
 ) {
   const filteredRows = computed<TableRow[]>(() => {
+    if (!rawRows.value.length) {
+      return rawRows.value
+    }
+
     if (filter.value === '' && !filterMethod.value) {
       return rawRows.value
     }

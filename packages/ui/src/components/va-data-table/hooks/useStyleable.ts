@@ -5,7 +5,6 @@ import { computed, Ref } from 'vue'
 import { TableColumn } from './useColumns'
 
 export default function useStyleable (
-  hoverable: Ref<boolean>,
   selectable: Ref<boolean>,
   selectedColor: Ref<string>,
   allowFooterSorting: Ref<boolean>,
@@ -19,20 +18,15 @@ export default function useStyleable (
   }
 
   const rowCSSVariables = computed(() => {
+    const styles: Record<string, any> = {
+      '--hover-color': getHoverColor(getColor(selectedColor.value)),
+    }
+
     if (selectable.value) {
-      return {
-        '--hover-color': getHoverColor(getColor(selectedColor.value)),
-        '--selected-color': getFocusColor(getColor(selectedColor.value)),
-      }
+      styles['--selected-color'] = getFocusColor(getColor(selectedColor.value))
     }
 
-    if (hoverable.value) {
-      return {
-        '--hover-color': getHoverColor(getColor(selectedColor.value)),
-      }
-    }
-
-    return {}
+    return styles
   })
 
   function getCellCSSVariables (cell: TableCell) {

@@ -28,10 +28,9 @@
     :columns="columns"
     :per-page="perPage"
     :current-page="currentPage"
-    :selectable="selectable"
-    :select-mode="selectMode"
+    :selectable="true"
     :filter="filter"
-    @filtered="filtered = $event"
+    @filtered="filtered = $event.items"
   >
     <template #bodyAppend>
       <tr><td colspan="8" class="table-example--pagination">
@@ -107,8 +106,6 @@ export default defineComponent({
       columns,
       perPage: 3,
       currentPage: 1,
-      selectable: true,
-      selectMode: 'multiple',
       filter: '',
       filtered: users,
     }
@@ -116,7 +113,7 @@ export default defineComponent({
 
   computed: {
     pages () {
-      return (this.perPage && this.perPage !== '0')
+      return (this.perPage && this.perPage !== 0)
         ? Math.ceil(this.filtered.length / this.perPage)
         : this.filtered.length
     },

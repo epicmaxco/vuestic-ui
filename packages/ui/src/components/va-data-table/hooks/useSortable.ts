@@ -58,6 +58,10 @@ export default function useSortable (
   // provided. Otherwise uses that very sortingFn. If sortingOrder is `null` then restores the initial sorting order of
   // the rows.
   const sortedRows = computed(() => {
+    if (filteredRows.value.length <= 1) {
+      return filteredRows.value
+    }
+
     const column = columns.value.find(column => column.key === sortByProxy.value)
 
     if (!column || !column.sortable) {
