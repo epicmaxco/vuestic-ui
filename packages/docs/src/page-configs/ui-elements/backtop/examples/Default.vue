@@ -21,7 +21,7 @@
     />
     <br />
     <va-slider
-      label="vertical offset:"
+      label="Vertical offset:"
       track-label-visible
       v-model="verticalOffset"
       :track-label="`${verticalOffset}%`"
@@ -30,7 +30,7 @@
     />
     <br />
     <va-slider
-      label="horizontal offset:"
+      label="Horizontal offset:"
       track-label-visible
       v-model="horizontalOffset"
       :track-label="`${horizontalOffset}%`"
@@ -39,7 +39,7 @@
     />
     <br />
     <va-slider
-      label="visibility height:"
+      label="Visibility height:"
       track-label-visible
       v-model="visibilityHeight"
       :track-label="`${visibilityHeight}`"
@@ -50,7 +50,7 @@
     <va-slider
       track-label-visible
       v-model="scrollSpeed"
-      label="Scroll speed"
+      label="Scroll speed:"
       :track-label="`${scrollSpeed}`"
       :min="1"
       :max="500"
@@ -61,7 +61,7 @@
       :label="`Active Slot: ${isSlot}`" />
 
     <va-backtop
-      target=".base-layout__main"
+      target=".base-layout__content"
       :vertical-offset="verticalOffset + '%'"
       :horizontal-offset="horizontalOffset + '%'"
       :horizontal-position="positionHorizontal"
