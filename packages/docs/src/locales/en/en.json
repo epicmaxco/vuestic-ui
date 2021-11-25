@@ -854,6 +854,7 @@
         "sortBy": "Sets the column to sort by. Works through the `v-model`",
         "sortingOrder": "Sets the sorting order. Works through the `v-model`",
         "selectable": "Sets whether the `va-data-table` should have selectable rows or not",
+        "clickable": "Sets whether the `va-data-table` should have clickable (the click events will be emitted) rows or not",
         "selectMode": "Sets the select mode. `'single'` selection allows for only a single row to be selected at a time, while `'multiple'` mode allows to select multiple rows by clicking on checkboxes or using the **ctrl**/**shift** keys when clicking rows",
         "selectedColor": "Sets the highlighting color of the selected row",
         "perPage": "Sets the maximum number of rows displayed in the table's `<tbody>`",
@@ -874,6 +875,9 @@
         "updateSortingOrder": "Emits when `sorting-order` changed",
         "filtered": "`va-data-table` emits the `filtered` event each time filtering is applied (and when the filter is cleared), with the following param: \n &#123;\n &nbsp; `items: ITableItem[]`,\n &nbsp; `itemsIndexes: number[]`\n &#125;",
         "sorted": "Each time the table's sorting changes, the `sorted` event is thrown, with the following param: \n &#123;\n &nbsp; `sortBy: string`,\n &nbsp; `sortingOrder: TSortingOrder`,\n &nbsp; `items: ITableItem[]`,\n &nbsp; `itemsIndexes: number[]`\n &#125;",
+        "rowClick": "When row clicked the event is thrown with the following param (`RowClickEvent`): \n &#123;\n &nbsp; `event: Event`,\n &nbsp; `item: ITableItem`,\n &nbsp; `itemIndex: number`\n &#125;",
+        "rowDblclick": "Double-clicking a row raises an event with the `RowClickEvent` param",
+        "rowContextmenu": "When the context menu is clicked on a row, an event is raised with the `RowClickEvent` param",
         "selectionChange": "The `selectionChange` event is thrown each time the selection changes. It provides the following object: \n&#123;\n &nbsp; `currentSelectedItems: ITableItem[]`,\n &nbsp; `previousSelectedItems: ITableItem[]`\n &#125;"
       },
       "methods": {},

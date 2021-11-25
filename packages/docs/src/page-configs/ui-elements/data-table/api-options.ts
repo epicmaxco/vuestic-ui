@@ -34,6 +34,15 @@ export default defineManualApi({
     'update:sortingOrder': {
       types: '`() => TSortingOrder`',
     },
+    'row:click': {
+      types: '`() => RowClickEvent`',
+    },
+    'row:contextmenu': {
+      types: '`() => RowClickEvent`',
+    },
+    'row:dblclick': {
+      types: '`() => RowClickEvent`',
+    },
   },
   slots: {
     colgroup: {},
