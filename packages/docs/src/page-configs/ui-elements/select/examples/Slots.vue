@@ -5,6 +5,7 @@
       label="Prepend slot"
       :options="options"
       v-model="value"
+      bordered
     >
       <template #prepend>
         <va-icon
@@ -17,6 +18,7 @@
       label="Prepend inner slot"
       :options="options"
       v-model="value"
+      bordered
     >
       <template #prependInner>
         <va-icon
