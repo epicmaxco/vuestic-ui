@@ -6,8 +6,9 @@
         :icon="icon"
         class="mr-4"
       >
-        {{icon}}
+        {{ icon }}
       </va-chip>
+      <va-chip>without icon</va-chip>
   </div>
 </template>
 

@@ -13,7 +13,7 @@
     :class="computedClass"
     :style="computedStyle"
   >
-    <div
+    <span
       class="va-chip__inner"
       v-on="SetupContext.keyboardFocusListeners"
       @focus="$emit('focus')"
@@ -37,7 +37,7 @@
         :size="iconSize"
         @click.stop="close()"
       />
-    </div>
+    </span>
   </component>
 </template>
 
@@ -188,11 +188,13 @@ export default class VaChip extends mixins(
   cursor: var(--va-chip-cursor);
   font-size: var(--va-chip-font-size);
   font-family: var(--va-font-family);
+  vertical-align: var(--va-chip-vertical-align);
 
   &__inner {
     display: var(--va-chip-inner-display);
     align-items: var(--va-chip-inner-align-items);
     width: var(--va-chip-inner-width);
+    vertical-align: inherit;
   }
 
   &:hover {
