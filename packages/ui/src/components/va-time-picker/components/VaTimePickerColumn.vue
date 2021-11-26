@@ -47,9 +47,9 @@ export default defineComponent({
 
     const scrollTo = (index: number, animate = true) => {
       nextTick(() => {
-        const childs = rootElement.value!.children
+        const children = rootElement.value!.children
 
-        const element = childs[index] as HTMLElement
+        const element = children[index] as HTMLElement
 
         if (!element) {
           rootElement.value?.scrollTo({
