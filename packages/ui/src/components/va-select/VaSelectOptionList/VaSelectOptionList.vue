@@ -213,7 +213,9 @@ export default class VaSelectOptionList extends mixins(
   scrollToOption (option: any) {
     const element: HTMLElement = this.itemRefs[(this.$props.getTrackBy as Function)(option)]
 
-    scrollToElement(element)
+    if (element) {
+      scrollToElement(element)
+    }
   }
 
   public focus () {

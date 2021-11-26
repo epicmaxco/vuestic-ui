@@ -659,6 +659,10 @@ export default defineComponent({
     justify-content: center;
     align-content: center;
   }
+
+  .va-input-wrapper__content {
+    flex-grow: 1;
+  }
 }
 
 .va-select-dropdown {

@@ -40,6 +40,7 @@
             <div v-if="$slots.content" class="va-input__content__input">
               <slot name="content" />
             </div>
+
             <slot></slot>
           </div>
         </div>
@@ -194,6 +195,10 @@ export default defineComponent({
         padding-right: 0;
       }
     }
+  }
+
+  &-wrapper__content {
+    position: relative;
   }
 
   &__content-wrapper {
