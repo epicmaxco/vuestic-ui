@@ -58,7 +58,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, InputHTMLAttributes, isRef, PropType, ref, Ref, TextareaHTMLAttributes, toRef, unref } from 'vue'
+import { computed, defineComponent, InputHTMLAttributes, PropType, ref } from 'vue'
 import { useFormProps } from '../../composables/useForm'
 import { useValidation, useValidationProps, useValidationEmits } from '../../composables/useValidation'
 import { useCleave, useCleaveProps } from './hooks/useCleave'
@@ -137,6 +137,7 @@ export default defineComponent({
       ...validationListeners,
       class: attrs.inputClass,
       style: attrs.inputStyle,
+      id: attrs.inputId,
       value: computedValue.value,
       type: props.type,
       tabindex: props.tabindex,
