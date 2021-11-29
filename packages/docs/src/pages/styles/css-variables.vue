@@ -13,7 +13,7 @@ import cssVariablesConfig from '../../page-configs/styles/css-variables/page-con
     DocsContent,
   },
 })
-export default class Grid extends Vue {
+export default class CssVariables extends Vue {
   get configComputed () {
     return cssVariablesConfig
   }

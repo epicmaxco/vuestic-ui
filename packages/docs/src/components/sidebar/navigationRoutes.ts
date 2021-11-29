@@ -60,6 +60,10 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: 'menu.reset',
       },
       {
+        name: 'grid',
+        displayName: 'menu.grid',
+      },
+      {
         name: 'css-variables',
         displayName: 'menu.cssVariables',
       },
