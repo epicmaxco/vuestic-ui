@@ -17,10 +17,11 @@
           :outline="outline"
           :disabled="disabled"
           :color="color"
-          :icon-right="computedIcon"
+          v-bind="{ [label ? 'icon-right' : 'icon']: computedIcon }"
+          :round="!label"
           @click="click"
         >
-          <slot name="label">
+          <slot v-if="label" name="label">
             {{ label }}
           </slot>
         </va-button>
