@@ -1,6 +1,8 @@
 <template>
   <VaInputField
     v-bind="fieldListeners"
+    :class="$attrs.class"
+    :style="$attrs.style"
     :color="color"
     :readonly="readonly"
     :disabled="disabled"
@@ -66,6 +68,7 @@ import { useEmitProxy } from '../../composables/useEmitProxy'
 import VaInputField from './components/VaInputField.vue'
 import VaTextarea from './components/VaTextarea/VaTextarea.vue'
 import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
+import { omit } from 'lodash-es'
 
 const VaTextareaProps = extractComponentProps(VaTextarea)
 
@@ -108,6 +111,8 @@ export default defineComponent({
 
   emits: ['update:modelValue', ...useValidationEmits, ...createInputEmits(), ...createFieldEmits()],
 
+  inheritAttrs: false,
+
   setup (props, { emit, attrs }) {
     const input = ref<HTMLInputElement>()
     const {
@@ -132,12 +137,9 @@ export default defineComponent({
     const { computedValue, onInput } = useCleave(input, props, emit)
 
     const computedInputAttributes = computed(() => ({
-      ...attrs,
+      ...omit(attrs, ['class', 'style']),
       ...createInputListeners(emit),
       ...validationListeners,
-      class: attrs.inputClass,
-      style: attrs.inputStyle,
-      id: attrs.inputId,
       value: computedValue.value,
       type: props.type,
       tabindex: props.tabindex,

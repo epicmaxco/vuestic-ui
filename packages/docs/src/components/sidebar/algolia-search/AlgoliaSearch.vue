@@ -49,7 +49,7 @@ export default class Search extends Vue {
         apiKey: 'be3528055c92da2ea5133b93ed548c6d',
         indexName: 'vuestic',
       }, {
-        inputSelector: '#algolia-search-input .va-input__content__input',
+        inputSelector: '#algolia-search-input',
         debug: true,
       }))
     })
