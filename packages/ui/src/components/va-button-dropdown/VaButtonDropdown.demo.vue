@@ -5,6 +5,11 @@
         Content
       </va-button-dropdown>
     </VbCard>
+    <VbCard title="without label">
+      <va-button-dropdown>
+        Content
+      </va-button-dropdown>
+    </VbCard>
     <VbCard title="label slot">
       <va-button-dropdown>
         <template #label>
