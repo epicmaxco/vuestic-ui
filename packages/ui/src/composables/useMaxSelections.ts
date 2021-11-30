@@ -8,14 +8,18 @@ import { PropType, Ref } from 'vue'
  */
 export const useMaxSelectionsProps = {
   maxSelections: {
-    type: Number as PropType<number>,
+    type: [Number, String] as PropType<number | string>,
     default: undefined,
   },
 }
 
-export function useMaxSelections (selections: Ref<any[]>, maxSelections: Ref<number | undefined>, emit: (event: 'update:modelValue', ...args: any[]) => void) {
+export function useMaxSelections (
+  selections: Ref<any[]>,
+  maxSelections: Ref<number | string | undefined>,
+  emit: (event: 'update:modelValue', ...args: any[]) => void,
+) {
   const exceedsMaxSelections = (): boolean => {
-    if (maxSelections.value === undefined) { return false }
+    if (maxSelections.value === undefined || isNaN(+maxSelections.value)) { return false }
     return selections.value.length >= maxSelections.value
   }
 

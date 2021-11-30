@@ -26,6 +26,7 @@
       >
         <!-- We show messages outside of dropdown to draw dropdown content under the input -->
         <va-input
+          :style="{ width: $props.width }"
           :model-value="valueComputedString"
           :success="$props.success"
           :error="computedError"
@@ -678,6 +679,12 @@ export default defineComponent({
     border-top-left-radius: 0;
     box-shadow: var(--va-select-box-shadow);
     padding: 0;
+
+    .va-input {
+      .va-input-wrapper__content {
+        flex-grow: 1;
+      }
+    }
   }
 
   &__options-wrapper {

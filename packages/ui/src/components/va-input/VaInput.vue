@@ -43,8 +43,8 @@
     </template>
 
     <VaTextarea
-      v-bind="textareaProps"
       v-if="type === 'textarea'"
+      v-bind="textareaProps"
       class="va-input__content__input"
       @input="onInput"
     />
@@ -115,6 +115,7 @@ export default defineComponent({
 
   setup (props, { emit, attrs }) {
     const input = ref<HTMLInputElement>()
+
     const {
       isFocused,
       listeners: validationListeners,
