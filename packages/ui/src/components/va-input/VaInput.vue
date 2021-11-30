@@ -1,6 +1,8 @@
 <template>
   <VaInputField
     v-bind="fieldListeners"
+    :class="$attrs.class"
+    :style="$attrs.style"
     :color="color"
     :readonly="readonly"
     :disabled="disabled"
@@ -58,7 +60,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, InputHTMLAttributes, isRef, PropType, ref, Ref, TextareaHTMLAttributes, toRef, unref } from 'vue'
+import { computed, defineComponent, InputHTMLAttributes, PropType, ref } from 'vue'
 import { useFormProps } from '../../composables/useForm'
 import { useValidation, useValidationProps, useValidationEmits } from '../../composables/useValidation'
 import { useCleave, useCleaveProps } from './hooks/useCleave'
@@ -66,6 +68,7 @@ import { useEmitProxy } from '../../composables/useEmitProxy'
 import VaInputField from './components/VaInputField.vue'
 import VaTextarea from './components/VaTextarea/VaTextarea.vue'
 import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
+import { omit } from 'lodash-es'
 
 const VaTextareaProps = extractComponentProps(VaTextarea)
 
@@ -108,6 +111,8 @@ export default defineComponent({
 
   emits: ['update:modelValue', ...useValidationEmits, ...createInputEmits(), ...createFieldEmits()],
 
+  inheritAttrs: false,
+
   setup (props, { emit, attrs }) {
     const input = ref<HTMLInputElement>()
     const {
@@ -132,11 +137,9 @@ export default defineComponent({
     const { computedValue, onInput } = useCleave(input, props, emit)
 
     const computedInputAttributes = computed(() => ({
-      ...attrs,
+      ...omit(attrs, ['class', 'style']),
       ...createInputListeners(emit),
       ...validationListeners,
-      class: attrs.inputClass,
-      style: attrs.inputStyle,
       value: computedValue.value,
       type: props.type,
       tabindex: props.tabindex,
