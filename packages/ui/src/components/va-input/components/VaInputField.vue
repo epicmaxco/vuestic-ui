@@ -201,6 +201,15 @@ export default defineComponent({
     position: relative;
   }
 
+  &-wrapper__prepend-inner,
+  &-wrapper__append-inner,
+  &__prepend-inner,
+  &__append-inner {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+  }
+
   &__content-wrapper {
     display: flex;
     align-items: center;

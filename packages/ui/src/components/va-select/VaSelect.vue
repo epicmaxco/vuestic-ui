@@ -68,16 +68,14 @@
           </template>
 
           <template #appendInner>
-            <div class="va-input__append">
-              <slot
-                v-if="$slots.appendInner"
-                name="appendInner"
-              />
-              <va-icon
-                :color="colorComputed"
-                :name="toggleIcon"
-              />
-            </div>
+            <slot
+              v-if="$slots.appendInner"
+              name="appendInner"
+            />
+            <va-icon
+              :color="colorComputed"
+              :name="toggleIcon"
+            />
           </template>
 
           <template v-if="$slots.content" #content="{ value, focus }">
@@ -653,12 +651,6 @@ export default defineComponent({
 
   .va-input {
     cursor: var(--va-select-cursor);
-  }
-
-  .va-input__append {
-    display: flex;
-    justify-content: center;
-    align-content: center;
   }
 
   .va-input-wrapper__content {
