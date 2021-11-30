@@ -873,12 +873,12 @@
       "events": {
         "updateSortBy": "Emits when `sort-by` changed",
         "updateSortingOrder": "Emits when `sorting-order` changed",
-        "filtered": "`va-data-table` emits the `filtered` event each time filtering is applied (and when the filter is cleared), with the following param: \n &#123;\n &nbsp; `items: ITableItem[]`,\n &nbsp; `itemsIndexes: number[]`\n &#125;",
-        "sorted": "Each time the table's sorting changes, the `sorted` event is thrown, with the following param: \n &#123;\n &nbsp; `sortBy: string`,\n &nbsp; `sortingOrder: TSortingOrder`,\n &nbsp; `items: ITableItem[]`,\n &nbsp; `itemsIndexes: number[]`\n &#125;",
-        "rowClick": "When row clicked the event is thrown with the following param (`RowClickEvent`): \n &#123;\n &nbsp; `event: Event`,\n &nbsp; `item: ITableItem`,\n &nbsp; `itemIndex: number`\n &#125;",
-        "rowDblclick": "Double-clicking a row raises an event with the `RowClickEvent` param",
-        "rowContextmenu": "When the context menu is clicked on a row, an event is raised with the `RowClickEvent` param",
-        "selectionChange": "The `selectionChange` event is thrown each time the selection changes. It provides the following object: \n&#123;\n &nbsp; `currentSelectedItems: ITableItem[]`,\n &nbsp; `previousSelectedItems: ITableItem[]`\n &#125;"
+        "filtered": "`va-data-table` emits the `filtered` event each time filtering is applied (and when the filter is cleared), with the following param: `FilteredEmit` = \n &#123;\n &nbsp; `items: ITableItem[]`,\n &nbsp; `itemsIndexes: number[]`\n &#125;",
+        "sorted": "Each time the table's sorting changes, the `sorted` event is thrown, with the following param: `SortedEmit` = \n &#123;\n &nbsp; `sortBy: string`,\n &nbsp; `sortingOrder: TSortingOrder`,\n &nbsp; `items: ITableItem[]`,\n &nbsp; `itemsIndexes: number[]`\n &#125;",
+        "rowClick": "When row clicked the event is thrown with the following param: `RowClickEmit` = \n &#123;\n &nbsp; `event: Event`,\n &nbsp; `item: ITableItem`,\n &nbsp; `itemIndex: number`\n &#125;",
+        "rowDblclick": "Double-clicking a row raises an event with the `RowClickEmit` param",
+        "rowContextmenu": "When the context menu is clicked on a row, an event is raised with the `RowClickEmit` param",
+        "selectionChange": "The `selectionChange` event is thrown each time the selection changes. It provides the following object: `SelectionChangeEmit` = \n&#123;\n &nbsp; `currentSelectedItems: ITableItem[]`,\n &nbsp; `previousSelectedItems: ITableItem[]`\n &#125;"
       },
       "methods": {},
       "slots": {

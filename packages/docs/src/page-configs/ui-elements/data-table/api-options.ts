@@ -20,13 +20,13 @@ export default defineManualApi({
   },
   events: {
     filtered: {
-      types: '`() => Object`',
+      types: '`() => FilteredEmit`',
     },
     selectionChange: {
-      types: '`() => Object`',
+      types: '`() => SelectionChangeEmit`',
     },
     sorted: {
-      types: '`() => Object`',
+      types: '`() => SortedEmit`',
     },
     'update:sortBy': {
       types: '`() => String`',
@@ -35,13 +35,13 @@ export default defineManualApi({
       types: '`() => TSortingOrder`',
     },
     'row:click': {
-      types: '`() => RowClickEvent`',
+      types: '`() => RowClickEmit`',
     },
     'row:contextmenu': {
-      types: '`() => RowClickEvent`',
+      types: '`() => RowClickEmit`',
     },
     'row:dblclick': {
-      types: '`() => RowClickEvent`',
+      types: '`() => RowClickEmit`',
     },
   },
   slots: {
