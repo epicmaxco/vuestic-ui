@@ -25,6 +25,11 @@ class IconProps {
   color = prop<string>({ type: String, default: undefined })
   rotation = prop<number | string>({ type: [String, Number], default: undefined })
   spin = prop<string | boolean>({ type: [String, Boolean], default: undefined })
+  flip = prop<string>({
+    type: String,
+    default: 'off',
+    validator: (value: string) => ['off', 'horizontal', 'vertical', 'both'].includes(value),
+  })
 }
 
 const IconPropsMixin = Vue.with(IconProps)
@@ -65,9 +70,19 @@ export default class VaIcon extends mixins(
     return spin === 'counter-clockwise' ? 'va-icon--spin-reverse' : 'va-icon--spin'
   }
 
+  get transformStyle () {
+    const rotation = this.rotation ? 'rotate(' + this.rotation + 'deg)' : ''
+
+    const flipY = (this.flip === 'vertical' || this.flip === 'both') ? -1 : 1
+    const flipX = (this.flip === 'horizontal' || this.flip === 'both') ? -1 : 1
+    const scale = this.flip === 'off' ? '' : `scale(${flipY}, ${flipX})`
+
+    return `${scale} ${rotation}`.trim()
+  }
+
   get computedStyle () {
     return {
-      transform: this.rotation && 'rotate(' + this.rotation + 'deg)',
+      transform: this.transformStyle,
       cursor: this.$attrs.onClick ? 'pointer' : null,
       color: this.$props.color !== undefined ? this.colorComputed : this.iconConfig.color,
       fontSize: this.sizeComputed,

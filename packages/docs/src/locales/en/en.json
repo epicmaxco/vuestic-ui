@@ -104,7 +104,7 @@
         "id": "Applies `id` to internal input component. Useful for native forms.",
         "name": "Applies `name` to internal input component. Useful for native forms.",
         "tag": "Replaces html tag. This is useful for semantics and also to allow for valid markup in some cases (`ul > li` and `tr > td` etc.).",
-        "size": "Specify size for component. 'small', 'medium', 'large' sizes are available. If you want more control, you can provide number (will be used as `px`) or string value (`rem` and `px` sizes are supported).",
+        "size": "Specify size for component. `\"small\"`, `\"medium\"`, `\"large\"` sizes are available. If you want more control, you can provide number (will be used as `px`) or string value (`rem` and `px` sizes are supported).",
         "disabled": "Applies `disabled` style and removes all user interaction effects.",
         "readonly": "Doesn't look disabled, but acts like one. Mostly useful for wrapper components.",
         "success": "Show component in success state.",
@@ -270,7 +270,7 @@
         "message": "Content of modal body",
         "attachElement": "A valid selector of element, where modal will be rendered",
         "disableAttachment": "Ignore `attach-element` prop and render component as it's parent child",
-        "size": "Set the size of the modal's width. `small`, `medium` (default) or `large`",
+        "size": "Set the size of the modal's width. `\"small\"`, `\"medium\"` (default) or `\"large\"`",
         "okText": "Text string to place in the default footer **Ok** button",
         "cancelText": "Text string to place in the default footer **Cancel** button",
         "hideDefaultActions": "Use `hide-default-actions: true` to hide **Cancel** and **Ok** buttons",
@@ -361,7 +361,7 @@
     "VaSwitch": {
       "props": {
         "color": "Color of switch",
-        "size": "Specify size for component. \"small\", \"medium\", \"large\" sizes are available",
+        "size": "Specify size for component. `\"small\"`, `\"medium\"`, `\"large\"` sizes are available",
         "label": "Switch label",
         "leftLabel": "Moves label to the left",
         "readonly": "Makes switch read only",
@@ -571,9 +571,10 @@
     },
     "VaIcon": {
       "props": {
-        "component": "Allows to use the svg component as an icon.",
-        "rotation": "Rotates a component by a degree value.",
-        "spin": "Starts rotation animation.",
+        "component": "Allows to use the `svg` component as an icon",
+        "rotation": "Rotates a component by a degree value",
+        "spin": "Starts rotation animation",
+        "flip": "Specifies mirror image relative to horizontal and vertical planes. `\"off\"`, `\"horizontal\"`, `\"vertical\"` and `\"both\"` values are available",
         "iconsConfig": "Allows you to configurate iconset."
       }
     },
@@ -802,7 +803,7 @@
     },
     "VaButtonDropdown": {
       "props": {
-        "size": "Specify size for component. \"small\", \"medium\", \"large\" sizes are available.",
+        "size": "Specify size for component. `\"small\"`, `\"medium\"`, `\"large\"` sizes are available.",
         "disableDropdown": "Disables the dropdown menu.",
         "disableButton": "Disables the button.",
         "round": "Sets the square style for a button.",
@@ -2314,8 +2315,8 @@
         "text": "Apply the `size` prop in order to make `va-icon` fit your needs."
       },
       "rotation": {
-        "title": "Rotation",
-        "text": "It is used to rotate the `va-icon` component."
+        "title": "Rotation and Flip",
+        "text": "It is used to rotate and mirror the `va-icon` component."
       },
       "spin": {
         "title": "Spin",
