@@ -17,7 +17,8 @@
           :outline="outline"
           :disabled="disabled"
           :color="color"
-          :icon-right="computedIcon"
+          v-bind="{ [label || $slots.label ? 'icon-right' : 'icon']: computedIcon }"
+          :round="!label && !$slots.label"
           @click="click"
         >
           <slot name="label">
