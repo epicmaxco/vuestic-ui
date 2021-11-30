@@ -855,6 +855,7 @@
         "sortBy": "Устанавливает столбец, по которому выполнять сортировку. Работает через `v-model`",
         "sortingOrder": "Устанавливает направление сортировки. Работает через `v-model`",
         "selectable": "Устанавливает, должна ли `va-data-table` иметь выбираемые строки или нет",
+        "clickable": "Устанавливает, должна ли таблица `va-data-table` иметь интерактивные (будут генерироваться события щелчка) строки или нет",
         "selectMode": "Устанавливает режим выбора. Режим `'single'` позволяет выбирать только одну строку за раз, в то время как режим `'multiple'` позволяет выбирать несколько строк, выбирая чекбоксы или используя клавиши **ctrl**/**shift** при щелчке по строкам",
         "selectedColor": "Устанавливает цвет выделенной строки",
         "perPage": "Устанавливает максимальное количество строк, отображаемых в `<tbody>` таблицы",
@@ -873,9 +874,12 @@
       "events": {
         "updateSortBy": "Событие генерируется при изменении `sort-by`",
         "updateSortingOrder": "Событие генерируется при изменении `sorting-order`",
-        "filtered": "`va-data-table` генерирует событие `filtered` каждый раз, когда применяется фильтрация (и когда фильтр очищается), передавая массив с исходными данными отфильтрованных элементов",
-        "sorted": "Каждый раз, когда сортировка таблицы изменяется, генерируется событие `sorted` со следующим параметром: \n &#123;\n &nbsp; `sortBy: string`,\n &nbsp; `sortingOrder: TSortingOrder`\n &#125;",
-        "selectionChange": "Событие `selectionChange` генерируется каждый раз при изменении выделения строк. Он предоставляет следующий объект: \n&#123;\n &nbsp; `currentSelectedItems: ITableItem[]`,\n &nbsp; `previousSelectedItems: ITableItem[]`\n &#125;"
+        "filtered": "`va-data-table` генерирует событие `filtered` каждый раз, когда применяется фильтрация (и когда фильтр очищается), со следующим параметром: `FilteredEmit` = \n &#123;\n &nbsp; `items: ITableItem[]`,\n &nbsp; `itemsIndexes: number[]`\n &#125;",
+        "sorted": "Каждый раз, когда сортировка таблицы изменяется, генерируется событие `sorted` со следующим параметром: `SortedEmit` = \n &#123;\n &nbsp; `sortBy: string`,\n &nbsp; `sortingOrder: TSortingOrder`,\n &nbsp; `items: ITableItem[]`,\n &nbsp; `itemsIndexes: number[]`\n &#125;",
+        "rowClick": "При щелчке по строке возникает событие со следующим параметром: `RowClickEmit` = \n &#123;\n &nbsp; `event: Event`,\n &nbsp; `item: ITableItem`,\n &nbsp; `itemIndex: number`\n &#125;",
+        "rowDblclick": "Двойной щелчок по строке вызывает событие с параметром `RowClickEmit`",
+        "rowContextmenu": "При щелчке контекстного меню по строке возникает событие с параметром `RowClickEmit`",
+        "selectionChange": "Событие `selectionChange` генерируется каждый раз при изменении выделения строк. Он предоставляет следующий объект: `SelectionChangeEmit` = \n&#123;\n &nbsp; `currentSelectedItems: ITableItem[]`,\n &nbsp; `previousSelectedItems: ITableItem[]`\n &#125;"
       },
       "methods": {},
       "slots": {

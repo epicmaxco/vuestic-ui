@@ -23,7 +23,7 @@
     v-model:sort-by="sortBy"
     v-model:sorting-order="sortingOrder"
     @sorted="
-      sortedRowsEmitted = $event.sortedRows.map(row => row.id),
+      sortedRowsEmitted = $event.items.map(row => row.id),
       sortingOrderEmitted = $event.sortingOrder,
       sortByEmitted = $event.sortBy
     "

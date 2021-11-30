@@ -2,7 +2,20 @@
   <VbDemo>
     <VbCard title="Reactive data">
       <button @click="shuffleItems">Shuffle</button>
-      <va-data-table :items="items" />
+      <va-data-table
+        :items="items"
+        :clickable="true"
+        @row:click="rowEventType = $event.event.type, rowId = $event.item.id"
+        @row:dblclick="rowEventType = $event.event.type, rowId = $event.item.id"
+        @row:contextmenu="rowEventType = $event.event.type, rowId = $event.item.id"
+      />
+      <va-alert class="mt-3" border="left">
+        <span>
+          Last row click event (id, event type):
+          <va-chip v-if="rowId">{{ rowId }}</va-chip>
+          <va-chip v-if="rowEventType">{{ rowEventType }}</va-chip>
+        </span>
+      </va-alert>
     </VbCard>
 
     <VbCard title="Use custom slots for address and company">
@@ -299,6 +312,9 @@ export default defineComponent({
 
       perPage: 2,
       currentPage: 1,
+
+      rowEventType: '',
+      rowId: '',
     }
   },
 

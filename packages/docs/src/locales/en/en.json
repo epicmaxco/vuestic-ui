@@ -855,6 +855,7 @@
         "sortBy": "Sets the column to sort by. Works through the `v-model`",
         "sortingOrder": "Sets the sorting order. Works through the `v-model`",
         "selectable": "Sets whether the `va-data-table` should have selectable rows or not",
+        "clickable": "Sets whether the `va-data-table` should have clickable (the click events will be emitted) rows or not",
         "selectMode": "Sets the select mode. `'single'` selection allows for only a single row to be selected at a time, while `'multiple'` mode allows to select multiple rows by clicking on checkboxes or using the **ctrl**/**shift** keys when clicking rows",
         "selectedColor": "Sets the highlighting color of the selected row",
         "perPage": "Sets the maximum number of rows displayed in the table's `<tbody>`",
@@ -867,15 +868,18 @@
         "footerClone": "Sets whether to clone the `<thead>` columns into the `<tfoot>`. Has no effect if the default `<thead>` is hidden with the `hide-default-header` prop",
         "allowFooterSorting": "Allows clicks on `<tfoot>` column headers to sort (and to display the sorting status) the rows",
         "striped": "Sets the striped style to the `<tbody>` rows (highlights each 2nd row)",
-        "hoverable": "Allows the a hover state on table rows within a `<tbody>`. The highlighting color of the hover state takes from `selected-color` prop",
+        "hoverable": "Allows the hover state on table rows within a `<tbody>`. The highlighting color of the hover state takes from `selected-color` prop",
         "animated": "Sets css `transition` to table rows"
       },
       "events": {
         "updateSortBy": "Emits when `sort-by` changed",
         "updateSortingOrder": "Emits when `sorting-order` changed",
-        "filtered": "`va-data-table` emits the `filtered` event each time filtering is applied (and when the filter is cleared), passing the array of sources of filtered items",
-        "sorted": "Each time the table's sorting changes, the `sorted` event is thrown, with the following param: \n &#123;\n &nbsp; `sortBy: string`,\n &nbsp; `sortingOrder: TSortingOrder`\n &#125;",
-        "selectionChange": "The `selectionChange` event is thrown each time the selection changes. It provides the following object: \n&#123;\n &nbsp; `currentSelectedItems: ITableItem[]`,\n &nbsp; `previousSelectedItems: ITableItem[]`\n &#125;"
+        "filtered": "`va-data-table` emits the `filtered` event each time filtering is applied (and when the filter is cleared), with the following param: `FilteredEmit` = \n &#123;\n &nbsp; `items: ITableItem[]`,\n &nbsp; `itemsIndexes: number[]`\n &#125;",
+        "sorted": "Each time the table's sorting changes, the `sorted` event is thrown, with the following param: `SortedEmit` = \n &#123;\n &nbsp; `sortBy: string`,\n &nbsp; `sortingOrder: TSortingOrder`,\n &nbsp; `items: ITableItem[]`,\n &nbsp; `itemsIndexes: number[]`\n &#125;",
+        "rowClick": "When row clicked the event is thrown with the following param: `RowClickEmit` = \n &#123;\n &nbsp; `event: Event`,\n &nbsp; `item: ITableItem`,\n &nbsp; `itemIndex: number`\n &#125;",
+        "rowDblclick": "Double-clicking a row raises an event with the `RowClickEmit` param",
+        "rowContextmenu": "When the context menu is clicked on a row, an event is raised with the `RowClickEmit` param",
+        "selectionChange": "The `selectionChange` event is thrown each time the selection changes. It provides the following object: `SelectionChangeEmit` = \n&#123;\n &nbsp; `currentSelectedItems: ITableItem[]`,\n &nbsp; `previousSelectedItems: ITableItem[]`\n &#125;"
       },
       "methods": {},
       "slots": {

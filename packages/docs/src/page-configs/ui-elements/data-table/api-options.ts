@@ -20,19 +20,28 @@ export default defineManualApi({
   },
   events: {
     filtered: {
-      types: '`() => Number`',
+      types: '`() => FilteredEmit`',
     },
     selectionChange: {
-      types: '`() => Object`',
+      types: '`() => SelectionChangeEmit`',
     },
     sorted: {
-      types: '`() => Object`',
+      types: '`() => SortedEmit`',
     },
     'update:sortBy': {
       types: '`() => String`',
     },
     'update:sortingOrder': {
       types: '`() => TSortingOrder`',
+    },
+    'row:click': {
+      types: '`() => RowClickEmit`',
+    },
+    'row:contextmenu': {
+      types: '`() => RowClickEmit`',
+    },
+    'row:dblclick': {
+      types: '`() => RowClickEmit`',
     },
   },
   slots: {

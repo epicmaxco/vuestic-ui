@@ -10,6 +10,7 @@
         striped,
         selectable,
         hoverable,
+        clickable,
       }"
       v-bind="$attrs"
     >
@@ -76,7 +77,10 @@
         <slot name="headerAppend" />
       </thead>
 
-      <tbody class="va-data-table__table-tbody">
+      <tbody
+        class="va-data-table__table-tbody"
+        :style="rowCSSVariables"
+      >
         <slot name="bodyPrepend" />
 
         <transition-group
@@ -105,11 +109,11 @@
               :key="`table-row_${row.initialIndex}`"
               class="va-data-table__table-tr"
               :class="{
-                selectable,
-                hoverable,
                 selected: isRowSelected(row),
               }"
-              :style="rowCSSVariables"
+              @click="onRowClickHandler('row:click', $event, row)"
+              @dblclick="onRowClickHandler('row:dblclick', $event, row)"
+              @contextmenu="onRowClickHandler('row:contextmenu', $event, row)"
             >
               <template v-if="perPage ? (index >= perPage * (currentPage - 1)) && (index < perPage * currentPage) : true">
                 <td
@@ -213,11 +217,21 @@ import VaInnerLoading from '../va-inner-loading'
 import VaCheckbox from '../va-checkbox'
 import VaIcon from '../va-icon'
 import useColumns, { TTableColumnSource } from './hooks/useColumns'
-import useRows, { ITableItem } from './hooks/useRows'
+import useRows, { ITableItem, TableRow } from './hooks/useRows'
 import useFilterable, { TFilterMethod } from './hooks/useFilterable'
 import useSortable, { TSortingOrder } from './hooks/useSortable'
 import useSelectable, { TSelectMode } from './hooks/useSelectable'
 import useStyleable from './hooks/useStyleable'
+
+type emitNames = 'update:modelValue' |
+  'update:sortBy' |
+  'update:sortingOrder' |
+  'filtered' |
+  'sorted' |
+  'selectionChange' |
+  'row:click' |
+  'row:dblclick' |
+  'row:contextmenu'
 
 /*
   TODO: consider a possibility to lazy-load the hooks with dynamic imports based on respective props' values. E.G.
@@ -267,6 +281,10 @@ export default defineComponent({
       type: Array as PropType<ITableItem[]>,
     },
     hoverable: {
+      type: Boolean,
+      default: false,
+    },
+    clickable: {
       type: Boolean,
       default: false,
     },
@@ -333,6 +351,9 @@ export default defineComponent({
     'filtered',
     'sorted',
     'selectionChange',
+    'row:click',
+    'row:dblclick',
+    'row:contextmenu',
   ],
 
   setup (props, { slots, emit }) {
@@ -386,7 +407,6 @@ export default defineComponent({
     } = useSelectable(sortedRows, modelValue, selectable, selectMode, emit)
 
     const {
-      hoverable,
       selectedColor,
       allowFooterSorting,
     } = toRefs(props)
@@ -396,7 +416,7 @@ export default defineComponent({
       rowCSSVariables,
       getCellCSSVariables,
       getFooterCSSVariables,
-    } = useStyleable(hoverable, selectable, selectedColor, allowFooterSorting)
+    } = useStyleable(selectable, selectedColor, allowFooterSorting)
 
     const showNoDataHtml = computed(() => {
       return rawItems.value.length < 1
@@ -405,6 +425,18 @@ export default defineComponent({
     const showNoDataFilteredHtml = computed(() => {
       return filteredRows.value.length < 1
     })
+
+    const { clickable } = toRefs(props)
+
+    const onRowClickHandler = (name: emitNames, $event: Event, row: TableRow) => {
+      if (clickable.value) {
+        emit(name, {
+          event: $event,
+          item: row.source,
+          itemIndex: row.initialIndex,
+        })
+      }
+    }
 
     return {
       slots,
@@ -425,6 +457,7 @@ export default defineComponent({
       getFooterCSSVariables,
       showNoDataHtml,
       showNoDataFilteredHtml,
+      onRowClickHandler,
     }
   },
 })
@@ -511,64 +544,55 @@ export default defineComponent({
     }
 
     .va-data-table__table-tr {
-      &.selectable {
-        &:hover {
-          background-color: var(--hover-color);
-        }
-
-        &.selected:not(:hover) {
-          background-color: var(--selected-color);
-        }
+      &.selected {
+        background-color: var(--selected-color);
       }
+    }
 
-      &.table-transition-move {
-        transition: transform var(--va-data-table-transition);
-      }
-
-      &.table-transition-leave-active {
-        transition: opacity var(--va-data-table-transition);
-      }
-
-      &.table-transition-enter-active {
-        transition: opacity var(--va-data-table-transition) 0.3s;
-      }
-
-      &.table-transition-enter-from,
-      &.table-transition-leave-to {
-        opacity: 0;
+    &.clickable {
+      .va-data-table__table-tr {
+        cursor: pointer;
       }
     }
 
     &.striped {
-      .va-data-table__table-tbody {
-        .va-data-table__table-tr:nth-child(2n) {
+      .va-data-table__table-tr:nth-child(2n) {
+        &:not(.selected) {
           background-color: var(--va-light-gray3);
         }
       }
     }
 
-    &.hoverable:not(.selectable) {
-      .va-data-table__table-tbody {
-        .va-data-table__table-tr {
-          &:hover {
-            background-color: var(--hover-color);
-          }
+    &.selectable,
+    &.hoverable {
+      .va-data-table__table-tr {
+        &:hover {
+          background-color: var(--hover-color);
+        }
+      }
+
+      .va-data-table__table-tr:nth-child(2n) {
+        &:hover {
+          background-color: var(--hover-color);
         }
       }
     }
 
-    &.striped.selectable {
-      .va-data-table__table-tbody {
-        .va-data-table__table-tr:nth-child(2n) {
-          &:hover {
-            background-color: var(--hover-color);
-          }
+    .table-transition-move {
+      transition: transform var(--va-data-table-transition);
+    }
 
-          &.selected {
-            background-color: var(--selected-color);
-          }
-        }
-      }
+    .table-transition-leave-active {
+      transition: opacity var(--va-data-table-transition);
+    }
+
+    .table-transition-enter-active {
+      transition: opacity var(--va-data-table-transition) 0.3s;
+    }
+
+    .table-transition-enter-from,
+    .table-transition-leave-to {
+      opacity: 0;
     }
   }
 }

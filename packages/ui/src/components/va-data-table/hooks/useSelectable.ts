@@ -3,7 +3,10 @@ import { TableRow, ITableItem } from './useRows'
 
 export type TSelectMode = 'single' | 'multiple'
 export type TEmits = 'update:modelValue' | 'selectionChange'
-export type TSelectionChange = { currentSelectedItems: ITableItem[], previousSelectedItems: ITableItem[] }
+export type TSelectionChange = {
+  currentSelectedItems: ITableItem[],
+  previousSelectedItems: ITableItem[],
+}
 export type TSelectableEmits = (event: TEmits, arg: ITableItem[] | TSelectionChange) => void
 
 export default function useSelectable (

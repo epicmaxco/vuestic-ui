@@ -21,6 +21,13 @@
         size="small"
         v-model="animated"
       />
+      <br />
+      <va-switch
+        class="mt-2"
+        label="Clickable rows"
+        size="small"
+        v-model="isTableRowsClickable"
+      />
     </div>
 
     <div class="flex lg4 mb-2">
@@ -77,11 +84,16 @@
     :columns="columns"
     :striped="isTableStriped"
     :hoverable="isTableHoverable"
+    :selectable="true"
+    :clickable="isTableRowsClickable"
     :loading="isTableLoading"
     :hide-default-header="hideDefaultHeader"
     :footer-clone="footerClone"
     :allow-footer-sorting="footerSorting"
     :animated="animated"
+    @row:click="rowEventType = $event.event.type, rowId = $event.item.id"
+    @row:dblclick="rowEventType = $event.event.type, rowId = $event.item.id"
+    @row:contextmenu="rowEventType = $event.event.type, rowId = $event.item.id"
   >
     <template #headerPrepend v-if="prependSlot">
       <tr><th colspan="8">Custom cell which span 8 cells (headPrepend slot)</th></tr>
@@ -104,6 +116,15 @@
       <tr><th colspan="8">Custom cell which span 8 cells (footAppend slot)</th></tr>
     </template>
   </va-data-table>
+
+  <va-alert v-if="isTableRowsClickable" class="mt-3" border="left">
+    <span>
+      Last row click event (id, event type):
+      <va-chip v-if="rowId">{{ rowId }}</va-chip>
+      <va-chip v-if="rowEventType">{{ rowEventType }}</va-chip>
+    </span>
+  </va-alert>
+
 </template>
 
 <script>
@@ -163,13 +184,25 @@ export default defineComponent({
       isTableLoading: false,
       isTableStriped: true,
       isTableHoverable: true,
+      isTableRowsClickable: false,
       hideDefaultHeader: false,
       footerClone: true,
       footerSorting: true,
       prependSlot: false,
       appendSlot: false,
       animated: true,
+      rowEventType: '',
+      rowId: '',
     }
+  },
+
+  watch: {
+    isTableRowsClickable (value) {
+      if (!value) {
+        this.rowEventType = ''
+        this.rowId = ''
+      }
+    },
   },
 })
 </script>
