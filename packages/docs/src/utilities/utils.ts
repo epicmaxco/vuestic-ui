@@ -1,8 +1,16 @@
 // File for documentation helper functions
 
 function getUIElementNameFromPath (path: string): string {
-  // 'src\page-configs\ui-elements\component-name' --> 'component-name'
-  // we need to use folder names instead of full paths to the component
+  /**
+  * work's example:
+  * 'src\page-configs\ui-elements\component-name' --> 'component-name'
+  * why:
+  * it is only a guess that the path written through the relative operator "../"
+  * works differently in unix and windows and for fully identical operation
+  * in webpack we have to pass a more specific path as specified in the documentation
+  * https://webpack.js.org/api/module-methods/#dynamic-expressions-in-import
+   * TODO: To remove this hack, we need to pass the name of the folder from which the webpack should import in each case instead of path
+  **/
   return path.match(/[\\/]([\w-_]+)$/)?.[1] || path || ''
 }
 
