@@ -1,7 +1,6 @@
 ---
 name: Feature Request
-about: Feature Request
-title: 'Suggest a feature or idea for Vuestic UI'
+about: Suggest a feature or idea for Vuestic UI
 labels: ["FEATURE", "EXTERNAL"]
 assignees: ''
 

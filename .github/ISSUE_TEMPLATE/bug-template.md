@@ -1,7 +1,6 @@
 ---
 name: Bug Report
-about: Bug Report
-title: 'Report a bug for Vuestic UI'
+about: Report a bug for Vuestic UI
 labels: ["BUG", "EXTERNAL"]
 assignees: ''
 
