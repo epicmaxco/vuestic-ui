@@ -6,7 +6,7 @@
 
 <script>
 import { ref, computed, shallowRef } from 'vue'
-import { ReadHelper } from '@/helpers/ReadHelper'
+import { readDocsComponent } from '@/helpers/ReadHelper'
 
 export default {
   name: 'DocsComponent',
@@ -34,7 +34,7 @@ export default {
     importComponent()
 
     async function importComponent () {
-      component.value = (await ReadHelper.readDocsComponent(path.value, file.value)).default
+      component.value = (await readDocsComponent(path.value, file.value)).default
     }
 
     return {

@@ -45,7 +45,7 @@
 import { ref, reactive, computed, shallowRef } from 'vue'
 import DocsCode from './DocsCode'
 import DocsNavigation from './DocsNavigation'
-import { ReadHelper } from '../helpers/ReadHelper'
+import { readComponent, readTemplate } from '../helpers/ReadHelper'
 
 export default {
   name: 'DocsExample',
@@ -86,10 +86,10 @@ export default {
     importTemplate()
 
     async function importComponent () {
-      component.value = (await ReadHelper.readComponent(path.value, file.value)).default
+      component.value = (await readComponent(path.value, file.value)).default
     }
     async function importTemplate () {
-      componentTemplate.value = (await ReadHelper.readTemplate(path.value, file.value)).default
+      componentTemplate.value = (await readTemplate(path.value, file.value)).default
       parse(componentTemplate.value)
     }
     function parse (res) {
