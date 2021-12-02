@@ -652,10 +652,6 @@ export default defineComponent({
   .va-input {
     cursor: var(--va-select-cursor);
   }
-
-  .va-input-wrapper__content {
-    flex-grow: 1;
-  }
 }
 
 .va-select-dropdown {
@@ -671,12 +667,6 @@ export default defineComponent({
     border-top-left-radius: 0;
     box-shadow: var(--va-select-box-shadow);
     padding: 0;
-
-    .va-input {
-      .va-input-wrapper__content {
-        flex-grow: 1;
-      }
-    }
   }
 
   &__options-wrapper {
@@ -686,4 +676,12 @@ export default defineComponent({
     @include va-scroll(var(--va-select-scroll-color));
   }
 }
+
+.va-select,
+.va-select-dropdown__content {
+  .va-input-wrapper__content {
+    flex-grow: 1;
+  }
+}
+
 </style>

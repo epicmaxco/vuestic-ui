@@ -44,7 +44,7 @@
 
     <VaTextarea
       v-if="type === 'textarea'"
-      ref="textarea"
+      ref="input"
       v-bind="textareaProps"
       class="va-input__content__input"
       @input="onInput"
@@ -115,8 +115,7 @@ export default defineComponent({
   inheritAttrs: false,
 
   setup (props, { emit, attrs }) {
-    const input = ref<HTMLInputElement>()
-    const textarea = ref<HTMLTextAreaElement>()
+    const input = ref<HTMLInputElement | HTMLTextAreaElement>()
 
     const {
       isFocused,
@@ -137,7 +136,7 @@ export default defineComponent({
       return 'grey'
     })
 
-    const { computedValue, onInput } = useCleave(input, props, emit)
+    const { computedValue, onInput } = useCleave(props.type === 'textarea' ? ref(undefined) : input, props, emit)
 
     const computedInputAttributes = computed(() => ({
       ...omit(attrs, ['class', 'style']),
@@ -159,7 +158,6 @@ export default defineComponent({
 
     return {
       input,
-      textarea,
       textareaProps: filterComponentProps(props, VaTextareaProps),
 
       // Validations
@@ -181,21 +179,8 @@ export default defineComponent({
   },
 
   methods: {
-    focus () {
-      if (this.input) {
-        this.input.focus()
-      } else if (this.textarea) {
-        this.textarea.focus()
-      }
-    },
-
-    blur () {
-      if (this.input) {
-        this.input.blur()
-      } else if (this.textarea) {
-        this.textarea.blur()
-      }
-    },
+    focus () { this.input?.focus() },
+    blur () { this.input?.blur() },
   },
 })
 </script>

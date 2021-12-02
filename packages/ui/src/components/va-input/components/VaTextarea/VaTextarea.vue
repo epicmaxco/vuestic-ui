@@ -78,6 +78,11 @@ export default defineComponent({
       listeners: createListeners(emit),
     }
   },
+
+  methods: {
+    focus () { this.textarea?.focus() },
+    blur () { this.textarea?.blur() },
+  },
 })
 </script>
 
