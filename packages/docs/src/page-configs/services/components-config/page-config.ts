@@ -5,7 +5,7 @@ import {
   componentsConfigCodeExampleDefaultSizes,
   componentsAllConfigCodeExample,
 } from './code-examples'
-import { TableColumn, TableData } from '../../../components/DocsTable/DocsTable'
+import { TableColumn, TableData } from '../../../components/DocsTable/DocsTableTypes'
 
 const columns: TableColumn[] = [
   'Name',

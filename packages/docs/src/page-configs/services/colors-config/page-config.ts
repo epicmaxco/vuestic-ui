@@ -1,6 +1,6 @@
 import { ApiDocsBlock } from '@/types/configTypes'
 import { PageGenerationHelper } from '@/helpers/DocsHelper'
-import { TableData, TableColumn } from '../../../components/DocsTable/DocsTable'
+import { TableData, TableColumn } from '../../../components/DocsTable/DocsTableTypes'
 import { componentsConfigCode, iconsConfigCode } from '@/page-configs/services/colors-config/code-examples'
 
 const columnsApiTypes: TableColumn[] = [

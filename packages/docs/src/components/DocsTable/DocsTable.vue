@@ -40,7 +40,7 @@
 
 <script lang="ts">
 import { Options, Vue, prop, mixins } from 'vue-class-component'
-import { TableData, TableColumn } from './DocsTable'
+import { TableData, TableColumn } from './DocsTableTypes'
 import MarkdownView from '../markdown-view/MarkdownView.vue'
 
 class Props {

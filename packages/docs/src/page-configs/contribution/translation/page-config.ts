@@ -1,7 +1,7 @@
 import { ApiDocsBlock } from '@/types/configTypes'
 import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import { TranslationStatusPath, languages } from '../../../locales'
-import { TableData, TableColumn } from '../../../components/DocsTable/DocsTable'
+import { TableData, TableColumn } from '../../../components/DocsTable/DocsTableTypes'
 
 const columns: TableColumn[] = [
   'translation.table.language',
