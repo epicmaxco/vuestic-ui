@@ -44,18 +44,6 @@ export function useFormComponent (props: Record<string, any>, context: any) {
   const isFormComponent = ref(true)
   const formProvider: FormProvider | undefined = inject(FormServiceKey, undefined)
 
-  onMounted(() => {
-    if (formProvider?.onChildMounted) {
-      formProvider.onChildMounted(context)
-    }
-  })
-
-  onUnmounted(() => {
-    if (formProvider?.onChildUnmounted) {
-      formProvider.onChildUnmounted(context)
-    }
-  })
-
   /** @public */
   const validate = () => {
     computedError.value = false
@@ -124,6 +112,18 @@ export function useFormComponent (props: Record<string, any>, context: any) {
       internalErrorMessages.value = errorMessages
     },
   })
+
+  const formContext = {
+    resetValidation,
+    validate,
+    reset,
+    hasError,
+    focus,
+  }
+
+  onMounted(() => formProvider?.onChildMounted?.(formContext))
+
+  onUnmounted(() => formProvider?.onChildUnmounted?.(formContext))
 
   return {
     isFocused,

@@ -11,14 +11,12 @@
         class="mb-4 mr-4"
         label="Name"
         v-model="inputValue"
-        stateful
         :rules="[value => value === 'Ben' || 'Should be Ben']"
       />
-      <va-select
+      <va-select style="width: 300px;"
         label="City"
         v-model="selectValue"
         :rules="[value => value === 'Minsk' || 'Should be Minsk']"
-        stateful
         :options="['Minsk', 'Los Angeles', 'San Francisco', 'Peru']"
       />
     </va-form>
