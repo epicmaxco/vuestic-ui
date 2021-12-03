@@ -24,6 +24,7 @@ export default {
     return {
       message: 'Required field',
       messages: ['Required field', 'Tap to start typing'],
+      value: '',
     }
   },
 }

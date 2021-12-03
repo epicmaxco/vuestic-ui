@@ -43,8 +43,9 @@
     </template>
 
     <VaTextarea
-      v-bind="textareaProps"
       v-if="type === 'textarea'"
+      ref="input"
+      v-bind="textareaProps"
       class="va-input__content__input"
       @input="onInput"
     />
@@ -114,7 +115,8 @@ export default defineComponent({
   inheritAttrs: false,
 
   setup (props, { emit, attrs }) {
-    const input = ref<HTMLInputElement>()
+    const input = ref<HTMLInputElement | HTMLTextAreaElement>()
+
     const {
       isFocused,
       listeners: validationListeners,
@@ -134,7 +136,9 @@ export default defineComponent({
       return 'grey'
     })
 
-    const { computedValue, onInput } = useCleave(input, props, emit)
+    /** Use cleave only if this component is input, because it will break. */
+    const computedCleaveTarget = computed(() => props.type === 'textarea' ? undefined : input.value)
+    const { computedValue, onInput } = useCleave(computedCleaveTarget, props, emit)
 
     const computedInputAttributes = computed(() => ({
       ...omit(attrs, ['class', 'style']),
@@ -174,6 +178,11 @@ export default defineComponent({
       fieldListeners: createFieldListeners(emit),
       reset,
     }
+  },
+
+  methods: {
+    focus () { this.input?.focus() },
+    blur () { this.input?.blur() },
   },
 })
 </script>

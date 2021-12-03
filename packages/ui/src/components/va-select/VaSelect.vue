@@ -26,6 +26,7 @@
       >
         <!-- We show messages outside of dropdown to draw dropdown content under the input -->
         <va-input
+          :style="{ width: $props.width }"
           :model-value="valueComputedString"
           :success="$props.success"
           :error="computedError"
@@ -67,16 +68,14 @@
           </template>
 
           <template #appendInner>
-            <div class="va-input__append">
-              <slot
-                v-if="$slots.appendInner"
-                name="appendInner"
-              />
-              <va-icon
-                :color="colorComputed"
-                :name="toggleIcon"
-              />
-            </div>
+            <slot
+              v-if="$slots.appendInner"
+              name="appendInner"
+            />
+            <va-icon
+              :color="colorComputed"
+              :name="toggleIcon"
+            />
           </template>
 
           <template v-if="$slots.content" #content="{ value, focus }">
@@ -653,12 +652,6 @@ export default defineComponent({
   .va-input {
     cursor: var(--va-select-cursor);
   }
-
-  .va-input__append {
-    display: flex;
-    justify-content: center;
-    align-content: center;
-  }
 }
 
 .va-select-dropdown {
@@ -683,4 +676,12 @@ export default defineComponent({
     @include va-scroll(var(--va-select-scroll-color));
   }
 }
+
+.va-select,
+.va-select-dropdown__content {
+  .va-input-wrapper__content {
+    flex-grow: 1;
+  }
+}
+
 </style>

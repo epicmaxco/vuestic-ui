@@ -19,7 +19,7 @@
       :options="options"
       v-model="valueMultipleMax"
       multiple
-      max-selections=2
+      max-selections="2"
     />
   </div>
 </template>

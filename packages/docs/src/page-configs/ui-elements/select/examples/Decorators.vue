@@ -52,7 +52,7 @@
       :options="options"
       v-model="value"
       clearable
-      clearIcon="cancel"
+      clearableIcon="cancel"
     />
     <va-select
       class="mb-4"
@@ -91,10 +91,10 @@
     />
     <va-select
       class="mb-4"
-      label="Custom select width (50%)"
+      label="Custom select width (75%)"
       :options="options"
       v-model="value"
-      width="50%"
+      width="75%"
     />
   </div>
 </template>
