@@ -8,7 +8,7 @@ import {
   setupCodeExample,
 } from '@/page-configs/services/icons-config/code-examples'
 
-import { TableData, TableColumn } from '../../../components/DocsTable/DocsTable'
+import { TableData, TableColumn } from '../../../components/DocsTable/DocsTableTypes'
 
 const columns: TableColumn[] = [
   'Prop',

@@ -4,7 +4,7 @@ import {
   ManualApiOptions,
   TranslationStringList,
 } from '../components/DocsApi/ManualApiOptions'
-import { TableData, TableColumn } from '../components/DocsTable/DocsTable'
+import { TableData, TableColumn } from '../components/DocsTable/DocsTableTypes'
 import { DefineComponent } from 'vue'
 import { VueConstructor } from 'vue-class-component'
 
