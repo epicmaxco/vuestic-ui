@@ -6,7 +6,7 @@
 
 <script>
 import { ref, computed, shallowRef } from 'vue'
-import { readDocsComponent } from '@/utilities/utils'
+import { readDocsComponent } from '@/helpers/ReadHelper'
 
 export default {
   name: 'DocsComponent',

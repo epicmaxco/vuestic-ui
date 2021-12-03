@@ -8,7 +8,7 @@
 
 <script lang="ts">
 import { Options, Vue, mixins, prop } from 'vue-class-component'
-import MarkdownView from '../utilities/markdown-view/MarkdownView.vue'
+import MarkdownView from './markdown-view/MarkdownView.vue'
 import { TranslationString } from '../components/DocsApi/ManualApiOptions'
 
 class Props {

@@ -45,7 +45,7 @@
 import { ref, reactive, computed, shallowRef } from 'vue'
 import DocsCode from './DocsCode'
 import DocsNavigation from './DocsNavigation'
-import { readComponent, readTemplate } from '../utilities/utils'
+import { readComponent, readTemplate } from '../helpers/ReadHelper'
 
 export default {
   name: 'DocsExample',

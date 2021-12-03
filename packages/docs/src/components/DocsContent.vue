@@ -79,7 +79,7 @@
 <script lang="ts">
 import { Options, Vue, prop, mixins } from 'vue-class-component'
 import { ApiDocsBlock, BlockType } from '../types/configTypes'
-import MarkdownView from '../utilities/markdown-view/MarkdownView.vue'
+import MarkdownView from './markdown-view/MarkdownView.vue'
 import DocsExample from './DocsExample.vue'
 import DocsComponent from './DocsComponent.vue'
 import DocsCode from './DocsCode.vue'
