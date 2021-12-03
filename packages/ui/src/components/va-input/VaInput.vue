@@ -136,7 +136,9 @@ export default defineComponent({
       return 'grey'
     })
 
-    const { computedValue, onInput } = useCleave(props.type === 'textarea' ? ref(undefined) : input, props, emit)
+    /** Use cleave only if this component is input, because it will break. */
+    const computedCleaveTarget = computed(() => props.type === 'textarea' ? undefined : input.value)
+    const { computedValue, onInput } = useCleave(computedCleaveTarget, props, emit)
 
     const computedInputAttributes = computed(() => ({
       ...omit(attrs, ['class', 'style']),
