@@ -9,7 +9,7 @@
 export default {
   data () {
     return {
-      imageSrc: 'https://images.wallpaperscraft.com/image/cubes_red_black_131950_1280x800.jpg',
+      imageSrc: 'https://images.wallpaperscraft.com/image/single/ocean_beach_aerial_view_134429_1280x800.jpg',
     }
   },
 }
