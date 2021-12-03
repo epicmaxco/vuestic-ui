@@ -49,7 +49,6 @@ export function useFormComponent (
   const isFormComponent = ref(true)
   const formProvider: FormProvider | undefined = inject(FormServiceKey, undefined)
 
-  /** @public */
   const validate = () => {
     computedError.value = false
     computedErrorMessages.value = []
