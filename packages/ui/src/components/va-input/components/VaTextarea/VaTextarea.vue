@@ -2,6 +2,7 @@
   <textarea
     ref="textarea"
     v-bind="listeners"
+    :value="modelValue"
     :style="{ ...computedHeight }"
   />
 </template>
@@ -19,7 +20,7 @@ const positiveNumberValidator = (val: number) => {
 }
 
 const { createEmits, createListeners } = useEmitProxy([
-  'input', 'change', 'click',
+  'input', 'change', 'click', 'update:modelValue',
 ])
 
 export default defineComponent({
