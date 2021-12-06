@@ -237,7 +237,14 @@ export default defineComponent({
     const searchBar = ref<InstanceType<typeof VaInput>>()
 
     const { getOptionByValue, getValue, getText, getTrackBy } = useSelectableList(props)
-    const { validate, isFocused, computedErrorMessages, computedError } = useFormComponent(props, context)
+
+    const {
+      validate,
+      isFocused,
+      computedErrorMessages,
+      computedError,
+    } = useFormComponent(props, () => reset(), () => focus(), () => blur())
+
     const { colorComputed } = useColor(props)
 
     const searchInput = ref('')
@@ -499,7 +506,8 @@ export default defineComponent({
     }
 
     const focusSearchBar = () => {
-      searchBar.value?.focus()
+      // we will replace '_focus' with 'focus' when will resolve 'withConfigTransport' problem with 'expose' in 'setup' func
+      searchBar.value?._focus()
     }
 
     const focusOptionList = () => {

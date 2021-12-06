@@ -39,6 +39,8 @@ export const useValidation = (
   props: ValidationProps,
   emit: (event: any) => any,
   reset: () => any,
+  focus: () => any,
+  blur: () => any,
 ) => {
   const { isFocused, onFocus, onBlur } = useFocus()
 
@@ -75,8 +77,8 @@ export const useValidation = (
 
   const context = {
     resetValidation,
-    focus: onFocus,
-    blur: onBlur,
+    focus,
+    blur,
     validate,
     reset,
     hasError: () => computedError.value,

@@ -36,7 +36,12 @@ const prepareValidations = (messages: string | any[] = [], callArguments = null)
     .map((message: any) => isFunction(message) ? message(callArguments) : message)
 }
 
-export function useFormComponent (props: Record<string, any>, context: any) {
+export function useFormComponent (
+  props: Record<string, any>,
+  reset: () => any,
+  focus: () => any,
+  blur: () => any,
+) {
   const hadFocus = ref(false)
   const isFocused = ref(false)
   const internalErrorMessages = ref([] as any[])
@@ -64,15 +69,15 @@ export function useFormComponent (props: Record<string, any>, context: any) {
     return !computedError.value
   }
 
-  /** @public */
-  const focus = (): void => {
-    throw new Error('focus method should be implemented in the component')
-  }
+  // /** @public */
+  // const focus = (): void => {
+  //   throw new Error('focus method should be implemented in the component')
+  // }
 
-  /** @public */
-  const reset = (): void => {
-    throw new Error('reset method should be implemented in the component')
-  }
+  // /** @public */
+  // const reset = (): void => {
+  //   throw new Error('reset method should be implemented in the component')
+  // }
 
   const resetValidation = (): void => {
     computedErrorMessages.value = []
@@ -119,6 +124,7 @@ export function useFormComponent (props: Record<string, any>, context: any) {
     reset,
     hasError,
     focus,
+    blur,
   }
 
   onMounted(() => formProvider?.onChildMounted?.(formContext))
@@ -133,6 +139,7 @@ export function useFormComponent (props: Record<string, any>, context: any) {
     ValidateMixin_onBlur,
     shouldValidateOnBlur,
     focus,
+    blur,
     reset,
     resetValidation,
     hasError,

@@ -9,6 +9,7 @@
   >
     <template #anchor>
       <va-input
+        ref="input"
         v-bind="{ ...inputProps, ...validationListeners }"
         :modelValue="valueText"
         :readonly="readonly || !manualInput"
@@ -29,7 +30,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType } from 'vue'
+import { computed, defineComponent, PropType, ref } from 'vue'
 import VaTimePicker from '../va-time-picker/VaTimePicker.vue'
 import VaInput from '../va-input/VaInput.vue'
 import { useSyncProp } from '../../composables/useSyncProp'
@@ -101,14 +102,28 @@ export default defineComponent({
     const changePeriodToPm = () => changePeriod(true)
     const changePeriodToAm = () => changePeriod(false)
 
+    const reset = (): void => {
+      modelValueSync.value = undefined
+    }
+
+    const input = ref<InstanceType<typeof VaInput>>()
+
+    const focus = (): void => {
+      // we will replace '_focus' with 'focus' when will resolve 'withConfigTransport' problem with 'expose' in 'setup' func
+      input.value?._focus()
+    }
+
+    const blur = (): void => {
+      // we will replace '_blur' with 'blur' when will resolve 'withConfigTransport' problem with 'expose' in 'setup' func
+      input.value?._blur()
+    }
+
     const {
       isFocused,
       listeners: validationListeners,
       computedError,
       computedErrorMessages,
-    } = useValidation(props, emit, () => {
-      modelValueSync.value = undefined
-    })
+    } = useValidation(props, emit, () => reset(), () => focus(), () => blur())
 
     return {
       timePickerProps,
@@ -121,6 +136,9 @@ export default defineComponent({
       onInputTextChanged,
       isValid,
       isFocused,
+      reset,
+      focus,
+      blur,
 
       validationListeners,
       computedError,

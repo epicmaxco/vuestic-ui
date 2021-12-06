@@ -122,7 +122,7 @@ export default defineComponent({
       listeners: validationListeners,
       computedError,
       computedErrorMessages,
-    } = useValidation(props, emit, () => reset())
+    } = useValidation(props, emit, () => reset(), () => focus(), () => blur())
 
     const canBeCleared = computed(() => {
       return props.clearable && ![null, undefined, ''].includes(props.modelValue as any)
@@ -158,6 +158,14 @@ export default defineComponent({
       emit('cleared')
     }
 
+    const focus = () => {
+      input.value?.focus()
+    }
+
+    const blur = () => {
+      input.value?.blur()
+    }
+
     return {
       input,
       textareaProps: filterComponentProps(props, VaTextareaProps),
@@ -177,12 +185,15 @@ export default defineComponent({
       computedInputAttributes,
       fieldListeners: createFieldListeners(emit),
       reset,
+      focus,
+      blur,
     }
   },
 
+  // we will use this while we have 'withConfigTransport' and problem with 'expose' method in 'setup' func
   methods: {
-    focus () { this.input?.focus() },
-    blur () { this.input?.blur() },
+    _focus () { this.input?.focus() },
+    _blur () { this.input?.blur() },
   },
 })
 </script>

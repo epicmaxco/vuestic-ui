@@ -91,5 +91,6 @@ export default defineComponent({
   textarea {
     padding: 0;
     border: 0;
+    font-family: var(--va-font-family);
   }
 </style>
