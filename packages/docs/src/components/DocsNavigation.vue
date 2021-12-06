@@ -57,6 +57,10 @@ export default {
       type: String,
       default: '',
     },
+    gitComponent: {
+      type: String,
+      default: '',
+    },
   },
   data () {
     return {
@@ -89,7 +93,7 @@ export default {
       return buttonStates[this.copyButtonState]
     },
     gitLink () {
-      return `https://github.com/epicmaxco/vuestic-ui/tree/develop/packages/docs/src/examples/${this.gitUrl}.vue`
+      return `https://github.com/epicmaxco/vuestic-ui/tree/develop/packages/docs/src/${this.gitUrl}/examples/${this.gitComponent}.vue`
     },
     sandboxDefineUrl () {
       return `https://codesandbox.io/api/v1/sandboxes/define${this.query}`
