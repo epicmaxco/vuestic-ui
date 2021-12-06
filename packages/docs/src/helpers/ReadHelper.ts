@@ -13,7 +13,7 @@ export const getUIElementNameFromPath = (path: string): string => {
 }
 
 export const readTemplate = async (path: string, fileName: string): Promise<any> => {
-  const uiElementName = getUIElementNameFromPath(path)
+  // const uiElementName = getUIElementNameFromPath(path)
   return await import(
     /* webpackChunkName: "examples" */
     /* webpackMode: "lazy" */
