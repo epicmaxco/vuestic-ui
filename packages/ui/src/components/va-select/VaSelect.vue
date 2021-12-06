@@ -506,7 +506,8 @@ export default defineComponent({
     }
 
     const focusSearchBar = () => {
-      searchBar.value?.focus()
+      // we will replace '_focus' with 'focus' when will resolve 'withConfigTransport' problem with 'expose' in 'setup' func
+      searchBar.value?._focus()
     }
 
     const focusOptionList = () => {
