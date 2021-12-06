@@ -22,7 +22,7 @@ export class PageGenerationHelper {
   and NUXT pages folder '@/pages/ui-elements/affix' for this page.
 */
   constructor (path: string) {
-    this.path = path.replace('src/', '')
+    this.path = path.replace('src/page-configs/', '')
   }
 
   title (translationString: TranslationString): TextBlock {
