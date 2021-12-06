@@ -13,15 +13,6 @@
       label="With label"
       placeholder="With label"
     />
-    <!-- <va-input
-      class="mb-4"
-      v-model="value"
-      type="textarea"
-      label="Textarea"
-      placeholder="Limit rows from 2 to 4"
-      :min-rows="2"
-      :max-rows="4"
-    />
     <va-input
       class="mb-4"
       v-model="value"
@@ -31,7 +22,7 @@
       :min-rows="2"
       :max-rows="4"
       autosize
-    /> -->
+    />
   </div>
 </template>
 
