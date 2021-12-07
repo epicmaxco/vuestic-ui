@@ -1,4 +1,4 @@
-export const getUIElementNameFromPath = (path: string): string => {
+export const getOptimizedPathFromPath = (path: string): string => {
   /**
    * work's example:
    * 'src\page-configs\ui-elements\component-name' --> 'component-name'
@@ -9,29 +9,35 @@ export const getUIElementNameFromPath = (path: string): string => {
    * https://webpack.js.org/api/module-methods/#dynamic-expressions-in-import
    * TODO: To remove this hack, we need to pass the name of the folder from which the webpack should import in each case instead of path
    **/
-  return path.match(/[\\/]([\w-_]+)$/)?.[1] || path || ''
+
+  return path
+    .match(/.*?page-configs[\\/](.*)$/)?.[1]
+    .replace(/\\/, '/') ||
+      path ||
+      ''
 }
 
 export const readTemplate = async (path: string, fileName: string): Promise<any> => {
-  // const uiElementName = getUIElementNameFromPath(path)
+  const optimizedPath = getOptimizedPathFromPath(path)
   return await import(
     /* webpackChunkName: "examples" */
     /* webpackMode: "lazy" */
-    `!raw-loader!../page-configs/${path}/examples/${fileName}.vue`)
+    `!raw-loader!../page-configs/${optimizedPath}/examples/${fileName}.vue`)
 }
 
 export const readComponent = async (path: string, fileName: string): Promise<any> => {
-  // const uiElementName = getUIElementNameFromPath(path)
+  const optimizedPath = getOptimizedPathFromPath(path)
   return await import(
     /* webpackChunkName: "examples" */
     /* webpackMode: "lazy" */
-    `../page-configs/${path}/examples/${fileName}`
+    `../page-configs/${optimizedPath}/examples/${fileName}`
   )
 }
 
 export const readDocsComponent = async (path: string, fileName: string): Promise<any> => {
+  const optimizedPath = getOptimizedPathFromPath(path)
   return await import(
     /* webpackChunkName: "docs-components" */
     /* webpackMode: "lazy" */
-    `../page-configs/${path}/components/${fileName}.vue`)
+    `../page-configs/${optimizedPath}/components/${fileName}.vue`)
 }
