@@ -2,9 +2,7 @@ import { ApiDocsBlock } from '@/types/configTypes'
 import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaDateInput from 'vuestic-ui/src/components/va-date-input/VaDateInput.vue'
 import apiOptions from './api-options'
-import { makeTableFromComponent } from '@/helpers/makeTableFromComponent'
 import GlobalConfigCode from './code/global-config'
-const cssVariablesAsTable = makeTableFromComponent('va-data-input')
 
 const block = new PageGenerationHelper(__dirname)
 
@@ -66,9 +64,5 @@ const config: ApiDocsBlock[] = [
   block.subtitle('all.api'),
   block.api(VaDateInput, apiOptions),
 ]
-
-if (cssVariablesAsTable) {
-  config.push(block.table(cssVariablesAsTable.columns, cssVariablesAsTable.tableData))
-}
 
 export default config

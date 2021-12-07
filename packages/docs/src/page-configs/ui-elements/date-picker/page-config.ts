@@ -2,8 +2,7 @@ import { ApiDocsBlock } from '@/types/configTypes'
 import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaDatePicker from 'vuestic-ui/src/components/va-date-picker/VaDatePicker.vue'
 import apiOptions from './api-options'
-import { makeTableFromComponent } from '@/helpers/makeTableFromComponent'
-const cssVariablesAsTable = makeTableFromComponent('va-date-picker')
+import table from '../../../prebuild/.tmp/va-date-picker'
 
 const block = new PageGenerationHelper(__dirname)
 
@@ -96,8 +95,8 @@ const config: ApiDocsBlock[] = [
   block.api(VaDatePicker, apiOptions),
 ]
 
-if (cssVariablesAsTable) {
-  config.push(block.table(cssVariablesAsTable.columns, cssVariablesAsTable.tableData))
+if (table) {
+  config.push(block.table(table.columns, table.tableData))
 }
 
 export default config

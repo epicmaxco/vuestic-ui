@@ -2,8 +2,7 @@ import { ApiDocsBlock } from '@/types/configTypes'
 import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaCard from 'vuestic-ui/src/components/va-card/VaCard.vue'
 import apiOptions from './api-options'
-import { makeTableFromComponent } from '@/helpers/makeTableFromComponent'
-const cssVariablesAsTable = makeTableFromComponent('va-card')
+import table from '../../../prebuild/.tmp/va-card'
 
 const block = new PageGenerationHelper(__dirname)
 
@@ -60,8 +59,8 @@ const config: ApiDocsBlock[] = [
   block.paragraph('card.faq.questions[1].answer'),
 ]
 
-if (cssVariablesAsTable) {
-  config.push(block.table(cssVariablesAsTable.columns, cssVariablesAsTable.tableData))
+if (table) {
+  config.push(block.table(table.columns, table.tableData))
 }
 
 export default config

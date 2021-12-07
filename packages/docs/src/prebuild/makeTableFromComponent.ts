@@ -1,7 +1,7 @@
-import { Table, TableDataRow } from '@/components/DocsTable/DocsTableTypes'
+import { Table, TableDataRow } from '../components/DocsTable/DocsTableTypes'
 import { isNil } from 'lodash'
-import { readStyleVariablesFileByComponentName } from '@/helpers/ReadHelper'
-import { parseCSSVariablesFromPlainText } from '@/helpers/parseCSSVariablesFromPlainText'
+import { readStyleVariablesFileByComponentName } from './readStyleVariablesFileByComponentName'
+import { parseCSSVariablesFromPlainText } from './parseCSSVariablesFromPlainText'
 
 const makeVariableColumns = (matchResult: string[]): TableDataRow => {
   return [
@@ -30,8 +30,8 @@ const getExpressionType = (matchResult: string[]): 'title' | 'subtitle' | 'varia
   }
 }
 
-export const makeTableFromComponent = (componentName: string): Table | null => {
-  const cssVariablesAsPlainText = readStyleVariablesFileByComponentName(componentName)
+export const makeTableFromComponent = async (componentName: string): Promise<Table | null> => {
+  const cssVariablesAsPlainText = await readStyleVariablesFileByComponentName(componentName)
   const parsedCssVariablesArray = parseCSSVariablesFromPlainText(cssVariablesAsPlainText)
 
   if (isNil(parsedCssVariablesArray)) { return null }

@@ -2,8 +2,7 @@ import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import { ApiDocsBlock } from '@/types/configTypes'
 import VaButtonDropdown from 'vuestic-ui/src/components/va-button-dropdown/VaButtonDropdown.vue'
 import apiOptions from './api-options'
-import { makeTableFromComponent } from '@/helpers/makeTableFromComponent'
-const cssVariablesAsTable = makeTableFromComponent('va-button-dropdown')
+import table from '../../../prebuild/.tmp/va-button-dropdown'
 
 const block = new PageGenerationHelper(__dirname)
 
@@ -60,8 +59,8 @@ const config: ApiDocsBlock[] = [
   block.api(VaButtonDropdown, apiOptions),
 ]
 
-if (cssVariablesAsTable) {
-  config.push(block.table(cssVariablesAsTable.columns, cssVariablesAsTable.tableData))
+if (table) {
+  config.push(block.table(table.columns, table.tableData))
 }
 
 export default config

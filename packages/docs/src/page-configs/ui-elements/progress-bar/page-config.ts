@@ -3,8 +3,7 @@ import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaProgressBar
   from 'vuestic-ui/src/components/va-progress-bar/progress-types/VaProgressBar.vue'
 import apiOptions from './api-options'
-import { makeTableFromComponent } from '@/helpers/makeTableFromComponent'
-const cssVariablesAsTable = makeTableFromComponent('va-progress-bar')
+import table from '../../../prebuild/.tmp/va-progress-bar'
 
 const block = new PageGenerationHelper(__dirname)
 
@@ -49,8 +48,8 @@ const config: ApiDocsBlock[] = [
   block.api(VaProgressBar, apiOptions),
 ]
 
-if (cssVariablesAsTable) {
-  config.push(block.table(cssVariablesAsTable.columns, cssVariablesAsTable.tableData))
+if (table) {
+  config.push(block.table(table.columns, table.tableData))
 }
 
 export default config

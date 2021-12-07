@@ -35,8 +35,3 @@ export const readDocsComponent = async (path: string, fileName: string): Promise
     /* webpackMode: "lazy" */
     `../${path}/components/${fileName}.vue`)
 }
-
-export const readStyleVariablesFileByComponentName = (componentName: string): string => {
-  // eslint-disable-next-line import/no-webpack-loader-syntax
-  return require(`!!raw-loader!../../../ui/src/components/${componentName}/_variables.scss`).default
-}

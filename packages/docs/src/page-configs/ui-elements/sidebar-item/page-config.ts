@@ -2,8 +2,6 @@ import { ApiDocsBlock } from '@/types/configTypes'
 import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaSidebarItem from 'vuestic-ui/src/components/va-sidebar/VaSidebarItem/VaSidebarItem.vue'
 import apiOptions from './api-options'
-import { makeTableFromComponent } from '@/helpers/makeTableFromComponent'
-const cssVariablesAsTable = makeTableFromComponent('va-sidebar-item')
 
 const block = new PageGenerationHelper(__dirname)
 
@@ -42,9 +40,5 @@ const config: ApiDocsBlock[] = [
   block.subtitle('all.api'),
   block.api(VaSidebarItem, apiOptions),
 ]
-
-if (cssVariablesAsTable) {
-  config.push(block.table(cssVariablesAsTable.columns, cssVariablesAsTable.tableData))
-}
 
 export default config

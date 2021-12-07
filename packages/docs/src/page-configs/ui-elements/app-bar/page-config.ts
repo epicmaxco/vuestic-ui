@@ -2,8 +2,7 @@ import { ApiDocsBlock } from '@/types/configTypes'
 import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaAppBar from 'vuestic-ui/src/components/va-app-bar/VaAppBar.vue'
 import apiOptions from './api-options'
-import { makeTableFromComponent } from '@/helpers/makeTableFromComponent'
-const cssVariablesAsTable = makeTableFromComponent('va-app-bar')
+import table from '../../../prebuild/.tmp/va-app-bar'
 
 const block = new PageGenerationHelper(__dirname)
 
@@ -30,8 +29,8 @@ const config: ApiDocsBlock[] = [
   block.api(VaAppBar, apiOptions),
 ]
 
-if (cssVariablesAsTable) {
-  config.push(block.table(cssVariablesAsTable.columns, cssVariablesAsTable.tableData))
+if (table) {
+  config.push(block.table(table.columns, table.tableData))
 }
 
 export default config

@@ -2,8 +2,7 @@ import { ApiDocsBlock } from '@/types/configTypes'
 import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaTimePicker from 'vuestic-ui/src/components/va-time-picker/VaTimePicker.vue'
 import apiOptions from './api-options'
-import { makeTableFromComponent } from '@/helpers/makeTableFromComponent'
-const cssVariablesAsTable = makeTableFromComponent('va-time-picker')
+import table from '../../../prebuild/.tmp/va-time-picker'
 
 const block = new PageGenerationHelper(__dirname)
 
@@ -51,8 +50,8 @@ const config: ApiDocsBlock[] = [
   block.api(VaTimePicker, apiOptions),
 ]
 
-if (cssVariablesAsTable) {
-  config.push(block.table(cssVariablesAsTable.columns, cssVariablesAsTable.tableData))
+if (table) {
+  config.push(block.table(table.columns, table.tableData))
 }
 
 export default config
