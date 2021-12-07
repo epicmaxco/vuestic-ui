@@ -2,32 +2,40 @@
   <div style="max-width: 300px;">
     <va-select
       class="mb-4"
-      label="Default mode and single select"
+      label="'true' mode and single select"
       :options="options"
+      :track-by="(option) => option.id"
       v-model="value"
       allowCreate
+      @create-new="addNewOption"
     />
     <va-select
       class="mb-4"
-      label="Unique mode and single select"
+      label="'unique' mode and single select"
       :options="options"
-      v-model="value"
+      :track-by="(option) => option.id"
+      v-model="allowUniqueValue"
       allowCreate="unique"
+      @create-new="addNewOption"
     />
     <va-select
       class="mb-4"
-      label="Default mode and multi select"
+      label="'true' mode and multi select"
       :options="options"
       v-model="valueMultiple"
+      :track-by="(option) => option.id"
       allowCreate
       multiple
+      @create-new="addNewOption"
     />
     <va-select
-      label="Unique mode and multi select"
+      label="'unique' mode and multi select"
       class="mb-4"
       :options="options"
-      v-model="valueMultiple"
+      :track-by="(option) => option.id"
+      v-model="allowUniqueValueMultiple"
       allowCreate="unique"
+      @create-new="addNewOption"
       multiple
     />
   </div>
@@ -38,10 +46,24 @@ export default {
   name: 'AllowCreate',
   data () {
     return {
-      options: ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'],
+      options: [
+        { id: '0', text: 'one', value: 'one' },
+        { id: '1', text: 'two', value: 'two' },
+        { id: '2', text: 'three', value: 'three' },
+        { id: '3', text: 'four', value: 'four' },
+        { id: '4', text: 'five', value: 'five' },
+      ],
       value: '',
+      allowUniqueValue: '',
       valueMultiple: [],
+      allowUniqueValueMultiple: [],
     }
+  },
+  methods: {
+    addNewOption (newOption) {
+      const option = { id: String(this.options.length), text: newOption, value: newOption }
+      this.options = [...this.options, option]
+    },
   },
 }
 </script>
