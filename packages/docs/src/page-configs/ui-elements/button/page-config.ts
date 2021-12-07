@@ -2,6 +2,8 @@ import { ApiDocsBlock } from '@/types/configTypes'
 import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaButton from 'vuestic-ui/src/components/va-button/VaButton.vue'
 import apiOptions from './api-options'
+import { makeTableFromComponent } from '@/helpers/makeTableFromComponent'
+const cssVariablesAsTable = makeTableFromComponent('va-button')
 
 const block = new PageGenerationHelper(__dirname)
 
@@ -64,5 +66,9 @@ const config: ApiDocsBlock[] = [
   block.subtitle('all.api'),
   block.api(VaButton, apiOptions),
 ]
+
+if (cssVariablesAsTable) {
+  config.push(block.table(cssVariablesAsTable.columns, cssVariablesAsTable.tableData))
+}
 
 export default config

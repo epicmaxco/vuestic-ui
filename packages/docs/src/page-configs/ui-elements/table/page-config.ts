@@ -1,5 +1,7 @@
 import { ApiDocsBlock } from '@/types/configTypes'
 import { PageGenerationHelper } from '@/helpers/DocsHelper'
+import { makeTableFromComponent } from '@/helpers/makeTableFromComponent'
+const cssVariablesAsTable = makeTableFromComponent('va-date-input')
 
 const block = new PageGenerationHelper(__dirname)
 
@@ -29,5 +31,9 @@ const config: ApiDocsBlock[] = [
   block.paragraph('table.examples.clickable.text'),
   block.example('Clickable'),
 ]
+
+if (cssVariablesAsTable) {
+  config.push(block.table(cssVariablesAsTable.columns, cssVariablesAsTable.tableData))
+}
 
 export default config

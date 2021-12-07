@@ -2,6 +2,8 @@ import { ApiDocsBlock } from '@/types/configTypes'
 import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaAffix from 'vuestic-ui/src/components/va-affix/VaAffix.vue'
 import apiOptions from './api-options'
+import { makeTableFromComponent } from '@/helpers/makeTableFromComponent'
+const cssVariablesAsTable = makeTableFromComponent('va-affix')
 
 const block = new PageGenerationHelper(__dirname)
 
@@ -22,5 +24,9 @@ const config: ApiDocsBlock[] = [
   block.subtitle('all.api'),
   block.api(VaAffix, apiOptions),
 ]
+
+if (cssVariablesAsTable) {
+  config.push(block.table(cssVariablesAsTable.columns, cssVariablesAsTable.tableData))
+}
 
 export default config

@@ -2,6 +2,8 @@ import { ApiDocsBlock } from '@/types/configTypes'
 import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaAccordion from 'vuestic-ui/src/components/va-accordion/VaAccordion.vue'
 import apiOptions from './api-options'
+import { makeTableFromComponent } from '@/helpers/makeTableFromComponent'
+const cssVariablesAsTable = makeTableFromComponent('va-accordion')
 
 const block = new PageGenerationHelper(__dirname)
 
@@ -29,5 +31,9 @@ const config: ApiDocsBlock[] = [
   block.subtitle('all.api'),
   block.api(VaAccordion, apiOptions),
 ]
+
+if (cssVariablesAsTable) {
+  config.push(block.table(cssVariablesAsTable.columns, cssVariablesAsTable.tableData))
+}
 
 export default config

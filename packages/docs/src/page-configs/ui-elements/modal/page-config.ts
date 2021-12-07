@@ -2,6 +2,8 @@ import { ApiDocsBlock } from '@/types/configTypes'
 import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaModal from 'vuestic-ui/src/components/va-modal/VaModal.vue'
 import apiOptions from './api-options'
+import { makeTableFromComponent } from '@/helpers/makeTableFromComponent'
+const cssVariablesAsTable = makeTableFromComponent('va-modal')
 
 const block = new PageGenerationHelper(__dirname)
 
@@ -69,5 +71,9 @@ const config: ApiDocsBlock[] = [
   block.subtitle('all.api'),
   block.api(VaModal, apiOptions),
 ]
+
+if (cssVariablesAsTable) {
+  config.push(block.table(cssVariablesAsTable.columns, cssVariablesAsTable.tableData))
+}
 
 export default config

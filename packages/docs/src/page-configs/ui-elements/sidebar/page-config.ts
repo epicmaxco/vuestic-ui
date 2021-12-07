@@ -2,6 +2,8 @@ import { ApiDocsBlock } from '@/types/configTypes'
 import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaSidebar from 'vuestic-ui/src/components/va-sidebar/VaSidebar.vue'
 import apiOptions from './api-options'
+import { makeTableFromComponent } from '@/helpers/makeTableFromComponent'
+const cssVariablesAsTable = makeTableFromComponent('va-sidebar')
 
 const block = new PageGenerationHelper(__dirname)
 
@@ -64,5 +66,9 @@ const config: ApiDocsBlock[] = [
   block.headline('sidebar.faq.questions[0].question'),
   block.paragraph('sidebar.faq.questions[0].answer'),
 ]
+
+if (cssVariablesAsTable) {
+  config.push(block.table(cssVariablesAsTable.columns, cssVariablesAsTable.tableData))
+}
 
 export default config

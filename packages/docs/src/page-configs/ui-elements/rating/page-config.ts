@@ -2,6 +2,8 @@ import { ApiDocsBlock } from '@/types/configTypes'
 import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaRating from 'vuestic-ui/src/components/va-rating/VaRating.vue'
 import apiOptions from './api-options'
+import { makeTableFromComponent } from '@/helpers/makeTableFromComponent'
+const cssVariablesAsTable = makeTableFromComponent('va-rating')
 
 const block = new PageGenerationHelper(__dirname)
 
@@ -68,5 +70,9 @@ const config: ApiDocsBlock[] = [
   block.headline('rating.faq.questions[1].question'),
   block.paragraph('rating.faq.questions[1].answer'),
 ]
+
+if (cssVariablesAsTable) {
+  config.push(block.table(cssVariablesAsTable.columns, cssVariablesAsTable.tableData))
+}
 
 export default config

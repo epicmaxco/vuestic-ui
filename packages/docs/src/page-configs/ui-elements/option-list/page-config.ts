@@ -2,6 +2,8 @@ import { ApiDocsBlock } from '@/types/configTypes'
 import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaOptionList from 'vuestic-ui/src/components/va-option-list/VaOptionList.vue'
 import apiOptions from './api-options'
+import { makeTableFromComponent } from '@/helpers/makeTableFromComponent'
+const cssVariablesAsTable = makeTableFromComponent('va-option-list')
 
 const block = new PageGenerationHelper(__dirname)
 
@@ -35,5 +37,9 @@ const config: ApiDocsBlock[] = [
   block.subtitle('all.api'),
   block.api(VaOptionList, apiOptions),
 ]
+
+if (cssVariablesAsTable) {
+  config.push(block.table(cssVariablesAsTable.columns, cssVariablesAsTable.tableData))
+}
 
 export default config

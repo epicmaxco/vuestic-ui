@@ -2,6 +2,8 @@ import { ApiDocsBlock } from '@/types/configTypes'
 import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaAvatar from 'vuestic-ui/src/components/va-avatar/VaAvatar.vue'
 import apiOptions from './api-options'
+import { makeTableFromComponent } from '@/helpers/makeTableFromComponent'
+const cssVariablesAsTable = makeTableFromComponent('va-avatar')
 
 const block = new PageGenerationHelper(__dirname)
 
@@ -37,5 +39,9 @@ const config: ApiDocsBlock[] = [
   block.subtitle('all.api'),
   block.api(VaAvatar, apiOptions),
 ]
+
+if (cssVariablesAsTable) {
+  config.push(block.table(cssVariablesAsTable.columns, cssVariablesAsTable.tableData))
+}
 
 export default config

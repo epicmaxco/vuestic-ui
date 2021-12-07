@@ -14,6 +14,8 @@ import {
   listItemLabelApiOptions,
   listItemSectionApiOptions,
 } from './api-options'
+import { makeTableFromComponent } from '@/helpers/makeTableFromComponent'
+const cssVariablesAsTable = makeTableFromComponent('va-list')
 
 const block = new PageGenerationHelper(__dirname)
 
@@ -74,5 +76,9 @@ const config: ApiDocsBlock[] = [
   block.paragraph('list.api.listItemSection.text'),
   block.api(VaListItemSection, listItemSectionApiOptions),
 ]
+
+if (cssVariablesAsTable) {
+  config.push(block.table(cssVariablesAsTable.columns, cssVariablesAsTable.tableData))
+}
 
 export default config

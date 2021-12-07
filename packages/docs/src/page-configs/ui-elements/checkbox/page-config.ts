@@ -2,6 +2,8 @@ import { ApiDocsBlock } from '@/types/configTypes'
 import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaCheckbox from 'vuestic-ui/src/components/va-checkbox/VaCheckbox.vue'
 import apiOptions from './api-options'
+import { makeTableFromComponent } from '@/helpers/makeTableFromComponent'
+const cssVariablesAsTable = makeTableFromComponent('va-checkbox')
 
 const block = new PageGenerationHelper(__dirname)
 
@@ -42,5 +44,9 @@ const config: ApiDocsBlock[] = [
   block.subtitle('all.api'),
   block.api(VaCheckbox, apiOptions),
 ]
+
+if (cssVariablesAsTable) {
+  config.push(block.table(cssVariablesAsTable.columns, cssVariablesAsTable.tableData))
+}
 
 export default config

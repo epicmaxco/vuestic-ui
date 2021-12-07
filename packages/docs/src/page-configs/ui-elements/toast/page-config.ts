@@ -2,6 +2,8 @@ import { ApiDocsBlock } from '@/types/configTypes'
 import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaToast from 'vuestic-ui/src/components/va-toast/VaToast.vue'
 import apiOptions from './api-options'
+import { makeTableFromComponent } from '@/helpers/makeTableFromComponent'
+const cssVariablesAsTable = makeTableFromComponent('va-toast')
 
 const block = new PageGenerationHelper(__dirname)
 
@@ -49,5 +51,9 @@ const config: ApiDocsBlock[] = [
   block.headline('toast.faq.questions[0].question'),
   block.paragraph('toast.faq.questions[0].answer'),
 ]
+
+if (cssVariablesAsTable) {
+  config.push(block.table(cssVariablesAsTable.columns, cssVariablesAsTable.tableData))
+}
 
 export default config

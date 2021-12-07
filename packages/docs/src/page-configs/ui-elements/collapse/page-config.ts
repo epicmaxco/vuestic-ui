@@ -2,6 +2,8 @@ import { ApiDocsBlock } from '@/types/configTypes'
 import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaCollapse from 'vuestic-ui/src/components/va-collapse/VaCollapse.vue'
 import apiOptions from './api-options'
+import { makeTableFromComponent } from '@/helpers/makeTableFromComponent'
+const cssVariablesAsTable = makeTableFromComponent('va-collapse')
 
 const block = new PageGenerationHelper(__dirname)
 
@@ -39,5 +41,9 @@ const config: ApiDocsBlock[] = [
 
   block.api(VaCollapse, apiOptions),
 ]
+
+if (cssVariablesAsTable) {
+  config.push(block.table(cssVariablesAsTable.columns, cssVariablesAsTable.tableData))
+}
 
 export default config

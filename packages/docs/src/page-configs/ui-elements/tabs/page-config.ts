@@ -2,6 +2,8 @@ import { ApiDocsBlock } from '@/types/configTypes'
 import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaTabs from 'vuestic-ui/src/components/va-tabs/VaTabs.vue'
 import apiOptions from './api-options'
+import { makeTableFromComponent } from '@/helpers/makeTableFromComponent'
+const cssVariablesAsTable = makeTableFromComponent('va-affix')
 
 const block = new PageGenerationHelper(__dirname)
 
@@ -44,5 +46,9 @@ const config: ApiDocsBlock[] = [
   block.headline('tabs.faq.questions[0].question'),
   block.paragraph('tabs.faq.questions[0].answer'),
 ]
+
+if (cssVariablesAsTable) {
+  config.push(block.table(cssVariablesAsTable.columns, cssVariablesAsTable.tableData))
+}
 
 export default config

@@ -2,6 +2,8 @@ import { ApiDocsBlock } from '@/types/configTypes'
 import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaSlider from 'vuestic-ui/src/components/va-slider/VaSlider.vue'
 import apiOptions from './api-options'
+import { makeTableFromComponent } from '@/helpers/makeTableFromComponent'
+const cssVariablesAsTable = makeTableFromComponent('va-slider')
 
 const block = new PageGenerationHelper(__dirname)
 
@@ -80,5 +82,9 @@ const config: ApiDocsBlock[] = [
   block.subtitle('all.api'),
   block.api(VaSlider, apiOptions),
 ]
+
+if (cssVariablesAsTable) {
+  config.push(block.table(cssVariablesAsTable.columns, cssVariablesAsTable.tableData))
+}
 
 export default config
