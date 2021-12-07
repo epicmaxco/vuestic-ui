@@ -9,7 +9,7 @@ const parse = (text: string) => {
 }
 
 const parsePeriod = (text: string) => {
-  const m = text.match(/PM|pm|Am|am/)
+  const m = text.match(/pm|am/i)
 
   if (!m) { return null }
 
