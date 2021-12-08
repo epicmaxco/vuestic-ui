@@ -1910,6 +1910,10 @@
       "advanced": {
         "title": "Trigger validation",
         "text": "You can trigger validation from a parent component by using the `validate()` method of the `va-form` component."
+      },
+      "submit": {
+        "title": "Form submit",
+        "text": "You can fire the `submit` event of a `va-form` component: for this you need to set `tag=\"form\"` to the `va-form` and have at least one inner button with `type=\"submit\"`."
       }
     }
   },
