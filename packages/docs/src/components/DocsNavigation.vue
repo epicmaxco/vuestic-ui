@@ -93,7 +93,7 @@ export default {
       return buttonStates[this.copyButtonState]
     },
     gitLink () {
-      return `https://github.com/epicmaxco/vuestic-ui/tree/develop/packages/docs/src/${this.gitUrl}/examples/${this.gitComponent}.vue`
+      return `https://github.com/epicmaxco/vuestic-ui/tree/develop/packages/docs/src/page-configs/${this.gitUrl}/examples/${this.gitComponent}.vue`
     },
     sandboxDefineUrl () {
       return `https://codesandbox.io/api/v1/sandboxes/define${this.query}`
