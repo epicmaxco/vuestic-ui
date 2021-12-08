@@ -12,6 +12,21 @@ import { DefineComponent } from 'vue'
 import { VueConstructor } from 'vue-class-component'
 import { TableData, TableColumn } from './../components/DocsTable/DocsTableTypes'
 
+export const getOptimizedPathFromPath = (path: string): string => {
+  /**
+   * work's example:
+   * 'src\page-configs\ui-elements\component-name' --> 'component-name'
+   * why:
+   * it is only a guess that the path written through the relative operator "../"
+   * works differently in unix and windows and for fully identical operation
+   * in webpack we have to pass a more specific path as specified in the documentation
+   * https://webpack.js.org/api/module-methods/#dynamic-expressions-in-import
+   * TODO: To remove this hack, we need to pass the name of the folder from which the webpack should import in each case instead of path
+   **/
+
+  return path.match(/.*?page-configs[\\/](.*)$/)?.[1].replace(/\\/g, '/') || ''
+}
+
 export class PageGenerationHelper {
   path: string
 
@@ -22,7 +37,8 @@ export class PageGenerationHelper {
   and NUXT pages folder '@/pages/ui-elements/affix' for this page.
 */
   constructor (path: string) {
-    this.path = path.replace('src/', '')
+    // this.path = path.replace('src/page-configs/', '')
+    this.path = getOptimizedPathFromPath(path)
   }
 
   title (translationString: TranslationString): TextBlock {
