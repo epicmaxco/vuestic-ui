@@ -18,7 +18,8 @@
         <DocsNavigation
           :code="componentTemplate"
           :config="exampleOptions.codesandboxConfig"
-          :git-url="file"
+          :git-url="path"
+          :git-component="file"
         />
         <DocsCode
           language="markup"
