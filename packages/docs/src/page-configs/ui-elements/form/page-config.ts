@@ -21,6 +21,11 @@ const config: ApiDocsBlock[] = [
     'form.examples.advanced.text',
     'WithInputs',
   ),
+  ...block.exampleBlock(
+    'form.examples.submit.title',
+    'form.examples.submit.text',
+    'Submit',
+  ),
 
   block.subtitle('all.api'),
   block.api(VaForm, apiOptions),
