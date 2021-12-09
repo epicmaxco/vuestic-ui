@@ -6,14 +6,15 @@
     >
       Validate
     </va-button>
-    <va-form ref="form">
+
+    <va-form ref="form" style="width: 300px;">
       <va-input
-        class="mb-4 mr-4"
+        class="mb-4"
         label="Name"
         v-model="inputValue"
         :rules="[value => value === 'Ben' || 'Should be Ben']"
       />
-      <va-select style="width: 300px;"
+      <va-select
         label="City"
         v-model="selectValue"
         :rules="[value => value === 'Minsk' || 'Should be Minsk']"

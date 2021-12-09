@@ -684,11 +684,4 @@ export default defineComponent({
   }
 }
 
-.va-select,
-.va-select-dropdown__content {
-  .va-input-wrapper__content {
-    flex-grow: 1;
-  }
-}
-
 </style>

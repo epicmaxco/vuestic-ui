@@ -199,6 +199,7 @@ export default defineComponent({
 
   &-wrapper__content {
     position: relative;
+    flex-grow: 1;
   }
 
   &-wrapper__prepend-inner,
