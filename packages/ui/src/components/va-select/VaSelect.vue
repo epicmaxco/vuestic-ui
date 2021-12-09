@@ -12,6 +12,7 @@
     keep-anchor-width
     boundary-body
     :stateful="false"
+    anchorSelector=".va-input__container"
   >
     <template #anchor>
       <div
