@@ -114,8 +114,21 @@ export default defineComponent({
 
   inheritAttrs: false,
 
-  setup (props, { emit, attrs }) {
+  setup (props, { emit, attrs, expose }) {
     const input = ref<HTMLInputElement | HTMLTextAreaElement>()
+
+    const reset = () => {
+      emit('update:modelValue', '')
+      emit('cleared')
+    }
+
+    const focus = () => {
+      input.value?.focus()
+    }
+
+    const blur = () => {
+      input.value?.blur()
+    }
 
     const {
       isFocused,
@@ -153,18 +166,11 @@ export default defineComponent({
       ariaLabel: props.label,
     }) as InputHTMLAttributes)
 
-    const reset = () => {
-      emit('update:modelValue', '')
-      emit('cleared')
-    }
-
-    const focus = () => {
-      input.value?.focus()
-    }
-
-    const blur = () => {
-      input.value?.blur()
-    }
+    expose({
+      reset,
+      focus,
+      blur,
+    })
 
     return {
       input,
@@ -185,15 +191,13 @@ export default defineComponent({
       computedInputAttributes,
       fieldListeners: createFieldListeners(emit),
       reset,
-      focus,
-      blur,
     }
   },
 
   // we will use this while we have 'withConfigTransport' and problem with 'expose' method in 'setup' func
   methods: {
-    _focus () { this.input?.focus() },
-    _blur () { this.input?.blur() },
+    focus () { this.input?.focus() },
+    blur () { this.input?.blur() },
   },
 })
 </script>

@@ -20,12 +20,10 @@ const positiveNumberValidator = (val: number) => {
 }
 
 const { createEmits, createListeners } = useEmitProxy([
-  'input', 'change', 'click', 'update:modelValue',
+  'input', 'change', 'click', 'update:modelValue', 'cleared',
 ])
 
 export default defineComponent({
-  inheritAttrs: true,
-
   props: {
     modelValue: { type: [String, Number], default: '' },
     autosize: { type: Boolean, default: false },
@@ -44,7 +42,7 @@ export default defineComponent({
 
   emits: createEmits(),
 
-  setup (props, { emit }) {
+  setup (props, { emit, expose }) {
     const textarea = ref<HTMLTextAreaElement | undefined>()
     const rowHeight = ref(-1)
     const height = ref(-1)
@@ -68,6 +66,19 @@ export default defineComponent({
     })
 
     watch(() => props.modelValue, updateHeight)
+
+    const focus = () => {
+      textarea.value?.focus()
+    }
+
+    const blur = () => {
+      textarea.value?.blur()
+    }
+
+    expose({
+      focus,
+      blur,
+    })
 
     return {
       textarea,

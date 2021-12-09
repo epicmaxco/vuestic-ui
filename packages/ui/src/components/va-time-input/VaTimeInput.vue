@@ -60,7 +60,7 @@ export default defineComponent({
     manualInput: { type: Boolean, default: false },
   },
 
-  setup (props, { emit }) {
+  setup (props, { emit, expose }) {
     const [isOpenSync] = useSyncProp('isOpen', props, emit, false)
     const [modelValueSync] = useSyncProp('modelValue', props, emit)
 
@@ -78,6 +78,8 @@ export default defineComponent({
 
     const timePickerProps = computed(() => filterComponentProps(props, extractComponentProps(VaTimePicker)))
     const inputProps = computed(() => filterComponentProps(props, extractComponentProps(VaInput, ['rules', 'error', 'errorMessages'])))
+
+    const input = ref<InstanceType<typeof VaInput>>()
 
     const onInputTextChanged = (val: string) => {
       const v = parse(val)
@@ -106,16 +108,12 @@ export default defineComponent({
       modelValueSync.value = undefined
     }
 
-    const input = ref<InstanceType<typeof VaInput>>()
-
     const focus = (): void => {
-      // we will replace '_focus' with 'focus' when will resolve 'withConfigTransport' problem with 'expose' in 'setup' func
-      input.value?._focus()
+      input.value?.focus()
     }
 
     const blur = (): void => {
-      // we will replace '_blur' with 'blur' when will resolve 'withConfigTransport' problem with 'expose' in 'setup' func
-      input.value?._blur()
+      input.value?.blur()
     }
 
     const {
@@ -124,6 +122,12 @@ export default defineComponent({
       computedError,
       computedErrorMessages,
     } = useValidation(props, emit, () => reset(), () => focus(), () => blur())
+
+    expose({
+      reset,
+      focus,
+      blur,
+    })
 
     return {
       timePickerProps,

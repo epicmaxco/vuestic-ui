@@ -69,16 +69,6 @@ export function useFormComponent (
     return !computedError.value
   }
 
-  // /** @public */
-  // const focus = (): void => {
-  //   throw new Error('focus method should be implemented in the component')
-  // }
-
-  // /** @public */
-  // const reset = (): void => {
-  //   throw new Error('reset method should be implemented in the component')
-  // }
-
   const resetValidation = (): void => {
     computedErrorMessages.value = []
     computedError.value = false
@@ -127,9 +117,9 @@ export function useFormComponent (
     blur,
   }
 
-  onMounted(() => formProvider?.onChildMounted?.(formContext))
+  onMounted(() => formProvider?.onChildMounted(formContext))
 
-  onUnmounted(() => formProvider?.onChildUnmounted?.(formContext))
+  onUnmounted(() => formProvider?.onChildUnmounted(formContext))
 
   return {
     isFocused,
@@ -138,9 +128,6 @@ export function useFormComponent (
     validate,
     ValidateMixin_onBlur,
     shouldValidateOnBlur,
-    focus,
-    blur,
-    reset,
     resetValidation,
     hasError,
     computedError,

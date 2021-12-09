@@ -87,11 +87,11 @@ export const useValidation = (
   const form = inject(FormServiceKey, undefined)
 
   onMounted(() => {
-    if (form) { form.onChildMounted(context) }
+    form?.onChildMounted(context)
   })
 
   onBeforeUnmount(() => {
-    if (form) { form.onChildUnmounted(context) }
+    form?.onChildUnmounted(context)
   })
 
   return {
@@ -100,7 +100,6 @@ export const useValidation = (
     computedErrorMessages,
     listeners: { onFocus, onBlur },
     validate,
-    reset,
     resetValidation,
   }
 }
