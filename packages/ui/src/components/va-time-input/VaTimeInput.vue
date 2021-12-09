@@ -79,7 +79,7 @@ export default defineComponent({
     const timePickerProps = computed(() => filterComponentProps(props, extractComponentProps(VaTimePicker)))
     const inputProps = computed(() => filterComponentProps(props, extractComponentProps(VaInput, ['rules', 'error', 'errorMessages'])))
 
-    const input = ref<InstanceType<typeof VaInput>>()
+    const input = ref<InstanceType<typeof VaInput> | undefined>()
 
     const onInputTextChanged = (val: string) => {
       const v = parse(val)
@@ -141,13 +141,17 @@ export default defineComponent({
       isValid,
       isFocused,
       reset,
-      focus,
-      blur,
 
       validationListeners,
       computedError,
       computedErrorMessages,
     }
+  },
+
+  // we will use this while we have 'withConfigTransport' and problem with 'expose' method in 'setup' func
+  methods: {
+    focus () { (this as any).input?.focus() },
+    blur () { (this as any).input?.blur() },
   },
 })
 </script>

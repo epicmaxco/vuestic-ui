@@ -115,7 +115,7 @@ export default defineComponent({
   inheritAttrs: false,
 
   setup (props, { emit, attrs, expose }) {
-    const input = ref<HTMLInputElement | HTMLTextAreaElement>()
+    const input = ref<HTMLInputElement | InstanceType<typeof VaTextarea> | undefined>()
 
     const reset = () => {
       emit('update:modelValue', '')
@@ -150,7 +150,11 @@ export default defineComponent({
     })
 
     /** Use cleave only if this component is input, because it will break. */
-    const computedCleaveTarget = computed(() => props.type === 'textarea' ? undefined : input.value)
+    const computedCleaveTarget = computed(() => {
+      return props.type === 'textarea'
+        ? undefined
+        : input.value as HTMLInputElement | undefined
+    })
     const { computedValue, onInput } = useCleave(computedCleaveTarget, props, emit)
 
     const computedInputAttributes = computed(() => ({
