@@ -3,7 +3,7 @@
     <va-input
       class="mb-4"
       v-model="value"
-      :rules="[(value) => value.length > 3 || `Fulfill the condition`]"
+      :rules="[(v) => v.length > 3 || `Fulfill the condition`]"
       label="Email"
       placeholder="Type more than 3 symbols"
     />
