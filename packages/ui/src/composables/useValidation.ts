@@ -14,6 +14,7 @@ interface ValidationProps {
   rules: ValidationRule[]
   success: boolean
   messages: string[] | string
+  immediateValidation: boolean
 }
 
 export const useValidationProps = {
@@ -24,6 +25,7 @@ export const useValidationProps = {
   rules: { type: Array as PropType<ValidationRule[]>, default: [] },
   success: { type: Boolean, default: false },
   messages: { type: [Array, String] as PropType<string[] | string>, default: [] },
+  immediateValidation: { type: Boolean, default: false },
 }
 
 export const useValidationEmits = ['update:error', 'update:errorMessages']
@@ -73,7 +75,7 @@ export const useValidation = (
   }
 
   watch(isFocused, (newVal) => newVal === false && validate())
-  watch(() => props.modelValue, () => validate(), { immediate: true })
+  watch(() => props.modelValue, () => validate(), { immediate: props.immediateValidation })
 
   const context = {
     resetValidation,
