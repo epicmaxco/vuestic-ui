@@ -20,7 +20,7 @@ const positiveNumberValidator = (val: number) => {
 }
 
 const { createEmits, createListeners } = useEmitProxy([
-  'input', 'change', 'click', 'update:modelValue', 'cleared',
+  'input', 'change', 'click', 'update:modelValue',
 ])
 
 export default defineComponent({
