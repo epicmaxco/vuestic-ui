@@ -237,7 +237,14 @@ export default defineComponent({
     const searchBar = ref<InstanceType<typeof VaInput>>()
 
     const { getOptionByValue, getValue, getText, getTrackBy } = useSelectableList(props)
-    const { validate, isFocused, computedErrorMessages, computedError } = useFormComponent(props, context)
+
+    const {
+      validate,
+      isFocused,
+      computedErrorMessages,
+      computedError,
+    } = useFormComponent(props, () => reset(), () => focus(), () => blur())
+
     const { colorComputed } = useColor(props)
 
     const searchInput = ref('')
@@ -674,13 +681,6 @@ export default defineComponent({
     overflow-y: auto;
 
     @include va-scroll(var(--va-select-scroll-color));
-  }
-}
-
-.va-select,
-.va-select-dropdown__content {
-  .va-input-wrapper__content {
-    flex-grow: 1;
   }
 }
 

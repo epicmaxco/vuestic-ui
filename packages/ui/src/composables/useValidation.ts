@@ -14,6 +14,7 @@ interface ValidationProps {
   rules: ValidationRule[]
   success: boolean
   messages: string[] | string
+  immediateValidation: boolean
 }
 
 export const useValidationProps = {
@@ -24,6 +25,7 @@ export const useValidationProps = {
   rules: { type: Array as PropType<ValidationRule[]>, default: [] },
   success: { type: Boolean, default: false },
   messages: { type: [Array, String] as PropType<string[] | string>, default: [] },
+  immediateValidation: { type: Boolean, default: false },
 }
 
 export const useValidationEmits = ['update:error', 'update:errorMessages']
@@ -39,6 +41,8 @@ export const useValidation = (
   props: ValidationProps,
   emit: (event: any) => any,
   reset: () => any,
+  focus: () => any,
+  blur: () => any,
 ) => {
   const { isFocused, onFocus, onBlur } = useFocus()
 
@@ -71,12 +75,12 @@ export const useValidation = (
   }
 
   watch(isFocused, (newVal) => newVal === false && validate())
-  watch(() => props.modelValue, () => validate(), { immediate: true })
+  watch(() => props.modelValue, () => validate(), { immediate: props.immediateValidation })
 
   const context = {
     resetValidation,
-    focus: onFocus,
-    blur: onBlur,
+    focus,
+    blur,
     validate,
     reset,
     hasError: () => computedError.value,
@@ -85,11 +89,11 @@ export const useValidation = (
   const form = inject(FormServiceKey, undefined)
 
   onMounted(() => {
-    if (form) { form.onChildMounted(context) }
+    form?.onChildMounted(context)
   })
 
   onBeforeUnmount(() => {
-    if (form) { form.onChildUnmounted(context) }
+    form?.onChildUnmounted(context)
   })
 
   return {
@@ -98,7 +102,6 @@ export const useValidation = (
     computedErrorMessages,
     listeners: { onFocus, onBlur },
     validate,
-    reset,
     resetValidation,
   }
 }

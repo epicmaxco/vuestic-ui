@@ -9,6 +9,7 @@
   >
     <template #anchor>
       <va-input
+        ref="input"
         v-bind="{ ...inputProps, ...validationListeners }"
         :modelValue="valueText"
         :readonly="readonly || !manualInput"
@@ -29,7 +30,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType } from 'vue'
+import { computed, defineComponent, PropType, ref } from 'vue'
 import VaTimePicker from '../va-time-picker/VaTimePicker.vue'
 import VaInput from '../va-input/VaInput.vue'
 import { useSyncProp } from '../../composables/useSyncProp'
@@ -59,7 +60,7 @@ export default defineComponent({
     manualInput: { type: Boolean, default: false },
   },
 
-  setup (props, { emit }) {
+  setup (props, { emit, expose }) {
     const [isOpenSync] = useSyncProp('isOpen', props, emit, false)
     const [modelValueSync] = useSyncProp('modelValue', props, emit)
 
@@ -77,6 +78,8 @@ export default defineComponent({
 
     const timePickerProps = computed(() => filterComponentProps(props, extractComponentProps(VaTimePicker)))
     const inputProps = computed(() => filterComponentProps(props, extractComponentProps(VaInput, ['rules', 'error', 'errorMessages'])))
+
+    const input = ref<InstanceType<typeof VaInput> | undefined>()
 
     const onInputTextChanged = (val: string) => {
       const v = parse(val)
@@ -101,13 +104,29 @@ export default defineComponent({
     const changePeriodToPm = () => changePeriod(true)
     const changePeriodToAm = () => changePeriod(false)
 
+    const reset = (): void => {
+      modelValueSync.value = undefined
+    }
+
+    const focus = (): void => {
+      input.value?.focus()
+    }
+
+    const blur = (): void => {
+      input.value?.blur()
+    }
+
     const {
       isFocused,
       listeners: validationListeners,
       computedError,
       computedErrorMessages,
-    } = useValidation(props, emit, () => {
-      modelValueSync.value = undefined
+    } = useValidation(props, emit, () => reset(), () => focus(), () => blur())
+
+    expose({
+      reset,
+      focus,
+      blur,
     })
 
     return {
@@ -121,11 +140,18 @@ export default defineComponent({
       onInputTextChanged,
       isValid,
       isFocused,
+      reset,
 
       validationListeners,
       computedError,
       computedErrorMessages,
     }
+  },
+
+  // we will use this while we have 'withConfigTransport' and problem with 'expose' method in 'setup' func
+  methods: {
+    focus () { (this as any).input?.focus() },
+    blur () { (this as any).input?.blur() },
   },
 })
 </script>

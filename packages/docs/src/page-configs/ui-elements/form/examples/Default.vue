@@ -1,8 +1,8 @@
 <template>
   <div>
-    <va-form>
+    <va-form style="width: 300px;">
       <va-input
-        class="mb-4 mr-4"
+        class="mb-4"
         label="First Name"
         v-model="inputValue1"
         :rules="[value => (value && value.length > 0) || 'Field is required']"

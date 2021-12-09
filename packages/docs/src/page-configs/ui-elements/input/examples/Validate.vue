@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="width: 300px;">
     <va-input
       class="mb-4"
       v-model="value"

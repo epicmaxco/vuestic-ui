@@ -61,14 +61,16 @@ const config: ApiDocsBlock[] = [
     'select.examples.allowCreate.text',
     'AllowCreate',
   ),
+  ...block.exampleBlock(
+    'select.examples.validation.title',
+    'select.examples.validation.text',
+    'Validation',
+  ),
 
-  block.headline('select.examples.validation.title'),
-  block.paragraph('select.examples.validation.text'),
   block.headline('select.examples.keyboardNavigation.title'),
   block.paragraph('select.examples.keyboardNavigation.moves'),
   block.paragraph('select.examples.keyboardNavigation.selects'),
   block.paragraph('select.examples.keyboardNavigation.hints'),
-  block.example('Validation'),
 
   block.subtitle('all.api'),
   block.api(VaSelect, apiOptions),

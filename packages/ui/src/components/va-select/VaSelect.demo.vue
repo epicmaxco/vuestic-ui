@@ -552,7 +552,7 @@ export default {
         value: '',
         multipleValue: [],
         rules: {
-          required: [v => Array.isArray(v) ? v.length : !!v || 'at least 1 option should be selected'],
+          required: [v => Array.isArray(v) ? v.length >= 1 : !!v || 'at least 1 option should be selected'],
           twoOptions: [v => (Array.isArray(v) && v.length === 2) || '2 options should be selected'],
         },
       },

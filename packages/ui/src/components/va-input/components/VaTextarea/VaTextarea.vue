@@ -24,8 +24,6 @@ const { createEmits, createListeners } = useEmitProxy([
 ])
 
 export default defineComponent({
-  inheritAttrs: true,
-
   props: {
     modelValue: { type: [String, Number], default: '' },
     autosize: { type: Boolean, default: false },
@@ -44,7 +42,7 @@ export default defineComponent({
 
   emits: createEmits(),
 
-  setup (props, { emit }) {
+  setup (props, { emit, expose }) {
     const textarea = ref<HTMLTextAreaElement | undefined>()
     const rowHeight = ref(-1)
     const height = ref(-1)
@@ -69,6 +67,19 @@ export default defineComponent({
 
     watch(() => props.modelValue, updateHeight)
 
+    const focus = () => {
+      textarea.value?.focus()
+    }
+
+    const blur = () => {
+      textarea.value?.blur()
+    }
+
+    expose({
+      focus,
+      blur,
+    })
+
     return {
       textarea,
       computedHeight: computed(() => ({
@@ -91,5 +102,6 @@ export default defineComponent({
   textarea {
     padding: 0;
     border: 0;
+    font-family: var(--va-font-family);
   }
 </style>

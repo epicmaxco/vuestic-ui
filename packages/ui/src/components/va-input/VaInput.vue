@@ -114,15 +114,28 @@ export default defineComponent({
 
   inheritAttrs: false,
 
-  setup (props, { emit, attrs }) {
-    const input = ref<HTMLInputElement | HTMLTextAreaElement>()
+  setup (props, { emit, attrs, expose }) {
+    const input = ref<HTMLInputElement | InstanceType<typeof VaTextarea> | undefined>()
+
+    const reset = () => {
+      emit('update:modelValue', '')
+      emit('cleared')
+    }
+
+    const focus = () => {
+      input.value?.focus()
+    }
+
+    const blur = () => {
+      input.value?.blur()
+    }
 
     const {
       isFocused,
       listeners: validationListeners,
       computedError,
       computedErrorMessages,
-    } = useValidation(props, emit, () => reset())
+    } = useValidation(props, emit, () => reset(), () => focus(), () => blur())
 
     const canBeCleared = computed(() => {
       return props.clearable && ![null, undefined, ''].includes(props.modelValue as any)
@@ -137,7 +150,11 @@ export default defineComponent({
     })
 
     /** Use cleave only if this component is input, because it will break. */
-    const computedCleaveTarget = computed(() => props.type === 'textarea' ? undefined : input.value)
+    const computedCleaveTarget = computed(() => {
+      return props.type === 'textarea'
+        ? undefined
+        : input.value as HTMLInputElement | undefined
+    })
     const { computedValue, onInput } = useCleave(computedCleaveTarget, props, emit)
 
     const computedInputAttributes = computed(() => ({
@@ -153,10 +170,11 @@ export default defineComponent({
       ariaLabel: props.label,
     }) as InputHTMLAttributes)
 
-    const reset = () => {
-      emit('update:modelValue', '')
-      emit('cleared')
-    }
+    expose({
+      reset,
+      focus,
+      blur,
+    })
 
     return {
       input,
@@ -180,6 +198,7 @@ export default defineComponent({
     }
   },
 
+  // we will use this while we have 'withConfigTransport' and problem with 'expose' method in 'setup' func
   methods: {
     focus () { this.input?.focus() },
     blur () { this.input?.blur() },

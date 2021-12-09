@@ -36,25 +36,18 @@ const prepareValidations = (messages: string | any[] = [], callArguments = null)
     .map((message: any) => isFunction(message) ? message(callArguments) : message)
 }
 
-export function useFormComponent (props: Record<string, any>, context: any) {
+export function useFormComponent (
+  props: Record<string, any>,
+  reset: () => any,
+  focus: () => any,
+  blur: () => any,
+) {
   const hadFocus = ref(false)
   const isFocused = ref(false)
   const internalErrorMessages = ref([] as any[])
   const internalError = ref(false)
   const isFormComponent = ref(true)
   const formProvider: FormProvider | undefined = inject(FormServiceKey, undefined)
-
-  onMounted(() => {
-    if (formProvider?.onChildMounted) {
-      formProvider.onChildMounted(context)
-    }
-  })
-
-  onUnmounted(() => {
-    if (formProvider?.onChildUnmounted) {
-      formProvider.onChildUnmounted(context)
-    }
-  })
 
   /** @public */
   const validate = () => {
@@ -74,16 +67,6 @@ export function useFormComponent (props: Record<string, any>, context: any) {
     }
 
     return !computedError.value
-  }
-
-  /** @public */
-  const focus = (): void => {
-    throw new Error('focus method should be implemented in the component')
-  }
-
-  /** @public */
-  const reset = (): void => {
-    throw new Error('reset method should be implemented in the component')
   }
 
   const resetValidation = (): void => {
@@ -125,6 +108,19 @@ export function useFormComponent (props: Record<string, any>, context: any) {
     },
   })
 
+  const formContext = {
+    resetValidation,
+    validate,
+    reset,
+    hasError,
+    focus,
+    blur,
+  }
+
+  onMounted(() => formProvider?.onChildMounted(formContext))
+
+  onUnmounted(() => formProvider?.onChildUnmounted(formContext))
+
   return {
     isFocused,
     isFormComponent,
@@ -132,8 +128,6 @@ export function useFormComponent (props: Record<string, any>, context: any) {
     validate,
     ValidateMixin_onBlur,
     shouldValidateOnBlur,
-    focus,
-    reset,
     resetValidation,
     hasError,
     computedError,
