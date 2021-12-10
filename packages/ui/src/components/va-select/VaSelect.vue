@@ -463,7 +463,9 @@ export default defineComponent({
 
     const hideDropdown = () => {
       showDropdownContent.value = false
+      searchInput.value = ''
       validate()
+      focus()
     }
 
     const toggleDropdown = () => {
@@ -504,6 +506,7 @@ export default defineComponent({
 
     const focusOptionList = () => {
       optionList.value?.focus()
+      optionList.value?.hoverFirstOption()
     }
 
     const focusSearchOrOptions = () => {
