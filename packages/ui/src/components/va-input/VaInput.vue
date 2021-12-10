@@ -176,14 +176,6 @@ export default defineComponent({
       blur,
     })
 
-    const focus = () => {
-      input.value?.focus()
-    }
-
-    const blur = () => {
-      input.value?.blur()
-    }
-
     return {
       input,
       textareaProps: filterComponentProps(props, VaTextareaProps),
@@ -203,15 +195,13 @@ export default defineComponent({
       computedInputAttributes,
       fieldListeners: createFieldListeners(emit),
       reset,
-      focus,
-      blur,
     }
   },
 
   // we will use this while we have 'withConfigTransport' and problem with 'expose' method in 'setup' func
   methods: {
-    _focus () { this.input?.focus() },
-    _blur () { this.input?.blur() },
+    focus () { this.input?.focus() },
+    blur () { this.input?.blur() },
   },
 })
 </script>

@@ -498,8 +498,7 @@ export default defineComponent({
     }
 
     const focusSearchBar = () => {
-      // we will replace '_focus' with 'focus' when will resolve 'withConfigTransport' problem with 'expose' in 'setup' func
-      searchBar.value?._focus()
+      searchBar.value?.focus()
     }
 
     const focusOptionList = () => {
@@ -598,6 +597,12 @@ export default defineComponent({
       hintedSearchQueryTimeoutIndex = setTimeout(() => { hintedSearchQuery = '' }, 1000)
     }
 
+    context.expose({
+      focus,
+      blur,
+      reset,
+    })
+
     return {
       select,
       optionList,
@@ -650,7 +655,9 @@ export default defineComponent({
   cursor: var(--va-select-cursor);
 
   &:focus {
-    box-shadow: var(--va-select-box-shadow);
+    .va-input__container {
+      box-shadow: var(--va-select-box-shadow);
+    }
   }
 
   .va-input {
