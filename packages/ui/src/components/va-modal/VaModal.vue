@@ -193,7 +193,7 @@ export default class VaModal extends mixins(
       ? {}
       : {
         'background-color': `rgba(0, 0, 0, ${this.$props.overlayOpacity})`,
-        'z-index': this.$props.zIndex ? Number(this.$props.zIndex) - 10 : undefined,
+        'z-index': this.$props.zIndex ? Number(this.$props.zIndex) - 1 : undefined,
       }
   }
 
@@ -244,6 +244,8 @@ export default class VaModal extends mixins(
   }
 
   onOutsideClick () {
+    if (this.$props.noOutsideDismiss || this.$props.noDismiss) { return }
+
     this.$emit('click-outside')
     this.cancel()
   }
@@ -333,11 +335,10 @@ export default class VaModal extends mixins(
 
   &--mobile-fullscreen {
     @media all and (max-width: map-get($grid-breakpoints, sm)) {
+      margin: 0 !important;
       min-width: 100vw !important;
       min-height: 100vh !important;
       border-radius: 0;
-      position: fixed;
-      margin: 0 !important;
     }
   }
 
