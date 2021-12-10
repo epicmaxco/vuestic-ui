@@ -410,6 +410,7 @@ export default defineComponent({
 
       if (!(props.allowCreate === 'unique' && hasAddedOption)) {
         context.emit('create-new', searchInput.value)
+        searchInput.value = ''
       }
     }
 
