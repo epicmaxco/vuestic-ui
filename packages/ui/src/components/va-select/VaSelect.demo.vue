@@ -168,7 +168,7 @@
         class="mb-4"
         label="Track by text property (function)"
         :options="objectSingleSelect.options"
-        :track-by="(option) => option.text"
+        track-by="text"
       />
       <p>Value: {{ objectSingleSelect.value }}</p>
       <va-select
@@ -418,43 +418,53 @@
       style="width: 400px;"
     >
       <va-select
-        v-model="allowCreateValue"
+        v-model="allowCreateSelect.value"
         class="mb-4"
-        label="Default mode and single select"
-        :options="defaultSingleSelect.options"
+        label="'true' mode and single select"
+        :options="allowCreateSelect.options"
+        @create-new="addNewOption"
+        track-by="id"
         allow-create
       />
       <va-select
-        v-model="allowCreateValue"
+        v-model="allowCreateSelect.allowUniqueValue"
         class="mb-4"
-        label="Unique mode and single select"
-        :options="defaultSingleSelect.options"
+        label="'unique' mode and single select"
+        :options="allowCreateSelect.options"
+        @create-new="addNewOption"
+        track-by="id"
         allow-create="unique"
       />
       <va-select
-        v-model="allowCreateValueMultiple"
+        v-model="allowCreateSelect.valueMultiple"
         class="mb-4"
-        label="Default mode and multi select"
-        :options="defaultMultiSelect.options"
+        label="'true' mode and multi select"
+        :options="allowCreateSelect.options"
+        @create-new="addNewOption"
+        track-by="id"
         allow-create
         multiple
       />
       <va-select
-        v-model="allowCreateValueMultiple"
-        label="Unique mode and multi select"
+        v-model="allowCreateSelect.allowUniqueValueMultiple"
+        label="'unique' mode and multi select"
         class="mb-4"
-        :options="defaultMultiSelect.options"
+        :options="allowCreateSelect.options"
+        @create-new="addNewOption"
+        track-by="id"
         allow-create="unique"
         multiple
       />
       <va-select
-        v-model="allowCreateValueMultiple"
+        v-model="allowCreateSelect.valueMultipleMax"
         class="mb-4"
-        label="Default mode and multi select, Max 3 selections"
-        :options="defaultMultiSelect.options"
-        :max-selections=3
+        label="'true' mode and multi select, Max 3 selections"
+        :options="allowCreateSelect.options"
+        @create-new="addNewOption"
+        track-by="id"
         allow-create
         multiple
+        :max-selections="3"
       />
     </VbCard>
     <VbCard
@@ -524,6 +534,20 @@ export default {
         options: ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'],
         value: [],
       },
+      allowCreateSelect: {
+        options: [
+          { id: '0', text: 'one', value: 'one' },
+          { id: '1', text: 'two', value: 'two' },
+          { id: '2', text: 'three', value: 'three' },
+          { id: '3', text: 'four', value: 'four' },
+          { id: '4', text: 'five', value: 'five' },
+        ],
+        value: '',
+        allowUniqueValue: '',
+        valueMultiple: [],
+        allowUniqueValueMultiple: [],
+        valueMultipleMax: [],
+      },
       objectSingleSelect: {
         value: '',
         options: objectOptionsList,
@@ -573,6 +597,11 @@ export default {
     },
     alert (str) {
       window.alert(str)
+    },
+    addNewOption (newOption) {
+      const option = { id: String(this.allowCreateSelect.options.length), text: newOption, value: newOption }
+      this.allowCreateSelect.options = [...this.allowCreateSelect.options, option]
+      this.allowCreateSelect.value = option
     },
   },
 }

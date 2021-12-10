@@ -181,7 +181,7 @@ export default class VaSelectOptionList extends mixins(
     } else {
       const hoveredOptionIndex: any =
         this.filteredOptions.findIndex((option: any) =>
-          (this.$props.getText as Function)(option) === (this.$props.getText as Function)(this.hoveredOptionComputed))
+          (this.$props.getTrackBy as Function)(option) === (this.$props.getTrackBy as Function)(this.hoveredOptionComputed))
       if (this.filteredOptions[hoveredOptionIndex - 1]) {
         this.hoveredOptionComputed = this.filteredOptions[hoveredOptionIndex - 1]
       } else {
@@ -197,7 +197,7 @@ export default class VaSelectOptionList extends mixins(
     } else {
       const hoveredOptionIndex: any =
         this.filteredOptions.findIndex((option: any) =>
-          (this.$props.getText as Function)(option) === (this.$props.getText as Function)(this.hoveredOptionComputed))
+          (this.$props.getTrackBy as Function)(option) === (this.$props.getTrackBy as Function)(this.hoveredOptionComputed))
       if (this.filteredOptions[hoveredOptionIndex + 1]) {
         this.hoveredOptionComputed = this.filteredOptions[hoveredOptionIndex + 1]
       }

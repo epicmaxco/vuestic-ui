@@ -165,7 +165,7 @@ export default defineComponent({
     VaDropdownContent,
     VaInput,
   },
-  emits: ['update-search', 'update:modelValue', 'clear'],
+  emits: ['update-search', 'update:modelValue', 'clear', 'create-new'],
   props: {
     ...useSelectableListProps,
     ...useFormComponentProps,
@@ -405,20 +405,13 @@ export default defineComponent({
     }
 
     const addNewOption = (): void => {
-      if (props.multiple) {
-        if (exceedsMaxSelections()) { return }
+      // Do not emit if option already exist and allow create is `unique`
+      const hasAddedOption: boolean = props.options?.some((option: any) => getText(option) === searchInput.value)
 
-        const hasAddedOption: boolean = valueComputed.value.some((value: any) => value === searchInput.value)
-
-        // Do not change valueComputed if option already exist and allow create is `unique`
-        if (!(props.allowCreate === 'unique' && hasAddedOption)) {
-          valueComputed.value = [...valueComputed.value, searchInput.value]
-        }
-      } else {
-        valueComputed.value = searchInput.value
+      if (!(props.allowCreate === 'unique' && hasAddedOption)) {
+        context.emit('create-new', searchInput.value)
+        searchInput.value = ''
       }
-
-      searchInput.value = ''
     }
 
     // Hovered options
@@ -470,7 +463,9 @@ export default defineComponent({
 
     const hideDropdown = () => {
       showDropdownContent.value = false
+      searchInput.value = ''
       validate()
+      focus()
     }
 
     const toggleDropdown = () => {
@@ -511,6 +506,7 @@ export default defineComponent({
 
     const focusOptionList = () => {
       optionList.value?.focus()
+      optionList.value?.hoverFirstOption()
     }
 
     const focusSearchOrOptions = () => {
@@ -605,6 +601,12 @@ export default defineComponent({
       hintedSearchQueryTimeoutIndex = setTimeout(() => { hintedSearchQuery = '' }, 1000)
     }
 
+    context.expose({
+      focus,
+      blur,
+      reset,
+    })
+
     return {
       select,
       optionList,
@@ -655,6 +657,12 @@ export default defineComponent({
 
 .va-select {
   cursor: var(--va-select-cursor);
+
+  &:focus {
+    .va-input__container {
+      box-shadow: var(--va-select-box-shadow);
+    }
+  }
 
   .va-input {
     cursor: var(--va-select-cursor);

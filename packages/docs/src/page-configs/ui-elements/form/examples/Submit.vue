@@ -1,6 +1,7 @@
 <template>
   <div>
     <va-form
+      style="width: 300px;"
       tag="form"
       @submit.prevent="handleSubmit"
     >
@@ -16,6 +17,14 @@
         label="Password"
       />
 
+      <va-select
+        class="mt-2"
+        label="Role"
+        v-model="value"
+        :options="options"
+        clearable
+      />
+
       <va-button type="submit" class="mt-2">
         Login
       </va-button>
@@ -29,6 +38,8 @@ export default {
     return {
       username: '',
       password: '',
+      value: '',
+      options: ['admin', 'user'],
     }
   },
   methods: {

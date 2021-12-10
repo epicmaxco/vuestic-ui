@@ -14,7 +14,7 @@
         v-model="inputValue"
         :rules="[value => value === 'Ben' || 'Should be Ben']"
       />
-      <va-select
+      <va-select style="width: 300px;"
         label="City"
         v-model="selectValue"
         :rules="[value => value === 'Minsk' || 'Should be Minsk']"
