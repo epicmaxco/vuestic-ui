@@ -89,13 +89,6 @@
       v-model="value"
       maxHeight="320px"
     />
-    <va-select
-      class="mb-4"
-      label="Custom select width (75%)"
-      :options="options"
-      v-model="value"
-      width="75%"
-    />
   </div>
 </template>
 

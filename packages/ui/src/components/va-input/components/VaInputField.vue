@@ -4,85 +4,87 @@
     :class="wrapperClass"
     @click="$emit('click', $event)"
   >
-    <div
-      v-if="$slots.prepend"
-      class="va-input-wrapper__prepend-inner"
-      @click="$emit('click-prepend')"
-    >
-      <slot name="prepend" />
-    </div>
-
-    <div class="va-input-wrapper__content">
+    <div class="va-input-wrapper__input">
       <div
-        class="va-input__container"
-        ref="container"
-        :style="{ borderColor: borderColorComputed }"
+        v-if="$slots.prepend"
+        class="va-input-wrapper__prepend-inner"
+        @click="$emit('click-prepend')"
       >
+        <slot name="prepend" />
+      </div>
+
+      <div class="va-input-wrapper__content">
         <div
-          v-if="$slots.prependInner"
-          class="va-input__prepend-inner"
-          @click="$emit('click-prepend-inner', $event)"
+          class="va-input__container"
+          ref="container"
+          :style="{ borderColor: borderColorComputed }"
         >
-          <slot name="prependInner" />
-        </div>
+          <div
+            v-if="$slots.prependInner"
+            class="va-input__prepend-inner"
+            @click="$emit('click-prepend-inner', $event)"
+          >
+            <slot name="prependInner" />
+          </div>
 
-        <div class="va-input__content-wrapper">
-          <div class="va-input__content">
-            <label
-              v-if="label"
-              aria-hidden="true"
-              class="va-input__label"
-              :style="{ color: colorComputed }"
-            >
-              {{ label }}
-            </label>
+          <div class="va-input__content-wrapper">
+            <div class="va-input__content">
+              <label
+                v-if="label"
+                aria-hidden="true"
+                class="va-input__label"
+                :style="{ color: colorComputed }"
+              >
+                {{ label }}
+              </label>
 
-            <div v-if="$slots.content" class="va-input__content__input">
-              <slot name="content" />
+              <div v-if="$slots.content" class="va-input__content__input">
+                <slot name="content" />
+              </div>
+
+              <slot></slot>
             </div>
+          </div>
 
-            <slot></slot>
+          <div
+            v-if="$slots.icon"
+            class="va-input__icons"
+            @click="$emit('click-icon', $event)"
+          >
+            <slot name="icon" />
+          </div>
+
+          <div
+            v-if="$slots.appendInner"
+            class="va-input__append-inner"
+            @click="$emit('click-append-inner', $event)"
+          >
+            <slot name="appendInner" />
           </div>
         </div>
 
         <div
-          v-if="$slots.icon"
-          class="va-input__icons"
-          @click="$emit('click-icon', $event)"
-        >
-          <slot name="icon" />
-        </div>
-
-        <div
-          v-if="$slots.appendInner"
-          class="va-input__append-inner"
-          @click="$emit('click-append-inner', $event)"
-        >
-          <slot name="appendInner" />
-        </div>
+          v-if="bordered"
+          class="va-input--bordered__border"
+          :style="{ borderColor: borderColorComputed }"
+        />
       </div>
 
       <div
-        v-if="bordered"
-        class="va-input--bordered__border"
-        :style="{ borderColor: borderColorComputed }"
-      />
-
-      <div class="va-input-wrapper__message-list-wrapper">
-        <va-message-list
-          :color="messagesColor"
-          :model-value="messagesComputed"
-          :limit="errorLimit"
-        />
+        v-if="$slots.append"
+        class="va-input-wrapper__append-inner"
+        @click="$emit('click-append')"
+      >
+        <slot name="append" />
       </div>
     </div>
 
-    <div
-      v-if="$slots.append"
-      class="va-input-wrapper__append-inner"
-      @click="$emit('click-append')"
-    >
-      <slot name="append" />
+    <div class="va-input-wrapper__message-list-wrapper">
+      <va-message-list
+        :color="messagesColor"
+        :model-value="messagesComputed"
+        :limit="errorLimit"
+      />
     </div>
   </div>
 </template>
@@ -160,8 +162,6 @@ export default defineComponent({
 
 .va-input {
   position: relative;
-  display: flex;
-  align-items: center;
   color: var(--va-input-text-color);
   cursor: var(--va-input-cursor);
   font-family: var(--va-font-family);
@@ -195,6 +195,15 @@ export default defineComponent({
         padding-right: 0;
       }
     }
+  }
+
+  &-wrapper__input {
+    display: flex;
+    align-items: center;
+  }
+
+  &-wrapper__message-list-wrapper {
+    margin-top: 2px;
   }
 
   &-wrapper__content {
