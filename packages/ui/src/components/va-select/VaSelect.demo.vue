@@ -168,7 +168,7 @@
         class="mb-4"
         label="Track by text property (function)"
         :options="objectSingleSelect.options"
-        :track-by="(option) => option.text"
+        track-by="text"
       />
       <p>Value: {{ objectSingleSelect.value }}</p>
       <va-select
@@ -423,7 +423,7 @@
         label="'true' mode and single select"
         :options="allowCreateSelect.options"
         @create-new="addNewOption"
-        :track-by="(option) => option.id"
+        track-by="id"
         allow-create
       />
       <va-select
@@ -432,7 +432,7 @@
         label="'unique' mode and single select"
         :options="allowCreateSelect.options"
         @create-new="addNewOption"
-        :track-by="(option) => option.id"
+        track-by="id"
         allow-create="unique"
       />
       <va-select
@@ -441,7 +441,7 @@
         label="'true' mode and multi select"
         :options="allowCreateSelect.options"
         @create-new="addNewOption"
-        :track-by="(option) => option.id"
+        track-by="id"
         allow-create
         multiple
       />
@@ -451,7 +451,7 @@
         class="mb-4"
         :options="allowCreateSelect.options"
         @create-new="addNewOption"
-        :track-by="(option) => option.id"
+        track-by="id"
         allow-create="unique"
         multiple
       />
@@ -461,7 +461,7 @@
         label="'true' mode and multi select, Max 3 selections"
         :options="allowCreateSelect.options"
         @create-new="addNewOption"
-        :track-by="(option) => option.id"
+        track-by="id"
         allow-create
         multiple
         :max-selections="3"
@@ -601,6 +601,7 @@ export default {
     addNewOption (newOption) {
       const option = { id: String(this.allowCreateSelect.options.length), text: newOption, value: newOption }
       this.allowCreateSelect.options = [...this.allowCreateSelect.options, option]
+      this.allowCreateSelect.value = option
     },
   },
 }
