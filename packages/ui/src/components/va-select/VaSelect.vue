@@ -89,8 +89,8 @@
     <va-dropdown-content
       class="va-select-dropdown__content"
       @keyup.enter.stop
-      @keydown.esc.prevent="hideAndFocus"
-      @keydown.tab="hideDropdown"
+      @keydown.esc.prevent="hideDropdown"
+      @keydown.tab.prevent="hideDropdown"
     >
       <va-input
         v-if="showSearchInput"
@@ -365,7 +365,7 @@ export default defineComponent({
 
     const selectOption = (option: any): void => {
       if (hoveredOption.value === null) {
-        hideAndFocus()
+        hideDropdown()
         return
       }
 
@@ -385,7 +385,7 @@ export default defineComponent({
         }
       } else {
         valueComputed.value = typeof option === 'string' || typeof option === 'number' ? option : { ...option }
-        hideAndFocus()
+        hideDropdown()
       }
     }
 
@@ -470,7 +470,7 @@ export default defineComponent({
 
     const toggleDropdown = () => {
       if (showDropdownContent.value) {
-        hideAndFocus()
+        hideDropdown()
       } else {
         showDropdown()
       }
@@ -489,15 +489,6 @@ export default defineComponent({
       }
 
       toggleDropdown()
-    }
-
-    const focusSelect = () => {
-      select.value?.focus()
-    }
-
-    const hideAndFocus = (): void => {
-      hideDropdown()
-      focusSelect()
     }
 
     const focusSearchBar = () => {
@@ -523,12 +514,14 @@ export default defineComponent({
         return
       }
       isFocused.value = true
+      select.value?.focus()
     }
 
     /** @public */
     const blur = (): void => {
       isFocused.value = false
       validate()
+      select.value?.blur()
     }
 
     /** @public */
@@ -615,7 +608,6 @@ export default defineComponent({
       blur,
       reset,
       onSelectClick,
-      hideAndFocus,
       searchBar,
       focusSearchBar,
       searchInput,
