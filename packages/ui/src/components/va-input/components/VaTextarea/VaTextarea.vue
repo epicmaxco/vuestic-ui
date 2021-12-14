@@ -1,9 +1,11 @@
 <template>
   <textarea
     ref="textarea"
+    class="textarea"
     v-bind="listeners"
     :value="modelValue"
-    :style="{ ...computedHeight }"
+    :style="{ ...computedStyle }"
+    :placeholder="placeholder"
   />
 </template>
 
@@ -16,7 +18,7 @@ const positiveNumberValidator = (val: number) => {
   if (val > 0 && (val | 0) === val) {
     return true
   }
-  throw new Error(`\`minRows\` must be a positive integer greater than 0, but ${val} is provided`)
+  throw new Error(`\`minRows|maxRows\` must be a positive integer greater than 0, but ${val} is provided`)
 }
 
 const { createEmits, createListeners } = useEmitProxy([
@@ -26,6 +28,7 @@ const { createEmits, createListeners } = useEmitProxy([
 export default defineComponent({
   props: {
     modelValue: { type: [String, Number], default: '' },
+    placeholder: { type: String },
     autosize: { type: Boolean, default: false },
     minRows: {
       type: Number,
@@ -36,7 +39,6 @@ export default defineComponent({
     maxRows: {
       type: Number,
       validator: positiveNumberValidator,
-      default: 999999,
     },
   },
 
@@ -46,18 +48,22 @@ export default defineComponent({
     const textarea = ref<HTMLTextAreaElement | undefined>()
     const rowHeight = ref(-1)
     const height = ref(-1)
-    const { calculateRowHeight } = useTextareaRowHeight(textarea)
+    const { calculateRowHeight, calculateHeight } = useTextareaRowHeight(textarea)
+
+    const isResizable = computed(() => {
+      return (props.autosize || props.maxRows || props.minRows !== 1) && textarea.value
+    })
 
     const updateRowHeight = () => {
-      if (!props.autosize || !textarea.value) { return }
-
-      rowHeight.value = calculateRowHeight()
+      if (isResizable.value) {
+        rowHeight.value = calculateRowHeight()
+      }
     }
 
     const updateHeight = () => {
-      if (!props.autosize || !textarea.value) { return }
-
-      height.value = textarea.value?.scrollHeight || 0
+      if (isResizable.value) {
+        height.value = calculateHeight() || 0
+      }
     }
 
     onMounted(() => {
@@ -82,10 +88,11 @@ export default defineComponent({
 
     return {
       textarea,
-      computedHeight: computed(() => ({
+      computedStyle: computed(() => ({
         minHeight: rowHeight.value * props.minRows + 'px',
-        maxHeight: rowHeight.value * props.maxRows + 'px',
+        maxHeight: props.maxRows && (rowHeight.value * props.maxRows + 'px'),
         height: height.value + 'px',
+        resize: props.autosize && 'none',
       })),
       listeners: createListeners(emit),
     }
@@ -99,9 +106,9 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  textarea {
-    padding: 0;
-    border: 0;
-    font-family: var(--va-font-family);
-  }
+.textarea {
+  padding: 0;
+  border: 0;
+  font-family: var(--va-font-family);
+}
 </style>

@@ -46,6 +46,7 @@ const getNodeHeightStyles = (node: HTMLElement) => {
       parseFloat(style.getPropertyValue('border-top-width')),
     styles:
       SIZING_STYLE.map(name => `${name}:${style.getPropertyValue(name)}`).join(';') + ';',
+    lineHeight: parseInt(style.getPropertyValue('line-height')),
   }
 }
 
@@ -75,6 +76,14 @@ export const useTextareaRowHeight = (textarea: Ref<HTMLTextAreaElement | undefin
   const calculateRowHeight = () => {
     if (!textarea.value) { return 0 }
 
+    const { lineHeight } = getNodeHeightStyles(textarea.value)
+
+    return lineHeight
+  }
+
+  const calculateHeight = () => {
+    if (!textarea.value) { return 0 }
+
     const { boxSizing, padding, border, styles } = getNodeHeightStyles(textarea.value)
 
     const hiddenTextarea = createHiddenTextarea(textarea.value, styles)
@@ -95,5 +104,6 @@ export const useTextareaRowHeight = (textarea: Ref<HTMLTextAreaElement | undefin
 
   return {
     calculateRowHeight,
+    calculateHeight,
   }
 }
