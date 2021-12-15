@@ -7,7 +7,10 @@
       Validate
     </va-button>
 
-    <va-form ref="form" style="width: 300px;">
+    <va-form style="width: 300px;"
+      ref="form"
+      @validation="validation = $event"
+    >
       <va-input
         class="mb-4"
         label="Name"
@@ -21,6 +24,14 @@
         :options="['Minsk', 'Los Angeles', 'San Francisco', 'Peru']"
       />
     </va-form>
+
+    <va-alert v-if="validation !== null" class="mt-3" border="left">
+      <span>
+        Validate form:
+        <va-chip>{{ validation }}</va-chip>
+      </span>
+    </va-alert>
+
   </div>
 </template>
 
@@ -30,6 +41,7 @@ export default {
     return {
       inputValue: '',
       selectValue: '',
+      validation: null,
     }
   },
 }

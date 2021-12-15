@@ -139,7 +139,7 @@
 import { defineComponent, PropType, ref, computed, watch, nextTick } from 'vue'
 
 import { useSelectableList, useSelectableListProps } from '../../composables/useSelectableList'
-import { useFormComponent, useFormComponentProps } from '../../composables/useFormComponent'
+import { useValidation, useValidationProps, useValidationEmits } from '../../composables/useValidation'
 import { useLoadingProps } from '../../composables/useLoading'
 import { useColor } from '../../composables/useColor'
 import { useMaxSelections, useMaxSelectionsProps } from '../../composables/useMaxSelections'
@@ -165,10 +165,10 @@ export default defineComponent({
     VaDropdownContent,
     VaInput,
   },
-  emits: ['update-search', 'update:modelValue', 'clear', 'create-new'],
+  emits: ['update-search', 'update:modelValue', 'clear', 'create-new', ...useValidationEmits],
   props: {
     ...useSelectableListProps,
-    ...useFormComponentProps,
+    ...useValidationProps,
     ...useLoadingProps,
     ...useMaxSelectionsProps,
 
@@ -239,11 +239,11 @@ export default defineComponent({
     const { getOptionByValue, getValue, getText, getTrackBy } = useSelectableList(props)
 
     const {
-      validate,
       isFocused,
-      computedErrorMessages,
+      validate,
       computedError,
-    } = useFormComponent(props, () => reset(), () => focus(), () => blur())
+      computedErrorMessages,
+    } = useValidation(props, context.emit, () => reset(), () => focus(), () => blur())
 
     const { colorComputed } = useColor(props)
 
