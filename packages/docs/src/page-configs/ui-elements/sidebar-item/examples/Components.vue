@@ -24,9 +24,9 @@
       <div v-for="(child, index) in route.children" :key="index">
         <va-sidebar-item @click="setRouteActive(child)" :active="isRouteActive(child)">
           <va-sidebar-item-content>
-            <va-sidebart-item-title>
+            <va-sidebar-item-title>
               {{ $tie(child.displayName) }}
-            </va-sidebart-item-title>
+            </va-sidebar-item-title>
           </va-sidebar-item-content>
         </va-sidebar-item>
       </div>
@@ -87,6 +87,6 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .expanded {
-  background-color: var(--va-secondary);
+  background-color: #f2f3ae;
 }
 </style>

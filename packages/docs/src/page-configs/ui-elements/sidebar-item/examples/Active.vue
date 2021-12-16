@@ -1,9 +1,9 @@
 <template>
   <va-sidebar-item v-for="(route, idx) in items" :key="idx" @click="setRouteActive(route)" :active="isRouteActive(route)">
     <va-sidebar-item-content>
-      <va-sidebart-item-title>
+      <va-sidebar-item-title>
         {{ $tie(route.name) }}
-      </va-sidebart-item-title>
+      </va-sidebar-item-title>
     </va-sidebar-item-content>
   </va-sidebar-item>
 </template>

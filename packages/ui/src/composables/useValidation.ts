@@ -1,4 +1,4 @@
-import { inject, onBeforeUnmount, onMounted, PropType, provide, watch } from 'vue'
+import { inject, onBeforeUnmount, onMounted, PropType, watch } from 'vue'
 import { isString, isFunction, flatten } from 'lodash-es'
 import { useSyncProp } from './useSyncProp'
 import { FormServiceKey } from '../components/va-form/consts'
@@ -55,23 +55,28 @@ export const useValidation = (
   }
 
   const validate = (): boolean => {
-    resetValidation()
+    if (!props.rules || !props.rules.length) {
+      return true
+    }
 
-    if (!props.rules || props.rules.length <= 0) { return computedError.value }
+    let error = false
+    let errorMessages: string[] = []
 
     const rules = flatten(props.rules)
 
     normalizeValidationRules(rules, props.modelValue)
       .forEach((validationResult: boolean | string) => {
         if (isString(validationResult)) {
-          computedErrorMessages.value = [...computedErrorMessages.value, validationResult]
-          computedError.value = true
+          errorMessages = [...errorMessages, validationResult]
+          error = true
         } else if (validationResult === false) {
-          computedError.value = true
+          error = true
         }
       })
 
-    return computedError.value
+    computedErrorMessages.value = errorMessages
+    computedError.value = error
+    return !error
   }
 
   watch(isFocused, (newVal) => newVal === false && validate())

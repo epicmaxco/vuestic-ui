@@ -139,7 +139,7 @@
 import { defineComponent, PropType, ref, computed, watch, nextTick } from 'vue'
 
 import { useSelectableList, useSelectableListProps } from '../../composables/useSelectableList'
-import { useFormComponent, useFormComponentProps } from '../../composables/useFormComponent'
+import { useValidation, useValidationProps, useValidationEmits } from '../../composables/useValidation'
 import { useLoadingProps } from '../../composables/useLoading'
 import { useColor } from '../../composables/useColor'
 import { useMaxSelections, useMaxSelectionsProps } from '../../composables/useMaxSelections'
@@ -165,10 +165,10 @@ export default defineComponent({
     VaDropdownContent,
     VaInput,
   },
-  emits: ['update-search', 'update:modelValue', 'clear', 'create-new'],
+  emits: ['update-search', 'update:modelValue', 'clear', 'create-new', ...useValidationEmits],
   props: {
     ...useSelectableListProps,
-    ...useFormComponentProps,
+    ...useValidationProps,
     ...useLoadingProps,
     ...useMaxSelectionsProps,
 
@@ -230,7 +230,7 @@ export default defineComponent({
     placeholder: { type: String as PropType<string>, default: '' },
   },
 
-  setup (props, context) {
+  setup (props, { emit, expose }) {
     // DOM element or component instance will be assigned to these refs after initial render (template refs and reactive refs are unified in Composition API)
     const select = ref<InstanceType<typeof HTMLElement>>()
     const optionList = ref<InstanceType<typeof VaSelectOptionList>>()
@@ -239,11 +239,11 @@ export default defineComponent({
     const { getOptionByValue, getValue, getText, getTrackBy } = useSelectableList(props)
 
     const {
-      validate,
       isFocused,
-      computedErrorMessages,
+      validate,
       computedError,
-    } = useFormComponent(props, () => reset(), () => focus(), () => blur())
+      computedErrorMessages,
+    } = useValidation(props, emit, () => reset(), () => focus(), () => blur())
 
     const { colorComputed } = useColor(props)
 
@@ -253,7 +253,7 @@ export default defineComponent({
     })
 
     watch(() => searchInput.value, (value) => {
-      context.emit('update-search', value)
+      emit('update-search', value)
       hoveredOption.value = null
     })
 
@@ -287,7 +287,7 @@ export default defineComponent({
       },
 
       set (value: any) {
-        context.emit('update:modelValue', getValue(value))
+        emit('update:modelValue', getValue(value))
       },
     })
 
@@ -361,7 +361,7 @@ export default defineComponent({
       return false
     }
 
-    const { exceedsMaxSelections, addOption } = useMaxSelections(valueComputed, ref(props.maxSelections), context.emit)
+    const { exceedsMaxSelections, addOption } = useMaxSelections(valueComputed, ref(props.maxSelections), emit)
 
     const selectOption = (option: any): void => {
       if (hoveredOption.value === null) {
@@ -409,7 +409,7 @@ export default defineComponent({
       const hasAddedOption: boolean = props.options?.some((option: any) => getText(option) === searchInput.value)
 
       if (!(props.allowCreate === 'unique' && hasAddedOption)) {
-        context.emit('create-new', searchInput.value)
+        emit('create-new', searchInput.value)
         searchInput.value = ''
       }
     }
@@ -540,7 +540,7 @@ export default defineComponent({
       }
 
       searchInput.value = ''
-      context.emit('clear')
+      emit('clear')
     }
 
     const tabIndexComputed = computed(() => {
@@ -601,7 +601,7 @@ export default defineComponent({
       hintedSearchQueryTimeoutIndex = setTimeout(() => { hintedSearchQuery = '' }, 1000)
     }
 
-    context.expose({
+    expose({
       focus,
       blur,
       reset,
