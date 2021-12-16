@@ -130,9 +130,7 @@ export default defineComponent({
     })
 
     watch(modelValueSync, () => {
-      if (!isValid.value && valueText.value === '') {
-        isValid.value = true
-      }
+      isValid.value = true
     })
 
     return {
