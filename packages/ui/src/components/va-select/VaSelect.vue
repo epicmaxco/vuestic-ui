@@ -230,7 +230,7 @@ export default defineComponent({
     placeholder: { type: String as PropType<string>, default: '' },
   },
 
-  setup (props, context) {
+  setup (props, { emit, expose }) {
     // DOM element or component instance will be assigned to these refs after initial render (template refs and reactive refs are unified in Composition API)
     const select = ref<InstanceType<typeof HTMLElement>>()
     const optionList = ref<InstanceType<typeof VaSelectOptionList>>()
@@ -243,7 +243,7 @@ export default defineComponent({
       validate,
       computedError,
       computedErrorMessages,
-    } = useValidation(props, context.emit, () => reset(), () => focus(), () => blur())
+    } = useValidation(props, emit, () => reset(), () => focus(), () => blur())
 
     const { colorComputed } = useColor(props)
 
@@ -253,7 +253,7 @@ export default defineComponent({
     })
 
     watch(() => searchInput.value, (value) => {
-      context.emit('update-search', value)
+      emit('update-search', value)
       hoveredOption.value = null
     })
 
@@ -287,7 +287,7 @@ export default defineComponent({
       },
 
       set (value: any) {
-        context.emit('update:modelValue', getValue(value))
+        emit('update:modelValue', getValue(value))
       },
     })
 
@@ -361,7 +361,7 @@ export default defineComponent({
       return false
     }
 
-    const { exceedsMaxSelections, addOption } = useMaxSelections(valueComputed, ref(props.maxSelections), context.emit)
+    const { exceedsMaxSelections, addOption } = useMaxSelections(valueComputed, ref(props.maxSelections), emit)
 
     const selectOption = (option: any): void => {
       if (hoveredOption.value === null) {
@@ -409,7 +409,7 @@ export default defineComponent({
       const hasAddedOption: boolean = props.options?.some((option: any) => getText(option) === searchInput.value)
 
       if (!(props.allowCreate === 'unique' && hasAddedOption)) {
-        context.emit('create-new', searchInput.value)
+        emit('create-new', searchInput.value)
         searchInput.value = ''
       }
     }
@@ -540,7 +540,7 @@ export default defineComponent({
       }
 
       searchInput.value = ''
-      context.emit('clear')
+      emit('clear')
     }
 
     const tabIndexComputed = computed(() => {
@@ -601,7 +601,7 @@ export default defineComponent({
       hintedSearchQueryTimeoutIndex = setTimeout(() => { hintedSearchQuery = '' }, 1000)
     }
 
-    context.expose({
+    expose({
       focus,
       blur,
       reset,
