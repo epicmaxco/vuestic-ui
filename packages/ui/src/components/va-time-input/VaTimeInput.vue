@@ -15,7 +15,7 @@
         :readonly="readonly || !manualInput"
         :error="!isValid || inputProps.error || computedError"
         :error-messages="computedErrorMessages"
-        @change="onInputTextChanged"
+        @change="onInputTextChanged($event.target.value)"
       >
         <template v-for="(_, name) in $slots" v-slot:[name]="bind">
           <slot :name="name" v-bind="bind"></slot>
@@ -30,7 +30,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, ref } from 'vue'
+import { computed, defineComponent, PropType, watch, ref } from 'vue'
 import VaTimePicker from '../va-time-picker/VaTimePicker.vue'
 import VaInput from '../va-input/VaInput.vue'
 import { useSyncProp } from '../../composables/useSyncProp'
@@ -127,6 +127,10 @@ export default defineComponent({
       reset,
       focus,
       blur,
+    })
+
+    watch(modelValueSync, () => {
+      isValid.value = true
     })
 
     return {
