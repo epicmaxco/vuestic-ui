@@ -2,7 +2,7 @@
   <va-dropdown
     class="va-time-input"
     v-model="isOpenSync"
-    :offset="[0, 2]"
+    :offset="[0, 1]"
     :close-on-content-click="false"
     :disabled="disabled || readonly"
     position="bottom-start"

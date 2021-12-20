@@ -13,7 +13,7 @@
     boundary-body
     :stateful="false"
     anchorSelector=".va-input-wrapper__input"
-    :offset="[0, 2]"
+    :offset="[0, 1]"
   >
     <template #anchor>
       <div
