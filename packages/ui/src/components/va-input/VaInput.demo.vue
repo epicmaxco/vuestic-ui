@@ -349,6 +349,19 @@
         clearable
       />
     </VbCard>
+    <VbCard title="All slots">
+      <va-input
+        v-model="text"
+        label="All slots"
+        :messages="messages"
+        clearable
+      >
+        <template #prepend><va-icon name="share" /></template>
+        <template #prependInner><va-icon name="share" /></template>
+        <template #appendInner><va-icon name="share" /></template>
+        <template #append><va-icon name="share" /></template>
+      </va-input>
+    </VbCard>
     <VbCard title="Error">
       <va-input
         v-model="text"

@@ -12,6 +12,8 @@
     keep-anchor-width
     boundary-body
     :stateful="false"
+    anchorSelector=".va-input-wrapper__input"
+    :offset="[0, 1]"
   >
     <template #anchor>
       <div
@@ -26,7 +28,6 @@
       >
         <!-- We show messages outside of dropdown to draw dropdown content under the input -->
         <va-input
-          :style="{ width: $props.width }"
           :model-value="valueComputedString"
           :success="$props.success"
           :error="computedError"
@@ -88,6 +89,7 @@
     <!-- Stop propagation for enter keyup event, to prevent VaDropdown closing -->
     <va-dropdown-content
       class="va-select-dropdown__content"
+      :style="{ width: $props.width }"
       @keyup.enter.stop
       @keydown.esc.prevent="hideDropdown"
       @keydown.tab.prevent="hideDropdown"

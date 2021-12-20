@@ -2,10 +2,11 @@
   <va-dropdown
     class="va-time-input"
     v-model="isOpenSync"
-    :offset="[0, 10]"
+    :offset="[0, 1]"
     :close-on-content-click="false"
     :disabled="disabled || readonly"
     position="bottom-start"
+    anchorSelector=".va-input-wrapper__input"
   >
     <template #anchor>
       <va-input

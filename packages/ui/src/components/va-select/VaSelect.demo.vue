@@ -304,6 +304,19 @@
       <va-select
         v-model="defaultSingleSelect.value"
         class="mb-4"
+        label="All slots"
+        :options="defaultSingleSelect.options"
+        clearable
+        :messages="['Hint message 1', 'Hint message 2']"
+      >
+        <template #prepend><va-icon name="share" /></template>
+        <template #prependInner><va-icon name="share" /></template>
+        <template #appendInner><va-icon name="share" /></template>
+        <template #append><va-icon name="share" /></template>
+      </va-select>
+      <va-select
+        v-model="defaultSingleSelect.value"
+        class="mb-4"
         label="Content slot"
         :options="defaultSingleSelect.options"
       >

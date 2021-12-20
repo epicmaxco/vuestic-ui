@@ -52,6 +52,7 @@ class DropdownProps {
   disableAttachment = prop<boolean>({ type: Boolean })
   // Means dropdown width should be the same as anchor's width.
   keepAnchorWidth = prop<boolean>({ type: Boolean })
+  anchorSelector = prop<string>({ type: String, default: '' })
   closeOnContentClick = prop<boolean>({ type: Boolean, default: true })
   closeOnClickOutside = prop<boolean>({ type: Boolean, default: true })
   closeOnAnchorClick = prop<boolean>({ type: Boolean, default: true })
@@ -228,8 +229,12 @@ export default class VaDropdown extends mixins(
       // options.modifiers.arrow = { enabled: false }
     }
 
+    const anchor = this.$props.anchorSelector
+      ? (this.$refs.anchor as Element).querySelector(this.$props.anchorSelector) || this.$refs.anchor
+      : this.$refs.anchor
+
     this.popperInstance = createPopper(
-      this.$refs.anchor as Element,
+      anchor as Element,
       this.$refs.contentWrapper as HTMLElement,
       options,
     )
