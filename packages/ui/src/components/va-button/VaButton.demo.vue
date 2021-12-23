@@ -220,6 +220,9 @@
             <va-button icon="create" iconRight="clear">
               Mixed button
             </va-button>
+            <va-button icon="palette" color="warning" text-color="danger" />
+            <va-button icon-right="create" color="warning" text-color="danger" />
+            <va-button icon="palette" icon-right="create" color="warning" text-color="#45ffaa" />
           </td>
         </tr>
         <tr>
@@ -416,20 +419,6 @@
               style="margin-right: 10px;"
               round
             >
-            </va-button>
-          </td>
-          <td style="padding-top: 10px;">
-            <va-button
-              style="margin-right: 10px;"
-              spaceBetweenItems
-            >
-              Test
-            </va-button>
-            <va-button
-              style="margin-right: 10px;"
-              spaceBetweenItems
-            >
-              Test2
             </va-button>
           </td>
         </tr>
