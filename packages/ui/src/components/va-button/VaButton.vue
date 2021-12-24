@@ -29,6 +29,7 @@
         v-if="icon"
         :name="icon"
         :size="size"
+        :color="textColorComputed"
         class="va-button__left-icon"
       />
       <slot />
@@ -36,6 +37,7 @@
         v-if="iconRight"
         :name="iconRight"
         :size="size"
+        :color="textColorComputed"
         class="va-button__right-icon"
       />
     </div>
@@ -160,6 +162,10 @@ export default class VaButton extends mixins(
     return this.$slots.default
   }
 
+  get hasOneIcon () {
+    return Boolean((this.iconRight && !this.icon) || (!this.iconRight && this.icon))
+  }
+
   get computedClass () {
     return {
       'va-button--default': !this.flat && !this.outline && !this.disabled,
@@ -174,7 +180,7 @@ export default class VaButton extends mixins(
       'va-button--loading': this.loading,
       'va-button--block': this.block,
       'va-button--square': !this.rounded,
-      'va-button--round': this.round || !this.hasDefaultSlot,
+      'va-button--round': this.round || (!this.hasDefaultSlot && this.hasOneIcon),
       'va-button--space-between-items': this.spaceBetweenItems,
     }
   }
