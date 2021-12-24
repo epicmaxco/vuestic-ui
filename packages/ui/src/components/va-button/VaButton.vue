@@ -29,7 +29,7 @@
         v-if="icon"
         :name="icon"
         :size="size"
-        :style="{ color: textColorComputed }"
+        :color="textColorComputed"
         class="va-button__left-icon"
       />
       <slot />
@@ -37,7 +37,7 @@
         v-if="iconRight"
         :name="iconRight"
         :size="size"
-        :style="{ color: textColorComputed }"
+        :color="textColorComputed"
         class="va-button__right-icon"
       />
     </div>
@@ -163,7 +163,7 @@ export default class VaButton extends mixins(
   }
 
   get hasOneIcon () {
-    return (this.iconRight && !this.icon) || (!this.iconRight && this.icon) || false
+    return Boolean((this.iconRight && !this.icon) || (!this.iconRight && this.icon))
   }
 
   get computedClass () {
