@@ -107,6 +107,7 @@ export default class VaCard extends mixins(
 
   &__inner {
     width: 100%;
+    height: 100%;
   }
 
   &--dark {
