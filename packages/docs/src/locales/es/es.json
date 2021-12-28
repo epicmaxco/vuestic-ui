@@ -355,5 +355,8 @@
   },
   "timeInput": {
     "title": "-- Here is the title --"
+  },
+  "colors": {
+    "title": "-- Here is the title --"
   }
 }
