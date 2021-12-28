@@ -73,6 +73,13 @@ export default defineComponent({
 
     watch(() => props.modelValue, updateHeight)
 
+    const computedStyle = computed(() => ({
+      minHeight: rowHeight.value * props.minRows + 'px',
+      maxHeight: props.maxRows && (rowHeight.value * props.maxRows + 'px'),
+      height: height.value + 'px',
+      resize: props.autosize && 'none',
+    }))
+
     const focus = () => {
       textarea.value?.focus()
     }
@@ -88,12 +95,7 @@ export default defineComponent({
 
     return {
       textarea,
-      computedStyle: computed(() => ({
-        minHeight: rowHeight.value * props.minRows + 'px',
-        maxHeight: props.maxRows && (rowHeight.value * props.maxRows + 'px'),
-        height: height.value + 'px',
-        resize: props.autosize && 'none',
-      })),
+      computedStyle,
       listeners: createListeners(emit),
     }
   },
