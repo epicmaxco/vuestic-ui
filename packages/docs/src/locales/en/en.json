@@ -2272,7 +2272,9 @@
     "examples": {
       "default": {
         "title": "Default",
-        "text": "The basic usage of the `va-alert` component."
+        "text": "The basic usage of the `va-alert` component.",
+        "prop": "You read this important alert message.",
+        "slot": "You read this important slotted alert message."
       },
       "color": {
         "title": "Color",
