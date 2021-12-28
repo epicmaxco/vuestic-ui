@@ -1241,6 +1241,7 @@
     "agGrid": "AG Grid Theme",
     "dataTable": "Data Table",
     "uiElementGuide": "UI Element Guide",
+    "colors": "Colors",
     "timePicker": "Time Picker",
     "timeInput": "Time Input"
   },
@@ -3588,6 +3589,24 @@
         "title": "Validation",
         "text": "Validation works the same way as `VaInput` validation, except rules functions should accept `Date` instead of string."
       }
+    }
+  },
+  "colors": {
+    "title": "Colors",
+    "description": "Vuestic UI defines `CSS variables` of the colors that are used in your application. This allows you to easily build your selectors using the colors you specified in the [Colors Config](https://vuestic.dev/en/services/colors-config).",
+    "syntax": {
+      "title": "Syntax",
+      "description": "Vuestic UI uses the following syntax to organize `CSS variable` of the colors:",
+      "colorsUsed": "Each default color of Vuestic UI  (including overridden colors) and the new custom color have their own `CSS variables`."
+    },
+    "defaultColorThemes": {
+      "title": "Default color themes",
+      "description": "All the default colors of Vuestic UI are listed below:"
+    },
+    "reactivity": {
+      "subtitle": "Reactivity",
+      "about": "These variables reactive relative to `Colors Config`. This means that they will be updated when the configuration changes. Read more about how to update the configuration [here](https://vuestic.dev/en/services/colors-config#icon-config-service-api).",
+      "additional": "Please note that changing `CSS variables` of the colors directly, in turn, will not update `Colors Config`."
     }
   }
 }

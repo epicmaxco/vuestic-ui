@@ -64,6 +64,10 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: 'menu.grid',
       },
       {
+        name: 'colors',
+        displayName: 'menu.colors',
+      },
+      {
         name: 'css-variables',
         displayName: 'menu.cssVariables',
       },
