@@ -98,6 +98,7 @@ import { getColor } from '../../../services/color-config/color-config'
 import VaMessageList from './VaMessageList'
 
 export default defineComponent({
+  name: 'VaInputField',
   components: { VaMessageList },
 
   props: {

@@ -87,6 +87,7 @@ const { createEmits: createFieldEmits, createListeners: createFieldListeners } =
 ])
 
 export default defineComponent({
+  name: 'VaInput',
   components: { VaInputField, VaTextarea },
 
   props: {
@@ -157,10 +158,23 @@ export default defineComponent({
     })
     const { computedValue, onInput } = useCleave(computedCleaveTarget, props, emit)
 
+    const inputListeners = createInputListeners(emit)
+
+    const onFocus = (e: Event) => {
+      inputListeners.onFocus(e)
+      validationListeners.onFocus()
+    }
+
+    const onBlur = (e: Event) => {
+      inputListeners.onBlur(e)
+      validationListeners.onBlur()
+    }
+
     const computedInputAttributes = computed(() => ({
       ...omit(attrs, ['class', 'style']),
-      ...createInputListeners(emit),
-      ...validationListeners,
+      ...inputListeners,
+      onFocus,
+      onBlur,
       value: computedValue.value,
       type: props.type,
       tabindex: props.tabindex,
