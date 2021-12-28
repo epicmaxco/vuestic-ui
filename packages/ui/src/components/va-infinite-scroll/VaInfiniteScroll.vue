@@ -48,12 +48,14 @@ export default defineComponent({
     offset: { type: Number, default: 500 },
     reverse: { type: Boolean, default: false },
     disabled: { type: Boolean, default: false },
-    scrollTarget: { type: [HTMLElement, String], default: null },
+    scrollTarget: { type: [Element, String], default: null },
     debounce: { type: Number, default: 100 },
     tag: { type: String, default: 'div' },
   },
 
-  setup (props) {
+  emits: ['onload', 'onerror'],
+
+  setup (props, { emit }) {
     const element = ref<HTMLElement>()
     const spinnerSlotContainer = ref<HTMLDivElement>()
 
@@ -61,13 +63,19 @@ export default defineComponent({
     const error = ref(false)
     const forcedScrolling = ref(false)
     const debouncedLoad = ref()
-    const scrollPositionBeforeLoad = ref(0)
+    const notScrolledContentBeforeLoad = ref(0)
     const prevScrollTop = ref(0)
 
     const scrollTargetElement = computed<HTMLElement>(() => {
-      return ((typeof props.scrollTarget === 'string')
-        ? document.querySelector(props.scrollTarget)
-        : props.scrollTarget || element.value?.parentElement) as HTMLElement
+      let target
+
+      if (typeof props.scrollTarget === 'string') {
+        target = document.querySelector(props.scrollTarget)
+      } else {
+        target = props.scrollTarget || element.value?.parentElement
+      }
+
+      return (target || document.body) as HTMLElement
     })
 
     const {
@@ -104,7 +112,7 @@ export default defineComponent({
 
     const onLoad = () => {
       const { scrollTop, scrollHeight, clientHeight } = scrollTargetElement.value
-      scrollPositionBeforeLoad.value = scrollHeight - scrollTop
+      notScrolledContentBeforeLoad.value = scrollHeight - scrollTop
       const scrollDelta = scrollTop - prevScrollTop.value
       prevScrollTop.value = scrollTop
 
@@ -115,8 +123,8 @@ export default defineComponent({
         return
       }
 
-      const isReverseDirection = (props.reverse && scrollDelta > 0) || (!props.reverse && scrollDelta < 0)
-      if (isReverseDirection) { return }
+      const isReverseScrollDirection = (props.reverse && scrollDelta > 0) || (!props.reverse && scrollDelta < 0)
+      if (isReverseScrollDirection) { return }
 
       const offset = props.reverse ? scrollTop : scrollHeight - scrollTop - clientHeight
       if (offset > computedOffset.value) { return }
@@ -128,7 +136,7 @@ export default defineComponent({
         .catch(onError)
     }
 
-    const setScrollTop = (value: number) => {
+    const forceSetScrollTopToTarget = (value: number) => {
       forcedScrolling.value = true
       scrollTargetElement.value.scrollTop = value
     }
@@ -137,21 +145,26 @@ export default defineComponent({
       const { scrollTop, scrollHeight, clientHeight } = scrollTargetElement.value
 
       if (props.reverse) {
-        const isReverseScroll = scrollHeight - scrollTop > scrollPositionBeforeLoad.value
+        const isScrolledUp = scrollHeight - scrollTop < notScrolledContentBeforeLoad.value
+        const isSpinnerHidden = scrollTop >= spinnerHeight.value
 
-        if (isReverseScroll || scrollTop < spinnerHeight.value) {
-          (scrollHeight - scrollPositionBeforeLoad.value > spinnerHeight.value)
-            ? setScrollTop(scrollHeight - scrollPositionBeforeLoad.value)
-            : setScrollTop(spinnerHeight.value)
-        }
-      } else if (scrollHeight - scrollTop - clientHeight <= spinnerHeight.value) {
-        setScrollTop(scrollHeight - clientHeight - spinnerHeight.value)
+        if (isScrolledUp && isSpinnerHidden) { return }
+
+        (scrollHeight - notScrolledContentBeforeLoad.value > spinnerHeight.value)
+          ? forceSetScrollTopToTarget(scrollHeight - notScrolledContentBeforeLoad.value)
+          : forceSetScrollTopToTarget(spinnerHeight.value)
+      }
+
+      if (!props.reverse) {
+        const isSpinnerHidden = scrollHeight - scrollTop - clientHeight >= spinnerHeight.value
+        !isSpinnerHidden && forceSetScrollTopToTarget(scrollHeight - clientHeight - spinnerHeight.value)
       }
     }
 
     const finishLoading = () => {
       updateTargetElementScrollTop()
       fetching.value = false
+      emit('onload')
     }
 
     const stopErrorDisplay = () => {
@@ -159,6 +172,7 @@ export default defineComponent({
       forcedScrolling.value = false
       error.value = false
       fetching.value = false
+      emit('onerror')
     }
 
     const onError = () => {
@@ -170,20 +184,12 @@ export default defineComponent({
         .then(resume)
     }
 
-    const setDebounce = (value: number) => {
-      debouncedLoad.value = debounce(onLoad, value)
-    }
-
     watch(() => props.debounce, (value) => {
-      setDebounce(value)
+      debouncedLoad.value = debounce(onLoad, value)
     }, { immediate: true })
 
     watch(() => props.disabled, (value) => {
-      if (value) {
-        stop()
-      } else {
-        resume()
-      }
+      value ? stop() : resume()
     })
 
     return {

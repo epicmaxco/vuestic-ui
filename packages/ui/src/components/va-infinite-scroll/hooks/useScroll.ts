@@ -1,7 +1,7 @@
 import { Ref, onMounted, onBeforeUnmount } from 'vue'
 
 interface ScrollTargetProps {
-  scrollTarget: HTMLElement | string;
+  scrollTarget: Element | string;
   disabled: boolean;
   reverse: boolean;
 }
