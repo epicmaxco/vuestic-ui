@@ -540,6 +540,10 @@
         "load": "Function that loads data. Should return Promise",
         "tag": "Replaces html tag. This is useful for semantics and also to allow for valid markup in some cases (`ul > li` and `tr > td` etc.)."
       },
+      "events": {
+        "onload": "Emits when `load` function finished with success",
+        "onerror": "Emits when `load` function thrown error"
+      },
       "slots": {
         "loading": "Shown when content is fetching.",
         "default": "The content to be scrolled"
