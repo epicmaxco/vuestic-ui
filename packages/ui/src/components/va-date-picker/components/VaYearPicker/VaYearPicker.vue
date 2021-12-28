@@ -33,6 +33,7 @@ import { useGridKeyboardNavigation } from '../../hooks/grid-keyboard-navigation'
 import { useDatePicker } from '../../hooks/use-picker'
 
 export default defineComponent({
+  name: 'VaYearPicker',
   components: { VaDatePickerCell },
 
   props: {

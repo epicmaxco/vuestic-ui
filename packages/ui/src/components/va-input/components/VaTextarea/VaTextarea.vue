@@ -24,6 +24,7 @@ const { createEmits, createListeners } = useEmitProxy([
 ])
 
 export default defineComponent({
+  name: 'VaTextArea',
   props: {
     modelValue: { type: [String, Number], default: '' },
     autosize: { type: Boolean, default: false },

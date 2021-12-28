@@ -12,6 +12,7 @@ import { defineComponent } from 'vue'
 import { useAlignProps, useAlign } from '../../composables/useAlign'
 
 export default defineComponent({
+  name: 'VaCardActions',
   props: {
     ...useAlignProps,
   },
