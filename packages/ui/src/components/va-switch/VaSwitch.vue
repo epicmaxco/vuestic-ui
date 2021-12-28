@@ -333,10 +333,6 @@ export default class VaSwitch extends mixins(
     color: $white;
     margin: auto 0.5rem auto 2rem;
     user-select: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -khtml-user-select: none;
-    -ms-user-select: none;
 
     @at-root {
       .va-switch--checked#{&} {
