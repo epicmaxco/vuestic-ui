@@ -2461,7 +2461,8 @@
     "summaryText": "Vuestic UI provides you with some flexbox helper classes. Of course, you can opt out using CSS Grid instead (or any other layout-scheme you'd like), but if you prefer using flexbox, we've got you covered. Still, the final decision is totally up to you.",
     "examples": {
       "default": {
-        "title": "Enabling flexbox"
+        "title": "Enabling flexbox",
+        "example": "Now I'm flexible"
       },
       "breakpoints": {
         "title": "Breakpoints",
@@ -2483,7 +2484,10 @@
           "md": "`.offset--md` - Medium devices",
           "lg": "`.offset--lg` - Large devices",
           "xl": "`.offset--xl` - Extra large devices"
-        }
+        },
+        "first": "First",
+        "second": "Second",
+        "last": "Last"
       },
       "gutters": {
         "title": "Gutters",

@@ -2417,7 +2417,8 @@
     "summaryText": "Мы предоставляем вам вспомогательные классы для [flex](https://developer.mozilla.org/ru/docs/Web/CSS/flex)[[target=_blank]]. Для [css grid](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout)[[target=_blank]] встроенных классов не предоставляется. Это не означает, что вам *нужно* использовать `flex`, но он остается мощным инструментом.",
     "examples": {
       "default": {
-        "title": "Включение flexbox"
+        "title": "Включение flexbox",
+        "example": "Теперь я подвижный"
       },
       "breakpoints": {
         "title": "Breakpoints",
@@ -2439,7 +2440,10 @@
           "md": "`.offset--md` - для средних устройств",
           "lg": "`.offset--lg` - для больших устройств",
           "xl": "`.offset--xl` - для очень больших устройств"
-        }
+        },
+        "first": "Первый",
+        "second": "Второй",
+        "last": "Крайний"
       },
       "gutters": {
         "title": "Поля отступа (gutters)",
