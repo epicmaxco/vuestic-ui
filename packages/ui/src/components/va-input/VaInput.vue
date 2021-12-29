@@ -87,6 +87,7 @@ const { createEmits: createFieldEmits, createListeners: createFieldListeners } =
 ])
 
 export default defineComponent({
+  name: 'VaInput',
   components: { VaInputField, VaTextarea },
 
   props: {
@@ -105,7 +106,7 @@ export default defineComponent({
     type: { type: String as PropType<'text' | 'textarea'>, default: 'text' },
     loading: { type: Boolean, default: false },
     // style
-    color: { tpe: String, default: 'primary' },
+    color: { type: String, default: 'primary' },
     outline: { type: Boolean, default: false },
     bordered: { type: Boolean, default: false },
   },
