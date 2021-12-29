@@ -7,7 +7,7 @@ import 'vuestic-ui/dist/vuestic-ui.css'
 const app = createApp(App)
 app.use(VuesticPlugin, {
   colors: {
-    // Default colors
+    // $t('alert.examples.default.slot')
     primary: '#23e066',
     secondary: '#002c85',
     success: '#40e583',

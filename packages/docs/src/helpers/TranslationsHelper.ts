@@ -16,11 +16,20 @@ function translateOthers (code: string, $t: (s: string) => string) {
   }, code)
 }
 
+function translateComments (code: string, $t: (s: string) => string) {
+  const replaces = code.match(/(?:\/\/\s\$t)\(.*?\)/g) || []
+
+  return replaces.reduce((acc, source) => {
+    const translation = source.replace(/(\/\/\s\$t|'|\(|\)|\[\d\])/gi, '')
+    return acc.replace(source, `// ${$t(translation)}`)
+  }, code)
+}
+
 /**
  * Find `$t` inside a code and replace it with translation by regex.
  * origin: `... $t('to replace') ...`
  * output: `... translated ...`
  */
 export function applyTranslations (this: any, code: string) {
-  return translateOthers(translateInterpolation(code, this.$t), this.$t)
+  return translateOthers(translateInterpolation(translateComments(code, this.$t), this.$t), this.$t)
 }
