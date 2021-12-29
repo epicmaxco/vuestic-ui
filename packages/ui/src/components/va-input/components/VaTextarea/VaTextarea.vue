@@ -4,13 +4,13 @@
     class="textarea"
     v-bind="listeners"
     :value="modelValue"
-    :style="{ ...computedStyle }"
+    :style="computedStyle"
     :placeholder="placeholder"
   />
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, ref, watch } from 'vue'
+import { computed, defineComponent, onMounted, ref, watch, nextTick } from 'vue'
 import { useTextareaRowHeight } from './useTextareaRowHeight'
 import { useEmitProxy } from '../../../../composables/useEmitProxy'
 
@@ -62,7 +62,7 @@ export default defineComponent({
 
     const updateHeight = () => {
       if (isResizable.value) {
-        height.value = calculateHeight() || 0
+        height.value = calculateHeight()
       }
     }
 
@@ -71,13 +71,15 @@ export default defineComponent({
       updateHeight()
     })
 
-    watch(() => props.modelValue, updateHeight)
+    watch(() => props.modelValue, () => {
+      nextTick(updateHeight)
+    })
 
     const computedStyle = computed(() => ({
       minHeight: rowHeight.value * props.minRows + 'px',
       maxHeight: props.maxRows && (rowHeight.value * props.maxRows + 'px'),
       height: height.value + 'px',
-      resize: props.autosize && 'none',
+      resize: isResizable.value && 'none',
     }))
 
     const focus = () => {
@@ -100,6 +102,7 @@ export default defineComponent({
     }
   },
 
+  // we use this while we have problem with useConfigTransport and 'expose'
   methods: {
     focus () { this.textarea?.focus() },
     blur () { this.textarea?.blur() },

@@ -2,29 +2,29 @@
   <div style="width: 300px;">
     <va-input
       class="mb-4"
-      v-model="valueDefault"
+      v-model="value"
       type="textarea"
       placeholder="Basic textarea"
     />
     <va-input
       class="mb-4"
-      v-model="valueLabel"
+      v-model="value"
       type="textarea"
       label="With label"
     />
     <va-input
       class="mb-4"
-      v-model="valueAutosize"
+      v-model="value"
       type="textarea"
       label="With autosize"
       autosize
     />
     <va-input
       class="mb-4"
-      v-model="valueLimits"
+      v-model="value"
       type="textarea"
-      label="With limits from 2 to 5 rows"
-      :min-rows="2"
+      label="With limits from 3 to 5 rows"
+      :min-rows="3"
       :max-rows="5"
     />
   </div>
@@ -35,10 +35,7 @@ export default {
   name: 'Textarea',
   data () {
     return {
-      valueDefault: '',
-      valueLabel: '',
-      valueAutosize: '',
-      valueLimits: '',
+      value: '',
     }
   },
 }
