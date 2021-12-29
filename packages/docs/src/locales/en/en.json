@@ -3036,7 +3036,9 @@
     "readMore": "More on this topic",
     "colors": {
       "title": "Color themes",
-      "description": "You can easily modify the colors used by Vuestic UI components (and even add custom ones):"
+      "description": "You can easily modify the colors used by Vuestic UI components (and even add custom ones):",
+      "defaultColors": "Default colors",
+      "customColors": "Custom colors"
     },
     "icons": {
       "title": "Icon fonts",

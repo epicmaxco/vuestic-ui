@@ -1,8 +1,7 @@
 import { ApiDocsBlock } from '@/types/configTypes'
 import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import {
-  installationNpm,
-  installationYarn,
+  installation,
   quickStart,
   fontInstallationCSS,
   fontInstallationHTML,
@@ -21,8 +20,7 @@ const config: ApiDocsBlock[] = [
   block.paragraph('installation.manual.prerequisites'),
   block.list(['installation.manual.node', 'installation.manual.npm']),
   block.paragraph('installation.manual.afterCheck'),
-  block.code(installationNpm, 'bash'),
-  block.code(installationYarn, 'bash'),
+  block.code(installation, 'bash'),
 
   block.headline('installation.fonts.title'),
   block.paragraph('installation.fonts.description'),

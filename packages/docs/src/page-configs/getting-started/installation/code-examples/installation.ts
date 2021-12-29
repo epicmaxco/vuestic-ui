@@ -1,6 +1,5 @@
-export const installationNpm = `
+export const installation = `
 npm install vuestic-ui
-`
-export const installationYarn = `
+// $t('all.code.or')
 yarn add vuestic-ui
 `
