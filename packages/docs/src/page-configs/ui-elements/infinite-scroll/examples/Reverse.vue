@@ -6,7 +6,6 @@
     >
       <va-infinite-scroll
         :load="appendRecordsAsync"
-        :offset="40"
         reverse
       >
         <div

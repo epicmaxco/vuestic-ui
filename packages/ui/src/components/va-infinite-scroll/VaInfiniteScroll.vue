@@ -1,8 +1,8 @@
 <template>
   <component
-    :is="tag"
+    :is="$props.tag"
     class="va-infinite-scroll"
-    :class="{ 'va-infinite-scroll--reversed': reverse }"
+    :class="{ 'va-infinite-scroll--reversed': $props.reverse }"
     ref="element"
   >
     <slot name="default" />
@@ -14,7 +14,7 @@
     >
       <slot
         name="loading"
-        v-if="!disabled"
+        v-if="!$props.disabled"
       >
         <div class="va-infinite-scroll__spinner__default">
           <va-progress-circle
@@ -79,8 +79,8 @@ export default defineComponent({
     })
 
     const {
-      addListener,
-      removeListener,
+      addScrollListener,
+      removeScrollListener,
     } = useScroll(props, scrollTargetElement, debouncedLoad)
 
     const { computeColor } = useColor(props)
@@ -101,13 +101,13 @@ export default defineComponent({
       if (props.disabled) { return }
 
       fetching.value = false
-      removeListener()
+      removeScrollListener()
     }
 
     const resume = () => {
       if (props.disabled) { return }
 
-      addListener()
+      addScrollListener()
     }
 
     const onLoad = () => {

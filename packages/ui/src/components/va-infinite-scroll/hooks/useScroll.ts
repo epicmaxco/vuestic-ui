@@ -11,7 +11,7 @@ export const useScroll = (
   element: Ref<HTMLElement | undefined>,
   handler: Ref<any>,
 ) => {
-  const addListener = () => {
+  const addScrollListener = () => {
     element.value?.addEventListener(
       'scroll',
       handler.value,
@@ -19,7 +19,7 @@ export const useScroll = (
     )
   }
 
-  const removeListener = () => {
+  const removeScrollListener = () => {
     element.value?.removeEventListener(
       'scroll',
       handler.value,
@@ -35,17 +35,13 @@ export const useScroll = (
       element.value.scrollTop = element.value.scrollHeight
     }
 
-    addListener()
+    addScrollListener()
   })
 
-  onBeforeUnmount(() => {
-    if (props.disabled) { return }
-
-    removeListener()
-  })
+  onBeforeUnmount(removeScrollListener)
 
   return {
-    addListener,
-    removeListener,
+    addScrollListener,
+    removeScrollListener,
   }
 }
