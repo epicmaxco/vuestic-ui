@@ -1200,7 +1200,8 @@
     "uiElementGuide": "Разработка элементов UI",
     "colors": "Цвета",
     "timePicker": "Time Picker",
-    "timeInput": "Time Input"
+    "timeInput": "Time Input",
+    "treeShakingRequirements": "Tree Shaking Requirements"
   },
   "all": {
     "examples": "Примеры",
@@ -3472,6 +3473,28 @@
         "keyboardNavigation": "**Клавиатурная навигация** - Вы должны убедиться, что элементы пользовательского интерфейса доступны с клавиатуры, или же отключить эту функцию для элементов, которые не должны получать фокус через клавиатуру.",
         "statelessSupport": "Поддержка **внутреннего состояния** компонента (прочтите об [StatefulMixin](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/mixins/StatefulMixin/README.md)[[target=_blank]])."
       }
+    }
+  },
+  "treeShakingRequirements": {
+    "title": "Требования для работы TreeShaking",
+    "description": "Данная статья для контрибьюторов описывает основные правила и ограничения, которые нужно учитывать при разработке для корректной работы TreeShaking.",
+    "about": {
+      "title": "Реализация TreeShaking",
+      "description": "TreeShaking реализуется из-за ES-modules. Мы собираем итоговую сборку с помощью Rollup, в нескольких форматах: esm (tree-shaking / ssr-treeshaking), cjs (default nodejs), iife (browser) и scss (styles).",
+      "distFormats": {
+        "esm": "esm - используется для tree-shaking",
+        "esmSsr": "esm-ssr - так же для tree-shaking, но используется {'@'}vue/server-side-renderer для компонентов.",
+        "iife": "iife - используется для подключения в браузер, без бандлеров.",
+        "cjs": "cjs - для работы с nodejs бандлерами, которые не поддерживают esm. Проще говоря для обратной совместимости.",
+        "style": "styles - тут мы храним SCSS utils, которые не являются обязательным для работы компонентов."
+      },
+      "notice": "Заметьте, мы всё ещё используем Webpack во время разработки. Поэтому у нас есть отдельный пакет для тестирования двух сборщиков - bundlers-tests"
+    },
+    "requirements": {
+      "title": "Требования и правила",
+      "esModules": "Нужно использовать ES module (esm format) и Named Exports. Если мы будем использовать `export default` - tree shaking не будет работать для такого файла.",
+      "dependencies": "TreeShaking работает только с node модулями, которые написаны в формате esm. Например, мы используем `lodash-es`, вместо `lodash`. Таким образом мы собираем в bundle только те модули, которые будем использовать, а не всю библиотеку.",
+      "beforeBuild": "Перед релизом обязательно проверяйте dist с помощью `bundlers-tests`, работает ли tree-shaking. Учитывайте что в разных сборщиках результат может отличаться. Поэтому мы проверяем билд с помощью Webpack, Vite (Rollup)."
     }
   },
   "timePicker": {
