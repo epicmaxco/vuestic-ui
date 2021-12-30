@@ -640,7 +640,7 @@
         "removable": "Adds an button that clears the value",
         "tabindex": "Sets input tabindex",
         "returnRaw": "Sets possibility to return raw value",
-        "autosize": "Sets textarea possibility to grow up automatically",
+        "autosize": "Sets textarea possibility to grow up automatically and disables the ability to this to the user (set css `resize: none`)",
         "minRows": "Minimal count of lines",
         "maxRows": "Maximum count of lines",
         "rules": "Accepts an array of functions that take an input value as an argument and return either true / false or a string with an error message",
@@ -664,11 +664,7 @@
         "click": "Emitted when user clicked on input",
         "keyup": "Emitted when the user releases a key on the keyboard",
         "keydown": "Emitted when any key is pressed",
-        "cleared": "Emitted if input value has been cleared",
-        "click-prepend": "Событие вызывается при клике по слоту `prepend`",
-        "click-prepend-inner": "Событие вызывается при клике по слоту `prependInner`",
-        "click-append": "Событие вызывается при клике по слоту `append`",
-        "click-append-inner": "Событие вызывается при клике по слоту `appendInner`"
+        "cleared": "Emitted if input value has been cleared"
       },
       "methods": {
         "focus": "Setting focus on input",
@@ -730,13 +726,13 @@
     "VaSelect": {
       "props": {
         "value": "Model of the component. Must be Array if using 'multiple' prop",
-        "clearValue": "Sets value that should be setted after clearing",
+        "clearValue": "Sets value that should be set after clearing",
         "options": "Available options that the user can select from",
         "disabledBy": "Specify the key in the object to be used as item `disabled` prop. Can be string (path to the key) or function of type: `(option) => option.disabled`",
         "valueBy": "Specify the key in the object to be used as item `value` prop. Can be string (path to the key) or function of type: `(option) => option.value`",
         "trackBy": "Specify the key in the object to be used as item `key` prop. Can be string (path to the key) or function of type: `(option) => option.track`",
         "textBy": "Specify the key in the object to be used as item `text` prop. Can be string (path to the key) or function of type: `(option) => option.text`",
-        "placeholder": "Sets the input’s placeholder text",
+        "placeholder": "Sets the placeholder text to input",
         "position": "Sets option list position",
         "tagMax": "Sets maximum tag count after whom selection will be cropped",
         "tags": "Sets selection display as tags",
@@ -753,8 +749,8 @@
         "allowCreate": "Allow creating new options. Can be set to `unique` if you want to create only unique options",
         "clearIcon": "Sets the clear icon",
         "dropdownIcon": "Sets the dropdown icon. Can be object if you want to sets different open/close icons",
-        "bordered": "Применяет подчеркивание",
-        "separator": "Текст для разделения выбранных значений"
+        "bordered": "Applies style with bottom border",
+        "separator": "Text to separate selected values"
       },
       "events": {
         "clear": "Emitted if select value has been cleared",
