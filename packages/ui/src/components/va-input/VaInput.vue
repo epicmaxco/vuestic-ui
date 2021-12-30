@@ -87,6 +87,8 @@ const { createEmits: createFieldEmits, createListeners: createFieldListeners } =
 ])
 
 export default defineComponent({
+  name: 'VaInput',
+
   components: { VaInputField, VaTextarea },
 
   props: {
