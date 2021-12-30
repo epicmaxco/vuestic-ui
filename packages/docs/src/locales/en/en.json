@@ -3325,7 +3325,18 @@
     "description": "Vuestic UI extracts crucial CSS styles in the form of [CSS variables (custom properties)](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties)[[target=_blank]]. No need to install any loaders or additional packages to override components' styling. Instead, you can deeply customize components' visuals using the following simple syntax.",
     "convention": {
       "title": "Convention",
-      "description": "Vuestic UI uses the following convention to organize CSS Variables for the sake of convenience:"
+      "description": "Vuestic UI uses the following convention to organize CSS Variables for the sake of convenience:",
+      "scheme": "Scheme",
+      "example": "Example",
+      "unnecessary": "is unnecessary part needed only for specific cases.",
+      "componentScheme": "Component scheme - for component-level styles",
+      "componentName": "component name started with va- prefix.",
+      "state": "state of elements or its preset.",
+      "nestedElement": "some element that can be nested in root component.",
+      "groupOfElements": "group or type of HTML elements.",
+      "size": "size of target element.",
+      "property": "common css property.",
+      "generalScheme": "Component scheme - for component-level styles"
     },
     "overriding": {
       "title": "Overriding",
