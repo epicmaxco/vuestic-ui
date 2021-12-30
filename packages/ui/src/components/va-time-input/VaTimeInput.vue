@@ -7,15 +7,21 @@
     :disabled="disabled || readonly"
     position="bottom-start"
     anchorSelector=".va-input-wrapper__input"
+    :stateful="false"
+    trigger="none"
+    @keydown.esc.prevent="hideDropdown"
   >
     <template #anchor>
       <va-input
         ref="input"
-        v-bind="{ ...inputProps, ...validationListeners }"
+        v-bind="{ ...inputProps, onFocus, onBlur }"
         :modelValue="valueText"
         :readonly="readonly || !manualInput"
         :error="!isValid || inputProps.error || computedError"
         :error-messages="computedErrorMessages"
+        @keyup.enter.prevent="showDropdown()"
+        @click.prevent="dropdownToggle()"
+        @keydown.tab="hideDropdown()"
         @change="onInputTextChanged($event.target.value)"
       >
         <template v-for="(_, name) in $slots" v-slot:[name]="bind">
@@ -93,12 +99,13 @@ export default defineComponent({
     const changePeriod = (isPM: boolean) => {
       if (!modelValueSync.value) { return }
 
+      const halfDayPeriod = 12
       const h = modelValueSync.value.getHours()
 
-      if (isPM && h <= 12) {
-        modelValueSync.value = new Date(modelValueSync.value.setHours(h + 12))
-      } else if (!isPM && h >= 12) {
-        modelValueSync.value = new Date(modelValueSync.value.setHours(h - 12))
+      if (isPM && h <= halfDayPeriod) {
+        modelValueSync.value = new Date(modelValueSync.value.setHours(h + halfDayPeriod))
+      } else if (!isPM && h >= halfDayPeriod) {
+        modelValueSync.value = new Date(modelValueSync.value.setHours(h - halfDayPeriod))
       }
     }
 
@@ -124,6 +131,29 @@ export default defineComponent({
       computedErrorMessages,
     } = useValidation(props, emit, () => reset(), () => focus(), () => blur())
 
+    const onFocus = (): void => {
+      if (props.manualInput) {
+        showDropdown()
+      }
+      validationListeners.onFocus()
+    }
+
+    const onBlur = (): void => {
+      validationListeners.onBlur()
+    }
+
+    const hideDropdown = () => {
+      isOpenSync.value = false
+    }
+
+    const showDropdown = () => {
+      isOpenSync.value = true
+    }
+
+    const dropdownToggle = () => {
+      isOpenSync.value = !isOpenSync.value
+    }
+
     expose({
       reset,
       focus,
@@ -143,11 +173,14 @@ export default defineComponent({
       changePeriodToPm,
       changePeriodToAm,
       onInputTextChanged,
+      onFocus,
+      onBlur,
       isValid,
       isFocused,
       reset,
-
-      validationListeners,
+      hideDropdown,
+      showDropdown,
+      dropdownToggle,
       computedError,
       computedErrorMessages,
     }
