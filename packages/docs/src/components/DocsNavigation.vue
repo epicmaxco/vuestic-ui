@@ -41,6 +41,7 @@
 
 <script>
 import getCodesandboxExample from '../helpers/CodeSandboxExample'
+import { applyTranslations } from '../helpers/TranslationsHelper'
 
 export default {
   name: 'DocsNavigation',
@@ -82,6 +83,7 @@ export default {
         this.copyButtonState = 'default'
       }, 1500)
     },
+    applyTranslations,
   },
   computed: {
     copyButton () {
@@ -99,7 +101,7 @@ export default {
       return `https://codesandbox.io/api/v1/sandboxes/define${this.query}`
     },
     sandboxParams () {
-      return getCodesandboxExample(this.code, this.config)
+      return getCodesandboxExample(this.applyTranslations(this.code), this.config)
     },
   },
 }

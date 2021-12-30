@@ -16,6 +16,7 @@ import VaMessageList from './VaMessageList'
 
 export default defineComponent({
   name: 'VaMessageListWrapper',
+
   components: { VaMessageList },
 
   props: {

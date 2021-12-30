@@ -540,6 +540,10 @@
         "load": "Function that loads data. Should return Promise",
         "tag": "Replaces html tag. This is useful for semantics and also to allow for valid markup in some cases (`ul > li` and `tr > td` etc.)."
       },
+      "events": {
+        "onload": "Emits when `load` function finished with success",
+        "onerror": "Emits when `load` function thrown error"
+      },
       "slots": {
         "loading": "Shown when content is fetching.",
         "default": "The content to be scrolled"
@@ -640,7 +644,7 @@
         "removable": "Adds an button that clears the value",
         "tabindex": "Sets input tabindex",
         "returnRaw": "Sets possibility to return raw value",
-        "autosize": "Sets textarea possibility to grow up automatically",
+        "autosize": "Sets textarea possibility to grow up automatically and disables the ability to this to the user (set css `resize: none`)",
         "minRows": "Minimal count of lines",
         "maxRows": "Maximum count of lines",
         "rules": "Accepts an array of functions that take an input value as an argument and return either true / false or a string with an error message",
@@ -728,13 +732,13 @@
     "VaSelect": {
       "props": {
         "value": "Model of the component. Must be Array if using 'multiple' prop",
-        "clearValue": "Sets value that should be setted after clearing",
+        "clearValue": "Sets value that should be set after clearing",
         "options": "Available options that the user can select from",
         "disabledBy": "Specify the key in the object to be used as item `disabled` prop. Can be string (path to the key) or function of type: `(option) => option.disabled`",
         "valueBy": "Specify the key in the object to be used as item `value` prop. Can be string (path to the key) or function of type: `(option) => option.value`",
         "trackBy": "Specify the key in the object to be used as item `key` prop. Can be string (path to the key) or function of type: `(option) => option.track`",
         "textBy": "Specify the key in the object to be used as item `text` prop. Can be string (path to the key) or function of type: `(option) => option.text`",
-        "placeholder": "Sets the input’s placeholder text",
+        "placeholder": "Sets the placeholder text to input",
         "position": "Sets option list position",
         "tagMax": "Sets maximum tag count after whom selection will be cropped",
         "tags": "Sets selection display as tags",
@@ -751,8 +755,8 @@
         "allowCreate": "Allow creating new options. Can be set to `unique` if you want to create only unique options",
         "clearIcon": "Sets the clear icon",
         "dropdownIcon": "Sets the dropdown icon. Can be object if you want to sets different open/close icons",
-        "bordered": "Применяет подчеркивание",
-        "separator": "Текст для разделения выбранных значений"
+        "bordered": "Applies style with bottom border",
+        "separator": "Text to separate selected values"
       },
       "events": {
         "clear": "Emitted if select value has been cleared",
@@ -1239,6 +1243,8 @@
     "agGrid": "AG Grid Theme",
     "dataTable": "Data Table",
     "uiElementGuide": "UI Element Guide",
+    "treeShakingRequirements": "Tree Shaking Requirements",
+    "colors": "Colors",
     "timePicker": "Time Picker",
     "timeInput": "Time Input"
   },
@@ -2269,7 +2275,9 @@
     "examples": {
       "default": {
         "title": "Default",
-        "text": "The basic usage of the `va-alert` component."
+        "text": "The basic usage of the `va-alert` component.",
+        "prop": "You read this important alert message.",
+        "slot": "You read this important slotted alert message."
       },
       "color": {
         "title": "Color",
@@ -3532,6 +3540,28 @@
       }
     }
   },
+  "treeShakingRequirements": {
+    "title": "Requirements for Treeshaking",
+    "description": "This page for contributors describes the basic rules and restrictions that need to be taken into account when developing for correct work Treeshaking.",
+    "about": {
+      "title": "How TreeShaking works",
+      "description": "We made several build formats:",
+      "distFormats": {
+        "esm": "esm - used for tree-shaking",
+        "esmSsr": "esm-ssr - also used for tree-shaking, but uses {'@'}vue/server-side-renderer.",
+        "iife": "iife - used by browsers, can be included to page without bundler.",
+        "cjs": "cjs - used for bundlers that use CommonJS (e.g. node) format instead of ESM",
+        "style": "styles - SCSS utils, that is not required for components."
+      },
+      "notice": "We use Webpack for local development and rollup for build, so we have a special package to test this two things - bundlers-tests"
+    },
+    "requirements": {
+      "title": "Requirements and rules",
+      "esModules": "We need to use ES module (esm format) and Named Exports (`export { somthing }` instead of `export default somthing`). Export default breaks tree shaking for importend file. It will fully loaded by bundler.",
+      "dependencies": "TreeShaking works only with node modules, that is written in esm format. For example, we use `lodash-es` instead of `lodash`. That way we compile only functional we need instead of full library.",
+      "beforeBuild": "Before release check dist with `bundlers-tests`. We need to check build with Webpack, Vite (Rollup) because vuestic-ui can work diffent for this two."
+    }
+  },
   "timePicker": {
     "title": "Time Picker",
     "examples": {
@@ -3586,6 +3616,24 @@
         "title": "Validation",
         "text": "Validation works the same way as `VaInput` validation, except rules functions should accept `Date` instead of string."
       }
+    }
+  },
+  "colors": {
+    "title": "Colors",
+    "description": "Vuestic UI defines `CSS variables` of the colors that are used in your application. This allows you to easily build your selectors using the colors you specified in the [Colors Config](https://vuestic.dev/en/services/colors-config).",
+    "syntax": {
+      "title": "Syntax",
+      "description": "Vuestic UI uses the following syntax to organize `CSS variable` of the colors:",
+      "colorsUsed": "Each default color of Vuestic UI  (including overridden colors) and the new custom color have their own `CSS variables`."
+    },
+    "defaultColorThemes": {
+      "title": "Default color themes",
+      "description": "All the default colors of Vuestic UI are listed below:"
+    },
+    "reactivity": {
+      "subtitle": "Reactivity",
+      "about": "These variables reactive relative to `Colors Config`. This means that they will be updated when the configuration changes. Read more about how to update the configuration [here](https://vuestic.dev/en/services/colors-config#icon-config-service-api).",
+      "additional": "Please note that changing `CSS variables` of the colors directly, in turn, will not update `Colors Config`."
     }
   }
 }

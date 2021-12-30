@@ -99,6 +99,7 @@ import VaMessageList from './VaMessageList'
 
 export default defineComponent({
   name: 'VaInputField',
+
   components: { VaMessageList },
 
   props: {
