@@ -356,6 +356,10 @@
         "vertical": "Align all items vertically",
         "prevIcon": "Icon to be used for scrolling backward in pagination",
         "nextIcon": "Icon to be used for scrolling forward in pagination"
+      },
+      "slots": {
+        "default": "For a content",
+        "tabs": "For a list of tabs"
       }
     },
     "VaSwitch": {
