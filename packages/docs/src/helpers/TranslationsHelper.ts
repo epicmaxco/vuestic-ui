@@ -17,12 +17,18 @@ function translateOthers (code: string, $t: (s: string) => string) {
 }
 
 function translateComments (code: string, $t: (s: string) => string) {
-  const replaces = code.match(/(?:\/\/\s\$t)\(.*?\)/g) || []
+  const slashReplaces = code.match(/(?:\/\/\s\$t)\(.*?\)/g) || []
+  const dashReplaces = code.match(/(?:\s-\s\$t)\(.*?\)/g) || []
 
-  return replaces.reduce((acc, source) => {
+  const replacedSlashCode = slashReplaces.reduce((acc, source) => {
     const translation = source.replace(/(\/\/\s\$t|'|\(|\)|\[\d\])/gi, '')
     return acc.replace(source, `// ${$t(translation)}`)
   }, code)
+
+  return dashReplaces.reduce((acc, source) => {
+    const translation = source.replace(/(\s-\s\$t|'|\(|\)|\[\d\])/gi, '')
+    return acc.replace(source, ` - ${$t(translation)}`)
+  }, replacedSlashCode)
 }
 
 /**
