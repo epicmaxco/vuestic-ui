@@ -1,6 +1,6 @@
 import { ApiDocsBlock } from '@/types/configTypes'
 import { PageGenerationHelper } from '@/helpers/DocsHelper'
-import { scheme, example } from './code-examples'
+import { scheme } from './code-examples'
 
 const block = new PageGenerationHelper(__dirname)
 
@@ -11,8 +11,6 @@ const config: ApiDocsBlock[] = [
   block.subtitle('colors.syntax.title'),
   block.paragraph('colors.syntax.description'),
   block.code(scheme),
-  block.paragraph('colors.syntax.scheme'),
-  block.code(example),
   block.paragraph('colors.syntax.colorsUsed'),
   block.subtitle('colors.defaultColorThemes.title'),
   block.paragraph('colors.defaultColorThemes.description'),

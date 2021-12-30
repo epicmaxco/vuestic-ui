@@ -19,16 +19,22 @@ function translateOthers (code: string, $t: (s: string) => string) {
 function translateComments (code: string, $t: (s: string) => string) {
   const slashReplaces = code.match(/(?:\/\/\s\$t)\(.*?\)/g) || []
   const dashReplaces = code.match(/(?:\s-\s\$t)\(.*?\)/g) || []
+  const colonReplaces = code.match(/(?:\$t)\(.*?\):/g) || []
 
   const replacedSlashCode = slashReplaces.reduce((acc, source) => {
     const translation = source.replace(/(\/\/\s\$t|'|\(|\)|\[\d\])/gi, '')
     return acc.replace(source, `// ${$t(translation)}`)
   }, code)
 
+  const replacedColonCode = colonReplaces.reduce((acc, source) => {
+    const translation = source.replace(/(\$t|'|\(|\)|:|\[\d\])/gi, '')
+    return acc.replace(source, `${$t(translation)}:`)
+  }, replacedSlashCode)
+
   return dashReplaces.reduce((acc, source) => {
     const translation = source.replace(/(\s-\s\$t|'|\(|\)|\[\d\])/gi, '')
     return acc.replace(source, ` - ${$t(translation)}`)
-  }, replacedSlashCode)
+  }, replacedColonCode)
 }
 
 /**

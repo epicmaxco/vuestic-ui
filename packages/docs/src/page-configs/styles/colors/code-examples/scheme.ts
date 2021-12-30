@@ -1,17 +1,18 @@
 export const scheme = `
---va-[name]
-`
+$t('colors.syntax.scheme'): \`--va-[name]\`
 
-export const example = `
-const app = createApp(App)
-app.use(VuesticPlugin, {
-  colors: {
-    primary: '#23e066',
-    custom: '#d0f55d',
-  },
-})
+[name] - $t('colors.syntax.name')
 
-// $t('colors.syntax.availableCss')
-  --va-primary: #23e066
-  --va-custom: #d0f55d
+$t('colors.syntax.example'):
+  const app = createApp(App)
+  app.use(VuesticPlugin, {
+    colors: {
+      primary: '#B456C0',
+      custom: '#A35600',
+    },
+  })
+
+$t('colors.syntax.availableCss'):
+  --va-primary: #B456C0
+  --va-custom: #A35600
 `

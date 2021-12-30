@@ -3606,7 +3606,9 @@
     "syntax": {
       "title": "Syntax",
       "description": "Vuestic UI uses the following syntax to organize `CSS variable` of the colors:",
-      "scheme": "`[name]` - the name of the color specified in the Colors Config. For example:",
+      "scheme": "Scheme",
+      "name": "the name of the color specified in the Colors Config.",
+      "example": "Example",
       "availableCss": "Available CSS variables",
       "colorsUsed": "Each default color of Vuestic UI  (including overridden colors) and the new custom color have their own `CSS variables`."
     },
