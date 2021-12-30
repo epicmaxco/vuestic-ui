@@ -45,17 +45,15 @@
     <VaTextarea
       v-if="type === 'textarea'"
       ref="input"
-      v-bind="textareaProps"
+      v-bind="{...textareaProps, ...inputEvents}"
       class="va-input__content__input"
-      @input="onInput"
     />
 
     <input
       v-else
       ref="input"
-      v-bind="computedInputAttributes"
+      v-bind="{...computedInputAttributes, ...inputEvents}"
       class="va-input__content__input"
-      @input="onInput"
     >
   </VaInputField>
 </template>
@@ -160,6 +158,7 @@ export default defineComponent({
 
     const inputListeners = createInputListeners(emit)
 
+    /** Combine EmitProxy events with validation events to avoid events overriding */
     const onFocus = (e: Event) => {
       inputListeners.onFocus(e)
       validationListeners.onFocus()
@@ -170,11 +169,16 @@ export default defineComponent({
       validationListeners.onBlur()
     }
 
-    const computedInputAttributes = computed(() => ({
-      ...omit(attrs, ['class', 'style']),
+    const inputEvents = {
       ...inputListeners,
       onFocus,
       onBlur,
+      // Cleave
+      onInput,
+    }
+
+    const computedInputAttributes = computed(() => ({
+      ...omit(attrs, ['class', 'style']),
       value: computedValue.value,
       type: props.type,
       tabindex: props.tabindex,
@@ -192,15 +196,13 @@ export default defineComponent({
 
     return {
       input,
+      inputEvents,
       textareaProps: filterComponentProps(props, VaTextareaProps),
 
       // Validations
       computedError,
       computedErrorMessages,
       isFocused,
-
-      // Cleave
-      onInput,
 
       // Icon
       canBeCleared,
