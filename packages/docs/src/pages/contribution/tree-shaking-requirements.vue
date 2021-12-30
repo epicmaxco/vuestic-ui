@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component'
 import DocsContent from '../../components/DocsContent.vue'
-import treeShakingRequirementsConfig from '../../components/page-configs/contribution/tree-shaking-requirements/page-config'
+import treeShakingRequirementsConfig from '../../page-configs/contribution/tree-shaking-requirements/page-config'
 
 @Options({
   components: {
