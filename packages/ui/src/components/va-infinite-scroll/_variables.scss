@@ -1,9 +1,9 @@
 :root {
   --va-infinite-scroll-display: flex;
   --va-infinite-scroll-flex-direction: column;
+  --va-infinite-scroll-spinner-default-width: 100%;
+  --va-infinite-scroll-spinner-default-min-height: 70px;
 
   /* Reversed */
   --va-infinite-scroll-reversed-flex-direction: column-reverse;
-  --va-infinite-scroll-spinner-default-width: 100%;
-  --va-infinite-scroll-spinner-default-min-height: 70px;
 }
