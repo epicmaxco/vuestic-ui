@@ -151,6 +151,13 @@ export default defineComponent({
     }
 
     const dropdownToggle = () => {
+      /**
+       * For `manualInput` mode, disable dropdownToggle to avoid situation when onFocus open dropdown, and it immediately
+       * closed by `click` event
+       **/
+      if (props.manualInput && isFocused) {
+        return
+      }
       isOpenSync.value = !isOpenSync.value
     }
 
@@ -178,6 +185,7 @@ export default defineComponent({
       isValid,
       isFocused,
       reset,
+
       hideDropdown,
       showDropdown,
       dropdownToggle,
