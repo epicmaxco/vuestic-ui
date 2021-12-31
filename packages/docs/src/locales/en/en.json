@@ -2272,9 +2272,7 @@
     "examples": {
       "default": {
         "title": "Default",
-        "text": "The basic usage of the `va-alert` component.",
-        "prop": "You read this important alert message.",
-        "slot": "You read this important slotted alert message."
+        "text": "The basic usage of the `va-alert` component."
       },
       "color": {
         "title": "Color",
@@ -2308,6 +2306,29 @@
         "title": "Center",
         "text": "The `center` property allows you to center title and description areas."
       }
+    },
+    "misc": {
+      "title": "Title",
+      "close": "close",
+      "slottedTitle": "Slotted title",
+      "dense": "Dense alert.",
+      "color": "Alert with color style.",
+      "outlined": "Alert with outline style.",
+      "border": "Alert with colorful border.",
+      "primary": "You read this important alert message.",
+      "primarySlotted": "You read this important slotted alert message.",
+      "success": "You successfully read this important alert message.",
+      "info": "This alert needs your attention, but it's not super important.",
+      "warning": "Something looks weird.",
+      "danger": "Change a few things up and try submitting again.",
+      "centered": "You read this important centered alert message.",
+      "toggleVisibility": "Toggle visibility",
+      "icon": "You read this important alert message with an icon.",
+      "slottedIcon": "You read this important alert message with a slotted icon.",
+      "defaultCloseIcon": "You read this important alert message with a default close icon.",
+      "customCloseIcon": "You read this important alert message with a custom close icon.",
+      "messageInsteadIcon": "You read this important alert message with a text instead of an icon.",
+      "slottedTextInsteadIcon": "You read this important alert message with a slotted text instead of an icon."
     }
   },
   "icon": {
