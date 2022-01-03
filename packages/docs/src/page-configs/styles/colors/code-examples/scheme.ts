@@ -1,9 +1,9 @@
 export const scheme = `
-$t('colors.syntax.scheme'): \`--va-[name]\`
+{{ $t('colors.syntax.scheme') }}: \`--va-[name]\`
 
-[name] - $t('colors.syntax.name')
+[name] - {{ $t('colors.syntax.name') }}
 
-$t('colors.syntax.example'):
+{{ $t('colors.syntax.example') }}:
   const app = createApp(App)
   app.use(VuesticPlugin, {
     colors: {
@@ -12,7 +12,7 @@ $t('colors.syntax.example'):
     },
   })
 
-$t('colors.syntax.availableCss'):
+{{ $t('colors.syntax.availableCss') }}:
   --va-primary: #B456C0
   --va-custom: #A35600
 `
