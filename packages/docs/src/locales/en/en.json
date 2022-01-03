@@ -2309,6 +2309,29 @@
         "title": "Center",
         "text": "The `center` property allows you to center title and description areas."
       }
+    },
+    "misc": {
+      "title": "Title",
+      "close": "close",
+      "slottedTitle": "Slotted title",
+      "dense": "Dense alert.",
+      "color": "Alert with color style.",
+      "outlined": "Alert with outline style.",
+      "border": "Alert with colorful border.",
+      "primary": "You read this important alert message.",
+      "primarySlotted": "You read this important slotted alert message.",
+      "success": "You successfully read this important alert message.",
+      "info": "This alert needs your attention, but it's not super important.",
+      "warning": "Something looks weird.",
+      "danger": "Change a few things up and try submitting again.",
+      "centered": "You read this important centered alert message.",
+      "toggleVisibility": "Toggle visibility",
+      "icon": "You read this important alert message with an icon.",
+      "slottedIcon": "You read this important alert message with a slotted icon.",
+      "defaultCloseIcon": "You read this important alert message with a default close icon.",
+      "customCloseIcon": "You read this important alert message with a custom close icon.",
+      "messageInsteadIcon": "You read this important alert message with a text instead of an icon.",
+      "slottedTextInsteadIcon": "You read this important alert message with a slotted text instead of an icon."
     }
   },
   "icon": {
@@ -2462,7 +2485,8 @@
     "summaryText": "Vuestic UI provides you with some flexbox helper classes. Of course, you can opt out using CSS Grid instead (or any other layout-scheme you'd like), but if you prefer using flexbox, we've got you covered. Still, the final decision is totally up to you.",
     "examples": {
       "default": {
-        "title": "Enabling flexbox"
+        "title": "Enabling flexbox",
+        "example": "Now I'm flexible"
       },
       "breakpoints": {
         "title": "Breakpoints",
@@ -2484,7 +2508,10 @@
           "md": "`.offset--md` - Medium devices",
           "lg": "`.offset--lg` - Large devices",
           "xl": "`.offset--xl` - Extra large devices"
-        }
+        },
+        "first": "First",
+        "second": "Second",
+        "last": "Last"
       },
       "gutters": {
         "title": "Gutters",
@@ -3037,7 +3064,9 @@
     "readMore": "More on this topic",
     "colors": {
       "title": "Color themes",
-      "description": "You can easily modify the colors used by Vuestic UI components (and even add custom ones):"
+      "description": "You can easily modify the colors used by Vuestic UI components (and even add custom ones):",
+      "defaultColors": "Default colors",
+      "customColors": "Custom colors"
     },
     "icons": {
       "title": "Icon fonts",
@@ -3101,6 +3130,20 @@
     "missed": {
       "title": "Searching missed translations",
       "description": "You can search missed translations with the following command:"
+    },
+    "code": {
+      "title": "Translations inside code blocks",
+      "description": "It's important to see a translated text instead of vue-i18n function inside a code block, so, we created some helpers that allow us to translate the text inside code blocks like we translate it inside a vue templates.",
+      "basicTitle": "Basic syntax",
+      "basicText": "Just pass the vue-i18n function inside a code and the helper will return a translated text wrapped inside brackets.",
+      "mustacheTitle": "Mustache syntax",
+      "mustacheText": "Wrap the vue-i18n function inside double curly braces and the helper will return just a translated text.",
+      "misc": {
+        "scheme": "Scheme",
+        "schemeText": "translation.path",
+        "output": "Output",
+        "outputText": "translated text"
+      }
     }
   },
   "table": {
@@ -3320,7 +3363,18 @@
     "description": "Vuestic UI extracts crucial CSS styles in the form of [CSS variables (custom properties)](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties)[[target=_blank]]. No need to install any loaders or additional packages to override components' styling. Instead, you can deeply customize components' visuals using the following simple syntax.",
     "convention": {
       "title": "Convention",
-      "description": "Vuestic UI uses the following convention to organize CSS Variables for the sake of convenience:"
+      "description": "Vuestic UI uses the following convention to organize CSS Variables for the sake of convenience:",
+      "scheme": "Scheme",
+      "example": "Example",
+      "unnecessary": "is unnecessary part needed only for specific cases.",
+      "componentScheme": "Component scheme - for component-level styles",
+      "componentName": "component name started with va- prefix.",
+      "state": "state of elements or its preset.",
+      "nestedElement": "some element that can be nested in root component.",
+      "groupOfElements": "group or type of HTML elements.",
+      "size": "size of target element.",
+      "property": "common css property.",
+      "generalScheme": "Component scheme - for component-level styles"
     },
     "overriding": {
       "title": "Overriding",
@@ -3619,9 +3673,14 @@
   "colors": {
     "title": "Colors",
     "description": "Vuestic UI defines `CSS variables` of the colors that are used in your application. This allows you to easily build your selectors using the colors you specified in the [Colors Config](https://vuestic.dev/en/services/colors-config).",
+    "customAlert": "This is a custom alert that uses CSS variables.",
     "syntax": {
       "title": "Syntax",
       "description": "Vuestic UI uses the following syntax to organize `CSS variable` of the colors:",
+      "scheme": "Scheme",
+      "name": "the name of the color specified in the Colors Config.",
+      "example": "Example",
+      "availableCss": "Available CSS variables",
       "colorsUsed": "Each default color of Vuestic UI  (including overridden colors) and the new custom color have their own `CSS variables`."
     },
     "defaultColorThemes": {

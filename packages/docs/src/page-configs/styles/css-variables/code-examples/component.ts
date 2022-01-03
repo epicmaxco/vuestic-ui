@@ -1,15 +1,15 @@
 export const componentScheme = `
-// Component scheme - for component-level styles
+// {{ $t('cssVariables.convention.componentScheme') }}
 
-Scheme: --[component-name]-[state*]-[nested-element*]-[size*]-[property]
+{{ $t('cssVariables.convention.scheme') }}: \`--[component-name]-[state*]-[nested-element*]-[size*]-[property]\`
 
-* - is unnecessary part needed only for specific cases.
+* - {{ $t('cssVariables.convention.unnecessary') }}
 
-[component-name] - component name started with va- prefix. va-button/va-badge
-[state] - state of elements or its preset. outline/square/flat/primary/secondary
-[nested-element] - some element that can be nested in root component. content/wrapper
-[size] - size of target element. sm/lg
-[property] - common css property. color/transition/border-radius
+[component-name] - {{ $t('cssVariables.convention.componentName') }} (va-button/va-badge)
+[state] - {{ $t('cssVariables.convention.state') }} (outline/square/flat/primary/secondary)
+[nested-element] - {{ $t('cssVariables.convention.nestedElement') }} (content/wrapper)
+[size] - {{ $t('cssVariables.convention.size') }} (sm/lg)
+[property] - {{ $t('cssVariables.convention.property') }} (color/transition/border-radius)
 
-example:   --va-button-sm-font-size: 0.875rem;
+{{ $t('cssVariables.convention.example) }}:   --va-button-sm-font-size: 0.875rem;
 `
