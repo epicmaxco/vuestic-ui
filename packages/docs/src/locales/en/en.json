@@ -3127,6 +3127,16 @@
     "missed": {
       "title": "Searching missed translations",
       "description": "You can search missed translations with the following command:"
+    },
+    "code": {
+      "title": "Code translations",
+      "description": "There are two ways to translate text inside code examples for docs.",
+      "misc": {
+        "scheme": "Scheme",
+        "schemeText": "path.to.translation",
+        "output": "Output",
+        "outputText": "translated"
+      }
     }
   },
   "table": {
