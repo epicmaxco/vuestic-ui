@@ -9,29 +9,45 @@
     </VbCard>
 
     <VbCard title="without value">
-      <VaTimeInput v-model="undefValue" manual-input />
+      <VaTimeInput
+        v-model="undefValue"
+        manual-input
+        clearable
+        placeholder="Time..."
+        icon-left-position
+        icon="thumb_up"
+      />
     </VbCard>
 
     <VbCard title="slots">
       <VaTimeInput v-model="value">
         <template #appendInner>
-          <va-icon name="schedule" />
+          <va-icon name="done" />
         </template>
       </VaTimeInput>
       <VaTimeInput v-model="value">
         <template #append>
-          <va-icon name="schedule" />
+          <va-icon name="done" />
         </template>
       </VaTimeInput>
       <VaTimeInput v-model="value">
         <template #prepend>
-          <va-icon name="schedule" />
+          <va-icon name="done" />
         </template>
       </VaTimeInput>
       <VaTimeInput v-model="value">
         <template #prependInner>
-          <va-icon name="schedule" />
+          <va-icon name="done" color="primary" />
         </template>
+      </VaTimeInput>
+      <VaTimeInput v-model="value" clearable color="success">
+        <template #prependInner><va-icon name="done" /></template>
+      </VaTimeInput>
+      <VaTimeInput v-model="value" clearable color="danger" leftIcon>
+        <template #prependInner><va-icon name="done" /></template>
+      </VaTimeInput>
+      <VaTimeInput v-model="value" leftIcon>
+        <template #appendInner><va-icon name="done" /></template>
       </VaTimeInput>
     </VbCard>
 
@@ -45,7 +61,7 @@
     </VbCard>
 
     <VbCard title="validation">
-      <VaTimeInput v-model="value" :rules="validationRules" />
+      <VaTimeInput v-model="value" :rules="validationRules" clearable />
     </VbCard>
   </VbDemo>
 </template>
@@ -62,7 +78,10 @@ export default {
     return {
       value: new Date(2021, 2, 20, 23, 5, 53),
       undefValue: undefined,
-      validationRules: [(value) => value.getHours() > 12 || 'Should be PM'],
+      validationRules: [(value) => {
+        if (!value) { return true }
+        return value.getHours?.() > 12 || 'Should be PM'
+      }],
     }
   },
 }

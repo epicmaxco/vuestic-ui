@@ -15,7 +15,7 @@
     :bordered="bordered"
     :outline="outline"
     :focused="isFocused"
-    @click="input?.focus()"
+    @click="input && input.focus()"
   >
     <!-- Simply proxy slots to VaInputWrapper -->
     <template
@@ -59,15 +59,16 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, InputHTMLAttributes, PropType, ref } from 'vue'
+import { computed, defineComponent, InputHTMLAttributes, PropType, ref, toRefs } from 'vue'
 import { useFormProps } from '../../composables/useForm'
 import { useValidation, useValidationProps, useValidationEmits } from '../../composables/useValidation'
 import { useCleave, useCleaveProps } from './hooks/useCleave'
 import { useEmitProxy } from '../../composables/useEmitProxy'
 import VaInputWrapper from './components/VaInputWrapper.vue'
+import { useClearableProps, useClearable, useClearableEmits } from '../../composables/useClearable'
 import VaTextarea from './components/VaTextarea/VaTextarea.vue'
 import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
-import { omit } from 'lodash-es'
+import { omit, pick } from 'lodash-es'
 
 const VaTextareaProps = extractComponentProps(VaTextarea)
 
@@ -92,13 +93,12 @@ export default defineComponent({
   props: {
     ...useFormProps,
     ...useValidationProps,
+    ...useClearableProps,
     ...useCleaveProps,
     ...VaTextareaProps,
 
     // input
     placeholder: { type: String, default: '' },
-    clearable: { type: Boolean, default: false },
-    clearableIcon: { type: String, default: 'highlight_off' },
     tabindex: { type: Number, default: 0 },
     modelValue: { type: [String, Number], default: '' },
     label: { type: String, default: '' },
@@ -110,7 +110,13 @@ export default defineComponent({
     bordered: { type: Boolean, default: false },
   },
 
-  emits: ['update:modelValue', ...useValidationEmits, ...createInputEmits(), ...createFieldEmits()],
+  emits: [
+    'update:modelValue',
+    ...useValidationEmits,
+    ...useClearableEmits,
+    ...createInputEmits(),
+    ...createFieldEmits(),
+  ],
 
   inheritAttrs: false,
 
@@ -119,7 +125,7 @@ export default defineComponent({
 
     const reset = () => {
       emit('update:modelValue', '')
-      emit('cleared')
+      emit('clear')
     }
 
     const focus = () => {
@@ -135,19 +141,13 @@ export default defineComponent({
       listeners: validationListeners,
       computedError,
       computedErrorMessages,
-    } = useValidation(props, emit, () => reset(), () => focus())
+    } = useValidation(props, emit, reset, focus)
 
-    const canBeCleared = computed(() => {
-      return props.clearable && ![null, undefined, ''].includes(props.modelValue as any)
-    })
-
-    const clearIconColor = computed(() => {
-      if (isFocused.value) { return props.color }
-      if (computedError.value) { return 'danger' }
-      if (props.success) { return 'success' }
-
-      return 'grey'
-    })
+    const { modelValue } = toRefs(props)
+    const {
+      canBeCleared,
+      clearIconColor,
+    } = useClearable(props, modelValue, isFocused, computedError)
 
     /** Use cleave only if this component is input, because it will break. */
     const computedCleaveTarget = computed(() => {
@@ -180,12 +180,8 @@ export default defineComponent({
 
     const computedInputAttributes = computed(() => ({
       ...omit(attrs, ['class', 'style']),
+      ...pick(props, ['type', 'tabindex', 'disabled', 'readonly', 'placeholder']),
       value: computedValue.value,
-      type: props.type,
-      tabindex: props.tabindex,
-      disabled: props.disabled,
-      readonly: props.readonly,
-      placeholder: props.placeholder,
       ariaLabel: props.label,
     }) as InputHTMLAttributes)
 

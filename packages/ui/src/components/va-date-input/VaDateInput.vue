@@ -10,26 +10,33 @@
             :model-value="valueText"
             :error="!isValid"
             :readonly="readonly || !manualInput"
-            @cleared="onClear"
             @change="onInputTextChanged"
           >
-            <template #appendInner="slotScope">
-              <slot name="appendInner" v-bind="slotScope">
-                <va-icon
-                  name="calendar_today"
-                  class="va-date-input__icon"
-                  size="small"
-                  :color="color"
-                />
+            <template
+              v-for="name in filterSlots"
+              v-slot:[name]="slotScope"
+              :key="name"
+            >
+              <slot :name="name" v-bind="slotScope" />
+            </template>
+
+            <template #prependInner="slotScope">
+              <slot name="prependInner" v-bind="slotScope">
+                <va-icon v-if="$props.leftIcon" v-bind="iconProps" />
               </slot>
             </template>
 
-            <template
-              v-for="(_, name) in $slots"
-              :key="name"
-              v-slot:[name]="slotScope"
-            >
-              <slot :name="name" v-bind="slotScope" />
+            <template #appendInner="slotScope">
+              <va-icon
+                v-if="canBeCleared"
+                v-bind="clearIconProps"
+                @click.stop="clear()"
+              />
+              <va-icon
+                v-else-if="!$props.leftIcon"
+                v-bind="iconProps"
+              />
+              <slot name="appendInner" v-bind="slotScope" />
             </template>
           </va-input>
         </slot>
@@ -48,6 +55,8 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType, toRefs, watch, ref } from 'vue'
+import { useClearableProps, useClearableEmits, useClearable } from '../../composables/useClearable'
+import { useFormProps } from '../../composables/useForm'
 import { useStateful } from '../../mixins/StatefulMixin/cStatefulMixin'
 
 import { isRange, isSingleDate, isDates } from '../va-date-picker/hooks/model-value-helper'
@@ -63,15 +72,17 @@ import VaIcon from '../va-icon'
 import { VaDatePickerModelValue } from '../va-date-picker/types/types'
 
 const VaInputProps = {
+  ...useClearableProps,
+  ...useFormProps,
+
+  // clearValue: { type: Date as PropType<VaDatePickerModelValue>, default: undefined },
+  clearValue: { type: Date as PropType<VaDatePickerModelValue>, default: undefined },
   label: { type: String, required: false },
   color: { type: String, default: 'primary' },
   placeholder: { type: String, default: '' },
-  clearable: { type: Boolean, default: false },
   tabindex: { type: Number, default: 0 },
   outline: { Boolean, default: false },
   bordered: { type: Boolean, default: false },
-  readonly: { type: Boolean, default: false },
-  disabled: { type: Boolean, default: false },
 }
 
 export default defineComponent({
@@ -88,6 +99,7 @@ export default defineComponent({
   props: {
     ...extractComponentProps(VaDatePicker),
     ...VaInputProps,
+
     resetOnClose: { type: Boolean, default: true },
     isOpen: { type: Boolean },
 
@@ -99,6 +111,9 @@ export default defineComponent({
     delimiter: { type: String, default: ', ' },
     rangeDelimiter: { type: String, default: ' ~ ' },
     manualInput: { type: Boolean, default: false },
+
+    leftIcon: { type: Boolean, default: false },
+    icon: { type: String, default: 'calendar_today' },
   },
 
   emits: [
@@ -108,9 +123,10 @@ export default defineComponent({
     'click:month', 'click:day',
     'update:is-open',
     'update:text',
+    ...useClearableEmits,
   ],
 
-  setup (props, { emit }) {
+  setup (props, { emit, slots }) {
     const { isOpen, resetOnClose } = toRefs(props)
     const { valueComputed: statefulValue } = useStateful(props, emit)
     const { syncProp: isOpenSync } = useSyncProp(isOpen, 'is-open', emit, false)
@@ -157,20 +173,48 @@ export default defineComponent({
       }
     }
 
-    const onClear = () => { valueComputed.value = undefined }
+    const clear = () => {
+      valueComputed.value = props.clearValue
+      emit('clear')
+    }
+
+    const filterSlots = computed(() => {
+      const slotsToIcons = [
+        props.leftIcon && 'prependInner',
+        (!props.leftIcon || props.clearable) && 'appendInner',
+      ]
+      return Object.keys(slots).filter(slot => !slotsToIcons.includes(slot))
+    })
+
+    const {
+      canBeCleared,
+      clearIconProps,
+    } = useClearable(props, valueComputed)
+
+    const iconProps = computed(() => ({
+      name: props.icon,
+      color: props.color,
+      size: 'small',
+      class: 'va-date-input__icon',
+    }))
 
     return {
       valueText,
       valueComputed,
       isOpenSync,
       isValid,
-      onClear,
       onInputTextChanged,
 
       input,
 
       inputProps: filterComponentProps(props, VaInputProps),
       datePickerProps: filterComponentProps(props, extractComponentProps(VaDatePicker)),
+
+      filterSlots,
+      canBeCleared,
+      clearIconProps,
+      iconProps,
+      clear,
     }
   },
 })
@@ -190,6 +234,12 @@ export default defineComponent({
   }
 
   --va-date-picker-cell-size: 28px;
+
+  .clear-icon {
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+  }
 
   .va-dropdown {
     width: 100%;

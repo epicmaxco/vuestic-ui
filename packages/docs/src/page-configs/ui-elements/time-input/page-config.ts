@@ -41,6 +41,12 @@ const config: ApiDocsBlock[] = [
   ),
 
   ...block.exampleBlock(
+    'timeInput.examples.clearable.title',
+    'timeInput.examples.clearable.text',
+    'clearable',
+  ),
+
+  ...block.exampleBlock(
     'timeInput.examples.validation.title',
     'timeInput.examples.validation.text',
     'validation',

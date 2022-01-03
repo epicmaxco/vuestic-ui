@@ -349,9 +349,26 @@
       </va-input>
     </VbCard>
     <VbCard title="clearable Icon">
+      <va-checkbox
+        class="my-3"
+        label="Clearable"
+        v-model="isClearable"
+      />
       <va-input
         v-model="text"
-        clearable
+        :clearable="isClearable"
+      />
+      <va-input
+        label="Disabled state"
+        v-model="text"
+        disabled
+        :clearable="isClearable"
+      />
+      <va-input
+        label="Readonly state"
+        v-model="text"
+        readonly
+        :clearable="isClearable"
       />
     </VbCard>
     <VbCard title="All slots">
@@ -552,6 +569,8 @@ export default {
       maskCustomBlocksValue: '',
       maskReturnFormattedValue: '',
       num: 10,
+
+      isClearable: true,
     }
   },
 }
