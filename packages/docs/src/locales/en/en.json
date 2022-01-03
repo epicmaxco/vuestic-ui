@@ -661,16 +661,18 @@
         "canBeFocused": "If false, then input can not be focused using mouse or keyboard."
       },
       "events": {
-        "input": "Emitted when the component needs to change the model",
-        "change": "Emitted when the input is changed by user interaction",
+        "change": "Emitted when the input loose focus or on `enter`",
         "blur": "Emitted when the input is blurred",
         "focus": "Emitted when input is focused",
         "click": "Emitted when user clicked on input",
         "keyup": "Emitted when the user releases a key on the keyboard",
         "keydown": "Emitted when any key is pressed",
-        "cleared": "Emitted if input value has been cleared"
+        "keypress": "Emitted when any key is pressed. The event is deprecated, will be removed in future versions",
+        "cleared": "Emitted if input value has been cleared",
+        "clickIcon": "Emitted when user clicked on icon"
       },
       "methods": {
+        "blur":  "Setting blurred on input",
         "focus": "Setting focus on input",
         "reset": "Clearing input value"
       },
