@@ -540,6 +540,10 @@
         "load": "Function that loads data. Should return Promise",
         "tag": "Replaces html tag. This is useful for semantics and also to allow for valid markup in some cases (`ul > li` and `tr > td` etc.)."
       },
+      "events": {
+        "onload": "Emits when `load` function finished with success",
+        "onerror": "Emits when `load` function thrown error"
+      },
       "slots": {
         "loading": "Shown when content is fetching.",
         "default": "The content to be scrolled"
@@ -640,7 +644,7 @@
         "removable": "Adds an button that clears the value",
         "tabindex": "Sets input tabindex",
         "returnRaw": "Sets possibility to return raw value",
-        "autosize": "Sets textarea possibility to grow up automatically",
+        "autosize": "Sets textarea possibility to grow up automatically and disables the ability to this to the user (set css `resize: none`)",
         "minRows": "Minimal count of lines",
         "maxRows": "Maximum count of lines",
         "rules": "Accepts an array of functions that take an input value as an argument and return either true / false or a string with an error message",
@@ -664,11 +668,7 @@
         "click": "Emitted when user clicked on input",
         "keyup": "Emitted when the user releases a key on the keyboard",
         "keydown": "Emitted when any key is pressed",
-        "cleared": "Emitted if input value has been cleared",
-        "click-prepend": "Событие вызывается при клике по слоту `prepend`",
-        "click-prepend-inner": "Событие вызывается при клике по слоту `prependInner`",
-        "click-append": "Событие вызывается при клике по слоту `append`",
-        "click-append-inner": "Событие вызывается при клике по слоту `appendInner`"
+        "cleared": "Emitted if input value has been cleared"
       },
       "methods": {
         "focus": "Setting focus on input",
@@ -730,13 +730,13 @@
     "VaSelect": {
       "props": {
         "value": "Model of the component. Must be Array if using 'multiple' prop",
-        "clearValue": "Sets value that should be setted after clearing",
+        "clearValue": "Sets value that should be set after clearing",
         "options": "Available options that the user can select from",
         "disabledBy": "Specify the key in the object to be used as item `disabled` prop. Can be string (path to the key) or function of type: `(option) => option.disabled`",
         "valueBy": "Specify the key in the object to be used as item `value` prop. Can be string (path to the key) or function of type: `(option) => option.value`",
         "trackBy": "Specify the key in the object to be used as item `key` prop. Can be string (path to the key) or function of type: `(option) => option.track`",
         "textBy": "Specify the key in the object to be used as item `text` prop. Can be string (path to the key) or function of type: `(option) => option.text`",
-        "placeholder": "Sets the input’s placeholder text",
+        "placeholder": "Sets the placeholder text to input",
         "position": "Sets option list position",
         "tagMax": "Sets maximum tag count after whom selection will be cropped",
         "tags": "Sets selection display as tags",
@@ -753,8 +753,8 @@
         "allowCreate": "Allow creating new options. Can be set to `unique` if you want to create only unique options",
         "clearIcon": "Sets the clear icon",
         "dropdownIcon": "Sets the dropdown icon. Can be object if you want to sets different open/close icons",
-        "bordered": "Применяет подчеркивание",
-        "separator": "Текст для разделения выбранных значений"
+        "bordered": "Applies style with bottom border",
+        "separator": "Text to separate selected values"
       },
       "events": {
         "clear": "Emitted if select value has been cleared",
@@ -1241,6 +1241,7 @@
     "agGrid": "AG Grid Theme",
     "dataTable": "Data Table",
     "uiElementGuide": "UI Element Guide",
+    "treeShakingRequirements": "Tree Shaking Requirements",
     "colors": "Colors",
     "timePicker": "Time Picker",
     "timeInput": "Time Input"
@@ -2272,7 +2273,9 @@
     "examples": {
       "default": {
         "title": "Default",
-        "text": "The basic usage of the `va-alert` component."
+        "text": "The basic usage of the `va-alert` component.",
+        "prop": "You read this important alert message.",
+        "slot": "You read this important slotted alert message."
       },
       "color": {
         "title": "Color",
@@ -3587,6 +3590,28 @@
         "keyboardNavigation": "**Keyboard navigation** - You must ensure that UI elements are keyboard-accessible, and you must disable that functionality for elements that should not receive keyboard focus.",
         "statelessSupport": "**Stateless support** (see the [StatefulMixin](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/mixins/StatefulMixin/README.md)[[target=_blank]])."
       }
+    }
+  },
+  "treeShakingRequirements": {
+    "title": "Requirements for Treeshaking",
+    "description": "This page for contributors describes the basic rules and restrictions that need to be taken into account when developing for correct work Treeshaking.",
+    "about": {
+      "title": "How TreeShaking works",
+      "description": "We made several build formats:",
+      "distFormats": {
+        "esm": "esm - used for tree-shaking",
+        "esmSsr": "esm-ssr - also used for tree-shaking, but uses {'@'}vue/server-side-renderer.",
+        "iife": "iife - used by browsers, can be included to page without bundler.",
+        "cjs": "cjs - used for bundlers that use CommonJS (e.g. node) format instead of ESM",
+        "style": "styles - SCSS utils, that is not required for components."
+      },
+      "notice": "We use Webpack for local development and rollup for build, so we have a special package to test this two things - bundlers-tests"
+    },
+    "requirements": {
+      "title": "Requirements and rules",
+      "esModules": "We need to use ES module (esm format) and Named Exports (`export { somthing }` instead of `export default somthing`). Export default breaks tree shaking for importend file. It will fully loaded by bundler.",
+      "dependencies": "TreeShaking works only with node modules, that is written in esm format. For example, we use `lodash-es` instead of `lodash`. That way we compile only functional we need instead of full library.",
+      "beforeBuild": "Before release check dist with `bundlers-tests`. We need to check build with Webpack, Vite (Rollup) because vuestic-ui can work diffent for this two."
     }
   },
   "timePicker": {

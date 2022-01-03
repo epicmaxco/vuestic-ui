@@ -19,6 +19,8 @@ import { computed, defineComponent, PropType } from 'vue'
 import { useColor } from '../../../../composables/useColor'
 
 export default defineComponent({
+  name: 'VaMessageList',
+
   props: {
     modelValue: {
       type: [String, Array] as PropType<string | string[]>,

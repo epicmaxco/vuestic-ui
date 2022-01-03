@@ -332,6 +332,7 @@ export default class VaSwitch extends mixins(
   #{&}__track-label {
     color: $white;
     margin: auto 0.5rem auto 2rem;
+    user-select: none;
 
     @at-root {
       .va-switch--checked#{&} {

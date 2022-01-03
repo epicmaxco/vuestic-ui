@@ -23,13 +23,13 @@
 export default {
   data () {
     return {
-      records: [{}, {}, {}, {}, {}, {}, {}, {}],
+      records: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
     }
   },
   methods: {
     async appendRecordsAsync () {
       await new Promise(resolve => setTimeout(resolve, 1000))
-      this.records.push({}, {}, {})
+      this.records.push({})
     },
   },
 }

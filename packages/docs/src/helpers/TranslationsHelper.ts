@@ -21,9 +21,5 @@ function translateOthers (code: string, $t: (s: string) => string) {
  * output: `... translated ...`
  */
 export function applyTranslations (this: any, code: string) {
-  // const isIgnored = code.includes('@disable-translation\n')
-  // if (isIgnored) {
-  //   return code.replace('@disable-translation\n', '')
-  // }
   return translateOthers(translateInterpolation(code, this.$t), this.$t).replace('$t-ignore', '$t')
 }
