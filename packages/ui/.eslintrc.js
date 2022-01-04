@@ -35,5 +35,14 @@ module.exports = {
     'import/export': 'warn',
     'no-void': 'off',
   },
+  overrides: [
+    {
+      files: ['src/components/**/*.vue'],
+      excludedFiles: ['*.demo.vue', '*.vdemo.vue'],
+      rules: {
+        'vue/require-name-property': 'error',
+      },
+    },
+  ],
   ignorePatterns: ['**/*spec.disabled.*', '**/wip-*/**'],
 }
