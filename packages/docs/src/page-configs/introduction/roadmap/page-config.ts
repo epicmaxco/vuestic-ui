@@ -9,11 +9,17 @@ const config: ApiDocsBlock[] = [
   block.subtitle('roadmap.inDevelopment.title'),
   block.paragraph('roadmap.inDevelopment.description'),
 
-  block.headline('roadmap.1-2.title'),
-  block.paragraph('roadmap.1-2.description'),
+  block.headline('roadmap.1-4.title'),
+  block.paragraph('roadmap.1-4.description'),
 
   block.subtitle('roadmap.released.title'),
   block.paragraph('roadmap.released.description'),
+
+  block.headline('roadmap.1-3.title'),
+  block.paragraph('roadmap.1-3.description'),
+
+  block.headline('roadmap.1-2.title'),
+  block.paragraph('roadmap.1-2.description'),
 
   block.headline('roadmap.1-1.title'),
   block.paragraph('roadmap.1-1.description'),

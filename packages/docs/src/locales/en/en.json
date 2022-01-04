@@ -3023,20 +3023,28 @@
       "title": "In development",
       "description": "The following releases are currently being developed:"
     },
+    "1-4": {
+      "title": "[v1.4](https://github.com/epicmaxco/vuestic-ui/milestone/7)",
+      "description": "* Calendar component. \n * Stepper component. \n * Nuxt support."
+    },
+    "1-3": {
+      "title": "[v1.3](https://github.com/epicmaxco/vuestic-ui/releases/tag/v1.3.0)",
+      "description": "* CSS only table. \n * Data Table component. \n * Data Table theme for [AG grid](https://www.ag-grid.com/)[[target=_blank]]."
+    },
     "1-2": {
-      "title": "v1.2",
-      "description": "We're currently working on new components: `date-picker` and `data-table`"
+      "title": "[v1.2](https://github.com/epicmaxco/vuestic-ui/releases/tag/v1.2.1)",
+      "description": "* Date Input component. \n * Date Picker component. \n * Tree shaking (allows to import only components you need, reducing bundle size)."
     },
     "1-1": {
-      "title": "v1.1",
-      "description": "Bug fixes and SSR support (vite)."
+      "title": "[v1.1](https://github.com/epicmaxco/vuestic-ui/releases/tag/v1.1.0)",
+      "description": "* SSR support (vite). \n * Remove medium-editor wrapper. \n * Russian translation. \n * Reduce bundle size (482KB)."
     },
     "1-0": {
-      "title": "v1.0",
-      "description": "Starting point of vuestic-ui. Reworked and added multiple components, added proper documentation."
+      "title": "[v1.0](https://github.com/epicmaxco/vuestic-ui/tree/v1.0.0)",
+      "description": "Starting point of vuestic-ui. \n * Reworked and added multiple components. \n * Added proper documentation."
     },
     "0-1": {
-      "title": "v0.1",
+      "title": "[v0.1](https://github.com/epicmaxco/vuestic-ui/tree/1.0.0-alpha.0)",
       "description": "Not even alpha, we've just split components from [vuestic-admin](https://github.com/epicmaxco/vuestic-admin)[[target=_blank]] into separate repository to simplify updates."
     },
     "released": {
@@ -3150,7 +3158,7 @@
   },
   "table": {
     "title": "Tables",
-    "summaryText": "Feature-rich Data-Tables are currently under development. However, for now you can use plain `<table>`s with the `.va-table` class that would apply Vuestic-theme styles to them.",
+    "summaryText": "You can use plain `<table>`s with the `.va-table` class that would apply Vuestic-theme styles to them.",
     "otherTables": {
       "text": "If you want more functional solutions, use our data-table component or our theme for AG-Grid:",
       "dataTable": "Data Table",

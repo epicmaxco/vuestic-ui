@@ -2958,20 +2958,28 @@
       "title": "В разработке",
       "description": "В настоящее время разрабатываются следующие релизы:"
     },
+    "1-4": {
+      "title": "[v1.4](https://github.com/epicmaxco/vuestic-ui/milestone/7)",
+      "description": "* Calendar компонент. \n * Stepper компонент. \n * Nuxt поддержка."
+    },
+    "1-3": {
+      "title": "[v1.3](https://github.com/epicmaxco/vuestic-ui/releases/tag/v1.3.0)",
+      "description": "* CSS таблица. \n * Data Table компонент. \n * Data Table тема для [AG grid](https://www.ag-grid.com/)[[target=_blank]]."
+    },
     "1-2": {
-      "title": "v1.2",
-      "description": "Будем работать над новыми компонентами: date-picker и data-table."
+      "title": "[v1.2](https://github.com/epicmaxco/vuestic-ui/releases/tag/v1.2.1)",
+      "description": "* Date Input компонент. \n * Date Picker компонент. \n * Tree shaking (позволяет импортировать только необходимые компоненты, снижая размер пакета)."
     },
     "1-1": {
-      "title": "v1.1",
-      "description": "Исправления ошибок и поддержка ssr (vite)."
+      "title": "[v1.1](https://github.com/epicmaxco/vuestic-ui/releases/tag/v1.1.0)",
+      "description": "* Поддержка SSR (vite). \n * Удалена оболочка medium-editor. \n * Русский перевод. \n * Уменьшен размер пакета (482КБ)."
     },
     "1-0": {
-      "title": "v1.0",
-      "description": "Начало работы над vuestic-ui, переработаны и добавлены несколько компонентов, добавлена соответствующая документация."
+      "title": "[v1.0](https://github.com/epicmaxco/vuestic-ui/tree/v1.0.0)",
+      "description": "Начало работы над vuestic-ui. \n * Переработаны и добавлены несколько компонентов. \n * Добавлена соответствующая документация."
     },
     "0-1": {
-      "title": "v0.1",
+      "title": "[v0.1](https://github.com/epicmaxco/vuestic-ui/tree/1.0.0-alpha.0)",
       "description": "Даже не альфа, мы просто выделили компоненты из [vuestic-admin](https://github.com/epicmaxco/vuestic-admin)[[target=_blank]] в отдельный репозиторий, чтобы упростить обновления."
     },
     "released": {
