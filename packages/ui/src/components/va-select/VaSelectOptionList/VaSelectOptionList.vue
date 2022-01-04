@@ -92,6 +92,7 @@ const SelectOptionListPropsMixin = Vue.with(SelectOptionListProps)
     'select-option',
     'update:hoveredOption',
     'no-previous-option-to-hover',
+    'scroll-bottom',
   ],
 })
 export default class VaSelectOptionList extends mixins(
@@ -106,6 +107,21 @@ export default class VaSelectOptionList extends mixins(
         this.scrollToOption(newOption)
       }
     })
+  }
+
+  onScroll () {
+    const el = this.$refs.el as HTMLDivElement
+    if (el.scrollTop + el.clientHeight === el.scrollHeight) { this.$emit('scroll-bottom') }
+  }
+
+  mounted () {
+    const el = this.$refs.el as HTMLDivElement
+    el.addEventListener('scroll', () => this.onScroll())
+  }
+
+  beforeUnmount () {
+    const el = this.$refs.el as HTMLDivElement
+    el.removeEventListener('scroll', this.onScroll)
   }
 
   beforeUpdate () {

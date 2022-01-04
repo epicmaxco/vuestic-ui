@@ -761,7 +761,8 @@
       "events": {
         "clear": "Emitted if select value has been cleared",
         "updateSearch": "Emitted if search value has changed",
-        "createNew": "Emitted if search input has created new option"
+        "createNew": "Emitted if search input has created new option",
+        "scrollBottom": "Emitted once the scroll position of options has reached the bottom"
       },
       "methods": {
         "reset": "Clearing select value"
