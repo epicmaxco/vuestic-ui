@@ -3158,7 +3158,7 @@
   },
   "table": {
     "title": "Tables",
-    "summaryText": "Feature-rich Data-Tables are currently under development. However, for now you can use plain `<table>`s with the `.va-table` class that would apply Vuestic-theme styles to them.",
+    "summaryText": "You can use plain `<table>`s with the `.va-table` class that would apply Vuestic-theme styles to them.",
     "otherTables": {
       "text": "If you want more functional solutions, use our data-table component or our theme for AG-Grid:",
       "dataTable": "Data Table",
