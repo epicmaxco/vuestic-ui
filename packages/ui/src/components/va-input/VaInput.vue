@@ -45,17 +45,15 @@
     <VaTextarea
       v-if="type === 'textarea'"
       ref="input"
-      v-bind="textareaProps"
+      v-bind="{...textareaProps, ...inputEvents}"
       class="va-input__content__input"
-      @input="onInput"
     />
 
     <input
       v-else
       ref="input"
-      v-bind="computedInputAttributes"
+      v-bind="{...computedInputAttributes, ...inputEvents}"
       class="va-input__content__input"
-      @input="onInput"
     >
   </VaInputField>
 </template>
@@ -159,10 +157,29 @@ export default defineComponent({
     })
     const { computedValue, onInput } = useCleave(computedCleaveTarget, props, emit)
 
+    const inputListeners = createInputListeners(emit)
+
+    /** Combine EmitProxy events with validation events to avoid events overriding */
+    const onFocus = (e: Event) => {
+      inputListeners.onFocus(e)
+      validationListeners.onFocus()
+    }
+
+    const onBlur = (e: Event) => {
+      inputListeners.onBlur(e)
+      validationListeners.onBlur()
+    }
+
+    const inputEvents = {
+      ...inputListeners,
+      onFocus,
+      onBlur,
+      // Cleave
+      onInput,
+    }
+
     const computedInputAttributes = computed(() => ({
       ...omit(attrs, ['class', 'style']),
-      ...createInputListeners(emit),
-      ...validationListeners,
       value: computedValue.value,
       type: props.type,
       tabindex: props.tabindex,
@@ -180,15 +197,13 @@ export default defineComponent({
 
     return {
       input,
+      inputEvents,
       textareaProps: filterComponentProps(props, VaTextareaProps),
 
       // Validations
       computedError,
       computedErrorMessages,
       isFocused,
-
-      // Cleave
-      onInput,
 
       // Icon
       canBeCleared,

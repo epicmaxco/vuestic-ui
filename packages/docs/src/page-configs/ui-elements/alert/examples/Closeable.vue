@@ -1,7 +1,7 @@
 <template>
   <div>
     <va-checkbox
-      label="Toggle visibility"
+      :label="$t('alert.misc.toggleVisibility')"
       v-model="isCloseableAlertVisible"
       class="mb-4"
     />
@@ -10,7 +10,7 @@
       closeable
       class="mb-4"
     >
-      You read this important alert message with a default close icon.
+      {{ $t('alert.misc.defaultCloseIcon') }}
     </va-alert>
 
     <va-alert
@@ -20,17 +20,17 @@
       close-icon="info"
       class="mb-4"
     >
-      You read this important alert message with a custom close icon.
+      {{ $t('alert.misc.customCloseIcon') }}
     </va-alert>
 
     <va-alert
       color="warning"
       v-model="isCloseableAlertVisible"
       closeable
-      close-text="close"
+      :close-text="$t('alert.misc.close')"
       class="mb-4"
     >
-      You read this important alert message with a text instead of an icon.
+      {{ $t('alert.misc.messageInsteadIcon') }}
     </va-alert>
 
     <va-alert
@@ -40,9 +40,9 @@
       class="mb-4"
     >
       <template #close>
-        close
+        {{ $t('alert.misc.close') }}
       </template>
-      You read this important alert message with a slotted text instead of an icon.
+      {{ $t('alert.misc.slottedTextInsteadIcon') }}
     </va-alert>
   </div>
 </template>

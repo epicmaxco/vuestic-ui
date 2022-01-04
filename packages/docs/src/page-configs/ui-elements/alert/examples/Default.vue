@@ -2,10 +2,10 @@
   <div>
     <va-alert
       class="mb-4"
-      :description="$t('alert.examples.default.prop')"
+      :description="$t('alert.misc.primary')"
     />
     <va-alert>
-      {{ $t('alert.examples.default.slot') }}
+      {{ $t('alert.misc.primarySlotted') }}
     </va-alert>
   </div>
 </template>

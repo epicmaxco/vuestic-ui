@@ -1,22 +1,6 @@
 import { ApiDocsBlock } from '@/types/configTypes'
 import { PageGenerationHelper } from '@/helpers/DocsHelper'
-
-const scheme = `
-// The scheme for color styles
-Scheme: \`--va - [name]\`
-[name] - the name of the color specified in the Colors Config
-Example:
-  const app = createApp(App)
-  app.use(VuesticPlugin, {
-    colors: {
-      primary: '#23e066',
-      custom: '#d0f55d',
-    },
-  })
-Available colors:
-  --va-primary: #23e066
-  --va-custom: #d0f55d
-`
+import { scheme } from './code-examples'
 
 const block = new PageGenerationHelper(__dirname)
 

@@ -30,7 +30,6 @@ import { useHover } from '../../../composables/useHover'
 
 export default defineComponent({
   name: 'VaTimePickerColumn',
-
   props: {
     items: { type: Array as PropType<string[] | number[]>, default: () => [] },
     activeItemIndex: { type: Number, default: 0 },

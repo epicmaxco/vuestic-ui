@@ -11,7 +11,7 @@ export const useEmitProxy = <T extends string>(events: T[]) => {
   const createListeners = (emit: (event: T, ...args: any[]) => void) => {
     return events.reduce((acc, key) => ({
       ...acc, [eventToListenerName(key)]: (...args: any[]) => emit(key, ...args),
-    }), {} as Record<T, any>)
+    }), {} as Record<string, any>)
   }
 
   return {
