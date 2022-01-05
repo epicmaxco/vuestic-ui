@@ -493,6 +493,16 @@
       />
     </VbCard>
     <VbCard
+      title="scroll-bottom event"
+      style="width: 400px;"
+    >
+      <va-select
+        v-model="preloadable.value"
+        :options="preloadable.options"
+        @scrollBottom="onLoadMore()"
+      />
+    </VbCard>
+    <VbCard
       title="Validation rules (on blur)"
       style="width: 400px;"
     >
@@ -532,6 +542,8 @@ import VaSelect from './index'
 
 const positions = ['top', 'bottom']
 
+const random = () => Math.ceil(Math.random() * 10000) + ''
+
 export default {
   components: { VaSelect, VaIcon },
   data () {
@@ -546,6 +558,10 @@ export default {
       defaultMultiSelect: {
         options: ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'],
         value: [],
+      },
+      preloadable: {
+        options: [random(), random(), random(), random(), random()],
+        value: '',
       },
       allowCreateSelect: {
         options: [
@@ -600,6 +616,9 @@ export default {
     }
   },
   methods: {
+    onLoadMore () {
+      this.preloadable.options.push(random(), random(), random())
+    },
     updateSearch (val) {
       this.isLoading = true
       setTimeout(() => {
