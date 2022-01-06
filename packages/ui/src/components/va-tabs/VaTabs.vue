@@ -331,7 +331,8 @@ export default class VaTabs extends mixins(
 
   updateSlider (tab: VaTab) {
     if (this.$props.vertical) {
-      this.sliderOffsetY = (this.containerRef.clientHeight - tab.$el.offsetTop - tab.$el.clientHeight)
+      const sliderOffsetY = this.containerRef.clientHeight - tab.$el.offsetTop - tab.$el.clientHeight
+      this.sliderOffsetY = Math.max(sliderOffsetY, 0)
       this.sliderHeight = tab.$el.clientHeight
       this.sliderOffsetX = 0
       this.sliderWidth = null
