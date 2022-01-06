@@ -17,7 +17,7 @@ export default defineManualApi({
     ...InputApiOptions.props,
   },
   slots: {
-    ...mapObject(InputApiOptions.slots!, (slot, key) => ({ ...slot, translation: `api.VaInput.slots.${key}` })),
-    ...mapObject(DatePickerApiOptions.slots!, (slot, key) => ({ ...slot, translation: `api.VaDatePicker.slots.${key}` })),
+    ...mapObject(InputApiOptions?.slots ?? {}, (slot, key) => ({ ...slot, translation: `api.VaInput.slots.${key}` })),
+    ...mapObject(DatePickerApiOptions?.slots ?? {}, (slot, key) => ({ ...slot, translation: `api.VaDatePicker.slots.${key}` })),
   },
 })

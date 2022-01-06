@@ -62,10 +62,7 @@ const config: ApiDocsBlock[] = [
 
   block.subtitle('all.api'),
   block.api(VaDataTable, apiOptions),
+  block.table(table.columns, table.tableData),
 ]
-
-if (table) {
-  config.push(block.table(table.columns, table.tableData))
-}
 
 export default config

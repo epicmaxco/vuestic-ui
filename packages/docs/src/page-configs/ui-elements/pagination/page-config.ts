@@ -58,10 +58,7 @@ const config: ApiDocsBlock[] = [
 
   block.headline('pagination.faq.questions[1].question'),
   block.paragraph('pagination.faq.questions[1].answer'),
+  block.table(table.columns, table.tableData),
 ]
-
-if (table) {
-  config.push(block.table(table.columns, table.tableData))
-}
 
 export default config

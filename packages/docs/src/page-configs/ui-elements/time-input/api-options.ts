@@ -20,6 +20,6 @@ export default {
   methods: {
   },
   slots: {
-    ...mapObject(InputApiOptions.slots!, (slot, key) => ({ ...slot, translation: `api.VaInput.slots.${key}` })),
+    ...mapObject(InputApiOptions?.slots ?? {}, (slot, key) => ({ ...slot, translation: `api.VaInput.slots.${key}` })),
   },
 } as ManualApiOptions

@@ -57,10 +57,7 @@ const config: ApiDocsBlock[] = [
 
   block.headline('card.faq.questions[1].question'),
   block.paragraph('card.faq.questions[1].answer'),
+  block.table(table.columns, table.tableData),
 ]
-
-if (table) {
-  config.push(block.table(table.columns, table.tableData))
-}
 
 export default config

@@ -74,10 +74,7 @@ const config: ApiDocsBlock[] = [
   block.subtitle('list.api.listItemSection.title'),
   block.paragraph('list.api.listItemSection.text'),
   block.api(VaListItemSection, listItemSectionApiOptions),
+  block.table(table.columns, table.tableData),
 ]
-
-if (table) {
-  config.push(block.table(table.columns, table.tableData))
-}
 
 export default config

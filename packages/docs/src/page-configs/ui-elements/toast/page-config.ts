@@ -49,10 +49,7 @@ const config: ApiDocsBlock[] = [
   block.subtitle('all.faq'),
   block.headline('toast.faq.questions[0].question'),
   block.paragraph('toast.faq.questions[0].answer'),
+  block.table(table.columns, table.tableData),
 ]
-
-if (table) {
-  config.push(block.table(table.columns, table.tableData))
-}
 
 export default config
