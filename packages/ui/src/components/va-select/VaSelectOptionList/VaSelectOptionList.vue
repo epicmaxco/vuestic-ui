@@ -7,6 +7,7 @@
     @keydown.left.stop.prevent="hoverPreviousOption"
     @keydown.down.stop.prevent="hoverNextOption"
     @keydown.right.stop.prevent="hoverNextOption"
+    @scroll.passive="onScroll($event)"
   >
     <template v-if="filteredOptions.length">
       <div
@@ -109,19 +110,8 @@ export default class VaSelectOptionList extends mixins(
     })
   }
 
-  onScroll () {
-    const el = this.$refs.el as HTMLDivElement
-    if (el.scrollTop + el.clientHeight === el.scrollHeight) { this.$emit('scroll-bottom') }
-  }
-
-  mounted () {
-    const el = this.$refs.el as HTMLDivElement
-    el.addEventListener('scroll', () => this.onScroll())
-  }
-
-  beforeUnmount () {
-    const el = this.$refs.el as HTMLDivElement
-    el.removeEventListener('scroll', this.onScroll)
+  onScroll ({ target }: { target: HTMLDivElement }) {
+    if (target.scrollTop + target.clientHeight === target.scrollHeight) { this.$emit('scroll-bottom') }
   }
 
   beforeUpdate () {
