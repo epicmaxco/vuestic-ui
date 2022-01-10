@@ -22,7 +22,7 @@ const DEFAULT_MASK_TOKENS: Record<string, Record<string, unknown>> = {
 }
 
 export const useCleaveProps = {
-  mask: { type: [String, Object], default: () => ({}) },
+  mask: { type: [String, Object], default: '' },
   returnRaw: { type: Boolean, default: true },
   modelValue: { type: [String, Number] },
 }
