@@ -162,7 +162,7 @@
 
 @mixin va-scroll($color: grey) {
   &::-webkit-scrollbar {
-    width: 4px;
+    width: 10px;
   }
 
   &::-webkit-scrollbar-track {
