@@ -254,6 +254,10 @@ export default defineComponent({
         letter-spacing: var(--va-input-letter-spacing);
         transform: translateY(-1px);
 
+        &::-webkit-scrollbar {
+          width: 10px;
+        }
+
         &::placeholder {
           color: var(--va-input-placeholder-text-color);
         }
