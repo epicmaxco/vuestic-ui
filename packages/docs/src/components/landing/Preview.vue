@@ -13,7 +13,9 @@
           </va-button>
           <va-popover class="preview__buttons--button"
                       :message="this.$t('landing.preview.buttons.askForStars')"
-                      :model-value="askForStars"
+                      :modelValue=true
+                      :autoHide=false
+                      trigger="click"
           >
             <va-button href="https://github.com/epicmaxco/vuestic-ui"
                        target="_blank"
@@ -83,9 +85,6 @@
 <script>
 export default {
   name: 'LandingPreview',
-  data () {
-    return { askForStars: true }
-  },
 }
 </script>
 
@@ -230,6 +229,10 @@ export default {
   width: 100%;
   height: 100%;
   justify-content: center;
+}
+
+::v-deep(.va-dropdown__anchor a) {
+  width: 100%;
 }
 
 .components-slideshow {

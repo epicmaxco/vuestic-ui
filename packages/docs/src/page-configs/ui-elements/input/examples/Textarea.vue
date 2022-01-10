@@ -11,17 +11,21 @@
       v-model="value"
       type="textarea"
       label="With label"
-      placeholder="With label"
     />
     <va-input
       class="mb-4"
       v-model="value"
       type="textarea"
-      label="Textarea"
-      placeholder="Autosize with limits from 2 to 4"
-      :min-rows="2"
-      :max-rows="4"
+      label="With autosize"
       autosize
+    />
+    <va-input
+      class="mb-4"
+      v-model="value"
+      type="textarea"
+      label="With limits from 3 to 5 rows"
+      :min-rows="3"
+      :max-rows="5"
     />
   </div>
 </template>

@@ -1,10 +1,10 @@
 import { readdirSync, unlinkSync, existsSync } from 'fs'
 import { resolve } from 'path'
 
-/** This plugin used to remove junk files from dist */
+/** This plugin used to remove junk files defined by `deleteFilesRegex` from dist */
 export default function ({ dirPath = undefined, deleteFilesRegex = undefined }) {
   return {
-    name: 'rollup-typescript-declarations',
+    name: 'rollup-delete-junk',
     closeBundle: (err) => {
       if (err) { return }
 

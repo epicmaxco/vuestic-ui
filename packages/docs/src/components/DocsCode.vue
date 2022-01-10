@@ -8,6 +8,7 @@
 
 <script>
 import PrismWrapper from './PrismWrapper'
+import { applyTranslations } from '../helpers/TranslationsHelper'
 
 export default {
   name: 'DocsCode',
@@ -60,15 +61,7 @@ export default {
       }
       return newCode
     },
-    applyTranslations (code) {
-      const replaces = code.match(/(?:\$t)\(.*?\)/) || []
-
-      return replaces.reduce((acc, replaceSource) => {
-        const translation = replaceSource.replace(/(\$t|'|\(|\)|\[\d\])/gi, '')
-
-        return acc.replace(replaceSource, this.$t(translation))
-      }, code)
-    },
+    applyTranslations,
   },
   watch: {
     code: {
@@ -183,7 +176,7 @@ pre.DocsCode {
   .language-css .token.string,
   .style .token.string {
     color: #9a6e3a;
-    background: hsla(0, 0%, 100%, 0.5);
+    background: #f4f8fa;
   }
 
   .token.atrule,

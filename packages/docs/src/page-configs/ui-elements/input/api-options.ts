@@ -2,9 +2,6 @@ import { defineManualApi } from '../../../components/DocsApi/ManualApiOptions'
 
 export default defineManualApi({
   events: {
-    input: {
-      types: 'any',
-    },
     change: {
       types: 'any',
     },
@@ -17,16 +14,19 @@ export default defineManualApi({
     click: {
       types: 'Event',
     },
-    'click-prepend': {
+    clickIcon: {
       types: 'Event',
     },
-    'click-prepend-inner': {
+    clickPrepend: {
       types: 'Event',
     },
-    'click-append': {
+    clickPrependInner: {
       types: 'Event',
     },
-    'click-append-inner': {
+    clickAppend: {
+      types: 'Event',
+    },
+    clickAppendInner: {
       types: 'Event',
     },
     keyup: {
@@ -38,6 +38,9 @@ export default defineManualApi({
   },
   methods: {
     focus: {
+      types: '() => void',
+    },
+    blur: {
       types: '() => void',
     },
     reset: {

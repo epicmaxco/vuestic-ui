@@ -1,13 +1,13 @@
 <template>
   <div>
     <va-alert color="info" class="mb-4">
-      Alert with color style.
+      {{ $t('alert.misc.color') }}
     </va-alert>
     <va-alert color="warning" outline class="mb-4">
-      Alert with outline style.
+      {{ $t('alert.misc.outlined') }}
     </va-alert>
     <va-alert color="danger" border="top" border-color="danger" class="mb-4">
-      Alert with colorful border.
+      {{ $t('alert.misc.border') }}
     </va-alert>
   </div>
 </template>

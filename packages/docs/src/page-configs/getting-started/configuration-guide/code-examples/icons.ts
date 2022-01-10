@@ -1,6 +1,6 @@
 export const iconsInstall = `
 yarn add material-design-icons-iconfont -D
-// $t('all.code.or')
+// {{ $t('all.code.or') }}
 npm install material-design-icons-iconfont -D
 `
 

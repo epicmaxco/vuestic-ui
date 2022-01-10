@@ -1,4 +1,4 @@
-import { ref, Ref } from 'vue'
+import { Ref } from 'vue'
 
 const HIDDEN_TEXTAREA_STYLE = `
   min-height:0 !important;
@@ -46,10 +46,11 @@ const getNodeHeightStyles = (node: HTMLElement) => {
       parseFloat(style.getPropertyValue('border-top-width')),
     styles:
       SIZING_STYLE.map(name => `${name}:${style.getPropertyValue(name)}`).join(';') + ';',
+    lineHeight:
+      parseInt(style.getPropertyValue('line-height')),
   }
 }
 
-// Cache for textarea document element
 let textarea: null | HTMLTextAreaElement = null
 
 const createHiddenTextarea = (original: HTMLTextAreaElement, styles: string) => {
@@ -59,7 +60,6 @@ const createHiddenTextarea = (original: HTMLTextAreaElement, styles: string) => 
 
   textarea.setAttribute('style', styles + HIDDEN_TEXTAREA_STYLE)
   textarea.value = original.value || original.placeholder || ''
-
   const wrap = original.getAttribute('wrap')
 
   if (wrap !== null) {
@@ -75,11 +75,15 @@ export const useTextareaRowHeight = (textarea: Ref<HTMLTextAreaElement | undefin
   const calculateRowHeight = () => {
     if (!textarea.value) { return 0 }
 
-    const { boxSizing, padding, border, styles } = getNodeHeightStyles(textarea.value)
+    return getNodeHeightStyles(textarea.value).lineHeight
+  }
 
+  const calculateHeight = () => {
+    if (!textarea.value) { return 0 }
+
+    const { boxSizing, padding, border, styles } = getNodeHeightStyles(textarea.value)
     const hiddenTextarea = createHiddenTextarea(textarea.value, styles)
     document.body.appendChild(hiddenTextarea)
-
     let height = hiddenTextarea.scrollHeight
 
     if (boxSizing === 'border-box') {
@@ -95,5 +99,6 @@ export const useTextareaRowHeight = (textarea: Ref<HTMLTextAreaElement | undefin
 
   return {
     calculateRowHeight,
+    calculateHeight,
   }
 }

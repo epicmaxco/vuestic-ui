@@ -8,7 +8,7 @@ const config: ApiDocsBlock[] = [
   block.paragraph('typography.description'),
 
   block.subtitle('typography.headings'),
-  block.example('headings', { forceShowCode: true }),
+  block.example('headings'),
 
   block.headline('typography.titled'),
   block.example('title'),

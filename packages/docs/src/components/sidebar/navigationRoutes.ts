@@ -64,6 +64,10 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: 'menu.grid',
       },
       {
+        name: 'colors',
+        displayName: 'menu.colors',
+      },
+      {
         name: 'css-variables',
         displayName: 'menu.cssVariables',
       },
@@ -332,6 +336,10 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: 'ui-element-guide',
         displayName: 'menu.uiElementGuide',
+      },
+      {
+        name: 'tree-shaking-requirements',
+        displayName: 'menu.treeShakingRequirements',
       },
       // GENERATOR_ADD - contribution
     ],

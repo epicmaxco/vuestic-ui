@@ -8,6 +8,7 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
+  name: 'VaDropdownContent',
   props: {
     noPadding: { type: Boolean, default: false },
   },

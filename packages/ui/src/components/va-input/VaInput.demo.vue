@@ -410,12 +410,11 @@
         type="textarea"
       />
     </VbCard>
-    <VbCard title="Textarea limits">
+    <VbCard title="Textarea limits (3-8)">
       <va-input
         v-model="text"
         label="Name"
         type="textarea"
-        autosize
         :min-rows="3"
         :max-rows="8"
       />

@@ -7,12 +7,6 @@ export const languages = [
     status: 'full',
     translationPath: 'translation.language.en',
   },
-  // {
-  //   code: 'es',
-  //   name: 'Español',
-  //   status: 'part',
-  //   translationPath: 'translation.language.es',
-  // },
   {
     code: 'ru',
     name: 'Русский',

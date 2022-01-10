@@ -2,7 +2,7 @@
   <va-card color="background" style="padding: 0.75rem;">
     <div class="row">
       <div class="flex" style="width: 100%;">
-        <div class="item">Now I'm flexible</div>
+        <div class="item">{{ $t('grid.examples.default.example') }}</div>
       </div>
     </div>
   </va-card>

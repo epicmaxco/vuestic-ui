@@ -131,6 +131,7 @@
           @keydown.enter.stop.prevent="selectHoveredOption()"
           @keydown.space.stop.prevent="selectHoveredOption()"
           @keydown="onHintedSearch"
+          @scroll-bottom="onScrollBottom"
         />
       </div>
     </va-dropdown-content>
@@ -167,7 +168,7 @@ export default defineComponent({
     VaDropdownContent,
     VaInput,
   },
-  emits: ['update-search', 'update:modelValue', 'clear', 'create-new', ...useValidationEmits],
+  emits: ['update-search', 'update:modelValue', 'clear', 'create-new', 'scroll-bottom', ...useValidationEmits],
   props: {
     ...useSelectableListProps,
     ...useValidationProps,
@@ -248,6 +249,10 @@ export default defineComponent({
     } = useValidation(props, emit, () => reset(), () => focus(), () => blur())
 
     const { colorComputed } = useColor(props)
+
+    const onScrollBottom = () => {
+      emit('scroll-bottom')
+    }
 
     const searchInput = ref('')
     const showSearchInput = computed(() => {
@@ -640,6 +645,7 @@ export default defineComponent({
       onHintedSearch,
       getText,
       getTrackBy,
+      onScrollBottom,
     }
   },
 })
