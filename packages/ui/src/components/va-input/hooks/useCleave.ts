@@ -24,10 +24,14 @@ const DEFAULT_MASK_TOKENS: Record<string, Record<string, unknown>> = {
 export const useCleaveProps = {
   mask: { type: [String, Object], default: '' },
   returnRaw: { type: Boolean, default: true },
-  modelValue: { type: [String, Number] },
+  modelValue: { type: String },
 }
 
-type Props = { mask: string | Record<string, string>, returnRaw: boolean, modelValue: string | number }
+type Props = {
+  mask: string | Record<string, string>,
+  returnRaw: boolean,
+  modelValue: string | number,
+}
 
 export const useCleave = (
   element: Ref<HTMLInputElement | undefined>,
@@ -57,6 +61,7 @@ export const useCleave = (
 
   onMounted(() => { initCleave() })
   onBeforeUnmount(() => { destroyCleave() })
+
   watch(() => [element.value, props.mask], () => { initCleave() })
 
   const computedValue = computed<string | number>(() => {
