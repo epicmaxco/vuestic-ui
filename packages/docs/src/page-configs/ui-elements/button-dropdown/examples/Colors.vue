@@ -3,6 +3,7 @@
     <va-button-dropdown
       class="mr-2 mb-2"
       color="warning"
+      textColor="danger"
       label="warning"
     >
       Content
