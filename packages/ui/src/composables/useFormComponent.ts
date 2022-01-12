@@ -40,7 +40,7 @@ export function useFormComponent (
   props: Record<string, any>,
   reset: () => any,
   focus: () => any,
-  blur: () => any,
+  blur?: () => any,
 ) {
   const hadFocus = ref(false)
   const isFocused = ref(false)

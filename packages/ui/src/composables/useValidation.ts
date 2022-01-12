@@ -18,7 +18,7 @@ interface ValidationProps {
 }
 
 export const useValidationProps = {
-  modelValue: { },
+  modelValue: { required: false },
   error: { type: Boolean, default: undefined },
   errorMessages: { type: [Array, String] as PropType<string[] | string>, default: undefined },
   errorCount: { type: [String, Number], default: 1 },
