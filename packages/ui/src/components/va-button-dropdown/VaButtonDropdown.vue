@@ -1,25 +1,26 @@
 <template>
   <div :class="computedClass">
     <va-dropdown
-      v-if="!split"
-      :disabled="disabled"
-      :position="position"
+      v-if="!$props.split"
+      :disabled="$props.disabled"
+      :position="$props.position"
       :offset="$props.offset"
-      :keep-anchor-width="keepAnchorWidth"
-      :close-on-content-click="closeOnContentClick"
-      v-model="showDropdown"
-      :stateful="stateful"
+      :keep-anchor-width="$props.keepAnchorWidth"
+      :close-on-content-click="$props.closeOnContentClick"
+      :stateful="$props.stateful"
+      v-model="valueComputed"
     >
       <template #anchor>
         <va-button
-          :size="size"
-          :flat="flat"
-          :outline="outline"
-          :disabled="disabled"
-          :color="color"
-          v-bind="{ [label || $slots.label ? 'icon-right' : 'icon']: computedIcon }"
-          :round="!label && !$slots.label"
-          @click="click"
+          :size="$props.size"
+          :color="$props.color"
+          :textColor="$props.textColor"
+          :flat="$props.flat"
+          :outline="$props.outline"
+          :disabled="$props.disabled"
+          :round="!$props.label && !$slots.label"
+          v-bind="{ ...computedButtonIcons }"
+          v-on="listeners"
         >
           <slot name="label">
             {{ label }}
@@ -31,38 +32,41 @@
         <slot />
       </va-dropdown-content>
     </va-dropdown>
+
     <va-button-group
       v-else
-      :outline="outline"
-      :flat="flat"
+      :outline="$props.outline"
+      :flat="$props.flat"
     >
       <va-button
-        :size="size"
-        :disabled="disabled || disableButton"
-        :color="color"
-        :to="splitTo"
-        @click="mainButtonClick"
+        :size="$props.size"
+        :color="$props.color"
+        :textColor="$props.textColor"
+        :disabled="$props.disabled || $props.disableButton"
+        :to="$props.splitTo"
+        v-on="mainButtonListeners"
       >
         <slot name="label">
           {{ label }}
         </slot>
       </va-button>
       <va-dropdown
-        :disabled="disabled || disableDropdown"
-        :position="position"
+        :disabled="$props.disabled || $props.disableDropdown"
+        :position="$props.position"
         :offset="$props.offset"
-        v-model="showDropdown"
-        :stateful="stateful"
+        :stateful="$props.stateful"
+        v-model="valueComputed"
       >
         <template #anchor>
           <va-button
-            :size="size"
-            :flat="flat"
-            :outline="outline"
-            :disabled="disabled || disableDropdown"
-            :color="color"
+            :size="$props.size"
+            :color="$props.color"
+            :textColor="$props.textColor"
+            :flat="$props.flat"
+            :outline="$props.outline"
+            :disabled="$props.disabled || $props.disableDropdown"
             :icon="computedIcon"
-            @click="click"
+            v-on="listeners"
           />
         </template>
         <va-dropdown-content>
@@ -74,86 +78,97 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue, prop, mixins } from 'vue-class-component'
+import { computed, defineComponent, PropType } from 'vue'
 
-import ColorMixin from '../../services/color-config/ColorMixin'
-import { SizeMixin } from '../../mixins/SizeMixin'
+import { useStatefulProps, useStateful } from '../../composables/useStateful'
+import { useEmitProxy } from '../../composables/useEmitProxy'
 
 import VaDropdown, { VaDropdownContent } from '../va-dropdown'
 import VaButton from '../va-button'
 import VaButtonGroup from '../va-button-group'
 
-class ButtonDropdownProps {
-  modelValue = prop<boolean>({ type: Boolean, default: false })
-  color = prop<string>({ type: String, default: 'primary' })
-  outline = prop<boolean>({ type: Boolean, default: false })
-  disableButton = prop<boolean>({ type: Boolean, default: false })
-  disableDropdown = prop<boolean>({ type: Boolean, default: false })
-  flat = prop<boolean>({ type: Boolean, default: false })
-  disabled = prop<boolean>({ type: Boolean, default: false })
-  size = prop<string>({
-    type: String,
-    default: 'medium',
-    validator: (value: string) => {
-      return ['medium', 'small', 'large'].includes(value)
+const { createEmits, createVOnListeners: createListeners } = useEmitProxy(
+  ['click'],
+)
+
+const { createEmits: createMainButtonEmits, createVOnListeners: createMainButtonListeners } = useEmitProxy(
+  [['click', 'main-button-click']],
+)
+
+const componentName = 'VaButtonDropdown'
+
+export default defineComponent({
+  name: componentName,
+
+  components: {
+    VaButtonGroup,
+    VaButton,
+    VaDropdown,
+    VaDropdownContent,
+  },
+
+  emits: ['update:modelValue', ...createEmits(), ...createMainButtonEmits()],
+
+  props: {
+    ...useStatefulProps,
+
+    modelValue: { type: Boolean, default: false },
+    stateful: { type: Boolean, default: true },
+    color: { type: String, default: 'primary' },
+    textColor: { type: String, default: undefined },
+    size: {
+      type: String,
+      default: 'medium',
+      validator: (value: string) => ['medium', 'small', 'large'].includes(value),
     },
-  })
+    hideIcon: { type: Boolean, default: false },
+    leftIcon: { type: Boolean, default: false },
+    outline: { type: Boolean, default: false },
+    flat: { type: Boolean, default: false },
+    disableButton: { type: Boolean, default: false },
+    disableDropdown: { type: Boolean, default: false },
+    disabled: { type: Boolean, default: false },
+    keepAnchorWidth: { type: Boolean, default: false },
+    split: { type: Boolean },
+    splitTo: { type: String, default: '' },
+    icon: { type: String, default: 'expand_more' },
+    openedIcon: { type: String, default: 'expand_less' },
+    position: { type: String, default: 'bottom' },
+    label: { type: String },
+    offset: { type: [Number, Array] as PropType<number | number[]>, default: () => ([0, 1]) },
+    closeOnContentClick: { type: Boolean, default: true },
+  },
 
-  keepAnchorWidth = prop({ type: Boolean, default: false })
-  split = prop<boolean>({ type: Boolean })
-  splitTo = prop<string>({ type: String, default: '' })
-  icon = prop<string>({ type: String, default: 'expand_more' })
-  openedIcon = prop<string>({ type: String, default: 'expand_less' })
-  position = prop<string>({ type: String, default: 'bottom' })
-  label = prop<string>({ type: String })
-  offset = prop<number | number[]>({ type: [Array, Number], default: () => [] })
-  closeOnContentClick = prop<boolean>({ type: Boolean, default: true })
-  stateful = prop<boolean>({ type: Boolean, default: true })
-}
+  setup (props, { emit, slots }) {
+    const { valueComputed } = useStateful(props, emit)
 
-const ButtonDropdownPropsMixin = Vue.with(ButtonDropdownProps)
+    const computedIcon = computed<string>(() => {
+      return valueComputed.value ? props.openedIcon : props.icon
+    })
 
-@Options({
-  name: 'VaButtonDropdown',
-  components: { VaButtonGroup, VaButton, VaDropdown, VaDropdownContent },
-  emits: ['click', 'main-button-click', 'update:modelValue'],
-})
-export default class VaButtonDropdown extends mixins(
-  SizeMixin,
-  ColorMixin,
-  ButtonDropdownPropsMixin,
-) {
-  get computedIcon (): string {
-    // @ts-ignore
-    return this.showDropdown ? this.$props.openedIcon : this.$props.icon
-  }
-
-  get computedClass () {
-    return {
+    const computedClass = computed(() => ({
       'va-button-dropdown': true,
-      'va-button-dropdown--split': this.split,
-      'va-button-dropdown--normal': this.size === 'normal',
-      'va-button-dropdown--large': this.size === 'large',
-      'va-button-dropdown--small': this.size === 'small',
+      'va-button-dropdown--split': props.split,
+      'va-button-dropdown--normal': props.size === 'normal',
+      'va-button-dropdown--large': props.size === 'large',
+      'va-button-dropdown--small': props.size === 'small',
+    }))
+
+    const computedButtonIcons = computed(() => {
+      const icon = (props.label || slots.label) && !props.leftIcon ? 'icon-right' : 'icon'
+      return props.hideIcon ? {} : { [icon]: computedIcon.value }
+    })
+
+    return {
+      valueComputed,
+      computedIcon,
+      computedClass,
+      listeners: createListeners(emit),
+      mainButtonListeners: createMainButtonListeners(emit),
+      computedButtonIcons,
     }
-  }
-
-  get showDropdown (): boolean {
-    return this.modelValue
-  }
-
-  set showDropdown (value: boolean) {
-    this.$emit('update:modelValue', value)
-  }
-
-  click (event: Event): void {
-    this.$emit('click', event)
-  }
-
-  mainButtonClick (event: Event): void {
-    this.$emit('main-button-click', event)
-  }
-}
+  },
+})
 </script>
 
 <style lang="scss">
@@ -176,19 +191,6 @@ export default class VaButtonDropdown extends mixins(
       .va-button {
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
-        font-size: 1.5rem;
-      }
-    }
-
-    &.va-button-dropdown--small {
-      .va-dropdown .va-button {
-        font-size: 1.6rem;
-      }
-    }
-
-    &.va-button-dropdown--large {
-      .va-dropdown .va-button {
-        font-size: 1.7rem;
       }
     }
   }
