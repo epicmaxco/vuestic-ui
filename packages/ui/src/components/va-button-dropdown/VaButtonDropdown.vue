@@ -12,14 +12,9 @@
     >
       <template #anchor>
         <va-button
-          :size="$props.size"
-          :color="$props.color"
-          :textColor="$props.textColor"
-          :flat="$props.flat"
-          :outline="$props.outline"
           :disabled="$props.disabled"
           :round="!$props.label && !$slots.label"
-          v-bind="{ ...computedButtonIcons }"
+          v-bind="{ ...computedButtonIcons, ...computedViewStyles }"
           v-on="listeners"
         >
           <slot name="label">
@@ -35,21 +30,20 @@
 
     <va-button-group
       v-else
-      :outline="$props.outline"
-      :flat="$props.flat"
+      :class="{ 'va-button-group__left-icon': $props.leftIcon }"
+      v-bind="{ ...computedViewStyles }"
     >
       <va-button
-        :size="$props.size"
-        :color="$props.color"
-        :textColor="$props.textColor"
+        v-if="!$props.leftIcon"
         :disabled="$props.disabled || $props.disableButton"
-        :to="$props.splitTo"
+        v-bind="{ ...computedMainButtonProps }"
         v-on="mainButtonListeners"
       >
         <slot name="label">
           {{ label }}
         </slot>
       </va-button>
+
       <va-dropdown
         :disabled="$props.disabled || $props.disableDropdown"
         :position="$props.position"
@@ -59,11 +53,6 @@
       >
         <template #anchor>
           <va-button
-            :size="$props.size"
-            :color="$props.color"
-            :textColor="$props.textColor"
-            :flat="$props.flat"
-            :outline="$props.outline"
             :disabled="$props.disabled || $props.disableDropdown"
             :icon="computedIcon"
             v-on="listeners"
@@ -73,6 +62,17 @@
           <slot />
         </va-dropdown-content>
       </va-dropdown>
+
+      <va-button
+        v-if="$props.leftIcon"
+        :disabled="$props.disabled || $props.disableButton"
+        v-bind="{ ...computedMainButtonProps }"
+        v-on="mainButtonListeners"
+      >
+        <slot name="label">
+          {{ label }}
+        </slot>
+      </va-button>
     </va-button-group>
   </div>
 </template>
@@ -114,6 +114,7 @@ export default defineComponent({
 
     modelValue: { type: Boolean, default: false },
     stateful: { type: Boolean, default: true },
+
     color: { type: String, default: 'primary' },
     textColor: { type: String, default: undefined },
     size: {
@@ -121,22 +122,31 @@ export default defineComponent({
       default: 'medium',
       validator: (value: string) => ['medium', 'small', 'large'].includes(value),
     },
-    hideIcon: { type: Boolean, default: false },
-    leftIcon: { type: Boolean, default: false },
     outline: { type: Boolean, default: false },
     flat: { type: Boolean, default: false },
+    rounded: { type: Boolean, default: true },
+    gradient: { type: Boolean, default: undefined },
+
+    icon: { type: String, default: 'expand_more' },
+    openedIcon: { type: String, default: 'expand_less' },
+    hideIcon: { type: Boolean, default: false },
+    leftIcon: { type: Boolean, default: false },
+
     disableButton: { type: Boolean, default: false },
     disableDropdown: { type: Boolean, default: false },
     disabled: { type: Boolean, default: false },
+
+    position: { type: String, default: 'bottom' },
+    offset: { type: [Number, Array] as PropType<number | number[]>, default: () => ([0, 1]) },
     keepAnchorWidth: { type: Boolean, default: false },
+    closeOnContentClick: { type: Boolean, default: true },
+
     split: { type: Boolean },
     splitTo: { type: String, default: '' },
-    icon: { type: String, default: 'expand_more' },
-    openedIcon: { type: String, default: 'expand_less' },
-    position: { type: String, default: 'bottom' },
+    splitHref: { type: String, default: '' },
+
+    loading: { type: Boolean, default: false },
     label: { type: String },
-    offset: { type: [Number, Array] as PropType<number | number[]>, default: () => ([0, 1]) },
-    closeOnContentClick: { type: Boolean, default: true },
   },
 
   setup (props, { emit, slots }) {
@@ -159,6 +169,21 @@ export default defineComponent({
       return props.hideIcon ? {} : { [icon]: computedIcon.value }
     })
 
+    const computedViewStyles = computed(() => ({
+      outline: props.outline,
+      gradient: props.gradient,
+      rounded: props.rounded,
+      flat: props.flat,
+      size: props.size,
+      color: props.color,
+    }))
+
+    const computedMainButtonProps = computed(() => ({
+      to: props.splitTo,
+      href: props.splitHref,
+      loading: props.loading,
+    }))
+
     return {
       valueComputed,
       computedIcon,
@@ -166,6 +191,8 @@ export default defineComponent({
       listeners: createListeners(emit),
       mainButtonListeners: createMainButtonListeners(emit),
       computedButtonIcons,
+      computedViewStyles,
+      computedMainButtonProps,
     }
   },
 })
@@ -185,12 +212,31 @@ export default defineComponent({
   &--split {
     .va-dropdown {
       .va-dropdown__anchor {
-        margin: 0;
+        margin: var(--va-button-dropdown-button-margin);
+      }
+    }
+
+    .va-button-group__left-icon {
+      .va-dropdown {
+        .va-button {
+          border-top-right-radius: 0;
+          border-bottom-right-radius: 0;
+        }
       }
 
-      .va-button {
+      > .va-button {
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
+        border-left: none;
+      }
+    }
+
+    :not(.va-button-group__left-icon) {
+      .va-dropdown {
+        .va-button {
+          border-top-left-radius: 0;
+          border-bottom-left-radius: 0;
+        }
       }
     }
   }
