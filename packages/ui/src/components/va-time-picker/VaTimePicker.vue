@@ -1,6 +1,7 @@
 <template>
   <div class="va-time-picker" :class="computedClass">
     <VaTimePickerColumn
+      ref="timePickerColumn"
       v-for="(column, idx) in columns" :key="idx"
       v-model:activeItemIndex="column.activeItem.value"
       :items="column.items"
@@ -10,7 +11,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue'
+import { defineComponent, PropType, ref } from 'vue'
 import { useTimePicker } from './hooks/useTimePicker'
 import VaTimePickerColumn from './components/VaTimePickerColumn.vue'
 import { useStateful, statefulComponentOptions } from '../../mixins/StatefulMixin/cStatefulMixin'
@@ -36,19 +37,39 @@ export default defineComponent({
 
   emits: [...statefulComponentOptions.emits],
 
-  setup (props, { emit }) {
+  setup (props, { emit, expose }) {
     const { valueComputed } = useStateful(props, emit)
     const { columns, isPM } = useTimePicker(props, valueComputed)
+    const timePickerColumn = ref<InstanceType<typeof VaTimePickerColumn> | undefined>()
+
+    const focus = (): void => {
+      timePickerColumn.value?.focus()
+    }
+
+    const blur = (): void => {
+      timePickerColumn.value?.blur()
+    }
 
     const { createComputedClass } = useForm(props)
 
     const computedClass = createComputedClass('va-time-picker')
 
+    expose({
+      focus,
+      blur,
+    })
+
     return {
       columns,
       computedClass,
       isPM,
+      timePickerColumn,
     }
+  },
+
+  methods: {
+    focus () { (this as any).timePickerColumn?.focus() },
+    blur () { (this as any).timePickerColumn?.blur() },
   },
 })
 </script>

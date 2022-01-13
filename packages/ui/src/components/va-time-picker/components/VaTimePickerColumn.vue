@@ -37,7 +37,7 @@ export default defineComponent({
 
   emits: ['item-selected', 'update:activeItemIndex'],
 
-  setup (props, { emit }) {
+  setup (props, { emit, expose }) {
     const rootElement = ref<HTMLElement>()
 
     const { isHovered } = useHover(rootElement)
@@ -81,6 +81,14 @@ export default defineComponent({
       nextTick(() => scrollTo(syncActiveItemIndex.value))
     }
 
+    const focus = (): void => {
+      rootElement.value?.focus()
+    }
+
+    const blur = (): void => {
+      rootElement.value?.blur()
+    }
+
     const focusPrev = () => {
       if (syncActiveItemIndex.value - 1 < 0) { return }
 
@@ -102,6 +110,11 @@ export default defineComponent({
       return n < 10 ? `0${n}` : `${n}`
     }
 
+    expose({
+      focus,
+      blur,
+    })
+
     return {
       rootElement,
 
@@ -112,6 +125,11 @@ export default defineComponent({
       onCellClick,
       formatCell,
     }
+  },
+
+  methods: {
+    focus () { (this as any).rootElement?.focus() },
+    blur () { (this as any).rootElement?.blur() },
   },
 })
 </script>
