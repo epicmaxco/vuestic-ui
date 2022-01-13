@@ -2,50 +2,50 @@
   <VaMessageListWrapper
     :error="computedError"
     :error-messages="computedErrorMessages"
-    :error-count="errorCount"
+    :error-count="$props.errorCount"
   >
     <ul
       class="va-option-list__list"
-      :id="String(id)"
+      :id="String($props.id)"
     >
       <li
-        v-for="(option, index) in options"
+        v-for="(option, index) in $props.options"
         :key="getKey(option)"
       >
         <slot
           :props="{
             option,
             isDisabled,
-            name,
-            color,
-            leftLabel,
+            name: $props.name,
+            color: $props.color,
+            leftLabel: $props.leftLabel,
             getText,
             selectedValue,
             index
           }"
         >
           <va-radio
-            v-if="type === 'radio'"
+            v-if="$props.type === 'radio'"
             ref="input"
             :option="getValue(option)"
             :disabled="isDisabled(option)"
-            :name="name"
-            :color="color"
-            :left-label="leftLabel"
+            :name="$props.name"
+            :color="$props.color"
+            :left-label="$props.leftLabel"
             :label="getText(option)"
             v-model="selectedValue"
             :tabindex="index"
           />
           <va-checkbox
-            v-else-if="type === 'checkbox'"
+            v-else-if="$props.type === 'checkbox'"
             ref="input"
             v-model="selectedValue"
             :label="getText(option)"
             :disabled="isDisabled(option)"
-            :left-label="leftLabel"
+            :left-label="$props.leftLabel"
             :array-value="getValue(option)"
-            :color="color"
-            :name="name"
+            :color="$props.color"
+            :name="$props.name"
           />
           <va-switch
             v-else
@@ -53,10 +53,10 @@
             v-model="selectedValue"
             :label="getText(option)"
             :disabled="isDisabled(option)"
-            :left-label="leftLabel"
+            :left-label="$props.leftLabel"
             :array-value="getValue(option)"
-            :color="color"
-            :name="name"
+            :color="$props.color"
+            :name="$props.name"
           />
         </slot>
       </li>
