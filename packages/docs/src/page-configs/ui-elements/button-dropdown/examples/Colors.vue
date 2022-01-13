@@ -4,7 +4,8 @@
       class="mr-2 mb-2"
       color="warning"
       textColor="danger"
-      label="warning"
+      label="warning&gradient"
+      gradient
     >
       Content
     </va-button-dropdown>
@@ -16,8 +17,9 @@
       Content
     </va-button-dropdown>
     <va-button-dropdown
-      color="info"
-      label="info"
+      color="#525252"
+      label="#525252"
+      split
     >
       Content
     </va-button-dropdown>
