@@ -65,92 +65,110 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue, prop, mixins } from 'vue-class-component'
+import { ref, computed, defineComponent, PropType, onMounted } from 'vue'
 
 import { generateUniqueId } from '../../services/utils'
-import { SelectableListMixin } from '../../mixins/SelectableList/SelectableListMixin'
-import { StatefulMixin } from '../../mixins/StatefulMixin/StatefulMixin'
-import VaRadio from '../va-radio'
-import VaCheckbox from '../va-checkbox'
-import VaSwitch from '../va-switch'
+import { useSelectableList, useSelectableListProps } from '../../composables/useSelectableList'
+import { useFormComponent, useFormComponentProps } from '../../composables/useFormComponent'
+import { useStateful, statefulComponentOptions } from '../../mixins/StatefulMixin/cStatefulMixin'
 import { VaMessageListWrapper } from '../va-input'
+import VaCheckbox from '../va-checkbox'
+import VaRadio from '../va-radio'
+import VaSwitch from '../va-switch'
 
-class OptionListProps {
-  type = prop<string>({
-    type: String,
-    default: 'checkbox',
-    validator: (type: any) => ['radio', 'checkbox', 'switch'].includes(type),
-  })
+type OptionListValue = string | number | object | any[]
 
-  disabled = prop<boolean>({ type: Boolean, default: false })
-  readonly = prop<boolean>({ type: Boolean, default: false })
-  defaultValue = prop<string | number | Record<string, unknown> | any[]>({ type: [String, Number, Object, Array] })
-  name = prop<string>({ type: String, default: generateUniqueId })
-  color = prop<string>({ type: String, default: 'primary' })
-  leftLabel = prop<boolean>({ type: Boolean, default: false })
-  modelValue = prop<string | number | Record<string, unknown> | any[]>({ type: [String, Number, Object, Array] })
-}
-
-const OptionListPropsMixin = Vue.with(OptionListProps)
-
-@Options({
+export default defineComponent({
   name: 'VaOptionList',
-  components: { VaRadio, VaCheckbox, VaSwitch, VaMessageListWrapper },
+  components: {
+    VaRadio,
+    VaCheckbox,
+    VaSwitch,
+    VaMessageListWrapper,
+  },
+  emits: [...statefulComponentOptions.emits],
+  props: {
+    ...useSelectableListProps,
+    ...useFormComponentProps,
+    ...statefulComponentOptions.props,
+    type: {
+      type: String as PropType<string>,
+      default: 'checkbox',
+      validator: (type: any) => ['radio', 'checkbox', 'switch'].includes(type),
+    },
+    disabled: ({ type: Boolean as PropType<boolean>, default: false }),
+    readonly: ({ type: Boolean as PropType<boolean>, default: false }),
+    defaultValue: ({ type: [String, Number, Object, Array] as PropType<OptionListValue> }),
+    name: ({ type: String as PropType<string>, default: generateUniqueId }),
+    color: ({ type: String as PropType<string>, default: 'primary' }),
+    leftLabel: ({ type: Boolean, default: false }),
+    modelValue: ({ type: [String, Number, Object, Array] as PropType<OptionListValue> }),
+  },
+
+  setup (props, { emit }) {
+    const { valueComputed } = useStateful(props, emit)
+    const { getValue, getText, getTrackBy, getDisabled } = useSelectableList(props)
+
+    const input = ref<HTMLElement>()
+
+    const isRadio = computed(() => {
+      return props.type === 'radio'
+    })
+
+    const selectedValue = computed({
+      get () {
+        const value = isRadio.value ? null : []
+
+        return valueComputed.value || props.defaultValue || value
+      },
+      set (value) {
+        if (props.readonly) { return }
+
+        if (isRadio.value) {
+          valueComputed.value = getValue(value)
+        } else {
+          valueComputed.value = Array.isArray(value)
+            ? value.map(getValue)
+            : [getValue(value)]
+        }
+      },
+    })
+
+    const getKey = (option: any) => getTrackBy(option)
+
+    const isDisabled = (option: any) => props.disabled || getDisabled(option)
+
+    const reset = () => { valueComputed.value = undefined }
+
+    const focus = () => {
+      const firstActiveEl = Array.isArray(input.value) && input.value.find(el => !el.disabled)
+
+      if (firstActiveEl && typeof firstActiveEl.focus === 'function') {
+        firstActiveEl.focus()
+      }
+    }
+
+    const { computedError, computedErrorMessages } = useFormComponent(props, reset, focus)
+
+    onMounted(() => {
+      if (!valueComputed.value && props.defaultValue) {
+        selectedValue.value = props.defaultValue
+      }
+    })
+
+    return {
+      selectedValue,
+      computedError,
+      computedErrorMessages,
+      getValue,
+      getText,
+      getKey,
+      isDisabled,
+      reset,
+      focus,
+    }
+  },
 })
-export default class VaOptionList extends mixins(
-  SelectableListMixin,
-  StatefulMixin,
-  OptionListPropsMixin,
-) {
-  get isRadio () {
-    return this.$props.type === 'radio'
-  }
-
-  get selectedValue () {
-    const value = this.isRadio ? null : []
-    return this.valueComputed || this.$props.defaultValue || value
-  }
-
-  set selectedValue (value) {
-    if (this.$props.readonly) {
-      return
-    }
-    if (this.isRadio) {
-      this.valueComputed = this.getValue(value)
-    } else {
-      this.valueComputed = Array.isArray(value)
-        ? value.map(el => this.getValue(el))
-        : [this.getValue(value)]
-    }
-  }
-
-  getKey (option: any) {
-    return this.getTrackBy(option)
-  }
-
-  isDisabled (option: any) {
-    return this.$props.disabled || this.getDisabled(option)
-  }
-
-  reset () {
-    this.valueComputed = undefined
-  }
-
-  focus () {
-    const elements = (this as any).$refs.input
-    const firstActiveEl = Array.isArray(elements) && elements.find(el => !el.disabled)
-    if (firstActiveEl && typeof firstActiveEl.focus === 'function') {
-      firstActiveEl.focus()
-    }
-  }
-
-  mounted () {
-    this.isSelectableListComponent = true
-    if (!this.valueComputed && this.$props.defaultValue) {
-      this.selectedValue = this.$props.defaultValue
-    }
-  }
-}
 </script>
 
 <style lang="scss">
