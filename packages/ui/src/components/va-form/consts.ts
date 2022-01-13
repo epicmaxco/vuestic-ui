@@ -1,11 +1,12 @@
 import { InjectionKey } from 'vue'
 
 export type FormChild = {
-  hasError?: () => any;
-  reset: () => any;
-  resetValidation: () => any;
-  focus: () => any;
+  hasError?: () => boolean;
+  reset: () => void;
+  resetValidation: () => void;
+  focus: () => void;
   validate: () => boolean;
+  focusInvalid?: () => void;
 }
 
 export type FormProvider = {
