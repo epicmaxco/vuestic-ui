@@ -148,7 +148,8 @@ const createPeriodColumn = (props: TimePickerProps, modelValue: ModelValueRef, i
         if (isPM.value && h <= 12) { h24 = h + 12 }
         if (!isPM.value && h >= 12) { h24 = h - 12 }
 
-        const isValidFilteredHour = props.hoursFilter && props.hoursFilter(h24)
+        // If there is no hoursFilter - it must be valid, otherwise validate hours
+        const isValidFilteredHour = !props.hoursFilter || props.hoursFilter(h24)
 
         if (props.periodUpdatesModelValue && isValidFilteredHour) {
           modelValue.value = new Date(safeModelValue(modelValue).setHours(h24))
