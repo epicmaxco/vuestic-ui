@@ -31,13 +31,13 @@
     </template>
 
     <va-dropdown-content no-padding>
-      <va-time-picker v-bind="timePickerProps" v-model="modelValueSync" />
+      <va-time-picker v-bind="timePickerProps" v-model="modelValueSync" ref="timePicker" />
     </va-dropdown-content>
   </va-dropdown>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, watch, ref } from 'vue'
+import { computed, defineComponent, PropType, watch, ref, nextTick } from 'vue'
 import VaTimePicker from '../va-time-picker/VaTimePicker.vue'
 import VaInput from '../va-input/VaInput.vue'
 import { useSyncProp } from '../../composables/useSyncProp'
@@ -87,6 +87,11 @@ export default defineComponent({
     const inputProps = computed(() => filterComponentProps(props, extractComponentProps(VaInput, ['rules', 'error', 'errorMessages'])))
 
     const input = ref<InstanceType<typeof VaInput> | undefined>()
+    const timePicker = ref<InstanceType<typeof VaTimePicker> | undefined>()
+
+    watch(isOpenSync, (newValue) => {
+      newValue && !props.manualInput && nextTick(() => timePicker.value?.focus())
+    })
 
     const onInputTextChanged = (val: string) => {
       const v = parse(val)
@@ -172,13 +177,14 @@ export default defineComponent({
     })
 
     return {
+      input,
+      timePicker,
+
       timePickerProps,
       inputProps,
       isOpenSync,
       modelValueSync,
       valueText,
-      changePeriodToPm,
-      changePeriodToAm,
       onInputTextChanged,
       onFocus,
       onBlur,
