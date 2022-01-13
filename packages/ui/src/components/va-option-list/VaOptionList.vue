@@ -69,7 +69,7 @@ import { ref, computed, defineComponent, PropType, onMounted } from 'vue'
 
 import { generateUniqueId } from '../../services/utils'
 import { useSelectableList, useSelectableListProps } from '../../composables/useSelectableList'
-import { useFormComponent, useFormComponentProps } from '../../composables/useFormComponent'
+import { useValidation, useValidationProps } from '../../composables/useValidation'
 import { useStateful, statefulComponentOptions } from '../../mixins/StatefulMixin/cStatefulMixin'
 import { VaMessageListWrapper } from '../va-input'
 import VaCheckbox from '../va-checkbox'
@@ -89,7 +89,7 @@ export default defineComponent({
   emits: [...statefulComponentOptions.emits],
   props: {
     ...useSelectableListProps,
-    ...useFormComponentProps,
+    ...useValidationProps,
     ...statefulComponentOptions.props,
     type: {
       type: String as PropType<string>,
@@ -148,7 +148,7 @@ export default defineComponent({
       }
     }
 
-    const { computedError, computedErrorMessages } = useFormComponent(props, reset, focus)
+    const { computedError, computedErrorMessages } = useValidation(props, emit, reset, focus)
 
     onMounted(() => {
       if (!valueComputed.value && props.defaultValue) {

@@ -42,7 +42,7 @@ export const useValidation = (
   emit: (event: any) => any,
   reset: () => any,
   focus: () => any,
-  blur: () => any,
+  blur?: () => any,
 ) => {
   const { isFocused, onFocus, onBlur } = useFocus()
 
