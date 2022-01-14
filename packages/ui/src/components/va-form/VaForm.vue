@@ -1,5 +1,6 @@
 <template>
   <component
+    ref="form"
     class="va-form"
     :is="tag"
   >
@@ -8,115 +9,120 @@
 </template>
 
 <script lang="ts">
-import { inject, provide } from 'vue'
-import { Options, mixins, prop, Vue, setup } from 'vue-class-component'
-import { FormProvider, FormServiceKey, FormChild } from './consts'
+import {
+  defineComponent,
+  PropType,
+  ref,
+  Ref,
+  onMounted,
+  onUnmounted,
+  nextTick,
+  provide,
+  inject,
+} from 'vue'
 
-class FormProps {
-  autofocus = prop<boolean>({ type: Boolean, default: false })
-  tag = prop<string>({ type: String, default: 'div' })
-}
+import { FormServiceKey, FormChild } from './consts'
 
-const FormPropsMixin = Vue.with(FormProps)
+const isVaForm = (value: any) => !!value.focusInvalid
 
-const isVaForm = (value: any): value is VaForm => {
-  return !!value.focusInvalid
-}
-
-@Options({
+export default defineComponent({
   name: 'VaForm',
   emits: ['validation'],
+  props: {
+    autofocus: { type: Boolean as PropType<boolean>, default: false },
+    tag: { type: String as PropType<string>, default: 'div' },
+  },
+
+  setup (props, { emit }) {
+    const nestedFormElements: Ref<FormChild[]> = ref([])
+
+    const parentFormProvider = () => ({ ...inject(FormServiceKey, undefined) })
+
+    provide(FormServiceKey, {
+      onChildMounted: (child: FormChild) => childMountedHandler(child),
+      onChildUnmounted: (removableChild: FormChild) => childUnmountedHandler(removableChild),
+    })
+
+    const childMountedHandler = (child: FormChild) => {
+      nestedFormElements.value.push(child)
+    }
+
+    const childUnmountedHandler = (removableChild: FormChild) => {
+      nestedFormElements.value = nestedFormElements.value.filter(child => child !== removableChild)
+    }
+
+    /** @public */
+    const reset = () => {
+      nestedFormElements.value
+        .filter(({ reset }) => reset)
+        .forEach((item) => { item.reset() })
+    }
+
+    const resetValidation = () => {
+      nestedFormElements.value
+        .filter(({ resetValidation }) => resetValidation)
+        .forEach((item: any) => { item.resetValidation() })
+    }
+
+    const focus = () => {
+      const focusableElement = nestedFormElements.value.find(({ focus }) => focus)
+      if (focusableElement) {
+        focusableElement.focus()
+      }
+    }
+
+    const focusInvalid = () => {
+      const invalidComponent = nestedFormElements.value
+        .find((item) => !isVaForm(item) && item.hasError && item.hasError())
+
+      if (invalidComponent) {
+        invalidComponent.focus()
+      } else {
+        nestedFormElements.value
+          .forEach(item => isVaForm(item) && item.focusInvalid?.())
+      }
+    }
+
+    const validate = () => { // NOTE: temporarily synchronous validation
+      const formValid = nestedFormElements.value
+        .filter(({ validate }) => validate)
+        .every((child) => child.validate())
+
+      emit('validation', formValid)
+
+      return formValid
+    }
+
+    const publicMethods = {
+      reset,
+      resetValidation,
+      focus,
+      focusInvalid,
+      validate,
+    }
+
+    onMounted(() => {
+      parentFormProvider().onChildMounted?.(publicMethods)
+
+      if (props.autofocus) { nextTick(focus) }
+    })
+
+    onUnmounted(() => {
+      parentFormProvider().onChildUnmounted?.(publicMethods)
+    })
+
+    return publicMethods
+  },
+
+  // we will use this while we have 'withConfigTransport' and problem with 'expose' method in 'setup' func
+  methods: {
+    reset () { (this as any).form?.reset() },
+    resetValidation () { (this as any).form?.resetValidation() },
+    focus () { (this as any).form?.focus() },
+    focusInvalid () { (this as any).form?.focusInvalid() },
+    validate () { (this as any).form?.validate() },
+  },
 })
-export default class VaForm extends mixins(
-  FormPropsMixin,
-) {
-  nestedFormElements: (FormChild | VaForm)[] = [];
-
-  parentFormProvider = setup(() => {
-    return { ...inject(FormServiceKey, undefined) }
-  })
-
-  formProvider = setup(() => {
-    const onChildMounted = (child: FormChild | VaForm) => this.childMountedHandler(child)
-    const onChildUnmounted = (removableChild: FormChild | VaForm) => this.childUnmountedHandler(removableChild)
-
-    const formProvider = {
-      onChildMounted,
-      onChildUnmounted,
-    }
-
-    provide(FormServiceKey, formProvider)
-
-    return formProvider
-  })
-
-  childMountedHandler (child: FormChild | VaForm) {
-    this.nestedFormElements.push(child)
-  }
-
-  childUnmountedHandler (removableChild: FormChild | VaForm) {
-    this.nestedFormElements = this.nestedFormElements.filter(child => child !== removableChild)
-  }
-
-  mounted () {
-    this.parentFormProvider.onChildMounted?.(this)
-
-    if (this.autofocus) {
-      this.$nextTick(() => { this.focus() })
-    }
-  }
-
-  unmounted () {
-    this.parentFormProvider.onChildUnmounted?.(this)
-  }
-
-  /** @public */
-  reset () {
-    this.nestedFormElements
-      .filter(({ reset }) => reset)
-      .forEach((item) => { item.reset() })
-  }
-
-  resetValidation () {
-    this.nestedFormElements
-      .filter(({ resetValidation }) => resetValidation)
-      .forEach((item: any) => { item.resetValidation() })
-  }
-
-  focus () {
-    const focusableElement = this.nestedFormElements.find(({ focus }) => focus)
-    if (focusableElement) {
-      focusableElement.focus()
-    }
-  }
-
-  focusInvalid () {
-    const invalidComponent = this.nestedFormElements
-      .find((item) => !isVaForm(item) && item.hasError && item.hasError())
-
-    if (invalidComponent) {
-      invalidComponent.focus()
-    } else {
-      this.nestedFormElements
-        .forEach(item => isVaForm(item) && item.focusInvalid())
-    }
-  }
-
-  validate () { // NOTE: temporarily synchronous validation
-    let formValid = true
-    this.nestedFormElements
-      .filter(({ validate }) => validate)
-      .forEach((child) => {
-        const isValidChild = child.validate()
-
-        if (!isValidChild) { formValid = false }
-      })
-
-    this.$emit('validation', formValid)
-
-    return formValid
-  }
-}
 </script>
 
 <style lang='scss'>
