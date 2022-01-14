@@ -191,6 +191,7 @@
       <va-button-dropdown
         label="Stateless without v-model"
         :stateful="false"
+        v-model="value"
       >
         Content
       </va-button-dropdown>
