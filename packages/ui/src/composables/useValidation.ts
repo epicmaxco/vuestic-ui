@@ -42,7 +42,6 @@ export const useValidation = (
   emit: (event: any) => any,
   reset: () => any,
   focus: () => any,
-  blur: () => any,
 ) => {
   const { isFocused, onFocus, onBlur } = useFocus()
 
@@ -85,7 +84,6 @@ export const useValidation = (
   const context = {
     resetValidation,
     focus,
-    blur,
     validate,
     reset,
     hasError: () => computedError.value,
