@@ -43,14 +43,14 @@
     </template>
 
     <VaTextarea
-      v-if="type === 'textarea'"
+      v-if="type === 'textarea' && !$slots.content"
       ref="input"
       v-bind="{...textareaProps, ...inputEvents}"
       class="va-input__content__input"
     />
 
     <input
-      v-else
+      v-else-if="!$slots.content"
       ref="input"
       v-bind="{...computedInputAttributes, ...inputEvents}"
       class="va-input__content__input"
