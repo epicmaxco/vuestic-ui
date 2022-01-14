@@ -36,7 +36,7 @@ export default defineComponent({
   setup (props, { emit }) {
     const nestedFormElements: Ref<(FormChild | Form)[]> = ref([])
 
-    const parentFormProvider = () => ({ ...inject(FormServiceKey, undefined) })
+    const parentFormProvider = () => inject(FormServiceKey, undefined)
 
     provide(FormServiceKey, {
       onChildMounted: (child: FormChild | Form) => childMountedHandler(child),
@@ -97,13 +97,13 @@ export default defineComponent({
     }
 
     onMounted(() => {
-      parentFormProvider().onChildMounted?.(publicMethods)
+      parentFormProvider()?.onChildMounted?.(publicMethods)
 
       if (props.autofocus) { nextTick(focus) }
     })
 
     onUnmounted(() => {
-      parentFormProvider().onChildUnmounted?.(publicMethods)
+      parentFormProvider()?.onChildUnmounted?.(publicMethods)
     })
 
     return publicMethods
