@@ -18,7 +18,7 @@ interface ValidationProps {
 }
 
 export const useValidationProps = {
-  modelValue: { },
+  modelValue: { required: false },
   error: { type: Boolean, default: undefined },
   errorMessages: { type: [Array, String] as PropType<string[] | string>, default: undefined },
   errorCount: { type: [String, Number], default: 1 },
@@ -42,7 +42,6 @@ export const useValidation = (
   emit: (event: any) => any,
   reset: () => any,
   focus: () => any,
-  blur: () => any,
 ) => {
   const { isFocused, onFocus, onBlur } = useFocus()
 
@@ -85,7 +84,6 @@ export const useValidation = (
   const context = {
     resetValidation,
     focus,
-    blur,
     validate,
     reset,
     hasError: () => computedError.value,
