@@ -202,7 +202,7 @@ export default class VaTabs extends mixins(
 
   get sliderStyles () {
     if (this.$props.hideSlider) {
-      return {}
+      return { display: 'none' }
     }
     const transition = this.animationIncluded ? 'var(--va-tabs-slider-wrapper-transition)' : ''
     if (this.$props.vertical) {
