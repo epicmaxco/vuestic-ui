@@ -4,7 +4,7 @@ const getEvent = (event: Events) => Array.isArray(event) ? event[0] : event
 const getEmit = (event: Events) => Array.isArray(event) ? event[1] : event
 
 export const useEmitProxy = (events: Events[]) => {
-  const createEmits = () => events.map(event => getEmit(event))
+  const createEmits = () => events.map(getEmit)
 
   const eventToListenerName = (event: string) => {
     const eventName = event.charAt(0).toUpperCase() + event.slice(1)

@@ -69,11 +69,7 @@ export const useSize = (
     const { defaultSize, sizes } = props.sizesConfig
     const defaultSizeGlobal = sizesConfigGlobal.value?.defaultSize
 
-    if (!props.size) {
-      return defaultSizeGlobal
-        ? `${defaultSizeGlobal}px`
-        : `${defaultSize}px`
-    }
+    if (!props.size) { return `${defaultSizeGlobal || defaultSize}px` }
 
     if (typeof props.size === 'string') {
       const sizeFromGlobalConfig = sizesConfigGlobal.value?.sizes?.[props.size]
