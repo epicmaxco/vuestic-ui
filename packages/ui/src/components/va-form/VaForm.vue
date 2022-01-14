@@ -64,16 +64,11 @@ export default defineComponent({
         .forEach((item: any) => { item.resetValidation() })
     }
 
-    const focus = () => {
-      const focusableElement = nestedFormElements.value.find(({ focus }) => focus)
-      if (focusableElement) {
-        focusableElement.focus()
-      }
-    }
+    const focus = () => { nestedFormElements.value.find(({ focus }) => focus)?.focus() }
 
     const focusInvalid = () => {
       const invalidComponent = nestedFormElements.value
-        .find((item) => !isVaForm(item) && item.hasError && item.hasError())
+        .find((item) => !isVaForm(item) && item.hasError?.())
 
       if (invalidComponent) {
         invalidComponent.focus()
