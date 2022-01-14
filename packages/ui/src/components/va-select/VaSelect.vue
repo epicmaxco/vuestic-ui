@@ -246,7 +246,7 @@ export default defineComponent({
       validate,
       computedError,
       computedErrorMessages,
-    } = useValidation(props, emit, () => reset(), () => focus(), () => blur())
+    } = useValidation(props, emit, () => reset(), () => focus())
 
     const { colorComputed } = useColor(props)
 

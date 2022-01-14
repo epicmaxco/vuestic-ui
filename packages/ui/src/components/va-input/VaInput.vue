@@ -135,7 +135,7 @@ export default defineComponent({
       listeners: validationListeners,
       computedError,
       computedErrorMessages,
-    } = useValidation(props, emit, () => reset(), () => focus(), () => blur())
+    } = useValidation(props, emit, () => reset(), () => focus())
 
     const canBeCleared = computed(() => {
       return props.clearable && ![null, undefined, ''].includes(props.modelValue as any)

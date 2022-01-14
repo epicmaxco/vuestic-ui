@@ -122,7 +122,7 @@ export default defineComponent({
       listeners: validationListeners,
       computedError,
       computedErrorMessages,
-    } = useValidation(props, emit, () => reset(), () => focus(), () => blur())
+    } = useValidation(props, emit, () => reset(), () => focus())
 
     expose({
       reset,
