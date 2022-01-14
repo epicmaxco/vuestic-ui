@@ -21,9 +21,9 @@ import {
   inject,
 } from 'vue'
 
-import { FormServiceKey, FormChild } from './consts'
+import { FormServiceKey, FormChild, Form } from './consts'
 
-const isVaForm = (value: any) => !!value.focusInvalid
+const isVaForm = (value: any): value is Form => !!value.focusInvalid
 
 export default defineComponent({
   name: 'VaForm',
@@ -34,20 +34,20 @@ export default defineComponent({
   },
 
   setup (props, { emit }) {
-    const nestedFormElements: Ref<FormChild[]> = ref([])
+    const nestedFormElements: Ref<(FormChild | Form)[]> = ref([])
 
-    const parentFormProvider = () => ({ ...inject(FormServiceKey, undefined) })
+    const parentFormProvider = () => inject(FormServiceKey, undefined)
 
     provide(FormServiceKey, {
-      onChildMounted: (child: FormChild) => childMountedHandler(child),
-      onChildUnmounted: (removableChild: FormChild) => childUnmountedHandler(removableChild),
+      onChildMounted: (child: FormChild | Form) => childMountedHandler(child),
+      onChildUnmounted: (removableChild: FormChild | Form) => childUnmountedHandler(removableChild),
     })
 
-    const childMountedHandler = (child: FormChild) => {
+    const childMountedHandler = (child: FormChild | Form) => {
       nestedFormElements.value.push(child)
     }
 
-    const childUnmountedHandler = (removableChild: FormChild) => {
+    const childUnmountedHandler = (removableChild: FormChild | Form) => {
       nestedFormElements.value = nestedFormElements.value.filter(child => child !== removableChild)
     }
 
@@ -64,22 +64,17 @@ export default defineComponent({
         .forEach((item: any) => { item.resetValidation() })
     }
 
-    const focus = () => {
-      const focusableElement = nestedFormElements.value.find(({ focus }) => focus)
-      if (focusableElement) {
-        focusableElement.focus()
-      }
-    }
+    const focus = () => { nestedFormElements.value.find(({ focus }) => focus)?.focus() }
 
     const focusInvalid = () => {
       const invalidComponent = nestedFormElements.value
-        .find((item) => !isVaForm(item) && item.hasError && item.hasError())
+        .find((item) => !isVaForm(item) && item.hasError())
 
       if (invalidComponent) {
         invalidComponent.focus()
       } else {
         nestedFormElements.value
-          .forEach(item => isVaForm(item) && item.focusInvalid?.())
+          .forEach(item => isVaForm(item) && item.focusInvalid())
       }
     }
 
@@ -93,7 +88,7 @@ export default defineComponent({
       return formValid
     }
 
-    const publicMethods = {
+    const publicMethods: Form = {
       reset,
       resetValidation,
       focus,
@@ -102,13 +97,13 @@ export default defineComponent({
     }
 
     onMounted(() => {
-      parentFormProvider().onChildMounted?.(publicMethods)
+      parentFormProvider()?.onChildMounted?.(publicMethods)
 
       if (props.autofocus) { nextTick(focus) }
     })
 
     onUnmounted(() => {
-      parentFormProvider().onChildUnmounted?.(publicMethods)
+      parentFormProvider()?.onChildUnmounted?.(publicMethods)
     })
 
     return publicMethods
