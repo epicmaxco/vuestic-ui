@@ -2,7 +2,19 @@
   <div style="max-width: 300px;">
     <va-select
       class="mb-4"
-      label="Custom chip max (first 3)"
+      label="String"
+      :options="options"
+      v-model="value"
+      multiple
+    >
+      <template #content="{ valueString }">
+        <div>{{ valueString }}</div>
+      </template>
+    </va-select>
+
+    <va-select
+      class="mb-4"
+      label="Custom chips (first 3)"
       :options="options"
       v-model="value"
       multiple

@@ -42,14 +42,14 @@ const config: ApiDocsBlock[] = [
     'Slots',
   ),
   ...block.exampleBlock(
+    'select.examples.contentSlot.title',
+    'select.examples.contentSlot.text',
+    'ContentSlot',
+  ),
+  ...block.exampleBlock(
     'select.examples.state.title',
     'select.examples.state.text',
     'State',
-  ),
-  ...block.exampleBlock(
-    'select.examples.chips.title',
-    'select.examples.chips.text',
-    'Chips',
   ),
   ...block.exampleBlock(
     'select.examples.searchable.title',
