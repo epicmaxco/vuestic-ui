@@ -46,8 +46,8 @@
             :key="column.key"
             :title="column.headerTitle"
             @click.exact="column.sortable ? toggleSorting(column): () => {}"
-            :style="getHeaderCSSVariables(column)"
-            class="va-data-table__table-th"
+            :style="{ ...getHeaderCSSVariables(column), ...getStyles(column.headerStyle) }"
+            :class="['va-data-table__table-th', ...getClasses(column.headerClasses)]"
           >
             <div class="va-data-table__table-th-wrapper">
               <span v-if="`header(${column.key})` in slots">
@@ -134,8 +134,8 @@
                 <td
                   v-for="cell in row.cells"
                   :key="`table-cell_${cell.column.key + cell.rowIndex}`"
-                  :style="getCellCSSVariables(cell)"
-                  class="va-data-table__table-td"
+                  :style="{ ...getCellCSSVariables(cell), ...getStyles(cell.column.style) }"
+                  :class="['va-data-table__table-td', ...getClasses(cell.column.classes)]"
                 >
                   <slot
                     v-if="`cell(${cell.column.key})` in slots"
@@ -177,8 +177,8 @@
             :key="column.key"
             :title="column.headerTitle"
             @click.exact="allowFooterSorting && column.sortable ? toggleSorting(column) : () => {}"
-            :style="getFooterCSSVariables(column)"
-            class="va-data-table__table-th"
+            :style="{ ...getFooterCSSVariables(column), ...getStyles(column.headerStyle) }"
+            :class="['va-data-table__table-th', ...getClasses(column.headerClasses)]"
           >
             <div class="va-data-table__table-th-wrapper">
               <span v-if="`footer(${column.key})` in slots">
@@ -416,6 +416,8 @@ export default defineComponent({
       rowCSSVariables,
       getCellCSSVariables,
       getFooterCSSVariables,
+      getClasses,
+      getStyles,
     } = useStyleable(selectable, selectedColor, allowFooterSorting)
 
     const showNoDataHtml = computed(() => {
@@ -455,6 +457,8 @@ export default defineComponent({
       rowCSSVariables,
       getCellCSSVariables,
       getFooterCSSVariables,
+      getClasses,
+      getStyles,
       showNoDataHtml,
       showNoDataFilteredHtml,
       onRowClickHandler,
@@ -495,6 +499,8 @@ export default defineComponent({
 
     .va-data-table__table-th {
       padding: var(--va-data-table-cell-padding);
+      width: var(--width);
+      min-width: var(--width);
       text-align: var(--align);
       vertical-align: var(--vertical-align);
       color: var(--va-data-table-thead-color);
