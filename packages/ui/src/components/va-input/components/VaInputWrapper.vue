@@ -80,7 +80,7 @@
     </div>
 
     <div class="va-input-wrapper__message-list-wrapper">
-        <slot name="messages" />
+      <slot name="messages" />
       <va-message-list
         :color="messagesColor"
         :model-value="messagesComputed"
