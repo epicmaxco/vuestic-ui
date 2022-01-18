@@ -255,9 +255,7 @@
         v-model="text"
         :messages="messages"
       />
-      <va-input
-        v-model="text"
-      >
+      <va-input v-model="text">
         <template #messages>
           <span class="custom-message">Custom message</span>
         </template>
