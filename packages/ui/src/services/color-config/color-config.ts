@@ -35,7 +35,7 @@ export const getColor = (prop?: string, defaultColor: string = DEFAULT_COLOR): C
   if (!prop) {
     prop = defaultColor
   }
-  console.log(colors)
+
   if (colors[prop]) {
     return colors[prop]
   }
