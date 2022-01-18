@@ -42,7 +42,7 @@
                 <slot name="content" />
               </div>
 
-              <slot></slot>
+              <slot />
             </div>
           </div>
 
@@ -80,6 +80,7 @@
     </div>
 
     <div class="va-input-wrapper__message-list-wrapper">
+        <slot name="messages" />
       <va-message-list
         :color="messagesColor"
         :model-value="messagesComputed"
@@ -98,7 +99,7 @@ import { getColor } from '../../../services/color-config/color-config'
 import VaMessageList from './VaMessageList'
 
 export default defineComponent({
-  name: 'VaInputField',
+  name: 'VaInputWrapper',
 
   components: { VaMessageList },
 
@@ -205,6 +206,8 @@ export default defineComponent({
   }
 
   &-wrapper__message-list-wrapper {
+    vertical-align: middle;
+    font-size: 0.8rem;
     margin-top: 2px;
   }
 
@@ -370,8 +373,8 @@ export default defineComponent({
 
   &--bordered {
     /*
-      We can not just set border-bottom, becouse we also have border on the other sides.
-      We also can not use after or before, becouse we need to set border-color according to
+      We can not just set border-bottom, because we also have border on the other sides.
+      We also can not use after or before, because we need to set border-color according to
       color prop
     */
     &__border {

@@ -1,5 +1,5 @@
 <template>
-  <VaInputField
+  <VaInputWrapper
     v-bind="fieldListeners"
     :class="$attrs.class"
     :style="$attrs.style"
@@ -17,7 +17,7 @@
     :focused="isFocused"
     @click="input?.focus()"
   >
-    <!-- Simply proxy slots to VaInputField -->
+    <!-- Simply proxy slots to VaInputWrapper -->
     <template
       v-for="(_, name) in $slots"
       :key="name"
@@ -55,7 +55,7 @@
       v-bind="{...computedInputAttributes, ...inputEvents}"
       class="va-input__content__input"
     >
-  </VaInputField>
+  </VaInputWrapper>
 </template>
 
 <script lang="ts">
@@ -64,7 +64,7 @@ import { useFormProps } from '../../composables/useForm'
 import { useValidation, useValidationProps, useValidationEmits } from '../../composables/useValidation'
 import { useCleave, useCleaveProps } from './hooks/useCleave'
 import { useEmitProxy } from '../../composables/useEmitProxy'
-import VaInputField from './components/VaInputField.vue'
+import VaInputWrapper from './components/VaInputWrapper.vue'
 import VaTextarea from './components/VaTextarea/VaTextarea.vue'
 import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
 import { omit } from 'lodash-es'
@@ -87,7 +87,7 @@ const { createEmits: createFieldEmits, createListeners: createFieldListeners } =
 export default defineComponent({
   name: 'VaInput',
 
-  components: { VaInputField, VaTextarea },
+  components: { VaInputWrapper, VaTextarea },
 
   props: {
     ...useFormProps,
