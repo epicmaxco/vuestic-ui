@@ -1,13 +1,13 @@
 <template>
   <div>
     <div class="code">
-      <p> { </p>
-      <p class="tab"> name: <va-input v-model="fontName" />, </p>
+      {
+      <p class="tab"> name: <va-input v-model="iconName" />,</p>
       <p class="tab">
         resolve:
-        ({ <span class="params">{{ params }}</span> }) => { ... }
+        (<span class="params">{ {{ params }} }</span>) => ({ class: <span class="params">`{{ resolved }}`</span> })
       </p>
-      <p> } </p>
+      }
     </div>
   </div>
 </template>
@@ -25,18 +25,23 @@ const getValuesInBrackets = (s) => {
 
 export default {
   setup () {
-    const fontName = ref('fa4-{code}-{type}')
-    const iconName = ref('fa4-phone-o')
+    const iconName = ref('fa4-{code}-{type}')
+
+    const groups = computed(() => getValuesInBrackets(iconName.value))
 
     const params = computed(() => {
-      const groups = getValuesInBrackets(fontName.value)
-      return groups.reduce((acc, v) => `${acc} ${v},`, '').slice(0, -1)
+      return groups.value.reduce((acc, v) => `${acc} ${v},`, '').slice(0, -1)
+    })
+
+    const resolved = computed(() => {
+      const classes = groups.value.map((item) => 'fa-${' + `${item}` + '}')
+      return `fa ${classes.join(' ')}`
     })
 
     return {
       params,
-      fontName,
       iconName,
+      resolved,
     }
   },
 }
@@ -46,19 +51,17 @@ export default {
 .code {
   background: #f4f8fa;
   color: var(--va-dark);
-  padding: 2rem;
+  padding: 0.5rem;
 
   .tab {
-    padding-left: 2rem;
+    padding-left: 1rem;
   }
 
   .params {
-    color: #73d2de;
+    color: var(--va-primary);
   }
 
   p {
-    padding: 0.2rem 0;
-    color: var(--va-dark);
     margin: 0;
   }
 
