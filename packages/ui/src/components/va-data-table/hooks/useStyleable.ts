@@ -4,9 +4,7 @@ import { getColor } from '../../../services/color-config/color-config'
 import { computed, Ref } from 'vue'
 import { TableColumn, TClassesOptions, TStyleOptions } from './useColumns'
 
-function getClasses (classes: TClassesOptions | undefined): string[] {
-  if (!classes) { return [] }
-
+function getClasses (classes: TClassesOptions = []): string[] {
   if (typeof classes === 'function') {
     const computedClasses = classes()
     return (typeof computedClasses === 'string') ? [computedClasses] : computedClasses
@@ -15,9 +13,7 @@ function getClasses (classes: TClassesOptions | undefined): string[] {
   return (typeof classes === 'string') ? [classes] : classes
 }
 
-function getStyles (styles: TStyleOptions | undefined): Record<string, any> {
-  if (!styles) { return {} }
-
+function getStyles (styles: TStyleOptions = {}): Record<string, any> {
   return (typeof styles === 'function') ? styles() : styles
 }
 
