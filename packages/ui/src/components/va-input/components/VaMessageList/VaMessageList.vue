@@ -31,7 +31,7 @@ export default defineComponent({
   },
 
   setup (props) {
-    const { colorComputed } = useColor(props)
+    const { colorComputed: { value: color } } = useColor(props)
 
     return {
       messages: computed<string[]>(() => {
@@ -40,9 +40,7 @@ export default defineComponent({
 
         return props.modelValue.slice(0, props.limit)
       }),
-      computedStyle: computed(() => {
-        return props.color ? { color: colorComputed.value } : {}
-      }),
+      computedStyle: computed(() => props.color ? { color } : {}),
     }
   },
 })
