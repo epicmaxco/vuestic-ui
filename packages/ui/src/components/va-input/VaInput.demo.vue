@@ -255,9 +255,9 @@
         v-model="text"
         :messages="messages"
       />
-      <va-input v-model="text">
-        <template #messages>
-          <span class="custom-message">Custom message</span>
+      <va-input v-model="text" messages="Custom message">
+        <template #messages="{ messages }">
+          <span class="custom-message">{{ messages }}</span>
         </template>
       </va-input>
     </VbCard>

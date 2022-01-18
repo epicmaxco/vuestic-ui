@@ -80,12 +80,13 @@
     </div>
 
     <div class="va-input-wrapper__message-list-wrapper">
-      <slot name="messages" />
-      <va-message-list
-        :color="messagesColor"
-        :model-value="messagesComputed"
-        :limit="errorLimit"
-      />
+      <slot name="messages" v-bind="{ messages: messagesComputed, errorLimit, color: messagesColor }">
+        <va-message-list
+          :color="messagesColor"
+          :model-value="messagesComputed"
+          :limit="errorLimit"
+        />
+      </slot>
     </div>
   </div>
 </template>
