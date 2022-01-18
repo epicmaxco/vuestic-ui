@@ -3578,9 +3578,9 @@
         "title": "Pagination",
         "text": "Use the `per-page` and `current-page` props to enable pagination.\n\nThe `va-data-table` component is paginator-agnostic. I.e. it can work with any pagination component you'd like. In the example below, it uses both standard inputs and the `va-pagination` component."
       },
-      "alignment": {
-        "title": "Alignment",
-        "text": "Should be specified on columns (see the `columns` prop below). Allows to provide different values for headers and for columns' cells. Pretty much the same as for `text-align` and `vertical-align` css properties."
+      "styling": {
+        "title": "Styling",
+        "text": "Should be specified on columns (see the `columns` prop below). Allows to provide different values (`text-align`, `vertical-align` and `width` css properties, custom `class` and `style`) for headers and for columns' cells."
       },
       "other": {
         "title": "Other",
