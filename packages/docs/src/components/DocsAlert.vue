@@ -7,9 +7,9 @@
 </template>
 
 <script lang="ts">
+import { defineComponent, PropType } from 'vue'
 import MarkdownView from './markdown-view/MarkdownView.vue'
 import { TranslationString } from '../components/DocsApi/ManualApiOptions'
-import { defineComponent, PropType } from 'vue'
 
 export default defineComponent({
   name: 'DocsAlert',
