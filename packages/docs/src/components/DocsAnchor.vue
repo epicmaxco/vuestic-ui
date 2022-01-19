@@ -18,7 +18,7 @@ export default defineComponent({
   },
   setup: (props) => ({
     anchor: computed(() => kebabCase(props.text)),
-    colors: getColors,
+    colors: computed(() => getColors()),
   }),
 })
 </script>
