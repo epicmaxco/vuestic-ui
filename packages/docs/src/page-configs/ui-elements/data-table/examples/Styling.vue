@@ -17,6 +17,7 @@
         v-model="columns[0].width"
         label="First heading width"
         :options="widthOptions"
+        clearable
       />
     </div>
     <div class='flex md4'>
@@ -36,6 +37,7 @@
         v-model="columns[1].width"
         label="Second heading width"
         :options="widthOptions"
+        clearable
       />
     </div>
     <div class='flex md4'>
@@ -49,6 +51,13 @@
         v-model="columns[2].verticalAlignHead"
         label="Third heading vertical align"
         :options="verticalAlignOptions"
+      />
+      <va-select
+        class="mt-2"
+        v-model="columns[2].width"
+        label="Third heading width"
+        :options="widthOptions"
+        clearable
       />
     </div>
   </div>
