@@ -1,4 +1,5 @@
 import { getParameters } from 'codesandbox/lib/api/define'
+import { CodesandboxConfig } from '../types/configTypes'
 // @ts-ignore
 import packageUi from 'vuestic-ui/package.json'
 
@@ -33,7 +34,7 @@ const html = `<link
 >
 <div id="app"></div>`
 
-const packageJson = ({ dependencies = {}, devDependencies = {} }) => {
+const packageJson = ({ dependencies = {}, devDependencies = {} }: CodesandboxConfig): string => {
   const commonDeps = {
     'core-js': '^3.6.5',
     vue: '^3.0.0',
@@ -53,7 +54,7 @@ const packageJson = ({ dependencies = {}, devDependencies = {} }) => {
   })
 }
 
-export default (code: string = defaultExample, config = {}) => getParameters({
+export default (code: string = defaultExample, config: CodesandboxConfig = {}): string => getParameters({
   files: {
     'package.json': {
       content: packageJson(config),
