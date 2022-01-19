@@ -19,45 +19,16 @@ export default defineComponent({
     code: { type: String as PropType<string>, default: '' },
   },
   setup (props) {
+    const formattedCode = computed(() => applyTranslations(props.code.replace(/^\n|\n$/g, '')))
+
     const doShowCode = ref(true)
 
-    /**
-     * If we use the following block of code as input string
-     * ```
-     * const code = `
-     *  console.log('Hello World!')
-     * `
-     * ```
-     * then you will have \n at string start and end.
-     * This method deletes '\n' from start and end of string if '\n' exists.
-     */
-    const removeFirstLineBreakIfExists = (code: string) => {
-      let newCode = code
-
-      if (newCode[0] === '\n') {
-        newCode = newCode.slice(1)
-      }
-      if (newCode[newCode.length - 1] === '\n') {
-        newCode = newCode.slice(0, -1)
-      }
-      return newCode
+    const forceUpdate = () => {
+      doShowCode.value = false
+      nextTick(() => { doShowCode.value = true }) // nextTick() triggers v-if, that causes re-rendering of component.
     }
 
-    const formattedCode = computed(() => {
-      let { code } = props
-
-      code = removeFirstLineBreakIfExists(code)
-      code = applyTranslations(code)
-
-      return code
-    })
-
-    watch(() => props.code, () => {
-      doShowCode.value = false
-      nextTick(() => {
-        doShowCode.value = true // $nextTick() triggers v-if, that causes re-rendering of component.
-      })
-    }, { immediate: true })
+    watch(() => props.code, forceUpdate, { immediate: true })
 
     return { formattedCode }
   },

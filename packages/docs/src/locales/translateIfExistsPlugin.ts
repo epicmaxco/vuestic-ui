@@ -3,7 +3,7 @@ import { te, t, fallbackLocale } from './i18n'
 
 export type TranslateIfExists = (translationString: string, locale?: string) => string
 
-export const translateIfExists: TranslateIfExists = (translationString: string, locale?: string): string => (
+export const tie: TranslateIfExists = (translationString: string, locale?: string): string => (
   te(translationString, locale)
     ? t(translationString, locale as string)
     : te(translationString, fallbackLocale as string)
@@ -12,5 +12,5 @@ export const translateIfExists: TranslateIfExists = (translationString: string, 
 )
 
 export const useTranslateIfExists = (app: App<Element>): void => {
-  app.config.globalProperties.$tie = translateIfExists
+  app.config.globalProperties.$tie = tie
 }
