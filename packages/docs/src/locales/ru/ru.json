@@ -854,7 +854,7 @@
     },
     "VaDataTable": {
       "props": {
-        "columns": "Свойство `columns` должно быть массивом, который настраивает столбцы таблицы. При этом:\n\n `ITableColumn` &#123; `key: string;` `label?: string;` `headerTitle?: string;` `sortable?: boolean;` `sortingFn?: (a: any, b: any) => number;` `alignHead?: TAlignOptions;` `verticalAlignHead?: TVerticalAlignOptions;` `align?: TAlignOptions;` `verticalAlign?: TVerticalAlignOptions;` &#125;;\n\n `TAlignOptions: 'left'`&#124;`'center'`&#124;`'right'`;\n\n `TVerticalAlignOptions: 'top'`&#124;`'middle'`&#124;`'bottom'`",
+        "columns": "Свойство `columns` должно быть массивом, который настраивает столбцы таблицы. При этом:\n\n `ITableColumn` &#123; `key: string;` `label?: string;` `headerTitle?: string;` `sortable?: boolean;` `sortingFn?: (a: any, b: any) => number;` `alignHead?: TAlignOptions;` `verticalAlignHead?: TVerticalAlignOptions;` `align?: TAlignOptions;` `verticalAlign?: TVerticalAlignOptions;` `width?: string`&#124;`number;` `classes?: TClassesOptions;` `headerClasses?: TClassesOptions;` `style?: TStyleOptions;` `headerStyle?: TStyleOptions;` &#125;;\n\n `TAlignOptions: 'left'`&#124;`'center'`&#124;`'right'`;\n\n `TVerticalAlignOptions: 'top'`&#124;`'middle'`&#124;`'bottom'`;\n\n `TClassesOptions: string`&#124;`string[]`&#124;`(() => string`&#124;`string[])`;\n\n `TStyleOptions: Record<string, any>`&#124;`(() => Record<string, any>)`",
         "items": "Массив объектов с табличными данными (`ITableItem: Record<string, any>`). Таблица `va-data-table` автоматически вычисляет количество и заголовки столбцов (если не указано иное с помощью свойства `columns`) на основе ключей этих объектов. При вычислении имен столбцов на основе ключей объектов элемента `va-data-table` внутренне использует [Lodash's startCase](https://lodash.com/docs/4.17.15#startCase)[[target=_blank]]. Ошибочные значения заменяются пустой строкой",
         "filter": "Если предоставляется `filter`, будут отображаться только те строки, в которых хотя бы одна ячейка содержит указанное значение. Чтобы отключить фильтрацию во время выполнения (очистить `filter`), укажите пустую строку",
         "filterMethod": "Пользовательская функция фильтрации. Функция принимает начальное значение текущей проверяемой ячейки (`source` является формальным параметром) и должна возвращать `boolean` значение, указывающее, включать ли строку, содержащую эту ячейку, или нет",
@@ -3512,9 +3512,9 @@
         "title": "Пагинация",
         "text": "Используйте свойства `per-page` и `current-page`, чтобы включить разбиение таблицы на страницы.\n\nКомпонент `va-data-table` не зависит от пагинатора. Т.е. он может работать с любым компонентом нумерации страниц, который вы хотите. В приведенном ниже примере он использует и стандартные поля ввода и компонент `va-pagination`."
       },
-      "alignment": {
-        "title": "Выравнивание",
-        "text": "Должно быть указано в столбцах (см. свойство `columns` ниже). Позволяет указать разные значения для заголовков и ячеек столбцов. Практически то же самое, что и css свойства `text-align` и `vertical-align`."
+      "styling": {
+        "title": "Стилизация",
+        "text": "Должно быть указано в столбцах (см. свойство `columns` ниже). Позволяет указать разные значения (css свойства `text-align`, `vertical-align` и `width`, пользовательские `class` и `style`) для заголовков и ячеек столбцов."
       },
       "other": {
         "title": "Другое",

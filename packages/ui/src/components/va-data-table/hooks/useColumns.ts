@@ -4,6 +4,8 @@ import { merge, startCase } from 'lodash-es'
 
 export type TAlignOptions = 'left' | 'center' | 'right';
 export type TVerticalAlignOptions = 'top' | 'middle' | 'bottom';
+export type TClassesOptions = string | string[] | (() => string | string[]);
+export type TStyleOptions = Record<string, any> | (() => Record<string, any>);
 
 // provided column definitions (<va-data-table `:columns="myColumns"` />)
 // should look like an array of the following objects (and/or strings)
@@ -17,6 +19,11 @@ export interface ITableColumn {
   verticalAlignHead?: TVerticalAlignOptions; // vertical alignment of the column's heading
   align?: TAlignOptions; // horizontal <td>'s alignment
   verticalAlign?: TVerticalAlignOptions; // vertical <td>'s alignment
+  width?: string | number;
+  classes?: TClassesOptions;
+  headerClasses?: TClassesOptions;
+  style?: TStyleOptions;
+  headerStyle?: TStyleOptions;
 }
 
 export type TTableColumnSource = ITableColumn | string
@@ -34,6 +41,11 @@ export interface TableColumn {
   verticalAlignHead: TVerticalAlignOptions;
   align: TAlignOptions;
   verticalAlign: TVerticalAlignOptions;
+  width?: string | number;
+  classes?: string | string[] | (() => string | string[]);
+  headerClasses?: string | string[] | (() => string | string[]);
+  style?: Record<string, any> | (() => Record<string, any>);
+  headerStyle?: Record<string, any> | (() => Record<string, any>);
 }
 
 export const buildTableColumn = (source: TTableColumnSource, initialIndex: number): TableColumn => {
@@ -51,6 +63,11 @@ export const buildTableColumn = (source: TTableColumnSource, initialIndex: numbe
     verticalAlignHead: input.verticalAlignHead || 'top',
     align: input.align || 'left',
     verticalAlign: input.verticalAlign || 'top',
+    width: input.width || '',
+    classes: input.classes || '',
+    headerClasses: input.headerClasses || '',
+    style: input.style || {},
+    headerStyle: input.headerStyle || {},
   }
 }
 

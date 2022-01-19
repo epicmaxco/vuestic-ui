@@ -49,9 +49,9 @@ const config: ApiDocsBlock[] = [
     'Pagination',
   ),
   ...block.exampleBlock(
-    'dataTable.examples.alignment.title',
-    'dataTable.examples.alignment.text',
-    'Alignment',
+    'dataTable.examples.styling.title',
+    'dataTable.examples.styling.text',
+    'Styling',
   ),
   ...block.exampleBlock(
     'dataTable.examples.other.title',

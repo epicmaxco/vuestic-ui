@@ -2,7 +2,20 @@ import { TableCell } from './useRows'
 import { getFocusColor, getHoverColor } from '../../../services/color-config/color-functions'
 import { getColor } from '../../../services/color-config/color-config'
 import { computed, Ref } from 'vue'
-import { TableColumn } from './useColumns'
+import { TableColumn, TClassesOptions, TStyleOptions } from './useColumns'
+
+function getClasses (classes: TClassesOptions = []): string[] {
+  if (typeof classes === 'function') {
+    const computedClasses = classes()
+    return (typeof computedClasses === 'string') ? [computedClasses] : computedClasses
+  }
+
+  return (typeof classes === 'string') ? [classes] : classes
+}
+
+function getStyles (styles: TStyleOptions = {}): Record<string, any> {
+  return (typeof styles === 'function') ? styles() : styles
+}
 
 export default function useStyleable (
   selectable: Ref<boolean>,
@@ -11,6 +24,7 @@ export default function useStyleable (
 ) {
   function getHeaderCSSVariables (column: TableColumn) {
     return {
+      '--width': typeof column.width === 'string' ? column.width : `${column.width}px`,
       '--align': column.alignHead,
       '--vertical-align': column.verticalAlignHead,
       '--cursor': column.sortable ? 'pointer' : 'default',
@@ -49,5 +63,7 @@ export default function useStyleable (
     rowCSSVariables,
     getCellCSSVariables,
     getFooterCSSVariables,
+    getClasses,
+    getStyles,
   }
 }

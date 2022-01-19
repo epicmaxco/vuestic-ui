@@ -857,7 +857,7 @@
     },
     "VaDataTable": {
       "props": {
-        "columns": "The property `columns` must be an array, that configures the columns of the table. In this case:\n\n `ITableColumn` &#123; `key: string;` `label?: string;` `headerTitle?: string;` `sortable?: boolean;` `sortingFn?: (a: any, b: any) => number;` `alignHead?: TAlignOptions;` `verticalAlignHead?: TVerticalAlignOptions;` `align?: TAlignOptions;` `verticalAlign?: TVerticalAlignOptions;` &#125;;\n\n `TAlignOptions: 'left'`&#124;`'center'`&#124;`'right'`;\n\n `TVerticalAlignOptions: 'top'`&#124;`'middle'`&#124;`'bottom'`",
+        "columns": "The property `columns` must be an array, that configures the columns of the table. In this case:\n\n `ITableColumn` &#123; `key: string;` `label?: string;` `headerTitle?: string;` `sortable?: boolean;` `sortingFn?: (a: any, b: any) => number;` `alignHead?: TAlignOptions;` `verticalAlignHead?: TVerticalAlignOptions;` `align?: TAlignOptions;` `verticalAlign?: TVerticalAlignOptions;` `width?: string`&#124;`number;` `classes?: TClassesOptions;` `headerClasses?: TClassesOptions;` `style?: TStyleOptions;` `headerStyle?: TStyleOptions;` &#125;;\n\n `TAlignOptions: 'left'`&#124;`'center'`&#124;`'right'`;\n\n `TVerticalAlignOptions: 'top'`&#124;`'middle'`&#124;`'bottom'`;\n\n `TClassesOptions: string`&#124;`string[]`&#124;`(() => string`&#124;`string[])`;\n\n `TStyleOptions: Record<string, any>`&#124;`(() => Record<string, any>)`",
         "items": "Array of objects with table data (`ITableItem: Record<string, any>`). The `va-data-table` automatically calculates the amount and the titles of columns (if not specified otherwise with the `columns` prop) based on these object's keys. When calculating the columns' names based on the item's objects' keys `va-data-table` uses [Lodash's startCase](https://lodash.com/docs/4.17.15#startCase)[[target=_blank]] internally. Faulty values are replaced with an empty string",
         "filter": "If a `filter` is provided, only rows in which at least one cell contains the specified value will be displayed. To disable filtering at runtime (clear `filter`), specify an empty string",
         "filterMethod": "A custom filtering function. The function takes the initial value of the currently checked cell (the `source` is a formal parameter) and should return a `boolean` value, indicating whether to include the row containing this cell or not",
@@ -3578,9 +3578,9 @@
         "title": "Pagination",
         "text": "Use the `per-page` and `current-page` props to enable pagination.\n\nThe `va-data-table` component is paginator-agnostic. I.e. it can work with any pagination component you'd like. In the example below, it uses both standard inputs and the `va-pagination` component."
       },
-      "alignment": {
-        "title": "Alignment",
-        "text": "Should be specified on columns (see the `columns` prop below). Allows to provide different values for headers and for columns' cells. Pretty much the same as for `text-align` and `vertical-align` css properties."
+      "styling": {
+        "title": "Styling",
+        "text": "Should be specified on columns (see the `columns` prop below). Allows to provide different values (`text-align`, `vertical-align` and `width` css properties, custom `class` and `style`) for headers and for columns' cells."
       },
       "other": {
         "title": "Other",
