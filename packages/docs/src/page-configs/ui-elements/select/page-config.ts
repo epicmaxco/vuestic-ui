@@ -36,20 +36,17 @@ const config: ApiDocsBlock[] = [
     'select.examples.trackBy.text',
     'TrackBy',
   ),
-  ...block.exampleBlock(
-    'select.examples.slots.title',
-    'select.examples.slots.text',
-    'Slots',
-  ),
+
+  block.headline('select.examples.slots.title'),
+  block.paragraph('select.examples.slots.text[0]'),
+  block.example('Slots'),
+  block.paragraph('select.examples.slots.text[1]'),
+  block.example('ContentSlot'),
+
   ...block.exampleBlock(
     'select.examples.state.title',
     'select.examples.state.text',
     'State',
-  ),
-  ...block.exampleBlock(
-    'select.examples.chips.title',
-    'select.examples.chips.text',
-    'Chips',
   ),
   ...block.exampleBlock(
     'select.examples.searchable.title',

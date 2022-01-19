@@ -775,7 +775,8 @@
         "prepend": "Adds an item outside the input and before input content",
         "prependInner": "Adds an item inside the input and before input content",
         "append": "Adds an item outside the input and after input content",
-        "appendInner": "Adds an item inside the input and after input content"
+        "appendInner": "Adds an item inside the input and after input content",
+        "content": "Adds an item instead the input"
       }
     },
     "VaParallax": {
@@ -2654,15 +2655,14 @@
       },
       "slots": {
         "title": "Slots",
-        "text": "Includes prepend, prepend-inner, append and append-inner slots"
+        "text": [
+          "Includes `content`, `prepend`, `prepend-inner`, `append` and `append-inner` slots.",
+          "The content of the `content` slot replaces the `input` element in the component."
+        ]
       },
       "state": {
         "title": "State",
         "text": "Includes error, success, disabled or loading state"
-      },
-      "chips": {
-        "title": "Chips",
-        "text": "Includes selection display as chips and maximum chips count"
       },
       "searchable": {
         "title": "Searchable",

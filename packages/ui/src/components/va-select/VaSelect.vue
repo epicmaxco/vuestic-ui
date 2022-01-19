@@ -79,8 +79,11 @@
             />
           </template>
 
-          <template v-if="$slots.content" #content="{ value, focus }">
-            <slot name="content" v-bind="{ valueString: value, focus, value: valueComputed }" />
+          <template v-if="$slots.content" #content>
+            <slot
+              name="content"
+              v-bind="{ valueString: valueComputedString, value: valueComputed }"
+            />
           </template>
         </va-input>
       </div>
