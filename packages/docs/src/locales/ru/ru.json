@@ -2296,7 +2296,7 @@
   },
   "icon": {
     "title": "Icon",
-    "summaryText": "Компонент `va-icon` позволяет использовать различные шрифты иконок.",
+    "summaryText": "Компонент `va-icon` позволяет использовать различные шрифты иконок. По умолчанию Vuestic UI предоставляет иконки [Material Design Icons](https://fonts.google.com/icons)[[target=_blank]].",
     "examples": {
       "default": {
         "title": "Базовое использование",
