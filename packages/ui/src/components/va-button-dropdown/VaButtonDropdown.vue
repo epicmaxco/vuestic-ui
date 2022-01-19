@@ -79,6 +79,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType } from 'vue'
+import { pick } from 'lodash-es'
 
 import { useStatefulProps, useStateful } from '../../composables/useStateful'
 import { useEmitProxy } from '../../composables/useEmitProxy'
@@ -92,7 +93,7 @@ const { createEmits, createVOnListeners: createListeners } = useEmitProxy(
 )
 
 const { createEmits: createMainButtonEmits, createVOnListeners: createMainButtonListeners } = useEmitProxy(
-  [['click', 'main-button-click']],
+  [{ listen: 'click', emit: 'main-button-click' }],
 )
 
 const componentName = 'VaButtonDropdown'
@@ -165,18 +166,13 @@ export default defineComponent({
     }))
 
     const computedButtonIcons = computed(() => {
-      const icon = (props.label || slots.label) && !props.leftIcon ? 'icon-right' : 'icon'
-      return props.hideIcon ? {} : { [icon]: computedIcon.value }
+      const propName = (props.label || slots.label) && !props.leftIcon ? 'icon-right' : 'icon'
+      return props.hideIcon ? {} : { [propName]: computedIcon.value }
     })
 
-    const computedViewStyles = computed(() => ({
-      outline: props.outline,
-      gradient: props.gradient,
-      rounded: props.rounded,
-      flat: props.flat,
-      size: props.size,
-      color: props.color,
-    }))
+    const computedViewStyles = computed(
+      () => pick(props, ['outline', 'gradient', 'rounded', 'flat', 'size', 'color']),
+    )
 
     const computedMainButtonProps = computed(() => ({
       to: props.splitTo,

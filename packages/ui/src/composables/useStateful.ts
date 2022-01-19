@@ -24,11 +24,10 @@ export const useStatefulProps = {
  */
 export function useStateful<T, D extends T | undefined> (
   props: {
-    [key: string]: any,
     modelValue: T,
     stateful: boolean,
   },
-  emit: (event: 'update:modelValue', ...args: any[]) => void,
+  emit: (event: 'update:modelValue', newValue: T) => void,
   defaultValue?: D,
 ) {
   const valueState = ref(defaultValue === undefined ? props.modelValue : defaultValue)

@@ -1,7 +1,7 @@
-type Events = string | [string, string]
+type Events = string | { listen: string, emit: string }
 
-const getEvent = (event: Events) => Array.isArray(event) ? event[0] : event
-const getEmit = (event: Events) => Array.isArray(event) ? event[1] : event
+const getEvent = (event: Events) => typeof event === 'object' ? event.listen : event
+const getEmit = (event: Events) => typeof event === 'object' ? event.emit : event
 
 export const useEmitProxy = (events: Events[]) => {
   const createEmits = () => events.map(getEmit)
