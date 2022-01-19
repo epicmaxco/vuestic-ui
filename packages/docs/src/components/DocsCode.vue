@@ -1,46 +1,26 @@
 <template>
   <prism-wrapper
     :code="formattedCode"
-    :lang="language"
+    :lang="$props.language"
     class="DocsCode"
   />
 </template>
 
-<script>
-import PrismWrapper from './PrismWrapper'
+<script lang="ts">
+import { defineComponent, PropType, computed, ref, watch, nextTick } from 'vue'
+import PrismWrapper from './PrismWrapper.vue'
 import { applyTranslations } from '../helpers/TranslationsHelper'
 
-export default {
+export default defineComponent({
   name: 'DocsCode',
+  components: { PrismWrapper },
   props: {
-    language: {
-      type: String,
-      default: 'javascript',
-    },
-    code: {
-      type: String,
-      default: '',
-    },
+    language: { type: String as PropType<string>, default: 'javascript' },
+    code: { type: String as PropType<string>, default: '' },
   },
-  data () {
-    return {
-      doShowCode: true,
-    }
-  },
-  components: {
-    PrismWrapper,
-  },
-  computed: {
-    formattedCode () {
-      let { code } = this
+  setup (props) {
+    const doShowCode = ref(true)
 
-      code = this.removeFirstLineBreakIfExists(code)
-      code = this.applyTranslations(code)
-
-      return code
-    },
-  },
-  methods: {
     /**
      * If we use the following block of code as input string
      * ```
@@ -51,8 +31,9 @@ export default {
      * then you will have \n at string start and end.
      * This method deletes '\n' from start and end of string if '\n' exists.
      */
-    removeFirstLineBreakIfExists (code) {
+    const removeFirstLineBreakIfExists = (code: string) => {
       let newCode = code
+
       if (newCode[0] === '\n') {
         newCode = newCode.slice(1)
       }
@@ -60,21 +41,27 @@ export default {
         newCode = newCode.slice(0, -1)
       }
       return newCode
-    },
-    applyTranslations,
+    }
+
+    const formattedCode = computed(() => {
+      let { code } = props
+
+      code = removeFirstLineBreakIfExists(code)
+      code = applyTranslations(code)
+
+      return code
+    })
+
+    watch(() => props.code, () => {
+      doShowCode.value = false
+      nextTick(() => {
+        doShowCode.value = true // $nextTick() triggers v-if, that causes re-rendering of component.
+      })
+    }, { immediate: true })
+
+    return { formattedCode }
   },
-  watch: {
-    code: {
-      handler () {
-        this.doShowCode = false
-        this.$nextTick(() => {
-          this.doShowCode = true // $nextTick() triggers v-if, that causes re-rendering of component.
-        })
-      },
-      immediate: true,
-    },
-  },
-}
+})
 </script>
 
 <style lang="scss">
@@ -99,12 +86,12 @@ pre.DocsCode {
   padding-top: 1.3rem;
   font-size: calc(1rem / 1.4);
 
-  code[class*='language-'],
-  pre[class*='language-'] {
+  code[class*="language-"],
+  pre[class*="language-"] {
     color: black;
     background: none;
     text-shadow: 0 1px white;
-    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
     font-size: 1rem;
     text-align: left;
     white-space: pre;
@@ -117,19 +104,19 @@ pre.DocsCode {
     border-radius: 0.25rem;
   }
 
-  pre[class*='language-'] {
+  pre[class*="language-"] {
     padding: 1rem;
     margin: 0;
     overflow: auto;
   }
 
-  :not(pre) > code[class*='language-'],
-  pre[class*='language-'] {
+  :not(pre) > code[class*="language-"],
+  pre[class*="language-"] {
     background: $prism-background;
   }
 
   /* Inline code */
-  :not(pre) > code[class*='language-'] {
+  :not(pre) > code[class*="language-"] {
     padding: 0.1rem;
     border-radius: 0.3rem;
     white-space: normal;

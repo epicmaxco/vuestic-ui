@@ -155,8 +155,8 @@ import { merge } from 'lodash'
 import { sortObjectByPropNames } from '../../helpers/SortHelper'
 import { ManualApiOptions } from './ManualApiOptions'
 import { getApiTableData } from './api-docs-helpers'
-import MarkdownView from '../markdown-view/MarkdownView.vue'
 import { defaultApiOptions } from './default-api-options'
+import MarkdownView from '../markdown-view/MarkdownView.vue'
 
 export default defineComponent({
   name: 'ApiDocs',
