@@ -2608,11 +2608,10 @@
       },
       "slots": {
         "title": "Слоты",
-        "text": "Поддерживаемые слоты: `prepend`, `prepend-inner`, `append` и `append-inner`."
-      },
-      "contentSlot": {
-        "title": "Слот `content`",
-        "text": "Содержимое слота `content` заменяет собой элемент `input` в компоненте."
+        "text": [
+          "Поддерживаемые слоты: `content`, `prepend`, `prepend-inner`, `append` и `append-inner`.",
+          "Содержимое слота `content` заменяет собой элемент `input` в компоненте."
+        ]
       },
       "state": {
         "title": "Состояния",
