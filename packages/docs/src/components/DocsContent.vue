@@ -77,7 +77,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, computed, ref, watch, nextTick, Prop, inject } from 'vue'
+import { defineComponent, PropType } from 'vue'
 import { ApiDocsBlock, BlockType } from '../types/configTypes'
 import { tie } from '../locales/translateIfExistsPlugin'
 import MarkdownView from './markdown-view/MarkdownView.vue'
