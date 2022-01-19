@@ -90,6 +90,7 @@
     <VbCard title="colors">
       <va-button-dropdown
         color="warning"
+        textColor="danger"
         label="warning"
       >
         Content
@@ -139,26 +140,26 @@
     <VbCard title="icon">
       <va-button-dropdown
         label="without icon"
-        icon=""
+        hideIcon
       >
         Content
       </va-button-dropdown>
       <va-button-dropdown
         label="left icon"
-        left-icon="info"
+        leftIcon
       >
         Content
       </va-button-dropdown>
       <va-button-dropdown
         label="custom icon"
-        icon="info"
+        icon="done"
       >
         Content
       </va-button-dropdown>
       <va-button-dropdown
         label="custom icon && icon-open"
-        icon="info"
-        opened-icon="check_circle"
+        icon="arrow_forward_ios"
+        opened-icon="arrow_back_ios"
       >
         Content
       </va-button-dropdown>
@@ -189,7 +190,8 @@
     <VbCard title="Stateless">
       <va-button-dropdown
         label="Stateless without v-model"
-        :stateful=false
+        :stateful="false"
+        v-model="value"
       >
         Content
       </va-button-dropdown>
@@ -205,11 +207,9 @@ export default {
   components: { VaButtonDropdown },
   methods: {
     mainButtonClick (e) {
-      // eslint-disable-next-line no-console
       console.log('main-button-click', e)
     },
     click (e) {
-      // eslint-disable-next-line no-console
       console.log('click', e)
     },
   },
@@ -220,7 +220,3 @@ export default {
   },
 }
 </script>
-
-<style scoped lang="scss">
-
-</style>

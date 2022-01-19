@@ -8,7 +8,8 @@
     Content
   </va-button-dropdown>
   <va-button-dropdown
-    @mainButtonClick="mainButtonClick"
+    @main-button-click="mainButtonClick"
+    @click="click"
     split
     label="main button click event"
   >
