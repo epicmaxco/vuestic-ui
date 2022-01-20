@@ -8,5 +8,9 @@ export default {
   methods: {
   },
   slots: {
+    default: {},
+    'prev-arrow': {},
+    'next-arrow': {},
+    indicator: {},
   },
 } as ManualApiOptions
