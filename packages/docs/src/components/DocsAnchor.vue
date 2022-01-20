@@ -1,28 +1,24 @@
 <template>
-  <a :id="anchor" :style="{ color: colors.primary }" :href="`#${anchor}`"> #</a>
+  <a
+    :id="anchor"
+    :style="{ color: colors.primary }"
+    :href="`#${anchor}`"
+  > #</a>
 </template>
 <script lang='ts'>
+import { defineComponent, PropType, computed } from 'vue'
 import { kebabCase } from 'lodash'
 import { TranslationString } from '../components/DocsApi/ManualApiOptions'
-import { Options, Vue, mixins, prop } from 'vue-class-component'
 import { getColors } from '../../../ui/src/main'
 
-class Props {
-  text = prop<TranslationString>({ type: String })
-}
-
-const PropsMixin = Vue.with(Props)
-
-@Options({
+export default defineComponent({
   name: 'DocsAnchor',
+  props: {
+    text: { type: String as PropType<TranslationString> },
+  },
+  setup: (props) => ({
+    anchor: computed(() => kebabCase(props.text)),
+    colors: computed(() => getColors()),
+  }),
 })
-export default class DocsAnchor extends mixins(PropsMixin) {
-  get anchor () {
-    return kebabCase(this.text)
-  }
-
-  get colors () {
-    return getColors()
-  }
-}
 </script>

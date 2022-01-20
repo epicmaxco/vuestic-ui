@@ -150,62 +150,53 @@
 </template>
 
 <script lang="ts">
-import {
-  Options,
-  Vue,
-  prop,
-  mixins,
-  VueConstructor,
-} from 'vue-class-component'
-import { DefineComponent } from 'vue'
-import { ManualApiOptions } from './ManualApiOptions'
-import ApiDocsPropsRow from './ApiDocsPropsRow.vue'
-import { getApiTableData } from './api-docs-helpers'
-import MarkdownView from '../markdown-view/MarkdownView.vue'
-import { defaultApiOptions } from './default-api-options'
-import DocsTable from '../DocsTable/DocsTable.vue'
+import { defineComponent, DefineComponent, PropType, computed } from 'vue'
 import { merge } from 'lodash'
 import { sortObjectByPropNames } from '../../helpers/SortHelper'
+import { ManualApiOptions } from './ManualApiOptions'
+import { getApiTableData } from './api-docs-helpers'
+import { defaultApiOptions } from './default-api-options'
+import MarkdownView from '../markdown-view/MarkdownView.vue'
 
-class Props {
-  componentOptions = prop<DefineComponent | VueConstructor>({ required: true });
-  apiOptions = prop<ManualApiOptions>({ type: Object, default: () => ({}) });
-}
-
-const PropsMixin = Vue.with(Props)
-
-@Options({
+export default defineComponent({
   name: 'ApiDocs',
-  components: { ApiDocsPropsRow, MarkdownView, DocsTable },
-})
-export default class ApiDocs extends mixins(PropsMixin) {
-  get apiTableData () {
-    const options = merge(this.apiOptions, defaultApiOptions)
-    return getApiTableData(this.componentOptions, options)
-  }
+  components: { MarkdownView },
+  props: {
+    componentOptions: { type: Object as PropType<DefineComponent>, required: true },
+    apiOptions: { type: Object as PropType<ManualApiOptions>, default: () => ({}) },
+  },
+  setup (props) {
+    const apiTableData = computed(() => {
+      const options = merge(props.apiOptions, defaultApiOptions)
+      return getApiTableData(props.componentOptions, options)
+    })
 
-  sortObject = sortObjectByPropNames;
+    const isEmpty = (object: Record<string, any>): boolean => !Object.keys(object).length
 
-  isEmpty (object: Record<string, any>): boolean {
-    return !Object.keys(object).length
-  }
+    const cleanDefaultValue = (o: Record<string, any>) => {
+      const str: string = o.toString()
 
-  cleanDefaultValue (o: any) {
-    const str: string = o.toString()
+      const defaultFnStartRegex = /function _default\(\) \{\n\s*return\s*/
 
-    const defaultFnStartRegex = /function _default\(\) \{\n\s*return\s*/
+      if (defaultFnStartRegex.test(str)) {
+        const defaultFnEndRegex = /\s*}$/
 
-    if (defaultFnStartRegex.test(str)) {
-      const defaultFnEndRegex = /\s*}$/
+        return str
+          .replace(defaultFnStartRegex, '')
+          .replace(defaultFnEndRegex, '')
+      }
 
       return str
-        .replace(defaultFnStartRegex, '')
-        .replace(defaultFnEndRegex, '')
     }
 
-    return str
-  }
-}
+    return {
+      apiTableData,
+      isEmpty,
+      cleanDefaultValue,
+      sortObject: sortObjectByPropNames,
+    }
+  },
+})
 </script>
 
 <style lang="scss">

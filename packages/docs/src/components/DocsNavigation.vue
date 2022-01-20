@@ -39,72 +39,64 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { computed, defineComponent, PropType, ref, Ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { CodesandboxConfig } from '../types/configTypes'
 import getCodesandboxExample from '../helpers/CodeSandboxExample'
 import { applyTranslations } from '../helpers/TranslationsHelper'
 
-export default {
+const query = '?query=file=/src/App.vue'
+
+type ButtonStates = 'active' | 'error' | 'default'
+
+export default defineComponent({
   name: 'DocsNavigation',
   props: {
-    code: {
-      type: String,
-      default: '',
-    },
-    config: {
-      type: Object,
-      default: () => ({}),
-    },
-    gitUrl: {
-      type: String,
-      default: '',
-    },
-    gitComponent: {
-      type: String,
-      default: '',
-    },
+    code: { type: String as PropType<string>, default: '' },
+    config: { type: Object as PropType<CodesandboxConfig>, default: () => ({}) },
+    gitUrl: { type: String as PropType<string>, default: '' },
+    gitComponent: { type: String as PropType<string>, default: '' },
   },
-  data () {
-    return {
-      query: '?query=file=/src/App.vue',
-      copyButtonState: 'default',
-    }
-  },
-  methods: {
-    async copy () {
+  setup (props) {
+    const { t } = useI18n()
+
+    const copyButtonState: Ref<ButtonStates> = ref('default')
+    const copy = async () => {
       try {
-        await window.navigator.clipboard.writeText(this.code)
-        this.copyButtonState = 'active'
-      } catch (e) {
+        await window.navigator.clipboard.writeText(props.code)
+        copyButtonState.value = 'active'
+      } catch (e: any) {
         if (e.message === 'NotAllowedError') {
-          this.copyButtonState = 'error'
+          copyButtonState.value = 'error'
         }
       }
-      setTimeout(() => {
-        this.copyButtonState = 'default'
-      }, 1500)
-    },
-    applyTranslations,
+
+      setTimeout(() => { copyButtonState.value = 'default' }, 1500)
+    }
+
+    const buttonStates = {
+      active: { text: t('docsNavigation.copyCopied'), icon: 'fa fa-check' },
+      error: { text: t('docsNavigation.copyFailure'), icon: 'fa fa-times' },
+      default: { text: t('docsNavigation.copyCode'), icon: 'fa fa-files-o' },
+    }
+    const copyButton = computed(() => buttonStates[copyButtonState.value])
+
+    const sandboxDefineUrl = computed(() => `https://codesandbox.io/api/v1/sandboxes/define${query}`)
+    const sandboxParams = computed(() => getCodesandboxExample(applyTranslations(props.code), props.config))
+    const gitLink = computed(
+      () => `https://github.com/epicmaxco/vuestic-ui/tree/develop/packages/docs/src/page-configs/${props.gitUrl}/examples/${props.gitComponent}.vue`,
+    )
+
+    return {
+      copy,
+      copyButton,
+      sandboxDefineUrl,
+      sandboxParams,
+      gitLink,
+    }
   },
-  computed: {
-    copyButton () {
-      const buttonStates = {
-        active: { text: this.$t('docsNavigation.copyCopied'), icon: 'fa fa-check' },
-        error: { text: this.$t('docsNavigation.copyFailure'), icon: 'fa fa-times' },
-        default: { text: this.$t('docsNavigation.copyCode'), icon: 'fa fa-files-o' },
-      }
-      return buttonStates[this.copyButtonState]
-    },
-    gitLink () {
-      return `https://github.com/epicmaxco/vuestic-ui/tree/develop/packages/docs/src/page-configs/${this.gitUrl}/examples/${this.gitComponent}.vue`
-    },
-    sandboxDefineUrl () {
-      return `https://codesandbox.io/api/v1/sandboxes/define${this.query}`
-    },
-    sandboxParams () {
-      return getCodesandboxExample(this.applyTranslations(this.code), this.config)
-    },
-  },
-}
+})
 </script>
 
 <style lang="scss">
