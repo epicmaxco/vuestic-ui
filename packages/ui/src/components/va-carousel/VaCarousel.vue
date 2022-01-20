@@ -46,9 +46,9 @@
         class="va-carousel__slides"
         :style="computedSlidesStyle"
       >
-        <div class="va-carousel__slide" v-for="item in slides" :key="item">
-          <slot v-bind="{ item }">
-            {{ item }}
+        <div class="va-carousel__slide" v-for="(item, index) in slides" :key="item">
+          <slot v-bind="{ item, index, goTo }">
+            <va-image :src="item" />
           </slot>
         </div>
       </div>
@@ -57,13 +57,17 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, toRef } from 'vue'
+import { defineComponent, PropType, toRef } from 'vue'
 import { useCarousel } from './hooks/useCarousel'
 import { useCarouselAnimation } from './hooks/useCarouselAnimation'
 import { useStateful, statefulComponentOptions } from '../../mixins/StatefulMixin/cStatefulMixin'
+import VaImage from '../va-image'
+import VaButton from '../va-button'
 
 export default defineComponent({
   name: 'VaCarousel',
+
+  components: { VaImage, VaButton },
 
   props: {
     ...statefulComponentOptions.props,
@@ -79,8 +83,8 @@ export default defineComponent({
     infinite: { type: Boolean, default: false },
 
     // Visual
-    arrows: { type: Boolean, default: false },
-    indicators: { type: Boolean, default: false },
+    arrows: { type: Boolean, default: true },
+    indicators: { type: Boolean, default: true },
     indicatorTrigger: { type: String as PropType<'click' | 'hover'>, default: 'click' },
     vertical: { type: Boolean, default: false },
     height: { type: String, default: '300px' },
@@ -96,7 +100,7 @@ export default defineComponent({
     const {
       goTo, next, prev,
       doShowNextButton, doShowPrevButton,
-    } = useCarousel(items, currentSlide)
+    } = useCarousel(props, currentSlide)
 
     const { withPause, computedSlidesStyle, slides } = useCarouselAnimation(props, currentSlide)
 
@@ -139,6 +143,7 @@ export default defineComponent({
 
   &__content {
     flex: 1;
+    width: 100%;
     white-space: nowrap;
   }
 
@@ -194,10 +199,9 @@ export default defineComponent({
     }
   }
 
-  &--fade {
-    .va-carousel__slide {
-      // animation: va-carousel-fade-appear 0.3s;
-    }
+  .va-image {
+    height: 100%;
+    width: 100%;
   }
 }
 </style>
