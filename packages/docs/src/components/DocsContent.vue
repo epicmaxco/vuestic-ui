@@ -119,37 +119,4 @@ export default defineComponent({
     }
   },
 })
-
-// class Props {
-//   config = prop<ApiDocsBlock[]>({})
-// }
-
-// const PropsMixin = Vue.with(Props)
-
-// @Options({
-//   name: 'DocsContent',
-//   components: {
-//     DocsExample,
-//     DocsComponent,
-//     DocsCode,
-//     DocsHeadline,
-//     DocsSubtitle,
-//     MarkdownView,
-//     ApiDocs,
-//     DocsTable,
-//     DocsLink,
-//     DocsAlert,
-//   },
-// })
-// export default class DocsContent extends mixins(PropsMixin) {
-//   get BlockType () {
-//     return BlockType
-//   }
-
-//   translateAndMark (translations: string[]): string {
-//     return translations
-//       .map((t: string): string => `- ${this.$tie(t)}`)
-//       .join('\n')
-//   }
-// }
 </script>
