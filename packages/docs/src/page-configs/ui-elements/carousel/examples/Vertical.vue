@@ -13,6 +13,7 @@ export default {
         'https://picsum.photos/1502',
         'https://picsum.photos/1503',
         'https://picsum.photos/1504',
+        'https://picsum.photos/1505',
       ],
     }
   },

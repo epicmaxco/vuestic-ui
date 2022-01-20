@@ -14,7 +14,7 @@
         @click="prev"
       >
         <slot name="prev-arrow">
-          <va-button icon="chevron_left" />
+          <va-button :icon="vertical ? 'expand_less' : 'chevron_left'" />
         </slot>
       </div>
       <div
@@ -23,7 +23,7 @@
         @click="next"
       >
         <slot name="prev-next">
-          <va-button icon="chevron_right" />
+          <va-button :icon="vertical ? 'expand_more' : 'chevron_right'" />
         </slot>
       </div>
     </template>
@@ -165,18 +165,26 @@ export default defineComponent({
   &__indicators {
     width: 100%;
     position: absolute;
-    bottom: 10px;
+    bottom: 0;
     display: flex;
     justify-content: center;
     z-index: 2;
+    overflow-x: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0 0 16px 0;
+
+    @include va-scroll();
 
     & > * {
-      margin: 0 5px;
+      margin: 0 0.25rem;
     }
   }
 
   &__arrow {
     z-index: 1;
+    width: max-content;
+    height: max-content;
 
     &--right {
       right: 15px;
@@ -194,8 +202,43 @@ export default defineComponent({
   }
 
   &--vertical {
-    .va-carousel__slide {
-      display: flex;
+    .va-carousel {
+      &__slide {
+        display: flex;
+      }
+
+      &__arrow {
+        z-index: 1;
+
+        &--right {
+          bottom: 15px;
+          top: auto;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+
+        &--left {
+          top: 15px;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+      }
+
+      &__indicators {
+        left: 15px;
+        flex-direction: column;
+        width: auto;
+        height: 100%;
+        top: 50%;
+        transform: translateY(-50%);
+        overflow-x: hidden;
+        overflow-y: auto;
+        padding: 0 16px 0 0;
+
+        & > * {
+          margin: 0.25rem 0;
+        }
+      }
     }
   }
 

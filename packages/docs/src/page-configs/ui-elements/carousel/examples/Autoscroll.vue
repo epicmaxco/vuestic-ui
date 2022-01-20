@@ -2,21 +2,21 @@
   <h6>Default</h6>
   <va-carousel :items="items" stateful autoscroll>
     <template #default="{ index }">
-      {{ index }}
+      {{ index + 1 }}
     </template>
   </va-carousel>
 
   <h6>Loop</h6>
   <va-carousel :items="items" stateful autoscroll loop>
     <template #default="{ index }">
-      {{ index }}
+      {{ index + 1 }}
     </template>
   </va-carousel>
 
   <h6>Slow</h6>
   <va-carousel :items="items" stateful autoscroll :autoscrollInterval="3000">
     <template #default="{ index }">
-      {{ index }}
+      {{ index + 1 }}
     </template>
   </va-carousel>
 </template>
@@ -26,13 +26,7 @@ export default {
   data () {
     return {
       value: 0,
-      items: [
-        '0',
-        '1',
-        '2',
-        '3',
-        '4',
-      ],
+      items: ['1', '2', '3', '4', '5'],
     }
   },
 }

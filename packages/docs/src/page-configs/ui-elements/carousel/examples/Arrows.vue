@@ -1,5 +1,5 @@
 <template>
-  <va-carousel :items="items" v-model="value" arrows />
+  <va-carousel :items="items" v-model="value" :indicators="false" />
 </template>
 
 <script>
