@@ -207,8 +207,6 @@ export default defineComponent({
   }
 
   &-wrapper__message-list-wrapper {
-    vertical-align: middle;
-    font-size: 0.8rem;
     margin-top: 2px;
   }
 
