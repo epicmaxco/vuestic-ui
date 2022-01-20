@@ -1,17 +1,17 @@
 <template>
-  <va-data-table :items="items" :columns="columns" class="table-example--crud">
+  <va-data-table :items="items" :columns="columns" striped>
     <template #headerAppend>
       <tr class="table-example--slot">
-        <th colspan="1"><va-input placeholder="name" v-model="nameModel" /></th>
-        <th colspan="1"><va-input placeholder="username" v-model="usernameModel" /></th>
-        <th colspan="1"><va-input placeholder="email" v-model="emailModel" /></th>
+        <th colspan="1"><va-input placeholder="name" v-model="addNameModel" /></th>
+        <th colspan="1"><va-input placeholder="username" v-model="addUsernameModel" /></th>
+        <th colspan="1"><va-input placeholder="email" v-model="addEmailModel" /></th>
         <th colspan="1"><va-button @click="addNewItem()" :disabled="!isNewData">Add new</va-button></th>
       </tr>
     </template>
 
     <template #cell(actions)="{ rowIndex }">
-      <va-button flat icon="edit" @click="openEditItemById(rowIndex)" />
-      <va-button flat icon="delete" @click="deleteById(rowIndex)" />
+      <va-button flat icon="edit" @click="openModalToEditItemById(rowIndex)" />
+      <va-button flat icon="delete" @click="deleteItemById(rowIndex)" />
     </template>
   </va-data-table>
 
@@ -21,9 +21,9 @@
     @ok="editItem()"
   >
     <slot>
-      <va-input class="my-3" label="name" v-model="nameEditModel" />
-      <va-input class="my-3" label="username" v-model="usernameEditModel" />
-      <va-input class="my-3" label="email" v-model="emailEditModel" />
+      <va-input class="my-3" label="name" v-model="editNameModel" />
+      <va-input class="my-3" label="username" v-model="editUsernameModel" />
+      <va-input class="my-3" label="email" v-model="editEmailModel" />
     </slot>
   </va-modal>
 </template>
@@ -49,6 +49,11 @@ export default defineComponent({
         username: 'Samantha',
         email: 'Nathan@yesenia.net',
       },
+      {
+        name: 'Patricia Lebsack',
+        username: 'Karianne',
+        email: 'Julianne.OConner@kory.org',
+      },
     ]
 
     const columns = [
@@ -62,54 +67,49 @@ export default defineComponent({
       items,
       columns,
 
-      nameModel: '',
-      usernameModel: '',
-      emailModel: '',
-      nameEditModel: '',
-      usernameEditModel: '',
-      emailEditModel: '',
+      addNameModel: '',
+      addUsernameModel: '',
+      addEmailModel: '',
+      editNameModel: '',
+      editUsernameModel: '',
+      editEmailModel: '',
       editItemId: null,
 
       showModal: false,
     }
   },
+
   computed: {
     isNewData () {
-      return !!(this.nameModel && this.usernameModel && this.emailModel)
+      return !!(this.addNameModel && this.addUsernameModel && this.addEmailModel)
     },
   },
+
   methods: {
-    deleteById (id) {
-      this.items = [...this.items.slice(0, id), ...this.items.slice(id + 1)]
-    },
-    resetInputs () {
-      this.nameModel = ''
-      this.usernameModel = ''
-      this.emailModel = ''
+    resetAddData () {
+      this.addNameModel = ''
+      this.addUsernameModel = ''
+      this.addEmailModel = ''
     },
     resetEditData () {
       this.editItemId = null
-      this.nameEditModel = ''
-      this.usernameEditModel = ''
-      this.emailEditModel = ''
+      this.editNameModel = ''
+      this.editUsernameModel = ''
+      this.editEmailModel = ''
     },
-    makeNewItem () {
+    updateItem (isAddedNew = false) {
       return {
-        name: this.nameModel,
-        username: this.usernameModel,
-        email: this.emailModel,
+        name: isAddedNew ? this.addNameModel : this.editNameModel,
+        username: isAddedNew ? this.addUsernameModel : this.editUsernameModel,
+        email: isAddedNew ? this.addEmailModel : this.editEmailModel,
       }
     },
-    updateItem () {
-      return {
-        name: this.nameEditModel,
-        username: this.usernameEditModel,
-        email: this.emailEditModel,
-      }
+    deleteItemById (id) {
+      this.items = [...this.items.slice(0, id), ...this.items.slice(id + 1)]
     },
     addNewItem () {
-      this.items = [...this.items, this.makeNewItem()]
-      this.resetInputs()
+      this.items = [...this.items, this.updateItem(true)]
+      this.resetAddData()
     },
     editItem () {
       this.items = [
@@ -119,13 +119,13 @@ export default defineComponent({
       ]
       this.resetEditData()
     },
-    openEditItemById (id) {
+    openModalToEditItemById (id) {
       this.editItemId = id
       const item = this.items[id]
 
-      this.nameEditModel = item.name
-      this.usernameEditModel = item.username
-      this.emailEditModel = item.email
+      this.editNameModel = item.name
+      this.editUsernameModel = item.username
+      this.editEmailModel = item.email
 
       this.showModal = true
     },
