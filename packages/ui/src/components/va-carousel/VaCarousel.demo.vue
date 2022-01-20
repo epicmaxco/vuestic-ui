@@ -54,6 +54,10 @@
 
       <VaCarousel :items="items" stateful indicators vertical infinite />
     </VbCard>
+
+    <VbCard title="Fade">
+      <VaCarousel :items="items" stateful indicators infinite effect="fade" />
+    </VbCard>
   </VbDemo>
 </template>
 

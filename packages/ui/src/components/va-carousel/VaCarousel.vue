@@ -1,7 +1,10 @@
 <template>
   <div
     class="va-carousel"
-    :class="{ 'va-carousel--vertical': $props.vertical }"
+    :class="{
+      'va-carousel--vertical': $props.vertical,
+      [`va-carousel--${$props.effect}`]: true
+    }"
     :style="{ height }"
   >
     <template v-if="$props.arrows">
@@ -43,14 +46,9 @@
         class="va-carousel__slides"
         :style="computedSlidesStyle"
       >
-        <div class="va-carousel__slide" v-for="item in items" :key="item">
+        <div class="va-carousel__slide" v-for="item in slides" :key="item">
           <slot v-bind="{ item }">
             {{ item }}
-          </slot>
-        </div>
-        <div class="va-carousel__slide">
-          <slot v-bind="{ item: items[0] }">
-            {{ items[0] }}
           </slot>
         </div>
       </div>
@@ -86,6 +84,7 @@ export default defineComponent({
     indicatorTrigger: { type: String as PropType<'click' | 'hover'>, default: 'click' },
     vertical: { type: Boolean, default: false },
     height: { type: String, default: '300px' },
+    effect: { type: String as PropType<'fade' | 'transition'>, default: 'transition' },
   },
 
   emits: ['update:modelValue'],
@@ -99,21 +98,7 @@ export default defineComponent({
       doShowNextButton, doShowPrevButton,
     } = useCarousel(items, currentSlide)
 
-    const { withPause, slidesContainerStyle, sliderToBeShown } = useCarouselAnimation(props, currentSlide)
-
-    const computedSlidesStyle = computed(() => {
-      if (props.vertical) {
-        return {
-          ...slidesContainerStyle.value,
-          transform: `translateY(${sliderToBeShown.value * -100}%)`,
-        }
-      }
-
-      return {
-        ...slidesContainerStyle.value,
-        transform: `translateX(${sliderToBeShown.value * -100}%)`,
-      }
-    })
+    const { withPause, computedSlidesStyle, slides } = useCarouselAnimation(props, currentSlide)
 
     return {
       doShowNextButton,
@@ -123,7 +108,7 @@ export default defineComponent({
       prev: withPause(prev),
       next: withPause(next),
       currentSlide,
-      sliderToBeShown,
+      slides,
     }
   },
 })
@@ -131,6 +116,16 @@ export default defineComponent({
 
 <style lang="scss">
 @import "../../styles/resources";
+
+@keyframes va-carousel-fade-appear {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
 
 .va-carousel {
   display: flex;
@@ -196,6 +191,12 @@ export default defineComponent({
   &--vertical {
     .va-carousel__slide {
       display: flex;
+    }
+  }
+
+  &--fade {
+    .va-carousel__slide {
+      // animation: va-carousel-fade-appear 0.3s;
     }
   }
 }

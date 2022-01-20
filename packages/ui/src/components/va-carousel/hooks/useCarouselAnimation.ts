@@ -6,7 +6,9 @@ export const useCarouselAnimation = (props: {
   autoscrollPauseDuration: number,
   autoscroll: boolean,
   loop: boolean,
-  infinite: boolean
+  infinite: boolean,
+  effect: 'fade' | 'transition',
+  vertical: boolean,
 }, currentSlide: Ref<number>) => {
   let animationInterval = -1
   let direction = 1
@@ -40,6 +42,7 @@ export const useCarouselAnimation = (props: {
 
   const stop = () => {
     clearInterval(animationInterval)
+    clearTimeout(timeout)
   }
 
   onMounted(() => start())
@@ -52,8 +55,29 @@ export const useCarouselAnimation = (props: {
     }
   }
 
-  const slidesContainerStyle = ref({
+  const slidesContainerStyle = ref<Record<string, any>>({
     transition: undefined as string | undefined,
+  })
+
+  const computedSlidesStyle = computed(() => {
+    if (props.effect === 'fade') {
+      return {
+        ...slidesContainerStyle.value,
+        transition: 'none',
+      }
+    }
+
+    if (props.vertical) {
+      return {
+        ...slidesContainerStyle.value,
+        transform: `translateY(${sliderToBeShown.value * -100}%)`,
+      }
+    }
+
+    return {
+      ...slidesContainerStyle.value,
+      transform: `translateX(${sliderToBeShown.value * -100}%)`,
+    }
   })
 
   /**
@@ -82,7 +106,27 @@ export const useCarouselAnimation = (props: {
       }
     }
 
+    if (props.effect === 'fade') {
+      setTimeout(() => {
+        slidesContainerStyle.value.animation = 'va-carousel-fade-appear 0.3s'
+      })
+      slidesContainerStyle.value.animation = undefined
+    }
+
     sliderToBeShown.value = newValue
+  })
+
+  /** Animation should control how much slides to display */
+  const slides = computed(() => {
+    if (props.effect === 'fade') {
+      return [props.items[currentSlide.value]]
+    }
+
+    if (props.infinite) {
+      return [...props.items, props.items[0]]
+    }
+
+    return props.items
   })
 
   return {
@@ -90,7 +134,7 @@ export const useCarouselAnimation = (props: {
     pause,
     stop,
     withPause,
-    slidesContainerStyle,
-    sliderToBeShown,
+    computedSlidesStyle,
+    slides,
   }
 }
