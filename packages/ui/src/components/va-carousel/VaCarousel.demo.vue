@@ -10,6 +10,9 @@
 
     <VbCard title="Indicators">
       <VaCarousel :items="items" v-model="currentSlide" indicators />
+
+      // Change on hover
+      <VaCarousel :items="items" v-model="currentSlide" indicators indicatorTrigger="hover" />
     </VbCard>
 
     <VbCard title="Vertical">
@@ -36,6 +39,20 @@
           Go to {{ item }} ({{ index }})
         </template>
       </VaCarousel>
+    </VbCard>
+
+    <VbCard title="Autoscroll">
+      Without loop
+      <VaCarousel :items="items" stateful indicators autoscroll />
+
+      With loop
+      <VaCarousel :items="items" stateful indicators autoscroll loop />
+    </VbCard>
+
+    <VbCard title="Infinite">
+      <VaCarousel :items="items" stateful indicators infinite />
+
+      <VaCarousel :items="items" stateful indicators vertical infinite />
     </VbCard>
   </VbDemo>
 </template>

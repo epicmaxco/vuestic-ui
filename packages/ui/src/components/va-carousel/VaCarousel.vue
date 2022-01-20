@@ -30,7 +30,7 @@
         class="va-carousel__indicator"
         v-for="(item, index) in $props.items" :key="index"
         :class="{ 'va-carousel__indicator--active': index === modelValue }"
-        @click="goTo(index)"
+        v-bind="indicatorTrigger === 'hover' ? { onmouseover: () => goTo(index) } : { onclick: () => goTo(index) }"
       >
         <slot name="indicator" v-bind="{ item, index, goTo }">
           <va-button round>{{ index + 1 }}</va-button>
@@ -48,31 +48,42 @@
             {{ item }}
           </slot>
         </div>
+        <div class="va-carousel__slide">
+          <slot v-bind="{ item: items[0] }">
+            {{ items[0] }}
+          </slot>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { useSyncProp } from '../../composables/useSyncProp'
 import { computed, defineComponent, PropType, toRef } from 'vue'
 import { useCarousel } from './hooks/useCarousel'
+import { useCarouselAnimation } from './hooks/useCarouselAnimation'
+import { useStateful, statefulComponentOptions } from '../../mixins/StatefulMixin/cStatefulMixin'
 
 export default defineComponent({
   name: 'VaCarousel',
 
   props: {
+    ...statefulComponentOptions.props,
+
     modelValue: { type: Number, default: 0 },
     items: { type: Array as PropType<any[]>, required: true },
 
     // Animations
     autoscroll: { type: Boolean, default: false },
     autoscrollInterval: { type: Number, default: 1000 },
+    autoscrollPauseDuration: { type: Number, default: 2000 },
     loop: { type: Boolean, default: false },
+    infinite: { type: Boolean, default: false },
 
     // Visual
     arrows: { type: Boolean, default: false },
     indicators: { type: Boolean, default: false },
+    indicatorTrigger: { type: String as PropType<'click' | 'hover'>, default: 'click' },
     vertical: { type: Boolean, default: false },
     height: { type: String, default: '300px' },
   },
@@ -81,22 +92,26 @@ export default defineComponent({
 
   setup (props, { emit }) {
     const items = toRef(props, 'items')
-    const [currentSlide] = useSyncProp('modelValue', props, emit, 0)
+    const { valueComputed: currentSlide } = useStateful(props, emit, 0)
 
     const {
       goTo, next, prev,
       doShowNextButton, doShowPrevButton,
     } = useCarousel(items, currentSlide)
 
+    const { withPause, slidesContainerStyle, sliderToBeShown } = useCarouselAnimation(props, currentSlide)
+
     const computedSlidesStyle = computed(() => {
       if (props.vertical) {
         return {
-          transform: `translateY(${currentSlide.value * -100}%)`,
+          ...slidesContainerStyle.value,
+          transform: `translateY(${sliderToBeShown.value * -100}%)`,
         }
       }
 
       return {
-        transform: `translateX(${currentSlide.value * -100}%)`,
+        ...slidesContainerStyle.value,
+        transform: `translateX(${sliderToBeShown.value * -100}%)`,
       }
     })
 
@@ -104,9 +119,11 @@ export default defineComponent({
       doShowNextButton,
       doShowPrevButton,
       computedSlidesStyle,
-      goTo,
-      prev,
-      next,
+      goTo: withPause(goTo),
+      prev: withPause(prev),
+      next: withPause(next),
+      currentSlide,
+      sliderToBeShown,
     }
   },
 })
