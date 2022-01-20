@@ -684,7 +684,8 @@
         "prepend": "Adds an item outside the input and before input content",
         "prependInner": "Adds an item inside the input and before input content",
         "append": "Adds an item outside the input and after input content",
-        "appendInner": "Adds an item inside the input and after input content"
+        "appendInner": "Adds an item inside the input and after input content",
+        "messages": "Replaces messages under input field with slot content"
       }
     },
     "VaList": {

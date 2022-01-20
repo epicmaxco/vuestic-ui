@@ -255,6 +255,11 @@
         v-model="text"
         :messages="messages"
       />
+      <va-input v-model="text" messages="Custom message">
+        <template #messages="{ messages }">
+          <span class="custom-message">{{ messages }}</span>
+        </template>
+      </va-input>
     </VbCard>
     <VbCard title="Disabled">
       <va-input
@@ -572,6 +577,11 @@ export default {
 
   .border-blue {
     border: 1px solid blue;
+  }
+
+  .custom-message {
+    color: rgb(153, 0, 255);
+    font-size: 16px;
   }
 }
 </style>

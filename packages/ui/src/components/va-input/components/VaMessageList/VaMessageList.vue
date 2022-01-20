@@ -27,7 +27,7 @@ export default defineComponent({
       default: '',
     },
     limit: { type: Number, default: 1 },
-    color: { type: String, default: 'gray' },
+    color: { type: String },
   },
 
   setup (props) {
@@ -40,9 +40,7 @@ export default defineComponent({
 
         return props.modelValue.slice(0, props.limit)
       }),
-      computedStyle: computed(() => ({
-        color: colorComputed.value,
-      })),
+      computedStyle: computed(() => props.color ? { color: colorComputed.value } : {}),
     }
   },
 })
@@ -52,6 +50,8 @@ export default defineComponent({
 @import "../../../../styles/resources/index.scss";
 
 .va-message-list {
+  color: var(--va-message-list-color);
+
   &__message {
     vertical-align: middle;
     font-size: $font-size-mini;

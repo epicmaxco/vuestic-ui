@@ -58,18 +58,16 @@ export const colorsToCSSVariable = (colors: { [colorName: string]: string | unde
 }
 
 // Here expose methods that user wants to use in vue component
-export const useColors = () => {
-  return {
-    setColors,
-    getColors,
-    getColor,
-    getBoxShadowColor,
-    getHoverColor,
-    getFocusColor,
-    getGradientBackground,
-    getTextColor,
-    shiftHSLAColor,
-    setHSLAColor,
-    colorsToCSSVariable,
-  }
-}
+export const useColors = () => ({
+  setColors,
+  getColors,
+  getColor,
+  getBoxShadowColor,
+  getHoverColor,
+  getFocusColor,
+  getGradientBackground,
+  getTextColor,
+  shiftHSLAColor,
+  setHSLAColor,
+  colorsToCSSVariable,
+})
