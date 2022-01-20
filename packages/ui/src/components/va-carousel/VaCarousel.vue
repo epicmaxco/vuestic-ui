@@ -120,6 +120,7 @@ export default defineComponent({
 
 <style lang="scss">
 @import "../../styles/resources";
+@import "./_variables.scss";
 
 @keyframes va-carousel-fade-appear {
   0% {
@@ -135,9 +136,9 @@ export default defineComponent({
   display: flex;
   width: 100%;
   height: 100%;
-  background: white;
-  box-shadow: -1px -1px 15px -2px rgba(34, 60, 80, 0.2);
-  border-radius: 10px;
+  background: var(--va-carousel-background);
+  box-shadow: var(--va-carousel-box-shadow);
+  border-radius: var(--va-carousel-border-radius);
   position: relative;
   overflow: hidden;
 
@@ -150,7 +151,7 @@ export default defineComponent({
   &__slides {
     width: 100%;
     height: 100%;
-    transition: all 0.3s ease-in-out;
+    transition: var(--va-carousel-slides-transition);
   }
 
   &__slide {
