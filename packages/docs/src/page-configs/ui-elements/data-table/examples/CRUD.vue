@@ -3,20 +3,19 @@
     <template #headerAppend>
       <tr class="table-example--slot">
         <th
-          v-for="key in Object.keys(editedItem)"
+          v-for="key in Object.keys(createdItem)"
           :key="key"
           colspan="1"
         >
           <va-input
             :placeholder="key"
-            :disabled="showModal"
-            v-model="editedItem[key]"
+            v-model="createdItem[key]"
           />
         </th>
         <th colspan="1">
           <va-button
             @click="addNewItem()"
-            :disabled="!isNewData || showModal"
+            :disabled="!isNewData"
           >
             Add
           </va-button>
@@ -31,7 +30,7 @@
   </va-data-table>
 
   <va-modal
-    v-model="showModal"
+    :model-value="!!editedItem"
     message="Edit item"
     @ok="editItem()"
     @cancel="resetEditedItem()"
@@ -93,43 +92,47 @@ export default defineComponent({
       items,
       columns,
 
-      editedItem: { ...defaultItem },
       editedItemId: null,
-
-      showModal: false,
+      editedItem: null,
+      createdItem: { ...defaultItem },
     }
   },
 
   computed: {
     isNewData () {
-      return Object.keys(this.editedItem).every((key) => !!this.editedItem[key])
+      return Object.keys(this.createdItem).every((key) => !!this.createdItem[key])
     },
   },
 
   methods: {
     resetEditedItem () {
-      this.editedItem = { ...defaultItem }
+      this.editedItem = null
+      this.editedItemId = null
+    },
+    resetCreatedItem () {
+      this.createdItem = { ...defaultItem }
     },
     deleteItemById (id) {
-      this.items = [...this.items.slice(0, id), ...this.items.slice(id + 1)]
+      this.items = [
+        ...this.items.slice(0, id),
+        ...this.items.slice(id + 1),
+      ]
     },
     addNewItem () {
-      this.items = [...this.items, { ...this.editedItem }]
-      this.resetEditedItem()
+      this.items = [...this.items, { ...this.createdItem }]
+      this.resetCreatedItem()
     },
     editItem () {
       this.items = [
-        ...this.items.slice(0, this.editItemId),
+        ...this.items.slice(0, this.editedItemId),
         { ...this.editedItem },
-        ...this.items.slice(this.editItemId + 1),
+        ...this.items.slice(this.editedItemId + 1),
       ]
       this.resetEditedItem()
-      this.editItemId = null
     },
     openModalToEditItemById (id) {
-      this.editItemId = id
+      this.editedItemId = id
       this.editedItem = { ...this.items[id] }
-      this.showModal = true
     },
   },
 })
