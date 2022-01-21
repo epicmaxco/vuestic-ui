@@ -3586,7 +3586,10 @@
       },
       "other": {
         "title": "Other",
-        "text": "The component has many different properties, some of them are shown below with an example."
+        "text": [
+          "The component has many different properties, some of them are shown below with an example.",
+          "Example of `va-data-table` with **CRUD** actions using a `va-modal` component for editing each row:"
+        ]
       }
     }
   },
