@@ -2,10 +2,25 @@
   <va-data-table :items="items" :columns="columns" striped>
     <template #headerAppend>
       <tr class="table-example--slot">
-        <th colspan="1"><va-input placeholder="name" v-model="addNameModel" /></th>
-        <th colspan="1"><va-input placeholder="username" v-model="addUsernameModel" /></th>
-        <th colspan="1"><va-input placeholder="email" v-model="addEmailModel" /></th>
-        <th colspan="1"><va-button @click="addNewItem()" :disabled="!isNewData">Add new</va-button></th>
+        <th
+          v-for="key in Object.keys(editedItem)"
+          :key="key"
+          colspan="1"
+        >
+          <va-input
+            :placeholder="key"
+            :disabled="showModal"
+            v-model="editedItem[key]"
+          />
+        </th>
+        <th colspan="1">
+          <va-button
+            @click="addNewItem()"
+            :disabled="!isNewData || showModal"
+          >
+            Add
+          </va-button>
+        </th>
       </tr>
     </template>
 
@@ -19,17 +34,28 @@
     v-model="showModal"
     message="Edit item"
     @ok="editItem()"
+    @cancel="resetEditedItem()"
   >
     <slot>
-      <va-input class="my-3" label="name" v-model="editNameModel" />
-      <va-input class="my-3" label="username" v-model="editUsernameModel" />
-      <va-input class="my-3" label="email" v-model="editEmailModel" />
+      <va-input
+        v-for="key in Object.keys(editedItem)"
+        :key="key"
+        class="my-3"
+        :label="key"
+        v-model="editedItem[key]"
+      />
     </slot>
   </va-modal>
 </template>
 
 <script>
 import { defineComponent } from 'vue'
+
+const defaultItem = {
+  name: '',
+  username: '',
+  email: '',
+}
 
 export default defineComponent({
   data () {
@@ -60,20 +86,15 @@ export default defineComponent({
       { key: 'name', sortable: true },
       { key: 'username', sortable: true },
       { key: 'email', sortable: true },
-      { key: 'actions', width: 130 },
+      { key: 'actions', width: 80 },
     ]
 
     return {
       items,
       columns,
 
-      addNameModel: '',
-      addUsernameModel: '',
-      addEmailModel: '',
-      editNameModel: '',
-      editUsernameModel: '',
-      editEmailModel: '',
-      editItemId: null,
+      editedItem: { ...defaultItem },
+      editedItemId: null,
 
       showModal: false,
     }
@@ -81,52 +102,33 @@ export default defineComponent({
 
   computed: {
     isNewData () {
-      return !!(this.addNameModel && this.addUsernameModel && this.addEmailModel)
+      return Object.keys(this.editedItem).every((key) => !!this.editedItem[key])
     },
   },
 
   methods: {
-    resetAddData () {
-      this.addNameModel = ''
-      this.addUsernameModel = ''
-      this.addEmailModel = ''
-    },
-    resetEditData () {
-      this.editItemId = null
-      this.editNameModel = ''
-      this.editUsernameModel = ''
-      this.editEmailModel = ''
-    },
-    updateItem (isAddedNew = false) {
-      return {
-        name: isAddedNew ? this.addNameModel : this.editNameModel,
-        username: isAddedNew ? this.addUsernameModel : this.editUsernameModel,
-        email: isAddedNew ? this.addEmailModel : this.editEmailModel,
-      }
+    resetEditedItem () {
+      this.editedItem = { ...defaultItem }
     },
     deleteItemById (id) {
       this.items = [...this.items.slice(0, id), ...this.items.slice(id + 1)]
     },
     addNewItem () {
-      this.items = [...this.items, this.updateItem(true)]
-      this.resetAddData()
+      this.items = [...this.items, { ...this.editedItem }]
+      this.resetEditedItem()
     },
     editItem () {
       this.items = [
         ...this.items.slice(0, this.editItemId),
-        this.updateItem(),
+        { ...this.editedItem },
         ...this.items.slice(this.editItemId + 1),
       ]
-      this.resetEditData()
+      this.resetEditedItem()
+      this.editItemId = null
     },
     openModalToEditItemById (id) {
       this.editItemId = id
-      const item = this.items[id]
-
-      this.editNameModel = item.name
-      this.editUsernameModel = item.username
-      this.editEmailModel = item.email
-
+      this.editedItem = { ...this.items[id] }
       this.showModal = true
     },
   },
