@@ -10,10 +10,10 @@ ManualMethodApiOptions |
 ManualEventApiOptions |
 ManualSlotApiOptions
 
-export const sortObjectByPropNames = (
-  obj: Record<string, apiOptions>,
-): apiOptions[] => {
-  const arrFromObj: apiOptions[] = Object.values(obj)
+export const sortObjectByPropNames = <T>(
+  obj: Record<string, T>,
+): T[] => {
+  const arrFromObj: T[] = Object.values(obj)
 
   const sortedArr = arrFromObj.sort(
     (element1: apiOptions, element2: apiOptions) => {

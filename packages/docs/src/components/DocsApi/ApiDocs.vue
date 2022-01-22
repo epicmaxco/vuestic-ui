@@ -157,12 +157,13 @@ import { ManualApiOptions } from './ManualApiOptions'
 import { getApiTableData } from './api-docs-helpers'
 import { defaultApiOptions } from './default-api-options'
 import MarkdownView from '../markdown-view/MarkdownView.vue'
+import { VueConstructor } from 'vue-class-component'
 
 export default defineComponent({
   name: 'ApiDocs',
   components: { MarkdownView },
   props: {
-    componentOptions: { type: Object as PropType<DefineComponent>, required: true },
+    componentOptions: { type: [Object, Function] as PropType<VueConstructor | DefineComponent>, required: true },
     apiOptions: { type: Object as PropType<ManualApiOptions>, default: () => ({}) },
   },
   setup (props) {
@@ -173,7 +174,7 @@ export default defineComponent({
 
     const isEmpty = (object: Record<string, any>): boolean => !Object.keys(object).length
 
-    const cleanDefaultValue = (o: Record<string, any>) => {
+    const cleanDefaultValue = (o: Record<string, any> | string) => {
       const str: string = o.toString()
 
       const defaultFnStartRegex = /function _default\(\) \{\n\s*return\s*/

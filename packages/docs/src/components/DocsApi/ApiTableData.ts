@@ -17,6 +17,7 @@ export type ApiPropRowOptions = ApiRowOptions & {
 }
 
 export type ApiSlotRowOptions = ApiRowOptions & {
+  description: string;
   // add more here
 }
 
