@@ -23,11 +23,10 @@
       >
         <input
           ref="input"
-          :id="String(id)"
-          :name="String(name)"
           type="checkbox"
           role="checkbox"
           readonly
+          :id="id"
           v-on="SetupContext.keyboardFocusListeners"
           @focus="onFocus"
           @blur="onBlur($event)"
@@ -78,6 +77,8 @@ class CheckboxProps {
   color = prop<string>({ type: String, default: 'primary' })
   checkedIcon = prop<string>({ type: String, default: 'check' })
   indeterminateIcon = prop<string>({ type: String, default: 'remove' })
+  id = prop<string>({ type: String, default: '' })
+  name = prop<string>({ type: String, default: '' })
 }
 
 const CheckboxPropsMixin = Vue.with(CheckboxProps)
