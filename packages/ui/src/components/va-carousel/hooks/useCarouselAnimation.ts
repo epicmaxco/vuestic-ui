@@ -9,6 +9,7 @@ export const useCarouselAnimation = (props: {
   infinite: boolean,
   effect: 'fade' | 'transition',
   vertical: boolean,
+  fadeKeyframe: string,
 }, currentSlide: Ref<number>) => {
   let animationInterval = -1
   let direction = 1
@@ -93,10 +94,22 @@ export const useCarouselAnimation = (props: {
         return
       }
 
-      if (sliderToBeShown.value === props.items.length) {
+      if (newValue === props.items.length - 1 && oldValue === 0) {
+        // Move to last fake slide without animation
+        slidesContainerStyle.value.transition = 'none'
+        sliderToBeShown.value = props.items.length
+        setTimeout(() => {
+          sliderToBeShown.value = newValue
+          slidesContainerStyle.value.transition = undefined
+        })
+        return
+      }
+
+      if (sliderToBeShown.value === props.items.length && oldValue === 0) {
         // If on last slide move to 0 without animation
         slidesContainerStyle.value.transition = 'none'
         sliderToBeShown.value = 0
+
         setTimeout(() => {
           // Then move to target slide with animation from 0
           sliderToBeShown.value = newValue
@@ -108,7 +121,7 @@ export const useCarouselAnimation = (props: {
 
     if (props.effect === 'fade') {
       setTimeout(() => {
-        slidesContainerStyle.value.animation = 'va-carousel-fade-appear 0.3s'
+        slidesContainerStyle.value.animation = props.fadeKeyframe
       })
       slidesContainerStyle.value.animation = undefined
     }

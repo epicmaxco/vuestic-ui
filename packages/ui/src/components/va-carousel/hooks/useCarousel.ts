@@ -9,7 +9,7 @@ export const useCarousel = (props: {
   const prev = () => {
     if (props.loop || props.infinite) {
       if (currentSlide.value <= 0) {
-        currentSlide.value = props.items.length
+        currentSlide.value = props.items.length - 1
         return
       }
     }

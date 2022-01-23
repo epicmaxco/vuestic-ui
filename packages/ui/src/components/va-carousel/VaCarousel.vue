@@ -35,8 +35,13 @@
         :class="{ 'va-carousel__indicator--active': index === modelValue }"
         v-bind="indicatorTrigger === 'hover' ? { onmouseover: () => goTo(index) } : { onclick: () => goTo(index) }"
       >
-        <slot name="indicator" v-bind="{ item, index, goTo }">
-          <va-button round>{{ index + 1 }}</va-button>
+        <slot name="indicator" v-bind="{ item, index, goTo, isActive: index === currentSlide }">
+          <va-button
+            round
+            :color="index === currentSlide ? 'primary' : 'rgba(37, 37, 37, 0.5)'"
+          >
+            {{ index + 1 }}
+          </va-button>
         </slot>
       </div>
     </div>
@@ -47,7 +52,7 @@
         :style="computedSlidesStyle"
       >
         <div class="va-carousel__slide" v-for="(item, index) in slides" :key="item">
-          <slot v-bind="{ item, index, goTo }">
+          <slot v-bind="{ item, index, goTo, isActive: index === currentSlide }">
             <va-image :src="item" />
           </slot>
         </div>
@@ -81,6 +86,7 @@ export default defineComponent({
     autoscrollPauseDuration: { type: Number, default: 2000 },
     loop: { type: Boolean, default: false },
     infinite: { type: Boolean, default: false },
+    fadeKeyframe: { type: String, default: 'va-carousel-fade-appear 1s' },
 
     // Visual
     arrows: { type: Boolean, default: true },
