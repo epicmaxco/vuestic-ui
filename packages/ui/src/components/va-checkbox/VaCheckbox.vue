@@ -27,6 +27,7 @@
           role="checkbox"
           readonly
           :id="id"
+          :name="name"
           v-on="SetupContext.keyboardFocusListeners"
           @focus="onFocus"
           @blur="onBlur($event)"
