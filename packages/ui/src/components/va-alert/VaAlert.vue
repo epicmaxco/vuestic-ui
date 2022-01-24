@@ -19,9 +19,7 @@
         v-if="hasIcon"
       >
         <slot name="icon">
-          <va-icon
-            :name="icon"
-          />
+          <va-icon :name="icon" />
         </slot>
       </div>
 
@@ -68,127 +66,110 @@
 </template>
 
 <script lang="ts">
-import { Options, prop, mixins, Vue } from 'vue-class-component'
+import { defineComponent, computed, PropType, ref, Ref, nextTick, onMounted, onBeforeUnmount } from 'vue'
 
-import {
-  getHoverColor,
-  getBoxShadowColor, getTextColor,
-} from '../../services/color-config/color-functions'
-import ColorMixin from '../../services/color-config/ColorMixin'
-import { StatefulMixin } from '../../mixins/StatefulMixin/StatefulMixin'
+import { getTextColor } from '../../services/color-config/color-functions'
+import { useColors } from '../../services/color-config/color-config'
+import { useStateful } from '../../mixins/StatefulMixin/cStatefulMixin'
 
 import VaIcon from '../va-icon'
 
-class AlertProps {
-  color = prop<string>({ type: String, default: 'primary' })
-  title = prop<string>({ type: String, default: '' })
-  description = prop<string>({ type: String, default: '' })
-  icon = prop<string>({ type: String, default: '' })
-  closeText = prop<string>({ type: String, default: '' })
-  closeable = prop<boolean>({ type: Boolean, default: false })
-  dense = prop<boolean>({ type: Boolean, default: false })
-  outline = prop<boolean>({ type: Boolean, default: false })
-  center = prop<boolean>({ type: Boolean, default: false })
-  borderColor = prop<string>({ type: String, default: '' })
-  border = prop<string>({
-    type: String,
-    default: '',
-    validator: (value: string) => {
-      return ['top', 'right', 'bottom', 'left', ''].includes(value)
-    },
-  })
-
-  modelValue = prop<boolean>({
-    type: Boolean,
-    default: true,
-  })
-}
-
-const AlertPropsMixin = Vue.with(AlertProps)
-const dark = 'var(--va-dark)'
-
-@Options({
+export default defineComponent({
   name: 'VaAlert',
   components: { VaIcon },
+  props: {
+    color: ({ type: String as PropType<string>, default: 'primary' }),
+    title: ({ type: String as PropType<string>, default: '' }),
+    description: ({ type: String as PropType<string>, default: '' }),
+    icon: ({ type: String as PropType<string>, default: '' }),
+    closeText: ({ type: String as PropType<string>, default: '' }),
+    closeable: ({ type: Boolean as PropType<boolean>, default: false }),
+    dense: ({ type: Boolean as PropType<boolean>, default: false }),
+    outline: ({ type: Boolean as PropType<boolean>, default: false }),
+    center: ({ type: Boolean as PropType<boolean>, default: false }),
+    borderColor: ({ type: String as PropType<string>, default: '' }),
+    border: ({
+      type: String as PropType<string>,
+      default: '',
+      validator: (value: string) => ['top', 'right', 'bottom', 'left', ''].includes(value),
+    }),
+    modelValue: ({
+      type: Boolean as PropType<boolean>,
+      default: true,
+    }),
+  },
+  setup (props, { slots, emit }) {
+    const dark = 'var(--va-dark)'
+
+    const { getColor } = useColors()
+    const colorComputed = computed(() => getColor(props.color))
+
+    const hasIcon = computed(() => props.icon || slots.icon)
+    const hasTitle = computed(() => props.title || slots.title)
+    const borderClass = computed(() => `va-alert__border--${props.border}`)
+    const closeIcon = computed(() => props.closeText || 'close')
+    const alertStyle = computed(() => {
+      let background = colorComputed.value
+      let boxShadow = 'none'
+      if (props.outline) {
+        background = 'transparent'
+      }
+      if (props.border) {
+        background = '#ffffff'
+        boxShadow = 'var(--va-alert-box-shadow)'
+      }
+      return {
+        border: props.outline && `1px solid ${colorComputed.value}`,
+        padding: props.dense && '0.25rem 0.75rem',
+        background,
+        boxShadow,
+      }
+    })
+    const contentStyle = computed(() => {
+      let color = getTextColor(colorComputed.value)
+      if (props.outline) {
+        color = colorComputed.value
+      }
+      if (props.border) {
+        color = dark
+      }
+      return {
+        alignItems: props.center && 'center',
+        color,
+      }
+    })
+    const titleStyle = computed(() => {
+      let color = getTextColor(colorComputed.value)
+      if (props.outline) {
+        color = colorComputed.value
+      }
+      if (props.border) {
+        color = colorComputed.value
+      }
+      return { color }
+    })
+    const borderStyle = computed(() => ({
+      backgroundColor: props.borderColor
+        ? getColor(props.borderColor)
+        : colorComputed.value,
+    }))
+
+    const { valueComputed } = useStateful(props, emit)
+    const hide = () => { valueComputed.value = false }
+
+    return {
+      hasIcon,
+      hasTitle,
+      borderClass,
+      closeIcon,
+      alertStyle,
+      contentStyle,
+      titleStyle,
+      borderStyle,
+      hide,
+    }
+  },
 })
-export default class VaAlert extends mixins(
-  StatefulMixin,
-  ColorMixin,
-  AlertPropsMixin,
-) {
-  get hasIcon () {
-    return this.icon || this.$slots.icon
-  }
-
-  get hasTitle () {
-    return this.$props.title || this.$slots.title
-  }
-
-  get alertStyle () {
-    let background = this.colorComputed
-    let boxShadow = 'none'
-    if (this.outline) {
-      background = 'transparent'
-    }
-    if (this.border) {
-      background = '#ffffff'
-      boxShadow = 'var(--va-alert-box-shadow)'
-    }
-    return {
-      border: this.outline && `1px solid ${this.colorComputed}`,
-      background: background,
-      boxShadow: boxShadow,
-      padding: this.dense && '0.25rem 0.75rem',
-    }
-  }
-
-  get contentStyle () {
-    let color = getTextColor(this.colorComputed)
-    if (this.outline) {
-      color = this.colorComputed
-    }
-    if (this.border) {
-      color = dark
-    }
-    return {
-      alignItems: this.center && 'center',
-      color: color,
-    }
-  }
-
-  get titleStyle () {
-    let color = getTextColor(this.colorComputed)
-    if (this.outline) {
-      color = this.colorComputed
-    }
-    if (this.border) {
-      color = this.colorComputed
-    }
-    return {
-      color: color,
-    }
-  }
-
-  get borderClass () {
-    return `va-alert__border--${this.border}`
-  }
-
-  get borderStyle () {
-    return {
-      backgroundColor: this.$props.borderColor
-        ? this.theme.getColor(this.$props.borderColor)
-        : this.colorComputed,
-    }
-  }
-
-  get closeIcon () {
-    return !this.closeText ? 'close' : this.closeText
-  }
-
-  hide (): void {
-    this.valueComputed = false
-  }
-}
 </script>
 
 <style lang='scss'>
@@ -201,12 +182,14 @@ export default class VaAlert extends mixins(
   margin: var(--va-alert-margin-y) auto;
   display: var(--va-alert-display);
   align-items: var(--va-alert-align-items);
-  border: var(--va-alert-border-width, var(--va-control-border)) solid transparent;
+  border:
+    var(--va-alert-border-width, var(--va-control-border)) solid
+    transparent;
   border-radius: var(--va-alert-border-radius, var(--va-block-border-radius));
   font-family: var(--va-font-family);
 
   &__border {
-    content: '';
+    content: "";
     position: absolute;
 
     &--top {
