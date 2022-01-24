@@ -66,106 +66,55 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, PropType, ref, Ref, nextTick, onMounted, onBeforeUnmount } from 'vue'
+import { defineComponent, computed, PropType } from 'vue'
 
-import { getTextColor } from '../../services/color-config/color-functions'
-import { useColors } from '../../services/color-config/color-config'
 import { useStateful } from '../../mixins/StatefulMixin/cStatefulMixin'
-
+import { useAlertStyles } from './useAlertStyles'
 import VaIcon from '../va-icon'
 
 export default defineComponent({
   name: 'VaAlert',
   components: { VaIcon },
   props: {
-    color: ({ type: String as PropType<string>, default: 'primary' }),
-    title: ({ type: String as PropType<string>, default: '' }),
-    description: ({ type: String as PropType<string>, default: '' }),
-    icon: ({ type: String as PropType<string>, default: '' }),
-    closeText: ({ type: String as PropType<string>, default: '' }),
-    closeable: ({ type: Boolean as PropType<boolean>, default: false }),
-    dense: ({ type: Boolean as PropType<boolean>, default: false }),
-    outline: ({ type: Boolean as PropType<boolean>, default: false }),
-    center: ({ type: Boolean as PropType<boolean>, default: false }),
-    borderColor: ({ type: String as PropType<string>, default: '' }),
-    border: ({
+    modelValue: { type: Boolean as PropType<boolean>, default: true },
+    color: { type: String as PropType<string>, default: 'primary' },
+    title: { type: String as PropType<string>, default: '' },
+    description: { type: String as PropType<string>, default: '' },
+    icon: { type: String as PropType<string>, default: '' },
+    closeText: { type: String as PropType<string>, default: '' },
+    closeable: { type: Boolean as PropType<boolean>, default: false },
+    dense: { type: Boolean as PropType<boolean>, default: false },
+    outline: { type: Boolean as PropType<boolean>, default: false },
+    center: { type: Boolean as PropType<boolean>, default: false },
+    borderColor: { type: String as PropType<string>, default: '' },
+    border: {
       type: String as PropType<string>,
       default: '',
       validator: (value: string) => ['top', 'right', 'bottom', 'left', ''].includes(value),
-    }),
-    modelValue: ({
-      type: Boolean as PropType<boolean>,
-      default: true,
-    }),
+    },
   },
   setup (props, { slots, emit }) {
-    const dark = 'var(--va-dark)'
-
-    const { getColor } = useColors()
-    const colorComputed = computed(() => getColor(props.color))
-
-    const hasIcon = computed(() => props.icon || slots.icon)
-    const hasTitle = computed(() => props.title || slots.title)
-    const borderClass = computed(() => `va-alert__border--${props.border}`)
-    const closeIcon = computed(() => props.closeText || 'close')
-    const alertStyle = computed(() => {
-      let background = colorComputed.value
-      let boxShadow = 'none'
-      if (props.outline) {
-        background = 'transparent'
-      }
-      if (props.border) {
-        background = '#ffffff'
-        boxShadow = 'var(--va-alert-box-shadow)'
-      }
-      return {
-        border: props.outline && `1px solid ${colorComputed.value}`,
-        padding: props.dense && '0.25rem 0.75rem',
-        background,
-        boxShadow,
-      }
-    })
-    const contentStyle = computed(() => {
-      let color = getTextColor(colorComputed.value)
-      if (props.outline) {
-        color = colorComputed.value
-      }
-      if (props.border) {
-        color = dark
-      }
-      return {
-        alignItems: props.center && 'center',
-        color,
-      }
-    })
-    const titleStyle = computed(() => {
-      let color = getTextColor(colorComputed.value)
-      if (props.outline) {
-        color = colorComputed.value
-      }
-      if (props.border) {
-        color = colorComputed.value
-      }
-      return { color }
-    })
-    const borderStyle = computed(() => ({
-      backgroundColor: props.borderColor
-        ? getColor(props.borderColor)
-        : colorComputed.value,
-    }))
+    const alertStyles = useAlertStyles(props)
 
     const { valueComputed } = useStateful(props, emit)
+
     const hide = () => { valueComputed.value = false }
 
+    const hasIcon = computed(() => props.icon || slots.icon)
+
+    const hasTitle = computed(() => props.title || slots.title)
+
+    const borderClass = computed(() => `va-alert__border--${props.border}`)
+
+    const closeIcon = computed(() => props.closeText || 'close')
+
     return {
+      ...alertStyles,
+      valueComputed,
       hasIcon,
       hasTitle,
       borderClass,
       closeIcon,
-      alertStyle,
-      contentStyle,
-      titleStyle,
-      borderStyle,
       hide,
     }
   },
@@ -182,9 +131,7 @@ export default defineComponent({
   margin: var(--va-alert-margin-y) auto;
   display: var(--va-alert-display);
   align-items: var(--va-alert-align-items);
-  border:
-    var(--va-alert-border-width, var(--va-control-border)) solid
-    transparent;
+  border: var(--va-alert-border-width, var(--va-control-border)) solid transparent;
   border-radius: var(--va-alert-border-radius, var(--va-block-border-radius));
   font-family: var(--va-font-family);
 
