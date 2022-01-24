@@ -21,12 +21,14 @@
             </template>
 
             <template #prependInner="slotScope">
-              <slot name="prependInner" v-bind="slotScope">
-                <va-icon v-if="$props.leftIcon" v-bind="iconProps" />
-              </slot>
+              <slot name="prependInner" v-bind="slotScope" />
+              <va-icon
+                v-if="$props.leftIcon"
+                v-bind="iconProps"
+              />
             </template>
 
-            <template #appendInner="slotScope">
+            <template #icon>
               <va-icon
                 v-if="canBeCleared"
                 v-bind="clearIconProps"
@@ -36,7 +38,6 @@
                 v-else-if="!$props.leftIcon"
                 v-bind="iconProps"
               />
-              <slot name="appendInner" v-bind="slotScope" />
             </template>
           </va-input>
         </slot>
@@ -72,11 +73,8 @@ import VaIcon from '../va-icon'
 import { VaDatePickerModelValue } from '../va-date-picker/types/types'
 
 const VaInputProps = {
-  ...useClearableProps,
   ...useFormProps,
 
-  // clearValue: { type: Date as PropType<VaDatePickerModelValue>, default: undefined },
-  clearValue: { type: Date as PropType<VaDatePickerModelValue>, default: undefined },
   label: { type: String, required: false },
   color: { type: String, default: 'primary' },
   placeholder: { type: String, default: '' },
@@ -99,6 +97,9 @@ export default defineComponent({
   props: {
     ...extractComponentProps(VaDatePicker),
     ...VaInputProps,
+
+    ...useClearableProps,
+    clearValue: { type: Date as PropType<VaDatePickerModelValue>, default: undefined },
 
     resetOnClose: { type: Boolean, default: true },
     isOpen: { type: Boolean },
@@ -179,11 +180,11 @@ export default defineComponent({
     }
 
     const filterSlots = computed(() => {
-      const slotsToIcons = [
+      const slotsWithIcons = [
         props.leftIcon && 'prependInner',
-        (!props.leftIcon || props.clearable) && 'appendInner',
+        (!props.leftIcon || props.clearable) && 'icon',
       ]
-      return Object.keys(slots).filter(slot => !slotsToIcons.includes(slot))
+      return Object.keys(slots).filter(slot => !slotsWithIcons.includes(slot))
     })
 
     const {
@@ -234,12 +235,6 @@ export default defineComponent({
   }
 
   --va-date-picker-cell-size: 28px;
-
-  .clear-icon {
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-  }
 
   .va-dropdown {
     width: 100%;

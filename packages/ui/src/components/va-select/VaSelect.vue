@@ -65,15 +65,18 @@
             <slot name="prependInner" />
           </template>
 
-          <template #appendInner>
-            <slot
-              v-if="$slots.appendInner"
-              name="appendInner"
-            />
+          <template #icon>
             <va-icon
               v-if="showClearIcon"
               v-bind="clearIconProps"
               @click.stop="reset()"
+            />
+          </template>
+
+          <template #appendInner>
+            <slot
+              v-if="$slots.appendInner"
+              name="appendInner"
             />
             <va-icon
               :color="colorComputed"
@@ -679,12 +682,6 @@ export default defineComponent({
 
   .va-input {
     cursor: var(--va-select-cursor);
-  }
-
-  .clear-icon {
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
   }
 }
 

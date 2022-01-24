@@ -28,12 +28,14 @@
         </template>
 
         <template #prependInner="slotScope">
-          <slot name="prependInner" v-bind="slotScope">
-            <va-icon v-if="$props.leftIcon" v-bind="iconProps" />
-          </slot>
+          <slot name="prependInner" v-bind="slotScope" />
+          <va-icon
+            v-if="$props.leftIcon"
+            v-bind="iconProps"
+          />
         </template>
 
-        <template #appendInner="slotScope">
+        <template #icon>
           <va-icon
             v-if="canBeCleared"
             v-bind="clearIconProps"
@@ -43,7 +45,6 @@
             v-else-if="!$props.leftIcon"
             v-bind="iconProps"
           />
-          <slot name="appendInner" v-bind="slotScope" />
         </template>
       </va-input>
     </template>
@@ -113,15 +114,15 @@ export default defineComponent({
 
     const inputProps = filterComponentProps(
       props,
-      extractComponentProps(VaInput, ['rules', 'error', 'errorMessages', 'clearable', 'clearableIcon']),
+      extractComponentProps(VaInput, ['rules', 'error', 'errorMessages', 'clearable']),
     )
 
     const filterSlots = computed(() => {
-      const slotsToIcons = [
+      const slotsWithIcons = [
         props.leftIcon && 'prependInner',
-        (!props.leftIcon || props.clearable) && 'appendInner',
+        (!props.leftIcon || props.clearable) && 'icon',
       ]
-      return Object.keys(slots).filter(slot => !slotsToIcons.includes(slot))
+      return Object.keys(slots).filter(slot => !slotsWithIcons.includes(slot))
     })
 
     const onInputTextChanged = (val: string) => {
@@ -176,7 +177,7 @@ export default defineComponent({
     const {
       canBeCleared,
       clearIconProps,
-    } = useClearable(props, valueText, isFocused, computedError)
+    } = useClearable(props, valueText, isFocused, hasError)
 
     const iconProps = computed(() => ({
       name: props.icon,
@@ -223,13 +224,3 @@ export default defineComponent({
   },
 })
 </script>
-
-<style lang="scss">
-.va-time-input {
-  .clear-icon {
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-  }
-}
-</style>
