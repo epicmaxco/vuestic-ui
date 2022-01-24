@@ -370,6 +370,20 @@
         readonly
         :clearable="isClearable"
       />
+      <va-input
+        v-model="text"
+        label="Error"
+        error
+        :error-messages="errorMessages"
+        :clearable="isClearable"
+      />
+      <va-input
+        v-model="text"
+        label="Success"
+        success
+        :clearable="isClearable"
+        :messages="successMessages"
+      />
     </VbCard>
     <VbCard title="All slots">
       <va-input

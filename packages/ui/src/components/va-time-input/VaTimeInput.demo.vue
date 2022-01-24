@@ -19,34 +19,34 @@
       />
     </VbCard>
 
-    <VbCard title="slots">
-      <VaTimeInput v-model="value">
+    <VbCard title="slots" style="width: 450px;">
+      <VaTimeInput v-model="value" label="appendInner">
         <template #appendInner>
           <va-icon name="done" />
         </template>
       </VaTimeInput>
-      <VaTimeInput v-model="value">
+      <VaTimeInput v-model="value" label="append">
         <template #append>
           <va-icon name="done" />
         </template>
       </VaTimeInput>
-      <VaTimeInput v-model="value">
+      <VaTimeInput v-model="value" label="prepend">
         <template #prepend>
           <va-icon name="done" />
         </template>
       </VaTimeInput>
-      <VaTimeInput v-model="value">
+      <VaTimeInput v-model="value" label="prependInner">
         <template #prependInner>
-          <va-icon name="done" color="primary" />
+          <va-icon name="done" />
         </template>
       </VaTimeInput>
-      <VaTimeInput v-model="value" clearable color="success">
+      <VaTimeInput v-model="value" clearable color="warning" label="prependInner & color=warning & clearable">
         <template #prependInner><va-icon name="done" /></template>
       </VaTimeInput>
-      <VaTimeInput v-model="value" clearable color="danger" leftIcon>
+      <VaTimeInput v-model="value" clearable color="warning" leftIcon label="prependInner & color=warning & clearable & leftIcon">
         <template #prependInner><va-icon name="done" /></template>
       </VaTimeInput>
-      <VaTimeInput v-model="value" leftIcon>
+      <VaTimeInput v-model="value" leftIcon clearable label="appendInner & clearable & leftIcon">
         <template #appendInner><va-icon name="done" /></template>
       </VaTimeInput>
     </VbCard>

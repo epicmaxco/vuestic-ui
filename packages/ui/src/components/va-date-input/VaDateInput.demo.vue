@@ -5,7 +5,7 @@
       <va-date-input v-model="value" />
       Date ranges
       <va-date-input v-model="range" leftIcon />
-      Dates
+      Dates and clearable
       <va-date-input v-model="dates" clearable />
     </VbCard>
 
