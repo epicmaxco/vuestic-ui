@@ -26,8 +26,6 @@ export default {
     ...mapObject(
       InputApiOptions.slots!,
       (slot, key) => ({ ...slot, translation: `api.VaInput.slots.${key}` }),
-      ['prependInner'],
     ),
-    prependInner: {},
   },
 } as ManualApiOptions

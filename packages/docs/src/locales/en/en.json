@@ -1153,9 +1153,7 @@
       },
       "events": {},
       "methods": {},
-      "slots": {
-        "prependInner": "Adds an item inside the input and before input content. This slot is replaced the icon when the prop `left-icon` is set to `true`"
-      }
+      "slots": {}
     }
   },
   "menu": {
