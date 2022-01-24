@@ -6,7 +6,6 @@ interface ClearableProps {
   clearValue: any
   disabled?: boolean
   readonly?: boolean
-  multiple?: boolean
   success?: boolean
   color?: string
 }
@@ -46,7 +45,6 @@ export const useClearable = (
     name: props.clearableIcon,
     color: clearIconColor.value,
     size: 'small',
-    class: 'clear-icon',
   }))
 
   return {
