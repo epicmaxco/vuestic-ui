@@ -2,6 +2,7 @@
   <transition
     v-if="valueComputed"
     name="fade"
+    ref="alert"
   >
     <div
       class="va-alert"
@@ -68,14 +69,16 @@
 <script lang="ts">
 import { defineComponent, computed, PropType } from 'vue'
 
-import { useStateful } from '../../mixins/StatefulMixin/cStatefulMixin'
+import { useStateful, statefulComponentOptions } from '../../mixins/StatefulMixin/cStatefulMixin'
 import { useAlertStyles } from './useAlertStyles'
 import VaIcon from '../va-icon'
 
 export default defineComponent({
   name: 'VaAlert',
   components: { VaIcon },
+  emits: [...statefulComponentOptions.emits],
   props: {
+    ...statefulComponentOptions.props,
     modelValue: { type: Boolean as PropType<boolean>, default: true },
     color: { type: String as PropType<string>, default: 'primary' },
     title: { type: String as PropType<string>, default: '' },
