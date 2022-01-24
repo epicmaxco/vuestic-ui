@@ -19,27 +19,39 @@
   >
     <!-- Simply proxy slots to VaInputWrapper -->
     <template
-      v-for="(_, name) in $slots"
+      v-for="name in filterSlots"
       :key="name"
       v-slot:[name]="slotScope"
     >
       <slot :name="name" v-bind="slotScope" />
     </template>
 
-    <template #icon>
-      <va-icon v-if="success" color="success"
-        name="check_circle" size="small"
+    <template #icon="slotScope">
+      <va-icon
+        v-if="success"
+        color="success"
+        name="check_circle"
+        size="small"
       />
-      <va-icon v-if="computedError" color="danger"
-        name="warning" size="small"
+      <va-icon
+        v-if="computedError"
+        color="danger"
+        name="warning"
+        size="small"
       />
-      <va-icon  v-if="canBeCleared" :color="clearIconColor"
-        :name="clearableIcon" size="small" @click.stop="reset()"
+      <va-icon
+        v-if="canBeCleared"
+        v-bind="clearIconProps"
+        @click.stop="reset()"
       />
-      <va-icon v-if="loading" :color="color"
-        name="loop" size="small"
+      <va-icon
+        v-if="loading"
+        :color="color"
+        size="small"
+        name="loop"
         spin="counter-clockwise"
       />
+      <slot name="icon" v-bind="slotScope" />
     </template>
 
     <VaTextarea
@@ -120,7 +132,7 @@ export default defineComponent({
 
   inheritAttrs: false,
 
-  setup (props, { emit, attrs, expose }) {
+  setup (props, { emit, attrs, slots, expose }) {
     const input = ref<HTMLInputElement | InstanceType<typeof VaTextarea> | undefined>()
 
     const reset = () => {
@@ -136,6 +148,11 @@ export default defineComponent({
       input.value?.blur()
     }
 
+    const filterSlots = computed(() => {
+      const iconSlot = ['icon']
+      return Object.keys(slots).filter(slot => !iconSlot.includes(slot))
+    })
+
     const {
       isFocused,
       listeners: validationListeners,
@@ -146,7 +163,7 @@ export default defineComponent({
     const { modelValue } = toRefs(props)
     const {
       canBeCleared,
-      clearIconColor,
+      clearIconProps,
     } = useClearable(props, modelValue, isFocused, computedError)
 
     /** Use cleave only if this component is input, because it will break. */
@@ -203,11 +220,12 @@ export default defineComponent({
 
       // Icon
       canBeCleared,
-      clearIconColor,
+      clearIconProps,
 
       computedInputAttributes,
       fieldListeners: createFieldListeners(emit),
       reset,
+      filterSlots,
     }
   },
 
