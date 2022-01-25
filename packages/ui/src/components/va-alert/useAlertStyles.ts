@@ -20,6 +20,8 @@ type AlertStyleProps = {
 
 export const useAlertStyles = (props: AlertStyleProps) => {
   const dark = 'var(--va-dark)'
+  const white = '#ffffff'
+  const paddingDense = '0.25rem 0.75rem'
 
   const { getColor } = useColors()
 
@@ -34,13 +36,13 @@ export const useAlertStyles = (props: AlertStyleProps) => {
     }
 
     if (props.border) {
-      background = '#ffffff'
+      background = white
       boxShadow = 'var(--va-alert-box-shadow)'
     }
 
     return {
       border: props.outline ? `1px solid ${colorComputed.value}` : '',
-      padding: props.dense ? '0.25rem 0.75rem' : '',
+      padding: props.dense ? paddingDense : '',
       background,
       boxShadow,
     }
