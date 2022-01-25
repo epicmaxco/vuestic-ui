@@ -57,8 +57,6 @@ export default defineComponent({
 
       if (!(target instanceof Window)) {
         const { top } = target.getBoundingClientRect()
-        console.log(top)
-        console.log(props.offsetTop)
         return top + props.offsetTop
       }
 
