@@ -2,7 +2,6 @@
   <transition
     v-if="valueComputed"
     name="fade"
-    ref="alert"
   >
     <div
       class="va-alert"
