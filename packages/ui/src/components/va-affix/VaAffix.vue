@@ -86,8 +86,8 @@ export default defineComponent({
 
     const computedClass = computed(() => [{ 'va-affix--affixed': isAffixed }])
     const computedStyle = computed(() => ({
-      top: state.value.isTopAffixed ? convertToPixels(calculateTop) : null,
-      bottom: state.value.isBottomAffixed ? convertToPixels(calculateBottom) : null,
+      top: state.value.isTopAffixed ? convertToPixels(calculateTop) : undefined,
+      bottom: state.value.isBottomAffixed ? convertToPixels(calculateBottom) : undefined,
       width: `${state.value.width}px`,
     }),
     )
