@@ -15,7 +15,7 @@
     :bordered="bordered"
     :outline="outline"
     :focused="isFocused"
-    @click="input?.focus()"
+    @click="input && input.focus()"
   >
     <!-- Simply proxy slots to VaInputWrapper -->
     <template
