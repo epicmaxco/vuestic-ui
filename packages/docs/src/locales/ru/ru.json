@@ -2966,7 +2966,7 @@
     },
     "1-4": {
       "title": "[v1.4](https://github.com/epicmaxco/vuestic-ui/milestone/7)",
-      "description": "* Calendar компонент. \n * Stepper компонент. \n * Nuxt поддержка."
+      "description": "* Carousel компонент. \n * Stepper компонент. \n * Nuxt поддержка."
     },
     "1-3": {
       "title": "[v1.3](https://github.com/epicmaxco/vuestic-ui/releases/tag/v1.3.0)",
