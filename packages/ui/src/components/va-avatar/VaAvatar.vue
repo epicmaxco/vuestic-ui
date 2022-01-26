@@ -25,7 +25,7 @@
 <script lang="ts">
 import { defineComponent, PropType, computed } from 'vue'
 
-import { useColors } from '../../services/color-config/color-config'
+import { useColors, useComputedColor } from '../../composables/useColor'
 import { useSize, useSizeProps } from '../../composables/useSize'
 import { useLoadingProps } from '../../composables/useLoading'
 
@@ -47,9 +47,8 @@ export default defineComponent({
   },
   setup (props) {
     const { getColor } = useColors()
+    const colorComputed = useComputedColor(props.color)
     const { sizeComputed, fontSizeComputed } = useSize(props, 'VaAvatar')
-
-    const colorComputed = computed(() => getColor(props.color))
 
     const computedStyle = computed(() => ({
       color: getColor(props.textColor, 'var(--va-white)'),
