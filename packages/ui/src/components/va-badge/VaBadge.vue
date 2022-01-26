@@ -1,8 +1,16 @@
 <template>
-  <div class="va-badge" :class="badgeClass">
-    <span class="va-badge__text-wrapper" :style="badgeStyle">
+  <div
+    class="va-badge"
+    :class="badgeClass"
+  >
+    <span
+      class="va-badge__text-wrapper"
+      :style="badgeStyle"
+    >
       <span class="va-badge__text">
-        <slot name="text">{{ text }}</slot>
+        <slot name="text">
+         {{ text }}
+        </slot>
       </span>
     </span>
     <slot />
@@ -70,11 +78,7 @@ export default defineComponent({
     border-radius: var(--va-badge-text-wrapper-border-radius);
     font-weight: var(--va-badge-text-wrapper-font-weight);
     line-height: var(--va-badge-text-wrapper-line-height);
-    letter-spacing:
-      var(
-        --va-badge-text-wrapper-letter-spacing,
-        var(--va-letter-spacing)
-      );
+    letter-spacing: var(--va-badge-text-wrapper-letter-spacing, var(--va-letter-spacing));
     justify-content: var(--va-badge-text-wrapper-justify-content);
     white-space: var(--va-badge-text-wrapper-white-space);
     width: var(--va-badge-text-wrapper-width);
