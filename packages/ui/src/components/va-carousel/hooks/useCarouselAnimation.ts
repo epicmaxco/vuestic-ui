@@ -50,10 +50,7 @@ export const useCarouselAnimation = (props: {
   onBeforeUnmount(() => stop())
 
   const withPause = <T extends (...args: any[]) => any>(fn: T) => {
-    return (...args: Parameters<T>) => {
-      pause()
-      fn(...args)
-    }
+    return (...args: Parameters<T>) => { pause(); fn(...args) }
   }
 
   const slidesContainerStyle = ref<Record<string, any>>({
@@ -117,13 +114,6 @@ export const useCarouselAnimation = (props: {
         })
         return
       }
-    }
-
-    if (props.effect === 'fade') {
-      setTimeout(() => {
-        slidesContainerStyle.value.animation = props.fadeKeyframe
-      })
-      slidesContainerStyle.value.animation = undefined
     }
 
     sliderToBeShown.value = newValue

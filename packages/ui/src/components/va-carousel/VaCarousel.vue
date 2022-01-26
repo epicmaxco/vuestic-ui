@@ -51,7 +51,11 @@
         class="va-carousel__slides"
         :style="computedSlidesStyle"
       >
-        <div class="va-carousel__slide" v-for="(item, index) in slides" :key="item">
+        <div
+          class="va-carousel__slide"
+          v-for="(item, index) in slides" :key="item"
+          :style="effect === 'fade' ? { animation: fadeKeyframe } : ''"
+        >
           <slot v-bind="{ item, index, goTo, isActive: index === currentSlide }">
             <va-image :src="item" />
           </slot>
@@ -100,7 +104,6 @@ export default defineComponent({
   emits: ['update:modelValue'],
 
   setup (props, { emit }) {
-    const items = toRef(props, 'items')
     const { valueComputed: currentSlide } = useStateful(props, emit, 0)
 
     const {
