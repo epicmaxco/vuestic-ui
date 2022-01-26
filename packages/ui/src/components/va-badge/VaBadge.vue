@@ -19,7 +19,8 @@
 
 <script lang="ts">
 import { defineComponent, computed, PropType } from 'vue'
-import { getColor } from '../../services/color-config/color-config'
+import { useComputedColor, useColors } from '../../composables/useColor'
+import { } from '../../services/color-config/color-config'
 
 export default defineComponent({
   name: 'VaBadge',
@@ -51,10 +52,12 @@ export default defineComponent({
       'va-badge--overlap': props.overlap,
     }))
 
+    const { getColor } = useColors()
+    const colorComputed = useComputedColor(props.color)
     const badgeStyle = computed(() => ({
       color: getColor(props.textColor, '#ffffff'),
-      borderColor: getColor(props.color),
-      backgroundColor: getColor(props.color),
+      borderColor: colorComputed.value,
+      backgroundColor: colorComputed.value,
       opacity: props.transparent ? 0.5 : 1,
     }))
 
