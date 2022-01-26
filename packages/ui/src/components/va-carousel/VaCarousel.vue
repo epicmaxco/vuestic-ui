@@ -14,7 +14,9 @@
         @click="prev"
       >
         <slot name="prev-arrow">
-          <va-button :icon="vertical ? 'expand_less' : 'chevron_left'" />
+          <va-hover #default="{ hover }" stateful>
+            <va-button :color="hover ? computedHoverColor : computedColor" :icon="vertical ? 'expand_less' : 'chevron_left'" />
+          </va-hover>
         </slot>
       </div>
       <div
@@ -23,7 +25,9 @@
         @click="next"
       >
         <slot name="prev-next">
-          <va-button :icon="vertical ? 'expand_more' : 'chevron_right'" />
+          <va-hover #default="{ hover }" stateful>
+            <va-button :color="hover ? computedHoverColor : computedColor" :icon="vertical ? 'expand_more' : 'chevron_right'" />
+          </va-hover>
         </slot>
       </div>
     </template>
@@ -36,12 +40,14 @@
         v-bind="indicatorTrigger === 'hover' ? { onmouseover: () => goTo(index) } : { onclick: () => goTo(index) }"
       >
         <slot name="indicator" v-bind="{ item, index, goTo, isActive: index === currentSlide }">
-          <va-button
-            round
-            :color="index === currentSlide ? 'primary' : 'rgba(37, 37, 37, 0.5)'"
-          >
-            {{ index + 1 }}
-          </va-button>
+          <va-hover #default="{ hover }" stateful>
+            <va-button
+              round
+              :color="index === currentSlide ? computedActiveColor : (hover ? computedHoverColor : computedColor)"
+            >
+              {{ index + 1 }}
+            </va-button>
+          </va-hover>
         </slot>
       </div>
     </div>
@@ -69,6 +75,7 @@
 import { defineComponent, PropType, toRef } from 'vue'
 import { useCarousel } from './hooks/useCarousel'
 import { useCarouselAnimation } from './hooks/useCarouselAnimation'
+import { useCarouselColor } from './hooks/useCarouselColors'
 import { useStateful, statefulComponentOptions } from '../../mixins/StatefulMixin/cStatefulMixin'
 import VaImage from '../va-image'
 import VaButton from '../va-button'
@@ -99,6 +106,7 @@ export default defineComponent({
     vertical: { type: Boolean, default: false },
     height: { type: String, default: '300px' },
     effect: { type: String as PropType<'fade' | 'transition'>, default: 'transition' },
+    color: { type: String, default: 'primary' },
   },
 
   emits: ['update:modelValue'],
@@ -122,6 +130,7 @@ export default defineComponent({
       next: withPause(next),
       currentSlide,
       slides,
+      ...useCarouselColor(props),
     }
   },
 })
