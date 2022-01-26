@@ -7,6 +7,7 @@
     @keydown.left.stop.prevent="hoverPreviousOption"
     @keydown.down.stop.prevent="hoverNextOption"
     @keydown.right.stop.prevent="hoverNextOption"
+    @scroll.passive="onScroll($event)"
   >
     <template v-if="filteredOptions.length">
       <div
@@ -92,6 +93,7 @@ const SelectOptionListPropsMixin = Vue.with(SelectOptionListProps)
     'select-option',
     'update:hoveredOption',
     'no-previous-option-to-hover',
+    'scroll-bottom',
   ],
 })
 export default class VaSelectOptionList extends mixins(
@@ -106,6 +108,10 @@ export default class VaSelectOptionList extends mixins(
         this.scrollToOption(newOption)
       }
     })
+  }
+
+  onScroll ({ target }: { target: HTMLDivElement }) {
+    if (target.scrollTop + target.clientHeight === target.scrollHeight) { this.$emit('scroll-bottom') }
   }
 
   beforeUpdate () {

@@ -4,9 +4,45 @@
       Date
       <va-date-input v-model="value" />
       Date ranges
-      <va-date-input v-model="range" />
-      Dates
-      <va-date-input v-model="dates" />
+      <va-date-input v-model="range" leftIcon />
+      Dates and clearable
+      <va-date-input v-model="dates" clearable />
+    </VbCard>
+
+    <VbCard title="icon & clearable">
+      <va-date-input
+        class="my-2"
+        label="default icon"
+        v-model="value"
+      />
+      <va-date-input
+        class="my-2"
+        label="default icon and clearable"
+        v-model="value"
+        clearable
+      />
+      <va-date-input
+        class="my-2"
+        label="left icon"
+        v-model="value"
+        leftIcon
+      />
+      <va-date-input
+        class="my-2"
+        label="left icon and clearable"
+        v-model="value"
+        leftIcon
+        clearable
+      />
+      <va-date-input
+        class="my-2"
+        label="custom left icon and clear icon"
+        v-model="value"
+        leftIcon
+        clearable
+        icon="thumb_up"
+        clearableIcon="done"
+      />
     </VbCard>
 
     <VbCard title="slots">
@@ -20,12 +56,12 @@
           append
         </template>
       </va-date-input>
-      <va-date-input v-model="value" class="mb-4">
+      <va-date-input v-model="value" class="mb-4" leftIcon clearable>
         <template #prependInner>
           prependInner
         </template>
       </va-date-input>
-      <va-date-input v-model="value">
+      <va-date-input v-model="value" clearable>
         <template #appendInner>
           appendInner
         </template>

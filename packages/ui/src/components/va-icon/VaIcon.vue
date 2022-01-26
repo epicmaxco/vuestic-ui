@@ -17,6 +17,7 @@ import { Options, mixins, prop, Vue, setup } from 'vue-class-component'
 import ColorMixin from '../../services/color-config/ColorMixin'
 import { SizeMixin } from '../../mixins/SizeMixin'
 import { useIcons } from '../../services/icon-config/icon-config'
+import { omit } from 'lodash-es'
 
 class IconProps {
   name = prop<string>({ type: String, default: '' })
@@ -53,7 +54,7 @@ export default class VaIcon extends mixins(
   }
 
   get computedAttrs () {
-    return { ...this.iconConfig.attrs, ...this.$attrs }
+    return { ...this.iconConfig.attrs, ...omit(this.$attrs, ['class']) }
   }
 
   get computedClass () {

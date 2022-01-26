@@ -19,7 +19,7 @@ const columns: TableColumn[] = [
 const tableData: TableData = [
   ['name', 'string | RegExp', 'iconsConfig.api.name'],
   [
-    'iconClass',
+    'class',
     'string | ((...dynamicSegments: string[]) => string) | undefined',
     'iconsConfig.api.iconClass',
   ],
@@ -67,7 +67,7 @@ const config: ApiDocsBlock[] = [
 
   block.headline('iconsConfig.fonts.fontNamePattern.title'),
   block.paragraph('iconsConfig.fonts.fontNamePattern.about'),
-  block.example('font'),
+  block.example('font', { hideCode: true }),
 
   block.headline('iconsConfig.fonts.example.title'),
   block.paragraph('iconsConfig.fonts.example.about'),

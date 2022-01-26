@@ -42,7 +42,7 @@
                 <slot name="content" />
               </div>
 
-              <slot></slot>
+              <slot />
             </div>
           </div>
 
@@ -80,11 +80,13 @@
     </div>
 
     <div class="va-input-wrapper__message-list-wrapper">
-      <va-message-list
-        :color="messagesColor"
-        :model-value="messagesComputed"
-        :limit="errorLimit"
-      />
+      <slot name="messages" v-bind="{ messages: messagesComputed, errorLimit, color: messagesColor }">
+        <va-message-list
+          :color="messagesColor"
+          :model-value="messagesComputed"
+          :limit="errorLimit"
+        />
+      </slot>
     </div>
   </div>
 </template>
@@ -98,7 +100,7 @@ import { getColor } from '../../../services/color-config/color-config'
 import VaMessageList from './VaMessageList'
 
 export default defineComponent({
-  name: 'VaInputField',
+  name: 'VaInputWrapper',
 
   components: { VaMessageList },
 
@@ -220,6 +222,7 @@ export default defineComponent({
     display: flex;
     justify-content: center;
     align-content: center;
+    align-items: center;
   }
 
   &__content-wrapper {
@@ -253,6 +256,10 @@ export default defineComponent({
         font-stretch: var(--va-input-font-stretch);
         letter-spacing: var(--va-input-letter-spacing);
         transform: translateY(-1px);
+
+        &::-webkit-scrollbar {
+          width: 10px;
+        }
 
         &::placeholder {
           color: var(--va-input-placeholder-text-color);
@@ -366,8 +373,8 @@ export default defineComponent({
 
   &--bordered {
     /*
-      We can not just set border-bottom, becouse we also have border on the other sides.
-      We also can not use after or before, becouse we need to set border-color according to
+      We can not just set border-bottom, because we also have border on the other sides.
+      We also can not use after or before, because we need to set border-color according to
       color prop
     */
     &__border {

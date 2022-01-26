@@ -49,15 +49,18 @@ const config: ApiDocsBlock[] = [
     'Pagination',
   ),
   ...block.exampleBlock(
-    'dataTable.examples.alignment.title',
-    'dataTable.examples.alignment.text',
-    'Alignment',
+    'dataTable.examples.styling.title',
+    'dataTable.examples.styling.text',
+    'Styling',
   ),
   ...block.exampleBlock(
     'dataTable.examples.other.title',
-    'dataTable.examples.other.text',
+    'dataTable.examples.other.text[0]',
     'Other',
   ),
+
+  block.paragraph('dataTable.examples.other.text[1]'),
+  block.example('CRUD'),
 
   block.subtitle('all.api'),
   block.api(VaDataTable, apiOptions),

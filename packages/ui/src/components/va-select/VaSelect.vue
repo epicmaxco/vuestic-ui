@@ -31,8 +31,6 @@
           :model-value="valueComputedString"
           :success="$props.success"
           :error="computedError"
-          :clearable="showClearIcon"
-          :clearableIcon="$props.clearableIcon"
           :color="$props.color"
           :label="$props.label"
           :placeholder="$props.placeholder"
@@ -45,7 +43,6 @@
           :messages="$props.messages"
           :error-messages="computedErrorMessages"
           readonly
-          @cleared="reset"
         >
           <template
             v-if="$slots.prepend"
@@ -68,6 +65,14 @@
             <slot name="prependInner" />
           </template>
 
+          <template #icon>
+            <va-icon
+              v-if="showClearIcon"
+              v-bind="clearIconProps"
+              @click.stop="reset()"
+            />
+          </template>
+
           <template #appendInner>
             <slot
               v-if="$slots.appendInner"
@@ -79,8 +84,11 @@
             />
           </template>
 
-          <template v-if="$slots.content" #content="{ value, focus }">
-            <slot name="content" v-bind="{ valueString: value, focus, value: valueComputed }" />
+          <template v-if="$slots.content" #content>
+            <slot
+              name="content"
+              v-bind="{ valueString: valueComputedString, value: valueComputed }"
+            />
           </template>
         </va-input>
       </div>
@@ -131,6 +139,7 @@
           @keydown.enter.stop.prevent="selectHoveredOption()"
           @keydown.space.stop.prevent="selectHoveredOption()"
           @keydown="onHintedSearch"
+          @scroll-bottom="onScrollBottom"
         />
       </div>
     </va-dropdown-content>
@@ -142,9 +151,11 @@ import { defineComponent, PropType, ref, computed, watch, nextTick } from 'vue'
 
 import { useSelectableList, useSelectableListProps } from '../../composables/useSelectableList'
 import { useValidation, useValidationProps, useValidationEmits } from '../../composables/useValidation'
+import { useFormProps } from '../../composables/useForm'
 import { useLoadingProps } from '../../composables/useLoading'
 import { useColor } from '../../composables/useColor'
 import { useMaxSelections, useMaxSelectionsProps } from '../../composables/useMaxSelections'
+import { useClearableProps, useClearable, useClearableEmits } from '../../composables/useClearable'
 
 import { warn } from '../../services/utils'
 import VaDropdown, { VaDropdownContent } from '../va-dropdown'
@@ -167,12 +178,21 @@ export default defineComponent({
     VaDropdownContent,
     VaInput,
   },
-  emits: ['update-search', 'update:modelValue', 'clear', 'create-new', ...useValidationEmits],
+  emits: [
+    'update:modelValue',
+    'update-search',
+    'create-new',
+    'scroll-bottom',
+    ...useValidationEmits,
+    ...useClearableEmits,
+  ],
   props: {
     ...useSelectableListProps,
     ...useValidationProps,
     ...useLoadingProps,
     ...useMaxSelectionsProps,
+    ...useClearableProps,
+    ...useFormProps,
 
     modelValue: {
       type: [String, Number, Object, Array] as PropType<string | number | Record<string, any> | any[]>,
@@ -197,16 +217,11 @@ export default defineComponent({
     color: { type: String as PropType<string>, default: 'primary' },
     multiple: { type: Boolean as PropType<boolean>, default: false },
     searchable: { type: Boolean as PropType<boolean>, default: false },
-    disabled: { type: Boolean as PropType<boolean>, default: false },
-    readonly: { type: Boolean as PropType<boolean>, default: false }, // Probably unused prop! THIS WAS UNUSED! USE
     separator: { type: String as PropType<string>, default: ', ' },
     width: { type: String as PropType<string>, default: '100%' },
     maxHeight: { type: String as PropType<string>, default: '128px' },
-    clearValue: { type: String as PropType<string>, default: '' },
     noOptionsText: { type: String as PropType<string>, default: 'Items not found' },
     fixed: { type: Boolean as PropType<boolean>, default: true },
-    clearable: { type: Boolean as PropType<boolean>, default: false },
-    clearableIcon: { type: String as PropType<string>, default: 'highlight_off' },
     hideSelected: { type: Boolean as PropType<boolean>, default: false },
     tabindex: { type: Number as PropType<number>, default: 0 },
     dropdownIcon: {
@@ -245,9 +260,13 @@ export default defineComponent({
       validate,
       computedError,
       computedErrorMessages,
-    } = useValidation(props, emit, () => reset(), () => focus(), () => blur())
+    } = useValidation(props, emit, () => reset(), () => focus())
 
     const { colorComputed } = useColor(props)
+
+    const onScrollBottom = () => {
+      emit('scroll-bottom')
+    }
 
     const searchInput = ref('')
     const showSearchInput = computed(() => {
@@ -304,13 +323,14 @@ export default defineComponent({
     })
 
     // Icons
+    const {
+      canBeCleared,
+      clearIconProps,
+    } = useClearable(props, valueComputed, isFocused, computedError)
 
-    const showClearIcon = computed((): boolean => {
-      if (!props.clearable) { return false }
-      if (props.disabled) { return false }
+    const showClearIcon = computed(() => {
       if (props.multiple) { return !!valueComputed.value.length }
-
-      return valueComputed.value !== props.clearValue
+      return canBeCleared.value
     })
 
     const toggleIcon = computed((): string => {
@@ -640,6 +660,8 @@ export default defineComponent({
       onHintedSearch,
       getText,
       getTrackBy,
+      onScrollBottom,
+      clearIconProps,
     }
   },
 })

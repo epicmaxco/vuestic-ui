@@ -361,12 +361,18 @@
       title="State"
       style="width: 400px;"
     >
+      <va-checkbox
+        class="my-3"
+        label="Clearable"
+        v-model="isClearable"
+      />
       <va-select
         v-model="disabledValue"
         class="mb-4"
         label="Disabled"
         :options="defaultSingleSelect.options"
         disabled
+        :clearable="isClearable"
       />
       <va-select
         v-model="defaultSingleSelect.value"
@@ -374,6 +380,7 @@
         label="Loading"
         :options="defaultSingleSelect.options"
         loading
+        :clearable="isClearable"
       />
       <va-select
         v-model="defaultSingleSelect.value"
@@ -381,6 +388,7 @@
         label="Error state"
         :options="defaultSingleSelect.options"
         error
+        :clearable="isClearable"
       />
       <va-select
         v-model="defaultSingleSelect.value"
@@ -389,6 +397,7 @@
         :options="defaultSingleSelect.options"
         error
         :error-messages="['Error message']"
+        :clearable="isClearable"
       />
       <va-select
         v-model="defaultSingleSelect.value"
@@ -396,6 +405,7 @@
         label="Success state"
         :options="defaultSingleSelect.options"
         success
+        :clearable="isClearable"
       />
       <va-select
         v-model="defaultSingleSelect.value"
@@ -404,6 +414,7 @@
         :options="defaultSingleSelect.options"
         success
         :messages="['Success message']"
+        :clearable="isClearable"
       />
     </VbCard>
     <VbCard
@@ -493,6 +504,16 @@
       />
     </VbCard>
     <VbCard
+      title="scroll-bottom event"
+      style="width: 400px;"
+    >
+      <va-select
+        v-model="preloadable.value"
+        :options="preloadable.options"
+        @scrollBottom="onLoadMore()"
+      />
+    </VbCard>
+    <VbCard
       title="Validation rules (on blur)"
       style="width: 400px;"
     >
@@ -526,14 +547,17 @@
 <script>
 import CountriesList from '../../data/CountriesList'
 import VaIcon from '../va-icon'
+import VaCheckbox from '../va-checkbox'
 
 import { objectOptionsList, iconOptionsList } from './getDemoData'
 import VaSelect from './index'
 
 const positions = ['top', 'bottom']
 
+const random = () => Math.ceil(Math.random() * 10000) + ''
+
 export default {
-  components: { VaSelect, VaIcon },
+  components: { VaSelect, VaIcon, VaCheckbox },
   data () {
     return {
       allowCreateValue: '',
@@ -546,6 +570,10 @@ export default {
       defaultMultiSelect: {
         options: ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'],
         value: [],
+      },
+      preloadable: {
+        options: [random(), random(), random(), random(), random()],
+        value: '',
       },
       allowCreateSelect: {
         options: [
@@ -597,9 +625,13 @@ export default {
       CountriesList,
       positions,
       isLoading: false,
+      isClearable: true,
     }
   },
   methods: {
+    onLoadMore () {
+      this.preloadable.options.push(random(), random(), random())
+    },
     updateSearch (val) {
       this.isLoading = true
       setTimeout(() => {

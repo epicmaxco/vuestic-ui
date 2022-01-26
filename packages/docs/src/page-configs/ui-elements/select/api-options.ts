@@ -11,6 +11,9 @@ export default defineManualApi({
     updateSearch: {
       types: 'any',
     },
+    scrollBottom: {
+      types: 'any',
+    },
   },
   methods: {
     reset: {
@@ -22,5 +25,6 @@ export default defineManualApi({
     prependInner: { },
     append: { },
     appendInner: { },
+    content: { },
   },
 })

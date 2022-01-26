@@ -1,4 +1,3 @@
-
 export interface IconProps {
   attrs?: Record<string, string | ((...args: any[]) => unknown)>
 

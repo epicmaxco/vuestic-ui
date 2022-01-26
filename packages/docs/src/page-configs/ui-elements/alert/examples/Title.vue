@@ -1,13 +1,13 @@
 <template>
   <div>
-    <va-alert color="success" title="Title" class="mb-4">
-      You read this important alert message.
+    <va-alert color="success" :title="$t('alert.misc.title')" class="mb-4">
+      {{ $t('alert.misc.primary') }}
     </va-alert>
     <va-alert color="info" class="mb-4">
       <template #title>
-        Slotted title
+        {{ $t('alert.misc.slottedTitle') }}
       </template>
-      You read this important alert message.
+      {{ $t('alert.misc.primary') }}
     </va-alert>
   </div>
 </template>

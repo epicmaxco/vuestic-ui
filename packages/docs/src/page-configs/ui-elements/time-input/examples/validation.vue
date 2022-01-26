@@ -23,10 +23,11 @@
     />
     <va-divider vertical />
     <va-time-input
-      label="accept only AM time"
+      label="accept only hours < 12"
       v-model="value"
-      :rules="[(date) => date.getHours() < 12 || 'Must be AM']"
+      :rules="[(date) => date && date.getHours && date.getHours() < 12 || 'Hours should be < 12']"
       manual-input
+      clearable
     />
   </div>
 </template>

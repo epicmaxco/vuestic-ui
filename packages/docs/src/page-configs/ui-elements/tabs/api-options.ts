@@ -6,4 +6,8 @@ export default defineManualApi({
       types: '`(value: number | string) => void`',
     },
   },
+  slots: {
+    default: { },
+    tabs: { },
+  },
 })

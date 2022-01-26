@@ -2,6 +2,7 @@ import { ApiDocsBlock } from '@/types/configTypes'
 import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import { TranslationStatusPath, languages } from '../../../locales'
 import { TableData, TableColumn } from '../../../components/DocsTable/DocsTableTypes'
+import { schemeBasic, schemeMustache } from './code-examples'
 
 const columns: TableColumn[] = [
   'translation.table.language',
@@ -42,6 +43,14 @@ const config: ApiDocsBlock[] = [
   block.subtitle('translation.missed.title'),
   block.paragraph('translation.missed.description'),
   block.code(searchMissedTranslations, 'bash'),
-]
 
+  block.subtitle('translation.code.title'),
+  block.paragraph('translation.code.description'),
+  block.headline('translation.code.basicTitle'),
+  block.paragraph('translation.code.basicText'),
+  block.code(schemeBasic, 'bash'),
+  block.headline('translation.code.mustacheTitle'),
+  block.paragraph('translation.code.mustacheText'),
+  block.code(schemeMustache, 'bash'),
+]
 export default config
