@@ -1,42 +1,31 @@
 <script lang="ts">
-import { VNode, h, Fragment } from 'vue'
-import { Options, prop, Vue, mixins } from 'vue-class-component'
+import { defineComponent, computed, PropType, VNode, h, Fragment } from 'vue'
 
+import { useAlign, useAlignProps } from '../../composables/useAlign'
+import { useColor, useComputedColor } from '../../composables/useColor'
 import { hasOwnProperty } from '../../services/utils'
-import ColorMixin from '../../services/color-config/ColorMixin'
-import { AlignMixin } from '../../mixins/AlignMixin'
 
-class BreadcrumbsProps {
-  separator = prop<string>({ type: String, default: '/' })
-  color = prop<string>({ type: String, default: 'gray' })
-  activeColor = prop<string>({ type: String, default: null })
-  separatorColor = prop<string>({ type: String, default: null })
-}
-
-const BreadcrumbsPropsMixin = Vue.with(BreadcrumbsProps)
-
-@Options({
+export default defineComponent({
   name: 'VaBreadcrumbs',
-})
-export default class VaBreadcrumbs extends mixins(
-  ColorMixin,
-  AlignMixin,
-  BreadcrumbsPropsMixin,
-) {
-  get computedStyles () {
-    return this.alignComputed
-  }
+  props: {
+    ...useAlignProps,
+    separator: { type: String as PropType<string>, default: '/' },
+    color: { type: String as PropType<string>, default: 'gray' },
+    activeColor: { type: String as PropType<string>, default: null },
+    separatorColor: { type: String as PropType<string>, default: null },
+  },
+  setup (props, { slots }) {
+    const { alignComputed } = useAlign(props)
 
-  get computedThemesSeparatorColor () {
-    return this.separatorColor ? this.computeColor(this.separatorColor) : this.colorComputed
-  }
+    const { computeColor } = useColor(props)
+    const colorComputed = useComputedColor(props.color)
+    const computedThemesSeparatorColor = computed(() => {
+      return props.separatorColor ? computeColor(props.separatorColor) : colorComputed.value
+    })
+    const computedThemesActiveColor = computed(() => {
+      return props.activeColor ? computeColor(props.activeColor) : colorComputed.value
+    })
 
-  get computedThemesActiveColor () {
-    return this.activeColor ? this.computeColor(this.activeColor) : this.colorComputed
-  }
-
-  render () {
-    // TODO: use provide/inject for this not to stick to component's name
     const childNodeFilter = (result: VNode[], node?: VNode) => {
       const nodes = node && node.type === Fragment && node.children ? node.children as VNode[] : [node]
 
@@ -46,23 +35,14 @@ export default class VaBreadcrumbs extends mixins(
       ]
     }
 
-    const childNodes = (this.$slots as any)?.default()?.reduce(childNodeFilter, []) || []
-
-    const childNodesLength = childNodes.length
-    const isLastIndexChildNodes = (index: number) => index === childNodesLength - 1
-
     const createSeparatorComponent = () => {
       // Temp fix for https://github.com/vuejs/vue-next/issues/3666. Move `separatorNode` outside this method.
-      const separatorNode = (this.$slots.separator ? this.$slots.separator() : 0) || [this.separator]
+      const separatorNode = (slots.separator ? slots.separator() : 0) || [props.separator]
 
-      return h(
-        'span',
-        {
-          class: ['va-breadcrumbs__separator'],
-          style: [{ color: this.computedThemesSeparatorColor }],
-        },
-        separatorNode,
-      )
+      return h('span', {
+        class: ['va-breadcrumbs__separator'],
+        style: [{ color: computedThemesSeparatorColor.value }],
+      }, separatorNode)
     }
 
     const isDisabledChild = (child: VNode) => {
@@ -78,38 +58,46 @@ export default class VaBreadcrumbs extends mixins(
       return Boolean(childPropData.disabled)
     }
 
-    const createChildComponent = (child: VNode, index: number) => h(
-      'span', {
-        class: 'va-breadcrumbs__item',
-        style: {
-          color: (!isLastIndexChildNodes(index) && !isDisabledChild(child)) ? this.computedThemesActiveColor : null,
+    const getChildren = () => {
+      const childNodes = (slots as any)?.default()?.reduce(childNodeFilter, []) || []
+      const childNodesLength = childNodes.length
+      const isLastIndexChildNodes = (index: number) => index === childNodesLength - 1
+
+      const createChildComponent = (child: VNode, index: number) => h(
+        'span', {
+          class: 'va-breadcrumbs__item',
+          style: {
+            color: (!isLastIndexChildNodes(index) && !isDisabledChild(child)) ? computedThemesActiveColor.value : null,
+          },
         },
-      },
-      [child],
-    )
+        [child],
+      )
 
-    const children = [] as VNode[]
+      const children = [] as VNode[]
 
-    if (childNodesLength) {
-      childNodes.forEach((child: VNode, index: number) => {
-        children.push(createChildComponent(child, index))
+      if (childNodesLength) {
+        childNodes.forEach((child: VNode, index: number) => {
+          children.push(createChildComponent(child, index))
 
-        if (!isLastIndexChildNodes(index)) {
-          children.push(createSeparatorComponent())
-        }
-      })
+          if (!isLastIndexChildNodes(index)) {
+            children.push(createSeparatorComponent())
+          }
+        })
+      }
+
+      return children
     }
 
-    return h('div', {
+    return () => h('div', {
       class: 'va-breadcrumbs',
-      style: { ...this.computedStyles },
-    }, children)
-  }
-}
+      style: alignComputed.value,
+    }, getChildren())
+  },
+})
 </script>
 
 <style lang="scss">
-@import 'variables';
+@import "variables";
 
 .va-breadcrumbs {
   display: var(--va-breadcrumbs-display);
@@ -126,5 +114,4 @@ export default class VaBreadcrumbs extends mixins(
     display: var(--va-breadcrumbs-separator-display);
   }
 }
-
 </style>
