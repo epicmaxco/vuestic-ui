@@ -184,19 +184,18 @@ export default defineComponent({
   &__indicators {
     width: 100%;
     position: absolute;
-    bottom: 0;
+    bottom: var(--va-carousel-padding);
     display: flex;
     justify-content: center;
     z-index: 2;
     overflow-x: auto;
     left: 50%;
     transform: translateX(-50%);
-    padding: 0 0 16px 0;
 
     @include va-scroll();
 
     & > * {
-      margin: 0 0.25rem;
+      margin: 0 var(--va-carousel-indicators-gap);
     }
   }
 
@@ -206,14 +205,14 @@ export default defineComponent({
     height: max-content;
 
     &--right {
-      right: 15px;
+      right: var(--va-carousel-padding);
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
     }
 
     &--left {
-      left: 15px;
+      left: var(--va-carousel-padding);
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
@@ -230,21 +229,21 @@ export default defineComponent({
         z-index: 1;
 
         &--right {
-          bottom: 15px;
+          bottom: var(--va-carousel-padding);
           top: auto;
           left: 50%;
           transform: translateX(-50%);
         }
 
         &--left {
-          top: 15px;
+          top: var(--va-carousel-padding);
           left: 50%;
           transform: translateX(-50%);
         }
       }
 
       &__indicators {
-        left: 15px;
+        left: var(--va-carousel-padding);
         flex-direction: column;
         width: auto;
         height: 100%;
@@ -252,10 +251,9 @@ export default defineComponent({
         transform: translateY(-50%);
         overflow-x: hidden;
         overflow-y: auto;
-        padding: 0 16px 0 0;
 
         & > * {
-          margin: 0.25rem 0;
+          margin: var(--va-carousel-indicators-gap) 0;
         }
       }
     }
