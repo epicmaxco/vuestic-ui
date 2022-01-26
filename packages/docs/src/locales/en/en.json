@@ -672,7 +672,7 @@
         "keyup": "Emitted when the user releases a key on the keyboard",
         "keydown": "Emitted when any key is pressed",
         "keypress": "Emitted when any key is pressed. The event is deprecated, will be removed in future versions",
-        "cleared": "Emitted if input value has been cleared",
+        "clear": "Emitted when `clear` key is pressed",
         "clickIcon": "Emitted when user clicked on icon"
       },
       "methods": {
@@ -1132,6 +1132,7 @@
         "removable": "Adds an button that clears the value",
         "tabindex": "Sets input tabindex",
         "returnRaw": "Sets possibility to return raw value",
+        "clearValue": "Sets value that should be set after clearing",
         "autosize": "Sets textarea possibility to grow up automatically",
         "minRows": "Minimal count of lines",
         "maxRows": "Maximum count of lines",
@@ -1146,7 +1147,9 @@
         "clearable": "Adds a button to reset the input field value",
         "bordered": "Applies underscore",
         "focused": "Applies focus style",
-        "canBeFocused": "If false, then input can not be focused using mouse or keyboard."
+        "canBeFocused": "If false, then input can not be focused using mouse or keyboard",
+        "icon": "Sets an icon. The default icon position is on the right",
+        "leftIcon": "Sets the icon position to the left"
       },
       "events": {},
       "methods": {},
@@ -3683,6 +3686,10 @@
       "ampm": {
         "title": "AM PM",
         "text": "VaTimeInput will automatically format input string if you need to use AM PM."
+      },
+      "clearable": {
+        "title": "Clearable",
+        "text": "The `clearable` prop adds a button to the right to clear the input. Prop `clearableIcon` sets the custom clear icon."
       },
       "validation": {
         "title": "Validation",

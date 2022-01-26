@@ -222,6 +222,7 @@ export default defineComponent({
     display: flex;
     justify-content: center;
     align-content: center;
+    align-items: center;
   }
 
   &__content-wrapper {

@@ -6,7 +6,7 @@
     :close-on-content-click="false"
     :disabled="disabled || readonly"
     position="bottom-start"
-    anchorSelector=".va-input-wrapper__input"
+    anchorSelector=".va-input__container"
   >
     <template #anchor>
       <va-input
@@ -14,12 +14,37 @@
         v-bind="{ ...inputProps, ...validationListeners }"
         :modelValue="valueText"
         :readonly="readonly || !manualInput"
-        :error="!isValid || inputProps.error || computedError"
+        :error="hasError"
         :error-messages="computedErrorMessages"
         @change="onInputTextChanged($event.target.value)"
+        @update:modelValue="onValueInput"
       >
-        <template v-for="(_, name) in $slots" v-slot:[name]="bind">
-          <slot :name="name" v-bind="bind"></slot>
+        <template
+          v-for="name in filterSlots"
+          v-slot:[name]="slotScope"
+          :key="name"
+        >
+          <slot :name="name" v-bind="slotScope" />
+        </template>
+
+        <template #prependInner="slotScope">
+          <slot name="prependInner" v-bind="slotScope" />
+          <va-icon
+            v-if="$props.leftIcon"
+            v-bind="iconProps"
+          />
+        </template>
+
+        <template #icon>
+          <va-icon
+            v-if="canBeCleared"
+            v-bind="clearIconProps"
+            @click.stop="reset()"
+          />
+          <va-icon
+            v-else-if="!$props.leftIcon"
+            v-bind="iconProps"
+          />
         </template>
       </va-input>
     </template>
@@ -36,6 +61,7 @@ import VaTimePicker from '../va-time-picker/VaTimePicker.vue'
 import VaInput from '../va-input/VaInput.vue'
 import { useSyncProp } from '../../composables/useSyncProp'
 import { useValidation, useValidationProps, useValidationEmits } from '../../composables/useValidation'
+import { useClearableProps, useClearable, useClearableEmits } from '../../composables/useClearable'
 import { useTimeParser } from './hooks/time-text-parser'
 import { useTimeFormatter } from './hooks/time-text-formatter'
 import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
@@ -45,42 +71,59 @@ export default defineComponent({
 
   components: { VaTimePicker },
 
-  emits: [...useValidationEmits, 'update:modelValue', 'update:isOpen'],
+  emits: [...useValidationEmits, ...useClearableEmits, 'update:modelValue', 'update:isOpen'],
 
   props: {
     ...extractComponentProps(VaTimePicker),
     ...extractComponentProps(VaInput),
 
     ...useValidationProps,
+    ...useClearableProps,
 
     isOpen: { type: Boolean, default: undefined },
     modelValue: { type: Date, default: undefined },
+    clearValue: { type: String, default: undefined },
+
     format: { type: Function as PropType<(date: Date) => string> },
 
     parse: { type: Function as PropType<(input: string) => Date> },
     manualInput: { type: Boolean, default: false },
+    leftIcon: { type: Boolean, default: false },
+    icon: { type: String, default: 'schedule' },
   },
 
-  setup (props, { emit, expose }) {
+  setup (props, { emit, expose, slots }) {
+    const input = ref<InstanceType<typeof VaInput> | undefined>()
+
     const [isOpenSync] = useSyncProp('isOpen', props, emit, false)
     const [modelValueSync] = useSyncProp('modelValue', props, emit)
 
     const { parse, isValid } = useTimeParser(props)
     const { format } = useTimeFormatter(props)
 
-    const valueText = computed<string>(() => {
-      if (!isValid.value) { return '' }
-      if (!modelValueSync.value) { return '' }
+    const valueText = computed<string | undefined>(() => {
+      if (!isValid.value) { return props.clearValue }
+      if (!modelValueSync.value) { return props.clearValue }
 
       if (props.format) { return props.format(modelValueSync.value) }
 
       return format(modelValueSync.value)
     })
 
-    const timePickerProps = computed(() => filterComponentProps(props, extractComponentProps(VaTimePicker)))
-    const inputProps = computed(() => filterComponentProps(props, extractComponentProps(VaInput, ['rules', 'error', 'errorMessages'])))
+    const timePickerProps = filterComponentProps(props, extractComponentProps(VaTimePicker))
 
-    const input = ref<InstanceType<typeof VaInput> | undefined>()
+    const inputProps = filterComponentProps(
+      props,
+      extractComponentProps(VaInput, ['rules', 'error', 'errorMessages', 'clearable']),
+    )
+
+    const filterSlots = computed(() => {
+      const slotsWithIcons = [
+        props.leftIcon && 'prependInner',
+        (!props.leftIcon || props.clearable) && 'icon',
+      ]
+      return Object.keys(slots).filter(slot => !slotsWithIcons.includes(slot))
+    })
 
     const onInputTextChanged = (val: string) => {
       const v = parse(val)
@@ -106,7 +149,8 @@ export default defineComponent({
     const changePeriodToAm = () => changePeriod(false)
 
     const reset = (): void => {
-      modelValueSync.value = undefined
+      emit('update:modelValue', props.clearValue)
+      emit('clear')
     }
 
     const focus = (): void => {
@@ -117,21 +161,38 @@ export default defineComponent({
       input.value?.blur()
     }
 
+    const onValueInput = (val: string) => {
+      !val && reset()
+    }
+
     const {
       isFocused,
       listeners: validationListeners,
       computedError,
       computedErrorMessages,
-    } = useValidation(props, emit, () => reset(), () => focus())
+    } = useValidation(props, emit, reset, focus)
+
+    const hasError = computed(() => (!isValid.value && valueText.value !== props.clearValue) || computedError.value)
+
+    const {
+      canBeCleared,
+      clearIconProps,
+    } = useClearable(props, valueText, isFocused, hasError)
+
+    const iconProps = computed(() => ({
+      name: props.icon,
+      color: props.color,
+      size: 'small',
+    }))
+
+    watch(modelValueSync, () => {
+      isValid.value = true
+    })
 
     expose({
       reset,
       focus,
       blur,
-    })
-
-    watch(modelValueSync, () => {
-      isValid.value = true
     })
 
     return {
@@ -143,13 +204,16 @@ export default defineComponent({
       changePeriodToPm,
       changePeriodToAm,
       onInputTextChanged,
-      isValid,
-      isFocused,
       reset,
+      onValueInput,
+      canBeCleared,
+      iconProps,
+      clearIconProps,
+      filterSlots,
 
       validationListeners,
-      computedError,
       computedErrorMessages,
+      hasError,
     }
   },
 
