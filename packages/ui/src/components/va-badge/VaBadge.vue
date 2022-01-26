@@ -20,7 +20,6 @@
 <script lang="ts">
 import { defineComponent, computed, PropType } from 'vue'
 import { useComputedColor, useColors } from '../../composables/useColor'
-import { } from '../../services/color-config/color-config'
 
 export default defineComponent({
   name: 'VaBadge',
