@@ -17,6 +17,7 @@ export const useCarouselAnimation = (props: {
   const start = () => {
     if (!props.autoscroll) { return }
 
+    clearInterval(animationInterval)
     animationInterval = setInterval(() => {
       if (props.loop) {
         currentSlide.value += 1
@@ -29,21 +30,21 @@ export const useCarouselAnimation = (props: {
     }, props.autoscrollInterval) as any
   }
 
-  let timeout: number
+  let pauseTimeout: number
   const pause = () => {
     if (!props.autoscroll) { return }
 
     clearInterval(animationInterval)
 
-    timeout = setTimeout(() => {
+    pauseTimeout = setTimeout(() => {
       start()
-      clearTimeout(timeout)
+      clearTimeout(pauseTimeout)
     }, props.autoscrollPauseDuration) as any
   }
 
   const stop = () => {
     clearInterval(animationInterval)
-    clearTimeout(timeout)
+    clearTimeout(pauseTimeout)
   }
 
   onMounted(() => start())
@@ -83,6 +84,7 @@ export const useCarouselAnimation = (props: {
    * Use own currentSlider, which will not update model value if we need to show slide that placed after all items
    */
   const sliderToBeShown = ref(0)
+  let animationTimeout: number
 
   watch(currentSlide, (newValue, oldValue) => {
     if (props.infinite) {
@@ -95,10 +97,12 @@ export const useCarouselAnimation = (props: {
         // Move to last fake slide without animation
         slidesContainerStyle.value.transition = 'none'
         sliderToBeShown.value = props.items.length
-        setTimeout(() => {
+
+        clearTimeout(animationTimeout)
+        animationTimeout = setTimeout(() => {
           sliderToBeShown.value = newValue
           slidesContainerStyle.value.transition = undefined
-        })
+        }) as any
         return
       }
 
@@ -107,11 +111,12 @@ export const useCarouselAnimation = (props: {
         slidesContainerStyle.value.transition = 'none'
         sliderToBeShown.value = 0
 
-        setTimeout(() => {
+        clearTimeout(animationTimeout)
+        animationTimeout = setTimeout(() => {
           // Then move to target slide with animation from 0
           sliderToBeShown.value = newValue
           slidesContainerStyle.value.transition = undefined
-        })
+        }) as any
         return
       }
     }
