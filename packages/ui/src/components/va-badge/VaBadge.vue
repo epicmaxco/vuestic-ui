@@ -9,7 +9,7 @@
     >
       <span class="va-badge__text">
         <slot name="text">
-         {{ text }}
+          {{ text }}
         </slot>
       </span>
     </span>
