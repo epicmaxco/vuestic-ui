@@ -22,8 +22,8 @@
     <VbCard title="Slots">
       <VaCarousel :items="items" v-model="currentSlide" arrows indicators>
         <template #default="{ item }">
-          <a :href="'https://www.google.com/search?q=' + item">
-            Google search {{ item }}
+          <a :href="'https://www.google.com/search?q=' + item" target="_blank">
+            Open image in new tab 😏
           </a>
         </template>
 
@@ -35,8 +35,8 @@
           Go forward!
         </template>
 
-        <template #indicator="{ item, index }">
-          Go to {{ item }} ({{ index }})
+        <template #indicator="{ index }">
+          Go to ({{ index }})
         </template>
       </VaCarousel>
     </VbCard>
@@ -72,7 +72,13 @@ export default {
   data () {
     return {
       currentSlide: 0,
-      items: ['apple', 'orange', 'banana', 'mango', 'avocado'],
+      items: [
+        'https://picsum.photos/1500',
+        'https://picsum.photos/1501',
+        'https://picsum.photos/1502',
+        'https://picsum.photos/1503',
+        'https://picsum.photos/1504',
+      ],
     }
   },
 }
