@@ -70,10 +70,12 @@ export default defineComponent({
 
       if (!(target instanceof Window)) {
         const { bottom } = target.getBoundingClientRect()
+        const { borderTopWidth, borderBottomWidth } = getComputedStyle(target)
         const { offsetHeight, clientHeight } = target
-        const scrollBarHeight = offsetHeight - clientHeight
-        const windowHeight = getWindowHeight()
-        return windowHeight - (bottom - props.offsetBottom) + scrollBarHeight
+
+        const scrollBarHeight = offsetHeight - clientHeight - parseInt(borderTopWidth) - parseInt(borderBottomWidth)
+
+        return getWindowHeight() - (bottom - props.offsetBottom) + scrollBarHeight
       }
 
       return props.offsetBottom
