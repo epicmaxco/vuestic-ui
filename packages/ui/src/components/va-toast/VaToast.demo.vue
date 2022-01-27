@@ -34,22 +34,64 @@
       <button @click="handleToast">Open Toast</button>
       <button @click="$vaToast.close(handleId)">Close {{handleId}}</button>
     </VbCard>
+    <VbCard title="useToast hook">
+      <button @click="hookTest">Start test</button>
+    </VbCard>
   </VbDemo>
 </template>
 
 <script>
 import { useGlobalConfig } from '../../services/global-config/global-config'
+import { closeAllNotifications } from './toast'
+import { useToast } from './useToast'
 
 export default {
   setup () {
     const { setGlobalConfig } = useGlobalConfig()
-
     setGlobalConfig(config => ({
       ...config,
       VaToast: {
         color: 'red',
       },
     }))
+
+    const { create, close, closeAllCreatedInThisHook, closeAll } = useToast()
+
+    const hookTest = () => {
+      const toast = create({
+        message: 'First toast, should be visible for 6000ms, but we close it manually after 2000ms',
+        duration: 6000,
+      })
+
+      setTimeout(() => {
+        close(toast)
+
+        create({
+          message: 'Previous toast closed',
+        })
+        create({
+          message: 'Two toasts, that should be closed with closeAllCreatedInThisSetup method in 4 seconds. This method should not close other toasts',
+        })
+
+        setTimeout(() => {
+          closeAllCreatedInThisHook()
+
+          create({ message: 'Now we try to close all toasts in 3 seconds' })
+          create({ message: 'Now we try to close all toasts in 3 seconds' })
+          create({ message: 'Now we try to close all toasts in 3 seconds' })
+          create({ message: 'Now we try to close all toasts in 3 seconds' })
+          create({ message: 'Now we try to close all toasts in 3 seconds' })
+
+          setTimeout(() => {
+            closeAll()
+          }, 3000)
+        }, 4000)
+      }, 2000)
+    }
+
+    return {
+      hookTest,
+    }
   },
 
   data () {
