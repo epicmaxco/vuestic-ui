@@ -13,8 +13,8 @@ export default {
         closeById(id)
       },
 
-      closeAll () {
-        closeAllNotifications(app?._context)
+      closeAll (allApps = false) {
+        closeAllNotifications(allApps ? undefined : app?._context)
       },
     }
   },

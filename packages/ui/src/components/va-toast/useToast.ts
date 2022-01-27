@@ -3,7 +3,7 @@ import { getCurrentInstance } from 'vue'
 
 /** This hook can be used without plugin used */
 export const useToast = () => {
-  const app = getCurrentInstance()?.appContext
+  const appContext = getCurrentInstance()?.appContext
 
   const createdInThisSetupContext: string[] = []
 
@@ -11,7 +11,7 @@ export const useToast = () => {
    * @param options can be options object or message string
    */
   const create = (options: NotificationOptions | string) => {
-    const id = createToastInstance(options, app)
+    const id = createToastInstance(options, appContext)
 
     if (id) { createdInThisSetupContext.push(id) }
 
@@ -24,7 +24,7 @@ export const useToast = () => {
    * Closes all VaToast instances in current App instance.
    * @param allApps if you have multiple vue apps on page, set allApps to true to close it for all apps.
    */
-  const closeAll = (allApps = false) => closeAllNotifications(allApps ? undefined : app)
+  const closeAll = (allApps = false) => closeAllNotifications(allApps ? undefined : appContext)
 
   /** Use this method if you need to close only toasts that created with this hook */
   const closeAllCreatedInThisHook = () => {
