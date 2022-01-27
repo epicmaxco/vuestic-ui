@@ -10,7 +10,7 @@ export const useToast = () => {
   /**
    * @param options can be options object or message string
    */
-  const create = (options: NotificationOptions | string) => {
+  const init = (options: NotificationOptions | string) => {
     const id = createToastInstance(options, appContext)
 
     if (id) { createdInThisSetupContext.push(id) }
@@ -32,6 +32,6 @@ export const useToast = () => {
   }
 
   return {
-    create, close, closeAll, closeAllCreatedInThisHook,
+    init, close, closeAll, closeAllCreatedInThisHook,
   }
 }

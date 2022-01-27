@@ -42,7 +42,6 @@
 
 <script>
 import { useGlobalConfig } from '../../services/global-config/global-config'
-import { closeAllNotifications } from './toast'
 import { useToast } from './useToast'
 
 export default {
@@ -55,10 +54,10 @@ export default {
       },
     }))
 
-    const { create, close, closeAllCreatedInThisHook, closeAll } = useToast()
+    const { init, close, closeAllCreatedInThisHook, closeAll } = useToast()
 
     const hookTest = () => {
-      const toast = create({
+      const toast = init({
         message: 'First toast, should be visible for 6000ms, but we close it manually after 2000ms',
         duration: 6000,
       })
@@ -66,21 +65,21 @@ export default {
       setTimeout(() => {
         close(toast)
 
-        create({
+        init({
           message: 'Previous toast closed',
         })
-        create({
+        init({
           message: 'Two toasts, that should be closed with closeAllCreatedInThisSetup method in 4 seconds. This method should not close other toasts',
         })
 
         setTimeout(() => {
           closeAllCreatedInThisHook()
 
-          create({ message: 'Now we try to close all toasts in 3 seconds' })
-          create({ message: 'Now we try to close all toasts in 3 seconds' })
-          create({ message: 'Now we try to close all toasts in 3 seconds' })
-          create({ message: 'Now we try to close all toasts in 3 seconds' })
-          create({ message: 'Now we try to close all toasts in 3 seconds' })
+          init({ message: 'Now we try to close all toasts in 3 seconds' })
+          init({ message: 'Now we try to close all toasts in 3 seconds' })
+          init({ message: 'Now we try to close all toasts in 3 seconds' })
+          init({ message: 'Now we try to close all toasts in 3 seconds' })
+          init({ message: 'Now we try to close all toasts in 3 seconds' })
 
           setTimeout(() => {
             closeAll()
