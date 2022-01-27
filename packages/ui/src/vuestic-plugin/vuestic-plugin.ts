@@ -3,7 +3,7 @@ import { App } from 'vue'
 import { installPlatform } from '../components/va-popup/install'
 import DropdownPopperSubplugin
   from '../components/va-dropdown/dropdown-popover-subplugin'
-import ToastInstall from '../components/va-toast/install'
+import ToastInstall from '../components/va-toast/plugin'
 
 import ColorHelpersPlugin from '../services/color-config/color-css-variables-updater'
 import { GlobalConfig } from '../services/global-config/global-config'
