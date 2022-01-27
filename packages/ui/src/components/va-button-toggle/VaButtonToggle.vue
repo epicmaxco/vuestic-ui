@@ -10,11 +10,11 @@
     >
       <va-button
         v-for="option in options"
-        v-bind="buttonProps(option.value)"
+        v-bind="getButtonProps(option.value)"
         :key="option.value"
         :disabled="disabled"
         :size="size"
-        :class="buttonClass(option.value)"
+        :class="getButtonClass(option.value)"
         @click="changeValue(option.value)"
       >
         {{ option.label }}
@@ -24,84 +24,72 @@
 </template>
 
 <script lang="ts">
-import { Options, prop, mixins, Vue } from 'vue-class-component'
+import { defineComponent, PropType } from 'vue'
 
-import {
-  getFocusColor, getTextColor,
-  shiftHSLAColor,
-} from '../../services/color-config/color-functions'
-import ColorMixin from '../../services/color-config/ColorMixin'
+import { getTextColor, shiftHSLAColor } from '../../services/color-config/color-functions'
+import { useComputedColor } from '../../composables/useColor'
 import VaButton from '../va-button'
 import VaButtonGroup from '../va-button-group'
 
-class ButtonToggleProps {
-  options = prop<any[]>({ type: Array, default: () => [] })
-  color = prop<string>({ type: String, default: 'primary' })
-  textColor = prop<string>({ type: String, default: undefined })
-  activeButtonTextColor = prop<string>({ type: String, default: '#fff' })
-  modelValue = prop<string | number>({ type: [String, Number], default: '' })
-  outline = prop<boolean>({ type: Boolean, default: false })
-  flat = prop<boolean>({ type: Boolean, default: false })
-  rounded = prop<boolean>({ type: Boolean, default: true })
-  disabled = prop<boolean>({ type: Boolean, default: false })
-  size = prop<string>({
-    type: String,
-    default: 'medium',
-    validator: (modelValue: string) => {
-      return ['medium', 'small', 'large'].includes(modelValue)
-    },
-  })
-
-  toggleColor = prop<string>({ type: String, default: '' })
-  gradient = prop<boolean>({ type: Boolean, default: false })
-}
-
-const ButtonTogglePropsMixin = Vue.with(ButtonToggleProps)
-
-@Options({
+export default defineComponent({
   name: 'VaButtonToggle',
   components: {
     VaButtonGroup,
     VaButton,
   },
   emits: ['update:modelValue'],
-})
-export default class VaButtonToggle extends mixins(
-  ColorMixin,
-  ButtonTogglePropsMixin,
-) {
-  buttonColor (buttonValue: any) {
-    return buttonValue === this.modelValue && this.toggleColor ? this.toggleColor : this.color
-  }
+  props: {
+    options: { type: Array as PropType<any[]>, default: () => [] },
+    color: { type: String as PropType<string>, default: 'primary' },
+    textColor: { type: String as PropType<string>, default: undefined },
+    activeButtonTextColor: { type: String as PropType<string>, default: 'var(--va-white)' },
+    modelValue: { type: [String, Number] as PropType<string | number>, default: '' },
+    outline: { type: Boolean as PropType<boolean>, default: false },
+    flat: { type: Boolean as PropType<boolean>, default: false },
+    rounded: { type: Boolean as PropType<boolean>, default: true },
+    disabled: { type: Boolean as PropType<boolean>, default: false },
+    size: {
+      type: String as PropType<string>,
+      default: 'medium',
+      validator: (modelValue: 'medium' | 'small' | 'large') => ['medium', 'small', 'large'].includes(modelValue),
+    },
 
-  buttonProps (buttonValue: any) {
-    if (buttonValue !== this.modelValue) { return }
+    toggleColor: { type: String as PropType<string>, default: '' },
+    gradient: { type: Boolean as PropType<boolean>, default: false },
+  },
+  setup (props, { emit }) {
+    const colorComputed = useComputedColor(props.color)
+    const toggleColorComputed = useComputedColor(props.toggleColor)
 
-    if (this.outline || this.flat) {
+    const getButtonProps = (buttonValue: any) => {
+      if (buttonValue !== props.modelValue) { return }
+
+      if (props.outline || props.flat) {
+        return {
+          textColor: props.activeButtonTextColor,
+          color: props.toggleColor ? toggleColorComputed.value : colorComputed.value,
+          outline: false,
+          flat: false,
+        }
+      }
+
       return {
-        textColor: this.activeButtonTextColor,
-        color: this.toggleColor ? this.theme.getColor(this.toggleColor) : this.colorComputed,
-        outline: false,
-        flat: false,
+        textColor: props.activeButtonTextColor ? props.activeButtonTextColor : getTextColor(colorComputed.value),
+        color: props.toggleColor ? toggleColorComputed.value : shiftHSLAColor(colorComputed.value, { l: -6 }),
       }
     }
 
-    return {
-      textColor: this.activeButtonTextColor ? this.activeButtonTextColor : getTextColor(this.colorComputed),
-      color: this.toggleColor ? this.theme.getColor(this.toggleColor) : shiftHSLAColor(this.colorComputed, { l: -6 }),
-    }
-  }
+    const getButtonClass = (buttonValue: any) => ({ 'va-button--active': buttonValue === props.modelValue })
 
-  buttonClass (buttonValue: any) {
-    return {
-      'va-button--active': buttonValue === this.modelValue,
-    }
-  }
+    const changeValue = (value: any) => emit('update:modelValue', value)
 
-  changeValue (value: any) {
-    this.$emit('update:modelValue', value)
-  }
-}
+    return {
+      getButtonProps,
+      getButtonClass,
+      changeValue,
+    }
+  },
+})
 </script>
 
 <style lang="scss">
