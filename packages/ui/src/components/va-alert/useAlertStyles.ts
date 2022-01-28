@@ -1,6 +1,6 @@
 import { computed } from 'vue'
 
-import { useComputedColor, useColors } from './../../composables/useColor';
+import { useComputedColor, useColors } from './../../composables/useColor'
 import { getTextColor } from '../../services/color-config/color-functions'
 
 type AlertStyleProps = {
