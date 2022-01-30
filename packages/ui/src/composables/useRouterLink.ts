@@ -32,10 +32,10 @@ export const useRouterLink = (props: Record<string, any>) => {
     if (props.tag === 'a' || (props.href && !props.to) || props.target) {
       return 'a'
     }
-    if (props.tag === 'nuxt-link' || (isNuxt.value && props.hasRouterLinkParams)) {
+    if (props.tag === 'nuxt-link' || (isNuxt.value && hasRouterLinkParams.value)) {
       return 'nuxt-link'
     }
-    if (props.tag === 'router-link' || hasRouterLinkParams) {
+    if (props.tag === 'router-link' || hasRouterLinkParams.value) {
       return 'router-link'
     }
 
@@ -47,8 +47,7 @@ export const useRouterLink = (props: Record<string, any>) => {
       return false
     }
 
-    const resolve = vueRouter.value.resolve(props.to)
-    const to = resolve.href
+    const to = vueRouter.value.resolve(props.to).href
     const currentHref = vueRouter.value.currentRoute.value.path
 
     return to.replace('#', '') === currentHref.replace('#', '')
