@@ -81,9 +81,7 @@ export default {
           init({ message: 'Now we try to close all toasts in 3 seconds' })
           init({ message: 'Now we try to close all toasts in 3 seconds' })
 
-          setTimeout(() => {
-            closeAll()
-          }, 3000)
+          setTimeout(closeAll, 3000)
         }, 4000)
       }, 2000)
     }
