@@ -4,27 +4,25 @@
     class="va-button"
     :class="computedClass"
     :style="computedStyle"
-    :disabled="disabled"
+    :disabled="$props.disabled"
     :type="computedType"
     :href="hrefComputed"
-    :target="target"
-    :to="to"
-    :replace="replace"
-    :append="append"
-    :active-class="activeClass"
-    :exact="exact"
-    :exact-active-class="exactActiveClass"
-    @focus="updateFocusState(true)"
-    @blur="updateFocusState(false)"
+    :target="$props.target"
+    :to="$props.to"
+    :replace="$props.replace"
+    :append="$props.append"
+    :active-class="$props.activeClass"
+    :exact="$props.exact"
+    :exact-active-class="$props.exactActiveClass"
+    @focus="focusState = true"
+    @blur="focusState = false"
     :tabindex="loading ? -1 : 0"
-    @mouseenter="updateHoverState(true)"
-    @mouseleave="updateHoverState(false)"
-    v-on="inputListeners"
+    @mouseenter="hoverState = true"
+    @mouseleave="hoverState = false"
+    v-on="$attrs"
+    ref="button"
   >
-    <div
-      class="va-button__content"
-      :class="{'va-button__content--loading': loading}"
-    >
+    <div class="va-button__content" :class="{ 'va-button__content--loading': loading }">
       <va-icon
         v-if="icon"
         :name="icon"
@@ -53,201 +51,165 @@
 </template>
 
 <script lang="ts">
-import { watchEffect, watch } from 'vue'
-import { mixins, Vue, prop, Options, setup } from 'vue-class-component'
-import {
-  getGradientBackground,
-  getFocusColor,
-  getHoverColor,
-  getBoxShadowColor,
-  shiftHSLAColor,
-} from '../../services/color-config/color-functions'
-import ColorMixin from '../../services/color-config/ColorMixin'
-import { RouterLinkMixin } from '../../mixins/RouterLinkMixin/RouterLinkMixin'
-import { SizeMixin } from '../../mixins/SizeMixin'
-import { LoadingMixin } from '../../mixins/LoadingMixin/LoadingMixin'
+import { defineComponent, computed, ref, Ref, PropType, ComputedRef } from 'vue'
+
+import { getGradientBackground, shiftHSLAColor } from '../../services/color-config/color-functions'
+import { useColor } from '../../composables/useColor'
+import { useRouterLink, useRouterLinkProps } from '../../composables/useRouterLink'
+import { useSizeProps, useSize } from '../../composables/useSize'
+import { useLoadingProps } from '../../composables/useLoading'
 import VaIcon from '../va-icon'
 import { VaProgressCircle } from '../va-progress-bar'
 
-class ButtonProps {
-  color = prop<string>({ type: String, default: undefined })
-  textColor = prop<string>({ type: String, default: undefined })
-  tag = prop<string>({ type: String, default: 'button' })
-  outline = prop<boolean>({ type: Boolean, default: undefined })
-  gradient = prop<boolean>({ type: Boolean, default: undefined })
-  flat = prop<boolean>({ type: Boolean, default: undefined })
-  type = prop<string>({ type: String, default: 'button' })
-  disabled = prop<boolean>({ type: Boolean, default: false })
-  block = prop<boolean>({ type: Boolean, default: false })
-  rounded = prop<boolean>({ type: Boolean, default: true })
-  round = prop<boolean>({ type: Boolean, default: undefined })
-  spaceBetweenItems = prop<boolean>({ type: Boolean, default: undefined })
-  icon = prop<string>({ type: String, default: undefined })
-  iconRight = prop<string>({ type: String, default: undefined })
-  size = prop<string>({
-    type: String,
-    default: 'medium',
-    validator: (value: string) => {
-      return ['medium', 'small', 'large'].includes(value)
-    },
-  })
-}
-
-const ButtonPropsMixin = Vue.with(ButtonProps)
-
-@Options({
+export default defineComponent({
   name: 'VaButton',
   components: { VaIcon, VaProgressCircle },
-  emits: ['click'],
-})
-export default class VaButton extends mixins(
-  ColorMixin,
-  RouterLinkMixin,
-  SizeMixin,
-  LoadingMixin,
-  ButtonPropsMixin,
-) {
-  hoverState = false
-  focusState = false
+  props: {
+    ...useSizeProps,
+    ...useLoadingProps,
+    ...useRouterLinkProps,
+    color: { type: String as PropType<string | undefined>, default: undefined },
+    textColor: { type: String as PropType<string | undefined>, default: undefined },
+    tag: { type: String as PropType<string>, default: 'button' },
+    outline: { type: Boolean as PropType<boolean | undefined>, default: undefined },
+    gradient: { type: Boolean as PropType<boolean | undefined>, default: undefined },
+    flat: { type: Boolean as PropType<boolean | undefined>, default: undefined },
+    type: { type: String as PropType<string>, default: 'button' },
+    disabled: { type: Boolean as PropType<boolean>, default: false },
+    block: { type: Boolean as PropType<boolean>, default: false },
+    rounded: { type: Boolean as PropType<boolean>, default: true },
+    round: { type: Boolean as PropType<boolean | undefined>, default: undefined },
+    spaceBetweenItems: { type: Boolean as PropType<boolean | undefined>, default: undefined },
+    icon: { type: String as PropType<string | undefined>, default: undefined },
+    iconRight: { type: String as PropType<string | undefined>, default: undefined },
+    size: {
+      type: String as PropType<string>,
+      default: 'medium',
+      validator: (value: string) => ['medium', 'small', 'large'].includes(value),
+    },
+  },
+  setup (props, { slots }) {
+    const { sizeComputed } = useSize(props)
+    const { computeColor } = useColor(props)
+    const { tagComputed, hrefComputed } = useRouterLink(props)
 
-  context = setup(() => {
-    watch(() => this.$props.loading, (loading) => {
-      if (loading) {
-        this.updateFocusState(false)
-        this.updateHoverState(false)
+    const hoverState = ref(false)
+    const focusState = ref(false)
+
+    const colorComputed = computed(() => computeColor(props.color, 'primary'))
+    const isTransparentBackground = computed(() => props.outline || props.flat)
+
+    const computedType = computed(() => {
+      // Safari issue. type===button will break styles if the button is used as a link
+      switch (tagComputed.value) {
+      case 'a':
+      case 'router-link':
+      case 'nuxt-link':
+        return undefined
+      default:
+        return props.type
       }
     })
 
-    watchEffect(() => {
-      this.updateFocusState(this.focusState)
-      this.updateHoverState(this.hoverState)
+    const textColorComputed = computed(() => {
+      if (props.textColor !== undefined) {
+        return computeColor(props.textColor, 'var(--va-white)')
+      }
+
+      if (isTransparentBackground.value) {
+        return computeColor(colorComputed.value, 'var(--va-white)')
+      }
+
+      return computeColor(props.textColor, 'var(--va-white)')
     })
 
-    return {}
-  })
+    const hasOneIcon = computed(() => {
+      return Boolean((props.iconRight && !props.icon) || (!props.iconRight && props.icon))
+    })
 
-  get computedType () {
-    // Safari issue. type===button will break styles if the button is used as a link
-    switch (this.tagComputed) {
-    case 'a':
-    case 'router-link':
-    case 'nuxt-link':
-      return undefined
-    default:
-      return this.type
-    }
-  }
+    const computedClass = computed(() => ({
+      'va-button--default': !props.flat && !props.outline && !props.disabled,
+      'va-button--flat': props.flat,
+      'va-button--outline': props.outline,
+      'va-button--disabled': props.disabled,
+      'va-button--hover': hoverState.value,
+      'va-button--focus': focusState.value,
+      'va-button--large': props.size === 'large',
+      'va-button--small': props.size === 'small',
+      'va-button--normal': !props.size || props.size === 'medium',
+      'va-button--loading': props.loading,
+      'va-button--block': props.block,
+      'va-button--square': !props.rounded,
+      'va-button--round': props.round || (!slots.default && hasOneIcon.value),
+      'va-button--space-between-items': props.spaceBetweenItems,
+    }))
 
-  get isTransparentBackground () {
-    return this.outline || this.flat
-  }
+    const loaderSize = computed(() => {
+      const size = /([0-9]*)(px)/.exec(sizeComputed.value) as null | [string, string, string]
 
-  get colorComputed () {
-    return this.computeColor(this.color, 'primary')
-  }
+      return size ? `${+size[1] / 2}${size[2]}` : sizeComputed.value
+    })
 
-  get textColorComputed () {
-    if (this.$props.textColor !== undefined) {
-      return this.computeColor(this.textColor, '#fff')
-    }
+    const computedStyle: ComputedRef<Partial<CSSStyleDeclaration>> = computed(() => {
+      const borderColor = props.outline ? colorComputed.value : ''
 
-    if (this.isTransparentBackground) {
-      return this.computeColor(this.colorComputed, '#fff')
-    }
+      let background = props.gradient
+        ? getGradientBackground(colorComputed.value)
+        : colorComputed.value
 
-    return this.computeColor(this.textColor, '#fff')
-  }
+      if (isTransparentBackground.value) {
+        background = 'var(--va-transparent)'
+      }
 
-  get hasDefaultSlot () {
-    return this.$slots.default
-  }
+      if (hoverState.value) {
+        const alpha = props.outline ? -0.9 : -0.8
+        const lightness = 5
+        const color = isTransparentBackground.value
+          ? shiftHSLAColor(colorComputed.value, { a: alpha })
+          : shiftHSLAColor(colorComputed.value, { l: lightness })
 
-  get hasOneIcon () {
-    return Boolean((this.iconRight && !this.icon) || (!this.iconRight && this.icon))
-  }
+        background = props.gradient ? getGradientBackground(color) : color
+      }
 
-  get computedClass () {
+      if (focusState.value) {
+        const alpha = props.outline ? -0.8 : -0.7
+        const lightness = 10
+        const color = isTransparentBackground.value ? shiftHSLAColor(colorComputed.value, { a: alpha }) : shiftHSLAColor(colorComputed.value, { l: lightness })
+
+        background = props.gradient ? getGradientBackground(color) : color
+      }
+
+      return {
+        color: textColorComputed.value,
+        borderColor,
+        background,
+      }
+    })
+
+    const button: Ref<HTMLElement | null> = ref(null)
+    const focus = () => button.value?.focus()
+    const blur = () => button.value?.blur()
+
     return {
-      'va-button--default': !this.flat && !this.outline && !this.disabled,
-      'va-button--flat': this.flat,
-      'va-button--outline': this.outline,
-      'va-button--disabled': this.disabled,
-      'va-button--hover': this.hoverState,
-      'va-button--focus': this.focusState,
-      'va-button--large': this.size === 'large',
-      'va-button--small': this.size === 'small',
-      'va-button--normal': !this.size || this.size === 'medium',
-      'va-button--loading': this.loading,
-      'va-button--block': this.block,
-      'va-button--square': !this.rounded,
-      'va-button--round': this.round || (!this.hasDefaultSlot && this.hasOneIcon),
-      'va-button--space-between-items': this.spaceBetweenItems,
+      button,
+      tagComputed,
+      hrefComputed,
+      computedClass,
+      computedStyle,
+      computedType,
+      textColorComputed,
+      loaderSize,
+      focusState,
+      hoverState,
     }
-  }
+  },
 
-  get loaderSize () {
-    const size = /([0-9]*)(px)/.exec(this.sizeComputed) as null | [string, string, string]
-
-    if (size) {
-      return `${+size[1] / 2}${size[2]}`
-    }
-
-    return this.sizeComputed
-  }
-
-  get computedStyle () {
-    const color = this.textColorComputed
-    const borderColor = this.outline ? this.colorComputed : ''
-    let background = this.isTransparentBackground ? '#00000000' : this.gradient ? getGradientBackground(this.colorComputed) : this.colorComputed
-    if (this.hoverState) {
-      const alpha = this.outline ? -0.9 : -0.8
-      const lightness = 5
-      const color = this.isTransparentBackground ? shiftHSLAColor(this.colorComputed, { a: alpha }) : shiftHSLAColor(this.colorComputed, { l: lightness })
-      background = this.gradient ? getGradientBackground(color) : color
-    }
-    if (this.focusState) {
-      const alpha = this.outline ? -0.8 : -0.7
-      const lightness = 10
-      const color = this.isTransparentBackground ? shiftHSLAColor(this.colorComputed, { a: alpha }) : shiftHSLAColor(this.colorComputed, { l: lightness })
-      background = this.gradient ? getGradientBackground(color) : color
-    }
-    return {
-      color: color,
-      borderColor: borderColor,
-      background: background,
-    }
-  }
-
-  get inputListeners () {
-    // vue3 $listeners.click -> $attrs.onClick
-    return Object.assign({},
-      this.$attrs,
-      {
-        click: (event: Event) => {
-          this.$emit('click', event)
-        },
-      },
-    )
-  }
-
-  updateHoverState (isHover: boolean) {
-    this.hoverState = isHover
-  }
-
-  updateFocusState (isFocused: boolean) {
-    this.focusState = isFocused
-  }
-
-  /** @public */
-  focus (): void {
-    (this.$el as HTMLElement).focus()
-  }
-
-  /** @public */
-  blur (): void {
-    (this.$el as HTMLElement).blur()
-  }
-}
+  // we will use this while we have 'withConfigTransport' and problem with 'expose' method in 'setup' func
+  methods: {
+    focus () { (this as any).button?.focus() },
+    blur () { (this as any).button?.blur() },
+  },
+})
 </script>
 
 <style lang='scss'>
@@ -296,11 +258,6 @@ export default class VaButton extends mixins(
 
   &--default {
     color: var(--va-button-background-color, var(--va-white));
-
-    &:focus,
-    &:active {
-      //filter: brightness(85%);
-    }
 
     i {
       color: var(--va-button-icon-color, var(--va-white));

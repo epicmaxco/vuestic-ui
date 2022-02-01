@@ -108,3 +108,5 @@ export const isColor = (strColor: string): boolean => {
 
   return cssColorRegex.test(strColor.toLocaleLowerCase())
 }
+
+export const isCSSVariable = (strColor: string): boolean => /var\(--.+\)/.test(strColor)
