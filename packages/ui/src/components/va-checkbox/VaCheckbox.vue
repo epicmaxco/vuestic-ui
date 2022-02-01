@@ -194,17 +194,9 @@ export default defineComponent({
     min-width: var(--va-checkbox-square-min-width);
     height: var(--va-checkbox-square-height);
     position: var(--va-checkbox-square-position);
-    background-color:
-      var(
-        --va-checkbox-square-background-color,
-        var(--va-background-color)
-      );
+    background-color: var(--va-checkbox-square-background-color, var(--va-background-color));
     border: var(--va-checkbox-square-border, var(--va-control-border));
-    border-radius:
-      var(
-        --va-checkbox-square-border-radius,
-        var(--va-square-border-radius)
-      );
+    border-radius: var(--va-checkbox-square-border-radius, var(--va-square-border-radius));
 
     @at-root {
       .va-checkbox--on-keyboard-focus#{&} {
