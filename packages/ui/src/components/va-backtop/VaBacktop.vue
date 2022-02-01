@@ -53,7 +53,7 @@ export default defineComponent({
       [props.horizontalPosition]: props.horizontalOffset,
     }))
 
-    const targetElement: Ref<Element> = ref(document.body)
+    let targetElement: Element = document.body
     const getTargetElement = () => typeof props.target === 'string'
       ? document.querySelector(props.target) || document.body
       : props.target
@@ -66,26 +66,26 @@ export default defineComponent({
       scrolled.value = true
 
       interval.value = window.setInterval(() => {
-        if (targetElement.value.scrollTop === 0) {
+        if (targetElement.scrollTop === 0) {
           clearInterval(interval.value)
           scrolled.value = false
         } else {
-          const next = Math.floor(targetElement.value.scrollTop - props.speed)
-          targetElement.value.scrollTo(0, next)
+          const next = Math.floor(targetElement.scrollTop - props.speed)
+          targetElement.scrollTo(0, next)
         }
       }, 15)
     }
 
     const handleScroll = () => {
-      visible.value = targetElement.value.scrollTop > props.visibilityHeight
+      visible.value = targetElement.scrollTop > props.visibilityHeight
     }
 
     onMounted(() => {
-      targetElement.value = getTargetElement()
-      targetElement.value?.addEventListener('scroll', handleScroll)
+      targetElement = getTargetElement()
+      targetElement?.addEventListener('scroll', handleScroll)
     })
 
-    onBeforeMount(() => targetElement.value?.removeEventListener('scroll', handleScroll))
+    onBeforeMount(() => targetElement?.removeEventListener('scroll', handleScroll))
 
     return {
       computedStyle,
