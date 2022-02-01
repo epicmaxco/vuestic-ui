@@ -1,17 +1,22 @@
 <template>
   <div class="va-time-picker" :class="computedClass">
     <VaTimePickerColumn
-      ref="timePickerColumn"
       v-for="(column, idx) in columns" :key="idx"
-      v-model:activeItemIndex="column.activeItem.value"
+      :ref="(el) => pickers.push(el)"
       :items="column.items"
       :tabindex="disabled ? -1 : 0"
+      v-model:activeItemIndex="column.activeItem.value"
+      @keydown.right.stop.prevent="focusNext()"
+      @keydown.tab.exact.stop.prevent="focusNext()"
+      @keydown.left.stop.prevent="focusPrev()"
+      @keydown.shift.tab.stop.prevent="focusPrev()"
+      @focused="activeColumnIndex = idx"
     />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref } from 'vue'
+import { defineComponent, onMounted, PropType, ref } from 'vue'
 import { useTimePicker } from './hooks/useTimePicker'
 import VaTimePickerColumn from './components/VaTimePickerColumn.vue'
 import { useStateful, statefulComponentOptions } from '../../mixins/StatefulMixin/cStatefulMixin'
@@ -40,19 +45,36 @@ export default defineComponent({
   setup (props, { emit, expose }) {
     const { valueComputed } = useStateful(props, emit)
     const { columns, isPM } = useTimePicker(props, valueComputed)
-    const timePickerColumn = ref<InstanceType<typeof VaTimePickerColumn> | undefined>()
 
-    const focus = (): void => {
-      timePickerColumn.value?.focus()
+    const pickers = ref<(InstanceType<typeof VaTimePickerColumn> | undefined)[]>([])
+
+    const activeColumnIndex = ref<number | undefined>()
+
+    const focus = (idx?: number): void => {
+      idx ? pickers.value[idx]?.focus() : pickers.value[0]?.focus()
     }
 
-    const blur = (): void => {
-      timePickerColumn.value?.blur()
+    const blur = (idx?: number): void => {
+      idx && pickers.value[idx]?.blur()
     }
 
     const { createComputedClass } = useForm(props)
 
     const computedClass = createComputedClass('va-time-picker')
+
+    const focusNext = () => {
+      const nextIndex = (activeColumnIndex?.value || 0) + 1
+      activeColumnIndex.value = nextIndex % columns.value.length
+      focus(activeColumnIndex.value)
+    }
+
+    const focusPrev = () => {
+      const nextIndex = (activeColumnIndex?.value || 0) - 1 + columns.value.length
+      activeColumnIndex.value = nextIndex % columns.value.length
+      focus(activeColumnIndex.value)
+    }
+
+    onMounted(() => { focus() })
 
     expose({
       focus,
@@ -63,13 +85,17 @@ export default defineComponent({
       columns,
       computedClass,
       isPM,
-      timePickerColumn,
+      pickers,
+
+      focusNext,
+      focusPrev,
+      activeColumnIndex,
     }
   },
 
   methods: {
-    focus () { (this as any).timePickerColumn?.focus() },
-    blur () { (this as any).timePickerColumn?.blur() },
+    focus (idx?: number) { idx ? (this as any).pickers[idx]?.focus() : (this as any).pickers[0]?.focus() },
+    blur (idx?: number) { idx && (this as any).pickers[idx]?.blur() },
   },
 })
 </script>
