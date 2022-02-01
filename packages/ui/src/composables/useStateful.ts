@@ -1,4 +1,10 @@
-import { ref, computed } from 'vue'
+import { ref, computed, PropType } from 'vue'
+
+export type StatefulProps<T> = {
+  stateful: boolean
+  modelValue: T
+  [prop: string]: unknown
+}
 
 /**
  * You could add these props to any component by destructuring them inside props option.
@@ -7,14 +13,8 @@ import { ref, computed } from 'vue'
  * It's better to add props at the beginning, to make sure that Component own props will be used instead in case of collision
  */
 export const useStatefulProps = {
-  stateful: {
-    type: Boolean,
-    default: false,
-  },
-  modelValue: {
-    type: undefined,
-    default: undefined,
-  },
+  stateful: { type: Boolean as PropType<boolean>, default: false },
+  modelValue: { type: undefined as any as PropType<unknown> },
 }
 
 /**
@@ -23,10 +23,7 @@ export const useStatefulProps = {
  * Record<any, any> & Record<'modelValue', T>
  */
 export function useStateful<T, D extends T | undefined> (
-  props: {
-    modelValue: T,
-    stateful: boolean,
-  },
+  props: StatefulProps<T>,
   emit: (event: 'update:modelValue', newValue: T) => void,
   defaultValue?: D,
 ) {

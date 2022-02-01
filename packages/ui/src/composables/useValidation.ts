@@ -6,15 +6,16 @@ import { useFocus } from './useFocus'
 
 type ValidationRule = (() => any | string)
 
-interface ValidationProps {
-  modelValue: unknown,
-  error?: boolean;
-  errorMessages?: string[] | string;
-  errorCount: string | number;
+export interface ValidationProps {
+  modelValue: unknown
+  error?: boolean
+  errorMessages?: string[] | string
+  errorCount: string | number
   rules: ValidationRule[]
   success: boolean
   messages: string[] | string
   immediateValidation: boolean
+  [prop: string]: unknown
 }
 
 export const useValidationProps = {

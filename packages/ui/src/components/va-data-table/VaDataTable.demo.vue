@@ -39,7 +39,7 @@
           {{ selectedItem.id }},
         </span>
       </p>
-      <input type="checkbox" v-model="useSelectable">
+      <input type="checkbox" v-model="useSelectableRow">
       <label>Use selectable</label><br>
       <label>Select mode</label>
       <select v-model="selectMode">
@@ -83,7 +83,7 @@
         @filtered="visibleRowsAmount = $event.length"
         v-model:sort-by="sortBy2"
         v-model:sorting-order="sortingOrder2"
-        :selectable="useSelectable"
+        :selectable="useSelectableRow"
         v-model="selectedItemsIds"
         :select-mode="selectMode"
         :selected-color="selectedColor"
@@ -675,7 +675,7 @@ export default defineComponent({
 
       sortBy2: '',
       sortingOrder2: null,
-      useSelectable: true,
+      useSelectableRow: true,
       selectedItemsIds: [],
       selectMode: 'single',
       selectedColor: 'primary',
