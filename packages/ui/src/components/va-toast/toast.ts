@@ -5,7 +5,11 @@ import { VNode, createVNode, render, AppContext } from 'vue'
 const GAP = 5
 let seed = 1
 
-let toastInstances: VNode[] = []
+declare global {
+  interface Window { vaToastInstances: VNode[]; }
+}
+
+window.vaToastInstances = []
 
 type OptionKeys = keyof NotificationOptions;
 
@@ -35,12 +39,12 @@ const getNodeProps = (vNode: VNode) => {
 const closeNotification = (targetInstance: VNode | null, destroyElementFn: () => void) => {
   if (!targetInstance) { return }
 
-  if (!toastInstances.length) {
+  if (!window.vaToastInstances.length) {
     seed = 1
     return
   }
 
-  const targetInstanceIndex = toastInstances.findIndex((instance) => instance === targetInstance)
+  const targetInstanceIndex = window.vaToastInstances.findIndex((instance) => instance === targetInstance)
 
   if (targetInstanceIndex < 0) { return }
 
@@ -55,7 +59,7 @@ const closeNotification = (targetInstance: VNode | null, destroyElementFn: () =>
 
   destroyElementFn()
 
-  toastInstances = toastInstances.reduce((acc: any[], instance, index) => {
+  window.vaToastInstances = window.vaToastInstances.reduce((acc: any[], instance, index) => {
     if (instance === targetInstance) {
       return acc
     }
@@ -71,7 +75,7 @@ const closeNotification = (targetInstance: VNode | null, destroyElementFn: () =>
     return [...acc, instance]
   }, [])
 
-  if (!toastInstances.length) {
+  if (!window.vaToastInstances.length) {
     seed = 1
   }
 }
@@ -120,18 +124,18 @@ const mount = (component: any, {
 }
 
 export const closeAllNotifications = (appContext?: AppContext) => {
-  if (!toastInstances.length) {
+  if (!window.vaToastInstances.length) {
     seed = 1
     return
   }
-  toastInstances.forEach(instance => {
+  window.vaToastInstances.forEach(instance => {
     if (appContext && instance.appContext !== appContext) { return }
     getNodeProps(instance).onClose()
   })
 }
 
 export const closeById = (id: string) => {
-  const targetInstance = toastInstances.find(instance => instance.el?.id === id)
+  const targetInstance = window.vaToastInstances.find(instance => instance.el?.id === id)
 
   if (targetInstance) {
     const nodeProps = getNodeProps(targetInstance)
@@ -161,7 +165,7 @@ export const createToastInstance = (customProps: NotificationOptions | string, a
     vNode.el.id = 'notification_' + seed
 
     let transformY = 0
-    toastInstances.filter(item => {
+    window.vaToastInstances.filter(item => {
       const {
         offsetX: itemOffsetX,
         offsetY: itemOffsetY,
@@ -176,7 +180,7 @@ export const createToastInstance = (customProps: NotificationOptions | string, a
 
     seed += 1
 
-    toastInstances.push(vNode)
+    window.vaToastInstances.push(vNode)
 
     return vNode.el.id as VaToastId
   }
