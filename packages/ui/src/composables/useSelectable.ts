@@ -17,6 +17,12 @@ export interface SelectableProps extends StatefulProps<unknown>, LoadingProps, V
   [prop: string]: unknown
 }
 
+type Elements = {
+  input: Ref<HTMLElement | null>,
+  label: Ref<HTMLElement | null>,
+  container: Ref<HTMLElement | null>,
+}
+
 export const useSelectableProps = {
   ...useStatefulProps,
   ...useLoadingProps,
@@ -52,7 +58,7 @@ const checkDuplicates = (props: SelectableProps) => {
 export const useSelectable = (
   props: SelectableProps,
   emit: SetupContext['emit'],
-  { input, label, container }: Record<'label' | 'container' | 'input', Ref<HTMLElement | null>>,
+  { input, label, container }: Elements,
 ) => {
   checkDuplicates(props)
 
