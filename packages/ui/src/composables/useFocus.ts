@@ -10,12 +10,12 @@ export function useFocus (
 
   const onFocus = () => {
     isFocused.value = true
-    if (emit) { emit('focused') }
+    emit?.('focused')
   }
 
   const onBlur = () => {
     isFocused.value = false
-    if (emit) { emit('blurred') }
+    emit?.('blurred')
   }
 
   const focus = (): void => {
