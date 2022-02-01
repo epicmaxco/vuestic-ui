@@ -18,66 +18,55 @@
 </template>
 
 <script lang="ts">
-import { Options, mixins, Vue, prop } from 'vue-class-component'
+import { defineComponent, computed, PropType } from 'vue'
+import { useComputedColor, useColors } from '../../composables/useColor'
 
-import ColorMixin from '../../services/color-config/ColorMixin'
-
-class BadgeProps {
-  color = prop<string>({ type: String, default: 'danger' })
-  textColor = prop<string>({ type: String, default: 'white' })
-  text = prop<string | number>({ type: [String, Number], default: '' })
-  overlap = prop<boolean>({ type: Boolean, default: false })
-  multiLine = prop<boolean>({ type: Boolean, default: false })
-  visibleEmpty = prop<boolean>({ type: Boolean, default: false })
-  dot = prop<boolean>({ type: Boolean, default: false })
-  transparent = prop<boolean>({ type: Boolean, default: false })
-  left = prop<boolean>({ type: Boolean, default: false })
-  bottom = prop<boolean>({ type: Boolean, default: false })
-}
-
-const BadgePropsMixin = Vue.with(BadgeProps)
-
-@Options({
+export default defineComponent({
   name: 'VaBadge',
+  props: {
+    color: { type: String as PropType<string>, default: 'danger' },
+    textColor: { type: String as PropType<string>, default: 'var(--va-white)' },
+    text: { type: [String, Number] as PropType<string | number>, default: '' },
+    overlap: { type: Boolean as PropType<boolean>, default: false },
+    multiLine: { type: Boolean as PropType<boolean>, default: false },
+    visibleEmpty: { type: Boolean as PropType<boolean>, default: false },
+    dot: { type: Boolean as PropType<boolean>, default: false },
+    transparent: { type: Boolean as PropType<boolean>, default: false },
+    left: { type: Boolean as PropType<boolean>, default: false },
+    bottom: { type: Boolean as PropType<boolean>, default: false },
+  },
+  setup (props, { slots }) {
+    const isEmpty = computed(() => !(props.text || props.visibleEmpty || props.dot || slots.text))
+
+    const isFloating = computed(() => slots.default || props.dot)
+
+    const badgeClass = computed(() => ({
+      'va-badge--visible-empty': props.visibleEmpty,
+      'va-badge--empty': isEmpty.value,
+      'va-badge--dot': props.dot,
+      'va-badge--multiLine': props.multiLine,
+      'va-badge--floating': isFloating.value,
+      'va-badge--left': props.left,
+      'va-badge--bottom': props.bottom,
+      'va-badge--overlap': props.overlap,
+    }))
+
+    const { getColor } = useColors()
+    const colorComputed = useComputedColor(props.color)
+    const badgeStyle = computed(() => ({
+      color: getColor(props.textColor, 'var(--va-white)'),
+      borderColor: colorComputed.value,
+      backgroundColor: colorComputed.value,
+      opacity: props.transparent ? 0.5 : 1,
+    }))
+
+    return { badgeClass, badgeStyle }
+  },
 })
-export default class VaBadge extends mixins(
-  ColorMixin,
-  BadgePropsMixin,
-) {
-  get isEmpty () {
-    return !(this.text || this.visibleEmpty || this.dot || this.$slots.text)
-  }
-
-  get isFloating () {
-    return this.$slots.default || this.dot
-  }
-
-  get badgeClass () {
-    return {
-      'va-badge--visible-empty': this.visibleEmpty,
-      'va-badge--empty': this.isEmpty,
-      'va-badge--dot': this.dot,
-      'va-badge--multiLine': this.multiLine,
-      'va-badge--floating': this.isFloating,
-      'va-badge--left': this.left,
-      'va-badge--bottom': this.bottom,
-      'va-badge--overlap': this.overlap,
-    }
-  }
-
-  get badgeStyle () {
-    return {
-      color: this.theme.getColor(this.textColor, '#ffffff'),
-      borderColor: this.colorComputed,
-      backgroundColor: this.colorComputed,
-      opacity: this.transparent ? 0.5 : 1,
-    }
-  }
-}
 </script>
 
 <style lang="scss">
-@import 'variables';
+@import "variables";
 
 .va-badge {
   display: inline-flex;
@@ -200,5 +189,4 @@ export default class VaBadge extends mixins(
     }
   }
 }
-
 </style>
