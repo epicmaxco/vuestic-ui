@@ -1,76 +1,67 @@
 <template>
   <div class="va-button-group" :style="computedStyle" :class="computedClass">
-    <va-config :components="context.buttonConfig">
+    <va-config :components="buttonConfig">
       <slot />
     </va-config>
   </div>
 </template>
 
 <script lang="ts">
-import { Vue, Options, prop, setup } from 'vue-class-component'
+import { defineComponent, computed, PropType, reactive } from 'vue'
+
 import VaConfig from '../va-config'
-import { reactive } from 'vue'
 import { getGradientBackground } from '../../services/color-config/color-functions'
-import { getColor } from '../../services/color-config/color-config'
+import { useComputedColor } from '../../composables/useColor'
 
-class Props {
-  color = prop<string>({ type: String, default: 'primary' })
-  gradient = prop<boolean>({ type: Boolean, default: undefined })
-  textColor = prop<string>({ type: String, default: undefined })
-  rounded = prop<boolean>({ type: Boolean, default: true })
-  outline = prop<boolean>({ type: Boolean, default: false })
-  flat = prop<boolean>({ type: Boolean, default: false })
-  size = prop<string>({
-    type: String,
-    default: 'medium',
-    validator: (v: string) => ['medium', 'small', 'large'].includes(v),
-  })
-}
-
-@Options({
+export default defineComponent({
   name: 'VaButtonGroup',
   components: { VaConfig },
-})
-export default class VaButtonGroup extends Vue.with(Props) {
-  context = setup(() => {
+  props: {
+    color: { type: String as PropType<string>, default: 'primary' },
+    gradient: { type: Boolean as PropType<boolean>, default: undefined },
+    textColor: { type: String as PropType<string>, default: undefined },
+    rounded: { type: Boolean as PropType<boolean>, default: true },
+    outline: { type: Boolean as PropType<boolean>, default: false },
+    flat: { type: Boolean as PropType<boolean>, default: false },
+    size: {
+      type: String as PropType<string>,
+      default: 'medium',
+      validator: (v: string) => ['medium', 'small', 'large'].includes(v),
+    },
+  },
+  setup (props) {
     const buttonConfig = reactive({
       VaButton: {
-        ...this.$props,
-        color: this.gradient ? '#00000000' : this.color,
+        ...props,
+        color: props.gradient ? '#00000000' : props.color,
       },
     })
-    return { getColor, buttonConfig }
-  })
 
-  get computedBackground () {
-    if (this.outline || this.flat) {
-      return ''
-    }
+    const colorComputed = useComputedColor(props.color)
+    const computedBackground = computed(() => {
+      if (props.outline || props.flat) { return '' }
 
-    const color = this.context.getColor(this.color)
-    if (this.gradient) {
-      return getGradientBackground(color)
-    }
-    return color
-  }
+      return props.gradient ? getGradientBackground(colorComputed.value) : colorComputed.value
+    })
+    const computedStyle = computed(() => {
+      const backgroundProperty = props.gradient ? 'background-image' : 'background'
 
-  get computedStyle () {
-    const backgroundProperty = this.gradient ? 'background-image' : 'background'
+      return { [backgroundProperty]: computedBackground.value }
+    })
+
+    const computedClass = computed(() => ({ 'va-button-group_square': !props.rounded }))
+
     return {
-      [backgroundProperty]: this.computedBackground,
+      buttonConfig,
+      computedStyle,
+      computedClass,
     }
-  }
-
-  get computedClass () {
-    return {
-      'va-button-group_square': !this.rounded,
-    }
-  }
-}
+  },
+})
 </script>
 
 <style lang="scss">
-@import 'variables';
+@import "variables";
 
 .va-button-group {
   display: flex;
