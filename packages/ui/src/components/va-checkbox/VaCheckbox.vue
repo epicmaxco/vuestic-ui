@@ -86,9 +86,17 @@ export default defineComponent({
       label: ref(null),
     }
 
-    const colorComputed = useComputedColor(props.color)
+    const {
+      isChecked,
+      computedError,
+      isIndeterminate,
+      computedErrorMessages,
+      toggleSelection,
+      onBlur,
+      onFocus,
+    } = useSelectable(props, emit, elements)
     const { getColor } = useColors()
-    const { isChecked, computedError, isIndeterminate, computedErrorMessages, toggleSelection, onBlur, onFocus } = useSelectable(props, emit, elements)
+    const colorComputed = useComputedColor(props.color)
     const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
 
     const computedClass = computed(() => ({
