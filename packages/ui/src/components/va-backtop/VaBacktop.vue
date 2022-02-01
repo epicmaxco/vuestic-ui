@@ -15,96 +15,89 @@
 </template>
 
 <script lang="ts">
-import { Options, mixins, prop, Vue } from 'vue-class-component'
+import { defineComponent, computed, PropType, ref, onMounted, onBeforeMount, Ref } from 'vue'
 
 import VaButton from '../va-button'
 
-class Props {
-  target = prop<Element | string | undefined>({
-    type: [Object, String],
-    default: () => window,
-  })
-
-  visibilityHeight = prop<number>({ type: Number, default: 300 })
-  speed = prop<number>({ type: Number, default: 50 })
-  verticalOffset = prop<string>({ type: String, default: '1rem' })
-  horizontalOffset = prop<string>({ type: String, default: '1rem' })
-  color = prop<string>({ type: String, default: '' })
-  horizontalPosition = prop<string>({
-    type: String,
-    default: 'right',
-    validator: (value: string) => {
-      return ['right', 'left'].includes(value)
-    },
-  })
-
-  verticalPosition = prop<string>({
-    type: String,
-    default: 'bottom',
-    validator: (value: string) => {
-      return ['bottom', 'top'].includes(value)
-    },
-  })
-}
-
-const PropsMixin = Vue.with(Props)
-
-@Options({
+export default defineComponent({
   name: 'VaBacktop',
   components: { VaButton },
-})
-export default class VaBacktop extends mixins(
-  PropsMixin,
-) {
-  visible = false
-  scrolled = false
-  interval = 0
+  props: {
+    target: {
+      type: [Object, String] as PropType<Element | string>,
+      default: () => document.body,
+    },
 
-  get computedStyle () {
+    visibilityHeight: { type: Number as PropType<number>, default: 300 },
+    speed: { type: Number as PropType<number>, default: 50 },
+    verticalOffset: { type: String as PropType<string>, default: '1rem' },
+    horizontalOffset: { type: String as PropType<string>, default: '1rem' },
+    color: { type: String as PropType<string>, default: '' },
+    horizontalPosition: {
+      type: String as PropType<'right' | 'left'>,
+      default: 'right',
+      validator: (value: string) => ['right', 'left'].includes(value),
+    },
+
+    verticalPosition: {
+      type: String as PropType<'bottom' | 'top'>,
+      default: 'bottom',
+      validator: (value: string) => ['bottom', 'top'].includes(value),
+    },
+  },
+  setup (props) {
+    const visible = ref(false)
+
+    const computedStyle = computed(() => ({
+      [props.verticalPosition]: props.verticalOffset,
+      [props.horizontalPosition]: props.horizontalOffset,
+    }))
+
+    let targetElement: Element = document.body
+    const getTargetElement = () => typeof props.target === 'string'
+      ? document.querySelector(props.target) || document.body
+      : props.target
+
+    const scrolled = ref(false)
+    const interval = ref(0)
+    const scrollToTop = () => {
+      if (scrolled.value) { return }
+
+      scrolled.value = true
+
+      interval.value = window.setInterval(() => {
+        if (targetElement.scrollTop === 0) {
+          clearInterval(interval.value)
+          scrolled.value = false
+        } else {
+          const next = Math.floor(targetElement.scrollTop - props.speed)
+          targetElement.scrollTo(0, next)
+        }
+      }, 15)
+    }
+
+    const handleScroll = () => {
+      visible.value = targetElement.scrollTop > props.visibilityHeight
+    }
+
+    onMounted(() => {
+      targetElement = getTargetElement()
+      targetElement?.addEventListener('scroll', handleScroll)
+    })
+
+    onBeforeMount(() => targetElement?.removeEventListener('scroll', handleScroll))
+
     return {
-      [this.verticalPosition]: this.verticalOffset,
-      [this.horizontalPosition]: this.horizontalOffset,
+      computedStyle,
+      visible,
+      scrollToTop,
     }
-  }
-
-  get targetElement (): Element {
-    return typeof this.target === 'string'
-      ? document.querySelector(this.target)
-      : (this.target || this.$el.parentElement)
-  }
-
-  handleScroll (): void {
-    this.visible = this.targetElement.scrollTop > this.visibilityHeight
-  }
-
-  scrollToTop (): void {
-    if (this.scrolled) {
-      return
-    }
-    this.scrolled = true
-    this.interval = window.setInterval(() => {
-      const next = Math.floor(this.targetElement.scrollTop - this.speed)
-      if (this.targetElement.scrollTop === 0) {
-        clearInterval(this.interval)
-        this.scrolled = false
-      } else {
-        this.targetElement.scrollTo(0, next)
-      }
-    }, 15)
-  }
-
-  mounted () {
-    this.targetElement.addEventListener('scroll', this.handleScroll)
-  }
-
-  beforeUnmount () {
-    this.targetElement.removeEventListener('scroll', this.handleScroll)
-  }
-}
+  },
+})
 </script>
 
 <style lang="scss">
-@import 'variables';
+@import "variables";
 
 .va-backtop {
   position: var(--va-backtop-position);
