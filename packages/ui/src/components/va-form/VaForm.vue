@@ -79,9 +79,13 @@ export default defineComponent({
     }
 
     const validate = () => { // NOTE: temporarily synchronous validation
-      const formValid = nestedFormElements.value
+      let formValid = true
+      nestedFormElements.value
         .filter(({ validate }) => validate)
-        .every((child) => child.validate())
+        .forEach((child) => {
+          const isValidChild = child.validate()
+          if (!isValidChild && formValid) { formValid = false }
+        })
 
       emit('validation', formValid)
 

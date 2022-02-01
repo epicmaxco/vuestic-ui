@@ -22,9 +22,9 @@ export const useValidationProps = {
   error: { type: Boolean, default: undefined },
   errorMessages: { type: [Array, String] as PropType<string[] | string>, default: undefined },
   errorCount: { type: [String, Number], default: 1 },
-  rules: { type: Array as PropType<ValidationRule[]>, default: [] },
+  rules: { type: Array as PropType<ValidationRule[]>, default: () => [] },
   success: { type: Boolean, default: false },
-  messages: { type: [Array, String] as PropType<string[] | string>, default: [] },
+  messages: { type: [Array, String] as PropType<string[] | string>, default: () => [] },
   immediateValidation: { type: Boolean, default: false },
 }
 
@@ -39,7 +39,7 @@ const normalizeValidationRules = (rules: string | ValidationRule[] = [], callArg
 
 export const useValidation = (
   props: ValidationProps,
-  emit: (event: any) => any,
+  emit: (event: any, ...args: any[]) => void,
   reset: () => any,
   focus: () => any,
 ) => {
@@ -75,10 +75,12 @@ export const useValidation = (
 
     computedErrorMessages.value = errorMessages
     computedError.value = error
+
     return !error
   }
 
   watch(isFocused, (newVal) => newVal === false && validate())
+
   watch(() => props.modelValue, () => validate(), { immediate: props.immediateValidation })
 
   const context = {
