@@ -20,7 +20,7 @@
         class="va-checkbox__square"
         :style="inputStyle"
         @selectstart.prevent
-       >
+      >
         <input
           ref="input"
           type="checkbox"
@@ -36,7 +36,7 @@
           @keypress.prevent="toggleSelection"
           :disabled="disabled"
           :indeterminate="indeterminate"
-        />
+        >
         <va-icon
           class="va-checkbox__icon"
           :name="computedIconName"
