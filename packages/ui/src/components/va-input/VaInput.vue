@@ -132,11 +132,11 @@ export default defineComponent({
 
   inheritAttrs: false,
 
-  setup (props, { emit, attrs, slots, expose }) {
+  setup (props, { emit, attrs, slots }) {
     const input = ref<HTMLInputElement | InstanceType<typeof VaTextarea> | undefined>()
 
     const reset = () => {
-      emit('update:modelValue', '')
+      emit('update:modelValue', props.clearValue)
       emit('clear')
     }
 
@@ -202,12 +202,6 @@ export default defineComponent({
       ariaLabel: props.label,
     }) as InputHTMLAttributes)
 
-    expose({
-      reset,
-      focus,
-      blur,
-    })
-
     return {
       input,
       inputEvents,
@@ -226,10 +220,14 @@ export default defineComponent({
       fieldListeners: createFieldListeners(emit),
       reset,
       filterSlots,
+
+      // while we have problem with 'withConfigTransport'
+      // focus,
+      // blur,
     }
   },
 
-  // we will use this while we have 'withConfigTransport' and problem with 'expose' method in 'setup' func
+  // we will use this while we have problem with 'withConfigTransport'
   methods: {
     focus () { this.input?.focus() },
     blur () { this.input?.blur() },
