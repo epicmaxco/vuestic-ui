@@ -5,7 +5,7 @@ export default {
   install (app: App) {
     app.config.globalProperties.$vaToast = {
       /** Returns toast instance id */
-      init (options: NotificationOptions) {
+      init (options: string | NotificationOptions) {
         return createToastInstance(options, app?._context)
       },
 

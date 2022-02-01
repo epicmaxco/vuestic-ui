@@ -10,7 +10,7 @@ export const useToast = () => {
   /**
    * @param options can be options object or message string
    */
-  const init = (options: NotificationOptions | string) => {
+  const init = (options: string | NotificationOptions) => {
     const id = createToastInstance(options, appContext)
 
     if (id) { createdInThisSetupContext.push(id) }
