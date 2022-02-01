@@ -6,6 +6,7 @@
 
     <VbCard title="manual input">
       <VaTimeInput v-model="value" manual-input />
+      <VaTimeInput v-model="value" manual-input leftIcon clearable />
     </VbCard>
 
     <VbCard title="without value">
