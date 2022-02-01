@@ -23,7 +23,7 @@ export function useColor (props: any) {
   })
 
   /** @deprecated */
-  const computeColor = (prop: string, defaultColor?: string) => {
+  const computeColor = (prop?: string, defaultColor?: string) => {
     return theme.getColor(prop, defaultColor)
   }
 
