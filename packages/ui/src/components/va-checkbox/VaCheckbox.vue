@@ -16,7 +16,11 @@
       @blur="onBlur"
       ref="container"
     >
-      <div class="va-checkbox__square" :style="inputStyle" @selectstart.prevent>
+      <div
+        class="va-checkbox__square"
+        :style="inputStyle"
+        @selectstart.prevent
+       >
         <input
           ref="input"
           type="checkbox"
@@ -33,9 +37,19 @@
           :disabled="disabled"
           :indeterminate="indeterminate"
         />
-        <va-icon class="va-checkbox__icon" :name="computedIconName" size="20px" />
+        <va-icon
+          class="va-checkbox__icon"
+          :name="computedIconName"
+          size="20px"
+        />
       </div>
-      <div class="va-checkbox__label" :style="labelStyle" ref="label" tabindex="-1" @blur="onBlur">
+      <div
+        class="va-checkbox__label"
+        :style="labelStyle"
+        ref="label"
+        tabindex="-1"
+        @blur="onBlur"
+      >
         <slot name="label">{{ label }}</slot>
       </div>
     </div>
