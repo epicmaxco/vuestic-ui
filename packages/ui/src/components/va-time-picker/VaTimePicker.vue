@@ -42,7 +42,7 @@ export default defineComponent({
 
   emits: [...statefulComponentOptions.emits],
 
-  setup (props, { emit, expose }) {
+  setup (props, { emit }) {
     const { valueComputed } = useStateful(props, emit)
     const { columns, isPM } = useTimePicker(props, valueComputed)
 
@@ -76,11 +76,6 @@ export default defineComponent({
 
     onMounted(() => { focus() })
 
-    expose({
-      focus,
-      blur,
-    })
-
     return {
       columns,
       computedClass,
@@ -90,9 +85,14 @@ export default defineComponent({
       focusNext,
       focusPrev,
       activeColumnIndex,
+
+      // while we have problems with 'withConfigTransport'
+      // focus,
+      // blur,
     }
   },
 
+  // we will use this while we have problem with 'withConfigTransport'
   methods: {
     focus (idx?: number) { idx ? (this as any).pickers[idx]?.focus() : (this as any).pickers[0]?.focus() },
     blur (idx?: number) { idx && (this as any).pickers[idx]?.blur() },

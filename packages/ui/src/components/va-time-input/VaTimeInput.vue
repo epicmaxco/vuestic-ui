@@ -127,7 +127,7 @@ export default defineComponent({
     icon: { type: String, default: 'schedule' },
   },
 
-  setup (props, { emit, expose, slots }) {
+  setup (props, { emit, slots }) {
     const input = ref<InstanceType<typeof VaInput> | undefined>()
     const timePicker = ref<InstanceType<typeof VaTimePicker> | undefined>()
     const clearIconId = generateUniqueId()
@@ -264,12 +264,6 @@ export default defineComponent({
       dropdownToggle()
     }
 
-    expose({
-      reset,
-      focus,
-      blur,
-    })
-
     return {
       input,
       timePicker,
@@ -298,6 +292,10 @@ export default defineComponent({
       hasError,
 
       handleComponentClick,
+
+      // while we have problems with 'withConfigTransport'
+      // focus,
+      // blur,
     }
   },
 

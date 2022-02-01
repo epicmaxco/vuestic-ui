@@ -39,7 +39,7 @@ export default defineComponent({
 
   emits: ['item-selected', 'update:activeItemIndex', ...useFocusEmits],
 
-  setup (props, { emit, expose }) {
+  setup (props, { emit }) {
     const rootElement = ref<HTMLElement>()
 
     const { focus, blur } = useFocus(rootElement)
@@ -96,11 +96,6 @@ export default defineComponent({
       return n < 10 ? `0${n}` : `${n}`
     }
 
-    expose({
-      focus,
-      blur,
-    })
-
     return {
       rootElement,
 
@@ -110,9 +105,14 @@ export default defineComponent({
 
       onCellClick,
       formatCell,
+
+      // while we have problems with 'withConfigTransport'
+      // focus,
+      // blur,
     }
   },
 
+  // we will use this while we have problem with 'withConfigTransport'
   methods: {
     focus () { (this as any).rootElement?.focus() },
     blur () { (this as any).rootElement?.blur() },
