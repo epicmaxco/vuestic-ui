@@ -1,58 +1,49 @@
 <template>
-   <div
+  <div
     class="color-indicator"
-    @click="ctx.valueComputed = !ctx.valueComputed"
+    @click="valueComputed = !valueComputed"
     :class="computedClass"
     :style="computedStyle"
   >
     <div
       class="color-indicator__core"
-      :style="{'background-color': colorComputed, 'border-radius': square ? 0 : '50%'}"
+      :style="{ borderColor: colorComputed, borderRadius: square ? 0 : '50%' }"
     />
   </div>
 </template>
 
 <script lang="ts">
-import { getColor } from '../../services/color-config/color-config'
-import { Vue, Options, prop, setup } from 'vue-class-component'
-import { useStateful, statefulComponentOptions } from '../../mixins/StatefulMixin/cStatefulMixin'
+import { defineComponent, computed, PropType } from 'vue'
 
-class ColorIndicatorProps {
-  color = prop<string>({
-    type: String,
-    default: '',
-  })
+import { useComputedColor } from '../../composables/useColor'
+import { useStateful, useStatefulProps } from '../../composables/useStateful'
 
-  square = prop<boolean>({
-    type: Boolean,
-    default: false,
-  })
-}
-
-const ColorIndicatorPropsMixin = Vue.with(ColorIndicatorProps)
-
-@Options({
+export default defineComponent({
   name: 'VaColorIndicator',
-  ...statefulComponentOptions,
-})
-export default class VaColorIndicator extends ColorIndicatorPropsMixin {
-  ctx = setup(() => useStateful(this.$props, this.$emit))
+  props: {
+    ...useStatefulProps,
+    modelValue: { type: Boolean as PropType<boolean>, default: null },
+    color: { type: String as PropType<string>, default: '' },
+    square: { type: Boolean as PropType<boolean>, default: false },
+  },
+  setup (props, { emit }) {
+    const { valueComputed } = useStateful(props, emit)
 
-  get colorComputed () {
-    return getColor(this.color)
-  }
+    const computedStyle = computed(() => ({ borderRadius: props.square ? 0 : '50%' }))
 
-  get computedStyle () {
-    return { 'border-radius': this.square ? 0 : '50%' }
-  }
+    const computedClass = computed(() => ({
+      'color-indicator--selected': valueComputed.value,
+      'color-indicator--hoverable': valueComputed.value !== undefined,
+    }))
 
-  get computedClass () {
     return {
-      'color-indicator--selected': this.ctx.valueComputed,
-      'color-indicator--hoverable': this.ctx.valueComputed !== undefined,
+      colorComputed: useComputedColor(props.color),
+      valueComputed,
+      computedStyle,
+      computedClass,
     }
-  }
-}
+  },
+})
 </script>
 
 <style lang="scss" scoped>
