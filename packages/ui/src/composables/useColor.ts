@@ -34,8 +34,4 @@ export function useColor (props: any) {
   }
 }
 
-export const useComputedColor = (color: Ref<string> | string) => {
-  return computed(() => getColor(unref(color)))
-}
-
 export { useColors } from '../services/color-config/color-config'

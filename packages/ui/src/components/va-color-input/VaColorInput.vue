@@ -13,7 +13,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
 
-import { useStateful, useStatefulProps } from '../../composables/useStateful'
+import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
 import VaColorIndicator from '../va-color-indicator'
 import VaInput from '../va-input'
 
@@ -23,6 +23,7 @@ export default defineComponent({
     VaInput,
     VaColorIndicator,
   },
+  emits: useStatefulEmits,
   props: {
     ...useStatefulProps,
     modelValue: { type: String as PropType<string>, default: null },

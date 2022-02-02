@@ -7,7 +7,7 @@
   >
     <div
       class="color-indicator__core"
-      :style="{ borderColor: colorComputed, borderRadius: square ? 0 : '50%' }"
+      :style="{ backgroundColor: colorComputed, borderRadius: square ? 0 : '50%' }"
     />
   </div>
 </template>
@@ -15,11 +15,12 @@
 <script lang="ts">
 import { defineComponent, computed, PropType } from 'vue'
 
-import { useComputedColor } from '../../composables/useColor'
-import { useStateful, useStatefulProps } from '../../composables/useStateful'
+import { useColors } from '../../composables/useColor'
+import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
 
 export default defineComponent({
   name: 'VaColorIndicator',
+  emits: useStatefulEmits,
   props: {
     ...useStatefulProps,
     modelValue: { type: Boolean as PropType<boolean>, default: null },
@@ -28,6 +29,9 @@ export default defineComponent({
   },
   setup (props, { emit }) {
     const { valueComputed } = useStateful(props, emit)
+    const { getColor } = useColors()
+
+    const colorComputed = computed(() => getColor(props.color))
 
     const computedStyle = computed(() => ({ borderRadius: props.square ? 0 : '50%' }))
 
@@ -37,7 +41,7 @@ export default defineComponent({
     }))
 
     return {
-      colorComputed: useComputedColor(props.color),
+      colorComputed,
       valueComputed,
       computedStyle,
       computedClass,
