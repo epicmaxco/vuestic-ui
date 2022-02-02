@@ -42,7 +42,7 @@ export function useAlign (props: any) {
   const alignComputed = computed(() => {
     return {
       display: 'flex',
-      flexDirection: props.vertical ? 'column' : 'row',
+      flexDirection: props.vertical ? 'column' : 'row' as 'row' | 'column',
       justifyContent: justify(props.align, props.vertical),
       alignItems: items(props.align, props.vertical),
     }

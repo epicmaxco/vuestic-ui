@@ -22,6 +22,7 @@ export function useColor (props: any) {
     return theme.getColor(props.color)
   })
 
+  /** @deprecated */
   const computeColor = (prop?: string, defaultColor?: string) => {
     return theme.getColor(prop, defaultColor)
   }
