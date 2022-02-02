@@ -196,6 +196,7 @@ export default defineComponent({
       input.value?.focus()
     }
 
+    // Will be used later, after fix 'withConfigTransport'
     const blur = (): void => {
       input.value?.blur()
     }
@@ -293,7 +294,7 @@ export default defineComponent({
 
       handleComponentClick,
 
-      // while we have problems with 'withConfigTransport'
+      // Will be used later, after fix 'withConfigTransport'
       // focus,
       // blur,
     }

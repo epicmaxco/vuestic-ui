@@ -42,7 +42,8 @@ export default defineComponent({
   setup (props, { emit }) {
     const rootElement = ref<HTMLElement>()
 
-    const { focus, blur } = useFocus(rootElement)
+    // Will be used later, after fix 'withConfigTransport'
+    const { focus, blur } = useFocus(rootElement, emit)
 
     const [syncActiveItemIndex] = useSyncProp('activeItemIndex', props, emit)
 
@@ -106,7 +107,7 @@ export default defineComponent({
       onCellClick,
       formatCell,
 
-      // while we have problems with 'withConfigTransport'
+      // Will be used later, after fix 'withConfigTransport'
       // focus,
       // blur,
     }

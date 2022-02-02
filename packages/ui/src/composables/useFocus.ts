@@ -1,21 +1,21 @@
 import { ref, onMounted, onBeforeUnmount, Ref } from 'vue'
 
-export const useFocusEmits = ['focused', 'blurred']
+export const useFocusEmits = ['focus', 'blur']
 
 export function useFocus (
   el?: Ref<HTMLElement | null | undefined>,
-  emit?: (event: 'focused' | 'blurred') => void,
+  emit?: (event: 'focus' | 'blur', e?: Event) => void,
 ) {
   const isFocused = ref(false)
 
-  const onFocus = () => {
+  const onFocus = (e?: Event) => {
     isFocused.value = true
-    emit?.('focused')
+    emit?.('focus', e)
   }
 
-  const onBlur = () => {
+  const onBlur = (e?: Event) => {
     isFocused.value = false
-    emit?.('blurred')
+    emit?.('blur', e)
   }
 
   const focus = (): void => {

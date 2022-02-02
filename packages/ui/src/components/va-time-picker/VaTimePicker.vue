@@ -10,7 +10,7 @@
       @keydown.tab.exact.stop.prevent="focusNext()"
       @keydown.left.stop.prevent="focusPrev()"
       @keydown.shift.tab.stop.prevent="focusPrev()"
-      @focused="activeColumnIndex = idx"
+      @focus="activeColumnIndex = idx"
     />
   </div>
 </template>
@@ -50,12 +50,12 @@ export default defineComponent({
 
     const activeColumnIndex = ref<number | undefined>()
 
-    const focus = (idx?: number): void => {
-      idx ? pickers.value[idx]?.focus() : pickers.value[0]?.focus()
+    const focus = (idx = 0): void => {
+      pickers.value[idx]?.focus()
     }
 
     const blur = (idx?: number): void => {
-      idx && pickers.value[idx]?.blur()
+      idx ? pickers.value[idx]?.blur() : pickers.value.forEach((el) => el?.blur())
     }
 
     const { createComputedClass } = useForm(props)
@@ -86,7 +86,7 @@ export default defineComponent({
       focusPrev,
       activeColumnIndex,
 
-      // while we have problems with 'withConfigTransport'
+      // Will be used later, after fix 'withConfigTransport'
       // focus,
       // blur,
     }
@@ -94,8 +94,10 @@ export default defineComponent({
 
   // we will use this while we have problem with 'withConfigTransport'
   methods: {
-    focus (idx?: number) { idx ? (this as any).pickers[idx]?.focus() : (this as any).pickers[0]?.focus() },
-    blur (idx?: number) { idx && (this as any).pickers[idx]?.blur() },
+    focus (idx = 0) { (this as any).pickers[idx]?.focus() },
+    blur (idx?: number) {
+      idx ? (this as any).pickers[idx]?.blur() : (this as any).pickers.value.forEach((el: any) => el?.blur())
+    },
   },
 })
 </script>
