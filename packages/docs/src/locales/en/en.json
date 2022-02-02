@@ -357,6 +357,10 @@
         "prevIcon": "Icon to be used for scrolling backward in pagination",
         "nextIcon": "Icon to be used for scrolling forward in pagination"
       },
+      "events": {
+        "clickNext": "Emits when pagination **next** is clicked",
+        "clickPrev": "Emits when pagination **prev** is clicked"
+      },
       "slots": {
         "default": "For a content",
         "tabs": "For a list of tabs"
