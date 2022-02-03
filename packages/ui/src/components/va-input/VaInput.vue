@@ -196,10 +196,10 @@ export default defineComponent({
     }
 
     const computedInputAttributes = computed(() => ({
+      ariaLabel: props.label,
       ...omit(attrs, ['class', 'style']),
       ...pick(props, ['type', 'tabindex', 'disabled', 'readonly', 'placeholder']),
       value: computedValue.value,
-      ariaLabel: props.label,
     }) as InputHTMLAttributes)
 
     expose({

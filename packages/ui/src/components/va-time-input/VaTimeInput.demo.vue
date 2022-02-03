@@ -15,7 +15,7 @@
         manual-input
         clearable
         placeholder="Time..."
-        icon-left-position
+        leftIcon
         icon="thumb_up"
       />
     </VbCard>

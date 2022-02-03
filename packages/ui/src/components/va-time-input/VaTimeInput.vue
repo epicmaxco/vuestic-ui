@@ -1,6 +1,8 @@
 <template>
   <va-dropdown
     class="va-time-input"
+    :class="$attrs.class"
+    :style="$attrs.style"
     v-model="isOpenSync"
     :offset="[0, 1]"
     :close-on-content-click="false"
@@ -17,7 +19,7 @@
     <template #anchor>
       <va-input
         ref="input"
-        v-bind="inputProps"
+        v-bind="{ ...computedInputProps, ...computedInputAttrs }"
         :modelValue="valueText"
         :readonly="$props.readonly || !$props.manualInput"
         :error="hasError"
@@ -80,7 +82,8 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, watch, ref } from 'vue'
+import { computed, defineComponent, InputHTMLAttributes, PropType, watch, ref } from 'vue'
+import { omit, kebabCase } from 'lodash-es'
 import VaTimePicker from '../va-time-picker/VaTimePicker.vue'
 import VaInput from '../va-input/VaInput.vue'
 import VaIcon from '../va-icon/VaIcon.vue'
@@ -127,7 +130,9 @@ export default defineComponent({
     icon: { type: String, default: 'schedule' },
   },
 
-  setup (props, { emit, slots }) {
+  inheritAttrs: false,
+
+  setup (props, { emit, attrs, slots }) {
     const input = ref<InstanceType<typeof VaInput> | undefined>()
     const timePicker = ref<InstanceType<typeof VaTimePicker> | undefined>()
     const clearIconId = generateUniqueId()
@@ -150,10 +155,15 @@ export default defineComponent({
 
     const timePickerProps = filterComponentProps(props, extractComponentProps(VaTimePicker))
 
-    const inputProps = filterComponentProps(
+    const computedInputProps = filterComponentProps(
       props,
       extractComponentProps(VaInput, ['rules', 'error', 'errorMessages', 'clearable']),
     )
+
+    const computedInputAttrs = computed(() => ({
+      ariaLabel: props.label,
+      ...omit(attrs, ['class', 'style', ...Object.keys(props).map(kebabCase)]),
+    }) as InputHTMLAttributes)
 
     const filterSlots = computed(() => {
       const slotsWithIcons = [
@@ -278,7 +288,8 @@ export default defineComponent({
       componentIconId,
 
       timePickerProps,
-      inputProps,
+      computedInputProps,
+      computedInputAttrs,
       isOpenSync,
       modelValueSync,
       valueText,
