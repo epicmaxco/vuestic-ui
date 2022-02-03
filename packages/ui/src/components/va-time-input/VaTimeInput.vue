@@ -4,7 +4,7 @@
     v-model="isOpenSync"
     :offset="[0, 1]"
     :close-on-content-click="false"
-    :disabled="$props.disabled || $props.readonly"
+    :disabled="$props.disabled"
     position="bottom-start"
     anchorSelector=".va-input__container"
     :stateful="false"
