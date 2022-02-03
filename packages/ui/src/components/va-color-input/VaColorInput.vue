@@ -46,7 +46,7 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .va-color-input {
   display: flex;
   align-items: center !important;

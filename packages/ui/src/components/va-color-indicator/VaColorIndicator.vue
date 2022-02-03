@@ -1,13 +1,13 @@
 <template>
   <div
-    class="color-indicator"
+    class="va-color-indicator"
     @click="valueComputed = !valueComputed"
     :class="computedClass"
     :style="computedStyle"
   >
     <div
-      class="color-indicator__core"
-      :style="{ backgroundColor: colorComputed, borderRadius: square ? 0 : '50%' }"
+      class="va-color-indicator__core"
+      :style="{ ...computedStyle, backgroundColor: colorComputed }"
     />
   </div>
 </template>
@@ -36,8 +36,8 @@ export default defineComponent({
     const computedStyle = computed(() => ({ borderRadius: props.square ? 0 : '50%' }))
 
     const computedClass = computed(() => ({
-      'color-indicator--selected': valueComputed.value,
-      'color-indicator--hoverable': valueComputed.value !== undefined,
+      'va-color-indicator--selected': valueComputed.value,
+      'va-color-indicator--hoverable': valueComputed.value !== undefined,
     }))
 
     return {
@@ -50,10 +50,10 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import "../../styles/resources";
 
-.color-indicator {
+.va-color-indicator {
   display: inline-flex;
   justify-content: center;
   align-items: center;
