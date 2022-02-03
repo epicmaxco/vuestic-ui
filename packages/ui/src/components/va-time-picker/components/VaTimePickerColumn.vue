@@ -153,6 +153,7 @@ export default defineComponent({
 
       &--active {
         position: relative;
+        color: var(--va-time-picker-cell-active-color);
         z-index: 0;
 
         &::before {
