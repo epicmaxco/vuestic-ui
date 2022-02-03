@@ -242,9 +242,13 @@ export default defineComponent({
       isOpenSync.value ? hideDropdown() : showDropdown()
     }
 
+    // we use the global handler to prevent the toggle dropdown on any click and execute additional logic
+    // we don't want to use `event.stopPropagation()` on clicks because it breaks closing the dropdown
     const handleComponentClick = (e: any) => {
       const id: string | undefined = e.target?.id
 
+      // (here and below) we have to use `id` instead of `ref`
+      // because the icon disappears after the click and `ref` becomes `null`
       if (id === clearIconId) {
         return focus()
       }
@@ -253,6 +257,8 @@ export default defineComponent({
         return timePicker.value?.focus()
       }
 
+      // here we check that the slots have been clicked and prevent the dropdown from opening
+      // the user decides to open or hide the dropdown itself
       const isClickInSlot = slotsSelectors.some(selector => !!e.target?.closest(selector))
       if (isClickInSlot) {
         return
