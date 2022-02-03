@@ -1,6 +1,10 @@
 <template>
   <div class="va-color-input">
-    <va-color-indicator class="va-color-input__dot" :color="valueComputed" :indicator="indicator" />
+    <va-color-indicator
+      class="va-color-input__dot"
+      :color="valueComputed"
+      :indicator="indicator"
+    />
     <va-input
       class="va-color-input__input"
       v-model="valueComputed"
