@@ -83,7 +83,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, InputHTMLAttributes, PropType, watch, ref } from 'vue'
-import { omit, kebabCase } from 'lodash-es'
+import { omit } from 'lodash-es'
 import VaTimePicker from '../va-time-picker/VaTimePicker.vue'
 import VaInput from '../va-input/VaInput.vue'
 import VaIcon from '../va-icon/VaIcon.vue'
@@ -162,7 +162,7 @@ export default defineComponent({
 
     const computedInputAttrs = computed(() => ({
       ariaLabel: props.label,
-      ...omit(attrs, ['class', 'style', ...Object.keys(props).map(kebabCase)]),
+      ...omit(attrs, ['class', 'style']),
     }) as InputHTMLAttributes)
 
     const filterSlots = computed(() => {
