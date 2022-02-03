@@ -26,7 +26,6 @@ import { getGradientBackground } from '../../services/color-config/color-functio
 import { useColors, useColorProps } from '../../composables/useColor'
 import { useRouterLink, useRouterLinkProps } from '../../composables/useRouterLink'
 
-
 export default defineComponent({
   name: 'VaCard',
   emits: ['click'],
@@ -45,7 +44,7 @@ export default defineComponent({
     gradient: { type: Boolean as PropType<boolean>, default: false },
     dark: { type: Boolean as PropType<boolean>, default: false },
   },
-  setup(props) {
+  setup (props) {
     const { getColor } = useColors()
     const { hasRouterLinkParams, tagComputed, hrefComputed } = useRouterLink(props)
 
@@ -77,9 +76,9 @@ export default defineComponent({
       cardStyles,
       stripeStyles,
       tagComputed,
-      hrefComputed
+      hrefComputed,
     }
-  }
+  },
 })
 </script>
 
