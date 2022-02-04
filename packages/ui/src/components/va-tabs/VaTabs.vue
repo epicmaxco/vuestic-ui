@@ -124,6 +124,7 @@ export const TabsServiceKey = Symbol('TabsService')
 @Options({
   name: 'VaTabs',
   components: { VaButton },
+  emits: ['update:modelValue', 'click:next', 'click:prev'],
 })
 export default class VaTabs extends mixins(
   ColorMixin,
@@ -295,6 +296,8 @@ export default class VaTabs extends mixins(
     }
 
     this.tabsContentOffset = Math.max(0, offsetToSet)
+
+    this.$emit('click:prev')
   }
 
   movePaginationRight () {
@@ -317,6 +320,8 @@ export default class VaTabs extends mixins(
 
     offsetToSet = Math.min(maxOffset, offsetToSet)
     this.tabsContentOffset = Math.max(0, offsetToSet)
+
+    this.$emit('click:next')
   }
 
   moveToTab (tab: VaTab) {
