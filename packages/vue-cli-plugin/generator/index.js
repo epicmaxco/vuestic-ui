@@ -38,6 +38,10 @@ const applyConfig = (api, config, answers) => {
     api.injectImports(api.entryFile, executeIfFunction(config.importStrings, answers))
   }
 
+  if (answers.agGrid) {
+    api.extendPackage({ dependencies: { '@vuestic/ag-grid-theme': '^1.0.3' }}) 
+  }
+
   if (config.vueUse) {
     api.afterInvoke(() => {
       const contentMain = fs.readFileSync(api.entryFile, { encoding: 'utf-8' })
