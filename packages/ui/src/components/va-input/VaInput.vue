@@ -79,6 +79,7 @@ import { useEmitProxy } from '../../composables/useEmitProxy'
 import VaInputWrapper from './components/VaInputWrapper.vue'
 import { useClearableProps, useClearable, useClearableEmits } from '../../composables/useClearable'
 import VaTextarea from './components/VaTextarea/VaTextarea.vue'
+import VaIcon from '../va-icon/VaIcon.vue'
 import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
 import { omit, pick } from 'lodash-es'
 
@@ -100,7 +101,7 @@ const { createEmits: createFieldEmits, createListeners: createFieldListeners } =
 export default defineComponent({
   name: 'VaInput',
 
-  components: { VaInputWrapper, VaTextarea },
+  components: { VaInputWrapper, VaTextarea, VaIcon },
 
   props: {
     ...useFormProps,
@@ -191,15 +192,14 @@ export default defineComponent({
       ...inputListeners,
       onFocus,
       onBlur,
-      // Cleave
       onInput,
     }
 
     const computedInputAttributes = computed(() => ({
+      ariaLabel: props.label,
       ...omit(attrs, ['class', 'style']),
       ...pick(props, ['type', 'tabindex', 'disabled', 'readonly', 'placeholder']),
       value: computedValue.value,
-      ariaLabel: props.label,
     }) as InputHTMLAttributes)
 
     return {
