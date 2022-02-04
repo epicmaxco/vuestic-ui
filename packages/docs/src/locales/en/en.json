@@ -664,9 +664,11 @@
         "errorMessages": "Displays a list of error messages or message if using a string",
         "errorCount": "Number of error messages displayed",
         "clearable": "Adds a button to reset the input field value",
+        "clearValue": "Sets value that should be set after clearing",
         "bordered": "Applies underscore",
         "focused": "Applies focus style",
-        "canBeFocused": "If false, then input can not be focused using mouse or keyboard."
+        "canBeFocused": "If false, then input can not be focused using mouse or keyboard",
+        "immediateValidation": "Sets the validation to be performed when the component is mounted"
       },
       "events": {
         "change": "Emitted when the input loose focus or on `enter`",
@@ -677,7 +679,9 @@
         "keydown": "Emitted when any key is pressed",
         "keypress": "Emitted when any key is pressed. The event is deprecated, will be removed in future versions",
         "clear": "Emitted when `clear` key is pressed",
-        "clickIcon": "Emitted when user clicked on icon"
+        "clickIcon": "Emitted when user clicked on icon",
+        "updateError": "Emitted when was changed error status after validation",
+        "updateErrorMessages": "Emitted when was changed error messages after validation"
       },
       "methods": {
         "blur":  "Setting blurred on input",

@@ -24,6 +24,14 @@
     <va-input
       class="mb-4"
       v-model="value"
+      id="input-ID"
+      name="input-Name"
+      label="with ID and Name attrs"
+      placeholder="Check <input> in devtools"
+    />
+    <va-input
+      class="mb-4"
+      v-model="value"
       label="Disabled"
       placeholder="Disabled"
       disabled
