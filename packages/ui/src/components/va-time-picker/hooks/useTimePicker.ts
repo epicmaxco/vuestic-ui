@@ -139,7 +139,10 @@ const createPeriodColumn = (props: TimePickerProps, modelValue: ModelValueRef, i
   return computed(() => ({
     items: ['AM', 'PM'],
     activeItem: computed({
-      get: () => Number(isPM.value),
+      get: () => {
+        if (!modelValue.value) { return -1 }
+        return Number(isPM.value)
+      },
       set: (val) => {
         isPM.value = Boolean(val)
         const h = safeModelValue(modelValue).getHours()

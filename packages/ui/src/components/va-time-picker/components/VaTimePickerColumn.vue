@@ -2,9 +2,9 @@
   <div
     tabindex="0"
     class="va-time-picker-column"
-    @keydown.down.stop.prevent="activeNext()"
-    @keydown.space.stop.prevent="activeNext(5)"
-    @keydown.up.stop.prevent="activePrev()"
+    @keydown.down.stop.prevent="makeActiveNext()"
+    @keydown.space.stop.prevent="makeActiveNext(5)"
+    @keydown.up.stop.prevent="makeActivePrev()"
     ref="rootElement"
   >
     <div class="va-time-picker-cell va-time-picker-cell--fake" />
@@ -72,17 +72,17 @@ export default defineComponent({
       })
     }
 
-    const activeByIndex = (index: number) => {
+    const makeActiveByIndex = (index: number) => {
       syncActiveItemIndex.value = index
       nextTick(() => scrollTo(syncActiveItemIndex.value))
     }
 
-    const activeNext = (times?: number) => {
+    const makeActiveNext = (times?: number) => {
       syncActiveItemIndex.value = (syncActiveItemIndex.value + (times || 1)) % props.items.length
       nextTick(() => scrollTo(syncActiveItemIndex.value))
     }
 
-    const activePrev = (times?: number) => {
+    const makeActivePrev = (times?: number) => {
       syncActiveItemIndex.value = (syncActiveItemIndex.value - (times || 1) + props.items.length) % props.items.length
       nextTick(() => scrollTo(syncActiveItemIndex.value))
     }
@@ -100,9 +100,9 @@ export default defineComponent({
     return {
       rootElement,
 
-      activeNext,
-      activePrev,
-      activeByIndex,
+      makeActiveNext,
+      makeActivePrev,
+      makeActiveByIndex,
 
       onCellClick,
       formatCell,
@@ -178,7 +178,7 @@ export default defineComponent({
       }
 
       &:hover {
-        background: var(--va-time-picker-cell-hover-background);
+        background: var(--va-time-picker-cell-background-color-hover);
       }
     }
 
