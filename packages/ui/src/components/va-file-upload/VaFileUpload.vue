@@ -114,7 +114,7 @@ export default defineComponent({
       const isContainedMIMEType = MIMETypes.find((t) => props.fileTypes.includes(t))
 
       if (isContainedMIMEType) {
-        // Do not validatie MIMEType becouse there is too much to validate.
+        // Do not validate MIMEType because there is too much to validate.
         return true
       }
 
