@@ -18,16 +18,13 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue'
+
 import VaList, { VaListItem } from '../va-list'
 import VaDivider from './VaDivider'
 
-export default {
+export default defineComponent({
   name: 'DividerWithList',
   components: { VaDivider, VaListItem, VaList },
-  data () {
-    return {
-      isInset: false,
-    }
-  },
-}
+})
 </script>

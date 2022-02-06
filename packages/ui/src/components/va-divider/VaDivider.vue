@@ -14,55 +14,38 @@
 </template>
 
 <script lang="ts">
-import { Options, prop, mixins, Vue } from 'vue-class-component'
+import { defineComponent, computed, PropType } from 'vue'
 
 const prefixClass = 'va-divider'
 
-class DividerProps {
-  vertical = prop<boolean>({ type: Boolean, default: false })
-  dashed = prop<boolean>({ type: Boolean, default: false })
-  inset = prop<boolean>({ type: Boolean, default: false })
-  orientation = prop<string>({
-    type: String,
-    default: 'center',
-    validator (value: string) {
-      return ['left', 'right', 'center'].includes(value)
-    },
-  })
-}
-
-const DividerPropsMixin = Vue.with(DividerProps)
-
-@Options({
+export default defineComponent({
   name: 'VaDivider',
+  props: {
+    vertical: { type: Boolean as PropType<boolean>, default: false },
+    dashed: { type: Boolean as PropType<boolean>, default: false },
+    inset: { type: Boolean as PropType<boolean>, default: false },
+    orientation: {
+      type: String as PropType<'left' | 'right' | 'center'>,
+      default: 'center',
+      validator: (value: string) => ['left', 'right', 'center'].includes(value),
+    },
+  },
+  setup: (props, { slots }) => ({
+    hasSlot: computed(() => !!slots.default),
+    slotClassComputed: computed(() => `${prefixClass}__text`),
+    classComputed: computed(() => ({
+      [`${prefixClass}`]: true,
+      [`${prefixClass}--vertical`]: props.vertical,
+      [`${prefixClass}--inset`]: props.inset,
+      [`${prefixClass}--${props.orientation}`]: props.orientation && !props.vertical,
+      [`${prefixClass}--dashed`]: props.dashed,
+    })),
+  }),
 })
-export default class VaDivider extends mixins(
-  DividerPropsMixin,
-) {
-  get hasSlot () {
-    return !!this.$slots.default
-  }
-
-  get classComputed () {
-    return [
-      `${prefixClass}`,
-      {
-        [`${prefixClass}--vertical`]: this.vertical,
-        [`${prefixClass}--inset`]: this.inset,
-        [`${prefixClass}--${this.orientation}`]: this.orientation && !this.vertical,
-        [`${prefixClass}--dashed`]: this.dashed,
-      },
-    ]
-  }
-
-  get slotClassComputed () {
-    return `${prefixClass}__text`
-  }
-}
 </script>
 
 <style lang="scss">
-@import 'variables';
+@import "variables";
 
 .va-divider {
   display: var(--va-divider-display);
@@ -93,7 +76,7 @@ export default class VaDivider extends mixins(
 
   &::before,
   &::after {
-    content: '';
+    content: "";
     flex: 1;
     border-top-width: var(--va-divider-line-width);
     border-top-style: var(--va-divider-border-top-style);
