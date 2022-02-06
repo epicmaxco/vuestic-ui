@@ -1,13 +1,15 @@
 <template>
   <div
     class="va-file-upload"
-    :class="{'va-file-upload--dropzone': dropzone}"
+    :class="{'va-file-upload--dropzone': dropzone, 'va-file-upload--dropzone--highlight': dropzoneHighlight }"
     :style="computedStyle"
   >
     <div class="va-file-upload__field">
       <div
         class="va-file-upload__field__text"
         v-if="dropzone"
+        @dragenter="dropzoneHighlight = true"
+        @dragleave="dropzoneHighlight = false"
       >
         Drag’n’drop files or
       </div>
@@ -90,6 +92,7 @@ export default defineComponent({
 
   setup (props, { emit }) {
     const modal = ref(false)
+    const dropzoneHighlight = ref(false)
     const fileInputRef = ref<HTMLInputElement | null>(null)
 
     const { getColor } = useColors()
@@ -160,6 +163,7 @@ export default defineComponent({
 
     return {
       modal,
+      dropzoneHighlight,
       fileInputRef,
       colorComputed,
       computedStyle,
@@ -188,6 +192,10 @@ export default defineComponent({
     overflow: var(--va-file-upload-dropzone-overflow);
     border-radius: var(--va-file-upload-dropzone-border-radius);
     cursor: var(--va-file-upload-dropzone-cursor);
+
+    &--highlight {
+      background-color: var(--va-file-upload-dropzone-background-color-highlight);
+    }
 
     .va-file-upload__field {
       justify-content: center;
