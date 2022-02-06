@@ -50,12 +50,14 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, ref } from 'vue'
+import { computed, defineComponent, onMounted, ref, PropType } from 'vue'
 import { useColors } from '../../services/color-config/color-config'
 import { shiftHSLAColor } from '../../services/color-config/color-functions'
 import VaButton from '../va-button'
 import VaModal from '../va-modal'
 import VaFileUploadList from './VaFileUploadList'
+
+import type { VaFile } from './types'
 
 export default defineComponent({
   name: 'VaFileUpload',
@@ -67,18 +69,18 @@ export default defineComponent({
   },
 
   props: {
-    fileTypes: { type: String, default: '' },
-    dropzone: { type: Boolean, default: false },
-    color: { type: String, default: 'primary' },
-    disabled: { type: Boolean, default: false },
+    fileTypes: { type: String as PropType<string>, default: '' },
+    dropzone: { type: Boolean as PropType<boolean>, default: false },
+    color: { type: String as PropType<string>, default: 'primary' },
+    disabled: { type: Boolean as PropType<boolean>, default: false },
 
     modelValue: {
-      type: Array,
+      type: Array as PropType<VaFile[]>,
       default: () => [],
-      validator: (value: any) => Array.isArray(value),
+      validator: (value: VaFile[]) => Array.isArray(value),
     },
     type: {
-      type: String,
+      type: String as PropType<'list' | 'gallery' | 'single'>,
       default: 'list',
       validator: (value: string) => ['list', 'gallery', 'single'].includes(value),
     },
@@ -88,7 +90,7 @@ export default defineComponent({
 
   setup (props, { emit }) {
     const modal = ref(false)
-    const fileInputRef = ref<any>(null)
+    const fileInputRef = ref<HTMLInputElement | null>(null)
 
     const { getColor } = useColors()
 
@@ -98,12 +100,12 @@ export default defineComponent({
       backgroundColor: props.dropzone ? shiftHSLAColor(colorComputed.value, { a: -0.92 }) : 'transparent',
     }))
 
-    const files = computed<any[]>({
+    const files = computed<VaFile[]>({
       get () { return props.modelValue },
       set (files) { emit('update:modelValue', files) },
     })
 
-    const validateFiles = (files: any) => files.filter((file: any) => {
+    const validateFiles = (files: VaFile[]) => files.filter((file) => {
       const fileName = file.name || file.url
       if (!fileName) { return false }
       if (file.url) { return true }
@@ -124,13 +126,15 @@ export default defineComponent({
       return isCorrectExt
     })
 
-    const uploadFile = (e: any) => {
-      const f = e.target.files || e.dataTransfer.files
+    const uploadFile = (e: Event | DragEvent) => {
+      const f = (e.target as HTMLInputElement)?.files || (e as DragEvent).dataTransfer?.files
+
+      if (!f) { return }
 
       files.value = [...files.value, ...(props.fileTypes ? validateFiles(Array.from(f)) : f)]
     }
 
-    const changeFieldValue = (e: Event) => {
+    const changeFieldValue = (e: Event | DragEvent) => {
       uploadFile(e)
 
       if (fileInputRef.value) {
