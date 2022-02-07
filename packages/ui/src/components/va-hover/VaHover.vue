@@ -13,6 +13,7 @@ export default defineComponent({
 
   props: {
     ...statefulComponentOptions.props,
+    stateful: { type: Boolean, default: true },
     disabled: { type: Boolean, default: false },
     modelValue: { type: Boolean, default: false },
   },
