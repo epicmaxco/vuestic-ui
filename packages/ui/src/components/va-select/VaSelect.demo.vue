@@ -367,9 +367,19 @@
         v-model="isClearable"
       />
       <va-select
-        v-model="disabledValue"
+        v-model="defaultSingleSelect.value"
+        class="mb-4"
+        label="Readonly"
+        placeholder="Try to type in ..."
+        :options="defaultSingleSelect.options"
+        readonly
+        :clearable="isClearable"
+      />
+      <va-select
+        v-model="defaultSingleSelect.value"
         class="mb-4"
         label="Disabled"
+        placeholder="Try to focus ..."
         :options="defaultSingleSelect.options"
         disabled
         :clearable="isClearable"

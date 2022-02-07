@@ -1,33 +1,27 @@
 <template>
   <va-dropdown
     ref="dropdown"
-    v-model="showDropdownContentComputed"
+    class="va-select__dropdown va-select-dropdown"
+    trigger="none"
+    anchorSelector=".va-input-wrapper__input"
     :position="$props.position"
     :disabled="$props.disabled"
     :max-height="$props.maxHeight"
     :fixed="$props.fixed"
     :close-on-content-click="closeOnContentClick"
-    trigger="none"
-    class="va-select__dropdown va-select-dropdown"
-    keep-anchor-width
-    boundary-body
     :stateful="false"
-    anchorSelector=".va-input-wrapper__input"
     :offset="[0, 1]"
+    keep-anchor-width
+    v-model="showDropdownContentComputed"
+    @keydown.up.stop.prevent="openDropdown()"
+    @keydown.down.stop.prevent="openDropdown()"
+    @keydown.space.stop.prevent="openDropdown()"
+    @click.prevent="onSelectClick()"
   >
     <template #anchor>
-      <div
-        class="va-select"
-        ref="select"
-        :tabindex="tabIndexComputed"
-        @focus="focus"
-        @blur="blur"
-        @keydown.enter.stop.prevent="onSelectClick()"
-        @keydown.space.stop.prevent="onSelectClick()"
-        @click.prevent="onSelectClick()"
-      >
-        <!-- We show messages outside of dropdown to draw dropdown content under the input -->
+      <div class="va-select">
         <va-input
+          ref="input"
           :model-value="valueComputedString"
           :success="$props.success"
           :error="computedError"
@@ -38,11 +32,11 @@
           :disabled="$props.disabled"
           :outline="$props.outline"
           :bordered="$props.bordered"
-          :focused="isFocusedComputed"
-          :tabindex="-1"
+          :tabindex="tabIndexComputed"
           :messages="$props.messages"
           :error-messages="computedErrorMessages"
           readonly
+          @blur="!showDropdownContent && blur()"
         >
           <template
             v-if="$slots.prepend"
@@ -99,20 +93,17 @@
       class="va-select-dropdown__content"
       :style="{ width: $props.width }"
       @keyup.enter.stop
-      @keydown.esc.prevent="hideDropdown"
-      @keydown.tab.prevent="hideDropdown"
+      @keydown.tab.stop.prevent
+      @keydown.esc.prevent="hideDropdown()"
     >
       <va-input
         v-if="showSearchInput"
-        :id="$props.id"
         ref="searchBar"
-        v-model="searchInput"
         class="va-select__input"
         placeholder="Search"
-        removable
-        :name="$props.name"
         :tabindex="tabindex + 1"
         :bordered="true"
+        v-model="searchInput"
         @keydown.up.stop.prevent="hoverPreviousOption()"
         @keydown.left.stop.prevent="hoverPreviousOption()"
         @keydown.down.stop.prevent="hoverNextOption()"
@@ -138,6 +129,7 @@
           @no-previous-option-to-hover="focusSearchBar()"
           @keydown.enter.stop.prevent="selectHoveredOption()"
           @keydown.space.stop.prevent="selectHoveredOption()"
+          @keydown.tab.stop.prevent="searchBar && searchBar.focus()"
           @keydown="onHintedSearch"
           @scroll-bottom="onScrollBottom"
         />
@@ -247,10 +239,9 @@ export default defineComponent({
     placeholder: { type: String as PropType<string>, default: '' },
   },
 
-  setup (props, { emit, expose }) {
-    // DOM element or component instance will be assigned to these refs after initial render (template refs and reactive refs are unified in Composition API)
-    const select = ref<InstanceType<typeof HTMLElement>>()
+  setup (props, { emit }) {
     const optionList = ref<InstanceType<typeof VaSelectOptionList>>()
+    const input = ref<InstanceType<typeof VaInput>>()
     const searchBar = ref<InstanceType<typeof VaInput>>()
 
     const { getOptionByValue, getValue, getText, getTrackBy } = useSelectableList(props)
@@ -487,7 +478,7 @@ export default defineComponent({
       showDropdownContent.value = false
       searchInput.value = ''
       validate()
-      focus()
+      input.value?.focus()
     }
 
     const toggleDropdown = () => {
@@ -498,18 +489,13 @@ export default defineComponent({
       }
     }
 
-    // Focus and keyboard navigation
-
-    const isFocusedComputed = computed(() => {
-      // If we show dropdown content that means select is focused
-      return isFocused.value || showDropdownContent.value
-    })
+    const openDropdown = () => {
+      if (props.disabled || props.readonly) { return }
+      showDropdown()
+    }
 
     const onSelectClick = () => {
-      if (props.disabled) {
-        return
-      }
-
+      if (props.disabled || props.readonly) { return }
       toggleDropdown()
     }
 
@@ -532,18 +518,21 @@ export default defineComponent({
 
     /** @public */
     const focus = (): void => {
-      if (props.disabled) {
-        return
-      }
+      if (props.disabled) { return }
+
       isFocused.value = true
-      select.value?.focus()
+      input.value?.focus()
     }
 
     /** @public */
     const blur = (): void => {
-      isFocused.value = false
+      if (isFocused.value) {
+        input.value?.blur()
+        isFocused.value = false
+      }
+      showDropdownContent.value = false
+      searchInput.value = ''
       validate()
-      select.value?.blur()
     }
 
     /** @public */
@@ -616,21 +605,18 @@ export default defineComponent({
       hintedSearchQueryTimeoutIndex = setTimeout(() => { hintedSearchQuery = '' }, 1000)
     }
 
-    expose({
-      focus,
-      blur,
-      reset,
-    })
-
     return {
-      select,
+      input,
       optionList,
-      focusOptionList,
+      searchBar,
+
       focus,
       blur,
+
+      focusOptionList,
       reset,
       onSelectClick,
-      searchBar,
+      openDropdown,
       focusSearchBar,
       searchInput,
       showSearchInput,
@@ -655,7 +641,6 @@ export default defineComponent({
       showDropdown,
       hideDropdown,
       toggleDropdown,
-      isFocusedComputed,
       colorComputed,
       onHintedSearch,
       getText,
@@ -664,6 +649,11 @@ export default defineComponent({
       clearIconProps,
     }
   },
+  // we will use this while we have problem with 'withConfigTransport'
+  // methods: {
+  //   focus () {},
+  //   blur () {},
+  // },
 })
 </script>
 
@@ -673,12 +663,6 @@ export default defineComponent({
 
 .va-select {
   cursor: var(--va-select-cursor);
-
-  &:focus {
-    .va-input__container {
-      box-shadow: var(--va-select-box-shadow);
-    }
-  }
 
   .va-input {
     cursor: var(--va-select-cursor);
