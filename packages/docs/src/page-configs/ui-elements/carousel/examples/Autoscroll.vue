@@ -6,8 +6,8 @@
     </template>
   </va-carousel>
 
-  <h6>Loop</h6>
-  <va-carousel :items="items" stateful autoscroll loop>
+  <h6>Infinite</h6>
+  <va-carousel :items="items" stateful autoscroll infinite>
     <template #default="{ index }">
       {{ index + 1 }}
     </template>

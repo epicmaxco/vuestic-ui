@@ -95,7 +95,6 @@ export default defineComponent({
     autoscroll: { type: Boolean, default: false },
     autoscrollInterval: { type: Number, default: 1000 },
     autoscrollPauseDuration: { type: Number, default: 2000 },
-    loop: { type: Boolean, default: false },
     infinite: { type: Boolean, default: false },
     fadeKeyframe: { type: String, default: 'va-carousel-fade-appear 1s' },
 

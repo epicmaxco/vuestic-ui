@@ -42,11 +42,11 @@
     </VbCard>
 
     <VbCard title="Autoscroll">
-      Without loop
+      Without infinite
       <VaCarousel :items="items" stateful indicators autoscroll />
 
-      With loop
-      <VaCarousel :items="items" stateful indicators autoscroll loop />
+      With infinite
+      <VaCarousel :items="items" stateful indicators autoscroll infinite />
     </VbCard>
 
     <VbCard title="Infinite">

@@ -5,7 +5,6 @@ export const useCarouselAnimation = (props: {
   autoscrollInterval: number,
   autoscrollPauseDuration: number,
   autoscroll: boolean,
-  loop: boolean,
   infinite: boolean,
   effect: 'fade' | 'transition',
   vertical: boolean,
@@ -19,7 +18,7 @@ export const useCarouselAnimation = (props: {
 
     clearInterval(animationInterval)
     animationInterval = setInterval(() => {
-      if (props.loop) {
+      if (props.infinite) {
         currentSlide.value += 1
         if (currentSlide.value >= props.items.length) { currentSlide.value = 0 }
       } else {
@@ -58,6 +57,12 @@ export const useCarouselAnimation = (props: {
     transition: undefined as string | undefined,
   })
 
+  /**
+   * Used for infinite loop. In infinite loop additional first item is placed after all items.
+   * Use own currentSlider, which will not update model value if we need to show slide that placed after all items
+   */
+  const sliderToBeShown = ref(0)
+
   const computedSlidesStyle = computed(() => {
     if (props.effect === 'fade') {
       return {
@@ -79,49 +84,51 @@ export const useCarouselAnimation = (props: {
     }
   })
 
-  /**
-   * Used for infinite loop. In infinite loop additional first item is placed after all items.
-   * Use own currentSlider, which will not update model value if we need to show slide that placed after all items
-   */
-  const sliderToBeShown = ref(0)
-  let animationTimeout: number
+  const animator = {
+    isAnimating: false,
+
+    speed: 0.3,
+
+    order: [] as { to: number, animate?: boolean }[],
+
+    move (from: number, to: number) {
+      const last = props.items.length - 1
+      const firstAfterLast = props.items.length
+
+      if (to === 0 && from === last) {
+        this.order.push({ to: firstAfterLast })
+        this.order.push({ to: 0, animate: false })
+      } else if (to === last && from === 0) {
+        this.order.push({ to: firstAfterLast, animate: false })
+        this.order.push({ to })
+      } else {
+        this.order.push({ to })
+      }
+
+      if (!this.isAnimating) { this.runAnimation() }
+    },
+
+    runAnimation () {
+      this.isAnimating = true
+
+      const animation = this.order.shift()
+
+      if (!animation) { this.isAnimating = false; return }
+
+      sliderToBeShown.value = animation?.to
+
+      if (animation.animate || animation.animate === undefined) {
+        slidesContainerStyle.value.transition = `all ${this.speed}s linear`
+        setTimeout(() => { this.runAnimation() }, this.speed * 1000)
+      } else {
+        slidesContainerStyle.value.transition = 'none'
+        setTimeout(() => { this.runAnimation() }, 16)
+      }
+    },
+  }
 
   watch(currentSlide, (newValue, oldValue) => {
-    if (props.infinite) {
-      if (newValue === 0 && oldValue === props.items.length - 1) {
-        sliderToBeShown.value = props.items.length
-        return
-      }
-
-      if (newValue === props.items.length - 1 && oldValue === 0) {
-        // Move to last fake slide without animation
-        slidesContainerStyle.value.transition = 'none'
-        sliderToBeShown.value = props.items.length
-
-        clearTimeout(animationTimeout)
-        animationTimeout = setTimeout(() => {
-          sliderToBeShown.value = newValue
-          slidesContainerStyle.value.transition = undefined
-        }) as any
-        return
-      }
-
-      if (sliderToBeShown.value === props.items.length && oldValue === 0) {
-        // If on last slide move to 0 without animation
-        slidesContainerStyle.value.transition = 'none'
-        sliderToBeShown.value = 0
-
-        clearTimeout(animationTimeout)
-        animationTimeout = setTimeout(() => {
-          // Then move to target slide with animation from 0
-          sliderToBeShown.value = newValue
-          slidesContainerStyle.value.transition = undefined
-        }) as any
-        return
-      }
-    }
-
-    sliderToBeShown.value = newValue
+    animator.move(oldValue, newValue)
   })
 
   /** Animation should control how much slides to display */

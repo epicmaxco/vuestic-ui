@@ -2,12 +2,11 @@ import { computed, Ref } from 'vue'
 
 export const useCarousel = (props: {
   items: any[],
-  infinite: boolean,
-  loop: boolean
+  infinite: boolean
 }, currentSlide: Ref<number>) => {
   const goTo = (index: number) => { currentSlide.value = index }
   const prev = () => {
-    if (props.loop || props.infinite) {
+    if (props.infinite) {
       if (currentSlide.value <= 0) {
         currentSlide.value = props.items.length - 1
         return
@@ -17,7 +16,7 @@ export const useCarousel = (props: {
     currentSlide.value -= 1
   }
   const next = () => {
-    if (props.loop || props.infinite) {
+    if (props.infinite) {
       if (currentSlide.value >= props.items.length - 1) {
         currentSlide.value = 0
         return
@@ -27,8 +26,8 @@ export const useCarousel = (props: {
     currentSlide.value += 1
   }
 
-  const doShowPrevButton = computed(() => currentSlide.value > 0 || props.infinite || props.loop)
-  const doShowNextButton = computed(() => currentSlide.value < props.items.length - 1 || props.infinite || props.loop)
+  const doShowPrevButton = computed(() => currentSlide.value > 0 || props.infinite)
+  const doShowNextButton = computed(() => currentSlide.value < props.items.length - 1 || props.infinite)
 
   return {
     doShowPrevButton,
