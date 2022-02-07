@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue'
+import { ref, computed, PropType } from 'vue'
 
 /**
  * You could add these props to any component by destructuring them inside props option.
@@ -8,14 +8,16 @@ import { ref, computed } from 'vue'
  */
 export const useStatefulProps = {
   stateful: {
-    type: Boolean,
+    type: Boolean as PropType<boolean>,
     default: false,
   },
   modelValue: {
-    type: undefined,
+    type: undefined as any as PropType<unknown>,
     default: undefined,
   },
 }
+
+export const useStatefulEmits = ['update:modelValue']
 
 /**
  * Returns `valueComputed` that is proxy for `modelValue`

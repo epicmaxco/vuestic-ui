@@ -24,12 +24,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue'
+import { defineComponent, PropType, computed } from 'vue'
 
 import { getTextColor, shiftHSLAColor } from '../../services/color-config/color-functions'
-import { useComputedColor } from '../../composables/useColor'
+import { useColors } from '../../composables/useColor'
 import VaButton from '../va-button'
 import VaButtonGroup from '../va-button-group'
+import { getColor } from 'src/main'
 
 export default defineComponent({
   name: 'VaButtonToggle',
@@ -58,8 +59,9 @@ export default defineComponent({
     gradient: { type: Boolean as PropType<boolean>, default: false },
   },
   setup (props, { emit }) {
-    const colorComputed = useComputedColor(props.color)
-    const toggleColorComputed = useComputedColor(props.toggleColor)
+    const { getColor } = useColors()
+    const colorComputed = computed(() => getColor(props.color))
+    const toggleColorComputed = computed(() => getColor(props.toggleColor))
 
     const getButtonProps = (buttonValue: any) => {
       if (buttonValue !== props.modelValue) { return }

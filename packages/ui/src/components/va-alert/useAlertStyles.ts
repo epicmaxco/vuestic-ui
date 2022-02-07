@@ -1,6 +1,6 @@
 import { computed } from 'vue'
 
-import { useComputedColor, useColors } from './../../composables/useColor'
+import { useColors } from './../../composables/useColor'
 import { getTextColor } from '../../services/color-config/color-functions'
 
 type AlertStyleProps = {
@@ -21,7 +21,7 @@ type AlertStyleProps = {
 export const useAlertStyles = (props: AlertStyleProps) => {
   const { getColor } = useColors()
 
-  const colorComputed = useComputedColor(props.color)
+  const colorComputed = computed(() => getColor(props.color))
 
   const alertStyle = computed(() => {
     let background = colorComputed.value

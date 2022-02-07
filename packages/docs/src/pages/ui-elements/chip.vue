@@ -1,21 +1,16 @@
 <template>
-  <docs-content :config="configComputed" />
+  <docs-content :config="chipConfig" />
 </template>
 
 <script lang="ts">
-import { Vue, Options } from 'vue-class-component'
+import { defineComponent } from 'vue'
+
 import DocsContent from '../../components/DocsContent.vue'
 import chipConfig from '../../page-configs/ui-elements/chip/page-config'
 
-@Options({
+export default defineComponent({
   name: 'DocsChip',
-  components: {
-    DocsContent,
-  },
+  components: { DocsContent },
+  setup: () => ({ chipConfig }),
 })
-export default class Chip extends Vue {
-  get configComputed () {
-    return chipConfig
-  }
-}
 </script>

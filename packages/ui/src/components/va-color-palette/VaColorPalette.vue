@@ -3,48 +3,45 @@
     <ul class="va-color-palette__colors">
       <va-color-indicator
         v-for="(color, index) in palette"
-        :modelValue="context.valueComputed === color"
+        :modelValue="valueComputed === color"
         :key="index"
         :color="color"
         :square="indicator === 'square'"
-        @update:modelValue="context.valueComputed = color"
+        @update:modelValue="valueComputed = color"
       />
     </ul>
   </div>
 </template>
 
 <script lang="ts">
-import { Vue, Options, prop, setup } from 'vue-class-component'
-import { statefulComponentOptions, useStateful } from '../../mixins/StatefulMixin/cStatefulMixin'
+import { defineComponent, PropType } from 'vue'
+
+import { useStatefulProps, useStateful, useStatefulEmits } from '../../composables/useStateful'
 import VaColorIndicator from '../va-color-indicator'
 
-class ColorPaletteProps {
-  indicator = prop<string>({
-    type: String,
-    default: 'dot',
-    validator: (value: string) => {
-      return ['dot', 'square'].includes(value)
-    },
-  })
-
-  palette = prop<Array<string>>({
-    type: Array,
-    default: () => [],
-  })
-}
-
-@Options({
+export default defineComponent({
   name: 'VaColorPalette',
   components: { VaColorIndicator },
-  ...statefulComponentOptions,
-})
-export default class VaColorPalette extends Vue.with(ColorPaletteProps) {
-  context = setup(() => useStateful(this.$props, this.$emit))
+  emits: useStatefulEmits,
+  props: {
+    ...useStatefulProps,
+    modelValue: { type: String as PropType<string>, default: null },
+    palette: { type: Array as PropType<Array<string>>, default: () => [] },
+    indicator: {
+      type: String as PropType<'dot' | 'square'>,
+      default: 'dot',
+      validator: (value: string) => ['dot', 'square'].includes(value),
+    },
+  },
+  setup (props, { emit }) {
+    const { valueComputed } = useStateful(props, emit)
 
-  isSelected (color: any): boolean {
-    return this.context.valueComputed === color
-  }
-}
+    return {
+      valueComputed,
+      isSelected: (color: string) => valueComputed.value === color,
+    }
+  },
+})
 </script>
 
 <style lang="scss">

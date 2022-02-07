@@ -19,7 +19,7 @@
 
 <script lang="ts">
 import { defineComponent, computed, PropType } from 'vue'
-import { useComputedColor, useColors } from '../../composables/useColor'
+import { useColors } from '../../composables/useColor'
 
 export default defineComponent({
   name: 'VaBadge',
@@ -52,7 +52,7 @@ export default defineComponent({
     }))
 
     const { getColor } = useColors()
-    const colorComputed = useComputedColor(props.color)
+    const colorComputed = computed(() => getColor(props.color))
     const badgeStyle = computed(() => ({
       color: getColor(props.textColor, 'var(--va-white)'),
       borderColor: colorComputed.value,

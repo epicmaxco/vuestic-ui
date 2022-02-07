@@ -11,7 +11,7 @@ import { defineComponent, computed, PropType, reactive } from 'vue'
 
 import VaConfig from '../va-config'
 import { getGradientBackground } from '../../services/color-config/color-functions'
-import { useComputedColor } from '../../composables/useColor'
+import { useColors } from '../../composables/useColor'
 
 export default defineComponent({
   name: 'VaButtonGroup',
@@ -37,7 +37,8 @@ export default defineComponent({
       },
     })
 
-    const colorComputed = useComputedColor(props.color)
+    const { getColor } = useColors()
+    const colorComputed = computed(() => getColor(props.color))
     const computedBackground = computed(() => {
       if (props.outline || props.flat) { return '' }
 

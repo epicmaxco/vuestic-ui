@@ -2,17 +2,17 @@
   <VbDemo>
     <VbCard title="Color indicator">
       <va-color-indicator :color="palette[0]" />
-      <va-color-indicator :color="palette[1]" indicator="square" />
+      <va-color-indicator :color="palette[1]" square />
     </VbCard>
 
     <VbCard title="Color indicator (selectable)">
       <va-color-indicator :color="palette[0]" v-model="selected[0]" />
-      <va-color-indicator :color="palette[1]" v-model="selected[1]" indicator="square" />
+      <va-color-indicator :color="palette[1]" v-model="selected[1]" square />
     </VbCard>
 
     <VbCard title="Color indicator (stateful)">
       <va-color-indicator :color="palette[0]" stateful />
-      <va-color-indicator :color="palette[1]" indicator="square" stateful />
+      <va-color-indicator :color="palette[1]" square stateful />
     </VbCard>
   </VbDemo>
 </template>
