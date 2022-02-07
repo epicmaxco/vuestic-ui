@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component'
 import DocsContent from '../../components/DocsContent.vue'
-import colorInputConfig from '../../components/page-configs/ui-elements/va-color-input/page-config'
+import colorInputConfig from '../../page-configs/ui-elements/color-input/page-config'
 
 @Options({
   name: 'DocsColorInput',

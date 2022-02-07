@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component'
 import DocsContent from '../../components/DocsContent.vue'
-import buttonDropdownConfig from '../../components/page-configs/ui-elements/va-button-dropdown/page-config'
+import buttonDropdownConfig from '../../page-configs/ui-elements/button-dropdown/page-config'
 
 @Options({
   name: 'DocsButtonDropdown',

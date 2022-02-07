@@ -33,4 +33,12 @@ module.exports = {
     'id-match': ['error', '^[A-Za-z0-9-_$]+$', { properties: true }], // To prevent cyrillic letters etc.
     'vue/html-closing-bracket-spacing': 'error',
   },
+  overrides: [
+    {
+      files: ['src/components/*.vue', 'src/components/**/*.vue'],
+      rules: {
+        'vue/require-name-property': 'error',
+      },
+    },
+  ],
 }

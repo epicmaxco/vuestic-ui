@@ -8,6 +8,7 @@ import typescriptDeclarationPlugin from '../plugins/rollup-typescript-declaratio
 import { terserPlugin } from '../plugins/rollup-teaser-preset'
 import { dependencies, peerDependencies } from '../utils'
 import { getInputs } from '../generate-rollup-inputs'
+import postcssImport from '../postcss-plugins/postcss-import'
 
 /** Used for tree-shaking. It creates separate modules in ESM format, that can be tree-shakable by any bundler. */
 export function createESMConfig ({ input, outDir = 'dist/', minify = false, declaration = false, ssr = false, sourcemap = false }) {
@@ -43,6 +44,7 @@ export function createESMConfig ({ input, outDir = 'dist/', minify = false, decl
       commonjsPlugin(),
       postcssPlugin({
         minimize: minify,
+        plugins: [postcssImport()],
       }),
       nodeResolvePlugin(),
     ],

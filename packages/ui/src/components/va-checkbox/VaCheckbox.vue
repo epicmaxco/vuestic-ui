@@ -1,5 +1,5 @@
 <template>
-  <va-input-wrapper
+  <VaMessageListWrapper
     class="va-checkbox"
     :class="computedClass"
     :disabled="disabled"
@@ -19,18 +19,20 @@
       <div
         class="va-checkbox__square"
         :style="inputStyle"
+        @selectstart.prevent
       >
         <input
           ref="input"
-          :id="id"
-          :name="name"
           type="checkbox"
           role="checkbox"
           readonly
+          :id="id"
+          :name="name"
           v-on="SetupContext.keyboardFocusListeners"
           @focus="onFocus"
           @blur="onBlur($event)"
           class="va-checkbox__input"
+          @click.stop.prevent
           @keypress.prevent="toggleSelection()"
           :disabled="disabled"
           :indeterminate="indeterminate"
@@ -53,7 +55,7 @@
         </slot>
       </div>
     </div>
-  </va-input-wrapper>
+  </VaMessageListWrapper>
 </template>
 
 <script lang="ts">
@@ -62,7 +64,7 @@ import { Options, mixins, prop, setup, Vue } from 'vue-class-component'
 import ColorMixin from '../../services/color-config/ColorMixin'
 import { SelectableMixin } from '../../mixins/SelectableMixin/SelectableMixin'
 import VaIcon from '../va-icon/'
-import { VaInputWrapper } from '../va-input'
+import { VaMessageListWrapper } from '../va-input'
 import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'
 
 type ModelValue = boolean | boolean[] | string | Record<string, unknown>
@@ -76,13 +78,15 @@ class CheckboxProps {
   color = prop<string>({ type: String, default: 'primary' })
   checkedIcon = prop<string>({ type: String, default: 'check' })
   indeterminateIcon = prop<string>({ type: String, default: 'remove' })
+  id = prop<string>({ type: String, default: '' })
+  name = prop<string>({ type: String, default: '' })
 }
 
 const CheckboxPropsMixin = Vue.with(CheckboxProps)
 
 @Options({
   name: 'VaCheckbox',
-  components: { VaInputWrapper, VaIcon },
+  components: { VaMessageListWrapper, VaIcon },
 })
 export default class VaCheckbox extends mixins(
   ColorMixin,
@@ -143,12 +147,13 @@ export default class VaCheckbox extends mixins(
 </script>
 
 <style lang="scss">
-@import "../../styles/resources/resources";
+@import "../../styles/resources";
 @import "variables";
 
 .va-checkbox {
   display: var(--va-checkbox-display);
   max-width: var(--va-checkbox-max-width);
+  font-family: var(--va-font-family);
 
   &__input-container {
     align-items: var(--va-checkbox-input-align-items);

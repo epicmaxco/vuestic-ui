@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component'
 import DocsContent from '../../components/DocsContent.vue'
-import parallaxConfig from '../../components/page-configs/ui-elements/va-parallax/page-config'
+import parallaxConfig from '../../page-configs/ui-elements/parallax/page-config'
 
 @Options({
   name: 'DocsParallax',

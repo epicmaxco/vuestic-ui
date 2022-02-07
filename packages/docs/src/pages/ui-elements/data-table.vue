@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component'
 import DocsContent from '../../components/DocsContent.vue'
-import dataTableConfig from '../../components/page-configs/ui-elements/va-data-table/page-config'
+import dataTableConfig from '../../page-configs/ui-elements/data-table/page-config'
 
 @Options({
   name: 'DocsDataTable',

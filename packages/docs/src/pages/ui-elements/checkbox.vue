@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component'
 import DocsContent from '../../components/DocsContent.vue'
-import checkboxConfig from '../../components/page-configs/ui-elements/va-checkbox/page-config'
+import checkboxConfig from '../../page-configs/ui-elements/checkbox/page-config'
 
 @Options({
   name: 'DocsCheckbox',

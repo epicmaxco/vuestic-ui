@@ -4,18 +4,29 @@ import {
   ManualApiOptions,
   TranslationStringList,
 } from '../components/DocsApi/ManualApiOptions'
-import { TableData, TableColumn } from '../components/DocsTable/DocsTable'
+import { TableData, TableColumn } from '../components/DocsTable/DocsTableTypes'
 import { DefineComponent } from 'vue'
 import { VueConstructor } from 'vue-class-component'
 
 export type CodeString = string
 export type CodeLanguage = 'javascript' | 'scss' | 'bash' | 'html'
 // example: for `/examples/va-affix/Bottom.vue` use `va-affix/Bottom.vue` here.
+
+export type Dependencies = {
+  [key: string]: string;
+}
+export type CodesandboxConfig = {
+  dependencies?: Dependencies,
+  devDependencies?: Dependencies,
+}
+
 export type PathToExample = string
 export type ExampleOptions = {
   hideCode?: boolean,
   forceShowCode?: boolean
+  codesandboxConfig?: CodesandboxConfig
 }
+
 export type LinkOptions = {
   preText?: string,
   afterText?: string,
@@ -28,6 +39,7 @@ export enum BlockType {
   PARAGRAPH = 'PARAGRAPH',
   HEADLINE = 'HEADLINE',
   EXAMPLE = 'EXAMPLE',
+  COMPONENT = 'COMPONENT',
   API = 'API',
   CODE = 'CODE',
   TABLE = 'TABLE',
@@ -57,8 +69,14 @@ export type ApiDocsBlock =
   | ListBlock
   | {
     type: BlockType.EXAMPLE,
-    component: PathToExample, // path to example
+    path: string, // path to directory
+    component: string, // component name
     exampleOptions?: ExampleOptions,
+  }
+  | {
+  type: BlockType.COMPONENT,
+  path: string, // path to directory
+  component: string, // component name
   }
   | {
     type: BlockType.CODE,

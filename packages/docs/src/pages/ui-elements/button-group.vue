@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component'
 import DocsContent from '../../components/DocsContent.vue'
-import buttonGroupConfig from '../../components/page-configs/ui-elements/va-button-group/page-config'
+import buttonGroupConfig from '../../page-configs/ui-elements/button-group/page-config'
 
 @Options({
   name: 'DocsButtonGroup',

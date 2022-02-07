@@ -45,7 +45,7 @@ export class SelectableMixin extends mixins(
   }
 
   get isIndeterminate (): boolean {
-    return this.valueComputed === this.indeterminateValue
+    return this.indeterminate && this.valueComputed === this.indeterminateValue
   }
 
   get modelIsArray (): boolean {

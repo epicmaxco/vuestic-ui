@@ -110,7 +110,7 @@ export default class VaProgressBar extends mixins(
 </script>
 
 <style lang="scss">
-@import "../../../styles/resources/resources";
+@import "../../../styles/resources";
 
 .va-progress-bar {
   width: 100%;

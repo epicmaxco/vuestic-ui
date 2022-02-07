@@ -14,6 +14,7 @@
       :today="isToday(year)"
       :focused="focusedCellIndex === index"
       :highlight-today="highlightToday"
+      :readonly="readonly"
       @click="onClick(year); focusedCellIndex = index"
       @mouseenter="hoveredIndex = index"
       @mouseleave="hoveredIndex = -1"
@@ -32,6 +33,7 @@ import { useGridKeyboardNavigation } from '../../hooks/grid-keyboard-navigation'
 import { useDatePicker } from '../../hooks/use-picker'
 
 export default defineComponent({
+  name: 'VaYearPicker',
   components: { VaDatePickerCell },
 
   props: {
@@ -42,6 +44,7 @@ export default defineComponent({
     view: { type: Object as PropType<VaDatePickerView>, default: () => ({ type: 'year' }) },
     startYear: { type: Number, default: () => 1970 },
     endYear: { type: Number, default: () => new Date().getFullYear() + 50 },
+    readonly: { type: Boolean, default: false },
   },
 
   emits: ['update:modelValue', 'hover:year', 'click:year'],

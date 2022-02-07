@@ -136,7 +136,7 @@ export default class VaFileUploadGalleryItem extends mixins(FileUploadGalleryIte
 
 <style lang='scss'>
 @import 'variables';
-@import '../../../styles/resources/resources';
+@import '../../../styles/resources';
 
 $max-image-size: 8.5714rem;
 

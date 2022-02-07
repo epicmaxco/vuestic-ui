@@ -39,19 +39,19 @@ module.exports = {
       },
       {
         type: 'add',
-        path: `${docsBasePath}/components/page-configs/ui-elements/va-{{kebabCase name}}/api-options.ts`,
+        path: `${docsBasePath}/page-configs/ui-elements/{{kebabCase name}}/api-options.ts`,
         templateFile: './component/api-options.ts.hbs',
         abortOnFail: false,
       },
       {
         type: 'add',
-        path: `${docsBasePath}/components/page-configs/ui-elements/va-{{kebabCase name}}/page-config.ts`,
+        path: `${docsBasePath}/page-configs/ui-elements/{{kebabCase name}}/page-config.ts`,
         templateFile: './component/page-config.ts.hbs',
         abortOnFail: false,
       },
       {
         type: 'add',
-        path: `${docsBasePath}/examples/va-{{kebabCase name}}/Example.vue`,
+        path: `${docsBasePath}/page-configs/ui-elements/{{kebabCase name}}/examples/Example.vue`,
         templateFile: './component/Example.vue.hbs',
         abortOnFail: false,
       },

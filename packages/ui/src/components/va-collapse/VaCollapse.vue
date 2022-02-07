@@ -235,11 +235,12 @@ export default class VaCollapse extends mixins(
 </script>
 
 <style lang="scss">
-@import "../../styles/resources/resources";
+@import "../../styles/resources";
 @import "variables";
 
 .va-collapse {
   transition: var(--va-collapse-transition, var(--va-swing-transition));
+  font-family: var(--va-font-family);
 
   &__body {
     transition: var(--va-collapse-body-transition);

@@ -39,115 +39,68 @@
   </div>
 </template>
 
-<script>
-import { getParameters } from 'codesandbox/lib/api/define'
-import packageUi from '../../../ui/package'
+<script lang="ts">
+import { computed, defineComponent, PropType, ref, Ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { CodesandboxConfig } from '../types/configTypes'
+import getCodesandboxExample from '../helpers/CodeSandboxExample'
+import { applyTranslations } from '../helpers/TranslationsHelper'
 
-export default {
+const query = '?query=file=/src/App.vue'
+
+type ButtonStates = 'active' | 'error' | 'default'
+
+export default defineComponent({
   name: 'DocsNavigation',
   props: {
-    code: {
-      type: String,
-      default: '',
-    },
-    gitUrl: {
-      type: String,
-      default: '',
-    },
+    code: { type: String as PropType<string>, default: '' },
+    config: { type: Object as PropType<CodesandboxConfig>, default: () => ({}) },
+    gitUrl: { type: String as PropType<string>, default: '' },
+    gitComponent: { type: String as PropType<string>, default: '' },
   },
-  data () {
-    return {
-      query: '?query=file=/src/App.vue',
-      copyButtonState: 'default',
-    }
-  },
-  methods: {
-    async copy () {
+  setup (props) {
+    const { t } = useI18n()
+
+    const copyButtonState: Ref<ButtonStates> = ref('default')
+    const copy = async () => {
       try {
-        await window.navigator.clipboard.writeText(this.code)
-        this.copyButtonState = 'active'
-      } catch (e) {
+        await window.navigator.clipboard.writeText(props.code)
+        copyButtonState.value = 'active'
+      } catch (e: any) {
         if (e.message === 'NotAllowedError') {
-          this.copyButtonState = 'error'
+          copyButtonState.value = 'error'
         }
       }
-      setTimeout(() => {
-        this.copyButtonState = 'default'
-      }, 1500)
-    },
-  },
-  computed: {
-    copyButton () {
-      const buttonStates = {
-        active: { text: this.$t('docsNavigation.copyCopied'), icon: 'fa fa-check' },
-        error: { text: this.$t('docsNavigation.copyFailure'), icon: 'fa fa-times' },
-        default: { text: this.$t('docsNavigation.copyCode'), icon: 'fa fa-files-o' },
-      }
-      return buttonStates[this.copyButtonState]
-    },
-    gitLink () {
-      return `https://github.com/epicmaxco/vuestic-ui/tree/develop/packages/docs/src/examples/${this.gitUrl}.vue`
-    },
-    sandboxDefineUrl () {
-      return `https://codesandbox.io/api/v1/sandboxes/define${this.query}`
-    },
-    sandboxParams () {
-      const main = `import { createApp } from "vue";
-import App from "./App.vue";
-import { VuesticPlugin } from "vuestic-ui";
-import 'vuestic-ui/dist/vuestic-ui.css'
 
-const app = createApp(App);
-app.use(VuesticPlugin);
-app.mount("#app");
-`
-      const babel = `module.exports = {
-  presets: [
-    '@vue/cli-plugin-babel/preset'
-  ]
-}`
-      const html = '<div id="app"></div>'
+      setTimeout(() => { copyButtonState.value = 'default' }, 1500)
+    }
 
-      return getParameters({
-        files: {
-          'package.json': {
-            content: {
-              scripts: {
-                serve: 'vue-cli-service serve',
-              },
-              dependencies: {
-                'core-js': '^3.6.5',
-                vue: '^3.0.0',
-                'vuestic-ui': `${packageUi.version}`,
-              },
-              devDependencies: {
-                '@vue/cli-plugin-babel': '~4.5.0',
-                '@vue/cli-service': '~4.5.0',
-                '@vue/compiler-sfc': '^3.0.0',
-              },
-            },
-          },
-          'babel.config.js': {
-            content: babel,
-          },
-          'src/main.js': {
-            content: main,
-          },
-          'src/App.vue': {
-            content: this.code,
-          },
-          'public/index.html': {
-            content: html,
-          },
-        },
-      })
-    },
+    const buttonStates = {
+      active: { text: t('docsNavigation.copyCopied'), icon: 'fa fa-check' },
+      error: { text: t('docsNavigation.copyFailure'), icon: 'fa fa-times' },
+      default: { text: t('docsNavigation.copyCode'), icon: 'fa fa-files-o' },
+    }
+    const copyButton = computed(() => buttonStates[copyButtonState.value])
+
+    const sandboxDefineUrl = computed(() => `https://codesandbox.io/api/v1/sandboxes/define${query}`)
+    const sandboxParams = computed(() => getCodesandboxExample(applyTranslations(props.code), props.config))
+    const gitLink = computed(
+      () => `https://github.com/epicmaxco/vuestic-ui/tree/develop/packages/docs/src/page-configs/${props.gitUrl}/examples/${props.gitComponent}.vue`,
+    )
+
+    return {
+      copy,
+      copyButton,
+      sandboxDefineUrl,
+      sandboxParams,
+      gitLink,
+    }
   },
-}
+})
 </script>
 
 <style lang="scss">
-@import "~vuestic-ui/src/styles/resources/resources";
+@import "~vuestic-ui/src/styles/resources";
 
 .docs-navigation {
   background: $prism-background;
@@ -158,6 +111,10 @@ app.mount("#app");
     padding: 1.5rem 0.5rem;
     margin: 0 0.5rem;
     font-weight: bold;
+
+    div {
+      color: var(--va-gray);
+    }
 
     &:hover {
       background: none !important;

@@ -13,7 +13,7 @@ export default class VaSeparator extends Vue {
 </script>
 
 <style lang="scss">
-@import "../../styles/resources/resources";
+@import "../../styles/resources";
 @import 'variables';
 
 .va-separator {

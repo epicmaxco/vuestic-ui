@@ -1,5 +1,5 @@
 <template>
-  <va-input-wrapper
+  <VaMessageListWrapper
     class="va-switch"
     :class="computedClass"
     :disabled="$props.disabled"
@@ -25,8 +25,8 @@
           type="checkbox"
           role="switch"
           :aria-checked="isChecked"
-          :id="$props.id"
-          :name="$props.name"
+          :id="String($props.id)"
+          :name="String($props.name)"
           readonly
           :disabled="$props.disabled"
           v-on="SetupContext.keyboardFocusListeners"
@@ -69,7 +69,7 @@
         </slot>
       </div>
     </div>
-  </va-input-wrapper>
+  </VaMessageListWrapper>
 </template>
 
 <script lang="ts">
@@ -79,7 +79,7 @@ import ColorMixin from '../../services/color-config/ColorMixin'
 import { SelectableMixin } from '../../mixins/SelectableMixin/SelectableMixin'
 import { LoadingMixin } from '../../mixins/LoadingMixin/LoadingMixin'
 import { VaProgressCircle } from '../va-progress-bar'
-import { VaInputWrapper } from '../va-input'
+import { VaMessageListWrapper } from '../va-input'
 import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'
 
 class SwitchProps {
@@ -107,7 +107,7 @@ const SwitchPropsMixin = Vue.with(SwitchProps)
 
 @Options({
   name: 'VaSwitch',
-  components: { VaProgressCircle, VaInputWrapper },
+  components: { VaProgressCircle, VaMessageListWrapper },
   emits: ['focus', 'blur', 'update:modelValue'],
 })
 export default class VaSwitch extends mixins(
@@ -148,6 +148,7 @@ export default class VaSwitch extends mixins(
   get computedClass () {
     return {
       'va-switch--checked': this.isChecked,
+      'va-switch--indeterminate': this.isIndeterminate,
       'va-switch--small': this.$props.size === 'small',
       'va-switch--large': this.$props.size === 'large',
       'va-switch--disabled': this.$props.disabled,
@@ -186,7 +187,7 @@ export default class VaSwitch extends mixins(
 </script>
 
 <style lang="scss">
-@import "../../styles/resources/resources";
+@import "../../styles/resources";
 @import 'variables';
 
 .va-switch {
@@ -262,6 +263,19 @@ export default class VaSwitch extends mixins(
     }
   }
 
+  &--indeterminate {
+    .va-switch {
+      &__checker {
+        margin: auto 0;
+        transform: translateX(-50%);
+      }
+
+      &__checker-wrapper {
+        transform: translateX(50%);
+      }
+    }
+  }
+
   &--checked {
     .va-switch {
       &__checker {
@@ -318,6 +332,7 @@ export default class VaSwitch extends mixins(
   #{&}__track-label {
     color: $white;
     margin: auto 0.5rem auto 2rem;
+    user-select: none;
 
     @at-root {
       .va-switch--checked#{&} {

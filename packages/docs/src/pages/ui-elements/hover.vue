@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component'
 import DocsContent from '../../components/DocsContent.vue'
-import hoverConfig from '../../components/page-configs/ui-elements/va-hover/page-config'
+import hoverConfig from '../../page-configs/ui-elements/hover/page-config'
 
 @Options({
   name: 'DocsHover',

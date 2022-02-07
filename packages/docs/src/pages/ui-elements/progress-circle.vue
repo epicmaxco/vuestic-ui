@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component'
 import DocsContent from '../../components/DocsContent.vue'
-import progressCircleConfig from '../../components/page-configs/ui-elements/va-progress-circle/page-config'
+import progressCircleConfig from '../../page-configs/ui-elements/progress-circle/page-config'
 
 @Options({
   name: 'DocsProgressCircle',

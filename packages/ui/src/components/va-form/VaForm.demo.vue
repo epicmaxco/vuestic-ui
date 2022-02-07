@@ -88,7 +88,7 @@
           label="input 2"
           value="text"
         />
-        <va-input
+        <va-input class="mt-2"
           label="input 1"
           v-model="form.nestedHello"
           :rules="[value => value === 'hello' || 'should be hello']"
@@ -100,11 +100,18 @@
             label="input 3"
             value="text"
           />
-          <va-input
+          <va-input class="mt-2"
             label="input 4"
             v-model="form.nestedWorld"
             :rules="[value => value === 'world' || 'should be world']"
           />
+          <va-select class="mt-2"
+            label="City"
+            v-model="form.selectValue"
+            :rules="[value => value === 'Minsk' || 'Should be Minsk']"
+            :options="['Minsk', 'Los Angeles', 'San Francisco', 'Peru']"
+          />
+
         </va-form>
       </va-form>
       <button @click="$refs.nestedFormRef.validate()">
@@ -116,6 +123,29 @@
       <button @click="$refs.nestedFormRef.focusInvalid()">
         focus invalid
       </button>
+    </VbCard>
+
+    <VbCard title="submit form">
+      <va-form
+        tag="form"
+        @submit.prevent="handleSubmit"
+      >
+        <va-input
+          v-model="username"
+          label="Username"
+        />
+
+        <va-input
+          class="mt-2"
+          v-model="password"
+          type="password"
+          label="Password"
+        />
+
+        <va-button type="submit" class="mt-2">
+          Login
+        </va-button>
+      </va-form>
     </VbCard>
   </VbDemo>
 </template>
@@ -138,6 +168,7 @@ export default {
         world: 'text',
         nestedHello: 'hell',
         nestedWorld: 'worl',
+        selectValue: '',
         radio: 2,
         inputError: false,
       },
@@ -146,12 +177,16 @@ export default {
         valid: '',
         required: '',
       },
+      username: '',
+      password: '',
     }
   },
   methods: {
     onValidation (isValid) {
-      // eslint-disable-next-line no-console
       console.log('onValidation', isValid)
+    },
+    handleSubmit (e) {
+      alert(`-- form submit triggered by tag ${e.submitter.tagName} --`)
     },
   },
 }

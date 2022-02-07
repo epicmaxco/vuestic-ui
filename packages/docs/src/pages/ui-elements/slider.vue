@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component'
 import DocsContent from '../../components/DocsContent.vue'
-import sliderConfig from '../../components/page-configs/ui-elements/va-slider/page-config'
+import sliderConfig from '../../page-configs/ui-elements/slider/page-config'
 
 @Options({
   name: 'DocsSlider',

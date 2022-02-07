@@ -6,6 +6,7 @@ import commonjsPlugin from '@rollup/plugin-commonjs'
 import { nodeResolve } from '@rollup/plugin-node-resolve'
 import typescriptDeclarationPlugin from '../plugins/rollup-typescript-declaration'
 import { terserPlugin } from '../plugins/rollup-teaser-preset'
+import postcssImport from '../postcss-plugins/postcss-import'
 
 /** Used to create lib, that can be used in browser. This build define VuesticUI global variable. */
 export function createIIFEConfig ({ input, outDir = 'dist/', minify = false, declaration = false, sourcemap = false, libName = 'vuestic-ui' }) {
@@ -33,10 +34,14 @@ export function createIIFEConfig ({ input, outDir = 'dist/', minify = false, dec
 
     plugins: [
       typescriptPlugin({ check: false }),
-      vuePlugin({ target: 'browser', compileTemplate: true, preprocessStyles: true, css: false }),
+      vuePlugin({ target: 'browser', compileTemplate: true, preprocessStyles: true }),
       commonjsPlugin(),
       nodeResolve({ browser: true }),
-      postcssPlugin({ minimize: minify, extract: true }),
+      postcssPlugin({
+        minimize: minify,
+        extract: true,
+        plugins: [postcssImport()],
+      }),
     ],
   })
 

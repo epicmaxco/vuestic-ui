@@ -11,12 +11,12 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../../styles/resources/resources';
-@import '../..//styles/global/typography';
-@import '../../styles/global/utility-global';
+@import '../../styles/resources';
+@import '../../styles/global';
 
 .va-content {
   line-height: $line-height;
+  font-family: var(--va-font-family);
 
   h1 {
     @include va-display(1);

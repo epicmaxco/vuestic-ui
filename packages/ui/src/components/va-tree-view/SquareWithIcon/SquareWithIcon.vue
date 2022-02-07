@@ -33,7 +33,7 @@ export default class SquareWithIcon extends mixins(
 </script>
 
 <style lang="scss">
-@import "../../../styles/resources/resources";
+@import "../../../styles/resources";
 @import 'variables';
 
 .square-with-icon {

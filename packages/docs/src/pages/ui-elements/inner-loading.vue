@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component'
 import DocsContent from '../../components/DocsContent.vue'
-import innerLoadingConfig from '../../components/page-configs/ui-elements/va-inner-loading/page-config'
+import innerLoadingConfig from '../../page-configs/ui-elements/inner-loading/page-config'
 
 @Options({
   name: 'DocsInnerLoading',

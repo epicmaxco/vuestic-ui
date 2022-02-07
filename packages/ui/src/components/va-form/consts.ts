@@ -1,9 +1,24 @@
 import { InjectionKey } from 'vue'
-import { FormComponentMixin } from '../../mixins/FormComponent/FormComponentMixin'
+
+export type Form = {
+  reset: () => void;
+  resetValidation: () => void;
+  focus: () => void;
+  validate: () => boolean;
+  focusInvalid: () => void;
+}
+
+export type FormChild = {
+  hasError: () => boolean;
+  reset: () => void;
+  resetValidation: () => void;
+  focus: () => void;
+  validate: () => boolean;
+}
 
 export type FormProvider = {
-  onChildMounted: (child: FormComponentMixin) => void;
-  onChildUnmounted: (child: FormComponentMixin) => void;
+  onChildMounted: (child: FormChild | Form) => void;
+  onChildUnmounted: (child: FormChild | Form) => void;
 }
 
 export const FormServiceKey: InjectionKey<FormProvider> = Symbol('FormService')

@@ -3,6 +3,7 @@
     <a
       v-bind="$attrs"
       class="va-sidebar__item va-sidebar-item"
+      :class="{ 'va-sidebar-item--active': active }"
       :style="computedStyle"
       :href="href"
       @click="navigate"
@@ -79,14 +80,15 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
-  @import '../variables';
+<style lang="scss">
+@import '../variables';
 
-  .va-sidebar__item {
-    border-left: var(--va-sidebar-item-active-border-size) solid transparent;
-    padding-right: var(--va-sidebar-item-active-border-size);
-    display: inline-block;
-    width: 100%;
-    color: inherit !important;
-  }
+.va-sidebar__item {
+  border-left: var(--va-sidebar-item-active-border-size) solid transparent;
+  padding-right: var(--va-sidebar-item-active-border-size);
+  display: inline-block;
+  width: 100%;
+  color: inherit !important;
+  font-family: var(--va-font-family);
+}
 </style>

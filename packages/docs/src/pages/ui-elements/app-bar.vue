@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
 import DocsContent from '../../components/DocsContent.vue'
-import appBarConfig from '../../components/page-configs/ui-elements/va-app-bar/page-config'
+import appBarConfig from '../../page-configs/ui-elements/app-bar/page-config'
 
 @Options({
   name: 'DocsAppBar',

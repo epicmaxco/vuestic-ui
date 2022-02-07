@@ -13,7 +13,8 @@
         <h2 v-if="title" class="va-toast__title" v-text="title"></h2>
 
         <div class="va-toast__content" v-show="message">
-          <p v-text="message"></p>
+          <p v-if="html" v-html="computedMessage"></p>
+          <p v-else v-text="computedMessage"></p>
         </div>
 
         <div class="va-toast__content" v-if="render">
@@ -33,7 +34,7 @@
 </template>
 
 <script lang="ts">
-import { h, watch } from 'vue'
+import { h } from 'vue'
 import { prop, mixins, Vue, Options } from 'vue-class-component'
 import VaIcon from '../va-icon/VaIcon.vue'
 
@@ -45,6 +46,7 @@ class ToastProps {
   offsetY = prop<number>({ type: Number, default: 16 })
   offsetX = prop<number>({ type: Number, default: 16 })
   message = prop<string | Function>({ type: [String, Function] as any, default: '' })
+  html = prop<boolean>({ type: Boolean, default: false })
   icon = prop<string>({ type: String, default: 'close' })
   customClass = prop<string>({ type: String, default: '' })
   duration = prop<number>({ type: Number, default: 5000 })
@@ -112,6 +114,10 @@ export default class VaToast extends mixins(
     }
   }
 
+  get computedMessage () {
+    return (typeof this.message === 'function') ? this.message() : this.message
+  }
+
   destroyElement () {
     this.$el.removeEventListener('transitionend', this.destroyElement)
 
@@ -168,7 +174,7 @@ export default class VaToast extends mixins(
 }
 </script>
 <style lang="scss">
-@import "../../styles/resources/resources";
+@import "../../styles/resources";
 @import 'variables';
 
 .va-toast {
@@ -185,6 +191,8 @@ export default class VaToast extends mixins(
   box-shadow: $toast-shadow;
   transition: opacity 0.3s, transform 0.3s, left 0.3s, right 0.3s, top 0.4s, bottom 0.3s;
   overflow: hidden;
+  z-index: var(--va-toast-z-index);
+  font-family: var(--va-font-family);
 
   &--multiline {
     min-height: 70px;

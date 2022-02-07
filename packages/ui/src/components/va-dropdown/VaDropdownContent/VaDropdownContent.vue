@@ -1,8 +1,19 @@
 <template>
-  <div class="va-dropdown__content">
+  <div class="va-dropdown__content" :style="noPadding && { padding: 0 }">
     <slot />
   </div>
 </template>
+
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
+  name: 'VaDropdownContent',
+  props: {
+    noPadding: { type: Boolean, default: false },
+  },
+})
+</script>
 
 <style lang="scss">
   @import "variables";

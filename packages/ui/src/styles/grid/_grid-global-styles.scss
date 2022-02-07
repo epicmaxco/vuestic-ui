@@ -28,25 +28,25 @@
       padding: $gutter;
 
       .row:only-child {
-        margin: -($gutter / 2);
+        margin: -($gutter * 0.5);
       }
 
       .row:not(:only-child) {
-        margin: auto (-($gutter / 2));
+        margin: auto (-($gutter * 0.5));
       }
 
       *:not(:only-child) {
         .row:first-child {
-          margin-top: -($gutter / 2);
+          margin-top: -($gutter * 0.5);
         }
 
         .row:last-child {
-          margin-bottom: -($gutter / 2);
+          margin-bottom: -($gutter * 0.5);
         }
       }
 
       .row .flex {
-        padding: $gutter / 2;
+        padding: $gutter * 0.5;
       }
     }
   }

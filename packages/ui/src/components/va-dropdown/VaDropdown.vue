@@ -14,17 +14,19 @@
       <slot name="anchor" />
     </div>
     <template v-if="showContent">
-      <div
-        class="va-dropdown__content-wrapper"
-        @mouseover="$props.isContentHoverable && onMouseOver()"
-        @mouseout="onMouseOut()"
-        @click.stop="onDropdownContentClick()"
-        ref="contentWrapper"
-      >
-        <div :style="$props.keepAnchorWidth ? anchorWidthStyles : ''">
-          <slot />
+      <teleport :to="attachElement" :disabled="disableAttachment">
+        <div
+          class="va-dropdown__content-wrapper"
+          @mouseover="$props.isContentHoverable && onMouseOver()"
+          @mouseout="onMouseOut()"
+          @click.stop="onDropdownContentClick()"
+          ref="contentWrapper"
+        >
+          <div :style="$props.keepAnchorWidth ? anchorWidthStyles : ''">
+            <slot />
+          </div>
         </div>
-      </div>
+      </teleport>
     </template>
   </div>
 </template>
@@ -44,15 +46,13 @@ class DropdownProps {
   position = prop<string>({ type: String, default: '' })
   hoverOverTimeout = prop<number>({ type: Number, default: 30 })
   hoverOutTimeout = prop<number>({ type: Number, default: 200 })
-  boundaryBody = prop<boolean>({ type: Boolean })
   modelValue = prop<boolean>({ type: Boolean, default: false })
-  disabled = prop<boolean>({ type: Boolean, default: false })
-  // Makes no sense
-  // fixed = prop<boolean>({ type: Boolean })
+  disabled = prop<boolean>({ type: Boolean })
+  attachElement = prop<string>({ type: String, default: 'body' })
+  disableAttachment = prop<boolean>({ type: Boolean })
   // Means dropdown width should be the same as anchor's width.
   keepAnchorWidth = prop<boolean>({ type: Boolean })
-  // If set to false - dropdown won't dodge outside container.
-  preventOverflow = prop<boolean>({ type: Boolean, default: false })
+  anchorSelector = prop<string>({ type: String, default: '' })
   closeOnContentClick = prop<boolean>({ type: Boolean, default: true })
   closeOnClickOutside = prop<boolean>({ type: Boolean, default: true })
   closeOnAnchorClick = prop<boolean>({ type: Boolean, default: true })
@@ -218,17 +218,6 @@ export default class VaDropdown extends mixins(
       },
     }
 
-    const preventOverflow: any = {
-      name: 'preventOverflow',
-      options: {},
-    }
-    if (this.preventOverflow) {
-      options.modifiers.push(preventOverflow)
-    }
-    if (this.boundaryBody) {
-      preventOverflow.options.boundary = document.body
-    }
-
     if (this.offset) {
       options.modifiers.push({
         name: 'offset',
@@ -240,8 +229,12 @@ export default class VaDropdown extends mixins(
       // options.modifiers.arrow = { enabled: false }
     }
 
+    const anchor = this.$props.anchorSelector
+      ? (this.$refs.anchor as Element).querySelector(this.$props.anchorSelector) || this.$refs.anchor
+      : this.$refs.anchor
+
     this.popperInstance = createPopper(
-      this.$refs.anchor as Element,
+      anchor as Element,
       this.$refs.contentWrapper as HTMLElement,
       options,
     )
@@ -292,12 +285,13 @@ export default class VaDropdown extends mixins(
 </script>
 
 <style lang="scss">
-@import '../../styles/resources/resources';
-@import "variables";
+@import '../../styles/resources';
+@import 'variables';
 
 .va-dropdown {
   /* Solved the alignment problem (if we try to align inline and block elements) */
   line-height: var(--va-dropdown-line-height);
+  font-family: var(--va-font-family);
 
   &--disabled {
     @include va-disabled;

@@ -42,12 +42,12 @@
         </div>
       </VbCard>
 
-      <VbCard title="Offset 200px">
+      <VbCard title="Offset 0px">
         <div
           class="scroll__container"
         >
           <va-infinite-scroll
-            :offset="200"
+            :offset="0"
             :load="appendRecordsAsync"
           >
             <div

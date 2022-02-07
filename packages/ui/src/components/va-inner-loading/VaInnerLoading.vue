@@ -48,6 +48,7 @@ export default class VaInnerLoading extends mixins(
   position: var(--inner-loading-position);
   min-width: var(--inner-loading-min-width);
   width: var(--inner-loading-width);
+  font-family: var(--va-font-family);
 
   &__overlay {
     display: var(--inner-loading-overlay-display);

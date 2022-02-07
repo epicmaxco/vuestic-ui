@@ -41,7 +41,7 @@ export default class SidebarLink extends mixins(ColorMixin, SidebarLinkPropsMixi
 </script>
 
 <style lang="scss" scoped>
-@import "../../../../ui/src/styles/resources/resources";
+@import "../../../../ui/src/styles/resources";
 
 .sidebar__link {
   display: block;

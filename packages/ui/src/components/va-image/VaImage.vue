@@ -82,12 +82,13 @@ export default class VaImage extends mixins(
 </script>
 
 <style lang="scss">
-@import "../../styles/resources/resources";
+@import "../../styles/resources";
 @import 'variables';
 
 .va-image {
   overflow: var(--va-image-overflow);
   position: var(--va-image-position);
+  font-family: var(--va-font-family);
 
   img {
     height: 100%;

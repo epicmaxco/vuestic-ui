@@ -168,7 +168,7 @@
         class="mb-4"
         label="Track by text property (function)"
         :options="objectSingleSelect.options"
-        :track-by="(option) => option.text"
+        track-by="text"
       />
       <p>Value: {{ objectSingleSelect.value }}</p>
       <va-select
@@ -304,6 +304,19 @@
       <va-select
         v-model="defaultSingleSelect.value"
         class="mb-4"
+        label="All slots"
+        :options="defaultSingleSelect.options"
+        clearable
+        :messages="['Hint message 1', 'Hint message 2']"
+      >
+        <template #prepend><va-icon name="share" /></template>
+        <template #prependInner><va-icon name="share" /></template>
+        <template #appendInner><va-icon name="share" /></template>
+        <template #append><va-icon name="share" /></template>
+      </va-select>
+      <va-select
+        v-model="defaultSingleSelect.value"
+        class="mb-4"
         label="Content slot"
         :options="defaultSingleSelect.options"
       >
@@ -348,12 +361,18 @@
       title="State"
       style="width: 400px;"
     >
+      <va-checkbox
+        class="my-3"
+        label="Clearable"
+        v-model="isClearable"
+      />
       <va-select
         v-model="disabledValue"
         class="mb-4"
         label="Disabled"
         :options="defaultSingleSelect.options"
         disabled
+        :clearable="isClearable"
       />
       <va-select
         v-model="defaultSingleSelect.value"
@@ -361,6 +380,7 @@
         label="Loading"
         :options="defaultSingleSelect.options"
         loading
+        :clearable="isClearable"
       />
       <va-select
         v-model="defaultSingleSelect.value"
@@ -368,6 +388,7 @@
         label="Error state"
         :options="defaultSingleSelect.options"
         error
+        :clearable="isClearable"
       />
       <va-select
         v-model="defaultSingleSelect.value"
@@ -376,6 +397,7 @@
         :options="defaultSingleSelect.options"
         error
         :error-messages="['Error message']"
+        :clearable="isClearable"
       />
       <va-select
         v-model="defaultSingleSelect.value"
@@ -383,6 +405,7 @@
         label="Success state"
         :options="defaultSingleSelect.options"
         success
+        :clearable="isClearable"
       />
       <va-select
         v-model="defaultSingleSelect.value"
@@ -391,6 +414,7 @@
         :options="defaultSingleSelect.options"
         success
         :messages="['Success message']"
+        :clearable="isClearable"
       />
     </VbCard>
     <VbCard
@@ -418,43 +442,53 @@
       style="width: 400px;"
     >
       <va-select
-        v-model="allowCreateValue"
+        v-model="allowCreateSelect.value"
         class="mb-4"
-        label="Default mode and single select"
-        :options="defaultSingleSelect.options"
+        label="'true' mode and single select"
+        :options="allowCreateSelect.options"
+        @create-new="addNewOption"
+        track-by="id"
         allow-create
       />
       <va-select
-        v-model="allowCreateValue"
+        v-model="allowCreateSelect.allowUniqueValue"
         class="mb-4"
-        label="Unique mode and single select"
-        :options="defaultSingleSelect.options"
+        label="'unique' mode and single select"
+        :options="allowCreateSelect.options"
+        @create-new="addNewOption"
+        track-by="id"
         allow-create="unique"
       />
       <va-select
-        v-model="allowCreateValueMultiple"
+        v-model="allowCreateSelect.valueMultiple"
         class="mb-4"
-        label="Default mode and multi select"
-        :options="defaultMultiSelect.options"
+        label="'true' mode and multi select"
+        :options="allowCreateSelect.options"
+        @create-new="addNewOption"
+        track-by="id"
         allow-create
         multiple
       />
       <va-select
-        v-model="allowCreateValueMultiple"
-        label="Unique mode and multi select"
+        v-model="allowCreateSelect.allowUniqueValueMultiple"
+        label="'unique' mode and multi select"
         class="mb-4"
-        :options="defaultMultiSelect.options"
+        :options="allowCreateSelect.options"
+        @create-new="addNewOption"
+        track-by="id"
         allow-create="unique"
         multiple
       />
       <va-select
-        v-model="allowCreateValueMultiple"
+        v-model="allowCreateSelect.valueMultipleMax"
         class="mb-4"
-        label="Default mode and multi select, Max 3 selections"
-        :options="defaultMultiSelect.options"
-        :max-selections=3
+        label="'true' mode and multi select, Max 3 selections"
+        :options="allowCreateSelect.options"
+        @create-new="addNewOption"
+        track-by="id"
         allow-create
         multiple
+        :max-selections="3"
       />
     </VbCard>
     <VbCard
@@ -470,6 +504,16 @@
       />
     </VbCard>
     <VbCard
+      title="scroll-bottom event"
+      style="width: 400px;"
+    >
+      <va-select
+        v-model="preloadable.value"
+        :options="preloadable.options"
+        @scrollBottom="onLoadMore()"
+      />
+    </VbCard>
+    <VbCard
       title="Validation rules (on blur)"
       style="width: 400px;"
     >
@@ -479,6 +523,7 @@
         label="At least 1 option should be selected"
         :options="validationSelect.options"
         :rules="validationSelect.rules.required"
+        multiple
       />
       <va-select
         v-model="validationSelect.multipleValue"
@@ -502,14 +547,17 @@
 <script>
 import CountriesList from '../../data/CountriesList'
 import VaIcon from '../va-icon'
+import VaCheckbox from '../va-checkbox'
 
 import { objectOptionsList, iconOptionsList } from './getDemoData'
 import VaSelect from './index'
 
 const positions = ['top', 'bottom']
 
+const random = () => Math.ceil(Math.random() * 10000) + ''
+
 export default {
-  components: { VaSelect, VaIcon },
+  components: { VaSelect, VaIcon, VaCheckbox },
   data () {
     return {
       allowCreateValue: '',
@@ -522,6 +570,24 @@ export default {
       defaultMultiSelect: {
         options: ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'],
         value: [],
+      },
+      preloadable: {
+        options: [random(), random(), random(), random(), random()],
+        value: '',
+      },
+      allowCreateSelect: {
+        options: [
+          { id: '0', text: 'one', value: 'one' },
+          { id: '1', text: 'two', value: 'two' },
+          { id: '2', text: 'three', value: 'three' },
+          { id: '3', text: 'four', value: 'four' },
+          { id: '4', text: 'five', value: 'five' },
+        ],
+        value: '',
+        allowUniqueValue: '',
+        valueMultiple: [],
+        allowUniqueValueMultiple: [],
+        valueMultipleMax: [],
       },
       objectSingleSelect: {
         value: '',
@@ -551,7 +617,7 @@ export default {
         value: '',
         multipleValue: [],
         rules: {
-          required: [v => Array.isArray(v) ? v.length : !!v || 'at least 1 option should be selected'],
+          required: [v => Array.isArray(v) ? v.length >= 1 : !!v || 'at least 1 option should be selected'],
           twoOptions: [v => (Array.isArray(v) && v.length === 2) || '2 options should be selected'],
         },
       },
@@ -559,9 +625,13 @@ export default {
       CountriesList,
       positions,
       isLoading: false,
+      isClearable: true,
     }
   },
   methods: {
+    onLoadMore () {
+      this.preloadable.options.push(random(), random(), random())
+    },
     updateSearch (val) {
       this.isLoading = true
       setTimeout(() => {
@@ -572,6 +642,11 @@ export default {
     },
     alert (str) {
       window.alert(str)
+    },
+    addNewOption (newOption) {
+      const option = { id: String(this.allowCreateSelect.options.length), text: newOption, value: newOption }
+      this.allowCreateSelect.options = [...this.allowCreateSelect.options, option]
+      this.allowCreateSelect.value = option
     },
   },
 }

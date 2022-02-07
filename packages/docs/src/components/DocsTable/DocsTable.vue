@@ -40,8 +40,8 @@
 
 <script lang="ts">
 import { Options, Vue, prop, mixins } from 'vue-class-component'
-import { TableData, TableColumn } from './DocsTable'
-import MarkdownView from '../../utilities/markdown-view/MarkdownView.vue'
+import { TableData, TableColumn } from './DocsTableTypes'
+import MarkdownView from '../markdown-view/MarkdownView.vue'
 
 class Props {
   columns = prop<TableColumn[]>({ type: Array, required: true })
@@ -62,7 +62,7 @@ export default class DocsTable extends mixins(PropsMixin) {
 </script>
 
 <style lang="scss">
-@import "~vuestic-ui/src/styles/resources/resources";
+@import "~vuestic-ui/src/styles/resources";
 
 .DocsTable {
   overflow-x: auto;

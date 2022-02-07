@@ -1,9 +1,13 @@
 import { GlobalConfig, setGlobalConfig, getGlobalConfig } from '../global-config/global-config'
 import {
   getBoxShadowColor,
-  getHoverColor, getFocusColor,
-  getGradientBackground, isColor,
-  getTextColor, shiftHSLAColor,
+  getHoverColor,
+  getFocusColor,
+  getGradientBackground,
+  isColor,
+  isCSSVariable,
+  getTextColor,
+  shiftHSLAColor,
   setHSLAColor,
 } from './color-functions'
 
@@ -40,7 +44,7 @@ export const getColor = (prop?: string, defaultColor: string = DEFAULT_COLOR): C
     return colors[prop]
   }
 
-  if (isColor(prop)) {
+  if (isColor(prop) || isCSSVariable(prop)) {
     return prop
   }
 
@@ -58,18 +62,16 @@ export const colorsToCSSVariable = (colors: { [colorName: string]: string | unde
 }
 
 // Here expose methods that user wants to use in vue component
-export const useColors = () => {
-  return {
-    setColors,
-    getColors,
-    getColor,
-    getBoxShadowColor,
-    getHoverColor,
-    getFocusColor,
-    getGradientBackground,
-    getTextColor,
-    shiftHSLAColor,
-    setHSLAColor,
-    colorsToCSSVariable,
-  }
-}
+export const useColors = () => ({
+  setColors,
+  getColors,
+  getColor,
+  getBoxShadowColor,
+  getHoverColor,
+  getFocusColor,
+  getGradientBackground,
+  getTextColor,
+  shiftHSLAColor,
+  setHSLAColor,
+  colorsToCSSVariable,
+})

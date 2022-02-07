@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component'
 import DocsContent from '../../components/DocsContent.vue'
-import sidebarConfig from '../../components/page-configs/ui-elements/va-sidebar/page-config'
+import sidebarConfig from '../../page-configs/ui-elements/sidebar/page-config'
 
 @Options({
   name: 'DocsSidebar',

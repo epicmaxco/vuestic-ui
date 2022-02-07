@@ -13,7 +13,7 @@
     <img src="https://img.shields.io/npm/l/vuestic-ui.svg" alt="License">
   </a>
   <a href="https://www.npmjs.com/package/vuestic-ui">
-    <img src="https://img.shields.io/github/package-json/v/epicmaxco/vuestic-ui" alt="Version">
+    <img src="https://img.shields.io/github/package-json/v/epicmaxco/vuestic-ui?filename=packages%2Fui%2Fpackage.json" alt="Version">
   </a>
 </p>
 

@@ -244,10 +244,12 @@ export default class VaPagination extends mixins(
 </script>
 
 <style lang='scss'>
-@import "../../styles/resources/resources";
+@import "../../styles/resources";
 @import 'variables';
 
 .va-pagination {
+  font-family: var(--va-font-family);
+
   &__input {
     border-style: var(--va-pagination-input-border-style);
     border-width: var(--va-pagination-input-border-width);
@@ -270,6 +272,14 @@ export default class VaPagination extends mixins(
     }
 
     &--ellipsis > .va-button__content {
+      opacity: 0.4;
+    }
+
+    &--outline.va-button--disabled {
+      opacity: 1;
+    }
+
+    &--outline.va-button--disabled > .va-button__content {
       opacity: 0.4;
     }
   }

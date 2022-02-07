@@ -15,8 +15,6 @@ import './vue-book-overrides.scss'
 import { createIconsConfig, VuesticPlugin } from '../main'
 import { colorsPresets } from '../services/color-config/color-theme-presets'
 
-console.log(`Version: ${VERSION}, ${TIMESTAMP}, commit: ${COMMIT}`)
-
 // @ts-ignore
 const app = createApp(App)
 

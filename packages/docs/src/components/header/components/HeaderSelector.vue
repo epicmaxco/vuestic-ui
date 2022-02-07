@@ -17,8 +17,8 @@
 
 <script lang="ts">
 
-import VaIconMenu from '../../../iconset/VaIconMenu.vue'
-import VaIconMenuCollapsed from '../../../iconset/VaIconMenuCollapsed.vue'
+import VaIconMenu from '../../iconset/VaIconMenu.vue'
+import VaIconMenuCollapsed from '../../iconset/VaIconMenuCollapsed.vue'
 import { getColors } from '../../../../../ui/src/main'
 
 export default {
@@ -43,7 +43,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~vuestic-ui/src/styles/resources/resources';
+@import '~vuestic-ui/src/styles/resources';
 
 .i-nav {
   display: inline-block;

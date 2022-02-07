@@ -92,7 +92,7 @@ export default class VaCard extends mixins(
 </script>
 
 <style lang="scss">
-@import '../../styles/resources/resources';
+@import '../../styles/resources';
 @import 'variables';
 
 .va-card {
@@ -103,9 +103,11 @@ export default class VaCard extends mixins(
   border-radius: var(--va-card-border-radius, var(--va-block-border-radius));
   color: var(--va-card-color);
   background-color: var(--va-card-background-color);
+  font-family: var(--va-font-family);
 
   &__inner {
     width: 100%;
+    height: 100%;
   }
 
   &--dark {

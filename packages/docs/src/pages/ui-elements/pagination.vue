@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component'
 import DocsContent from '../../components/DocsContent.vue'
-import paginationConfig from '../../components/page-configs/ui-elements/va-pagination/page-config'
+import paginationConfig from '../../page-configs/ui-elements/pagination/page-config'
 
 @Options({
   name: 'DocsPagination',

@@ -16,17 +16,23 @@
       </va-button>
       <va-content v-if="showCode || exampleOptions.forceShowCode">
         <DocsNavigation
-          :code="parsed.template"
-          :git-url="file"
+          :code="componentTemplate"
+          :config="exampleOptions.codesandboxConfig"
+          :git-url="path"
+          :git-component="file"
         />
         <DocsCode
           language="markup"
           :code="parsed.template"
-          :class="[parsed.script ? 'docs-example__code--with-margin' : '']"
         />
         <DocsCode
           v-if="parsed.script"
           :code="parsed.script"
+          language="markup"
+        />
+        <DocsCode
+          v-if="parsed.style"
+          :code="parsed.style"
           language="markup"
         />
       </va-content>
@@ -40,7 +46,7 @@
 import { ref, reactive, computed, shallowRef } from 'vue'
 import DocsCode from './DocsCode'
 import DocsNavigation from './DocsNavigation'
-import { readComponent, readTemplate } from '../utilities/utils'
+import { readComponent, readTemplate } from '../helpers/ReadHelper'
 
 export default {
   name: 'DocsExample',
@@ -48,6 +54,10 @@ export default {
   props: {
     value: {
       type: [Object, String],
+      default: undefined,
+    },
+    path: {
+      type: String,
       default: undefined,
     },
     exampleOptions: {
@@ -69,17 +79,19 @@ export default {
 
       return props.value
     })
+    const path = ref(props.path)
     const component = shallowRef(null)
+    const componentTemplate = shallowRef(null)
 
     importComponent()
     importTemplate()
 
     async function importComponent () {
-      component.value = (await readComponent(file.value)).default
+      component.value = (await readComponent(path.value, file.value)).default
     }
     async function importTemplate () {
-      const componentTemplate = (await readTemplate(file.value)).default
-      parse(componentTemplate)
+      componentTemplate.value = (await readTemplate(path.value, file.value)).default
+      parse(componentTemplate.value)
     }
     function parse (res) {
       parsed.template = parseTemplate('template', res)
@@ -97,6 +109,7 @@ export default {
       showCode,
       parsed,
       component,
+      componentTemplate,
       file,
     }
   },
@@ -105,12 +118,6 @@ export default {
 
 <style lang="scss">
 .docs-example {
-  &__code {
-    &--with-margin {
-      margin-bottom: 0.2rem !important;
-    }
-  }
-
   &__show-code-button {
     .va-button {
       &__content {

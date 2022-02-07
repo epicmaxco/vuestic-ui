@@ -29,12 +29,13 @@ export default class VaList extends mixins(
 </script>
 
 <style lang="scss">
-@import "../../styles/resources/resources";
+@import "../../styles/resources";
 @import 'variables';
 
 .va-list {
   padding: var(--va-list-padding);
   width: var(--va-list-width);
+  font-family: var(--va-font-family);
 
   &--fit {
     width: fit-content;

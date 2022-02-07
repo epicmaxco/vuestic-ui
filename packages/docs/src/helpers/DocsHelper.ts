@@ -4,97 +4,142 @@ import {
   BlockType,
   ApiDocsBlock,
   TextBlock,
-  PathToExample,
   CodeString,
   LinkOptions,
   ExampleOptions, CodeLanguage, ListBlock,
 } from '../types/configTypes'
 import { DefineComponent } from 'vue'
 import { VueConstructor } from 'vue-class-component'
-import { TableData, TableColumn } from './../components/DocsTable/DocsTable'
+import { TableData, TableColumn } from './../components/DocsTable/DocsTableTypes'
 
-export const DocsHelper = {
-  title: (translationString: TranslationString): TextBlock => {
+export const getOptimizedPathFromPath = (path: string): string => {
+  /**
+   * work's example:
+   * 'src\page-configs\ui-elements\component-name' --> 'component-name'
+   * why:
+   * it is only a guess that the path written through the relative operator "../"
+   * works differently in unix and windows and for fully identical operation
+   * in webpack we have to pass a more specific path as specified in the documentation
+   * https://webpack.js.org/api/module-methods/#dynamic-expressions-in-import
+   * TODO: To remove this hack, we need to pass the name of the folder from which the webpack should import in each case instead of path
+   **/
+
+  return path.match(/.*?page-configs[\\/](.*)$/)?.[1].replace(/\\/g, '/') || ''
+}
+
+export class PageGenerationHelper {
+  path: string
+
+/*
+  The path to the page directory with the page-config.
+  Example: for '@/page-configs/ui-elements/affix/.' it will be 'ui-elements/affix'
+  which is similar with the documentation url: 'https://www.vuestic.dev/en/ui-elements/affix'
+  and NUXT pages folder '@/pages/ui-elements/affix' for this page.
+*/
+  constructor (path: string) {
+    // this.path = path.replace('src/page-configs/', '')
+    this.path = getOptimizedPathFromPath(path)
+  }
+
+  title (translationString: TranslationString): TextBlock {
     return {
       type: BlockType.TITLE,
       translationString,
     }
-  },
-  subtitle: (translationString: TranslationString): TextBlock => {
+  }
+
+  subtitle (translationString: TranslationString): TextBlock {
     return {
       type: BlockType.SUBTITLE,
       translationString,
     }
-  },
-  paragraph: (translationString: TranslationString): TextBlock => {
+  }
+
+  paragraph (translationString: TranslationString): TextBlock {
     return {
       type: BlockType.PARAGRAPH,
       translationString,
     }
-  },
-  headline: (translationString: TranslationString): TextBlock => {
+  }
+
+  headline (translationString: TranslationString): TextBlock {
     return {
       type: BlockType.HEADLINE,
       translationString,
     }
-  },
-  example: (component: PathToExample, exampleOptions: ExampleOptions = {}): ApiDocsBlock => {
+  }
+
+  example (component: string, exampleOptions: ExampleOptions = {}): ApiDocsBlock {
     return {
       type: BlockType.EXAMPLE,
+      path: this.path,
       component,
       exampleOptions: exampleOptions,
     }
-  },
-  code: (code: CodeString, language: CodeLanguage = 'javascript'): ApiDocsBlock => {
+  }
+
+  component (component: string): ApiDocsBlock {
+    return {
+      type: BlockType.COMPONENT,
+      path: this.path,
+      component,
+    }
+  }
+
+  code (code: CodeString, language: CodeLanguage = 'javascript'): ApiDocsBlock {
     return {
       type: BlockType.CODE,
       code,
       language,
     }
-  },
-  api: (componentOptions: DefineComponent<any, any, any, any, any, any, any, any, any, any, any> | VueConstructor, apiOptions: ManualApiOptions): ApiDocsBlock => {
+  }
+
+  api (componentOptions: DefineComponent<any, any, any, any, any, any, any, any, any, any, any> | VueConstructor, apiOptions: ManualApiOptions): ApiDocsBlock {
     return {
       type: BlockType.API,
       componentOptions,
       apiOptions,
     }
-  },
-  table: (columns: TableColumn[], tableData: TableData): ApiDocsBlock => {
+  }
+
+  table (columns: TableColumn[], tableData: TableData): ApiDocsBlock {
     return {
       type: BlockType.TABLE,
       columns,
       tableData,
     }
-  },
-  link: (text: string, href: string, options: LinkOptions = {}): ApiDocsBlock => {
+  }
+
+  link (text: string, href: string, options: LinkOptions = {}): ApiDocsBlock {
     return {
       type: BlockType.LINK,
       text,
       href,
       options,
     }
-  },
-  alert: (translationString: TranslationString, color: string): ApiDocsBlock => {
+  }
+
+  alert (translationString: TranslationString, color: string): ApiDocsBlock {
     return {
       type: BlockType.ALERT,
       translationString,
       color,
     }
-  },
-  list: (translationStringList: TranslationString[]): ListBlock => {
+  }
+
+  list (translationStringList: TranslationString[]): ListBlock {
     return {
       type: BlockType.LIST,
       translationStringList,
     }
-  },
+  }
 
   // ********** Higher level helpers ****************
-
-  exampleBlock: (title: TranslationString, description: TranslationString, example: PathToExample): ApiDocsBlock[] => {
+  exampleBlock (title: TranslationString, description: TranslationString, example: string, exampleOptions: ExampleOptions = {}): ApiDocsBlock[] {
     return [
-      DocsHelper.headline(title),
-      DocsHelper.paragraph(description),
-      DocsHelper.example(example),
+      this.headline(title),
+      this.paragraph(description),
+      this.example(example, exampleOptions),
     ]
-  },
+  }
 }

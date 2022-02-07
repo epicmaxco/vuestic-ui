@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component'
 import DocsContent from '../../components/DocsContent.vue'
-import toastConfig from '../../components/page-configs/ui-elements/va-toast/page-config'
+import toastConfig from '../../page-configs/ui-elements/toast/page-config'
 
 @Options({
   name: 'DocsToast',

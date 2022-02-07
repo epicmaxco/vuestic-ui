@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component'
 import DocsContent from '../../components/DocsContent.vue'
-import affixConfig from '../../components/page-configs/ui-elements/va-affix/page-config'
+import affixConfig from '../../page-configs/ui-elements/affix/page-config'
 
 @Options({
   name: 'DocsAffix',

@@ -206,11 +206,12 @@ export default class VaRating extends mixins(
 </script>
 
 <style lang="scss">
-@import "../../styles/resources/resources";
+@import "../../styles/resources";
 @import 'variables';
 
 .va-rating {
   display: var(--va-rating-display);
+  font-family: var(--va-font-family);
 
   &__number-item {
     @include normalize-button();

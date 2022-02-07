@@ -11,6 +11,7 @@
         v-if="showPagination"
         :disabled="disablePaginationLeft"
         class="va-tabs__pagination"
+        :color="color"
         flat
         size="medium"
         :icon="$props.prevIcon"
@@ -32,16 +33,20 @@
           >
             <div class="va-tabs__slider" />
           </div>
-          <slot
-            name="tabs"
-            class="va-tabs__tabs-items"
-          />
+
+          <va-config :components="context.tabConfig">
+            <slot
+              name="tabs"
+              class="va-tabs__tabs-items"
+            />
+          </va-config>
         </div>
       </div>
       <va-button
         v-if="showPagination"
         :disabled="disablePaginationRight"
         class="va-tabs__pagination"
+        :color="color"
         flat
         size="medium"
         :icon="$props.nextIcon"
@@ -55,7 +60,7 @@
 </template>
 
 <script lang="ts">
-import { provide, watch, ref } from 'vue'
+import { provide, watch, ref, reactive } from 'vue'
 import { Options, Vue, prop, mixins, setup } from 'vue-class-component'
 
 import { Ref } from '../../utils/decorators'
@@ -86,12 +91,10 @@ export class TabsService {
   }
 
   tabClick (tab: VaTab) {
-    console.log(1)
     this.parent.selectTab(tab)
   }
 
   tabFocus (tab: VaTab) {
-    console.log(2)
     this.parent.moveToTab(tab)
   }
 
@@ -121,6 +124,7 @@ export const TabsServiceKey = Symbol('TabsService')
 @Options({
   name: 'VaTabs',
   components: { VaButton },
+  emits: ['update:modelValue', 'click:next', 'click:prev'],
 })
 export default class VaTabs extends mixins(
   ColorMixin,
@@ -144,10 +148,17 @@ export default class VaTabs extends mixins(
   context = setup(() => {
     const tabsService = ref<TabsService | null>(null)
 
+    const tabConfig = reactive({
+      VaTab: {
+        color: this.color,
+      },
+    })
+
     provide(TabsServiceKey, tabsService)
 
     return {
       tabsService,
+      tabConfig,
     }
   })
 
@@ -192,7 +203,7 @@ export default class VaTabs extends mixins(
 
   get sliderStyles () {
     if (this.$props.hideSlider) {
-      return {}
+      return { display: 'none' }
     }
     const transition = this.animationIncluded ? 'var(--va-tabs-slider-wrapper-transition)' : ''
     if (this.$props.vertical) {
@@ -285,6 +296,8 @@ export default class VaTabs extends mixins(
     }
 
     this.tabsContentOffset = Math.max(0, offsetToSet)
+
+    this.$emit('click:prev')
   }
 
   movePaginationRight () {
@@ -307,6 +320,8 @@ export default class VaTabs extends mixins(
 
     offsetToSet = Math.min(maxOffset, offsetToSet)
     this.tabsContentOffset = Math.max(0, offsetToSet)
+
+    this.$emit('click:next')
   }
 
   moveToTab (tab: VaTab) {
@@ -321,7 +336,8 @@ export default class VaTabs extends mixins(
 
   updateSlider (tab: VaTab) {
     if (this.$props.vertical) {
-      this.sliderOffsetY = (this.containerRef.clientHeight - tab.$el.offsetTop - tab.$el.clientHeight)
+      const sliderOffsetY = this.containerRef.clientHeight - tab.$el.offsetTop - tab.$el.clientHeight
+      this.sliderOffsetY = Math.max(sliderOffsetY, 0)
       this.sliderHeight = tab.$el.clientHeight
       this.sliderOffsetX = 0
       this.sliderWidth = null
@@ -390,11 +406,12 @@ export default class VaTabs extends mixins(
 </script>
 
 <style lang="scss">
-@import "../../styles/resources/resources";
+@import "../../styles/resources";
 @import 'variables';
 
 .va-tabs {
   position: var(--va-tabs-position);
+  font-family: var(--va-font-family);
 
   &__wrapper {
     overflow: hidden;

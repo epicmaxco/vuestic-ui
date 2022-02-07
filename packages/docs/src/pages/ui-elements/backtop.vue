@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component'
 import DocsContent from '../../components/DocsContent.vue'
-import backtopConfig from '../../components/page-configs/ui-elements/va-backtop/page-config'
+import backtopConfig from '../../page-configs/ui-elements/backtop/page-config'
 
 @Options({
   name: 'DocsBacktop',

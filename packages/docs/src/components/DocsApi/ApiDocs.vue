@@ -31,7 +31,7 @@
                 <MarkdownView :value="apiPropOption.types" />
               </td>
               <td>
-                <MarkdownView :value="apiPropOption.default" />
+                <MarkdownView :value="cleanDefaultValue(apiPropOption.default)" />
               </td>
               <td>{{ apiPropOption.required ? "+" : "" }}</td>
               <td>{{ apiPropOption.version }}</td>
@@ -150,50 +150,58 @@
 </template>
 
 <script lang="ts">
-import {
-  Options,
-  Vue,
-  prop,
-  mixins,
-  VueConstructor,
-} from 'vue-class-component'
-import { DefineComponent } from 'vue'
-import { ManualApiOptions } from './ManualApiOptions'
-import ApiDocsPropsRow from './ApiDocsPropsRow.vue'
-import { getApiTableData } from './api-docs-helpers'
-import MarkdownView from '../../utilities/markdown-view/MarkdownView.vue'
-import { defaultApiOptions } from './default-api-options'
-import DocsTable from '../DocsTable/DocsTable.vue'
+import { defineComponent, DefineComponent, PropType, computed } from 'vue'
 import { merge } from 'lodash'
 import { sortObjectByPropNames } from '../../helpers/SortHelper'
+import { ManualApiOptions } from './ManualApiOptions'
+import { getApiTableData } from './api-docs-helpers'
+import { defaultApiOptions } from './default-api-options'
+import MarkdownView from '../markdown-view/MarkdownView.vue'
+import { VueConstructor } from 'vue-class-component'
 
-class Props {
-  componentOptions = prop<DefineComponent | VueConstructor>({ required: true });
-  apiOptions = prop<ManualApiOptions>({ type: Object, default: () => ({}) });
-}
-
-const PropsMixin = Vue.with(Props)
-
-@Options({
+export default defineComponent({
   name: 'ApiDocs',
-  components: { ApiDocsPropsRow, MarkdownView, DocsTable },
+  components: { MarkdownView },
+  props: {
+    componentOptions: { type: [Object, Function] as PropType<VueConstructor | DefineComponent>, required: true },
+    apiOptions: { type: Object as PropType<ManualApiOptions>, default: () => ({}) },
+  },
+  setup (props) {
+    const apiTableData = computed(() => {
+      const options = merge(props.apiOptions, defaultApiOptions)
+      return getApiTableData(props.componentOptions, options)
+    })
+
+    const isEmpty = (object: Record<string, any>): boolean => !Object.keys(object).length
+
+    const cleanDefaultValue = (o: Record<string, any> | string) => {
+      const str: string = o.toString()
+
+      const defaultFnStartRegex = /function _default\(\) \{\n\s*return\s*/
+
+      if (defaultFnStartRegex.test(str)) {
+        const defaultFnEndRegex = /\s*}$/
+
+        return str
+          .replace(defaultFnStartRegex, '')
+          .replace(defaultFnEndRegex, '')
+      }
+
+      return str
+    }
+
+    return {
+      apiTableData,
+      isEmpty,
+      cleanDefaultValue,
+      sortObject: sortObjectByPropNames,
+    }
+  },
 })
-export default class ApiDocs extends mixins(PropsMixin) {
-  get apiTableData () {
-    const options = merge(this.apiOptions, defaultApiOptions)
-    return getApiTableData(this.componentOptions, options)
-  }
-
-  sortObject = sortObjectByPropNames;
-
-  isEmpty (object: Record<string, any>): boolean {
-    return !Object.keys(object).length
-  }
-}
 </script>
 
 <style lang="scss">
-@import "~vuestic-ui/src/styles/resources/resources";
+@import "~vuestic-ui/src/styles/resources";
 
 .ApiDocs {
   &__table-wrapper {

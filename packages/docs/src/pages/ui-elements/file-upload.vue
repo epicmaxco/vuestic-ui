@@ -6,7 +6,7 @@
 import { Vue, Options } from 'vue-class-component'
 import DocsContent from '../../components/DocsContent.vue'
 import fileUploadConfig
-  from '../../components/page-configs/ui-elements/va-file-upload/page-config'
+  from '../../page-configs/ui-elements/file-upload/page-config'
 
 @Options({
   name: 'DocsFileUpload',

@@ -16,7 +16,7 @@
 
 @mixin va-header-margin($element) {
   margin-top: map_get($display-margins, $element);
-  margin-bottom: map_get($display-margins, $element) / 2;
+  margin-bottom: map_get($display-margins, $element) * 0.5;
 }
 
 @mixin va-display($element) {
@@ -133,51 +133,6 @@
 
   &--clickable {
     td {
-      cursor: pointer;
-    }
-  }
-}
-
-@mixin ag-theme-vuestic {
-  .ag-header-cell-label,
-  .ag-cell {
-    text-align: left;
-    padding: 0.625rem;
-  }
-
-  .ag-header-cell-label {
-    @include va-title();
-
-    color: $vue-darkest-blue;
-    border-bottom: 2px solid $vue-darkest-blue;
-  }
-
-  .ag-cell {
-    vertical-align: top;
-  }
-
-  &--striped {
-    .ag-row {
-      &:nth-child(even) {
-        .ag-cell {
-          background-color: $light-gray3;
-        }
-      }
-    }
-  }
-
-  &--hoverable {
-    .ag-row {
-      &:hover {
-        .ag-cell {
-          background-color: $light-gray2;
-        }
-      }
-    }
-  }
-
-  &--clickable {
-    .ag-cell {
       cursor: pointer;
     }
   }

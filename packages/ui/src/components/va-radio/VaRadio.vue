@@ -133,7 +133,7 @@ export default class VaRadio extends mixins(
 </script>
 
 <style lang="scss">
-@import '../../styles/resources/resources';
+@import '../../styles/resources';
 @import 'variables';
 
 .va-radio {
@@ -145,6 +145,7 @@ export default class VaRadio extends mixins(
   margin-top: var(--va-radio-margin-top);
   margin-right: var(--va-radio-margin-right);
   transition: var(--va-radio-transition, var(--va-swing-transition));
+  font-family: var(--va-font-family);
 
   & + & {
     margin-top: 0.5rem;

@@ -1,21 +1,23 @@
-import { ApiDocsBlock } from '../../../../types/configTypes'
-import { DocsHelper } from '../../../../helpers/DocsHelper'
+import { ApiDocsBlock } from '@/types/configTypes'
+import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import Va{{properCase name}} from 'vuestic-ui/src/components/va-{{kebabCase name}}/Va{{properCase name}}.vue'
 import apiOptions from './api-options'
 
-const config: ApiDocsBlock[] = [
-  DocsHelper.title('{{camelCase name}}.title'),
+const block = new PageGenerationHelper(__dirname)
 
-  DocsHelper.subtitle('all.examples'),
+const config: ApiDocsBlock[] = [
+  block.title('{{camelCase name}}.title'),
+
+  block.subtitle('all.examples'),
 
   // examples
-  // ...DocsHelper.exampleBlock(
+  // ...block.exampleBlock(
   //   '{{camelCase name}}.examples.yourExample.title',
   //   '{{camelCase name}}.examples.yourExample.text',
-  //   'va-{{kebabCase name}}/Example',
+  //   'Example',
   // ),
 
-  DocsHelper.api(Va{{properCase name}}, apiOptions),
+  block.api(Va{{properCase name}}, apiOptions),
 ]
 
 export default config

@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component'
 import DocsContent from '../../components/DocsContent.vue'
-import gridConfig from '../../components/page-configs/styles/grid/page-config'
+import gridConfig from '../../page-configs/styles/grid/page-config'
 
 @Options({
   name: 'DocsStylesGrid',

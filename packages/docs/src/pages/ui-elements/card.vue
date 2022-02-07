@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component'
 import DocsContent from '../../components/DocsContent.vue'
-import cardConfig from '../../components/page-configs/ui-elements/va-card/page-config'
+import cardConfig from '../../page-configs/ui-elements/card/page-config'
 
 @Options({
   name: 'DocsCard',

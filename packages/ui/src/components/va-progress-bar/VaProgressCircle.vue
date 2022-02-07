@@ -99,11 +99,12 @@ export default class VaProgressCircle extends mixins(
 </script>
 
 <style lang="scss">
-@import "../../styles/resources/resources";
+@import "../../styles/resources";
 
 .va-progress-circle {
   position: var(--va-progress-circle-position);
   overflow: var(--va-progress-circle-overflow); // Prevents resizing container back and forth.
+  font-family: var(--va-font-family);
 
   &__wrapper {
     position: var(--va-progress-circle-wrapper-position);

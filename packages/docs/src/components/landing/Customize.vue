@@ -621,6 +621,8 @@ export default class Customize extends Vue {
 }
 
 .tabs {
+  color: #ffffff88;
+
   &__tab {
     @include button-font();
 

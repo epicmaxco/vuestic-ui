@@ -1,4 +1,4 @@
-import { PropType, computed } from 'vue'
+import { PropType, computed, Ref, unref } from 'vue'
 import { getColor } from '../services/color-config/color-config'
 
 /**
@@ -22,7 +22,7 @@ export function useColor (props: any) {
     return theme.getColor(props.color)
   })
 
-  const computeColor = (prop: string, defaultColor?: string) => {
+  const computeColor = (prop?: string, defaultColor?: string) => {
     return theme.getColor(prop, defaultColor)
   }
 
@@ -33,3 +33,5 @@ export function useColor (props: any) {
     computeColor,
   }
 }
+
+export { useColors } from '../services/color-config/color-config'

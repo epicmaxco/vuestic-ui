@@ -2,6 +2,7 @@
   <form id="search-form">
     <va-input
       id="algolia-search-input"
+      class="search-input"
       v-model="value"
       placeholder="Search..."
       @focus="onFocusHandler('dark', 'block')"
@@ -85,11 +86,10 @@ export default class Search extends Vue {
     transition: background-color, 0.2s;
   }
 
-  #algolia-search-input {
-    display: block;
+  .search-input {
+    display: flex;
     background: none;
     border: none;
-    font-family: Source Sans Pro;
     font-size: 100%;
     width: 100%;
     padding-left: 0.2rem;

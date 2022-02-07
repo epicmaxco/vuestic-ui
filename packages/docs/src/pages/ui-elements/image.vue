@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component'
 import DocsContent from '../../components/DocsContent.vue'
-import imageConfig from '../../components/page-configs/ui-elements/va-image/page-config'
+import imageConfig from '../../page-configs/ui-elements/image/page-config'
 
 @Options({
   name: 'DocsImage',

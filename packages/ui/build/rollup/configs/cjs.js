@@ -7,6 +7,7 @@ import { nodeResolve as nodeResolvePlugin } from '@rollup/plugin-node-resolve'
 import typescriptDeclarationPlugin from '../plugins/rollup-typescript-declaration'
 import { terserPlugin } from '../plugins/rollup-teaser-preset'
 import { dependencies, peerDependencies } from '../utils'
+import postcssImport from '../postcss-plugins/postcss-import'
 
 /** Used for SSR builds */
 export function createCJSConfig ({ input, outDir = 'dist/', minify = false, declaration = false, ssr = true, sourcemap = false }) {
@@ -29,7 +30,9 @@ export function createCJSConfig ({ input, outDir = 'dist/', minify = false, decl
       vuePlugin({ target: ssr ? 'node' : 'browser', template: { optimizeSSR: ssr }, compileTemplate: true, preprocessStyles: true }),
       commonjsPlugin(),
       nodeResolvePlugin({ browser: !ssr }),
-      postcssPlugin(),
+      postcssPlugin({
+        plugins: [postcssImport()],
+      }),
     ],
   })
 

@@ -238,18 +238,19 @@ export default {
 </script>
 
 <style lang="scss">
-@import "../../../styles/resources/resources";
+@import "../../../styles/resources";
 
 .q-popover {
   position: fixed;
   box-shadow: 0 4px 9.6px 0.4px rgba(74, 227, 135, 0.5);
   border-radius: var(--va-border-radius-square-x-sm);
   background: white;
-  z-index: 8000;
+  z-index: var(--va-z-index-teleport-overlay);
   overflow-y: auto;
   overflow-x: hidden;
   max-width: 100vw;
   outline: 0;
+  font-family: var(--va-font-family);
 
   > .q-list:only-child {
     border: none;

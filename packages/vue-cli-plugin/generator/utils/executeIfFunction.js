@@ -1,0 +1,1 @@
+module.exports = (fn, ...args) => typeof fn !== "function" ? fn : fn(...args)
