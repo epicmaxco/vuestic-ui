@@ -144,7 +144,7 @@ export default {
 
 <style>
 .frame {
-  border-radius: var(--va-border-radius-md);
+  border-radius: 1rem;
   background: #2c2c2c;
   padding: 3rem 0.5rem;
   display: block;
