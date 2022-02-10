@@ -142,14 +142,15 @@
     </VbCard>
 
     <VbCard title="Anchor width">
-      <va-dropdown keep-anchor-width>
+      <va-dropdown :keep-anchor-width="keepAnchorWidth">
         <template #anchor>
           <button>
-            ------- Anchor ------
+            --- Anchor ---
           </button>
         </template>
         Same width as anchor
       </va-dropdown>
+      <input type="checkbox" v-model="keepAnchorWidth" />
     </VbCard>
 
     <VbCard title="Anchor width with v-model true by default">
@@ -302,12 +303,89 @@
           </template>
           <span style="background-color: #222222; color: #babfc2;">Content</span>
         </va-dropdown>
-        <va-dropdown :offset="[40, 40]">
+        <va-dropdown :offset="[40, 200]">
           <template #anchor>
             <button
               style="width: 70px; height: 70px;"
             >
-              [40, 40]
+              [40, 200]
+            </button>
+          </template>
+          <span style="background-color: #222222; color: #babfc2;">Content</span>
+        </va-dropdown>
+
+        <va-dropdown position="left" :offset="[0, 40]">
+          <template #anchor>
+            <button
+              style="width: 70px; height: 70px;"
+            >
+              Left [0, 40]
+            </button>
+          </template>
+          <span style="background-color: #222222; color: #babfc2;">Content</span>
+        </va-dropdown>
+
+        <va-dropdown position="left" :offset="[40, 40]">
+          <template #anchor>
+            <button
+              style="width: 70px; height: 70px;"
+            >
+              Left [40, 40]
+            </button>
+          </template>
+          <span style="background-color: #222222; color: #babfc2;">Content</span>
+        </va-dropdown>
+
+        <va-dropdown position="right" :offset="[0, 40]">
+          <template #anchor>
+            <button
+              style="width: 70px; height: 70px;"
+            >
+              Right [0, 40]
+            </button>
+          </template>
+          <span style="background-color: #222222; color: #babfc2;">Content</span>
+        </va-dropdown>
+
+        <va-dropdown position="right" :offset="[40, 40]">
+          <template #anchor>
+            <button
+              style="width: 70px; height: 70px;"
+            >
+              Right [40, 40]
+            </button>
+          </template>
+          <span style="background-color: #222222; color: #babfc2;">Content</span>
+        </va-dropdown>
+
+        <va-dropdown position="top" :offset="[40, 200]">
+          <template #anchor>
+            <button
+              style="width: 70px; height: 70px;"
+            >
+              Top [40, 200]
+            </button>
+          </template>
+          <span style="background-color: #222222; color: #babfc2;">Content</span>
+        </va-dropdown>
+
+        <va-dropdown position="bottom-end" :offset="[0, 200]">
+          <template #anchor>
+            <button
+              style="width: 70px; height: 70px;"
+            >
+              Bottom-end [0, 200]
+            </button>
+          </template>
+          <span style="background-color: #222222; color: #babfc2;">Content</span>
+        </va-dropdown>
+
+        <va-dropdown position="bottom-start" :offset="[0, 200]">
+          <template #anchor>
+            <button
+              style="width: 70px; height: 70px;"
+            >
+              Bottom-start [0, 200]
             </button>
           </template>
           <span style="background-color: #222222; color: #babfc2;">Content</span>
@@ -359,6 +437,8 @@ export default {
         'left',
         'bottom-start',
         'bottom-end',
+        'right-start',
+        'right-end',
         'left-start',
         'left-end',
       ],
@@ -367,6 +447,7 @@ export default {
       logEvents: false,
       redrawContentSize: 100,
       anchorDefaultValue: true,
+      keepAnchorWidth: true,
     }
   },
 }

@@ -1,114 +1,188 @@
-import { computed, Ref, watch } from 'vue'
+import { onBeforeUnmount, onMounted, Ref, unref, watch } from 'vue'
 import { useDomRect } from './useDomRect'
+import { mapObject } from '../utils/map-object'
 
-type PositionKeys = 'top' | 'bottom' | 'left' | 'right' | 'auto'
+type PlacementPosition = 'top' | 'bottom' | 'left' | 'right'
+type PlacementAlignment = 'start' | 'end' | 'center'
+type Placement = PlacementPosition | 'auto' | `${PlacementPosition}-${PlacementAlignment}`
+type Offset = number | [number, number]
+type Coords = { top: number, left: number }
+type NormalizedOffset = { main: number, cross: number }
 
-const getPlacementHorizontalAlignment = (anchor: DOMRect, content: DOMRect, placement?: 'start' | 'end' | 'center' | string) => {
-  if (placement === 'start') {
-    return {
-      left: anchor.left,
-    }
-  } else if (placement === 'end') {
-    return {
-      right: window.innerWidth - anchor.right,
-    }
-  } else {
-    return {
-      left: anchor.left + anchor.width / 2,
-      transform: 'translateX(-50%)',
-    }
+const normalizedOffset = (offset: Offset): NormalizedOffset => {
+  if (Array.isArray(offset)) {
+    return { main: offset[0], cross: offset[1] }
+  }
+
+  return { main: offset, cross: 0 }
+}
+
+const normalizedPlacement = (placement: Placement) => {
+  const [position, align] = placement.split('-') as [PlacementPosition, PlacementAlignment | undefined]
+
+  return {
+    position, align: align || 'center',
   }
 }
 
-const getPlacementVerticalAlignment = (anchor: DOMRect, content: DOMRect, placement?: 'start' | 'end' | 'center' | string) => {
-  if (placement === 'start') {
-    return {
-      top: anchor.top,
+const clampToEdges = (placement: Placement, { top, bottom, left, right }: {
+  top?: number | undefined,
+  bottom?: number | undefined,
+  left?: number | undefined,
+  right?: number | undefined
+}, anchorRect: DOMRect, contentRect: DOMRect) => {
+  const { position } = normalizedPlacement(placement)
+
+  if (position === 'bottom' || position === 'top') {
+    if (left && left < 0) {
+      return { top, bottom, left: Math.min(anchorRect.right - contentRect.width, 0) }
     }
-  } else if (placement === 'end') {
-    return {
-      bottom: window.innerHeight - anchor.bottom,
+
+    if (left && left + contentRect.width > window.innerWidth) {
+      return { top, bottom, right: Math.min(window.innerWidth - anchorRect.left - contentRect.width, 0) }
     }
-  } else {
-    return {
-      top: anchor.top + anchor.height / 2,
-      transform: 'translateY(-50%)',
+
+    if (right && right < 0) {
+      return { top, bottom, right: Math.min(window.innerWidth - anchorRect.left - contentRect.width, 0) }
     }
+
+    if (right && right + contentRect.width > window.innerWidth) {
+      return { top, bottom, left: Math.min(anchorRect.right - contentRect.width, 0) }
+    }
+  }
+
+  if (position === 'right' || position === 'left') {
+    if (top && top < 0) {
+      return { left, right, top: Math.min(anchorRect.bottom - contentRect.height, 0) }
+    }
+
+    if (top && top + contentRect.height > window.innerHeight) {
+      return { left, right, bottom: Math.min(window.innerHeight - anchorRect.top - contentRect.height, 0) }
+    }
+
+    if (bottom && bottom < 0) {
+      return { left, right, bottom: Math.min(window.innerHeight - anchorRect.top - contentRect.height, 0) }
+    }
+
+    if (bottom && bottom + contentRect.height > window.innerHeight) {
+      return { left, right, top: Math.min(anchorRect.bottom - contentRect.height, 0) }
+    }
+  }
+
+  return { top, bottom, right, left }
+}
+
+const calculateOverflow = (anchorRect: DOMRect, contentRect: DOMRect, offsetCoords: Coords = { top: 0, left: 0 }) => {
+  return {
+    top: -(anchorRect.top - offsetCoords.top - contentRect.height),
+    left: -(anchorRect.left - offsetCoords.left - contentRect.width),
+    right: (anchorRect.right + offsetCoords.left + contentRect.width) - window.innerWidth,
+    bottom: (anchorRect.bottom + offsetCoords.top + contentRect.height) - window.innerHeight,
   }
 }
 
-const getAutoPlacement = (placement: PositionKeys, anchorRect: DOMRect, contentRect: DOMRect) => {
-  if (anchorRect.top - contentRect.height <= 0) {
-    return getPlacement('bottom', anchorRect, contentRect)
-  }
-
-  if (anchorRect.bottom + contentRect.height > window.innerHeight) {
-    return getPlacement('top', anchorRect, contentRect)
-  }
-
-  if (anchorRect.left - contentRect.width <= 0) {
-    return getPlacement('right', anchorRect, contentRect)
-  }
-
-  if (anchorRect.right + contentRect.width > window.innerWidth) {
-    return getPlacement('left', anchorRect, contentRect)
-  }
-
-  return getPlacement(placement === 'auto' ? 'bottom' : placement, anchorRect, contentRect)
+const detectOverflow = (anchorRect: DOMRect, contentRect: DOMRect, offsetCoords: Coords = { top: 0, left: 0 }) => {
+  return mapObject(calculateOverflow(anchorRect, contentRect, offsetCoords), (overflow) => overflow >= 0)
 }
 
-const getPlacement = (placement: PositionKeys, anchorRect: DOMRect, contentRect: DOMRect): {
-  transform?: string
-  left?: string | number,
-  top?: string | number,
-  right?: string | number,
-  bottom?: string | number,
+const calculateOffsetCords = (placement: Placement, offset: Offset) => {
+  const { position } = normalizedPlacement(placement)
+
+  const { main, cross } = normalizedOffset(offset)
+
+  if (position === 'top') {
+    return { top: -main, left: cross, bottom: 0, right: cross }
+  }
+
+  if (position === 'right') {
+    return { top: cross, left: main, bottom: cross, right: 0 }
+  }
+
+  if (position === 'left') {
+    return { top: cross, left: -main, bottom: cross, right: 0 }
+  }
+
+  return { top: main, left: cross, bottom: 0, right: cross }
+}
+
+const calculateHorizontalCoords = (align: PlacementAlignment, anchor: DOMRect, content: DOMRect) => {
+  if (align === 'start') { return { left: anchor.left } }
+
+  if (align === 'end') { return { right: window.innerWidth - anchor.right } }
+
+  return { left: anchor.left + anchor.width / 2 - content.width / 2 }
+}
+
+const calculateVerticalCoords = (align: PlacementAlignment, anchor: DOMRect, content: DOMRect) => {
+  if (align === 'start') { return { top: anchor.top } }
+
+  if (align === 'end') { return { bottom: window.innerHeight - anchor.bottom } }
+
+  return { top: anchor.top + anchor.height / 2 - content.height / 2 }
+}
+
+const calculateCoords = (placement: Placement, anchor: DOMRect, content: DOMRect): {
+  left?: number,
+  top?: number,
+  right?: number,
+  bottom?: number,
 } => {
-  const [position, alignment] = placement.split('-')
+  const { position, align } = normalizedPlacement(placement)
 
-  if (position === 'bottom') {
+  if (position === 'top') {
     return {
-      ...getPlacementHorizontalAlignment(anchorRect, contentRect, alignment),
-      top: anchorRect.bottom,
+      ...calculateHorizontalCoords(align, anchor, content),
+      top: anchor.top - content.height,
     }
-  } else if (position === 'top') {
+  }
+  if (position === 'left') {
     return {
-      ...getPlacementHorizontalAlignment(anchorRect, contentRect, alignment),
-      top: anchorRect.top - contentRect.height,
+      ...calculateVerticalCoords(align, anchor, content),
+      left: anchor.left - content.width,
     }
-  } else if (position === 'left') {
+  }
+  if (position === 'right') {
     return {
-      ...getPlacementVerticalAlignment(anchorRect, contentRect, alignment),
-      left: anchorRect.left - contentRect.width,
-    }
-  } else if (position === 'right') {
-    return {
-      ...getPlacementVerticalAlignment(anchorRect, contentRect, alignment),
-      left: anchorRect.right,
+      ...calculateVerticalCoords(align, anchor, content),
+      left: anchor.right,
     }
   }
 
-  return getAutoPlacement(placement, anchorRect, contentRect)
+  // if position === 'bottom'
+  return {
+    ...calculateHorizontalCoords(align, anchor, content),
+    top: anchor.bottom,
+  }
 }
 
-const getPlacementCSS = (placement: PositionKeys, anchorRect: DOMRect, contentRect: DOMRect) => {
-  const css = getPlacement(placement, anchorRect, contentRect)
+const getAutoPlacement = (placement: Placement, anchorRect: DOMRect, contentRect: DOMRect, offset: Offset): Placement => {
+  const offsetCords = calculateOffsetCords(placement, offset)
+  const { top, bottom, left, right } = detectOverflow(anchorRect, contentRect, offsetCords)
+  const { position, align } = normalizedPlacement(placement)
 
-  css.top += 'px'
-  css.left += 'px'
-  css.right += 'px'
-  css.bottom += 'px'
+  if (top && position === 'top') { return ['bottom', align].join('-') as Placement }
+  if (bottom && position === 'bottom') { return ['top', align].join('-') as Placement }
+  if (right && position === 'right') { return ['left', align].join('-') as Placement }
+  if (left && position === 'left') { return ['right', align].join('-') as Placement }
 
-  return css
+  return placement
 }
 
+type usePopoverOptions = {
+  keepAnchorWidth?: boolean,
+  autoPlacement?: boolean,
+  stickToEdges?: boolean,
+  placement: Placement,
+  offset?: Offset
+}
+
+/**
+ * @param options make options reactive if you want popover to react on options change.
+ */
 export const usePopover = (
   anchorRef: Ref<HTMLElement | null | undefined>,
   contentRef: Ref<HTMLElement | null | undefined>,
-  options: {
-    keepAnchorWidth?: boolean,
-    placement: PositionKeys
-  },
+  options: usePopoverOptions | Ref<usePopoverOptions>,
 ) => {
   const { domRect: anchorDomRect } = useDomRect(anchorRef)
   const { domRect: contentDomRect } = useDomRect(contentRef)
@@ -116,12 +190,37 @@ export const usePopover = (
   const updateContentCSS = () => {
     if (!anchorDomRect.value || !contentDomRect.value) { return }
 
+    let { placement, keepAnchorWidth, offset, autoPlacement, stickToEdges } = unref(options)
+
+    if (autoPlacement) {
+      placement = getAutoPlacement(placement, anchorDomRect.value, contentDomRect.value, offset || 0)
+    }
+
+    let coords = calculateCoords(placement, anchorDomRect.value, contentDomRect.value)
+
+    if (offset) {
+      const offsetCoords = calculateOffsetCords(placement, offset)
+
+      coords = mapObject(coords, (coord, key) => coord + offsetCoords[key as 'top' | 'left' | 'right' | 'bottom'])
+    }
+
+    if (stickToEdges) {
+      coords = clampToEdges(placement, coords, anchorDomRect.value, contentDomRect.value)
+    }
+
+    const coordsCss = mapObject(coords, (c) => c === undefined ? 'unset' : c + 'px')
+
     Object.assign(contentRef.value?.style, {
-      ...getPlacementCSS(options.placement, anchorDomRect.value, contentDomRect.value),
+      top: 'unset',
+      bottom: 'unset',
+      left: 'unset',
+      right: 'unset',
+      width: 'max-content',
       position: 'fixed',
+      ...coordsCss,
     })
 
-    if (options.keepAnchorWidth) {
+    if (keepAnchorWidth) {
       Object.assign(contentRef.value?.style, {
         width: anchorDomRect.value.width + 'px',
         maxWidth: anchorDomRect.value.width + 'px',
@@ -131,6 +230,10 @@ export const usePopover = (
 
   watch(anchorDomRect, updateContentCSS)
   watch(contentDomRect, updateContentCSS)
+  watch(options, updateContentCSS, { deep: true })
+
+  onMounted(() => { window.addEventListener('resize', updateContentCSS) })
+  onBeforeUnmount(() => { window.removeEventListener('resize', updateContentCSS) })
 
   return {
     anchorDomRect,

@@ -53,7 +53,7 @@ export default defineComponent({
     closeOnAnchorClick: { type: Boolean, default: true },
     hoverOverTimeout: { type: Number, default: 30 },
     hoverOutTimeout: { type: Number, default: 200 },
-    offset: { type: [Array, Number] as PropType<number | number[]>, default: () => 0 },
+    offset: { type: [Array, Number] as PropType<number | [number, number]>, default: () => 0 },
     trigger: {
       type: String as PropType<'click' | 'hover' | 'none'>,
       default: 'click',
@@ -61,7 +61,7 @@ export default defineComponent({
     },
   },
 
-  emits: [...useStatefulEmits, 'anchor-click'],
+  emits: [...useStatefulEmits, 'anchor-click', 'dropdown-content-click'],
 
   setup (props, { emit }) {
     const anchorRef = ref()
@@ -73,10 +73,13 @@ export default defineComponent({
       'va-dropdown--disabled': props.disabled,
     }))
 
-    usePopover(anchorRef, contentRef, {
+    usePopover(anchorRef, contentRef, computed(() => ({
       placement: props.position,
       keepAnchorWidth: props.keepAnchorWidth,
-    })
+      offset: props.offset,
+      stickToEdges: true,
+      autoPlacement: true,
+    })))
 
     const { debounced: debounceHover, cancel: cancelHoverDebounce } = useDebounceFn(toRef(props, 'hoverOverTimeout'))
     const onMouseEnter = () => {
