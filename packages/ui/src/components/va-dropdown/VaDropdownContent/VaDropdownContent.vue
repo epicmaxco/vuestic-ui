@@ -24,6 +24,7 @@ export default defineComponent({
       padding: var(--va-dropdown-content-padding);
       box-shadow: var(--va-dropdown-content-box-shadow);
       border-radius: var(--va-dropdown-content-border-radius);
+      font-family: var(--va-font-family);
     }
   }
 </style>
