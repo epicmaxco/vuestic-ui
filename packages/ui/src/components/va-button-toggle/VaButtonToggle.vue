@@ -30,7 +30,6 @@ import { getTextColor, shiftHSLAColor } from '../../services/color-config/color-
 import { useColors } from '../../composables/useColor'
 import VaButton from '../va-button'
 import VaButtonGroup from '../va-button-group'
-import { getColor } from 'src/main'
 
 export default defineComponent({
   name: 'VaButtonToggle',
