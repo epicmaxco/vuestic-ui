@@ -47,6 +47,28 @@
         track-label-visible
         v-model="value"
       />
+      <br>
+      <va-slider
+        v-model="value2"
+        range
+        track-label-visible
+        :track-label="[`>${value2[0]}%`, `<${value2[1]}%`]"
+      />
+      <br>
+      <va-slider class="mt-3"
+        v-model="value2"
+        range
+        color="danger"
+        track-color="warning"
+        track-label-visible
+      >
+        <template #trackLabel="{ value }">
+          <va-chip
+            size="small"
+            color="danger"
+          >{{ value }}</va-chip>
+        </template>
+      </va-slider>
     </VbCard>
     <VbCard
       width="500px"
@@ -491,11 +513,13 @@
 <script>
 import VaSlider from './VaSlider.vue'
 import VaInput from '../va-input/VaInput'
+import VaChip from '../va-chip/VaChip.vue'
 
 export default {
   components: {
     VaInput,
     VaSlider,
+    VaChip,
   },
   data () {
     return {
