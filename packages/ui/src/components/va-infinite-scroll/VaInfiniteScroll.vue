@@ -31,7 +31,7 @@
 
 <script lang="ts">
 import { debounce } from 'lodash-es'
-import { computed, defineComponent, ref, watch } from 'vue'
+import { computed, defineComponent, PropType, ref, watch } from 'vue'
 
 import { sleep } from '../../services/utils'
 import { useColor } from '../../composables/useColor'
@@ -48,7 +48,7 @@ export default defineComponent({
     offset: { type: Number, default: 500 },
     reverse: { type: Boolean, default: false },
     disabled: { type: Boolean, default: false },
-    scrollTarget: { type: [Element, String], default: null },
+    scrollTarget: { type: [String] as PropType<string | Element>, default: null },
     debounce: { type: Number, default: 100 },
     tag: { type: String, default: 'div' },
   },
