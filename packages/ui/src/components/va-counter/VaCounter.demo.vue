@@ -21,6 +21,14 @@
       <va-counter v-model="value" ref="counter" />
       <va-button @click="focusCounter()">Focus (blur after 2 sec)</va-button>
     </VbCard>
+    <VbCard title="Min, max, step">
+      <va-counter
+        v-model="minMaxValue"
+        :min="10"
+        :max="40"
+        :step="4"
+      />
+    </VbCard>
   </VbDemo>
 </template>
 
@@ -38,6 +46,7 @@ export default {
   },
   setup () {
     const value = ref(10)
+    const minMaxValue = ref(15)
     const emptyValue = ref()
     const counter = ref()
 
@@ -47,12 +56,20 @@ export default {
       setTimeout(blurCounter, 2000)
     }
 
+    const logger = (msg, e) => {
+      console.log(msg)
+      e && console.dir(e)
+    }
+
     return {
       value,
       emptyValue,
+      minMaxValue,
 
       counter,
       focusCounter,
+
+      logger,
     }
   },
 }
@@ -65,3 +82,11 @@ export default {
   }
 }
 </style>
+
+@input="logger('--input--')"
+@change="logger('--change--')"
+@keyup="logger('--keyup--')"
+@keypress="logger('--keypress--')"
+@keydown="logger('--keydown--')"
+@focus="logger('--focus--', $event)"
+@blur="logger('--blur--', $event)"

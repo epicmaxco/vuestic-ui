@@ -1,43 +1,4 @@
 :root {
-  --va-counter-color: var(--va-background, #f5f9fb);
-  --va-counter-text-color: var(--va-dark, #262824);
-  --va-counter-scroll-color: var(--va-divided, #e1e9f8);
-  --va-counter-bordered-color: var(--va-divided, #e1e9f8);
-  --va-counter-border-width: 1px;
-  --va-counter-border-radius: 4px;
-  --va-counter-min-height: 36px;
-  --va-counter-cursor: text;
-  --va-message-list-color: var(--va-gray);
-
-  /* Success */
-  --va-counter-success-color: var(--va-success);
-  --va-counter-success-background: #f1f7ee;
-
-  /* Error */
-  --va-counter-error-color: var(--va-danger);
-  --va-counter-error-background: #fdefef;
-
-  /* Content Wrapper */
-  --va-counter-content-horizontal-padding: 12px;
-  --va-counter-content-items-gap: 6px;
-
-  /* Input&Textarea */
-  --va-counter-line-height: 20px;
-  --va-counter-font-size: 1rem;
-  --va-counter-font-weight: normal;
-  --va-counter-font-style: normal;
-  --va-counter-font-stretch: normal;
-  --va-counter-letter-spacing: normal;
-  --va-counter-placeholder-text-color: #bac2bb;
-  --va-counter-disabled-opacity: 0.4;
-
-  /* Label */
-  --va-counter-container-label-max-width: calc(100% - 0.75rem);
-  --va-counter-container-label-color: #4ae387;
-  --va-counter-container-label-font-size: 0.6rem;
-  --va-counter-container-label-letter-spacing: 0.0375rem;
-  --va-counter-container-label-line-height: 1.2;
-  --va-counter-container-label-font-weight: 700;
-  --va-counter-container-label-text-transform: uppercase;
-  --va-counter-container-label-transform-origin: top left;
+  --va-counter-button-padding--inner: 6px;
+  --va-counter-button-padding--outer: 8px;
 }
