@@ -1,23 +1,19 @@
 <template>
   <VaInputWrapper
+    class="va-counter"
     v-bind="fieldListeners"
     :class="$attrs.class"
     :style="$attrs.style"
     :color="color"
     :readonly="readonly"
     :disabled="disabled"
-    :success="success"
-    :messages="messages"
-    :error="computedError"
-    :error-messages="computedErrorMessages"
-    :error-count="errorCount"
+    :messages="$props.messages"
     :label="label"
     :bordered="bordered"
     :outline="outline"
     :focused="isFocused"
-    @click="input && input.focus()"
+    @click="focus()"
   >
-    <!-- Simply proxy slots to VaInputWrapper -->
     <template
       v-for="name in filterSlots"
       :key="name"
@@ -27,30 +23,6 @@
     </template>
 
     <template #icon="slotScope">
-      <va-icon
-        v-if="success"
-        color="success"
-        name="check_circle"
-        size="small"
-      />
-      <va-icon
-        v-if="computedError"
-        color="danger"
-        name="warning"
-        size="small"
-      />
-      <va-icon
-        v-if="canBeCleared"
-        v-bind="clearIconProps"
-        @click.stop="reset()"
-      />
-      <va-icon
-        v-if="loading"
-        :color="color"
-        size="small"
-        name="loop"
-        spin="counter-clockwise"
-      />
       <slot name="icon" v-bind="slotScope" />
     </template>
 
@@ -59,25 +31,25 @@
       class="va-input__content__input"
       ref="input"
       type="number"
-      v-bind="{ ...computedInputAttributes, ...inputEvents }"
+      v-bind="{ ...computedInputAttributes, ...inputListeners }"
+      :value="$props.modelValue"
+      @input="onManualInput($event.target.value)"
     >
   </VaInputWrapper>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, InputHTMLAttributes, ref, toRefs } from 'vue'
+import { computed, defineComponent, InputHTMLAttributes, ref, PropType } from 'vue'
 import { useFormProps } from '../../composables/useForm'
-import { useValidation, useValidationProps, useValidationEmits } from '../../composables/useValidation'
-import { useCleave, useCleaveProps } from '../va-input/hooks/useCleave'
 import { useEmitProxy } from '../../composables/useEmitProxy'
+import { useFocus, useFocusEmits } from '../../composables/useFocus'
+import { useSyncProp } from '../../composables/useSyncProp'
 import VaInputWrapper from '../va-input/components/VaInputWrapper.vue'
-import { useClearableProps, useClearable, useClearableEmits } from '../../composables/useClearable'
-import VaIcon from '../va-icon/VaIcon.vue'
+// import VaIcon from '../va-icon/VaIcon.vue'
 import { omit, pick } from 'lodash-es'
-// import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
 
 const { createEmits: createInputEmits, createListeners: createInputListeners } = useEmitProxy(
-  ['change', 'keyup', 'keypress', 'keydown', 'focus', 'blur'],
+  ['change', 'change', 'keyup', 'keypress', 'keydown', 'focus', 'blur'],
 )
 
 const { createEmits: createFieldEmits, createListeners: createFieldListeners } = useEmitProxy([
@@ -92,19 +64,18 @@ const { createEmits: createFieldEmits, createListeners: createFieldListeners } =
 export default defineComponent({
   name: 'VaCounter',
 
-  components: { VaInputWrapper, VaIcon },
+  components: { VaInputWrapper },
 
   props: {
     ...useFormProps,
-    ...useValidationProps,
-    ...useClearableProps,
-    ...useCleaveProps,
 
     // input
-    placeholder: { type: String, default: '' },
-    tabindex: { type: Number, default: 0 },
     modelValue: { type: [String, Number], default: '' },
     label: { type: String, default: '' },
+
+    // hint
+    messages: { type: [Array, String] as PropType<string[] | string>, default: () => [] },
+
     // style
     color: { type: String, default: 'primary' },
     outline: { type: Boolean, default: false },
@@ -113,10 +84,9 @@ export default defineComponent({
 
   emits: [
     'update:modelValue',
-    ...useValidationEmits,
-    ...useClearableEmits,
     ...createInputEmits(),
     ...createFieldEmits(),
+    ...useFocusEmits,
   ],
 
   inheritAttrs: false,
@@ -124,17 +94,19 @@ export default defineComponent({
   setup (props, { emit, attrs, slots }) {
     const input = ref<HTMLInputElement | undefined>()
 
-    const reset = () => {
-      emit('update:modelValue', props.clearValue)
-      emit('clear')
-    }
+    const {
+      isFocused,
+      onFocus,
+      onBlur,
+      // focus,
+      // blur,
+    } = useFocus(input, emit)
 
-    const focus = () => {
-      input.value?.focus()
-    }
+    const [modelValueSync] = useSyncProp('modelValue', props, emit)
 
-    const blur = () => {
-      input.value?.blur()
+    const onManualInput = (count: string) => {
+      // check min and max
+      modelValueSync.value = count
     }
 
     const filterSlots = computed(() => {
@@ -142,65 +114,29 @@ export default defineComponent({
       return Object.keys(slots).filter(slot => !iconSlot.includes(slot))
     })
 
-    const {
-      isFocused,
-      listeners: validationListeners,
-      computedError,
-      computedErrorMessages,
-    } = useValidation(props, emit, reset, focus)
-
-    const { modelValue } = toRefs(props)
-    const {
-      canBeCleared,
-      clearIconProps,
-    } = useClearable(props, modelValue, isFocused, computedError)
-
-    const { computedValue, onInput } = useCleave(input, props, emit)
-
-    const inputListeners = createInputListeners(emit)
-
-    /** Combine EmitProxy events with validation events to avoid events overriding */
-    const onFocus = (e: Event) => {
-      inputListeners.onFocus(e)
-      validationListeners.onFocus()
-    }
-
-    const onBlur = (e: Event) => {
-      inputListeners.onBlur(e)
-      validationListeners.onBlur()
-    }
-
-    const inputEvents = {
-      ...inputListeners,
+    const inputListeners = {
+      ...createInputListeners(emit),
       onFocus,
       onBlur,
-      onInput,
     }
 
     const computedInputAttributes = computed(() => ({
       ariaLabel: props.label,
       ...omit(attrs, ['class', 'style']),
-      ...pick(props, ['tabindex', 'disabled', 'readonly', 'placeholder']),
-      value: computedValue.value,
+      ...pick(props, ['disabled', 'readonly']),
     }) as InputHTMLAttributes)
 
     return {
       input,
-      inputEvents,
-
-      // Validations
-      computedError,
-      computedErrorMessages,
       isFocused,
+      // modelValueSync,
 
-      // Icon
-      canBeCleared,
-      clearIconProps,
-
+      inputListeners,
       computedInputAttributes,
+
       fieldListeners: createFieldListeners(emit),
-      reset,
       filterSlots,
+      onManualInput,
 
       // while we have problem with 'withConfigTransport'
       // focus,
