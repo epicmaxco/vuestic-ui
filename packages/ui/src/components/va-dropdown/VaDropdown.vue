@@ -30,10 +30,14 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, ref, toRef, watch } from 'vue'
+import { computed, defineComponent, onBeforeUnmount, onMounted, PropType, ref, toRef, watch } from 'vue'
 import { useStateful, useStatefulEmits, useStatefulProps } from '../../composables/useStateful'
 import { useDebounceFn } from '../../composables/useDebounce'
-import { usePopover } from '../../composables/usePopover'
+import { usePopover, Placement } from '../../composables/usePopover'
+import { useClickOutside } from '../../composables/useClickOutside'
+
+const placementsPositions = ['top', 'bottom', 'left', 'right']
+  .reduce((acc, position) => [...acc, position, `${position}-start`, `${position}-end`, `${position}-center`], ['auto'] as string[])
 
 export default defineComponent({
   name: 'VaDropdown',
@@ -43,7 +47,6 @@ export default defineComponent({
     stateful: { default: true },
     modelValue: { type: Boolean, default: false },
     disabled: { type: Boolean },
-    position: { type: String as PropType<'top' | 'bottom' | 'left' | 'right'>, default: 'bottom' },
     attachElement: { type: String, default: 'body' },
     disableAttachment: { type: Boolean, default: false },
     keepAnchorWidth: { type: Boolean, default: false },
@@ -59,9 +62,14 @@ export default defineComponent({
       default: 'click',
       validator: (trigger: string) => ['click', 'hover', 'none'].includes(trigger),
     },
+    placement: {
+      type: String as PropType<Placement>,
+      default: 'bottom',
+      validator: (placement: string) => placementsPositions.includes(placement),
+    },
   },
 
-  emits: [...useStatefulEmits, 'anchor-click', 'dropdown-content-click'],
+  emits: [...useStatefulEmits, 'anchor-click', 'dropdown-content-click', 'click-outside'],
 
   setup (props, { emit }) {
     const anchorRef = ref()
@@ -74,7 +82,7 @@ export default defineComponent({
     }))
 
     usePopover(anchorRef, contentRef, computed(() => ({
-      placement: props.position,
+      placement: props.placement,
       keepAnchorWidth: props.keepAnchorWidth,
       offset: props.offset,
       stickToEdges: true,
@@ -116,6 +124,12 @@ export default defineComponent({
         emit('anchor-click')
       }
     }
+
+    useClickOutside([anchorRef, contentRef], () => {
+      if (props.closeOnClickOutside) {
+        emitAndClose('click-outside', props.closeOnClickOutside)
+      }
+    })
 
     return {
       valueComputed,

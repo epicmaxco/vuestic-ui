@@ -2,12 +2,18 @@ import { onBeforeUnmount, onMounted, Ref, unref, watch } from 'vue'
 import { useDomRect } from './useDomRect'
 import { mapObject } from '../utils/map-object'
 
-type PlacementPosition = 'top' | 'bottom' | 'left' | 'right'
-type PlacementAlignment = 'start' | 'end' | 'center'
-type Placement = PlacementPosition | 'auto' | `${PlacementPosition}-${PlacementAlignment}`
-type Offset = number | [number, number]
+export type PlacementPosition = 'top' | 'bottom' | 'left' | 'right'
+export type PlacementAlignment = 'start' | 'end' | 'center'
+export type Placement = PlacementPosition | 'auto' | `${PlacementPosition}-${PlacementAlignment}`
+export type Offset = number | [number, number]
 type Coords = { top: number, left: number }
 type NormalizedOffset = { main: number, cross: number }
+type CalculatedCoords = {
+  left?: number,
+  top?: number,
+  right?: number,
+  bottom?: number,
+}
 
 const normalizedOffset = (offset: Offset): NormalizedOffset => {
   if (Array.isArray(offset)) {
@@ -121,12 +127,7 @@ const calculateVerticalCoords = (align: PlacementAlignment, anchor: DOMRect, con
   return { top: anchor.top + anchor.height / 2 - content.height / 2 }
 }
 
-const calculateCoords = (placement: Placement, anchor: DOMRect, content: DOMRect): {
-  left?: number,
-  top?: number,
-  right?: number,
-  bottom?: number,
-} => {
+const calculateCoords = (placement: Placement, anchor: DOMRect, content: DOMRect): CalculatedCoords => {
   const { position, align } = normalizedPlacement(placement)
 
   if (position === 'top') {
@@ -168,7 +169,7 @@ const getAutoPlacement = (placement: Placement, anchorRect: DOMRect, contentRect
   return placement
 }
 
-type usePopoverOptions = {
+export type usePopoverOptions = {
   keepAnchorWidth?: boolean,
   autoPlacement?: boolean,
   stickToEdges?: boolean,
