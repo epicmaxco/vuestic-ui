@@ -6,7 +6,7 @@
   "homepage": "https://vuestic.dev",
   "repository": "https://github.com/epicmaxco/vuestic-ui",
   "main": "dist/cjs/main.js",
-  "module": "dist/esm/main.js",
+  "module": "dist/esm/main.mjs",
   "jsdelivr": "dist/iife/main.js",
   "unpkg": "dist/iife/main.js",
   "types": "dist/types/main.d.ts",
