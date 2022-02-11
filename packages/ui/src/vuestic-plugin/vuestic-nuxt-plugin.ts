@@ -7,12 +7,14 @@ type NuxtPlugin = (context:{ vueApp: App }) => any
 
 const defineNuxtPlugin = (plugin: NuxtPlugin) => plugin
 
-export const createVuesticNuxtPlugin = (config?: GlobalConfig, registerComponentsGlobally = true) => {
+export const createVuesticNuxtPlugin = (config?: GlobalConfig) => {
   return defineNuxtPlugin(({ vueApp }) => {
-    if (registerComponentsGlobally) {
-      vueApp.use(VuesticPlugin, config)
-    } else {
-      vueApp.use(VuesticPluginsWithoutComponents, config)
-    }
+    vueApp.use(VuesticPlugin, config)
+  })
+}
+
+export const createVuesticNuxtPluginWithoutComponents = (config?: GlobalConfig) => {
+  return defineNuxtPlugin(({ vueApp }) => {
+    vueApp.use(VuesticPluginsWithoutComponents, config)
   })
 }

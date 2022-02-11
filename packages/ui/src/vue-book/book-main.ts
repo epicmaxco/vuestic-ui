@@ -1,9 +1,5 @@
 import { createApp } from 'vue'
 import App from './BookApp.vue'
-import DropdownPopperSubplugin
-  from '../components/va-dropdown/dropdown-popover-subplugin'
-// import ColorHelpersPlugin from '../components/vuestic-utilities/color-helpers-plugin'
-import ToastInstall from '../components/va-toast/install'
 
 import { VueBookComponents, createRoute } from 'vue-book'
 import { createRouter, createWebHashHistory } from 'vue-router'
@@ -34,10 +30,7 @@ const router = createRouter({
   routes,
 })
 
-// app.use(ColorHelpersPlugin)
 app.use(VueBookComponents)
-app.use(ToastInstall)
-app.use(DropdownPopperSubplugin)
 app.use(router)
 
 app.use(VuesticPlugin, {
