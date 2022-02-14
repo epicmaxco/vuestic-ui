@@ -1,15 +1,13 @@
 <template>
   <div
     class="va-file-upload"
-    :class="{'va-file-upload--dropzone': dropzone, 'va-file-upload--dropzone--highlight': dropzoneHighlight }"
+    :class="{ 'va-file-upload--dropzone': dropzone }"
     :style="computedStyle"
   >
     <div class="va-file-upload__field">
       <div
         class="va-file-upload__field__text"
         v-if="dropzone"
-        @dragenter="dropzoneHighlight = true"
-        @dragleave="dropzoneHighlight = false"
       >
         Drag’n’drop files or
       </div>
@@ -17,23 +15,27 @@
         class="va-file-upload__field__button"
         :disabled="disabled"
         :color="colorComputed"
+        @change="changeFieldValue"
         @click="callFileDialogue()"
         icon=""
         icon-right=""
+        :style="{ 'pointer-events': dropzoneHighlight ? 'none' : '' }"
       >
         Upload file
       </va-button>
-      <input
-        ref="fileInputRef"
-        type="file"
-        class="va-file-upload__field__input"
-        :accept="fileTypes"
-        :multiple="type !== 'single'"
-        :disabled="disabled"
-        @change="changeFieldValue"
-        tabindex="-1"
-      >
     </div>
+    <input
+      ref="fileInputRef"
+      type="file"
+      class="va-file-upload__field__input"
+      :accept="fileTypes"
+      :multiple="type !== 'single'"
+      :disabled="disabled"
+      @change="changeFieldValue"
+      @dragenter="dropzoneHighlight = true"
+      @dragleave="dropzoneHighlight = false"
+      tabindex="-1"
+    >
     <va-file-upload-list
       v-if="files.length"
       :type="type"
@@ -99,9 +101,15 @@ export default defineComponent({
 
     const colorComputed = computed(() => getColor(props.color))
 
-    const computedStyle = computed(() => ({
-      backgroundColor: props.dropzone ? shiftHSLAColor(colorComputed.value, { a: -0.92 }) : 'transparent',
-    }))
+    const computedStyle = computed(() => {
+      if (props.dropzone) {
+        return {
+          backgroundColor: shiftHSLAColor(colorComputed.value, { a: dropzoneHighlight.value ? -0.82 : -0.92 }),
+        }
+      }
+
+      return { backgroundColor: 'transparent' }
+    })
 
     const files = computed<VaFile[]>({
       get () { return props.modelValue },
@@ -179,50 +187,51 @@ export default defineComponent({
 </script>
 
 <style lang='scss'>
-@import '../../styles/resources';
-@import 'variables';
+@import "../../styles/resources";
+@import "variables";
 
 .va-file-upload {
   position: var(--va-file-upload-position);
   font-family: var(--va-font-family);
+  margin: var(--va-file-upload-margin);
+
+  .va-file-upload-list {
+    margin-top: var(--va-file-upload-list-margin-top);
+  }
 
   &--dropzone {
     background-color: var(--va-file-upload-dropzone-background-color);
-    padding: var(--va-file-upload-dropzone-padding);
     overflow: var(--va-file-upload-dropzone-overflow);
     border-radius: var(--va-file-upload-dropzone-border-radius);
     cursor: var(--va-file-upload-dropzone-cursor);
-
-    &--highlight {
-      background-color: var(--va-file-upload-dropzone-background-color-highlight);
-    }
 
     .va-file-upload__field {
       justify-content: center;
       display: flex;
       align-items: center;
-      padding: 0 2rem 1rem;
+      padding: var(--va-file-upload-dropzone-field-padding);
       transition: height 0.2s;
       overflow: visible;
       flex-wrap: wrap;
 
-      @include media-breakpoint-down(xs) {
+      @include media-breakpoint-down(sm) {
         flex-direction: column;
-        padding: 0 0 1rem;
+        padding: var(--va-file-upload-dropzone-field-padding-sm);
 
         &__text {
+          padding: var(--va-file-upload-dropzone-text-padding-sm);
           text-align: center;
         }
       }
     }
 
     .va-file-upload-list {
-      padding-bottom: 1rem;
+      padding: var(--va-file-upload-dropzone-list-padding);
+      margin-top: 0;
     }
   }
 
   &__field {
-    padding-bottom: var(--va-file-upload-dropzone-field-padding-bottom);
     overflow: var(--va-file-upload-dropzone-field-overflow);
     display: var(--va-file-upload-dropzone-field-display);
     align-items: var(--va-file-upload-dropzone-field-align-items);
@@ -250,14 +259,6 @@ export default defineComponent({
       &::-webkit-file-upload-button {
         cursor: pointer;
       }
-    }
-  }
-}
-
-@include media-breakpoint-down(xs) {
-  .va-file-upload {
-    &--dropzone {
-      padding: 1.5rem 1rem;
     }
   }
 }
