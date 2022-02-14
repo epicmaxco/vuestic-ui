@@ -12,88 +12,79 @@
     :active-class="activeClass"
     :exact-active-class="exactActiveClass"
   >
-    <div
-      v-if="stripe"
-      class="va-card__stripe"
-      :style="stripeStyles"
-    />
-    <div
-      class="va-card__inner"
-      @click="$emit('click', $event)"
-    >
+    <div v-if="stripe" class="va-card__stripe" :style="stripeStyles" />
+    <div class="va-card__inner" @click="$emit('click', $event)">
       <slot />
     </div>
   </component>
 </template>
 
 <script lang="ts">
-import { Options, mixins, prop, Vue } from 'vue-class-component'
+import { defineComponent, computed, PropType } from 'vue'
 
 import { getGradientBackground } from '../../services/color-config/color-functions'
-import ColorMixin from '../../services/color-config/ColorMixin'
-import { RouterLinkMixin } from '../../mixins/RouterLinkMixin/RouterLinkMixin'
+import { useColors, useColorProps } from '../../composables/useColor'
+import { useRouterLink, useRouterLinkProps } from '../../composables/useRouterLink'
 
-class CardProps {
-  tag = prop<string>({ type: String, default: 'div' })
-  square = prop<boolean>({ type: Boolean, default: false })
-  outlined = prop<boolean>({ type: Boolean, default: false })
-  bordered = prop<boolean>({ type: Boolean, default: true })
-  disabled = prop<boolean>({ type: Boolean, default: false })
-  href = prop<string>({ type: String, default: null })
-  target = prop<string>({ type: String, default: null })
-  stripe = prop<boolean>({ type: Boolean, default: false })
-  stripeColor = prop<string>({ type: String, default: '' })
-  gradient = prop<boolean>({ type: Boolean, default: false })
-  dark = prop<boolean>({ type: Boolean, default: false })
-}
-
-const CardPropsMixin = Vue.with(CardProps)
-
-@Options({
+export default defineComponent({
   name: 'VaCard',
   emits: ['click'],
-})
-export default class VaCard extends mixins(
-  ColorMixin,
-  RouterLinkMixin,
-  CardPropsMixin,
-) {
-  get cardClasses () {
-    return {
-      'va-card--dark': this.dark,
-      'va-card--square': this.square,
-      'va-card--outlined': this.outlined,
-      'va-card--no-border': !this.bordered,
-      'va-card--disabled': this.disabled,
-      'va-card--link': this.href || this.hasRouterLinkParams,
-    }
-  }
+  props: {
+    ...useColorProps,
+    ...useRouterLinkProps,
+    tag: { type: String as PropType<string>, default: 'div' },
+    square: { type: Boolean as PropType<boolean>, default: false },
+    outlined: { type: Boolean as PropType<boolean>, default: false },
+    bordered: { type: Boolean as PropType<boolean>, default: true },
+    disabled: { type: Boolean as PropType<boolean>, default: false },
+    href: { type: String as PropType<string>, default: '' },
+    target: { type: String as PropType<string>, default: '' },
+    stripe: { type: Boolean as PropType<boolean>, default: false },
+    stripeColor: { type: String as PropType<string>, default: '' },
+    gradient: { type: Boolean as PropType<boolean>, default: false },
+    dark: { type: Boolean as PropType<boolean>, default: false },
+  },
+  setup (props) {
+    const { getColor } = useColors()
+    const { hasRouterLinkParams, tagComputed, hrefComputed } = useRouterLink(props)
 
-  get cardStyles () {
-    const color = this.dark ? this.computeColor(this.color || 'dark') : this.theme.getColor(this.color, '#ffffff')
+    const stripeStyles = computed(() => ({ background: getColor(props.stripeColor) }))
 
-    if (this.gradient && this.color) {
-      return {
-        background: getGradientBackground(color),
+    const cardClasses = computed(() => ({
+      'va-card--dark': props.dark,
+      'va-card--square': props.square,
+      'va-card--outlined': props.outlined,
+      'va-card--no-border': !props.bordered,
+      'va-card--disabled': props.disabled,
+      'va-card--link': props.href || hasRouterLinkParams.value,
+    }))
+
+    const cardStyles = computed(() => {
+      const color = props.dark ? getColor(props.color || 'dark') : getColor(props.color, 'var(--va-white)')
+
+      if (props.gradient && props.color) {
+        return {
+          background: getGradientBackground(color),
+        }
       }
-    }
+
+      return { background: color }
+    })
 
     return {
-      'background-color': color,
+      cardClasses,
+      cardStyles,
+      stripeStyles,
+      tagComputed,
+      hrefComputed,
     }
-  }
-
-  get stripeStyles () {
-    return {
-      'background-color': this.computeColor(this.stripeColor),
-    }
-  }
-}
+  },
+})
 </script>
 
 <style lang="scss">
-@import '../../styles/resources';
-@import 'variables';
+@import "../../styles/resources";
+@import "variables";
 
 .va-card {
   display: var(--va-card-display);
@@ -139,7 +130,7 @@ export default class VaCard extends mixins(
   }
 
   &__stripe {
-    content: '';
+    content: "";
     position: absolute;
     width: 100%;
     height: var(--va-card-stripe-border-size);

@@ -8,27 +8,23 @@
 </template>
 
 <script lang="ts">
-import { Options, mixins, prop, Vue } from 'vue-class-component'
+import { defineComponent, PropType, computed } from 'vue'
 
-import ColorMixin from '../../services/color-config/ColorMixin'
+import { useColors } from '../../composables/useColor'
 
-class CardTitleProps {
-  textColor = prop<string>({ type: String, default: '' })
-}
-
-const CardTitlePropsMixin = Vue.with(CardTitleProps)
-
-@Options({
+export default defineComponent({
   name: 'VaCardTitle',
-})
-export default class VaCardTitle extends mixins(
-  ColorMixin,
-  CardTitlePropsMixin,
-) {
-  get titleStyles () {
+  props: {
+    textColor: { type: String as PropType<string> },
+  },
+  setup (props) {
+    const { getColor } = useColors()
+
     return {
-      color: this.textColor ? this.theme.getColor(this.textColor) : '',
+      titleStyles: computed(() => ({
+        color: props.textColor ? getColor(props.textColor) : '',
+      })),
     }
-  }
-}
+  },
+})
 </script>
