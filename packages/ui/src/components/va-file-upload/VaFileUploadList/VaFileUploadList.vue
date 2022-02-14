@@ -73,7 +73,7 @@ export default defineComponent({
       return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i]
     }
 
-    const formatDate = (date: Date) => {
+    const formatDate = (date = new Date()) => {
       return date.toLocaleDateString('en-US', {
         hour: '2-digit',
         minute: '2-digit',
