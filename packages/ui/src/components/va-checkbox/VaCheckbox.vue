@@ -64,7 +64,7 @@ import VaIcon from '../va-icon/'
 
 import { useColors, useComputedColor } from '../../composables/useColor'
 import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'
-import { useSelectable, useSelectableProps, useSelectableEmits } from '../../composables/useSelectable'
+import { useSelectable, useSelectableProps, useSelectableEmits } from './useSelectable'
 
 export default defineComponent({
   name: 'VaCheckbox',
