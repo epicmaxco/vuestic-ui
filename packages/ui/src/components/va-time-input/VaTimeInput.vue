@@ -1,19 +1,27 @@
 <template>
   <va-dropdown
     class="va-time-input"
+    :class="$attrs.class"
+    :style="$attrs.style"
     v-model="isOpenSync"
     :offset="[0, 1]"
     :close-on-content-click="false"
-    :disabled="disabled || readonly"
+    :disabled="$props.disabled"
     position="bottom-start"
     anchorSelector=".va-input__container"
+    :stateful="false"
+    trigger="none"
+    @keydown.up.prevent="showDropdown()"
+    @keydown.down.prevent="showDropdown()"
+    @keydown.space.prevent="showDropdown()"
+    @click="handleComponentClick"
   >
     <template #anchor>
       <va-input
         ref="input"
-        v-bind="{ ...inputProps, ...validationListeners }"
+        v-bind="{ ...computedInputProps, ...computedInputAttrs }"
         :modelValue="valueText"
-        :readonly="readonly || !manualInput"
+        :readonly="$props.readonly || !$props.manualInput"
         :error="hasError"
         :error-messages="computedErrorMessages"
         @change="onInputTextChanged($event.target.value)"
@@ -24,52 +32,82 @@
           v-slot:[name]="slotScope"
           :key="name"
         >
-          <slot :name="name" v-bind="slotScope" />
+          <slot
+            :name="name"
+            v-bind="{ ...slotScope, dropdownToggle, showDropdown, hideDropdown, isOpen: isOpenSync, focus }"
+          />
         </template>
 
         <template #prependInner="slotScope">
-          <slot name="prependInner" v-bind="slotScope" />
+          <slot
+            name="prependInner"
+            v-bind="{ ...slotScope, dropdownToggle, showDropdown, hideDropdown, isOpen: isOpenSync, focus }"
+          />
           <va-icon
+            :id="componentIconId"
             v-if="$props.leftIcon"
             v-bind="iconProps"
+            @click="dropdownToggle()"
           />
         </template>
 
         <template #icon>
           <va-icon
+            :id="clearIconId"
             v-if="canBeCleared"
             v-bind="clearIconProps"
-            @click.stop="reset()"
+            @click="reset()"
           />
           <va-icon
+            :id="componentIconId"
             v-else-if="!$props.leftIcon"
             v-bind="iconProps"
+            @click="dropdownToggle()"
           />
         </template>
       </va-input>
     </template>
 
-    <va-dropdown-content no-padding>
-      <va-time-picker v-bind="timePickerProps" v-model="modelValueSync" />
+    <va-dropdown-content
+      no-padding
+      @keydown.esc.prevent="hideDropdown()"
+    >
+      <va-time-picker
+        ref="timePicker"
+        v-bind="timePickerProps"
+        v-model="modelValueSync"
+      />
     </va-dropdown-content>
   </va-dropdown>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, watch, ref } from 'vue'
+import { computed, defineComponent, InputHTMLAttributes, PropType, watch, ref } from 'vue'
+import { omit } from 'lodash-es'
 import VaTimePicker from '../va-time-picker/VaTimePicker.vue'
 import VaInput from '../va-input/VaInput.vue'
+import VaIcon from '../va-icon/VaIcon.vue'
+import VaDropdown from '../va-dropdown/VaDropdown.vue'
+import VaDropdownContent from '../va-dropdown/VaDropdownContent/VaDropdownContent.vue'
 import { useSyncProp } from '../../composables/useSyncProp'
 import { useValidation, useValidationProps, useValidationEmits } from '../../composables/useValidation'
 import { useClearableProps, useClearable, useClearableEmits } from '../../composables/useClearable'
 import { useTimeParser } from './hooks/time-text-parser'
 import { useTimeFormatter } from './hooks/time-text-formatter'
 import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
+import { generateUniqueId } from '../../services/utils'
+
+const slotsSelectors = [
+  '.va-input-wrapper__prepend-inner',
+  '.va-input__prepend-inner',
+  '.va-input__append-inner',
+  '.va-input-wrapper__append-inner',
+]
 
 export default defineComponent({
   name: 'VaTimeInput',
 
-  components: { VaTimePicker },
+  components: { VaDropdown, VaDropdownContent, VaTimePicker, VaIcon, VaInput },
 
   emits: [...useValidationEmits, ...useClearableEmits, 'update:modelValue', 'update:isOpen'],
 
@@ -92,8 +130,13 @@ export default defineComponent({
     icon: { type: String, default: 'schedule' },
   },
 
-  setup (props, { emit, expose, slots }) {
+  inheritAttrs: false,
+
+  setup (props, { emit, attrs, slots }) {
     const input = ref<InstanceType<typeof VaInput> | undefined>()
+    const timePicker = ref<InstanceType<typeof VaTimePicker> | undefined>()
+    const clearIconId = generateUniqueId()
+    const componentIconId = generateUniqueId()
 
     const [isOpenSync] = useSyncProp('isOpen', props, emit, false)
     const [modelValueSync] = useSyncProp('modelValue', props, emit)
@@ -112,10 +155,15 @@ export default defineComponent({
 
     const timePickerProps = filterComponentProps(props, extractComponentProps(VaTimePicker))
 
-    const inputProps = filterComponentProps(
+    const computedInputProps = filterComponentProps(
       props,
       extractComponentProps(VaInput, ['rules', 'error', 'errorMessages', 'clearable']),
     )
+
+    const computedInputAttrs = computed(() => ({
+      ariaLabel: props.label,
+      ...omit(attrs, ['class', 'style']),
+    }) as InputHTMLAttributes)
 
     const filterSlots = computed(() => {
       const slotsWithIcons = [
@@ -136,12 +184,13 @@ export default defineComponent({
     const changePeriod = (isPM: boolean) => {
       if (!modelValueSync.value) { return }
 
+      const halfDayPeriod = 12
       const h = modelValueSync.value.getHours()
 
-      if (isPM && h <= 12) {
-        modelValueSync.value = new Date(modelValueSync.value.setHours(h + 12))
-      } else if (!isPM && h >= 12) {
-        modelValueSync.value = new Date(modelValueSync.value.setHours(h - 12))
+      if (isPM && h <= halfDayPeriod) {
+        modelValueSync.value = new Date(modelValueSync.value.setHours(h + halfDayPeriod))
+      } else if (!isPM && h >= halfDayPeriod) {
+        modelValueSync.value = new Date(modelValueSync.value.setHours(h - halfDayPeriod))
       }
     }
 
@@ -157,6 +206,7 @@ export default defineComponent({
       input.value?.focus()
     }
 
+    // Will be used later, after fix 'withConfigTransport'
     const blur = (): void => {
       input.value?.blur()
     }
@@ -167,7 +217,6 @@ export default defineComponent({
 
     const {
       isFocused,
-      listeners: validationListeners,
       computedError,
       computedErrorMessages,
     } = useValidation(props, emit, reset, focus)
@@ -189,20 +238,61 @@ export default defineComponent({
       isValid.value = true
     })
 
-    expose({
-      reset,
-      focus,
-      blur,
-    })
+    const hideDropdown = () => {
+      isOpenSync.value = false
+      focus()
+    }
+
+    const showDropdown = () => {
+      if (props.disabled || props.readonly) { return }
+      isOpenSync.value = true
+    }
+
+    const dropdownToggle = () => {
+      isOpenSync.value ? hideDropdown() : showDropdown()
+    }
+
+    // we use the global handler to prevent the toggle dropdown on any click and execute additional logic
+    // we don't want to use `event.stopPropagation()` on clicks because it breaks closing the dropdown
+    const handleComponentClick = (e: any) => {
+      const id: string | undefined = e.target?.id
+
+      // (here and below) we have to use `id` instead of `ref`
+      // because the icon disappears after the click and `ref` becomes `null`
+      if (id === clearIconId) {
+        return focus()
+      }
+
+      if (id === componentIconId) {
+        return timePicker.value?.focus()
+      }
+
+      // here we check that the slots have been clicked and prevent the dropdown from opening
+      // the user decides to open or hide the dropdown itself
+      const isClickInSlot = slotsSelectors.some(selector => !!e.target?.closest(selector))
+      if (isClickInSlot) {
+        return
+      }
+
+      if (props.manualInput) {
+        return isOpenSync.value && hideDropdown()
+      }
+
+      dropdownToggle()
+    }
 
     return {
+      input,
+      timePicker,
+      clearIconId,
+      componentIconId,
+
       timePickerProps,
-      inputProps,
+      computedInputProps,
+      computedInputAttrs,
       isOpenSync,
       modelValueSync,
       valueText,
-      changePeriodToPm,
-      changePeriodToAm,
       onInputTextChanged,
       reset,
       onValueInput,
@@ -211,13 +301,23 @@ export default defineComponent({
       clearIconProps,
       filterSlots,
 
-      validationListeners,
+      hideDropdown,
+      showDropdown,
+      dropdownToggle,
+
+      computedError,
       computedErrorMessages,
       hasError,
+
+      handleComponentClick,
+
+      // Will be used later, after fix 'withConfigTransport'
+      // focus,
+      // blur,
     }
   },
 
-  // we will use this while we have 'withConfigTransport' and problem with 'expose' method in 'setup' func
+  // we will use this while we have problem with 'withConfigTransport'
   methods: {
     focus () { (this as any).input?.focus() },
     blur () { (this as any).input?.blur() },

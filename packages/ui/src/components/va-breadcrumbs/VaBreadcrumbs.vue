@@ -2,7 +2,7 @@
 import { defineComponent, computed, PropType, VNode, h, Fragment } from 'vue'
 
 import { useAlign, useAlignProps } from '../../composables/useAlign'
-import { useColor, useComputedColor } from '../../composables/useColor'
+import { useColors } from '../../composables/useColor'
 import { hasOwnProperty } from '../../services/utils'
 
 export default defineComponent({
@@ -17,13 +17,12 @@ export default defineComponent({
   setup (props, { slots }) {
     const { alignComputed } = useAlign(props)
 
-    const { computeColor } = useColor(props)
-    const colorComputed = useComputedColor(props.color)
+    const { getColor } = useColors()
     const computedThemesSeparatorColor = computed(() => {
-      return props.separatorColor ? computeColor(props.separatorColor) : colorComputed.value
+      return props.separatorColor ? getColor(props.separatorColor) : getColor(props.color)
     })
     const computedThemesActiveColor = computed(() => {
-      return props.activeColor ? computeColor(props.activeColor) : colorComputed.value
+      return props.activeColor ? getColor(props.activeColor) : getColor(props.color)
     })
 
     const childNodeFilter = (result: VNode[], node?: VNode) => {

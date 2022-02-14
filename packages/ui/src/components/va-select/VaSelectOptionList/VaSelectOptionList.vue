@@ -234,14 +234,15 @@ export default class VaSelectOptionList extends mixins(
 </script>
 <style lang="scss">
 @import "../../../styles/resources";
-@import 'variables';
+@import "variables";
 
 .va-select-option-list {
   display: var(--va-select-option-list-display);
   flex-direction: var(--va-select-option-list-flex-direction);
   width: var(--va-select-option-list-width);
   list-style: var(--va-select-option-list-list-style);
-  max-height: 200px;
+  max-height: var(--va-select-option-list-max-height);
+  font-family: var(--va-font-family);
   overflow: auto;
 
   @include va-scroll();

@@ -35,6 +35,12 @@ export default defineManualApi({
     keydown: {
       types: 'Event',
     },
+    updateError: {
+      types: '() => boolean',
+    },
+    updateErrorMessages: {
+      types: '() => string[] | string',
+    },
   },
   methods: {
     focus: {

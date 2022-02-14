@@ -17,6 +17,8 @@ export const useStatefulProps = {
   modelValue: { type: undefined as any as PropType<unknown> },
 }
 
+export const useStatefulEmits = ['update:modelValue']
+
 /**
  * Returns `valueComputed` that is proxy for `modelValue`
  * if `stateful` prop is `false`

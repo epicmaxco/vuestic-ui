@@ -79,6 +79,7 @@ import { useEmitProxy } from '../../composables/useEmitProxy'
 import VaInputWrapper from './components/VaInputWrapper.vue'
 import { useClearableProps, useClearable, useClearableEmits } from '../../composables/useClearable'
 import VaTextarea from './components/VaTextarea/VaTextarea.vue'
+import VaIcon from '../va-icon/VaIcon.vue'
 import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
 import { omit, pick } from 'lodash-es'
 
@@ -100,7 +101,7 @@ const { createEmits: createFieldEmits, createListeners: createFieldListeners } =
 export default defineComponent({
   name: 'VaInput',
 
-  components: { VaInputWrapper, VaTextarea },
+  components: { VaInputWrapper, VaTextarea, VaIcon },
 
   props: {
     ...useFormProps,
@@ -132,11 +133,11 @@ export default defineComponent({
 
   inheritAttrs: false,
 
-  setup (props, { emit, attrs, slots, expose }) {
+  setup (props, { emit, attrs, slots }) {
     const input = ref<HTMLInputElement | InstanceType<typeof VaTextarea> | undefined>()
 
     const reset = () => {
-      emit('update:modelValue', '')
+      emit('update:modelValue', props.clearValue)
       emit('clear')
     }
 
@@ -191,22 +192,15 @@ export default defineComponent({
       ...inputListeners,
       onFocus,
       onBlur,
-      // Cleave
       onInput,
     }
 
     const computedInputAttributes = computed(() => ({
+      ariaLabel: props.label,
       ...omit(attrs, ['class', 'style']),
       ...pick(props, ['type', 'tabindex', 'disabled', 'readonly', 'placeholder']),
       value: computedValue.value,
-      ariaLabel: props.label,
     }) as InputHTMLAttributes)
-
-    expose({
-      reset,
-      focus,
-      blur,
-    })
 
     return {
       input,
@@ -226,10 +220,14 @@ export default defineComponent({
       fieldListeners: createFieldListeners(emit),
       reset,
       filterSlots,
+
+      // while we have problem with 'withConfigTransport'
+      // focus,
+      // blur,
     }
   },
 
-  // we will use this while we have 'withConfigTransport' and problem with 'expose' method in 'setup' func
+  // we will use this while we have problem with 'withConfigTransport'
   methods: {
     focus () { this.input?.focus() },
     blur () { this.input?.blur() },

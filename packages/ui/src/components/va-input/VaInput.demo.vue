@@ -16,6 +16,14 @@
         placeholder="Country name"
       />
     </VbCard>
+    <VbCard title="Attrs">
+      'Check input in devtools'
+      <va-input
+        id="input-ID"
+        name="input-Name"
+        placeholder="With ID and Name attrs"
+      />
+    </VbCard>
     <VbCard title="Label">
       <va-input
         v-model="text"

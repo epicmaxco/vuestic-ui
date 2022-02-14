@@ -6,6 +6,7 @@
 
     <VbCard title="manual input">
       <VaTimeInput v-model="value" manual-input />
+      <VaTimeInput v-model="value" manual-input leftIcon clearable />
     </VbCard>
 
     <VbCard title="without value">
@@ -14,7 +15,7 @@
         manual-input
         clearable
         placeholder="Time..."
-        icon-left-position
+        leftIcon
         icon="thumb_up"
       />
     </VbCard>

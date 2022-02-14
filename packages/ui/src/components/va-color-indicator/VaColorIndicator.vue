@@ -1,64 +1,59 @@
 <template>
-   <div
-    class="color-indicator"
-    @click="ctx.valueComputed = !ctx.valueComputed"
+  <div
+    class="va-color-indicator"
+    @click="valueComputed = !valueComputed"
     :class="computedClass"
     :style="computedStyle"
   >
     <div
-      class="color-indicator__core"
-      :style="{'background-color': colorComputed, 'border-radius': square ? 0 : '50%'}"
+      class="va-color-indicator__core"
+      :style="{ ...computedStyle, backgroundColor: colorComputed }"
     />
   </div>
 </template>
 
 <script lang="ts">
-import { getColor } from '../../services/color-config/color-config'
-import { Vue, Options, prop, setup } from 'vue-class-component'
-import { useStateful, statefulComponentOptions } from '../../mixins/StatefulMixin/cStatefulMixin'
+import { defineComponent, computed, PropType } from 'vue'
 
-class ColorIndicatorProps {
-  color = prop<string>({
-    type: String,
-    default: '',
-  })
+import { useColors } from '../../composables/useColor'
+import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
 
-  square = prop<boolean>({
-    type: Boolean,
-    default: false,
-  })
-}
-
-const ColorIndicatorPropsMixin = Vue.with(ColorIndicatorProps)
-
-@Options({
+export default defineComponent({
   name: 'VaColorIndicator',
-  ...statefulComponentOptions,
-})
-export default class VaColorIndicator extends ColorIndicatorPropsMixin {
-  ctx = setup(() => useStateful(this.$props, this.$emit))
+  emits: useStatefulEmits,
+  props: {
+    ...useStatefulProps,
+    modelValue: { type: Boolean as PropType<boolean>, default: null },
+    color: { type: String as PropType<string>, default: '' },
+    square: { type: Boolean as PropType<boolean>, default: false },
+  },
+  setup (props, { emit }) {
+    const { valueComputed } = useStateful(props, emit)
+    const { getColor } = useColors()
 
-  get colorComputed () {
-    return getColor(this.color)
-  }
+    const colorComputed = computed(() => getColor(props.color))
 
-  get computedStyle () {
-    return { 'border-radius': this.square ? 0 : '50%' }
-  }
+    const computedStyle = computed(() => ({ borderRadius: props.square ? 0 : '50%' }))
 
-  get computedClass () {
+    const computedClass = computed(() => ({
+      'va-color-indicator--selected': valueComputed.value,
+      'va-color-indicator--hoverable': valueComputed.value !== undefined,
+    }))
+
     return {
-      'color-indicator--selected': this.ctx.valueComputed,
-      'color-indicator--hoverable': this.ctx.valueComputed !== undefined,
+      colorComputed,
+      valueComputed,
+      computedStyle,
+      computedClass,
     }
-  }
-}
+  },
+})
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import "../../styles/resources";
 
-.color-indicator {
+.va-color-indicator {
   display: inline-flex;
   justify-content: center;
   align-items: center;
