@@ -291,6 +291,19 @@
       </div>
     </VbCard>
 
+    <VbCard title="Root">
+      <va-dropdown attachElement=".VbPage__right-block" placement="left">
+        <template #anchor>
+          <button
+            style="width: 70px; height: 70px;"
+          >
+            Stick to root
+          </button>
+        </template>
+        <span style="background-color: #222222; color: #babfc2;">Content</span>
+      </va-dropdown>
+    </VbCard>
+
     <VbCard title="Offset">
       <div>
         <va-dropdown :offset="40">

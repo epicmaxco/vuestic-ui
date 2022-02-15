@@ -6,144 +6,111 @@ export type PlacementPosition = 'top' | 'bottom' | 'left' | 'right'
 export type PlacementAlignment = 'start' | 'end' | 'center'
 export type Placement = PlacementPosition | 'auto' | `${PlacementPosition}-${PlacementAlignment}`
 export type Offset = number | [number, number]
-type Coords = { top: number, left: number }
-type NormalizedOffset = { main: number, cross: number }
-type CalculatedCoords = {
-  left?: number,
-  top?: number,
-  right?: number,
-  bottom?: number,
-}
 
-const normalizedOffset = (offset: Offset): NormalizedOffset => {
-  if (Array.isArray(offset)) {
-    return { main: offset[0], cross: offset[1] }
-  }
+type Coords = { x: number, y: number }
+type AlignCoords = { main: number, cross: number }
 
-  return { main: offset, cross: 0 }
-}
+const coordsToCss = ({ x, y }: Coords) => ({ left: `${x}px`, top: `${y}px` })
 
-const normalizedPlacement = (placement: Placement) => {
+const parsePlacement = (placement: Placement) => {
   const [position, align] = placement.split('-') as [PlacementPosition, PlacementAlignment | undefined]
 
   return { position, align: align || 'center' }
 }
 
-const clampToEdges = (placement: Placement, coords: CalculatedCoords, anchorRect: DOMRect, contentRect: DOMRect) => {
-  const { position } = normalizedPlacement(placement)
-  const { top, bottom, left, right } = coords
-
-  if (position === 'bottom' || position === 'top') {
-    const leftOverflow = (left && left < 0) || (right && right + contentRect.width > window.innerWidth)
-    const rightOverflow = (right && right < 0) || (left && left + contentRect.width > window.innerWidth)
-
-    if (leftOverflow) {
-      return { top, bottom, left: Math.min(anchorRect.right - contentRect.width, 0) }
-    }
-
-    if (rightOverflow) {
-      return { top, bottom, right: Math.min(window.innerWidth - anchorRect.left - contentRect.width, 0) }
-    }
-  }
-
-  if (position === 'right' || position === 'left') {
-    const topOverflow = (top && top < 0) || (bottom && bottom + contentRect.height > window.innerHeight)
-    const bottomOverflow = (bottom && bottom < 0) || (top && top + contentRect.height > window.innerHeight)
-
-    if (topOverflow) {
-      return { left, right, top: Math.min(anchorRect.bottom - contentRect.height, 0) }
-    }
-
-    if (bottomOverflow) {
-      return { left, right, bottom: Math.min(window.innerHeight - anchorRect.top - contentRect.height, 0) }
-    }
-  }
-
-  return { top, bottom, right, left }
+const parseOffset = (offset: Offset): AlignCoords => {
+  return Array.isArray(offset) ? { main: offset[0], cross: offset[1] } : { main: offset, cross: 0 }
 }
 
-const calculateOverflow = (anchorRect: DOMRect, contentRect: DOMRect, offsetCoords: Coords = { top: 0, left: 0 }) => {
-  return {
-    top: -(anchorRect.top - offsetCoords.top - contentRect.height),
-    left: -(anchorRect.left - offsetCoords.left - contentRect.width),
-    right: (anchorRect.right + offsetCoords.left + contentRect.width) - window.innerWidth,
-    bottom: (anchorRect.bottom + offsetCoords.top + contentRect.height) - window.innerHeight,
-  }
+const calculateContentAlignment = (align: PlacementAlignment, anchorStart: number, anchorSize: number, contentSize: number) => {
+  if (align === 'start') { return anchorStart }
+  if (align === 'end') { return anchorStart + anchorSize - contentSize }
+
+  return anchorStart + (anchorSize - contentSize) / 2
 }
 
-const detectOverflow = (anchorRect: DOMRect, contentRect: DOMRect, offsetCoords: Coords = { top: 0, left: 0 }) => {
-  return mapObject(calculateOverflow(anchorRect, contentRect, offsetCoords), (overflow) => overflow >= 0)
-}
-
-const calculateOffsetCords = (placement: Placement, offset: Offset) => {
-  const { position } = normalizedPlacement(placement)
-
-  const { main, cross } = normalizedOffset(offset)
-
-  if (position === 'top') {
-    return { top: -main, left: cross, bottom: 0, right: cross }
-  }
-
-  if (position === 'right') {
-    return { top: cross, left: main, bottom: cross, right: 0 }
-  }
-
-  if (position === 'left') {
-    return { top: cross, left: -main, bottom: cross, right: 0 }
-  }
-
-  return { top: main, left: cross, bottom: 0, right: cross }
-}
-
-const calculateHorizontalCoords = (align: PlacementAlignment, anchor: DOMRect, content: DOMRect) => {
-  if (align === 'start') { return { left: anchor.left } }
-
-  if (align === 'end') { return { right: window.innerWidth - anchor.right } }
-
-  return { left: anchor.left + anchor.width / 2 - content.width / 2 }
-}
-
-const calculateVerticalCoords = (align: PlacementAlignment, anchor: DOMRect, content: DOMRect) => {
-  if (align === 'start') { return { top: anchor.top } }
-
-  if (align === 'end') { return { bottom: window.innerHeight - anchor.bottom } }
-
-  return { top: anchor.top + anchor.height / 2 - content.height / 2 }
-}
-
-const calculateCoords = (placement: Placement, anchor: DOMRect, content: DOMRect): CalculatedCoords => {
-  const { position, align } = normalizedPlacement(placement)
+const calculateContentCoords = (placement: Placement, anchor: DOMRect, content: DOMRect) => {
+  const { position, align } = parsePlacement(placement)
 
   if (position === 'top') {
     return {
-      ...calculateHorizontalCoords(align, anchor, content),
-      top: anchor.top - content.height,
+      x: calculateContentAlignment(align, anchor.left, anchor.width, content.width),
+      y: anchor.top - content.height,
     }
   }
   if (position === 'left') {
     return {
-      ...calculateVerticalCoords(align, anchor, content),
-      left: anchor.left - content.width,
+      y: calculateContentAlignment(align, anchor.top, anchor.height, content.height),
+      x: anchor.left - content.width,
     }
   }
   if (position === 'right') {
     return {
-      ...calculateVerticalCoords(align, anchor, content),
-      left: anchor.right,
+      y: calculateContentAlignment(align, anchor.top, anchor.height, content.height),
+      x: anchor.right,
     }
   }
 
   // if position === 'bottom'
   return {
-    ...calculateHorizontalCoords(align, anchor, content),
-    top: anchor.bottom,
+    x: calculateContentAlignment(align, anchor.left, anchor.width, content.width),
+    y: anchor.bottom,
   }
 }
 
-const getAutoPlacement = (placement: Placement, anchorRect: DOMRect, contentRect: DOMRect, offset: Offset): Placement => {
-  const offsetCords = calculateOffsetCords(placement, offset)
-  const { top, bottom, left, right } = detectOverflow(anchorRect, contentRect, offsetCords)
-  const { position, align } = normalizedPlacement(placement)
+const calculateOffsetCoords = (placement: Placement, offset: Offset): Coords => {
+  const { position } = parsePlacement(placement)
+  const { main, cross } = parseOffset(offset)
+
+  if (position === 'top') {
+    return { y: -main, x: cross }
+  }
+
+  if (position === 'right') {
+    return { y: cross, x: main }
+  }
+
+  if (position === 'left') {
+    return { y: cross, x: -main }
+  }
+
+  return { y: main, x: cross }
+}
+
+/** Returns how much content overflow */
+const calculateContentOverflow = (coords: Coords, content: DOMRect, root: DOMRect) => {
+  const xMax = root.right
+  const yMax = root.bottom
+  const xMin = root.left
+  const yMin = root.top
+
+  return {
+    top: Math.max(yMin - coords.y, 0),
+    bottom: Math.max((coords.y + content.height) - yMax, 0),
+    left: Math.max(xMin - coords.x, 0),
+    right: Math.max((coords.x + content.width) - xMax, 0),
+  }
+}
+
+const clamp = (min: number, v: number, max: number) => Math.max(Math.min(v, max), min)
+
+const calculateClipToEdge = (coords: Coords, content: DOMRect, anchor: DOMRect, root: DOMRect) => {
+  const { top, bottom, left, right } = calculateContentOverflow(coords, content, root)
+
+  // Add left overflow, sub right overflow so content always stick to edge
+  const x = coords.x - right + left
+  const y = coords.y - bottom + top
+
+  return {
+    // Clamp content position near anchor, so any content edge should touch anchor edge
+    x: clamp(anchor.left - content.width, x, anchor.right + content.width),
+    y: clamp(anchor.top - content.height, y, anchor.bottom + content.height),
+  }
+}
+
+const getAutoPlacement = (placement: Placement, coords: Coords, content: DOMRect, root: DOMRect): Placement => {
+  const { position, align } = parsePlacement(placement)
+  const { top, bottom, left, right } = calculateContentOverflow(coords, content, root)
 
   if (top && position === 'top') { return ['bottom', align].join('-') as Placement }
   if (bottom && position === 'bottom') { return ['top', align].join('-') as Placement }
@@ -158,7 +125,8 @@ export type usePopoverOptions = {
   autoPlacement?: boolean,
   stickToEdges?: boolean,
   placement: Placement,
-  offset?: Offset
+  offset?: Offset,
+  root?: Element
 }
 
 /**
@@ -176,42 +144,42 @@ export const usePopover = (
   const updateContentCSS = () => {
     if (!anchorDomRect.value || !contentDomRect.value) { return }
 
-    let { placement, keepAnchorWidth, offset, autoPlacement, stickToEdges } = unref(options)
-
-    if (autoPlacement) {
-      placement = getAutoPlacement(placement, anchorDomRect.value, contentDomRect.value, offset || 0)
+    const css = {
+      width: 'max-content',
+      position: 'fixed',
     }
 
-    let coords = calculateCoords(placement, anchorDomRect.value, contentDomRect.value)
+    const { placement, keepAnchorWidth, offset, autoPlacement, stickToEdges, root = document.documentElement } = unref(options)
+
+    let coords = calculateContentCoords(placement, anchorDomRect.value, contentDomRect.value)
 
     if (offset) {
-      const offsetCoords = calculateOffsetCords(placement, offset)
+      const offsetCoords = calculateOffsetCoords(placement, offset)
+      coords = mapObject(coords, (c, key) => c + offsetCoords[key])
+    }
 
-      coords = mapObject(coords, (coord, key) => coord + offsetCoords[key as PlacementPosition])
+    if (keepAnchorWidth) {
+      const { width } = anchorDomRect.value
+      Object.assign(css, { width: `${width}px`, maxWidth: `${width}px` })
+    }
+
+    const rootRect = root.getBoundingClientRect()
+
+    if (autoPlacement) {
+      const newPlacement = getAutoPlacement(placement, coords, contentDomRect.value, rootRect)
+      if (newPlacement !== placement) {
+        coords = calculateContentCoords(newPlacement, anchorDomRect.value, contentDomRect.value)
+      }
     }
 
     if (stickToEdges) {
-      coords = clampToEdges(placement, coords, anchorDomRect.value, contentDomRect.value)
+      coords = calculateClipToEdge(coords, contentDomRect.value, anchorDomRect.value, rootRect)
     }
-
-    const coordsCss = mapObject(coords, (c) => c === undefined ? 'unset' : c + 'px')
 
     Object.assign(contentRef.value?.style, {
-      top: 'unset',
-      bottom: 'unset',
-      left: 'unset',
-      right: 'unset',
-      width: 'max-content',
-      position: 'fixed',
-      ...coordsCss,
+      ...css,
+      ...coordsToCss(coords),
     })
-
-    if (keepAnchorWidth) {
-      Object.assign(contentRef.value?.style, {
-        width: anchorDomRect.value.width + 'px',
-        maxWidth: anchorDomRect.value.width + 'px',
-      })
-    }
   }
 
   watch(anchorDomRect, updateContentCSS)

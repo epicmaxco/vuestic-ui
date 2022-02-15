@@ -1,9 +1,8 @@
-export const mapObject = <T, D>(o: Record<string, T>, cb: (item: T, key: keyof typeof o) => D) => {
-  const copy = {} as Record<string, D>
+export const mapObject = <T, D, K extends string>(o: Record<K, T>, cb: (item: T, key: K) => D) => {
+  const copy = {} as Record<K, D>
 
-  Object
-    .keys(o)
-    .forEach((key) => {
+  (Object.keys(o) as K[])
+    .forEach((key: K) => {
       copy[key] = cb(o[key], key)
     })
 

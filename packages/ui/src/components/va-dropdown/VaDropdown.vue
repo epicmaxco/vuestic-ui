@@ -87,6 +87,7 @@ export default defineComponent({
       offset: props.offset,
       stickToEdges: true,
       autoPlacement: true,
+      root: document.querySelector(props.attachElement) || undefined,
     })))
 
     const { debounced: debounceHover, cancel: cancelHoverDebounce } = useDebounceFn(toRef(props, 'hoverOverTimeout'))
