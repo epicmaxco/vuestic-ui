@@ -15,9 +15,12 @@
     @mousedown.prevent="focus()"
   >
     <template v-if="$props.buttons" #prepend="slotScope">
-      <div class="va-counter__prepend-wrapper" :style="{ marginRight: $props.margins }">
+      <div class="va-counter__prepend-wrapper"
+        :style="{ marginRight: $props.margins }"
+      >
         <slot name="decreaseAction" v-bind="{ ...slotScope, decrease }">
           <va-button
+            class="va-counter__button-decrease"
             v-bind="decreaseButtonProps"
             :icon="$props.decreaseIcon"
             @click="decrease()"
@@ -36,7 +39,9 @@
     </template>
 
     <template v-if="$props.buttons"  #append="slotScope">
-      <div class="va-counter__append-wrapper" :style="{ marginLeft: $props.margins }">
+      <div class="va-counter__append-wrapper"
+        :style="{ marginLeft: $props.margins }"
+      >
         <slot name="increaseAction" v-bind="{ ...slotScope, increase }">
           <va-button
             class="va-counter__button-increase"
@@ -59,7 +64,7 @@
 
     <template v-if="$slots.content" #content="slotScope">
       <div ref="input" tabindex="0">
-        <slot name="content" v-bind="{ ...slotScope, value: $props.modelValue }" />
+        <slot name="content" v-bind="{ ...slotScope, value: valueComputed }" />
       </div>
     </template>
 
@@ -69,7 +74,7 @@
       ref="input"
       type="number"
       v-bind="{ ...computedInputAttributes, ...inputListeners }"
-      :value="$props.modelValue"
+      :value="valueComputed"
       @input="onManualInput($event.target.value)"
       @change="onManualChange($event.target.value)"
     >
@@ -81,7 +86,7 @@ import { computed, defineComponent, InputHTMLAttributes, ref, PropType } from 'v
 import { useFormProps } from '../../composables/useForm'
 import { useEmitProxy } from '../../composables/useEmitProxy'
 import { useFocus, useFocusEmits } from '../../composables/useFocus'
-import { useSyncProp } from '../../composables/useSyncProp'
+import { useStatefulProps, useStateful } from '../../composables/useStateful'
 import { useColor } from '../../composables/useColor'
 import VaInputWrapper from '../va-input/components/VaInputWrapper.vue'
 import VaIcon from '../va-icon/VaIcon.vue'
@@ -89,15 +94,14 @@ import VaButton from '../va-button/VaButton.vue'
 import { omit, pick } from 'lodash-es'
 
 const { createEmits: createInputEmits, createListeners: createInputListeners } = useEmitProxy(
-  ['change', 'keyup', 'keypress', 'keydown'],
+  ['change'],
 )
 
 const { createEmits: createFieldEmits, createListeners: createFieldListeners } = useEmitProxy([
-  'click',
-  'click-prepend',
-  'click-append',
-  'click-prepend-inner',
-  'click-append-inner',
+  { listen: 'click-prepend', emit: 'click:decrease-button' },
+  { listen: 'click-append', emit: 'click:increase-button' },
+  { listen: 'click-prepend-inner', emit: 'click:decrease-icon' },
+  { listen: 'click-append-inner', emit: 'click:increase-icon' },
 ])
 
 export default defineComponent({
@@ -107,9 +111,11 @@ export default defineComponent({
 
   props: {
     ...useFormProps,
+    ...useStatefulProps,
     // input
     modelValue: { type: [String, Number], default: '' },
     manualInput: { type: Boolean, default: false },
+    stateful: { type: Boolean, default: false },
     min: { type: Number, default: 1 },
     max: { type: Number, default: undefined },
     step: { type: Number, default: 1 },
@@ -143,12 +149,12 @@ export default defineComponent({
   setup (props, { emit, attrs }) {
     const input = ref<HTMLInputElement | HTMLDivElement | undefined>()
 
-    const { isFocused, onFocus, onBlur, focus, blur } = useFocus(input, emit)
+    const { isFocused, focus, blur } = useFocus(input, emit)
 
-    const [modelValueSync] = useSyncProp('modelValue', props, emit)
+    const { valueComputed } = useStateful(props, emit)
 
     const onManualInput = (counterValue: string) => {
-      modelValueSync.value = counterValue
+      valueComputed.value = counterValue
     }
 
     const getRoundDownWithStep = (value: number | string) => {
@@ -157,25 +163,25 @@ export default defineComponent({
 
     const onManualChange = (counterValue: number | string) => {
       if (+counterValue < props.min) {
-        modelValueSync.value = props.min
+        valueComputed.value = props.min
         return
       }
 
       if (props.max && (+counterValue > props.max)) {
-        modelValueSync.value = getRoundDownWithStep(props.max)
+        valueComputed.value = getRoundDownWithStep(props.max)
         return
       }
 
-      modelValueSync.value = getRoundDownWithStep(counterValue)
+      valueComputed.value = getRoundDownWithStep(counterValue)
     }
 
     const isAvailableMin = computed(() => (
-      +modelValueSync.value === props.min
+      +valueComputed.value === props.min
     ))
 
     const isAvailableMax = computed(() => {
       if (!props.max) { return false }
-      return +modelValueSync.value > (props.max - props.step)
+      return +valueComputed.value > (props.max - props.step)
     })
 
     const disabledDecreaseAction = computed(() => (
@@ -188,12 +194,12 @@ export default defineComponent({
 
     const decrease = () => {
       if (disabledDecreaseAction.value) { return }
-      onManualChange(+modelValueSync.value - props.step)
+      onManualChange(+valueComputed.value - props.step)
     }
 
     const increase = () => {
       if (disabledIncreaseAction.value) { return }
-      onManualChange(+modelValueSync.value + props.step)
+      onManualChange(+valueComputed.value + props.step)
     }
 
     const { colorComputed } = useColor(props)
@@ -247,10 +253,11 @@ export default defineComponent({
 
     return {
       input,
+      valueComputed,
       isFocused,
 
       fieldListeners: createFieldListeners(emit),
-      inputListeners: { ...createInputListeners(emit), onFocus, onBlur },
+      inputListeners: createInputListeners(emit),
       computedInputAttributes,
       onManualInput,
       onManualChange,
@@ -293,12 +300,12 @@ export default defineComponent({
     }
 
     .va-counter__prepend-wrapper {
-      .va-button {
+      .va-counter__button-decrease {
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
       }
 
-      .va-button:not(.va-button--square) {
+      .va-counter__button-decrease:not(.va-button--square) {
         width: unset;
 
         .va-button__content {
@@ -309,12 +316,12 @@ export default defineComponent({
     }
 
     .va-counter__append-wrapper {
-      .va-button {
+      .va-counter__button-increase {
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
       }
 
-      .va-button:not(.va-button--square) {
+      .va-counter__button-increase:not(.va-button--square) {
         width: unset;
 
         .va-button__content {
@@ -328,8 +335,11 @@ export default defineComponent({
   &:not(.va-counter--input-square) {
     .va-counter__prepend-wrapper,
     .va-counter__append-wrapper {
-      .va-button__content {
-        padding: unset;
+      .va-counter__button-decrease,
+      .va-counter__button-increase {
+        .va-button__content {
+          padding: unset;
+        }
       }
     }
   }
