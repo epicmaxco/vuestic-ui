@@ -1,4 +1,4 @@
-import { onBeforeUnmount, onMounted, Ref, unref, watch } from 'vue'
+import { onBeforeUnmount, onMounted, ref, Ref, unref, watch } from 'vue'
 import { useDomRect } from './useDomRect'
 import { mapObject } from '../utils/map-object'
 
@@ -126,7 +126,8 @@ export type usePopoverOptions = {
   stickToEdges?: boolean,
   placement: Placement,
   offset?: Offset,
-  root?: Element
+  /** Root element selector */
+  root?: string
 }
 
 /**
@@ -138,6 +139,7 @@ export const usePopover = (
   contentRef: Ref<HTMLElement | null | undefined>,
   options: usePopoverOptions | Ref<usePopoverOptions>,
 ) => {
+  const rootRef = ref<Element>(document.body)
   const { domRect: anchorDomRect } = useDomRect(anchorRef)
   const { domRect: contentDomRect } = useDomRect(contentRef)
 
@@ -149,7 +151,7 @@ export const usePopover = (
       position: 'fixed',
     }
 
-    const { placement, keepAnchorWidth, offset, autoPlacement, stickToEdges, root = document.documentElement } = unref(options)
+    const { placement, keepAnchorWidth, offset, autoPlacement, stickToEdges, root } = unref(options)
 
     let coords = calculateContentCoords(placement, anchorDomRect.value, contentDomRect.value)
 
@@ -163,7 +165,7 @@ export const usePopover = (
       Object.assign(css, { width: `${width}px`, maxWidth: `${width}px` })
     }
 
-    const rootRect = root.getBoundingClientRect()
+    const rootRect = rootRef.value.getBoundingClientRect()
 
     if (autoPlacement) {
       const newPlacement = getAutoPlacement(placement, coords, contentDomRect.value, rootRect)
@@ -181,6 +183,15 @@ export const usePopover = (
       ...coordsToCss(coords),
     })
   }
+
+  const getElement = (selector?: string) => {
+    if (!selector) { return null }
+    return document.querySelector(selector)
+  }
+
+  onMounted(() => {
+    rootRef.value = getElement(unref(options).root) || document.body
+  })
 
   watch(anchorDomRect, updateContentCSS)
   watch(contentDomRect, updateContentCSS)
