@@ -275,18 +275,18 @@
     <VbCard title="Placement">
       <div style="display: flex; align-content: center; flex-direction: column; padding: 0 100px;">
         <va-dropdown
-          v-for="position in possiblePositions"
-          :key="position"
-          :position="position"
+          v-for="placement in possiblePositions"
+          :key="placement"
+          :placement="placement"
         >
           <template #anchor>
             <button
               style="width: 70px; height: 70px;"
             >
-              {{ position }}
+              {{ placement }}
             </button>
           </template>
-          <span style="background-color: #222222; color: #babfc2;">{{ position }}</span>
+          <span style="background-color: #222222; color: #babfc2;">{{ placement }}</span>
         </va-dropdown>
       </div>
     </VbCard>
@@ -314,7 +314,7 @@
           <span style="background-color: #222222; color: #babfc2;">Content</span>
         </va-dropdown>
 
-        <va-dropdown position="left" :offset="[0, 40]">
+        <va-dropdown placement="left" :offset="[0, 40]">
           <template #anchor>
             <button
               style="width: 70px; height: 70px;"
@@ -325,7 +325,7 @@
           <span style="background-color: #222222; color: #babfc2;">Content</span>
         </va-dropdown>
 
-        <va-dropdown position="left" :offset="[40, 40]">
+        <va-dropdown placement="left" :offset="[40, 40]">
           <template #anchor>
             <button
               style="width: 70px; height: 70px;"
@@ -336,7 +336,7 @@
           <span style="background-color: #222222; color: #babfc2;">Content</span>
         </va-dropdown>
 
-        <va-dropdown position="right" :offset="[0, 40]">
+        <va-dropdown placement="right" :offset="[0, 40]">
           <template #anchor>
             <button
               style="width: 70px; height: 70px;"
@@ -347,7 +347,7 @@
           <span style="background-color: #222222; color: #babfc2;">Content</span>
         </va-dropdown>
 
-        <va-dropdown position="right" :offset="[40, 40]">
+        <va-dropdown placement="right" :offset="[40, 40]">
           <template #anchor>
             <button
               style="width: 70px; height: 70px;"
@@ -358,7 +358,7 @@
           <span style="background-color: #222222; color: #babfc2;">Content</span>
         </va-dropdown>
 
-        <va-dropdown position="top" :offset="[40, 200]">
+        <va-dropdown placement="top" :offset="[40, 200]">
           <template #anchor>
             <button
               style="width: 70px; height: 70px;"
@@ -369,7 +369,7 @@
           <span style="background-color: #222222; color: #babfc2;">Content</span>
         </va-dropdown>
 
-        <va-dropdown position="bottom-end" :offset="[0, 200]">
+        <va-dropdown placement="bottom-end" :offset="[0, 200]">
           <template #anchor>
             <button
               style="width: 70px; height: 70px;"
@@ -380,7 +380,7 @@
           <span style="background-color: #222222; color: #babfc2;">Content</span>
         </va-dropdown>
 
-        <va-dropdown position="bottom-start" :offset="[0, 200]">
+        <va-dropdown placement="bottom-start" :offset="[0, 200]">
           <template #anchor>
             <button
               style="width: 70px; height: 70px;"

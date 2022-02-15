@@ -48,7 +48,7 @@ export default defineComponent({
     offset: { type: Number, default: 500 },
     reverse: { type: Boolean, default: false },
     disabled: { type: Boolean, default: false },
-    scrollTarget: { type: [String] as PropType<string | Element>, default: null },
+    scrollTarget: { type: String as PropType<string | Element>, default: null },
     debounce: { type: Number, default: 100 },
     tag: { type: String, default: 'div' },
   },

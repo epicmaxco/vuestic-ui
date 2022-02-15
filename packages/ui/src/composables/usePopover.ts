@@ -26,52 +26,36 @@ const normalizedOffset = (offset: Offset): NormalizedOffset => {
 const normalizedPlacement = (placement: Placement) => {
   const [position, align] = placement.split('-') as [PlacementPosition, PlacementAlignment | undefined]
 
-  return {
-    position, align: align || 'center',
-  }
+  return { position, align: align || 'center' }
 }
 
-const clampToEdges = (placement: Placement, { top, bottom, left, right }: {
-  top?: number | undefined,
-  bottom?: number | undefined,
-  left?: number | undefined,
-  right?: number | undefined
-}, anchorRect: DOMRect, contentRect: DOMRect) => {
+const clampToEdges = (placement: Placement, coords: CalculatedCoords, anchorRect: DOMRect, contentRect: DOMRect) => {
   const { position } = normalizedPlacement(placement)
+  const { top, bottom, left, right } = coords
 
   if (position === 'bottom' || position === 'top') {
-    if (left && left < 0) {
+    const leftOverflow = (left && left < 0) || (right && right + contentRect.width > window.innerWidth)
+    const rightOverflow = (right && right < 0) || (left && left + contentRect.width > window.innerWidth)
+
+    if (leftOverflow) {
       return { top, bottom, left: Math.min(anchorRect.right - contentRect.width, 0) }
     }
 
-    if (left && left + contentRect.width > window.innerWidth) {
+    if (rightOverflow) {
       return { top, bottom, right: Math.min(window.innerWidth - anchorRect.left - contentRect.width, 0) }
-    }
-
-    if (right && right < 0) {
-      return { top, bottom, right: Math.min(window.innerWidth - anchorRect.left - contentRect.width, 0) }
-    }
-
-    if (right && right + contentRect.width > window.innerWidth) {
-      return { top, bottom, left: Math.min(anchorRect.right - contentRect.width, 0) }
     }
   }
 
   if (position === 'right' || position === 'left') {
-    if (top && top < 0) {
+    const topOverflow = (top && top < 0) || (bottom && bottom + contentRect.height > window.innerHeight)
+    const bottomOverflow = (bottom && bottom < 0) || (top && top + contentRect.height > window.innerHeight)
+
+    if (topOverflow) {
       return { left, right, top: Math.min(anchorRect.bottom - contentRect.height, 0) }
     }
 
-    if (top && top + contentRect.height > window.innerHeight) {
+    if (bottomOverflow) {
       return { left, right, bottom: Math.min(window.innerHeight - anchorRect.top - contentRect.height, 0) }
-    }
-
-    if (bottom && bottom < 0) {
-      return { left, right, bottom: Math.min(window.innerHeight - anchorRect.top - contentRect.height, 0) }
-    }
-
-    if (bottom && bottom + contentRect.height > window.innerHeight) {
-      return { left, right, top: Math.min(anchorRect.bottom - contentRect.height, 0) }
     }
   }
 
@@ -178,6 +162,7 @@ export type usePopoverOptions = {
 }
 
 /**
+ * Updates `contentRef` css, make it position fixed and moves relative to `anchorRef`
  * @param options make options reactive if you want popover to react on options change.
  */
 export const usePopover = (
@@ -202,7 +187,7 @@ export const usePopover = (
     if (offset) {
       const offsetCoords = calculateOffsetCords(placement, offset)
 
-      coords = mapObject(coords, (coord, key) => coord + offsetCoords[key as 'top' | 'left' | 'right' | 'bottom'])
+      coords = mapObject(coords, (coord, key) => coord + offsetCoords[key as PlacementPosition])
     }
 
     if (stickToEdges) {

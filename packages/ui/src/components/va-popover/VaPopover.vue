@@ -68,7 +68,7 @@ export default defineComponent({
     const { getColor, getHoverColor, getBoxShadowColor } = useColors()
 
     const computedPopoverStyle = computed(() => ({
-      boxShadow: '0px 2px 3px 0 ' + getBoxShadowColor(getColor(props.color)),
+      boxShadow: `0px 2px 3px 0 ${getBoxShadowColor(getColor(props.color))}`,
       backgroundColor: getHoverColor(getColor(props.color)),
     }))
 
