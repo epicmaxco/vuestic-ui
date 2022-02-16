@@ -32,29 +32,15 @@ const calculateContentAlignment = (align: PlacementAlignment, anchorStart: numbe
 const calculateContentCoords = (placement: Placement, anchor: DOMRect, content: DOMRect) => {
   const { position, align } = parsePlacement(placement)
 
-  if (position === 'top') {
-    return {
-      x: calculateContentAlignment(align, anchor.left, anchor.width, content.width),
-      y: anchor.top - content.height,
-    }
-  }
-  if (position === 'left') {
-    return {
-      y: calculateContentAlignment(align, anchor.top, anchor.height, content.height),
-      x: anchor.left - content.width,
-    }
-  }
-  if (position === 'right') {
-    return {
-      y: calculateContentAlignment(align, anchor.top, anchor.height, content.height),
-      x: anchor.right,
-    }
-  }
+  const alignmentX = calculateContentAlignment(align, anchor.left, anchor.width, content.width)
+  const alignmentY = calculateContentAlignment(align, anchor.top, anchor.height, content.height)
 
-  // if position === 'bottom'
-  return {
-    x: calculateContentAlignment(align, anchor.left, anchor.width, content.width),
-    y: anchor.bottom,
+  switch (position) {
+  case 'top': return { x: alignmentX, y: anchor.top - content.height }
+  case 'left': return { y: alignmentY, x: anchor.left - content.width }
+  case 'right': return { y: alignmentY, x: anchor.right }
+  case 'bottom':
+  default: return { x: alignmentX, y: anchor.bottom }
   }
 }
 
@@ -62,19 +48,13 @@ const calculateOffsetCoords = (placement: Placement, offset: Offset): Coords => 
   const { position } = parsePlacement(placement)
   const { main, cross } = parseOffset(offset)
 
-  if (position === 'top') {
-    return { y: -main, x: cross }
+  switch (position) {
+  case 'left': return { y: cross, x: -main }
+  case 'right': return { y: cross, x: main }
+  case 'top': return { y: -main, x: cross }
+  case 'bottom':
+  default: return { y: main, x: cross }
   }
-
-  if (position === 'right') {
-    return { y: cross, x: main }
-  }
-
-  if (position === 'left') {
-    return { y: cross, x: -main }
-  }
-
-  return { y: main, x: cross }
 }
 
 /** Returns how much content overflow */
@@ -110,14 +90,16 @@ const calculateClipToEdge = (coords: Coords, content: DOMRect, anchor: DOMRect, 
 
 const getAutoPlacement = (placement: Placement, coords: Coords, content: DOMRect, root: DOMRect): Placement => {
   const { position, align } = parsePlacement(placement)
-  const { top, bottom, left, right } = calculateContentOverflow(coords, content, root)
+  const overflow = calculateContentOverflow(coords, content, root)
 
-  if (top && position === 'top') { return ['bottom', align].join('-') as Placement }
-  if (bottom && position === 'bottom') { return ['top', align].join('-') as Placement }
-  if (right && position === 'right') { return ['left', align].join('-') as Placement }
-  if (left && position === 'left') { return ['right', align].join('-') as Placement }
+  const newPlacements = {
+    top: ['bottom', align].join('-') as Placement,
+    bottom: ['top', align].join('-') as Placement,
+    right: ['left', align].join('-') as Placement,
+    left: ['right', align].join('-') as Placement,
+  }
 
-  return placement
+  return overflow[position] ? newPlacements[position] : placement
 }
 
 export type usePopoverOptions = {
