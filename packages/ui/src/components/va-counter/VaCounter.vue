@@ -13,10 +13,12 @@
     :outline="$props.outline"
     :focused="isFocused"
     @mousedown.prevent="focus()"
+    @keydown.up.prevent="increase()"
+    @keydown.down.prevent="decrease()"
   >
     <template v-if="$props.buttons" #prepend="slotScope">
       <div class="va-counter__prepend-wrapper"
-        :style="{ marginRight: $props.margins }"
+        :style="{ marginRight: computedMargins }"
       >
         <slot name="decreaseAction" v-bind="{ ...slotScope, decrease }">
           <va-button
@@ -40,7 +42,7 @@
 
     <template v-if="$props.buttons"  #append="slotScope">
       <div class="va-counter__append-wrapper"
-        :style="{ marginLeft: $props.margins }"
+        :style="{ marginLeft: computedMargins }"
       >
         <slot name="increaseAction" v-bind="{ ...slotScope, increase }">
           <va-button
@@ -64,7 +66,7 @@
 
     <template v-if="$slots.content" #content="slotScope">
       <div ref="input" tabindex="0">
-        <slot name="content" v-bind="{ ...slotScope, value: valueComputed }" />
+        <slot name="content" v-bind="{ ...slotScope, value: Number(valueComputed) }" />
       </div>
     </template>
 
@@ -75,8 +77,8 @@
       type="number"
       v-bind="{ ...computedInputAttributes, ...inputListeners }"
       :value="valueComputed"
-      @input="onManualInput($event.target.value)"
-      @change="onManualChange($event.target.value)"
+      @input="handleManualInput"
+      @change="handleManualChange"
     >
   </VaInputWrapper>
 </template>
@@ -113,25 +115,25 @@ export default defineComponent({
     ...useFormProps,
     ...useStatefulProps,
     // input
-    modelValue: { type: [String, Number], default: '' },
-    manualInput: { type: Boolean, default: false },
-    stateful: { type: Boolean, default: false },
-    min: { type: Number, default: 1 },
-    max: { type: Number, default: undefined },
-    step: { type: Number, default: 1 },
-    label: { type: String, default: '' },
+    modelValue: { type: [String, Number] as PropType<string | number>, default: 0 },
+    manualInput: { type: Boolean as PropType<boolean>, default: false },
+    stateful: { type: Boolean as PropType<boolean>, default: false },
+    min: { type: Number as PropType<number>, default: undefined },
+    max: { type: Number as PropType<number>, default: undefined },
+    step: { type: Number as PropType<number>, default: 1 },
+    label: { type: String as PropType<string>, default: '' },
     // hint
     messages: { type: [Array, String] as PropType<string[] | string>, default: () => [] },
     // style
-    width: { type: String, default: '154px' },
-    color: { type: String, default: 'primary' },
-    outline: { type: Boolean, default: undefined },
-    bordered: { type: Boolean, default: undefined },
+    width: { type: [String, Number] as PropType<string | number>, default: '160px' },
+    color: { type: String as PropType<string>, default: 'primary' },
+    outline: { type: Boolean as PropType<boolean> },
+    bordered: { type: Boolean as PropType<boolean> },
     // icons & buttons
-    increaseIcon: { type: String, default: 'add' },
-    decreaseIcon: { type: String, default: 'remove' },
-    buttons: { type: Boolean, default: false },
-    margins: { type: [String, Number], default: '4px' },
+    increaseIcon: { type: String as PropType<string>, default: 'add' },
+    decreaseIcon: { type: String as PropType<string>, default: 'remove' },
+    buttons: { type: Boolean as PropType<boolean>, default: false },
+    margins: { type: [String, Number] as PropType<string | number>, default: '4px' },
     flat: { type: Boolean as PropType<boolean>, default: true },
     rounded: { type: Boolean as PropType<boolean>, default: false },
     textColor: { type: String as PropType<string | undefined>, default: undefined },
@@ -149,25 +151,36 @@ export default defineComponent({
   setup (props, { emit, attrs }) {
     const input = ref<HTMLInputElement | HTMLDivElement | undefined>()
 
-    const { isFocused, focus, blur } = useFocus(input, emit)
+    const {
+      isFocused,
+      // will be used when we resolve problem with 'withConfigTransport'
+      focus,
+      blur,
+    } = useFocus(input, emit)
 
     const { valueComputed } = useStateful(props, emit)
 
-    const onManualInput = (counterValue: string) => {
-      valueComputed.value = counterValue
+    const handleManualInput = (event: Event) => {
+      valueComputed.value = +(event.target as HTMLInputElement)?.value
     }
 
-    const getRoundDownWithStep = (value: number | string) => {
-      return props.min + props.step * Math.floor((+value - props.min) / props.step)
+    const handleManualChange = (event: Event) => {
+      const changed = +(event.target as HTMLInputElement)?.value
+      calculateCounterValue(changed)
     }
 
-    const onManualChange = (counterValue: number | string) => {
-      if (+counterValue < props.min) {
+    const getRoundDownWithStep = (value: number) => {
+      if (!props.min) { return value }
+      return props.min + props.step * Math.floor((value - props.min) / props.step)
+    }
+
+    const calculateCounterValue = (counterValue: number) => {
+      if (props.min && counterValue < props.min) {
         valueComputed.value = props.min
         return
       }
 
-      if (props.max && (+counterValue > props.max)) {
+      if (props.max && (counterValue > props.max)) {
         valueComputed.value = getRoundDownWithStep(props.max)
         return
       }
@@ -175,31 +188,32 @@ export default defineComponent({
       valueComputed.value = getRoundDownWithStep(counterValue)
     }
 
-    const isAvailableMin = computed(() => (
-      +valueComputed.value === props.min
-    ))
+    const isMinReached = computed(() => {
+      if (!props.min) { return false }
+      return +valueComputed.value === props.min
+    })
 
-    const isAvailableMax = computed(() => {
+    const isMaxReached = computed(() => {
       if (!props.max) { return false }
       return +valueComputed.value > (props.max - props.step)
     })
 
     const disabledDecreaseAction = computed(() => (
-      isAvailableMin.value || props.readonly || props.disabled
+      isMinReached.value || props.readonly || props.disabled
     ))
 
     const disabledIncreaseAction = computed(() => (
-      isAvailableMax.value || props.readonly || props.disabled
+      isMaxReached.value || props.readonly || props.disabled
     ))
 
     const decrease = () => {
       if (disabledDecreaseAction.value) { return }
-      onManualChange(+valueComputed.value - props.step)
+      calculateCounterValue(+valueComputed.value - props.step)
     }
 
     const increase = () => {
       if (disabledIncreaseAction.value) { return }
-      onManualChange(+valueComputed.value + props.step)
+      calculateCounterValue(+valueComputed.value + props.step)
     }
 
     const { colorComputed } = useColor(props)
@@ -248,8 +262,12 @@ export default defineComponent({
     }))
 
     const computedStyle = computed(() => ({
-      width: props.width,
+      width: typeof props.width === 'number' ? `${props.width}px` : props.width,
     }))
+
+    const computedMargins = computed(() => (
+      typeof props.margins === 'number' ? `${props.margins}px` : props.margins
+    ))
 
     return {
       input,
@@ -259,8 +277,8 @@ export default defineComponent({
       fieldListeners: createFieldListeners(emit),
       inputListeners: createInputListeners(emit),
       computedInputAttributes,
-      onManualInput,
-      onManualChange,
+      handleManualInput,
+      handleManualChange,
 
       decrease,
       increase,
@@ -273,6 +291,7 @@ export default defineComponent({
       colorComputed,
       computedClass,
       computedStyle,
+      computedMargins,
 
       // while we have problem with 'withConfigTransport'
       // focus,
