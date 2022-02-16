@@ -2,15 +2,16 @@
   <textarea
     ref="textarea"
     class="textarea"
-    v-bind="listeners"
+    v-bind="{ ...computedProps, ...listeners }"
     :value="modelValue"
     :style="computedStyle"
-    :placeholder="placeholder"
   />
 </template>
 
 <script lang="ts">
 import { computed, defineComponent, onMounted, ref, watch, nextTick } from 'vue'
+import { pick } from 'lodash-es'
+import { useFormProps } from '../../../../composables/useForm'
 import { useTextareaRowHeight } from './useTextareaRowHeight'
 import { useEmitProxy } from '../../../../composables/useEmitProxy'
 
@@ -29,6 +30,7 @@ export default defineComponent({
   name: 'VaTextarea',
 
   props: {
+    ...useFormProps,
     modelValue: { type: [String, Number], default: '' },
     placeholder: { type: String },
     autosize: { type: Boolean, default: false },
@@ -46,7 +48,7 @@ export default defineComponent({
 
   emits: createEmits(),
 
-  setup (props, { emit, expose }) {
+  setup (props, { emit }) {
     const textarea = ref<HTMLTextAreaElement | undefined>()
     const rowHeight = ref(-1)
     const height = ref(-1)
@@ -84,6 +86,10 @@ export default defineComponent({
       resize: isResizable.value && 'none',
     }))
 
+    const computedProps = computed(() => ({
+      ...pick(props, ['disabled', 'readonly', 'placeholder']),
+    }))
+
     const focus = () => {
       textarea.value?.focus()
     }
@@ -92,19 +98,19 @@ export default defineComponent({
       textarea.value?.blur()
     }
 
-    expose({
-      focus,
-      blur,
-    })
-
     return {
       textarea,
       computedStyle,
       listeners: createListeners(emit),
+      computedProps,
+
+      // will used after fix 'useConfigTransport'
+      // focus,
+      // blur,
     }
   },
 
-  // we use this while we have problem with useConfigTransport and 'expose'
+  // we use this while we have problem with 'useConfigTransport'
   methods: {
     focus () { this.textarea?.focus() },
     blur () { this.textarea?.blur() },

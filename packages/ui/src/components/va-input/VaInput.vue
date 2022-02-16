@@ -57,15 +57,16 @@
     <VaTextarea
       v-if="type === 'textarea' && !$slots.content"
       ref="input"
-      v-bind="{...textareaProps, ...inputEvents}"
+      v-bind="{ ...computedChildAttributes, ...textareaProps, ...inputEvents }"
       class="va-input__content__input"
     />
 
     <input
       v-else-if="!$slots.content"
       ref="input"
-      v-bind="{...computedInputAttributes, ...inputEvents}"
       class="va-input__content__input"
+      v-bind="{ ...computedInputAttributes, ...inputEvents }"
+      :value="computedValue"
     >
   </VaInputWrapper>
 </template>
@@ -195,17 +196,24 @@ export default defineComponent({
       onInput,
     }
 
-    const computedInputAttributes = computed(() => ({
+    const computedChildAttributes = computed(() => ({
       ariaLabel: props.label,
       ...omit(attrs, ['class', 'style']),
+    }) as InputHTMLAttributes)
+
+    const computedInputAttributes = computed(() => ({
+      ...computedChildAttributes.value,
       ...pick(props, ['type', 'tabindex', 'disabled', 'readonly', 'placeholder']),
-      value: computedValue.value,
     }) as InputHTMLAttributes)
 
     return {
       input,
       inputEvents,
+
+      computedChildAttributes,
+      computedInputAttributes,
       textareaProps: filterComponentProps(props, VaTextareaProps),
+      computedValue,
 
       // Validations
       computedError,
@@ -216,7 +224,6 @@ export default defineComponent({
       canBeCleared,
       clearIconProps,
 
-      computedInputAttributes,
       fieldListeners: createFieldListeners(emit),
       reset,
       filterSlots,

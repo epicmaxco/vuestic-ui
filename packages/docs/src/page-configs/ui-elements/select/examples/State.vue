@@ -2,6 +2,13 @@
   <div style="max-width: 300px;">
     <va-select
       class="mb-4"
+      label="Readonly"
+      :options="options"
+      v-model="value"
+      readonly
+    />
+    <va-select
+      class="mb-4"
       label="Disabled"
       :options="options"
       v-model="value"
