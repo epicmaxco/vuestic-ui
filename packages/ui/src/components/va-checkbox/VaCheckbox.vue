@@ -62,7 +62,7 @@ import { defineComponent, computed, PropType, ref } from 'vue'
 import { VaMessageListWrapper } from '../va-input'
 import VaIcon from '../va-icon/'
 
-import { useColors, useComputedColor } from '../../composables/useColor'
+import { useColors } from '../../composables/useColor'
 import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'
 import { useSelectable, useSelectableProps, useSelectableEmits } from './useSelectable'
 
@@ -96,7 +96,6 @@ export default defineComponent({
       onFocus,
     } = useSelectable(props, emit, elements)
     const { getColor } = useColors()
-    const colorComputed = useComputedColor(props.color)
     const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
 
     const computedClass = computed(() => ({
@@ -123,8 +122,8 @@ export default defineComponent({
     const inputStyle = computed(() => {
       const isActive = isChecked.value || isIndeterminate.value
       const style = {
-        background: isActive ? colorComputed.value : '',
-        borderColor: isActive ? colorComputed.value : '',
+        background: isActive ? getColor(props.color) : '',
+        borderColor: isActive ? getColor(props.color) : '',
       }
 
       if (computedError.value) {
