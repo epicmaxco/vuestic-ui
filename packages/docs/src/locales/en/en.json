@@ -231,7 +231,8 @@
       "slots": {
         "append": "Slot for input after slider.",
         "prepend": "Slot for input before slider.",
-        "label": "Replaces the default label."
+        "label": "Replaces the default label.",
+        "trackLabel": "The content of the `track-label`. Slot scope has access to `value` and `order` (for `range` type) variables."
       }
     },
     "VaAffix": {
