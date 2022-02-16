@@ -9,7 +9,7 @@ export type TSelectionChange = {
 }
 export type TSelectableEmits = (event: TEmits, arg: ITableItem[] | TSelectionChange) => void
 
-export default function useSelectable (
+export default function useSelectableRow (
   sortedRows: Ref<TableRow[]>,
   selectedItems: Ref<ITableItem[] | undefined>,
   selectable: Ref<boolean>,

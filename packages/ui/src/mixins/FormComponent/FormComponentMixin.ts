@@ -40,6 +40,7 @@ class Props {
 
 const PropsMixin = Vue.with(Props)
 
+/** @deprecated */
 @Options({})
 export class FormComponentMixin extends mixins(
   PropsMixin,

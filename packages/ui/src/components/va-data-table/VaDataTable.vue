@@ -220,7 +220,7 @@ import useColumns, { TTableColumnSource } from './hooks/useColumns'
 import useRows, { ITableItem, TableRow } from './hooks/useRows'
 import useFilterable, { TFilterMethod } from './hooks/useFilterable'
 import useSortable, { TSortingOrder } from './hooks/useSortable'
-import useSelectable, { TSelectMode } from './hooks/useSelectable'
+import useSelectableRow, { TSelectMode } from './hooks/useSelectableRow'
 import useStyleable from './hooks/useStyleable'
 
 type emitNames = 'update:modelValue' |
@@ -237,7 +237,7 @@ type emitNames = 'update:modelValue' |
   TODO: consider a possibility to lazy-load the hooks with dynamic imports based on respective props' values. E.G.
 
   if (selectable.value) {
-    const { default: useSelectable } = await import("./hooks/useSelectable");
+    const { default: useSelectableRow } = await import("./hooks/useSelectableRow");
   }
 
   // Would be a cool feature (if possible at all).
@@ -404,7 +404,7 @@ export default defineComponent({
       isRowSelected,
       severalRowsSelected,
       allRowsSelected,
-    } = useSelectable(sortedRows, modelValue, selectable, selectMode, emit)
+    } = useSelectableRow(sortedRows, modelValue, selectable, selectMode, emit)
 
     const {
       selectedColor,

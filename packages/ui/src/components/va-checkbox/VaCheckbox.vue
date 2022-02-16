@@ -11,7 +11,7 @@
   >
     <div
       class="va-checkbox__input-container"
-      @click="onWrapperClick()"
+      @click="toggleSelection"
       tabindex="-1"
       @blur="onBlur"
       ref="container"
@@ -28,12 +28,12 @@
           readonly
           :id="id"
           :name="name"
-          v-on="SetupContext.keyboardFocusListeners"
+          v-on="keyboardFocusListeners"
           @focus="onFocus"
-          @blur="onBlur($event)"
+          @blur="onBlur"
           class="va-checkbox__input"
           @click.stop.prevent
-          @keypress.prevent="toggleSelection()"
+          @keypress.prevent="toggleSelection"
           :disabled="disabled"
           :indeterminate="indeterminate"
         >
@@ -50,100 +50,109 @@
         tabindex="-1"
         @blur="onBlur"
       >
-        <slot name="label">
-          {{ label }}
-        </slot>
+        <slot name="label">{{ label }}</slot>
       </div>
     </div>
   </VaMessageListWrapper>
 </template>
 
 <script lang="ts">
-import { Options, mixins, prop, setup, Vue } from 'vue-class-component'
+import { defineComponent, computed, PropType, ref } from 'vue'
 
-import ColorMixin from '../../services/color-config/ColorMixin'
-import { SelectableMixin } from '../../mixins/SelectableMixin/SelectableMixin'
-import VaIcon from '../va-icon/'
 import { VaMessageListWrapper } from '../va-input'
+import VaIcon from '../va-icon/'
+
+import { useColors, useComputedColor } from '../../composables/useColor'
 import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'
+import { useSelectable, useSelectableProps, useSelectableEmits } from './useSelectable'
 
-type ModelValue = boolean | boolean[] | string | Record<string, unknown>
-
-class CheckboxProps {
-  modelValue = prop<ModelValue>({
-    type: [Boolean, Array, String, Object],
-    default: false,
-  })
-
-  color = prop<string>({ type: String, default: 'primary' })
-  checkedIcon = prop<string>({ type: String, default: 'check' })
-  indeterminateIcon = prop<string>({ type: String, default: 'remove' })
-  id = prop<string>({ type: String, default: '' })
-  name = prop<string>({ type: String, default: '' })
-}
-
-const CheckboxPropsMixin = Vue.with(CheckboxProps)
-
-@Options({
+export default defineComponent({
   name: 'VaCheckbox',
   components: { VaMessageListWrapper, VaIcon },
-})
-export default class VaCheckbox extends mixins(
-  ColorMixin,
-  SelectableMixin,
-  CheckboxPropsMixin,
-) {
-  SetupContext = setup(() => {
+  emits: useSelectableEmits,
+  props: {
+    ...useSelectableProps,
+    modelValue: { type: null as any as PropType<unknown>, default: false },
+    color: { type: String as PropType<string>, default: 'primary' },
+    checkedIcon: { type: String as PropType<string>, default: 'check' },
+    indeterminateIcon: { type: String as PropType<string>, default: 'remove' },
+    id: { type: String as PropType<string>, default: '' },
+    name: { type: String as PropType<string>, default: '' },
+  },
+  setup (props, { emit }) {
+    const elements = {
+      container: ref(null),
+      input: ref(null),
+      label: ref(null),
+    }
+
+    const {
+      isChecked,
+      computedError,
+      isIndeterminate,
+      computedErrorMessages,
+      toggleSelection,
+      onBlur,
+      onFocus,
+    } = useSelectable(props, emit, elements)
+    const { getColor } = useColors()
+    const colorComputed = useComputedColor(props.color)
     const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
 
+    const computedClass = computed(() => ({
+      'va-checkbox--selected': isChecked.value,
+      'va-checkbox--readonly': props.readonly,
+      'va-checkbox--disabled': props.disabled,
+      'va-checkbox--indeterminate': props.indeterminate,
+      'va-checkbox--error': computedError.value,
+      'va-checkbox--left-label': props.leftLabel,
+      'va-checkbox--on-keyboard-focus': hasKeyboardFocus.value,
+    }))
+
+    const labelStyle = computed(() => {
+      return {
+        color: computedError.value ? getColor('danger') : '',
+        padding: !props.label
+          ? ''
+          : props.leftLabel
+            ? '0 0.5rem 0 0'
+            : '0 0 0 0.5rem',
+      }
+    })
+
+    const inputStyle = computed(() => {
+      const isActive = isChecked.value || isIndeterminate.value
+      const style = {
+        background: isActive ? colorComputed.value : '',
+        borderColor: isActive ? colorComputed.value : '',
+      }
+
+      if (computedError.value) {
+        style.borderColor = getColor('danger')
+      }
+
+      return style
+    })
+
+    const computedIconName = computed(() => props.indeterminate && isIndeterminate.value
+      ? props.indeterminateIcon
+      : props.checkedIcon,
+    )
+
     return {
-      hasKeyboardFocus,
+      computedClass,
+      labelStyle,
+      inputStyle,
+      computedIconName,
+      computedError,
+      computedErrorMessages,
       keyboardFocusListeners,
+      toggleSelection,
+      onBlur,
+      onFocus,
     }
-  })
-
-  get computedClass () {
-    return {
-      'va-checkbox--selected': this.isChecked,
-      'va-checkbox--readonly': this.readonly,
-      'va-checkbox--disabled': this.disabled,
-      'va-checkbox--indeterminate': this.indeterminate,
-      'va-checkbox--error': this.computedError,
-      'va-checkbox--left-label': this.leftLabel,
-      'va-checkbox--on-keyboard-focus': this.SetupContext.hasKeyboardFocus,
-    }
-  }
-
-  get labelStyle () {
-    return {
-      color: this.computedError ? this.theme.getColor('danger') : '',
-      padding: !this.label
-        ? ''
-        : this.leftLabel
-          ? '0 0.5rem 0 0'
-          : '0 0 0 0.5rem',
-    }
-  }
-
-  get inputStyle () {
-    return this.computedError
-      ? (this.isChecked || this.isIndeterminate)
-        ? {
-          background: this.colorComputed,
-          borderColor: this.theme.getColor('danger'),
-        }
-        : { borderColor: this.theme.getColor('danger') }
-      : (this.isChecked || this.isIndeterminate)
-        ? { background: this.colorComputed, borderColor: this.colorComputed }
-        : {}
-  }
-
-  get computedIconName () {
-    return (this.indeterminate && this.isIndeterminate)
-      ? this.indeterminateIcon
-      : this.checkedIcon
-  }
-}
+  },
+})
 </script>
 
 <style lang="scss">
@@ -230,5 +239,4 @@ export default class VaCheckbox extends mixins(
     }
   }
 }
-
 </style>
