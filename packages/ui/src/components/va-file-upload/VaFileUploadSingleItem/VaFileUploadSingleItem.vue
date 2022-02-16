@@ -1,7 +1,7 @@
 <template>
   <div class="va-file-upload-single-item">
     <div class="va-file-upload-single-item__name">
-      {{ file?.name }}
+      {{ file && file.name }}
     </div>
     <va-button
       flat

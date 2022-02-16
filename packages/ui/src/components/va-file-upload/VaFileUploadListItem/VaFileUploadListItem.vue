@@ -16,10 +16,10 @@
       v-else
     >
       <div class="va-file-upload-list-item__name">
-        {{ file?.name }}
+        {{ file && file.name }}
       </div>
       <div class="va-file-upload-list-item__size">
-        {{ file?.size }}
+        {{ file && file.size }}
       </div>
       <va-icon
         color="danger"
