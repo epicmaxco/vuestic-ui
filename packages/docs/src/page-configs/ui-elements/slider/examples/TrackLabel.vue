@@ -5,12 +5,6 @@
       track-label-visible
     />
 
-    <va-slider class="mb-3"
-      v-model="value[1]"
-      track-label-visible
-      :track-label="`${value[1]}%`"
-    />
-
     <va-slider class="mb-3 mt-4"
       v-model="value[1]"
       track-label-visible
@@ -19,13 +13,6 @@
         <va-chip color="warning" size="small">{{ value }}</va-chip>
       </template>
     </va-slider>
-
-    <va-slider class="mb-3"
-      v-model="value"
-      range
-      track-label-visible
-      :track-label="[`>${value[0]}%`, `<${value[1]}%`]"
-    />
 
     <va-slider class="mb-3"
       v-model="value"
@@ -57,10 +44,10 @@ export default {
     }
   },
   methods: {
-    processTrackLabel (value) {
-      return value === this.value[0]
-        ? `min ${value}`
-        : `max ${value}`
+    processTrackLabel (value, order) {
+      return order === 0
+        ? `min ${value}$`
+        : `max ${value}$`
     },
   },
 }

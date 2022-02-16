@@ -164,9 +164,9 @@ class SliderProps {
     type: [Number, Array],
     default: () => [],
   })
-  trackLabel = prop<((val: any) => string) | string | string[]>({
-    type: [Function, String, Array] as any,
-    default: '',
+  trackLabel = prop<((val: any, order?: number) => string) | undefined>({
+    type: [Function] as any,
+    default: undefined,
   })
   color = prop<string>({ type: String, default: 'primary' })
   trackColor = prop<string>({ type: String, default: '' })
@@ -693,12 +693,8 @@ export default class VaSlider extends mixins(
     if (!this.trackLabel) { return val }
 
     if (typeof this.trackLabel === 'function') {
-      return this.trackLabel(val)
+      return this.trackLabel(val, order)
     }
-
-    return (typeof this.trackLabel === 'string')
-      ? this.trackLabel
-      : this.trackLabel[order]
   }
 
   setCurrentValue (val: any) {
