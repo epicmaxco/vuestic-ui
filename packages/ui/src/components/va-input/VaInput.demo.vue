@@ -269,6 +269,13 @@
         </template>
       </va-input>
     </VbCard>
+    <VbCard title="Required">
+      <va-input
+        v-model="text"
+        label="name"
+        required
+      />
+    </VbCard>
     <VbCard title="Disabled">
       <va-input
         v-model="text"

@@ -6,6 +6,7 @@
     :color="color"
     :readonly="readonly"
     :disabled="disabled"
+    :required="required"
     :success="success"
     :messages="messages"
     :error="computedError"
@@ -203,7 +204,7 @@ export default defineComponent({
 
     const computedInputAttributes = computed(() => ({
       ...computedChildAttributes.value,
-      ...pick(props, ['type', 'tabindex', 'disabled', 'readonly', 'placeholder']),
+      ...pick(props, ['type', 'tabindex', 'disabled', 'readonly', 'required', 'placeholder']),
     }) as InputHTMLAttributes)
 
     return {

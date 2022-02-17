@@ -3,6 +3,7 @@ import { computed, PropType } from 'vue'
 export interface UseFormProps {
   disabled: boolean;
   readonly: boolean;
+  required?: boolean;
   id?: string | number;
   name?: string | number;
 }
@@ -10,6 +11,7 @@ export interface UseFormProps {
 export const useFormProps = {
   disabled: { type: Boolean, default: false },
   readonly: { type: Boolean, default: false },
+  required: { type: Boolean, default: false },
 }
 
 export const useFormPropsWithId = {
@@ -26,6 +28,7 @@ export const useForm = (props: UseFormProps) => {
   const createComputedClass = <Prefix extends string>(prefix: Prefix) => computed(() => ({
     [`${prefix}--disabled`]: props.disabled,
     [`${prefix}--readonly`]: props.readonly,
+    [`${prefix}--required`]: props.required,
   }) as Record<`${Prefix}--disabled` | `${Prefix}--readonly`, boolean>)
 
   /**
