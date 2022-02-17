@@ -493,7 +493,8 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import VaDataTable from './'
-import { cloneDeep, shuffle } from 'lodash-es'
+import cloneDeep from 'lodash/cloneDeep'
+import shuffle from 'lodash/shuffle'
 
 interface EvenItems {
     id?: number;

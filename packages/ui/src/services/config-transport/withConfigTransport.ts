@@ -1,4 +1,7 @@
-import { isArray, isObject, camelCase, upperFirst } from 'lodash-es'
+import isArray from 'lodash/isArray'
+import isObject from 'lodash/isObject'
+import camelCase from 'lodash/camelCase'
+import upperFirst from 'lodash/upperFirst'
 import {
   DefineComponent,
   ComponentOptions,
