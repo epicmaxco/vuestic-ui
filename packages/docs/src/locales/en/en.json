@@ -3281,10 +3281,6 @@
         "title": "Basic usage",
         "text": "By default, `va-counter` has `v-model` prop, and may also include `stateful` state. With `manual-input` the user can manually enter a value."
       },
-      "hint": {
-        "title": "Hint messages",
-        "text": "Support single/multi line messages to give some hint for improve UX"
-      },
       "style": {
         "title": "Style",
         "text": "There are tree styles for component: default (solid), outline, bordered."

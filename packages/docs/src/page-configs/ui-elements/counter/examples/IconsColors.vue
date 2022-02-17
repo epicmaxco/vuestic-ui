@@ -2,37 +2,25 @@
   <div class="row">
     <va-counter class="mx-4 my-2"
       v-model="value"
-      increaseIcon="zoom_in"
-      decreaseIcon="zoom_out"
-      color="warning"
+      increaseIcon="add_circle_outline"
+      decreaseIcon="remove_circle_outline"
+      color="#6938D1"
     />
 
-    <va-counter class="mx-4 my-2"
-      v-model="value"
-      increaseIcon="zoom_in"
-      decreaseIcon="zoom_out"
-      color="warning"
-      text-color="success"
-      buttons
-    />
-  </div>
-
-  <div class="row">
     <va-counter class="mx-4 my-2"
       v-model="value"
       outline
-      increaseIcon="zoom_in"
-      decreaseIcon="zoom_out"
-      color="warning"
+      increaseIcon="arrow_upward"
+      decreaseIcon="arrow_downward"
+      color="#0FB58D"
     />
 
     <va-counter class="mx-4 my-2"
       v-model="value"
-      increaseIcon="zoom_in"
-      decreaseIcon="zoom_out"
       outline
-      color="warning"
-      text-color="danger"
+      :flat="false"
+      margins="0"
+      color="#262824"
       buttons
     />
   </div>

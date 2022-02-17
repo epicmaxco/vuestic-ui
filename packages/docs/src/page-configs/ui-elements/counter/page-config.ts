@@ -17,11 +17,6 @@ const config: ApiDocsBlock[] = [
     'Default',
   ),
   ...block.exampleBlock(
-    'counter.examples.hint.title',
-    'counter.examples.hint.text',
-    'Hint',
-  ),
-  ...block.exampleBlock(
     'counter.examples.style.title',
     'counter.examples.style.text',
     'Style',

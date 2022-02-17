@@ -13,26 +13,26 @@
     :outline="$props.outline"
     :focused="isFocused"
     @mousedown.prevent="focus()"
-    @keydown.up.prevent="increase()"
-    @keydown.down.prevent="decrease()"
+    @keydown.up.prevent="increaseCount()"
+    @keydown.down.prevent="decreaseCount()"
   >
     <template v-if="$props.buttons" #prepend="slotScope">
       <div class="va-counter__prepend-wrapper"
         :style="{ marginRight: computedMargins }"
       >
-        <slot name="decreaseAction" v-bind="{ ...slotScope, decrease }">
+        <slot name="decreaseAction" v-bind="{ ...slotScope, decreaseCount }">
           <va-button
             class="va-counter__button-decrease"
             v-bind="decreaseButtonProps"
             :icon="$props.decreaseIcon"
-            @click="decrease()"
+            @click="decreaseCount()"
           />
         </slot>
       </div>
     </template>
 
     <template v-else #prependInner="slotScope">
-      <slot name="decreaseAction" v-bind="{ ...slotScope, decrease }">
+      <slot name="decreaseAction" v-bind="{ ...slotScope, decreaseCount }">
         <va-icon
           class="va-counter__icon-decrease"
           v-bind="decreaseIconProps"
@@ -44,19 +44,19 @@
       <div class="va-counter__append-wrapper"
         :style="{ marginLeft: computedMargins }"
       >
-        <slot name="increaseAction" v-bind="{ ...slotScope, increase }">
+        <slot name="increaseAction" v-bind="{ ...slotScope, increaseCount }">
           <va-button
             class="va-counter__button-increase"
             v-bind="increaseButtonProps"
             :icon="$props.increaseIcon"
-            @click="increase()"
+            @click="increaseCount()"
           />
         </slot>
       </div>
     </template>
 
     <template v-else #appendInner="slotScope">
-      <slot name="increaseAction" v-bind="{ ...slotScope, increase }">
+      <slot name="increaseAction" v-bind="{ ...slotScope, increaseCount }">
         <va-icon
           class="va-counter__icon-increase"
           v-bind="increaseIconProps"
@@ -77,8 +77,8 @@
       type="number"
       v-bind="{ ...computedInputAttributes, ...inputListeners }"
       :value="valueComputed"
-      @input="handleManualInput"
-      @change="handleManualChange"
+      @input="setCountInput"
+      @change="setCountChange"
     >
   </VaInputWrapper>
 </template>
@@ -133,9 +133,9 @@ export default defineComponent({
     increaseIcon: { type: String as PropType<string>, default: 'add' },
     decreaseIcon: { type: String as PropType<string>, default: 'remove' },
     buttons: { type: Boolean as PropType<boolean>, default: false },
-    margins: { type: [String, Number] as PropType<string | number>, default: '4px' },
     flat: { type: Boolean as PropType<boolean>, default: true },
     rounded: { type: Boolean as PropType<boolean>, default: false },
+    margins: { type: [String, Number] as PropType<string | number>, default: '4px' },
     textColor: { type: String as PropType<string | undefined>, default: undefined },
   },
 
@@ -160,11 +160,11 @@ export default defineComponent({
 
     const { valueComputed } = useStateful(props, emit)
 
-    const handleManualInput = (event: Event) => {
+    const setCountInput = (event: Event) => {
       valueComputed.value = +(event.target as HTMLInputElement)?.value
     }
 
-    const handleManualChange = (event: Event) => {
+    const setCountChange = (event: Event) => {
       const changed = +(event.target as HTMLInputElement)?.value
       calculateCounterValue(changed)
     }
@@ -206,12 +206,12 @@ export default defineComponent({
       isMaxReached.value || props.readonly || props.disabled
     ))
 
-    const decrease = () => {
+    const decreaseCount = () => {
       if (disabledDecreaseAction.value) { return }
       calculateCounterValue(+valueComputed.value - props.step)
     }
 
-    const increase = () => {
+    const increaseCount = () => {
       if (disabledIncreaseAction.value) { return }
       calculateCounterValue(+valueComputed.value + props.step)
     }
@@ -222,14 +222,14 @@ export default defineComponent({
       class: { 'va-counter__icon--inactive': disabledDecreaseAction.value },
       color: colorComputed.value,
       name: props.decreaseIcon,
-      onClick: !disabledDecreaseAction.value ? decrease : null,
+      onClick: !disabledDecreaseAction.value ? decreaseCount : null,
     }))
 
     const increaseIconProps = computed(() => ({
       class: { 'va-counter__icon--inactive': disabledIncreaseAction.value },
       color: colorComputed.value,
       name: props.increaseIcon,
-      onClick: !disabledIncreaseAction.value ? increase : null,
+      onClick: !disabledIncreaseAction.value ? increaseCount : null,
     }))
 
     const squareCorners = computed(() => (
@@ -281,11 +281,11 @@ export default defineComponent({
       fieldListeners: createFieldListeners(emit),
       inputListeners: createInputListeners(emit),
       computedInputAttributes,
-      handleManualInput,
-      handleManualChange,
+      setCountInput,
+      setCountChange,
 
-      decrease,
-      increase,
+      decreaseCount,
+      increaseCount,
 
       decreaseIconProps,
       increaseIconProps,

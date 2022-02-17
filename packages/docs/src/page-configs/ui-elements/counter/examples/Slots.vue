@@ -5,7 +5,7 @@
       width="200px"
     >
       <template #content="{ value }">
-        <VaChip icon="done">{{ value }} times</VaChip>
+        <VaChip icon="done">{{ value }} copies</VaChip>
       </template>
     </va-counter>
 
@@ -14,7 +14,7 @@
       width="250px"
     >
       <template #decreaseAction="{ decrease }">
-        <VaButton size="small" :rounded="false" @click="decrease">decrease</VaButton>
+        <VaButton size="small" outline @click="decrease">decrease</VaButton>
       </template>
       <template #increaseAction="{ increase }">
         <VaButton size="small" outline @click="increase">increase</VaButton>
@@ -30,7 +30,7 @@
         <VaButton :rounded="false" @click="decrease">decrease</VaButton>
       </template>
       <template #increaseAction="{ increase }">
-        <VaButton outline @click="increase">increase</VaButton>
+        <VaButton :rounded="false" @click="increase">increase</VaButton>
       </template>
     </va-counter>
   </div>
