@@ -2,8 +2,8 @@
   <VaInputWrapper
     class="va-counter"
     v-bind="fieldListeners"
-    :class="[$attrs.class, computedClass]"
-    :style="{ ...$attrs.style, ...computedStyle }"
+    :class="computedClass"
+    :style="computedStyle"
     :color="$props.color"
     :readonly="$props.readonly"
     :disabled="$props.disabled"
@@ -84,7 +84,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, InputHTMLAttributes, ref, PropType } from 'vue'
+import { computed, defineComponent, InputHTMLAttributes, ref, PropType, ComputedRef } from 'vue'
 import { useFormProps } from '../../composables/useForm'
 import { useEmitProxy } from '../../composables/useEmitProxy'
 import { useFocus, useFocusEmits } from '../../composables/useFocus'
@@ -153,7 +153,7 @@ export default defineComponent({
 
     const {
       isFocused,
-      // will be used when we resolve problem with 'withConfigTransport'
+      // will be useful when we resolve problem with 'withConfigTransport'
       focus,
       blur,
     } = useFocus(input, emit)
@@ -257,13 +257,17 @@ export default defineComponent({
       readonly: props.readonly || !props.manualInput,
     }) as InputHTMLAttributes)
 
-    const computedClass = computed(() => ({
-      'va-counter--input-square': squareCorners.value,
-    }))
+    const computedClass = computed(() => ([
+      attrs.class,
+      { 'va-counter--input-square': squareCorners.value },
+    ]))
 
-    const computedStyle = computed(() => ({
-      width: typeof props.width === 'number' ? `${props.width}px` : props.width,
-    }))
+    const computedStyle: ComputedRef<Partial<CSSStyleDeclaration>> = computed(() => {
+      const style = attrs.style || {}
+      return Object.assign(style, {
+        width: typeof props.width === 'number' ? `${props.width}px` : props.width,
+      })
+    })
 
     const computedMargins = computed(() => (
       typeof props.margins === 'number' ? `${props.margins}px` : props.margins

@@ -272,7 +272,7 @@
       <va-counter
         v-model="value"
         class="static-example-class"
-        :class="{ dynamicExampleClass: true}"
+        :class="{ dynamicExampleClass: true }"
         style="padding: 4px;"
         :style="{ backgroundColor: 'pink' }"
       />
