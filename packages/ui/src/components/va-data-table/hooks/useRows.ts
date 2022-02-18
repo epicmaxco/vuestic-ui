@@ -1,21 +1,9 @@
 import { Ref, computed } from 'vue'
-import { TableColumn } from './useColumns'
+import { TableColumn, ITableItem, TableCell, TableRow } from '../types'
 
-export type ITableItem = Record<string, any>
-
-// the inner representation of table cells
-export interface TableCell {
-  source: any;
-  column: TableColumn;
-  value: string;
-  rowIndex: number;
-}
-
-// the inner representation of table rows
-export interface TableRow {
-  source: ITableItem;
-  initialIndex: number;
-  cells: TableCell[];
+interface useRowsProps {
+  items: ITableItem[]
+  [prop: string]: unknown
 }
 
 const buildTableCell = (rowIndex: number, column: TableColumn, source: any): TableCell => ({
@@ -32,14 +20,14 @@ const buildTableRow = (source: ITableItem, initialIndex: number, columns: TableC
 })
 
 export default function useRows (
-  rawItems: Ref<ITableItem[]>,
   columns: Ref<TableColumn[]>,
+  props: useRowsProps,
 ) {
-  const rawRows = computed(() => {
-    return rawItems.value.map((rawItem, index) => buildTableRow(rawItem, index, columns.value))
+  const rowsComputed = computed(() => {
+    return props.items.map((rawItem, index) => buildTableRow(rawItem, index, columns.value))
   })
 
   return {
-    rawRows,
+    rowsComputed,
   }
 }
