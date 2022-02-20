@@ -154,6 +154,7 @@
 
 <script lang="ts">
 import { VaDatePicker } from './index'
+import VaChip from '../va-chip'
 
 const datePlusDay = (date: Date, days: number) => {
   const d = new Date(date)
@@ -163,7 +164,7 @@ const datePlusDay = (date: Date, days: number) => {
 const nextWeek = datePlusDay(new Date(), 7)
 
 export default {
-  components: { VaDatePicker },
+  components: { VaDatePicker, VaChip },
   data () {
     return {
       value: new Date(),
