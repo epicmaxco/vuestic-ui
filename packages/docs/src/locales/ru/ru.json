@@ -2929,7 +2929,7 @@
       "title": "Установка через Vue CLI",
       "prepare": "Перед установкой убедитесь, что [Vue CLI](https://cli.vuejs.org/guide/installation.html)[[target=_blank]] установлен глобально и имеет версию 4+:",
       "upgrade": "Ознакомьтесь с [руководством](https://cli.vuejs.org/migrating-from-v3/#migrating-from-v3)[[target=_blank]] для Vue CLI версии 3, которое поможет вам обновить приложение.",
-      "description": "Простой способ, если вы используете настройку через Vue-CLI или хотите опробовать Vuestic UI в новом проекте.",
+      "description": "Простой способ установки Vuestic UI с помощью Vue-CLI. Работает как с vite, так и с webpack.",
       "attention": "Установка Vuestic UI изменит файлы `package.json` и `main.(js`&#124;`ts)`. Убедитесь, что вы закоммитили свой код перед его установкой, чтобы избежать потери данных",
       "codeAnnotation": "Затем установите Vuestic UI как плагин Vue-CLI:"
     },
