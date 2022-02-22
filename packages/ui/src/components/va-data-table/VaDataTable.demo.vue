@@ -495,6 +495,9 @@ import { defineComponent } from 'vue'
 import VaDataTable from './'
 import cloneDeep from 'lodash/cloneDeep'
 import shuffle from 'lodash/shuffle'
+import VaSwitch from '../va-switch'
+import VaPagination from '../va-pagination'
+import VaButton from '../va-button'
 
 interface EvenItems {
     id?: number;
@@ -507,6 +510,9 @@ interface EvenItems {
 export default defineComponent({
   components: {
     VaDataTable,
+    VaSwitch,
+    VaPagination,
+    VaButton,
   },
 
   data () {

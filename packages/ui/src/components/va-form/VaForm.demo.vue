@@ -153,6 +153,8 @@
 <script>
 import VaForm from './index'
 import VaInput from '../va-input'
+import VaSelect from '../va-select'
+import VaButton from '../va-button'
 import VaFormReset from './VaForm-reset'
 
 export default {
@@ -160,6 +162,8 @@ export default {
     VaFormReset,
     VaForm,
     VaInput,
+    VaSelect,
+    VaButton,
   },
   data () {
     return {

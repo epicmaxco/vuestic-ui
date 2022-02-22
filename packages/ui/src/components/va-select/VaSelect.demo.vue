@@ -558,16 +558,17 @@
 import CountriesList from '../../data/CountriesList'
 import VaIcon from '../va-icon'
 import VaCheckbox from '../va-checkbox'
+import VaChip from '../va-chip'
+import VaSelect from './index'
 
 import { objectOptionsList, iconOptionsList } from './getDemoData'
-import VaSelect from './index'
 
 const positions = ['top', 'bottom']
 
 const random = () => Math.ceil(Math.random() * 10000) + ''
 
 export default {
-  components: { VaSelect, VaIcon, VaCheckbox },
+  components: { VaSelect, VaIcon, VaCheckbox, VaChip },
   data () {
     return {
       allowCreateValue: '',
