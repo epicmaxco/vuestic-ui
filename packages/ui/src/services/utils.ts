@@ -1,6 +1,6 @@
 //  @ts-nocheck
 
-import { isObject } from 'lodash-es'
+import isObject from 'lodash/isObject'
 
 export const sleep = (ms = 0) => {
   return new Promise(resolve => setTimeout(resolve, ms))

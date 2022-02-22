@@ -17,7 +17,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, computed, PropType, ref, Ref, nextTick, onMounted, onBeforeUnmount } from 'vue'
-import { noop } from 'lodash-es'
+import noop from 'lodash/noop'
 
 import {
   handleThrottledEvent,

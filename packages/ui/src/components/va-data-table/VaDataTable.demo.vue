@@ -493,10 +493,11 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import VaDataTable from './'
+import cloneDeep from 'lodash/cloneDeep'
+import shuffle from 'lodash/shuffle'
 import VaSwitch from '../va-switch'
 import VaPagination from '../va-pagination'
 import VaButton from '../va-button'
-import { cloneDeep, shuffle } from 'lodash-es'
 
 interface EvenItems {
     id?: number;
