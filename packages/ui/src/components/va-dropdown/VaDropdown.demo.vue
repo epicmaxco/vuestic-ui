@@ -344,11 +344,12 @@
 </template>
 
 <script>
-import VaDropdown from './index'
+import VaDropdown, { VaDropdownContent } from './'
 import DropdownCloseButton from './__demo__/DropdownCloseButton'
+import VaInput from '../va-input'
 
 export default {
-  components: { DropdownCloseButton, VaDropdown },
+  components: { DropdownCloseButton, VaDropdown, VaInput, VaDropdownContent },
   data () {
     return {
       possiblePositions: [

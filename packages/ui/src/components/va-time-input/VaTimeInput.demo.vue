@@ -69,10 +69,11 @@
 
 <script>
 import VaTimeInput from './VaTimeInput.vue'
+import VaIcon from '../va-icon'
 
 export default {
   components: {
-    VaTimeInput,
+    VaTimeInput, VaIcon,
   },
 
   data () {

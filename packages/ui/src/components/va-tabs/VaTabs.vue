@@ -68,6 +68,7 @@ import ColorMixin from '../../services/color-config/ColorMixin'
 import { StatefulMixin } from '../../mixins/StatefulMixin/StatefulMixin'
 import VaButton from '../va-button'
 import VaTab from './VaTab/VaTab.vue'
+import VaConfig from '../va-config'
 
 export class TabsService {
   // eslint-disable-next-line no-useless-constructor
@@ -123,7 +124,7 @@ export const TabsServiceKey = Symbol('TabsService')
 
 @Options({
   name: 'VaTabs',
-  components: { VaButton },
+  components: { VaButton, VaConfig },
   emits: ['update:modelValue', 'click:next', 'click:prev'],
 })
 export default class VaTabs extends mixins(
