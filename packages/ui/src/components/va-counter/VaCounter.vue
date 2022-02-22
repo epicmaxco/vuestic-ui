@@ -2,8 +2,8 @@
   <VaInputWrapper
     class="va-counter"
     v-bind="fieldListeners"
-    :class="computedClass"
-    :style="computedStyle"
+    :class="classComputed"
+    :style="styleComputed"
     :color="$props.color"
     :readonly="$props.readonly"
     :disabled="$props.disabled"
@@ -18,7 +18,7 @@
   >
     <template v-if="$props.buttons" #prepend="slotScope">
       <div class="va-counter__prepend-wrapper"
-        :style="{ marginRight: computedMargins }"
+        :style="{ marginRight: marginComputed }"
       >
         <slot name="decreaseAction" v-bind="{ ...slotScope, decreaseCount }">
           <va-button
@@ -42,7 +42,7 @@
 
     <template v-if="$props.buttons"  #append="slotScope">
       <div class="va-counter__append-wrapper"
-        :style="{ marginLeft: computedMargins }"
+        :style="{ marginLeft: marginComputed }"
       >
         <slot name="increaseAction" v-bind="{ ...slotScope, increaseCount }">
           <va-button
@@ -75,7 +75,7 @@
       class="va-input__content__input"
       ref="input"
       type="number"
-      v-bind="{ ...computedInputAttributes, ...inputListeners }"
+      v-bind="{ ...inputAttributesComputed, ...inputListeners }"
       :value="valueComputed"
       @input="setCountInput"
       @change="setCountChange"
@@ -85,15 +85,16 @@
 
 <script lang="ts">
 import { computed, defineComponent, InputHTMLAttributes, ref, PropType, ComputedRef } from 'vue'
+import { omit, pick } from 'lodash-es'
 import { useFormProps } from '../../composables/useForm'
 import { useEmitProxy } from '../../composables/useEmitProxy'
 import { useFocus, useFocusEmits } from '../../composables/useFocus'
 import { useStatefulProps, useStateful } from '../../composables/useStateful'
 import { useColor } from '../../composables/useColor'
+import { safeCSSLength } from '../../utils/css-utils'
 import VaInputWrapper from '../va-input/components/VaInputWrapper.vue'
 import VaIcon from '../va-icon/VaIcon.vue'
 import VaButton from '../va-button/VaButton.vue'
-import { omit, pick } from 'lodash-es'
 
 const { createEmits: createInputEmits, createListeners: createInputListeners } = useEmitProxy(
   ['change'],
@@ -161,11 +162,11 @@ export default defineComponent({
     const { valueComputed } = useStateful(props, emit)
 
     const setCountInput = (event: Event) => {
-      valueComputed.value = +(event.target as HTMLInputElement)?.value
+      valueComputed.value = Number((event.target as HTMLInputElement)?.value)
     }
 
     const setCountChange = (event: Event) => {
-      const changed = +(event.target as HTMLInputElement)?.value
+      const changed = Number((event.target as HTMLInputElement)?.value)
       calculateCounterValue(changed)
     }
 
@@ -190,12 +191,12 @@ export default defineComponent({
 
     const isMinReached = computed(() => {
       if (!props.min) { return false }
-      return +valueComputed.value === props.min
+      return Number(valueComputed.value) === props.min
     })
 
     const isMaxReached = computed(() => {
       if (!props.max) { return false }
-      return +valueComputed.value > (props.max - props.step)
+      return Number(valueComputed.value) > (props.max - props.step)
     })
 
     const disabledDecreaseAction = computed(() => (
@@ -208,12 +209,12 @@ export default defineComponent({
 
     const decreaseCount = () => {
       if (disabledDecreaseAction.value) { return }
-      calculateCounterValue(+valueComputed.value - props.step)
+      calculateCounterValue(Number(valueComputed.value) - props.step)
     }
 
     const increaseCount = () => {
       if (disabledIncreaseAction.value) { return }
-      calculateCounterValue(+valueComputed.value + props.step)
+      calculateCounterValue(Number(valueComputed.value) + props.step)
     }
 
     const { colorComputed } = useColor(props)
@@ -250,28 +251,26 @@ export default defineComponent({
       disabled: disabledIncreaseAction.value,
     }))
 
-    const computedInputAttributes = computed(() => ({
+    const inputAttributesComputed = computed(() => ({
       ariaLabel: props.label,
       ...omit(attrs, ['class', 'style']),
       ...pick(props, ['disabled', 'min', 'max', 'step']),
       readonly: props.readonly || !props.manualInput,
     }) as InputHTMLAttributes)
 
-    const computedClass = computed(() => ([
+    const classComputed = computed(() => ([
       attrs.class,
       { 'va-counter--input-square': squareCorners.value },
     ]))
 
-    const computedStyle: ComputedRef<Partial<CSSStyleDeclaration>> = computed(() => {
+    const styleComputed: ComputedRef<Partial<CSSStyleDeclaration>> = computed(() => {
       const style = attrs.style || {}
       return Object.assign(style, {
-        width: typeof props.width === 'number' ? `${props.width}px` : props.width,
+        width: safeCSSLength(props.width),
       })
     })
 
-    const computedMargins = computed(() => (
-      typeof props.margins === 'number' ? `${props.margins}px` : props.margins
-    ))
+    const marginComputed = computed(() => safeCSSLength(props.margins))
 
     return {
       input,
@@ -280,7 +279,7 @@ export default defineComponent({
 
       fieldListeners: createFieldListeners(emit),
       inputListeners: createInputListeners(emit),
-      computedInputAttributes,
+      inputAttributesComputed,
       setCountInput,
       setCountChange,
 
@@ -293,9 +292,9 @@ export default defineComponent({
       increaseButtonProps,
 
       colorComputed,
-      computedClass,
-      computedStyle,
-      computedMargins,
+      classComputed,
+      styleComputed,
+      marginComputed,
 
       // while we have problem with 'withConfigTransport'
       // focus,
@@ -377,7 +376,7 @@ export default defineComponent({
       margin: 0;
     }
     // Firefox
-    [type=number] {
+    &[type=number] {
       -moz-appearance: textfield;
     }
   }
