@@ -1,6 +1,11 @@
-import { computed, Ref, watch } from 'vue'
+import { computed, Ref, ref, watch } from 'vue'
 import { isRange } from '../../va-date-picker/hooks/model-value-helper'
 import { VaDatePickerModelValue } from '../../va-date-picker/types/types'
+
+export type useRangeModelValueGuardProps = {
+  clearValue: VaDatePickerModelValue | undefined
+  [prop: string]: unknown
+}
 
 /**
  * This guard is used to prevent updating modelValue if range end is not specified.
@@ -9,8 +14,9 @@ import { VaDatePickerModelValue } from '../../va-date-picker/types/types'
 export const useRangeModelValueGuard = (
   modelValue: Ref<VaDatePickerModelValue | undefined>,
   disabled: Ref<boolean>,
+  props: useRangeModelValueGuardProps,
 ) => {
-  const bufferValue = modelValue
+  const bufferValue = ref<VaDatePickerModelValue | undefined>(modelValue.value)
 
   const valueComputed = computed<VaDatePickerModelValue | undefined>({
     get: () => bufferValue.value,
@@ -39,7 +45,7 @@ export const useRangeModelValueGuard = (
   })
 
   watch(modelValue, (newValue) => {
-    if (newValue) { bufferValue.value = newValue }
+    if (newValue || newValue === props.clearValue) { bufferValue.value = newValue }
   })
 
   const reset = () => {

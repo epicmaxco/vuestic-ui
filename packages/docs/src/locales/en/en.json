@@ -2893,6 +2893,10 @@
       },
       "formattingGlobalConfig": {
         "text": "You can easily use your format functions for all VaDateInputs using [Global Config](/services/components-config) feature."
+      },
+      "validation": {
+        "title": "Validation",
+        "text": "Validation works the same way as `VaInput` validation, except rules functions should accept `Date` instead of `string`."
       }
     }
   },

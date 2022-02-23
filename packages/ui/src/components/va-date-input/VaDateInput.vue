@@ -7,7 +7,9 @@
             v-bind="inputProps"
             ref="input"
             class="va-date-input__input"
-            v-model="valueText"
+            :model-value="valueText"
+            :error="hasError"
+            :error-messages="computedErrorMessages"
             :readonly="readonly || !manualInput"
             @change="onInputTextChanged"
           >
@@ -31,7 +33,7 @@
               <va-icon
                 v-if="canBeCleared"
                 v-bind="clearIconProps"
-                @click.stop="clear()"
+                @click.stop="reset()"
               />
               <va-icon
                 v-else-if="!$props.leftIcon"
@@ -66,8 +68,9 @@
 <script lang="ts">
 import { computed, defineComponent, PropType, toRefs, watch, ref } from 'vue'
 import { useClearableProps, useClearableEmits, useClearable } from '../../composables/useClearable'
+import { useValidation, useValidationProps, useValidationEmits } from '../../composables/useValidation'
+import { useStateful } from '../../composables/useStateful'
 import { useFormProps } from '../../composables/useForm'
-import { useStateful } from '../../mixins/StatefulMixin/cStatefulMixin'
 
 import { isRange, isSingleDate, isDates } from '../va-date-picker/hooks/model-value-helper'
 import { useSyncProp } from '../va-date-picker/hooks/sync-prop'
@@ -82,6 +85,7 @@ import VaIcon from '../va-icon'
 import { VaDatePickerModelValue } from '../va-date-picker/types/types'
 
 const VaInputProps = {
+  ...useValidationProps,
   ...useFormProps,
 
   label: { type: String, required: false },
@@ -129,6 +133,7 @@ export default defineComponent({
   emits: [
     ...extractComponentEmits(VaDatePicker),
     ...useClearableEmits,
+    ...useValidationEmits,
     'update:is-open',
     'update:text',
   ],
@@ -139,18 +144,24 @@ export default defineComponent({
     const { syncProp: isOpenSync } = useSyncProp(isOpen, 'is-open', emit, false)
 
     const isRangeModelValueGuardDisabled = computed(() => !resetOnClose.value)
-    const { valueComputed, reset } = useRangeModelValueGuard(statefulValue, isRangeModelValueGuardDisabled)
-    watch(isOpenSync, (isOpened) => { if (!isOpened && !isRangeModelValueGuardDisabled.value) { reset() } })
+    const {
+      valueComputed,
+      reset: resetInvalidRange,
+    } = useRangeModelValueGuard(statefulValue, isRangeModelValueGuardDisabled, props)
+
+    watch(isOpenSync, (isOpened) => {
+      if (!isOpened && !isRangeModelValueGuardDisabled.value) { resetInvalidRange() }
+    })
 
     const dateOrNothing = (date: Date | undefined | null) => date ? props.formatDate(date) : '...'
 
-    const input = ref(0)
+    const input = ref<InstanceType<typeof VaInput> | undefined>()
 
     const { parseDateInputValue, isValid } = useDateParser(props)
 
     const valueText = computed(() => {
       if (!isValid.value) {
-        return ''
+        return props.clearValue
       }
 
       if (props.format) {
@@ -158,7 +169,7 @@ export default defineComponent({
       }
 
       if (!valueComputed.value) {
-        return ''
+        return props.clearValue
       }
 
       if (isDates(valueComputed.value)) {
@@ -182,10 +193,27 @@ export default defineComponent({
       }
     }
 
-    const clear = () => {
-      valueComputed.value = props.clearValue
+    const reset = (): void => {
+      statefulValue.value = props.clearValue
       emit('clear')
     }
+
+    const focus = (): void => {
+      input.value?.focus()
+    }
+
+    // Will be used later, after fix 'withConfigTransport'
+    const blur = (): void => {
+      input.value?.blur()
+    }
+
+    const {
+      isFocused,
+      computedError,
+      computedErrorMessages,
+    } = useValidation(props, emit, reset, focus)
+
+    const hasError = computed(() => (!isValid.value && valueComputed.value !== props.clearValue) || computedError.value)
 
     const filterSlots = computed(() => {
       const slotsWithIcons = [
@@ -198,7 +226,7 @@ export default defineComponent({
     const {
       canBeCleared,
       clearIconProps,
-    } = useClearable(props, valueComputed)
+    } = useClearable(props, valueComputed, isFocused, hasError)
 
     const iconProps = computed(() => ({
       name: props.icon,
@@ -207,24 +235,40 @@ export default defineComponent({
       class: 'va-date-input__icon',
     }))
 
+    const computedInputProps = filterComponentProps(
+      props,
+      extractComponentProps(VaInput, ['rules', 'error', 'errorMessages', 'clearable']),
+    )
+
     return {
       valueText,
       valueComputed,
       isOpenSync,
-      isValid,
       onInputTextChanged,
+      hasError,
+      computedErrorMessages,
 
       input,
 
-      inputProps: filterComponentProps(props, VaInputProps),
+      inputProps: computedInputProps,
       datePickerProps: filterComponentProps(props, extractComponentProps(VaDatePicker)),
 
       filterSlots,
       canBeCleared,
       clearIconProps,
       iconProps,
-      clear,
+      reset,
+
+      // Will be used later, after fix 'withConfigTransport'
+      // focus,
+      // blur,
     }
+  },
+
+  // we will use this while we have problem with 'withConfigTransport'
+  methods: {
+    focus () { (this as any).input?.focus() },
+    blur () { (this as any).input?.blur() },
   },
 })
 </script>
