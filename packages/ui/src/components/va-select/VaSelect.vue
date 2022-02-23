@@ -1,33 +1,27 @@
 <template>
   <va-dropdown
     ref="dropdown"
-    v-model="showDropdownContentComputed"
+    class="va-select__dropdown va-select-dropdown"
+    trigger="none"
+    anchorSelector=".va-input-wrapper__input"
     :position="$props.position"
     :disabled="$props.disabled"
     :max-height="$props.maxHeight"
     :fixed="$props.fixed"
     :close-on-content-click="closeOnContentClick"
-    trigger="none"
-    class="va-select__dropdown va-select-dropdown"
-    keep-anchor-width
-    boundary-body
     :stateful="false"
-    anchorSelector=".va-input-wrapper__input"
     :offset="[0, 1]"
+    keep-anchor-width
+    v-model="showDropdownContentComputed"
+    @keydown.up.stop.prevent="showDropdown()"
+    @keydown.down.stop.prevent="showDropdown()"
+    @keydown.space.stop.prevent="showDropdown()"
+    @click.prevent="onSelectClick()"
   >
     <template #anchor>
-      <div
-        class="va-select"
-        ref="select"
-        :tabindex="tabIndexComputed"
-        @focus="focus"
-        @blur="blur"
-        @keydown.enter.stop.prevent="onSelectClick()"
-        @keydown.space.stop.prevent="onSelectClick()"
-        @click.prevent="onSelectClick()"
-      >
-        <!-- We show messages outside of dropdown to draw dropdown content under the input -->
+      <div class="va-select">
         <va-input
+          ref="input"
           :model-value="valueComputedString"
           :success="$props.success"
           :error="computedError"
@@ -38,11 +32,12 @@
           :disabled="$props.disabled"
           :outline="$props.outline"
           :bordered="$props.bordered"
-          :focused="isFocusedComputed"
-          :tabindex="-1"
+          :tabindex="tabIndexComputed"
           :messages="$props.messages"
           :error-messages="computedErrorMessages"
           readonly
+          @focus="onInputFocus()"
+          @blur="onInputBlur()"
         >
           <template
             v-if="$slots.prepend"
@@ -79,7 +74,7 @@
               name="appendInner"
             />
             <va-icon
-              :color="colorComputed"
+              :color="toggleIconColor"
               :name="toggleIcon"
             />
           </template>
@@ -99,20 +94,17 @@
       class="va-select-dropdown__content"
       :style="{ width: $props.width }"
       @keyup.enter.stop
-      @keydown.esc.prevent="hideDropdown"
-      @keydown.tab.prevent="hideDropdown"
+      @keydown.tab.stop.prevent
+      @keydown.esc.prevent="hideDropdown()"
     >
       <va-input
         v-if="showSearchInput"
-        :id="$props.id"
         ref="searchBar"
-        v-model="searchInput"
         class="va-select__input"
         placeholder="Search"
-        removable
-        :name="$props.name"
         :tabindex="tabindex + 1"
         :bordered="true"
+        v-model="searchInput"
         @keydown.up.stop.prevent="hoverPreviousOption()"
         @keydown.left.stop.prevent="hoverPreviousOption()"
         @keydown.down.stop.prevent="hoverNextOption()"
@@ -138,6 +130,7 @@
           @no-previous-option-to-hover="focusSearchBar()"
           @keydown.enter.stop.prevent="selectHoveredOption()"
           @keydown.space.stop.prevent="selectHoveredOption()"
+          @keydown.tab.stop.prevent="searchBar && searchBar.focus()"
           @keydown="onHintedSearch"
           @scroll-bottom="onScrollBottom"
         />
@@ -156,13 +149,14 @@ import { useLoadingProps } from '../../composables/useLoading'
 import { useColor } from '../../composables/useColor'
 import { useMaxSelections, useMaxSelectionsProps } from '../../composables/useMaxSelections'
 import { useClearableProps, useClearable, useClearableEmits } from '../../composables/useClearable'
-
+import { useColors } from '../../services/color-config/color-config'
 import { warn } from '../../services/utils'
 import VaDropdown, { VaDropdownContent } from '../va-dropdown'
 import VaIcon from '../va-icon'
 import VaInput from '../va-input'
-
 import VaSelectOptionList from './VaSelectOptionList'
+
+const { getHoverColor } = useColors()
 
 type DropdownIcon = {
   open: string,
@@ -171,6 +165,7 @@ type DropdownIcon = {
 
 export default defineComponent({
   name: 'VaSelect',
+
   components: {
     VaSelectOptionList,
     VaIcon,
@@ -178,6 +173,7 @@ export default defineComponent({
     VaDropdownContent,
     VaInput,
   },
+
   emits: [
     'update:modelValue',
     'update-search',
@@ -186,6 +182,7 @@ export default defineComponent({
     ...useValidationEmits,
     ...useClearableEmits,
   ],
+
   props: {
     ...useSelectableListProps,
     ...useValidationProps,
@@ -247,10 +244,9 @@ export default defineComponent({
     placeholder: { type: String as PropType<string>, default: '' },
   },
 
-  setup (props, { emit, expose }) {
-    // DOM element or component instance will be assigned to these refs after initial render (template refs and reactive refs are unified in Composition API)
-    const select = ref<InstanceType<typeof HTMLElement>>()
+  setup (props, { emit }) {
     const optionList = ref<InstanceType<typeof VaSelectOptionList>>()
+    const input = ref<InstanceType<typeof VaInput>>()
     const searchBar = ref<InstanceType<typeof VaInput>>()
 
     const { getOptionByValue, getValue, getText, getTrackBy } = useSelectableList(props)
@@ -263,6 +259,9 @@ export default defineComponent({
     } = useValidation(props, emit, () => reset(), () => focus())
 
     const { colorComputed } = useColor(props)
+    const toggleIconColor = computed(() => (
+      props.readonly ? getHoverColor(colorComputed.value) : colorComputed.value
+    ))
 
     const onScrollBottom = () => {
       emit('scroll-bottom')
@@ -478,6 +477,8 @@ export default defineComponent({
     })
 
     const showDropdown = () => {
+      if (props.disabled || props.readonly) { return }
+
       showDropdownContent.value = true
       scrollToSelected()
       focusSearchOrOptions()
@@ -487,7 +488,7 @@ export default defineComponent({
       showDropdownContent.value = false
       searchInput.value = ''
       validate()
-      focus()
+      input.value?.focus()
     }
 
     const toggleDropdown = () => {
@@ -498,18 +499,8 @@ export default defineComponent({
       }
     }
 
-    // Focus and keyboard navigation
-
-    const isFocusedComputed = computed(() => {
-      // If we show dropdown content that means select is focused
-      return isFocused.value || showDropdownContent.value
-    })
-
     const onSelectClick = () => {
-      if (props.disabled) {
-        return
-      }
-
+      if (props.disabled || props.readonly) { return }
       toggleDropdown()
     }
 
@@ -530,20 +521,36 @@ export default defineComponent({
       })
     }
 
+    const onInputFocus = (): void => {
+      if (!isFocused.value) {
+        isFocused.value = true
+      }
+    }
+
+    const onInputBlur = (): void => {
+      if (!showDropdownContentComputed.value) {
+        isFocused.value
+          ? isFocused.value = false
+          : validate()
+      }
+    }
+
     /** @public */
     const focus = (): void => {
-      if (props.disabled) {
-        return
-      }
-      isFocused.value = true
-      select.value?.focus()
+      if (props.disabled) { return }
+      input.value?.focus()
     }
 
     /** @public */
     const blur = (): void => {
-      isFocused.value = false
-      validate()
-      select.value?.blur()
+      if (showDropdownContentComputed.value) {
+        showDropdownContentComputed.value = false
+        nextTick(() => {
+          input.value?.blur()
+        })
+      } else {
+        input.value?.blur()
+      }
     }
 
     /** @public */
@@ -616,21 +623,20 @@ export default defineComponent({
       hintedSearchQueryTimeoutIndex = setTimeout(() => { hintedSearchQuery = '' }, 1000)
     }
 
-    expose({
-      focus,
-      blur,
-      reset,
-    })
-
     return {
-      select,
+      input,
       optionList,
+      searchBar,
+
+      // while we have problem with 'withConfigTransport'
+      // focus,
+      // blur,
+
+      onInputFocus,
+      onInputBlur,
       focusOptionList,
-      focus,
-      blur,
       reset,
       onSelectClick,
-      searchBar,
       focusSearchBar,
       searchInput,
       showSearchInput,
@@ -640,7 +646,6 @@ export default defineComponent({
       valueComputedString,
       showClearIcon,
       toggleIcon,
-      showDropdownContent,
       computedErrorMessages,
       computedError,
       filteredOptions,
@@ -655,14 +660,30 @@ export default defineComponent({
       showDropdown,
       hideDropdown,
       toggleDropdown,
-      isFocusedComputed,
-      colorComputed,
+      toggleIconColor,
       onHintedSearch,
       getText,
       getTrackBy,
       onScrollBottom,
       clearIconProps,
     }
+  },
+  // we will use this while we have problem with 'withConfigTransport'
+  methods: {
+    focus () {
+      if (this.$props.disabled) { return }
+      this.input?.focus()
+    },
+    blur () {
+      if (this.showDropdownContentComputed) {
+        this.showDropdownContentComputed = false
+        nextTick(() => {
+          this.input?.blur()
+        })
+      } else {
+        this.input?.blur()
+      }
+    },
   },
 })
 </script>
@@ -673,12 +694,6 @@ export default defineComponent({
 
 .va-select {
   cursor: var(--va-select-cursor);
-
-  &:focus {
-    .va-input__container {
-      box-shadow: var(--va-select-box-shadow);
-    }
-  }
 
   .va-input {
     cursor: var(--va-select-cursor);

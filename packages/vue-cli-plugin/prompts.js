@@ -35,6 +35,12 @@ module.exports = pkg => {
         }
       ]
     },
+    {
+      type: 'confirm',
+      name: 'agGrid',
+      message: 'Use ag-grid?',
+      default: false
+    },
   ]
 
   return prompts

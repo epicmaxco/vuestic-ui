@@ -8,10 +8,9 @@ import demoIconAliases from './vuestic-config/demo-icon-aliases'
 import demoIconFonts from './vuestic-config/demo-icon-fonts'
 
 import './vue-book-overrides.scss'
-import { createIconsConfig, VuesticPlugin } from '../main'
+import { createIconsConfig, VuesticPluginsWithoutComponents } from '../main'
 import { colorsPresets } from '../services/color-config/color-theme-presets'
 
-// @ts-ignore
 const app = createApp(App)
 
 const routes = [
@@ -33,7 +32,7 @@ const router = createRouter({
 app.use(VueBookComponents)
 app.use(router)
 
-app.use(VuesticPlugin, {
+app.use(VuesticPluginsWithoutComponents, {
   icons: createIconsConfig({
     aliases: demoIconAliases,
     fonts: demoIconFonts,

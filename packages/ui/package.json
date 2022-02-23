@@ -51,7 +51,8 @@
     "detect-browser": "^5.2.0",
     "element-resize-detector": "^1.2.1",
     "lodash-es": "^4.17.21",
-    "normalize.css": "^8.0.1"
+    "normalize.css": "^8.0.1",
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "@babel/core": "^7.12.3",
@@ -66,7 +67,6 @@
     "@types/cleave.js": "^1.4.3",
     "@types/jest": "^26.0.20",
     "@types/lodash": "^4.14.161",
-    "@types/lodash-es": "^4.17.3",
     "@types/mini-css-extract-plugin": "^1.2.1",
     "@types/semver": "^7.3.6",
     "@types/webpack": "^5",

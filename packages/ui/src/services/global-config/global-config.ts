@@ -1,4 +1,5 @@
-import { merge, cloneDeep } from 'lodash-es'
+import merge from 'lodash/merge'
+import cloneDeep from 'lodash/cloneDeep'
 import { ref } from 'vue'
 import { GlobalConfig, GlobalConfigUpdater } from './types'
 import { getComponentsAllDefaultConfig, getComponentsDefaultConfig } from './config-default'

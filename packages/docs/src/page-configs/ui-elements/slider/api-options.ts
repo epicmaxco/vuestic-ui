@@ -19,5 +19,6 @@ export default defineManualApi({
     append: { },
     prepend: { },
     label: { },
+    trackLabel: { },
   },
 })

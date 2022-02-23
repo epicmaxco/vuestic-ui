@@ -56,6 +56,7 @@ import { Options, Vue, prop, mixins } from 'vue-class-component'
 
 import { colorToRgba } from '../../../services/color-config/color-functions'
 import VaIcon from '../../va-icon'
+import VaButton from '../../va-button'
 
 import VaFileUploadUndo from '../VaFileUploadUndo'
 
@@ -78,6 +79,7 @@ const FileUploadGalleryItemPropsMixin = Vue.with(FileUploadGalleryItemProps)
   components: {
     VaIcon,
     VaFileUploadUndo,
+    VaButton,
   },
   emits: ['remove'],
 })

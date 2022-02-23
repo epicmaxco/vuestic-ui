@@ -20,8 +20,7 @@ export const getInputs = () => {
     .map((folderName) => `./src/components/${folderName}/index.ts`)
     .filter((filePath) => existsSync(filePath))
 
-  const utils = readdirSync('./src/utils')
-  const services = readDirRecursive('./src/services')
+  const vuesticPlugin = readDirRecursive('./src/vuestic-plugin')
 
-  return [...components]
+  return [...components, ...vuesticPlugin]
 }
