@@ -1,4 +1,4 @@
-import { noop } from 'lodash-es'
+import noop from 'lodash/noop'
 import { mount } from '@vue/test-utils'
 
 import { testHasStatefulMixin } from '../../mixins/StatefulMixin/testHasStatefulMixin'

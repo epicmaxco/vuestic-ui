@@ -2995,7 +2995,7 @@
     },
     "cli": {
       "title": "Vue CLI installation",
-      "description": "Another way to install Vuestic UI is using the Vue CLI plugin.",
+      "description": "Recommended way to install Vuestic UI is using the Vue CLI plugin. Works fine with vite or webpack.",
       "attention": "Installing Vuestic UI via the plugin would modify your `package.json` and `main.(js`&#124;`ts)` files, so make sure you’ve committed your code before proceeding to avoid data loss.",
       "prepare": "First, make sure you've got [Vue CLI](https://cli.vuejs.org/guide/installation.html)[[target=_blank]] installed globally:",
       "upgrade": "Notice also that the minimum supported version of Vue CLI is v4.0.0. In case you've got an older version installed, please, consider [upgrading](https://cli.vuejs.org/migrating-from-v3/#migrating-from-v3)[[target=_blank]] it.",

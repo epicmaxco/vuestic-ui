@@ -17,7 +17,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, computed, PropType, ref, Ref, nextTick, onMounted, onBeforeUnmount } from 'vue'
-import { noop } from 'lodash-es'
+import noop from 'lodash/noop'
 
 import {
   handleThrottledEvent,
@@ -124,14 +124,14 @@ export default defineComponent({
       }
     }
 
-    const clearEventListeners: Ref<() => any> = ref(noop)
-    onBeforeUnmount(clearEventListeners.value)
+    let clearEventListeners: () => any = noop
+    onBeforeUnmount(() => clearEventListeners())
     onMounted(() => {
       const events = ['scroll', 'resize']
 
-      initialPosition.value = element.value!.getBoundingClientRect()
+      initialPosition.value = element.value?.getBoundingClientRect()
 
-      clearEventListeners.value = useEventsHandlerWithThrottle(events, {
+      clearEventListeners = useEventsHandlerWithThrottle(events, {
         handler: throttledEventHandler,
       })
 

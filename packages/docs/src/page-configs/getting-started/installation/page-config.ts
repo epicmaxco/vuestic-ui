@@ -15,6 +15,16 @@ const block = new PageGenerationHelper(__dirname)
 const config: ApiDocsBlock[] = [
   block.title('installation.title'),
   block.paragraph('installation.description'),
+
+  block.subtitle('installation.cli.title'),
+  block.paragraph('installation.cli.description'),
+  block.alert('installation.cli.attention', 'warning'),
+  block.paragraph('installation.cli.prepare'),
+  block.code(cliPrepare, 'bash'),
+  block.paragraph('installation.cli.upgrade'),
+  block.paragraph('installation.cli.codeAnnotation'),
+  block.code('vue add vuestic-ui', 'bash'),
+
   block.subtitle('installation.manual.title'),
   block.paragraph('installation.manual.subtitle'),
   block.paragraph('installation.manual.prerequisites'),
@@ -32,15 +42,6 @@ const config: ApiDocsBlock[] = [
   block.headline('installation.quickStart.title'),
   block.paragraph('installation.quickStart.description'),
   block.code(quickStart),
-
-  block.subtitle('installation.cli.title'),
-  block.paragraph('installation.cli.description'),
-  block.alert('installation.cli.attention', 'warning'),
-  block.paragraph('installation.cli.prepare'),
-  block.code(cliPrepare, 'bash'),
-  block.paragraph('installation.cli.upgrade'),
-  block.paragraph('installation.cli.codeAnnotation'),
-  block.code('vue add vuestic-ui', 'bash'),
 
   block.subtitle('installation.codesandbox.title'),
   block.component('OpenCodeSandbox'),
