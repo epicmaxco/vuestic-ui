@@ -37,7 +37,7 @@
               >
                 {{ label }}
                 <span
-                  v-if="required"
+                  v-if="requiredMark"
                   class="va-input__required-mark"
                 >
                   *
@@ -121,6 +121,7 @@ export default defineComponent({
     focused: { type: Boolean, default: false },
     error: { type: Boolean, default: false },
     success: { type: Boolean, default: false },
+    requiredMark: { type: Boolean, default: false },
   },
 
   emits: [
@@ -144,7 +145,6 @@ export default defineComponent({
         solid: !props.outline && !props.bordered,
         disabled: props.disabled,
         readonly: props.readonly,
-        required: props.required,
         labeled: !!props.label,
         success: props.success,
         focused: props.focused,

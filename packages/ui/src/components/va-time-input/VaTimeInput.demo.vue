@@ -64,6 +64,11 @@
     <VbCard title="validation">
       <VaTimeInput v-model="value" :rules="validationRules" clearable />
     </VbCard>
+
+    <VbCard title="required mark">
+      <VaTimeInput v-model="value" label="time" required-mark />
+    </VbCard>
+
   </VbDemo>
 </template>
 

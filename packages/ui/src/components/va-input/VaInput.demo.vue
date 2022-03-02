@@ -269,11 +269,11 @@
         </template>
       </va-input>
     </VbCard>
-    <VbCard title="Required">
+    <VbCard title="Required Mark">
       <va-input
         v-model="text"
         label="name"
-        required
+        required-mark
       />
     </VbCard>
     <VbCard title="Disabled">
