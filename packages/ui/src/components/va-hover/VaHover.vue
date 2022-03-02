@@ -1,42 +1,44 @@
 <template>
-  <div @mouseenter="onMouseEnter" @mouseleave="onMouseLeave">
+  <div
+    @mouseenter="onMouseEnter"
+    @mouseleave="onMouseLeave"
+  >
     <slot :hover="valueComputed" />
   </div>
 </template>
 
 <script lang="ts">
-import { Options, prop, mixins, Vue } from 'vue-class-component'
+import { defineComponent, PropType } from 'vue'
+import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
 
-import { StatefulMixin } from '../../mixins/StatefulMixin/StatefulMixin'
-
-class HoverProps {
-  disabled = prop<boolean>({
-    type: Boolean,
-    default: false,
-  })
-
-  modelValue = prop<boolean>({
-    type: Boolean,
-    default: false,
-  })
-}
-
-const HoverPropsMixin = Vue.with(HoverProps)
-
-@Options({
+export default defineComponent({
   name: 'VaHover',
-})
-export default class VaHover extends mixins(StatefulMixin, HoverPropsMixin) {
-  onMouseEnter () {
-    if (!this.disabled) {
-      this.valueComputed = true
-    }
-  }
+  emits: useStatefulEmits,
+  props: {
+    ...useStatefulProps,
+    disabled: { type: Boolean as PropType<boolean>, default: false },
+    modelValue: { type: Boolean as PropType<boolean>, default: false },
+  },
+  setup (props, { emit }) {
+    const { valueComputed } = useStateful(props, emit)
 
-  onMouseLeave () {
-    if (!this.disabled) {
-      this.valueComputed = false
+    const onMouseEnter = () => {
+      if (!props.disabled) {
+        valueComputed.value = true
+      }
     }
-  }
-}
+
+    const onMouseLeave = () => {
+      if (!props.disabled) {
+        valueComputed.value = false
+      }
+    }
+
+    return {
+      valueComputed,
+      onMouseEnter,
+      onMouseLeave,
+    }
+  },
+})
 </script>
