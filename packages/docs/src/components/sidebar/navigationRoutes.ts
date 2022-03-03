@@ -314,6 +314,10 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'color-palette',
         displayName: 'menu.colorPalette',
       },
+      {
+        name: 'carousel',
+        displayName: 'menu.carousel',
+      },
       // GENERATOR_ADD - uiElements
     ],
   },

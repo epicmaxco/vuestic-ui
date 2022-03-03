@@ -16,7 +16,7 @@
     </VbCard>
     <VbCard title="color">
       <va-checkbox
-        color="purple"
+        color="#AB3AAB"
         v-model="value"
         label="Purple"
       />

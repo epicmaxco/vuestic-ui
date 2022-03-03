@@ -68,6 +68,7 @@ import ColorMixin from '../../services/color-config/ColorMixin'
 import { StatefulMixin } from '../../mixins/StatefulMixin/StatefulMixin'
 import VaButton from '../va-button'
 import VaTab from './VaTab/VaTab.vue'
+import VaConfig from '../va-config'
 
 export class TabsService {
   // eslint-disable-next-line no-useless-constructor
@@ -123,16 +124,18 @@ export const TabsServiceKey = Symbol('TabsService')
 
 @Options({
   name: 'VaTabs',
-  components: { VaButton },
+  components: { VaButton, VaConfig },
+  emits: ['update:modelValue', 'click:next', 'click:prev'],
 })
 export default class VaTabs extends mixins(
   ColorMixin,
   StatefulMixin,
   TabsPropsMixin,
 ) {
-  @Ref('wrapper') wrapperRef!: Element
-  @Ref('container') containerRef!: Element
-  @Ref('tabs') tabsRef!: Element
+  // TODO: Change `any` to Element in composition API.
+  @Ref('wrapper') wrapperRef!: any
+  @Ref('container') containerRef!: any
+  @Ref('tabs') tabsRef!: any
 
   sliderHeight: null | number = null
   sliderWidth: null | number = null
@@ -295,6 +298,8 @@ export default class VaTabs extends mixins(
     }
 
     this.tabsContentOffset = Math.max(0, offsetToSet)
+
+    this.$emit('click:prev')
   }
 
   movePaginationRight () {
@@ -317,6 +322,8 @@ export default class VaTabs extends mixins(
 
     offsetToSet = Math.min(maxOffset, offsetToSet)
     this.tabsContentOffset = Math.max(0, offsetToSet)
+
+    this.$emit('click:next')
   }
 
   moveToTab (tab: VaTab) {

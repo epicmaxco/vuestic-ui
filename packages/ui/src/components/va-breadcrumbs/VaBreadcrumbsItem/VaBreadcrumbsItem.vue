@@ -3,52 +3,43 @@
     <router-link
       v-if="!isDisabled"
       class="va-breadcrumb-item__label va-breadcrumb-item__label--link"
-      :to="to"
-      :replace="replace"
-      :append="append"
-      :exact="exact"
+      :to="$props.to"
+      :replace="$props.replace"
+      :append="$props.append"
+      :exact="$props.exact"
       :href="hrefComputed"
-      :active-class="activeClass"
-      :exact-active-class="exactActiveClass"
+      :active-class="$props.activeClass"
+      :exact-active-class="$props.exactActiveClass"
       tag="a"
     >
       <slot>{{ label }}</slot>
     </router-link>
-    <span
-      v-else
-      class="va-breadcrumb-item__label"
-    >
+    <span v-else class="va-breadcrumb-item__label">
       <slot>{{ label }}</slot>
     </span>
   </span>
 </template>
 
 <script lang="ts">
-import { RouterLinkMixin } from '../../../mixins/RouterLinkMixin/RouterLinkMixin'
-import { Options, mixins, prop, Vue } from 'vue-class-component'
+import { defineComponent, computed, PropType } from 'vue'
 
-class BreadcrumbsItemProps {
-  disabled = prop<boolean>({
-    type: Boolean,
-    default: false,
-  })
+import { useRouterLink, useRouterLinkProps } from '../../../composables/useRouterLink'
 
-  label = prop<string>({
-    type: String,
-    default: '',
-  })
-}
-
-const BreadcrumbsItemPropsMixin = Vue.with(BreadcrumbsItemProps)
-
-@Options({
+export default defineComponent({
   name: 'VaBreadcrumbsItem',
+  props: {
+    ...useRouterLinkProps,
+    disabled: { type: Boolean as PropType<boolean>, default: false },
+    label: { type: String as PropType<string>, default: '' },
+  },
+  setup: (props) => {
+    const { hasRouterLinkParams, hrefComputed } = useRouterLink(props)
+
+    const isDisabled = computed(() => props.disabled || hasRouterLinkParams.value)
+
+    return { isDisabled, hrefComputed }
+  },
 })
-export default class VaBreadcrumbsItem extends mixins(RouterLinkMixin, BreadcrumbsItemPropsMixin) {
-  get isDisabled () {
-    return this.disabled || !this.hasRouterLinkParams
-  }
-}
 </script>
 
 <style lang="scss">

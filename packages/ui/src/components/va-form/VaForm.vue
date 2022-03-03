@@ -78,10 +78,12 @@ export default defineComponent({
       }
     }
 
+    // validation for every nested child
     const validate = () => { // NOTE: temporarily synchronous validation
       const formValid = nestedFormElements.value
         .filter(({ validate }) => validate)
-        .every((child) => child.validate())
+        .map((child) => child.validate()) // more readable than with 'forEach'
+        .every((isValid) => isValid)
 
       emit('validation', formValid)
 

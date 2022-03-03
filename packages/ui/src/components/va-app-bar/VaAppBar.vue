@@ -5,88 +5,78 @@
 </template>
 
 <script lang="ts">
-import { mixins, Options, prop, setup, Vue } from 'vue-class-component'
+import { defineComponent, PropType, computed, ref } from 'vue'
+
 import { setupScroll } from '../../mixins/ScrollMixin/ScrollMixin'
-import {
-  getGradientBackground,
-  getBoxShadowColor,
-} from '../../services/color-config/color-functions'
-import ColorMixin from '../../services/color-config/ColorMixin'
+import { getGradientBackground, getBoxShadowColor } from '../../services/color-config/color-functions'
+import { useColors } from '../../services/color-config/color-config'
 
-class VaAppBarProps {
-  gradient = prop<boolean>({ type: Boolean, default: false })
-  bottom = prop<boolean>({ type: Boolean, default: false })
-  target = prop<string | Element>({ type: [Object, String], default: '' })
-  hideOnScroll = prop<boolean>({ type: Boolean, default: false })
-  shadowOnScroll = prop<boolean>({ type: Boolean, default: false })
-  shadowColor = prop<string>({ type: String, default: '' })
-  color = prop<string>({ type: String, default: undefined })
-}
+export default defineComponent({
+  name: 'VaAppBar',
+  props: {
+    gradient: { type: Boolean as PropType<boolean>, default: false },
+    bottom: { type: Boolean as PropType<boolean>, default: false },
+    target: { type: [Object, String] as PropType<string | Element>, default: '' },
+    hideOnScroll: { type: Boolean as PropType<boolean>, default: false },
+    shadowOnScroll: { type: Boolean as PropType<boolean>, default: false },
+    shadowColor: { type: String as PropType<string>, default: '' },
+    color: { type: String as PropType<string>, default: undefined },
+  },
+  setup (props) {
+    const prevScrollPosition = ref(0)
+    const doShowShadow = ref(false)
+    const isHidden = ref(false)
 
-const VaAppBarPropsMixin = Vue.with(VaAppBarProps)
+    const scrollRoot = setupScroll(props.target, (e) => {
+      const target = e.target as Element
 
-@Options({ name: 'VaAppBar' })
-export default class VaAppBar extends mixins(ColorMixin, VaAppBarPropsMixin) {
-  isHidden = false
-  doShowShadow = false
-
-  scrollRoot = setup(() => {
-    let prevScrollPosition = 0
-    return setupScroll(this.target, (e: any) => {
-      if (prevScrollPosition < e.target.scrollTop) {
+      if (prevScrollPosition.value < target.scrollTop) {
         // Scroll down
-        this.isHidden = !!this.hideOnScroll
-        this.doShowShadow = !!this.shadowOnScroll
+        isHidden.value = !!props.hideOnScroll
+        doShowShadow.value = !!props.shadowOnScroll
       } else {
         // Scroll up
-        this.isHidden = false
-        this.doShowShadow = false
+        isHidden.value = false
+        doShowShadow.value = false
       }
-      prevScrollPosition = e.target.scrollTop
+
+      prevScrollPosition.value = target.scrollTop
     })
-  })
 
-  get colorComputed () {
-    return this.theme.getColor(this.color, 'primary')
-  }
+    const { getColor } = useColors()
 
-  get shadowColorComputed () {
-    return this.theme.getColor(this.shadowColor, this.colorComputed)
-  }
+    const colorComputed = computed(() => getColor(props.color, 'primary'))
 
-  get computedShadow () {
-    if (!this.doShowShadow) {
-      return ''
-    }
+    const shadowColorComputed = computed(() => getColor(props.shadowColor, colorComputed.value))
 
-    const shadow = getBoxShadowColor(this.shadowColor ? this.shadowColorComputed : this.colorComputed)
+    const computedShadow = computed(() => {
+      const shadow = getBoxShadowColor(props.shadowColor ? shadowColorComputed.value : colorComputed.value)
+      return doShowShadow.value ? `0px 0px 12px 2px ${shadow}` : ''
+    })
 
-    return `0px 0px 12px 2px ${shadow}`
-  }
+    const transformComputed = computed(() => {
+      if (!isHidden.value) { return '' }
+      return props.bottom ? 'translateY(100%)' : 'translateY(-100%)'
+    })
 
-  get transformComputed () {
-    if (!this.isHidden) {
-      return ''
-    }
+    const computedStyle = computed(() => ({
+      background: props.gradient ? getGradientBackground(colorComputed.value) : colorComputed.value,
+      'box-shadow': computedShadow.value,
+      transform: transformComputed.value,
+    }))
 
-    return this.bottom ? 'translateY(100%)' : 'translateY(-100%)'
-  }
-
-  get computedStyle () {
-    return {
-      background: this.gradient ? getGradientBackground(this.colorComputed) : this.colorComputed,
-      'box-shadow': this.computedShadow,
-      transform: this.transformComputed,
-    }
-  }
-
-  get computedClass () {
-    return {
+    const computedClass = computed(() => ({
       'va-app-bar': true,
-      'va-app-bar--bottom': this.bottom,
+      'va-app-bar--bottom': props.bottom,
+    }))
+
+    return {
+      scrollRoot,
+      computedStyle,
+      computedClass,
     }
-  }
-}
+  },
+})
 </script>
 
 <style lang="scss">

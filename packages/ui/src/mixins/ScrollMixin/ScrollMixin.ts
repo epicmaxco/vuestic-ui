@@ -5,33 +5,21 @@ function getTargetElement (target: Element | string | null) {
     throw new Error('Cant find target')
   }
 
-  if (typeof target === 'string') {
-    const targetElement = document.querySelector(target)
-    if (targetElement) {
-      return targetElement
-    }
-    return null
-  }
-
-  return target as Element
+  return typeof target === 'string' ? document.querySelector(target) : target
 }
 
-export function setupScroll (target: Element | string, onScrollCallback: (e?: any) => unknown) {
-  const root = ref(null)
+export function setupScroll (target: Element | string, onScrollCallback: (e: Event) => void) {
+  const scrollRoot = ref(null)
   let targetElement: Element | null
 
   onMounted(() => {
-    targetElement = getTargetElement(target || root.value)
-    if (targetElement) {
-      targetElement.addEventListener('scroll', onScrollCallback)
-    }
+    targetElement = getTargetElement(target || scrollRoot.value)
+    targetElement?.addEventListener('scroll', onScrollCallback)
   })
 
   onBeforeUnmount(() => {
-    if (targetElement) {
-      targetElement.removeEventListener('scroll', onScrollCallback)
-    }
+    targetElement?.removeEventListener('scroll', onScrollCallback)
   })
 
-  return root
+  return scrollRoot
 }

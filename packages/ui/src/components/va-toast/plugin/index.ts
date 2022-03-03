@@ -1,7 +1,7 @@
 import { App } from 'vue'
-import { createToastInstance, closeById, closeAllNotifications, NotificationOptions } from './toast'
+import { createToastInstance, closeById, closeAllNotifications, NotificationOptions } from '../toast'
 
-export default {
+export const VaToastPlugin = {
   install (app: App) {
     app.config.globalProperties.$vaToast = {
       /** Returns toast instance id */

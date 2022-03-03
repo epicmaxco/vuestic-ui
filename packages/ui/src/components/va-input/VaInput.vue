@@ -15,59 +15,75 @@
     :bordered="bordered"
     :outline="outline"
     :focused="isFocused"
-    @click="input?.focus()"
+    @click="input && input.focus()"
   >
     <!-- Simply proxy slots to VaInputWrapper -->
     <template
-      v-for="(_, name) in $slots"
+      v-for="name in filterSlots"
       :key="name"
       v-slot:[name]="slotScope"
     >
       <slot :name="name" v-bind="slotScope" />
     </template>
 
-    <template #icon>
-      <va-icon v-if="success" color="success"
-        name="check_circle" size="small"
+    <template #icon="slotScope">
+      <va-icon
+        v-if="success"
+        color="success"
+        name="check_circle"
+        size="small"
       />
-      <va-icon v-if="computedError" color="danger"
-        name="warning" size="small"
+      <va-icon
+        v-if="computedError"
+        color="danger"
+        name="warning"
+        size="small"
       />
-      <va-icon  v-if="canBeCleared" :color="clearIconColor"
-        :name="clearableIcon" size="small" @click.stop="reset()"
+      <va-icon
+        v-if="canBeCleared"
+        v-bind="clearIconProps"
+        @click.stop="reset()"
       />
-      <va-icon v-if="loading" :color="color"
-        name="loop" size="small"
+      <va-icon
+        v-if="loading"
+        :color="color"
+        size="small"
+        name="loop"
         spin="counter-clockwise"
       />
+      <slot name="icon" v-bind="slotScope" />
     </template>
 
     <VaTextarea
       v-if="type === 'textarea' && !$slots.content"
       ref="input"
-      v-bind="{...textareaProps, ...inputEvents}"
+      v-bind="{ ...computedChildAttributes, ...textareaProps, ...inputEvents }"
       class="va-input__content__input"
     />
 
     <input
       v-else-if="!$slots.content"
       ref="input"
-      v-bind="{...computedInputAttributes, ...inputEvents}"
       class="va-input__content__input"
+      v-bind="{ ...computedInputAttributes, ...inputEvents }"
+      :value="computedValue"
     >
   </VaInputWrapper>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, InputHTMLAttributes, PropType, ref } from 'vue'
+import { computed, defineComponent, InputHTMLAttributes, PropType, ref, toRefs } from 'vue'
 import { useFormProps } from '../../composables/useForm'
 import { useValidation, useValidationProps, useValidationEmits } from '../../composables/useValidation'
 import { useCleave, useCleaveProps } from './hooks/useCleave'
 import { useEmitProxy } from '../../composables/useEmitProxy'
 import VaInputWrapper from './components/VaInputWrapper.vue'
+import { useClearableProps, useClearable, useClearableEmits } from '../../composables/useClearable'
 import VaTextarea from './components/VaTextarea/VaTextarea.vue'
+import VaIcon from '../va-icon/VaIcon.vue'
 import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
-import { omit } from 'lodash-es'
+import omit from 'lodash/omit'
+import pick from 'lodash/pick'
 
 const VaTextareaProps = extractComponentProps(VaTextarea)
 
@@ -87,18 +103,17 @@ const { createEmits: createFieldEmits, createListeners: createFieldListeners } =
 export default defineComponent({
   name: 'VaInput',
 
-  components: { VaInputWrapper, VaTextarea },
+  components: { VaInputWrapper, VaTextarea, VaIcon },
 
   props: {
     ...useFormProps,
     ...useValidationProps,
+    ...useClearableProps,
     ...useCleaveProps,
     ...VaTextareaProps,
 
     // input
     placeholder: { type: String, default: '' },
-    clearable: { type: Boolean, default: false },
-    clearableIcon: { type: String, default: 'highlight_off' },
     tabindex: { type: Number, default: 0 },
     modelValue: { type: [String, Number], default: '' },
     label: { type: String, default: '' },
@@ -110,16 +125,22 @@ export default defineComponent({
     bordered: { type: Boolean, default: false },
   },
 
-  emits: ['update:modelValue', ...useValidationEmits, ...createInputEmits(), ...createFieldEmits()],
+  emits: [
+    'update:modelValue',
+    ...useValidationEmits,
+    ...useClearableEmits,
+    ...createInputEmits(),
+    ...createFieldEmits(),
+  ],
 
   inheritAttrs: false,
 
-  setup (props, { emit, attrs, expose }) {
+  setup (props, { emit, attrs, slots }) {
     const input = ref<HTMLInputElement | InstanceType<typeof VaTextarea> | undefined>()
 
     const reset = () => {
-      emit('update:modelValue', '')
-      emit('cleared')
+      emit('update:modelValue', props.clearValue)
+      emit('clear')
     }
 
     const focus = () => {
@@ -130,24 +151,23 @@ export default defineComponent({
       input.value?.blur()
     }
 
+    const filterSlots = computed(() => {
+      const iconSlot = ['icon']
+      return Object.keys(slots).filter(slot => !iconSlot.includes(slot))
+    })
+
     const {
       isFocused,
       listeners: validationListeners,
       computedError,
       computedErrorMessages,
-    } = useValidation(props, emit, () => reset(), () => focus())
+    } = useValidation(props, emit, reset, focus)
 
-    const canBeCleared = computed(() => {
-      return props.clearable && ![null, undefined, ''].includes(props.modelValue as any)
-    })
-
-    const clearIconColor = computed(() => {
-      if (isFocused.value) { return props.color }
-      if (computedError.value) { return 'danger' }
-      if (props.success) { return 'success' }
-
-      return 'grey'
-    })
+    const { modelValue } = toRefs(props)
+    const {
+      canBeCleared,
+      clearIconProps,
+    } = useClearable(props, modelValue, isFocused, computedError)
 
     /** Use cleave only if this component is input, because it will break. */
     const computedCleaveTarget = computed(() => {
@@ -174,31 +194,27 @@ export default defineComponent({
       ...inputListeners,
       onFocus,
       onBlur,
-      // Cleave
       onInput,
     }
 
-    const computedInputAttributes = computed(() => ({
-      ...omit(attrs, ['class', 'style']),
-      value: computedValue.value,
-      type: props.type,
-      tabindex: props.tabindex,
-      disabled: props.disabled,
-      readonly: props.readonly,
-      placeholder: props.placeholder,
+    const computedChildAttributes = computed(() => ({
       ariaLabel: props.label,
+      ...omit(attrs, ['class', 'style']),
     }) as InputHTMLAttributes)
 
-    expose({
-      reset,
-      focus,
-      blur,
-    })
+    const computedInputAttributes = computed(() => ({
+      ...computedChildAttributes.value,
+      ...pick(props, ['type', 'tabindex', 'disabled', 'readonly', 'placeholder']),
+    }) as InputHTMLAttributes)
 
     return {
       input,
       inputEvents,
+
+      computedChildAttributes,
+      computedInputAttributes,
       textareaProps: filterComponentProps(props, VaTextareaProps),
+      computedValue,
 
       // Validations
       computedError,
@@ -207,15 +223,19 @@ export default defineComponent({
 
       // Icon
       canBeCleared,
-      clearIconColor,
+      clearIconProps,
 
-      computedInputAttributes,
       fieldListeners: createFieldListeners(emit),
       reset,
+      filterSlots,
+
+      // while we have problem with 'withConfigTransport'
+      // focus,
+      // blur,
     }
   },
 
-  // we will use this while we have 'withConfigTransport' and problem with 'expose' method in 'setup' func
+  // we will use this while we have problem with 'withConfigTransport'
   methods: {
     focus () { this.input?.focus() },
     blur () { this.input?.blur() },

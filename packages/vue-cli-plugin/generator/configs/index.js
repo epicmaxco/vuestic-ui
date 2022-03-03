@@ -2,7 +2,7 @@ const defaultConfig = require('./default')
 const treeShaking = require('./treeshaking')
 
 const mapObject = (obj, cb) => {
-  return Object.keys(obj).reduce((acc, key) => ({ [key]: cb(obj[key]) }), {})
+  return Object.keys(obj).reduce((acc, key) => ({ ...acc, [key]: cb(obj[key]) }), {})
 }
 
 const configs = {

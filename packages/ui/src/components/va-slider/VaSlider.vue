@@ -78,7 +78,9 @@
             :style="labelStyles"
             class="va-slider__handler__dot--value"
           >
-            {{ val[order] }}
+            <slot name="trackLabel" v-bind="{ value: val[order], order }">
+              {{ getTrackLabel(val[order], order) }}
+            </slot>
           </div>
         </div>
       </template>
@@ -111,7 +113,9 @@
             :style="labelStyles"
             class="va-slider__handler__dot--value"
           >
-            {{ trackLabel || val }}
+            <slot name="trackLabel" v-bind="{ value: val }">
+              {{ getTrackLabel(val) }}
+            </slot>
           </div>
         </div>
       </template>
@@ -160,7 +164,10 @@ class SliderProps {
     type: [Number, Array],
     default: () => [],
   })
-  trackLabel = prop<string>({ type: String, default: '' })
+  trackLabel = prop<((val: any, order?: number) => string) | undefined>({
+    type: [Function] as any,
+    default: undefined,
+  })
   color = prop<string>({ type: String, default: 'primary' })
   trackColor = prop<string>({ type: String, default: '' })
   labelColor = prop<string>({ type: String, default: '' })
@@ -190,10 +197,11 @@ export default class VaSlider extends mixins(
   ColorMixin,
   SliderPropsMixin,
 ) {
-  @Ref('dot') readonly dot!: HTMLElement
-  @Ref('dot0') readonly dot0!: HTMLElement
-  @Ref('dot1') readonly dot1!: HTMLElement
-  @Ref('sliderContainer') readonly sliderContainer!: HTMLElement
+  // TODO: Change `any` to Element in composition API.
+  @Ref('dot') readonly dot!: any
+  @Ref('dot0') readonly dot0!: any
+  @Ref('dot1') readonly dot1!: any
+  @Ref('sliderContainer') readonly sliderContainer!: any
 
   isFocused = false
   flag = false
@@ -682,6 +690,14 @@ export default class VaSlider extends mixins(
     return ((this.step * this.multiple) * index + (this.min * this.multiple)) / this.multiple
   }
 
+  getTrackLabel (val: any, order: number) {
+    if (!this.trackLabel) { return val }
+
+    if (typeof this.trackLabel === 'function') {
+      return this.trackLabel(val, order)
+    }
+  }
+
   setCurrentValue (val: any) {
     const slider = this.currentSliderDotIndex
     if (this.isRange) {
@@ -900,6 +916,7 @@ export default class VaSlider extends mixins(
       line-height: var(--va-slider-dot-value-line-height);
       font-weight: var(--va-slider-dot-value-font-weight);
       text-transform: var(--va-slider-dot-value-text-transform);
+      white-space: var(--va-slider-dot-value-white-space);
     }
   }
 

@@ -22,7 +22,8 @@ export function useColor (props: any) {
     return theme.getColor(props.color)
   })
 
-  const computeColor = (prop: string, defaultColor?: string) => {
+  /** @deprecated */
+  const computeColor = (prop?: string, defaultColor?: string) => {
     return theme.getColor(prop, defaultColor)
   }
 
@@ -32,12 +33,6 @@ export function useColor (props: any) {
     colorComputed,
     computeColor,
   }
-}
-
-export const useComputedColor = (color: Ref<string> | string) => {
-  return [
-    computed(() => getColor(unref(color))),
-  ]
 }
 
 export { useColors } from '../services/color-config/color-config'

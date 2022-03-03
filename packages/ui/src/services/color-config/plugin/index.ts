@@ -1,12 +1,13 @@
 import { watch } from 'vue'
-import { useGlobalConfig } from '../global-config/global-config'
-import { isServer } from '../../utils/ssr-utils'
+import { useGlobalConfig } from '../../global-config/global-config'
+import { isServer } from '../../../utils/ssr-utils'
 
 export const setCSSVariable = (name: string, value: string, root: HTMLElement) => {
   root.style.setProperty(`--va-${name}`, value)
 }
 
-const ColorHelpersPlugin = {
+/** Creates color css variables and reactively updates on ColorConfig changes. */
+export const ColorConfigPlugin = {
   install () {
     if (isServer()) { return }
 
@@ -24,5 +25,3 @@ const ColorHelpersPlugin = {
     }, { immediate: true, deep: true })
   },
 }
-
-export default ColorHelpersPlugin
