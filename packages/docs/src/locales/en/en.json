@@ -1728,7 +1728,10 @@
   },
   "toast": {
     "title": "Toast",
-    "summaryText": "Component for sending a notification to the user.",
+    "summaryText": "Component for sending a notification to the user. To make it easier to create toast we have a shorthands. For options API it is `$vaToast`. For composition api we have `useToast` hook. Hook and global object have similar API.",
+    "optionsAPI": "In options API you can use ToastPlugin (automatically installed with VuesticPlugin). `$vaToast` have a few methods: init, close, closeAll.",
+    "compositionAPI": "In composition API you can use `useToast` hook.",
+    "toastOptionsHeader": "Init Options",
     "examples": {
       "default": {
         "title": "Basic usage",
