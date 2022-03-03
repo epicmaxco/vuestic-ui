@@ -126,7 +126,8 @@ export default class VaPagination extends mixins(
 ) {
   inputValue = ''
 
-  @Ref() readonly htmlInput!: HTMLInputElement
+  // TODO: Change `any` to Element in composition API.
+  @Ref() readonly htmlInput!: any
 
   created () {
     watch([() => this.useTotal, () => this.$props.pages], () => {

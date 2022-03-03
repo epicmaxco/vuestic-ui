@@ -1,30 +1,28 @@
 <template>
   <div
     class="va-dropdown"
-    :class="classComputed"
+    :class="computedClass"
   >
     <div
       class="va-dropdown__anchor"
-      @mouseover="onMouseOver()"
-      @mouseout="onMouseOut()"
       @click="onAnchorClick()"
+      @mouseenter="onMouseEnter()"
+      @mouseleave="onMouseLeave()"
       @keyup.enter.stop.prevent="onAnchorClick()"
-      ref="anchor"
+      ref="anchorRef"
     >
       <slot name="anchor" />
     </div>
-    <template v-if="showContent">
+    <template v-if="valueComputed">
       <teleport :to="attachElement" :disabled="disableAttachment">
         <div
           class="va-dropdown__content-wrapper"
-          @mouseover="$props.isContentHoverable && onMouseOver()"
-          @mouseout="onMouseOut()"
-          @click.stop="onDropdownContentClick()"
-          ref="contentWrapper"
+          @mouseover="$props.isContentHoverable && onMouseEnter()"
+          @mouseout="onMouseLeave()"
+          @click.stop="emitAndClose('dropdown-content-click', closeOnContentClick)"
+          ref="contentRef"
         >
-          <div :style="$props.keepAnchorWidth ? anchorWidthStyles : ''">
-            <slot />
-          </div>
+          <slot />
         </div>
       </teleport>
     </template>
@@ -32,256 +30,120 @@
 </template>
 
 <script lang="ts">
-import { watch, nextTick } from 'vue'
-import { Vue, Options, prop, mixins } from 'vue-class-component'
-import { DebounceLoader } from 'asva-executors'
-import { createPopper, Instance } from '@popperjs/core'
-import { StatefulMixin } from '../../mixins/StatefulMixin/StatefulMixin'
+import { computed, defineComponent, onBeforeUnmount, onMounted, PropType, ref, toRef, watch } from 'vue'
+import { useStateful, useStatefulEmits, useStatefulProps } from '../../composables/useStateful'
+import { useDebounceFn } from '../../composables/useDebounce'
+import { usePopover, Placement } from '../../composables/usePopover'
+import { useClickOutside } from '../../composables/useClickOutside'
 
-type PopperInstance = Instance | null
-type ClickType = 'anchor-click' | 'dropdown-content-click' | 'click-outside'
+const placementsPositions = ['top', 'bottom', 'left', 'right']
+  .reduce((acc, position) => [...acc, position, `${position}-start`, `${position}-end`, `${position}-center`], ['auto'] as string[])
 
-class DropdownProps {
-  debugId = prop<string>({ type: String, default: '' })
-  position = prop<string>({ type: String, default: '' })
-  hoverOverTimeout = prop<number>({ type: Number, default: 30 })
-  hoverOutTimeout = prop<number>({ type: Number, default: 200 })
-  modelValue = prop<boolean>({ type: Boolean, default: false })
-  disabled = prop<boolean>({ type: Boolean })
-  attachElement = prop<string>({ type: String, default: 'body' })
-  disableAttachment = prop<boolean>({ type: Boolean })
-  // Means dropdown width should be the same as anchor's width.
-  keepAnchorWidth = prop<boolean>({ type: Boolean })
-  anchorSelector = prop<string>({ type: String, default: '' })
-  closeOnContentClick = prop<boolean>({ type: Boolean, default: true })
-  closeOnClickOutside = prop<boolean>({ type: Boolean, default: true })
-  closeOnAnchorClick = prop<boolean>({ type: Boolean, default: true })
-  isContentHoverable = prop<boolean>({ type: Boolean, default: true })
-  offset = prop<number | number[]>({ type: [Array, Number], default: () => [] })
-  trigger = prop<string>({
-    type: String,
-    default: 'click',
-    validator: (trigger: string) => ['click', 'hover', 'none'].includes(trigger),
-  })
-  stateful = prop<boolean>({ type: Boolean, default: true })
-}
-
-const DropdownPropsMixin = Vue.with(DropdownProps)
-
-@Options({
+export default defineComponent({
   name: 'VaDropdown',
-  emits: ['update:modelValue', 'anchor-click', 'click-outside', 'dropdown-content-click'],
-})
-export default class VaDropdown extends mixins(
-  StatefulMixin,
-  DropdownPropsMixin,
-) {
-  popperInstance: PopperInstance = null
-  anchorWidth = 0
-  hoverOverDebounceLoader!: DebounceLoader
-  hoverOutDebounceLoader!: DebounceLoader
 
-  get anchorWidthStyles (): { width: string; maxWidth: string } {
-    return {
-      width: this.anchorWidth + 'px',
-      maxWidth: this.anchorWidth + 'px',
+  props: {
+    ...useStatefulProps,
+    stateful: { default: true },
+    modelValue: { type: Boolean, default: false },
+    disabled: { type: Boolean },
+    attachElement: { type: String, default: 'body' },
+    disableAttachment: { type: Boolean, default: false },
+    keepAnchorWidth: { type: Boolean, default: false },
+    isContentHoverable: { type: Boolean, default: true },
+    closeOnContentClick: { type: Boolean, default: true },
+    closeOnClickOutside: { type: Boolean, default: true },
+    closeOnAnchorClick: { type: Boolean, default: true },
+    hoverOverTimeout: { type: Number, default: 30 },
+    hoverOutTimeout: { type: Number, default: 200 },
+    offset: { type: [Array, Number] as PropType<number | [number, number]>, default: () => 0 },
+    trigger: {
+      type: String as PropType<'click' | 'hover' | 'none'>,
+      default: 'click',
+      validator: (trigger: string) => ['click', 'hover', 'none'].includes(trigger),
+    },
+    placement: {
+      type: String as PropType<Placement>,
+      default: 'bottom',
+      validator: (placement: string) => placementsPositions.includes(placement),
+    },
+  },
+
+  emits: [...useStatefulEmits, 'anchor-click', 'dropdown-content-click', 'click-outside'],
+
+  setup (props, { emit }) {
+    const anchorRef = ref()
+    const contentRef = ref()
+    const { valueComputed } = useStateful(props, emit)
+
+    const computedClass = computed(() => ({
+      'va-dropdown': true,
+      'va-dropdown--disabled': props.disabled,
+    }))
+
+    usePopover(anchorRef, contentRef, computed(() => ({
+      placement: props.placement,
+      keepAnchorWidth: props.keepAnchorWidth,
+      offset: props.offset,
+      stickToEdges: true,
+      autoPlacement: true,
+      root: props.attachElement,
+    })))
+
+    const { debounced: debounceHover, cancel: cancelHoverDebounce } = useDebounceFn(toRef(props, 'hoverOverTimeout'))
+    const onMouseEnter = () => {
+      if (props.trigger !== 'hover' || props.disabled) { return }
+
+      debounceHover(() => { valueComputed.value = true })
+      cancelUnHoverDebounce()
     }
-  }
 
-  get classComputed () {
-    return {
-      'va-dropdown--disabled': this.$props.disabled,
-    }
-  }
+    const { debounced: debounceUnHover, cancel: cancelUnHoverDebounce } = useDebounceFn(toRef(props, 'hoverOutTimeout'))
+    const onMouseLeave = () => {
+      if (props.trigger !== 'hover' || props.disabled) { return }
 
-  get showContent (): boolean {
-    return this.valueComputed
-  }
-
-  handlePopperInstance (): void {
-    if (this.popperInstance) {
-      this.removePopper()
-    }
-
-    if (!this.showContent) {
-      return
-    }
-
-    this.updateAnchorWidth()
-
-    nextTick(() => {
-      this.initPopper()
-    })
-  }
-
-  handleClick (emitName: ClickType, toClose: boolean): void {
-    this.$emit(emitName)
-    if (toClose) {
-      this.hide()
-    }
-  }
-
-  onDropdownContentClick (): void {
-    this.handleClick('dropdown-content-click', this.closeOnContentClick)
-  }
-
-  onClickOutside (): void {
-    this.handleClick('click-outside', this.closeOnClickOutside)
-  }
-
-  onAnchorClick (): void {
-    if (this.$props.disabled) {
-      return
-    }
-    if (this.$props.trigger === 'click') {
-      if (this.valueComputed) {
-        this.handleClick('anchor-click', this.closeOnAnchorClick)
-        return
+      if (props.isContentHoverable) {
+        debounceUnHover(() => { valueComputed.value = false })
+      } else {
+        valueComputed.value = false
       }
-      this.valueComputed = true
-    }
-    this.$emit('anchor-click')
-  }
-
-  // Kinda complex logic here.
-  // We want to achieve 2 things:
-  // * Fast mouse-over shouldn't trigger dropdown.
-  // * Dropdown shouldn't close when you move mouse from anchor to content (even with offset).
-  onMouseOver (): void {
-    if (this.$props.disabled || this.$props.trigger !== 'hover') {
-      return
-    }
-    if (!this.valueComputed) {
-      this.hoverOverDebounceLoader.run()
-    }
-    this.hoverOutDebounceLoader.reset()
-  }
-
-  onMouseOut (): void {
-    if (this.$props.trigger !== 'hover') {
-      return
-    }
-    if (this.isContentHoverable) {
-      this.hoverOutDebounceLoader.run()
-    } else {
-      this.valueComputed = false
-    }
-    this.hoverOverDebounceLoader.reset()
-  }
-
-  registerClickOutsideListener (): void {
-    document.addEventListener('click', event => this.handleDocumentClick(event), false)
-  }
-
-  unregisterClickOutsideListener (): void {
-    document.removeEventListener('click', event => this.handleDocumentClick(event), false)
-  }
-
-  handleDocumentClick (event: any): void {
-    let el = event.target
-    const clickedElements = [] // Array because dropdowns can be nested.
-    // TODO Make DOM walk-over global, so that each dropdown doesn't have to do it.
-    while (el) {
-      clickedElements.push(el)
-      el = el.parentNode
-    }
-    const isCurrentDropdownClicked = clickedElements.includes(this.$refs.anchor) || clickedElements.includes(this.$refs.contentWrapper)
-    if (isCurrentDropdownClicked) {
-      return
-    }
-    if (this.showContent) {
-      this.onClickOutside()
-    }
-  }
-
-  updateAnchorWidth (): void {
-    if (this.keepAnchorWidth) {
-      this.anchorWidth = (this as any).$refs.anchor.offsetWidth
-    }
-    if (this.popperInstance) {
-      this.popperInstance.forceUpdate()
-    }
-  }
-
-  /** @public */
-  hide (): void {
-    this.valueComputed = false
-  }
-
-  initPopper (): void {
-    const options: any = {
-      placement: this.position || 'bottom',
-      modifiers: [],
-      // strategy: this.fixed ? 'fixed' : undefined,
-      onFirstUpdate: () => {
-        this.valueComputed = true
-      },
+      cancelHoverDebounce()
     }
 
-    if (this.offset) {
-      options.modifiers.push({
-        name: 'offset',
-        options: {
-          offset: Array.isArray(this.offset) ? this.offset : [this.offset],
-        },
-      })
-      // options.modifiers.keepTogether = { enabled: false }
-      // options.modifiers.arrow = { enabled: false }
+    const emitAndClose = (eventName: string, close?: boolean) => {
+      emit(eventName)
+      if (close) { valueComputed.value = false }
     }
 
-    const anchor = this.$props.anchorSelector
-      ? (this.$refs.anchor as Element).querySelector(this.$props.anchorSelector) || this.$refs.anchor
-      : this.$refs.anchor
+    const onAnchorClick = () => {
+      if (props.trigger !== 'click' || props.disabled) { return }
 
-    this.popperInstance = createPopper(
-      anchor as Element,
-      this.$refs.contentWrapper as HTMLElement,
-      options,
-    )
-  }
-
-  removePopper (): void {
-    this.valueComputed = false
-
-    if (!this.popperInstance) {
-      return
+      if (valueComputed.value) {
+        emitAndClose('anchor-click', props.closeOnAnchorClick)
+      } else {
+        valueComputed.value = true
+        emit('anchor-click')
+      }
     }
-    this.popperInstance.destroy()
-    this.popperInstance = null
-  }
 
-  created (): void {
-    watch(() => this.showContent, () => {
-      this.handlePopperInstance()
+    useClickOutside([anchorRef, contentRef], () => {
+      if (props.closeOnClickOutside) {
+        emitAndClose('click-outside', props.closeOnClickOutside)
+      }
     })
-    this.hoverOverDebounceLoader = new DebounceLoader(
-      async () => {
-        this.valueComputed = true
-      },
-      this.hoverOverTimeout,
-    )
-    this.hoverOutDebounceLoader = new DebounceLoader(
-      async () => {
-        this.valueComputed = false
-      },
-      this.hoverOutTimeout,
-    )
-    // nuxt fix
-    if ((this as any).$isServer) {
-      return
+
+    return {
+      valueComputed,
+      anchorRef,
+      contentRef,
+      computedClass,
+      emitAndClose,
+      onAnchorClick,
+      onMouseEnter,
+      onMouseLeave,
     }
-    this.registerClickOutsideListener()
-  }
-
-  mounted (): void {
-    this.handlePopperInstance()
-  }
-
-  beforeUnmount (): void {
-    this.unregisterClickOutsideListener()
-    this.removePopper()
-  }
-}
+  },
+})
 </script>
 
 <style lang="scss">

@@ -132,9 +132,10 @@ export default class VaTabs extends mixins(
   StatefulMixin,
   TabsPropsMixin,
 ) {
-  @Ref('wrapper') wrapperRef!: Element
-  @Ref('container') containerRef!: Element
-  @Ref('tabs') tabsRef!: Element
+  // TODO: Change `any` to Element in composition API.
+  @Ref('wrapper') wrapperRef!: any
+  @Ref('container') containerRef!: any
+  @Ref('tabs') tabsRef!: any
 
   sliderHeight: null | number = null
   sliderWidth: null | number = null

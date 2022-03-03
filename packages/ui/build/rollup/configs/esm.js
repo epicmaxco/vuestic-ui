@@ -23,8 +23,8 @@ export function createESMConfig ({ input, outDir = 'dist/', minify = false, decl
       sourcemap,
       dir: outDir,
       format: 'esm',
-      entryFileNames: '[name].js',
-      chunkFileNames: '[name].js',
+      entryFileNames: '[name].mjs',
+      chunkFileNames: '[name].mjs',
     },
 
     external: [

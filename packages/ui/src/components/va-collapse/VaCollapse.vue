@@ -101,7 +101,7 @@ export default class VaCollapse extends mixins(
     }
   })
 
-  get body (): HTMLElement {
+  get body () {
     return this.$refs?.body as HTMLElement
   }
 

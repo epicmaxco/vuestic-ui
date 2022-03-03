@@ -1,5 +1,5 @@
 <template>
-  <div class="va-dropdown__content" :style="noPadding && { padding: 0 }">
+  <div class="va-dropdown__content" :style="noPadding ? { padding: 0 } : {}">
     <slot />
   </div>
 </template>
