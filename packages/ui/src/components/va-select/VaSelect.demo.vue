@@ -76,6 +76,12 @@
         :options="defaultSingleSelect.options"
         hide-selected
       />
+      <va-select
+        v-model="defaultSingleSelect.value"
+        class="mb-4"
+        label="No options"
+        :options="[]"
+      />
     </VbCard>
     <VbCard title="html select for example">
       <select>
@@ -189,6 +195,17 @@
       <p>Value: {{ objectMultiSelect.value }}</p>
     </VbCard>
     <VbCard
+      title="Grouped"
+      style="width: 400px;"
+    >
+      <va-select
+        v-model="objectGrouped.value"
+        class="mb-4"
+        :options="objectGrouped.options"
+      />
+
+    </VbCard>
+    <VbCard
       title="Decorators"
       style="width: 400px;"
     >
@@ -260,9 +277,7 @@
         :options="defaultSingleSelect.options"
       >
         <template #prepend>
-          <va-icon
-            name="share"
-          />
+          <va-icon name="share" />
         </template>
       </va-select>
       <va-select
@@ -272,9 +287,7 @@
         :options="defaultSingleSelect.options"
       >
         <template #prependInner>
-          <va-icon
-            name="share"
-          />
+          <va-icon name="share" />
         </template>
       </va-select>
       <va-select
@@ -284,9 +297,7 @@
         :options="defaultSingleSelect.options"
       >
         <template #appendInner>
-          <va-icon
-            name="share"
-          />
+          <va-icon name="share" />
         </template>
       </va-select>
       <va-select
@@ -296,9 +307,7 @@
         :options="defaultSingleSelect.options"
       >
         <template #append>
-          <va-icon
-            name="share"
-          />
+          <va-icon name="share" />
         </template>
       </va-select>
       <va-select
@@ -309,10 +318,18 @@
         clearable
         :messages="['Hint message 1', 'Hint message 2']"
       >
-        <template #prepend><va-icon name="share" /></template>
-        <template #prependInner><va-icon name="share" /></template>
-        <template #appendInner><va-icon name="share" /></template>
-        <template #append><va-icon name="share" /></template>
+        <template #prepend>
+          <va-icon name="share" />
+        </template>
+        <template #prependInner>
+          <va-icon name="share" />
+        </template>
+        <template #appendInner>
+          <va-icon name="share" />
+        </template>
+        <template #append>
+          <va-icon name="share" />
+        </template>
       </va-select>
       <va-select
         v-model="defaultSingleSelect.value"
@@ -324,7 +341,10 @@
           <va-chip>{{ value || 'no value :(' }}</va-chip>
           <span class="ml-4">
             Click on share ;)
-            <va-icon name="share" @click="alert('Thank you for click!')"  />
+            <va-icon
+              name="share"
+              @click="alert('Thank you for click!')"
+            />
           </span>
         </template>
       </va-select>
@@ -603,6 +623,16 @@ export default {
       objectSingleSelect: {
         value: '',
         options: objectOptionsList,
+      },
+      objectGrouped: {
+        options: [
+          { id: '0', text: 'one', value: 'one', group: 'foo' },
+          { id: '1', text: 'two', value: 'two', group: '' },
+          { id: '2', text: 'three', value: 'three', group: 'bar' },
+          { id: '3', text: 'four', value: 'four', group: 'bar' },
+          { id: '4', text: 'five', value: 'five', group: 'foo' },
+        ],
+        value: '',
       },
       objectMultiSelect: {
         value: [],

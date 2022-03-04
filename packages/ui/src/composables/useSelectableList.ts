@@ -3,17 +3,27 @@
 import { getProp } from '../services/utils'
 import { PropType } from 'vue'
 
-type StringOrFunction = string | Function
+type StringOrFunction = string | ((option: any) => string)
+
+export type SelectableListProps = {
+  options: any[]
+  textBy: StringOrFunction
+  valueBy: StringOrFunction
+  trackBy: StringOrFunction
+  disabledBy: StringOrFunction
+  groupBy: StringOrFunction
+}
 
 export const useSelectableListProps = {
   options: { type: Array as PropType<any[]>, default: () => [] },
   textBy: { type: [String, Function] as PropType<StringOrFunction>, default: 'text' },
-  valueBy: { type: [String, Function] as PropType<StringOrFunction> },
+  valueBy: { type: [String, Function] as PropType<StringOrFunction>, default: '' },
   trackBy: { type: [String, Function] as PropType<StringOrFunction>, default: 'value' },
   disabledBy: { type: [String, Function] as PropType<StringOrFunction>, default: 'disabled' },
+  groupBy: { type: [String, Function] as PropType<StringOrFunction>, default: 'group' },
 }
 
-export function useSelectableList (props: any) {
+export function useSelectableList (props: SelectableListProps) {
   const isSelectableListComponent = true
 
   const isStringOrNumber = (option: any): boolean => {
@@ -35,7 +45,7 @@ export function useSelectableList (props: any) {
     return props.options.find((option: any) => value === getValue(option)) || value
   }
 
-  const getText = (option: any): any => {
+  const getText = (option: any) => {
     return isStringOrNumber(option)
       ? option
       : getProp(option, props.textBy)
@@ -51,6 +61,12 @@ export function useSelectableList (props: any) {
       : getProp(option, props.trackBy)
   }
 
+  const getGroupBy = (option: any) => {
+    return isStringOrNumber(option)
+      ? option
+      : getProp(option, props.groupBy)
+  }
+
   return {
     isSelectableListComponent,
     getValue,
@@ -58,5 +74,6 @@ export function useSelectableList (props: any) {
     getText,
     getDisabled,
     getTrackBy,
+    getGroupBy,
   }
 }

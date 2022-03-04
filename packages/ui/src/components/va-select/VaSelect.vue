@@ -122,6 +122,7 @@
           :get-selected-state="checkIsOptionSelected"
           :get-text="getText"
           :get-track-by="getTrackBy"
+          :get-group-by="getGroupBy"
           :search="searchInput"
           :no-options-text="$props.noOptionsText"
           :color="$props.color"
@@ -216,7 +217,7 @@ export default defineComponent({
     searchable: { type: Boolean as PropType<boolean>, default: false },
     separator: { type: String as PropType<string>, default: ', ' },
     width: { type: String as PropType<string>, default: '100%' },
-    maxHeight: { type: String as PropType<string>, default: '128px' },
+    maxHeight: { type: String as PropType<string>, default: '256px' },
     noOptionsText: { type: String as PropType<string>, default: 'Items not found' },
     fixed: { type: Boolean as PropType<boolean>, default: true },
     hideSelected: { type: Boolean as PropType<boolean>, default: false },
@@ -249,7 +250,7 @@ export default defineComponent({
     const input = ref<InstanceType<typeof VaInput>>()
     const searchBar = ref<InstanceType<typeof VaInput>>()
 
-    const { getOptionByValue, getValue, getText, getTrackBy } = useSelectableList(props)
+    const { getOptionByValue, getValue, getText, getTrackBy, getGroupBy } = useSelectableList(props)
 
     const {
       isFocused,
@@ -664,6 +665,7 @@ export default defineComponent({
       onHintedSearch,
       getText,
       getTrackBy,
+      getGroupBy,
       onScrollBottom,
       clearIconProps,
     }
