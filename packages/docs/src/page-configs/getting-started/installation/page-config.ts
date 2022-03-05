@@ -7,7 +7,6 @@ import {
   fontInstallationHTML,
   cliPrepare,
   treeShakingExample,
-  treeShakingPluginExample,
 } from './code-examples'
 
 const block = new PageGenerationHelper(__dirname)
@@ -61,10 +60,7 @@ const config: ApiDocsBlock[] = [
     'installation.treeShaking.plugins.DropdownPopperSubplugin',
   ]),
 
-  block.paragraph('installation.treeShaking.plugins.example.title'),
-  block.code(treeShakingPluginExample),
-
-  block.alert('installation.treeShaking.attention.cssLoader', 'info'),
+  // block.alert('installation.treeShaking.attention.cssLoader', 'info'),
 ]
 
 export default config

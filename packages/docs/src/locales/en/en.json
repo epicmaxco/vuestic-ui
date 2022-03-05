@@ -1764,7 +1764,7 @@
   "toast": {
     "title": "Toast",
     "summaryText": "Component for sending a notification to the user. To make it easier to create toast we have a shorthands. For options API it is `$vaToast`. For composition api we have `useToast` hook. Hook and global object have similar API.",
-    "optionsAPI": "In options API you can use ToastPlugin (automatically installed with VuesticPlugin). `$vaToast` have a few methods: init, close, closeAll.",
+    "optionsAPI": "In options API you can use VaToastPlugin (automatically installed with createVuestic). `$vaToast` have a few methods: init, close, closeAll.",
     "compositionAPI": "In composition API you can use `useToast` hook.",
     "toastOptionsHeader": "Init Options",
     "examples": {
@@ -3092,18 +3092,15 @@
       "title": "Tree shaking",
       "description": "If you plan to use only several components in your application and thus reduce the size of your bundle, you can use the Vuestic ESM build. Webpack (vue-cli) and Vite do that automatically.",
       "example": {
-        "title": "First, you don't need to use `VuesticPlugin` since it registers all the `vuestic` components globally. Instead, you can import specific components from the `vuestic-ui` package.",
-        "footer": "Alternatively, you can import them directly in your `.vue` files."
+        "title": "First, you don't need to use `createVuestic` since it registers all the `vuestic` components globally. We have `createVuesticEssential` instead, which register only essential plugins. You can specify components to declare globally. Or you can import them later.",
+        "footer": "You can also specify Vuestic subplugins as `plugins` option. "
       },
       "plugins": {
-        "title": "In such a case you'd also have to register Vuestic plugins by yourself. We recommend to use all of them:",
-        "GlobalConfigPlugin": "GlobalConfigPlugin - used for `VaConfig` component and global props reassignment. [Read more](/services/global-config).",
-        "ToastInstall": "ToastInstall - used by `VaToast` component.",
-        "ColorHelpersPlugin": "ColorHelpersPlugin - used to create reactive CSS variables. Requires `GlobalConfigPlugin`. [Read more](/services/colors-config).",
-        "DropdownPopperSubplugin": "DropdownPopperSubplugin - used by `VaDropdown` component.",
-        "example": {
-          "title": "All of these plugins are also available through the `VuesticPluginsWithoutComponents`:"
-        }
+        "title": "Here is a list of plugins that you can use with Vuestic:",
+        "GlobalConfigPlugin": "GlobalConfigPlugin (essential) - used for `VaConfig` component and global props reassignment. [Read more](/services/global-config).",
+        "ColorHelpersPlugin": "ColorHelpersPlugin (essential) - used to create reactive CSS variables. Requires `GlobalConfigPlugin`. [Read more](/services/colors-config).",
+        "ToastInstall": "VaToastPlugin - provides methods for creating Toasts within vue context. [Read more](/ui-elements/toast)",
+        "DropdownPopperSubplugin": "VaDropdownPlugin - provides methods for dropdown closing within vue context. `VaDropdown` is used in `VaSelect`, `VaTimeInput`, `VaDateInput`, `VaButtonDropdown` component."
       },
       "attention": {
         "cssLoader": "As all components' code is separated, you may need a CSS loader to load component-specific CSS.\nBut you probably already have one."
