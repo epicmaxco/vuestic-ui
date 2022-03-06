@@ -29,9 +29,17 @@
     "generate:component": "yarn workspace docs generate:component",
     "run-all": "wt -d packages/ui --title vuestic-book cmd /k yarn serve --port 8080; split-pane -d packages/docs --title vuestic-docs cmd /k yarn serve --port 8081"
   },
-  "workspaces": [
-    "packages/*"
-  ],
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ],
+    "nohoist": [
+      "**/nuxt-docs",
+      "**/nuxt-docs/**"
+    ]
+  },
+  
+  
   "gitHooks": {
     "pre-commit": "lerna run --concurrency 1 --stream precommit --since HEAD"
   }
