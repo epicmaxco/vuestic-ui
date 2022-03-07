@@ -1,15 +1,6 @@
 import { useI18n as originalUseI18n } from 'vue-i18n'
 import { computed } from 'vue'
 
-declare module 'vue-i18n' {
-  /** 
-   * Please, use modified useI18n composable.
-   * Do not import useI18n from 'vue-i18n'.
-   * @deprecated
-   */
-  function useI18n()
-}
-
 /** Modified useI18n. Sync locale with cookie. Has tie method. */
 export const useI18n = () => { 
   const i18n = originalUseI18n()
@@ -40,4 +31,13 @@ export const useI18n = () => {
       }
     })
   }
+}
+
+declare module 'vue-i18n' {
+  /** 
+   * Please, use modified useI18n composable.
+   * Do not import useI18n from 'vue-i18n'.
+   * @deprecated
+   */
+   export function useI18n<Options extends UseI18nOptions = UseI18nOptions>(options?: Options): Composer<NonNullable<Options['messages']>, NonNullable<Options['datetimeFormats']>, NonNullable<Options['numberFormats']>, NonNullable<Options['locale']>>;
 }

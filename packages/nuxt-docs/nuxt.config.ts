@@ -14,5 +14,9 @@ export default defineNuxtConfig({
       __VUE_I18N_LEGACY_API__: false,
       __VUE_I18N_PROD_DEVTOOLS__: false
     },
+  },
+  alias: {
+    'vuestic-ui/styles': '../ui/src/styles',
+    'vuestic-ui': '../ui/src/main',
   }
 })

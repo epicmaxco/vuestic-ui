@@ -1,4 +1,4 @@
-import { createI18n } from 'vue-i18n'
+import { createI18n, I18n, VueI18n } from 'vue-i18n'
 import { messages, locales } from '~/locales'
 import { useRouter, useRoute } from '#app'
 
@@ -42,6 +42,8 @@ export default defineNuxtPlugin(({ vueApp, ssrContext, provide }) => {
     },
   })
 
+  provide('i18n', i18n.global)
+
   const { beforeEach, replace } = useRouter()
 
   beforeEach((newRoute) => {
@@ -60,3 +62,10 @@ export default defineNuxtPlugin(({ vueApp, ssrContext, provide }) => {
 
   vueApp.use(i18n)
 })
+
+
+declare module '#app' {
+  interface NuxtApp {
+    $i18n: VueI18n
+  }
+}

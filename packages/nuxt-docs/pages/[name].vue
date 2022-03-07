@@ -1,7 +1,9 @@
 <template>
-  <div>{{ t('landing.preview.buttons.start') }}</div>
+  <!-- <div>{{ t('landing.preview.buttons.start') }}</div> -->
+  <DocsPage />
 </template>
 
 <script setup lang="ts">
-  const { t } = useI18n()
+import DocsPage from '~/components/docs/DocsPage.vue'
+const { t } = useI18n()
 </script>
