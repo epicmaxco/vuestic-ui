@@ -1,15 +1,16 @@
 import VaToast from './VaToast'
 import type { NotificationOptions } from './types'
 import { VNode, createVNode, render, AppContext } from 'vue'
+import { getGlobal } from '../../utils/ssr-utils'
 
 const GAP = 5
 let seed = 1
 
 declare global {
-  interface Window { vaToastInstances: VNode[]; }
+  var vaToastInstances: VNode[]
 }
 
-window.vaToastInstances = []
+getGlobal().vaToastInstances = []
 
 type OptionKeys = keyof NotificationOptions;
 
@@ -39,12 +40,12 @@ const getNodeProps = (vNode: VNode) => {
 const closeNotification = (targetInstance: VNode | null, destroyElementFn: () => void) => {
   if (!targetInstance) { return }
 
-  if (!window.vaToastInstances.length) {
+  if (!getGlobal().vaToastInstances.length) {
     seed = 1
     return
   }
 
-  const targetInstanceIndex = window.vaToastInstances.findIndex((instance) => instance === targetInstance)
+  const targetInstanceIndex = getGlobal().vaToastInstances.findIndex((instance) => instance === targetInstance)
 
   if (targetInstanceIndex < 0) { return }
 
@@ -59,7 +60,7 @@ const closeNotification = (targetInstance: VNode | null, destroyElementFn: () =>
 
   destroyElementFn()
 
-  window.vaToastInstances = window.vaToastInstances.reduce((acc: any[], instance, index) => {
+  getGlobal().vaToastInstances = getGlobal().vaToastInstances.reduce((acc: any[], instance, index) => {
     if (instance === targetInstance) {
       return acc
     }
@@ -75,7 +76,7 @@ const closeNotification = (targetInstance: VNode | null, destroyElementFn: () =>
     return [...acc, instance]
   }, [])
 
-  if (!window.vaToastInstances.length) {
+  if (!getGlobal().vaToastInstances.length) {
     seed = 1
   }
 }
@@ -124,18 +125,18 @@ const mount = (component: any, {
 }
 
 export const closeAllNotifications = (appContext?: AppContext) => {
-  if (!window.vaToastInstances.length) {
+  if (!getGlobal().vaToastInstances.length) {
     seed = 1
     return
   }
-  window.vaToastInstances.forEach(instance => {
+  getGlobal().vaToastInstances.forEach(instance => {
     if (appContext && instance.appContext !== appContext) { return }
     getNodeProps(instance).onClose()
   })
 }
 
 export const closeById = (id: string) => {
-  const targetInstance = window.vaToastInstances.find(instance => instance.el?.id === id)
+  const targetInstance = getGlobal().vaToastInstances.find(instance => instance.el?.id === id)
 
   if (targetInstance) {
     const nodeProps = getNodeProps(targetInstance)
@@ -165,7 +166,7 @@ export const createToastInstance = (customProps: NotificationOptions | string, a
     vNode.el.id = 'notification_' + seed
 
     let transformY = 0
-    window.vaToastInstances.filter(item => {
+    getGlobal().vaToastInstances.filter(item => {
       const {
         offsetX: itemOffsetX,
         offsetY: itemOffsetY,
@@ -180,7 +181,7 @@ export const createToastInstance = (customProps: NotificationOptions | string, a
 
     seed += 1
 
-    window.vaToastInstances.push(vNode)
+    getGlobal().vaToastInstances.push(vNode)
 
     return vNode.el.id as VaToastId
   }
