@@ -197,10 +197,11 @@ export default class VaSlider extends mixins(
   ColorMixin,
   SliderPropsMixin,
 ) {
-  @Ref('dot') readonly dot!: HTMLElement
-  @Ref('dot0') readonly dot0!: HTMLElement
-  @Ref('dot1') readonly dot1!: HTMLElement
-  @Ref('sliderContainer') readonly sliderContainer!: HTMLElement
+  // TODO: Change `any` to Element in composition API.
+  @Ref('dot') readonly dot!: any
+  @Ref('dot0') readonly dot0!: any
+  @Ref('dot1') readonly dot1!: any
+  @Ref('sliderContainer') readonly sliderContainer!: any
 
   isFocused = false
   flag = false

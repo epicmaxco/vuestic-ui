@@ -1,6 +1,7 @@
 import { App } from 'vue'
 
-export default {
+/** Creates `$closeDropdown` function vue context. */
+export const VaDropdownPlugin = {
   install (app: App) {
     app.config.globalProperties.$closeDropdown = function () {
       // eslint-disable-next-line @typescript-eslint/no-this-alias
