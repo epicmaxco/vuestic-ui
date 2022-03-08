@@ -685,7 +685,7 @@
         "updateErrorMessages": "Emitted when was changed error messages after validation"
       },
       "methods": {
-        "blur":  "Setting blurred on input",
+        "blur": "Setting blurred on input",
         "focus": "Setting focus on input",
         "reset": "Clearing input value"
       },
@@ -1163,6 +1163,32 @@
       "events": {},
       "methods": {},
       "slots": {}
+    },
+    "VaCarousel": {
+      "props": {
+        "arrows": "Show or hide next and previous button.",
+        "autoscroll": "Enable autoscroll animation.",
+        "autoscrollInterval": "Time in `ms`. Each `autoscroll-interval` next slide will be shown.",
+        "autoscrollPauseDuration": "Pause animation duration in `ms` after user changed slide.",
+        "effect": "Slide change effect",
+        "height": "Slider height. Can be any valid CSS height.",
+        "indicatorTrigger": "Event which will trigger indicator to change slide",
+        "indicators": "Show or hide indicators at the bottom of slider",
+        "infinite": "If true, after last slide first will be shown.",
+        "items": "List of slide items. Can be any array. By default should be a image src, but you can use item later in `default` slot.",
+        "loop": "If true, after last slide slider will scroll to first one through all items before.",
+        "modelValue": "Slide index to be shown.",
+        "vertical": "Change slider scroll orientation.",
+        "fadeKeyframe": "Custom keyframe name for fade animation"
+      },
+      "events": {},
+      "methods": {},
+      "slots": {
+        "default": "Custom style for slide item content",
+        "indicator": "Custom style for indicator button",
+        "nextArrow": "Custom style for next button",
+        "prevArrow": "Custom style for previous button"
+      }
     }
   },
   "menu": {
@@ -1266,7 +1292,8 @@
     "treeShakingRequirements": "Tree Shaking Requirements",
     "colors": "Colors",
     "timePicker": "Time Picker",
-    "timeInput": "Time Input"
+    "timeInput": "Time Input",
+    "carousel": "Carousel"
   },
   "all": {
     "examples": "Examples",
@@ -1302,7 +1329,6 @@
       "title": "Page Config",
       "descriptionStructure": "The page configuration must be located in a specific path, which is similar to the page URL. The folder with the page configuration must include the `components` folders for blocks with components and` examples` for blocks with examples. These folders should contain the `* .vue` files. An example of the structure and directory of the configuration folder for the current page:",
       "descriptionFile": "The configuration file contains `config`, which is an array of page blocks that perform specific functions."
-
     },
     "generators": {
       "title": "Generators",
@@ -3332,7 +3358,7 @@
     "subtitle": "Component config allows you to override default props' values for any Vuestic component. It is an object where the keys are component names and the values are prop-value pairs you want to overwrite. For example:",
     "demoTitle": "The example below allows you to change styling of all the buttons for the whole Vuestic Documentation site. Feel free to navigate to Button docs page and take a look at the updated examples.",
     "resetConfig": "Reset config",
-    "componentsAll" : {
+    "componentsAll": {
       "title": "All components config",
       "subtitle": "You could use `componentsAll` global config property to set prop values for all components at once. It will be applied if there are no other source of prop value. For example:",
       "description": "These prop values will be used as default values if prop is not set somewhere else (inside the component or inside other configs)."
@@ -3727,6 +3753,43 @@
       "subtitle": "Reactivity",
       "about": "These variables reactive relative to `Colors Config`. This means that they will be updated when the configuration changes. Read more about how to update the configuration [here](https://vuestic.dev/en/services/colors-config#icon-config-service-api).",
       "additional": "Please note that changing `CSS variables` of the colors directly, in turn, will not update `Colors Config`."
+    }
+  },
+  "carousel": {
+    "title": "Carousel",
+    "examples": {
+      "Default": {
+        "title": "Default",
+        "text": ""
+      },
+      "Arrows": {
+        "title": "Arrow buttons",
+        "text": "Arrow buttons allow user switch to next or previous slide."
+      },
+      "Indicators": {
+        "title": "Indicator buttons",
+        "text": "Indicators (or dots) used to quicly change slide by it's index."
+      },
+      "Vertical": {
+        "title": "Vertical",
+        "text": ""
+      },
+      "Slots": {
+        "title": "Slots",
+        "text": "Slots allow you to customize carousel component."
+      },
+      "Infinite": {
+        "title": "Infinite",
+        "text": "Smooth scroll transition."
+      },
+      "Autoscroll": {
+        "title": "Autoscroll",
+        "text": "Autoscroll animation."
+      },
+      "Fade": {
+        "title": "Fade",
+        "text": "Additional carousel slide switch effect."
+      }
     }
   }
 }
