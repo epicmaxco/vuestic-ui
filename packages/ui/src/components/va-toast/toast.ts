@@ -1,30 +1,22 @@
 import VaToast from './VaToast'
-import { NotificationOptions } from './types'
-import { VNode, App, createVNode, render } from 'vue'
+import type { NotificationOptions } from './types'
+import { VNode, createVNode, render, AppContext } from 'vue'
+import { getGlobal } from '../../utils/ssr-utils'
 
 const GAP = 5
 let seed = 1
 
-let toastInstances: VNode[] = []
+declare global {
+  interface Window {
+    vaToastInstances: VNode[]
+  }
+}
+
+getGlobal().vaToastInstances = []
 
 type OptionKeys = keyof NotificationOptions;
 
-const merge = (target: NotificationOptions | any, ...args: NotificationOptions[]): NotificationOptions => {
-  args.forEach((source) => {
-    if (typeof source !== 'object') {
-      return
-    }
-    for (const prop in source) {
-      if (Object.prototype.hasOwnProperty.call(source, prop)) {
-        const value = source[prop as OptionKeys]
-        if (value !== undefined) {
-          target[prop] = value
-        }
-      }
-    }
-  })
-  return target
-}
+export type VaToastId = string
 
 const getTranslateValue = (item: VNode, position: string) => {
   if (item.el) {
@@ -48,19 +40,16 @@ const getNodeProps = (vNode: VNode) => {
 }
 
 const closeNotification = (targetInstance: VNode | null, destroyElementFn: () => void) => {
-  if (!targetInstance) {
-    return
-  }
+  if (!targetInstance) { return }
 
-  if (!toastInstances.length) {
+  if (!getGlobal().vaToastInstances.length) {
     seed = 1
     return
   }
-  const targetInstanceIndex = toastInstances.findIndex((instance) => instance === targetInstance)
 
-  if (targetInstanceIndex < 0) {
-    return
-  }
+  const targetInstanceIndex = getGlobal().vaToastInstances.findIndex((instance) => instance === targetInstance)
+
+  if (targetInstanceIndex < 0) { return }
 
   const nodeProps = getNodeProps(targetInstance)
 
@@ -73,7 +62,7 @@ const closeNotification = (targetInstance: VNode | null, destroyElementFn: () =>
 
   destroyElementFn()
 
-  toastInstances = toastInstances.reduce((acc: any[], instance, index) => {
+  getGlobal().vaToastInstances = getGlobal().vaToastInstances.reduce((acc: any[], instance, index) => {
     if (instance === targetInstance) {
       return acc
     }
@@ -89,7 +78,7 @@ const closeNotification = (targetInstance: VNode | null, destroyElementFn: () =>
     return [...acc, instance]
   }, [])
 
-  if (!toastInstances.length) {
+  if (!getGlobal().vaToastInstances.length) {
     seed = 1
   }
 }
@@ -107,8 +96,8 @@ const mount = (component: any, {
   props,
   children,
   element,
-  app,
-}: { props?: { [key: string]: any }; children?: any; element?: HTMLElement; app?: App } = {}): { vNode: VNode; el?: HTMLElement } => {
+  appContext,
+}: { props?: { [key: string]: any }; children?: any; element?: HTMLElement; appContext?: AppContext } = {}): { vNode: VNode; el?: HTMLElement } => {
   let el: HTMLElement | null | undefined = element
 
   // eslint-disable-next-line prefer-const
@@ -124,9 +113,10 @@ const mount = (component: any, {
 
   vNode = createVNode(component, { ...props, onClose }, children)
 
-  if (app?._context) {
-    vNode.appContext = app._context
+  if (appContext) {
+    vNode.appContext = appContext
   }
+
   if (el) {
     render(vNode, el)
   } else if (typeof document !== 'undefined') {
@@ -136,16 +126,19 @@ const mount = (component: any, {
   return { vNode, el }
 }
 
-const closeAllNotifications = () => {
-  if (!toastInstances.length) {
+export const closeAllNotifications = (appContext?: AppContext) => {
+  if (!getGlobal().vaToastInstances.length) {
     seed = 1
     return
   }
-  toastInstances.forEach(instance => getNodeProps(instance).onClose())
+  getGlobal().vaToastInstances.forEach(instance => {
+    if (appContext && instance.appContext !== appContext) { return }
+    getNodeProps(instance).onClose()
+  })
 }
 
-const closeById = (id: string) => {
-  const targetInstance = toastInstances.find(instance => instance.el?.id === id)
+export const closeById = (id: string) => {
+  const targetInstance = getGlobal().vaToastInstances.find(instance => instance.el?.id === id)
 
   if (targetInstance) {
     const nodeProps = getNodeProps(targetInstance)
@@ -153,8 +146,17 @@ const closeById = (id: string) => {
   }
 }
 
-const createToastInstance = (customProps: NotificationOptions, app: App): VNode | null => {
-  const { vNode, el } = mount(VaToast, { app, props: customProps })
+const getToastOptions = (options: string | NotificationOptions): any => {
+  if (typeof options === 'string') {
+    return {
+      message: options,
+    }
+  }
+  return options
+}
+
+export const createToastInstance = (customProps: NotificationOptions | string, appContext?: AppContext): VaToastId | null => {
+  const { vNode, el } = mount(VaToast, { appContext, props: getToastOptions(customProps) })
 
   const nodeProps = getNodeProps(vNode)
 
@@ -166,7 +168,7 @@ const createToastInstance = (customProps: NotificationOptions, app: App): VNode 
     vNode.el.id = 'notification_' + seed
 
     let transformY = 0
-    toastInstances.filter(item => {
+    getGlobal().vaToastInstances.filter(item => {
       const {
         offsetX: itemOffsetX,
         offsetY: itemOffsetY,
@@ -180,46 +182,13 @@ const createToastInstance = (customProps: NotificationOptions, app: App): VNode 
     vNode.el.style.transform = `translate(0, ${transformY}px)`
 
     seed += 1
-    return vNode
+
+    getGlobal().vaToastInstances.push(vNode)
+
+    return vNode.el.id as VaToastId
   }
+
   return null
 }
 
-const getToastOptions = (options: string | NotificationOptions): any => {
-  if (typeof options === 'string') {
-    options = {
-      message: options,
-    }
-  }
-  return merge({}, options)
-}
-
-const initNotification = (options: NotificationOptions | string, app: App) => {
-  const toastInstance = createToastInstance(getToastOptions(options), app)
-  if (toastInstance) {
-    toastInstances.push(toastInstance)
-  }
-  return toastInstance
-}
-
-class Notification {
-  app: App;
-
-  constructor (app: App) {
-    this.app = app
-  }
-
-  init (options: NotificationOptions) {
-    return initNotification(options, this.app)?.el?.id as null | string
-  }
-
-  close (id: string) {
-    closeById(id)
-  }
-
-  closeAll () {
-    closeAllNotifications()
-  }
-}
-
-export default Notification
+export type { NotificationOptions } from './types'
