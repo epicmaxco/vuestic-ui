@@ -143,7 +143,7 @@
 <script lang="ts">
 import { defineComponent, PropType, ref, computed, watch, nextTick } from 'vue'
 
-import { useSelectableList, useSelectableListProps } from '../../composables/useSelectableList'
+import { useSelectableList, useSelectableListProps, SelectableOption } from '../../composables/useSelectableList'
 import { useValidation, useValidationProps, useValidationEmits } from '../../composables/useValidation'
 import { useFormProps } from '../../composables/useForm'
 import { useLoadingProps } from '../../composables/useLoading'
@@ -193,7 +193,7 @@ export default defineComponent({
     ...useFormProps,
 
     modelValue: {
-      type: [String, Number, Object, Array] as PropType<string | number | Record<string, any> | any[]>,
+      type: [String, Number, Object] as PropType<SelectableOption>,
       default: '',
     },
 

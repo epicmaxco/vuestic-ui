@@ -29,10 +29,10 @@
         @mouseover="updateHoveredOption(option)"
       >
         <va-icon
-          v-if="option.icon"
+          v-if="getOptionIcon(option)"
           size="small"
           class="va-select-option-list__option--icon"
-          :name="option.icon"
+          :name="getOptionIcon(option)"
         />
         <span>{{ getText(option) }}</span>
         <va-icon
@@ -58,6 +58,7 @@ import { defineComponent, PropType, watch, ref, Ref, computed } from 'vue'
 
 import { getHoverColor } from '../../../services/color-config/color-functions'
 import { useColors, useColorProps } from '../../../composables/useColor'
+import { SelectableOption } from '../../..//composables/useSelectableList'
 import VaIcon from '../../va-icon/'
 import { scrollToElement } from '../../../utils/scroll-to-element'
 
@@ -72,17 +73,17 @@ export default defineComponent({
   ],
   props: {
     ...useColorProps,
-    options: { type: Array as PropType<any[]>, default: () => [] },
+    options: { type: Array as PropType<SelectableOption[]>, default: () => [] },
     noOptionsText: { type: String as PropType<string>, default: 'Items not found' },
-    getSelectedState: { type: Function as PropType<(option: any) => boolean>, required: true },
-    getText: { type: Function as PropType<(option: any) => string>, required: true },
-    getTrackBy: { type: Function as PropType<(option: any) => number>, required: true },
-    getGroupBy: { type: Function as PropType<(option: any) => string>, required: true },
+    getSelectedState: { type: Function as PropType<(option: SelectableOption) => boolean>, required: true },
+    getText: { type: Function as PropType<(option: SelectableOption) => string>, required: true },
+    getTrackBy: { type: Function as PropType<(option: SelectableOption) => number>, required: true },
+    getGroupBy: { type: Function as PropType<(option: SelectableOption) => string>, required: true },
     multiple: { type: Boolean as PropType<boolean>, default: false },
     search: { type: String as PropType<string>, default: '' },
     tabindex: { type: Number as PropType<number>, default: 0 },
     hoveredOption: {
-      type: [String, Number, Object] as PropType<null | string | number | Record<string, any>>,
+      type: [String, Number, Object] as PropType<SelectableOption | null>,
       default: null,
     },
   },
@@ -100,15 +101,15 @@ export default defineComponent({
 
     const beforeUpdate = () => { itemRefs.value = {} }
 
-    const setItemRef = (option: number) => (el: any) => {
+    const setItemRef = (option: SelectableOption) => (el: HTMLElement) => {
       if (el) {
-        itemRefs.value[props.getTrackBy(option)] = el as HTMLElement
+        itemRefs.value[props.getTrackBy(option)] = el
       }
     }
 
     const hoveredOptionComputed = computed({
       get: () => props.hoveredOption || null,
-      set: (value: any) => emit('update:hoveredOption', value),
+      set: (value: SelectableOption | null) => emit('update:hoveredOption', value),
     })
 
     const filteredOptions = computed(() => {
@@ -116,18 +117,18 @@ export default defineComponent({
         return props.options
       }
 
-      return props.options.filter((option: string) => {
+      return props.options.filter((option: SelectableOption) => {
         const optionText = props.getText(option).toString().toUpperCase()
         const search = props.search.toUpperCase()
         return optionText.includes(search)
       })
     })
 
-    const optionGroups = computed(() => filteredOptions.value.reduce((groups: Record<string, any[]>, option) => {
-      if (!option.group) {
+    const optionGroups = computed(() => filteredOptions.value.reduce((groups: Record<string, SelectableOption[]>, option) => {
+      if (typeof option !== 'object' || !option.group) {
         groups._noGroup.push(option)
       } else {
-        const groupBy = props.getGroupBy(option.group)
+        const groupBy = props.getGroupBy(option)
 
         if (!groups[groupBy]) { groups[groupBy] = [] }
 
@@ -137,19 +138,21 @@ export default defineComponent({
       return groups
     }, { _noGroup: [] }))
 
-    const selectOption = (option: any) => emit('select-option', option)
+    const selectOption = (option: SelectableOption) => emit('select-option', option)
 
-    const getOptionClass = (option: any) => ({
+    const getOptionIcon = (option: SelectableOption) => typeof option === 'object' && option.icon
+
+    const getOptionClass = (option: SelectableOption) => ({
       'va-select-option-list__option': true,
       'va-select-option-list__option--selected': props.getSelectedState(option),
     })
 
-    const getOptionStyle = (option: any) => ({
+    const getOptionStyle = (option: SelectableOption) => ({
       color: props.getSelectedState(option) ? getColor(props.color) : 'inherit',
       backgroundColor: isHovered(option) ? getHoverColor(getColor(props.color)) : 'transparent',
     })
 
-    const isHovered = (option: any) => {
+    const isHovered = (option: SelectableOption) => {
       if (!hoveredOptionComputed.value) { return false }
       if (typeof option === 'string') { return option === hoveredOptionComputed.value }
       if (!props.getTrackBy) { return false }
@@ -157,10 +160,10 @@ export default defineComponent({
       return props.getTrackBy(hoveredOptionComputed.value) === props.getTrackBy(option)
     }
 
-    const updateHoveredOption = (option?: string[] | string) => { hoveredOptionComputed.value = option || null }
+    const updateHoveredOption = (option?: SelectableOption) => { hoveredOptionComputed.value = option || null }
 
     const hoveredOptionIndex = computed(() => filteredOptions.value.findIndex((option) => {
-      return props.getTrackBy(option) === props.getTrackBy(hoveredOptionComputed.value)
+      return !!hoveredOptionComputed.value && props.getTrackBy(option) === props.getTrackBy(hoveredOptionComputed.value)
     }))
 
     const hoverPreviousOption = () => {
@@ -198,7 +201,7 @@ export default defineComponent({
       rootElement.value?.focus({ preventScroll: true })
     }
 
-    const scrollToOption = (option: any) => {
+    const scrollToOption = (option: SelectableOption) => {
       if (!option) { return }
 
       const element = itemRefs.value[props.getTrackBy(option)]
@@ -208,7 +211,7 @@ export default defineComponent({
       }
     }
 
-    watch(() => props.hoveredOption, (newOption: any) => scrollToOption(newOption))
+    watch(() => props.hoveredOption, (newOption: SelectableOption | null) => newOption && scrollToOption(newOption))
 
     const publicMethods = {
       hoverPreviousOption,
@@ -225,6 +228,7 @@ export default defineComponent({
       beforeUpdate,
       setItemRef,
       selectOption,
+      getOptionIcon,
       getOptionClass,
       getOptionStyle,
       updateHoveredOption,
