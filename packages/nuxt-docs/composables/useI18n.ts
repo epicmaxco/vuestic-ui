@@ -22,6 +22,14 @@ export const useI18n = () => {
     tie,
     locale: computed({
       get() {
+        /**
+         * @notice For some reason sometimes locale is ref, 
+         * but sometimes is string on SSR.
+         */
+        if (typeof i18n.locale === 'string') { 
+          return i18n.locale
+        }
+
         return i18n.locale.value
       },
       set(locale: string) {

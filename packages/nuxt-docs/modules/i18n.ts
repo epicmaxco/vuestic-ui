@@ -10,20 +10,28 @@ export default defineNuxtModule({
           name: `locale-${page.name}`,
           path: `/:locale${page.path}`,
           file: page.file,
-          children: []
+          children: page.children || []
         }
       })
 
       pages.push(...localeRoutes)
 
-      // Remove nuxt optional mark. 
-      // This was broking localization path, because localized path had higher priority.
-      // https://router.vuejs.org/guide/essentials/route-matching-syntax.html#sensitive-and-strict-route-options
-      pages.forEach((page) => {
-        if (/\/:\w*\?/.test(page.path)) {
-          page.path = page.path.replace('?', '')
-        }
-      })
+      const removeOptionalFromPages = (pages: any[]) => {
+        // Remove nuxt optional mark. 
+        // This was broking localization path, because localized path had higher priority.
+        // https://router.vuejs.org/guide/essentials/route-matching-syntax.html#sensitive-and-strict-route-options
+        pages.forEach((page) => {
+          if (/:\w*\?/.test(page.path)) {
+            page.path = page.path.replace('?', '')
+          }
+
+          if (page.children) {
+            removeOptionalFromPages(page.children)
+          }
+        })
+      }
+
+      removeOptionalFromPages(pages)
     })
   }
 })

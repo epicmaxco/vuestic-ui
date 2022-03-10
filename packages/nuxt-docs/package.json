@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "NODE_ENV=dev nuxi dev",
+    "serve": "NODE_ENV=dev nuxi dev",
     "build": "NODE_ENV=production nuxi build",
     "start": "node .output/server/index.mjs"
   },
