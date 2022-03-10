@@ -7,10 +7,9 @@
             v-bind="inputProps"
             ref="input"
             class="va-date-input__input"
-            :model-value="valueText"
+            v-model="valueText"
             :error="!isValid"
             :readonly="readonly || !manualInput"
-            @change="onInputTextChanged"
           >
             <template
               v-for="name in filterSlots"
@@ -142,28 +141,35 @@ export default defineComponent({
 
     const { parseDateInputValue, isValid } = useDateParser(props)
 
-    const valueText = computed(() => {
-      if (!isValid.value) {
-        return ''
-      }
+    const valueText = computed({
+      get: () => {
+        if (!isValid.value) {
+          return ''
+        }
 
-      if (props.format) {
-        return props.format(valueComputed.value)
-      }
+        if (props.format) {
+          return props.format(valueComputed.value)
+        }
 
-      if (!valueComputed.value) { return '' }
+        if (!valueComputed.value) {
+          return ''
+        }
 
-      if (isDates(valueComputed.value)) {
-        return valueComputed.value.map((d) => props.formatDate(d)).join(props.delimiter)
-      }
-      if (isSingleDate(valueComputed.value)) {
-        return props.formatDate(valueComputed.value)
-      }
-      if (isRange(valueComputed.value)) {
-        return dateOrNothing(valueComputed.value.start) + props.rangeDelimiter + dateOrNothing(valueComputed.value.end)
-      }
+        if (isDates(valueComputed.value)) {
+          return valueComputed.value.map((d) => props.formatDate(d)).join(props.delimiter)
+        }
+        if (isSingleDate(valueComputed.value)) {
+          return props.formatDate(valueComputed.value)
+        }
+        if (isRange(valueComputed.value)) {
+          return dateOrNothing(valueComputed.value.start) + props.rangeDelimiter + dateOrNothing(valueComputed.value.end)
+        }
 
-      throw new Error('VaDatePicker: Invalid model value. Value should be Date, Date[] or { start: Date, end: Date | null }')
+        throw new Error('VaDatePicker: Invalid model value. Value should be Date, Date[] or { start: Date, end: Date | null }')
+      },
+      set: (set) => {
+        onInputTextChanged(set)
+      },
     })
 
     const onInputTextChanged = (text: string) => {
