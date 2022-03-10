@@ -1,4 +1,4 @@
-import { merge } from 'lodash-es'
+import merge from 'lodash/merge'
 import { getGlobalConfig } from '../global-config/global-config'
 import { isMatchDynamicSegments, dynamicSegments } from './utils/dynamic-segment'
 import { isMatchRegex, regexGroupsValues } from './utils/regex'

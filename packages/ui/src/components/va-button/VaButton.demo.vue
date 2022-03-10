@@ -492,12 +492,13 @@
 </template>
 
 <script>
-
+import VaIcon from '../va-icon'
+import VaConfig from '../va-config'
 import VaButton from './index'
 
 export default {
   components: {
-    VaButton,
+    VaButton, VaIcon, VaConfig,
   },
   data () {
     return {

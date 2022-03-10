@@ -16,3 +16,8 @@ When you run it here's what we do:
 ## Development
 
 [Local testing vue cli plugin](https://cli.vuejs.org/dev-guide/plugin-dev.html#installing-plugin-locally)
+
+```
+yarn add -D file:/full/path/to/your/plugin
+vue invoke vuestic-ui
+```

@@ -10,7 +10,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, onMounted, ref, watch, nextTick } from 'vue'
-import { pick } from 'lodash-es'
+import pick from 'lodash/pick'
 import { useFormProps } from '../../../../composables/useForm'
 import { useTextareaRowHeight } from './useTextareaRowHeight'
 import { useEmitProxy } from '../../../../composables/useEmitProxy'

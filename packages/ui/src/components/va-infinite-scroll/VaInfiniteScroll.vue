@@ -30,7 +30,7 @@
 </template>
 
 <script lang="ts">
-import { debounce } from 'lodash-es'
+import debounce from 'lodash/debounce'
 import { computed, defineComponent, ref, watch } from 'vue'
 
 import { sleep } from '../../services/utils'
