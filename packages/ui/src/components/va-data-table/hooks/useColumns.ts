@@ -1,6 +1,7 @@
 import { computed, Ref } from 'vue'
 import { ITableItem } from './useRows'
-import { merge, startCase } from 'lodash-es'
+import startCase from 'lodash/startCase'
+import merge from 'lodash/merge'
 
 export type TAlignOptions = 'left' | 'center' | 'right';
 export type TVerticalAlignOptions = 'top' | 'middle' | 'bottom';

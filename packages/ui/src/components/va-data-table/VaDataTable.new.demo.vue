@@ -158,14 +158,19 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import shuffle from 'lodash/shuffle'
+import cloneDeep from 'lodash/cloneDeep'
 import VaDataTable from './'
-import { cloneDeep, shuffle } from 'lodash-es'
+import VaChip from '../va-chip'
+import VaAlert from '../va-alert'
 
 export default defineComponent({
   name: 'VaDataTableNewDemo',
 
   components: {
     VaDataTable,
+    VaChip,
+    VaAlert,
   },
 
   data () {

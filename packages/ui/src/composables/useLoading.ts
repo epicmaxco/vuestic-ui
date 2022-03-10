@@ -1,5 +1,10 @@
 import { PropType } from 'vue'
 
+export type LoadingProps = {
+  loading: boolean
+  [prop: string]: unknown
+}
+
 /**
  * You could add these props to any component by destructuring them inside props option.
  * @example

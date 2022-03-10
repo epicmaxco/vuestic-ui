@@ -1,7 +1,8 @@
 {
   "name": "vue-cli-plugin-vuestic-ui",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Vuestic UI plugin for Vue CLI v4+",
+  "homepage": "https://vuestic.dev",
   "main": "index.js",
   "repository": "https://github.com/epicmaxco/vuestic-ui",
   "scripts": {
@@ -16,6 +17,5 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/epicmaxco/vuestic-ui/issues"
-  },
-  "homepage": "https://github.com/epicmaxco/vuestic-ui/vue-cli-plugin-quasar#readme"
+  }
 }

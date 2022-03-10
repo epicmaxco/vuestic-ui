@@ -2,20 +2,21 @@
   <div
     tabindex="0"
     class="va-time-picker-column"
-    @keydown.down.stop.prevent="focusNext"
-    @keydown.up.stop.prevent="focusPrev"
+    @keydown.down.stop.prevent="makeActiveNext()"
+    @keydown.space.stop.prevent="makeActiveNext(5)"
+    @keydown.up.stop.prevent="makeActivePrev()"
     ref="rootElement"
   >
     <div class="va-time-picker-cell va-time-picker-cell--fake" />
     <div
       v-for="(item, index) in items" :key="item"
-      class="va-time-picker-cell"
       :class="{
-        'va-time-picker-cell--active': index == activeItemIndex
+        'va-time-picker-cell': true,
+        'va-time-picker-cell--active': index === $props.activeItemIndex
       }"
       @click="onCellClick(index)"
     >
-      <slot name="cell" v-bind="{ item, index, activeItemIndex, items, formatedItem: formatCell(item) }">
+      <slot name="cell" v-bind="{ item, index, activeItemIndex, items, formattedItem: formatCell(item) }">
         {{ formatCell(item) }}
       </slot>
     </div>
@@ -26,25 +27,29 @@
 <script lang="ts">
 import { defineComponent, nextTick, onMounted, PropType, ref, watch } from 'vue'
 import { useSyncProp } from '../../../composables/useSyncProp'
-import { useHover } from '../../../composables/useHover'
+import { useFocus, useFocusEmits } from '../../../composables/useFocus'
 
 export default defineComponent({
   name: 'VaTimePickerColumn',
+
   props: {
     items: { type: Array as PropType<string[] | number[]>, default: () => [] },
     activeItemIndex: { type: Number, default: 0 },
   },
 
-  emits: ['item-selected', 'update:activeItemIndex'],
+  emits: ['item-selected', 'update:activeItemIndex', ...useFocusEmits],
 
   setup (props, { emit }) {
     const rootElement = ref<HTMLElement>()
 
-    const { isHovered } = useHover(rootElement)
-
-    watch(isHovered, (newValue) => { newValue && rootElement.value?.focus() })
+    // Will be used later, after fix 'withConfigTransport'
+    const { focus, blur } = useFocus(rootElement, emit)
 
     const [syncActiveItemIndex] = useSyncProp('activeItemIndex', props, emit)
+
+    watch(syncActiveItemIndex, (newVal) => { scrollTo(newVal) })
+
+    onMounted(() => scrollTo(syncActiveItemIndex.value, false))
 
     const scrollTo = (index: number, animate = true) => {
       nextTick(() => {
@@ -67,30 +72,20 @@ export default defineComponent({
       })
     }
 
-    const focusByIndex = (index: number) => {
+    const makeActiveByIndex = (index: number) => {
       syncActiveItemIndex.value = index
-
       nextTick(() => scrollTo(syncActiveItemIndex.value))
     }
 
-    const focusNext = () => {
-      if (syncActiveItemIndex.value + 1 >= props.items.length) { return }
-
-      syncActiveItemIndex.value = syncActiveItemIndex.value + 1
-
+    const makeActiveNext = (times?: number) => {
+      syncActiveItemIndex.value = (syncActiveItemIndex.value + (times || 1)) % props.items.length
       nextTick(() => scrollTo(syncActiveItemIndex.value))
     }
 
-    const focusPrev = () => {
-      if (syncActiveItemIndex.value - 1 < 0) { return }
-
-      syncActiveItemIndex.value = syncActiveItemIndex.value - 1
-
+    const makeActivePrev = (times?: number) => {
+      syncActiveItemIndex.value = (syncActiveItemIndex.value - (times || 1) + props.items.length) % props.items.length
       nextTick(() => scrollTo(syncActiveItemIndex.value))
     }
-
-    watch(syncActiveItemIndex, (newVal) => { scrollTo(newVal) })
-    onMounted(() => scrollTo(syncActiveItemIndex.value, false))
 
     const onCellClick = (index: number) => {
       syncActiveItemIndex.value = index
@@ -105,13 +100,23 @@ export default defineComponent({
     return {
       rootElement,
 
-      focusNext,
-      focusPrev,
-      focusByIndex,
+      makeActiveNext,
+      makeActivePrev,
+      makeActiveByIndex,
 
       onCellClick,
       formatCell,
+
+      // Will be used later, after fix 'withConfigTransport'
+      // focus,
+      // blur,
     }
+  },
+
+  // we will use this while we have problem with 'withConfigTransport'
+  methods: {
+    focus () { (this as any).rootElement?.focus() },
+    blur () { (this as any).rootElement?.blur() },
   },
 })
 </script>
@@ -148,6 +153,7 @@ export default defineComponent({
 
       &--active {
         position: relative;
+        color: var(--va-time-picker-cell-active-color);
         z-index: 0;
 
         &::before {
@@ -163,8 +169,16 @@ export default defineComponent({
         }
       }
 
-      &--fake:last-child {
-        height: calc(100% - var(--va-time-picker-cell-height) * 2);
+      &--fake {
+        visibility: hidden;
+
+        &:last-child {
+          height: calc(100% - var(--va-time-picker-cell-height) * 2);
+        }
+      }
+
+      &:hover {
+        background: var(--va-time-picker-cell-background-color-hover);
       }
     }
 

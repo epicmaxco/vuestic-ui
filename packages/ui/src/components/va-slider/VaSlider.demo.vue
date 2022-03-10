@@ -38,25 +38,37 @@
       title="track label visible"
     >
       <va-slider
-        range
+        v-model="value"
         track-label-visible
-        v-model="value2"
       />
       <br>
       <va-slider
+        v-model="value2"
+        range
         track-label-visible
-        v-model="value"
       />
-    </VbCard>
-    <VbCard
-      width="500px"
-      title="custom track label"
-    >
+      <br>
       <va-slider
+        v-model="value2"
+        range
         track-label-visible
-        v-model="value"
-        :track-label="`${value}px`"
+        :track-label="processTrackLabel"
       />
+      <br>
+      <va-slider class="mt-3"
+        v-model="value2"
+        range
+        color="danger"
+        track-color="warning"
+        track-label-visible
+      >
+        <template #trackLabel="{ value, order }">
+          <va-chip
+            size="small"
+            :color="order === 0 ? 'success' : 'danger'"
+          >{{ value }}</va-chip>
+        </template>
+      </va-slider>
     </VbCard>
     <VbCard
       width="500px"
@@ -491,11 +503,13 @@
 <script>
 import VaSlider from './VaSlider.vue'
 import VaInput from '../va-input/VaInput'
+import VaChip from '../va-chip/VaChip.vue'
 
 export default {
   components: {
     VaInput,
     VaSlider,
+    VaChip,
   },
   data () {
     return {
@@ -506,6 +520,13 @@ export default {
       min: 1000,
       max: 2000,
     }
+  },
+  methods: {
+    processTrackLabel (value, order) {
+      return order === 0
+        ? `min ${value}$`
+        : `max ${value}$`
+    },
   },
 }
 </script>

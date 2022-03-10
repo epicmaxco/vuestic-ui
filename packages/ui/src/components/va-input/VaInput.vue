@@ -15,6 +15,7 @@
     :bordered="bordered"
     :outline="outline"
     :focused="isFocused"
+    :requiredMark="requiredMark"
     @click="input && input.focus()"
   >
     <!-- Simply proxy slots to VaInputWrapper -->
@@ -57,15 +58,16 @@
     <VaTextarea
       v-if="type === 'textarea' && !$slots.content"
       ref="input"
-      v-bind="{...textareaProps, ...inputEvents}"
+      v-bind="{ ...computedChildAttributes, ...textareaProps, ...inputEvents }"
       class="va-input__content__input"
     />
 
     <input
       v-else-if="!$slots.content"
       ref="input"
-      v-bind="{...computedInputAttributes, ...inputEvents}"
       class="va-input__content__input"
+      v-bind="{ ...computedInputAttributes, ...inputEvents }"
+      :value="computedValue"
     >
   </VaInputWrapper>
 </template>
@@ -79,8 +81,10 @@ import { useEmitProxy } from '../../composables/useEmitProxy'
 import VaInputWrapper from './components/VaInputWrapper.vue'
 import { useClearableProps, useClearable, useClearableEmits } from '../../composables/useClearable'
 import VaTextarea from './components/VaTextarea/VaTextarea.vue'
+import VaIcon from '../va-icon/VaIcon.vue'
 import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
-import { omit, pick } from 'lodash-es'
+import omit from 'lodash/omit'
+import pick from 'lodash/pick'
 
 const VaTextareaProps = extractComponentProps(VaTextarea)
 
@@ -100,7 +104,7 @@ const { createEmits: createFieldEmits, createListeners: createFieldListeners } =
 export default defineComponent({
   name: 'VaInput',
 
-  components: { VaInputWrapper, VaTextarea },
+  components: { VaInputWrapper, VaTextarea, VaIcon },
 
   props: {
     ...useFormProps,
@@ -120,6 +124,7 @@ export default defineComponent({
     color: { type: String, default: 'primary' },
     outline: { type: Boolean, default: false },
     bordered: { type: Boolean, default: false },
+    requiredMark: { type: Boolean, default: false },
   },
 
   emits: [
@@ -132,11 +137,11 @@ export default defineComponent({
 
   inheritAttrs: false,
 
-  setup (props, { emit, attrs, slots, expose }) {
+  setup (props, { emit, attrs, slots }) {
     const input = ref<HTMLInputElement | InstanceType<typeof VaTextarea> | undefined>()
 
     const reset = () => {
-      emit('update:modelValue', '')
+      emit('update:modelValue', props.clearValue)
       emit('clear')
     }
 
@@ -191,27 +196,27 @@ export default defineComponent({
       ...inputListeners,
       onFocus,
       onBlur,
-      // Cleave
       onInput,
     }
 
-    const computedInputAttributes = computed(() => ({
-      ...omit(attrs, ['class', 'style']),
-      ...pick(props, ['type', 'tabindex', 'disabled', 'readonly', 'placeholder']),
-      value: computedValue.value,
+    const computedChildAttributes = computed(() => ({
       ariaLabel: props.label,
+      ...omit(attrs, ['class', 'style']),
     }) as InputHTMLAttributes)
 
-    expose({
-      reset,
-      focus,
-      blur,
-    })
+    const computedInputAttributes = computed(() => ({
+      ...computedChildAttributes.value,
+      ...pick(props, ['type', 'tabindex', 'disabled', 'readonly', 'placeholder']),
+    }) as InputHTMLAttributes)
 
     return {
       input,
       inputEvents,
+
+      computedChildAttributes,
+      computedInputAttributes,
       textareaProps: filterComponentProps(props, VaTextareaProps),
+      computedValue,
 
       // Validations
       computedError,
@@ -222,14 +227,17 @@ export default defineComponent({
       canBeCleared,
       clearIconProps,
 
-      computedInputAttributes,
       fieldListeners: createFieldListeners(emit),
       reset,
       filterSlots,
+
+      // while we have problem with 'withConfigTransport'
+      // focus,
+      // blur,
     }
   },
 
-  // we will use this while we have 'withConfigTransport' and problem with 'expose' method in 'setup' func
+  // we will use this while we have problem with 'withConfigTransport'
   methods: {
     focus () { this.input?.focus() },
     blur () { this.input?.blur() },

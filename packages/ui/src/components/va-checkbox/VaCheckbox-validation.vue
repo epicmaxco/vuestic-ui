@@ -7,24 +7,22 @@
     <VaCheckbox
       v-model="value"
       label="Name"
-      :rules="[v => !!v || 'Value should be true']"
+      :rules="rules"
     />
   </VbCard>
 </template>
 
 <script lang="ts">
-import { Vue, Options } from 'vue-class-component'
+import { defineComponent, ref } from 'vue'
 
 import VaCheckbox from './index'
 
-@Options({
+export default defineComponent({
+  name: 'VaCheckbox-validation',
   components: { VaCheckbox },
+  setup: () => ({
+    rules: [(v: unknown) => !!v || 'Value should be true'],
+    value: ref(false),
+  }),
 })
-export default class VaCheckboxValidation extends Vue {
-  data () {
-    return {
-      value: false,
-    }
-  }
-}
 </script>

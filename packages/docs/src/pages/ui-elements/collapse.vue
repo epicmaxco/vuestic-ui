@@ -1,21 +1,16 @@
 <template>
-  <docs-content :config="configComputed" />
+  <docs-content :config="collapseConfig" />
 </template>
 
 <script lang="ts">
-import { Vue, Options } from 'vue-class-component'
+import { defineComponent } from 'vue'
+
 import DocsContent from '../../components/DocsContent.vue'
 import collapseConfig from '../../page-configs/ui-elements/collapse/page-config'
 
-@Options({
-  name: 'DocsCollapse',
-  components: {
-    DocsContent,
-  },
+export default defineComponent({
+  name: 'DocsChip',
+  components: { DocsContent },
+  setup: () => ({ collapseConfig }),
 })
-export default class Collapse extends Vue {
-  get configComputed () {
-    return collapseConfig
-  }
-}
 </script>

@@ -1,18 +1,31 @@
-import { computed, PropType, getCurrentInstance, ComputedRef } from 'vue'
+import { computed, PropType, getCurrentInstance } from 'vue'
+
+export interface RouterLinkProps {
+  tag: string
+  to: string | Record<string, unknown>
+  replace: boolean
+  append: boolean
+  exact: boolean
+  activeClass: string
+  exactActiveClass: string
+  href: string
+  target: string
+  [prop: string]: unknown
+}
 
 export const useRouterLinkProps = {
   tag: { type: String as PropType<string>, default: 'router-link' },
-  to: { type: [String, Object] as PropType<string | Record<string, unknown>> },
-  replace: { type: Boolean as PropType<boolean> },
-  append: { type: Boolean as PropType<boolean> },
-  exact: { type: Boolean as PropType<boolean> },
-  activeClass: { type: String as PropType<string> },
-  exactActiveClass: { type: String as PropType<string> },
-  href: { type: String as PropType<string> },
-  target: { type: String as PropType<string> },
+  to: { type: [String, Object] as PropType<string | Record<string, unknown>>, default: null },
+  replace: { type: Boolean as PropType<boolean>, default: false },
+  append: { type: Boolean as PropType<boolean>, default: false },
+  exact: { type: Boolean as PropType<boolean>, default: false },
+  activeClass: { type: String as PropType<string>, default: '' },
+  exactActiveClass: { type: String as PropType<string>, default: '' },
+  href: { type: String as PropType<string>, default: '' },
+  target: { type: String as PropType<string>, default: '' },
 }
 
-export const useRouterLink = (props: Record<string, any>) => {
+export const useRouterLink = (props: RouterLinkProps) => {
   const globalProperties = computed(() => getCurrentInstance()?.appContext.config.globalProperties)
   const isNuxt = computed(() => !!globalProperties.value?.$nuxt)
   const vueRouter = computed(() => globalProperties.value?.$router)
@@ -60,5 +73,10 @@ export const useRouterLink = (props: Record<string, any>) => {
     return props.href || (props.to ? vueRouter.value?.resolve(props.to, vueRoute.value).href : null)
   })
 
-  return { hasRouterLinkParams, tagComputed, isActiveRouterLink, hrefComputed }
+  return {
+    hasRouterLinkParams,
+    tagComputed,
+    isActiveRouterLink,
+    hrefComputed,
+  }
 }

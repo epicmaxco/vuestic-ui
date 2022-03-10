@@ -144,11 +144,20 @@
     <VbCard title="disable dates">
       <va-date-input v-model="value" label="Disable all Tuesday and Thursday" :allowedDays="(date) => date.getDay() !== 2 && date.getDay() !== 4" />
     </VbCard>
+
+    <VbCard title="Manual Input">
+      <va-date-input
+          v-model="value"
+          manual-input
+          label="Manual Input"
+      />
+    </VbCard>
   </VbDemo>
 </template>
 
 <script lang="ts">
 import { VaDateInput } from './index'
+import VaChip from '../va-chip'
 
 const datePlusDay = (date: Date, days: number) => {
   const d = new Date(date)
@@ -158,7 +167,7 @@ const datePlusDay = (date: Date, days: number) => {
 const nextWeek = datePlusDay(new Date(), 7)
 
 export default {
-  components: { VaDateInput },
+  components: { VaDateInput, VaChip },
   data () {
     return {
       value: new Date(),
