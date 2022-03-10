@@ -69,16 +69,31 @@
       <VaTimeInput v-model="value" label="time" required-mark />
     </VbCard>
 
+    <VbCard title="Hours and minutes filter">
+      <VaInput
+          v-model="hoursAndMinutesDivisor"
+          label="Hours and minutes divisor:"
+      />
+      <VaTimeInput
+          v-model="value"
+          ampm
+          :hoursFilter="hoursAndMinutesFilter"
+          :minutesFilter="hoursAndMinutesFilter"
+      />
+    </VbCard>
   </VbDemo>
 </template>
 
 <script>
 import VaTimeInput from './VaTimeInput.vue'
 import VaIcon from '../va-icon'
+import VaInput from '../va-input/VaInput'
 
 export default {
   components: {
-    VaTimeInput, VaIcon,
+    VaInput,
+    VaTimeInput,
+    VaIcon,
   },
 
   data () {
@@ -89,7 +104,13 @@ export default {
         if (!value) { return true }
         return value.getHours?.() > 12 || 'Should be PM'
       }],
+      hoursAndMinutesDivisor: 2,
     }
+  },
+  methods: {
+    hoursAndMinutesFilter (hourOrMinute) {
+      return hourOrMinute % this.hoursAndMinutesDivisor === 0
+    },
   },
 }
 </script>

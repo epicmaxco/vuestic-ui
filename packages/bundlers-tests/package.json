@@ -6,11 +6,12 @@
     "build": "rm -rf ./dist && yarn build:vite && yarn build:vue-cli",
     "build:vite": "vue-tsc --noEmit && vite build",
     "build:vue-cli": "vue-cli-service build",
-    "build:vuestic": ". ./build-vuestic-ui.sh",
+    "build:vuestic": "build-vuestic-ui.sh",
     "dev:vite": "vite",
     "dev:vue-cli": "vue-cli-service serve",
     "serve:vite": "vite preview",
     "serve:vue-cli": "serve -s dist/vue-cli",
+    "viteBuildAndPreview": "vue-tsc --noEmit && vite build && vite preview",
     "test": "yarn build && jest",
     "test-without-build": "jest",
     "reinstall": "rm -rf ./node_modules && yarn"
