@@ -9,27 +9,18 @@ export const useI18n = () => {
   const { te, t, fallbackLocale } = i18n
 
   /** Translate if exists */
-  const tie = (translationString: string, locale: string = i18n.locale.value): string => (
+  const tie = (translationString: string, locale: string = i18n.locale.value): string =>  
     te(translationString, locale)
       ? t(translationString, locale)
       : te(translationString, fallbackLocale.value as string)
         ? t(translationString, fallbackLocale.value as string)
         : translationString
-  )
 
   return {
     ...i18n,
     tie,
     locale: computed({
       get() {
-        /**
-         * @notice For some reason sometimes locale is ref, 
-         * but sometimes is string on SSR.
-         */
-        if (typeof i18n.locale === 'string') { 
-          return i18n.locale
-        }
-
         return i18n.locale.value
       },
       set(locale: string) {

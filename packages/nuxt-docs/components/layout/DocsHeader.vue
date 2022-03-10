@@ -1,7 +1,7 @@
 <template>
   <header class="docs-header px-3">
     <div class="docs-header__logo">
-      <LayoutDocsHeaderCollapseIcon />
+      <LayoutDocsHeaderCollapseIcon v-model="computedIsSidebarVisible" />
       <LayoutDocsHeaderVuesticDocsLogo class="ml-3" />
     </div>
   
@@ -22,18 +22,21 @@
     </div>
 
     <div class="docs-header__preferences">
-
+      <LayoutDocsHeaderLanguageDropdown />
     </div>
   </header>
 </template>
 
 <script setup lang="ts">
-const { locale, t } = useI18n()
+const { t } = useI18n()
 
-const props = defineProps({
-  isSidebarVisible: { type: Boolean }
-})
+const props = defineProps({ isSidebarVisible: { type: Boolean } })
 const emit = defineEmits(['update:isSidebarVisible'])
+
+const computedIsSidebarVisible = computed({
+  get() { return props.isSidebarVisible },
+  set(val: boolean) { emit('update:isSidebarVisible', val) }
+})
 
 const { query } = useRoute()
 
@@ -57,10 +60,6 @@ const links = computed(() => [
     to: `${urlPrefix.value}/contribution/documentation-page`,
   },
 ])
-
-const toggleSidebar = () => {
-  emit('update:isSidebarVisible', !props.isSidebarVisible)
-}
 </script>
 
 <style lang="scss" scoped>

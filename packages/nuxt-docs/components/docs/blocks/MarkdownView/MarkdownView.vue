@@ -41,6 +41,7 @@ export default defineComponent({
 
     return {
       text,
+      locale
     }
   },
 })

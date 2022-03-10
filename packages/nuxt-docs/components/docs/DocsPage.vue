@@ -17,9 +17,9 @@ const { getConfigAsync } = usePageConfig()
 
 const config = getConfigAsync(configName)
 
-const blocks = config
+const blocks = computed(() => config
   .map((block) => ({
     component: views[block.component],
     attributes: block.setup?.()
-  }))
+  })))
 </script>

@@ -1,6 +1,7 @@
 import { createI18n, I18n, VueI18n } from 'vue-i18n'
 import { messages, locales } from '~/locales'
 import { useRouter, useRoute } from '#app'
+import { Ref } from 'vue'
 
 type Locale = keyof typeof messages
 
@@ -49,9 +50,11 @@ export default defineNuxtPlugin(({ vueApp, ssrContext, provide }) => {
   beforeEach((newRoute) => {
     const newLocale = newRoute.params.locale as string
 
-    if (newLocale === undefined || newLocale === i18n.global.locale) { return }
+    const locale = i18n.global.locale as any as Ref<typeof i18n.global.locale>
+
+    if (newLocale === undefined || newLocale === locale.value) { return }
     if (isLocaleExist(newLocale)) {
-      i18n.global.locale = newLocale
+      locale.value = newLocale
       setCookie('locale', newLocale)
     } else {
       const newPath = newRoute.fullPath.replace(`/${newLocale}/`, '/en/')

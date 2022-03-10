@@ -11,9 +11,9 @@ export default defineNuxtConfig({
   ],
   meta: {
     link: [
-      { src: 'https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;1,700&display=swap', rel: 'stylesheet' },
-      { src: 'https://fonts.googleapis.com/icon?family=Material+Icons', rel: 'stylesheet' },
-      { src: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css', rel: 'stylesheet' }
+      { href: 'https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;1,700&display=swap', rel: 'stylesheet' },
+      { href: 'https://fonts.googleapis.com/icon?family=Material+Icons', rel: 'stylesheet' },
+      { href: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css', rel: 'stylesheet' }
     ],
     script: [
       { src: 'https://kit.fontawesome.com/5460c87b2a.js', crossorigin: 'anonymous' }
