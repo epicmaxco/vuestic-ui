@@ -138,20 +138,14 @@ const withConfigTransport = (component: any): any => {
         [`on${formatEmitString(emit)}`]: (...args: any[]) => context.emit(emit, ...args),
       }), {})
 
-      return {
-        computedProps,
-        proxiedEmits,
-      }
-    },
-    render () {
-      return h(
+      return () => h(
         component,
         {
-          ...this.computedProps,
-          ...this.proxiedEmits,
+          ...computedProps.value,
+          ...proxiedEmits,
           ref: 'innerRef',
         },
-        { ...this.$slots },
+        context.slots,
       )
     },
   }
