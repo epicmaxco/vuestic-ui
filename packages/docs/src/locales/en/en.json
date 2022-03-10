@@ -669,6 +669,7 @@
         "bordered": "Applies underscore",
         "focused": "Applies focus style",
         "canBeFocused": "If false, then input can not be focused using mouse or keyboard",
+        "requiredMark": "Adds required mark to the label",
         "immediateValidation": "Sets the validation to be performed when the component is mounted"
       },
       "events": {
@@ -771,6 +772,7 @@
         "clearIcon": "Sets the clear icon",
         "dropdownIcon": "Sets the dropdown icon. Can be object if you want to sets different open/close icons",
         "bordered": "Applies style with bottom border",
+        "requiredMark": "Adds required mark to the label",
         "separator": "Text to separate selected values"
       },
       "events": {
@@ -1159,6 +1161,7 @@
         "focused": "Applies focus style",
         "canBeFocused": "If false, then input can not be focused using mouse or keyboard",
         "icon": "Sets an icon. The default icon position is on the right",
+        "requiredMark": "Adds required mark to the label",
         "leftIcon": "Sets the icon position to the left"
       },
       "events": {},

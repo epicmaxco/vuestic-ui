@@ -376,6 +376,13 @@
         :options="defaultSingleSelect.options"
         width="50%"
       />
+      <va-select
+        v-model="defaultSingleSelect.value"
+        class="mb-4"
+        label="Required Mark"
+        :options="defaultSingleSelect.options"
+        required-mark
+      />
     </VbCard>
     <VbCard
       title="State"

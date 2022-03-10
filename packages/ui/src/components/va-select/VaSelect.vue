@@ -32,6 +32,7 @@
           :disabled="$props.disabled"
           :outline="$props.outline"
           :bordered="$props.bordered"
+          :required-mark="$props.requiredMark"
           :tabindex="tabIndexComputed"
           :messages="$props.messages"
           :error-messages="computedErrorMessages"
@@ -243,6 +244,7 @@ export default defineComponent({
     bordered: { type: Boolean as PropType<boolean>, default: false },
     label: { type: String as PropType<string>, default: '' },
     placeholder: { type: String as PropType<string>, default: '' },
+    requiredMark: { type: Boolean as PropType<boolean>, default: false },
   },
 
   setup (props, { emit }) {

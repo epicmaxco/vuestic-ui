@@ -65,6 +65,10 @@
       <VaTimeInput v-model="value" :rules="validationRules" clearable />
     </VbCard>
 
+    <VbCard title="required mark">
+      <VaTimeInput v-model="value" label="time" required-mark />
+    </VbCard>
+
     <VbCard title="Hours and minutes filter">
       <VaInput
           v-model="hoursAndMinutesDivisor"
