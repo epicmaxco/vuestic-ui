@@ -4,7 +4,7 @@ import { resolve } from 'path'
 // https://v3.nuxtjs.org/docs/directory-structure/nuxt.config
 export default defineNuxtConfig({
   build: {
-    transpile: ['vue-i18n', 'vue-class-component']
+    // transpile: ['vue-i18n', 'vue-class-component', 'colortranslator'],
   },
   buildModules: [
     '~/modules/i18n'
@@ -30,6 +30,11 @@ export default defineNuxtConfig({
         { find: /^~(.*)$/, replacement: '$1' },
       ],
     },
+    build: {
+      commonjsOptions: {
+        transformMixedEsModules: true,
+      },
+    }
   },
   alias: {
     'vuestic-ui/styles': resolve(__dirname, '../ui/src/styles'),

@@ -1,9 +1,9 @@
 <template>
   <div class="docs-layout">
     <LayoutDocsHeader class="docs-layout__header" v-model:isSidebarVisible="isSidebarVisible" />
-    <section>
+    <section class="d-flex">
       <aside>
-        
+        <LayoutDocsSidebar v-model:visible="isSidebarVisible"/>
       </aside>
       <main>
         <article>
@@ -17,5 +17,5 @@
 </template>
 
 <script setup lang="ts">
-  const isSidebarVisible = ref(false)
+  const isSidebarVisible = ref(true)
 </script>

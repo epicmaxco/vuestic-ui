@@ -11,15 +11,27 @@
 <script setup lang="ts">
 import * as views from './blocks'
 
-const configName = 'test'
+const { currentRoute } = useRouter()
 
-const { getConfigAsync } = usePageConfig()
+const configName = 'ui-elements/button'
 
-const config = getConfigAsync(configName)
+const { getConfig } = usePageConfig()
 
-const blocks = computed(() => config
-  .map((block) => ({
-    component: views[block.component],
-    attributes: block.setup?.()
-  })))
+const config = computed(() => {
+  const { name, page } = currentRoute.value.params
+  // TODO: Rename page params
+  const configPath = `${name}/${page}`
+
+  return getConfig(configPath)
+}) 
+
+const blocks = computed(() => {
+  if (!config.value) return []
+
+  return config.value.blocks
+    .map((block) => ({
+      component: views[block.component],
+      attributes: block.setup?.()
+    }))
+})
 </script>
