@@ -1,6 +1,7 @@
-import { onBeforeUnmount, onMounted, ref, Ref, unref, watch } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref, Ref, unref, watch } from 'vue'
 import { useDomRect } from './useDomRect'
 import { mapObject } from '../utils/map-object'
+import { useClientOnly } from './useClientOnly'
 
 export type PlacementPosition = 'top' | 'bottom' | 'left' | 'right'
 export type PlacementAlignment = 'start' | 'end' | 'center'
@@ -121,12 +122,21 @@ export const usePopover = (
   contentRef: Ref<HTMLElement | null | undefined>,
   options: usePopoverOptions | Ref<usePopoverOptions>,
 ) => {
-  const rootRef = ref<Element>(document.body)
+  const documentRef = useClientOnly(() => document)
+  const rootRef = computed<Element | null>(() => {
+    if (!documentRef.value) { return null }
+
+    const { root } = unref(options)
+
+    if (root) { return documentRef.value.querySelector(root) }
+
+    return documentRef.value.body
+  })
   const { domRect: anchorDomRect } = useDomRect(anchorRef)
   const { domRect: contentDomRect } = useDomRect(contentRef)
 
   const updateContentCSS = () => {
-    if (!anchorDomRect.value || !contentDomRect.value) { return }
+    if (!rootRef.value || !anchorDomRect.value || !contentDomRect.value) { return }
 
     const css = {
       width: 'max-content',
@@ -165,15 +175,6 @@ export const usePopover = (
       ...coordsToCss(coords),
     })
   }
-
-  const getElement = (selector?: string) => {
-    if (!selector) { return null }
-    return document.querySelector(selector)
-  }
-
-  onMounted(() => {
-    rootRef.value = getElement(unref(options).root) || document.body
-  })
 
   watch(anchorDomRect, updateContentCSS)
   watch(contentDomRect, updateContentCSS)
