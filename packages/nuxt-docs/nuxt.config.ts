@@ -30,11 +30,6 @@ export default defineNuxtConfig({
         { find: /^~(.*)$/, replacement: '$1' },
       ],
     },
-    build: {
-      commonjsOptions: {
-        transformMixedEsModules: true,
-      },
-    }
   },
   alias: {
     'vuestic-ui/styles': resolve(__dirname, '../ui/src/styles'),
