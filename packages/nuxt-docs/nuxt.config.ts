@@ -3,12 +3,6 @@ import { resolve } from 'path'
 
 // https://v3.nuxtjs.org/docs/directory-structure/nuxt.config
 export default defineNuxtConfig({
-  build: {
-    // transpile: ['vue-i18n', 'vue-class-component', 'colortranslator'],
-  },
-  buildModules: [
-    '~/modules/i18n'
-  ],
   meta: {
     link: [
       { href: 'https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;1,700&display=swap', rel: 'stylesheet' },
@@ -19,6 +13,11 @@ export default defineNuxtConfig({
       { src: 'https://kit.fontawesome.com/5460c87b2a.js', crossorigin: 'anonymous' }
     ]
   },
+
+  buildModules: [
+    '~/modules/i18n',
+  ],
+
   vite: {
     define: {
       __VUE_I18N_FULL_INSTALL__: true,
@@ -31,6 +30,7 @@ export default defineNuxtConfig({
       ],
     },
   },
+
   alias: {
     'vuestic-ui/styles': resolve(__dirname, '../ui/src/styles'),
     'vuestic-ui/package.json': resolve(__dirname, '../ui/package.json'),

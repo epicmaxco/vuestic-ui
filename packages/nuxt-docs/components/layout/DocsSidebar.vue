@@ -33,7 +33,7 @@
               {{ t(childRoute.meta.category) }}
           </va-list-label>
           <va-sidebar-item
-            :to="`/${$root.$i18n.locale}/${route.name}/${childRoute.name}`"
+            :to="`/${locale}/${route.name}/${childRoute.name}`"
             :active="isActiveChildRoute(childRoute, route)"
             :activeColor="activeColor"
             :hover-color="hoverColor"

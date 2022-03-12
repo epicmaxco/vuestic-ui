@@ -20,7 +20,7 @@ const parseLocaleFromPath = (url: string | undefined) => {
 }
 
 /** This plugin register i18n and sync it's locale with cookies */
-export default defineNuxtPlugin(({ vueApp, ssrContext, provide }) => {
+export default defineNuxtPlugin(({ vueApp: app, ssrContext, provide }) => {
   const { getCookie, setCookie } = useSSRCookie()
 
   const getLocaleFromUrl = () => {
@@ -29,7 +29,7 @@ export default defineNuxtPlugin(({ vueApp, ssrContext, provide }) => {
     } else {          // Client
       return useRoute().query.locale as string
     }
-  } 
+  }
 
   const locale = getLocaleFromUrl() || getCookie('locale') || 'en'
 
@@ -38,19 +38,22 @@ export default defineNuxtPlugin(({ vueApp, ssrContext, provide }) => {
     locale,
     fallbackLocale: 'en',
     messages,
+    legacy: false,
     missing (_, key) {
       return key
     },
   })
 
-  provide('i18n', i18n.global)
+  app.use(i18n)
+
+  if (ssrContext) { return }
 
   const { beforeEach, replace } = useRouter()
 
   beforeEach((newRoute) => {
     const newLocale = newRoute.params.locale as string
 
-    const locale = i18n.global.locale as any as Ref<typeof i18n.global.locale>
+    const locale = i18n.global.locale
 
     if (newLocale === undefined || newLocale === locale.value) { return }
     if (isLocaleExist(newLocale)) {
@@ -62,8 +65,6 @@ export default defineNuxtPlugin(({ vueApp, ssrContext, provide }) => {
       replace(newPath)
     }
   })
-
-  vueApp.use(i18n)
 })
 
 

@@ -10,7 +10,7 @@
   "devDependencies": {
     "@types/markdown-it": "^12.2.3",
     "nuxt3": "latest",
-    "vue-i18n": "9.2.0-beta.31"
+    "vue-i18n": "9.2.0-beta.32"
   },
   "dependencies": {
     "markdown-it": "^12.3.2",
