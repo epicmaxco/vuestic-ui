@@ -38,6 +38,7 @@ export default defineNuxtConfig({
   },
   alias: {
     'vuestic-ui/styles': resolve(__dirname, '../ui/src/styles'),
+    'vuestic-ui/package.json': resolve(__dirname, '../ui/package.json'),
     'vuestic-ui': resolve(__dirname, '../ui/src/main'),
   }
 })

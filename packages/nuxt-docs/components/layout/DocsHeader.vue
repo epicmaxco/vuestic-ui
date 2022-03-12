@@ -17,11 +17,12 @@
         color="primary"
         flat
       >
-        {{ link.text }}
+        <span v-if="!sm" class="sm-hidden">{{ link.text }}</span>
       </va-button>
     </div>
 
     <div class="docs-header__preferences">
+      <LayoutDocsHeaderVersionDropdown />
       <LayoutDocsHeaderLanguageDropdown />
     </div>
   </header>
@@ -29,6 +30,8 @@
 
 <script setup lang="ts">
 const { t } = useI18n()
+
+const { sm } = useBreakpoint()
 
 const props = defineProps({ isSidebarVisible: { type: Boolean } })
 const emit = defineEmits(['update:isSidebarVisible'])
@@ -63,6 +66,8 @@ const links = computed(() => [
 </script>
 
 <style lang="scss" scoped>
+@import "vuestic-ui/styles/resources";
+
 .docs-header {
   width: 100%;
   height: 4rem;
