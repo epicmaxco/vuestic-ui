@@ -7,6 +7,7 @@ export const useI18n = () => {
   const { setCookie } = useSSRCookie()
 
   const { te, t, fallbackLocale } = i18n
+  const { currentRoute, push: redirect } = useRouter()
 
   /** Translate if exists */
   const tie = (translationString: string, locale: string = i18n.locale.value): string =>  
@@ -27,6 +28,13 @@ export const useI18n = () => {
         i18n.locale.value = locale
       
         setCookie('locale', i18n.locale.value)
+
+        if (currentRoute.value.params.locale) {
+          // ['', '{locale}', 'path', 'goes', 'here']
+          const path = currentRoute.value.path.split('/')
+          path[1] = locale
+          redirect(path.join('/'))
+        }
       }
     })
   }

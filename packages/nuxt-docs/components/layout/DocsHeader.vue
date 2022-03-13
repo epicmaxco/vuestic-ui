@@ -17,7 +17,7 @@
         color="primary"
         flat
       >
-        <span v-if="!sm" class="sm-hidden">{{ link.text }}</span>
+        <span v-if="!sm">{{ link.text }}</span>
       </va-button>
     </div>
 
@@ -79,6 +79,10 @@ const links = computed(() => [
   & > * {
     display: flex;
     align-items: center;
+  }
+
+  &__preferences {
+    font-weight: 700;
   }
 }
 </style>

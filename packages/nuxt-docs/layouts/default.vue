@@ -37,6 +37,8 @@ watch(sm, (newValue, oldValue) => {
     flex-direction: column;
     overflow: hidden;
 
+    font-family: var(--va-font-family);
+
     &__header {
       width: 100%;
       background: var(--va-white);
@@ -60,7 +62,7 @@ watch(sm, (newValue, oldValue) => {
     &__page-content {
       width: 100%;
       max-width: 1080px;
-      padding: 2rem;
+      padding: 1.75rem 3rem;
     }
   }
 </style>
