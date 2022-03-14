@@ -686,7 +686,7 @@
         "updateErrorMessages": "Emitted when was changed error messages after validation"
       },
       "methods": {
-        "blur":  "Setting blurred on input",
+        "blur": "Setting blurred on input",
         "focus": "Setting focus on input",
         "reset": "Clearing input value"
       },
@@ -848,7 +848,8 @@
       },
       "methods": {},
       "slots": {
-        "default": "Dropdown content slot."
+        "default": "Dropdown content slot.",
+        "label": "Content for dropdown button."
       }
     },
     "VaColorInput": {
@@ -1306,7 +1307,6 @@
       "title": "Page Config",
       "descriptionStructure": "The page configuration must be located in a specific path, which is similar to the page URL. The folder with the page configuration must include the `components` folders for blocks with components and` examples` for blocks with examples. These folders should contain the `* .vue` files. An example of the structure and directory of the configuration folder for the current page:",
       "descriptionFile": "The configuration file contains `config`, which is an array of page blocks that perform specific functions."
-
     },
     "generators": {
       "title": "Generators",
@@ -3336,7 +3336,7 @@
     "subtitle": "Component config allows you to override default props' values for any Vuestic component. It is an object where the keys are component names and the values are prop-value pairs you want to overwrite. For example:",
     "demoTitle": "The example below allows you to change styling of all the buttons for the whole Vuestic Documentation site. Feel free to navigate to Button docs page and take a look at the updated examples.",
     "resetConfig": "Reset config",
-    "componentsAll" : {
+    "componentsAll": {
       "title": "All components config",
       "subtitle": "You could use `componentsAll` global config property to set prop values for all components at once. It will be applied if there are no other source of prop value. For example:",
       "description": "These prop values will be used as default values if prop is not set somewhere else (inside the component or inside other configs)."
