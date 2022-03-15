@@ -32,6 +32,7 @@
           :disabled="$props.disabled"
           :outline="$props.outline"
           :bordered="$props.bordered"
+          :required-mark="$props.requiredMark"
           :tabindex="tabIndexComputed"
           :messages="$props.messages"
           :error-messages="computedErrorMessages"
@@ -122,6 +123,7 @@
           :get-selected-state="checkIsOptionSelected"
           :get-text="getText"
           :get-track-by="getTrackBy"
+          :get-group-by="getGroupBy"
           :search="searchInput"
           :no-options-text="$props.noOptionsText"
           :color="$props.color"
@@ -142,7 +144,7 @@
 <script lang="ts">
 import { defineComponent, PropType, ref, computed, watch, nextTick } from 'vue'
 
-import { useSelectableList, useSelectableListProps } from '../../composables/useSelectableList'
+import { useSelectableList, useSelectableListProps, SelectableOption } from '../../composables/useSelectableList'
 import { useValidation, useValidationProps, useValidationEmits } from '../../composables/useValidation'
 import { useFormProps } from '../../composables/useForm'
 import { useLoadingProps } from '../../composables/useLoading'
@@ -192,7 +194,7 @@ export default defineComponent({
     ...useFormProps,
 
     modelValue: {
-      type: [String, Number, Object, Array] as PropType<string | number | Record<string, any> | any[]>,
+      type: [String, Number, Object] as PropType<SelectableOption>,
       default: '',
     },
 
@@ -216,7 +218,7 @@ export default defineComponent({
     searchable: { type: Boolean as PropType<boolean>, default: false },
     separator: { type: String as PropType<string>, default: ', ' },
     width: { type: String as PropType<string>, default: '100%' },
-    maxHeight: { type: String as PropType<string>, default: '128px' },
+    maxHeight: { type: String as PropType<string>, default: '256px' },
     noOptionsText: { type: String as PropType<string>, default: 'Items not found' },
     fixed: { type: Boolean as PropType<boolean>, default: true },
     hideSelected: { type: Boolean as PropType<boolean>, default: false },
@@ -242,6 +244,7 @@ export default defineComponent({
     bordered: { type: Boolean as PropType<boolean>, default: false },
     label: { type: String as PropType<string>, default: '' },
     placeholder: { type: String as PropType<string>, default: '' },
+    requiredMark: { type: Boolean as PropType<boolean>, default: false },
   },
 
   setup (props, { emit }) {
@@ -249,7 +252,7 @@ export default defineComponent({
     const input = ref<InstanceType<typeof VaInput>>()
     const searchBar = ref<InstanceType<typeof VaInput>>()
 
-    const { getOptionByValue, getValue, getText, getTrackBy } = useSelectableList(props)
+    const { getOptionByValue, getValue, getText, getTrackBy, getGroupBy } = useSelectableList(props)
 
     const {
       isFocused,
@@ -664,6 +667,7 @@ export default defineComponent({
       onHintedSearch,
       getText,
       getTrackBy,
+      getGroupBy,
       onScrollBottom,
       clearIconProps,
     }

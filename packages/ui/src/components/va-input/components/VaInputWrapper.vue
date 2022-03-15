@@ -36,6 +36,12 @@
                 :style="{ color: colorComputed }"
               >
                 {{ label }}
+                <span
+                  v-if="requiredMark"
+                  class="va-input__required-mark"
+                >
+                  *
+                </span>
               </label>
 
               <div v-if="$slots.content" class="va-input__content__input">
@@ -115,6 +121,7 @@ export default defineComponent({
     focused: { type: Boolean, default: false },
     error: { type: Boolean, default: false },
     success: { type: Boolean, default: false },
+    requiredMark: { type: Boolean, default: false },
   },
 
   emits: [
@@ -286,6 +293,13 @@ export default defineComponent({
     }
   }
 
+  &__required-mark {
+    transform: translate(0, -2px);
+    color: var(--va-danger);
+    font-size: 18px;
+    font-weight: var(--va-input-container-label-font-weight);
+  }
+
   textarea {
     margin: 12px 0;
     resize: vertical;
@@ -304,18 +318,14 @@ export default defineComponent({
       height: 12px;
       transform: translateY(-100%);
       position: absolute;
-      display: block;
       left: 0;
       top: 0;
+      display: flex;
       padding-top: 1px;
       max-width: var(--va-input-container-label-max-width);
       color: var(--va-input-container-label-color);
       font-size: var(--va-input-container-label-font-size);
-      letter-spacing:
-        var(
-          --va-input-container-label-letter-spacing,
-          var(--va-letter-spacing)
-        );
+      letter-spacing: var(--va-input-container-label-letter-spacing, var(--va-letter-spacing));
       line-height: var(--va-input-container-label-line-height);
       font-weight: var(--va-input-container-label-font-weight);
       text-transform: var(--va-input-container-label-text-transform);
