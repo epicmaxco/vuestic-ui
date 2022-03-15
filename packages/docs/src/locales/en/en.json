@@ -2586,8 +2586,9 @@
           "`.justify--start` - items are packed toward the start line",
           "`.justify--end` - items are packed toward to end line",
           "`.justify--center` - items are centered along the line",
-          "`.justify--space-around` - items are evenly distributed in the line with equal space around them",
-          "`.justify--space-between` - items are evenly distributed in the line; first item is on the start line, last item is on the end line"
+          "`.justify--space-around` - items are evenly distributed in the line, items have equal space around on either end",
+          "`.justify--space-between` - items are evenly distributed in the line; first item is on the start line, last item is on the end line",
+          "`.justify--space-evenly` - items are evenly distributed in the line; items have equal space around them"
         ]
       },
       "justifySelf": {
