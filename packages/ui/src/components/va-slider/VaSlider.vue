@@ -56,7 +56,7 @@
           @mousedown="moveStart($event, null)"
         />
         <div
-          v-for="order in (this.vertical ? [1, 0] : [0, 1])"
+          v-for="order in (vertical ? [1, 0] : [0, 1])"
           :key="'dot' + order"
           :ref="'dot' + order"
           class="va-slider__handler"
@@ -101,7 +101,7 @@
           @touchstart="(moveStart($event), setMouseDown($event))"
           @focus="isFocused = true"
           @blur="isFocused = false"
-          :tabindex="(!this.disabled && !this.readonly) && 0"
+          :tabindex="(!disabled && !readonly) && 0"
         >
           <div
             v-if="isActiveDot(0)"
