@@ -9,11 +9,9 @@
 </template>
 
 <script setup lang="ts">
-import * as views from './blocks'
+import { blockComponents } from './blocks'
 
 const { currentRoute } = useRouter()
-
-const configName = 'ui-elements/button'
 
 const { getConfig } = usePageConfig()
 
@@ -30,7 +28,7 @@ const blocks = computed(() => {
 
   return config.value.blocks
     .map((block) => ({
-      component: views[block.component],
+      component: blockComponents[block.component],
       attributes: block.setup?.()
     }))
 })

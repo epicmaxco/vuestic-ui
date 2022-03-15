@@ -20,7 +20,7 @@ interface ManualPropApiOption extends ManualApiOption {
 }
 
 interface ManualMethodApiOption extends ManualApiOption {
-  types: string;
+  types?: string;
 }
 
 interface ManualEventApiOption extends ManualApiOption {
@@ -31,7 +31,7 @@ interface ManualEventApiOption extends ManualApiOption {
 
 interface ManualSlotApiOption extends ManualApiOption {}
 
-interface ManualApiOptions {
+export type ManualApiOptions = {
   props?: Record<string, ManualPropApiOption>;
   methods?: Record<string, ManualMethodApiOption>;
   events?: Record<string, ManualEventApiOption>;

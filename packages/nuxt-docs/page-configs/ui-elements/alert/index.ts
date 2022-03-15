@@ -1,6 +1,6 @@
 import { definePageConfig } from "~~/types/page-config";
 
-const { title, subtitle } = useDocsBlocks()
+const { title, subtitle } = useDocsBlocks(import.meta)
 
 export default definePageConfig({
   blocks: [

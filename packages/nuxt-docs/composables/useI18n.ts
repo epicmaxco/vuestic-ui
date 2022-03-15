@@ -1,5 +1,6 @@
 import { useI18n as originalUseI18n } from 'vue-i18n'
 import { computed } from 'vue'
+import { TranslationString } from '~~/types/translations'
 
 /** Modified useI18n. Sync locale with cookie. Has tie method. */
 export const useI18n = () => { 
@@ -10,12 +11,21 @@ export const useI18n = () => {
   const { currentRoute, push: redirect } = useRouter()
 
   /** Translate if exists */
-  const tie = (translationString: string, locale: string = i18n.locale.value): string =>  
-    te(translationString, locale)
-      ? t(translationString, locale)
-      : te(translationString, fallbackLocale.value as string)
-        ? t(translationString, fallbackLocale.value as string)
-        : translationString
+  const tie = (translationString: TranslationString, locale: string = i18n.locale.value): string => {
+    if (!translationString) {
+      return translationString
+    }
+
+    if (te(translationString, locale)) {
+      return t(translationString, locale)
+    }
+
+    if (te(translationString, fallbackLocale.value as string)) {
+      return t(translationString, fallbackLocale.value as string)
+    }
+
+    return translationString
+  } 
 
   return {
     ...i18n,

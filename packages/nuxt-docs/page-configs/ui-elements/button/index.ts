@@ -1,12 +1,14 @@
 import { definePageConfig } from "~~/types/page-config";
+import VaButton from 'vuestic-ui/src/components/va-button/VaButton.vue'
 
-const { title, subtitle, example } = useDocsBlocks(import.meta)
+const { title, subtitle, example, api } = useDocsBlocks(import.meta)
 
 export default definePageConfig({
   blocks: [
     title('button.title'),
     subtitle('landing.preview.buttons.start'),
-    example('Default')
+    example('Default'),
+    api(VaButton as any)
   ],
   meta: {
     category: "view"
@@ -16,11 +18,11 @@ export default definePageConfig({
       default: { },
     },
     events: {
-      click: { types: '`() => Event`' },
+      click: { types: '() => Event' },
     },
     methods: {
-      focus: { types: '`() => void`' },
-      blur: { types: '`() => void`' },
+      focus: { types: '() => void' },
+      blur: { types: '() => void' },
     },
   }
 }) 

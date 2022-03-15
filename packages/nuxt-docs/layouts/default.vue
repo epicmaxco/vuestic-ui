@@ -4,7 +4,7 @@
       <LayoutDocsHeader v-model:isSidebarVisible="isSidebarVisible" />
     </div>
     <section class="docs-layout__main-section">
-      <aside>
+      <aside class="docs-layout__sidebar">
         <LayoutDocsSidebar v-model:visible="isSidebarVisible" :mobile="sm"   />
       </aside>
       <main class="docs-layout__main-content">
@@ -31,8 +31,14 @@ watch(sm, (newValue, oldValue) => {
 </script>
 
 <style lang="scss">
+  @import 'vuestic-ui/styles/vuestic-styles.scss';
+
+  * {
+    font-family: var(--va-font-family);
+  }
+
   .docs-layout {
-    min-height: 100vh;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -48,15 +54,27 @@ watch(sm, (newValue, oldValue) => {
     &__main-section {
       display: flex;
       flex: 1;
+      height: 100%;
       position: relative;
+    }
+
+    &__sidebar {
+      height: 100%;
+      min-width: fit-content;
+      overflow-y: auto;
+      overflow-x: unset;
+      @include va-scroll(var(--va-primary));
     }
 
     &__main-content {
       display: flex;
-      width: 100%;
       justify-content: center;
+      width: 100%;
+      height: 100%;
       overflow-y: scroll;
       overflow-x: hidden;
+      
+      @include va-scroll(var(--va-primary));
     }
 
     &__page-content {

@@ -1,6 +1,6 @@
 import { PageConfig, PageRoute } from "~~/types/page-config"
 
-//TODO: Let's have some server with API calls, so we don't need to bundle page-configs
+// TOOD: deal with treeshaking here somehow.
 const modules = import.meta.globEager('./**/index.ts')
 
 export const configs = Object.entries(modules)
