@@ -17,7 +17,7 @@ export default defineComponent({
   props: {
     source: { type: String as PropType<TranslationString>, required: true },
     anchor: { type: String as PropType<TranslationString>, default: '' },
-    tag: { type: String as PropType<'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'>}
+    tag: { type: String as PropType<'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'>, required: true }
   },
   setup: (props) => {
     const { tie } = useI18n()

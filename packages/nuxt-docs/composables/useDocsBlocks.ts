@@ -59,6 +59,20 @@ export const useDocsBlocks = (meta: ImportMeta) => {
       component: 'DocsExample',
       setup: () => ({ component: exampleComponentName, exampleOptions, path })
     }),
+    exampleBlock: (exampleComponentName: string) => defineBlock({
+      component: 'DocsExampleBlock',
+      setup: () => {
+        const p = `${path.split('/').slice(-1)[0]}.examples.${exampleComponentName.toLowerCase()}`
+        const { t } = useI18n()
+
+        return {
+          title: t(`${p}.title`),
+          text: t(`${p}.text`),
+          path,
+          component: exampleComponentName
+        }
+      },
+    }),
     table: (columns: TableColumn[], tableData: TableData) => defineBlock({
       component: 'DocsTable',
       setup: () => ({ tableData, columns })
