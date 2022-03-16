@@ -1,4 +1,3 @@
-import type { DefineComponent } from "vue"
 import type { TranslationString } from "~/types/translations"
 import type { ExtractPropTypes } from '~/types/extract-component-props'
 import type { CodesandboxConfig } from "~~/components/docs/blocks/DocsExample/DocsNavigation/CodeSandboxExample"
@@ -40,13 +39,15 @@ export const useDocsBlocks = (meta: ImportMeta) => {
         }
       }
     }),
-    subtitle: (translationString: TranslationString) => defineBlock({
-      component: 'MarkdownView',
+    subtitle: (translationString: TranslationString, tag: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' = 'h3') => defineBlock({
+      component: 'DocsHeadline',
       setup: () => {
         const { tie } = useI18n()
 
         return {
-          source: `## ${tie(translationString)}`  
+          source: `${tie(translationString)}`,
+          anchor: translationString,
+          tag
         }
       }
     }),

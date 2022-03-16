@@ -1,5 +1,6 @@
 <template>
-  <div class="MarkdownView" v-html="text.trim()" />
+  <span v-if="inline" class="MarkdownView" v-html="text.trim()" />
+  <div v-else class="MarkdownView" v-html="text.trim()" />
 </template>
 
 <script lang="ts">
@@ -14,10 +15,6 @@ export default defineComponent({
     source: {
       type: String,
       required: true,
-    },
-    tag: {
-      type: String,
-      default: 'div',
     },
     inline: {
       type: Boolean,
