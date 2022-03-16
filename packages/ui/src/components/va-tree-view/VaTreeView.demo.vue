@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import VaTreeRoot from './VaTreeRoot.vue'
+import VaTreeRoot from './VaTreeView.vue'
 import VaTreeNode from './VaTreeNode/VaTreeNode'
 import VaTreeCategory from './VaTreeCategory/VaTreeCategory'
 import VaButton from '../va-button/VaButton'
