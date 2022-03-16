@@ -7,7 +7,7 @@
       <div class="va-tree-category__header-switcher">
         <square-with-icon
           :icon="isOpenCached ? 'remove' : 'add'"
-          :color="setupContext.treeRoot.color || colorComputed"
+          :color="treeRoot.color || colorComputed"
         />
       </div>
       <div
@@ -42,50 +42,57 @@
 </template>
 
 <script lang="ts">
-import { provide, inject, watch, ComponentPublicInstance, ref } from 'vue'
-import { Options, Vue, mixins, prop, setup } from 'vue-class-component'
+import { defineComponent, provide, inject, ref, watch, nextTick, PropType, ComponentPublicInstance } from 'vue'
+import { useColor } from '../../../composables/useColor'
 
-import ColorMixin from '../../../services/color-config/ColorMixin'
-import SquareWithIcon from '../SquareWithIcon'
-import VaIcon from '../../va-icon'
+// Components
+import SquareWithIcon from '../SquareWithIcon/SquareWithIcon.vue'
+import VaIcon from '../../va-icon/VaIcon.vue'
 import VaTreeNode from '../VaTreeNode/VaTreeNode.vue'
 
-class TreeCategoryProps {
-  label = prop<string | number>({ default: '', type: [String, Number] })
-  isOpen = prop<boolean>(Boolean)
-  icon = prop<string>({ default: '', type: String })
-  color = prop<string>({ type: String, default: 'primary' })
-}
-
-const TreeCategoryPropsMixin = Vue.with(TreeCategoryProps)
-
-@Options({
+const VaTreeCategory = defineComponent({
   name: 'VaTreeCategory',
-  components: { VaIcon, SquareWithIcon },
-})
-export default class VaTreeCategory extends mixins(
-  ColorMixin,
-  TreeCategoryPropsMixin,
-) {
-  isOpenCached: boolean | undefined = false
+  components: {
+    SquareWithIcon,
+    VaIcon,
+  },
+  props: {
+    label: {
+      type: [String, Number] as PropType<string | number>,
+      default: '',
+    },
+    isOpen: {
+      type: Boolean as PropType<boolean>,
+      default: false,
+    },
+    icon: {
+      type: String as PropType<string>,
+      default: '',
+    },
+    color: {
+      type: String as PropType<string>,
+      default: 'primary',
+    },
+  },
+  setup: (props) => {
+    const nodes: any = ref<(typeof VaTreeCategory | typeof VaTreeNode)[]>([])
+    const isOpenCached = ref<boolean | undefined>(false)
 
-  setupContext = setup(() => {
-    const nodes = ref<(VaTreeCategory | VaTreeNode)[]>([])
-
-    const onChildMounted = (node: VaTreeCategory | VaTreeNode) => {
+    const onChildMounted = (node: typeof VaTreeCategory | typeof VaTreeNode) => {
       nodes.value.push(node)
     }
 
-    const onChildUnmounted = (removableNode: VaTreeCategory | VaTreeNode) => {
-      nodes.value = nodes.value.filter((node: VaTreeCategory | VaTreeNode) => node !== removableNode)
+    const onChildUnmounted = (removableNode: typeof VaTreeCategory | typeof VaTreeNode) => {
+      nodes.value = nodes.value.filter((node: typeof VaTreeCategory | typeof VaTreeNode) => node !== removableNode)
     }
 
-    const treeCategory = {
+    const treeCategory: any = {
       onChildMounted,
       onChildUnmounted,
     }
 
     provide('treeCategory', treeCategory)
+    provide('VaTreeCategory', VaTreeCategory)
 
     const treeRoot = inject('treeRoot', {
       onChildMounted: (value: any) => undefined,
@@ -96,8 +103,41 @@ export default class VaTreeCategory extends mixins(
       treeCategory,
       treeRoot,
       nodes,
+      isOpenCached,
+      ...useColor(props),
     }
-  })
+  },
+  methods: {
+    collapse () {
+      this.isOpenCached = false
+
+      nextTick(() => {
+        this.nodes.forEach((child: ComponentPublicInstance) => {
+          if (child.$options.name === 'va-tree-category') {
+            (child as ComponentPublicInstance<typeof VaTreeCategory>).collapse()
+          }
+        })
+      })
+    },
+
+    expand () {
+      this.isOpenCached = true
+
+      nextTick(() => {
+        this.nodes.forEach((child: typeof VaTreeCategory | typeof VaTreeNode) => {
+          if (child instanceof VaTreeCategory) {
+            child.expand()
+          }
+        })
+      })
+    },
+
+    toggle (e: MouseEvent) {
+      if (!(e.target as HTMLElement).classList.contains('va-checkbox__input')) {
+        this.isOpenCached = !this.isOpenCached
+      }
+    },
+  },
 
   created () {
     watch(
@@ -106,48 +146,22 @@ export default class VaTreeCategory extends mixins(
         this.isOpenCached = isOpen
       },
       { immediate: true })
-  }
-
-  collapse () {
-    this.isOpenCached = false
-    this.$nextTick(() => {
-      this.setupContext.nodes.forEach((child: ComponentPublicInstance) => {
-        if (child.$options.name === 'va-tree-category') {
-          (child as VaTreeCategory).collapse()
-        }
-      })
-    })
-  }
-
-  expand () {
-    this.isOpenCached = true
-    this.$nextTick(() => {
-      this.setupContext.nodes.forEach((child: VaTreeCategory | VaTreeNode) => {
-        if (child instanceof VaTreeCategory) {
-          child.expand()
-        }
-      })
-    })
-  }
-
-  toggle (e: MouseEvent) {
-    if (!(e.target as HTMLElement).classList.contains('va-checkbox__input')) {
-      this.isOpenCached = !this.isOpenCached
-    }
-  }
+  },
 
   mounted () {
-    if (this.setupContext.treeRoot) {
-      this.setupContext.treeRoot.onChildMounted(this)
+    if (this.treeRoot) {
+      this.treeRoot.onChildMounted(this)
     }
-  }
+  },
 
   beforeUnmount () {
-    if (this.setupContext.treeRoot) {
-      this.setupContext.treeRoot.onChildUnmounted(this)
+    if (this.treeRoot) {
+      this.treeRoot.onChildUnmounted(this)
     }
-  }
-}
+  },
+})
+
+export default VaTreeCategory
 </script>
 
 <style lang="scss">

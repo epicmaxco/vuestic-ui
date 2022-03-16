@@ -13,7 +13,7 @@ import VaTreeCategory from './VaTreeCategory/VaTreeCategory.vue'
 const categories = ref<typeof VaTreeCategory[]>([])
 
 export default defineComponent({
-  name: 'VaTreeRoot',
+  name: 'VaTreeView',
   props: {
     color: {
       type: String as PropType<string>,

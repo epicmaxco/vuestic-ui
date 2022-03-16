@@ -36,30 +36,35 @@
 </template>
 
 <script lang="ts">
-import { inject } from 'vue'
-import { mixins, Options, prop, setup, Vue } from 'vue-class-component'
+import { defineComponent, inject, PropType } from 'vue'
+import { useColor } from '../../../composables/useColor'
 
-import ColorMixin from '../../../services/color-config/ColorMixin'
+// Components
 import VaIcon from '../../va-icon'
 
-class TreeNodeProps {
-  highlighted = prop<boolean>(Boolean)
-  icon = prop<string>({ type: String, default: '' })
-  iconRight = prop<string>({ type: String, default: '' })
-  color = prop<string>({ type: String, default: 'primary' })
-}
-
-const TreeNodePropsMixin = Vue.with(TreeNodeProps)
-
-@Options({
+export default defineComponent({
   name: 'VaTreeNode',
   components: { VaIcon },
-})
-export default class VaTreeNode extends mixins(
-  ColorMixin,
-  TreeNodePropsMixin,
-) {
-  setupContext = setup(() => {
+  props: {
+    highlighted: {
+      type: Boolean as PropType<boolean>,
+      default: false,
+    },
+    icon: {
+      type: String as PropType<string>,
+      default: '',
+    },
+    iconRight: {
+      type: String as PropType<string>,
+      default: '',
+    },
+    color: {
+      type: String as PropType<string>,
+      default: 'primary',
+    },
+  },
+  setup (props) {
+    const { theme } = useColor(props)
     const treeCategory = inject('treeCategory', {
       onChildMounted: (value: any) => undefined,
       onChildUnmounted: (value: any) => undefined,
@@ -67,21 +72,22 @@ export default class VaTreeNode extends mixins(
 
     return {
       treeCategory,
+      theme,
     }
-  })
+  },
 
   mounted () {
-    if (this.setupContext.treeCategory) {
-      this.setupContext.treeCategory.onChildMounted(this)
+    if (this.treeCategory) {
+      this.treeCategory.onChildMounted(this)
     }
-  }
+  },
 
   beforeUnmount () {
-    if (this.setupContext.treeCategory) {
-      this.setupContext.treeCategory.onChildUnmounted(this)
+    if (this.treeCategory) {
+      this.treeCategory.onChildUnmounted(this)
     }
-  }
-}
+  },
+})
 </script>
 
 <style lang="scss">
