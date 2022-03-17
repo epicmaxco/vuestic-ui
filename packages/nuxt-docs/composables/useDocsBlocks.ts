@@ -73,7 +73,8 @@ export const useDocsBlocks = (meta: ImportMeta) => {
     exampleBlock: (exampleComponentName: string) => defineBlock({
       component: 'DocsExampleBlock',
       setup: () => {
-        const p = `${path.split('/').slice(-1)[0]}.examples.${camelCase(exampleComponentName)}`
+        const componentName = camelCase(path.split('/').slice(-1)[0])
+        const p = `${componentName}.examples.${camelCase(exampleComponentName)}`
         const { t } = useI18n()
 
         return {

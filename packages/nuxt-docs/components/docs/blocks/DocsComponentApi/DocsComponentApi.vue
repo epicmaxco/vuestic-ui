@@ -36,6 +36,7 @@ const defaultApiOptions: ManualApiOptions = {
       hidden: true,
     },
   },
+  methods: {}, slots: {}, events: {}
 }
 
 export default defineComponent({

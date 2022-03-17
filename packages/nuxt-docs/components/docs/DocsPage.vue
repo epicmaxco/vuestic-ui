@@ -2,7 +2,7 @@
   <div>
     <component
       v-for="(block, i) in blocks"
-      :key="i" 
+      :key="i + currentRoute.fullPath" 
       :is="block.component" v-bind="block.attributes" 
     />
   </div>
@@ -21,13 +21,14 @@ const config = computed(() => {
   const configPath = `${name}/${page}`
 
   return getConfig(configPath)
-}) 
+})
 
 const blocks = computed(() => {
   if (!config.value) return []
 
   return config.value.blocks
     .map((block) => ({
+      // TODO: Add here uuid
       component: blockComponents[block.component],
       attributes: block.setup?.()
     }))

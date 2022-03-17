@@ -3,7 +3,8 @@ import { computed } from 'vue'
 import { TranslationString } from '~~/types/translations'
 
 /** Modified useI18n. Sync locale with cookie. Has tie method. */
-export const useI18n = () => { 
+export const useI18n = () => {
+  getCurrentInstance() // Fixes i18n error "Must be called on top of setup in script-setup"
   const i18n = originalUseI18n()
   const { setCookie } = useSSRCookie()
 

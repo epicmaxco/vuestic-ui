@@ -132,8 +132,6 @@ const isActiveChildRoute = (route: { name: string }, parent: { name: string }) =
 const isRouteHasActiveChild = (route: { path: string, children: { path: string }[] }) => {
   const pathSteps: string[] = currentRoute.value.path.split('/').filter(Boolean)
 
-  if (!route.children) { return false }
-
   return !!route.children.some(({ path }) => pathSteps.includes(path))
 }
 
@@ -147,10 +145,10 @@ const onSidebarItemClick = () => {
 
 const updateAccordionValue = () => {
     accordionValue.value = sidebarItems.value.map((route, index) => {
-    if (!route.children || accordionValue.value[index]) { return accordionValue.value[index] }
+      if (!route.children || accordionValue.value[index]) { return accordionValue.value[index] }
 
-    return isRouteHasActiveChild(route)
-  })
+      return isRouteHasActiveChild(route)
+    })
 }
 
 beforeEach(updateAccordionValue)
@@ -206,6 +204,10 @@ updateAccordionValue()
     height: 100%;
     min-width: 16rem;
     color: var(--va-dark, #323742);
+
+    .va-sidebar__menu {
+      @include va-scroll(var(--va-primary));
+    }
 
     &.va-sidebar--hidden {
       min-width: 0;
