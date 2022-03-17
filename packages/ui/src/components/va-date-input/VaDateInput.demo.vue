@@ -185,7 +185,7 @@ export default {
   },
   methods: {
     resetModelValue () {
-      this.value = undefined
+      (this as any).value = undefined
     },
   },
 }
