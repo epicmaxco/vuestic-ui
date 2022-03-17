@@ -4,6 +4,10 @@ import { PageConfig, PageRoute } from "~~/types/page-config"
 const modules = import.meta.globEager('./**/index.ts')
 
 export const configs = Object.entries(modules)
+  .filter(([name, config]) => {
+    const path = name.replace('/index.ts', '').replace('./', '')
+    return path.split('/').length <= 2
+  })
   .reduce((acc, [name, value]) => {
     const configPath = name.replace('/index.ts', '').replace('./', '')
 
@@ -13,7 +17,13 @@ export const configs = Object.entries(modules)
   }, {} as typeof modules)
 
 export const getConfig = (configPath: string) => {
-  return configs[configPath].default as PageConfig
+  const config = configs[configPath]
+
+  if (!config) {
+    throw new Error(`Config ${configPath} not found`)
+  }
+
+  return config.default as PageConfig
 }
 
 export const createPageRoutes = () => {
@@ -21,12 +31,16 @@ export const createPageRoutes = () => {
     .sort((a, b) => a < b ? -1 : 1)
     .reduce((acc, configPath, i, arr) => {
       const [catergory, child] = configPath.split('/')
-
+ 
       const name = child || catergory
 
       const page: PageRoute = { ...getConfig(configPath), path: configPath, name }
 
       if (child) {
+        if (!acc[catergory]) {
+          return acc
+        }
+
         if (!acc[catergory].children) { acc[catergory].children = [] }
         acc[catergory].children.push(page)
       } else {

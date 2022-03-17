@@ -3,6 +3,7 @@ import type { ExtractPropTypes } from '~/types/extract-component-props'
 import type { CodesandboxConfig } from "~~/components/docs/blocks/DocsExample/DocsNavigation/CodeSandboxExample"
 import { BlockComponents } from '~~/components/docs/blocks'
 import { TableColumn, TableData } from "~~/components/docs/blocks/DocsTable/DocsTableTypes"
+import camelCase from 'lodash/camelCase'
 
 export type ExampleOptions = {
   hideCode?: boolean,
@@ -26,6 +27,7 @@ export const useDocsBlocks = (meta: ImportMeta) => {
   let path = meta.url
     .replace('/index.ts', '')
     .replace(/.*page\-configs\//g, '')
+    .replace(/\?.*/, '')
 
   // Return `defineBlock` to get better IDE support
   return {
@@ -36,6 +38,15 @@ export const useDocsBlocks = (meta: ImportMeta) => {
 
         return {
           source: `# ${tie(translationString)}`  
+        }
+      }
+    }),
+    paragraph: (translationString: TranslationString) => defineBlock({
+      component: 'MarkdownView',
+      setup: () => {
+        const { tie } = useI18n()
+        return {
+          source: `${tie(translationString)}`
         }
       }
     }),
@@ -62,7 +73,7 @@ export const useDocsBlocks = (meta: ImportMeta) => {
     exampleBlock: (exampleComponentName: string) => defineBlock({
       component: 'DocsExampleBlock',
       setup: () => {
-        const p = `${path.split('/').slice(-1)[0]}.examples.${exampleComponentName.toLowerCase()}`
+        const p = `${path.split('/').slice(-1)[0]}.examples.${camelCase(exampleComponentName)}`
         const { t } = useI18n()
 
         return {
@@ -86,6 +97,30 @@ export const useDocsBlocks = (meta: ImportMeta) => {
         const { manualApi } = getConfig(path)
 
         return { component, apiOptions: manualApi }
+      }
+    }),
+    list: () => defineBlock({
+      component: 'MarkdownView',
+      setup: () => {
+        return { source: 'TODO:' }
+      }
+    }),
+    link: () => defineBlock({
+      component: 'MarkdownView',
+      setup: () => {
+        return { source: 'TODO:' }
+      }
+    }),
+    alert: () => defineBlock({
+      component: 'MarkdownView',
+      setup: () => {
+        return { source: 'TODO:' }
+      }
+    }),
+    component: () => defineBlock({
+      component: 'MarkdownView',
+      setup: () => {
+        return { source: 'TODO:' }
       }
     }),
   }

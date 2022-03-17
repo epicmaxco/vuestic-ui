@@ -53,8 +53,8 @@ watch(sm, (newValue, oldValue) => {
 
     &__main-section {
       display: flex;
-      flex: 1;
-      height: 100%;
+      flex-grow: 2;
+      overflow: auto;
       position: relative;
     }
 
@@ -67,10 +67,8 @@ watch(sm, (newValue, oldValue) => {
     }
 
     &__main-content {
-      display: flex;
-      justify-content: center;
       width: 100%;
-      height: 100%;
+      // height: 100%;
       overflow-y: scroll;
       overflow-x: hidden;
       
@@ -81,6 +79,7 @@ watch(sm, (newValue, oldValue) => {
       width: 100%;
       max-width: 1080px;
       padding: 1.75rem 3rem;
+      box-sizing: border-box;
     }
   }
 </style>

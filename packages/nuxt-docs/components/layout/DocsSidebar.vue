@@ -30,7 +30,7 @@
               class="va-sidebar__child__label"
               color="gray"
             >
-              {{ t(childRoute.meta.category) }}
+              {{ t(childRoute.category) }}
           </va-list-label>
           <va-sidebar-item
             :to="`/${locale}/${route.name}/${childRoute.name}`"
@@ -92,7 +92,9 @@ const createSidebarItems = (pages: PageRoute[]): SidebarItem[] => {
     // TODO: Should we sort sidebar item groups? Define custom sorting?
     .sort((a, b) => a < b ? -1 : 1)
     .reduce((result, group) => {
-      grouped[group][0].category = group
+      if (group !== '_noGroup') {
+        grouped[group][0].category = group
+      }
       return result.concat(grouped[group])
     }, [])
 }
@@ -129,8 +131,10 @@ const isActiveChildRoute = (route: { name: string }, parent: { name: string }) =
 
 const isRouteHasActiveChild = (route: { path: string, children: { path: string }[] }) => {
   const pathSteps: string[] = currentRoute.value.path.split('/').filter(Boolean)
-  return !!route.children
-    .some(({ path }) => pathSteps.includes(path))
+
+  if (!route.children) { return false }
+
+  return !!route.children.some(({ path }) => pathSteps.includes(path))
 }
 
 const emit = defineEmits(['update:visible'])

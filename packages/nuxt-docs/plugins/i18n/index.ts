@@ -65,6 +65,9 @@ export default defineNuxtPlugin(({ vueApp: app, ssrContext, provide }) => {
       replace(newPath)
     }
   })
+
+  provide('t', i18n.global.t)
+  provide('te', i18n.global.te)
 })
 
 
