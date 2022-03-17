@@ -152,12 +152,17 @@
           label="Manual Input"
       />
     </VbCard>
+
+    <VbCard title="Reset Model Value">
+      <va-button @click="resetModelValue()">Reset model value</va-button>
+    </VbCard>
   </VbDemo>
 </template>
 
 <script lang="ts">
 import { VaDateInput } from './index'
 import VaChip from '../va-chip'
+import VaButton from '../va-button/VaButton.vue'
 
 const datePlusDay = (date: Date, days: number) => {
   const d = new Date(date)
@@ -167,7 +172,7 @@ const datePlusDay = (date: Date, days: number) => {
 const nextWeek = datePlusDay(new Date(), 7)
 
 export default {
-  components: { VaDateInput, VaChip },
+  components: { VaButton, VaDateInput, VaChip },
   data () {
     return {
       value: new Date(),
@@ -177,6 +182,11 @@ export default {
       // Dropdown
       isOpen: false,
     }
+  },
+  methods: {
+    resetModelValue () {
+      this.value = undefined
+    },
   },
 }
 </script>
