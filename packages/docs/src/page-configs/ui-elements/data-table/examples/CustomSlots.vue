@@ -3,9 +3,10 @@
     <template #header(address)>Street</template>
     <template #header(company)>Company Name</template>
 
-    <template #cell(username)="{ source: username }"><va-chip>{{ username }}</va-chip></template>
-    <template #cell(address)="{ source: address }">{{ address.street }}</template>
-    <template #cell(company)="{ source: company }">{{ company.name }}</template>
+    <template #cell(username)="{ source }"><va-chip>{{ source.username }}</va-chip></template>
+    <template #cell(address)="{ source }">{{ source.address.street }}</template>
+    <template #cell(email)="{ source }">{{ source.address.email }}</template>
+    <template #cell(company)="{ source }">{{ source.company.name }}</template>
   </va-data-table>
 </template>
 
@@ -19,8 +20,8 @@ export default defineComponent({
         id: 1,
         name: 'Leanne Graham',
         username: 'Bret',
-        email: 'Sincere@april.biz',
         address: {
+          email: 'Sincere@april.biz',
           street: 'Kulas Light',
           suite: 'Apt. 556',
           city: 'Gwenborough',
@@ -42,8 +43,8 @@ export default defineComponent({
         id: 2,
         name: 'Ervin Howell',
         username: 'Antonette',
-        email: 'Shanna@melissa.tv',
         address: {
+          email: 'Shanna@melissa.tv',
           street: 'Victor Plains',
           suite: 'Suite 879',
           city: 'Wisokyburgh',
@@ -65,8 +66,8 @@ export default defineComponent({
         id: 3,
         name: 'Clementine Bauch',
         username: 'Samantha',
-        email: 'Nathan@yesenia.net',
         address: {
+          email: 'Nathan@yesenia.net',
           street: 'Douglas Extension',
           suite: 'Suite 847',
           city: 'McKenziehaven',
@@ -93,6 +94,9 @@ export default defineComponent({
       { key: 'email' },
       { key: 'phone' },
       { key: 'website' },
+      { key: 'username' },
+      { key: 'address' },
+      { key: 'company' },
     ]
 
     return {

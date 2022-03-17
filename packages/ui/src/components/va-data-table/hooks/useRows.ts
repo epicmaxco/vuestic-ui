@@ -18,17 +18,17 @@ export interface TableRow {
   cells: TableCell[];
 }
 
-const buildTableCell = (rowIndex: number, column: TableColumn, source: any): TableCell => ({
+const buildTableCell = (rowIndex: number, column: TableColumn, source: ITableItem): TableCell => ({
   source,
   rowIndex,
   column,
-  value: source?.toString?.() || '',
+  value: source[column.key]?.toString?.() || '',
 })
 
 const buildTableRow = (source: ITableItem, initialIndex: number, columns: TableColumn[]): TableRow => ({
   source,
   initialIndex,
-  cells: columns.map(column => buildTableCell(initialIndex, column, source[column.key])),
+  cells: columns.map(column => buildTableCell(initialIndex, column, source)),
 })
 
 export default function useRows (
