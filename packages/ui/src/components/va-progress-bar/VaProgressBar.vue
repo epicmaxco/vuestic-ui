@@ -24,7 +24,7 @@
 </template>
 
 <script lang="ts">
-import { normalizeValue } from '../../services/utils'
+import clamp from 'lodash/clamp'
 import { computed, defineComponent, PropType } from 'vue'
 import { useColors } from '../../services/color-config/color-config'
 
@@ -73,13 +73,13 @@ export default defineComponent({
       })),
 
       bufferStyle: computed(() => ({
-        width: `${props.indeterminate ? 100 : normalizeValue(props.buffer)}%`,
+        width: `${props.indeterminate ? 100 : clamp(props.buffer, 0, 100)}%`,
         backgroundColor: getColor(props.color),
         [props.reverse ? 'right' : 'left']: 0,
       })),
 
       progressStyle: computed(() => ({
-        width: `${normalizeValue(props.modelValue)}%`,
+        width: `${clamp(props.modelValue, 0, 100)}%`,
         backgroundColor: getColor(props.color),
         marginLeft: props.reverse ? 'auto' : undefined,
       })),
