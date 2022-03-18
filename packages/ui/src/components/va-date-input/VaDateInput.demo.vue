@@ -154,7 +154,13 @@
     </VbCard>
 
     <VbCard title="Reset Model Value">
-      <va-button @click="resetModelValue()">Reset model value</va-button>
+      <va-button @click="resetModelValue('value')">Reset model value</va-button>
+    </VbCard>
+    <VbCard title="Reset range Model Value">
+      <va-button @click="resetModelValue('range')">Reset range model value</va-button>
+    </VbCard>
+    <VbCard title="Set Model Value">
+      <va-button @click="setModelValue()">Set model value</va-button>
     </VbCard>
   </VbDemo>
 </template>
@@ -184,8 +190,13 @@ export default {
     }
   },
   methods: {
-    resetModelValue () {
-      (this as any).value = undefined
+    resetModelValue (keyToReset: string) {
+      (this as any)[keyToReset] = undefined
+    },
+    setModelValue () {
+      (this as any).value = new Date();
+      (this as any).range = { start: new Date(), end: nextWeek };
+      (this as any).dates = [new Date(), nextWeek]
     },
   },
 }
