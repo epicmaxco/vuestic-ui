@@ -5,7 +5,7 @@ export type ITableItem = Record<string, any>
 
 // the inner representation of table cells
 export interface TableCell {
-  source: any;
+  rowData: any;
   column: TableColumn;
   value: string;
   rowIndex: number;
@@ -18,11 +18,11 @@ export interface TableRow {
   cells: TableCell[];
 }
 
-const buildTableCell = (rowIndex: number, column: TableColumn, source: ITableItem): TableCell => ({
-  source,
+const buildTableCell = (rowIndex: number, column: TableColumn, rowData: ITableItem): TableCell => ({
+  rowData,
   rowIndex,
   column,
-  value: source[column.key]?.toString?.() || '',
+  value: rowData[column.key]?.toString?.() || '',
 })
 
 const buildTableRow = (source: ITableItem, initialIndex: number, columns: TableColumn[]): TableRow => ({

@@ -22,7 +22,7 @@ export default function useFilterable (
 
     return rawRows.value.filter(row => row.cells.some(cell => {
       return typeof filterMethod.value === 'function'
-        ? filterMethod.value(cell.source)
+        ? filterMethod.value(cell.rowData)
         : cell.value.toLowerCase().includes(filter.value.toLowerCase())
     }))
   })
