@@ -44,7 +44,7 @@
 <script lang="ts">
 import { defineComponent, provide, inject, ref, watch, nextTick, ComponentPublicInstance } from 'vue'
 import { useColor } from '../../../composables/useColor'
-
+import { TreeCategoryKey } from '../types'
 // Components
 import SquareWithIcon from '../SquareWithIcon/SquareWithIcon.vue'
 import VaIcon from '../../va-icon/VaIcon.vue'
@@ -91,7 +91,7 @@ const VaTreeCategory = defineComponent({
       onChildUnmounted,
     }
 
-    provide('treeCategory', treeCategory)
+    provide(TreeCategoryKey, treeCategory)
     provide('VaTreeCategory', VaTreeCategory)
 
     const treeRoot = inject('treeRoot', {

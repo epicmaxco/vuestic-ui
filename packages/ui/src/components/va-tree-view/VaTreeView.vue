@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import { defineComponent, provide, ref, nextTick } from 'vue'
-
+import { TreeViewKey } from './types'
 import { useColor } from '../../composables/useColor'
 import VaTreeCategory from './VaTreeCategory/VaTreeCategory.vue'
 
@@ -35,7 +35,7 @@ export default defineComponent({
       onChildUnmounted,
     }
 
-    provide('treeRoot', treeRoot)
+    provide(TreeViewKey, treeRoot)
 
     return {
       categories,

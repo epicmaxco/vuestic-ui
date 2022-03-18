@@ -38,7 +38,7 @@
 <script lang="ts">
 import { defineComponent, inject } from 'vue'
 import { useColor } from '../../../composables/useColor'
-
+import { TreeCategoryKey } from '../types'
 // Components
 import VaIcon from '../../va-icon'
 
@@ -65,7 +65,7 @@ export default defineComponent({
   },
   setup (props) {
     const { theme } = useColor(props)
-    const treeCategory = inject('treeCategory', {
+    const treeCategory = inject(TreeCategoryKey, {
       onChildMounted: (value: any) => undefined,
       onChildUnmounted: (value: any) => undefined,
     })
