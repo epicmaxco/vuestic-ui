@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, provide, ref, nextTick, PropType } from 'vue'
+import { defineComponent, provide, ref, nextTick } from 'vue'
 
 import { useColor } from '../../composables/useColor'
 import VaTreeCategory from './VaTreeCategory/VaTreeCategory.vue'
@@ -16,7 +16,7 @@ export default defineComponent({
   name: 'VaTreeView',
   props: {
     color: {
-      type: String as PropType<string>,
+      type: String,
       default: '',
     },
   },

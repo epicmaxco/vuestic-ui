@@ -8,7 +8,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue'
+import { defineComponent } from 'vue'
 import { useColor } from '../../../composables/useColor'
 
 // Components
@@ -19,12 +19,12 @@ export default defineComponent({
   components: { VaIcon },
   props: {
     icon: {
-      type: String as PropType<string>,
+      type: String,
       default: '',
       required: true,
     },
     color: {
-      type: String as PropType<string>,
+      type: String,
       default: 'primary',
     },
   },

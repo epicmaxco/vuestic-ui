@@ -42,7 +42,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, provide, inject, ref, watch, nextTick, PropType, ComponentPublicInstance } from 'vue'
+import { defineComponent, provide, inject, ref, watch, nextTick, ComponentPublicInstance } from 'vue'
 import { useColor } from '../../../composables/useColor'
 
 // Components
@@ -58,19 +58,19 @@ const VaTreeCategory = defineComponent({
   },
   props: {
     label: {
-      type: [String, Number] as PropType<string | number>,
+      type: [String, Number],
       default: '',
     },
     isOpen: {
-      type: Boolean as PropType<boolean>,
+      type: Boolean,
       default: false,
     },
     icon: {
-      type: String as PropType<string>,
+      type: String,
       default: '',
     },
     color: {
-      type: String as PropType<string>,
+      type: String,
       default: 'primary',
     },
   },

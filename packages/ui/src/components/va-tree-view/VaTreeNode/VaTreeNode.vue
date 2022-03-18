@@ -36,7 +36,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, inject, PropType } from 'vue'
+import { defineComponent, inject } from 'vue'
 import { useColor } from '../../../composables/useColor'
 
 // Components
@@ -47,19 +47,19 @@ export default defineComponent({
   components: { VaIcon },
   props: {
     highlighted: {
-      type: Boolean as PropType<boolean>,
+      type: Boolean,
       default: false,
     },
     icon: {
-      type: String as PropType<string>,
+      type: String,
       default: '',
     },
     iconRight: {
-      type: String as PropType<string>,
+      type: String,
       default: '',
     },
     color: {
-      type: String as PropType<string>,
+      type: String,
       default: 'primary',
     },
   },
