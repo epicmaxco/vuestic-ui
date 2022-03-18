@@ -2,6 +2,7 @@
   --va-progress-bar-width: 100%;
   --va-progress-bar-position: relative;
   --va-progress-bar-overflow: hidden;
+  --va-progress-bar-height: 0.5rem;
 
   /* Small */
   --va-progress-bar-sm-height: 2px;
@@ -17,7 +18,7 @@
   /* Wrapper */
   --va-progress-bar--wrapper-position: relative;
   --va-progress-bar--wrapper-overflow: hidden;
-  --va-progress-bar--wrapper-border-radius: 0.5rem;
+  --va-progress-bar--wrapper-border-radius: 9999999px;
 
   /* Square */
   --va-progress-bar-square-border-radius: 0;
