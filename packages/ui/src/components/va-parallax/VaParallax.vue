@@ -59,10 +59,21 @@ export default class VaParallax extends mixins(
     }
   }
 
+  getScrollableParent (element: Element): Element | null {
+    if (element === null) {
+      return null
+    }
+    if (element.scrollHeight > element.clientHeight) {
+      return element
+    } else {
+      return this.getScrollableParent(element.parentNode as Element)
+    }
+  }
+
   get targetElement () {
     return typeof this.$props.target === 'string'
-      ? document.querySelector(this.$props.target)
-      : this.$props.target || this.$el.parentElement
+      ? document.querySelector(this.$props.target) as Element
+      : (this.$props.target || this.getScrollableParent(this.$el.parentElement)) as Element
   }
 
   get computedImgStyles (): Record<string, unknown> {
