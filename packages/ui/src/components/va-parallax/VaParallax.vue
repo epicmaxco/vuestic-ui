@@ -77,9 +77,7 @@ export default class VaParallax extends mixins(
       throw new Error('VaParallax target prop got wrong selector. Target is null')
     }
 
-    if (this.$props.target) { return this.$props.target }
-
-    return this.getScrollableParent(this.$el.parentElement) || document.body
+    return this.$props.target || this.getScrollableParent(this.$el.parentElement)
   }
 
   get computedImgStyles (): Record<string, unknown> {
