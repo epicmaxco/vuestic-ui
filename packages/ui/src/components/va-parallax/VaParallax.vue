@@ -61,7 +61,7 @@ export default class VaParallax extends mixins(
 
   getScrollableParent (element: Element | null): Element | null {
     if (element === null) {
-      return null
+      return window
     }
     if (element.scrollHeight > element.clientHeight) {
       return element
