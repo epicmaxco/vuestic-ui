@@ -36,9 +36,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, inject } from 'vue'
+import { defineComponent } from 'vue'
 import { useColor } from '../../../composables/useColor'
-import { TreeCategoryKey } from '../types'
+import useTreeNode from '../hooks/useTreeNode'
+
 // Components
 import VaIcon from '../../va-icon'
 
@@ -65,26 +66,10 @@ export default defineComponent({
   },
   setup (props) {
     const { theme } = useColor(props)
-    const treeCategory = inject(TreeCategoryKey, {
-      onChildMounted: (value: any) => undefined,
-      onChildUnmounted: (value: any) => undefined,
-    })
 
     return {
-      treeCategory,
+      ...useTreeNode(props),
       theme,
-    }
-  },
-
-  mounted () {
-    if (this.treeCategory) {
-      this.treeCategory.onChildMounted(this)
-    }
-  },
-
-  beforeUnmount () {
-    if (this.treeCategory) {
-      this.treeCategory.onChildUnmounted(this)
     }
   },
 })

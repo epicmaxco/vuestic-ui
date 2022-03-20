@@ -5,12 +5,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, provide, ref, nextTick } from 'vue'
-import { TreeViewKey } from './types'
+import { defineComponent } from 'vue'
 import { useColor } from '../../composables/useColor'
-import VaTreeCategory from './VaTreeCategory/VaTreeCategory.vue'
-
-const categories = ref<typeof VaTreeCategory[]>([])
+import { useTreeView } from './hooks/useTreeView'
 
 export default defineComponent({
   name: 'VaTreeView',
@@ -21,43 +18,10 @@ export default defineComponent({
     },
   },
   setup: (props) => {
-    const onChildMounted = (category: typeof VaTreeCategory) => {
-      categories.value.push(category)
-    }
-
-    const onChildUnmounted = (removableCategory: typeof VaTreeCategory) => {
-      categories.value = categories.value.filter((category: typeof VaTreeCategory) => category !== removableCategory)
-    }
-
-    const treeRoot = {
-      color: props.color,
-      onChildMounted,
-      onChildUnmounted,
-    }
-
-    provide(TreeViewKey, treeRoot)
-
     return {
-      categories,
+      ...useTreeView(props),
       ...useColor(props),
     }
-  },
-  methods: {
-    collapse () {
-      nextTick(() => {
-        categories.value.forEach((child: typeof VaTreeCategory) => {
-          child.collapse()
-        })
-      })
-    },
-
-    expand () {
-      nextTick(() => {
-        categories.value.forEach((child: typeof VaTreeCategory) => {
-          child.expand()
-        })
-      })
-    },
   },
 })
 </script>

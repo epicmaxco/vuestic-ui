@@ -7,7 +7,7 @@
       <div class="va-tree-category__header-switcher">
         <square-with-icon
           :icon="isOpenCached ? 'remove' : 'add'"
-          :color="treeRoot.color || colorComputed"
+          :color="treeView.color || colorComputed"
         />
       </div>
       <div
@@ -42,15 +42,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, provide, inject, ref, watch, nextTick, ComponentPublicInstance } from 'vue'
-import { useColor } from '../../../composables/useColor'
-import { TreeCategoryKey } from '../types'
+import { defineComponent } from 'vue'
+
 // Components
 import SquareWithIcon from '../SquareWithIcon/SquareWithIcon.vue'
 import VaIcon from '../../va-icon/VaIcon.vue'
-import VaTreeNode from '../VaTreeNode/VaTreeNode.vue'
+import { useTreeCategory } from '../hooks/useTreeCategory'
+import { useColor } from '../../../composables/useColor'
 
-const VaTreeCategory = defineComponent({
+export default defineComponent({
   name: 'VaTreeCategory',
   components: {
     SquareWithIcon,
@@ -75,93 +75,12 @@ const VaTreeCategory = defineComponent({
     },
   },
   setup: (props) => {
-    const nodes: any = ref<(typeof VaTreeCategory | typeof VaTreeNode)[]>([])
-    const isOpenCached = ref<boolean | undefined>(false)
-
-    const onChildMounted = (node: typeof VaTreeCategory | typeof VaTreeNode) => {
-      nodes.value.push(node)
-    }
-
-    const onChildUnmounted = (removableNode: typeof VaTreeCategory | typeof VaTreeNode) => {
-      nodes.value = nodes.value.filter((node: typeof VaTreeCategory | typeof VaTreeNode) => node !== removableNode)
-    }
-
-    const treeCategory: any = {
-      onChildMounted,
-      onChildUnmounted,
-    }
-
-    provide(TreeCategoryKey, treeCategory)
-    provide('VaTreeCategory', VaTreeCategory)
-
-    const treeRoot = inject('treeRoot', {
-      onChildMounted: (value: any) => undefined,
-      onChildUnmounted: (value: any) => undefined,
-    })
-
     return {
-      treeCategory,
-      treeRoot,
-      nodes,
-      isOpenCached,
+      ...useTreeCategory(props),
       ...useColor(props),
     }
   },
-  methods: {
-    collapse () {
-      this.isOpenCached = false
-
-      nextTick(() => {
-        this.nodes.forEach((child: ComponentPublicInstance) => {
-          if (child.$options.name === 'va-tree-category') {
-            (child as ComponentPublicInstance<typeof VaTreeCategory>).collapse()
-          }
-        })
-      })
-    },
-
-    expand () {
-      this.isOpenCached = true
-
-      nextTick(() => {
-        this.nodes.forEach((child: typeof VaTreeCategory | typeof VaTreeNode) => {
-          if (child instanceof VaTreeCategory) {
-            child.expand()
-          }
-        })
-      })
-    },
-
-    toggle (e: MouseEvent) {
-      if (!(e.target as HTMLElement).classList.contains('va-checkbox__input')) {
-        this.isOpenCached = !this.isOpenCached
-      }
-    },
-  },
-
-  created () {
-    watch(
-      () => this.$props.isOpen,
-      (isOpen) => {
-        this.isOpenCached = isOpen
-      },
-      { immediate: true })
-  },
-
-  mounted () {
-    if (this.treeRoot) {
-      this.treeRoot.onChildMounted(this)
-    }
-  },
-
-  beforeUnmount () {
-    if (this.treeRoot) {
-      this.treeRoot.onChildUnmounted(this)
-    }
-  },
 })
-
-export default VaTreeCategory
 </script>
 
 <style lang="scss">
