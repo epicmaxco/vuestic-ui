@@ -61,7 +61,7 @@ export default class VaParallax extends mixins(
 
   getScrollableParent (element: Element | null): Element | null {
     if (element === null) {
-      return window
+      return null
     }
     if (element.scrollHeight > element.clientHeight) {
       return element
@@ -77,7 +77,7 @@ export default class VaParallax extends mixins(
       throw new Error('VaParallax target prop got wrong selector. Target is null')
     }
 
-    return this.$props.target || this.getScrollableParent(this.$el.parentElement)
+    return this.getScrollableParent(this.$el.parentElement) || document.body
   }
 
   get computedImgStyles (): Record<string, unknown> {
