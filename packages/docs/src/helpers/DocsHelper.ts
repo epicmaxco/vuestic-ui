@@ -119,7 +119,10 @@ export class PageGenerationHelper {
     }
   }
 
-  alert (translationString: TranslationString, color: string): ApiDocsBlock {
+  alert (
+    translationString: TranslationString,
+    color: 'primary' | 'warning' | 'info' | 'danger',
+  ): ApiDocsBlock {
     return {
       type: BlockType.ALERT,
       translationString,
