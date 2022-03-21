@@ -75,9 +75,7 @@ export const useTreeCategory = (props: TreeCategoryProps) => {
 
     nextTick(() => {
       nodes.value.forEach((child: NodeComponent) => {
-        if (child.expand) {
-          child.expand()
-        }
+        child.expand?.()
       })
     })
   }
@@ -107,8 +105,8 @@ export const useTreeCategory = (props: TreeCategoryProps) => {
   }
 
   provide(TreeCategoryKey, treeCategory)
-  onMounted(() => treeView && treeView.onChildMounted(treeCategory))
-  onBeforeUnmount(() => treeView && treeView.onChildUnmounted(treeCategory))
+  onMounted(() => treeView?.onChildMounted(treeCategory))
+  onBeforeUnmount(() => treeView?.onChildUnmounted(treeCategory))
 
   return {
     treeCategory,
