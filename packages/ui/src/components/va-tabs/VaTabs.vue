@@ -67,13 +67,7 @@ import { useColor } from '../../composables/useColor'
 import VaButton from '../va-button'
 import VaConfig from '../va-config'
 
-const getClientWidth = (element: Element | null | undefined): number => {
-  if (element) {
-    return element.clientWidth
-  }
-
-  return 0
-}
+const getClientWidth = (element: Element | null | undefined): number => element?.clientWidth || 0
 
 export class TabsService {
   // eslint-disable-next-line no-useless-constructor
