@@ -47,12 +47,6 @@ import { useColor } from '../../../composables/useColor'
 import { useRouterLink, useRouterLinkProps } from '../../../composables/useRouterLink'
 import useKeyboardOnlyFocus from '../../../composables/useKeyboardOnlyFocus'
 
-type Context = {
-  tabsService: TabsService;
-  hasKeyboardFocus: boolean;
-  keyboardFocusListeners: Record<string, () => void>;
-}
-
 export default defineComponent({
   name: 'VaTab',
   components: { VaIcon },
