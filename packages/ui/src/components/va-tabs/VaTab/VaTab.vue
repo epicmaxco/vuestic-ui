@@ -1,6 +1,7 @@
 <template>
   <component
     class="va-tab"
+    ref="tabElement"
     :is="tagComputed"
     :href="hrefComputed"
     :target="target"
@@ -39,15 +40,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, inject, ref, computed } from 'vue'
+import { defineComponent } from 'vue'
 import VaIcon from '../../va-icon'
-import { TabsServiceKey } from '../types'
-import { TabsService } from '../VaTabs.vue'
-import { useColor } from '../../../composables/useColor'
-import { useRouterLink, useRouterLinkProps } from '../../../composables/useRouterLink'
-import useKeyboardOnlyFocus from '../../../composables/useKeyboardOnlyFocus'
+import { useRouterLinkProps } from '../../../composables/useRouterLink'
+import { useTab } from '../hooks/useTab'
 
-export default defineComponent({
+const VaTab = defineComponent({
   name: 'VaTab',
   components: { VaIcon },
   emits: ['click', 'keydown-enter', 'focus'],
@@ -56,15 +54,15 @@ export default defineComponent({
     ...useRouterLinkProps,
     color: {
       type: String,
-      default: undefined,
+      default: '',
     },
     icon: {
       type: String,
-      default: null,
+      default: '',
     },
     label: {
       type: String,
-      default: null,
+      default: '',
     },
     disabled: {
       type: Boolean,
@@ -78,78 +76,10 @@ export default defineComponent({
     },
   },
 
-  setup: (props) => {
-    const id = ref<string | number | null>(null)
-    const isActive = ref(false)
-    const rightSidePosition = ref(0)
-    const leftSidePosition = ref(0)
-    const hoverState = ref(false)
-    const tabsService = inject(TabsServiceKey) as TabsService
-    const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
-    const { colorComputed } = useColor(props)
-
-    const classComputed = computed(() => ({ 'va-tab--disabled': props.disabled }))
-
-    const computedStyle = computed(() => ({
-      color: hasKeyboardFocus || hoverState || isActive ? colorComputed : 'inherit',
-    }))
-
-    const tabIndexComputed = computed(() => (props.disabled || tabsService.disabled) ? -1 : 0)
-    const { tagComputed, hrefComputed } = useRouterLink(props)
-
-    return {
-      id,
-      isActive,
-      rightSidePosition,
-      leftSidePosition,
-      hoverState,
-      classComputed,
-      computedStyle,
-      tabIndexComputed,
-      tabsService,
-      hasKeyboardFocus,
-      keyboardFocusListeners,
-      tagComputed,
-      hrefComputed,
-    }
-  },
-
-  beforeMount () {
-    this.tabsService.register(this)
-  },
-
-  beforeUnmount () {
-    this.tabsService.unregister(this)
-  },
-
-  methods: {
-    onTabClick () {
-      this.tabsService.tabClick(this)
-      this.$emit('click')
-    },
-
-    onTabKeydown () {
-      this.tabsService.tabPressEnter(this)
-      this.$emit('keydown-enter')
-    },
-
-    onFocus () {
-      if (this.hasKeyboardFocus) {
-        this.tabsService.tabFocus(this)
-      }
-      this.$emit('focus')
-    },
-
-    updateHoverState (isHover: boolean) {
-      this.hoverState = isHover
-    },
-
-    updateSidePositions () {
-      this.rightSidePosition = this.$el.offsetLeft + this.$el.offsetWidth
-      this.leftSidePosition = this.$el.offsetLeft
-    },
-  },
+  setup: useTab,
 })
+
+export default VaTab
 </script>
 
 <style lang="scss">
