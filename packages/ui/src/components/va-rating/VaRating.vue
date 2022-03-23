@@ -3,7 +3,7 @@
     <div
       @keyup.left="onArrowKeyPress(-1)"
       @keyup.right="onArrowKeyPress(1)"
-      @mouseenter="isHoverEnabled && onMouseEnter()"
+      @mouseenter="onMouseEnter()"
       @mouseleave="onMouseLeave"
       class="va-rating__item-wrapper"
     >
@@ -13,9 +13,8 @@
         :model-value="getItemValue(itemNumber - 1)"
         :key="itemNumber"
         :empty-icon-color="$props.unselectedColor"
-        :hover="isHoverEnabled"
         :tabindex="tabindex"
-        @hover="onItemHoveredValueUpdate(itemNumber - 1, $event)"
+        @hover="isInteractionsEnabled && onItemHoveredValueUpdate(itemNumber - 1, $event)"
         @update:model-value="isInteractionsEnabled && onItemValueUpdate(itemNumber - 1, $event)"
       >
         <template v-if="$props.numbers" v-slot="{ props }">
@@ -87,7 +86,6 @@ export default defineComponent({
 
       isInteractionsEnabled,
       tabindex: computed(() => isInteractionsEnabled.value ? 0 : undefined),
-      isHoverEnabled: computed(() => props.hover && isInteractionsEnabled.value),
 
       onArrowKeyPress: (direction: 1 | -1) => {
         const step = props.halves ? RatingValue.HALF : RatingValue.FULL

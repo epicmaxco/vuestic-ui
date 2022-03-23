@@ -30,7 +30,7 @@ export const useRating = (props: ExtractPropTypes<typeof useRatingProps>) => {
 
   const hoveredValue = ref(0)
 
-  const visibleValue = computed(() => isHovered.value ? hoveredValue.value : modelValue.value)
+  const visibleValue = computed(() => props.hover && isHovered.value ? hoveredValue.value : modelValue.value)
 
   const onItemValueUpdate = (itemIndex: number, newValue: number) => {
     const newModelValue = itemIndex + newValue
@@ -44,6 +44,7 @@ export const useRating = (props: ExtractPropTypes<typeof useRatingProps>) => {
   }
 
   const onItemHoveredValueUpdate = (itemIndex: number, newValue: number) => {
+    if (!props.hover) { return }
     hoveredValue.value = itemIndex + newValue
   }
 

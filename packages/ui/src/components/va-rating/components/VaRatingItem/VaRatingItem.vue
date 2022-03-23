@@ -55,12 +55,17 @@ export default defineComponent({
     const [modelValue] = useSyncProp('modelValue', props, emit, RatingValue.EMPTY)
     const hoveredValue = ref<number | null>(null)
 
-    const visibleValue = computed(() => hoveredValue.value ? hoveredValue.value : modelValue.value)
+    const visibleValue = computed(() => {
+      if (props.hover) {
+        return hoveredValue.value || modelValue.value
+      }
+      return modelValue.value
+    })
 
     const onMouseMove = (ev: MouseEvent) => {
-      if (!props.hover) { return }
+      if (!rootEl.value) { return }
       const { offsetX } = ev
-      const iconWidth = rootEl.value!.clientWidth
+      const iconWidth = rootEl.value.clientWidth
 
       if (props.halves) {
         hoveredValue.value = offsetX / iconWidth <= RatingValue.HALF ? RatingValue.HALF : RatingValue.FULL
