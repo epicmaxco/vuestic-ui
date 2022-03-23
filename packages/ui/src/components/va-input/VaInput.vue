@@ -206,7 +206,7 @@ export default defineComponent({
 
     const computedInputAttributes = computed(() => ({
       ...computedChildAttributes.value,
-      ...pick(props, ['type', 'tabindex', 'disabled', 'readonly', 'placeholder']),
+      ...pick(props, ['type', 'tabindex', 'disabled', 'readonly', 'placeholder', 'pattern', 'inputmode']),
     }) as InputHTMLAttributes)
 
     return {
