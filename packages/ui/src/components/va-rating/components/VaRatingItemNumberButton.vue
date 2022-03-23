@@ -3,10 +3,8 @@
     class="va-rating__number-item"
     tabindex="-1"
     :style="{
-      background: modelValue === 0.5
-        ? `linear-gradient(90deg, ${computedColor} 50%, ${focusColor} 50%`
-        : !modelValue ? focusColor : computedColor,
-      color: modelValue ? '#fff' : computedColor,
+      background: backgroundComputed,
+      color: textColorComputed,
       width: sizeComputed,
       height: sizeComputed,
       fontSize: fontSizeComputed,
