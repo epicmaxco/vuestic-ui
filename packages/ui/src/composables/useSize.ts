@@ -57,12 +57,8 @@ const convertToRem = (px: number) => px / 16 - 0.5
 
 export const useSize = (
   props: SizeProps,
-  componentName?: string | undefined,
+  componentName: string | undefined = getCurrentInstance()?.type.name,
 ) => {
-  if (!componentName) {
-    componentName = getCurrentInstance()?.type.name
-  }
-
   const sizesConfigGlobal = computed<SizeConfig>(() => {
     return componentName
       ? getGlobalConfig().components?.[componentName]?.sizesConfig
