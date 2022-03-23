@@ -1,6 +1,6 @@
 export const componentFolderStructure = `
-va-checkbox // component directory
-|- VaCheckbox.vue // component itself
-|- VaCheckbox.demo.vue // component demo
-|- VaCheckbox.spec.js // component tests
+va-checkbox // {{ $t('all.code.folderStructure.componentDirectory') }}
+|- VaCheckbox.vue // {{ $t('all.code.folderStructure.componentItself') }}
+|- VaCheckbox.demo.vue // {{ $t('all.code.folderStructure.componentDemo') }}
+|- VaCheckbox.spec.js // {{ $t('all.code.folderStructure.componentTests') }}
 `
