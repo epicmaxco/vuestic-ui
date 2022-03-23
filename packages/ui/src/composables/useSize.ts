@@ -1,4 +1,4 @@
-import { computed, PropType } from 'vue'
+import { computed, getCurrentInstance, PropType } from 'vue'
 import { getGlobalConfig, SizeConfig } from '../services/global-config/global-config'
 
 export const sizesConfig: SizeConfig = {
@@ -59,6 +59,10 @@ export const useSize = (
   props: SizeProps,
   componentName?: string | undefined,
 ) => {
+  if (!componentName) {
+    componentName = getCurrentInstance()?.type.name
+  }
+
   const sizesConfigGlobal = computed<SizeConfig>(() => {
     return componentName
       ? getGlobalConfig().components?.[componentName]?.sizesConfig
