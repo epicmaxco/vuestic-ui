@@ -45,7 +45,7 @@ import VaIcon from '../../va-icon'
 import { useRouterLinkProps } from '../../../composables/useRouterLink'
 import { useTab } from '../hooks/useTab'
 
-const VaTab = defineComponent({
+export default defineComponent({
   name: 'VaTab',
   components: { VaIcon },
   emits: ['click', 'keydown-enter', 'focus'],
@@ -78,8 +78,6 @@ const VaTab = defineComponent({
 
   setup: useTab,
 })
-
-export default VaTab
 </script>
 
 <style lang="scss">
