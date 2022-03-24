@@ -7,7 +7,7 @@ import { TabComponent } from './useTab'
 
 const getClientWidth = (element: HTMLElement | null | undefined): number => element?.clientWidth || 0
 
-export interface TabsViewProps extends StatefulProps<string | number> {
+export interface TabsViewProps {
   modelValue: string | number,
   left: boolean,
   right: boolean,
@@ -63,7 +63,7 @@ interface TabsView {
   selectTab: (tab: TabComponent) => void,
 }
 
-const useTabsView = (props: TabsViewProps, { emit }: SetupContext): TabsView => {
+const useTabsView = (props: TabsViewProps & StatefulProps<string | number>, { emit }: SetupContext): TabsView => {
   const wrapper = ref<HTMLElement | null>(null)
   const container = ref<HTMLElement | null>(null)
   const tabs = ref<HTMLElement | null>(null)

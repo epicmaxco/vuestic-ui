@@ -13,7 +13,7 @@ import { useColor } from '../../../composables/useColor'
 import { RouterLinkProps, useRouterLink } from '../../../composables/useRouterLink'
 import { TabsService } from './useTabsService'
 
-export interface TabProps extends RouterLinkProps {
+export interface TabProps {
   color: string,
   icon: string,
   label: string,
@@ -46,7 +46,7 @@ export interface TabComponent {
   updateHoverState: (isHover: boolean) => void,
 }
 
-export const useTab = (props: TabProps, { emit }: SetupContext): TabComponent => {
+export const useTab = (props: TabProps & RouterLinkProps, { emit }: SetupContext): TabComponent => {
   const tabsService = inject(TabsServiceKey) as Ref<TabsService>
   const tabElement = ref<HTMLElement | null>(null)
 
