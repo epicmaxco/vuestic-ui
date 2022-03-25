@@ -18,6 +18,7 @@ export type Dependencies = {
 export type CodesandboxConfig = {
   dependencies?: Dependencies,
   devDependencies?: Dependencies,
+  requireIcons?: boolean,
 }
 
 export type PathToExample = string
