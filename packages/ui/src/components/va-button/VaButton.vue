@@ -102,12 +102,12 @@ export default defineComponent({
     const computedType = computed(() => {
       // Safari issue. type===button will break styles if the button is used as a link
       switch (tagComputed.value) {
-      case 'a':
-      case 'router-link':
-      case 'nuxt-link':
-        return undefined
-      default:
-        return props.type
+        case 'a':
+        case 'router-link':
+        case 'nuxt-link':
+          return undefined
+        default:
+          return props.type
       }
     })
 

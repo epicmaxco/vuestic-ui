@@ -55,7 +55,6 @@ export {
 } from '../components/va-progress-bar'
 export { default as VaRadio } from '../components/va-radio'
 export { default as VaRating } from '../components/va-rating'
-export { default as VaScrollbar } from '../components/va-scrollbar'
 export { default as VaSelect } from '../components/va-select'
 export { default as VaSeparator } from '../components/va-separator'
 export { default as VaSidebar, VaSidebarItem, VaSidebarItemContent, VaSidebarItemTitle } from '../components/va-sidebar'

@@ -4,15 +4,13 @@
     :class="classList"
   >
     <div
-      @keyup.left="onArrow($event, -1)"
-      @keyup.right="onArrow($event, 1)"
-      @mouseenter="onMouseEnter"
-      @mouseleave="onMouseLeave"
+      @keyup.left="onArrow(-1)"
+      @keyup.right="onArrow(1)"
+      @mouseenter="isHovered = hoverEnabled"
+      @mouseleave="isHovered = false"
       class="va-rating__item-wrapper"
     >
-      <template
-        v-if="$props.numbers"
-      >
+      <template v-if="$props.numbers">
         <va-rating-item
           v-for="number in $props.max"
           :key="number"
@@ -34,13 +32,13 @@
               tabindex="-1"
               :style=" {
                 background: props.value === 0.5
-                  ? `linear-gradient(90deg, ${colorComputed} 50%, ${focusColor} 50%`
-                  : !props.value ? focusColor : colorComputed,
-                color: props.value ? '#fff' : colorComputed,
+                  ? `linear-gradient(90deg, ${getColor($props.color)} 50%, ${focusColor} 50%`
+                  : !props.value ? focusColor : getColor($props.color),
+                color: props.value ? '#fff' : getColor($props.color),
                 width: sizeComputed,
                 height: sizeComputed,
                 fontSize: fontSizeComputed,
-                borderRadius: `${SizeMixin_fontSize * 0.125}rem`,
+                borderRadius: `${fontSizeInRem * 0.125}rem`,
               }"
             > {{ number }} </button>
           </template>
@@ -65,149 +63,154 @@
         />
       </template>
     </div>
-    <span class="va-rating__text-wrapper" v-if="$props.texts.length === $props.max" :style="{ color: computeColor($props.textColor) }">
-      {{ $props.texts[Math.round(valueProxy) - 1] }}
+    <span
+      class="va-rating__text-wrapper"
+      v-if="texts.length === $props.max"
+      :style="{ color: getColor($props.textColor) }"
+    >
+      {{ texts[Math.round(valueProxy) - 1] }}
     </span>
   </div>
 </template>
 
 <script lang="ts">
-import { Options, mixins, prop, Vue } from 'vue-class-component'
-import { ColorInput } from 'colortranslator/dist/@types'
+import { defineComponent, PropType, ref, computed, onMounted } from 'vue'
 
-import { getFocusColor } from '../../services/color-config/color-functions'
-import ColorMixin from '../../services/color-config/ColorMixin'
-import { StatefulMixin } from '../../mixins/StatefulMixin/StatefulMixin'
-import { SizeMixin } from '../../mixins/SizeMixin'
+import { useStateful, useStatefulEmits, useStatefulProps } from '../../composables/useStateful'
+import { useColors } from '../../composables/useColor'
+import { useSize, useSizeProps } from '../../composables/useSize'
+
 import VaRatingItem from './VaRatingItem'
 import { RatingValue } from './VaRating.types'
 
-class RatingProps {
-  modelValue = prop<number>({ type: Number, default: 0 })
-  icon = prop<string>({ type: String, default: 'star' })
-  halfIcon = prop<string>({ type: String, default: 'star_half' })
-  emptyIcon = prop<string>({ type: String, default: 'star_outline' })
-  readonly = prop<boolean>({ type: Boolean, default: false })
-  disabled = prop<boolean>({ type: Boolean, default: false })
-  numbers = prop<boolean>({ type: Boolean, default: false })
-  halves = prop<boolean>({ type: Boolean, default: false })
-  max = prop<number>({ type: Number, default: 5 })
-  clearable = prop<boolean>({ type: Boolean, default: false })
-  hover = prop<boolean>({ type: Boolean, default: false })
-  texts = prop<any[]>({ type: Array, default: () => [] })
-  textColor = prop<string>({ type: String })
-  unselectedColor = prop<string>({ type: String })
-  color = prop<string>({ type: String, default: 'primary' })
-}
-
-const RatingPropsMixin = Vue.with(RatingProps)
-
-@Options({
+export default defineComponent({
   name: 'VaRating',
   components: { VaRatingItem },
-})
-export default class VaRating extends mixins(
-  ColorMixin,
-  SizeMixin,
-  StatefulMixin,
-  RatingPropsMixin,
-) {
-  isHovered = false
-  forceEmit = false
-  hoveredValue = RatingValue.EMPTY
+  emits: useStatefulEmits,
+  props: {
+    ...useStatefulProps,
+    ...useSizeProps,
+    modelValue: { type: Number as PropType<number>, default: 0 },
+    icon: { type: String as PropType<string>, default: 'star' },
+    halfIcon: { type: String as PropType<string>, default: 'star_half' },
+    emptyIcon: { type: String as PropType<string>, default: 'star_outline' },
+    readonly: { type: Boolean as PropType<boolean>, default: false },
+    disabled: { type: Boolean as PropType<boolean>, default: false },
+    numbers: { type: Boolean as PropType<boolean>, default: false },
+    halves: { type: Boolean as PropType<boolean>, default: false },
+    max: { type: Number as PropType<number>, default: 5 },
+    clearable: { type: Boolean as PropType<boolean>, default: false },
+    hover: { type: Boolean as PropType<boolean>, default: false },
+    texts: { type: Array as PropType<string[]>, default: () => [] },
+    textColor: { type: String as PropType<string> },
+    unselectedColor: { type: String as PropType<string> },
+    color: { type: String as PropType<string>, default: 'primary' },
+  },
+  setup (props, { emit }) {
+    const { valueComputed } = useStateful(props, emit)
+    const { getColor, getFocusColor } = useColors()
 
-  mounted () {
-    this.hoveredValue = this.valueComputed
-  }
+    const isHovered = ref(false)
+    const forceEmit = ref(false)
+    const hoveredValue = ref(RatingValue.EMPTY)
 
-  get valueProxy (): number {
-    return this.isHovered ? this.hoveredValue : this.valueComputed
-  }
+    const valueProxy = computed({
+      get: () => isHovered.value ? hoveredValue.value : valueComputed.value,
+      set: (value: number) => {
+        hoveredValue.value = value
 
-  set valueProxy (value: number) {
-    this.hoveredValue = value
-    if (this.forceEmit) {
-      this.valueComputed = value
-      this.forceEmit = false
+        if (forceEmit.value) {
+          valueComputed.value = value
+          forceEmit.value = false
+        }
+      },
+    })
+
+    const focusColor = computed(() => {
+      return props.unselectedColor
+        ? getColor(props.unselectedColor)
+        : getFocusColor(getColor(props.color))
+    })
+
+    const classList = computed(() => ({
+      'va-rating--disabled': props.disabled,
+      'va-rating--readonly': props.readonly,
+    }))
+
+    const interactionsEnabled = computed(() => !(props.disabled || props.readonly))
+
+    const hoverEnabled = computed(() => props.hover && interactionsEnabled.value)
+
+    const tabIndex = computed(() => interactionsEnabled.value ? 0 : undefined)
+
+    const getItemValue = (itemNumber: number) => {
+      const diff = itemNumber - valueProxy.value
+
+      switch (true) {
+        case diff <= 0:
+          return RatingValue.FULL
+        case diff === RatingValue.HALF && props.halves:
+          return RatingValue.HALF
+        default:
+          return RatingValue.EMPTY
+      }
     }
-  }
 
-  get focusColor () {
-    return this.$props.unselectedColor
-      ? this.computeColor(this.$props.unselectedColor)
-      : getFocusColor(this.colorComputed as ColorInput)
-  }
+    const onHover = (itemNumber: number, value: RatingValue) => {
+      valueProxy.value = value === RatingValue.FULL
+        ? itemNumber
+        : itemNumber - RatingValue.HALF
+    }
 
-  get classList () {
+    const onArrow = (direction: 1 | -1) => {
+      const currentValue = valueProxy.value || RatingValue.EMPTY
+      const step = props.halves ? RatingValue.HALF : RatingValue.FULL
+      const nextValue = currentValue + (step * direction)
+
+      if (nextValue < 0 || nextValue > props.max) { return }
+
+      forceEmit.value = true
+      valueProxy.value = nextValue
+    }
+
+    const onItemSelected = (itemNumber: number, value: RatingValue) => {
+      if (!interactionsEnabled.value) { return }
+
+      const currentClickedValue = props.halves
+        ? value === RatingValue.HALF ? itemNumber - RatingValue.HALF : itemNumber
+        : itemNumber
+
+      const valueToEmit = props.clearable && valueComputed.value === currentClickedValue
+        ? RatingValue.EMPTY
+        : currentClickedValue
+
+      forceEmit.value = true
+      valueProxy.value = valueToEmit
+    }
+
+    onMounted(() => { hoveredValue.value = valueComputed.value })
+
     return {
-      'va-rating--disabled': this.$props.disabled,
-      'va-rating--readonly': this.$props.readonly,
+      ...useSize(props),
+      getColor,
+      focusColor,
+      classList,
+      hoverEnabled,
+      isHovered,
+      tabIndex,
+      getItemValue,
+      onHover,
+      onArrow,
+      onItemSelected,
+      valueProxy,
     }
-  }
-
-  get interactionsEnabled () {
-    return !(this.$props.disabled || this.$props.readonly)
-  }
-
-  get hoverEnabled () {
-    return this.$props.hover && this.interactionsEnabled
-  }
-
-  get tabIndex () {
-    return this.interactionsEnabled ? 0 : undefined
-  }
-
-  getItemValue (itemNumber: number): RatingValue {
-    const diff = itemNumber - this.valueProxy
-    switch (true) {
-    case diff <= 0: return RatingValue.FULL
-    case diff === RatingValue.HALF && this.$props.halves: return RatingValue.HALF
-    default: return RatingValue.EMPTY
-    }
-  }
-
-  onHover (itemNumber: number, value: RatingValue): void {
-    this.valueProxy = value === RatingValue.FULL
-      ? itemNumber
-      : itemNumber - RatingValue.HALF
-  }
-
-  onMouseEnter () {
-    this.isHovered = (this.hoverEnabled as boolean) && true
-  }
-
-  onMouseLeave () {
-    this.isHovered = false
-  }
-
-  onArrow (event: KeyboardEvent, directon: 1 | -1) {
-    const currentValue = this.valueProxy || RatingValue.EMPTY
-    const step = this.$props.halves ? RatingValue.HALF : RatingValue.FULL
-    const nextValue = currentValue + (step * directon)
-    if (nextValue < 0 || nextValue > (this.$props.max as number)) { return }
-
-    this.forceEmit = true
-    this.valueProxy = nextValue
-  }
-
-  onItemSelected (itemNumber: number, value: RatingValue) {
-    if (!this.interactionsEnabled) { return }
-    const currentClickedValue = this.$props.halves
-      ? value === RatingValue.HALF ? itemNumber - RatingValue.HALF : itemNumber
-      : itemNumber
-    const valueToEmit = this.$props.clearable && this.valueComputed === currentClickedValue
-      ? RatingValue.EMPTY
-      : currentClickedValue
-
-    this.forceEmit = true
-    this.valueProxy = valueToEmit
-  }
-}
+  },
+})
 </script>
 
 <style lang="scss">
 @import "../../styles/resources";
-@import 'variables';
+@import "variables";
 
 .va-rating {
   display: var(--va-rating-display);

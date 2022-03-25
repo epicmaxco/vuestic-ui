@@ -2,7 +2,7 @@
   <div class="inner-loading">
     <slot />
     <div
-      v-if="loading"
+      v-if="$props.loading"
       class="inner-loading__overlay"
     >
       <va-icon
@@ -17,28 +17,21 @@
 </template>
 
 <script lang="ts">
-import { Options, prop, mixins, Vue } from 'vue-class-component'
+import { defineComponent, PropType } from 'vue'
 
-import { LoadingMixin } from '../../mixins/LoadingMixin/LoadingMixin'
+import { useLoadingProps } from '../../composables/useLoading'
 import VaIcon from '../va-icon'
 
-class InnerLoadingProps {
-  color = prop<string>({ type: String, default: '' })
-  icon = prop<string>({ type: String, default: 'loop' })
-  size = prop<number>({ type: Number, default: 30 })
-}
-
-const InnerLoadingPropsMixin = Vue.with(InnerLoadingProps)
-
-@Options({
+export default defineComponent({
   name: 'VaInnerLoading',
   components: { VaIcon },
+  props: {
+    ...useLoadingProps,
+    color: { type: String as PropType<string>, default: '' },
+    icon: { type: String as PropType<string>, default: 'loop' },
+    size: { type: Number as PropType<number>, default: 30 },
+  },
 })
-export default class VaInnerLoading extends mixins(
-  LoadingMixin,
-  InnerLoadingPropsMixin,
-) {
-}
 </script>
 
 <style lang="scss">

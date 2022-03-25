@@ -109,5 +109,6 @@ export const useSize = (
   return {
     sizeComputed,
     fontSizeComputed,
+    fontSizeInRem,
   }
 }

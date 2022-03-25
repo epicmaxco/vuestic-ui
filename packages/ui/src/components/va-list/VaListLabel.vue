@@ -8,34 +8,26 @@
 </template>
 
 <script lang="ts">
-import { Options, mixins, Vue, prop } from 'vue-class-component'
+import { defineComponent, PropType, computed } from 'vue'
 
-import ColorMixin from '../../services/color-config/ColorMixin'
+import { useColors } from '../../composables/useColor'
 
-class ListLabelProps {
-  color = prop<string>({ type: String, default: 'primary' })
-}
-
-const ListLabelPropsMixin = Vue.with(ListLabelProps)
-
-@Options({
+export default defineComponent({
   name: 'VaListLabel',
+  props: {
+    color: { type: String as PropType<string>, default: 'primary' },
+  },
+  setup: (props) => ({
+    computedStyle: computed(() => ({
+      color: useColors().getColor(props.color),
+    })),
+  }),
 })
-export default class VaListLabel extends mixins(
-  ColorMixin,
-  ListLabelPropsMixin,
-) {
-  get computedStyle () {
-    return {
-      color: this.computeColor(this.color),
-    }
-  }
-}
 </script>
 
 <style lang="scss">
 @import "../../styles/resources";
-@import 'variables';
+@import "variables";
 
 .va-list-label {
   font-family: var(--va-font-family);
