@@ -134,9 +134,9 @@ export default defineComponent({
       },
     })
 
-    const getKey = (option: any) => getTrackBy(option)
+    const getKey = (option: SelectableOption) => getTrackBy(option)
 
-    const isDisabled = (option: any) => props.disabled || getDisabled(option)
+    const isDisabled = (option: SelectableOption) => props.disabled || getDisabled(option)
 
     const reset = () => { valueComputed.value = undefined }
 

@@ -1,8 +1,8 @@
 import { PropType, computed, SetupContext, Ref } from 'vue'
 
-import { useStateful, useStatefulProps, StatefulProps } from '../../composables/useStateful'
-import { useLoadingProps, LoadingProps } from '../../composables/useLoading'
-import { useValidation, useValidationProps, ValidationProps, useValidationEmits } from '../../composables/useValidation'
+import { useStateful, useStatefulProps, StatefulProps } from './useStateful'
+import { useLoadingProps, LoadingProps } from './useLoading'
+import { useValidation, useValidationProps, ValidationProps, useValidationEmits } from './useValidation'
 
 export interface SelectableProps extends StatefulProps<unknown>, LoadingProps, ValidationProps {
   arrayValue: unknown | null,
