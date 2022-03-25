@@ -19,12 +19,6 @@
       </p>
 
       <p>
-        Entypo<br>
-        <va-icon class="entypo-home" />
-        <va-icon name="entypo-home" />
-      </p>
-
-      <p>
         Ionic<br>
         <va-icon class="icon ion-md-home" />
         <va-icon name="ion-home" />
