@@ -151,9 +151,8 @@ export default defineComponent({
     }
 
     const onUserInput = (pageNum: number | '...') => {
-      console.log('1')
       if (pageNum === '...' || pageNum < 1 || pageNum > lastPage.value) { return }
-      console.log('2')
+
       currentValue.value = usedTotal.value ? (pageNum - 1) * props.pageSize + 1 : pageNum
     }
 
