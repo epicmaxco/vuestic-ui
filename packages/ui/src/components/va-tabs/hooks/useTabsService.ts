@@ -3,7 +3,7 @@ import { TabComponent } from './useTab'
 
 export interface TabsService {
   tabs: Ref<TabComponent[]>,
-  disabled: Ref<boolean>,
+  disabled: Ref<boolean | undefined>,
   register: (tab: TabComponent) => void,
   unregister: (tab: TabComponent) => void,
   tabClick: (tab: TabComponent) => void,
@@ -12,14 +12,14 @@ export interface TabsService {
 }
 
 export interface TabsServiceProps {
-  parentDisabled: boolean,
+  parentDisabled: boolean | undefined,
   selectTab: (tab: TabComponent) => void,
   moveToTab: (tab: TabComponent) => void,
 }
 
 export const useTabsService = ({ parentDisabled, selectTab, moveToTab }: TabsServiceProps): TabsService => {
   const tabs: Ref<TabComponent[]> = ref([])
-  const disabled = ref(parentDisabled || false)
+  const disabled = ref(parentDisabled)
 
   const register = (tab: TabComponent) => {
     const idx = tabs.value.push(tab)
