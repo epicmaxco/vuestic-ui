@@ -40,10 +40,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { computed, defineComponent, ref, SetupContext } from 'vue'
 import VaIcon from '../../va-icon'
-import { useRouterLinkProps } from '../../../composables/useRouterLink'
-import { useTab } from '../hooks/useTab'
+import { useRouterLink, useRouterLinkProps } from '../../../composables/useRouterLink'
+import { TabComponent, useTab } from '../hooks/useTab'
+import useKeyboardOnlyFocus from '../../../composables/useKeyboardOnlyFocus'
+import { useColor } from '../../../composables/useColor'
 
 export default defineComponent({
   name: 'VaTab',
@@ -76,7 +78,64 @@ export default defineComponent({
     },
   },
 
-  setup: useTab,
+  setup: (props, context: SetupContext) => {
+    const tabElement = ref<HTMLElement | null>(null)
+
+    const id = ref<string | number | null>(null)
+    const hoverState = ref(false)
+    const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
+    const { tagComputed, hrefComputed, isActiveRouterLink } = useRouterLink(props)
+    const { colorComputed } = useColor(props)
+    const classComputed = computed(() => ({ 'va-tab--disabled': props.disabled }))
+
+    const tabParams = {
+      tabElement,
+      id,
+      name: props.name,
+      disabled: props.disabled,
+      hasKeyboardFocus,
+      isActiveRouterLink,
+    }
+
+    const {
+      tabIndexComputed,
+      isActive,
+      onFocus,
+      onTabClick,
+      onTabKeydown,
+      rightSidePosition,
+      leftSidePosition,
+    }: TabComponent = useTab(tabParams, context)
+
+    const computedStyle = computed(() => ({
+      color: hasKeyboardFocus.value || hoverState.value || isActive.value ? colorComputed.value : 'inherit',
+    }))
+
+    const updateHoverState = (isHover: boolean) => {
+      hoverState.value = isHover
+    }
+
+    return {
+      tabElement,
+      isActive,
+      hoverState,
+      hasKeyboardFocus,
+      keyboardFocusListeners,
+      tagComputed,
+      hrefComputed,
+      isActiveRouterLink,
+      colorComputed,
+      classComputed,
+      computedStyle,
+      tabIndexComputed,
+      rightSidePosition,
+      leftSidePosition,
+      updateHoverState,
+      onFocus,
+      onTabClick,
+      onTabKeydown,
+    }
+  },
 })
 </script>
 
