@@ -152,12 +152,23 @@
           label="Manual Input"
       />
     </VbCard>
+
+    <VbCard title="Reset Model Value">
+      <va-button @click="resetModelValue('value')">Reset model value</va-button>
+    </VbCard>
+    <VbCard title="Reset range Model Value">
+      <va-button @click="resetModelValue('range')">Reset range model value</va-button>
+    </VbCard>
+    <VbCard title="Set Model Value">
+      <va-button @click="setModelValue()">Set model value</va-button>
+    </VbCard>
   </VbDemo>
 </template>
 
 <script lang="ts">
 import { VaDateInput } from './index'
 import VaChip from '../va-chip'
+import VaButton from '../va-button/VaButton.vue'
 
 const datePlusDay = (date: Date, days: number) => {
   const d = new Date(date)
@@ -167,7 +178,7 @@ const datePlusDay = (date: Date, days: number) => {
 const nextWeek = datePlusDay(new Date(), 7)
 
 export default {
-  components: { VaDateInput, VaChip },
+  components: { VaButton, VaDateInput, VaChip },
   data () {
     return {
       value: new Date(),
@@ -177,6 +188,16 @@ export default {
       // Dropdown
       isOpen: false,
     }
+  },
+  methods: {
+    resetModelValue (keyToReset: string) {
+      (this as any)[keyToReset] = undefined
+    },
+    setModelValue () {
+      (this as any).value = new Date();
+      (this as any).range = { start: new Date(), end: nextWeek };
+      (this as any).dates = [new Date(), nextWeek]
+    },
   },
 }
 </script>

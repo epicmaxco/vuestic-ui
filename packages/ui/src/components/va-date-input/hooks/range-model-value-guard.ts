@@ -1,4 +1,4 @@
-import { computed, ref, Ref, watch } from 'vue'
+import { computed, Ref, watch } from 'vue'
 import { isRange } from '../../va-date-picker/hooks/model-value-helper'
 import { VaDatePickerModelValue } from '../../va-date-picker/types/types'
 
@@ -10,7 +10,7 @@ export const useRangeModelValueGuard = (
   modelValue: Ref<VaDatePickerModelValue | undefined>,
   disabled: Ref<boolean>,
 ) => {
-  const bufferValue = ref<VaDatePickerModelValue | undefined>(modelValue.value)
+  const bufferValue = modelValue
 
   const valueComputed = computed<VaDatePickerModelValue | undefined>({
     get: () => bufferValue.value,
