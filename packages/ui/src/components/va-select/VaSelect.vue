@@ -407,7 +407,6 @@ export default defineComponent({
         const { exceedsMaxSelections, addOption } = useMaxSelections(valueComputed, ref(props.maxSelections), emit)
 
         const isSelected = checkIsOptionSelected(getValue(option))
-        console.log(isSelected)
 
         if (isSelected) {
           // Unselect
