@@ -1,4 +1,5 @@
 import { getParameters } from 'codesandbox/lib/api/define'
+import { iconsStyles, iconsConfig } from '@/config/icons-config/fonts'
 import { CodesandboxConfig } from '../types/configTypes'
 // @ts-ignore
 import packageUi from 'vuestic-ui/package.json'
@@ -23,35 +24,6 @@ const defaultExample = `<template>
   </div>
 </template>
 `
-const ICON_FONTS = `
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/3.0.0/css/ionicons-core.min.css"
-      integrity="sha512-NSMQZM1faPgx9ZS2XXgNhPgiPyIJyhRCR2V0G/6KZKTbTjS20eXWTmuztKGdzCVgn7ry+I0CknTqH4Uc3zS7TA=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/3.0.0/css/ionicons.min.css"
-      integrity="sha512-1MnDtyeTdty8j5fL/qDGB0Q2akuH88v1wA9QO9CRZlKUBY10Ch++Yle1XUjNE2vleqvhIPb9MxLrktY+qLyDng=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-      rel="stylesheet"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/entypo@2.2.1/index.min.js"></script>
-  `
 
 const getCodeSandboxHtml = ({ requireIcons = false }: CodesandboxConfig): string => {
   return `
@@ -63,9 +35,17 @@ const getCodeSandboxHtml = ({ requireIcons = false }: CodesandboxConfig): string
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
     >
-    ${requireIcons ? ICON_FONTS : ''}
+    ${requireIcons ? iconsStyles : ''}
     <div id="app"></div>
   `
+}
+
+const getCodeSandboxMain = ({ requireIcons = false }: CodesandboxConfig): string => {
+  if (requireIcons) {
+    return iconsConfig
+  }
+
+  return main
 }
 
 const packageJson = ({ dependencies = {}, devDependencies = {} }: CodesandboxConfig): string => {
@@ -99,7 +79,7 @@ export default (code: string = defaultExample, config: CodesandboxConfig = {}): 
       isBinary: false,
     },
     'src/main.js': {
-      content: main,
+      content: getCodeSandboxMain(config),
       isBinary: false,
     },
     'src/App.vue': {
