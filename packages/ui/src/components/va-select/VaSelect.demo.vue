@@ -608,7 +608,7 @@ const random = () => Math.ceil(Math.random() * 10000) + ''
 
 export default {
   components: { VaSelect, VaIcon, VaCheckbox, VaChip },
-  data() {
+  data () {
     return {
       allowCreateValue: '',
       allowCreateValueMultiple: '',
@@ -693,10 +693,10 @@ export default {
     }
   },
   methods: {
-    onLoadMore() {
+    onLoadMore () {
       this.preloadable.options.push(random(), random(), random())
     },
-    updateSearch(val) {
+    updateSearch (val) {
       this.isLoading = true
       setTimeout(() => {
         this.isLoading = false
@@ -704,10 +704,10 @@ export default {
         console.log(val)
       }, 2000)
     },
-    alert(str) {
+    alert (str) {
       window.alert(str)
     },
-    addNewOption(newOption) {
+    addNewOption (newOption) {
       const option = { id: String(this.allowCreateSelect.options.length), text: newOption, value: newOption }
       this.allowCreateSelect.options = [...this.allowCreateSelect.options, option]
       this.allowCreateSelect.value = option
