@@ -82,7 +82,7 @@ const getClientWidth = (element: HTMLElement | null | undefined): number => elem
 
 export interface TabsView {
   parentDisabled: boolean,
-  tabsComponents: TabComponent[],
+  tabsList: TabComponent[],
   selectTab: (tab: TabComponent) => void,
   moveToTab: (tab: TabComponent) => void,
   registerTab: (tab: TabComponent) => void,
@@ -114,7 +114,7 @@ export default defineComponent({
     const container = ref<HTMLElement | null>(null)
     const tabs = ref<HTMLElement | null>(null)
 
-    const tabsComponents: Ref<TabComponent[]> = ref([])
+    const tabsList: Ref<TabComponent[]> = ref([])
     const sliderHeight = ref<number | null>(null)
     const sliderWidth = ref<number | null>(null)
     const sliderOffsetX = ref(0)
@@ -185,7 +185,7 @@ export default defineComponent({
     const disablePaginationLeft = computed(() => tabsContentOffset.value === 0)
 
     const disablePaginationRight = computed(() => {
-      const lastTab = tabsComponents.value[tabsComponents.value.length - 1]
+      const lastTab = tabsList.value[tabsList.value.length - 1]
       const containerClientWidth = getClientWidth(container.value)
 
       return (
@@ -234,13 +234,13 @@ export default defineComponent({
     const updateTabsState = () => {
       resetSliderSizes()
 
-      tabsComponents.value.forEach((tab: TabComponent) => {
+      tabsList.value.forEach((tab: TabComponent) => {
         tab.updateSidePositions()
 
         if (tabSelected.value) {
-          const isSelectedTab = (tab.name || tab.id) === tabSelected.value
+          const isTabSelected = (tab.name || tab.id) === tabSelected.value
 
-          tab.isActive = tab.isActiveRouterLink || isSelectedTab
+          tab.isActive = tab.isActiveRouterLink || isTabSelected
 
           if (tab.isActive) {
             moveToTab(tab)
@@ -252,8 +252,8 @@ export default defineComponent({
       const containerClientWidth = getClientWidth(container.value)
       const tabsClientWidth = getClientWidth(tabs.value)
 
-      if (tabsContentOffset.value + containerClientWidth > tabsClientWidth && tabsComponents.value) {
-        moveToTab(tabsComponents.value[0])
+      if (tabsContentOffset.value + containerClientWidth > tabsClientWidth && tabsList.value) {
+        moveToTab(tabsList.value[0])
       }
 
       updateStartingXPoint()
@@ -263,26 +263,20 @@ export default defineComponent({
       const tabsClientWidth = getClientWidth(tabs.value)
       const wrapperClientWidth = getClientWidth(wrapper.value)
 
-      showPagination.value = false
-
-      if (tabs.value && wrapper.value) {
-        if (tabsClientWidth > wrapperClientWidth) {
-          showPagination.value = true
-        }
-      }
+      showPagination.value = !!(tabs.value && wrapper.value && tabsClientWidth > wrapperClientWidth)
     }
 
     const movePaginationLeft = () => {
       const containerClientWidth = getClientWidth(container.value)
       let offsetToSet = tabsContentOffset.value - containerClientWidth
 
-      if (tabsComponents.value) {
-        for (let i = 0; i < tabsComponents.value.length - 1; i++) {
+      if (tabsList.value) {
+        for (let i = 0; i < tabsList.value.length - 1; i++) {
           if (
-            (tabsComponents.value[i].leftSidePosition.value > offsetToSet && tabsComponents.value[i].leftSidePosition.value < tabsContentOffset.value) ||
-            tabsComponents.value[i + 1]?.leftSidePosition.value >= tabsContentOffset.value
+            (tabsList.value[i].leftSidePosition.value > offsetToSet && tabsList.value[i].leftSidePosition.value < tabsContentOffset.value) ||
+            tabsList.value[i + 1]?.leftSidePosition.value >= tabsContentOffset.value
           ) {
-            offsetToSet = tabsComponents.value[i].leftSidePosition.value
+            offsetToSet = tabsList.value[i].leftSidePosition.value
             break
           }
         }
@@ -298,10 +292,10 @@ export default defineComponent({
       const containerRightSide = tabsContentOffset.value + containerClientWidth
       let offsetToSet = containerRightSide
 
-      if (tabsComponents.value) {
-        for (let i = 0; i < tabsComponents.value.length - 1; i++) {
-          if (tabsComponents.value[i].rightSidePosition.value > containerRightSide) {
-            offsetToSet = tabsComponents.value[i].leftSidePosition.value
+      if (tabsList.value) {
+        for (let i = 0; i < tabsList.value.length - 1; i++) {
+          if (tabsList.value[i].rightSidePosition.value > containerRightSide) {
+            offsetToSet = tabsList.value[i].leftSidePosition.value
 
             if (tabsContentOffset.value < offsetToSet) {
               break
@@ -310,7 +304,7 @@ export default defineComponent({
         }
       }
 
-      const lastTab = tabsComponents.value[tabsComponents.value.length - 1]
+      const lastTab = tabsList.value[tabsList.value.length - 1]
       const maxOffset = (lastTab?.rightSidePosition.value || 0) - containerClientWidth
 
       offsetToSet = Math.min(maxOffset, offsetToSet)
@@ -367,32 +361,32 @@ export default defineComponent({
     }
 
     const selectTab = (tab: TabComponent) => {
-      if (tab) {
-        valueComputed.value = tab.name || tab.id || tab.id
+      if (!tab) { return }
 
-        if (props.stateful) {
-          updateTabsState()
-        }
+      valueComputed.value = tab.name || tab.id
+
+      if (props.stateful) {
+        updateTabsState()
       }
     }
 
     const registerTab = (tab: TabComponent) => {
-      const idx = tabsComponents.value.push(tab)
+      const idx = tabsList.value.push(tab)
 
       tab.id = tab.name || idx
     }
 
     const unregisterTab = (tab: TabComponent) => {
-      tabsComponents.value = tabsComponents.value.filter((filteredTab: TabComponent) => filteredTab.id !== tab.id)
+      tabsList.value = tabsList.value.filter((filteredTab: TabComponent) => filteredTab.id !== tab.id)
 
-      tabsComponents.value.forEach((tab: TabComponent, idx: number) => {
+      tabsList.value.forEach((tab: TabComponent, idx: number) => {
         tab.id = tab.name || idx
       })
     }
 
     provide(TabsViewKey, {
       parentDisabled: props.disabled,
-      tabsComponents,
+      tabsList,
       selectTab,
       moveToTab,
       registerTab,

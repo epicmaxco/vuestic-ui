@@ -135,8 +135,8 @@ export default defineComponent({
     }
 
     const updateSidePositions = () => {
-      const componentOffsetLeft = tabElement?.value?.offsetLeft || 0
-      const componentOffsetWidth = tabElement?.value?.offsetWidth || 0
+      const componentOffsetLeft = tabElement.value?.offsetLeft || 0
+      const componentOffsetWidth = tabElement.value?.offsetWidth || 0
 
       rightSidePosition.value = componentOffsetLeft + componentOffsetWidth
       leftSidePosition.value = componentOffsetLeft
