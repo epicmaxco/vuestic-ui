@@ -40,12 +40,39 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, SetupContext } from 'vue'
+import {
+  computed,
+  ComputedRef,
+  defineComponent,
+  inject,
+  onBeforeUnmount,
+  onMounted,
+  Ref,
+  ref,
+  SetupContext,
+  unref,
+} from 'vue'
 import VaIcon from '../../va-icon'
 import { useRouterLink, useRouterLinkProps } from '../../../composables/useRouterLink'
-import { TabComponent, useTab } from '../hooks/useTab'
 import useKeyboardOnlyFocus from '../../../composables/useKeyboardOnlyFocus'
 import { useColor } from '../../../composables/useColor'
+import { TabsViewKey } from '../types'
+import { TabsView } from '../VaTabs.vue'
+
+export interface TabComponent {
+  id: string | number | null,
+  tabElement: Ref<HTMLElement | null>,
+  name?: string | number,
+  tabIndexComputed: ComputedRef<number>,
+  isActive: Ref<boolean>,
+  isActiveRouterLink: ComputedRef<boolean>,
+  rightSidePosition: Ref<number>,
+  leftSidePosition: Ref<number>,
+  onTabClick: () => void,
+  onTabKeydown: () => void,
+  onFocus: () => void,
+  updateSidePositions: () => void,
+}
 
 export default defineComponent({
   name: 'VaTab',
@@ -78,34 +105,26 @@ export default defineComponent({
     },
   },
 
-  setup: (props, context: SetupContext) => {
+  setup: (props, { emit }: SetupContext) => {
     const tabElement = ref<HTMLElement | null>(null)
 
+    const isActive = ref(false)
     const id = ref<string | number | null>(null)
     const hoverState = ref(false)
+    const rightSidePosition = ref(0)
+    const leftSidePosition = ref(0)
     const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
     const { tagComputed, hrefComputed, isActiveRouterLink } = useRouterLink(props)
     const { colorComputed } = useColor(props)
     const classComputed = computed(() => ({ 'va-tab--disabled': props.disabled }))
-
-    const tabParams = {
-      tabElement,
-      id,
-      name: props.name,
-      disabled: props.disabled,
-      hasKeyboardFocus,
-      isActiveRouterLink,
-    }
-
     const {
-      tabIndexComputed,
-      isActive,
-      onFocus,
-      onTabClick,
-      onTabKeydown,
-      rightSidePosition,
-      leftSidePosition,
-    }: TabComponent = useTab(tabParams, context)
+      parentDisabled,
+      selectTab,
+      moveToTab,
+      registerTab,
+      unregisterTab,
+    } = inject(TabsViewKey) as TabsView
+    const tabIndexComputed = computed(() => (props.disabled || parentDisabled) ? -1 : 0)
 
     const computedStyle = computed(() => ({
       color: hasKeyboardFocus.value || hoverState.value || isActive.value ? colorComputed.value : 'inherit',
@@ -115,7 +134,57 @@ export default defineComponent({
       hoverState.value = isHover
     }
 
+    const updateSidePositions = () => {
+      const componentOffsetLeft = tabElement?.value?.offsetLeft || 0
+      const componentOffsetWidth = tabElement?.value?.offsetWidth || 0
+
+      rightSidePosition.value = componentOffsetLeft + componentOffsetWidth
+      leftSidePosition.value = componentOffsetLeft
+    }
+
+    const onTabClick = () => {
+      selectTab(tabComponent)
+      emit('click')
+    }
+
+    const onTabKeydown = () => {
+      selectTab(tabComponent)
+      emit('keydown-enter')
+    }
+
+    const onFocus = () => {
+      if (hasKeyboardFocus.value) {
+        moveToTab(tabComponent)
+      }
+
+      emit('focus')
+    }
+
+    const tabComponent: TabComponent = {
+      name: props.name,
+      id: unref(id),
+      tabElement,
+      isActive,
+      tabIndexComputed,
+      isActiveRouterLink,
+      rightSidePosition,
+      leftSidePosition,
+      onTabClick,
+      onTabKeydown,
+      onFocus,
+      updateSidePositions,
+    }
+
+    onMounted(() => {
+      registerTab(tabComponent)
+    })
+
+    onBeforeUnmount(() => {
+      unregisterTab(tabComponent)
+    })
+
     return {
+      id,
       tabElement,
       isActive,
       hoverState,
@@ -131,9 +200,10 @@ export default defineComponent({
       rightSidePosition,
       leftSidePosition,
       updateHoverState,
-      onFocus,
+      updateSidePositions,
       onTabClick,
       onTabKeydown,
+      onFocus,
     }
   },
 })

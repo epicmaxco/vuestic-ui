@@ -60,16 +60,34 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onBeforeUnmount, onMounted, provide, reactive, ref, unref, watch } from 'vue'
-import { useStateful, useStatefulProps } from '../../composables/useStateful'
+import {
+  computed,
+  defineComponent,
+  provide,
+  reactive,
+  ref,
+  unref,
+  watch,
+  onBeforeUnmount,
+  onMounted, Ref,
+} from 'vue'
 import VaButton from '../va-button'
 import VaConfig from '../va-config'
+import { useStateful, useStatefulProps } from '../../composables/useStateful'
 import { useColor } from '../../composables/useColor'
-import { TabComponent } from './hooks/useTab'
-import { TabsServiceKey, TabsViewKey } from './types'
-import { useTabsService } from './hooks/useTabsService'
+import { TabsViewKey } from './types'
+import { TabComponent } from './VaTab/VaTab.vue'
 
 const getClientWidth = (element: HTMLElement | null | undefined): number => element?.clientWidth || 0
+
+export interface TabsView {
+  parentDisabled: boolean,
+  tabsComponents: TabComponent[],
+  selectTab: (tab: TabComponent) => void,
+  moveToTab: (tab: TabComponent) => void,
+  registerTab: (tab: TabComponent) => void,
+  unregisterTab: (tab: TabComponent) => void,
+}
 
 export default defineComponent({
   name: 'VaTabs',
@@ -96,6 +114,7 @@ export default defineComponent({
     const container = ref<HTMLElement | null>(null)
     const tabs = ref<HTMLElement | null>(null)
 
+    const tabsComponents: Ref<TabComponent[]> = ref([])
     const sliderHeight = ref<number | null>(null)
     const sliderWidth = ref<number | null>(null)
     const sliderOffsetX = ref(0)
@@ -107,7 +126,6 @@ export default defineComponent({
     const animationIncluded = ref(false)
     const { colorComputed } = useColor(props)
     const { valueComputed } = useStateful(props, emit)
-    const tabsService = ref<any>()
     const tabConfig = reactive({
       VaTab: {
         color: props.color,
@@ -167,10 +185,12 @@ export default defineComponent({
     const disablePaginationLeft = computed(() => tabsContentOffset.value === 0)
 
     const disablePaginationRight = computed(() => {
-      const lastTab = tabsService.value?.tabs[tabsService.value.tabs.length - 1]
+      const lastTab = tabsComponents.value[tabsComponents.value.length - 1]
       const containerClientWidth = getClientWidth(container.value)
 
-      return (lastTab?.rightSidePosition || 0) <= tabsContentOffset.value + containerClientWidth || (lastTab?.leftSidePosition || 0) <= tabsContentOffset.value
+      return (
+        lastTab?.rightSidePosition.value || 0) <= tabsContentOffset.value + containerClientWidth ||
+        (lastTab?.leftSidePosition.value || 0) <= tabsContentOffset.value
     })
 
     // Methods
@@ -214,7 +234,7 @@ export default defineComponent({
     const updateTabsState = () => {
       resetSliderSizes()
 
-      tabsService.value?.tabs.forEach((tab: TabComponent) => {
+      tabsComponents.value.forEach((tab: TabComponent) => {
         tab.updateSidePositions()
 
         if (tabSelected.value) {
@@ -232,8 +252,8 @@ export default defineComponent({
       const containerClientWidth = getClientWidth(container.value)
       const tabsClientWidth = getClientWidth(tabs.value)
 
-      if (tabsContentOffset.value + containerClientWidth > tabsClientWidth && tabsService.value) {
-        moveToTab(tabsService.value.tabs[0])
+      if (tabsContentOffset.value + containerClientWidth > tabsClientWidth && tabsComponents.value) {
+        moveToTab(tabsComponents.value[0])
       }
 
       updateStartingXPoint()
@@ -256,13 +276,13 @@ export default defineComponent({
       const containerClientWidth = getClientWidth(container.value)
       let offsetToSet = tabsContentOffset.value - containerClientWidth
 
-      if (tabsService.value) {
-        for (let i = 0; i < tabsService.value.tabs.length - 1; i++) {
+      if (tabsComponents.value) {
+        for (let i = 0; i < tabsComponents.value.length - 1; i++) {
           if (
-            (tabsService.value.tabs[i].leftSidePosition > offsetToSet && tabsService.value.tabs[i].leftSidePosition < tabsContentOffset.value) ||
-            tabsService.value.tabs[i + 1]?.leftSidePosition >= tabsContentOffset.value
+            (tabsComponents.value[i].leftSidePosition.value > offsetToSet && tabsComponents.value[i].leftSidePosition.value < tabsContentOffset.value) ||
+            tabsComponents.value[i + 1]?.leftSidePosition.value >= tabsContentOffset.value
           ) {
-            offsetToSet = tabsService.value.tabs[i].leftSidePosition
+            offsetToSet = tabsComponents.value[i].leftSidePosition.value
             break
           }
         }
@@ -278,10 +298,11 @@ export default defineComponent({
       const containerRightSide = tabsContentOffset.value + containerClientWidth
       let offsetToSet = containerRightSide
 
-      if (tabsService.value) {
-        for (let i = 0; i < tabsService.value.tabs.length - 1; i++) {
-          if (tabsService.value.tabs[i].rightSidePosition > containerRightSide) {
-            offsetToSet = tabsService.value.tabs[i].leftSidePosition
+      if (tabsComponents.value) {
+        for (let i = 0; i < tabsComponents.value.length - 1; i++) {
+          if (tabsComponents.value[i].rightSidePosition.value > containerRightSide) {
+            offsetToSet = tabsComponents.value[i].leftSidePosition.value
+
             if (tabsContentOffset.value < offsetToSet) {
               break
             }
@@ -289,8 +310,8 @@ export default defineComponent({
         }
       }
 
-      const lastTab = tabsService.value?.tabs[tabsService.value.tabs.length - 1]
-      const maxOffset = (lastTab?.rightSidePosition || 0) - containerClientWidth
+      const lastTab = tabsComponents.value[tabsComponents.value.length - 1]
+      const maxOffset = (lastTab?.rightSidePosition.value || 0) - containerClientWidth
 
       offsetToSet = Math.min(maxOffset, offsetToSet)
       tabsContentOffset.value = Math.max(0, offsetToSet)
@@ -299,10 +320,11 @@ export default defineComponent({
     }
 
     const updateSlider = (tab: TabComponent) => {
-      const tabOffsetTop = tab.tabElement?.offsetTop || 0
-      const tabOffsetLeft = tab.tabElement?.offsetLeft || 0
-      const tabClientHeight = tab.tabElement?.clientHeight || 0
-      const tabClientWidth = tab.tabElement?.clientWidth || 0
+      const tabElement = unref(tab.tabElement)
+      const tabOffsetTop = tabElement?.offsetTop || 0
+      const tabOffsetLeft = tabElement?.offsetLeft || 0
+      const tabClientHeight = tabElement?.clientHeight || 0
+      const tabClientWidth = tabElement?.clientWidth || 0
 
       if (props.vertical) {
         const containerClientHeight = container.value?.clientHeight || 0
@@ -346,7 +368,7 @@ export default defineComponent({
 
     const selectTab = (tab: TabComponent) => {
       if (tab) {
-        valueComputed.value = tab.name || tab.id
+        valueComputed.value = tab.name || tab.id || tab.id
 
         if (props.stateful) {
           updateTabsState()
@@ -354,19 +376,28 @@ export default defineComponent({
       }
     }
 
+    const registerTab = (tab: TabComponent) => {
+      const idx = tabsComponents.value.push(tab)
+
+      tab.id = tab.name || idx
+    }
+
+    const unregisterTab = (tab: TabComponent) => {
+      tabsComponents.value = tabsComponents.value.filter((filteredTab: TabComponent) => filteredTab.id !== tab.id)
+
+      tabsComponents.value.forEach((tab: TabComponent, idx: number) => {
+        tab.id = tab.name || idx
+      })
+    }
+
     provide(TabsViewKey, {
-      disabled: props.disabled,
-      selectTab,
-      moveToTab,
-    })
-
-    tabsService.value = useTabsService({
       parentDisabled: props.disabled,
+      tabsComponents,
       selectTab,
       moveToTab,
+      registerTab,
+      unregisterTab,
     })
-
-    provide(TabsServiceKey, tabsService)
 
     // Lifecycle hooks
     watch(() => props.modelValue, () => {
