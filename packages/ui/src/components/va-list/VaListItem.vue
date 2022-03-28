@@ -48,7 +48,7 @@ export default defineComponent({
     }))
 
     const computedStyle = computed(() => ({
-      outline: hasKeyboardFocus ? '2px solid rgba(0, 0, 0, 0.3)' : 'none', // just to have at least some highlighting of the focused items
+      outline: hasKeyboardFocus.value ? '2px solid rgba(0, 0, 0, 0.3)' : 'none', // just to have at least some highlighting of the focused items
     }))
 
     return {
