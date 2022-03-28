@@ -1,112 +1,96 @@
 <template>
-  <div class="va-progress-bar">
-    <div
-      :style="{colorComputed}"
-      class="va-progress-bar__info"
-    >
-      <slot v-if="!large" />
+  <div class="va-progress-bar" :class="rootClass" :style="rootStyle">
+    <div v-if="!isLarge" class="va-progress-bar__info">
+      <slot />
     </div>
-    <div
-      class="va-progress-bar__wrapper"
-      :class="computedClass"
-      :style="computedStyle"
-    >
-      <div
-        :style="{
-          width: normalizedBuffer + '%',
-          backgroundColor: colorComputed,
-          ...(reverse ? { right: 0 } : { left: 0 })
-        }"
-        class="va-progress-bar__buffer"
-      />
-      <div
-        v-if="!indeterminate"
-        :style="{
-          width: normalizedValue + '%',
-          backgroundColor: colorComputed,
-          ...(reverse && { 'margin-left': 'auto' })
-        }"
-        class="va-progress-bar__overlay"
-      >
-        <slot v-if="large" />
-      </div>
-      <template v-else>
+    <div class="va-progress-bar__wrapper">
+      <div class="va-progress-bar__buffer" :style="bufferStyle" />
+
+      <template v-if="indeterminate">
         <div
-          :style="{backgroundColor: colorComputed, animationDirection: reverse ? 'reverse' : 'normal'}"
-          class="va-progress-bar__overlay__indeterminate-start"
+          :style="intermediateStyle"
+          class="va-progress-bar__progress--indeterminate-start"
         />
         <div
-          :style="{backgroundColor: colorComputed, animationDirection: reverse ? 'reverse' : 'normal'}"
-          class="va-progress-bar__overlay__indeterminate-end"
+          :style="intermediateStyle"
+          class="va-progress-bar__progress--indeterminate-end"
         />
       </template>
+      <div v-else class="va-progress-bar__progress" :style="progressStyle">
+        <slot v-if="isLarge" />
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Options, mixins, prop, Vue } from 'vue-class-component'
+import clamp from 'lodash/clamp'
+import { computed, defineComponent, PropType } from 'vue'
+import { useColors } from '../../services/color-config/color-config'
 
-import { normalizeValue } from '../../services/utils'
-import { ProgressComponentMixin } from './ProgressComponentMixin'
-import ColorMixin from '../../services/color-config/ColorMixin'
-import { SizeMixin } from '../../mixins/SizeMixin'
+type VaProgressSize = 'medium' | 'large' | 'small';
 
-class ProgressBarProps {
-  buffer = prop<number>({ type: Number, default: 100 })
-  rounded = prop<boolean>({ type: Boolean, default: true })
-  size = prop<string | number>({ type: [Number, String], default: 'medium' })
-  reverse = prop<boolean>({ type: Boolean, default: false })
-  color = prop<string>({ type: String, default: 'primary' })
-}
-
-const ProgressBarPropsMixin = Vue.with(ProgressBarProps)
-
-@Options({
+export default defineComponent({
   name: 'VaProgressBar',
-})
-export default class VaProgressBar extends mixins(
-  ProgressComponentMixin,
-  ColorMixin,
-  SizeMixin,
-  ProgressBarPropsMixin,
-) {
-  get large () {
-    return this.size === 'large'
-  }
 
-  get small () {
-    return this.size === 'small'
-  }
+  props: {
+    modelValue: { type: Number, default: 0 },
+    indeterminate: { type: Boolean, default: false },
+    color: { type: String, default: 'primary' },
+    size: {
+      type: [Number, String] as PropType<number | VaProgressSize>,
+      default: 'medium',
+    },
+    buffer: { type: Number, default: 100 },
+    rounded: { type: Boolean, default: true },
+    reverse: { type: Boolean, default: false },
+  },
 
-  get normalizedBuffer () {
-    if (this.indeterminate) {
-      return 100
+  setup (props) {
+    const { getColor } = useColors()
+
+    const isLarge = computed(() => props.size === 'large')
+    const isTextSize = computed(() => typeof props.size === 'string' && ['small', 'medium', 'large'].includes(props.size))
+
+    const getCSSHeight = () => {
+      if (typeof props.size === 'number') { return `${props.size}px` }
+      if (isTextSize.value) { return }
+
+      return props.size
     }
 
-    return normalizeValue(this.buffer)
-  }
-
-  get computedClass () {
     return {
-      'va-progress-bar__wrapper__square': (!this.rounded && !this.large) || this.small,
-      'va-progress-bar__small': this.small,
-      'va-progress-bar__large': this.large,
-    }
-  }
+      isLarge,
 
-  get computedStyle () {
-    if (this.size === 'medium') {
-      return { height: '0.5rem' }
-    }
+      rootClass: computed(() => ({
+        'va-progress-bar': true,
+        'va-progress-bar--square': !props.rounded,
+        [`va-progress-bar--${props.size}`]: isTextSize.value,
+      })),
 
-    if (!this.small && !this.large) {
-      return { height: typeof this.size === 'number' ? `${this.size}px` : this.size }
-    }
+      rootStyle: computed(() => ({
+        height: getCSSHeight(),
+      })),
 
-    return {}
-  }
-}
+      bufferStyle: computed(() => ({
+        width: `${props.indeterminate ? 100 : clamp(props.buffer, 0, 100)}%`,
+        backgroundColor: getColor(props.color),
+        [props.reverse ? 'right' : 'left']: 0,
+      })),
+
+      progressStyle: computed(() => ({
+        width: `${clamp(props.modelValue, 0, 100)}%`,
+        backgroundColor: getColor(props.color),
+        marginLeft: props.reverse ? 'auto' : undefined,
+      })),
+
+      intermediateStyle: computed(() => ({
+        backgroundColor: getColor(props.color),
+        animationDirection: props.reverse ? 'reverse' : 'normal',
+      })),
+    }
+  },
+})
 </script>
 
 <style lang="scss">
@@ -118,12 +102,13 @@ export default class VaProgressBar extends mixins(
   position: var(--va-progress-bar-position);
   overflow: var(--va-progress-bar-overflow);
   font-family: var(--va-font-family);
+  height: var(--va-progress-bar-height);
 
-  &__small {
+  &--small {
     height: var(--va-progress-bar-sm-height);
   }
 
-  &__large {
+  &--large {
     height: var(--va-progress-bar-lg-height);
   }
 
@@ -141,6 +126,7 @@ export default class VaProgressBar extends mixins(
     position: var(--va-progress-bar--wrapper-position);
     overflow: var(--va-progress-bar--wrapper-overflow);
     border-radius: var(--va-progress-bar--wrapper-border-radius);
+    height: inherit;
 
     &__square {
       border-radius: var(--va-progress-bar-square-border-radius);
@@ -156,7 +142,7 @@ export default class VaProgressBar extends mixins(
     transition: var(--va-progress-bar-buffer-transition);
   }
 
-  &__overlay {
+  &__progress {
     height: inherit;
     border-radius: inherit;
     transition: var(--va-progress-bar-transition);
@@ -167,21 +153,21 @@ export default class VaProgressBar extends mixins(
     font-size: var(--va-progress-bar-font-size);
     font-weight: var(--va-progress-bar-font-weight);
 
-    &__indeterminate-start {
-      animation: va-progress-bar__overlay__indeterminate-start 2s ease-in infinite;
+    &--indeterminate-start {
+      animation: va-progress-bar-indeterminate-start 2s ease-in infinite;
       position: absolute;
       height: inherit;
     }
 
-    &__indeterminate-end {
-      animation: va-progress-bar__overlay__indeterminate-end 2s ease-out 1s infinite;
+    &--indeterminate-end {
+      animation: va-progress-bar-indeterminate-end 2s ease-out 1s infinite;
       position: absolute;
       height: inherit;
     }
   }
 }
 
-@keyframes va-progress-bar__overlay__indeterminate-start {
+@keyframes va-progress-bar-indeterminate-start {
   0% {
     width: 10%;
     left: -10%;
@@ -198,7 +184,7 @@ export default class VaProgressBar extends mixins(
   }
 }
 
-@keyframes va-progress-bar__overlay__indeterminate-end {
+@keyframes va-progress-bar-indeterminate-end {
   0% {
     width: 100%;
     left: -100%;

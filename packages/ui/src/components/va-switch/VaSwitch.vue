@@ -78,7 +78,7 @@ import { Options, prop, mixins, setup, Vue } from 'vue-class-component'
 import ColorMixin from '../../services/color-config/ColorMixin'
 import { SelectableMixin } from '../../mixins/SelectableMixin/SelectableMixin'
 import { LoadingMixin } from '../../mixins/LoadingMixin/LoadingMixin'
-import { VaProgressCircle } from '../va-progress-bar'
+import { VaProgressCircle } from '../va-progress-circle'
 import { VaMessageListWrapper } from '../va-input'
 import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'
 
