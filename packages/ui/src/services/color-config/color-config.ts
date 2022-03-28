@@ -44,7 +44,7 @@ export const getColor = (prop?: string, defaultColor: string = DEFAULT_COLOR): C
     return colors[prop]
   }
 
-  if (isColor(prop) || isCSSVariable(prop)) {
+  if (isColor(prop) || isCSSVariable(prop) || CSS.supports('color', prop)) {
     return prop
   }
 
