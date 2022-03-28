@@ -179,6 +179,7 @@
       <p>Value: {{ objectSingleSelect.value }}</p>
       <va-select
         v-model="objectMultiSelect.value"
+        class="mb-4"
         label="Multi select Text by value"
         :options="objectMultiSelect.options"
         text-by="value"
@@ -186,6 +187,7 @@
       />
       <va-select
         v-model="objectMultiSelect.value"
+        class="mb-4"
         label="Searchable multiselect text-by value"
         :options="objectMultiSelect.options"
         text-by="value"
@@ -193,6 +195,16 @@
         searchable
       />
       <p>Value: {{ objectMultiSelect.value }}</p>
+      <va-select
+        v-model="objectMultiSelectByValue.value"
+        class="mb-4"
+        label="Multi select value by value"
+        :options="objectMultiSelectByValue.options"
+        text-by="value"
+        value-by="value"
+        multiple
+      />
+      <p>Value: {{ objectMultiSelectByValue.value }}</p>
     </VbCard>
     <VbCard
       title="Grouped"
@@ -596,7 +608,7 @@ const random = () => Math.ceil(Math.random() * 10000) + ''
 
 export default {
   components: { VaSelect, VaIcon, VaCheckbox, VaChip },
-  data () {
+  data() {
     return {
       allowCreateValue: '',
       allowCreateValueMultiple: '',
@@ -645,6 +657,10 @@ export default {
         value: [],
         options: objectOptionsList,
       },
+      objectMultiSelectByValue: {
+        value: [],
+        options: objectOptionsList,
+      },
       objectSingleSelectWithIcons: {
         value: '',
         options: iconOptionsList,
@@ -677,10 +693,10 @@ export default {
     }
   },
   methods: {
-    onLoadMore () {
+    onLoadMore() {
       this.preloadable.options.push(random(), random(), random())
     },
-    updateSearch (val) {
+    updateSearch(val) {
       this.isLoading = true
       setTimeout(() => {
         this.isLoading = false
@@ -688,10 +704,10 @@ export default {
         console.log(val)
       }, 2000)
     },
-    alert (str) {
+    alert(str) {
       window.alert(str)
     },
-    addNewOption (newOption) {
+    addNewOption(newOption) {
       const option = { id: String(this.allowCreateSelect.options.length), text: newOption, value: newOption }
       this.allowCreateSelect.options = [...this.allowCreateSelect.options, option]
       this.allowCreateSelect.value = option

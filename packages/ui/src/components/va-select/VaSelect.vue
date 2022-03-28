@@ -142,7 +142,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref, computed, watch, nextTick } from 'vue'
+import { defineComponent, PropType, ref, computed, watch, nextTick, Ref } from 'vue'
 
 import { useSelectableList, useSelectableListProps, SelectableOption } from '../../composables/useSelectableList'
 import { useValidation, useValidationProps, useValidationEmits } from '../../composables/useValidation'
@@ -229,7 +229,7 @@ export default defineComponent({
         open: 'expand_more',
         close: 'expand_less',
       }),
-      validator: (value: any) => {
+      validator: (value: string | { open: boolean, close: boolean }) => {
         if (typeof value === 'string') { return true }
 
         const isOpenIconString = typeof value.open === 'string'
@@ -288,14 +288,14 @@ export default defineComponent({
 
         if (props.multiple) {
           if (!value) {
-            return []
+            return [] as SelectableOption[]
           }
 
           if (!Array.isArray(value)) {
             return [value]
           }
 
-          return value
+          return value as SelectableOption[]
         }
 
         if (Array.isArray(value)) {
@@ -309,8 +309,12 @@ export default defineComponent({
         return value
       },
 
-      set (value: any) {
-        emit('update:modelValue', getValue(value))
+      set (value: SelectableOption | SelectableOption[]) {
+        if (Array.isArray(value)) {
+          emit('update:modelValue', value.map(v => getValue(v)))
+        } else {
+          emit('update:modelValue', getValue(value))
+        }
       },
     })
 
@@ -331,8 +335,7 @@ export default defineComponent({
     } = useClearable(props, valueComputed, isFocused, computedError)
 
     const showClearIcon = computed(() => {
-      if (props.multiple) { return !!valueComputed.value.length }
-      return canBeCleared.value
+      return props.multiple && Array.isArray(valueComputed.value) ? !!valueComputed.value.length : canBeCleared.value
     })
 
     const toggleIcon = computed((): string => {
@@ -347,27 +350,30 @@ export default defineComponent({
 
     // Options
 
-    const filteredOptions = computed((): any[] => {
+    const filteredOptions = computed((): SelectableOption[] => {
       if (!props.options) { return [] }
 
       if (props.hideSelected) {
-        return (props.options).filter((option) => !checkIsOptionSelected(option))
+        return props.options.filter((option) => !checkIsOptionSelected(option))
       }
 
       return props.options
     })
 
-    const checkIsOptionSelected = (option: any): boolean => {
+    const checkIsOptionSelected = (option: SelectableOption): boolean => {
       if (!valueComputed.value) { return false }
 
       if (Array.isArray(valueComputed.value)) {
-        return !!valueComputed.value.find((valueItem: any) => compareOptions(valueItem, option))
+        return !!valueComputed.value.find((valueItem) => compareOptions(valueItem, option))
       }
 
       return compareOptions(valueComputed.value, option)
     }
 
-    const compareOptions = (one: any, two: any) => {
+    const compareOptions = (option1: SelectableOption, option2: SelectableOption) => {
+      const one = getValue(option1)
+      const two = getValue(option2)
+
       // identity check works nice for strings and exact matches.
       if (one === two) {
         return true
@@ -385,9 +391,9 @@ export default defineComponent({
       return false
     }
 
-    const { exceedsMaxSelections, addOption } = useMaxSelections(valueComputed, ref(props.maxSelections), emit)
+    const isValueComputedArray = (v: Ref<SelectableOption | SelectableOption[]>): v is Ref<SelectableOption[]> => Array.isArray(v.value)
 
-    const selectOption = (option: any): void => {
+    const selectOption = (option: SelectableOption): void => {
       if (hoveredOption.value === null) {
         hideDropdown()
         return
@@ -397,15 +403,18 @@ export default defineComponent({
         searchInput.value = ''
       }
 
-      if (props.multiple) {
-        const isSelected = checkIsOptionSelected(option)
+      if (props.multiple && isValueComputedArray(valueComputed)) {
+        const { exceedsMaxSelections, addOption } = useMaxSelections(valueComputed, ref(props.maxSelections), emit)
+
+        const isSelected = checkIsOptionSelected(getValue(option))
+        console.log(isSelected)
 
         if (isSelected) {
           // Unselect
-          valueComputed.value = valueComputed.value.filter((optionSelected: any) => !compareOptions(option, optionSelected))
+          valueComputed.value = valueComputed.value.filter((optionSelected) => !compareOptions(getValue(option), getValue(optionSelected)))
         } else {
           if (exceedsMaxSelections()) { return }
-          addOption(option)
+          addOption(getValue(option))
         }
       } else {
         valueComputed.value = typeof option === 'string' || typeof option === 'number' ? option : { ...option }
@@ -430,7 +439,7 @@ export default defineComponent({
 
     const addNewOption = (): void => {
       // Do not emit if option already exist and allow create is `unique`
-      const hasAddedOption: boolean = props.options?.some((option: any) => getText(option) === searchInput.value)
+      const hasAddedOption: boolean = props.options?.some((option: SelectableOption) => getText(option) === searchInput.value)
 
       if (!(props.allowCreate === 'unique' && hasAddedOption)) {
         emit('create-new', searchInput.value)
@@ -440,9 +449,11 @@ export default defineComponent({
 
     // Hovered options
 
-    const hoveredOption = ref(null as any)
+    const hoveredOption = ref<SelectableOption | null>(null)
 
     const selectHoveredOption = () => {
+      if (!hoveredOption.value) { return }
+
       if (!showDropdownContent.value) {
         // We can not select options if they are hidden
         showDropdown()
@@ -574,7 +585,7 @@ export default defineComponent({
 
     const scrollToSelected = (): void => {
       const selected = valueComputed.value
-      const nothingSelected = !selected.length && typeof selected !== 'object'
+      const nothingSelected = typeof selected !== 'object' && Array.isArray(selected) && !selected.length
 
       if (nothingSelected) {
         return
@@ -588,7 +599,7 @@ export default defineComponent({
     // Hinted search
 
     let hintedSearchQuery = ''
-    let hintedSearchQueryTimeoutIndex!: any
+    let hintedSearchQueryTimeoutIndex!: ReturnType<typeof setTimeout>
     const navigationKeys = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Enter', ' ']
 
     // Hinted search - hover option if you typing it's value on select without search-bar
