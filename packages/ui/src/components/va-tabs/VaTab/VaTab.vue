@@ -105,7 +105,7 @@ export default defineComponent({
     },
   },
 
-  setup: (props, { emit }: SetupContext) => {
+  setup: (props, { emit }) => {
     const tabElement = ref<HTMLElement | null>(null)
 
     const isActive = ref(false)
