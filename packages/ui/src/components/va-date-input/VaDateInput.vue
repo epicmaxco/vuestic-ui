@@ -43,7 +43,17 @@
       </template>
 
       <va-dropdown-content>
-        <va-date-picker v-bind="datePickerProps" v-model="valueComputed">
+        <va-date-picker
+            v-bind="datePickerProps"
+            v-model="valueComputed"
+            @click:day="$emit('click:day', $event)"
+            @click:month="$emit('click:month', $event)"
+            @click:year="$emit('click:year', $event)"
+            @hover:day="$emit('hover:day', $event)"
+            @hover:month="$emit('hover:month', $event)"
+            @hover:year="$emit('hover:year', $event)"
+            @update:view="$emit('update:view', $event)"
+        >
           <template v-for="(_, name) in $slots" v-slot:[name]="bind">
             <slot :name="name" v-bind="bind" />
           </template>
@@ -61,7 +71,7 @@ import { useStateful } from '../../mixins/StatefulMixin/cStatefulMixin'
 
 import { isRange, isSingleDate, isDates } from '../va-date-picker/hooks/model-value-helper'
 import { useSyncProp } from '../va-date-picker/hooks/sync-prop'
-import { filterComponentProps, extractComponentProps } from '../../utils/child-props'
+import { filterComponentProps, extractComponentProps, extractComponentEmits } from '../../utils/child-props'
 import { useRangeModelValueGuard } from './hooks/range-model-value-guard'
 import { useDateParser } from './hooks/date-text-parser'
 
@@ -117,13 +127,10 @@ export default defineComponent({
   },
 
   emits: [
-    'update:modelValue',
-    'hover:day', 'hover:month',
-    'update:year', 'update:month', 'update:view',
-    'click:month', 'click:day',
+    ...extractComponentEmits(VaDatePicker),
+    ...useClearableEmits,
     'update:is-open',
     'update:text',
-    ...useClearableEmits,
   ],
 
   setup (props, { emit, slots }) {

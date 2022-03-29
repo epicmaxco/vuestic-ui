@@ -153,12 +153,18 @@
       />
     </VbCard>
 
+    <VbCard title="View prop">
+      <va-date-input
+          v-model="value"
+          v-model:view="dayView"
+          label="Calendar should open on 2013"
+      />
+    </VbCard>
+
     <VbCard title="Reset Model Value">
-      <va-button @click="resetModelValue('value')">Reset model value</va-button>
+      <va-button @click="resetModelValue()">Reset model value</va-button>
     </VbCard>
-    <VbCard title="Reset range Model Value">
-      <va-button @click="resetModelValue('range')">Reset range model value</va-button>
-    </VbCard>
+
     <VbCard title="Set Model Value">
       <va-button @click="setModelValue()">Set model value</va-button>
     </VbCard>
@@ -184,14 +190,17 @@ export default {
       value: new Date(),
       range: { start: new Date(), end: nextWeek },
       dates: [new Date(), nextWeek],
+      dayView: { type: 'day', month: 3, year: 2013 },
 
       // Dropdown
       isOpen: false,
     }
   },
   methods: {
-    resetModelValue (keyToReset: string) {
-      (this as any)[keyToReset] = undefined
+    resetModelValue () {
+      (this as any).value = undefined;
+      (this as any).range = undefined;
+      (this as any).dates = undefined
     },
     setModelValue () {
       (this as any).value = new Date();
