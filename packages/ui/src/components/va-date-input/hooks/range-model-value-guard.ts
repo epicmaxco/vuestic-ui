@@ -14,7 +14,6 @@ export type useRangeModelValueGuardProps = {
 export const useRangeModelValueGuard = (
   modelValue: Ref<VaDatePickerModelValue | undefined>,
   disabled: Ref<boolean>,
-  props: useRangeModelValueGuardProps,
 ) => {
   const bufferValue = ref<VaDatePickerModelValue | undefined>(modelValue.value)
 
@@ -45,7 +44,7 @@ export const useRangeModelValueGuard = (
   })
 
   watch(modelValue, (newValue) => {
-    if (newValue || newValue === props.clearValue) { bufferValue.value = newValue }
+    bufferValue.value = newValue
   })
 
   const reset = () => {

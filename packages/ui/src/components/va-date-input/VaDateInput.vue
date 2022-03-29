@@ -147,7 +147,7 @@ export default defineComponent({
     const {
       valueComputed,
       reset: resetInvalidRange,
-    } = useRangeModelValueGuard(statefulValue, isRangeModelValueGuardDisabled, props)
+    } = useRangeModelValueGuard(statefulValue, isRangeModelValueGuardDisabled)
 
     watch(isOpenSync, (isOpened) => {
       if (!isOpened && !isRangeModelValueGuardDisabled.value) { resetInvalidRange() }
