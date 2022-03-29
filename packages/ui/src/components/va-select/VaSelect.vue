@@ -335,7 +335,7 @@ export default defineComponent({
       return props.multiple && Array.isArray(valueComputed.value) ? !!valueComputed.value.length : canBeCleared.value
     })
 
-    const toggleIcon = computed((): string => {
+    const toggleIcon = computed(() => {
       if (!props.dropdownIcon) { return '' }
 
       if (typeof props.dropdownIcon === 'string') {
@@ -347,7 +347,7 @@ export default defineComponent({
 
     // Options
 
-    const filteredOptions = computed((): SelectableOption[] => {
+    const filteredOptions = computed(() => {
       if (!props.options) { return [] }
 
       if (props.hideSelected) {
@@ -357,7 +357,7 @@ export default defineComponent({
       return props.options
     })
 
-    const checkIsOptionSelected = (option: SelectableOption): boolean => {
+    const checkIsOptionSelected = (option: SelectableOption) => {
       if (!valueComputed.value) { return false }
 
       if (Array.isArray(valueComputed.value)) {
