@@ -89,6 +89,5 @@ export const iconsConfig = `
       icons: createIconsConfig({ fonts }),
     })
 
-  app.use(VuesticPlugin)
   app.mount("#app")
 `
