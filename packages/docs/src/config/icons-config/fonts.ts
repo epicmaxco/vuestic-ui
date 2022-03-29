@@ -19,27 +19,20 @@ export const fonts: IconConfiguration[] = [
     resolve: ({ code }) => ({ class: `icon ion-ios-${code}-outline` }),
   },
   {
-    name: 'entypo-{code}',
-    resolve: ({ code }) => ({ class: `entypo-${code}` }),
-  },
-  {
     name: /(fas|far|fal|fad|fab)-(.*)/,
     resolveFromRegex: (font, code) => ({ class: `${font} fa-${code} fa-fw` }),
-  },
-  {
-    name: 'text',
   },
 ]
 
 export const iconsStyles = `
   <link
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg=="
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
     crossorigin="anonymous"
     referrerpolicy="no-referrer"
     rel="stylesheet"
   />
   <link
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg=="
     crossorigin="anonymous"
     referrerpolicy="no-referrer"
     rel="stylesheet"
@@ -67,7 +60,30 @@ export const iconsConfig = `
   import { VuesticPlugin, createIconsConfig } from "vuestic-ui"
   import 'vuestic-ui/dist/vuestic-ui.css'
 
-  const fonts = ${JSON.stringify(fonts)}
+  const fonts = [
+    {
+      name: 'md-{content}',
+      class: 'material-icons',
+      resolve: ({ content }) => ({ content: content }),
+    },
+    {
+      name: 'fa4-{code}',
+      resolve: ({ code }) => ({ class: 'fa fa-' + code }),
+    },
+    {
+      name: 'ion-{code}',
+      resolve: ({ code }) => ({ class: 'icon ion-md-' + code }),
+    },
+    {
+      name: 'ion-outline-{code}',
+      resolve: ({ code }) => ({ class: 'icon ion-ios-' + code + '-outline' }),
+    },
+    {
+      name: /(fas|far|fal|fad|fab)-(.*)/,
+      resolveFromRegex: (font, code) => ({ class: font + ' fa-' + code +' fa-fw' }),
+    },
+  ]
+
   const app = createApp(App)
     .use(VuesticPlugin, {
       icons: createIconsConfig({ fonts }),
