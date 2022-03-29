@@ -80,7 +80,10 @@
             />
           </template>
 
-          <template v-if="$slots.content" #content>
+          <template
+            v-if="$slots.content"
+            #content
+          >
             <slot
               name="content"
               v-bind="{ valueString: valueComputedString, value: valueComputed }"
@@ -206,11 +209,9 @@ export default defineComponent({
     },
 
     allowCreate: {
-      type: [Boolean, String] as PropType<boolean | string>,
+      type: [Boolean, String] as PropType<boolean | 'unique'>,
       default: false,
-      validator: (mode: string | boolean) => {
-        return [true, false, 'unique'].includes(mode)
-      },
+      validator: (mode: string | boolean) => [true, false, 'unique'].includes(mode),
     },
 
     color: { type: String as PropType<string>, default: 'primary' },
@@ -229,7 +230,7 @@ export default defineComponent({
         open: 'expand_more',
         close: 'expand_less',
       }),
-      validator: (value: string | { open: boolean, close: boolean }) => {
+      validator: (value: string | DropdownIcon) => {
         if (typeof value === 'string') { return true }
 
         const isOpenIconString = typeof value.open === 'string'
@@ -262,20 +263,16 @@ export default defineComponent({
     } = useValidation(props, emit, () => reset(), () => focus())
 
     const { colorComputed } = useColor(props)
-    const toggleIconColor = computed(() => (
-      props.readonly ? getHoverColor(colorComputed.value) : colorComputed.value
-    ))
+    const toggleIconColor = computed(() => props.readonly ? getHoverColor(colorComputed.value) : colorComputed.value)
 
     const onScrollBottom = () => {
       emit('scroll-bottom')
     }
 
     const searchInput = ref('')
-    const showSearchInput = computed(() => {
-      return props.searchable || props.allowCreate
-    })
+    const showSearchInput = computed(() => props.searchable || props.allowCreate)
 
-    watch(() => searchInput.value, (value) => {
+    watch(searchInput, (value) => {
       emit('update-search', value)
       hoveredOption.value = null
     })
@@ -311,14 +308,14 @@ export default defineComponent({
 
       set (value: SelectableOption | SelectableOption[]) {
         if (Array.isArray(value)) {
-          emit('update:modelValue', value.map(v => getValue(v)))
+          emit('update:modelValue', value.map(getValue))
         } else {
           emit('update:modelValue', getValue(value))
         }
       },
     })
 
-    const valueComputedString = computed((): string | number => {
+    const valueComputedString = computed(() => {
       if (!valueComputed.value) { return props.clearValue }
       if (typeof valueComputed.value === 'string' || typeof valueComputed.value === 'number') { return valueComputed.value }
       if (Array.isArray(valueComputed.value)) {
@@ -393,7 +390,7 @@ export default defineComponent({
 
     const isValueComputedArray = (v: Ref<SelectableOption | SelectableOption[]>): v is Ref<SelectableOption[]> => Array.isArray(v.value)
 
-    const selectOption = (option: SelectableOption): void => {
+    const selectOption = (option: SelectableOption) => {
       if (hoveredOption.value === null) {
         hideDropdown()
         return
@@ -421,24 +418,9 @@ export default defineComponent({
       }
     }
 
-    const selectOrAddOption = () => {
-      if (hoveredOption.value !== null) {
-        selectHoveredOption()
-        return
-      }
-
-      if (allowedToCreate()) {
-        addNewOption()
-      }
-    }
-
-    const allowedToCreate = (): boolean => {
-      return !!(props.allowCreate && searchInput.value !== '')
-    }
-
-    const addNewOption = (): void => {
+    const addNewOption = () => {
       // Do not emit if option already exist and allow create is `unique`
-      const hasAddedOption: boolean = props.options?.some((option: SelectableOption) => getText(option) === searchInput.value)
+      const hasAddedOption = props.options?.some((option: SelectableOption) => getText(option) === searchInput.value)
 
       if (!(props.allowCreate === 'unique' && hasAddedOption)) {
         emit('create-new', searchInput.value)
@@ -460,6 +442,16 @@ export default defineComponent({
       }
 
       selectOption(hoveredOption.value)
+    }
+
+    const selectOrAddOption = () => {
+      const allowedToCreate = !!props.allowCreate && searchInput.value !== ''
+
+      if (hoveredOption.value !== null) {
+        selectHoveredOption()
+      } else if (allowedToCreate) {
+        addNewOption()
+      }
     }
 
     const hoverPreviousOption = () => {
@@ -526,48 +518,44 @@ export default defineComponent({
       optionList.value?.hoverFirstOption()
     }
 
-    const focusSearchOrOptions = () => {
-      nextTick(() => {
-        if (showSearchInput.value) {
-          focusSearchBar()
-        } else { focusOptionList() }
-      })
+    const focusSearchOrOptions = () => nextTick(() => {
+      if (showSearchInput.value) {
+        focusSearchBar()
+      } else {
+        focusOptionList()
+      }
+    })
+
+    const onInputFocus = () => {
+      isFocused.value = true
     }
 
-    const onInputFocus = (): void => {
-      if (!isFocused.value) {
-        isFocused.value = true
-      }
-    }
+    const onInputBlur = () => {
+      if (showDropdownContentComputed.value) { return }
 
-    const onInputBlur = (): void => {
-      if (!showDropdownContentComputed.value) {
-        isFocused.value
-          ? isFocused.value = false
-          : validate()
-      }
+      isFocused.value
+        ? isFocused.value = false
+        : validate()
     }
 
     /** @public */
-    const focus = (): void => {
+    const focus = () => {
       if (props.disabled) { return }
       input.value?.focus()
     }
 
     /** @public */
-    const blur = (): void => {
+    const blur = () => {
       if (showDropdownContentComputed.value) {
         showDropdownContentComputed.value = false
-        nextTick(() => {
-          input.value?.blur()
-        })
+        nextTick(input.value?.blur)
       } else {
         input.value?.blur()
       }
     }
 
     /** @public */
-    const reset = (): void => {
+    const reset = () => {
       if (props.multiple) {
         valueComputed.value = Array.isArray(props.clearValue) ? props.clearValue : []
       } else {
@@ -578,17 +566,13 @@ export default defineComponent({
       emit('clear')
     }
 
-    const tabIndexComputed = computed(() => {
-      return props.disabled ? -1 : props.tabindex
-    })
+    const tabIndexComputed = computed(() => props.disabled ? -1 : props.tabindex)
 
-    const scrollToSelected = (): void => {
+    const scrollToSelected = () => {
       const selected = valueComputed.value
       const nothingSelected = typeof selected !== 'object' && Array.isArray(selected) && !selected.length
 
-      if (nothingSelected) {
-        return
-      }
+      if (nothingSelected) { return }
 
       const scrollTo = Array.isArray(selected) ? selected[selected.length - 1] : selected
       hoveredOption.value = scrollTo
@@ -704,7 +688,7 @@ export default defineComponent({
 
 <style lang="scss">
 @import "../../styles/resources";
-@import 'variables';
+@import "variables";
 
 .va-select {
   cursor: var(--va-select-cursor);
@@ -736,5 +720,4 @@ export default defineComponent({
     @include va-scroll(var(--va-select-scroll-color));
   }
 }
-
 </style>
