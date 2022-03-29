@@ -893,7 +893,9 @@
         "allowFooterSorting": "Allows clicks on `<tfoot>` column headers to sort (and to display the sorting status) the rows",
         "striped": "Sets the striped style to the `<tbody>` rows (highlights each 2nd row)",
         "hoverable": "Allows the hover state on table rows within a `<tbody>`. The highlighting color of the hover state takes from `selected-color` prop",
-        "animated": "Sets css `transition` to table rows"
+        "animated": "Sets css `transition` to table rows",
+        "stickyHeader": "Enables sticky header (sticky header is achieved through CSS with `position: sticky` for `thead`)",
+        "height": "Sets the height to the table and enables scrolling"
       },
       "events": {
         "updateSortBy": "Emits when `sort-by` changed",
@@ -3627,6 +3629,13 @@
       "styling": {
         "title": "Styling",
         "text": "Should be specified on columns (see the `columns` prop below). Allows to provide different values (`text-align`, `vertical-align` and `width` css properties, custom `class` and `style`) for headers and for columns' cells."
+      },
+      "stickyHeader": {
+        "title": "Sticky header",
+        "text": [
+          "The sticky header is set by the `sticky-header` property. Sticky header is achieved through CSS with `position: sticky`. This is NOT supported on all browsers. Check [caniuse.com](https://caniuse.com/?search=sticky)[[target=_blank]] before using this technique.",
+          "To work correctly, it is important to limit the height (set the value in the `height` property of the component or using the CSS `height` or `max-height` properties) of the table and assign a background color (set the CSS value `background-color`) of the table header."
+        ]
       },
       "other": {
         "title": "Other",

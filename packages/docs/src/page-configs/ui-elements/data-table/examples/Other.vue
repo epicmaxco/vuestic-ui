@@ -3,13 +3,6 @@
     <div class="flex lg4 mb-2">
       <va-switch
         class="mt-2"
-        label="Hoverable rows"
-        size="small"
-        v-model="isTableHoverable"
-      />
-      <br />
-      <va-switch
-        class="mt-2"
         label="Striped style"
         size="small"
         v-model="isTableStriped"
@@ -83,7 +76,6 @@
     :items="items"
     :columns="columns"
     :striped="isTableStriped"
-    :hoverable="isTableHoverable"
     :selectable="true"
     :clickable="isTableRowsClickable"
     :loading="isTableLoading"
@@ -183,7 +175,6 @@ export default defineComponent({
       columns,
       isTableLoading: false,
       isTableStriped: true,
-      isTableHoverable: true,
       isTableRowsClickable: false,
       hideDefaultHeader: false,
       footerClone: true,
