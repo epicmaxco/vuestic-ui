@@ -7,6 +7,8 @@
       <va-date-input v-model="range" leftIcon />
       Dates and clearable
       <va-date-input v-model="dates" clearable />
+      Statefull
+      <va-date-input stateful clearable />
     </VbCard>
 
     <VbCard title="icon & clearable">
@@ -168,6 +170,18 @@
     <VbCard title="Set Model Value">
       <va-button @click="setModelValue()">Set model value</va-button>
     </VbCard>
+
+    <VbCard title="state">
+      <va-date-input v-model="value" disabled clearable label="Disabled" />
+      <va-date-input v-model="value" readonly clearable label="Readonly" />
+      <va-date-input v-model="value" success clearable label="Success" />
+      <va-date-input v-model="value" error clearable label="Error" />
+    </VbCard>
+
+    <VbCard title="validation">
+      <va-date-input v-model="value" :rules="validationRules1" clearable />
+      <va-date-input v-model="value" :rules="validationRules2" clearable />
+    </VbCard>
   </VbDemo>
 </template>
 
@@ -191,6 +205,15 @@ export default {
       range: { start: new Date(), end: nextWeek },
       dates: [new Date(), nextWeek],
       dayView: { type: 'day', month: 3, year: 2013 },
+
+      validationRules1: [(value: Date) => {
+        return !!value || 'Should be value'
+      }],
+
+      validationRules2: [(value: Date) => {
+        if (!value) { return true }
+        return value.getDate?.() === 10 || 'Should be 10th day'
+      }],
 
       // Dropdown
       isOpen: false,
