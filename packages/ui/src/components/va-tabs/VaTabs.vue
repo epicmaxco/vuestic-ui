@@ -186,11 +186,12 @@ export default defineComponent({
 
     const disablePaginationRight = computed(() => {
       const lastTab = tabsList.value[tabsList.value.length - 1]
+      const leftSidePosition = unref(lastTab.leftSidePosition)
+      const rightSidePosition = unref(lastTab.rightSidePosition)
       const containerClientWidth = getClientWidth(container.value)
 
-      return (
-        lastTab?.rightSidePosition.value || 0) <= tabsContentOffset.value + containerClientWidth ||
-        (lastTab?.leftSidePosition.value || 0) <= tabsContentOffset.value
+      return rightSidePosition <= tabsContentOffset.value + containerClientWidth ||
+        leftSidePosition <= tabsContentOffset.value
     })
 
     // Methods
@@ -272,11 +273,14 @@ export default defineComponent({
 
       if (tabsList.value) {
         for (let i = 0; i < tabsList.value.length - 1; i++) {
+          const currentTabLeftSidePosition = unref(tabsList.value[i]?.leftSidePosition)
+          const nextTabLeftSidePosition = unref(tabsList.value[i + 1]?.leftSidePosition)
+
           if (
-            (tabsList.value[i].leftSidePosition.value > offsetToSet && tabsList.value[i].leftSidePosition.value < tabsContentOffset.value) ||
-            tabsList.value[i + 1]?.leftSidePosition.value >= tabsContentOffset.value
+            (currentTabLeftSidePosition > offsetToSet && currentTabLeftSidePosition < tabsContentOffset.value) ||
+            nextTabLeftSidePosition >= tabsContentOffset.value
           ) {
-            offsetToSet = tabsList.value[i].leftSidePosition.value
+            offsetToSet = currentTabLeftSidePosition
             break
           }
         }
@@ -294,8 +298,10 @@ export default defineComponent({
 
       if (tabsList.value) {
         for (let i = 0; i < tabsList.value.length - 1; i++) {
-          if (tabsList.value[i].rightSidePosition.value > containerRightSide) {
-            offsetToSet = tabsList.value[i].leftSidePosition.value
+          const rightSidePosition = unref(tabsList.value[i].rightSidePosition)
+
+          if (rightSidePosition > containerRightSide) {
+            offsetToSet = unref(tabsList.value[i].leftSidePosition)
 
             if (tabsContentOffset.value < offsetToSet) {
               break
@@ -304,8 +310,8 @@ export default defineComponent({
         }
       }
 
-      const lastTab = tabsList.value[tabsList.value.length - 1]
-      const maxOffset = (lastTab?.rightSidePosition.value || 0) - containerClientWidth
+      const rightSidePosition = unref(tabsList.value[tabsList.value.length - 1]?.rightSidePosition)
+      const maxOffset = rightSidePosition - containerClientWidth
 
       offsetToSet = Math.min(maxOffset, offsetToSet)
       tabsContentOffset.value = Math.max(0, offsetToSet)
