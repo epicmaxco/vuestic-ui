@@ -1,5 +1,5 @@
 import { getParameters } from 'codesandbox/lib/api/define'
-import { iconsStyles, iconsConfig } from '@/config/icons-config/fonts'
+import { iconsStyles, iconsConfig } from './CodeSandboxIconsHelper'
 import { CodesandboxConfig } from '../types/configTypes'
 // @ts-ignore
 import packageUi from 'vuestic-ui/package.json'
