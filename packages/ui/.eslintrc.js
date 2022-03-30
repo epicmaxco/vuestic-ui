@@ -6,6 +6,7 @@ module.exports = {
   },
   extends: [
     'plugin:vue/vue3-essential',
+    'plugin:cypress/recommended',
     '@vue/standard',
     '@vue/typescript/recommended',
   ],
@@ -41,6 +42,12 @@ module.exports = {
       excludedFiles: ['*.demo.vue', '*.vdemo.vue'],
       rules: {
         'vue/require-name-property': 'error',
+      },
+    },
+    {
+      files: '*.spec.*',
+      rules: {
+        'no-unused-expressions': 'off',
       },
     },
   ],
