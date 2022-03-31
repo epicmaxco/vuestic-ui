@@ -42,37 +42,18 @@
 <script lang="ts">
 import {
   computed,
-  ComputedRef,
   defineComponent,
   inject,
   onBeforeUnmount,
   onMounted,
-  Ref,
   ref,
-  SetupContext,
   unref,
 } from 'vue'
 import VaIcon from '../../va-icon'
 import { useRouterLink, useRouterLinkProps } from '../../../composables/useRouterLink'
 import useKeyboardOnlyFocus from '../../../composables/useKeyboardOnlyFocus'
 import { useColor } from '../../../composables/useColor'
-import { TabsViewKey } from '../types'
-import { TabsView } from '../VaTabs.vue'
-
-export interface TabComponent {
-  id: string | number | null,
-  tabElement: Ref<HTMLElement | null>,
-  name?: string | number,
-  tabIndexComputed: ComputedRef<number>,
-  isActive: Ref<boolean>,
-  isActiveRouterLink: ComputedRef<boolean>,
-  rightSidePosition: Ref<number>,
-  leftSidePosition: Ref<number>,
-  onTabClick: () => void,
-  onTabKeydown: () => void,
-  onFocus: () => void,
-  updateSidePositions: () => void,
-}
+import { TabsViewKey, TabsView, TabComponent } from '../types'
 
 export default defineComponent({
   name: 'VaTab',
