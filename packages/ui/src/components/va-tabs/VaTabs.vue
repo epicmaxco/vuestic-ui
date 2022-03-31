@@ -75,19 +75,9 @@ import VaButton from '../va-button'
 import VaConfig from '../va-config'
 import { useStateful, useStatefulProps } from '../../composables/useStateful'
 import { useColor } from '../../composables/useColor'
-import { TabsViewKey } from './types'
-import { TabComponent } from './VaTab/VaTab.vue'
+import { TabsViewKey, TabComponent } from './types'
 
 const getClientWidth = (element: HTMLElement | null | undefined): number => element?.clientWidth || 0
-
-export interface TabsView {
-  parentDisabled: boolean,
-  tabsList: TabComponent[],
-  selectTab: (tab: TabComponent) => void,
-  moveToTab: (tab: TabComponent) => void,
-  registerTab: (tab: TabComponent) => void,
-  unregisterTab: (tab: TabComponent) => void,
-}
 
 export default defineComponent({
   name: 'VaTabs',
@@ -125,7 +115,7 @@ export default defineComponent({
     const startingXPoint = ref(0)
     const animationIncluded = ref(false)
     const { colorComputed } = useColor(props)
-    const { valueComputed } = useStateful(props, emit)
+    const { valueComputed: tabSelected } = useStateful(props, emit)
     const tabConfig = reactive({
       VaTab: {
         color: props.color,
@@ -152,8 +142,6 @@ export default defineComponent({
 
     const computedTabsClass = computed(() => ({ 'va-tabs--vertical': props.vertical }))
 
-    const tabSelected = computed(() => valueComputed.value)
-
     const sliderStyles = computed(() => {
       if (props.hideSlider) {
         return { display: 'none' }
@@ -178,7 +166,7 @@ export default defineComponent({
 
       return {
         transform: `translateX(${startingXPoint.value - tabsContentOffset.value}px)`,
-        transition: animationIncluded.value ? 'transform ease 0.3s' : '',
+        transition: animationIncluded.value ? 'var(--va-tabs-slider-transition)' : '',
       }
     })
 
@@ -369,7 +357,7 @@ export default defineComponent({
     const selectTab = (tab: TabComponent) => {
       if (!tab) { return }
 
-      valueComputed.value = tab.name || tab.id
+      tabSelected.value = tab.name || tab.id
 
       if (props.stateful) {
         updateTabsState()
@@ -432,7 +420,6 @@ export default defineComponent({
       startingXPoint,
       animationIncluded,
       colorComputed,
-      valueComputed,
       tabConfig,
       computedClass,
       computedTabsClass,
