@@ -55,9 +55,7 @@ export default defineComponent({
       }
 
       if (props.active) {
-        const border = props.borderColor === undefined ? props.activeColor : props.borderColor
-
-        style['border-color'] = getColor(border)
+        style['border-color'] = getColor(props.borderColor === undefined ? props.activeColor : props.borderColor)
         style['background-color'] = getColor(props.activeColor)
         style.color = getTextColor(style['background-color'])
       }
@@ -82,7 +80,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import '../variables';
+@import "../variables";
 
 .va-sidebar__item {
   border-left: var(--va-sidebar-item-active-border-size) solid transparent;
