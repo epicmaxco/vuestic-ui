@@ -48,7 +48,7 @@ export default defineComponent({
     const computedAttrs = computed(() => ({ ...iconConfig.value.attrs, ...omit(attrs, ['class']) }))
 
     const getSpinClass = (spin?: string | boolean) => {
-      if (spin === undefined) { return }
+      if (spin === undefined || spin === false) { return }
       return spin === 'counter-clockwise' ? 'va-icon--spin-reverse' : 'va-icon--spin'
     }
 
