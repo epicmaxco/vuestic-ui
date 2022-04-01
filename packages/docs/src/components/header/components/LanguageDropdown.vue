@@ -4,7 +4,7 @@
       color="primary"
       flat
       :label="currentLanguageName"
-      :offset="[0, 25]"
+      :offset="[0, 10]"
     >
       <div class="language-dropdown__content">
         <va-list-item
@@ -78,11 +78,11 @@ export default defineComponent({
 
 <style lang="scss">
 .language-dropdown {
-  font-weight: 700;
+  font-weight: 600;
   cursor: pointer;
 
   .va-button__content {
-    font-weight: bold;
+    font-weight: 600;
   }
 
   &__item {
