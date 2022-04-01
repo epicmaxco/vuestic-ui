@@ -1,8 +1,9 @@
 import { computed, PropType, getCurrentInstance } from 'vue'
 
+import { RouteLocationRaw } from 'vue-router'
 export interface RouterLinkProps {
   tag: string
-  to: string | Record<string, unknown>
+  to: RouteLocationRaw
   replace: boolean
   append: boolean
   exact: boolean
@@ -15,7 +16,7 @@ export interface RouterLinkProps {
 
 export const useRouterLinkProps = {
   tag: { type: String as PropType<string>, default: 'router-link' },
-  to: { type: [String, Object] as PropType<string | Record<string, unknown>>, default: null },
+  to: { type: [String, Object] as PropType<RouteLocationRaw>, default: '' },
   replace: { type: Boolean as PropType<boolean>, default: false },
   append: { type: Boolean as PropType<boolean>, default: false },
   exact: { type: Boolean as PropType<boolean>, default: false },

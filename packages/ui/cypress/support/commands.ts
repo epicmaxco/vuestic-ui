@@ -23,8 +23,3 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
-
-Cypress.on('window:before:load', ({ console }) => {
-  cy.spy(console, 'error')
-  cy.spy(console, 'warn')
-})
