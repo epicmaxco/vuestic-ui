@@ -7,7 +7,6 @@
     :is="computedTag"
     :class="computedClass"
     :style="computedStyle"
-    :name="$props.name"
   >
     <slot>{{ iconConfig.content }}</slot>
   </component>
