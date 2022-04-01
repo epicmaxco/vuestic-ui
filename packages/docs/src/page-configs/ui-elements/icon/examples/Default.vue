@@ -14,8 +14,8 @@
 
       <p>
         Ionic<br>
-        <va-icon class="icon ion-md-book" />
-        <va-icon name="ion-book" />
+        <va-icon class="icon ion-md-book" tag="ion-icon" />
+        <va-icon name="book" tag="ion-icon" />
       </p>
   </div>
 </template>
