@@ -20,15 +20,15 @@ import { useColors } from '../../services/color-config/color-config'
 export default defineComponent({
   name: 'VaSidebar',
   props: {
-    color: { type: String as PropType<string>, default: 'background' },
-    textColor: { type: String as PropType<string>, default: undefined },
-    gradient: { type: Boolean as PropType<boolean>, default: false },
-    minimized: { type: Boolean as PropType<boolean>, default: false },
-    hoverable: { type: Boolean as PropType<boolean>, default: false },
+    color: { type: String, default: 'background' },
+    textColor: { type: String },
+    gradient: { type: Boolean, default: false },
+    minimized: { type: Boolean, default: false },
+    hoverable: { type: Boolean, default: false },
     position: { type: String as PropType<'top' | 'bottom' | 'left' | 'right'>, default: 'left' },
-    width: { type: String as PropType<string>, default: '16rem' },
-    minimizedWidth: { type: String as PropType<string>, default: '2.5rem' },
-    modelValue: { type: Boolean as PropType<boolean>, default: true },
+    width: { type: String, default: '16rem' },
+    minimizedWidth: { type: String, default: '2.5rem' },
+    modelValue: { type: Boolean, default: true },
   },
   setup (props) {
     const { getColor, getTextColor } = useColors()

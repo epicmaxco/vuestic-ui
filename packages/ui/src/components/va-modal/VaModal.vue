@@ -388,9 +388,7 @@ export default defineComponent({
     display: flex;
     position: relative;
     flex-flow: column;
-    padding:
-      $modal-padding-top $modal-padding-right $modal-padding-bottom
-      $modal-padding-left;
+    padding: $modal-padding-top $modal-padding-right $modal-padding-bottom $modal-padding-left;
     max-width: map_get($grid-breakpoints, md);
     margin: auto;
 

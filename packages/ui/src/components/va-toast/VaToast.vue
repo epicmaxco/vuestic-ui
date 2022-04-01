@@ -38,6 +38,7 @@
 import { defineComponent, h, PropType, ref, computed, onMounted, render, VNode } from 'vue'
 
 import { useColors } from '../../composables/useColor'
+import { useTimer } from '../../composables/useTimer'
 import VaIcon from '../va-icon/VaIcon.vue'
 
 import { NotificationPosition } from './types'
@@ -80,7 +81,6 @@ export default defineComponent({
 
     const rootElement = ref<HTMLElement>()
 
-    const timer = ref<null | ReturnType<typeof setTimeout>>(null)
     const visible = ref(false)
 
     const positionX = computed(() => {
@@ -130,15 +130,11 @@ export default defineComponent({
       }
     }
 
-    const clearTimer = () => {
-      if (timer.value) {
-        clearTimeout(timer.value)
-      }
-    }
-
+    const timer = useTimer()
+    const clearTimer = timer.clear
     const startTimer = () => {
       if (props.duration > 0) {
-        timer.value = setTimeout(() => visible.value && onToastClose(), props.duration)
+        timer.start(() => visible.value && onToastClose(), props.duration)
       }
     }
 

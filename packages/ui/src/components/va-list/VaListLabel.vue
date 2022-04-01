@@ -8,20 +8,24 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, computed } from 'vue'
+import { defineComponent, computed } from 'vue'
 
 import { useColors } from '../../composables/useColor'
 
 export default defineComponent({
   name: 'VaListLabel',
   props: {
-    color: { type: String as PropType<string>, default: 'primary' },
+    color: { type: String, default: 'primary' },
   },
-  setup: (props) => ({
-    computedStyle: computed(() => ({
-      color: useColors().getColor(props.color),
-    })),
-  }),
+  setup: (props) => {
+    const { getColor } = useColors()
+
+    return {
+      computedStyle: computed(() => ({
+        color: getColor(props.color),
+      })),
+    }
+  },
 })
 </script>
 
