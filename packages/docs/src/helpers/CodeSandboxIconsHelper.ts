@@ -27,17 +27,12 @@ export const iconsConfig = `
     {
       name: 'ion-{code}',
       tag: 'ion-icon',
-      resolve: ({ code }) => ({ name: 'icon ion-md-' + code }),
-    },
-    {
-      name: 'icon-{code}',
-      tag: 'ion-icon',
-      resolve: ({ code }) => ({ name: 'icon ion-md-' + code }),
+      resolve: ({ code }) => ({ attrs: {name: code} }),
     },
     {
       name: 'ion-outline-{code}',
       tag: 'ion-icon',
-      resolve: ({ code }) => ({ class: 'icon ion-ios-' + code + '-outline' }),
+      resolve: ({ code }) => ({ attrs: {name: code + '-outline'} }),
     },
     {
       name: /(fas|far|fal|fad|fab)-(.*)/,
