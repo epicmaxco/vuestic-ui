@@ -8,20 +8,8 @@ export const iconsStyles = `
     rel="stylesheet"
   />
   <!-- Ionic icons -->
-  <link
-    href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/3.0.0/css/ionicons-core.min.css"
-    integrity="sha512-NSMQZM1faPgx9ZS2XXgNhPgiPyIJyhRCR2V0G/6KZKTbTjS20eXWTmuztKGdzCVgn7ry+I0CknTqH4Uc3zS7TA=="
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
-    rel="stylesheet"
-  />
-  <link
-    href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/3.0.0/css/ionicons.min.css"
-    integrity="sha512-1MnDtyeTdty8j5fL/qDGB0Q2akuH88v1wA9QO9CRZlKUBY10Ch++Yle1XUjNE2vleqvhIPb9MxLrktY+qLyDng=="
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
-    rel="stylesheet"
-  />
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 `
 
 export const iconsConfig = `
@@ -38,10 +26,17 @@ export const iconsConfig = `
     },
     {
       name: 'ion-{code}',
-      resolve: ({ code }) => ({ class: 'icon ion-md-' + code }),
+      tag: 'ion-icon',
+      resolve: ({ code }) => ({ name: 'icon ion-md-' + code }),
+    },
+    {
+      name: 'icon-{code}',
+      tag: 'ion-icon',
+      resolve: ({ code }) => ({ name: 'icon ion-md-' + code }),
     },
     {
       name: 'ion-outline-{code}',
+      tag: 'ion-icon',
       resolve: ({ code }) => ({ class: 'icon ion-ios-' + code + '-outline' }),
     },
     {
