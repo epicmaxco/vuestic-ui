@@ -38,12 +38,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
+import { defineComponent, computed, PropType } from 'vue'
+
 import { useRating, useRatingProps } from './hooks/useRating'
 import { useVaRatingColors, useVaRatingColorsProps } from './hooks/useVaRatingColors'
 import { useForm, useFormProps } from '../../composables/useForm'
 import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
 import { RatingValue } from './types'
+
 import VaRatingItem from './components/VaRatingItem/VaRatingItem.vue'
 import VaRatingItemNumberButton from './components/VaRatingItemNumberButton.vue'
 
@@ -52,7 +54,6 @@ const VaRatingItemNumberButtonProps = extractComponentProps(VaRatingItemNumberBu
 
 export default defineComponent({
   name: 'VaRating',
-
   props: {
     ...useRatingProps,
     ...useVaRatingColorsProps,
@@ -62,34 +63,26 @@ export default defineComponent({
     numbers: { type: Boolean, default: false },
     halves: { type: Boolean, default: false },
     max: { type: Number, default: 5 },
-    texts: { type: Array, default: () => [] },
+    texts: { type: Array as PropType<string[]>, default: () => [] },
   },
-
   emits: ['update:modelValue'],
-
   components: { VaRatingItem, VaRatingItemNumberButton },
-
   setup (props) {
     const { createComputedClass } = useForm(props)
     const rating = useRating(props)
-
     const isInteractionsEnabled = computed(() => !props.disabled && !props.readonly)
 
     return {
       ...useVaRatingColors(props),
       ...rating,
-
       rootClass: createComputedClass('va-rating'),
-
       VaRatingItemProps: filterComponentProps(props, VaRatingItemProps),
       VaRatingItemNumberButtonProps: filterComponentProps(props, VaRatingItemNumberButtonProps),
-
       isInteractionsEnabled,
       tabindex: computed(() => isInteractionsEnabled.value ? 0 : undefined),
-
       onArrowKeyPress: (direction: 1 | -1) => {
         const step = props.halves ? RatingValue.HALF : RatingValue.FULL
-        rating.onItemValueUpdate(rating.visibleValue.value, (step) * direction)
+        rating.onItemValueUpdate(rating.visibleValue.value, step * direction)
       },
     }
   },
