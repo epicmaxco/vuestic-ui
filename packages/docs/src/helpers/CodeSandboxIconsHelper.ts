@@ -1,17 +1,13 @@
 
 export const iconsStyles = `
+  <!-- Font Awesome 5 -->
   <link
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
     crossorigin="anonymous"
     referrerpolicy="no-referrer"
     rel="stylesheet"
   />
-  <link
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg=="
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
-    rel="stylesheet"
-  />
+  <!-- Ionic icons -->
   <link
     href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/3.0.0/css/ionicons-core.min.css"
     integrity="sha512-NSMQZM1faPgx9ZS2XXgNhPgiPyIJyhRCR2V0G/6KZKTbTjS20eXWTmuztKGdzCVgn7ry+I0CknTqH4Uc3zS7TA=="
@@ -26,7 +22,6 @@ export const iconsStyles = `
     referrerpolicy="no-referrer"
     rel="stylesheet"
   />
-  <script src="https://cdn.jsdelivr.net/npm/entypo@2.2.1/index.min.js"></script>
 `
 
 export const iconsConfig = `
@@ -40,10 +35,6 @@ export const iconsConfig = `
       name: 'md-{content}',
       class: 'material-icons',
       resolve: ({ content }) => ({ content: content }),
-    },
-    {
-      name: 'fa4-{code}',
-      resolve: ({ code }) => ({ class: 'fa fa-' + code }),
     },
     {
       name: 'ion-{code}',
