@@ -12,11 +12,17 @@ export const fonts: IconConfiguration[] = [
   },
   {
     name: 'ion-{code}',
-    resolve: ({ code }) => ({ class: `icon ion-md-${code}` }),
+    resolve: ({ code }) => ({
+      tag: 'ion-icon',
+      attrs: { name: `${code}` },
+    }),
   },
   {
-    name: 'ion-outline-{code}',
-    resolve: ({ code }) => ({ class: `icon ion-ios-${code}-outline` }),
+    name: 'ion-{code}-outline',
+    resolve: ({ code }) => ({
+      tag: 'ion-icon',
+      attrs: { name: `${code}-outline` },
+    }),
   },
   {
     name: /(fas|far|fal|fad|fab)-(.*)/,

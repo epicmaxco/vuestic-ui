@@ -14,15 +14,13 @@
 
       <p>
         Ionic<br>
-        <va-icon class="icon ion-md-book" tag="ion-icon" />
-        <va-icon name="book" tag="ion-icon" />
+        <va-icon name="ion-book-outline" />
+        <va-icon name="ion-book" />
       </p>
   </div>
 </template>
-<style lang="scss">
-p {
-  i + i {
-    margin-left: 2rem;
-  }
+<style lang="scss" scoped>
+.va-icon + .va-icon {
+  margin-left: 2rem;
 }
 </style>
