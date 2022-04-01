@@ -17,6 +17,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType, ref, computed } from 'vue'
+import { RouteLocationRaw } from 'vue-router'
 import { useColors } from '../../../services/color-config/color-config'
 import useKeyboardOnlyFocus from '../../../composables/useKeyboardOnlyFocus'
 import { useHover } from '../../../composables/useHover'
@@ -28,7 +29,7 @@ export default defineComponent({
 
   props: {
     to: {
-      type: [String, Object] as PropType<string | Record<string, any>>,
+      type: [String, Object] as PropType<RouteLocationRaw>,
       default: () => ({}),
     },
     active: { type: Boolean, default: false },
@@ -39,7 +40,7 @@ export default defineComponent({
   },
 
   setup (props) {
-    const anchor = ref<HTMLAnchorElement | undefined>()
+    const anchor = ref<HTMLAnchorElement>()
 
     const { isHovered } = useHover(anchor)
     const { getColor, getHoverColor, getTextColor, getFocusColor } = useColors()
