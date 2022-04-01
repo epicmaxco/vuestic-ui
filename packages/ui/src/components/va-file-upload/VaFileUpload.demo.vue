@@ -76,6 +76,18 @@
         color="info"
       />
     </VbCard>
+
+    <VbCard
+      title="custom label text"
+      style="width: 100%;"
+    >
+      <va-file-upload
+        v-model="basic"
+        dropzone
+        drag-label-text="Custom drug`n`drop label text"
+        color="info"
+      />
+    </VbCard>
   </VbDemo>
 </template>
 
