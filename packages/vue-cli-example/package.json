@@ -11,7 +11,7 @@
     "core-js": "^3.6.5",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0",
-    "vuestic-ui": "1.2.2"
+    "vuestic-ui": "1.3.5"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "5.0.0-alpha.8",

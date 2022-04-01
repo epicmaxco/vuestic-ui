@@ -1,208 +1,89 @@
 <template>
-  <div
-    class="va-rating"
-    :class="classList"
-  >
+  <div class="va-rating" :class="rootClass">
     <div
-      @keyup.left="onArrow(-1)"
-      @keyup.right="onArrow(1)"
-      @mouseenter="isHovered = hoverEnabled"
-      @mouseleave="isHovered = false"
+      @keyup.left="onArrowKeyPress(-1)"
+      @keyup.right="onArrowKeyPress(1)"
+      @mouseenter="onMouseEnter()"
+      @mouseleave="onMouseLeave"
       class="va-rating__item-wrapper"
     >
-      <template v-if="$props.numbers">
-        <va-rating-item
-          v-for="number in $props.max"
-          :key="number"
-          class="va-rating__number-item"
-          :halves="$props.halves"
-          :hover="hoverEnabled"
-          :size="$props.size"
-          :color="$props.color"
-          :empty-icon-color="$props.unselectedColor"
-          :tabindex="tabIndex"
-          :modelValue="getItemValue(number)"
-          @hover="onHover(number, $event)"
-          @click="onItemSelected(number, $event)"
-        >
-          <template v-slot="{ props }">
-            <button
-              @click="props.onClick"
-              class="va-rating__number-item"
-              tabindex="-1"
-              :style=" {
-                background: props.value === 0.5
-                  ? `linear-gradient(90deg, ${getColor($props.color)} 50%, ${focusColor} 50%`
-                  : !props.value ? focusColor : getColor($props.color),
-                color: props.value ? '#fff' : getColor($props.color),
-                width: sizeComputed,
-                height: sizeComputed,
-                fontSize: fontSizeComputed,
-                borderRadius: `${fontSizeInRem * 0.125}rem`,
-              }"
-            > {{ number }} </button>
-          </template>
-        </va-rating-item>
-      </template>
-      <template v-else>
-        <va-rating-item
-          v-for="itemNumber in $props.max"
-          :key="itemNumber"
-          :halves="$props.halves"
-          :hover="hoverEnabled"
-          :filled-icon-name="$props.icon"
-          :half-icon-name="$props.halfIcon"
-          :empty-icon-name="$props.emptyIcon"
-          :size="$props.size"
-          :color="$props.color"
-          :empty-icon-color="$props.unselectedColor"
-          :tabindex="tabIndex"
-          :modelValue="getItemValue(itemNumber)"
-          @hover="onHover(itemNumber, $event)"
-          @click="onItemSelected(itemNumber, $event)"
-        />
-      </template>
+      <va-rating-item
+        v-for="itemNumber in $props.max"
+        v-bind="VaRatingItemProps"
+        :model-value="getItemValue(itemNumber - 1)"
+        :key="itemNumber"
+        :empty-icon-color="$props.unselectedColor"
+        :tabindex="tabindex"
+        @hover="isInteractionsEnabled && onItemHoveredValueUpdate(itemNumber - 1, $event)"
+        @update:model-value="isInteractionsEnabled && onItemValueUpdate(itemNumber - 1, $event)"
+      >
+        <template v-if="$props.numbers" v-slot="{ props }">
+          <VaRatingItemNumberButton
+            v-bind="VaRatingItemNumberButtonProps"
+            :model-value="props.value"
+            :item-number="itemNumber"
+            @click="props.onClick"
+          />
+        </template>
+      </va-rating-item>
     </div>
     <span
+      v-if="$props.texts && $props.texts.length === $props.max"
       class="va-rating__text-wrapper"
-      v-if="texts.length === $props.max"
-      :style="{ color: getColor($props.textColor) }"
+      :style="{ color: computedColor }"
     >
-      {{ texts[Math.round(valueProxy) - 1] }}
+      {{ $props.texts[Math.round(visibleValue) - 1] }}
     </span>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref, computed, onMounted } from 'vue'
+import { defineComponent, computed, PropType } from 'vue'
 
-import { useStateful, useStatefulEmits, useStatefulProps } from '../../composables/useStateful'
-import { useColors } from '../../composables/useColor'
-import { useSize, useSizeProps } from '../../composables/useSize'
+import { useRating, useRatingProps } from './hooks/useRating'
+import { useVaRatingColors, useVaRatingColorsProps } from './hooks/useVaRatingColors'
+import { useForm, useFormProps } from '../../composables/useForm'
+import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
+import { RatingValue } from './types'
 
-import VaRatingItem from './VaRatingItem'
-import { RatingValue } from './VaRating.types'
+import VaRatingItem from './components/VaRatingItem/VaRatingItem.vue'
+import VaRatingItemNumberButton from './components/VaRatingItemNumberButton.vue'
+
+const VaRatingItemProps = extractComponentProps(VaRatingItem, ['unselectedColor'])
+const VaRatingItemNumberButtonProps = extractComponentProps(VaRatingItemNumberButton, ['modelValue', 'itemNumber'])
 
 export default defineComponent({
   name: 'VaRating',
-  components: { VaRatingItem },
-  emits: useStatefulEmits,
   props: {
-    ...useStatefulProps,
-    ...useSizeProps,
-    modelValue: { type: Number as PropType<number>, default: 0 },
-    icon: { type: String as PropType<string>, default: 'star' },
-    halfIcon: { type: String as PropType<string>, default: 'star_half' },
-    emptyIcon: { type: String as PropType<string>, default: 'star_outline' },
-    readonly: { type: Boolean as PropType<boolean>, default: false },
-    disabled: { type: Boolean as PropType<boolean>, default: false },
-    numbers: { type: Boolean as PropType<boolean>, default: false },
-    halves: { type: Boolean as PropType<boolean>, default: false },
-    max: { type: Number as PropType<number>, default: 5 },
-    clearable: { type: Boolean as PropType<boolean>, default: false },
-    hover: { type: Boolean as PropType<boolean>, default: false },
+    ...useRatingProps,
+    ...useVaRatingColorsProps,
+    ...useFormProps,
+    ...VaRatingItemProps,
+    ...VaRatingItemNumberButtonProps,
+    numbers: { type: Boolean, default: false },
+    halves: { type: Boolean, default: false },
+    max: { type: Number, default: 5 },
     texts: { type: Array as PropType<string[]>, default: () => [] },
-    textColor: { type: String as PropType<string> },
-    unselectedColor: { type: String as PropType<string> },
-    color: { type: String as PropType<string>, default: 'primary' },
   },
-  setup (props, { emit }) {
-    const { valueComputed } = useStateful(props, emit)
-    const { getColor, getFocusColor } = useColors()
-
-    const isHovered = ref(false)
-    const forceEmit = ref(false)
-    const hoveredValue = ref(RatingValue.EMPTY)
-
-    const valueProxy = computed({
-      get: () => isHovered.value ? hoveredValue.value : valueComputed.value,
-      set: (value: number) => {
-        hoveredValue.value = value
-
-        if (forceEmit.value) {
-          valueComputed.value = value
-          forceEmit.value = false
-        }
-      },
-    })
-
-    const focusColor = computed(() => {
-      return props.unselectedColor
-        ? getColor(props.unselectedColor)
-        : getFocusColor(getColor(props.color))
-    })
-
-    const classList = computed(() => ({
-      'va-rating--disabled': props.disabled,
-      'va-rating--readonly': props.readonly,
-    }))
-
-    const interactionsEnabled = computed(() => !(props.disabled || props.readonly))
-
-    const hoverEnabled = computed(() => props.hover && interactionsEnabled.value)
-
-    const tabIndex = computed(() => interactionsEnabled.value ? 0 : undefined)
-
-    const getItemValue = (itemNumber: number) => {
-      const diff = itemNumber - valueProxy.value
-
-      switch (true) {
-        case diff <= 0:
-          return RatingValue.FULL
-        case diff === RatingValue.HALF && props.halves:
-          return RatingValue.HALF
-        default:
-          return RatingValue.EMPTY
-      }
-    }
-
-    const onHover = (itemNumber: number, value: RatingValue) => {
-      valueProxy.value = value === RatingValue.FULL
-        ? itemNumber
-        : itemNumber - RatingValue.HALF
-    }
-
-    const onArrow = (direction: 1 | -1) => {
-      const currentValue = valueProxy.value || RatingValue.EMPTY
-      const step = props.halves ? RatingValue.HALF : RatingValue.FULL
-      const nextValue = currentValue + (step * direction)
-
-      if (nextValue < 0 || nextValue > props.max) { return }
-
-      forceEmit.value = true
-      valueProxy.value = nextValue
-    }
-
-    const onItemSelected = (itemNumber: number, value: RatingValue) => {
-      if (!interactionsEnabled.value) { return }
-
-      const currentClickedValue = props.halves
-        ? value === RatingValue.HALF ? itemNumber - RatingValue.HALF : itemNumber
-        : itemNumber
-
-      const valueToEmit = props.clearable && valueComputed.value === currentClickedValue
-        ? RatingValue.EMPTY
-        : currentClickedValue
-
-      forceEmit.value = true
-      valueProxy.value = valueToEmit
-    }
-
-    onMounted(() => { hoveredValue.value = valueComputed.value })
+  emits: ['update:modelValue'],
+  components: { VaRatingItem, VaRatingItemNumberButton },
+  setup (props) {
+    const { createComputedClass } = useForm(props)
+    const rating = useRating(props)
+    const isInteractionsEnabled = computed(() => !props.disabled && !props.readonly)
 
     return {
-      ...useSize(props),
-      getColor,
-      focusColor,
-      classList,
-      hoverEnabled,
-      isHovered,
-      tabIndex,
-      getItemValue,
-      onHover,
-      onArrow,
-      onItemSelected,
-      valueProxy,
+      ...useVaRatingColors(props),
+      ...rating,
+      rootClass: createComputedClass('va-rating'),
+      VaRatingItemProps: filterComponentProps(props, VaRatingItemProps),
+      VaRatingItemNumberButtonProps: filterComponentProps(props, VaRatingItemNumberButtonProps),
+      isInteractionsEnabled,
+      tabindex: computed(() => isInteractionsEnabled.value ? 0 : undefined),
+      onArrowKeyPress: (direction: 1 | -1) => {
+        const step = props.halves ? RatingValue.HALF : RatingValue.FULL
+        rating.onItemValueUpdate(rating.visibleValue.value, step * direction)
+      },
     }
   },
 })
@@ -210,7 +91,7 @@ export default defineComponent({
 
 <style lang="scss">
 @import "../../styles/resources";
-@import "variables";
+@import 'variables';
 
 .va-rating {
   display: var(--va-rating-display);

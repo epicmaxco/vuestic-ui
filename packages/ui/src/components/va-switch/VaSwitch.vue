@@ -73,7 +73,7 @@
 <script lang="ts">
 import { defineComponent, PropType, computed, ref } from 'vue'
 
-import { VaProgressCircle } from '../va-progress-bar'
+import { VaProgressCircle } from '../va-progress-circle'
 import { VaMessageListWrapper } from '../va-input'
 import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'
 import { useSelectable, useSelectableProps, useSelectableEmits } from '../../composables/useSelectable'
