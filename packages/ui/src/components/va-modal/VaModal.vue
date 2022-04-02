@@ -1,30 +1,20 @@
 <template>
-  <teleport v-if='valueComputed' :to="attachElement" :disabled="disableAttachment">
-    <div class="va-modal">
-      <modal-element
-        name="va-modal__overlay--transition"
-        :isTransition="!$props.withoutTransitions"
-        @click="onOutsideClick"
-        appear
-      >
+  <teleport :to="attachElement" :disabled="disableAttachment">
+    <modal-element name="va-modal" :isTransition="!$props.withoutTransitions" appear>
+      <div class="va-modal" v-if="valueComputed">
         <div
           class="va-modal__overlay"
           :style="$props.overlay && computedOverlayStyles"
+          @click="onOutsideClick"
         />
-      </modal-element>
-      <modal-element
-        name="va-modal__container--transition"
-        :isTransition="!$props.withoutTransitions"
-        appear
-        @beforeEnter="onBeforeEnterTransition"
-        @afterEnter="onAfterEnterTransition"
-        @beforeLeave="onBeforeLeaveTransition"
-        @afterLeave="onAfterLeaveTransition"
-      >
         <div
           v-if="valueComputed"
           class="va-modal__container"
           :style="computedModalContainerStyle"
+          @beforeEnter="onBeforeEnterTransition"
+          @afterEnter="onAfterEnterTransition"
+          @beforeLeave="onBeforeLeaveTransition"
+          @afterLeave="onAfterLeaveTransition"
         >
           <div
             class="va-modal__dialog"
@@ -76,8 +66,8 @@
             </div>
           </div>
         </div>
-      </modal-element>
-    </div>
+      </div>
+    </modal-element>
   </teleport>
 </template>
 
@@ -295,9 +285,20 @@ export default class VaModal extends mixins(
   &__container {
     z-index: var(--va-modal-container-z-index);
 
-    &--transition {
-      @include va-modal-transition();
-    }
+    // &--transition {
+    //   @include va-modal-transition();
+    // }
+  }
+
+  &-enter-from &__container,
+  &-leave-to &__container {
+    opacity: 0;
+    transform: translateY(-30%);
+  }
+
+  &-enter-active &__container,
+  &-leave-active &__container {
+    transition: $modal-transform-transition, $modal-transform-transition;
   }
 
   &__dialog {
@@ -321,9 +322,19 @@ export default class VaModal extends mixins(
     width: var(--va-modal-overlay-width);
     height: var(--va-modal-overlay-height);
 
-    &--transition {
-      @include va-modal-transition(true);
-    }
+    // &--transition {
+    //   @include va-modal-transition(true);
+    // }
+  }
+
+  &-enter-from &__overlay,
+  &-leave-to &__overlay {
+    opacity: 0;
+  }
+
+  &-enter-active &__overlay,
+  &-leave-active &_overlay {
+    transition: $modal-overlay-opacity-transition;
   }
 
   &--fullscreen {
