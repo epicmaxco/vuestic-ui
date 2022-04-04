@@ -146,6 +146,7 @@ export default defineComponent({
     const { syncProp: isOpenSync } = useSyncProp(isOpen, 'is-open', emit, false)
 
     const isRangeModelValueGuardDisabled = computed(() => !resetOnClose.value)
+
     const {
       valueComputed,
       reset: resetInvalidRange,
