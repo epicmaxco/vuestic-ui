@@ -56,7 +56,7 @@
           @mousedown="moveStart"
         />
         <div
-          v-for="order in ($props.vertical ? [1, 0] : [0, 1])"
+          v-for="order in orders"
           :key="'dot' + order"
           :ref="'dot' + order"
           class="va-slider__handler"
@@ -202,6 +202,8 @@ export default defineComponent({
     const currentValue = ref(props.modelValue)
     const currentSliderDotIndex = ref(0)
     const hasMouseDown = ref(false)
+
+    const orders = computed(() => props.vertical ? [1, 0] : [0, 1])
 
     const pinPositionStyle = computed(() => props.vertical ? 'bottom' : 'left')
     const trackSizeStyle = computed(() => props.vertical ? 'height' : 'width')
@@ -691,6 +693,7 @@ export default defineComponent({
       dot,
       dot0,
       dot1,
+      orders,
       sliderContainer,
       val,
       sliderClass,
