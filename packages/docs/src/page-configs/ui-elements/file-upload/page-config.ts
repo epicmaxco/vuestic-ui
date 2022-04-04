@@ -32,6 +32,10 @@ const config: ApiDocsBlock[] = [
     'Gallery',
   ),
 
+  block.headline('fileUpload.examples.slots.title'),
+  block.paragraph('fileUpload.examples.slots.text'),
+  block.example('Slots'),
+
   block.subtitle('all.api'),
   block.api(VaFileUpload, apiOptions),
 ]
