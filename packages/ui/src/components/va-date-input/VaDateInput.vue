@@ -69,7 +69,7 @@
 import { computed, defineComponent, PropType, toRefs, watch, ref } from 'vue'
 import { useClearableProps, useClearableEmits, useClearable } from '../../composables/useClearable'
 import { useValidation, useValidationProps, useValidationEmits } from '../../composables/useValidation'
-import { useStateful } from '../../composables/useStateful'
+import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
 import { useFormProps } from '../../composables/useForm'
 
 import { isRange, isSingleDate, isDates } from '../va-date-picker/hooks/model-value-helper'
@@ -110,6 +110,7 @@ export default defineComponent({
   props: {
     ...extractComponentProps(VaDatePicker),
     ...VaInputProps,
+    ...useStatefulProps,
 
     ...useClearableProps,
     clearValue: { type: Date as PropType<VaDatePickerModelValue>, default: undefined },
@@ -134,13 +135,14 @@ export default defineComponent({
     ...extractComponentEmits(VaDatePicker),
     ...useClearableEmits,
     ...useValidationEmits,
+    ...useStatefulEmits,
     'update:is-open',
     'update:text',
   ],
 
   setup (props, { emit, slots }) {
     const { isOpen, resetOnClose } = toRefs(props)
-    const { valueComputed: statefulValue } = useStateful(props, emit)
+    const { valueComputed: statefulValue } = useStateful<VaDatePickerModelValue | undefined>(props, emit)
     const { syncProp: isOpenSync } = useSyncProp(isOpen, 'is-open', emit, false)
 
     const isRangeModelValueGuardDisabled = computed(() => !resetOnClose.value)
