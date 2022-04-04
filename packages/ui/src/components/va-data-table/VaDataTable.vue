@@ -1,24 +1,27 @@
 <template>
   <va-inner-loading
     class="va-data-table"
+    :class="[
+      { 'va-data-table--sticky': $props.stickyHeader },
+      { 'va-data-table--scroll': !!$props.height },
+    ]"
+    :style="{ ...getStickyCSSVariables() }"
     :loading="loading"
     :color="loadingColor"
+    v-bind="componentAttributes"
   >
     <table
       class="va-data-table__table"
-      :class="{
-        striped,
-        selectable,
-        hoverable,
-        clickable,
-      }"
-      v-bind="$attrs"
+      :class="{ striped, selectable, hoverable, clickable }"
+      v-bind="tableAttributes"
     >
-      <colgroup v-if="'colgroup' in slots">
+      <colgroup v-if="'colgroup' in $slots">
         <slot name="colgroup" v-bind="columnsComputed" />
       </colgroup>
 
-      <thead class="va-data-table__table-thead">
+      <thead
+        class="va-data-table__table-thead"
+        :class="{ 'va-data-table__table-thead--sticky': $props.stickyHeader }">
         <slot name="headerPrepend" />
 
         <tr
@@ -27,7 +30,7 @@
         >
           <th
             v-if="selectable"
-            class="va-data-table__table-th"
+            :class="['va-data-table__table-th', 'va-data-table__table-cell-select']"
           >
             <va-checkbox
               v-if="selectMode === 'multiple'"
@@ -50,7 +53,7 @@
             :class="['va-data-table__table-th', ...getClasses(column.headerClasses)]"
           >
             <div class="va-data-table__table-th-wrapper">
-              <span v-if="`header(${column.key})` in slots">
+              <span v-if="`header(${column.key})` in $slots">
                 <slot :name="`header(${column.key})`" v-bind="column" />
               </span>
 
@@ -64,10 +67,10 @@
                 @selectstart.prevent
               >
                 <va-icon
-                  :name="sortingOrderProxy === 'asc' ? 'expand_less' : 'expand_more'"
+                  :name="sortingOrderSync === 'asc' ? 'expand_less' : 'expand_more'"
                   size="small"
                   class="va-data-table__table-th-sorting-icon"
-                  :class="{ active: sortByProxy === column.key && sortingOrderProxy !== null }"
+                  :class="{ active: sortBySync === column.key && sortingOrderSync !== null }"
                 />
               </div>
             </div>
@@ -78,80 +81,108 @@
       </thead>
 
       <tbody
+        v-if="$slots.bodyPrepend"
         class="va-data-table__table-tbody"
         :style="rowCSSVariables"
       >
         <slot name="bodyPrepend" />
+      </tbody>
 
-        <transition-group
-          :name="animated ? 'table-transition' : null"
-          appear
+      <transition
+        :name="animated ? 'table-transition' : null"
+        appear
+        mode="out-in"
+      >
+        <tbody
+          v-if="showNoDataHtml"
+          key="showNoDataHtml"
+          class="va-data-table__table-tbody"
+          :style="rowCSSVariables"
         >
-          <tr v-if="showNoDataHtml" key="showNoDataHtml">
+          <tr>
             <td
               :colspan="columnsComputed.length + (selectable ? 1 : 0)"
               v-html="noDataHtml"
               class="no-data"
             />
           </tr>
+        </tbody>
 
-          <tr v-else-if="showNoDataFilteredHtml" key="showNoDataFilteredHtml">
+        <tbody
+          v-else-if="showNoDataFilteredHtml"
+          key="showNoDataFilteredHtml"
+          class="va-data-table__table-tbody"
+          :style="rowCSSVariables"
+        >
+          <tr>
             <td
               :colspan="columnsComputed.length + (selectable ? 1 : 0)"
               v-html="noDataFilteredHtml"
               class="no-data"
             />
           </tr>
+        </tbody>
 
-          <template v-else>
+        <tbody
+          v-else
+          key="showRows"
+          class="va-data-table__table-tbody"
+          :style="rowCSSVariables"
+        >
+          <transition-group
+            :name="animated ? 'table-transition-rows' : null"
+            appear
+          >
             <tr
-              v-for="(row, index) in rows"
+              v-for="row in rows"
               :key="`table-row_${row.initialIndex}`"
               class="va-data-table__table-tr"
-              :class="{
-                selected: isRowSelected(row),
-              }"
+              :class="{ selected: isRowSelected(row) }"
               @click="onRowClickHandler('row:click', $event, row)"
               @dblclick="onRowClickHandler('row:dblclick', $event, row)"
               @contextmenu="onRowClickHandler('row:contextmenu', $event, row)"
             >
-              <template v-if="perPage ? (index >= perPage * (currentPage - 1)) && (index < perPage * currentPage) : true">
-                <td
-                  v-if="selectable"
-                  class="va-data-table__table-td"
-                  :key="`selectable_${row.initialIndex}`"
-                  @selectstart.prevent
-                >
-                  <va-checkbox
-                    :model-value="isRowSelected(row)"
-                    @click.shift.exact="shiftSelectRows(row)"
-                    @click.ctrl.exact="ctrlSelectRow(row)"
-                    @click.exact="ctrlSelectRow(row)"
-                    :color="selectedColor"
-                  />
-                </td>
+              <td
+                v-if="selectable"
+                :class="['va-data-table__table-td', 'va-data-table__table-cell-select']"
+                :key="`selectable_${row.initialIndex}`"
+                @selectstart.prevent
+              >
+                <va-checkbox
+                  :model-value="isRowSelected(row)"
+                  @click.shift.exact="shiftSelectRows(row)"
+                  @click.ctrl.exact="ctrlSelectRow(row)"
+                  @click.exact="ctrlSelectRow(row)"
+                  :color="selectedColor"
+                />
+              </td>
 
-                <td
-                  v-for="cell in row.cells"
-                  :key="`table-cell_${cell.column.key + cell.rowIndex}`"
-                  :style="{ ...getCellCSSVariables(cell), ...getStyles(cell.column.style) }"
-                  :class="['va-data-table__table-td', ...getClasses(cell.column.classes)]"
-                >
-                  <slot
-                    v-if="`cell(${cell.column.key})` in slots"
-                    :name="`cell(${cell.column.key})`"
-                    v-bind="{ ...cell, cells: row.cells }"
-                  />
+              <td
+                v-for="cell in row.cells"
+                :key="`table-cell_${cell.column.key + cell.rowIndex}`"
+                :style="{ ...getCellCSSVariables(cell), ...getStyles(cell.column.style) }"
+                :class="['va-data-table__table-td', ...getClasses(cell.column.classes)]"
+              >
+                <slot
+                  v-if="`cell(${cell.column.key})` in $slots"
+                  :name="`cell(${cell.column.key})`"
+                  v-bind="{ ...cell, cells: row.cells }"
+                />
 
-                  <slot v-else name="cell" v-bind="cell">
-                    {{ cell.value }}
-                  </slot>
-                </td>
-              </template>
+                <slot v-else name="cell" v-bind="cell">
+                  {{ cell.value }}
+                </slot>
+              </td>
             </tr>
-          </template>
-        </transition-group>
+          </transition-group>
+        </tbody>
+      </transition>
 
+      <tbody
+        v-if="$slots.bodyAppend"
+        class="va-data-table__table-tbody"
+        :style="rowCSSVariables"
+      >
         <slot name="bodyAppend" />
       </tbody>
 
@@ -181,7 +212,7 @@
             :class="['va-data-table__table-th', ...getClasses(column.headerClasses)]"
           >
             <div class="va-data-table__table-th-wrapper">
-              <span v-if="`footer(${column.key})` in slots">
+              <span v-if="`footer(${column.key})` in $slots">
                 <slot :name="`footer(${column.key})`" v-bind="column" />
               </span>
 
@@ -195,10 +226,10 @@
                 @selectstart.prevent
               >
                 <va-icon
-                  :name="sortingOrderProxy === 'asc' ? 'expand_less' : 'expand_more'"
+                  :name="sortingOrderSync === 'asc' ? 'expand_less' : 'expand_more'"
                   size="small"
                   class="va-data-table__table-th-sorting-icon"
-                  :class="{ active: sortByProxy === column.key && sortingOrderProxy !== null }"
+                  :class="{ active: sortBySync === column.key && sortingOrderSync !== null }"
                 />
               </div>
             </div>
@@ -212,16 +243,27 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, toRefs } from 'vue'
+import { computed, defineComponent, HTMLAttributes, PropType, TableHTMLAttributes } from 'vue'
+import omit from 'lodash/omit'
+import pick from 'lodash/pick'
 import VaInnerLoading from '../va-inner-loading'
 import VaCheckbox from '../va-checkbox'
 import VaIcon from '../va-icon'
-import useColumns, { TTableColumnSource } from './hooks/useColumns'
-import useRows, { ITableItem, TableRow } from './hooks/useRows'
-import useFilterable, { TFilterMethod } from './hooks/useFilterable'
-import useSortable, { TSortingOrder } from './hooks/useSortable'
-import useSelectableRow, { TSelectMode } from './hooks/useSelectableRow'
+import useColumns from './hooks/useColumns'
+import useRows from './hooks/useRows'
+import useFilterable from './hooks/useFilterable'
+import useSortable from './hooks/useSortable'
+import usePaginatedRows from './hooks/usePaginatedRows'
+import useSelectableRow from './hooks/useSelectableRow'
 import useStyleable from './hooks/useStyleable'
+import {
+  TTableColumnSource,
+  ITableItem,
+  TableRow,
+  TFilterMethod,
+  TSortingOrder,
+  TSelectMode,
+} from './types'
 
 type emitNames = 'update:modelValue' |
   'update:sortBy' |
@@ -252,100 +294,38 @@ export default defineComponent({
     VaIcon,
   },
 
-  // so that the attributes could be bypassed to the <table> element rather then applied to <va-inner-loading>
   inheritAttrs: false,
 
   props: {
-    columns: {
-      type: Array as PropType<TTableColumnSource[]>,
-      default: () => [] as TTableColumnSource[],
-    },
-    items: {
-      type: Array as PropType<ITableItem[]>,
-      default: () => [] as ITableItem[],
-    },
-    filter: {
-      type: String,
-      default: '',
-    },
-    filterMethod: {
-      type: Function as PropType<TFilterMethod>,
-    },
-    sortBy: { // model-able
-      type: String,
-    },
-    sortingOrder: { // model-able
-      type: String as PropType<TSortingOrder>,
-    },
-    modelValue: { // model-able
-      type: Array as PropType<ITableItem[]>,
-    },
-    hoverable: {
-      type: Boolean,
-      default: false,
-    },
-    clickable: {
-      type: Boolean,
-      default: false,
-    },
-    animated: {
-      type: Boolean,
-      default: true,
-    },
-    selectable: {
-      type: Boolean,
-      default: false,
-    },
-    selectMode: {
-      type: String as PropType<TSelectMode>,
-      default: 'multiple',
-    },
-    selectedColor: {
-      type: String,
-      default: 'primary',
-    },
-    perPage: {
-      type: Number,
-    },
-    currentPage: {
-      type: Number,
-    },
-    loading: {
-      type: Boolean,
-      default: false,
-    },
-    loadingColor: {
-      type: String,
-      default: 'primary',
-    },
-    noDataHtml: {
-      type: String,
-      default: 'No items',
-    },
-    noDataFilteredHtml: {
-      type: String,
-      default: 'No items match the provided filtering condition',
-    },
-    hideDefaultHeader: {
-      type: Boolean,
-      default: false,
-    },
-    footerClone: {
-      type: Boolean,
-      default: false,
-    },
-    allowFooterSorting: {
-      type: Boolean,
-      default: false,
-    },
-    striped: {
-      type: Boolean,
-      default: false,
-    },
+    columns: { type: Array as PropType<TTableColumnSource[]>, default: () => [] as TTableColumnSource[] },
+    items: { type: Array as PropType<ITableItem[]>, default: () => [] as ITableItem[] },
+    modelValue: { type: Array as PropType<ITableItem[]> }, // selectedItems
+    sortingOrder: { type: String as PropType<TSortingOrder> }, // model-able
+    sortBy: { type: String }, // model-able
+    filter: { type: String, default: '' },
+    filterMethod: { type: Function as PropType<TFilterMethod> },
+    hoverable: { type: Boolean, default: false },
+    clickable: { type: Boolean, default: false },
+    animated: { type: Boolean, default: true },
+    selectable: { type: Boolean, default: false },
+    selectMode: { type: String as PropType<TSelectMode>, default: 'multiple' },
+    selectedColor: { type: String, default: 'primary' },
+    perPage: { type: Number },
+    currentPage: { type: Number },
+    loading: { type: Boolean, default: false },
+    loadingColor: { type: String, default: 'primary' },
+    noDataHtml: { type: String, default: 'No items' },
+    noDataFilteredHtml: { type: String, default: 'No items match the provided filtering condition' },
+    hideDefaultHeader: { type: Boolean, default: false },
+    footerClone: { type: Boolean, default: false },
+    allowFooterSorting: { type: Boolean, default: false },
+    striped: { type: Boolean, default: false },
+    stickyHeader: { type: Boolean, default: false },
+    height: { type: [String, Number] as PropType<string | number> },
   },
 
   emits: [
-    'update:modelValue', // `modelValue` is selected items
+    'update:modelValue', // `modelValue` is selectedItems
     'update:sortBy',
     'update:sortingOrder',
     'filtered',
@@ -356,46 +336,21 @@ export default defineComponent({
     'row:contextmenu',
   ],
 
-  setup (props, { slots, emit }) {
-    const {
-      columns: rawColumns,
-      items: rawItems,
-    } = toRefs(props)
+  setup (props, { attrs, emit }) {
+    const { columnsComputed } = useColumns(props)
+
+    const { rowsComputed } = useRows(columnsComputed, props)
+
+    const { filteredRows } = useFilterable(rowsComputed, props, emit)
 
     const {
-      columns,
-    } = useColumns(rawColumns, rawItems)
-
-    const {
-      rawRows,
-    } = useRows(rawItems, columns)
-
-    const {
-      filter,
-      filterMethod,
-    } = toRefs(props)
-
-    const {
-      filteredRows,
-    } = useFilterable(rawRows, filter, filterMethod, emit)
-
-    const {
-      sortBy,
-      sortingOrder,
-    } = toRefs(props)
-
-    const {
-      sortByProxy,
-      sortingOrderProxy,
+      sortBySync,
+      sortingOrderSync,
       toggleSorting,
       sortedRows,
-    } = useSortable(columns, filteredRows, sortBy, sortingOrder, emit)
+    } = useSortable(columnsComputed, filteredRows, props, emit)
 
-    const {
-      selectable,
-      selectMode,
-      modelValue,
-    } = toRefs(props)
+    const { paginatedRows } = usePaginatedRows(sortedRows, props)
 
     const {
       ctrlSelectRow,
@@ -404,34 +359,24 @@ export default defineComponent({
       isRowSelected,
       severalRowsSelected,
       allRowsSelected,
-    } = useSelectableRow(sortedRows, modelValue, selectable, selectMode, emit)
-
-    const {
-      selectedColor,
-      allowFooterSorting,
-    } = toRefs(props)
+    } = useSelectableRow(paginatedRows, props, emit)
 
     const {
       getHeaderCSSVariables,
       rowCSSVariables,
       getCellCSSVariables,
       getFooterCSSVariables,
+      getStickyCSSVariables,
       getClasses,
       getStyles,
-    } = useStyleable(selectable, selectedColor, allowFooterSorting)
+    } = useStyleable(props)
 
-    const showNoDataHtml = computed(() => {
-      return rawItems.value.length < 1
-    })
+    const showNoDataHtml = computed(() => props.items.length === 0)
 
-    const showNoDataFilteredHtml = computed(() => {
-      return filteredRows.value.length < 1
-    })
-
-    const { clickable } = toRefs(props)
+    const showNoDataFilteredHtml = computed(() => paginatedRows.value.length === 0)
 
     const onRowClickHandler = (name: emitNames, $event: Event, row: TableRow) => {
-      if (clickable.value) {
+      if (props.clickable) {
         emit(name, {
           event: $event,
           item: row.source,
@@ -440,35 +385,46 @@ export default defineComponent({
       }
     }
 
+    const componentAttributes = computed(() => ({
+      ...pick(attrs, ['class', 'style']),
+    }) as HTMLAttributes)
+
+    const tableAttributes = computed(() => ({
+      ...omit(attrs, ['class', 'style']),
+    }) as TableHTMLAttributes)
+
     return {
-      slots,
-      columnsComputed: columns,
-      rows: sortedRows,
+      columnsComputed,
+      rows: paginatedRows,
       ctrlSelectRow,
       shiftSelectRows,
       toggleBulkSelection,
       isRowSelected,
       severalRowsSelected,
       allRowsSelected,
-      sortByProxy,
-      sortingOrderProxy,
+      sortBySync,
+      sortingOrderSync,
       toggleSorting,
       getHeaderCSSVariables,
       rowCSSVariables,
       getCellCSSVariables,
       getFooterCSSVariables,
+      getStickyCSSVariables,
       getClasses,
       getStyles,
       showNoDataHtml,
       showNoDataFilteredHtml,
       onRowClickHandler,
+      componentAttributes,
+      tableAttributes,
     }
   },
 })
 </script>
 
 <style lang="scss">
-@import 'variables';
+@import '../../styles/resources/index.scss';
+@import "variables";
 // The calculated variables are taken from a respective element's `style` attribute. See the `useStyleable` hook
 
 .va-data-table {
@@ -477,6 +433,16 @@ export default defineComponent({
   min-width: unset;
   font-family: var(--va-font-family);
 
+  &--sticky,
+  &--scroll {
+    overflow-y: auto;
+    height: var(--scroll-table-height);
+
+    // 1) doesn't work in Firefox
+    // 2) doesn't disappear on mac (the standard one does)
+    // @include va-scroll(var(--scroll-table-color));
+  }
+
   .va-data-table__table {
     width: 100%;
     cursor: default;
@@ -484,6 +450,13 @@ export default defineComponent({
 
     .va-data-table__table-thead {
       border-bottom: var(--va-data-table-thead-border);
+
+      &--sticky {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+        background-color: var(--scroll-table-color);
+      }
     }
 
     .va-data-table__table-tbody {
@@ -549,6 +522,17 @@ export default defineComponent({
       vertical-align: var(--vertical-align);
     }
 
+    .va-data-table__table-th,
+    .va-data-table__table-td {
+      &.va-data-table__table-cell-select {
+        width: var(--va-data-table-selectable-cell-width);
+        min-width: var(--va-data-table-selectable-cell-width);
+        text-align: var(--va-data-table-selectable-cell-text-align);
+        vertical-align: var(--va-data-table-selectable-cell-vertical-align);
+        cursor: var(--va-data-table-selectable-tr-cursor);
+      }
+    }
+
     .va-data-table__table-tr {
       &.selected {
         background-color: var(--selected-color);
@@ -584,21 +568,31 @@ export default defineComponent({
       }
     }
 
-    .table-transition-move {
-      transition: transform var(--va-data-table-transition);
-    }
-
     .table-transition-leave-active {
       transition: opacity var(--va-data-table-transition);
     }
 
     .table-transition-enter-active {
-      transition: opacity var(--va-data-table-transition) 0.3s;
+      transition: opacity var(--va-data-table-transition) 0.2s;
     }
 
     .table-transition-enter-from,
-    .table-transition-leave-to {
+    .table-transition-rows-enter-from,
+    .table-transition-leave-to,
+    .table-transition-rows-leave-to {
       opacity: 0;
+    }
+
+    .table-transition-rows-move {
+      transition: transform var(--va-data-table-transition);
+    }
+
+    .table-transition-rows-leave-active {
+      transition: none;
+    }
+
+    .table-transition-rows-enter-active {
+      transition: opacity var(--va-data-table-transition);
     }
   }
 }

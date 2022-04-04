@@ -30,7 +30,7 @@ import { useSize, useSizeProps } from '../../composables/useSize'
 import { useLoadingProps } from '../../composables/useLoading'
 
 import VaIcon from '../va-icon'
-import { VaProgressCircle } from '../va-progress-bar'
+import { VaProgressCircle } from '../va-progress-circle'
 
 export default defineComponent({
   name: 'VaAvatar',
