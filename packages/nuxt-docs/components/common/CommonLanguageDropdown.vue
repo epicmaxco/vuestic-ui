@@ -30,7 +30,7 @@
 
 <script lang="ts" setup>
 import { getColors } from 'vuestic-ui'
-import { languages } from '../../../locales'
+import { languages } from '../../locales'
 
 const { locale, t } = useI18n()
 
