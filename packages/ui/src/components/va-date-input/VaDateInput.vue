@@ -108,8 +108,8 @@ export default defineComponent({
   },
 
   props: {
-    ...extractComponentProps(VaDatePicker),
     ...VaInputProps,
+    ...extractComponentProps(VaDatePicker),
 
     ...useClearableProps,
     clearValue: { type: Date as PropType<VaDatePickerModelValue>, default: undefined },
