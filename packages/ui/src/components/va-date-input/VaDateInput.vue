@@ -90,7 +90,6 @@ const VaInputProps = {
   ...useFormProps,
 
   label: { type: String, required: false },
-  color: { type: String, default: 'primary' },
   placeholder: { type: String, default: '' },
   tabindex: { type: Number, default: 0 },
   outline: { Boolean, default: false },
@@ -110,9 +109,9 @@ export default defineComponent({
 
   props: {
     ...VaInputProps,
+    ...useClearableProps,
     ...extractComponentProps(VaDatePicker),
 
-    ...useClearableProps,
     clearValue: { type: Date as PropType<VaDatePickerModelValue>, default: undefined },
 
     resetOnClose: { type: Boolean, default: true },
@@ -127,6 +126,7 @@ export default defineComponent({
     rangeDelimiter: { type: String, default: ' ~ ' },
     manualInput: { type: Boolean, default: false },
 
+    color: { type: String, default: 'primary' },
     leftIcon: { type: Boolean, default: false },
     icon: { type: String, default: 'calendar_today' },
   },
