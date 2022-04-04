@@ -86,6 +86,7 @@ import { VaDatePickerModelValue } from '../va-date-picker/types/types'
 
 const VaInputProps = {
   ...useValidationProps,
+  ...useStatefulProps,
   ...useFormProps,
 
   label: { type: String, required: false },
@@ -110,7 +111,6 @@ export default defineComponent({
   props: {
     ...extractComponentProps(VaDatePicker),
     ...VaInputProps,
-    ...useStatefulProps,
 
     ...useClearableProps,
     clearValue: { type: Date as PropType<VaDatePickerModelValue>, default: undefined },
