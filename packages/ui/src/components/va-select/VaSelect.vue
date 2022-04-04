@@ -279,20 +279,20 @@ export default defineComponent({
 
     // Select value
 
-    const valueComputed = computed({
+    const valueComputed = computed<SelectableOption | SelectableOption[]>({
       get () {
         const value = getOptionByValue(props.modelValue)
 
         if (props.multiple) {
           if (!value) {
-            return [] as SelectableOption[]
+            return []
           }
 
           if (!Array.isArray(value)) {
             return [value]
           }
 
-          return value as SelectableOption[]
+          return value
         }
 
         if (Array.isArray(value)) {
