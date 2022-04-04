@@ -11,17 +11,8 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/epicmaxco/vuestic-ui/tree/develop/packages/bundlers-tests">
-   <img src="https://img.shields.io/github/package-json/v/epicmaxco/vuestic-ui?filename=packages%2Fbundlers-tests%2Fpackage.json&label=bundlers-tests">
-  </a>
-  <a href="https://github.com/epicmaxco/vuestic-ui/tree/develop/packages/docs">
-    <img src="https://img.shields.io/github/package-json/v/epicmaxco/vuestic-ui?filename=packages%2Fdocs%2Fpackage.json&label=docs">
-  </a>
   <a href="https://github.com/epicmaxco/vuestic-ui/tree/develop/packages/extensions/ag-grid-theme">
     <img src="https://img.shields.io/npm/v/@vuestic/ag-grid-theme?label=ag-grid-theme">
-  </a>
-  <a href="https://github.com/epicmaxco/vuestic-ui/tree/develop/packages/vue-cli-example">
-   <img src="https://img.shields.io/github/package-json/v/epicmaxco/vuestic-ui?filename=packages%2Fvue-cli-example%2Fpackage.json&label=vue-cli-example">
   </a>
   <a href="https://github.com/epicmaxco/vuestic-ui/tree/develop/packages/vue-cli-plugin">
     <img src="https://img.shields.io/npm/v/vue-cli-plugin-vuestic-ui?label=vue-cli-plugin">
