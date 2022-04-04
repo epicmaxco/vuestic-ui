@@ -1,8 +1,15 @@
 <template>
-  <va-sidebar class="sidebar" v-model="visible" :width="sidebarWidth">
+  <va-sidebar
+    class="sidebar"
+    v-model="writableVisible"
+    :width="sidebarWidth"
+  >
     <algolia-search />
 
-    <va-accordion v-model="value" multiply>
+    <va-accordion
+      v-model="value"
+      multiply
+    >
       <va-collapse
         v-for="(route, key) in navigationRoutes"
         :key="key"
@@ -11,11 +18,11 @@
           <div
             class="sidebar__collapse-custom-header"
             :class="{
-              'sidebar__collapse-custom-header--active': isRouteHasActiveChild(route),
+              'sidebar__collapse-custom-header--active': routeHasActiveChild(route),
               'sidebar__collapse-custom-header--keyboard-focused': hasKeyboardFocus
             }"
           >
-            {{ $t(route.displayName) }}
+            {{ t(route.displayName) }}
             <va-icon :name="value ? 'expand_less' : 'expand_more'" />
           </div>
         </template>
@@ -25,14 +32,14 @@
           class="va-sidebar__child"
         >
           <va-list-label
-              v-if="childRoute.category"
-              class="va-sidebar__child__label"
-              color="gray"
-            >
-              {{ $t(childRoute.category) }}
+            v-if="childRoute.category"
+            class="va-sidebar__child__label"
+            color="gray"
+          >
+            {{ t(childRoute.category) }}
           </va-list-label>
           <va-sidebar-item
-            :to="`/${$root.$i18n.locale}/${route.name}/${childRoute.name}`"
+            :to="`/${locale}/${route.name}/${childRoute.name}`"
             :active="isActiveChildRoute(childRoute, route)"
             :activeColor="activeColor"
             :hover-color="hoverColor"
@@ -42,15 +49,18 @@
           >
             <va-sidebar-item-content>
               <va-sidebar-item-title>
-                {{ $t(childRoute.displayName) }}
+                {{ t(childRoute.displayName) }}
               </va-sidebar-item-title>
-              <div class="va-sidebar-item-badges" v-if="childRoute.meta && childRoute.meta.badge">
+              <div
+                class="va-sidebar-item-badges"
+                v-if="childRoute.meta && childRoute.meta.badge"
+              >
                 <va-chip
                   size="small"
                   :color="badgeColors[childRoute.meta.badge]"
-                  :title="$t(`menu.badges.${childRoute.meta.badge}.title`)"
+                  :title="t(`menu.badges.${childRoute.meta.badge}.title`)"
                 >
-                  {{ $t(`menu.badges.${childRoute.meta.badge}.text`) }}
+                  {{ t(`menu.badges.${childRoute.meta.badge}.text`) }}
                 </va-chip>
               </div>
             </va-sidebar-item-content>
@@ -62,85 +72,81 @@
 </template>
 
 <script lang="ts">
-import { watch } from 'vue'
-import { Options, Vue, prop } from 'vue-class-component'
+import { defineComponent, watch, ref, computed, PropType } from 'vue'
+import { useRoute, RouteRecord } from 'vue-router'
+import { useI18n } from 'vue-i18n'
+
 import AlgoliaSearch from './algolia-search/AlgoliaSearch.vue'
-import VaSidebarLink from './SidebarLink.vue'
-import { getColor, useColors } from 'vuestic-ui/src/main'
+import { useColors } from 'vuestic-ui/src/main'
 
-class Props {
-  navigationRoutes = prop<any[]>({ type: Array, default: () => [] })
-  visible = prop<boolean>({ type: Boolean, default: false })
-  mobile = prop<boolean>({ type: Boolean, default: false })
-}
+import { NavigationRoute } from './NavigationRoute'
 
-@Options({
+export default defineComponent({
   name: 'DocsSidebar',
-  components: { AlgoliaSearch, VaSidebarLink },
-})
-export default class Sidebar extends Vue.with(Props) {
-  value = [] as boolean[]
+  components: { AlgoliaSearch },
+  props: {
+    navigationRoutes: { type: Array as PropType<NavigationRoute[]>, default: () => [] },
+    visible: { type: Boolean, default: false },
+    mobile: { type: Boolean, default: false },
+  },
+  setup: (props, { emit }) => {
+    const { getColor, getFocusColor, getHoverColor } = useColors()
+    const route = useRoute()
 
-  created () {
-    watch(() => (this as any).$route, this.onRouteChange, { immediate: true })
-  }
-
-  getColor (color: string) {
-    return getColor(color)
-  }
-
-  badgeColors = { wip: 'primary', new: 'success' }
-
-  get activeColor () {
-    const { getColor, getFocusColor } = useColors()
-    const color = getColor('primary')
-    return getFocusColor(color)
-  }
-
-  get hoverColor () {
-    const { getColor, getHoverColor } = useColors()
-    const color = getColor('primary')
-    return getHoverColor(color)
-  }
-
-  onRouteChange () {
-    this.setActiveExpand()
-  }
-
-  isActiveChildRoute (route: { name: string }, parent: { name: string }) {
-    const vue = this as any
-    const path = `/${vue.$root.$i18n.locale}/${parent.name}/${route.name}`
-    return path === vue.$route.path
-  }
-
-  isRouteHasActiveChild (route: { name: string, children: {name: string}[] }) {
-    const pathSteps: string[] = (this as any).$route.path.split('/').filter(Boolean)
-    return !!route.children
-      .some(({ name }: { name: string}) => pathSteps.includes(name))
-  }
-
-  setActiveExpand () {
-    this.value = this.navigationRoutes.map((route, index) => {
-      if (!route.children || this.value[index]) { return this.value[index] }
-
-      return this.isRouteHasActiveChild(route)
+    const value = ref<boolean[]>([])
+    const writableVisible = computed({
+      get: () => props.visible,
+      set: (v: boolean) => emit('update:visible', v),
     })
-  }
 
-  get sidebarWidth () {
-    if (this.mobile) {
-      return '100%'
+    const i18n = useI18n()
+    const isActiveChildRoute = (route: NavigationRoute, parent: NavigationRoute) => {
+      const path = `/${i18n.locale}/${String(parent.name)}/${String(route.name)}`
+
+      return path === route.path
     }
 
-    return '16rem'
-  }
+    const routeHasActiveChild = (route: NavigationRoute) => {
+      const pathSteps = route.path?.split('/').filter(Boolean)
 
-  onSidebarItemClick () {
-    if (this.mobile) {
-      this.$emit('update:visible', false)
+      return !!route.children?.some(({ name }) => pathSteps?.includes(String(name)))
     }
-  }
-}
+
+    const setActiveExpand = () => {
+      value.value = props.navigationRoutes.map((route, i) => {
+        if (!route.children || value.value[i]) { return value.value[i] }
+
+        return routeHasActiveChild(route)
+      })
+    }
+
+    const sidebarWidth = computed(() => props.mobile ? '100%' : '16rem')
+
+    const onSidebarItemClick = () => {
+      if (props.mobile) {
+        emit('update:visible', false)
+      }
+    }
+
+    watch(() => route, setActiveExpand, { immediate: true })
+
+    return {
+      ...i18n,
+      route,
+      getColor,
+      writableVisible,
+      sidebarWidth,
+      value,
+      routeHasActiveChild,
+      isActiveChildRoute,
+      onSidebarItemClick,
+      badgeColors: { wip: 'primary', new: 'success' },
+      activeColor: computed(() => getFocusColor(getColor('primary'))),
+      hoverColor: computed(() => getHoverColor(getColor('primary'))),
+
+    }
+  },
+})
 </script>
 
 <style lang="scss">
@@ -160,7 +166,7 @@ export default class Sidebar extends Vue.with(Props) {
     cursor: pointer;
 
     ::before {
-      content: '';
+      content: "";
       position: absolute;
       top: 0;
       left: 0;
