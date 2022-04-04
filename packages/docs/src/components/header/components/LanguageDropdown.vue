@@ -78,7 +78,6 @@ export default defineComponent({
 
 <style lang="scss">
 .language-dropdown {
-  font-weight: 600;
   cursor: pointer;
 
   .va-button__content {
