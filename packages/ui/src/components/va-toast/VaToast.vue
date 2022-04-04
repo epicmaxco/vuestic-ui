@@ -2,19 +2,20 @@
   <transition name="va-toast-fade">
     <div
       v-show="visible"
-      :class="['va-toast', $props.multiLine ? 'va-toast--multiline' : '', ...toastClasses]"
+      :class="['va-toast', ...toastClasses]"
       :style="toastStyles"
-      @mouseenter="clearTimer()"
-      @mouseleave="startTimer()"
-      @click="onToastClick()"
+      @mouseenter="clearTimer"
+      @mouseleave="startTimer"
+      @click="onToastClick"
       role="alert"
+      ref="rootElement"
     >
       <div class="va-toast__group">
-        <h2 v-if="title" class="va-toast__title" v-text="title"></h2>
+        <h2 v-if="title" class="va-toast__title" v-text="title" />
 
         <div class="va-toast__content" v-show="message">
-          <p v-if="html" v-html="computedMessage"></p>
-          <p v-else v-text="computedMessage"></p>
+          <p v-if="html" v-html="computedMessage" />
+          <p v-else v-text="computedMessage" />
         </div>
 
         <div class="va-toast__content" v-if="render">
@@ -34,148 +35,132 @@
 </template>
 
 <script lang="ts">
-import { h } from 'vue'
-import { prop, mixins, Vue, Options } from 'vue-class-component'
+import { defineComponent, h, PropType, ref, computed, onMounted, render, VNode } from 'vue'
+
+import { useColors } from '../../composables/useColor'
+import { useTimer } from '../../composables/useTimer'
 import VaIcon from '../va-icon/VaIcon.vue'
 
-import ColorMixin from '../../services/color-config/ColorMixin'
 import { NotificationPosition } from './types'
 
-class ToastProps {
-  title = prop<string>({ type: String, default: '' })
-  offsetY = prop<number>({ type: Number, default: 16 })
-  offsetX = prop<number>({ type: Number, default: 16 })
-  message = prop<string | Function>({ type: [String, Function] as any, default: '' })
-  html = prop<boolean>({ type: Boolean, default: false })
-  icon = prop<string>({ type: String, default: 'close' })
-  customClass = prop<string>({ type: String, default: '' })
-  duration = prop<number>({ type: Number, default: 5000 })
-  color = prop<string>({ type: String, default: '' })
-  closeable = prop<boolean>({ type: Boolean, default: true })
-  onClose = prop<() => void>({ type: [Function, undefined] as any })
-  onClick = prop<() => void>({ type: [Function, undefined] as any })
-  multiLine = prop<boolean>({ type: Boolean, default: false })
-  position = prop<NotificationPosition>({
-    type: String as any,
-    default: 'top-right',
-    validator: (value: string) => {
-      return ['top-right', 'top-left', 'bottom-right', 'bottom-left'].includes(value)
-    },
-  })
-  render = prop<any>({ type: Function, default: undefined })
-}
-
-class VaToastRendererProps {
-  content = prop<any>({ type: Function, default: undefined })
-}
-
-const VaToastRendererPropsMixin = Vue.with(VaToastRendererProps)
-
-@Options({
+const VaToastRenderer = defineComponent({
   name: 'VaToastRenderer',
+  props: {
+    content: { type: Function, required: true },
+  },
+  setup: (props) => props.content(h),
 })
-class VaToastRenderer extends mixins(VaToastRendererPropsMixin) {
-  render () {
-    return this.content(h)
-  }
-}
 
-const ToastPropsMixin = Vue.with(ToastProps)
-
-@Options({
+export default defineComponent({
   name: 'VaToast',
   components: { VaIcon, VaToastRenderer },
   emits: ['on-click', 'on-close'],
-})
-export default class VaToast extends mixins(
-  ColorMixin,
-  ToastPropsMixin,
-) {
-  private timer: any = null
-  public visible = false
+  props: {
+    title: { type: String as PropType<string>, default: '' },
+    offsetY: { type: Number as PropType<number>, default: 16 },
+    offsetX: { type: Number as PropType<number>, default: 16 },
+    message: { type: [String, Function], default: '' },
+    html: { type: Boolean as PropType<boolean>, default: false },
+    icon: { type: String as PropType<string>, default: 'close' },
+    customClass: { type: String as PropType<string>, default: '' },
+    duration: { type: Number as PropType<number>, default: 5000 },
+    color: { type: String as PropType<string>, default: '' },
+    closeable: { type: Boolean as PropType<boolean>, default: true },
+    onClose: { type: Function },
+    onClick: { type: Function },
+    multiLine: { type: Boolean as PropType<boolean>, default: false },
+    position: {
+      type: String as PropType<NotificationPosition>,
+      default: 'top-right',
+      validator: (value: string) => ['top-right', 'top-left', 'bottom-right', 'bottom-left'].includes(value),
+    },
+    render: { type: Function },
+  },
+  setup (props, { emit }) {
+    const { getColor } = useColors()
 
-  get positionX (): 'right' | 'left' {
-    return this.position.includes('right') ? 'right' : 'left'
-  }
+    const rootElement = ref<HTMLElement>()
 
-  get positionY (): 'top' | 'bottom' {
-    return this.position.includes('top') ? 'top' : 'bottom'
-  }
+    const visible = ref(false)
 
-  get toastClasses () {
-    return [this.customClass]
-  }
+    const positionX = computed(() => {
+      return props.position.includes('right') ? 'right' : 'left'
+    })
 
-  get toastStyles () {
+    const positionY = computed(() => {
+      return props.position.includes('top') ? 'top' : 'bottom'
+    })
+
+    const toastClasses = computed(() => [
+      props.customClass,
+      props.multiLine ? 'va-toast--multiline' : '',
+    ])
+
+    const toastStyles = computed(() => ({
+      [positionY.value]: `${props.offsetY}px`,
+      [positionX.value]: `${props.offsetX}px`,
+      backgroundColor: getColor(props.color),
+    }))
+
+    const computedMessage = computed(() => (typeof props.message === 'function') ? props.message() : props.message)
+
+    const destroyElement = () => {
+      rootElement.value?.removeEventListener('transitionend', destroyElement)
+
+      rootElement.value?.remove()
+    }
+
+    const onToastClick = () => {
+      if (typeof props.onClick === 'function') {
+        props.onClick()
+      } else {
+        emit('on-click')
+      }
+    }
+
+    const onToastClose = () => {
+      visible.value = false
+
+      rootElement.value?.addEventListener('transitionend', destroyElement)
+
+      if (typeof props.onClose === 'function') {
+        props.onClose()
+      } else {
+        emit('on-close')
+      }
+    }
+
+    const timer = useTimer()
+    const clearTimer = timer.clear
+    const startTimer = () => {
+      if (props.duration > 0) {
+        timer.start(() => visible.value && onToastClose(), props.duration)
+      }
+    }
+
+    onMounted(() => {
+      visible.value = true
+
+      startTimer()
+    })
+
     return {
-      [this.positionY]: `${this.offsetY}px`,
-      [this.positionX]: `${this.offsetX}px`,
-      backgroundColor: this.colorComputed,
+      visible,
+      toastClasses,
+      toastStyles,
+      computedMessage,
+      onToastClick,
+      onToastClose,
+      startTimer,
+      clearTimer,
     }
-  }
-
-  get computedMessage () {
-    return (typeof this.message === 'function') ? this.message() : this.message
-  }
-
-  destroyElement () {
-    this.$el.removeEventListener('transitionend', this.destroyElement)
-
-    // TODO: not sure if this is really needed (it doesn't work in vue3)
-    // this.$destroy() // or this.$destroy(true)
-
-    this.$el.remove() // or this.$el.parentNode?.removeChild(this.$el)
-  }
-
-  onToastClick () {
-    if (typeof this.$props.onClick === 'function') {
-      this.$props.onClick()
-      return
-    }
-    this.$emit('click')
-  }
-
-  onToastClose () {
-    this.visible = false
-    this.$el.addEventListener('transitionend', this.destroyElement)
-    if (typeof this.onClose === 'function') {
-      this.onClose()
-      return
-    }
-    this.$emit('close')
-  }
-
-  clearTimer () {
-    if (this.timer) {
-      clearTimeout(this.timer)
-    }
-  }
-
-  startTimer () {
-    if (this.duration > 0) {
-      this.timer = setTimeout(() => {
-        if (this.visible) {
-          this.onToastClose()
-        }
-      }, this.duration)
-    }
-  }
-
-  mounted () {
-    this.visible = true
-    if (this.duration > 0) {
-      this.timer = setTimeout(() => {
-        if (this.visible) {
-          this.onToastClose()
-        }
-      }, this.duration)
-    }
-  }
-}
+  },
+})
 </script>
+
 <style lang="scss">
 @import "../../styles/resources";
-@import 'variables';
+@import "variables";
 
 .va-toast {
   display: flex;
@@ -189,7 +174,13 @@ export default class VaToast extends mixins(
   background-color: white;
   color: #ffffff;
   box-shadow: $toast-shadow;
-  transition: opacity 0.3s, transform 0.3s, left 0.3s, right 0.3s, top 0.4s, bottom 0.3s;
+  transition:
+    opacity 0.3s,
+    transform 0.3s,
+    left 0.3s,
+    right 0.3s,
+    top 0.4s,
+    bottom 0.3s;
   overflow: hidden;
   z-index: var(--va-toast-z-index);
   font-family: var(--va-font-family);
@@ -263,5 +254,4 @@ export default class VaToast extends mixins(
 .va-toast-fade-leave-active {
   opacity: 0;
 }
-
 </style>

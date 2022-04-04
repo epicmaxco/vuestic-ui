@@ -684,8 +684,6 @@ export default {
       this.isLoading = true
       setTimeout(() => {
         this.isLoading = false
-        // eslint-disable-next-line no-console
-        console.log(val)
       }, 2000)
     },
     alert (str) {

@@ -7,6 +7,8 @@
       <va-date-input v-model="range" leftIcon />
       Dates and clearable
       <va-date-input v-model="dates" clearable />
+      Statefull
+      <va-date-input stateful clearable />
     </VbCard>
 
     <VbCard title="icon & clearable">
@@ -153,8 +155,32 @@
       />
     </VbCard>
 
+    <VbCard title="View prop">
+      <va-date-input
+          v-model="value"
+          v-model:view="dayView"
+          label="Calendar should open on 2013"
+      />
+    </VbCard>
+
     <VbCard title="Reset Model Value">
       <va-button @click="resetModelValue()">Reset model value</va-button>
+    </VbCard>
+
+    <VbCard title="Set Model Value">
+      <va-button @click="setModelValue()">Set model value</va-button>
+    </VbCard>
+
+    <VbCard title="state">
+      <va-date-input v-model="value" disabled clearable label="Disabled" />
+      <va-date-input v-model="value" readonly clearable label="Readonly" />
+      <va-date-input v-model="value" success clearable label="Success" />
+      <va-date-input v-model="value" error clearable label="Error" />
+    </VbCard>
+
+    <VbCard title="validation">
+      <va-date-input v-model="value" :rules="validationRules1" clearable />
+      <va-date-input v-model="value" :rules="validationRules2" clearable />
     </VbCard>
   </VbDemo>
 </template>
@@ -178,6 +204,16 @@ export default {
       value: new Date(),
       range: { start: new Date(), end: nextWeek },
       dates: [new Date(), nextWeek],
+      dayView: { type: 'day', month: 3, year: 2013 },
+
+      validationRules1: [(value: Date) => {
+        return !!value || 'Should be value'
+      }],
+
+      validationRules2: [(value: Date) => {
+        if (!value) { return true }
+        return value.getDate?.() === 10 || 'Should be 10th day'
+      }],
 
       // Dropdown
       isOpen: false,
@@ -185,7 +221,14 @@ export default {
   },
   methods: {
     resetModelValue () {
-      (this as any).value = undefined
+      (this as any).value = undefined;
+      (this as any).range = undefined;
+      (this as any).dates = undefined
+    },
+    setModelValue () {
+      (this as any).value = new Date();
+      (this as any).range = { start: new Date(), end: nextWeek };
+      (this as any).dates = [new Date(), nextWeek]
     },
   },
 }
