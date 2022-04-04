@@ -298,7 +298,7 @@ export default class VaModal extends mixins(
 
   &-enter-active &__container,
   &-leave-active &__container {
-    transition: $modal-transform-transition, $modal-transform-transition;
+    transition: $modal-opacity-transition, $modal-transform-transition;
   }
 
   &__dialog {
