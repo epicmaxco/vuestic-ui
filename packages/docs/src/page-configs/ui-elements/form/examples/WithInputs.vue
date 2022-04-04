@@ -15,13 +15,19 @@
         class="mb-4"
         label="Name"
         v-model="inputValue"
-        :rules="[value => value === 'Ben' || 'Should be Ben']"
+        :rules="inputRules"
       />
       <va-select style="width: 300px;"
+        class="mb-4"
         label="City"
         v-model="selectValue"
-        :rules="[value => value === 'Minsk' || 'Should be Minsk']"
+        :rules="selectRules"
         :options="['Minsk', 'Los Angeles', 'San Francisco', 'Peru']"
+      />
+      <va-date-input
+        label="Date"
+        v-model="inputDate"
+        :rules="dateRules"
       />
     </va-form>
 
@@ -41,7 +47,11 @@ export default {
     return {
       inputValue: '',
       selectValue: '',
+      inputDate: undefined,
       validation: null,
+      inputRules: [value => value === 'Ben' || 'Should be Ben'],
+      selectRules: [value => value === 'Minsk' || 'Should be Minsk'],
+      dateRules: [value => !!value || 'Should be date'],
     }
   },
 }

@@ -74,5 +74,5 @@ export function extractComponentProps<T> (component: T, ignoreProps?: string[]):
 declare type ExtractEmitsType<T> = T extends ComponentOptionsBase<any, any, any, any, any, any, any, infer E> ? E: []
 
 export function extractComponentEmits<T> (component: T): ExtractEmitsType<T> {
-  return (component as any).emits
+  return [...new Set((component as any).emits)] as any
 }

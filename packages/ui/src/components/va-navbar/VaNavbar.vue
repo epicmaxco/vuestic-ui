@@ -25,45 +25,40 @@
 </template>
 
 <script lang="ts">
-import { Vue, Options, mixins, prop } from 'vue-class-component'
+import { defineComponent, PropType, computed, StyleValue } from 'vue'
 
-import ColorMixin from '../../services/color-config/ColorMixin'
 import { shiftHSLAColor } from '../../services/color-config/color-functions'
 import { useColors } from '../../services/color-config/color-config'
 
-class Props {
-  color = prop<string>({ type: String, default: 'secondary' })
-  textColor = prop<string>({ type: String, default: undefined })
-  shape = prop<boolean>({ type: Boolean, default: false })
-}
-
-const NavbarPropsMixin = Vue.with(Props)
-
-@Options({
+export default defineComponent({
   name: 'VaNavbar',
-})
-export default class VaNavbar extends mixins(ColorMixin, NavbarPropsMixin) {
-  get navbarStyle () {
+  props: {
+    color: { type: String as PropType<string>, default: 'secondary' },
+    textColor: { type: String as PropType<string>, default: undefined },
+    shape: { type: Boolean as PropType<boolean>, default: false },
+  },
+  setup (props) {
     const { getTextColor, getColor } = useColors()
 
-    const textColor = this.$props.textColor
-      ? getColor(this.$props.textColor)
-      : getTextColor(this.colorComputed)
+    const color = computed(() => getColor(props.color))
+    const textColor = computed(() => props.textColor ? getColor(props.textColor) : getTextColor(color.value))
 
-    return {
-      backgroundColor: this.colorComputed,
+    const shapeStyle = computed(() => ({
+      borderTopColor: shiftHSLAColor(color.value, { h: -1, s: -11, l: 10 }),
+    }))
+
+    const navbarStyle = computed(() => ({
+      backgroundColor: color.value,
       color: textColor,
       fill: textColor,
-    }
-  }
+    })) as StyleValue
 
-  get shapeStyle () {
-    // all the 3 color components differ for the shape from the secondary color
     return {
-      borderTopColor: shiftHSLAColor(this.colorComputed, { h: -1, s: -11, l: 10 }),
+      navbarStyle,
+      shapeStyle,
     }
-  }
-}
+  },
+})
 </script>
 
 <style lang="scss">

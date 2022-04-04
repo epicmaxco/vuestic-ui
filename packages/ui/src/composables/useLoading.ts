@@ -2,7 +2,6 @@ import { PropType } from 'vue'
 
 export type LoadingProps = {
   loading: boolean
-  [prop: string]: unknown
 }
 
 /**

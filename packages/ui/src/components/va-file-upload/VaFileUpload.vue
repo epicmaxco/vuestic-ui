@@ -1,7 +1,7 @@
 <template>
   <div
     class="va-file-upload"
-    :class="{'va-file-upload--dropzone': dropzone}"
+    :class="{ 'va-file-upload--dropzone': dropzone }"
     :style="computedStyle"
   >
     <div class="va-file-upload__field">
@@ -15,23 +15,27 @@
         class="va-file-upload__field__button"
         :disabled="disabled"
         :color="colorComputed"
+        @change="changeFieldValue"
         @click="callFileDialogue()"
         icon=""
         icon-right=""
+        :style="{ 'pointer-events': dropzoneHighlight ? 'none' : '' }"
       >
         Upload file
       </va-button>
-      <input
-        ref="fileInputRef"
-        type="file"
-        class="va-file-upload__field__input"
-        :accept="fileTypes"
-        :multiple="type !== 'single'"
-        :disabled="disabled"
-        @change="changeFieldValue"
-        tabindex="-1"
-      >
     </div>
+    <input
+      ref="fileInputRef"
+      type="file"
+      class="va-file-upload__field__input"
+      :accept="fileTypes"
+      :multiple="type !== 'single'"
+      :disabled="disabled"
+      @change="changeFieldValue"
+      @dragenter="dropzoneHighlight = true"
+      @dragleave="dropzoneHighlight = false"
+      tabindex="-1"
+    >
     <va-file-upload-list
       v-if="files.length"
       :type="type"
@@ -50,12 +54,14 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, ref } from 'vue'
+import { computed, defineComponent, onMounted, ref, PropType } from 'vue'
 import { useColors } from '../../services/color-config/color-config'
 import { shiftHSLAColor } from '../../services/color-config/color-functions'
 import VaButton from '../va-button'
 import VaModal from '../va-modal'
 import VaFileUploadList from './VaFileUploadList'
+
+import type { VaFile } from './types'
 
 export default defineComponent({
   name: 'VaFileUpload',
@@ -67,18 +73,18 @@ export default defineComponent({
   },
 
   props: {
-    fileTypes: { type: String, default: '' },
-    dropzone: { type: Boolean, default: false },
-    color: { type: String, default: 'primary' },
-    disabled: { type: Boolean, default: false },
+    fileTypes: { type: String as PropType<string>, default: '' },
+    dropzone: { type: Boolean as PropType<boolean>, default: false },
+    color: { type: String as PropType<string>, default: 'primary' },
+    disabled: { type: Boolean as PropType<boolean>, default: false },
 
     modelValue: {
-      type: Array,
+      type: Array as PropType<VaFile[]>,
       default: () => [],
-      validator: (value: any) => Array.isArray(value),
+      validator: (value: VaFile[]) => Array.isArray(value),
     },
     type: {
-      type: String,
+      type: String as PropType<'list' | 'gallery' | 'single'>,
       default: 'list',
       validator: (value: string) => ['list', 'gallery', 'single'].includes(value),
     },
@@ -88,22 +94,29 @@ export default defineComponent({
 
   setup (props, { emit }) {
     const modal = ref(false)
-    const fileInputRef = ref<any>(null)
+    const dropzoneHighlight = ref(false)
+    const fileInputRef = ref<HTMLInputElement | null>(null)
 
     const { getColor } = useColors()
 
     const colorComputed = computed(() => getColor(props.color))
 
-    const computedStyle = computed(() => ({
-      backgroundColor: props.dropzone ? shiftHSLAColor(colorComputed.value, { a: -0.92 }) : 'transparent',
-    }))
+    const computedStyle = computed(() => {
+      if (props.dropzone) {
+        return {
+          backgroundColor: shiftHSLAColor(colorComputed.value, { a: dropzoneHighlight.value ? -0.82 : -0.92 }),
+        }
+      }
 
-    const files = computed<any[]>({
+      return { backgroundColor: 'transparent' }
+    })
+
+    const files = computed<VaFile[]>({
       get () { return props.modelValue },
       set (files) { emit('update:modelValue', files) },
     })
 
-    const validateFiles = (files: any) => files.filter((file: any) => {
+    const validateFiles = (files: VaFile[]) => files.filter((file) => {
       const fileName = file.name || file.url
       if (!fileName) { return false }
       if (file.url) { return true }
@@ -112,7 +125,7 @@ export default defineComponent({
       const isContainedMIMEType = MIMETypes.find((t) => props.fileTypes.includes(t))
 
       if (isContainedMIMEType) {
-        // Do not validatie MIMEType becouse there is too much to validate.
+        // Do not validate MIMEType because there is too much to validate.
         return true
       }
 
@@ -124,13 +137,15 @@ export default defineComponent({
       return isCorrectExt
     })
 
-    const uploadFile = (e: any) => {
-      const f = e.target.files || e.dataTransfer.files
+    const uploadFile = (e: Event | DragEvent) => {
+      const f = (e.target as HTMLInputElement)?.files || (e as DragEvent).dataTransfer?.files
+
+      if (!f) { return }
 
       files.value = [...files.value, ...(props.fileTypes ? validateFiles(Array.from(f)) : f)]
     }
 
-    const changeFieldValue = (e: Event) => {
+    const changeFieldValue = (e: Event | DragEvent) => {
       uploadFile(e)
 
       if (fileInputRef.value) {
@@ -156,6 +171,7 @@ export default defineComponent({
 
     return {
       modal,
+      dropzoneHighlight,
       fileInputRef,
       colorComputed,
       computedStyle,
@@ -171,16 +187,20 @@ export default defineComponent({
 </script>
 
 <style lang='scss'>
-@import '../../styles/resources';
-@import 'variables';
+@import "../../styles/resources";
+@import "variables";
 
 .va-file-upload {
   position: var(--va-file-upload-position);
   font-family: var(--va-font-family);
+  margin: var(--va-file-upload-margin);
+
+  .va-file-upload-list {
+    margin-top: var(--va-file-upload-list-margin-top);
+  }
 
   &--dropzone {
     background-color: var(--va-file-upload-dropzone-background-color);
-    padding: var(--va-file-upload-dropzone-padding);
     overflow: var(--va-file-upload-dropzone-overflow);
     border-radius: var(--va-file-upload-dropzone-border-radius);
     cursor: var(--va-file-upload-dropzone-cursor);
@@ -189,28 +209,29 @@ export default defineComponent({
       justify-content: center;
       display: flex;
       align-items: center;
-      padding: 0 2rem 1rem;
+      padding: var(--va-file-upload-dropzone-field-padding);
       transition: height 0.2s;
       overflow: visible;
       flex-wrap: wrap;
 
-      @include media-breakpoint-down(xs) {
+      @include media-breakpoint-down(sm) {
         flex-direction: column;
-        padding: 0 0 1rem;
+        padding: var(--va-file-upload-dropzone-field-padding-sm);
 
         &__text {
+          padding: var(--va-file-upload-dropzone-text-padding-sm);
           text-align: center;
         }
       }
     }
 
     .va-file-upload-list {
-      padding-bottom: 1rem;
+      padding: var(--va-file-upload-dropzone-list-padding);
+      margin-top: 0;
     }
   }
 
   &__field {
-    padding-bottom: var(--va-file-upload-dropzone-field-padding-bottom);
     overflow: var(--va-file-upload-dropzone-field-overflow);
     display: var(--va-file-upload-dropzone-field-display);
     align-items: var(--va-file-upload-dropzone-field-align-items);
@@ -238,14 +259,6 @@ export default defineComponent({
       &::-webkit-file-upload-button {
         cursor: pointer;
       }
-    }
-  }
-}
-
-@include media-breakpoint-down(xs) {
-  .va-file-upload {
-    &--dropzone {
-      padding: 1.5rem 1rem;
     }
   }
 }

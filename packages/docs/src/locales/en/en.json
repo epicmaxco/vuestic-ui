@@ -669,7 +669,10 @@
         "bordered": "Applies underscore",
         "focused": "Applies focus style",
         "canBeFocused": "If false, then input can not be focused using mouse or keyboard",
-        "immediateValidation": "Sets the validation to be performed when the component is mounted"
+        "requiredMark": "Adds required mark to the label",
+        "immediateValidation": "Sets the validation to be performed when the component is mounted",
+        "pattern": "The pattern prop specifies a regular expression the input value should match",
+        "inputmode": "The inputmode prop is an enumerated prop that hints at the type of data that might be entered by the user while editing the element or its contents. This alows a browser to display an apropriate virtual keyboard"
       },
       "events": {
         "change": "Emitted when the input loose focus or on `enter`",
@@ -752,6 +755,7 @@
         "valueBy": "Specify the key in the object to be used as item `value` prop. Can be string (path to the key) or function of type: `(option) => option.value`",
         "trackBy": "Specify the key in the object to be used as item `key` prop. Can be string (path to the key) or function of type: `(option) => option.track`",
         "textBy": "Specify the key in the object to be used as item `text` prop. Can be string (path to the key) or function of type: `(option) => option.text`",
+        "groupBy": "Specify the key in the object to be used as item `group` prop. Can be string (path to the key) or function of type: `(option) => option.group`",
         "placeholder": "Sets the placeholder text to input",
         "position": "Sets option list position",
         "tagMax": "Sets maximum tag count after whom selection will be cropped",
@@ -770,6 +774,7 @@
         "clearIcon": "Sets the clear icon",
         "dropdownIcon": "Sets the dropdown icon. Can be object if you want to sets different open/close icons",
         "bordered": "Applies style with bottom border",
+        "requiredMark": "Adds required mark to the label",
         "separator": "Text to separate selected values"
       },
       "events": {
@@ -845,7 +850,8 @@
       },
       "methods": {},
       "slots": {
-        "default": "Dropdown content slot."
+        "default": "Dropdown content slot.",
+        "label": "Content for dropdown button."
       }
     },
     "VaColorInput": {
@@ -889,7 +895,9 @@
         "allowFooterSorting": "Allows clicks on `<tfoot>` column headers to sort (and to display the sorting status) the rows",
         "striped": "Sets the striped style to the `<tbody>` rows (highlights each 2nd row)",
         "hoverable": "Allows the hover state on table rows within a `<tbody>`. The highlighting color of the hover state takes from `selected-color` prop",
-        "animated": "Sets css `transition` to table rows"
+        "animated": "Sets css `transition` to table rows",
+        "stickyHeader": "Enables sticky header (sticky header is achieved through CSS with `position: sticky` for `thead`)",
+        "height": "Sets the height to the table and enables scrolling"
       },
       "events": {
         "updateSortBy": "Emits when `sort-by` changed",
@@ -1158,6 +1166,7 @@
         "focused": "Applies focus style",
         "canBeFocused": "If false, then input can not be focused using mouse or keyboard",
         "icon": "Sets an icon. The default icon position is on the right",
+        "requiredMark": "Adds required mark to the label",
         "leftIcon": "Sets the icon position to the left"
       },
       "events": {},
@@ -1300,7 +1309,30 @@
     "api": "API",
     "faq": "FAQ",
     "code": {
-      "or": "or"
+      "or": "or",
+      "folderStructure": {
+        "componentDirectory": "component directory",
+        "componentItself": "component itself",
+        "componentDemo": "component demo",
+        "componentTests": "compoennt tests"
+      },
+      "npmScripts": {
+        "runVueBookDevServer": "Run vue-book dev server",
+        "generateFilesForComponent": "Generate all needed files for component (component itself, docs, tests)",
+        "buildVueBook": "Build vue-book bundle",
+        "lint": "Lint everything",
+        "runTests": "Run tests",
+        "runVuepressDevServer": "Run vuepress dev server",
+        "buildVuepress": "Build vuepress bundle"
+      },
+      "aliasAndFontExample": {
+        "twitterColor": "Twitter blue brand color",
+        "VuesticColor": "Vuestic green brand color",
+        "from": "from",
+        "alias": "alias",
+        "font": "font",
+        "to": "to"
+      }
     },
     "examplesTexts": {
       "button": "Your button"
@@ -2611,8 +2643,9 @@
           "`.justify--start` - items are packed toward the start line",
           "`.justify--end` - items are packed toward to end line",
           "`.justify--center` - items are centered along the line",
-          "`.justify--space-around` - items are evenly distributed in the line with equal space around them",
-          "`.justify--space-between` - items are evenly distributed in the line; first item is on the start line, last item is on the end line"
+          "`.justify--space-around` - items are evenly distributed in the line, items have equal space around on either end",
+          "`.justify--space-between` - items are evenly distributed in the line; first item is on the start line, last item is on the end line",
+          "`.justify--space-evenly` - items are evenly distributed in the line; items have equal space around them"
         ]
       },
       "justifySelf": {
@@ -2894,6 +2927,10 @@
       },
       "formattingGlobalConfig": {
         "text": "You can easily use your format functions for all VaDateInputs using [Global Config](/services/components-config) feature."
+      },
+      "validation": {
+        "title": "Validation",
+        "text": "Validation works the same way as `VaInput` validation, except rules functions should accept `Date` instead of `string`."
       }
     }
   },
@@ -3624,6 +3661,13 @@
       "styling": {
         "title": "Styling",
         "text": "Should be specified on columns (see the `columns` prop below). Allows to provide different values (`text-align`, `vertical-align` and `width` css properties, custom `class` and `style`) for headers and for columns' cells."
+      },
+      "stickyHeader": {
+        "title": "Sticky header",
+        "text": [
+          "The sticky header is set by the `sticky-header` property. Sticky header is achieved through CSS with `position: sticky`. This is NOT supported on all browsers. Check [caniuse.com](https://caniuse.com/?search=sticky)[[target=_blank]] before using this technique.",
+          "To work correctly, it is important to limit the height (set the value in the `height` property of the component or using the CSS `height` or `max-height` properties) of the table and assign a background color (set the CSS value `background-color`) of the table header."
+        ]
       },
       "other": {
         "title": "Other",

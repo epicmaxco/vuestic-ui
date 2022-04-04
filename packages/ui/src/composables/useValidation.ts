@@ -17,7 +17,6 @@ export interface ValidationProps {
   success: boolean
   messages: string[] | string
   immediateValidation: boolean
-  [prop: string]: unknown
 }
 
 export const useValidationProps = {
