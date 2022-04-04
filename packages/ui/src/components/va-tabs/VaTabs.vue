@@ -35,10 +35,9 @@
           </div>
 
           <va-config :components="tabConfig">
-            <slot
-              name="tabs"
-              class="va-tabs__tabs-items"
-            />
+            <div class="va-tabs__tabs-items">
+              <slot name="tabs"></slot>
+            </div>
           </va-config>
         </div>
       </div>
@@ -115,7 +114,7 @@ export default defineComponent({
     const startingXPoint = ref(0)
     const animationIncluded = ref(false)
     const { colorComputed } = useColor(props)
-    const { valueComputed: tabSelected } = useStateful(props, emit)
+    const { valueComputed: tabSelected }: { valueComputed: Ref<string | number | null> } = useStateful(props, emit)
     const tabConfig = reactive({
       VaTab: {
         color: props.color,
