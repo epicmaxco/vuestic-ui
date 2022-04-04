@@ -1,8 +1,5 @@
 <template>
-  <va-parallax
-    target=".base-layout__content"
-    :src="imageSrc"
-  >
+  <va-parallax :src="imageSrc">
     {{ lorem }}
   </va-parallax>
 </template>

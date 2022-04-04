@@ -25,7 +25,7 @@ export default defineComponent({
   props: {
     target: {
       type: [Object, String] as PropType<Element | string>,
-      default: () => document.body,
+      default: () => window as any as Element,
     },
 
     visibilityHeight: { type: Number as PropType<number>, default: 300 },
@@ -53,9 +53,9 @@ export default defineComponent({
       [props.horizontalPosition]: props.horizontalOffset,
     }))
 
-    let targetElement: Element = document.body
+    let targetElement: Element = window as any as Element
     const getTargetElement = () => typeof props.target === 'string'
-      ? document.querySelector(props.target) || document.body
+      ? document.querySelector(props.target) || window as any as Element
       : props.target
 
     const scrolled = ref(false)

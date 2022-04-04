@@ -1,22 +1,22 @@
 export const npmScripts = `
-// Run vue-book dev server
+// {{ $t('all.code.npmScripts.runVueBookDevServer')}}
 $ yarn serve:book
 
-// Generate all needed files for component (component itself, docs, tests)
+// {{ $t('all.code.npmScripts.generateFilesForComponent') }}
 $ yarn generate:component
 
-// Build vue-book bundle
+// {{ $t('all.code.npmScripts.buildVueBook') }}
 $ yarn build:book
 
-// Lint everything
+// {{ $t('all.code.npmScripts.lint') }}
 $ yarn lint
 
-// Run tests
+// {{ $t('all.code.npmScripts.runTests') }}
 $ yarn test:unit
 
-// Run vuepress dev server
+// {{ $t('all.code.npmScripts.runVuepressDevServer') }}
 $ yarn serve:docs
 
-// Build vuepress bundle
+// {{ $t('all.code.npmScripts.buildVuepress') }}
 $ yarn build:docs
 `

@@ -10,7 +10,6 @@ export interface RouterLinkProps {
   exactActiveClass: string
   href: string
   target: string
-  [prop: string]: unknown
 }
 
 export const useRouterLinkProps = {

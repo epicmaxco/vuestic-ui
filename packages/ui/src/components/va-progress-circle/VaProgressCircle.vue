@@ -2,8 +2,8 @@
   <div
     class="va-progress-circle"
     ref="progress"
-    :style="computedStyle"
-    :class="computedClass"
+    :style="rootStyle"
+    :class="rootClass"
   >
     <svg
       class="va-progress-circle__wrapper"
@@ -16,13 +16,14 @@
         :r="radius"
         fill="none"
         :stroke="colorComputed"
-        :stroke-width="computedThickness"
+        :stroke-width="cappedThickness + '%'"
         :stroke-dasharray="dasharray"
         :stroke-dashoffset="dashoffset"
       />
     </svg>
     <div
-      :style="computedStyles"
+      v-if="$slots.default"
+      :style="infoStyle"
       class="va-progress-circle__info"
     >
       <slot />
@@ -31,75 +32,56 @@
 </template>
 
 <script lang="ts">
-import { Options, mixins, Vue, prop } from 'vue-class-component'
+import { computed, defineComponent } from 'vue'
+import clamp from 'lodash/clamp'
+import { useColors } from '../../services/color-config/color-config'
+import { useSize, useSizeProps } from '../../composables/useSize'
 
-import { ProgressComponentMixin } from './ProgressComponentMixin'
-import ColorMixin from '../../services/color-config/ColorMixin'
-import { SizeMixin } from '../../mixins/SizeMixin'
-
-class ProgressCircleProps {
-  thickness = prop<number>({ type: Number, default: 0.06 })
-  color = prop<string>({ type: String, default: 'primary' })
-}
-
-const ProgressCirclePropsMixin = Vue.with(ProgressCircleProps)
-
-@Options({
+export default defineComponent({
   name: 'VaProgressCircle',
+
+  props: {
+    ...useSizeProps,
+    modelValue: { type: Number, default: 0 },
+    indeterminate: { type: Boolean, default: false },
+    thickness: { type: Number, default: 0.06 },
+    color: { type: String, default: 'primary' },
+  },
+
+  setup (props) {
+    const { getColor } = useColors()
+    const { sizeComputed } = useSize(props)
+
+    const cappedThickness = computed(() => clamp(props.thickness, 0, 1) / 2 * 100)
+
+    const radius = computed(() => 20 - (20 * cappedThickness.value / 100))
+    const dasharray = computed(() => 2 * Math.PI * radius.value)
+    const dashoffset = computed(() => dasharray.value * (1 - clamp(props.modelValue, 0, 100) / 100))
+    const colorComputed = computed(() => getColor(props.color))
+
+    return {
+      infoStyle: computed(() => ({ color: colorComputed.value })),
+      rootStyle: computed(() => ({
+        width: sizeComputed.value,
+        height: sizeComputed.value,
+      })),
+      rootClass: computed(() => ({
+        'va-progress-circle--indeterminate': props.indeterminate,
+      })),
+
+      colorComputed,
+      radius,
+      dasharray,
+      dashoffset,
+      cappedThickness,
+    }
+  },
 })
-export default class VaProgressCircle extends mixins(
-  ProgressComponentMixin,
-  ColorMixin,
-  SizeMixin,
-  ProgressCirclePropsMixin,
-) {
-  get radius () {
-    return 20 - (20 * this.cappedThickness / 100)
-  }
-
-  get dasharray () {
-    return 2 * Math.PI * this.radius
-  }
-
-  get dashoffset () {
-    return this.dasharray * (1 - this.normalizedValue / 100)
-  }
-
-  get computedThickness () {
-    return `${this.cappedThickness}%`
-  }
-
-  get computedStyle () {
-    return { width: this.sizeComputed, height: this.sizeComputed }
-  }
-
-  get computedClass () {
-    return {
-      'va-progress-circle--indeterminate': this.indeterminate,
-    }
-  }
-
-  get computedStyles () {
-    return {
-      color: this.theme.getColor(this.color),
-    }
-  }
-
-  get cappedThickness () {
-    // value translated to percentage, divided in half, since final maximum value should be 50%
-    if (this.thickness <= 0) {
-      return 0
-    } else if (this.thickness >= 1) {
-      return 50
-    } else {
-      return this.thickness / 2 * 100
-    }
-  }
-}
 </script>
 
 <style lang="scss">
 @import "../../styles/resources";
+@import "variables";
 
 .va-progress-circle {
   position: var(--va-progress-circle-position);

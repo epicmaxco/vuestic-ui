@@ -1,36 +1,26 @@
 <template>
   <div
     class="va-list"
-    :class="computedClass"
+    :class="{ 'va-list--fit': $props.fit }"
   >
     <slot />
   </div>
 </template>
 
 <script lang="ts">
-import { Options, prop, mixins, Vue } from 'vue-class-component'
+import { defineComponent, PropType } from 'vue'
 
-class ListProps {
-  fit = prop<boolean>({ type: Boolean, default: false })
-}
-
-const ListPropsMixin = Vue.with(ListProps)
-
-@Options({
+export default defineComponent({
   name: 'VaList',
+  props: {
+    fit: { type: Boolean as PropType<boolean>, default: false },
+  },
 })
-export default class VaList extends mixins(
-  ListPropsMixin,
-) {
-  get computedClass () {
-    return { 'va-list--fit': this.fit }
-  }
-}
 </script>
 
 <style lang="scss">
 @import "../../styles/resources";
-@import 'variables';
+@import "variables";
 
 .va-list {
   padding: var(--va-list-padding);
