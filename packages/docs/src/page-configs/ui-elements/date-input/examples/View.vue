@@ -1,20 +1,20 @@
 <template>
-  <div class="flex row">
-    <div class="flex">
+  <div class="row">
+    <div class="mr-4">
       <va-date-input
         v-model="value"
         v-model:view="dayView"
         label="Day"
       />
     </div>
-    <div class="flex">
+    <div class="mr-4">
       <va-date-input
         v-model="value"
         v-model:view="monthView"
         label="Month"
       />
     </div>
-    <div class="flex">
+    <div class="mr-4">
       <va-date-input
         v-model="value"
         v-model:view="yearView"
