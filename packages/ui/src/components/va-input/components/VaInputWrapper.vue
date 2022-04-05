@@ -307,8 +307,11 @@ export default defineComponent({
 
   &--labeled {
     .va-input__content-wrapper {
-      padding-top: 12px;
       height: 100%;
+      width: -moz-available;
+      width: -webkit-fill-available;
+      width: fill-available;
+      padding-top: 12px;
       align-items: flex-end;
     }
 
