@@ -34,14 +34,13 @@ export default defineComponent({
       ]
     }
 
-    const createSeparatorComponent = () => {
-      // Temp fix for https://github.com/vuejs/vue-next/issues/3666. Move `separatorNode` outside this method.
-      const separatorNode = (slots.separator ? slots.separator() : 0) || [props.separator]
+    const separatorNode = computed(() => slots.separator ? slots.separator() : [props.separator])
 
+    const createSeparatorComponent = () => {
       return h('span', {
         class: ['va-breadcrumbs__separator'],
         style: [{ color: computedThemesSeparatorColor.value }],
-      }, separatorNode)
+      }, separatorNode.value)
     }
 
     const isDisabledChild = (child: VNode) => {
