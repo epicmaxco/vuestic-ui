@@ -394,10 +394,6 @@
         "fileTypes": "Specify supported file formats",
         "dropzone": "Enables Drag&Drop",
         "value": "The array with uploaded files"
-      },
-      "slots": {
-        "dropZoneLabel": "Changes drag'n'drop zone title",
-        "uploadButtonText": "Changes upload file button text"
       }
     },
     "VaHover": {
@@ -1924,10 +1920,6 @@
       "gallery": {
         "title": "As gallery",
         "text": "With `type === gallery` prop you can show user picture preview of uploaded files"
-      },
-      "slots": {
-        "title": "Slots",
-        "text": "Includes `dropZoneLabel` and `uploadButtonText` slots."
       }
     }
   },

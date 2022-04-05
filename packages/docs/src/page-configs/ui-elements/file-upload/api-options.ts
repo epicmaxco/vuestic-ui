@@ -6,9 +6,4 @@ export default defineManualApi({
       types: '`(value: number) => void`',
     },
   },
-
-  slots: {
-    uploadButtonText: { },
-    dropZoneLabel: { },
-  },
 })
