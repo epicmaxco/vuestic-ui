@@ -378,7 +378,6 @@ export default defineComponent({
 
     provide(TabsViewKey, {
       parentDisabled: props.disabled,
-      tabsList,
       selectTab,
       moveToTab,
       registerTab,
