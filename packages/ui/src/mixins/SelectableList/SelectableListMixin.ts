@@ -14,6 +14,7 @@ class SelectableListProps {
 
 const SelectableListPropsMixin = Vue.with(SelectableListProps)
 
+/** @deprecated */
 export class SelectableListMixin extends mixins(
   FormComponentMixin,
   SelectableListPropsMixin,
