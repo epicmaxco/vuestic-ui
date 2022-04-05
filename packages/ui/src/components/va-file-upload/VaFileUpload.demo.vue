@@ -78,15 +78,30 @@
     </VbCard>
 
     <VbCard
-      title="custom label text"
+      title="custom drop zone and button text"
       style="width: 100%;"
     >
       <va-file-upload
         v-model="basic"
         dropzone
-        drag-label-text="Custom drug`n`drop label text"
+        drop-zone-text="Custom drop zone text"
+        upload-button-text="Custom upload button text"
         color="info"
       />
+    </VbCard>
+
+    <VbCard
+      title="slot"
+      style="width: 100%;"
+    >
+      <va-file-upload
+        v-model="basic"
+      >
+        <div class="p-4">
+          <p class="mb-2">This is slot, click or drag'n'drop file to upload</p>
+          <img src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png" width="100" height="100" alt="" />
+        </div>
+      </va-file-upload>
     </VbCard>
   </VbDemo>
 </template>
