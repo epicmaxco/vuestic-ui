@@ -5,6 +5,7 @@ import type { IconConfig } from '../icon-config/types'
 export type GlobalConfig = {
   colors?: ColorConfig,
   icons?: IconConfig,
+  classHelpers?: ColorConfig,
   components?: ComponentConfig
   componentsAll?: Props
 }
