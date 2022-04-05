@@ -246,11 +246,11 @@
         v-model="value"
         width="100%"
       >
-        <template #decreaseAction="{ decrease }">
-          <VaButton size="small" flat @click="decrease">decrease</VaButton>
+        <template #decreaseAction="{ decreaseCount }">
+          <VaButton size="small" flat @click="decreaseCount">decrease</VaButton>
         </template>
-        <template #increaseAction="{ increase }">
-          <VaButton size="small" flat @click="increase">increase</VaButton>
+        <template #increaseAction="{ increaseCount }">
+          <VaButton size="small" flat @click="increaseCount">increase</VaButton>
         </template>
       </va-counter>
 
@@ -259,11 +259,11 @@
         buttons
         messages="prop 'buttons'"
       >
-        <template #decreaseAction="{ decrease }">
-          <VaIcon @click="decrease" color="warning" name="zoom_out" />
+        <template #decreaseAction="{ decreaseCount }">
+          <VaIcon @click="decreaseCount" color="warning" name="zoom_out" />
         </template>
-        <template #increaseAction="{ increase }">
-          <VaIcon @click="increase" color="danger" name="zoom_in" />
+        <template #increaseAction="{ increaseCount }">
+          <VaIcon @click="increaseCount" color="danger" name="zoom_in" />
         </template>
       </va-counter>
     </VbCard>

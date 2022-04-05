@@ -1,16 +1,9 @@
 <template>
   <VaInputWrapper
     class="va-counter"
-    v-bind="fieldListeners"
+    v-bind="{ ...fieldListeners, ...inputWrapperPropsComputed }"
     :class="classComputed"
     :style="styleComputed"
-    :color="$props.color"
-    :readonly="$props.readonly"
-    :disabled="$props.disabled"
-    :messages="$props.messages"
-    :label="$props.label"
-    :bordered="$props.bordered"
-    :outline="$props.outline"
     :focused="isFocused"
     @mousedown.prevent="focus()"
     @keydown.up.prevent="increaseCount()"
@@ -85,7 +78,8 @@
 
 <script lang="ts">
 import { computed, defineComponent, InputHTMLAttributes, ref, PropType, ComputedRef } from 'vue'
-import { omit, pick } from 'lodash-es'
+import omit from 'lodash/omit'
+import pick from 'lodash/pick'
 import { useFormProps } from '../../composables/useForm'
 import { useEmitProxy } from '../../composables/useEmitProxy'
 import { useFocus, useFocusEmits } from '../../composables/useFocus'
@@ -161,17 +155,16 @@ export default defineComponent({
 
     const { valueComputed } = useStateful(props, emit)
 
-    const setCountInput = (event: Event) => {
-      valueComputed.value = Number((event.target as HTMLInputElement)?.value)
+    const setCountInput = ({ target } : { target: HTMLInputElement }) => {
+      valueComputed.value = Number(target?.value)
     }
 
-    const setCountChange = (event: Event) => {
-      const changed = Number((event.target as HTMLInputElement)?.value)
-      calculateCounterValue(changed)
+    const setCountChange = ({ target } : { target: HTMLInputElement }) => {
+      calculateCounterValue(Number(target?.value))
     }
 
     const getRoundDownWithStep = (value: number) => {
-      if (!props.min) { return value }
+      if (!props.min || !props.step) { return value }
       return props.min + props.step * Math.floor((value - props.min) / props.step)
     }
 
@@ -191,12 +184,15 @@ export default defineComponent({
 
     const isMinReached = computed(() => {
       if (!props.min) { return false }
-      return Number(valueComputed.value) === props.min
+      return Number(valueComputed.value) <= props.min
     })
 
     const isMaxReached = computed(() => {
       if (!props.max) { return false }
-      return Number(valueComputed.value) > (props.max - props.step)
+
+      return props.step
+        ? Number(valueComputed.value) > (props.max - props.step)
+        : Number(valueComputed.value) >= props.max
     })
 
     const disabledDecreaseAction = computed(() => (
@@ -223,14 +219,14 @@ export default defineComponent({
       class: { 'va-counter__icon--inactive': disabledDecreaseAction.value },
       color: colorComputed.value,
       name: props.decreaseIcon,
-      onClick: !disabledDecreaseAction.value ? decreaseCount : null,
+      ...(!disabledDecreaseAction.value && { onClick: decreaseCount }),
     }))
 
     const increaseIconProps = computed(() => ({
       class: { 'va-counter__icon--inactive': disabledIncreaseAction.value },
       color: colorComputed.value,
       name: props.increaseIcon,
-      onClick: !disabledIncreaseAction.value ? increaseCount : null,
+      ...(!disabledIncreaseAction.value && { onClick: increaseCount }),
     }))
 
     const squareCorners = computed(() => (
@@ -258,6 +254,10 @@ export default defineComponent({
       readonly: props.readonly || !props.manualInput,
     }) as InputHTMLAttributes)
 
+    const inputWrapperPropsComputed = computed(() => ({
+      ...pick(props, ['color', 'readonly', 'disabled', 'messages', 'label', 'bordered', 'outline']),
+    }))
+
     const classComputed = computed(() => ([
       attrs.class,
       { 'va-counter--input-square': squareCorners.value },
@@ -280,6 +280,7 @@ export default defineComponent({
       fieldListeners: createFieldListeners(emit),
       inputListeners: createInputListeners(emit),
       inputAttributesComputed,
+      inputWrapperPropsComputed,
       setCountInput,
       setCountChange,
 

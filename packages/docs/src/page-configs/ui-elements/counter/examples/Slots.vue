@@ -13,11 +13,11 @@
       v-model="value"
       width="250px"
     >
-      <template #decreaseAction="{ decrease }">
-        <VaButton size="small" outline @click="decrease">decrease</VaButton>
+      <template #decreaseAction="{ decreaseCount }">
+        <VaButton size="small" outline @click="decreaseCount">decrease</VaButton>
       </template>
-      <template #increaseAction="{ increase }">
-        <VaButton size="small" outline @click="increase">increase</VaButton>
+      <template #increaseAction="{ increaseCount }">
+        <VaButton size="small" outline @click="increaseCount">increase</VaButton>
       </template>
     </va-counter>
 
@@ -26,11 +26,11 @@
       width="270px"
       buttons
     >
-      <template #decreaseAction="{ decrease }">
-        <VaButton :rounded="false" @click="decrease">decrease</VaButton>
+      <template #decreaseAction="{ decreaseCount }">
+        <VaButton :rounded="false" @click="decreaseCount">decrease</VaButton>
       </template>
-      <template #increaseAction="{ increase }">
-        <VaButton :rounded="false" @click="increase">increase</VaButton>
+      <template #increaseAction="{ increaseCount }">
+        <VaButton :rounded="false" @click="increaseCount">increase</VaButton>
       </template>
     </va-counter>
   </div>
