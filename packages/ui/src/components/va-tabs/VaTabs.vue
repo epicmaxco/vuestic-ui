@@ -67,14 +67,14 @@ import {
   ref,
   unref,
   watch,
-  onBeforeUnmount,
-  onMounted, Ref,
+  Ref,
 } from 'vue'
 import VaButton from '../va-button'
 import VaConfig from '../va-config'
 import { useStateful, useStatefulProps } from '../../composables/useStateful'
 import { useColor } from '../../composables/useColor'
 import { TabsViewKey, TabComponent } from './types'
+import { useResizeObserver } from '../../composables/useResizeObserver'
 
 const getClientWidth = (element: HTMLElement | null | undefined): number => element?.clientWidth || 0
 
@@ -110,7 +110,6 @@ export default defineComponent({
     const sliderOffsetY = ref(0)
     const showPagination = ref(false)
     const tabsContentOffset = ref(0)
-    const resizeObserver = ref<ResizeObserver | null>(null)
     const startingXPoint = ref(0)
     const animationIncluded = ref(false)
     const { colorComputed } = useColor(props)
@@ -391,19 +390,7 @@ export default defineComponent({
       updateTabsState()
     })
 
-    onMounted(() => {
-      redrawTabs()
-
-      requestAnimationFrame(() => {
-        resizeObserver.value = new ResizeObserver(redrawTabs)
-        wrapper.value && resizeObserver.value.observe(wrapper.value)
-        tabs.value && resizeObserver.value.observe(tabs.value)
-      })
-    })
-
-    onBeforeUnmount(() => {
-      resizeObserver?.value?.disconnect()
-    })
+    const resizeObserver = useResizeObserver([wrapper, tabs], redrawTabs)
 
     return {
       wrapper,
