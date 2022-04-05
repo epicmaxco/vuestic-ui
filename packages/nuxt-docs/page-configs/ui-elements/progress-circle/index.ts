@@ -1,5 +1,5 @@
 import { definePageConfig } from "~~/types/page-config";
-import VaProgressCircle from "vuestic-ui/src/components/va-progress-bar/VaProgressCircle.vue";
+import VaProgressCircle from "vuestic-ui/src/components/va-progress-circle/VaProgressCircle.vue";
 
 const block = useDocsBlocks(import.meta);
 
