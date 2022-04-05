@@ -78,17 +78,15 @@
     </VbCard>
 
     <VbCard
-      title="custom label and button text"
+      title="custom label text"
       style="width: 100%;"
     >
       <va-file-upload
         v-model="basic"
         dropzone
+        drag-label-text="Custom drug`n`drop label text"
         color="info"
-      >
-        <template #dropZoneLabel>Custom drop zone label</template>
-        <template #uploadButtonText>Custom upload button text</template>
-      </va-file-upload>
+      />
     </VbCard>
   </VbDemo>
 </template>

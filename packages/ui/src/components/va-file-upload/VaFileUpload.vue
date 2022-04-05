@@ -9,7 +9,7 @@
         class="va-file-upload__field__text"
         v-if="dropzone"
       >
-        <slot name="dropZoneLabel">Drag’n’drop files or</slot>
+        {{ dragLabelText }}
       </div>
       <va-button
         class="va-file-upload__field__button"
@@ -21,7 +21,7 @@
         icon-right=""
         :style="{ 'pointer-events': dropzoneHighlight ? 'none' : '' }"
       >
-        <slot name="uploadButtonText">Upload file</slot>
+        Upload file
       </va-button>
     </div>
     <input
@@ -77,6 +77,7 @@ export default defineComponent({
     dropzone: { type: Boolean as PropType<boolean>, default: false },
     color: { type: String as PropType<string>, default: 'primary' },
     disabled: { type: Boolean as PropType<boolean>, default: false },
+    dragLabelText: { type: String as PropType<string>, default: 'Drag’n’drop files or' },
 
     modelValue: {
       type: Array as PropType<VaFile[]>,
