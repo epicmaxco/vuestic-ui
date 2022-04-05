@@ -60,12 +60,14 @@
       ref="input"
       v-bind="{ ...computedChildAttributes, ...textareaProps, ...inputEvents }"
       class="va-input__content__input"
+      :class="$attrs['input-class']"
     />
 
     <input
       v-else-if="!$slots.content"
       ref="input"
       class="va-input__content__input"
+      :class="$attrs['input-class']"
       v-bind="{ ...computedInputAttributes, ...inputEvents }"
       :value="computedValue"
     >
@@ -244,3 +246,15 @@ export default defineComponent({
   },
 })
 </script>
+
+<style lang="scss" scoped>
+.text {
+  &-right {
+    text-align: right;
+  }
+
+  &-center {
+    text-align: center;
+  }
+}
+</style>

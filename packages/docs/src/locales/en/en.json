@@ -2308,6 +2308,10 @@
         "title": "Textarea",
         "text": "Support a multi-line `va-input`, useful for larger amounts of text. You can make textarea auto-expandable or manually control min/max number of lines."
       },
+      "inputClass": {
+        "title": "Input Class",
+        "text": "To assign a class directly to input, rather than its wrapper, use the `input-class` attribute. For example, you can use the build-in component class (or any other class you've created) to align the input text &mdash; `text-center` and `text-right` to align the center or right."
+      },
       "mask": {
         "title": "Mask",
         "text": "Support possibility to force/help the user to input a specific format with help from mask prop. You can pass some mask presets or custom options based on [cleave.js](https://nosir.github.io/cleave.js/)[[target=_blank]]. By default returning a raw value."
