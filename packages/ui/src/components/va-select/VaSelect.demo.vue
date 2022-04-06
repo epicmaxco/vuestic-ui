@@ -10,14 +10,15 @@
         long-list
         :options="customOptions"
         searchable
+        :max-height="100"
       >
-        <template #options="{selectOption, search}">
-          <div class="va-select-option-list py-3 px-3">
+        <template #options="{selectOption, search, maxHeight}">
+          <div class="va-select-option-list py-3 px-3" :style="`max-height: ${maxHeight}px`">
             <div
-              v-for="n in customOptions.filter((el) => +el > +search)"
-              :key="n" @click="selectOption(n)"
+              v-for="n in customOptions.filter((el) => +el.value > +search)"
+              :key="n.value" @click="selectOption(n)"
               class="mb-3">
-                {{ n }}
+                {{ n.value }}
             </div>
           </div>
         </template>
@@ -695,7 +696,7 @@ export default {
     const customOptions = ref([])
 
     for (let n = 0; n < 1000; n++) {
-      customOptions.value.push(n)
+      customOptions.value.push({ id: n, text: n.toString(), value: n.toString() })
     }
 
     return { customOptions }

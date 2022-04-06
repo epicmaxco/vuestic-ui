@@ -100,7 +100,7 @@
       @keydown.esc.prevent="hideDropdown()"
     >
       <va-input
-        v-if="showSearchInput"
+        v-if="showSearchInput && showDropdownContentComputed"
         ref="searchBar"
         class="va-select__input"
         placeholder="Search"
@@ -115,7 +115,10 @@
         @focus="hoveredOption = null"
       />
       <div class="va-select-dropdown__options-wrapper">
-        <slot name="options" :select-option="selectOption" :search="searchInput">
+        <slot name="options"
+              :select-option="selectOption"
+              :search="searchInput"
+              :max-height="$props.maxHeight">
           <va-select-option-list
             ref="optionList"
             v-model:hoveredOption="hoveredOption"
@@ -358,7 +361,7 @@ export default defineComponent({
         return (props.options).filter((option) => !checkIsOptionSelected(option))
       }
 
-      return props.longList ? toRaw(props.options) : props.options
+      return props.options
     })
 
     const checkIsOptionSelected = (option: any): boolean => {
