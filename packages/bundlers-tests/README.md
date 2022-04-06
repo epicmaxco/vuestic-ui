@@ -1,5 +1,7 @@
 # Bundlers tests
 
+<p align="center"><img src="https://img.shields.io/github/package-json/v/epicmaxco/vuestic-ui?filename=packages%2Fbundlers-tests%2Fpackage.json&label=bundlers-tests"></p>
+
 This package exists to help you testing `vuestic-ui` with vite (rollup) and vue-cli (webpack).
 It uses `vuestic-ui` package as node module.
 

@@ -2,6 +2,7 @@
   <div
     class="va-parallax"
     :style="computedWrapperStyles"
+    ref="rootElement"
   >
     <div class="va-parallax__image-container">
       <img
@@ -19,125 +20,130 @@
 </template>
 
 <script lang="ts">
-import { Options, prop, Vue, mixins } from 'vue-class-component'
+import { defineComponent, PropType, ref, Ref, computed, onMounted, onBeforeUnmount } from 'vue'
 
-class ParallaxProps {
-  target = prop<Element | string>({ type: [Object, String], default: '' })
-  src = prop<string>({ type: String, default: '', required: true })
-  alt = prop<string>({ type: String, default: 'parallax' })
-  height = prop<number>({ type: Number, default: 400 })
-  reversed = prop<boolean>({ type: Boolean, default: false })
-  speed = prop<number>({
-    type: Number,
-    default: 0.5,
-    validator: (value: number) => {
-      return value >= 0 && value <= 1
-    },
-  })
-}
-
-const ParallaxPropsMixin = Vue.with(ParallaxProps)
-
-@Options({
+export default defineComponent({
   name: 'VaParallax',
-})
-export default class VaParallax extends mixins(
-  ParallaxPropsMixin,
-) {
-  elOffsetTop = 0
-  parallax = 0
-  parallaxDist = 0
-  percentScrolled = 0
-  scrollTop = 0
-  windowHeight = 0
-  windowBottom = 0
-  isLoaded = false
+  props: {
+    target: { type: [Object, String] as PropType<Element | string | undefined> },
+    src: { type: String as PropType<string>, default: '', required: true },
+    alt: { type: String as PropType<string>, default: 'parallax' },
+    height: { type: Number as PropType<number>, default: 400 },
+    reversed: { type: Boolean as PropType<boolean>, default: false },
+    speed: {
+      type: Number as PropType<number>,
+      default: 0.5,
+      validator: (value: number) => value >= 0 && value <= 1,
+    },
+  },
+  setup (props) {
+    const elOffsetTop = ref(0)
+    const parallax = ref(0)
+    const parallaxDist = ref(0)
+    const percentScrolled = ref(0)
+    const scrollTop = ref(0)
+    const windowHeight = ref(0)
+    const windowBottom = ref(0)
+    const isLoaded = ref(false)
 
-  get computedWrapperStyles (): Record<string, unknown> {
-    return {
-      height: this.$props.height + 'px',
-    }
-  }
+    const computedWrapperStyles = computed(() => ({ height: props.height + 'px' }))
 
-  get targetElement () {
-    return typeof this.$props.target === 'string'
-      ? document.querySelector(this.$props.target)
-      : this.$props.target || this.$el.parentElement
-  }
-
-  get computedImgStyles (): Record<string, unknown> {
-    return {
+    const computedImgStyles = computed(() => ({
       display: 'block',
-      transform: `translate(-50%, ${this.parallax}px)`,
-      opacity: this.isLoaded ? 1 : 0,
-      top: this.$props.reversed ? 0 : 'auto',
+      transform: `translate(-50%, ${parallax.value}px)`,
+      opacity: isLoaded.value ? 1 : 0,
+      top: props.reversed ? 0 : 'auto',
+    }))
+
+    const rootElement: Ref<HTMLElement | null> = ref(null)
+    const targetElement = computed(() => {
+      if (typeof props.target !== 'string') {
+        return getScrollableParent(rootElement.value?.parentElement)
+      }
+
+      const element = document.querySelector(props.target)
+
+      if (element) { return element }
+
+      throw new Error('VaParallax target prop got wrong selector. Target is null')
+    })
+    const getScrollableParent = (element?: Element | null): Element | null => {
+      if (!element) {
+        return document.body
+      }
+
+      if (element.scrollHeight > element.clientHeight) {
+        return element
+      }
+
+      return getScrollableParent(element.parentElement)
     }
-  }
 
-  get imgHeight (): number {
-    // @ts-ignore
-    return this.$refs.img.naturalHeight
-  }
+    const img: Ref<HTMLImageElement | null> = ref(null)
+    const imgHeight = computed(() => img.value?.naturalHeight || 0)
 
-  calcDimensions (): void {
-    const offset = this.$el.getBoundingClientRect()
+    const calcDimensions = () => {
+      const offset = rootElement.value?.getBoundingClientRect() || { top: 0 }
 
-    this.scrollTop = this.targetElement.scrollTop
-    this.parallaxDist = this.imgHeight - (this.$props.height as number)
-    this.elOffsetTop = offset.top + this.scrollTop
-    this.windowHeight = window.innerHeight
-    this.windowBottom = this.scrollTop + this.windowHeight
-  }
-
-  translate (): void {
-    this.calcDimensions()
-    this.percentScrolled = (
-      (this.windowBottom - this.elOffsetTop) /
-      ((this.$props.height as number) + this.windowHeight)
-    )
-    this.parallax = Math.round(this.parallaxDist * this.percentScrolled) * (this.$props.speed as number)
-    if (this.$props.reversed) {
-      this.parallax = -this.parallax
+      scrollTop.value = targetElement.value?.scrollTop || 0
+      parallaxDist.value = imgHeight.value - props.height
+      elOffsetTop.value = offset.top + scrollTop.value
+      windowHeight.value = window.innerHeight
+      windowBottom.value = scrollTop.value + windowHeight.value
     }
-  }
 
-  addEventListeners (): void {
-    this.targetElement.addEventListener('scroll', this.translate)
-    this.targetElement.addEventListener('resize', this.translate)
-  }
+    const translate = () => {
+      calcDimensions()
 
-  removeEventListeners (): void {
-    this.targetElement.removeEventListener('scroll', this.translate)
-    this.targetElement.removeEventListener('resize', this.translate)
-  }
+      percentScrolled.value = (windowBottom.value - elOffsetTop.value) / (props.height + windowHeight.value)
 
-  initImage (): void {
-    const img: HTMLImageElement = this.$refs.img as HTMLImageElement
-    if (img.complete) {
-      this.translate()
-      this.addEventListeners()
-    } else {
-      img.addEventListener('load', () => {
-        this.translate()
-        this.addEventListeners()
-      }, false)
+      parallax.value = Math.round(parallaxDist.value * percentScrolled.value) * props.speed
+
+      if (props.reversed) {
+        parallax.value = -parallax.value
+      }
     }
-    this.isLoaded = true
-  }
 
-  mounted () {
-    this.initImage()
-  }
+    const addEventListeners = () => {
+      targetElement.value?.addEventListener('scroll', translate)
+      targetElement.value?.addEventListener('resize', translate)
+    }
 
-  beforeUnmount () {
-    this.removeEventListeners()
-  }
-}
+    const removeEventListeners = () => {
+      targetElement.value?.removeEventListener('scroll', translate)
+      targetElement.value?.removeEventListener('resize', translate)
+    }
+
+    const initImage = () => {
+      if (img.value?.complete) {
+        translate()
+        addEventListeners()
+      } else {
+        img.value?.addEventListener('load', () => {
+          translate()
+          addEventListeners()
+        }, false)
+      }
+
+      isLoaded.value = true
+    }
+
+    onMounted(initImage)
+    onBeforeUnmount(removeEventListeners)
+
+    return {
+      img,
+      rootElement,
+      computedWrapperStyles,
+      computedImgStyles,
+    }
+  },
+})
 </script>
 
 <style lang="scss">
-@import '../../styles/resources';
-@import 'variables';
+@import "../../styles/resources";
+@import "variables";
 
 .va-parallax {
   display: var(--va-parallax-display);

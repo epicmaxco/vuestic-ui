@@ -1,14 +1,13 @@
 <template>
   <router-link custom :to="to" v-slot="{ href, navigate }">
     <a
+      ref="anchor"
       v-bind="$attrs"
       class="va-sidebar__item va-sidebar-item"
-      :class="{ 'va-sidebar-item--active': active }"
+      :class="{ 'va-sidebar-item--active': $props.active }"
       :style="computedStyle"
       :href="href"
       @click="navigate"
-      @mouseenter="onMouseEnter"
-      @mouseleave="onMouseLeave"
       v-on="keyboardFocusListeners"
     >
       <slot />
@@ -18,22 +17,19 @@
 
 <script lang="ts">
 import { defineComponent, PropType, ref, computed } from 'vue'
+import { RouteLocationRaw } from 'vue-router'
 import { useColors } from '../../../services/color-config/color-config'
 import useKeyboardOnlyFocus from '../../../composables/useKeyboardOnlyFocus'
-
-const useHover = () => {
-  const isHovered = ref(false)
-  const onMouseEnter = () => { isHovered.value = true }
-  const onMouseLeave = () => { isHovered.value = false }
-
-  return { isHovered, onMouseEnter, onMouseLeave }
-}
+import { useHover } from '../../../composables/useHover'
 
 export default defineComponent({
   name: 'VaSidebarItem',
+
+  inheritAttrs: false,
+
   props: {
     to: {
-      type: [String, Object] as PropType<string | Record<string, any>>,
+      type: [String, Object] as PropType<RouteLocationRaw>,
       default: () => ({}),
     },
     active: { type: Boolean, default: false },
@@ -42,10 +38,12 @@ export default defineComponent({
     hoverColor: { type: String, default: undefined },
     borderColor: { type: String, default: undefined },
   },
-  setup (props) {
-    const { isHovered, onMouseEnter, onMouseLeave } = useHover()
-    const { getColor, getHoverColor, getTextColor, getFocusColor } = useColors()
 
+  setup (props) {
+    const anchor = ref<HTMLAnchorElement>()
+
+    const { isHovered } = useHover(anchor)
+    const { getColor, getHoverColor, getTextColor, getFocusColor } = useColors()
     const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
 
     const computedStyle = computed(() => {
@@ -58,11 +56,9 @@ export default defineComponent({
       }
 
       if (props.active) {
-        const border = props.borderColor === undefined ? props.activeColor : props.borderColor
-
-        style['border-color'] = getColor(border)
+        style['border-color'] = getColor(props.borderColor === undefined ? props.activeColor : props.borderColor)
         style['background-color'] = getColor(props.activeColor)
-        style.color = getTextColor(style['background-color'], getColor('dark'), '#ffffff')
+        style.color = getTextColor(style['background-color'])
       }
 
       if (hasKeyboardFocus.value) {
@@ -75,13 +71,17 @@ export default defineComponent({
       return style
     })
 
-    return { isHovered, onMouseEnter, onMouseLeave, computedStyle, keyboardFocusListeners }
+    return {
+      anchor,
+      computedStyle,
+      keyboardFocusListeners,
+    }
   },
 })
 </script>
 
 <style lang="scss">
-@import '../variables';
+@import "../variables";
 
 .va-sidebar__item {
   border-left: var(--va-sidebar-item-active-border-size) solid transparent;

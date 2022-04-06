@@ -59,7 +59,7 @@ import { useRouterLink, useRouterLinkProps } from '../../composables/useRouterLi
 import { useSizeProps, useSize } from '../../composables/useSize'
 import { useLoadingProps } from '../../composables/useLoading'
 import VaIcon from '../va-icon'
-import { VaProgressCircle } from '../va-progress-bar'
+import { VaProgressCircle } from '../va-progress-circle'
 
 export default defineComponent({
   name: 'VaButton',
@@ -102,12 +102,12 @@ export default defineComponent({
     const computedType = computed(() => {
       // Safari issue. type===button will break styles if the button is used as a link
       switch (tagComputed.value) {
-      case 'a':
-      case 'router-link':
-      case 'nuxt-link':
-        return undefined
-      default:
-        return props.type
+        case 'a':
+        case 'router-link':
+        case 'nuxt-link':
+          return undefined
+        default:
+          return props.type
       }
     })
 
