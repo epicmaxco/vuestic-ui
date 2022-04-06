@@ -81,6 +81,7 @@ const formatEmitString = (str: string): string => {
 // TODO: improve typing
 // (component: DefineComponent | VueConstructor): ComponentOptions<any> doesn't work here
 
+/** Creates withTransportConfig wrapper that passed props from vuestic config */
 const withConfigTransport = (component: any): any => {
   const options = getComponentOptions(component as DefineComponent)
 

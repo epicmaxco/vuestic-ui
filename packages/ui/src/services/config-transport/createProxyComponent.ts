@@ -17,6 +17,7 @@ const createPropsWithCustomConfig = (instance: ComponentInternalInstance, propsF
    */
   const instanceProps: Props = instance.props
 
+  // Return Proxy, so it safe as instanceProps with a bit of magic
   return new Proxy(instanceProps, {
     get (target, key: string) {
       /**
