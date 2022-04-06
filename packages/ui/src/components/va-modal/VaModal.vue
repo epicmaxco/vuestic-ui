@@ -283,10 +283,6 @@ export default class VaModal extends mixins(
 
   &__container {
     z-index: var(--va-modal-container-z-index);
-
-    // &--transition {
-    //   @include va-modal-transition();
-    // }
   }
 
   &-enter-from &__container,
@@ -320,10 +316,6 @@ export default class VaModal extends mixins(
     z-index: var(--va-modal-overlay-z-index);
     width: var(--va-modal-overlay-width);
     height: var(--va-modal-overlay-height);
-
-    // &--transition {
-    //   @include va-modal-transition(true);
-    // }
   }
 
   &-enter-from &__overlay,
