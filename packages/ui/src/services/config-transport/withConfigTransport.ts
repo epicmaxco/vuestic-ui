@@ -1,6 +1,5 @@
 import { DefineComponent } from 'vue'
 import { createProxyComponent } from './createProxyComponent'
-import legacyWithConfigTransform from './legacy/withConfigTransport'
 
 type WithConfigTransport<T> = T extends unknown ? DefineComponent : T
 
@@ -18,9 +17,11 @@ export const withConfigTransport = <T>(component: any): WithConfigTransport<T> =
   } else if (CLASS_COMPONENT_KEY in component) {
     // TODO: Remove this. We don't want to use class components
     return patchClassComponent(component)
+  } else {
+    // Options api. We need to transform it to Composition API and then create proxy.
+    component.setup = () => ({ /* Fake setup function */})
+    return createProxyComponent(component)
   }
-
-  return legacyWithConfigTransform(component)
 }
 
 export default withConfigTransport
