@@ -90,7 +90,6 @@ export default defineComponent({
     const tabElement = ref<HTMLElement | null>(null)
 
     const isActive = ref(false)
-    const id = ref<string | number | null>(null)
     const hoverState = ref(false)
     const rightSidePosition = ref(0)
     const leftSidePosition = ref(0)
@@ -143,7 +142,7 @@ export default defineComponent({
 
     const tabComponent: TabComponent = {
       name: props.name,
-      id: unref(id),
+      id: null,
       tabElement,
       isActive,
       tabIndexComputed,
@@ -165,7 +164,6 @@ export default defineComponent({
     })
 
     return {
-      id,
       tabElement,
       isActive,
       hoverState,
