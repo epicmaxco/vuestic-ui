@@ -276,7 +276,7 @@ export default defineComponent({
 
   &-enter-active &__container,
   &-leave-active &__container {
-    transition: $modal-opacity-transition, $modal-transform-transition;
+    transition: var(--va-modal-opacity-transition), var(--va-modal-transform-transition);
   }
 
   &__dialog {
@@ -308,7 +308,7 @@ export default defineComponent({
 
   &-enter-active &__overlay,
   &-leave-active &_overlay {
-    transition: $modal-overlay-opacity-transition;
+    transition: var(--va-modal-overlay-opacity-transition);
   }
 
   &--fullscreen {
