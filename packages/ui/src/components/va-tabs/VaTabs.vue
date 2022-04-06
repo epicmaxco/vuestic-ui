@@ -371,8 +371,8 @@ export default defineComponent({
     const unregisterTab = (tab: TabComponent) => {
       tabsList.value = tabsList.value.filter((filteredTab: TabComponent) => filteredTab.id !== tab.id)
 
-      tabsList.value.forEach((tab: TabComponent, idx: number) => {
-        tab.id = tab.name || idx
+      tabsList.value.forEach((tabListItem: TabComponent, idx: number) => {
+        tabListItem.id = tabListItem.name || idx
       })
     }
 
@@ -395,6 +395,7 @@ export default defineComponent({
       wrapper,
       container,
       tabs,
+      tabsList,
       sliderHeight,
       sliderWidth,
       sliderOffsetX,
