@@ -8,8 +8,8 @@ import DocsContent from '../../components/DocsContent.vue'
 import config from '../../page-configs/ui-elements/counter/page-config'
 
 export default defineComponent({
-  name: 'DocsAvatar',
+  name: 'DocsCounter',
   components: { DocsContent },
-  setup () { return { config } },
+  setup: () => ({ config }),
 })
 </script>

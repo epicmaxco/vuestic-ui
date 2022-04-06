@@ -5,19 +5,19 @@
     :class="classComputed"
     :style="styleComputed"
     :focused="isFocused"
-    @mousedown.prevent="focus()"
+    @click="focus()"
     @keydown.up.prevent="increaseCount()"
     @keydown.down.prevent="decreaseCount()"
   >
     <template v-if="$props.buttons" #prepend="slotScope">
       <div class="va-counter__prepend-wrapper"
         :style="{ marginRight: marginComputed }"
+        @mousedown.prevent="focus()"
       >
         <slot name="decreaseAction" v-bind="{ ...slotScope, decreaseCount }">
           <va-button
             class="va-counter__button-decrease"
             v-bind="decreaseButtonProps"
-            :icon="$props.decreaseIcon"
             @click="decreaseCount()"
           />
         </slot>
@@ -25,23 +25,25 @@
     </template>
 
     <template v-else #prependInner="slotScope">
-      <slot name="decreaseAction" v-bind="{ ...slotScope, decreaseCount }">
-        <va-icon
-          class="va-counter__icon-decrease"
-          v-bind="decreaseIconProps"
-        />
-      </slot>
+      <div @mousedown.prevent="focus()">
+        <slot name="decreaseAction" v-bind="{ ...slotScope, decreaseCount }">
+          <va-icon
+            class="va-counter__icon-decrease"
+            v-bind="decreaseIconProps"
+          />
+        </slot>
+      </div>
     </template>
 
     <template v-if="$props.buttons"  #append="slotScope">
       <div class="va-counter__append-wrapper"
         :style="{ marginLeft: marginComputed }"
+        @mousedown.prevent="focus()"
       >
         <slot name="increaseAction" v-bind="{ ...slotScope, increaseCount }">
           <va-button
             class="va-counter__button-increase"
             v-bind="increaseButtonProps"
-            :icon="$props.increaseIcon"
             @click="increaseCount()"
           />
         </slot>
@@ -49,12 +51,14 @@
     </template>
 
     <template v-else #appendInner="slotScope">
-      <slot name="increaseAction" v-bind="{ ...slotScope, increaseCount }">
-        <va-icon
-          class="va-counter__icon-increase"
-          v-bind="increaseIconProps"
-        />
-      </slot>
+      <div @mousedown.prevent="focus()">
+        <slot name="increaseAction" v-bind="{ ...slotScope, increaseCount }">
+          <va-icon
+            class="va-counter__icon-increase"
+            v-bind="increaseIconProps"
+          />
+        </slot>
+      </div>
     </template>
 
     <template v-if="$slots.content" #content="slotScope">
@@ -68,6 +72,7 @@
       class="va-input__content__input"
       ref="input"
       type="number"
+      inputmode="decimal"
       v-bind="{ ...inputAttributesComputed, ...inputListeners }"
       :value="valueComputed"
       @input="setCountInput"
@@ -165,6 +170,9 @@ export default defineComponent({
 
     const getRoundDownWithStep = (value: number) => {
       if (!props.min || !props.step) { return value }
+
+      // If the user enters a value manually, then we must round it to the nearest valid value,
+      // taking into account the initial value (`props.min`) and the step size (`props.step`)
       return props.min + props.step * Math.floor((value - props.min) / props.step)
     }
 
@@ -175,6 +183,8 @@ export default defineComponent({
       }
 
       if (props.max && (counterValue > props.max)) {
+        // since the `props.step` may not be a multiple of `(props.max - props.min)`,
+        // we must round the result taking into account the allowable value
         valueComputed.value = getRoundDownWithStep(props.max)
         return
       }
@@ -195,56 +205,60 @@ export default defineComponent({
         : Number(valueComputed.value) >= props.max
     })
 
-    const disabledDecreaseAction = computed(() => (
+    const isDecreaseActionDisabled = computed(() => (
       isMinReached.value || props.readonly || props.disabled
     ))
 
-    const disabledIncreaseAction = computed(() => (
+    const isIncreaseActionDisabled = computed(() => (
       isMaxReached.value || props.readonly || props.disabled
     ))
 
     const decreaseCount = () => {
-      if (disabledDecreaseAction.value) { return }
+      if (isDecreaseActionDisabled.value) { return }
       calculateCounterValue(Number(valueComputed.value) - props.step)
     }
 
     const increaseCount = () => {
-      if (disabledIncreaseAction.value) { return }
+      if (isIncreaseActionDisabled.value) { return }
       calculateCounterValue(Number(valueComputed.value) + props.step)
     }
 
     const { colorComputed } = useColor(props)
 
     const decreaseIconProps = computed(() => ({
-      class: { 'va-counter__icon--inactive': disabledDecreaseAction.value },
+      class: { 'va-counter__icon--inactive': isDecreaseActionDisabled.value },
       color: colorComputed.value,
       name: props.decreaseIcon,
-      ...(!disabledDecreaseAction.value && { onClick: decreaseCount }),
+      ...(!isDecreaseActionDisabled.value && { onClick: decreaseCount }),
     }))
 
     const increaseIconProps = computed(() => ({
-      class: { 'va-counter__icon--inactive': disabledIncreaseAction.value },
+      class: { 'va-counter__icon--inactive': isIncreaseActionDisabled.value },
       color: colorComputed.value,
       name: props.increaseIcon,
-      ...(!disabledIncreaseAction.value && { onClick: increaseCount }),
+      ...(!isIncreaseActionDisabled.value && { onClick: increaseCount }),
     }))
 
-    const squareCorners = computed(() => (
+    const isSquareCorners = computed(() => (
       (typeof props.margins === 'string' ? parseFloat(props.margins) : props.margins) === 0
     ))
 
-    const decreaseButtonProps = computed(() => ({
-      ...pick(props, ['outline', 'rounded', 'color', 'textColor']),
-      flat: props.flat && !props.outline,
-      outline: props.flat && props.outline,
-      disabled: disabledDecreaseAction.value,
-    }))
-
-    const increaseButtonProps = computed(() => ({
+    const buttonProps = computed(() => ({
       ...pick(props, ['rounded', 'color', 'textColor']),
       flat: props.flat && !props.outline,
       outline: props.flat && props.outline,
-      disabled: disabledIncreaseAction.value,
+    }))
+
+    const decreaseButtonProps = computed(() => ({
+      ...buttonProps.value,
+      icon: props.decreaseIcon,
+      disabled: isDecreaseActionDisabled.value,
+    }))
+
+    const increaseButtonProps = computed(() => ({
+      ...buttonProps.value,
+      icon: props.increaseIcon,
+      disabled: isIncreaseActionDisabled.value,
     }))
 
     const inputAttributesComputed = computed(() => ({
@@ -260,15 +274,13 @@ export default defineComponent({
 
     const classComputed = computed(() => ([
       attrs.class,
-      { 'va-counter--input-square': squareCorners.value },
+      { 'va-counter--input-square': isSquareCorners.value },
     ]))
 
-    const styleComputed: ComputedRef<Partial<CSSStyleDeclaration>> = computed(() => {
-      const style = attrs.style || {}
-      return Object.assign(style, {
-        width: safeCSSLength(props.width),
-      })
-    })
+    const styleComputed: ComputedRef<Partial<CSSStyleDeclaration>> = computed(() => ({
+      width: safeCSSLength(props.width),
+      ...((attrs.style as Partial<CSSStyleDeclaration>) || {}),
+    }))
 
     const marginComputed = computed(() => safeCSSLength(props.margins))
 

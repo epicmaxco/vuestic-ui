@@ -274,7 +274,7 @@
         class="static-example-class"
         :class="{ dynamicExampleClass: true }"
         style="padding: 4px;"
-        :style="{ backgroundColor: 'pink' }"
+        :style="{ backgroundColor: 'pink', width: '200px' }"
       />
     </VbCard>
   </VbDemo>
