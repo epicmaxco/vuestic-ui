@@ -6,7 +6,7 @@ export type ITableItem = Record<string, any>
 // the inner representation of table cells
 export interface TableCell {
   /** @deprecated */
-  source: any;
+  source?: any;
   rowData: any;
   column: TableColumn;
   value: string;
@@ -22,11 +22,11 @@ export interface TableRow {
 
 const buildTableCell = (rowIndex: number, column: TableColumn, rowData: ITableItem): TableCell => ({
   rowData,
+  /** @deprecated */
+  source: rowData[column.key],
   rowIndex,
   column,
   value: rowData[column.key]?.toString?.() || '',
-  /** @deprecated */
-  source: rowData[column.key],
 })
 
 const buildTableRow = (source: ITableItem, initialIndex: number, columns: TableColumn[]): TableRow => ({
