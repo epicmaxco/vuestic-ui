@@ -7,8 +7,21 @@
       <va-select
         v-model="defaultSingleSelect.value"
         class="mb-4"
-        :options="defaultSingleSelect.options"
-      />
+        long-list
+        :options="customOptions"
+        searchable
+      >
+        <template #options="{selectOption, search}">
+          <div class="va-select-option-list py-3 px-3">
+            <div
+              v-for="n in customOptions.filter((el) => +el > +search)"
+              :key="n" @click="selectOption(n)"
+              class="mb-3">
+                {{ n }}
+            </div>
+          </div>
+        </template>
+      </va-select>
       <p>Value: {{ defaultSingleSelect.value }}</p>
     </VbCard>
     <VbCard
@@ -582,6 +595,7 @@
 </template>
 
 <script>
+import { ref } from 'vue'
 import CountriesList from '../../data/CountriesList'
 import VaIcon from '../va-icon'
 import VaCheckbox from '../va-checkbox'
@@ -676,6 +690,17 @@ export default {
       isClearable: true,
     }
   },
+
+  setup () {
+    const customOptions = ref([])
+
+    for (let n = 0; n < 1000; n++) {
+      customOptions.value.push(n)
+    }
+
+    return { customOptions }
+  },
+
   methods: {
     onLoadMore () {
       this.preloadable.options.push(random(), random(), random())

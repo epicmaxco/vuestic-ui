@@ -13,8 +13,8 @@
     >
       <slot name="anchor" />
     </div>
-    <template v-if="showContent">
-      <teleport :to="attachElement" :disabled="disableAttachment">
+    <template v-if="$props.longList || showContent">
+      <teleport v-show="showContent" :to="attachElement" :disabled="disableAttachment">
         <div
           class="va-dropdown__content-wrapper"
           @mouseover="$props.isContentHoverable && onMouseOver()"
@@ -56,6 +56,7 @@ class DropdownProps {
   closeOnContentClick = prop<boolean>({ type: Boolean, default: true })
   closeOnClickOutside = prop<boolean>({ type: Boolean, default: true })
   closeOnAnchorClick = prop<boolean>({ type: Boolean, default: true })
+  longList = prop<boolean>({ type: Boolean, default: false })
   isContentHoverable = prop<boolean>({ type: Boolean, default: true })
   offset = prop<number | number[]>({ type: [Array, Number], default: () => [] })
   trigger = prop<string>({

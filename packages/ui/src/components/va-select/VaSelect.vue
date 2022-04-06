@@ -9,6 +9,7 @@
     :max-height="$props.maxHeight"
     :fixed="$props.fixed"
     :close-on-content-click="closeOnContentClick"
+    :long-list="longList"
     :stateful="false"
     :offset="[0, 1]"
     keep-anchor-width
@@ -114,35 +115,37 @@
         @focus="hoveredOption = null"
       />
       <div class="va-select-dropdown__options-wrapper">
-        <va-select-option-list
-          ref="optionList"
-          v-model:hoveredOption="hoveredOption"
-          :style="{ maxHeight: $props.maxHeight }"
-          :options="filteredOptions"
-          :selected-value="valueComputed"
-          :get-selected-state="checkIsOptionSelected"
-          :get-text="getText"
-          :get-track-by="getTrackBy"
-          :get-group-by="getGroupBy"
-          :search="searchInput"
-          :no-options-text="$props.noOptionsText"
-          :color="$props.color"
-          :tabindex="tabindex + 1"
-          @select-option="selectOption"
-          @no-previous-option-to-hover="focusSearchBar()"
-          @keydown.enter.stop.prevent="selectHoveredOption()"
-          @keydown.space.stop.prevent="selectHoveredOption()"
-          @keydown.tab.stop.prevent="searchBar && searchBar.focus()"
-          @keydown="onHintedSearch"
-          @scroll-bottom="onScrollBottom"
-        />
+        <slot name="options" :select-option="selectOption" :search="searchInput">
+          <va-select-option-list
+            ref="optionList"
+            v-model:hoveredOption="hoveredOption"
+            :style="{ maxHeight: $props.maxHeight }"
+            :options="filteredOptions"
+            :selected-value="valueComputed"
+            :get-selected-state="checkIsOptionSelected"
+            :get-text="getText"
+            :get-track-by="getTrackBy"
+            :get-group-by="getGroupBy"
+            :search="searchInput"
+            :no-options-text="$props.noOptionsText"
+            :color="$props.color"
+            :tabindex="tabindex + 1"
+            @select-option="selectOption"
+            @no-previous-option-to-hover="focusSearchBar()"
+            @keydown.enter.stop.prevent="selectHoveredOption()"
+            @keydown.space.stop.prevent="selectHoveredOption()"
+            @keydown.tab.stop.prevent="searchBar && searchBar.focus()"
+            @keydown="onHintedSearch"
+            @scroll-bottom="onScrollBottom"
+          />
+        </slot>
       </div>
     </va-dropdown-content>
   </va-dropdown>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref, computed, watch, nextTick } from 'vue'
+import { defineComponent, PropType, ref, computed, watch, nextTick, toRaw } from 'vue'
 
 import { useSelectableList, useSelectableListProps, SelectableOption } from '../../composables/useSelectableList'
 import { useValidation, useValidationProps, useValidationEmits } from '../../composables/useValidation'
@@ -222,6 +225,7 @@ export default defineComponent({
     noOptionsText: { type: String as PropType<string>, default: 'Items not found' },
     fixed: { type: Boolean as PropType<boolean>, default: true },
     hideSelected: { type: Boolean as PropType<boolean>, default: false },
+    longList: { type: Boolean as PropType<boolean>, default: false },
     tabindex: { type: Number as PropType<number>, default: 0 },
     dropdownIcon: {
       type: [String, Object] as PropType<string | DropdownIcon>,
@@ -247,7 +251,7 @@ export default defineComponent({
     requiredMark: { type: Boolean as PropType<boolean>, default: false },
   },
 
-  setup (props, { emit }) {
+  setup (props, { emit, slots }) {
     const optionList = ref<InstanceType<typeof VaSelectOptionList>>()
     const input = ref<InstanceType<typeof VaInput>>()
     const searchBar = ref<InstanceType<typeof VaInput>>()
@@ -354,7 +358,7 @@ export default defineComponent({
         return (props.options).filter((option) => !checkIsOptionSelected(option))
       }
 
-      return props.options
+      return props.longList ? toRaw(props.options) : props.options
     })
 
     const checkIsOptionSelected = (option: any): boolean => {
@@ -388,7 +392,7 @@ export default defineComponent({
     const { exceedsMaxSelections, addOption } = useMaxSelections(valueComputed, ref(props.maxSelections), emit)
 
     const selectOption = (option: any): void => {
-      if (hoveredOption.value === null) {
+      if (!slots.options && hoveredOption.value === null) {
         hideDropdown()
         return
       }
