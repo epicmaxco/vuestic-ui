@@ -11,33 +11,12 @@ import {
 } from 'vue'
 import VaTreeNode from '../VaTreeNode/VaTreeNode.vue'
 import {
+  ITreeCategory,
   ITreeNodeCommon,
+  TreeCategoryProps,
   TreeCategoryKey,
   TreeViewKey,
 } from '../types'
-
-export interface TreeCategoryProps {
-  label: string | number,
-  isOpen: boolean,
-  icon: string,
-  color: string,
-}
-
-export interface ITreeView<T> {
-  onChildMounted: (value: T) => void,
-  onChildUnmounted: (value: T) => void,
-}
-
-export interface ITreeCategory {
-  treeView: ITreeView<ITreeCategory>,
-  nodes: ComponentPublicInstance<ITreeCategory | typeof VaTreeNode>[],
-  isOpenCached: boolean | undefined,
-  collapse: () => void,
-  expand: () => void,
-  toggle: (e: MouseEvent) => void,
-  onChildMounted: (node: ComponentPublicInstance<ITreeCategory | typeof VaTreeNode>) => void,
-  onChildUnmounted: (removableNode: ComponentPublicInstance<ITreeCategory | typeof VaTreeNode>) => void,
-}
 
 export const useTreeCategory = (props: TreeCategoryProps) => {
   type NodeComponent = ComponentPublicInstance<ITreeCategory | typeof VaTreeNode>

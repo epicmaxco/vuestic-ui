@@ -1,12 +1,5 @@
 import { onMounted, onBeforeUnmount, computed, inject, provide } from 'vue'
-import { ITreeNodeCommon, TreeCategoryKey, TreeNodeKey } from '../types'
-
-export interface ITreeNodeProps {
-  highlighted: boolean,
-  icon: string,
-  iconRight: string,
-  color: string,
-}
+import { ITreeNodeCommon, ITreeNodeProps, TreeCategoryKey, TreeNodeKey } from '../types'
 
 const useTreeNode = (props: ITreeNodeProps) => {
   const treeCategory: ITreeNodeCommon<typeof TreeNodeKey> = inject(TreeCategoryKey, {

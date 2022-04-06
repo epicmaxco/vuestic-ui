@@ -1,20 +1,5 @@
 import { provide, nextTick, ref } from 'vue'
-import { ITreeCategory } from './useTreeCategory'
-import { TreeViewKey } from '../types'
-
-export interface TreeViewProps {
-  color: string
-}
-
-export interface TreeView {
-  collapse: () => void,
-  expand: () => void,
-}
-
-export interface TreeViewProvide extends TreeViewProps {
-  onChildMounted: (category: ITreeCategory) => void
-  onChildUnmounted: (removableCategory: ITreeCategory) => void
-}
+import { ITreeCategory, TreeView, TreeViewProps, TreeViewProvide, TreeViewKey } from '../types'
 
 export const useTreeView = (props: TreeViewProps): TreeView => {
   const categories = ref<ITreeCategory[]>([])
