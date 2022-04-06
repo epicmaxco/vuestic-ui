@@ -96,7 +96,7 @@
       :style="{ width: $props.width }"
       @keyup.enter.stop
       @keydown.tab.stop.prevent
-      @keydown.esc.prevent="hideDropdown()"
+      @keydown.esc.prevent="hideAndFocus()"
     >
       <va-input
         v-if="showSearchInput"
@@ -389,7 +389,7 @@ export default defineComponent({
 
     const selectOption = (option: any): void => {
       if (hoveredOption.value === null) {
-        hideDropdown()
+        hideAndFocus()
         return
       }
 
@@ -409,7 +409,7 @@ export default defineComponent({
         }
       } else {
         valueComputed.value = typeof option === 'string' || typeof option === 'number' ? option : { ...option }
-        hideDropdown()
+        hideAndFocus()
       }
     }
 
@@ -465,13 +465,9 @@ export default defineComponent({
     const showDropdownContent = ref(false)
 
     const showDropdownContentComputed = computed({
-      get: () => {
-        return showDropdownContent.value
-      },
+      get: () => showDropdownContent.value,
       set: (show: boolean) => {
-        show
-          ? showDropdown()
-          : hideDropdown()
+        show ? showDropdown() : hideDropdown()
       },
     })
 
@@ -491,12 +487,11 @@ export default defineComponent({
       showDropdownContent.value = false
       searchInput.value = ''
       validate()
-      input.value?.focus()
     }
 
     const toggleDropdown = () => {
       if (showDropdownContent.value) {
-        hideDropdown()
+        hideAndFocus()
       } else {
         showDropdown()
       }
@@ -505,6 +500,11 @@ export default defineComponent({
     const onSelectClick = () => {
       if (props.disabled || props.readonly) { return }
       toggleDropdown()
+    }
+
+    const hideAndFocus = () => {
+      hideDropdown()
+      input.value?.focus()
     }
 
     const focusSearchBar = () => {
@@ -548,12 +548,9 @@ export default defineComponent({
     const blur = (): void => {
       if (showDropdownContentComputed.value) {
         showDropdownContentComputed.value = false
-        nextTick(() => {
-          input.value?.blur()
-        })
-      } else {
-        input.value?.blur()
       }
+
+      nextTick(input.value?.blur)
     }
 
     /** @public */
@@ -662,6 +659,7 @@ export default defineComponent({
       showDropdownContentComputed,
       showDropdown,
       hideDropdown,
+      hideAndFocus,
       toggleDropdown,
       toggleIconColor,
       onHintedSearch,
@@ -681,12 +679,9 @@ export default defineComponent({
     blur () {
       if (this.showDropdownContentComputed) {
         this.showDropdownContentComputed = false
-        nextTick(() => {
-          this.input?.blur()
-        })
-      } else {
-        this.input?.blur()
       }
+
+      nextTick(this.input?.blur)
     },
   },
 })
