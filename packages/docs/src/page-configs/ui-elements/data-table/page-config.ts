@@ -22,6 +22,7 @@ const config: ApiDocsBlock[] = [
   block.headline('dataTable.examples.slots.title'),
   block.paragraph('dataTable.examples.slots.text[0]'),
   block.paragraph('dataTable.examples.slots.text[1]'),
+  block.alert('dataTable.examples.slots.text[4]', '#f7cc36'),
   block.example('CustomSlots'),
   block.paragraph('dataTable.examples.slots.text[2]'),
   block.example('StaticSlots'),
