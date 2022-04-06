@@ -246,15 +246,3 @@ export default defineComponent({
   },
 })
 </script>
-
-<style lang="scss" scoped>
-.text {
-  &-right {
-    text-align: right;
-  }
-
-  &-center {
-    text-align: center;
-  }
-}
-</style>

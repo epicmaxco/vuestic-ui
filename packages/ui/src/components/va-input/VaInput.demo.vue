@@ -572,13 +572,13 @@
     >
       <va-input
         class="mb-4"
-        input-class="red text-right"
+        input-class="red text--right"
         model-value="This input must have margin bottom and right-aligned red text."
       />
       <va-input
         class="border-blue"
-        input-class="p-2 red text-center"
-        model-value="Native input element must have red centered text and big padding. VaInput wrapper has a blue border."
+        input-class="p-2 red"
+        model-value="Native input element must have red text and big padding. VaInput wrapper has a blue border."
         type="textarea"
       />
     </VbCard>
