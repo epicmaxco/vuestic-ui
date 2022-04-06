@@ -13,7 +13,7 @@
   --va-modal-z-index: var(--va-z-index-teleport-overlay);
   --va-modal-container-z-index: 100;
   --va-modal-basic-duration: 0.3s;
-  --va-modal-opacity-transition: opacity (var(--va-modal-basic-duration) * 0.5) cubic-bezier(1, 0.5, 0.8, 1);
+  --va-modal-opacity-transition: opacity calc(var(--va-modal-basic-duration) * 0.5) cubic-bezier(1, 0.5, 0.8, 1);
   --va-modal-transform-transition: transform var(--va-modal-basic-duration) ease;
 
   /* Dialog */
