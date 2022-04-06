@@ -1,6 +1,6 @@
 <template>
   <teleport :to="attachElement" :disabled="disableAttachment">
-    <modal-element name="va-modal" :isTransition="!$props.withoutTransitions" appear>
+    <modal-element name="va-modal" :isTransition="!$props.withoutTransitions" appear :duration="300">
       <div class="va-modal" v-if="valueComputed">
         <div
           class="va-modal__overlay"
