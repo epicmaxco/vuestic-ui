@@ -1,7 +1,7 @@
 <template>
   <header class="docs-header px-3">
     <div class="docs-header__logo">
-      <LayoutDocsHeaderCollapseIcon />
+      <LayoutDocsHeaderCollapseIcon v-model="computedIsSidebarVisible" />
       <LayoutDocsHeaderVuesticDocsLogo class="ml-3" />
     </div>
   
@@ -17,23 +17,29 @@
         color="primary"
         flat
       >
-        {{ link.text }}
+        <span v-if="!sm">{{ link.text }}</span>
       </va-button>
     </div>
 
     <div class="docs-header__preferences">
-
+      <LayoutDocsHeaderVersionDropdown />
+      <LayoutDocsHeaderLanguageDropdown />
     </div>
   </header>
 </template>
 
 <script setup lang="ts">
-const { locale, t } = useI18n()
+const { t } = useI18n()
 
-const props = defineProps({
-  isSidebarVisible: { type: Boolean }
-})
+const { sm } = useBreakpoint()
+
+const props = defineProps({ isSidebarVisible: { type: Boolean } })
 const emit = defineEmits(['update:isSidebarVisible'])
+
+const computedIsSidebarVisible = computed({
+  get() { return props.isSidebarVisible },
+  set(val: boolean) { emit('update:isSidebarVisible', val) }
+})
 
 const { query } = useRoute()
 
@@ -57,13 +63,11 @@ const links = computed(() => [
     to: `${urlPrefix.value}/contribution/documentation-page`,
   },
 ])
-
-const toggleSidebar = () => {
-  emit('update:isSidebarVisible', !props.isSidebarVisible)
-}
 </script>
 
 <style lang="scss" scoped>
+@import "vuestic-ui/styles/resources";
+
 .docs-header {
   width: 100%;
   height: 4rem;
@@ -75,6 +79,10 @@ const toggleSidebar = () => {
   & > * {
     display: flex;
     align-items: center;
+  }
+
+  &__preferences {
+    font-weight: 700;
   }
 }
 </style>

@@ -1,28 +1,52 @@
-import { DocsBlock } from "~~/types/docs-blocks"
+import { PageConfig, PageRoute } from "~~/types/page-config"
 
-const modules = import.meta.globEager('./**/*.ts')
+// TOOD: deal with treeshaking here somehow.
+const modules = import.meta.globEager('./**/index.ts')
 
-const configs = Object.entries(modules)
+export const configs = Object.entries(modules)
+  .filter(([name, config]) => {
+    const path = name.replace('/index.ts', '').replace('./', '')
+    return path.split('/').length <= 2
+  })
   .reduce((acc, [name, value]) => {
-    const fileNameWithoutSlashAndExtension = name.slice(2, -3)
+    const configPath = name.replace('/index.ts', '').replace('./', '')
 
-    acc[fileNameWithoutSlashAndExtension] = value
+    acc[configPath] = value
 
     return acc
   }, {} as typeof modules)
 
+export const getConfig = (configPath: string) => {
+  const config = configs[configPath]
 
-export const getConfig = (config: string) => {
-  return configs[config].default as DocsBlock[]
-  // return new Promise<DocsBlock[]>((resolve) => {
-  //   configs[config]().then((module) => {
-  //     if (module.default) {
-  //       resolve(module.default)
-  //     } else {
-  //       throw new Error('Page config must be default export.')
-  //     }
-  //   })
-  // })
-}  
+  if (!config) {
+    throw new Error(`Config ${configPath} not found`)
+  }
 
-export default configs
+  return config.default as PageConfig
+}
+
+export const createPageRoutes = () => {
+  return Object.values(Object.keys(configs)
+    .sort((a, b) => a < b ? -1 : 1)
+    .reduce((acc, configPath, i, arr) => {
+      const [catergory, child] = configPath.split('/')
+ 
+      const name = child || catergory
+
+      const page: PageRoute = { ...getConfig(configPath), path: configPath, name }
+
+      if (child) {
+        if (!acc[catergory]) {
+          return acc
+        }
+
+        if (!acc[catergory].children) { acc[catergory].children = [] }
+        acc[catergory].children.push(page)
+      } else {
+        acc[catergory] = page
+      }
+
+      return acc
+    }, {} as Record<string, PageRoute>))
+} 

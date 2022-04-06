@@ -1,8 +1,11 @@
-import { TableColumn } from './useColumns'
 import { computed, ref, Ref, watch } from 'vue'
-import { TableRow, ITableItem } from './useRows'
+import { TableColumn, TableRow, ITableItem, TSortingOrder } from '../types'
 
-export type TSortingOrder = 'asc' | 'desc' | null
+interface useSortableProps {
+  sortBy: string | undefined
+  sortingOrder: TSortingOrder | undefined
+  [prop: string]: unknown
+}
 export type TSortedArgs = { sortBy: string, sortingOrder: TSortingOrder, items: ITableItem[], itemsIndexes: number[] }
 export type TSortableEmits = (
   event: 'update:sortBy' | 'update:sortingOrder' | 'sorted',
@@ -12,22 +15,21 @@ export type TSortableEmits = (
 export default function useSortable (
   columns: Ref<TableColumn[]>,
   filteredRows: Ref<TableRow[]>,
-  sortBy: Ref<string | undefined>,
-  sortingOrder: Ref<TSortingOrder | undefined>,
+  props: useSortableProps,
   emit: TSortableEmits,
 ) {
   const sortByFallback = ref('')
-  const sortByProxy = computed<string>({
+  const sortBySync = computed<string>({
     get () {
-      if (sortBy.value === undefined) {
+      if (props.sortBy === undefined) {
         return sortByFallback.value
       } else {
-        return sortBy.value
+        return props.sortBy
       }
     },
 
     set (value) {
-      if (sortBy.value === undefined) {
+      if (props.sortBy === undefined) {
         sortByFallback.value = value
       }
 
@@ -36,17 +38,17 @@ export default function useSortable (
   })
 
   const sortingOrderFallback = ref(null as TSortingOrder)
-  const sortingOrderProxy = computed<TSortingOrder>({
+  const sortingOrderSync = computed<TSortingOrder>({
     get () {
-      if (sortingOrder.value === undefined) {
+      if (props.sortingOrder === undefined) {
         return sortingOrderFallback.value
       } else {
-        return sortingOrder.value
+        return props.sortingOrder
       }
     },
 
     set (value) {
-      if (sortingOrder.value === undefined) {
+      if (props.sortingOrder === undefined) {
         sortingOrderFallback.value = value
       }
 
@@ -62,7 +64,7 @@ export default function useSortable (
       return filteredRows.value
     }
 
-    const column = columns.value.find(column => column.key === sortByProxy.value)
+    const column = columns.value.find(column => column.key === sortBySync.value)
 
     if (!column || !column.sortable) {
       return filteredRows.value
@@ -76,10 +78,10 @@ export default function useSortable (
       const firstValInitial = a.cells[columnIndex].source
       const secondValInitial = b.cells[columnIndex].source
 
-      if (sortingOrderProxy.value === null) {
+      if (sortingOrderSync.value === null) {
         return a.initialIndex - b.initialIndex
       } else {
-        const sortingOrderRatio = sortingOrderProxy.value === 'desc' ? -1 : 1
+        const sortingOrderRatio = sortingOrderSync.value === 'desc' ? -1 : 1
 
         return sortingOrderRatio * (
           typeof column.sortingFn === 'function'
@@ -94,8 +96,8 @@ export default function useSortable (
   // (because that potentially means that the user runtime-introduced a custom sorting function for a specific column)
   watch(sortedRows, () => {
     emit('sorted', {
-      sortBy: sortByProxy.value,
-      sortingOrder: sortingOrderProxy.value,
+      sortBy: sortBySync.value,
+      sortingOrder: sortingOrderSync.value,
       items: sortedRows.value.map(row => row.source),
       itemsIndexes: sortedRows.value.map(row => row.initialIndex),
     })
@@ -105,23 +107,23 @@ export default function useSortable (
   // Sets the clicked heading's column as a one to sort by and toggles the sorting order from "asc" to "desc" to `null`
   // (un-sorted) if the same column is clicked again or sets sorting order to "asc" if some other column is chosen.
   function toggleSorting (column: TableColumn) {
-    if (column.key === sortByProxy.value) {
-      if (sortingOrderProxy.value === null) {
-        sortingOrderProxy.value = 'asc'
-      } else if (sortingOrderProxy.value === 'asc') {
-        sortingOrderProxy.value = 'desc'
+    if (column.key === sortBySync.value) {
+      if (sortingOrderSync.value === null) {
+        sortingOrderSync.value = 'asc'
+      } else if (sortingOrderSync.value === 'asc') {
+        sortingOrderSync.value = 'desc'
       } else {
-        sortingOrderProxy.value = null
+        sortingOrderSync.value = null
       }
     } else {
-      sortByProxy.value = column.key
-      sortingOrderProxy.value = 'asc'
+      sortBySync.value = column.key
+      sortingOrderSync.value = 'asc'
     }
   }
 
   return {
-    sortByProxy,
-    sortingOrderProxy,
+    sortBySync,
+    sortingOrderSync,
     toggleSorting,
     sortedRows,
   }

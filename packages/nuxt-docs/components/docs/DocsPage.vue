@@ -2,24 +2,35 @@
   <div>
     <component
       v-for="(block, i) in blocks"
-      :key="i" 
+      :key="i + currentRoute.fullPath" 
       :is="block.component" v-bind="block.attributes" 
     />
   </div>
 </template>
 
 <script setup lang="ts">
-import * as views from './blocks'
+import { blockComponents } from './blocks'
 
-const configName = 'test'
+const { currentRoute } = useRouter()
 
-const { getConfigAsync } = usePageConfig()
+const { getConfig } = usePageConfig()
 
-const config = getConfigAsync(configName)
+const config = computed(() => {
+  const { name, page } = currentRoute.value.params
+  // TODO: Rename page params
+  const configPath = `${name}/${page}`
 
-const blocks = config
-  .map((block) => ({
-    component: views[block.component],
-    attributes: block.setup?.()
-  }))
+  return getConfig(configPath)
+})
+
+const blocks = computed(() => {
+  if (!config.value) return []
+
+  return config.value.blocks
+    .map((block) => ({
+      // TODO: Add here uuid
+      component: blockComponents[block.component],
+      attributes: block.setup?.()
+    }))
+})
 </script>

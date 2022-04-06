@@ -1,6 +1,7 @@
 import { createI18n, I18n, VueI18n } from 'vue-i18n'
 import { messages, locales } from '~/locales'
 import { useRouter, useRoute } from '#app'
+import { Ref } from 'vue'
 
 type Locale = keyof typeof messages
 
@@ -19,7 +20,7 @@ const parseLocaleFromPath = (url: string | undefined) => {
 }
 
 /** This plugin register i18n and sync it's locale with cookies */
-export default defineNuxtPlugin(({ vueApp, ssrContext, provide }) => {
+export default defineNuxtPlugin(({ vueApp: app, ssrContext, provide }) => {
   const { getCookie, setCookie } = useSSRCookie()
 
   const getLocaleFromUrl = () => {
@@ -28,7 +29,7 @@ export default defineNuxtPlugin(({ vueApp, ssrContext, provide }) => {
     } else {          // Client
       return useRoute().query.locale as string
     }
-  } 
+  }
 
   const locale = getLocaleFromUrl() || getCookie('locale') || 'en'
 
@@ -37,21 +38,26 @@ export default defineNuxtPlugin(({ vueApp, ssrContext, provide }) => {
     locale,
     fallbackLocale: 'en',
     messages,
+    legacy: false,
     missing (_, key) {
       return key
     },
   })
 
-  provide('i18n', i18n.global)
+  app.use(i18n)
+
+  if (ssrContext) { return }
 
   const { beforeEach, replace } = useRouter()
 
   beforeEach((newRoute) => {
     const newLocale = newRoute.params.locale as string
 
-    if (newLocale === undefined || newLocale === i18n.global.locale) { return }
+    const locale = i18n.global.locale
+
+    if (newLocale === undefined || newLocale === locale.value) { return }
     if (isLocaleExist(newLocale)) {
-      i18n.global.locale = newLocale
+      locale.value = newLocale
       setCookie('locale', newLocale)
     } else {
       const newPath = newRoute.fullPath.replace(`/${newLocale}/`, '/en/')
@@ -60,7 +66,8 @@ export default defineNuxtPlugin(({ vueApp, ssrContext, provide }) => {
     }
   })
 
-  vueApp.use(i18n)
+  provide('t', i18n.global.t)
+  provide('te', i18n.global.te)
 })
 
 

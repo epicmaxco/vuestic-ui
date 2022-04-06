@@ -1,7 +1,12 @@
 import { Ref, computed, watch, ref } from 'vue'
-import { TableRow, ITableItem } from './useRows'
+import { TableRow, ITableItem, TSelectMode } from '../types'
 
-export type TSelectMode = 'single' | 'multiple'
+interface useSelectableProps {
+  modelValue: ITableItem[] | undefined // selectedItems
+  selectable: boolean
+  selectMode: TSelectMode
+  [prop: string]: unknown
+}
 export type TEmits = 'update:modelValue' | 'selectionChange'
 export type TSelectionChange = {
   currentSelectedItems: ITableItem[],
@@ -10,24 +15,23 @@ export type TSelectionChange = {
 export type TSelectableEmits = (event: TEmits, arg: ITableItem[] | TSelectionChange) => void
 
 export default function useSelectableRow (
-  sortedRows: Ref<TableRow[]>,
-  selectedItems: Ref<ITableItem[] | undefined>,
-  selectable: Ref<boolean>,
-  selectMode: Ref<TSelectMode>,
+  paginatedRows: Ref<TableRow[]>,
+  props: useSelectableProps,
   emit: TSelectableEmits,
 ) {
   const selectedItemsFallback = ref([] as ITableItem[])
-  const selectedItemsProxy = computed<ITableItem[]>({
+
+  const selectedItemsSync = computed<ITableItem[]>({
     get () {
-      if (selectedItems.value === undefined) {
+      if (props.modelValue === undefined) {
         return selectedItemsFallback.value
       } else {
-        return selectedItems.value
+        return props.modelValue
       }
     },
 
     set (modelValue) {
-      if (selectedItems.value === undefined) {
+      if (props.modelValue === undefined) {
         selectedItemsFallback.value = modelValue
       }
 
@@ -39,109 +43,90 @@ export default function useSelectableRow (
 
   // clear all the selected rows when the `select-mode`'s value changes from multiple to single
   // (though it's safe enough to leave a selected item when changing from single to multiple
-  watch(selectMode, (newSelectMode, oldSelectMode) => {
+  watch(() => props.selectMode, (newSelectMode, oldSelectMode) => {
     if (newSelectMode === 'single' && oldSelectMode === 'multiple') {
       unselectAllRows()
       setPrevSelectedRowIndex(-1)
     }
   })
 
-  // watch for rows changes (happens when filtering is applied e.g.) and deselect all the rows that don't exist anymore
-  watch(sortedRows, (newSortedRows, oldSortedRows) => {
-    setPrevSelectedRowIndex(-1)
-
-    const removedRowsSource = oldSortedRows
-      .filter(oldRow => !newSortedRows.includes(oldRow))
-      .map(row => row.source)
-
-    if (!removedRowsSource.length) {
-      return
-    }
-
-    selectedItemsProxy.value = selectedItemsProxy.value.filter(row => !removedRowsSource.includes(row))
-  })
+  // watch for rows changes (happens when filtering is applied e.g.)
+  watch(paginatedRows, () => { setPrevSelectedRowIndex(-1) })
 
   // emit the "selection-change" event each time the selection changes
-  watch(selectedItemsProxy, (currentSelectedItems, previousSelectedItems) => {
+  watch(selectedItemsSync, (currentSelectedItems, previousSelectedItems) => {
     emit('selectionChange', {
       currentSelectedItems,
       previousSelectedItems,
     })
   })
 
-  // exposed
-  const noRowsSelected = computed(() => {
-    return selectedItemsProxy.value.length === 0
-  })
+  const noRowsSelected = computed(() => (
+    !paginatedRows.value.some(({ source }) => selectedItemsSync.value.includes(source))
+  ))
 
-  // exposed
-  const severalRowsSelected = computed(() => {
-    return selectedItemsProxy.value.length > 0 && selectedItemsProxy.value.length < sortedRows.value.length
-  })
-
-  // exposed
   const allRowsSelected = computed(() => {
-    if (sortedRows.value.length === 0) {
-      return false
-    }
+    if (paginatedRows.value.length === 0) { return false }
 
-    return selectedItemsProxy.value.length === sortedRows.value.length
+    return paginatedRows.value.every(({ source }) => selectedItemsSync.value.includes(source))
   })
 
-  // exposed
+  const severalRowsSelected = computed(() => !noRowsSelected.value && !allRowsSelected.value)
+
   function isRowSelected (row: TableRow) {
-    return selectedItemsProxy.value.includes(row.source)
+    return selectedItemsSync.value.includes(row.source)
   }
 
-  // private
   function selectAllRows () {
-    selectedItemsProxy.value = sortedRows.value.map(row => row.source)
+    selectedItemsSync.value = [...new Set([
+      ...selectedItemsSync.value,
+      ...paginatedRows.value.map(row => row.source),
+    ])]
   }
 
-  // private
   function unselectAllRows () {
-    selectedItemsProxy.value = []
+    const paginatedRowsSource = paginatedRows.value.map(row => row.source)
+
+    selectedItemsSync.value = selectedItemsSync.value
+      .filter((row) => !paginatedRowsSource.includes(row))
   }
 
-  // private. The one calling this function must guarantee that the row isn't already selected
+  // The one calling this function must guarantee that the row isn't already selected
   function selectRow (row: TableRow) {
-    selectedItemsProxy.value = [...selectedItemsProxy.value, row.source]
+    selectedItemsSync.value = [...selectedItemsSync.value, row.source]
   }
 
-  // private
   function selectOnlyRow (row: TableRow) {
-    selectedItemsProxy.value = [row.source]
+    selectedItemsSync.value = [row.source]
   }
 
-  // private. The one calling this function must guarantee that the row is selected
+  // The one calling this function must guarantee that the row is selected
   function unselectRow (row: TableRow) {
-    const index = selectedItemsProxy.value.findIndex(selectedItem => selectedItem === row.source)
+    const index = selectedItemsSync.value.findIndex(selectedItem => selectedItem === row.source)
 
-    selectedItemsProxy.value = [
-      ...selectedItemsProxy.value.slice(0, index),
-      ...selectedItemsProxy.value.slice(index + 1),
+    selectedItemsSync.value = [
+      ...selectedItemsSync.value.slice(0, index),
+      ...selectedItemsSync.value.slice(index + 1),
     ]
   }
 
-  // private
   function setPrevSelectedRowIndex (rowInitialIndex: number) {
     if (rowInitialIndex === -1) {
       prevSelectedRowIndex.value = -1
     } else {
-      const prevSelectedRow = sortedRows.value.find(row => row.initialIndex === rowInitialIndex)
+      const prevSelectedRow = paginatedRows.value.find(row => row.initialIndex === rowInitialIndex)
 
       prevSelectedRow
-        ? prevSelectedRowIndex.value = sortedRows.value.indexOf(prevSelectedRow)
+        ? prevSelectedRowIndex.value = paginatedRows.value.indexOf(prevSelectedRow)
         : prevSelectedRowIndex.value = -1
     }
   }
 
-  // private
   function getRowsToSelect (targetIndex: number) {
     let start
     let end
 
-    if (isRowSelected(sortedRows.value[prevSelectedRowIndex.value])) {
+    if (isRowSelected(paginatedRows.value[prevSelectedRowIndex.value])) {
       start = Math.min(prevSelectedRowIndex.value, targetIndex)
       end = Math.max(prevSelectedRowIndex.value, targetIndex)
     } else {
@@ -149,73 +134,66 @@ export default function useSelectableRow (
       end = Math.max(prevSelectedRowIndex.value - 1, targetIndex)
     }
 
-    return sortedRows.value.slice(start, end + 1)
+    return paginatedRows.value.slice(start, end + 1)
   }
 
-  // private
   function mergeSelection (rowsToSelect: TableRow[]) {
     const rowsToSelectSource = rowsToSelect.map(row => row.source)
 
     if (noRowsSelected.value) {
-      selectedItemsProxy.value = rowsToSelectSource
+      selectedItemsSync.value = rowsToSelectSource
       return
     }
 
-    const isInternalSelection = rowsToSelectSource.every(rowSource => selectedItemsProxy.value.includes(rowSource))
+    const isInternalSelection = rowsToSelectSource.every(rowSource => selectedItemsSync.value.includes(rowSource))
 
     if (isInternalSelection) {
-      selectedItemsProxy.value = selectedItemsProxy.value.filter(row => !rowsToSelectSource.includes(row))
+      selectedItemsSync.value = selectedItemsSync.value.filter(row => !rowsToSelectSource.includes(row))
       return
     }
 
-    selectedItemsProxy.value = [
-      ...new Set([
-        ...selectedItemsProxy.value,
-        ...rowsToSelectSource,
-      ]),
-    ]
+    selectedItemsSync.value = [...new Set([
+      ...selectedItemsSync.value,
+      ...rowsToSelectSource,
+    ])]
   }
 
-  // exposed
   function toggleRowSelection (row: TableRow) {
-    if (!selectable.value) {
+    if (!props.selectable) {
       return
     }
 
     if (isRowSelected(row)) {
       unselectRow(row)
-      selectMode.value === 'single' ? setPrevSelectedRowIndex(-1) : setPrevSelectedRowIndex(row.initialIndex)
+      props.selectMode === 'single' ? setPrevSelectedRowIndex(-1) : setPrevSelectedRowIndex(row.initialIndex)
     } else {
-      selectMode.value === 'single' ? selectOnlyRow(row) : selectRow(row)
+      props.selectMode === 'single' ? selectOnlyRow(row) : selectRow(row)
       setPrevSelectedRowIndex(row.initialIndex)
     }
   }
 
-  // exposed
   function ctrlSelectRow (row: TableRow) {
-    if (!selectable.value) {
+    if (!props.selectable) {
       return
     }
 
     toggleRowSelection(row)
   }
 
-  // exposed
   function shiftSelectRows (row: TableRow) {
-    if (!selectable.value) {
+    if (!props.selectable) {
       return
     }
 
-    if (selectMode.value === 'single' || prevSelectedRowIndex.value === -1) {
+    if (props.selectMode === 'single' || prevSelectedRowIndex.value === -1) {
       return toggleRowSelection(row)
     }
 
-    const targetIndex = sortedRows.value.indexOf(row)
+    const targetIndex = paginatedRows.value.indexOf(row)
     mergeSelection(getRowsToSelect(targetIndex))
     setPrevSelectedRowIndex(-1)
   }
 
-  // exposed
   function toggleBulkSelection () {
     if (allRowsSelected.value) {
       unselectAllRows()

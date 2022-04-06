@@ -1,14 +1,17 @@
 import { Ref, watch, computed } from 'vue'
-import { TableRow, ITableItem } from './useRows'
+import { TableRow, TFilterMethod, ITableItem } from '../types'
 
-export type TFilterMethod = (source: any) => boolean
+interface useFilterableProps {
+  filter: string
+  filterMethod: TFilterMethod | undefined
+  [prop: string]: unknown
+}
 export type TFilteredArgs = { items: ITableItem[], itemsIndexes: number[] }
 export type TFilterableEmits = (event: 'filtered', arg: TFilteredArgs) => void
 
 export default function useFilterable (
   rawRows: Ref<TableRow[]>,
-  filter: Ref<string>,
-  filterMethod: Ref<TFilterMethod | undefined>,
+  props: useFilterableProps,
   emit: TFilterableEmits,
 ) {
   const filteredRows = computed<TableRow[]>(() => {
@@ -16,14 +19,14 @@ export default function useFilterable (
       return rawRows.value
     }
 
-    if (filter.value === '' && !filterMethod.value) {
+    if (props.filter === '' && !props.filterMethod) {
       return rawRows.value
     }
 
     return rawRows.value.filter(row => row.cells.some(cell => {
-      return typeof filterMethod.value === 'function'
-        ? filterMethod.value(cell.source)
-        : cell.value.toLowerCase().includes(filter.value.toLowerCase())
+      return typeof props.filterMethod === 'function'
+        ? props.filterMethod(cell.source)
+        : cell.value.toLowerCase().includes(props.filter.toLowerCase())
     }))
   })
 

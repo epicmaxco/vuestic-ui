@@ -15,7 +15,7 @@
     tabindex="0"
     class="va-file-upload-gallery-item"
     :class="{
-      'file-upload-gallery-item_not-image': !this.previewImage,
+      'file-upload-gallery-item_not-image': !previewImage,
       'va-file-upload-gallery-item--focused': isFocused
     }"
     @focus="isFocused = true"
@@ -27,10 +27,11 @@
       alt=""
       class="va-file-upload-gallery-item__image"
     >
-    <div
-      class="va-file-upload-gallery-item__overlay"
-    >
-      <div class="va-file-upload-gallery-item__overlay-background" :style="overlayStyles" />
+    <div class="va-file-upload-gallery-item__overlay">
+      <div
+        class="va-file-upload-gallery-item__overlay-background"
+        :style="overlayStyles"
+      />
       <div
         class="va-file-upload-gallery-item__name"
         :title="file.name"
@@ -42,7 +43,7 @@
         color="danger"
         icon="delete_outline"
         class="va-file-upload-gallery-item__delete"
-        @click="removeImage()"
+        @click="removeImage"
         @focus="isFocused = true"
         @blur="isFocused = false"
       />
@@ -51,94 +52,75 @@
 </template>
 
 <script lang="ts">
-import { watch } from 'vue'
-import { Options, Vue, prop, mixins } from 'vue-class-component'
-
-import { colorToRgba } from '../../../services/color-config/color-functions'
-import VaIcon from '../../va-icon'
-import VaButton from '../../va-button'
+import { defineComponent, onMounted, PropType, ref, watch, computed } from 'vue'
 
 import VaFileUploadUndo from '../VaFileUploadUndo'
+import { colorToRgba } from '../../../services/color-config/color-functions'
 
-class FileUploadGalleryItemProps {
-  file = prop<any>({
-    type: Object,
-    default: null,
-  })
+import type { ConvertedFile } from '../types'
 
-  color = prop<string>({
-    type: String,
-    default: 'success',
-  })
-}
-
-const FileUploadGalleryItemPropsMixin = Vue.with(FileUploadGalleryItemProps)
-
-@Options({
+export default defineComponent({
   name: 'VaFileUploadGalleryItem',
-  components: {
-    VaIcon,
-    VaFileUploadUndo,
-    VaButton,
-  },
+  components: { VaFileUploadUndo },
   emits: ['remove'],
-})
-export default class VaFileUploadGalleryItem extends mixins(FileUploadGalleryItemPropsMixin) {
-  previewImage = ''
-  removed = false
-  isFocused = false
+  props: {
+    file: { type: Object as PropType<ConvertedFile>, default: null },
+    color: { type: String as PropType<string>, default: 'success' },
+  },
+  setup (props, { emit }) {
+    const previewImage = ref('')
+    const removed = ref(false)
+    const isFocused = ref(false)
 
-  created () {
-    watch(() => this.$props.file, () => {
-      this.convertToImg()
-    })
-  }
+    const overlayStyles = computed(() => ({ backgroundColor: colorToRgba(props.color, 0.7) }))
 
-  get overlayStyles () {
-    return {
-      backgroundColor: colorToRgba(this.$props.color as string, 0.7),
+    const removeImage = () => {
+      removed.value = true
+
+      setTimeout(() => {
+        if (!removed.value) { return }
+
+        emit('remove')
+        removed.value = false
+      }, 2000)
     }
-  }
 
-  removeImage () {
-    this.removed = true
-    setTimeout(() => {
-      if (this.removed) {
-        this.$emit('remove')
-        this.removed = false
-      }
-    }, 2000)
-  }
+    const recoverImage = () => { removed.value = false }
 
-  recoverImage () {
-    this.removed = false
-  }
+    const convertToImg = () => {
+      if (!props.file.name || !props.file.image) { return }
 
-  convertToImg () {
-    if (!this.$props.file.name) { return }
-
-    if (this.$props.file.image && this.$props.file.image.url) {
-      this.previewImage = this.$props.file.image.url
-    } else {
-      const reader = new FileReader()
-      reader.readAsDataURL(this?.$props?.file?.image)
-      reader.onload = (e: any) => {
-        if (e.target.result.includes('image')) {
-          this.previewImage = e.target.result
+      if (props.file.image.url) {
+        previewImage.value = props.file.image.url
+      } else if (props.file.image instanceof File) {
+        const reader = new FileReader()
+        reader.readAsDataURL(props.file.image)
+        reader.onload = (e) => {
+          if ((e.target?.result as string).includes('image')) {
+            previewImage.value = e.target?.result as string
+          }
         }
       }
     }
-  }
 
-  mounted () {
-    this.convertToImg()
-  }
-}
+    onMounted(convertToImg)
+    watch(() => props.file, convertToImg)
+
+    return {
+      previewImage,
+      removed,
+      isFocused,
+      recoverImage,
+      overlayStyles,
+      removeImage,
+    }
+  },
+})
 </script>
 
 <style lang='scss'>
-@import 'variables';
-@import '../../../styles/resources';
+@import "variables";
+@import "../../../styles/resources";
 
 $max-image-size: 8.5714rem;
 

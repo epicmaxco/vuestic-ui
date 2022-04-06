@@ -81,8 +81,8 @@
         :min="min"
         :max="max"
       />
-      <input v-model.number="min">
-      <input v-model.number="max">
+      <input type="number" v-model.number="min">
+      <input type="number" v-model.number="max">
     </VbCard>
     <VbCard
       width="500px"

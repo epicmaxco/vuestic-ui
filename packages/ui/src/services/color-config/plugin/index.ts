@@ -1,5 +1,5 @@
-import { watch } from 'vue'
-import { useGlobalConfig } from '../../global-config/global-config'
+import { Plugin, watch } from 'vue'
+import { GlobalConfig, ProvidedGlobalConfig } from '../../global-config/global-config'
 import { isServer } from '../../../utils/ssr-utils'
 
 export const setCSSVariable = (name: string, value: string, root: HTMLElement) => {
@@ -7,21 +7,36 @@ export const setCSSVariable = (name: string, value: string, root: HTMLElement) =
 }
 
 /** Creates color css variables and reactively updates on ColorConfig changes. */
-export const ColorConfigPlugin = {
-  install () {
-    if (isServer()) { return }
+export const ColorConfigPlugin: Plugin = {
+  install (app) {
+    const { globalConfig } = app.config.globalProperties.$vaConfig as ProvidedGlobalConfig
 
-    const { globalConfig } = useGlobalConfig()
+    /** Renders CSS varialbes string. Use this in SSR mode */
+    const renderCSSVarialbes = (colors: GlobalConfig['colors'] = globalConfig.value.colors) => {
+      if (!colors) { return }
 
-    const root = document.documentElement
+      const colorNames = Object.keys(colors)
+      return colorNames.map((key) => `--va-${key}: ${colors[key]}`).join(';')
+    }
 
-    watch(() => globalConfig.value.colors, (newValue) => {
+    const updateColors = (newValue: GlobalConfig['colors']) => {
       if (!newValue) { return }
+      if (isServer()) { return }
+
+      const root = document.documentElement
 
       const colorNames = Object.keys(newValue)
       colorNames.forEach((key) => {
         setCSSVariable(key, newValue[key], root)
       })
+    }
+
+    updateColors(globalConfig.value.colors)
+
+    watch(() => globalConfig.value.colors, (newValue) => {
+      updateColors(newValue)
     }, { immediate: true, deep: true })
+
+    app.config.globalProperties.$vaColorConfig = { renderCSSVarialbes, updateColors }
   },
 }

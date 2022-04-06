@@ -1,5 +1,5 @@
-import en from './en/en.json'
-import ru from './ru/ru.json'
+import en from './en.json'
+import ru from './ru.json'
 
 export type TranslationStatusPath = { [key in 'full' | 'part']: string }
 

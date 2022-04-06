@@ -15,6 +15,7 @@
     :bordered="bordered"
     :outline="outline"
     :focused="isFocused"
+    :requiredMark="requiredMark"
     @click="input && input.focus()"
   >
     <!-- Simply proxy slots to VaInputWrapper -->
@@ -119,10 +120,14 @@ export default defineComponent({
     label: { type: String, default: '' },
     type: { type: String as PropType<'text' | 'textarea'>, default: 'text' },
     loading: { type: Boolean, default: false },
+    pattern: { type: String },
+    inputmode: { type: String, default: 'text' },
+
     // style
     color: { type: String, default: 'primary' },
     outline: { type: Boolean, default: false },
     bordered: { type: Boolean, default: false },
+    requiredMark: { type: Boolean, default: false },
   },
 
   emits: [
@@ -204,7 +209,7 @@ export default defineComponent({
 
     const computedInputAttributes = computed(() => ({
       ...computedChildAttributes.value,
-      ...pick(props, ['type', 'tabindex', 'disabled', 'readonly', 'placeholder']),
+      ...pick(props, ['type', 'tabindex', 'disabled', 'readonly', 'placeholder', 'pattern', 'inputmode']),
     }) as InputHTMLAttributes)
 
     return {

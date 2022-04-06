@@ -1,5 +1,10 @@
 <template>
-  <teleport v-if='valueComputed' :to="attachElement" :disabled="disableAttachment">
+  <teleport
+    v-if='valueComputed'
+    :to="attachElement"
+    :disabled="disableAttachment"
+    ref="rootElement"
+  >
     <div class="va-modal">
       <modal-element
         name="va-modal__overlay--transition"
@@ -9,7 +14,7 @@
       >
         <div
           class="va-modal__overlay"
-          :style="$props.overlay && computedOverlayStyles"
+          :style="computedOverlayStyles"
         />
       </modal-element>
       <modal-element
@@ -34,7 +39,7 @@
           >
             <va-icon
               v-if="$props.fullscreen"
-              @click="cancel()"
+              @click="cancel"
               name="close"
               class="va-modal__close"
             />
@@ -46,31 +51,49 @@
               <div
                 v-if="title"
                 class="va-modal__title"
-                :style="{ color: theme.getColor('primary') }"
+                :style="{ color: getColor('primary') }"
               >
                 {{ $props.title }}
               </div>
-              <div v-if="hasHeaderSlot" class="va-modal__header">
+              <div
+                v-if="$slots.header"
+                class="va-modal__header"
+              >
                 <slot name="header" />
               </div>
-              <div v-if="$props.message" class="va-modal__message">
+              <div
+                v-if="$props.message"
+                class="va-modal__message"
+              >
                 {{ $props.message }}
               </div>
-              <div v-if="hasContentSlot" class="va-modal__message">
+              <div
+                v-if="$slots.default"
+                class="va-modal__message"
+              >
                 <slot />
               </div>
               <div
                 v-if="($props.cancelText || $props.okText) && !$props.hideDefaultActions"
                 class="va-modal__footer"
               >
-                <va-button v-if="$props.cancelText" color="gray" class="mr-2" flat @click="cancel">
+                <va-button
+                  v-if="$props.cancelText"
+                  color="gray"
+                  class="mr-2"
+                  flat
+                  @click="cancel"
+                >
                   {{ $props.cancelText }}
                 </va-button>
                 <va-button @click="ok">
                   {{ $props.okText }}
                 </va-button>
               </div>
-              <div v-if="hasFooterSlot" class="va-modal__footer">
+              <div
+                v-if="$slots.footer"
+                class="va-modal__footer"
+              >
                 <slot name="footer" />
               </div>
             </div>
@@ -82,195 +105,160 @@
 </template>
 
 <script lang="ts">
-import { watch, h, Transition } from 'vue'
-import { Options, prop, Vue, mixins } from 'vue-class-component'
+import { watch, h, Transition, defineComponent, PropType, computed, StyleValue, ref } from 'vue'
 
-import ColorMixin from '../../services/color-config/ColorMixin'
-import { StatefulMixin } from '../../mixins/StatefulMixin/StatefulMixin'
+import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
+import { useColors } from '../../composables/useColor'
 import VaButton from '../va-button'
 import VaIcon from '../va-icon'
 
-class ModalProps {
-  modelValue = prop<boolean>({ type: Boolean, default: false })
-  attachElement = prop<string>({ type: String, default: 'body' })
-  disableAttachment = prop<boolean>({ type: Boolean, default: false })
-  title = prop<string>({ type: String, default: '' })
-  message = prop<string>({ type: String, default: '' })
-  okText = prop<string>({ type: String, default: 'OK' })
-  cancelText = prop<string>({ type: String, default: 'Cancel' })
-  hideDefaultActions = prop<boolean>({ type: Boolean, default: false })
-  fullscreen = prop<boolean>({ type: Boolean, default: false })
-  mobileFullscreen = prop<boolean>({ type: Boolean, default: true })
-  noDismiss = prop<boolean>({ type: Boolean, default: false })
-  noOutsideDismiss = prop<boolean>({ type: Boolean, default: false })
-  noEscDismiss = prop<boolean>({ type: Boolean, default: false })
-  maxWidth = prop<string>({ type: String, default: '' })
-  maxHeight = prop<string>({ type: String, default: '' })
-  size = prop<string>({
-    type: String,
-    default: 'medium',
-    validator: (size: string) => {
-      return ['medium', 'small', 'large'].includes(size)
-    },
-  })
-
-  fixedLayout = prop<boolean>({ type: Boolean, default: false })
-  withoutTransitions = prop<boolean>({ type: Boolean, default: false })
-  overlay = prop<boolean>({ type: Boolean, default: true })
-  overlayOpacity = prop<number | string>({
-    type: [Number, String],
-    default: 0.6,
-  })
-
-  zIndex = prop<number | string>({ type: [Number, String], default: undefined })
-}
-
-const ModalPropsMixin = Vue.with(ModalProps)
-
-class ModalElementProps {
-  isTransition = prop<boolean>({
-    type: Boolean,
-    default: true,
-  })
-}
-
-@Options({
+const ModalElement = defineComponent({
   name: 'ModalElement',
+  props: {
+    isTransition: { type: Boolean as PropType<boolean>, default: true },
+  },
+  setup: (props, { slots, attrs }) => () => props.isTransition
+    ? h(Transition, { ...attrs }, slots)
+    : slots.default?.(attrs), // children
 })
-class ModalElement extends Vue.with(ModalElementProps) {
-  render (): any {
-    const children = this.$slots.default ? this.$slots.default(this.$attrs) : null
 
-    return this.$props.isTransition
-      ? h(
-        Transition,
-        { ...this.$attrs },
-        this.$slots,
-      )
-      : children
-  }
-}
-
-@Options({
+export default defineComponent({
   name: 'VaModal',
   components: { VaButton, VaIcon, ModalElement },
-  emits: ['update:modelValue', 'cancel', 'ok', 'before-open', 'open', 'before-close', 'close', 'click-outside'],
-})
-export default class VaModal extends mixins(
-  ColorMixin,
-  StatefulMixin,
-  ModalPropsMixin,
-) {
-  created () {
-    watch(() => this.valueComputed, (valueComputed: boolean) => {
-      if (valueComputed) {
-        window.addEventListener('keyup', this.listenKeyUp)
+  emits: [
+    ...useStatefulEmits,
+    'update:modelValue', 'cancel', 'ok', 'before-open', 'open', 'before-close', 'close', 'click-outside',
+  ],
+  props: {
+    ...useStatefulProps,
+    modelValue: { type: Boolean as PropType<boolean>, default: false },
+    attachElement: { type: String as PropType<string>, default: 'body' },
+    disableAttachment: { type: Boolean as PropType<boolean>, default: false },
+    title: { type: String as PropType<string>, default: '' },
+    message: { type: String as PropType<string>, default: '' },
+    okText: { type: String as PropType<string>, default: 'OK' },
+    cancelText: { type: String as PropType<string>, default: 'Cancel' },
+    hideDefaultActions: { type: Boolean as PropType<boolean>, default: false },
+    fullscreen: { type: Boolean as PropType<boolean>, default: false },
+    mobileFullscreen: { type: Boolean as PropType<boolean>, default: true },
+    noDismiss: { type: Boolean as PropType<boolean>, default: false },
+    noOutsideDismiss: { type: Boolean as PropType<boolean>, default: false },
+    noEscDismiss: { type: Boolean as PropType<boolean>, default: false },
+    maxWidth: { type: String as PropType<string>, default: '' },
+    maxHeight: { type: String as PropType<string>, default: '' },
+    size: {
+      type: String as PropType<'medium' | 'small' | 'large'>,
+      default: 'medium',
+      validator: (size: string) => ['medium', 'small', 'large'].includes(size),
+    },
+    fixedLayout: { type: Boolean as PropType<boolean>, default: false },
+    withoutTransitions: { type: Boolean as PropType<boolean>, default: false },
+    overlay: { type: Boolean as PropType<boolean>, default: true },
+    overlayOpacity: { type: [Number, String] as PropType<number | string>, default: 0.6 },
+    zIndex: { type: [Number, String] as PropType<number | string | undefined>, default: undefined },
+  },
+  setup (props, { emit, slots }) {
+    const rootElement = ref()
+    const { valueComputed } = useStateful(props, emit)
+
+    const computedClass = computed(() => ({
+      'va-modal--fullscreen': props.fullscreen,
+      'va-modal--mobile-fullscreen': props.mobileFullscreen,
+      'va-modal--fixed-layout': props.fixedLayout,
+      [`va-modal--size-${props.size}`]: props.size !== 'medium',
+    }))
+    const computedModalContainerStyle = computed(() => ({ 'z-index': props.zIndex } as StyleValue))
+    const computedOverlayStyles = computed(() => {
+      // NOTE Not sure exactly what that does.
+      // Supposedly solves some case when background wasn't shown.
+      // As a side effect removes background from nested modals.
+
+      const moreThanOneModalIsOpen = !!document.querySelectorAll('.va-modal__overlay').length
+
+      if (!props.overlay || moreThanOneModalIsOpen) { return }
+
+      return {
+        'background-color': `rgba(0, 0, 0, ${props.overlayOpacity})`,
+        'z-index': props.zIndex && Number(props.zIndex) - 1,
+      } as StyleValue
+    })
+
+    const show = () => { valueComputed.value = true }
+    const hide = () => { valueComputed.value = false }
+    const toggle = () => { valueComputed.value = !valueComputed.value }
+    const cancel = () => { hide(); emit('cancel') }
+    const ok = () => { hide(); emit('ok') }
+
+    const onOutsideClick = () => {
+      if (props.noOutsideDismiss || props.noDismiss) { return }
+
+      emit('click-outside')
+      cancel()
+    }
+
+    const onBeforeEnterTransition = (el: HTMLElement) => emit('before-open', el)
+    const onAfterEnterTransition = (el: HTMLElement) => emit('open', el)
+    const onBeforeLeaveTransition = (el: HTMLElement) => emit('before-close', el)
+    const onAfterLeaveTransition = (el: HTMLElement) => emit('close', el)
+
+    const listenKeyUp = (e: KeyboardEvent) => {
+      if (e.code === 'Escape' && !props.noEscDismiss && !props.noDismiss) {
+        cancel()
+      }
+    }
+    watch(valueComputed, (value: boolean) => {
+      if (value) {
+        window.addEventListener('keyup', listenKeyUp)
       } else {
-        window.removeEventListener('keyup', this.listenKeyUp)
+        window.removeEventListener('keyup', listenKeyUp)
       }
     })
-  }
 
-  get computedClass () {
+    const publicMethods = {
+      show,
+      hide,
+      toggle,
+      cancel,
+      ok,
+      onOutsideClick,
+      onBeforeEnterTransition,
+      onAfterEnterTransition,
+      onBeforeLeaveTransition,
+      onAfterLeaveTransition,
+      listenKeyUp,
+    }
+
     return {
-      'va-modal--fullscreen': this.$props.fullscreen,
-      'va-modal--mobile-fullscreen': this.$props.mobileFullscreen,
-      'va-modal--fixed-layout': this.$props.fixedLayout,
-      [`va-modal--size-${this.$props.size}`]: this.$props.size !== 'medium',
+      getColor: useColors().getColor,
+      rootElement,
+      valueComputed,
+      computedClass,
+      computedModalContainerStyle,
+      computedOverlayStyles,
+      ...publicMethods,
     }
-  }
+  },
 
-  get computedOverlayStyles () {
-    // NOTE Not sure exactly what that does.
-    // Supposedly solves some case when background wasn't shown.
-    // As a side effect removes background from nested modals.
-
-    const moreThanOneModalIsOpen = !!document.querySelectorAll(
-      '.va-modal__overlay',
-    ).length
-
-    return moreThanOneModalIsOpen
-      ? {}
-      : {
-        'background-color': `rgba(0, 0, 0, ${this.$props.overlayOpacity})`,
-        'z-index': this.$props.zIndex ? Number(this.$props.zIndex) - 1 : undefined,
-      }
-  }
-
-  get computedModalContainerStyle () {
-    return {
-      'z-index': this.$props.zIndex,
-    }
-  }
-
-  get hasContentSlot () {
-    return this.$slots.default
-  }
-
-  get hasHeaderSlot () {
-    return this.$slots.header
-  }
-
-  get hasFooterSlot () {
-    return this.$slots.footer
-  }
-
-  show () {
-    this.valueComputed = true
-  }
-
-  hide () {
-    this.valueComputed = false
-  }
-
-  toggle () {
-    this.valueComputed = !this.valueComputed
-  }
-
-  cancel () {
-    this.hide()
-    this.$emit('cancel')
-  }
-
-  ok () {
-    this.hide()
-    this.$emit('ok')
-  }
-
-  listenKeyUp (e: KeyboardEvent) {
-    if (e.code === 'Escape' && !this.$props.noEscDismiss && !this.$props.noDismiss) {
-      this.cancel()
-    }
-  }
-
-  onOutsideClick () {
-    if (this.$props.noOutsideDismiss || this.$props.noDismiss) { return }
-
-    this.$emit('click-outside')
-    this.cancel()
-  }
-
-  onBeforeEnterTransition (el: HTMLElement) {
-    this.$emit('before-open', el)
-  }
-
-  onAfterEnterTransition (el: HTMLElement) {
-    this.$emit('open', el)
-  }
-
-  onBeforeLeaveTransition (el: HTMLElement) {
-    this.$emit('before-close', el)
-  }
-
-  onAfterLeaveTransition (el: HTMLElement) {
-    this.$emit('close', el)
-  }
-}
+  // we will use this while we have problem with 'withConfigTransport'
+  methods: {
+    show () { (this as any).rootElement?.show() },
+    hide () { (this as any).rootElement?.hide() },
+    toggle () { (this as any).rootElement?.toggle() },
+    cancel () { (this as any).rootElement?.cancel() },
+    ok () { (this as any).rootElement?.ok() },
+    onOutsideClick () { (this as any).rootElement?.onOutsideClick() },
+    onBeforeEnterTransition () { (this as any).rootElement?.onBeforeEnterTransition() },
+    onAfterEnterTransition () { (this as any).rootElement?.onAfterEnterTransition() },
+    onBeforeLeaveTransition () { (this as any).rootElement?.onBeforeLeaveTransition() },
+    onAfterLeaveTransition () { (this as any).rootElement?.onAfterLeaveTransition() },
+    listenKeyUp () { (this as any).rootElement?.listenKeyUp() },
+  },
+})
 </script>
 
 <style lang="scss">
-@import '../../styles/resources';
-@import 'variables';
+@import "../../styles/resources";
+@import "variables";
 
 .va-modal {
   position: var(--va-modal-position);
