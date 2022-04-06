@@ -158,7 +158,7 @@ export default defineComponent({
 
     const dateOrNothing = (date: Date | undefined | null) => date ? props.formatDate(date) : '...'
 
-    const input = ref<InstanceType<typeof VaInput> | undefined>()
+    const input = ref<typeof VaInput | undefined>()
 
     const { parseDateInputValue, isValid } = useDateParser(props)
 
