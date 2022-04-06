@@ -8,7 +8,6 @@
           @click="onOutsideClick"
         />
         <div
-          v-if="valueComputed"
           class="va-modal__container"
           :style="computedModalContainerStyle"
           @beforeEnter="onBeforeEnterTransition"
