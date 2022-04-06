@@ -2,6 +2,7 @@
   --va-progress-bar-width: 100%;
   --va-progress-bar-position: relative;
   --va-progress-bar-overflow: hidden;
+  --va-progress-bar-height: 0.5rem;
 
   /* Small */
   --va-progress-bar-sm-height: 2px;
@@ -17,7 +18,7 @@
   /* Wrapper */
   --va-progress-bar--wrapper-position: relative;
   --va-progress-bar--wrapper-overflow: hidden;
-  --va-progress-bar--wrapper-border-radius: 0.5rem;
+  --va-progress-bar--wrapper-border-radius: 9999999px;
 
   /* Square */
   --va-progress-bar-square-border-radius: 0;
@@ -40,29 +41,4 @@
   --va-progress-bar-line-height: 16px;
   --va-progress-bar-font-size: 12px;
   --va-progress-bar-font-weight: 700;
-
-  /* Circle */
-  --va-progress-circle-position: relative;
-  --va-progress-circle-overflow: hidden;
-
-  /* Circle Wrapper */
-  --va-progress-circle-wrapper-position: absolute;
-  --va-progress-circle-wrapper-top: 0;
-  --va-progress-circle-wrapper-left: 0;
-  --va-progress-circle-wrapper-bottom: 0;
-  --va-progress-circle-wrapper-right: 0;
-  --va-progress-circle-wrapper-margin: auto;
-  --va-progress-circle-wrapper-transform: rotate(-90deg);
-  --va-progress-circle-wrapper-width: 80%;
-  --va-progress-circle-wrapper-height: 80%;
-
-  /* Circle Overlay */
-  --va-progress-circle-overlay-transition: all ease 2s;
-
-  /* Circle Info */
-  --va-progress-circle-info-font-size: 0.75rem;
-  --va-progress-circle-info-position: absolute;
-  --va-progress-circle-info-left: 50%;
-  --va-progress-circle-info-top: 50%;
-  --va-progress-circle-info-transform: translate(-50%, -50%);
 }
