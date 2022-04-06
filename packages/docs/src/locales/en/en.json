@@ -393,7 +393,9 @@
         "type": "Specify the format of component. Supported types are `single`, `list` and `gallery`",
         "fileTypes": "Specify supported file formats",
         "dropzone": "Enables Drag&Drop",
-        "value": "The array with uploaded files"
+        "value": "The array with uploaded files",
+        "dropZoneText": "Custom drop zone label text",
+        "uploadButtonText": "Custom upload button text"
       }
     },
     "VaHover": {
@@ -670,7 +672,9 @@
         "focused": "Applies focus style",
         "canBeFocused": "If false, then input can not be focused using mouse or keyboard",
         "requiredMark": "Adds required mark to the label",
-        "immediateValidation": "Sets the validation to be performed when the component is mounted"
+        "immediateValidation": "Sets the validation to be performed when the component is mounted",
+        "pattern": "The pattern prop specifies a regular expression the input value should match",
+        "inputmode": "The inputmode prop is an enumerated prop that hints at the type of data that might be entered by the user while editing the element or its contents. This alows a browser to display an apropriate virtual keyboard"
       },
       "events": {
         "change": "Emitted when the input loose focus or on `enter`",
@@ -1911,7 +1915,12 @@
       },
       "dragAndDrop": {
         "title": "Drag & Drop",
-        "text": "The `dropzone` prop is used to add drag and drop possibility to the `va-file-upload` component"
+        "text": "The `dropzone` prop is used to add drag and drop possibility to the `va-file-upload` component",
+        "exampleText": "This is slot, click or drag'n'drop file to upload"
+      },
+      "slots": {
+        "title": "Slot",
+        "text": "Allows to create custom file upload area."
       },
       "validation": {
         "title": "Specify file types",

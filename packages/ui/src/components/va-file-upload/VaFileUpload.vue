@@ -4,26 +4,29 @@
     :class="{ 'va-file-upload--dropzone': dropzone }"
     :style="computedStyle"
   >
-    <div class="va-file-upload__field">
-      <div
-        class="va-file-upload__field__text"
-        v-if="dropzone"
-      >
-        Drag’n’drop files or
+    <slot>
+      <div class="va-file-upload__field">
+        <div
+          class="va-file-upload__field__text"
+          v-if="dropzone"
+        >
+          {{ dropZoneText }}
+        </div>
+        <va-button
+          class="va-file-upload__field__button"
+          :disabled="disabled"
+          :color="colorComputed"
+          @change="changeFieldValue"
+          @click="callFileDialogue()"
+          icon=""
+          icon-right=""
+          :style="{ 'pointer-events': dropzoneHighlight ? 'none' : '' }"
+        >
+          {{ uploadButtonText }}
+        </va-button>
       </div>
-      <va-button
-        class="va-file-upload__field__button"
-        :disabled="disabled"
-        :color="colorComputed"
-        @change="changeFieldValue"
-        @click="callFileDialogue()"
-        icon=""
-        icon-right=""
-        :style="{ 'pointer-events': dropzoneHighlight ? 'none' : '' }"
-      >
-        Upload file
-      </va-button>
-    </div>
+    </slot>
+
     <input
       ref="fileInputRef"
       type="file"
@@ -77,6 +80,8 @@ export default defineComponent({
     dropzone: { type: Boolean as PropType<boolean>, default: false },
     color: { type: String as PropType<string>, default: 'primary' },
     disabled: { type: Boolean as PropType<boolean>, default: false },
+    dropZoneText: { type: String as PropType<string>, default: 'Drag’n’drop files or' },
+    uploadButtonText: { type: String as PropType<string>, default: 'Upload file' },
 
     modelValue: {
       type: Array as PropType<VaFile[]>,
