@@ -5,7 +5,7 @@ export const TreeViewKey = Symbol('TreeView')
 export const TreeCategoryKey = Symbol('TreeCategory')
 export const TreeNodeKey = Symbol('TreeNode')
 
-export interface ITreeNodeCommon<T> {
+export interface TreeNodeCommon<T> {
   onChildMounted: (value: T) => void,
   onChildUnmounted: (value: T) => void,
 }
@@ -17,21 +17,23 @@ export interface TreeCategoryProps {
   color: string,
 }
 
-export interface ITreeView<T> {
+export interface TreeViewMethods<T> {
   onChildMounted: (value: T) => void,
   onChildUnmounted: (value: T) => void,
 }
 
-export interface ITreeCategory {
-  treeView: ITreeView<ITreeCategory>,
-  nodes: ComponentPublicInstance<ITreeCategory | typeof VaTreeNode>[],
+export interface TreeCategory {
+  treeView: TreeViewMethods<TreeCategory>,
+  nodes: ComponentPublicInstance<TreeCategory | typeof VaTreeNode>[],
   isOpenCached: boolean | undefined,
   collapse: () => void,
   expand: () => void,
   toggle: (e: MouseEvent) => void,
-  onChildMounted: (node: ComponentPublicInstance<ITreeCategory | typeof VaTreeNode>) => void,
-  onChildUnmounted: (removableNode: ComponentPublicInstance<ITreeCategory | typeof VaTreeNode>) => void,
+  onChildMounted: (node: ComponentPublicInstance<TreeCategory | typeof VaTreeNode>) => void,
+  onChildUnmounted: (removableNode: ComponentPublicInstance<TreeCategory | typeof VaTreeNode>) => void,
 }
+
+export type TreeNodeComponent = ComponentPublicInstance<TreeCategory | typeof VaTreeNode>
 
 export interface ITreeNodeProps {
   highlighted: boolean,
@@ -50,6 +52,6 @@ export interface TreeView {
 }
 
 export interface TreeViewProvide extends TreeViewProps {
-  onChildMounted: (category: ITreeCategory) => void
-  onChildUnmounted: (removableCategory: ITreeCategory) => void
+  onChildMounted: (category: TreeCategory) => void
+  onChildUnmounted: (removableCategory: TreeCategory) => void
 }
