@@ -42,13 +42,23 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-
-// Components
+import {
+  ComponentPublicInstance,
+  defineComponent,
+  inject,
+  nextTick,
+  onBeforeUnmount,
+  onMounted,
+  provide,
+  ref,
+  Ref,
+  watch,
+} from 'vue'
 import SquareWithIcon from '../SquareWithIcon/SquareWithIcon.vue'
 import VaIcon from '../../va-icon/VaIcon.vue'
-import { useTreeCategory } from '../hooks/useTreeCategory'
 import { useColor } from '../../../composables/useColor'
+import { TreeCategory, TreeNodeCommon, TreeCategoryKey, TreeNodeComponent, TreeViewKey } from '../types'
+import VaTreeNode from '../VaTreeNode/VaTreeNode.vue'
 
 export default defineComponent({
   name: 'VaTreeCategory',
@@ -75,8 +85,80 @@ export default defineComponent({
     },
   },
   setup: (props) => {
+    const nodes: Ref<TreeNodeComponent[]> = ref([])
+    const isOpenCached = ref<boolean | undefined>(false)
+
+    const onChildMounted = (node: TreeNodeComponent) => {
+      nodes.value.push(node)
+    }
+
+    const onChildUnmounted = (removableNode: TreeNodeComponent) => {
+      nodes.value = nodes.value.filter((node: TreeNodeComponent) => node !== removableNode)
+    }
+
+    const treeView: TreeNodeCommon<TreeCategory | typeof VaTreeNode> = inject(TreeViewKey, {
+      onChildMounted: (value: TreeCategory | typeof VaTreeNode) => undefined,
+      onChildUnmounted: (value: TreeCategory | typeof VaTreeNode) => undefined,
+    })
+
+    const collapse = () => {
+      isOpenCached.value = false
+
+      nextTick(() => {
+        nodes.value.forEach((child: ComponentPublicInstance) => {
+          if (child.$options.name === 'va-tree-category') {
+            (child as ComponentPublicInstance<TreeCategory>).collapse()
+          }
+        })
+      })
+    }
+
+    const expand = () => {
+      isOpenCached.value = true
+
+      nextTick(() => {
+        nodes.value.forEach((child: TreeNodeComponent) => {
+          child.expand?.()
+        })
+      })
+    }
+
+    const toggle = (e: MouseEvent) => {
+      if (!(e.target as HTMLElement).classList.contains('va-checkbox__input')) {
+        isOpenCached.value = !isOpenCached.value
+      }
+    }
+
+    watch(
+      () => props.isOpen,
+      (isOpen) => {
+        isOpenCached.value = isOpen
+      },
+      { immediate: true })
+
+    const treeCategory: TreeCategory = {
+      treeView,
+      nodes: nodes.value,
+      isOpenCached: isOpenCached.value,
+      onChildMounted,
+      onChildUnmounted,
+      collapse,
+      expand,
+      toggle,
+    }
+
+    provide(TreeCategoryKey, treeCategory)
+    onMounted(() => treeView?.onChildMounted(treeCategory))
+    onBeforeUnmount(() => treeView?.onChildUnmounted(treeCategory))
+
     return {
-      ...useTreeCategory(props),
+      treeCategory,
+      treeView,
+      nodes,
+      isOpenCached,
+      collapse,
+      expand,
+      toggle,
       ...useColor(props),
     }
   },
