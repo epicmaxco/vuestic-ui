@@ -393,7 +393,9 @@
         "type": "Specify the format of component. Supported types are `single`, `list` and `gallery`",
         "fileTypes": "Specify supported file formats",
         "dropzone": "Enables Drag&Drop",
-        "value": "The array with uploaded files"
+        "value": "The array with uploaded files",
+        "dropZoneText": "Custom drop zone label text",
+        "uploadButtonText": "Custom upload button text"
       }
     },
     "VaHover": {
@@ -1943,7 +1945,12 @@
       },
       "dragAndDrop": {
         "title": "Drag & Drop",
-        "text": "The `dropzone` prop is used to add drag and drop possibility to the `va-file-upload` component"
+        "text": "The `dropzone` prop is used to add drag and drop possibility to the `va-file-upload` component",
+        "exampleText": "This is slot, click or drag'n'drop file to upload"
+      },
+      "slots": {
+        "title": "Slot",
+        "text": "Allows to create custom file upload area."
       },
       "validation": {
         "title": "Specify file types",

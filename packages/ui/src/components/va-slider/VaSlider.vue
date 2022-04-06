@@ -368,7 +368,7 @@ export default defineComponent({
     const moving = (e: TouchEvent | MouseEvent) => {
       if (!hasMouseDown.value || !flag.value || props.disabled || props.readonly) { return }
 
-      if (e instanceof TouchEvent) {
+      if ('touches' in e) {
         setValueOnPos(getPos(e.touches[0]))
       } else {
         setValueOnPos(getPos(e))
