@@ -5,6 +5,8 @@ export type ITableItem = Record<string, any>
 
 // the inner representation of table cells
 export interface TableCell {
+  /** @deprecated */
+  source: any;
   rowData: any;
   column: TableColumn;
   value: string;
@@ -23,6 +25,8 @@ const buildTableCell = (rowIndex: number, column: TableColumn, rowData: ITableIt
   rowIndex,
   column,
   value: rowData[column.key]?.toString?.() || '',
+  /** @deprecated */
+  source: rowData[column.key],
 })
 
 const buildTableRow = (source: ITableItem, initialIndex: number, columns: TableColumn[]): TableRow => ({
