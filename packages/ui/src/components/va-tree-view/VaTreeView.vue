@@ -1,5 +1,5 @@
 <template>
-  <div class="va-tree-root">
+  <div class="va-tree-view">
     <slot />
   </div>
 </template>
@@ -29,8 +29,8 @@ export default defineComponent({
 <style lang="scss">
 @import 'variables';
 
-.va-tree-root {
-  padding: var(--va-tree-root-padding);
+.va-tree-view {
+  padding: var(--va-tree-view-padding);
   font-family: var(--va-font-family);
 }
 </style>
