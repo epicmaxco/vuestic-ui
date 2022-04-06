@@ -1,8 +1,8 @@
 import { PropType, computed, SetupContext, Ref } from 'vue'
 
-import { useStateful, useStatefulProps, StatefulProps } from '../../composables/useStateful'
-import { useLoadingProps, LoadingProps } from '../../composables/useLoading'
-import { useValidation, useValidationProps, ValidationProps, useValidationEmits } from '../../composables/useValidation'
+import { useStateful, useStatefulProps, StatefulProps } from './useStateful'
+import { useLoadingProps, LoadingProps } from './useLoading'
+import { useValidation, useValidationProps, ValidationProps, useValidationEmits } from './useValidation'
 
 export interface SelectableProps extends StatefulProps<unknown>, LoadingProps, ValidationProps {
   arrayValue: unknown | null,
@@ -14,7 +14,6 @@ export interface SelectableProps extends StatefulProps<unknown>, LoadingProps, V
   indeterminateValue: unknown | null,
   disabled: boolean,
   readonly: boolean,
-  [prop: string]: unknown
 }
 
 type Elements = {
@@ -83,7 +82,7 @@ export const useSelectable = (
   const onFocus = (event: FocusEvent) => emit('focus', event)
 
   const isIndeterminate = computed(() => !!props.indeterminate && valueComputed.value === props.indeterminateValue)
-  const modelIsArray = computed(() => !!props.arrayValue)
+  const modelIsArray = computed(() => props.arrayValue !== null)
   const isChecked = computed(() => {
     if (modelIsArray.value) {
       return (props.modelValue as unknown[])?.includes(props.arrayValue)

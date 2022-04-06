@@ -24,6 +24,7 @@
         :readonly="$props.readonly || !$props.manualInput"
         :error="hasError"
         :error-messages="computedErrorMessages"
+        :required-mark="$props.requiredMark"
         @change="onInputTextChanged($event.target.value)"
         @update:modelValue="onValueInput"
       >

@@ -13,20 +13,18 @@
 </template>
 
 <script lang="ts">
-import { Vue, Options } from 'vue-class-component'
+import { defineComponent } from 'vue'
 
 import VaButton from '../../va-button'
 
-@Options({
+export default defineComponent({
   name: 'VaFileUploadUndo',
   components: {
     VaButton,
   },
   emits: ['recover'],
 })
-export default class VaFileUploadUndo extends Vue {
 
-}
 </script>
 
 <style lang="scss">

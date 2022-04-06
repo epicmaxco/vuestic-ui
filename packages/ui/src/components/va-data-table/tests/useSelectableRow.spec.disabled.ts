@@ -1,6 +1,6 @@
 import { Ref, ref, nextTick } from 'vue'
-import { TableRow, ITableItem } from '../hooks/useRows'
-import useSelectableRow, { TSelectMode, TSelectionChange } from '../hooks/useSelectableRow'
+import { TableRow, ITableItem, TSelectMode } from '../types'
+import useSelectableRow, { TSelectionChange } from '../hooks/useSelectableRow'
 
 const selectableCases: boolean[] = [true, false]
 const selectModes: TSelectMode[] = ['single', 'multiple']
@@ -13,19 +13,21 @@ const rawRows: TableRow[] = rowsIndexes.map(item => ({
 }))
 
 // base case arguments
-const sortedRows = ref(rawRows.slice(0, 6))
-const selectedItems: Ref<ITableItem[]> = ref([])
-const selectable = ref(selectableCases[0])
-const selectMode = ref(selectModes[1])
+const paginatedRows = ref(rawRows.slice(0, 6))
+const props = {
+  modelValue: [] as ITableItem[],
+  selectable: selectableCases[0],
+  selectMode: selectModes[1],
+}
 let emit = jest.fn()
 
 // helpers
 type TSources = number[] | 'all'
 const sources = (rowIndexes: TSources): ITableItem[] => {
   if (rowIndexes === 'all') {
-    return sortedRows.value.map(row => row.source)
+    return paginatedRows.value.map(row => row.source)
   }
-  return rowIndexes.map(i => sortedRows.value[i].source)
+  return rowIndexes.map(i => paginatedRows.value[i].source)
 }
 const selections = (current: TSources, previous: TSources): TSelectionChange => {
   return {
@@ -50,19 +52,19 @@ const expectUpdateModelValue = (times: number, result: TSources) => {
 
 describe('useSelectableRow (vaDataTable hook)', () => {
   afterEach(() => {
-    selectedItems.value = []
-    selectable.value = selectableCases[0]
-    selectMode.value = selectModes[1]
+    props.modelValue = []
+    props.selectable = selectableCases[0]
+    props.selectMode = selectModes[1]
     emit = jest.fn()
     jest.clearAllMocks()
   })
 
   it('noRowsSelected', async (done) => {
-    const { noRowsSelected } = useSelectableRow(sortedRows, selectedItems, selectable, selectMode, emit)
+    const { noRowsSelected } = useSelectableRow(paginatedRows, props, emit)
 
     expect(noRowsSelected.value).toBe(true)
 
-    selectedItems.value = sources([0])
+    props.modelValue = sources([0])
     await expectSelectionChange(1, [0], [])
     expect(noRowsSelected.value).toBe(false)
 
@@ -70,15 +72,15 @@ describe('useSelectableRow (vaDataTable hook)', () => {
   })
 
   it('severalRowsSelected', async (done) => {
-    const { severalRowsSelected } = useSelectableRow(sortedRows, selectedItems, selectable, selectMode, emit)
+    const { severalRowsSelected } = useSelectableRow(paginatedRows, props, emit)
 
     expect(severalRowsSelected.value).toBe(false)
 
-    selectedItems.value = sources([0])
+    props.modelValue = sources([0])
     await expectSelectionChange(1, [0], [])
     expect(severalRowsSelected.value).toBe(true)
 
-    selectedItems.value = sources('all')
+    props.modelValue = sources('all')
     await expectSelectionChange(2, 'all', [0])
     expect(severalRowsSelected.value).toBe(false)
 
@@ -86,20 +88,20 @@ describe('useSelectableRow (vaDataTable hook)', () => {
   })
 
   it('allRowsSelected', async (done) => {
-    const sortedRows = ref(rawRows.slice(0, 6))
-    const { allRowsSelected } = useSelectableRow(sortedRows, selectedItems, selectable, selectMode, emit)
+    const paginatedRows = ref(rawRows.slice(0, 6))
+    const { allRowsSelected } = useSelectableRow(paginatedRows, props, emit)
 
     expect(allRowsSelected.value).toBe(false)
 
-    selectedItems.value = sources([0])
+    props.modelValue = sources([0])
     await expectSelectionChange(1, [0], [])
     expect(allRowsSelected.value).toBe(false)
 
-    selectedItems.value = sources('all')
+    props.modelValue = sources('all')
     await expectSelectionChange(2, 'all', [0])
     expect(allRowsSelected.value).toBe(true)
 
-    sortedRows.value = []
+    paginatedRows.value = []
     await nextTick()
     expectUpdateModelValue(3, [])
     expect(allRowsSelected.value).toBe(false)
@@ -108,20 +110,20 @@ describe('useSelectableRow (vaDataTable hook)', () => {
   })
 
   it('isRowSelected', async (done) => {
-    const { isRowSelected } = useSelectableRow(sortedRows, selectedItems, selectable, selectMode, emit)
-    const targetRow = sortedRows.value[0]
+    const { isRowSelected } = useSelectableRow(paginatedRows, props, emit)
+    const targetRow = paginatedRows.value[0]
 
     expect(isRowSelected(targetRow)).toBe(false)
 
-    selectedItems.value = sources([0])
+    props.modelValue = sources([0])
     await expectSelectionChange(1, [0], [])
     expect(isRowSelected(targetRow)).toBe(true)
 
-    selectedItems.value = sources('all')
+    props.modelValue = sources('all')
     await expectSelectionChange(2, 'all', [0])
     expect(isRowSelected(targetRow)).toBe(true)
 
-    selectedItems.value = []
+    props.modelValue = []
     await expectSelectionChange(3, [], 'all')
     expect(isRowSelected(targetRow)).toBe(false)
 
@@ -129,18 +131,18 @@ describe('useSelectableRow (vaDataTable hook)', () => {
   })
 
   it('toggleBulkSelection', async (done) => {
-    const { toggleBulkSelection } = useSelectableRow(sortedRows, selectedItems, selectable, selectMode, emit)
+    const { toggleBulkSelection } = useSelectableRow(paginatedRows, props, emit)
 
     toggleBulkSelection()
     expectUpdateModelValue(1, 'all')
 
-    selectedItems.value = sources('all')
+    props.modelValue = sources('all')
     await expectSelectionChange(2, 'all', [])
 
     toggleBulkSelection()
     expectUpdateModelValue(3, [])
 
-    selectedItems.value = sources([0])
+    props.modelValue = sources([0])
     await expectSelectionChange(4, [0], 'all')
 
     toggleBulkSelection()
@@ -151,29 +153,29 @@ describe('useSelectableRow (vaDataTable hook)', () => {
 
   describe('toggleRowSelection"', () => {
     it('selectable = false', async (done) => {
-      const selectableFalse = ref(selectableCases[1])
-      const { toggleRowSelection } = useSelectableRow(sortedRows, selectedItems, selectableFalse, selectMode, emit)
+      props.selectable = selectableCases[1]
+      const { toggleRowSelection } = useSelectableRow(paginatedRows, props, emit)
 
-      toggleRowSelection(sortedRows.value[0])
+      toggleRowSelection(paginatedRows.value[0])
       expect(emit).toHaveBeenCalledTimes(0)
 
       await doneAfterCheckCallTimes(done, 0)
     })
 
     it('selectable = true', async (done) => {
-      const { toggleRowSelection } = useSelectableRow(sortedRows, selectedItems, selectable, selectMode, emit)
-      const targetRow = sortedRows.value[0]
+      const { toggleRowSelection } = useSelectableRow(paginatedRows, props, emit)
+      const targetRow = paginatedRows.value[0]
 
       toggleRowSelection(targetRow)
       expectUpdateModelValue(1, [0])
 
-      selectedItems.value = sources([0, 1])
+      props.modelValue = sources([0, 1])
       await expectSelectionChange(2, [0, 1], [])
 
       toggleRowSelection(targetRow)
       expectUpdateModelValue(3, [1])
 
-      selectedItems.value = sources([0])
+      props.modelValue = sources([0])
       await expectSelectionChange(4, [0], [0, 1])
 
       toggleRowSelection(targetRow)
@@ -185,30 +187,30 @@ describe('useSelectableRow (vaDataTable hook)', () => {
 
   describe('ctrlSelectRow', () => {
     it('selectable = false', async (done) => {
-      const selectableFalse = ref(selectableCases[1])
-      const { ctrlSelectRow } = useSelectableRow(sortedRows, selectedItems, selectableFalse, selectMode, emit)
+      props.selectable = selectableCases[1]
+      const { ctrlSelectRow } = useSelectableRow(paginatedRows, props, emit)
 
-      ctrlSelectRow(sortedRows.value[0])
+      ctrlSelectRow(paginatedRows.value[0])
       expect(emit).toHaveBeenCalledTimes(0)
 
       await doneAfterCheckCallTimes(done, 0)
     })
 
     it('selectMode = single', async (done) => {
-      const singleSelectMode = ref(selectModes[0])
-      const { ctrlSelectRow } = useSelectableRow(sortedRows, selectedItems, selectable, singleSelectMode, emit)
-      const targetRow = sortedRows.value[0]
+      props.selectMode = selectModes[0]
+      const { ctrlSelectRow } = useSelectableRow(paginatedRows, props, emit)
+      const targetRow = paginatedRows.value[0]
 
       ctrlSelectRow(targetRow)
       expectUpdateModelValue(1, [0])
 
-      selectedItems.value = sources([0, 1])
+      props.modelValue = sources([0, 1])
       await expectSelectionChange(2, [0, 1], [])
 
       ctrlSelectRow(targetRow)
       expectUpdateModelValue(3, [1])
 
-      selectedItems.value = sources([0])
+      props.modelValue = sources([0])
       await expectSelectionChange(4, [0], [0, 1])
 
       ctrlSelectRow(targetRow)
@@ -218,19 +220,19 @@ describe('useSelectableRow (vaDataTable hook)', () => {
     })
 
     it('selectMode = multiple', async (done) => {
-      const { ctrlSelectRow } = useSelectableRow(sortedRows, selectedItems, selectable, selectMode, emit)
-      const targetRow = sortedRows.value[0]
+      const { ctrlSelectRow } = useSelectableRow(paginatedRows, props, emit)
+      const targetRow = paginatedRows.value[0]
 
       ctrlSelectRow(targetRow)
       expectUpdateModelValue(1, [0])
 
-      selectedItems.value = sources([0, 1])
+      props.modelValue = sources([0, 1])
       await expectSelectionChange(2, [0, 1], [])
 
       ctrlSelectRow(targetRow)
       expectUpdateModelValue(3, [1])
 
-      selectedItems.value = sources([2, 3])
+      props.modelValue = sources([2, 3])
       await expectSelectionChange(4, [2, 3], [0, 1])
 
       ctrlSelectRow(targetRow)
@@ -242,30 +244,30 @@ describe('useSelectableRow (vaDataTable hook)', () => {
 
   describe('shiftSelectRows', () => {
     it('selectable = false', async (done) => {
-      const selectableFalse = ref(selectableCases[1])
-      const { shiftSelectRows } = useSelectableRow(sortedRows, selectedItems, selectableFalse, selectMode, emit)
+      props.selectable = selectableCases[1]
+      const { shiftSelectRows } = useSelectableRow(paginatedRows, props, emit)
 
-      shiftSelectRows(sortedRows.value[0])
+      shiftSelectRows(paginatedRows.value[0])
       expect(emit).toHaveBeenCalledTimes(0)
 
       await doneAfterCheckCallTimes(done, 0)
     })
 
     it('selectMode = single', async (done) => {
-      const singleSelectMode = ref(selectModes[0])
-      const { shiftSelectRows } = useSelectableRow(sortedRows, selectedItems, selectable, singleSelectMode, emit)
-      const targetRow = sortedRows.value[0]
+      props.selectMode = selectModes[0]
+      const { shiftSelectRows } = useSelectableRow(paginatedRows, props, emit)
+      const targetRow = paginatedRows.value[0]
 
       shiftSelectRows(targetRow)
       expectUpdateModelValue(1, [0])
 
-      selectedItems.value = sources([0, 1])
+      props.modelValue = sources([0, 1])
       await expectSelectionChange(2, [0, 1], [])
 
       shiftSelectRows(targetRow)
       expectUpdateModelValue(3, [1])
 
-      selectedItems.value = sources([0])
+      props.modelValue = sources([0])
       await expectSelectionChange(4, [0], [0, 1])
 
       shiftSelectRows(targetRow)
@@ -275,27 +277,27 @@ describe('useSelectableRow (vaDataTable hook)', () => {
     })
 
     it('selectMode = multiple', async (done) => {
-      const { shiftSelectRows } = useSelectableRow(sortedRows, selectedItems, selectable, selectMode, emit)
+      const { shiftSelectRows } = useSelectableRow(paginatedRows, props, emit)
 
-      shiftSelectRows(sortedRows.value[1]) // prevSelectedRowIndex: -1 ==> 1
+      shiftSelectRows(paginatedRows.value[1]) // prevSelectedRowIndex: -1 ==> 1
       expectUpdateModelValue(1, [1])
 
-      selectedItems.value = sources([1])
+      props.modelValue = sources([1])
       await expectSelectionChange(2, [1], [])
 
-      shiftSelectRows(sortedRows.value[5]) // prevSelectedRowIndex: 1 ==> 5
+      shiftSelectRows(paginatedRows.value[5]) // prevSelectedRowIndex: 1 ==> 5
       expectUpdateModelValue(3, [1, 2, 3, 4, 5])
 
-      selectedItems.value = sources([1, 2, 3, 4, 5])
+      props.modelValue = sources([1, 2, 3, 4, 5])
       await expectSelectionChange(4, [1, 2, 3, 4, 5], [1])
 
-      shiftSelectRows(sortedRows.value[4]) // prevSelectedRowIndex: 5 ==> 4
+      shiftSelectRows(paginatedRows.value[4]) // prevSelectedRowIndex: 5 ==> 4
       expectUpdateModelValue(5, [1, 2, 3, 5])
 
-      selectedItems.value = sources([1, 2, 3, 5])
+      props.modelValue = sources([1, 2, 3, 5])
       await expectSelectionChange(6, [1, 2, 3, 5], [1, 2, 3, 4, 5])
 
-      shiftSelectRows(sortedRows.value[2]) // prevSelectedRowIndex: 4 ==> 2
+      shiftSelectRows(paginatedRows.value[2]) // prevSelectedRowIndex: 4 ==> 2
       expectUpdateModelValue(7, [1, 5])
 
       await doneAfterCheckCallTimes(done, 7)

@@ -1,7 +1,7 @@
 <template>
   <div class="va-file-upload-single-item">
     <div class="va-file-upload-single-item__name">
-      {{ file.name }}
+      {{ file && file.name }}
     </div>
     <va-button
       flat
@@ -16,29 +16,22 @@
 </template>
 
 <script lang="ts">
-import { Vue, Options, prop, mixins } from 'vue-class-component'
+import { defineComponent, PropType } from 'vue'
 
 import VaButton from '../../va-button'
 
-class FileUploadSingleItemProps {
-  file = prop<Record<string, unknown>>({
-    type: Object,
-    default: null,
-  })
-}
+import { VaFile } from '../types'
 
-const FileUploadSingleItemPropsMixin = Vue.with(FileUploadSingleItemProps)
-
-@Options({
+export default defineComponent({
   name: 'VaFileUploadSingleItem',
   components: {
     VaButton,
   },
   emits: ['remove'],
+  props: {
+    file: { type: Object as PropType<VaFile | null>, default: null },
+  },
 })
-export default class VaFileUploadSingleItem extends mixins(FileUploadSingleItemPropsMixin) {
-
-}
 </script>
 
 <style lang='scss'>

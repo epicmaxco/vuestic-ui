@@ -1,7 +1,7 @@
 import { ApiDocsBlock } from '@/types/configTypes'
 import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaProgressCircle
-  from 'vuestic-ui/src/components/va-progress-bar/progress-types/VaProgressCircle.vue'
+  from 'vuestic-ui/src/components/va-progress-circle/VaProgressCircle.vue'
 import apiOptions from './api-options'
 
 const block = new PageGenerationHelper(__dirname)

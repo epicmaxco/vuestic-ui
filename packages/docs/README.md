@@ -1,5 +1,7 @@
 # vue-cli-docs
 
+<p align="center"><img src="https://img.shields.io/github/package-json/v/epicmaxco/vuestic-ui?filename=packages%2Fdocs%2Fpackage.json&label=docs"></p>
+
 ## Project setup
 ```
 yarn install

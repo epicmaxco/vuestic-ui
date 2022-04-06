@@ -1,4 +1,4 @@
-import { computed, PropType } from 'vue'
+import { computed, getCurrentInstance, PropType } from 'vue'
 import { getGlobalConfig, SizeConfig } from '../services/global-config/global-config'
 
 export const sizesConfig: SizeConfig = {
@@ -57,7 +57,7 @@ const convertToRem = (px: number) => px / 16 - 0.5
 
 export const useSize = (
   props: SizeProps,
-  componentName?: string | undefined,
+  componentName: string | undefined = getCurrentInstance()?.type.name,
 ) => {
   const sizesConfigGlobal = computed<SizeConfig>(() => {
     return componentName
@@ -109,5 +109,6 @@ export const useSize = (
   return {
     sizeComputed,
     fontSizeComputed,
+    fontSizeInRem,
   }
 }

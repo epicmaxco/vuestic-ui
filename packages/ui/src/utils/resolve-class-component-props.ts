@@ -2,12 +2,12 @@ import { ComponentOptions, DefineComponent } from 'vue'
 
 function normalizeProps (props: any) {
   switch (true) {
-  case Array.isArray(props):
-    return props.reduce((acc: Record<string, unknown>, prop: string) => ({ ...acc, [prop]: null }), {})
-  case typeof props === 'object' && props !== null:
-    return props
-  default:
-    return {}
+    case Array.isArray(props):
+      return props.reduce((acc: Record<string, unknown>, prop: string) => ({ ...acc, [prop]: null }), {})
+    case typeof props === 'object' && props !== null:
+      return props
+    default:
+      return {}
   }
 }
 

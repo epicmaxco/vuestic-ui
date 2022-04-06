@@ -61,6 +61,12 @@ const config: ApiDocsBlock[] = [
   block.paragraph('dateInput.examples.formattingGlobalConfig.text'),
   block.code(GlobalConfigCode),
 
+  ...block.exampleBlock(
+    'dateInput.examples.validation.title',
+    'dateInput.examples.validation.text',
+    'validation',
+  ),
+
   block.subtitle('all.api'),
   block.api(VaDateInput, apiOptions),
 ]
