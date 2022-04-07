@@ -22,7 +22,11 @@
                   <div :class="scope.class">
                     <va-tab
                       class="tabs__tab"
-                      v-for="tab in [`${t('landing.customize.tabs[0]')}`, `${t('landing.customize.tabs[1]')}`, `${t('landing.customize.tabs[2]')}`]"
+                      v-for="tab in [
+                        `${t('landing.customize.tabs[0]')}`,
+                        `${t('landing.customize.tabs[1]')}`,
+                        `${t('landing.customize.tabs[2]')}`
+                      ]"
                       :key="tab"
                     >
                       {{ tab }}
@@ -167,7 +171,7 @@
 
             <router-link
               class="customize__content__link"
-              :to="`/${$root.$i18n.locale}/getting-started/configuration-guide`"
+              :to="`/${locale}/getting-started/configuration-guide`"
             >
               {{ t('landing.customize.configuration') }}
             </router-link>
@@ -187,7 +191,7 @@ import ColorTab from './ColorTab.vue'
 
 import { useColors } from 'vuestic-ui'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const { shiftHSLAColor, getColors } = useColors()
 
 const colors = computed(getColors)
@@ -284,14 +288,17 @@ const code = computed(() => {
           </template>
 
           ${'<' + 'script>'}
-          export default {
-            data() {
+          export default defineComponent({
+            setup() {
+              const clicksCount = ref(${ clicksCount.value })
+
               return {
-                clicksCount: ${clicksCount.value},
-                checkboxValue: ${checkboxValue.value},
-                sliderValue: ${sliderValue.value},
-                selectValue: ${selectValue.value},
-                options = [
+                clicksCount,
+                btnClick: () => clicksCount.value++,
+                checkboxValue: ref(${ checkboxValue.value }),
+                sliderValue: ref(${ sliderValue.value }),
+                selectValue: ref(${ selectValue.value }),
+                options: [
                   'Spain',
                   'Germany',
                   'France',
@@ -303,14 +310,8 @@ const code = computed(() => {
                   'USA'
                 ]
               }
-            },
-
-            methods: {
-              btnClick() {
-                this.clicksCount++
-              }
             }
-          }
+          })
           ${'</' + 'script>'}
         `
     case 2:
@@ -342,40 +343,38 @@ const code = computed(() => {
           </template>
 
           ${'<' + 'script>'}
-          export default {
-            data() {
-              return {
-                users: [{
-                  id: 1,
-                  fullName: 'Ashley Mcdaniel',
-                  email: 'ashleymcdaniel@nebulean.com',
-                  country: 'Cayman Islands',
-                  status: 'warning',
-                },
-                {
-                  id: 2,
-                  fullName: 'Todd Sellers',
-                  email: 'sellerstodd@nebulean.com',
-                  country: 'Togo',
-                  status: 'info',
-                },
-                {
-                  id: 3,
-                  fullName: 'Sherman Knowles',
-                  email: 'shermanknowles@nebulean.com',
-                  country: 'Central African Republic',
-                  status: 'warning',
-                },
-                {
-                  id: 4,
-                  fullName: 'Vasquez Lawson',
-                  email: 'vasquezlawson@nebulean.com',
-                  country: 'Bouvet Island',
-                  status: 'info',
-                }]
-              }
-            }
-          }
+          export default defineComponent({
+            setup: () => ({
+              users: [{
+                id: 1,
+                fullName: 'Ashley Mcdaniel',
+                email: 'ashleymcdaniel@nebulean.com',
+                country: 'Cayman Islands',
+                status: 'warning',
+              },
+              {
+                id: 2,
+                fullName: 'Todd Sellers',
+                email: 'sellerstodd@nebulean.com',
+                country: 'Togo',
+                status: 'info',
+              },
+              {
+                id: 3,
+                fullName: 'Sherman Knowles',
+                email: 'shermanknowles@nebulean.com',
+                country: 'Central African Republic',
+                status: 'warning',
+              },
+              {
+                id: 4,
+                fullName: 'Vasquez Lawson',
+                email: 'vasquezlawson@nebulean.com',
+                country: 'Bouvet Island',
+                status: 'info',
+              }]
+            })
+          })
           ${'</' + 'script>'}
       `
     case 3:
@@ -415,37 +414,24 @@ const code = computed(() => {
           ${'<' + 'script>'}
           import { useColors } from 'vuestic-ui'
 
-          export default {
-            setup () {
+          export default defineComponent({
+            setup() {
               const { getTheme, setTheme } = useColors()
 
               return {
                 getTheme,
-                setTheme
-              }
-            },
-
-            data() {
-              return {
-                theme: ${theme},
-                themeToggleOptions: [{
-                  label: 'Light',
-                  value: 'light',
-                }, {
-                  label: 'Dark',
-                  value: 'dark',
-                }]
-              }
-            },
-
-            methods: {
-              updateTheme (value) {
-                this.setTheme({
+                setTheme,
+                theme: ${ theme },
+                themeToggleOptions: [
+                  { label: 'Light', value: 'light' },
+                  { label: 'Dark', value: 'dark' }
+                ],
+                updateTheme: (value) => setTheme({
                   primary: value === 'light' ? '#2C82E0' : '#042F83'
                 })
               }
-            }
-          }
+            },
+          })
           ${'</' + 'script>'}
       `
     default:
