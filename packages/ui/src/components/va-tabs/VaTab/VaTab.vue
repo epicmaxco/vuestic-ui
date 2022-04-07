@@ -102,7 +102,14 @@ export default defineComponent({
       moveToTab,
       registerTab,
       unregisterTab,
-    } = inject(TabsViewKey) as TabsView
+    } = inject<TabsView>(TabsViewKey, {
+      parentDisabled: false,
+      tabsList: [],
+      selectTab: (tab: TabComponent) => tab,
+      moveToTab: (tab: TabComponent) => tab,
+      registerTab: (tab: TabComponent) => tab,
+      unregisterTab: (tab: TabComponent) => tab,
+    })
     const tabIndexComputed = computed(() => (props.disabled || parentDisabled) ? -1 : 0)
 
     const computedStyle = computed(() => ({
