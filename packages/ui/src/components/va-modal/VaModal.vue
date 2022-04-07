@@ -1,35 +1,19 @@
 <template>
-  <teleport
-    v-if='valueComputed'
-    :to="attachElement"
-    :disabled="disableAttachment"
-    ref="rootElement"
-  >
-    <div class="va-modal">
-      <modal-element
-        name="va-modal__overlay--transition"
-        :isTransition="!$props.withoutTransitions"
-        @click="onOutsideClick"
-        appear
-      >
+  <teleport :to="attachElement" :disabled="disableAttachment" ref="rootElement">
+    <modal-element name="va-modal" :isTransition="!$props.withoutTransitions" appear :duration="300">
+      <div class="va-modal" v-if="valueComputed">
         <div
           class="va-modal__overlay"
-          :style="computedOverlayStyles"
+          :style="$props.overlay && computedOverlayStyles"
+          @click="onOutsideClick"
         />
-      </modal-element>
-      <modal-element
-        name="va-modal__container--transition"
-        :isTransition="!$props.withoutTransitions"
-        appear
-        @beforeEnter="onBeforeEnterTransition"
-        @afterEnter="onAfterEnterTransition"
-        @beforeLeave="onBeforeLeaveTransition"
-        @afterLeave="onAfterLeaveTransition"
-      >
         <div
-          v-if="valueComputed"
           class="va-modal__container"
           :style="computedModalContainerStyle"
+          @beforeEnter="onBeforeEnterTransition"
+          @afterEnter="onAfterEnterTransition"
+          @beforeLeave="onBeforeLeaveTransition"
+          @afterLeave="onAfterLeaveTransition"
         >
           <div
             class="va-modal__dialog"
@@ -99,8 +83,8 @@
             </div>
           </div>
         </div>
-      </modal-element>
-    </div>
+      </div>
+    </modal-element>
   </teleport>
 </template>
 
@@ -282,10 +266,17 @@ export default defineComponent({
 
   &__container {
     z-index: var(--va-modal-container-z-index);
+  }
 
-    &--transition {
-      @include va-modal-transition();
-    }
+  &-enter-from &__container,
+  &-leave-to &__container {
+    opacity: 0;
+    transform: translateY(-30%);
+  }
+
+  &-enter-active &__container,
+  &-leave-active &__container {
+    transition: var(--va-modal-opacity-transition), var(--va-modal-transform-transition);
   }
 
   &__dialog {
@@ -308,10 +299,16 @@ export default defineComponent({
     z-index: var(--va-modal-overlay-z-index);
     width: var(--va-modal-overlay-width);
     height: var(--va-modal-overlay-height);
+  }
 
-    &--transition {
-      @include va-modal-transition(true);
-    }
+  &-enter-from &__overlay,
+  &-leave-to &__overlay {
+    opacity: 0;
+  }
+
+  &-enter-active &__overlay,
+  &-leave-active &_overlay {
+    transition: var(--va-modal-overlay-opacity-transition);
   }
 
   &--fullscreen {

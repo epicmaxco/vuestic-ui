@@ -12,6 +12,9 @@
   --va-modal-outline: 0;
   --va-modal-z-index: var(--va-z-index-teleport-overlay);
   --va-modal-container-z-index: 100;
+  --va-modal-basic-duration: 0.3s;
+  --va-modal-opacity-transition: opacity calc(var(--va-modal-basic-duration) * 0.5) cubic-bezier(1, 0.5, 0.8, 1);
+  --va-modal-transform-transition: transform var(--va-modal-basic-duration) ease;
 
   /* Dialog */
   --va-modal-dialog-background: #ffffff;
@@ -31,4 +34,5 @@
   --va-modal-overlay-z-index: calc(var(--va-modal-container-z-index) - 1);
   --va-modal-overlay-width: 100vw;
   --va-modal-overlay-height: 100vh;
+  --va-modal-overlay-opacity-transition: opacity math.div(2 * var(--va-modal-basic-duration), 3) cubic-bezier(1, 0.5, 0.8, 1);
 }
