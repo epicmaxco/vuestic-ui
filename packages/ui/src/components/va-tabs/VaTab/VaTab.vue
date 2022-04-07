@@ -47,7 +47,6 @@ import {
   onBeforeUnmount,
   onMounted,
   ref,
-  unref,
 } from 'vue'
 import VaIcon from '../../va-icon'
 import { useRouterLink, useRouterLinkProps } from '../../../composables/useRouterLink'
