@@ -1777,7 +1777,7 @@
     "summaryText": "Classic modal overlay which represents a dialog box or other interactive component, such as a dismissible alert, sub-window, etc.",
     "overview": {
       "title": "Overview",
-      "text": "`<va-modal>`, by default, has the **OK** and **Cancel** buttons in the footer. You can provide a custom message and title with the `message` and `title` props respectively.\n\n`<va-modal>` supports close on **Esc** (enabled by default) and close on overlay click (enabled by default). These features may be disabled by setting the props `no-esc-dismiss` and `no-outside-dismiss` respectively, or `no-dismiss` as a shorthand to disable both of them."
+      "text": "`va-modal`, by default, has the **OK** and **Cancel** buttons in the footer. You can provide a custom message and title with the `message` and `title` props respectively.\n\n`va-modal` supports close on **Esc** (enabled by default) and close on overlay click (enabled by default). These features may be disabled by setting the props `no-esc-dismiss` and `no-outside-dismiss` respectively, or `no-dismiss` as a shorthand to disable both of them."
     },
     "stateful": {
       "title": "Stateful",
@@ -1793,11 +1793,11 @@
     },
     "toggleVisibility": {
       "title": "Toggle modal visibility",
-      "text": "There are several methods that you can employ to toggle the visibility of `<va-modal>`.",
+      "text": "There are several methods that you can employ to toggle the visibility of `va-modal`.",
       "sections": [
         {
           "title": "Using `v-model` property",
-          "text": "`v-model` property is always automatically synced with `<va-modal>` visible state and you can show/hide using `v-model`."
+          "text": "`v-model` property is always automatically synced with `va-modal` visible state and you can show/hide using `v-model`."
         },
         {
           "title": "Using `show()`, `hide()`, and `toggle()` component methods",
@@ -1815,7 +1815,7 @@
     },
     "hidingOverlay": {
       "title": "Hiding the overlay",
-      "text": "Hide the modal's overlay via setting the `overlay` prop to `false`.\n\nNote that clicking outside of the modal will still close the modal even though the overlay is hidden. You can disable this behaviour by setting the `no-outside-dismiss` prop on `<va-modal>`."
+      "text": "Hide the modal's overlay via setting the `overlay` prop to `false`.\n\nNote that clicking outside of the modal will still close the modal even though the overlay is hidden. You can disable this behaviour by setting the `no-outside-dismiss` prop on `va-modal`."
     },
     "scrollingLongContent": {
       "title": "Scrolling long content",
@@ -1823,7 +1823,7 @@
     },
     "customization": {
       "title": "Customization",
-      "text": "`<va-modal>` provides several slots (`default`, `header` and `footer`), that you can use to customize the content of various sections of the modal.\n\nYou can set custom text for **Cancel** and **Ok** buttons via `ok-text` and `cancel-text` props respectively, or you can hide them via `hide-default-actions` prop.\n\n`va-modal` also supports custom `overlay-opacity` as well as `z-index`, `max-width` and `max-height` for a modal."
+      "text": "`va-modal` provides several slots (`default`, `header` and `footer`), that you can use to customize the content of various sections of the modal.\n\nYou can set custom text for **Cancel** and **Ok** buttons via `ok-text` and `cancel-text` props respectively, or you can hide them via `hide-default-actions` prop.\n\n`va-modal` also supports custom `overlay-opacity` as well as `z-index`, `max-width` and `max-height` for a modal."
     },
     "nestedModals": {
       "title": "Nested modals",
