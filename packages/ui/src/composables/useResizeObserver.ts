@@ -2,11 +2,6 @@ import { onBeforeUnmount, onMounted, Ref, unref, watch } from 'vue'
 
 type MaybeRef<T> = T | Ref<T>
 
-/**
- * Resize observer hook
- * @param elementsList {(HTMLElement | Ref<HTMLElement>)[]} List of HTML elements
- * @param cb {function} Callback function
- */
 export const useResizeObserver = <T extends HTMLElement | null>(elementsList: MaybeRef<T>[], cb: () => void) => {
   const resizeObserver = new ResizeObserver(cb)
 
