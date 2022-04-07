@@ -4,7 +4,7 @@
       <LayoutDocsHeaderCollapseIcon v-model="computedIsSidebarVisible" />
       <LayoutDocsHeaderVuesticDocsLogo class="ml-3" />
     </div>
-  
+
     <div class="docs-header__links">
       <va-button
         v-for="(link, index) in links"
@@ -23,7 +23,7 @@
 
     <div class="docs-header__preferences">
       <LayoutDocsHeaderVersionDropdown />
-      <LayoutDocsHeaderLanguageDropdown />
+      <CommonLanguageDropdown />
     </div>
   </header>
 </template>

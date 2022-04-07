@@ -90,8 +90,9 @@ export default defineComponent({
     mobile: { type: Boolean, default: false },
   },
   setup: (props, { emit }) => {
-    const { getColor, getFocusColor, getHoverColor } = useColors()
+    const i18n = useI18n()
     const route = useRoute()
+    const { getColor, getFocusColor, getHoverColor } = useColors()
 
     const value = ref<boolean[]>([])
     const writableVisible = computed({
@@ -99,7 +100,6 @@ export default defineComponent({
       set: (v: boolean) => emit('update:visible', v),
     })
 
-    const i18n = useI18n()
     const isActiveChildRoute = (route: NavigationRoute, parent: NavigationRoute) => {
       const path = `/${i18n.locale}/${String(parent.name)}/${String(route.name)}`
 

@@ -187,9 +187,8 @@ import ColorTab from './ColorTab.vue'
 
 import { useColors } from 'vuestic-ui'
 
-const { shiftHSLAColor, getColors } = useColors()
-
 const { t } = useI18n()
+const { shiftHSLAColor, getColors } = useColors()
 
 const colors = computed(getColors)
 
