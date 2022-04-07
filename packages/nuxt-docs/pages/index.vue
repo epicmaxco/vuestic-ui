@@ -5,10 +5,10 @@
       <Preview />
     </div>
     <SeamlessIntegration />
-    <!-- <Customize /> -->
-    <!-- <OpenSource /> -->
-    <!-- <Admin /> -->
-    <!-- <Footer /> -->
+    <Customize />
+    <OpenSource />
+    <Admin />
+    <Footer />
   </div>
 </template>
 
@@ -16,10 +16,10 @@
 import Header from '../components/landing/header/Header.vue'
 import Preview from '../components/landing/Preview.vue'
 import SeamlessIntegration from '../components/landing/SeamlessIntegration/SeamlessIntegration.vue'
-// import Customize from '../components/landing/Customize/Customize.vue'
-// import Admin from '../components/landing/Admin.vue'
-// import Footer from '../components/landing/Footer.vue'
-// import OpenSource from '../components/landing/OpenSource.vue'
+import Customize from '../components/landing/Customize/Customize.vue'
+import OpenSource from '../components/landing/OpenSource.vue'
+import Admin from '../components/landing/Admin.vue'
+import Footer from '../components/landing/Footer/Footer.vue'
 
 definePageMeta({ layout: 'landing' })
 </script>
