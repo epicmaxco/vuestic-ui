@@ -6,7 +6,7 @@ export const TabKey = Symbol('Tab')
 export interface TabComponent {
   id: string | number | null,
   tabElement: Ref<HTMLElement | null>,
-  name?: string | number,
+  name: ComputedRef<string | number | undefined>,
   tabIndexComputed: ComputedRef<number>,
   isActive: Ref<boolean>,
   isActiveRouterLink: ComputedRef<boolean>,

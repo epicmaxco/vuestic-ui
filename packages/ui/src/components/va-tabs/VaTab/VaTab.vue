@@ -147,7 +147,7 @@ export default defineComponent({
     }
 
     const tabComponent: TabComponent = {
-      name: props.name,
+      name: computed(() => props.name),
       id: null,
       tabElement,
       isActive,

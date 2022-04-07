@@ -225,7 +225,7 @@ export default defineComponent({
         tab.updateSidePositions()
 
         if (tabSelected.value) {
-          const isTabSelected = (tab.name || tab.id) === tabSelected.value
+          const isTabSelected = (tab.name?.value || tab.id) === tabSelected.value
 
           tab.isActive = tab.isActiveRouterLink || isTabSelected
 
@@ -355,7 +355,7 @@ export default defineComponent({
     const selectTab = (tab: TabComponent) => {
       if (!tab) { return }
 
-      tabSelected.value = tab.name || tab.id
+      tabSelected.value = tab.name?.value || tab.id
 
       if (props.stateful) {
         updateTabsState()
@@ -365,14 +365,14 @@ export default defineComponent({
     const registerTab = (tab: TabComponent) => {
       const idx = tabsList.value.push(tab)
 
-      tab.id = tab.name || idx
+      tab.id = tab.name?.value || idx
     }
 
     const unregisterTab = (tab: TabComponent) => {
       tabsList.value = tabsList.value.filter((filteredTab: TabComponent) => filteredTab.id !== tab.id)
 
       tabsList.value.forEach((tabListItem: TabComponent, idx: number) => {
-        tabListItem.id = tabListItem.name || idx
+        tabListItem.id = tabListItem.name?.value || idx
       })
     }
 
