@@ -18,6 +18,7 @@
 <script lang="ts">
 import { defineComponent, computed, PropType, ref, Ref, nextTick, onMounted, onBeforeUnmount } from 'vue'
 import noop from 'lodash/noop'
+import { getWindow } from '../../utils/ssr-utils'
 
 import {
   handleThrottledEvent,
@@ -27,16 +28,18 @@ import {
   Context,
 } from './VaAffix-utils'
 
+type Target = HTMLElement | Window
+
 export default defineComponent({
   name: 'VaAffix',
   emits: ['change'],
   props: {
     offsetTop: { type: Number as PropType<number>, default: undefined },
     offsetBottom: { type: Number as PropType<number>, default: undefined },
-    target: { type: Function as PropType<() => HTMLElement | Window>, default: () => () => window },
+    target: { type: [Object, Function] as PropType<Target | (() => Target)>, default: getWindow },
   },
   setup (props, { emit }) {
-    const getTargetElement = () => props.target()
+    const getTargetElement = () => (typeof props.target === 'function' ? props.target() : props.target)
 
     const isAffixed = computed(() => state.value.isTopAffixed || state.value.isBottomAffixed)
 
@@ -53,6 +56,10 @@ export default defineComponent({
     const calculateTop = () => {
       const target = getTargetElement()
 
+      if (!target) {
+        return 0
+      }
+
       if (props.offsetTop === undefined) { return }
 
       if (!(target instanceof Window)) {
@@ -65,6 +72,8 @@ export default defineComponent({
 
     const calculateBottom = () => {
       const target = getTargetElement()
+
+      if (!target) { return 0 }
 
       if (props.offsetBottom === undefined) { return }
 
