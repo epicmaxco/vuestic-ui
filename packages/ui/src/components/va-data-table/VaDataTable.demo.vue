@@ -493,8 +493,8 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import VaDataTable from './'
-import cloneDeep from 'lodash/cloneDeep'
-import shuffle from 'lodash/shuffle'
+import cloneDeep from 'lodash-es/cloneDeep'
+import shuffle from 'lodash-es/shuffle'
 import VaSwitch from '../va-switch'
 import VaPagination from '../va-pagination'
 import VaButton from '../va-button'

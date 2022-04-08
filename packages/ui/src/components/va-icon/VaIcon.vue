@@ -21,7 +21,7 @@ import { Options, mixins, prop, Vue, setup } from 'vue-class-component'
 import ColorMixin from '../../services/color-config/ColorMixin'
 import { SizeMixin } from '../../mixins/SizeMixin'
 import { useIcons } from '../../services/icon-config/icon-config'
-import omit from 'lodash/omit'
+import omit from 'lodash-es/omit'
 
 class IconProps {
   name = prop<string>({ type: String, default: '' })
