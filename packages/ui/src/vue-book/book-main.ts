@@ -14,6 +14,7 @@ import demoIconFonts from './vuestic-config/demo-icon-fonts'
 import './vue-book-overrides.scss'
 import { createIconsConfig, VuesticPluginsWithoutComponents } from '../main'
 import { colorsPresets } from '../services/color-config/color-theme-presets'
+import ColorHelpersPlugin from '../services/color-config/color-css-helpers-updater'
 
 const app = createApp(App)
 
@@ -34,6 +35,7 @@ const router = createRouter({
 })
 
 app.use(VueBookComponents)
+app.use(ColorHelpersPlugin)
 app.use(router)
 
 app.use(VuesticPluginsWithoutComponents, {
@@ -45,6 +47,12 @@ app.use(VuesticPluginsWithoutComponents, {
     ...colorsPresets.default,
     banana: '#d0f55d',
   },
+  classHelpers: [
+    {
+      stylePrefix: 'asd',
+      styleProperty: 'color',
+    },
+  ],
 })
 
 app.mount('#app')

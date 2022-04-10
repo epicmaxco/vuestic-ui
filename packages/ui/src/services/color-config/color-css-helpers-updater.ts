@@ -2,14 +2,15 @@ import { watch } from 'vue'
 import { useGlobalConfig } from '../global-config/global-config'
 import { isServer } from '../../utils/ssr-utils'
 import { addOrUpdateStyleElement } from '../dom-functions'
-import type { ColorConfig } from './color-config'
 
 export type HelperConfig = {
-  stylePrefix: string;
-  styleProperty: string;
+  stylePrefix?: string;
+  stylePostfix?: string;
+  styleProperty?: string;
+  styleValue?: string;
 }
 
-export const helperConfigValues: HelperConfig[] = [
+export let helperConfigValues: HelperConfig[] = [
   {
     stylePrefix: 'bg',
     styleProperty: 'background-color',
@@ -18,16 +19,27 @@ export const helperConfigValues: HelperConfig[] = [
     stylePrefix: 'text',
     styleProperty: 'color',
   },
+  {
+    stylePrefix: 'fill',
+    styleProperty: 'fill',
+  },
 ]
 
-export const renderCSSHelpers = (helpers: ColorConfig) => {
-  const helperNames = Object.keys(helpers)
+const renderHelperPresets = (newColors: any) => {
+  return Object.entries(newColors).map(color => {
+    return helperConfigValues.map(value => ({
+      ...value,
+      stylePostfix: color[0],
+      styleValue: color[1],
+    }))
+  }).flat()
+}
+
+export const renderCSSHelpers = (helpers: HelperConfig[]) => {
   let resultHelperClasses = ''
 
-  helperNames.forEach((key) => {
-    helperConfigValues.forEach((helper: ColorConfig) => {
-      resultHelperClasses += `.${helper.stylePrefix}--${key} {${helper.styleProperty}: ${helpers[key]};}`
-    })
+  helpers.forEach((helper: HelperConfig) => {
+    resultHelperClasses += `.va-${helper.stylePrefix}--${helper.stylePostfix} {${helper.styleProperty}: ${helper.styleValue};}`
   })
 
   return resultHelperClasses
@@ -41,12 +53,23 @@ const ColorHelpersPlugin = {
 
     const { globalConfig } = useGlobalConfig()
 
-    watch(() => globalConfig.value.classHelpers, (newValue) => {
+    watch(() => globalConfig.value.classHelpers as HelperConfig[], (newValue: HelperConfig[]) => {
+      if (!newValue || !globalConfig.value.colors) {
+        return
+      }
+
+      helperConfigValues = [...helperConfigValues, ...newValue]
+      const helpers = renderHelperPresets(globalConfig.value.colors)
+      addOrUpdateStyleElement('va-css-helpers', () => renderCSSHelpers(helpers as HelperConfig[]))
+    }, { immediate: true, deep: true })
+
+    watch(() => globalConfig.value.colors, (newValue) => {
       if (!newValue) {
         return
       }
 
-      addOrUpdateStyleElement('css-helpers', () => renderCSSHelpers(newValue))
+      const helpers = renderHelperPresets(newValue)
+      addOrUpdateStyleElement('va-css-helpers', () => renderCSSHelpers(helpers as HelperConfig[]))
     }, { immediate: true, deep: true })
   },
 }

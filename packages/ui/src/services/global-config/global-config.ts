@@ -8,6 +8,7 @@ import { colorsPresets } from '../color-config/color-theme-presets'
 
 const globalConfigRef = ref<GlobalConfig>({
   colors: colorsPresets.default,
+  classHelpers: [],
   icons: createIconsConfig({}),
   components: getComponentsDefaultConfig(),
   componentsAll: getComponentsAllDefaultConfig(),

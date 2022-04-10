@@ -7,7 +7,7 @@
           :key="index"
           :header="collapse.title"
         >
-          <div>
+          <div class="va-asd--danger">
             {{ collapse.content }}
           </div>
         </va-collapse>
