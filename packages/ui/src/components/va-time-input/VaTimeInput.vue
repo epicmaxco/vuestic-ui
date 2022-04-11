@@ -236,7 +236,6 @@ export default defineComponent({
     }))
 
     watch(modelValueSync, () => {
-      console.log('asda', modelValueSync)
       isValid.value = true
     })
 
