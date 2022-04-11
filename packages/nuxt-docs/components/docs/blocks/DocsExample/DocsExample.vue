@@ -37,9 +37,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, computed, shallowRef } from "vue";
+import { ref, reactive } from "vue";
 import DocsCode from "../DocsCode/DocsCode.vue";
 import DocsNavigation from "./DocsNavigation.vue";
+
+const { t } = useI18n();
 
 const props = defineProps({
   component: {
@@ -84,8 +86,6 @@ function parseTemplate(target, template) {
 watch(text, () => {
   parse(text.value);
 }, { immediate: true });
-
-const { t } = useI18n();
 </script>
 
 <style lang="scss">

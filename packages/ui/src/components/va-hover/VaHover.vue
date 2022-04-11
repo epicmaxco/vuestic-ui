@@ -1,37 +1,44 @@
 <template>
-  <div @mouseenter="onMouseEnter" @mouseleave="onMouseLeave">
-    <slot v-bind="{ hover: valueComputed }" />
+  <div
+    @mouseenter="onMouseEnter"
+    @mouseleave="onMouseLeave"
+  >
+    <slot :hover="valueComputed" />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import { useStateful, statefulComponentOptions } from '../../mixins/StatefulMixin/cStatefulMixin'
+import { defineComponent, PropType } from 'vue'
+import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
 
 export default defineComponent({
   name: 'VaHover',
-
+  emits: useStatefulEmits,
   props: {
-    ...statefulComponentOptions.props,
-    stateful: { type: Boolean, default: true },
-    disabled: { type: Boolean, default: false },
-    modelValue: { type: Boolean, default: false },
+    ...useStatefulProps,
+    disabled: { type: Boolean as PropType<boolean>, default: false },
+    modelValue: { type: Boolean as PropType<boolean>, default: false },
   },
-
-  emits: [...statefulComponentOptions.emits],
-
   setup (props, { emit }) {
     const { valueComputed } = useStateful(props, emit)
 
     const onMouseEnter = () => {
-      if (!props.disabled) { valueComputed.value = true }
+      if (!props.disabled) {
+        valueComputed.value = true
+      }
     }
 
     const onMouseLeave = () => {
-      if (!props.disabled) { valueComputed.value = false }
+      if (!props.disabled) {
+        valueComputed.value = false
+      }
     }
 
-    return { onMouseEnter, onMouseLeave, valueComputed }
+    return {
+      valueComputed,
+      onMouseEnter,
+      onMouseLeave,
+    }
   },
 })
 </script>

@@ -35,7 +35,7 @@ import { computed, defineComponent, PropType, ref, watch } from 'vue'
 import { sleep } from '../../services/utils'
 import { useColor } from '../../composables/useColor'
 import { useScroll } from './hooks/useScroll'
-import { VaProgressCircle } from '../va-progress-bar'
+import { VaProgressCircle } from '../va-progress-circle'
 
 export default defineComponent({
   name: 'VaInfiniteScroll',

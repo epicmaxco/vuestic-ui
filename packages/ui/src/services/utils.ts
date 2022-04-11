@@ -6,18 +6,6 @@ export const sleep = (ms = 0) => {
   return new Promise(resolve => setTimeout(resolve, ms))
 }
 
-export const normalizeValue = (value, minValue = 0, maxValue = 100) => {
-  if (value <= minValue) {
-    return minValue
-  }
-
-  if (value >= maxValue) {
-    return maxValue
-  }
-
-  return value
-}
-
 // Taken from vuetify pretty much.
 export const deepEqual = (a, b) => {
   if (a === b) { return true }

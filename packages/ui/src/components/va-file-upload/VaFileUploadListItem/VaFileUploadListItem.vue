@@ -16,10 +16,10 @@
       v-else
     >
       <div class="va-file-upload-list-item__name">
-        {{ file.name }}
+        {{ file && file.name }}
       </div>
       <div class="va-file-upload-list-item__size">
-        {{ file.size }}
+        {{ file && file.size }}
       </div>
       <va-icon
         color="danger"
@@ -32,28 +32,16 @@
 </template>
 
 <script lang="ts">
-import { Vue, Options, prop, mixins } from 'vue-class-component'
+import { defineComponent, PropType, ref } from 'vue'
 
 import VaCard from '../../va-card'
 import VaIcon from '../../va-icon'
 
+import { VaFile } from '../types'
+
 import VaFileUploadUndo from '../VaFileUploadUndo'
 
-class FileUploadListItemProps {
-  file = prop<Record<string, unknown>>({
-    type: Object,
-    default: null,
-  })
-
-  color = prop<string>({
-    type: String,
-    default: 'success',
-  })
-}
-
-const FileUploadListItemPropsMixin = Vue.with(FileUploadListItemProps)
-
-@Options({
+export default defineComponent({
   name: 'VaFileUploadListItem',
   components: {
     VaIcon,
@@ -61,29 +49,38 @@ const FileUploadListItemPropsMixin = Vue.with(FileUploadListItemProps)
     VaFileUploadUndo,
   },
   emits: ['remove'],
+  props: {
+    file: { type: Object as PropType<VaFile | null>, default: null },
+    color: { type: String as PropType<string>, default: 'success' },
+  },
+  setup (props, { emit }) {
+    const removed = ref(false)
+
+    const removeFile = () => {
+      removed.value = true
+
+      setTimeout(() => {
+        if (removed.value) {
+          emit('remove')
+          removed.value = false
+        }
+      }, 2000)
+    }
+
+    const recoverFile = () => { removed.value = false }
+
+    return {
+      removed,
+      removeFile,
+      recoverFile,
+    }
+  },
 })
-export default class VaFileUploadListItem extends mixins(FileUploadListItemPropsMixin) {
-  removed = false
-
-  removeFile () {
-    this.removed = true
-    setTimeout(() => {
-      if (this.removed) {
-        this.$emit('remove')
-        this.removed = false
-      }
-    }, 2000)
-  }
-
-  recoverFile () {
-    this.removed = false
-  }
-}
 </script>
 
 <style lang='scss'>
-@import '../../../styles/resources';
-@import 'variables';
+@import "../../../styles/resources";
+@import "variables";
 
 .va-file-upload-list-item {
   & + & {

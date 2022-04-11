@@ -2980,11 +2980,6 @@
   resolved "https://registry.yarnpkg.com/@polka/url/-/url-1.0.0-next.20.tgz#111b5db0f501aa89b05076fa31f0ea0e0c292cd3"
   integrity sha512-88p7+M0QGxKpmnkfXjS4V26AnoC/eiqZutE8GLdaI5X12NY75bXSdTY9NkmYb2Xyk1O+MmkuO6Frmsj84V6I8Q==
 
-"@popperjs/core@^2.9.2":
-  version "2.10.1"
-  resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.10.1.tgz#728ecd95ab207aab8a9a4e421f0422db329232be"
-  integrity sha512-HnUhk1Sy9IuKrxEMdIRCxpIqPw6BFsbYSEUO9p/hNw5sMld/+3OLMWQP80F8/db9qsv3qUjs7ZR5bS/R+iinXw==
-
 "@rollup/plugin-alias@^3.1.9":
   version "3.1.9"
   resolved "https://registry.yarnpkg.com/@rollup/plugin-alias/-/plugin-alias-3.1.9.tgz#a5d267548fe48441f34be8323fb64d1d4a1b3fdf"
@@ -5514,11 +5509,6 @@ astral-regex@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/astral-regex/-/astral-regex-2.0.0.tgz#483143c567aeed4785759c0865786dc77d7d2e31"
   integrity sha512-Z7tMw1ytTXt5jqMcOP+OQteU1VuNK9Y02uuJtKQ1Sv69jXQKKg5cibLwGJow8yzZP+eAc18EmLGPal0bp36rvQ==
-
-asva-executors@^0.1.26:
-  version "0.1.26"
-  resolved "https://registry.yarnpkg.com/asva-executors/-/asva-executors-0.1.26.tgz#65616ed81bd5507d68f3e8d75bf301ea3b133946"
-  integrity sha512-bOLod5SbkGmbC3WibShO2LNjtNAmQDpgVNqG8zFLc4Ksb71q9uTBe3anPwhlJs9YflfLycTPjou5yCmg6LFTaA==
 
 async-each@^1.0.1:
   version "1.0.3"
@@ -10157,11 +10147,6 @@ flat@^5.0.0:
   version "5.0.2"
   resolved "https://registry.yarnpkg.com/flat/-/flat-5.0.2.tgz#8ca6fe332069ffa9d324c327198c598259ceb241"
   integrity sha512-b6suED+5/3rTpUBdG1gupIl8MPFCAMA0QXwmljLhvCUKcUvdE4gWky9zpuGCcXHOsz4J9wPGNWq6OKpmIzz3hQ==
-
-flatpickr@4.6.9, flatpickr@^4.6.9:
-  version "4.6.9"
-  resolved "https://registry.yarnpkg.com/flatpickr/-/flatpickr-4.6.9.tgz#9a13383e8a6814bda5d232eae3fcdccb97dc1499"
-  integrity sha512-F0azNNi8foVWKSF+8X+ZJzz8r9sE1G4hl06RyceIaLvyltKvDl6vqk9Lm/6AUUCi5HWaIjiUbk7UpeE/fOXOpw==
 
 flatted@^2.0.0:
   version "2.0.2"
@@ -21475,13 +21460,6 @@ vue-eslint-parser@^7.0.0, vue-eslint-parser@^7.10.0:
     lodash "^4.17.21"
     semver "^6.3.0"
 
-vue-flatpickr-component@^9.0.3:
-  version "9.0.5"
-  resolved "https://registry.yarnpkg.com/vue-flatpickr-component/-/vue-flatpickr-component-9.0.5.tgz#350ec73b7f3d7f80b050c170c088234f9c3bd14c"
-  integrity sha512-fKuz/D4ePQKi+jPo4xjYRgBCLTWrTsCoKbx8nam63x4kTDtSqvFOjNwLvy0QgwC0lC+aFpUWa1dNYTH0hgUcCA==
-  dependencies:
-    flatpickr "^4.6.9"
-
 vue-gtm@^3.5.0:
   version "3.5.0"
   resolved "https://registry.yarnpkg.com/vue-gtm/-/vue-gtm-3.5.0.tgz#a64843cec1c39aa57f07d25e114908d65b47f0d0"
@@ -21627,23 +21605,6 @@ vuelidate@^0.7.5:
   version "0.7.6"
   resolved "https://registry.yarnpkg.com/vuelidate/-/vuelidate-0.7.6.tgz#84100c13b943470660d0416642845cd2a1edf4b2"
   integrity sha512-suzIuet1jGcyZ4oUSW8J27R2tNrJ9cIfklAh63EbAkFjE380iv97BAiIeolRYoB9bF9usBXCu4BxftWN1Dkn3g==
-
-vuestic-ui@1.2.2:
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/vuestic-ui/-/vuestic-ui-1.2.2.tgz#5fa3e1a904e654b9d043821b45f7a9dbd6f69107"
-  integrity sha512-zP5Y1MH6Y2Zu0bVpUO36ahcDeuqNzQYHmPBy7+VM+ZwVS2pbk6yju/eOtEri1bp75PYEByqZ0drRx3vzZ0aKZQ==
-  dependencies:
-    "@popperjs/core" "^2.9.2"
-    "@types/webpack" "^5"
-    asva-executors "^0.1.26"
-    cleave.js "^1.6.0"
-    colortranslator "^1.7.1"
-    detect-browser "^5.2.0"
-    element-resize-detector "^1.2.1"
-    flatpickr "4.6.9"
-    lodash-es "^4.17.21"
-    normalize.css "^8.0.1"
-    vue-flatpickr-component "^9.0.3"
 
 w3c-hr-time@^1.0.2:
   version "1.0.2"

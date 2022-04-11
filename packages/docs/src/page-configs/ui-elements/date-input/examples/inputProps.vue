@@ -26,6 +26,7 @@
   <va-date-input
     class="mb-4"
     label="clearable"
+    stateful
     clearable
   />
 

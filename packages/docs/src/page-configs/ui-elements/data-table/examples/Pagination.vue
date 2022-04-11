@@ -93,12 +93,11 @@ export default defineComponent({
     ]
 
     const columns = [
-      { key: 'id', sortable: true },
-      { key: 'username', sortable: true },
-      { key: 'name', sortable: true },
-      { key: 'email', sortable: true },
+      { key: 'id', sortable: true, width: '60px' },
+      { key: 'username', sortable: true, width: '120px' },
+      { key: 'name', sortable: true, width: '170px' },
+      { key: 'email', sortable: true, width: '250px' },
       { key: 'phone' },
-      { key: 'website' },
     ]
 
     return {

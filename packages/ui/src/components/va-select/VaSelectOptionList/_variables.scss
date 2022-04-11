@@ -5,6 +5,12 @@
   --va-select-option-list-list-style: none;
   --va-select-option-list-max-height: 200px;
 
+  /* Group name */
+  --va-select-option-list-group-name-padding: 1rem 12px 0.375rem;
+  --va-select-option-list-group-name-font-size: 0.6rem;
+  --va-select-option-list-group-name-color: var(--va-primary);
+  --va-select-option-list-group-name-font-weight: 700;
+
   /* Option */
   --va-select-option-list-option-cursor: pointer;
   --va-select-option-list-option-display: flex;

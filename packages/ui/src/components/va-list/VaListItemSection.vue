@@ -8,33 +8,26 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue, mixins, prop } from 'vue-class-component'
+import { defineComponent, PropType, computed } from 'vue'
 
-class ListItemSectionProps {
-  icon = prop<boolean>({ type: Boolean, default: false })
-  avatar = prop<boolean>({ type: Boolean, default: false })
-}
-
-const ListItemSectionPropsMixin = Vue.with(ListItemSectionProps)
-
-@Options({
+export default defineComponent({
   name: 'VaListItemSection',
+  props: {
+    icon: { type: Boolean as PropType<boolean>, default: false },
+    avatar: { type: Boolean as PropType<boolean>, default: false },
+  },
+  setup: (props) => ({
+    computedClass: computed(() => ({
+      'va-list-item-section--main': !props.icon && !props.avatar,
+      'va-list-item-section--icon': props.icon,
+      'va-list-item-section--avatar': props.avatar,
+    })),
+  }),
 })
-export default class VaListItemSection extends mixins(
-  ListItemSectionPropsMixin,
-) {
-  get computedClass () {
-    return {
-      'va-list-item-section--main': !this.icon && !this.avatar,
-      'va-list-item-section--icon': this.icon,
-      'va-list-item-section--avatar': this.avatar,
-    }
-  }
-}
 </script>
 
 <style lang="scss">
-@import 'variables';
+@import "variables";
 
 .va-list-item-section {
   display: flex;

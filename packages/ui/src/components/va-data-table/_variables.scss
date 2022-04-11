@@ -16,11 +16,14 @@
 
   /* Selectable */
   --va-data-table-selectable-tr-cursor: pointer;
+  --va-data-table-selectable-cell-width: 55px;
+  --va-data-table-selectable-cell-vertical-align: middle;
+  --va-data-table-selectable-cell-text-align: center;
 
   /* No-data */
   --va-data-table-no-data-text-align: center;
   --va-data-table-no-data-vertical-align: middle;
 
   /* Animated */
-  --va-data-table-transition: var(--va-swing-transition);
+  --va-data-table-transition: var(--va-transition);
 }

@@ -69,6 +69,8 @@ import { PageRoute } from '~~/types/page-config';
 import { TranslationString } from '~~/types/translations';
 import camelCase from 'lodash/camelCase'
 
+const { locale, t } = useI18n()
+
 const pages = createPageRoutes()
 
 type SidebarItem = PageRoute & { text: TranslationString, children: SidebarItem[], category?: string }
@@ -100,8 +102,6 @@ const createSidebarItems = (pages: PageRoute[]): SidebarItem[] => {
 }
 
 const sidebarItems = computed(() => createSidebarItems(pages))
-
-const { locale, t } = useI18n()
 
 const accordionValue = ref<boolean[]>([true])
 

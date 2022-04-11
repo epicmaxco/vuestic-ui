@@ -94,6 +94,8 @@
         :allow-footer-sorting="allowFooterSorting"
         :no-data-filtered-html="noDataFilteredHtml"
         :striped="isStriped"
+        sticky-header
+        style="--scroll-table-height: 250px; --scroll-table-color: orange;"
       />
     </VbCard>
 
@@ -492,6 +494,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+
 import VaDataTable from './'
 import cloneDeep from 'lodash-es/cloneDeep'
 import shuffle from 'lodash-es/shuffle'

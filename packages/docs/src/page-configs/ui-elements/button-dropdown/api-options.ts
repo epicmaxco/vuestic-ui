@@ -7,5 +7,6 @@ export default defineManualApi({
   },
   slots: {
     default: { },
+    label: { },
   },
 })

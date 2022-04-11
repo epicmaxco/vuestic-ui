@@ -1,5 +1,5 @@
 import { useI18n as originalUseI18n } from 'vue-i18n'
-import { computed } from 'vue'
+import { computed, getCurrentInstance } from 'vue'
 import { TranslationString } from '~~/types/translations'
 
 /** Modified useI18n. Sync locale with cookie. Has tie method. */

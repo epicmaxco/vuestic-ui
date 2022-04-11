@@ -63,7 +63,7 @@
 
 <script lang="ts">
 import { ComponentOptions, computed, defineComponent, nextTick, PropType, ref, watch } from 'vue'
-import { useStateful, statefulComponentOptions } from '../../mixins/StatefulMixin/cStatefulMixin'
+import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
 import { useColors } from '../../services/color-config/color-config'
 
 import { VaDatePickerModelValue, VaDatePickerType, VaDatePickerView } from './types/types'
@@ -84,7 +84,8 @@ export default defineComponent({
   components: { VaDayPicker, VaDatePickerHeader, VaMonthPicker, VaYearPicker },
 
   props: {
-    ...statefulComponentOptions.props,
+    ...useStatefulProps,
+    ...extractComponentProps(VaDatePickerHeader),
     ...extractComponentProps(VaDayPicker),
     ...extractComponentProps(VaMonthPicker),
     ...extractComponentProps(VaYearPicker),
@@ -102,7 +103,7 @@ export default defineComponent({
   },
 
   emits: [
-    ...statefulComponentOptions.emits,
+    ...useStatefulEmits,
     ...extractComponentEmits(VaDatePickerHeader),
     ...extractComponentEmits(VaYearPicker),
     ...extractComponentEmits(VaDayPicker),
