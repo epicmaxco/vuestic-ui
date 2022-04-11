@@ -47,8 +47,8 @@ export const useValidation = (
 ) => {
   const { isFocused, onFocus, onBlur } = useFocus()
 
-  const [computedError] = useSyncProp('error', props, emit)
-  const [computedErrorMessages] = useSyncProp('errorMessages', props, emit)
+  const [computedError] = useSyncProp('error', props, emit, false)
+  const [computedErrorMessages] = useSyncProp('errorMessages', props, emit, [])
 
   const resetValidation = () => {
     computedError.value = false

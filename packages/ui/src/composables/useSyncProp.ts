@@ -21,15 +21,16 @@ export function useSyncProp<
   PropName extends string,
   Props extends { [key in PropName]?: T },
   Emit extends (event: any, newValue: Props[PropName]) => any,
+  DefaultValue extends Props[PropName],
   ReturnValue extends Props[PropName] extends undefined ? Props[PropName] : NonNullable<Props[PropName]>
-> (propName: PropName, props: Props, emit: Emit) {
+  > (propName: PropName, props: Props, emit: Emit, defaultValue?: DefaultValue) {
   return [
     computed<ReturnValue>({
       set (value: ReturnValue) {
         emit(`update:${propName}`, value)
       },
       get (): ReturnValue {
-        return props[propName] as ReturnValue
+        return (props[propName] === undefined ? defaultValue as ReturnValue : props[propName]) as ReturnValue
       },
     }),
   ]

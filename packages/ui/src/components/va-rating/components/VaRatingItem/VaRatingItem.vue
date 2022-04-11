@@ -52,7 +52,7 @@ export default defineComponent({
 
   setup (props, { emit }) {
     const rootEl = ref<HTMLElement>()
-    const [modelValue] = useSyncProp('modelValue', props, emit)
+    const [modelValue] = useSyncProp('modelValue', props, emit, RatingValue.EMPTY)
     const hoveredValue = ref<number | null>(null)
 
     const visibleValue = computed(() => {

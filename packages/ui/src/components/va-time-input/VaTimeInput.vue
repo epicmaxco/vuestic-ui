@@ -139,7 +139,7 @@ export default defineComponent({
     const clearIconId = generateUniqueId()
     const componentIconId = generateUniqueId()
 
-    const [isOpenSync] = useSyncProp('isOpen', props, emit)
+    const [isOpenSync] = useSyncProp('isOpen', props, emit, false)
     const [modelValueSync] = useSyncProp('modelValue', props, emit)
 
     const { parse, isValid } = useTimeParser(props)
