@@ -22,38 +22,15 @@ export function useSyncProp<
   Props extends { [key in PropName]?: T },
   Emit extends (event: any, newValue: Props[PropName]) => any,
   DefaultValue extends Props[PropName],
-  ReturnValue extends DefaultValue extends undefined ? Props[PropName] : NonNullable<Props[PropName]>
-> (propName: PropName, props: Props, emit: Emit, defaultValue?: DefaultValue) {
-  if (defaultValue === undefined) {
-    return [
-      computed<ReturnValue>({
-        set (value: ReturnValue) {
-          emit(`update:${propName}`, value)
-        },
-        get () {
-          return props[propName] as ReturnValue
-        },
-      }),
-    ]
-  }
-
-  const currentValue = props[propName]
-  const statefulValue = ref(currentValue === undefined ? defaultValue : currentValue)
-
-  watch(() => props[propName], (newVal) => {
-    if (newVal === undefined) { return }
-
-    statefulValue.value = newVal as ReturnValue
-  })
-
+  ReturnValue extends Props[PropName] extends undefined ? Props[PropName] : NonNullable<Props[PropName]>
+  > (propName: PropName, props: Props, emit: Emit, defaultValue?: DefaultValue) {
   return [
     computed<ReturnValue>({
       set (value: ReturnValue) {
-        statefulValue.value = value as ReturnValue
         emit(`update:${propName}`, value)
       },
       get (): ReturnValue {
-        return (props[propName] === undefined ? statefulValue.value : props[propName]) as ReturnValue
+        return (props[propName] === undefined ? defaultValue as ReturnValue : props[propName]) as ReturnValue
       },
     }),
   ]
