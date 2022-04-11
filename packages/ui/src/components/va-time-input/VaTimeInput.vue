@@ -139,7 +139,7 @@ export default defineComponent({
     const clearIconId = generateUniqueId()
     const componentIconId = generateUniqueId()
 
-    const [isOpenSync] = useSyncProp('isOpen', props, emit, false)
+    const [isOpenSync] = useSyncProp('isOpen', props, emit)
     const [modelValueSync] = useSyncProp('modelValue', props, emit)
 
     const { parse, isValid } = useTimeParser(props)
@@ -236,6 +236,7 @@ export default defineComponent({
     }))
 
     watch(modelValueSync, () => {
+      console.log('asda', modelValueSync)
       isValid.value = true
     })
 
