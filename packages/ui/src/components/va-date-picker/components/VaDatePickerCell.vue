@@ -125,7 +125,11 @@ export default defineComponent({
   &:hover,
   &_focused,
   &_focused:hover {
-    &:not(.va-date-picker-cell_selected):not(.va-date-picker-cell_readonly):not(.va-date-picker-cell_disabled) {
+    &:not(
+    .va-date-picker-cell_selected):not(
+      .va-date-picker-cell_readonly):not(
+        .va-date-picker-cell_disabled):not(
+          .va-date-picker-cell_other-month) {
       &::after {
         background-color: var(--va-date-picker-selected-background);
         opacity: var(--va-date-picker-cell-background-opacity-hover);
