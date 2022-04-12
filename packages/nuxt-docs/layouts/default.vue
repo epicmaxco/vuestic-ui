@@ -8,7 +8,7 @@
         <LayoutDocsSidebar v-model:visible="isSidebarVisible" :mobile="sm"   />
       </aside>
       <main class="docs-layout__main-content">
-        <article class="docs-layout__page-content">
+        <article class="docs-layout__page-content layout gutter--xl">
           <VaContent>
             <slot />
           </VaContent>
@@ -71,7 +71,7 @@ watch(sm, (newValue, oldValue) => {
       // height: 100%;
       overflow-y: scroll;
       overflow-x: hidden;
-      
+
       @include va-scroll(var(--va-primary));
     }
 
