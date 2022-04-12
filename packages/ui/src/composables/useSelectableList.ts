@@ -1,20 +1,11 @@
 // It's another implementation of SelectableListMixin functionality but for Composition API usage
 
 import { getProp } from '../services/utils'
-import { PropType } from 'vue'
+import { PropType, ExtractPropTypes } from 'vue'
 
 export type SelectableOption = string | number | Record<string, unknown>
 
 type StringOrFunction = string | ((option: SelectableOption) => string)
-
-export type SelectableListProps = {
-  options: SelectableOption[]
-  textBy: StringOrFunction
-  valueBy: StringOrFunction
-  trackBy: StringOrFunction
-  disabledBy: StringOrFunction
-  groupBy: StringOrFunction
-}
 
 export const useSelectableListProps = {
   options: { type: Array as PropType<SelectableOption[]>, default: () => [] },
@@ -25,7 +16,7 @@ export const useSelectableListProps = {
   groupBy: { type: [String, Function] as PropType<StringOrFunction>, default: 'group' },
 }
 
-export function useSelectableList (props: SelectableListProps) {
+export function useSelectableList (props: ExtractPropTypes<typeof useSelectableListProps>) {
   const isSelectableListComponent = true
 
   const isStringOrNumber = (option: SelectableOption): option is (string | number) => {
