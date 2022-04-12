@@ -2,7 +2,6 @@ import { useLocalConfig } from '../../components/va-config/VaConfig'
 import { useGlobalConfig } from '../global-config/global-config'
 import { computed, DefineComponent, ref } from 'vue'
 
-// TODO ideally we want to type component props instead  of any
 export type Props = { [propName: string]: any }
 export type ComponentConfig = { [componentName: string]: Props }
 
