@@ -20,6 +20,7 @@ const PropsMixin = Vue.with(Props)
 
 // TODO Definitions could be done better, but it's too complicated to bother.
 
+/** @deprecated */
 @Options({
   emits: ['update:modelValue'],
 })

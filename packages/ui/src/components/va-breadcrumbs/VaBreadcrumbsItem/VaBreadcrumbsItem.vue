@@ -35,7 +35,7 @@ export default defineComponent({
   setup: (props) => {
     const { hasRouterLinkParams, hrefComputed } = useRouterLink(props)
 
-    const isDisabled = computed(() => props.disabled || hasRouterLinkParams.value)
+    const isDisabled = computed(() => props.disabled || !hasRouterLinkParams.value)
 
     return { isDisabled, hrefComputed }
   },
@@ -43,6 +43,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
+@import "variables";
+
 .va-breadcrumb-item {
   display: var(--va-breadcrumb-item-display);
   color: var(--va-breadcrumb-item-color);

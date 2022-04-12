@@ -5,6 +5,7 @@ import { ref, computed, toRefs } from 'vue'
  * if `stateful` prop is `false`
  * Record<any, any> & Record<'modelValue', T>
  */
+/** @deprecated */
 export function useStateful<T, D extends T | undefined> (
   props: { [key: string]: any, modelValue?: T },
   emit: (event: 'update:modelValue', ...args: any[]) => void,
