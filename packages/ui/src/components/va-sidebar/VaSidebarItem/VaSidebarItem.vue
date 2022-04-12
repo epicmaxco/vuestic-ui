@@ -49,7 +49,7 @@ export default defineComponent({
     const computedStyle = computed(() => {
       const style: Record<string, string> = {}
 
-      style.color = getColor(props.textColor, 'inherit')
+      style.color = getColor(props.textColor)
 
       if (isHovered.value) {
         style['background-color'] = getHoverColor(getColor(props.hoverColor || props.activeColor))

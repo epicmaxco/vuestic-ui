@@ -113,14 +113,14 @@ export default defineComponent({
 
     const textColorComputed = computed(() => {
       if (props.textColor !== undefined) {
-        return computeColor(props.textColor, 'var(--va-white)')
+        return computeColor(props.textColor, '#ffffff')
       }
 
       if (isTransparentBackground.value) {
-        return computeColor(colorComputed.value, 'var(--va-white)')
+        return computeColor(colorComputed.value, '#ffffff')
       }
 
-      return computeColor(props.textColor, 'var(--va-white)')
+      return computeColor(props.textColor, '#ffffff')
     })
 
     const hasOneIcon = computed(() => {
