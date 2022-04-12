@@ -70,7 +70,7 @@ import { ref, computed, defineComponent, PropType, onMounted } from 'vue'
 import { generateUniqueId } from '../../services/utils'
 import { useSelectableList, useSelectableListProps, SelectableOption } from '../../composables/useSelectableList'
 import { useValidation, useValidationProps } from '../../composables/useValidation'
-import { useStateful, statefulComponentOptions } from '../../mixins/StatefulMixin/cStatefulMixin'
+import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
 import { VaMessageListWrapper } from '../va-input'
 import VaCheckbox from '../va-checkbox'
 import VaRadio from '../va-radio'
@@ -86,11 +86,11 @@ export default defineComponent({
     VaSwitch,
     VaMessageListWrapper,
   },
-  emits: [...statefulComponentOptions.emits],
+  emits: [...useStatefulEmits],
   props: {
     ...useSelectableListProps,
     ...useValidationProps,
-    ...statefulComponentOptions.props,
+    ...useStatefulProps,
     type: {
       type: String as PropType<'radio' | 'checkbox' | 'switch'>,
       default: 'checkbox',
