@@ -6,6 +6,7 @@ import DropdownPopperSubplugin
 import ToastInstall from '../components/va-toast/install'
 
 import ColorHelpersPlugin from '../services/color-config/color-css-variables-updater'
+import ClassHelpersPlugin from '../services/color-config/color-css-helpers-updater'
 import { GlobalConfig } from '../services/global-config/global-config'
 import { GlobalConfigPlugin } from '../services/global-config/global-config-plugin'
 
@@ -26,5 +27,7 @@ export const VuesticPlugin = {
     app.use(GlobalConfigPlugin, vuesticConfig)
 
     app.use(ColorHelpersPlugin)
+
+    app.use(ClassHelpersPlugin)
   },
 }

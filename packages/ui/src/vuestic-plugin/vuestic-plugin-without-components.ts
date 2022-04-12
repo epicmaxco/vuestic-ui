@@ -1,6 +1,6 @@
 import type { GlobalConfig } from '../main'
 import type { App } from 'vue'
-import { DropdownPopperSubplugin, ToastInstall, GlobalConfigPlugin, ColorHelpersPlugin } from './vuestic-plugins'
+import { DropdownPopperSubplugin, ToastInstall, GlobalConfigPlugin, ColorHelpersPlugin, ClassHelpersPlugin } from './vuestic-plugins'
 
 export const VuesticPluginsWithoutComponents = {
   install (app: App, vuesticConfig: GlobalConfig): void {
@@ -11,5 +11,7 @@ export const VuesticPluginsWithoutComponents = {
     app.use(GlobalConfigPlugin, vuesticConfig)
 
     app.use(ColorHelpersPlugin)
+
+    app.use(ClassHelpersPlugin)
   },
 }
