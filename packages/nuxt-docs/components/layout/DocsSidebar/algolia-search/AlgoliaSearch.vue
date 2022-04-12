@@ -21,44 +21,51 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component'
+import { defineComponent } from 'vue'
 
-@Options({
+export default defineComponent({
   name: 'Search',
-})
-export default class Search extends Vue {
-  value = ''
-  color = 'gray'
 
-  onFocusHandler (colorValue: string, displayValue: string): void {
-    this.color = colorValue
-    // @ts-ignore
-    const el: HTMLElement | null = document.querySelector('.ds-dropdown-menu')
-    if (el) { el.style.display = displayValue }
-  }
+  setup() {
+    const inputValue = ref('')
+    const color = ref('gray')
 
-  initialize () {
-    Promise.all([
-      // @ts-ignore
-      import(/* webpackChunkName: "docsearch" */ 'docsearch.js/dist/cdn/docsearch.min.js'),
-      // @ts-ignore
-      import(/* webpackChunkName: "docsearch" */ 'docsearch.js/dist/cdn/docsearch.min.css'),
-    ]).then(([docsearch]) => {
-      docsearch = docsearch.default
-      docsearch(Object.assign({
-        apiKey: 'be3528055c92da2ea5133b93ed548c6d',
-        indexName: 'vuestic',
-      }, {
-        inputSelector: '#algolia-search-input',
-        debug: true,
-      }))
+    const onFocusHandler = (colorValue: string, displayValue: string) => {
+      color.value = colorValue
+
+      const el: HTMLElement | null = document.querySelector('.ds-dropdown-menu')
+      if (el) { el.style.display = displayValue }
+    }
+
+    const initAlgolia = () => {
+      Promise.all([
+        // @ts-ignore
+        import('docsearch.js/dist/cdn/docsearch.min.js'),
+        // @ts-ignore
+        import('docsearch.js/dist/cdn/docsearch.min.css'),
+      ]).then(([docsearch]) => {
+        docsearch = docsearch.default
+        docsearch(Object.assign({
+          apiKey: 'be3528055c92da2ea5133b93ed548c6d',
+          indexName: 'vuestic',
+        }, {
+          inputSelector: '#algolia-search-input',
+          debug: true,
+        }))
+      })
+    }
+
+    onMounted(() => {
+      initAlgolia()
     })
-  }
 
-  mounted () {
-    this.initialize()
+    return {
+      inputValue,
+      color,
+      onFocusHandler,
+    }
   }
-}
+})
 </script>
 
 <style lang="scss">
