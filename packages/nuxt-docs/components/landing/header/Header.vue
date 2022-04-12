@@ -119,12 +119,12 @@
 </template>
 
 <script setup lang="ts">
+const { t, locale } = useI18n()
+
 import { languages } from '../../../locales'
 import CommonStarsButton from '../../common/CommonStarsButton.vue'
 import CommonLanguageDropdown from '../../common/CommonLanguageDropdown.vue'
 import VuesticLogo from './VuesticLogo.vue'
-
-const { t, locale } = useI18n()
 
 const isHidden = ref(true)
 

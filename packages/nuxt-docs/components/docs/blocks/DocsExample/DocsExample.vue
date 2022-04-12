@@ -66,8 +66,8 @@ const parsed = reactive({
   script: ""
 });
 
-const { component, text, isLoaded } = useExampleReader(
-  props.path,
+const { component, text, isLoaded } = useComponentReader(
+  `${props.path}/examples`,
   props.component
 );
 

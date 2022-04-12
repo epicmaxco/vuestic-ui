@@ -25,12 +25,9 @@ definePageMeta({ layout: 'landing' })
 </script>
 
 <style lang="scss">
-// @import "~vuestic-ui/src/styles/resources";
-// @import "resources/index.scss";
 @import "~/assets/smart-grid.scss";
 @import "~/assets/colors.scss";
 @import "~/assets/fonts.scss";
-
 
 .landing {
   font-family: Source Sans Pro;

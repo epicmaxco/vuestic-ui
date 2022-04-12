@@ -40,13 +40,11 @@ export const setOriginLocationToRelativeLinks = (
       )
 
       if (isInternalLink) {
-        const normalizedHref = hrefAttrValue.startsWith('/')
-          ? hrefAttrValue.substring(1)
-          : hrefAttrValue
+        const normalizedHref = hrefAttrValue.replace(/^\/+/, '')
 
         token.attrSet(
           'href',
-          `${location.origin}/${unref(localeOptions.currentLocale)}/${normalizedHref}`,
+          `https://vuestic.dev/${unref(localeOptions.currentLocale)}/${normalizedHref}`,
         )
       }
     }

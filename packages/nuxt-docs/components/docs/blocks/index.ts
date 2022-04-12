@@ -5,6 +5,9 @@ import DocsCode from './DocsCode/DocsCode.vue'
 import DocsTable from './DocsTable/DocsTable.vue'
 import DocsComponentApi from './DocsComponentApi/DocsComponentApi.vue'
 import DocsHeadline from './DocsHeadline/DocsHeadline.vue'
+import DocsLink from './DocsLink/DocsLink.vue'
+import DocsAlert from './DocsAlert/DocsAlert.vue'
+import DocsComponent from './DocsComponent/DocsComponent.vue'
 
 export const blockComponents = {
   MarkdownView,
@@ -13,7 +16,10 @@ export const blockComponents = {
   DocsCode,
   DocsTable,
   DocsComponentApi,
-  DocsHeadline
+  DocsHeadline,
+  DocsLink,
+  DocsAlert,
+  DocsComponent,
 }
 
 /** Map for better IDE support */
