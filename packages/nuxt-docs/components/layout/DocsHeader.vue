@@ -28,41 +28,51 @@
   </header>
 </template>
 
-<script setup lang="ts">
-const { t } = useI18n()
+<script lang="ts">
+import { defineComponent } from 'vue'
 
-const { sm } = useBreakpoint()
+export default defineComponent({
+  props: { isSidebarVisible: { type: Boolean } },
 
-const props = defineProps({ isSidebarVisible: { type: Boolean } })
-const emit = defineEmits(['update:isSidebarVisible'])
+  emits: ['update:isSidebarVisible'],
 
-const computedIsSidebarVisible = computed({
-  get() { return props.isSidebarVisible },
-  set(val: boolean) { emit('update:isSidebarVisible', val) }
+  setup(props, { emit }) {
+    const { t } = useI18n()
+    const { sm } = useBreakpoint()
+
+    const computedIsSidebarVisible = computed({
+      get() { return props.isSidebarVisible },
+      set(val: boolean) { emit('update:isSidebarVisible', val) }
+    })
+
+    const { query } = useRoute()
+
+    const urlPrefix = computed(() => query.locale ? `/${query.locale}` : '')
+
+    const links = computed(() => [
+      {
+        text: t('menu.overview'),
+        icon: 'fa-eye',
+        to: `${urlPrefix.value}/introduction/overview`,
+      },
+      {
+        text: t('menu.github'),
+        icon: 'fa-github',
+        url: 'https://github.com/epicmaxco/vuestic-ui',
+        target: '_blank',
+      },
+      {
+        text: t('menu.contribution'),
+        icon: 'fa-share-alt',
+        to: `${urlPrefix.value}/contribution/documentation-page`,
+      },
+    ])
+
+    return {
+      sm, links, computedIsSidebarVisible, urlPrefix,
+    }
+  }
 })
-
-const { query } = useRoute()
-
-const urlPrefix = computed(() => query.locale ? `/${query.locale}` : '')
-
-const links = computed(() => [
-  {
-    text: t('menu.overview'),
-    icon: 'fa-eye',
-    to: `${urlPrefix.value}/introduction/overview`,
-  },
-  {
-    text: t('menu.github'),
-    icon: 'fa-github',
-    url: 'https://github.com/epicmaxco/vuestic-ui',
-    target: '_blank',
-  },
-  {
-    text: t('menu.contribution'),
-    icon: 'fa-share-alt',
-    to: `${urlPrefix.value}/contribution/documentation-page`,
-  },
-])
 </script>
 
 <style lang="scss" scoped>
