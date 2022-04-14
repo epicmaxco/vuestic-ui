@@ -82,6 +82,7 @@
     >
       <va-option-list
         :options="complexData.options"
+        v-model="complexData.selectedObject"
         text-by="altName"
       />
     </VbCard>
@@ -100,6 +101,7 @@
     >
       <va-option-list
         :options="complexData.options"
+        v-model="complexData.selectedObject"
         disabled-by="altDisabled"
       />
     </VbCard>
@@ -129,8 +131,8 @@
       <va-option-list
         :options="complexData.options"
       >
-        <template v-slot="{ props }">
-          <pre>{{ props }}</pre>
+        <template v-slot="slotProps">
+          <pre>{{ slotProps }}</pre>
         </template>
       </va-option-list>
     </VbCard>
@@ -178,6 +180,17 @@
       <va-option-list
         type="radio"
         disabled
+        :options="baseRadioData.options"
+        v-model="baseRadioData.selected"
+      />
+      Selected {{ baseRadioData.selectedDisabled }}
+    </VbCard>
+    <VbCard
+      title="Readonly"
+    >
+      <va-option-list
+        type="radio"
+        readonly
         :options="baseRadioData.options"
         v-model="baseRadioData.selected"
       />
@@ -272,6 +285,7 @@
       <va-option-list
         type="switch"
         :options="complexData.options"
+        v-model="complexData.selectedObject"
         text-by="altName"
       />
     </VbCard>
@@ -292,6 +306,7 @@
       <va-option-list
         type="switch"
         :options="complexData.options"
+        v-model="complexData.selectedObject"
         disabled-by="altDisabled"
       />
     </VbCard>
@@ -327,7 +342,7 @@ export default {
   data () {
     return {
       baseData: {
-        options: ['test', 'test1', 'test2'],
+        options: ['test1', 'test2', 'test3'],
         selected: undefined,
         selectedDisabledList: undefined,
         selectedWithVModel: undefined,
@@ -336,27 +351,27 @@ export default {
       complexData: {
         options: [
           {
-            text: 'test',
-            value: 'test-value',
+            text: 'test1',
+            value: 'test-value 1',
             disabled: false,
-            altName: 'alternative test',
-            altValue: 'test-value-alt',
-            altDisabled: true,
-          },
-          {
-            text: 'test',
-            value: 'test-value1',
-            disabled: false,
-            altName: 'alternative test',
+            altName: 'altTest1',
             altValue: 'test-value-alt 1',
             altDisabled: true,
           },
           {
-            text: 'test',
-            value: 'test-value2',
-            disabled: true,
-            altName: 'alternative test',
+            text: 'test2',
+            value: 'test-value 2',
+            disabled: false,
+            altName: 'altTest2',
             altValue: 'test-value-alt 2',
+            altDisabled: true,
+          },
+          {
+            text: 'test3',
+            value: 'test-value 3',
+            disabled: true,
+            altName: 'altTest3',
+            altValue: 'test-value-alt 3',
             altDisabled: false,
           },
         ],
@@ -365,7 +380,7 @@ export default {
         withDefault: undefined,
       },
       baseRadioData: {
-        options: ['test radio', 'test radio 1', 'test radio 2'],
+        options: ['testRadio1', 'testRadio2', 'testRadio3'],
         selected: undefined,
         selectedDisabled: undefined,
         selectedWithVModel: undefined,
@@ -373,17 +388,17 @@ export default {
       radioData: {
         options: [
           {
-            text: 'test',
+            text: 'test1',
             value: 'test-1',
             disabled: false,
           },
           {
-            text: 'test',
+            text: 'test2',
             value: 'test-2',
             disabled: false,
           },
           {
-            text: 'test',
+            text: 'test3',
             value: 'test-3',
             disabled: true,
           },
@@ -393,7 +408,7 @@ export default {
         withDefault: undefined,
       },
       baseSwitchData: {
-        options: ['test switch', 'test switch 1', 'test switch 2'],
+        options: ['testSwitch1', 'testSwitch2', 'testSwitch3'],
         selected: undefined,
         selectedDisabled: undefined,
         selectedWithVModel: undefined,
