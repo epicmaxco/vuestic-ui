@@ -1,4 +1,4 @@
-import { inject, onBeforeUnmount, onMounted, PropType, watch } from 'vue'
+import { inject, onBeforeUnmount, onMounted, PropType, watch, ref } from 'vue'
 import flatten from 'lodash/flatten'
 import isFunction from 'lodash/isFunction'
 import isString from 'lodash/isString'
@@ -32,6 +32,8 @@ export const useValidationProps = {
 
 export const useValidationEmits = ['update:error', 'update:errorMessages']
 
+export type validationResult = boolean | string | Promise<any>
+
 const normalizeValidationRules = (rules: string | ValidationRule[] = [], callArguments: unknown = null) => {
   if (isString(rules)) { rules = [rules] as any }
 
@@ -49,6 +51,7 @@ export const useValidation = (
 
   const [computedError] = useSyncProp('error', props, emit, false)
   const [computedErrorMessages] = useSyncProp('errorMessages', props, emit, [])
+  const innerLoadingState = ref(false)
 
   const resetValidation = () => {
     computedError.value = false
@@ -66,16 +69,32 @@ export const useValidation = (
     const rules = flatten(props.rules)
 
     normalizeValidationRules(rules, props.modelValue)
-      .forEach((validationResult: boolean | string) => {
+      .forEach((validationResult: validationResult) => {
         if (isString(validationResult)) {
           errorMessages = [...errorMessages, validationResult]
           error = true
         } else if (validationResult === false) {
           error = true
+        } else if (validationResult instanceof Promise) {
+          innerLoadingState.value = true
+
+          validationResult
+            .then(promisedValidationResult => {
+              if (isString(promisedValidationResult)) {
+                errorMessages = [...errorMessages, promisedValidationResult]
+                error = true
+              }
+            })
+            .catch(e => { throw new Error(e) })
+            .finally(() => {
+              computedErrorMessages.value = [...errorMessages]
+              computedError.value = error
+              innerLoadingState.value = false
+            })
         }
       })
 
-    computedErrorMessages.value = errorMessages
+    computedErrorMessages.value = Array.from(errorMessages.values())
     computedError.value = error
 
     return !error
@@ -104,6 +123,7 @@ export const useValidation = (
   })
 
   return {
+    isInnerLoading: innerLoadingState,
     isFocused,
     computedError,
     computedErrorMessages,
