@@ -1172,12 +1172,6 @@
       "events": {},
       "methods": {},
       "slots": {}
-    },
-    "VaClassHelpers": {
-      "props": {},
-      "events": {},
-      "methods": {},
-      "slots": {}
     }
   },
   "menu": {
@@ -3314,7 +3308,8 @@
       "readMore": "More on configuration",
       "icons": "Icons config",
       "components": "Components config",
-      "colors": "Colors config"
+      "colors": "Colors config",
+      "colorHelpers": "Helper classes config"
     },
     "useInRuntime": "The global configuration object might be made reactive:",
     "api": {
