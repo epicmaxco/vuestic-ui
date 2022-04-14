@@ -15,7 +15,7 @@ import * as vuesticComponentMap from './vuestic-components'
 installPlatform()
 
 export const VuesticPlugin = {
-  install (app: App, vuesticConfig: GlobalConfig): void {
+  install (app: App, vuesticConfig: Partial<GlobalConfig>): void {
     Object.entries(vuesticComponentMap).forEach(([name, component]) => {
       app.component(name, component)
     })
