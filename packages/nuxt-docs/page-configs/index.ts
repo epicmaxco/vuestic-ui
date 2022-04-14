@@ -1,7 +1,10 @@
 import { PageConfig, PageRoute } from "~~/types/page-config"
+import order from './order'
 
 // TOOD: deal with treeshaking here somehow.
 const modules = import.meta.globEager('./**/index.ts')
+
+const sortByOrder = (order: string[]) => (a: PageRoute, b: PageRoute) => order.indexOf(a.name) - order.indexOf(b.name)
 
 export const configs = Object.entries(modules)
   .filter(([name, config]) => {
@@ -28,25 +31,26 @@ export const getConfig = (configPath: string) => {
 
 export const createPageRoutes = () => {
   return Object.values(Object.keys(configs)
-    .sort((a, b) => a < b ? -1 : 1)
     .reduce((acc, configPath, i, arr) => {
-      const [catergory, child] = configPath.split('/')
- 
-      const name = child || catergory
+      const [category, child] = configPath.split('/')
+
+      const name = child || category
 
       const page: PageRoute = { ...getConfig(configPath), path: configPath, name }
 
       if (child) {
-        if (!acc[catergory]) {
+        if (!acc[category]) {
           return acc
         }
 
-        if (!acc[catergory].children) { acc[catergory].children = [] }
-        acc[catergory].children.push(page)
+        if (!acc[category].children) { acc[category].children = [] }
+        acc[category].children.push(page)
       } else {
-        acc[catergory] = page
+        acc[category] = page
       }
 
       return acc
     }, {} as Record<string, PageRoute>))
-} 
+    .sort(sortByOrder(order))
+    .map((page) => page.childOrder ? { ...page, children: page.children.sort(sortByOrder(page.childOrder)) } : page)
+}

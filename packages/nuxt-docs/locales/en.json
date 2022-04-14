@@ -3761,35 +3761,35 @@
   "carousel": {
     "title": "Carousel",
     "examples": {
-      "Default": {
+      "default": {
         "title": "Default",
         "text": ""
       },
-      "Arrows": {
+      "arrows": {
         "title": "Arrow buttons",
         "text": "Arrow buttons allow user switch to next or previous slide."
       },
-      "Indicators": {
+      "indicators": {
         "title": "Indicator buttons",
         "text": "Indicators (or dots) used to quicly change slide by it's index."
       },
-      "Vertical": {
+      "vertical": {
         "title": "Vertical",
         "text": ""
       },
-      "Slots": {
+      "slots": {
         "title": "Slots",
         "text": "Slots allow you to customize carousel component."
       },
-      "Infinite": {
+      "infinite": {
         "title": "Infinite",
         "text": "Smooth scroll transition."
       },
-      "Autoscroll": {
+      "autoscroll": {
         "title": "Autoscroll",
         "text": "Autoscroll animation."
       },
-      "Fade": {
+      "fade": {
         "title": "Fade",
         "text": "Additional carousel slide switch effect."
       }

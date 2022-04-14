@@ -44,7 +44,7 @@ export const setOriginLocationToRelativeLinks = (
 
         token.attrSet(
           'href',
-          `https://vuestic.dev/${unref(localeOptions.currentLocale)}/${normalizedHref}`,
+          `/${unref(localeOptions.currentLocale)}/${normalizedHref}`,
         )
       }
     }

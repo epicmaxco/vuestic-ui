@@ -28,6 +28,9 @@ export default definePageConfig({
 
     block.api(VaCarousel),
   ],
+  meta: {
+    badge: 'new',
+  },
   manualApi: {
     props: {},
     events: {},

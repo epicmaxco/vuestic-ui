@@ -155,7 +155,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, watch, PropType, ref, computed, onMounted, onBeforeUnmount, nextTick } from 'vue'
+import { defineComponent, watch, PropType, ref, computed, onMounted, onBeforeUnmount } from 'vue'
 
 import { getHoverColor } from '../../services/color-config/color-functions'
 import { validateSlider } from './validateSlider'
@@ -169,7 +169,7 @@ export default defineComponent({
   props: {
     range: { type: Boolean as PropType<boolean>, default: false },
     modelValue: ({ type: [Number, Array] as PropType<number | number[]>, default: () => [] }),
-    trackLabel: ({ type: Function as PropType<((val: any, order?: number) => string) | undefined> }),
+    trackLabel: ({ type: [Function, String] as PropType<string | ((val: any, order?: number) => string) | undefined> }),
     color: { type: String as PropType<string>, default: 'primary' },
     trackColor: { type: String as PropType<string>, default: '' },
     labelColor: { type: String as PropType<string>, default: '' },

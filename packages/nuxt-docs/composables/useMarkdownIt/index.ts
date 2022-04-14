@@ -28,7 +28,7 @@ export const useMarkdownIt = (pluginOptions: {
     externalLinkStartWith,
     ...pluginOptions.locale,
   }
-  
+
   const attributesOptions: AttributesOptions = {
     className: '',
     ...pluginOptions.attributes

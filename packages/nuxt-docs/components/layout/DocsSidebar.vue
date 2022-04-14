@@ -1,8 +1,15 @@
 <template>
-  <va-sidebar class="sidebar" v-model="computedVisible" :width="sidebarWidth">
+  <va-sidebar
+    class="sidebar"
+    v-model="computedVisible"
+    :width="sidebarWidth"
+  >
     <LayoutDocsSidebarAlgoliaSearch />
 
-    <va-accordion v-model="accordionValue" multiply>
+    <va-accordion
+      v-model="accordionValue"
+      multiply
+    >
       <va-collapse
         v-for="(route, key) in sidebarItems"
         :key="key"
@@ -26,11 +33,11 @@
           class="va-sidebar__child"
         >
           <va-list-label
-              v-if="childRoute.category"
-              class="va-sidebar__child__label"
-              color="gray"
-            >
-              {{ t(childRoute.category) }}
+            v-if="childRoute.category"
+            class="va-sidebar__child__label"
+            color="primary"
+          >
+            {{ t(childRoute.category) }}
           </va-list-label>
           <va-sidebar-item
             :to="`/${locale}/${route.name}/${childRoute.name}`"
@@ -45,7 +52,10 @@
               <va-sidebar-item-title>
                 {{ t(childRoute.text) }}
               </va-sidebar-item-title>
-              <div class="va-sidebar-item-badges" v-if="childRoute.meta && childRoute.meta.badge">
+              <div
+                class="va-sidebar-item-badges"
+                v-if="childRoute.meta && childRoute.meta.badge"
+              >
                 <va-chip
                   size="small"
                   :color="badgeColors[childRoute.meta.badge]"
@@ -81,7 +91,7 @@ const createSidebarItems = (pages: PageRoute[]): SidebarItem[] => {
       ...page,
       meta: page.meta || {} as PageRoute['meta'],
       text: page.meta?.displayName || `menu.${camelCase(page.name)}`,
-      children: page.children && createSidebarItems(page.children)
+      children: page.children && createSidebarItems(page.children),
     }))
     .reduce((result, item) => {
       const key = item.meta.category || '_noGroup'
@@ -91,8 +101,6 @@ const createSidebarItems = (pages: PageRoute[]): SidebarItem[] => {
     }, {} as Record<string, SidebarItem[]>)
 
   return Object.keys(grouped)
-    // TODO: Should we sort sidebar item groups? Define custom sorting?
-    .sort((a, b) => a < b ? -1 : 1)
     .reduce((result, group) => {
       if (group !== '_noGroup') {
         grouped[group][0].category = group
@@ -144,11 +152,11 @@ const onSidebarItemClick = () => {
 }
 
 const updateAccordionValue = () => {
-    accordionValue.value = sidebarItems.value.map((route, index) => {
-      if (!route.children || accordionValue.value[index]) { return accordionValue.value[index] }
+  accordionValue.value = sidebarItems.value.map((route, index) => {
+    if (!route.children || accordionValue.value[index]) { return accordionValue.value[index] }
 
-      return isRouteHasActiveChild(route)
-    })
+    return isRouteHasActiveChild(route)
+  })
 }
 
 beforeEach(updateAccordionValue)
@@ -172,7 +180,7 @@ updateAccordionValue()
     cursor: pointer;
 
     ::before {
-      content: '';
+      content: "";
       position: absolute;
       top: 0;
       left: 0;

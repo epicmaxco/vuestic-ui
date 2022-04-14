@@ -385,9 +385,7 @@ export default defineComponent({
     })
 
     // Lifecycle hooks
-    watch(() => props.modelValue, () => {
-      updateTabsState()
-    })
+    watch(() => props.modelValue, updateTabsState)
 
     const resizeObserver = useResizeObserver([wrapper, tabs], redrawTabs)
 

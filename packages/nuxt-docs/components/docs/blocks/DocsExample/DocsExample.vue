@@ -2,7 +2,10 @@
   <div v-if="!isLoaded">
     Loading...
   </div>
-  <div v-else class="mb-3">
+  <div
+    v-else
+    class="mb-3"
+  >
     <component :is="component" />
     <template v-if="!exampleOptions.hideCode">
       <va-button
@@ -24,13 +27,20 @@
           :git-url="path"
           :git-component="props.component"
         />
-        <DocsCode language="markup" :code="parsed.template" />
+        <DocsCode
+          language="markup"
+          :code="parsed.template"
+        />
         <DocsCode
           v-if="parsed.script"
           :code="parsed.script"
           language="markup"
         />
-        <DocsCode v-if="parsed.style" :code="parsed.style" language="markup" />
+        <DocsCode
+          v-if="parsed.style"
+          :code="parsed.style"
+          language="markup"
+        />
       </va-content>
     </template>
   </div>
@@ -71,21 +81,21 @@ const { component, text, isLoaded } = useComponentReader(
   props.component
 );
 
-function parse(res) {
+function parseTemplate(target: string, template: string) {
+  const string = `(<${target}(.*)?>[\\w\\W]*<\\/${target}>)`;
+  const regex = new RegExp(string, "g");
+  const parsed = regex.exec(template) || [];
+
+  return parsed[1] || "";
+}
+
+function parse(res: string) {
   parsed.template = parseTemplate("template", res);
   parsed.style = parseTemplate("style", res);
   parsed.script = parseTemplate("script", res);
 }
-function parseTemplate(target, template) {
-  const string = `(<${target}(.*)?>[\\w\\W]*<\\/${target}>)`;
-  const regex = new RegExp(string, "g");
-  const parsed = regex.exec(template) || [];
-  return parsed[1] || "";
-}
 
-watch(text, () => {
-  parse(text.value);
-}, { immediate: true });
+watch(() => text, parse, { immediate: true });
 </script>
 
 <style lang="scss">

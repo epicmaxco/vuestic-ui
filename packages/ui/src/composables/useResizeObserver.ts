@@ -1,33 +1,29 @@
-import { onBeforeUnmount, onMounted, Ref, unref, watch } from 'vue'
+import { onBeforeUnmount, onMounted, ref, Ref, unref, watch } from 'vue'
 
 type MaybeRef<T> = T | Ref<T>
 
 export const useResizeObserver = <T extends HTMLElement | null>(elementsList: MaybeRef<T>[], cb: () => void) => {
-  // Make it null during setup hook, because ResizeObserver is not available on SSR.
-  let resizeObserver: ResizeObserver | null = null
+  const resizeObserver = ref<ResizeObserver>()
 
   const observeAll = (elementsList: MaybeRef<T>[]) => {
     elementsList.forEach((element: MaybeRef<T>) => {
       const unrefedElement = unref(element)
 
-      unrefedElement && resizeObserver!.observe(unrefedElement)
+      unrefedElement && resizeObserver.value?.observe(unrefedElement)
     })
   }
 
-  watch(elementsList, (newValue, oldValue) => {
-    if (!resizeObserver) { return }
-    resizeObserver.disconnect()
+  watch(elementsList, (newValue) => {
+    resizeObserver.value?.disconnect()
     observeAll(newValue)
   })
 
   onMounted(() => {
-    if (!resizeObserver) {
-      resizeObserver = new ResizeObserver(cb)
-    }
+    resizeObserver.value = new ResizeObserver(cb)
     observeAll(elementsList)
   })
 
-  onBeforeUnmount(() => resizeObserver && resizeObserver.disconnect())
+  onBeforeUnmount(() => resizeObserver.value?.disconnect())
 
   return resizeObserver
 }

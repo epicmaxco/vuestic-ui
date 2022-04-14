@@ -23,9 +23,6 @@ export default definePageConfig({
     block.subtitle("all.api"),
     block.api(VaButton),
   ],
-  meta: {
-    category: "view"
-  },
   manualApi: {
     slots: {
       default: {},
