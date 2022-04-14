@@ -1,5 +1,3 @@
-// It's another implementation of SelectableListMixin functionality but for Composition API usage
-
 import { getProp } from '../services/utils'
 import { PropType, ExtractPropTypes } from 'vue'
 
@@ -17,8 +15,6 @@ export const useSelectableListProps = {
 }
 
 export function useSelectableList (props: ExtractPropTypes<typeof useSelectableListProps>) {
-  const isSelectableListComponent = true
-
   const isStringOrNumber = (option: SelectableOption): option is (string | number) => {
     const typeOfOption = typeof option
     return typeOfOption === 'string' || typeOfOption === 'number'
@@ -31,18 +27,18 @@ export function useSelectableList (props: ExtractPropTypes<typeof useSelectableL
   }
 
   const getValue = (option: SelectableOption) => getOptionProperty(option, props.valueBy)
+
   const getOptionByValue = (value: SelectableOption) => {
     if (!props.valueBy) { return value }
-
     return props.options.find((option: SelectableOption) => value === getValue(option)) || value
   }
+
   const getText = (option: SelectableOption): string => getOptionProperty(option, props.textBy)
-  const getDisabled = (option: SelectableOption): boolean => getOptionProperty(option, props.disabledBy)
+  const getDisabled = (option: SelectableOption): boolean => !isStringOrNumber(option) && getProp(option, props.disabledBy)
   const getTrackBy = (option: SelectableOption) => getOptionProperty(option, props.trackBy)
   const getGroupBy = (option: SelectableOption) => getOptionProperty(option, props.groupBy)
 
   return {
-    isSelectableListComponent,
     getValue,
     getOptionByValue,
     getText,
