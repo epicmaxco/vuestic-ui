@@ -46,7 +46,7 @@
         @click.stop="reset()"
       />
       <va-icon
-        v-if="loading"
+        v-if="loading || isInnerLoading"
         :color="color"
         size="small"
         name="loop"
@@ -162,6 +162,7 @@ export default defineComponent({
     })
 
     const {
+      isInnerLoading,
       isFocused,
       listeners: validationListeners,
       computedError,
@@ -225,6 +226,7 @@ export default defineComponent({
       computedError,
       computedErrorMessages,
       isFocused,
+      isInnerLoading,
 
       // Icon
       canBeCleared,

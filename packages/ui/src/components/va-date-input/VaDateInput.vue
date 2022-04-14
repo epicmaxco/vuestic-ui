@@ -11,6 +11,7 @@
             :error="hasError"
             :error-messages="computedErrorMessages"
             :readonly="readonly || !manualInput"
+            :loading="isInnerLoading"
             @change="onInputTextChanged"
           >
             <template
@@ -211,6 +212,7 @@ export default defineComponent({
     }
 
     const {
+      isInnerLoading,
       isFocused,
       computedError,
       computedErrorMessages,
@@ -250,6 +252,7 @@ export default defineComponent({
       onInputTextChanged,
       hasError,
       computedErrorMessages,
+      isInnerLoading,
 
       input,
 

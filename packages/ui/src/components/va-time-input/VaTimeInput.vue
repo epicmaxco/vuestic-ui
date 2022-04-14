@@ -26,6 +26,7 @@
         :error-messages="computedErrorMessages"
         :required-mark="$props.requiredMark"
         @change="onInputTextChanged($event.target.value)"
+        :loading="isInnerLoading"
         @update:modelValue="onValueInput"
       >
         <template
@@ -217,6 +218,7 @@ export default defineComponent({
     }
 
     const {
+      isInnerLoading,
       isFocused,
       computedError,
       computedErrorMessages,
@@ -309,6 +311,7 @@ export default defineComponent({
       computedError,
       computedErrorMessages,
       hasError,
+      isInnerLoading,
 
       handleComponentClick,
 

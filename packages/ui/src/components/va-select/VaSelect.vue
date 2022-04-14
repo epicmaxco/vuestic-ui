@@ -28,7 +28,7 @@
           :color="$props.color"
           :label="$props.label"
           :placeholder="$props.placeholder"
-          :loading="$props.loading"
+          :loading="$props.loading || isInnerLoading"
           :disabled="$props.disabled"
           :outline="$props.outline"
           :bordered="$props.bordered"
@@ -256,6 +256,7 @@ export default defineComponent({
     const { getOptionByValue, getValue, getText, getTrackBy, getGroupBy } = useSelectableList(props)
 
     const {
+      isInnerLoading,
       isFocused,
       validate,
       computedError,
@@ -644,6 +645,7 @@ export default defineComponent({
       toggleIcon,
       computedErrorMessages,
       computedError,
+      isInnerLoading,
       filteredOptions,
       checkIsOptionSelected,
       closeOnContentClick,
