@@ -13,50 +13,42 @@
         :key="getKey(option)"
       >
         <slot
-          :props="{
+          v-bind="{
             option,
-            isDisabled,
-            name: $props.name,
-            color: $props.color,
-            leftLabel: $props.leftLabel,
-            getText,
             selectedValue,
-            index
+            index,
+            isDisabled,
+            getText,
+            getValue,
           }"
         >
           <va-radio
             v-if="$props.type === 'radio'"
-            ref="input"
-            :option="getValue(option)"
-            :disabled="isDisabled(option)"
-            :name="$props.name"
-            :color="$props.color"
-            :left-label="$props.leftLabel"
-            :label="getText(option)"
+            :ref="(el) => addRef(el, index)"
             v-model="selectedValue"
+            :label="getText(option)"
+            :disabled="isDisabled(option)"
+            :option="getValue(option)"
             :tabindex="index"
+            v-bind="computedProps"
           />
           <va-checkbox
             v-else-if="$props.type === 'checkbox'"
-            ref="input"
+            :ref="(el) => addRef(el, index)"
             v-model="selectedValue"
             :label="getText(option)"
             :disabled="isDisabled(option)"
-            :left-label="$props.leftLabel"
             :array-value="getValue(option)"
-            :color="$props.color"
-            :name="$props.name"
+            v-bind="computedProps"
           />
           <va-switch
             v-else
-            ref="input"
+            :ref="(el) => addRef(el, index)"
             v-model="selectedValue"
             :label="getText(option)"
             :disabled="isDisabled(option)"
-            :left-label="$props.leftLabel"
             :array-value="getValue(option)"
-            :color="$props.color"
-            :name="$props.name"
+            v-bind="computedProps"
           />
         </slot>
       </li>
@@ -75,6 +67,7 @@ import { VaMessageListWrapper } from '../va-input'
 import VaCheckbox from '../va-checkbox'
 import VaRadio from '../va-radio'
 import VaSwitch from '../va-switch'
+import pick from 'lodash/pick'
 
 type OptionListValue = SelectableOption | SelectableOption[] | null
 
@@ -107,13 +100,12 @@ export default defineComponent({
 
   setup (props, { emit }) {
     const { valueComputed } = useStateful(props, emit)
+
     const { getValue, getText, getTrackBy, getDisabled } = useSelectableList(props)
 
-    const input = ref<HTMLElement>()
+    const inputs = ref<(HTMLInputElement)[]>([])
 
-    const isRadio = computed(() => {
-      return props.type === 'radio'
-    })
+    const isRadio = computed(() => props.type === 'radio')
 
     const selectedValue = computed({
       get () {
@@ -141,7 +133,7 @@ export default defineComponent({
     const reset = () => { valueComputed.value = undefined }
 
     const focus = () => {
-      const firstActiveEl = Array.isArray(input.value) && input.value.find(el => !el.disabled)
+      const firstActiveEl = Array.isArray(inputs.value) && inputs.value.find(el => !el.disabled)
 
       if (firstActiveEl && typeof firstActiveEl.focus === 'function') {
         firstActiveEl.focus()
@@ -150,8 +142,16 @@ export default defineComponent({
 
     const { computedError, computedErrorMessages } = useValidation(props, emit, reset, focus)
 
+    const computedProps = computed(() => ({
+      ...pick(props, ['name', 'color', 'readonly', 'leftLabel']),
+    }))
+
+    const addRef = (el: HTMLInputElement, index: number) => {
+      inputs.value[index] = el
+    }
+
     onMounted(() => {
-      if (!valueComputed.value && props.defaultValue) {
+      if (valueComputed.value === undefined && props.defaultValue) {
         selectedValue.value = props.defaultValue
       }
     })
@@ -166,6 +166,9 @@ export default defineComponent({
       isDisabled,
       reset,
       focus,
+      inputs,
+      addRef,
+      computedProps,
     }
   },
 })
