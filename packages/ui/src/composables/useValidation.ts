@@ -94,7 +94,7 @@ export const useValidation = (
         }
       })
 
-    computedErrorMessages.value = Array.from(errorMessages.values())
+    computedErrorMessages.value = errorMessages
     computedError.value = error
 
     return !error
