@@ -19,6 +19,7 @@ const tableData: TableData = [
   ['components', 'ComponentsConfig', 'globalConfig.api.components'],
   ['componentsAll', 'Props', 'globalConfig.api.componentsAll'],
   ['colors', 'ColorsConfig', 'globalConfig.api.colors'],
+  ['classHelpers', 'HelperConfig', 'globalConfig.api.classHelpers'],
 ]
 
 const block = new PageGenerationHelper(__dirname)
@@ -44,6 +45,7 @@ const config: ApiDocsBlock[] = [
   block.link('globalConfig.links.components', '/services/components-config'),
   block.link('globalConfig.links.colors', '/services/colors-config'),
   block.link('globalConfig.links.icons', '/services/icons-config'),
+  block.link('globalConfig.links.colorHelpers', '/services/class-helpers-config'),
 
   // api
   block.subtitle('all.api'),
