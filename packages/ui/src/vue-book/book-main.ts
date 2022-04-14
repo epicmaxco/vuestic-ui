@@ -48,7 +48,7 @@ app.use(VuesticPluginsWithoutComponents, {
   classHelpers: [
     {
       stylePrefix: 'demo',
-      styleProperty: 'color',
+      styleProperty: ['color', 'border-color'],
     },
   ],
 })

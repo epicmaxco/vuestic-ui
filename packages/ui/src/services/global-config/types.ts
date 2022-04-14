@@ -4,7 +4,7 @@ import type { ComponentConfig, Props } from '../component-config/component-confi
 import type { IconConfig } from '../icon-config/types'
 
 export type GlobalConfig = {
-  colors: ColorConfig,
+  colors?: ColorConfig,
   icons?: IconConfig,
   classHelpers?: HelperConfig[],
   components?: ComponentConfig
