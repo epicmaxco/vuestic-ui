@@ -8,6 +8,7 @@ function getTargetElement (target: Element | string | null) {
   return typeof target === 'string' ? document.querySelector(target) : target
 }
 
+/** @deprecated */
 export function setupScroll (target: Element | string, onScrollCallback: (e: Event) => void) {
   const scrollRoot = ref(null)
   let targetElement: Element | null
