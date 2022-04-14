@@ -30,23 +30,23 @@ export const createPageRoutes = () => {
   return Object.values(Object.keys(configs)
     .sort((a, b) => a < b ? -1 : 1)
     .reduce((acc, configPath, i, arr) => {
-      const [catergory, child] = configPath.split('/')
- 
-      const name = child || catergory
+      const [category, child] = configPath.split('/')
+
+      const name = child || category
 
       const page: PageRoute = { ...getConfig(configPath), path: configPath, name }
 
       if (child) {
-        if (!acc[catergory]) {
+        if (!acc[category]) {
           return acc
         }
 
-        if (!acc[catergory].children) { acc[catergory].children = [] }
-        acc[catergory].children.push(page)
+        if (!acc[category].children) { acc[category].children = [] }
+        acc[category].children.push(page)
       } else {
-        acc[catergory] = page
+        acc[category] = page
       }
 
       return acc
     }, {} as Record<string, PageRoute>))
-} 
+}

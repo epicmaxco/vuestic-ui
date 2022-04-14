@@ -61,7 +61,7 @@
     <va-checkbox v-model="isSlot" :label="`Active Slot: ${isSlot}`" />
 
     <va-backtop
-      target=".base-layout__content"
+      target=".docs-layout__main-content"
       :vertical-offset="verticalOffset + '%'"
       :horizontal-offset="horizontalOffset + '%'"
       :horizontal-position="positionHorizontal"

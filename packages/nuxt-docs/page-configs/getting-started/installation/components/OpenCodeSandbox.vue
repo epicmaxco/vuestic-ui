@@ -22,6 +22,8 @@
 </template>
 
 <script>
+import getSandboxParams from '~~/components/docs/blocks/DocsExample/DocsNavigation/CodeSandboxExample.ts'
+
 export default defineComponent({
   name: "DocsOpenCodeSandbox",
   setup() {
@@ -29,10 +31,9 @@ export default defineComponent({
 
     return {
       ...useI18n(),
-      sandboxParams: useCodeSandboxParams(),
+      sandboxParams: getSandboxParams(),
       sandboxDefineUrl: `https://codesandbox.io/api/v1/sandboxes/define${query}`,
     }
-
   },
 })
 </script>

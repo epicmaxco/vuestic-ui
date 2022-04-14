@@ -15,7 +15,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, PropType, ref, onMounted, onBeforeMount, Ref } from 'vue'
+import { defineComponent, computed, PropType, ref, onMounted, onBeforeMount, onBeforeUnmount } from 'vue'
 
 import VaButton from '../va-button'
 
@@ -23,10 +23,7 @@ export default defineComponent({
   name: 'VaBacktop',
   components: { VaButton },
   props: {
-    target: {
-      type: [Object, String] as PropType<Element | string>,
-      default: () => window as any as Element,
-    },
+    target: { type: [Object, String] as PropType<Element | string> },
 
     visibilityHeight: { type: Number as PropType<number>, default: 300 },
     speed: { type: Number as PropType<number>, default: 50 },
@@ -56,7 +53,7 @@ export default defineComponent({
     let targetElement: Element = window as any as Element
     const getTargetElement = () => typeof props.target === 'string'
       ? document.querySelector(props.target) || window as any as Element
-      : props.target
+      : props.target || window as any as Element
 
     const scrolled = ref(false)
     const interval = ref(0)
@@ -82,10 +79,11 @@ export default defineComponent({
 
     onMounted(() => {
       targetElement = getTargetElement()
-      targetElement?.addEventListener('scroll', handleScroll)
+      targetElement.addEventListener('scroll', handleScroll)
     })
 
     onBeforeMount(() => targetElement?.removeEventListener('scroll', handleScroll))
+    onBeforeUnmount(() => targetElement?.removeEventListener('scroll', handleScroll))
 
     return {
       computedStyle,

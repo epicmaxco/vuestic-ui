@@ -45,6 +45,7 @@ import { useI18n } from 'vue-i18n'
 import { CodesandboxConfig } from '../types/configTypes'
 import getCodesandboxExample from '../helpers/CodeSandboxExample'
 import { applyTranslations } from '../helpers/TranslationsHelper'
+import { getWindow } from 'vuestic-ui/src/utils/ssr-utils'
 
 const query = '?query=file=/src/App.vue'
 
@@ -64,7 +65,7 @@ export default defineComponent({
     const copyButtonState: Ref<ButtonStates> = ref('default')
     const copy = async () => {
       try {
-        await window.navigator.clipboard.writeText(props.code)
+        await getWindow()?.navigator.clipboard.writeText(props.code)
         copyButtonState.value = 'active'
       } catch (e: any) {
         if (e.message === 'NotAllowedError') {
