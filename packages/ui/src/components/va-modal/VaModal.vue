@@ -98,6 +98,7 @@ import VaIcon from '../va-icon'
 
 const ModalElement = defineComponent({
   name: 'ModalElement',
+  inheritAttrs: false,
   props: {
     isTransition: { type: Boolean as PropType<boolean>, default: true },
   },
@@ -190,6 +191,7 @@ export default defineComponent({
         cancel()
       }
     }
+
     watch(valueComputed, (value: boolean) => {
       if (value) {
         window.addEventListener('keyup', listenKeyUp)
