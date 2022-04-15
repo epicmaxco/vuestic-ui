@@ -7,6 +7,11 @@
     />
     <va-icon
       name="home"
+      color="pink"
+      class="mr-4"
+    />
+    <va-icon
+      name="home"
       color="#9BEC15"
       class="mr-4"
     />

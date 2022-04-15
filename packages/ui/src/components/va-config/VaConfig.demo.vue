@@ -208,7 +208,7 @@ export default {
       components: {
         ...config.components,
         ConfigUsageTest: {
-          color: getColor('#0000ff'),
+          color: getColor('blue'),
         },
         VaBadge: {
           ...config.components.VaBadge,
@@ -291,7 +291,7 @@ export default {
       const newConfig = {
         components: {
           ConfigUsageTest: {
-            color: this.getColor('#ff0000'),
+            color: this.getColor('red'),
           },
           VaBadge: {
             color: 'danger',

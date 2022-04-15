@@ -38,9 +38,7 @@
           class="va-switch__track"
           :style="trackStyle"
         >
-          <div
-            v-if="computedInnerLabel || $slots.innerLabel"
-            class="va-switch__track-label">
+          <div class="va-switch__track-label">
             <slot name="innerLabel">
               {{ computedInnerLabel }}
             </slot>
@@ -58,7 +56,6 @@
         </div>
       </div>
       <div
-        v-if="computedLabel || $slots.default"
         class="va-switch__label"
         ref="label"
         @blur="onBlur"

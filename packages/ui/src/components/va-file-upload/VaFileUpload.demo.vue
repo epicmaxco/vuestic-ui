@@ -43,7 +43,7 @@
     </VbCard>
     <VbCard
       title="disabled"
-      style="width: 100%;"
+      tyle="width: 100%"
     >
       <va-file-upload
         v-model="basic"

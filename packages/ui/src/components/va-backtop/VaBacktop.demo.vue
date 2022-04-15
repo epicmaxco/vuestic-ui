@@ -25,7 +25,7 @@
         label="v:"
         track-label-visible
         v-model="verticalOffset"
-        :track-label="getTrackLabelWithPercent"
+        :track-label="`${verticalOffset}%`"
         :min="1"
         :max="100"
       />
@@ -34,7 +34,7 @@
         label="h:"
         track-label-visible
         v-model="horizontalOffset"
-        :track-label="getTrackLabelWithPercent"
+        :track-label="`${horizontalOffset}%`"
         :min="1"
         :max="100"
       />
@@ -44,7 +44,7 @@
       <va-slider
         track-label-visible
         v-model="visibilityHeight"
-        :track-label="getTrackLabel"
+        :track-label="`${visibilityHeight}`"
         :min="0"
         :max="600"
       />
@@ -54,7 +54,7 @@
       <va-slider
         track-label-visible
         v-model="scrollSpeed"
-        :track-label="getTrackLabel"
+        :track-label="`${scrollSpeed}`"
         :min="1"
         :max="500"
       />
@@ -113,10 +113,6 @@ export default {
       scrollSpeed: 50,
       isSlot: false,
     }
-  },
-  methods: {
-    getTrackLabel (value) { return `${value}` },
-    getTrackLabelWithPercent (value) { return `${value}%` },
   },
 }
 </script>

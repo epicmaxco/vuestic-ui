@@ -3,7 +3,7 @@
     v-if="visible"
     class="va-backtop"
     :style="computedStyle"
-    @click="scrollToTop"
+    @click="scrollToTop()"
   >
     <slot>
       <va-button
@@ -15,17 +15,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref, computed, onMounted, onBeforeUnmount } from 'vue'
+import { defineComponent, computed, PropType, ref, onMounted, onBeforeMount, onBeforeUnmount } from 'vue'
+
 import VaButton from '../va-button'
 
 export default defineComponent({
   name: 'VaBacktop',
   components: { VaButton },
   props: {
-    target: {
-      type: [Object, String] as PropType<Element | string | undefined>,
-      default: undefined,
-    },
+    target: { type: [Object, String] as PropType<Element | string> },
 
     visibilityHeight: { type: Number as PropType<number>, default: 300 },
     speed: { type: Number as PropType<number>, default: 50 },
@@ -52,13 +50,10 @@ export default defineComponent({
       [props.horizontalPosition]: props.horizontalOffset,
     }))
 
-    let targetElement: Element | Window
-
-    const getTargetElement = () => {
-      if (!props.target) { return window as Window }
-      if (typeof props.target === 'string') { return document.querySelector(props.target) as Element }
-      return props.target as Element
-    }
+    let targetElement: Element = window as any as Element
+    const getTargetElement = () => typeof props.target === 'string'
+      ? document.querySelector(props.target) || window as any as Element
+      : props.target || window as any as Element
 
     const scrolled = ref(false)
     const interval = ref(0)
@@ -67,40 +62,27 @@ export default defineComponent({
 
       scrolled.value = true
 
-      if (targetElement instanceof Window) {
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth',
-        })
-
-        return
-      }
-
       interval.value = window.setInterval(() => {
-        if (targetElement instanceof Element) {
-          if (targetElement.scrollTop === 0) {
-            clearInterval(interval.value)
-            scrolled.value = false
-          } else {
-            const next = Math.floor(targetElement.scrollTop - props.speed)
-            targetElement.scrollTo(0, next)
-          }
+        if (targetElement.scrollTop === 0) {
+          clearInterval(interval.value)
+          scrolled.value = false
+        } else {
+          const next = Math.floor(targetElement.scrollTop - props.speed)
+          targetElement.scrollTo(0, next)
         }
       }, 15)
     }
 
     const handleScroll = () => {
-      const targetScrollValue = targetElement instanceof Window
-        ? targetElement.scrollY
-        : targetElement.scrollTop
-      visible.value = targetScrollValue > props.visibilityHeight
+      visible.value = targetElement.scrollTop > props.visibilityHeight
     }
 
     onMounted(() => {
       targetElement = getTargetElement()
-      targetElement.addEventListener('scroll', handleScroll, true)
+      targetElement.addEventListener('scroll', handleScroll)
     })
-    
+
+    onBeforeMount(() => targetElement?.removeEventListener('scroll', handleScroll))
     onBeforeUnmount(() => targetElement?.removeEventListener('scroll', handleScroll))
 
     return {

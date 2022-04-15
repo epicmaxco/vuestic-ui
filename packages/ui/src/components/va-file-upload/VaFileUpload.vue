@@ -18,6 +18,8 @@
           :color="colorComputed"
           @change="changeFieldValue"
           @click="callFileDialogue()"
+          icon=""
+          icon-right=""
           :style="{ 'pointer-events': dropzoneHighlight ? 'none' : '' }"
         >
           {{ uploadButtonText }}

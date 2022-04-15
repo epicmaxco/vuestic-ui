@@ -11,8 +11,6 @@ type VuesticColorsPreset = {
   dark: CssColor,
   background: CssColor,
   divider: CssColor,
-  white: CssColor,
-  black: CssColor,
 }
 
 export const colorsPresets: Record<string, VuesticColorsPreset> = {
@@ -27,7 +25,5 @@ export const colorsPresets: Record<string, VuesticColorsPreset> = {
     gray: '#babfc2',
     dark: '#1B1A1F',
     divider: '#E1E9F8',
-    white: '#ffffff',
-    black: '#000000',
   },
 }
