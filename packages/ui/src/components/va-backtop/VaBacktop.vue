@@ -23,8 +23,8 @@ export default defineComponent({
   components: { VaButton },
   props: {
     target: {
-      type: [Object, String] as PropType<Element | string | null>,
-      default: null,
+      type: [Object, String] as PropType<Element | string | undefined>,
+      default: undefined,
     },
 
     visibilityHeight: { type: Number as PropType<number>, default: 300 },
@@ -55,13 +55,9 @@ export default defineComponent({
     let targetElement: Element | Window
 
     const getTargetElement = () => {
-      if (props.target) {
-        return (typeof props.target === 'string'
-          ? document.querySelector(props.target)
-          : props.target) as Element
-      } else {
-        return window as Window
-      }
+      if (!props.target) { return window as Window }
+      if (typeof props.target === 'string') { return document.querySelector(props.target) as Element }
+      return props.target as Element
     }
 
     const scrolled = ref(false)
