@@ -1174,6 +1174,32 @@
       "events": {},
       "methods": {},
       "slots": {}
+    },
+    "VaCarousel": {
+      "props": {
+        "arrows": "Show or hide next and previous button.",
+        "autoscroll": "Enable autoscroll animation.",
+        "autoscrollInterval": "Time in `ms`. Each `autoscroll-interval` next slide will be shown.",
+        "autoscrollPauseDuration": "Pause animation duration in `ms` after user changed slide.",
+        "effect": "Slide change effect",
+        "height": "Slider height. Can be any valid CSS height.",
+        "indicatorTrigger": "Event which will trigger indicator to change slide",
+        "indicators": "Show or hide indicators at the bottom of slider",
+        "infinite": "If true, after last slide first will be shown.",
+        "items": "List of slide items. Can be any array. By default should be a image src, but you can use item later in `default` slot.",
+        "loop": "If true, after last slide slider will scroll to first one through all items before.",
+        "modelValue": "Slide index to be shown.",
+        "vertical": "Change slider scroll orientation.",
+        "fadeKeyframe": "Custom keyframe name for fade animation"
+      },
+      "events": {},
+      "methods": {},
+      "slots": {
+        "default": "Custom style for slide item content",
+        "indicator": "Custom style for indicator button",
+        "nextArrow": "Custom style for next button",
+        "prevArrow": "Custom style for previous button"
+      }
     }
   },
   "menu": {
@@ -1277,7 +1303,8 @@
     "treeShakingRequirements": "Tree Shaking Requirements",
     "colors": "Colors",
     "timePicker": "Time Picker",
-    "timeInput": "Time Input"
+    "timeInput": "Time Input",
+    "carousel": "Carousel"
   },
   "all": {
     "examples": "Examples",
@@ -1735,7 +1762,10 @@
   },
   "toast": {
     "title": "Toast",
-    "summaryText": "Component for sending a notification to the user.",
+    "summaryText": "Component for sending a notification to the user. To make it easier to create toast we have a shorthands. For options API it is `$vaToast`. For composition api we have `useToast` hook. Hook and global object have similar API.",
+    "optionsAPI": "In options API you can use ToastPlugin (automatically installed with VuesticPlugin). `$vaToast` have a few methods: init, close, closeAll.",
+    "compositionAPI": "In composition API you can use `useToast` hook.",
+    "toastOptionsHeader": "Init Options",
     "examples": {
       "default": {
         "title": "Basic usage",
@@ -3777,6 +3807,43 @@
       "subtitle": "Reactivity",
       "about": "These variables reactive relative to `Colors Config`. This means that they will be updated when the configuration changes. Read more about how to update the configuration [here](https://vuestic.dev/en/services/colors-config#icon-config-service-api).",
       "additional": "Please note that changing `CSS variables` of the colors directly, in turn, will not update `Colors Config`."
+    }
+  },
+  "carousel": {
+    "title": "Carousel",
+    "examples": {
+      "Default": {
+        "title": "Default",
+        "text": ""
+      },
+      "Arrows": {
+        "title": "Arrow buttons",
+        "text": "Arrow buttons allow user switch to next or previous slide."
+      },
+      "Indicators": {
+        "title": "Indicator buttons",
+        "text": "Indicators (or dots) used to quicly change slide by it's index."
+      },
+      "Vertical": {
+        "title": "Vertical",
+        "text": ""
+      },
+      "Slots": {
+        "title": "Slots",
+        "text": "Slots allow you to customize carousel component."
+      },
+      "Infinite": {
+        "title": "Infinite",
+        "text": "Smooth scroll transition."
+      },
+      "Autoscroll": {
+        "title": "Autoscroll",
+        "text": "Autoscroll animation."
+      },
+      "Fade": {
+        "title": "Fade",
+        "text": "Additional carousel slide switch effect."
+      }
     }
   }
 }

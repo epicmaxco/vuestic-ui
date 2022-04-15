@@ -100,7 +100,7 @@ export default defineComponent({
       targetElement = getTargetElement()
       targetElement.addEventListener('scroll', handleScroll, true)
     })
-
+    
     onBeforeUnmount(() => targetElement?.removeEventListener('scroll', handleScroll))
 
     return {

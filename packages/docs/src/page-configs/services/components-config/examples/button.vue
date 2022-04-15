@@ -1,6 +1,6 @@
 <template>
   <va-checkbox
-    v-for="(key, name) in buttonProps"
+    v-for="(_, name) in buttonProps"
     :key="name"
     :label="name"
     v-model="buttonProps[name]"
@@ -12,7 +12,7 @@
 
 <script>
 import { computed, ref, watch } from 'vue'
-import { useGlobalConfig } from 'vuestic-ui/src/main'
+import { useGlobalConfig } from 'vuestic-ui'
 
 const getDefaultButtonProps = () => ({
   rounded: true,
@@ -30,7 +30,7 @@ export default {
 
     const { mergeGlobalConfig } = useGlobalConfig()
 
-    watch(() => componentsConfig, componentsConfig => {
+    watch(componentsConfig, componentsConfig => {
       mergeGlobalConfig({
         components: componentsConfig.value,
       })

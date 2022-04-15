@@ -1120,6 +1120,12 @@
       "events": {},
       "methods": {},
       "slots": {}
+    },
+    "VaCarousel": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
     }
   },
   "menu": {
@@ -1223,7 +1229,8 @@
     "colors": "Цвета",
     "timePicker": "Time Picker",
     "timeInput": "Time Input",
-    "treeShakingRequirements": "Tree Shaking Requirements"
+    "treeShakingRequirements": "Tree Shaking Requirements",
+    "carousel": "Carousel"
   },
   "all": {
     "examples": "Примеры",
@@ -3678,5 +3685,8 @@
       "about": "Эти переменные реактивны относительно `Colors Config`. Это значит, что они будут обновляться, когда изменяется конфигурация. Читайте подробнее о том, как обновлять конфигурацию [здесь](https://vuestic.dev/en/services/colors-config#icon-config-service-api).",
       "additional": "Обратите внимание, что изменение цветовых переменных CSS напрямую, в свою очередь, не приведет к обновлению `Colors Config`."
     }
+  },
+  "carousel": {
+    "title": "-- Here is the title --"
   }
 }
