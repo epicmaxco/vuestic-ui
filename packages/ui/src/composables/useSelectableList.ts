@@ -1,4 +1,4 @@
-import { getProp } from '../services/utils'
+import { getValueByKey } from '../services/utils'
 import { PropType, ExtractPropTypes } from 'vue'
 
 export type SelectableOption = string | number | Record<string, unknown>
@@ -23,7 +23,7 @@ export function useSelectableList (props: ExtractPropTypes<typeof useSelectableL
   const getOptionProperty = (option: SelectableOption, selector: StringOrFunction) => {
     return !selector || isStringOrNumber(option)
       ? option
-      : getProp(option, selector)
+      : getValueByKey(option, selector)
   }
 
   const getValue = (option: SelectableOption) => getOptionProperty(option, props.valueBy)
@@ -34,7 +34,7 @@ export function useSelectableList (props: ExtractPropTypes<typeof useSelectableL
   }
 
   const getText = (option: SelectableOption): string => getOptionProperty(option, props.textBy)
-  const getDisabled = (option: SelectableOption): boolean => !isStringOrNumber(option) && getProp(option, props.disabledBy)
+  const getDisabled = (option: SelectableOption): boolean => getValueByKey(option, props.disabledBy)
   const getTrackBy = (option: SelectableOption) => getOptionProperty(option, props.trackBy)
   const getGroupBy = (option: SelectableOption) => getOptionProperty(option, props.groupBy)
 

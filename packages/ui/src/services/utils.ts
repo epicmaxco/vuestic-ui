@@ -75,10 +75,13 @@ export const getValueByPath = <T extends Record<string, unknown>>(option: T, pro
  * Finds value of nested property inside of an object.
  *
  * @param option - Object to look properties inside
- * @param prop - string or function used to find nested property
+ * @param prop - string, number or function used to find nested property
  */
-export const getProp = <T extends (Record<string, unknown> | string)> (option: T, prop: string | ((t: T) => any) | Function): any => {
-  if (typeof option === 'string') { return }
+export const getValueByKey = <T extends (Record<string, unknown> | string | number)> (
+  option: T,
+  prop: string | ((t: T) => any),
+): any => {
+  if (typeof option === 'string' || typeof option === 'number') { return }
   if (!prop || !option) { return option }
   if (typeof prop === 'string') { return getValueByPath(option, prop) }
   if (typeof prop === 'function') { return prop(option) }
