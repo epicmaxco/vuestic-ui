@@ -47,10 +47,6 @@ export const getColor = (prop?: string, defaultColor: string = DEFAULT_COLOR, pr
     return preferVariables ? `var(--va-${prop})` : colors[prop]
   }
 
-  /**
-   * Check options <or> isCSSVariable(prop) <or> CSS.supports('color', prop) deleted due to problems with SSR and opacity.
-   * Details are in the discussion: https://github.com/epicmaxco/vuestic-ui/pull/1589
-   */
   if (isColor(prop)) {
     return prop
   }
