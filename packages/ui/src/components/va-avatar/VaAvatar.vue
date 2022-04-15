@@ -39,7 +39,7 @@ export default defineComponent({
     ...useLoadingProps,
     ...useSizeProps,
     color: { type: String as PropType<string>, default: 'info' },
-    textColor: { type: String as PropType<string>, default: 'var(--va-white)' },
+    textColor: { type: String as PropType<string>, default: 'white' },
     square: { type: Boolean as PropType<boolean>, default: false },
     icon: { type: String as PropType<string>, default: '' },
     src: { type: String as PropType<string>, default: null },
@@ -51,7 +51,7 @@ export default defineComponent({
     const { sizeComputed, fontSizeComputed } = useSize(props, 'VaAvatar')
 
     const computedStyle = computed(() => ({
-      color: getColor(props.textColor, 'var(--va-white)'),
+      color: getColor(props.textColor, 'white'),
       backgroundColor: props.loading ? 'transparent' : colorComputed.value,
       borderRadius: props.square ? 0 : '',
       fontSize: props.fontSize || fontSizeComputed.value,

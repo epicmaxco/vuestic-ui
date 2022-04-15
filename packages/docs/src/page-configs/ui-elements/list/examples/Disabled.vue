@@ -1,6 +1,6 @@
 <template>
   <va-list>
-    <va-list-label color="red">
+    <va-list-label color="#ff0000">
       Blocked
     </va-list-label>
 
