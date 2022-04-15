@@ -43,7 +43,7 @@ export default definePageConfig({
     block.paragraph("globalConfig.useInRuntime"),
     block.code(useInRuntimeCode),
 
-    block.subtitle("globalConfig.links.readMore"),
+    block.subtitle("globalConfig.links.readMore", 'h5'),
     block.link("globalConfig.links.components", "/services/components-config"),
     block.link("globalConfig.links.colors", "/services/colors-config"),
     block.link("globalConfig.links.icons", "/services/icons-config"),

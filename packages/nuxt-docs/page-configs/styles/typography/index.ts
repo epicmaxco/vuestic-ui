@@ -10,36 +10,36 @@ export default definePageConfig({
     block.subtitle("typography.headings"),
     block.example("headings"),
 
-    block.subtitle("typography.titled"),
+    block.subtitle("typography.titled", 'h5'),
     block.example("title"),
 
-    block.subtitle("typography.textStyles"),
+    block.subtitle("typography.textStyles", 'h5'),
     block.example("textStyles"),
 
-    block.subtitle("typography.codeSnippet"),
+    block.subtitle("typography.codeSnippet", 'h5'),
     block.example("codeSnippet"),
 
-    block.subtitle("typography.textCode"),
+    block.subtitle("typography.textCode", 'h5'),
     block.example("textCode"),
 
-    block.subtitle("typography.other"),
+    block.subtitle("typography.other", 'h5'),
 
-    block.subtitle("typography.orderedList"),
+    block.subtitle("typography.orderedList", 'h5'),
     block.example("orderedList"),
 
-    block.subtitle("typography.unorderedList"),
+    block.subtitle("typography.unorderedList", 'h5'),
     block.example("unorderedList"),
 
-    block.subtitle("typography.links"),
+    block.subtitle("typography.links", 'h5'),
     block.example("links"),
 
-    block.subtitle("typography.textHighlighted"),
+    block.subtitle("typography.textHighlighted", 'h5'),
     block.example("textHighlighted"),
 
-    block.subtitle("typography.blockquote"),
+    block.subtitle("typography.blockquote", 'h5'),
     block.example("blockquote"),
 
-    block.subtitle("typography.textBlock"),
+    block.subtitle("typography.textBlock", 'h5'),
     block.example("textBlock"),
   ],
 });

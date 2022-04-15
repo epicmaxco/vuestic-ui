@@ -4,7 +4,7 @@
       flat
       size="small"
       class="docs-navigation__button"
-      color="gray"
+      color="secondary"
       @click="copy"
     >
       <va-icon class="docs-navigation__button__icon" :class="copyButton.icon" size="sm" />
@@ -15,7 +15,7 @@
       flat
       size="small"
       class="docs-navigation__button"
-      color="gray"
+      color="secondary"
       :href="gitLink"
       target="_blank"
     >
@@ -30,7 +30,7 @@
         type="submit"
         size="small"
         class="docs-navigation__button"
-        color="gray"
+        color="secondary"
       >
         <va-icon class="docs-navigation__button__icon fa fa-code" size="sm" />
         <span class="docs-navigation__button__text">{{ t('docsNavigation.openCodeSandbox') }}</span>
@@ -112,7 +112,7 @@ export default defineComponent({
     font-weight: bold;
 
     div {
-      color: var(--va-gray);
+      color: var(--secondary);
     }
 
     &:hover {

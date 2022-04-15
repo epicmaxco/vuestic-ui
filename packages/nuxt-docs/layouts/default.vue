@@ -33,7 +33,7 @@ watch(sm, (newValue, oldValue) => {
 <style lang="scss">
   @import 'vuestic-ui/styles/vuestic-styles.scss';
 
-  * {
+  html {
     font-family: var(--va-font-family);
   }
 
