@@ -6,6 +6,7 @@
   Developed by <a href="https://epicmax.co">Epicmax</a>. Designed by
   <a href="https://xxsavitski.com/">Vasili Savitski</a>.
   <br>
+  <p align="center"><img src="https://img.shields.io/npm/v/vuestic-ui?label=vuestic-ui"></p>
   <a href="https://app.circleci.com/pipelines/github/epicmaxco/vuestic-ui">
     <img src="https://img.shields.io/circleci/build/github/epicmaxco/vuestic-ui/develop" alt="CI badge">
   </a>

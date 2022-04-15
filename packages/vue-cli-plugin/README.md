@@ -1,5 +1,7 @@
 # vue-cli-plugin-vuestic-ui
 
+<p align="center"><img src="https://img.shields.io/npm/v/vue-cli-plugin-vuestic-ui?label=vue-cli-plugin"></p>
+
 ## Usage
 
 To install [vuestic-ui](https://github.com/epicmaxco/vuestic-ui) to your Vue application simply use:

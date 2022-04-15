@@ -4,7 +4,6 @@ import { VaDatePickerModelValue } from '../../va-date-picker/types/types'
 
 export type useRangeModelValueGuardProps = {
   clearValue: VaDatePickerModelValue | undefined
-  [prop: string]: unknown
 }
 
 /**
