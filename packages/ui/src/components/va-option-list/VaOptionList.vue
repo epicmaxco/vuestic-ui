@@ -24,7 +24,7 @@
         >
           <va-radio
             v-if="$props.type === 'radio'"
-            :ref="(el) => addRef(el, index)"
+            :ref="setItemRef"
             v-model="selectedValue"
             :label="getText(option)"
             :disabled="isDisabled(option)"
@@ -34,7 +34,7 @@
           />
           <va-checkbox
             v-else-if="$props.type === 'checkbox'"
-            :ref="(el) => addRef(el, index)"
+            :ref="setItemRef"
             v-model="selectedValue"
             :label="getText(option)"
             :disabled="isDisabled(option)"
@@ -43,7 +43,7 @@
           />
           <va-switch
             v-else
-            :ref="(el) => addRef(el, index)"
+            :ref="setItemRef"
             v-model="selectedValue"
             :label="getText(option)"
             :disabled="isDisabled(option)"
@@ -63,6 +63,7 @@ import { generateUniqueId } from '../../services/utils'
 import { useSelectableList, useSelectableListProps, SelectableOption } from '../../composables/useSelectableList'
 import { useValidation, useValidationProps } from '../../composables/useValidation'
 import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
+import { useArrayRefs } from '../../composables/useArrayRefs'
 import { VaMessageListWrapper } from '../va-input'
 import VaCheckbox from '../va-checkbox'
 import VaRadio from '../va-radio'
@@ -103,7 +104,7 @@ export default defineComponent({
 
     const { getValue, getText, getTrackBy, getDisabled } = useSelectableList(props)
 
-    const inputs = ref<(HTMLInputElement)[]>([])
+    const { itemRefs, setItemRef } = useArrayRefs()
 
     const isRadio = computed(() => props.type === 'radio')
 
@@ -133,7 +134,7 @@ export default defineComponent({
     const reset = () => { valueComputed.value = undefined }
 
     const focus = () => {
-      const firstActiveEl = Array.isArray(inputs.value) && inputs.value.find(el => !el.disabled)
+      const firstActiveEl = Array.isArray(itemRefs.value) && itemRefs.value.find(el => !(el as HTMLInputElement).disabled)
 
       if (firstActiveEl && typeof firstActiveEl.focus === 'function') {
         firstActiveEl.focus()
@@ -142,13 +143,7 @@ export default defineComponent({
 
     const { computedError, computedErrorMessages } = useValidation(props, emit, reset, focus)
 
-    const computedProps = computed(() => ({
-      ...pick(props, ['name', 'color', 'readonly', 'leftLabel']),
-    }))
-
-    const addRef = (el: HTMLInputElement, index: number) => {
-      inputs.value[index] = el
-    }
+    const computedProps = computed(() => pick(props, ['name', 'color', 'readonly', 'leftLabel']))
 
     onMounted(() => {
       if (valueComputed.value === undefined && props.defaultValue) {
@@ -166,8 +161,7 @@ export default defineComponent({
       isDisabled,
       reset,
       focus,
-      inputs,
-      addRef,
+      setItemRef,
       computedProps,
     }
   },
