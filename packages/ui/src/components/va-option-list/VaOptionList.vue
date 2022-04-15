@@ -4,24 +4,12 @@
     :error-messages="computedErrorMessages"
     :error-count="$props.errorCount"
   >
-    <ul
-      class="va-option-list__list"
-      :id="String($props.id)"
-    >
+    <ul class="va-option-list__list">
       <li
         v-for="(option, index) in $props.options"
         :key="getKey(option)"
       >
-        <slot
-          v-bind="{
-            option,
-            selectedValue,
-            index,
-            isDisabled,
-            getText,
-            getValue,
-          }"
-        >
+        <slot v-bind="{ option, selectedValue, index, isDisabled, getText, getValue }">
           <va-radio
             v-if="$props.type === 'radio'"
             :ref="setItemRef"
@@ -57,7 +45,7 @@
 </template>
 
 <script lang="ts">
-import { ref, computed, defineComponent, PropType, onMounted } from 'vue'
+import { computed, defineComponent, PropType, onMounted } from 'vue'
 
 import { generateUniqueId } from '../../services/utils'
 import { useSelectableList, useSelectableListProps, SelectableOption } from '../../composables/useSelectableList'
