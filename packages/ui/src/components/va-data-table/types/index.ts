@@ -51,7 +51,7 @@ export type ITableItem = Record<string, any>
 export interface TableCell {
   /** @deprecated */
   source?: any;
-  rowData: any;
+  rowData: ITableItem;
   column: TableColumn
   value: string
   rowIndex: number
