@@ -15,8 +15,6 @@
 import { AgGridVue } from '@ag-grid-community/vue3'
 import { ClientSideRowModelModule } from '@ag-grid-community/client-side-row-model'
 
-const ssr = false
-
 const modules = [ClientSideRowModelModule]
 
 const defaultColDef = {

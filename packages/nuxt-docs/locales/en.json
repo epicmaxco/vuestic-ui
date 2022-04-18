@@ -3544,7 +3544,7 @@
     "blockquote": "Blockquote",
     "textBlock": "Text block"
   },
-  "ag-grid": {
+  "agGrid": {
     "title": "AG Grid Theme",
     "description": "If you need more flexible customization of the display of tables, we recommend using the [AG Grid](https://www.ag-grid.com/vue-data-grid/getting-started)[[target=_blank]] library. Vuestic UI provides a ready-made style theme for this library.",
     "otherTables": {
