@@ -515,9 +515,21 @@ export default defineComponent({
       }
     }
 
+    const pinPositionStep = computed(() => {
+      if (props.min === 0 && props.max === 100 && props.step !== 1) {
+        // only step prop passed
+        return props.step
+      } else if ((props.min !== 0 || props.max !== 100) && props.step === 1) {
+        // only min or/and max prop passed
+        return (100 / (props.max - props.min))
+      } else {
+        // step and (min or max) prop passed
+        return ((props.step) * 100) / (props.max - props.min)
+      }
+    })
     const getPinStyles = (pin: number) => ({
       backgroundColor: checkActivePin(pin) ? getColor(props.color) : getHoverColor(getColor(props.color)),
-      [pinPositionStyle.value]: `${pin * props.step}%`,
+      [pinPositionStyle.value]: `${pin * pinPositionStep.value}%`,
       transition: hasMouseDown.value ? 'none' : 'background-color .3s ease-out .1s',
     })
 
