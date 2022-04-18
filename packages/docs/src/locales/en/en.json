@@ -3616,7 +3616,8 @@
           "Slots allow you to control the display of data and their views in different parts of the table. The examples below demonstrate some of these slots and what you can do with each of them.",
           "**Using custom slots**. Custom slots (*username*, *street* and *company name*) display certain data.",
           "**Showing header, body and footer's prepend and append static rows**. For added (prepended and appended) static rows an additional `className` with a background color is set.",
-          "**Using `colgroup` slot to set specific attributes to columns**. For last column an additional `className` with a background color is set."
+          "**Using `colgroup` slot to set specific attributes to columns**. For last column an additional `className` with a background color is set.",
+          "Slot names that are not in `columns` will be omitted."
         ]
       },
       "filtering": {
