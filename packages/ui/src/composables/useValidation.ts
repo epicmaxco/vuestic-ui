@@ -5,6 +5,7 @@ import isString from 'lodash/isString'
 import { useSyncProp } from './useSyncProp'
 import { FormServiceKey } from '../components/va-form/consts'
 import { useFocus } from './useFocus'
+import { valid } from 'semver'
 
 type ValidationRule = (() => any | string)
 
@@ -32,7 +33,7 @@ export const useValidationProps = {
 
 export const useValidationEmits = ['update:error', 'update:errorMessages']
 
-export type validationResult = boolean | string | Promise<any>
+export type validationResult = boolean | string | Promise<boolean | string>
 
 const normalizeValidationRules = (rules: string | ValidationRule[] = [], callArguments: unknown = null) => {
   if (isString(rules)) { rules = [rules] as any }
@@ -63,36 +64,37 @@ export const useValidation = (
       return true
     }
 
+    const promises: validationResult[] = []
     let error = false
     let errorMessages: string[] = []
 
     const rules = flatten(props.rules)
 
-    normalizeValidationRules(rules, props.modelValue)
-      .forEach((validationResult: validationResult) => {
-        if (isString(validationResult)) {
-          errorMessages = [...errorMessages, validationResult]
-          error = true
-        } else if (validationResult === false) {
-          error = true
-        } else if (validationResult instanceof Promise) {
-          innerLoadingState.value = true
+    const validationResultHandler = (validationResult: validationResult) => {
+      if (isString(validationResult)) {
+        errorMessages = [...errorMessages, validationResult]
+        error = true
+      } else if (validationResult === false) {
+        error = true
+      } else if (validationResult instanceof Promise) {
+        innerLoadingState.value = true
 
-          validationResult
-            .then(promisedValidationResult => {
-              if (isString(promisedValidationResult)) {
-                errorMessages = [...errorMessages, promisedValidationResult]
-                error = true
-              }
-            })
-            .catch(e => { throw new Error(e) })
-            .finally(() => {
-              computedErrorMessages.value = [...errorMessages]
-              computedError.value = error
-              innerLoadingState.value = false
-            })
-        }
-      })
+        promises.push(validationResult)
+      }
+    }
+
+    normalizeValidationRules(rules, props.modelValue).forEach(validationResultHandler)
+
+    if (promises.length) {
+      Promise.all(promises)
+        .then(promisedRules => promisedRules.forEach(validationResultHandler))
+        .catch(e => { throw new Error(e) })
+        .finally(() => {
+          computedErrorMessages.value = [...errorMessages]
+          computedError.value = error
+          innerLoadingState.value = false
+        })
+    }
 
     computedErrorMessages.value = errorMessages
     computedError.value = error
