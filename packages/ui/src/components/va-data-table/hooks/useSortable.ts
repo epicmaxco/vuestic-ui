@@ -75,8 +75,8 @@ export default function useSortable (
     return [...filteredRows.value].sort((a, b) => {
       const firstValString = a.cells[columnIndex].value
       const secondValString = b.cells[columnIndex].value
-      const firstValInitial = a.cells[columnIndex].source
-      const secondValInitial = b.cells[columnIndex].source
+      const firstValInitial = a.cells[columnIndex].rowData[a.cells[columnIndex].column.key]
+      const secondValInitial = b.cells[columnIndex].rowData[a.cells[columnIndex].column.key]
 
       if (sortingOrderSync.value === null) {
         return a.initialIndex - b.initialIndex

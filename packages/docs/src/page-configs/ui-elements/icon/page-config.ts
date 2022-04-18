@@ -15,6 +15,11 @@ const config: ApiDocsBlock[] = [
     'icon.examples.default.title',
     'icon.examples.default.text',
     'Default',
+    {
+      codesandboxConfig: {
+        requireIcons: true,
+      },
+    },
   ),
   ...block.exampleBlock(
     'icon.examples.color.title',
