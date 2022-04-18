@@ -133,6 +133,12 @@ export default defineComponent({
 
     const computedProps = computed(() => pick(props, ['name', 'color', 'readonly', 'leftLabel']))
 
+    onMounted(() => {
+      if (props.type !== 'radio' && !Array.isArray(props.modelValue) && process.env.NODE_ENV !== 'production') {
+        console.warn(`Prop 'modelValue = ${props.modelValue}' has not a proper type!\n For component property 'type = ${props.type}' it must be of type 'array'.`)
+      }
+    })
+
     return {
       selectedValue,
       computedError,
