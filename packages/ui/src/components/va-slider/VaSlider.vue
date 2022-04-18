@@ -515,15 +515,7 @@ export default defineComponent({
       }
     }
 
-    const pinPositionStep = computed(() => {
-      if (props.min === 0 && props.max === 100 && props.step !== 1) {
-        // only step prop passed
-        return props.step
-      } else {
-        // min or max prop passed (with or without step)
-        return ((props.step) * 100) / (props.max - props.min)
-      }
-    })
+    const pinPositionStep = computed(() => ((props.step) * 100) / (props.max - props.min))
     const getPinStyles = (pin: number) => ({
       backgroundColor: checkActivePin(pin) ? getColor(props.color) : getHoverColor(getColor(props.color)),
       [pinPositionStyle.value]: `${pin * pinPositionStep.value}%`,
