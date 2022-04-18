@@ -15,7 +15,7 @@
   >
     <span
       class="va-chip__inner"
-      v-on="SetupContext.keyboardFocusListeners"
+      v-on="keyboardFocusListeners"
       @focus="$emit('focus')"
       @mouseenter="updateHoverState(true)"
       @mouseleave="updateHoverState(false)"
@@ -35,139 +35,136 @@
         class="va-chip__close-icon"
         name="close"
         :size="iconSize"
-        @click.stop="close()"
+        @click.stop="close"
       />
     </span>
   </component>
 </template>
 
 <script lang="ts">
-import { watch } from 'vue'
-import { Options, prop, mixins, setup, Vue } from 'vue-class-component'
-
+import { defineComponent, PropType, ref, reactive, computed } from 'vue'
 import {
   getBoxShadowColor,
   getHoverColor,
-  getFocusColor, getTextColor,
+  getFocusColor,
+  getTextColor,
 } from '../../services/color-config/color-functions'
-import ColorMixin from '../../services/color-config/ColorMixin'
-import { RouterLinkMixin } from '../../mixins/RouterLinkMixin/RouterLinkMixin'
-import { StatefulMixin } from '../../mixins/StatefulMixin/StatefulMixin'
+import { useRouterLink, useRouterLinkProps } from '../../composables/useRouterLink'
 import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'
+import { useColors, useColorProps } from '../../composables/useColor'
+import { useStateful, useStatefulEmits, useStatefulProps } from '../../composables/useStateful'
 import VaIcon from '../va-icon'
 
-class ChipProps {
-  modelValue = prop<boolean>({ type: Boolean, default: true })
-  closeable = prop<boolean>({ type: Boolean, default: false })
-  color = prop<string>({ type: String, default: 'primary' })
-  outline = prop<boolean>({ type: Boolean, default: false })
-  flat = prop<boolean>({ type: Boolean, default: false })
-  icon = prop<string>({ type: String, default: '' })
-  disabled = prop<boolean>({ type: Boolean, default: false })
-  square = prop<boolean>({ type: Boolean, default: false })
-  tag = prop<string>({ type: String, default: 'span' })
-  size = prop<string>({
-    type: String,
-    default: 'medium',
-    validator: (value: string) => {
-      return ['medium', 'small', 'large'].includes(value)
-    },
-  })
-  shadow = prop<boolean>({ type: Boolean, default: false })
-}
-
-const ChipPropsMixin = Vue.with(ChipProps)
-
-@Options({
+export default defineComponent({
   name: 'VaChip',
+
   components: { VaIcon },
-  emits: ['focus'],
-})
-export default class VaChip extends mixins(
-  RouterLinkMixin,
-  StatefulMixin,
-  ColorMixin,
-  ChipPropsMixin,
-) {
-  SetupContext = setup(() => {
+
+  emits: [...useStatefulEmits, 'focus'],
+
+  props: {
+    ...useRouterLinkProps,
+    ...useColorProps,
+    ...useStatefulProps,
+    modelValue: { type: Boolean as PropType<boolean>, default: true },
+    closeable: { type: Boolean as PropType<boolean>, default: false },
+    outline: { type: Boolean as PropType<boolean>, default: false },
+    disabled: { type: Boolean as PropType<boolean>, default: false },
+    square: { type: Boolean as PropType<boolean>, default: false },
+    shadow: { type: Boolean as PropType<boolean>, default: false },
+    flat: { type: Boolean as PropType<boolean>, default: false },
+    icon: { type: String as PropType<string>, default: '' },
+    tag: { type: String as PropType<string>, default: 'span' },
+
+    size: {
+      type: String as PropType<string>,
+      default: 'medium',
+      validator: (value: string) => {
+        return ['small', 'medium', 'large'].includes(value)
+      },
+    },
+  },
+
+  setup (props, { emit }) {
     const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
 
-    return {
-      hasKeyboardFocus,
-      keyboardFocusListeners,
+    const { getColor } = useColors()
+    const colorComputed = computed(() => getColor(props.color))
+    const borderColor = computed(() => props.outline ? colorComputed : '')
+
+    const { tagComputed, hrefComputed } = useRouterLink(props)
+
+    const hoverState = ref(false)
+    const updateHoverState = (isHover: boolean) => {
+      hoverState.value = isHover
     }
-  })
 
-  hoverState = false
-  focusState = false
-
-  created () {
-    watch(() => this.hoverState, (value) => {
-      this.updateHoverState(value)
-    })
-  }
-
-  get iconSize () {
-    const size: any = {
+    const size = {
       small: '0.875rem',
       medium: '1rem',
       large: '1.25rem',
-    }
-    return size[this.size]
-  }
+    } as Record<string, string>
+    const iconSize = computed(() => size[props.size])
 
-  get indexComputed () {
-    return this.disabled ? -1 : 0
-  }
+    const indexComputed = computed(() => props.disabled ? -1 : 0)
 
-  get computedClass () {
-    return {
-      'va-chip--small': this.size === 'small',
-      'va-chip--large': this.size === 'large',
-      'va-chip--square': this.square,
-      'va-chip--disabled': this.disabled,
-    }
-  }
+    const computedClass = computed(() => ({
+      'va-chip--small': props.size === 'small',
+      'va-chip--large': props.size === 'large',
+      'va-chip--square': props.square,
+      'va-chip--disabled': props.disabled,
+    }))
 
-  get shadowStyle () {
-    if (!this.shadow || this.flat || this.outline || this.disabled || this.SetupContext.hasKeyboardFocus) {
-      return
-    }
-    return '0 0.125rem 0.19rem 0 ' + getBoxShadowColor(this.colorComputed)
-  }
-
-  get computedStyle () {
-    const borderColor = this.outline ? this.colorComputed : ''
-    const computedStyle = {
-      color: this.colorComputed,
-      borderColor,
-      background: '',
-      boxShadow: this.shadowStyle,
-    }
-
-    if (this.outline || this.flat) {
-      if (this.SetupContext.hasKeyboardFocus) {
-        computedStyle.background = getFocusColor(this.colorComputed)
-      } else if (this.hoverState) {
-        computedStyle.background = getHoverColor(this.colorComputed)
+    const shadowStyle = computed(() => {
+      if (!props.shadow || props.flat || props.outline || props.disabled || hasKeyboardFocus.value) {
+        return
       }
-    } else {
-      computedStyle.color = getTextColor(this.colorComputed)
-      computedStyle.background = this.colorComputed
-    }
-    return computedStyle
-  }
+      return `0 0.125rem 0.19rem 0 ${getBoxShadowColor(colorComputed.value)}`
+    })
 
-  updateHoverState (isHover: boolean) {
-    this.hoverState = isHover
-  }
+    const computedStyle = computed(() => {
+      const result = reactive({
+        color: colorComputed.value,
+        borderColor: borderColor.value,
+        background: '',
+        boxShadow: shadowStyle.value,
+      })
 
-  close () {
-    if (!this.disabled) {
-      this.valueComputed = false
+      if (props.outline || props.flat) {
+        if (hasKeyboardFocus.value) {
+          result.background = getFocusColor(colorComputed.value)
+        } else if (hoverState.value) {
+          result.background = getHoverColor(colorComputed.value)
+        }
+      } else {
+        result.color = getTextColor(colorComputed.value)
+        result.background = colorComputed.value
+      }
+
+      return result
+    })
+
+    const { valueComputed } = useStateful(props, emit)
+    const close = () => {
+      if (!props.disabled) {
+        valueComputed.value = false
+      }
     }
-  }
-}
+
+    return {
+      keyboardFocusListeners,
+      updateHoverState,
+      indexComputed,
+      computedStyle,
+      computedClass,
+      valueComputed,
+      hrefComputed,
+      tagComputed,
+      iconSize,
+      close,
+    }
+  },
+})
 </script>
 
 <style lang="scss">
