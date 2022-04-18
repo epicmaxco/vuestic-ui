@@ -1,20 +1,26 @@
 import { defineNuxtModule } from '@nuxt/kit'
+import { resolve } from 'path'
 
 /** This module adds locale route prefix */
 export default defineNuxtModule({
   setup(options, nuxt) {
     nuxt.hook('pages:extend', (pages) => {
-      // Create same routes that we have, but with `locale` path.
-      const localeRoutes = pages.map(page => {
-        return {
-          name: `locale-${page.name}`,
-          path: `/:locale${page.path}`,
-          file: page.file,
-          children: page.children || []
-        }
-      })
+      const localizeChildren = (routes: any[]) => {
+        return routes.map(route => ({ 
+          ...route, 
+          name: `locale-${route.name}`, 
+          path: route.path.replace('/', ''),
+          children: localizeChildren(route.children)
+        }))
+      }
 
-      pages.push(...localeRoutes)
+      // Push local proxy route
+      pages.push({
+        name: 'locale',
+        path: '/:locale',
+        file: resolve(__dirname, './RouterView.vue'),
+        children: localizeChildren([...pages])
+      })
 
       const removeOptionalFromPages = (pages: any[]) => {
         // Remove nuxt optional mark. 

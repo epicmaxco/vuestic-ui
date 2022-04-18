@@ -38,6 +38,10 @@ export default defineComponent({
     }
 
     const initAlgolia = () => {
+      if (!document.querySelector('#algolia-search-input')) {
+        return
+      }
+
       Promise.all([
         // @ts-ignore
         import('docsearch.js/dist/cdn/docsearch.min.js'),

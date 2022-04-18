@@ -1,7 +1,6 @@
 <template>
   <div>
     <DocsPage />
-    <NuxtPage />
   </div>
 </template>
 

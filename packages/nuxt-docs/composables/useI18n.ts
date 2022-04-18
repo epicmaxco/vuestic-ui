@@ -25,11 +25,20 @@ export const useI18n = () => {
     }
 
     return translationString
-  } 
+  }
+
+  const route = useRoute()
+
+  const urlPrefix = computed(() => route.params.locale ? `/${route.params.locale}` : '')
+
+  const localizePath = (path: string) => {
+    return (`${urlPrefix.value}/${path}`).replace('//', '/')
+  }
 
   return {
     ...i18n,
     tie,
+    localizePath,
     locale: computed({
       get() {
         return i18n.locale.value

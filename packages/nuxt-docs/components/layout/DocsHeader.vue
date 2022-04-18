@@ -31,7 +31,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, getCurrentInstance } from 'vue'
 
 export default defineComponent({
   props: { isSidebarVisible: { type: Boolean } },
@@ -39,7 +39,7 @@ export default defineComponent({
   emits: ['update:isSidebarVisible'],
 
   setup(props, { emit }) {
-    const { t } = useI18n()
+    const { t, localizePath } = useI18n()
     const { sm } = useBreakpoint()
 
     const computedIsSidebarVisible = computed({
@@ -47,15 +47,11 @@ export default defineComponent({
       set(val: boolean) { emit('update:isSidebarVisible', val) }
     })
 
-    const { query } = useRoute()
-
-    const urlPrefix = computed(() => query.locale ? `/${query.locale}` : '')
-
     const links = computed(() => [
       {
         text: t('menu.overview'),
         icon: 'fa-eye',
-        to: `${urlPrefix.value}/introduction/overview`,
+        to: localizePath(`/introduction/overview`),
       },
       {
         text: t('menu.github'),
@@ -66,12 +62,12 @@ export default defineComponent({
       {
         text: t('menu.contribution'),
         icon: 'fa-share-alt',
-        to: `${urlPrefix.value}/contribution/documentation-page`,
+        to: localizePath(`/contribution/documentation-page`),
       },
     ])
 
     return {
-      sm, links, computedIsSidebarVisible, urlPrefix,
+      sm, links, computedIsSidebarVisible
     }
   }
 })
