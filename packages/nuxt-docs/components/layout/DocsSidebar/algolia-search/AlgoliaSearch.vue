@@ -3,7 +3,7 @@
     <va-input
       id="algolia-search-input"
       class="search-input"
-      v-model="value"
+      v-model="inputValue"
       placeholder="Search..."
       @focus="onFocusHandler('dark', 'block')"
       @blur="onFocusHandler('gray', 'none')"
@@ -73,12 +73,16 @@ export default defineComponent({
 @import '~vuestic-ui/src/styles/vuestic-styles';
 
 #search-form {
+  position: sticky;
+  top: 0;
+  z-index: 1;
   padding: 1rem;
   padding-bottom: 0.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  background: $prism-background;
 
   .va-input__container {
     background-color: transparent !important;

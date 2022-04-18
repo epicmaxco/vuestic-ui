@@ -2,7 +2,9 @@
   <header class="docs-header px-3">
     <div class="docs-header__logo">
       <LayoutDocsHeaderCollapseIcon v-model="computedIsSidebarVisible" />
-      <LayoutDocsHeaderVuesticDocsLogo class="ml-3" />
+      <router-link to="/">
+        <LayoutDocsHeaderVuesticDocsLogo class="ml-3" />
+      </router-link>
     </div>
 
     <div class="docs-header__links">

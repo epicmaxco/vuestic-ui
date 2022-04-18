@@ -4,12 +4,12 @@
       <div class="header__inner">
         <div class="header__logo">
           <!--        TODO: add root link-->
-          <a href="/">
+          <router-link to="/">
             <vuestic-logo
               height="30"
               width="150"
             />
-          </a>
+          </router-link>
           <div
             class="menu"
             @click="isHidden = !isHidden"
