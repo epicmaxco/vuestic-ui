@@ -88,7 +88,7 @@ export default defineComponent({
   },
 
   setup (props, { emit }) {
-    const { valueComputed } = useStateful(props, emit)
+    const { valueComputed } = useStateful(props, emit, props.defaultValue)
 
     const { getValue, getText, getTrackBy, getDisabled } = useSelectableList(props)
 
@@ -100,7 +100,7 @@ export default defineComponent({
       get () {
         const value = isRadio.value ? null : []
 
-        return valueComputed.value || props.defaultValue || value as OptionListValue
+        return valueComputed.value || value as OptionListValue
       },
       set (value: OptionListValue) {
         if (props.readonly) { return }
@@ -132,12 +132,6 @@ export default defineComponent({
     const { computedError, computedErrorMessages } = useValidation(props, emit, reset, focus)
 
     const computedProps = computed(() => pick(props, ['name', 'color', 'readonly', 'leftLabel']))
-
-    onMounted(() => {
-      if (valueComputed.value === undefined && props.defaultValue) {
-        selectedValue.value = props.defaultValue
-      }
-    })
 
     return {
       selectedValue,

@@ -481,14 +481,13 @@
     },
     "VaOptionList": {
       "props": {
-        "value": "The array of currently selected items in a list",
         "disabledBy": "Specify the key in the object to be used as item `disabled` prop. Can be string (path to the key) or function of type: `(option) => option.disabled`",
         "valueBy": "Specify the key in the object to be used as item `value` prop. Can be string (path to the key) or function of type: `(option) => option.value`",
         "trackBy": "Specify the key in the object to be used as item `key` prop. Can be string (path to the key) or function of type: `(option) => option.track`",
         "textBy": "Specify the key in the object to be used as item `text` prop. Can be string (path to the key) or function of type: `(option) => option.text`",
         "options": "The array of items to be displayed",
         "type": "Specify the format of component. Supported types are `\"radio\"`, `\"checkbox\"` and `\"switch\"`",
-        "defaultValue": "This value will be pre-selected when component mounts",
+        "defaultValue": "This value will be pre-selected for the stateful component",
         "leftLabel": "Put the labels to the left"
       },
       "events": {
