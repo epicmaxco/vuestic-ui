@@ -111,7 +111,7 @@ const createSidebarItems = (pages: PageRoute[]): SidebarItem[] => {
 
 const sidebarItems = computed(() => createSidebarItems(pages))
 
-const accordionValue = ref<boolean[]>([true])
+const accordionValue = ref<boolean[]>([])
 
 const props = defineProps({
   visible: { type: Boolean },
@@ -130,17 +130,11 @@ const hoverColor = computed(() => getHoverColor(getColor('primary')))
 
 const badgeColors = { wip: 'primary', new: 'success' }
 
-const { currentRoute, beforeEach } = useRouter()
+const { currentRoute, afterEach } = useRouter()
 
 const isActiveChildRoute = (route: { name: string }, parent: { name: string }) => {
   const childPath = `/${locale.value}/${parent.name}/${route.name}`
   return currentRoute.value.path === childPath
-}
-
-const isRouteHasActiveChild = (route: { path: string, children: { path: string }[] }) => {
-  const pathSteps: string[] = currentRoute.value.path.split('/').filter(Boolean)
-
-  return !!route.children.some(({ path }) => pathSteps.includes(path))
 }
 
 const emit = defineEmits(['update:visible'])
@@ -151,6 +145,10 @@ const onSidebarItemClick = () => {
   }
 }
 
+const isRouteHasActiveChild = (route: { path: string, children: { path: string }[] }) => {
+  return !!route.children.some(({ path }) => currentRoute.value.path.includes(path))
+}
+
 const updateAccordionValue = () => {
   accordionValue.value = sidebarItems.value.map((route, index) => {
     if (!route.children || accordionValue.value[index]) { return accordionValue.value[index] }
@@ -159,7 +157,7 @@ const updateAccordionValue = () => {
   })
 }
 
-beforeEach(updateAccordionValue)
+afterEach(updateAccordionValue)
 updateAccordionValue()
 </script>
 
