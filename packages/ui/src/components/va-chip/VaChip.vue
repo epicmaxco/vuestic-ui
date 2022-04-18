@@ -17,8 +17,8 @@
       class="va-chip__inner"
       v-on="keyboardFocusListeners"
       @focus="$emit('focus')"
-      @mouseenter="updateHoverState(true)"
-      @mouseleave="updateHoverState(false)"
+      @mouseenter="onMouseEnter"
+      @mouseleave="onMouseLeave"
       :tabindex="indexComputed"
     >
       <va-icon
@@ -42,7 +42,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref, computed } from 'vue'
+import { defineComponent, PropType, computed } from 'vue'
 import {
   getBoxShadowColor,
   getHoverColor,
@@ -53,6 +53,7 @@ import { useRouterLink, useRouterLinkProps } from '../../composables/useRouterLi
 import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'
 import { useColors, useColorProps } from '../../composables/useColor'
 import { useStateful, useStatefulEmits, useStatefulProps } from '../../composables/useStateful'
+import { useHover } from '../../composables/useHover'
 import VaIcon from '../va-icon'
 
 export default defineComponent({
@@ -66,55 +67,35 @@ export default defineComponent({
     ...useRouterLinkProps,
     ...useColorProps,
     ...useStatefulProps,
-    modelValue: { type: Boolean as PropType<boolean>, default: true },
-    closeable: { type: Boolean as PropType<boolean>, default: false },
-    outline: { type: Boolean as PropType<boolean>, default: false },
-    disabled: { type: Boolean as PropType<boolean>, default: false },
-    square: { type: Boolean as PropType<boolean>, default: false },
-    shadow: { type: Boolean as PropType<boolean>, default: false },
-    flat: { type: Boolean as PropType<boolean>, default: false },
-    icon: { type: String as PropType<string>, default: '' },
-    tag: { type: String as PropType<string>, default: 'span' },
+    modelValue: { type: Boolean, default: true },
+    closeable: { type: Boolean, default: false },
+    outline: { type: Boolean, default: false },
+    disabled: { type: Boolean, default: false },
+    square: { type: Boolean, default: false },
+    shadow: { type: Boolean, default: false },
+    flat: { type: Boolean, default: false },
+    icon: { type: String, default: '' },
+    tag: { type: String, default: 'span' },
 
     size: {
-      type: String as PropType<string>,
+      type: String as PropType<'small' | 'medium' | 'large'>,
       default: 'medium',
-      validator: (value: string) => {
-        return ['small', 'medium', 'large'].includes(value)
-      },
+      validator: (value: string) => ['small', 'medium', 'large'].includes(value),
     },
   },
 
   setup (props, { emit }) {
-    const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
-
     const { getColor } = useColors()
     const colorComputed = computed(() => getColor(props.color))
     const borderColor = computed(() => props.outline ? colorComputed.value : '')
-
-    const { tagComputed, hrefComputed } = useRouterLink(props)
-
-    const hoverState = ref(false)
-    const updateHoverState = (isHover: boolean) => {
-      hoverState.value = isHover
-    }
 
     const size = {
       small: '0.875rem',
       medium: '1rem',
       large: '1.25rem',
     } as Record<string, string>
-    const iconSize = computed(() => size[props.size])
 
-    const indexComputed = computed(() => props.disabled ? -1 : 0)
-
-    const computedClass = computed(() => ({
-      'va-chip--small': props.size === 'small',
-      'va-chip--large': props.size === 'large',
-      'va-chip--square': props.square,
-      'va-chip--disabled': props.disabled,
-    }))
-
+    const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
     const shadowStyle = computed(() => {
       if (!props.shadow || props.flat || props.outline || props.disabled || hasKeyboardFocus.value) {
         return
@@ -122,46 +103,57 @@ export default defineComponent({
       return `0 0.125rem 0.19rem 0 ${getBoxShadowColor(colorComputed.value)}`
     })
 
-    const computedStyle = computed(() => {
-      const result = {
-        color: colorComputed.value,
-        borderColor: borderColor.value,
-        background: '',
-        boxShadow: shadowStyle.value,
-      }
-
-      if (props.outline || props.flat) {
-        if (hasKeyboardFocus.value) {
-          result.background = getFocusColor(colorComputed.value)
-        } else if (hoverState.value) {
-          result.background = getHoverColor(colorComputed.value)
-        }
-      } else {
-        result.color = getTextColor(colorComputed.value)
-        result.background = colorComputed.value
-      }
-
-      return result
-    })
-
     const { valueComputed } = useStateful(props, emit)
-    const close = () => {
-      if (!props.disabled) {
-        valueComputed.value = false
-      }
-    }
+    const { tagComputed, hrefComputed } = useRouterLink(props)
+    const { isHovered, onMouseEnter, onMouseLeave } = useHover()
 
     return {
       keyboardFocusListeners,
-      updateHoverState,
-      indexComputed,
-      computedStyle,
-      computedClass,
       valueComputed,
       hrefComputed,
       tagComputed,
-      iconSize,
-      close,
+      onMouseEnter,
+      onMouseLeave,
+      isHovered,
+
+      close: () => {
+        if (!props.disabled) {
+          valueComputed.value = false
+        }
+      },
+
+      iconSize: computed(() => size[props.size]),
+
+      indexComputed: computed(() => props.disabled ? -1 : 0),
+
+      computedClass: computed(() => ({
+        'va-chip--small': props.size === 'small',
+        'va-chip--large': props.size === 'large',
+        'va-chip--square': props.square,
+        'va-chip--disabled': props.disabled,
+      })),
+
+      computedStyle: computed(() => {
+        const result = {
+          color: colorComputed.value,
+          borderColor: borderColor.value,
+          background: '',
+          boxShadow: shadowStyle.value,
+        }
+
+        if (props.outline || props.flat) {
+          if (hasKeyboardFocus.value) {
+            result.background = getFocusColor(colorComputed.value)
+          } else if (isHovered.value) {
+            result.background = getHoverColor(colorComputed.value)
+          }
+        } else {
+          result.color = getTextColor(colorComputed.value)
+          result.background = colorComputed.value
+        }
+
+        return result
+      }),
     }
   },
 })
