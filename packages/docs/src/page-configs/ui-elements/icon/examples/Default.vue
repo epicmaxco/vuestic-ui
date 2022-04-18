@@ -15,7 +15,7 @@
       <p>
         Ionic<br>
         <va-icon name="ion-book-outline" tag="ion-icon" />
-        <va-icon name="ion-book" />
+        <va-icon name="ion-book-outline" />
       </p>
   </div>
 </template>
