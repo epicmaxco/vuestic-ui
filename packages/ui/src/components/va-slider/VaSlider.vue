@@ -519,11 +519,8 @@ export default defineComponent({
       if (props.min === 0 && props.max === 100 && props.step !== 1) {
         // only step prop passed
         return props.step
-      } else if ((props.min !== 0 || props.max !== 100) && props.step === 1) {
-        // only min or/and max prop passed
-        return (100 / (props.max - props.min))
       } else {
-        // step and (min or max) prop passed
+        // min or max prop passed (with or without step)
         return ((props.step) * 100) / (props.max - props.min)
       }
     })
