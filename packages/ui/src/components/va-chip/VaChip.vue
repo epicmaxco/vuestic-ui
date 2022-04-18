@@ -42,7 +42,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref, reactive, computed } from 'vue'
+import { defineComponent, PropType, ref, computed } from 'vue'
 import {
   getBoxShadowColor,
   getHoverColor,
@@ -90,7 +90,7 @@ export default defineComponent({
 
     const { getColor } = useColors()
     const colorComputed = computed(() => getColor(props.color))
-    const borderColor = computed(() => props.outline ? colorComputed : '')
+    const borderColor = computed(() => props.outline ? colorComputed.value : '')
 
     const { tagComputed, hrefComputed } = useRouterLink(props)
 
@@ -123,12 +123,12 @@ export default defineComponent({
     })
 
     const computedStyle = computed(() => {
-      const result = reactive({
+      const result = {
         color: colorComputed.value,
         borderColor: borderColor.value,
         background: '',
         boxShadow: shadowStyle.value,
-      })
+      }
 
       if (props.outline || props.flat) {
         if (hasKeyboardFocus.value) {
