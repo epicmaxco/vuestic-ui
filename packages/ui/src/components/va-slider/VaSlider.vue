@@ -323,7 +323,7 @@ export default defineComponent({
       return decimals ? Math.pow(10, decimals.length) : 1
     })
 
-    const pinsCol = computed(() => (props.max / props.step) - 1)
+    const pinsCol = computed(() => ((props.max - props.min) / props.step) - 1)
 
     const position = computed(() => {
       return Array.isArray(props.modelValue)
