@@ -1,4 +1,5 @@
 <h1 align="center">AG Theme Vuestic</h1>
+<p align="center"><img src="https://img.shields.io/npm/v/@vuestic/ag-grid-theme?label=ag-grid-theme"></p>
 Custom theme with Vuestic UI styles for AG Grid Vue 3.
 
 ## Installation

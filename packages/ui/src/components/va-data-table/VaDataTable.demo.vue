@@ -39,7 +39,7 @@
           {{ selectedItem.id }},
         </span>
       </p>
-      <input type="checkbox" v-model="useSelectable">
+      <input type="checkbox" v-model="useSelectableRow">
       <label>Use selectable</label><br>
       <label>Select mode</label>
       <select v-model="selectMode">
@@ -83,7 +83,7 @@
         @filtered="visibleRowsAmount = $event.length"
         v-model:sort-by="sortBy2"
         v-model:sorting-order="sortingOrder2"
-        :selectable="useSelectable"
+        :selectable="useSelectableRow"
         v-model="selectedItemsIds"
         :select-mode="selectMode"
         :selected-color="selectedColor"
@@ -94,6 +94,8 @@
         :allow-footer-sorting="allowFooterSorting"
         :no-data-filtered-html="noDataFilteredHtml"
         :striped="isStriped"
+        sticky-header
+        style="--scroll-table-height: 250px; --scroll-table-color: orange;"
       />
     </VbCard>
 
@@ -492,8 +494,12 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import cloneDeep from 'lodash/cloneDeep'
+import shuffle from 'lodash/shuffle'
 import VaDataTable from './'
-import { cloneDeep, shuffle } from 'lodash-es'
+import VaSwitch from '../va-switch'
+import VaPagination from '../va-pagination'
+import VaButton from '../va-button'
 
 interface EvenItems {
     id?: number;
@@ -506,6 +512,9 @@ interface EvenItems {
 export default defineComponent({
   components: {
     VaDataTable,
+    VaSwitch,
+    VaPagination,
+    VaButton,
   },
 
   data () {
@@ -675,7 +684,7 @@ export default defineComponent({
 
       sortBy2: '',
       sortingOrder2: null,
-      useSelectable: true,
+      useSelectableRow: true,
       selectedItemsIds: [],
       selectMode: 'single',
       selectedColor: 'primary',

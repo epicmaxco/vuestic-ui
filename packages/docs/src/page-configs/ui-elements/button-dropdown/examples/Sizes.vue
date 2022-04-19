@@ -8,6 +8,13 @@
       Content
     </va-button-dropdown>
     <va-button-dropdown
+      class="mr-2 mb-2"
+      label="medium (default)"
+    >
+      Content
+    </va-button-dropdown>
+    <va-button-dropdown
+      class="mr-2 mb-2"
       size="large"
       label="large"
     >

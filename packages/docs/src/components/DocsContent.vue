@@ -7,7 +7,6 @@
         :value="block.component"
         :path="block.path"
         :example-options="block.exampleOptions"
-        :codesandbox-config="block.codesandboxConfig"
       />
       <DocsComponent
         v-if="block.type === BlockType.COMPONENT"
@@ -77,8 +76,9 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue, prop, mixins } from 'vue-class-component'
+import { defineComponent, PropType } from 'vue'
 import { ApiDocsBlock, BlockType } from '../types/configTypes'
+import { tie } from '../locales/translateIfExistsPlugin'
 import MarkdownView from './markdown-view/MarkdownView.vue'
 import DocsExample from './DocsExample.vue'
 import DocsComponent from './DocsComponent.vue'
@@ -90,14 +90,11 @@ import DocsTable from './DocsTable/DocsTable.vue'
 import DocsLink from './DocsLink.vue'
 import DocsAlert from './DocsAlert.vue'
 
-class Props {
-  config = prop<ApiDocsBlock[]>({})
-}
-
-const PropsMixin = Vue.with(Props)
-
-@Options({
+export default defineComponent({
   name: 'DocsContent',
+  props: {
+    config: { type: Array as PropType<ApiDocsBlock[]> },
+  },
   components: {
     DocsExample,
     DocsComponent,
@@ -110,16 +107,15 @@ const PropsMixin = Vue.with(Props)
     DocsLink,
     DocsAlert,
   },
-})
-export default class DocsContent extends mixins(PropsMixin) {
-  get BlockType () {
-    return BlockType
-  }
-
-  translateAndMark (translations: string[]): string {
-    return translations
-      .map((t: string): string => `- ${this.$tie(t)}`)
+  setup: () => {
+    const translateAndMark = (translations: string[]): string => translations
+      .map((t: string): string => `- ${tie(t)}`)
       .join('\n')
-  }
-}
+
+    return {
+      BlockType,
+      translateAndMark,
+    }
+  },
+})
 </script>

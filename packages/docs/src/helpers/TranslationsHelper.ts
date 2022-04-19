@@ -1,3 +1,7 @@
+import i18n from '../plugins/i18n'
+
+const $t = i18n.global.t
+
 function translateInterpolation (code: string, $t: (s: string) => string) {
   const replaces = code.match(/{{\s*?(?:\$t)\(.*?\)\s*?}}/g) || []
 
@@ -15,11 +19,12 @@ function translateOthers (code: string, $t: (s: string) => string) {
     return acc.replace(source, `'${$t(translation)}'`)
   }, code)
 }
+
 /**
  * Find `$t` inside a code and replace it with translation by regex.
  * origin: `... $t('to replace') ...`
  * output: `... translated ...`
  */
-export function applyTranslations (this: any, code: string) {
-  return translateOthers(translateInterpolation(code, this.$t), this.$t).replace('$t-ignore', '$t')
+export function applyTranslations (code: string) {
+  return translateOthers(translateInterpolation(code, $t), $t).replace('$t-ignore', '$t')
 }

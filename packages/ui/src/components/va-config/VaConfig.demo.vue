@@ -161,23 +161,24 @@
 </template>
 
 <script>
+import { computed } from 'vue'
 import { getGlobalConfig, useGlobalConfig } from '../../services/global-config/global-config'
 import ColorMixin from '../../services/color-config/ColorMixin'
 import { useColors } from '../../services/color-config/color-config'
 import VaButton from '../va-button'
-import { computed } from 'vue'
 import VaRating from '../va-rating/'
 // import VaBadge from '../va-badge'
 
 // import ConfigUsageTest from './ConfigUsageTest.vue'
 // import withConfigTransport from '../../services/config-transport/withConfigTransport'
-// import VaConfig from './VaConfig'
+import VaConfig from './'
 
 export default {
   mixins: [ColorMixin],
   components: {
     VaRating,
     VaButton,
+    VaConfig,
     // VaBadge,
     // VaConfig,
     // ConfigUsageTest: withConfigTransport(ConfigUsageTest),
@@ -207,7 +208,7 @@ export default {
       components: {
         ...config.components,
         ConfigUsageTest: {
-          color: getColor('blue'),
+          color: getColor('#0000ff'),
         },
         VaBadge: {
           ...config.components.VaBadge,
@@ -290,7 +291,7 @@ export default {
       const newConfig = {
         components: {
           ConfigUsageTest: {
-            color: this.getColor('red'),
+            color: this.getColor('#ff0000'),
           },
           VaBadge: {
             color: 'danger',

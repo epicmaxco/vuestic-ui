@@ -1,38 +1,30 @@
 <template>
   <va-dropdown
     ref="dropdown"
-    v-model="showDropdownContentComputed"
+    class="va-select__dropdown va-select-dropdown"
+    trigger="none"
+    anchorSelector=".va-input-wrapper__input"
     :position="$props.position"
     :disabled="$props.disabled"
     :max-height="$props.maxHeight"
     :fixed="$props.fixed"
     :close-on-content-click="closeOnContentClick"
-    trigger="none"
-    class="va-select__dropdown va-select-dropdown"
-    keep-anchor-width
-    boundary-body
     :stateful="false"
-    anchorSelector=".va-input-wrapper__input"
     :offset="[0, 1]"
+    keep-anchor-width
+    v-model="showDropdownContentComputed"
+    @keydown.up.stop.prevent="showDropdown()"
+    @keydown.down.stop.prevent="showDropdown()"
+    @keydown.space.stop.prevent="showDropdown()"
+    @click.prevent="onSelectClick()"
   >
     <template #anchor>
-      <div
-        class="va-select"
-        ref="select"
-        :tabindex="tabIndexComputed"
-        @focus="focus"
-        @blur="blur"
-        @keydown.enter.stop.prevent="onSelectClick()"
-        @keydown.space.stop.prevent="onSelectClick()"
-        @click.prevent="onSelectClick()"
-      >
-        <!-- We show messages outside of dropdown to draw dropdown content under the input -->
+      <div class="va-select">
         <va-input
+          ref="input"
           :model-value="valueComputedString"
           :success="$props.success"
           :error="computedError"
-          :clearable="showClearIcon"
-          :clearableIcon="$props.clearableIcon"
           :color="$props.color"
           :label="$props.label"
           :placeholder="$props.placeholder"
@@ -40,12 +32,13 @@
           :disabled="$props.disabled"
           :outline="$props.outline"
           :bordered="$props.bordered"
-          :focused="isFocusedComputed"
-          :tabindex="-1"
+          :required-mark="$props.requiredMark"
+          :tabindex="tabIndexComputed"
           :messages="$props.messages"
           :error-messages="computedErrorMessages"
           readonly
-          @cleared="reset"
+          @focus="onInputFocus()"
+          @blur="onInputBlur()"
         >
           <template
             v-if="$slots.prepend"
@@ -68,19 +61,33 @@
             <slot name="prependInner" />
           </template>
 
+          <template #icon>
+            <va-icon
+              v-if="showClearIcon"
+              v-bind="clearIconProps"
+              @click.stop="reset()"
+            />
+          </template>
+
           <template #appendInner>
             <slot
               v-if="$slots.appendInner"
               name="appendInner"
             />
             <va-icon
-              :color="colorComputed"
+              :color="toggleIconColor"
               :name="toggleIcon"
             />
           </template>
 
-          <template v-if="$slots.content" #content="{ value, focus }">
-            <slot name="content" v-bind="{ valueString: value, focus, value: valueComputed }" />
+          <template
+            v-if="$slots.content"
+            #content
+          >
+            <slot
+              name="content"
+              v-bind="{ valueString: valueComputedString, value: valueComputed }"
+            />
           </template>
         </va-input>
       </div>
@@ -91,20 +98,17 @@
       class="va-select-dropdown__content"
       :style="{ width: $props.width }"
       @keyup.enter.stop
-      @keydown.esc.prevent="hideDropdown"
-      @keydown.tab.prevent="hideDropdown"
+      @keydown.tab.stop.prevent
+      @keydown.esc.prevent="hideAndFocus()"
     >
       <va-input
         v-if="showSearchInput"
-        :id="$props.id"
         ref="searchBar"
-        v-model="searchInput"
         class="va-select__input"
         placeholder="Search"
-        removable
-        :name="$props.name"
         :tabindex="tabindex + 1"
         :bordered="true"
+        v-model="searchInput"
         @keydown.up.stop.prevent="hoverPreviousOption()"
         @keydown.left.stop.prevent="hoverPreviousOption()"
         @keydown.down.stop.prevent="hoverNextOption()"
@@ -122,6 +126,7 @@
           :get-selected-state="checkIsOptionSelected"
           :get-text="getText"
           :get-track-by="getTrackBy"
+          :get-group-by="getGroupBy"
           :search="searchInput"
           :no-options-text="$props.noOptionsText"
           :color="$props.color"
@@ -130,6 +135,7 @@
           @no-previous-option-to-hover="focusSearchBar()"
           @keydown.enter.stop.prevent="selectHoveredOption()"
           @keydown.space.stop.prevent="selectHoveredOption()"
+          @keydown.tab.stop.prevent="searchBar && searchBar.focus()"
           @keydown="onHintedSearch"
           @scroll-bottom="onScrollBottom"
         />
@@ -139,20 +145,23 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref, computed, watch, nextTick } from 'vue'
+import { defineComponent, PropType, ref, computed, watch, nextTick, Ref } from 'vue'
 
-import { useSelectableList, useSelectableListProps } from '../../composables/useSelectableList'
+import { useSelectableList, useSelectableListProps, SelectableOption } from '../../composables/useSelectableList'
 import { useValidation, useValidationProps, useValidationEmits } from '../../composables/useValidation'
+import { useFormProps } from '../../composables/useForm'
 import { useLoadingProps } from '../../composables/useLoading'
 import { useColor } from '../../composables/useColor'
 import { useMaxSelections, useMaxSelectionsProps } from '../../composables/useMaxSelections'
-
+import { useClearableProps, useClearable, useClearableEmits } from '../../composables/useClearable'
+import { useColors } from '../../services/color-config/color-config'
 import { warn } from '../../services/utils'
 import VaDropdown, { VaDropdownContent } from '../va-dropdown'
 import VaIcon from '../va-icon'
 import VaInput from '../va-input'
-
 import VaSelectOptionList from './VaSelectOptionList'
+
+const { getHoverColor } = useColors()
 
 type DropdownIcon = {
   open: string,
@@ -161,6 +170,7 @@ type DropdownIcon = {
 
 export default defineComponent({
   name: 'VaSelect',
+
   components: {
     VaSelectOptionList,
     VaIcon,
@@ -168,15 +178,26 @@ export default defineComponent({
     VaDropdownContent,
     VaInput,
   },
-  emits: ['update-search', 'update:modelValue', 'clear', 'create-new', 'scroll-bottom', ...useValidationEmits],
+
+  emits: [
+    'update:modelValue',
+    'update-search',
+    'create-new',
+    'scroll-bottom',
+    ...useValidationEmits,
+    ...useClearableEmits,
+  ],
+
   props: {
     ...useSelectableListProps,
     ...useValidationProps,
     ...useLoadingProps,
     ...useMaxSelectionsProps,
+    ...useClearableProps,
+    ...useFormProps,
 
     modelValue: {
-      type: [String, Number, Object, Array] as PropType<string | number | Record<string, any> | any[]>,
+      type: [String, Number, Object] as PropType<SelectableOption>,
       default: '',
     },
 
@@ -188,26 +209,19 @@ export default defineComponent({
     },
 
     allowCreate: {
-      type: [Boolean, String] as PropType<boolean | string>,
+      type: [Boolean, String] as PropType<boolean | 'unique'>,
       default: false,
-      validator: (mode: string | boolean) => {
-        return [true, false, 'unique'].includes(mode)
-      },
+      validator: (mode: string | boolean) => [true, false, 'unique'].includes(mode),
     },
 
     color: { type: String as PropType<string>, default: 'primary' },
     multiple: { type: Boolean as PropType<boolean>, default: false },
     searchable: { type: Boolean as PropType<boolean>, default: false },
-    disabled: { type: Boolean as PropType<boolean>, default: false },
-    readonly: { type: Boolean as PropType<boolean>, default: false }, // Probably unused prop! THIS WAS UNUSED! USE
     separator: { type: String as PropType<string>, default: ', ' },
     width: { type: String as PropType<string>, default: '100%' },
-    maxHeight: { type: String as PropType<string>, default: '128px' },
-    clearValue: { type: String as PropType<string>, default: '' },
+    maxHeight: { type: String as PropType<string>, default: '256px' },
     noOptionsText: { type: String as PropType<string>, default: 'Items not found' },
     fixed: { type: Boolean as PropType<boolean>, default: true },
-    clearable: { type: Boolean as PropType<boolean>, default: false },
-    clearableIcon: { type: String as PropType<string>, default: 'highlight_off' },
     hideSelected: { type: Boolean as PropType<boolean>, default: false },
     tabindex: { type: Number as PropType<number>, default: 0 },
     dropdownIcon: {
@@ -216,7 +230,7 @@ export default defineComponent({
         open: 'expand_more',
         close: 'expand_less',
       }),
-      validator: (value: any) => {
+      validator: (value: string | DropdownIcon) => {
         if (typeof value === 'string') { return true }
 
         const isOpenIconString = typeof value.open === 'string'
@@ -231,42 +245,41 @@ export default defineComponent({
     bordered: { type: Boolean as PropType<boolean>, default: false },
     label: { type: String as PropType<string>, default: '' },
     placeholder: { type: String as PropType<string>, default: '' },
+    requiredMark: { type: Boolean as PropType<boolean>, default: false },
   },
 
-  setup (props, { emit, expose }) {
-    // DOM element or component instance will be assigned to these refs after initial render (template refs and reactive refs are unified in Composition API)
-    const select = ref<InstanceType<typeof HTMLElement>>()
+  setup (props, { emit }) {
     const optionList = ref<InstanceType<typeof VaSelectOptionList>>()
+    const input = ref<InstanceType<typeof VaInput>>()
     const searchBar = ref<InstanceType<typeof VaInput>>()
 
-    const { getOptionByValue, getValue, getText, getTrackBy } = useSelectableList(props)
+    const { getOptionByValue, getValue, getText, getTrackBy, getGroupBy } = useSelectableList(props)
 
     const {
       isFocused,
       validate,
       computedError,
       computedErrorMessages,
-    } = useValidation(props, emit, () => reset(), () => focus(), () => blur())
+    } = useValidation(props, emit, () => reset(), () => focus())
 
     const { colorComputed } = useColor(props)
+    const toggleIconColor = computed(() => props.readonly ? getHoverColor(colorComputed.value) : colorComputed.value)
 
     const onScrollBottom = () => {
       emit('scroll-bottom')
     }
 
     const searchInput = ref('')
-    const showSearchInput = computed(() => {
-      return props.searchable || props.allowCreate
-    })
+    const showSearchInput = computed(() => props.searchable || props.allowCreate)
 
-    watch(() => searchInput.value, (value) => {
+    watch(searchInput, (value) => {
       emit('update-search', value)
       hoveredOption.value = null
     })
 
     // Select value
 
-    const valueComputed = computed({
+    const valueComputed = computed<SelectableOption | SelectableOption[]>({
       get () {
         const value = getOptionByValue(props.modelValue)
 
@@ -293,12 +306,16 @@ export default defineComponent({
         return value
       },
 
-      set (value: any) {
-        emit('update:modelValue', getValue(value))
+      set (value: SelectableOption | SelectableOption[]) {
+        if (Array.isArray(value)) {
+          emit('update:modelValue', value.map(getValue))
+        } else {
+          emit('update:modelValue', getValue(value))
+        }
       },
     })
 
-    const valueComputedString = computed((): string | number => {
+    const valueComputedString = computed(() => {
       if (!valueComputed.value) { return props.clearValue }
       if (typeof valueComputed.value === 'string' || typeof valueComputed.value === 'number') { return valueComputed.value }
       if (Array.isArray(valueComputed.value)) {
@@ -309,16 +326,16 @@ export default defineComponent({
     })
 
     // Icons
+    const {
+      canBeCleared,
+      clearIconProps,
+    } = useClearable(props, valueComputed, isFocused, computedError)
 
-    const showClearIcon = computed((): boolean => {
-      if (!props.clearable) { return false }
-      if (props.disabled) { return false }
-      if (props.multiple) { return !!valueComputed.value.length }
-
-      return valueComputed.value !== props.clearValue
+    const showClearIcon = computed(() => {
+      return props.multiple && Array.isArray(valueComputed.value) ? !!valueComputed.value.length : canBeCleared.value
     })
 
-    const toggleIcon = computed((): string => {
+    const toggleIcon = computed(() => {
       if (!props.dropdownIcon) { return '' }
 
       if (typeof props.dropdownIcon === 'string') {
@@ -330,27 +347,30 @@ export default defineComponent({
 
     // Options
 
-    const filteredOptions = computed((): any[] => {
+    const filteredOptions = computed(() => {
       if (!props.options) { return [] }
 
       if (props.hideSelected) {
-        return (props.options).filter((option) => !checkIsOptionSelected(option))
+        return props.options.filter((option) => !checkIsOptionSelected(option))
       }
 
       return props.options
     })
 
-    const checkIsOptionSelected = (option: any): boolean => {
+    const checkIsOptionSelected = (option: SelectableOption) => {
       if (!valueComputed.value) { return false }
 
       if (Array.isArray(valueComputed.value)) {
-        return !!valueComputed.value.find((valueItem: any) => compareOptions(valueItem, option))
+        return !!valueComputed.value.find((valueItem) => compareOptions(valueItem, option))
       }
 
       return compareOptions(valueComputed.value, option)
     }
 
-    const compareOptions = (one: any, two: any) => {
+    const compareOptions = (option1: SelectableOption, option2: SelectableOption) => {
+      const one = getValue(option1)
+      const two = getValue(option2)
+
       // identity check works nice for strings and exact matches.
       if (one === two) {
         return true
@@ -368,11 +388,11 @@ export default defineComponent({
       return false
     }
 
-    const { exceedsMaxSelections, addOption } = useMaxSelections(valueComputed, ref(props.maxSelections), emit)
+    const isValueComputedArray = (v: Ref<SelectableOption | SelectableOption[]>): v is Ref<SelectableOption[]> => Array.isArray(v.value)
 
-    const selectOption = (option: any): void => {
+    const selectOption = (option: SelectableOption) => {
       if (hoveredOption.value === null) {
-        hideDropdown()
+        hideAndFocus()
         return
       }
 
@@ -380,40 +400,27 @@ export default defineComponent({
         searchInput.value = ''
       }
 
-      if (props.multiple) {
-        const isSelected = checkIsOptionSelected(option)
+      if (props.multiple && isValueComputedArray(valueComputed)) {
+        const { exceedsMaxSelections, addOption } = useMaxSelections(valueComputed, ref(props.maxSelections), emit)
+
+        const isSelected = checkIsOptionSelected(getValue(option))
 
         if (isSelected) {
           // Unselect
-          valueComputed.value = valueComputed.value.filter((optionSelected: any) => !compareOptions(option, optionSelected))
+          valueComputed.value = valueComputed.value.filter((optionSelected) => !compareOptions(getValue(option), getValue(optionSelected)))
         } else {
           if (exceedsMaxSelections()) { return }
-          addOption(option)
+          addOption(getValue(option))
         }
       } else {
         valueComputed.value = typeof option === 'string' || typeof option === 'number' ? option : { ...option }
-        hideDropdown()
+        hideAndFocus()
       }
     }
 
-    const selectOrAddOption = () => {
-      if (hoveredOption.value !== null) {
-        selectHoveredOption()
-        return
-      }
-
-      if (allowedToCreate()) {
-        addNewOption()
-      }
-    }
-
-    const allowedToCreate = (): boolean => {
-      return !!(props.allowCreate && searchInput.value !== '')
-    }
-
-    const addNewOption = (): void => {
+    const addNewOption = () => {
       // Do not emit if option already exist and allow create is `unique`
-      const hasAddedOption: boolean = props.options?.some((option: any) => getText(option) === searchInput.value)
+      const hasAddedOption = props.options?.some((option: SelectableOption) => getText(option) === searchInput.value)
 
       if (!(props.allowCreate === 'unique' && hasAddedOption)) {
         emit('create-new', searchInput.value)
@@ -423,9 +430,11 @@ export default defineComponent({
 
     // Hovered options
 
-    const hoveredOption = ref(null as any)
+    const hoveredOption = ref<SelectableOption | null>(null)
 
     const selectHoveredOption = () => {
+      if (!hoveredOption.value) { return }
+
       if (!showDropdownContent.value) {
         // We can not select options if they are hidden
         showDropdown()
@@ -433,6 +442,16 @@ export default defineComponent({
       }
 
       selectOption(hoveredOption.value)
+    }
+
+    const selectOrAddOption = () => {
+      const allowedToCreate = !!props.allowCreate && searchInput.value !== ''
+
+      if (hoveredOption.value !== null) {
+        selectHoveredOption()
+      } else if (allowedToCreate) {
+        addNewOption()
+      }
     }
 
     const hoverPreviousOption = () => {
@@ -448,13 +467,9 @@ export default defineComponent({
     const showDropdownContent = ref(false)
 
     const showDropdownContentComputed = computed({
-      get: () => {
-        return showDropdownContent.value
-      },
+      get: () => showDropdownContent.value,
       set: (show: boolean) => {
-        show
-          ? showDropdown()
-          : hideDropdown()
+        show ? showDropdown() : hideDropdown()
       },
     })
 
@@ -463,6 +478,8 @@ export default defineComponent({
     })
 
     const showDropdown = () => {
+      if (props.disabled || props.readonly) { return }
+
       showDropdownContent.value = true
       scrollToSelected()
       focusSearchOrOptions()
@@ -472,30 +489,24 @@ export default defineComponent({
       showDropdownContent.value = false
       searchInput.value = ''
       validate()
-      focus()
     }
 
     const toggleDropdown = () => {
       if (showDropdownContent.value) {
-        hideDropdown()
+        hideAndFocus()
       } else {
         showDropdown()
       }
     }
 
-    // Focus and keyboard navigation
-
-    const isFocusedComputed = computed(() => {
-      // If we show dropdown content that means select is focused
-      return isFocused.value || showDropdownContent.value
-    })
-
     const onSelectClick = () => {
-      if (props.disabled) {
-        return
-      }
-
+      if (props.disabled || props.readonly) { return }
       toggleDropdown()
+    }
+
+    const hideAndFocus = () => {
+      hideDropdown()
+      input.value?.focus()
     }
 
     const focusSearchBar = () => {
@@ -507,32 +518,43 @@ export default defineComponent({
       optionList.value?.hoverFirstOption()
     }
 
-    const focusSearchOrOptions = () => {
-      nextTick(() => {
-        if (showSearchInput.value) {
-          focusSearchBar()
-        } else { focusOptionList() }
-      })
-    }
-
-    /** @public */
-    const focus = (): void => {
-      if (props.disabled) {
-        return
+    const focusSearchOrOptions = () => nextTick(() => {
+      if (showSearchInput.value) {
+        focusSearchBar()
+      } else {
+        focusOptionList()
       }
+    })
+
+    const onInputFocus = () => {
       isFocused.value = true
-      select.value?.focus()
+    }
+
+    const onInputBlur = () => {
+      if (showDropdownContentComputed.value) { return }
+
+      isFocused.value
+        ? isFocused.value = false
+        : validate()
     }
 
     /** @public */
-    const blur = (): void => {
-      isFocused.value = false
-      validate()
-      select.value?.blur()
+    const focus = () => {
+      if (props.disabled) { return }
+      input.value?.focus()
     }
 
     /** @public */
-    const reset = (): void => {
+    const blur = () => {
+      if (showDropdownContentComputed.value) {
+        showDropdownContentComputed.value = false
+      }
+
+      nextTick(input.value?.blur)
+    }
+
+    /** @public */
+    const reset = () => {
       if (props.multiple) {
         valueComputed.value = Array.isArray(props.clearValue) ? props.clearValue : []
       } else {
@@ -543,17 +565,13 @@ export default defineComponent({
       emit('clear')
     }
 
-    const tabIndexComputed = computed(() => {
-      return props.disabled ? -1 : props.tabindex
-    })
+    const tabIndexComputed = computed(() => props.disabled ? -1 : props.tabindex)
 
-    const scrollToSelected = (): void => {
+    const scrollToSelected = () => {
       const selected = valueComputed.value
-      const nothingSelected = !selected.length && typeof selected !== 'object'
+      const nothingSelected = typeof selected !== 'object' && Array.isArray(selected) && !selected.length
 
-      if (nothingSelected) {
-        return
-      }
+      if (nothingSelected) { return }
 
       const scrollTo = Array.isArray(selected) ? selected[selected.length - 1] : selected
       hoveredOption.value = scrollTo
@@ -563,7 +581,7 @@ export default defineComponent({
     // Hinted search
 
     let hintedSearchQuery = ''
-    let hintedSearchQueryTimeoutIndex!: any
+    let hintedSearchQueryTimeoutIndex!: ReturnType<typeof setTimeout>
     const navigationKeys = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Enter', ' ']
 
     // Hinted search - hover option if you typing it's value on select without search-bar
@@ -601,21 +619,20 @@ export default defineComponent({
       hintedSearchQueryTimeoutIndex = setTimeout(() => { hintedSearchQuery = '' }, 1000)
     }
 
-    expose({
-      focus,
-      blur,
-      reset,
-    })
-
     return {
-      select,
+      input,
       optionList,
+      searchBar,
+
+      // while we have problem with 'withConfigTransport'
+      // focus,
+      // blur,
+
+      onInputFocus,
+      onInputBlur,
       focusOptionList,
-      focus,
-      blur,
       reset,
       onSelectClick,
-      searchBar,
       focusSearchBar,
       searchInput,
       showSearchInput,
@@ -625,7 +642,6 @@ export default defineComponent({
       valueComputedString,
       showClearIcon,
       toggleIcon,
-      showDropdownContent,
       computedErrorMessages,
       computedError,
       filteredOptions,
@@ -639,30 +655,40 @@ export default defineComponent({
       showDropdownContentComputed,
       showDropdown,
       hideDropdown,
+      hideAndFocus,
       toggleDropdown,
-      isFocusedComputed,
-      colorComputed,
+      toggleIconColor,
       onHintedSearch,
       getText,
       getTrackBy,
+      getGroupBy,
       onScrollBottom,
+      clearIconProps,
     }
+  },
+  // we will use this while we have problem with 'withConfigTransport'
+  methods: {
+    focus () {
+      if (this.$props.disabled) { return }
+      this.input?.focus()
+    },
+    blur () {
+      if (this.showDropdownContentComputed) {
+        this.showDropdownContentComputed = false
+      }
+
+      nextTick(this.input?.blur)
+    },
   },
 })
 </script>
 
 <style lang="scss">
 @import "../../styles/resources";
-@import 'variables';
+@import "variables";
 
 .va-select {
   cursor: var(--va-select-cursor);
-
-  &:focus {
-    .va-input__container {
-      box-shadow: var(--va-select-box-shadow);
-    }
-  }
 
   .va-input {
     cursor: var(--va-select-cursor);
@@ -691,5 +717,4 @@ export default defineComponent({
     @include va-scroll(var(--va-select-scroll-color));
   }
 }
-
 </style>

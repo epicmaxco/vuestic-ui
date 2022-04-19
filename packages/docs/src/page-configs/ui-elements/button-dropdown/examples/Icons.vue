@@ -3,14 +3,14 @@
     <va-button-dropdown
       class="mr-2 mb-2"
       label="without icon"
-      icon=""
+      hide-icon
     >
       Content
     </va-button-dropdown>
     <va-button-dropdown
       class="mr-2 mb-2"
       label="left icon"
-      left-icon="info"
+      left-icon
     >
       Content
     </va-button-dropdown>

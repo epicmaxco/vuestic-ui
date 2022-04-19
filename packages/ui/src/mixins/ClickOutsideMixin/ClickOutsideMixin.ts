@@ -2,7 +2,7 @@
 // 1/ https://github.com/react-bootstrap/react-overlays/blob/master/src/useRootClose.ts
 // 2/ https://github.com/mui-org/material-ui/blob/master/packages/material-ui/src/ClickAwayListener/ClickAwayListener.js
 
-import { noop } from 'lodash-es'
+import noop from 'lodash/noop'
 import { Vue } from 'vue-class-component'
 
 import {
@@ -18,6 +18,7 @@ export type ClickOutsideOptions = {
   onClickOutside: (e: Event | undefined) => void;
 }
 
+/** @deprecated */
 class ClickOutsideMixin extends Vue {
   // Set it `true` to prevent handling a bubbled event
   // before handling a captured one for the first time

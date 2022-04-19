@@ -1,16 +1,37 @@
-import { TableCell } from './useRows'
-import { getFocusColor, getHoverColor } from '../../../services/color-config/color-functions'
-import { getColor } from '../../../services/color-config/color-config'
-import { computed, Ref } from 'vue'
-import { TableColumn } from './useColumns'
+import { computed } from 'vue'
+import { useColors } from '../../../composables/useColor'
+import { safeCSSLength } from '../../../utils/css-utils'
+import { TableColumn, TClassesOptions, TStyleOptions, TableCell } from '../types'
+interface useStyleableProps {
+  selectable: boolean
+  selectedColor: string
+  allowFooterSorting: boolean
+  stickyHeader: boolean
+  height: string | number | undefined
+  [prop: string]: unknown
+}
 
-export default function useStyleable (
-  selectable: Ref<boolean>,
-  selectedColor: Ref<string>,
-  allowFooterSorting: Ref<boolean>,
-) {
+function getClasses (classes: TClassesOptions = []): string[] {
+  if (typeof classes === 'function') {
+    const computedClasses = classes()
+    return (typeof computedClasses === 'string') ? [computedClasses] : computedClasses
+  }
+
+  return (typeof classes === 'string') ? [classes] : classes
+}
+
+function getStyles (styles: TStyleOptions = {}): Record<string, any> {
+  return (typeof styles === 'function') ? styles() : styles
+}
+
+const { getColor, getFocusColor, getHoverColor, shiftHSLAColor } = useColors()
+
+export default function useStyleable (props: useStyleableProps) {
+  const color = computed(() => getColor(props.selectedColor))
+
   function getHeaderCSSVariables (column: TableColumn) {
     return {
+      '--width': typeof column.width === 'string' ? column.width : `${column.width}px`,
       '--align': column.alignHead,
       '--vertical-align': column.verticalAlignHead,
       '--cursor': column.sortable ? 'pointer' : 'default',
@@ -19,11 +40,11 @@ export default function useStyleable (
 
   const rowCSSVariables = computed(() => {
     const styles: Record<string, any> = {
-      '--hover-color': getHoverColor(getColor(selectedColor.value)),
+      '--hover-color': getHoverColor(color.value),
     }
 
-    if (selectable.value) {
-      styles['--selected-color'] = getFocusColor(getColor(selectedColor.value))
+    if (props.selectable) {
+      styles['--selected-color'] = getFocusColor(color.value)
     }
 
     return styles
@@ -40,7 +61,14 @@ export default function useStyleable (
     return {
       '--align': column.alignHead,
       '--vertical-align': column.verticalAlignHead,
-      '--cursor': allowFooterSorting.value && column.sortable ? 'pointer' : 'default',
+      '--cursor': props.allowFooterSorting && column.sortable ? 'pointer' : 'default',
+    }
+  }
+
+  function getStickyCSSVariables () {
+    return {
+      '--scroll-table-color': (props.height || props.stickyHeader) && shiftHSLAColor(color.value, { l: 20 }),
+      '--scroll-table-height': props.height && safeCSSLength(props.height),
     }
   }
 
@@ -49,5 +77,8 @@ export default function useStyleable (
     rowCSSVariables,
     getCellCSSVariables,
     getFooterCSSVariables,
+    getStickyCSSVariables,
+    getClasses,
+    getStyles,
   }
 }

@@ -1,21 +1,9 @@
 //  @ts-nocheck
 
-import { isObject } from 'lodash-es'
+import isObject from 'lodash/isObject'
 
 export const sleep = (ms = 0) => {
   return new Promise(resolve => setTimeout(resolve, ms))
-}
-
-export const normalizeValue = (value, minValue = 0, maxValue = 100) => {
-  if (value <= minValue) {
-    return minValue
-  }
-
-  if (value >= maxValue) {
-    return maxValue
-  }
-
-  return value
 }
 
 // Taken from vuetify pretty much.

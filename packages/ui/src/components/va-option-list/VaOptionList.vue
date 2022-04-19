@@ -68,15 +68,15 @@
 import { ref, computed, defineComponent, PropType, onMounted } from 'vue'
 
 import { generateUniqueId } from '../../services/utils'
-import { useSelectableList, useSelectableListProps } from '../../composables/useSelectableList'
-import { useFormComponent, useFormComponentProps } from '../../composables/useFormComponent'
+import { useSelectableList, useSelectableListProps, SelectableOption } from '../../composables/useSelectableList'
+import { useValidation, useValidationProps } from '../../composables/useValidation'
 import { useStateful, statefulComponentOptions } from '../../mixins/StatefulMixin/cStatefulMixin'
 import { VaMessageListWrapper } from '../va-input'
 import VaCheckbox from '../va-checkbox'
 import VaRadio from '../va-radio'
 import VaSwitch from '../va-switch'
 
-type OptionListValue = string | number | object | any[]
+type OptionListValue = SelectableOption | SelectableOption[] | null
 
 export default defineComponent({
   name: 'VaOptionList',
@@ -89,20 +89,20 @@ export default defineComponent({
   emits: [...statefulComponentOptions.emits],
   props: {
     ...useSelectableListProps,
-    ...useFormComponentProps,
+    ...useValidationProps,
     ...statefulComponentOptions.props,
     type: {
-      type: String as PropType<string>,
+      type: String as PropType<'radio' | 'checkbox' | 'switch'>,
       default: 'checkbox',
       validator: (type: any) => ['radio', 'checkbox', 'switch'].includes(type),
     },
     disabled: ({ type: Boolean as PropType<boolean>, default: false }),
     readonly: ({ type: Boolean as PropType<boolean>, default: false }),
-    defaultValue: ({ type: [String, Number, Object, Array] as PropType<OptionListValue> }),
+    defaultValue: ({ type: [String, Number, Object, Array] as PropType<OptionListValue | null> }),
     name: ({ type: String as PropType<string>, default: generateUniqueId }),
     color: ({ type: String as PropType<string>, default: 'primary' }),
     leftLabel: ({ type: Boolean, default: false }),
-    modelValue: ({ type: [String, Number, Object, Array] as PropType<OptionListValue> }),
+    modelValue: ({ type: [String, Number, Object, Array] as PropType<OptionListValue | null> }),
   },
 
   setup (props, { emit }) {
@@ -119,24 +119,24 @@ export default defineComponent({
       get () {
         const value = isRadio.value ? null : []
 
-        return valueComputed.value || props.defaultValue || value
+        return valueComputed.value || props.defaultValue || value as OptionListValue
       },
-      set (value) {
+      set (value: OptionListValue) {
         if (props.readonly) { return }
 
-        if (isRadio.value) {
-          valueComputed.value = getValue(value)
+        if (isRadio.value && !Array.isArray(value)) {
+          valueComputed.value = value ? getValue(value) : value
         } else {
           valueComputed.value = Array.isArray(value)
             ? value.map(getValue)
-            : [getValue(value)]
+            : [value ? getValue(value) : value]
         }
       },
     })
 
-    const getKey = (option: any) => getTrackBy(option)
+    const getKey = (option: SelectableOption) => getTrackBy(option)
 
-    const isDisabled = (option: any) => props.disabled || getDisabled(option)
+    const isDisabled = (option: SelectableOption) => props.disabled || getDisabled(option)
 
     const reset = () => { valueComputed.value = undefined }
 
@@ -148,7 +148,7 @@ export default defineComponent({
       }
     }
 
-    const { computedError, computedErrorMessages } = useFormComponent(props, reset, focus)
+    const { computedError, computedErrorMessages } = useValidation(props, emit, reset, focus)
 
     onMounted(() => {
       if (!valueComputed.value && props.defaultValue) {

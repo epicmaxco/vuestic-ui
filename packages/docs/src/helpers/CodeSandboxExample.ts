@@ -1,4 +1,6 @@
 import { getParameters } from 'codesandbox/lib/api/define'
+import { iconsStyles, iconsConfig } from './CodeSandboxIconsHelper'
+import { CodesandboxConfig } from '../types/configTypes'
 // @ts-ignore
 import packageUi from 'vuestic-ui/package.json'
 
@@ -23,17 +25,30 @@ const defaultExample = `<template>
 </template>
 `
 
-const html = `<link
-  href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;1,700&display=swap"
-  rel="stylesheet"
->
-<link
-  href="https://fonts.googleapis.com/icon?family=Material+Icons"
-  rel="stylesheet"
->
-<div id="app"></div>`
+const getCodeSandboxHtml = ({ requireIcons = false }: CodesandboxConfig): string => {
+  return `
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;1,700&display=swap"
+      rel="stylesheet"
+    >
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    >
+    ${requireIcons ? iconsStyles : ''}
+    <div id="app"></div>
+  `
+}
 
-const packageJson = ({ dependencies = {}, devDependencies = {} }) => {
+const getCodeSandboxMain = ({ requireIcons = false }: CodesandboxConfig): string => {
+  if (requireIcons) {
+    return iconsConfig
+  }
+
+  return main
+}
+
+const packageJson = ({ dependencies = {}, devDependencies = {} }: CodesandboxConfig): string => {
   const commonDeps = {
     'core-js': '^3.6.5',
     vue: '^3.0.0',
@@ -53,7 +68,7 @@ const packageJson = ({ dependencies = {}, devDependencies = {} }) => {
   })
 }
 
-export default (code: string = defaultExample, config = {}) => getParameters({
+export default (code: string = defaultExample, config: CodesandboxConfig = {}): string => getParameters({
   files: {
     'package.json': {
       content: packageJson(config),
@@ -64,7 +79,7 @@ export default (code: string = defaultExample, config = {}) => getParameters({
       isBinary: false,
     },
     'src/main.js': {
-      content: main,
+      content: getCodeSandboxMain(config),
       isBinary: false,
     },
     'src/App.vue': {
@@ -72,7 +87,7 @@ export default (code: string = defaultExample, config = {}) => getParameters({
       isBinary: false,
     },
     'public/index.html': {
-      content: html,
+      content: getCodeSandboxHtml(config),
       isBinary: false,
     },
   },

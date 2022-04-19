@@ -1,4 +1,7 @@
-import { isArray, isObject, camelCase, upperFirst } from 'lodash-es'
+import isArray from 'lodash/isArray'
+import isObject from 'lodash/isObject'
+import camelCase from 'lodash/camelCase'
+import upperFirst from 'lodash/upperFirst'
 import {
   DefineComponent,
   ComponentOptions,
@@ -13,26 +16,26 @@ import { useGlobalConfig } from '../global-config/global-config'
 
 export function getComponentOptions (component: DefineComponent): ComponentOptions {
   switch (true) {
-  case Boolean(component.options):
-    return component.options
-  case Boolean(component.__vccOpts) || Boolean(component.__b):
-    return { ...component.__b, ...component.__vccOpts }
-  default:
-    return component
+    case Boolean(component.options):
+      return component.options
+    case Boolean(component.__vccOpts) || Boolean(component.__b):
+      return { ...component.__b, ...component.__vccOpts }
+    default:
+      return component
   }
 }
 
 function normalizeProps (props: any) {
   switch (true) {
-  case isArray(props):
-    return props.reduce((acc: Record<string, unknown>, prop: string) => ({
-      ...acc,
-      [prop]: null,
-    }), {})
-  case isObject(props):
-    return props
-  default:
-    return {}
+    case isArray(props):
+      return props.reduce((acc: Record<string, unknown>, prop: string) => ({
+        ...acc,
+        [prop]: null,
+      }), {})
+    case isObject(props):
+      return props
+    default:
+      return {}
   }
 }
 

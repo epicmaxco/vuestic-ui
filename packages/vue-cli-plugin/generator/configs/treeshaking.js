@@ -2,7 +2,7 @@ module.exports = {
   importStrings: (answers) => {
     const strings = [
       "import { VuesticPluginsWithoutComponents } from 'vuestic-ui'",
-      "import 'vuestic-ui/dist/styles/essentials.css'",
+      "import 'vuestic-ui/dist/styles/essential.css'",
     ]
 
     if (answers.treeshakingOptions.includes('grid')) {

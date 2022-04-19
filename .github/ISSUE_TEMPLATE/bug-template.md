@@ -6,7 +6,7 @@ assignees: ''
 
 ---
 
-**Vuestic-ui version:** 1.3.3
+**Vuestic-ui version:** 1.3.5
 
 **Steps to reproduce**
 

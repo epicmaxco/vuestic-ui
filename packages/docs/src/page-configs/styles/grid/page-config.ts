@@ -43,12 +43,14 @@ const config: ApiDocsBlock[] = [
   block.paragraph('grid.api.align.variants[1]'),
   block.paragraph('grid.api.align.variants[2]'),
   block.paragraph('grid.api.align.variants[3]'),
+  block.example('AlignDefault'),
 
   block.headline('grid.api.alignSelf.title'),
   block.paragraph('grid.api.alignSelf.variants[0]'),
   block.paragraph('grid.api.alignSelf.variants[1]'),
   block.paragraph('grid.api.alignSelf.variants[2]'),
   block.paragraph('grid.api.alignSelf.variants[3]'),
+  block.example('AlignSelf'),
 
   block.headline('grid.api.alignContent.title'),
   block.paragraph('grid.api.alignContent.variants[0]'),
@@ -56,6 +58,7 @@ const config: ApiDocsBlock[] = [
   block.paragraph('grid.api.alignContent.variants[2]'),
   block.paragraph('grid.api.alignContent.variants[3]'),
   block.paragraph('grid.api.alignContent.variants[4]'),
+  block.example('AlignContent'),
 
   block.headline('grid.api.justify.title'),
   block.paragraph('grid.api.justify.variants[0]'),
@@ -63,12 +66,8 @@ const config: ApiDocsBlock[] = [
   block.paragraph('grid.api.justify.variants[2]'),
   block.paragraph('grid.api.justify.variants[3]'),
   block.paragraph('grid.api.justify.variants[4]'),
-
-  block.headline('grid.api.justifySelf.title'),
-  block.paragraph('grid.api.justifySelf.variants[0]'),
-  block.paragraph('grid.api.justifySelf.variants[1]'),
-  block.paragraph('grid.api.justifySelf.variants[2]'),
-  block.paragraph('grid.api.justifySelf.variants[3]'),
+  block.paragraph('grid.api.justify.variants[5]'),
+  block.example('AlignJustify'),
 ]
 
 export default config

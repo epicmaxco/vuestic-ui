@@ -1,0 +1,18 @@
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  <%_ if (normalize) { _%>
+  plugins: [vue()],
+
+  // [vuestic-ui] Add alias for ~normalize.css.
+  resolve: {
+    alias: [
+        { find: /^~(.*)$/, replacement: '$1' },
+    ],
+  },
+  <%_ } else { _%>
+  plugins: [vue()]
+  <%_ } _%>
+})

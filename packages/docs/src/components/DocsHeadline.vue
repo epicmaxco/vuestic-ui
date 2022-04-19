@@ -10,28 +10,21 @@
 </template>
 
 <script lang='ts'>
+import { computed, defineComponent, PropType } from 'vue'
 import { TranslationString } from '../components/DocsApi/ManualApiOptions'
-import { Options, Vue, mixins, prop } from 'vue-class-component'
+import { tie } from '../locales/translateIfExistsPlugin'
 import DocsAnchor from './DocsAnchor.vue'
 import MarkdownView from './markdown-view/MarkdownView.vue'
 
-class Props {
-  text = prop<TranslationString>({ type: String, required: true })
-}
-
-const PropsMixin = Vue.with(Props)
-
-@Options({
-  name: 'DocsHeadline',
+export default defineComponent({
+  name: '',
   components: { DocsAnchor, MarkdownView },
+  props: {
+    text: { type: String as PropType<TranslationString>, required: true },
+  },
+  setup: (props) => ({
+    textComputed: computed(() => tie(props.text)),
+    linkTextComputed: computed(() => tie(props.text, 'en')),
+  }),
 })
-export default class DocsHeadline extends mixins(PropsMixin) {
-  get textComputed () {
-    return this.$tie(this.text)
-  }
-
-  get linkTextComputed () {
-    return this.$tie(this.text, 'en')
-  }
-}
 </script>

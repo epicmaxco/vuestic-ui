@@ -16,6 +16,14 @@
         placeholder="Country name"
       />
     </VbCard>
+    <VbCard title="Attrs">
+      'Check input in devtools'
+      <va-input
+        id="input-ID"
+        name="input-Name"
+        placeholder="With ID and Name attrs"
+      />
+    </VbCard>
     <VbCard title="Label">
       <va-input
         v-model="text"
@@ -255,6 +263,18 @@
         v-model="text"
         :messages="messages"
       />
+      <va-input v-model="text" messages="Custom message">
+        <template #messages="{ messages }">
+          <span class="custom-message">{{ messages }}</span>
+        </template>
+      </va-input>
+    </VbCard>
+    <VbCard title="Required Mark">
+      <va-input
+        v-model="text"
+        label="name"
+        required-mark
+      />
     </VbCard>
     <VbCard title="Disabled">
       <va-input
@@ -344,9 +364,40 @@
       </va-input>
     </VbCard>
     <VbCard title="clearable Icon">
+      <va-checkbox
+        class="my-3"
+        label="Clearable"
+        v-model="isClearable"
+      />
       <va-input
         v-model="text"
-        clearable
+        :clearable="isClearable"
+      />
+      <va-input
+        label="Disabled state"
+        v-model="text"
+        disabled
+        :clearable="isClearable"
+      />
+      <va-input
+        label="Readonly state"
+        v-model="text"
+        readonly
+        :clearable="isClearable"
+      />
+      <va-input
+        v-model="text"
+        label="Error"
+        error
+        :error-messages="errorMessages"
+        :clearable="isClearable"
+      />
+      <va-input
+        v-model="text"
+        label="Success"
+        success
+        :clearable="isClearable"
+        :messages="successMessages"
       />
     </VbCard>
     <VbCard title="All slots">
@@ -437,6 +488,25 @@
         :max-rows="4"
       />
     </VbCard>
+    <VbCard title="Textarea readonly">
+      <va-input
+        id="textarea-id-example"
+        placeholder="Try to type in ..."
+        label="Readonly"
+        type="textarea"
+        readonly
+      />
+    </VbCard>
+    <VbCard title="Textarea disabled">
+      <va-input
+        name="textarea-name-example"
+        aria-label="textarea-aria-example"
+        placeholder="Try to focus"
+        label="Disabled"
+        type="textarea"
+        disabled
+      />
+    </VbCard>
     <VbCard title="Masked input">
       <va-input
         v-model="maskCreditCardValue"
@@ -520,6 +590,7 @@ import VaInput from './index'
 import VaButton from './../va-button'
 import VaIcon from './../va-icon'
 import VaInputValidation from './VaInput-validation'
+import VaCheckbox from '../va-checkbox'
 
 export default {
   components: {
@@ -527,6 +598,7 @@ export default {
     VaInput,
     VaButton,
     VaIcon,
+    VaCheckbox,
   },
   data () {
     return {
@@ -547,6 +619,8 @@ export default {
       maskCustomBlocksValue: '',
       maskReturnFormattedValue: '',
       num: 10,
+
+      isClearable: true,
     }
   },
 }
@@ -572,6 +646,11 @@ export default {
 
   .border-blue {
     border: 1px solid blue;
+  }
+
+  .custom-message {
+    color: rgb(153, 0, 255);
+    font-size: 16px;
   }
 }
 </style>

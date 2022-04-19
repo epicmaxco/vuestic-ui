@@ -1,10 +1,30 @@
 import { ref, onMounted, onBeforeUnmount, Ref } from 'vue'
 
-export function useFocus (el?: Ref<HTMLElement | null | undefined>) {
+export const useFocusEmits = ['focus', 'blur']
+
+export function useFocus (
+  el?: Ref<HTMLElement | null | undefined>,
+  emit?: (event: 'focus' | 'blur', e?: Event) => void,
+) {
   const isFocused = ref(false)
 
-  const onFocus = () => { isFocused.value = true }
-  const onBlur = () => { isFocused.value = false }
+  const onFocus = (e?: Event) => {
+    isFocused.value = true
+    emit?.('focus', e)
+  }
+
+  const onBlur = (e?: Event) => {
+    isFocused.value = false
+    emit?.('blur', e)
+  }
+
+  const focus = (): void => {
+    el?.value?.focus()
+  }
+
+  const blur = (): void => {
+    el?.value?.blur()
+  }
 
   if (el) {
     onMounted(() => {
@@ -21,5 +41,7 @@ export function useFocus (el?: Ref<HTMLElement | null | undefined>) {
     isFocused,
     onFocus,
     onBlur,
+    focus,
+    blur,
   }
 }

@@ -1,16 +1,18 @@
 import { inject, onBeforeUnmount, onMounted, PropType, watch } from 'vue'
-import { isString, isFunction, flatten } from 'lodash-es'
+import flatten from 'lodash/flatten'
+import isFunction from 'lodash/isFunction'
+import isString from 'lodash/isString'
 import { useSyncProp } from './useSyncProp'
 import { FormServiceKey } from '../components/va-form/consts'
 import { useFocus } from './useFocus'
 
 type ValidationRule = (() => any | string)
 
-interface ValidationProps {
-  modelValue: unknown,
-  error?: boolean;
-  errorMessages?: string[] | string;
-  errorCount: string | number;
+export interface ValidationProps {
+  modelValue: unknown
+  error?: boolean
+  errorMessages?: string[] | string
+  errorCount: string | number
   rules: ValidationRule[]
   success: boolean
   messages: string[] | string
@@ -22,9 +24,9 @@ export const useValidationProps = {
   error: { type: Boolean, default: undefined },
   errorMessages: { type: [Array, String] as PropType<string[] | string>, default: undefined },
   errorCount: { type: [String, Number], default: 1 },
-  rules: { type: Array as PropType<ValidationRule[]>, default: [] },
+  rules: { type: Array as PropType<ValidationRule[]>, default: () => [] },
   success: { type: Boolean, default: false },
-  messages: { type: [Array, String] as PropType<string[] | string>, default: [] },
+  messages: { type: [Array, String] as PropType<string[] | string>, default: () => [] },
   immediateValidation: { type: Boolean, default: false },
 }
 
@@ -39,10 +41,9 @@ const normalizeValidationRules = (rules: string | ValidationRule[] = [], callArg
 
 export const useValidation = (
   props: ValidationProps,
-  emit: (event: any) => any,
+  emit: (event: any, ...args: any[]) => void,
   reset: () => any,
   focus: () => any,
-  blur: () => any,
 ) => {
   const { isFocused, onFocus, onBlur } = useFocus()
 
@@ -76,16 +77,17 @@ export const useValidation = (
 
     computedErrorMessages.value = errorMessages
     computedError.value = error
+
     return !error
   }
 
   watch(isFocused, (newVal) => newVal === false && validate())
+
   watch(() => props.modelValue, () => validate(), { immediate: props.immediateValidation })
 
   const context = {
     resetValidation,
     focus,
-    blur,
     validate,
     reset,
     hasError: () => computedError.value,
