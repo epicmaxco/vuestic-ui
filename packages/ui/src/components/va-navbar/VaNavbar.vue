@@ -49,8 +49,8 @@ export default defineComponent({
 
     const navbarStyle = computed(() => ({
       backgroundColor: color.value,
-      color: textColor,
-      fill: textColor,
+      color: textColor.value,
+      fill: textColor.value,
     })) as StyleValue
 
     return {
