@@ -53,6 +53,7 @@ export default defineComponent({
     leftLabel: { type: Boolean as PropType<boolean>, default: false },
     color: { type: String as PropType<string>, default: 'primary' },
     tabindex: { type: Number as PropType<number>, default: 0 },
+    readonly: { type: Boolean, default: false },
   },
   setup (props, { emit }) {
     const { getColor } = useColors()
@@ -85,7 +86,10 @@ export default defineComponent({
 
     const computedLabel = computed(() => props.label || props.option)
 
-    const onClick = (e: Event) => emit('update:modelValue', props.option, e)
+    const onClick = (e: Event) => {
+      if (props.readonly || props.disabled) { return }
+      emit('update:modelValue', props.option, e)
+    }
 
     const onFocus = (e: Event) => emit('focus', e)
 
