@@ -34,5 +34,17 @@
   ],
   "gitHooks": {
     "pre-commit": "lerna run --concurrency 1 --stream precommit --since HEAD"
+  },
+  "exports": {
+    ".": {
+      "import": "./packages/ui/dist/esm/main.js",
+      "require": "./packages/ui/dist/cjs/main.js"
+    },
+    "./ssr": {
+      "import": "./packages/ui/dist/esm-ssr/main.js"
+    },
+    "./iife": "./packages/ui/dist/iife/vuestic-ui.js",
+    "./styles": "./packages/ui/dist/styles/",
+    "./types": "./packages/ui/dist/types"
   }
 }
