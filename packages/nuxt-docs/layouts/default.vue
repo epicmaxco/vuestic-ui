@@ -28,6 +28,10 @@ watch(sm, (newValue, oldValue) => {
     isSidebarVisible.value = false
   }
 })
+
+const { afterEach } = useRouter()
+const { scrollToElementOnRouteChange } = useDocsScroll()
+afterEach(scrollToElementOnRouteChange)
 </script>
 
 <style lang="scss">
