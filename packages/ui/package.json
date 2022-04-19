@@ -46,13 +46,11 @@
     "server:webapp": "npx http-server dist --push-state"
   },
   "dependencies": {
-    "@types/lodash-es": "^4.17.6",
     "cleave.js": "^1.6.0",
     "colortranslator": "^1.9.2",
     "detect-browser": "^5.2.0",
     "element-resize-detector": "^1.2.1",
     "lodash": "^4.17.21",
-    "lodash-es": "^4.17.21",
     "normalize.css": "^8.0.1"
   },
   "devDependencies": {
