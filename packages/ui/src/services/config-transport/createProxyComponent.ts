@@ -25,12 +25,21 @@ const createPropsWithCustomConfig = (instance: ComponentInternalInstance, propsF
        */
       const incommingProps: RawProps = instance.vnode.props || {}
 
+      /**
+       * Make sure to access both original and from config prop in get.
+       * Since instanceProps and propsFromConfig both are reactive, we need to know that both of
+       * this objects are dependency of effect where proxy is used.
+       * If original prop will not be accessed vue will not track reactivity for original props object.
+       */
+      const originalProp = target[key]
+      const propFromConfig = propsFromConfig.value[key]
+
       // Return prop from config only if user didn't pass props manually
-      if (incommingProps[key] === undefined && propsFromConfig.value[key] !== undefined) {
-        return propsFromConfig.value[key]
+      if (incommingProps[key] === undefined && propFromConfig !== undefined) {
+        return propFromConfig
       }
 
-      return target[key]
+      return originalProp
     },
   })
 }
