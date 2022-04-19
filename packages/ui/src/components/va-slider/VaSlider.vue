@@ -515,11 +515,11 @@ export default defineComponent({
       }
     }
 
-    const pinPositionStep = computed(() => ((props.step) * 100) / (props.max - props.min))
+    const pinPositionStep = computed(() => props.step / (props.max - props.min) * 100)
     const getPinStyles = (pin: number) => ({
       backgroundColor: checkActivePin(pin) ? getColor(props.color) : getHoverColor(getColor(props.color)),
       [pinPositionStyle.value]: `${pin * pinPositionStep.value}%`,
-      transition: hasMouseDown.value ? 'none' : 'background-color .3s ease-out .1s',
+      transition: hasMouseDown.value ? 'none' : 'var(--va-slider-pin-transition)',
     })
 
     const getPos = (e: MouseEvent | Touch) => {
