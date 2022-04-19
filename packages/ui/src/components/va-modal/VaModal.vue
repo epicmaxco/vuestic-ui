@@ -4,9 +4,18 @@
       <div class="va-modal" v-if="valueComputed">
         <div
           class="va-modal__overlay"
+          v-if="$props.overlay"
           :style="$props.overlay && computedOverlayStyles"
           @click="onOutsideClick"
         />
+
+        <div
+          class="va-modal__overlay-blur"
+          v-if="$props.blur"
+          :style="$props.blur && computedBlurStyles"
+          @click="onOutsideClick"
+        />
+
         <div
           class="va-modal__container"
           :style="computedModalContainerStyle"
@@ -140,6 +149,8 @@ export default defineComponent({
     withoutTransitions: { type: Boolean as PropType<boolean>, default: false },
     overlay: { type: Boolean as PropType<boolean>, default: true },
     overlayOpacity: { type: [Number, String] as PropType<number | string>, default: 0.6 },
+    blur: { type: Boolean as PropType<boolean>, default: false },
+    blurOpacity: { type: [Number, String] as PropType<number | string>, default: 0.2 },
     zIndex: { type: [Number, String] as PropType<number | string | undefined>, default: undefined },
   },
   setup (props, { emit, slots }) {
@@ -165,6 +176,17 @@ export default defineComponent({
       return {
         'background-color': `rgba(0, 0, 0, ${props.overlayOpacity})`,
         'z-index': props.zIndex && Number(props.zIndex) - 1,
+      } as StyleValue
+    })
+    const computedBlurStyles = computed(() => {
+      // NOTE Not sure exactly what that does.
+      // Supposedly solves some case when background wasn't shown.
+      // As a side effect removes background from nested modals.
+
+      if (!props.blur) { return }
+
+      return {
+        'backdrop-filter': `blur(${props.blurOpacity}rem)`,
       } as StyleValue
     })
 
@@ -221,6 +243,7 @@ export default defineComponent({
       computedClass,
       computedModalContainerStyle,
       computedOverlayStyles,
+      computedBlurStyles,
       ...publicMethods,
     }
   },
@@ -294,7 +317,8 @@ export default defineComponent({
     overflow: auto;
   }
 
-  &__overlay {
+  &__overlay,
+  &__overlay-blur {
     position: var(--va-modal-overlay-position);
     top: var(--va-modal-overlay-top);
     left: var(--va-modal-overlay-left);
