@@ -30,9 +30,9 @@ watch(sm, (newValue, oldValue) => {
 })
 
 const { afterEach } = useRouter()
-const { scrollToElementOnRouteChange } = useDocsScroll()
-afterEach(scrollToElementOnRouteChange)
-onMounted(scrollToElementOnRouteChange)
+const { scrollToElement } = useDocsScroll()
+afterEach(scrollToElement)
+onMounted(scrollToElement)
 </script>
 
 <style lang="scss">

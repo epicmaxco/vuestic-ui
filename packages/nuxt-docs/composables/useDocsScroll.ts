@@ -9,7 +9,7 @@ export const useDocsScroll = () => {
     }
   }
 
-  const scrollToElementOnRouteChange = () => {
+  const scrollToElement = () => {
     if (route.hash) {
       const el = document.querySelector(route.hash)
 
@@ -21,6 +21,6 @@ export const useDocsScroll = () => {
 
   return {
     scrollTop,
-    scrollToElementOnRouteChange
+    scrollToElement
   }
 }
