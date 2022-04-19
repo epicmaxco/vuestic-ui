@@ -3,7 +3,7 @@ import { UnwrapRef } from "vue"
 // TODO: Maybe create server for better tree-shaking...
 const components = import.meta.glob('../page-configs/**/*.vue')
 // @ts-ignore-next-line
-const rawText = import.meta.glob('/page-configs/**/*.vue', { assert: { type: 'raw' } })
+const rawText = import.meta.glob('/page-configs/**/*.vue', { assert: { as: 'raw' } })
 
 type PromiseResolveType<P> = P extends Promise<infer R> ? R : never
 
