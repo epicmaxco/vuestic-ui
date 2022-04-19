@@ -77,7 +77,7 @@ import { useColors } from 'vuestic-ui';
 import { createPageRoutes } from '~~/page-configs';
 import { PageRoute } from '~~/types/page-config';
 import { TranslationString } from '~~/types/translations';
-import camelCase from 'lodash/camelCase'
+import camelCase from 'lodash/camelCase.js'
 
 const { locale, t } = useI18n()
 

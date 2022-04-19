@@ -25,7 +25,7 @@ import DocsTable from '../DocsTable/DocsTable.vue'
 import { ManualApiOptions } from '~/types/page-config'
 import { useComponentApiTable } from './useComponentApiTable'
 import { useComponentApi } from './useComponentApi'
-import merge from 'lodash/merge'
+import merge from 'lodash/merge.js'
 
 const defaultApiOptions: ManualApiOptions = {
   props: {

@@ -1,6 +1,6 @@
-import flatten from 'lodash/flatten'
-import isFunction from 'lodash/isFunction'
-import isString from 'lodash/isString'
+import flatten from 'lodash/flatten.js'
+import isFunction from 'lodash/isFunction.js'
+import isString from 'lodash/isString.js'
 import { inject } from 'vue'
 import { mixins, Options, prop, Vue, setup } from 'vue-class-component'
 

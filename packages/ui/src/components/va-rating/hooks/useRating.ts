@@ -1,4 +1,4 @@
-import clamp from 'lodash/clamp'
+import clamp from 'lodash/clamp.js'
 import { useHover } from '../../../composables/useHover'
 import { ref, getCurrentInstance, computed, ExtractPropTypes } from 'vue'
 import { useStateful, useStatefulProps } from '../../../composables/useStateful'

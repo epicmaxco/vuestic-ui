@@ -51,7 +51,7 @@
 
 <script>
 import { defineComponent } from "vue";
-import shuffle from "lodash/shuffle";
+import shuffle from "lodash/shuffle.js";
 
 export default defineComponent({
   data() {

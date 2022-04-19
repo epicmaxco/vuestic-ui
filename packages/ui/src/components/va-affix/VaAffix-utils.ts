@@ -1,4 +1,4 @@
-import throttle from 'lodash/throttle'
+import throttle from 'lodash/throttle.js'
 import { Vue } from 'vue-class-component'
 
 export type State = {

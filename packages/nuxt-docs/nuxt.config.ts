@@ -1,5 +1,6 @@
 import { defineNuxtConfig } from 'nuxt3'
 import { resolve } from 'path'
+import { optimizeLodashImports } from "@optimize-lodash/rollup-plugin";
 
 const YARN_NODE_MODULES = '../../node_modules/'
 
@@ -15,6 +16,12 @@ export default defineNuxtConfig({
     script: [
       { src: 'https://kit.fontawesome.com/5460c87b2a.js', crossorigin: 'anonymous' }
     ]
+  },
+
+  hooks: {
+    'vite:extendConfig': (config) => {
+      config.plugins.push(optimizeLodashImports())
+    },
   },
 
   buildModules: [
@@ -35,14 +42,14 @@ export default defineNuxtConfig({
   },
 
   alias: {
-    'vuestic-ui/styles': resolve(__dirname, YARN_NODE_MODULES, 'vuestic-ui/src/styles'),
-    'vuestic-ui/package.json': resolve(__dirname, YARN_NODE_MODULES, 'vuestic-ui/package.json'),
-    'vuestic-ui/src': resolve(__dirname, YARN_NODE_MODULES, 'vuestic-ui/src/'),
-    'vuestic-ui': resolve(__dirname, YARN_NODE_MODULES, 'vuestic-ui/src/main'),
-    // 'vuestic-ui/styles': resolve(__dirname, '../ui/src/styles'),
-    // 'vuestic-ui/package.json': resolve(__dirname, '../ui/package.json'),
-    // 'vuestic-ui/src': resolve(__dirname, '../ui/src/'),
-    // 'vuestic-ui': resolve(__dirname, '../ui/src/main'),
+    // 'vuestic-ui/styles': resolve(__dirname, YARN_NODE_MODULES, 'vuestic-ui/src/styles'),
+    // 'vuestic-ui/package.json': resolve(__dirname, YARN_NODE_MODULES, 'vuestic-ui/package.json'),
+    // 'vuestic-ui/src': resolve(__dirname, YARN_NODE_MODULES, 'vuestic-ui/src/'),
+    // 'vuestic-ui': resolve(__dirname, YARN_NODE_MODULES, 'vuestic-ui/src/main'),
+    'vuestic-ui/styles': resolve(__dirname, '../ui/src/styles'),
+    'vuestic-ui/package.json': resolve(__dirname, '../ui/package.json'),
+    'vuestic-ui/src': resolve(__dirname, '../ui/src/'),
+    'vuestic-ui': resolve(__dirname, '../ui/src/main'),
     '@vuestic/ag-grid-theme/': resolve(__dirname, '../extensions/ag-grid-theme/src/'),
     '~normalize.css/normalize.css': 'normalize.css/normalize.css',
     '~ag-grid-community/': 'ag-grid-community/',

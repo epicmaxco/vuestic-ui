@@ -2,8 +2,8 @@ import { ComponentApi } from "~~/components/docs/blocks/DocsComponentApi/useComp
 import { ManualApiOptions } from "~~/types/page-config";
 import { MaybeRef } from "~~/types/utils";
 import { TableColumns, TableDataRecord } from "../DocsTable/DocsTableTypes";
-import camelCase from 'lodash/camelCase'
-import kebabCase from 'lodash/kebabCase'
+import camelCase from 'lodash/camelCase.js'
+import kebabCase from 'lodash/kebabCase.js'
 import { useI18n } from "~~/composables/useI18n";
 
 type OptionsType = 'props' | 'events' | 'methods' | 'slots'

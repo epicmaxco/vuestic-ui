@@ -4,7 +4,7 @@ import type { CodesandboxConfig } from "~~/components/docs/blocks/DocsExample/Do
 import { BlockComponents } from '~~/components/docs/blocks'
 import { TableColumn, TableData } from "~~/components/docs/blocks/DocsTable/DocsTableTypes"
 import { LinkOptions } from "~~/components/docs/blocks/DocsLink/DocLinkTypes"
-import camelCase from 'lodash/camelCase'
+import camelCase from 'lodash/camelCase.js'
 
 export type ExampleOptions = {
   hideCode?: boolean,
