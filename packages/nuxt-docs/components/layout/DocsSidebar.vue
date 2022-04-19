@@ -79,11 +79,32 @@ import { PageRoute } from '~~/types/page-config';
 import { TranslationString } from '~~/types/translations';
 import camelCase from 'lodash/camelCase'
 
-const { locale, t } = useI18n()
+type SidebarItem = PageRoute & { text: TranslationString, children: SidebarItem[], category?: string }
 
+const { locale, t } = useI18n()
 const pages = createPageRoutes()
 
-type SidebarItem = PageRoute & { text: TranslationString, children: SidebarItem[], category?: string }
+const emit = defineEmits(['update:visible'])
+
+const props = defineProps({
+  visible: { type: Boolean },
+  mobile: { type: Boolean },
+})
+
+const computedVisible = computed({
+  get: () => props.visible,
+  set: (val: boolean) => emit('update:visible', val)
+})
+
+const onSidebarItemClick = () => props.mobile && emit('update:visible', false)
+
+const { getColor, getHoverColor, getFocusColor } = useColors()
+
+const activeColor = computed(() => getFocusColor(getColor('primary')))
+const hoverColor = computed(() => getHoverColor(getColor('primary')))
+const badgeColors = { wip: 'primary', new: 'success' }
+
+const sidebarWidth = computed(() => props.mobile ? '100%' : '16rem')
 
 const createSidebarItems = (pages: PageRoute[]): SidebarItem[] => {
   const grouped = pages
@@ -95,7 +116,7 @@ const createSidebarItems = (pages: PageRoute[]): SidebarItem[] => {
     }))
     .reduce((result, item) => {
       const key = item.meta.category || '_noGroup'
-      if (!result[key]) { result[key] =[] }
+      if (!result[key]) { result[key] = [] }
       result[key].push(item)
       return result
     }, {} as Record<string, SidebarItem[]>)
@@ -110,50 +131,27 @@ const createSidebarItems = (pages: PageRoute[]): SidebarItem[] => {
 }
 
 const sidebarItems = computed(() => createSidebarItems(pages))
-
-const accordionValue = ref<boolean[]>([true])
-
-const props = defineProps({
-  visible: { type: Boolean },
-  mobile: { type: Boolean },
-})
-
-const computedVisible = computed({
-  get() { return props.visible }, set(val: boolean) { emit('update:visible', val) }
-})
-const sidebarWidth = computed(() => props.mobile ? '100%' : '16rem')
-
-const { getColor, getHoverColor, getFocusColor } = useColors()
-
-const activeColor = computed(() => getFocusColor(getColor('primary')))
-const hoverColor = computed(() => getHoverColor(getColor('primary')))
-
-const badgeColors = { wip: 'primary', new: 'success' }
-
 const { currentRoute, beforeEach } = useRouter()
 
-const isActiveChildRoute = (route: { name: string }, parent: { name: string }) => {
+const isActiveChildRoute = (route: PageRoute, parent: PageRoute) => {
   const childPath = `/${locale.value}/${parent.name}/${route.name}`
+
   return currentRoute.value.path === childPath
 }
 
-const isRouteHasActiveChild = (route: { path: string, children: { path: string }[] }) => {
-  const pathSteps: string[] = currentRoute.value.path.split('/').filter(Boolean)
+const isRouteHasActiveChild = (route: PageRoute) => {
+  const pathSteps = currentRoute.value.path.split('/').filter(Boolean).join('/')
 
-  return !!route.children.some(({ path }) => pathSteps.includes(path))
+  return route.children.some(({ path }) => pathSteps.includes(path))
 }
 
-const emit = defineEmits(['update:visible'])
-
-const onSidebarItemClick = () => {
-  if (props.mobile) {
-    emit('update:visible', false)
-  }
-}
+const accordionValue = ref<boolean[]>([])
 
 const updateAccordionValue = () => {
   accordionValue.value = sidebarItems.value.map((route, index) => {
-    if (!route.children || accordionValue.value[index]) { return accordionValue.value[index] }
+    if (!route.children || accordionValue.value[index]) {
+      return accordionValue.value[index]
+    }
 
     return isRouteHasActiveChild(route)
   })
