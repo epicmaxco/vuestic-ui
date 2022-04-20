@@ -129,7 +129,7 @@ export default defineComponent({
       next: withPause(next),
       currentSlide,
       slides,
-      ...useCarouselColor(props),
+      ...useCarouselColor(),
     }
   },
 })

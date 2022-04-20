@@ -92,8 +92,7 @@ export default defineComponent({
       if (!computedModelValue.value || !body.value) { return 0 }
 
       const nodes = Array.from(body.value.childNodes) as HTMLElement[]
-      return nodes
-        .reduce((result: number, node: HTMLElement) => result + getNodeHeight(node), 0)
+      return nodes.reduce((result: number, node: HTMLElement) => result + getNodeHeight(node), 0)
     })
 
     const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
@@ -135,18 +134,13 @@ export default defineComponent({
       })),
 
       contentStyle: computed(() => {
-        if (computedModelValue.value && slots.default?.()[0]) {
-          return {
-            visibility: 'visible' as const, // allows for better a11y and works well with height-transitions (compared to v-show (display: none in general)
-            height: height.value + 'px',
-            transitionDuration: getTransition(),
-            background: getBackground(),
-          }
-        }
+        const hasContent = computedModelValue.value && !!slots.default?.()[0]
+
         return {
-          visibility: 'hidden' as const,
-          height: height.value + 'px',
+          visibility: hasContent ? 'visible' as const : 'hidden' as const,
+          height: `${height.value}px`,
           transitionDuration: getTransition(),
+          background: hasContent ? getBackground() : '',
         }
       }),
     }

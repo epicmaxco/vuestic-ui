@@ -118,7 +118,7 @@ export default defineComponent({
     isOpen: { type: Boolean },
 
     format: { type: Function as PropType<(date: VaDatePickerModelValue | undefined) => string> },
-    formatDate: { type: Function as PropType<(date: Date) => string>, default: () => (d: Date) => d.toLocaleDateString() },
+    formatDate: { type: Function as PropType<(date: Date) => string>, default: (d: Date) => d.toLocaleDateString() },
     parse: { type: Function as PropType<(input: string) => VaDatePickerModelValue> },
     parseDate: { type: Function as PropType<(input: string) => Date> },
 
@@ -158,7 +158,7 @@ export default defineComponent({
 
     const dateOrNothing = (date: Date | undefined | null) => date ? props.formatDate(date) : '...'
 
-    const input = ref<InstanceType<typeof VaInput> | undefined>()
+    const input = ref<typeof VaInput | undefined>()
 
     const { parseDateInputValue, isValid } = useDateParser(props)
 

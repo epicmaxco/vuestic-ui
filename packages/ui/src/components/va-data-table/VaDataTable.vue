@@ -244,8 +244,8 @@
 
 <script lang="ts">
 import { computed, defineComponent, HTMLAttributes, PropType, TableHTMLAttributes } from 'vue'
-import omit from 'lodash/omit'
-import pick from 'lodash/pick'
+import omit from 'lodash/omit.js'
+import pick from 'lodash/pick.js'
 import VaInnerLoading from '../va-inner-loading'
 import VaCheckbox from '../va-checkbox'
 import VaIcon from '../va-icon'

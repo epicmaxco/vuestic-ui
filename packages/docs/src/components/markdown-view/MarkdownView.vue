@@ -28,8 +28,8 @@ export default defineComponent({
     },
   },
   setup (props) {
-    const { inline, value } = toRefs(props)
     const { locale } = useI18n()
+    const { inline, value } = toRefs(props)
 
     attributesOptions.className = 'MarkdownView__link--external'
 

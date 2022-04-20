@@ -24,7 +24,7 @@
 </template>
 
 <script lang="ts">
-import clamp from 'lodash/clamp'
+import clamp from 'lodash/clamp.js'
 import { computed, defineComponent, PropType } from 'vue'
 import { useColors } from '../../services/color-config/color-config'
 

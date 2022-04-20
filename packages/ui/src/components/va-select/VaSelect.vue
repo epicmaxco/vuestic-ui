@@ -161,8 +161,6 @@ import VaIcon from '../va-icon'
 import VaInput from '../va-input'
 import VaSelectOptionList from './VaSelectOptionList'
 
-const { getHoverColor } = useColors()
-
 type DropdownIcon = {
   open: string,
   close: string
@@ -249,10 +247,11 @@ export default defineComponent({
   },
 
   setup (props, { emit }) {
-    const optionList = ref<InstanceType<typeof VaSelectOptionList>>()
-    const input = ref<InstanceType<typeof VaInput>>()
-    const searchBar = ref<InstanceType<typeof VaInput>>()
+    const optionList = ref<typeof VaSelectOptionList>()
+    const input = ref<typeof VaInput>()
+    const searchBar = ref<typeof VaInput>()
 
+    const { getHoverColor } = useColors()
     const { getOptionByValue, getValue, getText, getTrackBy, getGroupBy } = useSelectableList(props)
 
     const {

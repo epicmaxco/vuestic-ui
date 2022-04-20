@@ -56,7 +56,7 @@
           @mousedown="moveStart"
         />
         <div
-          v-for="order in ($props.vertical ? [1, 0] : [0, 1])"
+          v-for="order in orders"
           :key="'dot' + order"
           :ref="'dot' + order"
           class="va-slider__handler"
@@ -155,7 +155,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, watch, PropType, ref, computed, onMounted, onBeforeUnmount, nextTick } from 'vue'
+import { defineComponent, watch, PropType, ref, computed, onMounted, onBeforeUnmount } from 'vue'
 
 import { getHoverColor } from '../../services/color-config/color-functions'
 import { validateSlider } from './validateSlider'
@@ -169,7 +169,7 @@ export default defineComponent({
   props: {
     range: { type: Boolean as PropType<boolean>, default: false },
     modelValue: ({ type: [Number, Array] as PropType<number | number[]>, default: () => [] }),
-    trackLabel: ({ type: Function as PropType<((val: any, order?: number) => string) | undefined> }),
+    trackLabel: ({ type: [Function, String] as PropType<string | ((val: any, order?: number) => string) | undefined> }),
     color: { type: String as PropType<string>, default: 'primary' },
     trackColor: { type: String as PropType<string>, default: '' },
     labelColor: { type: String as PropType<string>, default: '' },
@@ -202,6 +202,8 @@ export default defineComponent({
     const currentValue = ref(props.modelValue)
     const currentSliderDotIndex = ref(0)
     const hasMouseDown = ref(false)
+
+    const orders = computed(() => props.vertical ? [1, 0] : [0, 1])
 
     const pinPositionStyle = computed(() => props.vertical ? 'bottom' : 'left')
     const trackSizeStyle = computed(() => props.vertical ? 'height' : 'width')
@@ -692,6 +694,7 @@ export default defineComponent({
       dot,
       dot0,
       dot1,
+      orders,
       sliderContainer,
       val,
       sliderClass,

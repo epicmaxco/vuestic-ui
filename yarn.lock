@@ -6087,6 +6087,11 @@ colortranslator@^1.7.1:
   resolved "https://registry.yarnpkg.com/colortranslator/-/colortranslator-1.7.1.tgz#60f8db80b3755ce37f873cf848af99c3c17bb156"
   integrity sha512-AORTES33uYs9z04eGnMMq5Ehtsz28jyHTYTUItZFEbTXnYmx7ZVV6lPfDOpem1NLAh6PCVIYm1YDCHULu+C/sw==
 
+colortranslator@^1.9.2:
+  version "1.9.2"
+  resolved "https://registry.yarnpkg.com/colortranslator/-/colortranslator-1.9.2.tgz#baff13493677ae21355468366fb9f4a6242f9f39"
+  integrity sha512-Hr1qCLwL/5gbGhcRwfhl1+JbvHmybTGbecpbhyzn3IyizgYFxMpLpX8OGhAcvSPB0+K2bwrAcFIbeF60wqOJLg==
+
 columnify@^1.5.4:
   version "1.5.4"
   resolved "https://registry.yarnpkg.com/columnify/-/columnify-1.5.4.tgz#4737ddf1c7b69a8a7c340570782e947eec8e78bb"
@@ -18327,7 +18332,7 @@ tslib@^1.8.1, tslib@^1.9.0:
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.14.1.tgz#cf2d38bdc34a134bcaf1091c41f6619e2f672d00"
   integrity sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==
 
-tslib@^2.0.3:
+tslib@^2.0.3, tslib@^2.2.0:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.3.1.tgz#e8a335add5ceae51aa261d32a490158ef042ef01"
   integrity sha512-77EbyPPpMz+FRFRuAFlWMtmgUWGe9UOG2Z25NqCwiIjRhOf5iKGuzSe5P2w1laq+FkRy4p+PCuVkJSGkzTEKVw==
@@ -19180,6 +19185,21 @@ vuelidate@^0.7.5:
   version "0.7.6"
   resolved "https://registry.yarnpkg.com/vuelidate/-/vuelidate-0.7.6.tgz#84100c13b943470660d0416642845cd2a1edf4b2"
   integrity sha512-suzIuet1jGcyZ4oUSW8J27R2tNrJ9cIfklAh63EbAkFjE380iv97BAiIeolRYoB9bF9usBXCu4BxftWN1Dkn3g==
+
+vuestic-ui@1.3.5:
+  version "1.3.5"
+  resolved "https://registry.yarnpkg.com/vuestic-ui/-/vuestic-ui-1.3.5.tgz#363ad3fe65835eeba4080e0a2ebecab4c1d19ef2"
+  integrity sha512-ptWy5WfwhoPDiRdWMkGLCAitgQXGRFbssPpbBAeaI7ktDY5Q7hVVBx30teQzg0M/vhB5zwoN0kumQLWuElhJrQ==
+  dependencies:
+    "@popperjs/core" "^2.9.2"
+    asva-executors "^0.1.26"
+    cleave.js "^1.6.0"
+    colortranslator "^1.7.1"
+    detect-browser "^5.2.0"
+    element-resize-detector "^1.2.1"
+    lodash "^4.17.21"
+    normalize.css "^8.0.1"
+    tslib "^2.2.0"
 
 w3c-hr-time@^1.0.2:
   version "1.0.2"

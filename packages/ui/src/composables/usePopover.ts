@@ -37,11 +37,11 @@ const calculateContentCoords = (placement: Placement, anchor: DOMRect, content: 
   const alignmentY = calculateContentAlignment(align, anchor.top, anchor.height, content.height)
 
   switch (position) {
-  case 'top': return { x: alignmentX, y: anchor.top - content.height }
-  case 'left': return { y: alignmentY, x: anchor.left - content.width }
-  case 'right': return { y: alignmentY, x: anchor.right }
-  case 'bottom':
-  default: return { x: alignmentX, y: anchor.bottom }
+    case 'top': return { x: alignmentX, y: anchor.top - content.height }
+    case 'left': return { y: alignmentY, x: anchor.left - content.width }
+    case 'right': return { y: alignmentY, x: anchor.right }
+    case 'bottom':
+    default: return { x: alignmentX, y: anchor.bottom }
   }
 }
 
@@ -50,11 +50,11 @@ const calculateOffsetCoords = (placement: Placement, offset: Offset): Coords => 
   const { main, cross } = parseOffset(offset)
 
   switch (position) {
-  case 'left': return { y: cross, x: -main }
-  case 'right': return { y: cross, x: main }
-  case 'top': return { y: -main, x: cross }
-  case 'bottom':
-  default: return { y: main, x: cross }
+    case 'left': return { y: cross, x: -main }
+    case 'right': return { y: cross, x: main }
+    case 'top': return { y: -main, x: cross }
+    case 'bottom':
+    default: return { y: main, x: cross }
   }
 }
 
