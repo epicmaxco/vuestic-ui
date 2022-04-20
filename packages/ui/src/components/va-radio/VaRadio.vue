@@ -1,50 +1,68 @@
 <template>
-  <label
-    class="va-radio"
-    :class="computedClass"
+  <va-message-list-wrapper
+    :disabled="disabled"
+    :success="success"
+    :messages="messages"
+    :error="computedError"
+    :error-messages="computedErrorMessages"
+    :error-count="errorCount"
   >
-    <input
-      class="va-radio__input"
-      type="radio"
-      :checked="isActive"
-      :disabled="disabled"
-      :name="name"
-      @change="onClick"
-      @focus="onFocus"
-      :tabindex="tabindex"
+    <label
+      class="va-radio"
+      :class="computedClass"
     >
+      <input
+        class="va-radio__input"
+        type="radio"
+        :checked="isActive"
+        :disabled="disabled"
+        :name="name"
+        @change="onClick"
+        @focus="onFocus"
+        :tabindex="tabindex"
+        ref="radioInput"
+      >
 
-    <span
-      class="va-radio__icon"
-      :style="iconComputedStyles"
-    >
       <span
-        class="va-radio__icon__background"
-        :style="iconBackgroundComputedStyles"
-      />
-      <span
-        class="va-radio__icon__dot"
-        :style="iconDotComputedStyles"
-      />
-    </span>
+        class="va-radio__icon"
+        :style="iconComputedStyles"
+      >
+        <span
+          class="va-radio__icon__background"
+          :style="iconBackgroundComputedStyles"
+        />
+        <span
+          class="va-radio__icon__dot"
+          :style="iconDotComputedStyles"
+        />
+      </span>
 
-    <span class="va-radio__text">
-      <slot>
-        {{ computedLabel }}
-      </slot>
-    </span>
-  </label>
+      <span class="va-radio__text">
+        <slot>
+          {{ computedLabel }}
+        </slot>
+      </span>
+    </label>
+  </va-message-list-wrapper>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, computed } from 'vue'
+import { defineComponent, PropType, computed, ref } from 'vue'
 
 import { useColors } from '../../composables/useColor'
+import { VaMessageListWrapper } from '../va-input'
+import { useValidation, useValidationEmits, useValidationProps } from '../../composables/useValidation'
 
 export default defineComponent({
   name: 'VaRadio',
-  emits: ['update:modelValue', 'focus'],
+  components: { VaMessageListWrapper },
+  emits: [
+    ...useValidationEmits,
+    'update:modelValue',
+    'focus',
+  ],
   props: {
+    ...useValidationProps,
     modelValue: { type: null as any as PropType<unknown>, default: null },
     option: { type: null as any as PropType<unknown>, default: null },
     name: { type: String as PropType<string>, default: '' },
@@ -55,6 +73,7 @@ export default defineComponent({
     tabindex: { type: Number as PropType<number>, default: 0 },
   },
   setup (props, { emit }) {
+    const radioInput = ref<HTMLElement>()
     const { getColor } = useColors()
 
     const isActive = computed(() => props.modelValue === props.option)
@@ -89,6 +108,17 @@ export default defineComponent({
 
     const onFocus = (e: Event) => emit('focus', e)
 
+    const reset = () => emit('update:modelValue', false)
+
+    const focus = () => radioInput.value?.focus()
+
+    const {
+      isFocused,
+      computedError,
+      computedErrorMessages,
+      validate,
+    } = useValidation(props, emit, reset, focus)
+
     return {
       computedClass,
       isActive,
@@ -98,6 +128,12 @@ export default defineComponent({
       computedLabel,
       onClick,
       onFocus,
+
+      // Validation
+      isFocused,
+      computedError,
+      computedErrorMessages,
+      validate,
     }
   },
 })

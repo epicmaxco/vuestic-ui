@@ -1,57 +1,66 @@
 <template>
-  <div
-    class="va-file-upload"
-    :class="{ 'va-file-upload--dropzone': dropzone }"
-    :style="computedStyle"
+  <va-message-list-wrapper
+    :disabled="disabled"
+    :success="success"
+    :messages="messages"
+    :error="computedError"
+    :error-messages="computedErrorMessages"
+    :error-count="errorCount"
   >
-    <slot>
-      <div class="va-file-upload__field">
-        <div
-          class="va-file-upload__field__text"
-          v-if="dropzone"
-        >
-          {{ dropZoneText }}
-        </div>
-        <va-button
-          class="va-file-upload__field__button"
-          :disabled="disabled"
-          :color="colorComputed"
-          @change="changeFieldValue"
-          @click="callFileDialogue()"
-          :style="{ 'pointer-events': dropzoneHighlight ? 'none' : '' }"
-        >
-          {{ uploadButtonText }}
-        </va-button>
-      </div>
-    </slot>
-
-    <input
-      ref="fileInputRef"
-      type="file"
-      class="va-file-upload__field__input"
-      :accept="fileTypes"
-      :multiple="type !== 'single'"
-      :disabled="disabled"
-      @change="changeFieldValue"
-      @dragenter="dropzoneHighlight = true"
-      @dragleave="dropzoneHighlight = false"
-      tabindex="-1"
+    <div
+      class="va-file-upload"
+      :class="{ 'va-file-upload--dropzone': dropzone }"
+      :style="computedStyle"
     >
-    <va-file-upload-list
-      v-if="files.length"
-      :type="type"
-      :files="files"
-      :color="colorComputed"
-      @remove="removeFile"
-      @removeSingle="removeSingleFile"
-    />
-    <va-modal
-      v-model="modal"
-      hide-default-actions
-      title="File validation"
-      message="File type is incorrect!"
-    />
-  </div>
+      <slot>
+        <div class="va-file-upload__field">
+          <div
+            class="va-file-upload__field__text"
+            v-if="dropzone"
+          >
+            {{ dropZoneText }}
+          </div>
+          <va-button
+            class="va-file-upload__field__button"
+            :disabled="disabled"
+            :color="colorComputed"
+            @change="changeFieldValue"
+            @click="callFileDialogue()"
+            :style="{ 'pointer-events': dropzoneHighlight ? 'none' : '' }"
+          >
+            {{ uploadButtonText }}
+          </va-button>
+        </div>
+      </slot>
+
+      <input
+        ref="fileInputRef"
+        type="file"
+        class="va-file-upload__field__input"
+        :accept="fileTypes"
+        :multiple="type !== 'single'"
+        :disabled="disabled"
+        @change="changeFieldValue"
+        @dragenter="dropzoneHighlight = true"
+        @dragleave="dropzoneHighlight = false"
+        tabindex="-1"
+      >
+      <va-file-upload-list
+        v-if="files.length"
+        :type="type"
+        :files="files"
+        :color="colorComputed"
+        @remove="removeFile"
+        @removeSingle="removeSingleFile"
+      />
+      <va-modal
+        v-model="modal"
+        hide-default-actions
+        title="File validation"
+        message="File type is incorrect!"
+      />
+    </div>
+  </va-message-list-wrapper>
 </template>
 
 <script lang="ts">
@@ -61,8 +70,10 @@ import { shiftHSLAColor } from '../../services/color-config/color-functions'
 import VaButton from '../va-button'
 import VaModal from '../va-modal'
 import VaFileUploadList from './VaFileUploadList'
+import { VaMessageListWrapper } from '../va-input'
 
 import type { VaFile } from './types'
+import { useValidation, useValidationEmits, useValidationProps } from '../../composables/useValidation'
 
 export default defineComponent({
   name: 'VaFileUpload',
@@ -71,9 +82,11 @@ export default defineComponent({
     VaModal,
     VaButton,
     VaFileUploadList,
+    VaMessageListWrapper,
   },
 
   props: {
+    ...useValidationProps,
     fileTypes: { type: String as PropType<string>, default: '' },
     dropzone: { type: Boolean as PropType<boolean>, default: false },
     color: { type: String as PropType<string>, default: 'primary' },
@@ -93,7 +106,10 @@ export default defineComponent({
     },
   },
 
-  emits: ['update:modelValue'],
+  emits: [
+    ...useValidationEmits,
+    'update:modelValue',
+  ],
 
   setup (props, { emit }) {
     const modal = ref(false)
@@ -172,6 +188,16 @@ export default defineComponent({
       }
     })
 
+    const reset = () => emit('update:modelValue', false)
+    const focus = () => fileInputRef.value?.focus()
+
+    const {
+      isFocused,
+      computedError,
+      computedErrorMessages,
+      validate,
+    } = useValidation(props, emit, reset, focus)
+
     return {
       modal,
       dropzoneHighlight,
@@ -184,6 +210,12 @@ export default defineComponent({
       removeFile,
       removeSingleFile,
       callFileDialogue,
+
+      // Validation
+      isFocused,
+      computedError,
+      computedErrorMessages,
+      validate,
     }
   },
 })

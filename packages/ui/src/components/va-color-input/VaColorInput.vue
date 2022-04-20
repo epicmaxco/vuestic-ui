@@ -7,6 +7,7 @@
     />
     <va-input
       class="va-color-input__input"
+      v-bind="computedInputProps"
       v-model="valueComputed"
       :disabled="disabled"
       placeholder="input color"
@@ -20,6 +21,7 @@ import { defineComponent, PropType } from 'vue'
 import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
 import VaColorIndicator from '../va-color-indicator'
 import VaInput from '../va-input'
+import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
 
 export default defineComponent({
   name: 'VaColorInput',
@@ -40,8 +42,15 @@ export default defineComponent({
   },
   setup: (props, { emit }) => {
     const { valueComputed } = useStateful(props, emit)
+    const computedInputProps = filterComponentProps(
+      props,
+      extractComponentProps(VaInput, ['modelValue', 'disabled', 'indicator', 'stateful']),
+    )
 
-    return { valueComputed }
+    return {
+      computedInputProps,
+      valueComputed,
+    }
   },
 })
 </script>
