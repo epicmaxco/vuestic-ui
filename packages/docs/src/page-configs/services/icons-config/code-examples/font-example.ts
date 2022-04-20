@@ -23,21 +23,21 @@ const fonts = [
 `
 
 export const fontTransformationsExample = `
-from <va-icon name="fa4-phone" />
-to   <i class="fa fa-phone" style="color: #e0e0e0;"></i>
+{{ $t('all.code.aliasAndFontExample.from') }} <va-icon name="fa4-phone" />
+{{ $t('all.code.aliasAndFontExample.to') }}   <i class="fa fa-phone" style="color: #e0e0e0;"></i>
 
 // Default solid
-from <va-icon name="fa5 phone" />
-to   <i class="fas fa-phone"></i>
+{{ $t('all.code.aliasAndFontExample.from') }} <va-icon name="fa5 phone" />
+{{ $t('all.code.aliasAndFontExample.to') }}   <i class="fas fa-phone"></i>
 
 // Light
-from <va-icon name="fa5 phone l" />
-to   <i class="fal fa-phone"></i>
+{{ $t('all.code.aliasAndFontExample.from') }} <va-icon name="fa5 phone l" />
+{{ $t('all.code.aliasAndFontExample.to') }}   <i class="fal fa-phone"></i>
 
 // Duotone
-from <va-icon name="fa5 phone d" />
-to   <i class="fad fa-phone"></i>
+{{ $t('all.code.aliasAndFontExample.from') }} <va-icon name="fa5 phone d" />
+{{ $t('all.code.aliasAndFontExample.to') }}   <i class="fad fa-phone"></i>
 
-from <va-icon name="flag-gb-small" />
-to   <span class="flag-icon flag-icon-gb flag-icon-small"></span>
+{{ $t('all.code.aliasAndFontExample.from') }} <va-icon name="flag-gb-small" />
+{{ $t('all.code.aliasAndFontExample.to') }}   <span class="flag-icon flag-icon-gb flag-icon-small"></span>
 `

@@ -1,6 +1,5 @@
 <template>
   <va-parallax
-    target=".base-layout__content"
     :src="imageSrc"
     reversed
   />

@@ -1,45 +1,35 @@
 import { Ref, computed } from 'vue'
-import { TableColumn } from './useColumns'
+import { TableColumn, ITableItem, TableCell, TableRow } from '../types'
 
-export type ITableItem = Record<string, any>
-
-// the inner representation of table cells
-export interface TableCell {
-  source: any;
-  column: TableColumn;
-  value: string;
-  rowIndex: number;
+interface useRowsProps {
+  items: ITableItem[]
+  [prop: string]: unknown
 }
 
-// the inner representation of table rows
-export interface TableRow {
-  source: ITableItem;
-  initialIndex: number;
-  cells: TableCell[];
-}
-
-const buildTableCell = (rowIndex: number, column: TableColumn, source: any): TableCell => ({
-  source,
+const buildTableCell = (rowIndex: number, column: TableColumn, rowData: ITableItem): TableCell => ({
+  rowData,
+  /** @deprecated */
+  source: rowData[column.key],
   rowIndex,
   column,
-  value: source?.toString?.() || '',
+  value: rowData[column.key]?.toString?.() || '',
 })
 
 const buildTableRow = (source: ITableItem, initialIndex: number, columns: TableColumn[]): TableRow => ({
   source,
   initialIndex,
-  cells: columns.map(column => buildTableCell(initialIndex, column, source[column.key])),
+  cells: columns.map(column => buildTableCell(initialIndex, column, source)),
 })
 
 export default function useRows (
-  rawItems: Ref<ITableItem[]>,
   columns: Ref<TableColumn[]>,
+  props: useRowsProps,
 ) {
-  const rawRows = computed(() => {
-    return rawItems.value.map((rawItem, index) => buildTableRow(rawItem, index, columns.value))
+  const rowsComputed = computed(() => {
+    return props.items.map((rawItem, index) => buildTableRow(rawItem, index, columns.value))
   })
 
   return {
-    rawRows,
+    rowsComputed,
   }
 }

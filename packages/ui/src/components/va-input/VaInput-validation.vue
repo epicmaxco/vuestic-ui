@@ -7,25 +7,21 @@
     <VaInput
       v-model="value"
       label="Name"
-      :rules="[v => v === 'value' || 'Value should be \'value\'']"
+      :rules="[(v) => v === 'value' || 'Value should be \'value\'']"
     />
   </VbCard>
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component'
+import { defineComponent, ref } from 'vue'
 
 import VaInput from './index'
 
-@Options({
+export default defineComponent({
   name: 'VaInputValidation',
   components: { VaInput },
+  setup: () => ({
+    value: ref(''),
+  }),
 })
-export default class VaInputValidation extends Vue {
-  data () {
-    return {
-      value: '',
-    }
-  }
-}
 </script>

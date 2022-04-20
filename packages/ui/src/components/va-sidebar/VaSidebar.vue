@@ -12,73 +12,75 @@
 </template>
 
 <script lang="ts">
-import { Options, prop, Vue, mixins } from 'vue-class-component'
+import { defineComponent, computed, ref, PropType } from 'vue'
 
 import { getGradientBackground } from '../../services/color-config/color-functions'
 import { useColors } from '../../services/color-config/color-config'
 
-class SidebarProps {
-  color = prop<string>({ type: String, default: 'background' })
-  textColor = prop<string>({ type: String, default: undefined })
-  gradient = prop<boolean>({ type: Boolean, default: false })
-  minimized = prop<boolean>({ type: Boolean, default: false })
-  hoverable = prop<boolean>({ type: Boolean, default: false })
-  position = prop<string>({ type: String, default: 'left' })
-  width = prop<string>({ type: String, default: '16rem' })
-  minimizedWidth = prop<string>({ type: String, default: '2.5rem' })
-  modelValue = prop<boolean>({ type: Boolean, default: true })
-}
-
-const SidebarPropsMixin = Vue.with(SidebarProps)
-
-@Options({ name: 'VaSidebar' })
-export default class VaSidebar extends SidebarPropsMixin {
-  isHovered = false
-
-  get isMinimized () {
-    return this.$props.minimized || (this.$props.hoverable && !this.isHovered)
-  }
-
-  get computedStyle () {
+export default defineComponent({
+  name: 'VaSidebar',
+  props: {
+    color: { type: String, default: 'background' },
+    textColor: { type: String },
+    gradient: { type: Boolean, default: false },
+    minimized: { type: Boolean, default: false },
+    hoverable: { type: Boolean, default: false },
+    position: { type: String as PropType<'top' | 'bottom' | 'left' | 'right'>, default: 'left' },
+    width: { type: String, default: '16rem' },
+    minimizedWidth: { type: String, default: '2.5rem' },
+    modelValue: { type: Boolean, default: true },
+  },
+  setup (props) {
     const { getColor, getTextColor } = useColors()
 
-    const backgroundColor = getColor(this.color)
-    const background = this.gradient ? getGradientBackground(backgroundColor) : backgroundColor
+    const isHovered = ref(false)
 
-    const color = this.$props.textColor ? getColor(this.textColor) : getTextColor(backgroundColor)
+    const isMinimized = computed(() => props.minimized || (props.hoverable && !isHovered.value))
 
-    return {
-      color,
-      background,
-      width: this.computedWidth,
-    }
-  }
+    const computedWidth = computed(() => {
+      if (!props.modelValue) {
+        return 0
+      }
 
-  get computedWidth () {
-    if (!this.$props.modelValue) {
-      return 0
-    }
-    return this.isMinimized ? this.$props.minimizedWidth : this.$props.width
-  }
+      return isMinimized.value ? props.minimizedWidth : props.width
+    })
 
-  get computedClass () {
-    return {
+    const computedStyle = computed(() => {
+      const backgroundColor = getColor(props.color)
+      const background = props.gradient ? getGradientBackground(backgroundColor) : backgroundColor
+
+      const color = props.textColor ? getColor(props.textColor) : getTextColor(backgroundColor)
+
+      return {
+        color,
+        background,
+        width: computedWidth.value,
+      }
+    })
+
+    const computedClass = computed(() => ({
       'va-sidebar': true,
-      'va-sidebar--minimized': this.isMinimized,
-      'va-sidebar--hidden': !this.modelValue,
-      'va-sidebar--right': this.$props.position === 'right',
-    }
-  }
+      'va-sidebar--minimized': isMinimized.value,
+      'va-sidebar--hidden': !props.modelValue,
+      'va-sidebar--right': props.position === 'right',
+    }))
 
-  updateHoverState (isHovered: boolean) {
-    this.isHovered = this.$props.hoverable ? isHovered : false
-  }
-}
+    const updateHoverState = (newHoverState: boolean) => {
+      isHovered.value = props.hoverable && newHoverState
+    }
+
+    return {
+      computedClass,
+      computedStyle,
+      updateHoverState,
+    }
+  },
+})
 </script>
 
 <style lang="scss">
 @import "../../styles/resources";
-@import 'variables';
+@import "variables";
 
 .va-sidebar {
   min-height: var(--va-sidebar-min-height);

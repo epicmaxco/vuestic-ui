@@ -13,7 +13,12 @@
       class="va-image__img"
       ref="img"
     >
-      <img :style="imageStyles" :src="src" @error="handleError" @load="handleLoad" />
+      <img
+        :style="imageStyles"
+        :src="src"
+        @error="handleError"
+        @load="handleLoad"
+      />
     </div>
     <div class="va-image__overlay">
       <slot />
@@ -28,62 +33,59 @@
 </template>
 
 <script lang="ts">
-import { watch } from 'vue'
-import { Options, prop, Vue, mixins } from 'vue-class-component'
+import { defineComponent, computed, watch, PropType, ref } from 'vue'
 
-class ImageProps {
-  ratio = prop<number>({ type: [Number], default: 1 })
-  contain = prop<boolean>({ type: Boolean, default: false })
-  src = prop<string>({ type: String, required: true })
-}
-
-const ImagePropsMixin = Vue.with(ImageProps)
-
-@Options({
+export default defineComponent({
   name: 'VaImage',
   emits: ['loaded', 'error'],
-})
-export default class VaImage extends mixins(
-  ImagePropsMixin,
-) {
-  loading = true
-  loadingError = false
+  props: {
+    ratio: { type: Number as PropType<number>, default: 1 },
+    contain: { type: Boolean as PropType<boolean>, default: false },
+    src: { type: String as PropType<string>, required: true },
+  },
+  setup (props, { emit }) {
+    const loading = ref(true)
+    const loadingError = ref(false)
 
-  created () {
-    watch(() => this.src, () => {
-      this.loading = true
-      this.loadingError = false
+    const imageStyles = computed(() => ({
+      objectFit: props.contain ? 'contain' as const : 'cover' as const,
+    }))
+
+    const paddingStyles = computed(() => ({
+      paddingBottom: `${1 / props.ratio * 100}%`,
+    }))
+
+    const handleLoad = () => {
+      loading.value = false
+      emit('loaded', props.src)
+    }
+
+    const handleError = (err: Event) => {
+      loadingError.value = true
+      loading.value = false
+      emit('error', err)
+    }
+
+    watch(() => props.src, () => {
+      loading.value = true
+      loadingError.value = false
     })
-  }
 
-  get imageStyles () {
     return {
-      'object-fit': this.contain ? 'contain' : 'cover',
+      loading,
+      loadingError,
+      imageStyles,
+      paddingStyles,
+      handleLoad,
+      handleError,
     }
-  }
-
-  get paddingStyles () {
-    return {
-      'padding-bottom': `${1 / this.ratio * 100}%`,
-    }
-  }
-
-  handleLoad () {
-    this.loading = false
-    this.$emit('loaded', this.src)
-  }
-
-  handleError (err: string) {
-    this.loadingError = true
-    this.loading = false
-    this.$emit('error', err)
-  }
-}
+  },
+})
 </script>
 
 <style lang="scss">
 @import "../../styles/resources";
-@import 'variables';
+@import "variables";
 
 .va-image {
   overflow: var(--va-image-overflow);

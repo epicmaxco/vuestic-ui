@@ -39,6 +39,7 @@ class SizeProps {
   })
 }
 
+/** @deprecated */
 export class SizeMixin extends mixins(Vue.with(SizeProps)) {
   fontRegex = /(?<fontSize>\d+)(?<extension>px|rem)/i
 

@@ -75,6 +75,16 @@
       </va-breadcrumbs>
     </VbCard>
 
+    <VbCard
+      title="Vertical"
+    >
+      <va-breadcrumbs vertical>
+        <va-breadcrumbs-item label="One" />
+        <va-breadcrumbs-item label="Two" />
+        <va-breadcrumbs-item label="Three" />
+      </va-breadcrumbs>
+    </VbCard>
+
     <VbCard title="Color">
       Color:
       <va-breadcrumbs color="danger">

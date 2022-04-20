@@ -49,13 +49,10 @@ export { default as VaNavbar, VaNavbarItem } from '../components/va-navbar'
 export { default as VaPagination } from '../components/va-pagination'
 export { default as VaParallax } from '../components/va-parallax'
 export { default as VaPopover } from '../components/va-popover'
-export {
-  VaProgressBar,
-  VaProgressCircle,
-} from '../components/va-progress-bar'
+export { VaProgressBar } from '../components/va-progress-bar'
+export { VaProgressCircle } from '../components/va-progress-circle'
 export { default as VaRadio } from '../components/va-radio'
 export { default as VaRating } from '../components/va-rating'
-export { default as VaScrollbar } from '../components/va-scrollbar'
 export { default as VaSelect } from '../components/va-select'
 export { default as VaSeparator } from '../components/va-separator'
 export { default as VaSidebar, VaSidebarItem, VaSidebarItemContent, VaSidebarItemTitle } from '../components/va-sidebar'

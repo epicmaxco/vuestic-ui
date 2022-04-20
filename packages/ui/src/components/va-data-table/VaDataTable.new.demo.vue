@@ -8,7 +8,14 @@
         @row:click="rowEventType = $event.event.type, rowId = $event.item.id"
         @row:dblclick="rowEventType = $event.event.type, rowId = $event.item.id"
         @row:contextmenu="rowEventType = $event.event.type, rowId = $event.item.id"
-      />
+      >
+        <template #header(address)>Street</template>
+        <template #header(company)>Company Name</template>
+
+        <template #cell(address)="{ rowData }">{{ rowData.address.street }}</template>
+        <template #cell(company)="{ rowData }">{{ rowData.company.name }}</template>
+      </va-data-table>
+
       <va-alert class="mt-3" border="left">
         <span>
           Last row click event (id, event type):
@@ -23,13 +30,19 @@
         <template #header(address)>Street</template>
         <template #header(company)>Company Name</template>
 
-        <template #cell(address)="{ source: address }">{{ address.street }}</template>
-        <template #cell(company)="{ source:company }">{{ company.name }}</template>
+        <template #cell(address)="{ rowData }">{{ rowData.address.street }}</template>
+        <template #cell(company)="{ rowData }">{{ rowData.company.name }}</template>
       </va-data-table>
     </VbCard>
 
     <VbCard title="Show footer and append static rows everywhere">
       <va-data-table :items="items" footer-clone>
+        <template #header(address)>Street</template>
+        <template #header(company)>Company Name</template>
+
+        <template #cell(address)="{ rowData }">{{ rowData.address.street }}</template>
+        <template #cell(company)="{ rowData }">{{ rowData.company.name }}</template>
+
         <template #headerAppend>
           <tr>
             <th colspan="4">User info</th>
@@ -53,6 +66,12 @@
 
     <VbCard title="Use `colgroup` slot to set 2nd column's width to 50px">
       <va-data-table :items="items">
+        <template #header(address)>Street</template>
+        <template #header(company)>Company Name</template>
+
+        <template #cell(address)="{ rowData }">{{ rowData.address.street }}</template>
+        <template #cell(company)="{ rowData }">{{ rowData.company.name }}</template>
+
         <template #colgroup>
           <col>
           <col width="50">
@@ -72,7 +91,13 @@
         :filter="filter"
         :filter-method="customFilteringFn"
         @filtered="filteredCount = $event.length"
-      />
+      >
+        <template #header(address)>Street</template>
+        <template #header(company)>Company Name</template>
+
+        <template #cell(address)="{ rowData }">{{ rowData.address.street }}</template>
+        <template #cell(company)="{ rowData }">{{ rowData.company.name }}</template>
+      </va-data-table>
     </VbCard>
 
     <VbCard title="Use `columns` prop, enable sorting and use custom sorting function (always returns -1) for the `id` column">
@@ -99,7 +124,13 @@
         :columns="columns"
         v-model:sort-by="sortBy"
         v-model:sorting-order="sortingOrder"
-      />
+      >
+        <template #header(address)>Street</template>
+        <template #header(company)>Company Name</template>
+
+        <template #cell(address)="{ rowData }">{{ rowData.address.street }}</template>
+        <template #cell(company)="{ rowData }">{{ rowData.company.name }}</template>
+      </va-data-table>
     </VbCard>
 
     <VbCard title="Selection (bound to model)">
@@ -137,7 +168,13 @@
         v-model="selectedItems"
         :select-mode="selectMode"
         :selected-color="selectedColor"
-      />
+      >
+        <template #header(address)>Street</template>
+        <template #header(company)>Company Name</template>
+
+        <template #cell(address)="{ rowData }">{{ rowData.address.street }}</template>
+        <template #cell(company)="{ rowData }">{{ rowData.company.name }}</template>
+      </va-data-table>
     </VbCard>
 
     <VbCard title="Pagination">
@@ -151,7 +188,13 @@
         :items="items"
         :per-page="perPage"
         :current-page="currentPage"
-      />
+      >
+        <template #header(address)>Street</template>
+        <template #header(company)>Company Name</template>
+
+        <template #cell(address)="{ rowData }">{{ rowData.address.street }}</template>
+        <template #cell(company)="{ rowData }">{{ rowData.company.name }}</template>
+      </va-data-table>
     </VbCard>
   </VbDemo>
 </template>
@@ -297,6 +340,8 @@ export default defineComponent({
       { key: 'email', sortable: true },
       { key: 'name', sortable: true },
       { key: 'id', sortable: true, sortingFn: () => -1 },
+      { key: 'address', sortable: true },
+      { key: 'company', sortable: true },
     ]
 
     return {

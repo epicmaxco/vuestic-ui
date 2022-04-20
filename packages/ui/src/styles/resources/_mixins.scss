@@ -33,6 +33,11 @@
   user-select: none;
 }
 
+@mixin va-readonly() {
+  cursor: default;
+  pointer-events: none;
+}
+
 @mixin theme-button-variant($color, $background, $border, $shadow) {
   $hover-bg: lighten($background, 10%);
   $disabled-bg: darken($background, 15%);
@@ -138,31 +143,10 @@
   }
 }
 
-@mixin va-modal-transition($is-overlay: false) {
-  $modal-transition: $modal-opacity-transition, $modal-transform-transition;
-
-  @if ($is-overlay) {
-    $modal-transition: $modal-overlay-opacity-transition;
-  }
-
-  &-enter-from,
-  &-leave-to {
-    opacity: 0;
-
-    @if ($is-overlay != true) {
-      transform: translateY(-30%);
-    }
-  }
-
-  &-enter-active,
-  &-leave-active {
-    transition: $modal-transition;
-  }
-}
-
 @mixin va-scroll($color: grey) {
   &::-webkit-scrollbar {
     width: 4px;
+    height: 4px;
   }
 
   &::-webkit-scrollbar-track {
