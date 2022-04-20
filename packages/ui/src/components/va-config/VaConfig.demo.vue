@@ -110,7 +110,8 @@
       <div class="center">
         <va-rating icon="heart" empty-icon="heart_empty" stateful></va-rating>
         <va-button @click="setComponentsAllColor()">Should set dark red color on click</va-button>
-        <va-button color="#e815e1">Should stay purple</va-button>
+        <va-chip>Must change color</va-chip>
+        <va-chip color="#e815e1">Must stay purple</va-chip>
         <va-button @click="resetComponentsAllColor()">Reset componentsAll</va-button>
       </div>
     </VbCard>
@@ -167,10 +168,7 @@ import ColorMixin from '../../services/color-config/ColorMixin'
 import { useColors } from '../../services/color-config/color-config'
 import VaButton from '../va-button'
 import VaRating from '../va-rating/'
-// import VaBadge from '../va-badge'
-
-// import ConfigUsageTest from './ConfigUsageTest.vue'
-// import withConfigTransport from '../../services/config-transport/withConfigTransport'
+import VaChip from '../va-chip'
 import VaConfig from './'
 
 export default {
@@ -179,9 +177,7 @@ export default {
     VaRating,
     VaButton,
     VaConfig,
-    // VaBadge,
-    // VaConfig,
-    // ConfigUsageTest: withConfigTransport(ConfigUsageTest),
+    VaChip,
   },
   data () {
     return {
