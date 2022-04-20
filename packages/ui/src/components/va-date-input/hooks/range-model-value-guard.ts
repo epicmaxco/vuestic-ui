@@ -13,8 +13,15 @@ export type useRangeModelValueGuardProps = {
 export const useRangeModelValueGuard = (
   modelValue: Ref<VaDatePickerModelValue | undefined>,
   disabled: Ref<boolean>,
+  inputDateParse?: ((input: string | undefined | VaDatePickerModelValue) => Ref<VaDatePickerModelValue>) | undefined,
 ) => {
-  const bufferValue = ref<VaDatePickerModelValue | undefined>(modelValue.value)
+  let bufferValue: Ref<VaDatePickerModelValue | undefined>
+
+  if (inputDateParse !== undefined) {
+    bufferValue = inputDateParse(modelValue.value)
+  } else {
+    bufferValue = ref<VaDatePickerModelValue | undefined>(modelValue.value)
+  }
 
   const valueComputed = computed<VaDatePickerModelValue | undefined>({
     get: () => bufferValue.value,
@@ -48,6 +55,10 @@ export const useRangeModelValueGuard = (
 
   const reset = () => {
     if (bufferValue.value && isRange(bufferValue.value)) {
+      if (inputDateParse !== undefined) {
+        bufferValue = inputDateParse(modelValue.value)
+        return
+      }
       bufferValue.value = modelValue.value
     }
   }
