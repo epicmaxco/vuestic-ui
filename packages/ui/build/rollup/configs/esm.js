@@ -41,7 +41,7 @@ export function createESMConfig ({ input, outDir = 'dist/', minify = false, decl
         compileTemplate: false,
         preprocessStyles: true,
       }),
-      commonjsPlugin(),
+      commonjsPlugin({ include: ['tslib'] }),
       postcssPlugin({
         minimize: minify,
         plugins: [postcssImport()],
