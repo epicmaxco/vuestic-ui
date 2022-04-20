@@ -16,14 +16,9 @@ describe('ColorMixin', () => {
     expect(isColor('tomato')).toBe(false)
     expect(isColor('#123')).toBe(true)
     expect(isColor('#123FFF')).toBe(true)
-    expect(isColor('not-css-color')).toBe(false)
   })
   it('getColor should return default color', () => {
-    expect(wrapper.vm.theme.getColor('not-css-color')).toBe('#000000')
-  })
-  it('getColor should return prop color', () => {
-    // We don't translate 'green' to '#008000'.
-    expect(wrapper.vm.theme.getColor('green')).toBe('#000000')
+    expect(wrapper.vm.theme.getColor('not-css-color')).toBe('#2C82E0')
   })
 
   it('should compute color', async () => {
@@ -34,7 +29,7 @@ describe('ColorMixin', () => {
       } as any,
     )
 
-    expect(wrapper.vm.colorComputed).toBe('#000000')
+    expect(wrapper.vm.colorComputed).toBe('#2C82E0')
 
     await wrapper.setProps({ color: '#333' })
 
