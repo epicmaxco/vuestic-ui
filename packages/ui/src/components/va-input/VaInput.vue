@@ -60,14 +60,14 @@
       ref="input"
       v-bind="{ ...computedChildAttributes, ...textareaProps, ...inputEvents }"
       class="va-input__content__input"
-      :class="$attrs['input-class']"
+      :class="inputClass"
     />
 
     <input
       v-else-if="!$slots.content"
       ref="input"
       class="va-input__content__input"
-      :class="$attrs['input-class']"
+      :class="inputClass"
       v-bind="{ ...computedInputAttributes, ...inputEvents }"
       :value="computedValue"
     >
@@ -122,6 +122,7 @@ export default defineComponent({
     label: { type: String, default: '' },
     type: { type: String as PropType<'text' | 'textarea'>, default: 'text' },
     loading: { type: Boolean, default: false },
+    inputClass: { type: String, default: '' },
     // style
     color: { type: String, default: 'primary' },
     outline: { type: Boolean, default: false },
