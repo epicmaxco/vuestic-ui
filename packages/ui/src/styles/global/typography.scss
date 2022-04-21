@@ -192,11 +192,6 @@ ol.va-ordered {
   @include va-table();
 }
 
-.vue-misc {
-  margin-top: 5.625rem;
-  margin-bottom: 2rem;
-}
-
 .text-block {
   padding: 1.2rem;
   background-color: var(--va-text-block);

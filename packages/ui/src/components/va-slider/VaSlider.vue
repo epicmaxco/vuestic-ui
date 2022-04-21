@@ -323,7 +323,7 @@ export default defineComponent({
       return decimals ? Math.pow(10, decimals.length) : 1
     })
 
-    const pinsCol = computed(() => (props.max / props.step) - 1)
+    const pinsCol = computed(() => ((props.max - props.min) / props.step) - 1)
 
     const position = computed(() => {
       return Array.isArray(props.modelValue)
@@ -515,10 +515,11 @@ export default defineComponent({
       }
     }
 
+    const pinPositionStep = computed(() => props.step / (props.max - props.min) * 100)
     const getPinStyles = (pin: number) => ({
       backgroundColor: checkActivePin(pin) ? getColor(props.color) : getHoverColor(getColor(props.color)),
-      [pinPositionStyle.value]: `${pin * props.step}%`,
-      transition: hasMouseDown.value ? 'none' : 'background-color .3s ease-out .1s',
+      [pinPositionStyle.value]: `${pin * pinPositionStep.value}%`,
+      transition: hasMouseDown.value ? 'none' : 'var(--va-slider-pin-transition)',
     })
 
     const getPos = (e: MouseEvent | Touch) => {
