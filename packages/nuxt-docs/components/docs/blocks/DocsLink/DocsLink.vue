@@ -44,7 +44,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "~vuestic-ui/src/styles/resources";
+@import "vuestic-ui/styles/resources";
 
 .DocsLink__pre {
   margin-right: 0.3rem;

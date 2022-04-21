@@ -1,5 +1,8 @@
 import { defineNuxtConfig } from 'nuxt3'
 import { resolve } from 'path'
+import { optimizeLodashImports } from "@optimize-lodash/rollup-plugin";
+
+const YARN_NODE_MODULES = '../../node_modules/'
 
 // https://v3.nuxtjs.org/docs/directory-structure/nuxt.config
 export default defineNuxtConfig({
@@ -15,6 +18,12 @@ export default defineNuxtConfig({
     ]
   },
 
+  hooks: {
+    'vite:extendConfig': (config) => {
+      config.plugins.push(optimizeLodashImports())
+    },
+  },
+
   buildModules: [
     '~/modules/i18n',
   ],
@@ -25,17 +34,25 @@ export default defineNuxtConfig({
       __VUE_I18N_LEGACY_API__: false,
       __VUE_I18N_PROD_DEVTOOLS__: false
     },
-    resolve: {
-      alias: [
-        { find: /^~(.*)$/, replacement: '$1' },
-      ],
-    },
+    // resolve: {
+    //   alias: [
+    //     { find: /^(?:~\/|~)(.*).(css|scss)$/, replacement: '$1' },
+    //   ],
+    // },
   },
 
   alias: {
+    // 'vuestic-ui/styles': resolve(__dirname, YARN_NODE_MODULES, 'vuestic-ui/src/styles'),
+    // 'vuestic-ui/package.json': resolve(__dirname, YARN_NODE_MODULES, 'vuestic-ui/package.json'),
+    // 'vuestic-ui/src': resolve(__dirname, YARN_NODE_MODULES, 'vuestic-ui/src/'),
+    // 'vuestic-ui': resolve(__dirname, YARN_NODE_MODULES, 'vuestic-ui/src/main'),
     'vuestic-ui/styles': resolve(__dirname, '../ui/src/styles'),
     'vuestic-ui/package.json': resolve(__dirname, '../ui/package.json'),
     'vuestic-ui/src': resolve(__dirname, '../ui/src/'),
     'vuestic-ui': resolve(__dirname, '../ui/src/main'),
+    '@vuestic/ag-grid-theme/': resolve(__dirname, '../extensions/ag-grid-theme/src/'),
+    '~normalize.css/normalize.css': 'normalize.css/normalize.css',
+    '~ag-grid-community/': 'ag-grid-community/',
+    '~@ag-grid-community': '@ag-grid-community',
   }
 })

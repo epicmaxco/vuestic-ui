@@ -1,6 +1,6 @@
 <template>
-  <div v-if="!isLoaded">
-    Loading...
+  <div v-if="!isLoaded" class="docs-example__spinner">
+    <DocsExampleSpinner />
   </div>
   <div
     v-else
@@ -50,6 +50,7 @@
 import { ref, reactive } from "vue";
 import DocsCode from "../DocsCode/DocsCode.vue";
 import DocsNavigation from "./DocsNavigation.vue";
+import DocsExampleSpinner from "./DocsExampleLoader.vue"
 
 const { t } = useI18n();
 
@@ -100,6 +101,12 @@ watch(() => text, parse, { immediate: true });
 
 <style lang="scss">
 .docs-example {
+  &__spinner {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
   &__show-code-button {
     .va-button {
       &__content {
@@ -109,3 +116,4 @@ watch(() => text, parse, { immediate: true });
   }
 }
 </style>
+

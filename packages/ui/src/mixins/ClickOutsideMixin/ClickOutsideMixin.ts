@@ -2,7 +2,7 @@
 // 1/ https://github.com/react-bootstrap/react-overlays/blob/master/src/useRootClose.ts
 // 2/ https://github.com/mui-org/material-ui/blob/master/packages/material-ui/src/ClickAwayListener/ClickAwayListener.js
 
-import noop from 'lodash/noop'
+import noop from 'lodash/noop.js'
 import { Vue } from 'vue-class-component'
 
 import {

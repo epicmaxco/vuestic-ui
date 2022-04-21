@@ -74,7 +74,7 @@ export default defineComponent({
 
 <style lang="scss">
 
-@import '~vuestic-ui/src/styles/vuestic-styles';
+@import 'vuestic-ui/styles/vuestic-styles';
 
 #search-form {
   position: sticky;

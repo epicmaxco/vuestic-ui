@@ -77,7 +77,7 @@ import { useColors } from 'vuestic-ui';
 import { createPageRoutes } from '~~/page-configs';
 import { PageRoute } from '~~/types/page-config';
 import { TranslationString } from '~~/types/translations';
-import camelCase from 'lodash/camelCase'
+import camelCase from 'lodash/camelCase.js'
 
 type SidebarItem = PageRoute & { text: TranslationString, children: SidebarItem[], category?: string }
 
@@ -131,7 +131,7 @@ const createSidebarItems = (pages: PageRoute[]): SidebarItem[] => {
 }
 
 const sidebarItems = computed(() => createSidebarItems(pages))
-const { currentRoute, beforeEach } = useRouter()
+const { currentRoute, afterEach } = useRouter()
 
 const isActiveChildRoute = (route: PageRoute, parent: PageRoute) => {
   const childPath = `/${locale.value}/${parent.name}/${route.name}`
@@ -139,13 +139,11 @@ const isActiveChildRoute = (route: PageRoute, parent: PageRoute) => {
   return currentRoute.value.path === childPath
 }
 
-const isRouteHasActiveChild = (route: PageRoute) => {
-  const pathSteps = currentRoute.value.path.split('/').filter(Boolean).join('/')
-
-  return route.children.some(({ path }) => pathSteps.includes(path))
-}
-
 const accordionValue = ref<boolean[]>([])
+
+const isRouteHasActiveChild = (route: { path: string, children: { path: string }[] }) => {
+  return !!route.children.some(({ path }) => currentRoute.value.path.includes(path))
+}
 
 const updateAccordionValue = () => {
   accordionValue.value = sidebarItems.value.map((route, index) => {
@@ -157,7 +155,7 @@ const updateAccordionValue = () => {
   })
 }
 
-beforeEach(updateAccordionValue)
+afterEach(updateAccordionValue)
 updateAccordionValue()
 </script>
 

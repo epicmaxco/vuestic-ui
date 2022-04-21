@@ -9,7 +9,7 @@
 import { defineComponent, PropType, computed } from 'vue'
 import { TranslationString } from '~~/types/translations'
 import { getColors } from 'vuestic-ui'
-import kebabCase from 'lodash/kebabCase'
+import kebabCase from 'lodash/kebabCase.js'
 
 export default defineComponent({
   name: 'DocsAnchor',

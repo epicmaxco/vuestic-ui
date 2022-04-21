@@ -111,11 +111,9 @@ export default defineComponent({
     const sortByEmitted = ref('')
 
     const onSorted = (e: TSortedArgs) => {
-      console.log('test')
-      console.log(e)
-      // sortedRowsEmitted.value = e.items.map(row => row.id)
-      // sortingOrderEmitted.value = e.sortingOrder
-      // sortByEmitted.value = e.sortBy
+      sortedRowsEmitted.value = e.items.map(row => row.id)
+      sortingOrderEmitted.value = e.sortingOrder
+      sortByEmitted.value = e.sortBy
     }
 
     return {

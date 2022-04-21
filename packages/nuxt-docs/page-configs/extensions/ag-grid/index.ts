@@ -2,38 +2,38 @@ import { definePageConfig } from "~~/types/page-config";
 
 
 const installCommand = `
-npm install @vuestic/ag-grid-theme
+npm install @vuestic/agGrid-theme
 // $t('all.code.or')
-yarn add @vuestic/ag-grid-theme`
+yarn add @vuestic/agGrid-theme`
 
 const setClass = `<template>
-  <ag-grid-vue class='ag-theme-vuestic' ... />
+  <agGrid-vue class='ag-theme-vuestic' ... />
 </template>`
 
 const importStyles = `<style lang="scss">
-  @import "~@vuestic/ag-grid-theme";
+  @import "~@vuestic/agGrid-theme";
 </style>`
 
 // const dependencies: Dependencies = {
-//   '@vuestic/ag-grid-theme': 'latest',
+//   '@vuestic/agGrid-theme': 'latest',
 // }
 
 const block = useDocsBlocks(import.meta);
 
 export default definePageConfig({
   blocks: [
-    block.title('ag-grid.title'),
-    block.paragraph('ag-grid.description'),
-    block.paragraph('ag-grid.otherTables.text'),
-    block.link('ag-grid.otherTables.htmlTable', '/ui-elements/table'),
-    block.link('ag-grid.otherTables.dataTable', '/ui-elements/data-table'),
-    block.subtitle('ag-grid.installation', 'h5'),
-    block.paragraph('ag-grid.dependencies'),
+    block.title('agGrid.title'),
+    block.paragraph('agGrid.description'),
+    block.paragraph('agGrid.otherTables.text'),
+    block.link('agGrid.otherTables.htmlTable', '/ui-elements/table'),
+    block.link('agGrid.otherTables.dataTable', '/ui-elements/data-table'),
+    block.subtitle('agGrid.installation', 'h5'),
+    block.paragraph('agGrid.dependencies'),
     block.code(installCommand, 'bash'),
-    block.paragraph('ag-grid.importStyles'),
+    block.paragraph('agGrid.importStyles'),
     block.code(setClass, 'html'),
     block.code(importStyles, 'scss'),
-    block.alert('ag-grid.attention', 'warning'),
+    block.alert('agGrid.attention', 'warning'),
     block.exampleBlock('Default'),
     block.exampleBlock('Styles'),
     block.exampleBlock('Filter'),

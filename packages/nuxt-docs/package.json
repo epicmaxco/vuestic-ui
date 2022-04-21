@@ -8,6 +8,7 @@
     "start": "node .output/server/index.mjs"
   },
   "devDependencies": {
+    "@optimize-lodash/rollup-plugin": "^3.0.0",
     "@types/markdown-it": "^12.2.3",
     "nuxt3": "latest",
     "vue-i18n": "9.2.0-beta.32"
