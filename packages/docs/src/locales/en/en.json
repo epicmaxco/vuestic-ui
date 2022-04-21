@@ -673,6 +673,7 @@
         "canBeFocused": "If false, then input can not be focused using mouse or keyboard",
         "requiredMark": "Adds required mark to the label",
         "immediateValidation": "Sets the validation to be performed when the component is mounted",
+        "inputClass": "Classes for `input` (not its wrapper)",
         "pattern": "The pattern prop specifies a regular expression the input value should match",
         "inputmode": "The inputmode prop is an enumerated prop that hints at the type of data that might be entered by the user while editing the element or its contents. This alows a browser to display an apropriate virtual keyboard"
       },
@@ -2316,6 +2317,11 @@
       "textarea": {
         "title": "Textarea",
         "text": "Support a multi-line `va-input`, useful for larger amounts of text. You can make textarea auto-expandable or manually control min/max number of lines."
+      },
+      "inputClass": {
+        "title": "Input Class",
+        "text": "To assign a class directly to input, rather than its wrapper, use the `input-class` property. For example, you can use the build-in component class (or any other class you've created) to align the input text &mdash; `text--center` and `text--right` to align the center or right.",
+        "exampleTexts": ["This input must have right-aligned red text with bottom indent.", "Native input element must have red text. VaInput wrapper has a blue border."]
       },
       "mask": {
         "title": "Mask",
