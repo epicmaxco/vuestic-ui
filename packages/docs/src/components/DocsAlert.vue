@@ -1,6 +1,6 @@
 <template>
   <div class="docs-alert my-3">
-    <va-alert :color="color">
+    <va-alert :color="color" outline>
       <MarkdownView tag="span" inline :value="$tie(text)" />
     </va-alert>
   </div>

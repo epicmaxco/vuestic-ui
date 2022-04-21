@@ -38,7 +38,9 @@
           class="va-switch__track"
           :style="trackStyle"
         >
-          <div class="va-switch__track-label">
+          <div
+            v-if="computedInnerLabel || $slots.innerLabel"
+            class="va-switch__track-label">
             <slot name="innerLabel">
               {{ computedInnerLabel }}
             </slot>
@@ -56,6 +58,7 @@
         </div>
       </div>
       <div
+        v-if="computedLabel || $slots.default"
         class="va-switch__label"
         ref="label"
         @blur="onBlur"
@@ -144,6 +147,7 @@ export default defineComponent({
       'va-switch--small': props.size === 'small',
       'va-switch--large': props.size === 'large',
       'va-switch--disabled': props.disabled,
+      'va-switch--readonly': props.readonly,
       'va-switch--left-label': props.leftLabel,
       'va-switch--error': computedError.value,
       'va-switch--on-keyboard-focus': hasKeyboardFocus.value,
@@ -246,6 +250,15 @@ export default defineComponent({
 
   &--disabled {
     @include va-disabled;
+  }
+
+  &--readonly {
+    @include va-readonly;
+
+    .va-switch__label {
+      cursor: initial;
+      pointer-events: auto;
+    }
   }
 
   &--left-label {

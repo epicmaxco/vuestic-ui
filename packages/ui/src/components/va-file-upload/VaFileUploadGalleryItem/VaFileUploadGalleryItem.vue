@@ -54,6 +54,7 @@
 <script lang="ts">
 import { defineComponent, onMounted, PropType, ref, watch, computed } from 'vue'
 
+import VaButton from '../../va-button'
 import VaFileUploadUndo from '../VaFileUploadUndo'
 import { colorToRgba } from '../../../services/color-config/color-functions'
 
@@ -61,7 +62,7 @@ import type { ConvertedFile } from '../types'
 
 export default defineComponent({
   name: 'VaFileUploadGalleryItem',
-  components: { VaFileUploadUndo },
+  components: { VaFileUploadUndo, VaButton },
   emits: ['remove'],
   props: {
     file: { type: Object as PropType<ConvertedFile>, default: null },

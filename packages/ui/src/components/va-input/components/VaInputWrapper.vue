@@ -233,9 +233,9 @@ export default defineComponent({
   }
 
   &__content-wrapper {
+    width: stretch;
     display: flex;
     align-items: center;
-    width: 100%;
 
     .va-input__content {
       width: 100%;
@@ -307,8 +307,8 @@ export default defineComponent({
 
   &--labeled {
     .va-input__content-wrapper {
-      padding-top: 12px;
       height: 100%;
+      padding-top: 12px;
       align-items: flex-end;
     }
 

@@ -34,9 +34,7 @@ export function useSelectableList (props: SelectableListProps) {
   }
 
   const getOptionProperty = (option: SelectableOption, selector: StringOrFunction) => {
-    if (!selector) { return option }
-
-    return isStringOrNumber(option)
+    return !selector || isStringOrNumber(option)
       ? option
       : getProp(option, selector)
   }
@@ -47,8 +45,8 @@ export function useSelectableList (props: SelectableListProps) {
 
     return props.options.find((option: SelectableOption) => value === getValue(option)) || value
   }
-  const getText = (option: SelectableOption) => getOptionProperty(option, props.textBy)
-  const getDisabled = (option: SelectableOption) => getOptionProperty(option, props.disabledBy)
+  const getText = (option: SelectableOption): string => getOptionProperty(option, props.textBy)
+  const getDisabled = (option: SelectableOption): boolean => getOptionProperty(option, props.disabledBy)
   const getTrackBy = (option: SelectableOption) => getOptionProperty(option, props.trackBy)
   const getGroupBy = (option: SelectableOption) => getOptionProperty(option, props.groupBy)
 

@@ -49,7 +49,9 @@ export type ITableItem = Record<string, any>
 
 // the inner representation of table cells
 export interface TableCell {
-  source: any
+  /** @deprecated */
+  source?: any;
+  rowData: ITableItem;
   column: TableColumn
   value: string
   rowIndex: number

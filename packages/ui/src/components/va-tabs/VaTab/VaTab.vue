@@ -1,6 +1,7 @@
 <template>
   <component
     class="va-tab"
+    ref="tabElement"
     :is="tagComputed"
     :href="hrefComputed"
     :target="target"
@@ -16,7 +17,7 @@
   >
     <div
       class="va-tab__content"
-      v-on="context.keyboardFocusListeners"
+      v-on="keyboardFocusListeners"
       :tabindex="tabIndexComputed"
       @focus="onFocus()"
       @click="onTabClick()"
@@ -39,111 +40,158 @@
 </template>
 
 <script lang="ts">
-import { inject } from 'vue'
-import { Options, mixins, prop, Vue, setup } from 'vue-class-component'
-
-import ColorMixin from '../../../services/color-config/ColorMixin'
-import useKeyboardOnlyFocus from '../../../composables/useKeyboardOnlyFocus'
-import { RouterLinkMixin } from '../../../mixins/RouterLinkMixin/RouterLinkMixin'
+import {
+  computed,
+  defineComponent,
+  inject,
+  onBeforeUnmount,
+  onMounted,
+  ref,
+} from 'vue'
 import VaIcon from '../../va-icon'
+import { useRouterLink, useRouterLinkProps } from '../../../composables/useRouterLink'
+import useKeyboardOnlyFocus from '../../../composables/useKeyboardOnlyFocus'
+import { useColor } from '../../../composables/useColor'
+import { TabsViewKey, TabsView, TabComponent } from '../types'
 
-import { TabsServiceKey, TabsService } from '../VaTabs.vue'
-
-type Context = {
-  tabsService: TabsService;
-  hasKeyboardFocus: boolean;
-  keyboardFocusListeners: Record<string, () => void>;
-}
-
-class TabProps {
-  color = prop<string>({ type: String, default: undefined })
-  icon = prop<string>({ type: String, default: null })
-  label = prop<string>({ type: String, default: null })
-  disabled = prop<boolean>({ type: Boolean })
-  name = prop<string | number>({ type: [String, Number] })
-  tag = prop<string>({ type: String, default: 'div' })
-}
-
-const TabPropsMixin = Vue.with(TabProps)
-
-@Options({
+export default defineComponent({
   name: 'VaTab',
   components: { VaIcon },
   emits: ['click', 'keydown-enter', 'focus'],
-})
-export default class VaTab extends mixins(
-  RouterLinkMixin,
-  TabPropsMixin,
-  ColorMixin,
-) {
-  id: string | number | null = null
-  isActive = false
-  rightSidePosition = 0
-  leftSidePosition = 0
-  hoverState = false
 
-  context: Context = setup(() => {
-    const tabsService = inject(TabsServiceKey) as TabsService
+  props: {
+    ...useRouterLinkProps,
+    color: {
+      type: String,
+      default: '',
+    },
+    icon: {
+      type: String,
+      default: '',
+    },
+    label: {
+      type: String,
+      default: '',
+    },
+    disabled: {
+      type: Boolean,
+    },
+    name: {
+      type: [String, Number],
+    },
+    tag: {
+      type: String,
+      default: 'div',
+    },
+  },
 
+  setup: (props, { emit }) => {
+    const tabElement = ref<HTMLElement | null>(null)
+
+    const isActive = ref(false)
+    const hoverState = ref(false)
+    const rightSidePosition = ref(0)
+    const leftSidePosition = ref(0)
     const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
+    const { tagComputed, hrefComputed, isActiveRouterLink } = useRouterLink(props)
+    const { colorComputed } = useColor(props)
+    const classComputed = computed(() => ({ 'va-tab--disabled': props.disabled }))
+    const {
+      parentDisabled,
+      selectTab,
+      moveToTab,
+      registerTab,
+      unregisterTab,
+    } = inject<TabsView>(TabsViewKey, {
+      parentDisabled: false,
+      tabsList: [],
+      selectTab: (tab: TabComponent) => tab,
+      moveToTab: (tab: TabComponent) => tab,
+      registerTab: (tab: TabComponent) => tab,
+      unregisterTab: (tab: TabComponent) => tab,
+    })
+    const tabIndexComputed = computed(() => (props.disabled || parentDisabled) ? -1 : 0)
+
+    const computedStyle = computed(() => ({
+      color: hasKeyboardFocus.value || hoverState.value || isActive.value ? colorComputed.value : 'inherit',
+    }))
+
+    const updateHoverState = (isHover: boolean) => {
+      hoverState.value = isHover
+    }
+
+    const updateSidePositions = () => {
+      const componentOffsetLeft = tabElement.value?.offsetLeft || 0
+      const componentOffsetWidth = tabElement.value?.offsetWidth || 0
+
+      rightSidePosition.value = componentOffsetLeft + componentOffsetWidth
+      leftSidePosition.value = componentOffsetLeft
+    }
+
+    const onTabClick = () => {
+      selectTab(tabComponent)
+      emit('click')
+    }
+
+    const onTabKeydown = () => {
+      selectTab(tabComponent)
+      emit('keydown-enter')
+    }
+
+    const onFocus = () => {
+      if (hasKeyboardFocus.value) {
+        moveToTab(tabComponent)
+      }
+
+      emit('focus')
+    }
+
+    const tabComponent: TabComponent = {
+      name: computed(() => props.name),
+      id: null,
+      tabElement,
+      isActive,
+      tabIndexComputed,
+      isActiveRouterLink,
+      rightSidePosition,
+      leftSidePosition,
+      onTabClick,
+      onTabKeydown,
+      onFocus,
+      updateSidePositions,
+    }
+
+    onMounted(() => {
+      registerTab(tabComponent)
+    })
+
+    onBeforeUnmount(() => {
+      unregisterTab(tabComponent)
+    })
 
     return {
-      tabsService,
+      tabElement,
+      isActive,
+      hoverState,
       hasKeyboardFocus,
       keyboardFocusListeners,
+      tagComputed,
+      hrefComputed,
+      isActiveRouterLink,
+      colorComputed,
+      classComputed,
+      computedStyle,
+      tabIndexComputed,
+      rightSidePosition,
+      leftSidePosition,
+      updateHoverState,
+      updateSidePositions,
+      onTabClick,
+      onTabKeydown,
+      onFocus,
     }
-  })
-
-  get classComputed () {
-    return {
-      'va-tab--disabled': this.$props.disabled,
-    }
-  }
-
-  get computedStyle () {
-    return {
-      color: this.context.hasKeyboardFocus || this.hoverState || this.isActive ? this.colorComputed : 'inherit',
-    }
-  }
-
-  get tabIndexComputed () {
-    return (this.$props.disabled || this.context.tabsService.disabled) ? -1 : 0
-  }
-
-  onTabClick () {
-    this.context.tabsService.tabClick(this)
-    this.$emit('click')
-  }
-
-  onTabKeydown () {
-    this.context.tabsService.tabPressEnter(this)
-    this.$emit('keydown-enter')
-  }
-
-  onFocus () {
-    if (this.context.hasKeyboardFocus) {
-      this.context.tabsService.tabFocus(this)
-    }
-    this.$emit('focus')
-  }
-
-  updateHoverState (isHover: boolean) {
-    this.hoverState = isHover
-  }
-
-  updateSidePositions () {
-    this.rightSidePosition = this.$el.offsetLeft + this.$el.offsetWidth
-    this.leftSidePosition = this.$el.offsetLeft
-  }
-
-  beforeMount () {
-    this.context.tabsService.register(this)
-  }
-
-  beforeUnmount () {
-    this.context.tabsService.unregister(this)
-  }
-}
+  },
+})
 </script>
 
 <style lang="scss">

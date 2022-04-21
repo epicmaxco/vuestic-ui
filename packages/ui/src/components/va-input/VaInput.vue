@@ -123,6 +123,9 @@ export default defineComponent({
     type: { type: String as PropType<'text' | 'textarea'>, default: 'text' },
     loading: { type: Boolean, default: false },
     inputClass: { type: String, default: '' },
+    pattern: { type: String },
+    inputmode: { type: String, default: 'text' },
+
     // style
     color: { type: String, default: 'primary' },
     outline: { type: Boolean, default: false },
@@ -209,7 +212,7 @@ export default defineComponent({
 
     const computedInputAttributes = computed(() => ({
       ...computedChildAttributes.value,
-      ...pick(props, ['type', 'tabindex', 'disabled', 'readonly', 'placeholder']),
+      ...pick(props, ['type', 'tabindex', 'disabled', 'readonly', 'placeholder', 'pattern', 'inputmode']),
     }) as InputHTMLAttributes)
 
     return {

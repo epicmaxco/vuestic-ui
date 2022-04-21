@@ -25,7 +25,7 @@ import { defineComponent, PropType, ref, Ref, computed, onMounted, onBeforeUnmou
 export default defineComponent({
   name: 'VaParallax',
   props: {
-    target: { type: [Object, String] as PropType<Element | string>, default: '' },
+    target: { type: [Object, String] as PropType<Element | string | undefined> },
     src: { type: String as PropType<string>, default: '', required: true },
     alt: { type: String as PropType<string>, default: 'parallax' },
     height: { type: Number as PropType<number>, default: 400 },
@@ -57,10 +57,27 @@ export default defineComponent({
 
     const rootElement: Ref<HTMLElement | null> = ref(null)
     const targetElement = computed(() => {
-      return typeof props.target === 'string'
-        ? document.querySelector(props.target)
-        : props.target || rootElement.value?.parentElement
+      if (typeof props.target !== 'string') {
+        return getScrollableParent(rootElement.value?.parentElement)
+      }
+
+      const element = document.querySelector(props.target)
+
+      if (element) { return element }
+
+      throw new Error('VaParallax target prop got wrong selector. Target is null')
     })
+    const getScrollableParent = (element?: Element | null): Element | null => {
+      if (!element) {
+        return document.body
+      }
+
+      if (element.scrollHeight > element.clientHeight) {
+        return element
+      }
+
+      return getScrollableParent(element.parentElement)
+    }
 
     const img: Ref<HTMLImageElement | null> = ref(null)
     const imgHeight = computed(() => img.value?.naturalHeight || 0)
