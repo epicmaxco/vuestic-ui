@@ -1,6 +1,16 @@
 <template>
+  <va-tabs v-if="!isString" v-model="index">
+    <template #tabs>
+      <va-tab
+        v-for="tab in tabs"
+        :key="tab"
+      >
+        {{ tab }}
+      </va-tab>
+    </template>
+  </va-tabs>
   <prism-wrapper
-    :code="formattedCode"
+    :code="contents[index-1]"
     :lang="$props.language"
     class="DocsCode"
   />
@@ -16,10 +26,36 @@ export default defineComponent({
   components: { PrismWrapper },
   props: {
     language: { type: String as PropType<string>, default: 'javascript' },
-    code: { type: String as PropType<string>, default: '' },
+    code: { type: [Object, String] as PropType<Record<string, string> | string>, default: '' },
   },
   setup (props) {
-    const formattedCode = computed(() => applyTranslations(props.code.replace(/^\n|\n$/g, '')))
+    const isString = computed(() => typeof props.code === 'string')
+
+    const tabs = computed(() => {
+      const result: Array<string> = []
+      if (isString.value) {
+        return result
+      } else {
+        for (const key of Object.keys(props.code)) {
+          result.push(key)
+        }
+        return result
+      }
+    })
+
+    const contents = computed(() => {
+      const result: Array<string> = []
+      if (isString.value) {
+        result.push(applyTranslations(props.code.replace(/^\n|\n$/g, '')))
+      } else {
+        for (const key of tabs.value) {
+          result.push(applyTranslations(props.code[key].replace(/^\n|\n$/g, '')))
+        }
+      }
+      return result
+    })
+
+    const index = ref(1)
 
     const doShowCode = ref(true)
 
@@ -30,7 +66,7 @@ export default defineComponent({
 
     watch(() => props.code, forceUpdate, { immediate: true })
 
-    return { formattedCode }
+    return { isString, tabs, contents, index }
   },
 })
 </script>
