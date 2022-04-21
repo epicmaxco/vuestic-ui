@@ -14,7 +14,7 @@ export default definePageConfig({
     block.subtitle("all.examples"),
     block.exampleBlock("Default"),
 
-    block.subtitle("dataTable.examples.slots.title"),
+    block.subtitle("dataTable.examples.slots.title", 'h5'),
     block.paragraph("dataTable.examples.slots.text[0]"),
     block.paragraph("dataTable.examples.slots.text[1]"),
     block.example("CustomSlots"),

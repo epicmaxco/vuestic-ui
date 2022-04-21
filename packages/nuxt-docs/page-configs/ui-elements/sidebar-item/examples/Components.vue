@@ -12,7 +12,7 @@
         >
           <va-sidebar-item-content>
             <va-sidebar-item-title>
-              {{ $tie(route.displayName) }}
+              {{ tie(route.displayName) }}
             </va-sidebar-item-title>
 
             <va-icon
@@ -30,7 +30,7 @@
         >
           <va-sidebar-item-content>
             <va-sidebar-item-title>
-              {{ $tie(child.displayName) }}
+              {{ tie(child.displayName) }}
             </va-sidebar-item-title>
           </va-sidebar-item-content>
         </va-sidebar-item>
@@ -49,6 +49,7 @@ declare type DemoRoute = {
 };
 
 export default defineComponent({
+  setup: () => useI18n(),
   data() {
     return {
       accordionValue: [false, true],

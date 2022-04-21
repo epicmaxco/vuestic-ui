@@ -93,14 +93,14 @@ export const useDocsBlocks = (meta: ImportMeta) => {
       setup: () => ({ tableData, columns })
     }),
     /** @notice Make sure to import component without `withTransportConfig`. */
-    api: (component: any) => defineBlock({
+    api: (component: any, options?: any) => defineBlock({
       component: 'DocsComponentApi',
       setup: () => {
         const { getConfig } = usePageConfig()
 
         const { manualApi } = getConfig(path)
 
-        return { component, apiOptions: manualApi }
+        return { component, apiOptions: options || manualApi }
       }
     }),
     list: (translationStringList: TranslationString[]) => defineBlock({

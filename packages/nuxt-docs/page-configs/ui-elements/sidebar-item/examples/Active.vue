@@ -7,7 +7,7 @@
   >
     <va-sidebar-item-content>
       <va-sidebar-item-title>
-        {{ $tie(route.name) }}
+        {{ tie(route.name) }}
       </va-sidebar-item-title>
     </va-sidebar-item-content>
   </va-sidebar-item>
@@ -17,6 +17,7 @@
 import { defineComponent } from "vue";
 
 export default defineComponent({
+  setup: () => useI18n(),
   data() {
     return {
       items: [

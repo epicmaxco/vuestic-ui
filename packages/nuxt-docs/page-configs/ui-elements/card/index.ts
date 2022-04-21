@@ -12,27 +12,27 @@ export default definePageConfig({
 
     block.exampleBlock("Default"),
 
-    block.subtitle("card.examples.colorAndGradient.title"),
+    block.subtitle("card.examples.colorAndGradient.title", 'h5'),
     block.example("ColorAndGradient"),
 
     block.exampleBlock("Tag"),
 
-    block.subtitle("card.examples.borderAndShape.title"),
+    block.subtitle("card.examples.borderAndShape.title", 'h5'),
     block.example("BorderAndShape"),
 
-    block.subtitle("card.examples.disabled.title"),
+    block.subtitle("card.examples.disabled.title", 'h5'),
     block.example("Disabled"),
 
-    block.subtitle("card.examples.link.title"),
+    block.subtitle("card.examples.link.title", 'h5'),
     block.example("Link"),
 
-    block.subtitle("card.examples.stripe.title"),
+    block.subtitle("card.examples.stripe.title", 'h5'),
     block.example("Stripe"),
 
-    block.subtitle("card.examples.image.title"),
+    block.subtitle("card.examples.image.title", 'h5'),
     block.example("Image"),
 
-    block.subtitle("card.examples.actions.title"),
+    block.subtitle("card.examples.actions.title", 'h5'),
     block.paragraph("card.examples.actions.purpose"),
     block.paragraph("card.examples.actions.props"),
     block.paragraph("card.examples.actions.values"),

@@ -25,7 +25,7 @@ export default definePageConfig({
     block.api(VaBreadcrumbsItem),
 
     block.subtitle("all.faq"),
-    block.subtitle("breadcrumbs.faq.questions[0].question"),
+    block.subtitle("breadcrumbs.faq.questions[0].question", 'h5'),
     block.paragraph("breadcrumbs.faq.questions[0].answer"),
   ],
   manualApi: {

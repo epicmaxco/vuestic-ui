@@ -375,10 +375,10 @@ export default defineComponent({
 
     const showNoDataFilteredHtml = computed(() => paginatedRows.value.length === 0)
 
-    const onRowClickHandler = (name: emitNames, $event: Event, row: TableRow) => {
+    const onRowClickHandler = (name: emitNames, event: Event, row: TableRow) => {
       if (props.clickable) {
         emit(name, {
-          event: $event,
+          event,
           item: row.source,
           itemIndex: row.initialIndex,
         })

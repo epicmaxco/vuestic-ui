@@ -1,5 +1,5 @@
 <template>
-  <DocsHeadline :source="title" tag="h3" />
+  <DocsHeadline :source="title" tag="h5" />
   <MarkdownView v-if="text" :source="text" />
   <DocsExample :component="component" :path="path" />
 </template>

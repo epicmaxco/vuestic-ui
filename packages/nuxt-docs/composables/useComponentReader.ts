@@ -28,7 +28,7 @@ const getComponent = (path: string, componentName: string) => {
   const key = `../page-configs/${path}/${componentName}.vue`
 
   if (!components[key]) {
-    throw new Error('Unable to locate component')
+    throw new Error(`Component "${key}" was not found`)
   }
 
   return components[key]

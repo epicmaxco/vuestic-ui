@@ -9,19 +9,19 @@ export default definePageConfig({
     block.paragraph("accordion.summaryText"),
 
     block.subtitle("all.examples"),
-    block.subtitle("accordion.examples.default.title"),
+    block.subtitle("accordion.examples.default.title", 'h5'),
     block.paragraph("accordion.examples.default.text"),
     block.example("Default"),
 
-    block.subtitle("accordion.examples.multiply.title"),
+    block.subtitle("accordion.examples.multiply.title", 'h5'),
     block.paragraph("accordion.examples.multiply.text"),
     block.example("Multiply"),
 
-    block.subtitle("accordion.examples.inset.title"),
+    block.subtitle("accordion.examples.inset.title", 'h5'),
     block.paragraph("accordion.examples.inset.text"),
     block.example("Inset"),
 
-    block.subtitle("accordion.examples.popout.title"),
+    block.subtitle("accordion.examples.popout.title", 'h5'),
     block.paragraph("accordion.examples.popout.text"),
     block.example("Popout"),
 

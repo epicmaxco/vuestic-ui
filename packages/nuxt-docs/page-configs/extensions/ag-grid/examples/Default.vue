@@ -10,7 +10,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts" setup>
 import { AgGridVue } from '@ag-grid-community/vue3'
 import { ClientSideRowModelModule } from '@ag-grid-community/client-side-row-model'
 
