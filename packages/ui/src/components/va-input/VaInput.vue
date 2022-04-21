@@ -60,14 +60,12 @@
       ref="input"
       v-bind="{ ...computedChildAttributes, ...textareaProps, ...inputEvents }"
       class="va-input__content__input"
-      :class="inputClass"
     />
 
     <input
       v-else-if="!$slots.content"
       ref="input"
       class="va-input__content__input"
-      :class="inputClass"
       v-bind="{ ...computedInputAttributes, ...inputEvents }"
       :value="computedValue"
     >
@@ -204,6 +202,7 @@ export default defineComponent({
 
     const computedChildAttributes = computed(() => ({
       ariaLabel: props.label,
+      class: props.inputClass,
       ...omit(attrs, ['class', 'style']),
     }) as InputHTMLAttributes)
 
