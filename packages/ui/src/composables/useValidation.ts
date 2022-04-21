@@ -5,7 +5,6 @@ import isString from 'lodash/isString'
 import { useSyncProp } from './useSyncProp'
 import { FormServiceKey } from '../components/va-form/consts'
 import { useFocus } from './useFocus'
-import { valid } from 'semver'
 
 type ValidationRule = (() => any | string)
 
@@ -88,7 +87,6 @@ export const useValidation = (
     if (promises.length) {
       Promise.all(promises)
         .then(promisedRules => promisedRules.forEach(validationResultHandler))
-        .catch(e => { throw new Error(e) })
         .finally(() => {
           computedErrorMessages.value = [...errorMessages]
           computedError.value = error
