@@ -17,6 +17,7 @@ class AlignMixinProps {
   })
 }
 
+/** @deprecated */
 export class AlignMixin extends Vue.with(AlignMixinProps) {
   get alignComputed () {
     return {

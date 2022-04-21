@@ -9,6 +9,7 @@ class Props {
   })
 }
 
+/** @deprecated */
 @Options({})
 class ColorMixin extends Vue.with(Props) {
   hasColorThemeMixin!: boolean

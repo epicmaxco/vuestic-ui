@@ -35,8 +35,10 @@ export default defineComponent({
     }
 
     const createSeparatorComponent = () => {
-      // Temp fix for https://github.com/vuejs/vue-next/issues/3666. Move `separatorNode` outside this method.
-      const separatorNode = (slots.separator ? slots.separator() : 0) || [props.separator]
+      // Temp fix for https://github.com/intlify/vue-i18n-next/issues/412
+      // `separatorNode` can be moved outside this method after update vuestic's minimal vue version to 3.1.0
+      // testing: have to monitor errors after leaving breadcrumbs page in doc
+      const separatorNode = slots.separator ? slots.separator() : [props.separator]
 
       return h('span', {
         class: ['va-breadcrumbs__separator'],

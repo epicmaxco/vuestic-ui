@@ -60,7 +60,7 @@ export default defineComponent({
     }))
 
     const cardStyles = computed(() => {
-      const color = props.dark ? getColor(props.color || 'dark') : getColor(props.color, 'var(--va-white)')
+      const color = props.dark ? getColor(props.color || 'dark') : getColor(props.color, 'white')
 
       if (props.gradient && props.color) {
         return {
@@ -120,9 +120,7 @@ export default defineComponent({
   }
 
   &--disabled {
-    opacity: 0.6;
-    pointer-events: none;
-    user-select: none;
+    @include va-disabled;
   }
 
   &--link {

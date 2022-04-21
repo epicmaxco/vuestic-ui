@@ -42,7 +42,7 @@ export default defineComponent({
     options: { type: Array as PropType<any[]>, default: () => [] },
     color: { type: String as PropType<string>, default: 'primary' },
     textColor: { type: String as PropType<string>, default: undefined },
-    activeButtonTextColor: { type: String as PropType<string>, default: 'var(--va-white)' },
+    activeButtonTextColor: { type: String as PropType<string>, default: 'white' },
     modelValue: { type: [String, Number] as PropType<string | number>, default: '' },
     outline: { type: Boolean as PropType<boolean>, default: false },
     flat: { type: Boolean as PropType<boolean>, default: false },

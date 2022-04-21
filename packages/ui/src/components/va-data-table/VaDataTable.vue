@@ -166,7 +166,7 @@
                 <slot
                   v-if="`cell(${cell.column.key})` in $slots"
                   :name="`cell(${cell.column.key})`"
-                  v-bind="{ ...cell, cells: row.cells }"
+                  v-bind="cell"
                 />
 
                 <slot v-else name="cell" v-bind="cell">

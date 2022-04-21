@@ -13,7 +13,7 @@ export type StatefulProps<T> = {
  */
 export const useStatefulProps = {
   stateful: { type: Boolean as PropType<boolean>, default: false },
-  modelValue: { type: undefined as any as PropType<unknown> },
+  modelValue: { type: undefined as any },
 }
 
 export const useStatefulEmits = ['update:modelValue']

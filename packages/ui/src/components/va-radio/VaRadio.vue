@@ -38,17 +38,17 @@
 
 <script lang="ts">
 import { defineComponent, PropType, computed } from 'vue'
-
 import { useColors } from '../../composables/useColor'
+import { useFormProps, useForm } from '../../composables/useForm'
 
 export default defineComponent({
   name: 'VaRadio',
   emits: ['update:modelValue', 'focus'],
   props: {
+    ...useFormProps,
     modelValue: { type: null as any as PropType<unknown>, default: null },
     option: { type: null as any as PropType<unknown>, default: null },
     name: { type: String as PropType<string>, default: '' },
-    disabled: { type: Boolean as PropType<boolean>, default: false },
     label: { type: String as PropType<string>, default: '' },
     leftLabel: { type: Boolean as PropType<boolean>, default: false },
     color: { type: String as PropType<string>, default: 'primary' },
@@ -57,11 +57,14 @@ export default defineComponent({
   setup (props, { emit }) {
     const { getColor } = useColors()
 
+    const { createComputedClass } = useForm(props)
+    const formComputedClasses = createComputedClass('va-radio')
+
     const isActive = computed(() => props.modelValue === props.option)
 
     const computedClass = computed(() => ({
-      'va-radio--disabled': props.disabled,
       'va-radio--left-label': props.leftLabel,
+      ...formComputedClasses.value,
     }))
 
     const iconBackgroundComputedStyles = computed(() => ({
@@ -85,7 +88,10 @@ export default defineComponent({
 
     const computedLabel = computed(() => props.label || props.option)
 
-    const onClick = (e: Event) => emit('update:modelValue', props.option, e)
+    const onClick = (e: Event) => {
+      if (props.readonly || props.disabled) { return }
+      emit('update:modelValue', props.option, e)
+    }
 
     const onFocus = (e: Event) => emit('focus', e)
 
@@ -124,6 +130,16 @@ export default defineComponent({
 
   &--disabled {
     cursor: var(--va-radio-disabled-cursor);
+  }
+
+  &--readonly {
+    @include va-readonly;
+
+    .va-radio--left-label,
+    .va-radio__text {
+      cursor: initial;
+      pointer-events: auto;
+    }
   }
 
   &--left-label {
