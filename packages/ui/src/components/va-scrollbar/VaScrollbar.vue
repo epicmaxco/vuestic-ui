@@ -107,7 +107,7 @@ export default {
     },
     scroll (e) {
       let delta = (e.deltaY * 0.01 * this.speed)
-      if (navigator?.userAgent?.toLowerCase().indexOf('firefox') > -1) {
+      if (navigator?.userAgent?.toLowerCase().includes('firefox')) {
         delta *= 10
       }
       this.setVertical(delta)
