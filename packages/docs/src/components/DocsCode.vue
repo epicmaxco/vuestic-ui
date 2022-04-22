@@ -32,7 +32,7 @@ export default defineComponent({
     const isString = computed(() => typeof props.code === 'string')
 
     const tabs = computed(() => {
-      const result: Array<string> = []
+      const result: string[] = []
       if (isString.value) {
         return result
       } else {
@@ -44,12 +44,12 @@ export default defineComponent({
     })
 
     const contents = computed(() => {
-      const result: Array<string> = []
+      const result: string[] = []
       if (isString.value) {
-        result.push(applyTranslations(props.code.replace(/^\n|\n$/g, '')))
+        result.push(applyTranslations((props.code as string).replace(/^\n|\n$/g, '')))
       } else {
         for (const key of tabs.value) {
-          result.push(applyTranslations(props.code[key].replace(/^\n|\n$/g, '')))
+          result.push(applyTranslations((props.code as Record<string, string>)[key].replace(/^\n|\n$/g, '')))
         }
       }
       return result
