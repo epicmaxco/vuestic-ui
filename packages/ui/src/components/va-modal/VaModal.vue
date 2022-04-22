@@ -1,10 +1,10 @@
 <template>
-  <div ref="rootElement" class="va-modal-entry">
-    <div
-      v-if="$slots.anchor"
-      class="va-modal__anchor"
-      :class="$props.anchorClass"
-    >
+  <div
+    ref="rootElement"
+    class="va-modal-entry"
+    :class="$props.anchorClass"
+  >
+    <div v-if="$slots.anchor" class="va-modal__anchor">
       <slot name="anchor" v-bind="{ show, hide, toggle }" />
     </div>
 
@@ -129,7 +129,7 @@ export default defineComponent({
   components: { VaButton, VaIcon, ModalElement },
   emits: [
     ...useStatefulEmits,
-    'update:modelValue', 'cancel', 'ok', 'before-open', 'open', 'before-close', 'close', 'click-outside',
+    'cancel', 'ok', 'before-open', 'open', 'before-close', 'close', 'click-outside',
   ],
   props: {
     ...useStatefulProps,
