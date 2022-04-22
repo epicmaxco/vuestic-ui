@@ -3,7 +3,7 @@ import { PropType, ExtractPropTypes } from 'vue'
 
 export type SelectableOption = string | number | Record<string, unknown>
 
-type StringOrFunction = string | ((option: SelectableOption) => string)
+type StringOrFunction = string | ((option: SelectableOption) => unknown)
 
 export const useSelectableListProps = {
   options: { type: Array as PropType<SelectableOption[]>, default: () => [] },
@@ -33,8 +33,8 @@ export function useSelectableList (props: ExtractPropTypes<typeof useSelectableL
     return props.options.find((option: SelectableOption) => value === getValue(option)) || value
   }
 
-  const getText = (option: SelectableOption): string => getOptionProperty(option, props.textBy)
-  const getDisabled = (option: SelectableOption): boolean => getValueByKey(option, props.disabledBy)
+  const getText = (option: SelectableOption) => getOptionProperty(option, props.textBy)
+  const getDisabled = (option: SelectableOption) => getValueByKey(option, props.disabledBy)
   const getTrackBy = (option: SelectableOption) => getOptionProperty(option, props.trackBy)
   const getGroupBy = (option: SelectableOption) => getOptionProperty(option, props.groupBy)
 
