@@ -266,7 +266,6 @@
     },
     "VaModal": {
       "props": {
-        "value": "The current visibility state of the modal",
         "title": "Text content to place in the title",
         "message": "Content of modal body",
         "attachElement": "A valid selector of element, where modal will be rendered",
@@ -286,11 +285,12 @@
         "withoutTransitions": "Use `without-transitions: true` to turn off the open and close animations on the modal",
         "overlay": "Use `overlay: false` to hide the overlay",
         "overlayOpacity": "Set the overlay's opacity",
+        "anchorClass": "Set class name to the `anchor` slot container",
         "zIndex": "Set the modal's `z-index`"
       },
       "events": {
+        "updateModelValue": "The event is triggered when the component needs to change visibility",
         "clickOutside": "Emits when overlay is clicked",
-        "input": "Emits when modal's visibility should change",
         "ok": "Emits when **Ok** button is clicked",
         "beforeOpen": "Emits before modal's open after transition started",
         "open": "Emits when modal's is open and transition is complete",
@@ -299,12 +299,13 @@
         "cancel": "Emits when the user closes the modal window without side effects"
       },
       "methods": {
-        "hide": "Hide modal. On stateless modal only emits `input`",
-        "open": "Show modal. On stateless modal only emits `input`",
-        "toggle": "Toggle a modal's visibility. On stateless modal only emits `input`"
+        "hide": "Hide modal (change `modelValue`)",
+        "show": "Show modal (change `modelValue`)",
+        "toggle": "Toggle a modal's visibility (change `modelValue`)"
       },
       "slots": {
         "default": "Content of modal body",
+        "anchor": "Modal anchor content. There is access to the `show`, `hide` and `toggle` methods in the slots scope",
         "header": "Modal header content",
         "footer": "Modal footer content"
       }
@@ -1803,6 +1804,10 @@
           "text": "You can access modal using `ref` attribute and then call the `show()`, `hide()` or `toggle()` methods."
         }
       ]
+    },
+    "anchor": {
+      "title": "Slot: `anchor`",
+      "text": "Using the `anchor` slot, the user can access the `show()`, `hide()` and `toggle()` methods."
     },
     "disableAnimation": {
       "title": "Disable open and close animation",

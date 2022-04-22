@@ -36,6 +36,11 @@ const config: ApiDocsBlock[] = [
   block.example('toggle-visibility/InstanceMethods'),
 
   ...block.exampleBlock(
+    'modal.anchor.title',
+    'modal.anchor.text',
+    'Anchor',
+  ),
+  ...block.exampleBlock(
     'modal.disableAnimation.title',
     'modal.disableAnimation.text',
     'DisableAnimation',
