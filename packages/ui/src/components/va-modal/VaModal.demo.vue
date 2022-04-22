@@ -322,7 +322,7 @@ export default {
 
 .example-modal {
   .va-modal__container {
-    background-color: orange;
+    background-color: blue;
   }
 }
 </style>
