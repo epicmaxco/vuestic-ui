@@ -103,7 +103,7 @@
       <va-date-picker v-model="monthValue" v-model:view="dayView" type="day" class="mb-4" />
 
       <h5 class="mb-2">month</h5>
-      <va-date-picker v-model="monthRange" v-model:view="monthView" type="day" class="mb-4" />
+      <va-date-picker v-model="monthValue" v-model:view="monthView" type="day" class="mb-4" />
 
       <h5 class="mb-2">year</h5>
       <va-date-picker v-model="months" v-model:view="yearView" type="day" class="mb-4" />

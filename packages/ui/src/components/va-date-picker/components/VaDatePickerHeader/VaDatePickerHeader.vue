@@ -6,7 +6,7 @@
 
     <div class="va-date-picker__header__text">
       <slot name="header" v-bind="{ year: syncView.year, month: syncView.month, monthNames, view: syncView, changeView, switchView }">
-        <va-button flat @click="switchView" size="small" :color="color" textColor="dark">
+        <va-button flat @click="switchView" size="small" :rounded="false" :color="color" textColor="dark">
           <slot name="year" v-bind="{ year: syncView.year }">{{ syncView.year }}</slot>
 
           <slot v-if="syncView.type === 'day'" name="month" v-bind="{ month: syncView.month }">
