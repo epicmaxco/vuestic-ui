@@ -46,8 +46,10 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType, onMounted } from 'vue'
+import pick from 'lodash/pick'
 
 import { generateUniqueId } from '../../services/utils'
+import { __DEV__ } from '../../utils/global-utils'
 import { useSelectableList, useSelectableListProps, SelectableOption } from '../../composables/useSelectableList'
 import { useValidation, useValidationProps } from '../../composables/useValidation'
 import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
@@ -56,7 +58,6 @@ import { VaMessageListWrapper } from '../va-input'
 import VaCheckbox from '../va-checkbox'
 import VaRadio from '../va-radio'
 import VaSwitch from '../va-switch'
-import pick from 'lodash/pick'
 
 type OptionListValue = SelectableOption | SelectableOption[] | null
 
@@ -134,7 +135,7 @@ export default defineComponent({
     const computedProps = computed(() => pick(props, ['name', 'color', 'readonly', 'leftLabel']))
 
     onMounted(() => {
-      if (props.type !== 'radio' && !Array.isArray(props.modelValue) && process.env.NODE_ENV !== 'production') {
+      if (__DEV__ && props.type !== 'radio' && !Array.isArray(props.modelValue)) {
         console.warn(`Prop 'modelValue = ${props.modelValue}' has not a proper type!\n For component property 'type = ${props.type}' it must be of type 'array'.`)
       }
     })
