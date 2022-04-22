@@ -1,7 +1,7 @@
 <template>
   <VbDemo>
     <VbCard title="modal size">
-      <p>
+      <p class="my-3">
         <button @click="showModalSizeSmall = !showModalSizeSmall">
           show modal size small
         </button>
@@ -12,7 +12,7 @@
           size="small"
         />
       </p>
-      <p>
+      <p class="my-3">
         <button @click="showModalSizeMedium = !showModalSizeMedium">
           show modal size medium (default)
         </button>
@@ -22,7 +22,7 @@
           :message="message"
         />
       </p>
-      <p>
+      <p class="my-3">
         <button @click="showModalSizeLarge = !showModalSizeLarge">
           show modal size large
         </button>
@@ -322,7 +322,7 @@ export default {
 
 .example-modal {
   .va-modal__container {
-    background-color: orange;
+    background-color: blue;
   }
 }
 </style>
