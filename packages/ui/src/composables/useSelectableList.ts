@@ -1,20 +1,9 @@
-// It's another implementation of SelectableListMixin functionality but for Composition API usage
-
-import { getProp } from '../services/utils'
-import { PropType } from 'vue'
+import { getValueByKey } from '../services/utils'
+import { PropType, ExtractPropTypes } from 'vue'
 
 export type SelectableOption = string | number | Record<string, unknown>
 
-type StringOrFunction = string | ((option: SelectableOption) => string)
-
-export type SelectableListProps = {
-  options: SelectableOption[]
-  textBy: StringOrFunction
-  valueBy: StringOrFunction
-  trackBy: StringOrFunction
-  disabledBy: StringOrFunction
-  groupBy: StringOrFunction
-}
+type StringOrFunction = string | ((option: SelectableOption) => unknown)
 
 export const useSelectableListProps = {
   options: { type: Array as PropType<SelectableOption[]>, default: () => [] },
@@ -25,9 +14,7 @@ export const useSelectableListProps = {
   groupBy: { type: [String, Function] as PropType<StringOrFunction>, default: 'group' },
 }
 
-export function useSelectableList (props: SelectableListProps) {
-  const isSelectableListComponent = true
-
+export function useSelectableList (props: ExtractPropTypes<typeof useSelectableListProps>) {
   const isStringOrNumber = (option: SelectableOption): option is (string | number) => {
     const typeOfOption = typeof option
     return typeOfOption === 'string' || typeOfOption === 'number'
@@ -36,22 +23,22 @@ export function useSelectableList (props: SelectableListProps) {
   const getOptionProperty = (option: SelectableOption, selector: StringOrFunction) => {
     return !selector || isStringOrNumber(option)
       ? option
-      : getProp(option, selector)
+      : getValueByKey(option, selector)
   }
 
   const getValue = (option: SelectableOption) => getOptionProperty(option, props.valueBy)
+
   const getOptionByValue = (value: SelectableOption) => {
     if (!props.valueBy) { return value }
-
     return props.options.find((option: SelectableOption) => value === getValue(option)) || value
   }
-  const getText = (option: SelectableOption): string => getOptionProperty(option, props.textBy)
-  const getDisabled = (option: SelectableOption): boolean => getOptionProperty(option, props.disabledBy)
+
+  const getText = (option: SelectableOption) => getOptionProperty(option, props.textBy)
+  const getDisabled = (option: SelectableOption) => getValueByKey(option, props.disabledBy)
   const getTrackBy = (option: SelectableOption) => getOptionProperty(option, props.trackBy)
   const getGroupBy = (option: SelectableOption) => getOptionProperty(option, props.groupBy)
 
   return {
-    isSelectableListComponent,
     getValue,
     getOptionByValue,
     getText,

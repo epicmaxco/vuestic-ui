@@ -120,6 +120,7 @@ export default defineComponent({
     label: { type: String, default: '' },
     type: { type: String as PropType<'text' | 'textarea'>, default: 'text' },
     loading: { type: Boolean, default: false },
+    inputClass: { type: String, default: '' },
     pattern: { type: String },
     inputmode: { type: String, default: 'text' },
 
@@ -204,6 +205,7 @@ export default defineComponent({
 
     const computedChildAttributes = computed(() => ({
       ariaLabel: props.label,
+      class: props.inputClass,
       ...omit(attrs, ['class', 'style']),
     }) as InputHTMLAttributes)
 
