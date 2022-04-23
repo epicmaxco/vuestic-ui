@@ -31,29 +31,12 @@ export default defineComponent({
   setup (props) {
     const isString = computed(() => typeof props.code === 'string')
 
-    const tabs = computed(() => {
-      const result: string[] = []
-      if (isString.value) {
-        return result
-      } else {
-        for (const key of Object.keys(props.code)) {
-          result.push(key)
-        }
-        return result
-      }
-    })
+    const tabs = computed(() => isString.value ? [] : Object.keys(props.code))
 
-    const contents = computed(() => {
-      const result: string[] = []
-      if (isString.value) {
-        result.push(applyTranslations((props.code as string).replace(/^\n|\n$/g, '')))
-      } else {
-        for (const key of tabs.value) {
-          result.push(applyTranslations((props.code as Record<string, string>)[key].replace(/^\n|\n$/g, '')))
-        }
-      }
-      return result
-    })
+    const contents = computed(() => isString.value
+      ? [applyTranslations((props.code as string).trim())]
+      : tabs.value.map(tab => applyTranslations((props.code as Record<string, string>)[tab].trim()),
+      ))
 
     const index = ref(1)
 
