@@ -157,8 +157,8 @@
       "import": "./dist/esm-ssr/main.js"
     },
     "./iife": "./dist/iife/vuestic-ui.js",
-    "./styles": "./dist/styles/",
-    "./types": "./dist/types",
+    "./styles/": "./dist/styles/",
+    "./types": "./dist/types/main.d.ts",
     "./css": "./dist/vuestic-ui.css"
   }
 }
