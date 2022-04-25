@@ -10,13 +10,6 @@ export interface TreeNodeCommon<T> {
   onChildUnmounted: (value: T) => void,
 }
 
-export interface TreeCategoryProps {
-  label: string | number,
-  isOpen: boolean,
-  icon: string,
-  color: string,
-}
-
 export interface TreeViewMethods<T> {
   onChildMounted: (value: T) => void,
   onChildUnmounted: (value: T) => void,
@@ -34,13 +27,6 @@ export interface TreeCategory {
 }
 
 export type TreeNodeComponent = ComponentPublicInstance<TreeCategory | typeof VaTreeNode>
-
-export interface ITreeNodeProps {
-  highlighted: boolean,
-  icon: string,
-  iconRight: string,
-  color: string,
-}
 
 export interface TreeViewProps {
   color: string
