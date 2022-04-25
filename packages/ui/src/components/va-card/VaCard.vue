@@ -120,9 +120,7 @@ export default defineComponent({
   }
 
   &--disabled {
-    opacity: 0.6;
-    pointer-events: none;
-    user-select: none;
+    @include va-disabled;
   }
 
   &--link {

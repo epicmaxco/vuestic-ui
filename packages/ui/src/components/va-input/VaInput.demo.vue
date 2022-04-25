@@ -572,8 +572,8 @@
     >
       <va-input
         class="mb-4"
-        input-class="red"
-        model-value="This input must have margin bottom and red text in input"
+        input-class="red text--right"
+        model-value="This input must have margin bottom and right-aligned red text."
       />
       <va-input
         class="border-blue"

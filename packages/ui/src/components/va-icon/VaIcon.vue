@@ -8,7 +8,11 @@
     :class="computedClass"
     :style="computedStyle"
   >
-    <slot>{{ iconConfig.content }}</slot>
+    <slot>
+      <template v-if="iconConfig.content">
+        {{ iconConfig.content }}
+      </template>
+    </slot>
   </component>
 </template>
 

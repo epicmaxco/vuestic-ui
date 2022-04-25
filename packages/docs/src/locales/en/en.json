@@ -266,7 +266,6 @@
     },
     "VaModal": {
       "props": {
-        "value": "The current visibility state of the modal",
         "title": "Text content to place in the title",
         "message": "Content of modal body",
         "attachElement": "A valid selector of element, where modal will be rendered",
@@ -286,11 +285,12 @@
         "withoutTransitions": "Use `without-transitions: true` to turn off the open and close animations on the modal",
         "overlay": "Use `overlay: false` to hide the overlay",
         "overlayOpacity": "Set the overlay's opacity",
+        "anchorClass": "Set class name to the `anchor` slot container",
         "zIndex": "Set the modal's `z-index`"
       },
       "events": {
+        "updateModelValue": "The event is triggered when the component needs to change visibility",
         "clickOutside": "Emits when overlay is clicked",
-        "input": "Emits when modal's visibility should change",
         "ok": "Emits when **Ok** button is clicked",
         "beforeOpen": "Emits before modal's open after transition started",
         "open": "Emits when modal's is open and transition is complete",
@@ -299,12 +299,13 @@
         "cancel": "Emits when the user closes the modal window without side effects"
       },
       "methods": {
-        "hide": "Hide modal. On stateless modal only emits `input`",
-        "open": "Show modal. On stateless modal only emits `input`",
-        "toggle": "Toggle a modal's visibility. On stateless modal only emits `input`"
+        "hide": "Hide modal (change `modelValue`)",
+        "show": "Show modal (change `modelValue`)",
+        "toggle": "Toggle a modal's visibility (change `modelValue`)"
       },
       "slots": {
         "default": "Content of modal body",
+        "anchor": "Modal anchor content. There is access to the `show`, `hide` and `toggle` methods in the slots scope",
         "header": "Modal header content",
         "footer": "Modal footer content"
       }
@@ -481,14 +482,13 @@
     },
     "VaOptionList": {
       "props": {
-        "value": "The array of currently selected items in a list",
         "disabledBy": "Specify the key in the object to be used as item `disabled` prop. Can be string (path to the key) or function of type: `(option) => option.disabled`",
         "valueBy": "Specify the key in the object to be used as item `value` prop. Can be string (path to the key) or function of type: `(option) => option.value`",
         "trackBy": "Specify the key in the object to be used as item `key` prop. Can be string (path to the key) or function of type: `(option) => option.track`",
         "textBy": "Specify the key in the object to be used as item `text` prop. Can be string (path to the key) or function of type: `(option) => option.text`",
         "options": "The array of items to be displayed",
         "type": "Specify the format of component. Supported types are `\"radio\"`, `\"checkbox\"` and `\"switch\"`",
-        "defaultValue": "This value will be pre-selected when component mounts",
+        "defaultValue": "This value will be pre-selected for the stateful component",
         "leftLabel": "Put the labels to the left"
       },
       "events": {
@@ -673,6 +673,7 @@
         "canBeFocused": "If false, then input can not be focused using mouse or keyboard",
         "requiredMark": "Adds required mark to the label",
         "immediateValidation": "Sets the validation to be performed when the component is mounted",
+        "inputClass": "Classes for `input` (not its wrapper)",
         "pattern": "The pattern prop specifies a regular expression the input value should match",
         "inputmode": "The inputmode prop is an enumerated prop that hints at the type of data that might be entered by the user while editing the element or its contents. This alows a browser to display an apropriate virtual keyboard"
       },
@@ -1806,7 +1807,7 @@
     "summaryText": "Classic modal overlay which represents a dialog box or other interactive component, such as a dismissible alert, sub-window, etc.",
     "overview": {
       "title": "Overview",
-      "text": "`<va-modal>`, by default, has the **OK** and **Cancel** buttons in the footer. You can provide a custom message and title with the `message` and `title` props respectively.\n\n`<va-modal>` supports close on **Esc** (enabled by default) and close on overlay click (enabled by default). These features may be disabled by setting the props `no-esc-dismiss` and `no-outside-dismiss` respectively, or `no-dismiss` as a shorthand to disable both of them."
+      "text": "`va-modal`, by default, has the **OK** and **Cancel** buttons in the footer. You can provide a custom message and title with the `message` and `title` props respectively.\n\n`va-modal` supports close on **Esc** (enabled by default) and close on overlay click (enabled by default). These features may be disabled by setting the props `no-esc-dismiss` and `no-outside-dismiss` respectively, or `no-dismiss` as a shorthand to disable both of them."
     },
     "stateful": {
       "title": "Stateful",
@@ -1822,11 +1823,11 @@
     },
     "toggleVisibility": {
       "title": "Toggle modal visibility",
-      "text": "There are several methods that you can employ to toggle the visibility of `<va-modal>`.",
+      "text": "There are several methods that you can employ to toggle the visibility of `va-modal`.",
       "sections": [
         {
           "title": "Using `v-model` property",
-          "text": "`v-model` property is always automatically synced with `<va-modal>` visible state and you can show/hide using `v-model`."
+          "text": "`v-model` property is always automatically synced with `va-modal` visible state and you can show/hide using `v-model`."
         },
         {
           "title": "Using `show()`, `hide()`, and `toggle()` component methods",
@@ -1834,13 +1835,17 @@
         }
       ]
     },
+    "anchor": {
+      "title": "Slot: `anchor`",
+      "text": "Using the `anchor` slot, the user can access the `show()`, `hide()` and `toggle()` methods."
+    },
     "disableAnimation": {
       "title": "Disable open and close animation",
       "text": "To disable the transition/animation when modal opens and closes, set the prop `without-transitions`."
     },
     "hidingOverlay": {
       "title": "Hiding the overlay",
-      "text": "Hide the modal's overlay via setting the `overlay` prop to `false`.\n\nNote that clicking outside of the modal will still close the modal even though the overlay is hidden. You can disable this behaviour by setting the `no-outside-dismiss` prop on `<va-modal>`."
+      "text": "Hide the modal's overlay via setting the `overlay` prop to `false`.\n\nNote that clicking outside of the modal will still close the modal even though the overlay is hidden. You can disable this behaviour by setting the `no-outside-dismiss` prop on `va-modal`."
     },
     "scrollingLongContent": {
       "title": "Scrolling long content",
@@ -1848,7 +1853,7 @@
     },
     "customization": {
       "title": "Customization",
-      "text": "`<va-modal>` provides several slots (`default`, `header` and `footer`), that you can use to customize the content of various sections of the modal.\n\nYou can set custom text for **Cancel** and **Ok** buttons via `ok-text` and `cancel-text` props respectively, or you can hide them via `hide-default-actions` prop.\n\n`va-modal` also supports custom `overlay-opacity` as well as `z-index`, `max-width` and `max-height` for a modal."
+      "text": "`va-modal` provides several slots (`default`, `header` and `footer`), that you can use to customize the content of various sections of the modal.\n\nYou can set custom text for **Cancel** and **Ok** buttons via `ok-text` and `cancel-text` props respectively, or you can hide them via `hide-default-actions` prop.\n\n`va-modal` also supports custom `overlay-opacity` as well as `z-index`, `max-width` and `max-height` for a modal."
     },
     "nestedModals": {
       "title": "Nested modals",
@@ -2346,6 +2351,11 @@
       "textarea": {
         "title": "Textarea",
         "text": "Support a multi-line `va-input`, useful for larger amounts of text. You can make textarea auto-expandable or manually control min/max number of lines."
+      },
+      "inputClass": {
+        "title": "Input Class",
+        "text": "To assign a class directly to input, rather than its wrapper, use the `input-class` property. For example, you can use the build-in component class (or any other class you've created) to align the input text &mdash; `text--center` and `text--right` to align the center or right.",
+        "exampleTexts": ["This input must have right-aligned red text with bottom indent.", "Native input element must have red text. VaInput wrapper has a blue border."]
       },
       "mask": {
         "title": "Mask",

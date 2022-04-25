@@ -32,11 +32,6 @@
 </template>
 
 <script>
-import { detect } from 'detect-browser'
-import erd from 'element-resize-detector'
-
-const browser = detect()
-
 export default {
   name: 'VaScrollbar',
   props: {
@@ -46,6 +41,10 @@ export default {
     },
   },
   methods: {
+    calcOnResize () {
+      this.calcSize()
+      this.calcThumb()
+    },
     calcSize () {
       this.isDown = this.isUp = false
       this.maxHeight = parseFloat(this.wrapper.offsetHeight, 10)
@@ -108,7 +107,7 @@ export default {
     },
     scroll (e) {
       let delta = (e.deltaY * 0.01 * this.speed)
-      if (browser.name === 'firefox') {
+      if (navigator?.userAgent?.toLowerCase().includes('firefox')) {
         delta *= 10
       }
       this.setVertical(delta)
@@ -145,15 +144,12 @@ export default {
     this.thumb = this.$refs.thumb
     this.content = this.$refs.scrollbarContent
     this.wrapper = this.$refs.scrollbarWrapper
-    this.calcSize()
-    this.calcThumb()
-    erd.listenTo(this.content, () => {
-      this.calcSize()
-      this.calcThumb()
-    })
+    this.calcOnResize()
+
+    window.addEventListener('resize', this.calcOnResize)
   },
   beforeUnmount () {
-    erd.removeAllListeners(this.content)
+    window.removeAllListeners('resize', this.calcOnResize)
   },
   data () {
     return {

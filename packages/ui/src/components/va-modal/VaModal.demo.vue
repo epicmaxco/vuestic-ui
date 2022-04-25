@@ -1,7 +1,7 @@
 <template>
   <VbDemo>
     <VbCard title="modal size">
-      <p>
+      <p class="my-3">
         <button @click="showModalSizeSmall = !showModalSizeSmall">
           show modal size small
         </button>
@@ -12,7 +12,7 @@
           size="small"
         />
       </p>
-      <p>
+      <p class="my-3">
         <button @click="showModalSizeMedium = !showModalSizeMedium">
           show modal size medium (default)
         </button>
@@ -22,7 +22,7 @@
           :message="message"
         />
       </p>
-      <p>
+      <p class="my-3">
         <button @click="showModalSizeLarge = !showModalSizeLarge">
           show modal size large
         </button>
@@ -45,14 +45,20 @@
         <template #header>
           <h2>Step 2. Centered Layout</h2>
         </template>
-        <slot>
-          <div>{{ message }}</div>
-        </slot>
+        <div>{{ message }}</div>
         <template #footer>
           <va-button @click="customActionClick()">
             Custom action
           </va-button>
         </template>
+      </va-modal>
+    </VbCard>
+    <VbCard title="Anchor">
+      <va-modal v-model="showAnchorModal">
+        <template #anchor="{ show }">
+          <button @click="show()">Anchor-button</button>
+        </template>
+        <div>{{ message }}</div>
       </va-modal>
     </VbCard>
     <VbCard title="stateful">
@@ -63,9 +69,15 @@
         <template #header>
           <h2>Step 2. Centered Layout</h2>
         </template>
-        <slot>
-          <div>{{ message }}</div>
-        </slot>
+        <div>{{ message }}</div>
+      </va-modal>
+    </VbCard>
+    <VbCard title="stateful with anchor">
+      <va-modal stateful class="example-modal" anchor-class="example-modal-anchor">
+        <template #anchor="{ show }">
+          <button @click="show()">Anchor-button</button>
+        </template>
+        <div>{{ message }}</div>
       </va-modal>
     </VbCard>
     <VbCard title="mobile-fullscreen: false">
@@ -132,16 +144,14 @@
         title="Several lays"
         :message="message"
       >
-        <slot>
-          <button @click="showModalSecondLay = !showModalSecondLay">
-            Show modal
-          </button>
-          <va-modal
-            v-model="showModalSecondLay"
-            title="Several layers"
-            :message="message"
-          />
-        </slot>
+        <button @click="showModalSecondLay = !showModalSecondLay">
+          Show modal
+        </button>
+        <va-modal
+          v-model="showModalSecondLay"
+          title="Several layers"
+          :message="message"
+        />
       </va-modal>
     </VbCard>
     <VbCard title="fixed layout">
@@ -265,6 +275,7 @@ export default {
       showModalSizeMedium: false,
       showModalSizeLarge: false,
       showFullScreenModal: false,
+      showAnchorModal: false,
       showActionsModal: false,
       showFixedLayoutModal: false,
       showWithoutDefaultActions: false,
@@ -301,3 +312,17 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+.example-modal-anchor {
+  button {
+    color: red;
+  }
+}
+
+.example-modal {
+  .va-modal__container {
+    background-color: blue;
+  }
+}
+</style>

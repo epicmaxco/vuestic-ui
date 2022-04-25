@@ -147,6 +147,7 @@ export default defineComponent({
       'va-switch--small': props.size === 'small',
       'va-switch--large': props.size === 'large',
       'va-switch--disabled': props.disabled,
+      'va-switch--readonly': props.readonly,
       'va-switch--left-label': props.leftLabel,
       'va-switch--error': computedError.value,
       'va-switch--on-keyboard-focus': hasKeyboardFocus.value,
@@ -249,6 +250,15 @@ export default defineComponent({
 
   &--disabled {
     @include va-disabled;
+  }
+
+  &--readonly {
+    @include va-readonly;
+
+    .va-switch__label {
+      cursor: initial;
+      pointer-events: auto;
+    }
   }
 
   &--left-label {
