@@ -1,5 +1,5 @@
 import { isRef, Ref, unref, watch } from 'vue'
-import debounce from 'lodash/debounce'
+import debounce from 'lodash/debounce.js'
 
 export const useDebounce = <T>(onUpdate: () => any, timeout: Ref<number> | number) => {
   const createDebounced = () => {

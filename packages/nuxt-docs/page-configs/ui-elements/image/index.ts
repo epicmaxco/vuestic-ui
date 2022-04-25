@@ -10,7 +10,7 @@ export default definePageConfig({
 
     block.subtitle("all.examples"),
 
-    block.subtitle("image.examples.default.title"),
+    block.subtitle("image.examples.default.title", 'h5'),
     block.example("Default"),
 
     block.exampleBlock("Ratio"),

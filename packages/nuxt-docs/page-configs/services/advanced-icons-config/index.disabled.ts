@@ -1,3 +1,5 @@
+// not released yet
+
 import { definePageConfig } from "~~/types/page-config";
 
 const block = useDocsBlocks(import.meta);

@@ -22,14 +22,10 @@ export default definePageConfig({
 
     block.subtitle("breadcrumbs.api.item.title"),
     block.paragraph("breadcrumbs.api.item.text"),
-    block.api(VaBreadcrumbsItem, {
-      slots: {
-        default: { },
-      },
-    }),
+    block.api(VaBreadcrumbsItem),
 
     block.subtitle("all.faq"),
-    block.subtitle("breadcrumbs.faq.questions[0].question"),
+    block.subtitle("breadcrumbs.faq.questions[0].question", 'h5'),
     block.paragraph("breadcrumbs.faq.questions[0].answer"),
   ],
   manualApi: {

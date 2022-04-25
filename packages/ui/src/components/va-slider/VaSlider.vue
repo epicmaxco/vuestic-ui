@@ -155,7 +155,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, watch, PropType, ref, computed, onMounted, onBeforeUnmount, nextTick } from 'vue'
+import { defineComponent, watch, PropType, ref, computed, onMounted, onBeforeUnmount } from 'vue'
 
 import { getHoverColor } from '../../services/color-config/color-functions'
 import { validateSlider } from './validateSlider'
@@ -169,7 +169,7 @@ export default defineComponent({
   props: {
     range: { type: Boolean as PropType<boolean>, default: false },
     modelValue: ({ type: [Number, Array] as PropType<number | number[]>, default: () => [] }),
-    trackLabel: ({ type: Function as PropType<((val: any, order?: number) => string) | undefined> }),
+    trackLabel: ({ type: [Function, String] as PropType<string | ((val: any, order?: number) => string) | undefined> }),
     color: { type: String as PropType<string>, default: 'primary' },
     trackColor: { type: String as PropType<string>, default: '' },
     labelColor: { type: String as PropType<string>, default: '' },
@@ -325,7 +325,7 @@ export default defineComponent({
       return decimals ? Math.pow(10, decimals.length) : 1
     })
 
-    const pinsCol = computed(() => (props.max / props.step) - 1)
+    const pinsCol = computed(() => ((props.max - props.min) / props.step) - 1)
 
     const position = computed(() => {
       return Array.isArray(props.modelValue)
@@ -517,10 +517,11 @@ export default defineComponent({
       }
     }
 
+    const pinPositionStep = computed(() => props.step / (props.max - props.min) * 100)
     const getPinStyles = (pin: number) => ({
       backgroundColor: checkActivePin(pin) ? getColor(props.color) : getHoverColor(getColor(props.color)),
-      [pinPositionStyle.value]: `${pin * props.step}%`,
-      transition: hasMouseDown.value ? 'none' : 'background-color .3s ease-out .1s',
+      [pinPositionStyle.value]: `${pin * pinPositionStep.value}%`,
+      transition: hasMouseDown.value ? 'none' : 'var(--va-slider-pin-transition)',
     })
 
     const getPos = (e: MouseEvent | Touch) => {

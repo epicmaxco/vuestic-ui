@@ -1,4 +1,5 @@
 import { getParameters } from 'codesandbox/lib/api/define'
+import { iconsStyles, iconsConfig } from './CodeSandboxIconsHelper'
 import { CodesandboxConfig } from '../types/configTypes'
 // @ts-ignore
 import packageUi from 'vuestic-ui/package.json'
@@ -24,15 +25,28 @@ const defaultExample = `<template>
 </template>
 `
 
-const html = `<link
-  href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;1,700&display=swap"
-  rel="stylesheet"
->
-<link
-  href="https://fonts.googleapis.com/icon?family=Material+Icons"
-  rel="stylesheet"
->
-<div id="app"></div>`
+const getCodeSandboxHtml = ({ requireIcons = false }: CodesandboxConfig): string => {
+  return `
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;1,700&display=swap"
+      rel="stylesheet"
+    >
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    >
+    ${requireIcons ? iconsStyles : ''}
+    <div id="app"></div>
+  `
+}
+
+const getCodeSandboxMain = ({ requireIcons = false }: CodesandboxConfig): string => {
+  if (requireIcons) {
+    return iconsConfig
+  }
+
+  return main
+}
 
 const packageJson = ({ dependencies = {}, devDependencies = {} }: CodesandboxConfig): string => {
   const commonDeps = {
@@ -65,7 +79,7 @@ export default (code: string = defaultExample, config: CodesandboxConfig = {}): 
       isBinary: false,
     },
     'src/main.js': {
-      content: main,
+      content: getCodeSandboxMain(config),
       isBinary: false,
     },
     'src/App.vue': {
@@ -73,7 +87,7 @@ export default (code: string = defaultExample, config: CodesandboxConfig = {}): 
       isBinary: false,
     },
     'public/index.html': {
-      content: html,
+      content: getCodeSandboxHtml(config),
       isBinary: false,
     },
   },

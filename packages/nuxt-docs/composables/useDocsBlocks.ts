@@ -3,7 +3,8 @@ import type { ExtractPropTypes } from '~/types/extract-component-props'
 import type { CodesandboxConfig } from "~~/components/docs/blocks/DocsExample/DocsNavigation/CodeSandboxExample"
 import { BlockComponents } from '~~/components/docs/blocks'
 import { TableColumn, TableData } from "~~/components/docs/blocks/DocsTable/DocsTableTypes"
-import camelCase from 'lodash/camelCase'
+import { LinkOptions } from "~~/components/docs/blocks/DocsLink/DocLinkTypes"
+import camelCase from 'lodash/camelCase.js'
 
 export type ExampleOptions = {
   hideCode?: boolean,
@@ -37,7 +38,7 @@ export const useDocsBlocks = (meta: ImportMeta) => {
         const { tie } = useI18n()
 
         return {
-          source: `# ${tie(translationString)}`  
+          source: `# ${tie(translationString)}`
         }
       }
     }),
@@ -45,8 +46,9 @@ export const useDocsBlocks = (meta: ImportMeta) => {
       component: 'MarkdownView',
       setup: () => {
         const { tie } = useI18n()
+
         return {
-          source: `${tie(translationString)}`
+          source: tie(translationString)
         }
       }
     }),
@@ -56,7 +58,7 @@ export const useDocsBlocks = (meta: ImportMeta) => {
         const { tie } = useI18n()
 
         return {
-          source: `${tie(translationString)}`,
+          source: tie(translationString),
           anchor: translationString,
           tag
         }
@@ -73,9 +75,10 @@ export const useDocsBlocks = (meta: ImportMeta) => {
     exampleBlock: (exampleComponentName: string) => defineBlock({
       component: 'DocsExampleBlock',
       setup: () => {
+        const { t } = useI18n()
+
         const componentName = camelCase(path.split('/').slice(-1)[0])
         const p = `${componentName}.examples.${camelCase(exampleComponentName)}`
-        const { t } = useI18n()
 
         return {
           title: t(`${p}.title`),
@@ -90,39 +93,45 @@ export const useDocsBlocks = (meta: ImportMeta) => {
       setup: () => ({ tableData, columns })
     }),
     /** @notice Make sure to import component without `withTransportConfig`. */
-    api: (component: any) => defineBlock({
+    api: (component: any, options?: any) => defineBlock({
       component: 'DocsComponentApi',
       setup: () => {
         const { getConfig } = usePageConfig()
 
         const { manualApi } = getConfig(path)
 
-        return { component, apiOptions: manualApi }
+        return { component, apiOptions: options || manualApi }
       }
     }),
-    list: () => defineBlock({
+    list: (translationStringList: TranslationString[]) => defineBlock({
       component: 'MarkdownView',
       setup: () => {
-        return { source: 'TODO:' }
+        const { tie } = useI18n()
+
+        return {
+          source: `${translationStringList.map((ts) => `- ${tie(ts)}`).join('\n')}`
+        }
       }
     }),
-    link: () => defineBlock({
-      component: 'MarkdownView',
+    link: (translationString: TranslationString, href: string, options: LinkOptions = {}) => defineBlock({
+      component: 'DocsLink',
       setup: () => {
-        return { source: 'TODO:' }
+        const { tie } = useI18n()
+
+        return {
+          text: tie(translationString),
+          href,
+          ...options,
+        }
       }
     }),
-    alert: () => defineBlock({
-      component: 'MarkdownView',
-      setup: () => {
-        return { source: 'TODO:' }
-      }
+    alert: (text: TranslationString, color: string) => defineBlock({
+      component: 'DocsAlert',
+      setup: () => ({ text, color })
     }),
-    component: () => defineBlock({
-      component: 'MarkdownView',
-      setup: () => {
-        return { source: 'TODO:' }
-      }
+    component: (component: string) => defineBlock({
+      component: 'DocsComponent',
+      setup: () => ({ component, path })
     }),
   }
 }

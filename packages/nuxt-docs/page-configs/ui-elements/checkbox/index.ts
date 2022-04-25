@@ -12,10 +12,10 @@ export default definePageConfig({
 
     block.exampleBlock("Label"),
 
-    block.subtitle("checkbox.examples.indeterminate.title"),
+    block.subtitle("checkbox.examples.indeterminate.title", 'h5'),
     block.example("Indeterminate"),
 
-    block.subtitle("checkbox.examples.coloring.title"),
+    block.subtitle("checkbox.examples.coloring.title", 'h5'),
     block.example("Coloring"),
 
     block.exampleBlock("Array"),

@@ -34,7 +34,7 @@ export default defineComponent({
   name: 'VaNavbar',
   props: {
     color: { type: String as PropType<string>, default: 'secondary' },
-    textColor: { type: String as PropType<string>, default: undefined },
+    textColor: { type: String as PropType<string> },
     shape: { type: Boolean as PropType<boolean>, default: false },
   },
   setup (props) {
@@ -49,9 +49,9 @@ export default defineComponent({
 
     const navbarStyle = computed(() => ({
       backgroundColor: color.value,
-      color: textColor,
-      fill: textColor,
-    })) as StyleValue
+      color: textColor.value,
+      fill: textColor.value,
+    }))
 
     return {
       navbarStyle,

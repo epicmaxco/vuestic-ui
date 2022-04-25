@@ -2,7 +2,9 @@
   <header class="docs-header px-3">
     <div class="docs-header__logo">
       <LayoutDocsHeaderCollapseIcon v-model="computedIsSidebarVisible" />
-      <LayoutDocsHeaderVuesticDocsLogo class="ml-3" />
+      <router-link to="/">
+        <LayoutDocsHeaderVuesticDocsLogo class="ml-3" />
+      </router-link>
     </div>
 
     <div class="docs-header__links">
@@ -28,41 +30,47 @@
   </header>
 </template>
 
-<script setup lang="ts">
-const { t } = useI18n()
+<script lang="ts">
+import { defineComponent, getCurrentInstance } from 'vue'
 
-const { sm } = useBreakpoint()
+export default defineComponent({
+  props: { isSidebarVisible: { type: Boolean } },
 
-const props = defineProps({ isSidebarVisible: { type: Boolean } })
-const emit = defineEmits(['update:isSidebarVisible'])
+  emits: ['update:isSidebarVisible'],
 
-const computedIsSidebarVisible = computed({
-  get() { return props.isSidebarVisible },
-  set(val: boolean) { emit('update:isSidebarVisible', val) }
+  setup(props, { emit }) {
+    const { t, localizePath } = useI18n()
+    const { sm } = useBreakpoint()
+
+    const computedIsSidebarVisible = computed({
+      get() { return props.isSidebarVisible },
+      set(val: boolean) { emit('update:isSidebarVisible', val) }
+    })
+
+    const links = computed(() => [
+      {
+        text: t('menu.overview'),
+        icon: 'fa-eye',
+        to: localizePath(`/introduction/overview`),
+      },
+      {
+        text: t('menu.github'),
+        icon: 'fa-github',
+        url: 'https://github.com/epicmaxco/vuestic-ui',
+        target: '_blank',
+      },
+      {
+        text: t('menu.contribution'),
+        icon: 'fa-share-alt',
+        to: localizePath(`/contribution/documentation-page`),
+      },
+    ])
+
+    return {
+      sm, links, computedIsSidebarVisible
+    }
+  }
 })
-
-const { query } = useRoute()
-
-const urlPrefix = computed(() => query.locale ? `/${query.locale}` : '')
-
-const links = computed(() => [
-  {
-    text: t('menu.overview'),
-    icon: 'fa-eye',
-    to: `${urlPrefix.value}/introduction/overview`,
-  },
-  {
-    text: t('menu.github'),
-    icon: 'fa-github',
-    url: 'https://github.com/epicmaxco/vuestic-ui',
-    target: '_blank',
-  },
-  {
-    text: t('menu.contribution'),
-    icon: 'fa-share-alt',
-    to: `${urlPrefix.value}/contribution/documentation-page`,
-  },
-])
 </script>
 
 <style lang="scss" scoped>

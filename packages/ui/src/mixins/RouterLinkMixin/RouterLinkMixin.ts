@@ -14,6 +14,7 @@ class RouterLinkProps {
 
 const RouterLinkPropsMixin = Vue.with(RouterLinkProps)
 
+/** @deprecated */
 @Options({})
 export class RouterLinkMixin extends mixins(
   RouterLinkPropsMixin,

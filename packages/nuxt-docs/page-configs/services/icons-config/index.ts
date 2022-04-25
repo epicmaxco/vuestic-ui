@@ -61,11 +61,11 @@ export default definePageConfig({
     block.subtitle("iconsConfig.fonts.title"),
     block.paragraph("iconsConfig.fonts.about"),
 
-    block.subtitle("iconsConfig.fonts.fontNamePattern.title"),
+    block.subtitle("iconsConfig.fonts.fontNamePattern.title", 'h5'),
     block.paragraph("iconsConfig.fonts.fontNamePattern.about"),
     block.example("font", { hideCode: true }),
 
-    block.subtitle("iconsConfig.fonts.example.title"),
+    block.subtitle("iconsConfig.fonts.example.title", 'h5'),
     block.paragraph("iconsConfig.fonts.example.about"),
     block.code(fontCodeExample),
     block.paragraph("iconsConfig.fonts.example.explain"),
@@ -81,7 +81,7 @@ export default definePageConfig({
     block.subtitle("iconsConfig.aliases.title"),
     block.paragraph("iconsConfig.aliases.about"),
 
-    block.subtitle("iconsConfig.aliases.example.title"),
+    block.subtitle("iconsConfig.aliases.example.title", 'h5'),
     block.code(aliasCodeExample),
 
     block.paragraph("iconsConfig.aliases.example.about"),

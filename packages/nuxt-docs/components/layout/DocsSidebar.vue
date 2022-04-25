@@ -1,8 +1,15 @@
 <template>
-  <va-sidebar class="sidebar" v-model="computedVisible" :width="sidebarWidth">
+  <va-sidebar
+    class="sidebar"
+    v-model="computedVisible"
+    :width="sidebarWidth"
+  >
     <LayoutDocsSidebarAlgoliaSearch />
 
-    <va-accordion v-model="accordionValue" multiply>
+    <va-accordion
+      v-model="accordionValue"
+      multiply
+    >
       <va-collapse
         v-for="(route, key) in sidebarItems"
         :key="key"
@@ -26,11 +33,11 @@
           class="va-sidebar__child"
         >
           <va-list-label
-              v-if="childRoute.category"
-              class="va-sidebar__child__label"
-              color="gray"
-            >
-              {{ t(childRoute.category) }}
+            v-if="childRoute.category"
+            class="va-sidebar__child__label"
+            color="primary"
+          >
+            {{ t(childRoute.category) }}
           </va-list-label>
           <va-sidebar-item
             :to="`/${locale}/${route.name}/${childRoute.name}`"
@@ -45,7 +52,10 @@
               <va-sidebar-item-title>
                 {{ t(childRoute.text) }}
               </va-sidebar-item-title>
-              <div class="va-sidebar-item-badges" v-if="childRoute.meta && childRoute.meta.badge">
+              <div
+                class="va-sidebar-item-badges"
+                v-if="childRoute.meta && childRoute.meta.badge"
+              >
                 <va-chip
                   size="small"
                   :color="badgeColors[childRoute.meta.badge]"
@@ -67,13 +77,34 @@ import { useColors } from 'vuestic-ui';
 import { createPageRoutes } from '~~/page-configs';
 import { PageRoute } from '~~/types/page-config';
 import { TranslationString } from '~~/types/translations';
-import camelCase from 'lodash/camelCase'
-
-const { locale, t } = useI18n()
-
-const pages = createPageRoutes()
+import camelCase from 'lodash/camelCase.js'
 
 type SidebarItem = PageRoute & { text: TranslationString, children: SidebarItem[], category?: string }
+
+const { locale, t } = useI18n()
+const pages = createPageRoutes()
+
+const emit = defineEmits(['update:visible'])
+
+const props = defineProps({
+  visible: { type: Boolean },
+  mobile: { type: Boolean },
+})
+
+const computedVisible = computed({
+  get: () => props.visible,
+  set: (val: boolean) => emit('update:visible', val)
+})
+
+const onSidebarItemClick = () => props.mobile && emit('update:visible', false)
+
+const { getColor, getHoverColor, getFocusColor } = useColors()
+
+const activeColor = computed(() => getFocusColor(getColor('primary')))
+const hoverColor = computed(() => getHoverColor(getColor('primary')))
+const badgeColors = { wip: 'primary', new: 'success' }
+
+const sidebarWidth = computed(() => props.mobile ? '100%' : '16rem')
 
 const createSidebarItems = (pages: PageRoute[]): SidebarItem[] => {
   const grouped = pages
@@ -81,18 +112,16 @@ const createSidebarItems = (pages: PageRoute[]): SidebarItem[] => {
       ...page,
       meta: page.meta || {} as PageRoute['meta'],
       text: page.meta?.displayName || `menu.${camelCase(page.name)}`,
-      children: page.children && createSidebarItems(page.children)
+      children: page.children && createSidebarItems(page.children),
     }))
     .reduce((result, item) => {
       const key = item.meta.category || '_noGroup'
-      if (!result[key]) { result[key] =[] }
+      if (!result[key]) { result[key] = [] }
       result[key].push(item)
       return result
     }, {} as Record<string, SidebarItem[]>)
 
   return Object.keys(grouped)
-    // TODO: Should we sort sidebar item groups? Define custom sorting?
-    .sort((a, b) => a < b ? -1 : 1)
     .reduce((result, group) => {
       if (group !== '_noGroup') {
         grouped[group][0].category = group
@@ -102,56 +131,31 @@ const createSidebarItems = (pages: PageRoute[]): SidebarItem[] => {
 }
 
 const sidebarItems = computed(() => createSidebarItems(pages))
+const { currentRoute, afterEach } = useRouter()
 
-const accordionValue = ref<boolean[]>([true])
-
-const props = defineProps({
-  visible: { type: Boolean },
-  mobile: { type: Boolean },
-})
-
-const computedVisible = computed({
-  get() { return props.visible }, set(val: boolean) { emit('update:visible', val) }
-})
-const sidebarWidth = computed(() => props.mobile ? '100%' : '16rem')
-
-const { getColor, getHoverColor, getFocusColor } = useColors()
-
-const activeColor = computed(() => getFocusColor(getColor('primary')))
-const hoverColor = computed(() => getHoverColor(getColor('primary')))
-
-const badgeColors = { wip: 'primary', new: 'success' }
-
-const { currentRoute, beforeEach } = useRouter()
-
-const isActiveChildRoute = (route: { name: string }, parent: { name: string }) => {
+const isActiveChildRoute = (route: PageRoute, parent: PageRoute) => {
   const childPath = `/${locale.value}/${parent.name}/${route.name}`
+
   return currentRoute.value.path === childPath
 }
 
+const accordionValue = ref<boolean[]>([])
+
 const isRouteHasActiveChild = (route: { path: string, children: { path: string }[] }) => {
-  const pathSteps: string[] = currentRoute.value.path.split('/').filter(Boolean)
-
-  return !!route.children.some(({ path }) => pathSteps.includes(path))
-}
-
-const emit = defineEmits(['update:visible'])
-
-const onSidebarItemClick = () => {
-  if (props.mobile) {
-    emit('update:visible', false)
-  }
+  return !!route.children.some(({ path }) => currentRoute.value.path.includes(path))
 }
 
 const updateAccordionValue = () => {
-    accordionValue.value = sidebarItems.value.map((route, index) => {
-      if (!route.children || accordionValue.value[index]) { return accordionValue.value[index] }
+  accordionValue.value = sidebarItems.value.map((route, index) => {
+    if (!route.children || accordionValue.value[index]) {
+      return accordionValue.value[index]
+    }
 
-      return isRouteHasActiveChild(route)
-    })
+    return isRouteHasActiveChild(route)
+  })
 }
 
-beforeEach(updateAccordionValue)
+afterEach(updateAccordionValue)
 updateAccordionValue()
 </script>
 
@@ -172,7 +176,7 @@ updateAccordionValue()
     cursor: pointer;
 
     ::before {
-      content: '';
+      content: "";
       position: absolute;
       top: 0;
       left: 0;

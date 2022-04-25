@@ -1,4 +1,4 @@
-import { getParameters } from 'codesandbox/lib/api/define'
+import { getParameters } from 'codesandbox/lib/api/define.js'
 import packageUi from 'vuestic-ui/package.json'
 
 export type Dependencies = {

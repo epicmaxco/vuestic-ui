@@ -40,19 +40,20 @@ export type ManualApiOptions = {
 
 export interface PageConfig {
   blocks: DocsBlock[],
-  meta?: { 
+  meta?: {
     /** @default { `menu.${filename}` } */
-    displayName?: TranslationString, 
+    displayName?: TranslationString,
     badge?: 'wip' | 'new',
-    category: string
+    category?: string,
   },
-  manualApi?: ManualApiOptions
+  manualApi?: ManualApiOptions,
+  childOrder?: string[],
 }
 
 export interface PageRoute extends PageConfig {
   name: string,
   path: string,
-  children?: PageRoute[]
+  children?: PageRoute[],
 }
 
-export const definePageConfig = (config: PageConfig) => config 
+export const definePageConfig = (config: PageConfig) => config

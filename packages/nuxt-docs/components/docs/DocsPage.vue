@@ -2,8 +2,8 @@
   <div>
     <component
       v-for="(block, i) in blocks"
-      :key="i + currentRoute.fullPath" 
-      :is="block.component" v-bind="block.attributes" 
+      :key="i + currentRoute.fullPath"
+      :is="block.component" v-bind="block.attributes"
     />
   </div>
 </template>

@@ -1,6 +1,6 @@
 import { definePageConfig } from "~~/types/page-config";
 import VaDateInput from "vuestic-ui/src/components/va-date-input/VaDateInput.vue";
-import GlobalConfigCode from './code-examples/global-config' 
+import GlobalConfigCode from './code-examples/global-config'
 
 const block = useDocsBlocks(import.meta);
 
@@ -15,7 +15,7 @@ export default definePageConfig({
     block.subtitle("all.examples"),
 
     // examples
-    block.exampleBlock("Default"),
+    block.exampleBlock("default"),
 
     block.exampleBlock("resetOnClose"),
 

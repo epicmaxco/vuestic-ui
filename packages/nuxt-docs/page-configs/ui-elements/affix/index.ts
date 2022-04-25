@@ -9,13 +9,13 @@ export default definePageConfig({
     block.paragraph("affix.summaryText"),
 
     block.subtitle("all.examples"),
-    block.subtitle("affix.examples.top.title"),
+    block.subtitle("affix.examples.top.title", 'h5'),
     block.example("Top"),
 
-    block.subtitle("affix.examples.target.title"),
+    block.subtitle("affix.examples.target.title", 'h5'),
     block.example("Target"),
 
-    block.subtitle("affix.examples.bottom.title"),
+    block.subtitle("affix.examples.bottom.title", 'h5'),
     block.example("Bottom"),
 
     block.subtitle("all.api"),

@@ -70,6 +70,7 @@
 <script lang="ts">
 import { defineComponent, watch, PropType, ref, Ref, computed, nextTick } from 'vue'
 
+import { __DEV__ } from '../../utils/global-utils'
 import { useColors } from '../../composables/useColor'
 import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
 
@@ -200,7 +201,7 @@ export default defineComponent({
     }
 
     watch([usedTotal, () => props.pages], () => {
-      if (usedTotal.value && props.pages && process.env.NODE_ENV !== 'production') {
+      if (__DEV__ && usedTotal.value && props.pages) {
         throw new Error('Please, use either `total` and `page-size` props, or `pages`.')
       }
     })

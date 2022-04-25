@@ -84,7 +84,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, InputHTMLAttributes, PropType, watch, ref } from 'vue'
-import omit from 'lodash/omit'
+import omit from 'lodash/omit.js'
 import VaTimePicker from '../va-time-picker/VaTimePicker.vue'
 import VaInput from '../va-input/VaInput.vue'
 import VaIcon from '../va-icon/VaIcon.vue'
@@ -133,8 +133,8 @@ export default defineComponent({
   inheritAttrs: false,
 
   setup (props, { emit, attrs, slots }) {
-    const input = ref<InstanceType<typeof VaInput> | undefined>()
-    const timePicker = ref<InstanceType<typeof VaTimePicker> | undefined>()
+    const input = ref<typeof VaInput | undefined>()
+    const timePicker = ref<typeof VaTimePicker | undefined>()
     const clearIconId = generateUniqueId()
     const componentIconId = generateUniqueId()
 

@@ -4,12 +4,12 @@
       <div class="header__inner">
         <div class="header__logo">
           <!--        TODO: add root link-->
-          <a href="/">
+          <router-link to="/">
             <vuestic-logo
               height="30"
               width="150"
             />
-          </a>
+          </router-link>
           <div
             class="menu"
             @click="isHidden = !isHidden"
@@ -119,12 +119,12 @@
 </template>
 
 <script setup lang="ts">
+const { t, locale } = useI18n()
+
 import { languages } from '../../../locales'
 import CommonStarsButton from '../../common/CommonStarsButton.vue'
 import CommonLanguageDropdown from '../../common/CommonLanguageDropdown.vue'
 import VuesticLogo from './VuesticLogo.vue'
-
-const { t, locale } = useI18n()
 
 const isHidden = ref(true)
 

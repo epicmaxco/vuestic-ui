@@ -79,7 +79,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType } from 'vue'
-import pick from 'lodash/pick'
+import pick from 'lodash/pick.js'
 
 import { useStatefulProps, useStateful } from '../../composables/useStateful'
 import { useEmitProxy } from '../../composables/useEmitProxy'

@@ -6,6 +6,7 @@ interface useFilterableProps {
   filterMethod: TFilterMethod | undefined
   [prop: string]: unknown
 }
+
 export type TFilteredArgs = { items: ITableItem[], itemsIndexes: number[] }
 export type TFilterableEmits = (event: 'filtered', arg: TFilteredArgs) => void
 
@@ -25,7 +26,7 @@ export default function useFilterable (
 
     return rawRows.value.filter(row => row.cells.some(cell => {
       return typeof props.filterMethod === 'function'
-        ? props.filterMethod(cell.source)
+        ? props.filterMethod(cell.rowData[cell.column.key])
         : cell.value.toLowerCase().includes(props.filter.toLowerCase())
     }))
   })

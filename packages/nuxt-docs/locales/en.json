@@ -1770,55 +1770,57 @@
   "modal": {
     "title": "Modal",
     "summaryText": "Classic modal overlay which represents a dialog box or other interactive component, such as a dismissible alert, sub-window, etc.",
-    "overview": {
-      "title": "Overview",
-      "text": "`<va-modal>`, by default, has the **OK** and **Cancel** buttons in the footer. You can provide a custom message and title with the `message` and `title` props respectively.\n\n`<va-modal>` supports close on **Esc** (enabled by default) and close on overlay click (enabled by default). These features may be disabled by setting the props `no-esc-dismiss` and `no-outside-dismiss` respectively, or `no-dismiss` as a shorthand to disable both of them."
-    },
-    "stateful": {
-      "title": "Stateful",
-      "text": "By default `va-modal` is stateless. You can change it by setting the `stateful` prop"
-    },
-    "fullscreen": {
-      "title": "Full screen",
-      "text": "Add the `fullscreen` prop to cover the whole page.\n\nNote that `va-modal` is full screen on mobile viewports by default. You can change it by setting the `mobile-fullscreen` prop to `false`."
-    },
-    "modalSizing": {
-      "title": "Modal sizing",
-      "text": "Modals have three optional sizes, available via the prop `size`. These sizes kick in at certain breakpoints to avoid horizontal scrollbars on narrower viewports. Valid optional sizes are `small`, `medium` (default), and `large`."
-    },
-    "toggleVisibility": {
-      "title": "Toggle modal visibility",
-      "text": "There are several methods that you can employ to toggle the visibility of `<va-modal>`.",
-      "sections": [
-        {
-          "title": "Using `v-model` property",
-          "text": "`v-model` property is always automatically synced with `<va-modal>` visible state and you can show/hide using `v-model`."
-        },
-        {
-          "title": "Using `show()`, `hide()`, and `toggle()` component methods",
-          "text": "You can access modal using `ref` attribute and then call the `show()`, `hide()` or `toggle()` methods."
-        }
-      ]
-    },
-    "disableAnimation": {
-      "title": "Disable open and close animation",
-      "text": "To disable the transition/animation when modal opens and closes, set the prop `without-transitions`."
-    },
-    "hidingOverlay": {
-      "title": "Hiding the overlay",
-      "text": "Hide the modal's overlay via setting the `overlay` prop to `false`.\n\nNote that clicking outside of the modal will still close the modal even though the overlay is hidden. You can disable this behaviour by setting the `no-outside-dismiss` prop on `<va-modal>`."
-    },
-    "scrollingLongContent": {
-      "title": "Scrolling long content",
-      "text": "When modals become too long for the user's viewport or device, they allow the scrolling of the modal body. Try the demo below to see what we mean.\n\nYou can also allow scrolling only content in modal via setting the `fixed-layout` prop. Title and actions will be fixed."
-    },
-    "customization": {
-      "title": "Customization",
-      "text": "`<va-modal>` provides several slots (`default`, `header` and `footer`), that you can use to customize the content of various sections of the modal.\n\nYou can set custom text for **Cancel** and **Ok** buttons via `ok-text` and `cancel-text` props respectively, or you can hide them via `hide-default-actions` prop.\n\n`va-modal` also supports custom `overlay-opacity` as well as `z-index`, `max-width` and `max-height` for a modal."
-    },
-    "nestedModals": {
-      "title": "Nested modals",
-      "text": "Modals can be nested: you can open one modal from another."
+    "examples": {
+      "overview": {
+        "title": "Overview",
+        "text": "`<va-modal>`, by default, has the **OK** and **Cancel** buttons in the footer. You can provide a custom message and title with the `message` and `title` props respectively.\n\n`<va-modal>` supports close on **Esc** (enabled by default) and close on overlay click (enabled by default). These features may be disabled by setting the props `no-esc-dismiss` and `no-outside-dismiss` respectively, or `no-dismiss` as a shorthand to disable both of them."
+      },
+      "stateful": {
+        "title": "Stateful",
+        "text": "By default `va-modal` is stateless. You can change it by setting the `stateful` prop"
+      },
+      "fullscreen": {
+        "title": "Full screen",
+        "text": "Add the `fullscreen` prop to cover the whole page.\n\nNote that `va-modal` is full screen on mobile viewports by default. You can change it by setting the `mobile-fullscreen` prop to `false`."
+      },
+      "modalSizing": {
+        "title": "Modal sizing",
+        "text": "Modals have three optional sizes, available via the prop `size`. These sizes kick in at certain breakpoints to avoid horizontal scrollbars on narrower viewports. Valid optional sizes are `small`, `medium` (default), and `large`."
+      },
+      "toggleVisibility": {
+        "title": "Toggle modal visibility",
+        "text": "There are several methods that you can employ to toggle the visibility of `<va-modal>`.",
+        "sections": [
+          {
+            "title": "Using `v-model` property",
+            "text": "`v-model` property is always automatically synced with `<va-modal>` visible state and you can show/hide using `v-model`."
+          },
+          {
+            "title": "Using `show()`, `hide()`, and `toggle()` component methods",
+            "text": "You can access modal using `ref` attribute and then call the `show()`, `hide()` or `toggle()` methods."
+          }
+        ]
+      },
+      "disableAnimation": {
+        "title": "Disable open and close animation",
+        "text": "To disable the transition/animation when modal opens and closes, set the prop `without-transitions`."
+      },
+      "hidingOverlay": {
+        "title": "Hiding the overlay",
+        "text": "Hide the modal's overlay via setting the `overlay` prop to `false`.\n\nNote that clicking outside of the modal will still close the modal even though the overlay is hidden. You can disable this behaviour by setting the `no-outside-dismiss` prop on `<va-modal>`."
+      },
+      "scrollingLongContent": {
+        "title": "Scrolling long content",
+        "text": "When modals become too long for the user's viewport or device, they allow the scrolling of the modal body. Try the demo below to see what we mean.\n\nYou can also allow scrolling only content in modal via setting the `fixed-layout` prop. Title and actions will be fixed."
+      },
+      "customization": {
+        "title": "Customization",
+        "text": "`<va-modal>` provides several slots (`default`, `header` and `footer`), that you can use to customize the content of various sections of the modal.\n\nYou can set custom text for **Cancel** and **Ok** buttons via `ok-text` and `cancel-text` props respectively, or you can hide them via `hide-default-actions` prop.\n\n`va-modal` also supports custom `overlay-opacity` as well as `z-index`, `max-width` and `max-height` for a modal."
+      },
+      "nestedModals": {
+        "title": "Nested modals",
+        "text": "Modals can be nested: you can open one modal from another."
+      }
     }
   },
   "pagination": {
@@ -1961,7 +1963,7 @@
         "title": "Default usage",
         "text": "All elements have `rules` prop which offers flexible solutions when it comes to elements validation. By using this prop you’ll be able to specify exact cases when the field is *valid* or *invalid*."
       },
-      "advanced": {
+      "withInputs": {
         "title": "Trigger validation",
         "text": "You can trigger validation from a parent component by using the `validate()` method of the `va-form` component."
       },
@@ -3544,7 +3546,7 @@
     "blockquote": "Blockquote",
     "textBlock": "Text block"
   },
-  "ag-grid": {
+  "agGrid": {
     "title": "AG Grid Theme",
     "description": "If you need more flexible customization of the display of tables, we recommend using the [AG Grid](https://www.ag-grid.com/vue-data-grid/getting-started)[[target=_blank]] library. Vuestic UI provides a ready-made style theme for this library.",
     "otherTables": {
@@ -3761,35 +3763,35 @@
   "carousel": {
     "title": "Carousel",
     "examples": {
-      "Default": {
+      "default": {
         "title": "Default",
         "text": ""
       },
-      "Arrows": {
+      "arrows": {
         "title": "Arrow buttons",
         "text": "Arrow buttons allow user switch to next or previous slide."
       },
-      "Indicators": {
+      "indicators": {
         "title": "Indicator buttons",
         "text": "Indicators (or dots) used to quicly change slide by it's index."
       },
-      "Vertical": {
+      "vertical": {
         "title": "Vertical",
         "text": ""
       },
-      "Slots": {
+      "slots": {
         "title": "Slots",
         "text": "Slots allow you to customize carousel component."
       },
-      "Infinite": {
+      "infinite": {
         "title": "Infinite",
         "text": "Smooth scroll transition."
       },
-      "Autoscroll": {
+      "autoscroll": {
         "title": "Autoscroll",
         "text": "Autoscroll animation."
       },
-      "Fade": {
+      "fade": {
         "title": "Fade",
         "text": "Additional carousel slide switch effect."
       }

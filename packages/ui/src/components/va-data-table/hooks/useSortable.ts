@@ -4,7 +4,6 @@ import { TableColumn, TableRow, ITableItem, TSortingOrder } from '../types'
 interface useSortableProps {
   sortBy: string | undefined
   sortingOrder: TSortingOrder | undefined
-  [prop: string]: unknown
 }
 export type TSortedArgs = { sortBy: string, sortingOrder: TSortingOrder, items: ITableItem[], itemsIndexes: number[] }
 export type TSortableEmits = (
@@ -75,8 +74,8 @@ export default function useSortable (
     return [...filteredRows.value].sort((a, b) => {
       const firstValString = a.cells[columnIndex].value
       const secondValString = b.cells[columnIndex].value
-      const firstValInitial = a.cells[columnIndex].source
-      const secondValInitial = b.cells[columnIndex].source
+      const firstValInitial = a.cells[columnIndex].rowData[a.cells[columnIndex].column.key]
+      const secondValInitial = b.cells[columnIndex].rowData[a.cells[columnIndex].column.key]
 
       if (sortingOrderSync.value === null) {
         return a.initialIndex - b.initialIndex

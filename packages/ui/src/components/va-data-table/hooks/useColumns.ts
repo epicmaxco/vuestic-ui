@@ -1,7 +1,6 @@
+import startCase from 'lodash/startCase.js'
+import merge from 'lodash/merge.js'
 import { computed, Ref } from 'vue'
-import { ITableItem } from './useRows'
-import startCase from 'lodash/startCase'
-import merge from 'lodash/merge'
 import { TTableColumnSource, TableColumn, ITableItem } from '../types'
 
 interface useColumnsProps {

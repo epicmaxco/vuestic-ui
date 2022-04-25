@@ -28,7 +28,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "~vuestic-ui/src/styles/resources";
+@import "vuestic-ui/styles/resources";
 
 /* PrismJS 1.20.0
 https://prismjs.com/download.html#themes=prism&languages=css */

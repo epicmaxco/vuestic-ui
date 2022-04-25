@@ -10,7 +10,7 @@ export default definePageConfig({
 
     block.subtitle("all.examples"),
 
-    block.exampleBlock("Example"),
+    block.exampleBlock("Default"),
     block.exampleBlock("WithRadio"),
     block.exampleBlock("WithSwitch"),
     block.exampleBlock("WithComplexData"),

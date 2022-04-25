@@ -55,7 +55,7 @@ export default definePageConfig({
 
     // api
     block.subtitle("componentsConfig.api.title"),
-    block.subtitle("componentsConfig.api.types"),
+    block.subtitle("componentsConfig.api.types", 'h5'),
     block.table(columns, tableData),
   ],
 });

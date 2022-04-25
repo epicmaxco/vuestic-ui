@@ -1,7 +1,6 @@
-import { createI18n, I18n, VueI18n } from 'vue-i18n'
+import { createI18n, VueI18n } from 'vue-i18n'
 import { messages, locales } from '~/locales'
 import { useRouter, useRoute } from '#app'
-import { Ref } from 'vue'
 
 type Locale = keyof typeof messages
 

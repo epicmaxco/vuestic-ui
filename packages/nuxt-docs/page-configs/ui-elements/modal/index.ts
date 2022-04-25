@@ -14,12 +14,12 @@ export default definePageConfig({
     block.exampleBlock("Stateful"),
     block.exampleBlock("Fullscreen"),
 
-    block.subtitle("modal.toggleVisibility.title"),
-    block.paragraph("modal.toggleVisibility.text"),
-    block.subtitle("modal.toggleVisibility.sections[0].title"),
-    block.paragraph("modal.toggleVisibility.sections[0].text"),
-    block.subtitle("modal.toggleVisibility.sections[1].title"),
-    block.paragraph("modal.toggleVisibility.sections[1].text"),
+    block.subtitle("modal.examples.toggleVisibility.title", 'h5'),
+    block.paragraph("modal.examples.toggleVisibility.text"),
+    block.subtitle("modal.examples.toggleVisibility.sections[0].title", 'h5'),
+    block.paragraph("modal.examples.toggleVisibility.sections[0].text"),
+    block.subtitle("modal.examples.toggleVisibility.sections[1].title", 'h5'),
+    block.paragraph("modal.examples.toggleVisibility.sections[1].text"),
     block.example("toggle-visibility/InstanceMethods"),
 
     block.exampleBlock("DisableAnimation"),

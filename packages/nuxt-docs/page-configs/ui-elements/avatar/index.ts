@@ -11,7 +11,7 @@ export default definePageConfig({
     block.subtitle("all.examples"),
 
     block.exampleBlock("Default"),
-    block.subtitle("avatar.examples.color.title"),
+    block.subtitle("avatar.examples.color.title", 'h5'),
     block.example("Color"),
     block.exampleBlock("Size"),
     block.exampleBlock("WithImage"),

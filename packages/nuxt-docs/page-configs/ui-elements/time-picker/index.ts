@@ -9,7 +9,7 @@ export default definePageConfig({
 
     block.subtitle("all.examples"),
 
-    block.exampleBlock("Default"),
+    block.exampleBlock("default"),
 
     block.exampleBlock("readonlyAndDisabled"),
 

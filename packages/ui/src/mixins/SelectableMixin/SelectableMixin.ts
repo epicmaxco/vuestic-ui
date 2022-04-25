@@ -20,6 +20,7 @@ class Props {
 
 const PropsMixin = Vue.with(Props)
 
+/** @deprecated */
 @Options({
   emits: ['update:modelValue', 'focus', 'blur'],
 })

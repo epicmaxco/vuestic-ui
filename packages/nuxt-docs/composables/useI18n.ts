@@ -4,7 +4,6 @@ import { TranslationString } from '~~/types/translations'
 
 /** Modified useI18n. Sync locale with cookie. Has tie method. */
 export const useI18n = () => {
-  getCurrentInstance() // Fixes i18n error "Must be called on top of setup in script-setup"
   const i18n = originalUseI18n()
   const { setCookie } = useSSRCookie()
 
@@ -26,11 +25,20 @@ export const useI18n = () => {
     }
 
     return translationString
-  } 
+  }
+
+  const route = useRoute()
+
+  const urlPrefix = computed(() => route.params.locale ? `/${route.params.locale}` : '')
+
+  const localizePath = (path: string) => {
+    return (`${urlPrefix.value}/${path}`).replace('//', '/')
+  }
 
   return {
     ...i18n,
     tie,
+    localizePath,
     locale: computed({
       get() {
         return i18n.locale.value

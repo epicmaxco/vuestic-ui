@@ -1,4 +1,4 @@
-import { defineManualApi } from "../../../components/DocsApi/ManualApiOptions";
+import { defineManualApi } from './../../../../docs/src/components/DocsApi/ManualApiOptions';
 
 export const listApiOptions = defineManualApi({
   slots: {

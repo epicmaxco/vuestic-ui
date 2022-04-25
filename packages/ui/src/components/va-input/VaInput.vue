@@ -83,8 +83,8 @@ import { useClearableProps, useClearable, useClearableEmits } from '../../compos
 import VaTextarea from './components/VaTextarea/VaTextarea.vue'
 import VaIcon from '../va-icon/VaIcon.vue'
 import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
-import omit from 'lodash/omit'
-import pick from 'lodash/pick'
+import omit from 'lodash/omit.js'
+import pick from 'lodash/pick.js'
 
 const VaTextareaProps = extractComponentProps(VaTextarea)
 
@@ -120,6 +120,7 @@ export default defineComponent({
     label: { type: String, default: '' },
     type: { type: String as PropType<'text' | 'textarea'>, default: 'text' },
     loading: { type: Boolean, default: false },
+    inputClass: { type: String, default: '' },
     pattern: { type: String },
     inputmode: { type: String, default: 'text' },
 
@@ -141,7 +142,7 @@ export default defineComponent({
   inheritAttrs: false,
 
   setup (props, { emit, attrs, slots }) {
-    const input = ref<HTMLInputElement | InstanceType<typeof VaTextarea> | undefined>()
+    const input = ref<HTMLInputElement | typeof VaTextarea | undefined>()
 
     const reset = () => {
       emit('update:modelValue', props.clearValue)
@@ -204,6 +205,7 @@ export default defineComponent({
 
     const computedChildAttributes = computed(() => ({
       ariaLabel: props.label,
+      class: props.inputClass,
       ...omit(attrs, ['class', 'style']),
     }) as InputHTMLAttributes)
 
