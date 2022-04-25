@@ -142,5 +142,18 @@
     ".{htm,html,css,sss,less,scss}": [
       "stylelint '**/*.{vue,html,css,scss}' --fix"
     ]
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/esm/main.js",
+      "require": "./dist/cjs/main.js"
+    },
+    "./ssr": {
+      "import": "./dist/esm-ssr/main.js"
+    },
+    "./iife": "./dist/iife/vuestic-ui.js",
+    "./styles/": "./dist/styles/",
+    "./types": "./dist/types/main.d.ts",
+    "./css": "./dist/vuestic-ui.css"
   }
 }

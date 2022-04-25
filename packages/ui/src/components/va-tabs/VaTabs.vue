@@ -224,15 +224,13 @@ export default defineComponent({
       tabsList.value.forEach((tab: TabComponent) => {
         tab.updateSidePositions()
 
-        if (tabSelected.value) {
-          const isTabSelected = (tab.name?.value || tab.id) === tabSelected.value
+        const isTabSelected = (tab.name?.value || tab.id) === tabSelected.value
 
-          tab.isActive = tab.isActiveRouterLink || isTabSelected
+        tab.isActive = tab.isActiveRouterLink || isTabSelected
 
-          if (tab.isActive) {
-            moveToTab(tab)
-            updateSlider(tab)
-          }
+        if (tab.isActive) {
+          moveToTab(tab)
+          updateSlider(tab)
         }
       })
 
@@ -363,7 +361,7 @@ export default defineComponent({
     }
 
     const registerTab = (tab: TabComponent) => {
-      const idx = tabsList.value.push(tab)
+      const idx = tabsList.value.push(tab) - 1
 
       tab.id = tab.name?.value || idx
     }

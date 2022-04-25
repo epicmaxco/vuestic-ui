@@ -1,10 +1,19 @@
 /* Use class name instead of :root if we want to update nested variables for one component */
 .va-date-picker {
+  /* Font */
+  --va-date-picker-font-style: normal;
+  --va-date-picker-font-weight: 600;
+  --va-date-picker-font-size: 12px;
+  --va-date-picker-line-height: 1.25;
+  --va-date-picker-weekday-font-size: 9px;
+
   /* Colors */
   --va-date-picker-color: var(--va-primary);
   --va-date-picker-secondary: var(--va-secondary);
   --va-date-picker-white: var(--va-white);
   --va-date-picker-text-color: var(--va-dark);
+
+  /* Sizes */
   --va-date-picker-cell-size: 32px;
   --va-date-picker-cell-gap: 2px;
   --va-date-picker-cell-radius: 6px;
@@ -24,4 +33,9 @@
   /* Focused */
   --va-date-picker-focused-border-color: var(--va-date-picker-color);
   --va-date-picker-focused-selected-border-color: var(--va-white);
+
+  /* Opacity */
+  --va-date-picker-cell-opacity: 0.5;
+  --va-date-picker-cell-background-opacity-hover: 0.1;
+  --va-date-picker-cell-selected-background-opacity-hover: 0.8;
 }
