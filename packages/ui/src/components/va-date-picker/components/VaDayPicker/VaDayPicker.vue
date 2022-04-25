@@ -145,16 +145,15 @@ export default defineComponent({
 <style lang="scss">
 .va-day-picker {
   display: grid;
-  // 7 columns
-  grid-template-columns: repeat(7, 1fr);
+  grid-template-columns: repeat(7, 1fr); // 7 columns
   grid-gap: var(--va-date-picker-cell-gap);
 
   &__weekday {
-    text-align: center;
-    font-size: 9px;
-    color: var(--va-secondary);
-    font-weight: bold;
     height: var(--va-date-picker-cell-size);
+    color: var(--va-secondary);
+    text-align: center;
+    font-size: var(--va-date-picker-weekday-font-size);
+    font-weight: bold;
     line-height: var(--va-date-picker-cell-size);
   }
 }

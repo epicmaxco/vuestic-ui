@@ -214,6 +214,10 @@ export default defineComponent({
 
   width: calc(var(--va-date-picker-cell-size) * 7 + var(--va-date-picker-cell-gap) * 6);
   font-family: var(--va-font-family);
+  font-style: var(--va-date-picker-font-style);
+  font-weight: var(--va-date-picker-font-weight);
+  font-size: var(--va-date-picker-font-size);
+  line-height: var(--va-date-picker-line-height);
 
   &__picker-wrapper {
     height: var(--va-date-picker-content-height);
