@@ -10,7 +10,7 @@
     </template>
   </va-tabs>
   <prism-wrapper
-    :code="contents[index-1]"
+    :code="contents[index]"
     :lang="$props.language"
     class="DocsCode"
   />
@@ -38,7 +38,7 @@ export default defineComponent({
       : tabs.value.map(tab => applyTranslations((props.code as Record<string, string>)[tab].trim()),
       ))
 
-    const index = ref(1)
+    const index = ref(0)
 
     const doShowCode = ref(true)
 
