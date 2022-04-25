@@ -55,8 +55,8 @@
     >
       <va-tabs
         v-model="tabValue1"
-        prev-icon="arrow_back_ios"
-        next-icon="arrow_forward_ios"
+        prev-icon="arrow_back"
+        next-icon="arrow_forward"
       >
         <template #tabs>
           <va-tab
