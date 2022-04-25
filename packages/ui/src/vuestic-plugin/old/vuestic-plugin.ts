@@ -1,8 +1,9 @@
 import { App } from 'vue'
-import { GlobalConfig } from '../services/global-config/global-config'
-import { GlobalConfigPlugin, VaDropdownPlugin, VaToastPlugin, ColorConfigPlugin } from './vuestic-plugins'
-import * as vuesticComponentMap from './vuestic-components'
+import type { GlobalConfig } from '../../services/global-config/global-config'
+import { GlobalConfigPlugin, VaDropdownPlugin, VaToastPlugin, ColorConfigPlugin } from '../vuestic-plugins'
+import * as vuesticComponentMap from '../vuestic-components'
 
+/** @deprecated Use `createVuestic` instead */
 export const VuesticPlugin = {
   install (app: App, vuesticConfig: GlobalConfig): void {
     Object.entries(vuesticComponentMap).forEach(([name, component]) => {
