@@ -1,5 +1,5 @@
 import { computed, Ref } from 'vue'
-import { VaDatePickerView } from '../../types/types'
+import { VaDatePickerView } from '../../types'
 
 /** Returns last day of previous month */
 export const getMonthDaysCount = (year: number, month: number): number => new Date(year, month + 1, 0).getDate()

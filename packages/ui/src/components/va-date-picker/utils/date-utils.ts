@@ -1,11 +1,11 @@
 
-export const isDatesDayEqual = (date1: Date | null, date2: Date | null): boolean => date1?.toDateString() === date2?.toDateString()
+export const isDatesDayEqual = (date1?: Date | null, date2?: Date | null): boolean => date1?.toDateString() === date2?.toDateString()
 
-export const isDatesMonthEqual = (date1: Date | null, date2: Date | null): boolean => {
+export const isDatesMonthEqual = (date1?: Date | null, date2?: Date | null): boolean => {
   return date1?.getFullYear() === date2?.getFullYear() && date1?.getMonth() === date2?.getMonth()
 }
 
-export const isDatesYearEqual = (date1: Date | null, date2: Date | null): boolean => {
+export const isDatesYearEqual = (date1?: Date | null, date2?: Date | null): boolean => {
   return date1?.getFullYear() === date2?.getFullYear()
 }
 

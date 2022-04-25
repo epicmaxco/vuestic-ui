@@ -66,7 +66,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, toRefs, watch, ref, Ref } from 'vue'
+import { computed, defineComponent, PropType, toRefs, watch, ref } from 'vue'
 import { useClearableProps, useClearableEmits, useClearable } from '../../composables/useClearable'
 import { useValidation, useValidationProps, useValidationEmits } from '../../composables/useValidation'
 import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
@@ -76,14 +76,14 @@ import { isRange, isSingleDate, isDates } from '../va-date-picker/hooks/model-va
 import { useSyncProp } from '../va-date-picker/hooks/sync-prop'
 import { filterComponentProps, extractComponentProps, extractComponentEmits } from '../../utils/child-props'
 import { useRangeModelValueGuard } from './hooks/range-model-value-guard'
-import { useDateParser } from './hooks/date-text-parser'
-import parseInputToDate from './hooks/input-date-parser'
+import { useDateParser } from './hooks/input-text-parser'
+import { parseModelValue } from './hooks/model-value-parser'
 
 import VaDatePicker from '../va-date-picker/VaDatePicker.vue'
 import vaDropdown, { VaDropdownContent } from '../va-dropdown'
 import VaInput from '../va-input'
 import VaIcon from '../va-icon'
-import { VaDatePickerModelValue } from '../va-date-picker/types/types'
+import { VaDatePickerModelValue } from '../va-date-picker/types'
 
 const VaInputProps = {
   ...useValidationProps,
@@ -122,7 +122,7 @@ export default defineComponent({
     formatDate: { type: Function as PropType<(date: Date) => string>, default: () => (d: Date) => d.toLocaleDateString() },
     parse: { type: Function as PropType<(input: string) => VaDatePickerModelValue> },
     parseDate: { type: Function as PropType<(input: string) => Date> },
-    inputDateParse: { type: Function as PropType<(input: string | number | undefined | VaDatePickerModelValue) => Ref<Date>>, default: () => (d: string | number | undefined | VaDatePickerModelValue) => parseInputToDate(d) },
+    parseValue: { type: Function as PropType<typeof parseModelValue> },
 
     delimiter: { type: String, default: ', ' },
     rangeDelimiter: { type: String, default: ' ~ ' },
@@ -152,7 +152,7 @@ export default defineComponent({
     const {
       valueComputed,
       reset: resetInvalidRange,
-    } = useRangeModelValueGuard(statefulValue, isRangeModelValueGuardDisabled, props.inputDateParse)
+    } = useRangeModelValueGuard(statefulValue, isRangeModelValueGuardDisabled, props.parseValue)
 
     watch(isOpenSync, (isOpened) => {
       if (!isOpened && !isRangeModelValueGuardDisabled.value) { resetInvalidRange() }

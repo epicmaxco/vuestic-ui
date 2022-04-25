@@ -1,6 +1,8 @@
+import { isNil } from 'lodash'
 import { computed, Ref, ref, watch } from 'vue'
 import { isRange } from '../../va-date-picker/hooks/model-value-helper'
-import { VaDatePickerModelValue } from '../../va-date-picker/types/types'
+import { VaDatePickerModelValue } from '../../va-date-picker/types'
+import { parseModelValue } from './model-value-parser'
 
 export type useRangeModelValueGuardProps = {
   clearValue: VaDatePickerModelValue | undefined
@@ -13,27 +15,27 @@ export type useRangeModelValueGuardProps = {
 export const useRangeModelValueGuard = (
   modelValue: Ref<VaDatePickerModelValue | undefined>,
   disabled: Ref<boolean>,
-  inputDateParse?: ((input: string | undefined | VaDatePickerModelValue) => Ref<VaDatePickerModelValue>) | undefined,
+  parseValue = parseModelValue,
 ) => {
-  let bufferValue: Ref<VaDatePickerModelValue | undefined>
+  const bufferValue: Ref<VaDatePickerModelValue | undefined> = ref()
 
-  if (inputDateParse !== undefined) {
-    bufferValue = inputDateParse(modelValue.value)
+  if (!isNil(modelValue.value)) {
+    bufferValue.value = parseValue(modelValue.value)
   } else {
-    bufferValue = ref<VaDatePickerModelValue | undefined>(modelValue.value)
+    bufferValue.value = modelValue.value
   }
 
-  const valueComputed = computed<VaDatePickerModelValue | undefined>({
+  const valueComputed = computed({
     get: () => bufferValue.value,
     set: (value) => {
       if (disabled.value) {
-        bufferValue.value = value
+        // bufferValue.value = value
         modelValue.value = value
       }
 
       if (!value) {
         modelValue.value = value
-        bufferValue.value = value
+        // bufferValue.value = value
         return
       }
 
@@ -55,11 +57,7 @@ export const useRangeModelValueGuard = (
 
   const reset = () => {
     if (bufferValue.value && isRange(bufferValue.value)) {
-      if (inputDateParse !== undefined) {
-        bufferValue = inputDateParse(modelValue.value)
-        return
-      }
-      bufferValue.value = modelValue.value
+      bufferValue.value = modelValue.value ? parseValue(modelValue.value) : modelValue.value
     }
   }
 

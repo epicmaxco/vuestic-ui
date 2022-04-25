@@ -1,5 +1,5 @@
 import { isDatesMonthEqual, isDatesDayEqual, isDatesYearEqual } from './../utils/date-utils'
-import { VaDatePickerMode, VaDatePickerModelValue, VaDatePickerType } from '../types/types'
+import { VaDatePickerMode, VaDatePickerModelValue, VaDatePickerType } from '../types'
 import { isDates, isRange, isSingleDate, useDatePickerModelValue } from './model-value-helper'
 import { computed, ComputedRef, ref, watch } from 'vue'
 
