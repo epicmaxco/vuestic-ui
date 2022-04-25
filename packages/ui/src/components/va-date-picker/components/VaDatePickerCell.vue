@@ -116,11 +116,7 @@ export default defineComponent({
 
   &_selected {
     background-color: var(--va-date-picker-selected-background);
-
-    &,
-    &.va-date-picker-cell_today {
-      color: var(--va-date-picker-selected-text);
-    }
+    color: var(--va-date-picker-selected-text);
   }
 
   &_other-month {
