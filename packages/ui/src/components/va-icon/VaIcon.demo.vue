@@ -46,10 +46,6 @@
         name="home"
         color="primary"
       />
-      <va-icon
-        name="home"
-        color="pink"
-      />
     </VbCard>
     <VbCard title="Rotation">
       <va-icon
