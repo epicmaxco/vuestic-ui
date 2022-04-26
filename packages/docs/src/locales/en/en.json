@@ -1306,7 +1306,8 @@
     "timePicker": "Time Picker",
     "timeInput": "Time Input",
     "carousel": "Carousel",
-    "treeShaking": "Tree Shaking"
+    "treeShaking": "Tree Shaking",
+    "nuxt": "Nuxt"
   },
   "all": {
     "examples": "Examples",
@@ -3856,6 +3857,15 @@
         "title": "Fade",
         "text": "Additional carousel slide switch effect."
       }
+    }
+  },
+  "nuxt": {
+    "title": "Nuxt integration",
+    "description": "Vuestic UI is fully compatible with Nuxt3. You can use Vuestic UI in your Nuxt3 project.",
+    "installation": {
+      "title": "Installation",
+      "plugin": "Create plugin file `plugins/vuestic-ui.ts` in nuxt project. It should contain the following code:",
+      "nuxtConfig": "You also need to update your nuxt-config.ts file:"
     }
   }
 }

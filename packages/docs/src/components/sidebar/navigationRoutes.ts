@@ -48,6 +48,10 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'tree-shaking',
         displayName: 'menu.treeShaking',
       },
+      {
+        name: 'nuxt',
+        displayName: 'menu.nuxt',
+      },
       // GENERATOR_ADD - gettingStarted
     ],
   },
