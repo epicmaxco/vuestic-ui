@@ -1,22 +1,28 @@
 import { useClearable } from '../useClearable'
+import { ref } from 'vue'
 
 describe('useClearable', () => {
   it.each`
-    props                                                                                             | isFocused            | hasErrors            | expected
-    ${{ clearable: false, clearableIcon: 'highlight_off', clearValue: '' }}                           | ${{ value: false }}  | ${{ value: false }}  | ${{ canBeCleared: false, clearIconColor: 'gray', clearIconProps: { color: 'gray', name: 'highlight_off', size: 'small' } }}
-    ${{ clearable: true, clearableIcon: 'highlight_off', clearValue: '' }}                            | ${{ value: false }}  | ${{ value: true }}   | ${{ canBeCleared: true, clearIconColor: 'danger', clearIconProps: { color: 'danger', name: 'highlight_off', size: 'small' } }}
-    ${{ clearable: false, clearableIcon: '', clearValue: 'clearValue', color: 'white' }}              | ${{ value: true }}   | ${{ value: false }}  | ${{ canBeCleared: false, clearIconColor: 'white', clearIconProps: { color: 'white', name: '', size: 'small' } }}
-    ${{ clearable: true, clearableIcon: 'highlight_off', clearValue: '', success: true }}             | ${{ value: false }}  | ${{ value: false }}  | ${{ canBeCleared: true, clearIconColor: 'success', clearIconProps: { color: 'success', name: 'highlight_off', size: 'small' } }}
-    ${{ clearable: true, clearableIcon: '', clearValue: 'clearValue', readonly: true }}               | ${{ value: true }}   | ${{ value: false }}  | ${{ canBeCleared: false, clearIconColor: 'primary', clearIconProps: { color: 'primary', name: '', size: 'small' } }}
-    ${{ clearable: true, clearableIcon: '', clearValue: '', readonly: true }}                         | ${{ value: true }}   | ${{ value: true }}   | ${{ canBeCleared: false, clearIconColor: 'primary', clearIconProps: { color: 'primary', name: '', size: 'small' } }}
-    ${{ clearable: false, clearableIcon: '', clearValue: '', success: true, disabled: true }}         | ${{ value: false }}   | ${{ value: false }} | ${{ canBeCleared: false, clearIconColor: 'success', clearIconProps: { color: 'success', name: '', size: 'small' } }}
+    props                                                                                    | inputValue                 | isFocused             | hasErrors              | expected
+    ${{ clearable: true, clearableIcon: '', clearValue: '' }}                                | ${ref('inputValue')} | ${ref(false)}   | ${ref(true)}     | ${{ canBeCleared: true, clearIconColor: 'danger', clearIconProps: { color: 'danger', name: '', size: 'small' } }}
+    ${{ clearable: true, clearableIcon: '', clearValue: '' }}                                | ${ref('inputValue')} | ${ref(true)}    | ${ref(true)}     | ${{ canBeCleared: true, clearIconColor: 'primary', clearIconProps: { color: 'primary', name: '', size: 'small' } }}
+    ${{ clearable: true, clearableIcon: '', clearValue: '' }}                                | ${ref('inputValue')} | ${ref(true)}    | ${ref(false)}    | ${{ canBeCleared: true, clearIconColor: 'primary', clearIconProps: { color: 'primary', name: '', size: 'small' } }}
+    ${{ clearable: true, clearableIcon: '', clearValue: '', success: true }}                 | ${ref('inputValue')} | ${ref(true)}    | ${ref(false)}    | ${{ canBeCleared: true, clearIconColor: 'primary', clearIconProps: { color: 'primary', name: '', size: 'small' } }}
+    ${{ clearable: true, clearableIcon: '', clearValue: '', color: 'white' }}                | ${ref('inputValue')} | ${ref(true)}    | ${ref(false)}    | ${{ canBeCleared: true, clearIconColor: 'white', clearIconProps: { color: 'white', name: '', size: 'small' } }}
+    ${{ clearable: true, clearableIcon: '', clearValue: '', readonly: true }}                | ${ref('inputValue')} | ${ref(false)}   | ${ref(false)}    | ${{ canBeCleared: false, clearIconColor: 'gray', clearIconProps: { color: 'gray', name: '', size: 'small' } }}
+    ${{ clearable: true, clearableIcon: '', clearValue: '', disabled: true }}                | ${ref('inputValue')} | ${ref(false)}   | ${ref(false)}    | ${{ canBeCleared: false, clearIconColor: 'gray', clearIconProps: { color: 'gray', name: '', size: 'small' } }}
+    ${{ clearable: true, clearableIcon: '', clearValue: 'clearValue' }}                      | ${ref('inputValue')} | ${ref(false)}   | ${ref(false)}    | ${{ canBeCleared: true, clearIconColor: 'gray', clearIconProps: { color: 'gray', name: '', size: 'small' } }}
+    ${{ clearable: true, clearableIcon: '', clearValue: 'clearValue' }}                      | ${ref('clearValue')} | ${ref(false)}   | ${ref(false)}    | ${{ canBeCleared: false, clearIconColor: 'gray', clearIconProps: { color: 'gray', name: '', size: 'small' } }}
+    ${{ clearable: true, clearableIcon: '', clearValue: 'clearValue' }}                      | ${ref(null)}         | ${ref(false)}   | ${ref(false)}    | ${{ canBeCleared: false, clearIconColor: 'gray', clearIconProps: { color: 'gray', name: '', size: 'small' } }}
+    ${{ clearable: true, clearableIcon: '', clearValue: 'clearValue' }}                      | ${ref(undefined)}    | ${ref(false)}   | ${ref(false)}    | ${{ canBeCleared: false, clearIconColor: 'gray', clearIconProps: { color: 'gray', name: '', size: 'small' } }}
+    ${{ clearable: true, clearableIcon: 'highlight_off', clearValue: '', success: true }}    | ${ref('inputValue')} | ${ref(false)}   | ${ref(false)}    | ${{ canBeCleared: true, clearIconColor: 'success', clearIconProps: { color: 'success', name: 'highlight_off', size: 'small' } }}
   `(
-    'props $props & isFocused $isFocused & hasErrors $hasErrors should be $expected',
-    ({ props, isFocused, hasErrors, expected }) => {
-      // @ts-ignore
-      const { canBeCleared, clearIconColor, clearIconProps } = useClearable(props, { value: 'inputValue' }, isFocused, hasErrors)
+    'props $props & isFocused $isFocused & hasErrors $hasErrors & inputValue $inputValue should be $expected',
+    ({ props, inputValue, isFocused, hasErrors, expected }) => {
+      const { canBeCleared, clearIconColor, clearIconProps } = useClearable(props, inputValue, isFocused, hasErrors)
 
-      expect({ canBeCleared: canBeCleared.value, clearIconColor: clearIconColor.value, clearIconProps: clearIconProps.value }).toMatchObject(expected)
+      const result = { canBeCleared: canBeCleared.value, clearIconColor: clearIconColor.value, clearIconProps: clearIconProps.value }
+      expect(result).toMatchObject(expected)
     },
   )
 })

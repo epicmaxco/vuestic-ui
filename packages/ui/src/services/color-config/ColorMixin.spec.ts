@@ -12,12 +12,16 @@ export default class ExampleComponent extends mixins(ColorMixin) {
 
 describe('ColorMixin', () => {
   const wrapper: any = mount(ExampleComponent)
+
   it('isColor', () => {
-    expect(isColor('tomato')).toBe(false)
     expect(isColor('#123')).toBe(true)
     expect(isColor('#123FFF')).toBe(true)
+    expect(isColor('not-css-color')).toBe(false)
   })
+
   it('getColor should return default color', () => {
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    jest.spyOn(console, 'warn').mockImplementation(() => {})
     expect(wrapper.vm.theme.getColor('not-css-color')).toBe('#2C82E0')
   })
 
@@ -28,11 +32,9 @@ describe('ColorMixin', () => {
         propsData: { color: '' },
       } as any,
     )
-
     expect(wrapper.vm.colorComputed).toBe('#2C82E0')
 
     await wrapper.setProps({ color: '#333' })
-
     expect(wrapper.vm.colorComputed).toBe('#333')
   })
 })
