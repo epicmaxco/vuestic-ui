@@ -6,7 +6,6 @@ import {
   fontInstallationCSS,
   fontInstallationHTML,
   cliPrepare,
-  treeShakingExample,
 } from './code-examples'
 
 const block = new PageGenerationHelper(__dirname)
@@ -44,21 +43,6 @@ const config: ApiDocsBlock[] = [
 
   block.subtitle('installation.codesandbox.title'),
   block.component('OpenCodeSandbox'),
-
-  block.subtitle('installation.treeShaking.title'),
-  block.paragraph('installation.treeShaking.description'),
-
-  block.paragraph('installation.treeShaking.example.title'),
-  block.code(treeShakingExample),
-  block.paragraph('installation.treeShaking.example.footer'),
-
-  block.paragraph('installation.treeShaking.plugins.title'),
-  block.list([
-    'installation.treeShaking.plugins.GlobalConfigPlugin',
-    'installation.treeShaking.plugins.ColorHelpersPlugin',
-    'installation.treeShaking.plugins.ToastInstall',
-    'installation.treeShaking.plugins.DropdownPopperSubplugin',
-  ]),
 
   // block.alert('installation.treeShaking.attention.cssLoader', 'info'),
 ]
