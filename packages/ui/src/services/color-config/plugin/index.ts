@@ -1,13 +1,13 @@
-import type { Plugin, App, ComponentCustomProperties } from 'vue'
+import type { Plugin } from 'vue'
 import { createColorConfigPlugin } from './create-color-config-plugin'
-import { defineGlobalProperty } from '../../../vuestic-plugin/utils'
+import { defineGlobalProperty, defineVuesticPlugin } from '../../../vuestic-plugin/utils'
 
 /** Creates color css variables and reactively updates on ColorConfig changes. */
-export const ColorConfigPlugin: Plugin = {
+export const ColorConfigPlugin = defineVuesticPlugin(() => ({
   install (app) {
     defineGlobalProperty(app, '$vaColorConfig', createColorConfigPlugin(app))
   },
-}
+}))
 
 declare module '@vue/runtime-core' {
   export interface ComponentCustomProperties {

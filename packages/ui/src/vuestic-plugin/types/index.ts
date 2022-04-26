@@ -6,13 +6,13 @@ export type VuesticComponent = any
 type PluginInstallFn<ARGS = []> = (app: App, ...options: ARGS[]) => void
 
 /** Vuestic internal plugin */
-export type VuesticPlugin<ARGS = any[]> = {
-  install: PluginInstallFn<ARGS>
+export type VuesticPlugin = {
+  install: PluginInstallFn<[]>
 } & Plugin
 
-export type CreateVuesticPlugin<OPTIONS extends any[]> = (...options: OPTIONS) => VuesticPlugin
+export type VuesticPluginFabric<O extends any[] = []> = (...args: O) => VuesticPlugin
 
-export const defineVuesticPlugin = <O extends any[]>(fabric: (...args: O) => VuesticPlugin) => fabric
+export const defineVuesticPlugin = <O extends any[]>(fabric: VuesticPluginFabric<O>) => fabric
 
 // TOOD: Maybe we can move $vaConfig and $vaColorConfig to $vuestic
 // declare module '@vue/runtime-core' {
