@@ -1,15 +1,23 @@
 import { App } from 'vue'
 import { createGlobalConfig, GLOBAL_CONFIG } from '../global-config'
 import { GlobalConfig } from '../types'
+import { defineGlobalProperty, defineVuesticPlugin } from '../../../vuestic-plugin/utils'
 
 /** Provides global configuration to Vuestic components */
-export const GlobalConfigPlugin = {
-  install (app: App, options?: GlobalConfig) {
+export const GlobalConfigPlugin = defineVuesticPlugin((config: GlobalConfig | undefined) => ({
+  install (app: App) {
     const globalConfig = createGlobalConfig()
 
-    if (options) { globalConfig.mergeGlobalConfig(options) }
+    if (config) { globalConfig.mergeGlobalConfig(config) }
 
     app.provide(GLOBAL_CONFIG, globalConfig)
-    app.config.globalProperties.$vaConfig = globalConfig
+
+    defineGlobalProperty(app, '$vaConfig', globalConfig)
   },
+}))
+
+declare module '@vue/runtime-core' {
+  export interface ComponentCustomProperties {
+    $vaConfig: ReturnType<typeof createGlobalConfig>
+  }
 }

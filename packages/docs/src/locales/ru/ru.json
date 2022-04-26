@@ -1230,7 +1230,8 @@
     "timePicker": "Time Picker",
     "timeInput": "Time Input",
     "treeShakingRequirements": "Tree Shaking Requirements",
-    "carousel": "Carousel"
+    "carousel": "Carousel",
+    "treeShaking": "Tree Shaking"
   },
   "all": {
     "examples": "Примеры",
@@ -2254,7 +2255,10 @@
       "inputClass": {
         "title": "Input Class",
         "text": "Для назначения класса непосредственно input, а не его обертке, используйте props `input-class`. Например, вы можете применить встроенный в компонент класс (или любой другой, созданный вами) для выравнивания текста input'а &mdash; `text--center` и `text--right` для выравнивания по центру и правому краю соответственно.",
-        "exampleTexts": ["Отступ снизу и красный текст, выровненный по правому краю.", "Большие отступы и красный текст. Границы обертки окрашены в синий."]
+        "exampleTexts": [
+          "Отступ снизу и красный текст, выровненный по правому краю.",
+          "Большие отступы и красный текст. Границы обертки окрашены в синий."
+        ]
       },
       "mask": {
         "title": "Маска",
@@ -2980,15 +2984,15 @@
       "title": "Tree shaking",
       "description": "Если вы планируете использовать только несколько компонентов в своем приложении и, таким образом, хотите уменьшить размер вашего пакета, вы можете использовать сборку Vuestic ESM. Webpack (vue-cli) и Vite делают это автоматически.",
       "example": {
-        "title": "Во-первых, вам не нужно использовать `VuesticPlugin`, поскольку он регистрирует все компоненты `vuestic` глобально. Вместо этого вы можете импортировать определенные компоненты из пакета `vuestic-ui`.",
+        "title": "Во-первых, вам не нужно использовать `createVuestic`, поскольку он регистрирует все компоненты `vuestic` глобально. Мы предоставляем `createVuesticEssential` который регистрирует только самое необходимое. Вы можете уточнить какие компоненты вы будете использовать. Или же их можно потом импортировать.",
         "footer": "Как вариант, вы можете импортировать их прямо в ваши файлы `.vue`."
       },
       "plugins": {
         "title": "В таком случае вам также придется самостоятельно зарегистрировать плагины `Vuestic`. Рекомендуем использовать все из них:",
-        "GlobalConfigPlugin": "`GlobalConfigPlugin` - используется для переназначения компонента `VaConfig` и глобальных свойств. [Подробнее](/services/global-config).",
-        "ToastInstall": "`ToastInstall` - используется компонентом `VaToast`.",
-        "ColorHelpersPlugin": "`ColorHelpersPlugin` - используется для создания реактивных переменных `CSS`. Требуется `GlobalConfigPlugin`. [Подробнее](/services/colors-config).",
-        "DropdownPopperSubplugin": "`DropdownPopperSubplugin` - используется компонентом `VaDropdown`.",
+        "GlobalConfigPlugin": "`GlobalConfigPlugin` (обязательный) - используется для переназначения компонента `VaConfig` и глобальных свойств. [Подробнее](/services/global-config).",
+        "ColorHelpersPlugin": "`ColorHelpersPlugin` (обязательный) - используется для создания реактивных переменных `CSS`. Требуется `GlobalConfigPlugin`. [Подробнее](/services/colors-config).",
+        "ToastInstall": "`VaToastPlugin` - добавляет методы для создания Toast-ов в vue контекс. [Подробнее](/ui-elements/toast",
+        "DropdownPopperSubplugin": "`VaDropdownPlugin` - добавляет методы для закрытия выпадашек. Выпадашки используются в VaSelect, VaTimeInput, VaDateInput. ",
         "example": {
           "title": "Все эти плагины также доступны через `VuesticPluginsWithoutComponents`:"
         }
@@ -3698,5 +3702,26 @@
   },
   "carousel": {
     "title": "-- Here is the title --"
+  },
+  "treeShaking": {
+    "title": "Tree shaking",
+    "description": "Если вы планируете использовать только несколько компонентов в своем приложении и, таким образом, хотите уменьшить размер вашего пакета, вы можете использовать сборку Vuestic ESM. Webpack (vue-cli) и Vite делают это автоматически.",
+    "example": {
+      "title": "Во-первых, вам не нужно использовать `createVuestic`, поскольку он регистрирует все компоненты `vuestic` глобально. Мы предоставляем `createVuesticEssential` который регистрирует только самое необходимое. Вы можете уточнить какие компоненты вы будете использовать. Или же их можно потом импортировать.",
+      "footer": "Как вариант, вы можете импортировать их прямо в ваши файлы `.vue`."
+    },
+    "plugins": {
+      "title": "В таком случае вам также придется самостоятельно зарегистрировать плагины `Vuestic`. Рекомендуем использовать все из них:",
+      "GlobalConfigPlugin": "`GlobalConfigPlugin` (обязательный) - используется для переназначения компонента `VaConfig` и глобальных свойств. [Подробнее](/services/global-config).",
+      "ColorHelpersPlugin": "`ColorHelpersPlugin` (обязательный) - используется для создания реактивных переменных `CSS`. Требуется `GlobalConfigPlugin`. [Подробнее](/services/colors-config).",
+      "VaToastPlugin": "`VaToastPlugin` - добавляет методы для создания Toast-ов в vue контекс. [Подробнее](/ui-elements/toast",
+      "VaDropdownPlugin": "`VaDropdownPlugin` - добавляет методы для закрытия выпадашек. Выпадашки используются в VaSelect, VaTimeInput, VaDateInput. ",
+      "example": {
+        "title": "Все эти плагины также доступны через `VuesticPluginsWithoutComponents`:"
+      }
+    },
+    "attention": {
+      "cssLoader": "Поскольку код всех компонентов разделен, вам может потребоваться загрузчик `CSS` для загрузки стилей для конкретных компонентов.\nНо, вероятно, он у вас уже есть."
+    }
   }
 }

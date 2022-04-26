@@ -44,6 +44,10 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'configuration-guide',
         displayName: 'menu.configurationGuide',
       },
+      {
+        name: 'tree-shaking',
+        displayName: 'menu.treeShaking',
+      },
       // GENERATOR_ADD - gettingStarted
     ],
   },

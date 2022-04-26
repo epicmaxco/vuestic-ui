@@ -8,7 +8,7 @@ import demoIconAliases from './vuestic-config/demo-icon-aliases'
 import demoIconFonts from './vuestic-config/demo-icon-fonts'
 
 import './vue-book-overrides.scss'
-import { createIconsConfig, VuesticPluginsWithoutComponents } from '../main'
+import { createIconsConfig, createVuesticEssential, VaToastPlugin, VaDropdownPlugin } from '../main'
 import { colorsPresets } from '../services/color-config/color-theme-presets'
 
 const app = createApp(App)
@@ -32,15 +32,18 @@ const router = createRouter({
 app.use(VueBookComponents)
 app.use(router)
 
-app.use(VuesticPluginsWithoutComponents, {
-  icons: createIconsConfig({
-    aliases: demoIconAliases,
-    fonts: demoIconFonts,
-  }),
-  colors: {
-    ...colorsPresets.default,
-    banana: '#d0f55d',
+app.use(createVuesticEssential({
+  config: {
+    icons: createIconsConfig({
+      aliases: demoIconAliases,
+      fonts: demoIconFonts,
+    }),
+    colors: {
+      ...colorsPresets.default,
+      banana: '#d0f55d',
+    },
   },
-})
+  plugins: { VaToastPlugin, VaDropdownPlugin },
+}))
 
 app.mount('#app')

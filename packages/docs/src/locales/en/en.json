@@ -1305,7 +1305,8 @@
     "colors": "Colors",
     "timePicker": "Time Picker",
     "timeInput": "Time Input",
-    "carousel": "Carousel"
+    "carousel": "Carousel",
+    "treeShaking": "Tree Shaking"
   },
   "all": {
     "examples": "Examples",
@@ -1764,7 +1765,7 @@
   "toast": {
     "title": "Toast",
     "summaryText": "Component for sending a notification to the user. To make it easier to create toast we have a shorthands. For options API it is `$vaToast`. For composition api we have `useToast` hook. Hook and global object have similar API.",
-    "optionsAPI": "In options API you can use ToastPlugin (automatically installed with VuesticPlugin). `$vaToast` have a few methods: init, close, closeAll.",
+    "optionsAPI": "In options API you can use VaToastPlugin (automatically installed with createVuestic). `$vaToast` have a few methods: init, close, closeAll.",
     "compositionAPI": "In composition API you can use `useToast` hook.",
     "toastOptionsHeader": "Init Options",
     "examples": {
@@ -2355,7 +2356,10 @@
       "inputClass": {
         "title": "Input Class",
         "text": "To assign a class directly to input, rather than its wrapper, use the `input-class` property. For example, you can use the build-in component class (or any other class you've created) to align the input text &mdash; `text--center` and `text--right` to align the center or right.",
-        "exampleTexts": ["This input must have right-aligned red text with bottom indent.", "Native input element must have red text. VaInput wrapper has a blue border."]
+        "exampleTexts": [
+          "This input must have right-aligned red text with bottom indent.",
+          "Native input element must have red text. VaInput wrapper has a blue border."
+        ]
       },
       "mask": {
         "title": "Mask",
@@ -3088,27 +3092,6 @@
       "title": "CodeSandbox",
       "button": "Try Vuestic-UI on CodeSandbox"
     },
-    "treeShaking": {
-      "title": "Tree shaking",
-      "description": "If you plan to use only several components in your application and thus reduce the size of your bundle, you can use the Vuestic ESM build. Webpack (vue-cli) and Vite do that automatically.",
-      "example": {
-        "title": "First, you don't need to use `VuesticPlugin` since it registers all the `vuestic` components globally. Instead, you can import specific components from the `vuestic-ui` package.",
-        "footer": "Alternatively, you can import them directly in your `.vue` files."
-      },
-      "plugins": {
-        "title": "In such a case you'd also have to register Vuestic plugins by yourself. We recommend to use all of them:",
-        "GlobalConfigPlugin": "GlobalConfigPlugin - used for `VaConfig` component and global props reassignment. [Read more](/services/global-config).",
-        "ToastInstall": "ToastInstall - used by `VaToast` component.",
-        "ColorHelpersPlugin": "ColorHelpersPlugin - used to create reactive CSS variables. Requires `GlobalConfigPlugin`. [Read more](/services/colors-config).",
-        "DropdownPopperSubplugin": "DropdownPopperSubplugin - used by `VaDropdown` component.",
-        "example": {
-          "title": "All of these plugins are also available through the `VuesticPluginsWithoutComponents`:"
-        }
-      },
-      "attention": {
-        "cssLoader": "As all components' code is separated, you may need a CSS loader to load component-specific CSS.\nBut you probably already have one."
-      }
-    },
     "manual": {
       "title": "Manual installation",
       "subtitle": "If you decide to install Vuestic UI manually, all you need to do is to install a NPM package, a couple of other necessary assets (such as fonts and CSS styles) and slightly modify your application's entry point (most probably `index.js` or `main.js`, depending on your setup).",
@@ -3116,6 +3099,24 @@
       "node": "[Node.js](https://nodejs.org/en/)[[target=_blank]] (>=v14.0.0)",
       "npm": "[npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)[[target=_blank]] (>=v3.0.0) (or [yarn](https://yarnpkg.com/lang/en/docs/install)[[target=_blank]] (>= v1.16.0)) and [Git](https://git-scm.com/)[[target=_blank]]",
       "afterCheck": "After checking the prerequisites, install Vuestic UI via npm or yarn:"
+    }
+  },
+  "treeShaking": {
+    "title": "Tree shaking",
+    "description": "If you plan to use only several components in your application and thus reduce the size of your bundle, you can use the Vuestic ESM build. Webpack (vue-cli) and Vite do that automatically.",
+    "example": {
+      "title": "First, you don't need to use `createVuestic` since it registers all the `vuestic` components globally. We have `createVuesticEssential` instead, which register only essential plugins. You can specify components to declare globally. Or you can import them later.",
+      "footer": "You can also specify Vuestic subplugins as `plugins` option. "
+    },
+    "plugins": {
+      "title": "Here is a list of plugins that you can use with Vuestic:",
+      "GlobalConfigPlugin": "GlobalConfigPlugin (essential) - used for `VaConfig` component and global props reassignment. [Read more](/services/global-config).",
+      "ColorHelpersPlugin": "ColorHelpersPlugin (essential) - used to create reactive CSS variables. Requires `GlobalConfigPlugin`. [Read more](/services/colors-config).",
+      "VaToastPlugin": "VaToastPlugin - provides methods for creating Toasts within vue context. [Read more](/ui-elements/toast)",
+      "VaDropdownPlugin": "VaDropdownPlugin - provides methods for dropdown closing within vue context. `VaDropdown` is used in `VaSelect`, `VaTimeInput`, `VaDateInput`, `VaButtonDropdown` component."
+    },
+    "attention": {
+      "cssLoader": "As all components' code is separated, you may need a CSS loader to load component-specific CSS.\nBut you probably already have one."
     }
   },
   "roadmap": {
