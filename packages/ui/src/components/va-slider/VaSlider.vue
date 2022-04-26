@@ -344,7 +344,7 @@ export default defineComponent({
     }
 
     const moveStart = (e: MouseEvent | TouchEvent, index = currentSliderDotIndex.value) => {
-      e.preventDefault()
+      e.preventDefault() // prevent page scrolling
 
       if (!index) {
         if (!props.range) {
@@ -359,6 +359,10 @@ export default defineComponent({
       if (Array.isArray(props.modelValue)) {
         currentSliderDotIndex.value = index
       }
+
+      Array.isArray(props.modelValue)
+        ? (index === 0 ? dot0 : dot1).value?.focus()
+        : dot.value?.focus()
 
       flag.value = true
 
