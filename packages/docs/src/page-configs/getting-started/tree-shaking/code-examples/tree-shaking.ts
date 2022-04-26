@@ -5,8 +5,6 @@ import {
   VaInput, VaDropdownPlugin 
 } from 'vuestic-ui'
 import App from './App.vue'
-import 'vuestic-ui/styles/essential.css'
-import 'vuestic-ui/styles/global/typography.css'
 
 createApp(App)
   .use(createVuesticEssential({
