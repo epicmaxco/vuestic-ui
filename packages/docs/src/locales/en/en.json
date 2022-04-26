@@ -3112,8 +3112,8 @@
       "title": "Here is a list of plugins that you can use with Vuestic:",
       "GlobalConfigPlugin": "GlobalConfigPlugin (essential) - used for `VaConfig` component and global props reassignment. [Read more](/services/global-config).",
       "ColorHelpersPlugin": "ColorHelpersPlugin (essential) - used to create reactive CSS variables. Requires `GlobalConfigPlugin`. [Read more](/services/colors-config).",
-      "ToastInstall": "VaToastPlugin - provides methods for creating Toasts within vue context. [Read more](/ui-elements/toast)",
-      "DropdownPopperSubplugin": "VaDropdownPlugin - provides methods for dropdown closing within vue context. `VaDropdown` is used in `VaSelect`, `VaTimeInput`, `VaDateInput`, `VaButtonDropdown` component."
+      "VaToastPlugin": "VaToastPlugin - provides methods for creating Toasts within vue context. [Read more](/ui-elements/toast)",
+      "VaDropdownPlugin": "VaDropdownPlugin - provides methods for dropdown closing within vue context. `VaDropdown` is used in `VaSelect`, `VaTimeInput`, `VaDateInput`, `VaButtonDropdown` component."
     },
     "attention": {
       "cssLoader": "As all components' code is separated, you may need a CSS loader to load component-specific CSS.\nBut you probably already have one."
