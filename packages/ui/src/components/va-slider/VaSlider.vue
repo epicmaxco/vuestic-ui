@@ -62,8 +62,8 @@
           class="va-slider__handler"
           :class="dotClass[order]"
           :style="dottedStyles[order]"
-          @mousedown="(moveStart($event, order), hasMouseDown = true)"
-          @touchstart="moveStart($event, order)"
+          @mousedown="moveStart($event, order), hasMouseDown = true"
+          @touchstart="moveStart($event, order), hasMouseDown = true"
           @focus="isFocused = true, currentSliderDotIndex = order"
           @blur="isFocused = false"
           :tabindex="disabled || readonly ? undefined : 0"
@@ -100,8 +100,8 @@
           class="va-slider__handler"
           :class="dotClass"
           :style="dottedStyles"
-          @mousedown="(moveStart($event), hasMouseDown = true)"
-          @touchstart="(moveStart($event), hasMouseDown = true)"
+          @mousedown="moveStart($event), hasMouseDown = true"
+          @touchstart="moveStart($event), hasMouseDown = true"
           @focus="isFocused = true"
           @blur="isFocused = false"
           :tabindex="$props.disabled || $props.readonly ? undefined : 0"
@@ -155,7 +155,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, watch, PropType, ref, computed, onMounted, onBeforeUnmount, nextTick } from 'vue'
+import { defineComponent, watch, PropType, ref, computed, onMounted, onBeforeUnmount } from 'vue'
 
 import { getHoverColor } from '../../services/color-config/color-functions'
 import { validateSlider } from './validateSlider'
@@ -344,6 +344,8 @@ export default defineComponent({
     }
 
     const moveStart = (e: MouseEvent | TouchEvent, index = currentSliderDotIndex.value) => {
+      e.preventDefault()
+
       if (!index) {
         if (!props.range) {
           index = 0
@@ -470,7 +472,7 @@ export default defineComponent({
             moveDot(true, 0, 0)
             break
           case (isVerticalDot0More(event) || isHorizontalDot0More(event)) && lessToMore.value && val.value[1] !== props.max:
-            dot0.value?.focus()
+            dot1.value?.focus()
             moveDot(true, 1, 1)
             break
           case (isVerticalDot0Less(event) || isHorizontalDot0Less(event)) && val.value[0] !== props.min:
@@ -829,9 +831,7 @@ export default defineComponent({
   .va-slider__input-wrapper {
     flex-basis: var(--va-slider-horizontal-input-wrapper-flex-basis);
     flex-grow: var(--va-slider-horizontal-input-wrapper-flex-grow);
-    max-width: var(--va-slider-horizontal-input-wrapper-max-width);
     margin-right: var(--va-slider-horizontal-input-wrapper-margin-right);
-    min-width: var(--va-slider-horizontal-input-wrapper-min-width);
 
     &:last-of-type {
       margin-left: 1rem;
