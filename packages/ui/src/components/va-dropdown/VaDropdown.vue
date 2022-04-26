@@ -127,7 +127,7 @@ export default defineComponent({
     }
 
     useClickOutside([anchorRef, contentRef], () => {
-      if (props.closeOnClickOutside) {
+      if (props.closeOnClickOutside && props.modelValue) {
         emitAndClose('click-outside', props.closeOnClickOutside)
       }
     })
