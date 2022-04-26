@@ -8,10 +8,6 @@ export const isRange = (date: VaDateInputModelValue): date is VaDateInputRange =
   return typeof date === 'object' && ('start' in date || 'end' in date)
 }
 
-export const isSingleDate = (date?: VaDateInputModelValue): date is string | number | Date => {
-  return typeof date === 'string' || typeof date === 'number' || date instanceof Date
-}
-
 export const parseSingleDate = (date: string | number | Date) => {
   if (typeof date === 'string') {
     return defaultParseDateFunction(date)
@@ -21,10 +17,6 @@ export const parseSingleDate = (date: string | number | Date) => {
 }
 
 export const parseModelValue = (date: VaDateInputModelValue): VaDatePickerModelValue => {
-  if (isSingleDate(date)) {
-    return parseSingleDate(date)
-  }
-
   if (Array.isArray(date)) {
     return date.map(parseSingleDate)
   }
@@ -36,5 +28,5 @@ export const parseModelValue = (date: VaDateInputModelValue): VaDatePickerModelV
     }
   }
 
-  return date
+  return parseSingleDate(date)
 }

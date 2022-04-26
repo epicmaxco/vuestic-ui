@@ -1012,7 +1012,11 @@
         "error": "Sets input state to error",
         "errorMessages": "Displays a list of error messages or message if using a string",
         "errorCount": "Number of error messages displayed",
-        "manualInput": "Allows user to manually input date in VaInput"
+        "manualInput": "Allows user to manually input date in VaInput",
+        "parse": "Function that transforms input field text to date, date array or date period",
+        "parse-date": "Function that transforms input field text to date",
+        "parse-value": "Function that transforms string value to date, date array or date period"
+
       },
       "events": {
         "updateView": "The event is triggered when the component needs to change the view",
