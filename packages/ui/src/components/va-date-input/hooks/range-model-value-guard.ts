@@ -1,4 +1,3 @@
-import isNil from 'lodash/isNil'
 import { computed, Ref, ref, watch } from 'vue'
 import { isRange } from '../../va-date-picker/hooks/model-value-helper'
 import { VaDatePickerModelValue } from '../../va-date-picker/types'
@@ -13,11 +12,7 @@ export const useRangeModelValueGuard = (
   disabled: Ref<boolean>,
   parseValue = parseModelValue,
 ) => {
-  const bufferValue = ref(modelValue.value)
-
-  if (!isNil(modelValue.value)) {
-    bufferValue.value = parseValue(modelValue.value)
-  }
+  const bufferValue = ref(modelValue.value ? parseValue(modelValue.value) : modelValue.value)
 
   const valueComputed = computed({
     get: () => bufferValue.value,
