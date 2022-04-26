@@ -4,10 +4,6 @@ import { isRange } from '../../va-date-picker/hooks/model-value-helper'
 import { VaDatePickerModelValue } from '../../va-date-picker/types'
 import { parseModelValue } from './model-value-parser'
 
-export type useRangeModelValueGuardProps = {
-  clearValue: VaDatePickerModelValue | undefined
-}
-
 /**
  * This guard is used to prevent updating modelValue if range end is not specified.
  * This guard provides reset method, that allow us to reset VaDateInput value if dropdown is closed.
@@ -17,25 +13,21 @@ export const useRangeModelValueGuard = (
   disabled: Ref<boolean>,
   parseValue = parseModelValue,
 ) => {
-  const bufferValue: Ref<VaDatePickerModelValue | undefined> = ref()
+  const bufferValue = ref(modelValue.value)
 
   if (!isNil(modelValue.value)) {
     bufferValue.value = parseValue(modelValue.value)
-  } else {
-    bufferValue.value = modelValue.value
   }
 
   const valueComputed = computed({
     get: () => bufferValue.value,
     set: (value) => {
       if (disabled.value) {
-        // bufferValue.value = value
         modelValue.value = value
       }
 
       if (!value) {
         modelValue.value = value
-        // bufferValue.value = value
         return
       }
 
