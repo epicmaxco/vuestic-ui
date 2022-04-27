@@ -1,7 +1,6 @@
 import { computed, Ref, ref, watch } from 'vue'
-import { isRange } from '../../va-date-picker/hooks/model-value-helper'
 import { VaDatePickerModelValue } from '../../va-date-picker/types'
-import { parseModelValue } from './model-value-parser'
+import { parseModelValue, isRange } from './model-value-parser'
 
 /**
  * This guard is used to prevent updating modelValue if range end is not specified.

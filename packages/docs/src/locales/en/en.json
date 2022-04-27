@@ -1014,8 +1014,8 @@
         "errorCount": "Number of error messages displayed",
         "manualInput": "Allows user to manually input date in VaInput",
         "parse": "Function that transforms input field text to date, date array or date period",
-        "parse-date": "Function that transforms input field text to date",
-        "parse-value": "Function that transforms string value to date, date array or date period"
+        "parseDate": "Function that transforms input field text to date",
+        "parseValue": "Function that transforms string value to date, date array or date period"
 
       },
       "events": {

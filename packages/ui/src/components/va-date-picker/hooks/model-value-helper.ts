@@ -1,10 +1,5 @@
 import { VaDatePickerModelValue, VaDatePickerRange, VaDatePickerMode } from '../types'
-
-export const isRange = (value: VaDatePickerModelValue): value is VaDatePickerRange => {
-  return typeof value === 'object' && ('start' in value || 'end' in value)
-}
-export const isSingleDate = (value: VaDatePickerModelValue): value is Date => value instanceof Date
-export const isDates = (value: VaDatePickerModelValue): value is Date[] => Array.isArray(value)
+import { isRange, isSingleDate, isDates } from '../utils/date-utils'
 
 const modeInitialValue = (date: Date, mode: VaDatePickerMode) => {
   if (mode === 'single') {

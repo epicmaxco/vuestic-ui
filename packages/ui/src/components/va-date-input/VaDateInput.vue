@@ -72,7 +72,7 @@ import { useValidation, useValidationProps, useValidationEmits } from '../../com
 import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
 import { useFormProps } from '../../composables/useForm'
 
-import { isRange, isSingleDate, isDates } from '../va-date-picker/hooks/model-value-helper'
+import { isRange, isSingleDate, isDates } from '../va-date-picker/utils/date-utils'
 import { useSyncProp } from '../va-date-picker/hooks/sync-prop'
 import { filterComponentProps, extractComponentProps, extractComponentEmits } from '../../utils/child-props'
 import { useRangeModelValueGuard } from './hooks/range-model-value-guard'
