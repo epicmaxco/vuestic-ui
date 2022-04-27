@@ -12,7 +12,7 @@
 
 <script>
 import { computed, ref, watch } from 'vue'
-import { useGlobalConfig } from 'vuestic-ui'
+import { useGlobalConfig } from 'vuestic-ui/src/main'
 
 const getDefaultButtonProps = () => ({
   rounded: true,

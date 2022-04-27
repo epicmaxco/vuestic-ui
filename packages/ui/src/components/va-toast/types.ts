@@ -1,4 +1,3 @@
-import { Vue } from 'vue-class-component'
 import { VNode } from 'vue'
 
 export type NotificationPosition =
@@ -46,26 +45,4 @@ export interface NotificationOptions {
   visible?: boolean;
 
   color?: string;
-}
-
-/** Notification Component Inteface */
-export interface NotificationComponentInterface {
-  (options: NotificationOptions): any;
-
-  close (id: string, onCloseHandler?: (...args: any[]) => any): void;
-
-  closeAll? (): void;
-}
-
-/** Notification Component */
-export declare class NotificationComponent extends Vue {
-  /** Close the Notification instance */
-  close (id: string, userOnClose: () => void): void
-
-  closeAll? (): void
-}
-
-export interface NotificationInterface {
-  /** Show a notification */
-  (options: NotificationOptions | string): NotificationComponent;
 }

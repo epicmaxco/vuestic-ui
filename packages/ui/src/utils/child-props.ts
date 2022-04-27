@@ -1,5 +1,5 @@
-import { ComponentOptionsBase, PropType, computed, ComputedRef, Prop, DefineComponent } from 'vue'
-import { getComponentProps } from './resolve-class-component-props'
+import { ComponentOptionsBase, PropType, computed } from 'vue'
+import { getComponentProps } from './resolve-component-props'
 
 /**
  * Accepts parent component props and return value only for child component props.
