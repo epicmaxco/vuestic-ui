@@ -49,8 +49,8 @@ export default defineComponent({
 
     const navbarStyle = computed(() => ({
       backgroundColor: color.value,
-      color: textColor,
-      fill: textColor,
+      color: textColor.value,
+      fill: textColor.value,
     })) as StyleValue
 
     return {
@@ -63,23 +63,15 @@ export default defineComponent({
 
 <style lang="scss">
 @import "../../styles/resources";
-$top-nav-height: 4.0625rem;
-$top-nav-bg: $dark-blue;
-$nav-mobile-px: 1rem;
-$nav-padding-left: 1rem;
-$nav-padding-right: 2rem;
-$nav-mobile-py: 1.1875rem;
-$nav-mobile-brand-top: 1.5rem;
-$nav-shape-bg: #0a43af;
-$nav-border-side-width: 3.1875rem;
+@import "variables";
 
 .va-navbar {
-  transition: background-color 0.3s ease; /* sidebar's bg color transitions as well -> consistency */
+  transition: var(--va-navbar-transition);
   position: relative;
-  height: $top-nav-height;
-  padding-left: $nav-padding-left;
-  padding-right: $nav-padding-right;
-  background-color: $top-nav-bg;
+  height: var(--va-navbar-height);
+  padding-left: var(--va-navbar-padding-left);
+  padding-right: var(--va-navbar-padding-right);
+  background-color: va(--va-primary);
   display: flex;
   font-family: var(--va-font-family);
 
@@ -104,7 +96,7 @@ $nav-border-side-width: 3.1875rem;
     display: flex;
 
     & > .va-navbar__item {
-      margin: 0 0.75rem;
+      margin: 0 var(--va-navbar-item-margin);
 
       &:last-child {
         margin-right: 0;
@@ -121,7 +113,7 @@ $nav-border-side-width: 3.1875rem;
     flex-direction: row;
 
     & > .va-navbar__item {
-      margin-right: 1.5rem;
+      margin-right: var(--va-navbar-item-margin-side);
 
       &:last-child {
         margin-right: 0;
@@ -140,7 +132,7 @@ $nav-border-side-width: 3.1875rem;
     justify-content: flex-end;
 
     & > .va-navbar__item {
-      margin-right: 1.5rem;
+      margin-right: var(--va-navbar-item-margin-side);
 
       &:last-child {
         margin-right: 0;
@@ -154,23 +146,23 @@ $nav-border-side-width: 3.1875rem;
   }
 
   &__background-shape {
-    transition: border-top-color 0.3s ease; /* sidebar's bg color transitions as well -> consistency */
-    width: 33%;
-    max-width: 467px;
+    transition: var(--va-navbar-shape-transition);
+    width: var(--va-navbar-shape-width);
+    max-width: var(--va-navbar-shape-max-width);
     position: absolute;
     left: 0;
     right: 0;
     top: 0;
     margin: auto;
-    border-top: $top-nav-height solid $nav-shape-bg;
-    border-left: $nav-border-side-width solid transparent;
-    border-right: $nav-border-side-width solid transparent;
+    border-top: var(--va-navbar-height) solid var(--va-navbar-shape-bg);
+    border-left: var(--va-navbar-shape-border-left);
+    border-right: var(--va-navbar-shape-border-right);
     height: 0;
   }
 
   @include media-breakpoint-down(sm) {
     height: $top-mobile-nav-height;
-    padding: $nav-mobile-py $nav-mobile-px 1rem;
+    padding: var(--va-navbar-sm-padding);
 
     &__center,
     &__background-shape {
