@@ -10,13 +10,6 @@
         />
 
         <div
-          class="va-modal__overlay-blur"
-          v-if="$props.blur"
-          :style="$props.blur && computedBlurStyles"
-          @click="onOutsideClick"
-        />
-
-        <div
           class="va-modal__container"
           :style="computedModalContainerStyle"
           @beforeEnter="onBeforeEnterTransition"
@@ -150,7 +143,6 @@ export default defineComponent({
     overlay: { type: Boolean as PropType<boolean>, default: true },
     overlayOpacity: { type: [Number, String] as PropType<number | string>, default: 0.6 },
     blur: { type: Boolean as PropType<boolean>, default: false },
-    blurOpacity: { type: [Number, String] as PropType<number | string>, default: 0.2 },
     zIndex: { type: [Number, String] as PropType<number | string | undefined>, default: undefined },
   },
   setup (props, { emit, slots }) {
@@ -176,17 +168,6 @@ export default defineComponent({
       return {
         'background-color': `rgba(0, 0, 0, ${props.overlayOpacity})`,
         'z-index': props.zIndex && Number(props.zIndex) - 1,
-      } as StyleValue
-    })
-    const computedBlurStyles = computed(() => {
-      // NOTE Not sure exactly what that does.
-      // Supposedly solves some case when background wasn't shown.
-      // As a side effect removes background from nested modals.
-
-      if (!props.blur) { return }
-
-      return {
-        'backdrop-filter': `blur(${props.blurOpacity}rem)`,
       } as StyleValue
     })
 
@@ -217,8 +198,12 @@ export default defineComponent({
     watch(valueComputed, (value: boolean) => {
       if (value) {
         window.addEventListener('keyup', listenKeyUp)
+        if (props.blur) {
+          document.body.classList.add('overlay--blured')
+        }
       } else {
         window.removeEventListener('keyup', listenKeyUp)
+        document.body.classList.remove('overlay--blured')
       }
     })
 
@@ -243,7 +228,6 @@ export default defineComponent({
       computedClass,
       computedModalContainerStyle,
       computedOverlayStyles,
-      computedBlurStyles,
       ...publicMethods,
     }
   },
@@ -263,11 +247,19 @@ export default defineComponent({
     listenKeyUp () { (this as any).rootElement?.listenKeyUp() },
   },
 })
+
 </script>
 
 <style lang="scss">
 @import "../../styles/resources";
 @import "variables";
+
+.overlay--blured > div:not(.va-modal) {
+  filter: blur(var(--va-modal-blur));
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
 
 .va-modal {
   position: var(--va-modal-position);
@@ -317,8 +309,7 @@ export default defineComponent({
     overflow: auto;
   }
 
-  &__overlay,
-  &__overlay-blur {
+  &__overlay {
     position: var(--va-modal-overlay-position);
     top: var(--va-modal-overlay-top);
     left: var(--va-modal-overlay-left);

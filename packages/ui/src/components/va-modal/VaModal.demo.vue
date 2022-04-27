@@ -129,7 +129,7 @@
       </button>
       <va-modal
         v-model="showModalBlur"
-        :blur="true"
+        blur
         title="Step 2. Centered Layout"
         :message="message"
       />
