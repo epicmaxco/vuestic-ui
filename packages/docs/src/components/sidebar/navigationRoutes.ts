@@ -51,6 +51,9 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: 'nuxt',
         displayName: 'menu.nuxt',
+        meta: {
+          badge: 'new',
+        },
       },
       // GENERATOR_ADD - gettingStarted
     ],

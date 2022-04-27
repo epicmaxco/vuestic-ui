@@ -3730,7 +3730,7 @@
     "description": "Vuestic UI компоненты полностью совместимы с Nuxt3.",
     "installation": {
       "title": "Установка",
-      "plugin": "Сделайте плагин файл `plugins/vuestic-ui.ts` в nuxt проекте. Он должен ключать в себя следующий код:",
+      "plugin": "Создайте плагин файл `plugins/vuestic-ui.ts` в nuxt проекте. Он должен ключать в себя следующий код:",
       "nuxtConfig": "Также нужно обновить nuxt-config.ts файл:"
     }
   }
