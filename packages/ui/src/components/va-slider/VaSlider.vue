@@ -32,6 +32,7 @@
       class="va-slider__container"
       ref="sliderContainer"
       @mousedown="clickOnContainer"
+      @touchstart="clickOnContainer"
       @mouseup="hasMouseDown = false"
     >
       <div
@@ -53,7 +54,6 @@
           class="va-slider__track va-slider__track--selected"
           :class="{'va-slider__track--active': isFocused}"
           :style="processedStyles"
-          @mousedown="moveStart"
         />
         <div
           v-for="order in ($props.vertical ? [1, 0] : [0, 1])"
@@ -62,8 +62,6 @@
           class="va-slider__handler"
           :class="dotClass[order]"
           :style="dottedStyles[order]"
-          @mousedown="moveStart($event, order), hasMouseDown = true"
-          @touchstart="moveStart($event, order), hasMouseDown = true"
           @focus="isFocused = true, currentSliderDotIndex = order"
           @blur="isFocused = false"
           :tabindex="disabled || readonly ? undefined : 0"
@@ -93,15 +91,12 @@
           class="va-slider__track va-slider__track--selected"
           :class="{'va-slider__track--active': isFocused}"
           :style="processedStyles"
-          @mousedown="moveStart($event, 0)"
         />
         <div
           ref="dot"
           class="va-slider__handler"
           :class="dotClass"
           :style="dottedStyles"
-          @mousedown="moveStart($event), hasMouseDown = true"
-          @touchstart="moveStart($event), hasMouseDown = true"
           @focus="isFocused = true"
           @blur="isFocused = false"
           :tabindex="$props.disabled || $props.readonly ? undefined : 0"
@@ -638,14 +633,17 @@ export default defineComponent({
 
     const isDiff = (a: unknown, b: unknown) => JSON.stringify(a) !== JSON.stringify(b)
 
-    const clickOnContainer = (e: MouseEvent) => {
+    const clickOnContainer = (e: MouseEvent | TouchEvent) => {
       if (props.disabled || props.readonly) {
         return
       }
-      const pos = getPos(e)
+
+      const pos = ('touches' in e) ? getPos(e.touches[0]) : getPos(e)
+
       if (Array.isArray(position.value)) {
         currentSliderDotIndex.value = pos > ((position.value[1] - position.value[0]) / 2 + position.value[0]) ? 1 : 0
       }
+
       hasMouseDown.value = true
       setValueOnPos(pos)
       moveStart(e, currentSliderDotIndex.value)
