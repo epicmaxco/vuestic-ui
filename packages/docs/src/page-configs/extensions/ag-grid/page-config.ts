@@ -1,10 +1,10 @@
 import { ApiDocsBlock, Dependencies } from '@/types/configTypes'
 import { PageGenerationHelper } from '@/helpers/DocsHelper'
 
-const installCommand = `
-npm install @vuestic/ag-grid-theme
-// $t('all.code.or')
-yarn add @vuestic/ag-grid-theme`
+const installCommandObject = {
+  npm: 'npm install @vuestic/ag-grid-theme',
+  yarn: 'yarn add @vuestic/ag-grid-theme',
+}
 
 const setClass = `<template>
   <ag-grid-vue class='ag-theme-vuestic' ... />
@@ -28,7 +28,7 @@ const config: ApiDocsBlock[] = [
   block.link('ag-grid.otherTables.dataTable', '/ui-elements/data-table'),
   block.headline('ag-grid.installation'),
   block.paragraph('ag-grid.dependencies'),
-  block.code(installCommand, 'bash'),
+  block.code(installCommandObject, 'bash'),
   block.paragraph('ag-grid.importStyles'),
   block.code(setClass, 'html'),
   block.code(importStyles, 'scss'),
