@@ -8,19 +8,18 @@
 </template>
 
 <script lang="ts">
+import { defineComponent } from 'vue'
 
 const propOptions = {
   color: { type: String, default: 'red' },
   label: { type: String, default: '' },
 }
 
-export default {
+export default defineComponent({
   name: 'ConfigUsageTest',
   props: propOptions,
-}
+})
 </script>
 
 <style lang="scss">
-.va-test {
-}
 </style>

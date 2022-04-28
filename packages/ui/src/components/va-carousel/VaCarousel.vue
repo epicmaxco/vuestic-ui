@@ -108,7 +108,7 @@ export default defineComponent({
     color: { type: String, default: 'primary' },
   },
 
-  emits: [...useStatefulEmits, 'update:modelValue'],
+  emits: useStatefulEmits,
 
   setup (props, { emit }) {
     const { valueComputed: currentSlide } = useStateful(props, emit, 0)

@@ -11,7 +11,7 @@ import { useAccordion } from './hooks/useAccordion'
 
 export default defineComponent({
   name: 'VaAccordion',
-  emits: [...useStatefulEmits, 'update:modelValue'],
+  emits: useStatefulEmits,
   props: {
     ...useStatefulProps,
     modelValue: { type: Array as PropType<boolean[]>, default: () => [] as boolean[] },
