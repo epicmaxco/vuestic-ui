@@ -7,7 +7,7 @@
   >
     <va-date-picker-cell
       v-for="(year, index) in years"
-      :key="year"
+      :key="year.toString()"
       :in-range="isInRange(year)"
       :selected="isSelected(year)"
       :disabled="isYearDisabled(year)"
@@ -26,7 +26,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType, toRefs, onMounted, ref, computed, watch } from 'vue'
-import { VaDatePickerMode, VaDatePickerModelValue, VaDatePickerView } from '../../types/types'
+import { VaDatePickerMode, VaDatePickerModelValue, VaDatePickerView } from '../../types'
 import VaDatePickerCell from '../VaDatePickerCell.vue'
 import { createYearDate, isDatesYearEqual } from '../../utils/date-utils'
 import { useGridKeyboardNavigation } from '../../hooks/grid-keyboard-navigation'

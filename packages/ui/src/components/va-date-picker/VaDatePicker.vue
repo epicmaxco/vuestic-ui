@@ -66,7 +66,7 @@ import { ComponentOptions, computed, defineComponent, nextTick, PropType, ref, w
 import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
 import { useColors } from '../../services/color-config/color-config'
 
-import { VaDatePickerModelValue, VaDatePickerType, VaDatePickerView } from './types/types'
+import { VaDatePickerModelValue, VaDatePickerType, VaDatePickerView } from './types'
 import { filterComponentProps, extractComponentProps, extractComponentEmits } from '../../utils/child-props'
 import { useView } from './hooks/view'
 
