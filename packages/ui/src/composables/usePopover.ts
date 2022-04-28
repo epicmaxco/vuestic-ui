@@ -11,6 +11,9 @@ export type Offset = number | [number, number]
 type Coords = { x: number, y: number }
 type AlignCoords = { main: number, cross: number }
 
+export const placementsPositions = ['top', 'bottom', 'left', 'right']
+  .reduce((acc, position) => [...acc, position, `${position}-start`, `${position}-end`, `${position}-center`], ['auto'] as string[])
+
 const coordsToCss = ({ x, y }: Coords) => ({ left: `${x}px`, top: `${y}px` })
 
 const parsePlacement = (placement: Placement) => {

@@ -30,14 +30,11 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onBeforeUnmount, onMounted, PropType, ref, toRef, watch } from 'vue'
+import { computed, defineComponent, PropType, ref, toRef } from 'vue'
 import { useStateful, useStatefulEmits, useStatefulProps } from '../../composables/useStateful'
 import { useDebounceFn } from '../../composables/useDebounce'
-import { usePopover, Placement } from '../../composables/usePopover'
+import { usePopover, placementsPositions, Placement } from '../../composables/usePopover'
 import { useClickOutside } from '../../composables/useClickOutside'
-
-const placementsPositions = ['top', 'bottom', 'left', 'right']
-  .reduce((acc, position) => [...acc, position, `${position}-start`, `${position}-end`, `${position}-center`], ['auto'] as string[])
 
 export default defineComponent({
   name: 'VaDropdown',
