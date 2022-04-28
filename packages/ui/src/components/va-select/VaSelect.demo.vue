@@ -363,16 +363,16 @@
       <va-select
         v-model="defaultSingleSelect.value"
         class="mb-4"
-        label="Custom list position (top)"
+        label="Custom list placement (top)"
         :options="defaultSingleSelect.options"
-        position="top"
+        placement="top"
       />
       <va-select
         v-model="defaultSingleSelect.value"
         class="mb-4"
-        label="Custom list position (bottom)"
+        label="Custom list placement (bottom)"
         :options="defaultSingleSelect.options"
-        position="bottom"
+        placement="bottom"
       />
       <va-select
         v-model="defaultSingleSelect.value"

@@ -4,7 +4,7 @@
     class="va-select__dropdown va-select-dropdown"
     trigger="none"
     anchorSelector=".va-input-wrapper__input"
-    :position="$props.position"
+    :placement="$props.placement"
     :disabled="$props.disabled"
     :max-height="$props.maxHeight"
     :fixed="$props.fixed"
@@ -154,6 +154,7 @@ import { useLoadingProps } from '../../composables/useLoading'
 import { useColor } from '../../composables/useColor'
 import { useMaxSelections, useMaxSelectionsProps } from '../../composables/useMaxSelections'
 import { useClearableProps, useClearable, useClearableEmits } from '../../composables/useClearable'
+import { Placement } from '../../composables/usePopover'
 import { useColors } from '../../services/color-config/color-config'
 import { warn } from '../../services/utils'
 import VaDropdown, { VaDropdownContent } from '../va-dropdown'
@@ -199,11 +200,11 @@ export default defineComponent({
       default: '',
     },
 
-    // Dropdown position
-    position: {
-      type: String as PropType<string>,
+    // Dropdown placement
+    placement: {
+      type: String as PropType<Partial<Placement>>,
       default: 'bottom',
-      validator: (position: string) => ['top', 'bottom'].includes(position),
+      validator: (placement: string) => ['top', 'bottom'].includes(placement),
     },
 
     allowCreate: {
