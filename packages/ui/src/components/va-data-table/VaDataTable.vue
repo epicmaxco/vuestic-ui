@@ -58,7 +58,7 @@
                 <slot :name="`header(${column.key})`" v-bind="column" />
               </span>
 
-      <slot v-else name="header" v-bind="column">
+              <slot v-else name="header" v-bind="column">
                 <span>{{ column.label }}</span>
               </slot>
 
