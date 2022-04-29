@@ -1,10 +1,8 @@
 import { computed } from 'vue'
 import { useColors } from '../../../composables/useColor'
 
-export const useCarouselColor = (props: {
-  color: string
-}) => {
-  const { setHSLAColor, getColor, getHoverColor } = useColors()
+export const useCarouselColor = () => {
+  const { setHSLAColor, getColor } = useColors()
 
   return {
     computedColor: computed(() => setHSLAColor(getColor('dark'), { a: 0.7 })),

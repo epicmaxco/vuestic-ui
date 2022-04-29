@@ -1,5 +1,9 @@
+// import colortranslator, { ColorTranslator as CTClass } from 'colortranslator'
 import { ColorTranslator } from 'colortranslator'
 import { HSLObject, ColorInput } from 'colortranslator/dist/@types'
+
+/** This is a hack for cjs and esm build when we can transpile colortranslator */
+// const ColorTranslator = CTClass || colortranslator.ColorTranslator
 
 export const colorToRgba = (color: ColorInput, opacity: number) => {
   return new ColorTranslator(color).setA(opacity).RGBA
@@ -100,6 +104,8 @@ export const getGradientBackground = (color: string) => {
 /**
  * Check if color is valid hsl, hsla, rga, rgba or hex color
  * Taken from https://www.regextester.com/103656
+ * Check options <or> isCSSVariable(prop) <or> CSS.supports('color', prop) deleted due to problems with SSR and opacity
+ * Details are in the discussion: https://github.com/epicmaxco/vuestic-ui/pull/1589
  * @param strColor
  */
 export const isColor = (strColor: string): boolean => {

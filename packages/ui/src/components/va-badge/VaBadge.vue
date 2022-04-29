@@ -25,7 +25,7 @@ export default defineComponent({
   name: 'VaBadge',
   props: {
     color: { type: String as PropType<string>, default: 'danger' },
-    textColor: { type: String as PropType<string>, default: 'var(--va-white)' },
+    textColor: { type: String as PropType<string>, default: 'white' },
     text: { type: [String, Number] as PropType<string | number>, default: '' },
     overlap: { type: Boolean as PropType<boolean>, default: false },
     multiLine: { type: Boolean as PropType<boolean>, default: false },
@@ -54,7 +54,7 @@ export default defineComponent({
     const { getColor } = useColors()
     const colorComputed = computed(() => getColor(props.color))
     const badgeStyle = computed(() => ({
-      color: getColor(props.textColor, 'var(--va-white)'),
+      color: getColor(props.textColor, 'white'),
       borderColor: colorComputed.value,
       backgroundColor: colorComputed.value,
       opacity: props.transparent ? 0.5 : 1,

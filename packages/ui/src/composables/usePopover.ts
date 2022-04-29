@@ -1,6 +1,7 @@
-import { onBeforeUnmount, onMounted, ref, Ref, unref, watch } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref, Ref, unref, watch } from 'vue'
 import { useDomRect } from './useDomRect'
 import { mapObject } from '../utils/map-object'
+import { useClientOnly } from './useClientOnly'
 
 export type PlacementPosition = 'top' | 'bottom' | 'left' | 'right'
 export type PlacementAlignment = 'start' | 'end' | 'center'
@@ -9,6 +10,9 @@ export type Offset = number | [number, number]
 
 type Coords = { x: number, y: number }
 type AlignCoords = { main: number, cross: number }
+
+export const placementsPositions = ['top', 'bottom', 'left', 'right']
+  .reduce((acc, position) => [...acc, position, `${position}-start`, `${position}-end`, `${position}-center`], ['auto'] as string[])
 
 const coordsToCss = ({ x, y }: Coords) => ({ left: `${x}px`, top: `${y}px` })
 
@@ -36,11 +40,11 @@ const calculateContentCoords = (placement: Placement, anchor: DOMRect, content: 
   const alignmentY = calculateContentAlignment(align, anchor.top, anchor.height, content.height)
 
   switch (position) {
-  case 'top': return { x: alignmentX, y: anchor.top - content.height }
-  case 'left': return { y: alignmentY, x: anchor.left - content.width }
-  case 'right': return { y: alignmentY, x: anchor.right }
-  case 'bottom':
-  default: return { x: alignmentX, y: anchor.bottom }
+    case 'top': return { x: alignmentX, y: anchor.top - content.height }
+    case 'left': return { y: alignmentY, x: anchor.left - content.width }
+    case 'right': return { y: alignmentY, x: anchor.right }
+    case 'bottom':
+    default: return { x: alignmentX, y: anchor.bottom }
   }
 }
 
@@ -49,11 +53,11 @@ const calculateOffsetCoords = (placement: Placement, offset: Offset): Coords => 
   const { main, cross } = parseOffset(offset)
 
   switch (position) {
-  case 'left': return { y: cross, x: -main }
-  case 'right': return { y: cross, x: main }
-  case 'top': return { y: -main, x: cross }
-  case 'bottom':
-  default: return { y: main, x: cross }
+    case 'left': return { y: cross, x: -main }
+    case 'right': return { y: cross, x: main }
+    case 'top': return { y: -main, x: cross }
+    case 'bottom':
+    default: return { y: main, x: cross }
   }
 }
 
@@ -121,12 +125,21 @@ export const usePopover = (
   contentRef: Ref<HTMLElement | null | undefined>,
   options: usePopoverOptions | Ref<usePopoverOptions>,
 ) => {
-  const rootRef = ref<Element>(document.body)
+  const documentRef = useClientOnly(() => document)
+  const rootRef = computed<Element | null>(() => {
+    if (!documentRef.value) { return null }
+
+    const { root } = unref(options)
+
+    if (root) { return documentRef.value.querySelector(root) }
+
+    return documentRef.value.body
+  })
   const { domRect: anchorDomRect } = useDomRect(anchorRef)
   const { domRect: contentDomRect } = useDomRect(contentRef)
 
   const updateContentCSS = () => {
-    if (!anchorDomRect.value || !contentDomRect.value) { return }
+    if (!rootRef.value || !anchorDomRect.value || !contentDomRect.value) { return }
 
     const css = {
       width: 'max-content',
@@ -165,15 +178,6 @@ export const usePopover = (
       ...coordsToCss(coords),
     })
   }
-
-  const getElement = (selector?: string) => {
-    if (!selector) { return null }
-    return document.querySelector(selector)
-  }
-
-  onMounted(() => {
-    rootRef.value = getElement(unref(options).root) || document.body
-  })
 
   watch(anchorDomRect, updateContentCSS)
   watch(contentDomRect, updateContentCSS)

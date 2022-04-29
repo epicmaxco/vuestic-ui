@@ -143,10 +143,5 @@ export default defineComponent({
   grid-gap: var(--va-date-picker-cell-gap);
   max-height: 100%;
   position: relative;
-
-  .va-year-picker-cell {
-    width: 100%;
-    height: 30px;
-  }
 }
 </style>

@@ -6,19 +6,18 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { useStateful, statefulComponentOptions } from '../../mixins/StatefulMixin/cStatefulMixin'
+import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
 
 export default defineComponent({
   name: 'VaHover',
 
   props: {
-    ...statefulComponentOptions.props,
-    stateful: { type: Boolean, default: true },
+    ...useStatefulProps,
     disabled: { type: Boolean, default: false },
     modelValue: { type: Boolean, default: false },
   },
 
-  emits: [...statefulComponentOptions.emits],
+  emits: useStatefulEmits,
 
   setup (props, { emit }) {
     const { valueComputed } = useStateful(props, emit)

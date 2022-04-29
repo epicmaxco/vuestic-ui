@@ -266,7 +266,6 @@
     },
     "VaModal": {
       "props": {
-        "value": "The current visibility state of the modal",
         "title": "Text content to place in the title",
         "message": "Content of modal body",
         "attachElement": "A valid selector of element, where modal will be rendered",
@@ -286,11 +285,12 @@
         "withoutTransitions": "Use `without-transitions: true` to turn off the open and close animations on the modal",
         "overlay": "Use `overlay: false` to hide the overlay",
         "overlayOpacity": "Set the overlay's opacity",
+        "anchorClass": "Set class name to the `anchor` slot container",
         "zIndex": "Set the modal's `z-index`"
       },
       "events": {
+        "updateModelValue": "The event is triggered when the component needs to change visibility",
         "clickOutside": "Emits when overlay is clicked",
-        "input": "Emits when modal's visibility should change",
         "ok": "Emits when **Ok** button is clicked",
         "beforeOpen": "Emits before modal's open after transition started",
         "open": "Emits when modal's is open and transition is complete",
@@ -299,12 +299,13 @@
         "cancel": "Emits when the user closes the modal window without side effects"
       },
       "methods": {
-        "hide": "Hide modal. On stateless modal only emits `input`",
-        "open": "Show modal. On stateless modal only emits `input`",
-        "toggle": "Toggle a modal's visibility. On stateless modal only emits `input`"
+        "hide": "Hide modal (change `modelValue`)",
+        "show": "Show modal (change `modelValue`)",
+        "toggle": "Toggle a modal's visibility (change `modelValue`)"
       },
       "slots": {
         "default": "Content of modal body",
+        "anchor": "Modal anchor content. There is access to the `show`, `hide` and `toggle` methods in the slots scope",
         "header": "Modal header content",
         "footer": "Modal footer content"
       }
@@ -393,7 +394,9 @@
         "type": "Specify the format of component. Supported types are `single`, `list` and `gallery`",
         "fileTypes": "Specify supported file formats",
         "dropzone": "Enables Drag&Drop",
-        "value": "The array with uploaded files"
+        "value": "The array with uploaded files",
+        "dropZoneText": "Custom drop zone label text",
+        "uploadButtonText": "Custom upload button text"
       }
     },
     "VaHover": {
@@ -479,14 +482,13 @@
     },
     "VaOptionList": {
       "props": {
-        "value": "The array of currently selected items in a list",
         "disabledBy": "Specify the key in the object to be used as item `disabled` prop. Can be string (path to the key) or function of type: `(option) => option.disabled`",
         "valueBy": "Specify the key in the object to be used as item `value` prop. Can be string (path to the key) or function of type: `(option) => option.value`",
         "trackBy": "Specify the key in the object to be used as item `key` prop. Can be string (path to the key) or function of type: `(option) => option.track`",
         "textBy": "Specify the key in the object to be used as item `text` prop. Can be string (path to the key) or function of type: `(option) => option.text`",
         "options": "The array of items to be displayed",
         "type": "Specify the format of component. Supported types are `\"radio\"`, `\"checkbox\"` and `\"switch\"`",
-        "defaultValue": "This value will be pre-selected when component mounts",
+        "defaultValue": "This value will be pre-selected for the stateful component",
         "leftLabel": "Put the labels to the left"
       },
       "events": {
@@ -669,7 +671,11 @@
         "bordered": "Applies underscore",
         "focused": "Applies focus style",
         "canBeFocused": "If false, then input can not be focused using mouse or keyboard",
-        "immediateValidation": "Sets the validation to be performed when the component is mounted"
+        "requiredMark": "Adds required mark to the label",
+        "immediateValidation": "Sets the validation to be performed when the component is mounted",
+        "inputClass": "Classes for `input` (not its wrapper)",
+        "pattern": "The pattern prop specifies a regular expression the input value should match",
+        "inputmode": "The inputmode prop is an enumerated prop that hints at the type of data that might be entered by the user while editing the element or its contents. This alows a browser to display an apropriate virtual keyboard"
       },
       "events": {
         "change": "Emitted when the input loose focus or on `enter`",
@@ -752,8 +758,9 @@
         "valueBy": "Specify the key in the object to be used as item `value` prop. Can be string (path to the key) or function of type: `(option) => option.value`",
         "trackBy": "Specify the key in the object to be used as item `key` prop. Can be string (path to the key) or function of type: `(option) => option.track`",
         "textBy": "Specify the key in the object to be used as item `text` prop. Can be string (path to the key) or function of type: `(option) => option.text`",
+        "groupBy": "Specify the key in the object to be used as item `group` prop. Can be string (path to the key) or function of type: `(option) => option.group`",
         "placeholder": "Sets the placeholder text to input",
-        "position": "Sets option list position",
+        "placement": "Sets option list placement",
         "tagMax": "Sets maximum tag count after whom selection will be cropped",
         "tags": "Sets selection display as tags",
         "deletableTags": "Sets ability to delete tags",
@@ -763,13 +770,14 @@
         "width": "Sets option list width",
         "maxHeight": "Sets option list maximum height",
         "noOptionsText": "Sets text whom displaying if list have no items",
-        "fixed": "Sets dropdown position strategy",
+        "fixed": "Sets dropdown placement strategy",
         "clearable": "Sets ability to clear selection",
         "hideSelected": "Sets ability to hide selected options",
         "allowCreate": "Allow creating new options. Can be set to `unique` if you want to create only unique options",
         "clearIcon": "Sets the clear icon",
         "dropdownIcon": "Sets the dropdown icon. Can be object if you want to sets different open/close icons",
         "bordered": "Applies style with bottom border",
+        "requiredMark": "Adds required mark to the label",
         "separator": "Text to separate selected values"
       },
       "events": {
@@ -833,7 +841,7 @@
         "leftIcon": "Sets the icon position to the left",
         "hideIcon": "Hide icon (when `split = false`)",
         "openedIcon": "Applies a custom icon in the dropdown section when the dropdown is opened.",
-        "position": "Sets the position of the dropdown content.",
+        "placement": "Sets the placement of the dropdown content.",
         "keepAnchorWidth": "Keeps anchor position the same.",
         "offset": "Sets the distance between dropdown and anchor.",
         "modelValue": "Sets a dropdown state.",
@@ -845,7 +853,8 @@
       },
       "methods": {},
       "slots": {
-        "default": "Dropdown content slot."
+        "default": "Dropdown content slot.",
+        "label": "Content for dropdown button."
       }
     },
     "VaColorInput": {
@@ -889,7 +898,9 @@
         "allowFooterSorting": "Allows clicks on `<tfoot>` column headers to sort (and to display the sorting status) the rows",
         "striped": "Sets the striped style to the `<tbody>` rows (highlights each 2nd row)",
         "hoverable": "Allows the hover state on table rows within a `<tbody>`. The highlighting color of the hover state takes from `selected-color` prop",
-        "animated": "Sets css `transition` to table rows"
+        "animated": "Sets css `transition` to table rows",
+        "stickyHeader": "Enables sticky header (sticky header is achieved through CSS with `position: sticky` for `thead`)",
+        "height": "Sets the height to the table and enables scrolling"
       },
       "events": {
         "updateSortBy": "Emits when `sort-by` changed",
@@ -1158,6 +1169,7 @@
         "focused": "Applies focus style",
         "canBeFocused": "If false, then input can not be focused using mouse or keyboard",
         "icon": "Sets an icon. The default icon position is on the right",
+        "requiredMark": "Adds required mark to the label",
         "leftIcon": "Sets the icon position to the left"
       },
       "events": {},
@@ -1293,14 +1305,39 @@
     "colors": "Colors",
     "timePicker": "Time Picker",
     "timeInput": "Time Input",
-    "carousel": "Carousel"
+    "carousel": "Carousel",
+    "treeShaking": "Tree Shaking",
+    "nuxt": "Nuxt"
   },
   "all": {
     "examples": "Examples",
     "api": "API",
     "faq": "FAQ",
     "code": {
-      "or": "or"
+      "or": "or",
+      "folderStructure": {
+        "componentDirectory": "component directory",
+        "componentItself": "component itself",
+        "componentDemo": "component demo",
+        "componentTests": "compoennt tests"
+      },
+      "npmScripts": {
+        "runVueBookDevServer": "Run vue-book dev server",
+        "generateFilesForComponent": "Generate all needed files for component (component itself, docs, tests)",
+        "buildVueBook": "Build vue-book bundle",
+        "lint": "Lint everything",
+        "runTests": "Run tests",
+        "runVuepressDevServer": "Run vuepress dev server",
+        "buildVuepress": "Build vuepress bundle"
+      },
+      "aliasAndFontExample": {
+        "twitterColor": "Twitter blue brand color",
+        "VuesticColor": "Vuestic green brand color",
+        "from": "from",
+        "alias": "alias",
+        "font": "font",
+        "to": "to"
+      }
     },
     "examplesTexts": {
       "button": "Your button"
@@ -1729,7 +1766,7 @@
   "toast": {
     "title": "Toast",
     "summaryText": "Component for sending a notification to the user. To make it easier to create toast we have a shorthands. For options API it is `$vaToast`. For composition api we have `useToast` hook. Hook and global object have similar API.",
-    "optionsAPI": "In options API you can use ToastPlugin (automatically installed with VuesticPlugin). `$vaToast` have a few methods: init, close, closeAll.",
+    "optionsAPI": "In options API you can use VaToastPlugin (automatically installed with createVuestic). `$vaToast` have a few methods: init, close, closeAll.",
     "compositionAPI": "In composition API you can use `useToast` hook.",
     "toastOptionsHeader": "Init Options",
     "examples": {
@@ -1772,7 +1809,7 @@
     "summaryText": "Classic modal overlay which represents a dialog box or other interactive component, such as a dismissible alert, sub-window, etc.",
     "overview": {
       "title": "Overview",
-      "text": "`<va-modal>`, by default, has the **OK** and **Cancel** buttons in the footer. You can provide a custom message and title with the `message` and `title` props respectively.\n\n`<va-modal>` supports close on **Esc** (enabled by default) and close on overlay click (enabled by default). These features may be disabled by setting the props `no-esc-dismiss` and `no-outside-dismiss` respectively, or `no-dismiss` as a shorthand to disable both of them."
+      "text": "`va-modal`, by default, has the **OK** and **Cancel** buttons in the footer. You can provide a custom message and title with the `message` and `title` props respectively.\n\n`va-modal` supports close on **Esc** (enabled by default) and close on overlay click (enabled by default). These features may be disabled by setting the props `no-esc-dismiss` and `no-outside-dismiss` respectively, or `no-dismiss` as a shorthand to disable both of them."
     },
     "stateful": {
       "title": "Stateful",
@@ -1788,11 +1825,11 @@
     },
     "toggleVisibility": {
       "title": "Toggle modal visibility",
-      "text": "There are several methods that you can employ to toggle the visibility of `<va-modal>`.",
+      "text": "There are several methods that you can employ to toggle the visibility of `va-modal`.",
       "sections": [
         {
           "title": "Using `v-model` property",
-          "text": "`v-model` property is always automatically synced with `<va-modal>` visible state and you can show/hide using `v-model`."
+          "text": "`v-model` property is always automatically synced with `va-modal` visible state and you can show/hide using `v-model`."
         },
         {
           "title": "Using `show()`, `hide()`, and `toggle()` component methods",
@@ -1800,13 +1837,17 @@
         }
       ]
     },
+    "anchor": {
+      "title": "Slot: `anchor`",
+      "text": "Using the `anchor` slot, the user can access the `show()`, `hide()` and `toggle()` methods."
+    },
     "disableAnimation": {
       "title": "Disable open and close animation",
       "text": "To disable the transition/animation when modal opens and closes, set the prop `without-transitions`."
     },
     "hidingOverlay": {
       "title": "Hiding the overlay",
-      "text": "Hide the modal's overlay via setting the `overlay` prop to `false`.\n\nNote that clicking outside of the modal will still close the modal even though the overlay is hidden. You can disable this behaviour by setting the `no-outside-dismiss` prop on `<va-modal>`."
+      "text": "Hide the modal's overlay via setting the `overlay` prop to `false`.\n\nNote that clicking outside of the modal will still close the modal even though the overlay is hidden. You can disable this behaviour by setting the `no-outside-dismiss` prop on `va-modal`."
     },
     "scrollingLongContent": {
       "title": "Scrolling long content",
@@ -1814,7 +1855,7 @@
     },
     "customization": {
       "title": "Customization",
-      "text": "`<va-modal>` provides several slots (`default`, `header` and `footer`), that you can use to customize the content of various sections of the modal.\n\nYou can set custom text for **Cancel** and **Ok** buttons via `ok-text` and `cancel-text` props respectively, or you can hide them via `hide-default-actions` prop.\n\n`va-modal` also supports custom `overlay-opacity` as well as `z-index`, `max-width` and `max-height` for a modal."
+      "text": "`va-modal` provides several slots (`default`, `header` and `footer`), that you can use to customize the content of various sections of the modal.\n\nYou can set custom text for **Cancel** and **Ok** buttons via `ok-text` and `cancel-text` props respectively, or you can hide them via `hide-default-actions` prop.\n\n`va-modal` also supports custom `overlay-opacity` as well as `z-index`, `max-width` and `max-height` for a modal."
     },
     "nestedModals": {
       "title": "Nested modals",
@@ -1911,7 +1952,12 @@
       },
       "dragAndDrop": {
         "title": "Drag & Drop",
-        "text": "The `dropzone` prop is used to add drag and drop possibility to the `va-file-upload` component"
+        "text": "The `dropzone` prop is used to add drag and drop possibility to the `va-file-upload` component",
+        "exampleText": "This is slot, click or drag'n'drop file to upload"
+      },
+      "slots": {
+        "title": "Slot",
+        "text": "Allows to create custom file upload area."
       },
       "validation": {
         "title": "Specify file types",
@@ -2308,6 +2354,14 @@
         "title": "Textarea",
         "text": "Support a multi-line `va-input`, useful for larger amounts of text. You can make textarea auto-expandable or manually control min/max number of lines."
       },
+      "inputClass": {
+        "title": "Input Class",
+        "text": "To assign a class directly to input, rather than its wrapper, use the `input-class` property. For example, you can use the build-in component class (or any other class you've created) to align the input text &mdash; `text--center` and `text--right` to align the center or right.",
+        "exampleTexts": [
+          "This input must have right-aligned red text with bottom indent.",
+          "Native input element must have red text. VaInput wrapper has a blue border."
+        ]
+      },
       "mask": {
         "title": "Mask",
         "text": "Support possibility to force/help the user to input a specific format with help from mask prop. You can pass some mask presets or custom options based on [cleave.js](https://nosir.github.io/cleave.js/)[[target=_blank]]. By default returning a raw value."
@@ -2611,8 +2665,9 @@
           "`.justify--start` - items are packed toward the start line",
           "`.justify--end` - items are packed toward to end line",
           "`.justify--center` - items are centered along the line",
-          "`.justify--space-around` - items are evenly distributed in the line with equal space around them",
-          "`.justify--space-between` - items are evenly distributed in the line; first item is on the start line, last item is on the end line"
+          "`.justify--space-around` - items are evenly distributed in the line, items have equal space around on either end",
+          "`.justify--space-between` - items are evenly distributed in the line; first item is on the start line, last item is on the end line",
+          "`.justify--space-evenly` - items are evenly distributed in the line; items have equal space around them"
         ]
       },
       "justifySelf": {
@@ -2894,6 +2949,10 @@
       },
       "formattingGlobalConfig": {
         "text": "You can easily use your format functions for all VaDateInputs using [Global Config](/services/components-config) feature."
+      },
+      "validation": {
+        "title": "Validation",
+        "text": "Validation works the same way as `VaInput` validation, except rules functions should accept `Date` instead of `string`."
       }
     }
   },
@@ -3034,27 +3093,6 @@
       "title": "CodeSandbox",
       "button": "Try Vuestic-UI on CodeSandbox"
     },
-    "treeShaking": {
-      "title": "Tree shaking",
-      "description": "If you plan to use only several components in your application and thus reduce the size of your bundle, you can use the Vuestic ESM build. Webpack (vue-cli) and Vite do that automatically.",
-      "example": {
-        "title": "First, you don't need to use `VuesticPlugin` since it registers all the `vuestic` components globally. Instead, you can import specific components from the `vuestic-ui` package.",
-        "footer": "Alternatively, you can import them directly in your `.vue` files."
-      },
-      "plugins": {
-        "title": "In such a case you'd also have to register Vuestic plugins by yourself. We recommend to use all of them:",
-        "GlobalConfigPlugin": "GlobalConfigPlugin - used for `VaConfig` component and global props reassignment. [Read more](/services/global-config).",
-        "ToastInstall": "ToastInstall - used by `VaToast` component.",
-        "ColorHelpersPlugin": "ColorHelpersPlugin - used to create reactive CSS variables. Requires `GlobalConfigPlugin`. [Read more](/services/colors-config).",
-        "DropdownPopperSubplugin": "DropdownPopperSubplugin - used by `VaDropdown` component.",
-        "example": {
-          "title": "All of these plugins are also available through the `VuesticPluginsWithoutComponents`:"
-        }
-      },
-      "attention": {
-        "cssLoader": "As all components' code is separated, you may need a CSS loader to load component-specific CSS.\nBut you probably already have one."
-      }
-    },
     "manual": {
       "title": "Manual installation",
       "subtitle": "If you decide to install Vuestic UI manually, all you need to do is to install a NPM package, a couple of other necessary assets (such as fonts and CSS styles) and slightly modify your application's entry point (most probably `index.js` or `main.js`, depending on your setup).",
@@ -3062,6 +3100,24 @@
       "node": "[Node.js](https://nodejs.org/en/)[[target=_blank]] (>=v14.0.0)",
       "npm": "[npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)[[target=_blank]] (>=v3.0.0) (or [yarn](https://yarnpkg.com/lang/en/docs/install)[[target=_blank]] (>= v1.16.0)) and [Git](https://git-scm.com/)[[target=_blank]]",
       "afterCheck": "After checking the prerequisites, install Vuestic UI via npm or yarn:"
+    }
+  },
+  "treeShaking": {
+    "title": "Tree shaking",
+    "description": "If you plan to use only several components in your application and thus reduce the size of your bundle, you can use the Vuestic ESM build. Webpack (vue-cli) and Vite do that automatically.",
+    "example": {
+      "title": "First, you don't need to use `createVuestic` since it registers all the `vuestic` components globally. We have `createVuesticEssential` instead, which register only essential plugins. You can specify components to declare globally. Or you can import them later.",
+      "footer": "You can also specify Vuestic subplugins as `plugins` option. "
+    },
+    "plugins": {
+      "title": "Here is a list of plugins that you can use with Vuestic:",
+      "GlobalConfigPlugin": "GlobalConfigPlugin (essential) - used for `VaConfig` component and global props reassignment. [Read more](/services/global-config).",
+      "ColorHelpersPlugin": "ColorHelpersPlugin (essential) - used to create reactive CSS variables. Requires `GlobalConfigPlugin`. [Read more](/services/colors-config).",
+      "VaToastPlugin": "VaToastPlugin - provides methods for creating Toasts within vue context. [Read more](/ui-elements/toast)",
+      "VaDropdownPlugin": "VaDropdownPlugin - provides methods for dropdown closing within vue context. `VaDropdown` is used in `VaSelect`, `VaTimeInput`, `VaDateInput`, `VaButtonDropdown` component."
+    },
+    "attention": {
+      "cssLoader": "As all components' code is separated, you may need a CSS loader to load component-specific CSS.\nBut you probably already have one."
     }
   },
   "roadmap": {
@@ -3602,7 +3658,8 @@
           "Slots allow you to control the display of data and their views in different parts of the table. The examples below demonstrate some of these slots and what you can do with each of them.",
           "**Using custom slots**. Custom slots (*username*, *street* and *company name*) display certain data.",
           "**Showing header, body and footer's prepend and append static rows**. For added (prepended and appended) static rows an additional `className` with a background color is set.",
-          "**Using `colgroup` slot to set specific attributes to columns**. For last column an additional `className` with a background color is set."
+          "**Using `colgroup` slot to set specific attributes to columns**. For last column an additional `className` with a background color is set.",
+          "Slot names that are not in `columns` will be omitted."
         ]
       },
       "filtering": {
@@ -3624,6 +3681,13 @@
       "styling": {
         "title": "Styling",
         "text": "Should be specified on columns (see the `columns` prop below). Allows to provide different values (`text-align`, `vertical-align` and `width` css properties, custom `class` and `style`) for headers and for columns' cells."
+      },
+      "stickyHeader": {
+        "title": "Sticky header",
+        "text": [
+          "The sticky header is set by the `sticky-header` property. Sticky header is achieved through CSS with `position: sticky`. This is NOT supported on all browsers. Check [caniuse.com](https://caniuse.com/?search=sticky)[[target=_blank]] before using this technique.",
+          "To work correctly, it is important to limit the height (set the value in the `height` property of the component or using the CSS `height` or `max-height` properties) of the table and assign a background color (set the CSS value `background-color`) of the table header."
+        ]
       },
       "other": {
         "title": "Other",
@@ -3793,6 +3857,15 @@
         "title": "Fade",
         "text": "Additional carousel slide switch effect."
       }
+    }
+  },
+  "nuxt": {
+    "title": "Nuxt integration",
+    "description": "Vuestic UI is fully compatible with Nuxt3. You can use Vuestic UI in your Nuxt3 project.",
+    "installation": {
+      "title": "Installation",
+      "plugin": "Create plugin file `plugins/vuestic-ui.ts` in nuxt project. It should contain the following code:",
+      "nuxtConfig": "You also need to update your nuxt-config.ts file:"
     }
   }
 }

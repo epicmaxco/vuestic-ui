@@ -31,21 +31,15 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue, prop, mixins } from 'vue-class-component'
+import { defineComponent, PropType, computed } from 'vue'
 
 import VaFileUploadListItem from '../VaFileUploadListItem'
 import VaFileUploadGalleryItem from '../VaFileUploadGalleryItem'
 import VaFileUploadSingleItem from '../VaFileUploadSingleItem'
 
-class FileUploadListProps {
-  type = prop<string>({ type: String, default: '' })
-  files = prop<any|any[]>({ type: [Object, Array], default: null })
-  color = prop<string>({ type: String, default: 'success' })
-}
+import type { VaFile, ConvertedFile } from '../types'
 
-const FileUploadListPropsMixin = Vue.with(FileUploadListProps)
-
-@Options({
+export default defineComponent({
   name: 'VaFileUploadList',
   components: {
     VaFileUploadListItem,
@@ -53,42 +47,47 @@ const FileUploadListPropsMixin = Vue.with(FileUploadListProps)
     VaFileUploadSingleItem,
   },
   emits: ['remove', 'removeSingle'],
-})
-export default class VaFileUploadList extends mixins(
-  FileUploadListPropsMixin,
-) {
-  get filesList () {
-    return this.files.map(this.convertFile)
-  }
+  props: {
+    type: { type: String as PropType<string>, default: '' },
+    files: { type: Array as PropType<VaFile[]>, default: null },
+    color: { type: String as PropType<string>, default: 'success' },
+  },
+  setup (props) {
+    const filesList = computed(() => props.files.map(convertFile))
 
-  convertFile (file: any) {
-    return {
-      name: file.name || file.url,
-      size: file.size ? this.formatSize(file.size) : '',
-      date: this.formatDate(new Date()),
+    const convertFile = (file: VaFile): ConvertedFile => ({
+      name: file.name || file.url || '',
+      size: formatSize(file.size),
+      date: formatDate(new Date()),
       image: file,
-    }
-  }
-
-  formatSize (bytes: number) {
-    if (bytes === 0) { return '0 Bytes' }
-    const k = 1024
-    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
-    const i = Math.floor(Math.log(bytes) / Math.log(k))
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i]
-  }
-
-  formatDate (date: Date) {
-    if (!date) { return '' }
-    return date.toLocaleDateString('en-US', {
-      hour: '2-digit',
-      minute: '2-digit',
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
     })
-  }
-}
+
+    const formatSize = (bytes?: number) => {
+      if (bytes === 0) { return '0 Bytes' }
+      if (!bytes) { return '' }
+
+      const k = 1024
+      const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
+      const i = Math.floor(Math.log(bytes) / Math.log(k))
+
+      return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i]
+    }
+
+    const formatDate = (date = new Date()) => {
+      return date.toLocaleDateString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+      })
+    }
+
+    return {
+      filesList,
+    }
+  },
+})
 </script>
 
 <style lang='scss'>

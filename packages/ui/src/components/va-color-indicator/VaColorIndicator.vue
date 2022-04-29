@@ -33,7 +33,7 @@ export default defineComponent({
 
     const colorComputed = computed(() => getColor(props.color))
 
-    const computedStyle = computed(() => ({ borderRadius: props.square ? 0 : '50%' }))
+    const computedStyle = computed(() => ({ borderRadius: props.square ? '0px' : '50%' }))
 
     const computedClass = computed(() => ({
       'va-color-indicator--selected': valueComputed.value,

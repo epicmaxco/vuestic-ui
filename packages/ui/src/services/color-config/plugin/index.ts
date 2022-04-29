@@ -1,27 +1,16 @@
-import { watch } from 'vue'
-import { useGlobalConfig } from '../../global-config/global-config'
-import { isServer } from '../../../utils/ssr-utils'
-
-export const setCSSVariable = (name: string, value: string, root: HTMLElement) => {
-  root.style.setProperty(`--va-${name}`, value)
-}
+import type { Plugin } from 'vue'
+import { createColorConfigPlugin } from './create-color-config-plugin'
+import { defineGlobalProperty, defineVuesticPlugin } from '../../../vuestic-plugin/utils'
 
 /** Creates color css variables and reactively updates on ColorConfig changes. */
-export const ColorConfigPlugin = {
-  install () {
-    if (isServer()) { return }
-
-    const { globalConfig } = useGlobalConfig()
-
-    const root = document.documentElement
-
-    watch(() => globalConfig.value.colors, (newValue) => {
-      if (!newValue) { return }
-
-      const colorNames = Object.keys(newValue)
-      colorNames.forEach((key) => {
-        setCSSVariable(key, newValue[key], root)
-      })
-    }, { immediate: true, deep: true })
+export const ColorConfigPlugin = defineVuesticPlugin(() => ({
+  install (app) {
+    defineGlobalProperty(app, '$vaColorConfig', createColorConfigPlugin(app))
   },
+}))
+
+declare module '@vue/runtime-core' {
+  export interface ComponentCustomProperties {
+    $vaColorConfig: ReturnType<typeof createColorConfigPlugin>
+  }
 }

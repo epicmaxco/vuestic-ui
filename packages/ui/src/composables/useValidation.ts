@@ -1,7 +1,7 @@
 import { inject, onBeforeUnmount, onMounted, PropType, watch } from 'vue'
-import flatten from 'lodash/flatten'
-import isFunction from 'lodash/isFunction'
-import isString from 'lodash/isString'
+import flatten from 'lodash/flatten.js'
+import isFunction from 'lodash/isFunction.js'
+import isString from 'lodash/isString.js'
 import { useSyncProp } from './useSyncProp'
 import { FormServiceKey } from '../components/va-form/consts'
 import { useFocus } from './useFocus'
@@ -17,7 +17,6 @@ export interface ValidationProps {
   success: boolean
   messages: string[] | string
   immediateValidation: boolean
-  [prop: string]: unknown
 }
 
 export const useValidationProps = {

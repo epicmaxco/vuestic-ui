@@ -4,6 +4,7 @@
     v-bind="VaDropdownPropValues"
     :modelValue="modelValue"
     :closeOnClickOutside="autoHide"
+    :offset="1"
   >
     <template #default>
       <div class="va-popover__content-wrapper">
@@ -55,6 +56,7 @@ export default defineComponent({
 
   props: {
     ...VaDropdownProps,
+    trigger: { default: 'hover' },
     color: { type: String, default: 'success' },
     icon: { type: String, default: '' },
     title: { type: String, default: '' },

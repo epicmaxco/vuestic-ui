@@ -361,12 +361,7 @@ $display-margins: (
 ) !default;
 
 // Modals
-$basic-duration: 0.3s;
-
 $zindex-modal: 1050 !default;
-$modal-transform-transition: transform $basic-duration ease !default;
-$modal-opacity-transition: opacity ($basic-duration * 0.5) cubic-bezier(1, 0.5, 0.8, 1) !default;
-$modal-overlay-opacity-transition: opacity math.div(2 * $basic-duration, 3) cubic-bezier(1, 0.5, 0.8, 1) !default;
 $modal-padding-top: 1.25rem !default;
 $modal-padding-right: 1.875rem !default;
 $modal-padding-bottom: 1.5rem !default;

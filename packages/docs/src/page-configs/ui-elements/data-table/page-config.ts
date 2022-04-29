@@ -22,6 +22,7 @@ const config: ApiDocsBlock[] = [
   block.headline('dataTable.examples.slots.title'),
   block.paragraph('dataTable.examples.slots.text[0]'),
   block.paragraph('dataTable.examples.slots.text[1]'),
+  block.alert('dataTable.examples.slots.text[4]', '#f7cc36'),
   block.example('CustomSlots'),
   block.paragraph('dataTable.examples.slots.text[2]'),
   block.example('StaticSlots'),
@@ -53,6 +54,12 @@ const config: ApiDocsBlock[] = [
     'dataTable.examples.styling.text',
     'Styling',
   ),
+
+  block.headline('dataTable.examples.stickyHeader.title'),
+  block.paragraph('dataTable.examples.stickyHeader.text[0]'),
+  block.paragraph('dataTable.examples.stickyHeader.text[1]'),
+  block.example('StickyHeader'),
+
   ...block.exampleBlock(
     'dataTable.examples.other.title',
     'dataTable.examples.other.text[0]',

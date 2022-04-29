@@ -111,7 +111,11 @@
             :rules="[value => value === 'Minsk' || 'Should be Minsk']"
             :options="['Minsk', 'Los Angeles', 'San Francisco', 'Peru']"
           />
-
+          <va-date-input
+            v-model="form.nestedDate"
+            :rules="[value => value?.getDate?.() === 10 || 'Should be 10th day']"
+            clearable
+          />
         </va-form>
       </va-form>
       <button @click="$refs.nestedFormRef.validate()">
@@ -156,6 +160,7 @@ import VaInput from '../va-input'
 import VaSelect from '../va-select'
 import VaButton from '../va-button'
 import VaFormReset from './VaForm-reset'
+import { VaDateInput } from '../va-date-input'
 
 export default {
   components: {
@@ -164,6 +169,7 @@ export default {
     VaInput,
     VaSelect,
     VaButton,
+    VaDateInput,
   },
   data () {
     return {
@@ -172,6 +178,7 @@ export default {
         world: 'text',
         nestedHello: 'hell',
         nestedWorld: 'worl',
+        nestedDate: undefined,
         selectValue: '',
         radio: 2,
         inputError: false,

@@ -1,19 +1,31 @@
-import { App } from 'vue'
+import { defineVuesticPlugin, defineGlobalProperty } from '../../../vuestic-plugin/utils'
 
-/** Creates `$closeDropdown` function vue context. */
-export const VaDropdownPlugin = {
-  install (app: App) {
-    app.config.globalProperties.$closeDropdown = function () {
-      // eslint-disable-next-line @typescript-eslint/no-this-alias
-      let vm = this
-      // Hide first parent dropdown.
-      while ((vm = vm.$parent)) {
-        const name = vm.$options.name
-        if (name === 'VaDropdown') {
-          vm.hide()
-          break
-        }
+const vaDropdownPlugin = {
+  closeDropdown () {
+    let vm = this as any
+    // Hide first parent dropdown.
+    while ((vm = vm.$parent)) {
+      const name = vm.$options.name
+      if (name === 'VaDropdown') {
+        vm.hide()
+        break
       }
     }
   },
+}
+
+export const VaDropdownPlugin = defineVuesticPlugin(() => ({
+  install (app) {
+    defineGlobalProperty(app, '$closeDropdown', vaDropdownPlugin.closeDropdown)
+    defineGlobalProperty(app, '$vaDropdown', vaDropdownPlugin)
+  },
+}))
+
+declare module '@vue/runtime-core' {
+  export interface ComponentCustomProperties {
+    $vaDropdown: typeof vaDropdownPlugin
+
+    /** @deprecated */
+    $closeDropdown: typeof vaDropdownPlugin['closeDropdown']
+  }
 }
