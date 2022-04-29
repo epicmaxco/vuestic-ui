@@ -1,6 +1,11 @@
 <template>
   <div class="va-date-input">
-    <va-dropdown v-model="isOpenSync" :offset="[0, 10]" :close-on-content-click="false" :disabled="disabled">
+    <va-dropdown
+      v-model="isOpenSync"
+      :offset="[1, 0]"
+      :close-on-content-click="false"
+      :disabled="disabled"
+    >
       <template #anchor>
         <slot name="input" v-bind="{ valueText, inputProps, color }">
           <va-input
@@ -79,7 +84,7 @@ import { useRangeModelValueGuard } from './hooks/range-model-value-guard'
 import { useDateParser } from './hooks/date-text-parser'
 
 import VaDatePicker from '../va-date-picker/VaDatePicker.vue'
-import vaDropdown, { VaDropdownContent } from '../va-dropdown'
+import VaDropdown, { VaDropdownContent } from '../va-dropdown'
 import VaInput from '../va-input'
 import VaIcon from '../va-icon'
 import { VaDatePickerModelValue } from '../va-date-picker/types/types'
@@ -100,7 +105,7 @@ export default defineComponent({
   name: 'VaDateInput',
 
   components: {
-    vaDropdown,
+    VaDropdown,
     VaDropdownContent,
     VaDatePicker,
     VaInput,

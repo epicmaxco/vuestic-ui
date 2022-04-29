@@ -30,14 +30,11 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onBeforeUnmount, onMounted, PropType, ref, toRef, watch } from 'vue'
+import { computed, defineComponent, PropType, ref, toRef } from 'vue'
 import { useStateful, useStatefulEmits, useStatefulProps } from '../../composables/useStateful'
 import { useDebounceFn } from '../../composables/useDebounce'
-import { usePopover, Placement } from '../../composables/usePopover'
+import { usePopover, placementsPositions, Placement } from '../../composables/usePopover'
 import { useClickOutside } from '../../composables/useClickOutside'
-
-const placementsPositions = ['top', 'bottom', 'left', 'right']
-  .reduce((acc, position) => [...acc, position, `${position}-start`, `${position}-end`, `${position}-center`], ['auto'] as string[])
 
 export default defineComponent({
   name: 'VaDropdown',
@@ -47,6 +44,7 @@ export default defineComponent({
     stateful: { default: true },
     modelValue: { type: Boolean, default: false },
     disabled: { type: Boolean },
+    anchorSelector: { type: String, default: '' },
     attachElement: { type: String, default: 'body' },
     disableAttachment: { type: Boolean, default: false },
     keepAnchorWidth: { type: Boolean, default: false },
@@ -81,7 +79,14 @@ export default defineComponent({
       'va-dropdown--disabled': props.disabled,
     }))
 
-    usePopover(anchorRef, contentRef, computed(() => ({
+    // to be able to select specific anchor element inside anchorRef
+    const anchorElement = computed(() => {
+      return (anchorRef.value && props.anchorSelector)
+        ? anchorRef.value.querySelector(props.anchorSelector) || anchorRef.value
+        : anchorRef.value
+    })
+
+    usePopover(anchorElement, contentRef, computed(() => ({
       placement: props.placement,
       keepAnchorWidth: props.keepAnchorWidth,
       offset: props.offset,
@@ -127,7 +132,7 @@ export default defineComponent({
     }
 
     useClickOutside([anchorRef, contentRef], () => {
-      if (props.closeOnClickOutside && props.modelValue) {
+      if (props.closeOnClickOutside && valueComputed.value) {
         emitAndClose('click-outside', props.closeOnClickOutside)
       }
     })
