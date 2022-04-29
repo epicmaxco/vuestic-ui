@@ -135,7 +135,7 @@ export default class Seamless extends Vue {
     @include size(12);
     @include text-font();
 
-    padding-top: 3rem;
+    padding-top: 1rem;
     text-align: center;
 
     // sm
