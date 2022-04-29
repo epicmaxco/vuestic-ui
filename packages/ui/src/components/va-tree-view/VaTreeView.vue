@@ -1,61 +1,117 @@
 <template>
   <div class="va-tree-view">
-    <slot />
+    <va-tree-node
+        v-for="node in items"
+        :key="node.id"
+        :current-node="node"
+    >
+      <template v-for="(_, name) in $slots" v-slot:[name]="bind">
+        <slot :name="name" v-bind="bind" />
+      </template>
+    </va-tree-node>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, nextTick, provide, ref } from 'vue'
-import { useColor } from '../../composables/useColor'
-import { TreeCategory, TreeViewKey, TreeViewProvide } from './types'
+import { defineComponent, PropType, provide, ref } from 'vue'
+import { TreeNode, TreeViewKey, TreeViewProvide } from './types'
+import VaTreeNode from './VaTreeNode'
 
 export default defineComponent({
   name: 'VaTreeView',
+
   props: {
     color: {
       type: String,
-      default: '',
+      default: () => 'primary',
+    },
+    nodes: {
+      type: Array as PropType<TreeNode[]>,
+      default: () => ([]),
+    },
+    nodeKey: {
+      type: String,
+      required: true,
+      default: () => (''),
+    },
+    expandAll: {
+      type: Boolean,
+      required: false,
+      default: () => false,
+    },
+    selectable: {
+      type: Boolean,
+      required: false,
+      default: () => false,
+    },
+    filter: {
+      type: Function,
+      default: () => undefined,
     },
   },
+
+  components: {
+    VaTreeNode,
+  },
+
   setup: (props) => {
-    const categories = ref<TreeCategory[]>([])
+    const nodes = ref<TreeNode[]>(props.nodes)
 
-    const collapse = () => {
-      nextTick(() => {
-        categories.value.forEach((child: TreeCategory) => {
-          child.collapse()
-        })
+    const getNodeObject = (node: TreeNode, children: TreeNode[] = []) => ({
+      ...node,
+      children,
+      expanded: props.expandAll,
+      selected: false,
+      disabled: false,
+      parent: children.length ? node : null,
+    })
+
+    const addProps = (nodes: TreeNode[]): any => {
+      return nodes.map((node: TreeNode) => {
+        if (node.children?.length) {
+          return getNodeObject(node, addProps(node.children))
+        }
+
+        return getNodeObject(node)
       })
     }
 
-    const expand = () => {
-      nextTick(() => {
-        categories.value.forEach((child: TreeCategory) => {
-          child.expand()
+    const toggleNode = (node: TreeNode) => {
+      node.expanded = !node.expanded
+    }
+
+    const toggleSelect = (isSelected: boolean, node: TreeNode) => {
+      const toggleChildNodeSelect = (nodes: TreeNode[]) => {
+        nodes.forEach((childNode: TreeNode) => {
+          childNode.selected = isSelected
+
+          if (childNode.children.length) {
+            toggleChildNodeSelect(childNode.children)
+          }
         })
-      })
-    }
+      }
 
-    const onChildMounted = (category: TreeCategory) => {
-      categories.value.push(category)
-    }
+      if (node.children.length) {
+        toggleChildNodeSelect(node.children)
+      }
 
-    const onChildUnmounted = (removableCategory: TreeCategory) => {
-      categories.value = categories.value.filter((category: TreeCategory) => category !== removableCategory)
+      node.selected = isSelected
     }
 
     const treeView: TreeViewProvide = {
-      color: props.color,
-      onChildMounted,
-      onChildUnmounted,
+      nodeKey: props.nodeKey,
+      selectable: props.selectable,
+      toggleNode,
+      toggleSelect,
     }
 
     provide(TreeViewKey, treeView)
 
+    nodes.value = addProps(nodes.value)
+
     return {
-      collapse,
-      expand,
-      ...useColor(props),
+      items: nodes,
+      treeView,
     }
   },
 })
