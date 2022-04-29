@@ -254,7 +254,7 @@ export default defineComponent({
 @import "../../styles/resources";
 @import "variables";
 
-.overlay--blured > div:not(.va-modal) {
+.overlay--blured > :not(div[class*="va-"]) {
   filter: blur(var(--va-modal-blur));
   position: absolute;
   height: 100%;
