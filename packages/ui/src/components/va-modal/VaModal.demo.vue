@@ -297,11 +297,14 @@
         </va-modal>
       </va-modal>
     </VbCard>
+    <VbCard title="vaModal return by method">
+      <button @click="$vaModal.init">init vaModal</button>
+    </VbCard>
   </VbDemo>
 </template>
 
 <script>
-import VaModal from './index'
+import VaModal from './VaModal'
 import VaButton from '../va-button'
 
 export default {
