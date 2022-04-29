@@ -1,4 +1,6 @@
 import { useColors } from '../color-config'
+
+import { ColorInput } from 'colortranslator/dist/@types'
 const {
   setColors,
   getColors,
@@ -112,6 +114,59 @@ describe('useColors', () => {
     'getFocusColorArg $getFocusColorArg should return $expected',
     ({ getFocusColorArg, expected }) => {
       expect(getFocusColor(getFocusColorArg)).toBe(expected)
+    },
+  )
+
+  it.each`
+    getGradientBackgroundArg                               | expected
+    ${'#000000'}                                           | ${'linear-gradient(to right, hsla(2,5%,10%,1), hsla(0,0%,0%,1))'}
+    ${'rgb(0, 0, 0)'}                                      | ${'linear-gradient(to right, hsla(2,5%,10%,1), hsla(0,0%,0%,1))'}
+    ${'rgba(0, 0, 0, 1)'}                                  | ${'linear-gradient(to right, hsla(2,5%,10%,1), hsla(0,0%,0%,1))'}
+    ${{ h: 0, s: 0, l: 0 }}                                | ${'linear-gradient(to right, hsla(2,5%,10%,1), hsla(0,0%,0%,1))'}
+    ${{ c: 0, m: 0, y: 0, k: 0 }}                          | ${'linear-gradient(to right, hsla(2,5%,100%,1), hsla(0,0%,100%,1))'}
+  `(
+    'getGradientBackgroundArg $getGradientBackgroundArg should return $expected',
+    ({ getGradientBackgroundArg, expected }) => {
+      expect(getGradientBackground(getGradientBackgroundArg)).toBe(expected)
+    },
+  )
+
+  it.each`
+    getTextColorArgs                                       | expected
+    ${['#000000', '#CCCCCC', '#FFFFFF']}                   | ${'#FFFFFF'}
+    ${['rgb(255, 255, 255)']}                              | ${'var(--va-dark)'}
+    ${[{ h: 0, s: 100, l: 27 }]}                           | ${'var(--va-white)'}
+    ${[{ c: 0, m: 0, y: 0, k: 0 }]}                        | ${'var(--va-dark)'}
+  `(
+    'getTextColorArgs $getTextColorArgs should return $expected',
+    ({ getTextColorArgs, expected }) => {
+      expect(getTextColor(...(getTextColorArgs as [ColorInput, string | undefined, string | undefined]))).toBe(expected)
+    },
+  )
+
+  it.each`
+    shiftHSLAColorArgs                                        | expected
+    ${['#000000', {}]}                                        | ${'hsla(0,0%,0%,1)'}
+    ${['rgb(255, 255, 255)', { h: 1, s: 2 }]}                 | ${'hsla(1,2%,100%,1)'}
+    ${[{ h: 0, s: 100, l: 27 }, { h: 1, s: 2, l: 3, a: 4 }]}  | ${'hsla(1,100%,30%,1)'}
+    ${[{ c: 0, m: 0, y: 0, k: 0 }, { l: 3 }]}                 | ${'hsla(0,0%,100%,1)'}
+  `(
+    'shiftHSLAColorArgs $shiftHSLAColorArgs should return $expected',
+    ({ shiftHSLAColorArgs, expected }) => {
+      expect(shiftHSLAColor(...(shiftHSLAColorArgs as [ColorInput, Record<string, number>]))).toBe(expected)
+    },
+  )
+
+  it.each`
+    setHSLAColorArgs                                          | expected
+    ${['#000000', {}]}                                        | ${'hsla(0,0%,0%,1)'}
+    ${['rgb(255, 255, 255)', { h: 1, s: 2 }]}                 | ${'hsla(1,2%,100%,1)'}
+    ${[{ h: 0, s: 100, l: 27 }, { h: 1, s: 2, l: 3, a: 4 }]}  | ${'hsla(1,2%,3%,1)'}
+    ${[{ c: 0, m: 0, y: 0, k: 0 }, { l: 3 }]}                 | ${'hsla(0,0%,3%,1)'}
+  `(
+    'setHSLAColorArgs $setHSLAColorArgs should return $expected',
+    ({ setHSLAColorArgs, expected }) => {
+      expect(setHSLAColor(...(setHSLAColorArgs as [ColorInput, Record<string, number>]))).toBe(expected)
     },
   )
 })
