@@ -1231,7 +1231,8 @@
     "timeInput": "Time Input",
     "treeShakingRequirements": "Tree Shaking Requirements",
     "carousel": "Carousel",
-    "treeShaking": "Tree Shaking"
+    "treeShaking": "Tree Shaking",
+    "nuxt": "Nuxt"
   },
   "all": {
     "examples": "Примеры",
@@ -3722,6 +3723,15 @@
     },
     "attention": {
       "cssLoader": "Поскольку код всех компонентов разделен, вам может потребоваться загрузчик `CSS` для загрузки стилей для конкретных компонентов.\nНо, вероятно, он у вас уже есть."
+    }
+  },
+  "nuxt": {
+    "title": "Nuxt интеграция",
+    "description": "Vuestic UI компоненты полностью совместимы с Nuxt3.",
+    "installation": {
+      "title": "Установка",
+      "plugin": "Создайте плагин файл `plugins/vuestic-ui.ts` в nuxt проекте. Он должен включать в себя следующий код:",
+      "nuxtConfig": "Также нужно обновить nuxt-config.ts файл:"
     }
   }
 }
