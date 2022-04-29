@@ -1,84 +1,112 @@
 <template>
-  <div
-    class="va-tree-node"
-    :class="{ 'va-tree-node--highlighted': $props.highlighted }"
-  >
+  <div class="va-tree-node">
     <div
-      class="va-tree-node__checkbox"
-      v-if="$slots.checkbox"
+      class="va-tree-node-header"
+      @click.stop="toggleNode($props.currentNode)"
     >
-      <slot name="checkbox" />
+      <div
+        v-if="$props.currentNode.children.length"
+        class="va-tree-node-header__item"
+      >
+        <slot name="node-icon-toggle" v-bind="currentNode">
+          <button style="height: 1rem; width: 1rem; line-height: 1rem;">
+            {{ $props.currentNode.expanded ? '-' : '+' }}
+          </button>
+        </slot>
+      </div>
+      <div class="va-tree-node-header__item" v-if="selectable" @click.stop>
+        <va-checkbox
+          v-model="$props.currentNode.selected"
+          @update:model-value="(v) => toggleSelect(v, $props.currentNode)"
+        />
+      </div>
+      <div class="va-tree-node-header__item">
+        <slot name="node-header" v-bind="currentNode">
+          {{ label }}
+        </slot>
+      </div>
+    </div>
+    <div class="va-tree-node-body">
+      <slot name="node-body" v-bind="currentNode"></slot>
     </div>
     <div
-      class="va-tree-node__icon"
-      v-if="$props.icon"
+      v-show="$props.currentNode.expanded"
+      class="va-tree-node-children"
     >
-      <va-icon
-        :name="$props.icon"
-        :color="theme.getColor('info')"
-        :size="24"
-      />
-    </div>
-    <div class="va-tree-node__label">
-      <slot />
-    </div>
-    <div
-      class="va-tree-node__icon-right"
-      v-if="$props.iconRight"
-      :size="24"
-    >
-      <va-icon
-        :name="$props.iconRight"
-        :color="theme.getColor('info')"
-      />
+      <va-tree-node
+        v-for="node in childNodes"
+        :key="node.id"
+        :nodes="node.children"
+        :node-key="nodeKey"
+        :current-node="node"
+      >
+        <template v-for="(_, name) in $slots" v-slot:[name]="bind">
+          <slot :name="name" v-bind="bind" />
+        </template>
+      </va-tree-node>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, inject, onBeforeUnmount, onMounted, provide } from 'vue'
-import { useColor } from '../../../composables/useColor'
-import VaIcon from '../../va-icon'
-import { TreeNodeCommon, TreeCategoryKey, TreeNodeKey } from '../types'
+import { defineComponent, inject, PropType, ref } from 'vue'
+import { TreeNode, TreeViewKey, TreeViewProvide } from '../types'
+import VaCheckbox from '../../va-checkbox'
 
 export default defineComponent({
   name: 'VaTreeNode',
-  components: { VaIcon },
+
   props: {
-    highlighted: {
-      type: Boolean,
-      default: false,
+    currentNode: {
+      type: Object as PropType<TreeNode>,
+      default: () => ({}),
     },
-    icon: {
-      type: String,
-      default: '',
-    },
-    iconRight: {
-      type: String,
-      default: '',
+    nodes: {
+      type: Array as PropType<TreeNode[]>,
+      required: true,
+      default: () => [],
     },
     color: {
       type: String,
-      default: 'primary',
+      default: () => 'primary',
+    },
+    disabled: {
+      type: Boolean,
+      required: false,
+      default: () => false,
     },
   },
-  setup (props) {
-    const { theme } = useColor(props)
-    const treeCategory: TreeNodeCommon<typeof TreeNodeKey> = inject(TreeCategoryKey, {
-      onChildMounted: (value: typeof TreeNodeKey) => undefined,
-      onChildUnmounted: (value: typeof TreeNodeKey) => undefined,
+
+  components: {
+    VaCheckbox,
+  },
+
+  setup: (props) => {
+    const childNodes = ref(props.currentNode.children)
+    const isSelected = ref(props.currentNode.selected)
+
+    const {
+      nodeKey,
+      selectable,
+      toggleNode,
+      toggleSelect,
+    } = inject<TreeViewProvide>(TreeViewKey, {
+      nodeKey: '',
+      selectable: false,
+      toggleNode: (node: TreeNode) => node,
+      toggleSelect: (isSelected: boolean, node: TreeNode) => node,
     })
 
-    provide(TreeNodeKey, {
-      props: computed(() => props),
-    })
-
-    onMounted(() => treeCategory && treeCategory.onChildMounted(TreeNodeKey))
-    onBeforeUnmount(() => treeCategory && treeCategory.onChildUnmounted(TreeNodeKey))
+    const label = ref(props.currentNode[nodeKey] || '')
 
     return {
-      treeCategory,
-      theme,
+      childNodes,
+      label,
+      isSelected,
+      nodeKey,
+      selectable,
+      toggleNode,
+      toggleSelect,
     }
   },
 })
@@ -86,34 +114,36 @@ export default defineComponent({
 
 <style lang="scss">
 @import "../../../styles/resources";
-@import 'variables.scss';
+@import 'variables';
+
+:root {
+  --va-tree-node-margin-top: 1rem;
+}
 
 .va-tree-node {
-  display: var(--va-tree-node-display);
-  align-items: var(--va-tree-node-align-items);
-  font-family: var(--va-font-family);
+  display: flex;
+  flex-flow: column;
+  align-items: flex-start;
 
-  .form-group {
-    margin-bottom: 0;
+  &-header {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    width: 100%;
+
+    &__item + .va-tree-node-header__item {
+      margin-left: 0.5rem;
+    }
   }
 
-  &__icon {
-    margin-right: var(--va-tree-node-icon-margin-right);
-  }
+  &-body {}
 
-  &__icon-right {
-    margin-left: var(--va-tree-node-icon-margin-right);
-  }
-
-  &__label {
-    flex-grow: var(--va-tree-node-label-flex-grow);
-    word-wrap: var(--va-tree-node-label-word-wrap);
-    overflow: var(--va-tree-node-label-overflow);
-    line-height: var(--va-tree-node-label-line-height);
-  }
-
-  &--highlighted #{&}__label {
-    background-color: var(--va-tree-node-label-highlighted-bg);
+  &-children {
+    background-image: linear-gradient(#adb3b9 33%, rgba(255, 255, 255, 0) 0%);
+    background-position: left;
+    background-size: 1px 3px;
+    background-repeat: repeat-y;
+    padding-left: 1.85rem;
   }
 }
 </style>
