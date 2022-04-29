@@ -23,9 +23,9 @@ describe('useStateful', () => {
       const { valueComputed } = useStateful(wrapper.props() as StatefulProps<string>, wrapper.vm.$emit, defaultValue)
       expect(valueComputed.value).toBe(expected)
 
-      valueComputed.value = 'newModelValue'
-      expect(wrapper.emitted()['update:modelValue'][0]).toEqual(['newModelValue'])
-      expect(valueComputed.value).toBe(setExpected)
+      valueComputed.value = setExpected
+      expect(wrapper.emitted()['update:modelValue'][0]).toEqual([setExpected])
+      expect(valueComputed.value).toBe(props.stateful ? setExpected : expected)
     },
   )
 })

@@ -16,6 +16,7 @@ describe('useClearable', () => {
     ${{ clearable: true, clearableIcon: '', clearValue: 'clearValue' }}                      | ${ref(null)}         | ${ref(false)}   | ${ref(false)}    | ${{ canBeCleared: false, clearIconColor: 'gray', clearIconProps: { color: 'gray', name: '', size: 'small' } }}
     ${{ clearable: true, clearableIcon: '', clearValue: 'clearValue' }}                      | ${ref(undefined)}    | ${ref(false)}   | ${ref(false)}    | ${{ canBeCleared: false, clearIconColor: 'gray', clearIconProps: { color: 'gray', name: '', size: 'small' } }}
     ${{ clearable: true, clearableIcon: 'highlight_off', clearValue: '', success: true }}    | ${ref('inputValue')} | ${ref(false)}   | ${ref(false)}    | ${{ canBeCleared: true, clearIconColor: 'success', clearIconProps: { color: 'success', name: 'highlight_off', size: 'small' } }}
+    ${{ clearable: false, clearableIcon: '', clearValue: '' }}                               | ${ref('inputValue')} | ${ref(false)}   | ${ref(false)}    | ${{ canBeCleared: false, clearIconColor: 'gray', clearIconProps: { color: 'gray', name: '', size: 'small' } }}
   `(
     'props $props & isFocused $isFocused & hasErrors $hasErrors & inputValue $inputValue should be $expected',
     ({ props, inputValue, isFocused, hasErrors, expected }) => {

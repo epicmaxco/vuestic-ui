@@ -2,7 +2,7 @@ import { useFocus } from '../useFocus'
 import { mount } from '@vue/test-utils'
 import { ref } from 'vue'
 
-describe('useHover', () => {
+describe('useFocus', () => {
   it(
     'focus & blur events should change isFocused value',
     async () => {
