@@ -1,9 +1,10 @@
 import { App } from 'vue'
 import { defineVuesticPlugin, defineGlobalProperty } from '../../../vuestic-plugin/utils'
+import { createModalInstance, MessageBoxOptions } from '../modal'
 
 const createVaModalPlugin = (app: App) => ({
-  init () {
-    console.log('va-modal.init')
+  init (options: string | MessageBoxOptions) {
+    createModalInstance(options, app?._context)
   },
 })
 
