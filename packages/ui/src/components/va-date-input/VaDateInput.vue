@@ -1,6 +1,11 @@
 <template>
   <div class="va-date-input">
-    <va-dropdown v-model="isOpenSync" :offset="[0, 10]" :close-on-content-click="false" :disabled="disabled">
+    <va-dropdown
+      v-model="isOpenSync"
+      :offset="[1, 0]"
+      :close-on-content-click="false"
+      :disabled="disabled"
+    >
       <template #anchor>
         <slot name="input" v-bind="{ valueText, inputProps, color }">
           <va-input

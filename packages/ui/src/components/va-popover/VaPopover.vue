@@ -4,6 +4,7 @@
     v-bind="VaDropdownPropValues"
     :modelValue="modelValue"
     :closeOnClickOutside="autoHide"
+    :offset="1"
   >
     <template #default>
       <div class="va-popover__content-wrapper">

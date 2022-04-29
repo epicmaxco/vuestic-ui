@@ -10,7 +10,7 @@
     :fixed="$props.fixed"
     :close-on-content-click="closeOnContentClick"
     :stateful="false"
-    :offset="[0, 1]"
+    :offset="[1, 0]"
     keep-anchor-width
     v-model="showDropdownContentComputed"
     @keydown.up.stop.prevent="showDropdown()"

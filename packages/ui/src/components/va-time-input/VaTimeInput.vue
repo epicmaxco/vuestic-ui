@@ -5,7 +5,7 @@
     :style="$attrs.style"
     v-model="isOpenSync"
     placement="bottom-start"
-    :offset="[0, 1]"
+    :offset="[1, 0]"
     :close-on-content-click="false"
     :disabled="$props.disabled"
     anchorSelector=".va-input__container"
