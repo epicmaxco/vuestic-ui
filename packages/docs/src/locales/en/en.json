@@ -3228,7 +3228,8 @@
     },
     "code": {
       "title": "Translations inside code blocks",
-      "description": "It's important to see a translated text instead of vue-i18n function inside a code block, so, we created some helpers that allow us to translate the text inside code blocks like we translate it inside a vue templates.",
+      "description": "It's sometimes important to see a translated text instead of vue-i18n function inside a code block, so, we created some helpers that allow us to translate the text inside code blocks like we translate it inside a vue templates.",
+      "warn": "Using translation in demos is an exceptional case. Generally we want to leave filler text untranslated, as it's expensive to support and provides no useful information.",
       "basicTitle": "Basic syntax",
       "basicText": "Just pass the vue-i18n function inside a code and the helper will return a translated text wrapped inside brackets.",
       "mustacheTitle": "Mustache syntax",

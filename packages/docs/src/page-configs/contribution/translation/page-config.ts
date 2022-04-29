@@ -46,6 +46,7 @@ const config: ApiDocsBlock[] = [
 
   block.subtitle('translation.code.title'),
   block.paragraph('translation.code.description'),
+  block.alert('translation.code.warn', 'warning'),
   block.headline('translation.code.basicTitle'),
   block.paragraph('translation.code.basicText'),
   block.code(schemeBasic, 'bash'),
