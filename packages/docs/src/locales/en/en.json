@@ -994,6 +994,8 @@
         "weekendsColor": "Color of the weekend cells (theme string or HEX string).",
         "mode": "Specify if picker value is single date, multiple dates or date range.",
         "clearable": "Adds a button to reset the input field value",
+        "clearValue": "Default input field value",
+        "formatDate": "Function that accepts picker value and transforms it to the string",
         "format": "Function that accepts picker value and should transform it to text for input",
         "isOpen": "Value for dropdown. If `true`, then dropdown is shown",
         "resetOnClose": "If true, range value will be reset to previous valid value",
@@ -1015,9 +1017,14 @@
         "error": "Sets input state to error",
         "errorMessages": "Displays a list of error messages or message if using a string",
         "errorCount": "Number of error messages displayed",
-        "manualInput": "Allows user to manually input date in VaInput"
+        "manualInput": "Allows user to manually input date in VaInput",
+        "parse": "Function that transforms input field text to date, date array or date period",
+        "parseDate": "Function that transforms input field text to date",
+        "parseValue": "Function that transforms string value to date, date array or date period"
+
       },
       "events": {
+        "clear": "Emitted if select value has been cleared",
         "updateView": "The event is triggered when the component needs to change the view",
         "updateMonth": "The event is triggered when the component needs to change the month",
         "updateYear": "The event is triggered when the component needs to change the year",
@@ -1025,8 +1032,10 @@
         "updateText": "The event is triggered when the component needs to change the input text",
         "hoverDay": "The event is triggered when the mouse hover the day cell",
         "hoverMonth": "The event is triggered when the mouse hover the month cell",
+        "hoverYear": "The event is triggered when the mouse hover the year cell",
         "clickDay": "The event is triggered when clicked the day cell",
-        "clickMonth": "The event is triggered when clicked the month cell"
+        "clickMonth": "The event is triggered when clicked the month cell",
+        "clickYear": "The event is triggered when clicked the year cell"
       },
       "methods": {},
       "slots": {}
@@ -2946,6 +2955,10 @@
       "advancedFormatting": {
         "title": "Advanced formatting",
         "text": "If you need specific format for multiple or range modes you can use."
+      },
+      "view": {
+        "title": "View",
+        "text": "You can set specific view for date picker. With `view` prop you can define how date picker will displayed, year and month that will be shown."
       },
       "formattingGlobalConfig": {
         "text": "You can easily use your format functions for all VaDateInputs using [Global Config](/services/components-config) feature."

@@ -77,17 +77,18 @@ import { useValidation, useValidationProps, useValidationEmits } from '../../com
 import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
 import { useFormProps } from '../../composables/useForm'
 
-import { isRange, isSingleDate, isDates } from '../va-date-picker/hooks/model-value-helper'
+import { isRange, isSingleDate, isDates } from '../va-date-picker/utils/date-utils'
 import { useSyncProp } from '../va-date-picker/hooks/sync-prop'
 import { filterComponentProps, extractComponentProps, extractComponentEmits } from '../../utils/child-props'
 import { useRangeModelValueGuard } from './hooks/range-model-value-guard'
-import { useDateParser } from './hooks/date-text-parser'
+import { useDateParser } from './hooks/input-text-parser'
+import { parseModelValue } from './hooks/model-value-parser'
 
 import VaDatePicker from '../va-date-picker/VaDatePicker.vue'
 import VaDropdown, { VaDropdownContent } from '../va-dropdown'
 import VaInput from '../va-input'
 import VaIcon from '../va-icon'
-import { VaDatePickerModelValue } from '../va-date-picker/types/types'
+import { VaDatePickerModelValue } from '../va-date-picker/types'
 
 const VaInputProps = {
   ...useValidationProps,
@@ -126,6 +127,7 @@ export default defineComponent({
     formatDate: { type: Function as PropType<(date: Date) => string>, default: (d: Date) => d.toLocaleDateString() },
     parse: { type: Function as PropType<(input: string) => VaDatePickerModelValue> },
     parseDate: { type: Function as PropType<(input: string) => Date> },
+    parseValue: { type: Function as PropType<typeof parseModelValue> },
 
     delimiter: { type: String, default: ', ' },
     rangeDelimiter: { type: String, default: ' ~ ' },
@@ -155,7 +157,7 @@ export default defineComponent({
     const {
       valueComputed,
       reset: resetInvalidRange,
-    } = useRangeModelValueGuard(statefulValue, isRangeModelValueGuardDisabled)
+    } = useRangeModelValueGuard(statefulValue, isRangeModelValueGuardDisabled, props.parseValue)
 
     watch(isOpenSync, (isOpened) => {
       if (!isOpened && !isRangeModelValueGuardDisabled.value) { resetInvalidRange() }

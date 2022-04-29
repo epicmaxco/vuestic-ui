@@ -4,7 +4,7 @@ import {
   BlockType,
   ApiDocsBlock,
   TextBlock,
-  CodeString,
+  CodeStringOrObject,
   LinkOptions,
   ExampleOptions, CodeLanguage, ListBlock,
 } from '../types/configTypes'
@@ -86,7 +86,7 @@ export class PageGenerationHelper {
     }
   }
 
-  code (code: CodeString, language: CodeLanguage = 'javascript'): ApiDocsBlock {
+  code (code: CodeStringOrObject, language: CodeLanguage = 'javascript'): ApiDocsBlock {
     return {
       type: BlockType.CODE,
       code,
