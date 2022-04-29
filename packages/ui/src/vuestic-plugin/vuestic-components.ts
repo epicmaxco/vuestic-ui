@@ -60,11 +60,7 @@ export { default as VaSlider } from '../components/va-slider'
 export { default as VaSwitch } from '../components/va-switch'
 export { default as VaTabs, VaTab } from '../components/va-tabs'
 export { default as VaTimeline, VaTimelineItem } from '../components/va-timeline'
-export {
-  default as VaTreeRoot,
-  VaTreeCategory,
-  VaTreeNode,
-} from '../components/va-tree-view'
+export { default as VaTreeView, VaTreeNode } from '../components/va-tree-view'
 export { default as VaSpacer } from '../components/va-spacer'
 export { default as VaForm } from '../components/va-form'
 export { default as VaOptionList } from '../components/va-option-list'
