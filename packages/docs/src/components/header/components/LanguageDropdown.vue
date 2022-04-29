@@ -88,6 +88,7 @@ export default defineComponent({
     padding-bottom: 0.625rem;
     cursor: pointer;
     flex-wrap: nowrap;
+    font-weight: 600;
 
     &:hover,
     &.active {
