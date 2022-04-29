@@ -76,7 +76,7 @@ import { defineComponent, PropType, toRef } from 'vue'
 import { useCarousel } from './hooks/useCarousel'
 import { useCarouselAnimation } from './hooks/useCarouselAnimation'
 import { useCarouselColor } from './hooks/useCarouselColors'
-import { useStateful, statefulComponentOptions } from '../../mixins/StatefulMixin/cStatefulMixin'
+import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
 import VaImage from '../va-image'
 import VaButton from '../va-button'
 
@@ -86,7 +86,7 @@ export default defineComponent({
   components: { VaImage, VaButton },
 
   props: {
-    ...statefulComponentOptions.props,
+    ...useStatefulProps,
 
     modelValue: { type: Number, default: 0 },
     items: { type: Array as PropType<any[]>, required: true },
@@ -108,7 +108,7 @@ export default defineComponent({
     color: { type: String, default: 'primary' },
   },
 
-  emits: ['update:modelValue'],
+  emits: useStatefulEmits,
 
   setup (props, { emit }) {
     const { valueComputed: currentSlide } = useStateful(props, emit, 0)

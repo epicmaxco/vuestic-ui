@@ -5,14 +5,15 @@
 </template>
 
 <script lang="ts">
-import { useStateful } from '../../mixins/StatefulMixin/cStatefulMixin'
+import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
 import { defineComponent, PropType } from 'vue'
 import { useAccordion } from './hooks/useAccordion'
 
 export default defineComponent({
   name: 'VaAccordion',
-  emits: ['update:modelValue'],
+  emits: useStatefulEmits,
   props: {
+    ...useStatefulProps,
     modelValue: { type: Array as PropType<boolean[]>, default: () => [] as boolean[] },
     multiply: { type: Boolean, default: false },
     inset: { type: Boolean, default: false },

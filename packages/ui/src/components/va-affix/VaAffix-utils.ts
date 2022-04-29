@@ -1,5 +1,5 @@
 import throttle from 'lodash/throttle.js'
-import { Vue } from 'vue-class-component'
+import type { VueElement } from 'vue'
 
 export type State = {
   isTopAffixed: boolean;
@@ -68,7 +68,7 @@ function checkAffixedStateChange (currentState: State, nextState: State): boolea
 export type Context = {
   offsetTop?: number;
   offsetBottom?: number;
-  element: Vue | Element | Vue[] | Element[];
+  element: VueElement | Element | VueElement[] | Element[];
   target: HTMLElement | Window | undefined;
   setState: (state: State) => void;
   getState: () => State;
