@@ -45,6 +45,10 @@ export default defineComponent({
       required: false,
       default: () => false,
     },
+    selectionType: {
+      type: String as PropType<'leaf' | 'independent'>,
+      default: () => 'leaf',
+    },
     filter: {
       type: Function,
       default: () => undefined,
@@ -92,7 +96,7 @@ export default defineComponent({
         })
       }
 
-      if (node.children.length) {
+      if (props.selectionType === 'leaf' && node.children.length) {
         toggleChildNodeSelect(node.children)
       }
 
