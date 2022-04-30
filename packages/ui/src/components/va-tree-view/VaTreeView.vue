@@ -3,6 +3,7 @@
     <va-tree-node
         v-for="node in items"
         :key="node.id"
+        :nodes="items"
         :current-node="node"
     >
       <template v-for="(_, name) in $slots" v-slot:[name]="bind">
