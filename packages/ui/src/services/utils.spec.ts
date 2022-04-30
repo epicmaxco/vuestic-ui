@@ -1,4 +1,4 @@
-import { deepEqual, getProp, getValueByPath, getNestedValue, generateUniqueId } from './utils'
+import { deepEqual, getValueByKey, getValueByPath, getNestedValue, generateUniqueId } from './utils'
 
 describe('utils', () => {
   it('deepEqual', () => {
@@ -98,11 +98,12 @@ describe('utils', () => {
     expect(deepEqual({ r: [circular] }, { r: [circular] })).toEqual(true)
   })
 
-  it('getProp', () => {
+  it('getValueByKey', () => {
     const test = 'test'
-    expect(getProp('string', test)).toBeUndefined()
-    expect(getProp({ test }, obj => obj.test)).toBe(test)
-    expect(getProp({ test: { test: { test } } }, `${test}.${test}.${test}`))
+    expect(getValueByKey('string', test)).toBeUndefined()
+    expect(getValueByKey(1, test)).toBeUndefined()
+    expect(getValueByKey({ test }, obj => obj.test)).toBe(test)
+    expect(getValueByKey({ test: { test: { test } } }, `${test}.${test}.${test}`))
       .toBe(test)
   })
 

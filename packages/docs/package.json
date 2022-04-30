@@ -24,6 +24,7 @@
     "core-js": "^3.12.1",
     "dedent": "^0.7.0",
     "docsearch.js": "^2.6.3",
+    "fs": "0.0.1-security",
     "lodash": "^4.17.21",
     "markdown-it": "^12.3.2",
     "markdown-it-attrs": "^4.0.0",
@@ -38,6 +39,7 @@
     "vue-router": "^4.0.3"
   },
   "devDependencies": {
+    "@rollup/plugin-dynamic-import-vars": "^1.4.3",
     "@types/dedent": "^0.7.0",
     "@types/jest": "^26.0.20",
     "@types/lodash": "^4.14.168",

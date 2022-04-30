@@ -143,6 +143,12 @@
         disabled
       />
     </VbCard>
+    <VbCard title="Readonly">
+      <va-switch
+        v-model="value"
+        readonly
+      />
+    </VbCard>
     <VbCard title="Loading">
       <va-switch
         v-model="value"

@@ -1,4 +1,4 @@
-import { ManualApiOptions } from '@/components/DocsApi/ManualApiOptions'
+import { ManualApiOptions } from '../../../components/DocsApi/ManualApiOptions'
 import VaTimePickerAPIOptions from '../time-picker/api-options'
 import InputApiOptions from '../input/api-options'
 

@@ -36,52 +36,52 @@
 </template>
 
 <script lang="ts">
-import { inject } from 'vue'
-import { mixins, Options, prop, setup, Vue } from 'vue-class-component'
-
-import ColorMixin from '../../../services/color-config/ColorMixin'
+import { computed, defineComponent, inject, onBeforeUnmount, onMounted, provide } from 'vue'
+import { useColor } from '../../../composables/useColor'
 import VaIcon from '../../va-icon'
+import { TreeNodeCommon, TreeCategoryKey, TreeNodeKey } from '../types'
 
-class TreeNodeProps {
-  highlighted = prop<boolean>(Boolean)
-  icon = prop<string>({ type: String, default: '' })
-  iconRight = prop<string>({ type: String, default: '' })
-  color = prop<string>({ type: String, default: 'primary' })
-}
-
-const TreeNodePropsMixin = Vue.with(TreeNodeProps)
-
-@Options({
+export default defineComponent({
   name: 'VaTreeNode',
   components: { VaIcon },
-})
-export default class VaTreeNode extends mixins(
-  ColorMixin,
-  TreeNodePropsMixin,
-) {
-  setupContext = setup(() => {
-    const treeCategory = inject('treeCategory', {
-      onChildMounted: (value: any) => undefined,
-      onChildUnmounted: (value: any) => undefined,
+  props: {
+    highlighted: {
+      type: Boolean,
+      default: false,
+    },
+    icon: {
+      type: String,
+      default: '',
+    },
+    iconRight: {
+      type: String,
+      default: '',
+    },
+    color: {
+      type: String,
+      default: 'primary',
+    },
+  },
+  setup (props) {
+    const { theme } = useColor(props)
+    const treeCategory: TreeNodeCommon<typeof TreeNodeKey> = inject(TreeCategoryKey, {
+      onChildMounted: (value: typeof TreeNodeKey) => undefined,
+      onChildUnmounted: (value: typeof TreeNodeKey) => undefined,
     })
+
+    provide(TreeNodeKey, {
+      props: computed(() => props),
+    })
+
+    onMounted(() => treeCategory && treeCategory.onChildMounted(TreeNodeKey))
+    onBeforeUnmount(() => treeCategory && treeCategory.onChildUnmounted(TreeNodeKey))
 
     return {
       treeCategory,
+      theme,
     }
-  })
-
-  mounted () {
-    if (this.setupContext.treeCategory) {
-      this.setupContext.treeCategory.onChildMounted(this)
-    }
-  }
-
-  beforeUnmount () {
-    if (this.setupContext.treeCategory) {
-      this.setupContext.treeCategory.onChildUnmounted(this)
-    }
-  }
-}
+  },
+})
 </script>
 
 <style lang="scss">

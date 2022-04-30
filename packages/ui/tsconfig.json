@@ -48,5 +48,10 @@
     "src/**/*.spec.disabled.ts",
     "src/components/wip-*/**.*",
     "src/services/api-docs"
+  ],
+  "references": [
+    {
+      "path": "../docs"
+    }
   ]
 }

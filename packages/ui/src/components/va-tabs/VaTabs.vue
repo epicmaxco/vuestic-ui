@@ -34,11 +34,10 @@
             <div class="va-tabs__slider" />
           </div>
 
-          <va-config :components="context.tabConfig">
-            <slot
-              name="tabs"
-              class="va-tabs__tabs-items"
-            />
+          <va-config :components="tabConfig">
+            <div class="va-tabs__tabs-items">
+              <slot name="tabs"></slot>
+            </div>
           </va-config>
         </div>
       </div>
@@ -60,350 +59,375 @@
 </template>
 
 <script lang="ts">
-import { provide, watch, ref, reactive } from 'vue'
-import { Options, Vue, prop, mixins, setup } from 'vue-class-component'
-
-import { Ref } from '../../utils/decorators'
-import ColorMixin from '../../services/color-config/ColorMixin'
-import { StatefulMixin } from '../../mixins/StatefulMixin/StatefulMixin'
+import {
+  computed,
+  defineComponent,
+  provide,
+  reactive,
+  ref,
+  unref,
+  watch,
+  Ref,
+} from 'vue'
 import VaButton from '../va-button'
-import VaTab from './VaTab/VaTab.vue'
 import VaConfig from '../va-config'
+import { useStateful, useStatefulProps } from '../../composables/useStateful'
+import { useColor } from '../../composables/useColor'
+import { TabsViewKey, TabComponent } from './types'
+import { useResizeObserver } from '../../composables/useResizeObserver'
 
-export class TabsService {
-  // eslint-disable-next-line no-useless-constructor
-  constructor (private parent: VaTabs) {
-    this.disabled = parent.disabled
-  }
+const getClientWidth = (element: HTMLElement | null | undefined): number => element?.clientWidth || 0
 
-  tabs: VaTab[] = []
-  disabled = false
-
-  register (tab: VaTab) {
-    const idx = this.tabs.push(tab)
-    tab.id = tab.$props.name || idx
-  }
-
-  unregister (tab: VaTab) {
-    this.tabs = this.tabs.filter((filteredTab) => filteredTab.id !== tab.id)
-    this.tabs.forEach((tab, idx) => {
-      tab.id = tab.$props.name || idx
-    })
-  }
-
-  tabClick (tab: VaTab) {
-    this.parent.selectTab(tab)
-  }
-
-  tabFocus (tab: VaTab) {
-    this.parent.moveToTab(tab)
-  }
-
-  tabPressEnter (tab: VaTab) {
-    this.parent.selectTab(tab)
-  }
-}
-
-class TabsProps {
-  modelValue = prop<string | number>({ type: [String, Number], default: null })
-  left = prop<boolean>({ type: Boolean, default: true })
-  right = prop<boolean>({ type: Boolean, default: false })
-  center = prop<boolean>({ type: Boolean, default: false })
-  grow = prop<boolean>({ type: Boolean, default: false })
-  disabled = prop<boolean>({ type: Boolean, default: false })
-  hideSlider = prop<boolean>({ type: Boolean, default: false })
-  vertical = prop<boolean>({ type: Boolean, default: false })
-  color = prop<string>({ type: String, default: 'primary' })
-  prevIcon = prop<string>({ type: String, default: 'chevron_left' })
-  nextIcon = prop<string>({ type: String, default: 'chevron_right' })
-}
-
-const TabsPropsMixin = Vue.with(TabsProps)
-
-export const TabsServiceKey = Symbol('TabsService')
-
-@Options({
+export default defineComponent({
   name: 'VaTabs',
   components: { VaButton, VaConfig },
   emits: ['update:modelValue', 'click:next', 'click:prev'],
-})
-export default class VaTabs extends mixins(
-  ColorMixin,
-  StatefulMixin,
-  TabsPropsMixin,
-) {
-  @Ref('wrapper') wrapperRef!: Element
-  @Ref('container') containerRef!: Element
-  @Ref('tabs') tabsRef!: Element
 
-  sliderHeight: null | number = null
-  sliderWidth: null | number = null
-  sliderOffsetX = 0
-  sliderOffsetY = 0
-  showPagination = false
-  tabsContentOffset = 0
-  resizeObserver: ResizeObserver | null = null
-  startingXPoint = 0
-  animationIncluded = false
+  props: {
+    ...useStatefulProps,
+    modelValue: { type: [String, Number], default: null },
+    left: { type: Boolean, default: true },
+    right: { type: Boolean, default: false },
+    center: { type: Boolean, default: false },
+    grow: { type: Boolean, default: false },
+    disabled: { type: Boolean, default: false },
+    hideSlider: { type: Boolean, default: false },
+    vertical: { type: Boolean, default: false },
+    color: { type: String, default: 'primary' },
+    prevIcon: { type: String, default: 'chevron_left' },
+    nextIcon: { type: String, default: 'chevron_right' },
+  },
 
-  context = setup(() => {
-    const tabsService = ref<TabsService | null>(null)
+  setup: (props, { emit }) => {
+    const wrapper = ref<HTMLElement | null>(null)
+    const container = ref<HTMLElement | null>(null)
+    const tabs = ref<HTMLElement | null>(null)
 
+    const tabsList: Ref<TabComponent[]> = ref([])
+    const sliderHeight = ref<number | null>(null)
+    const sliderWidth = ref<number | null>(null)
+    const sliderOffsetX = ref(0)
+    const sliderOffsetY = ref(0)
+    const showPagination = ref(false)
+    const tabsContentOffset = ref(0)
+    const startingXPoint = ref(0)
+    const animationIncluded = ref(false)
+    const { colorComputed } = useColor(props)
+    const { valueComputed: tabSelected }: { valueComputed: Ref<string | number | null> } = useStateful(props, emit)
     const tabConfig = reactive({
       VaTab: {
-        color: this.color,
+        color: props.color,
       },
     })
 
-    provide(TabsServiceKey, tabsService)
+    const computedClass = computed(() => {
+      const {
+        left,
+        right,
+        center,
+        grow,
+        disabled,
+      } = props
 
-    return {
-      tabsService,
-      tabConfig,
-    }
-  })
-
-  created () {
-    // NOTE: this is just a temporary hack not to break everything
-    // because we need to stick to `this` for now
-    // TODO: move this logic to setup
-    this.context.tabsService = new TabsService(this)
-
-    watch(() => this.$props.modelValue, () => {
-      this.updateTabsState()
-    })
-  }
-
-  get computedClass () {
-    const {
-      left,
-      right,
-      center,
-      grow,
-      disabled,
-    } = this.$props
-
-    return {
-      'va-tabs__container--left': left && !right && !center && !grow,
-      'va-tabs__container--right': right,
-      'va-tabs__container--center': center,
-      'va-tabs__container--grow': grow,
-      'va-tabs__container--disabled': disabled,
-    }
-  }
-
-  get computedTabsClass () {
-    return {
-      'va-tabs--vertical': this.$props.vertical,
-    }
-  }
-
-  get tabSelected () {
-    return this.valueComputed
-  }
-
-  get sliderStyles () {
-    if (this.$props.hideSlider) {
-      return { display: 'none' }
-    }
-    const transition = this.animationIncluded ? 'var(--va-tabs-slider-wrapper-transition)' : ''
-    if (this.$props.vertical) {
       return {
-        'background-color': this.colorComputed,
-        height: `${this.sliderHeight}px`,
-        transform: `translateY(-${this.sliderOffsetY}px) translateX(${this.sliderOffsetX}px)`,
-        transition,
-      }
-    }
-    return {
-      'background-color': this.colorComputed,
-      width: `${this.sliderWidth}px`,
-      transform: `translateY(-${this.sliderOffsetY}px) translateX(${this.sliderOffsetX}px)`,
-      transition,
-    }
-  }
-
-  get paginationControlledStyles () {
-    // Prevents the movement of vertical tabs
-    if (this.$props.vertical) {
-      return {
-        transform: 'translateX(0px)',
-      }
-    }
-    const transition = this.animationIncluded ? 'transform ease 0.3s' : ''
-    return {
-      transform: `translateX(${this.startingXPoint - this.tabsContentOffset}px)`,
-      transition,
-    }
-  }
-
-  get disablePaginationLeft () {
-    return this.tabsContentOffset === 0
-  }
-
-  get disablePaginationRight () {
-    const lastTab = this.context.tabsService?.tabs[this.context.tabsService.tabs.length - 1]
-    return (lastTab?.rightSidePosition || 0) <= this.tabsContentOffset + this.containerRef.clientWidth || (lastTab?.leftSidePosition || 0) <= this.tabsContentOffset
-  }
-
-  selectTab (tab: VaTab) {
-    if (tab) {
-      this.valueComputed = tab.$props.name || tab.id
-      if (this.stateful) {
-        this.updateTabsState()
-      }
-    }
-  }
-
-  updateTabsState () {
-    this.resetSliderSizes()
-    this.context.tabsService?.tabs.forEach((tab: VaTab) => {
-      tab.updateSidePositions()
-      if (this.tabSelected) {
-        const isSelectedTab = (tab.$props.name || tab.id) === this.tabSelected
-        tab.isActive = tab.isActiveRouterLink || isSelectedTab
-
-        if (tab.isActive) {
-          this.moveToTab(tab)
-          this.updateSlider(tab)
-        }
+        'va-tabs__container--left': left && !right && !center && !grow,
+        'va-tabs__container--right': right,
+        'va-tabs__container--center': center,
+        'va-tabs__container--grow': grow,
+        'va-tabs__container--disabled': disabled,
       }
     })
-    if (this.tabsContentOffset + this.containerRef.clientWidth > this.tabsRef.clientWidth && this.context.tabsService) {
-      this.moveToTab(this.context.tabsService.tabs[0])
-    }
-    this.updateStartingXPoint()
-  }
 
-  updatePagination () {
-    this.showPagination = false
-    if (this.tabsRef && this.wrapperRef) {
-      if (this.tabsRef.clientWidth > this.wrapperRef.clientWidth) {
-        this.showPagination = true
+    const computedTabsClass = computed(() => ({ 'va-tabs--vertical': props.vertical }))
+
+    const sliderStyles = computed(() => {
+      if (props.hideSlider) {
+        return { display: 'none' }
       }
-    }
-  }
 
-  movePaginationLeft () {
-    let offsetToSet = this.tabsContentOffset - this.containerRef.clientWidth
+      return {
+        backgroundColor: colorComputed.value,
+        height: props.vertical ? `${sliderHeight.value}px` : '',
+        width: props.vertical ? '' : `${sliderWidth.value}px`,
+        transform: `translateY(-${sliderOffsetY.value}px) translateX(${sliderOffsetX.value}px)`,
+        transition: animationIncluded.value ? 'var(--va-tabs-slider-wrapper-transition)' : '',
+      }
+    })
 
-    if (this.context.tabsService) {
-      for (let i = 0; i < this.context.tabsService.tabs.length - 1; i++) {
-        if ((this.context.tabsService.tabs[i].leftSidePosition > offsetToSet && this.context.tabsService.tabs[i].leftSidePosition < this.tabsContentOffset) || this.context.tabsService.tabs[i + 1].leftSidePosition >= this.tabsContentOffset) {
-          offsetToSet = this.context.tabsService.tabs[i].leftSidePosition
-          break
+    const paginationControlledStyles = computed(() => {
+      // Prevents the movement of vertical tabs
+      if (props.vertical) {
+        return {
+          transform: 'translateX(0px)',
         }
       }
+
+      return {
+        transform: `translateX(${startingXPoint.value - tabsContentOffset.value}px)`,
+        transition: animationIncluded.value ? 'var(--va-tabs-slider-transition)' : '',
+      }
+    })
+
+    const disablePaginationLeft = computed(() => tabsContentOffset.value === 0)
+
+    const disablePaginationRight = computed(() => {
+      const lastTab = tabsList.value[tabsList.value.length - 1]
+      const leftSidePosition = unref(lastTab.leftSidePosition)
+      const rightSidePosition = unref(lastTab.rightSidePosition)
+      const containerClientWidth = getClientWidth(container.value)
+
+      return rightSidePosition <= tabsContentOffset.value + containerClientWidth ||
+        leftSidePosition <= tabsContentOffset.value
+    })
+
+    // Methods
+    const resetSliderSizes = () => {
+      sliderWidth.value = 0
+      sliderHeight.value = 0
     }
 
-    this.tabsContentOffset = Math.max(0, offsetToSet)
+    const moveToTab = (tab: TabComponent) => {
+      const containerClientWidth = getClientWidth(container.value)
+      const tabsClientWidth = getClientWidth(tabs.value)
+      const leftSidePosition = unref(tab.leftSidePosition)
+      const rightSidePosition = unref(tab.rightSidePosition)
 
-    this.$emit('click:prev')
-  }
+      if (showPagination.value && leftSidePosition + containerClientWidth <= tabsClientWidth) {
+        tabsContentOffset.value = leftSidePosition
+      } else if (showPagination.value && rightSidePosition >= containerClientWidth) {
+        tabsContentOffset.value = rightSidePosition - containerClientWidth
+      } else {
+        tabsContentOffset.value = 0
+      }
+    }
 
-  movePaginationRight () {
-    const containerRightSide = this.tabsContentOffset + this.containerRef.clientWidth
-    let offsetToSet = containerRightSide
+    const updateStartingXPoint = () => {
+      startingXPoint.value = 0
 
-    if (this.context.tabsService) {
-      for (let i = 0; i < this.context.tabsService.tabs.length; i++) {
-        if (this.context.tabsService.tabs[i].rightSidePosition > containerRightSide) {
-          offsetToSet = this.context.tabsService.tabs[i].leftSidePosition
-          if (this.tabsContentOffset < offsetToSet) {
+      if (!showPagination.value) {
+        return
+      }
+
+      const containerClientWidth = getClientWidth(container.value)
+      const tabsClientWidth = getClientWidth(tabs.value)
+
+      if (props.right) {
+        startingXPoint.value = tabsClientWidth - containerClientWidth
+      } else if (props.center) {
+        startingXPoint.value = Math.floor((tabsClientWidth - containerClientWidth) / 2)
+      }
+    }
+
+    const updateTabsState = () => {
+      resetSliderSizes()
+
+      tabsList.value.forEach((tab: TabComponent) => {
+        tab.updateSidePositions()
+
+        if (tabSelected.value) {
+          const isTabSelected = (tab.name?.value || tab.id) === tabSelected.value
+
+          tab.isActive = tab.isActiveRouterLink || isTabSelected
+
+          if (tab.isActive) {
+            moveToTab(tab)
+            updateSlider(tab)
+          }
+        }
+      })
+
+      const containerClientWidth = getClientWidth(container.value)
+      const tabsClientWidth = getClientWidth(tabs.value)
+
+      if (tabsContentOffset.value + containerClientWidth > tabsClientWidth && tabsList.value) {
+        moveToTab(tabsList.value[0])
+      }
+
+      updateStartingXPoint()
+    }
+
+    const updatePagination = () => {
+      const tabsClientWidth = getClientWidth(tabs.value)
+      const wrapperClientWidth = getClientWidth(wrapper.value)
+
+      showPagination.value = !!(tabs.value && wrapper.value && tabsClientWidth > wrapperClientWidth)
+    }
+
+    const movePaginationLeft = () => {
+      const containerClientWidth = getClientWidth(container.value)
+      let offsetToSet = tabsContentOffset.value - containerClientWidth
+
+      if (tabsList.value) {
+        for (let i = 0; i < tabsList.value.length - 1; i++) {
+          const currentTabLeftSidePosition = unref(tabsList.value[i]?.leftSidePosition)
+          const nextTabLeftSidePosition = unref(tabsList.value[i + 1]?.leftSidePosition)
+
+          if (
+            (currentTabLeftSidePosition > offsetToSet && currentTabLeftSidePosition < tabsContentOffset.value) ||
+            nextTabLeftSidePosition >= tabsContentOffset.value
+          ) {
+            offsetToSet = currentTabLeftSidePosition
             break
           }
         }
       }
+
+      tabsContentOffset.value = Math.max(0, offsetToSet)
+
+      emit('click:prev')
     }
 
-    const lastTab = this.context.tabsService?.tabs[this.context.tabsService.tabs.length - 1]
-    const maxOffset = (lastTab?.rightSidePosition || 0) - this.containerRef.clientWidth
+    const movePaginationRight = () => {
+      const containerClientWidth = getClientWidth(container.value)
+      const containerRightSide = tabsContentOffset.value + containerClientWidth
+      let offsetToSet = containerRightSide
 
-    offsetToSet = Math.min(maxOffset, offsetToSet)
-    this.tabsContentOffset = Math.max(0, offsetToSet)
+      if (tabsList.value) {
+        for (let i = 0; i < tabsList.value.length - 1; i++) {
+          const rightSidePosition = unref(tabsList.value[i].rightSidePosition)
 
-    this.$emit('click:next')
-  }
+          if (rightSidePosition > containerRightSide) {
+            offsetToSet = unref(tabsList.value[i].leftSidePosition)
 
-  moveToTab (tab: VaTab) {
-    if (this.showPagination && tab.leftSidePosition + this.containerRef.clientWidth <= this.tabsRef.clientWidth) {
-      this.tabsContentOffset = tab.leftSidePosition
-    } else if (this.showPagination && tab.rightSidePosition >= this.containerRef.clientWidth) {
-      this.tabsContentOffset = tab.rightSidePosition - this.containerRef.clientWidth
-    } else {
-      this.tabsContentOffset = 0
+            if (tabsContentOffset.value < offsetToSet) {
+              break
+            }
+          }
+        }
+      }
+
+      const rightSidePosition = unref(tabsList.value[tabsList.value.length - 1]?.rightSidePosition)
+      const maxOffset = rightSidePosition - containerClientWidth
+
+      offsetToSet = Math.min(maxOffset, offsetToSet)
+      tabsContentOffset.value = Math.max(0, offsetToSet)
+
+      emit('click:next')
     }
-  }
 
-  updateSlider (tab: VaTab) {
-    if (this.$props.vertical) {
-      const sliderOffsetY = this.containerRef.clientHeight - tab.$el.offsetTop - tab.$el.clientHeight
-      this.sliderOffsetY = Math.max(sliderOffsetY, 0)
-      this.sliderHeight = tab.$el.clientHeight
-      this.sliderOffsetX = 0
-      this.sliderWidth = null
-    } else {
-      this.sliderOffsetX = tab.$el.offsetLeft
-      this.sliderWidth = tab.$el.clientWidth
-      this.sliderOffsetY = 0
-      this.sliderHeight = null
+    const updateSlider = (tab: TabComponent) => {
+      const tabElement = unref(tab.tabElement)
+      const tabOffsetTop = tabElement?.offsetTop || 0
+      const tabOffsetLeft = tabElement?.offsetLeft || 0
+      const tabClientHeight = tabElement?.clientHeight || 0
+      const tabClientWidth = tabElement?.clientWidth || 0
+
+      if (props.vertical) {
+        const containerClientHeight = container.value?.clientHeight || 0
+        const calculatedSliderOffsetY = containerClientHeight - tabOffsetTop - tabClientHeight
+
+        sliderOffsetY.value = Math.max(calculatedSliderOffsetY, 0)
+        sliderHeight.value = tabClientHeight
+        sliderOffsetX.value = 0
+        sliderWidth.value = 0
+      } else {
+        sliderOffsetX.value = tabOffsetLeft
+        sliderWidth.value = tabClientWidth
+        sliderOffsetY.value = 0
+        sliderHeight.value = 0
+      }
     }
-  }
 
-  resetSliderSizes () {
-    this.sliderWidth = 0
-    this.sliderHeight = 0
-  }
-
-  updateStartingXPoint () {
-    this.startingXPoint = 0
-    if (!this.showPagination) {
-      return
+    const includeAnimation = () => {
+      if (!animationIncluded.value) {
+        requestAnimationFrame(() => {
+          animationIncluded.value = true
+        })
+      }
     }
-    if (this.$props.right) {
-      this.startingXPoint = this.tabsRef?.clientWidth - this.containerRef?.clientWidth
-    } else if (this.$props.center) {
-      this.startingXPoint = Math.floor((this.tabsRef?.clientWidth - this.containerRef?.clientWidth) / 2)
-    }
-  }
 
-  includeAnimation () {
-    if (!this.animationIncluded) {
-      requestAnimationFrame(() => {
-        this.animationIncluded = true
+    const redrawTabs = () => {
+      const oldShowPaginationValue = showPagination.value
+
+      updatePagination()
+
+      if (oldShowPaginationValue === showPagination.value) {
+        updateTabsState()
+        includeAnimation()
+      } else {
+        requestAnimationFrame(() => {
+          updateTabsState()
+          includeAnimation()
+        })
+      }
+    }
+
+    const selectTab = (tab: TabComponent) => {
+      if (!tab) { return }
+
+      tabSelected.value = tab.name?.value || tab.id
+
+      if (props.stateful) {
+        updateTabsState()
+      }
+    }
+
+    const registerTab = (tab: TabComponent) => {
+      const idx = tabsList.value.push(tab)
+
+      tab.id = tab.name?.value || idx
+    }
+
+    const unregisterTab = (tab: TabComponent) => {
+      tabsList.value = tabsList.value.filter((filteredTab: TabComponent) => filteredTab.id !== tab.id)
+
+      tabsList.value.forEach((tabListItem: TabComponent, idx: number) => {
+        tabListItem.id = tabListItem.name?.value || idx
       })
     }
-  }
 
-  redrawTabs () {
-    const oldShowPaginationValue = this.showPagination
-    this.updatePagination()
-    if (oldShowPaginationValue === this.showPagination) {
-      this.updateTabsState()
-      this.includeAnimation()
-    } else {
-      requestAnimationFrame(() => {
-        this.updateTabsState()
-        this.includeAnimation()
-      })
-    }
-  }
-
-  mounted () {
-    this.redrawTabs()
-    requestAnimationFrame(() => {
-      this.resizeObserver = new ResizeObserver(this.redrawTabs)
-      this.resizeObserver.observe(this.wrapperRef)
-      this.resizeObserver.observe(this.tabsRef)
+    provide(TabsViewKey, {
+      parentDisabled: props.disabled,
+      selectTab,
+      moveToTab,
+      registerTab,
+      unregisterTab,
     })
-  }
 
-  beforeUnmount () {
-    if (this.resizeObserver) {
-      this.resizeObserver.disconnect()
+    // Lifecycle hooks
+    watch(() => props.modelValue, () => {
+      updateTabsState()
+    })
+
+    const resizeObserver = useResizeObserver([wrapper, tabs], redrawTabs)
+
+    return {
+      wrapper,
+      container,
+      tabs,
+      tabsList,
+      sliderHeight,
+      sliderWidth,
+      sliderOffsetX,
+      sliderOffsetY,
+      showPagination,
+      tabsContentOffset,
+      resizeObserver,
+      startingXPoint,
+      animationIncluded,
+      colorComputed,
+      tabConfig,
+      computedClass,
+      computedTabsClass,
+      tabSelected,
+      sliderStyles,
+      paginationControlledStyles,
+      disablePaginationLeft,
+      disablePaginationRight,
+      resetSliderSizes,
+      moveToTab,
+      updateStartingXPoint,
+      updateTabsState,
+      updatePagination,
+      movePaginationLeft,
+      movePaginationRight,
+      updateSlider,
+      includeAnimation,
+      redrawTabs,
+      selectTab,
     }
-  }
-}
+  },
+})
 </script>
 
 <style lang="scss">

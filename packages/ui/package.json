@@ -43,6 +43,7 @@
     "push": "npm publish --tag=next",
     "push-production": "npm publish --tag=latest",
     "precommit": "lint-staged --concurrent=false",
+    "builder": "node dist/json/builder.js",
     "server:webapp": "npx http-server dist --push-state"
   },
   "dependencies": {
@@ -50,8 +51,6 @@
     "asva-executors": "^0.1.26",
     "cleave.js": "^1.6.0",
     "colortranslator": "^1.7.1",
-    "detect-browser": "^5.2.0",
-    "element-resize-detector": "^1.2.1",
     "lodash": "^4.17.21",
     "normalize.css": "^8.0.1",
     "tslib": "^2.2.0"
@@ -65,6 +64,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
     "@fortawesome/vue-fontawesome": "^3.0.0-2",
     "@rollup/plugin-commonjs": "^19.0.0",
+    "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^13.0.0",
     "@types/cleave.js": "^1.4.3",
     "@types/jest": "^26.0.20",

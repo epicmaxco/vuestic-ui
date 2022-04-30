@@ -113,6 +113,7 @@ export default defineComponent({
 
   // we will use this while we have 'withConfigTransport' and problem with 'expose' method in 'setup' func
   methods: {
+    test () : string { return 'asd' },
     reset () { (this as any).form?.reset() },
     resetValidation () { (this as any).form?.resetValidation() },
     focus () { (this as any).form?.focus() },

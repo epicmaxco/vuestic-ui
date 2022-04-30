@@ -1,16 +1,4 @@
-import { computed, PropType, getCurrentInstance } from 'vue'
-
-export interface RouterLinkProps {
-  tag: string
-  to: string | Record<string, unknown>
-  replace: boolean
-  append: boolean
-  exact: boolean
-  activeClass: string
-  exactActiveClass: string
-  href: string
-  target: string
-}
+import { computed, PropType, getCurrentInstance, ExtractPropTypes } from 'vue'
 
 export const useRouterLinkProps = {
   tag: { type: String as PropType<string>, default: 'router-link' },
@@ -24,7 +12,7 @@ export const useRouterLinkProps = {
   target: { type: String as PropType<string>, default: '' },
 }
 
-export const useRouterLink = (props: RouterLinkProps) => {
+export const useRouterLink = (props: ExtractPropTypes<typeof useRouterLinkProps>) => {
   const globalProperties = computed(() => getCurrentInstance()?.appContext.config.globalProperties)
   const isNuxt = computed(() => !!globalProperties.value?.$nuxt)
   const vueRouter = computed(() => globalProperties.value?.$router)

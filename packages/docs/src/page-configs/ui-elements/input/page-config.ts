@@ -46,6 +46,11 @@ const config: ApiDocsBlock[] = [
     'input.examples.mask.text',
     'Mask',
   ),
+  ...block.exampleBlock(
+    'input.examples.inputClass.title',
+    'input.examples.inputClass.text',
+    'InputClass',
+  ),
 
   block.subtitle('all.api'),
   block.api(VaInput, apiOptions),

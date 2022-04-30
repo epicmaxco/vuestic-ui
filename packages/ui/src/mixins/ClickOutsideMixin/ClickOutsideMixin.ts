@@ -18,6 +18,7 @@ export type ClickOutsideOptions = {
   onClickOutside: (e: Event | undefined) => void;
 }
 
+/** @deprecated */
 class ClickOutsideMixin extends Vue {
   // Set it `true` to prevent handling a bubbled event
   // before handling a captured one for the first time
