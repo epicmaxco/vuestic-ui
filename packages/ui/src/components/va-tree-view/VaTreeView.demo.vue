@@ -11,27 +11,45 @@
         :nodes="customBodyNodes"
         node-key="text"
         expand-all
-        selectable
       >
         <template #node-body="prop">
           <p>{{prop.body}}</p>
         </template>
       </va-tree-view>
     </VbCard>
+    <VbCard title="Selection">
+      <va-radio
+        v-for="(option, index) in selectionTypeOptions"
+        :key="index"
+        v-model="selectionType"
+        :option="option"
+      />
+      <va-tree-view
+        :nodes="defaultNodes"
+        node-key="text"
+        expand-all
+        selectable
+        :selection-type="selectionType"
+      />
+    </VbCard>
   </VbDemo>
 </template>
 
 <script>
 import VaTreeView from './VaTreeView.vue'
+import VaRadio from '../va-radio'
 
 export default {
   name: 'VaTreeView.demo',
 
   components: {
     VaTreeView,
+    VaRadio,
   },
 
   data: () => ({
+    selectionType: 'leaf',
+    selectionTypeOptions: ['leaf', 'independent'],
     defaultNodes: [
       {
         id: 1,
