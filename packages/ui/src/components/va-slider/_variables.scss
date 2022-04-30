@@ -61,11 +61,9 @@
   --va-slider-input-label-inverse-text-transform: uppercase;
 
   /* Horizontal */
-  --va-slider-horizontal-input-wrapper-flex-basis: 8.33333%;
+  --va-slider-horizontal-input-wrapper-flex-basis: fit-content;
   --va-slider-horizontal-input-wrapper-flex-grow: 0;
-  --va-slider-horizontal-input-wrapper-max-width: 8.33333%;
   --va-slider-horizontal-input-wrapper-margin-right: 1rem;
-  --va-slider-horizontal-input-wrapper-min-width: 2.5rem;
 
   /* Horizontal Track */
   --va-slider-horizontal-track-height: 0.5rem;

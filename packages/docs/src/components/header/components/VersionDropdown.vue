@@ -1,5 +1,5 @@
 <template>
-  <div style="color: var(--va-primary);">
+  <div class="version-dropdown">
     v{{ uiVersion }}
   </div>
 </template>
@@ -24,3 +24,10 @@ export default class VersionDropdown extends Vue {
   }
 }
 </script>
+
+<style lang="scss">
+.version-dropdown {
+  color: var(--va-primary);
+  font-weight: 600;
+}
+</style>

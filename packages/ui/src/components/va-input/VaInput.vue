@@ -142,7 +142,7 @@ export default defineComponent({
   inheritAttrs: false,
 
   setup (props, { emit, attrs, slots }) {
-    const input = ref<HTMLInputElement | InstanceType<typeof VaTextarea> | undefined>()
+    const input = ref<HTMLInputElement | typeof VaTextarea | undefined>()
 
     const reset = () => {
       emit('update:modelValue', props.clearValue)

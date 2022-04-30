@@ -1,4 +1,4 @@
-import { VaDatePickerView, VaDatePickerViewProp } from './../types/types'
+import { VaDatePickerView, VaDatePickerViewProp } from '../types'
 import { computed, ref } from 'vue'
 
 const JANUARY_MONTH_INDEX = 0

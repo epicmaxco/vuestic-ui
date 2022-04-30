@@ -39,12 +39,8 @@ const getNewTranslateValue = (transformY: string, redundantHeight: number, posit
   return parseInt(transformY, 10) - (redundantHeight + GAP) * direction
 }
 
-const getNodeProps = (vNode: VNode) => {
-  // Here we assume that vNode is a `withConfigTransport` wrapped component
-  // so we can derive computedProps from it
-
-  // @ts-ignore
-  return vNode.component?.proxy?.computedProps as Record<OptionKeys, any>
+const getNodeProps = (vNode: VNode): Record<OptionKeys, any> => {
+  return (vNode.component?.props as Record<OptionKeys, any>) || {}
 }
 
 const closeNotification = (targetInstance: VNode | null, destroyElementFn: () => void) => {

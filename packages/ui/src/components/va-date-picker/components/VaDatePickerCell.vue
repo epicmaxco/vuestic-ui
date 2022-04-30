@@ -61,9 +61,6 @@ export default defineComponent({
 .va-date-picker-cell {
   position: relative;
   color: var(--va-date-picker-text-color);
-  font-style: normal;
-  font-weight: 600;
-  font-size: 12px;
   line-height: var(--va-date-picker-cell-size);
   min-height: var(--va-date-picker-cell-size);
   min-width: var(--va-date-picker-cell-size);
@@ -92,100 +89,74 @@ export default defineComponent({
     opacity: 0;
   }
 
-  &_highlighted-weekend { color: var(--va-date-picker-weekends-color); }
+  &_highlighted-weekend {
+    color: var(--va-date-picker-weekends-color);
+  }
+
+  // &_in-range:not(.va-date-picker-cell_disabled) {
+  // &_in-range { // should be like a the line above if the `range` value
+  // will exclude not allows dates
+  &_in-range {
+    color: var(--va-date-picker-color);
+
+    &::after {
+      background-color: var(--va-date-picker-selected-background);
+      opacity: var(--va-date-picker-cell-background-opacity-hover);
+    }
+  }
+
+  &_today {
+    color: var(--va-date-picker-color);
+    font-weight: bold;
+
+    &::before {
+      border: 2px solid var(--va-date-picker-color);
+    }
+  }
 
   &_selected {
     background-color: var(--va-date-picker-selected-background);
     color: var(--va-date-picker-selected-text);
   }
 
-  &_in-range {
-    &::before {
-      border: 2px solid var(--va-date-picker-color);
-      opacity: 0.5;
-    }
-  }
-
-  &_today {
-    color: var(--va-date-picker-today-text);
-
-    &::after {
-      background-color: var(--va-date-picker-today-background);
-      opacity: var(--va-date-picker-today-background-opacity);
-    }
-  }
-
-  &_selected.va-date-picker-cell_today {
-    &::before {
-      border: 2px solid var(--va-date-picker-selected-text);
-      opacity: 1;
-    }
-
-    &::after {
-      opacity: 1;
-    }
-  }
-
   &_other-month {
-    opacity: 0.5;
+    opacity: var(--va-date-picker-cell-opacity);
   }
 
   &:hover,
   &_focused,
   &_focused:hover {
-    $focus-border-opacity: 0.8;
+    &:not(
+    .va-date-picker-cell_selected):not(
+      .va-date-picker-cell_readonly):not(
+        .va-date-picker-cell_disabled):not(
+          .va-date-picker-cell_other-month) {
+      color: var(--va-date-picker-color);
 
-    &::before {
-      border: 2px solid var(--va-date-picker-focused-border-color);
-      opacity: $focus-border-opacity;
-    }
-
-    &.va-date-picker-cell_selected {
-      &::before {
-        width: calc(100% - 4px);
-        height: calc(100% - 4px);
-        transform: translateY(2px) translateX(2px);
-        padding: 2px;
-        border: 2px solid var(--va-date-picker-focused-selected-border-color);
-        opacity: $focus-border-opacity;
-      }
-
-      &.va-date-picker-cell_today {
-        &::after {
-          opacity: 0;
-        }
+      &::after {
+        background-color: var(--va-date-picker-selected-background);
+        opacity: var(--va-date-picker-cell-background-opacity-hover);
       }
     }
   }
 
   &_disabled {
-    cursor: default;
-    color: var(--va-date-picker-secondary);
-    opacity: 0.5;
+    &:not(.va-date-picker-cell_today) {
+      color: var(--va-date-picker-secondary);
+    }
 
-    &::after {
-      // Crossline
-      opacity: 0.5;
+    cursor: not-allowed;
+    opacity: var(--va-date-picker-cell-opacity);
+
+    &::after { // Crossline
+      opacity: var(--va-date-picker-cell-opacity);
       border: none;
       height: 2px;
       width: 50%;
-      background: var(--va-date-picker-secondary);
+      background: currentColor;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-    }
-
-    &.va-date-picker-cell_today {
-      color: var(--va-date-picker-today-text);
-
-      &::after {
-        background: var(--va-date-picker-today-text);
-      }
-
-      &::before {
-        background-color: var(--va-date-picker-today-background);
-        opacity: var(--va-date-picker-today-background-opacity);
-      }
     }
   }
 

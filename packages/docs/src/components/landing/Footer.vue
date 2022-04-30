@@ -145,6 +145,7 @@ export default class Footer extends Vue {
     @include size(12);
     @include text-font();
 
+    line-height: 1.5;
     padding: 3rem 0 4rem;
     text-align: center;
 
