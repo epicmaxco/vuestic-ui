@@ -249,9 +249,9 @@ export default defineComponent({
   },
 
   setup (props, { emit }) {
-    const optionList = ref<InstanceType<typeof VaSelectOptionList>>()
-    const input = ref<InstanceType<typeof VaInput>>()
-    const searchBar = ref<InstanceType<typeof VaInput>>()
+    const optionList = ref<typeof VaSelectOptionList>()
+    const input = ref<typeof VaInput>()
+    const searchBar = ref<typeof VaInput>()
 
     const { getOptionByValue, getValue, getText, getTrackBy, getGroupBy } = useSelectableList(props)
 

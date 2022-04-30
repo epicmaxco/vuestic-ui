@@ -110,6 +110,12 @@
       <va-date-input v-model="range" v-model:is-open="isOpen" label="disabled" :reset-on-close="false" class="mb-4" />
     </VbCard>
 
+    <VbCard title="values as strings and numbers">
+      <va-date-input v-model="string" v-model:is-open="isOpen" class="mb-4" />
+      <va-date-input v-model="strings" v-model:is-open="isOpen" class="mb-4" />
+      <va-date-input v-model="stringRange" v-model:is-open="isOpen" class="mb-4" />
+    </VbCard>
+
     <VbCard title="slots to calendar">
       <va-date-input
         v-model="value"
@@ -205,6 +211,9 @@ export default {
       range: { start: new Date(), end: nextWeek },
       dates: [new Date(), nextWeek],
       dayView: { type: 'day', month: 3, year: 2013 },
+      string: new Date().toString(),
+      strings: [Date.now() + 1e9, new Date().toString()],
+      stringRange: { start: new Date().toString(), end: Date.now() + 1e9 },
 
       validationRules1: [(value: Date) => {
         return !!value || 'Should be value'

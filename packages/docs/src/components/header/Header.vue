@@ -138,7 +138,7 @@ export default class Header extends mixins(PropsMixin) {
   }
 
   &__links__button {
-    font-weight: $font-weight-bold;
+    font-weight: 600;
 
     .button__text {
       margin-left: 0.375rem;

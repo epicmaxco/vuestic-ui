@@ -1,10 +1,5 @@
-import { VaDatePickerModelValue, VaDatePickerModelValuePeriod, VaDatePickerMode } from '../types/types'
-
-export const isRange = (value: VaDatePickerModelValue): value is VaDatePickerModelValuePeriod => {
-  return typeof (value as any).start !== 'undefined' && typeof (value as any).end !== 'undefined'
-}
-export const isSingleDate = (value: VaDatePickerModelValue): value is Date => value instanceof Date
-export const isDates = (value: VaDatePickerModelValue): value is Date[] => Array.isArray(value)
+import { VaDatePickerModelValue, VaDatePickerRange, VaDatePickerMode } from '../types'
+import { isRange, isSingleDate, isDates } from '../utils/date-utils'
 
 const modeInitialValue = (date: Date, mode: VaDatePickerMode) => {
   if (mode === 'single') {
@@ -36,7 +31,7 @@ const modeFromModelValue = (modelValue: VaDatePickerModelValue): VaDatePickerMod
   return throwIncorrectModelValueError(modelValue, 'auto')
 }
 
-const sortRange = (modelValue: VaDatePickerModelValuePeriod) => {
+const sortRange = (modelValue: VaDatePickerRange) => {
   if (modelValue.start && modelValue.end) {
     if (modelValue.start > modelValue.end) {
       return { start: modelValue.end, end: modelValue.start }
@@ -53,7 +48,7 @@ export const useDatePickerModelValue = (
     mode: VaDatePickerMode
   },
   emit: (event: 'update:modelValue', newValue: VaDatePickerModelValue) => any,
-  dateEqual: (date1: Date | null, date2: Date | null) => boolean,
+  dateEqual: (date1?: Date | null, date2?: Date | null) => boolean,
 ) => {
   const updateModelValue = (date: Date) => {
     if (!props.modelValue) {

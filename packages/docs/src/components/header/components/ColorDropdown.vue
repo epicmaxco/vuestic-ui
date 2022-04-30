@@ -47,7 +47,7 @@ export default defineComponent({
 
   &__icon {
     .va-button__content {
-      font-weight: bold;
+      font-weight: 600;
     }
 
     position: relative;

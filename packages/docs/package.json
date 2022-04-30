@@ -29,6 +29,7 @@
     "markdown-it-attrs": "^4.0.0",
     "prismjs": "^1.27.0",
     "raw-loader": "^4.0.2",
+    "register-service-worker": "^1.7.2",
     "spa-http-server": "^0.9.0",
     "tiny-emitter": "^2.1.0",
     "vue": "^3.0.5",
@@ -45,6 +46,7 @@
     "@typescript-eslint/parser": "^4.14.2",
     "@vue/cli-plugin-babel": "^5.0.0-alpha.3",
     "@vue/cli-plugin-eslint": "^5.0.0-alpha.3",
+    "@vue/cli-plugin-pwa": "~5.0.0",
     "@vue/cli-plugin-router": "^5.0.0-alpha.3",
     "@vue/cli-plugin-typescript": "^5.0.0-alpha.3",
     "@vue/cli-plugin-unit-jest": "^5.0.0-alpha.3",
@@ -84,5 +86,15 @@
     ".{htm,html,css,sss,less,scss}": [
       "stylelint '**/*.{vue,html,css,scss}' --fix"
     ]
+  },
+  "pwa": {
+    "iconPaths": {
+      "favicon32": "favicon-32x32.png",
+      "favicon16": "favicon-16x16.png",
+      "appleTouchIcon": "apple-touch-icon.png",
+      "maskIcon": null,
+      "msTileImage": null,
+      "faviconSVG": null
+    }
   }
 }

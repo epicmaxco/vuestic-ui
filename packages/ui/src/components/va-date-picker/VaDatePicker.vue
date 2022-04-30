@@ -66,7 +66,7 @@ import { ComponentOptions, computed, defineComponent, nextTick, PropType, ref, w
 import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
 import { useColors } from '../../services/color-config/color-config'
 
-import { VaDatePickerModelValue, VaDatePickerType, VaDatePickerView } from './types/types'
+import { VaDatePickerModelValue, VaDatePickerType, VaDatePickerView } from './types'
 import { filterComponentProps, extractComponentProps, extractComponentEmits } from '../../utils/child-props'
 import { useView } from './hooks/view'
 
@@ -214,6 +214,10 @@ export default defineComponent({
 
   width: calc(var(--va-date-picker-cell-size) * 7 + var(--va-date-picker-cell-gap) * 6);
   font-family: var(--va-font-family);
+  font-style: var(--va-date-picker-font-style);
+  font-weight: var(--va-date-picker-font-weight);
+  font-size: var(--va-date-picker-font-size);
+  line-height: var(--va-date-picker-line-height);
 
   &__picker-wrapper {
     height: var(--va-date-picker-content-height);
