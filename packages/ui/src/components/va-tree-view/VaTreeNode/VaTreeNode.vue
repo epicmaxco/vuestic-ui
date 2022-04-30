@@ -37,7 +37,6 @@
         v-for="node in childNodes"
         :key="node.id"
         :nodes="node.children"
-        :node-key="nodeKey"
         :current-node="node"
       >
         <template v-for="(_, name) in $slots" v-slot:[name]="bind">
