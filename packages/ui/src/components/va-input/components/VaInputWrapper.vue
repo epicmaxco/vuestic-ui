@@ -196,6 +196,19 @@ export default defineComponent({
     border-width: var(--va-input-border-width);
     overflow: hidden;
     padding: 0 var(--va-input-content-horizontal-padding);
+    z-index: 0;
+
+    &::after {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      content: '';
+      top: 0;
+      left: 0;
+      background: var(--va-input-color);
+      opacity: 1;
+      z-index: -1;
+    }
 
     /* Creates gap between prepend, content, validation icons, append */
     & > * {
@@ -323,7 +336,6 @@ export default defineComponent({
       display: flex;
       padding-top: 1px;
       max-width: var(--va-input-container-label-max-width);
-      color: var(--va-input-container-label-color);
       font-size: var(--va-input-container-label-font-size);
       letter-spacing: var(--va-input-container-label-letter-spacing, var(--va-letter-spacing));
       line-height: var(--va-input-container-label-line-height);
@@ -340,21 +352,28 @@ export default defineComponent({
   /* We have 3 styles and two states for each style separately */
   &--solid {
     .va-input__container {
-      background: var(--va-input-color);
       border-color: var(--va-input-color);
       border-radius: var(--va-input-border-radius);
     }
 
     &.va-input--success {
       .va-input__container {
-        background: var(--va-input-success-background);
+        &::after {
+          background: var(--va-input-success-color);
+          opacity: var(--va-input-opacity);
+        }
+
         border-color: var(--va-input-success-color);
       }
     }
 
     &.va-input--error {
       .va-input__container {
-        background: var(--va-input-error-background);
+        &::after {
+          background: var(--va-input-error-color);
+          opacity: var(--va-input-opacity);
+        }
+
         border-color: var(--va-input-error-color);
       }
     }
@@ -368,14 +387,22 @@ export default defineComponent({
 
     &.va-input--success {
       .va-input__container {
-        background: var(--va-input-success-background);
+        &::after {
+          background: var(--va-input-success-color);
+          opacity: var(--va-input-opacity);
+        }
+
         border-color: var(--va-input-success-color);
       }
     }
 
     &.va-input--error {
       .va-input__container {
-        background: var(--va-input-error-background);
+        &::after {
+          background: var(--va-input-error-color);
+          opacity: var(--va-input-opacity);
+        }
+
         border-color: var(--va-input-error-color);
       }
     }
@@ -398,7 +425,6 @@ export default defineComponent({
     }
 
     .va-input__container {
-      background: var(--va-input-color);
       border-top-left-radius: var(--va-input-border-radius);
       border-top-right-radius: var(--va-input-border-radius);
       border-color: transparent !important;
@@ -406,20 +432,26 @@ export default defineComponent({
 
     &.va-input--success {
       .va-input__container {
-        background: var(--va-input-success-background);
+        &::after {
+          background: var(--va-input-success-color);
+          opacity: var(--va-input-opacity);
+        }
       }
 
-      .va-input_bordered__border {
+      .va-input--bordered__border {
         border-color: var(--va-input-success-color);
       }
     }
 
     &.va-input--error {
       .va-input__container {
-        background: var(--va-input-error-background);
+        &::after {
+          background: var(--va-input-error-color);
+          opacity: var(--va-input-opacity);
+        }
       }
 
-      .va-input_bordered__border {
+      .va-input--bordered__border {
         border-color: var(--va-input-error-color);
       }
     }
