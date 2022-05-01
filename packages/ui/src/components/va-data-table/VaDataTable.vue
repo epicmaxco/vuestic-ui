@@ -534,8 +534,11 @@ export default defineComponent({
     }
 
     .va-data-table__table-tr {
+      position: relative;
+      z-index: 0;
+
       &.selected {
-        background-color: var(--selected-color);
+        background-color: var(--va-selected-color);
       }
     }
 
@@ -548,7 +551,17 @@ export default defineComponent({
     &.striped {
       .va-data-table__table-tr:nth-child(2n) {
         &:not(.selected) {
-          background-color: var(--va-light-gray3);
+          &::after {
+            content: '';
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            position: absolute;
+            z-index: -1;
+            background-color: var(--va-data-table-striped-tr-background-color);
+            opacity: var(--va-data-table-striped--tr-opacity);
+          }
         }
       }
     }
@@ -557,13 +570,17 @@ export default defineComponent({
     &.hoverable {
       .va-data-table__table-tr {
         &:hover {
-          background-color: var(--hover-color);
+          background-color: var(--va-hover-color);
         }
       }
 
       .va-data-table__table-tr:nth-child(2n) {
         &:hover {
-          background-color: var(--hover-color);
+          background-color: var(--va-hover-color);
+
+          &::after {
+            background-color: transparent;
+          }
         }
       }
     }

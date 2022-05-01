@@ -40,11 +40,11 @@ export default function useStyleable (props: useStyleableProps) {
 
   const rowCSSVariables = computed(() => {
     const styles: Record<string, any> = {
-      '--hover-color': getHoverColor(color.value),
+      '--va-hover-color': getHoverColor(color.value),
     }
 
     if (props.selectable) {
-      styles['--selected-color'] = getFocusColor(color.value)
+      styles['--va-selected-color'] = getFocusColor(color.value)
     }
 
     return styles
