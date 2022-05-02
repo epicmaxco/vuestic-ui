@@ -25,7 +25,7 @@
 
             <!-- First block -->
             <div class="customize__content--first">
-              <div class="block__components" v-if="tabValue === 1">
+              <div class="block__components" v-if="tabValue === 0">
                 <div class="component">
                   <va-button @click="btnClick()">
                     Submit
@@ -54,7 +54,7 @@
                 </div>
               </div>
 
-              <div v-else-if="tabValue === 2" class="table-wrapper">
+              <div v-else-if="tabValue === 1" class="table-wrapper">
                 <table class="va-table va-table--striped va-table--hoverable" style="width: 100%;">
                   <thead>
                   <tr>
@@ -79,7 +79,7 @@
                   </tbody>
                 </table>
               </div>
-              <div class="block__components" v-else-if="tabValue === 3">
+              <div class="block__components" v-else-if="tabValue === 2">
                 <div class="component" style="display: flex; justify-content: center;">
                   <va-button-toggle size="small" v-model="theme" :color="themeColor" :options="themeToggleOptions" />
                 </div>
@@ -149,7 +149,7 @@ export default class Customize extends Vue {
   sliderValue = 45
   selectValue = 'Spain'
   options = ['Spain', 'Germany', 'France', 'Italy', 'China', 'Japan', 'Poland', 'Belarus', 'USA']
-  tabValue = 1
+  tabValue = 0
 
   switchValue = true
   theme = 'light'
@@ -214,8 +214,8 @@ export default class Customize extends Vue {
 
   get code () {
     switch (this.tabValue) {
-    case 1:
-      return dedent`
+      case 0:
+        return dedent`
       <template>
             <div class="components">
               <div class="component">
@@ -275,8 +275,8 @@ export default class Customize extends Vue {
           }
           ${'</' + 'script>'}
         `
-    case 2:
-      return dedent`
+      case 1:
+        return dedent`
       <template>
             <table class="va-table va-table--striped va-table--hoverable">
               <thead>
@@ -340,8 +340,8 @@ export default class Customize extends Vue {
           }
           ${'</' + 'script>'}
       `
-    case 3:
-      return dedent`
+      case 2:
+        return dedent`
       <template>
             <div class="components">
               <div class="component">
@@ -410,8 +410,8 @@ export default class Customize extends Vue {
           }
           ${'</' + 'script>'}
       `
-    default:
-      return ''
+      default:
+        return ''
     }
   }
 

@@ -100,23 +100,21 @@ export default defineComponent({
       set: (v: boolean) => emit('update:visible', v),
     })
 
-    const isActiveChildRoute = (route: NavigationRoute, parent: NavigationRoute) => {
-      const path = `/${i18n.locale}/${String(parent.name)}/${String(route.name)}`
+    const isActiveChildRoute = (child: NavigationRoute, parent: NavigationRoute) => {
+      const path = `/${i18n.locale.value}/${String(parent.name)}/${String(child.name)}`
 
       return path === route.path
     }
 
-    const routeHasActiveChild = (route: NavigationRoute) => {
-      const pathSteps = route.path?.split('/').filter(Boolean)
-
-      return !!route.children?.some(({ name }) => pathSteps?.includes(String(name)))
+    const routeHasActiveChild = (section: NavigationRoute) => {
+      return section.children?.some(({ name }) => route.path.endsWith(name))
     }
 
     const setActiveExpand = () => {
       value.value = props.navigationRoutes.map((route, i) => {
         if (!route.children || value.value[i]) { return value.value[i] }
 
-        return routeHasActiveChild(route)
+        return routeHasActiveChild(route) || false
       })
     }
 
