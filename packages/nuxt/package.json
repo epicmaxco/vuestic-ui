@@ -30,9 +30,10 @@
   },
   "dependencies": {
     "@nuxt/kit": "^3.0.0-rc.1",
+    "@nuxt/schema": "^3.0.0-rc.1",
     "@nuxt/vite-builder": "^3.0.0-rc.1",
     "vue": "^3.2.33",
-    "vuestic-ui": "^1.4.0-alpha1"
+    "vuestic-ui": "latest"
   },
   "devDependencies": {
     "@nuxt/module-builder": "latest",

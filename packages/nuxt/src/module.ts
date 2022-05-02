@@ -43,9 +43,12 @@ export default defineNuxtModule<VuesticOptions>({
     /**
      * registering plugin as a template and passing vuestic ui options to it
      */
+
     addPluginTemplate({
       src: resolve(distDir, './plugin.ts'),
       filename: 'plugin.ts',
+
+      // Use JSON.stringify() here, because it will be inserted in ejs template as string. Then we will JSON.parse it.
       options: { config: JSON.stringify(options.config), withoutComponents: JSON.stringify(options.withoutComponents) }
     })
 
