@@ -33,7 +33,7 @@
             <div
               class="va-modal__dialog"
               :class="computedClass"
-              :style="{ maxWidth: $props.maxWidth, maxHeight: $props.maxHeight }"
+              :style="computedDialogStyle"
               ref="modal"
             >
               <va-icon
@@ -159,8 +159,10 @@ export default defineComponent({
     overlay: { type: Boolean as PropType<boolean>, default: true },
     overlayOpacity: { type: [Number, String] as PropType<number | string>, default: 0.6 },
     zIndex: { type: [Number, String] as PropType<number | string | undefined>, default: undefined },
+    backgroundColor: { type: String, default: 'white' },
   },
   setup (props, { emit }) {
+    const { getTextColor, getColor } = useColors()
     const rootElement = ref<HTMLElement>()
     const { valueComputed } = useStateful(props, emit)
 
@@ -171,6 +173,12 @@ export default defineComponent({
       [`va-modal--size-${props.size}`]: props.size !== 'medium',
     }))
     const computedModalContainerStyle = computed(() => ({ 'z-index': props.zIndex } as StyleValue))
+    const computedDialogStyle = computed(() => ({
+      maxWidth: props.maxWidth,
+      maxHeight: props.maxHeight,
+      color: getTextColor(getColor(props.backgroundColor)),
+      background: getColor(props.backgroundColor),
+    }))
     const computedOverlayStyles = computed(() => {
       // NOTE Not sure exactly what that does.
       // Supposedly solves some case when background wasn't shown.
@@ -233,10 +241,11 @@ export default defineComponent({
     }
 
     return {
-      getColor: useColors().getColor,
+      getColor,
       rootElement,
       valueComputed,
       computedClass,
+      computedDialogStyle,
       computedModalContainerStyle,
       computedOverlayStyles,
       ...publicMethods,
@@ -300,7 +309,6 @@ export default defineComponent({
   }
 
   &__dialog {
-    background: var(--va-modal-dialog-background);
     min-height: var(--va-modal-dialog-min-height);
     height: var(--va-modal-dialog-height);
     border-radius: var(--va-modal-dialog-border-radius, var(--va-block-border-radius));
