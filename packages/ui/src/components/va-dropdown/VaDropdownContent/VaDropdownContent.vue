@@ -19,7 +19,7 @@ export default defineComponent({
     const { getTextColor, getColor } = useColors()
 
     const computedStyle = computed(() => ({
-      background: getColor(props.background),
+      background: getColor(props.background, undefined, true),
       color: getTextColor(getColor(props.background)),
       padding: props.noPadding ? 0 : undefined,
     }))
