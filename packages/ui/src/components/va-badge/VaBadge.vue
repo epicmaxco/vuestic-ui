@@ -20,6 +20,7 @@
 <script lang="ts">
 import { defineComponent, computed, PropType } from 'vue'
 import { useColors } from '../../composables/useColor'
+import { getTextColor } from '../../services/color-config/color-functions'
 
 export default defineComponent({
   name: 'VaBadge',
@@ -54,7 +55,7 @@ export default defineComponent({
     const { getColor } = useColors()
     const colorComputed = computed(() => getColor(props.color))
     const badgeStyle = computed(() => ({
-      color: getColor(props.textColor, 'white'),
+      color: getTextColor(getColor(props.color)),
       borderColor: colorComputed.value,
       backgroundColor: colorComputed.value,
       opacity: props.transparent ? 0.5 : 1,
