@@ -15,7 +15,7 @@
         :focused="hoveredIndex === monthIndex"
         :highlight-today="highlightToday"
         :readonly="readonly"
-        @click="onClick(month); focusedCellIndex = monthIndex"
+        @click="onDayCellClick(month, monthIndex)"
       >
         <slot name="month" v-bind="{ monthIndex, month: monthNames[monthIndex] }">
           {{ monthNames[monthIndex] }}
@@ -64,13 +64,23 @@ export default defineComponent({
 
     const isDisabled = (date: Date) => props.allowedMonths === undefined ? false : !props.allowedMonths(date)
 
+    const onDayCellClick = (month: Date, monthIndex?: number) => {
+      if (props.readonly || isDisabled(month)) { return }
+
+      onClick(month)
+
+      if (monthIndex) {
+        focusedCellIndex.value = monthIndex
+      }
+    }
+
     const {
       focusedCellIndex, containerAttributes,
     } = useGridKeyboardNavigation({
       rowSize: 3,
       start: 0,
       end: months.value.length,
-      onSelected: (selectedIndex) => onClick(months.value[selectedIndex]),
+      onSelected: (selectedIndex) => onDayCellClick(months.value[selectedIndex]),
     })
 
     watch(focusedCellIndex, (index) => { hoveredIndex.value = index })
@@ -80,6 +90,7 @@ export default defineComponent({
       months,
       hoveredIndex,
       onClick,
+      onDayCellClick,
       isToday,
       isSelected,
       isInRange,

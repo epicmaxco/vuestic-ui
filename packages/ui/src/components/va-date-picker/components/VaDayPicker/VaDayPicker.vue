@@ -30,7 +30,7 @@
         :highlight-today="highlightToday"
         :highlight-weekend="highlightWeekend"
         :readonly="readonly"
-        @click="onClick(date); focusedCellIndex = index"
+        @click="onDayCellClick(date, index)"
       >
         <span class="va-date-picker-cell__day">
           <slot name="day" v-bind="{ date }">
@@ -107,7 +107,7 @@ export default defineComponent({
       rowSize: 7,
       start: gridStartIndex,
       end: gridEndIndex,
-      onSelected: (selectedValue) => onClick(calendarDates.value[selectedValue]),
+      onSelected: (selectedValue) => onDayCellClick(calendarDates.value[selectedValue]),
     })
 
     watch(focusedCellIndex, (index) => { hoveredIndex.value = index })
@@ -123,10 +123,21 @@ export default defineComponent({
       return props.weekends(date)
     }
 
+    const onDayCellClick = (date: Date, index?: number) => {
+      if (props.readonly || isDateDisabled(date)) { return }
+
+      onClick(date)
+
+      if (index) {
+        focusedCellIndex.value = index
+      }
+    }
+
     return {
       hoveredIndex,
       calendarDates,
       onClick,
+      onDayCellClick,
       isToday,
       isSelected,
       isInRange,
