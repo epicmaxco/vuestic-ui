@@ -5,7 +5,7 @@
       { 'va-data-table--sticky': $props.stickyHeader },
       { 'va-data-table--scroll': !!$props.height },
     ]"
-    :style="{ ...getStickyCSSVariables() }"
+    :style="getStickyCSSVariables()"
     :loading="loading"
     :color="loadingColor"
     v-bind="componentAttributes"
@@ -49,7 +49,7 @@
             v-for="column in columnsComputed"
             :key="column.key"
             :title="column.headerTitle"
-            @click.exact="column.sortable ? toggleSorting(column): () => {}"
+            @click.exact="column.sortable && toggleSorting(column)"
             :style="{ ...getHeaderCSSVariables(column), ...getStyles(column.headerStyle) }"
             :class="['va-data-table__table-th', ...getClasses(column.headerClasses)]"
           >
@@ -88,7 +88,7 @@
         <slot name="bodyPrepend" />
 
         <transition-group
-          :name="animated ? 'table-transition' : null"
+          :name="animationName"
           appear
         >
 
@@ -181,7 +181,7 @@
             v-for="column in columnsComputed"
             :key="column.key"
             :title="column.headerTitle"
-            @click.exact="allowFooterSorting && column.sortable ? toggleSorting(column) : () => {}"
+            @click.exact="allowFooterSorting && column.sortable && toggleSorting(column)"
             :style="{ ...getFooterCSSVariables(column), ...getStyles(column.headerStyle) }"
             :class="['va-data-table__table-th', ...getClasses(column.headerClasses)]"
           >
@@ -217,7 +217,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, HTMLAttributes, PropType, TableHTMLAttributes } from 'vue'
+import { computed, defineComponent, HTMLAttributes, PropType, ref, TableHTMLAttributes } from 'vue'
 import omit from 'lodash/omit'
 import pick from 'lodash/pick'
 import VaInnerLoading from '../va-inner-loading'
@@ -229,7 +229,8 @@ import useFilterable from './hooks/useFilterable'
 import useSortable from './hooks/useSortable'
 import usePaginatedRows from './hooks/usePaginatedRows'
 import useSelectableRow from './hooks/useSelectableRow'
-import useStyleable from './hooks/useStyleable'
+import useStylable from './hooks/useStylable'
+import useAnimationName from './hooks/useAnimationName'
 import {
   TTableColumnSource,
   ITableItem,
@@ -343,7 +344,9 @@ export default defineComponent({
       getStickyCSSVariables,
       getClasses,
       getStyles,
-    } = useStyleable(props)
+    } = useStylable(props)
+
+    const animationName = useAnimationName(props, paginatedRows)
 
     const showNoDataHtml = computed(() => props.items.length === 0)
 
@@ -391,6 +394,7 @@ export default defineComponent({
       onRowClickHandler,
       componentAttributes,
       tableAttributes,
+      animationName,
     }
   },
 })
@@ -399,7 +403,7 @@ export default defineComponent({
 <style lang="scss">
 @import "../../styles/resources/index.scss";
 @import "variables";
-// The calculated variables are taken from a respective element's `style` attribute. See the `useStyleable` hook
+// The calculated variables are taken from a respective element's `style` attribute. See the `useStylable` hook
 
 .va-data-table {
   overflow-x: auto;
@@ -542,30 +546,30 @@ export default defineComponent({
       }
     }
 
-    .table-transition-leave-active {
+    .table-transition-fade-leave-active {
       transition: opacity var(--va-data-table-transition);
     }
 
-    .table-transition-enter-active {
+    .table-transition-fade-enter-active {
       transition: opacity var(--va-data-table-transition) 0.2s;
     }
 
-    .table-transition-enter-from,
-    .table-transition-rows-enter-from,
-    .table-transition-leave-to,
-    .table-transition-rows-leave-to {
+    .table-transition-fade-enter-from,
+    .table-transition-move-enter-from,
+    .table-transition-fade-leave-to,
+    .table-transition-move-leave-to {
       opacity: 0;
     }
 
-    .table-transition-rows-move {
+    .table-transition-move-move {
       transition: transform var(--va-data-table-transition);
     }
 
-    .table-transition-rows-leave-active {
+    .table-transition-move-leave-active {
       transition: none;
     }
 
-    .table-transition-rows-enter-active {
+    .table-transition-move-enter-active {
       transition: opacity var(--va-data-table-transition);
     }
   }
