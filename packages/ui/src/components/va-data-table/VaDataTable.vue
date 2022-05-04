@@ -551,7 +551,8 @@ export default defineComponent({
     &.striped {
       .va-data-table__table-tr:nth-child(2n) {
         &:not(.selected) {
-          @include va-background(var(--va-data-table-striped-tr-background-color), var(--va-data-table-striped--tr-opacity), -1); }
+          @include va-background(var(--va-data-table-striped-tr-background-color), var(--va-data-table-striped--tr-opacity), -1);
+        }
       }
     }
 

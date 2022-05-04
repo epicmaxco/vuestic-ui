@@ -226,7 +226,6 @@ export default defineComponent({
   &__icon {
     pointer-events: var(--va-checkbox-icon-pointer-events);
     position: var(--va-checkbox-icon-position);
-    color: var(--va-checkbox-icon-color);
   }
 
   &--selected {
