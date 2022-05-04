@@ -8,7 +8,7 @@ import { TableData, TableColumn } from '../components/DocsTable/DocsTableTypes'
 import { DefineComponent } from 'vue'
 import { VueConstructor } from 'vue-class-component'
 
-export type CodeString = string
+export type CodeStringOrObject = string | Record<string, string>
 export type CodeLanguage = 'javascript' | 'scss' | 'bash' | 'html'
 // example: for `/examples/va-affix/Bottom.vue` use `va-affix/Bottom.vue` here.
 
@@ -81,7 +81,7 @@ export type ApiDocsBlock =
   }
   | {
     type: BlockType.CODE,
-    code: CodeString,
+    code: CodeStringOrObject,
     language: CodeLanguage,
   }
   | {

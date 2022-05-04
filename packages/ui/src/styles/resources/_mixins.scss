@@ -33,6 +33,11 @@
   user-select: none;
 }
 
+@mixin va-readonly() {
+  cursor: default;
+  pointer-events: none;
+}
+
 @mixin theme-button-variant($color, $background, $border, $shadow) {
   $hover-bg: lighten($background, 10%);
   $disabled-bg: darken($background, 15%);

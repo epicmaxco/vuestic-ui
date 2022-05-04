@@ -424,6 +424,7 @@
      <va-slider v-model="value">
        <template #prepend>
         <va-input
+          style="width: 70px;"
           v-model="value"
         />
        </template>
@@ -435,10 +436,10 @@
     >
      <va-slider v-model="value2" range>
        <template #prepend>
-        <va-input v-model="value2[0]" />
+        <va-input style="width: 70px;" v-model="value2[0]" />
        </template>
        <template #append>
-        <va-input v-model="value2[1]" />
+        <va-input style="width: 70px;" v-model="value2[1]" />
        </template>
      </va-slider>
     </VbCard>
@@ -532,6 +533,6 @@ export default {
 </script>
 <style scoped lang="scss">
   .VbCard {
-    min-width: 200px;
+    min-width: 400px;
   }
 </style>

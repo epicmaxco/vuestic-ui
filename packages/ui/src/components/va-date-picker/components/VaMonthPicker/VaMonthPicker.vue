@@ -27,7 +27,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType, toRefs, watch } from 'vue'
-import { VaDatePickerMode, VaDatePickerView, VaDatePickerModelValue } from '../../types/types'
+import { VaDatePickerMode, VaDatePickerView, VaDatePickerModelValue } from '../../types'
 import VaDatePickerCell from '../VaDatePickerCell.vue'
 import { useGridKeyboardNavigation } from '../../hooks/grid-keyboard-navigation'
 import { useDatePicker } from '../../hooks/use-picker'
@@ -85,6 +85,7 @@ export default defineComponent({
       isInRange,
       isDisabled,
       containerAttributes,
+      focusedCellIndex,
     }
   },
 })
@@ -93,29 +94,16 @@ export default defineComponent({
 <style lang="scss">
 .va-month-picker {
   display: grid;
-  // 4 columns
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr); // 4 columns
   grid-gap: var(--va-date-picker-cell-gap);
-  // 7 days + gap
-  min-width: calc(var(--va-date-picker-cell-size) * 7 + var(--va-date-picker-cell-gap) * 6);
+  min-width: calc(var(--va-date-picker-cell-size) * 7 + var(--va-date-picker-cell-gap) * 6); // 7 days + gap
   width: 100%;
 
   &__month-wrapper {
-    padding: 1px;
-    border-radius: 6px;
+    border-radius: var(--va-date-picker-cell-radius);
     text-align: center;
     user-select: none;
     overflow: hidden;
-  }
-
-  &__month {
-    color: var(--va-secondary);
-    font-style: normal;
-    font-weight: bold;
-    font-size: 12px;
-    height: var(--va-date-picker-cell-size);
-    line-height: var(--va-date-picker-cell-size);
-    position: relative;
   }
 }
 </style>

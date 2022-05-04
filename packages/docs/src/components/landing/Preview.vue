@@ -212,7 +212,7 @@ export default {
 
     text-align: center;
     padding: 0.75rem 0 0.5rem;
-    line-height: 1.8rem;
+    line-height: 1.5;
   }
 
   &__link {

@@ -5,9 +5,6 @@ export default defineManualApi({
     clickOutside: {
       types: '() => void',
     },
-    input: {
-      types: '(value: boolean) => void',
-    },
     ok: {
       types: '() => void',
     },
@@ -31,7 +28,7 @@ export default defineManualApi({
     hide: {
       types: '() => void',
     },
-    open: {
+    show: {
       types: '() => void',
     },
     toggle: {
@@ -42,5 +39,6 @@ export default defineManualApi({
     default: { },
     header: { },
     footer: { },
+    anchor: { },
   },
 })
