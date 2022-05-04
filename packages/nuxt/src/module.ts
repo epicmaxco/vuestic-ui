@@ -5,6 +5,7 @@ import {
 } from '@nuxt/kit'
 import { GlobalConfig } from 'vuestic-ui'
 import { resolve } from 'pathe'
+import { NuxtOptions } from '@nuxt/schema'
 import { distDir } from './dirs'
 
 export interface VuesticOptions {
@@ -34,7 +35,7 @@ export default defineNuxtModule<VuesticOptions>({
      */
     nuxt.options.css.push('vuestic-ui/dist/vuestic-ui.css')
     // nuxt 3 ssr
-    nuxt.options.app = nuxt.options.app || {}
+    nuxt.options.app = nuxt.options.app || {} as NuxtOptions['app']
     nuxt.options.app.head = nuxt.options.app.head || {}
     nuxt.options.app.head.link = nuxt.options.app.head.link || []
     nuxt.options.app.head.link.push(
