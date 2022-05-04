@@ -551,18 +551,7 @@ export default defineComponent({
     &.striped {
       .va-data-table__table-tr:nth-child(2n) {
         &:not(.selected) {
-          &::after {
-            content: '';
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            position: absolute;
-            z-index: -1;
-            background-color: var(--va-data-table-striped-tr-background-color);
-            opacity: var(--va-data-table-striped--tr-opacity);
-          }
-        }
+          @include va-background(var(--va-data-table-striped-tr-background-color), var(--va-data-table-striped--tr-opacity), -1); }
       }
     }
 
@@ -578,9 +567,7 @@ export default defineComponent({
         &:hover {
           background-color: var(--va-hover-color);
 
-          &::after {
-            background-color: transparent;
-          }
+          @include va-background-opacity(transparent);
         }
       }
     }

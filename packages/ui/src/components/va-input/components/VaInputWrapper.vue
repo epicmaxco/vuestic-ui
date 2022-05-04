@@ -198,17 +198,7 @@ export default defineComponent({
     padding: 0 var(--va-input-content-horizontal-padding);
     z-index: 0;
 
-    &::after {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      content: '';
-      top: 0;
-      left: 0;
-      background: var(--va-input-color);
-      opacity: 1;
-      z-index: -1;
-    }
+    @include va-background(var(--va-input-color), null, -1);
 
     /* Creates gap between prepend, content, validation icons, append */
     & > * {
@@ -358,10 +348,7 @@ export default defineComponent({
 
     &.va-input--success {
       .va-input__container {
-        &::after {
-          background: var(--va-input-success-color);
-          opacity: var(--va-input-opacity);
-        }
+        @include va-background-opacity(var(--va-input-success-color), var(--va-input-opacity));
 
         border-color: var(--va-input-success-color);
       }
@@ -369,10 +356,7 @@ export default defineComponent({
 
     &.va-input--error {
       .va-input__container {
-        &::after {
-          background: var(--va-input-error-color);
-          opacity: var(--va-input-opacity);
-        }
+        @include va-background-opacity(var(--va-input-error-color), var(--va-input-opacity));
 
         border-color: var(--va-input-error-color);
       }
@@ -387,10 +371,7 @@ export default defineComponent({
 
     &.va-input--success {
       .va-input__container {
-        &::after {
-          background: var(--va-input-success-color);
-          opacity: var(--va-input-opacity);
-        }
+        @include va-background-opacity(var(--va-input-success-color), var(--va-input-opacity));
 
         border-color: var(--va-input-success-color);
       }
@@ -398,10 +379,7 @@ export default defineComponent({
 
     &.va-input--error {
       .va-input__container {
-        &::after {
-          background: var(--va-input-error-color);
-          opacity: var(--va-input-opacity);
-        }
+        @include va-background-opacity(var(--va-input-error-color), var(--va-input-opacity));
 
         border-color: var(--va-input-error-color);
       }
@@ -432,10 +410,7 @@ export default defineComponent({
 
     &.va-input--success {
       .va-input__container {
-        &::after {
-          background: var(--va-input-success-color);
-          opacity: var(--va-input-opacity);
-        }
+        @include va-background-opacity(var(--va-input-success-color), var(--va-input-opacity));
       }
 
       .va-input--bordered__border {
@@ -445,10 +420,7 @@ export default defineComponent({
 
     &.va-input--error {
       .va-input__container {
-        &::after {
-          background: var(--va-input-error-color);
-          opacity: var(--va-input-opacity);
-        }
+        @include va-background-opacity(var(--va-input-error-color), var(--va-input-opacity));
       }
 
       .va-input--bordered__border {
