@@ -53,7 +53,7 @@
 <script lang="ts">
 import { defineComponent, computed, ref, Ref, PropType, ComputedRef } from 'vue'
 
-import { getGradientBackground, shiftHSLAColor } from '../../services/color-config/color-functions'
+import { getGradientBackground, getTextColor, shiftHSLAColor } from '../../services/color-config/color-functions'
 import { useColor } from '../../composables/useColor'
 import { useRouterLink, useRouterLinkProps } from '../../composables/useRouterLink'
 import { useSizeProps, useSize } from '../../composables/useSize'
@@ -113,14 +113,14 @@ export default defineComponent({
 
     const textColorComputed = computed(() => {
       if (props.textColor !== undefined) {
-        return computeColor(props.textColor, 'white')
+        return computeColor(props.textColor)
       }
 
       if (isTransparentBackground.value) {
         return computeColor(colorComputed.value, 'white')
       }
 
-      return computeColor(props.textColor, 'white')
+      return getTextColor(colorComputed.value)
     })
 
     const hasOneIcon = computed(() => {

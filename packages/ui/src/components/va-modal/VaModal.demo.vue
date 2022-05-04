@@ -260,6 +260,17 @@
         </template>
       </va-modal>
     </VbCard>
+    <VbCard title="custom background">
+      <button @click="showModalCustomBackground = !showModalCustomBackground">
+        Show modal
+      </button>
+      <va-modal
+        v-model="showModalCustomBackground"
+        :message="longMessage"
+        backgroundColor="#222"
+      >
+      </va-modal>
+    </VbCard>
   </VbDemo>
 </template>
 
@@ -295,6 +306,7 @@ export default {
       showModalOverlayOpacity: false,
       showModalZIndex: false,
       showModalCustomFooter: false,
+      showModalCustomBackground: false,
       message: this.$vb.lorem(),
       longMessage: this.$vb.lorem(5000),
     }
