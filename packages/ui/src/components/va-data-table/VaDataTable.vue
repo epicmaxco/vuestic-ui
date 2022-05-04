@@ -414,7 +414,7 @@ export default defineComponent({
   &--sticky,
   &--scroll {
     overflow-y: auto;
-    height: var(--scroll-table-height);
+    height: var(--va-data-table-scroll-table-height);
 
     // 1) doesn't work in Firefox
     // 2) doesn't disappear on mac (the standard one does)
@@ -433,7 +433,7 @@ export default defineComponent({
         position: sticky;
         top: 0;
         z-index: 1;
-        background-color: var(--scroll-table-color);
+        background-color: var(--va-data-table-scroll-table-color);
       }
     }
 
@@ -450,17 +450,17 @@ export default defineComponent({
 
     .va-data-table__table-th {
       padding: var(--va-data-table-cell-padding);
-      width: var(--width);
-      min-width: var(--width);
-      text-align: var(--align);
-      vertical-align: var(--vertical-align);
+      width: var(--va-data-table-width);
+      min-width: var(--va-data-table-width);
+      text-align: var(--va-data-table-align);
+      vertical-align: var(--va-data-table-vertical-align);
       color: var(--va-data-table-thead-color);
       font-size: var(--va-data-table-thead-font-size);
       line-height: var(--va-data-table-thead-line-height);
       font-weight: var(--va-data-table-thead-font-weight);
       text-transform: var(--va-data-table-thead-text-transform);
       letter-spacing: var(--va-data-table-thead-letter-spacing);
-      cursor: var(--cursor);
+      cursor: var(--va-data-table-cursor);
 
       .va-data-table__table-th-wrapper {
         display: flex;
@@ -496,8 +496,8 @@ export default defineComponent({
 
     .va-data-table__table-td {
       padding: var(--va-data-table-cell-padding);
-      text-align: var(--align);
-      vertical-align: var(--vertical-align);
+      text-align: var(--va-data-table-align);
+      vertical-align: var(--va-data-table-vertical-align);
     }
 
     .va-data-table__table-th,
@@ -513,7 +513,7 @@ export default defineComponent({
 
     .va-data-table__table-tr {
       &.selected {
-        background-color: var(--selected-color);
+        background-color: var(--va-data-table-selected-color);
       }
     }
 
@@ -524,9 +524,14 @@ export default defineComponent({
     }
 
     &.striped {
-      .va-data-table__table-tr:nth-child(2n) {
-        &:not(.selected) {
-          background-color: var(--va-light-gray3);
+      .va-data-table__table-tr {
+        position: relative;
+        z-index: 0;
+
+        &:nth-child(2n) {
+          &:not(.selected) {
+            @include va-background(var(--va-data-table-striped-tr-background-color), var(--va-data-table-striped--tr-opacity), -1);
+          }
         }
       }
     }
@@ -535,13 +540,15 @@ export default defineComponent({
     &.hoverable {
       .va-data-table__table-tr {
         &:hover {
-          background-color: var(--hover-color);
+          background-color: var(--va-data-table-hover-color);
         }
       }
 
       .va-data-table__table-tr:nth-child(2n) {
         &:hover {
-          background-color: var(--hover-color);
+          background-color: var(--va-data-table-hover-color);
+
+          @include va-background-opacity(transparent);
         }
       }
     }

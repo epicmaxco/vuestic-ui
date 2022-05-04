@@ -2,7 +2,7 @@ import { onBeforeUnmount, onMounted, Ref, unref, watch } from 'vue'
 
 type MaybeRef<T> = T | Ref<T>
 
-export const useResizeObserver = <T extends HTMLElement | null>(elementsList: MaybeRef<T>[], cb: () => void) => {
+export const useResizeObserver = <T extends HTMLElement | undefined>(elementsList: MaybeRef<T>[], cb: () => void) => {
   const resizeObserver = new ResizeObserver(cb)
 
   const observeAll = (elementsList: MaybeRef<T>[]) => {

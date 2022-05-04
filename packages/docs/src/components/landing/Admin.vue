@@ -119,7 +119,8 @@ export default class Admin extends Vue {}
     @include size(12);
     @include text-font();
 
-    padding-top: 1.5rem;
+    padding-top: 1rem;
+    line-height: 1.5;
     text-align: center;
   }
 
@@ -235,7 +236,7 @@ export default class Admin extends Vue {}
       @include text-font();
 
       padding-left: 1rem;
-      line-height: 1.8rem;
+      line-height: 1.5;
     }
   }
 }
