@@ -34,6 +34,8 @@ export default defineNuxtModule<VuesticOptions>({
      */
     nuxt.options.css.push('vuestic-ui/dist/vuestic-ui.css')
     // nuxt 3 ssr
+    nuxt.options.app = nuxt.options.app || {}
+    nuxt.options.app.head = nuxt.options.app.head || {}
     nuxt.options.app.head.link = nuxt.options.app.head.link || []
     nuxt.options.app.head.link.push(
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;1,700&display=swap' },
