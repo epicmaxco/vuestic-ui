@@ -217,7 +217,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, HTMLAttributes, PropType, ref, TableHTMLAttributes } from 'vue'
+import { computed, defineComponent, HTMLAttributes, PropType, TableHTMLAttributes } from 'vue'
 import omit from 'lodash/omit'
 import pick from 'lodash/pick'
 import VaInnerLoading from '../va-inner-loading'
