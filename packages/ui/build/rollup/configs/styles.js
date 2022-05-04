@@ -10,11 +10,11 @@ import typescriptPlugin from 'rollup-plugin-typescript2'
 import commonjsPlugin from '@rollup/plugin-commonjs'
 
 export function createStylesConfig ({ input, outDir = 'dist/', minify = false }) {
-  const inputPathWithoutFilename = input.split('/').slice(0, -1).join('/')
-  const transformSrc = (src) => `./${src.replace(inputPathWithoutFilename, '')}`
+  const inputStylesPathWithoutFilename = input.find((el) => el.includes('styles')).split('/').slice(0, -1).join('/')
+  const transformSrc = (src) => `./${src.replace(inputStylesPathWithoutFilename, '')}`
 
   return defineConfig({
-    input: ['./src/main.ts', input],
+    input: input,
     output: {
       dir: outDir,
     },
@@ -24,6 +24,7 @@ export function createStylesConfig ({ input, outDir = 'dist/', minify = false })
       vuePlugin({
         target: 'browser',
         preprocessStyles: true,
+        exclude: ['*.js'],
       }),
       commonjsPlugin(),
       postcssPlugin({
@@ -34,14 +35,14 @@ export function createStylesConfig ({ input, outDir = 'dist/', minify = false })
       }),
       nodeResolvePlugin(),
       transformScssPlugin({
-        inputDir: inputPathWithoutFilename,
+        inputDir: inputStylesPathWithoutFilename,
         outDir: `${outDir}/styles`,
         filter: /.*\.scss/,
       }),
       copyPlugin({
         targets: [
           {
-            src: `${inputPathWithoutFilename}/**/*.scss`,
+            src: `${inputStylesPathWithoutFilename}/**/*.scss`,
             dest: `${outDir}/styles/`,
             rename: (name, extension, src) => transformSrc(src),
           },

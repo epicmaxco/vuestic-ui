@@ -13,5 +13,5 @@ export const RollupConfig = [
   createESMConfig({ ...defaultBuildParams, outDir: 'dist/esm-ssr', ssr: true }),
   createIIFEConfig({ ...defaultBuildParams, outDir: 'dist/iife' }),
   createCJSConfig({ ...defaultBuildParams, outDir: 'dist/cjs' }),
-  createStylesConfig({ ...defaultBuildParams, outDir: 'dist', input: './src/styles/vuestic-styles.scss' }),
+  createStylesConfig({ ...defaultBuildParams, outDir: 'dist', input: ['./src/styles/vuestic-styles.scss', defaultBuildParams.input] }),
 ]
