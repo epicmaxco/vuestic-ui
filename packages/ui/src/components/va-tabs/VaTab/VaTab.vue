@@ -86,7 +86,7 @@ export default defineComponent({
   },
 
   setup: (props, { emit }) => {
-    const tabElement = ref<HTMLElement | null>(null)
+    const tabElement = ref<HTMLElement>()
 
     const isActive = ref(false)
     const hoverState = ref(false)
