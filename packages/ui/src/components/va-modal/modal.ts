@@ -4,7 +4,7 @@ import { VNode, createVNode, render, AppContext } from 'vue'
 
 type OptionKeys = keyof MessageBoxOptions;
 
-let value = true;
+let value = true
 
 const getNodeProps = (vNode: VNode): Record<OptionKeys, any> => {
   return (vNode.component?.props as Record<OptionKeys, any>) || {}
@@ -18,11 +18,12 @@ const mount = (component: any, {
 }: { props?: { [key: string]: any }; children?: any; element?: HTMLElement, appContext?: AppContext } = {}): { vNode: VNode; el?: HTMLElement } => {
   let el: HTMLElement | null | undefined = element
 
-  // eslint-disable-next-line prefer-const
-  let vNode: VNode | null
-
-  vNode = createVNode(component, { ...props, modelValue: value, onUpdateModelValue: ((event) => {value = event}), children)
-
+  const vNode: VNode = createVNode(component, {
+    ...props,
+    modelValue: value,
+    'onUpdate:modelValue': (event: boolean) => { value = event },
+    children,
+  })
   if (appContext) {
     vNode.appContext = appContext
   }
@@ -39,9 +40,10 @@ const mount = (component: any, {
 const getModalOptions = (options: string | MessageBoxOptions): any => {
   if (typeof options === 'string') {
     return {
-      message: options
+      message: options,
     }
   }
+
   return options
 }
 
