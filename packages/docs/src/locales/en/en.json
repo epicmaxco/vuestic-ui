@@ -3878,7 +3878,8 @@
     "installation": {
       "title": "Installation",
       "plugin": "Install integration module:",
-      "nuxtConfig": "Then you need to update nuxt-config.ts file:"
+      "nuxtConfig": "Then you need to update nuxt-config.ts file:",
+      "moreAboutConfig": "More about configuration"
     }
   }
 }

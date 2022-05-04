@@ -14,6 +14,7 @@ const config: ApiDocsBlock[] = [
 
   block.paragraph('nuxt.installation.nuxtConfig'),
   block.code(nuxtConfigCode),
+  block.link('nuxt.installation.moreAboutConfig', '/getting-started/configuration-guide'),
 ]
 
 export default config

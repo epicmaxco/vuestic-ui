@@ -3743,7 +3743,8 @@
     "installation": {
       "title": "Установка",
       "plugin": "Установите интеграционный модуль:",
-      "nuxtConfig": "Затем обновите файл nuxt-config.ts:"
+      "nuxtConfig": "Затем обновите файл nuxt-config.ts:",
+      "moreAboutConfig": "Подробнее про конфигурирование"
     }
   }
 }
