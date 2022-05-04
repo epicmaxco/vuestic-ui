@@ -1,5 +1,5 @@
 
-import { Ref, ref, watch } from 'vue'
+import { computed, Ref, ref, watch } from 'vue'
 import { TableRow } from '../types'
 
 interface useSelectableProps {
@@ -12,15 +12,19 @@ export default function usePaginatedRows (
   rows: Ref<TableRow[]>,
 ) {
   const animationName = ref('table-transition-shuffle')
+  const oldRowsLength = ref(rows.value.length)
+  const isDifferentRowLength = computed(() => rows.value.length !== oldRowsLength.value)
 
-  watch(rows, (newRows, oldRows) => {
-    const animationType = (newRows.length !== oldRows.length) || (newRows.length > 50) ? 'fade' : 'shuffle'
+  watch(rows, (newRows) => {
+    const animationType = isDifferentRowLength.value || newRows.length > 50 ? 'fade' : 'shuffle'
 
     animationName.value = props.animated ? `table-transition-${animationType}` : ''
+
+    oldRowsLength.value = newRows.length
   })
 
   watch(() => props.currentPage, (page, oldPage) => {
-    if (page !== oldPage) {
+    if (page !== oldPage && !isDifferentRowLength.value) {
       animationName.value = props.animated ? 'table-transition-shuffle' : ''
     }
   })
