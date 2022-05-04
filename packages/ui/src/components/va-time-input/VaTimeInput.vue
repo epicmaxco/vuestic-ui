@@ -134,8 +134,8 @@ export default defineComponent({
   inheritAttrs: false,
 
   setup (props, { emit, attrs, slots }) {
-    const input = ref<InstanceType<typeof VaInput> | undefined>()
-    const timePicker = ref<InstanceType<typeof VaTimePicker> | undefined>()
+    const input = ref<typeof VaInput | undefined>()
+    const timePicker = ref<typeof VaTimePicker | undefined>()
     const clearIconId = generateUniqueId()
     const componentIconId = generateUniqueId()
 

@@ -8,28 +8,34 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue, prop, mixins } from 'vue-class-component'
+import { defineComponent } from 'vue'
+import { useColor } from '../../../composables/useColor'
 
-import ColorMixin from '../../../services/color-config/ColorMixin'
+// Components
 import VaIcon from '../../va-icon'
 
-class SquareWithIconProps {
-  icon = prop<string>({ default: '', type: String, required: true })
-  color = prop<string>({ type: String, default: 'primary' })
-}
-
-const SquareWithIconPropsMixin = Vue.with(SquareWithIconProps)
-
-@Options({
+export default defineComponent({
   name: 'SquareWithIcon',
   components: { VaIcon },
-})
-export default class SquareWithIcon extends mixins(
-  ColorMixin,
-  SquareWithIconPropsMixin,
-) {
+  props: {
+    icon: {
+      type: String,
+      default: '',
+      required: true,
+    },
+    color: {
+      type: String,
+      default: 'primary',
+    },
+  },
+  setup (props) {
+    const { colorComputed } = useColor(props)
 
-}
+    return {
+      colorComputed,
+    }
+  },
+})
 </script>
 
 <style lang="scss">

@@ -50,8 +50,6 @@
     "asva-executors": "^0.1.26",
     "cleave.js": "^1.6.0",
     "colortranslator": "^1.7.1",
-    "detect-browser": "^5.2.0",
-    "element-resize-detector": "^1.2.1",
     "lodash": "^4.17.21",
     "normalize.css": "^8.0.1",
     "tslib": "^2.2.0"
@@ -147,5 +145,18 @@
     ".{htm,html,css,sss,less,scss}": [
       "stylelint '**/*.{vue,html,css,scss}' --fix"
     ]
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/esm/main.js",
+      "require": "./dist/cjs/main.js"
+    },
+    "./ssr": {
+      "import": "./dist/esm-ssr/main.js"
+    },
+    "./iife": "./dist/iife/vuestic-ui.js",
+    "./styles/": "./dist/styles/",
+    "./types": "./dist/types/main.d.ts",
+    "./css": "./dist/vuestic-ui.css"
   }
 }

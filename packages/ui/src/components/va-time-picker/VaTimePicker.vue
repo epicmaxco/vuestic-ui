@@ -46,7 +46,7 @@ export default defineComponent({
     const { valueComputed } = useStateful(props, emit)
     const { columns, isPM } = useTimePicker(props, valueComputed)
 
-    const pickers = ref<(InstanceType<typeof VaTimePickerColumn> | undefined)[]>([])
+    const pickers = ref<(typeof VaTimePickerColumn | undefined)[]>([])
 
     const activeColumnIndex = ref<number | undefined>()
 

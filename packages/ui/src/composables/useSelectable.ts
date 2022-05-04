@@ -100,7 +100,7 @@ export const useSelectable = (
       if (!props.modelValue) {
         emit('update:modelValue', [props.arrayValue])
       } else if (!Array.isArray(props.modelValue)) {
-        return
+        emit('update:modelValue', props.modelValue === props.arrayValue ? [] : [props.modelValue, props.arrayValue])
       } else if (props.modelValue.includes(props.arrayValue)) {
         emit('update:modelValue', props.modelValue.filter((option) => option !== props.arrayValue))
       } else {
