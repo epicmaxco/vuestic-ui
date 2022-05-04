@@ -32,12 +32,25 @@
         :selection-type="selectionType"
       />
     </VbCard>
+    <VbCard title="Filter">
+      <va-input
+        v-model="filterValue"
+        placeholder="Filter the tree view"
+      />
+      <va-tree-view
+        :nodes="defaultNodes"
+        node-key="text"
+        expand-all
+        :filter="filterValue"
+      />
+    </VbCard>
   </VbDemo>
 </template>
 
 <script>
 import VaTreeView from './VaTreeView.vue'
 import VaRadio from '../va-radio'
+import VaInput from '../va-input'
 
 export default {
   name: 'VaTreeView.demo',
@@ -45,11 +58,13 @@ export default {
   components: {
     VaTreeView,
     VaRadio,
+    VaInput,
   },
 
   data: () => ({
     selectionType: 'leaf',
     selectionTypeOptions: ['leaf', 'independent'],
+    filterValue: '',
     defaultNodes: [
       {
         id: 1,
