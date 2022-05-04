@@ -1,6 +1,0 @@
-/src/
-/node_modules/
-/playground/
-.eslintrc
-.gitignore
-tsconfig.json
