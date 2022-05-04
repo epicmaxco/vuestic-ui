@@ -562,21 +562,21 @@ export default defineComponent({
     }
 
     .table-transition-fade-enter-from,
-    .table-transition-move-enter-from,
+    .table-transition-shuffle-enter-from,
     .table-transition-fade-leave-to,
-    .table-transition-move-leave-to {
+    .table-transition-shuffle-leave-to {
       opacity: 0;
     }
 
-    .table-transition-move-move {
+    .table-transition-shuffle-move {
       transition: transform var(--va-data-table-transition);
     }
 
-    .table-transition-move-leave-active {
+    .table-transition-shuffle-leave-active {
       transition: none;
     }
 
-    .table-transition-move-enter-active {
+    .table-transition-shuffle-enter-active {
       transition: opacity var(--va-data-table-transition);
     }
   }

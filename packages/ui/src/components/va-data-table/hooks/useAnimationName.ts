@@ -11,17 +11,17 @@ export default function usePaginatedRows (
   props: useSelectableProps,
   rows: Ref<TableRow[]>,
 ) {
-  const animationName = ref('table-transition-move')
+  const animationName = ref('table-transition-shuffle')
 
   watch(rows, (newRows, oldRows) => {
-    const animationType = (newRows.length !== oldRows.length) || (newRows.length > 50) ? 'fade' : 'move'
+    const animationType = (newRows.length !== oldRows.length) || (newRows.length > 50) ? 'fade' : 'shuffle'
 
     animationName.value = props.animated ? `table-transition-${animationType}` : ''
   })
 
   watch(() => props.currentPage, (page, oldPage) => {
     if (page !== oldPage) {
-      animationName.value = props.animated ? 'table-transition-move' : ''
+      animationName.value = props.animated ? 'table-transition-shuffle' : ''
     }
   })
 
