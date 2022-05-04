@@ -3,14 +3,38 @@ export const TreeViewKey = Symbol('TreeView')
 export interface TreeNode {
   id: number | string
   children: TreeNode[]
-  expanded: boolean
-  selected: boolean
-  [key: string]: unknown
+  hasChildren?: boolean
+  expanded?: boolean
+  selected?: boolean
+  [key: string]: any
 }
 
 export interface TreeViewProvide {
   nodeKey: string
   selectable: boolean
   toggleNode: (node: TreeNode) => void
-  toggleSelect: (isSelected: boolean, node: TreeNode) => void
+  toggleSelect: (node: TreeNode, isSelected: boolean) => void
+  treeItems: TreeNode[]
 }
+
+export type CreateNodeProps = {
+  node: TreeNode,
+  children?: TreeNode[],
+  parent?: number | string | null
+  expandAll?: boolean
+}
+
+export type CreateNodeFunc = (props: CreateNodeProps) => TreeNode
+
+export type UseTreeBuilderProps = {
+  expandAll: boolean
+  nodes: TreeNode[]
+}
+
+export type UseTreeBuilderFunc = (props: UseTreeBuilderProps) => {
+  treeItems: TreeNode[]
+}
+
+export type TreeBuilderFunc = (
+  nodes: TreeNode[],
+) => TreeNode[]
