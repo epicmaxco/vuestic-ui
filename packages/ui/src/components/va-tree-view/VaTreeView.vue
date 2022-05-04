@@ -1,10 +1,9 @@
 <template>
   <div class="va-tree-view">
     <va-tree-node
-        v-for="node in items"
-        :key="node.id"
-        :nodes="items"
-        :current-node="node"
+        v-for="(nodeItem) in treeItems"
+        :key="nodeItem.id"
+        :node="nodeItem"
     >
       <template v-for="(_, name) in $slots" v-slot:[name]="bind">
         <slot :name="name" v-bind="bind" />
@@ -14,8 +13,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, provide, ref } from 'vue'
-import { TreeNode, TreeViewKey, TreeViewProvide } from './types'
+import { defineComponent, provide, ref, watch, PropType } from 'vue'
+import { TreeViewKey, TreeNode, TreeViewProvide } from './types'
+import useTreeBuilder from './hooks/useTreeBuilder'
+import useTreeFilter from './hooks/useTreeFilter'
 import VaTreeNode from './VaTreeNode'
 
 export default defineComponent({
@@ -50,8 +51,8 @@ export default defineComponent({
       default: () => 'leaf',
     },
     filter: {
-      type: Function,
-      default: () => undefined,
+      type: String,
+      default: () => '',
     },
   },
 
@@ -60,50 +61,32 @@ export default defineComponent({
   },
 
   setup: (props) => {
-    const nodes = ref<TreeNode[]>(props.nodes)
+    const { treeItems } = useTreeBuilder(props)
 
-    const getNodeObject = (node: TreeNode, children: TreeNode[] = []) => ({
-      ...node,
-      children,
-      expanded: props.expandAll,
-      selected: false,
-      disabled: false,
-      parent: children.length ? node : null,
-    })
-
-    const addProps = (nodes: TreeNode[]): any => {
-      return nodes.map((node: TreeNode) => {
-        if (node.children?.length) {
-          return getNodeObject(node, addProps(node.children))
-        }
-
-        return getNodeObject(node)
-      })
-    }
-
-    const toggleNode = (node: TreeNode) => {
-      node.expanded = !node.expanded
-    }
-
-    const toggleSelect = (isSelected: boolean, node: TreeNode) => {
+    const toggleSelect = (node: TreeNode, isSelected: boolean) => {
       const toggleChildNodeSelect = (nodes: TreeNode[]) => {
         nodes.forEach((childNode: TreeNode) => {
           childNode.selected = isSelected
 
-          if (childNode.children.length) {
+          if (childNode.hasChildren) {
             toggleChildNodeSelect(childNode.children)
           }
         })
       }
 
-      if (props.selectionType === 'leaf' && node.children.length) {
+      if (props.selectionType === 'leaf' && node.hasChildren) {
         toggleChildNodeSelect(node.children)
       }
 
       node.selected = isSelected
     }
 
+    const toggleNode = (node: TreeNode): void => {
+      node.expanded = !node.expanded
+    }
+
     const treeView: TreeViewProvide = {
+      treeItems,
       nodeKey: props.nodeKey,
       selectable: props.selectable,
       toggleNode,
@@ -112,11 +95,9 @@ export default defineComponent({
 
     provide(TreeViewKey, treeView)
 
-    nodes.value = addProps(nodes.value)
-
     return {
-      items: nodes,
       treeView,
+      treeItems,
     }
   },
 })

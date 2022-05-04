@@ -2,42 +2,41 @@
   <div class="va-tree-node">
     <div
       class="va-tree-node-header"
-      @click.stop="toggleNode($props.currentNode)"
+      @click.stop="toggleNode($props.node)"
     >
       <div
-        v-if="$props.currentNode.children.length"
+        v-if="$props.node.hasChildren"
         class="va-tree-node-header__item"
       >
-        <slot name="node-icon-toggle" v-bind="currentNode">
+        <slot name="node-icon-toggle" v-bind="$props.node">
           <button style="height: 1rem; width: 1rem; line-height: 1rem;">
-            {{ $props.currentNode.expanded ? '-' : '+' }}
+            {{ $props.node.expanded ? '-' : '+' }}
           </button>
         </slot>
       </div>
       <div class="va-tree-node-header__item" v-if="selectable" @click.stop>
         <va-checkbox
-          v-model="$props.currentNode.selected"
-          @update:model-value="(v) => toggleSelect(v, $props.currentNode)"
+          v-model="$props.node.selected"
+          @update:model-value="(isSelected) => toggleSelect($props.node, isSelected)"
         />
       </div>
       <div class="va-tree-node-header__item">
-        <slot name="node-header" v-bind="currentNode">
+        <slot name="node-header" v-bind="$props.node">
           {{ label }}
         </slot>
       </div>
     </div>
     <div class="va-tree-node-body">
-      <slot name="node-body" v-bind="currentNode"></slot>
+      <slot name="node-body" v-bind="$props.node"></slot>
     </div>
     <div
-      v-show="$props.currentNode.expanded"
+      v-show="$props.node.expanded"
       class="va-tree-node-children"
     >
       <va-tree-node
-        v-for="node in childNodes"
-        :key="node.id"
-        :nodes="node.children"
-        :current-node="node"
+        v-for="childNode in $props.node.children"
+        :key="childNode.id"
+        :node="childNode"
       >
         <template v-for="(_, name) in $slots" v-slot:[name]="bind">
           <slot :name="name" v-bind="bind" />
@@ -56,23 +55,14 @@ export default defineComponent({
   name: 'VaTreeNode',
 
   props: {
-    currentNode: {
-      type: Object as PropType<TreeNode>,
-      default: () => ({}),
-    },
-    nodes: {
-      type: Array as PropType<TreeNode[]>,
-      required: true,
-      default: () => [],
-    },
     color: {
       type: String,
       default: () => 'primary',
     },
-    disabled: {
-      type: Boolean,
-      required: false,
-      default: () => false,
+    node: {
+      type: Object as PropType<TreeNode>,
+      required: true,
+      default: () => ({}),
     },
   },
 
@@ -81,28 +71,26 @@ export default defineComponent({
   },
 
   setup: (props) => {
-    const childNodes = ref(props.currentNode.children)
-    const isSelected = ref(props.currentNode.selected)
-
     const {
       nodeKey,
       selectable,
       toggleNode,
       toggleSelect,
+      treeItems,
     } = inject<TreeViewProvide>(TreeViewKey, {
+      treeItems: [],
       nodeKey: '',
       selectable: false,
       toggleNode: (node: TreeNode) => node,
-      toggleSelect: (isSelected: boolean, node: TreeNode) => node,
+      toggleSelect: (node: TreeNode, isSelected: boolean) => ({ node, isSelected }),
     })
 
-    const label = ref(props.currentNode[nodeKey] || '')
+    const label = ref(props.node[nodeKey] || '')
 
     return {
-      childNodes,
       label,
-      isSelected,
       nodeKey,
+      treeItems,
       selectable,
       toggleNode,
       toggleSelect,
