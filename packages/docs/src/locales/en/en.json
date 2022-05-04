@@ -3877,8 +3877,9 @@
     "description": "Vuestic UI is fully compatible with Nuxt3. You can use Vuestic UI in your Nuxt3 project.",
     "installation": {
       "title": "Installation",
-      "plugin": "Create plugin file `plugins/vuestic-ui.ts` in nuxt project. It should contain the following code:",
-      "nuxtConfig": "You also need to update your nuxt-config.ts file:"
+      "plugin": "Install integration module:",
+      "nuxtConfig": "Then you need to update nuxt-config.ts file:",
+      "moreAboutConfig": "More about configuration"
     }
   }
 }
