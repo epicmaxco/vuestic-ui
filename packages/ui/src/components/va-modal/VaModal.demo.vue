@@ -123,17 +123,6 @@
         :message="message"
       />
     </VbCard>
-    <VbCard title="blur: true">
-      <button @click="showModalBlur = !showModalBlur">
-        Show modal
-      </button>
-      <va-modal
-        v-model="showModalBlur"
-        :blur="true"
-        title="Step 2. Centered Layout"
-        :message="message"
-      />
-    </VbCard>
     <VbCard title="several lays">
       <button @click="showModalFirstLay = !showModalFirstLay">
         Show modal
@@ -293,7 +282,6 @@ export default {
       showModalNoDismiss: false,
       showModalOverlay: false,
       showModalOverlayOpacity: false,
-      showModalBlur: false,
       showModalZIndex: false,
       showModalCustomFooter: false,
       message: this.$vb.lorem(),
