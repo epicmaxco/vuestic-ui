@@ -1,5 +1,5 @@
 <template>
-  <va-sidebar class="sidebar" v-model="visible" :width="sidebarWidth">
+  <va-sidebar class="sidebar" v-model="visible" :width="sidebarWidth" gradient>
     <algolia-search />
 
     <va-accordion v-model="value" multiply>
@@ -23,6 +23,7 @@
           v-for="(childRoute, index) in route.children"
           :key="index"
           class="va-sidebar__child"
+          :style="{ background: 'hsla(279, 40%, 40%, 0.6)' }"
         >
           <va-list-label
               v-if="childRoute.category"
@@ -37,7 +38,6 @@
             :activeColor="activeColor"
             :hover-color="hoverColor"
             border-color="primary"
-            text-color="dark"
             @click="onSidebarItemClick"
           >
             <va-sidebar-item-content>
@@ -214,14 +214,6 @@ export default class Sidebar extends Vue.with(Props) {
       font-weight: 500;
       font-size: 16px;
       line-height: 20px;
-    }
-
-    .va-sidebar-item--active {
-      color: var(--va-dark, #323742) !important;
-
-      .va-sidebar-item-title {
-        color: var(--va-dark, #323742) !important;
-      }
     }
   }
 

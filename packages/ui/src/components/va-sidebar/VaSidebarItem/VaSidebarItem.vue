@@ -10,6 +10,7 @@
       @click="navigate"
       v-on="keyboardFocusListeners"
     >
+      {{ background }}
       <slot />
     </a>
   </router-link>
@@ -21,6 +22,7 @@ import { RouteLocationRaw } from 'vue-router'
 import { useColors } from '../../../services/color-config/color-config'
 import useKeyboardOnlyFocus from '../../../composables/useKeyboardOnlyFocus'
 import { useHover } from '../../../composables/useHover'
+import { useElementBackground } from '../../../composables/useElementBackground'
 
 export default defineComponent({
   name: 'VaSidebarItem',
@@ -45,11 +47,12 @@ export default defineComponent({
     const { isHovered } = useHover(anchor)
     const { getColor, getHoverColor, getTextColor, getFocusColor } = useColors()
     const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
+    const { background } = useElementBackground(anchor)
 
     const computedStyle = computed(() => {
       const style: Record<string, string> = {}
 
-      style.color = getColor(props.textColor)
+      style.color = getColor(props.textColor, getTextColor(background.value || '#fff'), true)
 
       if (isHovered.value) {
         style['background-color'] = getHoverColor(getColor(props.hoverColor || props.activeColor))
@@ -58,7 +61,6 @@ export default defineComponent({
       if (props.active) {
         style['border-color'] = getColor(props.borderColor === undefined ? props.activeColor : props.borderColor)
         style['background-color'] = getColor(props.activeColor)
-        style.color = getTextColor(style['background-color'])
       }
 
       if (hasKeyboardFocus.value) {
@@ -75,6 +77,7 @@ export default defineComponent({
       anchor,
       computedStyle,
       keyboardFocusListeners,
+      background,
     }
   },
 })
