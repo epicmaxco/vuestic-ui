@@ -15,16 +15,18 @@ export const useDatePicker = (
   type: VaDatePickerType,
   dates: ComputedRef<Date[]>,
   props: {
-    [key: string]: any,
     modelValue?: VaDatePickerModelValue,
     mode: VaDatePickerMode,
+    readonly: boolean,
+    allowedDays?: (date: Date) => boolean,
+    allowedMonths?: (date: Date) => boolean,
+    allowedYears?: (date: Date) => boolean,
   },
-  emit: (
-    event: 'update:modelValue' | any,
-    ...args: any[]
-  ) => any,
+  emit: (event: 'update:modelValue' | any, ...args: any[]) => void,
 ) => {
   const datesEqual = getDateEqualFunction(type)
+  const isAllowedDate = props.allowedDays || props.allowedMonths || props.allowedYears
+  const isDateDisabled = (date: Date) => isAllowedDate === undefined ? false : !isAllowedDate(date)
 
   const hoveredIndex = ref(0)
   const hoveredValue = computed(() => dates.value[hoveredIndex.value])
@@ -36,6 +38,8 @@ export const useDatePicker = (
   )
 
   const onClick = (date: Date) => {
+    if (props.readonly || isDateDisabled(date)) { return }
+
     updateModelValue(date)
     emit(`click:${type}`, date)
   }
