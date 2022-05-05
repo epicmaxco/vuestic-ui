@@ -15,7 +15,7 @@
       :focused="focusedCellIndex === index"
       :highlight-today="highlightToday"
       :readonly="readonly"
-      @click="onDayCellClick(year, index)"
+      @click="onClick(year); focusedCellIndex = index"
       @mouseenter="hoveredIndex = index"
       @mouseleave="hoveredIndex = -1"
     >
@@ -95,16 +95,6 @@ export default defineComponent({
       scrollIntoYearIndexCenter(currentYearIndex)
     })
 
-    const onDayCellClick = (year: Date, index?: number) => {
-      if (props.readonly || isYearDisabled(year)) { return }
-
-      onClick(year)
-
-      if (index) {
-        focusedCellIndex.value = index
-      }
-    }
-
     const {
       hoveredIndex,
       onClick,
@@ -122,7 +112,7 @@ export default defineComponent({
       start: 0,
       end: years.value.length,
       onFocusIndex: computed(() => years.value.findIndex((date) => date.getFullYear() === view.value.year)),
-      onSelected: (selectedIndex) => onDayCellClick(years.value[selectedIndex]),
+      onSelected: (selectedIndex) => onClick(years.value[selectedIndex]),
     })
 
     watch(focusedCellIndex, (index) => index !== -1 && scrollIntoYearIndex(index))
@@ -134,7 +124,6 @@ export default defineComponent({
       years,
       rootNode,
       onClick,
-      onDayCellClick,
       isToday,
       isSelected,
       isInRange,
