@@ -26,7 +26,7 @@ export const useDatePicker = (
 ) => {
   const datesEqual = getDateEqualFunction(type)
   const isAllowedDate = props.allowedDays || props.allowedMonths || props.allowedYears
-  const isDateDisabled = (year: Date) => isAllowedDate === undefined ? false : !isAllowedDate(year)
+  const isDateDisabled = (date: Date) => isAllowedDate === undefined ? false : !isAllowedDate(date)
 
   const hoveredIndex = ref(0)
   const hoveredValue = computed(() => dates.value[hoveredIndex.value])
