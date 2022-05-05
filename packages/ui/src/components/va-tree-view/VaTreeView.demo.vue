@@ -29,6 +29,7 @@
         node-key="text"
         expand-all
         selectable
+        color="#efefef"
         :selection-type="selectionType"
       />
     </VbCard>
@@ -44,6 +45,19 @@
         :filter="filterValue"
       />
     </VbCard>
+    <VbCard title="Colored checkboxes">
+      <va-color-palette
+        v-model="selectedColor"
+        :palette="colorsPalette"
+      />
+      <va-tree-view
+        :nodes="defaultNodes"
+        node-key="text"
+        selectable
+        expand-all
+        :color="selectedColor"
+      />
+    </VbCard>
   </VbDemo>
 </template>
 
@@ -51,6 +65,17 @@
 import VaTreeView from './VaTreeView.vue'
 import VaRadio from '../va-radio'
 import VaInput from '../va-input'
+import { VaColorPalette } from '../va-color-palette'
+
+const COLORS_PALETTE = [
+  '#4ae387',
+  '#e34a4a',
+  '#4ab2e3',
+  '#db76df',
+  '#f7cc36',
+  '#f3f3f3',
+  '#000',
+]
 
 export default {
   name: 'VaTreeView.demo',
@@ -59,12 +84,15 @@ export default {
     VaTreeView,
     VaRadio,
     VaInput,
+    VaColorPalette,
   },
 
   data: () => ({
     selectionType: 'leaf',
     selectionTypeOptions: ['leaf', 'independent'],
     filterValue: '',
+    colorsPalette: COLORS_PALETTE,
+    selectedColor: COLORS_PALETTE[0],
     defaultNodes: [
       {
         id: 1,
