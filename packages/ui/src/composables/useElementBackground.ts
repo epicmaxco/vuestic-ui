@@ -2,18 +2,53 @@ import { watch, ref, getCurrentInstance, Ref, onMounted, onBeforeUnmount } from 
 
 type Maybe<T> = T | null | undefined
 
-const rgba2hex = (rgba: string) => `#${rgba.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+\.{0,1}\d*))?\)$/)!.slice(1).map((n: string, i: number) => (i === 3 ? Math.round(parseFloat(n) * 255) : parseFloat(n)).toString(16).padStart(2, '0').replace('NaN', '')).join('')}`
+const WHITE_COLOR_ARRAY = [255, 255, 255, 1]
+const ALPHA_ARRAY_INDEX = 3
 
-const recursiveGetBackground = (element: Maybe<HTMLElement>): string => {
-  if (!element) { return '#fff' } // Likely document doesn't have a color, so let's just return white
+const rgba2hex = (rgba: number[]) => `#${rgba.map((n: number, i: number) => (i === 3 ? Math.round(n * 255) : n).toString(16).padStart(2, '0').replace('NaN', '')).join('')}`
 
-  const bg = window.getComputedStyle(element).backgroundColor
+const isTransparent = (color: string) => color === 'transparent' || color === 'rgba(0, 0, 0, 0)'
 
-  if (bg && !bg.includes('rgba(0, 0, 0, 0)')) {
-    return rgba2hex(bg)
+const rgba = (color: string) => color
+  .match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+\.{0,1}\d*))?\)$/)
+  ?.slice(1)
+  .map((n) => parseFloat(n))
+  .filter((n) => !Number.isNaN(n))
+
+const mixColors = (color1Array: number[], color2Array: number[], weight: number) => {
+  return color1Array.map((n, i) => Math.round(n * (1 - weight) + color2Array[i] * weight))
+}
+
+const recursiveGetBackground = (element: Maybe<HTMLElement>): number[] => {
+  if (!element) { return WHITE_COLOR_ARRAY } // Likely doesn't have a color, so let's just return white
+  if (element.nodeType !== Node.ELEMENT_NODE) { return recursiveGetBackground(element.parentElement) }
+
+  const style = window.getComputedStyle(element)
+  let bg = style.backgroundColor
+
+  if (bg === 'currentColor') { bg = style.color }
+
+  if (isTransparent(bg)) {
+    return recursiveGetBackground(element.parentElement)
   }
 
-  return recursiveGetBackground(element.parentElement)
+  const color = rgba(bg)
+
+  if (!color) {
+    // It's must be impossible, because computed backgroundColor should be rgba or transparent
+    console.log('Could not parse background color of', element)
+    throw new Error('Vuestic unable to parse background. Maybe some parent has color set as keyword')
+  }
+
+  // Color without alpha or with alpha of 1
+  if (!color[ALPHA_ARRAY_INDEX] || Number(color[ALPHA_ARRAY_INDEX]) === 1) { return color }
+
+  // Mix current color with parent's color
+  return mixColors(
+    recursiveGetBackground(element.parentElement),
+    color,
+    color[ALPHA_ARRAY_INDEX],
+  )
 }
 
 /** Can be null before component is mounted */
@@ -28,16 +63,17 @@ export const useElementBackground = (element?: Ref<HTMLElement | undefined>) => 
     }
 
     observer = new MutationObserver(() => {
-      background.value = recursiveGetBackground(element?.value || proxy?.$el)
+      background.value = rgba2hex(recursiveGetBackground(element?.value || proxy?.$el))
     })
 
     // TODO: not sure how to handle if element parents are changed.
     observer.observe(window.document, {
       attributeFilter: ['style', 'class'],
-      childList: true,
+      subtree: true,
+      attributes: true,
     })
 
-    background.value = recursiveGetBackground(element?.value || proxy?.$el)
+    background.value = rgba2hex(recursiveGetBackground(element?.value || proxy?.$el))
   }
 
   onMounted(() => observe())
