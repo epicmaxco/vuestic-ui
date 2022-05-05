@@ -23,8 +23,8 @@ export default function usePaginatedRows (
     oldRowsLength.value = newRows.length
   })
 
-  watch(() => props.currentPage, (page, oldPage) => {
-    if (page !== oldPage && !isDifferentRowLength.value) {
+  watch(() => props.currentPage, () => {
+    if (!isDifferentRowLength.value) {
       animationName.value = props.animated ? 'table-transition-shuffle' : ''
     }
   })
