@@ -13,11 +13,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, provide, ref, watch, PropType } from 'vue'
+import { defineComponent, provide, PropType, computed } from 'vue'
 import { TreeViewKey, TreeNode, TreeViewProvide } from './types'
 import useTreeBuilder from './hooks/useTreeBuilder'
-import useTreeFilter from './hooks/useTreeFilter'
 import VaTreeNode from './VaTreeNode'
+import { useColors } from '../../services/color-config/color-config'
+import { getTextColor } from '../../services/color-config/color-functions'
 
 export default defineComponent({
   name: 'VaTreeView',
@@ -61,6 +62,9 @@ export default defineComponent({
   },
 
   setup: (props) => {
+    const { getColor } = useColors()
+    const colorComputed = computed(() => getColor(props.color))
+    const iconColor = computed(() => getTextColor(colorComputed.value))
     const { treeItems } = useTreeBuilder(props)
 
     const toggleSelect = (node: TreeNode, isSelected: boolean) => {
@@ -86,6 +90,8 @@ export default defineComponent({
     }
 
     const treeView: TreeViewProvide = {
+      colorComputed,
+      iconColor,
       treeItems,
       nodeKey: props.nodeKey,
       selectable: props.selectable,

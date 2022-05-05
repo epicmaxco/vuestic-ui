@@ -17,6 +17,7 @@
       <div class="va-tree-node-header__item" v-if="selectable" @click.stop>
         <va-checkbox
           v-model="$props.node.selected"
+          :color="colorComputed"
           @update:model-value="(isSelected) => toggleSelect($props.node, isSelected)"
         />
       </div>
@@ -47,7 +48,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, inject, PropType, ref } from 'vue'
+import { computed, defineComponent, inject, PropType, ref } from 'vue'
 import { TreeNode, TreeViewKey, TreeViewProvide } from '../types'
 import VaCheckbox from '../../va-checkbox'
 
@@ -55,10 +56,6 @@ export default defineComponent({
   name: 'VaTreeNode',
 
   props: {
-    color: {
-      type: String,
-      default: () => 'primary',
-    },
     node: {
       type: Object as PropType<TreeNode>,
       required: true,
@@ -73,11 +70,15 @@ export default defineComponent({
   setup: (props) => {
     const {
       nodeKey,
+      iconColor,
+      treeItems,
       selectable,
       toggleNode,
       toggleSelect,
-      treeItems,
+      colorComputed,
     } = inject<TreeViewProvide>(TreeViewKey, {
+      iconColor: computed(() => 'var(--va-white)'),
+      colorComputed: computed(() => 'primary'),
       treeItems: [],
       nodeKey: '',
       selectable: false,
@@ -90,10 +91,12 @@ export default defineComponent({
     return {
       label,
       nodeKey,
+      iconColor,
       treeItems,
       selectable,
       toggleNode,
       toggleSelect,
+      colorComputed,
     }
   },
 })
