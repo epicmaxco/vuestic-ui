@@ -7,7 +7,7 @@ interface useSelectableProps {
   animated: boolean
 }
 
-export default function usePaginatedRows(
+export default function usePaginatedRows (
   props: useSelectableProps,
   rows: Ref<TableRow[]>,
 ) {
