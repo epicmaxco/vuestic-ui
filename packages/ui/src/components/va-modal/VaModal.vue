@@ -214,12 +214,16 @@ export default defineComponent({
     watch(valueComputed, (value: boolean) => {
       if (value) {
         window.addEventListener('keyup', listenKeyUp)
-        if (props.blur) {
-          document.body.classList.add('overlay--blured')
-        }
       } else {
         window.removeEventListener('keyup', listenKeyUp)
-        document.body.classList.remove('overlay--blured')
+      }
+
+      if (props.blur) {
+        if (value) {
+          document.body.classList.add('overlay--blured')
+        } else {
+          document.body.classList.remove('overlay--blured')
+        }
       }
     })
 
