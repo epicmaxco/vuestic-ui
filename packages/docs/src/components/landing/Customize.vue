@@ -487,7 +487,7 @@ export default class Customize extends Vue {
     @include text-font();
 
     color: #ffffff;
-    padding-top: 3rem;
+    padding-top: 1rem;
     text-align: center;
 
     // sm

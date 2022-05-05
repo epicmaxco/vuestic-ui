@@ -8,6 +8,7 @@ import {
   getTextColor,
   shiftHSLAColor,
   setHSLAColor,
+  isCSSVariable,
 } from './color-functions'
 
 export type CssColor = string
@@ -54,9 +55,13 @@ export const useColors = () => {
       return prop
     }
 
+    if (preferVariables && isCSSVariable(prop)) {
+      return prop
+    }
+
     if (process.env.NODE_ENV !== 'production') {
       console.warn(`'${prop}' is not a proper color! Use HEX or default color themes
-    names (https://vuestic.dev/en/styles/colors#default-color-themes)`)
+      names (https://vuestic.dev/en/styles/colors#default-color-themes)`)
     }
 
     return defaultColor

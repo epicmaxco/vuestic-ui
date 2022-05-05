@@ -11,6 +11,9 @@ import { useGtag } from './services/gtag'
 import { useTranslateIfExists } from './locales/translateIfExistsPlugin'
 import { useMeta } from './services/vue-meta'
 
+// pwa
+import './registerServiceWorker'
+
 const app = createApp(App)
 
 app.use(router)

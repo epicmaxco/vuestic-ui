@@ -20,6 +20,11 @@
         v-model="value"
         label="Purple"
       />
+       <va-checkbox
+        color="#FFFF00"
+        v-model="value"
+        label="Yellow"
+      />
       <va-checkbox
         color="primary"
         v-model="value"

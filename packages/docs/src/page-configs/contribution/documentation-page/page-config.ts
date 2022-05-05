@@ -129,9 +129,9 @@ const config: ApiDocsBlock[] = [
 
   block.headline('documentationPage.blocktypes.alert.title'),
   block.paragraph('documentationPage.blocktypes.alert.text'),
-  block.code('block.alert(\'translation.path\', \'#ff0000\')'),
+  block.code('block.alert(\'translation.path\', \'danger\')'),
   block.paragraph('documentationPage.compilesTo'),
-  block.alert('documentationPage.blocktypes.alert.example', '#ff0000'),
+  block.alert('documentationPage.blocktypes.alert.example', 'danger'),
 ]
 
 export default config

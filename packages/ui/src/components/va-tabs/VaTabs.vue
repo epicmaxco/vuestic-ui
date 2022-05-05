@@ -99,9 +99,9 @@ export default defineComponent({
   },
 
   setup: (props, { emit }) => {
-    const wrapper = ref<HTMLElement | null>(null)
-    const container = ref<HTMLElement | null>(null)
-    const tabs = ref<HTMLElement | null>(null)
+    const wrapper = ref<HTMLElement>()
+    const container = ref<HTMLElement>()
+    const tabs = ref<HTMLElement>()
 
     const tabsList: Ref<TabComponent[]> = ref([])
     const sliderHeight = ref<number | null>(null)

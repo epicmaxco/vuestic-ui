@@ -714,7 +714,7 @@ export default defineComponent({
     background: var(--va-select-dropdown-background);
     overflow-y: auto;
 
-    @include va-scroll(var(--va-select-scroll-color));
+    @include va-scroll();
   }
 }
 </style>

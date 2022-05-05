@@ -5,7 +5,7 @@
       { 'va-data-table--sticky': $props.stickyHeader },
       { 'va-data-table--scroll': !!$props.height },
     ]"
-    :style="{ ...getStickyCSSVariables() }"
+    :style="getStickyCSSVariables()"
     :loading="loading"
     :color="loadingColor"
     v-bind="componentAttributes"
@@ -21,7 +21,8 @@
 
       <thead
         class="va-data-table__table-thead"
-        :class="{ 'va-data-table__table-thead--sticky': $props.stickyHeader }">
+        :class="{ 'va-data-table__table-thead--sticky': $props.stickyHeader }"
+      >
         <slot name="headerPrepend" />
 
         <tr
@@ -48,7 +49,7 @@
             v-for="column in columnsComputed"
             :key="column.key"
             :title="column.headerTitle"
-            @click.exact="column.sortable ? toggleSorting(column): () => {}"
+            @click.exact="column.sortable && toggleSorting(column)"
             :style="{ ...getHeaderCSSVariables(column), ...getStyles(column.headerStyle) }"
             :class="['va-data-table__table-th', ...getClasses(column.headerClasses)]"
           >
@@ -81,108 +82,81 @@
       </thead>
 
       <tbody
-        v-if="$slots.bodyPrepend"
         class="va-data-table__table-tbody"
         :style="rowCSSVariables"
       >
         <slot name="bodyPrepend" />
-      </tbody>
 
-      <transition
-        :name="animated ? 'table-transition' : null"
-        appear
-        mode="out-in"
-      >
-        <tbody
-          v-if="showNoDataHtml"
-          key="showNoDataHtml"
-          class="va-data-table__table-tbody"
-          :style="rowCSSVariables"
+        <transition-group
+          :name="animationName"
+          appear
         >
-          <tr>
+
+          <tr
+            v-if="showNoDataHtml"
+            key="showNoDataHtml"
+          >
             <td
               :colspan="columnsComputed.length + (selectable ? 1 : 0)"
               v-html="noDataHtml"
               class="no-data"
             />
           </tr>
-        </tbody>
 
-        <tbody
-          v-else-if="showNoDataFilteredHtml"
-          key="showNoDataFilteredHtml"
-          class="va-data-table__table-tbody"
-          :style="rowCSSVariables"
-        >
-          <tr>
+          <tr
+            v-else-if="showNoDataFilteredHtml"
+            key="showNoDataFilteredHtml"
+          >
             <td
               :colspan="columnsComputed.length + (selectable ? 1 : 0)"
               v-html="noDataFilteredHtml"
               class="no-data"
             />
           </tr>
-        </tbody>
 
-        <tbody
-          v-else
-          key="showRows"
-          class="va-data-table__table-tbody"
-          :style="rowCSSVariables"
-        >
-          <transition-group
-            :name="animated ? 'table-transition-rows' : null"
-            appear
+          <tr
+            v-for="row in rows"
+            :key="`table-row_${row.initialIndex}`"
+            class="va-data-table__table-tr"
+            :class="{ selected: isRowSelected(row) }"
+            @click="onRowClickHandler('row:click', $event, row)"
+            @dblclick="onRowClickHandler('row:dblclick', $event, row)"
+            @contextmenu="onRowClickHandler('row:contextmenu', $event, row)"
           >
-            <tr
-              v-for="row in rows"
-              :key="`table-row_${row.initialIndex}`"
-              class="va-data-table__table-tr"
-              :class="{ selected: isRowSelected(row) }"
-              @click="onRowClickHandler('row:click', $event, row)"
-              @dblclick="onRowClickHandler('row:dblclick', $event, row)"
-              @contextmenu="onRowClickHandler('row:contextmenu', $event, row)"
+            <td
+              v-if="selectable"
+              :class="['va-data-table__table-td', 'va-data-table__table-cell-select']"
+              :key="`selectable_${row.initialIndex}`"
+              @selectstart.prevent
             >
-              <td
-                v-if="selectable"
-                :class="['va-data-table__table-td', 'va-data-table__table-cell-select']"
-                :key="`selectable_${row.initialIndex}`"
-                @selectstart.prevent
-              >
-                <va-checkbox
-                  :model-value="isRowSelected(row)"
-                  @click.shift.exact="shiftSelectRows(row)"
-                  @click.ctrl.exact="ctrlSelectRow(row)"
-                  @click.exact="ctrlSelectRow(row)"
-                  :color="selectedColor"
-                />
-              </td>
+              <va-checkbox
+                :model-value="isRowSelected(row)"
+                @click.shift.exact="shiftSelectRows(row)"
+                @click.ctrl.exact="ctrlSelectRow(row)"
+                @click.exact="ctrlSelectRow(row)"
+                :color="selectedColor"
+              />
+            </td>
 
-              <td
-                v-for="cell in row.cells"
-                :key="`table-cell_${cell.column.key + cell.rowIndex}`"
-                :style="{ ...getCellCSSVariables(cell), ...getStyles(cell.column.style) }"
-                :class="['va-data-table__table-td', ...getClasses(cell.column.classes)]"
-              >
-                <slot
-                  v-if="`cell(${cell.column.key})` in $slots"
-                  :name="`cell(${cell.column.key})`"
-                  v-bind="cell"
-                />
+            <td
+              v-for="cell in row.cells"
+              :key="`table-cell_${cell.column.key + cell.rowIndex}`"
+              :style="{ ...getCellCSSVariables(cell), ...getStyles(cell.column.style) }"
+              :class="['va-data-table__table-td', ...getClasses(cell.column.classes)]"
+            >
+              <slot
+                v-if="`cell(${cell.column.key})` in $slots"
+                :name="`cell(${cell.column.key})`"
+                v-bind="cell"
+              />
 
-                <slot v-else name="cell" v-bind="cell">
-                  {{ cell.value }}
-                </slot>
-              </td>
-            </tr>
-          </transition-group>
-        </tbody>
-      </transition>
+              <slot v-else name="cell" v-bind="cell">
+                {{ cell.value }}
+              </slot>
+            </td>
+          </tr>
+        </transition-group>
 
-      <tbody
-        v-if="$slots.bodyAppend"
-        class="va-data-table__table-tbody"
-        :style="rowCSSVariables"
-      >
         <slot name="bodyAppend" />
       </tbody>
 
@@ -207,7 +181,7 @@
             v-for="column in columnsComputed"
             :key="column.key"
             :title="column.headerTitle"
-            @click.exact="allowFooterSorting && column.sortable ? toggleSorting(column) : () => {}"
+            @click.exact="allowFooterSorting && column.sortable && toggleSorting(column)"
             :style="{ ...getFooterCSSVariables(column), ...getStyles(column.headerStyle) }"
             :class="['va-data-table__table-th', ...getClasses(column.headerClasses)]"
           >
@@ -255,7 +229,8 @@ import useFilterable from './hooks/useFilterable'
 import useSortable from './hooks/useSortable'
 import usePaginatedRows from './hooks/usePaginatedRows'
 import useSelectableRow from './hooks/useSelectableRow'
-import useStyleable from './hooks/useStyleable'
+import useStylable from './hooks/useStylable'
+import useAnimationName from './hooks/useAnimationName'
 import {
   TTableColumnSource,
   ITableItem,
@@ -369,7 +344,9 @@ export default defineComponent({
       getStickyCSSVariables,
       getClasses,
       getStyles,
-    } = useStyleable(props)
+    } = useStylable(props)
+
+    const animationName = useAnimationName(props, paginatedRows)
 
     const showNoDataHtml = computed(() => props.items.length === 0)
 
@@ -417,15 +394,16 @@ export default defineComponent({
       onRowClickHandler,
       componentAttributes,
       tableAttributes,
+      animationName,
     }
   },
 })
 </script>
 
 <style lang="scss">
-@import '../../styles/resources/index.scss';
+@import "../../styles/resources/index.scss";
 @import "variables";
-// The calculated variables are taken from a respective element's `style` attribute. See the `useStyleable` hook
+// The calculated variables are taken from a respective element's `style` attribute. See the `useStylable` hook
 
 .va-data-table {
   overflow-x: auto;
@@ -436,7 +414,7 @@ export default defineComponent({
   &--sticky,
   &--scroll {
     overflow-y: auto;
-    height: var(--scroll-table-height);
+    height: var(--va-data-table-scroll-table-height);
 
     // 1) doesn't work in Firefox
     // 2) doesn't disappear on mac (the standard one does)
@@ -455,7 +433,7 @@ export default defineComponent({
         position: sticky;
         top: 0;
         z-index: 1;
-        background-color: var(--scroll-table-color);
+        background-color: var(--va-data-table-scroll-table-color);
       }
     }
 
@@ -472,17 +450,17 @@ export default defineComponent({
 
     .va-data-table__table-th {
       padding: var(--va-data-table-cell-padding);
-      width: var(--width);
-      min-width: var(--width);
-      text-align: var(--align);
-      vertical-align: var(--vertical-align);
+      width: var(--va-data-table-width);
+      min-width: var(--va-data-table-width);
+      text-align: var(--va-data-table-align);
+      vertical-align: var(--va-data-table-vertical-align);
       color: var(--va-data-table-thead-color);
       font-size: var(--va-data-table-thead-font-size);
       line-height: var(--va-data-table-thead-line-height);
       font-weight: var(--va-data-table-thead-font-weight);
       text-transform: var(--va-data-table-thead-text-transform);
       letter-spacing: var(--va-data-table-thead-letter-spacing);
-      cursor: var(--cursor);
+      cursor: var(--va-data-table-cursor);
 
       .va-data-table__table-th-wrapper {
         display: flex;
@@ -518,8 +496,8 @@ export default defineComponent({
 
     .va-data-table__table-td {
       padding: var(--va-data-table-cell-padding);
-      text-align: var(--align);
-      vertical-align: var(--vertical-align);
+      text-align: var(--va-data-table-align);
+      vertical-align: var(--va-data-table-vertical-align);
     }
 
     .va-data-table__table-th,
@@ -535,7 +513,7 @@ export default defineComponent({
 
     .va-data-table__table-tr {
       &.selected {
-        background-color: var(--selected-color);
+        background-color: var(--va-data-table-selected-color);
       }
     }
 
@@ -546,9 +524,14 @@ export default defineComponent({
     }
 
     &.striped {
-      .va-data-table__table-tr:nth-child(2n) {
-        &:not(.selected) {
-          background-color: var(--va-light-gray3);
+      .va-data-table__table-tr {
+        position: relative;
+        z-index: 0;
+
+        &:nth-child(2n) {
+          &:not(.selected) {
+            @include va-background(var(--va-data-table-striped-tr-background-color), var(--va-data-table-striped--tr-opacity), -1);
+          }
         }
       }
     }
@@ -557,41 +540,43 @@ export default defineComponent({
     &.hoverable {
       .va-data-table__table-tr {
         &:hover {
-          background-color: var(--hover-color);
+          background-color: var(--va-data-table-hover-color);
         }
       }
 
       .va-data-table__table-tr:nth-child(2n) {
         &:hover {
-          background-color: var(--hover-color);
+          background-color: var(--va-data-table-hover-color);
+
+          @include va-background-opacity(transparent);
         }
       }
     }
 
-    .table-transition-leave-active {
+    .table-transition-fade-leave-active {
       transition: opacity var(--va-data-table-transition);
     }
 
-    .table-transition-enter-active {
+    .table-transition-fade-enter-active {
       transition: opacity var(--va-data-table-transition) 0.2s;
     }
 
-    .table-transition-enter-from,
-    .table-transition-rows-enter-from,
-    .table-transition-leave-to,
-    .table-transition-rows-leave-to {
+    .table-transition-fade-enter-from,
+    .table-transition-shuffle-enter-from,
+    .table-transition-fade-leave-to,
+    .table-transition-shuffle-leave-to {
       opacity: 0;
     }
 
-    .table-transition-rows-move {
+    .table-transition-shuffle-move {
       transition: transform var(--va-data-table-transition);
     }
 
-    .table-transition-rows-leave-active {
+    .table-transition-shuffle-leave-active {
       transition: none;
     }
 
-    .table-transition-rows-enter-active {
+    .table-transition-shuffle-enter-active {
       transition: opacity var(--va-data-table-transition);
     }
   }
