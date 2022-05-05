@@ -20,6 +20,7 @@ const mount = (component: any, {
 
   const vNode: VNode = createVNode(component, {
     ...props,
+    stateful: true,
     modelValue: value,
     'onUpdate:modelValue': (event: boolean) => { value = event },
     children,

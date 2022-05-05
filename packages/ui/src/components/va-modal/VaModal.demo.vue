@@ -297,8 +297,8 @@
         </va-modal>
       </va-modal>
     </VbCard>
-    <VbCard title="vaModal return by method">
-      <button @click="$vaModal.init('init vamodal')">init vaModal</button>
+    <VbCard title="vaModal return by click">
+      <button @click="$vaModal.init({title: 'Click Event', message: message })">init vaModal</button>
     </VbCard>
   </VbDemo>
 </template>
