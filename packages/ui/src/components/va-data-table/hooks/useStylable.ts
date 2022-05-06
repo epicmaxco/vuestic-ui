@@ -2,7 +2,10 @@ import { computed } from 'vue'
 import { useColors } from '../../../composables/useColor'
 import { safeCSSLength } from '../../../utils/css-utils'
 import { TableColumn, TClassesOptions, TStyleOptions, TableCell } from '../types'
-interface useStyleableProps {
+
+const prefix = '--va-data-table'
+
+interface useStylableProps {
   selectable: boolean
   selectedColor: string
   allowFooterSorting: boolean
@@ -26,25 +29,25 @@ function getStyles (styles: TStyleOptions = {}): Record<string, any> {
 
 const { getColor, getFocusColor, getHoverColor, shiftHSLAColor } = useColors()
 
-export default function useStyleable (props: useStyleableProps) {
+export default function useStylable (props: useStylableProps) {
   const color = computed(() => getColor(props.selectedColor))
 
   function getHeaderCSSVariables (column: TableColumn) {
     return {
-      '--width': typeof column.width === 'string' ? column.width : `${column.width}px`,
-      '--align': column.alignHead,
-      '--vertical-align': column.verticalAlignHead,
-      '--cursor': column.sortable ? 'pointer' : 'default',
+      [`${prefix}-width`]: typeof column.width === 'string' ? column.width : `${column.width}px`,
+      [`${prefix}-align`]: column.alignHead,
+      [`${prefix}-vertical-align`]: column.verticalAlignHead,
+      [`${prefix}-cursor`]: column.sortable ? 'pointer' : 'default',
     }
   }
 
   const rowCSSVariables = computed(() => {
     const styles: Record<string, any> = {
-      '--hover-color': getHoverColor(color.value),
+      [`${prefix}-hover-color`]: getHoverColor(color.value),
     }
 
     if (props.selectable) {
-      styles['--selected-color'] = getFocusColor(color.value)
+      styles[`${prefix}-selected-color`] = getFocusColor(color.value)
     }
 
     return styles
@@ -52,23 +55,23 @@ export default function useStyleable (props: useStyleableProps) {
 
   function getCellCSSVariables (cell: TableCell) {
     return {
-      '--align': cell.column.align,
-      '--vertical-align': cell.column.verticalAlign,
+      [`${prefix}-align`]: cell.column.align,
+      [`${prefix}-vertical-align`]: cell.column.verticalAlign,
     }
   }
 
   function getFooterCSSVariables (column: TableColumn) {
     return {
-      '--align': column.alignHead,
-      '--vertical-align': column.verticalAlignHead,
-      '--cursor': props.allowFooterSorting && column.sortable ? 'pointer' : 'default',
+      [`${prefix}-align`]: column.alignHead,
+      [`${prefix}-vertical-align`]: column.verticalAlignHead,
+      [`${prefix}-cursor`]: props.allowFooterSorting && column.sortable ? 'pointer' : 'default',
     }
   }
 
   function getStickyCSSVariables () {
     return {
-      '--scroll-table-color': (props.height || props.stickyHeader) && shiftHSLAColor(color.value, { l: 20 }),
-      '--scroll-table-height': props.height && safeCSSLength(props.height),
+      [`${prefix}-scroll-table-color`]: (props.height || props.stickyHeader) && shiftHSLAColor(color.value, { l: 20 }),
+      [`${prefix}-scroll-table-height`]: props.height && safeCSSLength(props.height),
     }
   }
 
