@@ -49,11 +49,7 @@ export default defineComponent({
     const { valueComputed } = useStateful(props, emit)
 
     const colorPicker = ref<HTMLInputElement>()
-    const callPickerDialog = () => {
-      if (props.disabled) { return }
-
-      colorPicker.value?.click()
-    }
+    const callPickerDialog = () => !props.disabled && colorPicker.value?.click()
 
     return { valueComputed, callPickerDialog, colorPicker }
   },
