@@ -57,7 +57,7 @@ export default defineNuxtModule<VuesticOptions>({
     /**
      * registering composables globally
      */
-    const composablesFrom = resolve(distDir, './composables.ts')
+    const composablesFrom = resolve(distDir, './runtime/composables.mjs')
     const composablesNamesList = [
       'useGlobalConfig',
       'getGlobalConfig',
