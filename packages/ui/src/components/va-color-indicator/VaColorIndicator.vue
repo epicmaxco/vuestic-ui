@@ -1,50 +1,68 @@
 <template>
-  <div
+  <label :for="picker && inputId"
     class="va-color-indicator"
     @click="valueComputed = !valueComputed"
     :class="computedClass"
     :style="computedStyle"
   >
-    <div
+    <span
       class="va-color-indicator__core"
-      :style="{ ...computedStyle, backgroundColor: colorComputed }"
+      :style="computedStyle"
     />
-  </div>
+    <input
+      type="color"
+      class="visually-hidden"
+      :id="inputId"
+      v-model="colorPicker" />
+  </label>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, PropType } from 'vue'
+import { defineComponent, computed, unref } from 'vue'
 
 import { useColors } from '../../composables/useColor'
 import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
+import { generateUniqueId } from '../../services/utils'
 
 export default defineComponent({
   name: 'VaColorIndicator',
-  emits: useStatefulEmits,
+  emits: [...useStatefulEmits, 'update:color'],
   props: {
     ...useStatefulProps,
-    modelValue: { type: Boolean as PropType<boolean>, default: null },
-    color: { type: String as PropType<string>, default: '' },
-    square: { type: Boolean as PropType<boolean>, default: false },
+    modelValue: { type: Boolean, default: null },
+    color: { type: String, default: '' },
+    square: { type: Boolean, default: false },
+    picker: { type: Boolean, default: false },
   },
   setup (props, { emit }) {
     const { valueComputed } = useStateful(props, emit)
     const { getColor } = useColors()
 
+    const colorPicker = computed({
+      get: () => props.color,
+      set: (v) => emit('update:color', v),
+    })
+
+    const inputId = computed(() => generateUniqueId())
+
     const colorComputed = computed(() => getColor(props.color))
 
-    const computedStyle = computed(() => ({ borderRadius: props.square ? '0px' : '50%' }))
+    const computedStyle = computed(() => ({
+      borderRadius: props.square ? '0px' : '50%',
+      backgroundColor: unref(colorComputed),
+    }))
 
     const computedClass = computed(() => ({
-      'va-color-indicator--selected': valueComputed.value,
-      'va-color-indicator--hoverable': valueComputed.value !== undefined,
+      'va-color-indicator--selected': unref(valueComputed),
+      'va-color-indicator--hoverable': unref(valueComputed) !== undefined,
     }))
 
     return {
-      colorComputed,
       valueComputed,
       computedStyle,
       computedClass,
+      colorPicker,
+      inputId,
     }
   },
 })
@@ -74,6 +92,7 @@ export default defineComponent({
   }
 
   &__core {
+    display: block;
     transition: transform 0.1s linear;
     vertical-align: baseline;
     border-radius: 50%;

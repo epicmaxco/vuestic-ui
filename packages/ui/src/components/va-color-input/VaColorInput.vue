@@ -4,6 +4,8 @@
       class="va-color-input__dot"
       :color="valueComputed"
       :indicator="indicator"
+      :picker="!disabled"
+      v-model:color="valueComputed"
     />
     <va-input
       class="va-color-input__input"
