@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import { useColors } from '../../../services/color-config/color-config'
+import { useColors } from '../../../../services/color-config/color-config'
 import { computed, defineComponent } from 'vue'
 
 export default defineComponent({
