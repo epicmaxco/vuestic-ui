@@ -157,6 +157,7 @@
     "./iife": "./dist/iife/vuestic-ui.js",
     "./styles/": "./dist/styles/",
     "./types": "./dist/types/main.d.ts",
-    "./css": "./dist/vuestic-ui.css"
+    "./css": "./dist/vuestic-ui.css",
+    "./dist/": "./dist/"
   }
 }
