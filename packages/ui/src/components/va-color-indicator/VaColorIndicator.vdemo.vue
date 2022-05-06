@@ -14,10 +14,6 @@
       <va-color-indicator :color="palette[0]" stateful />
       <va-color-indicator :color="palette[1]" square stateful />
     </VbCard>
-
-    <VbCard title="Color indicator (with color picker)">
-      <va-color-indicator v-model:color="palette[0]" picker />
-    </VbCard>
   </VbDemo>
 </template>
 

@@ -4,8 +4,8 @@
       class="va-color-input__dot"
       :color="valueComputed"
       :indicator="indicator"
-      :picker="!disabled"
       v-model:color="valueComputed"
+      v-on:click="callPickerDialog"
     />
     <va-input
       class="va-color-input__input"
@@ -13,11 +13,16 @@
       :disabled="disabled"
       placeholder="input color"
     />
+    <input
+      ref="colorPicker"
+      type="color"
+      class="visually-hidden"
+      v-model="valueComputed" />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue'
+import { defineComponent, PropType, ref } from 'vue'
 
 import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
 import VaColorIndicator from '../va-color-indicator'
@@ -43,7 +48,14 @@ export default defineComponent({
   setup: (props, { emit }) => {
     const { valueComputed } = useStateful(props, emit)
 
-    return { valueComputed }
+    const colorPicker = ref<HTMLInputElement>()
+    const callPickerDialog = () => {
+      if (props.disabled) { return }
+
+      colorPicker.value?.click()
+    }
+
+    return { valueComputed, callPickerDialog, colorPicker }
   },
 })
 </script>

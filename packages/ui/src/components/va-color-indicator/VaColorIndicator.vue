@@ -1,68 +1,58 @@
 <template>
-  <label :for="picker && inputId"
+  <div
     class="va-color-indicator"
-    @click="valueComputed = !valueComputed"
+    @click="handleClick"
     :class="computedClass"
     :style="computedStyle"
   >
-    <span
+    <div
       class="va-color-indicator__core"
       :style="computedStyle"
     />
-    <input
-      type="color"
-      class="visually-hidden"
-      :id="inputId"
-      v-model="colorPicker" />
-  </label>
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, unref } from 'vue'
+import { defineComponent, computed } from 'vue'
 
 import { useColors } from '../../composables/useColor'
 import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
-import { generateUniqueId } from '../../services/utils'
 
 export default defineComponent({
   name: 'VaColorIndicator',
-  emits: [...useStatefulEmits, 'update:color'],
+  emits: [...useStatefulEmits, 'on:click'],
   props: {
     ...useStatefulProps,
     modelValue: { type: Boolean, default: null },
     color: { type: String, default: '' },
     square: { type: Boolean, default: false },
-    picker: { type: Boolean, default: false },
   },
   setup (props, { emit }) {
     const { valueComputed } = useStateful(props, emit)
     const { getColor } = useColors()
 
-    const colorPicker = computed({
-      get: () => props.color,
-      set: (v) => emit('update:color', v),
-    })
-
-    const inputId = computed(() => generateUniqueId())
-
     const colorComputed = computed(() => getColor(props.color))
 
     const computedStyle = computed(() => ({
       borderRadius: props.square ? '0px' : '50%',
-      backgroundColor: unref(colorComputed),
+      backgroundColor: colorComputed.value,
     }))
 
     const computedClass = computed(() => ({
-      'va-color-indicator--selected': unref(valueComputed),
-      'va-color-indicator--hoverable': unref(valueComputed) !== undefined,
+      'va-color-indicator--selected': valueComputed.value,
+      'va-color-indicator--hoverable': valueComputed.value !== undefined,
     }))
+
+    const handleClick = () => {
+      valueComputed.value = !valueComputed.value
+      emit('on:click')
+    }
 
     return {
       valueComputed,
       computedStyle,
       computedClass,
-      colorPicker,
-      inputId,
+      handleClick,
     }
   },
 })
@@ -92,9 +82,7 @@ export default defineComponent({
   }
 
   &__core {
-    display: block;
     transition: transform 0.1s linear;
-    vertical-align: baseline;
     border-radius: 50%;
     width: 1rem;
     height: 1rem;
