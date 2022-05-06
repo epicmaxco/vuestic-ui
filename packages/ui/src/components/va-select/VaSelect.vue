@@ -160,6 +160,7 @@ import VaDropdown, { VaDropdownContent } from '../va-dropdown'
 import VaIcon from '../va-icon'
 import VaInput from '../va-input'
 import VaSelectOptionList from './VaSelectOptionList'
+import { useFocus } from '../../composables/useFocus'
 
 const { getHoverColor } = useColors()
 
@@ -252,11 +253,11 @@ export default defineComponent({
     const optionList = ref<typeof VaSelectOptionList>()
     const input = ref<typeof VaInput>()
     const searchBar = ref<typeof VaInput>()
+    const { isFocused } = useFocus()
 
     const { getOptionByValue, getValue, getText, getTrackBy, getGroupBy } = useSelectableList(props)
 
     const {
-      isFocused,
       validate,
       computedError,
       computedErrorMessages,
@@ -329,7 +330,7 @@ export default defineComponent({
     const {
       canBeCleared,
       clearIconProps,
-    } = useClearable(props, valueComputed, isFocused, computedError)
+    } = useClearable(props, valueComputed, computedError)
 
     const showClearIcon = computed(() => {
       return props.multiple && Array.isArray(valueComputed.value) ? !!valueComputed.value.length : canBeCleared.value

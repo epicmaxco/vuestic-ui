@@ -216,18 +216,14 @@ export default defineComponent({
       !val && reset()
     }
 
-    const {
-      isFocused,
-      computedError,
-      computedErrorMessages,
-    } = useValidation(props, emit, reset, focus)
+    const { computedError, computedErrorMessages } = useValidation(props, emit, reset, focus)
 
     const hasError = computed(() => (!isValid.value && valueText.value !== props.clearValue) || computedError.value)
 
     const {
       canBeCleared,
       clearIconProps,
-    } = useClearable(props, valueText, isFocused, hasError)
+    } = useClearable(props, valueText, hasError)
 
     const iconProps = computed(() => ({
       name: props.icon,

@@ -1,4 +1,5 @@
 import { computed, Ref } from 'vue'
+import { useFocus } from './useFocus'
 
 interface ClearableProps {
   clearable: boolean
@@ -21,9 +22,10 @@ export const useClearableEmits = ['clear']
 export const useClearable = (
   props: ClearableProps,
   inputValue: Ref<any>,
-  isFocused?: Ref<boolean>,
   hasError?: Ref<boolean>,
 ) => {
+  const { isFocused } = useFocus()
+
   const clearedValues = [null, undefined, props.clearValue]
 
   const canBeCleared = computed(() => (

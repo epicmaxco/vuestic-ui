@@ -212,11 +212,7 @@ export default defineComponent({
       input.value?.blur()
     }
 
-    const {
-      isFocused,
-      computedError,
-      computedErrorMessages,
-    } = useValidation(props, emit, reset, focus)
+    const { computedError, computedErrorMessages } = useValidation(props, emit, reset, focus)
 
     const hasError = computed(() => (!isValid.value && valueComputed.value !== props.clearValue) || computedError.value)
 
@@ -231,7 +227,7 @@ export default defineComponent({
     const {
       canBeCleared,
       clearIconProps,
-    } = useClearable(props, valueComputed, isFocused, hasError)
+    } = useClearable(props, valueComputed, hasError)
 
     const iconProps = computed(() => ({
       name: props.icon,

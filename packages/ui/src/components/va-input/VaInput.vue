@@ -77,6 +77,7 @@ import { computed, defineComponent, InputHTMLAttributes, PropType, ref, toRefs }
 import { useFormProps } from '../../composables/useForm'
 import { useValidation, useValidationProps, useValidationEmits } from '../../composables/useValidation'
 import { useCleave, useCleaveProps } from './hooks/useCleave'
+import { useFocus } from '../../composables/useFocus'
 import { useEmitProxy } from '../../composables/useEmitProxy'
 import VaInputWrapper from './components/VaInputWrapper.vue'
 import { useClearableProps, useClearable, useClearableEmits } from '../../composables/useClearable'
@@ -144,6 +145,8 @@ export default defineComponent({
   setup (props, { emit, attrs, slots }) {
     const input = ref<HTMLInputElement | typeof VaTextarea | undefined>()
 
+    const { isFocused } = useFocus()
+
     const reset = () => {
       emit('update:modelValue', props.clearValue)
       emit('clear')
@@ -163,17 +166,13 @@ export default defineComponent({
     })
 
     const {
-      isFocused,
-      listeners: validationListeners,
       computedError,
       computedErrorMessages,
+      listeners: validationListeners,
     } = useValidation(props, emit, reset, focus)
 
     const { modelValue } = toRefs(props)
-    const {
-      canBeCleared,
-      clearIconProps,
-    } = useClearable(props, modelValue, isFocused, computedError)
+    const { canBeCleared, clearIconProps } = useClearable(props, modelValue, computedError)
 
     /** Use cleave only if this component is input, because it will break. */
     const computedCleaveTarget = computed(() => {
