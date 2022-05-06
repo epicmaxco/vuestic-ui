@@ -1,8 +1,4 @@
-import {
-  TreeBuilderFunc,
-  CreateNodeFunc, TreeNode,
-  UseTreeBuilderFunc,
-} from '../types'
+import { TreeBuilderFunc, CreateNodeFunc, UseTreeBuilderFunc } from '../types'
 import { reactive } from 'vue'
 
 export const createNode: CreateNodeFunc = ({
