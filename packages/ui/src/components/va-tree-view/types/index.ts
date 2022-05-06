@@ -1,4 +1,4 @@
-import { ComputedRef } from 'vue'
+import { ComputedRef, WritableComputedRef } from 'vue'
 
 export const TreeViewKey = Symbol('TreeView')
 
@@ -18,7 +18,7 @@ export interface TreeViewProvide {
   colorComputed: ComputedRef<string>
   toggleNode: (node: TreeNode) => void
   toggleSelect: (node: TreeNode, isSelected: boolean) => void
-  treeItems: TreeNode[]
+  treeItems: WritableComputedRef<TreeNode[]>
 }
 
 export type CreateNodeProps = {
