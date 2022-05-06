@@ -37,7 +37,7 @@ import { defineComponent, PropType, ref } from 'vue'
 import VaCard from '../../va-card'
 import VaIcon from '../../va-icon'
 
-import { VaFile } from '../types'
+import { VaFile, ConvertedFile } from '../types'
 
 import VaFileUploadUndo from '../VaFileUploadUndo'
 
@@ -50,7 +50,7 @@ export default defineComponent({
   },
   emits: ['remove'],
   props: {
-    file: { type: Object as PropType<VaFile | null>, default: null },
+    file: { type: Object as PropType<ConvertedFile | null>, default: null },
     color: { type: String as PropType<string>, default: 'success' },
   },
   setup (props, { emit }) {

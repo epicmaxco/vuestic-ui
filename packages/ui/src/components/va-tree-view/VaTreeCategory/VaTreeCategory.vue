@@ -7,7 +7,7 @@
       <div class="va-tree-category__header-switcher">
         <square-with-icon
           :icon="isOpenCached ? 'remove' : 'add'"
-          :color="treeView.color || colorComputed"
+          :color="colorComputed"
         />
       </div>
       <div

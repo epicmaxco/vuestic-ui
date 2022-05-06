@@ -54,7 +54,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, watch, ref, Ref, computed } from 'vue'
+import { defineComponent, PropType, watch, ref, Ref, computed, ComponentPublicInstance } from 'vue'
 
 import { getHoverColor } from '../../../services/color-config/color-functions'
 import { useColors, useColorProps } from '../../../composables/useColor'
@@ -93,7 +93,10 @@ export default defineComponent({
     const itemRefs: Ref<Record<number, HTMLElement>> = ref({})
     const rootElement: Ref<HTMLElement | null> = ref(null)
 
-    const onScroll = ({ target }: { target: HTMLDivElement }) => {
+    const onScroll = (event: UIEvent) => {
+      const target = event.target as Element
+      if (!target) { return }
+
       if (target.scrollTop + target.clientHeight === target.scrollHeight) {
         emit('scroll-bottom')
       }
@@ -101,9 +104,9 @@ export default defineComponent({
 
     const beforeUpdate = () => { itemRefs.value = {} }
 
-    const setItemRef = (option: SelectableOption) => (el: HTMLElement) => {
+    const setItemRef = (option: SelectableOption) => (el: Element | null | ComponentPublicInstance) => {
       if (el) {
-        itemRefs.value[props.getTrackBy(option)] = el
+        itemRefs.value[props.getTrackBy(option)] = el as HTMLElement
       }
     }
 
@@ -140,7 +143,7 @@ export default defineComponent({
 
     const selectOption = (option: SelectableOption) => emit('select-option', option)
 
-    const getOptionIcon = (option: SelectableOption) => typeof option === 'object' && option.icon
+    const getOptionIcon = (option: SelectableOption) => typeof option === 'object' ? (option.icon as string) : undefined
 
     const getOptionClass = (option: SelectableOption) => ({
       'va-select-option-list__option': true,

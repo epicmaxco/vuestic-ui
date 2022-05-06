@@ -45,7 +45,7 @@
 
 <script lang="ts">
 import { useColors } from '../../composables/useColor'
-import { computed, defineComponent, ref } from 'vue'
+import { computed, defineComponent, ref, shallowRef } from 'vue'
 import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'
 import { useAccordionItem } from '../va-accordion/hooks/useAccordion'
 import { useSyncProp } from '../../composables/useSyncProp'
@@ -65,7 +65,7 @@ export default defineComponent({
   emits: ['focus', 'update:modelValue'],
 
   setup (props, { emit, slots }) {
-    const body = ref<HTMLElement | null>(null)
+    const body = shallowRef<HTMLElement | null>(null)
     const [computedModelValue] = useSyncProp('modelValue', props, emit, false)
     const toggle = () => { computedModelValue.value = !computedModelValue.value }
 

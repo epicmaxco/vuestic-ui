@@ -143,7 +143,7 @@ export default defineComponent({
       default: 'bottom',
       validator: (placement: string) => placementsPositions.includes(placement),
     },
-    offset: { type: [Number, Array] as PropType<number | number[]>, default: () => ([0, 1]) },
+    offset: { type: [Number, Array] as PropType<number | [number, number]>, default: () => ([0, 1]) },
     keepAnchorWidth: { type: Boolean, default: false },
     closeOnContentClick: { type: Boolean, default: true },
 

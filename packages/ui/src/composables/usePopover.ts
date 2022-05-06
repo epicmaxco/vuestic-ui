@@ -126,8 +126,8 @@ export const usePopover = (
   options: usePopoverOptions | Ref<usePopoverOptions>,
 ) => {
   const documentRef = useClientOnly(() => document)
-  const rootRef = computed<Element | null>(() => {
-    if (!documentRef.value) { return null }
+  const rootRef = computed(() => {
+    if (!documentRef.value) { return undefined }
 
     const { root } = unref(options)
 

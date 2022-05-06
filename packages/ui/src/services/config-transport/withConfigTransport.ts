@@ -1,7 +1,7 @@
-import { DefineComponent } from 'vue'
+import { ComponentPublicInstance, DefineComponent } from 'vue'
 import { createProxyComponent } from './createProxyComponent'
 
-type WithConfigTransport<T> = T extends unknown ? DefineComponent : T
+type WithConfigTransport<T> = T
 
 const CLASS_COMPONENT_KEY = '__c'
 
@@ -11,16 +11,16 @@ const patchClassComponent = (component: { [CLASS_COMPONENT_KEY]: any }): any => 
 }
 
 /** Allows props to be passed from vuestic config if they were not provided */
-export const withConfigTransport = <T>(component: any): WithConfigTransport<T> => {
+export const withConfigTransport = <T>(component: T): WithConfigTransport<T> => {
   if ('setup' in component) {
-    return createProxyComponent(component)
+    return createProxyComponent(component as any)
   } else if (CLASS_COMPONENT_KEY in component) {
     // TODO: Remove this. We don't want to use class components
-    return patchClassComponent(component)
+    return patchClassComponent(component as any)
   } else {
     // Options api. We need to transform it to Composition API and then create proxy.
-    component.setup = () => ({ /* Fake setup function */})
-    return createProxyComponent(component)
+    (component as any).setup = () => ({ /* Fake setup function */})
+    return createProxyComponent(component as any)
   }
 }
 

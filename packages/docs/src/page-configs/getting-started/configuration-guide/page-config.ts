@@ -2,7 +2,7 @@ import { ApiDocsBlock } from '@/types/configTypes'
 import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import {
   colorsConfig,
-  iconsInstall,
+  iconsInstallObject,
   iconsConfig,
   componentsConfig,
 } from './code-examples'
@@ -19,7 +19,7 @@ const config: ApiDocsBlock[] = [
 
   block.subtitle('configurationGuide.icons.title'),
   block.paragraph('configurationGuide.icons.description'),
-  block.code(iconsInstall, 'bash'),
+  block.code(iconsInstallObject, 'bash'),
 
   block.headline('configurationGuide.icons.subtitle'),
   block.paragraph('configurationGuide.icons.subDescription'),

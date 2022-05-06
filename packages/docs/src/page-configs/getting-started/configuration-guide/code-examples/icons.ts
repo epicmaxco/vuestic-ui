@@ -1,8 +1,7 @@
-export const iconsInstall = `
-yarn add material-design-icons-iconfont -D
-// {{ $t('all.code.or') }}
-npm install material-design-icons-iconfont -D
-`
+export const iconsInstallObject = {
+  yarn: 'yarn add material-design-icons-iconfont -D',
+  npm: 'npm install material-design-icons-iconfont -D',
+}
 
 export const iconsConfig = `
 // main.js

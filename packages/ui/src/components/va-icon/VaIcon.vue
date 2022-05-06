@@ -73,7 +73,7 @@ export default defineComponent({
     const computedStyle = computed(() => ({
       transform: transformStyle.value,
       cursor: attrs.onClick ? 'pointer' : null,
-      color: props.color ? getColor(props.color) : iconConfig.value.color,
+      color: props.color ? getColor(props.color, undefined, true) : iconConfig.value.color,
       fontSize: sizeComputed.value,
     }))
 
