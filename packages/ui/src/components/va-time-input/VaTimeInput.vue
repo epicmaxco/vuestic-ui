@@ -163,7 +163,7 @@ export default defineComponent({
     const computedInputAttrs = computed(() => ({
       ariaLabel: props.label,
       ...omit(attrs, ['class', 'style']),
-    }) as InputHTMLAttributes)
+    }))
 
     const filterSlots = computed(() => {
       const slotsWithIcons = [

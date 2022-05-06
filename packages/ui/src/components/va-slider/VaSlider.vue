@@ -150,7 +150,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, watch, PropType, ref, computed, onMounted, onBeforeUnmount } from 'vue'
+import { defineComponent, watch, PropType, ref, computed, onMounted, onBeforeUnmount, CSSProperties } from 'vue'
 
 import { getHoverColor } from '../../services/color-config/color-functions'
 import { validateSlider } from './validateSlider'
@@ -251,7 +251,7 @@ export default defineComponent({
           [trackSizeStyle.value]: `${val1 - val0}%`,
           backgroundColor: getColor(props.color),
           visibility: props.showTrack ? 'visible' : 'hidden',
-        }
+        } as CSSProperties
       } else {
         const val = ((validatedValue - props.min) / (props.max - props.min)) * 100
 
@@ -259,7 +259,7 @@ export default defineComponent({
           [trackSizeStyle.value]: `${val}%`,
           backgroundColor: getColor(props.color),
           visibility: props.showTrack ? 'visible' : 'hidden',
-        }
+        } as CSSProperties
       }
     })
 
@@ -543,7 +543,7 @@ export default defineComponent({
       return ((props.step * multiple.value) * index + (props.min * multiple.value)) / multiple.value
     }
 
-    const getTrackLabel = (val: number, order?: number) => {
+    const getTrackLabel = (val: number | number[], order?: number) => {
       if (!props.trackLabel) { return val }
 
       if (typeof props.trackLabel === 'function') {

@@ -32,7 +32,7 @@ export default defineComponent({
         return ''
       }),
       messagesComputed: computed(() => props.error ? props.errorMessages : props.messages),
-      errorLimit: computed(() => props.error ? props.errorCount : 99),
+      errorLimit: computed(() => props.error ? Number(props.errorCount) : 99),
     }
   },
 })

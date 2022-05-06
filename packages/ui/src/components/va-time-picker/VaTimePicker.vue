@@ -2,7 +2,7 @@
   <div class="va-time-picker" :class="computedClass">
     <VaTimePickerColumn
       v-for="(column, idx) in columns" :key="idx"
-      :ref="(el) => pickers.push(el)"
+      :ref="setItemRef"
       :items="column.items"
       :tabindex="disabled ? -1 : 0"
       v-model:activeItemIndex="column.activeItem.value"
@@ -21,6 +21,7 @@ import { useTimePicker } from './hooks/useTimePicker'
 import VaTimePickerColumn from './components/VaTimePickerColumn.vue'
 import { useStateful, useStatefulEmits, useStatefulProps } from '../../composables/useStateful'
 import { useFormProps, useForm } from '../../composables/useForm'
+import { useArrayRefs } from '../../composables/useArrayRefs'
 
 export default defineComponent({
   name: 'VaTimePicker',
@@ -46,7 +47,7 @@ export default defineComponent({
     const { valueComputed } = useStateful(props, emit)
     const { columns, isPM } = useTimePicker(props, valueComputed)
 
-    const pickers = ref<(typeof VaTimePickerColumn | undefined)[]>([])
+    const { setItemRef, itemRefs: pickers } = useArrayRefs()
 
     const activeColumnIndex = ref<number | undefined>()
 
@@ -81,6 +82,7 @@ export default defineComponent({
       computedClass,
       isPM,
       pickers,
+      setItemRef,
 
       focusNext,
       focusPrev,

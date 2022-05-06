@@ -18,8 +18,9 @@
       >
         <div class="va-modal" v-if="valueComputed">
           <div
+            v-if="$props.overlay"
             class="va-modal__overlay"
-            :style="$props.overlay && computedOverlayStyles"
+            :style="computedOverlayStyles"
             @click="onOutsideClick"
           />
           <div

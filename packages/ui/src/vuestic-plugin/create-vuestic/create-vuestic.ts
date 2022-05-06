@@ -22,3 +22,12 @@ export const createVuestic = defineVuesticPlugin((options: { config?: GlobalConf
     usePlugin(app, VaToastPlugin)
   },
 }))
+
+type VuesticComponents = typeof vuesticComponents
+
+declare module 'vue' {
+  export type GlobalComponents = {
+    // Register all Vuestic components globally
+    [key in keyof VuesticComponents]: VuesticComponents[key]
+  }
+}

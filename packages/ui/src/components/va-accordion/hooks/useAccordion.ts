@@ -2,21 +2,21 @@ import { computed, inject, onBeforeUnmount, onMounted, provide, Ref, ref, watch,
 
 export const AccordionServiceKey = Symbol('AccordionService')
 
-interface AccordionItemProps {
+export interface AccordionItemProps {
   inset?: boolean,
   popout?: boolean
 }
 
-interface AccordionProps extends AccordionItemProps {
+export interface AccordionProps extends AccordionItemProps {
   modelValue: boolean[],
   multiply: boolean,
 }
 
-interface AccordtionItem {
+export interface AccordtionItem {
   state: WritableComputedRef<boolean>
 }
 
-interface AccordionInject {
+export interface AccordionInject {
   onItemMounted: (item: AccordtionItem) => void,
   onItemUnmounted: (item: AccordtionItem) => void,
   onItemChanged: (changedItem: AccordtionItem) => void,

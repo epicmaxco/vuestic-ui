@@ -90,17 +90,7 @@ import VaInput from '../va-input'
 import VaIcon from '../va-icon'
 import { VaDatePickerModelValue } from '../va-date-picker/types'
 
-const VaInputProps = {
-  ...useValidationProps,
-  ...useStatefulProps,
-  ...useFormProps,
-
-  label: { type: String, required: false },
-  placeholder: { type: String, default: '' },
-  tabindex: { type: Number, default: 0 },
-  outline: { Boolean, default: false },
-  bordered: { type: Boolean, default: false },
-}
+const VaInputProps = extractComponentProps(VaInput, ['rules', 'error', 'errorMessages', 'clearable'])
 
 export default defineComponent({
   name: 'VaDateInput',
@@ -169,34 +159,39 @@ export default defineComponent({
 
     const { parseDateInputValue, isValid } = useDateParser(props)
 
-    const valueText = computed(() => {
-      if (!isValid.value) {
-        return props.clearValue
-      }
-
+    const modelValueToString = (value: VaDatePickerModelValue): string => {
       if (props.format) {
         return props.format(valueComputed.value)
       }
 
-      if (!valueComputed.value) {
-        return props.clearValue
+      if (isDates(value)) {
+        return value.map((d) => props.formatDate(d)).join(props.delimiter)
       }
-
-      if (isDates(valueComputed.value)) {
-        return valueComputed.value.map((d) => props.formatDate(d)).join(props.delimiter)
+      if (isSingleDate(value)) {
+        return props.formatDate(value)
       }
-      if (isSingleDate(valueComputed.value)) {
-        return props.formatDate(valueComputed.value)
-      }
-      if (isRange(valueComputed.value)) {
-        return dateOrNothing(valueComputed.value.start) + props.rangeDelimiter + dateOrNothing(valueComputed.value.end)
+      if (isRange(value)) {
+        return dateOrNothing(value.start) + props.rangeDelimiter + dateOrNothing(value.end)
       }
 
       throw new Error('VaDatePicker: Invalid model value. Value should be Date, Date[] or { start: Date, end: Date | null }')
+    }
+
+    const valueText = computed(() => {
+      if (!isValid.value) {
+        return ''
+      }
+
+      if (!valueComputed.value) {
+        if (!props.clearValue) { return '' }
+        return modelValueToString(props.clearValue)
+      }
+
+      return modelValueToString(valueComputed.value)
     })
 
-    const onInputTextChanged = ({ target } : { target: HTMLInputElement }) => {
-      const parsedValue = parseDateInputValue(target.value)
+    const onInputTextChanged = ({ target } : Event) => {
+      const parsedValue = parseDateInputValue((target as HTMLInputElement).value)
 
       if (isValid.value) {
         valueComputed.value = parsedValue
@@ -245,10 +240,7 @@ export default defineComponent({
       class: 'va-date-input__icon',
     }))
 
-    const computedInputProps = filterComponentProps(
-      props,
-      extractComponentProps(VaInput, ['rules', 'error', 'errorMessages', 'clearable']),
-    )
+    const computedInputProps = filterComponentProps(props, VaInputProps)
 
     return {
       valueText,
