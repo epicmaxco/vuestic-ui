@@ -68,6 +68,7 @@ export default defineComponent({
   },
 
   setup: (props) => {
+    let nodes: TreeNode[] = []
     const {
       nodeKey,
       iconColor,
@@ -79,7 +80,12 @@ export default defineComponent({
     } = inject<TreeViewProvide>(TreeViewKey, {
       iconColor: computed(() => 'var(--va-white)'),
       colorComputed: computed(() => 'primary'),
-      treeItems: [],
+      treeItems: computed({
+        get: () => nodes,
+        set: (value: TreeNode[]) => {
+          nodes = value
+        },
+      }),
       nodeKey: '',
       selectable: false,
       toggleNode: (node: TreeNode) => node,

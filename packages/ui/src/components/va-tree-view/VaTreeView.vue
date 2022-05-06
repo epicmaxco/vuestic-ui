@@ -13,12 +13,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, provide, PropType, computed } from 'vue'
+import { defineComponent, provide, PropType, computed, watch, reactive, nextTick } from 'vue'
 import { TreeViewKey, TreeNode, TreeViewProvide } from './types'
 import useTreeBuilder from './hooks/useTreeBuilder'
 import VaTreeNode from './VaTreeNode'
 import { useColors } from '../../services/color-config/color-config'
 import { getTextColor } from '../../services/color-config/color-functions'
+import useTreeFilter from './hooks/useTreeFilter'
 
 export default defineComponent({
   name: 'VaTreeView',
@@ -65,7 +66,18 @@ export default defineComponent({
     const { getColor } = useColors()
     const colorComputed = computed(() => getColor(props.color))
     const iconColor = computed(() => getTextColor(colorComputed.value))
-    const { treeItems } = useTreeBuilder(props)
+    const nodeItems = reactive({
+      list: props.nodes.slice(),
+    })
+    const treeItems = computed({
+      get: () => useTreeBuilder({
+        nodes: nodeItems.list,
+        expandAll: props.expandAll,
+      }).treeItems,
+      set: (value: TreeNode[]) => {
+        nodeItems.list = value
+      },
+    })
 
     const toggleSelect = (node: TreeNode, isSelected: boolean) => {
       const toggleChildNodeSelect = (nodes: TreeNode[]) => {
@@ -89,6 +101,16 @@ export default defineComponent({
       node.expanded = !node.expanded
     }
 
+    const filterWatcher = (filterValue: string) => {
+      nodeItems.list = useTreeFilter({
+        filter: filterValue,
+        nodes: props.nodes.slice(),
+        nodeKey: props.nodeKey,
+      })
+    }
+
+    watch(() => props.filter, filterWatcher)
+
     const treeView: TreeViewProvide = {
       colorComputed,
       iconColor,
@@ -102,6 +124,7 @@ export default defineComponent({
     provide(TreeViewKey, treeView)
 
     return {
+      nodeItems,
       treeView,
       treeItems,
     }
