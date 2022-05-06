@@ -42,3 +42,11 @@ export type UseTreeBuilderFunc = (props: UseTreeBuilderProps) => {
 export type TreeBuilderFunc = (
   nodes: TreeNode[],
 ) => TreeNode[]
+
+export type UseTreeFilterProps = {
+  nodes: TreeNode[]
+  nodeKey: string,
+  filter: string
+}
+
+export type UseTreeFilterFunc = (props: UseTreeFilterProps) => TreeNode[]
