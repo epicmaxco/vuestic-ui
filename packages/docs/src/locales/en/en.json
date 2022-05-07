@@ -3573,6 +3573,7 @@
     "titled": "Title heading",
     "textStyles": "Text styles",
     "codeSnippet": "Code snippet",
+    "codeSnippetWarn": "You need to install `Source Code Pro` font if you want to use `.code-snippet` class",
     "textCode": "Text-code",
     "other": "Other typography styles",
     "orderedList": "Ordered list",
