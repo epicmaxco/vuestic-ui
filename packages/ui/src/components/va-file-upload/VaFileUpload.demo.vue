@@ -103,6 +103,19 @@
         </div>
       </va-file-upload>
     </VbCard>
+      <VbCard
+      title="undo"
+      style="width: 100%;"
+    >
+      <p>list</p>
+      <va-file-upload v-model="defaultFileList" undo />
+      <p>gallery</p>
+      <va-file-upload
+        v-model="defaultFileList"
+        type="gallery"
+        undo
+      />
+    </VbCard>
   </VbDemo>
 </template>
 

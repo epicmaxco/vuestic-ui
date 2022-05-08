@@ -42,6 +42,7 @@
       :type="type"
       :files="files"
       :color="colorComputed"
+      :undo="undo"
       @remove="removeFile"
       @removeSingle="removeSingleFile"
     />
@@ -78,6 +79,7 @@ export default defineComponent({
     dropzone: { type: Boolean as PropType<boolean>, default: false },
     color: { type: String as PropType<string>, default: 'primary' },
     disabled: { type: Boolean as PropType<boolean>, default: false },
+    undo: { type: Boolean as PropType<boolean>, default: false },
     dropZoneText: { type: String as PropType<string>, default: 'Drag’n’drop files or' },
     uploadButtonText: { type: String as PropType<string>, default: 'Upload file' },
 
