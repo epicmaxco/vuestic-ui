@@ -11,6 +11,7 @@
     <teleport :to="attachElement" :disabled="$props.disableAttachment">
       <modal-element
         name="va-modal"
+        ref="modal"
         :isTransition="!$props.withoutTransitions"
         appear
         :duration="300"
@@ -34,7 +35,6 @@
               class="va-modal__dialog"
               :class="computedClass"
               :style="computedDialogStyle"
-              ref="modal"
             >
               <va-icon
                 v-if="$props.fullscreen"
@@ -164,6 +164,7 @@ export default defineComponent({
   setup (props, { emit }) {
     const { getTextColor, getColor } = useColors()
     const rootElement = ref<HTMLElement>()
+    const modal = ref<{ $el: HTMLElement }>()
     const { valueComputed } = useStateful(props, emit)
 
     const computedClass = computed(() => ({
@@ -213,7 +214,9 @@ export default defineComponent({
     const onAfterLeaveTransition = (el: HTMLElement) => emit('close', el)
 
     const listenKeyUp = (e: KeyboardEvent) => {
-      if (e.code === 'Escape' && !props.noEscDismiss && !props.noDismiss) {
+      const isLastNestedModal = !modal.value?.$el.nextElementSibling
+
+      if (e.code === 'Escape' && !props.noEscDismiss && !props.noDismiss && isLastNestedModal) {
         cancel()
       }
     }
@@ -243,6 +246,7 @@ export default defineComponent({
     return {
       getColor,
       rootElement,
+      modal,
       valueComputed,
       computedClass,
       computedDialogStyle,
