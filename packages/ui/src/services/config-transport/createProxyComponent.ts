@@ -17,7 +17,7 @@ const createPropsWithCustomConfig = (instance: ComponentInternalInstance, propsF
    */
   const instanceProps: Props = instance.props
 
-  return new Proxy(shallowReadonly(instanceProps), {
+  return new Proxy(instanceProps, {
     get: (target, key: string) => {
       /**
        * Props passed to VNode. Not compiled at all and not reactive.
@@ -61,7 +61,7 @@ export const createProxyComponent = <T extends DefineComponent>(component: T) =>
 
     patchInstanceProps(instance, props)
 
-    return component.setup?.(props, ctx)
+    return component.setup?.(shallowReadonly(props), ctx)
   }
 
   return new Proxy(component, {
