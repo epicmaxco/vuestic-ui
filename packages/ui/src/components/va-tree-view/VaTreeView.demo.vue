@@ -24,7 +24,11 @@
         v-model="selectionType"
         :option="option"
       />
+      <p>
+        {{ JSON.stringify(selectedNodes) }}
+      </p>
       <va-tree-view
+        v-model="selectedNodes"
         :nodes="defaultNodes"
         node-key="text"
         expand-all
@@ -90,6 +94,7 @@ export default {
   data: () => ({
     selectionType: 'leaf',
     selectionTypeOptions: ['leaf', 'independent'],
+    selectedNodes: [],
     filterValue: '',
     colorsPalette: COLORS_PALETTE,
     selectedColor: COLORS_PALETTE[0],
