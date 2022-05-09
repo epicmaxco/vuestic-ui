@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, provide, PropType, computed, watch, reactive, nextTick } from 'vue'
+import { defineComponent, provide, PropType, computed, watch, reactive, ref } from 'vue'
 import { TreeViewKey, TreeNode, TreeViewProvide } from './types'
 import useTreeBuilder from './hooks/useTreeBuilder'
 import VaTreeNode from './VaTreeNode'
@@ -25,6 +25,10 @@ export default defineComponent({
   name: 'VaTreeView',
 
   props: {
+    modelValue: {
+      type: Array as PropType<(number | string)[]>,
+      default: () => ([]),
+    },
     color: {
       type: String,
       default: () => 'primary',
@@ -58,11 +62,14 @@ export default defineComponent({
     },
   },
 
+  emits: ['update:modelValue'],
+
   components: {
     VaTreeNode,
   },
 
-  setup: (props) => {
+  setup: (props, { emit }) => {
+    const selectedNodes = ref(new Set())
     const { getColor } = useColors()
     const colorComputed = computed(() => getColor(props.color))
     const iconColor = computed(() => getTextColor(colorComputed.value))
@@ -84,11 +91,27 @@ export default defineComponent({
         nodes.forEach((childNode: TreeNode) => {
           childNode.selected = isSelected
 
+          if (isSelected) {
+            selectedNodes.value.add(childNode.id)
+          } else {
+            selectedNodes.value.delete(childNode.id)
+          }
+
+          emit('update:modelValue', Array.from(selectedNodes.value.values()))
+
           if (childNode.hasChildren) {
             toggleChildNodeSelect(childNode.children)
           }
         })
       }
+
+      if (isSelected) {
+        selectedNodes.value.add(node.id)
+      } else {
+        selectedNodes.value.delete(node.id)
+      }
+
+      emit('update:modelValue', Array.from(selectedNodes.value.values()))
 
       if (props.selectionType === 'leaf' && node.hasChildren) {
         toggleChildNodeSelect(node.children)
