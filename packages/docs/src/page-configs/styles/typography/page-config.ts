@@ -1,5 +1,6 @@
 import { ApiDocsBlock } from '@/types/configTypes'
 import { PageGenerationHelper } from '@/helpers/DocsHelper'
+import { fontUsing } from './code-examples/font'
 
 const block = new PageGenerationHelper(__dirname)
 
@@ -18,6 +19,8 @@ const config: ApiDocsBlock[] = [
 
   block.headline('typography.codeSnippet'),
   block.example('codeSnippet'),
+  block.alert('typography.codeSnippetWarn', 'warning'),
+  block.code(fontUsing, 'html'),
 
   block.headline('typography.textCode'),
   block.example('textCode'),

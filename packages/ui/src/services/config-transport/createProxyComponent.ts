@@ -1,4 +1,4 @@
-import { getCurrentInstance, ComponentInternalInstance, DefineComponent, SetupContext, Ref } from 'vue'
+import { getCurrentInstance, ComponentInternalInstance, DefineComponent, SetupContext, Ref, shallowReadonly } from 'vue'
 import { useComponentConfigProps } from '../component-config/component-config'
 
 /** Compiled and reactive props. By default they passed to setup fn */
@@ -17,7 +17,7 @@ const createPropsWithCustomConfig = (instance: ComponentInternalInstance, propsF
    */
   const instanceProps: Props = instance.props
 
-  return new Proxy(instanceProps, {
+  return new Proxy(shallowReadonly(instanceProps), {
     get: (target, key: string) => {
       /**
        * Props passed to VNode. Not compiled at all and not reactive.

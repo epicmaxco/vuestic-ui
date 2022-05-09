@@ -5,7 +5,7 @@ import { TableColumn, TClassesOptions, TStyleOptions, TableCell } from '../types
 
 const prefix = '--va-data-table'
 
-interface useStyleableProps {
+interface useStylableProps {
   selectable: boolean
   selectedColor: string
   allowFooterSorting: boolean
@@ -29,7 +29,7 @@ function getStyles (styles: TStyleOptions = {}): Record<string, any> {
 
 const { getColor, getFocusColor, getHoverColor, shiftHSLAColor } = useColors()
 
-export default function useStyleable (props: useStyleableProps) {
+export default function useStylable (props: useStylableProps) {
   const color = computed(() => getColor(props.selectedColor))
 
   function getHeaderCSSVariables (column: TableColumn) {
