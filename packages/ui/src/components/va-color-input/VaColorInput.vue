@@ -5,7 +5,7 @@
       :color="valueComputed"
       :indicator="indicator"
       v-model:color="valueComputed"
-      v-on:click="callPickerDialog"
+      @click="callPickerDialog"
     />
     <va-input
       class="va-color-input__input"

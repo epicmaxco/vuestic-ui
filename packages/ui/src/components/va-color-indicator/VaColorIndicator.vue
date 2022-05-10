@@ -20,7 +20,7 @@ import { useStateful, useStatefulProps, useStatefulEmits } from '../../composabl
 
 export default defineComponent({
   name: 'VaColorIndicator',
-  emits: [...useStatefulEmits, 'on:click'],
+  emits: useStatefulEmits,
   props: {
     ...useStatefulProps,
     modelValue: { type: Boolean, default: null },
@@ -43,10 +43,7 @@ export default defineComponent({
       'va-color-indicator--hoverable': valueComputed.value !== undefined,
     }))
 
-    const handleClick = () => {
-      valueComputed.value = !valueComputed.value
-      emit('on:click')
-    }
+    const handleClick = () => { valueComputed.value = !valueComputed.value }
 
     return {
       valueComputed,
