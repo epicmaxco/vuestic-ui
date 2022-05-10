@@ -19,7 +19,7 @@
         </div>
 
         <div class="va-toast__content" v-if="render">
-          <VaToastRenderer :content="render" />
+          <VaToastRenderer :render="render" />
         </div>
 
         <va-icon
@@ -35,7 +35,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, h, PropType, ref, computed, onMounted, render, VNode } from 'vue'
+import { defineComponent, h, PropType, ref, computed, onMounted } from 'vue'
 
 import { useColors } from '../../composables/useColor'
 import { useTimer } from '../../composables/useTimer'
@@ -46,9 +46,9 @@ import { NotificationPosition } from './types'
 const VaToastRenderer = defineComponent({
   name: 'VaToastRenderer',
   props: {
-    content: { type: Function, required: true },
+    render: { type: Function, required: true },
   },
-  setup: (props) => props.content(h),
+  setup: (props) => () => props.render(h),
 })
 
 export default defineComponent({
