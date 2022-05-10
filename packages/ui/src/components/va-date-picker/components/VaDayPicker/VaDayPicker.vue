@@ -45,7 +45,7 @@
 <script lang="ts">
 import { computed, defineComponent, toRefs, PropType, watch } from 'vue'
 import { useVaDatePickerCalendar } from './va-date-picker-calendar-hook'
-import { VaDatePickerMode, VaDatePickerModelValue, VaDatePickerView } from '../../types/types'
+import { VaDatePickerMode, VaDatePickerModelValue, VaDatePickerView } from '../../types'
 import { extractComponentProps, filterComponentProps } from '../../../../utils/child-props'
 import { useGridKeyboardNavigation } from '../../hooks/grid-keyboard-navigation'
 import { useDatePicker } from '../../hooks/use-picker'

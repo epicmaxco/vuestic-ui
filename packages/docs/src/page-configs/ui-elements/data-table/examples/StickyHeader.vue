@@ -14,8 +14,8 @@
     <va-data-table
       :items="items"
       :style="{
-        '--scroll-table-height': '180px',
-        '--scroll-table-color': 'orange',
+        '--va-data-table-scroll-table-height': '180px',
+        '--va-data-table-scroll-table-color': 'orange',
       }"
       sticky-header
     />

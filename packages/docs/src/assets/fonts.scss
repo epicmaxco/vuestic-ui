@@ -28,7 +28,7 @@
 // text
 @mixin text-font() {
   font-weight: normal;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
 
   @include lg(font-size, 1rem);
   @include md(font-size, 0.95rem);

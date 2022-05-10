@@ -8,14 +8,13 @@
   --va-input-min-height: 36px;
   --va-input-cursor: text;
   --va-message-list-color: var(--va-gray);
+  --va-input-opacity: 0.1;
 
   /* Success */
   --va-input-success-color: var(--va-success);
-  --va-input-success-background: #f1f7ee;
 
   /* Error */
   --va-input-error-color: var(--va-danger);
-  --va-input-error-background: #fdefef;
 
   /* Content Wrapper */
   --va-input-content-horizontal-padding: 12px;
@@ -33,7 +32,6 @@
 
   /* Label */
   --va-input-container-label-max-width: calc(100% - 0.75rem);
-  --va-input-container-label-color: #4ae387;
   --va-input-container-label-font-size: 0.6rem;
   --va-input-container-label-letter-spacing: 0.0375rem;
   --va-input-container-label-line-height: 1.2;

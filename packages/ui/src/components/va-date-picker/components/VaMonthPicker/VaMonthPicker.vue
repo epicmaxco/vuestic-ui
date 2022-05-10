@@ -27,7 +27,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType, toRefs, watch } from 'vue'
-import { VaDatePickerMode, VaDatePickerView, VaDatePickerModelValue } from '../../types/types'
+import { VaDatePickerMode, VaDatePickerView, VaDatePickerModelValue } from '../../types'
 import VaDatePickerCell from '../VaDatePickerCell.vue'
 import { useGridKeyboardNavigation } from '../../hooks/grid-keyboard-navigation'
 import { useDatePicker } from '../../hooks/use-picker'
@@ -85,6 +85,7 @@ export default defineComponent({
       isInRange,
       isDisabled,
       containerAttributes,
+      focusedCellIndex,
     }
   },
 })

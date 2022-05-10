@@ -1,0 +1,21 @@
+.va-navbar {
+  --va-navbar-height: 4.0625rem;
+  --va-navbar-padding-left: 1rem;
+  --va-navbar-padding-right: 1rem;
+  --va-navbar-transition: background-color 0.3s ease; // sidebar's bg color transitions as well -> consistency
+
+  // sm
+  --va-navbar-sm-padding: 1.1875rem 1rem 1rem;
+
+  // background-shape
+  --va-navbar-shape-width: 33%;
+  --va-navbar-shape-max-width: 467px;
+  --va-navbar-shape-bg: var(--va-dark-blue);
+  --va-navbar-shape-border-left: 3.1875rem solid transparent;
+  --va-navbar-shape-border-right: 3.1875rem solid transparent;
+  --va-navbar-shape-transition: border-top-color 0.3s ease; // sidebar's bg color transitions as well -> consistency
+
+  // navbar__item
+  --va-navbar-item-margin: 0.75rem;
+  --va-navbar-item-margin-side: calc(2 * var(--va-navbar-item-margin));
+}
