@@ -1,11 +1,10 @@
 <template>
   <div
-    v-if="removed"
+    v-if="removed && undo"
     class="va-file-upload-gallery-item"
     :class="{'va-file-upload-gallery-item--undo': removed}"
   >
     <va-file-upload-undo
-      v-if="undo"
       class="va-file-upload-gallery-item--undo"
       @recover="recoverImage"
     />

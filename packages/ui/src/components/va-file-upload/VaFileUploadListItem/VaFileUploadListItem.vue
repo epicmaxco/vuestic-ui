@@ -7,12 +7,10 @@
     no-padding
     :class="{'file-upload-list-item--undo': removed}"
   >
-  <template v-if="removed">
     <va-file-upload-undo
       @recover="recoverFile"
-      v-if="undo"
+      v-if="removed && undo"
     />
-  </template>
     <div
       class="va-file-upload-list-item__content"
       v-else
