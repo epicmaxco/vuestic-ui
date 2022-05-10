@@ -4,7 +4,6 @@
       class="va-color-input__dot"
       :color="valueComputed"
       :indicator="indicator"
-      v-model:color="valueComputed"
       @click="callPickerDialog"
     />
     <va-input

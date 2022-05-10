@@ -1,7 +1,7 @@
 <template>
   <div
     class="va-color-indicator"
-    @click="handleClick"
+    @click="toggleModelValue"
     :class="computedClass"
     :style="computedStyle"
   >
@@ -43,13 +43,13 @@ export default defineComponent({
       'va-color-indicator--hoverable': valueComputed.value !== undefined,
     }))
 
-    const handleClick = () => { valueComputed.value = !valueComputed.value }
+    const toggleModelValue = () => { valueComputed.value = !valueComputed.value }
 
     return {
       valueComputed,
       computedStyle,
       computedClass,
-      handleClick,
+      toggleModelValue,
     }
   },
 })
