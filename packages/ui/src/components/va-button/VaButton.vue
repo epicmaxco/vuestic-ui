@@ -52,7 +52,7 @@
 
 <script lang="ts">
 import { defineComponent, computed, ref, Ref, PropType, ComputedRef } from 'vue'
-
+import { useTextColor } from '../../composables/useTextColor'
 import { getGradientBackground, getTextColor, shiftHSLAColor } from '../../services/color-config/color-functions'
 import { useColor } from '../../composables/useColor'
 import { useRouterLink, useRouterLinkProps } from '../../composables/useRouterLink'
@@ -68,7 +68,7 @@ export default defineComponent({
     ...useSizeProps,
     ...useLoadingProps,
     ...useRouterLinkProps,
-    color: { type: String as PropType<string | undefined>, default: undefined },
+    color: { type: String as PropType<string>, default: 'primary' },
     textColor: { type: String as PropType<string | undefined>, default: undefined },
     tag: { type: String as PropType<string>, default: 'button' },
     outline: { type: Boolean as PropType<boolean | undefined>, default: undefined },
@@ -99,6 +99,11 @@ export default defineComponent({
     const colorComputed = computed(() => computeColor(props.color, 'primary'))
     const isTransparentBackground = computed(() => props.outline || props.flat)
 
+    const computedBackgroundColor = computed(() => {
+      return isTransparentBackground.value ? 'background' : props.color
+    })
+    const { textColorComputed: textColor } = useTextColor(computedBackgroundColor)
+
     const computedType = computed(() => {
       // Safari issue. type===button will break styles if the button is used as a link
       switch (tagComputed.value) {
@@ -112,15 +117,11 @@ export default defineComponent({
     })
 
     const textColorComputed = computed(() => {
-      if (props.textColor !== undefined) {
-        return computeColor(props.textColor)
-      }
-
       if (isTransparentBackground.value) {
-        return computeColor(colorComputed.value, 'white')
+        return colorComputed.value
       }
 
-      return getTextColor(colorComputed.value)
+      return textColor.value
     })
 
     const hasOneIcon = computed(() => {
