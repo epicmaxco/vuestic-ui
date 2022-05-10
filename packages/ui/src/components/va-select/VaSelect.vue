@@ -330,7 +330,9 @@ export default defineComponent({
     const {
       canBeCleared,
       clearIconProps,
-    } = useClearable(props, valueComputed, computedError)
+      onFocus,
+      onBlur,
+    } = useClearable(props, valueComputed)
 
     const showClearIcon = computed(() => {
       return props.multiple && Array.isArray(valueComputed.value) ? !!valueComputed.value.length : canBeCleared.value
@@ -529,10 +531,13 @@ export default defineComponent({
 
     const onInputFocus = () => {
       isFocused.value = true
+      onFocus()
     }
 
     const onInputBlur = () => {
       if (showDropdownContentComputed.value) { return }
+
+      onBlur()
 
       isFocused.value
         ? isFocused.value = false

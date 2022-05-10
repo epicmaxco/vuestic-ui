@@ -27,6 +27,8 @@
         :required-mark="$props.requiredMark"
         @change="onInputTextChanged($event.target.value)"
         @update:modelValue="onValueInput"
+        @focus="onFocus"
+        @blur="onBlur"
       >
         <template
           v-for="name in filterSlots"
@@ -223,7 +225,9 @@ export default defineComponent({
     const {
       canBeCleared,
       clearIconProps,
-    } = useClearable(props, valueText, hasError)
+      onFocus,
+      onBlur,
+    } = useClearable(props, valueText)
 
     const iconProps = computed(() => ({
       name: props.icon,
@@ -307,6 +311,8 @@ export default defineComponent({
       hasError,
 
       handleComponentClick,
+      onFocus,
+      onBlur,
 
       // Will be used later, after fix 'withConfigTransport'
       // focus,

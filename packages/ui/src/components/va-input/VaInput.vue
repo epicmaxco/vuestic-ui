@@ -143,9 +143,9 @@ export default defineComponent({
   inheritAttrs: false,
 
   setup (props, { emit, attrs, slots }) {
-    const input = ref<HTMLInputElement | typeof VaTextarea | undefined>()
+    const input = ref<HTMLInputElement | HTMLTextAreaElement | undefined>()
 
-    const { isFocused } = useFocus()
+    const { isFocused } = useFocus(input, emit)
 
     const reset = () => {
       emit('update:modelValue', props.clearValue)
@@ -172,7 +172,10 @@ export default defineComponent({
     } = useValidation(props, emit, reset, focus)
 
     const { modelValue } = toRefs(props)
-    const { canBeCleared, clearIconProps } = useClearable(props, modelValue, computedError)
+    const {
+      canBeCleared,
+      clearIconProps,
+    } = useClearable(props, modelValue, emit, input, computedError)
 
     /** Use cleave only if this component is input, because it will break. */
     const computedCleaveTarget = computed(() => {

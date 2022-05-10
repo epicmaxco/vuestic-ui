@@ -81,7 +81,10 @@ export const useSelectable = (
       emit('blur', event)
     }
   }
-  const onFocus = (event: FocusEvent) => emit('focus', event)
+  const onFocus = (event: FocusEvent) => {
+    isFocused.value = true
+    emit('focus', event)
+  }
 
   const isIndeterminate = computed(() => !!props.indeterminate && valueComputed.value === props.indeterminateValue)
   const modelIsArray = computed(() => props.arrayValue !== null)
