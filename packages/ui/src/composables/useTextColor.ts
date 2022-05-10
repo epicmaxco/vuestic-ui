@@ -4,7 +4,7 @@ import { useColors } from '../services/color-config/color-config'
 export const useTextColor = (background: string | Ref<string>) => {
   const { props } = getCurrentInstance()!
   const { getColor, getTextColor } = useColors()
-  const textColor = computed(() => props.textColor ? getColor(props.textColor as string) : getTextColor(unref(background)))
+  const textColorComputed = computed(() => props.textColor ? getColor(props.textColor as string) : getTextColor(getColor(unref(background))))
 
-  return { textColor }
+  return { textColorComputed }
 }
