@@ -1,7 +1,7 @@
 import { defineNuxtConfig } from 'nuxt'
 
 export default defineNuxtConfig({
-  buildModules: ['@vuestic-ui/nuxt'],
+  modules: ['@vuestic/nuxt'],
 
   vuestic: {
     withoutComponents: false,
