@@ -97,12 +97,9 @@ export default defineComponent({
     const focusState = ref(false)
 
     const colorComputed = computed(() => computeColor(props.color, 'primary'))
-    const isTransparentBackground = computed(() => props.outline || props.flat)
+    const isTransparentBackground = computed(() => Boolean(props.outline || props.flat))
 
-    const computedBackgroundColor = computed(() => {
-      return isTransparentBackground.value ? 'background' : props.color
-    })
-    const { textColorComputed: textColor } = useTextColor(computedBackgroundColor)
+    const { textColorComputed: textColor } = useTextColor(props.color, isTransparentBackground)
 
     const computedType = computed(() => {
       // Safari issue. type===button will break styles if the button is used as a link
