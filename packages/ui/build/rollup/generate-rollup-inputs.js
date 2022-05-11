@@ -11,7 +11,9 @@ const readDirRecursive = (path) => {
       }
 
       return [...acc, p]
-    }, [])
+    }, []).filter((el) => {
+      return !['.md', '.spec'].some((elem) => el.includes(elem))
+    })
 }
 
 export const getInputs = () => {
@@ -22,5 +24,7 @@ export const getInputs = () => {
 
   const vuesticPlugin = readDirRecursive('./src/vuestic-plugin')
 
-  return [...components, ...vuesticPlugin]
+  const vuesticServices = readDirRecursive('./src/services')
+
+  return [...components, ...vuesticPlugin, ...vuesticServices]
 }
