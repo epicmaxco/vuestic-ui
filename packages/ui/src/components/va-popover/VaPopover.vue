@@ -44,6 +44,7 @@
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
 import VaDropdown from '../va-dropdown/VaDropdown.vue'
+import VaIcon from '../va-icon/VaIcon.vue'
 import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
 import { useColors } from '../../composables/useColor'
 
@@ -52,7 +53,7 @@ const VaDropdownProps = extractComponentProps(VaDropdown, ['closeOnClickOutside'
 export default defineComponent({
   name: 'VaPopover',
 
-  components: { VaDropdown },
+  components: { VaDropdown, VaIcon },
 
   props: {
     ...VaDropdownProps,
