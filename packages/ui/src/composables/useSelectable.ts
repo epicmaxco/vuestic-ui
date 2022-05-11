@@ -3,6 +3,7 @@ import { PropType, computed, SetupContext, Ref } from 'vue'
 import { useStateful, useStatefulProps, StatefulProps } from './useStateful'
 import { useLoadingProps, LoadingProps } from './useLoading'
 import { useValidation, useValidationProps, ValidationProps, useValidationEmits } from './useValidation'
+import { useFocus } from './useFocus'
 
 export interface SelectableProps extends StatefulProps<unknown>, LoadingProps, ValidationProps {
   arrayValue: unknown | null,
@@ -65,8 +66,9 @@ export const useSelectable = (
   const reset = () => emit('update:modelValue', false)
   const focus = () => input.value?.focus()
 
-  const { isFocused, computedError, computedErrorMessages, validate } = useValidation(props, emit, reset, focus)
+  const { computedError, computedErrorMessages, validate } = useValidation(props, emit, reset, focus)
   const { valueComputed } = useStateful(props, emit)
+  const { isFocused } = useFocus()
 
   const isElementRelated = (element: HTMLElement | null) => {
     return !!element && [label.value, container.value].includes(element)
@@ -79,7 +81,10 @@ export const useSelectable = (
       emit('blur', event)
     }
   }
-  const onFocus = (event: FocusEvent) => emit('focus', event)
+  const onFocus = (event: FocusEvent) => {
+    isFocused.value = true
+    emit('focus', event)
+  }
 
   const isIndeterminate = computed(() => !!props.indeterminate && valueComputed.value === props.indeterminateValue)
   const modelIsArray = computed(() => props.arrayValue !== null)

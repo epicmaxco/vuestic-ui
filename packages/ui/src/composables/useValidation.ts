@@ -81,7 +81,7 @@ export const useValidation = (
     return !error
   }
 
-  watch(isFocused, (newVal) => newVal === false && validate())
+  watch(isFocused, (newVal) => !newVal && validate())
 
   watch(() => props.modelValue, () => validate(), { immediate: props.immediateValidation })
 
@@ -104,7 +104,6 @@ export const useValidation = (
   })
 
   return {
-    isFocused,
     computedError,
     computedErrorMessages,
     listeners: { onFocus, onBlur },
