@@ -41,6 +41,7 @@
 </template>
 
 <script>
+import { h } from 'vue'
 import { useGlobalConfig } from '../../services/global-config/global-config'
 import { useToast } from './useToast'
 
@@ -110,7 +111,7 @@ export default {
       },
       customMessage: {
         message: 'Simple message',
-        render: (h) => {
+        render: () => {
           return h('div', [
             'This is a ',
             h('span', { style: 'font-weight: bold' }, 'custom'),
