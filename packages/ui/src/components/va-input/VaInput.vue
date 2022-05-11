@@ -143,9 +143,9 @@ export default defineComponent({
   inheritAttrs: false,
 
   setup (props, { emit, attrs, slots }) {
-    const input = ref<HTMLInputElement | HTMLTextAreaElement | undefined>()
+    const input = ref<HTMLInputElement | typeof VaTextarea | undefined>()
 
-    const { isFocused } = useFocus(input, emit)
+    const { isFocused, onFocus: onFocusListener, onBlur: onBlurListener } = useFocus()
 
     const reset = () => {
       emit('update:modelValue', props.clearValue)
@@ -191,11 +191,13 @@ export default defineComponent({
     const onFocus = (e: Event) => {
       inputListeners.onFocus(e)
       validationListeners.onFocus()
+      onFocusListener()
     }
 
     const onBlur = (e: Event) => {
       inputListeners.onBlur(e)
       validationListeners.onBlur()
+      onBlurListener()
     }
 
     const inputEvents = {
