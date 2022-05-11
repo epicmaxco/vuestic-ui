@@ -40,7 +40,9 @@
         >
           <div
             v-if="computedInnerLabel || $slots.innerLabel"
-            class="va-switch__track-label">
+            class="va-switch__track-label"
+            :style="{ color: textColorComputed }"
+            >
             <slot name="innerLabel">
               {{ computedInnerLabel }}
             </slot>
@@ -81,6 +83,7 @@ import { VaMessageListWrapper } from '../va-input'
 import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'
 import { useSelectable, useSelectableProps, useSelectableEmits } from '../../composables/useSelectable'
 import { useColors } from '../../composables/useColor'
+import { useTextColor } from '../../composables/useTextColor'
 
 export default defineComponent({
   name: 'VaSwitch',
@@ -120,6 +123,9 @@ export default defineComponent({
     const { getColor } = useColors()
     const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
     const { isChecked, computedError, isIndeterminate, ...selectable } = useSelectable(props, emit, elements)
+
+    const computedBackground = computed(() => isChecked.value ? getColor(props.color) : getColor('gray'))
+    const { textColorComputed } = useTextColor(computedBackground)
 
     const computedInnerLabel = computed(() => {
       if (props.trueInnerLabel && isChecked.value) {
@@ -161,7 +167,7 @@ export default defineComponent({
 
     const trackStyle = computed(() => ({
       borderColor: props.error ? getColor('danger') : '',
-      backgroundColor: isChecked.value ? getColor(props.color) : getColor('gray'),
+      backgroundColor: computedBackground.value,
     }))
 
     const labelStyle = computed(() => ({
@@ -180,6 +186,7 @@ export default defineComponent({
       progressCircleSize,
       trackStyle,
       labelStyle,
+      textColorComputed,
     }
   },
 })

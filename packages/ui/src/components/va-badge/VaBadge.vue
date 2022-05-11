@@ -21,12 +21,13 @@
 import { defineComponent, computed, PropType } from 'vue'
 import { useColors } from '../../composables/useColor'
 import { getTextColor } from '../../services/color-config/color-functions'
+import { useTextColor } from '../../composables/useTextColor'
 
 export default defineComponent({
   name: 'VaBadge',
   props: {
     color: { type: String as PropType<string>, default: 'danger' },
-    textColor: { type: String as PropType<string>, default: 'white' },
+    textColor: { type: String as PropType<string> },
     text: { type: [String, Number] as PropType<string | number>, default: '' },
     overlap: { type: Boolean as PropType<boolean>, default: false },
     multiLine: { type: Boolean as PropType<boolean>, default: false },
@@ -53,9 +54,10 @@ export default defineComponent({
     }))
 
     const { getColor } = useColors()
+    const { textColorComputed } = useTextColor(props.color)
     const colorComputed = computed(() => getColor(props.color))
     const badgeStyle = computed(() => ({
-      color: getTextColor(getColor(props.color)),
+      color: textColorComputed.value,
       borderColor: colorComputed.value,
       backgroundColor: colorComputed.value,
       opacity: props.transparent ? 0.5 : 1,
