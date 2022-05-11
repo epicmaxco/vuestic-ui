@@ -12,6 +12,8 @@
             :error-messages="computedErrorMessages"
             :readonly="readonly || !manualInput"
             @change="onInputTextChanged"
+            @focus="onFocus"
+            @blur="onBlur"
           >
             <template
               v-for="name in filterSlots"
@@ -212,11 +214,7 @@ export default defineComponent({
       input.value?.blur()
     }
 
-    const {
-      isFocused,
-      computedError,
-      computedErrorMessages,
-    } = useValidation(props, emit, reset, focus)
+    const { computedError, computedErrorMessages } = useValidation(props, emit, reset, focus)
 
     const hasError = computed(() => (!isValid.value && valueComputed.value !== props.clearValue) || computedError.value)
 
@@ -231,7 +229,9 @@ export default defineComponent({
     const {
       canBeCleared,
       clearIconProps,
-    } = useClearable(props, valueComputed, isFocused, hasError)
+      onFocus,
+      onBlur,
+    } = useClearable(props, valueComputed, emit)
 
     const iconProps = computed(() => ({
       name: props.icon,
@@ -263,6 +263,8 @@ export default defineComponent({
       clearIconProps,
       iconProps,
       reset,
+      onFocus,
+      onBlur,
 
       // Will be used later, after fix 'withConfigTransport'
       // focus,
