@@ -26,7 +26,10 @@ export interface NotificationOptions {
   closeable?: boolean;
 
   /** Whether message is treated as HTML string */
-  dangerouslyUseHTMLString?: boolean;
+  dangerouslyUseHtmlString?: boolean;
+
+  /** Render function */
+  render?: () => VNode;
 
   /** Callback function when closed */
   onClose?: () => void;
