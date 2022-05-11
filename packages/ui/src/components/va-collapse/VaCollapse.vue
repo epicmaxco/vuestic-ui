@@ -45,13 +45,15 @@
 
 <script lang="ts">
 import { useColors } from '../../composables/useColor'
-import { computed, defineComponent, ref, shallowRef } from 'vue'
+import { computed, defineComponent, shallowRef } from 'vue'
 import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'
 import { useAccordionItem } from '../va-accordion/hooks/useAccordion'
 import { useSyncProp } from '../../composables/useSyncProp'
+import VaIcon from '../va-icon'
 
 export default defineComponent({
   name: 'VaCollapse',
+  components: { VaIcon },
   props: {
     modelValue: { type: Boolean, default: undefined },
     disabled: { type: Boolean, default: false },
