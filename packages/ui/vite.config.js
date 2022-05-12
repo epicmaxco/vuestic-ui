@@ -1,31 +1,53 @@
-import { defineConfig } from 'vite'
 import { resolve } from 'path'
+import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import { getInputs } from './build/rollup/generate-rollup-inputs'
+import { chunkSplitPlugin } from 'vite-plugin-chunk-split'
+import { viteCommonjs } from '@originjs/vite-plugin-commonjs'
+
+// import { getInputs } from './build/rollup/generate-rollup-inputs'
 
 export default defineConfig({
+  resolve: {
+    alias: {
+      '@': resolve(__dirname, 'src'),
+      '~/': resolve(__dirname, 'src'),
+      '~normalize.css/normalize.css': 'normalize.css/normalize.css',
+    },
+  },
+
+  // css: {
+  //   postcss: {},
+  // },
+
   build: {
-    outDir: 'dist/esm',
-
+    // outDir: 'dist/esm',
     assetsDir: 'css',
-
     cssCodeSplit: true,
-
     sourcemap: true,
 
-    minify: true,
+      // default esbuild, not available for es/esm format in lib mode
+    minify: 'terser',
 
-    lib: {
-      entry: resolve(__dirname, 'src/main.ts'),
-      name: 'VuesticUI',
-      fileName: 'main',
-      formats: ['es', 'cjs'],
+    terserOptions: {
+        // ecma: 2019,
+      keep_classnames: true,
+      keep_fnames: true,
     },
+
+    // lib: {
+    //   entry: resolve(__dirname, 'src/main.ts'),
+    //   name: 'VuesticUI',
+    //   fileName: 'main',
+    //   formats: ['es'],
+    // },
 
     // rollupOptions: {
     //   treeshake: 'safest',
     //
     //   input: getInputs(),
+    //   input: resolve(__dirname, 'src/main.ts'),
+    //
+    //   external: ['vue'],
     //
     //   output: {
     //     dir: './dist/esm',
@@ -36,20 +58,28 @@ export default defineConfig({
     // },
   },
 
-  // css: {
-  //   postcss: {
-  //     plugins: [],
-  //   },
-  // },
+  plugins: [
+      // Covered by default in Vite
+      // terserPlugin(),
 
-  plugins: [vue({
-    isProduction: true,
-  })],
+      // Included in Vite
+      // commonjsPlugin(),
 
-  resolve: {
-    alias: {
-      '@': resolve(__dirname, 'src'),
-      '~normalize.css/normalize.css': 'normalize.css/normalize.css',
-    },
-  },
+      // Covered by default in Vite
+      // typescript2({ check: false }),
+
+      // throws an error
+      // vitePluginRequire(),
+
+      // ?
+      // compress(),
+
+    chunkSplitPlugin({ strategy: 'default' }),
+    vue({
+      isProduction: true,
+      exclude: [/\.md$/, /\.spec\.ts$/],
+      reactivityTransform: true,
+    }),
+    viteCommonjs(),
+  ],
 })

@@ -15,11 +15,13 @@
     "baseUrl": ".",
     "declarationMap": false,
     "allowJs": true,
+    // https://vitejs.dev/guide/features.html#typescript-compiler-options
     "isolatedModules": true,
     "types": [
       "webpack-env",
       "jest",
-      "node"
+      "node",
+      "vite/client"
     ],
     "lib": [
       "esnext",

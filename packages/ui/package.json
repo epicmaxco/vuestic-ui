@@ -5,11 +5,8 @@
   "license": "MIT",
   "homepage": "https://vuestic.dev",
   "repository": "https://github.com/epicmaxco/vuestic-ui",
-  "main": "dist/cjs/main.js",
-  "module": "dist/esm/main.mjs",
-  "jsdelivr": "dist/iife/main.js",
-  "unpkg": "dist/iife/main.js",
-  "types": "dist/types/main.d.ts",
+  "main": "dist/esm/main.cjs.js",
+  "module": "dist/esm/main.es.js",
   "keywords": [
     "vuestic",
     "vuejs",
@@ -51,7 +48,8 @@
     "colortranslator": "^1.9.2",
     "lodash": "^4.17.21",
     "normalize.css": "^8.0.1",
-    "vite": "^2.9.8"
+    "vite": "^2.9.8",
+    "vite-plugin-chunk-split": "^0.2.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.3",
@@ -61,6 +59,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
     "@fortawesome/vue-fontawesome": "^3.0.0-2",
+    "@originjs/vite-plugin-commonjs": "^1.0.3",
     "@rollup/plugin-commonjs": "^19.0.0",
     "@rollup/plugin-node-resolve": "^13.0.0",
     "@types/cleave.js": "^1.4.3",
