@@ -45,7 +45,7 @@
 
 <script lang="ts">
 import { useColors } from '../../composables/useColor'
-import { computed, defineComponent, shallowRef } from 'vue'
+import { computed, defineComponent, shallowRef, ref } from 'vue'
 import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'
 import { useAccordionItem } from '../va-accordion/hooks/useAccordion'
 import { useSyncProp } from '../../composables/useSyncProp'
@@ -69,10 +69,16 @@ export default defineComponent({
   setup (props, { emit, slots }) {
     const body = shallowRef<HTMLElement | null>(null)
     const [computedModelValue] = useSyncProp('modelValue', props, emit, false)
-    const toggle = () => { computedModelValue.value = !computedModelValue.value }
+
+    const directToggle = ref(false)
+    const toggle = () => {
+      directToggle.value = true
+      computedModelValue.value = !computedModelValue.value
+      setTimeout(() => { directToggle.value = false })
+    }
 
     const { getColor, getHoverColor } = useColors()
-    const { accordionProps } = useAccordionItem(computedModelValue)
+    const { accordionProps } = useAccordionItem(computedModelValue, directToggle)
 
     const getTextNodeHeight = (textNode: Node) => {
       const range = document.createRange()

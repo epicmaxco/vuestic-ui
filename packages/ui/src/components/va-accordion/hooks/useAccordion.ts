@@ -70,8 +70,9 @@ export const useAccordion = (props: AccordionProps, state: WritableComputedRef<b
 /**
  * Hook used in items that should react on VaAccordion changes
  * @param state shows if accordion item is open
+ * @param directToggle shows if state change triggered by user action
  */
-export const useAccordionItem = (state: WritableComputedRef<boolean>) => {
+export const useAccordionItem = (state: WritableComputedRef<boolean>, directToggle: Ref<boolean>) => {
   const accordion = inject<AccordionInject>(AccordionServiceKey, {
     props: ref({ inset: undefined, popout: undefined }),
     onItemChanged: () => undefined,
@@ -83,9 +84,7 @@ export const useAccordionItem = (state: WritableComputedRef<boolean>) => {
 
   onMounted(() => accordion.onItemMounted(item))
   onBeforeUnmount(() => accordion.onItemUnmounted(item))
-  watch(state, () => {
-    if (state.value) { accordion.onItemChanged(item) }
-  })
+  watch(state, () => { if (directToggle.value) { accordion.onItemChanged(item) } })
 
   return {
     accordionProps: accordion.props,
