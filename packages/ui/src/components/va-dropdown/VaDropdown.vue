@@ -80,13 +80,13 @@ export default defineComponent({
     }))
 
     // to be able to select specific anchor element inside anchorRef
-    const anchorElement = computed(() => {
+    const computedAnchorRef = computed(() => {
       return (anchorRef.value && props.anchorSelector)
         ? anchorRef.value.querySelector(props.anchorSelector) || anchorRef.value
         : anchorRef.value
     })
 
-    usePopover(anchorElement, contentRef, computed(() => ({
+    usePopover(computedAnchorRef, contentRef, computed(() => ({
       placement: props.placement,
       keepAnchorWidth: props.keepAnchorWidth,
       offset: props.offset,
