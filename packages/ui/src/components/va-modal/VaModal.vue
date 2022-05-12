@@ -11,7 +11,6 @@
     <teleport :to="attachElement" :disabled="$props.disableAttachment">
       <modal-element
         name="va-modal"
-        ref="modal"
         :isTransition="!$props.withoutTransitions"
         appear
         :duration="300"
@@ -213,12 +212,18 @@ export default defineComponent({
     const onBeforeLeaveTransition = (el: HTMLElement) => emit('before-close', el)
     const onAfterLeaveTransition = (el: HTMLElement) => emit('close', el)
 
-    const listenKeyUp = (e: KeyboardEvent) => {
-      const isLastNestedModal = !modal.value?.$el.nextElementSibling
+    const listenKeyUp = (e: KeyboardEvent & { modalsCounter?: number }) => {
+      e.modalsCounter = e.modalsCounter ? e.modalsCounter + 1 : 1
+      const modalNumber = e.modalsCounter
+      const isOnTop = () => e.modalsCounter === modalNumber
 
-      if (e.code === 'Escape' && !props.noEscDismiss && !props.noDismiss && isLastNestedModal) {
-        cancel()
+      const hideModal = () => {
+        if (e.code === 'Escape' && !props.noEscDismiss && !props.noDismiss && isOnTop()) {
+          cancel()
+        }
       }
+
+      setTimeout(hideModal, 30)
     }
 
     watch(valueComputed, (value: boolean) => {
