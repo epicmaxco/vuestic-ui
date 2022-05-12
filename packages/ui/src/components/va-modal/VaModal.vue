@@ -223,7 +223,7 @@ export default defineComponent({
         }
       }
 
-      setTimeout(hideModal, 30)
+      setTimeout(hideModal)
     }
 
     watch(valueComputed, (value: boolean) => {
