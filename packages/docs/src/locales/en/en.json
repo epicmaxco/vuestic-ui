@@ -436,7 +436,7 @@
         "position": "Sets the position of the notification",
         "render": "Render function to use a custom content",
         "multiLine": "Sets more space for the Toast component",
-        "html": "Sets the ability to use `message` as innerHtml. **Please note that this can lead to XSS attacks**, so make sure that you sanitize the `message` by yourself"
+        "dangerouslyUseHtmlString": "Sets the ability to use `message` as innerHtml. **Please note that this can lead to XSS attacks**, so make sure that you sanitize the `message` by yourself"
       },
       "events": {
         "onClick": "Emits when toast is clicked",
