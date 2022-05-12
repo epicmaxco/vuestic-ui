@@ -5,7 +5,7 @@ import { i18n } from './locales/i18n'
 
 // plugin to change algolia colors according docs theme
 import AlgoliaColorPlugin from './components/sidebar/algolia-search/algolia-color-plugin'
-import { createVuestic } from 'vuestic-ui/src/main'
+import { createVuestic, VuesticComponents } from 'vuestic-ui/src/main'
 import { VuesticConfig } from './config/vuestic-config'
 import { useGtag } from './services/gtag'
 import { useTranslateIfExists } from './locales/translateIfExistsPlugin'
@@ -28,3 +28,8 @@ useGtag(app, router)
 useTranslateIfExists(app)
 
 app.mount('#app')
+
+declare module 'vue' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  export interface GlobalComponents extends VuesticComponents {}
+}
