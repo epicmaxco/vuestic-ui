@@ -4,35 +4,45 @@ import deleteJunkPlugin from '../plugins/rollup-delete-junk'
 import transformScssPlugin from '../plugins/rollup-transform-scss'
 import copyPlugin from 'rollup-plugin-copy'
 import postcssImport from '../postcss-plugins/postcss-import'
+import vuePlugin from 'rollup-plugin-vue'
+import { nodeResolve as nodeResolvePlugin } from '@rollup/plugin-node-resolve'
+import typescriptPlugin from 'rollup-plugin-typescript2'
+import commonjsPlugin from '@rollup/plugin-commonjs'
 
-/** Used for tree-shaking. It creates separate modules in ESM format, that can be tree-shakable by any bundler. */
 export function createStylesConfig ({ input, outDir = 'dist/', minify = false }) {
-  const inputPathWithoutFilename = input.split('/').slice(0, -1).join('/')
-
-  const transformSrc = (src) => `./${src.replace(inputPathWithoutFilename, '')}`
+  const inputStylesPathWithoutFilename = input.find((el) => el.includes('styles')).split('/').slice(0, -1).join('/')
+  const transformSrc = (src) => `./${src.replace(inputStylesPathWithoutFilename, '')}`
 
   return defineConfig({
-    input,
+    input: input,
     output: {
       dir: outDir,
     },
 
     plugins: [
+      typescriptPlugin({ check: false }),
+      vuePlugin({
+        target: 'browser',
+        preprocessStyles: true,
+        exclude: ['*.js'],
+      }),
+      commonjsPlugin(),
       postcssPlugin({
         minimize: minify,
-        extract: 'vuestic-ui.css',
-        include: 'src/styles/**/*.scss',
         plugins: [postcssImport()],
+        extract: 'vuestic-ui.css',
+        inject: false,
       }),
+      nodeResolvePlugin(),
       transformScssPlugin({
-        inputDir: inputPathWithoutFilename,
+        inputDir: inputStylesPathWithoutFilename,
         outDir: `${outDir}/styles`,
         filter: /.*\.scss/,
       }),
       copyPlugin({
         targets: [
           {
-            src: `${inputPathWithoutFilename}/**/*.scss`,
+            src: `${inputStylesPathWithoutFilename}/**/*.scss`,
             dest: `${outDir}/styles/`,
             rename: (name, extension, src) => transformSrc(src),
           },

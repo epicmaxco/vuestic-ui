@@ -4,13 +4,13 @@
     class="va-select__dropdown va-select-dropdown"
     trigger="none"
     anchorSelector=".va-input-wrapper__input"
-    :position="$props.position"
+    :placement="$props.placement"
     :disabled="$props.disabled"
     :max-height="$props.maxHeight"
     :fixed="$props.fixed"
     :close-on-content-click="closeOnContentClick"
     :stateful="false"
-    :offset="[0, 1]"
+    :offset="[1, 0]"
     keep-anchor-width
     v-model="showDropdownContentComputed"
     @keydown.up.stop.prevent="showDropdown()"
@@ -154,6 +154,7 @@ import { useLoadingProps } from '../../composables/useLoading'
 import { useColor } from '../../composables/useColor'
 import { useMaxSelections, useMaxSelectionsProps } from '../../composables/useMaxSelections'
 import { useClearableProps, useClearable, useClearableEmits } from '../../composables/useClearable'
+import { Placement } from '../../composables/usePopover'
 import { useColors } from '../../services/color-config/color-config'
 import { warn } from '../../services/utils'
 import VaDropdown, { VaDropdownContent } from '../va-dropdown'
@@ -161,8 +162,6 @@ import VaIcon from '../va-icon'
 import VaInput from '../va-input'
 import VaSelectOptionList from './VaSelectOptionList'
 import { useFocus } from '../../composables/useFocus'
-
-const { getHoverColor } = useColors()
 
 type DropdownIcon = {
   open: string,
@@ -202,11 +201,11 @@ export default defineComponent({
       default: '',
     },
 
-    // Dropdown position
-    position: {
-      type: String as PropType<string>,
+    // Dropdown placement
+    placement: {
+      type: String as PropType<Partial<Placement>>,
       default: 'bottom',
-      validator: (position: string) => ['top', 'bottom'].includes(position),
+      validator: (placement: string) => ['top', 'bottom'].includes(placement),
     },
 
     allowCreate: {
@@ -255,6 +254,7 @@ export default defineComponent({
     const searchBar = ref<typeof VaInput>()
     const { isFocused } = useFocus()
 
+    const { getHoverColor } = useColors()
     const { getOptionByValue, getValue, getText, getTrackBy, getGroupBy } = useSelectableList(props)
 
     const {

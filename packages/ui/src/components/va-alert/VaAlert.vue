@@ -68,16 +68,16 @@
 <script lang="ts">
 import { defineComponent, computed, PropType } from 'vue'
 
-import { useStateful, statefulComponentOptions } from '../../mixins/StatefulMixin/cStatefulMixin'
+import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
 import { useAlertStyles } from './useAlertStyles'
 import VaIcon from '../va-icon'
 
 export default defineComponent({
   name: 'VaAlert',
   components: { VaIcon },
-  emits: [...statefulComponentOptions.emits],
+  emits: useStatefulEmits,
   props: {
-    ...statefulComponentOptions.props,
+    ...useStatefulProps,
     modelValue: { type: Boolean as PropType<boolean>, default: true },
     color: { type: String as PropType<string>, default: 'primary' },
     title: { type: String as PropType<string>, default: '' },

@@ -1,0 +1,44 @@
+{
+  "name": "@vuestic/nuxt",
+  "description": "Nuxt 3 Module for Vuestic UI",
+  "keywords": [
+    "vuesticui",
+    "vuestic",
+    "nuxt3",
+    "nuxt",
+    "vue"
+  ],
+  "version": "0.0.1-alpha1",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/module.mjs",
+      "require": "./dist/module.cjs"
+    }
+  },
+  "main": "./dist/module.cjs",
+  "types": "./dist/types.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "prepack": "nuxt-module-build",
+    "dev": "nuxi dev playground",
+    "dev:build": "nuxi build playground",
+    "dev:prepare": "nuxt-module-build --stub && nuxi prepare playground"
+  },
+  "dependencies": {
+    "@nuxt/kit": "^3.0.0-rc.1",
+    "@nuxt/schema": "^3.0.0-rc.1",
+    "@nuxt/vite-builder": "^3.0.0-rc.1",
+    "vue": "^3.2.33",
+    "vuestic-ui": "latest"
+  },
+  "devDependencies": {
+    "@nuxt/module-builder": "latest",
+    "@nuxtjs/eslint-config-typescript": "latest",
+    "eslint": "latest",
+    "nuxt": "^3.0.0-rc.1"
+  }
+}

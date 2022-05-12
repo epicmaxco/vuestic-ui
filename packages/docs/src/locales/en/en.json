@@ -436,7 +436,7 @@
         "position": "Sets the position of the notification",
         "render": "Render function to use a custom content",
         "multiLine": "Sets more space for the Toast component",
-        "html": "Sets the ability to use `message` as innerHtml. **Please note that this can lead to XSS attacks**, so make sure that you sanitize the `message` by yourself"
+        "dangerouslyUseHtmlString": "Sets the ability to use `message` as innerHtml. **Please note that this can lead to XSS attacks**, so make sure that you sanitize the `message` by yourself"
       },
       "events": {
         "onClick": "Emits when toast is clicked",
@@ -483,9 +483,9 @@
     "VaOptionList": {
       "props": {
         "disabledBy": "Specify the key in the object to be used as item `disabled` prop. Can be string (path to the key) or function of type: `(option) => option.disabled`",
-        "valueBy": "Specify the key in the object to be used as item `value` prop. Can be string (path to the key) or function of type: `(option) => option.value`",
-        "trackBy": "Specify the key in the object to be used as item `key` prop. Can be string (path to the key) or function of type: `(option) => option.track`",
-        "textBy": "Specify the key in the object to be used as item `text` prop. Can be string (path to the key) or function of type: `(option) => option.text`",
+        "valueBy": "When `options` prop is an object, this key will be used as `modelValue`. Can be string (path to the key) or function of type: `(option) => option.value`",
+        "trackBy": "When `options` prop is an object, this key will be used to track selected `options`. Can be string (path to the key) or function of type: `(option) => option.track`",
+        "textBy": "When `options` prop is an object, this key will be used as displayed text. Can be string (path to the key) or function of type: `(option) => option.text`",
         "options": "The array of items to be displayed",
         "type": "Specify the format of component. Supported types are `\"radio\"`, `\"checkbox\"` and `\"switch\"`",
         "defaultValue": "This value will be pre-selected for the stateful component",
@@ -755,12 +755,12 @@
         "clearValue": "Sets value that should be set after clearing",
         "options": "Available options that the user can select from",
         "disabledBy": "Specify the key in the object to be used as item `disabled` prop. Can be string (path to the key) or function of type: `(option) => option.disabled`",
-        "valueBy": "Specify the key in the object to be used as item `value` prop. Can be string (path to the key) or function of type: `(option) => option.value`",
-        "trackBy": "Specify the key in the object to be used as item `key` prop. Can be string (path to the key) or function of type: `(option) => option.track`",
-        "textBy": "Specify the key in the object to be used as item `text` prop. Can be string (path to the key) or function of type: `(option) => option.text`",
-        "groupBy": "Specify the key in the object to be used as item `group` prop. Can be string (path to the key) or function of type: `(option) => option.group`",
+        "valueBy": "When `options` prop is an object, this key will be used as `modelValue`. Can be string (path to the key) or function of type: `(option) => option.value`",
+        "trackBy": "When `options` prop is an object, this key will be used to track selected `options`. Can be string (path to the key) or function of type: `(option) => option.track`",
+        "textBy": "When `options` prop is an object, this key will be used as displayed text. Can be string (path to the key) or function of type: `(option) => option.text`",
+        "groupBy": "When `options` prop is an object, this key will be used to group up options. Can be string (path to the key) or function of type: `(option) => option.group`",
         "placeholder": "Sets the placeholder text to input",
-        "position": "Sets option list position",
+        "placement": "Sets option list placement",
         "tagMax": "Sets maximum tag count after whom selection will be cropped",
         "tags": "Sets selection display as tags",
         "deletableTags": "Sets ability to delete tags",
@@ -770,7 +770,7 @@
         "width": "Sets option list width",
         "maxHeight": "Sets option list maximum height",
         "noOptionsText": "Sets text whom displaying if list have no items",
-        "fixed": "Sets dropdown position strategy",
+        "fixed": "Sets dropdown placement strategy",
         "clearable": "Sets ability to clear selection",
         "hideSelected": "Sets ability to hide selected options",
         "allowCreate": "Allow creating new options. Can be set to `unique` if you want to create only unique options",
@@ -841,7 +841,7 @@
         "leftIcon": "Sets the icon position to the left",
         "hideIcon": "Hide icon (when `split = false`)",
         "openedIcon": "Applies a custom icon in the dropdown section when the dropdown is opened.",
-        "position": "Sets the position of the dropdown content.",
+        "placement": "Sets the placement of the dropdown content.",
         "keepAnchorWidth": "Keeps anchor position the same.",
         "offset": "Sets the distance between dropdown and anchor.",
         "modelValue": "Sets a dropdown state.",
@@ -1218,6 +1218,32 @@
         "increaseAction": "Adds an item instead of increase icon or button",
         "content": "Adds an item instead the input"
       }
+    },
+    "VaCarousel": {
+      "props": {
+        "arrows": "Show or hide next and previous button.",
+        "autoscroll": "Enable autoscroll animation.",
+        "autoscrollInterval": "Time in `ms`. Each `autoscroll-interval` next slide will be shown.",
+        "autoscrollPauseDuration": "Pause animation duration in `ms` after user changed slide.",
+        "effect": "Slide change effect",
+        "height": "Slider height. Can be any valid CSS height.",
+        "indicatorTrigger": "Event which will trigger indicator to change slide",
+        "indicators": "Show or hide indicators at the bottom of slider",
+        "infinite": "If true, after last slide first will be shown.",
+        "items": "List of slide items. Can be any array. By default should be a image src, but you can use item later in `default` slot.",
+        "loop": "If true, after last slide slider will scroll to first one through all items before.",
+        "modelValue": "Slide index to be shown.",
+        "vertical": "Change slider scroll orientation.",
+        "fadeKeyframe": "Custom keyframe name for fade animation"
+      },
+      "events": {},
+      "methods": {},
+      "slots": {
+        "default": "Custom style for slide item content",
+        "indicator": "Custom style for indicator button",
+        "nextArrow": "Custom style for next button",
+        "prevArrow": "Custom style for previous button"
+      }
     }
   },
   "menu": {
@@ -1322,7 +1348,10 @@
     "colors": "Colors",
     "timePicker": "Time Picker",
     "timeInput": "Time Input",
-    "counter": "Counter"
+    "carousel": "Carousel",
+    "treeShaking": "Tree Shaking",
+    "counter": "Counter",
+    "nuxt": "Nuxt"
   },
   "all": {
     "examples": "Examples",
@@ -1780,7 +1809,10 @@
   },
   "toast": {
     "title": "Toast",
-    "summaryText": "Component for sending a notification to the user.",
+    "summaryText": "Component for sending a notification to the user. To make it easier to create toast we have a shorthands. For options API it is `$vaToast`. For composition api we have `useToast` hook. Hook and global object have similar API.",
+    "optionsAPI": "In options API you can use VaToastPlugin (automatically installed with createVuestic). `$vaToast` have a few methods: init, close, closeAll.",
+    "compositionAPI": "In composition API you can use `useToast` hook.",
+    "toastOptionsHeader": "Init Options",
     "examples": {
       "default": {
         "title": "Basic usage",
@@ -2369,7 +2401,10 @@
       "inputClass": {
         "title": "Input Class",
         "text": "To assign a class directly to input, rather than its wrapper, use the `input-class` property. For example, you can use the build-in component class (or any other class you've created) to align the input text &mdash; `text--center` and `text--right` to align the center or right.",
-        "exampleTexts": ["This input must have right-aligned red text with bottom indent.", "Native input element must have red text. VaInput wrapper has a blue border."]
+        "exampleTexts": [
+          "This input must have right-aligned red text with bottom indent.",
+          "Native input element must have red text. VaInput wrapper has a blue border."
+        ]
       },
       "mask": {
         "title": "Mask",
@@ -3106,27 +3141,6 @@
       "title": "CodeSandbox",
       "button": "Try Vuestic-UI on CodeSandbox"
     },
-    "treeShaking": {
-      "title": "Tree shaking",
-      "description": "If you plan to use only several components in your application and thus reduce the size of your bundle, you can use the Vuestic ESM build. Webpack (vue-cli) and Vite do that automatically.",
-      "example": {
-        "title": "First, you don't need to use `VuesticPlugin` since it registers all the `vuestic` components globally. Instead, you can import specific components from the `vuestic-ui` package.",
-        "footer": "Alternatively, you can import them directly in your `.vue` files."
-      },
-      "plugins": {
-        "title": "In such a case you'd also have to register Vuestic plugins by yourself. We recommend to use all of them:",
-        "GlobalConfigPlugin": "GlobalConfigPlugin - used for `VaConfig` component and global props reassignment. [Read more](/services/global-config).",
-        "ToastInstall": "ToastInstall - used by `VaToast` component.",
-        "ColorHelpersPlugin": "ColorHelpersPlugin - used to create reactive CSS variables. Requires `GlobalConfigPlugin`. [Read more](/services/colors-config).",
-        "DropdownPopperSubplugin": "DropdownPopperSubplugin - used by `VaDropdown` component.",
-        "example": {
-          "title": "All of these plugins are also available through the `VuesticPluginsWithoutComponents`:"
-        }
-      },
-      "attention": {
-        "cssLoader": "As all components' code is separated, you may need a CSS loader to load component-specific CSS.\nBut you probably already have one."
-      }
-    },
     "manual": {
       "title": "Manual installation",
       "subtitle": "If you decide to install Vuestic UI manually, all you need to do is to install a NPM package, a couple of other necessary assets (such as fonts and CSS styles) and slightly modify your application's entry point (most probably `index.js` or `main.js`, depending on your setup).",
@@ -3134,6 +3148,24 @@
       "node": "[Node.js](https://nodejs.org/en/)[[target=_blank]] (>=v14.0.0)",
       "npm": "[npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)[[target=_blank]] (>=v3.0.0) (or [yarn](https://yarnpkg.com/lang/en/docs/install)[[target=_blank]] (>= v1.16.0)) and [Git](https://git-scm.com/)[[target=_blank]]",
       "afterCheck": "After checking the prerequisites, install Vuestic UI via npm or yarn:"
+    }
+  },
+  "treeShaking": {
+    "title": "Tree shaking",
+    "description": "If you plan to use only several components in your application and thus reduce the size of your bundle, you can use the Vuestic ESM build. Webpack (vue-cli) and Vite do that automatically.",
+    "example": {
+      "title": "First, you don't need to use `createVuestic` since it registers all the `vuestic` components globally. We have `createVuesticEssential` instead, which register only essential plugins. You can specify components to declare globally. Or you can import them later.",
+      "footer": "You can also specify Vuestic subplugins as `plugins` option. "
+    },
+    "plugins": {
+      "title": "Here is a list of plugins that you can use with Vuestic:",
+      "GlobalConfigPlugin": "GlobalConfigPlugin (essential) - used for `VaConfig` component and global props reassignment. [Read more](/services/global-config).",
+      "ColorHelpersPlugin": "ColorHelpersPlugin (essential) - used to create reactive CSS variables. Requires `GlobalConfigPlugin`. [Read more](/services/colors-config).",
+      "VaToastPlugin": "VaToastPlugin - provides methods for creating Toasts within vue context. [Read more](/ui-elements/toast)",
+      "VaDropdownPlugin": "VaDropdownPlugin - provides methods for dropdown closing within vue context. `VaDropdown` is used in `VaSelect`, `VaTimeInput`, `VaDateInput`, `VaButtonDropdown` component."
+    },
+    "attention": {
+      "cssLoader": "As all components' code is separated, you may need a CSS loader to load component-specific CSS.\nBut you probably already have one."
     }
   },
   "roadmap": {
@@ -3880,6 +3912,53 @@
       "subtitle": "Reactivity",
       "about": "These variables reactive relative to `Colors Config`. This means that they will be updated when the configuration changes. Read more about how to update the configuration [here](https://vuestic.dev/en/services/colors-config#icon-config-service-api).",
       "additional": "Please note that changing `CSS variables` of the colors directly, in turn, will not update `Colors Config`."
+    }
+  },
+  "carousel": {
+    "title": "Carousel",
+    "examples": {
+      "Default": {
+        "title": "Default",
+        "text": ""
+      },
+      "Arrows": {
+        "title": "Arrow buttons",
+        "text": "Arrow buttons allow user switch to next or previous slide."
+      },
+      "Indicators": {
+        "title": "Indicator buttons",
+        "text": "Indicators (or dots) used to quicly change slide by it's index."
+      },
+      "Vertical": {
+        "title": "Vertical",
+        "text": ""
+      },
+      "Slots": {
+        "title": "Slots",
+        "text": "Slots allow you to customize carousel component."
+      },
+      "Infinite": {
+        "title": "Infinite",
+        "text": "Smooth scroll transition."
+      },
+      "Autoscroll": {
+        "title": "Autoscroll",
+        "text": "Autoscroll animation."
+      },
+      "Fade": {
+        "title": "Fade",
+        "text": "Additional carousel slide switch effect."
+      }
+    }
+  },
+  "nuxt": {
+    "title": "Nuxt integration",
+    "description": "Vuestic UI is fully compatible with Nuxt3. You can use Vuestic UI in your Nuxt3 project.",
+    "installation": {
+      "title": "Installation",
+      "plugin": "Install integration module:",
+      "nuxtConfig": "Then you need to update nuxt-config.ts file:",
+      "moreAboutConfig": "More about configuration"
     }
   }
 }

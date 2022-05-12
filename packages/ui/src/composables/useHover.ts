@@ -12,7 +12,7 @@ export function useHover (el?: Ref<HTMLElement | null | undefined>) {
       el.value?.addEventListener('mouseleave', onMouseLeave)
     })
     onBeforeUnmount(() => {
-      el.value?.removeEventListener('mouseover', onMouseEnter)
+      el.value?.removeEventListener('mouseenter', onMouseEnter)
       el.value?.removeEventListener('mouseleave', onMouseLeave)
     })
   }

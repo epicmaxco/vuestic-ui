@@ -34,22 +34,62 @@
       <button @click="handleToast">Open Toast</button>
       <button @click="$vaToast.close(handleId)">Close {{handleId}}</button>
     </VbCard>
+    <VbCard title="useToast hook">
+      <button @click="hookTest">Start test</button>
+    </VbCard>
   </VbDemo>
 </template>
 
 <script>
+import { h } from 'vue'
 import { useGlobalConfig } from '../../services/global-config/global-config'
+import { useToast } from './useToast'
 
 export default {
   setup () {
     const { setGlobalConfig } = useGlobalConfig()
-
     setGlobalConfig(config => ({
       ...config,
       VaToast: {
         color: 'red',
       },
     }))
+
+    const { init, close, closeAllCreatedInThisHook, closeAll } = useToast()
+
+    const hookTest = () => {
+      const toast = init({
+        message: 'First toast, should be visible for 6000ms, but we close it manually after 2000ms',
+        duration: 6000,
+      })
+
+      setTimeout(() => {
+        close(toast)
+
+        init({
+          message: 'Previous toast closed',
+        })
+        init({
+          message: 'Two toasts, that should be closed with closeAllCreatedInThisSetup method in 4 seconds. This method should not close other toasts',
+        })
+
+        setTimeout(() => {
+          closeAllCreatedInThisHook()
+
+          init({ message: 'Now we try to close all toasts in 3 seconds' })
+          init({ message: 'Now we try to close all toasts in 3 seconds' })
+          init({ message: 'Now we try to close all toasts in 3 seconds' })
+          init({ message: 'Now we try to close all toasts in 3 seconds' })
+          init({ message: 'Now we try to close all toasts in 3 seconds' })
+
+          setTimeout(closeAll, 3000)
+        }, 4000)
+      }, 2000)
+    }
+
+    return {
+      hookTest,
+    }
   },
 
   data () {
@@ -71,7 +111,7 @@ export default {
       },
       customMessage: {
         message: 'Simple message',
-        render: (h) => {
+        render: () => {
           return h('div', [
             'This is a ',
             h('span', { style: 'font-weight: bold' }, 'custom'),

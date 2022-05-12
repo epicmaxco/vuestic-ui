@@ -84,8 +84,8 @@ import { useClearableProps, useClearable, useClearableEmits } from '../../compos
 import VaTextarea from './components/VaTextarea/VaTextarea.vue'
 import VaIcon from '../va-icon/VaIcon.vue'
 import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
-import omit from 'lodash/omit'
-import pick from 'lodash/pick'
+import omit from 'lodash/omit.js'
+import pick from 'lodash/pick.js'
 
 const VaTextareaProps = extractComponentProps(VaTextarea)
 
