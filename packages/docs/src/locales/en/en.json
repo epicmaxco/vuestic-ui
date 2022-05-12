@@ -1184,6 +1184,40 @@
       "events": {},
       "methods": {},
       "slots": {}
+    },
+    "VaCounter": {
+      "props": {
+        "manualInput": "Allows user to manually input value",
+        "label": "Sets component label",
+        "color": "Sets component color",
+        "min": "The minimum value to accept for this input",
+        "max": "The maximum value to accept for this input",
+        "step": "Step of changing input field values",
+        "disabled": "Disable the component",
+        "readonly": "Puts component in **readonly** state",
+        "messages": "Displays a list of hint messages (or message if using a string)",
+        "bordered": "Applies component `underscore` styling",
+        "outline": "Applies component `outline` styling",
+        "flat": "Applies `flat` styling of outside buttons",
+        "rounded": "Adds rounded corners to outside buttons",
+        "buttons": "Enables display of the component with external buttons",
+        "width": "Sets a component width",
+        "margins": "Sets the margin of the outside buttons",
+        "increaseIcon": "Sets an increase icon",
+        "decreaseIcon": "Sets a decrease icon"
+      },
+      "events": {
+        "clickDecreaseButton": "The event is triggered when clicked decrease outside button",
+        "clickIncreaseButton": "The event is triggered when clicked increase outside button",
+        "clickDecreaseIcon": "The event is triggered when clicked decrease inner icon",
+        "clickIncreaseIcon": "The event is triggered when clicked increase inner icon",
+        "change": "The **change** input event is fired when input is submitted (when `manual-input` prop enabled)"
+      },
+      "slots": {
+        "decreaseAction": "Adds an item instead of decrease icon or button",
+        "increaseAction": "Adds an item instead of increase icon or button",
+        "content": "Adds an item instead the input"
+      }
     }
   },
   "menu": {
@@ -1287,7 +1321,8 @@
     "treeShakingRequirements": "Tree Shaking Requirements",
     "colors": "Colors",
     "timePicker": "Time Picker",
-    "timeInput": "Time Input"
+    "timeInput": "Time Input",
+    "counter": "Counter"
   },
   "all": {
     "examples": "Examples",
@@ -3266,6 +3301,48 @@
       "clickable": {
         "title": "Clickable",
         "text": "Change the cursor to `pointer` when hovering rows by adding the `.va-table--clickable` class"
+      }
+    }
+  },
+  "counter": {
+    "title": "Counter",
+    "summaryText": "The `va-counter` component is intended to be used as a simple counter.",
+    "examples": {
+      "default": {
+        "title": "Basic usage",
+        "text": "By default, `va-counter` has `v-model` prop, and may also include `stateful` state. With `manual-input` the user can manually enter a value."
+      },
+      "style": {
+        "title": "Style",
+        "text": "There are tree styles for component: default (solid), outline, bordered."
+      },
+      "buttons": {
+        "title": "Buttons",
+        "text": "By default, `va-counter` uses internal icons. The component with prop `buttons` will use external buttons."
+      },
+      "width": {
+        "title": "Width",
+        "text": "You can set the width of the entire component with `width`, as well as the indentation of external buttons with `margins`."
+      },
+      "buttonsStyle": {
+        "title": "Buttons style",
+        "text": "You can select different button styles using properties `flat` (by default `flat = true`), `rounded` (by default `rounded = false`) and `margins`."
+      },
+      "iconsColors": {
+        "title": "Custom icons and colors",
+        "text": "You can select different icons using the `increaseIcon` and `decreaseIcon` properties, and you can also select colors using `color` and `text-color`."
+      },
+      "state": {
+        "title": "State",
+        "text": "Component can be `disabled` or `readonly`."
+      },
+      "maxMinStep": {
+        "title": "Max, min, step",
+        "text": "You can define `min`, `max` and `step` values."
+      },
+      "slots": {
+        "title": "Slots",
+        "text": "You can use slots for pass custom elements: `content` (you can access to **value**) instead of **input** element, `decreaseAction` (you can access to **decrease** function) instead of decrease icon or button and `increaseAction` (you can access to **increase** function) instead of increase icon or button."
       }
     }
   },

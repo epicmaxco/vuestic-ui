@@ -160,6 +160,13 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: 'menu.checkbox',
       },
       {
+        name: 'counter',
+        displayName: 'menu.counter',
+        meta: {
+          badge: 'new',
+        },
+      },
+      {
         name: 'radio',
         displayName: 'menu.radio',
       },
