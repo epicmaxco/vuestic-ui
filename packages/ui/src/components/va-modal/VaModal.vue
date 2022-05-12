@@ -34,7 +34,6 @@
               class="va-modal__dialog"
               :class="computedClass"
               :style="computedDialogStyle"
-              ref="modal"
             >
               <va-icon
                 v-if="$props.fullscreen"
@@ -164,6 +163,7 @@ export default defineComponent({
   setup (props, { emit }) {
     const { getTextColor, getColor } = useColors()
     const rootElement = ref<HTMLElement>()
+    const modal = ref<{ $el: HTMLElement }>()
     const { valueComputed } = useStateful(props, emit)
 
     const computedClass = computed(() => ({
@@ -212,10 +212,18 @@ export default defineComponent({
     const onBeforeLeaveTransition = (el: HTMLElement) => emit('before-close', el)
     const onAfterLeaveTransition = (el: HTMLElement) => emit('close', el)
 
-    const listenKeyUp = (e: KeyboardEvent) => {
-      if (e.code === 'Escape' && !props.noEscDismiss && !props.noDismiss) {
-        cancel()
+    const listenKeyUp = (e: KeyboardEvent & { modalsCounter?: number }) => {
+      e.modalsCounter = e.modalsCounter ? e.modalsCounter + 1 : 1
+      const modalNumber = e.modalsCounter
+      const isOnTop = () => e.modalsCounter === modalNumber
+
+      const hideModal = () => {
+        if (e.code === 'Escape' && !props.noEscDismiss && !props.noDismiss && isOnTop()) {
+          cancel()
+        }
       }
+
+      setTimeout(hideModal)
     }
 
     watch(valueComputed, (value: boolean) => {
@@ -243,6 +251,7 @@ export default defineComponent({
     return {
       getColor,
       rootElement,
+      modal,
       valueComputed,
       computedClass,
       computedDialogStyle,
