@@ -88,6 +88,7 @@ export const useAccordionItem = (state: WritableComputedRef<boolean>) => {
     accordionProps: accordion.props,
 
     toggle: () => {
+      /** Toggle collapse value and notify accordion about it */
       state.value = !state.value
       accordion.onItemChanged(item)
     },
