@@ -4,7 +4,7 @@ import vue from '@vitejs/plugin-vue'
 import { chunkSplitPlugin } from 'vite-plugin-chunk-split'
 import { viteCommonjs } from '@originjs/vite-plugin-commonjs'
 
-// import { getInputs } from './build/rollup/generate-rollup-inputs'
+import { getInputs } from './build/rollup/generate-rollup-inputs'
 
 export default defineConfig({
   resolve: {
@@ -20,10 +20,11 @@ export default defineConfig({
   // },
 
   build: {
-    // outDir: 'dist/esm',
-    assetsDir: 'css',
+    outDir: 'dist/cjs',
+    // assetsDir: 'css',
     cssCodeSplit: true,
     sourcemap: true,
+    // target: 'modules',
 
       // default esbuild, not available for es/esm format in lib mode
     minify: 'terser',
@@ -34,26 +35,26 @@ export default defineConfig({
       keep_fnames: true,
     },
 
-    // lib: {
-    //   entry: resolve(__dirname, 'src/main.ts'),
-    //   name: 'VuesticUI',
-    //   fileName: 'main',
-    //   formats: ['es'],
-    // },
+    lib: {
+      entry: resolve(__dirname, 'src/main.ts'),
+      name: 'VuesticUI',
+      fileName: 'main',
+      formats: ['es', 'cjs', 'umd', 'iife'],
+    },
 
     // rollupOptions: {
-    //   treeshake: 'safest',
+    //   // treeshake: 'safest',
     //
-    //   input: getInputs(),
+    //   // input: getInputs(),
     //   input: resolve(__dirname, 'src/main.ts'),
     //
     //   external: ['vue'],
     //
     //   output: {
-    //     dir: './dist/esm',
-    //     format: 'esm',
-    //     entryFileNames: '[name].mjs',
-    //     chunkFileNames: '[name].mjs',
+    //     dir: './dist/cjs',
+    //     format: 'cjs',
+    //     entryFileNames: '[name].cjs',
+    //     chunkFileNames: '[name].cjs',
     //   },
     // },
   },
@@ -74,7 +75,7 @@ export default defineConfig({
       // ?
       // compress(),
 
-    chunkSplitPlugin({ strategy: 'default' }),
+    // chunkSplitPlugin({ strategy: 'unbundle' }),
     vue({
       isProduction: true,
       exclude: [/\.md$/, /\.spec\.ts$/],

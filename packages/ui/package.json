@@ -5,8 +5,10 @@
   "license": "MIT",
   "homepage": "https://vuestic.dev",
   "repository": "https://github.com/epicmaxco/vuestic-ui",
-  "main": "dist/esm/main.cjs.js",
-  "module": "dist/esm/main.es.js",
+  "main": "dist/cjs/main.cjs.js",
+  "module": "dist/cjs/main.es.js",
+  "jsdelivr": "dist/cjs/main.iife.js",
+  "unpkg": "dist/cjs/main.umd.js",
   "keywords": [
     "vuestic",
     "vuejs",
