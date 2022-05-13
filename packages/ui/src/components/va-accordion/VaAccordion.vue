@@ -20,8 +20,8 @@ export default defineComponent({
     popout: { type: Boolean, default: false },
   },
 
-  setup (props, ctx) {
-    const { valueComputed } = useStateful(props, ctx.emit, [] as boolean[])
+  setup (props, { emit }) {
+    const { valueComputed } = useStateful(props, emit, [] as boolean[])
 
     const { items } = useAccordion(props, valueComputed)
 
