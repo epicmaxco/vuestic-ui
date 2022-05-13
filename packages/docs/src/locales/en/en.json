@@ -397,6 +397,9 @@
         "value": "The array with uploaded files",
         "dropZoneText": "Custom drop zone label text",
         "uploadButtonText": "Custom upload button text"
+      },
+      "events": {
+        "fileRemoved": "Emits after file is removed"
       }
     },
     "VaHover": {
