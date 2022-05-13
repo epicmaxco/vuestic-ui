@@ -1,3 +1,3 @@
 <template>
-  <va-chip to="/" color="warning">Link chip</va-chip>
+  <va-chip to="/">Link chip</va-chip>
 </template>
