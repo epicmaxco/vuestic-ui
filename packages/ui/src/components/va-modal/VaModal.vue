@@ -163,7 +163,7 @@ export default defineComponent({
     backgroundColor: { type: String, default: 'white' },
   },
   setup (props, { emit }) {
-    const { getTextColor, getColor } = useColors()
+    const { getColor } = useColors()
     const { textColorComputed } = useTextColor(props.backgroundColor)
     const rootElement = ref<HTMLElement>()
     const { valueComputed } = useStateful(props, emit)
