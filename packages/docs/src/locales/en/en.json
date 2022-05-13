@@ -3001,6 +3001,10 @@
       "validation": {
         "title": "Validation",
         "text": "Validation works the same way as `VaInput` validation, except rules functions should accept `Date` instead of `string`."
+      },
+      "mode": {
+        "title": "Mode",
+        "text": "You can use date input in three different ways. By default date input uses `auto` mode. This means that `mode` will be chosen based on `modelValue`. There is three modes: `single`, `multiple` and `range`. Different modes require different model values."
       }
     }
   },
