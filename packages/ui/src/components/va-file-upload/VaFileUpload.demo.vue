@@ -110,7 +110,7 @@
     >
       <va-file-upload
         v-model="basic"
-        @removed-file="$vaToast.init('File removed')"
+        @file-removed="$vaToast.init('File removed')"
       />
     </VbCard>
   </VbDemo>
