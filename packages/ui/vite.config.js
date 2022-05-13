@@ -20,14 +20,14 @@ export default defineConfig({
   // },
 
   build: {
-    outDir: 'dist/cjs',
+    outDir: 'dist',
     // assetsDir: 'css',
     cssCodeSplit: true,
     sourcemap: true,
-    // target: 'modules',
+    // target: 'esnext',
 
       // default esbuild, not available for es/esm format in lib mode
-    minify: 'terser',
+    minify: false,
 
     terserOptions: {
         // ecma: 2019,
