@@ -8,7 +8,7 @@ export const useTextColor = (componentColor: string | Ref<string>, isTransparent
     if (unref(isTransparent)) {
       return getColor(unref(componentColor))
     }
-    return props.textColor ? getColor(props.textColor as string) : getTextColor(getColor(unref(componentColor)))
+    return props.textColor ? getColor(props.textColor as string) : getColor(getTextColor(getColor(unref(componentColor))))
   })
 
   return { textColorComputed }
