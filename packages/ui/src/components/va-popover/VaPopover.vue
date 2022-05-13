@@ -4,7 +4,7 @@
     v-bind="VaDropdownPropValues"
     :modelValue="modelValue"
     :closeOnClickOutside="autoHide"
-    :offset="1"
+    :offset="$props.offset"
   >
     <template #default>
       <div class="va-popover__content-wrapper">
@@ -42,8 +42,9 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue'
+import { computed, defineComponent, PropType } from 'vue'
 import VaDropdown from '../va-dropdown/VaDropdown.vue'
+import VaIcon from '../va-icon/VaIcon.vue'
 import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
 import { useColors } from '../../composables/useColor'
 
@@ -52,7 +53,7 @@ const VaDropdownProps = extractComponentProps(VaDropdown, ['closeOnClickOutside'
 export default defineComponent({
   name: 'VaPopover',
 
-  components: { VaDropdown },
+  components: { VaDropdown, VaIcon },
 
   props: {
     ...VaDropdownProps,
@@ -62,6 +63,7 @@ export default defineComponent({
     title: { type: String, default: '' },
     message: { type: String, default: '' },
     autoHide: { type: Boolean, default: true },
+    offset: { type: [Array, Number] as PropType<number | [number, number]>, default: 4 },
   },
 
   setup (props) {
