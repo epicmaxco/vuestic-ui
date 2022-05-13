@@ -98,6 +98,7 @@ export default defineComponent({
 
     const colorComputed = computed(() => computeColor(props.color, 'primary'))
     const isTransparentBackground = computed(() => props.outline || props.flat)
+    const isSlotContentPassed = computed(() => !!slots.default?.()?.[0]?.children)
 
     const computedType = computed(() => {
       // Safari issue. type===button will break styles if the button is used as a link
@@ -141,6 +142,7 @@ export default defineComponent({
       'va-button--block': props.block,
       'va-button--square': !props.rounded,
       'va-button--round': props.round || (!slots.default && hasOneIcon.value),
+      'va-button--no-label': !isSlotContentPassed.value,
       'va-button--space-between-items': props.spaceBetweenItems,
     }))
 
@@ -407,7 +409,10 @@ export default defineComponent({
     .va-button__content {
       padding: 0;
     }
+  }
 
+  &--round,
+  &--no-label {
     .va-button__left-icon {
       margin-left: 0;
       margin-right: 0;
