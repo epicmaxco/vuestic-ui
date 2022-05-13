@@ -1,7 +1,7 @@
 import { mount, config } from '@vue/test-utils'
 
 import { GlobalConfig, useGlobalConfig } from '../../global-config/global-config'
-import { GlobalConfigPlugin } from '../../global-config/global-config-plugin'
+import { GlobalConfigPlugin } from '../../global-config/config-default'
 
 config.global.plugins.push([GlobalConfigPlugin])
 

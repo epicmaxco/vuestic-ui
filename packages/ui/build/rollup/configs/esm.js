@@ -23,8 +23,8 @@ export function createESMConfig ({ input, outDir = 'dist/', minify = false, decl
       sourcemap,
       dir: outDir,
       format: 'esm',
-      entryFileNames: '[name].js',
-      chunkFileNames: '[name].js',
+      entryFileNames: '[name].mjs',
+      chunkFileNames: '[name].mjs',
     },
 
     external: [
@@ -37,14 +37,13 @@ export function createESMConfig ({ input, outDir = 'dist/', minify = false, decl
       typescriptPlugin({ check: false }),
       vuePlugin({
         target: ssr ? 'node' : 'browser',
-        template: { optimizeSSR: ssr },
-        compileTemplate: false,
         preprocessStyles: true,
       }),
       commonjsPlugin(),
       postcssPlugin({
         minimize: minify,
         plugins: [postcssImport()],
+        inject: false,
       }),
       nodeResolvePlugin(),
     ],

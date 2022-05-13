@@ -44,6 +44,17 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'configuration-guide',
         displayName: 'menu.configurationGuide',
       },
+      {
+        name: 'tree-shaking',
+        displayName: 'menu.treeShaking',
+      },
+      {
+        name: 'nuxt',
+        displayName: 'menu.nuxt',
+        meta: {
+          badge: 'new',
+        },
+      },
       // GENERATOR_ADD - gettingStarted
     ],
   },
@@ -158,6 +169,13 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: 'checkbox',
         displayName: 'menu.checkbox',
+      },
+      {
+        name: 'counter',
+        displayName: 'menu.counter',
+        meta: {
+          badge: 'new',
+        },
       },
       {
         name: 'radio',
@@ -313,6 +331,10 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: 'color-palette',
         displayName: 'menu.colorPalette',
+      },
+      {
+        name: 'carousel',
+        displayName: 'menu.carousel',
       },
       // GENERATOR_ADD - uiElements
     ],

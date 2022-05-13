@@ -4,7 +4,6 @@ import { TableColumn, TableRow, ITableItem, TSortingOrder } from '../types'
 interface useSortableProps {
   sortBy: string | undefined
   sortingOrder: TSortingOrder | undefined
-  [prop: string]: unknown
 }
 export type TSortedArgs = { sortBy: string, sortingOrder: TSortingOrder, items: ITableItem[], itemsIndexes: number[] }
 export type TSortableEmits = (

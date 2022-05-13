@@ -1,19 +1,23 @@
-import { ComponentOptionsBase, PropType, computed, ComputedRef, Prop, DefineComponent } from 'vue'
-import { getComponentProps } from './resolve-class-component-props'
+import { ComponentOptionsBase, PropType, computed, ExtractPropTypes } from 'vue'
+import { getComponentProps } from './resolve-component-props'
 
 /**
  * Accepts parent component props and return value only for child component props.
  *
  * Used to proxy child component props from parent.
  */
-export const filterComponentProps = <T extends Record<string, unknown>, K extends Record<keyof T, unknown>>(propsValues: K, childProps: T) => {
+export const filterComponentProps = <
+  ChildProps extends Record<string, unknown>,
+  Props extends Record<keyof ChildProps, unknown>,
+  Result extends ExtractPropTypes<ChildProps>
+>(propsValues: Props, childProps: ChildProps) => {
   return computed(() => {
     return Object
       .keys(childProps)
-      .reduce((acc, propName: keyof T) => {
-        acc[propName] = propsValues[propName]
+      .reduce((acc, propName: string) => {
+        (acc as any)[propName] = propsValues[propName]
         return acc
-      }, {} as { [K in keyof T]: typeof propsValues[K] })
+      }, {} as Result)
   })
 }
 
@@ -28,7 +32,8 @@ declare type ExtractDefineComponentOptionProp<T> = T extends ComponentOptionsBas
 declare type ExtractDefineComponentPropsType<T> = {
   -readonly [K in keyof ExtractDefineComponentOptionProp<T>]-?: {
     type: PropType<ExtractDefineComponentOptionProp<T>[K]>,
-    required: undefined extends ExtractDefineComponentOptionProp<T>[K] ? false: true,
+    required: undefined extends ExtractDefineComponentOptionProp<T>[K] ? false : true,
+    default: undefined extends ExtractDefineComponentOptionProp<T>[K] ? undefined : ExtractDefineComponentOptionProp<T>[K],
   }
 }
 

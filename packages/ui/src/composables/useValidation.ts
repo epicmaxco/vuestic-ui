@@ -1,7 +1,7 @@
 import { inject, onBeforeUnmount, onMounted, PropType, watch } from 'vue'
-import flatten from 'lodash/flatten'
-import isFunction from 'lodash/isFunction'
-import isString from 'lodash/isString'
+import flatten from 'lodash/flatten.js'
+import isFunction from 'lodash/isFunction.js'
+import isString from 'lodash/isString.js'
 import { useSyncProp } from './useSyncProp'
 import { FormServiceKey } from '../components/va-form/consts'
 import { useFocus } from './useFocus'
@@ -81,7 +81,7 @@ export const useValidation = (
     return !error
   }
 
-  watch(isFocused, (newVal) => newVal === false && validate())
+  watch(isFocused, (newVal) => !newVal && validate())
 
   watch(() => props.modelValue, () => validate(), { immediate: props.immediateValidation })
 
@@ -104,7 +104,6 @@ export const useValidation = (
   })
 
   return {
-    isFocused,
     computedError,
     computedErrorMessages,
     listeners: { onFocus, onBlur },

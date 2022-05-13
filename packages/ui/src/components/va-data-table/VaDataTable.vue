@@ -218,8 +218,8 @@
 
 <script lang="ts">
 import { computed, defineComponent, HTMLAttributes, PropType, TableHTMLAttributes } from 'vue'
-import omit from 'lodash/omit'
-import pick from 'lodash/pick'
+import omit from 'lodash/omit.js'
+import pick from 'lodash/pick.js'
 import VaInnerLoading from '../va-inner-loading'
 import VaCheckbox from '../va-checkbox'
 import VaIcon from '../va-icon'
@@ -352,10 +352,10 @@ export default defineComponent({
 
     const showNoDataFilteredHtml = computed(() => paginatedRows.value.length === 0)
 
-    const onRowClickHandler = (name: emitNames, $event: Event, row: TableRow) => {
+    const onRowClickHandler = (name: emitNames, event: Event, row: TableRow) => {
       if (props.clickable) {
         emit(name, {
-          event: $event,
+          event,
           item: row.source,
           itemIndex: row.initialIndex,
         })
