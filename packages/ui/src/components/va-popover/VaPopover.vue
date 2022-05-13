@@ -59,7 +59,7 @@ export default defineComponent({
   props: {
     ...VaDropdownProps,
     trigger: { default: 'hover' },
-    color: { type: String, default: 'primary' },
+    color: { type: String, default: 'dark' },
     textColor: { type: String },
     icon: { type: String, default: '' },
     title: { type: String, default: '' },
