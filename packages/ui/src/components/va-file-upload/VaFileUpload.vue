@@ -93,7 +93,7 @@ export default defineComponent({
     },
   },
 
-  emits: ['update:modelValue', 'removedFile'],
+  emits: ['update:modelValue', 'removed-file'],
 
   setup (props, { emit }) {
     const modal = ref(false)
@@ -160,7 +160,7 @@ export default defineComponent({
       if (index in files.value) {
         const removedFile = files.value[index]
         files.value = files.value.filter((item, idx) => idx !== index)
-        emit('removedFile', removedFile)
+        emit('removed-file', removedFile)
       }
     }
 
@@ -168,7 +168,7 @@ export default defineComponent({
       if (files.value.length > 0) {
         const removedFile = files.value[0]
         files.value = []
-        emit('removedFile', removedFile)
+        emit('removed-file', removedFile)
       }
     }
 
