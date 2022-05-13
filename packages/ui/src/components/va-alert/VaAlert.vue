@@ -80,6 +80,7 @@ export default defineComponent({
     ...statefulComponentOptions.props,
     modelValue: { type: Boolean as PropType<boolean>, default: true },
     color: { type: String as PropType<string>, default: 'primary' },
+    textColor: { type: String as PropType<string>, default: '' },
     title: { type: String as PropType<string>, default: '' },
     description: { type: String as PropType<string>, default: '' },
     icon: { type: String as PropType<string>, default: '' },
