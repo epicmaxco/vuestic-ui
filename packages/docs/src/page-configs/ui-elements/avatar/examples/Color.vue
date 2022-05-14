@@ -1,9 +1,9 @@
 <template>
   <div title="сolor">
-    <va-avatar color="danger" class="mr-4">
-      A
+    <va-avatar color="warning" class="mr-4">
+      U
     </va-avatar>
-    <va-avatar text-color="#ffff1e" class="mr-4">
+    <va-avatar text-color="#fafaa0" class="mr-4">
       A
     </va-avatar>
   </div>
