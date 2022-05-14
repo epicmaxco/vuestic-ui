@@ -2,7 +2,6 @@ import { computed } from 'vue'
 
 import { useColors } from './../../composables/useColor'
 import { useTextColor } from './../../composables/useTextColor'
-import { getTextColor } from '../../services/color-config/color-functions'
 
 type AlertStyleProps = {
   modelValue: boolean,
@@ -52,7 +51,7 @@ export const useAlertStyles = (props: AlertStyleProps) => {
   const contentStyle = computed(() => {
     return {
       alignItems: props.center ? 'center' : '',
-      color: textColorComputed.value,
+      color: props.border ? getColor('dark') : textColorComputed.value,
     }
   })
 
