@@ -148,8 +148,6 @@ export default defineComponent({
       : props.checkedIcon,
     )
 
-    const computedIconColor = computed(() => getTextColor(getColor(props.color), 'dark', 'white'))
-
     return {
       isActive,
       computedClass,
