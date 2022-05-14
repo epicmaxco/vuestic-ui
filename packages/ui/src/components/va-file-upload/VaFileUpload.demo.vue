@@ -103,6 +103,16 @@
         </div>
       </va-file-upload>
     </VbCard>
+
+    <VbCard
+      title="removed-file"
+      style="width: 100%;"
+    >
+      <va-file-upload
+        v-model="basic"
+        @file-removed="$vaToast.init('File removed')"
+      />
+    </VbCard>
   </VbDemo>
 </template>
 
@@ -127,6 +137,6 @@ export default {
         },
       ],
     }
-  },
+  }
 }
 </script>
