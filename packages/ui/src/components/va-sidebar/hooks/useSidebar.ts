@@ -1,4 +1,4 @@
-import { provide, inject, getCurrentInstance, computed, ComputedRef } from 'vue'
+import { provide, inject, getCurrentInstance, computed, ref } from 'vue'
 
 const key = 'VaSidebar'
 
@@ -11,7 +11,7 @@ export const useSidebar = () => {
 }
 
 export const useSidebarItem = () => {
-  const { color } = inject<{ color: ComputedRef<string> }>(key, { color: computed(() => '') })
+  const { color } = inject(key, { color: ref('') })
 
   return {
     sidebarColor: color,
