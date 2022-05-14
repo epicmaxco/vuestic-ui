@@ -56,7 +56,6 @@ export default defineComponent({
       VaButton: {
         ...props,
         color: props.gradient ? '#00000000' : props.color,
-        textColor: textColorComputed.value,
       },
     })
 
