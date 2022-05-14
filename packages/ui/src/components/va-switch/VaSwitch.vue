@@ -106,6 +106,7 @@ export default defineComponent({
     trueInnerLabel: { type: String, default: null },
     falseInnerLabel: { type: String, default: null },
     color: { type: String, default: 'primary' },
+    offColor: { type: String, default: 'gray' },
     size: {
       type: String as PropType<'medium' | 'small' | 'large'>,
       default: 'medium',
@@ -124,7 +125,7 @@ export default defineComponent({
     const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
     const { isChecked, computedError, isIndeterminate, ...selectable } = useSelectable(props, emit, elements)
 
-    const computedBackground = computed(() => isChecked.value ? getColor(props.color) : getColor('gray'))
+    const computedBackground = computed(() => isChecked.value ? getColor(props.color) : getColor(props.offColor))
     const { textColorComputed } = useTextColor(computedBackground)
 
     const computedInnerLabel = computed(() => {
