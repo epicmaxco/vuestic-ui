@@ -99,7 +99,7 @@ export default defineComponent({
     const colorComputed = computed(() => computeColor(props.color, 'primary'))
     const isTransparentBackground = computed(() => Boolean(props.outline || props.flat))
 
-    const { textColorComputed: textColor } = useTextColor(props.color, isTransparentBackground)
+    const { textColorComputed } = useTextColor(props.color, isTransparentBackground)
 
     const computedType = computed(() => {
       // Safari issue. type===button will break styles if the button is used as a link
@@ -111,14 +111,6 @@ export default defineComponent({
         default:
           return props.type
       }
-    })
-
-    const textColorComputed = computed(() => {
-      if (isTransparentBackground.value) {
-        return colorComputed.value
-      }
-
-      return textColor.value
     })
 
     const hasOneIcon = computed(() => {
