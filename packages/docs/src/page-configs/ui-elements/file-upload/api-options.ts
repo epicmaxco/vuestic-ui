@@ -8,5 +8,8 @@ export default defineManualApi({
     fileRemoved: {
       types: '`(file: VaFile) => void`',
     },
+    fileAdded: {
+      types: '`(files: VaFile[]) => void`',
+    },
   },
 })

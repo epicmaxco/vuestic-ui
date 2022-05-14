@@ -105,12 +105,13 @@
     </VbCard>
 
     <VbCard
-      title="removed-file"
+      title="file-removed and file-added event"
       style="width: 100%;"
     >
       <va-file-upload
         v-model="basic"
         @file-removed="$vaToast.init('File removed')"
+        @file-added="$vaToast.init('File added')"
       />
     </VbCard>
   </VbDemo>
