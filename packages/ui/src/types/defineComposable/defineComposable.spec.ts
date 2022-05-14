@@ -14,12 +14,9 @@ describe('defineComposable', () => {
         color: String,
       }
 
-      const useColor = defineComposable({
-        composable () {
-          return this.props.color
-        },
-        props,
-      })
+      const useColor = defineComposable(
+        ({ props }) => props.color, { props },
+      )
 
       // Emits shoudn't exist in useColor
       expect(useColor.$props).toEqual(props)
@@ -28,12 +25,9 @@ describe('defineComposable', () => {
   )
   it('emits',
     () => {
-      const useColor = defineComposable({
-        composable () {
-          return this.emit('click')
-        },
-        emits,
-      })
+      const useColor = defineComposable(({ emit }) => {
+        emit('click')
+      }, { emits })
 
       // $props shoudn't exist in useColor
       expect(useColor.$props).toEqual(undefined)

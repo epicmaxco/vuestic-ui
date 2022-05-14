@@ -1,27 +1,72 @@
 import { getCurrentInstance } from 'vue'
-import { TypedComposable, TypedComposableThis, PropOptions } from './types'
+import { TypedComposableContext, PropOptions, TypedComposable } from './types'
+import { __DEV__ } from '../../utils/global-utils'
 
-const composableThis: TypedComposableThis<unknown, unknown> = {
-  // Current instance must be available in setup function
-  get props () { return getCurrentInstance()!.props },
-  get emit () { return getCurrentInstance()!.emit },
-}
+type ExtractArguments<First, T extends (context: First) => any> = T extends (context: First, ...args: infer P) => any ? P : never
 
-/** This function allows you to create composable and define it required props and emits */
+/**
+ * This function allows you to create composable and define it required props and emits.
+ *
+ * @example
+ * ```ts
+ * const useTextColor = defineComposable(({ props, emit }, background: string) => {
+ *    emit('initBg', background)
+ *
+ *    return computed(() => props.textColor ? getColor(props.textColor) : getTextColor(background))
+ * }, { props: { textColor: String }, emits: ['initBg'] })
+ *
+ * export default defineComponent({
+ *   props: {
+ *      ...useTextColor.$props,
+ *   },
+ *   emit: [...useTextColor.$emits],
+ *   setup() {
+ *     return { ...useTextColor() }
+ *   }
+ * })
+ * ```
+ */
 export const defineComposable = <
-  ENames extends string,
   Props extends PropOptions | undefined = undefined,
-  Emits extends ENames[] | undefined = undefined,
-  Composable extends (this: TypedComposableThis<Props, Emits>, ...args: any[]) => any = (this: TypedComposableThis<Props, Emits>, ...args: any[]) => any,
->(options: {
+  Emits extends string | undefined = undefined,
+  Context = TypedComposableContext<Props, Emits>,
+  Composable extends (context: Context, ...args: any[]) => any = (context: Context, ...args: any[]) => any,
+  ARGS extends unknown[] = ExtractArguments<Context, Composable>,
+  R = TypedComposable<(...args: ARGS) => ReturnType<Composable>, Props, Emits>
+>(
     composable: Composable,
-    props?: Props,
-    emits?: Emits,
-}) => {
-  const s = options.composable as any
+    options?: {
+      props?: Props,
+      emits?: Emits[],
+    },
+  ) => {
+  const wrapper = (...args: ARGS) => {
+    const context = getCurrentInstance()!
 
-  s.$props = options?.props
-  s.$emits = options?.emits
+    if (__DEV__) {
+      const emits = options?.emits?.every((emit) => context.type.emits.includes(emit))
+      const contextPropNames = Object.keys(context.props)
+      const props = Object.keys(options?.props || {})?.every((prop) => contextPropNames.includes(prop))
 
-  return s.bind(composableThis) as TypedComposable<Composable, Props, Emits>
+      if (!props) {
+        throw new Error('Component missing props from composable')
+      }
+
+      if (!emits) {
+        throw new Error('Component missing emits from composable')
+      }
+    }
+
+    return composable(context as unknown as Context, ...args)
+  }
+
+  if (options?.props) {
+    wrapper.$props = options?.props
+  }
+
+  if (options?.emits) {
+    wrapper.$emits = options?.emits
+  }
+
+  return wrapper as any as R
 }
