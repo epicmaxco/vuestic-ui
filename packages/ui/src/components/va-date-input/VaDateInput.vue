@@ -8,7 +8,7 @@
       anchorSelector=".va-input-wrapper__input"
     >
       <template #anchor>
-        <slot name="input" v-bind="{ valueText, inputProps, color }">
+        <slot name="input" v-bind="{ valueText, inputProps, inputListeners }">
           <va-input
             ref="input"
             class="va-date-input__input"
