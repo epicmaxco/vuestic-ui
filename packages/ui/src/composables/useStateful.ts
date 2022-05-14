@@ -1,4 +1,41 @@
 import { ref, computed, PropType, Ref } from 'vue'
+import { defineComposable } from '../types/defineComposable'
+
+// TODO: Remove this example
+const useStaateful2 = defineComposable(
+  ({ props, emit }) => <D>(initialValue: D) => {
+    const valueState = ref(initialValue === undefined ? props.modelValue : initialValue)
+
+    const valueComputed = computed({
+      get () {
+        if (props.stateful) {
+          return valueState.value
+        }
+        return props.modelValue
+      },
+      set (value: D) {
+        if (props.stateful) {
+          valueState.value = value
+        }
+        emit('update:modelValue', value)
+      },
+    })
+
+    return { valueComputed }
+  },
+
+  {
+    props: {
+      stateful: Boolean,
+      modelValue: { type: undefined as any },
+    },
+    emits: ['update:modelValue'],
+  },
+)
+
+const { valueComputed } = useStaateful2('Puk')
+const arr = useStaateful2.$emits
+const p = useStaateful2.$props
 
 export type StatefulProps<T> = {
   stateful: boolean

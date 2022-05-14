@@ -3,9 +3,6 @@ import type { ExtractPropTypes, Prop, ComponentInternalInstance } from 'vue'
 /** Utility type. Adds key to object if value is not undefined */
 type OptionalObject<Key extends string, Value> = Value extends undefined ? Record<'', never> : Record<Key, Value>
 
-/** Utility type. Extracts names from array */
-type ExtractKeys<T> = T extends Array<infer V> ? V : never
-
 /** This of composable function */
 export type TypedComposableContext<Props, Emits> = {
   /** Current instance props */
@@ -15,7 +12,7 @@ export type TypedComposableContext<Props, Emits> = {
 } & Omit<ComponentInternalInstance, 'props' | 'emit'>
 
 export type TypedComposable<
-  C extends (...args: any[]) => any,
+  C,
   Props,
   Emits,
 > = C & OptionalObject<'$props', Props> & OptionalObject<'$emits', Emits>

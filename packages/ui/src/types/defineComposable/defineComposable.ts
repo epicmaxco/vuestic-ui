@@ -2,14 +2,12 @@ import { getCurrentInstance } from 'vue'
 import { TypedComposableContext, PropOptions, TypedComposable } from './types'
 import { __DEV__ } from '../../utils/global-utils'
 
-type ExtractArguments<First, T extends (context: First) => any> = T extends (context: First, ...args: infer P) => any ? P : never
-
 /**
  * This function allows you to create composable and define it required props and emits.
  *
  * @example
  * ```ts
- * const useTextColor = defineComposable(({ props, emit }, background: string) => {
+ * const useTextColor = defineComposable(({ props, emit }) => (background: string) => {
  *    emit('initBg', background)
  *
  *    return computed(() => props.textColor ? getColor(props.textColor) : getTextColor(background))
@@ -27,20 +25,18 @@ type ExtractArguments<First, T extends (context: First) => any> = T extends (con
  * ```
  */
 export const defineComposable = <
+  Composable extends (...args: any[]) => any,
   Props extends PropOptions | undefined = undefined,
   Emits extends string | undefined = undefined,
   Context = TypedComposableContext<Props, Emits>,
-  Composable extends (context: Context, ...args: any[]) => any = (context: Context, ...args: any[]) => any,
-  ARGS extends unknown[] = ExtractArguments<Context, Composable>,
-  R = TypedComposable<(...args: ARGS) => ReturnType<Composable>, Props, Emits>
 >(
-    composable: Composable,
+    composable: (context: Context) => Composable,
     options?: {
       props?: Props,
       emits?: Emits[],
     },
   ) => {
-  const wrapper = (...args: ARGS) => {
+  const wrapper = (...args: Parameters<Composable>) => {
     const context = getCurrentInstance()!
 
     if (__DEV__) {
@@ -57,7 +53,7 @@ export const defineComposable = <
       }
     }
 
-    return composable(context as unknown as Context, ...args)
+    return composable(context as unknown as Context)(...args)
   }
 
   if (options?.props) {
@@ -68,5 +64,5 @@ export const defineComposable = <
     wrapper.$emits = options?.emits
   }
 
-  return wrapper as any as R
+  return wrapper as unknown as TypedComposable<Composable, Props, Emits[]>
 }
