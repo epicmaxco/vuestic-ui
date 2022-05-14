@@ -221,9 +221,12 @@ export default defineComponent({
       hoverNextOption,
       hoverFirstOption,
       focus,
+      scrollToOption,
     }
 
     return {
+      rootElement,
+
       getColor,
       filteredOptions,
       optionGroups,
