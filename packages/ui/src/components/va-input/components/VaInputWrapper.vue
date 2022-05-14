@@ -85,7 +85,7 @@
       </div>
     </div>
 
-    <div class="va-input-wrapper__message-list-wrapper">
+    <div v-if="hasMessages" class="va-input-wrapper__message-list-wrapper">
       <slot name="messages" v-bind="{ messages: messagesComputed, errorLimit, color: messagesColor }">
         <va-message-list
           :color="messagesColor"
@@ -138,6 +138,12 @@ export default defineComponent({
 
     const colorComputed = computed(() => getColor(props.color))
 
+    const messagesComputed = computed(() => props.error ? props.errorMessages : props.messages)
+
+    const hasMessages = computed(() => Boolean(
+      typeof messagesComputed.value === 'string' ? messagesComputed.value : messagesComputed.value?.length,
+    ))
+
     return {
       wrapperClass: createModifiersClasses(() => ({
         outline: props.outline,
@@ -160,7 +166,8 @@ export default defineComponent({
 
         return ''
       }),
-      messagesComputed: computed(() => props.error ? props.errorMessages : props.messages),
+      messagesComputed,
+      hasMessages,
       errorLimit: computed(() => props.error ? Number(props.errorCount) : 99),
     }
   },

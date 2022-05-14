@@ -2403,7 +2403,7 @@
         "text": "To assign a class directly to input, rather than its wrapper, use the `input-class` property. For example, you can use the build-in component class (or any other class you've created) to align the input text &mdash; `text--center` and `text--right` to align the center or right.",
         "exampleTexts": [
           "This input must have right-aligned red text with bottom indent.",
-          "Native input element must have red text. VaInput wrapper has a blue border."
+          "Native input element must have red text. VaInput wrapper has a gray border."
         ]
       },
       "mask": {
@@ -3221,7 +3221,7 @@
     "description": "Vuestic UI components support keyboard interactions for all mouse-based actions and utilize HTML5 semantic elements where applicable.",
     "keyboardInteractions": {
       "title": "Keyboard accessible",
-      "description": "All the interactive elements on your page (e.g. text boxes, buttons, etc.) can be accessed with the keyboard. That means you should be able to focus them by using Tab and Shift+Tab keys."
+      "description": "All the interactive elements on your page (e.g. text boxes, buttons, etc.) can be accessed with the keyboard. That means you should be able to focus them by using `Tab` and `Shift+Tab` keys."
     }
   },
   "configurationGuide": {

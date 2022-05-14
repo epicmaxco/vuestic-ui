@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component'
 import DocsContent from '../../components/DocsContent.vue'
-import accessibilityGuideConfig from '../../page-configs/getting-started/accessibility-guide/page-config'
+import accessibilityGuideConfig from '../../page-configs/introduction/accessibility-guide/page-config'
 
 @Options({
   name: 'DocsAccessibilityGuide',
