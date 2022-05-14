@@ -188,6 +188,12 @@
       <va-date-input v-model="value" :rules="validationRules1" clearable />
       <va-date-input v-model="value" :rules="validationRules2" clearable />
     </VbCard>
+
+    <VbCard title="Focus and Blur">
+      <va-date-input ref="dateInputRef" v-model="value" :rules="validationRules1" clearable />
+      <va-button @click="focusDateInput">Focus</va-button>
+      <va-button @click="blurDateInput">Blur</va-button>
+    </VbCard>
   </VbDemo>
 </template>
 
@@ -239,6 +245,9 @@ export default {
       (this as any).range = { start: new Date(), end: nextWeek };
       (this as any).dates = [new Date(), nextWeek]
     },
+
+    focusDateInput () { (this as any).$refs.dateInputRef.focus() },
+    blurDateInput () { (this as any).$refs.dateInputRef.blur() },
   },
 }
 </script>
