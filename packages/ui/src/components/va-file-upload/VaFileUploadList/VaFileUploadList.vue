@@ -10,6 +10,7 @@
         :file="file"
         :color="color"
         :undo="undo"
+        :undoDuration="undoDuration"
         @remove="$emit('remove', index)"
       />
     </template>
@@ -20,6 +21,7 @@
         :key="file.name"
         :color="color"
         :undo="undo"
+        :undoDuration="undoDuration"
         @remove="$emit('remove', index)"
       />
     </template>
@@ -54,6 +56,7 @@ export default defineComponent({
     files: { type: Array as PropType<VaFile[]>, default: null },
     color: { type: String as PropType<string>, default: 'success' },
     undo: { type: Boolean as PropType<boolean>, default: false },
+    undoDuration: { type: Number as PropType<number>, default: 3000 },
   },
   setup (props) {
     const filesList = computed(() => props.files.map(convertFile))

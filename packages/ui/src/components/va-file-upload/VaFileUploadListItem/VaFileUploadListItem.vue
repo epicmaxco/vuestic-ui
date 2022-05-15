@@ -53,6 +53,7 @@ export default defineComponent({
     file: { type: Object as PropType<VaFile | null>, default: null },
     color: { type: String as PropType<string>, default: 'success' },
     undo: { type: Boolean as PropType<boolean>, default: false },
+    undoDuration: { type: Number as PropType<number>, default: 3000 },
   },
   setup (props, { emit }) {
     const removed = ref(false)
@@ -66,7 +67,7 @@ export default defineComponent({
             emit('remove')
             removed.value = false
           }
-        }, 2000)
+        }, props.undoDuration)
       } else {
         emit('remove')
         removed.value = false
