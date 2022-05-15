@@ -1,6 +1,6 @@
 export const nuxtConfigCode = `
 export default defineNuxtConfig({
-  buildModules: ['@vuestic/nuxt'],
+  modules: ['@vuestic/nuxt'],
 
   vuestic: {
     config: {

@@ -21,6 +21,10 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'browser-support',
         displayName: 'menu.browserSupport',
       },
+      {
+        name: 'accessibility-guide',
+        displayName: 'menu.accessibilityGuide',
+      },
       // GENERATOR_ADD - introduction
     ],
   },
@@ -35,10 +39,6 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: 'installation',
         displayName: 'menu.installation',
-      },
-      {
-        name: 'accessibility-guide',
-        displayName: 'menu.accessibilityGuide',
       },
       {
         name: 'configuration-guide',
