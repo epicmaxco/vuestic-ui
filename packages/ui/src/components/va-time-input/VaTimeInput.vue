@@ -5,7 +5,7 @@
     :style="$attrs.style"
     v-model="isOpenSync"
     placement="bottom-start"
-    :offset="[1, 0]"
+    :offset="[2, 0]"
     :close-on-content-click="false"
     :disabled="$props.disabled"
     anchorSelector=".va-input__container"
@@ -20,15 +20,10 @@
       <va-input
         ref="input"
         v-bind="{ ...computedInputProps, ...computedInputAttrs }"
+        v-on="computedInputListeners"
         :modelValue="valueText"
-        :readonly="$props.readonly || !$props.manualInput"
-        :error="hasError"
-        :error-messages="computedErrorMessages"
-        :required-mark="$props.requiredMark"
         @change="onInputTextChanged($event.target.value)"
         @update:modelValue="onValueInput"
-        @focus="onFocus"
-        @blur="onBlur"
       >
         <template
           v-for="name in filterSlots"
@@ -85,15 +80,15 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, InputHTMLAttributes, PropType, watch, ref } from 'vue'
+import { computed, defineComponent, PropType, watch, shallowRef, nextTick } from 'vue'
 import omit from 'lodash/omit.js'
 import VaTimePicker from '../va-time-picker/VaTimePicker.vue'
 import VaInput from '../va-input/VaInput.vue'
 import VaIcon from '../va-icon/VaIcon.vue'
 import VaDropdown, { VaDropdownContent } from '../va-dropdown/'
 import { useSyncProp } from '../../composables/useSyncProp'
-import { useValidation, useValidationProps, useValidationEmits } from '../../composables/useValidation'
-import { useClearableProps, useClearable, useClearableEmits } from '../../composables/useClearable'
+import { useValidation, useValidationEmits } from '../../composables/useValidation'
+import { useClearable, useClearableEmits } from '../../composables/useClearable'
 import { useTimeParser } from './hooks/time-text-parser'
 import { useTimeFormatter } from './hooks/time-text-formatter'
 import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
@@ -106,6 +101,10 @@ const slotsSelectors = [
   '.va-input-wrapper__append-inner',
 ]
 
+const VaInputProps = extractComponentProps(VaInput, [
+  'mask', 'returnRaw', 'autosize', 'minRows', 'maxRows', 'type', 'inputmode',
+])
+
 export default defineComponent({
   name: 'VaTimeInput',
 
@@ -114,11 +113,8 @@ export default defineComponent({
   emits: [...useValidationEmits, ...useClearableEmits, 'update:modelValue', 'update:isOpen'],
 
   props: {
+    ...VaInputProps,
     ...extractComponentProps(VaTimePicker),
-    ...extractComponentProps(VaInput),
-
-    ...useValidationProps,
-    ...useClearableProps,
 
     isOpen: { type: Boolean, default: undefined },
     modelValue: { type: Date, default: undefined },
@@ -135,8 +131,9 @@ export default defineComponent({
   inheritAttrs: false,
 
   setup (props, { emit, attrs, slots }) {
-    const input = ref<typeof VaInput | undefined>()
-    const timePicker = ref<typeof VaTimePicker | undefined>()
+    const input = shallowRef<typeof VaInput | undefined>()
+    const timePicker = shallowRef<typeof VaTimePicker | undefined>()
+
     const clearIconId = generateUniqueId()
     const componentIconId = generateUniqueId()
 
@@ -153,26 +150,6 @@ export default defineComponent({
       if (props.format) { return props.format(modelValueSync.value) }
 
       return format(modelValueSync.value)
-    })
-
-    const timePickerProps = filterComponentProps(props, extractComponentProps(VaTimePicker))
-
-    const computedInputProps = filterComponentProps(
-      props,
-      extractComponentProps(VaInput, ['rules', 'error', 'errorMessages', 'clearable']),
-    )
-
-    const computedInputAttrs = computed(() => ({
-      ariaLabel: props.label,
-      ...omit(attrs, ['class', 'style']),
-    }))
-
-    const filterSlots = computed(() => {
-      const slotsWithIcons = [
-        props.leftIcon && 'prependInner',
-        (!props.leftIcon || props.clearable) && 'icon',
-      ]
-      return Object.keys(slots).filter(slot => !slotsWithIcons.includes(slot))
     })
 
     const onInputTextChanged = (val: string) => {
@@ -208,7 +185,6 @@ export default defineComponent({
       input.value?.focus()
     }
 
-    // Will be used later, after fix 'withConfigTransport'
     const blur = (): void => {
       input.value?.blur()
     }
@@ -217,7 +193,7 @@ export default defineComponent({
       !val && reset()
     }
 
-    const { computedError, computedErrorMessages } = useValidation(props, emit, reset, focus)
+    const { computedError, computedErrorMessages, listeners } = useValidation(props, emit, reset, focus)
 
     const hasError = computed(() => (!isValid.value && valueText.value !== props.clearValue) || computedError.value)
 
@@ -234,6 +210,39 @@ export default defineComponent({
       size: 'small',
     }))
 
+    const computedInputProps = computed(() => ({
+      ...filterComponentProps(props, VaInputProps).value,
+      clearable: false,
+      rules: [],
+      error: hasError.value,
+      errorMessages: computedErrorMessages.value,
+      readonly: props.readonly || !props.manualInput,
+    }))
+
+    const computedInputListeners = computed(() => ({
+      focus: () => {
+        onFocus()
+        listeners.onFocus()
+      },
+      blur: () => {
+        onBlur()
+        listeners.onBlur()
+      },
+    }))
+
+    const computedInputAttrs = computed(() => ({
+      ariaLabel: props.label,
+      ...omit(attrs, ['class', 'style']),
+    }))
+
+    const filterSlots = computed(() => {
+      const slotsWithIcons = [
+        props.leftIcon && 'prependInner',
+        (!props.leftIcon || props.clearable) && 'icon',
+      ]
+      return Object.keys(slots).filter(slot => !slotsWithIcons.includes(slot))
+    })
+
     watch(modelValueSync, () => {
       isValid.value = true
     })
@@ -246,6 +255,9 @@ export default defineComponent({
     const showDropdown = () => {
       if (props.disabled || props.readonly) { return }
       isOpenSync.value = true
+      nextTick(() => {
+        timePicker.value?.focus()
+      })
     }
 
     const dropdownToggle = () => {
@@ -254,8 +266,8 @@ export default defineComponent({
 
     // we use the global handler to prevent the toggle dropdown on any click and execute additional logic
     // we don't want to use `event.stopPropagation()` on clicks because it breaks closing the dropdown
-    const handleComponentClick = (e: any) => {
-      const id: string | undefined = e.target?.id
+    const handleComponentClick = (e: Event & { target: { id: string | undefined }}) => {
+      const id = e.target?.id
 
       // (here and below) we have to use `id` instead of `ref`
       // because the icon disappears after the click and `ref` becomes `null`
@@ -269,7 +281,7 @@ export default defineComponent({
 
       // here we check that the slots have been clicked and prevent the dropdown from opening
       // the user decides to open or hide the dropdown itself
-      const isClickInSlot = slotsSelectors.some(selector => !!e.target?.closest(selector))
+      const isClickInSlot = slotsSelectors.some(selector => !!(e.target as HTMLElement)?.closest(selector))
       if (isClickInSlot) {
         return
       }
@@ -287,14 +299,14 @@ export default defineComponent({
       clearIconId,
       componentIconId,
 
-      timePickerProps,
+      timePickerProps: filterComponentProps(props, extractComponentProps(VaTimePicker)),
       computedInputProps,
       computedInputAttrs,
+      computedInputListeners,
       isOpenSync,
       modelValueSync,
       valueText,
       onInputTextChanged,
-      reset,
       onValueInput,
       canBeCleared,
       iconProps,
@@ -305,24 +317,12 @@ export default defineComponent({
       showDropdown,
       dropdownToggle,
 
-      computedError,
-      computedErrorMessages,
-      hasError,
-
       handleComponentClick,
-      onFocus,
-      onBlur,
 
-      // Will be used later, after fix 'withConfigTransport'
-      // focus,
-      // blur,
+      reset,
+      focus,
+      blur,
     }
-  },
-
-  // we will use this while we have problem with 'withConfigTransport'
-  methods: {
-    focus () { (this as any).input?.focus() },
-    blur () { (this as any).input?.blur() },
   },
 })
 </script>

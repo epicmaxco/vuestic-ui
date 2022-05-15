@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, PropType, ref } from 'vue'
+import { defineComponent, PropType, ref } from 'vue'
 import { useTimePicker } from './hooks/useTimePicker'
 import VaTimePickerColumn from './components/VaTimePickerColumn.vue'
 import { useStateful, useStatefulEmits, useStatefulProps } from '../../composables/useStateful'
@@ -61,8 +61,6 @@ export default defineComponent({
 
     const { createComputedClass } = useForm(props)
 
-    const computedClass = createComputedClass('va-time-picker')
-
     const focusNext = () => {
       const nextIndex = (activeColumnIndex?.value || 0) + 1
       activeColumnIndex.value = nextIndex % columns.value.length
@@ -75,11 +73,9 @@ export default defineComponent({
       focus(activeColumnIndex.value)
     }
 
-    onMounted(() => { focus() })
-
     return {
       columns,
-      computedClass,
+      computedClass: createComputedClass('va-time-picker'),
       isPM,
       pickers,
       setItemRef,
@@ -88,18 +84,9 @@ export default defineComponent({
       focusPrev,
       activeColumnIndex,
 
-      // Will be used later, after fix 'withConfigTransport'
-      // focus,
-      // blur,
+      focus,
+      blur,
     }
-  },
-
-  // we will use this while we have problem with 'withConfigTransport'
-  methods: {
-    focus (idx = 0) { (this as any).pickers[idx]?.focus() },
-    blur (idx?: number) {
-      idx ? (this as any).pickers[idx]?.blur() : (this as any).pickers.value.forEach((el: any) => el?.blur())
-    },
   },
 })
 </script>
