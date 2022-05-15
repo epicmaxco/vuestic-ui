@@ -11,7 +11,7 @@ export const useSidebar = () => {
 }
 
 export const useSidebarItem = () => {
-  const { color } = inject(key, { color: ref('') })
+  const { color } = inject(key, { color: ref('white') })
 
   return {
     sidebarColor: color,
