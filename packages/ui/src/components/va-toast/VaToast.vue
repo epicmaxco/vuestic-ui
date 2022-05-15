@@ -11,21 +11,21 @@
       ref="rootElement"
     >
       <div class="va-toast__group">
-        <h2 v-if="title" class="va-toast__title" v-text="title" />
+        <h2 v-if="$props.title" class="va-toast__title" v-text="$props.title" />
 
-        <div class="va-toast__content" v-show="message">
-          <p v-if="html" v-html="computedMessage" />
+        <div class="va-toast__content" v-show="$props.message">
+          <div v-if="$props.dangerouslyUseHtmlString" v-html="computedMessage" />
           <p v-else v-text="computedMessage" />
         </div>
 
-        <div class="va-toast__content" v-if="render">
-          <VaToastRenderer :content="render" />
+        <div class="va-toast__content" v-if="$props.render">
+          <VaToastRenderer :render="$props.render" />
         </div>
 
         <va-icon
-          v-if="closeable"
+          v-if="$props.closeable"
           size="small"
-          :name="icon"
+          :name="$props.icon"
           class="va-toast__close-icon"
           @click.stop="onToastClose"
         />
@@ -35,7 +35,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, h, PropType, ref, computed, onMounted, render, VNode } from 'vue'
+import { defineComponent, PropType, ref, computed, onMounted } from 'vue'
 
 import { useColors } from '../../composables/useColor'
 import { useTimer } from '../../composables/useTimer'
@@ -46,9 +46,9 @@ import { NotificationPosition } from './types'
 const VaToastRenderer = defineComponent({
   name: 'VaToastRenderer',
   props: {
-    content: { type: Function, required: true },
+    render: { type: Function, required: true },
   },
-  setup: (props) => props.content(h),
+  setup: (props) => () => props.render(),
 })
 
 export default defineComponent({
@@ -60,7 +60,7 @@ export default defineComponent({
     offsetY: { type: Number as PropType<number>, default: 16 },
     offsetX: { type: Number as PropType<number>, default: 16 },
     message: { type: [String, Function], default: '' },
-    html: { type: Boolean as PropType<boolean>, default: false },
+    dangerouslyUseHtmlString: { type: Boolean as PropType<boolean>, default: false },
     icon: { type: String as PropType<string>, default: 'close' },
     customClass: { type: String as PropType<string>, default: '' },
     duration: { type: Number as PropType<number>, default: 5000 },
@@ -163,24 +163,18 @@ export default defineComponent({
 @import "variables";
 
 .va-toast {
-  display: flex;
-  width: $toast-width;
-  padding: $toast-padding;
-  align-items: center;
-  border-radius: $toast-radius;
-  box-sizing: border-box;
-  border: 1px solid var(--va-toast-border-color);
   position: fixed;
-  background-color: white;
-  color: #ffffff;
-  box-shadow: $toast-shadow;
-  transition:
-    opacity 0.3s,
-    transform 0.3s,
-    left 0.3s,
-    right 0.3s,
-    top 0.4s,
-    bottom 0.3s;
+  box-sizing: border-box;
+  width: var(--va-toast-width);
+  padding: var(--va-toast-padding);
+  display: flex;
+  align-items: center;
+  border-radius: var(--va-toast-border-radius);
+  border: 1px solid var(--va-toast-border-color);
+  background-color: var(--va-toast-background-color);
+  color: var(--va-toast-color);
+  box-shadow: var(--va-toast-box-shadow);
+  transition: var(--va-toast-transition);
   overflow: hidden;
   z-index: var(--va-toast-z-index);
   font-family: var(--va-font-family);
@@ -214,7 +208,8 @@ export default defineComponent({
     line-height: var(--va-toast-content-line-height);
     padding-right: var(--va-toast-content-padding-right);
 
-    p {
+    p,
+    div {
       margin: 0;
     }
   }
@@ -228,10 +223,10 @@ export default defineComponent({
   &__close-icon {
     position: absolute;
     top: 50%;
-    right: 15px;
+    right: var(--va-toast-close-icon-right);
     cursor: pointer;
     transform: translateY(-50%);
-    font-size: $toast-close-font-size;
+    font-size: var(--va-toast-close-icon-font-siz);
 
     &:hover {
       color: var(--va-toast-hover-color);

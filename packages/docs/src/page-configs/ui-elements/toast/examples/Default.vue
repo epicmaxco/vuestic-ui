@@ -24,7 +24,7 @@
     class="mb-2"
     @click="$vaToast.init({
       message: '<em>Message</em> <span style=\'color: red\'>from</span> <strong>HTML</strong>',
-      html: true,
+      dangerouslyUseHtmlString: true,
     })"
   >
     Message from html
@@ -32,14 +32,14 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue'
+import { defineComponent, h } from 'vue'
 import ExampleComponent from './ExampleComponent.vue'
 
 export default defineComponent({
   setup () {
     return {
       getMessage: () => 'Message from function',
-      getComponent: (h) => h(ExampleComponent),
+      getComponent: () => h(ExampleComponent),
     }
   },
 })

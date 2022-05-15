@@ -7,7 +7,7 @@
 <script lang="ts">
 import { defineComponent, PropType, computed, ref } from 'vue'
 
-import { setupScroll } from '../../mixins/ScrollMixin/ScrollMixin'
+import { setupScroll } from '../../composables/useScroll'
 import { getGradientBackground, getBoxShadowColor } from '../../services/color-config/color-functions'
 import { useColors } from '../../services/color-config/color-config'
 

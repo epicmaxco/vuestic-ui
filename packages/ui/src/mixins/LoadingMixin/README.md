@@ -1,2 +1,0 @@
-Loading state for component should always be taken from this prop alone, we do not make guesses on whether component is loaded based on value.
-There could be some cases where couple of loaders for single component would make sense, such as select with infinite scroll. We want to give user a slot + example in docs in that case.

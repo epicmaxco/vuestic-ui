@@ -2,7 +2,7 @@
   <div class="va-time-picker" :class="computedClass">
     <VaTimePickerColumn
       v-for="(column, idx) in columns" :key="idx"
-      :ref="(el) => pickers.push(el)"
+      :ref="setItemRef"
       :items="column.items"
       :tabindex="disabled ? -1 : 0"
       v-model:activeItemIndex="column.activeItem.value"
@@ -19,8 +19,9 @@
 import { defineComponent, onMounted, PropType, ref } from 'vue'
 import { useTimePicker } from './hooks/useTimePicker'
 import VaTimePickerColumn from './components/VaTimePickerColumn.vue'
-import { useStateful, statefulComponentOptions } from '../../mixins/StatefulMixin/cStatefulMixin'
+import { useStateful, useStatefulEmits, useStatefulProps } from '../../composables/useStateful'
 import { useFormProps, useForm } from '../../composables/useForm'
+import { useArrayRefs } from '../../composables/useArrayRefs'
 
 export default defineComponent({
   name: 'VaTimePicker',
@@ -28,7 +29,7 @@ export default defineComponent({
   components: { VaTimePickerColumn },
 
   props: {
-    ...statefulComponentOptions.props,
+    ...useStatefulProps,
     ...useFormProps,
     modelValue: { type: Date, required: false },
     ampm: { type: Boolean, default: false },
@@ -40,13 +41,13 @@ export default defineComponent({
     secondsFilter: { type: Function as PropType<(h: number) => boolean> },
   },
 
-  emits: [...statefulComponentOptions.emits],
+  emits: useStatefulEmits,
 
   setup (props, { emit }) {
     const { valueComputed } = useStateful(props, emit)
     const { columns, isPM } = useTimePicker(props, valueComputed)
 
-    const pickers = ref<(typeof VaTimePickerColumn | undefined)[]>([])
+    const { setItemRef, itemRefs: pickers } = useArrayRefs()
 
     const activeColumnIndex = ref<number | undefined>()
 
@@ -81,6 +82,7 @@ export default defineComponent({
       computedClass,
       isPM,
       pickers,
+      setItemRef,
 
       focusNext,
       focusPrev,

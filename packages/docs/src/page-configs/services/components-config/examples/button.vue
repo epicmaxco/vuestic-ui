@@ -1,6 +1,6 @@
 <template>
   <va-checkbox
-    v-for="(key, name) in buttonProps"
+    v-for="(_, name) in buttonProps"
     :key="name"
     :label="name"
     v-model="buttonProps[name]"
@@ -30,7 +30,7 @@ export default {
 
     const { mergeGlobalConfig } = useGlobalConfig()
 
-    watch(() => componentsConfig, componentsConfig => {
+    watch(componentsConfig, componentsConfig => {
       mergeGlobalConfig({
         components: componentsConfig.value,
       })

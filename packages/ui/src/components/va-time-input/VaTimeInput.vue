@@ -4,10 +4,10 @@
     :class="$attrs.class"
     :style="$attrs.style"
     v-model="isOpenSync"
-    :offset="[0, 1]"
+    placement="bottom-start"
+    :offset="[1, 0]"
     :close-on-content-click="false"
     :disabled="$props.disabled"
-    position="bottom-start"
     anchorSelector=".va-input__container"
     :stateful="false"
     trigger="none"
@@ -27,6 +27,8 @@
         :required-mark="$props.requiredMark"
         @change="onInputTextChanged($event.target.value)"
         @update:modelValue="onValueInput"
+        @focus="onFocus"
+        @blur="onBlur"
       >
         <template
           v-for="name in filterSlots"
@@ -84,12 +86,11 @@
 
 <script lang="ts">
 import { computed, defineComponent, InputHTMLAttributes, PropType, watch, ref } from 'vue'
-import omit from 'lodash/omit'
+import omit from 'lodash/omit.js'
 import VaTimePicker from '../va-time-picker/VaTimePicker.vue'
 import VaInput from '../va-input/VaInput.vue'
 import VaIcon from '../va-icon/VaIcon.vue'
-import VaDropdown from '../va-dropdown/VaDropdown.vue'
-import VaDropdownContent from '../va-dropdown/VaDropdownContent/VaDropdownContent.vue'
+import VaDropdown, { VaDropdownContent } from '../va-dropdown/'
 import { useSyncProp } from '../../composables/useSyncProp'
 import { useValidation, useValidationProps, useValidationEmits } from '../../composables/useValidation'
 import { useClearableProps, useClearable, useClearableEmits } from '../../composables/useClearable'
@@ -164,7 +165,7 @@ export default defineComponent({
     const computedInputAttrs = computed(() => ({
       ariaLabel: props.label,
       ...omit(attrs, ['class', 'style']),
-    }) as InputHTMLAttributes)
+    }))
 
     const filterSlots = computed(() => {
       const slotsWithIcons = [
@@ -216,18 +217,16 @@ export default defineComponent({
       !val && reset()
     }
 
-    const {
-      isFocused,
-      computedError,
-      computedErrorMessages,
-    } = useValidation(props, emit, reset, focus)
+    const { computedError, computedErrorMessages } = useValidation(props, emit, reset, focus)
 
     const hasError = computed(() => (!isValid.value && valueText.value !== props.clearValue) || computedError.value)
 
     const {
       canBeCleared,
       clearIconProps,
-    } = useClearable(props, valueText, isFocused, hasError)
+      onFocus,
+      onBlur,
+    } = useClearable(props, valueText)
 
     const iconProps = computed(() => ({
       name: props.icon,
@@ -311,6 +310,8 @@ export default defineComponent({
       hasError,
 
       handleComponentClick,
+      onFocus,
+      onBlur,
 
       // Will be used later, after fix 'withConfigTransport'
       // focus,

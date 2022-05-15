@@ -70,17 +70,17 @@
     />
     <va-select
       class="mb-4"
-      label="Custom list position (top)"
+      label="Custom list placement (top)"
       :options="options"
       v-model="value"
-      position="top"
+      placement="top"
     />
     <va-select
       class="mb-4"
-      label="Custom list position (bottom)"
+      label="Custom list placement (bottom)"
       :options="options"
       v-model="value"
-      position="bottom"
+      placement="bottom"
     />
     <va-select
       class="mb-4"

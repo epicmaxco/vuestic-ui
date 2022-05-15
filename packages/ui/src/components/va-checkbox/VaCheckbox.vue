@@ -68,15 +68,19 @@ import { useColors } from '../../composables/useColor'
 import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'
 import { useSelectable, useSelectableProps, useSelectableEmits } from '../../composables/useSelectable'
 
+const vaCheckboxValueType = [Boolean, Array, String, Object] as PropType<boolean | null | string | number | Record<any, unknown> | unknown[]>
+
 export default defineComponent({
   name: 'VaCheckbox',
   components: { VaMessageListWrapper, VaIcon },
   emits: useSelectableEmits,
   props: {
     ...useSelectableProps,
-    modelValue: { type: null as any as PropType<unknown>, default: false },
+    modelValue: { type: vaCheckboxValueType, default: false },
     color: { type: String as PropType<string>, default: 'primary' },
     checkedIcon: { type: String as PropType<string>, default: 'check' },
+    indeterminate: { type: Boolean, default: false },
+    indeterminateValue: { type: vaCheckboxValueType, default: null },
     indeterminateIcon: { type: String as PropType<string>, default: 'remove' },
     id: { type: String as PropType<string>, default: '' },
     name: { type: String as PropType<string>, default: '' },

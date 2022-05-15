@@ -15,9 +15,9 @@
   </va-list-item>
 </template>
 <script lang='ts'>
-import { Options, Vue, prop, mixins } from 'vue-class-component'
+import { Options, Vue, prop, mixins, setup } from 'vue-class-component'
 import { getHoverColor } from 'vuestic-ui/src/services/color-config/color-functions'
-import ColorMixin from '../../../../ui/src/services/color-config/ColorMixin'
+import { useColors } from 'vuestic-ui/src/main'
 
 class SidebarLinkProps {
   path = prop<string>({ type: String, default: undefined })
@@ -28,13 +28,15 @@ const SidebarLinkPropsMixin = Vue.with(SidebarLinkProps)
 @Options({
   name: 'DocsSidebarLink',
 })
-export default class SidebarLink extends mixins(ColorMixin, SidebarLinkPropsMixin) {
+export default class SidebarLink extends mixins(SidebarLinkPropsMixin) {
   isHovered = false
+
+  colorsCtx = setup(useColors)
 
   get computedStyle () {
     return {
-      backgroundColor: this.isHovered ? getHoverColor(this.computeColor('primary', '#ECF4F8')) : '',
-      color: this.isHovered ? this.computeColor('primary', '#2C82E0') : '',
+      backgroundColor: this.isHovered ? getHoverColor(this.colorsCtx.getColor('primary', '#ECF4F8')) : '',
+      color: this.isHovered ? this.colorsCtx.getColor('primary', '#2C82E0') : '',
     }
   }
 }

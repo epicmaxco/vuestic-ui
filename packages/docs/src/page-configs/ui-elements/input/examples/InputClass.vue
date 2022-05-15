@@ -6,7 +6,7 @@
       :model-value="$t('input.examples.inputClass.exampleTexts[0]')"
     />
     <va-input
-      class="mb-3 border-blue"
+      class="mb-3 border-gray"
       input-class="red p-2"
       :model-value="$t('input.examples.inputClass.exampleTexts[1]')"
       type="textarea"
@@ -33,11 +33,11 @@ export default {
   }
 
   .p-2 {
-    padding: 2rem;
+    padding: 2rem 0;
   }
 
-  .border-blue {
-    border: 1px solid blue;
+  .border-gray {
+    border: 1px solid darkgray;
   }
 }
 </style>

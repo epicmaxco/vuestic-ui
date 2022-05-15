@@ -25,7 +25,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, toRefs, onMounted, ref, computed, watch } from 'vue'
+import { defineComponent, PropType, toRefs, onMounted, ref, computed, watch, shallowRef } from 'vue'
 import { VaDatePickerMode, VaDatePickerModelValue, VaDatePickerView } from '../../types'
 import VaDatePickerCell from '../VaDatePickerCell.vue'
 import { createYearDate, isDatesYearEqual } from '../../utils/date-utils'
@@ -51,7 +51,7 @@ export default defineComponent({
 
   setup (props, { emit }) {
     const { view } = toRefs(props)
-    const rootNode = ref<HTMLElement | null>(null)
+    const rootNode = shallowRef<HTMLElement | null>(null)
 
     const generateYearsArray = (start: number, end: number) => {
       const yearsCount = end - start + 1

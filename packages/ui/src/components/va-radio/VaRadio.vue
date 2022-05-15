@@ -46,8 +46,8 @@ export default defineComponent({
   emits: ['update:modelValue', 'focus'],
   props: {
     ...useFormProps,
-    modelValue: { type: null as any as PropType<unknown>, default: null },
-    option: { type: null as any as PropType<unknown>, default: null },
+    modelValue: { type: [Boolean, Array, String, Object] as PropType<boolean | null | string | number | Record<any, unknown> | unknown[]>, default: null },
+    option: { default: null },
     name: { type: String as PropType<string>, default: '' },
     label: { type: String as PropType<string>, default: '' },
     leftLabel: { type: Boolean as PropType<boolean>, default: false },

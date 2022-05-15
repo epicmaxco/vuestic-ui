@@ -57,7 +57,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, ref, PropType } from 'vue'
+import { computed, defineComponent, onMounted, ref, PropType, shallowRef } from 'vue'
 import { useColors } from '../../services/color-config/color-config'
 import { shiftHSLAColor } from '../../services/color-config/color-functions'
 import VaButton from '../va-button'
@@ -97,12 +97,12 @@ export default defineComponent({
     },
   },
 
-  emits: ['update:modelValue'],
+  emits: ['update:modelValue', 'file-removed'],
 
   setup (props, { emit }) {
     const modal = ref(false)
     const dropzoneHighlight = ref(false)
-    const fileInputRef = ref<HTMLInputElement | null>(null)
+    const fileInputRef = shallowRef<HTMLInputElement | null>(null)
 
     const { getColor } = useColors()
 
@@ -160,9 +160,21 @@ export default defineComponent({
       }
     }
 
-    const removeFile = (index: number) => { files.value = files.value.filter((item, idx) => idx !== index) }
+    const removeFile = (index: number) => {
+      if (index in files.value) {
+        const removedFile = files.value[index]
+        files.value = files.value.filter((item, idx) => idx !== index)
+        emit('file-removed', removedFile)
+      }
+    }
 
-    const removeSingleFile = () => { files.value = [] }
+    const removeSingleFile = () => {
+      if (files.value.length > 0) {
+        const removedFile = files.value[0]
+        files.value = []
+        emit('file-removed', removedFile)
+      }
+    }
 
     const callFileDialogue = () => {
       if (fileInputRef.value) {
