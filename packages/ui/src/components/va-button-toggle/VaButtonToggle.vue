@@ -31,6 +31,13 @@ import { useColors } from '../../composables/useColor'
 import VaButton from '../va-button'
 import VaButtonGroup from '../va-button-group'
 
+type ButtonOption = {
+  value: any,
+  label?: string,
+  icon?: string,
+  iconRight?: string
+}
+
 export default defineComponent({
   name: 'VaButtonToggle',
   components: {
@@ -39,7 +46,10 @@ export default defineComponent({
   },
   emits: ['update:modelValue'],
   props: {
-    options: { type: Array, default: () => [] },
+    options: {
+      type: Array as PropType<ButtonOption[]>,
+      required: true,
+    },
     color: { type: String, default: 'primary' },
     textColor: { type: String, default: undefined },
     activeButtonTextColor: { type: String, default: 'white' },
@@ -72,7 +82,7 @@ export default defineComponent({
     })
     const textColor = computed(() => props.activeButtonTextColor || getTextColor(colorComputed.value))
 
-    const getButtonProps = (option: Record<string, any> = {}) => {
+    const getButtonProps = (option: ButtonOption = {} as ButtonOption) => {
       const iconsProps = {
         icon: option.icon,
         iconRight: option.iconRight,
@@ -80,18 +90,12 @@ export default defineComponent({
 
       if (option.value !== props.modelValue) { return iconsProps }
 
-      const buttonProps = {
+      return {
         textColor: textColor.value,
         color: color.value,
         ...iconsProps,
+        ...(isFlatOrOutline.value && { outline: false, flat: false }),
       }
-
-      isFlatOrOutline.value && Object.assign(buttonProps, {
-        outline: false,
-        flat: false,
-      })
-
-      return buttonProps
     }
 
     const getButtonClass = (buttonValue: any) => ({ 'va-button--active': buttonValue === props.modelValue })
