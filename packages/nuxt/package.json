@@ -8,7 +8,7 @@
     "nuxt",
     "vue"
   ],
-  "version": "0.0.1-alpha1",
+  "version": "0.0.1-alpha3",
   "license": "MIT",
   "type": "module",
   "exports": {
@@ -29,16 +29,16 @@
     "dev:prepare": "nuxt-module-build --stub && nuxi prepare playground"
   },
   "dependencies": {
-    "@nuxt/kit": "^3.0.0-rc.1",
-    "@nuxt/schema": "^3.0.0-rc.1",
-    "@nuxt/vite-builder": "^3.0.0-rc.1",
-    "vue": "^3.2.33",
-    "vuestic-ui": "latest"
+    "vuestic-ui": "next"
   },
   "devDependencies": {
+    "@nuxt/kit": "^3.0.0-rc.1",
     "@nuxt/module-builder": "latest",
+    "@nuxt/schema": "^3.0.0-rc.1",
+    "@nuxt/vite-builder": "^3.0.0-rc.1",
     "@nuxtjs/eslint-config-typescript": "latest",
     "eslint": "latest",
-    "nuxt": "^3.0.0-rc.1"
+    "nuxt": "^3.0.0-rc.1",
+    "vue": "^3.2.33"
   }
 }
