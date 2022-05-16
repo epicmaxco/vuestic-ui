@@ -3072,6 +3072,10 @@
       "disabled": {
         "title": "Disabled",
         "text": "The component can be disabled."
+      },
+      "icons": {
+        "title": "Icons",
+        "text": "You can set icon instead (or in addition) of label for buttons via `options` props (`icon` and `iconRight` attributes)."
       }
     }
   },

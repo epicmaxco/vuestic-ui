@@ -10,7 +10,7 @@
     >
       <va-button
         v-for="option in options"
-        v-bind="getButtonProps(option.value)"
+        v-bind="getButtonProps(option)"
         :key="option.value"
         :disabled="disabled"
         :size="size"
@@ -31,6 +31,13 @@ import { useColors } from '../../composables/useColor'
 import VaButton from '../va-button'
 import VaButtonGroup from '../va-button-group'
 
+type ButtonOption = {
+  value: any,
+  label?: string,
+  icon?: string,
+  iconRight?: string
+}
+
 export default defineComponent({
   name: 'VaButtonToggle',
   components: {
@@ -39,44 +46,55 @@ export default defineComponent({
   },
   emits: ['update:modelValue'],
   props: {
-    options: { type: Array as PropType<any[]>, default: () => [] },
-    color: { type: String as PropType<string>, default: 'primary' },
-    textColor: { type: String as PropType<string>, default: undefined },
-    activeButtonTextColor: { type: String as PropType<string>, default: 'white' },
+    options: {
+      type: Array as PropType<ButtonOption[]>,
+      required: true,
+    },
+    color: { type: String, default: 'primary' },
+    textColor: { type: String, default: undefined },
+    activeButtonTextColor: { type: String, default: 'white' },
     modelValue: { type: [String, Number] as PropType<string | number>, default: '' },
-    outline: { type: Boolean as PropType<boolean>, default: false },
-    flat: { type: Boolean as PropType<boolean>, default: false },
-    rounded: { type: Boolean as PropType<boolean>, default: true },
-    disabled: { type: Boolean as PropType<boolean>, default: false },
+    outline: { type: Boolean, default: false },
+    flat: { type: Boolean, default: false },
+    rounded: { type: Boolean, default: true },
+    disabled: { type: Boolean, default: false },
     size: {
-      type: String as PropType<string>,
+      type: String as PropType<'medium' | 'small' | 'large'>,
       default: 'medium',
       validator: (modelValue: 'medium' | 'small' | 'large') => ['medium', 'small', 'large'].includes(modelValue),
     },
 
-    toggleColor: { type: String as PropType<string>, default: '' },
-    gradient: { type: Boolean as PropType<boolean>, default: false },
+    toggleColor: { type: String, default: '' },
+    gradient: { type: Boolean, default: false },
   },
   setup (props, { emit }) {
     const { getColor } = useColors()
     const colorComputed = computed(() => getColor(props.color))
     const toggleColorComputed = computed(() => getColor(props.toggleColor))
 
-    const getButtonProps = (buttonValue: any) => {
-      if (buttonValue !== props.modelValue) { return }
+    const isFlatOrOutline = computed(() => props.outline || props.flat)
+    const color = computed(() => {
+      if (props.toggleColor) {
+        return toggleColorComputed.value
+      } else {
+        return isFlatOrOutline.value ? colorComputed.value : shiftHSLAColor(colorComputed.value, { l: -6 })
+      }
+    })
+    const textColor = computed(() => props.activeButtonTextColor || getTextColor(colorComputed.value))
 
-      if (props.outline || props.flat) {
-        return {
-          textColor: props.activeButtonTextColor,
-          color: props.toggleColor ? toggleColorComputed.value : colorComputed.value,
-          outline: false,
-          flat: false,
-        }
+    const getButtonProps = (option: ButtonOption = {} as ButtonOption) => {
+      const iconsProps = {
+        icon: option.icon,
+        iconRight: option.iconRight,
       }
 
+      if (option.value !== props.modelValue) { return iconsProps }
+
       return {
-        textColor: props.activeButtonTextColor ? props.activeButtonTextColor : getTextColor(colorComputed.value),
-        color: props.toggleColor ? toggleColorComputed.value : shiftHSLAColor(colorComputed.value, { l: -6 }),
+        textColor: textColor.value,
+        color: color.value,
+        ...iconsProps,
+        ...(isFlatOrOutline.value && { outline: false, flat: false }),
       }
     }
 
