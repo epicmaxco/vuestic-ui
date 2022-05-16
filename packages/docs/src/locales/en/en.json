@@ -399,7 +399,8 @@
         "uploadButtonText": "Custom upload button text"
       },
       "events": {
-        "fileRemoved": "Emits after file is removed"
+        "fileRemoved": "Emits after file is removed",
+        "fileAdded": "Emits after files are added"
       }
     },
     "VaHover": {

@@ -97,7 +97,7 @@ export default defineComponent({
     },
   },
 
-  emits: ['update:modelValue', 'file-removed'],
+  emits: ['update:modelValue', 'file-removed', 'file-added'],
 
   setup (props, { emit }) {
     const modal = ref(false)
@@ -149,7 +149,9 @@ export default defineComponent({
 
       if (!f) { return }
 
-      files.value = [...files.value, ...(props.fileTypes ? validateFiles(Array.from(f)) : f)]
+      const validatedFiles = props.fileTypes ? validateFiles(Array.from(f)) : f
+      files.value = [...files.value, ...validatedFiles]
+      emit('file-added', validatedFiles)
     }
 
     const changeFieldValue = (e: Event | DragEvent) => {
