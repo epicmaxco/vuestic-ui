@@ -6,7 +6,7 @@
   "homepage": "https://vuestic.dev",
   "repository": "https://github.com/epicmaxco/vuestic-ui",
   "main": "dist/cjs/main.js",
-  "module": "dist/esm/main.mjs",
+  "module": "dist/esm/main.js",
   "jsdelivr": "dist/iife/main.js",
   "unpkg": "dist/iife/main.js",
   "types": "dist/types/main.d.ts",
@@ -145,11 +145,14 @@
   },
   "exports": {
     ".": {
-      "import": "./dist/esm/main.js",
+      "import": {
+        "node": "./dist/esm-node/main.mjs",
+        "default": "./dist/esm/main.js"
+      },
       "require": "./dist/cjs/main.js"
     },
     "./ssr": {
-      "import": "./dist/esm-ssr/main.js"
+      "import": "./dist/esm-ssr/main.mjs"
     },
     "./iife": "./dist/iife/vuestic-ui.js",
     "./styles/": "./dist/styles/",

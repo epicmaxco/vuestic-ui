@@ -11,7 +11,15 @@ import { getInputs } from '../generate-rollup-inputs'
 import postcssImport from '../postcss-plugins/postcss-import'
 
 /** Used for tree-shaking. It creates separate modules in ESM format, that can be tree-shakable by any bundler. */
-export function createESMConfig ({ input, outDir = 'dist/', minify = false, declaration = false, ssr = false, sourcemap = false }) {
+export function createESMConfig ({
+  input,
+  outDir = 'dist/',
+  minify = false,
+  declaration = false,
+  ssr = false,
+  sourcemap = false,
+  outExt = 'js',
+}) {
   const inputPathWithoutFilename = input.split('/').slice(0, -1).join('/')
 
   const config = defineConfig({
@@ -23,8 +31,8 @@ export function createESMConfig ({ input, outDir = 'dist/', minify = false, decl
       sourcemap,
       dir: outDir,
       format: 'esm',
-      entryFileNames: '[name].mjs',
-      chunkFileNames: '[name].mjs',
+      entryFileNames: `[name].${outExt}`,
+      chunkFileNames: `[name].${outExt}`,
     },
 
     external: [

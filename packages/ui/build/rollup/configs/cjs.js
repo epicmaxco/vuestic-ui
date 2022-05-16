@@ -27,7 +27,7 @@ export function createCJSConfig ({ input, outDir = 'dist/', minify = false, decl
 
     plugins: [
       typescriptPlugin({ check: false }),
-      vuePlugin({ target: ssr ? 'node' : 'browser', template: { optimizeSSR: ssr }, compileTemplate: true, preprocessStyles: true }),
+      vuePlugin({ template: { optimizeSSR: ssr }, preprocessStyles: true }),
       commonjsPlugin(),
       nodeResolvePlugin({ browser: !ssr }),
       postcssPlugin({
