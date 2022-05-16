@@ -77,7 +77,7 @@ export default defineComponent({
       }
 
       if (props.active) {
-        style['border-color'] = getColor(props.borderColor === undefined ? props.activeColor : props.borderColor)
+        style.borderColor = getColor(props.borderColor === undefined ? props.activeColor : props.borderColor)
       }
 
       // Override default link color from VaContent

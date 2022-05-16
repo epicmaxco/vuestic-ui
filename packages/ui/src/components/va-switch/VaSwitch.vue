@@ -41,7 +41,7 @@
           <div
             v-if="computedInnerLabel || $slots.innerLabel"
             class="va-switch__track-label"
-            :style="{ color: textColorComputed }"
+            :style="trackLabelStyle"
             >
             <slot name="innerLabel">
               {{ computedInnerLabel }}
@@ -125,7 +125,7 @@ export default defineComponent({
     const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
     const { isChecked, computedError, isIndeterminate, ...selectable } = useSelectable(props, emit, elements)
 
-    const computedBackground = computed(() => isChecked.value ? getColor(props.color) : getColor(props.offColor))
+    const computedBackground = computed(() => getColor(isChecked.value ? props.color : props.offColor))
     const { textColorComputed } = useTextColor(computedBackground)
 
     const computedInnerLabel = computed(() => {
@@ -175,6 +175,10 @@ export default defineComponent({
       color: props.error ? getColor('danger') : '',
     }))
 
+    const trackLabelStyle = computed(() => ({
+      color: textColorComputed.value,
+    }))
+
     return {
       ...selectable,
       isChecked,
@@ -187,7 +191,7 @@ export default defineComponent({
       progressCircleSize,
       trackStyle,
       labelStyle,
-      textColorComputed,
+      trackLabelStyle,
     }
   },
 })
