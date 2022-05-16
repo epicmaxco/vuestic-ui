@@ -16,47 +16,55 @@ export default defineConfig({
   },
 
   // css: {
+  // убрать экстракт css
   //   postcss: {},
   // },
 
+  // esbuild: {
+  //
+  // },
   build: {
     outDir: 'dist',
     // assetsDir: 'css',
     cssCodeSplit: true,
     sourcemap: true,
+    // check
     // target: 'esnext',
 
       // default esbuild, not available for es/esm format in lib mode
     minify: false,
 
-    terserOptions: {
-        // ecma: 2019,
-      keep_classnames: true,
-      keep_fnames: true,
-    },
+    // todo: vue version, js in css, downgrade vite vue plugin
+    // terserOptions: {
+    //     // ecma: 2019,
+    //   keep_classnames: true,
+    //   keep_fnames: true,
+    // },
 
     lib: {
       entry: resolve(__dirname, 'src/main.ts'),
       name: 'VuesticUI',
       fileName: 'main',
-      formats: ['es', 'cjs', 'umd', 'iife'],
+      formats: ['es'],
     },
 
-    // rollupOptions: {
-    //   // treeshake: 'safest',
-    //
-    //   // input: getInputs(),
-    //   input: resolve(__dirname, 'src/main.ts'),
-    //
-    //   external: ['vue'],
-    //
-    //   output: {
-    //     dir: './dist/cjs',
-    //     format: 'cjs',
-    //     entryFileNames: '[name].cjs',
-    //     chunkFileNames: '[name].cjs',
-    //   },
-    // },
+    rollupOptions: {
+      treeshake: 'safest',
+
+      external: ['vue'],
+
+      // input: getInputs(),
+      // input: resolve(__dirname, 'src/main.ts'),
+      //
+      // external: ['vue'],
+      //
+      // output: {
+      //   dir: './dist/cjs',
+      //   format: 'cjs',
+      //   entryFileNames: '[name].cjs',
+      //   chunkFileNames: '[name].cjs',
+      // },
+    },
   },
 
   plugins: [
@@ -75,12 +83,13 @@ export default defineConfig({
       // ?
       // compress(),
 
-    // chunkSplitPlugin({ strategy: 'unbundle' }),
+    chunkSplitPlugin({ strategy: 'unbundle' }),
     vue({
       isProduction: true,
+      // spec.disabled
       exclude: [/\.md$/, /\.spec\.ts$/],
-      reactivityTransform: true,
+      // reactivityTransform: true,
     }),
-    viteCommonjs(),
+    // viteCommonjs(),
   ],
 })

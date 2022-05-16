@@ -43,6 +43,8 @@ export const createGlobalConfig = () => {
 }
 
 export function useGlobalConfig () {
+  debugger
+  const currInst = getCurrentInstance()
   const globalConfig = inject<ProvidedGlobalConfig>(
     GLOBAL_CONFIG,
     getCurrentInstance()?.appContext.config.globalProperties.$vaConfig,
