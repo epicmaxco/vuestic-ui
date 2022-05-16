@@ -145,9 +145,9 @@ export default defineComponent({
 
       if (!f) { return }
 
-      files.value = [...files.value, ...(props.fileTypes ? validateFiles(Array.from(f)) : f)]
-
-      emit('file-added', f)
+      const validatedFiles = props.fileTypes ? validateFiles(Array.from(f)) : f
+      files.value = [...files.value, ...validatedFiles]
+      emit('file-added', validatedFiles)
     }
 
     const changeFieldValue = (e: Event | DragEvent) => {
