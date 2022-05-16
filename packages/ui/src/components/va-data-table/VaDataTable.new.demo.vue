@@ -166,7 +166,7 @@
         :columns="columns"
         :selectable="selectable"
         v-model="selectedItems"
-        :select-mode="selectMode"
+        :select-mode="'multiple'"
         :selected-color="selectedColor"
       >
         <template #header(address)>Street</template>
@@ -356,7 +356,7 @@ export default defineComponent({
       sortingOrder: 'asc',
 
       selectable: true,
-      selectedItems: [],
+      selectedItems: [] as { id: number }[],
       selectMode: 'single',
       selectedColor: 'danger',
 

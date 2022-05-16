@@ -239,6 +239,7 @@ import {
   TSortingOrder,
   TSelectMode,
 } from './types'
+import { StringWithAutocomplete } from '../../types/string-with-autocomplete'
 
 type emitNames = 'update:modelValue' |
   'update:sortBy' |
