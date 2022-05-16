@@ -110,7 +110,7 @@ export default defineComponent({
     clearValue: { type: Date as PropType<VaDatePickerModelValue>, default: undefined },
 
     resetOnClose: { type: Boolean, default: true },
-    isOpen: { type: Boolean },
+    isOpen: { type: Boolean as PropType<boolean | undefined>, default: undefined },
 
     format: { type: Function as PropType<(date: VaDatePickerModelValue | undefined) => string> },
     formatDate: { type: Function as PropType<(date: Date) => string>, default: (d: Date) => d.toLocaleDateString() },
