@@ -1,7 +1,7 @@
 <template>
   <va-card
     class="va-file-upload-list-item"
-    :stripe="removed"
+    :stripe="removed && undo"
     :stripeColor="color"
     no-margin
     no-padding
@@ -9,7 +9,7 @@
   >
     <va-file-upload-undo
       @recover="recoverFile"
-      v-if="removed"
+      v-if="removed && undo"
     />
     <div
       class="va-file-upload-list-item__content"
@@ -52,19 +52,26 @@ export default defineComponent({
   props: {
     file: { type: Object as PropType<ConvertedFile | null>, default: null },
     color: { type: String as PropType<string>, default: 'success' },
+    undo: { type: Boolean as PropType<boolean>, default: false },
+    undoDuration: { type: Number as PropType<number>, default: 3000 },
   },
   setup (props, { emit }) {
     const removed = ref(false)
 
     const removeFile = () => {
-      removed.value = true
+      if (props.undo) {
+        removed.value = true
 
-      setTimeout(() => {
-        if (removed.value) {
-          emit('remove')
-          removed.value = false
-        }
-      }, 2000)
+        setTimeout(() => {
+          if (removed.value) {
+            emit('remove')
+            removed.value = false
+          }
+        }, props.undoDuration)
+      } else {
+        emit('remove')
+        removed.value = false
+      }
     }
 
     const recoverFile = () => { removed.value = false }

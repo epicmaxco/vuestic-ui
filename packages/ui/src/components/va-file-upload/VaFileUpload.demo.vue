@@ -105,6 +105,34 @@
     </VbCard>
 
     <VbCard
+      title="undo"
+      style="width: 100%;"
+    >
+      <p>list</p>
+      <va-file-upload v-model="defaultFileList" undo />
+      <p>gallery</p>
+      <va-file-upload
+        v-model="defaultFileList"
+        type="gallery"
+        undo
+      />
+    </VbCard>
+    <VbCard
+      title="undo with custom duration"
+      style="width: 100%;"
+    >
+      <p>list</p>
+      <va-file-upload v-model="defaultFileList" undo :undoDuration="10000" />
+      <p>gallery</p>
+      <va-file-upload
+        v-model="defaultFileList"
+        type="gallery"
+        undo
+        :undoDuration="10000"
+      />
+   </VbCard>
+
+    <VbCard
       title="removed-file"
       style="width: 100%;"
     >
