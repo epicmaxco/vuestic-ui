@@ -19,13 +19,14 @@ const tests = {
 describe('Testing vuestic-ui build', () => {
   describe('Vue CLI (Webpack)', () => {
     const indexJs = readFileSync('./dist/vue-cli/js/index.js').toString('utf8')
+    const indexCss = readFileSync('./dist/vue-cli/css/index.css').toString('utf8')
 
     it('Should include VaInput and do not include VaSelect', () => {
       tests.components(indexJs)
     })
 
     it('Should include essential css and typography, but do not include grid styles', () => {
-      tests.css(indexJs)
+      tests.css(indexCss)
     })
   })
 
