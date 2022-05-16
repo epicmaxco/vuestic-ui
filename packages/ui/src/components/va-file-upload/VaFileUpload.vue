@@ -93,7 +93,7 @@ export default defineComponent({
     },
   },
 
-  emits: ['update:modelValue'],
+  emits: ['update:modelValue', 'file-removed'],
 
   setup (props, { emit }) {
     const modal = ref(false)
@@ -156,9 +156,21 @@ export default defineComponent({
       }
     }
 
-    const removeFile = (index: number) => { files.value = files.value.filter((item, idx) => idx !== index) }
+    const removeFile = (index: number) => {
+      if (index in files.value) {
+        const removedFile = files.value[index]
+        files.value = files.value.filter((item, idx) => idx !== index)
+        emit('file-removed', removedFile)
+      }
+    }
 
-    const removeSingleFile = () => { files.value = [] }
+    const removeSingleFile = () => {
+      if (files.value.length > 0) {
+        const removedFile = files.value[0]
+        files.value = []
+        emit('file-removed', removedFile)
+      }
+    }
 
     const callFileDialogue = () => {
       if (fileInputRef.value) {

@@ -1,5 +1,9 @@
 <template>
-  <div @mouseenter="onMouseEnter" @mouseleave="onMouseLeave">
+  <div
+    class="va-hover"
+    @mouseenter="onMouseEnter"
+    @mouseleave="onMouseLeave"
+  >
     <slot v-bind="{ hover: valueComputed }" />
   </div>
 </template>

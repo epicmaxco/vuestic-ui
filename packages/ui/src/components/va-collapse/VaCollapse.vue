@@ -46,7 +46,7 @@
 <script lang="ts">
 import VaIcon from '../va-icon'
 import { useColors } from '../../composables/useColor'
-import { computed, defineComponent, ref, shallowRef } from 'vue'
+import { computed, defineComponent, shallowRef } from 'vue'
 import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'
 import { useAccordionItem } from '../va-accordion/hooks/useAccordion'
 import { useSyncProp } from '../../composables/useSyncProp'
@@ -72,10 +72,9 @@ export default defineComponent({
   setup (props, { emit, slots }) {
     const body = shallowRef<HTMLElement | null>(null)
     const [computedModelValue] = useSyncProp('modelValue', props, emit, false)
-    const toggle = () => { computedModelValue.value = !computedModelValue.value }
 
     const { getColor, getHoverColor } = useColors()
-    const { accordionProps } = useAccordionItem(computedModelValue)
+    const { accordionProps, toggle } = useAccordionItem(computedModelValue)
 
     const { textColorComputed } = useTextColor(props.color)
 

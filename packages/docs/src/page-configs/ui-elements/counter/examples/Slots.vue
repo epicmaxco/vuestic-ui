@@ -2,7 +2,7 @@
   <div class="row">
     <va-counter class="mx-4 my-2"
       v-model="value"
-      width="200px"
+      width="220px"
     >
       <template #content="{ value }">
         <VaChip icon="done">{{ value }} copies</VaChip>
@@ -11,26 +11,26 @@
 
     <va-counter class="mx-4 my-2"
       v-model="value"
-      width="250px"
+      width="220px"
     >
       <template #decreaseAction="{ decreaseCount }">
-        <VaButton size="small" outline @click="decreaseCount">decrease</VaButton>
+        <VaButton size="small" outline @click="decreaseCount">dec</VaButton>
       </template>
       <template #increaseAction="{ increaseCount }">
-        <VaButton size="small" outline @click="increaseCount">increase</VaButton>
+        <VaButton size="small" outline @click="increaseCount">inc</VaButton>
       </template>
     </va-counter>
 
     <va-counter class="mx-4 my-2"
       v-model="value"
-      width="270px"
+      width="220px"
       buttons
     >
       <template #decreaseAction="{ decreaseCount }">
-        <VaButton :rounded="false" @click="decreaseCount">decrease</VaButton>
+        <VaButton :rounded="false" @click="decreaseCount">dec</VaButton>
       </template>
       <template #increaseAction="{ increaseCount }">
-        <VaButton :rounded="false" @click="increaseCount">increase</VaButton>
+        <VaButton :rounded="false" @click="increaseCount">inc</VaButton>
       </template>
     </va-counter>
   </div>
