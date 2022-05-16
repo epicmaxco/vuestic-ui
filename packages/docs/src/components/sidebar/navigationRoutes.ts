@@ -131,6 +131,13 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: 'menu.image',
       },
       {
+        name: 'carousel',
+        displayName: 'menu.carousel',
+        meta: {
+          badge: 'new',
+        },
+      },
+      {
         name: 'chip',
         displayName: 'menu.chip',
       },
@@ -149,9 +156,6 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: 'data-table',
         displayName: 'menu.dataTable',
-        meta: {
-          badge: 'new',
-        },
       },
       {
         category: 'menu.categories.form',
@@ -216,16 +220,10 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: 'time-picker',
         displayName: 'menu.timePicker',
-        meta: {
-          badge: 'new',
-        },
       },
       {
         name: 'time-input',
         displayName: 'menu.timeInput',
-        meta: {
-          badge: 'new',
-        },
       },
       {
         category: 'menu.categories.layout',
@@ -332,10 +330,6 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'color-palette',
         displayName: 'menu.colorPalette',
       },
-      {
-        name: 'carousel',
-        displayName: 'menu.carousel',
-      },
       // GENERATOR_ADD - uiElements
     ],
   },
@@ -405,9 +399,6 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: 'ag-grid',
         displayName: 'menu.agGrid',
-        meta: {
-          badge: 'new',
-        },
       },
       // GENERATOR_ADD - extensions
     ],
