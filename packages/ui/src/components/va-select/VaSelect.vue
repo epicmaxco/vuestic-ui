@@ -16,6 +16,7 @@
     @keydown.up.stop.prevent="showDropdown()"
     @keydown.down.stop.prevent="showDropdown()"
     @keydown.space.stop.prevent="showDropdown()"
+    @keydown.enter.stop.prevent="showDropdown()"
     @click.prevent="onSelectClick()"
   >
     <template #anchor>
@@ -518,7 +519,7 @@ export default defineComponent({
 
     const focusOptionList = () => {
       optionList.value?.focus()
-      optionList.value?.hoverFirstOption()
+      !props.modelValue && optionList.value?.hoverFirstOption()
     }
 
     const focusSearchOrOptions = () => nextTick(() => {
