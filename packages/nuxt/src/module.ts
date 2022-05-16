@@ -15,7 +15,7 @@ export interface VuesticOptions {
 
 export default defineNuxtModule<VuesticOptions>({
   meta: {
-    name: '@vuestic-ui/nuxt',
+    name: '@vuestic/nuxt',
     configKey: 'vuestic',
     compatibility: {
       nuxt: '^3.0.0'

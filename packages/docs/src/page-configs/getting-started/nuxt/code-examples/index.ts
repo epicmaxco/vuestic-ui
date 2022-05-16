@@ -1,6 +1,6 @@
 export const nuxtConfigCode = `
 export default defineNuxtConfig({
-  modules: ['@vuestic-ui/nuxt'],
+  modules: ['@vuestic/nuxt'],
 
   vuestic: {
     config: {
@@ -11,6 +11,6 @@ export default defineNuxtConfig({
 `
 
 export const installationObject = {
-  npm: 'npm install @vuestic-ui/nuxt',
-  yarn: 'yarn add @vuestic-ui/nuxt',
+  npm: 'npm install @vuestic/nuxt',
+  yarn: 'yarn add @vuestic/nuxt',
 }

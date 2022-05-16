@@ -173,17 +173,17 @@
               </va-button-group>
             </VbCard>
             <VbCard title="Outline Button Group">
-              <va-button-group>
-                <va-button outline icon="create" />
-                <va-button outline icon="add" />
-                <va-button outline icon="add_circle_outline" />
+              <va-button-group outline>
+                <va-button icon="create" />
+                <va-button icon="add" />
+                <va-button icon="add_circle_outline" />
               </va-button-group>
             </VbCard>
             <VbCard title="Flat Button Group">
-              <va-button-group>
-                <va-button flat icon="create" />
-                <va-button flat icon="add" />
-                <va-button flat icon="add_circle_outline" />
+              <va-button-group flat>
+                <va-button icon="create" />
+                <va-button icon="add" />
+                <va-button icon="add_circle_outline" />
               </va-button-group>
             </VbCard>
           </td>
