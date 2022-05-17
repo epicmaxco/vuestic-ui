@@ -8,7 +8,7 @@ import demoIconAliases from './vuestic-config/demo-icon-aliases'
 import demoIconFonts from './vuestic-config/demo-icon-fonts'
 
 import './vue-book-overrides.scss'
-import { createIconsConfig, createVuesticEssential, VaToastPlugin, VaDropdownPlugin } from '../main'
+import { createIconsConfig, createVuesticEssential, VaToastPlugin, VaDropdownPlugin, VuesticComponents } from '../main'
 import { colorsPresets } from '../services/color-config/color-theme-presets'
 
 const app = createApp(App)
