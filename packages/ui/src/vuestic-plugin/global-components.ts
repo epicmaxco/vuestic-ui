@@ -13,13 +13,14 @@ type VuesticComponentNames = keyof VuesticComponentsMap
 /**
  * Names of Vuestic components that must be accessable globally.
  *
- * @exmaple
+ * @example
  * This will register all vuestic components globally:
  * ```
  * declare module 'vue' {
  *   export interface GlobalComponents extends VuesticComponents {}
  * }
  * ```
+ *
  * @example
  * If you using tree-shaking and want to register only specific components:
  * ```

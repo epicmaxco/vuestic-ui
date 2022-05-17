@@ -2,6 +2,13 @@ import type { GlobalConfig } from '../../services/global-config/global-config'
 import { defineVuesticPlugin, usePlugin } from '../utils'
 import { GlobalConfigPlugin, VaDropdownPlugin, VaToastPlugin, ColorConfigPlugin } from '../vuestic-plugins'
 import * as vuesticComponents from '../vuestic-components'
+import type { VuesticComponents } from '../global-components'
+
+// Declare all components globally
+declare module 'vue' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  export interface GlobalComponents extends VuesticComponents {}
+}
 
 /**
  * Globally register all vuestic components and plugins
