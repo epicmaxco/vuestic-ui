@@ -5,7 +5,7 @@ import postcssPlugin from 'rollup-plugin-postcss'
 import commonjsPlugin from '@rollup/plugin-commonjs'
 import { nodeResolve as nodeResolvePlugin } from '@rollup/plugin-node-resolve'
 import typescriptDeclarationPlugin from '../plugins/rollup-typescript-declaration'
-import { terserPlugin } from '../plugins/rollup-teaser-preset'
+import { terserPlugin } from '../plugins/rollup-terser-preset'
 import { dependencies, peerDependencies } from '../utils'
 import postcssImport from '../postcss-plugins/postcss-import'
 
@@ -27,7 +27,7 @@ export function createCJSConfig ({ input, outDir = 'dist/', minify = false, decl
 
     plugins: [
       typescriptPlugin({ check: false }),
-      vuePlugin({ target: ssr ? 'node' : 'browser', template: { optimizeSSR: ssr }, compileTemplate: true, preprocessStyles: true }),
+      vuePlugin({ template: { optimizeSSR: ssr }, preprocessStyles: true }),
       commonjsPlugin(),
       nodeResolvePlugin({ browser: !ssr }),
       postcssPlugin({

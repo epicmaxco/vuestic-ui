@@ -159,6 +159,7 @@ export default defineComponent({
     withoutTransitions: { type: Boolean as PropType<boolean>, default: false },
     overlay: { type: Boolean as PropType<boolean>, default: true },
     overlayOpacity: { type: [Number, String] as PropType<number | string>, default: 0.6 },
+    blur: { type: Boolean as PropType<boolean>, default: false },
     zIndex: { type: [Number, String] as PropType<number | string | undefined>, default: undefined },
     backgroundColor: { type: String, default: 'white' },
   },
@@ -235,6 +236,14 @@ export default defineComponent({
       } else {
         window.removeEventListener('keyup', listenKeyUp)
       }
+
+      if (props.blur) {
+        if (value) {
+          document.body.classList.add('va-modal-overlay-background--blurred')
+        } else {
+          document.body.classList.remove('va-modal-overlay-background--blurred')
+        }
+      }
     })
 
     const publicMethods = {
@@ -284,6 +293,13 @@ export default defineComponent({
 <style lang="scss">
 @import "../../styles/resources";
 @import "variables";
+
+.va-modal-overlay-background--blurred > :not(div[class*="va-"]) {
+  filter: blur(var(--va-modal-overlay-background-blur-radius));
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
 
 .va-modal {
   position: var(--va-modal-position);

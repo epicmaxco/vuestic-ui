@@ -160,12 +160,12 @@ export default defineComponent({
 
     const { valueComputed } = useStateful(props, emit)
 
-    const setCountInput = ({ target } : { target: HTMLInputElement }) => {
-      valueComputed.value = Number(target?.value)
+    const setCountInput = ({ target }: Event) => {
+      valueComputed.value = Number((target as HTMLInputElement | null)?.value)
     }
 
-    const setCountChange = ({ target } : { target: HTMLInputElement }) => {
-      calculateCounterValue(Number(target?.value))
+    const setCountChange = ({ target } : Event) => {
+      calculateCounterValue(Number((target as HTMLInputElement | null)?.value))
     }
 
     const getRoundDownWithStep = (value: number) => {
