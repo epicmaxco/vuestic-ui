@@ -3,7 +3,7 @@ import {
   addPluginTemplate,
   addAutoImport
 } from '@nuxt/kit'
-import { GlobalConfig, VuesticComponents } from 'vuestic-ui'
+import { GlobalConfig } from 'vuestic-ui'
 import { resolve } from 'pathe'
 import { NuxtOptions } from '@nuxt/schema'
 import { distDir } from './dirs'
@@ -88,8 +88,4 @@ declare module '@nuxt/schema' {
   interface NuxtConfig {
     vuestic?: VuesticOptions
   }
-}
-
-declare module 'vue' {
-  export interface GlobalComponents extends VuesticComponents {}
 }
