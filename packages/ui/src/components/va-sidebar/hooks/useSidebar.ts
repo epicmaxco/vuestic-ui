@@ -1,12 +1,12 @@
-import { provide, inject, getCurrentInstance, computed, ref } from 'vue'
+import { provide, inject, getCurrentInstance, toRef, ref } from 'vue'
 
-const key = 'VaSidebar'
+const key = Symbol('VaSidebar')
 
 export const useSidebar = () => {
   const { props } = getCurrentInstance()!
 
   provide(key, {
-    color: computed(() => props.color),
+    color: toRef(props, 'color'),
   })
 }
 
