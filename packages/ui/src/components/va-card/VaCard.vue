@@ -23,7 +23,7 @@
 import { defineComponent, computed, PropType } from 'vue'
 
 import { getGradientBackground } from '../../services/color-config/color-functions'
-import { useColors, useColorProps } from '../../composables/useColor'
+import { useColors } from '../../composables/useColor'
 import { useRouterLink, useRouterLinkProps } from '../../composables/useRouterLink'
 import { useTextColor } from '../../composables/useTextColor'
 
@@ -68,7 +68,7 @@ export default defineComponent({
         }
       }
 
-      return { background: props.color, color: textColorComputed.value }
+      return { background: getColor(props.color), color: textColorComputed.value }
     })
 
     return {
@@ -101,10 +101,10 @@ export default defineComponent({
     height: 100%;
   }
 
-  &--dark {
-    color: var(--va-card-dark-color);
-    background-color: var(--va-card-dark-background-color);
-  }
+  // &--dark {
+  //   color: var(--va-card-dark-color);
+  //   background-color: var(--va-card-dark-background-color);
+  // }
 
   &--square {
     border-radius: 0;
