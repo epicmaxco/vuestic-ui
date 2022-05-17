@@ -1,4 +1,4 @@
-import { StringWithAutocomplete } from 'src/types/string-with-autocomplete'
+import { StringWithAutocomplete } from '../../../types/string-with-autocomplete'
 import { Ref, computed, watch, ref } from 'vue'
 import { TableRow, ITableItem, TSelectMode } from '../types'
 

@@ -16,8 +16,8 @@ export interface ITableColumn {
   sortingFn?: (a: any, b: any) => number // a custom sorting function. `a` and `b` are currently compared cells' original values (sources). Must return a number (see the standard JS's Array.prototype.sort)
   alignHead?: TAlignOptions // horizontal alignment of the column's heading
   verticalAlignHead?: TVerticalAlignOptions // vertical alignment of the column's heading
-  align?: TAlignOptions // horizontal <td's alignment
-  verticalAlign?: TVerticalAlignOptions // vertical <td's alignment
+  align?: TAlignOptions // horizontal <td>'s alignment
+  verticalAlign?: TVerticalAlignOptions // vertical <td>'s alignment
   width?: string | number
   classes?: TClassesOptions
   headerClasses?: TClassesOptions
