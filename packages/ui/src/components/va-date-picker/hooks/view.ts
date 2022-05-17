@@ -1,5 +1,6 @@
-import { VaDatePickerView, VaDatePickerViewProp } from '../types'
+import { VaDatePickerView, VaDatePickerViewProp, VaDatePickerModelValue } from '../types'
 import { computed, ref } from 'vue'
+import isDate from 'lodash/isDate.js'
 
 const JANUARY_MONTH_INDEX = 0
 const DECEMBER_MONTH_INDEX = 11
@@ -20,15 +21,24 @@ const subMonth = (view: VaDatePickerView) => {
   }
 }
 
+const getDefaultDate = (modelValue: VaDatePickerModelValue): Date => {
+  if (isDate(modelValue)) { return modelValue }
+  if (isDate((modelValue as any)?.start)) { return (modelValue as any).start }
+  if (Array.isArray(modelValue) && isDate(modelValue[0])) { return modelValue[0] }
+
+  return new Date()
+}
+
 export const useView = (
   props: { [key: string]: any, 'view'?: VaDatePickerViewProp },
   emit: (event: any | 'update:view', newValue: VaDatePickerViewProp) => any,
   defaultOverride?: VaDatePickerViewProp,
 ) => {
+  const defaultDate = getDefaultDate(props.modelValue)
   const defaultView: VaDatePickerView = {
     type: 'day',
-    year: new Date().getFullYear(),
-    month: new Date().getMonth(),
+    year: defaultDate.getFullYear(),
+    month: defaultDate.getMonth(),
     ...defaultOverride,
   }
 

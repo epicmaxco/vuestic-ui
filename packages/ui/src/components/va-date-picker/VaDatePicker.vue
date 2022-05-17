@@ -89,7 +89,7 @@ export default defineComponent({
     ...extractComponentProps(VaDayPicker),
     ...extractComponentProps(VaMonthPicker),
     ...extractComponentProps(VaYearPicker),
-    modelValue: { type: [Date, Array, Object] as PropType<VaDatePickerModelValue | undefined> },
+    modelValue: { type: [Date, Array, Object] as PropType<VaDatePickerModelValue> },
     monthNames: { type: Array as PropType<string[]>, required: false, default: DEFAULT_MONTH_NAMES },
     weekdayNames: { type: Array as PropType<string[]>, required: false, default: DEFAULT_WEEKDAY_NAMES },
     view: { type: Object as PropType<VaDatePickerView> },
