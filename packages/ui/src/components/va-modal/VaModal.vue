@@ -228,9 +228,9 @@ export default defineComponent({
 
       if (props.blur) {
         if (value) {
-          document.body.classList.add('va-modal-overlay-background--blured')
+          document.body.classList.add('va-modal-overlay-background--blurred')
         } else {
-          document.body.classList.remove('va-modal-overlay-background--blured')
+          document.body.classList.remove('va-modal-overlay-background--blurred')
         }
       }
     })
@@ -282,8 +282,8 @@ export default defineComponent({
 @import "../../styles/resources";
 @import "variables";
 
-.va-modal-overlay-background--blured > :not(div[class*="va-"]) {
-  filter: blur(var(--va-modal-blur-radius));
+.va-modal-overlay-background--blurred > :not(div[class*="va-"]) {
+  filter: blur(var(--va-modal-overlay-background-blur-radius));
   position: absolute;
   height: 100%;
   width: 100%;
