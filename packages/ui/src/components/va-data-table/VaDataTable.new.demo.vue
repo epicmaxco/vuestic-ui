@@ -356,7 +356,7 @@ export default defineComponent({
       sortingOrder: 'asc',
 
       selectable: true,
-      selectedItems: [],
+      selectedItems: [] as { id: number }[],
       selectMode: 'single',
       selectedColor: 'danger',
 

@@ -6,7 +6,7 @@ import { useSyncProp } from './useSyncProp'
 import { FormServiceKey } from '../components/va-form/consts'
 import { useFocus } from './useFocus'
 
-type ValidationRule = (() => any | string)
+type ValidationRule = ((v: unknown) => any | string)
 
 export interface ValidationProps {
   modelValue: unknown
