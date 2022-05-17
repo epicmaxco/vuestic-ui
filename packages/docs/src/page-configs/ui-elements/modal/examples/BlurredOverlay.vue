@@ -1,18 +1,10 @@
 <template>
-  <va-button class="mr-4  my-1" @click="showModalBlurred = !showModalBlurred">
+  <va-button @click="showModal = !showModal">
     Show modal
   </va-button>
-    <va-modal
-    v-model="showModalBlurred"
-    :message="message"
-    blur
-  />
 
-  <va-button class="mr-4  my-1" @click="showModalBlurredCustom = !showModalBlurredCustom">
-    Custom blur radius
-  </va-button>
   <va-modal
-    v-model="showModalBlurredCustom"
+    v-model="showModal"
     :message="message"
     blur
   />
@@ -24,8 +16,7 @@ import message from './popup-message'
 export default {
   data () {
     return {
-      showModalBlurred: false,
-      showModalBlurredCustom: false,
+      showModal: false,
       message,
     }
   },
