@@ -145,6 +145,17 @@
         title="Step 2. Centered Layout"
         :message="message"
       />
+      <br />
+      <button @click="showModalBlurCustom = !showModalBlurCustom">
+        Custom blur radius
+      </button>
+      <va-modal
+        class="example-modal--blurred"
+        v-model="showModalBlurCustom"
+        blur
+        title="Step 2. Centered Layout"
+        :message="message"
+      />
     </VbCard>
     <VbCard title="several lays">
       <button @click="showModalFirstLay = !showModalFirstLay">
@@ -316,6 +327,7 @@ export default {
       showModalOverlay: false,
       showModalOverlayOpacity: false,
       showModalBlur: false,
+      showModalBlurCustom: false,
       showModalZIndex: false,
       showModalCustomFooter: false,
       showModalCustomBackground: false,
@@ -349,4 +361,10 @@ export default {
     background-color: blue;
   }
 }
+
+// body.va-modal-overlay-background--blurred {
+//   & > .va-modal.example-modal--blurred {
+//     --va-modal-overlay-background-blur-radius: 20px;
+//   }
+// }
 </style>
