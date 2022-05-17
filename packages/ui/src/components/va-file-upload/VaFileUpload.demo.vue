@@ -165,6 +165,6 @@ export default {
         },
       ],
     }
-  }
+  },
 }
 </script>
