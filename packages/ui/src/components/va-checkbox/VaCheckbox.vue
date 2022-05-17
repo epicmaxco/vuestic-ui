@@ -41,7 +41,7 @@
           class="va-checkbox__icon"
           :name="computedIconName"
           size="20px"
-          :color="computedIconColor"
+          :color="textColorComputed"
           v-show="isActive"
         />
       </div>
@@ -67,6 +67,7 @@ import VaIcon from '../va-icon/'
 import { useColors } from '../../composables/useColor'
 import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'
 import { useSelectable, useSelectableProps, useSelectableEmits } from '../../composables/useSelectable'
+import { useTextColor } from '../../composables/useTextColor'
 
 const vaCheckboxValueType = [Boolean, Array, String, Object] as PropType<boolean | null | string | number | Record<any, unknown> | unknown[]>
 
@@ -103,6 +104,8 @@ export default defineComponent({
     } = useSelectable(props, emit, elements)
     const { getColor, getTextColor } = useColors()
     const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
+
+    const { textColorComputed } = useTextColor(props.color)
 
     const isActive = computed(() => isChecked.value || isIndeterminate.value)
 
@@ -145,15 +148,13 @@ export default defineComponent({
       : props.checkedIcon,
     )
 
-    const computedIconColor = computed(() => getTextColor(getColor(props.color), 'dark', 'white'))
-
     return {
       isActive,
       computedClass,
       labelStyle,
       inputStyle,
       computedIconName,
-      computedIconColor,
+      textColorComputed,
       computedError,
       computedErrorMessages,
       keyboardFocusListeners,

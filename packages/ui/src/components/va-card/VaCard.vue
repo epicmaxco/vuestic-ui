@@ -23,14 +23,14 @@
 import { defineComponent, computed, PropType } from 'vue'
 
 import { getGradientBackground } from '../../services/color-config/color-functions'
-import { useColors, useColorProps } from '../../composables/useColor'
+import { useColors } from '../../composables/useColor'
 import { useRouterLink, useRouterLinkProps } from '../../composables/useRouterLink'
+import { useTextColor } from '../../composables/useTextColor'
 
 export default defineComponent({
   name: 'VaCard',
   emits: ['click'],
   props: {
-    ...useColorProps,
     ...useRouterLinkProps,
     tag: { type: String as PropType<string>, default: 'div' },
     square: { type: Boolean as PropType<boolean>, default: false },
@@ -42,16 +42,17 @@ export default defineComponent({
     stripe: { type: Boolean as PropType<boolean>, default: false },
     stripeColor: { type: String as PropType<string>, default: '' },
     gradient: { type: Boolean as PropType<boolean>, default: false },
-    dark: { type: Boolean as PropType<boolean>, default: false },
+    textColor: { type: String as PropType<string> },
+    color: { type: String as PropType<string>, default: 'white' },
   },
   setup (props) {
     const { getColor } = useColors()
     const { hasRouterLinkParams, tagComputed, hrefComputed } = useRouterLink(props)
+    const { textColorComputed } = useTextColor(props.color)
 
     const stripeStyles = computed(() => ({ background: getColor(props.stripeColor) }))
 
     const cardClasses = computed(() => ({
-      'va-card--dark': props.dark,
       'va-card--square': props.square,
       'va-card--outlined': props.outlined,
       'va-card--no-border': !props.bordered,
@@ -60,15 +61,14 @@ export default defineComponent({
     }))
 
     const cardStyles = computed(() => {
-      const color = props.dark ? getColor(props.color || 'dark') : getColor(props.color, 'white')
-
       if (props.gradient && props.color) {
         return {
-          background: getGradientBackground(color),
+          background: getGradientBackground(getColor(props.color)),
+          color: textColorComputed.value,
         }
       }
 
-      return { background: color }
+      return { background: getColor(props.color), color: textColorComputed.value }
     })
 
     return {
@@ -101,10 +101,10 @@ export default defineComponent({
     height: 100%;
   }
 
-  &--dark {
-    color: var(--va-card-dark-color);
-    background-color: var(--va-card-dark-background-color);
-  }
+  // &--dark {
+  //   color: var(--va-card-dark-color);
+  //   background-color: var(--va-card-dark-background-color);
+  // }
 
   &--square {
     border-radius: 0;

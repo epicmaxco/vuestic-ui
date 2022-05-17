@@ -18,7 +18,7 @@
           >
             <va-icon
               :name="$props.icon"
-              :color="$props.color"
+              :color="textColorComputed"
             />
           </div>
           <div v-if="$props.title || $props.message">
@@ -47,6 +47,7 @@ import VaDropdown from '../va-dropdown/VaDropdown.vue'
 import VaIcon from '../va-icon/VaIcon.vue'
 import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
 import { useColors } from '../../composables/useColor'
+import { useTextColor } from '../../composables/useTextColor'
 
 const VaDropdownProps = extractComponentProps(VaDropdown, ['closeOnClickOutside'])
 
@@ -58,7 +59,8 @@ export default defineComponent({
   props: {
     ...VaDropdownProps,
     trigger: { default: 'hover' },
-    color: { type: String, default: 'success' },
+    color: { type: String, default: 'dark' },
+    textColor: { type: String },
     icon: { type: String, default: '' },
     title: { type: String, default: '' },
     message: { type: String, default: '' },
@@ -69,16 +71,20 @@ export default defineComponent({
   setup (props) {
     const VaDropdownPropValues = filterComponentProps(props, VaDropdownProps)
 
-    const { getColor, getHoverColor, getBoxShadowColor } = useColors()
+    const { getColor, getBoxShadowColor } = useColors()
+
+    const { textColorComputed } = useTextColor(props.color)
 
     const computedPopoverStyle = computed(() => ({
       boxShadow: `0px 2px 3px 0 ${getBoxShadowColor(getColor(props.color))}`,
-      backgroundColor: getHoverColor(getColor(props.color)),
+      backgroundColor: getColor(props.color),
+      color: textColorComputed.value,
     }))
 
     return {
       VaDropdownPropValues,
       computedPopoverStyle,
+      textColorComputed,
     }
   },
 })

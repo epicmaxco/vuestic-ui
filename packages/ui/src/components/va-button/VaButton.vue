@@ -52,7 +52,7 @@
 
 <script lang="ts">
 import { defineComponent, computed, ref, Ref, PropType, ComputedRef } from 'vue'
-
+import { useTextColor } from '../../composables/useTextColor'
 import { getGradientBackground, getTextColor, shiftHSLAColor } from '../../services/color-config/color-functions'
 import { useColor } from '../../composables/useColor'
 import { useRouterLink, useRouterLinkProps } from '../../composables/useRouterLink'
@@ -68,7 +68,7 @@ export default defineComponent({
     ...useSizeProps,
     ...useLoadingProps,
     ...useRouterLinkProps,
-    color: { type: String as PropType<string | undefined>, default: undefined },
+    color: { type: String as PropType<string>, default: 'primary' },
     textColor: { type: String as PropType<string | undefined>, default: undefined },
     tag: { type: String as PropType<string>, default: 'button' },
     outline: { type: Boolean as PropType<boolean | undefined>, default: undefined },
@@ -97,7 +97,9 @@ export default defineComponent({
     const focusState = ref(false)
 
     const colorComputed = computed(() => computeColor(props.color, 'primary'))
-    const isTransparentBackground = computed(() => props.outline || props.flat)
+    const isTransparentBackground = computed(() => Boolean(props.outline || props.flat))
+
+    const { textColorComputed } = useTextColor(props.color, isTransparentBackground)
     const isSlotContentPassed = computed(() => !!slots.default?.()?.[0]?.children)
 
     const computedType = computed(() => {
@@ -110,18 +112,6 @@ export default defineComponent({
         default:
           return props.type
       }
-    })
-
-    const textColorComputed = computed(() => {
-      if (props.textColor !== undefined) {
-        return computeColor(props.textColor)
-      }
-
-      if (isTransparentBackground.value) {
-        return computeColor(colorComputed.value, 'white')
-      }
-
-      return getTextColor(colorComputed.value)
     })
 
     const hasOneIcon = computed(() => {

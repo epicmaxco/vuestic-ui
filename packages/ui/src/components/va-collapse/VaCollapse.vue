@@ -24,7 +24,7 @@
             v-if="icon"
             class="va-collapse__header__icon"
             :name="icon"
-            :color="textColor"
+            :color="textColorComputed"
           />
           <div class="va-collapse__header__text">
             {{ header }}
@@ -32,7 +32,7 @@
           <va-icon
             class="va-collapse__header__icon"
             :name="computedModelValue ? 'expand_less' : 'expand_more'"
-            :color="textColor"
+            :color="textColorComputed"
           />
         </div>
       </slot>
@@ -44,23 +44,26 @@
 </template>
 
 <script lang="ts">
+import VaIcon from '../va-icon'
 import { useColors } from '../../composables/useColor'
 import { computed, defineComponent, shallowRef } from 'vue'
 import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'
 import { useAccordionItem } from '../va-accordion/hooks/useAccordion'
 import { useSyncProp } from '../../composables/useSyncProp'
-import VaIcon from '../va-icon'
+import { useTextColor } from '../../composables/useTextColor'
 
 export default defineComponent({
   name: 'VaCollapse',
-  components: { VaIcon },
+  components: {
+    VaIcon,
+  },
   props: {
     modelValue: { type: Boolean, default: undefined },
     disabled: { type: Boolean, default: false },
     header: { type: String, default: '' },
     icon: { type: String, default: '' },
     solid: { type: Boolean, default: false },
-    color: { type: String, default: '' },
+    color: { type: String, default: 'background' },
     textColor: { type: String, default: '' },
     colorAll: { type: Boolean, default: false },
   },
@@ -72,6 +75,8 @@ export default defineComponent({
 
     const { getColor, getHoverColor } = useColors()
     const { accordionProps, toggle } = useAccordionItem(computedModelValue)
+
+    const { textColorComputed } = useTextColor(props.color)
 
     const getTextNodeHeight = (textNode: Node) => {
       const range = document.createRange()
@@ -119,6 +124,8 @@ export default defineComponent({
       hasKeyboardFocus,
       keyboardFocusListeners,
 
+      textColorComputed,
+
       computedClasses: computed(() => ({
         'va-collapse--disabled': props.disabled,
         'va-collapse--solid': props.solid,
@@ -129,7 +136,7 @@ export default defineComponent({
 
       headerStyle: computed(() => ({
         paddingLeft: props.icon && 0,
-        color: props.textColor ? getColor(props.textColor) : '',
+        color: textColorComputed.value,
         backgroundColor: props.color ? getColor(props.color) : '',
         boxShadow: hasKeyboardFocus.value ? '0 0 0.5rem 0 rgba(0, 0, 0, 0.3)' : '',
       })),

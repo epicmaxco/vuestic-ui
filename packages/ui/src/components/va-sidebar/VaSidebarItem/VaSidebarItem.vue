@@ -21,6 +21,8 @@ import { RouteLocationRaw } from 'vue-router'
 import { useColors } from '../../../services/color-config/color-config'
 import useKeyboardOnlyFocus from '../../../composables/useKeyboardOnlyFocus'
 import { useHover } from '../../../composables/useHover'
+import { useTextColor } from '../../../composables/useTextColor'
+import { useSidebarItem } from '../hooks/useSidebar'
 
 export default defineComponent({
   name: 'VaSidebarItem',
@@ -43,26 +45,39 @@ export default defineComponent({
     const anchor = ref<HTMLAnchorElement>()
 
     const { isHovered } = useHover(anchor)
-    const { getColor, getHoverColor, getTextColor, getFocusColor } = useColors()
+    const { getColor, getHoverColor, getFocusColor } = useColors()
     const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
+    const { sidebarColor } = useSidebarItem()
+
+    const backgroundColorComputed = computed(() => {
+      if (isHovered.value) {
+        return getHoverColor(getColor(props.hoverColor || props.activeColor))
+      }
+
+      if (props.active) {
+        return getColor(props.activeColor)
+      }
+
+      if (hasKeyboardFocus.value) {
+        return getFocusColor(getColor(props.hoverColor || props.activeColor))
+      }
+
+      return getColor(sidebarColor.value)
+    })
+
+    const { textColorComputed } = useTextColor(backgroundColorComputed)
 
     const computedStyle = computed(() => {
       const style: Record<string, string> = {}
 
-      style.color = getColor(props.textColor)
+      style.color = textColorComputed.value
 
-      if (isHovered.value) {
-        style['background-color'] = getHoverColor(getColor(props.hoverColor || props.activeColor))
+      if (isHovered.value || props.active || hasKeyboardFocus.value) {
+        style.backgroundColor = backgroundColorComputed.value
       }
 
       if (props.active) {
-        style['border-color'] = getColor(props.borderColor === undefined ? props.activeColor : props.borderColor)
-        style['background-color'] = getColor(props.activeColor)
-        style.color = getTextColor(style['background-color'])
-      }
-
-      if (hasKeyboardFocus.value) {
-        style['background-color'] = getFocusColor(getColor(props.hoverColor || props.activeColor))
+        style.borderColor = getColor(props.borderColor || props.activeColor)
       }
 
       // Override default link color from VaContent

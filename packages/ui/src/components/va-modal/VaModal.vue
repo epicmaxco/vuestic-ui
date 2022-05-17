@@ -109,6 +109,7 @@ import { watch, h, Transition, defineComponent, PropType, computed, StyleValue, 
 
 import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
 import { useColors } from '../../composables/useColor'
+import { useTextColor } from '../../composables/useTextColor'
 import VaButton from '../va-button'
 import VaIcon from '../va-icon'
 
@@ -162,7 +163,8 @@ export default defineComponent({
     backgroundColor: { type: String, default: 'white' },
   },
   setup (props, { emit }) {
-    const { getTextColor, getColor } = useColors()
+    const { getColor } = useColors()
+    const { textColorComputed } = useTextColor(props.backgroundColor)
     const rootElement = ref<HTMLElement>()
     const modal = ref<{ $el: HTMLElement }>()
     const { valueComputed } = useStateful(props, emit)
@@ -177,7 +179,7 @@ export default defineComponent({
     const computedDialogStyle = computed(() => ({
       maxWidth: props.maxWidth,
       maxHeight: props.maxHeight,
-      color: getTextColor(getColor(props.backgroundColor)),
+      color: textColorComputed.value,
       background: getColor(props.backgroundColor),
     }))
     const computedOverlayStyles = computed(() => {

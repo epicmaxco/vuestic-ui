@@ -39,6 +39,7 @@ import { defineComponent, PropType, ref, computed, onMounted } from 'vue'
 
 import { useColors } from '../../composables/useColor'
 import { useTimer } from '../../composables/useTimer'
+import { useTextColor } from '../../composables/useTextColor'
 import VaIcon from '../va-icon/VaIcon.vue'
 
 import { NotificationPosition } from './types'
@@ -79,6 +80,8 @@ export default defineComponent({
   setup (props, { emit }) {
     const { getColor } = useColors()
 
+    const { textColorComputed } = useTextColor(props.color)
+
     const rootElement = ref<HTMLElement>()
 
     const visible = ref(false)
@@ -100,6 +103,7 @@ export default defineComponent({
       [positionY.value]: `${props.offsetY}px`,
       [positionX.value]: `${props.offsetX}px`,
       backgroundColor: getColor(props.color),
+      color: textColorComputed.value,
     }))
 
     const computedMessage = computed(() => (typeof props.message === 'function') ? props.message() : props.message)

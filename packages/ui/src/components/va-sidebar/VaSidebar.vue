@@ -16,6 +16,8 @@ import { defineComponent, computed, ref, PropType } from 'vue'
 
 import { getGradientBackground } from '../../services/color-config/color-functions'
 import { useColors } from '../../services/color-config/color-config'
+import { useTextColor } from '../../composables/useTextColor'
+import { useSidebar } from './hooks/useSidebar'
 
 export default defineComponent({
   name: 'VaSidebar',
@@ -31,7 +33,8 @@ export default defineComponent({
     modelValue: { type: Boolean, default: true },
   },
   setup (props) {
-    const { getColor, getTextColor } = useColors()
+    const { getColor } = useColors()
+    useSidebar()
 
     const isHovered = ref(false)
 
@@ -45,11 +48,13 @@ export default defineComponent({
       return isMinimized.value ? props.minimizedWidth : props.width
     })
 
+    const { textColorComputed } = useTextColor(props.color)
+
     const computedStyle = computed(() => {
       const backgroundColor = getColor(props.color)
       const background = props.gradient ? getGradientBackground(backgroundColor) : backgroundColor
 
-      const color = props.textColor ? getColor(props.textColor) : getTextColor(backgroundColor)
+      const color = textColorComputed.value
 
       return {
         color,
