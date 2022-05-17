@@ -1,5 +1,5 @@
 import { VaDatePickerModelValue, VaDatePickerRange } from '../types'
-import { isDate } from 'lodash'
+import isDate from 'lodash/isDate.js'
 
 export const isDatesDayEqual = (date1?: Date | null, date2?: Date | null): boolean => date1?.toDateString() === date2?.toDateString()
 
