@@ -68,6 +68,6 @@ export interface TableRow {
 
 export type TFilterMethod = (source: any) => boolean
 
-export type TSortingOrder = 'asc' | 'desc' | null | string
+export type TSortingOrder = StringWithAutocomplete<'asc' | 'desc'> | null
 
-export type TSelectMode = 'single' | 'multiple'
+export type TSelectMode = StringWithAutocomplete<'single' | 'multiple'>

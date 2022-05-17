@@ -686,7 +686,7 @@ export default defineComponent({
       sortingOrder2: null,
       useSelectableRow: true,
       selectedItemsIds: [] as any[],
-      selectMode: 'single' as 'single' | 'multiple',
+      selectMode: 'single',
       selectedColor: 'primary',
       usePagination: true,
       perPage: 10,

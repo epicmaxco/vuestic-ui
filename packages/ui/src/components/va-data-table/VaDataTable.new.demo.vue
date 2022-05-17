@@ -166,7 +166,7 @@
         :columns="columns"
         :selectable="selectable"
         v-model="selectedItems"
-        :select-mode="'multiple'"
+        :select-mode="selectMode"
         :selected-color="selectedColor"
       >
         <template #header(address)>Street</template>

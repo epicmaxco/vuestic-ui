@@ -18,7 +18,7 @@ export default (nuxtApp) => {
    * Nuxt uses @vueuse/head so we can inject css variales in head.
    * @see https://github.com/vueuse/head
    */
-  const head = app.config.globalProperties.$head
+  const head = getGlobalProperty(app, '$head')
 
   if (head) {
     const colorConfig = getGlobalProperty(app, '$vaColorConfig')
