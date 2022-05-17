@@ -281,10 +281,6 @@ export default defineComponent({
         &::placeholder {
           color: var(--va-input-placeholder-text-color);
         }
-
-        &:disabled {
-          opacity: var(--va-input-disabled-opacity);
-        }
       }
     }
   }

@@ -28,7 +28,7 @@
 import { defineComponent, PropType, toRefs, onMounted, ref, computed, watch, shallowRef } from 'vue'
 import { VaDatePickerMode, VaDatePickerModelValue, VaDatePickerView } from '../../types'
 import VaDatePickerCell from '../VaDatePickerCell.vue'
-import { createYearDate, isDatesYearEqual } from '../../utils/date-utils'
+import { createYearDate } from '../../utils/date-utils'
 import { useGridKeyboardNavigation } from '../../hooks/grid-keyboard-navigation'
 import { useDatePicker } from '../../hooks/use-picker'
 
