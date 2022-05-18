@@ -10,6 +10,8 @@ import fs, {
   statSync,
   rmSync,
 } from "fs";
+import fsExtra from 'fs-extra'
+const { copySync } = fsExtra
 import readDirRecursive from './utils.mjs'
 
 /**
@@ -20,7 +22,7 @@ if (fs.existsSync('./dist')) {
 }
 
 /**
- * parallel build for all formats
+ * parallel build for all formats (except ems-node)
  */
 await Promise.all([
   $`vite build --config ./build/vite/configs/vite.cjs.js`,
@@ -49,6 +51,17 @@ readdirSync('./dist/esm/src/components')
     existsSync(componentFilePath) &&
     existsSync(componentCssPath) &&
     appendFileSync(componentFilePath, `\n import './${componentName}.css'`);
+  })
+
+/**
+ * creating esm-node build from esm build copy, renaming files extension from js to mjs
+ */
+copySync('./dist/esm', './dist/esm-node', {})
+readDirRecursive('./dist/esm-node')
+  .filter((el) => el.includes('.js') && !el.includes('.js.map'))
+  .forEach((filePath) => {
+    const newFilePath = filePath.replace('.js', '.mjs')
+    existsSync(filePath) && renameSync(filePath, newFilePath)
   })
 
 /**

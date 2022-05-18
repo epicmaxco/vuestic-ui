@@ -28,7 +28,7 @@ export default function getViteConfig (isProduction, format) {
 
       lib: {
         entry: resolver(process.cwd(), 'src/main.ts'),
-        fileName: () => `main.${isEsm ? 'mjs' : 'js'}`,
+        fileName: () => 'main.js',
         formats: [format],
 
         // only for iife/umd

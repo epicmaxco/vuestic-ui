@@ -49,6 +49,7 @@
     "@vitejs/plugin-vue": "^2.3.2",
     "cleave.js": "^1.6.0",
     "colortranslator": "^1.9.2",
+    "fs-extra": "^10.1.0",
     "lodash": "^4.17.21",
     "normalize.css": "^8.0.1",
     "vite": "^2.9.8",
