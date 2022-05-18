@@ -1,5 +1,4 @@
 import { readdirSync, existsSync, lstatSync } from 'fs'
-import { resolve } from 'path'
 
 const readDirRecursive = (path) => {
   return readdirSync(path)
@@ -11,9 +10,7 @@ const readDirRecursive = (path) => {
       }
 
       return [...acc, p]
-    }, []).filter((el) => {
-      return !['.md', '.spec'].some((elem) => el.includes(elem))
-    })
+    }, [])
 }
 
 export const getInputs = () => {
@@ -24,7 +21,5 @@ export const getInputs = () => {
 
   const vuesticPlugin = readDirRecursive('./src/vuestic-plugin')
 
-  const vuesticServices = readDirRecursive('./src/services')
-
-  return [...components, ...vuesticPlugin, ...vuesticServices]
+  return [...components, ...vuesticPlugin]
 }
