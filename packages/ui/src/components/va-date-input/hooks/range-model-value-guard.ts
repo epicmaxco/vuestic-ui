@@ -1,5 +1,5 @@
 import { computed, Ref, ref, watch } from 'vue'
-import { VaDatePickerModelValue } from '../../va-date-picker/types'
+import { VaDateInputModelValue } from '../types'
 import { parseModelValue, isRange } from './model-value-parser'
 
 /**
@@ -7,11 +7,11 @@ import { parseModelValue, isRange } from './model-value-parser'
  * This guard provides reset method, that allow us to reset VaDateInput value if dropdown is closed.
  */
 export const useRangeModelValueGuard = (
-  modelValue: Ref<VaDatePickerModelValue | undefined>,
+  modelValue: Ref<VaDateInputModelValue>,
   disabled: Ref<boolean>,
   parseValue = parseModelValue,
 ) => {
-  const bufferValue = ref(modelValue.value && parseValue(modelValue.value))
+  const bufferValue = ref<VaDateInputModelValue>(modelValue.value && parseValue(modelValue.value))
 
   const valueComputed = computed({
     get: () => bufferValue.value,
