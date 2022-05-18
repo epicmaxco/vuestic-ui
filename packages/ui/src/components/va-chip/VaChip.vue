@@ -54,6 +54,7 @@ import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'
 import { useColors, useColorProps } from '../../composables/useColor'
 import { useStateful, useStatefulEmits, useStatefulProps } from '../../composables/useStateful'
 import { useHover } from '../../composables/useHover'
+import { useTextColor } from '../../composables/useTextColor'
 import VaIcon from '../va-icon'
 
 export default defineComponent({
@@ -88,7 +89,8 @@ export default defineComponent({
     const { getColor } = useColors()
     const colorComputed = computed(() => getColor(props.color))
     const borderColor = computed(() => props.outline ? colorComputed.value : '')
-
+    const isTransparentBackground = computed(() => Boolean(props.outline || props.flat))
+    const { textColorComputed } = useTextColor(props.color, isTransparentBackground)
     const size = {
       small: '0.875rem',
       medium: '1rem',
@@ -135,7 +137,7 @@ export default defineComponent({
 
       computedStyle: computed(() => {
         const result = {
-          color: colorComputed.value,
+          color: textColorComputed.value,
           borderColor: borderColor.value,
           background: '',
           boxShadow: shadowStyle.value,
@@ -148,7 +150,6 @@ export default defineComponent({
             result.background = getHoverColor(colorComputed.value)
           }
         } else {
-          result.color = getTextColor(colorComputed.value)
           result.background = colorComputed.value
         }
 

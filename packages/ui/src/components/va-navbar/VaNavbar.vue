@@ -29,6 +29,7 @@ import { defineComponent, PropType, computed, StyleValue } from 'vue'
 
 import { shiftHSLAColor } from '../../services/color-config/color-functions'
 import { useColors } from '../../services/color-config/color-config'
+import { useTextColor } from '../../composables/useTextColor'
 
 export default defineComponent({
   name: 'VaNavbar',
@@ -38,10 +39,10 @@ export default defineComponent({
     shape: { type: Boolean as PropType<boolean>, default: false },
   },
   setup (props) {
-    const { getTextColor, getColor } = useColors()
+    const { getColor } = useColors()
+    const { textColorComputed } = useTextColor(props.color)
 
     const color = computed(() => getColor(props.color))
-    const textColor = computed(() => props.textColor ? getColor(props.textColor) : getTextColor(color.value))
 
     const shapeStyle = computed(() => ({
       borderTopColor: shiftHSLAColor(color.value, { h: -1, s: -11, l: 10 }),
@@ -49,8 +50,8 @@ export default defineComponent({
 
     const navbarStyle = computed(() => ({
       backgroundColor: color.value,
-      color: textColor.value,
-      fill: textColor.value,
+      color: textColorComputed.value,
+      fill: textColorComputed.value,
     }))
 
     return {

@@ -2,7 +2,7 @@
   "private": true,
   "name": "vuestic-ui-nuxt-module-playground",
   "devDependencies": {
-    "@vuestic-ui/nuxt": "link:..",
+    "@vuestic/nuxt": "link:..",
     "nuxt": "^3.0.0-rc.1"
   }
 }

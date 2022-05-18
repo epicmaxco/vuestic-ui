@@ -34,7 +34,8 @@ export default defineComponent({
     attributesOptions.className = 'MarkdownView__link--external'
 
     watch(locale, (newValue) => {
-      localeOptions.currentLocale = newValue
+      // TODO Not sure why newValue is not considered string (it actually is!).
+      localeOptions.currentLocale = newValue as unknown as string
     })
 
     const text = computed(() => {

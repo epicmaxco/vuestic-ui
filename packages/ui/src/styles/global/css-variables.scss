@@ -81,9 +81,9 @@
   --va-text-highlighted: #fff3d1;
   --va-link-color: var(--va-primary);
   --va-link-color-secondary: var(--va-secondary);
-  --va-link-color-hover: var(--va-primary); // TODO: This must be different
+  --va-link-color-hover: var(--va-theme-blue); // TODO: This must be different
   --va-link-color-active: var(--va-primary); // And this on too
-  --va-link-color-visited: var(--va-primary);
+  --va-link-color-visited: var(--va-vue-darkest-blue); // And this on too
   --va-muted: #7f828b;
   --va-li-background: var(--va-theme-blue-dark);
   --va-text-block: var(--va-light-gray3);

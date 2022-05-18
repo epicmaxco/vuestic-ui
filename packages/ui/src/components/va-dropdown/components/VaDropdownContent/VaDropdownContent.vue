@@ -6,6 +6,7 @@
 
 <script lang="ts">
 import { useColors } from '../../../../services/color-config/color-config'
+import { useTextColor } from '../../../../composables/useTextColor'
 import { computed, defineComponent } from 'vue'
 
 export default defineComponent({
@@ -13,14 +14,16 @@ export default defineComponent({
   props: {
     noPadding: { type: Boolean, default: false },
     background: { type: String, default: 'white' },
+    textColor: { type: String },
   },
 
   setup (props) {
-    const { getTextColor, getColor } = useColors()
+    const { getColor } = useColors()
+    const { textColorComputed } = useTextColor(props.background)
 
     const computedStyle = computed(() => ({
       background: getColor(props.background, undefined, true),
-      color: getTextColor(getColor(props.background)),
+      color: textColorComputed.value,
       padding: props.noPadding ? 0 : undefined,
     }))
 

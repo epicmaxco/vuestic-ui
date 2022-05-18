@@ -16,7 +16,7 @@
         ref="currentPicker"
         :model-value="valueComputed"
         :view="syncView"
-        :readonly="isPickerReadonly('day')"
+        :readonly="$props.disabled || isPickerReadonly('day')"
         @update:model-value="onDayModelValueUpdate"
         @hover:day="(value) => $emit('hover:day', value)"
         @click:day="(value) => $emit('click:day', value)"
@@ -32,7 +32,7 @@
         ref="currentPicker"
         :view="syncView"
         :model-value="valueComputed"
-        :readonly="isPickerReadonly('month')"
+        :readonly="$props.disabled || isPickerReadonly('month')"
         @update:model-value="onMonthModelValueUpdate"
         @hover:month="(value) => $emit('hover:month', value)"
         @click:month="onMonthClick"
@@ -48,7 +48,7 @@
         ref="currentPicker"
         :view="syncView"
         :model-value="valueComputed"
-        :readonly="isPickerReadonly('year')"
+        :readonly="$props.disabled || isPickerReadonly('year')"
         @hover:year="(value) => $emit('hover:year', value)"
         @update:model-value="onYearModelValueUpdate"
         @click:year="onYearClick"
@@ -89,7 +89,7 @@ export default defineComponent({
     ...extractComponentProps(VaDayPicker),
     ...extractComponentProps(VaMonthPicker),
     ...extractComponentProps(VaYearPicker),
-    modelValue: { type: [Date, Array, Object] as PropType<VaDatePickerModelValue | undefined> },
+    modelValue: { type: [Date, Array, Object] as PropType<VaDatePickerModelValue> },
     monthNames: { type: Array as PropType<string[]>, required: false, default: DEFAULT_MONTH_NAMES },
     weekdayNames: { type: Array as PropType<string[]>, required: false, default: DEFAULT_WEEKDAY_NAMES },
     view: { type: Object as PropType<VaDatePickerView> },

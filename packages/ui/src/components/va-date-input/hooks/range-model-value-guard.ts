@@ -11,7 +11,7 @@ export const useRangeModelValueGuard = (
   disabled: Ref<boolean>,
   parseValue = parseModelValue,
 ) => {
-  const bufferValue = ref(modelValue.value ? parseValue(modelValue.value) : modelValue.value)
+  const bufferValue = ref(modelValue.value && parseValue(modelValue.value))
 
   const valueComputed = computed({
     get: () => bufferValue.value,
@@ -43,7 +43,7 @@ export const useRangeModelValueGuard = (
 
   const reset = () => {
     if (bufferValue.value && isRange(bufferValue.value)) {
-      bufferValue.value = modelValue.value ? parseValue(modelValue.value) : modelValue.value
+      bufferValue.value = modelValue.value && parseValue(modelValue.value)
     }
   }
 

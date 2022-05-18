@@ -27,7 +27,4 @@ export default defineConfig({
   esbuild: {
     keepNames: true
   },
-  optimizeDeps: {
-    exclude: ['vuestic-ui']
-  }, 
 })

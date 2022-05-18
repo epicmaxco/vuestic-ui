@@ -42,6 +42,8 @@
       :type="type"
       :files="files"
       :color="colorComputed"
+      :undo="undo"
+      :undoDuration="undoDuration"
       @remove="removeFile"
       @removeSingle="removeSingleFile"
     />
@@ -78,6 +80,8 @@ export default defineComponent({
     dropzone: { type: Boolean as PropType<boolean>, default: false },
     color: { type: String as PropType<string>, default: 'primary' },
     disabled: { type: Boolean as PropType<boolean>, default: false },
+    undo: { type: Boolean as PropType<boolean>, default: false },
+    undoDuration: { type: Number as PropType<number>, default: 3000 },
     dropZoneText: { type: String as PropType<string>, default: 'Drag’n’drop files or' },
     uploadButtonText: { type: String as PropType<string>, default: 'Upload file' },
 
@@ -93,7 +97,7 @@ export default defineComponent({
     },
   },
 
-  emits: ['update:modelValue'],
+  emits: ['update:modelValue', 'file-removed', 'file-added'],
 
   setup (props, { emit }) {
     const modal = ref(false)
@@ -145,7 +149,9 @@ export default defineComponent({
 
       if (!f) { return }
 
-      files.value = [...files.value, ...(props.fileTypes ? validateFiles(Array.from(f)) : f)]
+      const validatedFiles = props.fileTypes ? validateFiles(Array.from(f)) : f
+      files.value = [...files.value, ...validatedFiles]
+      emit('file-added', validatedFiles)
     }
 
     const changeFieldValue = (e: Event | DragEvent) => {
@@ -156,9 +162,21 @@ export default defineComponent({
       }
     }
 
-    const removeFile = (index: number) => { files.value = files.value.filter((item, idx) => idx !== index) }
+    const removeFile = (index: number) => {
+      if (index in files.value) {
+        const removedFile = files.value[index]
+        files.value = files.value.filter((item, idx) => idx !== index)
+        emit('file-removed', removedFile)
+      }
+    }
 
-    const removeSingleFile = () => { files.value = [] }
+    const removeSingleFile = () => {
+      if (files.value.length > 0) {
+        const removedFile = files.value[0]
+        files.value = []
+        emit('file-removed', removedFile)
+      }
+    }
 
     const callFileDialogue = () => {
       if (fileInputRef.value) {

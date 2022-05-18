@@ -17,6 +17,15 @@ module.exports = {
     },
     output: {
       chunkFilename: '[name].js',
-    }
+    },
+    module: {
+      rules: [
+        {
+          test: /\.ts$/,
+          loader: 'ts-loader',
+          options: { appendTsSuffixTo: [/\.vue$/] }
+        }
+      ]
+    },
   },
 }

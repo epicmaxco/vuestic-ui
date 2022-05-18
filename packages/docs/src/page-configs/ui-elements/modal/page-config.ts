@@ -56,6 +56,11 @@ const config: ApiDocsBlock[] = [
     'HidingOverlay',
   ),
   ...block.exampleBlock(
+    'modal.blurredOverlay.title',
+    'modal.blurredOverlay.text',
+    'BlurredOverlay',
+  ),
+  ...block.exampleBlock(
     'modal.scrollingLongContent.title',
     'modal.scrollingLongContent.text',
     'ScrollingLongContent',

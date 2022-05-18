@@ -1,12 +1,31 @@
 <template>
-  <div class="va-date-picker-header va-date-picker__header" v-if="syncView.type !== 'year'">
+  <div
+    v-if="syncView.type !== 'year'"
+    class="va-date-picker-header va-date-picker__header"
+  >
     <slot name="buttonPrev" v-bind="{ onClick: prev }">
-      <va-button icon="chevron_left" flat size="small" :color="color" textColor="dark" @click="prev" />
+      <va-button
+        :disabled="$props.disabled"
+        icon="chevron_left"
+        flat
+        size="small"
+        :color="color"
+        textColor="dark"
+        @click="prev"
+      />
     </slot>
 
     <div class="va-date-picker__header__text">
       <slot name="header" v-bind="{ year: syncView.year, month: syncView.month, monthNames, view: syncView, changeView, switchView }">
-        <va-button flat @click="switchView" size="small" :rounded="false" :color="color" textColor="dark">
+        <va-button
+          :disabled="$props.disabled"
+          flat
+          @click="switchView"
+          size="small"
+          :rounded="false"
+          :color="color"
+          textColor="dark"
+        >
           <slot name="year" v-bind="{ year: syncView.year }">{{ syncView.year }}</slot>
 
           <slot v-if="syncView.type === 'day'" name="month" v-bind="{ month: syncView.month }">
@@ -17,7 +36,15 @@
     </div>
 
     <slot name="buttonNext" v-bind="{ onClick: next }">
-      <va-button icon="chevron_right" flat size="small" :color="color" textColor="dark" @click="next" />
+      <va-button
+        :disabled="$props.disabled"
+        icon="chevron_right"
+        flat
+        size="small"
+        :color="color"
+        textColor="dark"
+        @click="next"
+      />
     </slot>
   </div>
 </template>
@@ -39,6 +66,7 @@ export default defineComponent({
     monthNames: { type: Array, required: true },
     view: { type: Object as PropType<VaDatePickerView> },
     color: { type: String, default: undefined },
+    disabled: { type: Boolean, default: false },
   },
 
   setup (props, { emit }) {

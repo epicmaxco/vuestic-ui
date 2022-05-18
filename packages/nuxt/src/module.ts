@@ -9,13 +9,14 @@ import { NuxtOptions } from '@nuxt/schema'
 import { distDir } from './dirs'
 
 export interface VuesticOptions {
-  withoutComponents?: boolean,
+  /** Removes global components registration */
+  // withoutComponents?: boolean, //  TODO: Deal with tree-shanking in next version
   config?: GlobalConfig,
 }
 
 export default defineNuxtModule<VuesticOptions>({
   meta: {
-    name: '@vuestic-ui/nuxt',
+    name: '@vuestic/nuxt',
     configKey: 'vuestic',
     compatibility: {
       nuxt: '^3.0.0'
@@ -23,7 +24,7 @@ export default defineNuxtModule<VuesticOptions>({
   },
 
   defaults: {
-    withoutComponents: false,
+    // withoutComponents: false,
     config: {}
   },
 
@@ -51,7 +52,10 @@ export default defineNuxtModule<VuesticOptions>({
       filename: 'plugin.mjs',
 
       // Use JSON.stringify() here, because it will be inserted in ejs template as string. Then we will JSON.parse it.
-      options: { config: JSON.stringify(options.config), withoutComponents: JSON.stringify(options.withoutComponents) }
+      options: { 
+        config: JSON.stringify(options.config),
+        // withoutComponents: JSON.stringify(options.withoutComponents)
+      }
     })
 
     /**
@@ -66,7 +70,8 @@ export default defineNuxtModule<VuesticOptions>({
       'useColors',
       'getColor',
       'getColors',
-      'setColors'
+      'setColors',
+      'useToast'
     ]
     const autoImportsList = []
     for (const item of composablesNamesList) {

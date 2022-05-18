@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="removed"
+    v-if="removed && undo"
     class="va-file-upload-gallery-item"
     :class="{'va-file-upload-gallery-item--undo': removed}"
   >
@@ -67,6 +67,8 @@ export default defineComponent({
   props: {
     file: { type: Object as PropType<ConvertedFile>, default: null },
     color: { type: String as PropType<string>, default: 'success' },
+    undo: { type: Boolean as PropType<boolean>, default: false },
+    undoDuration: { type: Number as PropType<number>, default: 3000 },
   },
   setup (props, { emit }) {
     const previewImage = ref('')
@@ -76,14 +78,19 @@ export default defineComponent({
     const overlayStyles = computed(() => ({ backgroundColor: colorToRgba(props.color, 0.7) }))
 
     const removeImage = () => {
-      removed.value = true
+      if (props.undo) {
+        removed.value = true
 
-      setTimeout(() => {
-        if (!removed.value) { return }
+        setTimeout(() => {
+          if (!removed.value) { return }
 
+          emit('remove')
+          removed.value = false
+        }, props.undoDuration)
+      } else {
         emit('remove')
         removed.value = false
-      }, 2000)
+      }
     }
 
     const recoverImage = () => { removed.value = false }

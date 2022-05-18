@@ -1,4 +1,5 @@
 import { VaDatePickerModelValue, VaDatePickerRange } from '../types'
+import isDate from 'lodash/isDate.js'
 
 export const isDatesDayEqual = (date1?: Date | null, date2?: Date | null): boolean => date1?.toDateString() === date2?.toDateString()
 
@@ -28,6 +29,6 @@ export const isRange = (value: VaDatePickerModelValue): value is VaDatePickerRan
   return typeof value === 'object' && ('start' in value || 'end' in value)
 }
 
-export const isSingleDate = (value: VaDatePickerModelValue): value is Date => value instanceof Date
+export const isSingleDate = (value: VaDatePickerModelValue): value is Date => isDate(value)
 
 export const isDates = (value: VaDatePickerModelValue): value is Date[] => Array.isArray(value)

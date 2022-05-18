@@ -230,6 +230,23 @@
             </div>
           </td>
         </tr>
+        <tr>
+          <td>Button Toggle With Icons</td>
+          <td>
+            <div>
+              <va-button-toggle
+                v-model="model"
+                :options="optionsWithIcons"
+              />
+            </div>
+            <div>
+              <va-button-toggle
+                v-model="model"
+                :options="optionsOnlyIcons"
+              />
+            </div>
+          </td>
+        </tr>
       </table>
     </VbCard>
   </VbDemo>
@@ -248,6 +265,16 @@ export default {
         { label: 'One', value: 'one' },
         { label: 'Two', value: 'two' },
         { label: 'Three', value: 'three' },
+      ],
+      optionsWithIcons: [
+        { label: 'One', value: 'one', icon: 'home' },
+        { label: 'Two', value: 'two', iconRight: 'home' },
+        { label: 'Three', value: 'three', icon: 'home', iconRight: 'home' },
+      ],
+      optionsOnlyIcons: [
+        { value: 'one', icon: 'home' },
+        { value: 'two', iconRight: 'home' },
+        { value: 'three', icon: 'home', iconRight: 'home' },
       ],
       model: 'two',
     }

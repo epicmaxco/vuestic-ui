@@ -6,5 +6,6 @@ export {
   useColors,
   getColor,
   getColors,
-  setColors
+  setColors,
+  useToast
 } from 'vuestic-ui'
