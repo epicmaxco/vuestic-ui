@@ -80,9 +80,6 @@ export default defineComponent({
         style.borderColor = getColor(props.borderColor || props.activeColor)
       }
 
-      // Override default link color from VaContent
-      style.color = `${style.color} !important`
-
       return style
     })
 
