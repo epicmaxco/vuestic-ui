@@ -6,14 +6,12 @@ export const useTextColor = (componentColor: string | Ref<string>, isTransparent
   const { getColor, getTextColor } = useColors()
 
   const textColorComputed = computed(() => {
-    const hexColor = getColor(unref(componentColor))
     const textColorProp = props.textColor as string
 
-    if (unref(isTransparent)) {
-      return hexColor
-    }
+    if (textColorProp) { return getColor(textColorProp) }
+    const componentColorHex = getColor(unref(componentColor))
 
-    return props.textColor ? getColor(textColorProp) : getColor(getTextColor(hexColor))
+    return unref(isTransparent) ? componentColorHex : getColor(getTextColor(componentColorHex))
   })
 
   return { textColorComputed }
