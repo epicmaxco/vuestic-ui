@@ -1,9 +1,6 @@
 import { VNode } from 'vue'
 
-export type ModalSize =
-  'small'
-  | 'medium'
-  | 'large'
+export type ModalSize = 'small' | 'medium' | 'large'
 
 export interface ModalOptions {
   stateful?: boolean;
@@ -18,15 +15,17 @@ export interface ModalOptions {
   fullscreen?: boolean;
   mobileFullscreen?: boolean;
   noDismiss?: boolean;
+  noOutsideDismiss?: boolean;
   noEscDismiss?: boolean;
   maxWidth?: string;
   maxHeight?: string;
-  anchorClass?: string;
+  backgroundColor?: string;
   size?: ModalSize;
   fixedLayout?: boolean;
   withoutTransitions?: boolean;
   overlay?: boolean;
   overlayOpacity?: number | string;
+  blur?: boolean;
   zIndex?: number | string;
   onOk?: () => void;
   onCancel?: () => void;

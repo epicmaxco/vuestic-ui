@@ -28,8 +28,8 @@ const mount = (
   let vNode: VNode | null
 
   // handling the case when 'withoutTransitions = false'
-  const onClose = (el: HTMLElement) => {
-    props?.onClose?.(el)
+  const onClose = (event: HTMLElement) => {
+    props?.onClose?.(event)
     destroy(el, vNode)
   }
 
