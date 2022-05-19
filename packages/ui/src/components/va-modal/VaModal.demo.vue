@@ -10,6 +10,13 @@
           title="Simple Popup, Full Width"
           :message="message"
           size="small"
+          @ok="() => logger('ok')"
+          @cancel="logger('cancel')"
+          @before-open="logger('before-open')"
+          @open="logger('open')"
+          @before-close="logger('before-close')"
+          @close="logger('close')"
+          @click-outside="logger('click-outside')"
         />
       </p>
       <p class="my-3">
@@ -297,8 +304,9 @@
         </va-modal>
       </va-modal>
     </VbCard>
+
     <VbCard title="vaModal return by click">
-      <button @click="$vaModal.init({title: 'Click Event', message: message })">init vaModal</button>
+      <button @click="buttonClick">init vaModal</button>
     </VbCard>
   </VbDemo>
 </template>
@@ -352,6 +360,22 @@ export default {
     },
     customActionClick () {
       this.$vb.log('custom action click')
+    },
+    logger (message) {
+      console.log(message !== 'undefined' ? message : '-- log --')
+    },
+    buttonClick () {
+      this.$vaModal.init({
+        title: 'Click Event',
+        message: 'First Modal',
+        withoutTransitions: true,
+        'onUpdate:modelValue': this.logger,
+        onOk: () => this.logger('clicked OK button'),
+      })
+
+      setTimeout(() => {
+        this.$vaModal.init('Second Modal')
+      }, 3000)
     },
   },
 }

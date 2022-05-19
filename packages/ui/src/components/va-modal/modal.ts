@@ -1,61 +1,78 @@
 import VaModal from './index'
-import type { MessageBoxOptions } from './types'
-import { VNode, createVNode, render, AppContext } from 'vue'
+import type { ModalOptions } from './types'
+import { VNode, render, AppContext, h, nextTick } from 'vue'
 
-type OptionKeys = keyof MessageBoxOptions;
-
-let value = true
+type OptionKeys = keyof ModalOptions;
 
 const getNodeProps = (vNode: VNode): Record<OptionKeys, any> => {
   return (vNode.component?.props as Record<OptionKeys, any>) || {}
 }
 
-const mount = (component: any, {
-  props,
-  children,
-  element,
-  appContext,
-}: { props?: { [key: string]: any }; children?: any; element?: HTMLElement, appContext?: AppContext } = {}): { vNode: VNode; el?: HTMLElement } => {
-  let el: HTMLElement | null | undefined = element
+const destroy = (el: HTMLElement | null | undefined, vNode: VNode | null) => {
+  if (el) {
+    render(null, el)
+    el.remove()
+  }
 
-  const vNode: VNode = createVNode(component, {
+  el = null
+  vNode = null
+}
+
+const mount = (
+  component: any,
+  { props, appContext }: { props?: ModalOptions; appContext?: AppContext } = {},
+): { vNode: VNode; el?: HTMLElement } => {
+  const el: HTMLElement | undefined = document?.createElement('div')
+
+  // eslint-disable-next-line prefer-const
+  let vNode: VNode | null
+
+  // handling the case when 'withoutTransitions = false'
+  const onClose = (el: HTMLElement) => {
+    props?.onClose?.(el)
+    destroy(el, vNode)
+  }
+
+  // handling the case when 'withoutTransitions = true'
+  const onUpdateModelValue = (value: boolean) => {
+    props?.['onUpdate:modelValue']?.(value)
+
+    if (props?.withoutTransitions && !value) {
+      nextTick(() => { // this is required for all handlers to execute
+        destroy(el, vNode)
+      })
+    }
+  }
+
+  vNode = h(component, {
     ...props,
-    stateful: true,
-    modelValue: value,
-    'onUpdate:modelValue': (event: boolean) => { value = event },
-    children,
+    ...(props?.stateful === undefined && { stateful: true }),
+    modelValue: true,
+    onClose,
+    'onUpdate:modelValue': onUpdateModelValue,
   })
+
   if (appContext) {
     vNode.appContext = appContext
   }
 
   if (el) {
     render(vNode, el)
-  } else if (typeof document !== 'undefined') {
-    render(vNode, el = document.body)
   }
 
   return { vNode, el }
 }
 
-const getModalOptions = (options: string | MessageBoxOptions): any => {
-  if (typeof options === 'string') {
-    return {
-      message: options,
-    }
-  }
+const getModalOptions = (options: string | ModalOptions): ModalOptions => typeof options === 'string'
+  ? { message: options }
+  : options
 
-  return options
-}
-
-export const createModalInstance = (customProps: MessageBoxOptions | string, appContext?: AppContext): void => {
+export const createModalInstance = (customProps: ModalOptions | string, appContext?: AppContext): VNode => {
   const { vNode, el } = mount(VaModal, { appContext, props: getModalOptions(customProps) })
 
-  const nodeProps = getNodeProps(vNode)
-
-  if (el && vNode.el && nodeProps) {
+  if (el && vNode.el && getNodeProps(vNode)) {
     document.body.appendChild(el.childNodes[0])
   }
-}
 
-export type { MessageBoxOptions } from './types'
+  return vNode
+}

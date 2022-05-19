@@ -1,11 +1,11 @@
 import { VNode } from 'vue'
 
-export type MessageBoxSize =
+export type ModalSize =
   'small'
   | 'medium'
   | 'large'
 
-export interface MessageBoxOptions {
+export interface ModalOptions {
   stateful?: boolean;
   modelValue?: boolean;
   attachElement?: string;
@@ -22,18 +22,18 @@ export interface MessageBoxOptions {
   maxWidth?: string;
   maxHeight?: string;
   anchorClass?: string;
-  size?: MessageBoxSize;
+  size?: ModalSize;
   fixedLayout?: boolean;
   withoutTransitions?: boolean;
   overlay?: boolean;
   overlayOpacity?: number | string;
   zIndex?: number | string;
-  ok?: () => void;
-  cancel?: () => void;
-  beforeOpen?: () => void;
-  open?: () => void;
-  beforeClose?: () => void;
-  close?: () => void;
-  clickOutside?: () => void;
-  updateModelValue?: () => void;
+  onOk?: () => void;
+  onCancel?: () => void;
+  onClickOutside?: () => void;
+  onBeforeOpen?: (el: HTMLElement) => void;
+  onOpen?: (el: HTMLElement) => void;
+  onBeforeClose?: (el: HTMLElement) => void;
+  onClose?: (el: HTMLElement) => void;
+  'onUpdate:modelValue'?: (value: boolean) => void;
 }

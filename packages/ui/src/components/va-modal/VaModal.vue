@@ -15,6 +15,10 @@
         appear
         :duration="300"
         v-bind="$attrs"
+        @beforeEnter="onBeforeEnterTransition"
+        @afterEnter="onAfterEnterTransition"
+        @beforeLeave="onBeforeLeaveTransition"
+        @afterLeave="onAfterLeaveTransition"
       >
         <div class="va-modal" v-if="valueComputed">
           <div
@@ -26,10 +30,6 @@
           <div
             class="va-modal__container"
             :style="computedModalContainerStyle"
-            @beforeEnter="onBeforeEnterTransition"
-            @afterEnter="onAfterEnterTransition"
-            @beforeLeave="onBeforeLeaveTransition"
-            @afterLeave="onAfterLeaveTransition"
           >
             <div
               class="va-modal__dialog"
@@ -105,19 +105,20 @@
 </template>
 
 <script lang="ts">
-import { watch, h, Transition, defineComponent, PropType, computed, StyleValue, ref, toRef } from 'vue'
+import { watch, h, Transition, defineComponent, PropType, computed, StyleValue, shallowRef, toRef } from 'vue'
 
 import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
 import { useColors } from '../../composables/useColor'
 import { useTextColor } from '../../composables/useTextColor'
 import VaButton from '../va-button'
 import VaIcon from '../va-icon'
+import { ModalSize } from './types'
 
 const ModalElement = defineComponent({
   name: 'ModalElement',
   inheritAttrs: false,
   props: {
-    isTransition: { type: Boolean as PropType<boolean>, default: true },
+    isTransition: { type: Boolean, default: true },
   },
   setup: (props, { slots, attrs }) => () => props.isTransition
     ? h(Transition, { ...attrs }, slots)
@@ -134,40 +135,40 @@ export default defineComponent({
   ],
   props: {
     ...useStatefulProps,
-    modelValue: { type: Boolean as PropType<boolean>, default: false },
-    attachElement: { type: String as PropType<string>, default: 'body' },
-    disableAttachment: { type: Boolean as PropType<boolean>, default: false },
-    title: { type: String as PropType<string>, default: '' },
-    message: { type: String as PropType<string>, default: '' },
-    okText: { type: String as PropType<string>, default: 'OK' },
-    cancelText: { type: String as PropType<string>, default: 'Cancel' },
-    hideDefaultActions: { type: Boolean as PropType<boolean>, default: false },
-    fullscreen: { type: Boolean as PropType<boolean>, default: false },
-    mobileFullscreen: { type: Boolean as PropType<boolean>, default: true },
-    noDismiss: { type: Boolean as PropType<boolean>, default: false },
-    noOutsideDismiss: { type: Boolean as PropType<boolean>, default: false },
-    noEscDismiss: { type: Boolean as PropType<boolean>, default: false },
-    maxWidth: { type: String as PropType<string>, default: '' },
-    maxHeight: { type: String as PropType<string>, default: '' },
-    anchorClass: { type: String as PropType<string> },
+    modelValue: { type: Boolean, default: false },
+    attachElement: { type: String, default: 'body' },
+    disableAttachment: { type: Boolean, default: false },
+    title: { type: String, default: '' },
+    message: { type: String, default: '' },
+    okText: { type: String, default: 'OK' },
+    cancelText: { type: String, default: 'Cancel' },
+    hideDefaultActions: { type: Boolean, default: false },
+    fullscreen: { type: Boolean, default: false },
+    mobileFullscreen: { type: Boolean, default: true },
+    noDismiss: { type: Boolean, default: false },
+    noOutsideDismiss: { type: Boolean, default: false },
+    noEscDismiss: { type: Boolean, default: false },
+    maxWidth: { type: String, default: '' },
+    maxHeight: { type: String, default: '' },
+    anchorClass: { type: String },
     size: {
-      type: String as PropType<'medium' | 'small' | 'large'>,
+      type: String as PropType<ModalSize>,
       default: 'medium',
       validator: (size: string) => ['medium', 'small', 'large'].includes(size),
     },
-    fixedLayout: { type: Boolean as PropType<boolean>, default: false },
-    withoutTransitions: { type: Boolean as PropType<boolean>, default: false },
-    overlay: { type: Boolean as PropType<boolean>, default: true },
+    fixedLayout: { type: Boolean, default: false },
+    withoutTransitions: { type: Boolean, default: false },
+    overlay: { type: Boolean, default: true },
     overlayOpacity: { type: [Number, String] as PropType<number | string>, default: 0.6 },
-    blur: { type: Boolean as PropType<boolean>, default: false },
+    blur: { type: Boolean, default: false },
     zIndex: { type: [Number, String] as PropType<number | string | undefined>, default: undefined },
     backgroundColor: { type: String, default: 'white' },
   },
   setup (props, { emit }) {
+    const rootElement = shallowRef<HTMLElement>()
+
     const { getColor } = useColors()
     const { textColorComputed } = useTextColor(toRef(props, 'backgroundColor'))
-    const rootElement = ref<HTMLElement>()
-    const modal = ref<{ $el: HTMLElement }>()
     const { valueComputed } = useStateful(props, emit)
 
     const computedClass = computed(() => ({
@@ -244,7 +245,7 @@ export default defineComponent({
           document.body.classList.remove('va-modal-overlay-background--blurred')
         }
       }
-    })
+    }, { immediate: true })
 
     const publicMethods = {
       show,
@@ -263,7 +264,6 @@ export default defineComponent({
     return {
       getColor,
       rootElement,
-      modal,
       valueComputed,
       computedClass,
       computedDialogStyle,
@@ -271,21 +271,6 @@ export default defineComponent({
       computedOverlayStyles,
       ...publicMethods,
     }
-  },
-
-  // we will use this while we have problem with 'withConfigTransport'
-  methods: {
-    show () { (this as any).rootElement?.show() },
-    hide () { (this as any).rootElement?.hide() },
-    toggle () { (this as any).rootElement?.toggle() },
-    cancel () { (this as any).rootElement?.cancel() },
-    ok () { (this as any).rootElement?.ok() },
-    onOutsideClick () { (this as any).rootElement?.onOutsideClick() },
-    onBeforeEnterTransition () { (this as any).rootElement?.onBeforeEnterTransition() },
-    onAfterEnterTransition () { (this as any).rootElement?.onAfterEnterTransition() },
-    onBeforeLeaveTransition () { (this as any).rootElement?.onBeforeLeaveTransition() },
-    onAfterLeaveTransition () { (this as any).rootElement?.onAfterLeaveTransition() },
-    listenKeyUp () { (this as any).rootElement?.listenKeyUp() },
   },
 })
 </script>
@@ -446,7 +431,7 @@ export default defineComponent({
     margin: auto;
 
     > div:last-of-type {
-      margin-bottom: 0 !important;
+      margin-bottom: 0;
     }
   }
 
@@ -455,9 +440,9 @@ export default defineComponent({
     top: 1rem;
     right: 1rem;
     cursor: pointer;
-    font-size: 1.5rem !important;
-    font-style: normal !important;
-    color: $brand-secondary;
+    font-size: 1.5rem;
+    font-style: normal;
+    color: var(--va-secondary);
     z-index: 1;
   }
 
@@ -469,7 +454,7 @@ export default defineComponent({
     justify-content: center;
 
     &:last-of-type {
-      margin-bottom: 0 !important;
+      margin-bottom: 0;
     }
   }
 }
