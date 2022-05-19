@@ -42,14 +42,16 @@ export const createGlobalConfig = () => {
   }
 }
 
+/** Use this function if you don't want to throw error if hook used ouside setup function by useGlobalConfig */
+export function useGlobalConfigSafe () {
+  return inject<ProvidedGlobalConfig>(GLOBAL_CONFIG)
+}
+
 export function useGlobalConfig () {
-  const globalConfig = inject<ProvidedGlobalConfig>(
-    GLOBAL_CONFIG,
-    getCurrentInstance()?.appContext.config.globalProperties.$vaConfig,
-  )
+  const globalConfig = inject<ProvidedGlobalConfig>(GLOBAL_CONFIG)
 
   if (!globalConfig) {
-    throw new Error('Global config plugin is not registered')
+    throw new Error('useGlobalConfig must be used in setup function or Vuestic GlobalConfigPluign is not registered')
   }
 
   return globalConfig

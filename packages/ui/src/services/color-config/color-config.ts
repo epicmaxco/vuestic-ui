@@ -1,4 +1,4 @@
-import { GlobalConfig, useGlobalConfig } from '../global-config/global-config'
+import { GlobalConfig, useGlobalConfigSafe } from '../global-config/global-config'
 import {
   getBoxShadowColor,
   getHoverColor,
@@ -16,7 +16,13 @@ export type ColorConfig = { [colorName: string]: CssColor }
 
 // Here expose methods that user wants to use in vue component
 export const useColors = () => {
-  const { setGlobalConfig, getGlobalConfig } = useGlobalConfig()
+  const globalConfg = useGlobalConfigSafe()
+
+  if (!globalConfg) {
+    throw new Error('useColors must be used in setup function or Vuestic GlobalConfigPluign is not registered')
+  }
+
+  const { setGlobalConfig, getGlobalConfig } = globalConfg
 
   const setColors = (colors: ColorConfig): void => {
     setGlobalConfig((config: GlobalConfig) => ({
