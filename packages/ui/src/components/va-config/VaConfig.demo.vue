@@ -72,7 +72,7 @@
 
 <script>
 import { computed } from 'vue'
-import { getGlobalConfig, useGlobalConfig } from '../../services/global-config/global-config'
+import { useGlobalConfig } from '../../services/global-config/global-config'
 import { useColors } from '../../services/color-config/color-config'
 import VaButton from '../va-button'
 import VaRating from '../va-rating/'
@@ -178,7 +178,7 @@ export default {
     },
     setComponentsAllColor () {
       this.setGlobalConfig({
-        ...getGlobalConfig(),
+        ...this.getGlobalConfig(),
         componentsAll: {
           color: '#bd1313',
         },
@@ -186,7 +186,7 @@ export default {
     },
     resetComponentsAllColor () {
       this.setGlobalConfig({
-        ...getGlobalConfig(),
+        ...this.getGlobalConfig(),
         componentsAll: {},
       })
     },
