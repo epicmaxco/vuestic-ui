@@ -1,15 +1,13 @@
 <template>
-  <div>
-    <div class="code">
-      {
-      <p class="tab"> name: <va-input v-model="iconName" />,</p>
-      <p class="tab">
-        resolve:
-        (<span class="params">{ {{ params }} }</span>) => ({ class: <span class="params">`{{ resolved }}`</span> })
-      </p>
-      }
-    </div>
-  </div>
+  <code class="code language-javascript">
+    {
+    <span class="tab"> name: <va-input v-model="iconName" />,</span>
+    <span class="tab">
+      resolve:
+      (<span class="params">{ {{ params }} }</span>) => ({ class: <span class="params">`{{ resolved }}`</span> })
+    </span>
+    }
+  </code>
 </template>
 
 <script>
@@ -55,6 +53,7 @@ export default {
 
   .tab {
     padding-left: 1rem;
+    display: block;
   }
 
   .params {
@@ -65,13 +64,12 @@ export default {
     margin: 0;
   }
 
-  .va-input:deep() {
+  .va-input {
     display: inline-block;
 
-    .va-input__container {
-      background: rgba($color: #000000, $alpha: 0.2) !important;
-      border-radius: 0.5rem !important;
-    }
+    --va-input-color: rgba(0, 0, 0, 0.2);
+
+    border-radius: 0.5rem !important;
   }
 }
 </style>
