@@ -91,25 +91,3 @@ export const useColors = () => {
     colorsToCSSVariable,
   }
 }
-
-export const setColors = (colors: ColorConfig): void => {
-  useColors().setColors(colors)
-}
-
-export const getColors = (): ColorConfig => {
-  return useColors().getColors()
-}
-
-/**
- * Returns color from config by name or return prop if color is a valid hex, hsl, hsla, rgb or rgba color.
- * @param prop - should be color name or color in hex, hsl, hsla, rgb or rgba format.
- * @param preferVariables - function should return (if possible) CSS variable instead of hex (hex is needed to set opacity).
- * @param defaultColor - this color will be used if prop is invalid.
- */
-export const getColor = (prop?: string, defaultColor?: string, preferVariables?: boolean): CssColor => {
-  return useColors().getColor(prop, defaultColor, preferVariables)
-}
-
-export const colorsToCSSVariable = (colors: { [colorName: string]: string | undefined }, prefix = 'va') => {
-  return useColors().colorsToCSSVariable(colors, prefix)
-}

@@ -55,17 +55,4 @@ export function useGlobalConfig () {
   return globalConfig
 }
 
-export function setGlobalConfig (updater: GlobalConfig | GlobalConfigUpdater) {
-  useGlobalConfig().setGlobalConfig(updater)
-}
-
-/** Merge current config with new value */
-export function mergeGlobalConfig (updater: GlobalConfig | GlobalConfigUpdater) {
-  useGlobalConfig().mergeGlobalConfig(updater)
-}
-
-export function getGlobalConfig (): GlobalConfig {
-  return useGlobalConfig().getGlobalConfig()
-}
-
 export * from './types'

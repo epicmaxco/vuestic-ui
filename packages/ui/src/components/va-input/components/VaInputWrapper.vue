@@ -102,7 +102,7 @@ import { computed, defineComponent } from 'vue'
 import { useBem } from '../../../composables/useBem'
 import { useFormProps } from '../../../composables/useForm'
 import { useValidationProps } from '../../../composables/useValidation'
-import { getColor } from '../../../services/color-config/color-config'
+import { useColors } from '../../../services/color-config/color-config'
 import VaMessageList from './VaMessageList'
 
 export default defineComponent({
@@ -134,6 +134,7 @@ export default defineComponent({
   ],
 
   setup (props) {
+    const { getColor } = useColors()
     const { createModifiersClasses } = useBem('va-input')
 
     const colorComputed = computed(() => getColor(props.color))
