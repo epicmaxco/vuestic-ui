@@ -76,7 +76,7 @@ export default defineComponent({
     const { getColor, getHoverColor } = useColors()
     const { accordionProps, toggle } = useAccordionItem(computedModelValue)
 
-    const { textColorComputed } = useTextColor(props.color)
+    const { textColorComputed } = useTextColor()
 
     const getTextNodeHeight = (textNode: Node) => {
       const range = document.createRange()

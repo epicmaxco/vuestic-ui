@@ -80,7 +80,7 @@ export default defineComponent({
   setup (props, { emit }) {
     const { getColor } = useColors()
 
-    const { textColorComputed } = useTextColor(props.color)
+    const { textColorComputed } = useTextColor()
 
     const rootElement = ref<HTMLElement>()
 

@@ -118,7 +118,7 @@ export default defineComponent({
 
     const { valueComputed } = useStateful<number>(props, emit)
 
-    const { textColorComputed } = useTextColor(props.color)
+    const { textColorComputed } = useTextColor()
 
     const currentValue = computed({
       get: () => usedTotal.value ? Math.ceil(valueComputed.value / props.pageSize) || 1 : valueComputed.value,
