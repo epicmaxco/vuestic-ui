@@ -71,18 +71,17 @@ export default defineComponent({
   setup (props, { emit }) {
     const { getColor } = useColors()
     const colorComputed = computed(() => getColor(props.color))
-    const toggleColorComputed = computed(() => getColor(props.toggleColor))
 
     const isFlatOrOutline = computed(() => props.outline || props.flat)
-    const color = computed(() => {
+    const activeButtonColor = computed(() => {
       if (props.toggleColor) {
-        return toggleColorComputed.value
+        return getColor(props.toggleColor)
       } else {
         return isFlatOrOutline.value ? colorComputed.value : shiftHSLAColor(colorComputed.value, { l: -6 })
       }
     })
 
-    const { textColorComputed } = useTextColor(color, isFlatOrOutline)
+    const { textColorComputed: activeButtonTextColor } = useTextColor(activeButtonColor)
 
     const getButtonProps = (option: ButtonOption = {} as ButtonOption) => {
       const iconsProps = {
@@ -93,8 +92,8 @@ export default defineComponent({
       if (option.value !== props.modelValue) { return iconsProps }
 
       return {
-        color: color.value,
-        textColor: props.activeButtonTextColor ?? textColorComputed.value,
+        color: activeButtonColor.value,
+        textColor: props.activeButtonTextColor ?? activeButtonTextColor.value,
         ...iconsProps,
         ...(isFlatOrOutline.value && { outline: false, flat: false }),
       }

@@ -52,12 +52,13 @@ export default defineComponent({
       }
     })
 
-    const buttonConfig = reactive({
+    const buttonConfig = computed(() => ({
       VaButton: {
         ...props,
         color: props.gradient ? '#00000000' : props.color,
+        textColor: textColorComputed.value,
       },
-    })
+    }))
 
     const computedClass = computed(() => ({ 'va-button-group_square': !props.rounded }))
 
