@@ -31,7 +31,6 @@
     "serve:production": "vue-cli-service serve --mode production",
     "build:dev": "tsc build/config.ts && webpack --config build/config.js --progress",
     "build": "zx ./build/vite/build.mjs",
-    "build:rollup": "rollup -c",
     "build:types": "vue-tsc --declaration --emitDeclarationOnly --outDir dist/types",
     "build:book": "vue-cli-service build --mode book",
     "build-and-release": "ts-node build/bump-version.ts && yarn build && npm publish",
@@ -46,17 +45,17 @@
     "server:webapp": "npx http-server dist --push-state"
   },
   "dependencies": {
-    "@vitejs/plugin-vue": "^2.3.2",
     "cleave.js": "^1.6.0",
     "colortranslator": "^1.9.2",
-    "fs-extra": "^10.1.0",
     "lodash": "^4.17.21",
-    "normalize.css": "^8.0.1",
-    "vite": "^2.9.8",
-    "vite-plugin-chunk-split": "^0.2.2",
-    "zx": "^6.1.0"
+    "normalize.css": "^8.0.1"
   },
   "devDependencies": {
+    "vite": "^2.9.8",
+    "vite-plugin-chunk-split": "^0.2.2",
+    "@vitejs/plugin-vue": "^2.3.2",
+    "zx": "^6.1.0",
+    "fs-extra": "^10.1.0",
     "@babel/core": "^7.12.3",
     "@babel/plugin-transform-modules-commonjs": "^7.12.1",
     "@babel/preset-env": "^7.12.1",
@@ -156,13 +155,15 @@
       },
       "require": "./dist/cjs/main.js"
     },
-    "./ssr": {
-      "import": "./dist/esm-ssr/main.mjs"
+    "./css": {
+      "import": {
+        "node": "./dist/styles/index.css",
+        "default": "./dist/vuestic-ui.css"
+      }
     },
-    "./iife": "./dist/iife/vuestic-ui.js",
+    "./iife": "./dist/iife/main.js",
     "./styles/": "./dist/styles/",
     "./types": "./dist/types/main.d.ts",
-    "./css": "./dist/vuestic-ui.css",
     "./dist/": "./dist/"
   }
 }

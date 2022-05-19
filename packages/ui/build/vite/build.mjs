@@ -9,7 +9,7 @@ import fs, {
   unlinkSync,
   statSync,
   rmSync,
-} from "fs";
+} from 'fs'
 import fsExtra from 'fs-extra'
 const { copySync } = fsExtra
 import readDirRecursive from './utils.mjs'
@@ -22,7 +22,7 @@ if (fs.existsSync('./dist')) {
 }
 
 /**
- * parallel build for all formats (except ems-node)
+ * parallel build for all formats (except esm-node)
  */
 await Promise.all([
   $`vite build --config ./build/vite/configs/vite.cjs.js`,
@@ -39,11 +39,10 @@ readdirSync('./dist/esm/src/components')
   .forEach((folderName) => {
     const currentPath = `./dist/esm/src/components/${folderName}`
 
-    const componentName = folderName.split('-').map((el) => {
-      const split = el.split('')
-      split[0] = split[0].toUpperCase()
-      return split.join('')
-    }).join('')
+    const componentName = folderName
+      .split('-')
+      .map((el) => el.charAt(0).toUpperCase() + el.slice(1))
+      .join('')
 
     const componentFilePath = `${currentPath}/${componentName}.js`
     const componentCssPath = `${currentPath}/${componentName}.css`
@@ -60,8 +59,10 @@ copySync('./dist/esm', './dist/esm-node', {})
 readDirRecursive('./dist/esm-node')
   .filter((el) => el.includes('.js') && !el.includes('.js.map'))
   .forEach((filePath) => {
-    const newFilePath = filePath.replace('.js', '.mjs')
-    existsSync(filePath) && renameSync(filePath, newFilePath)
+    if (existsSync(filePath)) {
+      const newFilePath = filePath.replace('.js', '.mjs')
+      renameSync(filePath, newFilePath)
+    }
   })
 
 /**
@@ -81,9 +82,7 @@ existsSync(iifeStylesPath) && unlinkSync(iifeStylesPath)
  */
 const styleFiles = readDirRecursive('./dist/styles')
 styleFiles.forEach((el) => {
-  const isEmpty = statSync(el).size <= 1
-
-  if (isEmpty) {
+  if (statSync(el).size <= 1) {
     rmSync(el)
   } else {
     const splitPath = el.split('/')
