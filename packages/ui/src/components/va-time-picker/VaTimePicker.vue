@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref } from 'vue'
+import { defineComponent, ref, computed, PropType } from 'vue'
 import { useTimePicker } from './hooks/useTimePicker'
 import VaTimePickerColumn from './components/VaTimePickerColumn.vue'
 import { useStateful, useStatefulEmits, useStatefulProps } from '../../composables/useStateful'
@@ -39,6 +39,7 @@ export default defineComponent({
     hoursFilter: { type: Function as PropType<(h: number) => boolean> },
     minutesFilter: { type: Function as PropType<(h: number) => boolean> },
     secondsFilter: { type: Function as PropType<(h: number) => boolean> },
+    framed: { type: Boolean, default: false },
   },
 
   emits: useStatefulEmits,
@@ -73,9 +74,14 @@ export default defineComponent({
       focus(activeColumnIndex.value)
     }
 
+    const computedClass = computed(() => ({
+      ...createComputedClass('va-time-picker').value,
+      'va-time-picker--framed': props.framed,
+    }))
+
     return {
       columns,
-      computedClass: createComputedClass('va-time-picker'),
+      computedClass,
       isPM,
       pickers,
       setItemRef,
@@ -121,6 +127,23 @@ export default defineComponent({
       @include after-overlay();
 
       opacity: var(--va-time-picker-disabled-opacity);
+    }
+
+    &--framed {
+      position: relative;
+
+      &::before {
+        content: "";
+        height: 30px;
+        width: 100%;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+        border-top: 1px solid var(--va-divider);
+        border-bottom: 1px solid var(--va-divider);
+        z-index: 0;
+      }
     }
   }
 </style>
