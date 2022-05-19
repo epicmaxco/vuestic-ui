@@ -5,26 +5,26 @@
     @keydown.down.stop.prevent="makeActiveNext()"
     @keydown.space.stop.prevent="makeActiveNext(5)"
     @keydown.up.stop.prevent="makeActivePrev()"
+    @scroll="onScroll"
     ref="rootElement"
   >
-    <div class="va-time-picker-cell va-time-picker-cell--fake" />
     <div
       v-for="(item, index) in items" :key="item"
-      :class="{
-        'va-time-picker-cell': true,
-        'va-time-picker-cell--active': index === $props.activeItemIndex
-      }"
+      class="va-time-picker-cell"
+      :class="{ 'va-time-picker-cell--active': index === $props.activeItemIndex }"
+      :data-index="index"
+      :data-item="item"
       @click="onCellClick(index)"
     >
       <slot name="cell" v-bind="{ item, index, activeItemIndex, items, formattedItem: formatCell(item) }">
         {{ formatCell(item) }}
       </slot>
     </div>
-    <div class="va-time-picker-cell va-time-picker-cell--fake" />
   </div>
 </template>
 
 <script lang="ts">
+import debounce from 'lodash/debounce'
 import { defineComponent, nextTick, onMounted, PropType, ref, watch } from 'vue'
 import { useSyncProp } from '../../../composables/useSyncProp'
 import { useFocus, useFocusEmits } from '../../../composables/useFocus'
@@ -41,6 +41,7 @@ export default defineComponent({
 
   setup (props, { emit }) {
     const rootElement = ref<HTMLElement>()
+    const cellElementHeight = ref(30)
 
     // Will be used later, after fix 'withConfigTransport'
     const { focus, blur } = useFocus(rootElement, emit)
@@ -49,25 +50,20 @@ export default defineComponent({
 
     watch(syncActiveItemIndex, (newVal) => { scrollTo(newVal) })
 
-    onMounted(() => scrollTo(syncActiveItemIndex.value, false))
+    onMounted(() => {
+      if (rootElement.value) {
+        // 170 here it's a sum of gaps from "before" and "after" pseudo elements
+        cellElementHeight.value = (rootElement.value!.scrollHeight - 170) / props.items.length
+      }
+
+      scrollTo(syncActiveItemIndex.value, false)
+    })
 
     const scrollTo = (index: number, animate = true) => {
       nextTick(() => {
-        const children = rootElement.value!.children
-
-        const element = children[index] as HTMLElement
-
-        if (!element) {
-          rootElement.value?.scrollTo({
-            behavior: animate ? 'smooth' : 'auto',
-            top: 0,
-          })
-          return
-        }
-
         rootElement.value?.scrollTo({
           behavior: animate ? 'smooth' : 'auto',
-          top: element.offsetTop - element.parentElement!.offsetTop,
+          top: index * cellElementHeight.value,
         })
       })
     }
@@ -97,12 +93,29 @@ export default defineComponent({
       return n < 10 ? `0${n}` : `${n}`
     }
 
+    const getIndex = () => {
+      const scrollTop = rootElement.value!.scrollTop
+      const scrollBarHeight = rootElement.value!.offsetHeight
+
+      return Math.round((scrollTop - (scrollBarHeight * 0.5 - 10) / cellElementHeight.value + 3) / cellElementHeight.value)
+    }
+
+    const debounceScroll = () => debounce(() => {
+      syncActiveItemIndex.value = getIndex()
+      scrollTo(syncActiveItemIndex.value)
+    }, 200)()
+
+    const onScroll = () => {
+      debounceScroll()
+    }
+
     return {
       rootElement,
 
       makeActiveNext,
       makeActivePrev,
       makeActiveByIndex,
+      onScroll,
 
       onCellClick,
       formatCell,
@@ -138,6 +151,14 @@ export default defineComponent({
 
     height: 100%;
     border-right: var(--va-time-picker-column-border-right);
+
+    &::before,
+    &::after, {
+      content: "";
+      display: block;
+      height: 85px;
+      width: 100%;
+    }
 
     &:last-child {
       border-right: 0;
