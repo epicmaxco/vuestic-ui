@@ -9,6 +9,15 @@
       </p>
       }
     </div>
+    <code class="code language-javascript">
+      {
+      <span class="tab"> name: <va-input v-model="regexIconName" />,</span>
+      <span class="tab">
+        resolveFromRegex:
+        (<span class="params"> {{ regexParams }} </span>) => ({ class: <span class="params">`{{ resolved }}`</span> })
+      </span>
+      }
+    </code>
   </div>
 </template>
 
@@ -33,6 +42,22 @@ export default {
       return groups.value.reduce((acc, v) => `${acc} ${v},`, '').slice(0, -1)
     })
 
+    const regexIconName = ref('/(fas|far|fal|fad|fab)-(.*)/')
+    const regexParams = computed(() => {
+      const map = ['code', 'type']
+
+      return regexIconName.value
+        .split('(')
+        .map((g) => {
+          const group = '(' + g
+
+          return (group.match(/\(.*\)/) || [])[0]
+        })
+        .filter((g) => g)
+        .map((g, i) => map[i] || `group${i - 1}`)
+        .join(', ')
+    })
+
     const resolved = computed(() => {
       const classes = groups.value.map((item) => 'fa-${' + `${item}` + '}')
       return `fa ${classes.join(' ')}`
@@ -42,6 +67,8 @@ export default {
       params,
       iconName,
       resolved,
+      regexIconName,
+      regexParams,
     }
   },
 }
@@ -52,9 +79,11 @@ export default {
   background: #f4f8fa;
   color: var(--va-dark);
   padding: 0.5rem;
+  width: 100%;
 
   .tab {
     padding-left: 1rem;
+    display: block;
   }
 
   .params {
