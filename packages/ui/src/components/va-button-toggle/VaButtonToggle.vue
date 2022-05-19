@@ -30,6 +30,7 @@ import { getTextColor, shiftHSLAColor } from '../../services/color-config/color-
 import { useColors } from '../../composables/useColor'
 import VaButton from '../va-button'
 import VaButtonGroup from '../va-button-group'
+import { useTextColor } from '../../composables/useTextColor'
 
 type ButtonOption = {
   value: any,
@@ -80,7 +81,8 @@ export default defineComponent({
         return isFlatOrOutline.value ? colorComputed.value : shiftHSLAColor(colorComputed.value, { l: -6 })
       }
     })
-    const textColor = computed(() => props.activeButtonTextColor || getTextColor(colorComputed.value))
+
+    const { textColorComputed } = useTextColor(color, isFlatOrOutline)
 
     const getButtonProps = (option: ButtonOption = {} as ButtonOption) => {
       const iconsProps = {
@@ -91,8 +93,8 @@ export default defineComponent({
       if (option.value !== props.modelValue) { return iconsProps }
 
       return {
-        textColor: textColor.value,
         color: color.value,
+        textColor: props.activeButtonTextColor ?? textColorComputed.value,
         ...iconsProps,
         ...(isFlatOrOutline.value && { outline: false, flat: false }),
       }
