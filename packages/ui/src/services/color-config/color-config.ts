@@ -36,17 +36,19 @@ export const useColors = () => {
   }
 
   /**
-   * Most default color - fallback when nothing else is found.
-   */
-  const DEFAULT_COLOR = getColors().primary
-
-  /**
    * Returns color from config by name or return prop if color is a valid hex, hsl, hsla, rgb or rgba color.
    * @param prop - should be color name or color in hex, hsl, hsla, rgb or rgba format.
    * @param preferVariables - function should return (if possible) CSS variable instead of hex (hex is needed to set opacity).
    * @param defaultColor - this color will be used if prop is invalid.
    */
-  const getColor = (prop?: string, defaultColor: string = DEFAULT_COLOR, preferVariables?: boolean): CssColor => {
+  const getColor = (prop?: string, defaultColor?: string, preferVariables?: boolean): CssColor => {
+    if (!defaultColor) {
+      /**
+       * Most default color - fallback when nothing else is found.
+       */
+      defaultColor = getColors().primary
+    }
+
     const colors = getColors()
 
     if (!prop) {
@@ -78,7 +80,7 @@ export const useColors = () => {
       .keys(colors)
       .filter((key) => colors[key] !== undefined)
       .reduce((acc: Record<string, any>, colorName: string) => {
-        acc[`--${prefix}-${colorName}`] = getColor(colors[colorName], DEFAULT_COLOR, true)
+        acc[`--${prefix}-${colorName}`] = getColor(colors[colorName], undefined, true)
         return acc
       }, {})
   }
