@@ -1381,7 +1381,7 @@
       },
       "aliasAndFontExample": {
         "twitterColor": "Twitter blue brand color",
-        "VuesticColor": "Vuestic green brand color",
+        "vuesticColor": "Vuestic green brand color",
         "from": "from",
         "alias": "alias",
         "font": "font",
@@ -3483,7 +3483,7 @@
       "about": "We want to use the `<va-icon name='icon-name' />` pattern. We can setup a config for a specific icon name pattern. In that config we provide an icon class, contents (innerHTML) or a Vue component relative to icon name.",
       "fontNamePattern": {
         "title": "Font name pattern",
-        "about": "Font name pattern is similar to vue dynamic routes. We can use dynamic segments to dynamically generate the icon class, content and props. Dynamic segments should be written in curly brackets."
+        "about": "Font name pattern is similar to vue dynamic routes. We can use dynamic segments to dynamically generate `IconConfig` in resolve function. Dynamic segments should be written in curly brackets."
       },
       "example": {
         "title": "Example fonts config",
@@ -3507,7 +3507,8 @@
       "about": "We need to update icons config in our global config. Icons config is a flat array with Vuestic default font and aliases. We can use the `createIconsConfig()` helper to create a new config with Vuestic defaults and our custom fonts and aliases merged together. For example:"
     },
     "api": {
-      "title": "Icon config API",
+      "title": "IconConfig",
+      "description": "You can use IconConfig properties in aliases, fonts and as return in resolve function.",
       "name": "String or regex. Can be a string with dynamic segment or regex to use this config as font.",
       "iconClass": "Class that will be applied to the icon. Can be a string or a function that accepts dynamic segment value and returns a string.",
       "content": "Content that will be inside the icon. Can be a string or a function that accepts dynamic segment value and returns a string.",
