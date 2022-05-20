@@ -1,4 +1,4 @@
-const insertVuesticPlugin = (lines, pluginName = 'VuesticPlugin') => {
+const insertVuesticPlugin = (lines, pluginName = 'createVuestic()') => {
   const alreadyExists = lines.findIndex(line => line.includes(`.use(${pluginName})`))
 
   if (alreadyExists !== -1) { return lines; }
