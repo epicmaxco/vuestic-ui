@@ -79,11 +79,12 @@ import { useCarouselColor } from './hooks/useCarouselColors'
 import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
 import VaImage from '../va-image'
 import VaButton from '../va-button'
+import VaHover from '../va-hover'
 
 export default defineComponent({
   name: 'VaCarousel',
 
-  components: { VaImage, VaButton },
+  components: { VaImage, VaButton, VaHover },
 
   props: {
     ...useStatefulProps,
