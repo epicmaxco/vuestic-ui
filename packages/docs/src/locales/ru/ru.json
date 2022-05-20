@@ -1277,7 +1277,8 @@
     "carousel": "Carousel",
     "treeShaking": "Tree Shaking",
     "counter": "Counter",
-    "nuxt": "Nuxt"
+    "nuxt": "Nuxt",
+    "ssrGuide": "Ssr Guide"
   },
   "all": {
     "examples": "Примеры",
@@ -3837,5 +3838,8 @@
       "nuxtConfig": "Затем обновите файл nuxt-config.ts:",
       "moreAboutConfig": "Подробнее про конфигурирование"
     }
+  },
+  "ssrGuide": {
+    "title": "-- Here is the title --"
   }
 }
