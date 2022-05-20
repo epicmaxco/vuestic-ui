@@ -14,7 +14,7 @@ export const methodsApi = (block: PageGenerationHelper) => block.table(
 
 const optionsTableData: [keyof ModalOptions, string][] = [
   ['title', 'string'],
-  ['message', 'string | VNode'],
+  ['message', 'string'],
   ['attachElement', 'string'],
   ['disableAttachElement', 'boolean'],
   ['okText', 'string'],

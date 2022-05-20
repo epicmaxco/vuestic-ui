@@ -1,5 +1,3 @@
-import { VNode } from 'vue'
-
 export type ModalSize = 'small' | 'medium' | 'large'
 
 export interface ModalOptions {
@@ -8,7 +6,7 @@ export interface ModalOptions {
   attachElement?: string;
   disableAttachElement?: boolean;
   title?: string;
-  message: string | VNode;
+  message: string;
   okText?: string;
   cancelText?: string;
   hideDefaultActions?: boolean;
