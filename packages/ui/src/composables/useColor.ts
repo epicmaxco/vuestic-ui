@@ -28,7 +28,6 @@ export function useColor (props: any) {
   }
 
   return {
-    hasColorTheme,
     theme: { getColor },
     colorComputed,
     computeColor,
