@@ -56,15 +56,12 @@ export default defineComponent({
         cellElementHeight.value = (rootElement.value!.scrollHeight - 170) / props.items.length
       }
 
-      scrollTo(syncActiveItemIndex.value, false)
+      scrollTo(syncActiveItemIndex.value)
     })
 
-    const scrollTo = (index: number, animate = true) => {
+    const scrollTo = (index: number) => {
       nextTick(() => {
-        rootElement.value?.scrollTo({
-          behavior: animate ? 'smooth' : 'auto',
-          top: index * cellElementHeight.value,
-        })
+        rootElement.value!.scrollTop = index * cellElementHeight.value
       })
     }
 
@@ -100,10 +97,10 @@ export default defineComponent({
       return Math.round((scrollTop - (scrollBarHeight * 0.5 - 10) / cellElementHeight.value + 3) / cellElementHeight.value)
     }
 
-    const debouncedScroll = () => debounce(() => {
+    const debouncedScroll = debounce(() => {
       syncActiveItemIndex.value = getIndex()
       scrollTo(syncActiveItemIndex.value)
-    }, 200)()
+    }, 200)
 
     const onScroll = () => {
       debouncedScroll()
