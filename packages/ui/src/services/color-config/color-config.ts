@@ -113,3 +113,5 @@ export const getColor = (prop?: string, defaultColor?: string, preferVariables?:
 export const colorsToCSSVariable = (colors: { [colorName: string]: string | undefined }, prefix = 'va') => {
   return useColors().colorsToCSSVariable(colors, prefix)
 }
+
+export * from './color-functions'

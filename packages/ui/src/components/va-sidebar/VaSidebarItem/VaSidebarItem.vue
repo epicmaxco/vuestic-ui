@@ -1,7 +1,7 @@
 <template>
   <router-link custom :to="to" v-slot="{ href, navigate }">
     <a
-      ref="anchor"
+      ref="rootElement"
       v-bind="$attrs"
       class="va-sidebar__item va-sidebar-item"
       :class="{ 'va-sidebar-item--active': $props.active }"
@@ -10,7 +10,6 @@
       @click="navigate"
       v-on="keyboardFocusListeners"
     >
-      {{ background }}
       <slot />
     </a>
   </router-link>
@@ -19,10 +18,10 @@
 <script lang="ts">
 import { defineComponent, PropType, ref, computed } from 'vue'
 import { RouteLocationRaw } from 'vue-router'
-import { useColors } from '../../../services/color-config/color-config'
+import { useColors, mixColorsRGBA } from '../../../services/color-config/color-config'
 import useKeyboardOnlyFocus from '../../../composables/useKeyboardOnlyFocus'
 import { useHover } from '../../../composables/useHover'
-import { useElementBackground } from '../../../composables/useElementBackground'
+import { useElementRef } from '../../../composables/useElementRef'
 import { useTextColor } from '../../../composables/useTextColor'
 import { useSidebarItem } from '../hooks/useSidebar'
 
@@ -44,12 +43,11 @@ export default defineComponent({
   },
 
   setup (props) {
-    const anchor = ref<HTMLAnchorElement>()
+    const rootElement = useElementRef()
 
-    const { isHovered } = useHover(anchor)
+    const { isHovered } = useHover(rootElement)
     const { getColor, getHoverColor, getFocusColor } = useColors()
     const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
-    const { background } = useElementBackground(anchor)
     const { sidebarColor } = useSidebarItem()
 
     const backgroundColorComputed = computed(() => {
@@ -65,15 +63,14 @@ export default defineComponent({
         return getFocusColor(getColor(props.hoverColor || props.activeColor))
       }
 
-      return getColor(sidebarColor.value)
+      return '#ffffff00'
     })
 
-    const { textColorComputed } = useTextColor(backgroundColorComputed)
+    const textBackground = computed(() => mixColorsRGBA(sidebarColor.value, backgroundColorComputed.value))
+    const { textColorComputed } = useTextColor(textBackground)
 
     const computedStyle = computed(() => {
-      const style: Record<string, string> = {}
-
-      style.color = textColorComputed.value
+      const style: Record<string, string> = { color: textColorComputed.value }
 
       if (isHovered.value || props.active || hasKeyboardFocus.value) {
         style.backgroundColor = backgroundColorComputed.value
@@ -87,10 +84,11 @@ export default defineComponent({
     })
 
     return {
-      anchor,
+      rootElement,
       computedStyle,
       keyboardFocusListeners,
-      background,
+      backgroundColorComputed,
+      textBackground,
     }
   },
 })
@@ -104,7 +102,6 @@ export default defineComponent({
   padding-right: var(--va-sidebar-item-active-border-size);
   display: inline-block;
   width: 100%;
-  color: inherit !important;
   font-family: var(--va-font-family);
 }
 </style>

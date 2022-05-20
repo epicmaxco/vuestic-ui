@@ -1,5 +1,5 @@
 import { ColorArray, parseRGBA } from './utils'
-import { ref, getCurrentInstance, Ref } from 'vue'
+import { ref, getCurrentInstance, watch, Ref } from 'vue'
 import { useDomChangesObserver } from './useDomChangesObserver'
 
 type Maybe<T> = T | null | undefined
@@ -53,13 +53,18 @@ const recursiveGetBackground = (element: Maybe<HTMLElement>): ColorArray => {
 /** Can be null before component is mounted */
 export const useElementBackground = (element?: Ref<HTMLElement | undefined>) => {
   const { proxy } = getCurrentInstance()!
-  const background = ref<null | string>(null)
-  useDomChangesObserver(() => {
+  const background = ref(rgba2hex(recursiveGetBackground(element?.value || proxy?.$el)))
+
+  const updateBackground = () => {
     const bg = recursiveGetBackground(element?.value || proxy?.$el)
     background.value = rgba2hex(bg)
-  })
+  }
 
-  background.value = rgba2hex(recursiveGetBackground(element?.value || proxy?.$el))
+  useDomChangesObserver(updateBackground)
+
+  if (element) {
+    watch(element, updateBackground)
+  }
 
   return {
     background,
