@@ -6,7 +6,7 @@
   Vue.js 3.0 UI Library
   <br>
   Developed by <a href="https://epicmax.co">Epicmax</a>. Designed by
-  <a href="https://xxsavitski.com/">Vasili Savitski</a>.
+  <a href="https://twitter.com/xxsavitski">Vasili Savitski</a>.
   <br>
 </p>
 
