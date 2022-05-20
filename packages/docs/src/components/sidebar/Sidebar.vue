@@ -30,7 +30,6 @@
           v-for="(childRoute, index) in route.children"
           :key="index"
           class="va-sidebar__child"
-          :style="{ background: 'hsla(279, 40%, 40%, 0.6)' }"
         >
           <va-list-label
             v-if="childRoute.category"

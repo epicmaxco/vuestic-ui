@@ -1,6 +1,8 @@
 import { ColorArray, parseRGBA } from './utils'
-import { ref, getCurrentInstance, watch, Ref } from 'vue'
+import { ref, getCurrentInstance, watch, Ref, onMounted } from 'vue'
 import { useDomChangesObserver } from './useDomChangesObserver'
+import { useTempMap } from './useTempMap'
+import { computed } from '@vue/reactivity'
 
 type Maybe<T> = T | null | undefined
 
@@ -21,14 +23,20 @@ const mixColors = (color1Array: ColorArray, color2Array: ColorArray, weight: num
   return newColor as ColorArray
 }
 
+const tempCache = useTempMap<HTMLElement, ColorArray>(100)
+
 const recursiveGetBackground = (element: Maybe<HTMLElement>): ColorArray => {
   if (!element) { return WHITE_COLOR_ARRAY } // Likely doesn't have a color, so let's just return white
   if (element.nodeType !== Node.ELEMENT_NODE) { return recursiveGetBackground(element.parentElement) }
 
+  if (tempCache.get(element)) { return tempCache.get(element) }
+
   const bg = window.getComputedStyle(element).backgroundColor
 
   if (isTransparent(bg)) {
-    return recursiveGetBackground(element.parentElement)
+    const parentBg = recursiveGetBackground(element.parentElement)
+    tempCache.set(element, parentBg)
+    return parentBg
   }
 
   const color = parseRGBA(bg)
@@ -53,18 +61,21 @@ const recursiveGetBackground = (element: Maybe<HTMLElement>): ColorArray => {
 /** Can be null before component is mounted */
 export const useElementBackground = (element?: Ref<HTMLElement | undefined>) => {
   const { proxy } = getCurrentInstance()!
-  const background = ref(rgba2hex(recursiveGetBackground(element?.value || proxy?.$el)))
+  const getEl = () => element?.value || proxy?.$el
+  const background = ref(rgba2hex(recursiveGetBackground(getEl())))
 
   const updateBackground = () => {
-    const bg = recursiveGetBackground(element?.value || proxy?.$el)
+    const bg = recursiveGetBackground(getEl())
     background.value = rgba2hex(bg)
   }
 
-  useDomChangesObserver(updateBackground)
+  useDomChangesObserver(updateBackground, getEl)
 
   if (element) {
     watch(element, updateBackground)
   }
+
+  onMounted(updateBackground)
 
   return {
     background,

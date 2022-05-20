@@ -66,6 +66,7 @@ import { ComponentOptions, computed, defineComponent, nextTick, PropType, ref, w
 import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
 import { useElementBackground } from '../../composables/useElementBackground'
 import { useColors } from '../../services/color-config/color-config'
+import { useTextColor } from '../../composables/useTextColor'
 
 import { VaDatePickerModelValue, VaDatePickerType, VaDatePickerView } from './types'
 import { filterComponentProps, extractComponentProps, extractComponentEmits } from '../../utils/child-props'
@@ -157,11 +158,12 @@ export default defineComponent({
       if (props.type === 'year') { valueComputed.value = modelValue }
     }
 
-    const { colorsToCSSVariable, getTextColor } = useColors()
+    const { colorsToCSSVariable } = useColors()
     const { background } = useElementBackground()
+    const { textColorComputed } = useTextColor(background)
 
     const styleComputed = computed(() => ({
-      color: getTextColor(background.value || '#fff'),
+      color: textColorComputed.value,
       ...colorsToCSSVariable({
         color: props.color,
         'weekends-color': props.weekendsColor,

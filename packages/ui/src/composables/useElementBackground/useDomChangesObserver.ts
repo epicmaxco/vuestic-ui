@@ -1,17 +1,21 @@
-import { onBeforeUnmount, onMounted } from 'vue'
+import { onBeforeUnmount, onMounted, Ref } from 'vue'
 import debounce from 'lodash/debounce.js'
 
+type Handler = { cb: (() => void), el: () => HTMLElement }
+
 let observer: MutationObserver
-let callbacks: (() => void)[] = []
+let callbacks: Handler[] = []
 
 const createMutationObserver = () => {
   if (observer) { return }
 
-  observer = new MutationObserver(debounce(() => {
+  observer = new MutationObserver((mutations: MutationRecord[]) => {
     for (let i = 0; i < callbacks.length; i++) {
-      callbacks[i]()
+      if (mutations.some((m) => m.target.contains(callbacks[i].el()))) {
+        callbacks[i].cb()
+      }
     }
-  }, 0))
+  })
 
   observer.observe(window.document, {
     attributeFilter: ['style', 'class'],
@@ -28,14 +32,14 @@ const destroyMutatuinObserver = () => {
 }
 
 /** Creates on globa watched for dom changes */
-export const useDomChangesObserver = (cb: () => void) => {
+export const useDomChangesObserver = (cb: () => void, el: () => HTMLElement) => {
   onMounted(() => {
     createMutationObserver()
-    callbacks.push(cb)
+    callbacks.push({ cb, el })
   })
 
   onBeforeUnmount(() => {
-    callbacks = callbacks.filter((c) => c !== cb)
+    callbacks = callbacks.filter((c) => c.cb !== cb)
     destroyMutatuinObserver()
   })
 }
