@@ -39,7 +39,7 @@ export default {
     const { getColors } = useColors()
 
     return {
-      colors: computed(() => getColors()),
+      colors: computed(getColors),
     }
   },
 }

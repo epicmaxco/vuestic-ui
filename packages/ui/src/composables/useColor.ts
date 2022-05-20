@@ -16,7 +16,6 @@ export const useColorProps = {
 
 /** @deprecated Use useColors instead */
 export function useColor (props: any) {
-  const hasColorTheme = true
   const { getColor } = useColors()
 
   const colorComputed = computed(() => {
