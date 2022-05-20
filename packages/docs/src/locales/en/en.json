@@ -1362,6 +1362,8 @@
   "all": {
     "examples": "Examples",
     "api": "API",
+    "methods": "Methods",
+    "options": "Options",
     "faq": "FAQ",
     "code": {
       "or": "or",
@@ -1914,6 +1916,10 @@
     "nestedModals": {
       "title": "Nested modals",
       "text": "Modals can be nested: you can open one modal from another."
+    },
+    "functionalApi": {
+      "title": "Modal functional API",
+      "text": "To make it easier to create modal we have a shorthands. For options API it is `$vaModal` that provides the VaModalPlugin (automatically installed with createVuestic). For composition Api we have `useModal` hook. Hook and global object have similar API."
     }
   },
   "pagination": {
