@@ -98,13 +98,15 @@ export default defineComponent({
     }
 
     const debouncedScroll = debounce(() => {
-      syncActiveItemIndex.value = getIndex()
-      scrollTo(syncActiveItemIndex.value)
+      const idx = getIndex()
+
+      if (idx !== syncActiveItemIndex.value) {
+        syncActiveItemIndex.value = idx
+        scrollTo(syncActiveItemIndex.value)
+      }
     }, 200)
 
-    const onScroll = () => {
-      debouncedScroll()
-    }
+    const onScroll = () => debouncedScroll()
 
     return {
       rootElement,
