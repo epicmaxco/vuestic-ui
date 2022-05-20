@@ -8,24 +8,18 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component'
+import { defineComponent } from 'vue'
 
 const propOptions = {
   color: { type: String, default: 'red' },
   label: { type: String, default: '' },
 }
 
-@Options({
+export default defineComponent({
   name: 'ConfigUsageTest',
   props: propOptions,
 })
-export default class ConfigUsageTest extends Vue {
-
-}
 </script>
 
 <style lang="scss">
-.va-test {
-
-}
 </style>

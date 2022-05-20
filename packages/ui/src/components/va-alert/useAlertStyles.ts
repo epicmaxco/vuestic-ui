@@ -1,11 +1,12 @@
 import { computed } from 'vue'
 
 import { useColors } from './../../composables/useColor'
-import { getTextColor } from '../../services/color-config/color-functions'
+import { useTextColor } from './../../composables/useTextColor'
 
 type AlertStyleProps = {
   modelValue: boolean,
   color: string,
+  textColor: string,
   title: string,
   description: string,
   icon: string,
@@ -20,6 +21,9 @@ type AlertStyleProps = {
 
 export const useAlertStyles = (props: AlertStyleProps) => {
   const { getColor } = useColors()
+
+  const isTransparentBackground = computed(() => Boolean(props.outline || props.border))
+  const { textColorComputed } = useTextColor(props.color, isTransparentBackground)
 
   const colorComputed = computed(() => getColor(props.color))
 
@@ -45,34 +49,14 @@ export const useAlertStyles = (props: AlertStyleProps) => {
   })
 
   const contentStyle = computed(() => {
-    let color = getTextColor(colorComputed.value)
-
-    if (props.outline) {
-      color = colorComputed.value
-    }
-
-    if (props.border) {
-      color = 'var(--va-dark)'
-    }
-
     return {
       alignItems: props.center ? 'center' : '',
-      color,
+      color: props.border ? getColor('dark') : textColorComputed.value,
     }
   })
 
   const titleStyle = computed(() => {
-    let color = getTextColor(colorComputed.value)
-
-    if (props.outline) {
-      color = colorComputed.value
-    }
-
-    if (props.border) {
-      color = colorComputed.value
-    }
-
-    return { color }
+    return { color: textColorComputed.value }
   })
 
   const borderStyle = computed(() => ({

@@ -11,7 +11,6 @@ interface useStylableProps {
   allowFooterSorting: boolean
   stickyHeader: boolean
   height: string | number | undefined
-  [prop: string]: unknown
 }
 
 function getClasses (classes: TClassesOptions = []): string[] {
@@ -27,9 +26,9 @@ function getStyles (styles: TStyleOptions = {}): Record<string, any> {
   return (typeof styles === 'function') ? styles() : styles
 }
 
-const { getColor, getFocusColor, getHoverColor, shiftHSLAColor } = useColors()
+export default function useStyleable (props: useStylableProps) {
+  const { getColor, getFocusColor, getHoverColor, shiftHSLAColor } = useColors()
 
-export default function useStylable (props: useStylableProps) {
   const color = computed(() => getColor(props.selectedColor))
 
   function getHeaderCSSVariables (column: TableColumn) {

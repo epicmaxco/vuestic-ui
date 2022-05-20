@@ -8,14 +8,17 @@
     :class="computedClass"
     :style="computedStyle"
   >
-    <slot>{{ iconConfig.content }}</slot>
+    <slot>
+      <template v-if="iconConfig.content">
+        {{ iconConfig.content }}
+      </template>
+    </slot>
   </component>
 </template>
 
 <script lang="ts">
 import { defineComponent, PropType, computed } from 'vue'
-import omit from 'lodash/omit'
-
+import omit from 'lodash/omit.js'
 import { useColors } from '../../services/color-config/color-config'
 import { useIcons } from '../../services/icon-config/icon-config'
 import { useSize, useSizeProps } from '../../composables/useSize'

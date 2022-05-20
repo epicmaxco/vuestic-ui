@@ -15,6 +15,7 @@
   --va-modal-basic-duration: 0.3s;
   --va-modal-opacity-transition: opacity calc(var(--va-modal-basic-duration) * 0.5) cubic-bezier(1, 0.5, 0.8, 1);
   --va-modal-transform-transition: transform var(--va-modal-basic-duration) ease;
+  --va-modal-overlay-background-blur-radius: 4px;
 
   /* Dialog */
   --va-modal-dialog-min-height: 3.125rem;

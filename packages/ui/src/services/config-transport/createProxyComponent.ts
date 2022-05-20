@@ -1,4 +1,4 @@
-import { getCurrentInstance, ComponentInternalInstance, DefineComponent, SetupContext, Ref } from 'vue'
+import { getCurrentInstance, ComponentInternalInstance, DefineComponent, SetupContext, Ref, shallowReadonly } from 'vue'
 import { useComponentConfigProps } from '../component-config/component-config'
 
 /** Compiled and reactive props. By default they passed to setup fn */
@@ -61,7 +61,7 @@ export const createProxyComponent = <T extends DefineComponent>(component: T) =>
 
     patchInstanceProps(instance, props)
 
-    return component.setup?.(props, ctx)
+    return component.setup?.(shallowReadonly(props), ctx)
   }
 
   return new Proxy(component, {

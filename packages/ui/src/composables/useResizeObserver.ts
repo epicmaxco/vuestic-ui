@@ -1,28 +1,29 @@
-import { onBeforeUnmount, onMounted, Ref, unref, watch } from 'vue'
+import { onBeforeUnmount, onMounted, ref, Ref, unref, watch } from 'vue'
 
 type MaybeRef<T> = T | Ref<T>
 
 export const useResizeObserver = <T extends HTMLElement | undefined>(elementsList: MaybeRef<T>[], cb: () => void) => {
-  const resizeObserver = new ResizeObserver(cb)
+  const resizeObserver = ref<ResizeObserver>()
 
   const observeAll = (elementsList: MaybeRef<T>[]) => {
     elementsList.forEach((element: MaybeRef<T>) => {
       const unrefedElement = unref(element)
 
-      unrefedElement && resizeObserver.observe(unrefedElement)
+      unrefedElement && resizeObserver.value?.observe(unrefedElement)
     })
   }
 
-  watch(elementsList, (newValue, oldValue) => {
-    resizeObserver.disconnect()
+  watch(elementsList, (newValue) => {
+    resizeObserver.value?.disconnect()
     observeAll(newValue)
   })
 
   onMounted(() => {
+    resizeObserver.value = new ResizeObserver(cb)
     observeAll(elementsList)
   })
 
-  onBeforeUnmount(() => resizeObserver.disconnect())
+  onBeforeUnmount(() => resizeObserver.value?.disconnect())
 
   return resizeObserver
 }

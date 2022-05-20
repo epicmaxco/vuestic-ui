@@ -12,6 +12,7 @@ import { defineComponent, computed, PropType, reactive } from 'vue'
 import VaConfig from '../va-config'
 import { getGradientBackground } from '../../services/color-config/color-functions'
 import { useColors } from '../../composables/useColor'
+import { useTextColor } from '../../composables/useTextColor'
 
 export default defineComponent({
   name: 'VaButtonGroup',
@@ -30,24 +31,32 @@ export default defineComponent({
     },
   },
   setup (props) {
-    const buttonConfig = reactive({
-      VaButton: {
-        ...props,
-        color: props.gradient ? '#00000000' : props.color,
-      },
-    })
-
     const { getColor } = useColors()
     const colorComputed = computed(() => getColor(props.color))
+
+    const isTransparentBackground = computed(() => Boolean(props.outline || props.flat))
+    const { textColorComputed } = useTextColor(colorComputed, isTransparentBackground)
+
     const computedBackground = computed(() => {
       if (props.outline || props.flat) { return '' }
 
       return props.gradient ? getGradientBackground(colorComputed.value) : colorComputed.value
     })
+
     const computedStyle = computed(() => {
       const backgroundProperty = props.gradient ? 'background-image' : 'background'
 
-      return { [backgroundProperty]: computedBackground.value }
+      return {
+        [backgroundProperty]: computedBackground.value,
+        color: textColorComputed.value,
+      }
+    })
+
+    const buttonConfig = reactive({
+      VaButton: {
+        ...props,
+        color: props.gradient ? '#00000000' : props.color,
+      },
     })
 
     const computedClass = computed(() => ({ 'va-button-group_square': !props.rounded }))

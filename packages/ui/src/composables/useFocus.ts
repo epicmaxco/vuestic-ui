@@ -28,12 +28,16 @@ export function useFocus (
 
   if (el) {
     onMounted(() => {
-      el.value?.addEventListener('focus', onFocus)
-      el.value?.addEventListener('blur', onBlur)
+      if (el?.value instanceof HTMLElement) {
+        el.value?.addEventListener('focus', onFocus)
+        el.value?.addEventListener('blur', onBlur)
+      }
     })
     onBeforeUnmount(() => {
-      el.value?.removeEventListener('focus', onFocus)
-      el.value?.removeEventListener('blur', onBlur)
+      if (el?.value instanceof HTMLElement) {
+        el.value?.removeEventListener('focus', onFocus)
+        el.value?.removeEventListener('blur', onBlur)
+      }
     })
   }
 

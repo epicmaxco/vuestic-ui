@@ -1,5 +1,5 @@
 <template>
-  <va-tabs v-model="value" style="width: 30%;">
+  <va-tabs v-model="value" style="width: 280px;">
     <template #tabs>
       <va-tab
         v-for="title in ['One', 'Two', 'Three']"

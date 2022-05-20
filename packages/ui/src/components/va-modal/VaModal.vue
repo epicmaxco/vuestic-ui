@@ -18,8 +18,9 @@
       >
         <div class="va-modal" v-if="valueComputed">
           <div
+            v-if="$props.overlay"
             class="va-modal__overlay"
-            :style="$props.overlay && computedOverlayStyles"
+            :style="computedOverlayStyles"
             @click="onOutsideClick"
           />
           <div
@@ -34,7 +35,6 @@
               class="va-modal__dialog"
               :class="computedClass"
               :style="computedDialogStyle"
-              ref="modal"
             >
               <va-icon
                 v-if="$props.fullscreen"
@@ -109,6 +109,7 @@ import { watch, h, Transition, defineComponent, PropType, computed, StyleValue, 
 
 import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
 import { useColors } from '../../composables/useColor'
+import { useTextColor } from '../../composables/useTextColor'
 import VaButton from '../va-button'
 import VaIcon from '../va-icon'
 
@@ -158,12 +159,15 @@ export default defineComponent({
     withoutTransitions: { type: Boolean as PropType<boolean>, default: false },
     overlay: { type: Boolean as PropType<boolean>, default: true },
     overlayOpacity: { type: [Number, String] as PropType<number | string>, default: 0.6 },
+    blur: { type: Boolean as PropType<boolean>, default: false },
     zIndex: { type: [Number, String] as PropType<number | string | undefined>, default: undefined },
     backgroundColor: { type: String, default: 'white' },
   },
   setup (props, { emit }) {
-    const { getTextColor, getColor } = useColors()
+    const { getColor } = useColors()
+    const { textColorComputed } = useTextColor(props.backgroundColor)
     const rootElement = ref<HTMLElement>()
+    const modal = ref<{ $el: HTMLElement }>()
     const { valueComputed } = useStateful(props, emit)
 
     const computedClass = computed(() => ({
@@ -176,7 +180,7 @@ export default defineComponent({
     const computedDialogStyle = computed(() => ({
       maxWidth: props.maxWidth,
       maxHeight: props.maxHeight,
-      color: getTextColor(getColor(props.backgroundColor)),
+      color: textColorComputed.value,
       background: getColor(props.backgroundColor),
     }))
     const computedOverlayStyles = computed(() => {
@@ -212,10 +216,18 @@ export default defineComponent({
     const onBeforeLeaveTransition = (el: HTMLElement) => emit('before-close', el)
     const onAfterLeaveTransition = (el: HTMLElement) => emit('close', el)
 
-    const listenKeyUp = (e: KeyboardEvent) => {
-      if (e.code === 'Escape' && !props.noEscDismiss && !props.noDismiss) {
-        cancel()
+    const listenKeyUp = (e: KeyboardEvent & { modalsCounter?: number }) => {
+      e.modalsCounter = e.modalsCounter ? e.modalsCounter + 1 : 1
+      const modalNumber = e.modalsCounter
+      const isOnTop = () => e.modalsCounter === modalNumber
+
+      const hideModal = () => {
+        if (e.code === 'Escape' && !props.noEscDismiss && !props.noDismiss && isOnTop()) {
+          cancel()
+        }
       }
+
+      setTimeout(hideModal)
     }
 
     watch(valueComputed, (value: boolean) => {
@@ -223,6 +235,14 @@ export default defineComponent({
         window.addEventListener('keyup', listenKeyUp)
       } else {
         window.removeEventListener('keyup', listenKeyUp)
+      }
+
+      if (props.blur) {
+        if (value) {
+          document.body.classList.add('va-modal-overlay-background--blurred')
+        } else {
+          document.body.classList.remove('va-modal-overlay-background--blurred')
+        }
       }
     })
 
@@ -243,6 +263,7 @@ export default defineComponent({
     return {
       getColor,
       rootElement,
+      modal,
       valueComputed,
       computedClass,
       computedDialogStyle,
@@ -272,6 +293,13 @@ export default defineComponent({
 <style lang="scss">
 @import "../../styles/resources";
 @import "variables";
+
+.va-modal-overlay-background--blurred > :not(div[class*="va-"]) {
+  filter: blur(var(--va-modal-overlay-background-blur-radius));
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
 
 .va-modal {
   position: var(--va-modal-position);

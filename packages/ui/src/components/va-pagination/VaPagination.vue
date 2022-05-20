@@ -73,6 +73,7 @@ import { defineComponent, watch, PropType, ref, Ref, computed, nextTick } from '
 import { __DEV__ } from '../../utils/global-utils'
 import { useColors } from '../../composables/useColor'
 import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
+import { useTextColor } from '../../composables/useTextColor'
 
 import VaButtonGroup from '../va-button-group'
 import VaButton from '../va-button'
@@ -116,6 +117,8 @@ export default defineComponent({
     const usedTotal = computed(() => !!((props.total || props.pageSize === 0) && props.pageSize))
 
     const { valueComputed } = useStateful<number>(props, emit)
+
+    const { textColorComputed } = useTextColor(props.color)
 
     const currentValue = computed({
       get: () => usedTotal.value ? Math.ceil(valueComputed.value / props.pageSize) || 1 : valueComputed.value,
@@ -191,7 +194,7 @@ export default defineComponent({
       if (buttonValue === currentValue.value) {
         return {
           backgroundColor: getColor(props.color),
-          color: '#ffffff',
+          color: textColorComputed.value,
         }
       }
 

@@ -33,7 +33,7 @@
 
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
-import clamp from 'lodash/clamp'
+import clamp from 'lodash/clamp.js'
 import { useColors } from '../../services/color-config/color-config'
 import { useSize, useSizeProps } from '../../composables/useSize'
 

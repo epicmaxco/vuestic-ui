@@ -56,7 +56,7 @@
           :style="processedStyles"
         />
         <div
-          v-for="order in ($props.vertical ? [1, 0] : [0, 1])"
+          v-for="order in orders"
           :key="'dot' + order"
           :ref="'dot' + order"
           class="va-slider__handler"
@@ -150,7 +150,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, watch, PropType, ref, computed, onMounted, onBeforeUnmount } from 'vue'
+import { defineComponent, watch, PropType, ref, computed, onMounted, onBeforeUnmount, CSSProperties } from 'vue'
 
 import { getHoverColor } from '../../services/color-config/color-functions'
 import { validateSlider } from './validateSlider'
@@ -164,7 +164,7 @@ export default defineComponent({
   props: {
     range: { type: Boolean as PropType<boolean>, default: false },
     modelValue: ({ type: [Number, Array] as PropType<number | number[]>, default: () => [] }),
-    trackLabel: ({ type: Function as PropType<((val: any, order?: number) => string) | undefined> }),
+    trackLabel: ({ type: [Function, String] as PropType<string | ((val: any, order?: number) => string) | undefined> }),
     color: { type: String as PropType<string>, default: 'primary' },
     trackColor: { type: String as PropType<string>, default: '' },
     labelColor: { type: String as PropType<string>, default: '' },
@@ -197,6 +197,8 @@ export default defineComponent({
     const currentValue = ref(props.modelValue)
     const currentSliderDotIndex = ref(0)
     const hasMouseDown = ref(false)
+
+    const orders = computed(() => props.vertical ? [1, 0] : [0, 1])
 
     const pinPositionStyle = computed(() => props.vertical ? 'bottom' : 'left')
     const trackSizeStyle = computed(() => props.vertical ? 'height' : 'width')
@@ -249,7 +251,7 @@ export default defineComponent({
           [trackSizeStyle.value]: `${val1 - val0}%`,
           backgroundColor: getColor(props.color),
           visibility: props.showTrack ? 'visible' : 'hidden',
-        }
+        } as CSSProperties
       } else {
         const val = ((validatedValue - props.min) / (props.max - props.min)) * 100
 
@@ -257,7 +259,7 @@ export default defineComponent({
           [trackSizeStyle.value]: `${val}%`,
           backgroundColor: getColor(props.color),
           visibility: props.showTrack ? 'visible' : 'hidden',
-        }
+        } as CSSProperties
       }
     })
 
@@ -541,7 +543,7 @@ export default defineComponent({
       return ((props.step * multiple.value) * index + (props.min * multiple.value)) / multiple.value
     }
 
-    const getTrackLabel = (val: number, order?: number) => {
+    const getTrackLabel = (val: number | number[], order?: number) => {
       if (!props.trackLabel) { return val }
 
       if (typeof props.trackLabel === 'function') {
@@ -696,6 +698,7 @@ export default defineComponent({
       dot,
       dot0,
       dot1,
+      orders,
       sliderContainer,
       val,
       sliderClass,
