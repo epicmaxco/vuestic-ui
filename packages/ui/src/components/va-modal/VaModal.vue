@@ -105,7 +105,7 @@
 </template>
 
 <script lang="ts">
-import { watch, h, Transition, defineComponent, PropType, computed, StyleValue, ref } from 'vue'
+import { watch, h, Transition, defineComponent, PropType, computed, StyleValue, ref, toRef } from 'vue'
 
 import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
 import { useColors } from '../../composables/useColor'
@@ -165,7 +165,7 @@ export default defineComponent({
   },
   setup (props, { emit }) {
     const { getColor } = useColors()
-    const { textColorComputed } = useTextColor(props.backgroundColor)
+    const { textColorComputed } = useTextColor(toRef(props, 'backgroundColor'))
     const rootElement = ref<HTMLElement>()
     const modal = ref<{ $el: HTMLElement }>()
     const { valueComputed } = useStateful(props, emit)
