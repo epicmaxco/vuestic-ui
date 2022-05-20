@@ -105,7 +105,7 @@ export default defineComponent({
     const { getColor, getTextColor } = useColors()
     const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
 
-    const { textColorComputed } = useTextColor(props.color)
+    const { textColorComputed } = useTextColor()
 
     const isActive = computed(() => isChecked.value || isIndeterminate.value)
 

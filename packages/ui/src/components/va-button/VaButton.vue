@@ -99,7 +99,7 @@ export default defineComponent({
     const colorComputed = computed(() => computeColor(props.color, 'primary'))
     const isTransparentBackground = computed(() => Boolean(props.outline || props.flat))
 
-    const { textColorComputed } = useTextColor(props.color, isTransparentBackground)
+    const { textColorComputed } = useTextColor(colorComputed, isTransparentBackground)
     const isSlotContentPassed = computed(() => !!slots.default?.()?.[0]?.children)
 
     const computedType = computed(() => {

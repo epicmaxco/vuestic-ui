@@ -8,7 +8,7 @@
     "nuxt",
     "vue"
   ],
-  "version": "0.0.1-alpha4",
+  "version": "1.0.0",
   "license": "MIT",
   "type": "module",
   "exports": {
@@ -29,7 +29,7 @@
     "dev:prepare": "nuxt-module-build --stub && nuxi prepare playground"
   },
   "dependencies": {
-    "vuestic-ui": "next"
+    "vuestic-ui": "latest"
   },
   "devDependencies": {
     "@nuxt/kit": "^3.0.0-rc.1",

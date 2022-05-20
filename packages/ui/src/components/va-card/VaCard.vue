@@ -48,7 +48,7 @@ export default defineComponent({
   setup (props) {
     const { getColor } = useColors()
     const { hasRouterLinkParams, tagComputed, hrefComputed } = useRouterLink(props)
-    const { textColorComputed } = useTextColor(props.color)
+    const { textColorComputed } = useTextColor()
 
     const stripeStyles = computed(() => ({ background: getColor(props.stripeColor) }))
 

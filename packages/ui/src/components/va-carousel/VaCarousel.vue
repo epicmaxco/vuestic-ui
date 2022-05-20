@@ -24,7 +24,7 @@
         class="va-carousel__arrow va-carousel__arrow--right"
         @click="next"
       >
-        <slot name="prev-next">
+        <slot name="next-arrow">
           <va-hover #default="{ hover }" stateful>
             <va-button :color="hover ? computedHoverColor : computedColor" :icon="vertical ? 'expand_more' : 'chevron_right'" />
           </va-hover>
@@ -79,11 +79,12 @@ import { useCarouselColor } from './hooks/useCarouselColors'
 import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
 import VaImage from '../va-image'
 import VaButton from '../va-button'
+import VaHover from '../va-hover'
 
 export default defineComponent({
   name: 'VaCarousel',
 
-  components: { VaImage, VaButton },
+  components: { VaImage, VaButton, VaHover },
 
   props: {
     ...useStatefulProps,

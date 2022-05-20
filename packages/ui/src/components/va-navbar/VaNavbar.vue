@@ -25,7 +25,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, computed, StyleValue } from 'vue'
+import { defineComponent, PropType, computed } from 'vue'
 
 import { shiftHSLAColor } from '../../services/color-config/color-functions'
 import { useColors } from '../../services/color-config/color-config'
@@ -40,7 +40,7 @@ export default defineComponent({
   },
   setup (props) {
     const { getColor } = useColors()
-    const { textColorComputed } = useTextColor(props.color)
+    const { textColorComputed } = useTextColor()
 
     const color = computed(() => getColor(props.color))
 

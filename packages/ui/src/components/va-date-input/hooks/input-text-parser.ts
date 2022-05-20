@@ -1,12 +1,13 @@
 import { Ref, ref } from 'vue'
-import { VaDatePickerModelValue } from '../../va-date-picker/types'
+import { VaDateInputModelValue } from '../types'
+import isDate from 'lodash/isDate.js'
 
 export const defaultParseDateFunction = (text: string) => new Date(Date.parse(text))
 
-const isValidDate = (d: Date) => d instanceof Date && !isNaN(d.getTime())
+const isValidDate = (d: Date) => isDate(d) && !isNaN(d.getTime())
 
 export const useDateParser = (props: {
-  parse?: (input: string, isValidRef?: Ref<boolean>) => VaDatePickerModelValue,
+  parse?: (input: string, isValidRef?: Ref<boolean>) => VaDateInputModelValue,
   parseDate?: (input: string) => Date,
   delimiter: string,
   rangeDelimiter: string,

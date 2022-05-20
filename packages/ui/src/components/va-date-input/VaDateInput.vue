@@ -86,11 +86,12 @@ import VaDatePicker from '../va-date-picker/VaDatePicker.vue'
 import VaDropdown, { VaDropdownContent } from '../va-dropdown'
 import VaInput from '../va-input'
 import VaIcon from '../va-icon'
-import { VaDatePickerModelValue } from '../va-date-picker/types'
+import { VaDateInputModelValue } from './types'
 
 const VaInputProps = extractComponentProps(VaInput, [
   'mask', 'returnRaw', 'autosize', 'minRows', 'maxRows', 'type', 'inputmode',
 ])
+const VaDatePickerProps = extractComponentProps(VaDatePicker)
 
 export default defineComponent({
   name: 'VaDateInput',
@@ -105,16 +106,17 @@ export default defineComponent({
 
   props: {
     ...VaInputProps,
-    ...extractComponentProps(VaDatePicker),
+    ...VaDatePickerProps,
 
-    clearValue: { type: Date as PropType<VaDatePickerModelValue>, default: undefined },
+    clearValue: { type: Date as PropType<VaDateInputModelValue>, default: undefined },
+    modelValue: { type: [Date, Array, Object, String, Number] as PropType<VaDateInputModelValue> },
 
     resetOnClose: { type: Boolean, default: true },
     isOpen: { type: Boolean as PropType<boolean | undefined>, default: undefined },
 
-    format: { type: Function as PropType<(date: VaDatePickerModelValue | undefined) => string> },
+    format: { type: Function as PropType<(date: VaDateInputModelValue) => string> },
     formatDate: { type: Function as PropType<(date: Date) => string>, default: (d: Date) => d.toLocaleDateString() },
-    parse: { type: Function as PropType<(input: string) => VaDatePickerModelValue> },
+    parse: { type: Function as PropType<(input: string) => VaDateInputModelValue> },
     parseDate: { type: Function as PropType<(input: string) => Date> },
     parseValue: { type: Function as PropType<typeof parseModelValue> },
 
@@ -138,7 +140,7 @@ export default defineComponent({
 
   setup (props, { emit, slots }) {
     const { isOpen, resetOnClose } = toRefs(props)
-    const { valueComputed: statefulValue } = useStateful<VaDatePickerModelValue | undefined>(props, emit)
+    const { valueComputed: statefulValue } = useStateful<VaDateInputModelValue>(props, emit)
     const { syncProp: isOpenSync } = useSyncProp(isOpen, 'is-open', emit, false)
 
     const isRangeModelValueGuardDisabled = computed(() => !resetOnClose.value)
@@ -158,7 +160,7 @@ export default defineComponent({
 
     const { parseDateInputValue, isValid } = useDateParser(props)
 
-    const modelValueToString = (value: VaDatePickerModelValue): string => {
+    const modelValueToString = (value: VaDateInputModelValue): string => {
       if (props.format) {
         return props.format(valueComputed.value)
       }

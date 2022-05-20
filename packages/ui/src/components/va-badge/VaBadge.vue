@@ -54,7 +54,7 @@ export default defineComponent({
     }))
 
     const { getColor } = useColors()
-    const { textColorComputed } = useTextColor(props.color)
+    const { textColorComputed } = useTextColor()
     const colorComputed = computed(() => getColor(props.color))
     const badgeStyle = computed(() => ({
       color: textColorComputed.value,
