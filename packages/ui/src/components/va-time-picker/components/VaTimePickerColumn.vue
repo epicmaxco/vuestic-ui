@@ -100,13 +100,13 @@ export default defineComponent({
       return Math.round((scrollTop - (scrollBarHeight * 0.5 - 10) / cellElementHeight.value + 3) / cellElementHeight.value)
     }
 
-    const debounceScroll = () => debounce(() => {
+    const debouncedScroll = () => debounce(() => {
       syncActiveItemIndex.value = getIndex()
       scrollTo(syncActiveItemIndex.value)
     }, 200)()
 
     const onScroll = () => {
-      debounceScroll()
+      debouncedScroll()
     }
 
     return {
