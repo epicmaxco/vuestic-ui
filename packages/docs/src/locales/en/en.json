@@ -3856,6 +3856,10 @@
         "title": "Default",
         "text": ""
       },
+      "framed": {
+        "title": "Framed",
+        "text": ""
+      },
       "readonlyAndDisabled": {
         "title": "Readonly and disabled",
         "text": ""

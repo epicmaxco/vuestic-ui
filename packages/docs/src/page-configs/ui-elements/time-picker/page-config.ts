@@ -17,6 +17,12 @@ const config: ApiDocsBlock[] = [
   ),
 
   ...block.exampleBlock(
+    'timePicker.examples.framed.title',
+    'timePicker.examples.framed.text',
+    'framed',
+  ),
+
+  ...block.exampleBlock(
     'timePicker.examples.readonlyAndDisabled.title',
     'timePicker.examples.readonlyAndDisabled.text',
     'readonlyAndDisabled',

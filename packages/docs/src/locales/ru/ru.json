@@ -3740,6 +3740,10 @@
         "title": "Базовое использование",
         "text": ""
       },
+      "framed": {
+        "title": "Рамки",
+        "text": ""
+      },
       "readonlyAndDisabled": {
         "title": "Только для чтения и отключение",
         "text": ""
