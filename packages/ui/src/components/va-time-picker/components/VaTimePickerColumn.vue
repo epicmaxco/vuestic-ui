@@ -6,6 +6,7 @@
     @keydown.space.stop.prevent="makeActiveNext(5)"
     @keydown.up.stop.prevent="makeActivePrev()"
     ref="rootElement"
+    :style="styleComputed"
   >
     <div class="va-time-picker-cell va-time-picker-cell--fake" />
     <div
@@ -25,9 +26,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, nextTick, onMounted, PropType, ref, watch } from 'vue'
+import { computed, defineComponent, nextTick, onMounted, PropType, ref, watch } from 'vue'
 import { useSyncProp } from '../../../composables/useSyncProp'
 import { useFocus, useFocusEmits } from '../../../composables/useFocus'
+import { useElementBackground } from '../../../composables/useElementBackground'
+import { useTextColor } from '../../../composables/useTextColor'
 
 export default defineComponent({
   name: 'VaTimePickerColumn',
@@ -97,6 +100,13 @@ export default defineComponent({
       return n < 10 ? `0${n}` : `${n}`
     }
 
+    const { background } = useElementBackground(rootElement)
+    const { textColorComputed } = useTextColor(background)
+
+    const styleComputed = computed(() => ({
+      color: textColorComputed.value,
+    }))
+
     return {
       rootElement,
 
@@ -106,6 +116,8 @@ export default defineComponent({
 
       onCellClick,
       formatCell,
+
+      styleComputed,
 
       // Will be used later, after fix 'withConfigTransport'
       // focus,
