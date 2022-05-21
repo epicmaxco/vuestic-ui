@@ -86,9 +86,8 @@ export default defineComponent({
     uploadButtonText: { type: String as PropType<string>, default: 'Upload file' },
 
     modelValue: {
-      type: Array as PropType<VaFile[]>,
+      type: [Object, Array] as PropType<VaFile | VaFile[]>,
       default: () => [],
-      validator: (value: VaFile[]) => Array.isArray(value),
     },
     type: {
       type: String as PropType<'list' | 'gallery' | 'single'>,
@@ -119,8 +118,14 @@ export default defineComponent({
     })
 
     const files = computed<VaFile[]>({
-      get () { return props.modelValue },
-      set (files) { emit('update:modelValue', files) },
+      get () { return Array.isArray(props.modelValue) ? props.modelValue : [props.modelValue] },
+      set (files) {
+        if (props.type === 'single') {
+          emit('update:modelValue', files[0])
+        } else {
+          emit('update:modelValue', files)
+        }
+      },
     })
 
     const validateFiles = (files: VaFile[]) => files.filter((file) => {
