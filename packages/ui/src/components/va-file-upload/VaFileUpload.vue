@@ -38,7 +38,7 @@
       tabindex="-1"
     >
     <va-file-upload-list
-      v-if="files.length"
+      v-if="files.length && !$props.hideFileList"
       :type="type"
       :files="files"
       :color="colorComputed"
@@ -78,6 +78,7 @@ export default defineComponent({
   props: {
     fileTypes: { type: String as PropType<string>, default: '' },
     dropzone: { type: Boolean as PropType<boolean>, default: false },
+    hideFileList: { type: Boolean as PropType<boolean>, default: false },
     color: { type: String as PropType<string>, default: 'primary' },
     disabled: { type: Boolean as PropType<boolean>, default: false },
     undo: { type: Boolean as PropType<boolean>, default: false },
