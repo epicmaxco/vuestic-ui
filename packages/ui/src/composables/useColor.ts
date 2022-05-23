@@ -1,5 +1,5 @@
 import { PropType, computed, Ref, unref } from 'vue'
-import { getColor } from '../services/color-config/color-config'
+import { useColors } from '../services/color-config/color-config'
 
 /**
  * You could add these props to any component by destructuring them inside props option.
@@ -14,22 +14,21 @@ export const useColorProps = {
   },
 }
 
+/** @deprecated Use useColors instead */
 export function useColor (props: any) {
-  const hasColorTheme = true
-  const theme = { getColor }
+  const { getColor } = useColors()
 
   const colorComputed = computed(() => {
-    return theme.getColor(props.color)
+    return getColor(props.color)
   })
 
   /** @deprecated */
   const computeColor = (prop?: string, defaultColor?: string) => {
-    return theme.getColor(prop, defaultColor)
+    return getColor(prop, defaultColor)
   }
 
   return {
-    hasColorTheme,
-    theme,
+    theme: { getColor },
     colorComputed,
     computeColor,
   }
