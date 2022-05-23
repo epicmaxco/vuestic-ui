@@ -1,7 +1,7 @@
 import { computed, PropType, getCurrentInstance, ExtractPropTypes } from 'vue'
 
 export const useRouterLinkProps = {
-  tag: { type: String as PropType<string>, default: 'router-link' },
+  tag: { type: String as PropType<string>, default: 'a' },
   to: { type: [String, Object] as PropType<string | Record<string, unknown>>, default: null },
   replace: { type: Boolean as PropType<boolean>, default: false },
   append: { type: Boolean as PropType<boolean>, default: false },
