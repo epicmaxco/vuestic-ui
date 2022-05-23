@@ -12,15 +12,15 @@
       :name="computedName"
       :value="computedLabel"
       :aria-checked="isActive"
+      :tabindex="computedTabIndex"
       @change="onClick"
       @focus="onFocus"
-      :tabindex="computedTabIndex"
     >
 
     <span
+      aria-hidden="true"
       class="va-radio__icon"
       :style="iconComputedStyles"
-      aria-hidden="true"
     >
       <span
         class="va-radio__icon__background"
