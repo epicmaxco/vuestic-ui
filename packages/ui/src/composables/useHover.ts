@@ -17,7 +17,6 @@ export function useHover (el?: Ref<HTMLElement | null | undefined>) {
       }
       if (o) {
         const oldEl = getEl(o)
-
         oldEl.removeEventListener('mouseenter', onMouseEnter)
         oldEl.removeEventListener('mouseleave', onMouseLeave)
       }
