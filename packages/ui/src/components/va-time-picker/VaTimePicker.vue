@@ -5,6 +5,7 @@
       :ref="setItemRef"
       :items="column.items"
       :tabindex="disabled ? -1 : 0"
+      :cell-height="$props.cellHeight"
       v-model:activeItemIndex="column.activeItem.value"
       @keydown.right.stop.prevent="focusNext()"
       @keydown.tab.exact.stop.prevent="focusNext()"
@@ -40,6 +41,7 @@ export default defineComponent({
     minutesFilter: { type: Function as PropType<(h: number) => boolean> },
     secondsFilter: { type: Function as PropType<(h: number) => boolean> },
     framed: { type: Boolean, default: false },
+    cellHeight: { type: Number, default: 30 },
   },
 
   emits: useStatefulEmits,
@@ -72,6 +74,7 @@ export default defineComponent({
       focus(activeColumnIndex.value)
     }
 
+    const computedCellHeight = computed(() => `${props.cellHeight}px`)
     const computedClass = computed(() => ({
       'va-time-picker--disabled': props.disabled,
       'va-time-picker--readonly': props.readonly,
@@ -81,6 +84,7 @@ export default defineComponent({
     return {
       columns,
       computedClass,
+      computedCellHeight,
       isPM,
       pickers,
       setItemRef,
@@ -133,7 +137,7 @@ export default defineComponent({
 
       &::before {
         content: "";
-        height: var(--va-time-picker-cell-height);
+        height: v-bind(computedcellheight);
         width: 100%;
         position: absolute;
         top: 50%;

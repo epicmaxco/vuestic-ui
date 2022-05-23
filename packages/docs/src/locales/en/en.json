@@ -1140,7 +1140,8 @@
         "secondsFilter": "Function that allows you to hide some specific seconds",
         "view": "View specifying which columns will be shown",
         "periodUpdatesModelValue": "If user will change period it will automatically update model value. You can turn off it and am/pm switch will only change view.",
-        "framed": "Adds borders to center of the picker"
+        "framed": "Adds borders to center of the picker",
+        "cellHeight": "Height of the time cell"
       },
       "events": {},
       "methods": {},

@@ -23,7 +23,7 @@
 
 <script lang="ts">
 import debounce from 'lodash/debounce.js'
-import { defineComponent, nextTick, onMounted, PropType, ref, watch } from 'vue'
+import { defineComponent, nextTick, ref, watch, computed, onMounted, PropType } from 'vue'
 import { useSyncProp } from '../../../composables/useSyncProp'
 import { useFocus, useFocusEmits } from '../../../composables/useFocus'
 
@@ -33,29 +33,21 @@ export default defineComponent({
   props: {
     items: { type: Array as PropType<string[] | number[]>, default: () => [] },
     activeItemIndex: { type: Number, default: 0 },
+    cellHeight: { type: Number, default: 30 },
   },
 
   emits: ['item-selected', 'update:activeItemIndex', ...useFocusEmits],
 
   setup (props, { emit }) {
     const rootElement = ref<HTMLElement>()
-    const cellElementHeight = ref(30)
-
+    const cellElementHeight = ref(props.cellHeight)
     // Will be used later, after fix 'withConfigTransport'
     const { focus, blur } = useFocus(rootElement, emit)
-
     const [syncActiveItemIndex] = useSyncProp('activeItemIndex', props, emit)
 
     watch(syncActiveItemIndex, (newVal) => { scrollTo(newVal) })
 
-    onMounted(() => {
-      if (rootElement.value) {
-        // 170 here it's a sum of gaps from "before" and "after" pseudo elements
-        cellElementHeight.value = (rootElement.value!.scrollHeight - 170) / props.items.length
-      }
-
-      scrollTo(syncActiveItemIndex.value)
-    })
+    onMounted(() => scrollTo(syncActiveItemIndex.value))
 
     const scrollTo = (index: number) => {
       nextTick(() => {
@@ -92,7 +84,7 @@ export default defineComponent({
       const scrollTop = rootElement.value!.scrollTop
       const scrollBarHeight = rootElement.value!.offsetHeight
 
-      return Math.round((scrollTop - (scrollBarHeight * 0.5 - 10) / cellElementHeight.value + 3) / cellElementHeight.value)
+      return Math.round((scrollTop - (scrollBarHeight * 0.5) / cellElementHeight.value) / cellElementHeight.value)
     }
 
     const debouncedScroll = debounce(() => {
@@ -105,9 +97,11 @@ export default defineComponent({
     }, 200)
 
     const onScroll = () => debouncedScroll()
+    const computedCellHeight = computed(() => `${props.cellHeight}px`)
 
     return {
       rootElement,
+      computedCellHeight,
 
       makeActiveNext,
       makeActivePrev,
@@ -162,7 +156,7 @@ export default defineComponent({
     }
 
     .va-time-picker-cell {
-      height: var(--va-time-picker-cell-height);
+      height: v-bind(computedcellheight);
       line-height: var(--va-time-picker-cell-height);
       width: var(--va-time-picker-cell-width);
       text-align: center;
