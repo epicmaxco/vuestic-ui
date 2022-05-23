@@ -12,8 +12,6 @@
       v-for="(item, index) in items" :key="item"
       class="va-time-picker-cell"
       :class="{ 'va-time-picker-cell--active': index === $props.activeItemIndex }"
-      :data-index="index"
-      :data-item="item"
       @click="onCellClick(index)"
     >
       <slot name="cell" v-bind="{ item, index, activeItemIndex, items, formattedItem: formatCell(item) }">
