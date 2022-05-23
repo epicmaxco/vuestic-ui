@@ -2,17 +2,18 @@
   <label
     class="va-radio"
     :class="computedClass"
+    role="button"
   >
     <input
       class="va-radio__input"
       type="radio"
       :checked="isActive"
       :disabled="disabled"
-      :name="getName"
+      :name="computedName"
       :value="computedLabel"
       @change="onClick"
       @focus="onFocus"
-      :tabindex="getTabIndex"
+      :tabindex="computedTabIndex"
     >
 
     <span
@@ -107,8 +108,8 @@ export default defineComponent({
       computedLabel,
       onClick,
       onFocus,
-      getName: computed(() => props.name || generateUniqueId()),
-      getTabIndex: computed(() => props.readonly || props.disabled ? -1 : props.tabindex),
+      computedName: computed(() => props.name || generateUniqueId()),
+      computedTabIndex: computed(() => props.readonly || props.disabled ? -1 : props.tabindex),
     }
   },
 })
@@ -157,13 +158,7 @@ export default defineComponent({
   }
 
   &__input {
-    width: 0;
-    height: 0;
-    position: absolute;
-    top: 0;
-    left: 0;
-    opacity: 0;
-    z-index: -1;
+    @include visually-hidden;
   }
 
   &__icon {
