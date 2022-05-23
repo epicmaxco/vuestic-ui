@@ -1,5 +1,9 @@
 <template>
-  <div class="va-time-picker" :class="computedClass">
+  <div
+    class="va-time-picker"
+    :class="computedClass"
+    :style="{ '--va-time-picker-cell-height': `${$props.cellHeight}px` }"
+  >
     <VaTimePickerColumn
       v-for="(column, idx) in columns" :key="idx"
       :ref="setItemRef"
@@ -74,7 +78,6 @@ export default defineComponent({
       focus(activeColumnIndex.value)
     }
 
-    const computedCellHeight = computed(() => `${props.cellHeight}px`)
     const computedClass = computed(() => ({
       'va-time-picker--disabled': props.disabled,
       'va-time-picker--readonly': props.readonly,
@@ -84,7 +87,6 @@ export default defineComponent({
     return {
       columns,
       computedClass,
-      computedCellHeight,
       isPM,
       pickers,
       setItemRef,
@@ -137,7 +139,7 @@ export default defineComponent({
 
       &::before {
         content: "";
-        height: v-bind(computedcellheight);
+        height: var(--va-time-picker-cell-height);
         width: 100%;
         position: absolute;
         top: 50%;

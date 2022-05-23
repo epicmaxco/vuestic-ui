@@ -97,11 +97,9 @@ export default defineComponent({
     }, 200)
 
     const onScroll = () => debouncedScroll()
-    const computedCellHeight = computed(() => `${props.cellHeight}px`)
 
     return {
       rootElement,
-      computedCellHeight,
 
       makeActiveNext,
       makeActivePrev,
@@ -156,7 +154,7 @@ export default defineComponent({
     }
 
     .va-time-picker-cell {
-      height: v-bind(computedcellheight);
+      height: var(--va-time-picker-cell-height);
       line-height: var(--va-time-picker-cell-height);
       width: var(--va-time-picker-cell-width);
       text-align: center;
