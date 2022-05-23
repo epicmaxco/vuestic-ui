@@ -2,15 +2,16 @@
   <label
     class="va-radio"
     :class="computedClass"
-    role="button"
   >
     <input
       class="va-radio__input"
       type="radio"
       :checked="isActive"
       :disabled="disabled"
+      :readonly="readonly"
       :name="computedName"
       :value="computedLabel"
+      :aria-checked="isActive"
       @change="onClick"
       @focus="onFocus"
       :tabindex="computedTabIndex"
