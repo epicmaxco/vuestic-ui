@@ -24,7 +24,7 @@
 </template>
 
 <script lang="ts">
-import debounce from 'lodash/debounce'
+import debounce from 'lodash/debounce.js'
 import { defineComponent, nextTick, onMounted, PropType, ref, watch } from 'vue'
 import { useSyncProp } from '../../../composables/useSyncProp'
 import { useFocus, useFocusEmits } from '../../../composables/useFocus'
@@ -152,10 +152,10 @@ export default defineComponent({
     border-right: var(--va-time-picker-column-border-right);
 
     &::before,
-    &::after, {
+    &::after {
       content: "";
       display: block;
-      height: 85px;
+      height: var(--va-time-picker-column-gap-height);
       width: 100%;
     }
 
@@ -186,14 +186,6 @@ export default defineComponent({
           content: '';
           z-index: -1;
           opacity: var(--va-time-picker-cell-active-background-opacity);
-        }
-      }
-
-      &--fake {
-        visibility: hidden;
-
-        &:last-child {
-          height: calc(100% - var(--va-time-picker-cell-height) * 2);
         }
       }
 
