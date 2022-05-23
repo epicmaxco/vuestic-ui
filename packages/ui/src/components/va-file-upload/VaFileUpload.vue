@@ -156,11 +156,8 @@ export default defineComponent({
       if (!f) { return }
 
       const validatedFiles = props.fileTypes ? validateFiles(Array.from(f)) : f
-      if (props.type === 'single') {
-        files.value = [...validatedFiles]
-      } else {
-        files.value = [...files.value, ...validatedFiles]
-      }
+
+      files.value = props.type === 'single' ? (validatedFiles as VaFile[]) : [...files.value, ...validatedFiles]
 
       emit('file-added', validatedFiles)
     }
