@@ -20,7 +20,7 @@ import { defineComponent, ref, computed, PropType } from 'vue'
 import { useTimePicker } from './hooks/useTimePicker'
 import VaTimePickerColumn from './VaTimePickerColumn'
 import { useStateful, useStatefulEmits, useStatefulProps } from '../../composables/useStateful'
-import { useFormProps, useForm } from '../../composables/useForm'
+import { useFormProps } from '../../composables/useForm'
 import { useArrayRefs } from '../../composables/useArrayRefs'
 
 export default defineComponent({
@@ -60,8 +60,6 @@ export default defineComponent({
       idx ? pickers.value[idx]?.blur() : pickers.value.forEach((el) => el?.blur())
     }
 
-    const { createComputedClass } = useForm(props)
-
     const focusNext = () => {
       const nextIndex = (activeColumnIndex?.value || 0) + 1
       activeColumnIndex.value = nextIndex % columns.value.length
@@ -75,7 +73,8 @@ export default defineComponent({
     }
 
     const computedClass = computed(() => ({
-      ...createComputedClass('va-time-picker').value,
+      'va-time-picker--disabled': props.disabled,
+      'va-time-picker--readonly': props.readonly,
       'va-time-picker--framed': props.framed,
     }))
 
@@ -134,7 +133,7 @@ export default defineComponent({
 
       &::before {
         content: "";
-        height: 30px;
+        height: var(--va-time-picker-cell-height);
         width: 100%;
         position: absolute;
         top: 50%;
