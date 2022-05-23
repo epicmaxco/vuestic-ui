@@ -23,9 +23,14 @@
 
 <script lang="ts">
 import debounce from 'lodash/debounce.js'
-import { defineComponent, nextTick, ref, watch, computed, onMounted, PropType } from 'vue'
+import { defineComponent, nextTick, ref, watch, onMounted, PropType } from 'vue'
 import { useSyncProp } from '../../../composables/useSyncProp'
 import { useFocus, useFocusEmits } from '../../../composables/useFocus'
+
+type ScrollToProps = {
+  index: number,
+  animated?: boolean,
+}
 
 export default defineComponent({
   name: 'VaTimePickerColumn',
@@ -45,33 +50,43 @@ export default defineComponent({
     const { focus, blur } = useFocus(rootElement, emit)
     const [syncActiveItemIndex] = useSyncProp('activeItemIndex', props, emit)
 
-    watch(syncActiveItemIndex, (newVal) => { scrollTo(newVal) })
+    watch(syncActiveItemIndex, (newVal) => { scrollTo({ index: newVal }) })
 
-    onMounted(() => scrollTo(syncActiveItemIndex.value))
+    onMounted(() => scrollTo({ animated: false, index: syncActiveItemIndex.value }))
 
-    const scrollTo = (index: number) => {
-      nextTick(() => {
-        rootElement.value!.scrollTop = index * cellElementHeight.value
-      })
+    const scrollTo = ({ index, animated = true }: ScrollToProps) => {
+      const scrollTopValue = index * cellElementHeight.value
+
+      const defaultScroll = () => {
+        rootElement.value!.scrollTop = scrollTopValue
+      }
+
+      const animatedScroll = () => {
+        rootElement.value!.scrollTo({ behavior: animated ? 'smooth' : 'auto', top: scrollTopValue })
+      }
+
+      nextTick(animated ? animatedScroll : defaultScroll)
     }
 
     const makeActiveByIndex = (index: number) => {
       syncActiveItemIndex.value = index
-      nextTick(() => scrollTo(syncActiveItemIndex.value))
+      nextTick(() => scrollTo({ index: syncActiveItemIndex.value }))
     }
 
     const makeActiveNext = (times?: number) => {
       syncActiveItemIndex.value = (syncActiveItemIndex.value + (times || 1)) % props.items.length
-      nextTick(() => scrollTo(syncActiveItemIndex.value))
+      nextTick(() => scrollTo({ index: syncActiveItemIndex.value }))
     }
 
     const makeActivePrev = (times?: number) => {
       syncActiveItemIndex.value = (syncActiveItemIndex.value - (times || 1) + props.items.length) % props.items.length
-      nextTick(() => scrollTo(syncActiveItemIndex.value))
+      nextTick(() => scrollTo({ index: syncActiveItemIndex.value }))
     }
 
     const onCellClick = (index: number) => {
       syncActiveItemIndex.value = index
+
+      scrollTo({ index: syncActiveItemIndex.value })
     }
 
     const formatCell = (n: number | string): string => {
@@ -92,7 +107,8 @@ export default defineComponent({
 
       if (idx !== syncActiveItemIndex.value) {
         syncActiveItemIndex.value = idx
-        scrollTo(syncActiveItemIndex.value)
+
+        nextTick(() => scrollTo({ animated: false, index: syncActiveItemIndex.value }))
       }
     }, 200)
 
