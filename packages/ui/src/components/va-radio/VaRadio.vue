@@ -8,15 +8,17 @@
       type="radio"
       :checked="isActive"
       :disabled="disabled"
-      :name="name"
+      :name="getName"
+      :value="computedLabel"
       @change="onClick"
       @focus="onFocus"
-      :tabindex="tabindex"
+      :tabindex="getTabIndex"
     >
 
     <span
       class="va-radio__icon"
       :style="iconComputedStyles"
+      aria-hidden="true"
     >
       <span
         class="va-radio__icon__background"
@@ -40,6 +42,7 @@
 import { defineComponent, PropType, computed } from 'vue'
 import { useColors } from '../../composables/useColor'
 import { useFormProps, useForm } from '../../composables/useForm'
+import { generateUniqueId } from '../../services/utils'
 
 export default defineComponent({
   name: 'VaRadio',
@@ -104,6 +107,8 @@ export default defineComponent({
       computedLabel,
       onClick,
       onFocus,
+      getName: computed(() => props.name || generateUniqueId()),
+      getTabIndex: computed(() => props.readonly || props.disabled ? -1 : props.tabindex),
     }
   },
 })
