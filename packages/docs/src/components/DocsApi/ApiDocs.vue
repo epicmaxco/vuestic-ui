@@ -64,6 +64,7 @@
               </td>
               <td>
                 <MarkdownView :value="$tie(apiEventOption.description)" />
+                <p v-if="apiEventOption.isDOMEvent">(native DOM event)</p>
               </td>
               <td>
                 <MarkdownView :value="apiEventOption.types" />
