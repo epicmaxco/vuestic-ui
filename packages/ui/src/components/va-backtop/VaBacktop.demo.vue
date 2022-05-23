@@ -67,7 +67,7 @@
       </VbCard>
 
       <va-backtop
-        target="#base-layout"
+        target=".VbDemo"
         :vertical-offset="verticalOffset + '%'"
         :horizontal-offset="horizontalOffset + '%'"
         :horizontal-position="positionHorizontal"
