@@ -2,7 +2,7 @@
   <div
     class="va-time-picker"
     :class="computedClass"
-    :style="{ '--va-time-picker-cell-height': `${$props.cellHeight}px` }"
+    :style="computedStyles"
   >
     <VaTimePickerColumn
       v-for="(column, idx) in columns" :key="idx"
@@ -84,9 +84,14 @@ export default defineComponent({
       'va-time-picker--framed': props.framed,
     }))
 
+    const computedStyles = computed(() => ({
+      '--va-time-picker-cell-height': `${props.cellHeight}px`,
+    }))
+
     return {
       columns,
       computedClass,
+      computedStyles,
       isPM,
       pickers,
       setItemRef,
