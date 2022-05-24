@@ -24,8 +24,8 @@
 <script lang="ts">
 import debounce from 'lodash/debounce.js'
 import { defineComponent, nextTick, ref, watch, onMounted, PropType } from 'vue'
-import { useSyncProp } from '../../../composables/useSyncProp'
-import { useFocus, useFocusEmits } from '../../../composables/useFocus'
+import { useSyncProp } from '../../../../composables/useSyncProp'
+import { useFocus, useFocusEmits } from '../../../../composables/useFocus'
 
 type ScrollToProps = {
   index: number,
@@ -140,7 +140,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  @import './_variables.scss';
+  @import 'variables';
 
   @mixin hiddenYScroll {
     overflow-y: scroll;
