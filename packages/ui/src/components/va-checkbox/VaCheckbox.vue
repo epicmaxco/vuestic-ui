@@ -43,6 +43,7 @@
           v-show="isActive"
           class="va-checkbox__icon"
           size="20px"
+          aria-hidden="true"
           :name="computedIconName"
           :color="textColorComputed"
         />
