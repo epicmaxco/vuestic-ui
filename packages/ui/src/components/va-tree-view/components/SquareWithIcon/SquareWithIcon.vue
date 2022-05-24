@@ -9,10 +9,10 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { useColor } from '../../../composables/useColor'
+import { useColor } from '../../../../composables/useColor'
 
 // Components
-import VaIcon from '../../va-icon'
+import VaIcon from '../../../va-icon'
 
 export default defineComponent({
   name: 'SquareWithIcon',
@@ -39,7 +39,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "../../../styles/resources";
+@import "../../../../styles/resources/index";
 @import 'variables';
 
 .square-with-icon {

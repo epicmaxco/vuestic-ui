@@ -16,7 +16,7 @@
 import { defineComponent, provide, PropType, computed, watch, reactive, ref } from 'vue'
 import { TreeViewKey, TreeNode, TreeViewProvide } from './types'
 import useTreeBuilder from './hooks/useTreeBuilder'
-import VaTreeNode from './VaTreeNode'
+import VaTreeNode from './components/VaTreeNode'
 import { useColors } from '../../services/color-config/color-config'
 import { getTextColor } from '../../services/color-config/color-functions'
 import useTreeFilter from './hooks/useTreeFilter'

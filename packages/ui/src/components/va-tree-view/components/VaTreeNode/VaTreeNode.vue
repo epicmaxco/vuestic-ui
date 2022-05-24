@@ -49,8 +49,8 @@
 
 <script lang="ts">
 import { computed, defineComponent, inject, PropType, ref } from 'vue'
-import { TreeNode, TreeViewKey, TreeViewProvide } from '../types'
-import VaCheckbox from '../../va-checkbox'
+import { TreeNode, TreeViewKey, TreeViewProvide } from '../../types'
+import VaCheckbox from '../../../va-checkbox'
 
 export default defineComponent({
   name: 'VaTreeNode',
@@ -109,7 +109,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "../../../styles/resources";
+@import "../../../../styles/resources/index";
 @import 'variables';
 
 :root {
