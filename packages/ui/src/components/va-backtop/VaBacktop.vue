@@ -45,7 +45,7 @@ export default defineComponent({
     },
   },
   setup (props) {
-    const visible = ref(false)
+    const targetScrollValue = ref(0)
 
     const computedStyle = computed(() => ({
       [props.verticalPosition]: props.verticalOffset,
@@ -90,17 +90,17 @@ export default defineComponent({
     }
 
     const handleScroll = () => {
-      const targetScrollValue = targetElement instanceof Window
+      targetScrollValue.value = targetElement instanceof Window
         ? targetElement.scrollY
         : targetElement.scrollTop
-      visible.value = targetScrollValue > props.visibilityHeight
     }
+
+    const visible = computed(() => targetScrollValue.value > props.visibilityHeight)
 
     onMounted(() => {
       targetElement = getTargetElement()
       targetElement.addEventListener('scroll', handleScroll, true)
     })
-
     onBeforeUnmount(() => targetElement?.removeEventListener('scroll', handleScroll))
 
     return {

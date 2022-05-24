@@ -21,12 +21,12 @@
 </template>
 
 <script>
-import { setColors } from './color-config'
+import { useColors } from './color-config'
 
 export default {
   methods: {
     change (color) {
-      setColors({ danger: color })
+      useColors().setColors({ danger: color })
     },
   },
 }

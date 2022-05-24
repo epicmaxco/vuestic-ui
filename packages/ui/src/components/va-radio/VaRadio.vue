@@ -8,13 +8,17 @@
       type="radio"
       :checked="isActive"
       :disabled="disabled"
-      :name="name"
+      :readonly="readonly"
+      :name="computedName"
+      :value="computedLabel"
+      :aria-checked="isActive"
+      :tabindex="computedTabIndex"
       @change="onClick"
       @focus="onFocus"
-      :tabindex="tabindex"
     >
 
     <span
+      aria-hidden="true"
       class="va-radio__icon"
       :style="iconComputedStyles"
     >
@@ -40,14 +44,15 @@
 import { defineComponent, PropType, computed } from 'vue'
 import { useColors } from '../../composables/useColor'
 import { useFormProps, useForm } from '../../composables/useForm'
+import { generateUniqueId } from '../../services/utils'
 
 export default defineComponent({
   name: 'VaRadio',
   emits: ['update:modelValue', 'focus'],
   props: {
     ...useFormProps,
-    modelValue: { type: null as any as PropType<unknown>, default: null },
-    option: { type: null as any as PropType<unknown>, default: null },
+    modelValue: { type: [Boolean, Array, String, Object] as PropType<boolean | null | string | number | Record<any, unknown> | unknown[]>, default: null },
+    option: { default: null },
     name: { type: String as PropType<string>, default: '' },
     label: { type: String as PropType<string>, default: '' },
     leftLabel: { type: Boolean as PropType<boolean>, default: false },
@@ -104,6 +109,8 @@ export default defineComponent({
       computedLabel,
       onClick,
       onFocus,
+      computedName: computed(() => props.name || generateUniqueId()),
+      computedTabIndex: computed(() => props.readonly || props.disabled ? -1 : props.tabindex),
     }
   },
 })
@@ -152,13 +159,7 @@ export default defineComponent({
   }
 
   &__input {
-    width: 0;
-    height: 0;
-    position: absolute;
-    top: 0;
-    left: 0;
-    opacity: 0;
-    z-index: -1;
+    @include visually-hidden;
   }
 
   &__icon {

@@ -28,13 +28,14 @@ export default defineComponent({
     },
   },
   setup (props) {
-    const { inline, value } = toRefs(props)
     const { locale } = useI18n()
+    const { inline, value } = toRefs(props)
 
     attributesOptions.className = 'MarkdownView__link--external'
 
     watch(locale, (newValue) => {
-      localeOptions.currentLocale = newValue
+      // TODO Not sure why newValue is not considered string (it actually is!).
+      localeOptions.currentLocale = newValue as unknown as string
     })
 
     const text = computed(() => {

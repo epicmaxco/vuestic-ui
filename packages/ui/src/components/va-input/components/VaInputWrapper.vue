@@ -85,7 +85,7 @@
       </div>
     </div>
 
-    <div class="va-input-wrapper__message-list-wrapper">
+    <div v-if="hasMessages" class="va-input-wrapper__message-list-wrapper">
       <slot name="messages" v-bind="{ messages: messagesComputed, errorLimit, color: messagesColor }">
         <va-message-list
           :color="messagesColor"
@@ -102,7 +102,7 @@ import { computed, defineComponent } from 'vue'
 import { useBem } from '../../../composables/useBem'
 import { useFormProps } from '../../../composables/useForm'
 import { useValidationProps } from '../../../composables/useValidation'
-import { getColor } from '../../../services/color-config/color-config'
+import { useColors } from '../../../services/color-config/color-config'
 import VaMessageList from './VaMessageList'
 
 export default defineComponent({
@@ -134,9 +134,16 @@ export default defineComponent({
   ],
 
   setup (props) {
+    const { getColor } = useColors()
     const { createModifiersClasses } = useBem('va-input')
 
     const colorComputed = computed(() => getColor(props.color))
+
+    const messagesComputed = computed(() => props.error ? props.errorMessages : props.messages)
+
+    const hasMessages = computed(() => Boolean(
+      typeof messagesComputed.value === 'string' ? messagesComputed.value : messagesComputed.value?.length,
+    ))
 
     return {
       wrapperClass: createModifiersClasses(() => ({
@@ -160,8 +167,9 @@ export default defineComponent({
 
         return ''
       }),
-      messagesComputed: computed(() => props.error ? props.errorMessages : props.messages),
-      errorLimit: computed(() => props.error ? props.errorCount : 99),
+      messagesComputed,
+      hasMessages,
+      errorLimit: computed(() => props.error ? Number(props.errorCount) : 99),
     }
   },
 })
@@ -273,10 +281,6 @@ export default defineComponent({
 
         &::placeholder {
           color: var(--va-input-placeholder-text-color);
-        }
-
-        &:disabled {
-          opacity: var(--va-input-disabled-opacity);
         }
       }
     }

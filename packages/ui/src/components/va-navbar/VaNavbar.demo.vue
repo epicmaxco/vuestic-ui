@@ -56,6 +56,18 @@
           <va-navbar-item>Hello!</va-navbar-item>
         </template>
       </va-navbar>
+      <va-navbar color="white">
+        <template #left>
+          <va-icon-menu-collapsed :collapsed="isSidebarCollapsed" @click="isSidebarCollapsed = !isSidebarCollapsed" class="va-navbar__item" />
+          <va-navbar-item>LONG LOGO</va-navbar-item>
+        </template>
+        <template #center>
+          <va-navbar-item>Hello!</va-navbar-item>
+        </template>
+        <template #right>
+          <va-navbar-item>Hello!</va-navbar-item>
+        </template>
+      </va-navbar>
     </VbCard>
   </VbDemo>
 </template>

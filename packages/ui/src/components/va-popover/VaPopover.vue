@@ -1,13 +1,10 @@
 <template>
   <va-dropdown
     class="va-popover"
-    :position="$props.placement"
-    :disabled="$props.disabled"
-    :trigger="$props.trigger"
-    :hoverOverTimeout="$props.hoverOverTimeout"
-    :hoverOutTimeout="$props.hoverOutTimeout"
-    :close-on-click-outside="$props.autoHide"
+    v-bind="VaDropdownPropValues"
     :modelValue="modelValue"
+    :closeOnClickOutside="autoHide"
+    :offset="$props.offset"
   >
     <template #default>
       <div class="va-popover__content-wrapper">
@@ -21,7 +18,7 @@
           >
             <va-icon
               :name="$props.icon"
-              :color="$props.color"
+              :color="textColorComputed"
             />
           </div>
           <div v-if="$props.title || $props.message">
@@ -45,67 +42,52 @@
 </template>
 
 <script lang="ts">
-import { PropType } from 'vue'
-import { Options, prop, Vue, mixins } from 'vue-class-component'
-import { Placement } from '@popperjs/core'
+import { computed, defineComponent, PropType } from 'vue'
+import VaDropdown from '../va-dropdown/VaDropdown.vue'
+import VaIcon from '../va-icon/VaIcon.vue'
+import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
+import { useColors } from '../../composables/useColor'
+import { useTextColor } from '../../composables/useTextColor'
 
-import {
-  getBoxShadowColor,
-  getHoverColor,
-} from '../../services/color-config/color-functions'
-import ColorMixin from '../../services/color-config/ColorMixin'
-import VaIcon from '../va-icon'
-import VaDropdown from '../va-dropdown'
+const VaDropdownProps = extractComponentProps(VaDropdown, ['closeOnClickOutside'])
 
-class PopoverProps {
-  modelValue = prop<boolean>({ type: Boolean })
-  color = prop<string>({ type: String, default: 'success' })
-  icon = prop<string>({ type: String, default: '' })
-  title = prop<string>({ type: String, default: '' })
-  message = prop<string>({ type: String, default: '' })
-  trigger = prop<string>({ type: String, default: 'hover' })
-  disabled = prop<boolean>({ type: Boolean, default: false })
-  placement = prop<Placement>({
-    type: String as PropType<Placement>,
-    default: 'bottom',
-  })
-
-  autoHide = prop<boolean>({ type: Boolean, default: true })
-  hoverOverTimeout = prop<number>({ type: Number, default: 0 })
-  hoverOutTimeout = prop<number>({ type: Number, default: 0 })
-}
-
-const PopoverPropsMixin = Vue.with(PopoverProps)
-
-@Options({
-  placement: {
-    type: String,
-    default: 'bottom',
-    validator: (value: string) => {
-      return ['right', 'left', 'bottom', 'top'].includes(value)
-    },
-  },
-  trigger: {
-    type: String,
-    default: 'hover',
-    validator: (value: string) => {
-      return ['hover', 'focus', 'click'].includes(value)
-    },
-  },
+export default defineComponent({
   name: 'VaPopover',
-  components: { VaIcon, VaDropdown },
-})
-export default class VaPopover extends mixins(
-  ColorMixin,
-  PopoverPropsMixin,
-) {
-  get computedPopoverStyle () {
+
+  components: { VaDropdown, VaIcon },
+
+  props: {
+    ...VaDropdownProps,
+    trigger: { default: 'hover' },
+    color: { type: String, default: 'dark' },
+    textColor: { type: String },
+    icon: { type: String, default: '' },
+    title: { type: String, default: '' },
+    message: { type: String, default: '' },
+    autoHide: { type: Boolean, default: true },
+    offset: { type: [Array, Number] as PropType<number | [number, number]>, default: 4 },
+  },
+
+  setup (props) {
+    const VaDropdownPropValues = filterComponentProps(props, VaDropdownProps)
+
+    const { getColor, getBoxShadowColor } = useColors()
+
+    const { textColorComputed } = useTextColor()
+
+    const computedPopoverStyle = computed(() => ({
+      boxShadow: `0px 2px 3px 0 ${getBoxShadowColor(getColor(props.color))}`,
+      backgroundColor: getColor(props.color),
+      color: textColorComputed.value,
+    }))
+
     return {
-      boxShadow: '0px 2px 3px 0 ' + getBoxShadowColor(this.theme.getColor(this.$props.color)),
-      backgroundColor: getHoverColor(this.theme.getColor(this.$props.color)),
+      VaDropdownPropValues,
+      computedPopoverStyle,
+      textColorComputed,
     }
-  }
-}
+  },
+})
 </script>
 
 <style lang="scss">

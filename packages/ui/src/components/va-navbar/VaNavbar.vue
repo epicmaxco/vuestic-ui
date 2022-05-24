@@ -25,23 +25,24 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, computed, StyleValue } from 'vue'
+import { defineComponent, PropType, computed } from 'vue'
 
 import { shiftHSLAColor } from '../../services/color-config/color-functions'
 import { useColors } from '../../services/color-config/color-config'
+import { useTextColor } from '../../composables/useTextColor'
 
 export default defineComponent({
   name: 'VaNavbar',
   props: {
     color: { type: String as PropType<string>, default: 'secondary' },
-    textColor: { type: String as PropType<string>, default: undefined },
+    textColor: { type: String as PropType<string> },
     shape: { type: Boolean as PropType<boolean>, default: false },
   },
   setup (props) {
-    const { getTextColor, getColor } = useColors()
+    const { getColor } = useColors()
+    const { textColorComputed } = useTextColor()
 
     const color = computed(() => getColor(props.color))
-    const textColor = computed(() => props.textColor ? getColor(props.textColor) : getTextColor(color.value))
 
     const shapeStyle = computed(() => ({
       borderTopColor: shiftHSLAColor(color.value, { h: -1, s: -11, l: 10 }),
@@ -49,9 +50,9 @@ export default defineComponent({
 
     const navbarStyle = computed(() => ({
       backgroundColor: color.value,
-      color: textColor.value,
-      fill: textColor.value,
-    })) as StyleValue
+      color: textColorComputed.value,
+      fill: textColorComputed.value,
+    }))
 
     return {
       navbarStyle,

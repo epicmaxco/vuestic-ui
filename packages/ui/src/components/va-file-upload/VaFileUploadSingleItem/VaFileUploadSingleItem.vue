@@ -20,7 +20,7 @@ import { defineComponent, PropType } from 'vue'
 
 import VaButton from '../../va-button'
 
-import { VaFile } from '../types'
+import { VaFile, ConvertedFile } from '../types'
 
 export default defineComponent({
   name: 'VaFileUploadSingleItem',
@@ -29,7 +29,7 @@ export default defineComponent({
   },
   emits: ['remove'],
   props: {
-    file: { type: Object as PropType<VaFile | null>, default: null },
+    file: { type: Object as PropType<ConvertedFile | null>, default: null },
   },
 })
 </script>

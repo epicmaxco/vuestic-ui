@@ -135,6 +135,17 @@
         :message="message"
       />
     </VbCard>
+    <VbCard title="blur: true">
+      <button @click="showModalBlur = !showModalBlur">
+        Show modal
+      </button>
+      <va-modal
+        v-model="showModalBlur"
+        blur
+        title="Step 2. Centered Layout"
+        :message="message"
+      />
+    </VbCard>
     <VbCard title="several lays">
       <button @click="showModalFirstLay = !showModalFirstLay">
         Show modal
@@ -271,6 +282,21 @@
       >
       </va-modal>
     </VbCard>
+    <VbCard title="nested modals">
+      <button @click="showModalNested1 = !showModalNested1">
+        Show first modal
+      </button>
+
+      <va-modal v-model="showModalNested1" :message="message" hide-default-actions>
+        <button class="mt-5" @click="showModalNested2 = !showModalNested2" color="secondary">
+          Show second modal
+        </button>
+
+        <va-modal v-model="showModalNested2" :message="message">
+          Second Modal
+        </va-modal>
+      </va-modal>
+    </VbCard>
   </VbDemo>
 </template>
 
@@ -304,9 +330,12 @@ export default {
       showModalNoDismiss: false,
       showModalOverlay: false,
       showModalOverlayOpacity: false,
+      showModalBlur: false,
       showModalZIndex: false,
       showModalCustomFooter: false,
       showModalCustomBackground: false,
+      showModalNested1: false,
+      showModalNested2: false,
       message: this.$vb.lorem(),
       longMessage: this.$vb.lorem(5000),
     }

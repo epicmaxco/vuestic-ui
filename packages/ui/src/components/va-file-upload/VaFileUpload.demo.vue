@@ -103,6 +103,45 @@
         </div>
       </va-file-upload>
     </VbCard>
+
+    <VbCard
+      title="undo"
+      style="width: 100%;"
+    >
+      <p>list</p>
+      <va-file-upload v-model="defaultFileList" undo />
+      <p>gallery</p>
+      <va-file-upload
+        v-model="defaultFileList"
+        type="gallery"
+        undo
+      />
+    </VbCard>
+    <VbCard
+      title="undo with custom duration"
+      style="width: 100%;"
+    >
+      <p>list</p>
+      <va-file-upload v-model="defaultFileList" undo :undoDuration="10000" />
+      <p>gallery</p>
+      <va-file-upload
+        v-model="defaultFileList"
+        type="gallery"
+        undo
+        :undoDuration="10000"
+      />
+    </VbCard>
+
+    <VbCard
+            title="file-removed and file-added event"
+      style="width: 100%;"
+    >
+      <va-file-upload
+        v-model="basic"
+        @file-removed="$vaToast.init('File removed')"
+        @file-added="$vaToast.init('File added')"
+      />
+    </VbCard>
   </VbDemo>
 </template>
 

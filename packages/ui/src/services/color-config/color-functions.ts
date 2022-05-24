@@ -1,11 +1,15 @@
+// import colortranslator, { ColorTranslator as CTClass } from 'colortranslator'
 import { ColorTranslator } from 'colortranslator'
 import { HSLObject, ColorInput } from 'colortranslator/dist/@types'
+
+/** This is a hack for cjs and esm build when we can transpile colortranslator */
+// const ColorTranslator = CTClass || colortranslator.ColorTranslator
 
 export const colorToRgba = (color: ColorInput, opacity: number) => {
   return new ColorTranslator(color).setA(opacity).RGBA
 }
 
-export const getTextColor = (color: ColorInput, darkColor = 'var(--va-dark)', lightColor = 'var(--va-white)') => {
+export const getTextColor = (color: ColorInput, darkColor = 'dark', lightColor = 'white') => {
   const { R, G, B } = new ColorTranslator(color)
   const isLightBackground = Math.sqrt(R * R * 0.241 + G * G * 0.691 + B * B * 0.068) > 130
   return isLightBackground ? darkColor : lightColor

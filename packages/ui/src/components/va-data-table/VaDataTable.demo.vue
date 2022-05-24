@@ -494,8 +494,8 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import cloneDeep from 'lodash/cloneDeep'
-import shuffle from 'lodash/shuffle'
+import cloneDeep from 'lodash/cloneDeep.js'
+import shuffle from 'lodash/shuffle.js'
 import VaDataTable from './'
 import VaSwitch from '../va-switch'
 import VaPagination from '../va-pagination'
@@ -685,7 +685,7 @@ export default defineComponent({
       sortBy2: '',
       sortingOrder2: null,
       useSelectableRow: true,
-      selectedItemsIds: [],
+      selectedItemsIds: [] as any[],
       selectMode: 'single',
       selectedColor: 'primary',
       usePagination: true,

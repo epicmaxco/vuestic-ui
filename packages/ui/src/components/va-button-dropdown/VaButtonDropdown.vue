@@ -3,7 +3,7 @@
     <va-dropdown
       v-if="!$props.split"
       :disabled="$props.disabled"
-      :position="$props.position"
+      :placement="$props.placement"
       :offset="$props.offset"
       :keep-anchor-width="$props.keepAnchorWidth"
       :close-on-content-click="$props.closeOnContentClick"
@@ -46,7 +46,7 @@
 
       <va-dropdown
         :disabled="$props.disabled || $props.disableDropdown"
-        :position="$props.position"
+        :placement="$props.placement"
         :offset="$props.offset"
         :stateful="$props.stateful"
         v-model="valueComputed"
@@ -79,10 +79,11 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType } from 'vue'
-import pick from 'lodash/pick'
+import pick from 'lodash/pick.js'
 
 import { useStatefulProps, useStateful } from '../../composables/useStateful'
 import { useEmitProxy } from '../../composables/useEmitProxy'
+import { Placement, placementsPositions } from '../../composables/usePopover'
 
 import VaDropdown, { VaDropdownContent } from '../va-dropdown'
 import VaButton from '../va-button'
@@ -137,8 +138,12 @@ export default defineComponent({
     disableDropdown: { type: Boolean, default: false },
     disabled: { type: Boolean, default: false },
 
-    position: { type: String, default: 'bottom' },
-    offset: { type: [Number, Array] as PropType<number | number[]>, default: () => ([0, 1]) },
+    placement: {
+      type: String as PropType<Placement>,
+      default: 'bottom',
+      validator: (placement: string) => placementsPositions.includes(placement),
+    },
+    offset: { type: [Number, Array] as PropType<number | [number, number]>, default: () => ([0, 1]) },
     keepAnchorWidth: { type: Boolean, default: false },
     closeOnContentClick: { type: Boolean, default: true },
 

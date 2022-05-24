@@ -24,5 +24,5 @@ export const parseModelValue = (date: VaDateInputModelValue): VaDatePickerModelV
     }
   }
 
-  return parseSingleDate(date)
+  return parseSingleDate(date!)
 }
