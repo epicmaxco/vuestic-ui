@@ -9,7 +9,6 @@ export interface TimePickerProps {
   hoursFilter?: (h: number) => boolean,
   minutesFilter?: (h: number) => boolean
   secondsFilter?: (h: number) => boolean
-
   readonly?: boolean;
 }
 export type ModelValueRef = Ref<Date | null | undefined>

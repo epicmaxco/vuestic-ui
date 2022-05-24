@@ -27,11 +27,6 @@ import { defineComponent, nextTick, ref, watch, onMounted, PropType } from 'vue'
 import { useSyncProp } from '../../../../composables/useSyncProp'
 import { useFocus, useFocusEmits } from '../../../../composables/useFocus'
 
-type ScrollToProps = {
-  index: number,
-  animated?: boolean,
-}
-
 export default defineComponent({
   name: 'VaTimePickerColumn',
 
@@ -45,48 +40,36 @@ export default defineComponent({
 
   setup (props, { emit }) {
     const rootElement = ref<HTMLElement>()
-    const cellElementHeight = ref(props.cellHeight)
-    // Will be used later, after fix 'withConfigTransport'
     const { focus, blur } = useFocus(rootElement, emit)
     const [syncActiveItemIndex] = useSyncProp('activeItemIndex', props, emit)
 
-    watch(syncActiveItemIndex, (newVal) => { scrollTo({ index: newVal }) })
+    watch(syncActiveItemIndex, (newVal) => { scrollTo(newVal) })
 
-    onMounted(() => scrollTo({ animated: false, index: syncActiveItemIndex.value }))
+    onMounted(() => scrollTo(syncActiveItemIndex.value, false))
 
-    const scrollTo = ({ index, animated = true }: ScrollToProps) => {
-      const scrollTopValue = index * cellElementHeight.value
-
-      const defaultScroll = () => {
-        rootElement.value!.scrollTop = scrollTopValue
-      }
-
-      const animatedScroll = () => {
-        rootElement.value!.scrollTo({ behavior: animated ? 'smooth' : 'auto', top: scrollTopValue })
-      }
-
-      nextTick(animated ? animatedScroll : defaultScroll)
+    const scrollTo = (index: number, animated = true) => {
+      nextTick(() => {
+        rootElement.value!.scrollTo({
+          behavior: animated ? 'smooth' : 'auto',
+          top: index * props.cellHeight,
+        })
+      })
     }
 
     const makeActiveByIndex = (index: number) => {
       syncActiveItemIndex.value = index
-      nextTick(() => scrollTo({ index: syncActiveItemIndex.value }))
     }
 
     const makeActiveNext = (times?: number) => {
       syncActiveItemIndex.value = (syncActiveItemIndex.value + (times || 1)) % props.items.length
-      nextTick(() => scrollTo({ index: syncActiveItemIndex.value }))
     }
 
     const makeActivePrev = (times?: number) => {
       syncActiveItemIndex.value = (syncActiveItemIndex.value - (times || 1) + props.items.length) % props.items.length
-      nextTick(() => scrollTo({ index: syncActiveItemIndex.value }))
     }
 
     const onCellClick = (index: number) => {
       syncActiveItemIndex.value = index
-
-      scrollTo({ index: syncActiveItemIndex.value })
     }
 
     const formatCell = (n: number | string): string => {
@@ -95,24 +78,17 @@ export default defineComponent({
       return n < 10 ? `0${n}` : `${n}`
     }
 
-    const getIndex = () => {
-      const scrollTop = rootElement.value!.scrollTop
-      const scrollBarHeight = rootElement.value!.offsetHeight
+    const getIndex = () => Math.round(rootElement.value!.scrollTop / props.cellHeight)
 
-      return Math.round((scrollTop - (scrollBarHeight * 0.5) / cellElementHeight.value) / cellElementHeight.value)
-    }
+    const onScroll = debounce(() => {
+      if (!rootElement.value) { return }
 
-    const debouncedScroll = debounce(() => {
       const idx = getIndex()
 
       if (idx !== syncActiveItemIndex.value) {
         syncActiveItemIndex.value = idx
-
-        nextTick(() => scrollTo({ animated: false, index: syncActiveItemIndex.value }))
       }
     }, 200)
-
-    const onScroll = () => debouncedScroll()
 
     return {
       rootElement,
@@ -125,16 +101,9 @@ export default defineComponent({
       onCellClick,
       formatCell,
 
-      // Will be used later, after fix 'withConfigTransport'
-      // focus,
-      // blur,
+      focus,
+      blur,
     }
-  },
-
-  // we will use this while we have problem with 'withConfigTransport'
-  methods: {
-    focus () { (this as any).rootElement?.focus() },
-    blur () { (this as any).rootElement?.blur() },
   },
 })
 </script>

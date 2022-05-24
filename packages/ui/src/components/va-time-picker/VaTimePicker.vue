@@ -25,7 +25,7 @@ import { defineComponent, ref, computed, PropType } from 'vue'
 import { useTimePicker } from './hooks/useTimePicker'
 import VaTimePickerColumn from './components/VaTimePickerColumn'
 import { useStateful, useStatefulEmits, useStatefulProps } from '../../composables/useStateful'
-import { useFormProps } from '../../composables/useForm'
+import { useForm, useFormProps } from '../../composables/useForm'
 import { useArrayRefs } from '../../composables/useArrayRefs'
 
 export default defineComponent({
@@ -68,24 +68,29 @@ export default defineComponent({
 
     const focusNext = () => {
       const nextIndex = (activeColumnIndex?.value || 0) + 1
+
       activeColumnIndex.value = nextIndex % columns.value.length
       focus(activeColumnIndex.value)
     }
 
     const focusPrev = () => {
       const nextIndex = (activeColumnIndex?.value || 0) - 1 + columns.value.length
+
       activeColumnIndex.value = nextIndex % columns.value.length
       focus(activeColumnIndex.value)
     }
 
+    const { createComputedClass } = useForm(props)
+    const formClasses = createComputedClass('va-time-picker')
+
     const computedClass = computed(() => ({
-      'va-time-picker--disabled': props.disabled,
-      'va-time-picker--readonly': props.readonly,
+      ...formClasses.value,
       'va-time-picker--framed': props.framed,
     }))
 
     const computedStyles = computed(() => ({
       '--va-time-picker-cell-height': `${props.cellHeight}px`,
+      '--va-time-picker-column-gap-height': `calc(${props.cellHeight * 3}px - 5px)`,
     }))
 
     return {
