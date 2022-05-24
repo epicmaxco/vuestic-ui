@@ -99,9 +99,9 @@ export default defineComponent({
   },
 
   setup: (props, { emit }) => {
-    const wrapper = ref<HTMLElement | null>(null)
-    const container = ref<HTMLElement | null>(null)
-    const tabs = ref<HTMLElement | null>(null)
+    const wrapper = ref<HTMLElement>()
+    const container = ref<HTMLElement>()
+    const tabs = ref<HTMLElement>()
 
     const tabsList: Ref<TabComponent[]> = ref([])
     const sliderHeight = ref<number | null>(null)
@@ -224,15 +224,13 @@ export default defineComponent({
       tabsList.value.forEach((tab: TabComponent) => {
         tab.updateSidePositions()
 
-        if (tabSelected.value) {
-          const isTabSelected = (tab.name?.value || tab.id) === tabSelected.value
+        const isTabSelected = (tab.name?.value || tab.id) === tabSelected.value
 
-          tab.isActive = tab.isActiveRouterLink || isTabSelected
+        tab.isActive = tab.isActiveRouterLink || isTabSelected
 
-          if (tab.isActive) {
-            moveToTab(tab)
-            updateSlider(tab)
-          }
+        if (tab.isActive) {
+          moveToTab(tab)
+          updateSlider(tab)
         }
       })
 
@@ -363,7 +361,7 @@ export default defineComponent({
     }
 
     const registerTab = (tab: TabComponent) => {
-      const idx = tabsList.value.push(tab)
+      const idx = tabsList.value.push(tab) - 1
 
       tab.id = tab.name?.value || idx
     }
@@ -385,9 +383,7 @@ export default defineComponent({
     })
 
     // Lifecycle hooks
-    watch(() => props.modelValue, () => {
-      updateTabsState()
-    })
+    watch(() => props.modelValue, updateTabsState)
 
     const resizeObserver = useResizeObserver([wrapper, tabs], redrawTabs)
 

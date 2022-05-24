@@ -17,17 +17,13 @@
 </template>
 
 <script lang="ts">
-import { Vue, Options } from 'vue-class-component'
-
 import VaInput from '../va-input'
 import VaCheckbox from '../va-checkbox'
 import VaForm from './index'
 
-@Options({
+export default {
   name: 'VaFormReset',
   components: { VaForm, VaCheckbox, VaInput },
-})
-export default class VaFormReset extends Vue {
   data () {
     return {
       form: {
@@ -35,12 +31,11 @@ export default class VaFormReset extends Vue {
         checkbox: true,
       },
     }
-  }
+  },
 }
 </script>
 
 <style lang="scss">
 .va-form-reset {
-
 }
 </style>

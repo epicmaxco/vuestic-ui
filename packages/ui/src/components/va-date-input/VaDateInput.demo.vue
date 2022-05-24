@@ -96,8 +96,7 @@
 
     <VbCard title="weekends">
       <va-date-input v-model="value" label="Highlight weekend" highlight-weekends class="mb-4" />
-
-      <va-date-input v-model="value" label="Every second day is weeked" highlight-weekends :weekends="(date) => date.getDay() % 2 === 0" class="mb-4" />
+      <va-date-input v-model="value" label="Every second day is weekend" highlight-weekends :weekends="(date) => date.getDay() % 2 === 0" class="mb-4" />
     </VbCard>
 
     <VbCard title="dropdown">
@@ -105,9 +104,14 @@
     </VbCard>
 
     <VbCard title="reset on close (range)">
-      <va-date-input v-model="range" v-model:is-open="isOpen" label="enabled" class="mb-4" />
+      <va-date-input v-model="range" label="enabled" class="mb-4" />
+      <va-date-input v-model="range" label="disabled" :reset-on-close="false" class="mb-4" />
+    </VbCard>
 
-      <va-date-input v-model="range" v-model:is-open="isOpen" label="disabled" :reset-on-close="false" class="mb-4" />
+    <VbCard title="values as strings and numbers">
+      <va-date-input v-model="string" class="mb-4" />
+      <va-date-input v-model="strings" class="mb-4" />
+      <va-date-input v-model="stringRange" class="mb-4" />
     </VbCard>
 
     <VbCard title="slots to calendar">
@@ -182,6 +186,12 @@
       <va-date-input v-model="value" :rules="validationRules1" clearable />
       <va-date-input v-model="value" :rules="validationRules2" clearable />
     </VbCard>
+
+    <VbCard title="Focus and Blur">
+      <va-date-input ref="dateInputRef" v-model="value" :rules="validationRules1" clearable />
+      <va-button @click="focusDateInput">Focus</va-button>
+      <va-button @click="blurDateInput">Blur</va-button>
+    </VbCard>
   </VbDemo>
 </template>
 
@@ -205,6 +215,9 @@ export default {
       range: { start: new Date(), end: nextWeek },
       dates: [new Date(), nextWeek],
       dayView: { type: 'day', month: 3, year: 2013 },
+      string: new Date().toString(),
+      strings: [Date.now() + 1e9, new Date().toString()],
+      stringRange: { start: new Date().toString(), end: Date.now() + 1e9 },
 
       validationRules1: [(value: Date) => {
         return !!value || 'Should be value'
@@ -230,6 +243,9 @@ export default {
       (this as any).range = { start: new Date(), end: nextWeek };
       (this as any).dates = [new Date(), nextWeek]
     },
+
+    focusDateInput () { (this as any).$refs.dateInputRef.focus() },
+    blurDateInput () { (this as any).$refs.dateInputRef.blur() },
   },
 }
 </script>

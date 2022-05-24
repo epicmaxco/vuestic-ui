@@ -12,6 +12,7 @@ import { defineComponent, computed, PropType, reactive } from 'vue'
 import VaConfig from '../va-config'
 import { getGradientBackground } from '../../services/color-config/color-functions'
 import { useColors } from '../../composables/useColor'
+import { useTextColor } from '../../composables/useTextColor'
 
 export default defineComponent({
   name: 'VaButtonGroup',
@@ -30,25 +31,34 @@ export default defineComponent({
     },
   },
   setup (props) {
-    const buttonConfig = reactive({
-      VaButton: {
-        ...props,
-        color: props.gradient ? '#00000000' : props.color,
-      },
-    })
-
     const { getColor } = useColors()
     const colorComputed = computed(() => getColor(props.color))
+
+    const isTransparentBackground = computed(() => Boolean(props.outline || props.flat))
+    const { textColorComputed } = useTextColor(colorComputed, isTransparentBackground)
+
     const computedBackground = computed(() => {
       if (props.outline || props.flat) { return '' }
 
       return props.gradient ? getGradientBackground(colorComputed.value) : colorComputed.value
     })
+
     const computedStyle = computed(() => {
       const backgroundProperty = props.gradient ? 'background-image' : 'background'
 
-      return { [backgroundProperty]: computedBackground.value }
+      return {
+        [backgroundProperty]: computedBackground.value,
+        color: textColorComputed.value,
+      }
     })
+
+    const buttonConfig = computed(() => ({
+      VaButton: {
+        ...props,
+        color: props.gradient ? '#00000000' : props.color,
+        textColor: textColorComputed.value,
+      },
+    }))
 
     const computedClass = computed(() => ({ 'va-button-group_square': !props.rounded }))
 
@@ -78,19 +88,19 @@ export default defineComponent({
 
   .va-button {
     margin: var(--va-button-group-button-margin);
-    box-shadow: none !important;
+    box-shadow: none;
   }
 
   & > .va-button:last-child {
     width: auto;
-    padding-right: 1rem !important;
+    padding-right: 1rem;
 
     &.va-button--small {
-      padding-right: 0.75rem !important;
+      padding-right: 0.75rem;
     }
 
     &.va-button--large {
-      padding-right: 1.5rem !important;
+      padding-right: 1.5rem;
     }
   }
 
@@ -110,7 +120,7 @@ export default defineComponent({
   & > .va-button:not(:last-child) {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
-    padding-right: 0.5rem;
+    padding-right: var(--va-button-group-gap);
     border-right: 0;
 
     .va-button__content {
@@ -126,7 +136,7 @@ export default defineComponent({
   & > .va-button + .va-button {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
-    padding-left: 0.5rem;
+    padding-left: var(--va-button-group-gap);
     border-left: 0;
 
     .va-button__content {

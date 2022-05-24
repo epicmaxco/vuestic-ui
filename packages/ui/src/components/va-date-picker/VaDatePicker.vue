@@ -16,7 +16,7 @@
         ref="currentPicker"
         :model-value="valueComputed"
         :view="syncView"
-        :readonly="isPickerReadonly('day')"
+        :readonly="$props.disabled || isPickerReadonly('day')"
         @update:model-value="onDayModelValueUpdate"
         @hover:day="(value) => $emit('hover:day', value)"
         @click:day="(value) => $emit('click:day', value)"
@@ -32,7 +32,7 @@
         ref="currentPicker"
         :view="syncView"
         :model-value="valueComputed"
-        :readonly="isPickerReadonly('month')"
+        :readonly="$props.disabled || isPickerReadonly('month')"
         @update:model-value="onMonthModelValueUpdate"
         @hover:month="(value) => $emit('hover:month', value)"
         @click:month="onMonthClick"
@@ -48,7 +48,7 @@
         ref="currentPicker"
         :view="syncView"
         :model-value="valueComputed"
-        :readonly="isPickerReadonly('year')"
+        :readonly="$props.disabled || isPickerReadonly('year')"
         @hover:year="(value) => $emit('hover:year', value)"
         @update:model-value="onYearModelValueUpdate"
         @click:year="onYearClick"
@@ -66,7 +66,7 @@ import { ComponentOptions, computed, defineComponent, nextTick, PropType, ref, w
 import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
 import { useColors } from '../../services/color-config/color-config'
 
-import { VaDatePickerModelValue, VaDatePickerType, VaDatePickerView } from './types/types'
+import { VaDatePickerModelValue, VaDatePickerType, VaDatePickerView } from './types'
 import { filterComponentProps, extractComponentProps, extractComponentEmits } from '../../utils/child-props'
 import { useView } from './hooks/view'
 
@@ -89,7 +89,7 @@ export default defineComponent({
     ...extractComponentProps(VaDayPicker),
     ...extractComponentProps(VaMonthPicker),
     ...extractComponentProps(VaYearPicker),
-    modelValue: { type: [Date, Array, Object] as PropType<VaDatePickerModelValue | undefined> },
+    modelValue: { type: [Date, Array, Object] as PropType<VaDatePickerModelValue> },
     monthNames: { type: Array as PropType<string[]>, required: false, default: DEFAULT_MONTH_NAMES },
     weekdayNames: { type: Array as PropType<string[]>, required: false, default: DEFAULT_WEEKDAY_NAMES },
     view: { type: Object as PropType<VaDatePickerView> },
@@ -164,14 +164,13 @@ export default defineComponent({
     }, 'va-date-picker')
 
     const currentPicker = ref<ComponentOptions | null>(null)
+    const focusCurrentPicker = () => currentPicker?.value?.$el.focus()
 
     watch(syncView, (newValue, prevValue) => {
       // Don't focus new picker if user does not change type
       if (newValue.type === prevValue.type) { return }
 
-      nextTick(() => {
-        if (currentPicker.value) { currentPicker.value.$el.focus() }
-      })
+      nextTick(focusCurrentPicker)
     })
 
     const isPickerReadonly = (pickerName: 'year' | 'month' | 'day') => {
@@ -199,6 +198,7 @@ export default defineComponent({
 
       colorsStyle,
       currentPicker,
+      focusCurrentPicker,
 
       isPickerReadonly,
     }
@@ -214,6 +214,10 @@ export default defineComponent({
 
   width: calc(var(--va-date-picker-cell-size) * 7 + var(--va-date-picker-cell-gap) * 6);
   font-family: var(--va-font-family);
+  font-style: var(--va-date-picker-font-style);
+  font-weight: var(--va-date-picker-font-weight);
+  font-size: var(--va-date-picker-font-size);
+  line-height: var(--va-date-picker-line-height);
 
   &__picker-wrapper {
     height: var(--va-date-picker-content-height);

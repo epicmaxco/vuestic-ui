@@ -1,98 +1,115 @@
 <template>
-  <teleport :to="attachElement" :disabled="disableAttachment" ref="rootElement">
-    <modal-element name="va-modal" :isTransition="!$props.withoutTransitions" appear :duration="300">
-      <div class="va-modal" v-if="valueComputed">
-        <div
-          class="va-modal__overlay"
-          :style="$props.overlay && computedOverlayStyles"
-          @click="onOutsideClick"
-        />
-        <div
-          class="va-modal__container"
-          :style="computedModalContainerStyle"
-          @beforeEnter="onBeforeEnterTransition"
-          @afterEnter="onAfterEnterTransition"
-          @beforeLeave="onBeforeLeaveTransition"
-          @afterLeave="onAfterLeaveTransition"
-        >
-          <div
-            class="va-modal__dialog"
-            :class="computedClass"
-            :style="{ maxWidth: $props.maxWidth, maxHeight: $props.maxHeight }"
-            ref="modal"
-          >
-            <va-icon
-              v-if="$props.fullscreen"
-              @click="cancel"
-              name="close"
-              class="va-modal__close"
-            />
+  <div
+    ref="rootElement"
+    class="va-modal-entry"
+    :class="$props.anchorClass"
+  >
+    <div v-if="$slots.anchor" class="va-modal__anchor">
+      <slot name="anchor" v-bind="{ show, hide, toggle }" />
+    </div>
 
+    <teleport :to="attachElement" :disabled="$props.disableAttachment">
+      <modal-element
+        name="va-modal"
+        :isTransition="!$props.withoutTransitions"
+        appear
+        :duration="300"
+        v-bind="$attrs"
+      >
+        <div class="va-modal" v-if="valueComputed">
+          <div
+            v-if="$props.overlay"
+            class="va-modal__overlay"
+            :style="computedOverlayStyles"
+            @click="onOutsideClick"
+          />
+          <div
+            class="va-modal__container"
+            :style="computedModalContainerStyle"
+            @beforeEnter="onBeforeEnterTransition"
+            @afterEnter="onAfterEnterTransition"
+            @beforeLeave="onBeforeLeaveTransition"
+            @afterLeave="onAfterLeaveTransition"
+          >
             <div
-              class="va-modal__inner"
-              :style="{ maxWidth: $props.maxWidth, maxHeight: $props.maxHeight }"
+              class="va-modal__dialog"
+              :class="computedClass"
+              :style="computedDialogStyle"
             >
+              <va-icon
+                v-if="$props.fullscreen"
+                @click="cancel"
+                name="close"
+                class="va-modal__close"
+              />
+
               <div
-                v-if="title"
-                class="va-modal__title"
-                :style="{ color: getColor('primary') }"
+                class="va-modal__inner"
+                :style="{ maxWidth: $props.maxWidth, maxHeight: $props.maxHeight }"
               >
-                {{ $props.title }}
-              </div>
-              <div
-                v-if="$slots.header"
-                class="va-modal__header"
-              >
-                <slot name="header" />
-              </div>
-              <div
-                v-if="$props.message"
-                class="va-modal__message"
-              >
-                {{ $props.message }}
-              </div>
-              <div
-                v-if="$slots.default"
-                class="va-modal__message"
-              >
-                <slot />
-              </div>
-              <div
-                v-if="($props.cancelText || $props.okText) && !$props.hideDefaultActions"
-                class="va-modal__footer"
-              >
-                <va-button
-                  v-if="$props.cancelText"
-                  color="gray"
-                  class="mr-2"
-                  flat
-                  @click="cancel"
+                <div
+                  v-if="title"
+                  class="va-modal__title"
+                  :style="{ color: getColor('primary') }"
                 >
-                  {{ $props.cancelText }}
-                </va-button>
-                <va-button @click="ok">
-                  {{ $props.okText }}
-                </va-button>
-              </div>
-              <div
-                v-if="$slots.footer"
-                class="va-modal__footer"
-              >
-                <slot name="footer" />
+                  {{ $props.title }}
+                </div>
+                <div
+                  v-if="$slots.header"
+                  class="va-modal__header"
+                >
+                  <slot name="header" />
+                </div>
+                <div
+                  v-if="$props.message"
+                  class="va-modal__message"
+                >
+                  {{ $props.message }}
+                </div>
+                <div
+                  v-if="$slots.default"
+                  class="va-modal__message"
+                >
+                  <slot />
+                </div>
+                <div
+                  v-if="($props.cancelText || $props.okText) && !$props.hideDefaultActions"
+                  class="va-modal__footer"
+                >
+                  <va-button
+                    v-if="$props.cancelText"
+                    color="gray"
+                    class="mr-2"
+                    flat
+                    @click="cancel"
+                  >
+                    {{ $props.cancelText }}
+                  </va-button>
+                  <va-button @click="ok">
+                    {{ $props.okText }}
+                  </va-button>
+                </div>
+                <div
+                  v-if="$slots.footer"
+                  class="va-modal__footer"
+                >
+                  <slot name="footer" />
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </modal-element>
-  </teleport>
+      </modal-element>
+    </teleport>
+  </div>
 </template>
 
 <script lang="ts">
-import { watch, h, Transition, defineComponent, PropType, computed, StyleValue, ref } from 'vue'
+import { watch, h, Transition, defineComponent, PropType, computed, StyleValue, ref, toRef } from 'vue'
 
 import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
 import { useColors } from '../../composables/useColor'
+import { useTextColor } from '../../composables/useTextColor'
 import VaButton from '../va-button'
 import VaIcon from '../va-icon'
 
@@ -104,15 +121,16 @@ const ModalElement = defineComponent({
   },
   setup: (props, { slots, attrs }) => () => props.isTransition
     ? h(Transition, { ...attrs }, slots)
-    : slots.default?.(attrs), // children
+    : slots.default?.(attrs),
 })
 
 export default defineComponent({
   name: 'VaModal',
+  inheritAttrs: false,
   components: { VaButton, VaIcon, ModalElement },
   emits: [
     ...useStatefulEmits,
-    'update:modelValue', 'cancel', 'ok', 'before-open', 'open', 'before-close', 'close', 'click-outside',
+    'cancel', 'ok', 'before-open', 'open', 'before-close', 'close', 'click-outside',
   ],
   props: {
     ...useStatefulProps,
@@ -131,6 +149,7 @@ export default defineComponent({
     noEscDismiss: { type: Boolean as PropType<boolean>, default: false },
     maxWidth: { type: String as PropType<string>, default: '' },
     maxHeight: { type: String as PropType<string>, default: '' },
+    anchorClass: { type: String as PropType<string> },
     size: {
       type: String as PropType<'medium' | 'small' | 'large'>,
       default: 'medium',
@@ -140,10 +159,15 @@ export default defineComponent({
     withoutTransitions: { type: Boolean as PropType<boolean>, default: false },
     overlay: { type: Boolean as PropType<boolean>, default: true },
     overlayOpacity: { type: [Number, String] as PropType<number | string>, default: 0.6 },
+    blur: { type: Boolean as PropType<boolean>, default: false },
     zIndex: { type: [Number, String] as PropType<number | string | undefined>, default: undefined },
+    backgroundColor: { type: String, default: 'white' },
   },
-  setup (props, { emit, slots }) {
-    const rootElement = ref()
+  setup (props, { emit }) {
+    const { getColor } = useColors()
+    const { textColorComputed } = useTextColor(toRef(props, 'backgroundColor'))
+    const rootElement = ref<HTMLElement>()
+    const modal = ref<{ $el: HTMLElement }>()
     const { valueComputed } = useStateful(props, emit)
 
     const computedClass = computed(() => ({
@@ -153,6 +177,12 @@ export default defineComponent({
       [`va-modal--size-${props.size}`]: props.size !== 'medium',
     }))
     const computedModalContainerStyle = computed(() => ({ 'z-index': props.zIndex } as StyleValue))
+    const computedDialogStyle = computed(() => ({
+      maxWidth: props.maxWidth,
+      maxHeight: props.maxHeight,
+      color: textColorComputed.value,
+      background: getColor(props.backgroundColor),
+    }))
     const computedOverlayStyles = computed(() => {
       // NOTE Not sure exactly what that does.
       // Supposedly solves some case when background wasn't shown.
@@ -186,10 +216,18 @@ export default defineComponent({
     const onBeforeLeaveTransition = (el: HTMLElement) => emit('before-close', el)
     const onAfterLeaveTransition = (el: HTMLElement) => emit('close', el)
 
-    const listenKeyUp = (e: KeyboardEvent) => {
-      if (e.code === 'Escape' && !props.noEscDismiss && !props.noDismiss) {
-        cancel()
+    const listenKeyUp = (e: KeyboardEvent & { modalsCounter?: number }) => {
+      e.modalsCounter = e.modalsCounter ? e.modalsCounter + 1 : 1
+      const modalNumber = e.modalsCounter
+      const isOnTop = () => e.modalsCounter === modalNumber
+
+      const hideModal = () => {
+        if (e.code === 'Escape' && !props.noEscDismiss && !props.noDismiss && isOnTop()) {
+          cancel()
+        }
       }
+
+      setTimeout(hideModal)
     }
 
     watch(valueComputed, (value: boolean) => {
@@ -197,6 +235,14 @@ export default defineComponent({
         window.addEventListener('keyup', listenKeyUp)
       } else {
         window.removeEventListener('keyup', listenKeyUp)
+      }
+
+      if (props.blur) {
+        if (value) {
+          document.body.classList.add('va-modal-overlay-background--blurred')
+        } else {
+          document.body.classList.remove('va-modal-overlay-background--blurred')
+        }
       }
     })
 
@@ -215,10 +261,12 @@ export default defineComponent({
     }
 
     return {
-      getColor: useColors().getColor,
+      getColor,
       rootElement,
+      modal,
       valueComputed,
       computedClass,
+      computedDialogStyle,
       computedModalContainerStyle,
       computedOverlayStyles,
       ...publicMethods,
@@ -245,6 +293,13 @@ export default defineComponent({
 <style lang="scss">
 @import "../../styles/resources";
 @import "variables";
+
+.va-modal-overlay-background--blurred > :not(div[class*="va-"]) {
+  filter: blur(var(--va-modal-overlay-background-blur-radius));
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
 
 .va-modal {
   position: var(--va-modal-position);
@@ -282,7 +337,6 @@ export default defineComponent({
   }
 
   &__dialog {
-    background: var(--va-modal-dialog-background);
     min-height: var(--va-modal-dialog-min-height);
     height: var(--va-modal-dialog-height);
     border-radius: var(--va-modal-dialog-border-radius, var(--va-block-border-radius));

@@ -1,87 +1,5 @@
 <template>
   <VbDemo>
-<!--    <VbCard title="Global">-->
-<!--      <ConfigUsageTest>No props</ConfigUsageTest>-->
-<!--      <ConfigUsageTest color="green">-->
-<!--        Prop set-->
-<!--      </ConfigUsageTest>-->
-<!--    </VbCard>-->
-
-<!--    <VbCard title="Local context component">-->
-<!--      <ConfigUsageTest>no context</ConfigUsageTest>-->
-
-<!--      <span style="font-size: 12px;">context 1</span>-->
-<!--      <va-config :components="{ ConfigUsageTest: { color: 'warning' } }">-->
-<!--        <div style="border: 1px solid gray; padding: 4px;">-->
-<!--          <ConfigUsageTest>No props</ConfigUsageTest>-->
-<!--          <span style="font-size: 12px;">context 2</span>-->
-<!--          <va-config :components="{ ConfigUsageTest: { color: 'danger' } }">-->
-<!--            <div style="border: 1px solid gray; padding: 4px;">-->
-<!--              <ConfigUsageTest>No props</ConfigUsageTest>-->
-<!--              <ConfigUsageTest color="green">-->
-<!--                Prop set-->
-<!--              </ConfigUsageTest>-->
-<!--            </div>-->
-<!--          </va-config>-->
-<!--        </div>-->
-<!--      </va-config>-->
-<!--    </VbCard>-->
-
-<!--    <VbCard title="Empty values">-->
-<!--      <va-config :components="{ ConfigUsageTest: { label: 'my label' } }">-->
-<!--        <div>-->
-<!--          Default:-->
-<!--          <ConfigUsageTest />-->
-<!--          Empty label (should be empty):-->
-<!--          <br>-->
-<!--          <br>-->
-<!--          <ConfigUsageTest label="" />-->
-<!--          undefined (should be same as default):-->
-<!--          <ConfigUsageTest :label="undefined" />-->
-<!--        </div>-->
-<!--      </va-config>-->
-<!--    </VbCard>-->
-
-<!--    <VbCard title="Reactive update from local context">-->
-<!--      <div>-->
-<!--        Should change color on change and refresh.-->
-<!--      </div>-->
-<!--      <span style="font-size: 12px;">dynamic context</span>-->
-<!--      <va-config :components="dynamicContextConfig">-->
-<!--        <div style="border: 1px solid gray; padding: 4px;">-->
-<!--          <ConfigUsageTest>No props</ConfigUsageTest>-->
-<!--          <ConfigUsageTest color="green">-->
-<!--            Prop set-->
-<!--          </ConfigUsageTest>-->
-<!--        </div>-->
-<!--      </va-config>-->
-<!--      <label>-->
-<!--        <input-->
-<!--          type="checkbox"-->
-<!--          v-model="redOrange"-->
-<!--        >-->
-<!--        red / orange-->
-<!--      </label>-->
-<!--    </VbCard>-->
-
-<!--    <VbCard title="Override button props">-->
-<!--      <va-button>Global config</va-button>-->
-<!--      <br>-->
-<!--      <span style="font-size: 12px;">context 1</span>-->
-<!--      <va-config :components="{ VaButton: { color: 'warning' } }">-->
-<!--        <div style="border: 1px solid gray; padding: 4px;">-->
-<!--          <va-button>Local config 1 (only color)</va-button>-->
-<!--          <br>-->
-<!--          <span style="font-size: 12px;">context 2</span>-->
-<!--          <va-config :components="{ VaButton: buttonConfig }">-->
-<!--            <div style="border: 1px solid gray; padding: 4px;">-->
-<!--              <va-button>Local config 2 (override)</va-button>-->
-<!--            </div>-->
-<!--          </va-config>-->
-<!--        </div>-->
-<!--      </va-config>-->
-<!--    </VbCard>-->
-
     <VbCard title="Partial rewriting global config">
       <div>
         Should change global config button color on change and refresh.
@@ -110,7 +28,8 @@
       <div class="center">
         <va-rating icon="heart" empty-icon="heart_empty" stateful></va-rating>
         <va-button @click="setComponentsAllColor()">Should set dark red color on click</va-button>
-        <va-button color="#e815e1">Should stay purple</va-button>
+        <va-chip>Must change color</va-chip>
+        <va-chip color="#e815e1">Must stay purple</va-chip>
         <va-button @click="resetComponentsAllColor()">Reset componentsAll</va-button>
       </div>
     </VbCard>
@@ -148,40 +67,24 @@
         </va-button>
       </va-config>
     </VbCard>
-
-<!--    <VbCard title="Rewriting global config">-->
-<!--      <va-badge />-->
-<!--      <ConfigUsageTest>va test component</ConfigUsageTest>-->
-<!--      <va-button>Vuestic-ui button</va-button>-->
-<!--      <button @click="overrideConfig()">-->
-<!--        Override config-->
-<!--      </button>-->
-<!--    </VbCard>-->
   </VbDemo>
 </template>
 
 <script>
 import { computed } from 'vue'
-import { getGlobalConfig, useGlobalConfig } from '../../services/global-config/global-config'
-import ColorMixin from '../../services/color-config/ColorMixin'
+import { useGlobalConfig } from '../../services/global-config/global-config'
 import { useColors } from '../../services/color-config/color-config'
 import VaButton from '../va-button'
 import VaRating from '../va-rating/'
-// import VaBadge from '../va-badge'
-
-// import ConfigUsageTest from './ConfigUsageTest.vue'
-// import withConfigTransport from '../../services/config-transport/withConfigTransport'
+import VaChip from '../va-chip'
 import VaConfig from './'
 
 export default {
-  mixins: [ColorMixin],
   components: {
     VaRating,
     VaButton,
     VaConfig,
-    // VaBadge,
-    // VaConfig,
-    // ConfigUsageTest: withConfigTransport(ConfigUsageTest),
+    VaChip,
   },
   data () {
     return {
@@ -275,7 +178,7 @@ export default {
     },
     setComponentsAllColor () {
       this.setGlobalConfig({
-        ...getGlobalConfig(),
+        ...this.getGlobalConfig(),
         componentsAll: {
           color: '#bd1313',
         },
@@ -283,7 +186,7 @@ export default {
     },
     resetComponentsAllColor () {
       this.setGlobalConfig({
-        ...getGlobalConfig(),
+        ...this.getGlobalConfig(),
         componentsAll: {},
       })
     },

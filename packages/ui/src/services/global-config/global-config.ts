@@ -1,35 +1,64 @@
-import merge from 'lodash/merge'
-import cloneDeep from 'lodash/cloneDeep'
-import { ref } from 'vue'
+import merge from 'lodash/merge.js'
+import cloneDeep from 'lodash/cloneDeep.js'
+import { ref, inject, Ref } from 'vue'
 import { GlobalConfig, GlobalConfigUpdater } from './types'
 import { getComponentsAllDefaultConfig, getComponentsDefaultConfig } from './config-default'
 import { createIconsConfig } from '../icon-config/icon-config-helpers'
 import { colorsPresets } from '../color-config/color-theme-presets'
 
-const globalConfigRef = ref<GlobalConfig>({
-  colors: colorsPresets.default,
-  icons: createIconsConfig({}),
-  components: getComponentsDefaultConfig(),
-  componentsAll: getComponentsAllDefaultConfig(),
-})
-
-export function setGlobalConfig (updater: GlobalConfig | GlobalConfigUpdater) {
-  const config = typeof updater === 'function' ? updater(globalConfigRef.value) : updater
-  globalConfigRef.value = cloneDeep(config)
+export type ProvidedGlobalConfig = {
+  globalConfig: Ref<GlobalConfig>,
+  getGlobalConfig: () => GlobalConfig,
+  /**
+   * Set new global config
+   * @see mergeGlobalConfig if you want to update existing config
+   */
+  setGlobalConfig: (updater: GlobalConfig | GlobalConfigUpdater) => void,
+  mergeGlobalConfig: (updater: GlobalConfig | GlobalConfigUpdater) => void
 }
 
-/** Merge current config with new value */
-export function mergeGlobalConfig (updater: GlobalConfig | GlobalConfigUpdater) {
-  const config = typeof updater === 'function' ? updater(globalConfigRef.value) : updater
-  globalConfigRef.value = merge(cloneDeep(globalConfigRef.value), config)
+export const GLOBAL_CONFIG = Symbol('GLOBAL_CONFIG')
+
+export const createGlobalConfig = () => {
+  const globalConfig = ref<GlobalConfig>({
+    colors: colorsPresets.default,
+    icons: createIconsConfig({}),
+    components: getComponentsDefaultConfig(),
+    componentsAll: getComponentsAllDefaultConfig(),
+  })
+
+  const getGlobalConfig = (): GlobalConfig => globalConfig.value
+  const setGlobalConfig = (updater: GlobalConfig | GlobalConfigUpdater) => {
+    const config = typeof updater === 'function' ? updater(globalConfig.value) : updater
+    globalConfig.value = cloneDeep(config)
+  }
+
+  const mergeGlobalConfig = (updater: GlobalConfig | GlobalConfigUpdater) => {
+    const config = typeof updater === 'function' ? updater(globalConfig.value) : updater
+    globalConfig.value = merge(cloneDeep(globalConfig.value), config)
+  }
+
+  return {
+    getGlobalConfig,
+    setGlobalConfig,
+    mergeGlobalConfig,
+    globalConfig,
+  }
 }
 
-export function getGlobalConfig (): GlobalConfig {
-  return globalConfigRef.value
+/** Use this function if you don't want to throw error if hook used ouside setup function by useGlobalConfig */
+export function useGlobalConfigSafe () {
+  return inject<ProvidedGlobalConfig>(GLOBAL_CONFIG)
 }
 
 export function useGlobalConfig () {
-  return { setGlobalConfig, getGlobalConfig, mergeGlobalConfig, globalConfig: globalConfigRef }
+  const injected = inject<ProvidedGlobalConfig>(GLOBAL_CONFIG)
+
+  if (!injected) {
+    throw new Error('useGlobalConfig must be used in setup function or Vuestic GlobalConfigPluign is not registered')
+  }
+
+  return injected
 }
 
 export * from './types'

@@ -7,7 +7,7 @@
   >
     <va-date-picker-cell
       v-for="(year, index) in years"
-      :key="year"
+      :key="year.toString()"
       :in-range="isInRange(year)"
       :selected="isSelected(year)"
       :disabled="isYearDisabled(year)"
@@ -25,10 +25,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, toRefs, onMounted, ref, computed, watch } from 'vue'
-import { VaDatePickerMode, VaDatePickerModelValue, VaDatePickerView } from '../../types/types'
+import { defineComponent, PropType, toRefs, onMounted, ref, computed, watch, shallowRef } from 'vue'
+import { VaDatePickerMode, VaDatePickerModelValue, VaDatePickerView } from '../../types'
 import VaDatePickerCell from '../VaDatePickerCell.vue'
-import { createYearDate, isDatesYearEqual } from '../../utils/date-utils'
+import { createYearDate } from '../../utils/date-utils'
 import { useGridKeyboardNavigation } from '../../hooks/grid-keyboard-navigation'
 import { useDatePicker } from '../../hooks/use-picker'
 
@@ -51,7 +51,7 @@ export default defineComponent({
 
   setup (props, { emit }) {
     const { view } = toRefs(props)
-    const rootNode = ref<HTMLElement | null>(null)
+    const rootNode = shallowRef<HTMLElement | null>(null)
 
     const generateYearsArray = (start: number, end: number) => {
       const yearsCount = end - start + 1
@@ -143,10 +143,5 @@ export default defineComponent({
   grid-gap: var(--va-date-picker-cell-gap);
   max-height: 100%;
   position: relative;
-
-  .va-year-picker-cell {
-    width: 100%;
-    height: 30px;
-  }
 }
 </style>

@@ -58,6 +58,12 @@ const config: ApiDocsBlock[] = [
     'advancedFormatting',
   ),
 
+  ...block.exampleBlock(
+    'dateInput.examples.view.title',
+    'dateInput.examples.view.text',
+    'View',
+  ),
+
   block.paragraph('dateInput.examples.formattingGlobalConfig.text'),
   block.code(GlobalConfigCode),
 
@@ -65,6 +71,12 @@ const config: ApiDocsBlock[] = [
     'dateInput.examples.validation.title',
     'dateInput.examples.validation.text',
     'validation',
+  ),
+
+  ...block.exampleBlock(
+    'dateInput.examples.mode.title',
+    'dateInput.examples.mode.text',
+    'mode',
   ),
 
   block.subtitle('all.api'),

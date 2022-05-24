@@ -9,8 +9,8 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, ref, watch, nextTick } from 'vue'
-import pick from 'lodash/pick'
+import { computed, defineComponent, onMounted, ref, watch, nextTick, StyleValue, CSSProperties } from 'vue'
+import pick from 'lodash/pick.js'
 import { useFormProps } from '../../../../composables/useForm'
 import { useTextareaRowHeight } from './useTextareaRowHeight'
 import { useEmitProxy } from '../../../../composables/useEmitProxy'
@@ -55,7 +55,7 @@ export default defineComponent({
     const { calculateRowHeight, calculateHeight } = useTextareaRowHeight(textarea)
 
     const isResizable = computed(() => {
-      return (props.autosize || props.maxRows || props.minRows !== 1) && textarea.value
+      return Boolean((props.autosize || props.maxRows || props.minRows !== 1) && textarea.value)
     })
 
     const updateRowHeight = () => {
@@ -81,10 +81,10 @@ export default defineComponent({
 
     const computedStyle = computed(() => ({
       minHeight: rowHeight.value * props.minRows + 'px',
-      maxHeight: props.maxRows && (rowHeight.value * props.maxRows + 'px'),
+      maxHeight: props.maxRows ? (rowHeight.value * props.maxRows + 'px') : undefined,
       height: height.value + 'px',
-      resize: isResizable.value && 'none',
-    }))
+      resize: isResizable.value ? undefined : 'none',
+    }) as CSSProperties)
 
     const computedProps = computed(() => ({
       ...pick(props, ['disabled', 'readonly', 'placeholder']),

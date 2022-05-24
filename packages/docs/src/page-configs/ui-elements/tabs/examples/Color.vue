@@ -1,6 +1,6 @@
 <template>
   <div>
-    <va-tabs v-model="value" color="danger" style="width: 30%;">
+    <va-tabs v-model="value" color="danger" style="width: 280px;">
       <template #tabs>
         <va-tab
           v-for="tab in ['One', 'Two', 'Three']"
@@ -22,7 +22,7 @@
         />
       </template>
     </va-tabs>
-    <va-tabs v-model="value" color="secondary" style="width: 30%;">
+    <va-tabs v-model="value" color="secondary" style="width: 280px;">
       <template #tabs>
         <va-tab color="success">First tab</va-tab>
         <va-tab color="warning">Second tab</va-tab>

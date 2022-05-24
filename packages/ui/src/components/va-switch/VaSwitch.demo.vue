@@ -48,6 +48,14 @@
           Inner
         </template>
       </va-switch>
+       <va-switch
+        v-model="value"
+        color="banana"
+      >
+        <template #innerLabel>
+          Inner
+        </template>
+      </va-switch>
     </VbCard>
     <VbCard title="Sizes">
       <va-switch
@@ -141,6 +149,12 @@
       <va-switch
         v-model="value"
         disabled
+      />
+    </VbCard>
+    <VbCard title="Readonly">
+      <va-switch
+        v-model="value"
+        readonly
       />
     </VbCard>
     <VbCard title="Loading">

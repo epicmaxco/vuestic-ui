@@ -127,7 +127,8 @@ export default {
   }
 
   a {
-    @extend .link;
+    &.link { @extend .link; }
+    &.link-secondary { @extend .link-secondary; }
   }
 }
 </style>

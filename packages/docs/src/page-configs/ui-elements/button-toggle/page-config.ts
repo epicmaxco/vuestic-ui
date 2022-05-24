@@ -45,6 +45,11 @@ const config: ApiDocsBlock[] = [
     'buttonToggle.examples.disabled.text',
     'Disabled',
   ),
+  ...block.exampleBlock(
+    'buttonToggle.examples.icons.title',
+    'buttonToggle.examples.icons.text',
+    'Icons',
+  ),
 
   block.subtitle('all.api'),
   block.api(VaButtonToggle, apiOptions),

@@ -52,8 +52,8 @@
 
 <script lang="ts">
 import { defineComponent, computed, ref, Ref, PropType, ComputedRef } from 'vue'
-
-import { getGradientBackground, shiftHSLAColor } from '../../services/color-config/color-functions'
+import { useTextColor } from '../../composables/useTextColor'
+import { getGradientBackground, getTextColor, shiftHSLAColor } from '../../services/color-config/color-functions'
 import { useColor } from '../../composables/useColor'
 import { useRouterLink, useRouterLinkProps } from '../../composables/useRouterLink'
 import { useSizeProps, useSize } from '../../composables/useSize'
@@ -68,7 +68,7 @@ export default defineComponent({
     ...useSizeProps,
     ...useLoadingProps,
     ...useRouterLinkProps,
-    color: { type: String as PropType<string | undefined>, default: undefined },
+    color: { type: String as PropType<string>, default: 'primary' },
     textColor: { type: String as PropType<string | undefined>, default: undefined },
     tag: { type: String as PropType<string>, default: 'button' },
     outline: { type: Boolean as PropType<boolean | undefined>, default: undefined },
@@ -97,7 +97,10 @@ export default defineComponent({
     const focusState = ref(false)
 
     const colorComputed = computed(() => computeColor(props.color, 'primary'))
-    const isTransparentBackground = computed(() => props.outline || props.flat)
+    const isTransparentBackground = computed(() => Boolean(props.outline || props.flat))
+
+    const { textColorComputed } = useTextColor(colorComputed, isTransparentBackground)
+    const isSlotContentPassed = computed(() => !!slots.default?.()?.[0]?.children)
 
     const computedType = computed(() => {
       // Safari issue. type===button will break styles if the button is used as a link
@@ -109,18 +112,6 @@ export default defineComponent({
         default:
           return props.type
       }
-    })
-
-    const textColorComputed = computed(() => {
-      if (props.textColor !== undefined) {
-        return computeColor(props.textColor, 'white')
-      }
-
-      if (isTransparentBackground.value) {
-        return computeColor(colorComputed.value, 'white')
-      }
-
-      return computeColor(props.textColor, 'white')
     })
 
     const hasOneIcon = computed(() => {
@@ -141,6 +132,7 @@ export default defineComponent({
       'va-button--block': props.block,
       'va-button--square': !props.rounded,
       'va-button--round': props.round || (!slots.default && hasOneIcon.value),
+      'va-button--no-label': !isSlotContentPassed.value,
       'va-button--space-between-items': props.spaceBetweenItems,
     }))
 
@@ -407,7 +399,10 @@ export default defineComponent({
     .va-button__content {
       padding: 0;
     }
+  }
 
+  &--round,
+  &--no-label {
     .va-button__left-icon {
       margin-left: 0;
       margin-right: 0;

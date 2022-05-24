@@ -1,5 +1,7 @@
-export type TAlignOptions = 'left' | 'center' | 'right'
-export type TVerticalAlignOptions = 'top' | 'middle' | 'bottom'
+import { StringWithAutocomplete } from '../../../types/string-with-autocomplete'
+
+export type TAlignOptions = StringWithAutocomplete<'left' | 'center' | 'right'>
+export type TVerticalAlignOptions = StringWithAutocomplete<'top' | 'middle' | 'bottom'>
 
 export type TClassesOptions = string | string[] | (() => string | string[])
 export type TStyleOptions = Record<string, any> | (() => Record<string, any>)
@@ -66,6 +68,6 @@ export interface TableRow {
 
 export type TFilterMethod = (source: any) => boolean
 
-export type TSortingOrder = 'asc' | 'desc' | null
+export type TSortingOrder = StringWithAutocomplete<'asc' | 'desc'> | null
 
-export type TSelectMode = 'single' | 'multiple'
+export type TSelectMode = StringWithAutocomplete<'single' | 'multiple'>

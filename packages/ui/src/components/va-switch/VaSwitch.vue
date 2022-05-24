@@ -40,7 +40,9 @@
         >
           <div
             v-if="computedInnerLabel || $slots.innerLabel"
-            class="va-switch__track-label">
+            class="va-switch__track-label"
+            :style="trackLabelStyle"
+            >
             <slot name="innerLabel">
               {{ computedInnerLabel }}
             </slot>
@@ -81,6 +83,7 @@ import { VaMessageListWrapper } from '../va-input'
 import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'
 import { useSelectable, useSelectableProps, useSelectableEmits } from '../../composables/useSelectable'
 import { useColors } from '../../composables/useColor'
+import { useTextColor } from '../../composables/useTextColor'
 
 export default defineComponent({
   name: 'VaSwitch',
@@ -94,7 +97,7 @@ export default defineComponent({
     id: { type: String, default: '' },
     name: { type: String, default: '' },
     modelValue: {
-      type: [Boolean, Array, String, Object] as PropType<boolean | unknown[] | string | Record<string, unknown>>,
+      type: [Boolean, Array, String, Object] as PropType<boolean | unknown[] | string | number | Record<string, unknown> | null>,
       default: false,
     },
 
@@ -103,6 +106,7 @@ export default defineComponent({
     trueInnerLabel: { type: String, default: null },
     falseInnerLabel: { type: String, default: null },
     color: { type: String, default: 'primary' },
+    offColor: { type: String, default: 'gray' },
     size: {
       type: String as PropType<'medium' | 'small' | 'large'>,
       default: 'medium',
@@ -120,6 +124,9 @@ export default defineComponent({
     const { getColor } = useColors()
     const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
     const { isChecked, computedError, isIndeterminate, ...selectable } = useSelectable(props, emit, elements)
+
+    const computedBackground = computed(() => getColor(isChecked.value ? props.color : props.offColor))
+    const { textColorComputed } = useTextColor(computedBackground)
 
     const computedInnerLabel = computed(() => {
       if (props.trueInnerLabel && isChecked.value) {
@@ -147,6 +154,7 @@ export default defineComponent({
       'va-switch--small': props.size === 'small',
       'va-switch--large': props.size === 'large',
       'va-switch--disabled': props.disabled,
+      'va-switch--readonly': props.readonly,
       'va-switch--left-label': props.leftLabel,
       'va-switch--error': computedError.value,
       'va-switch--on-keyboard-focus': hasKeyboardFocus.value,
@@ -160,11 +168,15 @@ export default defineComponent({
 
     const trackStyle = computed(() => ({
       borderColor: props.error ? getColor('danger') : '',
-      backgroundColor: isChecked.value ? getColor(props.color) : getColor('gray'),
+      backgroundColor: computedBackground.value,
     }))
 
     const labelStyle = computed(() => ({
       color: props.error ? getColor('danger') : '',
+    }))
+
+    const trackLabelStyle = computed(() => ({
+      color: textColorComputed.value,
     }))
 
     return {
@@ -179,6 +191,7 @@ export default defineComponent({
       progressCircleSize,
       trackStyle,
       labelStyle,
+      trackLabelStyle,
     }
   },
 })
@@ -249,6 +262,15 @@ export default defineComponent({
 
   &--disabled {
     @include va-disabled;
+  }
+
+  &--readonly {
+    @include va-readonly;
+
+    .va-switch__label {
+      cursor: initial;
+      pointer-events: auto;
+    }
   }
 
   &--left-label {

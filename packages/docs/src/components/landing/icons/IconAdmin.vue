@@ -8,15 +8,10 @@
   </svg>
 </template>
 
-<script>
-import { getColors } from '../../../../../ui/src/services/color-config/color-config'
+<script setup>
+import { computed } from 'vue'
+import { useColors } from 'vuestic-ui/src/services/color-config/color-config'
 
-export default {
-  name: 'IconAdmin',
-  computed: {
-    colors () {
-      return getColors()
-    },
-  },
-}
+const { getColors } = useColors()
+const colors = computed(getColors)
 </script>

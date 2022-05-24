@@ -34,6 +34,7 @@ export default defineComponent({
   height: var(--va-file-upload-undo-height);
   display: flex;
   align-items: center;
+  justify-content: space-between;
 
   &__button {
     line-height: var(--va-file-upload-undo-button-line-height);

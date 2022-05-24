@@ -1,6 +1,6 @@
 //  @ts-nocheck
 
-import isObject from 'lodash/isObject'
+import isObject from 'lodash/isObject.js'
 
 export const sleep = (ms = 0) => {
   return new Promise(resolve => setTimeout(resolve, ms))
@@ -77,9 +77,14 @@ export const getValueByPath = <T extends Record<string, unknown>>(option: T, pro
  * @param option - Object to look properties inside
  * @param prop - string or function used to find nested property
  */
-export const getProp = <T extends (Record<string, unknown> | string)> (option: T, prop: string | ((t: T) => any) | Function): any => {
-  if (typeof option === 'string') { return }
-  if (!prop || !option) { return option }
+export const getValueByKey = <T extends (string | number | Record<string, unknown>)> (
+  option: T,
+  prop: string | ((option: T) => any),
+): any => {
+  // Can't access not object option
+  if (typeof option !== 'object' || !option) { return undefined }
+
+  if (!prop) { return option }
   if (typeof prop === 'string') { return getValueByPath(option, prop) }
   if (typeof prop === 'function') { return prop(option) }
   return option

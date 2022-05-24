@@ -73,7 +73,7 @@ import { watch } from 'vue'
 import { Options, Vue } from 'vue-class-component'
 import { ThemeName, ThemeNameIterator } from '../../config/theme-config'
 import { capitalize } from 'lodash'
-import { getColors } from 'vuestic-ui/src/services/color-config/color-config'
+import { useColors } from 'vuestic-ui/src/services/color-config/color-config'
 
 @Options({
   name: 'LandingColorTab',
@@ -107,7 +107,7 @@ export default class ColorTab extends Vue {
   }
 
   get themes () {
-    return getColors() || {}
+    return useColors().getColors() || {}
   }
 }
 </script>

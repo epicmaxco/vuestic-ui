@@ -10,8 +10,7 @@
   "dependencies": {
     "@ag-grid-community/core": "^26.1.0",
     "@ag-grid-community/vue3": "^26.1.0",
-    "@ag-grid-community/client-side-row-model": "^26.1.0",
-    "vue-class-component": "^8.0.0-rc.1"
+    "@ag-grid-community/client-side-row-model": "^26.1.0"
   },
   "peerDependencies": {
     "vuestic-ui": "^1.3.0"

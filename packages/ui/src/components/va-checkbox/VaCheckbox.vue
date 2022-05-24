@@ -41,6 +41,8 @@
           class="va-checkbox__icon"
           :name="computedIconName"
           size="20px"
+          :color="textColorComputed"
+          v-show="isActive"
         />
       </div>
       <div
@@ -65,6 +67,9 @@ import VaIcon from '../va-icon/'
 import { useColors } from '../../composables/useColor'
 import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'
 import { useSelectable, useSelectableProps, useSelectableEmits } from '../../composables/useSelectable'
+import { useTextColor } from '../../composables/useTextColor'
+
+const vaCheckboxValueType = [Boolean, Array, String, Object] as PropType<boolean | null | string | number | Record<any, unknown> | unknown[]>
 
 export default defineComponent({
   name: 'VaCheckbox',
@@ -72,9 +77,11 @@ export default defineComponent({
   emits: useSelectableEmits,
   props: {
     ...useSelectableProps,
-    modelValue: { type: null as any as PropType<unknown>, default: false },
+    modelValue: { type: vaCheckboxValueType, default: false },
     color: { type: String as PropType<string>, default: 'primary' },
     checkedIcon: { type: String as PropType<string>, default: 'check' },
+    indeterminate: { type: Boolean, default: false },
+    indeterminateValue: { type: vaCheckboxValueType, default: null },
     indeterminateIcon: { type: String as PropType<string>, default: 'remove' },
     id: { type: String as PropType<string>, default: '' },
     name: { type: String as PropType<string>, default: '' },
@@ -95,8 +102,12 @@ export default defineComponent({
       onBlur,
       onFocus,
     } = useSelectable(props, emit, elements)
-    const { getColor } = useColors()
+    const { getColor, getTextColor } = useColors()
     const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
+
+    const { textColorComputed } = useTextColor()
+
+    const isActive = computed(() => isChecked.value || isIndeterminate.value)
 
     const computedClass = computed(() => ({
       'va-checkbox--selected': isChecked.value,
@@ -120,10 +131,9 @@ export default defineComponent({
     })
 
     const inputStyle = computed(() => {
-      const isActive = isChecked.value || isIndeterminate.value
       const style = {
-        background: isActive ? getColor(props.color) : '',
-        borderColor: isActive ? getColor(props.color) : '',
+        background: isActive.value ? getColor(props.color) : '',
+        borderColor: isActive.value ? getColor(props.color) : '',
       }
 
       if (computedError.value) {
@@ -139,10 +149,12 @@ export default defineComponent({
     )
 
     return {
+      isActive,
       computedClass,
       labelStyle,
       inputStyle,
       computedIconName,
+      textColorComputed,
       computedError,
       computedErrorMessages,
       keyboardFocusListeners,
@@ -219,7 +231,6 @@ export default defineComponent({
   &__icon {
     pointer-events: var(--va-checkbox-icon-pointer-events);
     position: var(--va-checkbox-icon-position);
-    color: var(--va-checkbox-icon-color);
   }
 
   &--selected {

@@ -4,7 +4,7 @@
       color="primary"
       flat
       :label="currentLanguageName"
-      :offset="[0, 25]"
+      :offset="[0, 10]"
     >
       <div class="language-dropdown__content">
         <va-list-item
@@ -30,7 +30,7 @@
 
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
-import { getColors } from 'vuestic-ui/src/main'
+import { useColors } from 'vuestic-ui/src/main'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 import { languages } from '../../../locales'
@@ -61,6 +61,7 @@ export default defineComponent({
     }
 
     const options = languages
+    const { getColors } = useColors()
     const colors = computed(getColors)
     const currentLanguageName = computed(() => options.find(({ code }) => code === locale.value)?.name)
 
@@ -78,17 +79,17 @@ export default defineComponent({
 
 <style lang="scss">
 .language-dropdown {
-  font-weight: 700;
   cursor: pointer;
 
   .va-button__content {
-    font-weight: bold;
+    font-weight: 600;
   }
 
   &__item {
     padding-bottom: 0.625rem;
     cursor: pointer;
     flex-wrap: nowrap;
+    font-weight: 600;
 
     &:hover,
     &.active {

@@ -1,7 +1,7 @@
-import { getColors } from '../../../../../ui/src/services/color-config/color-config'
+import { useColors } from '../../../../../ui/src/services/color-config/color-config'
 import { addOrUpdateStyleElement } from '../../../../../ui/src/services/dom-functions'
 import { getHoverColor } from '../../../../../ui/src/services/color-config/color-functions'
-import { App, ref, watch } from 'vue'
+import { App, computed, watch } from 'vue'
 
 const createThemeColorStyles = (themes: Record<string, string>): string => {
   let result = ''
@@ -16,7 +16,8 @@ const AlgoliaColorPlugin = {
   install (app: App) {
     app.mixin({
       setup () {
-        const colors = ref(getColors().colors)
+        const { getColors } = useColors()
+        const colors = computed(() => getColors().colors)
         return { colors }
       },
       created () {

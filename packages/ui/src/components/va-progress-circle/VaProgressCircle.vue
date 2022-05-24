@@ -33,7 +33,7 @@
 
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
-import clamp from 'lodash/clamp'
+import clamp from 'lodash/clamp.js'
 import { useColors } from '../../services/color-config/color-config'
 import { useSize, useSizeProps } from '../../composables/useSize'
 
@@ -57,7 +57,7 @@ export default defineComponent({
     const radius = computed(() => 20 - (20 * cappedThickness.value / 100))
     const dasharray = computed(() => 2 * Math.PI * radius.value)
     const dashoffset = computed(() => dasharray.value * (1 - clamp(props.modelValue, 0, 100) / 100))
-    const colorComputed = computed(() => getColor(props.color))
+    const colorComputed = computed(() => getColor(props.color, undefined, true))
 
     return {
       infoStyle: computed(() => ({ color: colorComputed.value })),

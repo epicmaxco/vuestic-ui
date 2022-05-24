@@ -49,6 +49,15 @@
         disabled
       />
     </VbCard>
+    <VbCard title="Readonly">
+      <va-radio
+        v-for="(option, index) in options"
+        :key="index"
+        v-model="selectedOptionString"
+        :option="option"
+        readonly
+      />
+    </VbCard>
     <VbCard title="Left label">
       <va-radio
         v-for="(option, index) in options"

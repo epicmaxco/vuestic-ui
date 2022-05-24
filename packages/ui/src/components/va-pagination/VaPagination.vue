@@ -23,12 +23,13 @@
     <slot v-if="!$props.input">
       <va-button
         v-for="(n, i) in paginationRange"
+        outline
+        class="va-pagination__numeric-button"
         :key="i"
         :style="activeButtonStyle(n)"
         :disabled="$props.disabled || n === '...'"
         :class="{ 'va-button--ellipsis': n === '...'}"
         @click="onUserInput(n)"
-        outline
       >
         {{ n }}
       </va-button>
@@ -70,8 +71,10 @@
 <script lang="ts">
 import { defineComponent, watch, PropType, ref, Ref, computed, nextTick } from 'vue'
 
+import { __DEV__ } from '../../utils/global-utils'
 import { useColors } from '../../composables/useColor'
 import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
+import { useTextColor } from '../../composables/useTextColor'
 
 import VaButtonGroup from '../va-button-group'
 import VaButton from '../va-button'
@@ -115,6 +118,8 @@ export default defineComponent({
     const usedTotal = computed(() => !!((props.total || props.pageSize === 0) && props.pageSize))
 
     const { valueComputed } = useStateful<number>(props, emit)
+
+    const { textColorComputed } = useTextColor()
 
     const currentValue = computed({
       get: () => usedTotal.value ? Math.ceil(valueComputed.value / props.pageSize) || 1 : valueComputed.value,
@@ -190,7 +195,7 @@ export default defineComponent({
       if (buttonValue === currentValue.value) {
         return {
           backgroundColor: getColor(props.color),
-          color: '#ffffff',
+          color: textColorComputed.value,
         }
       }
 
@@ -200,7 +205,7 @@ export default defineComponent({
     }
 
     watch([usedTotal, () => props.pages], () => {
-      if (usedTotal.value && props.pages && process.env.NODE_ENV !== 'production') {
+      if (__DEV__ && usedTotal.value && props.pages) {
         throw new Error('Please, use either `total` and `page-size` props, or `pages`.')
       }
     })
@@ -238,6 +243,35 @@ export default defineComponent({
 
     &--flat {
       border-top-width: var(--va-pagination-input-flat-border-top-width);
+    }
+  }
+
+  &__numeric-button {
+    &.va-button {
+      .va-button__content {
+        // Remove paddings from button content
+        padding: 0;
+        justify-content: center;
+      }
+
+      // Add paddings to button content in min-width
+      &--normal {
+        .va-button__content {
+          min-width: calc(var(--va-button-content-px) * 2 + var(--va-pagination-button-content-width));
+        }
+      }
+
+      &--small {
+        .va-button__content {
+          min-width: calc(var(--va-button-sm-content-px) * 2 + var(--va-pagination-button-content-width));
+        }
+      }
+
+      &--large {
+        .va-button__content {
+          min-width: calc(var(--va-button-lg-content-px) * 2 + var(--va-pagination-button-content-width));
+        }
+      }
     }
   }
 
