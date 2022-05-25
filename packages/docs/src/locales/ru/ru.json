@@ -3053,7 +3053,7 @@
         "title": "В таком случае вам также придется самостоятельно зарегистрировать плагины `Vuestic`. Рекомендуем использовать все из них:",
         "GlobalConfigPlugin": "`GlobalConfigPlugin` (обязательный) - используется для переназначения компонента `VaConfig` и глобальных свойств. [Подробнее](/services/global-config).",
         "ColorHelpersPlugin": "`ColorHelpersPlugin` (обязательный) - используется для создания реактивных переменных `CSS`. Требуется `GlobalConfigPlugin`. [Подробнее](/services/colors-config).",
-        "ToastInstall": "`VaToastPlugin` - добавляет методы для создания Toast-ов в vue контекс. [Подробнее](/ui-elements/toast",
+        "ToastInstall": "`VaToastPlugin` - добавляет методы для создания Toast-ов в vue контекс. [Подробнее](/ui-elements/toast).",
         "DropdownPopperSubplugin": "`VaDropdownPlugin` - добавляет методы для закрытия выпадашек. Выпадашки используются в VaSelect, VaTimeInput, VaDateInput. ",
         "example": {
           "title": "Все эти плагины также доступны через `VuesticPluginsWithoutComponents`:"
@@ -3818,7 +3818,7 @@
       "title": "В таком случае вам также придется самостоятельно зарегистрировать плагины `Vuestic`. Рекомендуем использовать все из них:",
       "GlobalConfigPlugin": "`GlobalConfigPlugin` (обязательный) - используется для переназначения компонента `VaConfig` и глобальных свойств. [Подробнее](/services/global-config).",
       "ColorHelpersPlugin": "`ColorHelpersPlugin` (обязательный) - используется для создания реактивных переменных `CSS`. Требуется `GlobalConfigPlugin`. [Подробнее](/services/colors-config).",
-      "VaToastPlugin": "`VaToastPlugin` - добавляет методы для создания Toast-ов в vue контекс. [Подробнее](/ui-elements/toast",
+      "VaToastPlugin": "`VaToastPlugin` - добавляет методы для создания Toast-ов в vue контекс. [Подробнее](/ui-elements/toast).",
       "VaDropdownPlugin": "`VaDropdownPlugin` - добавляет методы для закрытия выпадашек. Выпадашки используются в VaSelect, VaTimeInput, VaDateInput. ",
       "example": {
         "title": "Все эти плагины также доступны через `VuesticPluginsWithoutComponents`:"
