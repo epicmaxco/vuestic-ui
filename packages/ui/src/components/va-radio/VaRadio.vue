@@ -62,14 +62,13 @@ export default defineComponent({
   setup (props, { emit }) {
     const { getColor } = useColors()
 
-    const { createComputedClass } = useForm(props)
-    const formComputedClasses = createComputedClass('va-radio')
-
     const isActive = computed(() => props.modelValue === props.option)
+
+    const { computedClasses } = useForm(props, 'va-radio')
 
     const computedClass = computed(() => ({
       'va-radio--left-label': props.leftLabel,
-      ...formComputedClasses.value,
+      ...computedClasses.value,
     }))
 
     const iconBackgroundComputedStyles = computed(() => ({
