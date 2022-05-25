@@ -153,7 +153,7 @@ export default defineComponent({
       : props.checkedIcon,
     )
 
-    const uniqueId = computed(() => generateUniqueId())
+    const uniqueId = computed(generateUniqueId)
 
     return {
       isActive,
@@ -169,7 +169,7 @@ export default defineComponent({
       onBlur,
       onFocus,
       computedTabIndex: computed(() => props.disabled || props.readonly ? -1 : 0),
-      computedId: computed(() => props.name || uniqueId.value),
+      computedId: computed(() => props.id || uniqueId.value),
       computedName: computed(() => props.name || uniqueId.value),
     }
   },
