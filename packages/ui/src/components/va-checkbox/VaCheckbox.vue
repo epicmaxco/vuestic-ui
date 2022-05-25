@@ -10,11 +10,10 @@
     :error-count="errorCount"
   >
     <div
+      ref="container"
       class="va-checkbox__input-container"
       @click="toggleSelection"
-      tabindex="-1"
       @blur="onBlur"
-      ref="container"
     >
       <div
         class="va-checkbox__square"
@@ -24,36 +23,41 @@
         <input
           ref="input"
           type="checkbox"
-          role="checkbox"
-          readonly
-          :id="id"
-          :name="name"
+          class="va-checkbox__input"
+          :id="computedId"
+          :name="computedName"
+          :tabindex="computedTabIndex"
+          :disabled="disabled"
+          :readonly="readonly"
+          :indeterminate="indeterminate"
+          :value="label"
+          :aria-checked="isActive"
+          :checked="isActive"
           v-on="keyboardFocusListeners"
           @focus="onFocus"
           @blur="onBlur"
-          class="va-checkbox__input"
           @click.stop.prevent
           @keypress.prevent="toggleSelection"
-          :disabled="disabled"
-          :indeterminate="indeterminate"
         >
         <va-icon
-          class="va-checkbox__icon"
-          :name="computedIconName"
-          size="20px"
-          :color="textColorComputed"
           v-show="isActive"
+          class="va-checkbox__icon"
+          size="20px"
+          aria-hidden="true"
+          :name="computedIconName"
+          :color="textColorComputed"
         />
       </div>
-      <div
-        class="va-checkbox__label"
-        :style="labelStyle"
+      <label
+        v-if="label || $slots.label"
         ref="label"
-        tabindex="-1"
+        class="va-checkbox__label"
+        :for="computedId"
+        :style="labelStyle"
         @blur="onBlur"
       >
         <slot name="label">{{ label }}</slot>
-      </div>
+      </label>
     </div>
   </VaMessageListWrapper>
 </template>
@@ -68,6 +72,7 @@ import { useColors } from '../../composables/useColor'
 import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'
 import { useSelectable, useSelectableProps, useSelectableEmits } from '../../composables/useSelectable'
 import { useTextColor } from '../../composables/useTextColor'
+import { generateUniqueId } from '../../services/utils'
 
 const vaCheckboxValueType = [Boolean, Array, String, Object] as PropType<boolean | null | string | number | Record<any, unknown> | unknown[]>
 
@@ -102,7 +107,7 @@ export default defineComponent({
       onBlur,
       onFocus,
     } = useSelectable(props, emit, elements)
-    const { getColor, getTextColor } = useColors()
+    const { getColor } = useColors()
     const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
 
     const { textColorComputed } = useTextColor()
@@ -148,6 +153,8 @@ export default defineComponent({
       : props.checkedIcon,
     )
 
+    const uniqueId = computed(generateUniqueId)
+
     return {
       isActive,
       computedClass,
@@ -161,6 +168,9 @@ export default defineComponent({
       toggleSelection,
       onBlur,
       onFocus,
+      computedTabIndex: computed(() => props.disabled || props.readonly ? -1 : 0),
+      computedId: computed(() => props.id || uniqueId.value),
+      computedName: computed(() => props.name || uniqueId.value),
     }
   },
 })
@@ -218,9 +228,7 @@ export default defineComponent({
   }
 
   &__input {
-    opacity: 0;
-    width: 0;
-    height: 0 !important;
+    @include visually-hidden;
   }
 
   &__label {
