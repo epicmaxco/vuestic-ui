@@ -3,15 +3,15 @@ import { useForm } from '../useForm'
 describe('useForm', () => {
   it.each`
     props                                  | prefix              | expected
-    ${{ disabled: true, readonly: false }} | ${'va-test'}        | ${{ createComputedClass: { 'va-test--disabled': true, 'va-test--readonly': false }, createComputedClassArray: ['va-test--disabled'] }}
-    ${{ disabled: true, readonly: false }} | ${''}               | ${{ createComputedClass: { '--disabled': true, '--readonly': false }, createComputedClassArray: ['--disabled'] }}
-    ${{}}                                  | ${'va-test'}        | ${{ createComputedClass: { 'va-test--disabled': undefined, 'va-test--readonly': undefined }, createComputedClassArray: [] }}
+    ${{ disabled: true, readonly: false }} | ${'va-test'}        | ${{ createComputedClasses: { 'va-test--disabled': true, 'va-test--readonly': false }, createComputedClassesArray: ['va-test--disabled'] }}
+    ${{ disabled: true, readonly: false }} | ${''}               | ${{ createComputedClasses: { '--disabled': true, '--readonly': false }, createComputedClassesArray: ['--disabled'] }}
+    ${{}}                                  | ${'va-test'}        | ${{ createComputedClasses: { 'va-test--disabled': undefined, 'va-test--readonly': undefined }, createComputedClassesArray: [] }}
   `(
     'props $props & prefix $prefix should be $expected',
     ({ props, prefix, expected }) => {
-      const { createComputedClass, createComputedClassArray } = useForm(props)
+      const { createComputedClasses, createComputedClassesArray } = useForm(props)
 
-      const result = { createComputedClass: createComputedClass(prefix).value, createComputedClassArray: createComputedClassArray(prefix).value }
+      const result = { createComputedClasses: createComputedClasses(prefix).value, createComputedClassesArray: createComputedClassesArray(prefix).value }
       expect(result).toMatchObject(expected)
     },
   )
