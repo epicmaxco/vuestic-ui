@@ -17,19 +17,13 @@ export const useFormPropsWithId = {
  * @param prefix string with which classes starts (and ends with form state BEM modifier)
  */
 export const useForm = <Prefix extends string>(
-  props: ExtractPropTypes<typeof useFormPropsWithId>,
+  props: ExtractPropTypes<typeof useFormProps>,
   prefix?: Prefix,
 ) => {
-  /**
-   * Create `readonly` and `disabled` BEM modifiers.
-   * @returns Object with classes which starts with `prefix` and ends with form state BEM modifier
-   */
-  const createComputedClasses = (prefix: Prefix) => computed(() => ({
-    [`${prefix}--disabled`]: props.disabled,
-    [`${prefix}--readonly`]: props.readonly,
+  const computedClassesWithoutWarning = computed(() => ({
+    [`${prefix || ''}--disabled`]: props.disabled,
+    [`${prefix || ''}--readonly`]: props.readonly,
   }) as Record<`${Prefix}--disabled` | `${Prefix}--readonly`, boolean>)
-
-  const computedClassesWithoutPrefix = createComputedClasses(prefix || '' as Prefix)
 
   /**
    * Computed Object with classes which starts with `prefix` and ends with form state BEM modifier
@@ -39,19 +33,13 @@ export const useForm = <Prefix extends string>(
       console.warn('You must pass the @param "prefix" to the useForm hook!')
     }
 
-    return computedClassesWithoutPrefix.value
+    return computedClassesWithoutWarning.value
   })
 
-  /**
-   * Create `readonly` and `disabled` BEM modifiers.
-   * @returns Array with classes which starts with `prefix` and ends with form state BEM modifier.
-   */
-  const createComputedClassesArray = (prefix: Prefix) => computed(() => (
-    [props.disabled && `${prefix}--disabled`, props.readonly && `${prefix}--readonly`]
-      .filter((c) => Boolean(c))
-  ) as Array<`${Prefix}--disabled` | `${Prefix}--readonly`>)
-
-  const computedClassesArrayWithoutPrefix = createComputedClassesArray(prefix || '' as Prefix)
+  const computedClassesArrayWithoutWarning = computed(() => [
+    props.disabled && `${prefix || ''}--disabled`,
+    props.readonly && `${prefix || ''}--readonly`,
+  ].filter(Boolean) as Array<`${Prefix}--disabled` | `${Prefix}--readonly`>)
 
   /**
    * Computed Array with classes which starts with `prefix` and ends with form state BEM modifier
@@ -61,13 +49,11 @@ export const useForm = <Prefix extends string>(
       console.warn('You must pass the @param "prefix" to the useForm hook!')
     }
 
-    return computedClassesArrayWithoutPrefix.value
+    return computedClassesArrayWithoutWarning.value
   })
 
   return {
-    createComputedClasses,
     computedClasses,
-    createComputedClassesArray,
     computedClassesArray,
   }
 }
