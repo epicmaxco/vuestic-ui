@@ -6,6 +6,9 @@
     <div
       class="va-alert"
       :style="alertStyle"
+      :role="closeable ? 'alertdialog' : 'alert'"
+      :aria-labelledby="titleIdComputed"
+      :aria-describedby="descriptionIdComputed"
     >
       <div
         :style="borderStyle"
@@ -17,6 +20,7 @@
         :style="contentStyle"
         class="va-alert__icon"
         v-if="hasIcon"
+        aria-hidden="true"
       >
         <slot name="icon">
           <va-icon :name="icon" />
@@ -31,14 +35,18 @@
           :style="titleStyle"
           class="va-alert__title"
           v-if="hasTitle"
+          :id="titleIdComputed"
         >
           <slot name="title">
             {{ title }}
           </slot>
         </div>
-        <slot>
-          {{ description }}
-        </slot>
+
+        <span :id="descriptionIdComputed">
+          <slot>
+            {{ description }}
+          </slot>
+        </span>
       </div>
 
       <div
@@ -48,13 +56,19 @@
         <div
           :style="contentStyle"
           class="va-alert__close--closeable"
+          role="button"
+          :aria-label="closeText || 'Close alert'"
+          tabindex="0"
           @click="hide()"
+          @keydown.space="hide()"
+          @keydown.enter="hide()"
         >
           <slot name="close">
             <va-icon
               v-if="!closeText"
               :name="closeIcon"
               size="small"
+              aria-hidden="true"
             />
             {{ closeText }}
           </slot>
@@ -71,6 +85,8 @@ import { defineComponent, computed, PropType } from 'vue'
 import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
 import { useAlertStyles } from './useAlertStyles'
 import VaIcon from '../va-icon'
+
+import { generateUniqueId } from '../../services/utils'
 
 export default defineComponent({
   name: 'VaAlert',
@@ -111,6 +127,10 @@ export default defineComponent({
 
     const closeIcon = computed(() => props.closeText || 'close')
 
+    const uniqueId = computed(generateUniqueId)
+    const titleIdComputed = computed(() => `title-${uniqueId.value}`)
+    const descriptionIdComputed = computed(() => `description-${uniqueId.value}`)
+
     return {
       ...alertStyles,
       valueComputed,
@@ -119,6 +139,8 @@ export default defineComponent({
       borderClass,
       closeIcon,
       hide,
+      titleIdComputed,
+      descriptionIdComputed,
     }
   },
 })
@@ -203,6 +225,10 @@ export default defineComponent({
       display: flex;
       align-items: center;
       cursor: pointer;
+
+      &:focus {
+        outline: 1px solid;
+      }
     }
   }
 

@@ -13,6 +13,7 @@
       <img
         v-else-if="src"
         :src="src"
+        alt=""
       >
       <va-icon
         v-else-if="icon"
