@@ -23,7 +23,7 @@
 
 <script lang="ts">
 import debounce from 'lodash/debounce.js'
-import { defineComponent, nextTick, ref, watch, onMounted, PropType } from 'vue'
+import { defineComponent, nextTick, shallowRef, watch, onMounted, PropType } from 'vue'
 import { useSyncProp } from '../../../../composables/useSyncProp'
 import { useFocus, useFocusEmits } from '../../../../composables/useFocus'
 
@@ -39,7 +39,7 @@ export default defineComponent({
   emits: ['item-selected', 'update:activeItemIndex', ...useFocusEmits],
 
   setup (props, { emit }) {
-    const rootElement = ref<HTMLElement>()
+    const rootElement = shallowRef<HTMLElement>()
     const { focus, blur } = useFocus(rootElement, emit)
     const [syncActiveItemIndex] = useSyncProp('activeItemIndex', props, emit)
 

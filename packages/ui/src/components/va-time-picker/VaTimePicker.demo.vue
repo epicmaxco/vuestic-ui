@@ -14,13 +14,21 @@
 
     <VbCard title="view">
       <div class="d-flex">
-        <VaTimePicker v-model="value" :view="'seconds'" />
+        <VaTimePicker v-model="value" view="seconds" />
         <va-divider vertical />
-        <VaTimePicker v-model="value" :view="'hours'" />
+        <VaTimePicker v-model="value" view="hours" />
       </div>
     </VbCard>
 
     <VbCard title="ampm">
+      <div class="d-flex justify--center">
+        <va-switch
+          v-model="ampm"
+          label="ampm"
+          size="small"
+        />
+      </div>
+      <br />
       <div class="d-flex">
         <VaTimePicker v-model="value" :ampm="ampm" />
         <va-divider vertical />
@@ -35,9 +43,9 @@
       </div>
       <br />
       <div class="d-flex">
-        <VaTimePicker v-model="value" :ampm="true" />
+        <VaTimePicker v-model="value" ampm />
         <va-divider vertical />
-        <VaTimePicker v-model="value" :ampm="false" :view="'seconds'" />
+        <VaTimePicker v-model="value" :ampm="false" view="seconds" />
       </div>
     </VbCard>
 
@@ -84,10 +92,14 @@
 
 <script>
 import VaTimePicker from './VaTimePicker.vue'
+import VaDivider from '../va-divider'
+import VaSwitch from '../va-switch'
 
 export default {
   components: {
     VaTimePicker,
+    VaDivider,
+    VaSwitch,
   },
 
   data () {
