@@ -12,38 +12,38 @@ export const methodsApi = (block: PageGenerationHelper) => block.table(
   ],
 )
 
-const optionsTableData: [keyof ModalOptions, string][] = [
-  ['title', 'string'],
-  ['message', 'string'],
-  ['attachElement', 'string'],
-  ['disableAttachElement', 'boolean'],
-  ['okText', 'string'],
-  ['cancelText', 'string'],
-  ['hideDefaultActions', 'boolean'],
-  ['fullscreen', 'boolean'],
-  ['mobileFullscreen', 'boolean'],
-  ['noDismiss', 'boolean'],
-  ['noOutsideDismiss', 'boolean'],
-  ['noEscDismiss', 'boolean'],
-  ['maxWidth', 'string'],
-  ['maxHeight', 'string'],
-  ['size', 'small | medium | large'],
-  ['fixedLayout', 'boolean'],
-  ['withoutTransitions', 'boolean'],
-  ['overlay', 'boolean'],
-  ['overlayOpacity', 'number | string'],
-  ['zIndex', 'number | string'],
-  ['onOk', '() => void'],
-  ['onCancel', '() => void'],
-  ['onClickOutside', '() => void'],
-  ['onUpdate:modelValue', '(value: boolean) => void'],
-  ['onOpen', '(el: HTMLElement) => void'],
-  ['onClose', '(el: HTMLElement) => void'],
-]
+const modalOptions: Record<keyof ModalOptions, string> = {
+  title: 'string',
+  message: 'string',
+  attachElement: 'string',
+  disableAttachElement: 'boolean',
+  okText: 'string',
+  cancelText: 'string',
+  hideDefaultActions: 'boolean',
+  fullscreen: 'boolean',
+  mobileFullscreen: 'boolean',
+  noDismiss: 'boolean',
+  noOutsideDismiss: 'boolean',
+  noEscDismiss: 'boolean',
+  maxWidth: 'string',
+  maxHeight: 'string',
+  size: 'small | medium | large',
+  fixedLayout: 'boolean',
+  withoutTransitions: 'boolean',
+  overlay: 'boolean',
+  overlayOpacity: 'number | string',
+  zIndex: 'number | string',
+  onOk: '() => void',
+  onCancel: '() => void',
+  onClickOutside: '() => void',
+  'onUpdate:modelValue': '(value: boolean) => void',
+  onOpen: '(el: HTMLElement) => void',
+  onClose: '(el: HTMLElement) => void',
+}
 
 export const optionsApi = (block: PageGenerationHelper) => block.table(
   [{ title: 'type', type: 'markdown' }, { title: 'type', type: 'code' }],
-  optionsTableData,
+  Object.entries(modalOptions),
 )
 
 const optionsApiExample = `
@@ -63,6 +63,7 @@ export default {
 `
 
 const compositionApiExample = `
+import { useModal } from 'vuestic-ui'
 export default defineComponent({
   setup() {
     const { init } = useModal()
