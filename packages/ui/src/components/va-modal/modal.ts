@@ -46,7 +46,7 @@ const mount = (
 
   vNode = h(component, {
     ...props,
-    ...(props?.stateful === undefined && { stateful: true }),
+    stateful: props?.stateful ?? true,
     modelValue: true,
     onClose,
     'onUpdate:modelValue': onUpdateModelValue,
