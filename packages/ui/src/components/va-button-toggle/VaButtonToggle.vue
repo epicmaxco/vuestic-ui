@@ -15,6 +15,7 @@
         :disabled="disabled"
         :size="size"
         :class="getButtonClass(option.value)"
+        :aria-pressed="isToggled(option.value)"
         @click="changeValue(option.value)"
       >
         {{ option.label }}
@@ -26,7 +27,7 @@
 <script lang="ts">
 import { defineComponent, PropType, computed } from 'vue'
 
-import { getTextColor, shiftHSLAColor } from '../../services/color-config/color-functions'
+import { shiftHSLAColor } from '../../services/color-config/color-functions'
 import { useColors } from '../../composables/useColor'
 import VaButton from '../va-button'
 import VaButtonGroup from '../va-button-group'
@@ -83,13 +84,15 @@ export default defineComponent({
 
     const { textColorComputed: activeButtonTextColor } = useTextColor(activeButtonColor)
 
+    const isToggled = (value: any) => value === props.modelValue
+
     const getButtonProps = (option: ButtonOption = {} as ButtonOption) => {
       const iconsProps = {
         icon: option.icon,
         iconRight: option.iconRight,
       }
 
-      if (option.value !== props.modelValue) { return iconsProps }
+      if (!isToggled(option.value)) { return iconsProps }
 
       return {
         color: activeButtonColor.value,
@@ -99,7 +102,7 @@ export default defineComponent({
       }
     }
 
-    const getButtonClass = (buttonValue: any) => ({ 'va-button--active': buttonValue === props.modelValue })
+    const getButtonClass = (buttonValue: any) => ({ 'va-button--active': isToggled(buttonValue) })
 
     const changeValue = (value: any) => emit('update:modelValue', value)
 
@@ -107,6 +110,7 @@ export default defineComponent({
       getButtonProps,
       getButtonClass,
       changeValue,
+      isToggled,
     }
   },
 })
