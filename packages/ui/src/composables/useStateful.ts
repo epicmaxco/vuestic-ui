@@ -1,4 +1,4 @@
-import { ref, computed, PropType, Ref } from 'vue'
+import { ref, computed, PropType, Ref, watch, toRef } from 'vue'
 
 export type StatefulProps<T> = {
   stateful: boolean
@@ -29,6 +29,19 @@ export function useStateful<T, D extends T = T> (
   defaultValue?: D,
 ) {
   const valueState = ref(defaultValue === undefined ? props.modelValue : defaultValue) as Ref<T>
+  const modelValueRef = toRef(props, 'modelValue')
+  const statefulRef = toRef(props, 'stateful')
+  let unwatchModelValue: Function
+
+  const watchModelValue = () => {
+    unwatchModelValue = watch(modelValueRef, (modelValue) => {
+      valueState.value = modelValue
+    })
+  }
+
+  watch(statefulRef, (stateful: boolean) => {
+    stateful ? watchModelValue() : unwatchModelValue?.()
+  }, { immediate: true })
 
   const valueComputed = computed({
     get () {
