@@ -102,7 +102,7 @@ export default defineComponent({
       }
     }
 
-    const getButtonClass = (buttonValue: any) => ({ 'va-button--active': buttonValue === props.modelValue })
+    const getButtonClass = (buttonValue: any) => ({ 'va-button--active': isToggled(buttonValue) })
 
     const changeValue = (value: any) => emit('update:modelValue', value)
 

@@ -128,7 +128,7 @@ export default defineComponent({
         : ''
     }
 
-    const uniqueId = computed(() => generateUniqueId())
+    const uniqueId = computed(generateUniqueId)
     const headerIdComputed = computed(() => `header-${uniqueId.value}`)
     const panelIdComputed = computed(() => `panel-${uniqueId.value}`)
 
