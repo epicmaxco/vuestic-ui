@@ -46,6 +46,7 @@ export default defineComponent({
     secondsFilter: { type: Function as PropType<(h: number) => boolean> },
     framed: { type: Boolean, default: false },
     cellHeight: { type: Number, default: 30 },
+    visibleCellsCount: { type: Number, default: 7 },
   },
 
   emits: useStatefulEmits,
@@ -88,10 +89,15 @@ export default defineComponent({
       'va-time-picker--framed': props.framed,
     }))
 
-    const computedStyles = computed(() => ({
-      '--va-time-picker-cell-height': `${props.cellHeight}px`,
-      '--va-time-picker-column-gap-height': `calc(${props.cellHeight * 3}px - 5px)`,
-    }))
+    const computedStyles = computed(() => {
+      const gapHeight = (props.visibleCellsCount - 1) / 2 * props.cellHeight
+
+      return {
+        '--va-time-picker-height': `${props.cellHeight * props.visibleCellsCount}px`,
+        '--va-time-picker-cell-height': `${props.cellHeight}px`,
+        '--va-time-picker-column-gap-height': `${gapHeight}px`,
+      }
+    })
 
     return {
       columns,
