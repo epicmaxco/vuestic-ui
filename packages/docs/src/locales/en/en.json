@@ -3862,6 +3862,10 @@
         "title": "Framed",
         "text": ""
       },
+      "visibleCellsCount": {
+        "title": "Controlling the count of displayed cells",
+        "text": "For the better view need to set odd numbers"
+      },
       "readonlyAndDisabled": {
         "title": "Readonly and disabled",
         "text": ""
