@@ -23,7 +23,6 @@
 <script lang="ts">
 import { defineComponent, computed, PropType } from 'vue'
 import { useColors } from '../../composables/useColor'
-import { getTextColor } from '../../services/color-config/color-functions'
 import { useTextColor } from '../../composables/useTextColor'
 import { generateUniqueId } from '../../services/utils'
 
@@ -67,7 +66,7 @@ export default defineComponent({
       opacity: props.transparent ? 0.5 : 1,
     }))
 
-    const labelIdComputed = computed(() => `label-${generateUniqueId()}`)
+    const labelIdComputed = computed(() => `aria-label-${generateUniqueId()}`)
 
     return { badgeClass, badgeStyle, labelIdComputed }
   },

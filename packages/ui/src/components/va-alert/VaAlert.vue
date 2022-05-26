@@ -17,9 +17,9 @@
       />
 
       <div
+        v-if="hasIcon"
         :style="contentStyle"
         class="va-alert__icon"
-        v-if="hasIcon"
         aria-hidden="true"
       >
         <slot name="icon">
@@ -32,9 +32,9 @@
         class="va-alert__content"
       >
         <div
+          v-if="hasTitle"
           :style="titleStyle"
           class="va-alert__title"
-          v-if="hasTitle"
           :id="titleIdComputed"
         >
           <slot name="title">
@@ -44,14 +44,14 @@
 
         <span :id="descriptionIdComputed">
           <slot>
-            {{ description }}
+            {{ $props.description }}
           </slot>
         </span>
       </div>
 
       <div
-        class="va-alert__close"
         v-if="closeable"
+        class="va-alert__close"
       >
         <div
           :style="contentStyle"
@@ -128,8 +128,8 @@ export default defineComponent({
     const closeIcon = computed(() => props.closeText || 'close')
 
     const uniqueId = computed(generateUniqueId)
-    const titleIdComputed = computed(() => `title-${uniqueId.value}`)
-    const descriptionIdComputed = computed(() => `description-${uniqueId.value}`)
+    const titleIdComputed = computed(() => `aria-title-${uniqueId.value}`)
+    const descriptionIdComputed = computed(() => `aria-description-${uniqueId.value}`)
 
     return {
       ...alertStyles,

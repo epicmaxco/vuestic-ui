@@ -88,7 +88,7 @@ export default defineComponent({
 
       if (childNodesLength) {
         childNodes.forEach((child: VNode, index: number) => {
-          if (!isChildLink(child)) {
+          if (isAllChildLinks.value && !isChildLink(child)) {
             isAllChildLinks.value = false
           }
 
