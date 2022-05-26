@@ -1362,6 +1362,8 @@
   "all": {
     "examples": "Examples",
     "api": "API",
+    "methods": "Methods",
+    "options": "Options",
     "faq": "FAQ",
     "code": {
       "or": "or",
@@ -1914,6 +1916,10 @@
     "nestedModals": {
       "title": "Nested modals",
       "text": "Modals can be nested: you can open one modal from another."
+    },
+    "functionalApi": {
+      "title": "Modal functional API",
+      "text": "To make it easier to create modal we have a shorthands. For options API it is `$vaModal` that provides the VaModalPlugin (automatically installed with createVuestic). For composition Api we have `useModal` hook. Hook and global object have similar API."
     }
   },
   "pagination": {
@@ -3180,6 +3186,7 @@
       "GlobalConfigPlugin": "GlobalConfigPlugin (essential) - used for `VaConfig` component and global props reassignment. [Read more](/services/global-config).",
       "ColorHelpersPlugin": "ColorHelpersPlugin (essential) - used to create reactive CSS variables. Requires `GlobalConfigPlugin`. [Read more](/services/colors-config).",
       "VaToastPlugin": "VaToastPlugin - provides methods for creating Toasts within vue context. [Read more](/ui-elements/toast)",
+      "VaModalPlugin": "VaModalPlugin - provides method for creating Modal within vue context. [Read more](/ui-elements/modal)",
       "VaDropdownPlugin": "VaDropdownPlugin - provides methods for dropdown closing within vue context. `VaDropdown` is used in `VaSelect`, `VaTimeInput`, `VaDateInput`, `VaButtonDropdown` component."
     },
     "attention": {

@@ -1282,6 +1282,8 @@
   "all": {
     "examples": "Примеры",
     "api": "API",
+    "methods": "Methods",
+    "options": "Options",
     "faq": "FAQ",
     "code": {
       "or": "или"
@@ -1808,6 +1810,10 @@
     "nestedModals": {
       "title": "Вложенные модальные окна",
       "text": "Модальные окна могут быть вложенными, то есть вы можете открыть модальное окно из другого."
+    },
+    "functionalApi": {
+      "title": "Функциональное API",
+      "text": "Чтобы упростить создание модального окна, у нас есть сокращение. Для Options API - это `$vaModal`, который предоставляет VaModalPlugin (автоматически устанавливается вместе с createVuestic). Для Composition API у нас есть хук `useModal`. Хук и глобальный объект имеют похожий API."
     }
   },
   "pagination": {
@@ -3818,7 +3824,8 @@
       "title": "В таком случае вам также придется самостоятельно зарегистрировать плагины `Vuestic`. Рекомендуем использовать все из них:",
       "GlobalConfigPlugin": "`GlobalConfigPlugin` (обязательный) - используется для переназначения компонента `VaConfig` и глобальных свойств. [Подробнее](/services/global-config).",
       "ColorHelpersPlugin": "`ColorHelpersPlugin` (обязательный) - используется для создания реактивных переменных `CSS`. Требуется `GlobalConfigPlugin`. [Подробнее](/services/colors-config).",
-      "VaToastPlugin": "`VaToastPlugin` - добавляет методы для создания Toast-ов в vue контекс. [Подробнее](/ui-elements/toast).",
+      "VaToastPlugin": "`VaToastPlugin` - добавляет методы для создания Toast-ов в vue контексте. [Подробнее](/ui-elements/toast)",
+      "VaModalPlugin": "`VaModalPlugin` - добавляет метод для создания Modal-ов в vue контексте. [Подробнее](/ui-elements/modal)",
       "VaDropdownPlugin": "`VaDropdownPlugin` - добавляет методы для закрытия выпадашек. Выпадашки используются в VaSelect, VaTimeInput, VaDateInput. ",
       "example": {
         "title": "Все эти плагины также доступны через `VuesticPluginsWithoutComponents`:"

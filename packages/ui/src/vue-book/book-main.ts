@@ -8,7 +8,7 @@ import demoIconAliases from './vuestic-config/demo-icon-aliases'
 import demoIconFonts from './vuestic-config/demo-icon-fonts'
 
 import './vue-book-overrides.scss'
-import { createIconsConfig, createVuesticEssential, VaToastPlugin, VaDropdownPlugin } from '../main'
+import { createIconsConfig, createVuesticEssential, VaToastPlugin, VaModalPlugin, VaDropdownPlugin } from '../main'
 import { colorsPresets } from '../services/color-config/color-theme-presets'
 
 const app = createApp(App)
@@ -43,7 +43,7 @@ app.use(createVuesticEssential({
       banana: '#d0f55d',
     },
   },
-  plugins: { VaToastPlugin, VaDropdownPlugin },
+  plugins: { VaToastPlugin, VaDropdownPlugin, VaModalPlugin },
 }))
 
 app.mount('#app')
