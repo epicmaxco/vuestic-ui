@@ -1,5 +1,5 @@
 <template>
-  <div class="va-image">
+  <div class="va-image" aria-live="polite">
     <div
       v-if="loadingError"
       class="va-image__error"
