@@ -66,8 +66,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, PropType } from 'vue'
-
+import { defineComponent, computed } from 'vue'
 import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
 import { useAlertStyles } from './useAlertStyles'
 import VaIcon from '../va-icon'
@@ -78,20 +77,20 @@ export default defineComponent({
   emits: useStatefulEmits,
   props: {
     ...useStatefulProps,
-    modelValue: { type: Boolean as PropType<boolean>, default: true },
-    color: { type: String as PropType<string>, default: 'primary' },
-    textColor: { type: String as PropType<string>, default: '' },
-    title: { type: String as PropType<string>, default: '' },
-    description: { type: String as PropType<string>, default: '' },
-    icon: { type: String as PropType<string>, default: '' },
-    closeText: { type: String as PropType<string>, default: '' },
-    closeable: { type: Boolean as PropType<boolean>, default: false },
-    dense: { type: Boolean as PropType<boolean>, default: false },
-    outline: { type: Boolean as PropType<boolean>, default: false },
-    center: { type: Boolean as PropType<boolean>, default: false },
-    borderColor: { type: String as PropType<string>, default: '' },
+    modelValue: { type: Boolean, default: true },
+    color: { type: String, default: 'primary' },
+    textColor: { type: String, default: '' },
+    title: { type: String, default: '' },
+    description: { type: String, default: '' },
+    icon: { type: String, default: '' },
+    closeText: { type: String, default: '' },
+    closeable: { type: Boolean, default: false },
+    dense: { type: Boolean, default: false },
+    outline: { type: Boolean, default: false },
+    center: { type: Boolean, default: false },
+    borderColor: { type: String, default: '' },
     border: {
-      type: String as PropType<string>,
+      type: String,
       default: '',
       validator: (value: string) => ['top', 'right', 'bottom', 'left', ''].includes(value),
     },
