@@ -3,6 +3,7 @@
     class="va-avatar"
     :style="computedStyle"
     :aria-hidden="$props.src ? null : true"
+    aria-live="polite"
   >
     <slot>
       <va-progress-circle
