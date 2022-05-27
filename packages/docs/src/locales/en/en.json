@@ -1237,7 +1237,7 @@
         "indicatorTrigger": "Event which will trigger indicator to change slide",
         "indicators": "Show or hide indicators at the bottom of slider",
         "infinite": "If true, after last slide first will be shown.",
-        "items": "List of slide items. Can be any array. By default should be a image src, but you can use item later in `default` slot.",
+        "items": "List of slide items. Can be any array. Default item should be an image src or object containing `src` and `alt`. You can use item later in `default` slot.",
         "loop": "If true, after last slide slider will scroll to first one through all items before.",
         "modelValue": "Slide index to be shown.",
         "vertical": "Change slider scroll orientation.",
