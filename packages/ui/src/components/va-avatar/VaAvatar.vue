@@ -2,7 +2,7 @@
   <div
     class="va-avatar"
     :style="computedStyle"
-    :aria-hidden="$props.src ? null : true"
+    :aria-hidden="!$props.src"
     aria-live="polite"
   >
     <slot>
