@@ -64,7 +64,7 @@ export default defineComponent({
     size: {
       type: String as PropType<'medium' | 'small' | 'large'>,
       default: 'medium',
-      validator: (modelValue: 'medium' | 'small' | 'large') => ['medium', 'small', 'large'].includes(modelValue),
+      validator: (s: string) => ['medium', 'small', 'large'].includes(s),
     },
     toggleColor: { type: String, default: '' },
     gradient: { type: Boolean, default: false },

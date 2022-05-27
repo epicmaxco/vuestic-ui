@@ -19,8 +19,8 @@
 <script lang="ts">
 import { defineComponent, computed, PropType, ref, nextTick, onMounted, onBeforeUnmount, shallowRef } from 'vue'
 import noop from 'lodash/noop.js'
-import { getWindow } from '../../utils/ssr-utils'
 
+import { getWindow } from '../../utils/ssr-utils'
 import {
   handleThrottledEvent,
   useEventsHandlerWithThrottle,

@@ -55,13 +55,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref, ComputedRef } from 'vue'
+import { defineComponent, computed, ref, ComputedRef, shallowRef, PropType } from 'vue'
+
 import { useTextColor } from '../../composables/useTextColor'
 import { getGradientBackground, shiftHSLAColor } from '../../services/color-config/color-functions'
 import { useColor } from '../../composables/useColor'
 import { useRouterLink, useRouterLinkProps } from '../../composables/useRouterLink'
 import { useSizeProps, useSize } from '../../composables/useSize'
 import { useLoadingProps } from '../../composables/useLoading'
+
 import VaIcon from '../va-icon'
 import { VaProgressCircle } from '../va-progress-circle'
 
@@ -87,13 +89,13 @@ export default defineComponent({
     icon: { type: String, default: undefined },
     iconRight: { type: String, default: undefined },
     size: {
-      type: String,
+      type: String as PropType<'small' | 'medium' | 'large'>,
       default: 'medium',
       validator: (value: string) => ['medium', 'small', 'large'].includes(value),
     },
   },
   setup (props, { slots }) {
-    const button = ref<HTMLElement>()
+    const button = shallowRef<HTMLElement>()
 
     const { sizeComputed } = useSize(props)
     const { computeColor } = useColor(props)

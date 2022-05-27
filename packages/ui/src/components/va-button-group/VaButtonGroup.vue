@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
+import { defineComponent, computed, PropType } from 'vue'
 
 import { getGradientBackground } from '../../services/color-config/color-functions'
 import { useColors } from '../../composables/useColor'
@@ -26,7 +26,7 @@ export default defineComponent({
     outline: { type: Boolean, default: false },
     flat: { type: Boolean, default: false },
     size: {
-      type: String,
+      type: String as PropType<'medium' | 'small' | 'large'>,
       default: 'medium',
       validator: (v: string) => ['medium', 'small', 'large'].includes(v),
     },

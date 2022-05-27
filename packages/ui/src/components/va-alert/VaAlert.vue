@@ -66,9 +66,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
+import { defineComponent, computed, PropType } from 'vue'
+
 import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
 import { useAlertStyles } from './useAlertStyles'
+
 import VaIcon from '../va-icon'
 
 export default defineComponent({
@@ -90,7 +92,7 @@ export default defineComponent({
     center: { type: Boolean, default: false },
     borderColor: { type: String, default: '' },
     border: {
-      type: String,
+      type: String as PropType<'top' | 'right' | 'bottom' | 'left' | ''>,
       default: '',
       validator: (value: string) => ['top', 'right', 'bottom', 'left', ''].includes(value),
     },
