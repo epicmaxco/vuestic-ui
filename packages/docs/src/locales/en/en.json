@@ -473,6 +473,7 @@
     },
     "VaImage": {
       "props": {
+        "alt": "Specifies an alternate text for an image.",
         "ratio": "Width to height ratio.",
         "contain": "Scales the image while maintaining the proportions so that the whole image fits inside the block."
       },
@@ -1236,7 +1237,7 @@
         "indicatorTrigger": "Event which will trigger indicator to change slide",
         "indicators": "Show or hide indicators at the bottom of slider",
         "infinite": "If true, after last slide first will be shown.",
-        "items": "List of slide items. Can be any array. By default should be a image src, but you can use item later in `default` slot.",
+        "items": "List of slide items. Can be any array. Default item should be an image src or object containing `src` and `alt`. You can use item later in `default` slot.",
         "loop": "If true, after last slide slider will scroll to first one through all items before.",
         "modelValue": "Slide index to be shown.",
         "vertical": "Change slider scroll orientation.",
@@ -1362,6 +1363,8 @@
   "all": {
     "examples": "Examples",
     "api": "API",
+    "methods": "Methods",
+    "options": "Options",
     "faq": "FAQ",
     "code": {
       "or": "or",
@@ -1914,6 +1917,10 @@
     "nestedModals": {
       "title": "Nested modals",
       "text": "Modals can be nested: you can open one modal from another."
+    },
+    "functionalApi": {
+      "title": "Modal functional API",
+      "text": "To make it easier to create modal we have a shorthands. For options API it is `$vaModal` that provides the VaModalPlugin (automatically installed with createVuestic). For composition Api we have `useModal` hook. Hook and global object have similar API."
     }
   },
   "pagination": {
@@ -3180,6 +3187,7 @@
       "GlobalConfigPlugin": "GlobalConfigPlugin (essential) - used for `VaConfig` component and global props reassignment. [Read more](/services/global-config).",
       "ColorHelpersPlugin": "ColorHelpersPlugin (essential) - used to create reactive CSS variables. Requires `GlobalConfigPlugin`. [Read more](/services/colors-config).",
       "VaToastPlugin": "VaToastPlugin - provides methods for creating Toasts within vue context. [Read more](/ui-elements/toast)",
+      "VaModalPlugin": "VaModalPlugin - provides method for creating Modal within vue context. [Read more](/ui-elements/modal)",
       "VaDropdownPlugin": "VaDropdownPlugin - provides methods for dropdown closing within vue context. `VaDropdown` is used in `VaSelect`, `VaTimeInput`, `VaDateInput`, `VaButtonDropdown` component."
     },
     "attention": {

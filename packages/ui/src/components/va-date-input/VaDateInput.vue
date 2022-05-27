@@ -4,6 +4,8 @@
       v-model="isOpenSync"
       :offset="[2, 0]"
       :close-on-content-click="false"
+      :stateful="false"
+      trigger="none"
       :disabled="disabled"
       anchorSelector=".va-input-wrapper__input"
     >
@@ -16,6 +18,10 @@
             v-on="inputListeners"
             :model-value="valueText"
             @change="onInputTextChanged"
+            @click="toggleDropdown()"
+            @keydown.enter.stop="showAndFocus"
+            @keydown.space.stop="showAndFocus"
+            @keydown.esc.stop.prevent="hideAndFocus()"
           >
             <template
               v-for="name in filterSlots"
@@ -48,8 +54,11 @@
         </slot>
       </template>
 
-      <va-dropdown-content>
+      <va-dropdown-content
+        @keydown.esc.stop.prevent="hideAndFocus()"
+      >
         <va-date-picker
+            ref="datePicker"
             v-bind="datePickerProps"
             v-model="valueComputed"
             @click:day="$emit('click:day', $event)"
@@ -70,7 +79,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, toRefs, watch, ref } from 'vue'
+import { computed, defineComponent, PropType, toRefs, watch, ref, nextTick } from 'vue'
 
 import { useClearableEmits, useClearable } from '../../composables/useClearable'
 import { useValidation, useValidationEmits } from '../../composables/useValidation'
@@ -157,6 +166,7 @@ export default defineComponent({
     const dateOrNothing = (date: Date | undefined | null) => date ? props.formatDate(date) : '...'
 
     const input = ref<typeof VaInput | undefined>()
+    const datePicker = ref<typeof VaDatePicker | undefined>()
 
     const { parseDateInputValue, isValid } = useDateParser(props)
 
@@ -206,6 +216,32 @@ export default defineComponent({
 
     const focus = (): void => {
       input.value?.focus()
+    }
+
+    const hideAndFocus = (): void => {
+      isOpenSync.value = false
+      focus()
+    }
+
+    const focusDatePicker = (): void => {
+      nextTick(() => datePicker.value?.focusCurrentPicker())
+    }
+
+    const focusInputOrPicker = (): void => {
+      props.manualInput ? focus() : focusDatePicker()
+    }
+
+    const toggleDropdown = () => {
+      isOpenSync.value = !isOpenSync.value
+      focusInputOrPicker()
+    }
+
+    const showAndFocus = (event: Event): void => {
+      if (props.manualInput) { return }
+
+      isOpenSync.value = true
+      focusDatePicker()
+      event.preventDefault()
     }
 
     const blur = (): void => {
@@ -259,6 +295,7 @@ export default defineComponent({
     }))
 
     return {
+      datePicker,
       valueText,
       valueComputed,
       isOpenSync,
@@ -274,6 +311,10 @@ export default defineComponent({
       clearIconProps,
       iconProps,
 
+      hideAndFocus,
+      showAndFocus,
+      toggleDropdown,
+      focusInputOrPicker,
       reset,
       focus,
       blur,

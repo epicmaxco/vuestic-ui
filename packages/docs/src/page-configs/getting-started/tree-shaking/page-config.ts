@@ -17,6 +17,7 @@ const config: ApiDocsBlock[] = [
     'treeShaking.plugins.GlobalConfigPlugin',
     'treeShaking.plugins.ColorHelpersPlugin',
     'treeShaking.plugins.VaToastPlugin',
+    'treeShaking.plugins.VaModalPlugin',
     'treeShaking.plugins.VaDropdownPlugin',
   ]),
 ]
