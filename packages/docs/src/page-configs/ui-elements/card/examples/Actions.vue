@@ -20,11 +20,3 @@
     </div>
   </div>
 </template>
-
-<script>
-import VaCardActions from 'vuestic-ui/src/components/va-card/VaCardActions'
-
-export default {
-  components: { VaCardActions },
-}
-</script>
