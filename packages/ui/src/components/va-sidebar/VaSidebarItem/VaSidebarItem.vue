@@ -23,7 +23,7 @@ import { useHover } from '../../../composables/useHover'
 import { useRouterLink, useRouterLinkProps } from '../../../composables/useRouterLink'
 import { useElementRef } from '../../../composables/useElementRef'
 import { useTextColor } from '../../../composables/useTextColor'
-import { useSidebarItem } from '../hooks/useSidebar'
+import { useElementBackground } from '../../../composables/useElementBackground'
 
 export default defineComponent({
   name: 'VaSidebarItem',
@@ -41,11 +41,11 @@ export default defineComponent({
 
   setup (props) {
     const rootElement = useElementRef()
+    const { background } = useElementBackground(rootElement)
 
     const { isHovered } = useHover(rootElement)
     const { getColor, getHoverColor, getFocusColor } = useColors()
     const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
-    const { sidebarColor } = useSidebarItem()
 
     const backgroundColorComputed = computed(() => {
       if (isHovered.value) {
@@ -63,7 +63,7 @@ export default defineComponent({
       return '#ffffff00'
     })
 
-    const textBackground = computed(() => mixColorsRGBA(sidebarColor.value, backgroundColorComputed.value))
+    const textBackground = computed(() => mixColorsRGBA(background.value, backgroundColorComputed.value))
     const { textColorComputed } = useTextColor(textBackground)
 
     const computedStyle = computed(() => {
@@ -90,7 +90,6 @@ export default defineComponent({
       hrefComputed,
       isHovered,
       backgroundColorComputed,
-      textBackground,
     }
   },
 })

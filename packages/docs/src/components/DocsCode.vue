@@ -72,15 +72,14 @@ https://prismjs.com/download.html#themes=prism&languages=css */
 // Here class is being applied twice, while it should have been applied only on external container
 pre.DocsCode {
   margin-bottom: 0.2rem;
-  background: #f4f8fa;
+  background: var(--va-background-soft);
   padding-top: 1.3rem;
   font-size: calc(1rem / 1.4);
 
   code[class*="language-"],
   pre[class*="language-"] {
-    color: black;
+    color: currentColor;
     background: none;
-    text-shadow: 0 1px white;
     font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
     font-size: 1rem;
     text-align: left;
@@ -98,11 +97,6 @@ pre.DocsCode {
     padding: 1rem;
     margin: 0;
     overflow: auto;
-  }
-
-  :not(pre) > code[class*="language-"],
-  pre[class*="language-"] {
-    background: $prism-background;
   }
 
   /* Inline code */
@@ -153,7 +147,7 @@ pre.DocsCode {
   .language-css .token.string,
   .style .token.string {
     color: #9a6e3a;
-    background: #f4f8fa;
+    // background: #f4f8fa;
   }
 
   .token.atrule,

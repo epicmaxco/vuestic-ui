@@ -1,3 +1,4 @@
+import { computed } from 'vue'
 import { GlobalConfig, useGlobalConfigSafe } from '../global-config/global-config'
 import {
   getBoxShadowColor,
@@ -25,6 +26,8 @@ export const useColors = () => {
   }
 
   const { setGlobalConfig, getGlobalConfig } = globalConfg
+
+  const colors = computed(() => getGlobalConfig().colors || {})
 
   const setColors = (colors: ColorConfig): void => {
     setGlobalConfig((config: GlobalConfig) => ({
@@ -90,6 +93,7 @@ export const useColors = () => {
   }
 
   return {
+    colors,
     setColors,
     getColors,
     getColor,

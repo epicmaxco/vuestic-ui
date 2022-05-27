@@ -36,7 +36,7 @@
 
     <template #right>
       <version-dropdown class="mr-2" />
-<!--  <color-dropdown class="mr-1" />-->
+      <color-dropdown class="mr-1" />
       <language-dropdown class="mr-1" />
     </template>
   </va-navbar>
@@ -104,7 +104,8 @@ export default class Header extends mixins(PropsMixin) {
 .header {
   width: 100%;
   height: 4rem;
-  box-shadow: 0 2px 8px var(--va-background);
+  z-index: 9999;
+  box-shadow: 0 2px 8px var(--va-shadow);
 
   @include media-breakpoint-down(sm) {
     .sm-hidden {

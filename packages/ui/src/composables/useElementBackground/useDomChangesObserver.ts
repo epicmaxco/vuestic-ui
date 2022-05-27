@@ -1,4 +1,4 @@
-import { onBeforeUnmount, onMounted, Ref } from 'vue'
+import { nextTick, onBeforeUnmount, onMounted, Ref } from 'vue'
 import debounce from 'lodash/debounce.js'
 
 type Handler = { cb: (() => void), el: () => HTMLElement }

@@ -6,7 +6,7 @@
       v-model="value"
       placeholder="Search..."
       @focus="onFocusHandler('currentColor', 'block')"
-      @blur="onFocusHandler('gray', 'none')"
+      @blur="onFocusHandler('gray', 'block')"
     >
       <template #prependInner>
         <va-icon
@@ -34,6 +34,8 @@ export default class Search extends Vue {
     const el: HTMLElement | null = document.querySelector('.ds-dropdown-menu')
     if (el) { el.style.display = displayValue }
   }
+
+  // TODO: Compute text color from va-background-soft
 
   initialize () {
     Promise.all([
@@ -100,6 +102,12 @@ export default class Search extends Vue {
   }
 
   .ds-dropdown-menu {
+    color: currentColor;
+
+    [class^="ds-dataset-"] {
+      background: var(--va-background-soft) !important;
+    }
+
     &::before {
       display: none;
     }
@@ -107,25 +115,29 @@ export default class Search extends Vue {
     > div {
       position: fixed;
       border: none;
-      box-shadow: 0 2px 8px rgba(122, 139, 173, 0.2);
+      box-shadow: 0 2px 8px var(--va-shadow);
       border-radius: 4px;
       padding: 0;
 
       .ds-suggestion {
         .algolia-docsearch-suggestion {
           padding: 0;
+          background: transparent !important;
+          color: currentColor;
         }
 
         &:first-child {
           .algolia-docsearch-suggestion--category-header {
             border-top: none;
+            color: currentColor;
+            opacity: 0.5;
           }
         }
 
         .algolia-docsearch-suggestion--category-header {
           padding: 0.25rem 1rem;
           border-bottom: none;
-          border-top: 1px solid $prism-background;
+          // border-top: 1px solid $prism-background;
 
           &-lvl0 {
             font-family: Source Sans Pro;
@@ -135,15 +147,17 @@ export default class Search extends Vue {
             line-height: 14px;
             letter-spacing: 0.6px;
             text-transform: uppercase;
-            color: $default-gray;
+            color: currentColor;
+            // color: $default-gray;
 
             .algolia-docsearch-suggestion--highlight {
-              box-shadow: inset 0 -2px 0 0 rgba(44, 130, 224, 0.1);
+              // box-shadow: inset 0 -2px 0 0 rgba(44, 130, 224, 0.1);
             }
           }
         }
 
         .algolia-docsearch-suggestion--wrapper {
+          color: currentColor;
           padding-top: 0;
         }
 
@@ -166,7 +180,8 @@ export default class Search extends Vue {
             font-weight: normal;
             font-size: 16px;
             line-height: 20px;
-            color: var(--va-dark);
+            color: currentColor !important;
+            // color: var(--va-dark);
 
             .algolia-docsearch-suggestion--highlight {
               padding: 0;
@@ -181,7 +196,7 @@ export default class Search extends Vue {
             font-weight: normal;
             font-size: 15px;
             line-height: 20px;
-            color: $default-gray;
+            // color: $default-gray;
 
             .algolia-docsearch-suggestion--highlight {
               color: var(--va-primary);
@@ -194,7 +209,7 @@ export default class Search extends Vue {
 
       .ds-cursor {
         .algolia-docsearch-suggestion--content {
-          background-color: $prism-background;
+          background-color: var(--va-background-soft);
         }
       }
 

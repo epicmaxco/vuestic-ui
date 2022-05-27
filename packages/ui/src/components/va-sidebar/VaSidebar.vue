@@ -17,7 +17,6 @@ import { defineComponent, computed, ref, PropType } from 'vue'
 import { getGradientBackground } from '../../services/color-config/color-functions'
 import { useColors } from '../../services/color-config/color-config'
 import { useTextColor } from '../../composables/useTextColor'
-import { useSidebar } from './hooks/useSidebar'
 
 export default defineComponent({
   name: 'VaSidebar',
@@ -34,7 +33,6 @@ export default defineComponent({
   },
   setup (props) {
     const { getColor } = useColors()
-    useSidebar()
 
     const isHovered = ref(false)
 

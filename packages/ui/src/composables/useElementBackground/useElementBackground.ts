@@ -1,8 +1,8 @@
-import { ColorArray, parseRGBA } from './utils'
+import { ColorArray, parseRGBA, getElementBackground } from './utils'
 import { ref, getCurrentInstance, watch, Ref, onMounted } from 'vue'
 import { useDomChangesObserver } from './useDomChangesObserver'
 import { useTempMap } from './useTempMap'
-import { computed } from '@vue/reactivity'
+import { useColors } from '../../services/color-config/color-config'
 
 type Maybe<T> = T | null | undefined
 
@@ -29,9 +29,11 @@ const recursiveGetBackground = (element: Maybe<HTMLElement>): ColorArray => {
   if (!element) { return WHITE_COLOR_ARRAY } // Likely doesn't have a color, so let's just return white
   if (element.nodeType !== Node.ELEMENT_NODE) { return recursiveGetBackground(element.parentElement) }
 
-  if (tempCache.get(element)) { return tempCache.get(element) }
+  // if (tempCache.get(element)) { return tempCache.get(element) }
 
-  const bg = window.getComputedStyle(element).backgroundColor
+  const bg = getElementBackground(element)
+
+  if (!bg) { return recursiveGetBackground(element.parentElement) }
 
   if (isTransparent(bg)) {
     const parentBg = recursiveGetBackground(element.parentElement)
@@ -61,8 +63,9 @@ const recursiveGetBackground = (element: Maybe<HTMLElement>): ColorArray => {
 /** Can be null before component is mounted */
 export const useElementBackground = (element?: Ref<HTMLElement | undefined>) => {
   const { proxy } = getCurrentInstance()!
-  const getEl = () => element?.value || proxy?.$el
-  const background = ref(rgba2hex(recursiveGetBackground(getEl())))
+  const getEl = (): HTMLElement => element?.value || proxy?.$el
+  const { colors, getColor } = useColors()
+  const background = ref(getColor('background'))
 
   const updateBackground = () => {
     const bg = recursiveGetBackground(getEl())
@@ -76,6 +79,7 @@ export const useElementBackground = (element?: Ref<HTMLElement | undefined>) => 
   }
 
   onMounted(updateBackground)
+  watch(colors, updateBackground)
 
   return {
     background,
