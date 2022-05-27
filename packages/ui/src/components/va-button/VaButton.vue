@@ -1,5 +1,6 @@
 <template>
   <component
+    ref="button"
     :is="tagComputed"
     class="va-button"
     :class="computedClass"
@@ -20,7 +21,6 @@
     @mouseenter="hoverState = true"
     @mouseleave="hoverState = false"
     v-on="$attrs"
-    ref="button"
     :aria-disabled="$props.disabled"
   >
     <div class="va-button__content" :class="{ 'va-button__content--loading': loading }">
@@ -55,9 +55,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref, Ref, PropType, ComputedRef } from 'vue'
+import { defineComponent, computed, ref, ComputedRef } from 'vue'
 import { useTextColor } from '../../composables/useTextColor'
-import { getGradientBackground, getTextColor, shiftHSLAColor } from '../../services/color-config/color-functions'
+import { getGradientBackground, shiftHSLAColor } from '../../services/color-config/color-functions'
 import { useColor } from '../../composables/useColor'
 import { useRouterLink, useRouterLinkProps } from '../../composables/useRouterLink'
 import { useSizeProps, useSize } from '../../composables/useSize'
@@ -72,27 +72,29 @@ export default defineComponent({
     ...useSizeProps,
     ...useLoadingProps,
     ...useRouterLinkProps,
-    color: { type: String as PropType<string>, default: 'primary' },
-    textColor: { type: String as PropType<string | undefined>, default: undefined },
-    tag: { type: String as PropType<string>, default: 'button' },
-    outline: { type: Boolean as PropType<boolean | undefined>, default: undefined },
-    gradient: { type: Boolean as PropType<boolean | undefined>, default: undefined },
-    flat: { type: Boolean as PropType<boolean | undefined>, default: undefined },
-    type: { type: String as PropType<string>, default: 'button' },
-    disabled: { type: Boolean as PropType<boolean>, default: false },
-    block: { type: Boolean as PropType<boolean>, default: false },
-    rounded: { type: Boolean as PropType<boolean>, default: true },
-    round: { type: Boolean as PropType<boolean | undefined>, default: undefined },
-    spaceBetweenItems: { type: Boolean as PropType<boolean | undefined>, default: undefined },
-    icon: { type: String as PropType<string | undefined>, default: undefined },
-    iconRight: { type: String as PropType<string | undefined>, default: undefined },
+    color: { type: String, default: 'primary' },
+    textColor: { type: String, default: undefined },
+    tag: { type: String, default: 'button' },
+    outline: { type: Boolean, default: undefined },
+    gradient: { type: Boolean, default: undefined },
+    flat: { type: Boolean, default: undefined },
+    type: { type: String, default: 'button' },
+    disabled: { type: Boolean, default: false },
+    block: { type: Boolean, default: false },
+    rounded: { type: Boolean, default: true },
+    round: { type: Boolean, default: undefined },
+    spaceBetweenItems: { type: Boolean, default: undefined },
+    icon: { type: String, default: undefined },
+    iconRight: { type: String, default: undefined },
     size: {
-      type: String as PropType<string>,
+      type: String,
       default: 'medium',
       validator: (value: string) => ['medium', 'small', 'large'].includes(value),
     },
   },
   setup (props, { slots }) {
+    const button = ref<HTMLElement>()
+
     const { sizeComputed } = useSize(props)
     const { computeColor } = useColor(props)
     const { tagComputed, hrefComputed } = useRouterLink(props)
@@ -182,7 +184,6 @@ export default defineComponent({
       }
     })
 
-    const button: Ref<HTMLElement | null> = ref(null)
     const focus = () => button.value?.focus()
     const blur = () => button.value?.blur()
 
@@ -197,13 +198,9 @@ export default defineComponent({
       loaderSize,
       focusState,
       hoverState,
+      focus,
+      blur,
     }
-  },
-
-  // we will use this while we have 'withConfigTransport' and problem with 'expose' method in 'setup' func
-  methods: {
-    focus () { (this as any).button?.focus() },
-    blur () { (this as any).button?.blur() },
   },
 })
 </script>
