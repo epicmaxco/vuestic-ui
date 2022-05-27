@@ -1,12 +1,25 @@
 <template>
-  <div class="va-content">
+  <div class="va-content" :style="{ color: textColorComputed }">
     <slot />
   </div>
 </template>
 
 <script>
+import { toRef } from 'vue'
+import { useTextColor } from '../../composables/useTextColor'
+
 export default {
   name: 'VaContent',
+
+  props: {
+    background: { type: String, default: 'background' },
+  },
+
+  setup (props) {
+    const { textColorComputed } = useTextColor(toRef(props, 'background'))
+
+    return { textColorComputed }
+  },
 }
 </script>
 

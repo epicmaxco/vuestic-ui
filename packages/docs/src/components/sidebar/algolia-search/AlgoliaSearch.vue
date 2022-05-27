@@ -5,14 +5,13 @@
       class="search-input"
       v-model="value"
       placeholder="Search..."
-      @focus="onFocusHandler('dark', 'block')"
+      @focus="onFocusHandler('currentColor', 'block')"
       @blur="onFocusHandler('gray', 'none')"
     >
-      <template #prepend>
+      <template #prependInner>
         <va-icon
-          class="search-icon"
+          class="search-icon pr-2"
           name="search"
-          :color="color"
           size="100%"
         />
       </template>

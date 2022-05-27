@@ -43,7 +43,7 @@ export default defineComponent({
     stripeColor: { type: String as PropType<string>, default: '' },
     gradient: { type: Boolean as PropType<boolean>, default: false },
     textColor: { type: String as PropType<string> },
-    color: { type: String as PropType<string>, default: 'white' },
+    color: { type: String as PropType<string>, default: 'background-soft' },
   },
   setup (props) {
     const { getColor } = useColors()

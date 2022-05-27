@@ -1,6 +1,6 @@
 <template lang="html">
-  <header class="header row justify--space-between">
-    <div class="header__logo flex">
+  <va-navbar class="header">
+    <template #left>
       <header-selector
         class="header__logo__selector"
         :minimized="isSidebarVisible"
@@ -16,30 +16,30 @@
           />
         </a>
       </router-link>
-    </div>
-    <div class="header__links flex grow justify--center">
-      <div class="shrink">
-        <va-button
-          v-for="(link, index) in links"
-          :key="index"
-          flat
-          class="header__links__button ml-2"
-          color="primary"
-          :to="link.to"
-          :href="link.url"
-          :target="link.target"
-        >
-          <va-icon class="button__icon" :class="link.icon" />
-          <span class="button__text">{{ link.text }}</span>
-        </va-button>
-      </div>
-    </div>
-    <div class="header__prefences sm-hidden flex px-3">
+    </template>
+
+    <template #center>
+      <va-button
+        v-for="(link, index) in links"
+        :key="index"
+        flat
+        class="header__links__button ml-2"
+        color="primary"
+        :to="link.to"
+        :href="link.url"
+        :target="link.target"
+      >
+        <va-icon class="button__icon" :class="link.icon" />
+        <span class="button__text">{{ link.text }}</span>
+      </va-button>
+    </template>
+
+    <template #right>
       <version-dropdown class="mr-2" />
-<!--      <color-dropdown class="mr-1" />-->
+<!--  <color-dropdown class="mr-1" />-->
       <language-dropdown class="mr-1" />
-    </div>
-  </header>
+    </template>
+  </va-navbar>
 </template>
 
 <script lang="ts">
@@ -100,12 +100,11 @@ export default class Header extends mixins(PropsMixin) {
 
 <style lang="scss" scoped>
 @import "~vuestic-ui/src/styles/resources";
-@import "~vuestic-ui/src/styles/global";
 
 .header {
   width: 100%;
   height: 4rem;
-  box-shadow: 0 2px 8px rgba(122, 139, 173, 0.2);
+  box-shadow: 0 2px 8px var(--va-background);
 
   @include media-breakpoint-down(sm) {
     .sm-hidden {
@@ -151,12 +150,12 @@ export default class Header extends mixins(PropsMixin) {
     }
   }
 
-  &,
-  &__links,
-  &__prefences,
-  &__logo {
-    @include va-flex-center();
-  }
+  // &,
+  // &__links,
+  // &__prefences,
+  // &__logo {
+  //   @include va-flex-center();
+  // }
 
   &__logo {
     &__selector {

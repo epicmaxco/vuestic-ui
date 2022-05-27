@@ -113,7 +113,7 @@ export default class DocsLayout extends Vue {
   }
 
   changeTheme (themeName) {
-    useColors().setColors(COLOR_THEMES[themeName] || COLOR_THEMES[ThemeName.DEFAULT])
+    // useColors().setColors(COLOR_THEMES[themeName] || COLOR_THEMES[ThemeName.DEFAULT])
   }
 
   // get crumbs () {

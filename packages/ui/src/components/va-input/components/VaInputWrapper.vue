@@ -17,7 +17,7 @@
         <div
           class="va-input__container"
           ref="container"
-          :style="{ borderColor: borderColorComputed }"
+          :style="containerStyle"
         >
           <div
             v-if="$slots.prependInner"
@@ -98,10 +98,11 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue'
+import { computed, defineComponent, toRef } from 'vue'
 import { useBem } from '../../../composables/useBem'
 import { useFormProps } from '../../../composables/useForm'
 import { useValidationProps } from '../../../composables/useValidation'
+import { useTextColor } from '../../../composables/useTextColor'
 import { useColors } from '../../../services/color-config/color-config'
 import VaMessageList from './VaMessageList'
 
@@ -116,6 +117,7 @@ export default defineComponent({
 
     label: { type: String, default: '' },
     color: { type: String, default: 'primary' },
+    background: { type: String, default: 'background-mute' },
     outline: { type: Boolean, default: false },
     bordered: { type: Boolean, default: false },
     focused: { type: Boolean, default: false },
@@ -138,12 +140,21 @@ export default defineComponent({
     const { createModifiersClasses } = useBem('va-input')
 
     const colorComputed = computed(() => getColor(props.color))
+    const borderColorComputed = computed(() => props.focused ? colorComputed.value : undefined)
 
     const messagesComputed = computed(() => props.error ? props.errorMessages : props.messages)
 
     const hasMessages = computed(() => Boolean(
       typeof messagesComputed.value === 'string' ? messagesComputed.value : messagesComputed.value?.length,
     ))
+
+    const { textColorComputed } = useTextColor(toRef(props, 'background'))
+
+    const containerStyle = computed(() => ({
+      color: textColorComputed.value,
+      '--va-input-color': props.background ? getColor(props.background) : undefined,
+      borderColor: borderColorComputed.value,
+    }))
 
     return {
       wrapperClass: createModifiersClasses(() => ({
@@ -157,9 +168,10 @@ export default defineComponent({
         focused: props.focused,
         error: props.error,
       })),
+      containerStyle,
 
       colorComputed,
-      borderColorComputed: computed(() => props.focused ? colorComputed.value : undefined),
+      borderColorComputed,
 
       messagesColor: computed(() => {
         if (props.error) { return 'danger' }
@@ -217,6 +229,11 @@ export default defineComponent({
         padding-right: 0;
       }
     }
+
+    input,
+    textarea {
+      color: currentColor;
+    }
   }
 
   &-wrapper__input {
@@ -262,7 +279,6 @@ export default defineComponent({
         width: 100%;
         // Use line-height as min-height for empty content slot
         min-height: var(--va-input-line-height);
-        color: var(--va-input-text-color);
         background-color: transparent;
         border-style: none;
         outline: none;

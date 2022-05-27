@@ -34,7 +34,7 @@ import { useTextColor } from '../../composables/useTextColor'
 export default defineComponent({
   name: 'VaNavbar',
   props: {
-    color: { type: String as PropType<string>, default: 'secondary' },
+    color: { type: String as PropType<string>, default: 'backgroundSoft' },
     textColor: { type: String as PropType<string> },
     shape: { type: Boolean as PropType<boolean>, default: false },
   },
@@ -74,6 +74,7 @@ export default defineComponent({
   padding-right: var(--va-navbar-padding-right);
   background-color: va(--va-primary);
   display: flex;
+  align-items: center;
   font-family: var(--va-font-family);
 
   &__content {
@@ -93,9 +94,14 @@ export default defineComponent({
     }
   }
 
-  &__center {
+  &__left,
+  &__center,
+  &__right {
     display: flex;
+    align-items: center;
+  }
 
+  &__center {
     & > .va-navbar__item {
       margin: 0 var(--va-navbar-item-margin);
 
@@ -110,9 +116,6 @@ export default defineComponent({
   }
 
   &__left {
-    display: flex;
-    flex-direction: row;
-
     & > .va-navbar__item {
       margin-right: var(--va-navbar-item-margin-side);
 
@@ -128,8 +131,6 @@ export default defineComponent({
   }
 
   &__right {
-    display: flex;
-    flex-direction: row;
     justify-content: flex-end;
 
     & > .va-navbar__item {

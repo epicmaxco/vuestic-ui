@@ -22,7 +22,7 @@ import { useSidebar } from './hooks/useSidebar'
 export default defineComponent({
   name: 'VaSidebar',
   props: {
-    color: { type: String, default: 'background' },
+    color: { type: String, default: 'background-mute' },
     textColor: { type: String },
     gradient: { type: Boolean, default: false },
     minimized: { type: Boolean, default: false },

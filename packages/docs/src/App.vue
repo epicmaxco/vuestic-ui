@@ -1,5 +1,5 @@
 <template>
-  <metainfo />
+  <!-- <metainfo /> -->
   <router-view />
 </template>
 
@@ -24,7 +24,7 @@ export default defineComponent({
     }
   },
   setup () {
-    useColors().setColors(COLOR_THEMES[ThemeName.DEFAULT])
+    // useColors().setColors(COLOR_THEMES[ThemeName.DEFAULT])
   },
 })
 </script>
