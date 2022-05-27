@@ -6,6 +6,7 @@
     @keydown.space.stop.prevent="makeActiveNext(5)"
     @keydown.up.stop.prevent="makeActivePrev()"
     @scroll="onScroll"
+    @touchmove="onScroll"
     ref="rootElement"
   >
     <div
@@ -78,7 +79,19 @@ export default defineComponent({
       return n < 10 ? `0${n}` : `${n}`
     }
 
-    const getIndex = () => Math.round(rootElement.value!.scrollTop / props.cellHeight)
+    const getIndex = () => {
+      const scrollTop = rootElement.value!.scrollTop
+      const calculatedIndex = Math.max(
+        (scrollTop - scrollTop % props.cellHeight) / props.cellHeight,
+        scrollTop / props.cellHeight,
+      )
+
+      if (syncActiveItemIndex.value * props.cellHeight < scrollTop) {
+        return Math.ceil(calculatedIndex)
+      } else {
+        return Math.floor(calculatedIndex)
+      }
+    }
 
     const onScroll = debounce(() => {
       if (!rootElement.value) { return }
@@ -166,16 +179,6 @@ export default defineComponent({
 
       &:hover {
         background: var(--va-time-picker-cell-background-color-hover);
-      }
-    }
-
-    &:focus {
-      .va-time-picker-cell {
-        &--active {
-          &::before {
-            opacity: var(--va-time-picker-cell-active-background-opacity-hover);
-          }
-        }
       }
     }
   }
