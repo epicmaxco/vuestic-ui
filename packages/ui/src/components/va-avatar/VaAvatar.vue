@@ -23,7 +23,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, computed } from 'vue'
+import { defineComponent, computed } from 'vue'
 
 import { useColors } from '../../composables/useColor'
 import { useSize, useSizeProps } from '../../composables/useSize'
@@ -39,12 +39,12 @@ export default defineComponent({
   props: {
     ...useLoadingProps,
     ...useSizeProps,
-    color: { type: String as PropType<string>, default: 'info' },
-    textColor: { type: String as PropType<string>, default: 'white' },
-    square: { type: Boolean as PropType<boolean>, default: false },
-    icon: { type: String as PropType<string>, default: '' },
-    src: { type: String as PropType<string>, default: null },
-    fontSize: { type: String as PropType<string>, default: '' },
+    color: { type: String, default: 'info' },
+    textColor: { type: String, default: 'white' },
+    square: { type: Boolean, default: false },
+    icon: { type: String, default: '' },
+    src: { type: String, default: null },
+    fontSize: { type: String, default: '' },
   },
   setup (props) {
     const { getColor } = useColors()
