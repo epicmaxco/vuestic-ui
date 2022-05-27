@@ -473,6 +473,7 @@
     },
     "VaImage": {
       "props": {
+        "alt": "Specifies an alternate text for an image.",
         "ratio": "Width to height ratio.",
         "contain": "Scales the image while maintaining the proportions so that the whole image fits inside the block."
       },
