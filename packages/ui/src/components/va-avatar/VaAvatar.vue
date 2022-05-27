@@ -2,6 +2,8 @@
   <div
     class="va-avatar"
     :style="computedStyle"
+    :aria-hidden="$props.src ? null : true"
+    aria-live="polite"
   >
     <slot>
       <va-progress-circle
@@ -11,12 +13,13 @@
         indeterminate
       />
       <img
-        v-else-if="src"
-        :src="src"
+        v-else-if="$props.src"
+        :src="$props.src"
+        :alt="$props.alt"
       >
       <va-icon
-        v-else-if="icon"
-        :name="icon"
+        v-else-if="$props.icon"
+        :name="$props.icon"
       />
     </slot>
   </div>
@@ -44,6 +47,7 @@ export default defineComponent({
     square: { type: Boolean, default: false },
     icon: { type: String, default: '' },
     src: { type: String, default: null },
+    alt: { type: String, default: '' },
     fontSize: { type: String, default: '' },
   },
   setup (props) {

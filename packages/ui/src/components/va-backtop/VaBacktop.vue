@@ -2,11 +2,14 @@
   <div
     v-if="visible"
     class="va-backtop"
+    role="button"
+    aria-label="Back to top"
     :style="computedStyle"
     @click="scrollToTop"
   >
     <slot>
       <va-button
+        aria-hidden="true"
         icon="expand_less"
         :color="color"
       />

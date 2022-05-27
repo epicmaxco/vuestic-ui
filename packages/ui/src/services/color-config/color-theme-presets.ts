@@ -13,6 +13,7 @@ type VuesticColorsPreset = {
   divider: CssColor,
   white: CssColor,
   black: CssColor,
+  focus: CssColor,
 }
 
 export const colorsPresets: Record<string, VuesticColorsPreset> = {
@@ -29,5 +30,6 @@ export const colorsPresets: Record<string, VuesticColorsPreset> = {
     divider: '#E1E9F8',
     white: '#ffffff',
     black: '#000000',
+    focus: '#ffc700',
   },
 }
