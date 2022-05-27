@@ -2,6 +2,8 @@
   <div
     class="va-avatar"
     :style="computedStyle"
+    :aria-hidden="$props.src ? null : true"
+    aria-live="polite"
   >
     <slot>
       <va-progress-circle
@@ -11,12 +13,13 @@
         indeterminate
       />
       <img
-        v-else-if="src"
-        :src="src"
+        v-else-if="$props.src"
+        :src="$props.src"
+        :alt="$props.alt"
       >
       <va-icon
-        v-else-if="icon"
-        :name="icon"
+        v-else-if="$props.icon"
+        :name="$props.icon"
       />
     </slot>
   </div>
@@ -39,12 +42,13 @@ export default defineComponent({
   props: {
     ...useLoadingProps,
     ...useSizeProps,
-    color: { type: String as PropType<string>, default: 'info' },
-    textColor: { type: String as PropType<string>, default: 'white' },
-    square: { type: Boolean as PropType<boolean>, default: false },
-    icon: { type: String as PropType<string>, default: '' },
-    src: { type: String as PropType<string>, default: null },
-    fontSize: { type: String as PropType<string>, default: '' },
+    color: { type: String, default: 'info' },
+    textColor: { type: String, default: 'white' },
+    square: { type: Boolean, default: false },
+    icon: { type: String, default: '' },
+    src: { type: String, default: null },
+    alt: { type: String, default: '' },
+    fontSize: { type: String, default: '' },
   },
   setup (props) {
     const { getColor } = useColors()
