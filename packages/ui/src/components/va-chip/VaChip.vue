@@ -19,7 +19,6 @@
       @focus="$emit('focus')"
       @mouseenter="onMouseEnter"
       @mouseleave="onMouseLeave"
-      :tabindex="indexComputed"
     >
       <va-icon
         v-if="icon"
@@ -36,6 +35,8 @@
         class="va-chip__close-icon"
         name="close"
         role="button"
+        aria-label="close"
+        :tabindex="indexComputed"
         :size="iconSize"
         @click.stop="close"
       />
@@ -49,7 +50,6 @@ import {
   getBoxShadowColor,
   getHoverColor,
   getFocusColor,
-  getTextColor,
 } from '../../services/color-config/color-functions'
 import { useRouterLink, useRouterLinkProps } from '../../composables/useRouterLink'
 import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'
@@ -204,6 +204,10 @@ export default defineComponent({
 
   &__close-icon {
     cursor: pointer;
+
+    &:focus {
+      outline: 1px solid;
+    }
 
     @at-root {
       .va-chip--disabled {

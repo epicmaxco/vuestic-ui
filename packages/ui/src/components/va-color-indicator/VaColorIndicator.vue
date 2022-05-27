@@ -1,9 +1,9 @@
 <template>
   <div
     class="va-color-indicator"
-    @click="toggleModelValue"
     :class="computedClass"
     :style="computedStyle"
+    @click="toggleModelValue"
   >
     <div
       class="va-color-indicator__core"
@@ -73,7 +73,8 @@ export default defineComponent({
     border-color: $vue-darkest-blue;
   }
 
-  &--hoverable &__core:hover {
+  &--hoverable &__core:hover,
+  &:focus {
     transform: scale(1.1);
     transition: transform 0.1s linear;
   }
