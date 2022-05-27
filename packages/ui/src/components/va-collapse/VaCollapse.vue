@@ -45,8 +45,8 @@
       </slot>
     </div>
     <div
-      class="va-collapse__body"
       ref="body"
+      class="va-collapse__body"
       :style="contentStyle"
       :id="panelIdComputed"
       :aria-labelledby="headerIdComputed"
@@ -57,14 +57,16 @@
 </template>
 
 <script lang="ts">
-import VaIcon from '../va-icon'
-import { useColors } from '../../composables/useColor'
 import { computed, defineComponent, shallowRef } from 'vue'
+
+import { useColors } from '../../composables/useColor'
 import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'
 import { useAccordionItem } from '../va-accordion/hooks/useAccordion'
 import { useSyncProp } from '../../composables/useSyncProp'
 import { useTextColor } from '../../composables/useTextColor'
 import { generateUniqueId } from '../../services/utils'
+
+import VaIcon from '../va-icon'
 
 export default defineComponent({
   name: 'VaCollapse',
@@ -84,7 +86,8 @@ export default defineComponent({
   emits: ['focus', 'update:modelValue'],
 
   setup (props, { emit, slots }) {
-    const body = shallowRef<HTMLElement | null>(null)
+    const body = shallowRef<HTMLElement>()
+
     const [computedModelValue] = useSyncProp('modelValue', props, emit, false)
 
     const { getColor, getHoverColor } = useColors()
