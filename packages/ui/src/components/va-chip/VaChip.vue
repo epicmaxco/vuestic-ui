@@ -36,6 +36,7 @@
         name="close"
         role="button"
         aria-label="close"
+        aria-hidden="false"
         :tabindex="indexComputed"
         :size="iconSize"
         @click.stop="close"
@@ -206,7 +207,7 @@ export default defineComponent({
     cursor: pointer;
 
     &:focus {
-      outline: 1px solid;
+      @include focus-outline;
     }
 
     @at-root {

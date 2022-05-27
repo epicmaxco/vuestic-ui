@@ -4,6 +4,8 @@
     :class="computedClass"
     :style="computedStyle"
     @click="toggleModelValue"
+    @keydown.enter="toggleModelValue"
+    @keydown.space="toggleModelValue"
   >
     <div
       class="va-color-indicator__core"

@@ -22,6 +22,7 @@
       ref="colorPicker"
       type="color"
       class="visually-hidden"
+      aria-hidden="true"
       tabindex="-1"
       v-model="valueComputed" />
   </div>
