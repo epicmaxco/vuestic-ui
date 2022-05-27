@@ -4,6 +4,7 @@
       class="va-color-input__dot"
       role="button"
       aria-label="open color picker"
+      :aria-disabled="$props.disabled"
       :tabindex="tabIndexComputed"
       :color="valueComputed"
       :indicator="indicator"
@@ -16,7 +17,7 @@
       placeholder="input color"
       v-model="valueComputed"
       :tabindex="tabIndexComputed"
-      :disabled="disabled"
+      :disabled="$props.disabled"
     />
     <input
       ref="colorPicker"
@@ -44,8 +45,8 @@ export default defineComponent({
   emits: useStatefulEmits,
   props: {
     ...useStatefulProps,
-    modelValue: { type: String as PropType<string>, default: null },
-    disabled: { type: Boolean as PropType<boolean>, default: false },
+    modelValue: { type: String, default: null },
+    disabled: { type: Boolean, default: false },
     indicator: {
       type: String as PropType<'dot' | 'square'>,
       default: 'dot',

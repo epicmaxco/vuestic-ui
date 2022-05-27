@@ -24,6 +24,7 @@
           ref="input"
           type="checkbox"
           class="va-checkbox__input"
+          :aria-label="$props.ariaLabel"
           :id="computedId"
           :name="computedName"
           :tabindex="computedTabIndex"
@@ -90,6 +91,7 @@ export default defineComponent({
     indeterminateIcon: { type: String as PropType<string>, default: 'remove' },
     id: { type: String as PropType<string>, default: '' },
     name: { type: String as PropType<string>, default: '' },
+    ariaLabel: { type: String, default: null },
   },
   setup (props, { emit }) {
     const elements = {

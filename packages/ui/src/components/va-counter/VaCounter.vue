@@ -1,11 +1,11 @@
 <template>
   <VaInputWrapper
     class="va-counter"
+    aria-live="polite"
     v-bind="{ ...fieldListeners, ...inputWrapperPropsComputed }"
     :class="classComputed"
     :style="styleComputed"
     :focused="isFocused"
-    @click="focus()"
     @keydown.up.prevent="increaseCount()"
     @keydown.down.prevent="decreaseCount()"
   >
@@ -17,6 +17,7 @@
         <slot name="decreaseAction" v-bind="{ ...slotScope, decreaseCount }">
           <va-button
             class="va-counter__button-decrease"
+            aria-label="decrease"
             v-bind="decreaseButtonProps"
             @click="decreaseCount()"
           />
@@ -43,6 +44,7 @@
         <slot name="increaseAction" v-bind="{ ...slotScope, increaseCount }">
           <va-button
             class="va-counter__button-increase"
+            aria-label="increase"
             v-bind="increaseButtonProps"
             @click="increaseCount()"
           />
@@ -69,12 +71,16 @@
 
     <input
       v-if="!$slots.content"
-      class="va-input__content__input"
       ref="input"
+      class="va-input__content__input"
       type="number"
       inputmode="decimal"
+      :tabindex="tabIndexComputed"
+      aria-label="counter value"
       v-bind="{ ...inputAttributesComputed, ...inputListeners }"
       :value="valueComputed"
+      :disabled="$props.disabled"
+      :readonly="$props.readonly"
       @input="setCountInput"
       @change="setCountChange"
     >
@@ -153,7 +159,6 @@ export default defineComponent({
 
     const {
       isFocused,
-      // will be useful when we resolve problem with 'withConfigTransport'
       focus,
       blur,
     } = useFocus(input, emit)
@@ -205,12 +210,16 @@ export default defineComponent({
         : Number(valueComputed.value) >= props.max
     })
 
+    const isDisabled = computed(() => props.readonly || props.disabled)
+
+    const tabIndexComputed = computed(() => isDisabled.value ? -1 : 0)
+
     const isDecreaseActionDisabled = computed(() => (
-      isMinReached.value || props.readonly || props.disabled
+      isMinReached.value || isDisabled.value
     ))
 
     const isIncreaseActionDisabled = computed(() => (
-      isMaxReached.value || props.readonly || props.disabled
+      isMaxReached.value || isDisabled.value
     ))
 
     const decreaseCount = () => {
@@ -304,21 +313,16 @@ export default defineComponent({
       decreaseButtonProps,
       increaseButtonProps,
 
+      tabIndexComputed,
+
       colorComputed,
       classComputed,
       styleComputed,
       marginComputed,
 
-      // while we have problem with 'withConfigTransport'
-      // focus,
-      // blur,
+      focus,
+      blur,
     }
-  },
-
-  // we will use this while we have problem with 'withConfigTransport'
-  methods: {
-    focus () { this.input?.focus() },
-    blur () { this.input?.blur() },
   },
 })
 </script>

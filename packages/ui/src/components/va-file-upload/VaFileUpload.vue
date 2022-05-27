@@ -29,13 +29,14 @@
       ref="fileInputRef"
       type="file"
       class="va-file-upload__field__input"
+      tabindex="-1"
+      aria-hidden="true"
       :accept="fileTypes"
       :multiple="type !== 'single'"
       :disabled="disabled"
       @change="changeFieldValue"
       @dragenter="dropzoneHighlight = true"
       @dragleave="dropzoneHighlight = false"
-      tabindex="-1"
     >
     <va-file-upload-list
       v-if="files.length && !$props.hideFileList"
