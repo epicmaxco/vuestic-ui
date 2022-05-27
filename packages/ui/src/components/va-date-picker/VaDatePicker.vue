@@ -3,6 +3,7 @@
     <va-date-picker-header
       v-bind="headerProps"
       v-model:view="syncView"
+      :textColor="textColorComputed"
     >
       <template v-for="(_, name) in $slots" v-slot:[name]="bind">
         <slot :name="name" v-bind="bind" />
@@ -205,6 +206,7 @@ export default defineComponent({
 
       styleComputed,
       currentPicker,
+      textColorComputed,
       focusCurrentPicker,
 
       isPickerReadonly,

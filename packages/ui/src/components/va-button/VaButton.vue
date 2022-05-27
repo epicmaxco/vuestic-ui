@@ -155,7 +155,7 @@ export default defineComponent({
         : colorComputed.value
 
       if (isTransparentBackground.value) {
-        background = 'var(--va-transparent)'
+        background = 'transparent'
       }
 
       if (hoverState.value) {

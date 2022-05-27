@@ -15,7 +15,7 @@
       :focused="focusedCellIndex === index"
       :highlight-today="highlightToday"
       :readonly="readonly"
-      @click="onClick(year); focusedCellIndex = index"
+      :color="color"      @click="onClick(year); focusedCellIndex = index"
       @mouseenter="hoveredIndex = index"
       @mouseleave="hoveredIndex = -1"
     >
@@ -45,6 +45,7 @@ export default defineComponent({
     startYear: { type: Number, default: () => 1970 },
     endYear: { type: Number, default: () => new Date().getFullYear() + 50 },
     readonly: { type: Boolean, default: false },
+    color: { type: String, default: 'primary' },
   },
 
   emits: ['update:modelValue', 'hover:year', 'click:year'],

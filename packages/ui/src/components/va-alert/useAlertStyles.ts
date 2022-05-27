@@ -2,6 +2,7 @@ import { computed, toRef } from 'vue'
 
 import { useColors } from './../../composables/useColor'
 import { useTextColor } from './../../composables/useTextColor'
+import { useElementBackground } from '../../composables/useElementBackground'
 
 type AlertStyleProps = {
   modelValue: boolean,
@@ -20,7 +21,8 @@ type AlertStyleProps = {
 }
 
 export const useAlertStyles = (props: AlertStyleProps) => {
-  const { getColor } = useColors()
+  const { getColor, getTextColor, getBoxShadowColorFromBg } = useColors()
+  const { background } = useElementBackground()
 
   const isTransparentBackground = computed(() => Boolean(props.outline || props.border))
   const { textColorComputed } = useTextColor(toRef(props, 'color'), isTransparentBackground)
@@ -43,7 +45,7 @@ export const useAlertStyles = (props: AlertStyleProps) => {
     return {
       border: props.outline ? `1px solid ${colorComputed.value}` : '',
       padding: props.dense ? 'var(--va-alert-padding-y-dense) var(--va-alert-padding-x)' : '',
-      background,
+      backgroundColor: background,
       boxShadow,
     }
   })
@@ -51,7 +53,7 @@ export const useAlertStyles = (props: AlertStyleProps) => {
   const contentStyle = computed(() => {
     return {
       alignItems: props.center ? 'center' : '',
-      color: props.border ? getColor('text-dark') : textColorComputed.value,
+      color: props.border ? getColor(getTextColor(background.value), undefined, true) : textColorComputed.value,
     }
   })
 

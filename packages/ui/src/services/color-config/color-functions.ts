@@ -2,11 +2,12 @@
 import { ColorTranslator, Mix } from 'colortranslator'
 import { HSLObject, ColorInput } from 'colortranslator/dist/@types'
 
-/** This is a hack for cjs and esm build when we can transpile colortranslator */
-// const ColorTranslator = CTClass || colortranslator.ColorTranslator
-
 export const colorToRgba = (color: ColorInput, opacity: number) => {
   return new ColorTranslator(color).setA(opacity).RGBA
+}
+
+export const invertColor = (color: ColorTranslator) => {
+  return color.setL(100 - color.L)
 }
 
 export const getTextColor = (color: ColorInput, darkColor = 'textDark', lightColor = 'textLight') => {
@@ -17,6 +18,10 @@ export const getTextColor = (color: ColorInput, darkColor = 'textDark', lightCol
 
 export const getBoxShadowColor = (color: ColorInput) => {
   return new ColorTranslator(color).setA(0.4).RGBA
+}
+
+export const getBoxShadowColorFromBg = (background: ColorInput) => {
+  return (new ColorTranslator(background)).setA(0.4).RGBA
 }
 
 export const getHoverColor = (color: ColorInput) => {

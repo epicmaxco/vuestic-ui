@@ -30,6 +30,7 @@
         :highlight-today="highlightToday"
         :highlight-weekend="highlightWeekend"
         :readonly="readonly"
+        :color="color"
         @click="onClick(date); focusedCellIndex = index"
       >
         <span class="va-date-picker-cell__day">
@@ -46,12 +47,9 @@
 import { computed, defineComponent, toRefs, PropType, watch } from 'vue'
 import { useVaDatePickerCalendar } from './va-date-picker-calendar-hook'
 import { VaDatePickerMode, VaDatePickerModelValue, VaDatePickerView } from '../../types'
-import { extractComponentProps, filterComponentProps } from '../../../../utils/child-props'
 import { useGridKeyboardNavigation } from '../../hooks/grid-keyboard-navigation'
 import { useDatePicker } from '../../hooks/use-picker'
 import VaDatePickerCell from '../VaDatePickerCell.vue'
-
-const VaDatePickerCellProps = extractComponentProps(VaDatePickerCell, ['date', 'selectedValue', 'focusedDate', 'focused'])
 
 export default defineComponent({
   name: 'VaDayPicker',
@@ -59,7 +57,6 @@ export default defineComponent({
   components: { VaDatePickerCell },
 
   props: {
-    ...VaDatePickerCellProps,
     monthNames: { type: Array as PropType<string[]>, required: true },
     weekdayNames: { type: Array as PropType<string[]>, required: true },
     firstWeekday: { type: String as PropType<'Monday' | 'Sunday'>, default: 'Sunday' },
@@ -73,14 +70,13 @@ export default defineComponent({
     highlightWeekend: { type: Boolean, default: false },
     highlightToday: { type: Boolean, default: false },
     readonly: { type: Boolean, default: false },
+    color: { type: String, default: 'primary' },
   },
 
   emits: ['update:modelValue', 'hover:day', 'click:day'],
 
   setup (props, { emit }) {
     const { firstWeekday, weekdayNames, view } = toRefs(props)
-
-    const VaDayPickerCellPropValues = filterComponentProps(props, VaDatePickerCellProps)
 
     const { calendarDates, currentMonthStartIndex, currentMonthEndIndex } = useVaDatePickerCalendar(view, { firstWeekday })
 
@@ -135,7 +131,6 @@ export default defineComponent({
       isDateWeekend,
       containerAttributes,
       weekdayNamesComputed,
-      VaDayPickerCellPropValues,
       focusedCellIndex,
     }
   },

@@ -162,7 +162,7 @@ export default defineComponent({
     overlayOpacity: { type: [Number, String] as PropType<number | string>, default: 0.6 },
     blur: { type: Boolean, default: false },
     zIndex: { type: [Number, String] as PropType<number | string | undefined>, default: undefined },
-    backgroundColor: { type: String, default: 'white' },
+    backgroundColor: { type: String, default: 'background-soft' },
   },
   setup (props, { emit }) {
     const rootElement = shallowRef<HTMLElement>()

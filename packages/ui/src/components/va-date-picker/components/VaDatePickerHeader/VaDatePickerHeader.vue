@@ -10,7 +10,7 @@
         flat
         size="small"
         :color="color"
-        textColor="dark"
+        :textColor="textColor"
         @click="prev"
       />
     </slot>
@@ -24,7 +24,7 @@
           size="small"
           :rounded="false"
           :color="color"
-          textColor="dark"
+          :textColor="textColor"
         >
           <slot name="year" v-bind="{ year: syncView.year }">{{ syncView.year }}</slot>
 
@@ -42,7 +42,7 @@
         flat
         size="small"
         :color="color"
-        textColor="dark"
+        :textColor="textColor"
         @click="next"
       />
     </slot>
@@ -65,7 +65,8 @@ export default defineComponent({
   props: {
     monthNames: { type: Array, required: true },
     view: { type: Object as PropType<VaDatePickerView> },
-    color: { type: String, default: undefined },
+    color: { type: String },
+    textColor: { type: String },
     disabled: { type: Boolean, default: false },
   },
 

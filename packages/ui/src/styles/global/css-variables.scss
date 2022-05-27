@@ -1,47 +1,20 @@
 :root {
   /* Colors */
-  --va-gray-light: #acb5be;
   --va-light-gray: #eeeeee;
   --va-light-gray2: #eff4f5;
   --va-light-gray3: #f5f8f9;
   --va-lighter-gray: #dddddd;
-  --va-charcoal: #555555;
-  --va-darkest-gray: #333333;
-  --va-almost-black: #161616;
-  --va-hover-black: #222222;
-  --va-vue-green: #4ae387;
-  --va-vue-light-green: #dbf9e8;
-  --va-light-green: #c8f9c5;
-  --va-lighter-green: #d6ffd3;
-  --va-light-blue: #dcf1ff;
-  --va-light-yellow: #fff1c8;
-  --va-light-pink: #ffcece;
   --va-vue-darkest-blue: #34495e;
-  --va-vue-turquoise: #dbf9e7;
   --va-white: #ffffff;
-  --va-theme-danger: #e34b4a;
-  --va-theme-warning: #ffc200;
-  --va-theme-red: #e34a4a;
-  --va-theme-orange: #f7cc36;
   --va-theme-blue: #4ab2e3;
   --va-theme-blue-dark: #2c82e0;
-  --va-theme-violet: #db76df;
-  --va-theme-pale: #d9d9d9;
-  --va-primary: var(--va-vue-green);
-  --va-danger: var(--va-theme-red);
-  --va-warning: var(--va-theme-orange);
-  --va-info: var(--va-theme-blue);
-  --va-success: var(--va-vue-green);
-  --va-secondary: #babfc2;
-  --va-dark-gray: #282828;
-  --va-gray: #adb3b9;
-  --va-default-gray: #8396a5;
+  // --va-primary: var(--va-vue-green);
+  // --va-danger: var(--va-theme-red);
+  // --va-warning: var(--va-theme-orange);
+  // --va-info: var(--va-theme-blue);
+  // --va-success: var(--va-vue-green);
+  // --va-secondary: #babfc2;
   --va-dark-blue: #0e4ac4;
-  --va-text-gray: #b4b4b4;
-  --va-markdown-code: #d7234e;
-  --va-prism-background: #f4f8fa;
-  --va-separator-color: #e6e9ec;
-  --va-transparent: #00000000;
 
   /* Primary */
   --va-border: 0;
@@ -92,7 +65,8 @@
   --va-stripe-border-size: 0.25rem;
 
   /* Shadows */
-  --va-box-shadow: 0 0.25rem 0.5rem 0 rgba(59, 63, 73, 0.15);
+  --va-shadow: rgba(59, 63, 73, 0.15);
+  --va-box-shadow: 0 0.25rem 0.5rem 0 var(--va-shadow);
 
   /* Z-indexes */
   --va-z-index-teleport-overlay: 1000;

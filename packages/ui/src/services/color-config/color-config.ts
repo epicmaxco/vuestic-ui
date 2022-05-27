@@ -1,6 +1,7 @@
 import { GlobalConfig, useGlobalConfigSafe } from '../global-config/global-config'
 import {
   getBoxShadowColor,
+  getBoxShadowColorFromBg,
   getHoverColor,
   getFocusColor,
   getGradientBackground,
@@ -93,6 +94,7 @@ export const useColors = () => {
     getColors,
     getColor,
     getBoxShadowColor,
+    getBoxShadowColorFromBg,
     getHoverColor,
     getFocusColor,
     getGradientBackground,
@@ -102,3 +104,5 @@ export const useColors = () => {
     colorsToCSSVariable,
   }
 }
+
+export * from './color-functions'
