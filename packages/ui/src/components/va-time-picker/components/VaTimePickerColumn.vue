@@ -9,7 +9,7 @@
     :style="styleComputed"
   >
     <div class="va-time-picker-cell va-time-picker-cell--fake" />
-    <div
+    <VaTimePickerColumnCell
       v-for="(item, index) in items" :key="item"
       :class="{
         'va-time-picker-cell': true,
@@ -20,7 +20,7 @@
       <slot name="cell" v-bind="{ item, index, activeItemIndex, items, formattedItem: formatCell(item) }">
         {{ formatCell(item) }}
       </slot>
-    </div>
+    </VaTimePickerColumnCell>
     <div class="va-time-picker-cell va-time-picker-cell--fake" />
   </div>
 </template>
@@ -31,9 +31,12 @@ import { useSyncProp } from '../../../composables/useSyncProp'
 import { useFocus, useFocusEmits } from '../../../composables/useFocus'
 import { useElementBackground } from '../../../composables/useElementBackground'
 import { useTextColor } from '../../../composables/useTextColor'
+import VaTimePickerColumnCell from './VaTimePickerColumnCell.vue'
 
 export default defineComponent({
   name: 'VaTimePickerColumn',
+
+  components: { VaTimePickerColumnCell },
 
   props: {
     items: { type: Array as PropType<string[] | number[]>, default: () => [] },
@@ -187,10 +190,6 @@ export default defineComponent({
         &:last-child {
           height: calc(100% - var(--va-time-picker-cell-height) * 2);
         }
-      }
-
-      &:hover {
-        background: var(--va-time-picker-cell-background-color-hover);
       }
     }
 

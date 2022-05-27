@@ -12,7 +12,7 @@
     </va-slider>
     <va-slider v-model="value3">
       <template #label>
-        <div style="font-style: italic; color: black;">LABEL SLOT</div>
+        <div style="font-style: italic;">LABEL SLOT</div>
       </template>
     </va-slider>
   </div>

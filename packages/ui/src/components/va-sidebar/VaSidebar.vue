@@ -52,13 +52,13 @@ export default defineComponent({
 
     const computedStyle = computed(() => {
       const backgroundColor = getColor(props.color)
-      const background = props.gradient ? getGradientBackground(backgroundColor) : backgroundColor
 
       const color = textColorComputed.value
 
       return {
         color,
-        background,
+        backgroundColor,
+        backgroundImage: props.gradient ? getGradientBackground(backgroundColor) : undefined,
         width: computedWidth.value,
       }
     })

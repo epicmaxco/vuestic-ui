@@ -718,10 +718,9 @@ export default defineComponent({
   }
 
   &__options-wrapper {
-    background: var(--va-select-dropdown-background);
     overflow-y: auto;
 
-    @include va-scroll();
+    @include va-scroll(var(--va-background-mute));
   }
 }
 </style>

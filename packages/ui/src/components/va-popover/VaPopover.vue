@@ -7,30 +7,28 @@
     :offset="$props.offset"
   >
     <template #default>
-      <div class="va-popover__content-wrapper">
+      <div
+        class="va-popover__content"
+        :style="computedPopoverStyle"
+      >
         <div
-          class="va-popover__content"
-          :style="computedPopoverStyle"
+          v-if="$props.icon"
+          class="va-popover__icon"
         >
+          <va-icon
+            :name="$props.icon"
+            :color="textColorComputed"
+          />
+        </div>
+        <div v-if="$props.title || $props.message">
           <div
-            v-if="$props.icon"
-            class="va-popover__icon"
+            v-if="$props.title"
+            class="va-popover__title"
           >
-            <va-icon
-              :name="$props.icon"
-              :color="textColorComputed"
-            />
+            {{ $props.title }}
           </div>
-          <div v-if="$props.title || $props.message">
-            <div
-              v-if="$props.title"
-              class="va-popover__title"
-            >
-              {{ $props.title }}
-            </div>
-            <div class="va-popover__text">
-              {{ $props.message }}
-            </div>
+          <div class="va-popover__text">
+            {{ $props.message }}
           </div>
         </div>
       </div>
@@ -59,7 +57,7 @@ export default defineComponent({
   props: {
     ...VaDropdownProps,
     trigger: { default: 'hover' },
-    color: { type: String, default: 'dark' },
+    color: { type: String, default: 'background-soft' },
     textColor: { type: String },
     icon: { type: String, default: '' },
     title: { type: String, default: '' },
@@ -96,11 +94,6 @@ export default defineComponent({
 
 .va-popover {
   display: var(--va-popover-display);
-
-  &__content-wrapper {
-    background-color: white;
-    border-radius: 0.5rem;
-  }
 
   &__content {
     opacity: var(--va-popover-content-opacity);
