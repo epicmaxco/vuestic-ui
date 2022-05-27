@@ -24,6 +24,7 @@
       <va-icon
         v-if="icon"
         class="va-chip__icon"
+        aria-hidden="true"
         :name="icon"
         :size="iconSize"
       />
@@ -34,6 +35,7 @@
         v-if="closeable"
         class="va-chip__close-icon"
         name="close"
+        role="button"
         :size="iconSize"
         @click.stop="close"
       />
