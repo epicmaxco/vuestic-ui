@@ -21,7 +21,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, PropType } from 'vue'
+import { defineComponent, computed } from 'vue'
 
 import { useRouterLink, useRouterLinkProps } from '../../../composables/useRouterLink'
 
@@ -29,8 +29,8 @@ export default defineComponent({
   name: 'VaBreadcrumbsItem',
   props: {
     ...useRouterLinkProps,
-    disabled: { type: Boolean as PropType<boolean>, default: false },
-    label: { type: String as PropType<string>, default: '' },
+    disabled: { type: Boolean, default: false },
+    label: { type: String, default: '' },
   },
   setup: (props) => {
     const { hasRouterLinkParams, hrefComputed } = useRouterLink(props)
