@@ -90,7 +90,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, toRef } from 'vue'
+import { defineComponent, PropType, computed } from 'vue'
 import { useCarousel } from './hooks/useCarousel'
 import { useCarouselAnimation } from './hooks/useCarouselAnimation'
 import { useCarouselColor } from './hooks/useCarouselColors'
@@ -138,7 +138,9 @@ export default defineComponent({
     } = useCarousel(props, currentSlide)
 
     const { withPause, computedSlidesStyle, slides } = useCarouselAnimation(props, currentSlide)
-    const isObjectSlides = props.items.length && props.items.every((el) => typeof el === 'object' && !!el.src)
+    const isObjectSlides = computed(() => {
+      return props.items.length && props.items.every((el) => !!el && typeof el === 'object' && !!el?.src)
+    })
     const isCurrentSlide = (index: string) => +index === currentSlide.value
 
     return {
