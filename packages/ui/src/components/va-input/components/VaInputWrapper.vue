@@ -193,7 +193,6 @@ export default defineComponent({
 
 .va-input {
   position: relative;
-  color: var(--va-input-text-color);
   cursor: var(--va-input-cursor);
   font-family: var(--va-font-family);
 

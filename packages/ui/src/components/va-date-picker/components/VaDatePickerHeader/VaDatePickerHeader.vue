@@ -2,6 +2,7 @@
   <div
     v-if="syncView.type !== 'year'"
     class="va-date-picker-header va-date-picker__header"
+    :style="{ color: textColor }"
   >
     <slot name="buttonPrev" v-bind="{ onClick: prev }">
       <va-button
@@ -98,7 +99,7 @@ export default defineComponent({
     align-items: center;
 
     &__text {
-      color: var(--va-dark);
+      color: currentColor;
     }
   }
 }

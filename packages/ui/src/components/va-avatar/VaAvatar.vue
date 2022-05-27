@@ -40,7 +40,7 @@ export default defineComponent({
     ...useLoadingProps,
     ...useSizeProps,
     color: { type: String as PropType<string>, default: 'info' },
-    textColor: { type: String as PropType<string>, default: 'white' },
+    textColor: { type: String as PropType<string> },
     square: { type: Boolean as PropType<boolean>, default: false },
     icon: { type: String as PropType<string>, default: '' },
     src: { type: String as PropType<string>, default: null },

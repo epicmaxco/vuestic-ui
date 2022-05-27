@@ -226,7 +226,7 @@ export default defineComponent({
   text-transform: initial;
   cursor: pointer;
   transition: var(--va-button-transition, var(--va-swing-transition));
-  background-color: var(--va-button-background-color, var(--va-white));
+  background-color: var(--va-button-background-color);
   vertical-align: middle;
   box-sizing: border-box;
   font-weight: var(--va-button-font-weight);
@@ -254,10 +254,10 @@ export default defineComponent({
   }
 
   &--default {
-    color: var(--va-button-background-color, var(--va-white));
+    color: var(--va-button-background-color);
 
     i {
-      color: var(--va-button-icon-color, var(--va-white));
+      color: var(--va-button-icon-color);
     }
   }
 
@@ -278,7 +278,7 @@ export default defineComponent({
       &.va-button--active {
         .va-button__content,
         i {
-          color: var(--va-button-outline-icon-color, var(--va-white)) !important;
+          color: var(--va-button-outline-icon-color) !important;
         }
       }
     }

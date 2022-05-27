@@ -1,7 +1,7 @@
 export const enum ThemeName {
   DEFAULT = 'DEFAULT',
   DARK = 'DARK',
-  CORPORATE = 'CORPORATE',
+  // CORPORATE = 'CORPORATE',
 }
 
 export const ThemeNameIterator = [
@@ -26,21 +26,9 @@ export const COLOR_THEMES: Record<ThemeName, Record<string, string>> = {
     // Default
     textLight: '#fff',
     textDark: '#1B1A1F',
-
-    // Old
-    gray: '#babfc2',
-    dark: '#1B1A1F',
-    white: '#ffffff',
-  },
-  [ThemeName.CORPORATE]: {
-    primary: '#46DA8A',
-    secondary: '#042F83',
-    success: '#1FBDA1',
-    info: '#71baff',
-    danger: '#DE1041',
-    warning: '#ffd652',
-    gray: '#8396a5',
-    dark: '#34495e',
+    // Misc
+    shadow: 'rgba(0, 0, 0, 0.12)',
+    focus: 'yellow',
   },
   [ThemeName.DARK]: {
     // Accent

@@ -35,6 +35,7 @@
       <div
         class="va-file-upload-gallery-item__name"
         :title="file.name"
+        :style="{ color: textColorComputed }"
       >
         {{ file.name }}
       </div>
@@ -52,13 +53,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, PropType, ref, watch, computed } from 'vue'
+import { defineComponent, onMounted, PropType, ref, watch, computed, toRef } from 'vue'
 
 import VaButton from '../../va-button'
 import VaFileUploadUndo from '../VaFileUploadUndo'
 import { colorToRgba } from '../../../services/color-config/color-functions'
 
 import type { ConvertedFile } from '../types'
+import { useTextColor } from '../../../composables/useTextColor'
 
 export default defineComponent({
   name: 'VaFileUploadGalleryItem',
@@ -115,6 +117,7 @@ export default defineComponent({
     watch(() => props.file, convertToImg)
 
     return {
+      ...useTextColor(toRef(props, 'color')),
       previewImage,
       removed,
       isFocused,
@@ -170,12 +173,6 @@ $max-image-size: 8.5714rem;
       z-index: 3;
       opacity: 1;
     }
-
-    .va-file-upload-gallery-item {
-      &__name {
-        color: var(--va-file-upload-gallery-item-text-hover);
-      }
-    }
   }
 
   &__overlay {
@@ -208,7 +205,6 @@ $max-image-size: 8.5714rem;
   }
 
   &__name {
-    color: var(--va-file-upload-gallery-item-text);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

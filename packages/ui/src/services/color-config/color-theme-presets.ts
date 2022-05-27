@@ -20,14 +20,6 @@ type VuesticColorsPreset = {
   shadow: CssColor,
   /** Outline color when component is focused */
   focus: CssColor,
-
-  // Old // TODO: remove
-  gray: CssColor,
-  dark: CssColor,
-  // background: CssColor,
-  divider: CssColor,
-  white: CssColor,
-  black: CssColor,
 }
 
 export const colorsPresets: Record<string, VuesticColorsPreset> = {
@@ -49,12 +41,5 @@ export const colorsPresets: Record<string, VuesticColorsPreset> = {
     // Misc
     shadow: 'rgba(0, 0, 0, 0.12)',
     focus: 'yellow',
-
-    // OLD // TODO: Remove
-    gray: '#babfc2',
-    dark: '#1B1A1F',
-    divider: '#E1E9F8',
-    white: '#ffffff',
-    black: '#000000',
   },
 }
