@@ -1,5 +1,5 @@
 <template>
-  <div class="va-date-picker" :class="classComputed" :style="colorsStyle">
+  <div class="va-date-picker" :class="classComputed" :style="styleComputed">
     <va-date-picker-header
       v-bind="headerProps"
       v-model:view="syncView"
@@ -64,7 +64,9 @@
 <script lang="ts">
 import { ComponentOptions, computed, defineComponent, nextTick, PropType, ref, watch } from 'vue'
 import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
+import { useElementBackground } from '../../composables/useElementBackground'
 import { useColors } from '../../services/color-config/color-config'
+import { useTextColor } from '../../composables/useTextColor'
 
 import { VaDatePickerModelValue, VaDatePickerType, VaDatePickerView } from './types'
 import { filterComponentProps, extractComponentProps, extractComponentEmits } from '../../utils/child-props'
@@ -157,11 +159,16 @@ export default defineComponent({
     }
 
     const { colorsToCSSVariable } = useColors()
+    const { background } = useElementBackground()
+    const { textColorComputed } = useTextColor(background)
 
-    const colorsStyle = colorsToCSSVariable({
-      color: props.color,
-      'weekends-color': props.weekendsColor,
-    }, 'va-date-picker')
+    const styleComputed = computed(() => ({
+      color: textColorComputed.value,
+      ...colorsToCSSVariable({
+        color: props.color,
+        'weekends-color': props.weekendsColor,
+      }, 'va-date-picker'),
+    }))
 
     const currentPicker = ref<ComponentOptions | null>(null)
     const focusCurrentPicker = () => currentPicker?.value?.$el.focus()
@@ -196,7 +203,7 @@ export default defineComponent({
       onYearClick,
       onYearModelValueUpdate,
 
-      colorsStyle,
+      styleComputed,
       currentPicker,
       focusCurrentPicker,
 

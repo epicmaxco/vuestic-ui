@@ -1,6 +1,6 @@
 <template>
   <component
-    ref="anchor"
+    ref="rootElement"
     class="va-sidebar__item va-sidebar-item"
     :class="{ 'va-sidebar-item--active': $props.active }"
     :style="computedStyle"
@@ -17,10 +17,11 @@
 <script lang="ts">
 import { defineComponent, PropType, ref, computed } from 'vue'
 import { RouteLocationRaw } from 'vue-router'
-import { useColors } from '../../../services/color-config/color-config'
+import { useColors, mixColorsRGBA } from '../../../services/color-config/color-config'
 import useKeyboardOnlyFocus from '../../../composables/useKeyboardOnlyFocus'
 import { useHover } from '../../../composables/useHover'
 import { useRouterLink, useRouterLinkProps } from '../../../composables/useRouterLink'
+import { useElementRef } from '../../../composables/useElementRef'
 import { useTextColor } from '../../../composables/useTextColor'
 import { useSidebarItem } from '../hooks/useSidebar'
 
@@ -39,9 +40,9 @@ export default defineComponent({
   },
 
   setup (props) {
-    const anchor = ref<HTMLAnchorElement>()
+    const rootElement = useElementRef()
 
-    const { isHovered } = useHover(anchor)
+    const { isHovered } = useHover(rootElement)
     const { getColor, getHoverColor, getFocusColor } = useColors()
     const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
     const { sidebarColor } = useSidebarItem()
@@ -59,15 +60,14 @@ export default defineComponent({
         return getFocusColor(getColor(props.hoverColor || props.activeColor))
       }
 
-      return getColor(sidebarColor.value)
+      return '#ffffff00'
     })
 
-    const { textColorComputed } = useTextColor(backgroundColorComputed)
+    const textBackground = computed(() => mixColorsRGBA(sidebarColor.value, backgroundColorComputed.value))
+    const { textColorComputed } = useTextColor(textBackground)
 
     const computedStyle = computed(() => {
-      const style: Record<string, string> = {}
-
-      style.color = textColorComputed.value
+      const style: Record<string, string> = { color: textColorComputed.value }
 
       if (isHovered.value || props.active || hasKeyboardFocus.value) {
         style.backgroundColor = backgroundColorComputed.value
@@ -83,12 +83,14 @@ export default defineComponent({
     const { tagComputed, hrefComputed } = useRouterLink(props)
 
     return {
-      anchor,
+      rootElement,
       computedStyle,
       keyboardFocusListeners,
       tagComputed,
       hrefComputed,
       isHovered,
+      backgroundColorComputed,
+      textBackground,
     }
   },
 })
@@ -102,7 +104,6 @@ export default defineComponent({
   padding-right: var(--va-sidebar-item-active-border-size);
   display: inline-block;
   width: 100%;
-  color: inherit !important;
   font-family: var(--va-font-family);
 }
 </style>

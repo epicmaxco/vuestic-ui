@@ -1,5 +1,5 @@
 // import colortranslator, { ColorTranslator as CTClass } from 'colortranslator'
-import { ColorTranslator } from 'colortranslator'
+import { ColorTranslator, Mix } from 'colortranslator'
 import { HSLObject, ColorInput } from 'colortranslator/dist/@types'
 
 /** This is a hack for cjs and esm build when we can transpile colortranslator */
@@ -116,3 +116,7 @@ export const isColor = (strColor: string): boolean => {
 }
 
 export const isCSSVariable = (strColor: string): boolean => /var\(--.+\)/.test(strColor)
+
+export const mixColorsRGBA = (color1: ColorInput, color2: ColorInput) => {
+  return ColorTranslator.getMixRGBA([color1, color2], Mix.SUBTRACTIVE)
+}

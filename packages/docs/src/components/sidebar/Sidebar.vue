@@ -44,7 +44,6 @@
             :activeColor="activeColor"
             :hover-color="hoverColor"
             border-color="primary"
-            text-color="dark"
             @click="onSidebarItemClick"
           >
             <va-sidebar-item-content>
@@ -218,14 +217,6 @@ export default defineComponent({
       font-weight: 500;
       font-size: 16px;
       line-height: 20px;
-    }
-
-    .va-sidebar-item--active {
-      color: var(--va-dark, #323742) !important;
-
-      .va-sidebar-item-title {
-        color: var(--va-dark, #323742) !important;
-      }
     }
   }
 

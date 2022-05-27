@@ -1,3 +1,4 @@
+import { useElementBackground } from '../../../composables/useElementBackground'
 import { provide, inject, getCurrentInstance, toRef, ref } from 'vue'
 
 const key = Symbol('VaSidebar')
@@ -11,9 +12,9 @@ export const useSidebar = () => {
 }
 
 export const useSidebarItem = () => {
-  const { color } = inject(key, { color: ref('white') })
+  const { background } = useElementBackground()
 
   return {
-    sidebarColor: color,
+    sidebarColor: background,
   }
 }
