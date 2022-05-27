@@ -1,5 +1,5 @@
 <template>
-  <div class="va-image">
+  <div class="va-image" aria-live="polite">
     <div
       v-if="loadingError"
       class="va-image__error"
@@ -15,7 +15,8 @@
     >
       <img
         :style="imageStyles"
-        :src="src"
+        :src="$props.src"
+        :alt="$props.alt"
         @error="handleError"
         @load="handleLoad"
       />
@@ -42,6 +43,7 @@ export default defineComponent({
     ratio: { type: Number as PropType<number>, default: 1 },
     contain: { type: Boolean as PropType<boolean>, default: false },
     src: { type: String as PropType<string>, required: true },
+    alt: { type: String, default: '' },
   },
   setup (props, { emit }) {
     const loading = ref(true)
