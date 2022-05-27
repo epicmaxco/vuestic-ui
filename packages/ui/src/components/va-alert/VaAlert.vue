@@ -227,7 +227,7 @@ export default defineComponent({
       cursor: pointer;
 
       &:focus {
-        outline: 1px solid;
+        @include focus-outline;
       }
     }
   }
