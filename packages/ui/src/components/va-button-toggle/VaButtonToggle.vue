@@ -29,9 +29,10 @@ import { defineComponent, PropType, computed } from 'vue'
 
 import { shiftHSLAColor } from '../../services/color-config/color-functions'
 import { useColors } from '../../composables/useColor'
+import { useTextColor } from '../../composables/useTextColor'
+
 import VaButton from '../va-button'
 import VaButtonGroup from '../va-button-group'
-import { useTextColor } from '../../composables/useTextColor'
 
 type ButtonOption = {
   value: any,
@@ -65,7 +66,6 @@ export default defineComponent({
       default: 'medium',
       validator: (modelValue: 'medium' | 'small' | 'large') => ['medium', 'small', 'large'].includes(modelValue),
     },
-
     toggleColor: { type: String, default: '' },
     gradient: { type: Boolean, default: false },
   },
