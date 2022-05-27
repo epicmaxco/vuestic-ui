@@ -10,6 +10,7 @@ import {
   setHSLAColor,
   isCSSVariable,
 } from './color-functions'
+import { cssVariableName, normalizeColorName } from './utils'
 
 export type CssColor = string
 export type ColorConfig = { [colorName: string]: CssColor }
@@ -55,8 +56,10 @@ export const useColors = () => {
       prop = defaultColor
     }
 
-    if (colors[prop]) {
-      return preferVariables ? `var(--va-${prop})` : colors[prop]
+    const normalizedColor = normalizeColorName(prop)
+
+    if (colors[normalizedColor]) {
+      return preferVariables ? `var(${cssVariableName(prop)}` : colors[normalizedColor]
     }
 
     if (isColor(prop)) {

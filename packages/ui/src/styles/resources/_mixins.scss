@@ -20,7 +20,7 @@
 }
 
 @mixin va-display($element) {
-  color: var(--va-dark);
+  color: currentColor;
   font-size: map-get($display-font-sizes, $element);
   font-weight: 700;
   line-height: 1;
