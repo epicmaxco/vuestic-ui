@@ -36,7 +36,7 @@ export const useAlertStyles = (props: AlertStyleProps) => {
     }
 
     if (props.border) {
-      background = 'var(--va-white)'
+      background = 'var(--va-background)'
       boxShadow = 'var(--va-alert-box-shadow)'
     }
 
@@ -51,7 +51,7 @@ export const useAlertStyles = (props: AlertStyleProps) => {
   const contentStyle = computed(() => {
     return {
       alignItems: props.center ? 'center' : '',
-      color: props.border ? getColor('dark') : textColorComputed.value,
+      color: props.border ? getColor('text-dark') : textColorComputed.value,
     }
   })
 
