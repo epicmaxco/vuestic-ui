@@ -6,6 +6,8 @@
       [`va-carousel--${$props.effect}`]: true
     }"
     :style="{ height }"
+    role="region"
+    aria-label="carousel"
   >
     <template v-if="$props.arrows">
       <div
@@ -15,7 +17,11 @@
       >
         <slot name="prev-arrow">
           <va-hover #default="{ hover }" stateful>
-            <va-button :color="hover ? computedHoverColor : computedColor" :icon="vertical ? 'expand_less' : 'chevron_left'" />
+            <va-button
+              :color="hover ? computedHoverColor : computedColor"
+              :icon="vertical ? 'expand_less' : 'chevron_left'"
+              aria-label="previous slide"
+            />
           </va-hover>
         </slot>
       </div>
@@ -26,7 +32,11 @@
       >
         <slot name="next-arrow">
           <va-hover #default="{ hover }" stateful>
-            <va-button :color="hover ? computedHoverColor : computedColor" :icon="vertical ? 'expand_more' : 'chevron_right'" />
+            <va-button
+              :color="hover ? computedHoverColor : computedColor"
+              :icon="vertical ? 'expand_more' : 'chevron_right'"
+              aria-label="next slide"
+            />
           </va-hover>
         </slot>
       </div>
@@ -39,11 +49,11 @@
         :class="{ 'va-carousel__indicator--active': index === modelValue }"
         v-bind="indicatorTrigger === 'hover' ? { onmouseover: () => goTo(index) } : { onclick: () => goTo(index) }"
       >
-        <slot name="indicator" v-bind="{ item, index, goTo, isActive: index === currentSlide }">
+        <slot name="indicator" v-bind="{ item, index, goTo, isActive: isCurrentSlide(index) }">
           <va-hover #default="{ hover }" stateful>
             <va-button
               round
-              :color="index === currentSlide ? computedActiveColor : (hover ? computedHoverColor : computedColor)"
+              :color="isCurrentSlide(index) ? computedActiveColor : (hover ? computedHoverColor : computedColor)"
             >
               {{ index + 1 }}
             </va-button>
@@ -56,14 +66,22 @@
       <div
         class="va-carousel__slides"
         :style="computedSlidesStyle"
+        role="list"
       >
         <div
           class="va-carousel__slide"
           v-for="(item, index) in slides" :key="item"
           :style="effect === 'fade' ? { animation: fadeKeyframe } : ''"
+          role="listitem"
+          :aria-hidden="!isCurrentSlide(index)"
+          :aria-current="isCurrentSlide(index)"
+          :aria-label="`slide ${index + 1} of ${slides.length}`"
         >
-          <slot v-bind="{ item, index, goTo, isActive: index === currentSlide }">
-            <va-image :src="item" />
+          <slot v-bind="{ item, index, goTo, isActive: isCurrentSlide(index) }">
+            <va-image
+              :src="isObjectSlides ? item.src : item"
+              :alt="isObjectSlides ? item.alt : ''"
+            />
           </slot>
         </div>
       </div>
@@ -72,7 +90,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, toRef } from 'vue'
+import { defineComponent, PropType, computed } from 'vue'
 import { useCarousel } from './hooks/useCarousel'
 import { useCarouselAnimation } from './hooks/useCarouselAnimation'
 import { useCarouselColor } from './hooks/useCarouselColors'
@@ -120,6 +138,10 @@ export default defineComponent({
     } = useCarousel(props, currentSlide)
 
     const { withPause, computedSlidesStyle, slides } = useCarouselAnimation(props, currentSlide)
+    const isObjectSlides = computed(() => {
+      return props.items.length && props.items.every((el) => !!el && typeof el === 'object' && !!el?.src)
+    })
+    const isCurrentSlide = (index: string) => +index === currentSlide.value
 
     return {
       doShowNextButton,
@@ -128,8 +150,9 @@ export default defineComponent({
       goTo: withPause(goTo),
       prev: withPause(prev),
       next: withPause(next),
-      currentSlide,
       slides,
+      isObjectSlides,
+      isCurrentSlide,
       ...useCarouselColor(),
     }
   },

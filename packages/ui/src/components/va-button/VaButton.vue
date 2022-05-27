@@ -22,6 +22,7 @@
     @mouseleave="hoverState = false"
     v-on="$attrs"
     :aria-disabled="$props.disabled"
+    aria-live="polite"
   >
     <div class="va-button__content" :class="{ 'va-button__content--loading': loading }">
       <va-icon

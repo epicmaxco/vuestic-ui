@@ -31,12 +31,12 @@
     <va-button-group
       v-else
       :class="{ 'va-button-group__left-icon': $props.leftIcon }"
-      v-bind="{ ...computedViewStyles }"
+      v-bind="computedViewStyles"
     >
       <va-button
         v-if="!$props.leftIcon"
         :disabled="$props.disabled || $props.disableButton"
-        v-bind="{ ...computedMainButtonProps }"
+        v-bind="computedMainButtonProps"
         v-on="mainButtonListeners"
       >
         <slot name="label">
@@ -66,7 +66,7 @@
       <va-button
         v-if="$props.leftIcon"
         :disabled="$props.disabled || $props.disableButton"
-        v-bind="{ ...computedMainButtonProps }"
+        v-bind="computedMainButtonProps"
         v-on="mainButtonListeners"
       >
         <slot name="label">

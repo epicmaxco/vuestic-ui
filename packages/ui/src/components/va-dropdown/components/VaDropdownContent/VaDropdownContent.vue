@@ -1,5 +1,8 @@
 <template>
-  <div class="va-dropdown__content" :style="computedStyle">
+  <div class="va-dropdown__content"
+       :style="computedStyle"
+       role="listbox"
+  >
     <slot />
   </div>
 </template>
