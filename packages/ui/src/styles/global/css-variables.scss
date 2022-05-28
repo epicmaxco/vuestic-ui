@@ -7,12 +7,6 @@
   --va-vue-darkest-blue: #34495e;
   --va-theme-blue: #4ab2e3;
   --va-theme-blue-dark: #2c82e0;
-  // --va-primary: var(--va-vue-green);
-  // --va-danger: var(--va-theme-red);
-  // --va-warning: var(--va-theme-orange);
-  // --va-info: var(--va-theme-blue);
-  // --va-success: var(--va-vue-green);
-  // --va-secondary: #babfc2;
   --va-dark-blue: #0e4ac4;
 
   /* Primary */
@@ -69,4 +63,7 @@
 
   /* Z-indexes */
   --va-z-index-teleport-overlay: 1000;
+
+  /* Transition */
+  --va-transition: all 0.3s ease-in-out;
 }

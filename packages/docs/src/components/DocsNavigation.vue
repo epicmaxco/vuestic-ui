@@ -4,7 +4,7 @@
       flat
       size="small"
       class="docs-navigation__button"
-      color="gray"
+      color="secondary"
       @click="copy"
     >
       <va-icon class="docs-navigation__button__icon" :class="copyButton.icon" size="sm" />
@@ -15,7 +15,7 @@
       flat
       size="small"
       class="docs-navigation__button"
-      color="gray"
+      color="secondary"
       :href="gitLink"
       target="_blank"
     >
@@ -30,7 +30,7 @@
         type="submit"
         size="small"
         class="docs-navigation__button"
-        color="gray"
+        color="secondary"
       >
         <va-icon class="docs-navigation__button__icon fa fa-code" size="sm" />
         <span class="docs-navigation__button__text">{{ $t('docsNavigation.openCodeSandbox') }}</span>
@@ -104,7 +104,7 @@ export default defineComponent({
 @import "~vuestic-ui/src/styles/resources";
 
 .docs-navigation {
-  background: $prism-background;
+  background: var(--va-background-mute);
   margin: 0.2rem 0;
   border-radius: 0.25rem;
 
@@ -114,7 +114,7 @@ export default defineComponent({
     font-weight: bold;
 
     div {
-      color: var(--va-gray);
+      color: var(--va-secondary);
     }
 
     &:hover {

@@ -2,7 +2,7 @@
   --va-navbar-height: 4.0625rem;
   --va-navbar-padding-left: 1rem;
   --va-navbar-padding-right: 1rem;
-  --va-navbar-transition: background-color 0.3s ease; // sidebar's bg color transitions as well -> consistency
+  --va-navbar-transition: var(--va-transition); // sidebar's bg color transitions as well -> consistency
 
   // sm
   --va-navbar-sm-padding: 1.1875rem 1rem 1rem;

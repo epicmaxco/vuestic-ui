@@ -57,7 +57,7 @@ export const useColors = () => {
     const colors = getColors()
 
     if (!prop) {
-      prop = defaultColor
+      prop = getColor(defaultColor)
     }
 
     const normalizedColor = normalizeColorName(prop)
@@ -79,7 +79,7 @@ export const useColors = () => {
       names (https://vuestic.dev/en/styles/colors#default-color-themes)`)
     }
 
-    return defaultColor
+    return getColor(defaultColor)
   }
 
   const colorsToCSSVariable = (colors: { [colorName: string]: string | undefined }, prefix = 'va') => {

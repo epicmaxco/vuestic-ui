@@ -35,8 +35,8 @@
     </template>
 
     <template #right>
-      <version-dropdown class="mr-2" />
-      <color-dropdown class="mr-1" />
+      <version-dropdown class="mr-3" />
+      <color-dropdown />
       <language-dropdown class="mr-1" />
     </template>
   </va-navbar>
