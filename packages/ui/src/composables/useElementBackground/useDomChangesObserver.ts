@@ -1,5 +1,4 @@
-import { nextTick, onBeforeUnmount, onMounted, Ref } from 'vue'
-import debounce from 'lodash/debounce.js'
+import { onBeforeUnmount, onMounted } from 'vue'
 
 type Handler = { cb: (() => void), el: () => HTMLElement }
 
@@ -9,12 +8,26 @@ let callbacks: Handler[] = []
 const createMutationObserver = () => {
   if (observer) { return }
 
-  observer = new MutationObserver((mutations: MutationRecord[]) => {
+  const runCallbacks = (mutations: MutationRecord[]) => {
     for (let i = 0; i < callbacks.length; i++) {
       if (mutations.some((m) => m.target.contains(callbacks[i].el()))) {
         callbacks[i].cb()
       }
     }
+  }
+
+  const runAllCallbacks = () => {
+    for (let i = 0; i < callbacks.length; i++) {
+      callbacks[i].cb()
+    }
+  }
+
+  setInterval(() => {
+    runAllCallbacks()
+  }, 200)
+
+  observer = new MutationObserver((mutations) => {
+    // runCallbacks(mutations)
   })
 
   observer.observe(window.document, {

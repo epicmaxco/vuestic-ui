@@ -4,7 +4,7 @@
       <va-date-picker
         v-model="range"
         color="warning"
-        weekends-color="#00ffff"
+        weekends-color="info"
         highlight-weekend
         show-other-months
       />
@@ -14,7 +14,7 @@
       <va-date-picker
         v-model="range"
         color="warning"
-        weekends-color="#00ffff"
+        weekends-color="info"
         type="month"
         highlight-weekend
         show-other-months
@@ -25,7 +25,7 @@
       <va-date-picker
         v-model="range"
         color="warning"
-        weekends-color="#00ffff"
+        weekends-color="info"
         type="year"
         highlight-weekend
         show-other-months

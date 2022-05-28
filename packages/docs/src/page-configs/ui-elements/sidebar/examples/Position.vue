@@ -3,7 +3,7 @@
     <div class="content">
       Content
     </div>
-    <va-sidebar position="right" textColor="dark" style="position: absolute;">
+    <va-sidebar position="right" style="position: absolute;">
       <va-sidebar-item
         v-for="item in items"
         :key="item.to"

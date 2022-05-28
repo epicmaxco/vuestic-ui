@@ -6,7 +6,9 @@
     @mouseleave="updateHoverState(false)"
   >
     <div class="va-sidebar__menu">
-      <slot />
+      <va-config :components="{ VaSidebarItem: vaSidebarItemProps }">
+        <slot />
+      </va-config>
     </div>
   </aside>
 </template>
@@ -17,10 +19,14 @@ import { defineComponent, computed, ref, PropType } from 'vue'
 import { getGradientBackground } from '../../services/color-config/color-functions'
 import { useColors } from '../../services/color-config/color-config'
 import { useTextColor } from '../../composables/useTextColor'
+import { useSidebar, useSidebarProps } from './hooks/useSidebar'
 
 export default defineComponent({
   name: 'VaSidebar',
   props: {
+    activeColor: { type: String, default: 'primary' },
+    hoverColor: { type: String, default: undefined },
+    borderColor: { type: String, default: undefined },
     color: { type: String, default: 'background-mute' },
     textColor: { type: String },
     gradient: { type: Boolean, default: false },
@@ -33,6 +39,7 @@ export default defineComponent({
   },
   setup (props) {
     const { getColor } = useColors()
+    useSidebar(props)
 
     const isHovered = ref(false)
 
@@ -76,6 +83,12 @@ export default defineComponent({
       computedClass,
       computedStyle,
       updateHoverState,
+      vaSidebarItemProps: computed(() => ({
+        textColor: props.textColor,
+        activeColor: props.activeColor,
+        hoverColor: props.hoverColor,
+        borderColor: props.borderColor,
+      })),
     }
   },
 })

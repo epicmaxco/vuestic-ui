@@ -6,10 +6,6 @@ export const colorToRgba = (color: ColorInput, opacity: number) => {
   return new ColorTranslator(color).setA(opacity).RGBA
 }
 
-export const invertColor = (color: ColorTranslator) => {
-  return color.setL(100 - color.L)
-}
-
 export const getTextColor = (color: ColorInput, darkColor = 'textDark', lightColor = 'textLight') => {
   const { R, G, B } = new ColorTranslator(color)
   const isLightBackground = Math.sqrt(R * R * 0.241 + G * G * 0.691 + B * B * 0.068) > 130
@@ -122,6 +118,17 @@ export const isColor = (strColor: string): boolean => {
 
 export const isCSSVariable = (strColor: string): boolean => /var\(--.+\)/.test(strColor)
 
-export const mixColorsRGBA = (color1: ColorInput, color2: ColorInput) => {
-  return ColorTranslator.getMixRGBA([color1, color2], Mix.SUBTRACTIVE)
+export const appyColors = (color1: ColorInput, color2: ColorInput) => {
+  const c1 = new ColorTranslator(color1)
+  const c2 = new ColorTranslator(color2)
+  const weight = c2.A
+
+  if (weight === 1) { return c2.RGBA }
+  if (weight === 0) { return c1.RGBA }
+
+  c1.setR(Math.round((c1.R) * (1 - weight) + (c2.R) * weight))
+  c1.setG(Math.round((c1.G) * (1 - weight) + (c2.G) * weight))
+  c1.setB(Math.round((c1.B) * (1 - weight) + (c2.B) * weight))
+
+  return c1.RGBA
 }

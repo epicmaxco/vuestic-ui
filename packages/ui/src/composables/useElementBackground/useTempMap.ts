@@ -1,4 +1,4 @@
-export const useTempMap = <Key extends object, T extends any>(timeout = 200) => {
+export const useTempMap = <Key extends object, T extends any>(timeout = 16) => {
   let map = new WeakMap()
   let timeoutId = -1
 

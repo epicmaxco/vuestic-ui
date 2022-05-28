@@ -3,7 +3,7 @@
     class="demo-content"
     style="height: 13rem; border: 2px solid var(--va-primary);"
   >
-    <va-sidebar :minimized="minimized" textColor="dark" minimizedWidth="64px">
+    <va-sidebar :minimized="minimized" minimizedWidth="64px">
       <template v-for="item in items" :key="item.to">
         <va-sidebar-item :active="item.active">
           <va-sidebar-item-content>

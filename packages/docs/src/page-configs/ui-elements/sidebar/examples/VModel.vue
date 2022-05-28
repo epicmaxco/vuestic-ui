@@ -3,7 +3,7 @@
     class="demo-content"
     style="height: 13rem; border: 2px solid var(--va-primary);"
   >
-    <va-sidebar v-model="enabled" textColor="dark">
+    <va-sidebar v-model="enabled">
       <va-sidebar-item
         v-for="item in items"
         :key="item.to"

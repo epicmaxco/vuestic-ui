@@ -16,6 +16,10 @@
   --va-date-picker-cell-gap: 2px;
   --va-date-picker-cell-radius: 6px;
 
+  /* Selected cell */
+  --va-date-picker-selected-text: var(--va-text-light);
+  --va-date-picker-selected-background: var(--va-date-picker-color);
+
   /* Today cell */
   --va-date-picker-today-background: var(--va-date-picker-color);
   --va-date-picker-today-background-opacity: 0.8;

@@ -28,7 +28,7 @@
   --va-control-box-shadow: none;
   --va-control-border: 0;
 
-  /* Secondary */
+  /* Transition */
   --va-transition: 0.2s cubic-bezier(0.4, 0, 0.6, 1); /* ease-in-out */
 
   /* Outline */
@@ -63,7 +63,4 @@
 
   /* Z-indexes */
   --va-z-index-teleport-overlay: 1000;
-
-  /* Transition */
-  --va-transition: all 0.3s ease-in-out;
 }

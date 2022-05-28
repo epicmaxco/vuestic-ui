@@ -1,6 +1,6 @@
 <template>
   <div style="height: 13rem; border: 2px solid var(--va-primary);">
-    <va-sidebar hoverable textColor="dark" minimizedWidth="64px">
+    <va-sidebar hoverable minimizedWidth="64px">
       <va-sidebar-item
         v-for="item in items"
         :key="item.to"

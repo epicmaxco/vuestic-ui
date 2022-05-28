@@ -5,7 +5,6 @@
   >
     <va-sidebar
       :minimized="minimized"
-      textColor="dark"
       width="11rem"
       minimizedWidth="64px"
     >

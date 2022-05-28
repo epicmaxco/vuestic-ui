@@ -39,7 +39,7 @@ export const useRouterLink = (props: ExtractPropTypes<typeof useRouterLinkProps>
       return 'router-link'
     }
 
-    return props.tag
+    return props.tag || 'div'
   })
 
   const isActiveRouterLink = computed(() => {

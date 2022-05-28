@@ -15,15 +15,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref, computed } from 'vue'
-import { RouteLocationRaw } from 'vue-router'
-import { useColors, mixColorsRGBA } from '../../../services/color-config/color-config'
+import { defineComponent, computed } from 'vue'
+import { useColors, appyColors } from '../../../services/color-config/color-config'
 import useKeyboardOnlyFocus from '../../../composables/useKeyboardOnlyFocus'
 import { useHover } from '../../../composables/useHover'
 import { useRouterLink, useRouterLinkProps } from '../../../composables/useRouterLink'
 import { useElementRef } from '../../../composables/useElementRef'
 import { useTextColor } from '../../../composables/useTextColor'
 import { useElementBackground } from '../../../composables/useElementBackground'
+import { useSidebarItem } from '../hooks/useSidebar'
 
 export default defineComponent({
   name: 'VaSidebarItem',
@@ -41,7 +41,7 @@ export default defineComponent({
 
   setup (props) {
     const rootElement = useElementRef()
-    const { background } = useElementBackground(rootElement)
+    const sidebar = useSidebarItem()
 
     const { isHovered } = useHover(rootElement)
     const { getColor, getHoverColor, getFocusColor } = useColors()
@@ -63,7 +63,7 @@ export default defineComponent({
       return '#ffffff00'
     })
 
-    const textBackground = computed(() => mixColorsRGBA(background.value, backgroundColorComputed.value))
+    const textBackground = computed(() => appyColors(getColor(sidebar?.color), backgroundColorComputed.value))
     const { textColorComputed } = useTextColor(textBackground)
 
     const computedStyle = computed(() => {
@@ -74,7 +74,8 @@ export default defineComponent({
       }
 
       if (props.active) {
-        style.borderColor = getColor(props.borderColor || props.activeColor)
+        const mergedProps = { ...sidebar, ...props }
+        style.borderColor = getColor(mergedProps.borderColor || mergedProps.activeColor)
       }
 
       return style
@@ -90,6 +91,8 @@ export default defineComponent({
       hrefComputed,
       isHovered,
       backgroundColorComputed,
+      bg: getColor(sidebar?.color),
+      textBackground,
     }
   },
 })

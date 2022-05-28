@@ -34,7 +34,7 @@
           <va-list-label
             v-if="childRoute.category"
             class="va-sidebar__child__label"
-            color="gray"
+            color="secondary"
           >
             {{ t(childRoute.category) }}
           </va-list-label>
