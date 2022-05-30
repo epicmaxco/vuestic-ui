@@ -50,7 +50,7 @@
                 tabindex="0"
                 class="va-date-input__clear-icon"
                 v-bind="clearIconProps"
-                @click.stop="reset()"
+                @click="reset()"
                 @keydown.enter.stop="reset()"
                 @keydown.space.stop="reset()"
               />

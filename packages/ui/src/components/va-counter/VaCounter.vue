@@ -79,8 +79,6 @@
       aria-label="counter value"
       v-bind="{ ...inputAttributesComputed, ...inputListeners }"
       :value="valueComputed"
-      :disabled="$props.disabled"
-      :readonly="$props.readonly"
       @input="setCountInput"
       @change="setCountChange"
     >
@@ -210,16 +208,14 @@ export default defineComponent({
         : Number(valueComputed.value) >= props.max
     })
 
-    const isDisabled = computed(() => props.readonly || props.disabled)
-
-    const tabIndexComputed = computed(() => isDisabled.value ? -1 : 0)
+    const tabIndexComputed = computed(() => props.readonly || props.disabled ? -1 : 0)
 
     const isDecreaseActionDisabled = computed(() => (
-      isMinReached.value || isDisabled.value
+      isMinReached.value || props.readonly || props.disabled
     ))
 
     const isIncreaseActionDisabled = computed(() => (
-      isMaxReached.value || isDisabled.value
+      isMaxReached.value || props.readonly || props.disabled
     ))
 
     const decreaseCount = () => {

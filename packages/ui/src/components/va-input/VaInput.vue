@@ -209,7 +209,7 @@ export default defineComponent({
     }
 
     const computedChildAttributes = computed(() => ({
-      ariaLabel: props.label || props.ariaLabel,
+      ariaLabel: props.ariaLabel || props.label,
       class: props.inputClass,
       ...omit(attrs, ['class', 'style']),
     }) as InputHTMLAttributes)
