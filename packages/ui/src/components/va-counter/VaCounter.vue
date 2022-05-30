@@ -208,7 +208,7 @@ export default defineComponent({
         : Number(valueComputed.value) >= props.max
     })
 
-    const tabIndexComputed = computed(() => props.readonly || props.disabled ? -1 : 0)
+    const tabIndexComputed = computed(() => props.disabled ? -1 : 0)
 
     const isDecreaseActionDisabled = computed(() => (
       isMinReached.value || props.readonly || props.disabled
