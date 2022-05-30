@@ -82,6 +82,10 @@ export const useColors = () => {
     return getColor(defaultColor)
   }
 
+  const getComputedColor = (color: string) => {
+    return computed(() => getColor(color))
+  }
+
   const colorsToCSSVariable = (colors: { [colorName: string]: string | undefined }, prefix = 'va') => {
     return Object
       .keys(colors)
@@ -97,6 +101,7 @@ export const useColors = () => {
     setColors,
     getColors,
     getColor,
+    getComputedColor,
     getBoxShadowColor,
     getBoxShadowColorFromBg,
     getHoverColor,

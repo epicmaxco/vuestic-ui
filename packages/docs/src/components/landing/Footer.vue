@@ -1,5 +1,5 @@
 <template>
-  <footer class="footer">
+  <footer class="footer" :style="{ color: textColor }">
     <div class="footer__wrapper">
       <div class="footer__inner">
         <div class="footer__buttons">
@@ -87,26 +87,27 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component'
+import { useColors, useElementTextColor } from 'vuestic-ui/src/main'
+import { markRaw, defineComponent } from 'vue'
 import IconEpicmax from './icons/IconEpicmax.vue'
 import IconAdmin from './icons/IconAdmin.vue'
 import IconSpinners from './icons/IconSpinners.vue'
-import { useColors } from 'vuestic-ui/src/main'
-import { markRaw } from 'vue'
 
-@Options({
+export default defineComponent({
   name: 'LandingFooter',
-})
-export default class Footer extends Vue {
-  IconEpicmax = markRaw(IconEpicmax);
-  IconAdmin = markRaw(IconAdmin);
-  IconSpinners = markRaw(IconSpinners);
 
-  get primaryColor () {
-    // TODO: Replace with setup FN
-    return useColors().getColor('primary')
-  }
-}
+  setup () {
+    const { getComputedColor } = useColors()
+
+    return {
+      textColor: useElementTextColor('background'),
+      IconEpicmax: markRaw(IconEpicmax),
+      IconAdmin: markRaw(IconAdmin),
+      IconSpinners: markRaw(IconSpinners),
+      primaryColor: getComputedColor('primary'),
+    }
+  },
+})
 </script>
 
 <style lang="scss" scoped>
