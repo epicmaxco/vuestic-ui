@@ -1,23 +1,16 @@
 :root {
   /* Colors */
+  // TODO: Remove them from ag-grid
   --va-light-gray: #eeeeee;
   --va-light-gray2: #eff4f5;
   --va-light-gray3: #f5f8f9;
   --va-lighter-gray: #dddddd;
   --va-vue-darkest-blue: #34495e;
-  --va-theme-blue: #4ab2e3;
-  --va-theme-blue-dark: #2c82e0;
-  --va-dark-blue: #0e4ac4;
 
   /* Primary */
   --va-border: 0;
   --va-font-family: 'Source Sans Pro', sans-serif;
   --va-letter-spacing: 0.0375rem;
-  --va-background-color: #ffffff;
-  --va-background-color-hover: #f5f9fb;
-  --va-swing-transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1); /* swing */
-
-  /* --va-box-shadow: 0 0.125rem 0.2rem 0 rgba(0, 0, 0, 0.2); // overlaps below */
 
   /* Primary block-type items styles */
   --va-block-border-radius: 0.375rem;
@@ -30,6 +23,7 @@
 
   /* Transition */
   --va-transition: 0.2s cubic-bezier(0.4, 0, 0.6, 1); /* ease-in-out */
+  --va-swing-transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1); /* swing */
 
   /* Outline */
   --va-outline-border-width: 0.125rem;
@@ -40,18 +34,16 @@
   --va-form-padding: 1.25rem;
   --va-form-border-radius: 0.125rem;
 
-  /* --va-box-shadow: 0 2px 3px 0 rgba(52, 56, 85, 0.25); // overlaps below */
-
   /* Typography */
   --va-text-selected: #b3d4fc;
   --va-text-highlighted: #fff3d1;
   --va-link-color: var(--va-primary);
   --va-link-color-secondary: var(--va-secondary);
-  --va-link-color-hover: var(--va-theme-blue); // TODO: This must be different
+  --va-link-color-hover: var(--va-primary-lighten, --va-primary);
   --va-link-color-active: var(--va-primary); // And this on too
-  --va-link-color-visited: var(--va-vue-darkest-blue); // And this on too
+  --va-link-color-visited: var(--va-primary-darken, --va-primary); // And this on too
   --va-muted: #7f828b;
-  --va-li-background: var(--va-theme-blue-dark);
+  --va-li-background: var(--va-primary);
   --va-text-block: var(--va-background-mute);
 
   /* Borders */
