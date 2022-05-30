@@ -11,6 +11,7 @@
         size="small"
         :color="color"
         textColor="dark"
+        aria-label="next period"
         @click="prev"
       />
     </slot>
@@ -25,6 +26,7 @@
           :rounded="false"
           :color="color"
           textColor="dark"
+          aria-label="switch view"
         >
           <slot name="year" v-bind="{ year: syncView.year }">{{ syncView.year }}</slot>
 
@@ -43,6 +45,7 @@
         size="small"
         :color="color"
         textColor="dark"
+        aria-label="previous period"
         @click="next"
       />
     </slot>
