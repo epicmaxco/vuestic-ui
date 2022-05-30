@@ -908,7 +908,8 @@
         "hoverable": "Allows the hover state on table rows within a `<tbody>`. The highlighting color of the hover state takes from `selected-color` prop",
         "animated": "Sets css `transition` to table rows",
         "stickyHeader": "Enables sticky header (sticky header is achieved through CSS with `position: sticky` for `thead`)",
-        "height": "Sets the height to the table and enables scrolling"
+        "height": "Sets the height to the table and enables scrolling",
+        "rowClass": "Contains item’s row class or function that takes an item (type `ITableItem`) as an argument and returns the class of corresponding row"
       },
       "events": {
         "updateSortBy": "Emits when `sort-by` changed",
