@@ -30,12 +30,14 @@ const useTheme = () => {
       background: '#ffffff',
       backgroundSoft: '#ffffff',
       backgroundMute: '#f4f8fa',
+      form: '#babfc2',
     },
     dark: {
       // Background
       background: '#0d1117',
       backgroundMute: '#0a0d12',
       backgroundSoft: '#161b22',
+      form: '#404954',
     },
   }
 

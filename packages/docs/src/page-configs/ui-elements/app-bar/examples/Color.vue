@@ -1,7 +1,7 @@
 <template>
   <div style="position: relative;">
     <va-app-bar
-      color="secondary"
+      color="danger"
     >
       <va-button icon="home" color="#fff" flat :rounded="false" />
       <va-button icon="info" color="#fff" flat :rounded="false" />
@@ -16,7 +16,7 @@
 
   <div class="mt-2" style="position: relative;">
     <va-app-bar
-      color="secondary"
+      color="success"
       gradient
     >
       <va-button icon="home" color="#fff" flat :rounded="false" />

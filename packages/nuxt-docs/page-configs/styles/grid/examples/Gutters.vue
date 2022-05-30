@@ -35,12 +35,12 @@ export default {
 @import "vuestic-ui/styles/resources";
 
 .layout {
-  background-color: $lighter-gray;
+  background-color: var(--va-background-mute);
 }
 
 .item {
-  border: 1px solid $gray;
-  background-color: $white;
+  border: 1px solid var(--va-form);
+  background-color: var(--va-background-soft);
   text-align: center;
 }
 </style>

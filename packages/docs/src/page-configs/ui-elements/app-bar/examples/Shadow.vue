@@ -31,7 +31,6 @@
   }
 
   #va-app-bar-shadow {
-    background: #ffffff;
     padding-bottom: 500px;
     overflow: auto;
   }

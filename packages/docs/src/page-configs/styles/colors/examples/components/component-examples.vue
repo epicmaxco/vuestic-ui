@@ -69,7 +69,7 @@
     </div>
 
     <div class="card card-7">
-      <va-tabs stateful :model-value="0">
+      <va-tabs stateful :model-value="0" grow>
         <template #tabs>
           <va-tab v-for="tab in ['One', 'Two', 'Three']" :key="tab">
             {{ tab }}
@@ -110,7 +110,7 @@
 
   &-2 {
     left: 20%;
-    z-index: 1;
+    z-index: 4;
     max-width: 400px;
     top: 16px;
     min-width: 300px;
@@ -144,7 +144,7 @@
 
   &-7 {
     right: 0;
-    top: 5%;
+    top: 36px;
     z-index: 0;
   }
 

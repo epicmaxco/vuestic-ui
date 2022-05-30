@@ -73,7 +73,7 @@ export default {
 
 <style lang="scss" scoped>
 .code {
-  background: #f4f8fa;
+  background: var(--va-background-mute);
   color: var(--va-dark);
   padding: 0.5rem;
   width: 100%;

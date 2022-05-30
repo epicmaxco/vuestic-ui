@@ -1,7 +1,7 @@
 <template>
   <div>
     <va-affix :offset-bottom="50">
-      <div style="padding: 10px 30px; background-color: lightblue;">
+      <div style="padding: 10px 30px; background-color: var(--va-background-mute);">
         Fixed at the bottom: 50
       </div>
     </va-affix>
