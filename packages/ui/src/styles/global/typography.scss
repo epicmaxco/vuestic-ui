@@ -3,7 +3,7 @@
 
 ::selection {
   background-color: var(--va-text-selected);
-  color: var(--va-white);
+  color: var(--va-text-light);
 }
 
 .link {
@@ -95,7 +95,7 @@
   }
 
   &--code {
-    color: var(--va-white);
+    color: var(--va-text-light);
     font-family: "Source Code Pro";
     background-color: $vue-darkest-blue;
     padding: 0.1rem 0.2rem;

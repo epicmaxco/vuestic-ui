@@ -5,8 +5,8 @@
   --va-data-table-thead-font-weight: 700;
   --va-data-table-thead-text-transform: uppercase;
   --va-data-table-thead-letter-spacing: 0.6px;
-  --va-data-table-thead-border: 2px solid var(--va-vue-darkest-blue);
-  --va-data-table-thead-color: var(--va-vue-darkest-blue);
+  --va-data-table-thead-border: 2px solid currentColor;
+  --va-data-table-thead-color: currentColor;
 
   /* hover */
   --va-data-table-hover-th-opacity: 0.3;

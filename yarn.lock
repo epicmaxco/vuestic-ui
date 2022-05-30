@@ -4371,16 +4371,6 @@
   resolved "https://registry.yarnpkg.com/@vue/web-component-wrapper/-/web-component-wrapper-1.3.0.tgz#b6b40a7625429d2bd7c2281ddba601ed05dc7f1a"
   integrity sha512-Iu8Tbg3f+emIIMmI2ycSI8QcEuAUgPTgHwesDU1eKMLE4YC/c/sFbGc70QgMq31ijRftV0R7vCm9co6rldCeOA==
 
-"@vuestic/ag-grid-theme@latest":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@vuestic/ag-grid-theme/-/ag-grid-theme-1.0.3.tgz#870d40e7d6e113ec221692dc712383b55029fa04"
-  integrity sha512-SPvrui4+NdkST8rm2vErpFa3xBRApdhtOrYcJYLgeTPOhwwX9/HQsMyCq+ds1zdoo7/EZk8Gfb3pJzxXA60UzA==
-  dependencies:
-    "@ag-grid-community/client-side-row-model" "^26.1.0"
-    "@ag-grid-community/core" "^26.1.0"
-    "@ag-grid-community/vue3" "^26.1.0"
-    vue-class-component "^8.0.0-rc.1"
-
 "@vueuse/head@^0.7.6":
   version "0.7.6"
   resolved "https://registry.yarnpkg.com/@vueuse/head/-/head-0.7.6.tgz#39eb2aa593db6f02d10ba469b33d8cfbce038183"

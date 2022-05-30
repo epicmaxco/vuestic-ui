@@ -22,7 +22,7 @@
 
   .ag-keyboard-focus .ag-header-cell {
     &:focus {
-      background: var(--va-light-gray);
+      background: var(--va-background-soft);
 
       &::after {
         display: none;

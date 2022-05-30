@@ -108,8 +108,8 @@
   th {
     @include va-title();
 
-    color: $vue-darkest-blue;
-    border-bottom: 2px solid $vue-darkest-blue;
+    color: currentColor;
+    border-bottom: 2px solid currentColor;
   }
 
   td {
