@@ -124,7 +124,10 @@
             v-for="row in rows"
             :key="`table-row_${row.initialIndex}`"
             class="va-data-table__table-tr"
-            :class="{ selected: isRowSelected(row) }"
+            :class="[
+              isRowSelected(row) ? 'selected' : '',
+              getCustomRowClass(row),
+            ]"
             @click="onRowClickHandler('row:click', $event, row)"
             @dblclick="onRowClickHandler('row:dblclick', $event, row)"
             @contextmenu="onRowClickHandler('row:contextmenu', $event, row)"
@@ -233,6 +236,7 @@ import VaCheckbox from '../va-checkbox'
 import VaIcon from '../va-icon'
 import useColumns from './hooks/useColumns'
 import useRows from './hooks/useRows'
+import useRowClass from './hooks/useRowClass'
 import useFilterable from './hooks/useFilterable'
 import useSortable from './hooks/useSortable'
 import usePaginatedRows from './hooks/usePaginatedRows'
@@ -246,6 +250,7 @@ import {
   TFilterMethod,
   TSortingOrder,
   TSelectMode,
+  TRowClass,
 } from './types'
 
 type emitNames = 'update:modelValue' |
@@ -305,6 +310,7 @@ export default defineComponent({
     striped: { type: Boolean, default: false },
     stickyHeader: { type: Boolean, default: false },
     height: { type: [String, Number] as PropType<string | number> },
+    rowClass: { type: [String, Function] as PropType<string | TRowClass | undefined> },
   },
 
   emits: [
@@ -353,6 +359,8 @@ export default defineComponent({
       getClasses,
       getStyles,
     } = useStylable(props)
+
+    const { getCustomRowClass } = useRowClass(props)
 
     const animationName = useAnimationName(props, paginatedRows)
 
@@ -405,6 +413,7 @@ export default defineComponent({
       getStickyCSSVariables,
       getClasses,
       getStyles,
+      getCustomRowClass,
       showNoDataHtml,
       showNoDataFilteredHtml,
       onRowClickHandler,

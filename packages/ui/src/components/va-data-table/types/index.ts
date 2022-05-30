@@ -71,3 +71,5 @@ export type TFilterMethod = (source: any) => boolean
 export type TSortingOrder = StringWithAutocomplete<'asc' | 'desc'> | null
 
 export type TSelectMode = StringWithAutocomplete<'single' | 'multiple'>
+
+export type TRowClass = (item: ITableItem, index: number) => string
