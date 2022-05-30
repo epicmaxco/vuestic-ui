@@ -1,10 +1,11 @@
-import { App } from 'vue'
+import { App, ref } from 'vue'
 import { defineVuesticPlugin, defineGlobalProperty } from '../../../vuestic-plugin/utils'
 import { createToastInstance, closeById, closeAllNotifications, NotificationOptions } from '../toast'
 
 const createVaToastPlugin = (app: App) => ({
   /** Returns toast instance id */
   init (options: string | NotificationOptions) {
+    console.log(ref)
     return createToastInstance(options, app?._context)
   },
 
@@ -19,11 +20,11 @@ const createVaToastPlugin = (app: App) => ({
 
 export const VaToastPlugin = defineVuesticPlugin(() => ({
   install (app) {
-    defineGlobalProperty(app, '$vaToast', createVaToastPlugin(app))
+    defineGlobalProperty(app, '$vaToast' as any, createVaToastPlugin(app))
   },
 }))
 
-declare module '@vue/runtime-core' {
+declare module 'vue' {
   export interface ComponentCustomProperties {
     $vaToast: ReturnType<typeof createVaToastPlugin>
   }
