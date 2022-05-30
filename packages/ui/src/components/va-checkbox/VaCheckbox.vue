@@ -170,7 +170,7 @@ export default defineComponent({
       toggleSelection,
       onBlur,
       onFocus,
-      computedTabIndex: computed(() => props.disabled || props.readonly ? -1 : 0),
+      computedTabIndex: computed(() => props.disabled ? -1 : 0),
       computedId: computed(() => props.id || uniqueId.value),
       computedName: computed(() => props.name || uniqueId.value),
     }
