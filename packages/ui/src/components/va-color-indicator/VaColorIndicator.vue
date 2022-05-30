@@ -1,9 +1,9 @@
 <template>
   <div
     class="va-color-indicator"
-    @click="toggleModelValue"
     :class="computedClass"
     :style="computedStyle"
+    @click="toggleModelValue"
   >
     <div
       class="va-color-indicator__core"
