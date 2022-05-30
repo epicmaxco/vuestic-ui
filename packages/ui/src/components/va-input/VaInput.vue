@@ -45,6 +45,7 @@
         role="button"
         aria-hidden="false"
         aria-label="reset"
+        class="va-input__reset"
         :tabindex="tabIndexComputed"
         v-bind="clearIconProps"
         @click.stop="reset()"

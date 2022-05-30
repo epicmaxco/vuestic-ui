@@ -432,5 +432,11 @@ export default defineComponent({
       }
     }
   }
+
+  &__reset {
+    &:focus {
+      @include focus-outline;
+    }
+  }
 }
 </style>

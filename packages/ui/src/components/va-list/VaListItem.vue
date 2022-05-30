@@ -1,6 +1,8 @@
 <template>
   <component
     :is="tagComputed"
+    class="va-list-item"
+    role="listitem"
     :href="hrefComputed"
     :target="target"
     :to="to"
@@ -8,11 +10,10 @@
     :exact="exact"
     :active-class="activeClass"
     :exact-active-class="exactActiveClass"
-    class="va-list-item"
     :class="computedClass"
     :style="computedStyle"
+    :tabindex="tabIndexComputed"
     v-on="keyboardFocusListeners"
-    :tabindex="indexComputed"
   >
     <div
       class="va-list-item__inner"
@@ -41,7 +42,7 @@ export default defineComponent({
   setup (props) {
     const { keyboardFocusListeners, hasKeyboardFocus } = useKeyboardOnlyFocus()
 
-    const indexComputed = computed(() => props.disabled ? -1 : 0)
+    const tabIndexComputed = computed(() => props.disabled ? -1 : 0)
 
     const computedClass = computed(() => ({
       'va-list-item--disabled': props.disabled,
@@ -55,7 +56,7 @@ export default defineComponent({
       ...useRouterLink(props),
       keyboardFocusListeners,
       hasKeyboardFocus,
-      indexComputed,
+      tabIndexComputed,
       computedClass,
       computedStyle,
     }
