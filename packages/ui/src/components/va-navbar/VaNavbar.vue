@@ -1,5 +1,5 @@
 <template>
-  <nav
+  <div
     class="va-navbar"
     :style="computedStyle"
   >
@@ -21,7 +21,7 @@
       class="va-navbar__background-shape"
       :style="shapeStyleComputed"
     />
-  </nav>
+  </div>
 </template>
 
 <script lang="ts">

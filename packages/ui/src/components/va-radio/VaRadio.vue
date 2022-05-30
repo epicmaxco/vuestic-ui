@@ -12,7 +12,7 @@
       :name="computedName"
       :value="computedLabel"
       :aria-checked="isActive"
-      :tabindex="computedTabIndex"
+      :tabindex="tabIndexComputed"
       @change="onClick"
       @focus="onFocus"
     >
@@ -110,7 +110,7 @@ export default defineComponent({
       onClick,
       onFocus,
       computedName: computed(() => props.name || generateUniqueId()),
-      computedTabIndex: computed(() => props.readonly || props.disabled ? -1 : props.tabindex),
+      tabIndexComputed: computed(() => props.disabled ? -1 : props.tabindex),
     }
   },
 })
