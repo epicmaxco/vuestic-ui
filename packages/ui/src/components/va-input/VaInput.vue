@@ -215,7 +215,7 @@ export default defineComponent({
       onInput,
     }
 
-    const tabIndexComputed = computed(() => props.readonly || props.disabled ? -1 : props.tabindex)
+    const tabIndexComputed = computed(() => props.disabled ? -1 : props.tabindex)
 
     const computedChildAttributes = computed(() => ({
       ariaLabel: props.ariaLabel || props.label,
