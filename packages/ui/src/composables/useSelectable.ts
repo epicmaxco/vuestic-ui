@@ -17,7 +17,7 @@ export interface SelectableProps extends StatefulProps<unknown>, LoadingProps, V
   readonly: boolean,
 }
 
-type Elements = {
+export type Elements = {
   input: ShallowRef<HTMLElement | undefined>,
   label: ShallowRef<HTMLElement | undefined>,
   container: ShallowRef<HTMLElement | undefined>,

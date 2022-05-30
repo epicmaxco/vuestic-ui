@@ -67,7 +67,7 @@ import { defineComponent, computed, PropType, shallowRef } from 'vue'
 
 import { useColors } from '../../composables/useColor'
 import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'
-import { useSelectable, useSelectableProps, useSelectableEmits } from '../../composables/useSelectable'
+import { useSelectable, useSelectableProps, useSelectableEmits, Elements } from '../../composables/useSelectable'
 import { useTextColor } from '../../composables/useTextColor'
 import { generateUniqueId } from '../../services/utils'
 
@@ -92,7 +92,7 @@ export default defineComponent({
     name: { type: String, default: '' },
   },
   setup (props, { emit }) {
-    const elements = {
+    const elements: Elements = {
       container: shallowRef<HTMLElement>(),
       input: shallowRef<HTMLElement>(),
       label: shallowRef<HTMLElement>(),

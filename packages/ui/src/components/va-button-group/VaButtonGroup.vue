@@ -28,7 +28,7 @@ export default defineComponent({
     size: {
       type: String as PropType<'medium' | 'small' | 'large'>,
       default: 'medium',
-      validator: (v: string) => ['medium', 'small', 'large'].includes(v),
+      validator: (value: string) => ['medium', 'small', 'large'].includes(value),
     },
   },
   setup (props) {
