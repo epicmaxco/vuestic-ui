@@ -120,7 +120,7 @@
     tr {
       &:nth-child(even) {
         td {
-          background-color: $light-gray3;
+          background-color: var(--va-background-mute);
         }
       }
     }
@@ -130,7 +130,7 @@
     tr {
       &:hover {
         td {
-          background-color: $light-gray2;
+          background-color: var(--va-background);
         }
       }
     }

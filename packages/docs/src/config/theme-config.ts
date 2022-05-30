@@ -28,7 +28,8 @@ export const COLOR_THEMES: Record<ThemeName, Record<string, string>> = {
     textDark: '#1B1A1F',
     // Misc
     shadow: 'rgba(0, 0, 0, 0.12)',
-    focus: 'yellow',
+    focus: '#FF0',
+    form: '#babfc2',
   },
   [ThemeName.DARK]: {
     // Accent
@@ -47,6 +48,6 @@ export const COLOR_THEMES: Record<ThemeName, Record<string, string>> = {
     backgroundSoft: '#161b22',
     // Misc
     shadow: 'rgba(0, 0, 0, 0.37)',
-    focus: 'yellow',
+    focus: '#FF0',
   },
 }

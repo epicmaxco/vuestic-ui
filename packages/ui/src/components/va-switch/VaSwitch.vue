@@ -106,7 +106,7 @@ export default defineComponent({
     trueInnerLabel: { type: String, default: null },
     falseInnerLabel: { type: String, default: null },
     color: { type: String, default: 'primary' },
-    offColor: { type: String, default: 'background-mute' },
+    offColor: { type: String, default: 'form' },
     size: {
       type: String as PropType<'medium' | 'small' | 'large'>,
       default: 'medium',

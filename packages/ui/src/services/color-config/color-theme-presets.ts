@@ -20,6 +20,10 @@ type VuesticColorsPreset = {
   shadow: CssColor,
   /** Outline color when component is focused */
   focus: CssColor,
+
+  // TODO: Think about better name
+  /** Form background in switch and borders in checkbox, ratio etc */
+  form: CssColor,
 }
 
 export const colorsPresets: Record<string, VuesticColorsPreset> = {
@@ -41,5 +45,6 @@ export const colorsPresets: Record<string, VuesticColorsPreset> = {
     // Misc
     shadow: 'rgba(0, 0, 0, 0.12)',
     focus: 'yellow',
+    form: '#babfc2',
   },
 }

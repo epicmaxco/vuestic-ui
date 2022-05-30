@@ -8,7 +8,7 @@ export const colorToRgba = (color: ColorInput, opacity: number) => {
 
 export const getTextColor = (color: ColorInput, darkColor = 'textDark', lightColor = 'textLight') => {
   const { R, G, B } = new ColorTranslator(color)
-  const isLightBackground = Math.sqrt(R * R * 0.241 + G * G * 0.691 + B * B * 0.068) > 130
+  const isLightBackground = Math.sqrt(R * R * 0.241 + G * G * 0.691 + B * B * 0.068) > 160
   return isLightBackground ? darkColor : lightColor
 }
 

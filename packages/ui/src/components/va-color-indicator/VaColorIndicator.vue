@@ -65,8 +65,8 @@ export default defineComponent({
   cursor: pointer;
   border-radius: 50%;
   text-align: center;
-  background-color: var(--va-background-mute);
-  border: 0.125rem solid var(--va-background-mute);
+  background-color: var(--va-form);
+  border: 0.125rem solid var(--va-form);
 
   &--selected {
     background-color: var(--va-primary);

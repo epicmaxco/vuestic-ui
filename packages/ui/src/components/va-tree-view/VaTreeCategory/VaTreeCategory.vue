@@ -216,7 +216,7 @@ export default defineComponent({
   }
 
   &__list-internal-container {
-    background-image: linear-gradient(#adb3b9 33%, rgba(255, 255, 255, 0) 0%);
+    background-image: linear-gradient(var(--va-form) 33%, rgba(255, 255, 255, 0) 0%);
     background-position: left;
     background-size: 1px 3px;
     background-repeat: repeat-y;
