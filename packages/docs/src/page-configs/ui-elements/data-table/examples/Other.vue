@@ -218,5 +218,6 @@ export default defineComponent({
 <style lang="scss">
 .customRowClass {
   background-color: gold;
+  color: brown;
 }
 </style>
