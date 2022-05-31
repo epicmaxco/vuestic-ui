@@ -385,6 +385,10 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'colors-config',
         displayName: 'menu.colorsConfig',
       },
+      {
+        name: 'colors-custom-classes',
+        displayName: 'menu.colorsCustomClasses',
+      },
       // GENERATOR_ADD - services
     ],
   },

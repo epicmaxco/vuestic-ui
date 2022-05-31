@@ -5,6 +5,7 @@ import {
   iconsInstallObject,
   iconsConfig,
   componentsConfig,
+  colorsCustomClasses,
 } from './code-examples'
 
 const block = new PageGenerationHelper(__dirname)
@@ -25,6 +26,14 @@ const config: ApiDocsBlock[] = [
   block.paragraph('configurationGuide.icons.subDescription'),
   block.code(iconsConfig),
   block.link('configurationGuide.readMore', '/services/icons-config'),
+
+  block.subtitle('configurationGuide.colorsCustomClasses.title'),
+  block.paragraph('configurationGuide.colorsCustomClasses.description'),
+
+  block.headline('configurationGuide.colorsCustomClasses.subtitle'),
+  block.paragraph('configurationGuide.colorsCustomClasses.subDescription'),
+  block.code(colorsCustomClasses),
+  block.link('configurationGuide.readMore', '/services/colors-custom-classes'),
 
   block.subtitle('configurationGuide.components.title'),
   block.paragraph('configurationGuide.components.intro'),
