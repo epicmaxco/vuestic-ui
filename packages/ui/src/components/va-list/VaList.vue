@@ -1,20 +1,25 @@
 <template>
   <div
     class="va-list"
-    :class="{ 'va-list--fit': $props.fit }"
+    role="list"
+    :class="computedClass"
   >
     <slot />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue'
+import { defineComponent, computed } from 'vue'
 
 export default defineComponent({
   name: 'VaList',
   props: {
-    fit: { type: Boolean as PropType<boolean>, default: false },
+    fit: { type: Boolean, default: false },
   },
+
+  setup: (props) => ({
+    computedClass: computed(() => ({ 'va-list--fit': props.fit })),
+  }),
 })
 </script>
 

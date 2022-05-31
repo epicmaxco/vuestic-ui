@@ -1,19 +1,24 @@
 <template>
-  <div class="va-rating" :class="rootClass">
+  <div class="va-rating"
+       :class="rootClass"
+       :aria-label="`current rating ${$props.modelValue} of ${$props.max}`"
+  >
     <div
+      class="va-rating__item-wrapper"
       @keyup.left="onArrowKeyPress(-1)"
       @keyup.right="onArrowKeyPress(1)"
-      @mouseenter="onMouseEnter()"
+      @mouseenter="onMouseEnter"
       @mouseleave="onMouseLeave"
-      class="va-rating__item-wrapper"
     >
       <va-rating-item
         v-for="itemNumber in $props.max"
-        v-bind="VaRatingItemProps"
-        :model-value="getItemValue(itemNumber - 1)"
         :key="itemNumber"
+        v-bind="VaRatingItemProps"
+        :aria-label="`vote rating ${itemNumber} of ${$props.max}`"
+        :model-value="getItemValue(itemNumber - 1)"
         :empty-icon-color="$props.unselectedColor"
         :tabindex="tabindex"
+        :disabled="$props.disabled"
         @hover="isInteractionsEnabled && onItemHoveredValueUpdate(itemNumber - 1, $event)"
         @update:model-value="isInteractionsEnabled && onItemValueUpdate(itemNumber - 1, $event)"
       >
