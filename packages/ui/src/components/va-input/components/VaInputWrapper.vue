@@ -298,6 +298,12 @@ export default defineComponent({
         margin-right: 0;
       }
     }
+
+    &__reset {
+      &:focus {
+        @include focus-outline;
+      }
+    }
   }
 
   &__required-mark {
@@ -430,12 +436,6 @@ export default defineComponent({
       .va-input--bordered__border {
         border-color: var(--va-input-error-color);
       }
-    }
-  }
-
-  &__reset {
-    &:focus {
-      @include focus-outline;
     }
   }
 }
