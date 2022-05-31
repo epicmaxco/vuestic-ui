@@ -5,7 +5,6 @@ import { createToastInstance, closeById, closeAllNotifications, NotificationOpti
 const createVaToastPlugin = (app: App) => ({
   /** Returns toast instance id */
   init (options: string | NotificationOptions) {
-    console.log(ref)
     return createToastInstance(options, app?._context)
   },
 
@@ -20,7 +19,7 @@ const createVaToastPlugin = (app: App) => ({
 
 export const VaToastPlugin = defineVuesticPlugin(() => ({
   install (app) {
-    defineGlobalProperty(app, '$vaToast' as any, createVaToastPlugin(app))
+    defineGlobalProperty(app, '$vaToast', createVaToastPlugin(app))
   },
 }))
 
