@@ -5,6 +5,7 @@ import { GlobalConfig, GlobalConfigUpdater } from './types'
 import { getComponentsAllDefaultConfig, getComponentsDefaultConfig } from './config-default'
 import { createIconsConfig } from '../icon-config/icon-config-helpers'
 import { colorsPresets } from '../color-config/color-theme-presets'
+import { ColorsCustomClassesPresets } from '../color-config/colors-custom-classes-presets'
 
 export type ProvidedGlobalConfig = {
   globalConfig: Ref<GlobalConfig>,
@@ -25,6 +26,7 @@ export const createGlobalConfig = () => {
     icons: createIconsConfig({}),
     components: getComponentsDefaultConfig(),
     componentsAll: getComponentsAllDefaultConfig(),
+    colorsCustomClasses: ColorsCustomClassesPresets.default,
   })
 
   const getGlobalConfig = (): GlobalConfig => globalConfig.value

@@ -1,12 +1,14 @@
 import type { ColorConfig } from '../color-config/color-config'
 import type { ComponentConfig, Props } from '../component-config/component-config'
 import type { IconConfig } from '../icon-config/types'
+import { ColorsCustomClassesConfig } from '../color-config/types'
 
 export type GlobalConfig = {
   colors?: ColorConfig,
   icons?: IconConfig,
-  components?: ComponentConfig
-  componentsAll?: Props
+  components?: ComponentConfig,
+  componentsAll?: Props,
+  colorsCustomClasses?: ColorsCustomClassesConfig[],
 }
 
 export type SizeConfig = {

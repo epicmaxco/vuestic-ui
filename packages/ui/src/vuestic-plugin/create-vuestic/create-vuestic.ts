@@ -3,6 +3,7 @@ import { defineVuesticPlugin, usePlugin } from '../utils'
 import { GlobalConfigPlugin, VaDropdownPlugin, VaToastPlugin, VaModalPlugin, ColorConfigPlugin } from '../vuestic-plugins'
 import * as vuesticComponents from '../vuestic-components'
 import type { VuesticComponents } from '../global-components'
+import { ColorsCustomClassesPlugin } from '../../services/color-config/colors-custom-classes'
 
 // Declare all components globally
 declare module 'vue' {
@@ -25,6 +26,7 @@ export const createVuestic = defineVuesticPlugin((options: { config?: GlobalConf
 
     usePlugin(app, GlobalConfigPlugin(config))
     usePlugin(app, ColorConfigPlugin)
+    usePlugin(app, ColorsCustomClassesPlugin)
     usePlugin(app, VaDropdownPlugin)
     usePlugin(app, VaToastPlugin)
     usePlugin(app, VaModalPlugin)
