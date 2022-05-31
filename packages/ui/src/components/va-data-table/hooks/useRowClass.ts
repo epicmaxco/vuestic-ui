@@ -1,15 +1,13 @@
 import { TableRow, TRowClass } from '../types'
 
 interface useRowClassProps {
-  rowClass: string | TRowClass | undefined
+  rowClass: TRowClass
   [prop: string]: unknown
 }
 
 export default function useRowClass (props: useRowClassProps) {
   function getCustomRowClass (row: TableRow) {
-    const rowClassType = typeof props.rowClass
-
-    if (rowClassType === 'string') {
+    if (typeof props.rowClass === 'string') {
       return props.rowClass
     }
 

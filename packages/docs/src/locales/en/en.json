@@ -909,7 +909,7 @@
         "animated": "Sets css `transition` to table rows",
         "stickyHeader": "Enables sticky header (sticky header is achieved through CSS with `position: sticky` for `thead`)",
         "height": "Sets the height to the table and enables scrolling",
-        "rowClass": "Contains item’s row class or function that takes an item (type `ITableItem`) as an argument and returns the class of corresponding row"
+        "rowClass": "Adds class to the table row. This could be a string or a function that returns a string which will be added to the row class. Function receives table row item (type `Record<string, any>`) and index as arguments"
       },
       "events": {
         "updateSortBy": "Emits when `sort-by` changed",
