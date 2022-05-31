@@ -473,6 +473,10 @@ export default defineComponent({
         min-width: 100%;
       }
 
+      .va-tabs__tabs-items {
+        width: 100%;
+      }
+
       .va-tab {
         flex: 1 0 auto;
         max-width: none;
