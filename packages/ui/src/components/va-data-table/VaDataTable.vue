@@ -312,7 +312,7 @@ export default defineComponent({
     striped: { type: Boolean, default: false },
     stickyHeader: { type: Boolean, default: false },
     height: { type: [String, Number] as PropType<string | number> },
-    rowClass: { type: [String, Function] as PropType<TRowClass> },
+    rowClass: { type: [String, Function, Boolean] as PropType<TRowClass> },
   },
 
   emits: [
