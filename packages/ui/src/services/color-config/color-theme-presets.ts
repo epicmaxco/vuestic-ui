@@ -45,6 +45,6 @@ export const colorsPresets: Record<string, VuesticColorsPreset> = {
     // Misc
     shadow: 'rgba(0, 0, 0, 0.12)',
     focus: 'yellow',
-    form: '#babfc2',
+    form: '#ffc700',
   },
 }

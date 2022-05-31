@@ -22,10 +22,13 @@
         {{ file && file.size }}
       </div>
       <va-icon
+        role="button"
+        aria-hidden="false"
+        aria-label="remove file"
         color="danger"
         name="clear"
-        @click="removeFile()"
         class="va-file-upload-list-item__delete"
+        @click="removeFile()"
       />
     </div>
   </va-card>

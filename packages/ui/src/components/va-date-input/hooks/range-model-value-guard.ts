@@ -11,7 +11,9 @@ export const useRangeModelValueGuard = (
   disabled: Ref<boolean>,
   parseValue = parseModelValue,
 ) => {
-  const bufferValue = ref<VaDateInputModelValue>(modelValue.value && parseValue(modelValue.value))
+  // const bufferValue = ref<VaDateInputModelValue>(modelValue.value && parseValue(modelValue.value))
+  // TODO HACK To make build work. Please fix this type (VaDateInputModelValue doesn't work with date input and shouldn't go there)
+  const bufferValue = ref<any>(modelValue.value && parseValue(modelValue.value))
 
   const valueComputed = computed({
     get: () => bufferValue.value,

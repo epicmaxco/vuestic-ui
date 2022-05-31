@@ -1,9 +1,12 @@
 <template>
   <div
     class="va-badge"
+    role="alert"
+    :aria-labelledby="labelIdComputed"
     :class="badgeClass"
   >
     <span
+      :id="labelIdComputed"
       class="va-badge__text-wrapper"
       :style="badgeStyle"
     >
@@ -20,8 +23,8 @@
 <script lang="ts">
 import { defineComponent, computed, PropType } from 'vue'
 import { useColors } from '../../composables/useColor'
-import { getTextColor } from '../../services/color-config/color-functions'
 import { useTextColor } from '../../composables/useTextColor'
+import { generateUniqueId } from '../../services/utils'
 
 export default defineComponent({
   name: 'VaBadge',
@@ -63,7 +66,9 @@ export default defineComponent({
       opacity: props.transparent ? 0.5 : 1,
     }))
 
-    return { badgeClass, badgeStyle }
+    const labelIdComputed = computed(() => `aria-label-${generateUniqueId()}`)
+
+    return { badgeClass, badgeStyle, labelIdComputed }
   },
 })
 </script>
