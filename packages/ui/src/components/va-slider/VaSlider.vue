@@ -1,18 +1,28 @@
 <template>
   <div
     class="va-slider"
+    role="slider"
+    :aria-valuemin="$props.min"
+    :aria-valuenow="$props.modelValue"
+    :aria-valuemax="$props.max"
+    :aria-labelledby="ariaLabelIdComputed"
+    :aria-orientation="$props.vertical ? 'vertical' : 'horizontal'"
+    :aria-disabled="$props.disabled"
+    :aria-readonly="$props.readonly"
     :class="sliderClass"
   >
     <div
-      class="va-slider__input-wrapper"
       v-if="vertical ? $slots.append : $slots.prepend"
+      class="va-slider__input-wrapper"
+      aria-hidden="true"
     >
       <slot :name="vertical ? 'append' : 'prepend'" />
     </div>
     <span
       v-if="($slots.label || label) && !invertLabel"
-      :style="labelStyles"
       class="va-input__label"
+      :id="ariaLabelIdComputed"
+      :style="labelStyles"
     >
       <slot name="label">
         {{ label }}
@@ -21,6 +31,7 @@
     <span
       v-if="vertical ? iconAppend : iconPrepend"
       class="va-input__label"
+      aria-hidden="true"
     >
       <va-icon
         :name="vertical ? iconAppend : iconPrepend"
@@ -154,8 +165,10 @@ import { defineComponent, watch, PropType, ref, computed, onMounted, onBeforeUnm
 
 import { getHoverColor } from '../../services/color-config/color-functions'
 import { validateSlider } from './validateSlider'
-import VaIcon from '../va-icon'
 import { useColors } from '../../composables/useColor'
+import { generateUniqueId } from '../../services/utils'
+
+import VaIcon from '../va-icon'
 
 export default defineComponent({
   name: 'VaSlider',
@@ -671,6 +684,8 @@ export default defineComponent({
       document.removeEventListener('keydown', moveWithKeys)
     }
 
+    const ariaLabelIdComputed = computed(() => `aria-label-id-${generateUniqueId()}`)
+
     onMounted(() => {
       if (validateSlider(props.modelValue, props.step, props.min, props.max)) {
         getStaticData()
@@ -718,6 +733,7 @@ export default defineComponent({
       getTrackLabel,
       currentSliderDotIndex,
       isRange: Array.isArray(props.modelValue),
+      ariaLabelIdComputed,
     }
   },
 })

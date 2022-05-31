@@ -53,6 +53,7 @@
       >
         <template #anchor>
           <va-button
+            aria-label="toggle dropdown"
             :disabled="$props.disabled || $props.disableDropdown"
             :icon="computedIcon"
             v-on="listeners"

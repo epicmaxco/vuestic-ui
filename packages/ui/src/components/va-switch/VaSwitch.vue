@@ -1,6 +1,11 @@
 <template>
   <VaMessageListWrapper
     class="va-switch"
+    role="switch"
+    :aria-labelledby="ariaLabelIdComputed"
+    :aria-checked="!!modelValue"
+    :aria-disabled="$props.disabled"
+    :aria-readonly="$props.readonly"
     :class="computedClass"
     :disabled="$props.disabled"
     :success="$props.success"
@@ -10,13 +15,14 @@
     :error-count="$props.errorCount"
   >
     <div
+      ref="container"
       class="va-switch__container"
       tabindex="-1"
       @blur="onBlur"
-      ref="container"
     >
       <div
         class="va-switch__inner"
+        aria-hidden="true"
         @click="toggleSelection"
       >
         <input
@@ -61,11 +67,13 @@
       </div>
       <div
         v-if="computedLabel || $slots.default"
-        class="va-switch__label"
         ref="label"
-        @blur="onBlur"
+        class="va-switch__label"
         :style="labelStyle"
-        @click="toggleSelection()"
+        :id="ariaLabelIdComputed"
+        @blur="onBlur"
+        @click="toggleSelection"
+        @keydown.enter.stop="toggleSelection"
       >
         <slot>
           {{ computedLabel }}
@@ -84,6 +92,7 @@ import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'
 import { useSelectable, useSelectableProps, useSelectableEmits } from '../../composables/useSelectable'
 import { useColors } from '../../composables/useColor'
 import { useTextColor } from '../../composables/useTextColor'
+import { generateUniqueId } from '../../services/utils'
 
 export default defineComponent({
   name: 'VaSwitch',
@@ -179,6 +188,8 @@ export default defineComponent({
       color: textColorComputed.value,
     }))
 
+    const ariaLabelIdComputed = computed(() => `aria-label-id-${generateUniqueId()}`)
+
     return {
       ...selectable,
       isChecked,
@@ -192,6 +203,7 @@ export default defineComponent({
       trackStyle,
       labelStyle,
       trackLabelStyle,
+      ariaLabelIdComputed,
     }
   },
 })

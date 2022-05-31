@@ -19,6 +19,7 @@
     <template #anchor>
       <va-input
         ref="input"
+        aria-label="selected time"
         v-bind="{ ...computedInputProps, ...computedInputAttrs }"
         v-on="computedInputListeners"
         :modelValue="valueText"
@@ -42,25 +43,43 @@
             v-bind="{ ...slotScope, dropdownToggle, showDropdown, hideDropdown, isOpen: isOpenSync, focus }"
           />
           <va-icon
-            :id="componentIconId"
             v-if="$props.leftIcon"
+            role="button"
+            aria-label="toggle dropdown"
+            aria-hidden="false"
+            tabindex="0"
+            class="va-dropdown__icons__reset"
+            :id="componentIconId"
             v-bind="iconProps"
-            @click="dropdownToggle()"
+            @click="dropdownToggle"
+            @keydown.enter.stop="dropdownToggle"
           />
         </template>
 
         <template #icon>
           <va-icon
-            :id="clearIconId"
             v-if="canBeCleared"
+            role="button"
+            aria-label="reset"
+            aria-hidden="false"
+            tabindex="0"
+            class="va-dropdown__icons__reset"
+            :id="clearIconId"
             v-bind="clearIconProps"
-            @click="reset()"
+            @click="reset"
+            @keydown.enter.stop="reset"
           />
           <va-icon
-            :id="componentIconId"
             v-else-if="!$props.leftIcon"
+            role="button"
+            aria-label="toggle dropdown"
+            aria-hidden="false"
+            tabindex="0"
+            class="va-dropdown__icons__reset"
+            :id="componentIconId"
             v-bind="iconProps"
-            @click="dropdownToggle()"
+            @click="dropdownToggle"
+            @keydown.enter.stop="dropdownToggle"
           />
         </template>
       </va-input>

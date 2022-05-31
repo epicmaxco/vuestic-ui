@@ -7,21 +7,18 @@
     :aria-expanded="!!valueComputed"
   >
     <div
+      ref="anchorRef"
       class="va-dropdown__anchor"
       @click="onAnchorClick()"
       @mouseenter="onMouseEnter()"
       @mouseleave="onMouseLeave()"
       @keyup.enter.stop.prevent="onAnchorClick()"
-      ref="anchorRef"
-      role="button"
-      :aria-controls="controlledIdComputed"
     >
       <slot name="anchor" />
     </div>
     <template v-if="valueComputed">
       <teleport :to="attachElement" :disabled="disableAttachment">
         <div
-          :id="controlledIdComputed"
           class="va-dropdown__content-wrapper"
           @mouseover="$props.isContentHoverable && onMouseEnter()"
           @mouseout="onMouseLeave()"
@@ -76,7 +73,7 @@ export default defineComponent({
 
   emits: [...useStatefulEmits, 'anchor-click', 'dropdown-content-click', 'click-outside'],
 
-  setup (props, { emit }) {
+  setup (props, { emit, slots }) {
     const anchorRef = ref()
     const contentRef = ref()
     const { valueComputed } = useStateful(props, emit)
@@ -144,14 +141,11 @@ export default defineComponent({
       }
     })
 
-    const controlledIdComputed = computed(() => `aria-controlled-id-${generateUniqueId()}`)
-
     return {
       valueComputed,
       anchorRef,
       contentRef,
       computedClass,
-      controlledIdComputed,
       emitAndClose,
       onAnchorClick,
       onMouseEnter,
@@ -177,6 +171,14 @@ export default defineComponent({
   &__content-wrapper {
     /* overflow: hidden; */
     z-index: var(--va-dropdown-content-wrapper-z-index);
+  }
+
+  &__icons {
+    &__reset {
+      &:focus {
+        @include focus-outline;
+      }
+    }
   }
 }
 </style>

@@ -37,7 +37,6 @@
               <va-icon
                 v-if="$props.leftIcon"
                 v-bind="iconProps"
-                aria-hidden="true"
               />
             </template>
 
@@ -57,7 +56,6 @@
               <va-icon
                 v-else-if="!$props.leftIcon"
                 v-bind="iconProps"
-                aria-hidden="true"
               />
             </template>
           </va-input>

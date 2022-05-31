@@ -23,6 +23,7 @@
       <div class="va-select">
         <va-input
           ref="input"
+          aria-label="selected option"
           :model-value="valueComputedString"
           :success="$props.success"
           :error="computedError"
@@ -65,8 +66,13 @@
           <template #icon>
             <va-icon
               v-if="showClearIcon"
+              aria-hidden="false"
+              aria-label="reset"
+              class="va-select__icons__reset"
               v-bind="clearIconProps"
-              @click.stop="reset()"
+              @click.stop="reset"
+              @keydown.enter.stop="reset"
+              @keydown.space.stop="reset"
             />
           </template>
 
@@ -107,6 +113,7 @@
         ref="searchBar"
         class="va-select__input"
         placeholder="Search"
+        aria-label="options filter"
         :tabindex="tabindex + 1"
         :bordered="true"
         v-model="searchInput"
@@ -699,6 +706,14 @@ export default defineComponent({
 
   .va-input {
     cursor: var(--va-select-cursor);
+  }
+
+  &__icons {
+    &__reset {
+      &:focus {
+        @include focus-outline;
+      }
+    }
   }
 }
 
