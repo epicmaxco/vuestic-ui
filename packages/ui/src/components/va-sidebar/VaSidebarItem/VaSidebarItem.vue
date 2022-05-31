@@ -1,18 +1,17 @@
 <template>
-  <router-link custom :to="to" v-slot="{ href, navigate }">
-    <a
-      ref="anchor"
-      v-bind="$attrs"
-      class="va-sidebar__item va-sidebar-item"
-      :class="{ 'va-sidebar-item--active': $props.active }"
-      :style="computedStyle"
-      :href="href"
-      @click="navigate"
-      v-on="keyboardFocusListeners"
-    >
-      <slot />
-    </a>
-  </router-link>
+  <component
+    ref="anchor"
+    class="va-sidebar__item va-sidebar-item"
+    :class="{ 'va-sidebar-item--active': $props.active }"
+    :style="computedStyle"
+    :href="hrefComputed"
+    :to="$props.to"
+    :is="tagComputed"
+    v-bind="$attrs"
+    v-on="keyboardFocusListeners"
+  >
+    <slot />
+  </component>
 </template>
 
 <script lang="ts">
@@ -21,6 +20,7 @@ import { RouteLocationRaw } from 'vue-router'
 import { useColors } from '../../../services/color-config/color-config'
 import useKeyboardOnlyFocus from '../../../composables/useKeyboardOnlyFocus'
 import { useHover } from '../../../composables/useHover'
+import { useRouterLink, useRouterLinkProps } from '../../../composables/useRouterLink'
 import { useTextColor } from '../../../composables/useTextColor'
 import { useSidebarItem } from '../hooks/useSidebar'
 
@@ -30,10 +30,7 @@ export default defineComponent({
   inheritAttrs: false,
 
   props: {
-    to: {
-      type: [String, Object] as PropType<RouteLocationRaw>,
-      default: () => ({}),
-    },
+    ...useRouterLinkProps,
     active: { type: Boolean, default: false },
     textColor: { type: String, default: undefined },
     activeColor: { type: String, default: 'primary' },
@@ -83,10 +80,15 @@ export default defineComponent({
       return style
     })
 
+    const { tagComputed, hrefComputed } = useRouterLink(props)
+
     return {
       anchor,
       computedStyle,
       keyboardFocusListeners,
+      tagComputed,
+      hrefComputed,
+      isHovered,
     }
   },
 })

@@ -20304,10 +20304,10 @@ vuestic-ui@1.3.5:
     normalize.css "^8.0.1"
     tslib "^2.2.0"
 
-vuestic-ui@next:
-  version "1.4.0-alpha5"
-  resolved "https://registry.yarnpkg.com/vuestic-ui/-/vuestic-ui-1.4.0-alpha5.tgz#e6892c9257284cfc259206f8dfa105799354e4ee"
-  integrity sha512-qQN2DvDdVTWp9gWDjzcsvCzfXhF6hGK6ukQPzrlzAtFPk+kYgfpx+Tr4kBek9ixIh2KX12RUHx5dgEN1sfLFpA==
+vuestic-ui@latest:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/vuestic-ui/-/vuestic-ui-1.4.0.tgz#eb2c86fb217d04edc11ac8753c4cf6bc186b897b"
+  integrity sha512-4JgD6oQEyNThyYYGvqaUgFja+0uTmFd1aAtAV/YqLn/QvhUf9UqXj9jnYXTZszfPU200pVO1Y6q4U5qQmCju1A==
   dependencies:
     cleave.js "^1.6.0"
     colortranslator "^1.9.2"

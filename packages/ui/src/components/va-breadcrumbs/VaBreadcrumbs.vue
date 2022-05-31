@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent, computed, PropType, VNode, h, Fragment } from 'vue'
+import { computed, defineComponent, Fragment, h, PropType, ref, VNode } from 'vue'
 
 import { useAlign, useAlignProps } from '../../composables/useAlign'
 import { useColors } from '../../composables/useColor'
@@ -59,14 +59,24 @@ export default defineComponent({
       return Boolean(childPropData.disabled)
     }
 
+    const isAllChildLinks = ref(true)
     const getChildren = () => {
       const childNodes = (slots as any)?.default()?.reduce(childNodeFilter, []) || []
       const childNodesLength = childNodes.length
       const isLastIndexChildNodes = (index: number) => index === childNodesLength - 1
+      const isChildLink = (child: VNode) => {
+        const childPropData = child?.props
+        if (!childPropData || !hasOwnProperty(childPropData, 'to')) {
+          return false
+        }
+
+        return !!(childPropData.to && !childPropData.disabled)
+      }
 
       const createChildComponent = (child: VNode, index: number) => h(
         'span', {
           class: 'va-breadcrumbs__item',
+          ariaCurrent: (isLastIndexChildNodes(index) && isChildLink(child)) ? 'location' : null,
           style: {
             color: (!isLastIndexChildNodes(index) && !isDisabledChild(child)) ? computedThemesActiveColor.value : null,
           },
@@ -78,6 +88,10 @@ export default defineComponent({
 
       if (childNodesLength) {
         childNodes.forEach((child: VNode, index: number) => {
+          if (isAllChildLinks.value && !isChildLink(child)) {
+            isAllChildLinks.value = false
+          }
+
           children.push(createChildComponent(child, index))
 
           if (!isLastIndexChildNodes(index)) {
@@ -92,6 +106,8 @@ export default defineComponent({
     return () => h('div', {
       class: 'va-breadcrumbs',
       style: alignComputed.value,
+      role: isAllChildLinks.value ? 'navigation' : null,
+      ariaLabel: isAllChildLinks.value ? 'breadcrumbs' : null,
     }, getChildren())
   },
 })

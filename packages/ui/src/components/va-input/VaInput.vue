@@ -124,6 +124,7 @@ export default defineComponent({
     inputClass: { type: String, default: '' },
     pattern: { type: String },
     inputmode: { type: String, default: 'text' },
+    ariaLabel: { type: String, default: null },
 
     // style
     color: { type: String, default: 'primary' },
@@ -208,7 +209,7 @@ export default defineComponent({
     }
 
     const computedChildAttributes = computed(() => ({
-      ariaLabel: props.label,
+      ariaLabel: props.ariaLabel || props.label,
       class: props.inputClass,
       ...omit(attrs, ['class', 'style']),
     }) as InputHTMLAttributes)

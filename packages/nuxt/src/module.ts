@@ -71,7 +71,8 @@ export default defineNuxtModule<VuesticOptions>({
       'getColor',
       'getColors',
       'setColors',
-      'useToast'
+      'useToast',
+      'useModal',
     ]
     const autoImportsList = []
     for (const item of composablesNamesList) {

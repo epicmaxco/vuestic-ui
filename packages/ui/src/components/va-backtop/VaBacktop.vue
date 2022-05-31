@@ -2,11 +2,14 @@
   <div
     v-if="visible"
     class="va-backtop"
+    role="button"
+    aria-label="Back to top"
     :style="computedStyle"
     @click="scrollToTop"
   >
     <slot>
       <va-button
+        aria-hidden="true"
         icon="expand_less"
         :color="color"
       />
@@ -45,7 +48,7 @@ export default defineComponent({
     },
   },
   setup (props) {
-    const visible = ref(false)
+    const targetScrollValue = ref(0)
 
     const computedStyle = computed(() => ({
       [props.verticalPosition]: props.verticalOffset,
@@ -90,11 +93,12 @@ export default defineComponent({
     }
 
     const handleScroll = () => {
-      const targetScrollValue = targetElement instanceof Window
+      targetScrollValue.value = targetElement instanceof Window
         ? targetElement.scrollY
         : targetElement.scrollTop
-      visible.value = targetScrollValue > props.visibilityHeight
     }
+
+    const visible = computed(() => targetScrollValue.value > props.visibilityHeight)
 
     onMounted(() => {
       targetElement = getTargetElement()

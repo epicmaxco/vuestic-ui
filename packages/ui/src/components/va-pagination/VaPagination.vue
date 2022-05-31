@@ -23,12 +23,13 @@
     <slot v-if="!$props.input">
       <va-button
         v-for="(n, i) in paginationRange"
+        outline
+        class="va-pagination__numeric-button"
         :key="i"
         :style="activeButtonStyle(n)"
         :disabled="$props.disabled || n === '...'"
         :class="{ 'va-button--ellipsis': n === '...'}"
         @click="onUserInput(n)"
-        outline
       >
         {{ n }}
       </va-button>
@@ -242,6 +243,35 @@ export default defineComponent({
 
     &--flat {
       border-top-width: var(--va-pagination-input-flat-border-top-width);
+    }
+  }
+
+  &__numeric-button {
+    &.va-button {
+      .va-button__content {
+        // Remove paddings from button content
+        padding: 0;
+        justify-content: center;
+      }
+
+      // Add paddings to button content in min-width
+      &--normal {
+        .va-button__content {
+          min-width: calc(var(--va-button-content-px) * 2 + var(--va-pagination-button-content-width));
+        }
+      }
+
+      &--small {
+        .va-button__content {
+          min-width: calc(var(--va-button-sm-content-px) * 2 + var(--va-pagination-button-content-width));
+        }
+      }
+
+      &--large {
+        .va-button__content {
+          min-width: calc(var(--va-button-lg-content-px) * 2 + var(--va-pagination-button-content-width));
+        }
+      }
     }
   }
 

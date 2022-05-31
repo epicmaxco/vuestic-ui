@@ -7,15 +7,10 @@
   </svg>
 </template>
 
-<script>
-import { getColors } from 'vuestic-ui/src/services/color-config/color-config'
+<script setup>
+import { computed } from 'vue'
+import { useColors } from 'vuestic-ui/src/services/color-config/color-config'
 
-export default {
-  name: 'IconEpicmax',
-  computed: {
-    colors () {
-      return getColors()
-    },
-  },
-}
+const { getColors } = useColors()
+const colors = computed(getColors)
 </script>

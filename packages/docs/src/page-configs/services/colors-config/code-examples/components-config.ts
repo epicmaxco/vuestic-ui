@@ -1,15 +1,17 @@
 export const componentsConfigCode = `
-import { mergeGlobalConfig } from 'vuestic-ui'
+import { createVuestic } from 'vuestic-ui'
 
-mergeGlobalConfig({
-  colors: {
-    primary: '#ff00ff',
-    button: '#000'
-  },
-  components: {
-    VaButton: {
-      color: 'button'
-    }
-  }.
-})
+createApp(App)
+  .use(createVuestic({
+    colors: {
+      primary: '#ff00ff',
+      button: '#000'
+    },
+    components: {
+      VaButton: {
+        color: 'button'
+      }
+    },
+  }))
+  .mount('#app')
 `

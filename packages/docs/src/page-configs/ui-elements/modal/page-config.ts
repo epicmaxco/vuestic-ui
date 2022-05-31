@@ -2,6 +2,7 @@ import { ApiDocsBlock } from '@/types/configTypes'
 import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaModal from 'vuestic-ui/src/components/va-modal/VaModal.vue'
 import apiOptions from './api-options'
+import { apiExamplesObject, methodsApi, optionsApi } from './modal-api'
 
 const block = new PageGenerationHelper(__dirname)
 
@@ -78,6 +79,15 @@ const config: ApiDocsBlock[] = [
 
   block.subtitle('all.api'),
   block.api(VaModal, apiOptions),
+
+  block.subtitle('modal.functionalApi.title'),
+  block.paragraph('modal.functionalApi.text'),
+  block.code(apiExamplesObject),
+  block.example('Create'),
+  block.headline('all.methods'),
+  methodsApi(block),
+  block.headline('all.options'),
+  optionsApi(block),
 ]
 
 export default config

@@ -44,7 +44,7 @@ import type { RouteLocationNormalized } from 'vue-router'
 import Sidebar from '../components/sidebar/Sidebar.vue'
 import Header from '../components/header/Header.vue'
 import { COLOR_THEMES, ThemeName } from '../config/theme-config'
-import { setColors } from '../../../ui/src/main'
+import { useColors } from '../../../ui/src/main'
 import { navigationRoutes } from '../components/sidebar/navigationRoutes'
 import { debounce } from 'lodash'
 import { getSortedNavigationRoutes } from '../helpers/NavigationRoutesHelper'
@@ -113,7 +113,7 @@ export default class DocsLayout extends Vue {
   }
 
   changeTheme (themeName) {
-    setColors(COLOR_THEMES[themeName] || COLOR_THEMES[ThemeName.DEFAULT])
+    useColors().setColors(COLOR_THEMES[themeName] || COLOR_THEMES[ThemeName.DEFAULT])
   }
 
   // get crumbs () {

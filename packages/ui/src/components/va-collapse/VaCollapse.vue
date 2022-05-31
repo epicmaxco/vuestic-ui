@@ -8,6 +8,11 @@
       @keydown.enter="toggle()"
       @keydown.space="toggle()"
       :tabindex="disabled ? -1 : 0"
+      role="button"
+      :aria-expanded="computedModelValue"
+      :id="headerIdComputed"
+      :aria-controls="panelIdComputed"
+      :aria-disabled="disabled"
     >
       <slot
         name="header"
@@ -25,6 +30,7 @@
             class="va-collapse__header__icon"
             :name="icon"
             :color="textColorComputed"
+            aria-hidden="true"
           />
           <div class="va-collapse__header__text">
             {{ header }}
@@ -33,11 +39,18 @@
             class="va-collapse__header__icon"
             :name="computedModelValue ? 'expand_less' : 'expand_more'"
             :color="textColorComputed"
+            aria-hidden="true"
           />
         </div>
       </slot>
     </div>
-    <div class="va-collapse__body" ref="body" :style="contentStyle">
+    <div
+      class="va-collapse__body"
+      ref="body"
+      :style="contentStyle"
+      :id="panelIdComputed"
+      :aria-labelledby="headerIdComputed"
+    >
       <slot />
     </div>
   </div>
@@ -51,6 +64,7 @@ import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'
 import { useAccordionItem } from '../va-accordion/hooks/useAccordion'
 import { useSyncProp } from '../../composables/useSyncProp'
 import { useTextColor } from '../../composables/useTextColor'
+import { generateUniqueId } from '../../services/utils'
 
 export default defineComponent({
   name: 'VaCollapse',
@@ -114,6 +128,10 @@ export default defineComponent({
         : ''
     }
 
+    const uniqueId = computed(generateUniqueId)
+    const headerIdComputed = computed(() => `header-${uniqueId.value}`)
+    const panelIdComputed = computed(() => `panel-${uniqueId.value}`)
+
     return {
       body,
       height,
@@ -125,6 +143,9 @@ export default defineComponent({
       keyboardFocusListeners,
 
       textColorComputed,
+
+      headerIdComputed,
+      panelIdComputed,
 
       computedClasses: computed(() => ({
         'va-collapse--disabled': props.disabled,
