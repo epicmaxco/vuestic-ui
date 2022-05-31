@@ -90,7 +90,7 @@
     :footer-clone="footerClone"
     :allow-footer-sorting="footerSorting"
     :animated="animated"
-    :row-class="isTableRowClass && getCustomRowClass"
+    :row-class="isTableRowClass ? getCustomRowClass : undefined"
     @row:click="handleClick"
     @row:dblclick="handleClick"
     @row:contextmenu="handleClick"
