@@ -1,5 +1,12 @@
 <template>
-  <div class="va-progress-bar" :class="rootClass" :style="rootStyle">
+  <div
+    class="va-progress-bar"
+    role="progressbar"
+    aria-label="progress state"
+    :aria-valuenow="ariaValueNowComputed"
+    :class="rootClass"
+    :style="rootStyle"
+  >
     <div v-if="!isLarge" class="va-progress-bar__info">
       <slot />
     </div>
@@ -88,6 +95,8 @@ export default defineComponent({
         backgroundColor: getColor(props.color),
         animationDirection: props.reverse ? 'reverse' : 'normal',
       })),
+
+      ariaValueNowComputed: computed(() => props.indeterminate ? null : props.modelValue),
     }
   },
 })
