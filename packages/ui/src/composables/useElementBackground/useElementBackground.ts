@@ -13,7 +13,7 @@ const recursiveGetBackground = (element: Maybe<HTMLElement>): string => {
   if (!element) { return '#fff' } // Likely doesn't have a color, so let's just return white
   if (element.nodeType !== Node.ELEMENT_NODE) { return recursiveGetBackground(element.parentElement) }
 
-  // if (tempCache.get(element)) { return tempCache.get(element) }
+  if (tempCache.get(element)) { return tempCache.get(element) }
 
   const bg = getElementBackground(element)
 
@@ -21,7 +21,7 @@ const recursiveGetBackground = (element: Maybe<HTMLElement>): string => {
 
   if (isTransparent(bg)) {
     const parentBg = recursiveGetBackground(element.parentElement)
-    // tempCache.set(element, parentBg)
+    tempCache.set(element, parentBg)
     return parentBg
   }
 
