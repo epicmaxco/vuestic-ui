@@ -71,4 +71,6 @@ export type VaDataTableSortingOrder = StringWithAutocomplete<'asc' | 'desc'> | n
 
 export type VaDataTableSelectMode = StringWithAutocomplete<'single' | 'multiple'>
 
-export type VaDataTableRowClass = ((item: VaDataTableItem, index: number) => string) | string | false | null | undefined
+export type VaDataTableRowClass = unknown | ((item: VaDataTableItem, index: number) => unknown)
+
+export type VaDataTableRowStyle = unknown | ((item: VaDataTableItem, index: number) => unknown)

@@ -128,6 +128,7 @@
               isRowSelected(row) ? 'selected' : '',
               getCustomRowClass(row),
             ]"
+            :style="getCustomRowStyle(row)"
             @click="onRowClickHandler('row:click', $event, row)"
             @dblclick="onRowClickHandler('row:dblclick', $event, row)"
             @contextmenu="onRowClickHandler('row:contextmenu', $event, row)"
@@ -238,7 +239,7 @@ import VaIcon from '../va-icon'
 
 import useColumns from './hooks/useColumns'
 import useRows from './hooks/useRows'
-import useRowClass from './hooks/useRowClass'
+import useRowStyling from './hooks/useRowStyling'
 import useFilterable from './hooks/useFilterable'
 import useSortable from './hooks/useSortable'
 import usePaginatedRows from './hooks/usePaginatedRows'
@@ -253,6 +254,7 @@ import {
   VaDataTableSortingOrder,
   VaDataTableSelectMode,
   VaDataTableRowClass,
+  VaDataTableRowStyle,
 } from './types'
 
 type emitNames = 'update:modelValue' |
@@ -312,7 +314,8 @@ export default defineComponent({
     striped: { type: Boolean, default: false },
     stickyHeader: { type: Boolean, default: false },
     height: { type: [String, Number] as PropType<string | number> },
-    rowClass: { type: [String, Function, Boolean] as PropType<VaDataTableRowClass> },
+    rowClass: { type: null as unknown as PropType<VaDataTableRowClass> },
+    rowStyle: { type: null as unknown as PropType<VaDataTableRowStyle> },
   },
 
   emits: [
@@ -362,7 +365,7 @@ export default defineComponent({
       getStyles,
     } = useStylable(props)
 
-    const { getCustomRowClass } = useRowClass(props)
+    const { getCustomRowClass, getCustomRowStyle } = useRowStyling(props)
 
     const animationName = useAnimationName(props, paginatedRows)
 
@@ -416,6 +419,7 @@ export default defineComponent({
       getClasses,
       getStyles,
       getCustomRowClass,
+      getCustomRowStyle,
       showNoDataHtml,
       showNoDataFilteredHtml,
       onRowClickHandler,
