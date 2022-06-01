@@ -6,13 +6,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, computed } from 'vue'
+import { defineComponent, computed } from 'vue'
 
 export default defineComponent({
   name: 'VaListSeparator',
   props: {
-    fit: { type: Boolean as PropType<boolean>, default: false },
-    spaced: { type: Boolean as PropType<boolean>, default: false },
+    fit: { type: Boolean, default: false },
+    spaced: { type: Boolean, default: false },
   },
   setup: (props) => ({
     computedClass: computed(() => ({

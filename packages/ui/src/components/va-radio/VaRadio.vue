@@ -12,7 +12,7 @@
       :name="computedName"
       :value="computedLabel"
       :aria-checked="isActive"
-      :tabindex="computedTabIndex"
+      :tabindex="tabIndexComputed"
       @change="onClick"
       @focus="onFocus"
     >
@@ -62,14 +62,13 @@ export default defineComponent({
   setup (props, { emit }) {
     const { getColor } = useColors()
 
-    const { createComputedClass } = useForm(props)
-    const formComputedClasses = createComputedClass('va-radio')
-
     const isActive = computed(() => props.modelValue === props.option)
+
+    const { computedClasses } = useForm(props, 'va-radio')
 
     const computedClass = computed(() => ({
       'va-radio--left-label': props.leftLabel,
-      ...formComputedClasses.value,
+      ...computedClasses.value,
     }))
 
     const iconBackgroundComputedStyles = computed(() => ({
@@ -110,7 +109,7 @@ export default defineComponent({
       onClick,
       onFocus,
       computedName: computed(() => props.name || generateUniqueId()),
-      computedTabIndex: computed(() => props.readonly || props.disabled ? -1 : props.tabindex),
+      tabIndexComputed: computed(() => props.disabled ? -1 : props.tabindex),
     }
   },
 })

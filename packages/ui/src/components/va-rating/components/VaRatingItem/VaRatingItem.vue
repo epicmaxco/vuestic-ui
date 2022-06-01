@@ -2,14 +2,14 @@
   <div
     ref="rootEl"
     class="va-rating-item"
-    :tabindex="$props.tabindex"
+    role="button"
+    :tabindex="tabIndexComputed"
     @keyup.enter="onClick"
+    @keyup.space="onClick"
     @mousemove="onMouseMove"
     @mouseleave="onMouseLeave"
   >
-    <slot :props="{
-      value: visibleValue, onClick
-    }">
+    <slot :props="{ value: visibleValue, onClick }">
       <va-icon
         class="va-rating-item__wrapper"
         tabindex="-1"
@@ -42,7 +42,8 @@ export default defineComponent({
     emptyIcon: { type: String, default: 'star_outline' },
     halves: { type: Boolean, default: false },
     hover: { type: Boolean, default: false },
-    tabindex: { type: Number, default: 1 },
+    tabindex: { type: Number, default: 0 },
+    disabled: { type: Boolean, default: false },
     size: { type: [String, Number], default: 'medium' },
     emptyIconColor: { type: String },
     color: { type: String, default: 'primary' },
@@ -107,6 +108,7 @@ export default defineComponent({
 
         return props.icon
       }),
+      tabIndexComputed: computed(() => props.disabled ? -1 : props.tabindex),
     }
   },
 })

@@ -42,8 +42,15 @@
       />
       <va-icon
         v-if="canBeCleared"
+        role="button"
+        aria-hidden="false"
+        aria-label="reset"
+        class="va-input__icons__reset"
+        :tabindex="tabIndexComputed"
         v-bind="clearIconProps"
         @click.stop="reset()"
+        @keydown.enter.stop="reset()"
+        @keydown.space.stop="reset()"
       />
       <va-icon
         v-if="loading"
@@ -124,6 +131,7 @@ export default defineComponent({
     inputClass: { type: String, default: '' },
     pattern: { type: String },
     inputmode: { type: String, default: 'text' },
+    ariaLabel: { type: String, default: '' },
 
     // style
     color: { type: String, default: 'primary' },
@@ -207,15 +215,18 @@ export default defineComponent({
       onInput,
     }
 
+    const tabIndexComputed = computed(() => props.disabled ? -1 : props.tabindex)
+
     const computedChildAttributes = computed(() => ({
-      ariaLabel: props.label,
+      ariaLabel: props.ariaLabel || props.label,
+      tabindex: tabIndexComputed.value,
       class: props.inputClass,
       ...omit(attrs, ['class', 'style']),
     }) as InputHTMLAttributes)
 
     const computedInputAttributes = computed(() => ({
       ...computedChildAttributes.value,
-      ...pick(props, ['type', 'tabindex', 'disabled', 'readonly', 'placeholder', 'pattern', 'inputmode']),
+      ...pick(props, ['type', 'disabled', 'readonly', 'placeholder', 'pattern', 'inputmode']),
     }) as InputHTMLAttributes)
 
     return {
@@ -226,6 +237,7 @@ export default defineComponent({
       computedInputAttributes,
       textareaProps: filterComponentProps(props, VaTextareaProps),
       computedValue,
+      tabIndexComputed,
 
       // Validations
       computedError,

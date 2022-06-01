@@ -22,6 +22,7 @@
     v-on="$attrs"
     ref="button"
     :aria-disabled="$props.disabled"
+    aria-live="polite"
   >
     <div class="va-button__content" :class="{ 'va-button__content--loading': loading }">
       <va-icon

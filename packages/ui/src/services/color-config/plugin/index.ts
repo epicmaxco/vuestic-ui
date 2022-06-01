@@ -9,7 +9,7 @@ export const ColorConfigPlugin = defineVuesticPlugin(() => ({
   },
 }))
 
-declare module '@vue/runtime-core' {
+declare module 'vue' {
   export interface ComponentCustomProperties {
     $vaColorConfig: ReturnType<typeof createColorConfigPlugin>
   }

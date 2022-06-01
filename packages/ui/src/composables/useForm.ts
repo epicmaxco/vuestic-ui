@@ -1,11 +1,4 @@
-import { computed, PropType } from 'vue'
-
-export interface UseFormProps {
-  disabled: boolean;
-  readonly: boolean;
-  id?: string | number;
-  name?: string | number;
-}
+import { computed, ExtractPropTypes, PropType } from 'vue'
 
 export const useFormProps = {
   disabled: { type: Boolean, default: false },
@@ -18,27 +11,49 @@ export const useFormPropsWithId = {
   name: { type: [String, Number] as PropType<string | number>, default: undefined },
 }
 
-export const useForm = (props: UseFormProps) => {
-  /**
-   * Create readonly and disabled BEM modifiers.
-   * @returns Object with classes which starts with `prefix` and ends with form state BEM modifier.
-   */
-  const createComputedClass = <Prefix extends string>(prefix: Prefix) => computed(() => ({
-    [`${prefix}--disabled`]: props.disabled,
-    [`${prefix}--readonly`]: props.readonly,
+/**
+ * Create `readonly` and `disabled` BEM modifiers.
+ * @param props component props
+ * @param prefix string with which classes starts (and ends with form state BEM modifier)
+ */
+export const useForm = <Prefix extends string>(
+  props: ExtractPropTypes<typeof useFormProps>,
+  prefix?: Prefix,
+) => {
+  const computedClassesWithoutWarning = computed(() => ({
+    [`${prefix || ''}--disabled`]: props.disabled,
+    [`${prefix || ''}--readonly`]: props.readonly,
   }) as Record<`${Prefix}--disabled` | `${Prefix}--readonly`, boolean>)
 
   /**
-   * Create readonly and disabled BEM modifiers.
-   * @returns Object with classes which starts with `prefix` and ends with form state BEM modifier.
+   * Computed Object with classes which starts with `prefix` and ends with form state BEM modifier
    */
-  const createComputedClassArray = <Prefix extends string>(prefix: Prefix) => computed(() => (
-    [props.disabled && `${prefix}--disabled`, props.readonly && `${prefix}--readonly`]
-      .filter((c) => Boolean(c))
-  ) as Array<`${Prefix}--disabled` | `${Prefix}--readonly`>)
+  const computedClasses = computed(() => {
+    if (!prefix) {
+      console.warn('You must pass the @param "prefix" to the useForm hook!')
+    }
+
+    return computedClassesWithoutWarning.value
+  })
+
+  const computedClassesArrayWithoutWarning = computed(() => [
+    props.disabled && `${prefix || ''}--disabled`,
+    props.readonly && `${prefix || ''}--readonly`,
+  ].filter(Boolean) as Array<`${Prefix}--disabled` | `${Prefix}--readonly`>)
+
+  /**
+   * Computed Array with classes which starts with `prefix` and ends with form state BEM modifier
+   */
+  const computedClassesArray = computed(() => {
+    if (!prefix) {
+      console.warn('You must pass the @param "prefix" to the useForm hook!')
+    }
+
+    return computedClassesArrayWithoutWarning.value
+  })
 
   return {
-    createComputedClass,
-    createComputedClassArray,
+    computedClasses,
+    computedClassesArray,
   }
 }

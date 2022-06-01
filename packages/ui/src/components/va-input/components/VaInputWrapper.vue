@@ -298,6 +298,12 @@ export default defineComponent({
         margin-right: 0;
       }
     }
+
+    &__reset {
+      &:focus {
+        @include focus-outline;
+      }
+    }
   }
 
   &__required-mark {
