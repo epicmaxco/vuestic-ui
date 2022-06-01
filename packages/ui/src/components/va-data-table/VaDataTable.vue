@@ -3,7 +3,7 @@
     class="va-data-table"
     aria-live="polite"
     :class="[
-      { 'va-data-table--sticky': $props.stickyHeader },
+      { 'va-data-table--sticky': $props.stickyHeader | $props.stickyFooter },
       { 'va-data-table--scroll': !!$props.height },
     ]"
     :style="stickyCSSVariables"
@@ -175,7 +175,11 @@
         <slot name="bodyAppend" />
       </tbody>
 
-      <tfoot v-if="footerClone" class="va-data-table__table-tfoot">
+      <tfoot
+        v-if="footerClone"
+        class="va-data-table__table-tfoot"
+        :class="{ 'va-data-table__table-tfoot--sticky': $props.stickyFooter }"
+      >
         <slot name="footerPrepend" />
 
         <tr v-if="!hideDefaultHeader" class="va-data-table__table-tr">
@@ -319,6 +323,7 @@ export default defineComponent({
     allowFooterSorting: { type: Boolean, default: false },
     striped: { type: Boolean, default: false },
     stickyHeader: { type: Boolean, default: false },
+    stickyFooter: { type: Boolean, default: false },
     height: { type: [String, Number] as PropType<string | number> },
     rowClass: { type: null as unknown as PropType<DataTableRowClass> },
     rowStyle: { type: null as unknown as PropType<DataTableRowStyle> },
@@ -466,6 +471,12 @@ export default defineComponent({
 
     .va-data-table__table-thead {
       border-bottom: var(--va-data-table-thead-border);
+      color: var(--va-data-table-thead-color);
+
+      th {
+        border-bottom: none;
+        box-shadow: var(--va-data-table-thead-border-bottom-shadow);
+      }
 
       &--sticky {
         position: sticky;
@@ -484,6 +495,19 @@ export default defineComponent({
 
     .va-data-table__table-tfoot {
       border-top: var(--va-data-table-thead-border);
+      color: var(--va-data-table-thead-color);
+
+      th {
+        border-bottom: none;
+        box-shadow: var(--va-data-table-thead-border-top-shadow);
+      }
+
+      &--sticky {
+        position: sticky;
+        bottom: 0;
+        z-index: 1;
+        background-color: var(--va-data-table-scroll-table-color);
+      }
     }
 
     .va-data-table__table-th {
@@ -492,7 +516,6 @@ export default defineComponent({
       min-width: var(--va-data-table-width);
       text-align: var(--va-data-table-align);
       vertical-align: var(--va-data-table-vertical-align);
-      color: var(--va-data-table-thead-color);
       font-size: var(--va-data-table-thead-font-size);
       line-height: var(--va-data-table-thead-line-height);
       font-weight: var(--va-data-table-thead-font-weight);
