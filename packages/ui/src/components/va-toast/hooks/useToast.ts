@@ -1,5 +1,5 @@
-import { createToastInstance, closeById, closeAllNotifications, NotificationOptions } from './toast'
 import { getCurrentInstance } from 'vue'
+import { createToastInstance, closeById, closeAllNotifications, NotificationOptions } from '../toast'
 
 /** This hook can be used without plugin used */
 export const useToast = () => {
