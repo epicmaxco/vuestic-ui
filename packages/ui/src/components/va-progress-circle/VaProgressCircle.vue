@@ -70,7 +70,7 @@ export default defineComponent({
       rootClass: computed(() => ({
         'va-progress-circle--indeterminate': props.indeterminate,
       })),
-      ariaValueNowComputed: computed(() => props.indeterminate ? null : props.modelValue),
+      ariaValueNowComputed: computed(() => props.indeterminate ? undefined : props.modelValue),
 
       colorComputed,
       radius,
