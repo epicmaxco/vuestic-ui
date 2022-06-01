@@ -18,15 +18,18 @@ const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [
   block.title('colorsCustomClasses.title'),
-  block.example('default'),
+  block.paragraph('colorsCustomClasses.about'),
+  block.paragraph('colorsCustomClasses.defaultColors'),
+  block.paragraph('colorsCustomClasses.readMoreAboutDefaultColor'),
 
   block.subtitle('colorsCustomClasses.setup.title'),
   block.paragraph('colorsCustomClasses.setup.about'),
   block.code(setupExample),
   block.paragraph('colorsCustomClasses.setup.explanation'),
   block.paragraph('colorsCustomClasses.setup.example'),
+  block.example('default'),
 
-  block.subtitle('classHelpersConfig.api.title'),
+  block.subtitle('colorsCustomClasses.api.title'),
   block.table(columns, tableData),
 ]
 
