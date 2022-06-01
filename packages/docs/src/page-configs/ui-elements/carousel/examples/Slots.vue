@@ -6,7 +6,7 @@
 
     <template #prev-arrow> Go back! </template>
 
-    <template #prev-next> Go forward! </template>
+    <template #next-arrow> Go forward! </template>
 
     <template #indicator="{ index }"> Go to {{ index }} </template>
   </va-carousel>

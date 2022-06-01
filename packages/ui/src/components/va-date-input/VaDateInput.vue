@@ -2,10 +2,12 @@
   <div class="va-date-input">
     <va-dropdown
       v-model="isOpenSync"
+      trigger="none"
+      anchorSelector=".va-input-wrapper__input"
       :offset="[2, 0]"
       :close-on-content-click="false"
+      :stateful="false"
       :disabled="disabled"
-      anchorSelector=".va-input-wrapper__input"
     >
       <template #anchor>
         <slot name="input" v-bind="{ valueText, inputProps, inputListeners }">
@@ -15,7 +17,12 @@
             v-bind="inputProps"
             v-on="inputListeners"
             :model-value="valueText"
+            aria-label="selected date"
             @change="onInputTextChanged"
+            @click="toggleDropdown()"
+            @keydown.enter.stop="showAndFocus"
+            @keydown.space.stop="showAndFocus"
+            @keydown.esc.stop.prevent="hideAndFocus()"
           >
             <template
               v-for="name in filterSlots"
@@ -30,26 +37,38 @@
               <va-icon
                 v-if="$props.leftIcon"
                 v-bind="iconProps"
+                aria-hidden="true"
               />
             </template>
 
             <template #icon>
               <va-icon
                 v-if="canBeCleared"
+                aria-hiden="false"
+                role="button"
+                aria-label="reset"
+                tabindex="0"
+                class="va-date-input__clear-icon"
                 v-bind="clearIconProps"
-                @click.stop="reset()"
+                @click="reset()"
+                @keydown.enter.stop="reset()"
+                @keydown.space.stop="reset()"
               />
               <va-icon
                 v-else-if="!$props.leftIcon"
                 v-bind="iconProps"
+                aria-hidden="true"
               />
             </template>
           </va-input>
         </slot>
       </template>
 
-      <va-dropdown-content>
+      <va-dropdown-content
+        @keydown.esc.stop.prevent="hideAndFocus()"
+      >
         <va-date-picker
+            ref="datePicker"
             v-bind="datePickerProps"
             v-model="valueComputed"
             @click:day="$emit('click:day', $event)"
@@ -70,7 +89,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, toRefs, watch, ref } from 'vue'
+import { computed, defineComponent, PropType, toRefs, watch, ref, nextTick } from 'vue'
 
 import { useClearableEmits, useClearable } from '../../composables/useClearable'
 import { useValidation, useValidationEmits } from '../../composables/useValidation'
@@ -157,6 +176,7 @@ export default defineComponent({
     const dateOrNothing = (date: Date | undefined | null) => date ? props.formatDate(date) : '...'
 
     const input = ref<typeof VaInput | undefined>()
+    const datePicker = ref<typeof VaDatePicker | undefined>()
 
     const { parseDateInputValue, isValid } = useDateParser(props)
 
@@ -206,6 +226,32 @@ export default defineComponent({
 
     const focus = (): void => {
       input.value?.focus()
+    }
+
+    const hideAndFocus = (): void => {
+      isOpenSync.value = false
+      focus()
+    }
+
+    const focusDatePicker = (): void => {
+      nextTick(() => datePicker.value?.focusCurrentPicker())
+    }
+
+    const focusInputOrPicker = (): void => {
+      props.manualInput ? focus() : focusDatePicker()
+    }
+
+    const toggleDropdown = () => {
+      isOpenSync.value = !isOpenSync.value
+      focusInputOrPicker()
+    }
+
+    const showAndFocus = (event: Event): void => {
+      if (props.manualInput) { return }
+
+      isOpenSync.value = true
+      focusDatePicker()
+      event.preventDefault()
     }
 
     const blur = (): void => {
@@ -259,6 +305,7 @@ export default defineComponent({
     }))
 
     return {
+      datePicker,
       valueText,
       valueComputed,
       isOpenSync,
@@ -274,6 +321,10 @@ export default defineComponent({
       clearIconProps,
       iconProps,
 
+      hideAndFocus,
+      showAndFocus,
+      toggleDropdown,
+      focusInputOrPicker,
       reset,
       focus,
       blur,
@@ -283,12 +334,20 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
+@import "../../styles/resources";
+
 .va-date-input {
   display: flex;
   font-family: var(--va-font-family);
 
   &__icon {
     cursor: pointer;
+  }
+
+  &__clear-icon {
+    &:focus {
+      @include focus-outline;
+    }
   }
 
   &__input.va-input_readonly {

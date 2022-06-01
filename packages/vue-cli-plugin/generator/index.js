@@ -4,7 +4,6 @@ const { EOL } = require('os')
 const insertVuesticPlugin = require('./utils/insertPlugin')
 const configs = require('./configs')
 const executeIfFunction = require('./utils/executeIfFunction')
-const getPackageJson = require('./utils/getPackageJSON')
 const resolveDependency = require('./utils/resolveDependency')
 
 const renderTemplates = (api, config, answers) => {

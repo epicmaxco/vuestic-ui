@@ -21,6 +21,8 @@
     @mouseleave="hoverState = false"
     v-on="$attrs"
     ref="button"
+    :aria-disabled="$props.disabled"
+    aria-live="polite"
   >
     <div class="va-button__content" :class="{ 'va-button__content--loading': loading }">
       <va-icon
@@ -29,6 +31,7 @@
         :size="size"
         :color="textColorComputed"
         class="va-button__left-icon"
+        aria-hidden="true"
       />
       <slot />
       <va-icon
@@ -37,6 +40,7 @@
         :size="size"
         :color="textColorComputed"
         class="va-button__right-icon"
+        aria-hidden="true"
       />
     </div>
     <va-progress-circle
@@ -46,6 +50,7 @@
       :size="loaderSize"
       :color="computedStyle.color"
       :thickness="0.15"
+      aria-hidden="true"
     />
   </component>
 </template>
@@ -99,7 +104,7 @@ export default defineComponent({
     const colorComputed = computed(() => computeColor(props.color, 'primary'))
     const isTransparentBackground = computed(() => Boolean(props.outline || props.flat))
 
-    const { textColorComputed } = useTextColor(props.color, isTransparentBackground)
+    const { textColorComputed } = useTextColor(colorComputed, isTransparentBackground)
     const isSlotContentPassed = computed(() => !!slots.default?.()?.[0]?.children)
 
     const computedType = computed(() => {

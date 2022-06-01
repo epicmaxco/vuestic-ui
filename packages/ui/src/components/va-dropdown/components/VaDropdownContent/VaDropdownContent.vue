@@ -1,5 +1,8 @@
 <template>
-  <div class="va-dropdown__content" :style="computedStyle">
+  <div class="va-dropdown__content"
+       :style="computedStyle"
+       role="listbox"
+  >
     <slot />
   </div>
 </template>
@@ -7,7 +10,7 @@
 <script lang="ts">
 import { useColors } from '../../../../services/color-config/color-config'
 import { useTextColor } from '../../../../composables/useTextColor'
-import { computed, defineComponent } from 'vue'
+import { computed, defineComponent, toRef } from 'vue'
 
 export default defineComponent({
   name: 'VaDropdownContent',
@@ -19,7 +22,7 @@ export default defineComponent({
 
   setup (props) {
     const { getColor } = useColors()
-    const { textColorComputed } = useTextColor(props.background)
+    const { textColorComputed } = useTextColor(toRef(props, 'background'))
 
     const computedStyle = computed(() => ({
       background: getColor(props.background, undefined, true),

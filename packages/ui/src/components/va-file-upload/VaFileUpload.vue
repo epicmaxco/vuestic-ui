@@ -29,16 +29,17 @@
       ref="fileInputRef"
       type="file"
       class="va-file-upload__field__input"
+      tabindex="-1"
+      aria-hidden="true"
       :accept="fileTypes"
       :multiple="type !== 'single'"
       :disabled="disabled"
       @change="changeFieldValue"
       @dragenter="dropzoneHighlight = true"
       @dragleave="dropzoneHighlight = false"
-      tabindex="-1"
     >
     <va-file-upload-list
-      v-if="files.length"
+      v-if="files.length && !$props.hideFileList"
       :type="type"
       :files="files"
       :color="colorComputed"
@@ -78,6 +79,7 @@ export default defineComponent({
   props: {
     fileTypes: { type: String as PropType<string>, default: '' },
     dropzone: { type: Boolean as PropType<boolean>, default: false },
+    hideFileList: { type: Boolean as PropType<boolean>, default: false },
     color: { type: String as PropType<string>, default: 'primary' },
     disabled: { type: Boolean as PropType<boolean>, default: false },
     undo: { type: Boolean as PropType<boolean>, default: false },
@@ -86,9 +88,8 @@ export default defineComponent({
     uploadButtonText: { type: String as PropType<string>, default: 'Upload file' },
 
     modelValue: {
-      type: Array as PropType<VaFile[]>,
+      type: [Object, Array] as PropType<VaFile | VaFile[]>,
       default: () => [],
-      validator: (value: VaFile[]) => Array.isArray(value),
     },
     type: {
       type: String as PropType<'list' | 'gallery' | 'single'>,
@@ -119,8 +120,14 @@ export default defineComponent({
     })
 
     const files = computed<VaFile[]>({
-      get () { return props.modelValue },
-      set (files) { emit('update:modelValue', files) },
+      get () { return Array.isArray(props.modelValue) ? props.modelValue : [props.modelValue] },
+      set (files) {
+        if (props.type === 'single') {
+          emit('update:modelValue', files[0])
+        } else {
+          emit('update:modelValue', files)
+        }
+      },
     })
 
     const validateFiles = (files: VaFile[]) => files.filter((file) => {
@@ -150,7 +157,9 @@ export default defineComponent({
       if (!f) { return }
 
       const validatedFiles = props.fileTypes ? validateFiles(Array.from(f)) : f
-      files.value = [...files.value, ...validatedFiles]
+
+      files.value = props.type === 'single' ? (validatedFiles as VaFile[]) : [...files.value, ...validatedFiles]
+
       emit('file-added', validatedFiles)
     }
 

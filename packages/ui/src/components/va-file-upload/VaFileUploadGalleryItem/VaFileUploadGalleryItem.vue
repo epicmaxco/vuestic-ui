@@ -43,6 +43,7 @@
         color="danger"
         icon="delete_outline"
         class="va-file-upload-gallery-item__delete"
+        aria-label="remove image"
         @click="removeImage"
         @focus="isFocused = true"
         @blur="isFocused = false"

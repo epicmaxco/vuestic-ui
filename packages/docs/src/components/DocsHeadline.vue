@@ -1,5 +1,5 @@
 <template>
-  <h5>
+  <h5 class="docs-headline">
     <MarkdownView
       tag="span"
       inline
@@ -28,3 +28,12 @@ export default defineComponent({
   }),
 })
 </script>
+
+<style lang="scss">
+  .docs-headline {
+    a,
+    a:visited {
+      color: var(--va-primary);
+    }
+  }
+</style>

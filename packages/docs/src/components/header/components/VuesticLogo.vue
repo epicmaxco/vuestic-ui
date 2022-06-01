@@ -12,16 +12,10 @@
   </svg>
 </template>
 
-<script>
-import { Options, Vue } from 'vue-class-component'
-import { getColors } from 'vuestic-ui/src/services/color-config/color-config'
+<script setup>
+import { computed } from 'vue'
+import { useColors } from 'vuestic-ui/src/services/color-config/color-config'
 
-@Options({
-  name: 'vuestic-logo',
-})
-export default class VuesticLogo extends Vue {
-  get colors () {
-    return getColors()
-  }
-}
+const { getColors } = useColors()
+const colors = computed(getColors)
 </script>

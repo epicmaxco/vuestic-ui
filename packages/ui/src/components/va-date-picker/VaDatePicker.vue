@@ -164,14 +164,13 @@ export default defineComponent({
     }, 'va-date-picker')
 
     const currentPicker = ref<ComponentOptions | null>(null)
+    const focusCurrentPicker = () => currentPicker?.value?.$el.focus()
 
     watch(syncView, (newValue, prevValue) => {
       // Don't focus new picker if user does not change type
       if (newValue.type === prevValue.type) { return }
 
-      nextTick(() => {
-        if (currentPicker.value) { currentPicker.value.$el.focus() }
-      })
+      nextTick(focusCurrentPicker)
     })
 
     const isPickerReadonly = (pickerName: 'year' | 'month' | 'day') => {
@@ -199,6 +198,7 @@ export default defineComponent({
 
       colorsStyle,
       currentPicker,
+      focusCurrentPicker,
 
       isPickerReadonly,
     }

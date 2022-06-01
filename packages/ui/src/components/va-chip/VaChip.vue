@@ -19,11 +19,11 @@
       @focus="$emit('focus')"
       @mouseenter="onMouseEnter"
       @mouseleave="onMouseLeave"
-      :tabindex="indexComputed"
     >
       <va-icon
         v-if="icon"
         class="va-chip__icon"
+        aria-hidden="true"
         :name="icon"
         :size="iconSize"
       />
@@ -34,6 +34,10 @@
         v-if="closeable"
         class="va-chip__close-icon"
         name="close"
+        role="button"
+        aria-label="close"
+        aria-hidden="false"
+        :tabindex="tabIndexComputed"
         :size="iconSize"
         @click.stop="close"
       />
@@ -42,12 +46,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, computed } from 'vue'
+import { defineComponent, PropType, computed, toRef } from 'vue'
 import {
   getBoxShadowColor,
   getHoverColor,
   getFocusColor,
-  getTextColor,
 } from '../../services/color-config/color-functions'
 import { useRouterLink, useRouterLinkProps } from '../../composables/useRouterLink'
 import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'
@@ -90,7 +93,7 @@ export default defineComponent({
     const colorComputed = computed(() => getColor(props.color))
     const borderColor = computed(() => props.outline ? colorComputed.value : '')
     const isTransparentBackground = computed(() => Boolean(props.outline || props.flat))
-    const { textColorComputed } = useTextColor(props.color, isTransparentBackground)
+    const { textColorComputed } = useTextColor(toRef(props, 'color'), isTransparentBackground)
     const size = {
       small: '0.875rem',
       medium: '1rem',
@@ -126,7 +129,7 @@ export default defineComponent({
 
       iconSize: computed(() => size[props.size]),
 
-      indexComputed: computed(() => props.disabled ? -1 : 0),
+      tabIndexComputed: computed(() => props.disabled ? -1 : 0),
 
       computedClass: computed(() => ({
         'va-chip--small': props.size === 'small',
@@ -202,6 +205,10 @@ export default defineComponent({
 
   &__close-icon {
     cursor: pointer;
+
+    &:focus {
+      @include focus-outline;
+    }
 
     @at-root {
       .va-chip--disabled {

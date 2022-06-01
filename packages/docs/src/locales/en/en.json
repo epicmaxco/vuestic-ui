@@ -395,6 +395,7 @@
         "type": "Specify the format of component. Supported types are `single`, `list` and `gallery`",
         "fileTypes": "Specify supported file formats",
         "dropzone": "Enables Drag&Drop",
+        "hideFileList": "Hide file list if you want to show files somewhere else.",
         "value": "The array with uploaded files",
         "dropZoneText": "Custom drop zone label text",
         "uploadButtonText": "Custom upload button text"
@@ -472,6 +473,7 @@
     },
     "VaImage": {
       "props": {
+        "alt": "Specifies an alternate text for an image.",
         "ratio": "Width to height ratio.",
         "contain": "Scales the image while maintaining the proportions so that the whole image fits inside the block."
       },
@@ -507,6 +509,7 @@
       "props": {
         "icon": "The icon to be displayed inside a container",
         "src": "URL to the image (will be placed inside `src` attribute of image tag)",
+        "alt": "Specifies an alternate text for an avatar image (not icon)",
         "fontSize": "The font-size of text inside avatar",
         "email": "Будет отображать `gravatar` для предоставленного email"
       },
@@ -1238,7 +1241,7 @@
         "indicatorTrigger": "Event which will trigger indicator to change slide",
         "indicators": "Show or hide indicators at the bottom of slider",
         "infinite": "If true, after last slide first will be shown.",
-        "items": "List of slide items. Can be any array. By default should be a image src, but you can use item later in `default` slot.",
+        "items": "List of slide items. Can be any array. Default item should be an image src or object containing `src` and `alt`. You can use item later in `default` slot.",
         "loop": "If true, after last slide slider will scroll to first one through all items before.",
         "modelValue": "Slide index to be shown.",
         "vertical": "Change slider scroll orientation.",
@@ -1364,6 +1367,8 @@
   "all": {
     "examples": "Examples",
     "api": "API",
+    "methods": "Methods",
+    "options": "Options",
     "faq": "FAQ",
     "code": {
       "or": "or",
@@ -1384,7 +1389,7 @@
       },
       "aliasAndFontExample": {
         "twitterColor": "Twitter blue brand color",
-        "VuesticColor": "Vuestic green brand color",
+        "vuesticColor": "Vuestic green brand color",
         "from": "from",
         "alias": "alias",
         "font": "font",
@@ -1916,6 +1921,10 @@
     "nestedModals": {
       "title": "Nested modals",
       "text": "Modals can be nested: you can open one modal from another."
+    },
+    "functionalApi": {
+      "title": "Modal functional API",
+      "text": "To make it easier to create modal we have a shorthands. For options API it is `$vaModal` that provides the VaModalPlugin (automatically installed with createVuestic). For composition Api we have `useModal` hook. Hook and global object have similar API."
     }
   },
   "pagination": {
@@ -3182,6 +3191,7 @@
       "GlobalConfigPlugin": "GlobalConfigPlugin (essential) - used for `VaConfig` component and global props reassignment. [Read more](/services/global-config).",
       "ColorHelpersPlugin": "ColorHelpersPlugin (essential) - used to create reactive CSS variables. Requires `GlobalConfigPlugin`. [Read more](/services/colors-config).",
       "VaToastPlugin": "VaToastPlugin - provides methods for creating Toasts within vue context. [Read more](/ui-elements/toast)",
+      "VaModalPlugin": "VaModalPlugin - provides method for creating Modal within vue context. [Read more](/ui-elements/modal)",
       "VaDropdownPlugin": "VaDropdownPlugin - provides methods for dropdown closing within vue context. `VaDropdown` is used in `VaSelect`, `VaTimeInput`, `VaDateInput`, `VaButtonDropdown` component."
     },
     "attention": {
@@ -3486,7 +3496,7 @@
       "about": "We want to use the `<va-icon name='icon-name' />` pattern. We can setup a config for a specific icon name pattern. In that config we provide an icon class, contents (innerHTML) or a Vue component relative to icon name.",
       "fontNamePattern": {
         "title": "Font name pattern",
-        "about": "Font name pattern is similar to vue dynamic routes. We can use dynamic segments to dynamically generate the icon class, content and props. Dynamic segments should be written in curly brackets."
+        "about": "Font name pattern is similar to vue dynamic routes. We can use dynamic segments to dynamically generate `IconConfig` in resolve function. Dynamic segments should be written in curly brackets."
       },
       "example": {
         "title": "Example fonts config",
@@ -3510,7 +3520,8 @@
       "about": "We need to update icons config in our global config. Icons config is a flat array with Vuestic default font and aliases. We can use the `createIconsConfig()` helper to create a new config with Vuestic defaults and our custom fonts and aliases merged together. For example:"
     },
     "api": {
-      "title": "Icon config API",
+      "title": "IconConfig",
+      "description": "You can use IconConfig properties in aliases, fonts and as return in resolve function.",
       "name": "String or regex. Can be a string with dynamic segment or regex to use this config as font.",
       "iconClass": "Class that will be applied to the icon. Can be a string or a function that accepts dynamic segment value and returns a string.",
       "content": "Content that will be inside the icon. Can be a string or a function that accepts dynamic segment value and returns a string.",

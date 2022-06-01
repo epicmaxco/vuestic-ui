@@ -1,6 +1,6 @@
 import { App } from 'vue'
 import type { GlobalConfig } from '../../services/global-config/global-config'
-import { GlobalConfigPlugin, VaDropdownPlugin, VaToastPlugin, ColorConfigPlugin } from '../vuestic-plugins'
+import { GlobalConfigPlugin, VaDropdownPlugin, VaToastPlugin, VaModalPlugin, ColorConfigPlugin } from '../vuestic-plugins'
 import * as vuesticComponentMap from '../vuestic-components'
 
 /** @deprecated Use `createVuestic` instead */
@@ -15,5 +15,6 @@ export const VuesticPlugin = {
 
     app.use(VaDropdownPlugin())
     app.use(VaToastPlugin())
+    app.use(VaModalPlugin())
   },
 }

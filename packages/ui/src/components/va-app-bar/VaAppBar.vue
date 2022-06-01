@@ -1,5 +1,11 @@
 <template>
-  <header :class="computedClass" :style="computedStyle" ref="scrollRoot">
+  <header
+    ref="scrollRoot"
+    role="toolbar"
+    tabindex="0"
+    :class="computedClass"
+    :style="computedStyle"
+  >
     <slot />
   </header>
 </template>
