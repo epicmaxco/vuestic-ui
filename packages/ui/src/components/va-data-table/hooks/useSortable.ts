@@ -1,14 +1,14 @@
 import { computed, ref, Ref, watch } from 'vue'
-import { TableColumn, TableRow, ITableItem, TSortingOrder } from '../types'
+import { TableColumn, TableRow, VaDataTableItem, VaDataTableSortingOrder } from '../types'
 
 interface useSortableProps {
   sortBy: string | undefined
-  sortingOrder: TSortingOrder | undefined
+  sortingOrder: VaDataTableSortingOrder | undefined
 }
-export type TSortedArgs = { sortBy: string, sortingOrder: TSortingOrder, items: ITableItem[], itemsIndexes: number[] }
+export type TSortedArgs = { sortBy: string, sortingOrder: VaDataTableSortingOrder, items: VaDataTableItem[], itemsIndexes: number[] }
 export type TSortableEmits = (
   event: 'update:sortBy' | 'update:sortingOrder' | 'sorted',
-  args: string | TSortingOrder | TSortedArgs,
+  args: string | VaDataTableSortingOrder | TSortedArgs,
 ) => void
 
 export default function useSortable (
@@ -36,8 +36,8 @@ export default function useSortable (
     },
   })
 
-  const sortingOrderFallback = ref(null as TSortingOrder)
-  const sortingOrderSync = computed<TSortingOrder>({
+  const sortingOrderFallback = ref(null as VaDataTableSortingOrder)
+  const sortingOrderSync = computed<VaDataTableSortingOrder>({
     get () {
       if (props.sortingOrder === undefined) {
         return sortingOrderFallback.value

@@ -1,12 +1,12 @@
 import { Ref, computed } from 'vue'
-import { TableColumn, ITableItem, TableCell, TableRow } from '../types'
+import { TableColumn, VaDataTableItem, TableCell, TableRow } from '../types'
 
 interface useRowsProps {
-  items: ITableItem[]
+  items: VaDataTableItem[]
   [prop: string]: unknown
 }
 
-const buildTableCell = (rowIndex: number, column: TableColumn, rowData: ITableItem): TableCell => ({
+const buildTableCell = (rowIndex: number, column: TableColumn, rowData: VaDataTableItem): TableCell => ({
   rowData,
   /** @deprecated */
   source: rowData[column.key],
@@ -15,7 +15,7 @@ const buildTableCell = (rowIndex: number, column: TableColumn, rowData: ITableIt
   value: rowData[column.key]?.toString?.() || '',
 })
 
-const buildTableRow = (source: ITableItem, initialIndex: number, columns: TableColumn[]): TableRow => ({
+const buildTableRow = (source: VaDataTableItem, initialIndex: number, columns: TableColumn[]): TableRow => ({
   source,
   initialIndex,
   cells: columns.map(column => buildTableCell(initialIndex, column, source)),

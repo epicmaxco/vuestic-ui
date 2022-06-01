@@ -1,13 +1,13 @@
 import { Ref, watch, computed } from 'vue'
-import { TableRow, TFilterMethod, ITableItem } from '../types'
+import { TableRow, VaDataTableFilterMethod, VaDataTableItem } from '../types'
 
 interface useFilterableProps {
   filter: string
-  filterMethod: TFilterMethod | undefined
+  filterMethod: VaDataTableFilterMethod | undefined
   [prop: string]: unknown
 }
 
-export type TFilteredArgs = { items: ITableItem[], itemsIndexes: number[] }
+export type TFilteredArgs = { items: VaDataTableItem[], itemsIndexes: number[] }
 export type TFilterableEmits = (event: 'filtered', arg: TFilteredArgs) => void
 
 export default function useFilterable (

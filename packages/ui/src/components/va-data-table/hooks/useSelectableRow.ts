@@ -1,28 +1,28 @@
 import { StringWithAutocomplete } from '../../../types/string-with-autocomplete'
 import { Ref, computed, watch, ref } from 'vue'
-import { TableRow, ITableItem, TSelectMode } from '../types'
+import { TableRow, VaDataTableItem, VaDataTableSelectMode } from '../types'
 
 interface useSelectableProps {
-  modelValue: ITableItem[] | undefined // selectedItems
+  modelValue: VaDataTableItem[] | undefined // selectedItems
   selectable: boolean
-  selectMode: TSelectMode
+  selectMode: VaDataTableSelectMode
   [prop: string]: unknown
 }
 export type TEmits = 'update:modelValue' | 'selectionChange'
 export type TSelectionChange = {
-  currentSelectedItems: ITableItem[],
-  previousSelectedItems: ITableItem[],
+  currentSelectedItems: VaDataTableItem[],
+  previousSelectedItems: VaDataTableItem[],
 }
-export type TSelectableEmits = (event: TEmits, arg: ITableItem[] | TSelectionChange) => void
+export type TSelectableEmits = (event: TEmits, arg: VaDataTableItem[] | TSelectionChange) => void
 
 export default function useSelectableRow (
   paginatedRows: Ref<TableRow[]>,
   props: useSelectableProps,
   emit: TSelectableEmits,
 ) {
-  const selectedItemsFallback = ref([] as ITableItem[])
+  const selectedItemsFallback = ref([] as VaDataTableItem[])
 
-  const selectedItemsSync = computed<ITableItem[]>({
+  const selectedItemsSync = computed<VaDataTableItem[]>({
     get () {
       if (props.modelValue === undefined) {
         return selectedItemsFallback.value

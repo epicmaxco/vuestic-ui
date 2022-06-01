@@ -1,7 +1,7 @@
 import { computed } from 'vue'
 import { useColors } from '../../../composables/useColor'
 import { safeCSSLength } from '../../../utils/css-utils'
-import { TableColumn, TClassesOptions, TStyleOptions, TableCell } from '../types'
+import { TableColumn, VaDataTableColumnClasses, VaDataTableColumnStyle, TableCell } from '../types'
 
 const prefix = '--va-data-table'
 
@@ -13,7 +13,7 @@ interface useStylableProps {
   height: string | number | undefined
 }
 
-function getClasses (classes: TClassesOptions = []): string[] {
+function getClasses (classes: VaDataTableColumnClasses = []): string[] {
   if (typeof classes === 'function') {
     const computedClasses = classes()
     return (typeof computedClasses === 'string') ? [computedClasses] : computedClasses
@@ -22,7 +22,7 @@ function getClasses (classes: TClassesOptions = []): string[] {
   return (typeof classes === 'string') ? [classes] : classes
 }
 
-function getStyles (styles: TStyleOptions = {}): Record<string, any> {
+function getStyles (styles: VaDataTableColumnStyle = {}): Record<string, any> {
   return (typeof styles === 'function') ? styles() : styles
 }
 

@@ -1,9 +1,9 @@
 import { Ref, ref, nextTick } from 'vue'
-import { TableRow, ITableItem, TSelectMode } from '../types'
+import { TableRow, VaDataTableItem, VaDataTableSelectMode } from '../types'
 import useSelectableRow, { TSelectionChange } from '../hooks/useSelectableRow'
 
 const selectableCases: boolean[] = [true, false]
-const selectModes: TSelectMode[] = ['single', 'multiple']
+const selectModes: VaDataTableSelectMode[] = ['single', 'multiple']
 const events = ['update:modelValue', 'selectionChange']
 const rowsIndexes: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 const rawRows: TableRow[] = rowsIndexes.map(item => ({
@@ -15,7 +15,7 @@ const rawRows: TableRow[] = rowsIndexes.map(item => ({
 // base case arguments
 const paginatedRows = ref(rawRows.slice(0, 6))
 const props = {
-  modelValue: [] as ITableItem[],
+  modelValue: [] as VaDataTableItem[],
   selectable: selectableCases[0],
   selectMode: selectModes[1],
 }
@@ -23,7 +23,7 @@ let emit = jest.fn()
 
 // helpers
 type TSources = number[] | 'all'
-const sources = (rowIndexes: TSources): ITableItem[] => {
+const sources = (rowIndexes: TSources): VaDataTableItem[] => {
   if (rowIndexes === 'all') {
     return paginatedRows.value.map(row => row.source)
   }

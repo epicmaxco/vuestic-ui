@@ -1,11 +1,11 @@
 import startCase from 'lodash/startCase.js'
 import merge from 'lodash/merge.js'
 import { computed, Ref } from 'vue'
-import { TTableColumnSource, TableColumn, ITableItem } from '../types'
+import { TTableColumnSource, TableColumn, VaDataTableItem } from '../types'
 
 interface useColumnsProps {
   columns: TTableColumnSource[]
-  items: ITableItem[]
+  items: VaDataTableItem[]
   [prop: string]: unknown
 }
 
@@ -32,7 +32,7 @@ export const buildTableColumn = (source: TTableColumnSource, initialIndex: numbe
   }
 }
 
-const buildColumnsFromItems = (items: ITableItem[]) => {
+const buildColumnsFromItems = (items: VaDataTableItem[]) => {
   return Object.keys(merge({}, ...items)).map(buildTableColumn)
 }
 

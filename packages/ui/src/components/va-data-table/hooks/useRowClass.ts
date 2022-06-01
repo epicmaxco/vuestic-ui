@@ -1,7 +1,7 @@
-import { TableRow, TRowClass } from '../types'
+import { TableRow, VaDataTableRowClass } from '../types'
 
 interface useRowClassProps {
-  rowClass: TRowClass
+  rowClass: VaDataTableRowClass
   [prop: string]: unknown
 }
 

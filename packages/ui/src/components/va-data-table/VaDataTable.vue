@@ -247,12 +247,12 @@ import useStylable from './hooks/useStylable'
 import useAnimationName from './hooks/useAnimationName'
 import {
   TTableColumnSource,
-  ITableItem,
+  VaDataTableItem,
   TableRow,
-  TFilterMethod,
-  TSortingOrder,
-  TSelectMode,
-  TRowClass,
+  VaDataTableFilterMethod,
+  VaDataTableSortingOrder,
+  VaDataTableSelectMode,
+  VaDataTableRowClass,
 } from './types'
 
 type emitNames = 'update:modelValue' |
@@ -288,17 +288,17 @@ export default defineComponent({
 
   props: {
     columns: { type: Array as PropType<TTableColumnSource[]>, default: () => [] as TTableColumnSource[] },
-    items: { type: Array as PropType<ITableItem[]>, default: () => [] as ITableItem[] },
-    modelValue: { type: Array as PropType<ITableItem[]> }, // selectedItems
-    sortingOrder: { type: String as PropType<TSortingOrder> }, // model-able
+    items: { type: Array as PropType<VaDataTableItem[]>, default: () => [] as VaDataTableItem[] },
+    modelValue: { type: Array as PropType<VaDataTableItem[]> }, // selectedItems
+    sortingOrder: { type: String as PropType<VaDataTableSortingOrder> }, // model-able
     sortBy: { type: String }, // model-able
     filter: { type: String, default: '' },
-    filterMethod: { type: Function as PropType<TFilterMethod> },
+    filterMethod: { type: Function as PropType<VaDataTableFilterMethod> },
     hoverable: { type: Boolean, default: false },
     clickable: { type: Boolean, default: false },
     animated: { type: Boolean, default: true },
     selectable: { type: Boolean, default: false },
-    selectMode: { type: String as PropType<TSelectMode>, default: 'multiple' },
+    selectMode: { type: String as PropType<VaDataTableSelectMode>, default: 'multiple' },
     selectedColor: { type: String, default: 'primary' },
     perPage: { type: Number },
     currentPage: { type: Number },
@@ -312,7 +312,7 @@ export default defineComponent({
     striped: { type: Boolean, default: false },
     stickyHeader: { type: Boolean, default: false },
     height: { type: [String, Number] as PropType<string | number> },
-    rowClass: { type: [String, Function, Boolean] as PropType<TRowClass> },
+    rowClass: { type: [String, Function, Boolean] as PropType<VaDataTableRowClass> },
   },
 
   emits: [
