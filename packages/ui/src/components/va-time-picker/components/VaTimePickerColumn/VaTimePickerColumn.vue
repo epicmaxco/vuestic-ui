@@ -88,8 +88,10 @@ export default defineComponent({
 
       if (syncActiveItemIndex.value * props.cellHeight < scrollTop) {
         return Math.ceil(calculatedIndex)
-      } else {
+      } else if (syncActiveItemIndex.value * props.cellHeight > scrollTop) {
         return Math.floor(calculatedIndex)
+      } else {
+        return Math.round(calculatedIndex)
       }
     }
 
