@@ -209,7 +209,7 @@
 </template>
 
 <script>
-import VaAlert from './index'
+import { VaAlert } from './'
 import VaBadge from '../va-badge'
 import VaIcon from '../va-icon'
 

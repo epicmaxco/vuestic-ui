@@ -1,4 +1,4 @@
 import withConfigTransport from '../../services/config-transport/withConfigTransport'
-import VaForm from './VaForm.vue'
+import _VaForm from './VaForm.vue'
 
-export default withConfigTransport(VaForm)
+export const VaForm = withConfigTransport(_VaForm)

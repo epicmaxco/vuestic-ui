@@ -1,7 +1,7 @@
 import withConfigTransport from '../../services/config-transport/withConfigTransport'
-import VaBreadcrumbs from './VaBreadcrumbs.vue'
+import _VaBreadcrumbs from './VaBreadcrumbs.vue'
 import VaBreadcrumbsItemBase from './VaBreadcrumbsItem/VaBreadcrumbsItem.vue'
 
 export const VaBreadcrumbsItem = withConfigTransport(VaBreadcrumbsItemBase)
 
-export default withConfigTransport(VaBreadcrumbs)
+export const VaBreadcrumbs = withConfigTransport(_VaBreadcrumbs)
