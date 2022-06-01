@@ -24,16 +24,14 @@
           ref="input"
           type="checkbox"
           class="va-checkbox__input"
-          :aria-label="$props.ariaLabel"
           :id="computedId"
           :name="computedName"
-          :tabindex="computedTabIndex"
           :disabled="disabled"
           :readonly="readonly"
           :indeterminate="indeterminate"
           :value="label"
-          :aria-checked="isActive"
           :checked="isActive"
+          v-bind="attributesComputed"
           v-on="keyboardFocusListeners"
           @focus="onFocus"
           @blur="onBlur"
@@ -156,6 +154,17 @@ export default defineComponent({
     )
 
     const uniqueId = computed(generateUniqueId)
+    const attributesComputed = computed(() => ({
+      tabindex: props.disabled ? -1 : 0,
+      ariaLabel: props.ariaLabel,
+      ariaDisabled: props.disabled,
+      ariaReadOnly: props.readonly,
+      ariaChecked: isActive.value,
+      'aria-invalid': !!computedErrorMessages.value.length,
+      'aria-errormessage': typeof computedErrorMessages.value === 'string'
+        ? computedErrorMessages.value
+        : computedErrorMessages.value.reduce((acc, el) => `${acc}${acc ? ',' : ''} ${el}`, ''),
+    }))
 
     return {
       isActive,
@@ -170,7 +179,7 @@ export default defineComponent({
       toggleSelection,
       onBlur,
       onFocus,
-      computedTabIndex: computed(() => props.disabled ? -1 : 0),
+      attributesComputed,
       computedId: computed(() => props.id || uniqueId.value),
       computedName: computed(() => props.name || uniqueId.value),
     }

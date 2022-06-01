@@ -19,7 +19,6 @@
     <template #anchor>
       <va-input
         ref="input"
-        aria-label="selected time"
         v-bind="{ ...computedInputProps, ...computedInputAttrs }"
         v-on="computedInputListeners"
         :modelValue="valueText"
@@ -47,8 +46,8 @@
             role="button"
             aria-label="toggle dropdown"
             aria-hidden="false"
-            tabindex="0"
             class="va-dropdown__icons__reset"
+            :tabindex="iconsTabIndexComputed"
             :id="componentIconId"
             v-bind="iconProps"
             @click="dropdownToggle"
@@ -62,8 +61,8 @@
             role="button"
             aria-label="reset"
             aria-hidden="false"
-            tabindex="0"
             class="va-dropdown__icons__reset"
+            :tabindex="iconsTabIndexComputed"
             :id="clearIconId"
             v-bind="clearIconProps"
             @click="reset"
@@ -74,8 +73,8 @@
             role="button"
             aria-label="toggle dropdown"
             aria-hidden="false"
-            tabindex="0"
             class="va-dropdown__icons__reset"
+            :tabindex="iconsTabIndexComputed"
             :id="componentIconId"
             v-bind="iconProps"
             @click="dropdownToggle"
@@ -249,8 +248,12 @@ export default defineComponent({
       },
     }))
 
+    const iconsTabIndexComputed = computed(() => props.disabled || props.readonly ? -1 : 0)
     const computedInputAttrs = computed(() => ({
-      ariaLabel: props.label,
+      ariaLabel: props.label || 'selected time',
+      ariaDisabled: props.disabled,
+      ariaReadonly: props.readonly,
+      tabindex: props.disabled ? -1 : 0,
       ...omit(attrs, ['class', 'style']),
     }))
 
@@ -322,6 +325,7 @@ export default defineComponent({
       computedInputProps,
       computedInputAttrs,
       computedInputListeners,
+      iconsTabIndexComputed,
       isOpenSync,
       modelValueSync,
       valueText,

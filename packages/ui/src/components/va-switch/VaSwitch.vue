@@ -1,11 +1,6 @@
 <template>
   <VaMessageListWrapper
     class="va-switch"
-    role="switch"
-    :aria-labelledby="ariaLabelIdComputed"
-    :aria-checked="!!modelValue"
-    :aria-disabled="$props.disabled"
-    :aria-readonly="$props.readonly"
     :class="computedClass"
     :disabled="$props.disabled"
     :success="$props.success"
@@ -22,7 +17,6 @@
     >
       <div
         class="va-switch__inner"
-        aria-hidden="true"
         @click="toggleSelection"
       >
         <input
@@ -30,18 +24,19 @@
           ref="input"
           type="checkbox"
           role="switch"
-          :aria-checked="isChecked"
           :id="String($props.id)"
           :name="String($props.name)"
-          readonly
           :disabled="$props.disabled"
+          readonly
+          v-bind="inputAriaAttributesComputed"
           v-on="keyboardFocusListeners"
           @focus="onFocus"
           @blur="onBlur"
-          @keypress.prevent="toggleSelection"
+          @keypress.enter.prevent="toggleSelection"
         >
         <div
           class="va-switch__track"
+          aria-hidden="true"
           :style="trackStyle"
         >
           <div
@@ -132,7 +127,13 @@ export default defineComponent({
 
     const { getColor } = useColors()
     const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
-    const { isChecked, computedError, isIndeterminate, ...selectable } = useSelectable(props, emit, elements)
+    const {
+      isChecked,
+      computedError,
+      isIndeterminate,
+      computedErrorMessages,
+      ...selectable
+    } = useSelectable(props, emit, elements)
 
     const computedBackground = computed(() => getColor(isChecked.value ? props.color : props.offColor))
     const { textColorComputed } = useTextColor(computedBackground)
@@ -189,9 +190,20 @@ export default defineComponent({
     }))
 
     const ariaLabelIdComputed = computed(() => `aria-label-id-${generateUniqueId()}`)
+    const inputAriaAttributesComputed = computed(() => ({
+      ariaDisabled: props.disabled,
+      ariaReadOnly: props.readonly,
+      ariaChecked: !!props.modelValue,
+      ariaLabelledby: ariaLabelIdComputed.value,
+      'aria-invalid': !!computedErrorMessages.value.length,
+      'aria-errormessage': typeof computedErrorMessages.value === 'string'
+        ? computedErrorMessages.value
+        : computedErrorMessages.value.reduce((acc, el) => `${acc}${acc ? ',' : ''} ${el}`, ''),
+    }))
 
     return {
       ...selectable,
+      computedErrorMessages,
       isChecked,
       computedError,
       isIndeterminate,
@@ -204,6 +216,7 @@ export default defineComponent({
       labelStyle,
       trackLabelStyle,
       ariaLabelIdComputed,
+      inputAriaAttributesComputed,
     }
   },
 })
@@ -425,10 +438,7 @@ export default defineComponent({
   }
 
   &__input {
-    position: absolute;
-    opacity: 0;
-    height: 0;
-    width: 0;
+    @include visually-hidden;
   }
 }
 </style>

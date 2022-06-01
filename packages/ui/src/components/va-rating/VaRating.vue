@@ -17,7 +17,7 @@
         :aria-label="`vote rating ${itemNumber} of ${$props.max}`"
         :model-value="getItemValue(itemNumber - 1)"
         :empty-icon-color="$props.unselectedColor"
-        :tabindex="tabindex"
+        :tabindex="tabIndexComputed"
         :disabled="$props.disabled"
         @hover="isInteractionsEnabled && onItemHoveredValueUpdate(itemNumber - 1, $event)"
         @update:model-value="isInteractionsEnabled && onItemValueUpdate(itemNumber - 1, $event)"
@@ -84,7 +84,7 @@ export default defineComponent({
       VaRatingItemProps: filterComponentProps(props, VaRatingItemProps),
       VaRatingItemNumberButtonProps: filterComponentProps(props, VaRatingItemNumberButtonProps),
       isInteractionsEnabled,
-      tabindex: computed(() => isInteractionsEnabled.value ? 0 : undefined),
+      tabIndexComputed: computed(() => isInteractionsEnabled.value ? 0 : undefined),
       onArrowKeyPress: (direction: 1 | -1) => {
         const step = props.halves ? RatingValue.HALF : RatingValue.FULL
         rating.onItemValueUpdate(rating.visibleValue.value, step * direction)

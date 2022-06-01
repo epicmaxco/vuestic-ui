@@ -48,6 +48,7 @@
     >
       <div
         class="va-slider__track"
+        aria-hidden="true"
         :style="trackStyles"
       />
       <template v-if="pins">
@@ -63,6 +64,7 @@
         <div
           ref="process"
           class="va-slider__track va-slider__track--selected"
+          aria-hidden="true"
           :class="{'va-slider__track--active': isFocused}"
           :style="processedStyles"
         />
@@ -99,6 +101,7 @@
       <template v-else>
         <div
           ref="process"
+          aria-hidden="true"
           class="va-slider__track va-slider__track--selected"
           :class="{'va-slider__track--active': isFocused}"
           :style="processedStyles"
@@ -135,6 +138,7 @@
     <span
       v-if="vertical ? iconPrepend : iconAppend"
       class="va-input__label--inverse"
+      aria-hidden="true"
     >
       <va-icon
         :name="vertical ? iconPrepend : iconAppend"

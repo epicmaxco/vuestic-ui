@@ -219,6 +219,13 @@ export default defineComponent({
 
     const computedChildAttributes = computed(() => ({
       ariaLabel: props.ariaLabel || props.label,
+      ariaRequired: props.requiredMark,
+      ariaDisabled: props.disabled,
+      ariaReadOnly: props.readonly,
+      'aria-invalid': !!computedErrorMessages.value.length,
+      'aria-errormessage': typeof computedErrorMessages.value === 'string'
+        ? computedErrorMessages.value
+        : computedErrorMessages.value.reduce((acc, el) => `${acc}${acc ? ',' : ''} ${el}`, ''),
       tabindex: tabIndexComputed.value,
       class: props.inputClass,
       ...omit(attrs, ['class', 'style']),

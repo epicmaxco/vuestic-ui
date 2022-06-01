@@ -12,7 +12,7 @@
       @click="onAnchorClick()"
       @mouseenter="onMouseEnter()"
       @mouseleave="onMouseLeave()"
-      @keyup.enter.stop.prevent="onAnchorClick()"
+      @keydown.esc.stop="onAnchorClick()"
     >
       <slot name="anchor" />
     </div>

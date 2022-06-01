@@ -3,7 +3,7 @@
     <div
       v-show="visible"
       ref="rootElement"
-      role="alert"
+      :role="$props.closeable ? 'alertdialog' : 'alert'"
       :class="['va-toast', ...toastClasses]"
       :style="toastStyles"
       @mouseenter="clearTimer"
