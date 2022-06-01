@@ -35,9 +35,9 @@
 
 <script>
 import { VaButton } from '../va-button'
-import VaCard, { VaCardTitle, VaCardContent } from '../va-card'
+import { VaCard, VaCardTitle, VaCardContent } from '../va-card'
 import { VaSpacer } from '../va-spacer'
-import VaInnerLoading from './index'
+import { VaInnerLoading } from './index'
 
 export default {
   components: {

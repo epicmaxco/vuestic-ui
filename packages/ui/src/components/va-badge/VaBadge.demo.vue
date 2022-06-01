@@ -332,9 +332,9 @@
 <script>
 import VaBadge from './VaBadge'
 import { VaButton } from '../va-button'
-import VaCard from '../va-card'
+import { VaCard } from '../va-card'
 import VaCardContent from '../va-card/VaCardContent'
-import VaIcon from '../va-icon/'
+import { VaIcon } from '../va-icon/'
 import BadgeAvatarDemo from './BadgeAvatarDemo'
 
 export default {

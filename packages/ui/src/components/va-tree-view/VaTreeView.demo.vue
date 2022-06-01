@@ -51,7 +51,7 @@
 import VaTreeView from './VaTreeView.vue'
 import VaTreeNode from './VaTreeNode/VaTreeNode'
 import VaTreeCategory from './VaTreeCategory/VaTreeCategory'
-import { VaButton } from '../va-button/VaButton'
+import VaButton from '../va-button/VaButton'
 
 export default {
   components: { VaButton, VaTreeCategory, VaTreeNode, VaTreeView },

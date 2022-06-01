@@ -253,7 +253,7 @@
 </template>
 
 <script>
-import VaButtonToggle from './index'
+import { VaButtonToggle } from './index'
 
 export default {
   components: {

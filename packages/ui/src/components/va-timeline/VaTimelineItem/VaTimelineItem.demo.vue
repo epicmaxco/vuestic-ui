@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { VaTimelineItem } from './VaTimelineItem.vue'
+import VaTimelineItem from './VaTimelineItem.vue'
 import VaCard from '../../va-card/VaCard'
 import VaCardContent from '../../va-card/VaCardContent'
 

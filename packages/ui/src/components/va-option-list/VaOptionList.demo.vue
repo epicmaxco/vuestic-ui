@@ -259,7 +259,7 @@
 </template>
 
 <script>
-import VaOptionList from './index'
+import { VaOptionList } from './index'
 
 export default {
   components: { VaOptionList },

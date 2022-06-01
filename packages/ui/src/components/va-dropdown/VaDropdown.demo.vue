@@ -435,9 +435,9 @@
 </template>
 
 <script>
-import VaDropdown, { VaDropdownContent } from './'
+import { VaDropdown, VaDropdownContent } from './'
 import DropdownCloseButton from './__demo__/DropdownCloseButton'
-import VaInput from '../va-input'
+import { VaInput } from '../va-input'
 
 export default {
   components: { DropdownCloseButton, VaDropdown, VaInput, VaDropdownContent },

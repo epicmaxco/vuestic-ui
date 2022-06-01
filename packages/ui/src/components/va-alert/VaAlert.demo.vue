@@ -210,8 +210,8 @@
 
 <script>
 import { VaAlert } from './'
-import VaBadge from '../va-badge'
-import VaIcon from '../va-icon'
+import { VaBadge } from '../va-badge'
+import { VaIcon } from '../va-icon'
 
 export default {
   components: {

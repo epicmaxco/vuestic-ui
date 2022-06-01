@@ -315,7 +315,7 @@
 </template>
 
 <script>
-import VaButtonGroup from './index'
+import { VaButtonGroup } from './index'
 import { VaButton } from '../va-button'
 
 export default {
