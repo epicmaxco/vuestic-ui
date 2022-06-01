@@ -1,7 +1,7 @@
 <template>
   <div
     class="va-file-upload-list"
-    :role="type !== 'single' ? 'list' : null"
+    :role="type !== 'single' ? 'list' : ''"
     :class="`va-file-upload-list--${type}`"
   >
     <template v-if="type === 'list'">

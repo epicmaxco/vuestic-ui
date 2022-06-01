@@ -1,15 +1,8 @@
 <template>
   <div
     class="va-slider"
-    role="slider"
-    :aria-valuemin="$props.min"
-    :aria-valuenow="$props.modelValue"
-    :aria-valuemax="$props.max"
-    :aria-labelledby="ariaLabelIdComputed"
-    :aria-orientation="$props.vertical ? 'vertical' : 'horizontal'"
-    :aria-disabled="$props.disabled"
-    :aria-readonly="$props.readonly"
     :class="sliderClass"
+    v-bind="ariaAttributesComputed"
   >
     <div
       v-if="vertical ? $slots.append : $slots.prepend"
@@ -690,6 +683,20 @@ export default defineComponent({
 
     const ariaLabelIdComputed = computed(() => `aria-label-id-${generateUniqueId()}`)
 
+    const ariaAttributesComputed = computed(() => {
+      const res = {
+        role: 'slider',
+        ariaValuemin: props.min,
+        ariaValuemax: props.max,
+        ariaLabelledby: ariaLabelIdComputed.value,
+        ariaOrientation: props.vertical ? 'vertical' : 'horizontal',
+        ariaDisabled: props.disabled,
+        ariaReadonly: props.readonly,
+      }
+      !Array.isArray(props.modelValue) && Object.assign(res, { ariaValuenow: props.modelValue })
+      return res
+    })
+
     onMounted(() => {
       if (validateSlider(props.modelValue, props.step, props.min, props.max)) {
         getStaticData()
@@ -738,6 +745,7 @@ export default defineComponent({
       currentSliderDotIndex,
       isRange: Array.isArray(props.modelValue),
       ariaLabelIdComputed,
+      ariaAttributesComputed,
     }
   },
 })
