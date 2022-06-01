@@ -72,7 +72,7 @@ import {
 import VaButton from '../va-button'
 import VaConfig from '../va-config'
 import { useStateful, useStatefulProps } from '../../composables/useStateful'
-import { useColor } from '../../composables/useColor'
+import { useColors } from '../../composables/useColor'
 import { TabsViewKey, TabComponent } from './types'
 import { useResizeObserver } from '../../composables/useResizeObserver'
 
@@ -112,7 +112,6 @@ export default defineComponent({
     const tabsContentOffset = ref(0)
     const startingXPoint = ref(0)
     const animationIncluded = ref(false)
-    const { colorComputed } = useColor(props)
     const { valueComputed: tabSelected }: { valueComputed: Ref<string | number | null> } = useStateful(props, emit)
     const tabConfig = reactive({
       VaTab: {
@@ -139,6 +138,9 @@ export default defineComponent({
     })
 
     const computedTabsClass = computed(() => ({ 'va-tabs--vertical': props.vertical }))
+
+    const { getColor } = useColors()
+    const colorComputed = computed(() => getColor(props.color))
 
     const sliderStyles = computed(() => {
       if (props.hideSlider) {
@@ -471,6 +473,10 @@ export default defineComponent({
       .va-tabs__tabs {
         display: flex;
         min-width: 100%;
+      }
+
+      .va-tabs__tabs-items {
+        width: 100%;
       }
 
       .va-tab {
