@@ -95,7 +95,7 @@
 import VaTimeInput from './VaTimeInput.vue'
 import VaIcon from '../va-icon'
 import VaInput from '../va-input'
-import VaButton from '../va-button'
+import { VaButton } from '../va-button'
 
 export default {
   components: {

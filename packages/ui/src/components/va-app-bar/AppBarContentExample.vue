@@ -12,8 +12,8 @@
 </template>
 
 <script>
-import VaButton from '../va-button/VaButton'
-import VaSpacer from '../va-spacer/VaSpacer'
+import { VaButton } from '../va-button/VaButton'
+import { VaSpacer } from '../va-spacer/VaSpacer'
 import VaButtonDropdown from '../va-button-dropdown/VaButtonDropdown'
 
 export default {

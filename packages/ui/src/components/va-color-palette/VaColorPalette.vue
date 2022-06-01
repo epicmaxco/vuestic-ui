@@ -25,7 +25,7 @@
 import { defineComponent, PropType } from 'vue'
 
 import { useStatefulProps, useStateful, useStatefulEmits } from '../../composables/useStateful'
-import VaColorIndicator from '../va-color-indicator'
+import { VaColorIndicator } from '../va-color-indicator'
 
 export default defineComponent({
   name: 'VaColorPalette',

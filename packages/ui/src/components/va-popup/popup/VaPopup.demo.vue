@@ -337,7 +337,7 @@
 
 <script>
 import VaPopup from './VaPopup.vue'
-import VaButton from '../../va-button/VaButton'
+import { VaButton } from '../../va-button/VaButton'
 import { closeOverlay } from '../directives/closeOverlay'
 import { h } from 'vue'
 

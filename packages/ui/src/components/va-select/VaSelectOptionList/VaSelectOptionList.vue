@@ -59,7 +59,7 @@ import { defineComponent, PropType, watch, ref, Ref, computed, ComponentPublicIn
 import { getHoverColor } from '../../../services/color-config/color-functions'
 import { useColors, useColorProps } from '../../../composables/useColor'
 import { SelectableOption } from '../../..//composables/useSelectableList'
-import VaIcon from '../../va-icon/'
+import { VaIcon } from '../../va-icon/'
 import { scrollToElement } from '../../../utils/scroll-to-element'
 
 export default defineComponent({

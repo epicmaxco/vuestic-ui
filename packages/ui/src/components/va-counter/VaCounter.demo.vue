@@ -283,7 +283,7 @@
 <script>
 import { ref } from 'vue'
 import VaCounter from './index'
-import VaButton from './../va-button'
+import { VaButton } from './../va-button'
 import VaChip from './../va-chip'
 import VaIcon from './../va-icon'
 

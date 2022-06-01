@@ -158,10 +158,10 @@ import { useClearableProps, useClearable, useClearableEmits } from '../../compos
 import { Placement } from '../../composables/usePopover'
 import { useColors } from '../../services/color-config/color-config'
 import { warn } from '../../services/utils'
-import VaDropdown, { VaDropdownContent } from '../va-dropdown'
-import VaIcon from '../va-icon'
-import VaInput from '../va-input'
-import VaSelectOptionList from './VaSelectOptionList'
+import { VaDropdown, VaDropdownContent } from '../va-dropdown'
+import { VaIcon } from '../va-icon'
+import { VaInput } from '../va-input'
+import { VaSelectOptionList } from './VaSelectOptionList'
 import { useFocus } from '../../composables/useFocus'
 
 type DropdownIcon = {

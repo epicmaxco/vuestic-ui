@@ -56,7 +56,7 @@
 import { defineComponent, PropType } from 'vue'
 import { VaDatePickerView } from '../../types'
 import { useView } from '../../hooks/view'
-import VaButton from '../../../va-button'
+import { VaButton } from '../../../va-button'
 
 export default defineComponent({
   name: 'VaDatePickerHeader',

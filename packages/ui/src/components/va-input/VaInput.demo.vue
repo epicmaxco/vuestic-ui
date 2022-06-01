@@ -587,7 +587,7 @@
 
 <script>
 import VaInput from './index'
-import VaButton from './../va-button'
+import { VaButton } from './../va-button'
 import VaIcon from './../va-icon'
 import VaInputValidation from './VaInput-validation'
 import VaCheckbox from '../va-checkbox'

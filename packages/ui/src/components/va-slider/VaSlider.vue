@@ -154,7 +154,7 @@ import { defineComponent, watch, PropType, ref, computed, onMounted, onBeforeUnm
 
 import { getHoverColor } from '../../services/color-config/color-functions'
 import { validateSlider } from './validateSlider'
-import VaIcon from '../va-icon'
+import { VaIcon } from '../va-icon'
 import { useColors } from '../../composables/useColor'
 
 export default defineComponent({

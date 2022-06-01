@@ -33,8 +33,8 @@
 import { defineComponent, PropType, ref, computed } from 'vue'
 
 import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
-import VaColorIndicator from '../va-color-indicator'
-import VaInput from '../va-input'
+import { VaColorIndicator } from '../va-color-indicator'
+import { VaInput } from '../va-input'
 
 export default defineComponent({
   name: 'VaColorInput',

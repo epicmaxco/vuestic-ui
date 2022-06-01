@@ -494,7 +494,7 @@
 <script>
 import VaIcon from '../va-icon'
 import VaConfig from '../va-config'
-import VaButton from './index'
+import { VaButton } from './index'
 
 export default {
   components: {

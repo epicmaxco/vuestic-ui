@@ -97,7 +97,7 @@ import { useColor } from '../../composables/useColor'
 import { safeCSSLength } from '../../utils/css-utils'
 import VaInputWrapper from '../va-input/components/VaInputWrapper.vue'
 import VaIcon from '../va-icon/VaIcon.vue'
-import VaButton from '../va-button/VaButton.vue'
+import { VaButton } from '../va-button/VaButton.vue'
 
 const { createEmits: createInputEmits, createListeners: createInputListeners } = useEmitProxy(
   ['change'],

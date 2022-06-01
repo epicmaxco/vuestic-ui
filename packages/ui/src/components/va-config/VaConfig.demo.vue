@@ -74,7 +74,7 @@
 import { computed } from 'vue'
 import { useGlobalConfig } from '../../services/global-config/global-config'
 import { useColors } from '../../services/color-config/color-config'
-import VaButton from '../va-button'
+import { VaButton } from '../va-button'
 import VaRating from '../va-rating/'
 import VaChip from '../va-chip'
 import VaConfig from './'

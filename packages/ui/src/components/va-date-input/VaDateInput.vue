@@ -102,9 +102,9 @@ import { useDateParser } from './hooks/input-text-parser'
 import { parseModelValue } from './hooks/model-value-parser'
 
 import VaDatePicker from '../va-date-picker/VaDatePicker.vue'
-import VaDropdown, { VaDropdownContent } from '../va-dropdown'
-import VaInput from '../va-input'
-import VaIcon from '../va-icon'
+import { VaDropdown, VaDropdownContent } from '../va-dropdown'
+import { VaInput } from '../va-input'
+import { VaIcon } from '../va-icon'
 import { VaDateInputModelValue } from './types'
 
 const VaInputProps = extractComponentProps(VaInput, [
