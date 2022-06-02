@@ -100,7 +100,7 @@ export default defineComponent({
   min-height: var(--va-app-bar-height);
   min-width: 100%;
   font-family: var(--va-font-family);
-  z-index: 100;
+  z-index: var(--va-app-bar-z-index);
 
   &--bottom {
     top: 100%;
