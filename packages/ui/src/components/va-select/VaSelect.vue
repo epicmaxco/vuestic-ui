@@ -148,7 +148,7 @@
 <script lang="ts">
 import { defineComponent, PropType, ref, computed, watch, nextTick, Ref } from 'vue'
 
-import { useSelectableList, useSelectableListProps, useSelectablePropsFn } from '../../composables/useSelectableList'
+import { useSelectableList, useSelectableListProps } from '../../composables/useSelectableList'
 import { useValidation, useValidationProps, useValidationEmits } from '../../composables/useValidation'
 import { useFormProps } from '../../composables/useForm'
 import { useLoadingProps } from '../../composables/useLoading'
@@ -162,7 +162,7 @@ import { VaIcon } from '../va-icon'
 import { VaInput } from '../va-input'
 import { VaSelectOptionList } from './VaSelectOptionList'
 import { useFocus } from '../../composables/useFocus'
-import { VaSelectDropdownIcon, VaSelectOption, VaSelectPlacement } from './types'
+import { VaSelectDropdownIcon, SelectableOption, Placement } from './types'
 
 export default defineComponent({
   name: 'VaSelect',
@@ -185,7 +185,7 @@ export default defineComponent({
   ],
 
   props: {
-    ...useSelectablePropsFn<VaSelectOption>(),
+    ...useSelectableListProps,
     ...useValidationProps,
     ...useLoadingProps,
     ...useMaxSelectionsProps,
@@ -193,13 +193,13 @@ export default defineComponent({
     ...useFormProps,
 
     modelValue: {
-      type: [String, Number, Object] as PropType<VaSelectOption>,
+      type: [String, Number, Object] as PropType<SelectableOption>,
       default: '',
     },
 
     // Dropdown placement
     placement: {
-      type: String as PropType<VaSelectPlacement>,
+      type: String as PropType<Placement>,
       default: 'bottom',
       validator: (placement: string) => ['top', 'bottom'].includes(placement),
     },
@@ -276,7 +276,7 @@ export default defineComponent({
 
     // Select value
 
-    const valueComputed = computed<VaSelectOption | VaSelectOption[]>({
+    const valueComputed = computed<SelectableOption | SelectableOption[]>({
       get () {
         const value = getOptionByValue(props.modelValue)
 
@@ -303,7 +303,7 @@ export default defineComponent({
         return value
       },
 
-      set (value: VaSelectOption | VaSelectOption[]) {
+      set (value: SelectableOption | SelectableOption[]) {
         if (Array.isArray(value)) {
           emit('update:modelValue', value.map(getValue))
         } else {
@@ -356,7 +356,7 @@ export default defineComponent({
       return props.options
     })
 
-    const checkIsOptionSelected = (option: VaSelectOption) => {
+    const checkIsOptionSelected = (option: SelectableOption) => {
       if (!valueComputed.value) { return false }
 
       if (Array.isArray(valueComputed.value)) {
@@ -366,7 +366,7 @@ export default defineComponent({
       return compareOptions(valueComputed.value, option)
     }
 
-    const compareOptions = (option1: VaSelectOption, option2: VaSelectOption) => {
+    const compareOptions = (option1: SelectableOption, option2: SelectableOption) => {
       const one = getValue(option1)
       const two = getValue(option2)
 
@@ -387,9 +387,9 @@ export default defineComponent({
       return false
     }
 
-    const isValueComputedArray = (v: Ref<VaSelectOption | VaSelectOption[]>): v is Ref<VaSelectOption[]> => Array.isArray(v.value)
+    const isValueComputedArray = (v: Ref<SelectableOption | SelectableOption[]>): v is Ref<SelectableOption[]> => Array.isArray(v.value)
 
-    const selectOption = (option: VaSelectOption) => {
+    const selectOption = (option: SelectableOption) => {
       if (hoveredOption.value === null) {
         hideAndFocus()
         return
@@ -419,7 +419,7 @@ export default defineComponent({
 
     const addNewOption = () => {
       // Do not emit if option already exist and allow create is `unique`
-      const hasAddedOption = props.options?.some((option: VaSelectOption) => getText(option) === searchInput.value)
+      const hasAddedOption = props.options?.some((option: SelectableOption) => getText(option) === searchInput.value)
 
       if (!(props.allowCreate === 'unique' && hasAddedOption)) {
         emit('create-new', searchInput.value)
@@ -429,7 +429,7 @@ export default defineComponent({
 
     // Hovered options
 
-    const hoveredOption = ref<VaSelectOption | null>(null)
+    const hoveredOption = ref<SelectableOption | null>(null)
 
     const selectHoveredOption = () => {
       if (!hoveredOption.value) { return }

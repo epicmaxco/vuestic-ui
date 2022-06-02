@@ -14,16 +14,6 @@ export const useSelectableListProps = {
   groupBy: { type: [String, Function] as PropType<StringOrFunction>, default: 'group' },
 }
 
-type StringOrFn<T> = string | ((option: T) => unknown)
-export const useSelectablePropsFn = <O extends SelectableOption, StOrFn = StringOrFn<O>>() => ({
-  options: { type: Array as PropType<O[]>, default: () => [] },
-  textBy: { type: [String, Function] as PropType<StOrFn>, default: 'text' },
-  valueBy: { type: [String, Function] as PropType<StOrFn>, default: '' },
-  trackBy: { type: [String, Function] as PropType<StOrFn>, default: 'value' },
-  disabledBy: { type: [String, Function] as PropType<StOrFn>, default: 'disabled' },
-  groupBy: { type: [String, Function] as PropType<StOrFn>, default: 'group' },
-})
-
 export function useSelectableList (props: ExtractPropTypes<typeof useSelectableListProps>) {
   const isStringOrNumber = (option: SelectableOption): option is (string | number) => {
     const typeOfOption = typeof option
