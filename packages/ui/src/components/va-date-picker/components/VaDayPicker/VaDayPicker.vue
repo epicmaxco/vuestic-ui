@@ -45,7 +45,7 @@
 <script lang="ts">
 import { computed, defineComponent, toRefs, PropType, watch } from 'vue'
 import { useVaDatePickerCalendar } from './va-date-picker-calendar-hook'
-import { VaDatePickerMode, VaDatePickerModelValue, VaDatePickerView } from '../../types'
+import { DatePickerMode, DatePickerModelValue, DatePickerView } from '../../types'
 import { extractComponentProps, filterComponentProps } from '../../../../utils/child-props'
 import { useGridKeyboardNavigation } from '../../hooks/grid-keyboard-navigation'
 import { useDatePicker } from '../../hooks/use-picker'
@@ -64,9 +64,9 @@ export default defineComponent({
     weekdayNames: { type: Array as PropType<string[]>, required: true },
     firstWeekday: { type: String as PropType<'Monday' | 'Sunday'>, default: 'Sunday' },
     hideWeekDays: { type: Boolean, default: false },
-    view: { type: Object as PropType<VaDatePickerView>, default: () => ({ type: 'day' }) },
-    modelValue: { type: [Date, Array, Object] as PropType<VaDatePickerModelValue> },
-    mode: { type: String as PropType<VaDatePickerMode>, default: 'auto' },
+    view: { type: Object as PropType<DatePickerView>, default: () => ({ type: 'day' }) },
+    modelValue: { type: [Date, Array, Object] as PropType<DatePickerModelValue> },
+    mode: { type: String as PropType<DatePickerMode>, default: 'auto' },
     showOtherMonths: { type: Boolean, default: false },
     allowedDays: { type: Function as PropType<(date: Date) => boolean> },
     weekends: { type: [Function] as PropType<(d: Date) => boolean> },

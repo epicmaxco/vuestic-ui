@@ -66,7 +66,7 @@ import { ComponentOptions, computed, defineComponent, nextTick, PropType, ref, w
 import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
 import { useColors } from '../../services/color-config/color-config'
 
-import { VaDatePickerModelValue, VaDatePickerType, VaDatePickerView } from './types'
+import { DatePickerModelValue, DatePickerType, DatePickerView } from './types'
 import { filterComponentProps, extractComponentProps, extractComponentEmits } from '../../utils/child-props'
 import { useView } from './hooks/view'
 
@@ -89,11 +89,11 @@ export default defineComponent({
     ...extractComponentProps(VaDayPicker),
     ...extractComponentProps(VaMonthPicker),
     ...extractComponentProps(VaYearPicker),
-    modelValue: { type: [Date, Array, Object] as PropType<VaDatePickerModelValue> },
+    modelValue: { type: [Date, Array, Object] as PropType<DatePickerModelValue> },
     monthNames: { type: Array as PropType<string[]>, required: false, default: DEFAULT_MONTH_NAMES },
     weekdayNames: { type: Array as PropType<string[]>, required: false, default: DEFAULT_WEEKDAY_NAMES },
-    view: { type: Object as PropType<VaDatePickerView> },
-    type: { type: String as PropType<VaDatePickerType>, default: 'day' },
+    view: { type: Object as PropType<DatePickerView> },
+    type: { type: String as PropType<DatePickerType>, default: 'day' },
     readonly: { type: Boolean, default: false },
     disabled: { type: Boolean, default: false },
 
@@ -120,7 +120,7 @@ export default defineComponent({
       'va-date-picker_disabled': props.disabled,
     }))
 
-    const onDayModelValueUpdate = (modelValue: VaDatePickerModelValue) => {
+    const onDayModelValueUpdate = (modelValue: DatePickerModelValue) => {
       if (props.readonly) { return }
 
       // Do not update model value if we just want to change view (We can change it for now, but later we can add here timepicker)
@@ -136,7 +136,7 @@ export default defineComponent({
       }
     }
 
-    const onMonthModelValueUpdate = (modelValue: VaDatePickerModelValue) => {
+    const onMonthModelValueUpdate = (modelValue: DatePickerModelValue) => {
       // Do not update model value if we just want to change view
       if (props.type === 'month') { valueComputed.value = modelValue }
     }
@@ -151,7 +151,7 @@ export default defineComponent({
       }
     }
 
-    const onYearModelValueUpdate = (modelValue: VaDatePickerModelValue) => {
+    const onYearModelValueUpdate = (modelValue: DatePickerModelValue) => {
       // Do not update model value if we just want to change view
       if (props.type === 'year') { valueComputed.value = modelValue }
     }

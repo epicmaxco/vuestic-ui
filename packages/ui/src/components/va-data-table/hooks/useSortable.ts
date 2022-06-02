@@ -1,19 +1,19 @@
 import { computed, ref, Ref, watch } from 'vue'
-import { TableColumn, TableRow, ITableItem, TSortingOrder } from '../types'
+import { TableColumn, DateTableRow, DateTableItem, DateTableSortingOrder } from '../types'
 
 interface useSortableProps {
   sortBy: string | undefined
-  sortingOrder: TSortingOrder | undefined
+  sortingOrder: DateTableSortingOrder | undefined
 }
-export type TSortedArgs = { sortBy: string, sortingOrder: TSortingOrder, items: ITableItem[], itemsIndexes: number[] }
+export type TSortedArgs = { sortBy: string, sortingOrder: DateTableSortingOrder, items: DateTableItem[], itemsIndexes: number[] }
 export type TSortableEmits = (
   event: 'update:sortBy' | 'update:sortingOrder' | 'sorted',
-  args: string | TSortingOrder | TSortedArgs,
+  args: string | DateTableSortingOrder | TSortedArgs,
 ) => void
 
 export default function useSortable (
   columns: Ref<TableColumn[]>,
-  filteredRows: Ref<TableRow[]>,
+  filteredRows: Ref<DateTableRow[]>,
   props: useSortableProps,
   emit: TSortableEmits,
 ) {
@@ -36,8 +36,8 @@ export default function useSortable (
     },
   })
 
-  const sortingOrderFallback = ref(null as TSortingOrder)
-  const sortingOrderSync = computed<TSortingOrder>({
+  const sortingOrderFallback = ref(null as DateTableSortingOrder)
+  const sortingOrderSync = computed<DateTableSortingOrder>({
     get () {
       if (props.sortingOrder === undefined) {
         return sortingOrderFallback.value

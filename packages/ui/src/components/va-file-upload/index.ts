@@ -8,3 +8,5 @@ export { VaFileUploadSingleItem } from './VaFileUploadSingleItem'
 export { VaFileUploadUndo } from './VaFileUploadUndo'
 
 export const VaFileUpload = withConfigTransport(_VaFileUpload)
+
+export * from './types'

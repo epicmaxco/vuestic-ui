@@ -1,5 +1,5 @@
 import { computed, Ref } from 'vue'
-import { VaDatePickerView } from '../../types'
+import { DatePickerView } from '../../types'
 
 /** Returns last day of previous month */
 export const getMonthDaysCount = (year: number, month: number): number => new Date(year, month + 1, 0).getDate()
@@ -9,7 +9,7 @@ export const getMonthStartWeekday = (year: number, month: number) => new Date(ye
 /** Returns array from 1 to length */
 export const getNumbersArray = (length: number) => Array.from(Array(length).keys()).map((k) => k + 1)
 
-export const useVaDatePickerCalendar = (view: Ref<VaDatePickerView>, options?: { firstWeekday?: Ref<'Monday' | 'Sunday'> }) => {
+export const useVaDatePickerCalendar = (view: Ref<DatePickerView>, options?: { firstWeekday?: Ref<'Monday' | 'Sunday'> }) => {
   const CALENDAR_ROWS_COUNT = 6 // Need 6 rows if first day of a month is Saturday and the last day is Monday 31th.
 
   const localizeWeekday = (weekdayNumber: number) => {

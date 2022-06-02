@@ -2,3 +2,5 @@ import withConfigTransport from '../../services/config-transport/withConfigTrans
 import _VaButtonToggle from './VaButtonToggle.vue'
 
 export const VaButtonToggle = withConfigTransport(_VaButtonToggle)
+
+export * from './types'

@@ -1,21 +1,21 @@
 import { Ref, watch, computed } from 'vue'
-import { TableRow, TFilterMethod, ITableItem } from '../types'
+import { DateTableRow, DateTableFilterMethod, DateTableItem } from '../types'
 
 interface useFilterableProps {
   filter: string
-  filterMethod: TFilterMethod | undefined
+  filterMethod: DateTableFilterMethod | undefined
   [prop: string]: unknown
 }
 
-export type TFilteredArgs = { items: ITableItem[], itemsIndexes: number[] }
+export type TFilteredArgs = { items: DateTableItem[], itemsIndexes: number[] }
 export type TFilterableEmits = (event: 'filtered', arg: TFilteredArgs) => void
 
 export default function useFilterable (
-  rawRows: Ref<TableRow[]>,
+  rawRows: Ref<DateTableRow[]>,
   props: useFilterableProps,
   emit: TFilterableEmits,
 ) {
-  const filteredRows = computed<TableRow[]>(() => {
+  const filteredRows = computed<DateTableRow[]>(() => {
     if (!rawRows.value.length) {
       return rawRows.value
     }

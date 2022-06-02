@@ -1,7 +1,7 @@
 import { computed } from 'vue'
 import { useColors } from '../../../composables/useColor'
 import { safeCSSLength } from '../../../utils/css-utils'
-import { TableColumn, TClassesOptions, TStyleOptions, TableCell } from '../types'
+import { TableColumn, DateTableClassesOptions, DateTableStyleOptions, DateTableCell } from '../types'
 
 const prefix = '--va-data-table'
 
@@ -13,7 +13,7 @@ interface useStylableProps {
   height: string | number | undefined
 }
 
-function getClasses (classes: TClassesOptions = []): string[] {
+function getClasses (classes: DateTableClassesOptions = []): string[] {
   if (typeof classes === 'function') {
     const computedClasses = classes()
     return (typeof computedClasses === 'string') ? [computedClasses] : computedClasses
@@ -22,7 +22,7 @@ function getClasses (classes: TClassesOptions = []): string[] {
   return (typeof classes === 'string') ? [classes] : classes
 }
 
-function getStyles (styles: TStyleOptions = {}): Record<string, any> {
+function getStyles (styles: DateTableStyleOptions = {}): Record<string, any> {
   return (typeof styles === 'function') ? styles() : styles
 }
 
@@ -52,7 +52,7 @@ export default function useStyleable (props: useStylableProps) {
     return styles
   })
 
-  function getCellCSSVariables (cell: TableCell) {
+  function getCellCSSVariables (cell: DateTableCell) {
     return {
       [`${prefix}-align`]: cell.column.align,
       [`${prefix}-vertical-align`]: cell.column.verticalAlign,

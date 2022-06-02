@@ -1,3 +1,3 @@
-export type VaDateInputDate = string | number | Date
-export type VaDateInputRange = { start?: VaDateInputDate | null, end?: VaDateInputDate | null }
-export type VaDateInputModelValue = VaDateInputDate | VaDateInputDate[] | VaDateInputRange | undefined
+export type DateInputDate = string | number | Date
+export type DateInputRange = { start?: DateInputDate | null, end?: DateInputDate | null }
+export type DateInputModelValue = DateInputDate | DateInputDate[] | DateInputRange | undefined

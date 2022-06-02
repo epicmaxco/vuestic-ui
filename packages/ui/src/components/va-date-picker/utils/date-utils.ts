@@ -1,4 +1,4 @@
-import { VaDatePickerModelValue, VaDatePickerRange } from '../types'
+import { DatePickerModelValue, DatePickerRange } from '../types'
 import { VaDateInputModelValue } from '../../va-date-input/types'
 import isDate from 'lodash/isDate.js'
 
@@ -26,10 +26,10 @@ export const isDatesArrayIncludeMonth = (dates: Date[], date: Date): boolean => 
   return !!dates.find((d) => isDatesMonthEqual(d, date))
 }
 
-export const isRange = (value: VaDatePickerModelValue | VaDateInputModelValue): value is VaDatePickerRange => {
+export const isRange = (value: DatePickerModelValue | VaDateInputModelValue): value is DatePickerRange => {
   return typeof value === 'object' && ('start' in value || 'end' in value)
 }
 
-export const isSingleDate = (value: VaDatePickerModelValue | VaDateInputModelValue): value is Date => isDate(value)
+export const isSingleDate = (value: DatePickerModelValue | VaDateInputModelValue): value is Date => isDate(value)
 
-export const isDates = (value: VaDatePickerModelValue | VaDateInputModelValue): value is Date[] => Array.isArray(value)
+export const isDates = (value: DatePickerModelValue | VaDateInputModelValue): value is Date[] => Array.isArray(value)

@@ -240,12 +240,12 @@ import useSelectableRow from './hooks/useSelectableRow'
 import useStylable from './hooks/useStylable'
 import useAnimationName from './hooks/useAnimationName'
 import {
-  TTableColumnSource,
-  ITableItem,
-  TableRow,
-  TFilterMethod,
-  TSortingOrder,
-  TSelectMode,
+  DateTableColumnSource,
+  DateTableItem,
+  DateTableRow,
+  DateTableFilterMethod,
+  DateTableSortingOrder,
+  DateTableSelectMode,
 } from './types'
 
 type emitNames = 'update:modelValue' |
@@ -280,18 +280,18 @@ export default defineComponent({
   inheritAttrs: false,
 
   props: {
-    columns: { type: Array as PropType<TTableColumnSource[]>, default: () => [] as TTableColumnSource[] },
-    items: { type: Array as PropType<ITableItem[]>, default: () => [] as ITableItem[] },
-    modelValue: { type: Array as PropType<ITableItem[]> }, // selectedItems
-    sortingOrder: { type: String as PropType<TSortingOrder> }, // model-able
+    columns: { type: Array as PropType<DateTableColumnSource[]>, default: () => [] as DateTableColumnSource[] },
+    items: { type: Array as PropType<DateTableItem[]>, default: () => [] as DateTableItem[] },
+    modelValue: { type: Array as PropType<DateTableItem[]> }, // selectedItems
+    sortingOrder: { type: String as PropType<DateTableSortingOrder> }, // model-able
     sortBy: { type: String }, // model-able
     filter: { type: String, default: '' },
-    filterMethod: { type: Function as PropType<TFilterMethod> },
+    filterMethod: { type: Function as PropType<DateTableFilterMethod> },
     hoverable: { type: Boolean, default: false },
     clickable: { type: Boolean, default: false },
     animated: { type: Boolean, default: true },
     selectable: { type: Boolean, default: false },
-    selectMode: { type: String as PropType<TSelectMode>, default: 'multiple' },
+    selectMode: { type: String as PropType<DateTableSelectMode>, default: 'multiple' },
     selectedColor: { type: String, default: 'primary' },
     perPage: { type: Number },
     currentPage: { type: Number },
@@ -360,7 +360,7 @@ export default defineComponent({
 
     const showNoDataFilteredHtml = computed(() => paginatedRows.value.length === 0)
 
-    const onRowClickHandler = (name: emitNames, event: Event, row: TableRow) => {
+    const onRowClickHandler = (name: emitNames, event: Event, row: DateTableRow) => {
       if (props.clickable) {
         emit(name, {
           event,
