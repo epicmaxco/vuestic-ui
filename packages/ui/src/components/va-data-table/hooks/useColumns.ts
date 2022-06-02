@@ -1,6 +1,6 @@
+import { computed } from 'vue'
 import startCase from 'lodash/startCase.js'
 import merge from 'lodash/merge.js'
-import { computed, Ref } from 'vue'
 import { TTableColumnSource, TableColumn, VaDataTableItem } from '../types'
 
 interface useColumnsProps {
@@ -19,16 +19,16 @@ export const buildTableColumn = (source: TTableColumnSource, initialIndex: numbe
     label: input.label || startCase(input.key),
     headerTitle: input.headerTitle || input.label || startCase(input.key),
     sortable: input.sortable || false,
-    sortingFn: input.sortingFn || undefined,
+    sortingFn: input.sortingFn,
     alignHead: input.alignHead || 'left',
     verticalAlignHead: input.verticalAlignHead || 'middle',
     align: input.align || 'left',
     verticalAlign: input.verticalAlign || 'middle',
-    width: input.width || '',
-    classes: input.classes || '',
-    headerClasses: input.headerClasses || '',
-    style: input.style || {},
-    headerStyle: input.headerStyle || {},
+    width: input.width,
+    class: input.class,
+    headerClass: input.headerClass,
+    style: input.style,
+    headerStyle: input.headerStyle,
   }
 }
 

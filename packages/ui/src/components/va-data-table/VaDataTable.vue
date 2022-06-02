@@ -54,8 +54,8 @@
             scope="col"
             :aria-sort="getColumnAriaSortOrder(column.key)"
             :title="column.headerTitle"
-            :style="{ ...getHeaderCSSVariables(column), ...getStyles(column.headerStyle) }"
-            :class="['va-data-table__table-th', ...getClasses(column.headerClasses)]"
+            :style="[getHeaderCSSVariables(column), getStyle(column.headerStyle)]"
+            :class="['va-data-table__table-th', getClass(column.headerClass)]"
             @click.exact="column.sortable && toggleSorting(column)"
           >
             <div class="va-data-table__table-th-wrapper">
@@ -125,7 +125,7 @@
             :key="`table-row_${row.initialIndex}`"
             class="va-data-table__table-tr"
             :class="[
-              isRowSelected(row) ? 'selected' : '',
+              { selected: isRowSelected(row) },
               getCustomRowClass(row),
             ]"
             :style="getCustomRowStyle(row)"
@@ -152,8 +152,8 @@
             <td
               v-for="cell in row.cells"
               :key="`table-cell_${cell.column.key + cell.rowIndex}`"
-              :style="{ ...getCellCSSVariables(cell), ...getStyles(cell.column.style) }"
-              :class="['va-data-table__table-td', ...getClasses(cell.column.classes)]"
+              :style="[getCellCSSVariables(cell), getStyle(cell.column.style)]"
+              :class="['va-data-table__table-td', getClass(cell.column.class)]"
             >
               <slot
                 v-if="`cell(${cell.column.key})` in $slots"
@@ -194,8 +194,8 @@
             :key="column.key"
             :title="column.headerTitle"
             @click.exact="allowFooterSorting && column.sortable && toggleSorting(column)"
-            :style="{ ...getFooterCSSVariables(column), ...getStyles(column.headerStyle) }"
-            :class="['va-data-table__table-th', ...getClasses(column.headerClasses)]"
+            :style="[getFooterCSSVariables(column), getStyle(column.headerStyle)]"
+            :class="['va-data-table__table-th', getClass(column.headerClass)]"
           >
             <div class="va-data-table__table-th-wrapper">
               <span v-if="`footer(${column.key})` in $slots">
@@ -239,7 +239,6 @@ import VaIcon from '../va-icon'
 
 import useColumns from './hooks/useColumns'
 import useRows from './hooks/useRows'
-import useRowStyling from './hooks/useRowStyling'
 import useFilterable from './hooks/useFilterable'
 import useSortable from './hooks/useSortable'
 import usePaginatedRows from './hooks/usePaginatedRows'
@@ -361,11 +360,11 @@ export default defineComponent({
       getCellCSSVariables,
       getFooterCSSVariables,
       getStickyCSSVariables,
-      getClasses,
-      getStyles,
+      getClass,
+      getStyle,
+      getCustomRowClass,
+      getCustomRowStyle,
     } = useStylable(props)
-
-    const { getCustomRowClass, getCustomRowStyle } = useRowStyling(props)
 
     const animationName = useAnimationName(props, paginatedRows)
 
@@ -416,8 +415,8 @@ export default defineComponent({
       getCellCSSVariables,
       getFooterCSSVariables,
       getStickyCSSVariables,
-      getClasses,
-      getStyles,
+      getClass,
+      getStyle,
       getCustomRowClass,
       getCustomRowStyle,
       showNoDataHtml,

@@ -208,10 +208,10 @@ export default defineComponent({
 
   watch: {
     useAdditionalClass (value) {
-      this.columns[0].classes = value ? 'additional-class' : ''
+      this.columns[0].class = value && 'additionalClass'
     },
     useAdditionalStyle (value) {
-      this.columns[1].style = value ? this.additionalStyle : {}
+      this.columns[1].style = value && this.additionalStyle
     },
   },
 })
@@ -234,7 +234,7 @@ export default defineComponent({
   }
 }
 
-.additional-class {
+.additionalClass {
   color: orange;
   font-style: italic;
   font-weight: 900;

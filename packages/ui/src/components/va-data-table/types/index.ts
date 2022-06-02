@@ -2,8 +2,8 @@ import { StringWithAutocomplete } from '../../../types/string-with-autocomplete'
 
 export type VaDataTableColumnAlign = StringWithAutocomplete<'left' | 'center' | 'right'>
 export type VaDataTableColumnVerticalAlign = StringWithAutocomplete<'top' | 'middle' | 'bottom'>
-export type VaDataTableColumnClasses = string | string[] | (() => string | string[])
-export type VaDataTableColumnStyle = Record<string, any> | (() => Record<string, any>)
+export type VaDataTableColumnClass = unknown | (() => unknown)
+export type VaDataTableColumnStyle = unknown | (() => unknown)
 
 // provided column definitions (<va-data-table `:columns="myColumns"` />)
 // should look like an array of the following objects (and/or strings)
@@ -18,8 +18,8 @@ export interface VaDataTableColumn {
   align?: VaDataTableColumnAlign // horizontal <td>'s alignment
   verticalAlign?: VaDataTableColumnVerticalAlign // vertical <td>'s alignment
   width?: string | number
-  classes?: VaDataTableColumnClasses
-  headerClasses?: VaDataTableColumnClasses
+  class?: VaDataTableColumnClass
+  headerClass?: VaDataTableColumnClass
   style?: VaDataTableColumnStyle
   headerStyle?: VaDataTableColumnStyle
 }
@@ -40,8 +40,8 @@ export interface TableColumn {
   align: VaDataTableColumnAlign
   verticalAlign: VaDataTableColumnVerticalAlign
   width?: string | number
-  classes?: VaDataTableColumnClasses
-  headerClasses?: VaDataTableColumnClasses
+  class?: VaDataTableColumnClass
+  headerClass?: VaDataTableColumnClass
   style?: VaDataTableColumnStyle
   headerStyle?: VaDataTableColumnStyle
 }
