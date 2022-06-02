@@ -59,7 +59,7 @@ export default defineComponent({
       idx ? pickers.value[idx]?.blur() : pickers.value.forEach((el) => el?.blur())
     }
 
-    const { createComputedClass } = useForm(props)
+    const { computedClasses: computedClass } = useForm(props, 'va-time-picker')
 
     const focusNext = () => {
       const nextIndex = (activeColumnIndex?.value || 0) + 1
@@ -75,7 +75,7 @@ export default defineComponent({
 
     return {
       columns,
-      computedClass: createComputedClass('va-time-picker'),
+      computedClass,
       isPM,
       pickers,
       setItemRef,

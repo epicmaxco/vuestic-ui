@@ -2,6 +2,9 @@
   <div
     class="va-dropdown"
     :class="computedClass"
+    aria-haspopup="listbox"
+    :aria-disabled="$props.disabled"
+    :aria-expanded="!!valueComputed"
   >
     <div
       class="va-dropdown__anchor"
@@ -10,12 +13,15 @@
       @mouseleave="onMouseLeave()"
       @keyup.enter.stop.prevent="onAnchorClick()"
       ref="anchorRef"
+      role="button"
+      :aria-controls="controlledIdComputed"
     >
       <slot name="anchor" />
     </div>
     <template v-if="valueComputed">
       <teleport :to="attachElement" :disabled="disableAttachment">
         <div
+          :id="controlledIdComputed"
           class="va-dropdown__content-wrapper"
           @mouseover="$props.isContentHoverable && onMouseEnter()"
           @mouseout="onMouseLeave()"
@@ -35,6 +41,7 @@ import { useStateful, useStatefulEmits, useStatefulProps } from '../../composabl
 import { useDebounceFn } from '../../composables/useDebounce'
 import { usePopover, placementsPositions, Placement } from '../../composables/usePopover'
 import { useClickOutside } from '../../composables/useClickOutside'
+import { generateUniqueId } from '../../services/utils'
 
 export default defineComponent({
   name: 'VaDropdown',
@@ -137,11 +144,14 @@ export default defineComponent({
       }
     })
 
+    const controlledIdComputed = computed(() => `aria-controlled-id-${generateUniqueId()}`)
+
     return {
       valueComputed,
       anchorRef,
       contentRef,
       computedClass,
+      controlledIdComputed,
       emitAndClose,
       onAnchorClick,
       onMouseEnter,

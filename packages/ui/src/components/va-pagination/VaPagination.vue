@@ -9,12 +9,14 @@
   >
     <va-button
       v-if="showBoundaryLinks"
+      aria-label="go first page"
       :disabled="$props.disabled || currentValue === 1"
       :icon="$props.boundaryIconLeft"
       @click="onUserInput(1)"
     />
     <va-button
       v-if="showDirectionLinks"
+      aria-label="prev page"
       outline
       :disabled="$props.disabled || currentValue === 1"
       :icon="$props.directionIconLeft"
@@ -23,9 +25,11 @@
     <slot v-if="!$props.input">
       <va-button
         v-for="(n, i) in paginationRange"
-        outline
-        class="va-pagination__numeric-button"
         :key="i"
+        class="va-pagination__numeric-button"
+        outline
+        :aria-label="`go to page ${n}`"
+        :aria-current="n === currentValue"
         :style="activeButtonStyle(n)"
         :disabled="$props.disabled || n === '...'"
         :class="{ 'va-button--ellipsis': n === '...'}"
@@ -38,21 +42,19 @@
       v-else
       ref="htmlInput"
       class="va-pagination__input va-button"
-      :style="{
-        cursor: 'default',
-        color: getColor($props.color),
-        opacity: $props.disabled ? 0.4 : 1
-      }"
+      aria-label="enter the page number to go"
+      v-model="inputValue"
+      :disabled="$props.disabled"
+      :placeholder="`${currentValue}/${lastPage}`"
+      :style="inputStyleComputed"
       :class="{ 'va-pagination__input--flat': $props.flat }"
       @keydown.enter="changeValue"
       @focus="focusInput"
       @blur="changeValue"
-      :disabled="$props.disabled"
-      :placeholder="`${currentValue}/${lastPage}`"
-      v-model="inputValue"
     />
     <va-button
       v-if="showDirectionLinks"
+      aria-label="go next page"
       outline
       :disabled="$props.disabled || currentValue === lastPage"
       :icon="$props.directionIconRight"
@@ -60,6 +62,7 @@
     />
     <va-button
       v-if="showBoundaryLinks"
+      aria-label="go last page"
       outline
       :disabled="$props.disabled || currentValue === lastPage"
       :icon="$props.boundaryIconRight"
@@ -87,30 +90,31 @@ export default defineComponent({
   emits: useStatefulEmits,
   props: {
     ...useStatefulProps,
-    modelValue: { type: Number as PropType<number>, default: 1 },
-    visiblePages: { type: Number as PropType<number>, default: 0 },
-    pages: { type: Number as PropType<number>, default: 0 },
-    disabled: { type: Boolean as PropType<boolean>, default: false },
-    color: { type: String as PropType<string>, default: 'primary' },
+    modelValue: { type: Number, default: 1 },
+    visiblePages: { type: Number, default: 0 },
+    pages: { type: Number, default: 0 },
+    disabled: { type: Boolean, default: false },
+    color: { type: String, default: 'primary' },
     size: {
       type: String as PropType<'medium' | 'small' | 'large'>,
       default: 'medium',
       validator: (v: string) => ['medium', 'small', 'large'].includes(v),
     },
 
-    boundaryLinks: { type: Boolean as PropType<boolean>, default: true },
-    boundaryNumbers: { type: Boolean as PropType<boolean>, default: false },
-    directionLinks: { type: Boolean as PropType<boolean>, default: true },
-    input: { type: Boolean as PropType<boolean>, default: false },
-    hideOnSinglePage: { type: Boolean as PropType<boolean>, default: false },
-    flat: { type: Boolean as PropType<boolean>, default: false },
-    total: { type: Number as PropType<number>, default: null },
-    pageSize: { type: Number as PropType<number>, default: null },
-    boundaryIconLeft: { type: String as PropType<string>, default: 'first_page' },
-    boundaryIconRight: { type: String as PropType<string>, default: 'last_page' },
-    directionIconLeft: { type: String as PropType<string>, default: 'chevron_left' },
-    directionIconRight: { type: String as PropType<string>, default: 'chevron_right' },
+    boundaryLinks: { type: Boolean, default: true },
+    boundaryNumbers: { type: Boolean, default: false },
+    directionLinks: { type: Boolean, default: true },
+    input: { type: Boolean, default: false },
+    hideOnSinglePage: { type: Boolean, default: false },
+    flat: { type: Boolean, default: false },
+    total: { type: Number, default: null },
+    pageSize: { type: Number, default: null },
+    boundaryIconLeft: { type: String, default: 'first_page' },
+    boundaryIconRight: { type: String, default: 'last_page' },
+    directionIconLeft: { type: String, default: 'chevron_left' },
+    directionIconRight: { type: String, default: 'chevron_right' },
   },
+
   setup (props, { emit }) {
     const inputValue = ref('')
     const htmlInput: Ref<HTMLInputElement | null> = ref(null)
@@ -204,6 +208,12 @@ export default defineComponent({
       }
     }
 
+    const inputStyleComputed = computed(() => ({
+      cursor: 'default',
+      color: getColor(props.color),
+      opacity: props.disabled ? 0.4 : 1,
+    }))
+
     watch([usedTotal, () => props.pages], () => {
       if (__DEV__ && usedTotal.value && props.pages) {
         throw new Error('Please, use either `total` and `page-size` props, or `pages`.')
@@ -211,7 +221,6 @@ export default defineComponent({
     })
 
     return {
-      getColor,
       currentValue,
       lastPage,
       changeValue,
@@ -223,6 +232,7 @@ export default defineComponent({
       showDirectionLinks,
       paginationRange,
       focusInput,
+      inputStyleComputed,
     }
   },
 })

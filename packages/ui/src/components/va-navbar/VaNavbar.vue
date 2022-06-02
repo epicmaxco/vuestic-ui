@@ -1,7 +1,7 @@
 <template>
-  <nav
+  <header
     class="va-navbar"
-    :style="navbarStyle"
+    :style="computedStyle"
   >
     <div class="va-navbar__content">
       <div class="va-navbar__left">
@@ -19,13 +19,13 @@
     <div
       v-if="shape"
       class="va-navbar__background-shape"
-      :style="shapeStyle"
+      :style="shapeStyleComputed"
     />
-  </nav>
+  </header>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, computed } from 'vue'
+import { defineComponent, computed } from 'vue'
 
 import { shiftHSLAColor } from '../../services/color-config/color-functions'
 import { useColors } from '../../services/color-config/color-config'
@@ -34,9 +34,9 @@ import { useTextColor } from '../../composables/useTextColor'
 export default defineComponent({
   name: 'VaNavbar',
   props: {
-    color: { type: String as PropType<string>, default: 'secondary' },
-    textColor: { type: String as PropType<string> },
-    shape: { type: Boolean as PropType<boolean>, default: false },
+    color: { type: String, default: 'secondary' },
+    textColor: { type: String },
+    shape: { type: Boolean, default: false },
   },
   setup (props) {
     const { getColor } = useColors()
@@ -44,19 +44,19 @@ export default defineComponent({
 
     const color = computed(() => getColor(props.color))
 
-    const shapeStyle = computed(() => ({
+    const shapeStyleComputed = computed(() => ({
       borderTopColor: shiftHSLAColor(color.value, { h: -1, s: -11, l: 10 }),
     }))
 
-    const navbarStyle = computed(() => ({
+    const computedStyle = computed(() => ({
       backgroundColor: color.value,
       color: textColorComputed.value,
       fill: textColorComputed.value,
     }))
 
     return {
-      navbarStyle,
-      shapeStyle,
+      computedStyle,
+      shapeStyleComputed,
     }
   },
 })
@@ -72,7 +72,7 @@ export default defineComponent({
   height: var(--va-navbar-height);
   padding-left: var(--va-navbar-padding-left);
   padding-right: var(--va-navbar-padding-right);
-  background-color: va(--va-primary);
+  background-color: var(--va-primary);
   display: flex;
   font-family: var(--va-font-family);
 

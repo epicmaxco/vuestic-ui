@@ -106,9 +106,8 @@ export default defineComponent({
       return path === route.path
     }
 
-    const routeHasActiveChild = (section: NavigationRoute) => {
-      return section.children?.some(({ name }) => route.path.endsWith(name))
-    }
+    const routeHasActiveChild = (section: NavigationRoute) =>
+      section.children?.some(({ name }) => route.path.endsWith(`/${name}`))
 
     const setActiveExpand = () => {
       value.value = props.navigationRoutes.map((route, i) => {

@@ -9,14 +9,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, computed, StyleValue } from 'vue'
+import { defineComponent, computed, StyleValue } from 'vue'
 
 export default defineComponent({
   name: 'VaListItemLabel',
   props: {
-    caption: { type: Boolean as PropType<boolean>, default: false },
-    lines: { type: Number as PropType<number>, default: 1 },
+    caption: { type: Boolean, default: false },
+    lines: { type: Number, default: 1 },
   },
+
   setup: (props) => ({
     computedClass: computed(() => ({ 'va-list-item-label--caption': props.caption })),
     computedStyle: computed(() => ({ '-webkit-line-clamp': props.lines } as StyleValue)),

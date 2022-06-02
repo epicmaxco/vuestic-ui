@@ -1,10 +1,18 @@
 <template>
   <div class="va-color-palette">
-    <ul class="va-color-palette__colors">
+    <ul
+      class="va-color-palette__colors"
+      role="listbox"
+      aria-label="color selection"
+    >
       <va-color-indicator
         v-for="(color, index) in palette"
-        :modelValue="valueComputed === color"
         :key="index"
+        role="option"
+        :aria-label="`color ${color}`"
+        :aria-selected="isSelected(color)"
+        tabindex="0"
+        :modelValue="isSelected(color)"
         :color="color"
         :square="indicator === 'square'"
         @update:modelValue="valueComputed = color"
