@@ -266,6 +266,8 @@ export default defineComponent({
     const inputAttributesComputed = computed(() => ({
       tabindex: tabIndexComputed.value,
       ariaLabel: props.label || 'counter value',
+      ariaValuemin: props.min,
+      ariaValuemax: props.max,
       ...omit(attrs, ['class', 'style']),
       ...pick(props, ['disabled', 'min', 'max', 'step']),
       readonly: props.readonly || !props.manualInput,

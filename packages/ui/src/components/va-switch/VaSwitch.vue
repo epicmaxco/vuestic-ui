@@ -24,11 +24,7 @@
           ref="input"
           type="checkbox"
           role="switch"
-          :id="String($props.id)"
-          :name="String($props.name)"
-          :disabled="$props.disabled"
-          readonly
-          v-bind="inputAriaAttributesComputed"
+          v-bind="inputAttributesComputed"
           v-on="keyboardFocusListeners"
           @focus="onFocus"
           @blur="onBlur"
@@ -190,7 +186,11 @@ export default defineComponent({
     }))
 
     const ariaLabelIdComputed = computed(() => `aria-label-id-${generateUniqueId()}`)
-    const inputAriaAttributesComputed = computed(() => ({
+    const inputAttributesComputed = computed(() => ({
+      id: props.id,
+      name: props.name,
+      disabled: props.disabled,
+      readonly: props.readonly,
       ariaDisabled: props.disabled,
       ariaReadOnly: props.readonly,
       ariaChecked: !!props.modelValue,
@@ -216,7 +216,7 @@ export default defineComponent({
       labelStyle,
       trackLabelStyle,
       ariaLabelIdComputed,
-      inputAriaAttributesComputed,
+      inputAttributesComputed,
     }
   },
 })

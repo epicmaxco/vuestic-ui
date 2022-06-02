@@ -73,7 +73,7 @@ export default defineComponent({
 
   emits: [...useStatefulEmits, 'anchor-click', 'dropdown-content-click', 'click-outside'],
 
-  setup (props, { emit, slots }) {
+  setup (props, { emit }) {
     const anchorRef = ref()
     const contentRef = ref()
     const { valueComputed } = useStateful(props, emit)

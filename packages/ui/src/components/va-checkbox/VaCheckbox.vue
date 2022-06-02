@@ -31,7 +31,7 @@
           :indeterminate="indeterminate"
           :value="label"
           :checked="isActive"
-          v-bind="attributesComputed"
+          v-bind="inputAttributesComputed"
           v-on="keyboardFocusListeners"
           @focus="onFocus"
           @blur="onBlur"
@@ -42,7 +42,6 @@
           v-show="isActive"
           class="va-checkbox__icon"
           size="20px"
-          aria-hidden="true"
           :name="computedIconName"
           :color="textColorComputed"
         />
@@ -154,7 +153,7 @@ export default defineComponent({
     )
 
     const uniqueId = computed(generateUniqueId)
-    const attributesComputed = computed(() => ({
+    const inputAttributesComputed = computed(() => ({
       tabindex: props.disabled ? -1 : 0,
       ariaLabel: props.ariaLabel,
       ariaDisabled: props.disabled,
@@ -179,7 +178,7 @@ export default defineComponent({
       toggleSelection,
       onBlur,
       onFocus,
-      attributesComputed,
+      inputAttributesComputed,
       computedId: computed(() => props.id || uniqueId.value),
       computedName: computed(() => props.name || uniqueId.value),
     }
