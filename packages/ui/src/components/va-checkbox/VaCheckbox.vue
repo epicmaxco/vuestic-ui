@@ -89,7 +89,7 @@ export default defineComponent({
     indeterminateIcon: { type: String as PropType<string>, default: 'remove' },
     id: { type: String as PropType<string>, default: '' },
     name: { type: String as PropType<string>, default: '' },
-    ariaLabel: { type: String, default: '' },
+    ariaLabel: { type: String, default: undefined },
   },
   setup (props, { emit }) {
     const elements = {

@@ -107,8 +107,8 @@ export default defineComponent({
     return () => h('div', {
       class: 'va-breadcrumbs',
       style: alignComputed.value,
-      role: isAllChildLinks.value ? 'navigation' : null,
-      ariaLabel: isAllChildLinks.value ? 'breadcrumbs' : null,
+      role: isAllChildLinks.value ? 'navigation' : undefined,
+      ariaLabel: isAllChildLinks.value ? 'breadcrumbs' : undefined,
     }, getChildren())
   },
 })

@@ -683,19 +683,16 @@ export default defineComponent({
 
     const ariaLabelIdComputed = computed(() => `aria-label-id-${generateUniqueId()}`)
 
-    const ariaAttributesComputed = computed(() => {
-      const res = {
-        role: 'slider',
-        ariaValuemin: props.min,
-        ariaValuemax: props.max,
-        ariaLabelledby: ariaLabelIdComputed.value,
-        ariaOrientation: props.vertical ? 'vertical' : 'horizontal',
-        ariaDisabled: props.disabled,
-        ariaReadonly: props.readonly,
-      }
-      !Array.isArray(props.modelValue) && Object.assign(res, { ariaValuenow: props.modelValue })
-      return res
-    })
+    const ariaAttributesComputed = computed(() => ({
+      role: 'slider',
+      ariaValuemin: props.min,
+      ariaValuemax: props.max,
+      ariaLabelledby: ariaLabelIdComputed.value,
+      ariaOrientation: props.vertical ? 'vertical' : 'horizontal',
+      ariaDisabled: props.disabled,
+      ariaReadonly: props.readonly,
+      ariaValuenow: !Array.isArray(props.modelValue) ? props.modelValue : undefined,
+    }))
 
     onMounted(() => {
       if (validateSlider(props.modelValue, props.step, props.min, props.max)) {

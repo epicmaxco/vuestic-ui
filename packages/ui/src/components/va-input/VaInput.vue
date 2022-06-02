@@ -131,7 +131,7 @@ export default defineComponent({
     inputClass: { type: String, default: '' },
     pattern: { type: String },
     inputmode: { type: String, default: 'text' },
-    ariaLabel: { type: String, default: '' },
+    ariaLabel: { type: String, default: undefined },
 
     // style
     color: { type: String, default: 'primary' },

@@ -94,14 +94,11 @@ export default defineComponent({
         animationDirection: props.reverse ? 'reverse' : 'normal',
       })),
 
-      ariaAttributesComputed: computed(() => {
-        const res = {
-          role: 'progressbar',
-          ariaLabel: 'progress state',
-        }
-        !props.indeterminate && Object.assign(res, { ariaValuenow: props.modelValue })
-        return res
-      }),
+      ariaAttributesComputed: computed(() => ({
+        role: 'progressbar',
+        ariaLabel: 'progress state',
+        ariaValuenow: !props.indeterminate ? props.modelValue : undefined,
+      })),
     }
   },
 })

@@ -56,7 +56,7 @@
             :title="column.headerTitle"
             :style="{ ...getHeaderCSSVariables(column), ...getStyles(column.headerStyle) }"
             :class="['va-data-table__table-th', ...getClasses(column.headerClasses)]"
-            :aria-label="column.sortable ? `sort column by ${column.label}` : ''"
+            :aria-label="column.sortable ? `sort column by ${column.label}` : undefined"
             @click.exact="column.sortable && toggleSorting(column)"
             @keydown.enter.stop="column.sortable && toggleSorting(column)"
           >
@@ -193,7 +193,7 @@
             :title="column.headerTitle"
             :style="{ ...getFooterCSSVariables(column), ...getStyles(column.headerStyle) }"
             :class="['va-data-table__table-th', ...getClasses(column.headerClasses)]"
-            :aria-label="allowFooterSorting && column.sortable ? `sort column by ${column.label}` : ''"
+            :aria-label="allowFooterSorting && column.sortable ? `sort column by ${column.label}` : undefined"
             @click.exact="allowFooterSorting && column.sortable && toggleSorting(column)"
             @keydown.enter.stop="allowFooterSorting && column.sortable && toggleSorting(column)"
           >
