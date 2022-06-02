@@ -90,7 +90,6 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^5.0.0",
     "eslint-plugin-vue": "^7.0.1",
-    "font-awesome": "^4.7.0",
     "friendly-errors-webpack-plugin": "^1.7.0",
     "identity-obj-proxy": "^3.0.0",
     "ionicons": "^3.0.0",
