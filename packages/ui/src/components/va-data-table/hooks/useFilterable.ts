@@ -1,9 +1,9 @@
 import { Ref, watch, computed } from 'vue'
-import { TableRow, VaDataTableFilterMethod, VaDataTableItem } from '../types'
+import { DataTableRow, DataTableFilterMethod, VaDataTableItem } from '../types'
 
 interface useFilterableProps {
   filter: string
-  filterMethod: VaDataTableFilterMethod | undefined
+  filterMethod: DataTableFilterMethod | undefined
   [prop: string]: unknown
 }
 
@@ -11,11 +11,11 @@ export type TFilteredArgs = { items: VaDataTableItem[], itemsIndexes: number[] }
 export type TFilterableEmits = (event: 'filtered', arg: TFilteredArgs) => void
 
 export default function useFilterable (
-  rawRows: Ref<TableRow[]>,
+  rawRows: Ref<DataTableRow[]>,
   props: useFilterableProps,
   emit: TFilterableEmits,
 ) {
-  const filteredRows = computed<TableRow[]>(() => {
+  const filteredRows = computed<DataTableRow[]>(() => {
     if (!rawRows.value.length) {
       return rawRows.value
     }

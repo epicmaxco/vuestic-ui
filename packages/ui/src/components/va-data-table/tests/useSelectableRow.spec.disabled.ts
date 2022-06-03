@@ -1,12 +1,12 @@
 import { Ref, ref, nextTick } from 'vue'
-import { TableRow, VaDataTableItem, VaDataTableSelectMode } from '../types'
+import { DataTableRow, VaDataTableItem, DataTableSelectMode } from '../types'
 import useSelectableRow, { TSelectionChange } from '../hooks/useSelectableRow'
 
 const selectableCases: boolean[] = [true, false]
-const selectModes: VaDataTableSelectMode[] = ['single', 'multiple']
+const selectModes: DataTableSelectMode[] = ['single', 'multiple']
 const events = ['update:modelValue', 'selectionChange']
 const rowsIndexes: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-const rawRows: TableRow[] = rowsIndexes.map(item => ({
+const rawRows: DataTableRow[] = rowsIndexes.map(item => ({
   source: { id: item, title: String(item) },
   initialIndex: item,
   cells: [],

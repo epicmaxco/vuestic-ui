@@ -6,7 +6,7 @@
       { 'va-data-table--sticky': $props.stickyHeader },
       { 'va-data-table--scroll': !!$props.height },
     ]"
-    :style="getStickyCSSVariables()"
+    :style="stickyCSSVariables"
     :loading="loading"
     :color="loadingColor"
     v-bind="componentAttributes"
@@ -246,14 +246,14 @@ import useSelectableRow from './hooks/useSelectableRow'
 import useStylable from './hooks/useStylable'
 import useAnimationName from './hooks/useAnimationName'
 import {
-  TTableColumnSource,
+  DataTableColumnSource,
   VaDataTableItem,
-  TableRow,
-  VaDataTableFilterMethod,
-  VaDataTableSortingOrder,
-  VaDataTableSelectMode,
-  VaDataTableRowClass,
-  VaDataTableRowStyle,
+  DataTableRow,
+  DataTableFilterMethod,
+  DataTableSortingOrder,
+  DataTableSelectMode,
+  DataTableRowClass,
+  DataTableRowStyle,
 } from './types'
 
 type emitNames = 'update:modelValue' |
@@ -288,18 +288,18 @@ export default defineComponent({
   inheritAttrs: false,
 
   props: {
-    columns: { type: Array as PropType<TTableColumnSource[]>, default: () => [] as TTableColumnSource[] },
+    columns: { type: Array as PropType<DataTableColumnSource[]>, default: () => [] as DataTableColumnSource[] },
     items: { type: Array as PropType<VaDataTableItem[]>, default: () => [] as VaDataTableItem[] },
     modelValue: { type: Array as PropType<VaDataTableItem[]> }, // selectedItems
-    sortingOrder: { type: String as PropType<VaDataTableSortingOrder> }, // model-able
+    sortingOrder: { type: String as PropType<DataTableSortingOrder> }, // model-able
     sortBy: { type: String }, // model-able
     filter: { type: String, default: '' },
-    filterMethod: { type: Function as PropType<VaDataTableFilterMethod> },
+    filterMethod: { type: Function as PropType<DataTableFilterMethod> },
     hoverable: { type: Boolean, default: false },
     clickable: { type: Boolean, default: false },
     animated: { type: Boolean, default: true },
     selectable: { type: Boolean, default: false },
-    selectMode: { type: String as PropType<VaDataTableSelectMode>, default: 'multiple' },
+    selectMode: { type: String as PropType<DataTableSelectMode>, default: 'multiple' },
     selectedColor: { type: String, default: 'primary' },
     perPage: { type: Number },
     currentPage: { type: Number },
@@ -313,8 +313,8 @@ export default defineComponent({
     striped: { type: Boolean, default: false },
     stickyHeader: { type: Boolean, default: false },
     height: { type: [String, Number] as PropType<string | number> },
-    rowClass: { type: null as unknown as PropType<VaDataTableRowClass> },
-    rowStyle: { type: null as unknown as PropType<VaDataTableRowStyle> },
+    rowClass: { type: null as unknown as PropType<DataTableRowClass> },
+    rowStyle: { type: null as unknown as PropType<DataTableRowStyle> },
   },
 
   emits: [
@@ -355,11 +355,11 @@ export default defineComponent({
     } = useSelectableRow(paginatedRows, props, emit)
 
     const {
-      getHeaderCSSVariables,
       rowCSSVariables,
+      stickyCSSVariables,
+      getHeaderCSSVariables,
       getCellCSSVariables,
       getFooterCSSVariables,
-      getStickyCSSVariables,
       getClass,
       getStyle,
       getCustomRowClass,
@@ -372,7 +372,7 @@ export default defineComponent({
 
     const showNoDataFilteredHtml = computed(() => paginatedRows.value.length === 0)
 
-    const onRowClickHandler = (name: emitNames, event: Event, row: TableRow) => {
+    const onRowClickHandler = (name: emitNames, event: Event, row: DataTableRow) => {
       if (props.clickable) {
         emit(name, {
           event,
@@ -410,11 +410,11 @@ export default defineComponent({
       sortBySync,
       sortingOrderSync,
       toggleSorting,
-      getHeaderCSSVariables,
       rowCSSVariables,
+      stickyCSSVariables,
+      getHeaderCSSVariables,
       getCellCSSVariables,
       getFooterCSSVariables,
-      getStickyCSSVariables,
       getClass,
       getStyle,
       getCustomRowClass,

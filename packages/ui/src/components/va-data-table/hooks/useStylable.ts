@@ -3,12 +3,12 @@ import { useColors } from '../../../composables/useColor'
 import { safeCSSLength } from '../../../utils/css-utils'
 import {
   TableColumn,
-  TableRow,
-  VaDataTableColumnClass,
-  VaDataTableColumnStyle,
-  TableCell,
-  VaDataTableRowClass,
-  VaDataTableRowStyle,
+  DataTableRow,
+  DataTableColumnClass,
+  DataTableColumnStyle,
+  DataTableCell,
+  DataTableRowClass,
+  DataTableRowStyle,
 } from '../types'
 
 const prefix = '--va-data-table'
@@ -21,17 +21,27 @@ interface useStylableProps {
   allowFooterSorting: boolean
   stickyHeader: boolean
   height: string | number | undefined
-  rowClass: VaDataTableRowClass
-  rowStyle: VaDataTableRowStyle
+  rowClass: DataTableRowClass
+  rowStyle: DataTableRowStyle
 }
 
-const getClass = (classes: VaDataTableColumnClass) => isFunction(classes) ? classes() : classes
-const getStyle = (styles: VaDataTableColumnStyle) => isFunction(styles) ? styles() : styles
+const getClass = (classes: DataTableColumnClass) => isFunction(classes) ? classes() : classes
+const getStyle = (styles: DataTableColumnStyle) => isFunction(styles) ? styles() : styles
 
 export default function useStyleable (props: useStylableProps) {
   const { getColor, getFocusColor, getHoverColor, shiftHSLAColor } = useColors()
 
   const color = computed(() => getColor(props.selectedColor))
+
+  const rowCSSVariables = computed(() => ({
+    [`${prefix}-hover-color`]: getHoverColor(color.value),
+    [`${prefix}-selected-color`]: props.selectable && getFocusColor(color.value),
+  }))
+
+  const stickyCSSVariables = computed(() => ({
+    [`${prefix}-scroll-table-color`]: (props.height || props.stickyHeader) && shiftHSLAColor(color.value, { l: 20 }),
+    [`${prefix}-scroll-table-height`]: props.height && safeCSSLength(props.height),
+  }))
 
   const getHeaderCSSVariables = (column: TableColumn) => ({
     [`${prefix}-width`]: column.width && safeCSSLength(column.width),
@@ -40,12 +50,7 @@ export default function useStyleable (props: useStylableProps) {
     [`${prefix}-cursor`]: column.sortable ? 'pointer' : 'default',
   })
 
-  const rowCSSVariables = computed(() => ({
-    [`${prefix}-hover-color`]: getHoverColor(color.value),
-    ...(props.selectable && { [`${prefix}-selected-color`]: getFocusColor(color.value) }),
-  }))
-
-  const getCellCSSVariables = (cell: TableCell) => ({
+  const getCellCSSVariables = (cell: DataTableCell) => ({
     [`${prefix}-align`]: cell.column.align,
     [`${prefix}-vertical-align`]: cell.column.verticalAlign,
   })
@@ -56,25 +61,20 @@ export default function useStyleable (props: useStylableProps) {
     [`${prefix}-cursor`]: props.allowFooterSorting && column.sortable ? 'pointer' : 'default',
   })
 
-  const getStickyCSSVariables = () => ({
-    [`${prefix}-scroll-table-color`]: (props.height || props.stickyHeader) && shiftHSLAColor(color.value, { l: 20 }),
-    [`${prefix}-scroll-table-height`]: props.height && safeCSSLength(props.height),
-  })
-
-  const getCustomRowClass = (row: TableRow) => isFunction(props.rowClass)
+  const getCustomRowClass = (row: DataTableRow) => isFunction(props.rowClass)
     ? props.rowClass(row.source, row.initialIndex)
     : props.rowClass
 
-  const getCustomRowStyle = (row: TableRow) => isFunction(props.rowStyle)
+  const getCustomRowStyle = (row: DataTableRow) => isFunction(props.rowStyle)
     ? props.rowStyle(row.source, row.initialIndex)
     : props.rowStyle
 
   return {
-    getHeaderCSSVariables,
     rowCSSVariables,
+    stickyCSSVariables,
+    getHeaderCSSVariables,
     getCellCSSVariables,
     getFooterCSSVariables,
-    getStickyCSSVariables,
     getClass,
     getStyle,
     getCustomRowClass,

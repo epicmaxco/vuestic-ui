@@ -1,19 +1,19 @@
 import { computed, ref, Ref, watch } from 'vue'
-import { TableColumn, TableRow, VaDataTableItem, VaDataTableSortingOrder } from '../types'
+import { TableColumn, DataTableRow, VaDataTableItem, DataTableSortingOrder } from '../types'
 
 interface useSortableProps {
   sortBy: string | undefined
-  sortingOrder: VaDataTableSortingOrder | undefined
+  sortingOrder: DataTableSortingOrder | undefined
 }
-export type TSortedArgs = { sortBy: string, sortingOrder: VaDataTableSortingOrder, items: VaDataTableItem[], itemsIndexes: number[] }
+export type TSortedArgs = { sortBy: string, sortingOrder: DataTableSortingOrder, items: VaDataTableItem[], itemsIndexes: number[] }
 export type TSortableEmits = (
   event: 'update:sortBy' | 'update:sortingOrder' | 'sorted',
-  args: string | VaDataTableSortingOrder | TSortedArgs,
+  args: string | DataTableSortingOrder | TSortedArgs,
 ) => void
 
 export default function useSortable (
   columns: Ref<TableColumn[]>,
-  filteredRows: Ref<TableRow[]>,
+  filteredRows: Ref<DataTableRow[]>,
   props: useSortableProps,
   emit: TSortableEmits,
 ) {
@@ -36,8 +36,8 @@ export default function useSortable (
     },
   })
 
-  const sortingOrderFallback = ref(null as VaDataTableSortingOrder)
-  const sortingOrderSync = computed<VaDataTableSortingOrder>({
+  const sortingOrderFallback = ref(null as DataTableSortingOrder)
+  const sortingOrderSync = computed<DataTableSortingOrder>({
     get () {
       if (props.sortingOrder === undefined) {
         return sortingOrderFallback.value

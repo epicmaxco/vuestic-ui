@@ -21,13 +21,6 @@
         size="small"
         v-model="isTableRowsClickable"
       />
-      <br />
-      <va-switch
-        class="mt-2"
-        label="rowClass"
-        size="small"
-        v-model="isTableRowClass"
-      />
     </div>
 
     <div class="flex lg4 mb-2">
@@ -90,7 +83,6 @@
     :footer-clone="footerClone"
     :allow-footer-sorting="footerSorting"
     :animated="animated"
-    :row-class="isTableRowClass && getCustomRowClass"
     @row:click="handleClick"
     @row:dblclick="handleClick"
     @row:contextmenu="handleClick"
@@ -184,7 +176,6 @@ export default defineComponent({
       isTableLoading: false,
       isTableStriped: true,
       isTableRowsClickable: false,
-      isTableRowClass: false,
       hideDefaultHeader: false,
       footerClone: true,
       footerSorting: true,
@@ -206,11 +197,6 @@ export default defineComponent({
   },
 
   methods: {
-    getCustomRowClass (item) {
-      return (item.name === 'Ervin Howell')
-        ? 'customRowClass'
-        : ''
-    },
     handleClick (event) {
       this.rowEventType = event.event.type
       this.rowId = event.item.id
@@ -218,10 +204,3 @@ export default defineComponent({
   },
 })
 </script>
-
-<style lang="scss">
-.customRowClass {
-  background-color: gold;
-  color: brown;
-}
-</style>

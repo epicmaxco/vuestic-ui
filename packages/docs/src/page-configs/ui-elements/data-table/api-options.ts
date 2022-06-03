@@ -3,19 +3,19 @@ import { defineManualApi } from '@/components/DocsApi/ManualApiOptions'
 export default defineManualApi({
   props: {
     columns: {
-      types: '`(string | VaDataTableColumn)[]`',
+      types: '`(string | DataTableColumn)[]`',
     },
     filterMethod: {
-      types: '`VaDataTableFilterMethod: (source: any) => boolean`',
+      types: '`DataTableFilterMethod: (source: any) => boolean`',
     },
     items: {
       types: '`VaDataTableItem[]`',
     },
     selectMode: {
-      types: '`VaDataTableSelectMode: \'single\'|\'multiple\'`',
+      types: '`DataTableSelectMode: \'single\'|\'multiple\'`',
     },
     sortingOrder: {
-      types: '`VaDataTableSortingOrder: \'asc\'|\'desc\'|null`',
+      types: '`DataTableSortingOrder: \'asc\'|\'desc\'|null`',
     },
   },
   events: {
@@ -32,7 +32,7 @@ export default defineManualApi({
       types: '`() => String`',
     },
     'update:sortingOrder': {
-      types: '`() => VaDataTableSortingOrder`',
+      types: '`() => DataTableSortingOrder`',
     },
     'row:click': {
       types: '`() => RowClickEmit`',

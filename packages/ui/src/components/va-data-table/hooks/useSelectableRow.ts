@@ -1,11 +1,11 @@
 import { StringWithAutocomplete } from '../../../types/string-with-autocomplete'
 import { Ref, computed, watch, ref } from 'vue'
-import { TableRow, VaDataTableItem, VaDataTableSelectMode } from '../types'
+import { DataTableRow, VaDataTableItem, DataTableSelectMode } from '../types'
 
 interface useSelectableProps {
   modelValue: VaDataTableItem[] | undefined // selectedItems
   selectable: boolean
-  selectMode: VaDataTableSelectMode
+  selectMode: DataTableSelectMode
   [prop: string]: unknown
 }
 export type TEmits = 'update:modelValue' | 'selectionChange'
@@ -16,7 +16,7 @@ export type TSelectionChange = {
 export type TSelectableEmits = (event: TEmits, arg: VaDataTableItem[] | TSelectionChange) => void
 
 export default function useSelectableRow (
-  paginatedRows: Ref<TableRow[]>,
+  paginatedRows: Ref<DataTableRow[]>,
   props: useSelectableProps,
   emit: TSelectableEmits,
 ) {
@@ -74,7 +74,7 @@ export default function useSelectableRow (
 
   const severalRowsSelected = computed(() => !noRowsSelected.value && !allRowsSelected.value)
 
-  function isRowSelected (row: TableRow) {
+  function isRowSelected (row: DataTableRow) {
     return selectedItemsSync.value.includes(row.source)
   }
 
@@ -93,16 +93,16 @@ export default function useSelectableRow (
   }
 
   // The one calling this function must guarantee that the row isn't already selected
-  function selectRow (row: TableRow) {
+  function selectRow (row: DataTableRow) {
     selectedItemsSync.value = [...selectedItemsSync.value, row.source]
   }
 
-  function selectOnlyRow (row: TableRow) {
+  function selectOnlyRow (row: DataTableRow) {
     selectedItemsSync.value = [row.source]
   }
 
   // The one calling this function must guarantee that the row is selected
-  function unselectRow (row: TableRow) {
+  function unselectRow (row: DataTableRow) {
     const index = selectedItemsSync.value.findIndex(selectedItem => selectedItem === row.source)
 
     selectedItemsSync.value = [
@@ -138,7 +138,7 @@ export default function useSelectableRow (
     return paginatedRows.value.slice(start, end + 1)
   }
 
-  function mergeSelection (rowsToSelect: TableRow[]) {
+  function mergeSelection (rowsToSelect: DataTableRow[]) {
     const rowsToSelectSource = rowsToSelect.map(row => row.source)
 
     if (noRowsSelected.value) {
@@ -159,7 +159,7 @@ export default function useSelectableRow (
     ])]
   }
 
-  function toggleRowSelection (row: TableRow) {
+  function toggleRowSelection (row: DataTableRow) {
     if (!props.selectable) {
       return
     }
@@ -173,7 +173,7 @@ export default function useSelectableRow (
     }
   }
 
-  function ctrlSelectRow (row: TableRow) {
+  function ctrlSelectRow (row: DataTableRow) {
     if (!props.selectable) {
       return
     }
@@ -181,7 +181,7 @@ export default function useSelectableRow (
     toggleRowSelection(row)
   }
 
-  function shiftSelectRows (row: TableRow) {
+  function shiftSelectRows (row: DataTableRow) {
     if (!props.selectable) {
       return
     }
