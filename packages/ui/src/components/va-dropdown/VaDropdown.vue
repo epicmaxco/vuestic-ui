@@ -19,11 +19,11 @@
     <template v-if="valueComputed">
       <teleport :to="attachElement" :disabled="disableAttachment">
         <div
+          ref="contentRef"
           class="va-dropdown__content-wrapper"
           @mouseover="$props.isContentHoverable && onMouseEnter()"
           @mouseout="onMouseLeave()"
           @click.stop="emitAndClose('dropdown-content-click', closeOnContentClick)"
-          ref="contentRef"
         >
           <slot />
         </div>

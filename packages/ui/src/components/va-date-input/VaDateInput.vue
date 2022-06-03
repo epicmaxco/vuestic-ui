@@ -22,7 +22,6 @@
             @click="toggleDropdown()"
             @keydown.enter.stop="showAndFocus"
             @keydown.space.stop="showAndFocus"
-            @keydown.esc.stop.prevent="hideAndFocus()"
           >
             <template
               v-for="name in filterSlots"

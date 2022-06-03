@@ -25,9 +25,6 @@
           type="checkbox"
           class="va-checkbox__input"
           :id="computedId"
-          :name="computedName"
-          :disabled="disabled"
-          :readonly="readonly"
           :indeterminate="indeterminate"
           :value="label"
           :checked="isActive"
@@ -153,7 +150,12 @@ export default defineComponent({
     )
 
     const uniqueId = computed(generateUniqueId)
+    const computedId = computed(() => props.id || uniqueId.value)
+    const computedName = computed(() => props.name || uniqueId.value)
     const inputAttributesComputed = computed(() => ({
+      name: computedName.value,
+      disabled: props.disabled,
+      readonly: props.readonly,
       tabindex: props.disabled ? -1 : 0,
       ariaLabel: props.ariaLabel,
       ariaDisabled: props.disabled,
@@ -179,8 +181,8 @@ export default defineComponent({
       onBlur,
       onFocus,
       inputAttributesComputed,
-      computedId: computed(() => props.id || uniqueId.value),
-      computedName: computed(() => props.name || uniqueId.value),
+      computedId,
+      computedName,
     }
   },
 })
