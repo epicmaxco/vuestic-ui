@@ -1,20 +1,19 @@
 <template>
-  <span class="va-breadcrumb-item">
-    <component
-      :is="tagComputed"
-      :class="classComputed"
-      :active-class="$props.activeClass"
-      :href="hrefComputed"
-      :to="$props.to"
-      :target="$props.target"
-      :replace="$props.replace"
-      :append="$props.append"
-      :exact="$props.exact"
-      :exact-active-class="$props.exactActiveClass"
-    >
-      <slot>{{ label }}</slot>
-    </component>
-  </span>
+  <component
+    :is="tagComputed"
+    class="va-breadcrumb-item"
+    :class="classComputed"
+    :active-class="$props.activeClass"
+    :href="hrefComputed"
+    :to="$props.to"
+    :target="$props.target"
+    :replace="$props.replace"
+    :append="$props.append"
+    :exact="$props.exact"
+    :exact-active-class="$props.exactActiveClass"
+  >
+    <slot>{{ label }}</slot>
+  </component>
 </template>
 
 <script lang="ts">
@@ -32,7 +31,7 @@ export default defineComponent({
   setup: (props) => {
     const { tagComputed, hrefComputed, isLinkTag } = useRouterLink(props)
     const classComputed = computed(() => ({
-      'va-breadcrumb-item__link': isLinkTag.value,
+      'va-breadcrumb-item--link': isLinkTag.value,
     }))
     return { tagComputed, hrefComputed, classComputed }
   },
@@ -46,7 +45,7 @@ export default defineComponent({
   display: var(--va-breadcrumb-item-display);
   color: var(--va-breadcrumb-item-color);
 
-  &__link {
+  &--link {
     color: inherit;
 
     &:hover {

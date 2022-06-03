@@ -19,18 +19,12 @@ export const useRouterLink = (props: ExtractPropTypes<typeof useRouterLinkProps>
   const vueRouter = computed(() => globalProperties.value?.$router)
   const vueRoute = computed(() => globalProperties.value?.$route)
 
-  const isLinkPassed = computed(() => Boolean(props.to || props.href))
-
   const tagComputed = computed(() => {
-    if (!props.disabled) {
-      if (props.href && !props.to) {
-        return 'a'
-      } else if (isNuxt.value && isLinkPassed.value) {
-        return 'nuxt-link'
-      } else if (isLinkPassed.value) {
-        return 'router-link'
-      }
-    }
+    if (props.disabled) { return props.tag }
+
+    if (props.href && !props.to) { return 'a' }
+
+    if (props.to) { return isNuxt.value ? 'nuxt-link' : 'router-link' }
 
     return props.tag
   })
