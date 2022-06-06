@@ -4,12 +4,12 @@ import { reactive } from 'vue'
 export const createNode: CreateNodeFunc = ({
   node,
   children = [],
-  parent = null,
   expandAll = false,
+  level = 0,
 }) => ({
   ...node,
-  parent,
   children,
+  level,
   hasChildren: !!children.length,
   expanded: expandAll,
   selected: false,
@@ -17,19 +17,20 @@ export const createNode: CreateNodeFunc = ({
 })
 
 const useTreeBuilder: UseTreeBuilderFunc = ({ nodes, expandAll }) => {
-  const buildTree: TreeBuilderFunc = (nodes) => {
+  const buildTree: TreeBuilderFunc = (nodes, level = 0) => {
     return nodes.map((node) => {
       if (node.children?.length) {
-        const children = buildTree(node.children)
+        const children = buildTree(node.children, level + 1)
 
         return createNode({
           node,
           children,
           expandAll: expandAll,
+          level,
         })
       }
 
-      return createNode({ node, expandAll })
+      return createNode({ node, expandAll, level })
     })
   }
 

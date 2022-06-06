@@ -8,6 +8,7 @@ export interface TreeNode {
   hasChildren?: boolean
   expanded?: boolean
   selected?: boolean
+  level?: number
   [key: string]: any
 }
 
@@ -24,7 +25,7 @@ export interface TreeViewProvide {
 export type CreateNodeProps = {
   node: TreeNode
   children?: TreeNode[]
-  parent?: number | string | null
+  level?: number
   expandAll?: boolean
 }
 
@@ -41,11 +42,12 @@ export type UseTreeBuilderFunc = (props: UseTreeBuilderProps) => {
 
 export type TreeBuilderFunc = (
   nodes: TreeNode[],
+  level?: number
 ) => TreeNode[]
 
 export type UseTreeFilterProps = {
   nodes: TreeNode[]
-  nodeKey: string,
+  nodeKey: string
   filter: string
 }
 
