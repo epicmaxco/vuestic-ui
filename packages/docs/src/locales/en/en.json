@@ -909,7 +909,8 @@
         "animated": "Sets css `transition` to table rows",
         "stickyHeader": "Enables sticky header (sticky header is achieved through CSS with `position: sticky` for `thead`)",
         "height": "Sets the height to the table and enables scrolling",
-        "rowClass": "Adds class to the table row. This could be a string or a function that returns a string which will be added to the row class. Function receives table row item (type `Record<string, any>`) and index as arguments"
+        "rowClass": "Adds class to the table row. This could be any valid type (that vue class supports) or a function that returns any valid type which will be added to the row class. Function receives table row item (type `Record<string, any>`) and index as arguments",
+        "rowStyle": "Adds style to the table row. This could be any valid type (that vue style supports) or a function that returns any valid type which will be added to the row style. Function receives table row item (type `Record<string, any>`) and index as arguments"
       },
       "events": {
         "updateSortBy": "Emits when `sort-by` changed",
@@ -3800,8 +3801,12 @@
         "text": "Use the `per-page` and `current-page` props to enable pagination.\n\nThe `va-data-table` component is paginator-agnostic. I.e. it can work with any pagination component you'd like. In the example below, it uses both standard inputs and the `va-pagination` component."
       },
       "styling": {
-        "title": "Styling",
+        "title": "Column styling",
         "text": "Should be specified on columns (see the `columns` prop below). Allows to provide different values (`text-align`, `vertical-align` and `width` css properties, custom `class` and `style`) for headers and for columns' cells."
+      },
+      "rowStyling": {
+        "title": "Row styling",
+        "text": "Row customization can be achieved by providing a CSS style or class for the row."
       },
       "stickyHeader": {
         "title": "Sticky header",
