@@ -1,10 +1,24 @@
 <template>
+  <div class="row">
+    <va-checkbox
+      class="flex mb-1 md6"
+      label="Add style"
+      v-model="isRowStyle"
+    />
+
+    <va-checkbox
+      class="flex mb-1 md6"
+      label="Add class"
+      v-model="isRowClass"
+    />
+  </div>
+
   <va-data-table
     :items="items"
     :columns="columns"
-    :selectable="true"
-    :row-class="getCustomRowClass"
-    :row-style="getCustomRowStyle"
+    selectable
+    :row-class="isRowClass && getCustomRowClass"
+    :row-style="isRowStyle && getCustomRowStyle"
   />
 </template>
 
@@ -62,6 +76,8 @@ export default defineComponent({
     return {
       items: users,
       columns,
+      isRowStyle: false,
+      isRowClass: false,
     }
   },
 
