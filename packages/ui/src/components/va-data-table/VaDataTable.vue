@@ -6,8 +6,8 @@
       { 'va-data-table--sticky': $props.stickyHeader },
       { 'va-data-table--scroll': !!$props.height },
     ]"
-    v-bind="componentAttributes"
     :style="stickyCSSVariables"
+    v-bind="componentAttributes"
     :loading="loading"
     :color="loadingColor"
   >
