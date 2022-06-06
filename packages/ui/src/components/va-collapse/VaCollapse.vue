@@ -2,17 +2,17 @@
   <div class="va-collapse" :class="computedClasses">
     <div
       class="va-collapse__header"
-      v-on="keyboardFocusListeners"
-      @click="toggle()"
-      @focus="$emit('focus')"
-      @keydown.enter="toggle()"
-      @keydown.space="toggle()"
-      :tabindex="disabled ? -1 : 0"
       role="button"
+      v-on="keyboardFocusListeners"
+      :tabindex="tabIndexComputed"
       :aria-expanded="computedModelValue"
       :id="headerIdComputed"
       :aria-controls="panelIdComputed"
-      :aria-disabled="disabled"
+      :aria-disabled="$props.disabled"
+      @focus="$emit('focus')"
+      @click="toggle"
+      @keydown.enter="toggle"
+      @keydown.space="toggle"
     >
       <slot
         name="header"
@@ -30,7 +30,6 @@
             class="va-collapse__header__icon"
             :name="icon"
             :color="textColorComputed"
-            aria-hidden="true"
           />
           <div class="va-collapse__header__text">
             {{ header }}
@@ -39,7 +38,6 @@
             class="va-collapse__header__icon"
             :name="computedModelValue ? 'expand_less' : 'expand_more'"
             :color="textColorComputed"
-            aria-hidden="true"
           />
         </div>
       </slot>
@@ -47,6 +45,7 @@
     <div
       class="va-collapse__body"
       ref="body"
+      role="region"
       :style="contentStyle"
       :id="panelIdComputed"
       :aria-labelledby="headerIdComputed"
@@ -131,6 +130,7 @@ export default defineComponent({
     const uniqueId = computed(generateUniqueId)
     const headerIdComputed = computed(() => `header-${uniqueId.value}`)
     const panelIdComputed = computed(() => `panel-${uniqueId.value}`)
+    const tabIndexComputed = computed(() => props.disabled ? -1 : 0)
 
     return {
       body,
@@ -146,6 +146,7 @@ export default defineComponent({
 
       headerIdComputed,
       panelIdComputed,
+      tabIndexComputed,
 
       computedClasses: computed(() => ({
         'va-collapse--disabled': props.disabled,

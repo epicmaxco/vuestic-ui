@@ -2,7 +2,6 @@
   <header
     ref="scrollRoot"
     role="toolbar"
-    tabindex="0"
     :class="computedClass"
     :style="computedStyle"
   >
