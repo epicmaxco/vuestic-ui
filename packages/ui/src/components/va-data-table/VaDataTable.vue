@@ -53,13 +53,15 @@
             :key="column.key"
             scope="col"
             :aria-sort="getColumnAriaSortOrder(column.key)"
+            :aria-label="column.sortable ? `sort column by ${column.label}` : undefined"
             :title="column.headerTitle"
             class="va-data-table__table-th"
             :class="getClass(column.headerClass)"
             :style="[getHeaderCSSVariables(column), getStyle(column.headerStyle)]"
             @click.exact="column.sortable && toggleSorting(column)"
+            @keydown.enter.stop="column.sortable && toggleSorting(column)"
           >
-            <div class="va-data-table__table-th-wrapper">
+            <div class="va-data-table__table-th-wrapper" :tabindex="column.sortable ? 0 : -1">
               <span v-if="`header(${column.key})` in $slots">
                 <slot :name="`header(${column.key})`" v-bind="column" />
               </span>
@@ -195,12 +197,14 @@
             v-for="column in columnsComputed"
             :key="column.key"
             :title="column.headerTitle"
+            :aria-label="allowFooterSorting && column.sortable ? `sort column by ${column.label}` : undefined"
             class="va-data-table__table-th"
             :class="getClass(column.headerClass)"
             :style="[getFooterCSSVariables(column), getStyle(column.headerStyle)]"
             @click.exact="allowFooterSorting && column.sortable && toggleSorting(column)"
+            @keydown.enter.stop="allowFooterSorting && column.sortable && toggleSorting(column)"
           >
-            <div class="va-data-table__table-th-wrapper">
+            <div class="va-data-table__table-th-wrapper" :tabindex="allowFooterSorting && column.sortable ? 0 : -1">
               <span v-if="`footer(${column.key})` in $slots">
                 <slot :name="`footer(${column.key})`" v-bind="column" />
               </span>
@@ -499,6 +503,10 @@ export default defineComponent({
       .va-data-table__table-th-wrapper {
         display: flex;
         align-items: center;
+
+        &:focus {
+          @include focus-outline;
+        }
       }
 
       .va-data-table__table-th-sorting {

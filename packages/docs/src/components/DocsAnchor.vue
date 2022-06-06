@@ -1,7 +1,7 @@
 <template>
   <a
     :id="anchor"
-    :style="{ color: colors.primary }"
+    :style="{ color: primary }"
     :href="`#${anchor}`"
   > #</a>
 </template>
@@ -17,11 +17,11 @@ export default defineComponent({
     text: { type: String as PropType<TranslationString> },
   },
   setup: (props) => {
-    const { getColors } = useColors()
+    const { getColor } = useColors()
 
     return {
       anchor: computed(() => kebabCase(props.text)),
-      colors: computed(getColors),
+      primary: computed(() => getColor('primary', undefined, true)),
     }
   },
 })

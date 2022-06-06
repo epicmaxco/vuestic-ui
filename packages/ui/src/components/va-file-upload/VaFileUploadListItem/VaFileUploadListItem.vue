@@ -22,13 +22,16 @@
         {{ file && file.size }}
       </div>
       <va-icon
+        name="clear"
+        class="va-file-upload-list-item__delete"
         role="button"
         aria-hidden="false"
         aria-label="remove file"
+        tabindex="0"
         color="danger"
-        name="clear"
-        class="va-file-upload-list-item__delete"
-        @click="removeFile()"
+        @click="removeFile"
+        @keydown.enter.stop="removeFile"
+        @keydown.space.stop="removeFile"
       />
     </div>
   </va-card>
@@ -122,6 +125,10 @@ export default defineComponent({
   &__delete {
     font-size: 1.5rem;
     cursor: pointer;
+
+    &:focus {
+      @include focus-outline;
+    }
   }
 
   &--undo {

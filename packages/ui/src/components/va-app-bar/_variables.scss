@@ -1,4 +1,4 @@
 :root {
-  --va-app-bar-position: relative;
   --va-app-bar-height: auto;
+  --va-app-bar-z-index: calc(var(--va-z-index-teleport-overlay) - 100);
 }

@@ -2,17 +2,20 @@
   <div
     class="va-slider"
     :class="sliderClass"
+    v-bind="ariaAttributesComputed"
   >
     <div
-      class="va-slider__input-wrapper"
       v-if="vertical ? $slots.append : $slots.prepend"
+      class="va-slider__input-wrapper"
+      aria-hidden="true"
     >
       <slot :name="vertical ? 'append' : 'prepend'" />
     </div>
     <span
       v-if="($slots.label || label) && !invertLabel"
-      :style="labelStyles"
       class="va-input__label"
+      :id="ariaLabelIdComputed"
+      :style="labelStyles"
     >
       <slot name="label">
         {{ label }}
@@ -21,6 +24,7 @@
     <span
       v-if="vertical ? iconAppend : iconPrepend"
       class="va-input__label"
+      aria-hidden="true"
     >
       <va-icon
         :name="vertical ? iconAppend : iconPrepend"
@@ -37,6 +41,7 @@
     >
       <div
         class="va-slider__track"
+        aria-hidden="true"
         :style="trackStyles"
       />
       <template v-if="pins">
@@ -52,6 +57,7 @@
         <div
           ref="process"
           class="va-slider__track va-slider__track--selected"
+          aria-hidden="true"
           :class="{'va-slider__track--active': isFocused}"
           :style="processedStyles"
         />
@@ -88,6 +94,7 @@
       <template v-else>
         <div
           ref="process"
+          aria-hidden="true"
           class="va-slider__track va-slider__track--selected"
           :class="{'va-slider__track--active': isFocused}"
           :style="processedStyles"
@@ -124,6 +131,7 @@
     <span
       v-if="vertical ? iconPrepend : iconAppend"
       class="va-input__label--inverse"
+      aria-hidden="true"
     >
       <va-icon
         :name="vertical ? iconPrepend : iconAppend"
@@ -154,8 +162,10 @@ import { defineComponent, watch, PropType, ref, computed, onMounted, onBeforeUnm
 
 import { getHoverColor } from '../../services/color-config/color-functions'
 import { validateSlider } from './validateSlider'
-import VaIcon from '../va-icon'
 import { useColors } from '../../composables/useColor'
+import { generateUniqueId } from '../../services/utils'
+
+import VaIcon from '../va-icon'
 
 export default defineComponent({
   name: 'VaSlider',
@@ -671,6 +681,19 @@ export default defineComponent({
       document.removeEventListener('keydown', moveWithKeys)
     }
 
+    const ariaLabelIdComputed = computed(() => `aria-label-id-${generateUniqueId()}`)
+
+    const ariaAttributesComputed = computed(() => ({
+      role: 'slider',
+      ariaValuemin: props.min,
+      ariaValuemax: props.max,
+      ariaLabelledby: ariaLabelIdComputed.value,
+      ariaOrientation: props.vertical ? 'vertical' : 'horizontal',
+      ariaDisabled: props.disabled,
+      ariaReadonly: props.readonly,
+      ariaValuenow: !Array.isArray(props.modelValue) ? props.modelValue : undefined,
+    }))
+
     onMounted(() => {
       if (validateSlider(props.modelValue, props.step, props.min, props.max)) {
         getStaticData()
@@ -718,6 +741,8 @@ export default defineComponent({
       getTrackLabel,
       currentSliderDotIndex,
       isRange: Array.isArray(props.modelValue),
+      ariaLabelIdComputed,
+      ariaAttributesComputed,
     }
   },
 })
