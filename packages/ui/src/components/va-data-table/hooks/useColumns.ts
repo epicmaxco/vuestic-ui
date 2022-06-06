@@ -1,11 +1,11 @@
 import { computed } from 'vue'
 import startCase from 'lodash/startCase.js'
 import merge from 'lodash/merge.js'
-import { DataTableColumnSource, TableColumn, VaDataTableItem } from '../types'
+import { DataTableColumnSource, TableColumn, DataTableItem } from '../types'
 
 interface useColumnsProps {
   columns: DataTableColumnSource[]
-  items: VaDataTableItem[]
+  items: DataTableItem[]
   [prop: string]: unknown
 }
 
@@ -25,14 +25,14 @@ export const buildTableColumn = (source: DataTableColumnSource, initialIndex: nu
     align: input.align || 'left',
     verticalAlign: input.verticalAlign || 'middle',
     width: input.width,
-    class: input.class,
-    headerClass: input.headerClass,
+    class: input.class || input.classes,
+    headerClass: input.headerClass || input.headerClasses,
     style: input.style,
     headerStyle: input.headerStyle,
   }
 }
 
-const buildColumnsFromItems = (items: VaDataTableItem[]) => {
+const buildColumnsFromItems = (items: DataTableItem[]) => {
   return Object.keys(merge({}, ...items)).map(buildTableColumn)
 }
 

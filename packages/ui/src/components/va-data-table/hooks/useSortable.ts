@@ -1,11 +1,11 @@
 import { computed, ref, Ref, watch } from 'vue'
-import { TableColumn, DataTableRow, VaDataTableItem, DataTableSortingOrder } from '../types'
+import { TableColumn, DataTableRow, DataTableItem, DataTableSortingOrder } from '../types'
 
 interface useSortableProps {
   sortBy: string | undefined
   sortingOrder: DataTableSortingOrder | undefined
 }
-export type TSortedArgs = { sortBy: string, sortingOrder: DataTableSortingOrder, items: VaDataTableItem[], itemsIndexes: number[] }
+export type TSortedArgs = { sortBy: string, sortingOrder: DataTableSortingOrder, items: DataTableItem[], itemsIndexes: number[] }
 export type TSortableEmits = (
   event: 'update:sortBy' | 'update:sortingOrder' | 'sorted',
   args: string | DataTableSortingOrder | TSortedArgs,

@@ -1,5 +1,5 @@
 import { Ref, ref, nextTick } from 'vue'
-import { DataTableRow, VaDataTableItem, DataTableSelectMode } from '../types'
+import { DataTableRow, DataTableItem, DataTableSelectMode } from '../types'
 import useSelectableRow, { TSelectionChange } from '../hooks/useSelectableRow'
 
 const selectableCases: boolean[] = [true, false]
@@ -15,7 +15,7 @@ const rawRows: DataTableRow[] = rowsIndexes.map(item => ({
 // base case arguments
 const paginatedRows = ref(rawRows.slice(0, 6))
 const props = {
-  modelValue: [] as VaDataTableItem[],
+  modelValue: [] as DataTableItem[],
   selectable: selectableCases[0],
   selectMode: selectModes[1],
 }
@@ -23,7 +23,7 @@ let emit = jest.fn()
 
 // helpers
 type TSources = number[] | 'all'
-const sources = (rowIndexes: TSources): VaDataTableItem[] => {
+const sources = (rowIndexes: TSources): DataTableItem[] => {
   if (rowIndexes === 'all') {
     return paginatedRows.value.map(row => row.source)
   }

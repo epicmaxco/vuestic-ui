@@ -9,7 +9,7 @@ export default defineManualApi({
       types: '`DataTableFilterMethod: (source: any) => boolean`',
     },
     items: {
-      types: '`VaDataTableItem[]`',
+      types: '`DataTableItem[]`',
     },
     selectMode: {
       types: '`DataTableSelectMode: \'single\'|\'multiple\'`',

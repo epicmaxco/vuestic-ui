@@ -1,21 +1,22 @@
 import { Ref, computed } from 'vue'
-import { TableColumn, VaDataTableItem, DataTableCell, DataTableRow } from '../types'
+import { TableColumn, DataTableItem, DataTableCell, DataTableRow } from '../types'
 
 interface useRowsProps {
-  items: VaDataTableItem[]
+  items: DataTableItem[]
   [prop: string]: unknown
 }
 
-const buildTableCell = (rowIndex: number, column: TableColumn, rowData: VaDataTableItem): DataTableCell => ({
+const buildTableCell = (rowIndex: number, column: TableColumn, rowData: DataTableItem): DataTableCell => ({
   rowData,
-  /** @deprecated */
-  source: rowData[column.key],
   rowIndex,
   column,
   value: rowData[column.key]?.toString?.() || '',
+
+  /** @deprecated */
+  source: rowData[column.key],
 })
 
-const buildTableRow = (source: VaDataTableItem, initialIndex: number, columns: TableColumn[]): DataTableRow => ({
+const buildTableRow = (source: DataTableItem, initialIndex: number, columns: TableColumn[]): DataTableRow => ({
   source,
   initialIndex,
   cells: columns.map(column => buildTableCell(initialIndex, column, source)),

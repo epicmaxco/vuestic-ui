@@ -1,5 +1,5 @@
 import { Ref, watch, computed } from 'vue'
-import { DataTableRow, DataTableFilterMethod, VaDataTableItem } from '../types'
+import { DataTableRow, DataTableFilterMethod, DataTableItem } from '../types'
 
 interface useFilterableProps {
   filter: string
@@ -7,7 +7,7 @@ interface useFilterableProps {
   [prop: string]: unknown
 }
 
-export type TFilteredArgs = { items: VaDataTableItem[], itemsIndexes: number[] }
+export type TFilteredArgs = { items: DataTableItem[], itemsIndexes: number[] }
 export type TFilterableEmits = (event: 'filtered', arg: TFilteredArgs) => void
 
 export default function useFilterable (

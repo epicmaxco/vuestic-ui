@@ -22,6 +22,12 @@ export interface DataTableColumn {
   headerClass?: DataTableColumnClass
   style?: DataTableColumnStyle
   headerStyle?: DataTableColumnStyle
+
+  /** @deprecated use `class` instead */
+  classes?: DataTableColumnClass
+
+  /** @deprecated use `headerClass` instead */
+  headerClasses?: DataTableColumnClass
 }
 
 export type DataTableColumnSource = DataTableColumn | string
@@ -46,21 +52,22 @@ export interface TableColumn {
   headerStyle?: DataTableColumnStyle
 }
 
-export type VaDataTableItem = Record<string, any>
+export type DataTableItem = Record<string, any>
 
 // the inner representation of table cells
 export interface DataTableCell {
-  /** @deprecated */
-  source?: any;
-  rowData: VaDataTableItem;
+  rowData: DataTableItem;
   column: TableColumn
   value: string
   rowIndex: number
+
+  /** @deprecated */
+  source?: any;
 }
 
 // the inner representation of table rows
 export interface DataTableRow {
-  source: VaDataTableItem
+  source: DataTableItem
   initialIndex: number
   cells: DataTableCell[]
 }
@@ -71,6 +78,6 @@ export type DataTableSortingOrder = StringWithAutocomplete<'asc' | 'desc'> | nul
 
 export type DataTableSelectMode = StringWithAutocomplete<'single' | 'multiple'>
 
-export type DataTableRowClass = unknown | ((item: VaDataTableItem, index: number) => unknown)
+export type DataTableRowClass = unknown | ((item: DataTableItem, index: number) => unknown)
 
-export type DataTableRowStyle = unknown | ((item: VaDataTableItem, index: number) => unknown)
+export type DataTableRowStyle = unknown | ((item: DataTableItem, index: number) => unknown)
