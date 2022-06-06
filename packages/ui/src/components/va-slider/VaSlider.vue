@@ -58,7 +58,7 @@
         <div
           v-for="order in orders"
           :key="'dot' + order"
-          :ref="'dot' + order"
+          :ref="(el) => setItemRef(el, order)"
           class="va-slider__handler"
           :class="dotClass[order]"
           :style="dottedStyles[order]"
@@ -154,8 +154,10 @@ import { defineComponent, watch, PropType, ref, computed, onMounted, onBeforeUnm
 
 import { getHoverColor } from '../../services/color-config/color-functions'
 import { validateSlider } from './validateSlider'
-import VaIcon from '../va-icon'
 import { useColors } from '../../composables/useColor'
+import { useArrayRefs } from '../../composables/useArrayRefs'
+
+import VaIcon from '../va-icon'
 
 export default defineComponent({
   name: 'VaSlider',
@@ -185,10 +187,9 @@ export default defineComponent({
   setup (props, { emit }) {
     const { getColor } = useColors()
 
-    const dot = ref<HTMLElement>()
-    const dot0 = ref<HTMLElement>()
-    const dot1 = ref<HTMLElement>()
     const sliderContainer = ref<HTMLElement>()
+    const dot = ref<HTMLElement>()
+    const { setItemRef, itemRefs: dots } = useArrayRefs()
 
     const isFocused = ref(false)
     const flag = ref(false)
@@ -358,7 +359,7 @@ export default defineComponent({
       }
 
       Array.isArray(props.modelValue)
-        ? (index === 0 ? dot0 : dot1).value?.focus()
+        ? dots.value[index]?.focus()
         : dot.value?.focus()
 
       flag.value = true
@@ -393,7 +394,7 @@ export default defineComponent({
 
     const moveWithKeys = (event: KeyboardEvent) => {
       // don't do anything if a dot isn't focused or if the slider's disabled or readonly
-      if (![dot0.value, dot1.value, dot.value].includes(document.activeElement as HTMLElement)) {
+      if (![dots.value[0], dots.value[1], dot.value].includes(document.activeElement as HTMLElement)) {
         return
       }
       if (props.disabled || props.readonly) {
@@ -458,22 +459,22 @@ export default defineComponent({
       const isActive = (el?: HTMLElement) => el === document.activeElement
 
       if (props.range && Array.isArray(val.value)) {
-        const isVerticalDot0More = (event: KeyboardEvent) => props.vertical && isActive(dot0.value) && event.key === 'ArrowUp'
-        const isVerticalDot0Less = (event: KeyboardEvent) => props.vertical && isActive(dot0.value) && event.key === 'ArrowDown'
-        const isVerticalDot1More = (event: KeyboardEvent) => props.vertical && isActive(dot1.value) && event.key === 'ArrowUp'
-        const isVerticalDot1Less = (event: KeyboardEvent) => props.vertical && isActive(dot1.value) && event.key === 'ArrowDown'
-        const isHorizontalDot0Less = (event: KeyboardEvent) => !props.vertical && isActive(dot0.value) && event.key === 'ArrowLeft'
-        const isHorizontalDot0More = (event: KeyboardEvent) => !props.vertical && isActive(dot0.value) && event.key === 'ArrowRight'
-        const isHorizontalDot1Less = (event: KeyboardEvent) => !props.vertical && isActive(dot1.value) && event.key === 'ArrowLeft'
-        const isHorizontalDot1More = (event: KeyboardEvent) => !props.vertical && isActive(dot1.value) && event.key === 'ArrowRight'
+        const isVerticalDot0More = (event: KeyboardEvent) => props.vertical && isActive(dots.value[0]) && event.key === 'ArrowUp'
+        const isVerticalDot0Less = (event: KeyboardEvent) => props.vertical && isActive(dots.value[0]) && event.key === 'ArrowDown'
+        const isVerticalDot1More = (event: KeyboardEvent) => props.vertical && isActive(dots.value[1]) && event.key === 'ArrowUp'
+        const isVerticalDot1Less = (event: KeyboardEvent) => props.vertical && isActive(dots.value[1]) && event.key === 'ArrowDown'
+        const isHorizontalDot0Less = (event: KeyboardEvent) => !props.vertical && isActive(dots.value[0]) && event.key === 'ArrowLeft'
+        const isHorizontalDot0More = (event: KeyboardEvent) => !props.vertical && isActive(dots.value[0]) && event.key === 'ArrowRight'
+        const isHorizontalDot1Less = (event: KeyboardEvent) => !props.vertical && isActive(dots.value[1]) && event.key === 'ArrowLeft'
+        const isHorizontalDot1More = (event: KeyboardEvent) => !props.vertical && isActive(dots.value[1]) && event.key === 'ArrowRight'
 
         switch (true) {
           case (isVerticalDot1Less(event) || isHorizontalDot1Less(event)) && moreToLess.value && val.value[0] !== props.min:
-            dot0.value?.focus()
+            dots.value[0]?.focus()
             moveDot(true, 0, 0)
             break
           case (isVerticalDot0More(event) || isHorizontalDot0More(event)) && lessToMore.value && val.value[1] !== props.max:
-            dot1.value?.focus()
+            dots.value[1]?.focus()
             moveDot(true, 1, 1)
             break
           case (isVerticalDot0Less(event) || isHorizontalDot0Less(event)) && val.value[0] !== props.min:
@@ -543,12 +544,12 @@ export default defineComponent({
       return ((props.step * multiple.value) * index + (props.min * multiple.value)) / multiple.value
     }
 
-    const getTrackLabel = (val: number | number[], order?: number) => {
+    const getTrackLabel = (val: number, order?: number) => {
       if (!props.trackLabel) { return val }
 
-      if (typeof props.trackLabel === 'function') {
-        return props.trackLabel(val, order)
-      }
+      return typeof props.trackLabel === 'function'
+        ? props.trackLabel(val, order)
+        : props.trackLabel
     }
 
     const setCurrentValue = (newValue: number) => {
@@ -581,7 +582,9 @@ export default defineComponent({
       const valueRange = valueLimit.value
 
       // set focus on current thumb
-      const dotToFocus = Array.isArray(props.modelValue) ? (currentSliderDotIndex.value ? dot1.value : dot0.value) : dot.value
+      const dotToFocus = Array.isArray(props.modelValue)
+        ? dots.value[currentSliderDotIndex.value]
+        : dot.value
 
       dotToFocus?.focus()
 
@@ -696,8 +699,8 @@ export default defineComponent({
     return {
       getColor,
       dot,
-      dot0,
-      dot1,
+      dots,
+      setItemRef,
       orders,
       sliderContainer,
       val,
