@@ -225,7 +225,7 @@ export default defineComponent({
       'aria-invalid': !!computedErrorMessages.value.length,
       'aria-errormessage': typeof computedErrorMessages.value === 'string'
         ? computedErrorMessages.value
-        : computedErrorMessages.value.reduce((acc, el) => `${acc}${acc ? ',' : ''} ${el}`, ''),
+        : computedErrorMessages.value.join(', '),
       tabindex: tabIndexComputed.value,
       class: props.inputClass,
       ...omit(attrs, ['class', 'style']),

@@ -12,7 +12,6 @@
       @click="onAnchorClick()"
       @mouseenter="onMouseEnter()"
       @mouseleave="onMouseLeave()"
-      @keydown.esc.stop="onAnchorClick()"
     >
       <slot name="anchor" />
     </div>
