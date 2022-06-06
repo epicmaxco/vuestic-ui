@@ -137,11 +137,18 @@ export default defineComponent({
   setup (props) {
     const { getColor } = useColors()
 
-    const bemProps = computed(() => pick(props, ['outline', 'bordered', 'success', 'focused', 'error', 'disabled', 'readonly']))
-    const { computedBemClassesArray: wrapperClass } = useBem('va-input', {
-      ...bemProps.value,
-      ...{ labeled: !!props.label, solid: !props.outline && !props.bordered },
-    }, true)
+    const computedProps = computed(() => {
+      console.log(computedProps)
+      return pick(props, ['outline', 'bordered', 'success', 'focused', 'error', 'disabled', 'readonly'])
+    })
+    const bemProps = computed(() => ({
+      ...computedProps.value,
+      labeled: !!props.label,
+      solid: !props.outline && !props.bordered,
+    }))
+    console.log(computedProps, bemProps)
+
+    const wrapperClass = useBem('va-input', bemProps)
 
     const colorComputed = computed(() => getColor(props.color))
 
@@ -152,7 +159,7 @@ export default defineComponent({
     ))
 
     return {
-      wrapperClass,
+      wrapperClass: wrapperClass.asArray,
 
       colorComputed,
       borderColorComputed: computed(() => props.focused ? colorComputed.value : undefined),

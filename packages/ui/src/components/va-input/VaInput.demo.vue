@@ -45,7 +45,7 @@
       <va-input
         v-model="text"
         label="Country"
-        success
+        :success="disabled"
       />
       <va-input
         v-model="text"
@@ -603,6 +603,7 @@ export default {
   data () {
     return {
       empty: '',
+      disabled: true,
       text: 'Vuestic\n Line 2\n Line 3\n Line 4\n Line 5',
       phone: '33 310-86-24',
       messages: ['Required field'],

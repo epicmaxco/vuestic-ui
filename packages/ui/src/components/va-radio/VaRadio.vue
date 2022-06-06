@@ -64,7 +64,7 @@ export default defineComponent({
 
     const isActive = computed(() => props.modelValue === props.option)
 
-    const { computedClasses } = useForm(props, 'va-radio')
+    const { computedClasses } = useForm('va-radio', props)
 
     const computedClass = computed(() => ({
       'va-radio--left-label': props.leftLabel,

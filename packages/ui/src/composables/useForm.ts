@@ -1,4 +1,4 @@
-import { computed, ExtractPropTypes, PropType } from 'vue'
+import { computed, ExtractPropTypes, PropType, Ref } from 'vue'
 import { useBem } from './useBem'
 import pick from 'lodash/pick.js'
 
@@ -14,21 +14,15 @@ export const useFormPropsWithId = {
 }
 
 /**
- * Create `readonly` and `disabled` BEM modifiers.
- * @param props component props
- * @param prefix string with which classes starts (and ends with form state BEM modifier)
- * @returns computed Object/Array with classes which starts with `prefix` and ends with form state BEM modifier
+ * @description creates `readonly` and `disabled` BEM modifiers.
+ * @param prefix string that classes start with (base BEM class).
+ * @param props component props.
+ * @returns computed classes object starting with `prefix` and ending with form state BEM modifier.
  */
-export const useForm = <Prefix extends string>(
+export const useForm = (
+  prefix = '',
   props: ExtractPropTypes<typeof useFormProps>,
-  prefix?: Prefix,
 ) => {
-  const {
-    computedBemClassesObject: computedClasses,
-    computedBemClassesArray: computedClassesArray,
-  } = useBem(
-    prefix, computed(() => pick(props, ['disabled', 'readonly'])),
-  )
-
-  return { computedClasses, computedClassesArray }
+  const computedClasses = useBem(prefix, computed(() => pick(props, ['disabled', 'readonly'])))
+  return { computedClasses: computedClasses }
 }

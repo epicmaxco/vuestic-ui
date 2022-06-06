@@ -73,7 +73,7 @@ export default defineComponent({
   emits: ['update:modelValue'],
   components: { VaRatingItem, VaRatingItemNumberButton },
   setup (props) {
-    const { computedClasses: rootClass } = useForm(props, 'va-rating')
+    const { computedClasses: rootClass } = useForm('va-rating', props)
     const rating = useRating(props)
     const isInteractionsEnabled = computed(() => !props.disabled && !props.readonly)
 
