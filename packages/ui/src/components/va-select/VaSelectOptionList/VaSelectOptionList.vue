@@ -22,10 +22,12 @@
       <div
         v-for="option in options"
         :key="$props.getTrackBy(option)"
+        role="option"
+        :aria-selected="!!$props.getSelectedState(option)"
         :ref="setItemRef(option)"
         :class="getOptionClass(option)"
         :style="getOptionStyle(option)"
-        @click.stop="selectOption(option)"
+        @click="selectOption(option)"
         @mouseover="updateHoveredOption(option)"
       >
         <va-icon
@@ -58,7 +60,7 @@ import { defineComponent, PropType, watch, ref, Ref, computed, ComponentPublicIn
 
 import { getHoverColor } from '../../../services/color-config/color-functions'
 import { useColors, useColorProps } from '../../../composables/useColor'
-import { SelectableOption } from '../../..//composables/useSelectableList'
+import { SelectableOption } from '../../../composables/useSelectableList'
 import VaIcon from '../../va-icon/'
 import { scrollToElement } from '../../../utils/scroll-to-element'
 

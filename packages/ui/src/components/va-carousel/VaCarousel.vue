@@ -14,13 +14,14 @@
         v-if="doShowPrevButton"
         class="va-carousel__arrow va-carousel__arrow--left"
         @click="prev"
+        @keydown.enter.stop="prev"
       >
         <slot name="prev-arrow">
           <va-hover #default="{ hover }" stateful>
             <va-button
               :color="hover ? computedHoverColor : computedColor"
               :icon="vertical ? 'expand_less' : 'chevron_left'"
-              aria-label="previous slide"
+              aria-label="go previous slide"
             />
           </va-hover>
         </slot>
@@ -29,13 +30,14 @@
         v-if="doShowNextButton"
         class="va-carousel__arrow va-carousel__arrow--right"
         @click="next"
+        @keydown.enter.stop="next"
       >
         <slot name="next-arrow">
           <va-hover #default="{ hover }" stateful>
             <va-button
               :color="hover ? computedHoverColor : computedColor"
               :icon="vertical ? 'expand_more' : 'chevron_right'"
-              aria-label="next slide"
+              aria-label="go next slide"
             />
           </va-hover>
         </slot>
@@ -52,6 +54,7 @@
         <slot name="indicator" v-bind="{ item, index, goTo, isActive: isCurrentSlide(index) }">
           <va-hover #default="{ hover }" stateful>
             <va-button
+              :aria-label="`go slide #${index + 1}`"
               round
               :color="isCurrentSlide(index) ? computedActiveColor : (hover ? computedHoverColor : computedColor)"
             >

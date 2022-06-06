@@ -42,25 +42,43 @@
             v-bind="{ ...slotScope, dropdownToggle, showDropdown, hideDropdown, isOpen: isOpenSync, focus }"
           />
           <va-icon
-            :id="componentIconId"
             v-if="$props.leftIcon"
+            role="button"
+            aria-label="toggle dropdown"
+            aria-hidden="false"
+            class="va-dropdown__icons__reset"
+            :tabindex="iconsTabIndexComputed"
+            :id="componentIconId"
             v-bind="iconProps"
-            @click="dropdownToggle()"
+            @click="dropdownToggle"
+            @keydown.enter.stop="dropdownToggle"
           />
         </template>
 
         <template #icon>
           <va-icon
-            :id="clearIconId"
             v-if="canBeCleared"
+            role="button"
+            aria-label="reset"
+            aria-hidden="false"
+            class="va-dropdown__icons__reset"
+            :tabindex="iconsTabIndexComputed"
+            :id="clearIconId"
             v-bind="clearIconProps"
-            @click="reset()"
+            @click="reset"
+            @keydown.enter.stop="reset"
           />
           <va-icon
-            :id="componentIconId"
             v-else-if="!$props.leftIcon"
+            role="button"
+            aria-label="toggle dropdown"
+            aria-hidden="false"
+            class="va-dropdown__icons__reset"
+            :tabindex="iconsTabIndexComputed"
+            :id="componentIconId"
             v-bind="iconProps"
-            @click="dropdownToggle()"
+            @click="dropdownToggle"
+            @keydown.enter.stop="dropdownToggle"
           />
         </template>
       </va-input>
@@ -230,8 +248,12 @@ export default defineComponent({
       },
     }))
 
+    const iconsTabIndexComputed = computed(() => props.disabled || props.readonly ? -1 : 0)
     const computedInputAttrs = computed(() => ({
-      ariaLabel: props.label,
+      ariaLabel: props.label || 'selected time',
+      ariaDisabled: props.disabled,
+      ariaReadonly: props.readonly,
+      tabindex: props.disabled ? -1 : 0,
       ...omit(attrs, ['class', 'style']),
     }))
 
@@ -303,6 +325,7 @@ export default defineComponent({
       computedInputProps,
       computedInputAttrs,
       computedInputListeners,
+      iconsTabIndexComputed,
       isOpenSync,
       modelValueSync,
       valueText,
