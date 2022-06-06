@@ -32,8 +32,8 @@
       class="va-slider__container"
       ref="sliderContainer"
       @mousedown="clickOnContainer"
-      @touchstart="clickOnContainer"
       @mouseup="hasMouseDown = false"
+      @touchstart="clickOnContainer"
     >
       <div
         class="va-slider__track"
@@ -150,7 +150,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, watch, PropType, ref, computed, onMounted, onBeforeUnmount, CSSProperties } from 'vue'
+import { defineComponent, watch, PropType, ref, computed, onMounted, onBeforeUnmount, CSSProperties, shallowRef } from 'vue'
 
 import { getHoverColor } from '../../services/color-config/color-functions'
 import { validateSlider } from './validateSlider'
@@ -187,8 +187,8 @@ export default defineComponent({
   setup (props, { emit }) {
     const { getColor } = useColors()
 
-    const sliderContainer = ref<HTMLElement>()
-    const dot = ref<HTMLElement>()
+    const sliderContainer = shallowRef<HTMLElement>()
+    const dot = shallowRef<HTMLElement>()
     const { setItemRef, itemRefs: dots } = useArrayRefs()
 
     const isFocused = ref(false)
@@ -370,6 +370,8 @@ export default defineComponent({
     const moving = (e: TouchEvent | MouseEvent) => {
       if (!hasMouseDown.value || !flag.value || props.disabled || props.readonly) { return }
 
+      e.preventDefault()
+
       if ('touches' in e) {
         setValueOnPos(getPos(e.touches[0]))
       } else {
@@ -381,8 +383,7 @@ export default defineComponent({
       if (!props.disabled && !props.readonly) {
         if (flag.value) {
           emit('drag-end')
-
-          emit('change', /* props.range ? Array.from(props.modelValue) : */ props.modelValue)
+          emit('change', props.modelValue)
         } else {
           return false
         }
@@ -656,7 +657,7 @@ export default defineComponent({
 
     const bindEvents = () => {
       document.addEventListener('mousemove', moving)
-      document.addEventListener('touchmove', moving)
+      document.addEventListener('touchmove', moving, { passive: false })
       document.addEventListener('mouseup', moveEnd)
       document.addEventListener('mouseleave', moveEnd)
       document.addEventListener('touchcancel', moveEnd)
@@ -711,7 +712,6 @@ export default defineComponent({
       getPinStyles,
       dottedStyles,
       clickOnContainer,
-      moveStart,
       hasMouseDown,
       trackStyles,
       pinsCol,
