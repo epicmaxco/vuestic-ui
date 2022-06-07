@@ -12,6 +12,7 @@ import { defineComponent, computed, PropType } from 'vue'
 import { getGradientBackground } from '../../services/color-config/color-functions'
 import { useColors } from '../../composables/useColor'
 import { useTextColor } from '../../composables/useTextColor'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 import { VaConfig } from '../va-config'
 
@@ -19,6 +20,7 @@ export default defineComponent({
   name: 'VaButtonGroup',
   components: { VaConfig },
   props: {
+    ...useComponentPresetProp,
     color: { type: String, default: 'primary' },
     gradient: { type: Boolean, default: undefined },
     textColor: { type: String, default: undefined },

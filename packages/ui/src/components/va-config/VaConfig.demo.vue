@@ -1,18 +1,21 @@
 <template>
   <VbDemo>
     <VbCard title="Partial rewriting global config">
-      <div>
+      <p>
         Should change global config button color on change and refresh.
-      </div>
+      </p>
+      <br>
       <button @click="overrideButtonsRound()">
         Switch button round prop with updater function
       </button>
+      <br>
       <br>
       <button @click="changeButtonsRound()">
         Switch button round prop with updater object
       </button>
       <br>
-      <va-button>Vuestic-ui button</va-button>
+      <br>
+      <va-button class="mb-2">Vuestic-ui button</va-button>
       Current value: {{ buttonRoundConfigValue }}
     </VbCard>
 
@@ -20,14 +23,14 @@
       This button should be primary color, not outlined and rounded.
       <br />
       <va-button color="primary" :flat="false" round :outline="false">
-        Button with props
+        A
       </va-button>
     </VbCard>
 
     <VbCard title="Global config -> componentsAll">
       <div class="center">
-        <va-rating icon="heart" empty-icon="heart_empty" stateful></va-rating>
         <va-button @click="setComponentsAllColor()">Should set dark red color on click</va-button>
+        <va-rating icon="heart" empty-icon="heart_empty" stateful></va-rating>
         <va-chip>Must change color</va-chip>
         <va-chip color="#e815e1">Must stay purple</va-chip>
         <va-button @click="resetComponentsAllColor()">Reset componentsAll</va-button>
@@ -35,37 +38,59 @@
     </VbCard>
 
     <VbCard title="Components config">
+      <div class="addScroll">
+        <p>Current Components config:</p>
+        <hr />
+        <pre>{{ getGlobalConfig().components }}</pre>
 
-      Current Components config: <br />
-      {{ getGlobalConfig().components }}
+        <p class="mt-2">Current ComponentsAll:</p>
+        <hr />
+        <pre>{{ getGlobalConfig().componentsAll }}</pre>
+      </div>
     </VbCard>
 
     <VbCard title="Local config (VaConfig)">
       <va-config :components="{ VaButton: { color: dynamicConfig, flat: true, outline: false, rounded: false }}">
-        <p>
-          Config:{ VaButton: { color: '<span :style="{ background: dynamicConfig }">{{ dynamicConfig }}</span>', flat: true, outline: false, rounded: false }}
-        </p>
-        <input v-model="dynamicConfig" />
         <va-button>
           Button inside va-config
         </va-button>
-        <va-button>
-          Button inside va-config
-        </va-button>
+        <va-color-input v-model="dynamicConfig" />
+        <hr />
+        <p>Config:</p>
+        <p>{ VaButton: { color: '<span :style="{ background: dynamicConfig }">{{ dynamicConfig }}</span>', flat: true, outline: false, rounded: false }}</p>
       </va-config>
       <br />
       <br />
       <va-config :components="{ VaButton: { color: '#f34240', flat: false }}">
-        <p>
-          Config:{ VaButton: { color: '<span style="background: #f34240;">color</span>', flat: true }}
-        </p>
         <va-button>
           Button inside va-config
         </va-button>
-        <va-button>
-          Button inside va-config
-        </va-button>
+        <hr />
+        <p>Config:</p>
+        <p>{ VaButton: { color: '<span style="background: #f34240;">color</span>', flat: true }}</p>
       </va-config>
+    </VbCard>
+
+    <VbCard title="Component preset">
+      <va-button :preset="buttonPresetName" @click="toggleButtonPreset()">
+        {{ presetActionDescription('button') }}
+      </va-button>
+      <va-card preset="highlightTop" class="mt-2">
+        <va-card-content>
+          <p>Props applied to this button from preset:</p>
+          <pre>{{ showButtonPreset }}</pre>
+        </va-card-content>
+      </va-card>
+
+      <va-button @click="togglePresetsConfig()" class="mt-3">
+        {{ presetActionDescription('config') }}
+      </va-button>
+      <va-card preset="highlightTop" class="mt-2">
+        <va-card-content>
+          <p>Current Components presets:</p>
+          <pre>{{ getComponentsPresets }}</pre>
+        </va-card-content>
+      </va-card>
     </VbCard>
   </VbDemo>
 </template>
@@ -78,6 +103,9 @@ import { VaButton } from '../va-button'
 import { VaRating } from '../va-rating/'
 import { VaChip } from '../va-chip'
 import { VaConfig } from './'
+import { VaCard } from '../va-card'
+import { VaCardContent } from '../va-card/VaCardContent'
+import { VaColorInput } from '../va-color-input/'
 
 export default {
   components: {
@@ -85,6 +113,9 @@ export default {
     VaButton,
     VaConfig,
     VaChip,
+    VaCard,
+    VaCardContent,
+    VaColorInput,
   },
   data () {
     return {
@@ -99,12 +130,30 @@ export default {
       },
       symbol: Symbol(''),
       dynamicConfig: '#ff00ff',
+      buttonPresetName: 'victory',
+      hasPresetsInConfig: true,
     }
   },
   setup () {
     const { setGlobalConfig, getGlobalConfig, mergeGlobalConfig } = useGlobalConfig()
 
     const { getColor } = useColors()
+
+    const cardPreset = {
+      highlightTop: {
+        square: true,
+        outlined: true,
+        stripe: true,
+      },
+    }
+    const buttonPreset = {
+      victory: {
+        color: 'success',
+        rounded: false,
+        outline: false,
+        gradient: true,
+      },
+    }
 
     setGlobalConfig(config => ({
       ...config,
@@ -121,12 +170,17 @@ export default {
         VaButton: {
           ...config.components.VaButton,
           size: 'small',
-          icon: 'room',
+          // icon: 'room',
           outline: true,
         },
         VaIcon: {
           ...config.components.VaIcon,
         },
+      },
+      componentsPresets: {
+        ...config.componentsPresets,
+        VaCard: cardPreset,
+        VaButton: buttonPreset,
       },
     }))
 
@@ -142,6 +196,8 @@ export default {
       mergeGlobalConfig,
       getColor,
       buttonRoundConfigValue,
+      cardPreset,
+      buttonPreset,
     }
   },
   computed: {
@@ -152,6 +208,12 @@ export default {
       set (value) {
         this.dynamicContextConfig.ConfigUsageTest.color = value ? 'red' : 'orange'
       },
+    },
+    getComponentsPresets () {
+      return this.getGlobalConfig().componentsPresets
+    },
+    showButtonPreset () {
+      return this.getComponentsPresets?.VaButton?.[this.buttonPresetName] || 'No preset currently'
     },
   },
   methods: {
@@ -177,8 +239,7 @@ export default {
       })
     },
     setComponentsAllColor () {
-      this.setGlobalConfig({
-        ...this.getGlobalConfig(),
+      this.mergeGlobalConfig({
         componentsAll: {
           color: '#bd1313',
         },
@@ -189,6 +250,27 @@ export default {
         ...this.getGlobalConfig(),
         componentsAll: {},
       })
+    },
+    toggleButtonPreset () {
+      this.buttonPresetName = this.buttonPresetName ? '' : 'victory'
+    },
+    presetActionDescription (action) {
+      const actionList = { button: 'buttonPresetName', config: 'hasPresetsInConfig' }
+      const description = this?.[actionList[action]] ? 'Remove preset from' : 'Add preset to'
+
+      return `${description} ${action}`
+    },
+    togglePresetsConfig () {
+      const presetsConfig = this.hasPresetsInConfig
+        ? {}
+        : { VaButton: this.buttonPreset, VaCard: this.cardPreset }
+
+      this.setGlobalConfig({
+        ...this.getGlobalConfig(),
+        ...{ componentsPresets: presetsConfig },
+      })
+
+      this.hasPresetsInConfig = !this.hasPresetsInConfig
     },
     overrideConfig () {
       const newConfig = {
@@ -221,5 +303,10 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.addScroll {
+  overflow-y: auto;
+  max-height: 400px;
 }
 </style>

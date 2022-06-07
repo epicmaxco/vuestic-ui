@@ -18,10 +18,12 @@ import { getGradientBackground } from '../../services/color-config/color-functio
 import { useColors } from '../../services/color-config/color-config'
 import { useTextColor } from '../../composables/useTextColor'
 import { useSidebar } from './hooks/useSidebar'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 export default defineComponent({
   name: 'VaSidebar',
   props: {
+    ...useComponentPresetProp,
     color: { type: String, default: 'background' },
     textColor: { type: String },
     gradient: { type: Boolean, default: false },

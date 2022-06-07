@@ -92,6 +92,7 @@ import { useEmitProxy } from '../../composables/useEmitProxy'
 import { useFocus, useFocusEmits } from '../../composables/useFocus'
 import { useStatefulProps, useStateful } from '../../composables/useStateful'
 import { useColors } from '../../composables/useColor'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 import { safeCSSLength } from '../../utils/css-utils'
 
 import VaInputWrapper from '../va-input/components/VaInputWrapper.vue'
@@ -117,6 +118,7 @@ export default defineComponent({
   props: {
     ...useFormProps,
     ...useStatefulProps,
+    ...useComponentPresetProp,
     // input
     modelValue: { type: [String, Number] as PropType<string | number>, default: 0 },
     manualInput: { type: Boolean, default: false },

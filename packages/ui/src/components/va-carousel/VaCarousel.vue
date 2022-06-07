@@ -98,6 +98,7 @@ import { useCarousel } from './hooks/useCarousel'
 import { useCarouselAnimation } from './hooks/useCarouselAnimation'
 import { useCarouselColor } from './hooks/useCarouselColors'
 import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 import { VaImage } from '../va-image'
 import { VaButton } from '../va-button'
 import { VaHover } from '../va-hover'
@@ -109,6 +110,7 @@ export default defineComponent({
 
   props: {
     ...useStatefulProps,
+    ...useComponentPresetProp,
 
     modelValue: { type: Number, default: 0 },
     items: { type: Array as PropType<any[]>, required: true },

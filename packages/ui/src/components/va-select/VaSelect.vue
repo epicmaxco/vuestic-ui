@@ -169,6 +169,7 @@ import { VaIcon } from '../va-icon'
 import { VaInput } from '../va-input'
 import { VaSelectOptionList } from './VaSelectOptionList'
 import { useFocus } from '../../composables/useFocus'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 import { SelectDropdownIcon, SelectOption, Placement } from './types'
 
 export default defineComponent({
@@ -198,6 +199,7 @@ export default defineComponent({
     ...useMaxSelectionsProps,
     ...useClearableProps,
     ...useFormProps,
+    ...useComponentPresetProp,
 
     modelValue: {
       type: [String, Number, Array, Object] as PropType<SelectOption | SelectOption[]>,

@@ -80,6 +80,7 @@ import { useStateful, useStatefulProps } from '../../composables/useStateful'
 import { useColors } from '../../composables/useColor'
 import { TabsViewKey, TabComponent } from './types'
 import { useResizeObserver } from '../../composables/useResizeObserver'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 const getClientWidth = (element: HTMLElement | null | undefined): number => element?.clientWidth || 0
 
@@ -90,6 +91,7 @@ export default defineComponent({
 
   props: {
     ...useStatefulProps,
+    ...useComponentPresetProp,
     modelValue: { type: [String, Number], default: null },
     left: { type: Boolean, default: true },
     right: { type: Boolean, default: false },

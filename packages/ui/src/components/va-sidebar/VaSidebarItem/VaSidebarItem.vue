@@ -24,6 +24,7 @@ import { useHover } from '../../../composables/useHover'
 import { useRouterLink, useRouterLinkProps } from '../../../composables/useRouterLink'
 import { useTextColor } from '../../../composables/useTextColor'
 import { useSidebarItem } from '../hooks/useSidebar'
+import { useComponentPresetProp } from '../../../composables/useComponentPreset'
 
 export default defineComponent({
   name: 'VaSidebarItem',
@@ -32,6 +33,7 @@ export default defineComponent({
 
   props: {
     ...useRouterLinkProps,
+    ...useComponentPresetProp,
     active: { type: Boolean, default: false },
     textColor: { type: String, default: undefined },
     activeColor: { type: String, default: 'primary' },

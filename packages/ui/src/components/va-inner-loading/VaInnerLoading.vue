@@ -19,6 +19,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 import { useLoadingProps } from '../../composables/useLoading'
 import { VaIcon } from '../va-icon'
@@ -28,6 +29,7 @@ export default defineComponent({
   components: { VaIcon },
   props: {
     ...useLoadingProps,
+    ...useComponentPresetProp,
     color: { type: String as PropType<string>, default: '' },
     icon: { type: String as PropType<string>, default: 'loop' },
     size: { type: Number as PropType<number>, default: 30 },

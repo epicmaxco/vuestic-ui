@@ -18,6 +18,7 @@
 import { defineComponent, computed } from 'vue'
 
 import { useColors } from '../../composables/useColor'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
 
 export default defineComponent({
@@ -25,6 +26,7 @@ export default defineComponent({
   emits: useStatefulEmits,
   props: {
     ...useStatefulProps,
+    ...useComponentPresetProp,
     modelValue: { type: Boolean, default: null },
     color: { type: String, default: '' },
     square: { type: Boolean, default: false },

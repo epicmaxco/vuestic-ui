@@ -80,6 +80,7 @@ import { __DEV__ } from '../../utils/global-utils'
 import { useColors } from '../../composables/useColor'
 import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
 import { useTextColor } from '../../composables/useTextColor'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 import { VaButtonGroup } from '../va-button-group'
 import { VaButton } from '../va-button'
@@ -92,6 +93,7 @@ export default defineComponent({
   emits: useStatefulEmits,
   props: {
     ...useStatefulProps,
+    ...useComponentPresetProp,
     modelValue: { type: Number, default: 1 },
     visiblePages: { type: Number, default: 0 },
     pages: { type: Number, default: 0 },

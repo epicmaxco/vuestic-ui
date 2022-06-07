@@ -55,6 +55,7 @@ import { VaIcon } from '../../va-icon'
 import { useRouterLink, useRouterLinkProps } from '../../../composables/useRouterLink'
 import useKeyboardOnlyFocus from '../../../composables/useKeyboardOnlyFocus'
 import { useColor } from '../../../composables/useColor'
+import { useComponentPresetProp } from '../../../composables/useComponentPreset'
 import { TabsViewKey, TabsView, TabComponent } from '../types'
 
 export default defineComponent({
@@ -64,6 +65,7 @@ export default defineComponent({
 
   props: {
     ...useRouterLinkProps,
+    ...useComponentPresetProp,
     selected: { type: Boolean, default: false },
     color: { type: String, default: '' },
     icon: { type: String, default: '' },

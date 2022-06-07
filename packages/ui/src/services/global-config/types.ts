@@ -1,5 +1,5 @@
 import type { ColorConfig } from '../color-config/color-config'
-import type { ComponentConfig, Props } from '../component-config/component-config'
+import type { ComponentConfig, ComponentPreset, Props } from '../component-config/component-config'
 import type { IconConfig } from '../icon-config/types'
 
 export type GlobalConfig = {
@@ -7,6 +7,7 @@ export type GlobalConfig = {
   icons?: IconConfig,
   components?: ComponentConfig
   componentsAll?: Props
+  componentsPresets?: ComponentPreset,
 }
 
 export type SizeConfig = {

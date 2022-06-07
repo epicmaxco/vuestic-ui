@@ -109,6 +109,7 @@ import { useValidation, useValidationEmits, useValidationProps, ValidationProps 
 import { useClearable, useClearableEmits } from '../../composables/useClearable'
 import { useTimeParser } from './hooks/time-text-parser'
 import { useTimeFormatter } from './hooks/time-text-formatter'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
 import { generateUniqueId } from '../../services/utils'
 
@@ -131,6 +132,7 @@ export default defineComponent({
   emits: [...useValidationEmits, ...useClearableEmits, 'update:modelValue', 'update:isOpen'],
 
   props: {
+    ...useComponentPresetProp,
     ...VaInputProps,
     ...extractComponentProps(VaTimePicker),
     ...useValidationProps as ValidationProps<Date>,

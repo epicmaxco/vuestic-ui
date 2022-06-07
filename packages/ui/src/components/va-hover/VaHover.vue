@@ -12,12 +12,14 @@
 import { defineComponent } from 'vue'
 
 import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 export default defineComponent({
   name: 'VaHover',
 
   props: {
     ...useStatefulProps,
+    ...useComponentPresetProp,
     disabled: { type: Boolean, default: false },
     modelValue: { type: Boolean, default: false },
   },

@@ -30,6 +30,7 @@ import { defineComponent, PropType, computed } from 'vue'
 import { shiftHSLAColor } from '../../services/color-config/color-functions'
 import { useColors } from '../../composables/useColor'
 import { useTextColor } from '../../composables/useTextColor'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 import { ButtonOption } from './types'
 
@@ -44,6 +45,7 @@ export default defineComponent({
   },
   emits: ['update:modelValue'],
   props: {
+    ...useComponentPresetProp,
     options: {
       type: Array as PropType<ButtonOption[]>,
       required: true,

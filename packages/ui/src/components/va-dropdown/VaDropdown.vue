@@ -38,12 +38,14 @@ import { useStateful, useStatefulEmits, useStatefulProps } from '../../composabl
 import { useDebounceFn } from '../../composables/useDebounce'
 import { usePopover, placementsPositions, Placement } from '../../composables/usePopover'
 import { useClickOutside } from '../../composables/useClickOutside'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 export default defineComponent({
   name: 'VaDropdown',
 
   props: {
     ...useStatefulProps,
+    ...useComponentPresetProp,
     stateful: { default: true },
     modelValue: { type: Boolean, default: false },
     disabled: { type: Boolean },

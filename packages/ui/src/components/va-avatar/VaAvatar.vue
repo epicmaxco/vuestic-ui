@@ -32,6 +32,7 @@ import { useColors } from '../../composables/useColor'
 import { useSize, useSizeProps } from '../../composables/useSize'
 import { useLoadingProps } from '../../composables/useLoading'
 import { useTextColor } from '../../composables/useTextColor'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 import { VaIcon } from '../va-icon'
 import { VaProgressCircle } from '../va-progress-circle'
@@ -42,6 +43,7 @@ export default defineComponent({
   props: {
     ...useLoadingProps,
     ...useSizeProps,
+    ...useComponentPresetProp,
     color: { type: String, default: 'info' },
     textColor: { type: String, default: 'white' },
     square: { type: Boolean, default: false },

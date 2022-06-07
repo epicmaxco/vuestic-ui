@@ -101,6 +101,7 @@ import { isRange, isSingleDate, isDates } from '../va-date-picker/utils/date-uti
 import { useRangeModelValueGuard } from './hooks/range-model-value-guard'
 import { useDateParser } from './hooks/input-text-parser'
 import { parseModelValue } from './hooks/model-value-parser'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 import { DateInputModelValue, DateInputRange } from './types'
 
@@ -129,6 +130,7 @@ export default defineComponent({
     ...VaInputProps,
     ...VaDatePickerProps,
     ...useValidationProps as ValidationProps<DateInputModelValue>,
+    ...useComponentPresetProp,
 
     clearValue: { type: Date as PropType<DateInputModelValue>, default: undefined },
     modelValue: { type: [Date, Array, Object, String, Number] as PropType<DateInputModelValue> },

@@ -25,6 +25,7 @@ export const createGlobalConfig = () => {
     icons: createIconsConfig({}),
     components: getComponentsDefaultConfig(),
     componentsAll: getComponentsAllDefaultConfig(),
+    componentsPresets: {},
   })
 
   const getGlobalConfig = (): GlobalConfig => globalConfig.value
@@ -46,7 +47,7 @@ export const createGlobalConfig = () => {
   }
 }
 
-/** Use this function if you don't want to throw error if hook used ouside setup function by useGlobalConfig */
+/** Use this function if you don't want to throw error if hook used outside setup function by useGlobalConfig */
 export function useGlobalConfigSafe () {
   return inject<ProvidedGlobalConfig>(GLOBAL_CONFIG)
 }

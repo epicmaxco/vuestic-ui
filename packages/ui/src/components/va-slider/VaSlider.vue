@@ -164,6 +164,7 @@ import { getHoverColor } from '../../services/color-config/color-functions'
 import { validateSlider } from './validateSlider'
 import { useColors } from '../../composables/useColor'
 import { useArrayRefs } from '../../composables/useArrayRefs'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 import { generateUniqueId } from '../../services/utils'
 
 import { VaIcon } from '../va-icon'
@@ -173,6 +174,7 @@ export default defineComponent({
   components: { VaIcon },
   emits: ['drag-start', 'drag-end', 'change', 'update:modelValue'],
   props: {
+    ...useComponentPresetProp,
     range: { type: Boolean as PropType<boolean>, default: false },
     modelValue: ({ type: [Number, Array] as PropType<number | number[]>, default: () => [] }),
     trackLabel: ({ type: [Function, String] as PropType<string | ((val: any, order?: number) => string) | undefined> }),

@@ -87,6 +87,7 @@ import pick from 'lodash/pick.js'
 import { useStatefulProps, useStateful } from '../../composables/useStateful'
 import { useEmitProxy } from '../../composables/useEmitProxy'
 import { Placement, placementsPositions } from '../../composables/usePopover'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 import { VaDropdown, VaDropdownContent } from '../va-dropdown'
 import { VaButton } from '../va-button'
@@ -116,6 +117,8 @@ export default defineComponent({
 
   props: {
     ...useStatefulProps,
+    ...useComponentPresetProp,
+
     modelValue: { type: Boolean, default: false },
     stateful: { type: Boolean, default: true },
 
