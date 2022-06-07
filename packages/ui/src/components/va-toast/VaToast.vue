@@ -1,4 +1,4 @@
-ToastPosition<template>
+<template>
   <transition name="va-toast-fade">
     <div
       v-show="visible"

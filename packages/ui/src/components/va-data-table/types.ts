@@ -1,45 +1,45 @@
 import { StringWithAutocomplete } from '../../types/string-with-autocomplete'
 
-export type DateTableAlignOptions = StringWithAutocomplete<'left' | 'center' | 'right'>
-export type DateTableVerticalAlignOptions = StringWithAutocomplete<'top' | 'middle' | 'bottom'>
+export type DataTableAlignOptions = StringWithAutocomplete<'left' | 'center' | 'right'>
+export type DataTableVerticalAlignOptions = StringWithAutocomplete<'top' | 'middle' | 'bottom'>
 
-export type DateTableClassesOptions = string | string[] | (() => string | string[])
-export type DateTableStyleOptions = Record<string, any> | (() => Record<string, any>)
+export type DataTableClassesOptions = string | string[] | (() => string | string[])
+export type DataTableStyleOptions = Record<string, any> | (() => Record<string, any>)
 
 // provided column definitions (<va-data-table `:columns="myColumns"` />)
 // should look like an array of the following objects (and/or strings)
-export interface DateTableColumn {
+export interface DataTableColumn {
   key: string // name of an item's property
   label?: string // what to display in the respective heading
   headerTitle?: string // <th>'s `title` attribute's value
   sortable?: boolean // whether the table can be sorted by that column
   sortingFn?: (a: any, b: any) => number // a custom sorting function. `a` and `b` are currently compared cells' original values (sources). Must return a number (see the standard JS's Array.prototype.sort)
-  alignHead?: DateTableAlignOptions // horizontal alignment of the column's heading
-  verticalAlignHead?: DateTableVerticalAlignOptions // vertical alignment of the column's heading
-  align?: DateTableAlignOptions // horizontal <td>'s alignment
-  verticalAlign?: DateTableVerticalAlignOptions // vertical <td>'s alignment
+  alignHead?: DataTableAlignOptions // horizontal alignment of the column's heading
+  verticalAlignHead?: DataTableVerticalAlignOptions // vertical alignment of the column's heading
+  align?: DataTableAlignOptions // horizontal <td>'s alignment
+  verticalAlign?: DataTableVerticalAlignOptions // vertical <td>'s alignment
   width?: string | number
-  classes?: DateTableClassesOptions
-  headerClasses?: DateTableClassesOptions
-  style?: DateTableStyleOptions
-  headerStyle?: DateTableStyleOptions
+  classes?: DataTableClassesOptions
+  headerClasses?: DataTableClassesOptions
+  style?: DataTableStyleOptions
+  headerStyle?: DataTableStyleOptions
 }
 
-export type DateTableColumnSource = DateTableColumn | string
+export type DataTableColumnSource = DataTableColumn | string
 
 // inner representation of the columns
-export interface TableColumn {
-  source: DateTableColumnSource
+export interface DataTableColumnInternal {
+  source: DataTableColumnSource
   initialIndex: number
   key: string
   label: string
   headerTitle: string
   sortable: boolean
   sortingFn: ((a: any, b: any) => number) | undefined
-  alignHead: DateTableAlignOptions
-  verticalAlignHead: DateTableVerticalAlignOptions
-  align: DateTableAlignOptions
-  verticalAlign: DateTableVerticalAlignOptions
+  alignHead: DataTableAlignOptions
+  verticalAlignHead: DataTableVerticalAlignOptions
+  align: DataTableAlignOptions
+  verticalAlign: DataTableVerticalAlignOptions
   width?: string | number
   classes?: string | string[] | (() => string | string[])
   headerClasses?: string | string[] | (() => string | string[])
@@ -47,27 +47,27 @@ export interface TableColumn {
   headerStyle?: Record<string, any> | (() => Record<string, any>)
 }
 
-export type DateTableItem = Record<string, any>
+export type DataTableItem = Record<string, any>
 
 // the inner representation of table cells
-export interface DateTableCell {
+export interface DataTableCell {
   /** @deprecated */
   source?: any;
-  rowData: DateTableItem;
-  column: TableColumn
+  rowData: DataTableItem;
+  column: DataTableColumn
   value: string
   rowIndex: number
 }
 
 // the inner representation of table rows
-export interface DateTableRow {
-  source: DateTableItem
+export interface DataTableRow {
+  source: DataTableItem
   initialIndex: number
-  cells: DateTableCell[]
+  cells: DataTableCell[]
 }
 
-export type DateTableFilterMethod = (source: any) => boolean
+export type DataTableFilterMethod = (source: any) => boolean
 
-export type DateTableSortingOrder = StringWithAutocomplete<'asc' | 'desc'> | null
+export type DataTableSortingOrder = StringWithAutocomplete<'asc' | 'desc'> | null
 
-export type DateTableSelectMode = StringWithAutocomplete<'single' | 'multiple'>
+export type DataTableSelectMode = StringWithAutocomplete<'single' | 'multiple'>

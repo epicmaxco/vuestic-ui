@@ -1,12 +1,12 @@
 import { Ref, ref, nextTick } from 'vue'
-import { DateTableRow, DateTableItem, DateTableSelectMode } from '../types'
+import { DataTableRow, DataTableItem, DataTableSelectMode } from '../types'
 import useSelectableRow, { TSelectionChange } from '../hooks/useSelectableRow'
 
 const selectableCases: boolean[] = [true, false]
-const selectModes: DateTableSelectMode[] = ['single', 'multiple']
+const selectModes: DataTableSelectMode[] = ['single', 'multiple']
 const events = ['update:modelValue', 'selectionChange']
 const rowsIndexes: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-const rawRows: DateTableRow[] = rowsIndexes.map(item => ({
+const rawRows: DataTableRow[] = rowsIndexes.map(item => ({
   source: { id: item, title: String(item) },
   initialIndex: item,
   cells: [],
@@ -15,7 +15,7 @@ const rawRows: DateTableRow[] = rowsIndexes.map(item => ({
 // base case arguments
 const paginatedRows = ref(rawRows.slice(0, 6))
 const props = {
-  modelValue: [] as DateTableItem[],
+  modelValue: [] as DataTableItem[],
   selectable: selectableCases[0],
   selectMode: selectModes[1],
 }
@@ -23,7 +23,7 @@ let emit = jest.fn()
 
 // helpers
 type TSources = number[] | 'all'
-const sources = (rowIndexes: TSources): DateTableItem[] => {
+const sources = (rowIndexes: TSources): DataTableItem[] => {
   if (rowIndexes === 'all') {
     return paginatedRows.value.map(row => row.source)
   }
