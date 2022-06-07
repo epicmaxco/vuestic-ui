@@ -15,7 +15,7 @@ type ComputedClasses = Ref<Record<string, any>> & {
  * @example
  *  const result = useBem('va-component', computed(() => pick(props, ['success'])))
  *  // if success is `true`
- *  result.value: { 'va-component--success': true }
+ *  result.value.value: { 'va-component--success': true }
  *  result.asObject.value: { 'va-component--success': true }
  *  result.asArray.value: ['va-component--success']
  *  result.asString.value: 'va-component--success'
