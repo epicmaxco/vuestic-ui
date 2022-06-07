@@ -46,7 +46,7 @@
         :key="index"
         v-model="selectedOptionString"
         :option="option"
-        :disabled="disabled"
+        disabled
       />
     </VbCard>
     <VbCard title="Readonly">
@@ -103,7 +103,6 @@ export default {
     ]
 
     return {
-      disabled: false,
       options: [
         'one',
         'two',

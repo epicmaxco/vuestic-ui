@@ -1,4 +1,4 @@
-import { computed, reactive, Ref, unref } from 'vue'
+import { computed, Ref, unref, reactive } from 'vue'
 import { __DEV__ } from '../utils/global-utils'
 
 type ComputedClasses = Record<string, any> & {
@@ -38,33 +38,26 @@ export const useBem = (
 
   const computedBemClassesArray = computed(() => Object.keys(computedBemClassesObject.value))
 
-  const computedBemClassesString = computed(() => computedBemClassesArray.value.join(', '))
-
-  const object = computed(() => {
-    const obj = {}
-    Object.defineProperty(obj, 'asObject', { get () { return computedBemClassesObject } })
-    Object.defineProperty(obj, 'asArray', { get () { return computedBemClassesArray } })
-    Object.defineProperty(obj, 'asString', { get () { return computedBemClassesString } })
-    return obj
-  })
+  const computedBemClassesString = computed(() => computedBemClassesArray.value.join(' '))
 
   const proxy = new Proxy({}, {
-    get (_, key) {
-      return unref(Reflect.get(object.value, key === 'value' ? 'asObject' : key))
+    get (_, key: string) {
+      const isKeyPassed = ['asObject', 'asArray', 'asString'].includes(key)
+
+      let value
+      switch (key) {
+        case 'asArray':
+          value = computedBemClassesArray
+          break
+        case 'asString':
+          value = computedBemClassesString
+          break
+        default:
+          value = computedBemClassesObject
+      }
+      return isKeyPassed ? value : value.value
     },
-  }) as unknown as ComputedClasses
+  })
 
-  return reactive(proxy)
-
-  // const obj = {
-  //   get asObject (): Ref<Record<string, boolean>> { return computedBemClassesObject },
-  //   get asArray (): Ref<Array<string>> { return computedBemClassesArray },
-  //   get asString (): Ref<string> { return computedBemClassesString },
-  // }
-  //
-  // return new Proxy(obj, {
-  //   get (target, key: string) {
-  //     return key in target ? target[key as keyof typeof target] : target['asObject' as keyof typeof target]
-  //   },
-  // }) as unknown as ComputedClasses
+  return reactive(proxy) as ComputedClasses
 }

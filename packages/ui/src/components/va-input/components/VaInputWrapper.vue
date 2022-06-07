@@ -138,7 +138,6 @@ export default defineComponent({
     const { getColor } = useColors()
 
     const computedProps = computed(() => {
-      console.log(computedProps)
       return pick(props, ['outline', 'bordered', 'success', 'focused', 'error', 'disabled', 'readonly'])
     })
     const bemProps = computed(() => ({
@@ -146,7 +145,6 @@ export default defineComponent({
       labeled: !!props.label,
       solid: !props.outline && !props.bordered,
     }))
-    console.log(computedProps, bemProps)
 
     const wrapperClass = useBem('va-input', bemProps)
 
