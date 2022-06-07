@@ -57,8 +57,8 @@
           :style="contentStyle"
           class="va-alert__close--closeable"
           role="button"
-          :aria-label="closeText || 'Close alert'"
           tabindex="0"
+          :aria-label="closeText || 'close alert'"
           @click="hide()"
           @keydown.space="hide()"
           @keydown.enter="hide()"
@@ -68,7 +68,6 @@
               v-if="!closeText"
               :name="closeIcon"
               size="small"
-              aria-hidden="true"
             />
             {{ closeText }}
           </slot>

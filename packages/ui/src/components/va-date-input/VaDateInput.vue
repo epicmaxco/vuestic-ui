@@ -22,7 +22,6 @@
             @click="toggleDropdown()"
             @keydown.enter.stop="showAndFocus"
             @keydown.space.stop="showAndFocus"
-            @keydown.esc.stop.prevent="hideAndFocus()"
           >
             <template
               v-for="name in filterSlots"
@@ -37,7 +36,6 @@
               <va-icon
                 v-if="$props.leftIcon"
                 v-bind="iconProps"
-                aria-hidden="true"
               />
             </template>
 
@@ -57,7 +55,6 @@
               <va-icon
                 v-else-if="!$props.leftIcon"
                 v-bind="iconProps"
-                aria-hidden="true"
               />
             </template>
           </va-input>

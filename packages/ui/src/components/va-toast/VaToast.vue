@@ -2,13 +2,13 @@
   <transition name="va-toast-fade">
     <div
       v-show="visible"
+      ref="rootElement"
+      :role="$props.closeable ? 'alertdialog' : 'alert'"
       :class="['va-toast', ...toastClasses]"
       :style="toastStyles"
       @mouseenter="clearTimer"
       @mouseleave="startTimer"
       @click="onToastClick"
-      role="alert"
-      ref="rootElement"
     >
       <div class="va-toast__group">
         <h2 v-if="$props.title" class="va-toast__title" v-text="$props.title" />
@@ -24,10 +24,15 @@
 
         <va-icon
           v-if="$props.closeable"
+          class="va-toast__close-icon"
+          role="button"
+          aria-label="close toast"
+          aria-hidden="false"
+          tabindex="0"
           size="small"
           :name="$props.icon"
-          class="va-toast__close-icon"
           @click.stop="onToastClose"
+          @keydown.enter.stop="onToastClose"
         />
       </div>
     </div>
@@ -234,6 +239,10 @@ export default defineComponent({
 
     &:hover {
       color: var(--va-toast-hover-color);
+    }
+
+    &:focus {
+      @include focus-outline;
     }
   }
 }

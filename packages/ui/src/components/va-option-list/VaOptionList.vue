@@ -6,10 +6,10 @@
   >
     <ul class="va-option-list__list">
       <li
-        v-for="(option, index) in $props.options"
+        v-for="option in $props.options"
         :key="getKey(option)"
       >
-        <slot v-bind="{ option, selectedValue, index, isDisabled, getText, getValue }">
+        <slot v-bind="{ option, selectedValue, isDisabled, getText, getValue }">
           <va-radio
             v-if="$props.type === 'radio'"
             :ref="setItemRef"
@@ -17,7 +17,6 @@
             :label="getText(option)"
             :disabled="isDisabled(option)"
             :option="getValue(option)"
-            :tabindex="index"
             v-bind="computedProps"
           />
           <va-checkbox
@@ -48,7 +47,6 @@
 import { computed, defineComponent, PropType, onMounted } from 'vue'
 import pick from 'lodash/pick'
 
-import { generateUniqueId } from '../../services/utils'
 import { __DEV__ } from '../../utils/global-utils'
 import { useSelectableList, useSelectableListProps, SelectableOption } from '../../composables/useSelectableList'
 import { useValidation, useValidationProps } from '../../composables/useValidation'
@@ -82,7 +80,7 @@ export default defineComponent({
     disabled: ({ type: Boolean, default: false }),
     readonly: ({ type: Boolean, default: false }),
     defaultValue: ({ type: [String, Number, Object, Array] as PropType<OptionListValue | null> }),
-    name: ({ type: String, default: generateUniqueId }),
+    name: ({ type: String, default: '' }),
     color: ({ type: String, default: 'primary' }),
     leftLabel: ({ type: Boolean, default: false }),
     modelValue: ({ type: [String, Number, Object, Array] as PropType<OptionListValue | null> }),

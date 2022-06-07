@@ -20305,9 +20305,9 @@ vuestic-ui@1.3.5:
     tslib "^2.2.0"
 
 vuestic-ui@latest:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/vuestic-ui/-/vuestic-ui-1.4.0.tgz#eb2c86fb217d04edc11ac8753c4cf6bc186b897b"
-  integrity sha512-4JgD6oQEyNThyYYGvqaUgFja+0uTmFd1aAtAV/YqLn/QvhUf9UqXj9jnYXTZszfPU200pVO1Y6q4U5qQmCju1A==
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/vuestic-ui/-/vuestic-ui-1.4.1.tgz#c74dad17f9919de38b23d0946b55a61d6304e115"
+  integrity sha512-JpqBBhDk/ecjNQfs3200s7KiqssDk7lp9lJ1YBHKdIXa+TS2MmEWC9x7Ba1XQB70xWFHNsl9hroQ9xVAHvLL2A==
   dependencies:
     cleave.js "^1.6.0"
     colortranslator "^1.9.2"

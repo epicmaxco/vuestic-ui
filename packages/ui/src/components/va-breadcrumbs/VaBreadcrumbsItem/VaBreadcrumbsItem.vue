@@ -1,27 +1,23 @@
 <template>
-  <span class="va-breadcrumb-item">
-    <router-link
-      v-if="!isDisabled"
-      class="va-breadcrumb-item__label va-breadcrumb-item__label--link"
-      :to="$props.to"
-      :replace="$props.replace"
-      :append="$props.append"
-      :exact="$props.exact"
-      :href="hrefComputed"
-      :active-class="$props.activeClass"
-      :exact-active-class="$props.exactActiveClass"
-      tag="a"
-    >
-      <slot>{{ label }}</slot>
-    </router-link>
-    <span v-else class="va-breadcrumb-item__label">
-      <slot>{{ label }}</slot>
-    </span>
-  </span>
+  <component
+    :is="tagComputed"
+    class="va-breadcrumb-item"
+    :class="classComputed"
+    :active-class="$props.activeClass"
+    :href="hrefComputed"
+    :to="$props.to"
+    :target="$props.target"
+    :replace="$props.replace"
+    :append="$props.append"
+    :exact="$props.exact"
+    :exact-active-class="$props.exactActiveClass"
+  >
+    <slot>{{ label }}</slot>
+  </component>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, PropType } from 'vue'
+import { defineComponent, computed } from 'vue'
 
 import { useRouterLink, useRouterLinkProps } from '../../../composables/useRouterLink'
 
@@ -29,15 +25,15 @@ export default defineComponent({
   name: 'VaBreadcrumbsItem',
   props: {
     ...useRouterLinkProps,
-    disabled: { type: Boolean as PropType<boolean>, default: false },
-    label: { type: String as PropType<string>, default: '' },
+    disabled: { type: Boolean, default: false },
+    label: { type: String, default: '' },
   },
   setup: (props) => {
-    const { hasRouterLinkParams, hrefComputed } = useRouterLink(props)
-
-    const isDisabled = computed(() => props.disabled || !hasRouterLinkParams.value)
-
-    return { isDisabled, hrefComputed }
+    const { tagComputed, hrefComputed, isLinkTag } = useRouterLink(props)
+    const classComputed = computed(() => ({
+      'va-breadcrumb-item--link': isLinkTag.value,
+    }))
+    return { tagComputed, hrefComputed, classComputed }
   },
 })
 </script>
@@ -49,19 +45,15 @@ export default defineComponent({
   display: var(--va-breadcrumb-item-display);
   color: var(--va-breadcrumb-item-color);
 
-  &__label {
+  &--link {
     color: inherit;
 
-    &--link {
-      cursor: pointer;
+    &:hover {
+      opacity: var(--va-breadcrumb-item-hover-opacity);
+    }
 
-      &:hover {
-        opacity: var(--va-breadcrumb-item-hover-opacity);
-      }
-
-      &:focus {
-        text-decoration: var(--va-breadcrumb-item-focus-text-decoration);
-      }
+    &:focus {
+      text-decoration: var(--va-breadcrumb-item-focus-text-decoration);
     }
   }
 }

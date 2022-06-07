@@ -23,7 +23,6 @@
       <va-icon
         v-if="icon"
         class="va-chip__icon"
-        aria-hidden="true"
         :name="icon"
         :size="iconSize"
       />
@@ -40,6 +39,8 @@
         :tabindex="tabIndexComputed"
         :size="iconSize"
         @click.stop="close"
+        @keydown.enter.stop="close"
+        @keydown.space.stop="close"
       />
     </span>
   </component>

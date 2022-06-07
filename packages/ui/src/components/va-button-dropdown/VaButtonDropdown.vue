@@ -16,6 +16,7 @@
           :round="!$props.label && !$slots.label"
           v-bind="{ ...computedButtonIcons, ...computedViewStyles }"
           v-on="listeners"
+          @keydown.esc.prevent="hideDropdown"
         >
           <slot name="label">
             {{ label }}
@@ -53,9 +54,11 @@
       >
         <template #anchor>
           <va-button
+            aria-label="toggle dropdown"
             :disabled="$props.disabled || $props.disableDropdown"
             :icon="computedIcon"
             v-on="listeners"
+            @keydown.esc.prevent="hideDropdown"
           />
         </template>
         <va-dropdown-content>
@@ -185,7 +188,10 @@ export default defineComponent({
       loading: props.loading,
     }))
 
+    const hideDropdown = () => { valueComputed.value = false }
+
     return {
+      hideDropdown,
       valueComputed,
       computedIcon,
       computedClass,

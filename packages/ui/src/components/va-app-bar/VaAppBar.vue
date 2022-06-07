@@ -2,7 +2,6 @@
   <header
     ref="scrollRoot"
     role="toolbar"
-    tabindex="0"
     :class="computedClass"
     :style="computedStyle"
   >
@@ -91,7 +90,7 @@ export default defineComponent({
 .va-app-bar {
   display: flex;
   align-items: center;
-  position: var(--va-app-bar-position);
+  position: absolute;
   transition: all 0.5s ease;
   top: 0;
   left: 0;
@@ -100,6 +99,7 @@ export default defineComponent({
   min-height: var(--va-app-bar-height);
   min-width: 100%;
   font-family: var(--va-font-family);
+  z-index: var(--va-app-bar-z-index);
 
   &--bottom {
     top: 100%;

@@ -1,7 +1,6 @@
 <template>
   <VaInputWrapper
     class="va-counter"
-    aria-live="polite"
     v-bind="{ ...fieldListeners, ...inputWrapperPropsComputed }"
     :class="classComputed"
     :style="styleComputed"
@@ -17,7 +16,7 @@
         <slot name="decreaseAction" v-bind="{ ...slotScope, decreaseCount }">
           <va-button
             class="va-counter__button-decrease"
-            aria-label="decrease"
+            aria-label="decrease counter"
             v-bind="decreaseButtonProps"
             @click="decreaseCount()"
           />
@@ -44,7 +43,7 @@
         <slot name="increaseAction" v-bind="{ ...slotScope, increaseCount }">
           <va-button
             class="va-counter__button-increase"
-            aria-label="increase"
+            aria-label="increase counter"
             v-bind="increaseButtonProps"
             @click="increaseCount()"
           />
@@ -75,8 +74,6 @@
       class="va-input__content__input"
       type="number"
       inputmode="decimal"
-      :tabindex="tabIndexComputed"
-      aria-label="counter value"
       v-bind="{ ...inputAttributesComputed, ...inputListeners }"
       :value="valueComputed"
       @input="setCountInput"
@@ -267,7 +264,10 @@ export default defineComponent({
     }))
 
     const inputAttributesComputed = computed(() => ({
-      ariaLabel: props.label,
+      tabindex: tabIndexComputed.value,
+      ariaLabel: props.label || 'counter value',
+      ariaValuemin: props.min,
+      ariaValuemax: props.max,
       ...omit(attrs, ['class', 'style']),
       ...pick(props, ['disabled', 'min', 'max', 'step']),
       readonly: props.readonly || !props.manualInput,
@@ -308,8 +308,6 @@ export default defineComponent({
       increaseIconProps,
       decreaseButtonProps,
       increaseButtonProps,
-
-      tabIndexComputed,
 
       colorComputed,
       classComputed,

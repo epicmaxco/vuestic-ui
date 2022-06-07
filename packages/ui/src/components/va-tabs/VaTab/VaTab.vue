@@ -2,6 +2,9 @@
   <component
     class="va-tab"
     ref="tabElement"
+    role="tab"
+    :aria-selected="isActive"
+    :aria-disabled="$props.disabled || parentDisabled"
     :is="tagComputed"
     :href="hrefComputed"
     :target="target"
@@ -27,8 +30,8 @@
         <va-icon
           v-if="icon"
           class="va-tab__icon"
-          :name="icon"
           size="small"
+          :name="icon"
         />
         <span
           class="va-tab__label"
@@ -61,28 +64,13 @@ export default defineComponent({
 
   props: {
     ...useRouterLinkProps,
-    color: {
-      type: String,
-      default: '',
-    },
-    icon: {
-      type: String,
-      default: '',
-    },
-    label: {
-      type: String,
-      default: '',
-    },
-    disabled: {
-      type: Boolean,
-    },
-    name: {
-      type: [String, Number],
-    },
-    tag: {
-      type: String,
-      default: 'div',
-    },
+    selected: { type: Boolean, default: false },
+    color: { type: String, default: '' },
+    icon: { type: String, default: '' },
+    label: { type: String, default: '' },
+    disabled: { type: Boolean },
+    name: { type: [String, Number] },
+    tag: { type: String, default: 'div' },
   },
 
   setup: (props, { emit }) => {
@@ -171,6 +159,7 @@ export default defineComponent({
 
     return {
       tabElement,
+      parentDisabled,
       isActive,
       hoverState,
       hasKeyboardFocus,
