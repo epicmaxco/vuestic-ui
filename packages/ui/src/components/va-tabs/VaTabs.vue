@@ -4,31 +4,35 @@
     :class="computedTabsClass"
   >
     <div
-      class="va-tabs__wrapper"
       ref="wrapper"
+      class="va-tabs__wrapper"
+      role="tablist"
+      :aria-disabled="$props.disabled"
     >
       <va-button
         v-if="showPagination"
-        :disabled="disablePaginationLeft"
         class="va-tabs__pagination"
+        aria-label="move pagination left"
+        size="medium"
+        :disabled="disablePaginationLeft"
         :color="color"
         flat
-        size="medium"
         :icon="$props.prevIcon"
         @click="movePaginationLeft()"
       />
       <div
+        ref="container"
         class="va-tabs__container"
         :class="computedClass"
-        ref="container"
       >
         <div
+          ref="tabs"
           class="va-tabs__tabs"
           :style="paginationControlledStyles"
-          ref="tabs"
         >
           <div
             class="va-tabs__slider-wrapper"
+            aria-hidden="true"
             :style="sliderStyles"
           >
             <div class="va-tabs__slider" />
@@ -43,11 +47,12 @@
       </div>
       <va-button
         v-if="showPagination"
-        :disabled="disablePaginationRight"
         class="va-tabs__pagination"
-        :color="color"
-        flat
+        aria-label="move pagination right"
         size="medium"
+        :color="color"
+        :disabled="disablePaginationRight"
+        flat
         :icon="$props.nextIcon"
         @click="movePaginationRight()"
       />
@@ -72,7 +77,7 @@ import {
 import VaButton from '../va-button'
 import VaConfig from '../va-config'
 import { useStateful, useStatefulProps } from '../../composables/useStateful'
-import { useColor } from '../../composables/useColor'
+import { useColors } from '../../composables/useColor'
 import { TabsViewKey, TabComponent } from './types'
 import { useResizeObserver } from '../../composables/useResizeObserver'
 
@@ -112,7 +117,6 @@ export default defineComponent({
     const tabsContentOffset = ref(0)
     const startingXPoint = ref(0)
     const animationIncluded = ref(false)
-    const { colorComputed } = useColor(props)
     const { valueComputed: tabSelected }: { valueComputed: Ref<string | number | null> } = useStateful(props, emit)
     const tabConfig = reactive({
       VaTab: {
@@ -139,6 +143,9 @@ export default defineComponent({
     })
 
     const computedTabsClass = computed(() => ({ 'va-tabs--vertical': props.vertical }))
+
+    const { getColor } = useColors()
+    const colorComputed = computed(() => getColor(props.color))
 
     const sliderStyles = computed(() => {
       if (props.hideSlider) {
@@ -471,6 +478,10 @@ export default defineComponent({
       .va-tabs__tabs {
         display: flex;
         min-width: 100%;
+      }
+
+      .va-tabs__tabs-items {
+        width: 100%;
       }
 
       .va-tab {

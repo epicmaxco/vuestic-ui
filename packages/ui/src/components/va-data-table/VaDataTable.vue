@@ -1,6 +1,7 @@
 <template>
   <va-inner-loading
     class="va-data-table"
+    aria-live="polite"
     :class="[
       { 'va-data-table--sticky': $props.stickyHeader },
       { 'va-data-table--scroll': !!$props.height },
@@ -31,29 +32,35 @@
         >
           <th
             v-if="selectable"
+            scope="col"
             :class="['va-data-table__table-th', 'va-data-table__table-cell-select']"
           >
             <va-checkbox
               v-if="selectMode === 'multiple'"
+              aria-label="select all rows"
               :model-value="severalRowsSelected ? 'idl' : allRowsSelected"
               :true-value="true"
               :false-value="false"
+              :color="selectedColor"
               indeterminate-value="idl"
               indeterminate
               @update:model-value="toggleBulkSelection"
-              :color="selectedColor"
             />
           </th>
 
           <th
             v-for="column in columnsComputed"
             :key="column.key"
+            scope="col"
+            :aria-sort="getColumnAriaSortOrder(column.key)"
             :title="column.headerTitle"
-            @click.exact="column.sortable && toggleSorting(column)"
             :style="{ ...getHeaderCSSVariables(column), ...getStyles(column.headerStyle) }"
             :class="['va-data-table__table-th', ...getClasses(column.headerClasses)]"
+            :aria-label="column.sortable ? `sort column by ${column.label}` : undefined"
+            @click.exact="column.sortable && toggleSorting(column)"
+            @keydown.enter.stop="column.sortable && toggleSorting(column)"
           >
-            <div class="va-data-table__table-th-wrapper">
+            <div class="va-data-table__table-th-wrapper" :tabindex="column.sortable ? 0 : -1">
               <span v-if="`header(${column.key})` in $slots">
                 <slot :name="`header(${column.key})`" v-bind="column" />
               </span>
@@ -65,6 +72,7 @@
               <div
                 v-if="column.sortable"
                 class="va-data-table__table-th-sorting"
+                aria-hidden="true"
                 @selectstart.prevent
               >
                 <va-icon
@@ -131,10 +139,11 @@
             >
               <va-checkbox
                 :model-value="isRowSelected(row)"
+                :color="selectedColor"
+                :aria-label="`select row ${row.initialIndex}`"
                 @click.shift.exact="shiftSelectRows(row)"
                 @click.ctrl.exact="ctrlSelectRow(row)"
                 @click.exact="ctrlSelectRow(row)"
-                :color="selectedColor"
               />
             </td>
 
@@ -167,13 +176,14 @@
           <th v-if="selectable" class="va-data-table__table-th">
             <va-checkbox
               v-if="selectMode === 'multiple'"
+              aria-label="select all rows"
               :model-value="severalRowsSelected ? 'idl' : allRowsSelected"
               :true-value="true"
               :false-value="false"
+              :color="selectedColor"
               indeterminate-value="idl"
               indeterminate
               @update:model-value="toggleBulkSelection"
-              :color="selectedColor"
             />
           </th>
 
@@ -181,11 +191,13 @@
             v-for="column in columnsComputed"
             :key="column.key"
             :title="column.headerTitle"
-            @click.exact="allowFooterSorting && column.sortable && toggleSorting(column)"
             :style="{ ...getFooterCSSVariables(column), ...getStyles(column.headerStyle) }"
             :class="['va-data-table__table-th', ...getClasses(column.headerClasses)]"
+            :aria-label="allowFooterSorting && column.sortable ? `sort column by ${column.label}` : undefined"
+            @click.exact="allowFooterSorting && column.sortable && toggleSorting(column)"
+            @keydown.enter.stop="allowFooterSorting && column.sortable && toggleSorting(column)"
           >
-            <div class="va-data-table__table-th-wrapper">
+            <div class="va-data-table__table-th-wrapper" :tabindex="allowFooterSorting && column.sortable ? 0 : -1">
               <span v-if="`footer(${column.key})` in $slots">
                 <slot :name="`footer(${column.key})`" v-bind="column" />
               </span>
@@ -370,6 +382,14 @@ export default defineComponent({
       ...omit(attrs, ['class', 'style']),
     }) as TableHTMLAttributes)
 
+    const getColumnAriaSortOrder = (columnKey: string) => {
+      if (sortingOrderSync.value && sortBySync.value === columnKey) {
+        return sortingOrderSync.value === 'asc' ? 'ascending' : 'descending'
+      }
+
+      return 'none'
+    }
+
     return {
       columnsComputed,
       rows: paginatedRows,
@@ -395,6 +415,7 @@ export default defineComponent({
       componentAttributes,
       tableAttributes,
       animationName,
+      getColumnAriaSortOrder,
     }
   },
 })
@@ -465,6 +486,10 @@ export default defineComponent({
       .va-data-table__table-th-wrapper {
         display: flex;
         align-items: center;
+
+        &:focus {
+          @include focus-outline;
+        }
       }
 
       .va-data-table__table-th-sorting {

@@ -47,7 +47,7 @@ export default defineComponent({
   },
   setup (props) {
     const { getColor } = useColors()
-    const { hasRouterLinkParams, tagComputed, hrefComputed } = useRouterLink(props)
+    const { isLinkTag, tagComputed, hrefComputed } = useRouterLink(props)
     const { textColorComputed } = useTextColor()
 
     const stripeStyles = computed(() => ({ background: getColor(props.stripeColor) }))
@@ -57,7 +57,7 @@ export default defineComponent({
       'va-card--outlined': props.outlined,
       'va-card--no-border': !props.bordered,
       'va-card--disabled': props.disabled,
-      'va-card--link': props.href || hasRouterLinkParams.value,
+      'va-card--link': isLinkTag.value,
     }))
 
     const cardStyles = computed(() => {

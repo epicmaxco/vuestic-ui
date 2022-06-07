@@ -2,26 +2,35 @@
   <div class="va-color-input">
     <va-color-indicator
       class="va-color-input__dot"
+      role="button"
+      aria-label="open color picker"
+      :aria-disabled="$props.disabled"
+      :tabindex="tabIndexComputed"
       :color="valueComputed"
       :indicator="$props.indicator"
       @click="callPickerDialog"
+      @keydown.space="callPickerDialog"
+      @keydown.enter="callPickerDialog"
     />
     <va-input
       class="va-color-input__input"
-      :disabled="$props.disabled"
-      v-model="valueComputed"
       placeholder="input color"
+      v-model="valueComputed"
+      :tabindex="tabIndexComputed"
+      :disabled="$props.disabled"
     />
     <input
       ref="colorPicker"
       type="color"
       class="visually-hidden"
+      aria-hidden="true"
+      tabindex="-1"
       v-model="valueComputed" />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, shallowRef } from 'vue'
+import { defineComponent, PropType, shallowRef, computed } from 'vue'
 
 import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
 
@@ -46,12 +55,20 @@ export default defineComponent({
     },
   },
   setup: (props, { emit }) => {
+    const colorPicker = shallowRef<HTMLInputElement>()
+
     const { valueComputed } = useStateful(props, emit)
 
-    const colorPicker = shallowRef<HTMLInputElement>()
     const callPickerDialog = () => !props.disabled && colorPicker.value?.click()
 
-    return { valueComputed, callPickerDialog, colorPicker }
+    const tabIndexComputed = computed(() => props.disabled ? -1 : 0)
+
+    return {
+      valueComputed,
+      callPickerDialog,
+      colorPicker,
+      tabIndexComputed,
+    }
   },
 })
 </script>
@@ -67,6 +84,7 @@ export default defineComponent({
 
   &__input {
     margin-bottom: 0;
+    margin-left: 0.25rem;
     min-width: 5.6rem;
 
     &__pointer {

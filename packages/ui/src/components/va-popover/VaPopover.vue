@@ -7,7 +7,10 @@
     :offset="$props.offset"
   >
     <template #default>
-      <div class="va-popover__content-wrapper">
+      <div
+        class="va-popover__content-wrapper"
+        role="tooltip"
+      >
         <div
           class="va-popover__content"
           :style="computedPopoverStyle"
@@ -15,6 +18,7 @@
           <div
             v-if="$props.icon"
             class="va-popover__icon"
+            aria-hidden="true"
           >
             <va-icon
               :name="$props.icon"

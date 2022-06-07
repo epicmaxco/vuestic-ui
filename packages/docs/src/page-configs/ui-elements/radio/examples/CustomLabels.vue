@@ -20,7 +20,7 @@
   </div>
   <div class="mb-4">
     <va-radio
-      v-for="(option) in options"
+      v-for="(option, index) in options"
       :key="option"
       v-model="selectedOption"
       :option="option"

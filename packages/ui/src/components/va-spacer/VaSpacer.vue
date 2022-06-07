@@ -1,5 +1,5 @@
 <template>
-  <div class="spacer" />
+  <div class="spacer" aria-hidden="true" />
 </template>
 
 <script lang="ts">

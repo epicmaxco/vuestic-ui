@@ -1,8 +1,8 @@
 <template>
   <div
+    ref="rootElement"
     class="va-parallax"
     :style="computedWrapperStyles"
-    ref="rootElement"
   >
     <div class="va-parallax__image-container">
       <img

@@ -1,9 +1,11 @@
 <template>
   <component
     :is="$props.tag"
+    ref="element"
+    role="feed"
     class="va-infinite-scroll"
     :class="{ 'va-infinite-scroll--reversed': $props.reverse }"
-    ref="element"
+    :aria-busy="fetching"
   >
     <slot name="default" />
 

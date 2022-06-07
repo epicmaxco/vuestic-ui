@@ -5,7 +5,6 @@
     :class="classComputed"
     :style="styleComputed"
     :focused="isFocused"
-    @click="focus()"
     @keydown.up.prevent="increaseCount()"
     @keydown.down.prevent="decreaseCount()"
   >
@@ -17,6 +16,7 @@
         <slot name="decreaseAction" v-bind="{ ...slotScope, decreaseCount }">
           <va-button
             class="va-counter__button-decrease"
+            aria-label="decrease counter"
             v-bind="decreaseButtonProps"
             @click="decreaseCount()"
           />
@@ -43,6 +43,7 @@
         <slot name="increaseAction" v-bind="{ ...slotScope, increaseCount }">
           <va-button
             class="va-counter__button-increase"
+            aria-label="increase counter"
             v-bind="increaseButtonProps"
             @click="increaseCount()"
           />
@@ -69,8 +70,8 @@
 
     <input
       v-if="!$slots.content"
-      class="va-input__content__input"
       ref="input"
+      class="va-input__content__input"
       type="number"
       inputmode="decimal"
       v-bind="{ ...inputAttributesComputed, ...inputListeners }"
@@ -153,7 +154,6 @@ export default defineComponent({
 
     const {
       isFocused,
-      // will be useful when we resolve problem with 'withConfigTransport'
       focus,
       blur,
     } = useFocus(input, emit)
@@ -204,6 +204,8 @@ export default defineComponent({
         ? Number(valueComputed.value) > (props.max - props.step)
         : Number(valueComputed.value) >= props.max
     })
+
+    const tabIndexComputed = computed(() => props.disabled ? -1 : 0)
 
     const isDecreaseActionDisabled = computed(() => (
       isMinReached.value || props.readonly || props.disabled
@@ -262,7 +264,10 @@ export default defineComponent({
     }))
 
     const inputAttributesComputed = computed(() => ({
-      ariaLabel: props.label,
+      tabindex: tabIndexComputed.value,
+      ariaLabel: props.label || 'counter value',
+      ariaValuemin: props.min,
+      ariaValuemax: props.max,
       ...omit(attrs, ['class', 'style']),
       ...pick(props, ['disabled', 'min', 'max', 'step']),
       readonly: props.readonly || !props.manualInput,
@@ -309,16 +314,9 @@ export default defineComponent({
       styleComputed,
       marginComputed,
 
-      // while we have problem with 'withConfigTransport'
-      // focus,
-      // blur,
+      focus,
+      blur,
     }
-  },
-
-  // we will use this while we have problem with 'withConfigTransport'
-  methods: {
-    focus () { this.input?.focus() },
-    blur () { this.input?.blur() },
   },
 })
 </script>

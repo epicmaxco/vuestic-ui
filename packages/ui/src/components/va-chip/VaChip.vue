@@ -19,7 +19,6 @@
       @focus="$emit('focus')"
       @mouseenter="onMouseEnter"
       @mouseleave="onMouseLeave"
-      :tabindex="indexComputed"
     >
       <va-icon
         v-if="icon"
@@ -34,8 +33,14 @@
         v-if="closeable"
         class="va-chip__close-icon"
         name="close"
+        role="button"
+        aria-label="close"
+        aria-hidden="false"
+        :tabindex="tabIndexComputed"
         :size="iconSize"
         @click.stop="close"
+        @keydown.enter.stop="close"
+        @keydown.space.stop="close"
       />
     </span>
   </component>
@@ -122,7 +127,7 @@ export default defineComponent({
 
       iconSize: computed(() => size[props.size]),
 
-      indexComputed: computed(() => props.disabled ? -1 : 0),
+      tabIndexComputed: computed(() => props.disabled ? -1 : 0),
 
       computedClass: computed(() => ({
         'va-chip--small': props.size === 'small',
@@ -198,6 +203,10 @@ export default defineComponent({
 
   &__close-icon {
     cursor: pointer;
+
+    &:focus {
+      @include focus-outline;
+    }
 
     @at-root {
       .va-chip--disabled {

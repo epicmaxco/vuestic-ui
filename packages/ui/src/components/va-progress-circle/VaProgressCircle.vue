@@ -4,6 +4,7 @@
     ref="progress"
     :style="rootStyle"
     :class="rootClass"
+    v-bind="ariaAttributesComputed"
   >
     <svg
       class="va-progress-circle__wrapper"
@@ -67,6 +68,11 @@ export default defineComponent({
       })),
       rootClass: computed(() => ({
         'va-progress-circle--indeterminate': props.indeterminate,
+      })),
+      ariaAttributesComputed: computed(() => ({
+        role: 'progressbar',
+        ariaLabel: 'progress state',
+        ariaValuenow: !props.indeterminate ? props.modelValue : undefined,
       })),
 
       colorComputed,

@@ -31,7 +31,6 @@
         :size="size"
         :color="textColorComputed"
         class="va-button__left-icon"
-        aria-hidden="true"
       />
       <slot />
       <va-icon
@@ -40,7 +39,6 @@
         :size="size"
         :color="textColorComputed"
         class="va-button__right-icon"
-        aria-hidden="true"
       />
     </div>
     <va-progress-circle
@@ -50,7 +48,6 @@
       :size="loaderSize"
       :color="computedStyle.color"
       :thickness="0.15"
-      aria-hidden="true"
     />
   </component>
 </template>

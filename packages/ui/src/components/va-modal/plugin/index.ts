@@ -15,7 +15,7 @@ export const VaModalPlugin = defineVuesticPlugin(() => ({
   },
 }))
 
-declare module '@vue/runtime-core' {
+declare module 'vue' {
   export interface ComponentCustomProperties {
     $vaModal: ReturnType<typeof createVaModalPlugin>
   }

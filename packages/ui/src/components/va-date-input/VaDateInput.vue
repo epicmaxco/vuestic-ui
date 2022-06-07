@@ -2,12 +2,12 @@
   <div class="va-date-input">
     <va-dropdown
       v-model="isOpenSync"
+      trigger="none"
+      anchorSelector=".va-input-wrapper__input"
       :offset="[2, 0]"
       :close-on-content-click="false"
       :stateful="false"
-      trigger="none"
       :disabled="disabled"
-      anchorSelector=".va-input-wrapper__input"
     >
       <template #anchor>
         <slot name="input" v-bind="{ valueText, inputProps, inputListeners }">
@@ -17,11 +17,11 @@
             v-bind="inputProps"
             v-on="inputListeners"
             :model-value="valueText"
+            aria-label="selected date"
             @change="onInputTextChanged"
             @click="toggleDropdown()"
             @keydown.enter.stop="showAndFocus"
             @keydown.space.stop="showAndFocus"
-            @keydown.esc.stop.prevent="hideAndFocus()"
           >
             <template
               v-for="name in filterSlots"
@@ -42,8 +42,15 @@
             <template #icon>
               <va-icon
                 v-if="canBeCleared"
+                aria-hiden="false"
+                role="button"
+                aria-label="reset"
+                tabindex="0"
+                class="va-date-input__clear-icon"
                 v-bind="clearIconProps"
-                @click.stop="reset()"
+                @click="reset()"
+                @keydown.enter.stop="reset()"
+                @keydown.space.stop="reset()"
               />
               <va-icon
                 v-else-if="!$props.leftIcon"
@@ -324,12 +331,20 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
+@import "../../styles/resources";
+
 .va-date-input {
   display: flex;
   font-family: var(--va-font-family);
 
   &__icon {
     cursor: pointer;
+  }
+
+  &__clear-icon {
+    &:focus {
+      @include focus-outline;
+    }
   }
 
   &__input.va-input_readonly {
