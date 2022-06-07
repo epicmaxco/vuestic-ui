@@ -51,7 +51,7 @@ export const useBem = (
         case 'asObject':
           return computedBemClassesObject
         default:
-          return computedBemClassesObject.value
+          return computedBemClassesObject
       }
     },
   }) as ComputedClasses

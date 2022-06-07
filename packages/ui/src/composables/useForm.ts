@@ -24,5 +24,5 @@ export const useForm = (
   props: ExtractPropTypes<typeof useFormProps>,
 ) => {
   const computedClasses = useBem(prefix, computed(() => pick(props, ['disabled', 'readonly'])))
-  return { computedClasses: computedClasses }
+  return { computedClasses: computedClasses.value }
 }
