@@ -11,7 +11,7 @@ describe('useForm', () => {
     'props $props & prefix $prefix should be $expected',
     ({ props, prefix, expected }) => {
       const { computedClasses } = useForm(prefix, props)
-      expect(computedClasses.value).toMatchObject(expected)
+      expect(computedClasses.value.value).toMatchObject(expected)
     },
   )
 })

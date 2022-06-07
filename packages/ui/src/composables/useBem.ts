@@ -2,6 +2,7 @@ import { computed, Ref, unref, ComputedRef } from 'vue'
 import { __DEV__ } from '../utils/global-utils'
 
 type ComputedClasses = Ref<Record<string, any>> & {
+  value: ComputedRef<Record<string, true>>
   asObject: ComputedRef<Record<string, true>>
   asArray: ComputedRef<string[]>
   asString: ComputedRef<string>
