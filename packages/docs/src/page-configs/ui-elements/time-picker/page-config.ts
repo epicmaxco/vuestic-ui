@@ -46,6 +46,9 @@ const config: ApiDocsBlock[] = [
     'filter',
   ),
 
+  block.subtitle('all.cssVariables'),
+  block.paragraph('timePicker.variables'),
+
   block.api(VaTimePicker, apiOptions),
 ]
 

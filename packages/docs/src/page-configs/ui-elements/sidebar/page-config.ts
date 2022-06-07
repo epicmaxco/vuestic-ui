@@ -57,6 +57,9 @@ const config: ApiDocsBlock[] = [
     'VModel',
   ),
 
+  block.subtitle('all.cssVariables'),
+  block.paragraph('sidebar.variables'),
+
   block.subtitle('all.api'),
   block.api(VaSidebar, apiOptions),
 

@@ -47,6 +47,9 @@ const config: ApiDocsBlock[] = [
     'TotalAndPageSize',
   ),
 
+  block.subtitle('all.cssVariables'),
+  block.paragraph('pagination.variables'),
+
   block.subtitle('all.api'),
   block.api(VaPagination, apiOptions),
 

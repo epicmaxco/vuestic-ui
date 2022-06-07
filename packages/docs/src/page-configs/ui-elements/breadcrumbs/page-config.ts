@@ -43,6 +43,9 @@ const config: ApiDocsBlock[] = [
     'Item',
   ),
 
+  block.subtitle('all.cssVariables'),
+  block.paragraph('breadcrumbs.variables'),
+
   block.subtitle('all.api'),
   block.api(VaBreadcrumbs, vaBreadcrumbsApiOptions),
 

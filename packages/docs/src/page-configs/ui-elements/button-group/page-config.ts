@@ -41,6 +41,9 @@ const config: ApiDocsBlock[] = [
     'Icons',
   ),
 
+  block.subtitle('all.cssVariables'),
+  block.paragraph('buttonGroup.variables'),
+
   block.subtitle('all.api'),
   block.api(VaButtonGroup, apiOptions),
 ]

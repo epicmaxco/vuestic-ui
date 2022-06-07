@@ -69,6 +69,9 @@ const config: ApiDocsBlock[] = [
   block.paragraph('select.examples.keyboardNavigation.selects'),
   block.paragraph('select.examples.keyboardNavigation.hints'),
 
+  block.subtitle('all.cssVariables'),
+  block.paragraph('select.variables'),
+
   block.subtitle('all.api'),
   block.api(VaSelect, apiOptions),
 ]

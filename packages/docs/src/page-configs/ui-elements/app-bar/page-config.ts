@@ -24,6 +24,10 @@ const config: ApiDocsBlock[] = [
   block.headline('appBar.examples.shadow.title'),
   block.paragraph('appBar.examples.shadow.text'),
   block.example('Shadow'),
+
+  block.subtitle('all.cssVariables'),
+  block.paragraph('appBar.variables'),
+
   block.subtitle('all.api'),
   block.api(VaAppBar, apiOptions),
 ]

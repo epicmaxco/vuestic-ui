@@ -40,6 +40,9 @@ const config: ApiDocsBlock[] = [
     'ErrorSlot',
   ),
 
+  block.subtitle('all.cssVariables'),
+  block.paragraph('image.variables'),
+
   block.subtitle('all.api'),
   block.api(VaImage, apiOptions),
 ]

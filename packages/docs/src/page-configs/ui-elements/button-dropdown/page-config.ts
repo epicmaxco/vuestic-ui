@@ -54,6 +54,10 @@ const config: ApiDocsBlock[] = [
     'buttonDropdown.examples.clickInside.text',
     'ClickInside',
   ),
+
+  block.subtitle('all.cssVariables'),
+  block.paragraph('buttonDropdown.variables'),
+
   block.subtitle('all.api'),
   block.api(VaButtonDropdown, apiOptions),
 ]

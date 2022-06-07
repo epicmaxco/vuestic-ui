@@ -32,6 +32,9 @@ const config: ApiDocsBlock[] = [
     'Icon',
   ),
 
+  block.subtitle('all.cssVariables'),
+  block.paragraph('innerLoading.variables'),
+
   block.subtitle('all.api'),
   block.api(VaInnerLoading, apiOptions),
 ]

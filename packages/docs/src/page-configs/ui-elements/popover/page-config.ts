@@ -42,6 +42,9 @@ const config: ApiDocsBlock[] = [
     'Trigger',
   ),
 
+  block.subtitle('all.cssVariables'),
+  block.paragraph('popover.variables'),
+
   block.subtitle('all.api'),
   block.api(VaPopover, apiOptions),
 ]

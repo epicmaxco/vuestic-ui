@@ -37,6 +37,9 @@ const config: ApiDocsBlock[] = [
     'Stateful',
   ),
 
+  block.subtitle('all.cssVariables'),
+  block.paragraph('tabs.variables'),
+
   block.subtitle('all.api'),
   block.api(VaTabs, apiOptions),
 

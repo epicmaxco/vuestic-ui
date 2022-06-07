@@ -42,6 +42,9 @@ const config: ApiDocsBlock[] = [
     'WithList',
   ),
 
+  block.subtitle('all.cssVariables'),
+  block.paragraph('divider.variables'),
+
   block.subtitle('all.api'),
   block.api(VaDivider, apiOptions),
 ]

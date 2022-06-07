@@ -64,6 +64,9 @@ const config: ApiDocsBlock[] = [
     'Error',
   ),
 
+  block.subtitle('all.cssVariables'),
+  block.paragraph('switch.variables'),
+
   block.subtitle('all.api'),
   block.api(VaSwitch, apiOptions),
 ]

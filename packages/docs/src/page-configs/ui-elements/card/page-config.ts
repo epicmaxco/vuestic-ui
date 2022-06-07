@@ -47,6 +47,9 @@ const config: ApiDocsBlock[] = [
   block.paragraph('card.examples.actions.values'),
   block.example('Actions'),
 
+  block.subtitle('all.cssVariables'),
+  block.paragraph('card.variables'),
+
   block.subtitle('all.api'),
   block.api(VaCard, apiOptions),
 

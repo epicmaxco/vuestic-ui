@@ -69,6 +69,9 @@ const config: ApiDocsBlock[] = [
   block.paragraph('dataTable.examples.other.text[1]'),
   block.example('CRUD'),
 
+  block.subtitle('all.cssVariables'),
+  block.paragraph('dataTable.variables'),
+
   block.subtitle('all.api'),
   block.api(VaDataTable, apiOptions),
 ]

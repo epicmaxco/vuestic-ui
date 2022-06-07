@@ -54,6 +54,9 @@ const config: ApiDocsBlock[] = [
     'Click',
   ),
 
+  block.subtitle('all.cssVariables'),
+  block.paragraph('toast.variables'),
+
   block.subtitle('all.api'),
   block.api(VaToast, apiOptions),
 

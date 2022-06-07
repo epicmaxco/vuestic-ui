@@ -62,6 +62,9 @@ const config: ApiDocsBlock[] = [
     'Shadow',
   ),
 
+  block.subtitle('all.cssVariables'),
+  block.paragraph('chip.variables'),
+
   block.subtitle('all.api'),
   block.api(VaChip, apiOptions),
 ]

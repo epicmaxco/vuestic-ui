@@ -37,6 +37,9 @@ const config: ApiDocsBlock[] = [
     'Slots',
   ),
 
+  block.subtitle('all.cssVariables'),
+  block.paragraph('fileUpload.variables'),
+
   block.subtitle('all.api'),
   block.api(VaFileUpload, apiOptions),
 ]

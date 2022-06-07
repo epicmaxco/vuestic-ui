@@ -32,6 +32,9 @@ const config: ApiDocsBlock[] = [
     'Slot',
   ),
 
+  block.subtitle('all.cssVariables'),
+  block.paragraph('parallax.variables'),
+
   block.subtitle('all.api'),
   block.api(VaParallax, apiOptions),
 ]

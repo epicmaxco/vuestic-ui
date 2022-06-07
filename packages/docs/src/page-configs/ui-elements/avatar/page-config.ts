@@ -34,6 +34,9 @@ const config: ApiDocsBlock[] = [
     'WithIcon',
   ),
 
+  block.subtitle('all.cssVariables'),
+  block.paragraph('avatar.variables'),
+
   block.subtitle('all.api'),
   block.api(VaAvatar, apiOptions),
 ]

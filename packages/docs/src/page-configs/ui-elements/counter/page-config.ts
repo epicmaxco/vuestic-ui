@@ -57,6 +57,9 @@ const config: ApiDocsBlock[] = [
     'Slots',
   ),
 
+  block.subtitle('all.cssVariables'),
+  block.paragraph('counter.variables'),
+
   block.subtitle('all.api'),
   block.api(VaCounter, apiOptions),
 ]

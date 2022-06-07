@@ -16,6 +16,9 @@ const config: ApiDocsBlock[] = [
     'Default',
   ),
 
+  block.subtitle('all.cssVariables'),
+  block.paragraph('backtop.variables'),
+
   block.subtitle('all.api'),
   block.api(VaBacktop, apiOptions),
 ]

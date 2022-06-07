@@ -42,6 +42,9 @@ const config: ApiDocsBlock[] = [
     'Thickness',
   ),
 
+  block.subtitle('all.cssVariables'),
+  block.paragraph('progressCircle.variables'),
+
   block.subtitle('all.api'),
   block.api(VaProgressCircle, apiOptions),
 ]

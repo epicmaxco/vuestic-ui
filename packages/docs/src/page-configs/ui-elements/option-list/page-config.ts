@@ -32,6 +32,9 @@ const config: ApiDocsBlock[] = [
     'WithComplexData',
   ),
 
+  block.subtitle('all.cssVariables'),
+  block.paragraph('optionList.variables'),
+
   block.subtitle('all.api'),
   block.api(VaOptionList, apiOptions),
 ]

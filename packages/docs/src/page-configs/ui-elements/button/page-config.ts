@@ -61,6 +61,9 @@ const config: ApiDocsBlock[] = [
     'Disabled',
   ),
 
+  block.subtitle('all.cssVariables'),
+  block.paragraph('button.variables'),
+
   block.subtitle('all.api'),
   block.api(VaButton, apiOptions),
 ]

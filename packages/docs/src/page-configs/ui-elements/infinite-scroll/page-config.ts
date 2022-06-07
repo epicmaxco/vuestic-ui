@@ -32,6 +32,9 @@ const config: ApiDocsBlock[] = [
     'CustomTarget',
   ),
 
+  block.subtitle('all.cssVariables'),
+  block.paragraph('infiniteScroll.variables'),
+
   block.subtitle('all.api'),
   block.api(VaInfiniteScroll, apiOptions),
 ]

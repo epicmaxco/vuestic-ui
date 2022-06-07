@@ -26,6 +26,9 @@ const config: ApiDocsBlock[] = [
     'Shape',
   ),
 
+  block.subtitle('all.cssVariables'),
+  block.paragraph('navbar.variables'),
+
   block.subtitle('all.api'),
   block.api(VaNavbar, apiOptions),
 ]

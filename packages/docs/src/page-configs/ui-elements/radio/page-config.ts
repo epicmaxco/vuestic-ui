@@ -32,6 +32,9 @@ const config: ApiDocsBlock[] = [
     'Disabled',
   ),
 
+  block.subtitle('all.cssVariables'),
+  block.paragraph('radio.variables'),
+
   block.subtitle('all.api'),
   block.api(VaRadio, apiOptions),
 ]

@@ -59,6 +59,9 @@ const config: ApiDocsBlock[] = [
     'Fade',
   ),
 
+  block.subtitle('all.cssVariables'),
+  block.paragraph('carousel.variables'),
+
   block.api(VaCarousel, apiOptions),
 ]
 

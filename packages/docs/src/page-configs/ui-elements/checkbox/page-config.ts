@@ -39,6 +39,9 @@ const config: ApiDocsBlock[] = [
     'Error',
   ),
 
+  block.subtitle('all.cssVariables'),
+  block.paragraph('checkbox.variables'),
+
   block.subtitle('all.api'),
   block.api(VaCheckbox, apiOptions),
 ]

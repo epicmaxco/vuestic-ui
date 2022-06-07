@@ -49,6 +49,9 @@ const config: ApiDocsBlock[] = [
     'Lines',
   ),
 
+  block.subtitle('all.cssVariables'),
+  block.paragraph('list.variables'),
+
   block.subtitle('all.api'),
 
   block.paragraph('list.api.list.text'),

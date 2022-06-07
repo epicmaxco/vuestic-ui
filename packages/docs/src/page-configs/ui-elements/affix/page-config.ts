@@ -19,6 +19,9 @@ const config: ApiDocsBlock[] = [
   block.headline('affix.examples.bottom.title'),
   block.example('Bottom'),
 
+  block.subtitle('all.cssVariables'),
+  block.paragraph('affix.variables'),
+
   block.subtitle('all.api'),
   block.api(VaAffix, apiOptions),
 ]

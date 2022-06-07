@@ -52,6 +52,9 @@ const config: ApiDocsBlock[] = [
     'InputClass',
   ),
 
+  block.subtitle('all.cssVariables'),
+  block.paragraph('input.variables'),
+
   block.subtitle('all.api'),
   block.api(VaInput, apiOptions),
 ]

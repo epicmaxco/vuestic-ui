@@ -77,6 +77,9 @@ const config: ApiDocsBlock[] = [
     'NestedModals',
   ),
 
+  block.subtitle('all.cssVariables'),
+  block.paragraph('modal.variables'),
+
   block.subtitle('all.api'),
   block.api(VaModal, apiOptions),
 

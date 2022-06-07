@@ -56,6 +56,9 @@ const config: ApiDocsBlock[] = [
     'Center',
   ),
 
+  block.subtitle('all.cssVariables'),
+  block.paragraph('alert.variables'),
+
   block.subtitle('all.api'),
   block.api(VaAlert, apiOptions),
 ]

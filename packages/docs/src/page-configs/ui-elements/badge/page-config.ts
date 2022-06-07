@@ -34,6 +34,9 @@ const config: ApiDocsBlock[] = [
   block.headline('badge.examples.withAvatar.title'),
   block.example('WithAvatar'),
 
+  block.subtitle('all.cssVariables'),
+  block.paragraph('badge.variables'),
+
   block.subtitle('all.api'),
   block.api(VaBadge, apiOptions),
 ]

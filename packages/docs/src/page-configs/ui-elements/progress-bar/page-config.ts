@@ -43,6 +43,9 @@ const config: ApiDocsBlock[] = [
     'Buffer',
   ),
 
+  block.subtitle('all.cssVariables'),
+  block.paragraph('progressBar.variables'),
+
   block.subtitle('all.api'),
   block.api(VaProgressBar, apiOptions),
 ]

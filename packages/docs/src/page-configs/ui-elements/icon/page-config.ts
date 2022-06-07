@@ -52,6 +52,9 @@ const config: ApiDocsBlock[] = [
     'Tag',
   ),
 
+  block.subtitle('all.cssVariables'),
+  block.paragraph('icon.variables'),
+
   block.subtitle('all.api'),
   block.api(VaIcon, apiOptions),
 ]

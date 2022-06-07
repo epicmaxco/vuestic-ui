@@ -90,6 +90,9 @@ const config: ApiDocsBlock[] = [
     'Disabled',
   ),
 
+  block.subtitle('all.cssVariables'),
+  block.paragraph('datePicker.variables'),
+
   block.subtitle('all.api'),
   block.api(VaDatePicker, apiOptions),
 ]

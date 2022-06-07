@@ -57,6 +57,9 @@ const config: ApiDocsBlock[] = [
     'CustomIcons',
   ),
 
+  block.subtitle('all.cssVariables'),
+  block.paragraph('rating.variables'),
+
   block.subtitle('all.api'),
   block.api(VaRating, apiOptions),
 

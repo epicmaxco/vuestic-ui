@@ -37,6 +37,9 @@ const config: ApiDocsBlock[] = [
     'Color',
   ),
 
+  block.subtitle('all.cssVariables'),
+  block.paragraph('collapse.variables'),
+
   block.api(VaCollapse, apiOptions),
 ]
 

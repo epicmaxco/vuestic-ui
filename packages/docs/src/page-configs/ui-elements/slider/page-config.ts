@@ -77,6 +77,9 @@ const config: ApiDocsBlock[] = [
     'Vertical',
   ),
 
+  block.subtitle('all.cssVariables'),
+  block.paragraph('slider.variables'),
+
   block.subtitle('all.api'),
   block.api(VaSlider, apiOptions),
 ]
