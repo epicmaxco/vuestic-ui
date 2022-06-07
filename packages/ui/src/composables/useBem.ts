@@ -57,7 +57,7 @@ export const useBem = (
       }
       return isKeyPassed ? value : value.value
     },
-  })
+  }) as unknown as ComputedClasses
 
-  return reactive(proxy) as ComputedClasses
+  return reactive(proxy)
 }
