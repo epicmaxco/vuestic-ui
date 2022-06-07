@@ -7,8 +7,12 @@ import { onBeforeUpdate, shallowRef } from 'vue'
 export const useArrayRefs = () => {
   const itemRefs = shallowRef<HTMLElement[]>([])
 
-  const setItemRef = (el: any) => {
-    if (el) {
+  const setItemRef = (el: any, index?: number) => {
+    if (!el) { return }
+
+    if (index !== undefined) {
+      itemRefs.value[index] = el
+    } else {
       itemRefs.value.push(el)
     }
   }
