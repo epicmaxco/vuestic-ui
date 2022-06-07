@@ -8,7 +8,7 @@ type ComputedClasses = Ref<Record<string, any>> & {
 }
 
 /**
- * @description creates BEM modifiers based on transfered prefix (base BEM class) & .
+ * @description creates BEM modifiers based on transferred prefix (base BEM class) & modifiers list.
  * @param prefix string that classes start with (base BEM class).
  * @param modifiers list of options that will serve as state BEM modifiers.
  * @returns computed classes starting with "prefix" and ending with form state BEM modifier.
