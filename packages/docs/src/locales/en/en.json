@@ -909,8 +909,8 @@
         "animated": "Sets css `transition` to table rows",
         "stickyHeader": "Enables sticky header (sticky header is achieved through CSS with `position: sticky` for `thead`)",
         "height": "Sets the height to the table and enables scrolling",
-        "rowClass": "Adds class to the table row. This could be any valid type (that vue class supports) or a function that returns any valid type which will be added to the row class. Function receives table row item (type `Record<string, any>`) and index as arguments",
-        "rowStyle": "Adds style to the table row. This could be any valid type (that vue style supports) or a function that returns any valid type which will be added to the row style. Function receives table row item (type `Record<string, any>`) and index as arguments"
+        "rowBind": "Adds attributes to a table row using `v-bind`. This can be an object type (with attributes that vue supports) or a function that returns such an object. The function receives a table row element (type `Record<string, any>`) and an index as arguments",
+        "cellBind": "Adds attributes to a table cell using `v-bind`. This can be an object type (with attributes that vue supports) or a function that returns such an object. As arguments, the function receives a table cell element (`any` type), a row (`DataTableItem` type), a column (`TableColumn` type), and a row index"
       },
       "events": {
         "updateSortBy": "Emits when `sort-by` changed",
@@ -3804,9 +3804,9 @@
         "title": "Column styling",
         "text": "Should be specified on columns (see the `columns` prop below). Allows to provide different values (`text-align`, `vertical-align` and `width` css properties, custom `class` and `style`) for headers and for columns' cells."
       },
-      "rowStyling": {
-        "title": "Row styling",
-        "text": "Row customization can be achieved by providing a CSS style or class for the row."
+      "binding": {
+        "title": "Row and cell attrs binding",
+        "text": "Row and cell customization can be achieved by binding attributes for items using `row-bind` and `cell-bind`."
       },
       "stickyHeader": {
         "title": "Sticky header",
