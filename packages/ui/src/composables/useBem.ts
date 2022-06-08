@@ -1,9 +1,10 @@
 import { computed, Ref, unref, ComputedRef } from 'vue'
 import { __DEV__ } from '../utils/global-utils'
 
-type ComputedClasses = Ref<Record<string, any>> & {
-  value: ComputedRef<Record<string, true>>
-  asObject: ComputedRef<Record<string, true>>
+type ClassesObject = Record<string, true>
+
+type ComputedClasses = Ref<ClassesObject> & {
+  asObject: ComputedRef<ClassesObject>
   asArray: ComputedRef<string[]>
   asString: ComputedRef<string>
 }
@@ -16,7 +17,7 @@ type ComputedClasses = Ref<Record<string, any>> & {
  * @example
  *  const result = useBem('va-component', computed(() => pick(props, ['success'])))
  *  // if success is `true`
- *  result.value.value: { 'va-component--success': true }
+ *  result.value: { 'va-component--success': true }
  *  result.asObject.value: { 'va-component--success': true }
  *  result.asArray.value: ['va-component--success']
  *  result.asString.value: 'va-component--success'
@@ -44,6 +45,8 @@ export const useBem = (
 
   return new Proxy({}, {
     get (_, key: string) {
+      const obj = {} as Record<'value', ClassesObject>
+
       switch (key) {
         case 'asArray':
           return computedBemClassesArray
@@ -52,7 +55,11 @@ export const useBem = (
         case 'asObject':
           return computedBemClassesObject
         default:
-          return computedBemClassesObject
+          Object.defineProperty(obj, 'value', {
+            enumerable: true,
+            value: computedBemClassesObject,
+          })
+          return obj.value[key]
       }
     },
   }) as ComputedClasses

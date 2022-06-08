@@ -1,4 +1,4 @@
-import { computed, ExtractPropTypes, PropType, Ref } from 'vue'
+import { computed, ExtractPropTypes, PropType } from 'vue'
 import { useBem } from './useBem'
 import pick from 'lodash/pick.js'
 
@@ -24,5 +24,5 @@ export const useForm = (
   props: ExtractPropTypes<typeof useFormProps>,
 ) => {
   const computedClasses = useBem(prefix, computed(() => pick(props, ['disabled', 'readonly'])))
-  return { computedClasses: computedClasses.value }
+  return { computedClasses }
 }
