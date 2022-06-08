@@ -1,9 +1,9 @@
 <template>
   <div class="va-tree-view">
     <va-tree-node
-        v-for="(nodeItem) in treeItems"
-        :key="nodeItem.id"
-        :node="nodeItem"
+      v-for="(nodeItem) in treeItems"
+      :key="nodeItem.id"
+      :node="nodeItem"
     >
       <template v-for="(_, name) in $slots" v-slot:[name]="bind">
         <slot :name="name" v-bind="bind" />
@@ -13,13 +13,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, provide, PropType, computed, watch, reactive, ref } from 'vue'
+import { defineComponent, provide, watch, reactive, ref, computed, PropType } from 'vue'
 import { TreeViewKey, TreeNode, TreeViewProvide } from './types'
+
 import useTreeBuilder from './hooks/useTreeBuilder'
-import VaTreeNode from './components/VaTreeNode'
+import useTreeFilter from './hooks/useTreeFilter'
+
 import { useColors } from '../../services/color-config/color-config'
 import { getTextColor } from '../../services/color-config/color-functions'
-import useTreeFilter from './hooks/useTreeFilter'
+
+import VaTreeNode from './components/VaTreeNode'
 
 export default defineComponent({
   name: 'VaTreeView',
@@ -64,18 +67,14 @@ export default defineComponent({
 
   emits: ['update:modelValue'],
 
-  components: {
-    VaTreeNode,
-  },
+  components: { VaTreeNode },
 
   setup: (props, { emit }) => {
     const selectedNodes = ref(new Set())
     const { getColor } = useColors()
     const colorComputed = computed(() => getColor(props.color))
     const iconColor = computed(() => getTextColor(colorComputed.value))
-    const nodeItems = reactive({
-      list: props.nodes.slice(),
-    })
+    const nodeItems = reactive({ list: props.nodes.slice() })
     const treeItems = computed({
       get: () => useTreeBuilder({
         nodes: nodeItems.list,
@@ -146,11 +145,7 @@ export default defineComponent({
 
     provide(TreeViewKey, treeView)
 
-    return {
-      nodeItems,
-      treeView,
-      treeItems,
-    }
+    return { nodeItems, treeView, treeItems }
   },
 })
 </script>
