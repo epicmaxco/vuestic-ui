@@ -11,7 +11,7 @@ export const createNode: CreateNodeFunc = ({
   children,
   level,
   hasChildren: !!children.length,
-  expanded: expandAll,
+  expanded: expandAll || node.expanded,
   selected: false,
   disabled: false,
 })
