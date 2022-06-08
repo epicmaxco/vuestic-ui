@@ -1,38 +1,46 @@
 <template>
   <div class="va-tree-node">
     <div
-      class="va-tree-node-header"
+      class="va-tree-node-root va-tree-node-root--selectable"
       @click.stop="toggleNode($props.node)"
     >
-      <div
-        v-if="$props.node.hasChildren"
-        class="va-tree-node-header__item"
-      >
-        <slot name="node-icon-toggle" v-bind="$props.node">
-          <button style="height: 1rem; width: 1rem; line-height: 1rem;">
-            {{ $props.node.expanded ? '-' : '+' }}
-          </button>
-        </slot>
+      <div class="va-tree-node-content" :class="gapClassComputed">
+        <div
+          v-if="$props.node.hasChildren"
+          class="va-tree-node-content__item va-tree-node-content__item--leaf"
+        >
+          <slot v-bind="$props.node" name="node-icon-toggle">
+            <va-icon
+              :name="isExpandedComputed ? 'keyboard_arrow_down' : 'keyboard_arrow_right'"
+              size="20px"
+            />
+          </slot>
+        </div>
+        <div
+          v-if="selectable"
+          class="va-tree-node-content__item"
+          @click.stop
+        >
+          <slot name="node-checkbox">
+            <va-checkbox
+              v-model="$props.node.selected"
+              :color="colorComputed"
+              @update:model-value="(isSelected) => toggleSelect($props.node, isSelected)"
+            />
+          </slot>
+        </div>
+        <div v-if="hasIconComputed" class="va-tree-node-content__item">
+          <slot name="node-icon" v-bind="$props.node"></slot>
+        </div>
+        <div class="va-tree-node-content__body">
+          <slot name="node-body" v-bind="$props.node">{{ labelComputed }}</slot>
+        </div>
       </div>
-      <div class="va-tree-node-header__item" v-if="selectable" @click.stop>
-        <va-checkbox
-          v-model="$props.node.selected"
-          :color="colorComputed"
-          @update:model-value="(isSelected) => toggleSelect($props.node, isSelected)"
-        />
-      </div>
-      <div class="va-tree-node-header__item">
-        <slot name="node-header" v-bind="$props.node">
-          {{ label }}
-        </slot>
-      </div>
-    </div>
-    <div class="va-tree-node-body">
-      <slot name="node-body" v-bind="$props.node"></slot>
     </div>
     <div
-      v-show="$props.node.expanded"
+      v-if="$props.node.hasChildren"
       class="va-tree-node-children"
+      :class="expandedClassComputed"
     >
       <va-tree-node
         v-for="childNode in $props.node.children"
@@ -48,9 +56,11 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, inject, PropType, ref } from 'vue'
-import { TreeNode, TreeViewKey, TreeViewProvide } from '../../types'
+import { defineComponent, inject, computed, PropType } from 'vue'
+
+import VaIcon from '../../../va-icon'
 import VaCheckbox from '../../../va-checkbox'
+import { TreeViewKey, TreeNode, TreeViewProvide } from '../../types'
 
 export default defineComponent({
   name: 'VaTreeNode',
@@ -63,11 +73,9 @@ export default defineComponent({
     },
   },
 
-  components: {
-    VaCheckbox,
-  },
+  components: { VaCheckbox, VaIcon },
 
-  setup: (props) => {
+  setup: (props, { slots }) => {
     let nodes: TreeNode[] = []
     const {
       nodeKey,
@@ -92,17 +100,35 @@ export default defineComponent({
       toggleSelect: (node: TreeNode, isSelected: boolean) => ({ node, isSelected }),
     })
 
-    const label = ref(props.node[nodeKey] || '')
+    const labelComputed = computed(() => props.node[nodeKey] || '')
+    const isExpandedComputed = computed(() => props.node.expanded)
+    const hasIconComputed = computed(() => slots['node-icon'] && props.node.icon)
+    const expandedClassComputed = computed(
+      () => ({
+        'va-tree-node-children--expanded': isExpandedComputed.value,
+      }),
+    )
+    const gapClassComputed = computed(
+      () => ({
+        'va-tree-node-content--indent': (selectable || hasIconComputed) &&
+          props.node.hasChildren === false,
+      }),
+    )
 
     return {
-      label,
-      nodeKey,
       iconColor,
       treeItems,
       selectable,
+
       toggleNode,
       toggleSelect,
+
+      labelComputed,
       colorComputed,
+      hasIconComputed,
+      gapClassComputed,
+      isExpandedComputed,
+      expandedClassComputed,
     }
   },
 })
@@ -112,34 +138,75 @@ export default defineComponent({
 @import "../../../../styles/resources/index";
 @import 'variables';
 
-:root {
-  --va-tree-node-margin-top: 1rem;
+%va-tree-node-content-item {
+  flex: var(--va-tree-node-content-item-flex);
+  min-width: var(--va-tree-node-indent);
 }
 
 .va-tree-node {
-  display: flex;
-  flex-flow: column;
-  align-items: flex-start;
-
-  &-header {
+  &-root {
     display: flex;
-    align-items: center;
-    cursor: pointer;
-    width: 100%;
+    padding: var(--va-tree-node-padding);
 
-    &__item + .va-tree-node-header__item {
-      margin-left: 0.5rem;
+    &--selectable {
+      position: relative;
+
+      &::before {
+        content: "";
+        background-color: var(--va-primary);
+        border-radius: var(--va-tree-node-border-radius);
+        bottom: 0;
+        left: 0;
+        opacity: 0;
+        pointer-events: none;
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
+
+      &:hover::before,
+      &:focus::before {
+        opacity: 0.1;
+      }
     }
   }
 
-  &-body {}
+  &-content {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    width: 100%;
+
+    &__item {
+      @extend %va-tree-node-content-item;
+
+      &--leaf {
+        cursor: pointer;
+      }
+    }
+
+    &__body {
+      flex: var(--va-tree-node-content-body-item-flex);
+      width: 100%;
+    }
+
+    &--indent {
+      margin-left: var(--va-tree-node-indent);
+    }
+  }
 
   &-children {
+    display: none;
     background-image: linear-gradient(#adb3b9 33%, rgba(255, 255, 255, 0) 0%);
-    background-position: left;
+    background-position: 15px;
     background-size: 1px 3px;
     background-repeat: repeat-y;
-    padding-left: 1.85rem;
+    padding-left: var(--va-tree-node-indent);
+    width: 100%;
+
+    &--expanded {
+      display: block;
+    }
   }
 }
 </style>
