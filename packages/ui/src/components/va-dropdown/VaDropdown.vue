@@ -7,26 +7,22 @@
     :aria-expanded="!!valueComputed"
   >
     <div
+      ref="anchorRef"
       class="va-dropdown__anchor"
       @click="onAnchorClick()"
       @mouseenter="onMouseEnter()"
       @mouseleave="onMouseLeave()"
-      @keyup.enter.stop.prevent="onAnchorClick()"
-      ref="anchorRef"
-      role="button"
-      :aria-controls="controlledIdComputed"
     >
       <slot name="anchor" />
     </div>
     <template v-if="valueComputed">
       <teleport :to="attachElement" :disabled="disableAttachment">
         <div
-          :id="controlledIdComputed"
+          ref="contentRef"
           class="va-dropdown__content-wrapper"
           @mouseover="$props.isContentHoverable && onMouseEnter()"
           @mouseout="onMouseLeave()"
           @click.stop="emitAndClose('dropdown-content-click', closeOnContentClick)"
-          ref="contentRef"
         >
           <slot />
         </div>
@@ -144,14 +140,11 @@ export default defineComponent({
       }
     })
 
-    const controlledIdComputed = computed(() => `aria-controlled-id-${generateUniqueId()}`)
-
     return {
       valueComputed,
       anchorRef,
       contentRef,
       computedClass,
-      controlledIdComputed,
       emitAndClose,
       onAnchorClick,
       onMouseEnter,
@@ -177,6 +170,14 @@ export default defineComponent({
   &__content-wrapper {
     /* overflow: hidden; */
     z-index: var(--va-dropdown-content-wrapper-z-index);
+  }
+
+  &__icons {
+    &__reset {
+      &:focus {
+        @include focus-outline;
+      }
+    }
   }
 }
 </style>

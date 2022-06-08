@@ -52,7 +52,7 @@ export default defineNuxtModule<VuesticOptions>({
       filename: 'plugin.mjs',
 
       // Use JSON.stringify() here, because it will be inserted in ejs template as string. Then we will JSON.parse it.
-      options: { 
+      options: {
         config: JSON.stringify(options.config),
         // withoutComponents: JSON.stringify(options.withoutComponents)
       }
@@ -64,13 +64,7 @@ export default defineNuxtModule<VuesticOptions>({
     const composablesFrom = resolve(distDir, './runtime/composables.mjs')
     const composablesNamesList = [
       'useGlobalConfig',
-      'getGlobalConfig',
-      'setGlobalConfig',
-      'mergeGlobalConfig',
       'useColors',
-      'getColor',
-      'getColors',
-      'setColors',
       'useToast',
       'useModal',
     ]

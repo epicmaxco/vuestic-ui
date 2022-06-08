@@ -10,10 +10,10 @@
     :error-count="$props.errorCount"
   >
     <div
+      ref="container"
       class="va-switch__container"
       tabindex="-1"
       @blur="onBlur"
-      ref="container"
     >
       <div
         class="va-switch__inner"
@@ -24,18 +24,15 @@
           ref="input"
           type="checkbox"
           role="switch"
-          :aria-checked="isChecked"
-          :id="String($props.id)"
-          :name="String($props.name)"
-          readonly
-          :disabled="$props.disabled"
+          v-bind="inputAttributesComputed"
           v-on="keyboardFocusListeners"
           @focus="onFocus"
           @blur="onBlur"
-          @keypress.prevent="toggleSelection"
+          @keypress.enter.prevent="toggleSelection"
         >
         <div
           class="va-switch__track"
+          aria-hidden="true"
           :style="trackStyle"
         >
           <div
@@ -61,11 +58,13 @@
       </div>
       <div
         v-if="computedLabel || $slots.default"
-        class="va-switch__label"
         ref="label"
-        @blur="onBlur"
+        class="va-switch__label"
         :style="labelStyle"
-        @click="toggleSelection()"
+        :id="ariaLabelIdComputed"
+        @blur="onBlur"
+        @click="toggleSelection"
+        @keydown.enter.stop="toggleSelection"
       >
         <slot>
           {{ computedLabel }}
@@ -84,6 +83,7 @@ import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'
 import { useSelectable, useSelectableProps, useSelectableEmits } from '../../composables/useSelectable'
 import { useColors } from '../../composables/useColor'
 import { useTextColor } from '../../composables/useTextColor'
+import { generateUniqueId } from '../../services/utils'
 
 export default defineComponent({
   name: 'VaSwitch',
@@ -123,7 +123,13 @@ export default defineComponent({
 
     const { getColor } = useColors()
     const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
-    const { isChecked, computedError, isIndeterminate, ...selectable } = useSelectable(props, emit, elements)
+    const {
+      isChecked,
+      computedError,
+      isIndeterminate,
+      computedErrorMessages,
+      ...selectable
+    } = useSelectable(props, emit, elements)
 
     const computedBackground = computed(() => getColor(isChecked.value ? props.color : props.offColor))
     const { textColorComputed } = useTextColor(computedBackground)
@@ -179,8 +185,25 @@ export default defineComponent({
       color: textColorComputed.value,
     }))
 
+    const ariaLabelIdComputed = computed(() => `aria-label-id-${generateUniqueId()}`)
+    const inputAttributesComputed = computed(() => ({
+      id: props.id,
+      name: props.name,
+      disabled: props.disabled,
+      readonly: props.readonly,
+      ariaDisabled: props.disabled,
+      ariaReadOnly: props.readonly,
+      ariaChecked: !!props.modelValue,
+      ariaLabelledby: ariaLabelIdComputed.value,
+      'aria-invalid': !!computedErrorMessages.value.length,
+      'aria-errormessage': typeof computedErrorMessages.value === 'string'
+        ? computedErrorMessages.value
+        : computedErrorMessages.value.join(', '),
+    }))
+
     return {
       ...selectable,
+      computedErrorMessages,
       isChecked,
       computedError,
       isIndeterminate,
@@ -192,6 +215,8 @@ export default defineComponent({
       trackStyle,
       labelStyle,
       trackLabelStyle,
+      ariaLabelIdComputed,
+      inputAttributesComputed,
     }
   },
 })
@@ -413,10 +438,7 @@ export default defineComponent({
   }
 
   &__input {
-    position: absolute;
-    opacity: 0;
-    height: 0;
-    width: 0;
+    @include visually-hidden;
   }
 }
 </style>

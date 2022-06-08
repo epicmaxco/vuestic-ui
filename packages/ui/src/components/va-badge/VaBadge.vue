@@ -2,11 +2,9 @@
   <div
     class="va-badge"
     role="alert"
-    :aria-labelledby="labelIdComputed"
     :class="badgeClass"
   >
     <span
-      :id="labelIdComputed"
       class="va-badge__text-wrapper"
       :style="badgeStyle"
     >
@@ -66,9 +64,7 @@ export default defineComponent({
       opacity: props.transparent ? 0.5 : 1,
     }))
 
-    const labelIdComputed = computed(() => `aria-label-${generateUniqueId()}`)
-
-    return { badgeClass, badgeStyle, labelIdComputed }
+    return { badgeClass, badgeStyle }
   },
 })
 </script>

@@ -4,6 +4,7 @@
     <div
       v-if="$props.loading"
       class="inner-loading__overlay"
+      aria-hidden="true"
     >
       <va-icon
         spin
