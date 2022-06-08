@@ -1174,6 +1174,12 @@
         "increaseAction": "Устанавливает компонент вместо иконок или кнопок (увеличения)",
         "content": "Устанавливает компонент вместо поля ввода"
       }
+    },
+    "VaSpacer": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
     }
   },
   "menu": {
@@ -1281,7 +1287,8 @@
     "carousel": "Carousel",
     "treeShaking": "Tree Shaking",
     "counter": "Counter",
-    "nuxt": "Nuxt"
+    "nuxt": "Nuxt",
+    "spacer": "Spacer"
   },
   "all": {
     "examples": "Примеры",
@@ -3847,6 +3854,16 @@
       "plugin": "Установите интеграционный модуль:",
       "nuxtConfig": "Затем обновите файл nuxt-config.ts:",
       "moreAboutConfig": "Подробнее про конфигурирование"
+    }
+  },
+  "spacer": {
+    "title": "Spacer component",
+    "summaryText": "`va-spacer` аналог для свойства `flex-grow`. Он позволяет добавить пустое пространсто между компонентами.",
+    "examples": {
+      "default": {
+        "title": "Базовое использование",
+        "text": "`va-spacer` добавляет div с классом `.spacer`."
+      }
     }
   }
 }
