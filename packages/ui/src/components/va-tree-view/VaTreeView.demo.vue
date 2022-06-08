@@ -8,7 +8,7 @@
     </VbCard>
     <VbCard title="Icons">
       <va-tree-view
-        :nodes="nodes"
+        :nodes="nodesWithIcons"
         node-key="label"
         expand-all
       >
@@ -35,7 +35,7 @@
       <br />
       <va-tree-view
         v-model="selectedNodes"
-        :nodes="nodes"
+        :nodes="nodesWithIcons"
         node-key="label"
         expand-all
         selectable
@@ -191,38 +191,88 @@ export default {
       {
         id: 1,
         label: 'Category',
-        icon: 'home',
         children: [
           {
             id: 2,
             label: 'Subcategory',
-            icon: 'account_circle',
             children: [
               { id: 3, label: 'Item' },
-              { id: 4, label: 'Item', icon: 'star' },
+              { id: 4, label: 'Item' },
             ],
           },
           {
             id: 5,
             label: 'Subcategory',
-            icon: 'bug_report',
-            children: [{ id: 6, label: 'Item' }],
+            children: [
+              { id: 6, label: 'Item' },
+            ],
           },
         ],
       },
       {
         id: 7,
         label: 'Category',
-        icon: 'help',
-        children: [{ id: 8, label: 'Item' }],
+        children: [
+          { id: 8, label: 'Item' },
+        ],
       },
       {
         id: 9,
         label: 'Category',
-        icon: 'settings',
-        children: [{ id: 10, label: 'Item' }],
+        children: [
+          { id: 10, label: 'Item' },
+        ],
       },
-      { id: 11, label: 'Item' },
+      {
+        id: 11,
+        label: 'Item',
+      },
+    ],
+    nodesWithIcons: [
+      {
+        id: 1,
+        label: 'Category',
+        icon: 'mail',
+        children: [
+          {
+            id: 2,
+            label: 'Subcategory',
+            icon: 'mail',
+            children: [
+              { id: 3, label: 'Item' },
+              { id: 4, label: 'Item', icon: 'mail' },
+            ],
+          },
+          {
+            id: 5,
+            label: 'Subcategory',
+            icon: 'mail',
+            children: [
+              { id: 6, label: 'Item' },
+            ],
+          },
+        ],
+      },
+      {
+        id: 7,
+        label: 'Category',
+        icon: 'mail',
+        children: [
+          { id: 8, label: 'Item' },
+        ],
+      },
+      {
+        id: 9,
+        label: 'Category',
+        icon: 'mail',
+        children: [
+          { id: 10, label: 'Item' },
+        ],
+      },
+      {
+        id: 11,
+        label: 'Item',
+      },
     ],
   }),
 }
