@@ -3,12 +3,9 @@ import { useColors } from '../../../composables/useColor'
 import { safeCSSLength } from '../../../utils/css-utils'
 import {
   TableColumn,
-  DataTableRow,
   DataTableColumnClass,
   DataTableColumnStyle,
   DataTableCell,
-  DataTableRowClass,
-  DataTableRowStyle,
 } from '../types'
 
 const prefix = '--va-data-table'
@@ -21,8 +18,6 @@ interface useStylableProps {
   allowFooterSorting: boolean
   stickyHeader: boolean
   height: string | number | undefined
-  rowClass: DataTableRowClass
-  rowStyle: DataTableRowStyle
 }
 
 const getClass = (classes: DataTableColumnClass) => isFunction(classes) ? classes() : classes
@@ -61,14 +56,6 @@ export default function useStyleable (props: useStylableProps) {
     [`${prefix}-cursor`]: props.allowFooterSorting && column.sortable ? 'pointer' : 'default',
   })
 
-  const getCustomRowClass = (row: DataTableRow) => isFunction(props.rowClass)
-    ? props.rowClass(row.source, row.initialIndex)
-    : props.rowClass
-
-  const getCustomRowStyle = (row: DataTableRow) => isFunction(props.rowStyle)
-    ? props.rowStyle(row.source, row.initialIndex)
-    : props.rowStyle
-
   return {
     rowCSSVariables,
     stickyCSSVariables,
@@ -77,7 +64,5 @@ export default function useStyleable (props: useStylableProps) {
     getFooterCSSVariables,
     getClass,
     getStyle,
-    getCustomRowClass,
-    getCustomRowStyle,
   }
 }

@@ -7,13 +7,11 @@ interface useRowsProps {
 }
 
 const buildTableCell = (rowIndex: number, column: TableColumn, rowData: DataTableItem): DataTableCell => ({
-  rowData,
   rowIndex,
+  rowData,
   column,
-  value: rowData[column.key]?.toString?.() || '',
-
-  /** @deprecated */
   source: rowData[column.key],
+  value: rowData[column.key]?.toString?.() || '',
 })
 
 const buildTableRow = (source: DataTableItem, initialIndex: number, columns: TableColumn[]): DataTableRow => ({

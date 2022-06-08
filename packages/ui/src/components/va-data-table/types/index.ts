@@ -56,13 +56,11 @@ export type DataTableItem = Record<string, any>
 
 // the inner representation of table cells
 export interface DataTableCell {
+  rowIndex: number
   rowData: DataTableItem;
   column: TableColumn
+  source: any
   value: string
-  rowIndex: number
-
-  /** @deprecated */
-  source?: any;
 }
 
 // the inner representation of table rows
@@ -78,6 +76,6 @@ export type DataTableSortingOrder = StringWithAutocomplete<'asc' | 'desc'> | nul
 
 export type DataTableSelectMode = StringWithAutocomplete<'single' | 'multiple'>
 
-export type DataTableRowClass = unknown | ((item: DataTableItem, index: number) => unknown)
+export type DataTableRowBind = Record<string, string> | ((item: DataTableItem, index: number) => Record<string, string>)
 
-export type DataTableRowStyle = unknown | ((item: DataTableItem, index: number) => unknown)
+export type DataTableCellBind = Record<string, string> | ((cell: any, row: DataTableItem, column: TableColumn, index: number) => Record<string, string>)
