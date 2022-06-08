@@ -2,40 +2,82 @@
   <VbDemo>
     <VbCard title="default">
       <va-tree-view
-        :nodes="defaultNodes"
-        node-key="text"
+        :nodes="nodes"
+        node-key="label"
       />
     </VbCard>
-    <VbCard title="With custom body">
+    <VbCard title="Icons">
       <va-tree-view
-        :nodes="customBodyNodes"
-        node-key="text"
+        :nodes="nodes"
+        node-key="label"
         expand-all
       >
-        <template #node-body="prop">
-          <p>{{prop.body}}</p>
+        <template #node-icon="{icon}">
+          <va-icon
+            v-if="icon"
+            :name="icon"
+            size="20px"
+          />
         </template>
       </va-tree-view>
     </VbCard>
-    <VbCard title="Selection">
+    <VbCard title="Selection and icons">
       <va-radio
         v-for="(option, index) in selectionTypeOptions"
         :key="index"
         v-model="selectionType"
         :option="option"
       />
+      <br />
       <p>
         {{ JSON.stringify(selectedNodes) }}
       </p>
+      <br />
       <va-tree-view
         v-model="selectedNodes"
-        :nodes="defaultNodes"
-        node-key="text"
+        :nodes="nodes"
+        node-key="label"
         expand-all
         selectable
-        color="#efefef"
         :selection-type="selectionType"
-      />
+      >
+        <template #node-icon="{icon}">
+          <va-icon
+            v-if="icon"
+            :name="icon"
+            size="20px"
+          />
+        </template>
+      </va-tree-view>
+    </VbCard>
+    <VbCard title="With custom body">
+      <va-tree-view
+        :nodes="customBodyNodes"
+        node-key="label"
+      >
+        <template #node-body="prop">
+          <div class="d-flex align--center">
+            <va-avatar
+              v-if="prop.image"
+              :src="prop.image"
+              style="margin-right: 0.5rem;"
+            />
+
+            <div style="margin-right: 0.5rem;">
+              <b v-if="prop.label">{{ prop.label }}</b>
+              <p v-if="prop.description">{{ prop.description }}</p>
+            </div>
+
+            <va-button
+              v-if="prop.hasAction"
+              flat
+              icon="add"
+              size="small"
+              style="margin-left: auto;"
+            />
+          </div>
+        </template>
+      </va-tree-view>
     </VbCard>
     <VbCard title="Filter">
       <va-input
@@ -43,8 +85,8 @@
         placeholder="Filter the tree view"
       />
       <va-tree-view
-        :nodes="defaultNodes"
-        node-key="text"
+        :nodes="nodes"
+        node-key="label"
         expand-all
         :filter="filterValue"
       />
@@ -55,8 +97,8 @@
         :palette="colorsPalette"
       />
       <va-tree-view
-        :nodes="defaultNodes"
-        node-key="text"
+        :nodes="nodes"
+        node-key="label"
         selectable
         expand-all
         :color="selectedColor"
@@ -69,6 +111,9 @@
 import VaTreeView from './VaTreeView.vue'
 import VaRadio from '../va-radio'
 import VaInput from '../va-input'
+import VaAvatar from '../va-avatar'
+import VaButton from '../va-button'
+import VaIcon from '../va-icon'
 import { VaColorPalette } from '../va-color-palette'
 
 const COLORS_PALETTE = [
@@ -88,6 +133,9 @@ export default {
     VaTreeView,
     VaRadio,
     VaInput,
+    VaAvatar,
+    VaButton,
+    VaIcon,
     VaColorPalette,
   },
 
@@ -98,52 +146,98 @@ export default {
     filterValue: '',
     colorsPalette: COLORS_PALETTE,
     selectedColor: COLORS_PALETTE[0],
-    defaultNodes: [
-      {
-        id: 1,
-        text: 'Text 1',
-        children: [
-          {
-            id: 2,
-            text: 'Text 2',
-            children: [
-              { id: 3, text: 'Text 3' },
-              { id: 4, text: 'Text 4' },
-            ],
-          },
-          { id: 5, text: 'Text 5' },
-        ],
-      },
-      { id: 6, text: 'Text 6' },
-    ],
     customBodyNodes: [
       {
         id: 1,
-        text: 'Text 1',
-        body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        label: 'Category',
+        description: 'It is absolutely optional',
+        expanded: true,
         children: [
           {
             id: 2,
-            text: 'Text 2',
-            body: 'Sed semper, tellus id lacinia faucibus, nisi magna scelerisque lorem, eu finibus quam erat vel augue.',
+            label: 'Photo',
+            description: 'This item works so well with the other one.',
+            image: 'https://picsum.photos/100',
+            hasAction: true,
+          },
+          {
+            id: 3,
+            label: 'Emoji',
+            description: 'This item corresponds the first item perfectly.',
+            image: 'https://picsum.photos/100',
+            hasAction: true,
+          },
+          {
+            id: 4,
+            label: 'Password was updated',
+            description: 'This one as well.',
             children: [
-              { id: 3, text: 'Text 3' },
-              { id: 4, text: 'Text 4' },
+              { id: 5, label: 'Node' },
+              { id: 6, label: 'It is node also' },
+            ],
+          },
+        ],
+      },
+      {
+        id: 7,
+        label: 'Super category',
+        children: [
+          { id: 8, label: 'Super node' },
+          { id: 9, label: 'Common node' },
+        ],
+      },
+    ],
+    nodes: [
+      {
+        id: 1,
+        label: 'Category',
+        icon: 'home',
+        children: [
+          {
+            id: 2,
+            label: 'Subcategory',
+            icon: 'account_circle',
+            children: [
+              { id: 3, label: 'Item' },
+              { id: 4, label: 'Item', icon: 'star' },
             ],
           },
           {
             id: 5,
-            text: 'Text 5',
-            body: 'In auctor malesuada augue ac elementum.',
+            label: 'Subcategory',
+            icon: 'bug_report',
+            children: [{ id: 6, label: 'Item' }],
           },
         ],
       },
-      { id: 6, text: 'Text 6' },
+      {
+        id: 7,
+        label: 'Category',
+        icon: 'help',
+        children: [{ id: 8, label: 'Item' }],
+      },
+      {
+        id: 9,
+        label: 'Category',
+        icon: 'settings',
+        children: [{ id: 10, label: 'Item' }],
+      },
+      { id: 11, label: 'Item' },
     ],
   }),
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+.custom-body-example {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
+  &__item {
+    + .custom-body-example__item {
+      margin-left: 0.5rem;
+    }
+  }
+}
 </style>
