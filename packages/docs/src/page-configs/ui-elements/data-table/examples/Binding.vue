@@ -2,14 +2,14 @@
   <div class="row">
     <va-checkbox
       class="flex mb-1 md6"
-      label="Add style"
-      v-model="isRowStyle"
+      label="Row bind"
+      v-model="isRowBind"
     />
 
     <va-checkbox
       class="flex mb-1 md6"
-      label="Add class"
-      v-model="isRowClass"
+      label="Cell bind"
+      v-model="isCellBind"
     />
   </div>
 
@@ -17,8 +17,8 @@
     :items="items"
     :columns="columns"
     selectable
-    :row-class="isRowClass && getCustomRowClass"
-    :row-style="isRowStyle && getCustomRowStyle"
+    :row-bind="isRowBind && getRowBind"
+    :cell-bind="isCellBind && getCellBind"
   />
 </template>
 
@@ -76,26 +76,27 @@ export default defineComponent({
     return {
       items: users,
       columns,
-      isRowStyle: false,
-      isRowClass: false,
+      isCellBind: true,
+      isRowBind: true,
     }
   },
 
   methods: {
-    getCustomRowClass (item) {
+    getRowBind (row) {
       const classes = ['customRowClass_1']
-      if (item.name === 'Ervin Howell') {
+      if (row.name === 'Ervin Howell') {
         classes.push(['customRowClass_2', 'customRowClass_3'])
-      } else if (item.phone.startsWith('(')) {
+      } else if (row.phone.startsWith('(')) {
         classes.push({ customRowClass_4: true })
       }
-      return classes
+      return { class: classes }
     },
-    getCustomRowStyle (item, index) {
-      if (index === 0) {
-        return 'font-weight: bold'
-      } else if (item.id === 3) {
-        return { fontStyle: 'italic', 'text-shadow': '1px 1px yellow' }
+    getCellBind (cell, row, column) {
+      if (column.key === 'username' && cell.startsWith('S')) {
+        return {
+          style: { fontWeight: 'bold' },
+          onClick: () => console.log(cell),
+        }
       }
     },
   },

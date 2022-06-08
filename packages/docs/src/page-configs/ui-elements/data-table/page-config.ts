@@ -55,9 +55,9 @@ const config: ApiDocsBlock[] = [
     'Styling',
   ),
   ...block.exampleBlock(
-    'dataTable.examples.rowStyling.title',
-    'dataTable.examples.rowStyling.text',
-    'RowStyling',
+    'dataTable.examples.binding.title',
+    'dataTable.examples.binding.text',
+    'Binding',
   ),
 
   block.headline('dataTable.examples.stickyHeader.title'),
