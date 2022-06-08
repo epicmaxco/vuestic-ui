@@ -24,16 +24,11 @@
           ref="input"
           type="checkbox"
           class="va-checkbox__input"
-          :aria-label="$props.ariaLabel"
           :id="computedId"
-          :name="computedName"
-          :tabindex="computedTabIndex"
-          :disabled="disabled"
-          :readonly="readonly"
           :indeterminate="indeterminate"
           :value="label"
-          :aria-checked="isActive"
           :checked="isActive"
+          v-bind="inputAttributesComputed"
           v-on="keyboardFocusListeners"
           @focus="onFocus"
           @blur="onBlur"
@@ -44,7 +39,6 @@
           v-show="isActive"
           class="va-checkbox__icon"
           size="20px"
-          aria-hidden="true"
           :name="computedIconName"
           :color="textColorComputed"
         />
@@ -91,7 +85,7 @@ export default defineComponent({
     indeterminateIcon: { type: String as PropType<string>, default: 'remove' },
     id: { type: String as PropType<string>, default: '' },
     name: { type: String as PropType<string>, default: '' },
-    ariaLabel: { type: String, default: '' },
+    ariaLabel: { type: String, default: undefined },
   },
   setup (props, { emit }) {
     const elements = {
@@ -156,6 +150,22 @@ export default defineComponent({
     )
 
     const uniqueId = computed(generateUniqueId)
+    const computedId = computed(() => props.id || uniqueId.value)
+    const computedName = computed(() => props.name || uniqueId.value)
+    const inputAttributesComputed = computed(() => ({
+      name: computedName.value,
+      disabled: props.disabled,
+      readonly: props.readonly,
+      tabindex: props.disabled ? -1 : 0,
+      ariaLabel: props.ariaLabel,
+      ariaDisabled: props.disabled,
+      ariaReadOnly: props.readonly,
+      ariaChecked: isActive.value,
+      'aria-invalid': !!computedErrorMessages.value.length,
+      'aria-errormessage': typeof computedErrorMessages.value === 'string'
+        ? computedErrorMessages.value
+        : computedErrorMessages.value.join(', '),
+    }))
 
     return {
       isActive,
@@ -170,9 +180,9 @@ export default defineComponent({
       toggleSelection,
       onBlur,
       onFocus,
-      computedTabIndex: computed(() => props.disabled ? -1 : 0),
-      computedId: computed(() => props.id || uniqueId.value),
-      computedName: computed(() => props.name || uniqueId.value),
+      inputAttributesComputed,
+      computedId,
+      computedName,
     }
   },
 })

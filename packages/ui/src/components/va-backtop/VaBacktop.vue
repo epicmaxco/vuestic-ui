@@ -3,9 +3,10 @@
     v-if="visible"
     class="va-backtop"
     role="button"
-    aria-label="Back to top"
+    aria-label="back to top"
     :style="computedStyle"
     @click="scrollToTop"
+    @keydown.enter.stop="scrollToTop"
   >
     <slot>
       <va-button

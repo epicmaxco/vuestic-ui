@@ -1,5 +1,6 @@
 <template>
   <div
+    aria-hidden="true"
     class="va-list-separator"
     :class="computedClass"
   />
