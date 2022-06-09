@@ -68,7 +68,7 @@ export default defineComponent({
 
     const computedClass = computed(() => ({
       'va-radio--left-label': props.leftLabel,
-      ...computedClasses.value,
+      ...computedClasses,
     }))
 
     const iconBackgroundComputedStyles = computed(() => ({

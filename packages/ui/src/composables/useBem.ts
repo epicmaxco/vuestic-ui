@@ -1,11 +1,14 @@
-import { computed, Ref, unref, ComputedRef } from 'vue'
+import { computed, Ref, unref, ComputedRef, ref } from 'vue'
 import { __DEV__ } from '../utils/global-utils'
+import isFunction from 'lodash/isFunction.js'
 
-type ClassesObject = Record<string, true>
+type Key<Prefix extends string, ModifierKey extends string> = `${Prefix}--${ModifierKey}`
 
-type ComputedClasses = Ref<ClassesObject> & {
-  asObject: ComputedRef<ClassesObject>
-  asArray: ComputedRef<string[]>
+type ClassesObject<Key extends string> = Record<Key, true>
+
+type ComputedClasses<Key extends string> = Ref<ClassesObject<Key>> & {
+  asObject: ComputedRef<ClassesObject<Key>>
+  asArray: ComputedRef<Key[]>
   asString: ComputedRef<string>
 }
 
@@ -22,19 +25,21 @@ type ComputedClasses = Ref<ClassesObject> & {
  *  result.asArray.value: ['va-component--success']
  *  result.asString.value: 'va-component--success'
  */
-export const useBem = (
-  prefix = '',
-  modifiers: Record<string, boolean> | Ref<Record<string, boolean>>,
+export const useBem = <Prefix extends string, ModifierKey extends string>(
+  prefix: Prefix,
+  modifiers: Record<ModifierKey, boolean> | Ref<Record<ModifierKey, boolean>> | (() => Record<ModifierKey, boolean>),
 ) => {
   if (__DEV__ && !prefix) {
     console.warn('You must pass the @param "prefix" to the useBem hook!')
   }
 
+  const modifiersList = isFunction(modifiers) ? modifiers() : modifiers
+
   const computedBemClassesObject = computed(() => {
     return Object
-      .entries(unref(modifiers))
-      .reduce((classesObj: Record<string, boolean>, [modifiersName, value]) => {
-        if (value) { classesObj[`${prefix}--${modifiersName}`] = true }
+      .entries(unref(modifiersList))
+      .reduce((classesObj: Record<string, boolean>, [modifierName, value]) => {
+        if (value) { classesObj[`${prefix}--${modifierName}`] = true }
         return classesObj
       }, {})
   })
@@ -44,9 +49,13 @@ export const useBem = (
   const computedBemClassesString = computed(() => computedBemClassesArray.value.join(' '))
 
   return new Proxy({}, {
+    ownKeys () {
+      return Reflect.ownKeys(computedBemClassesObject.value)
+    },
+    getOwnPropertyDescriptor (_, key) {
+      return Reflect.getOwnPropertyDescriptor(computedBemClassesObject.value, key)
+    },
     get (_, key: string) {
-      const obj = {} as Record<'value', ClassesObject>
-
       switch (key) {
         case 'asArray':
           return computedBemClassesArray
@@ -55,12 +64,8 @@ export const useBem = (
         case 'asObject':
           return computedBemClassesObject
         default:
-          Object.defineProperty(obj, 'value', {
-            enumerable: true,
-            value: computedBemClassesObject,
-          })
-          return obj.value[key]
+          return (computedBemClassesObject as unknown as Record<string, true>)[key] ?? true
       }
     },
-  }) as ComputedClasses
+  }) as ComputedClasses<Key<Prefix, ModifierKey>>
 }
