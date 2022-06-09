@@ -141,9 +141,9 @@
                 :model-value="isRowSelected(row)"
                 :color="selectedColor"
                 :aria-label="`select row ${row.initialIndex}`"
-                @click.shift.exact="shiftSelectRows(row)"
-                @click.ctrl.exact="ctrlSelectRow(row)"
-                @click.exact="ctrlSelectRow(row)"
+                @click.shift.exact.stop="shiftSelectRows(row)"
+                @click.ctrl.exact.stop="ctrlSelectRow(row)"
+                @click.exact.stop="ctrlSelectRow(row)"
               />
             </td>
 

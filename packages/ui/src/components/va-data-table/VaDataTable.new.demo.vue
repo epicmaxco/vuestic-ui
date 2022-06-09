@@ -1,10 +1,12 @@
 <template>
   <VbDemo>
     <VbCard title="Reactive data">
-      <button @click="shuffleItems">Shuffle</button>
+      <button @click="shuffleItems">Shuffle</button><br>
+      <input id="isClickable" type="checkbox" v-model="clickable">
+      <label for="isClickable">Clickable rows</label><br>
       <va-data-table
         :items="items"
-        :clickable="true"
+        :clickable="clickable"
         @row:click="rowEventType = $event.event.type, rowId = $event.item.id"
         @row:dblclick="rowEventType = $event.event.type, rowId = $event.item.id"
         @row:contextmenu="rowEventType = $event.event.type, rowId = $event.item.id"
@@ -355,6 +357,7 @@ export default defineComponent({
       sortBy: 'username',
       sortingOrder: 'asc',
 
+      clickable: false,
       selectable: true,
       selectedItems: [] as { id: number }[],
       selectMode: 'single',
