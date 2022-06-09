@@ -330,6 +330,10 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'color-palette',
         displayName: 'menu.colorPalette',
       },
+      {
+        name: 'tree-view',
+        displayName: 'menu.treeView',
+      },
       // GENERATOR_ADD - uiElements
     ],
   },
