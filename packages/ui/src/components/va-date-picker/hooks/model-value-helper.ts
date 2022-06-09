@@ -1,5 +1,5 @@
-import { VaDatePickerModelValue, VaDatePickerRange, VaDatePickerMode } from '../types'
 import { isRange, isSingleDate, isDates } from '../utils/date-utils'
+import { VaDatePickerModelValue, VaDatePickerRange, VaDatePickerMode } from '../types'
 
 const modeInitialValue = (date: Date, mode: VaDatePickerMode) => {
   if (mode === 'single') {

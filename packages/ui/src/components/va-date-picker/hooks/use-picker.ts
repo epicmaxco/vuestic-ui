@@ -1,7 +1,8 @@
-import { isDatesMonthEqual, isDatesDayEqual, isDatesYearEqual, isDates, isRange, isSingleDate } from './../utils/date-utils'
-import { VaDatePickerMode, VaDatePickerModelValue, VaDatePickerType } from '../types'
-import { useDatePickerModelValue } from './model-value-helper'
 import { computed, ComputedRef, ref, watch } from 'vue'
+
+import { isDatesMonthEqual, isDatesDayEqual, isDatesYearEqual, isDates, isRange, isSingleDate } from './../utils/date-utils'
+import { useDatePickerModelValue } from './model-value-helper'
+import { VaDatePickerMode, VaDatePickerModelValue, VaDatePickerType } from '../types'
 
 const getDateEqualFunction = (type: VaDatePickerType) => {
   return {

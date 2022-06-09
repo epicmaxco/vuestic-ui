@@ -63,17 +63,18 @@
 
 <script lang="ts">
 import { ComponentOptions, computed, defineComponent, nextTick, PropType, ref, watch } from 'vue'
-import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
-import { useColors } from '../../services/color-config/color-config'
 
-import { VaDatePickerModelValue, VaDatePickerType, VaDatePickerView } from './types'
 import { filterComponentProps, extractComponentProps, extractComponentEmits } from '../../utils/child-props'
+import { useColors } from '../../services/color-config/color-config'
+import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
 import { useView } from './hooks/view'
+import { VaDatePickerModelValue, VaDatePickerType, VaDatePickerView } from './types'
 
 import VaDayPicker from './components/VaDayPicker/VaDayPicker.vue'
 import VaDatePickerHeader from './components/VaDatePickerHeader/VaDatePickerHeader.vue'
 import VaMonthPicker from './components/VaMonthPicker/VaMonthPicker.vue'
 import VaYearPicker from './components/VaYearPicker/VaYearPicker.vue'
+import { VaDatePicker } from '.'
 
 const DEFAULT_MONTH_NAMES = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 const DEFAULT_WEEKDAY_NAMES = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA']
@@ -90,8 +91,8 @@ export default defineComponent({
     ...extractComponentProps(VaMonthPicker),
     ...extractComponentProps(VaYearPicker),
     modelValue: { type: [Date, Array, Object] as PropType<VaDatePickerModelValue> },
-    monthNames: { type: Array as PropType<string[]>, required: false, default: DEFAULT_MONTH_NAMES },
-    weekdayNames: { type: Array as PropType<string[]>, required: false, default: DEFAULT_WEEKDAY_NAMES },
+    monthNames: { type: Array as PropType<string[]>, default: DEFAULT_MONTH_NAMES },
+    weekdayNames: { type: Array as PropType<string[]>, default: DEFAULT_WEEKDAY_NAMES },
     view: { type: Object as PropType<VaDatePickerView> },
     type: { type: String as PropType<VaDatePickerType>, default: 'day' },
     readonly: { type: Boolean, default: false },
@@ -111,6 +112,8 @@ export default defineComponent({
   ],
 
   setup (props, { emit }) {
+    const currentPicker = ref<typeof VaDayPicker | typeof VaMonthPicker | typeof VaYearPicker>()
+
     const { valueComputed } = useStateful(props, emit)
 
     const { syncView } = useView(props, emit, { type: props.type })
@@ -163,8 +166,7 @@ export default defineComponent({
       'weekends-color': props.weekendsColor,
     }, 'va-date-picker')
 
-    const currentPicker = ref<ComponentOptions | null>(null)
-    const focusCurrentPicker = () => currentPicker?.value?.$el.focus()
+    const focusCurrentPicker = () => currentPicker.value?.$el.focus()
 
     watch(syncView, (newValue, prevValue) => {
       // Don't focus new picker if user does not change type

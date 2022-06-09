@@ -25,12 +25,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, toRefs, onMounted, ref, computed, watch, shallowRef } from 'vue'
-import { VaDatePickerMode, VaDatePickerModelValue, VaDatePickerView } from '../../types'
-import VaDatePickerCell from '../VaDatePickerCell.vue'
+import { defineComponent, PropType, toRefs, onMounted, computed, watch, shallowRef } from 'vue'
+
 import { createYearDate } from '../../utils/date-utils'
 import { useGridKeyboardNavigation } from '../../hooks/grid-keyboard-navigation'
 import { useDatePicker } from '../../hooks/use-picker'
+import { VaDatePickerMode, VaDatePickerModelValue, VaDatePickerView } from '../../types'
+
+import VaDatePickerCell from '../VaDatePickerCell.vue'
 
 export default defineComponent({
   name: 'VaYearPicker',
@@ -42,7 +44,7 @@ export default defineComponent({
     highlightToday: { type: Boolean, default: true },
     mode: { type: String as PropType<VaDatePickerMode>, default: 'auto' },
     view: { type: Object as PropType<VaDatePickerView>, default: () => ({ type: 'year' }) },
-    startYear: { type: Number, default: () => 1970 },
+    startYear: { type: Number, default: 1970 },
     endYear: { type: Number, default: () => new Date().getFullYear() + 50 },
     readonly: { type: Boolean, default: false },
   },
@@ -50,8 +52,9 @@ export default defineComponent({
   emits: ['update:modelValue', 'hover:year', 'click:year'],
 
   setup (props, { emit }) {
+    const rootNode = shallowRef<HTMLElement>()
+
     const { view } = toRefs(props)
-    const rootNode = shallowRef<HTMLElement | null>(null)
 
     const generateYearsArray = (start: number, end: number) => {
       const yearsCount = end - start + 1

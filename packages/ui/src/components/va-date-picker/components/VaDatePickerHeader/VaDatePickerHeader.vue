@@ -54,8 +54,10 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
-import { VaDatePickerView } from '../../types'
+
 import { useView } from '../../hooks/view'
+import { VaDatePickerView } from '../../types'
+
 import VaButton from '../../../va-button'
 
 export default defineComponent({
