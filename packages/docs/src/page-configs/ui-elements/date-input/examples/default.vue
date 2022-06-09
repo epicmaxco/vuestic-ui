@@ -1,5 +1,3 @@
 <template>
-  <div>
-    <va-date-input />
-  </div>
+  <va-date-input />
 </template>

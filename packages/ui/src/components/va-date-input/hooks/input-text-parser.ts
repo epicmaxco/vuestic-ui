@@ -1,6 +1,7 @@
 import { Ref, ref } from 'vue'
-import { VaDateInputModelValue } from '../types'
 import isDate from 'lodash/isDate.js'
+
+import { VaDateInputModelValue } from '../types'
 
 export const defaultParseDateFunction = (text: string) => new Date(Date.parse(text))
 

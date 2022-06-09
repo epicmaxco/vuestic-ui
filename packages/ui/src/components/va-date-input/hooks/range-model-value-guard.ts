@@ -1,6 +1,7 @@
 import { computed, Ref, ref, watch } from 'vue'
-import { VaDateInputModelValue } from '../types'
+
 import { parseModelValue, isRange } from './model-value-parser'
+import { VaDateInputModelValue } from '../types'
 
 /**
  * This guard is used to prevent updating modelValue if range end is not specified.
