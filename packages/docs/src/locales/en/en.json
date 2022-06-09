@@ -1029,7 +1029,6 @@
         "parse": "Function that transforms input field text to date, date array or date period",
         "parseDate": "Function that transforms input field text to date",
         "parseValue": "Function that transforms string value to date, date array or date period"
-
       },
       "events": {
         "clear": "Emitted if select value has been cleared",
@@ -1359,7 +1358,8 @@
     "carousel": "Carousel",
     "treeShaking": "Tree Shaking",
     "counter": "Counter",
-    "nuxt": "Nuxt"
+    "nuxt": "Nuxt",
+    "treeView": "Tree"
   },
   "all": {
     "examples": "Examples",
@@ -3987,6 +3987,22 @@
       "plugin": "Install integration module:",
       "nuxtConfig": "Then you need to update nuxt-config.ts file:",
       "moreAboutConfig": "More about configuration"
+    }
+  },
+  "treeView": {
+    "title": "Tree view",
+    "description": "Component for the hierarchical and nested data",
+    "examples": {
+      "default": {
+        "title": "Basic usage"
+      },
+      "customizableContent": {
+        "title": "Customizable content",
+        "description": "You can configure tree view's elements"
+      },
+      "filters": {
+        "title": "Filters"
+      }
     }
   }
 }

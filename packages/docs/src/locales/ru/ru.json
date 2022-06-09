@@ -1281,7 +1281,8 @@
     "carousel": "Carousel",
     "treeShaking": "Tree Shaking",
     "counter": "Counter",
-    "nuxt": "Nuxt"
+    "nuxt": "Nuxt",
+    "treeView": "Tree view"
   },
   "all": {
     "examples": "Примеры",
@@ -3847,6 +3848,22 @@
       "plugin": "Установите интеграционный модуль:",
       "nuxtConfig": "Затем обновите файл nuxt-config.ts:",
       "moreAboutConfig": "Подробнее про конфигурирование"
+    }
+  },
+  "treeView": {
+    "title": "Tree view",
+    "description": "Компонент для отображения иерархических или вложенных данных",
+    "examples": {
+      "default": {
+        "title": "Базовое использование"
+      },
+      "customizableContent": {
+        "title": "Настраиваемый контент",
+        "description": "Вы можете настроить содержимое элементов дерева"
+      },
+      "filters": {
+        "title": "Фильтры"
+      }
     }
   }
 }
