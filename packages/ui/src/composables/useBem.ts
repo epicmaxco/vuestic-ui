@@ -20,6 +20,7 @@ type ComputedClasses<Key extends string> = Ref<ClassesObject<Key>> & {
  * @example
  *  const result = useBem('va-component', computed(() => pick(props, ['success'])))
  *  // if success is `true`
+ *  { ...result }: { 'va-component--success': true }
  *  result.value: { 'va-component--success': true }
  *  result.asObject.value: { 'va-component--success': true }
  *  result.asArray.value: ['va-component--success']
