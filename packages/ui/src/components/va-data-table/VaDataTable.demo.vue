@@ -73,7 +73,9 @@
       <input type="checkbox" v-model="isStriped">
       <label>Striped style</label><br>
       <label>No data (due to filtering) message</label>
-      <input type="text" v-model="noDataFilteredHtml">
+      <input type="text" v-model="noDataFilteredHtml"><br />
+      <input type="checkbox" v-model="clickable" />
+      <label>Clickable rows</label>
 
       <va-data-table
         :columns="evenColumnsSortable2"
@@ -94,6 +96,7 @@
         :allow-footer-sorting="allowFooterSorting"
         :no-data-filtered-html="noDataFilteredHtml"
         :striped="isStriped"
+        :clickable="clickable"
         sticky-header
         style="--scroll-table-height: 250px; --scroll-table-color: orange;"
       />
@@ -698,6 +701,7 @@ export default defineComponent({
       hideDefaultHeader: false,
       footerClone: false,
       allowFooterSorting: false,
+      clickable: false,
 
       columnsTest2: ['columnOne', 'columnTwo'],
       itemsTest2: [{ columnOne: 1, columnThree: 3 }, { columnTwo: 2, columnOne: 1 }],
