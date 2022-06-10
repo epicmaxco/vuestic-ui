@@ -8,12 +8,12 @@
     :class="{'file-upload-list-item--undo': removed}"
   >
     <va-file-upload-undo
-      @recover="recoverFile"
       v-if="removed && undo"
+      @recover="recoverFile"
     />
     <div
-      class="va-file-upload-list-item__content"
       v-else
+      class="va-file-upload-list-item__content"
     >
       <div class="va-file-upload-list-item__name">
         {{ file && file.name }}
@@ -22,8 +22,8 @@
         {{ file && file.size }}
       </div>
       <va-icon
-        name="clear"
         class="va-file-upload-list-item__delete"
+        name="clear"
         role="button"
         aria-hidden="false"
         aria-label="remove file"
@@ -42,10 +42,9 @@ import { defineComponent, PropType, ref } from 'vue'
 
 import VaCard from '../../va-card'
 import VaIcon from '../../va-icon'
-
-import { VaFile, ConvertedFile } from '../types'
-
 import VaFileUploadUndo from '../VaFileUploadUndo'
+
+import { ConvertedFile } from '../types'
 
 export default defineComponent({
   name: 'VaFileUploadListItem',
@@ -57,9 +56,9 @@ export default defineComponent({
   emits: ['remove'],
   props: {
     file: { type: Object as PropType<ConvertedFile | null>, default: null },
-    color: { type: String as PropType<string>, default: 'success' },
-    undo: { type: Boolean as PropType<boolean>, default: false },
-    undoDuration: { type: Number as PropType<number>, default: 3000 },
+    color: { type: String, default: 'success' },
+    undo: { type: Boolean, default: false },
+    undoDuration: { type: Number, default: 3000 },
   },
   setup (props, { emit }) {
     const removed = ref(false)
