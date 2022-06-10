@@ -7,7 +7,7 @@
     <VaInput
       v-model="value"
       label="Name"
-      :rules="[(v) => v === 'value' || 'Value should be \'value\'']"
+      :rules="[(v) => v.toString() === 'value' || 'Value should be \'value\'']"
     />
   </VbCard>
 </template>

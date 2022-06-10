@@ -89,7 +89,7 @@
 import { computed, defineComponent, PropType, toRefs, watch, ref, nextTick } from 'vue'
 
 import { useClearableEmits, useClearable } from '../../composables/useClearable'
-import { useValidation, useValidationEmits } from '../../composables/useValidation'
+import { useValidation, useValidationEmits, useValidationProps, UseValidationProps } from '../../composables/useValidation'
 import { useStateful, useStatefulEmits } from '../../composables/useStateful'
 import { useSyncProp } from '../va-date-picker/hooks/sync-prop'
 import { isRange, isSingleDate, isDates } from '../va-date-picker/utils/date-utils'
@@ -123,6 +123,7 @@ export default defineComponent({
   props: {
     ...VaInputProps,
     ...VaDatePickerProps,
+    ...useValidationProps as UseValidationProps<DateInputModelValue>,
 
     clearValue: { type: Date as PropType<DateInputModelValue>, default: undefined },
     modelValue: { type: [Date, Array, Object, String, Number] as PropType<DateInputModelValue> },

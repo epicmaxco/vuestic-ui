@@ -105,7 +105,7 @@ import VaInput from '../va-input/VaInput.vue'
 import VaIcon from '../va-icon/VaIcon.vue'
 import { VaDropdown, VaDropdownContent } from '../va-dropdown/'
 import { useSyncProp } from '../../composables/useSyncProp'
-import { useValidation, useValidationEmits } from '../../composables/useValidation'
+import { useValidation, useValidationEmits, useValidationProps, UseValidationProps } from '../../composables/useValidation'
 import { useClearable, useClearableEmits } from '../../composables/useClearable'
 import { useTimeParser } from './hooks/time-text-parser'
 import { useTimeFormatter } from './hooks/time-text-formatter'
@@ -133,6 +133,7 @@ export default defineComponent({
   props: {
     ...VaInputProps,
     ...extractComponentProps(VaTimePicker),
+    ...useValidationProps as UseValidationProps<Date>,
 
     isOpen: { type: Boolean, default: undefined },
     modelValue: { type: Date, default: undefined },
