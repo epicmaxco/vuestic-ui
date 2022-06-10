@@ -1,4 +1,4 @@
 import withConfigTransport from '../../../services/config-transport/withConfigTransport'
-import VaTimelineItem from './VaTimelineItem.vue'
+import _VaTimelineItem from './VaTimelineItem.vue'
 
-export default withConfigTransport(VaTimelineItem as any)
+export const VaTimelineItem = withConfigTransport(_VaTimelineItem)

@@ -1,6 +1,6 @@
 import { getCurrentInstance } from 'vue'
-import { createModalInstance } from './modal'
-import { ModalOptions } from './types'
+import { createModalInstance } from '../modal'
+import { ModalOptions } from '../types'
 
 /** This hook can be used without plugin used */
 export const useModal = () => {

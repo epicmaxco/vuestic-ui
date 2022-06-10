@@ -47,7 +47,7 @@ import { useTimer } from '../../composables/useTimer'
 import { useTextColor } from '../../composables/useTextColor'
 import VaIcon from '../va-icon/VaIcon.vue'
 
-import { NotificationPosition } from './types'
+import { ToastPosition } from './types'
 
 const VaToastRenderer = defineComponent({
   name: 'VaToastRenderer',
@@ -76,7 +76,7 @@ export default defineComponent({
     onClick: { type: Function },
     multiLine: { type: Boolean as PropType<boolean>, default: false },
     position: {
-      type: String as PropType<NotificationPosition>,
+      type: String as PropType<ToastPosition>,
       default: 'top-right',
       validator: (value: string) => ['top-right', 'top-left', 'bottom-right', 'bottom-left'].includes(value),
     },

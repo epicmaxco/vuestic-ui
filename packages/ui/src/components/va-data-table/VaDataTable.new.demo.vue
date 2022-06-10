@@ -1,10 +1,12 @@
 <template>
   <VbDemo>
     <VbCard title="Reactive data">
-      <button @click="shuffleItems">Shuffle</button>
+      <button @click="shuffleItems">Shuffle</button><br>
+      <input id="isClickable" type="checkbox" v-model="clickable">
+      <label for="isClickable">Clickable rows</label><br>
       <va-data-table
         :items="items"
-        :clickable="true"
+        :clickable="clickable"
         @row:click="rowEventType = $event.event.type, rowId = $event.item.id"
         @row:dblclick="rowEventType = $event.event.type, rowId = $event.item.id"
         @row:contextmenu="rowEventType = $event.event.type, rowId = $event.item.id"
@@ -220,9 +222,9 @@
 import { defineComponent } from 'vue'
 import shuffle from 'lodash/shuffle.js'
 import cloneDeep from 'lodash/cloneDeep.js'
-import VaDataTable from './'
-import VaChip from '../va-chip'
-import VaAlert from '../va-alert'
+import { VaDataTable } from './'
+import { VaChip } from '../va-chip'
+import { VaAlert } from '../va-alert'
 
 export default defineComponent({
   name: 'VaDataTableNewDemo',
@@ -372,6 +374,7 @@ export default defineComponent({
       sortBy: 'username',
       sortingOrder: 'asc',
 
+      clickable: false,
       selectable: true,
       selectedItems: [] as { id: number }[],
       selectMode: 'single',

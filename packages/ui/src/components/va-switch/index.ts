@@ -1,4 +1,4 @@
 import withConfigTransport from '../../services/config-transport/withConfigTransport'
-import VaSwitch from './VaSwitch.vue'
+import _VaSwitch from './VaSwitch.vue'
 
-export default withConfigTransport(VaSwitch)
+export const VaSwitch = withConfigTransport(_VaSwitch)

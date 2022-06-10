@@ -137,9 +137,9 @@
                 :model-value="isRowSelected(row)"
                 :color="selectedColor"
                 :aria-label="`select row ${row.initialIndex}`"
-                @click.shift.exact="shiftSelectRows(row)"
-                @click.ctrl.exact="ctrlSelectRow(row)"
-                @click.exact="ctrlSelectRow(row)"
+                @click.shift.exact.stop="shiftSelectRows(row)"
+                @click.ctrl.exact.stop="ctrlSelectRow(row)"
+                @click.exact.stop="ctrlSelectRow(row)"
               />
             </td>
 
@@ -232,10 +232,6 @@ import { computed, defineComponent, HTMLAttributes, PropType, TableHTMLAttribute
 import omit from 'lodash/omit.js'
 import pick from 'lodash/pick.js'
 
-import VaInnerLoading from '../va-inner-loading'
-import VaCheckbox from '../va-checkbox'
-import VaIcon from '../va-icon'
-
 import useColumns from './hooks/useColumns'
 import useRows from './hooks/useRows'
 import useFilterable from './hooks/useFilterable'
@@ -245,6 +241,11 @@ import useSelectableRow from './hooks/useSelectableRow'
 import useStylable from './hooks/useStylable'
 import useBinding from './hooks/useBinding'
 import useAnimationName from './hooks/useAnimationName'
+
+import { VaInnerLoading } from '../va-inner-loading'
+import { VaCheckbox } from '../va-checkbox'
+import { VaIcon } from '../va-icon'
+
 import {
   DataTableColumnSource,
   DataTableItem,

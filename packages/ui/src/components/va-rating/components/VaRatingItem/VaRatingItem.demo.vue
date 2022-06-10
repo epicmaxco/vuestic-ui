@@ -73,7 +73,7 @@
 
 <script>
 
-import VaRatingItem from './index'
+import { VaRatingItem } from './index'
 
 export default {
   components: {

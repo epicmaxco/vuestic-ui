@@ -60,7 +60,7 @@ import { useColor } from '../../composables/useColor'
 import { useRouterLink, useRouterLinkProps } from '../../composables/useRouterLink'
 import { useSizeProps, useSize } from '../../composables/useSize'
 import { useLoadingProps } from '../../composables/useLoading'
-import VaIcon from '../va-icon'
+import { VaIcon } from '../va-icon'
 import { VaProgressCircle } from '../va-progress-circle'
 
 export default defineComponent({

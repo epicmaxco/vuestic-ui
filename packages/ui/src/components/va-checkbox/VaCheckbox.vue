@@ -61,7 +61,7 @@
 import { defineComponent, computed, PropType, ref } from 'vue'
 
 import { VaMessageListWrapper } from '../va-input'
-import VaIcon from '../va-icon/'
+import { VaIcon } from '../va-icon/'
 
 import { useColors } from '../../composables/useColor'
 import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'

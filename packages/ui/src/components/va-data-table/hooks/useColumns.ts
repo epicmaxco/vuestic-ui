@@ -1,7 +1,8 @@
 import { computed } from 'vue'
 import startCase from 'lodash/startCase.js'
 import merge from 'lodash/merge.js'
-import { DataTableColumnSource, TableColumn, DataTableItem } from '../types'
+
+import { DataTableColumnSource, DataTableColumnInternal, DataTableItem } from '../types'
 
 interface useColumnsProps {
   columns: DataTableColumnSource[]
@@ -9,7 +10,7 @@ interface useColumnsProps {
   [prop: string]: unknown
 }
 
-export const buildTableColumn = (source: DataTableColumnSource, initialIndex: number): TableColumn => {
+export const buildTableColumn = (source: DataTableColumnSource, initialIndex: number): DataTableColumnInternal => {
   const input = typeof source === 'string' ? { key: source } : source
 
   return {

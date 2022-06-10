@@ -282,10 +282,10 @@
 
 <script>
 import { ref } from 'vue'
-import VaCounter from './index'
-import VaButton from './../va-button'
-import VaChip from './../va-chip'
-import VaIcon from './../va-icon'
+import { VaCounter } from './index'
+import { VaButton } from '../va-button'
+import { VaChip } from '../va-chip'
+import { VaIcon } from '../va-icon'
 
 export default {
   components: {

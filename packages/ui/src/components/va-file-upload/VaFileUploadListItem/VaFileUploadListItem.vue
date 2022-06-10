@@ -40,12 +40,12 @@
 <script lang="ts">
 import { defineComponent, PropType, ref } from 'vue'
 
-import VaCard from '../../va-card'
-import VaIcon from '../../va-icon'
+import { VaCard } from '../../va-card'
+import { VaIcon } from '../../va-icon'
 
 import { VaFile, ConvertedFile } from '../types'
 
-import VaFileUploadUndo from '../VaFileUploadUndo'
+import { VaFileUploadUndo } from '../VaFileUploadUndo'
 
 export default defineComponent({
   name: 'VaFileUploadListItem',

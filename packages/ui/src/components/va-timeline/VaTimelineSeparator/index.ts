@@ -1,4 +1,4 @@
 import withConfigTransport from '../../../services/config-transport/withConfigTransport'
-import VaTimelineSeparator from './VaTimelineSeparator.vue'
+import _VaTimelineSeparator from './VaTimelineSeparator.vue'
 
-export default withConfigTransport(VaTimelineSeparator as any)
+export const VaTimelineSeparator = withConfigTransport(_VaTimelineSeparator)

@@ -1,3 +1,1 @@
-import VaSeparator from './VaSeparator.vue'
-
-export default VaSeparator
+export { default as VaSeparator } from './VaSeparator.vue'

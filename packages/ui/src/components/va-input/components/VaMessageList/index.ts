@@ -1,4 +1,4 @@
 import withConfigTransport from '../../../../services/config-transport/withConfigTransport'
-import VaMessageList from './VaMessageList.vue'
+import _VaMessageList from './VaMessageList.vue'
 
-export default withConfigTransport(VaMessageList)
+export const VaMessageList = withConfigTransport(_VaMessageList)

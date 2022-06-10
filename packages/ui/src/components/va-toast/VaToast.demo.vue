@@ -43,7 +43,7 @@
 <script>
 import { h } from 'vue'
 import { useGlobalConfig } from '../../services/global-config/global-config'
-import { useToast } from './useToast'
+import { useToast } from './hooks/useToast'
 
 export default {
   setup () {

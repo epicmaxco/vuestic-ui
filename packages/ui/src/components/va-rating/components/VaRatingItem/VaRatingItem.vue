@@ -27,7 +27,7 @@
 import { computed, defineComponent, ref, watch } from 'vue'
 import { useColors } from '../../../../services/color-config/color-config'
 import { useSyncProp } from '../../../../composables/useSyncProp'
-import VaIcon from '../../../va-icon'
+import { VaIcon } from '../../../va-icon'
 import { RatingValue } from '../../types'
 
 export default defineComponent({

@@ -1,8 +1,10 @@
 import { computed } from 'vue'
+
 import { useColors } from '../../../composables/useColor'
 import { safeCSSLength } from '../../../utils/css-utils'
+
 import {
-  TableColumn,
+  DataTableColumnInternal,
   DataTableColumnClass,
   DataTableColumnStyle,
   DataTableCell,
@@ -38,7 +40,7 @@ export default function useStyleable (props: useStylableProps) {
     [`${prefix}-scroll-table-height`]: props.height && safeCSSLength(props.height),
   }))
 
-  const getHeaderCSSVariables = (column: TableColumn) => ({
+  const getHeaderCSSVariables = (column: DataTableColumnInternal) => ({
     [`${prefix}-width`]: column.width && safeCSSLength(column.width),
     [`${prefix}-align`]: column.alignHead,
     [`${prefix}-vertical-align`]: column.verticalAlignHead,
@@ -50,7 +52,7 @@ export default function useStyleable (props: useStylableProps) {
     [`${prefix}-vertical-align`]: cell.column.verticalAlign,
   })
 
-  const getFooterCSSVariables = (column: TableColumn) => ({
+  const getFooterCSSVariables = (column: DataTableColumnInternal) => ({
     [`${prefix}-align`]: column.alignHead,
     [`${prefix}-vertical-align`]: column.verticalAlignHead,
     [`${prefix}-cursor`]: props.allowFooterSorting && column.sortable ? 'pointer' : 'default',

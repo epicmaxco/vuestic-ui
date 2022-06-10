@@ -1,7 +1,7 @@
-import { VaDatePickerModelValue, VaDatePickerRange, VaDatePickerMode } from '../types'
+import { DatePickerModelValue, DatePickerRange, DatePickerMode } from '../types'
 import { isRange, isSingleDate, isDates } from '../utils/date-utils'
 
-const modeInitialValue = (date: Date, mode: VaDatePickerMode) => {
+const modeInitialValue = (date: Date, mode: DatePickerMode) => {
   if (mode === 'single') {
     return date
   } else if (mode === 'range') {
@@ -15,11 +15,11 @@ const modeInitialValue = (date: Date, mode: VaDatePickerMode) => {
   throw new Error('Unknown mode')
 }
 
-const throwIncorrectModelValueError = (modelValue: VaDatePickerModelValue, mode: VaDatePickerMode) : never => {
+const throwIncorrectModelValueError = (modelValue: DatePickerModelValue, mode: DatePickerMode) : never => {
   throw Error(`Incorrect modelValue for mode ${mode}. Got ${JSON.stringify(modelValue)}`)
 }
 
-const modeFromModelValue = (modelValue: VaDatePickerModelValue): VaDatePickerMode => {
+const modeFromModelValue = (modelValue: DatePickerModelValue): DatePickerMode => {
   if (isSingleDate(modelValue)) {
     return 'single'
   } else if (isRange(modelValue)) {
@@ -31,7 +31,7 @@ const modeFromModelValue = (modelValue: VaDatePickerModelValue): VaDatePickerMod
   return throwIncorrectModelValueError(modelValue, 'auto')
 }
 
-const sortRange = (modelValue: VaDatePickerRange) => {
+const sortRange = (modelValue: DatePickerRange) => {
   if (modelValue.start && modelValue.end) {
     if (modelValue.start > modelValue.end) {
       return { start: modelValue.end, end: modelValue.start }
@@ -44,10 +44,10 @@ const sortRange = (modelValue: VaDatePickerRange) => {
 export const useDatePickerModelValue = (
   props: {
     [key: string]: any,
-    modelValue?: VaDatePickerModelValue,
-    mode: VaDatePickerMode
+    modelValue?: DatePickerModelValue,
+    mode: DatePickerMode
   },
-  emit: (event: 'update:modelValue', newValue: VaDatePickerModelValue) => any,
+  emit: (event: 'update:modelValue', newValue: DatePickerModelValue) => any,
   dateEqual: (date1?: Date | null, date2?: Date | null) => boolean,
 ) => {
   const updateModelValue = (date: Date) => {

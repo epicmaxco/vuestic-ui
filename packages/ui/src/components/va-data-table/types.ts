@@ -1,7 +1,8 @@
-import { StringWithAutocomplete } from '../../../types/string-with-autocomplete'
+import { StringWithAutocomplete } from '../../types/string-with-autocomplete'
 
-export type DataTableColumnAlign = StringWithAutocomplete<'left' | 'center' | 'right'>
-export type DataTableColumnVerticalAlign = StringWithAutocomplete<'top' | 'middle' | 'bottom'>
+export type DataTableAlignOptions = StringWithAutocomplete<'left' | 'center' | 'right'>
+export type DataTableVerticalAlignOptions = StringWithAutocomplete<'top' | 'middle' | 'bottom'>
+
 export type DataTableColumnClass = unknown | (() => unknown)
 export type DataTableColumnStyle = unknown | (() => unknown)
 
@@ -13,10 +14,10 @@ export interface DataTableColumn {
   headerTitle?: string // <th>'s `title` attribute's value
   sortable?: boolean // whether the table can be sorted by that column
   sortingFn?: (a: any, b: any) => number // a custom sorting function. `a` and `b` are currently compared cells' original values (sources). Must return a number (see the standard JS's Array.prototype.sort)
-  alignHead?: DataTableColumnAlign // horizontal alignment of the column's heading
-  verticalAlignHead?: DataTableColumnVerticalAlign // vertical alignment of the column's heading
-  align?: DataTableColumnAlign // horizontal <td>'s alignment
-  verticalAlign?: DataTableColumnVerticalAlign // vertical <td>'s alignment
+  alignHead?: DataTableAlignOptions // horizontal alignment of the column's heading
+  verticalAlignHead?: DataTableVerticalAlignOptions // vertical alignment of the column's heading
+  align?: DataTableAlignOptions // horizontal <td>'s alignment
+  verticalAlign?: DataTableVerticalAlignOptions // vertical <td>'s alignment
   width?: string | number
   class?: DataTableColumnClass
   headerClass?: DataTableColumnClass
@@ -33,7 +34,7 @@ export interface DataTableColumn {
 export type DataTableColumnSource = DataTableColumn | string
 
 // inner representation of the columns
-export interface TableColumn {
+export interface DataTableColumnInternal {
   source: DataTableColumnSource
   initialIndex: number
   key: string
@@ -41,10 +42,10 @@ export interface TableColumn {
   headerTitle: string
   sortable: boolean
   sortingFn: ((a: any, b: any) => number) | undefined
-  alignHead: DataTableColumnAlign
-  verticalAlignHead: DataTableColumnVerticalAlign
-  align: DataTableColumnAlign
-  verticalAlign: DataTableColumnVerticalAlign
+  alignHead: DataTableAlignOptions
+  verticalAlignHead: DataTableVerticalAlignOptions
+  align: DataTableAlignOptions
+  verticalAlign: DataTableVerticalAlignOptions
   width?: string | number
   class?: DataTableColumnClass
   headerClass?: DataTableColumnClass
@@ -58,8 +59,8 @@ export type DataTableItem = Record<string, any>
 export interface DataTableCell {
   rowIndex: number
   rowData: DataTableItem;
-  column: TableColumn
-  source: any
+  column: DataTableColumnInternal
+  source: any;
   value: string
 }
 
@@ -78,4 +79,4 @@ export type DataTableSelectMode = StringWithAutocomplete<'single' | 'multiple'>
 
 export type DataTableRowBind = Record<string, string> | ((item: DataTableItem, index: number) => Record<string, string>)
 
-export type DataTableCellBind = Record<string, string> | ((cell: any, row: DataTableItem, column: TableColumn, index: number) => Record<string, string>)
+export type DataTableCellBind = Record<string, string> | ((cell: any, row: DataTableItem, column: DataTableColumnInternal, index: number) => Record<string, string>)
