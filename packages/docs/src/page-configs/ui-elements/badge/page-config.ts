@@ -3,6 +3,10 @@ import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaBadge from 'vuestic-ui/src/components/va-badge/VaBadge.vue'
 import apiOptions from './api-options'
 
+// @ts-ignore
+// eslint-disable-next-line import/no-webpack-loader-syntax
+const cssVariables = import('!raw-loader!vuestic-ui/src/components/va-badge/_variables.scss')
+
 const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [
@@ -34,11 +38,11 @@ const config: ApiDocsBlock[] = [
   block.headline('badge.examples.withAvatar.title'),
   block.example('WithAvatar'),
 
-  block.subtitle('all.cssVariables'),
-  block.paragraph('badge.variables'),
-
   block.subtitle('all.api'),
   block.api(VaBadge, apiOptions),
+
+  block.subtitle('all.cssVariables'),
+  block.file(cssVariables),
 ]
 
 export default config

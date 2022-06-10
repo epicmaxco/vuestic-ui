@@ -3,6 +3,10 @@ import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaButton from 'vuestic-ui/src/components/va-button/VaButton.vue'
 import apiOptions from './api-options'
 
+// @ts-ignore
+// eslint-disable-next-line import/no-webpack-loader-syntax
+const cssVariables = import('!raw-loader!vuestic-ui/src/components/va-button/_variables.scss')
+
 const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [
@@ -61,11 +65,11 @@ const config: ApiDocsBlock[] = [
     'Disabled',
   ),
 
-  block.subtitle('all.cssVariables'),
-  block.paragraph('button.variables'),
-
   block.subtitle('all.api'),
   block.api(VaButton, apiOptions),
+
+  block.subtitle('all.cssVariables'),
+  block.file(cssVariables),
 ]
 
 export default config

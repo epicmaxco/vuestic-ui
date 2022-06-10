@@ -3,6 +3,10 @@ import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaCard from 'vuestic-ui/src/components/va-card/VaCard.vue'
 import apiOptions from './api-options'
 
+// @ts-ignore
+// eslint-disable-next-line import/no-webpack-loader-syntax
+const cssVariables = import('!raw-loader!vuestic-ui/src/components/va-card/_variables.scss')
+
 const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [
@@ -47,11 +51,11 @@ const config: ApiDocsBlock[] = [
   block.paragraph('card.examples.actions.values'),
   block.example('Actions'),
 
-  block.subtitle('all.cssVariables'),
-  block.paragraph('card.variables'),
-
   block.subtitle('all.api'),
   block.api(VaCard, apiOptions),
+
+  block.subtitle('all.cssVariables'),
+  block.file(cssVariables),
 
   block.subtitle('all.faq'),
   block.headline('card.faq.questions[0].question'),

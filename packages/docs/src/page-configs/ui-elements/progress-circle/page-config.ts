@@ -4,6 +4,10 @@ import VaProgressCircle
   from 'vuestic-ui/src/components/va-progress-circle/VaProgressCircle.vue'
 import apiOptions from './api-options'
 
+// @ts-ignore
+// eslint-disable-next-line import/no-webpack-loader-syntax
+const cssVariables = import('!raw-loader!vuestic-ui/src/components/va-progress-circle/_variables.scss')
+
 const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [
@@ -42,11 +46,11 @@ const config: ApiDocsBlock[] = [
     'Thickness',
   ),
 
-  block.subtitle('all.cssVariables'),
-  block.paragraph('progressCircle.variables'),
-
   block.subtitle('all.api'),
   block.api(VaProgressCircle, apiOptions),
+
+  block.subtitle('all.cssVariables'),
+  block.file(cssVariables),
 ]
 
 export default config

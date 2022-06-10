@@ -3,6 +3,10 @@ import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaInput from 'vuestic-ui/src/components/va-input/VaInput.vue'
 import apiOptions from './api-options'
 
+// @ts-ignore
+// eslint-disable-next-line import/no-webpack-loader-syntax
+const cssVariables = import('!raw-loader!vuestic-ui/src/components/va-input/_variables.scss')
+
 const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [
@@ -52,11 +56,11 @@ const config: ApiDocsBlock[] = [
     'InputClass',
   ),
 
-  block.subtitle('all.cssVariables'),
-  block.paragraph('input.variables'),
-
   block.subtitle('all.api'),
   block.api(VaInput, apiOptions),
+
+  block.subtitle('all.cssVariables'),
+  block.file(cssVariables),
 ]
 
 export default config

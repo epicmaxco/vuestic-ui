@@ -70,6 +70,7 @@ export class PageGenerationHelper {
   }
 
   example (component: string, exampleOptions: ExampleOptions = {}): ApiDocsBlock {
+    console.log(this.path, component)
     return {
       type: BlockType.EXAMPLE,
       path: this.path,
@@ -144,5 +145,12 @@ export class PageGenerationHelper {
       this.paragraph(description),
       this.example(example, exampleOptions),
     ]
+  }
+
+  file (file: Promise<Record<string, any>>): ApiDocsBlock {
+    return {
+      type: BlockType.FILE,
+      file,
+    }
   }
 }

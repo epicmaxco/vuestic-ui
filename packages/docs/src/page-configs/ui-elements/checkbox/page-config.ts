@@ -3,6 +3,10 @@ import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaCheckbox from 'vuestic-ui/src/components/va-checkbox/VaCheckbox.vue'
 import apiOptions from './api-options'
 
+// @ts-ignore
+// eslint-disable-next-line import/no-webpack-loader-syntax
+const cssVariables = import('!raw-loader!vuestic-ui/src/components/va-checkbox/_variables.scss')
+
 const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [
@@ -39,11 +43,11 @@ const config: ApiDocsBlock[] = [
     'Error',
   ),
 
-  block.subtitle('all.cssVariables'),
-  block.paragraph('checkbox.variables'),
-
   block.subtitle('all.api'),
   block.api(VaCheckbox, apiOptions),
+
+  block.subtitle('all.cssVariables'),
+  block.file(cssVariables),
 ]
 
 export default config

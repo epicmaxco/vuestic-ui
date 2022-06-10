@@ -15,6 +15,10 @@ import {
   listItemSectionApiOptions,
 } from './api-options'
 
+// @ts-ignore
+// eslint-disable-next-line import/no-webpack-loader-syntax
+const cssVariables = import('!raw-loader!vuestic-ui/src/components/va-list/_variables.scss')
+
 const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [
@@ -49,10 +53,10 @@ const config: ApiDocsBlock[] = [
     'Lines',
   ),
 
-  block.subtitle('all.cssVariables'),
-  block.paragraph('list.variables'),
-
   block.subtitle('all.api'),
+
+  block.subtitle('all.cssVariables'),
+  block.file(cssVariables),
 
   block.paragraph('list.api.list.text'),
   block.api(VaList, listApiOptions),

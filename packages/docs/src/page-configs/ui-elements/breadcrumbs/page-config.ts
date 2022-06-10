@@ -5,6 +5,10 @@ import VaBreadcrumbsItem from 'vuestic-ui/src/components/va-breadcrumbs/VaBreadc
 import vaBreadcrumbsApiOptions from './va-breadcrumbs-api-options'
 import vaBreadcrumbsItemApiOptions from './va-breadcrumbs-item-api-options'
 
+// @ts-ignore
+// eslint-disable-next-line import/no-webpack-loader-syntax
+const cssVariables = import('!raw-loader!vuestic-ui/src/components/va-breadcrumbs/_variables.scss')
+
 const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [
@@ -43,9 +47,6 @@ const config: ApiDocsBlock[] = [
     'Item',
   ),
 
-  block.subtitle('all.cssVariables'),
-  block.paragraph('breadcrumbs.variables'),
-
   block.subtitle('all.api'),
   block.api(VaBreadcrumbs, vaBreadcrumbsApiOptions),
 
@@ -56,6 +57,9 @@ const config: ApiDocsBlock[] = [
   block.subtitle('all.faq'),
   block.headline('breadcrumbs.faq.questions[0].question'),
   block.paragraph('breadcrumbs.faq.questions[0].answer'),
+
+  block.subtitle('all.cssVariables'),
+  block.file(cssVariables),
 ]
 
 export default config

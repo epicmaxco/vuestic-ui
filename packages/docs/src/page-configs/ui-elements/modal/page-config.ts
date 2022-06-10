@@ -4,6 +4,10 @@ import VaModal from 'vuestic-ui/src/components/va-modal/VaModal.vue'
 import apiOptions from './api-options'
 import { apiExamplesObject, methodsApi, optionsApi } from './modal-api'
 
+// @ts-ignore
+// eslint-disable-next-line import/no-webpack-loader-syntax
+const cssVariables = import('!raw-loader!vuestic-ui/src/components/va-modal/_variables.scss')
+
 const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [
@@ -77,11 +81,11 @@ const config: ApiDocsBlock[] = [
     'NestedModals',
   ),
 
-  block.subtitle('all.cssVariables'),
-  block.paragraph('modal.variables'),
-
   block.subtitle('all.api'),
   block.api(VaModal, apiOptions),
+
+  block.subtitle('all.cssVariables'),
+  block.file(cssVariables),
 
   block.subtitle('modal.functionalApi.title'),
   block.paragraph('modal.functionalApi.text'),

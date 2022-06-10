@@ -71,6 +71,11 @@
         :text="block.translationString"
         :color="block.color"
       />
+      <DocsFile
+        v-else-if="block.type === BlockType.FILE"
+        :key="block.type + index"
+        :file="block.file"
+      />
     </template>
   </va-content>
 </template>
@@ -89,6 +94,7 @@ import ApiDocs from './DocsApi/ApiDocs.vue'
 import DocsTable from './DocsTable/DocsTable.vue'
 import DocsLink from './DocsLink.vue'
 import DocsAlert from './DocsAlert.vue'
+import DocsFile from './DocsFile.vue'
 
 export default defineComponent({
   name: 'DocsContent',
@@ -106,6 +112,7 @@ export default defineComponent({
     DocsTable,
     DocsLink,
     DocsAlert,
+    DocsFile,
   },
   setup: () => {
     const translateAndMark = (translations: string[]): string => translations
