@@ -55,9 +55,6 @@ const config: ApiDocsBlock[] = [
 
   block.subtitle('all.api'),
 
-  block.subtitle('all.cssVariables'),
-  block.file(cssVariables),
-
   block.paragraph('list.api.list.text'),
   block.api(VaList, listApiOptions),
 
@@ -80,6 +77,9 @@ const config: ApiDocsBlock[] = [
   block.subtitle('list.api.listItemSection.title'),
   block.paragraph('list.api.listItemSection.text'),
   block.api(VaListItemSection, listItemSectionApiOptions),
+
+  block.subtitle('all.cssVariables'),
+  block.file(cssVariables),
 ]
 
 export default config

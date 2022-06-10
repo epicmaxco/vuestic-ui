@@ -54,12 +54,12 @@ const config: ApiDocsBlock[] = [
   block.paragraph('breadcrumbs.api.item.text'),
   block.api(VaBreadcrumbsItem, vaBreadcrumbsItemApiOptions),
 
+  block.subtitle('all.cssVariables'),
+  block.file(cssVariables),
+
   block.subtitle('all.faq'),
   block.headline('breadcrumbs.faq.questions[0].question'),
   block.paragraph('breadcrumbs.faq.questions[0].answer'),
-
-  block.subtitle('all.cssVariables'),
-  block.file(cssVariables),
 ]
 
 export default config
