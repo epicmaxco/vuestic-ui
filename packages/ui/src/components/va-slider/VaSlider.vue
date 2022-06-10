@@ -64,7 +64,7 @@
         <div
           v-for="order in orders"
           :key="'dot' + order"
-          :ref="(el) => setItemRef(el, order)"
+          :ref="setItemRef"
           class="va-slider__handler"
           :class="dotClass[order]"
           :style="dottedStyles[order]"
