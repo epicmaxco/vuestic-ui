@@ -1,4 +1,5 @@
 import { Ref, computed } from 'vue'
+
 import { DataTableRow } from '../types'
 
 interface useSelectableProps {

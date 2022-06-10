@@ -11,24 +11,45 @@ export type DataTableColumnStyle = unknown | (() => unknown)
 export interface DataTableColumn {
   key: string // name of an item's property
   label?: string // what to display in the respective heading
-  headerTitle?: string // <th>'s `title` attribute's value
+  thTitle?: string // <th>'s `title` attribute's value
   sortable?: boolean // whether the table can be sorted by that column
   sortingFn?: (a: any, b: any) => number // a custom sorting function. `a` and `b` are currently compared cells' original values (sources). Must return a number (see the standard JS's Array.prototype.sort)
-  alignHead?: DataTableAlignOptions // horizontal alignment of the column's heading
-  verticalAlignHead?: DataTableVerticalAlignOptions // vertical alignment of the column's heading
-  align?: DataTableAlignOptions // horizontal <td>'s alignment
-  verticalAlign?: DataTableVerticalAlignOptions // vertical <td>'s alignment
+  thAlign?: DataTableAlignOptions // horizontal alignment
+  thVerticalAlign?: DataTableVerticalAlignOptions // vertical alignment
+  tdAlign?: DataTableAlignOptions // horizontal alignment
+  tdVerticalAlign?: DataTableVerticalAlignOptions // vertical alignment
   width?: string | number
-  class?: DataTableColumnClass
-  headerClass?: DataTableColumnClass
-  style?: DataTableColumnStyle
-  headerStyle?: DataTableColumnStyle
+  thClass?: DataTableColumnClass
+  tdClass?: DataTableColumnClass
+  thStyle?: DataTableColumnStyle
+  tdStyle?: DataTableColumnStyle
 
-  /** @deprecated use `class` instead */
+  /** @deprecated use `thTitle` instead */
+  headerTitle?: string
+
+  /** @deprecated use `thAlign` instead */
+  alignHead?: DataTableAlignOptions
+
+  /** @deprecated use `thVerticalAlign` instead */
+  verticalAlignHead?: DataTableVerticalAlignOptions
+
+  /** @deprecated use `tdAlign` instead */
+  align?: DataTableAlignOptions
+
+  /** @deprecated use `tdVerticalAlign` instead */
+  verticalAlign?: DataTableVerticalAlignOptions
+
+  /** @deprecated use `tdClass` instead */
   classes?: DataTableColumnClass
 
-  /** @deprecated use `headerClass` instead */
+  /** @deprecated use `thClass` instead */
   headerClasses?: DataTableColumnClass
+
+  /** @deprecated use `tdStyle` instead */
+  style?: DataTableColumnStyle
+
+  /** @deprecated use `thStyle` instead */
+  headerStyle?: DataTableColumnStyle
 }
 
 export type DataTableColumnSource = DataTableColumn | string
@@ -39,18 +60,18 @@ export interface DataTableColumnInternal {
   initialIndex: number
   key: string
   label: string
-  headerTitle: string
+  thTitle: string
   sortable: boolean
   sortingFn: ((a: any, b: any) => number) | undefined
-  alignHead: DataTableAlignOptions
-  verticalAlignHead: DataTableVerticalAlignOptions
-  align: DataTableAlignOptions
-  verticalAlign: DataTableVerticalAlignOptions
+  thAlign: DataTableAlignOptions
+  thVerticalAlign: DataTableVerticalAlignOptions
+  tdAlign: DataTableAlignOptions
+  tdVerticalAlign: DataTableVerticalAlignOptions
   width?: string | number
-  class?: DataTableColumnClass
-  headerClass?: DataTableColumnClass
-  style?: DataTableColumnStyle
-  headerStyle?: DataTableColumnStyle
+  tdClass?: DataTableColumnClass
+  thClass?: DataTableColumnClass
+  tdStyle?: DataTableColumnStyle
+  thStyle?: DataTableColumnStyle
 }
 
 export type DataTableItem = Record<string, any>

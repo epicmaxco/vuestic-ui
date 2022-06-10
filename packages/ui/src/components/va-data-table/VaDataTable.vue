@@ -48,10 +48,10 @@
             scope="col"
             :aria-sort="getColumnAriaSortOrder(column.key)"
             :aria-label="column.sortable ? `sort column by ${column.label}` : undefined"
-            :title="column.headerTitle"
+            :title="column.thTitle"
             class="va-data-table__table-th"
-            :class="getClass(column.headerClass)"
-            :style="[getHeaderCSSVariables(column), getStyle(column.headerStyle)]"
+            :class="getClass(column.thClass)"
+            :style="[getHeaderCSSVariables(column), getStyle(column.thStyle)]"
             @click.exact="column.sortable && toggleSorting(column)"
             @keydown.enter.stop="column.sortable && toggleSorting(column)"
           >
@@ -147,8 +147,8 @@
               v-for="cell in row.cells"
               :key="`table-cell_${cell.column.key + cell.rowIndex}`"
               class="va-data-table__table-td"
-              :class="getClass(cell.column.class)"
-              :style="[getCellCSSVariables(cell), getStyle(cell.column.style)]"
+              :class="getClass(cell.column.tdClass)"
+              :style="[getCellCSSVariables(cell), getStyle(cell.column.tdStyle)]"
               v-bind="getCellBind(cell, row)"
             >
               <slot
@@ -188,11 +188,11 @@
           <th
             v-for="column in columnsComputed"
             :key="column.key"
-            :title="column.headerTitle"
+            :title="column.thTitle"
             :aria-label="allowFooterSorting && column.sortable ? `sort column by ${column.label}` : undefined"
             class="va-data-table__table-th"
-            :class="getClass(column.headerClass)"
-            :style="[getFooterCSSVariables(column), getStyle(column.headerStyle)]"
+            :class="getClass(column.thClass)"
+            :style="[getFooterCSSVariables(column), getStyle(column.thStyle)]"
             @click.exact="allowFooterSorting && column.sortable && toggleSorting(column)"
             @keydown.enter.stop="allowFooterSorting && column.sortable && toggleSorting(column)"
           >

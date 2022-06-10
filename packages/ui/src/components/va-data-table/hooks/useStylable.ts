@@ -42,19 +42,19 @@ export default function useStyleable (props: useStylableProps) {
 
   const getHeaderCSSVariables = (column: DataTableColumnInternal) => ({
     [`${prefix}-width`]: column.width && safeCSSLength(column.width),
-    [`${prefix}-align`]: column.alignHead,
-    [`${prefix}-vertical-align`]: column.verticalAlignHead,
+    [`${prefix}-align`]: column.thAlign,
+    [`${prefix}-vertical-align`]: column.thVerticalAlign,
     [`${prefix}-cursor`]: column.sortable ? 'pointer' : 'default',
   })
 
   const getCellCSSVariables = (cell: DataTableCell) => ({
-    [`${prefix}-align`]: cell.column.align,
-    [`${prefix}-vertical-align`]: cell.column.verticalAlign,
+    [`${prefix}-align`]: cell.column.tdAlign,
+    [`${prefix}-vertical-align`]: cell.column.tdVerticalAlign,
   })
 
   const getFooterCSSVariables = (column: DataTableColumnInternal) => ({
-    [`${prefix}-align`]: column.alignHead,
-    [`${prefix}-vertical-align`]: column.verticalAlignHead,
+    [`${prefix}-align`]: column.thAlign,
+    [`${prefix}-vertical-align`]: column.thVerticalAlign,
     [`${prefix}-cursor`]: props.allowFooterSorting && column.sortable ? 'pointer' : 'default',
   })
 

@@ -199,14 +199,14 @@
       </va-data-table>
     </VbCard>
 
-    <VbCard title="rowClass">
+    <VbCard title="row-bind">
       <va-data-table
         :items="items"
         :columns="columns"
         :selectable="selectable"
         :select-mode="selectMode"
+        :row-bind="getCustomRowClass"
         v-model="selectedItems"
-        :row-class="getCustomRowClass"
       >
         <template #header(address)>Street</template>
         <template #header(company)>Company Name</template>
@@ -405,8 +405,8 @@ export default defineComponent({
 
     getCustomRowClass (item: Record<string, any>) {
       return (item.name === 'Ervin Howell')
-        ? 'customRowClass'
-        : ''
+        ? { class: 'customRowClass' }
+        : undefined
     },
   },
 })
