@@ -41,6 +41,18 @@
         />
       </p>
     </VbCard>
+    <VbCard title="custom content">
+      <button @click="showCustomContent = !showCustomContent">
+        Show custom content modal
+      </button>
+      <va-modal
+        v-model="showCustomContent"
+      >
+        <template #content>
+          <h1>Custom content modal</h1>
+        </template>
+      </va-modal>
+    </VbCard>
     <VbCard title="fullscreen, slots use, custom action">
       <button @click="showFullScreenModal = !showFullScreenModal">
         Show modal
@@ -65,6 +77,14 @@
         <template #anchor="{ show }">
           <button @click="show()">Anchor-button</button>
         </template>
+        <div>{{ message }}</div>
+      </va-modal>
+    </VbCard>
+    <VbCard title="No padding">
+      <button @click="showNoPaddingModal = !showNoPaddingModal">
+        Show no padding modal
+      </button>
+      <va-modal no-padding v-model="showNoPaddingModal">
         <div>{{ message }}</div>
       </va-modal>
     </VbCard>
@@ -322,6 +342,7 @@ export default {
       showModalSizeSmall: false,
       showModalSizeMedium: false,
       showModalSizeLarge: false,
+      showCustomContent: false,
       showFullScreenModal: false,
       showAnchorModal: false,
       showActionsModal: false,
@@ -347,6 +368,7 @@ export default {
       showModalCustomBackground: false,
       showModalNested1: false,
       showModalNested2: false,
+      showNoPaddingModal: false,
       message: this.$vb.lorem(),
       longMessage: this.$vb.lorem(5000),
     }
