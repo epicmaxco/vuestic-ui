@@ -1,5 +1,5 @@
 import { PageGenerationHelper } from '../../../helpers/DocsHelper'
-import { NotificationOptions } from '../../../../../ui/src/components/va-toast/types'
+import { ToastOptions } from '../../../../../ui/src/components/va-toast/types'
 
 export const methodsApi = (block: PageGenerationHelper) => block.table(
   [
@@ -15,7 +15,7 @@ export const methodsApi = (block: PageGenerationHelper) => block.table(
   ],
 )
 
-const optionsTableData: [keyof NotificationOptions, string][] = [
+const optionsTableData: [keyof ToastOptions, string][] = [
   ['title', 'string'],
   ['message', 'string | VNode'],
   ['iconClass', 'string'],

@@ -1,5 +1,5 @@
 import { computed, Ref, ref, watch } from 'vue'
-import { VaDateInputModelValue } from '../types'
+import { DateInputModelValue } from '../types'
 import { parseModelValue, isRange } from './model-value-parser'
 
 /**
@@ -7,12 +7,12 @@ import { parseModelValue, isRange } from './model-value-parser'
  * This guard provides reset method, that allow us to reset VaDateInput value if dropdown is closed.
  */
 export const useRangeModelValueGuard = (
-  modelValue: Ref<VaDateInputModelValue>,
+  modelValue: Ref<DateInputModelValue>,
   disabled: Ref<boolean>,
   parseValue = parseModelValue,
 ) => {
-  // const bufferValue = ref<VaDateInputModelValue>(modelValue.value && parseValue(modelValue.value))
-  // TODO HACK To make build work. Please fix this type (VaDateInputModelValue doesn't work with date input and shouldn't go there)
+  // const bufferValue = ref<DateInputModelValue>(modelValue.value && parseValue(modelValue.value))
+  // TODO HACK To make build work. Please fix this type (DateInputModelValue doesn't work with date input and shouldn't go there)
   const bufferValue = ref<any>(modelValue.value && parseValue(modelValue.value))
 
   const valueComputed = computed({

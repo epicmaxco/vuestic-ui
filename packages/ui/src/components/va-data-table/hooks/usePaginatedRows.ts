@@ -1,5 +1,5 @@
 import { Ref, computed } from 'vue'
-import { TableRow } from '../types'
+import { DataTableRow } from '../types'
 
 interface useSelectableProps {
   perPage: number | undefined
@@ -8,7 +8,7 @@ interface useSelectableProps {
 }
 
 export default function usePaginatedRows (
-  sortedRows: Ref<TableRow[]>,
+  sortedRows: Ref<DataTableRow[]>,
   props: useSelectableProps,
 ) {
   const paginatedRows = computed(() => {

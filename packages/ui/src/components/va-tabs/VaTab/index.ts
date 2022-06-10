@@ -1,4 +1,4 @@
 import withConfigTransport from '../../../services/config-transport/withConfigTransport'
-import VaTab from './VaTab.vue'
+import _VaTab from './VaTab.vue'
 
-export default withConfigTransport(VaTab)
+export const VaTab = withConfigTransport(_VaTab)

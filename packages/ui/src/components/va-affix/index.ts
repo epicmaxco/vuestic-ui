@@ -1,4 +1,4 @@
 import withConfigTransport from '../../services/config-transport/withConfigTransport'
-import VaAffix from './VaAffix.vue'
+import _VaAffix from './VaAffix.vue'
 
-export default withConfigTransport(VaAffix)
+export const VaAffix = withConfigTransport(_VaAffix)

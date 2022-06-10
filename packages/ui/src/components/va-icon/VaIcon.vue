@@ -29,7 +29,7 @@ export default defineComponent({
     ...useSizeProps,
     name: { type: String as PropType<string>, default: '' },
     tag: { type: String as PropType<string> },
-    component: { type: Object as PropType<Record<string, any>> },
+    component: { type: Object as PropType<any> },
     color: { type: String as PropType<string> },
     rotation: { type: [String, Number] as PropType<number | string> },
     spin: { type: [String, Boolean] as PropType<string | boolean> },

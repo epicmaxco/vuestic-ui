@@ -61,9 +61,9 @@
 import { computed, defineComponent, onMounted, ref, PropType, shallowRef } from 'vue'
 import { useColors } from '../../services/color-config/color-config'
 import { shiftHSLAColor } from '../../services/color-config/color-functions'
-import VaButton from '../va-button'
-import VaModal from '../va-modal'
-import VaFileUploadList from './VaFileUploadList'
+import { VaButton } from '../va-button'
+import { VaModal } from '../va-modal'
+import { VaFileUploadList } from './VaFileUploadList'
 
 import type { VaFile } from './types'
 

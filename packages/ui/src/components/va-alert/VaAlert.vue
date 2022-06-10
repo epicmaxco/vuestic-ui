@@ -83,7 +83,7 @@ import { defineComponent, computed, PropType } from 'vue'
 
 import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
 import { useAlertStyles } from './useAlertStyles'
-import VaIcon from '../va-icon'
+import { VaIcon } from '../va-icon'
 
 import { generateUniqueId } from '../../services/utils'
 

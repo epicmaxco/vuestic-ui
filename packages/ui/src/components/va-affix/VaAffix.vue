@@ -28,15 +28,13 @@ import {
   Context,
 } from './VaAffix-utils'
 
-type Target = HTMLElement | Window
-
 export default defineComponent({
   name: 'VaAffix',
   emits: ['change'],
   props: {
     offsetTop: { type: Number as PropType<number>, default: undefined },
     offsetBottom: { type: Number as PropType<number>, default: undefined },
-    target: { type: [Object, Function] as PropType<Target | (() => Target)>, default: getWindow },
+    target: { type: [Object, Function] as PropType<HTMLElement | Window | (() => HTMLElement | Window)>, default: getWindow },
   },
   setup (props, { emit }) {
     const getTargetElement = () => (typeof props.target === 'function' ? props.target() : props.target)

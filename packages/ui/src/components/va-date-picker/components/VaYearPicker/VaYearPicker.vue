@@ -26,7 +26,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType, toRefs, onMounted, ref, computed, watch, shallowRef } from 'vue'
-import { VaDatePickerMode, VaDatePickerModelValue, VaDatePickerView } from '../../types'
+import { DatePickerMode, DatePickerModelValue, DatePickerView } from '../../types'
 import VaDatePickerCell from '../VaDatePickerCell.vue'
 import { createYearDate } from '../../utils/date-utils'
 import { useGridKeyboardNavigation } from '../../hooks/grid-keyboard-navigation'
@@ -37,11 +37,11 @@ export default defineComponent({
   components: { VaDatePickerCell },
 
   props: {
-    modelValue: { type: [Date, Array, Object] as PropType<VaDatePickerModelValue> },
+    modelValue: { type: [Date, Array, Object] as PropType<DatePickerModelValue> },
     allowedYears: { type: Function as PropType<(date: Date) => boolean>, default: undefined },
     highlightToday: { type: Boolean, default: true },
-    mode: { type: String as PropType<VaDatePickerMode>, default: 'auto' },
-    view: { type: Object as PropType<VaDatePickerView>, default: () => ({ type: 'year' }) },
+    mode: { type: String as PropType<DatePickerMode>, default: 'auto' },
+    view: { type: Object as PropType<DatePickerView>, default: () => ({ type: 'year' }) },
     startYear: { type: Number, default: () => 1970 },
     endYear: { type: Number, default: () => new Date().getFullYear() + 50 },
     readonly: { type: Boolean, default: false },

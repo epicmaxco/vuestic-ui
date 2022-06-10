@@ -1,11 +1,11 @@
-import { VaDatePickerView, VaDatePickerViewProp, VaDatePickerModelValue } from '../types'
+import { DatePickerView, DatePickerViewProp, DatePickerModelValue } from '../types'
 import { computed, ref } from 'vue'
 import isDate from 'lodash/isDate.js'
 
 const JANUARY_MONTH_INDEX = 0
 const DECEMBER_MONTH_INDEX = 11
 
-const addMonth = (view: VaDatePickerView) => {
+const addMonth = (view: DatePickerView) => {
   if (view.month === DECEMBER_MONTH_INDEX) {
     return { ...view, year: view.year + 1, month: JANUARY_MONTH_INDEX }
   } else {
@@ -13,7 +13,7 @@ const addMonth = (view: VaDatePickerView) => {
   }
 }
 
-const subMonth = (view: VaDatePickerView) => {
+const subMonth = (view: DatePickerView) => {
   if (view.month === JANUARY_MONTH_INDEX) {
     return { ...view, year: view.year - 1, month: DECEMBER_MONTH_INDEX }
   } else {
@@ -21,7 +21,7 @@ const subMonth = (view: VaDatePickerView) => {
   }
 }
 
-const getDefaultDate = (modelValue: VaDatePickerModelValue): Date => {
+const getDefaultDate = (modelValue: DatePickerModelValue): Date => {
   if (isDate(modelValue)) { return modelValue }
   if (isDate((modelValue as any)?.start)) { return (modelValue as any).start }
   if (Array.isArray(modelValue) && isDate(modelValue[0])) { return modelValue[0] }
@@ -30,12 +30,12 @@ const getDefaultDate = (modelValue: VaDatePickerModelValue): Date => {
 }
 
 export const useView = (
-  props: { [key: string]: any, 'view'?: VaDatePickerViewProp },
-  emit: (event: any | 'update:view', newValue: VaDatePickerViewProp) => any,
-  defaultOverride?: VaDatePickerViewProp,
+  props: { [key: string]: any, 'view'?: DatePickerViewProp },
+  emit: (event: any | 'update:view', newValue: DatePickerViewProp) => any,
+  defaultOverride?: DatePickerViewProp,
 ) => {
   const defaultDate = getDefaultDate(props.modelValue)
-  const defaultView: VaDatePickerView = {
+  const defaultView: DatePickerView = {
     type: 'day',
     year: defaultDate.getFullYear(),
     month: defaultDate.getMonth(),
@@ -44,12 +44,12 @@ export const useView = (
 
   const statefulView = ref(defaultView)
 
-  const syncView = computed<VaDatePickerView>({
+  const syncView = computed<DatePickerView>({
     get () {
       // Merge default view and user view prop
       return { ...statefulView.value, ...props.view }
     },
-    set (view: VaDatePickerView) {
+    set (view: DatePickerView) {
       statefulView.value = view
 
       emit('update:view', view)

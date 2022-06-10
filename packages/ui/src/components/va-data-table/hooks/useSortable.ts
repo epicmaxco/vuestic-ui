@@ -1,19 +1,19 @@
 import { computed, ref, Ref, watch } from 'vue'
-import { TableColumn, TableRow, ITableItem, TSortingOrder } from '../types'
+import { DataTableColumn, DataTableRow, DataTableItem, DataTableSortingOrder } from '../types'
 
 interface useSortableProps {
   sortBy: string | undefined
-  sortingOrder: TSortingOrder | undefined
+  sortingOrder: DataTableSortingOrder | undefined
 }
-export type TSortedArgs = { sortBy: string, sortingOrder: TSortingOrder, items: ITableItem[], itemsIndexes: number[] }
+export type TSortedArgs = { sortBy: string, sortingOrder: DataTableSortingOrder, items: DataTableItem[], itemsIndexes: number[] }
 export type TSortableEmits = (
   event: 'update:sortBy' | 'update:sortingOrder' | 'sorted',
-  args: string | TSortingOrder | TSortedArgs,
+  args: string | DataTableSortingOrder | TSortedArgs,
 ) => void
 
 export default function useSortable (
-  columns: Ref<TableColumn[]>,
-  filteredRows: Ref<TableRow[]>,
+  columns: Ref<DataTableColumn[]>,
+  filteredRows: Ref<DataTableRow[]>,
   props: useSortableProps,
   emit: TSortableEmits,
 ) {
@@ -36,8 +36,8 @@ export default function useSortable (
     },
   })
 
-  const sortingOrderFallback = ref(null as TSortingOrder)
-  const sortingOrderSync = computed<TSortingOrder>({
+  const sortingOrderFallback = ref(null as DataTableSortingOrder)
+  const sortingOrderSync = computed<DataTableSortingOrder>({
     get () {
       if (props.sortingOrder === undefined) {
         return sortingOrderFallback.value
@@ -105,7 +105,7 @@ export default function useSortable (
   // a function to invoke when a heading of the table is clicked.
   // Sets the clicked heading's column as a one to sort by and toggles the sorting order from "asc" to "desc" to `null`
   // (un-sorted) if the same column is clicked again or sets sorting order to "asc" if some other column is chosen.
-  function toggleSorting (column: TableColumn) {
+  function toggleSorting (column: DataTableColumn) {
     if (column.key === sortBySync.value) {
       if (sortingOrderSync.value === null) {
         sortingOrderSync.value = 'asc'

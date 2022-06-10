@@ -1,9 +1,9 @@
 import { isDatesMonthEqual, isDatesDayEqual, isDatesYearEqual, isDates, isRange, isSingleDate } from './../utils/date-utils'
-import { VaDatePickerMode, VaDatePickerModelValue, VaDatePickerType } from '../types'
+import { DatePickerMode, DatePickerModelValue, DatePickerType } from '../types'
 import { useDatePickerModelValue } from './model-value-helper'
 import { computed, ComputedRef, ref, watch } from 'vue'
 
-const getDateEqualFunction = (type: VaDatePickerType) => {
+const getDateEqualFunction = (type: DatePickerType) => {
   return {
     month: isDatesMonthEqual,
     day: isDatesDayEqual,
@@ -12,11 +12,11 @@ const getDateEqualFunction = (type: VaDatePickerType) => {
 }
 
 export const useDatePicker = (
-  type: VaDatePickerType,
+  type: DatePickerType,
   dates: ComputedRef<Date[]>,
   props: {
-    modelValue?: VaDatePickerModelValue,
-    mode: VaDatePickerMode,
+    modelValue?: DatePickerModelValue,
+    mode: DatePickerMode,
     readonly: boolean,
     allowedDays?: (date: Date) => boolean,
     allowedMonths?: (date: Date) => boolean,

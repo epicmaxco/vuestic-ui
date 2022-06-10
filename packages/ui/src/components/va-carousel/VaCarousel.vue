@@ -98,9 +98,9 @@ import { useCarousel } from './hooks/useCarousel'
 import { useCarouselAnimation } from './hooks/useCarouselAnimation'
 import { useCarouselColor } from './hooks/useCarouselColors'
 import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
-import VaImage from '../va-image'
-import VaButton from '../va-button'
-import VaHover from '../va-hover'
+import { VaImage } from '../va-image'
+import { VaButton } from '../va-button'
+import { VaHover } from '../va-hover'
 
 export default defineComponent({
   name: 'VaCarousel',

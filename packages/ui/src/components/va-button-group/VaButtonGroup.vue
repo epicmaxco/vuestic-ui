@@ -9,7 +9,7 @@
 <script lang="ts">
 import { defineComponent, computed, PropType, reactive } from 'vue'
 
-import VaConfig from '../va-config'
+import { VaConfig } from '../va-config'
 import { getGradientBackground } from '../../services/color-config/color-functions'
 import { useColors } from '../../composables/useColor'
 import { useTextColor } from '../../composables/useTextColor'

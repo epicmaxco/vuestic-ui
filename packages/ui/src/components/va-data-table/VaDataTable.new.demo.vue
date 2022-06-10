@@ -205,9 +205,9 @@
 import { defineComponent } from 'vue'
 import shuffle from 'lodash/shuffle.js'
 import cloneDeep from 'lodash/cloneDeep.js'
-import VaDataTable from './'
-import VaChip from '../va-chip'
-import VaAlert from '../va-alert'
+import { VaDataTable } from './'
+import { VaChip } from '../va-chip'
+import { VaAlert } from '../va-alert'
 
 export default defineComponent({
   name: 'VaDataTableNewDemo',

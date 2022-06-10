@@ -59,7 +59,7 @@ import { useColors, useColorProps } from '../../composables/useColor'
 import { useStateful, useStatefulEmits, useStatefulProps } from '../../composables/useStateful'
 import { useHover } from '../../composables/useHover'
 import { useTextColor } from '../../composables/useTextColor'
-import VaIcon from '../va-icon'
+import { VaIcon } from '../va-icon'
 
 export default defineComponent({
   name: 'VaChip',

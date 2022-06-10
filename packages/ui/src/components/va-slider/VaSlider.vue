@@ -166,7 +166,7 @@ import { useColors } from '../../composables/useColor'
 import { useArrayRefs } from '../../composables/useArrayRefs'
 import { generateUniqueId } from '../../services/utils'
 
-import VaIcon from '../va-icon'
+import { VaIcon } from '../va-icon'
 
 export default defineComponent({
   name: 'VaSlider',

@@ -15,7 +15,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 
-import VaButton from '../../va-button'
+import { VaButton } from '../../va-button'
 
 export default defineComponent({
   name: 'VaFileUploadUndo',

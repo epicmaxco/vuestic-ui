@@ -232,9 +232,9 @@
 import { computed, defineComponent, HTMLAttributes, PropType, TableHTMLAttributes } from 'vue'
 import omit from 'lodash/omit.js'
 import pick from 'lodash/pick.js'
-import VaInnerLoading from '../va-inner-loading'
-import VaCheckbox from '../va-checkbox'
-import VaIcon from '../va-icon'
+import { VaInnerLoading } from '../va-inner-loading'
+import { VaCheckbox } from '../va-checkbox'
+import { VaIcon } from '../va-icon'
 import useColumns from './hooks/useColumns'
 import useRows from './hooks/useRows'
 import useFilterable from './hooks/useFilterable'
@@ -244,12 +244,12 @@ import useSelectableRow from './hooks/useSelectableRow'
 import useStylable from './hooks/useStylable'
 import useAnimationName from './hooks/useAnimationName'
 import {
-  TTableColumnSource,
-  ITableItem,
-  TableRow,
-  TFilterMethod,
-  TSortingOrder,
-  TSelectMode,
+  DataTableColumnSource,
+  DataTableItem,
+  DataTableRow,
+  DataTableFilterMethod,
+  DataTableSortingOrder,
+  DataTableSelectMode,
 } from './types'
 
 type emitNames = 'update:modelValue' |
@@ -284,18 +284,18 @@ export default defineComponent({
   inheritAttrs: false,
 
   props: {
-    columns: { type: Array as PropType<TTableColumnSource[]>, default: () => [] as TTableColumnSource[] },
-    items: { type: Array as PropType<ITableItem[]>, default: () => [] as ITableItem[] },
-    modelValue: { type: Array as PropType<ITableItem[]> }, // selectedItems
-    sortingOrder: { type: String as PropType<TSortingOrder> }, // model-able
+    columns: { type: Array as PropType<DataTableColumnSource[]>, default: () => [] as DataTableColumnSource[] },
+    items: { type: Array as PropType<DataTableItem[]>, default: () => [] as DataTableItem[] },
+    modelValue: { type: Array as PropType<DataTableItem[]> }, // selectedItems
+    sortingOrder: { type: String as PropType<DataTableSortingOrder> }, // model-able
     sortBy: { type: String }, // model-able
     filter: { type: String, default: '' },
-    filterMethod: { type: Function as PropType<TFilterMethod> },
+    filterMethod: { type: Function as PropType<DataTableFilterMethod> },
     hoverable: { type: Boolean, default: false },
     clickable: { type: Boolean, default: false },
     animated: { type: Boolean, default: true },
     selectable: { type: Boolean, default: false },
-    selectMode: { type: String as PropType<TSelectMode>, default: 'multiple' },
+    selectMode: { type: String as PropType<DataTableSelectMode>, default: 'multiple' },
     selectedColor: { type: String, default: 'primary' },
     perPage: { type: Number },
     currentPage: { type: Number },
@@ -364,7 +364,7 @@ export default defineComponent({
 
     const showNoDataFilteredHtml = computed(() => paginatedRows.value.length === 0)
 
-    const onRowClickHandler = (name: emitNames, event: Event, row: TableRow) => {
+    const onRowClickHandler = (name: emitNames, event: Event, row: DataTableRow) => {
       if (props.clickable) {
         emit(name, {
           event,

@@ -17,9 +17,9 @@
 </template>
 
 <script lang="ts">
-import VaInput from '../va-input'
-import VaCheckbox from '../va-checkbox'
-import VaForm from './index'
+import { VaInput } from '../va-input'
+import { VaCheckbox } from '../va-checkbox'
+import { VaForm } from './index'
 
 export default {
   name: 'VaFormReset',

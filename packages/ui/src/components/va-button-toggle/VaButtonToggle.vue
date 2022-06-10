@@ -29,16 +29,10 @@ import { defineComponent, PropType, computed } from 'vue'
 
 import { shiftHSLAColor } from '../../services/color-config/color-functions'
 import { useColors } from '../../composables/useColor'
-import VaButton from '../va-button'
-import VaButtonGroup from '../va-button-group'
+import { VaButton } from '../va-button'
+import { VaButtonGroup } from '../va-button-group'
 import { useTextColor } from '../../composables/useTextColor'
-
-type ButtonOption = {
-  value: any,
-  label?: string,
-  icon?: string,
-  iconRight?: string
-}
+import { ButtonOption } from './types'
 
 export default defineComponent({
   name: 'VaButtonToggle',

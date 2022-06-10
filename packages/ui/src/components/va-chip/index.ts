@@ -1,4 +1,4 @@
 import withConfigTransport from '../../services/config-transport/withConfigTransport'
-import VaChip from './VaChip.vue'
+import _VaChip from './VaChip.vue'
 
-export default withConfigTransport(VaChip)
+export const VaChip = withConfigTransport(_VaChip)

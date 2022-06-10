@@ -56,7 +56,7 @@
 </template>
 
 <script lang="ts">
-import VaIcon from '../va-icon'
+import { VaIcon } from '../va-icon'
 import { useColors } from '../../composables/useColor'
 import { computed, defineComponent, shallowRef } from 'vue'
 import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'
