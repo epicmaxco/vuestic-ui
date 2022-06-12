@@ -1,4 +1,4 @@
-import { computed, Ref, unref, ComputedRef, ref } from 'vue'
+import { computed, Ref, unref, ComputedRef } from 'vue'
 import { __DEV__ } from '../utils/global-utils'
 import isFunction from 'lodash/isFunction.js'
 
@@ -56,7 +56,7 @@ export const useBem = <Prefix extends string, ModifierKey extends string>(
     getOwnPropertyDescriptor (_, key) {
       return Reflect.getOwnPropertyDescriptor(computedBemClassesObject.value, key)
     },
-    get (_, key: string) {
+    get (_, key: string, receiver: any) {
       switch (key) {
         case 'asArray':
           return computedBemClassesArray
@@ -65,7 +65,7 @@ export const useBem = <Prefix extends string, ModifierKey extends string>(
         case 'asObject':
           return computedBemClassesObject
         default:
-          return (computedBemClassesObject as unknown as Record<string, true>)[key] ?? true
+          return Reflect.get(computedBemClassesObject.value, key, receiver)
       }
     },
   }) as ComputedClasses<Key<Prefix, ModifierKey>>
