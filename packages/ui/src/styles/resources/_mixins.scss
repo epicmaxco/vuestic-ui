@@ -199,6 +199,6 @@
 }
 
 @mixin focus-outline() {
-  outline: 2px solid var(--va-focus);
-  border-radius: 2px;
+  // important in purpose to overwrite reset class
+  outline: 2px solid var(--va-focus) !important;
 }

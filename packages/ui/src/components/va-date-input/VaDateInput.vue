@@ -344,6 +344,8 @@ export default defineComponent({
   &__clear-icon {
     &:focus {
       @include focus-outline;
+
+      border-radius: 2px;
     }
   }
 

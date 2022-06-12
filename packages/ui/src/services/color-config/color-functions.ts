@@ -94,8 +94,8 @@ export const shiftGradientColor = (color: ColorInput): string => {
   throw new Error('This method should handle all colors. But it didn\'t for some reason.')
 }
 
-export const getGradientBackground = (color: string) => {
-  const colorLeft = shiftGradientColor(color)
+export const getGradientBackground = (color: string, colorStart?: string) => {
+  const colorLeft = shiftGradientColor(colorStart || color)
   const colorRight = ColorTranslator.toHSLA(color)
 
   return `linear-gradient(to right, ${colorLeft}, ${colorRight})`

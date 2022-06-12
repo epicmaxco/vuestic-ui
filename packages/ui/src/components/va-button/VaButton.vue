@@ -1,65 +1,52 @@
 <template>
   <component
     :is="tagComputed"
+    ref="button"
     class="va-button"
     :class="computedClass"
     :style="computedStyle"
-    :disabled="$props.disabled"
-    :type="computedType"
-    :href="hrefComputed"
-    :target="$props.target"
-    :to="$props.to"
-    :replace="$props.replace"
-    :append="$props.append"
-    :active-class="$props.activeClass"
-    :exact="$props.exact"
-    :exact-active-class="$props.exactActiveClass"
-    @focus="focusState = true"
-    @blur="focusState = false"
-    :tabindex="loading ? -1 : 0"
-    @mouseenter="hoverState = true"
-    @mouseleave="hoverState = false"
-    v-on="$attrs"
-    ref="button"
-    :aria-disabled="$props.disabled"
-    aria-live="polite"
+    v-bind="{ ...buttonAttributesComputed, ...linkAttributesComputed }"
   >
-    <div class="va-button__content" :class="{ 'va-button__content--loading': loading }">
+    <div class="va-button__content" :class="wrapperClassComputed">
       <va-icon
         v-if="icon"
-        :name="icon"
-        :size="size"
-        :color="textColorComputed"
         class="va-button__left-icon"
+        :name="icon"
+        v-bind="iconAttributesComputed"
       />
       <slot />
       <va-icon
         v-if="iconRight"
-        :name="iconRight"
-        :size="size"
-        :color="textColorComputed"
         class="va-button__right-icon"
+        :name="iconRight"
+        v-bind="iconAttributesComputed"
       />
     </div>
     <va-progress-circle
       v-if="loading"
       class="va-button__loader"
-      indeterminate
-      :size="loaderSize"
-      :color="computedStyle.color"
+      :size="loaderSizeComputed"
+      :color="textColorComputed"
       :thickness="0.15"
+      indeterminate
     />
   </component>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref, Ref, PropType, ComputedRef } from 'vue'
+import { defineComponent, PropType, computed, ref, ShallowRef } from 'vue'
+
+import { useHover } from '../../composables/useHover'
+import { useFocus } from '../../composables/useFocus'
+import { usePressed } from '../../composables/usePressed'
 import { useTextColor } from '../../composables/useTextColor'
-import { getGradientBackground, getTextColor, shiftHSLAColor } from '../../services/color-config/color-functions'
-import { useColor } from '../../composables/useColor'
-import { useRouterLink, useRouterLinkProps } from '../../composables/useRouterLink'
-import { useSizeProps, useSize } from '../../composables/useSize'
+import { useColors } from '../../services/color-config/color-config'
+import { colorToRgba, getGradientBackground } from '../../services/color-config/color-functions'
+
 import { useLoadingProps } from '../../composables/useLoading'
+import { useSize, useSizeProps } from '../../composables/useSize'
+import { useRouterLink, useRouterLinkProps } from '../../composables/useRouterLink'
+
 import VaIcon from '../va-icon'
 import { VaProgressCircle } from '../va-progress-circle'
 
@@ -70,160 +57,233 @@ export default defineComponent({
     ...useSizeProps,
     ...useLoadingProps,
     ...useRouterLinkProps,
-    color: { type: String as PropType<string>, default: 'primary' },
-    textColor: { type: String as PropType<string | undefined>, default: undefined },
-    tag: { type: String as PropType<string>, default: 'button' },
-    outline: { type: Boolean as PropType<boolean | undefined>, default: undefined },
-    gradient: { type: Boolean as PropType<boolean | undefined>, default: undefined },
-    flat: { type: Boolean as PropType<boolean | undefined>, default: undefined },
-    type: { type: String as PropType<string>, default: 'button' },
-    disabled: { type: Boolean as PropType<boolean>, default: false },
-    block: { type: Boolean as PropType<boolean>, default: false },
-    rounded: { type: Boolean as PropType<boolean>, default: true },
-    round: { type: Boolean as PropType<boolean | undefined>, default: undefined },
-    spaceBetweenItems: { type: Boolean as PropType<boolean | undefined>, default: undefined },
-    icon: { type: String as PropType<string | undefined>, default: undefined },
-    iconRight: { type: String as PropType<string | undefined>, default: undefined },
+    tag: { type: String, default: 'button' },
+    type: { type: String, default: 'button' },
+    block: { type: Boolean, default: false },
+    disabled: { type: Boolean, default: false },
+
+    color: { type: String, default: 'primary' },
+    textColor: { type: String, default: '' },
+    borderColor: { type: String, default: '' },
+    backgroundColor: { type: String, default: '' },
+    backgroundOpacity: { type: Number, default: 1 },
+    contentOpacity: { type: Number, default: 1 },
+
+    hoverBehaviour: { type: String as PropType<'opacity' | 'gradient'>, default: '' },
+    hoverOpacity: { type: Number, default: 1 },
+    hoverGradientMask: { type: String, default: 'rgba(255, 255, 255, 0.15)' },
+
+    pressedBehaviour: { type: String as PropType<'opacity' | 'gradient'>, default: '' },
+    pressedOpacity: { type: Number, default: 1 },
+    pressedGradientMask: { type: String, default: 'rgba(0, 0, 0, 0.13)' },
+
+    gradient: { type: Boolean, default: false },
+    plain: { type: Boolean, default: false },
+    round: { type: Boolean, default: false },
+    spaceBetweenItems: { type: Boolean, default: false },
     size: {
-      type: String as PropType<string>,
+      type: String as PropType<'small' | 'medium'>,
       default: 'medium',
-      validator: (value: string) => ['medium', 'small', 'large'].includes(value),
+      validator: (v: string) => ['small', 'medium'].includes(v),
     },
+
+    icon: { type: String, default: '' },
+    iconRight: { type: String, default: '' },
+    iconColor: { type: String, default: '' },
+
+    // temp
+    preset: { type: String, default: '' },
   },
   setup (props, { slots }) {
+    // colors
+    const { getColor } = useColors()
+    const bgColorComputed = computed(() => getColor(props.backgroundColor, 'primary'))
+    const colorComputed = computed(() => getColor(props.color, 'primary'))
+
+    // loader size
     const { sizeComputed } = useSize(props)
-    const { computeColor } = useColor(props)
-    const { tagComputed, hrefComputed } = useRouterLink(props)
-
-    const hoverState = ref(false)
-    const focusState = ref(false)
-
-    const colorComputed = computed(() => computeColor(props.color, 'primary'))
-    const isTransparentBackground = computed(() => Boolean(props.outline || props.flat))
-
-    const { textColorComputed } = useTextColor(colorComputed, isTransparentBackground)
-    const isSlotContentPassed = computed(() => !!slots.default?.()?.[0]?.children)
-
-    const computedType = computed(() => {
-      // Safari issue. type===button will break styles if the button is used as a link
-      switch (tagComputed.value) {
-        case 'a':
-        case 'router-link':
-        case 'nuxt-link':
-          return undefined
-        default:
-          return props.type
-      }
-    })
-
-    const hasOneIcon = computed(() => {
-      return Boolean((props.iconRight && !props.icon) || (!props.iconRight && props.icon))
-    })
-
-    const computedClass = computed(() => ({
-      'va-button--default': !props.flat && !props.outline && !props.disabled,
-      'va-button--flat': props.flat,
-      'va-button--outline': props.outline,
-      'va-button--disabled': props.disabled,
-      'va-button--hover': hoverState.value,
-      'va-button--focus': focusState.value,
-      'va-button--large': props.size === 'large',
-      'va-button--small': props.size === 'small',
-      'va-button--normal': !props.size || props.size === 'medium',
-      'va-button--loading': props.loading,
-      'va-button--block': props.block,
-      'va-button--square': !props.rounded,
-      'va-button--round': props.round || (!slots.default && hasOneIcon.value),
-      'va-button--no-label': !isSlotContentPassed.value,
-      'va-button--space-between-items': props.spaceBetweenItems,
-    }))
-
-    const loaderSize = computed(() => {
+    const loaderSizeComputed = computed(() => {
       const size = /([0-9]*)(px)/.exec(sizeComputed.value) as null | [string, string, string]
-
       return size ? `${+size[1] / 2}${size[2]}` : sizeComputed.value
     })
 
-    const computedStyle: ComputedRef<Partial<CSSStyleDeclaration>> = computed(() => {
-      const borderColor = props.outline ? colorComputed.value : ''
+    // link attributes
+    const { tagComputed, hrefComputed, isLinkTag } = useRouterLink(props)
+    const linkAttributesComputed = computed(() => {
+      if (!isLinkTag.value) { return {} }
 
-      let background = props.gradient
-        ? getGradientBackground(colorComputed.value)
-        : colorComputed.value
+      return tagComputed.value === 'a'
+        ? {
+          target: props.target,
+          href: hrefComputed.value,
+        }
+        : {
+          target: props.target,
+          to: props.to,
+          replace: props.replace,
+          append: props.append,
+          activeClass: props.activeClass,
+          exact: props.exact,
+          exactActiveClass: props.exactActiveClass,
+        }
+    })
 
-      if (isTransparentBackground.value) {
-        background = 'var(--va-transparent)'
+    // button attributes
+    const typeComputed = computed(() => isLinkTag.value ? undefined : props.type)
+    const buttonAttributesComputed = computed(() => {
+      const disabledAttributes = {
+        ariaDisabled: props.disabled,
+        disabled: props.disabled,
       }
 
-      if (hoverState.value) {
-        const alpha = props.outline ? -0.9 : -0.8
-        const lightness = 5
-        const color = isTransparentBackground.value
-          ? shiftHSLAColor(colorComputed.value, { a: alpha })
-          : shiftHSLAColor(colorComputed.value, { l: lightness })
-
-        background = props.gradient ? getGradientBackground(color) : color
-      }
-
-      if (focusState.value) {
-        const alpha = props.outline ? -0.8 : -0.7
-        const lightness = 10
-        const color = isTransparentBackground.value ? shiftHSLAColor(colorComputed.value, { a: alpha }) : shiftHSLAColor(colorComputed.value, { l: lightness })
-
-        background = props.gradient ? getGradientBackground(color) : color
-      }
+      if (isLinkTag.value) { return disabledAttributes }
 
       return {
-        color: textColorComputed.value,
-        borderColor,
-        background,
+        type: typeComputed.value,
+        tabindex: props.loading || props.disabled ? -1 : 0,
+        ...disabledAttributes,
       }
     })
 
-    const button: Ref<HTMLElement | null> = ref(null)
-    const focus = () => button.value?.focus()
-    const blur = () => button.value?.blur()
+    // states
+    const button: ShallowRef<HTMLElement | undefined> = ref()
+    const { isFocused } = useFocus(button)
+    const { isHovered } = useHover(button)
+    const { isPressed } = usePressed(button)
+
+    // icons attributes
+    const iconColorComputed = computed(() => props.iconColor ? getColor(props.iconColor) : textColorComputed.value)
+    const iconAttributesComputed = computed(() => ({
+      size: props.size,
+      color: iconColorComputed.value,
+    }))
+
+    // classes
+    const wrapperClassComputed = computed(() => ({ 'va-button__content--loading': props.loading }))
+
+    const isSlotContentPassed = computed(() => !!slots.default?.()?.[0]?.children)
+    const isOneIcon = computed(() => (props.iconRight && !props.icon) || (!props.iconRight && props.icon))
+    const computedClass = computed(() => ({
+      'va-button--small': props.size === 'small',
+      'va-button--normal': !props.size || props.size === 'medium',
+      'va-button--plain': props.plain,
+      'va-button--round': props.round && (!slots.default && isOneIcon.value),
+      'va-button--bordered': !!props.borderColor,
+      'va-button--no-label': !isSlotContentPassed.value,
+      'va-button--space-between-items': props.spaceBetweenItems,
+      'va-button--focused': isFocused.value,
+      'va-button--loading': props.loading,
+      'va-button--block': props.block,
+      'va-button--disabled': props.disabled,
+    }))
+
+    // background color
+    const gradientBgColorComputed = computed(() => getGradientBackground(bgColorComputed.value))
+
+    const backGroundColorComputed = computed(() => props.gradient
+      ? gradientBgColorComputed.value
+      : bgColorComputed.value)
+
+    const hoverBackgroundComputed = computed(() => {
+      if (!props.backgroundColor) { return { background: 'transparent' } }
+
+      if (props.hoverBehaviour === 'opacity') {
+        return {
+          [props.gradient ? 'background' : 'backgroundColor']: backGroundColorComputed.value,
+          backgroundOpacity: props.hoverOpacity,
+        }
+      } else {
+        return {
+          background: getGradientBackground(bgColorComputed.value, props.hoverGradientMask),
+        }
+      }
+    })
+
+    const pressedBackgroundComputed = computed(() => {
+      if (!props.backgroundColor) { return { background: 'transparent' } }
+
+      if (props.pressedBehaviour === 'opacity') {
+        return {
+          [props.gradient ? 'background' : 'backgroundColor']: backGroundColorComputed.value,
+          backgroundOpacity: props.pressedOpacity,
+        }
+      } else {
+        return {
+          background: getGradientBackground(bgColorComputed.value, props.pressedGradientMask),
+        }
+      }
+    })
+
+    const backgroundComputed = computed(() => {
+      if (!props.backgroundColor && !isHovered.value && !isPressed.value) { return { background: 'transparent' } }
+
+      if (isHovered.value) { return hoverBackgroundComputed.value }
+
+      if (isPressed.value) { return pressedBackgroundComputed.value }
+
+      return { [props.gradient ? 'background' : 'backgroundColor']: backGroundColorComputed.value }
+    })
+
+    // content color
+    const { textColorComputed } = useTextColor(colorComputed, !!props.backgroundColor)
+    const contentColorComputed = computed(() => {
+      if (props.backgroundColor) { return textColorComputed.value }
+
+      if (isHovered.value && props.hoverOpacity) {
+        return colorToRgba(textColorComputed.value, props.hoverOpacity)
+      }
+
+      if (isPressed.value && props.pressedOpacity) {
+        return colorToRgba(textColorComputed.value, props.pressedOpacity)
+      }
+
+      return textColorComputed.value
+    })
+
+    // final styles object
+    const computedStyle = computed(() => {
+      return {
+        color: contentColorComputed.value,
+        borderColor: props.borderColor ? getColor(props.borderColor) : 'inherit',
+        ...backgroundComputed.value,
+      }
+    })
 
     return {
       button,
       tagComputed,
-      hrefComputed,
       computedClass,
       computedStyle,
-      computedType,
       textColorComputed,
-      loaderSize,
-      focusState,
-      hoverState,
+      loaderSizeComputed,
+      wrapperClassComputed,
+      iconAttributesComputed,
+      linkAttributesComputed,
+      buttonAttributesComputed,
     }
-  },
-
-  // we will use this while we have 'withConfigTransport' and problem with 'expose' method in 'setup' func
-  methods: {
-    focus () { (this as any).button?.focus() },
-    blur () { (this as any).button?.blur() },
   },
 })
 </script>
 
 <style lang='scss'>
-@import '../../styles/resources';
 @import 'variables';
+@import '../../styles/resources';
 
 .va-button {
+
+  // check only this & then unused variables
   display: var(--va-button-display);
   align-items: var(--va-button-align-items);
   justify-content: var(--va-button-justify-content);
+  border: var(--va-button-border);
   background-image: var(--va-button-background-image);
-  box-shadow: var(--va-button-box-shadow, var(--va-control-box-shadow));
-  outline: var(--va-button-outline);
-  border: var(--va-button-border, var(--va-control-border));
+  box-shadow: var(--va-button-box-shadow);
   font-family: var(--va-font-family);
   text-decoration: none !important;
   text-transform: initial;
   cursor: pointer;
-  transition: var(--va-button-transition, var(--va-swing-transition));
-  background-color: var(--va-button-background-color, var(--va-white));
+  transition: var(--va-button-transition);
+  background-color: var(--va-button-background-color);
   vertical-align: middle;
   box-sizing: border-box;
   font-weight: var(--va-button-font-weight);
@@ -231,11 +291,13 @@ export default defineComponent({
   padding: var(--va-button-padding);
   position: relative;
 
+  // checked
   &__content {
+    height: 100%;
     display: flex;
     align-items: center;
-    height: 100%;
 
+    // checked
     &__title,
     &__icon {
       display: flex;
@@ -245,87 +307,13 @@ export default defineComponent({
       white-space: nowrap;
     }
 
+    // checked
     &--loading {
       opacity: 0;
     }
   }
 
-  &--default {
-    color: var(--va-button-background-color, var(--va-white));
-
-    i {
-      color: var(--va-button-icon-color, var(--va-white));
-    }
-  }
-
-  &--outline {
-    background-color: transparent;
-    border: solid var(--va-button-outline-border, var(--va-outline-border-width));
-    text-decoration: none;
-
-    .va-button__content {
-      margin: calc(var(--va-button-outline-border, var(--va-outline-border-width)) * -1);
-    }
-
-    &.va-button--disabled {
-      background: transparent;
-
-      @include va-disabled;
-
-      &.va-button--active {
-        .va-button__content,
-        i {
-          color: var(--va-button-outline-icon-color, var(--va-white)) !important;
-        }
-      }
-    }
-  }
-
-  &--flat {
-    background: transparent;
-    border: var(--va-button-flat-border, var(--va-control-border)) solid transparent;
-    text-decoration: none;
-  }
-
-  &.va-button--disabled {
-    @include va-disabled;
-  }
-
-  &--large {
-    @include va-button(var(--va-button-lg-content-py), var(--va-button-lg-content-px), var(--va-button-lg-font-size), var(--va-button-lg-line-height), var(--va-button-lg-border-radius));
-
-    letter-spacing: var(--va-button-lg-letter-spacing);
-    min-height: var(--va-button-lg-size);
-    min-width: var(--va-button-lg-size);
-
-    .va-button__content {
-      padding: var(--va-button-lg-content-py) var(--va-button-lg-content-px);
-    }
-
-    &.va-button--round {
-      width: var(--va-button-lg-size);
-      height: var(--va-button-lg-size);
-    }
-
-    &.va-button--outline {
-      line-height: calc(var(--va-button-lg-line-height) - 2 * var(--va-button-outline-border, var(--va-outline-border-width)));
-    }
-
-    &.va-button--square {
-      border-radius: var(--va-button-lg-square-border-radius);
-    }
-
-    .va-button__left-icon {
-      margin-left: calc(var(--va-button-lg-content-px) / -2);
-      margin-right: calc(var(--va-button-lg-space-between-items) / 2);
-    }
-
-    .va-button__right-icon {
-      margin-left: calc(var(--va-button-lg-space-between-items) / 2);
-      margin-right: calc(var(--va-button-lg-content-px) / -2);
-    }
-  }
-
+  // checked
   &--small {
     @include va-button(var(--va-button-sm-content-py), var(--va-button-sm-content-px), var(--va-button-sm-font-size), var(--va-button-sm-line-height), var(--va-button-sm-border-radius));
 
@@ -342,29 +330,26 @@ export default defineComponent({
       height: var(--va-button-sm-size);
     }
 
-    &.va-button--outline {
-      line-height: calc(var(--va-button-sm-line-height) - 2 * var(--va-button-outline-border, var(--va-outline-border-width)));
-    }
-
-    &.va-button--square {
-      border-radius: var(--va-button-sm-square-border-radius);
+    &.va-button--bordered {
+      line-height: calc(var(--va-button-sm-line-height) - 2 * var(--va-button-bordered-border));
     }
 
     .va-button__left-icon {
       margin-left: calc(var(--va-button-sm-content-px) / -2);
-      margin-right: calc(var(--va-button-sm-space-between-items) / 2);
+      margin-right: calc(var(--va-button-space-between-items) / 2);
     }
 
     .va-button__right-icon {
-      margin-left: calc(var(--va-button-sm-space-between-items) / 2);
+      margin-left: calc(var(--va-button-space-between-items) / 2);
       margin-right: calc(var(--va-button-sm-content-px) / -2);
     }
   }
 
+  // checked
   &--normal {
     @include va-button(var(--va-button-content-py), var(--va-button-content-px), var(--va-button-font-size), var(--va-button-line-height), var(--va-button-border-radius));
 
-    letter-spacing: var(--va-button-letter-spacing, var(--va-letter-spacing));
+    letter-spacing: var(--va-button-letter-spacing);
     min-height: var(--va-button-size);
     min-width: var(--va-button-size);
 
@@ -378,12 +363,8 @@ export default defineComponent({
       height: var(--va-button-size);
     }
 
-    &.va-button--outline {
-      line-height: calc(var(--va-button-line-height) - 2 * var(--va-button-outline-border, var(--va-outline-border-width)));
-    }
-
-    &.va-button--square {
-      border-radius: var(--va-button-square-border-radius);
+    &.va-button--bordered {
+      line-height: calc(var(--va-button-line-height) - 2 * var(--va-button-bordered-border));
     }
 
     .va-button__left-icon {
@@ -397,25 +378,44 @@ export default defineComponent({
     }
   }
 
-  &--round {
-    .va-button__content {
+  // checked
+  &--plain {
+    padding: 0;
+
+    &__content {
       padding: 0;
     }
   }
 
-  &--round,
-  &--no-label {
-    .va-button__left-icon {
-      margin-left: 0;
-      margin-right: 0;
+  // checked
+  &--round {
+    .va-button__content {
+      padding: 0;
+      border-radius: 50%;
     }
+  }
 
+  // checked
+  &--bordered {
+    border-width: var(--va-button-bordered-border);
+    border-style: var(--va-button-bordered-style);
+  }
+
+  // checked
+  &.va-button--disabled {
+    @include va-disabled;
+  }
+
+  // checked
+  &--no-label {
+    .va-button__left-icon,
     .va-button__right-icon {
       margin-left: 0;
       margin-right: 0;
     }
   }
 
+  // checked
   &--space-between-items {
     .va-button__content > * {
       margin-right: calc(var(--va-button-space-between-items) / 2);
@@ -431,26 +431,32 @@ export default defineComponent({
     }
   }
 
+  // checked
+  &--focused {
+    @include focus-outline;
+
+    outline-offset: -2px;
+  }
+
+  // checked
   &--loading {
     pointer-events: none;
   }
 
+  // checked
   &--block {
     display: flex;
     min-width: 100%;
   }
 
-  &--square {
-    border-radius: 0.5rem;
-  }
-
+  // checked
   &__loader {
     position: absolute;
+    width: 100%;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    height: 100%;
   }
 }
 </style>

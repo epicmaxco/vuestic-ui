@@ -128,6 +128,8 @@ export default defineComponent({
 
     &:focus {
       @include focus-outline;
+
+      border-radius: 2px;
     }
   }
 
