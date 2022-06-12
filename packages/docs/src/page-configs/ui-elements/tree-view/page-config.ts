@@ -18,6 +18,7 @@ const config: ApiDocsBlock[] = [
 
   // Filters
   block.subtitle('treeView.examples.filters.title'),
+  block.example('Filters'),
 ]
 
 export default config
