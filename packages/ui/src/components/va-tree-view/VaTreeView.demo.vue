@@ -3,13 +3,13 @@
     <VbCard title="default">
       <va-tree-view
         :nodes="nodes"
-        node-key="label"
+        node-key="id"
       />
     </VbCard>
     <VbCard title="Icons">
       <va-tree-view
         :nodes="nodesWithIcons"
-        node-key="label"
+        node-key="id"
         expand-all
       >
         <template #node-icon="{icon}">
@@ -36,7 +36,7 @@
       <va-tree-view
         v-model="selectedNodes"
         :nodes="nodesWithIcons"
-        node-key="label"
+        node-key="id"
         expand-all
         selectable
         :selection-type="selectionType"
@@ -53,7 +53,7 @@
     <VbCard title="With custom body">
       <va-tree-view
         :nodes="customBodyNodes"
-        node-key="label"
+        node-key="id"
       >
         <template #node-body="prop">
           <div class="d-flex align--center">
@@ -86,7 +86,7 @@
       />
       <va-tree-view
         :nodes="nodes"
-        node-key="label"
+        node-key="id"
         expand-all
         :filter="filterValue"
       />
@@ -98,7 +98,7 @@
       />
       <va-tree-view
         :nodes="nodes"
-        node-key="label"
+        node-key="id"
         selectable
         expand-all
         :color="selectedColor"

@@ -1,7 +1,7 @@
 <template>
   <va-tree-view
     :nodes="nodes"
-    node-key="label"
+    node-key="id"
   />
 </template>
 

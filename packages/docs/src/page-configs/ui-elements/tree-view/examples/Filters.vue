@@ -7,7 +7,7 @@
   <va-tree-view
     :nodes="nodes"
     :filter="filter"
-    node-key="label"
+    node-key="id"
     expand-all
   />
 </template>

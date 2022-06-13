@@ -8,7 +8,7 @@
     v-model="selectedNodes"
     :nodes="nodes"
     :color="selectedColor"
-    node-key="label"
+    node-key="id"
     selectable
     expand-all
   />
