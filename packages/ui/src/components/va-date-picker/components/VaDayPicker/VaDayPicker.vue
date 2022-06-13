@@ -72,7 +72,7 @@ export default defineComponent({
     mode: { type: String as PropType<DatePickerMode>, default: 'auto' },
     showOtherMonths: { type: Boolean, default: false },
     allowedDays: { type: Function as PropType<(date: Date) => boolean> },
-    weekends: { type: Function as PropType<(d: Date) => boolean> },
+    weekends: { type: Function as PropType<(date: Date) => boolean> },
     highlightWeekend: { type: Boolean, default: false },
     highlightToday: { type: Boolean, default: false },
     readonly: { type: Boolean, default: false },

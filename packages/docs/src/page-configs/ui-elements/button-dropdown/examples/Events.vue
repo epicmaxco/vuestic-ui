@@ -1,5 +1,4 @@
 <template>
-<div>
   <va-button-dropdown
     class="mr-2 mb-2"
     @click="click"
@@ -15,7 +14,6 @@
   >
     Content
   </va-button-dropdown>
-</div>
 </template>
 
 <script>
