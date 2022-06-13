@@ -232,9 +232,7 @@
 import { computed, defineComponent, HTMLAttributes, PropType, TableHTMLAttributes } from 'vue'
 import omit from 'lodash/omit.js'
 import pick from 'lodash/pick.js'
-import { VaInnerLoading } from '../va-inner-loading'
-import { VaCheckbox } from '../va-checkbox'
-import { VaIcon } from '../va-icon'
+
 import useColumns from './hooks/useColumns'
 import useRows from './hooks/useRows'
 import useFilterable from './hooks/useFilterable'
@@ -243,6 +241,7 @@ import usePaginatedRows from './hooks/usePaginatedRows'
 import useSelectableRow from './hooks/useSelectableRow'
 import useStylable from './hooks/useStylable'
 import useAnimationName from './hooks/useAnimationName'
+
 import {
   DataTableColumnSource,
   DataTableItem,
@@ -251,6 +250,10 @@ import {
   DataTableSortingOrder,
   DataTableSelectMode,
 } from './types'
+
+import { VaInnerLoading } from '../va-inner-loading'
+import { VaCheckbox } from '../va-checkbox'
+import { VaIcon } from '../va-icon'
 
 type emitNames = 'update:modelValue' |
   'update:sortBy' |

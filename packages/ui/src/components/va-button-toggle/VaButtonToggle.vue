@@ -10,12 +10,12 @@
     >
       <va-button
         v-for="option in options"
-        v-bind="getButtonProps(option)"
         :key="option.value"
+        :aria-pressed="isToggled(option.value)"
+        :class="getButtonClass(option.value)"
         :disabled="disabled"
         :size="size"
-        :class="getButtonClass(option.value)"
-        :aria-pressed="isToggled(option.value)"
+        v-bind="getButtonProps(option)"
         @click="changeValue(option.value)"
       >
         {{ option.label }}
@@ -29,10 +29,12 @@ import { defineComponent, PropType, computed } from 'vue'
 
 import { shiftHSLAColor } from '../../services/color-config/color-functions'
 import { useColors } from '../../composables/useColor'
+import { useTextColor } from '../../composables/useTextColor'
+
+import { ButtonOption } from './types'
+
 import { VaButton } from '../va-button'
 import { VaButtonGroup } from '../va-button-group'
-import { useTextColor } from '../../composables/useTextColor'
-import { ButtonOption } from './types'
 
 export default defineComponent({
   name: 'VaButtonToggle',
@@ -57,9 +59,8 @@ export default defineComponent({
     size: {
       type: String as PropType<'medium' | 'small' | 'large'>,
       default: 'medium',
-      validator: (modelValue: 'medium' | 'small' | 'large') => ['medium', 'small', 'large'].includes(modelValue),
+      validator: (value: string) => ['medium', 'small', 'large'].includes(value),
     },
-
     toggleColor: { type: String, default: '' },
     gradient: { type: Boolean, default: false },
   },

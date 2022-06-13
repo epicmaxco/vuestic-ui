@@ -1,12 +1,12 @@
 <template>
   <component
-    v-bind="computedAttrs"
-    aria-hidden="true"
-    notranslate
-    class="va-icon"
     :is="computedTag"
+    class="va-icon"
+    aria-hidden="true"
     :class="computedClass"
     :style="computedStyle"
+    v-bind="computedAttrs"
+    notranslate
   >
     <slot>
       <template v-if="iconConfig.content">
@@ -19,18 +19,19 @@
 <script lang="ts">
 import { defineComponent, PropType, computed } from 'vue'
 import omit from 'lodash/omit.js'
-import { useColors } from '../../services/color-config/color-config'
+
 import { useIcons } from '../../services/icon-config/icon-config'
+import { useColors } from '../../composables/useColor'
 import { useSize, useSizeProps } from '../../composables/useSize'
 
 export default defineComponent({
   name: 'VaIcon',
   props: {
     ...useSizeProps,
-    name: { type: String as PropType<string>, default: '' },
-    tag: { type: String as PropType<string> },
+    name: { type: String, default: '' },
+    tag: { type: String },
     component: { type: Object as PropType<any> },
-    color: { type: String as PropType<string> },
+    color: { type: String },
     rotation: { type: [String, Number] as PropType<number | string> },
     spin: { type: [String, Boolean] as PropType<string | boolean> },
     flip: {

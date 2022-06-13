@@ -1,9 +1,9 @@
 <template>
   <div class="va-month-picker" v-bind="containerAttributes">
     <div
-      class="va-month-picker__month-wrapper"
       v-for="(month, monthIndex) in months"
       :key="monthIndex"
+      class="va-month-picker__month-wrapper"
       @mouseenter="hoveredIndex = monthIndex"
       @mouseleave="hoveredIndex = -1"
     >
@@ -27,10 +27,13 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType, toRefs, watch } from 'vue'
-import { DatePickerMode, DatePickerView, DatePickerModelValue } from '../../types'
-import VaDatePickerCell from '../VaDatePickerCell.vue'
+
 import { useGridKeyboardNavigation } from '../../hooks/grid-keyboard-navigation'
 import { useDatePicker } from '../../hooks/use-picker'
+
+import { DatePickerMode, DatePickerView, DatePickerModelValue } from '../../types'
+
+import VaDatePickerCell from '../VaDatePickerCell.vue'
 
 export default defineComponent({
   name: 'VaMonthPicker',

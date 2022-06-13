@@ -19,7 +19,7 @@
           v-model="$v.age.$model"
           :error="$v.age.$error"
           :error-messages="[
-            !$v.age.required && 'reqired',
+            !$v.age.required && 'required',
             !$v.age.numeric && 'Age must be a number',
             !$v.age.between && 'Age must be between 10 and 100'
           ]"
@@ -29,7 +29,7 @@
           v-model="$v.email.$model"
           :error="$v.email.$error"
           :error-messages="[
-            !$v.email.required && 'reqired',
+            !$v.email.required && 'required',
             !$v.email.email && 'Email must be correct'
           ]"
         />

@@ -1,5 +1,5 @@
-import { DatePickerModelValue, DatePickerRange, DatePickerMode } from '../types'
 import { isRange, isSingleDate, isDates } from '../utils/date-utils'
+import { DatePickerModelValue, DatePickerRange, DatePickerMode } from '../types'
 
 const modeInitialValue = (date: Date, mode: DatePickerMode) => {
   if (mode === 'single') {

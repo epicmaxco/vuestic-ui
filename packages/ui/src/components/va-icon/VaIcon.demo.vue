@@ -92,12 +92,13 @@
 <script>
 import { defineComponent, markRaw, ref } from 'vue'
 
-import { VaIcon } from './index'
-import SvgComponent from './demo/VaIconVue'
 import { useGlobalConfig } from '../../main'
 import { createIconsConfig } from '../../services/icon-config/icon-config'
 import DemoIconsAliases from '../../vue-book/vuestic-config/demo-icon-aliases'
 import DemoIconsFonts from '../../vue-book/vuestic-config/demo-icon-fonts'
+
+import SvgComponent from './demo/VaIconVue'
+import { VaIcon } from './index'
 
 export default defineComponent({
   components: {

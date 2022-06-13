@@ -8,14 +8,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, computed } from 'vue'
+import { defineComponent, computed } from 'vue'
 
 import { useColors } from '../../composables/useColor'
 
 export default defineComponent({
   name: 'VaCardTitle',
   props: {
-    textColor: { type: String as PropType<string> },
+    textColor: { type: String },
   },
   setup (props) {
     const { getColor } = useColors()

@@ -7,27 +7,28 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, PropType, reactive } from 'vue'
+import { defineComponent, computed, PropType } from 'vue'
 
-import { VaConfig } from '../va-config'
 import { getGradientBackground } from '../../services/color-config/color-functions'
 import { useColors } from '../../composables/useColor'
 import { useTextColor } from '../../composables/useTextColor'
+
+import { VaConfig } from '../va-config'
 
 export default defineComponent({
   name: 'VaButtonGroup',
   components: { VaConfig },
   props: {
-    color: { type: String as PropType<string>, default: 'primary' },
-    gradient: { type: Boolean as PropType<boolean>, default: undefined },
-    textColor: { type: String as PropType<string>, default: undefined },
-    rounded: { type: Boolean as PropType<boolean>, default: true },
-    outline: { type: Boolean as PropType<boolean>, default: false },
-    flat: { type: Boolean as PropType<boolean>, default: false },
+    color: { type: String, default: 'primary' },
+    gradient: { type: Boolean, default: undefined },
+    textColor: { type: String, default: undefined },
+    rounded: { type: Boolean, default: true },
+    outline: { type: Boolean, default: false },
+    flat: { type: Boolean, default: false },
     size: {
-      type: String as PropType<string>,
+      type: String as PropType<'medium' | 'small' | 'large'>,
       default: 'medium',
-      validator: (v: string) => ['medium', 'small', 'large'].includes(v),
+      validator: (value: string) => ['medium', 'small', 'large'].includes(value),
     },
   },
   setup (props) {

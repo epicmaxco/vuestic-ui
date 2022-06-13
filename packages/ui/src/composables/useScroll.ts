@@ -1,7 +1,7 @@
-import { onMounted, onBeforeUnmount, ref } from 'vue'
+import { onMounted, onBeforeUnmount, shallowRef } from 'vue'
 
 /** @deprecated */
-function getTargetElement (target: Element | string | null) {
+function getTargetElement (target: Element | string | undefined) {
   if (!target) {
     throw new Error('Cant find target')
   }
@@ -10,7 +10,7 @@ function getTargetElement (target: Element | string | null) {
 }
 
 export function setupScroll (target: Element | string, onScrollCallback: (e: Event) => void) {
-  const scrollRoot = ref(null)
+  const scrollRoot = shallowRef<HTMLElement>()
   let targetElement: Element | null
 
   onMounted(() => {

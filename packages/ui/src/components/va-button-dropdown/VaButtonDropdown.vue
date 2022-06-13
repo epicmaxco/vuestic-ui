@@ -116,14 +116,13 @@ export default defineComponent({
 
   props: {
     ...useStatefulProps,
-
     modelValue: { type: Boolean, default: false },
     stateful: { type: Boolean, default: true },
 
     color: { type: String, default: 'primary' },
     textColor: { type: String, default: undefined },
     size: {
-      type: String,
+      type: String as PropType<'medium' | 'small' | 'large'>,
       default: 'medium',
       validator: (value: string) => ['medium', 'small', 'large'].includes(value),
     },
@@ -146,7 +145,7 @@ export default defineComponent({
       default: 'bottom',
       validator: (placement: string) => placementsPositions.includes(placement),
     },
-    offset: { type: [Number, Array] as PropType<number | [number, number]>, default: () => ([0, 1]) },
+    offset: { type: [Number, Array] as PropType<number | [number, number]>, default: 2 },
     keepAnchorWidth: { type: Boolean, default: false },
     closeOnContentClick: { type: Boolean, default: true },
 
@@ -168,7 +167,7 @@ export default defineComponent({
     const computedClass = computed(() => ({
       'va-button-dropdown': true,
       'va-button-dropdown--split': props.split,
-      'va-button-dropdown--normal': props.size === 'normal',
+      'va-button-dropdown--normal': props.size === 'medium',
       'va-button-dropdown--large': props.size === 'large',
       'va-button-dropdown--small': props.size === 'small',
     }))

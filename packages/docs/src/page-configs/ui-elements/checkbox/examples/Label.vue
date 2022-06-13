@@ -1,16 +1,14 @@
 <template>
-  <div>
-    <va-checkbox class="mt-4" v-model="value" :label="label" />
-    <va-checkbox class="mt-4" v-model="value" :label="longLabel" />
-    <va-checkbox class="mt-4" v-model="value" :label="leftLabel" left-label />
-  </div>
+  <va-checkbox class="mb-2" v-model="value" :label="label" />
+  <va-checkbox class="mb-2" v-model="value" :label="longLabel" />
+  <va-checkbox class="mb-2" v-model="value" :label="leftLabel" left-label />
 </template>
 
 <script>
 export default {
   data () {
     return {
-      value: false,
+      value: true,
       label: 'Label',
       longLabel:
           'This label is pretty long, but still perfectly fits the layout...',
