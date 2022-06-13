@@ -5,8 +5,9 @@
 </template>
 
 <script lang="ts">
-import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
 import { defineComponent, PropType } from 'vue'
+
+import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
 import { useAccordion } from './hooks/useAccordion'
 
 export default defineComponent({

@@ -1,10 +1,12 @@
 <template>
   <VbDemo>
     <VbCard title="Reactive data">
-      <button @click="shuffleItems">Shuffle</button>
+      <button @click="shuffleItems">Shuffle</button><br>
+      <input id="isClickable" type="checkbox" v-model="clickable">
+      <label for="isClickable">Clickable rows</label><br>
       <va-data-table
         :items="items"
-        :clickable="true"
+        :clickable="clickable"
         @row:click="rowEventType = $event.event.type, rowId = $event.item.id"
         @row:dblclick="rowEventType = $event.event.type, rowId = $event.item.id"
         @row:contextmenu="rowEventType = $event.event.type, rowId = $event.item.id"
@@ -196,6 +198,23 @@
         <template #cell(company)="{ rowData }">{{ rowData.company.name }}</template>
       </va-data-table>
     </VbCard>
+
+    <VbCard title="row-bind">
+      <va-data-table
+        :items="items"
+        :columns="columns"
+        :selectable="selectable"
+        :select-mode="selectMode"
+        :row-bind="getCustomRowClass"
+        v-model="selectedItems"
+      >
+        <template #header(address)>Street</template>
+        <template #header(company)>Company Name</template>
+
+        <template #cell(address)="{ rowData }">{{ rowData.address.street }}</template>
+        <template #cell(company)="{ rowData }">{{ rowData.company.name }}</template>
+      </va-data-table>
+    </VbCard>
   </VbDemo>
 </template>
 
@@ -203,9 +222,9 @@
 import { defineComponent } from 'vue'
 import shuffle from 'lodash/shuffle.js'
 import cloneDeep from 'lodash/cloneDeep.js'
-import VaDataTable from './'
-import VaChip from '../va-chip'
-import VaAlert from '../va-alert'
+import { VaDataTable } from './'
+import { VaChip } from '../va-chip'
+import { VaAlert } from '../va-alert'
 
 export default defineComponent({
   name: 'VaDataTableNewDemo',
@@ -355,6 +374,7 @@ export default defineComponent({
       sortBy: 'username',
       sortingOrder: 'asc',
 
+      clickable: false,
       selectable: true,
       selectedItems: [] as { id: number }[],
       selectMode: 'single',
@@ -382,6 +402,18 @@ export default defineComponent({
     filterExact (source: any) {
       return source?.toString?.() === (this as any).filter
     },
+
+    getCustomRowClass (item: Record<string, any>) {
+      return (item.name === 'Ervin Howell')
+        ? { class: 'customRowClass' }
+        : undefined
+    },
   },
 })
 </script>
+
+<style lang="scss">
+.customRowClass {
+  background-color: gold;
+}
+</style>

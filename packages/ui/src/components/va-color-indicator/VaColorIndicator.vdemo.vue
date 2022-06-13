@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import VaColorIndicator from './index'
+import { VaColorIndicator } from './index'
 
 const colorArray = ['#4ae387', '#e34a4a']
 

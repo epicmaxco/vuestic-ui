@@ -51,7 +51,7 @@ import {
   onMounted,
   ref,
 } from 'vue'
-import VaIcon from '../../va-icon'
+import { VaIcon } from '../../va-icon'
 import { useRouterLink, useRouterLinkProps } from '../../../composables/useRouterLink'
 import useKeyboardOnlyFocus from '../../../composables/useKeyboardOnlyFocus'
 import { useColor } from '../../../composables/useColor'

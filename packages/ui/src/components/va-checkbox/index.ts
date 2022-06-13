@@ -1,4 +1,4 @@
 import withConfigTransport from '../../services/config-transport/withConfigTransport'
-import VaCheckbox from './VaCheckbox.vue'
+import _VaCheckbox from './VaCheckbox.vue'
 
-export default withConfigTransport(VaCheckbox)
+export const VaCheckbox = withConfigTransport(_VaCheckbox)

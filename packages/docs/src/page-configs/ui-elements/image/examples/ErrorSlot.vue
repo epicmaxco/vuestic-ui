@@ -1,14 +1,10 @@
 <template>
-  <div class="row">
-    <div class="flex md6 lg4">
-      <va-image
-        style="min-height: 300px;"
-        src="wrong-image-path"
-      >
-        <template #error>
-          Image not found! :(
-        </template>
-      </va-image>
-    </div>
-  </div>
+  <va-image
+    class="flex md6 lg4"
+    src="wrong-image-path"
+  >
+    <template #error>
+      Image not found! :(
+    </template>
+  </va-image>
 </template>

@@ -1,6 +1,4 @@
 import withConfigTransport from '../../services/config-transport/withConfigTransport'
-import VaButtonGroup from './VaButtonGroup.vue'
+import _VaButtonGroup from './VaButtonGroup.vue'
 
-export * from './VaButtonGroup.vue'
-
-export default withConfigTransport(VaButtonGroup)
+export const VaButtonGroup = withConfigTransport(_VaButtonGroup)

@@ -1,14 +1,12 @@
 <template>
-  <div>
-      <va-chip
-        v-for="(size, index) in sizes"
-        :key="index"
-        :size="size"
-        class="mr-4"
-      >
-        {{size}} size
-      </va-chip>
-  </div>
+  <va-chip
+    v-for="(size, index) in sizes"
+    :key="index"
+    :size="size"
+    class="mr-4 mb-2"
+  >
+    {{size}} size
+  </va-chip>
 </template>
 
 <script>

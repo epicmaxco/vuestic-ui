@@ -12,9 +12,9 @@
 </template>
 
 <script>
-import VaButton from '../va-button/VaButton'
-import VaSpacer from '../va-spacer/VaSpacer'
-import VaButtonDropdown from '../va-button-dropdown/VaButtonDropdown'
+import VaButton from '../va-button/VaButton.vue'
+import VaSpacer from '../va-spacer/VaSpacer.vue'
+import VaButtonDropdown from '../va-button-dropdown/VaButtonDropdown.vue'
 
 export default {
 
