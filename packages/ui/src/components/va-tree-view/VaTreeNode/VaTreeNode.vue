@@ -38,7 +38,7 @@
 <script lang="ts">
 import { computed, defineComponent, inject, onBeforeUnmount, onMounted, provide } from 'vue'
 import { useColor } from '../../../composables/useColor'
-import VaIcon from '../../va-icon'
+import { VaIcon } from '../../va-icon'
 import { TreeNodeCommon, TreeCategoryKey, TreeNodeKey } from '../types'
 
 export default defineComponent({

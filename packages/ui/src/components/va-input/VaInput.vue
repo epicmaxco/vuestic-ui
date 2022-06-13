@@ -131,7 +131,7 @@ export default defineComponent({
     inputClass: { type: String, default: '' },
     pattern: { type: String },
     inputmode: { type: String, default: 'text' },
-    ariaLabel: { type: String, default: '' },
+    ariaLabel: { type: String, default: undefined },
 
     // style
     color: { type: String, default: 'primary' },
@@ -219,6 +219,13 @@ export default defineComponent({
 
     const computedChildAttributes = computed(() => ({
       ariaLabel: props.ariaLabel || props.label,
+      ariaRequired: props.requiredMark,
+      ariaDisabled: props.disabled,
+      ariaReadOnly: props.readonly,
+      'aria-invalid': !!computedErrorMessages.value.length,
+      'aria-errormessage': typeof computedErrorMessages.value === 'string'
+        ? computedErrorMessages.value
+        : computedErrorMessages.value.join(', '),
       tabindex: tabIndexComputed.value,
       class: props.inputClass,
       ...omit(attrs, ['class', 'style']),

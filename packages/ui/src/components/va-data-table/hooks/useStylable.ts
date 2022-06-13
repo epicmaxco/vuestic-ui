@@ -1,7 +1,7 @@
 import { computed } from 'vue'
 import { useColors } from '../../../composables/useColor'
 import { safeCSSLength } from '../../../utils/css-utils'
-import { TableColumn, TClassesOptions, TStyleOptions, TableCell } from '../types'
+import { DataTableColumn, DataTableClassesOptions, DataTableStyleOptions, DataTableCell } from '../types'
 
 const prefix = '--va-data-table'
 
@@ -13,7 +13,7 @@ interface useStylableProps {
   height: string | number | undefined
 }
 
-function getClasses (classes: TClassesOptions = []): string[] {
+function getClasses (classes: DataTableClassesOptions = []): string[] {
   if (typeof classes === 'function') {
     const computedClasses = classes()
     return (typeof computedClasses === 'string') ? [computedClasses] : computedClasses
@@ -22,7 +22,7 @@ function getClasses (classes: TClassesOptions = []): string[] {
   return (typeof classes === 'string') ? [classes] : classes
 }
 
-function getStyles (styles: TStyleOptions = {}): Record<string, any> {
+function getStyles (styles: DataTableStyleOptions = {}): Record<string, any> {
   return (typeof styles === 'function') ? styles() : styles
 }
 
@@ -31,7 +31,7 @@ export default function useStyleable (props: useStylableProps) {
 
   const color = computed(() => getColor(props.selectedColor))
 
-  function getHeaderCSSVariables (column: TableColumn) {
+  function getHeaderCSSVariables (column: DataTableColumn) {
     return {
       [`${prefix}-width`]: typeof column.width === 'string' ? column.width : `${column.width}px`,
       [`${prefix}-align`]: column.alignHead,
@@ -52,14 +52,14 @@ export default function useStyleable (props: useStylableProps) {
     return styles
   })
 
-  function getCellCSSVariables (cell: TableCell) {
+  function getCellCSSVariables (cell: DataTableCell) {
     return {
       [`${prefix}-align`]: cell.column.align,
       [`${prefix}-vertical-align`]: cell.column.verticalAlign,
     }
   }
 
-  function getFooterCSSVariables (column: TableColumn) {
+  function getFooterCSSVariables (column: DataTableColumn) {
     return {
       [`${prefix}-align`]: column.alignHead,
       [`${prefix}-vertical-align`]: column.verticalAlignHead,

@@ -1,6 +1,5 @@
 import withConfigTransport from '../../services/config-transport/withConfigTransport'
 
-import VaColorIndicatorComponent from './VaColorIndicator.vue'
+import _VaColorIndicatort from './VaColorIndicator.vue'
 
-const VaColorIndicator = withConfigTransport(VaColorIndicatorComponent)
-export default VaColorIndicator
+export const VaColorIndicator = withConfigTransport(_VaColorIndicatort)

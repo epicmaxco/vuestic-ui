@@ -2,7 +2,7 @@
   <va-file-upload
     v-model="basic"
     dropzone
-    file-types=".jpg,.png"
+    file-types="jpg,png"
   />
 </template>
 

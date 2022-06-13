@@ -1,4 +1,4 @@
 import withConfigTransport from '../../services/config-transport/withConfigTransport'
-import VaAvatar from './VaAvatar.vue'
+import _VaAvatar from './VaAvatar.vue'
 
-export default withConfigTransport(VaAvatar)
+export const VaAvatar = withConfigTransport(_VaAvatar)

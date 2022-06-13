@@ -1,4 +1,4 @@
 import withConfigTransport from '../../../../services/config-transport/withConfigTransport'
-import VaRatingItem from './VaRatingItem.vue'
+import _VaRatingItem from './VaRatingItem.vue'
 
-export default withConfigTransport(VaRatingItem)
+export const VaRatingItem = withConfigTransport(_VaRatingItem)

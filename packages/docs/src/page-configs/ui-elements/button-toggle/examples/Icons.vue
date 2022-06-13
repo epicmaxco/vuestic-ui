@@ -2,7 +2,7 @@
   <va-button-toggle
     v-model="model"
     :options="optionsWithIcons"
-    class="mb-2"
+    class="mb-4"
   />
   <va-button-toggle
     v-model="model"

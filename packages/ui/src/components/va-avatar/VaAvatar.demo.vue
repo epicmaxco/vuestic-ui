@@ -115,8 +115,8 @@
 </template>
 
 <script>
-import VaAvatar from './index'
-import VaIcon from '../va-icon'
+import { VaAvatar } from './index'
+import { VaIcon } from '../va-icon'
 import BadgeAvatarDemo from '../va-badge/BadgeAvatarDemo'
 
 export default {

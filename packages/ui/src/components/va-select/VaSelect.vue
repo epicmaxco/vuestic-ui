@@ -23,6 +23,7 @@
       <div class="va-select">
         <va-input
           ref="input"
+          aria-label="selected option"
           :model-value="valueComputedString"
           :success="$props.success"
           :error="computedError"
@@ -65,8 +66,13 @@
           <template #icon>
             <va-icon
               v-if="showClearIcon"
+              aria-hidden="false"
+              aria-label="reset"
+              class="va-select__icons__reset"
               v-bind="clearIconProps"
-              @click.stop="reset()"
+              @click.stop="reset"
+              @keydown.enter.stop="reset"
+              @keydown.space.stop="reset"
             />
           </template>
 
@@ -107,7 +113,8 @@
         ref="searchBar"
         class="va-select__input"
         placeholder="Search"
-        :tabindex="tabindex + 1"
+        aria-label="options filter"
+        :tabindex="tabIndexComputed"
         :bordered="true"
         v-model="searchInput"
         @keydown.up.stop.prevent="hoverPreviousOption()"
@@ -131,7 +138,7 @@
           :search="searchInput"
           :no-options-text="$props.noOptionsText"
           :color="$props.color"
-          :tabindex="tabindex + 1"
+          :tabindex="tabIndexComputed"
           @select-option="selectOption"
           @no-previous-option-to-hover="focusSearchBar()"
           @keydown.enter.stop.prevent="selectHoveredOption()"
@@ -148,26 +155,21 @@
 <script lang="ts">
 import { defineComponent, PropType, ref, computed, watch, nextTick, Ref } from 'vue'
 
-import { useSelectableList, useSelectableListProps, SelectableOption } from '../../composables/useSelectableList'
+import { useSelectableList, useSelectableListProps } from '../../composables/useSelectableList'
 import { useValidation, useValidationProps, useValidationEmits } from '../../composables/useValidation'
 import { useFormProps } from '../../composables/useForm'
 import { useLoadingProps } from '../../composables/useLoading'
 import { useColor } from '../../composables/useColor'
 import { useMaxSelections, useMaxSelectionsProps } from '../../composables/useMaxSelections'
 import { useClearableProps, useClearable, useClearableEmits } from '../../composables/useClearable'
-import { Placement } from '../../composables/usePopover'
 import { useColors } from '../../services/color-config/color-config'
 import { warn } from '../../services/utils'
-import VaDropdown, { VaDropdownContent } from '../va-dropdown'
-import VaIcon from '../va-icon'
-import VaInput from '../va-input'
-import VaSelectOptionList from './VaSelectOptionList'
+import { VaDropdown, VaDropdownContent } from '../va-dropdown'
+import { VaIcon } from '../va-icon'
+import { VaInput } from '../va-input'
+import { VaSelectOptionList } from './VaSelectOptionList'
 import { useFocus } from '../../composables/useFocus'
-
-type DropdownIcon = {
-  open: string,
-  close: string
-}
+import { VaSelectDropdownIcon, SelectableOption, Placement } from './types'
 
 export default defineComponent({
   name: 'VaSelect',
@@ -204,7 +206,7 @@ export default defineComponent({
 
     // Dropdown placement
     placement: {
-      type: String as PropType<Partial<Placement>>,
+      type: String as PropType<Placement>,
       default: 'bottom',
       validator: (placement: string) => ['top', 'bottom'].includes(placement),
     },
@@ -226,12 +228,12 @@ export default defineComponent({
     hideSelected: { type: Boolean as PropType<boolean>, default: false },
     tabindex: { type: Number as PropType<number>, default: 0 },
     dropdownIcon: {
-      type: [String, Object] as PropType<string | DropdownIcon>,
-      default: (): DropdownIcon => ({
+      type: [String, Object] as PropType<string | VaSelectDropdownIcon>,
+      default: (): VaSelectDropdownIcon => ({
         open: 'expand_more',
         close: 'expand_less',
       }),
-      validator: (value: string | DropdownIcon) => {
+      validator: (value: string | VaSelectDropdownIcon) => {
         if (typeof value === 'string') { return true }
 
         const isOpenIconString = typeof value.open === 'string'
@@ -699,6 +701,14 @@ export default defineComponent({
 
   .va-input {
     cursor: var(--va-select-cursor);
+  }
+
+  &__icons {
+    &__reset {
+      &:focus {
+        @include focus-outline;
+      }
+    }
   }
 }
 

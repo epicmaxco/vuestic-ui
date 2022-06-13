@@ -1,3 +1,1 @@
-import VaSpacer from './VaSpacer.vue'
-
-export default VaSpacer
+export { default as VaSpacer } from './VaSpacer.vue'

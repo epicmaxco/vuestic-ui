@@ -1,4 +1,4 @@
-import { PropType, computed, SetupContext, Ref } from 'vue'
+import { PropType, computed, SetupContext, ShallowRef } from 'vue'
 
 import { useStateful, useStatefulProps, StatefulProps } from './useStateful'
 import { useLoadingProps, LoadingProps } from './useLoading'
@@ -17,10 +17,10 @@ export interface SelectableProps extends StatefulProps<unknown>, LoadingProps, V
   readonly: boolean,
 }
 
-type Elements = {
-  input: Ref<HTMLElement | null>,
-  label: Ref<HTMLElement | null>,
-  container: Ref<HTMLElement | null>,
+export type Elements = {
+  input: ShallowRef<HTMLElement | undefined>,
+  label: ShallowRef<HTMLElement | undefined>,
+  container: ShallowRef<HTMLElement | undefined>,
 }
 
 export const useSelectableProps = {
@@ -28,11 +28,11 @@ export const useSelectableProps = {
   ...useLoadingProps,
   ...useValidationProps,
   arrayValue: { type: null as any as PropType<unknown>, default: null },
-  label: { type: String as PropType<string>, default: '' },
-  leftLabel: { type: Boolean as PropType<boolean>, default: false },
+  label: { type: String, default: '' },
+  leftLabel: { type: Boolean, default: false },
   trueValue: { type: null as any as PropType<unknown>, default: true },
   falseValue: { type: null as any as PropType<unknown>, default: false },
-  indeterminate: { type: Boolean as PropType<boolean>, default: false },
+  indeterminate: { type: Boolean, default: false },
   indeterminateValue: { type: null as any as PropType<unknown>, default: null },
   disabled: { type: Boolean, default: false },
   readonly: { type: Boolean, default: false },
@@ -70,7 +70,7 @@ export const useSelectable = (
   const { valueComputed } = useStateful(props, emit)
   const { isFocused } = useFocus()
 
-  const isElementRelated = (element: HTMLElement | null) => {
+  const isElementRelated = (element: HTMLElement | undefined) => {
     return !!element && [label.value, container.value].includes(element)
   }
   const onBlur = (event: FocusEvent) => {
