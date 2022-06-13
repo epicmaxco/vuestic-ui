@@ -121,10 +121,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-.va-content p {
-  font-size: 1.2rem;
-}
-
 .va-content h5 {
   margin-top: 4rem;
   line-height: 1.25;

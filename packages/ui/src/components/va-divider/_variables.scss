@@ -7,7 +7,7 @@
   --va-divider-margin: 0.5rem 0;
   --va-divider-line-width: 1px;
   --va-divider-border-top-style: solid;
-  --va-divider-border-top-color: #e6e9ec;
+  --va-divider-border-top-color: var(--va-divider);
   --va-divider-text-font-size: 0.875rem;
   --va-divider-text-line-height: 0;
   --va-divider-text-height: 0;
@@ -22,7 +22,7 @@
   --va-divider-vertical-border-top: 0;
   --va-divider-vertical-border-right-width: 1px;
   --va-divider-vertical-border-right-style: solid;
-  --va-divider-vertical-border-right-color: #e6e9ec;
+  --va-divider-vertical-border-right-color: var(--va-divider);
   --va-divider-vertical-display: inline-flex;
 
   /* Inset */

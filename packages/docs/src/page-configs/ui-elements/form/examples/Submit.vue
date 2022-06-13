@@ -1,35 +1,33 @@
 <template>
-  <div>
-    <va-form
-      style="width: 300px;"
-      tag="form"
-      @submit.prevent="handleSubmit"
-    >
-      <va-input
-        v-model="username"
-        label="Username"
-      />
+  <va-form
+    style="width: 300px;"
+    tag="form"
+    @submit.prevent="handleSubmit"
+  >
+    <va-input
+      label="Username"
+      v-model="username"
+    />
 
-      <va-input
-        class="mt-2"
-        v-model="password"
-        type="password"
-        label="Password"
-      />
+    <va-input
+      class="mt-3"
+      type="password"
+      label="Password"
+      v-model="password"
+    />
 
-      <va-select
-        class="mt-2"
-        label="Role"
-        v-model="value"
-        :options="options"
-        clearable
-      />
+    <va-select
+      class="mt-3"
+      label="Role"
+      v-model="value"
+      :options="options"
+      clearable
+    />
 
-      <va-button type="submit" class="mt-2">
-        Login
-      </va-button>
-    </va-form>
-  </div>
+    <va-button type="submit" class="mt-3">
+      Login
+    </va-button>
+  </va-form>
 </template>
 
 <script>
@@ -43,7 +41,7 @@ export default {
     }
   },
   methods: {
-    handleSubmit (e) {
+    handleSubmit () {
       alert('-- form submit --')
     },
   },

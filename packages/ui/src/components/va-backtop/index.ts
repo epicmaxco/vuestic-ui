@@ -1,4 +1,4 @@
 import withConfigTransport from '../../services/config-transport/withConfigTransport'
-import VaBacktop from './VaBacktop.vue'
+import _VaBacktop from './VaBacktop.vue'
 
-export default withConfigTransport(VaBacktop)
+export const VaBacktop = withConfigTransport(_VaBacktop)

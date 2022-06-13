@@ -1,5 +1,5 @@
 <script lang="ts">
-import { computed, defineComponent, Fragment, h, PropType, ref, VNode } from 'vue'
+import { computed, defineComponent, Fragment, h, ref, VNode } from 'vue'
 
 import { useAlign, useAlignProps } from '../../composables/useAlign'
 import { useColors } from '../../composables/useColor'
@@ -9,10 +9,10 @@ export default defineComponent({
   name: 'VaBreadcrumbs',
   props: {
     ...useAlignProps,
-    separator: { type: String as PropType<string>, default: '/' },
-    color: { type: String as PropType<string>, default: 'gray' },
-    activeColor: { type: String as PropType<string>, default: null },
-    separatorColor: { type: String as PropType<string>, default: null },
+    separator: { type: String, default: '/' },
+    color: { type: String, default: 'gray' },
+    activeColor: { type: String, default: null },
+    separatorColor: { type: String, default: null },
   },
   setup (props, { slots }) {
     const { alignComputed } = useAlign(props)

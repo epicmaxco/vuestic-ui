@@ -1,14 +1,12 @@
 <template>
-  <div>
-    <va-icon
-      name="home"
-      color="primary"
-      class="mr-4"
-    />
-    <va-icon
-      name="home"
-      color="#9BEC15"
-      class="mr-4"
-    />
-  </div>
+  <va-icon
+    class="mr-2"
+    name="home"
+    color="primary"
+  />
+  <va-icon
+    class="mr-2"
+    name="home"
+    color="#9BEC15"
+  />
 </template>

@@ -34,8 +34,8 @@
 </template>
 
 <script>
-import VaCheckbox from '../../va-checkbox'
-import VaTreeNode from './index'
+import { VaCheckbox } from '../../va-checkbox'
+import { VaTreeNode } from './index'
 
 export default {
   components: {

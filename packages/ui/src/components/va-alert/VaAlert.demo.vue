@@ -209,9 +209,9 @@
 </template>
 
 <script>
-import VaAlert from './index'
-import VaBadge from '../va-badge'
-import VaIcon from '../va-icon'
+import { VaAlert } from './'
+import { VaBadge } from '../va-badge'
+import { VaIcon } from '../va-icon'
 
 export default {
   components: {

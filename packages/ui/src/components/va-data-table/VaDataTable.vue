@@ -2,19 +2,13 @@
   <va-inner-loading
     class="va-data-table"
     aria-live="polite"
-    :class="[
-      { 'va-data-table--sticky': $props.stickyHeader | $props.stickyFooter },
-      { 'va-data-table--scroll': !!$props.height },
-    ]"
-    :style="stickyCSSVariables"
-    v-bind="componentAttributes"
+    v-bind="computedAttributes"
     :loading="loading"
     :color="loadingColor"
   >
     <table
       class="va-data-table__table"
-      :class="{ striped, selectable, hoverable, clickable }"
-      v-bind="tableAttributes"
+      v-bind="computedTableAttributes"
     >
       <colgroup v-if="'colgroup' in $slots">
         <slot name="colgroup" v-bind="columnsComputed" />
@@ -54,10 +48,10 @@
             scope="col"
             :aria-sort="getColumnAriaSortOrder(column.key)"
             :aria-label="column.sortable ? `sort column by ${column.label}` : undefined"
-            :title="column.headerTitle"
+            :title="column.thTitle"
             class="va-data-table__table-th"
-            :class="getClass(column.headerClass)"
-            :style="[getHeaderCSSVariables(column), getStyle(column.headerStyle)]"
+            :class="getClass(column.thClass)"
+            :style="[getHeaderCSSVariables(column), getStyle(column.thStyle)]"
             @click.exact="column.sortable && toggleSorting(column)"
             @keydown.enter.stop="column.sortable && toggleSorting(column)"
           >
@@ -127,11 +121,8 @@
             v-for="row in rows"
             :key="`table-row_${row.initialIndex}`"
             class="va-data-table__table-tr"
-            :class="[
-              { selected: isRowSelected(row) },
-              getCustomRowClass(row),
-            ]"
-            :style="getCustomRowStyle(row)"
+            :class="[{ selected: isRowSelected(row) }]"
+            v-bind="getRowBind(row)"
             @click="onRowClickHandler('row:click', $event, row)"
             @dblclick="onRowClickHandler('row:dblclick', $event, row)"
             @contextmenu="onRowClickHandler('row:contextmenu', $event, row)"
@@ -146,9 +137,9 @@
                 :model-value="isRowSelected(row)"
                 :color="selectedColor"
                 :aria-label="`select row ${row.initialIndex}`"
-                @click.shift.exact="shiftSelectRows(row)"
-                @click.ctrl.exact="ctrlSelectRow(row)"
-                @click.exact="ctrlSelectRow(row)"
+                @click.shift.exact.stop="shiftSelectRows(row)"
+                @click.ctrl.exact.stop="ctrlSelectRow(row)"
+                @click.exact.stop="ctrlSelectRow(row)"
               />
             </td>
 
@@ -156,8 +147,9 @@
               v-for="cell in row.cells"
               :key="`table-cell_${cell.column.key + cell.rowIndex}`"
               class="va-data-table__table-td"
-              :class="getClass(cell.column.class)"
-              :style="[getCellCSSVariables(cell), getStyle(cell.column.style)]"
+              :class="getClass(cell.column.tdClass)"
+              :style="[getCellCSSVariables(cell), getStyle(cell.column.tdStyle)]"
+              v-bind="getCellBind(cell, row)"
             >
               <slot
                 v-if="`cell(${cell.column.key})` in $slots"
@@ -200,11 +192,11 @@
           <th
             v-for="column in columnsComputed"
             :key="column.key"
-            :title="column.headerTitle"
+            :title="column.thTitle"
             :aria-label="allowFooterSorting && column.sortable ? `sort column by ${column.label}` : undefined"
             class="va-data-table__table-th"
-            :class="getClass(column.headerClass)"
-            :style="[getFooterCSSVariables(column), getStyle(column.headerStyle)]"
+            :class="getClass(column.thClass)"
+            :style="[getFooterCSSVariables(column), getStyle(column.thStyle)]"
             @click.exact="allowFooterSorting && column.sortable && toggleSorting(column)"
             @keydown.enter.stop="allowFooterSorting && column.sortable && toggleSorting(column)"
           >
@@ -244,10 +236,6 @@ import { computed, defineComponent, HTMLAttributes, PropType, TableHTMLAttribute
 import omit from 'lodash/omit.js'
 import pick from 'lodash/pick.js'
 
-import VaInnerLoading from '../va-inner-loading'
-import VaCheckbox from '../va-checkbox'
-import VaIcon from '../va-icon'
-
 import useColumns from './hooks/useColumns'
 import useRows from './hooks/useRows'
 import useFilterable from './hooks/useFilterable'
@@ -255,7 +243,9 @@ import useSortable from './hooks/useSortable'
 import usePaginatedRows from './hooks/usePaginatedRows'
 import useSelectableRow from './hooks/useSelectableRow'
 import useStylable from './hooks/useStylable'
+import useBinding from './hooks/useBinding'
 import useAnimationName from './hooks/useAnimationName'
+
 import {
   DataTableColumnSource,
   DataTableItem,
@@ -263,9 +253,13 @@ import {
   DataTableFilterMethod,
   DataTableSortingOrder,
   DataTableSelectMode,
-  DataTableRowClass,
-  DataTableRowStyle,
+  DataTableRowBind,
+  DataTableCellBind,
 } from './types'
+
+import { VaInnerLoading } from '../va-inner-loading'
+import { VaCheckbox } from '../va-checkbox'
+import { VaIcon } from '../va-icon'
 
 type emitNames = 'update:modelValue' |
   'update:sortBy' |
@@ -325,8 +319,8 @@ export default defineComponent({
     stickyHeader: { type: Boolean, default: false },
     stickyFooter: { type: Boolean, default: false },
     height: { type: [String, Number] as PropType<string | number> },
-    rowClass: { type: null as unknown as PropType<DataTableRowClass> },
-    rowStyle: { type: null as unknown as PropType<DataTableRowStyle> },
+    rowBind: { type: null as unknown as PropType<DataTableRowBind> },
+    cellBind: { type: null as unknown as PropType<DataTableCellBind> },
   },
 
   emits: [
@@ -374,9 +368,9 @@ export default defineComponent({
       getFooterCSSVariables,
       getClass,
       getStyle,
-      getCustomRowClass,
-      getCustomRowStyle,
     } = useStylable(props)
+
+    const { getRowBind, getCellBind } = useBinding(props)
 
     const animationName = useAnimationName(props, paginatedRows)
 
@@ -394,21 +388,23 @@ export default defineComponent({
       }
     }
 
-    const componentAttributes = computed(() => ({
-      ...pick(attrs, ['class', 'style']),
+    const computedAttributes = computed(() => ({
+      class: [
+        { 'va-data-table--sticky': props.stickyHeader || props.stickyFooter },
+        { 'va-data-table--scroll': !!props.height },
+        attrs.class,
+      ],
+      style: [stickyCSSVariables.value, attrs.style],
     }) as HTMLAttributes)
 
-    const tableAttributes = computed(() => ({
+    const computedTableAttributes = computed(() => ({
       ...omit(attrs, ['class', 'style']),
+      class: pick(props, ['striped', 'selectable', 'hoverable', 'clickable']),
     }) as TableHTMLAttributes)
 
-    const getColumnAriaSortOrder = (columnKey: string) => {
-      if (sortingOrderSync.value && sortBySync.value === columnKey) {
-        return sortingOrderSync.value === 'asc' ? 'ascending' : 'descending'
-      }
-
-      return 'none'
-    }
+    const getColumnAriaSortOrder = (columnKey: string) => sortingOrderSync.value && sortBySync.value === columnKey
+      ? sortingOrderSync.value === 'asc' ? 'ascending' : 'descending'
+      : 'none'
 
     return {
       columnsComputed,
@@ -423,21 +419,20 @@ export default defineComponent({
       sortingOrderSync,
       toggleSorting,
       rowCSSVariables,
-      stickyCSSVariables,
       getHeaderCSSVariables,
       getCellCSSVariables,
       getFooterCSSVariables,
       getClass,
       getStyle,
-      getCustomRowClass,
-      getCustomRowStyle,
       showNoDataHtml,
       showNoDataFilteredHtml,
       onRowClickHandler,
-      componentAttributes,
-      tableAttributes,
+      computedAttributes,
+      computedTableAttributes,
       animationName,
       getColumnAriaSortOrder,
+      getRowBind,
+      getCellBind,
     }
   },
 })
