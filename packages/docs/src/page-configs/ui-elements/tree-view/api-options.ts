@@ -10,4 +10,10 @@ export default defineManualApi({
     selectionType: { types: "'leaf' | 'independent'" },
     filter: { types: 'string' },
   },
+  slots: {
+    'node-icon-toggle': { },
+    'node-checkbox': { },
+    'node-icon': { },
+    'node-body': { },
+  },
 })
