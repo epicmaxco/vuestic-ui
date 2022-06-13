@@ -45,8 +45,8 @@
 </template>
 
 <script>
-import VaAvatar from '../va-avatar'
-import VaBadge from './index'
+import { VaAvatar } from '../va-avatar'
+import { VaBadge } from './index'
 
 export default {
   name: 'badge-avatar-demo',

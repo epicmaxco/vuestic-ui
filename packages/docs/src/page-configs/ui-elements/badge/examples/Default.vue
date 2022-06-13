@@ -1,9 +1,7 @@
 <template>
-  <div>
-    Payment:
-    <va-badge
-      text="success"
-      color="success"
-    />
-  </div>
+  Payment:
+  <va-badge
+    text="success"
+    color="success"
+  />
 </template>

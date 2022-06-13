@@ -1,7 +1,7 @@
 import { getValueByKey } from '../services/utils'
 import { PropType, ExtractPropTypes } from 'vue'
 
-export type SelectableOption = string | number | Record<string, unknown>
+export type SelectableOption = string | number | Record<string, any>
 
 type StringOrFunction = string | ((option: SelectableOption) => unknown)
 

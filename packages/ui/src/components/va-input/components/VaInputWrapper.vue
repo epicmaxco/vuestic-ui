@@ -103,7 +103,7 @@ import { useBem } from '../../../composables/useBem'
 import { useFormProps } from '../../../composables/useForm'
 import { useValidationProps } from '../../../composables/useValidation'
 import { useColors } from '../../../services/color-config/color-config'
-import VaMessageList from './VaMessageList'
+import { VaMessageList } from './VaMessageList'
 
 export default defineComponent({
   name: 'VaInputWrapper',

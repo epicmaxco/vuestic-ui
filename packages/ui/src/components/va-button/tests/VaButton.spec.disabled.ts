@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import { mount, shallowMount, RouterLinkStub } from '@vue/test-utils'
-import VaButton from '../VaButton.vue'
+import { VaButton } from '../VaButton.vue'
 
 import { testHasColorThemeMixin } from '../../../services/testHasColorThemeMixin'
 import { ColorThemePlugin, ColorMixin } from '../../../services/color-config/ColorMixin'

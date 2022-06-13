@@ -199,11 +199,11 @@
 </template>
 
 <script>
-import VaConfig from '../va-config'
+import { VaConfig } from '../va-config'
 
-import VaButton from './../va-button'
-import VaTimeline from './index'
-import VaTimelineItem from './VaTimelineItem'
+import { VaButton } from './../va-button'
+import { VaTimeline } from './index'
+import { VaTimelineItem } from './VaTimelineItem'
 
 export default {
   components: {

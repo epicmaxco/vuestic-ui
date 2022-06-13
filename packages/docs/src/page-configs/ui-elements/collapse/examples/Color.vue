@@ -1,8 +1,7 @@
 <template>
-  <div>
+  <div style="width: 400px;">
     <va-collapse
       v-model="value[0]"
-      style="width: 400px;"
       header="Collapse header"
       solid
       color="success"
@@ -14,7 +13,6 @@
     </va-collapse>
     <va-collapse
       v-model="value[1]"
-      style="width: 400px;"
       header="Collapse header"
       solid
       color="warning"
@@ -26,7 +24,6 @@
     </va-collapse>
     <va-collapse
       v-model="value[2]"
-      style="width: 400px;"
       header="Collapse header"
       solid
       color="danger"
@@ -39,7 +36,6 @@
     </va-collapse>
     <va-collapse
       v-model="value[3]"
-      style="width: 400px;"
       header="Collapse header"
       solid
       color="#000"

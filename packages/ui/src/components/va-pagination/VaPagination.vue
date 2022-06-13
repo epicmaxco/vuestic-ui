@@ -81,8 +81,8 @@ import { useColors } from '../../composables/useColor'
 import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
 import { useTextColor } from '../../composables/useTextColor'
 
-import VaButtonGroup from '../va-button-group'
-import VaButton from '../va-button'
+import { VaButtonGroup } from '../va-button-group'
+import { VaButton } from '../va-button'
 
 import { setPaginationRange } from './setPaginationRange'
 

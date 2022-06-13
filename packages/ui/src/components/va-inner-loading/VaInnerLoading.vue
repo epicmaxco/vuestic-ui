@@ -21,7 +21,7 @@
 import { defineComponent, PropType } from 'vue'
 
 import { useLoadingProps } from '../../composables/useLoading'
-import VaIcon from '../va-icon'
+import { VaIcon } from '../va-icon'
 
 export default defineComponent({
   name: 'VaInnerLoading',

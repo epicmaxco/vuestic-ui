@@ -20,8 +20,8 @@
         @click="toggleSelection"
       >
         <input
-          class="va-switch__input"
           ref="input"
+          class="va-switch__input"
           type="checkbox"
           role="switch"
           v-bind="inputAttributesComputed"
@@ -75,15 +75,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, computed, ref } from 'vue'
+import { defineComponent, PropType, computed, shallowRef } from 'vue'
 
-import { VaProgressCircle } from '../va-progress-circle'
-import { VaMessageListWrapper } from '../va-input'
 import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'
 import { useSelectable, useSelectableProps, useSelectableEmits } from '../../composables/useSelectable'
 import { useColors } from '../../composables/useColor'
 import { useTextColor } from '../../composables/useTextColor'
 import { generateUniqueId } from '../../services/utils'
+
+import { VaProgressCircle } from '../va-progress-circle'
+import { VaMessageListWrapper } from '../va-input'
 
 export default defineComponent({
   name: 'VaSwitch',
@@ -100,7 +101,6 @@ export default defineComponent({
       type: [Boolean, Array, String, Object] as PropType<boolean | unknown[] | string | number | Record<string, unknown> | null>,
       default: false,
     },
-
     trueLabel: { type: String, default: null },
     falseLabel: { type: String, default: null },
     trueInnerLabel: { type: String, default: null },
@@ -110,15 +110,15 @@ export default defineComponent({
     size: {
       type: String as PropType<'medium' | 'small' | 'large'>,
       default: 'medium',
-      validator: (modelValue: string) => ['medium', 'small', 'large'].includes(modelValue),
+      validator: (value: string) => ['medium', 'small', 'large'].includes(value),
     },
 
   },
   setup (props, { emit }) {
     const elements = {
-      container: ref(null),
-      input: ref(null),
-      label: ref(null),
+      container: shallowRef<HTMLElement>(),
+      input: shallowRef<HTMLElement>(),
+      label: shallowRef<HTMLElement>(),
     }
 
     const { getColor } = useColors()

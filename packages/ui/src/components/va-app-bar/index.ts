@@ -1,4 +1,4 @@
 import withConfigTransport from '../../services/config-transport/withConfigTransport'
-import VaAppBar from './VaAppBar.vue'
+import _VaAppBar from './VaAppBar.vue'
 
-export default withConfigTransport(VaAppBar)
+export const VaAppBar = withConfigTransport(_VaAppBar)

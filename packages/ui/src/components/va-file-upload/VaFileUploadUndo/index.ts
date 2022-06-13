@@ -1,4 +1,4 @@
 import withConfigTransport from '../../../services/config-transport/withConfigTransport'
-import VaFileUploadUndo from './VaFileUploadUndo.vue'
+import _VaFileUploadUndo from './VaFileUploadUndo.vue'
 
-export default withConfigTransport(VaFileUploadUndo)
+export const VaFileUploadUndo = withConfigTransport(_VaFileUploadUndo)
