@@ -110,11 +110,11 @@ export default defineComponent({
     const { getColor } = useColors()
     const colorComputed = computed(() => getColor(props.color))
 
-    const computedStyle = computed(() => (
-      props.dropzone
-        ? { backgroundColor: shiftHSLAColor(colorComputed.value, { a: dropzoneHighlight.value ? -0.82 : -0.92 }) }
-        : { backgroundColor: 'transparent' }
-    ))
+    const computedStyle = computed(() => ({
+      backgroundColor: props.dropzone
+        ? shiftHSLAColor(colorComputed.value, { a: dropzoneHighlight.value ? -0.82 : -0.92 })
+        : 'transparent',
+    }))
 
     const files = computed<VaFile[]>({
       get () { return Array.isArray(props.modelValue) ? props.modelValue : [props.modelValue] },
