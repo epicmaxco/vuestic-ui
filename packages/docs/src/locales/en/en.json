@@ -1253,6 +1253,23 @@
         "nextArrow": "Custom style for next button",
         "prevArrow": "Custom style for previous button"
       }
+    },
+    "VaTreeView": {
+      "props": {
+        "expandAll": "Expand or hide all nodes by default",
+        "filter": "Tree view filter",
+        "nodeKey": "Key to index nodes",
+        "labelKey": "Key to show the value of node item",
+        "nodes": "Tree node array",
+        "selectable": "Selectable",
+        "selectionType": "Selection type where is a `leaf` current and all children nodes, `independent` - single selectable nodes"
+      },
+      "slots": {
+        "nodeBody": "Configurable node body",
+        "nodeCheckbox": "Checkbox icon placeholder",
+        "nodeIcon": "Additional icon placeholder",
+        "nodeIconToggle": "Node leaf icon"
+      }
     }
   },
   "menu": {
@@ -1361,7 +1378,7 @@
     "treeShaking": "Tree Shaking",
     "counter": "Counter",
     "nuxt": "Nuxt",
-    "treeView": "Tree"
+    "treeView": "Tree view"
   },
   "all": {
     "examples": "Examples",
@@ -4004,10 +4021,13 @@
       },
       "customizableContent": {
         "title": "Customizable content",
-        "description": "You can configure tree view's elements"
+        "description": "You can customize the body of node"
       },
       "filters": {
         "title": "Filters"
+      },
+      "selectable": {
+        "title": "Selectable"
       }
     }
   }
