@@ -868,8 +868,8 @@
     },
     "VaDataTable": {
       "props": {
-        "columns": "The property `columns` must be an array, that configures the columns of the table. In this case:\n\n `ITableColumn` &#123; `key: string;` `label?: string;` `headerTitle?: string;` `sortable?: boolean;` `sortingFn?: (a: any, b: any) => number;` `alignHead?: TAlignOptions;` `verticalAlignHead?: TVerticalAlignOptions;` `align?: TAlignOptions;` `verticalAlign?: TVerticalAlignOptions;` `width?: string`&#124;`number;` `classes?: TClassesOptions;` `headerClasses?: TClassesOptions;` `style?: TStyleOptions;` `headerStyle?: TStyleOptions;` &#125;;\n\n `TAlignOptions: 'left'`&#124;`'center'`&#124;`'right'`;\n\n `TVerticalAlignOptions: 'top'`&#124;`'middle'`&#124;`'bottom'`;\n\n `TClassesOptions: string`&#124;`string[]`&#124;`(() => string`&#124;`string[])`;\n\n `TStyleOptions: Record<string, any>`&#124;`(() => Record<string, any>)`",
-        "items": "Array of objects with table data (`ITableItem: Record<string, any>`). The `va-data-table` automatically calculates the amount and the titles of columns (if not specified otherwise with the `columns` prop) based on these object's keys. When calculating the columns' names based on the item's objects' keys `va-data-table` uses [Lodash's startCase](https://lodash.com/docs/4.17.15#startCase)[[target=_blank]] internally. Faulty values are replaced with an empty string",
+        "columns": "The property `columns` must be an array, that configures the columns of the table. In this case:\n\n `DataTableColumn` &#123; `key: string;` `label?: string;` `headerTitle?: string;` `sortable?: boolean;` `sortingFn?: (a: any, b: any) => number;` `alignHead?: DataTableColumnAlign;` `verticalAlignHead?: DataTableColumnVerticalAlign;` `align?: DataTableColumnAlign;` `verticalAlign?: DataTableColumnVerticalAlign;` `width?: string`&#124;`number;` `classes?: DataTableColumnClasses;` `headerClasses?: DataTableColumnClasses;` `style?: DataTableColumnStyle;` `headerStyle?: DataTableColumnStyle;` &#125;;\n\n `DataTableColumnAlign: 'left'`&#124;`'center'`&#124;`'right'`;\n\n `DataTableColumnVerticalAlign: 'top'`&#124;`'middle'`&#124;`'bottom'`;\n\n `DataTableColumnClasses: string`&#124;`string[]`&#124;`(() => string`&#124;`string[])`;\n\n `DataTableColumnStyle: Record<string, any>`&#124;`(() => Record<string, any>)`",
+        "items": "Array of objects with table data (`DataTableItem: Record<string, any>`). The `va-data-table` automatically calculates the amount and the titles of columns (if not specified otherwise with the `columns` prop) based on these object's keys. When calculating the columns' names based on the item's objects' keys `va-data-table` uses [Lodash's startCase](https://lodash.com/docs/4.17.15#startCase)[[target=_blank]] internally. Faulty values are replaced with an empty string",
         "filter": "If a `filter` is provided, only rows in which at least one cell contains the specified value will be displayed. To disable filtering at runtime (clear `filter`), specify an empty string",
         "filterMethod": "A custom filtering function. The function takes the initial value of the currently checked cell (the `source` is a formal parameter) and should return a `boolean` value, indicating whether to include the row containing this cell or not",
         "sortBy": "Sets the column to sort by. Works through the `v-model`",
@@ -889,17 +889,21 @@
         "allowFooterSorting": "Allows clicks on `<tfoot>` column headers to sort (and to display the sorting status) the rows",
         "striped": "Sets the striped style to the `<tbody>` rows (highlights each 2nd row)",
         "hoverable": "Allows the hover state on table rows within a `<tbody>`. The highlighting color of the hover state takes from `selected-color` prop",
-        "animated": "Sets css `transition` to table rows"
+        "animated": "Sets css `transition` to table rows",
+        "stickyHeader": "Enables sticky header (sticky header is achieved through CSS with `position: sticky` for `thead`)",
+        "height": "Sets the height to the table and enables scrolling",
+        "rowBind": "Adds attributes to a table row using `v-bind`. This can be an object type (with attributes that vue supports) or a function that returns such an object. The function receives a table row element (type `Record<string, any>`) and an index as arguments",
+        "cellBind": "Adds attributes to a table cell using `v-bind`. This can be an object type (with attributes that vue supports) or a function that returns such an object. As arguments, the function receives a table cell element (`any` type), a row (`DataTableItem` type), a column (`TableColumn` type), and a row index"
       },
       "events": {
         "updateSortBy": "Emits when `sort-by` changed",
         "updateSortingOrder": "Emits when `sorting-order` changed",
-        "filtered": "`va-data-table` emits the `filtered` event each time filtering is applied (and when the filter is cleared), with the following param: `FilteredEmit` = \n &#123;\n &nbsp; `items: ITableItem[]`,\n &nbsp; `itemsIndexes: number[]`\n &#125;",
-        "sorted": "Each time the table's sorting changes, the `sorted` event is thrown, with the following param: `SortedEmit` = \n &#123;\n &nbsp; `sortBy: string`,\n &nbsp; `sortingOrder: TSortingOrder`,\n &nbsp; `items: ITableItem[]`,\n &nbsp; `itemsIndexes: number[]`\n &#125;",
-        "rowClick": "When row clicked the event is thrown with the following param: `RowClickEmit` = \n &#123;\n &nbsp; `event: Event`,\n &nbsp; `item: ITableItem`,\n &nbsp; `itemIndex: number`\n &#125;",
+        "filtered": "`va-data-table` emits the `filtered` event each time filtering is applied (and when the filter is cleared), with the following param: `FilteredEmit` = \n &#123;\n &nbsp; `items: DataTableItem[]`,\n &nbsp; `itemsIndexes: number[]`\n &#125;",
+        "sorted": "Each time the table's sorting changes, the `sorted` event is thrown, with the following param: `SortedEmit` = \n &#123;\n &nbsp; `sortBy: string`,\n &nbsp; `sortingOrder: DataTableSortingOrder`,\n &nbsp; `items: DataTableItem[]`,\n &nbsp; `itemsIndexes: number[]`\n &#125;",
+        "rowClick": "When row clicked the event is thrown with the following param: `RowClickEmit` = \n &#123;\n &nbsp; `event: Event`,\n &nbsp; `item: DataTableItem`,\n &nbsp; `itemIndex: number`\n &#125;",
         "rowDblclick": "Double-clicking a row raises an event with the `RowClickEmit` param",
         "rowContextmenu": "When the context menu is clicked on a row, an event is raised with the `RowClickEmit` param",
-        "selectionChange": "The `selectionChange` event is thrown each time the selection changes. It provides the following object: `SelectionChangeEmit` = \n&#123;\n &nbsp; `currentSelectedItems: ITableItem[]`,\n &nbsp; `previousSelectedItems: ITableItem[]`\n &#125;"
+        "selectionChange": "The `selectionChange` event is thrown each time the selection changes. It provides the following object: `SelectionChangeEmit` = \n&#123;\n &nbsp; `currentSelectedItems: DataTableItem[]`,\n &nbsp; `previousSelectedItems: DataTableItem[]`\n &#125;"
       },
       "methods": {},
       "slots": {
@@ -3624,8 +3628,12 @@
         "text": "Use the `per-page` and `current-page` props to enable pagination.\n\nThe `va-data-table` component is paginator-agnostic. I.e. it can work with any pagination component you'd like. In the example below, it uses both standard inputs and the `va-pagination` component."
       },
       "styling": {
-        "title": "Styling",
+        "title": "Column styling",
         "text": "Should be specified on columns (see the `columns` prop below). Allows to provide different values (`text-align`, `vertical-align` and `width` css properties, custom `class` and `style`) for headers and for columns' cells."
+      },
+      "binding": {
+        "title": "Row and cell attrs binding",
+        "text": "Row and cell customization can be achieved by binding attributes for items using `row-bind` and `cell-bind`."
       },
       "other": {
         "title": "Other",

@@ -198,6 +198,23 @@
         <template #cell(company)="{ rowData }">{{ rowData.company.name }}</template>
       </va-data-table>
     </VbCard>
+
+    <VbCard title="row-bind">
+      <va-data-table
+        :items="items"
+        :columns="columns"
+        :selectable="selectable"
+        :select-mode="selectMode"
+        :row-bind="getCustomRowClass"
+        v-model="selectedItems"
+      >
+        <template #header(address)>Street</template>
+        <template #header(company)>Company Name</template>
+
+        <template #cell(address)="{ rowData }">{{ rowData.address.street }}</template>
+        <template #cell(company)="{ rowData }">{{ rowData.company.name }}</template>
+      </va-data-table>
+    </VbCard>
   </VbDemo>
 </template>
 
@@ -385,6 +402,18 @@ export default defineComponent({
     filterExact (source: any) {
       return source?.toString?.() === (this as any).filter
     },
+
+    getCustomRowClass (item: Record<string, any>) {
+      return (item.name === 'Ervin Howell')
+        ? { class: 'customRowClass' }
+        : undefined
+    },
   },
 })
 </script>
+
+<style lang="scss">
+.customRowClass {
+  background-color: gold;
+}
+</style>

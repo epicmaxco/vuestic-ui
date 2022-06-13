@@ -1,9 +1,18 @@
 import { computed } from 'vue'
-import { useColors } from '../../../composables/useColor'
+
 import { safeCSSLength } from '../../../utils/css-utils'
-import { DataTableColumn, DataTableClassesOptions, DataTableStyleOptions, DataTableCell } from '../types'
+import { useColors } from '../../../composables/useColor'
+
+import {
+  DataTableColumnInternal,
+  DataTableColumnClass,
+  DataTableColumnStyle,
+  DataTableCell,
+} from '../types'
 
 const prefix = '--va-data-table'
+
+const isFunction = (val: unknown): val is Function => typeof val === 'function'
 
 interface useStylableProps {
   selectable: boolean
@@ -13,74 +22,49 @@ interface useStylableProps {
   height: string | number | undefined
 }
 
-function getClasses (classes: DataTableClassesOptions = []): string[] {
-  if (typeof classes === 'function') {
-    const computedClasses = classes()
-    return (typeof computedClasses === 'string') ? [computedClasses] : computedClasses
-  }
-
-  return (typeof classes === 'string') ? [classes] : classes
-}
-
-function getStyles (styles: DataTableStyleOptions = {}): Record<string, any> {
-  return (typeof styles === 'function') ? styles() : styles
-}
+const getClass = (classes: DataTableColumnClass) => isFunction(classes) ? classes() : classes
+const getStyle = (styles: DataTableColumnStyle) => isFunction(styles) ? styles() : styles
 
 export default function useStyleable (props: useStylableProps) {
   const { getColor, getFocusColor, getHoverColor, shiftHSLAColor } = useColors()
 
   const color = computed(() => getColor(props.selectedColor))
 
-  function getHeaderCSSVariables (column: DataTableColumn) {
-    return {
-      [`${prefix}-width`]: typeof column.width === 'string' ? column.width : `${column.width}px`,
-      [`${prefix}-align`]: column.alignHead,
-      [`${prefix}-vertical-align`]: column.verticalAlignHead,
-      [`${prefix}-cursor`]: column.sortable ? 'pointer' : 'default',
-    }
-  }
+  const rowCSSVariables = computed(() => ({
+    [`${prefix}-hover-color`]: getHoverColor(color.value),
+    [`${prefix}-selected-color`]: props.selectable && getFocusColor(color.value),
+  }))
 
-  const rowCSSVariables = computed(() => {
-    const styles: Record<string, any> = {
-      [`${prefix}-hover-color`]: getHoverColor(color.value),
-    }
+  const stickyCSSVariables = computed(() => ({
+    [`${prefix}-scroll-table-color`]: (props.height || props.stickyHeader) && shiftHSLAColor(color.value, { l: 20 }),
+    [`${prefix}-scroll-table-height`]: props.height && safeCSSLength(props.height),
+  }))
 
-    if (props.selectable) {
-      styles[`${prefix}-selected-color`] = getFocusColor(color.value)
-    }
-
-    return styles
+  const getHeaderCSSVariables = (column: DataTableColumnInternal) => ({
+    [`${prefix}-width`]: column.width && safeCSSLength(column.width),
+    [`${prefix}-align`]: column.thAlign,
+    [`${prefix}-vertical-align`]: column.thVerticalAlign,
+    [`${prefix}-cursor`]: column.sortable ? 'pointer' : 'default',
   })
 
-  function getCellCSSVariables (cell: DataTableCell) {
-    return {
-      [`${prefix}-align`]: cell.column.align,
-      [`${prefix}-vertical-align`]: cell.column.verticalAlign,
-    }
-  }
+  const getCellCSSVariables = (cell: DataTableCell) => ({
+    [`${prefix}-align`]: cell.column.tdAlign,
+    [`${prefix}-vertical-align`]: cell.column.tdVerticalAlign,
+  })
 
-  function getFooterCSSVariables (column: DataTableColumn) {
-    return {
-      [`${prefix}-align`]: column.alignHead,
-      [`${prefix}-vertical-align`]: column.verticalAlignHead,
-      [`${prefix}-cursor`]: props.allowFooterSorting && column.sortable ? 'pointer' : 'default',
-    }
-  }
-
-  function getStickyCSSVariables () {
-    return {
-      [`${prefix}-scroll-table-color`]: (props.height || props.stickyHeader) && shiftHSLAColor(color.value, { l: 20 }),
-      [`${prefix}-scroll-table-height`]: props.height && safeCSSLength(props.height),
-    }
-  }
+  const getFooterCSSVariables = (column: DataTableColumnInternal) => ({
+    [`${prefix}-align`]: column.thAlign,
+    [`${prefix}-vertical-align`]: column.thVerticalAlign,
+    [`${prefix}-cursor`]: props.allowFooterSorting && column.sortable ? 'pointer' : 'default',
+  })
 
   return {
-    getHeaderCSSVariables,
     rowCSSVariables,
+    stickyCSSVariables,
+    getHeaderCSSVariables,
     getCellCSSVariables,
     getFooterCSSVariables,
-    getStickyCSSVariables,
-    getClasses,
-    getStyles,
+    getClass,
+    getStyle,
   }
 }
