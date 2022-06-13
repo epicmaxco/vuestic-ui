@@ -1,8 +1,8 @@
 import { TreeNode, UseTreeFilterFunc } from '../types'
 
-const useTreeFilter: UseTreeFilterFunc = ({ nodes, nodeKey, filter }) => {
+const useTreeFilter: UseTreeFilterFunc = ({ nodes, labelKey, filter }) => {
   const filterNodes = (filteredNodes: TreeNode[], node: TreeNode) => {
-    const label: string = node[nodeKey]?.toLowerCase()
+    const label: string = node[labelKey]?.toLowerCase()
 
     if (label.indexOf(filter.toLowerCase()) > -1) {
       filteredNodes.push(node)

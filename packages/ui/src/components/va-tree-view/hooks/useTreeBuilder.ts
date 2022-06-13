@@ -11,9 +11,9 @@ export const createNode: CreateNodeFunc = ({
   children,
   level,
   hasChildren: !!children.length,
-  expanded: expandAll || node.expanded,
-  selected: false,
-  disabled: false,
+  expanded: expandAll || node.expanded || false,
+  checked: node.checked || false,
+  disabled: node.disabled || false,
 })
 
 const useTreeBuilder: UseTreeBuilderFunc = ({ nodes, expandAll }) => {
