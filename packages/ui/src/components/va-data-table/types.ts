@@ -6,7 +6,7 @@ export type DataTableStyleOptions = Record<string, any> | (() => Record<string, 
 
 // provided column definitions (<va-data-table `:columns="myColumns"` />)
 // should look like an array of the following objects (and/or strings)
-export interface DataTableColumn {
+export type DataTableColumn = {
   key: string // name of an item's property
   label?: string // what to display in the respective heading
   headerTitle?: string // <th>'s `title` attribute's value
@@ -21,6 +21,7 @@ export interface DataTableColumn {
   headerClasses?: DataTableClassesOptions
   style?: DataTableStyleOptions
   headerStyle?: DataTableStyleOptions
+  [key: string]: any
 }
 
 export type DataTableColumnSource = DataTableColumn | string
@@ -43,6 +44,7 @@ export interface DataTableColumnInternal {
   headerClasses?: string | string[] | (() => string | string[])
   style?: Record<string, any> | (() => Record<string, any>)
   headerStyle?: Record<string, any> | (() => Record<string, any>)
+  [key: string]: any
 }
 
 export type DataTableItem = Record<string, any>
