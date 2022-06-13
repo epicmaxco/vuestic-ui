@@ -7,19 +7,21 @@ export interface TreeNode {
   children: TreeNode[]
   hasChildren?: boolean
   expanded?: boolean
-  selected?: boolean
+  checked?: boolean
+  disabled?: boolean
   level?: number
   [key: string]: any
 }
 
 export interface TreeViewProvide {
-  nodeKey: string
+  nodeKey: string | number
+  labelKey: string
   selectable: boolean
   iconColor: ComputedRef<string>
   colorComputed: ComputedRef<string>
   toggleNode: (node: TreeNode) => void
-  toggleSelect: (node: TreeNode, isSelected: boolean) => void
   treeItems: WritableComputedRef<TreeNode[]>
+  toggleCheckbox: (node: TreeNode, isSelected: boolean) => void
 }
 
 export type CreateNodeProps = {
@@ -47,7 +49,7 @@ export type TreeBuilderFunc = (
 
 export type UseTreeFilterProps = {
   nodes: TreeNode[]
-  nodeKey: string
+  labelKey: string
   filter: string
 }
 
