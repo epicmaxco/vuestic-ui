@@ -1,7 +1,7 @@
 <template>
   <div class="va-tree-node">
     <div
-      class="va-tree-node-root va-tree-node-root--selectable"
+      class="va-tree-node-root"
       @click.stop="toggleNode($props.node)"
     >
       <div class="va-tree-node-content" :class="gapClassComputed">
@@ -147,27 +147,24 @@ export default defineComponent({
   &-root {
     display: flex;
     padding: var(--va-tree-node-padding);
+    position: relative;
 
-    &--selectable {
-      position: relative;
+    &::before {
+      content: "";
+      background-color: var(--va-primary);
+      border-radius: var(--va-tree-node-border-radius);
+      bottom: 0;
+      left: 0;
+      opacity: 0;
+      pointer-events: none;
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
 
-      &::before {
-        content: "";
-        background-color: var(--va-primary);
-        border-radius: var(--va-tree-node-border-radius);
-        bottom: 0;
-        left: 0;
-        opacity: 0;
-        pointer-events: none;
-        position: absolute;
-        right: 0;
-        top: 0;
-      }
-
-      &:hover::before,
-      &:focus::before {
-        opacity: 0.1;
-      }
+    &:hover::before,
+    &:focus::before {
+      opacity: 0.1;
     }
   }
 
