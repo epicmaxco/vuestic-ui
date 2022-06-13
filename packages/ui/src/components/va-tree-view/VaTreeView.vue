@@ -1,12 +1,12 @@
 <template>
-  <div class="va-tree-view">
+  <div class="va-tree-view" role="tree">
     <va-tree-node
-      v-for="(nodeItem) in treeItems"
-      :key="nodeItem.id"
+      v-for="nodeItem in treeItems"
+      :key="nodeItem[$props.nodeKey]"
       :node="nodeItem"
     >
-      <template v-for="(_, name) in $slots" v-slot:[name]="bind">
-        <slot :name="name" v-bind="bind" />
+      <template v-for="(_, name) in $slots" v-slot:[name]="slotScope">
+        <slot :name="name" v-bind="slotScope" />
       </template>
     </va-tree-node>
   </div>
@@ -41,9 +41,14 @@ export default defineComponent({
       default: () => ([]),
     },
     nodeKey: {
-      type: String,
+      type: [String, Number],
       required: true,
       default: () => (''),
+    },
+    labelKey: {
+      type: String,
+      required: false,
+      default: () => ('label'),
     },
     expandAll: {
       type: Boolean,
@@ -85,12 +90,14 @@ export default defineComponent({
       },
     })
 
-    const toggleSelect = (node: TreeNode, isSelected: boolean) => {
-      const toggleChildNodeSelect = (nodes: TreeNode[]) => {
-        nodes.forEach((childNode: TreeNode) => {
-          childNode.selected = isSelected
+    const toggleCheckbox = (node: TreeNode, isChecked: boolean) => {
+      if (node.disabled) { return }
 
-          if (isSelected) {
+      const toggleChildNodeCheckbox = (nodes: TreeNode[]) => {
+        nodes.forEach((childNode: TreeNode) => {
+          childNode.checked = isChecked
+
+          if (isChecked) {
             selectedNodes.value.add(childNode.id)
           } else {
             selectedNodes.value.delete(childNode.id)
@@ -99,12 +106,12 @@ export default defineComponent({
           emit('update:modelValue', Array.from(selectedNodes.value.values()))
 
           if (childNode.hasChildren) {
-            toggleChildNodeSelect(childNode.children)
+            toggleChildNodeCheckbox(childNode.children)
           }
         })
       }
 
-      if (isSelected) {
+      if (isChecked) {
         selectedNodes.value.add(node.id)
       } else {
         selectedNodes.value.delete(node.id)
@@ -113,21 +120,23 @@ export default defineComponent({
       emit('update:modelValue', Array.from(selectedNodes.value.values()))
 
       if (props.selectionType === 'leaf' && node.hasChildren) {
-        toggleChildNodeSelect(node.children)
+        toggleChildNodeCheckbox(node.children)
       }
 
-      node.selected = isSelected
+      node.checked = isChecked
     }
 
     const toggleNode = (node: TreeNode): void => {
-      node.expanded = !node.expanded
+      if (node.hasChildren && !node.disabled) {
+        node.expanded = !node.expanded
+      }
     }
 
     const filterWatcher = (filterValue: string) => {
       nodeItems.list = useTreeFilter({
         filter: filterValue,
         nodes: props.nodes.slice(),
-        nodeKey: props.nodeKey,
+        labelKey: props.labelKey,
       })
     }
 
@@ -138,9 +147,10 @@ export default defineComponent({
       iconColor,
       treeItems,
       nodeKey: props.nodeKey,
+      labelKey: props.labelKey,
       selectable: props.selectable,
       toggleNode,
-      toggleSelect,
+      toggleCheckbox,
     }
 
     provide(TreeViewKey, treeView)
