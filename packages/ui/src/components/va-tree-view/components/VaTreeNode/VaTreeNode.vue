@@ -69,8 +69,8 @@
 <script lang="ts">
 import { defineComponent, inject, computed, PropType } from 'vue'
 
-import VaIcon from '../../../va-icon'
-import VaCheckbox from '../../../va-checkbox'
+import { VaIcon } from '../../../va-icon'
+import { VaCheckbox } from '../../../va-checkbox'
 import { TreeViewKey, TreeNode, TreeViewProvide } from '../../types'
 
 export default defineComponent({

@@ -108,12 +108,12 @@
 </template>
 
 <script>
-import VaTreeView from './VaTreeView.vue'
-import VaRadio from '../va-radio'
-import VaInput from '../va-input'
-import VaAvatar from '../va-avatar'
-import VaButton from '../va-button'
-import VaIcon from '../va-icon'
+import { VaTreeView } from './'
+import { VaRadio } from '../va-radio'
+import { VaInput } from '../va-input'
+import { VaAvatar } from '../va-avatar'
+import { VaButton } from '../va-button'
+import { VaIcon } from '../va-icon'
 import { VaColorPalette } from '../va-color-palette'
 
 const COLORS_PALETTE = [
