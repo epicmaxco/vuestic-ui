@@ -3,7 +3,7 @@
   <div
     v-if="removed && undo"
     class="va-file-upload-gallery-item"
-    :class="{'va-file-upload-gallery-item--undo': removed}"
+    :class="{ 'va-file-upload-gallery-item--undo': removed }"
   >
     <va-file-upload-undo
       class="va-file-upload-gallery-item--undo"
@@ -17,7 +17,7 @@
     class="va-file-upload-gallery-item"
     :class="{
       'file-upload-gallery-item_not-image': !previewImage,
-      'va-file-upload-gallery-item--focused': isFocused
+      'va-file-upload-gallery-item--focused': isFocused,
     }"
     @focus="isFocused = true"
     @blur="isFocused = false"
@@ -56,11 +56,12 @@
 <script lang="ts">
 import { defineComponent, onMounted, PropType, ref, watch, computed } from 'vue'
 
-import { VaButton } from '../../va-button'
-import { VaFileUploadUndo } from '../VaFileUploadUndo'
 import { colorToRgba } from '../../../services/color-config/color-functions'
 
 import type { ConvertedFile } from '../types'
+
+import { VaButton } from '../../va-button'
+import { VaFileUploadUndo } from '../VaFileUploadUndo'
 
 export default defineComponent({
   name: 'VaFileUploadGalleryItem',
@@ -68,9 +69,9 @@ export default defineComponent({
   emits: ['remove'],
   props: {
     file: { type: Object as PropType<ConvertedFile>, default: null },
-    color: { type: String as PropType<string>, default: 'success' },
-    undo: { type: Boolean as PropType<boolean>, default: false },
-    undoDuration: { type: Number as PropType<number>, default: 3000 },
+    color: { type: String, default: 'success' },
+    undo: { type: Boolean, default: false },
+    undoDuration: { type: Number, default: 3000 },
   },
   setup (props, { emit }) {
     const previewImage = ref('')

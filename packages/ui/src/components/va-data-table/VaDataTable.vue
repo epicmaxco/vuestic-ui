@@ -242,10 +242,6 @@ import useStylable from './hooks/useStylable'
 import useBinding from './hooks/useBinding'
 import useAnimationName from './hooks/useAnimationName'
 
-import { VaInnerLoading } from '../va-inner-loading'
-import { VaCheckbox } from '../va-checkbox'
-import { VaIcon } from '../va-icon'
-
 import {
   DataTableColumnSource,
   DataTableItem,
@@ -256,6 +252,10 @@ import {
   DataTableRowBind,
   DataTableCellBind,
 } from './types'
+
+import { VaInnerLoading } from '../va-inner-loading'
+import { VaCheckbox } from '../va-checkbox'
+import { VaIcon } from '../va-icon'
 
 type emitNames = 'update:modelValue' |
   'update:sortBy' |

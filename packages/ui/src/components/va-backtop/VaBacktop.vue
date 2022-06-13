@@ -20,6 +20,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType, ref, computed, onMounted, onBeforeUnmount } from 'vue'
+
 import { VaButton } from '../va-button'
 
 export default defineComponent({
@@ -30,18 +31,16 @@ export default defineComponent({
       type: [Object, String] as PropType<Element | string | undefined>,
       default: undefined,
     },
-
-    visibilityHeight: { type: Number as PropType<number>, default: 300 },
-    speed: { type: Number as PropType<number>, default: 50 },
-    verticalOffset: { type: String as PropType<string>, default: '1rem' },
-    horizontalOffset: { type: String as PropType<string>, default: '1rem' },
-    color: { type: String as PropType<string>, default: '' },
+    visibilityHeight: { type: Number, default: 300 },
+    speed: { type: Number, default: 50 },
+    verticalOffset: { type: String, default: '1rem' },
+    horizontalOffset: { type: String, default: '1rem' },
+    color: { type: String, default: '' },
     horizontalPosition: {
       type: String as PropType<'right' | 'left'>,
       default: 'right',
       validator: (value: string) => ['right', 'left'].includes(value),
     },
-
     verticalPosition: {
       type: String as PropType<'bottom' | 'top'>,
       default: 'bottom',

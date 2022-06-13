@@ -25,8 +25,8 @@
           >
             <template
               v-for="name in filterSlots"
-              v-slot:[name]="slotScope"
               :key="name"
+              v-slot:[name]="slotScope"
             >
               <slot :name="name" v-bind="slotScope" />
             </template>
@@ -76,7 +76,11 @@
             @hover:year="$emit('hover:year', $event)"
             @update:view="$emit('update:view', $event)"
         >
-          <template v-for="(_, name) in $slots" v-slot:[name]="bind">
+          <template
+            v-for="(_, name) in $slots"
+            :key="name"
+            v-slot:[name]="bind"
+          >
             <slot :name="name" v-bind="bind" />
           </template>
         </va-date-picker>
@@ -88,21 +92,22 @@
 <script lang="ts">
 import { computed, defineComponent, PropType, toRefs, watch, ref, nextTick } from 'vue'
 
+import { filterComponentProps, extractComponentProps, extractComponentEmits } from '../../utils/child-props'
 import { useClearableEmits, useClearable } from '../../composables/useClearable'
 import { useValidation, useValidationEmits } from '../../composables/useValidation'
 import { useStateful, useStatefulEmits } from '../../composables/useStateful'
 import { useSyncProp } from '../va-date-picker/hooks/sync-prop'
 import { isRange, isSingleDate, isDates } from '../va-date-picker/utils/date-utils'
-import { filterComponentProps, extractComponentProps, extractComponentEmits } from '../../utils/child-props'
 import { useRangeModelValueGuard } from './hooks/range-model-value-guard'
 import { useDateParser } from './hooks/input-text-parser'
 import { parseModelValue } from './hooks/model-value-parser'
+
+import { DateInputModelValue, DateInputRange } from './types'
 
 import VaDatePicker from '../va-date-picker/VaDatePicker.vue'
 import { VaDropdown, VaDropdownContent } from '../va-dropdown'
 import { VaInput } from '../va-input'
 import { VaIcon } from '../va-icon'
-import { DateInputModelValue } from './types'
 
 const VaInputProps = extractComponentProps(VaInput, [
   'mask', 'returnRaw', 'autosize', 'minRows', 'maxRows', 'type', 'inputmode',
@@ -128,7 +133,7 @@ export default defineComponent({
     modelValue: { type: [Date, Array, Object, String, Number] as PropType<DateInputModelValue> },
 
     resetOnClose: { type: Boolean, default: true },
-    isOpen: { type: Boolean as PropType<boolean | undefined>, default: undefined },
+    isOpen: { type: Boolean, default: undefined },
 
     format: { type: Function as PropType<(date: DateInputModelValue) => string> },
     formatDate: { type: Function as PropType<(date: Date) => string>, default: (d: Date) => d.toLocaleDateString() },
@@ -155,6 +160,9 @@ export default defineComponent({
   ],
 
   setup (props, { emit, slots }) {
+    const input = ref<typeof VaInput>()
+    const datePicker = ref<typeof VaDatePicker>()
+
     const { isOpen, resetOnClose } = toRefs(props)
     const { valueComputed: statefulValue } = useStateful<DateInputModelValue>(props, emit)
     const { syncProp: isOpenSync } = useSyncProp(isOpen, 'is-open', emit, false)
@@ -171,9 +179,6 @@ export default defineComponent({
     })
 
     const dateOrNothing = (date: Date | undefined | null) => date ? props.formatDate(date) : '...'
-
-    const input = ref<typeof VaInput | undefined>()
-    const datePicker = ref<typeof VaDatePicker | undefined>()
 
     const { parseDateInputValue, isValid } = useDateParser(props)
 

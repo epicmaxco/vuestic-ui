@@ -7,7 +7,7 @@
       :aria-disabled="$props.disabled"
       :tabindex="tabIndexComputed"
       :color="valueComputed"
-      :indicator="indicator"
+      :indicator="$props.indicator"
       @click="callPickerDialog"
       @keydown.space="callPickerDialog"
       @keydown.enter="callPickerDialog"
@@ -30,9 +30,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref, computed } from 'vue'
+import { defineComponent, PropType, shallowRef, computed } from 'vue'
 
 import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
+
 import { VaColorIndicator } from '../va-color-indicator'
 import { VaInput } from '../va-input'
 
@@ -54,13 +55,20 @@ export default defineComponent({
     },
   },
   setup: (props, { emit }) => {
+    const colorPicker = shallowRef<HTMLInputElement>()
+
     const { valueComputed } = useStateful(props, emit)
 
-    const colorPicker = ref<HTMLInputElement>()
     const callPickerDialog = () => !props.disabled && colorPicker.value?.click()
+
     const tabIndexComputed = computed(() => props.disabled ? -1 : 0)
 
-    return { valueComputed, callPickerDialog, colorPicker, tabIndexComputed }
+    return {
+      valueComputed,
+      callPickerDialog,
+      colorPicker,
+      tabIndexComputed,
+    }
   },
 })
 </script>

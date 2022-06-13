@@ -58,18 +58,18 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, PropType, ref } from 'vue'
+import { defineComponent, computed, PropType, shallowRef } from 'vue'
+
+import { generateUniqueId } from '../../services/utils'
+import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'
+import { useColors } from '../../composables/useColor'
+import { useSelectable, useSelectableProps, useSelectableEmits, Elements } from '../../composables/useSelectable'
+import { useTextColor } from '../../composables/useTextColor'
 
 import { VaMessageListWrapper } from '../va-input'
 import { VaIcon } from '../va-icon/'
 
-import { useColors } from '../../composables/useColor'
-import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'
-import { useSelectable, useSelectableProps, useSelectableEmits } from '../../composables/useSelectable'
-import { useTextColor } from '../../composables/useTextColor'
-import { generateUniqueId } from '../../services/utils'
-
-const vaCheckboxValueType = [Boolean, Array, String, Object] as PropType<boolean | null | string | number | Record<any, unknown> | unknown[]>
+const VaCheckboxValueType = [Boolean, Array, String, Object] as PropType<boolean | null | string | number | Record<any, unknown> | unknown[]>
 
 export default defineComponent({
   name: 'VaCheckbox',
@@ -77,21 +77,21 @@ export default defineComponent({
   emits: useSelectableEmits,
   props: {
     ...useSelectableProps,
-    modelValue: { type: vaCheckboxValueType, default: false },
-    color: { type: String as PropType<string>, default: 'primary' },
-    checkedIcon: { type: String as PropType<string>, default: 'check' },
+    modelValue: { type: VaCheckboxValueType, default: false },
+    color: { type: String, default: 'primary' },
+    checkedIcon: { type: String, default: 'check' },
     indeterminate: { type: Boolean, default: false },
-    indeterminateValue: { type: vaCheckboxValueType, default: null },
-    indeterminateIcon: { type: String as PropType<string>, default: 'remove' },
-    id: { type: String as PropType<string>, default: '' },
-    name: { type: String as PropType<string>, default: '' },
+    indeterminateValue: { type: VaCheckboxValueType, default: null },
+    indeterminateIcon: { type: String, default: 'remove' },
+    id: { type: String, default: '' },
+    name: { type: String, default: '' },
     ariaLabel: { type: String, default: undefined },
   },
   setup (props, { emit }) {
-    const elements = {
-      container: ref(null),
-      input: ref(null),
-      label: ref(null),
+    const elements: Elements = {
+      container: shallowRef<HTMLElement>(),
+      input: shallowRef<HTMLElement>(),
+      label: shallowRef<HTMLElement>(),
     }
 
     const {
@@ -105,7 +105,6 @@ export default defineComponent({
     } = useSelectable(props, emit, elements)
     const { getColor } = useColors()
     const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
-
     const { textColorComputed } = useTextColor()
 
     const isActive = computed(() => isChecked.value || isIndeterminate.value)

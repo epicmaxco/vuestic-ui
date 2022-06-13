@@ -4,11 +4,11 @@
       {{ file && file.name }}
     </div>
     <va-button
+      class="va-file-upload-single-item__button"
+      size="small"
+      color="danger"
       flat
       @click="$emit('remove')"
-      color="danger"
-      size="small"
-      class="va-file-upload-single-item__button"
     >
       Delete
     </va-button>
@@ -20,7 +20,7 @@ import { defineComponent, PropType } from 'vue'
 
 import { VaButton } from '../../va-button'
 
-import { VaFile, ConvertedFile } from '../types'
+import { ConvertedFile } from '../types'
 
 export default defineComponent({
   name: 'VaFileUploadSingleItem',

@@ -15,11 +15,12 @@
     </div>
   </div>
 </template>
-<script lang="ts">
-import { defineComponent, computed, PropType, ref, Ref, nextTick, onMounted, onBeforeUnmount } from 'vue'
-import noop from 'lodash/noop.js'
-import { getWindow } from '../../utils/ssr-utils'
 
+<script lang="ts">
+import { defineComponent, computed, PropType, ref, nextTick, onMounted, onBeforeUnmount, shallowRef } from 'vue'
+import noop from 'lodash/noop.js'
+
+import { getWindow } from '../../utils/ssr-utils'
 import {
   handleThrottledEvent,
   useEventsHandlerWithThrottle,
@@ -32,16 +33,18 @@ export default defineComponent({
   name: 'VaAffix',
   emits: ['change'],
   props: {
-    offsetTop: { type: Number as PropType<number>, default: undefined },
-    offsetBottom: { type: Number as PropType<number>, default: undefined },
+    offsetTop: { type: Number, default: undefined },
+    offsetBottom: { type: Number, default: undefined },
     target: { type: [Object, Function] as PropType<HTMLElement | Window | (() => HTMLElement | Window)>, default: getWindow },
   },
   setup (props, { emit }) {
+    const element = shallowRef<HTMLElement>()
+
     const getTargetElement = () => (typeof props.target === 'function' ? props.target() : props.target)
 
     const isAffixed = computed(() => state.value.isTopAffixed || state.value.isBottomAffixed)
 
-    const state: Ref<State> = ref({
+    const state = ref<State>({
       isTopAffixed: false,
       isBottomAffixed: false,
     })
@@ -98,16 +101,14 @@ export default defineComponent({
       top: state.value.isTopAffixed ? convertToPixels(calculateTop) : undefined,
       bottom: state.value.isBottomAffixed ? convertToPixels(calculateBottom) : undefined,
       width: `${state.value.width}px`,
-    }),
-    )
+    }))
 
-    const initialPosition: Ref<undefined | DOMRect> = ref()
-    const element: Ref<HTMLElement | null> = ref(null)
+    const initialPosition = ref<DOMRect>()
     const throttledEventHandler = (eventName: string | null, event?: Event) => {
       const context: Context = {
         ...props,
         initialPosition: initialPosition.value,
-        element: element.value!,
+        element: element.value,
         target: getTargetElement(),
         setState,
         getState,
@@ -132,11 +133,11 @@ export default defineComponent({
     }
 
     let clearEventListeners: () => any = noop
-    onBeforeUnmount(() => clearEventListeners())
-    onMounted(() => {
-      const events = ['scroll', 'resize']
 
+    onMounted(() => {
       initialPosition.value = element.value?.getBoundingClientRect()
+
+      const events = ['scroll', 'resize']
 
       clearEventListeners = useEventsHandlerWithThrottle(events, {
         handler: throttledEventHandler,
@@ -147,6 +148,8 @@ export default defineComponent({
         throttledEventHandler(null)
       })
     })
+
+    onBeforeUnmount(clearEventListeners)
 
     return {
       computedClass,

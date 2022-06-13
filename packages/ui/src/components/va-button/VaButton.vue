@@ -2,6 +2,9 @@
   <component
     :is="tagComputed"
     class="va-button"
+    ref="button"
+    aria-live="polite"
+    :aria-disabled="$props.disabled"
     :class="computedClass"
     :style="computedStyle"
     :disabled="$props.disabled"
@@ -14,31 +17,28 @@
     :active-class="$props.activeClass"
     :exact="$props.exact"
     :exact-active-class="$props.exactActiveClass"
+    :tabindex="loading ? -1 : 0"
+    v-on="$attrs"
     @focus="focusState = true"
     @blur="focusState = false"
-    :tabindex="loading ? -1 : 0"
-    @mouseenter="hoverState = true"
     @mouseleave="hoverState = false"
-    v-on="$attrs"
-    ref="button"
-    :aria-disabled="$props.disabled"
-    aria-live="polite"
+    @mouseenter="hoverState = true"
   >
     <div class="va-button__content" :class="{ 'va-button__content--loading': loading }">
       <va-icon
         v-if="icon"
+        class="va-button__left-icon"
         :name="icon"
         :size="size"
         :color="textColorComputed"
-        class="va-button__left-icon"
       />
       <slot />
       <va-icon
         v-if="iconRight"
+        class="va-button__right-icon"
         :name="iconRight"
         :size="size"
         :color="textColorComputed"
-        class="va-button__right-icon"
       />
     </div>
     <va-progress-circle
@@ -53,13 +53,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref, Ref, PropType, ComputedRef } from 'vue'
+import { defineComponent, computed, ref, ComputedRef, shallowRef, PropType } from 'vue'
+
+import { getGradientBackground, shiftHSLAColor } from '../../services/color-config/color-functions'
 import { useTextColor } from '../../composables/useTextColor'
-import { getGradientBackground, getTextColor, shiftHSLAColor } from '../../services/color-config/color-functions'
-import { useColor } from '../../composables/useColor'
+import { useColors } from '../../composables/useColor'
 import { useRouterLink, useRouterLinkProps } from '../../composables/useRouterLink'
 import { useSizeProps, useSize } from '../../composables/useSize'
 import { useLoadingProps } from '../../composables/useLoading'
+
 import { VaIcon } from '../va-icon'
 import { VaProgressCircle } from '../va-progress-circle'
 
@@ -70,38 +72,40 @@ export default defineComponent({
     ...useSizeProps,
     ...useLoadingProps,
     ...useRouterLinkProps,
-    color: { type: String as PropType<string>, default: 'primary' },
-    textColor: { type: String as PropType<string | undefined>, default: undefined },
-    tag: { type: String as PropType<string>, default: 'button' },
-    outline: { type: Boolean as PropType<boolean | undefined>, default: undefined },
-    gradient: { type: Boolean as PropType<boolean | undefined>, default: undefined },
-    flat: { type: Boolean as PropType<boolean | undefined>, default: undefined },
-    type: { type: String as PropType<string>, default: 'button' },
-    disabled: { type: Boolean as PropType<boolean>, default: false },
-    block: { type: Boolean as PropType<boolean>, default: false },
-    rounded: { type: Boolean as PropType<boolean>, default: true },
-    round: { type: Boolean as PropType<boolean | undefined>, default: undefined },
-    spaceBetweenItems: { type: Boolean as PropType<boolean | undefined>, default: undefined },
-    icon: { type: String as PropType<string | undefined>, default: undefined },
-    iconRight: { type: String as PropType<string | undefined>, default: undefined },
+    color: { type: String, default: 'primary' },
+    textColor: { type: String, default: undefined },
+    tag: { type: String, default: 'button' },
+    outline: { type: Boolean, default: undefined },
+    gradient: { type: Boolean, default: undefined },
+    flat: { type: Boolean, default: undefined },
+    type: { type: String, default: 'button' },
+    disabled: { type: Boolean, default: false },
+    block: { type: Boolean, default: false },
+    rounded: { type: Boolean, default: true },
+    round: { type: Boolean, default: undefined },
+    spaceBetweenItems: { type: Boolean, default: undefined },
+    icon: { type: String, default: undefined },
+    iconRight: { type: String, default: undefined },
     size: {
-      type: String as PropType<string>,
+      type: String as PropType<'small' | 'medium' | 'large'>,
       default: 'medium',
       validator: (value: string) => ['medium', 'small', 'large'].includes(value),
     },
   },
   setup (props, { slots }) {
+    const button = shallowRef<HTMLElement>()
+
     const { sizeComputed } = useSize(props)
-    const { computeColor } = useColor(props)
     const { tagComputed, hrefComputed } = useRouterLink(props)
 
     const hoverState = ref(false)
     const focusState = ref(false)
 
-    const colorComputed = computed(() => computeColor(props.color, 'primary'))
+    const { getColor } = useColors()
+    const colorComputed = computed(() => getColor(props.color))
     const isTransparentBackground = computed(() => Boolean(props.outline || props.flat))
-
     const { textColorComputed } = useTextColor(colorComputed, isTransparentBackground)
+
     const isSlotContentPassed = computed(() => !!slots.default?.()?.[0]?.children)
 
     const computedType = computed(() => {
@@ -180,7 +184,6 @@ export default defineComponent({
       }
     })
 
-    const button: Ref<HTMLElement | null> = ref(null)
     const focus = () => button.value?.focus()
     const blur = () => button.value?.blur()
 
@@ -195,13 +198,9 @@ export default defineComponent({
       loaderSize,
       focusState,
       hoverState,
+      focus,
+      blur,
     }
-  },
-
-  // we will use this while we have 'withConfigTransport' and problem with 'expose' method in 'setup' func
-  methods: {
-    focus () { (this as any).button?.focus() },
-    blur () { (this as any).button?.blur() },
   },
 })
 </script>
