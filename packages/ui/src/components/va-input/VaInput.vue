@@ -93,7 +93,7 @@ import VaIcon from '../va-icon/VaIcon.vue'
 import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
 import omit from 'lodash/omit.js'
 import pick from 'lodash/pick.js'
-import type { VaPropType } from '../../types/va-prop-type'
+import type { AnyStringPropType } from '../../types/prop-type'
 
 const VaTextareaProps = extractComponentProps(VaTextarea)
 
@@ -127,7 +127,7 @@ export default defineComponent({
     tabindex: { type: Number, default: 0 },
     modelValue: { type: [String, Number], default: '' },
     label: { type: String, default: '' },
-    type: { type: String as VaPropType<'textarea' | 'text'>, default: 'text' },
+    type: { type: String as AnyStringPropType<'textarea' | 'text' | 'password'>, default: 'text' },
     loading: { type: Boolean, default: false },
     inputClass: { type: String, default: '' },
     pattern: { type: String },

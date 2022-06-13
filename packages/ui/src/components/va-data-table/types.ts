@@ -1,7 +1,5 @@
-import { StringWithAutocomplete } from '../../types/string-with-autocomplete'
-
-export type DataTableAlignOptions = StringWithAutocomplete<'left' | 'center' | 'right'>
-export type DataTableVerticalAlignOptions = StringWithAutocomplete<'top' | 'middle' | 'bottom'>
+export type DataTableAlignOptions = 'left' | 'center' | 'right'
+export type DataTableVerticalAlignOptions = 'top' | 'middle' | 'bottom'
 
 export type DataTableClassesOptions = string | string[] | (() => string | string[])
 export type DataTableStyleOptions = Record<string, any> | (() => Record<string, any>)
@@ -68,6 +66,6 @@ export interface DataTableRow {
 
 export type DataTableFilterMethod = (source: any) => boolean
 
-export type DataTableSortingOrder = StringWithAutocomplete<'asc' | 'desc'> | null
+export type DataTableSortingOrder = 'asc' | 'desc' | null
 
-export type DataTableSelectMode = StringWithAutocomplete<'single' | 'multiple'>
+export type DataTableSelectMode = 'single' | 'multiple'
