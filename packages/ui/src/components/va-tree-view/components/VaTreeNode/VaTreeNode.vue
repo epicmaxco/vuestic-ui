@@ -1,5 +1,14 @@
 <template>
-  <div class="va-tree-node">
+  <div
+    class="va-tree-node"
+    role="treeitem"
+    :aria-expanded="$props.node.expanded"
+    :aria-disabled="$props.node.disabled"
+    :aria-checked="$props.node.checked"
+    :tabindex="tabIndexComputed"
+    @keydown.right.stop.prevent="handleToggleNode($event, $props.node)"
+    @keydown.left.stop.prevent="handleToggleNode($event, $props.node)"
+  >
     <div
       class="va-tree-node-root"
       @click.stop="toggleNode($props.node)"
@@ -23,9 +32,9 @@
         >
           <slot name="node-checkbox">
             <va-checkbox
-              v-model="$props.node.selected"
+              v-model="$props.node.checked"
               :color="colorComputed"
-              @update:model-value="(isSelected) => toggleSelect($props.node, isSelected)"
+              @update:model-value="(isChecked) => toggleCheckbox($props.node, isChecked)"
             />
           </slot>
         </div>
@@ -38,17 +47,19 @@
       </div>
     </div>
     <div
-      v-if="$props.node.hasChildren"
+      v-show="$props.node.hasChildren"
+      role="group"
+      :aria-hidden="!$props.node.expanded"
       class="va-tree-node-children"
       :class="expandedClassComputed"
     >
       <va-tree-node
         v-for="childNode in $props.node.children"
-        :key="childNode.id"
+        :key="childNode[$props.node.nodeKey]"
         :node="childNode"
       >
-        <template v-for="(_, name) in $slots" v-slot:[name]="bind">
-          <slot :name="name" v-bind="bind" />
+        <template v-for="(_, name) in $slots" v-slot:[name]="slotScope">
+          <slot :name="name" v-bind="slotScope" />
         </template>
       </va-tree-node>
     </div>
@@ -79,12 +90,13 @@ export default defineComponent({
     let nodes: TreeNode[] = []
     const {
       nodeKey,
+      labelKey,
       iconColor,
       treeItems,
       selectable,
       toggleNode,
-      toggleSelect,
       colorComputed,
+      toggleCheckbox,
     } = inject<TreeViewProvide>(TreeViewKey, {
       iconColor: computed(() => 'var(--va-white)'),
       colorComputed: computed(() => 'primary'),
@@ -94,13 +106,14 @@ export default defineComponent({
           nodes = value
         },
       }),
+      labelKey: '',
       nodeKey: '',
       selectable: false,
       toggleNode: (node: TreeNode) => node,
-      toggleSelect: (node: TreeNode, isSelected: boolean) => ({ node, isSelected }),
+      toggleCheckbox: (node: TreeNode, isSelected: boolean) => ({ node, isSelected }),
     })
 
-    const labelComputed = computed(() => props.node[nodeKey] || '')
+    const labelComputed = computed(() => props.node[labelKey] || '')
     const isExpandedComputed = computed(() => props.node.expanded)
     const hasIconComputed = computed(() => slots['node-icon'] && props.node.icon)
     const expandedClassComputed = computed(
@@ -114,18 +127,30 @@ export default defineComponent({
           props.node.hasChildren === false,
       }),
     )
+    const tabIndexComputed = computed(() => props.node.disabled ? -1 : 0)
+
+    const handleToggleNode = (event: Event, node: TreeNode) => {
+      if (node.expanded) {
+        (event.target as HTMLElement)?.blur()
+      } else {
+        toggleNode(node)
+      }
+    }
 
     return {
+      nodeKey,
       iconColor,
       treeItems,
       selectable,
 
       toggleNode,
-      toggleSelect,
+      toggleCheckbox,
+      handleToggleNode,
 
       labelComputed,
       colorComputed,
       hasIconComputed,
+      tabIndexComputed,
       gapClassComputed,
       isExpandedComputed,
       expandedClassComputed,
@@ -162,9 +187,16 @@ export default defineComponent({
       top: 0;
     }
 
-    &:hover::before,
-    &:focus::before {
-      opacity: 0.1;
+    &:hover::before {
+      opacity: var(--va-tree-node-interactive-bg-opacity);
+    }
+  }
+
+  &:focus > .va-tree-node-root {
+    @include focus-outline;
+
+    &::before {
+      opacity: var(--va-tree-node-interactive-bg-opacity);
     }
   }
 
