@@ -1,5 +1,7 @@
 import { ApiDocsBlock } from '@/types/configTypes'
 import { PageGenerationHelper } from '@/helpers/DocsHelper'
+import apiOptions from './api-options'
+import VaTreeView from 'vuestic-ui/src/components/va-tree-view/VaTreeView.vue'
 
 const block = new PageGenerationHelper(__dirname)
 
@@ -19,6 +21,14 @@ const config: ApiDocsBlock[] = [
   // Filters
   block.subtitle('treeView.examples.filters.title'),
   block.example('Filters'),
+
+  // Selectable
+  block.subtitle('treeView.examples.selectable.title'),
+  block.example('Selectable'),
+
+  // API
+  block.subtitle('all.api'),
+  block.api(VaTreeView, apiOptions),
 ]
 
 export default config
