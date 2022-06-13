@@ -3863,6 +3863,9 @@
       },
       "filters": {
         "title": "Фильтры"
+      },
+      "selectable": {
+        "title": "Чекбоксы"
       }
     }
   }
