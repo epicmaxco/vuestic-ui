@@ -15,8 +15,8 @@
 
       <div class="va-input-wrapper__content">
         <div
-          class="va-input__container"
           ref="container"
+          class="va-input__container"
           :style="{ borderColor: borderColorComputed }"
         >
           <div
@@ -99,10 +99,12 @@
 
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
+
 import { useBem } from '../../../composables/useBem'
 import { useFormProps } from '../../../composables/useForm'
 import { useValidationProps } from '../../../composables/useValidation'
-import { useColors } from '../../../services/color-config/color-config'
+import { useColors } from '../../../composables/useColor'
+
 import { VaMessageList } from './VaMessageList'
 
 export default defineComponent({

@@ -3,20 +3,20 @@
     v-bind="fieldListeners"
     :class="$attrs.class"
     :style="$attrs.style"
-    :color="color"
-    :readonly="readonly"
-    :disabled="disabled"
-    :success="success"
-    :messages="messages"
+    :color="$props.color"
+    :readonly="$props.readonly"
+    :disabled="$props.disabled"
+    :success="$props.success"
+    :messages="$props.messages"
     :error="computedError"
     :error-messages="computedErrorMessages"
     :error-count="errorCount"
-    :label="label"
-    :bordered="bordered"
-    :outline="outline"
+    :label="$props.label"
+    :bordered="$props.bordered"
+    :outline="$props.outline"
+    :requiredMark="$props.requiredMark"
     :focused="isFocused"
-    :requiredMark="requiredMark"
-    @click="input && input.focus()"
+    @click="focus"
   >
     <!-- Simply proxy slots to VaInputWrapper -->
     <template
@@ -29,7 +29,7 @@
 
     <template #icon="slotScope">
       <va-icon
-        v-if="success"
+        v-if="$props.success"
         color="success"
         name="check_circle"
         size="small"
@@ -48,13 +48,13 @@
         class="va-input__icons__reset"
         :tabindex="tabIndexComputed"
         v-bind="clearIconProps"
-        @click.stop="reset()"
-        @keydown.enter.stop="reset()"
-        @keydown.space.stop="reset()"
+        @click.stop="reset"
+        @keydown.enter.stop="reset"
+        @keydown.space.stop="reset"
       />
       <va-icon
-        v-if="loading"
-        :color="color"
+        v-if="$props.loading"
+        :color="$props.color"
         size="small"
         name="loop"
         spin="counter-clockwise"
@@ -80,19 +80,21 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, InputHTMLAttributes, PropType, ref, toRefs } from 'vue'
-import { useFormProps } from '../../composables/useForm'
-import { useValidation, useValidationProps, useValidationEmits } from '../../composables/useValidation'
-import { useCleave, useCleaveProps } from './hooks/useCleave'
-import { useFocus } from '../../composables/useFocus'
-import { useEmitProxy } from '../../composables/useEmitProxy'
-import VaInputWrapper from './components/VaInputWrapper.vue'
-import { useClearableProps, useClearable, useClearableEmits } from '../../composables/useClearable'
-import VaTextarea from './components/VaTextarea/VaTextarea.vue'
-import VaIcon from '../va-icon/VaIcon.vue'
-import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
+import { computed, defineComponent, InputHTMLAttributes, PropType, shallowRef, toRefs } from 'vue'
 import omit from 'lodash/omit.js'
 import pick from 'lodash/pick.js'
+
+import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
+import { useFormProps } from '../../composables/useForm'
+import { useValidation, useValidationProps, useValidationEmits } from '../../composables/useValidation'
+import { useFocus } from '../../composables/useFocus'
+import { useEmitProxy } from '../../composables/useEmitProxy'
+import { useClearableProps, useClearable, useClearableEmits } from '../../composables/useClearable'
+import { useCleave, useCleaveProps } from './hooks/useCleave'
+
+import VaInputWrapper from './components/VaInputWrapper.vue'
+import VaTextarea from './components/VaTextarea/VaTextarea.vue'
+import VaIcon from '../va-icon/VaIcon.vue'
 
 const VaTextareaProps = extractComponentProps(VaTextarea)
 
@@ -151,7 +153,7 @@ export default defineComponent({
   inheritAttrs: false,
 
   setup (props, { emit, attrs, slots }) {
-    const input = ref<HTMLInputElement | typeof VaTextarea | undefined>()
+    const input = shallowRef<HTMLInputElement | typeof VaTextarea>()
 
     const { isFocused, onFocus: onFocusListener, onBlur: onBlurListener } = useFocus()
 
@@ -256,19 +258,11 @@ export default defineComponent({
       clearIconProps,
 
       fieldListeners: createFieldListeners(emit),
-      reset,
       filterSlots,
-
-      // while we have problem with 'withConfigTransport'
-      // focus,
-      // blur,
+      reset,
+      focus,
+      blur,
     }
-  },
-
-  // we will use this while we have problem with 'withConfigTransport'
-  methods: {
-    focus () { this.input?.focus() },
-    blur () { this.input?.blur() },
   },
 })
 </script>
