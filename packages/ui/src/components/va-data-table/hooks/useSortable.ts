@@ -1,5 +1,6 @@
 import { computed, ref, Ref, watch } from 'vue'
-import { DataTableColumn, DataTableRow, DataTableItem, DataTableSortingOrder } from '../types'
+
+import { DataTableColumnInternal, DataTableRow, DataTableItem, DataTableSortingOrder } from '../types'
 
 interface useSortableProps {
   sortBy: string | undefined
@@ -12,7 +13,7 @@ export type TSortableEmits = (
 ) => void
 
 export default function useSortable (
-  columns: Ref<DataTableColumn[]>,
+  columns: Ref<DataTableColumnInternal[]>,
   filteredRows: Ref<DataTableRow[]>,
   props: useSortableProps,
   emit: TSortableEmits,
@@ -105,7 +106,7 @@ export default function useSortable (
   // a function to invoke when a heading of the table is clicked.
   // Sets the clicked heading's column as a one to sort by and toggles the sorting order from "asc" to "desc" to `null`
   // (un-sorted) if the same column is clicked again or sets sorting order to "asc" if some other column is chosen.
-  function toggleSorting (column: DataTableColumn) {
+  function toggleSorting (column: DataTableColumnInternal) {
     if (column.key === sortBySync.value) {
       if (sortingOrderSync.value === null) {
         sortingOrderSync.value = 'asc'

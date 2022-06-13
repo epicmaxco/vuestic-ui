@@ -4,7 +4,7 @@
       v-bind="headerProps"
       v-model:view="syncView"
     >
-      <template v-for="(_, name) in $slots" v-slot:[name]="bind">
+      <template v-for="(_, name) in $slots" :key="name" v-slot:[name]="bind">
         <slot :name="name" v-bind="bind" />
       </template>
     </va-date-picker-header>
@@ -12,8 +12,8 @@
     <div class="va-date-picker__picker-wrapper">
       <va-day-picker
         v-if="syncView.type === 'day'"
-        v-bind="dayPickerProps"
         ref="currentPicker"
+        v-bind="dayPickerProps"
         :model-value="valueComputed"
         :view="syncView"
         :readonly="$props.disabled || isPickerReadonly('day')"
@@ -21,15 +21,15 @@
         @hover:day="(value) => $emit('hover:day', value)"
         @click:day="(value) => $emit('click:day', value)"
       >
-        <template v-for="(_, name) in $slots" v-slot:[name]="bind">
+        <template v-for="(_, name) in $slots" :key="name" v-slot:[name]="bind">
           <slot :name="name" v-bind="bind" />
         </template>
       </va-day-picker>
 
       <va-month-picker
         v-if="syncView.type === 'month'"
-        v-bind="monthPickerProps"
         ref="currentPicker"
+        v-bind="monthPickerProps"
         :view="syncView"
         :model-value="valueComputed"
         :readonly="$props.disabled || isPickerReadonly('month')"
@@ -37,15 +37,15 @@
         @hover:month="(value) => $emit('hover:month', value)"
         @click:month="onMonthClick"
       >
-        <template v-for="(_, name) in $slots" v-slot:[name]="bind">
+        <template v-for="(_, name) in $slots" :key="name" v-slot:[name]="bind">
           <slot :name="name" v-bind="bind" />
         </template>
       </va-month-picker>
 
       <va-year-picker
         v-if="syncView.type === 'year'"
-        v-bind="yearPickerProps"
         ref="currentPicker"
+        v-bind="yearPickerProps"
         :view="syncView"
         :model-value="valueComputed"
         :readonly="$props.disabled || isPickerReadonly('year')"
@@ -53,7 +53,7 @@
         @update:model-value="onYearModelValueUpdate"
         @click:year="onYearClick"
       >
-        <template v-for="(_, name) in $slots" v-slot:[name]="bind">
+        <template v-for="(_, name) in $slots" :key="name" v-slot:[name]="bind">
           <slot :name="name" v-bind="bind" />
         </template>
       </va-year-picker>
@@ -62,13 +62,14 @@
 </template>
 
 <script lang="ts">
-import { ComponentOptions, computed, defineComponent, nextTick, PropType, ref, watch } from 'vue'
-import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
+import { computed, defineComponent, nextTick, PropType, ref, watch } from 'vue'
+
+import { filterComponentProps, extractComponentProps, extractComponentEmits } from '../../utils/child-props'
 import { useColors } from '../../services/color-config/color-config'
+import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
+import { useView } from './hooks/view'
 
 import { DatePickerModelValue, DatePickerType, DatePickerView } from './types'
-import { filterComponentProps, extractComponentProps, extractComponentEmits } from '../../utils/child-props'
-import { useView } from './hooks/view'
 
 import VaDayPicker from './components/VaDayPicker/VaDayPicker.vue'
 import VaDatePickerHeader from './components/VaDatePickerHeader/VaDatePickerHeader.vue'
@@ -90,8 +91,8 @@ export default defineComponent({
     ...extractComponentProps(VaMonthPicker),
     ...extractComponentProps(VaYearPicker),
     modelValue: { type: [Date, Array, Object] as PropType<DatePickerModelValue> },
-    monthNames: { type: Array as PropType<string[]>, required: false, default: DEFAULT_MONTH_NAMES },
-    weekdayNames: { type: Array as PropType<string[]>, required: false, default: DEFAULT_WEEKDAY_NAMES },
+    monthNames: { type: Array as PropType<string[]>, default: DEFAULT_MONTH_NAMES },
+    weekdayNames: { type: Array as PropType<string[]>, default: DEFAULT_WEEKDAY_NAMES },
     view: { type: Object as PropType<DatePickerView> },
     type: { type: String as PropType<DatePickerType>, default: 'day' },
     readonly: { type: Boolean, default: false },
@@ -111,6 +112,8 @@ export default defineComponent({
   ],
 
   setup (props, { emit }) {
+    const currentPicker = ref<typeof VaDayPicker | typeof VaMonthPicker | typeof VaYearPicker>()
+
     const { valueComputed } = useStateful(props, emit)
 
     const { syncView } = useView(props, emit, { type: props.type })
@@ -163,8 +166,7 @@ export default defineComponent({
       'weekends-color': props.weekendsColor,
     }, 'va-date-picker')
 
-    const currentPicker = ref<ComponentOptions | null>(null)
-    const focusCurrentPicker = () => currentPicker?.value?.$el.focus()
+    const focusCurrentPicker = () => currentPicker.value?.$el.focus()
 
     watch(syncView, (newValue, prevValue) => {
       // Don't focus new picker if user does not change type

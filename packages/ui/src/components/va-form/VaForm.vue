@@ -1,6 +1,5 @@
 <template>
   <component
-    ref="form"
     class="va-form"
     :is="tag"
   >
@@ -9,17 +8,7 @@
 </template>
 
 <script lang="ts">
-import {
-  defineComponent,
-  PropType,
-  ref,
-  Ref,
-  onMounted,
-  onUnmounted,
-  nextTick,
-  provide,
-  inject,
-} from 'vue'
+import { defineComponent, ref, Ref, onMounted, onUnmounted, nextTick, provide, inject } from 'vue'
 
 import { FormServiceKey, FormChild, Form } from './consts'
 
@@ -29,8 +18,8 @@ export default defineComponent({
   name: 'VaForm',
   emits: ['validation'],
   props: {
-    autofocus: { type: Boolean as PropType<boolean>, default: false },
-    tag: { type: String as PropType<string>, default: 'div' },
+    autofocus: { type: Boolean, default: false },
+    tag: { type: String, default: 'div' },
   },
 
   setup (props, { emit }) {
@@ -109,15 +98,6 @@ export default defineComponent({
     })
 
     return publicMethods
-  },
-
-  // we will use this while we have 'withConfigTransport' and problem with 'expose' method in 'setup' func
-  methods: {
-    reset () { (this as any).form?.reset() },
-    resetValidation () { (this as any).form?.resetValidation() },
-    focus () { (this as any).form?.focus() },
-    focusInvalid () { (this as any).form?.focusInvalid() },
-    validate () { (this as any).form?.validate() },
   },
 })
 </script>

@@ -1,4 +1,5 @@
 import { computed, Ref } from 'vue'
+
 import { DatePickerView } from '../../types'
 
 /** Returns last day of previous month */

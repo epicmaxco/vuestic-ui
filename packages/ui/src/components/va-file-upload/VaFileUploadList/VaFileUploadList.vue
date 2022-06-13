@@ -55,11 +55,11 @@ export default defineComponent({
   },
   emits: ['remove', 'removeSingle'],
   props: {
-    type: { type: String as PropType<string>, default: '' },
+    type: { type: String, default: '' },
     files: { type: Array as PropType<VaFile[]>, default: null },
-    color: { type: String as PropType<string>, default: 'success' },
-    undo: { type: Boolean as PropType<boolean>, default: false },
-    undoDuration: { type: Number as PropType<number>, default: 3000 },
+    color: { type: String, default: 'success' },
+    undo: { type: Boolean, default: false },
+    undoDuration: { type: Number, default: 3000 },
   },
   setup (props) {
     const filesList = computed(() => props.files.map(convertFile))

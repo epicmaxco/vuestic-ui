@@ -1,7 +1,7 @@
 <template>
   <div
-    class="va-year-picker"
     ref="rootNode"
+    class="va-year-picker"
     v-bind="containerAttributes"
     @keydown.space.prevent
   >
@@ -25,12 +25,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, toRefs, onMounted, ref, computed, watch, shallowRef } from 'vue'
-import { DatePickerMode, DatePickerModelValue, DatePickerView } from '../../types'
-import VaDatePickerCell from '../VaDatePickerCell.vue'
+import { defineComponent, PropType, toRefs, onMounted, computed, watch, shallowRef } from 'vue'
+
 import { createYearDate } from '../../utils/date-utils'
 import { useGridKeyboardNavigation } from '../../hooks/grid-keyboard-navigation'
 import { useDatePicker } from '../../hooks/use-picker'
+
+import { DatePickerMode, DatePickerModelValue, DatePickerView } from '../../types'
+
+import VaDatePickerCell from '../VaDatePickerCell.vue'
 
 export default defineComponent({
   name: 'VaYearPicker',
@@ -40,9 +43,9 @@ export default defineComponent({
     modelValue: { type: [Date, Array, Object] as PropType<DatePickerModelValue> },
     allowedYears: { type: Function as PropType<(date: Date) => boolean>, default: undefined },
     highlightToday: { type: Boolean, default: true },
+    startYear: { type: Number, default: 1970 },
     mode: { type: String as PropType<DatePickerMode>, default: 'auto' },
     view: { type: Object as PropType<DatePickerView>, default: () => ({ type: 'year' }) },
-    startYear: { type: Number, default: () => 1970 },
     endYear: { type: Number, default: () => new Date().getFullYear() + 50 },
     readonly: { type: Boolean, default: false },
   },
@@ -50,8 +53,9 @@ export default defineComponent({
   emits: ['update:modelValue', 'hover:year', 'click:year'],
 
   setup (props, { emit }) {
+    const rootNode = shallowRef<HTMLElement>()
+
     const { view } = toRefs(props)
-    const rootNode = shallowRef<HTMLElement | null>(null)
 
     const generateYearsArray = (start: number, end: number) => {
       const yearsCount = end - start + 1
