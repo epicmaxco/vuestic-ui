@@ -1,4 +1,4 @@
 import withConfigTransport from '../../../services/config-transport/withConfigTransport'
-import SquareWithIcon from './SquareWithIcon.vue'
+import _SquareWithIcon from './SquareWithIcon.vue'
 
-export default withConfigTransport(SquareWithIcon as any)
+export const SquareWithIcon = withConfigTransport(_SquareWithIcon)

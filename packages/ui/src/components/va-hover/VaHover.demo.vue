@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import VaHover from './index'
+import { VaHover } from './index'
 
 export default {
   components: {

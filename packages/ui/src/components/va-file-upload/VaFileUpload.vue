@@ -7,8 +7,8 @@
     <slot>
       <div class="va-file-upload__field">
         <div
-          class="va-file-upload__field__text"
           v-if="dropzone"
+          class="va-file-upload__field__text"
         >
           {{ dropZoneText }}
         </div>
@@ -60,14 +60,14 @@
 <script lang="ts">
 import { computed, defineComponent, onMounted, ref, PropType, shallowRef } from 'vue'
 
-import { useColors } from '../../services/color-config/color-config'
 import { shiftHSLAColor } from '../../services/color-config/color-functions'
-
-import VaButton from '../va-button'
-import VaModal from '../va-modal'
-import VaFileUploadList from './VaFileUploadList'
+import { useColors } from '../../composables/useColor'
 
 import type { VaFile } from './types'
+
+import { VaButton } from '../va-button'
+import { VaModal } from '../va-modal'
+import { VaFileUploadList } from './VaFileUploadList'
 
 export default defineComponent({
   name: 'VaFileUpload',
@@ -88,7 +88,6 @@ export default defineComponent({
     undoDuration: { type: Number, default: 3000 },
     dropZoneText: { type: String, default: 'Drag’n’drop files or' },
     uploadButtonText: { type: String, default: 'Upload file' },
-
     modelValue: {
       type: [Object, Array] as PropType<VaFile | VaFile[]>,
       default: () => [],

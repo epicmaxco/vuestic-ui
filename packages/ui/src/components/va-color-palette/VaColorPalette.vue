@@ -26,7 +26,7 @@ import { defineComponent, PropType } from 'vue'
 
 import { useStatefulProps, useStateful, useStatefulEmits } from '../../composables/useStateful'
 
-import VaColorIndicator from '../va-color-indicator'
+import { VaColorIndicator } from '../va-color-indicator'
 
 export default defineComponent({
   name: 'VaColorPalette',
@@ -35,7 +35,7 @@ export default defineComponent({
   props: {
     ...useStatefulProps,
     modelValue: { type: String, default: null },
-    palette: { type: Array as PropType<Array<string>>, default: () => [] },
+    palette: { type: Array as PropType<string[]>, default: () => [] },
     indicator: {
       type: String as PropType<'dot' | 'square'>,
       default: 'dot',

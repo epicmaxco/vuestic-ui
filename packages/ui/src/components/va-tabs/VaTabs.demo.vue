@@ -383,8 +383,7 @@
 </template>
 
 <script>
-import VaTabs from './index'
-import VaTab from './VaTab'
+import { VaTabs, VaTab } from './index'
 
 export default {
   components: {

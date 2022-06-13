@@ -1,14 +1,14 @@
 import { Ref, ref } from 'vue'
 import isDate from 'lodash/isDate.js'
 
-import { VaDateInputModelValue } from '../types'
+import { DateInputModelValue } from '../types'
 
 export const defaultParseDateFunction = (text: string) => new Date(Date.parse(text))
 
 const isValidDate = (d: Date) => isDate(d) && !isNaN(d.getTime())
 
 export const useDateParser = (props: {
-  parse?: (input: string, isValidRef?: Ref<boolean>) => VaDateInputModelValue,
+  parse?: (input: string, isValidRef?: Ref<boolean>) => DateInputModelValue,
   parseDate?: (input: string) => Date,
   delimiter: string,
   rangeDelimiter: string,

@@ -21,7 +21,7 @@
 <script lang="ts">
 import { defineComponent, PropType, ref, computed, onMounted, onBeforeUnmount } from 'vue'
 
-import VaButton from '../va-button'
+import { VaButton } from '../va-button'
 
 export default defineComponent({
   name: 'VaBacktop',

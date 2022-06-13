@@ -10,12 +10,12 @@
     >
       <va-button
         v-for="option in options"
-        v-bind="getButtonProps(option)"
         :key="option.value"
+        :aria-pressed="isToggled(option.value)"
+        :class="getButtonClass(option.value)"
         :disabled="disabled"
         :size="size"
-        :class="getButtonClass(option.value)"
-        :aria-pressed="isToggled(option.value)"
+        v-bind="getButtonProps(option)"
         @click="changeValue(option.value)"
       >
         {{ option.label }}
@@ -31,15 +31,10 @@ import { shiftHSLAColor } from '../../services/color-config/color-functions'
 import { useColors } from '../../composables/useColor'
 import { useTextColor } from '../../composables/useTextColor'
 
-import VaButton from '../va-button'
-import VaButtonGroup from '../va-button-group'
+import { ButtonOption } from './types'
 
-type ButtonOption = {
-  value: any,
-  label?: string,
-  icon?: string,
-  iconRight?: string
-}
+import { VaButton } from '../va-button'
+import { VaButtonGroup } from '../va-button-group'
 
 export default defineComponent({
   name: 'VaButtonToggle',

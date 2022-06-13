@@ -3,12 +3,12 @@
     <div
       class="va-collapse__header"
       role="button"
-      v-on="keyboardFocusListeners"
       :tabindex="tabIndexComputed"
       :aria-expanded="computedModelValue"
       :id="headerIdComputed"
       :aria-controls="panelIdComputed"
       :aria-disabled="$props.disabled"
+      v-on="keyboardFocusListeners"
       @focus="$emit('focus')"
       @click="toggle"
       @keydown.enter="toggle"
@@ -18,7 +18,7 @@
         name="header"
         v-bind="{
           value: computedModelValue,
-          hasKeyboardFocus: hasKeyboardFocus
+          hasKeyboardFocus: hasKeyboardFocus,
         }"
       >
         <div
@@ -58,14 +58,14 @@
 <script lang="ts">
 import { computed, defineComponent, shallowRef } from 'vue'
 
-import { useColors } from '../../composables/useColor'
+import { generateUniqueId } from '../../services/utils'
 import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'
-import { useAccordionItem } from '../va-accordion/hooks/useAccordion'
+import { useColors } from '../../composables/useColor'
 import { useSyncProp } from '../../composables/useSyncProp'
 import { useTextColor } from '../../composables/useTextColor'
-import { generateUniqueId } from '../../services/utils'
+import { useAccordionItem } from '../va-accordion/hooks/useAccordion'
 
-import VaIcon from '../va-icon'
+import { VaIcon } from '../va-icon'
 
 export default defineComponent({
   name: 'VaCollapse',

@@ -15,7 +15,7 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 
-import VaInput from './index'
+import { VaInput } from './index'
 
 export default defineComponent({
   name: 'VaInputValidation',

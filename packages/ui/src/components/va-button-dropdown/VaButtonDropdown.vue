@@ -88,9 +88,9 @@ import { useStatefulProps, useStateful } from '../../composables/useStateful'
 import { useEmitProxy } from '../../composables/useEmitProxy'
 import { Placement, placementsPositions } from '../../composables/usePopover'
 
-import VaDropdown, { VaDropdownContent } from '../va-dropdown'
-import VaButton from '../va-button'
-import VaButtonGroup from '../va-button-group'
+import { VaDropdown, VaDropdownContent } from '../va-dropdown'
+import { VaButton } from '../va-button'
+import { VaButtonGroup } from '../va-button-group'
 
 const { createEmits, createVOnListeners: createListeners } = useEmitProxy(
   ['click'],

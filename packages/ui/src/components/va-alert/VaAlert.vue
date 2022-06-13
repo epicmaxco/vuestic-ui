@@ -81,12 +81,11 @@
 <script lang="ts">
 import { defineComponent, computed, PropType } from 'vue'
 
+import { generateUniqueId } from '../../services/utils'
 import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
 import { useAlertStyles } from './useAlertStyles'
 
-import VaIcon from '../va-icon'
-
-import { generateUniqueId } from '../../services/utils'
+import { VaIcon } from '../va-icon'
 
 export default defineComponent({
   name: 'VaAlert',

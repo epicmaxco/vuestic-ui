@@ -13,7 +13,7 @@ import { getGradientBackground } from '../../services/color-config/color-functio
 import { useColors } from '../../composables/useColor'
 import { useTextColor } from '../../composables/useTextColor'
 
-import VaConfig from '../va-config'
+import { VaConfig } from '../va-config'
 
 export default defineComponent({
   name: 'VaButtonGroup',

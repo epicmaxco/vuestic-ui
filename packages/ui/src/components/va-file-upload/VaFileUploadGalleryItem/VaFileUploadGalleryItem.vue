@@ -1,3 +1,4 @@
+
 <template>
   <div
     v-if="removed && undo"
@@ -57,10 +58,10 @@ import { defineComponent, onMounted, PropType, ref, watch, computed } from 'vue'
 
 import { colorToRgba } from '../../../services/color-config/color-functions'
 
-import VaButton from '../../va-button'
-import VaFileUploadUndo from '../VaFileUploadUndo'
-
 import type { ConvertedFile } from '../types'
+
+import { VaButton } from '../../va-button'
+import { VaFileUploadUndo } from '../VaFileUploadUndo'
 
 export default defineComponent({
   name: 'VaFileUploadGalleryItem',

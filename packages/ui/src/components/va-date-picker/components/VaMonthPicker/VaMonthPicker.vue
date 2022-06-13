@@ -1,9 +1,9 @@
 <template>
   <div class="va-month-picker" v-bind="containerAttributes">
     <div
-      class="va-month-picker__month-wrapper"
       v-for="(month, monthIndex) in months"
       :key="monthIndex"
+      class="va-month-picker__month-wrapper"
       @mouseenter="hoveredIndex = monthIndex"
       @mouseleave="hoveredIndex = -1"
     >
@@ -30,7 +30,8 @@ import { computed, defineComponent, PropType, toRefs, watch } from 'vue'
 
 import { useGridKeyboardNavigation } from '../../hooks/grid-keyboard-navigation'
 import { useDatePicker } from '../../hooks/use-picker'
-import { VaDatePickerMode, VaDatePickerView, VaDatePickerModelValue } from '../../types'
+
+import { DatePickerMode, DatePickerView, DatePickerModelValue } from '../../types'
 
 import VaDatePickerCell from '../VaDatePickerCell.vue'
 
@@ -40,12 +41,12 @@ export default defineComponent({
   components: { VaDatePickerCell },
 
   props: {
-    modelValue: { type: [Date, Array, Object] as PropType<VaDatePickerModelValue> },
+    modelValue: { type: [Date, Array, Object] as PropType<DatePickerModelValue> },
     monthNames: { type: Array as PropType<string[]>, required: true },
-    view: { type: Object as PropType<VaDatePickerView>, default: () => ({ type: 'month' }) },
+    view: { type: Object as PropType<DatePickerView>, default: () => ({ type: 'month' }) },
     allowedMonths: { type: Function as PropType<(date: Date) => boolean>, default: undefined },
     highlightToday: { type: Boolean, default: true },
-    mode: { type: String as PropType<VaDatePickerMode>, default: 'auto' },
+    mode: { type: String as PropType<DatePickerMode>, default: 'auto' },
     readonly: { type: Boolean, default: false },
   },
 

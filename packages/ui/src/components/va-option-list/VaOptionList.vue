@@ -53,9 +53,9 @@ import { useValidation, useValidationProps } from '../../composables/useValidati
 import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
 import { useArrayRefs } from '../../composables/useArrayRefs'
 import { VaMessageListWrapper } from '../va-input'
-import VaCheckbox from '../va-checkbox'
-import VaRadio from '../va-radio'
-import VaSwitch from '../va-switch'
+import { VaCheckbox } from '../va-checkbox'
+import { VaRadio } from '../va-radio'
+import { VaSwitch } from '../va-switch'
 
 type OptionListValue = SelectableOption | SelectableOption[] | null
 

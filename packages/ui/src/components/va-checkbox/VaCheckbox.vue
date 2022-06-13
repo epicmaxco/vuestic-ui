@@ -60,14 +60,14 @@
 <script lang="ts">
 import { defineComponent, computed, PropType, shallowRef } from 'vue'
 
-import { useColors } from '../../composables/useColor'
+import { generateUniqueId } from '../../services/utils'
 import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'
+import { useColors } from '../../composables/useColor'
 import { useSelectable, useSelectableProps, useSelectableEmits, Elements } from '../../composables/useSelectable'
 import { useTextColor } from '../../composables/useTextColor'
-import { generateUniqueId } from '../../services/utils'
 
 import { VaMessageListWrapper } from '../va-input'
-import VaIcon from '../va-icon'
+import { VaIcon } from '../va-icon/'
 
 const VaCheckboxValueType = [Boolean, Array, String, Object] as PropType<boolean | null | string | number | Record<any, unknown> | unknown[]>
 

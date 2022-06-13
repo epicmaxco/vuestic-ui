@@ -21,12 +21,12 @@
         <va-button
           :disabled="$props.disabled"
           flat
-          @click="switchView"
           size="small"
           :rounded="false"
           :color="color"
           textColor="dark"
           aria-label="switch view"
+          @click="switchView"
         >
           <slot name="year" v-bind="{ year: syncView.year }">{{ syncView.year }}</slot>
 
@@ -56,20 +56,18 @@
 import { defineComponent, PropType } from 'vue'
 
 import { useView } from '../../hooks/view'
-import { VaDatePickerView } from '../../types'
 
-import VaButton from '../../../va-button'
+import { DatePickerView } from '../../types'
+
+import { VaButton } from '../../../va-button'
 
 export default defineComponent({
   name: 'VaDatePickerHeader',
-
   components: { VaButton },
-
   emits: ['update:view'],
-
   props: {
     monthNames: { type: Array, required: true },
-    view: { type: Object as PropType<VaDatePickerView> },
+    view: { type: Object as PropType<DatePickerView> },
     color: { type: String, default: undefined },
     disabled: { type: Boolean, default: false },
   },
@@ -85,7 +83,7 @@ export default defineComponent({
       }
     }
 
-    const changeView = (view: VaDatePickerView) => {
+    const changeView = (view: DatePickerView) => {
       syncView.value = view
     }
 

@@ -20,7 +20,7 @@
 <script>
 import { defineComponent } from 'vue'
 
-import VaList, { VaListItem } from '../va-list'
+import { VaList, VaListItem } from '../va-list'
 import VaDivider from './VaDivider'
 
 export default defineComponent({

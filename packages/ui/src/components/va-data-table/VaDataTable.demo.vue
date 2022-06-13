@@ -499,10 +499,10 @@
 import { defineComponent } from 'vue'
 import cloneDeep from 'lodash/cloneDeep.js'
 import shuffle from 'lodash/shuffle.js'
-import VaDataTable from './'
-import VaSwitch from '../va-switch'
-import VaPagination from '../va-pagination'
-import VaButton from '../va-button'
+import { VaDataTable } from './'
+import { VaSwitch } from '../va-switch'
+import { VaPagination } from '../va-pagination'
+import { VaButton } from '../va-button'
 
 interface EvenItems {
     id?: number;

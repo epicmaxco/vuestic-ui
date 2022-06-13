@@ -7,9 +7,9 @@ export {
   VuesticIconFonts,
   VuesticIconAliases,
 } from './services/icon-config/icon-config'
-export { useToast } from './components/va-toast/useToast'
-export { useModal } from './components/va-modal/useModal'
-export * from './vuestic-plugin/vuestic-components'
+
+// Export all components and their composables
+export * from './components'
 
 export type { GlobalConfig, GlobalConfigUpdater } from './services/global-config/types'
 export type { ComponentConfig } from './services/component-config/component-config'

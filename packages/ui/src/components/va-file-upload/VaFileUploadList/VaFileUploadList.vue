@@ -40,9 +40,9 @@
 <script lang="ts">
 import { defineComponent, PropType, computed } from 'vue'
 
-import VaFileUploadListItem from '../VaFileUploadListItem'
-import VaFileUploadGalleryItem from '../VaFileUploadGalleryItem'
-import VaFileUploadSingleItem from '../VaFileUploadSingleItem'
+import { VaFileUploadListItem } from '../VaFileUploadListItem'
+import { VaFileUploadGalleryItem } from '../VaFileUploadGalleryItem'
+import { VaFileUploadSingleItem } from '../VaFileUploadSingleItem'
 
 import type { VaFile, ConvertedFile } from '../types'
 

@@ -1,11 +1,11 @@
 <template>
   <va-card
     class="va-file-upload-list-item"
+    :class="{'file-upload-list-item--undo': removed}"
     :stripe="removed && undo"
     :stripeColor="color"
     no-margin
     no-padding
-    :class="{'file-upload-list-item--undo': removed}"
   >
     <va-file-upload-undo
       v-if="removed && undo"
@@ -40,11 +40,11 @@
 <script lang="ts">
 import { defineComponent, PropType, ref } from 'vue'
 
-import VaCard from '../../va-card'
-import VaIcon from '../../va-icon'
-import VaFileUploadUndo from '../VaFileUploadUndo'
-
 import { ConvertedFile } from '../types'
+
+import { VaCard } from '../../va-card'
+import { VaIcon } from '../../va-icon'
+import { VaFileUploadUndo } from '../VaFileUploadUndo'
 
 export default defineComponent({
   name: 'VaFileUploadListItem',

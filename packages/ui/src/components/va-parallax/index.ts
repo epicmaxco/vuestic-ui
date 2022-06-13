@@ -1,4 +1,4 @@
 import withConfigTransport from '../../services/config-transport/withConfigTransport'
-import VaParallax from './VaParallax.vue'
+import _VaParallax from './VaParallax.vue'
 
-export default withConfigTransport(VaParallax)
+export const VaParallax = withConfigTransport(_VaParallax)
