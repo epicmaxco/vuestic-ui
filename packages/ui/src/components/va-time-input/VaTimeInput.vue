@@ -137,7 +137,7 @@ export default defineComponent({
 
     isOpen: { type: Boolean, default: undefined },
     modelValue: { type: Date, default: undefined },
-    clearValue: { type: String, default: undefined },
+    clearValue: { type: Date, default: undefined },
 
     format: { type: Function as PropType<(date: Date) => string> },
 
@@ -163,10 +163,10 @@ export default defineComponent({
     const { format } = useTimeFormatter(props)
 
     const valueText = computed<string | undefined>(() => {
-      if (!isValid.value) { return props.clearValue }
-      if (!modelValueSync.value) { return props.clearValue }
+      if (!isValid.value) { return format(props.clearValue || new Date()) }
+      if (!modelValueSync.value) { return format(props.clearValue || new Date()) }
 
-      if (props.format) { return props.format(modelValueSync.value) }
+      if (props.format) { return format(modelValueSync.value) }
 
       return format(modelValueSync.value)
     })
