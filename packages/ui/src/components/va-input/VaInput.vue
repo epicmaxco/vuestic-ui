@@ -82,7 +82,7 @@
 <script lang="ts">
 import { computed, defineComponent, InputHTMLAttributes, PropType, ref, toRefs } from 'vue'
 import { useFormProps } from '../../composables/useForm'
-import { useValidation, useValidationProps, useValidationEmits, UseValidationProps } from '../../composables/useValidation'
+import { useValidation, useValidationProps, useValidationEmits, ValidationProps } from '../../composables/useValidation'
 import { useCleave, useCleaveProps } from './hooks/useCleave'
 import { useFocus } from '../../composables/useFocus'
 import { useEmitProxy } from '../../composables/useEmitProxy'
@@ -117,7 +117,7 @@ export default defineComponent({
 
   props: {
     ...useFormProps,
-    ...(useValidationProps as UseValidationProps<string>),
+    ...useValidationProps as ValidationProps<string>,
     ...useClearableProps,
     ...useCleaveProps,
     ...VaTextareaProps,

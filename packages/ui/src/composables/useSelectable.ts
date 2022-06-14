@@ -2,10 +2,10 @@ import { PropType, computed, SetupContext, ShallowRef, ExtractPropTypes } from '
 
 import { useStateful, useStatefulProps, StatefulProps } from './useStateful'
 import { useLoadingProps, LoadingProps } from './useLoading'
-import { useValidation, useValidationProps, UseValidationProps, useValidationEmits } from './useValidation'
+import { useValidation, useValidationProps, ValidationProps, useValidationEmits } from './useValidation'
 import { useFocus } from './useFocus'
 
-export type SelectableProps<V = any> = StatefulProps<V> & LoadingProps & ExtractPropTypes<UseValidationProps<V>> & {
+export type SelectableProps<V = any> = StatefulProps<V> & LoadingProps & ExtractPropTypes<ValidationProps<V>> & {
   arrayValue: V | null,
   label: string,
   leftLabel: boolean,

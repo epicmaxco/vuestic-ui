@@ -26,7 +26,7 @@ export const useValidationProps = {
   immediateValidation: { type: Boolean, default: false },
 }
 
-export type UseValidationProps<V extends any> = typeof useValidationProps & {
+export type ValidationProps<V extends any> = typeof useValidationProps & {
   modelValue: { type: PropType<V> }
   rules: { type: PropType<ValidationRule<V>[]> }
 }
