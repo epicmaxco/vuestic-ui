@@ -200,7 +200,7 @@ export default defineComponent({
     ...useFormProps,
 
     modelValue: {
-      type: [String, Number, Object] as PropType<SelectOption>,
+      type: [String, Number, Array, Object] as PropType<SelectOption | SelectOption[]>,
       default: '',
     },
 
