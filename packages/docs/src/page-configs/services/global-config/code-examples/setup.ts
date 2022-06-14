@@ -1,12 +1,14 @@
 export const setupExampleCode = `
-import { VuesticPlugin } from 'vuestic-ui'
+import { createVuestic } from 'vuestic-ui'
 
 createApp(App)
-  .use(VuesticPlugin, {
-    icons: [...],
-    components: { ... },
-    componentsAll: { ... },
-    colors: { ... },
-  })
+  .use(createVuestic({
+    config: {
+      icons: [...],
+      components: { ... },
+      componentsAll: { ... },
+      colors: { ... },
+    },
+  }))
   .mount('#app')
 `

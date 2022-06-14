@@ -3463,7 +3463,7 @@
     "title": "Global config",
     "subtitle": "With the help of Global config one can configure default values for colors, icons and components' props. ",
     "structure": "Global config consists of `icons`, `colors`, `components` and `componentsAll` configs. ",
-    "setupExampleTitle": "You can provide a custom config as the second argument when registering the `VuesticPlugin`:",
+    "setupExampleTitle": "You can provide a custom config to `createVuestic` fabric:",
     "reactiveUpdateExampleTitle": "Or you can update the configuration partially at the runtime:",
     "reactiveSetExampleTitle": "Alternatively, you can substitute the whole configuration object at the runtime with another one:",
     "links": {

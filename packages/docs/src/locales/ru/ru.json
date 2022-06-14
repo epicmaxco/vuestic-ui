@@ -3066,10 +3066,7 @@
         "GlobalConfigPlugin": "`GlobalConfigPlugin` (обязательный) - используется для переназначения компонента `VaConfig` и глобальных свойств. [Подробнее](/services/global-config).",
         "ColorHelpersPlugin": "`ColorHelpersPlugin` (обязательный) - используется для создания реактивных переменных `CSS`. Требуется `GlobalConfigPlugin`. [Подробнее](/services/colors-config).",
         "ToastInstall": "`VaToastPlugin` - добавляет методы для создания Toast-ов в vue контекс. [Подробнее](/ui-elements/toast).",
-        "DropdownPopperSubplugin": "`VaDropdownPlugin` - добавляет методы для закрытия выпадашек. Выпадашки используются в VaSelect, VaTimeInput, VaDateInput. ",
-        "example": {
-          "title": "Все эти плагины также доступны через `VuesticPluginsWithoutComponents`:"
-        }
+        "DropdownPopperSubplugin": "`VaDropdownPlugin` - добавляет методы для закрытия выпадашек. Выпадашки используются в VaSelect, VaTimeInput, VaDateInput. "
       },
       "attention": {
         "cssLoader": "Поскольку код всех компонентов разделен, вам может потребоваться загрузчик `CSS` для загрузки стилей для конкретных компонентов.\nНо, вероятно, он у вас уже есть."
@@ -3341,7 +3338,7 @@
     "title": "Глобальная конфигурация",
     "subtitle": "С помощью глобальной конфигурации мы можем настроить цвета, иконки и любое свойство для любого компонента.",
     "structure": "Глобальная конфигурация состоит из `icons`, `colors`, `components` и `componentsAll` конфигураций.",
-    "setupExampleTitle": "Мы можем предоставить нашу настраиваемую конфигурацию с помощью VuesticPlugin, если мы хотим:",
+    "setupExampleTitle": "Мы можем предоставить нашу настраиваемую конфигурацию с помощью `createVuestic`, если мы хотим:",
     "reactiveUpdateExampleTitle": "Или мы можем обновить нашу конфигурацию во время выполнения:",
     "reactiveSetExampleTitle": "Или мы можем установить новую конфигурацию во время выполнения:",
     "links": {
@@ -3821,7 +3818,7 @@
     }
   },
   "carousel": {
-    "title": "-- Here is the title --"
+    "title": "Карусель"
   },
   "treeShaking": {
     "title": "Tree shaking",
@@ -3836,10 +3833,7 @@
       "ColorHelpersPlugin": "`ColorHelpersPlugin` (обязательный) - используется для создания реактивных переменных `CSS`. Требуется `GlobalConfigPlugin`. [Подробнее](/services/colors-config).",
       "VaToastPlugin": "`VaToastPlugin` - добавляет методы для создания Toast-ов в vue контексте. [Подробнее](/ui-elements/toast)",
       "VaModalPlugin": "`VaModalPlugin` - добавляет метод для создания Modal-ов в vue контексте. [Подробнее](/ui-elements/modal)",
-      "VaDropdownPlugin": "`VaDropdownPlugin` - добавляет методы для закрытия выпадашек. Выпадашки используются в VaSelect, VaTimeInput, VaDateInput. ",
-      "example": {
-        "title": "Все эти плагины также доступны через `VuesticPluginsWithoutComponents`:"
-      }
+      "VaDropdownPlugin": "`VaDropdownPlugin` - добавляет методы для закрытия выпадашек. Выпадашки используются в VaSelect, VaTimeInput, VaDateInput. "
     },
     "attention": {
       "cssLoader": "Поскольку код всех компонентов разделен, вам может потребоваться загрузчик `CSS` для загрузки стилей для конкретных компонентов.\nНо, вероятно, он у вас уже есть."
