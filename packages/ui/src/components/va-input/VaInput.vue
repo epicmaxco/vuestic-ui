@@ -1,4 +1,4 @@
-UseValidationProps<template>
+<template>
   <VaInputWrapper
     v-bind="fieldListeners"
     :class="$attrs.class"

@@ -554,7 +554,7 @@
         :style="{paddingTop: '4px'}"
         label="Date mask, return formatted"
         :return-raw="false"
-        type="textarea"
+        type="input"
         mask="date"
       />
       Value: {{ maskReturnFormattedValue }}
