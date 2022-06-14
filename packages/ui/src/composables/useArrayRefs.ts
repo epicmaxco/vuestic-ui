@@ -15,6 +15,12 @@ export const useArrayRefs = () => {
     itemRefs.value.push(el)
   }
 
+  const setItemRefByIndex = (index: number) => (el: any) => {
+    if (!el) { return }
+
+    itemRefs.value[index] = el
+  }
+
   onBeforeUpdate(() => {
     itemRefs.value = []
   })
@@ -22,5 +28,6 @@ export const useArrayRefs = () => {
   return {
     itemRefs,
     setItemRef,
+    setItemRefByIndex,
   }
 }
