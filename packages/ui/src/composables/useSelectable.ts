@@ -1,18 +1,18 @@
-import { PropType, computed, SetupContext, ShallowRef } from 'vue'
+import { PropType, computed, SetupContext, ShallowRef, ExtractPropTypes } from 'vue'
 
 import { useStateful, useStatefulProps, StatefulProps } from './useStateful'
 import { useLoadingProps, LoadingProps } from './useLoading'
 import { useValidation, useValidationProps, ValidationProps, useValidationEmits } from './useValidation'
 import { useFocus } from './useFocus'
 
-export interface SelectableProps extends StatefulProps<unknown>, LoadingProps, ValidationProps {
-  arrayValue: unknown | null,
+export type SelectableProps<V = any> = StatefulProps<V> & LoadingProps & ExtractPropTypes<ValidationProps<V>> & {
+  arrayValue: V | null,
   label: string,
   leftLabel: boolean,
   trueValue: boolean,
   falseValue: boolean,
   indeterminate: boolean,
-  indeterminateValue: unknown | null,
+  indeterminateValue: V | null,
   disabled: boolean,
   readonly: boolean,
 }

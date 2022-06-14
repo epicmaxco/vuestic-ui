@@ -1,14 +1,13 @@
-import { StringWithAutocomplete } from '../../types/string-with-autocomplete'
-
-export type DataTableAlignOptions = StringWithAutocomplete<'left' | 'center' | 'right'>
-export type DataTableVerticalAlignOptions = StringWithAutocomplete<'top' | 'middle' | 'bottom'>
+export type DataTableAlignOptions = 'left' | 'center' | 'right'
+export type DataTableVerticalAlignOptions = 'top' | 'middle' | 'bottom'
 
 export type DataTableColumnClass = unknown | (() => unknown)
 export type DataTableColumnStyle = unknown | (() => unknown)
 
 // provided column definitions (<va-data-table `:columns="myColumns"` />)
 // should look like an array of the following objects (and/or strings)
-export interface DataTableColumn {
+export type DataTableColumn = {
+  [key: string]: any
   key: string // name of an item's property
   label?: string // what to display in the respective heading
   thTitle?: string // <th>'s `title` attribute's value
@@ -56,6 +55,7 @@ export type DataTableColumnSource = DataTableColumn | string
 
 // inner representation of the columns
 export interface DataTableColumnInternal {
+  [key: string]: any
   source: DataTableColumnSource
   initialIndex: number
   key: string
@@ -94,9 +94,9 @@ export interface DataTableRow {
 
 export type DataTableFilterMethod = (source: any) => boolean
 
-export type DataTableSortingOrder = StringWithAutocomplete<'asc' | 'desc'> | null
+export type DataTableSortingOrder = 'asc' | 'desc' | null
 
-export type DataTableSelectMode = StringWithAutocomplete<'single' | 'multiple'>
+export type DataTableSelectMode = 'single' | 'multiple'
 
 export type DataTableRowBind = Record<string, string> | ((item: DataTableItem, index: number) => Record<string, string>)
 

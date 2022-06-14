@@ -499,7 +499,7 @@
 import { defineComponent } from 'vue'
 import cloneDeep from 'lodash/cloneDeep.js'
 import shuffle from 'lodash/shuffle.js'
-import { VaDataTable } from './'
+import { DataTableColumn, DataTableColumnSource, DataTableSelectMode, DataTableSortingOrder, VaDataTable } from './'
 import { VaSwitch } from '../va-switch'
 import { VaPagination } from '../va-pagination'
 import { VaButton } from '../va-button'
@@ -606,7 +606,7 @@ export default defineComponent({
           tdAlign: 'center',
           tdVerticalAlign: 'middle',
         },
-      ],
+      ] as DataTableColumn[],
 
       alignItems: [
         { id: 1, text: 'Somewhat long text (I need to expand it a bit so that the text gets wrapped (and thus occupies multiple lines) so that we can see how the other rows are vertically aligned)', target: 'Pretty short prop' },
@@ -661,7 +661,7 @@ export default defineComponent({
 
       sortByModelId: 'id',
       sortByModel: 'idSquared',
-      sortingOrderModel: 'desc',
+      sortingOrderModel: 'desc' as DataTableSortingOrder,
 
       manyItems,
       currentPage: 1,
@@ -689,7 +689,7 @@ export default defineComponent({
       sortingOrder2: null,
       useSelectableRow: true,
       selectedItemsIds: [] as any[],
-      selectMode: 'single',
+      selectMode: 'single' as DataTableSelectMode,
       selectedColor: 'primary',
       usePagination: true,
       perPage: 10,

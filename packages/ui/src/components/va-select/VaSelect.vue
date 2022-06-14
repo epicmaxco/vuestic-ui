@@ -104,8 +104,8 @@
     <va-dropdown-content
       class="va-select-dropdown__content"
       :style="{ width: $props.width }"
-      @keyup.enter.stop
-      @keydown.tab.stop.prevent
+      @keyup.enter.stop="() => undefined"
+      @keydown.tab.stop.prevent="() => undefined"
       @keydown.esc.prevent="hideAndFocus()"
     >
       <va-input
@@ -156,7 +156,7 @@
 import { defineComponent, PropType, ref, computed, watch, nextTick, Ref } from 'vue'
 
 import { useSelectableList, useSelectableListProps } from '../../composables/useSelectableList'
-import { useValidation, useValidationProps, useValidationEmits } from '../../composables/useValidation'
+import { useValidation, useValidationProps, useValidationEmits, ValidationProps } from '../../composables/useValidation'
 import { useFormProps } from '../../composables/useForm'
 import { useLoadingProps } from '../../composables/useLoading'
 import { useColor } from '../../composables/useColor'
@@ -169,7 +169,7 @@ import { VaIcon } from '../va-icon'
 import { VaInput } from '../va-input'
 import { VaSelectOptionList } from './VaSelectOptionList'
 import { useFocus } from '../../composables/useFocus'
-import { VaSelectDropdownIcon, SelectableOption, Placement } from './types'
+import { SelectDropdownIcon, SelectOption, Placement } from './types'
 
 export default defineComponent({
   name: 'VaSelect',
@@ -193,14 +193,14 @@ export default defineComponent({
 
   props: {
     ...useSelectableListProps,
-    ...useValidationProps,
+    ...useValidationProps as ValidationProps<SelectOption>,
     ...useLoadingProps,
     ...useMaxSelectionsProps,
     ...useClearableProps,
     ...useFormProps,
 
     modelValue: {
-      type: [String, Number, Array, Object] as PropType<SelectableOption | []>,
+      type: [String, Number, Array, Object] as PropType<SelectOption | SelectOption[]>,
       default: '',
     },
 
@@ -228,12 +228,12 @@ export default defineComponent({
     hideSelected: { type: Boolean as PropType<boolean>, default: false },
     tabindex: { type: Number as PropType<number>, default: 0 },
     dropdownIcon: {
-      type: [String, Object] as PropType<string | VaSelectDropdownIcon>,
-      default: (): VaSelectDropdownIcon => ({
+      type: [String, Object] as PropType<string | SelectDropdownIcon>,
+      default: (): SelectDropdownIcon => ({
         open: 'expand_more',
         close: 'expand_less',
       }),
-      validator: (value: string | VaSelectDropdownIcon) => {
+      validator: (value: string | SelectDropdownIcon) => {
         if (typeof value === 'string') { return true }
 
         const isOpenIconString = typeof value.open === 'string'
@@ -283,7 +283,7 @@ export default defineComponent({
 
     // Select value
 
-    const valueComputed = computed<SelectableOption | SelectableOption[]>({
+    const valueComputed = computed<SelectOption | SelectOption[]>({
       get () {
         const value = getOptionByValue(props.modelValue)
 
@@ -310,7 +310,7 @@ export default defineComponent({
         return value
       },
 
-      set (value: SelectableOption | SelectableOption[]) {
+      set (value: SelectOption | SelectOption[]) {
         if (Array.isArray(value)) {
           emit('update:modelValue', value.map(getValue))
         } else {
@@ -363,7 +363,7 @@ export default defineComponent({
       return props.options
     })
 
-    const checkIsOptionSelected = (option: SelectableOption) => {
+    const checkIsOptionSelected = (option: SelectOption) => {
       if (!valueComputed.value) { return false }
 
       if (Array.isArray(valueComputed.value)) {
@@ -373,7 +373,7 @@ export default defineComponent({
       return compareOptions(valueComputed.value, option)
     }
 
-    const compareOptions = (option1: SelectableOption, option2: SelectableOption) => {
+    const compareOptions = (option1: SelectOption, option2: SelectOption) => {
       const one = getValue(option1)
       const two = getValue(option2)
 
@@ -394,9 +394,9 @@ export default defineComponent({
       return false
     }
 
-    const isValueComputedArray = (v: Ref<SelectableOption | SelectableOption[]>): v is Ref<SelectableOption[]> => Array.isArray(v.value)
+    const isValueComputedArray = (v: Ref<SelectOption | SelectOption[]>): v is Ref<SelectOption[]> => Array.isArray(v.value)
 
-    const selectOption = (option: SelectableOption) => {
+    const selectOption = (option: SelectOption) => {
       if (hoveredOption.value === null) {
         hideAndFocus()
         return
@@ -426,7 +426,7 @@ export default defineComponent({
 
     const addNewOption = () => {
       // Do not emit if option already exist and allow create is `unique`
-      const hasAddedOption = props.options?.some((option: SelectableOption) => getText(option) === searchInput.value)
+      const hasAddedOption = props.options?.some((option: SelectOption) => getText(option) === searchInput.value)
 
       if (!(props.allowCreate === 'unique' && hasAddedOption)) {
         emit('create-new', searchInput.value)
@@ -436,7 +436,7 @@ export default defineComponent({
 
     // Hovered options
 
-    const hoveredOption = ref<SelectableOption | null>(null)
+    const hoveredOption = ref<SelectOption | null>(null)
 
     const selectHoveredOption = () => {
       if (!hoveredOption.value) { return }
