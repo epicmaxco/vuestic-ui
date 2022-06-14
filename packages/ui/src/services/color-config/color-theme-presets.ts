@@ -18,7 +18,7 @@ type VuesticColorsPreset = {
 
 export const colorsPresets: Record<string, VuesticColorsPreset> = {
   default: {
-    primary: '#2C82E0',
+    primary: '#154ec1',
     secondary: '#767C88',
     background: '#f4f8fa',
     success: '#40e583',

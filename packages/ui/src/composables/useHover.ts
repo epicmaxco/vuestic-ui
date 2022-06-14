@@ -1,4 +1,10 @@
-import { ref, watch, onMounted, onBeforeUnmount, Ref } from 'vue'
+import { PropType, ref, Ref, watch } from 'vue'
+
+export const useHoverProps = {
+  hoverBehaviour: { type: String as PropType<'opacity' | 'gradient'>, default: 'gradient' },
+  hoverOpacity: { type: Number, default: 0.15 },
+  hoverMaskColor: { type: String, default: '#ffffff' },
+}
 
 const getEl = (el: any) => el.$el !== undefined ? el.$el : el
 
@@ -23,9 +29,5 @@ export function useHover (el?: Ref<HTMLElement | null | undefined>) {
     })
   }
 
-  return {
-    isHovered,
-    onMouseEnter,
-    onMouseLeave,
-  }
+  return { isHovered, onMouseEnter, onMouseLeave }
 }

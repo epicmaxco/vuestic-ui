@@ -5,7 +5,7 @@
     class="va-button"
     :class="computedClass"
     :style="computedStyle"
-    v-bind="{ ...buttonAttributesComputed, ...linkAttributesComputed }"
+    v-bind="attributesComputed"
   >
     <div class="va-button__content" :class="wrapperClassComputed">
       <va-icon
@@ -34,15 +34,19 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, computed, ref, ShallowRef } from 'vue'
+import { defineComponent, PropType, computed, ref, ShallowRef, toRef } from 'vue'
 
-import { useHover } from '../../composables/useHover'
 import { useFocus } from '../../composables/useFocus'
-import { usePressed } from '../../composables/usePressed'
+import { useHover, useHoverProps } from '../../composables/useHover'
+import { usePressed, usePressedProps } from '../../composables/usePressed'
 import { useTextColor } from '../../composables/useTextColor'
 import { useColors } from '../../services/color-config/color-config'
-import { colorToRgba, getGradientBackground } from '../../services/color-config/color-functions'
-
+import {
+  colorToRgba,
+  isLightBackground,
+  getGradientBackground,
+  getStateMaskGradientBackground,
+} from '../../services/color-config/color-functions'
 import { useLoadingProps } from '../../composables/useLoading'
 import { useSize, useSizeProps } from '../../composables/useSize'
 import { useRouterLink, useRouterLinkProps } from '../../composables/useRouterLink'
@@ -55,6 +59,8 @@ export default defineComponent({
   components: { VaIcon, VaProgressCircle },
   props: {
     ...useSizeProps,
+    ...useHoverProps,
+    ...usePressedProps,
     ...useLoadingProps,
     ...useRouterLinkProps,
     tag: { type: String, default: 'button' },
@@ -64,21 +70,14 @@ export default defineComponent({
 
     color: { type: String, default: 'primary' },
     textColor: { type: String, default: '' },
-    borderColor: { type: String, default: '' },
-    backgroundColor: { type: String, default: '' },
+    textOpacity: { type: Number, default: 1 },
     backgroundOpacity: { type: Number, default: 1 },
-    contentOpacity: { type: Number, default: 1 },
-
-    hoverBehaviour: { type: String as PropType<'opacity' | 'gradient'>, default: '' },
-    hoverOpacity: { type: Number, default: 1 },
-    hoverGradientMask: { type: String, default: 'rgba(255, 255, 255, 0.15)' },
-
-    pressedBehaviour: { type: String as PropType<'opacity' | 'gradient'>, default: '' },
-    pressedOpacity: { type: Number, default: 1 },
-    pressedGradientMask: { type: String, default: 'rgba(0, 0, 0, 0.13)' },
+    borderColor: { type: String, default: '' },
 
     gradient: { type: Boolean, default: false },
     plain: { type: Boolean, default: false },
+
+    // only for standalone-icon state
     round: { type: Boolean, default: false },
     spaceBetweenItems: { type: Boolean, default: false },
     size: {
@@ -90,15 +89,12 @@ export default defineComponent({
     icon: { type: String, default: '' },
     iconRight: { type: String, default: '' },
     iconColor: { type: String, default: '' },
-
-    // temp
-    preset: { type: String, default: '' },
   },
   setup (props, { slots }) {
     // colors
     const { getColor } = useColors()
-    const bgColorComputed = computed(() => getColor(props.backgroundColor, 'primary'))
     const colorComputed = computed(() => getColor(props.color, 'primary'))
+    const isTransparentBg = toRef(props, 'plain')
 
     // loader size
     const { sizeComputed } = useSize(props)
@@ -107,7 +103,7 @@ export default defineComponent({
       return size ? `${+size[1] / 2}${size[2]}` : sizeComputed.value
     })
 
-    // link attributes
+    // attributes
     const { tagComputed, hrefComputed, isLinkTag } = useRouterLink(props)
     const linkAttributesComputed = computed(() => {
       if (!isLinkTag.value) { return {} }
@@ -128,7 +124,6 @@ export default defineComponent({
         }
     })
 
-    // button attributes
     const typeComputed = computed(() => isLinkTag.value ? undefined : props.type)
     const buttonAttributesComputed = computed(() => {
       const disabledAttributes = {
@@ -145,13 +140,15 @@ export default defineComponent({
       }
     })
 
+    const attributesComputed = computed(() => ({ ...linkAttributesComputed.value, ...buttonAttributesComputed.value }))
+
     // states
     const button: ShallowRef<HTMLElement | undefined> = ref()
-    const { isFocused } = useFocus(button)
+    const { isFocused, focus, blur } = useFocus(button)
     const { isHovered } = useHover(button)
     const { isPressed } = usePressed(button)
 
-    // icons attributes
+    // icon attributes
     const iconColorComputed = computed(() => props.iconColor ? getColor(props.iconColor) : textColorComputed.value)
     const iconAttributesComputed = computed(() => ({
       size: props.size,
@@ -167,7 +164,9 @@ export default defineComponent({
       'va-button--small': props.size === 'small',
       'va-button--normal': !props.size || props.size === 'medium',
       'va-button--plain': props.plain,
-      'va-button--round': props.round && (!slots.default && isOneIcon.value),
+      'va-button--opacity': props.textOpacity < 1,
+      'va-button--icon-only': !slots.default && isOneIcon.value,
+      'va-button--round': props.round && !isSlotContentPassed.value && isOneIcon.value,
       'va-button--bordered': !!props.borderColor,
       'va-button--no-label': !isSlotContentPassed.value,
       'va-button--space-between-items': props.spaceBetweenItems,
@@ -178,76 +177,94 @@ export default defineComponent({
     }))
 
     // background color
-    const gradientBgColorComputed = computed(() => getGradientBackground(bgColorComputed.value))
+    const backgroundColorComputed = computed(() => (
+      props.gradient
+        ? getGradientBackground(colorComputed.value)
+        : colorComputed.value
+    ))
 
-    const backGroundColorComputed = computed(() => props.gradient
-      ? gradientBgColorComputed.value
-      : bgColorComputed.value)
+    const getOpacityStateBackground = (stateOpacity: number) => ({
+      background: props.gradient
+        ? backgroundColorComputed.value
+        : colorToRgba(backgroundColorComputed.value, stateOpacity),
+    })
+
+    const getStateBackground = (maskColor: string, stateOpacity: number, stateBehaviour: string) => {
+      return stateBehaviour === 'opacity'
+        ? { ...getOpacityStateBackground(stateOpacity) }
+        : { background: getStateMaskGradientBackground(colorComputed.value, maskColor, stateOpacity) }
+    }
 
     const hoverBackgroundComputed = computed(() => {
-      if (!props.backgroundColor) { return { background: 'transparent' } }
-
-      if (props.hoverBehaviour === 'opacity') {
-        return {
-          [props.gradient ? 'background' : 'backgroundColor']: backGroundColorComputed.value,
-          backgroundOpacity: props.hoverOpacity,
-        }
-      } else {
-        return {
-          background: getGradientBackground(bgColorComputed.value, props.hoverGradientMask),
-        }
-      }
+      return getStateBackground(props.hoverMaskColor, props.hoverOpacity, props.hoverBehaviour)
     })
 
     const pressedBackgroundComputed = computed(() => {
-      if (!props.backgroundColor) { return { background: 'transparent' } }
-
-      if (props.pressedBehaviour === 'opacity') {
-        return {
-          [props.gradient ? 'background' : 'backgroundColor']: backGroundColorComputed.value,
-          backgroundOpacity: props.pressedOpacity,
-        }
-      } else {
-        return {
-          background: getGradientBackground(bgColorComputed.value, props.pressedGradientMask),
-        }
-      }
+      return getStateBackground(props.pressedMaskColor, props.pressedOpacity, props.pressedBehaviour)
     })
 
     const backgroundComputed = computed(() => {
-      if (!props.backgroundColor && !isHovered.value && !isPressed.value) { return { background: 'transparent' } }
-
+      if (isTransparentBg.value) { return { background: 'transparent' } }
+      if (isPressed.value) { return pressedBackgroundComputed.value }
       if (isHovered.value) { return hoverBackgroundComputed.value }
 
-      if (isPressed.value) { return pressedBackgroundComputed.value }
-
-      return { [props.gradient ? 'background' : 'backgroundColor']: backGroundColorComputed.value }
+      return { ...getOpacityStateBackground(props.backgroundOpacity) }
     })
 
     // content color
-    const { textColorComputed } = useTextColor(colorComputed, !!props.backgroundColor)
+    const plainColorStyles = computed(() => ({
+      color: 'transparent',
+      '-webkit-background-clip': 'text',
+      'background-clip': 'text',
+      background: textColorComputed.value,
+      opacity: getPlainTextOpacity.value,
+    }))
+
+    const getStateColor = (maskColor: string, stateOpacity: number, stateBehaviour: string) => {
+      const res = stateBehaviour === 'opacity'
+        ? { color: colorToRgba(textColorComputed.value, stateOpacity) }
+        : { background: getStateMaskGradientBackground(colorComputed.value, maskColor, stateOpacity) }
+      return { ...plainColorStyles.value, ...res }
+    }
+
+    const hoverTextColorComputed = computed(() => {
+      return getStateColor(props.hoverMaskColor, props.hoverOpacity, props.hoverBehaviour)
+    })
+
+    const pressedTextColorComputed = computed(() => {
+      return getStateColor(props.pressedMaskColor, props.pressedOpacity, props.pressedBehaviour)
+    })
+
+    const { textColorComputed } = useTextColor(
+      colorComputed,
+      isTransparentBg.value || isLightBackground(colorComputed.value, props.backgroundOpacity),
+    )
+
+    const getPlainTextOpacity = computed(() => {
+      if (props.disabled) { return undefined }
+      if (props.textOpacity === 1 || (isHovered.value && !isPressed.value)) { return 1 }
+      return isPressed.value ? 0.9 : props.textOpacity
+    })
+
     const contentColorComputed = computed(() => {
-      if (props.backgroundColor) { return textColorComputed.value }
-
-      if (isHovered.value && props.hoverOpacity) {
-        return colorToRgba(textColorComputed.value, props.hoverOpacity)
+      const defaultColorStyles = {
+        color: textColorComputed.value,
       }
 
-      if (isPressed.value && props.pressedOpacity) {
-        return colorToRgba(textColorComputed.value, props.pressedOpacity)
-      }
+      props.plain && Object.assign(defaultColorStyles, plainColorStyles.value)
 
-      return textColorComputed.value
+      if (!isTransparentBg.value) { return defaultColorStyles }
+      if (isPressed.value) { return pressedTextColorComputed.value }
+      if (isHovered.value) { return hoverTextColorComputed.value }
+      return defaultColorStyles
     })
 
-    // final styles object
-    const computedStyle = computed(() => {
-      return {
-        color: contentColorComputed.value,
-        borderColor: props.borderColor ? getColor(props.borderColor) : 'inherit',
-        ...backgroundComputed.value,
-      }
-    })
+    // styles object
+    const computedStyle = computed(() => ({
+      borderColor: props.borderColor ? getColor(props.borderColor) : 'transparent',
+      ...backgroundComputed.value,
+      ...contentColorComputed.value,
+    }))
 
     return {
       button,
@@ -256,10 +273,13 @@ export default defineComponent({
       computedStyle,
       textColorComputed,
       loaderSizeComputed,
+      attributesComputed,
       wrapperClassComputed,
       iconAttributesComputed,
-      linkAttributesComputed,
-      buttonAttributesComputed,
+
+      // exposed only for external usage
+      focus,
+      blur,
     }
   },
 })
@@ -270,34 +290,28 @@ export default defineComponent({
 @import '../../styles/resources';
 
 .va-button {
-
-  // check only this & then unused variables
+  position: relative;
+  margin: var(--va-button-margin);
+  padding: var(--va-button-padding);
   display: var(--va-button-display);
-  align-items: var(--va-button-align-items);
   justify-content: var(--va-button-justify-content);
+  align-items: var(--va-button-align-items);
   border: var(--va-button-border);
   background-image: var(--va-button-background-image);
   box-shadow: var(--va-button-box-shadow);
   font-family: var(--va-font-family);
-  text-decoration: none !important;
-  text-transform: initial;
-  cursor: pointer;
-  transition: var(--va-button-transition);
-  background-color: var(--va-button-background-color);
-  vertical-align: middle;
-  box-sizing: border-box;
   font-weight: var(--va-button-font-weight);
-  margin: var(--va-button-margin);
-  padding: var(--va-button-padding);
-  position: relative;
+  text-decoration: none;
+  text-transform: initial;
+  transition: var(--va-button-transition);
+  box-sizing: border-box;
+  cursor: pointer;
 
-  // checked
   &__content {
     height: 100%;
     display: flex;
     align-items: center;
 
-    // checked
     &__title,
     &__icon {
       display: flex;
@@ -307,13 +321,11 @@ export default defineComponent({
       white-space: nowrap;
     }
 
-    // checked
     &--loading {
       opacity: 0;
     }
   }
 
-  // checked
   &--small {
     @include va-button(var(--va-button-sm-content-py), var(--va-button-sm-content-px), var(--va-button-sm-font-size), var(--va-button-sm-line-height), var(--va-button-sm-border-radius));
 
@@ -325,27 +337,35 @@ export default defineComponent({
       padding: var(--va-button-sm-content-py) var(--va-button-sm-content-px);
     }
 
-    &.va-button--round {
+    &.va-button--icon-only {
       width: var(--va-button-sm-size);
       height: var(--va-button-sm-size);
+
+      & .va-button__content {
+        padding-right: var(--va-button-sm-content-px);
+        padding-left: var(--va-button-sm-content-px);
+      }
     }
 
     &.va-button--bordered {
       line-height: calc(var(--va-button-sm-line-height) - 2 * var(--va-button-bordered-border));
     }
 
+    .va-button__left-icon,
+    .va-button__right-icon {
+      // until we haven't size config for icons
+      font-size: var(--va-button-sm-line-height) !important;
+    }
+
     .va-button__left-icon {
-      margin-left: calc(var(--va-button-sm-content-px) / -2);
-      margin-right: calc(var(--va-button-space-between-items) / 2);
+      margin-right: var(--va-button-sm-icons-spacing);
     }
 
     .va-button__right-icon {
-      margin-left: calc(var(--va-button-space-between-items) / 2);
-      margin-right: calc(var(--va-button-sm-content-px) / -2);
+      margin-left: var(--va-button-sm-icons-spacing);
     }
   }
 
-  // checked
   &--normal {
     @include va-button(var(--va-button-content-py), var(--va-button-content-px), var(--va-button-font-size), var(--va-button-line-height), var(--va-button-border-radius));
 
@@ -358,55 +378,61 @@ export default defineComponent({
       line-height: var(--va-button-line-height);
     }
 
-    &.va-button--round {
+    &.va-button--icon-only {
       width: var(--va-button-size);
       height: var(--va-button-size);
+
+      & .va-button__content {
+        padding-right: var(--va-button-content-px);
+        padding-left: var(--va-button-content-px);
+      }
     }
 
     &.va-button--bordered {
       line-height: calc(var(--va-button-line-height) - 2 * var(--va-button-bordered-border));
     }
 
+    .va-button__left-icon,
+    .va-button__right-icon {
+      // until we haven't size config for icons
+      font-size: var(--va-button-line-height) !important;
+    }
+
     .va-button__left-icon {
-      margin-left: calc(var(--va-button-content-px) / -2);
-      margin-right: calc(var(--va-button-space-between-items) / 2);
+      margin-right: var(--va-button-icons-spacing);
     }
 
     .va-button__right-icon {
-      margin-left: calc(var(--va-button-space-between-items) / 2);
-      margin-right: calc(var(--va-button-content-px) / -2);
+      margin-left: var(--va-button-icons-spacing);
     }
   }
 
-  // checked
   &--plain {
-    padding: 0;
+    min-width: auto;
+    min-height: auto;
 
-    &__content {
+    & .va-button__content {
       padding: 0;
     }
   }
 
-  // checked
   &--round {
-    .va-button__content {
-      padding: 0;
-      border-radius: 50%;
-    }
+    border-radius: 50%;
   }
 
-  // checked
   &--bordered {
     border-width: var(--va-button-bordered-border);
     border-style: var(--va-button-bordered-style);
   }
 
-  // checked
   &.va-button--disabled {
     @include va-disabled;
   }
 
-  // checked
+  &.va-button--disabled.va-button--opacity {
+    opacity: 0.24;
+  }
+
   &--no-label {
     .va-button__left-icon,
     .va-button__right-icon {
@@ -415,7 +441,6 @@ export default defineComponent({
     }
   }
 
-  // checked
   &--space-between-items {
     .va-button__content > * {
       margin-right: calc(var(--va-button-space-between-items) / 2);
@@ -431,25 +456,19 @@ export default defineComponent({
     }
   }
 
-  // checked
   &--focused {
     @include focus-outline;
-
-    outline-offset: -2px;
   }
 
-  // checked
   &--loading {
     pointer-events: none;
   }
 
-  // checked
   &--block {
     display: flex;
     min-width: 100%;
   }
 
-  // checked
   &__loader {
     position: absolute;
     width: 100%;
