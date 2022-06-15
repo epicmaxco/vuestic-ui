@@ -103,7 +103,7 @@ import { useBem } from '../../../composables/useBem'
 import { useFormProps } from '../../../composables/useForm'
 import { useValidationProps } from '../../../composables/useValidation'
 import { useColors } from '../../../services/color-config/color-config'
-import VaMessageList from './VaMessageList'
+import { VaMessageList } from './VaMessageList'
 import pick from 'lodash/pick.js'
 
 export default defineComponent({
@@ -137,13 +137,11 @@ export default defineComponent({
   setup (props) {
     const { getColor } = useColors()
 
-    const bemComputedProps = computed(() => ({
+    const wrapperClass = useBem('va-input', () => ({
       ...pick(props, ['outline', 'bordered', 'success', 'focused', 'error', 'disabled', 'readonly']),
       labeled: !!props.label,
       solid: !props.outline && !props.bordered,
     }))
-
-    const wrapperClass = useBem('va-input', bemComputedProps)
 
     const colorComputed = computed(() => getColor(props.color))
 
@@ -154,7 +152,7 @@ export default defineComponent({
     ))
 
     return {
-      wrapperClass: wrapperClass.asArray,
+      wrapperClass,
 
       colorComputed,
       borderColorComputed: computed(() => props.focused ? colorComputed.value : undefined),

@@ -21,7 +21,6 @@ type ComputedClasses<Key extends string> = Ref<ClassesObject<Key>> & {
  *  const result = useBem('va-component', computed(() => pick(props, ['success'])))
  *  // if success is `true`
  *  { ...result }: { 'va-component--success': true }
- *  result.value: { 'va-component--success': true }
  *  result.asObject.value: { 'va-component--success': true }
  *  result.asArray.value: ['va-component--success']
  *  result.asString.value: 'va-component--success'
@@ -34,7 +33,7 @@ export const useBem = <Prefix extends string, ModifierKey extends string>(
     console.warn('You must pass the @param "prefix" to the useBem hook!')
   }
 
-  const modifiersList = isFunction(modifiers) ? modifiers() : modifiers
+  const modifiersList = computed(() => isFunction(modifiers) ? modifiers() : unref(modifiers))
 
   const computedBemClassesObject = computed(() => {
     return Object
