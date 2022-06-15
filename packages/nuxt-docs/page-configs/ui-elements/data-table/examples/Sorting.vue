@@ -46,7 +46,7 @@
 import { defineComponent, computed, ref } from 'vue'
 import shuffle from 'lodash/shuffle'
 import { TSortedArgs } from 'vuestic-ui/src/components/va-data-table/hooks/useSortable'
-import { ITableItem, TSortingOrder } from 'vuestic-ui/src/components/va-data-table/types'
+import { DataTableItem, DataTableSortingOrder } from 'vuestic-ui/src/components/va-data-table/types'
 
 const users = [
   {
@@ -106,8 +106,8 @@ export default defineComponent({
 
     const sortBy = ref('username')
     const sortingOrder = ref('asc')
-    const sortedRowsEmitted = ref<ITableItem[]>([])
-    const sortingOrderEmitted = ref<TSortingOrder>()
+    const sortedRowsEmitted = ref<DataTableItem[]>([])
+    const sortingOrderEmitted = ref<DataTableSortingOrder>()
     const sortByEmitted = ref('')
 
     const onSorted = (e: TSortedArgs) => {

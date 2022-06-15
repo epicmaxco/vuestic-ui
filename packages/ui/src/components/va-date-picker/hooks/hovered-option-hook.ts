@@ -1,5 +1,5 @@
-import { computed, ref, UnwrapRef, WritableComputedRef } from 'vue'
-import { debounce } from 'lodash'
+import { computed, ref, UnwrapRef } from 'vue'
+import debounce from 'lodash/debounce.js'
 
 export function useHovered<T> (onHover: (args: T | null) => any) {
   const hovered = ref<T | null>(null)

@@ -1,4 +1,6 @@
 import withConfigTransport from '../../services/config-transport/withConfigTransport'
-import VaButtonDropdown from './VaButtonDropdown.vue'
+import _VaButtonDropdown from './VaButtonDropdown.vue'
 
-export default withConfigTransport(VaButtonDropdown)
+export const VaButtonDropdown = withConfigTransport(_VaButtonDropdown)
+
+export * from './types'

@@ -1,6 +1,6 @@
 
 import { computed, Ref, ref, watch } from 'vue'
-import { TableRow } from '../types'
+import { DataTableRow } from '../types'
 
 interface useSelectableProps {
   currentPage: number | undefined
@@ -9,7 +9,7 @@ interface useSelectableProps {
 
 export default function usePaginatedRows (
   props: useSelectableProps,
-  rows: Ref<TableRow[]>,
+  rows: Ref<DataTableRow[]>,
 ) {
   const animationName = ref('table-transition-shuffle')
   const oldRowsLength = ref(rows.value.length)

@@ -7,26 +7,22 @@
     :aria-expanded="!!valueComputed"
   >
     <div
+      ref="anchorRef"
       class="va-dropdown__anchor"
       @click="onAnchorClick()"
       @mouseenter="onMouseEnter()"
       @mouseleave="onMouseLeave()"
-      @keyup.enter.stop.prevent="onAnchorClick()"
-      ref="anchorRef"
-      role="button"
-      :aria-controls="controlledIdComputed"
     >
       <slot name="anchor" />
     </div>
     <template v-if="valueComputed">
       <teleport :to="attachElement" :disabled="disableAttachment">
         <div
-          :id="controlledIdComputed"
+          ref="contentRef"
           class="va-dropdown__content-wrapper"
           @mouseover="$props.isContentHoverable && onMouseEnter()"
           @mouseout="onMouseLeave()"
           @click.stop="emitAndClose('dropdown-content-click', closeOnContentClick)"
-          ref="contentRef"
         >
           <slot />
         </div>
@@ -36,12 +32,12 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, ref, toRef } from 'vue'
+import { computed, defineComponent, PropType, shallowRef, toRef } from 'vue'
+
 import { useStateful, useStatefulEmits, useStatefulProps } from '../../composables/useStateful'
 import { useDebounceFn } from '../../composables/useDebounce'
 import { usePopover, placementsPositions, Placement } from '../../composables/usePopover'
 import { useClickOutside } from '../../composables/useClickOutside'
-import { generateUniqueId } from '../../services/utils'
 
 export default defineComponent({
   name: 'VaDropdown',
@@ -61,37 +57,37 @@ export default defineComponent({
     closeOnAnchorClick: { type: Boolean, default: true },
     hoverOverTimeout: { type: Number, default: 30 },
     hoverOutTimeout: { type: Number, default: 200 },
-    offset: { type: [Array, Number] as PropType<number | [number, number]>, default: () => 0 },
+    offset: { type: [Array, Number] as PropType<number | [number, number]>, default: 0 },
     trigger: {
       type: String as PropType<'click' | 'hover' | 'none'>,
       default: 'click',
-      validator: (trigger: string) => ['click', 'hover', 'none'].includes(trigger),
+      validator: (value: string) => ['click', 'hover', 'none'].includes(value),
     },
     placement: {
       type: String as PropType<Placement>,
       default: 'bottom',
-      validator: (placement: string) => placementsPositions.includes(placement),
+      validator: (value: string) => placementsPositions.includes(value),
     },
   },
 
   emits: [...useStatefulEmits, 'anchor-click', 'dropdown-content-click', 'click-outside'],
 
   setup (props, { emit }) {
-    const anchorRef = ref()
-    const contentRef = ref()
+    const anchorRef = shallowRef<HTMLElement>()
+    const contentRef = shallowRef<HTMLElement>()
+
     const { valueComputed } = useStateful(props, emit)
 
     const computedClass = computed(() => ({
-      'va-dropdown': true,
       'va-dropdown--disabled': props.disabled,
     }))
 
     // to be able to select specific anchor element inside anchorRef
-    const computedAnchorRef = computed(() => {
-      return (anchorRef.value && props.anchorSelector)
+    const computedAnchorRef = computed(() => (
+      anchorRef.value && props.anchorSelector
         ? anchorRef.value.querySelector(props.anchorSelector) || anchorRef.value
         : anchorRef.value
-    })
+      ) as HTMLElement | undefined)
 
     usePopover(computedAnchorRef, contentRef, computed(() => ({
       placement: props.placement,
@@ -144,14 +140,11 @@ export default defineComponent({
       }
     })
 
-    const controlledIdComputed = computed(() => `aria-controlled-id-${generateUniqueId()}`)
-
     return {
       valueComputed,
       anchorRef,
       contentRef,
       computedClass,
-      controlledIdComputed,
       emitAndClose,
       onAnchorClick,
       onMouseEnter,
@@ -177,6 +170,14 @@ export default defineComponent({
   &__content-wrapper {
     /* overflow: hidden; */
     z-index: var(--va-dropdown-content-wrapper-z-index);
+  }
+
+  &__icons {
+    &__reset {
+      &:focus {
+        @include focus-outline;
+      }
+    }
   }
 }
 </style>

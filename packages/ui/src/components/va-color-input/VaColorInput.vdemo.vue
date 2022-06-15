@@ -15,45 +15,6 @@
         stateful
       />
     </VbCard>
-
-    <!-- <VbCard title="Advanced Color Input">
-      <p>Default</p>
-      <va-color-input-advanced
-        v-model="value"
-      >
-      </va-color-input-advanced>
-
-      <p>Slider Mode</p>
-      <va-color-input-advanced
-        v-model="value"
-        mode="slider"
-      >
-      </va-color-input-advanced>
-
-      <p>Advanced Mode</p>
-      <va-color-input-advanced
-        v-model="value"
-        mode="advanced"
-      >
-        <va-color-input v-model="value" />
-      </va-color-input-advanced>
-
-      <p>Palette Mode</p>
-      <va-color-input-advanced
-        v-model="value"
-        mode="palette"
-        :palette="palette"
-      />
-
-      <p>Palette Mode With Slot</p>
-      <va-color-input-advanced
-        v-model="value"
-        mode="palette"
-        :palette="palette"
-      >
-        <va-color-indicator :color="value" />
-      </va-color-input-advanced>
-    </VbCard> -->
   </VbDemo>
 </template>
 

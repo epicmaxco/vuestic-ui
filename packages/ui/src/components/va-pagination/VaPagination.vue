@@ -6,6 +6,8 @@
     :size="$props.size"
     :color="$props.color"
     outline
+    @keydown.left.stop="onUserInput(currentValue - 1)"
+    @keydown.right.stop="onUserInput(currentValue + 1)"
   >
     <va-button
       v-if="showBoundaryLinks"
@@ -16,7 +18,7 @@
     />
     <va-button
       v-if="showDirectionLinks"
-      aria-label="prev page"
+      aria-label="go prev page"
       outline
       :disabled="$props.disabled || currentValue === 1"
       :icon="$props.directionIconLeft"
@@ -28,7 +30,7 @@
         :key="i"
         class="va-pagination__numeric-button"
         outline
-        :aria-label="`go to page ${n}`"
+        :aria-label="`go to ${n} page`"
         :aria-current="n === currentValue"
         :style="activeButtonStyle(n)"
         :disabled="$props.disabled || n === '...'"
@@ -79,8 +81,8 @@ import { useColors } from '../../composables/useColor'
 import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
 import { useTextColor } from '../../composables/useTextColor'
 
-import VaButtonGroup from '../va-button-group'
-import VaButton from '../va-button'
+import { VaButtonGroup } from '../va-button-group'
+import { VaButton } from '../va-button'
 
 import { setPaginationRange } from './setPaginationRange'
 

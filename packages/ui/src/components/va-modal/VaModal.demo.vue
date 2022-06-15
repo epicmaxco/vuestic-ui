@@ -312,8 +312,8 @@
 </template>
 
 <script>
-import VaModal from './VaModal'
-import VaButton from '../va-button'
+import { VaModal } from './'
+import { VaButton } from '../va-button'
 
 export default {
   components: { VaModal, VaButton },

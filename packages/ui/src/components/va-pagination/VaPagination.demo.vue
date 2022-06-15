@@ -210,7 +210,7 @@
     <VbCard
       title="Use context"
     >
-      <va-context :components="{
+      <va-config :components="{
         VaPagination: {
           color: 'danger',
           pages: 10,
@@ -220,8 +220,8 @@
         }
       }">
         <va-pagination />
-      </va-context>
-      <va-context :components="{
+      </va-config>
+      <va-config :components="{
         VaPagination: {
           color: 'info',
           size: 'small',
@@ -232,7 +232,7 @@
         }
       }">
         <va-pagination v-model="activePage" />
-      </va-context>
+      </va-config>
     </VbCard>
     <VbCard
       title="Use total and page-size"
@@ -260,13 +260,13 @@
 </template>
 
 <script>
-import VaPagination from './index'
-import VaContext from '../va-config'
+import { VaPagination } from './index'
+import { VaConfig } from '../va-config'
 
 export default {
   components: {
     VaPagination,
-    VaContext,
+    VaConfig,
   },
   data () {
     return {

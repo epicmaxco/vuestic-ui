@@ -42,25 +42,43 @@
             v-bind="{ ...slotScope, dropdownToggle, showDropdown, hideDropdown, isOpen: isOpenSync, focus }"
           />
           <va-icon
-            :id="componentIconId"
             v-if="$props.leftIcon"
+            role="button"
+            aria-label="toggle dropdown"
+            aria-hidden="false"
+            class="va-dropdown__icons__reset"
+            :tabindex="iconsTabIndexComputed"
+            :id="componentIconId"
             v-bind="iconProps"
-            @click="dropdownToggle()"
+            @click="dropdownToggle"
+            @keydown.enter.stop="dropdownToggle"
           />
         </template>
 
         <template #icon>
           <va-icon
-            :id="clearIconId"
             v-if="canBeCleared"
+            role="button"
+            aria-label="reset"
+            aria-hidden="false"
+            class="va-dropdown__icons__reset"
+            :tabindex="iconsTabIndexComputed"
+            :id="clearIconId"
             v-bind="clearIconProps"
-            @click="reset()"
+            @click="reset"
+            @keydown.enter.stop="reset"
           />
           <va-icon
-            :id="componentIconId"
             v-else-if="!$props.leftIcon"
+            role="button"
+            aria-label="toggle dropdown"
+            aria-hidden="false"
+            class="va-dropdown__icons__reset"
+            :tabindex="iconsTabIndexComputed"
+            :id="componentIconId"
             v-bind="iconProps"
-            @click="dropdownToggle()"
+            @click="dropdownToggle"
+            @keydown.enter.stop="dropdownToggle"
           />
         </template>
       </va-input>
@@ -85,9 +103,9 @@ import omit from 'lodash/omit.js'
 import VaTimePicker from '../va-time-picker/VaTimePicker.vue'
 import VaInput from '../va-input/VaInput.vue'
 import VaIcon from '../va-icon/VaIcon.vue'
-import VaDropdown, { VaDropdownContent } from '../va-dropdown/'
+import { VaDropdown, VaDropdownContent } from '../va-dropdown/'
 import { useSyncProp } from '../../composables/useSyncProp'
-import { useValidation, useValidationEmits } from '../../composables/useValidation'
+import { useValidation, useValidationEmits, useValidationProps, ValidationProps } from '../../composables/useValidation'
 import { useClearable, useClearableEmits } from '../../composables/useClearable'
 import { useTimeParser } from './hooks/time-text-parser'
 import { useTimeFormatter } from './hooks/time-text-formatter'
@@ -115,10 +133,11 @@ export default defineComponent({
   props: {
     ...VaInputProps,
     ...extractComponentProps(VaTimePicker),
+    ...useValidationProps as ValidationProps<Date>,
 
     isOpen: { type: Boolean, default: undefined },
     modelValue: { type: Date, default: undefined },
-    clearValue: { type: String, default: undefined },
+    clearValue: { type: Date, default: undefined },
 
     format: { type: Function as PropType<(date: Date) => string> },
 
@@ -144,10 +163,10 @@ export default defineComponent({
     const { format } = useTimeFormatter(props)
 
     const valueText = computed<string | undefined>(() => {
-      if (!isValid.value) { return props.clearValue }
-      if (!modelValueSync.value) { return props.clearValue }
+      if (!isValid.value) { return format(props.clearValue || new Date()) }
+      if (!modelValueSync.value) { return format(props.clearValue || new Date()) }
 
-      if (props.format) { return props.format(modelValueSync.value) }
+      if (props.format) { return format(modelValueSync.value) }
 
       return format(modelValueSync.value)
     })
@@ -230,8 +249,12 @@ export default defineComponent({
       },
     }))
 
+    const iconsTabIndexComputed = computed(() => props.disabled || props.readonly ? -1 : 0)
     const computedInputAttrs = computed(() => ({
-      ariaLabel: props.label,
+      ariaLabel: props.label || 'selected time',
+      ariaDisabled: props.disabled,
+      ariaReadonly: props.readonly,
+      tabindex: props.disabled ? -1 : 0,
       ...omit(attrs, ['class', 'style']),
     }))
 
@@ -303,6 +326,7 @@ export default defineComponent({
       computedInputProps,
       computedInputAttrs,
       computedInputListeners,
+      iconsTabIndexComputed,
       isOpenSync,
       modelValueSync,
       valueText,

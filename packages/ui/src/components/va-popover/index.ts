@@ -1,4 +1,4 @@
 import withConfigTransport from '../../services/config-transport/withConfigTransport'
-import VaPopover from './VaPopover.vue'
+import _VaPopover from './VaPopover.vue'
 
-export default withConfigTransport(VaPopover)
+export const VaPopover = withConfigTransport(_VaPopover)
