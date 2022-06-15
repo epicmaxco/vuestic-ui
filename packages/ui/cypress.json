@@ -1,3 +1,4 @@
 {
-  "ignoreTestFiles": ["cypress/examples/*"]
+  "video": false,
+  "screenshotOnRunFailure": false
 }
