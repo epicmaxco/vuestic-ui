@@ -1,12 +1,16 @@
 import { PropType, ref, Ref, watch } from 'vue'
 
 export const useHoverProps = {
-  hoverBehaviour: { type: String as PropType<'opacity' | 'gradient'>, default: 'gradient' },
+  hoverBehaviour: {
+    type: String as PropType<'opacity' | 'mask'>,
+    default: 'mask',
+    validator: (value: string) => ['opacity', 'mask'].includes(value),
+  },
   hoverOpacity: { type: Number, default: 0.15 },
   hoverMaskColor: { type: String, default: '#ffffff' },
 }
 
-const getEl = (el: any) => el.$el !== undefined ? el.$el : el
+const getEl = (el: any) => el.$el ?? el
 
 export function useHover (el?: Ref<HTMLElement | null | undefined>) {
   const isHovered = ref(false)
