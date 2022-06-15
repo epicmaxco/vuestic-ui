@@ -22,19 +22,25 @@
         v-bind="iconAttributesComputed"
       />
     </div>
-    <va-progress-circle
-      v-if="loading"
-      class="va-button__loader"
-      :size="loaderSizeComputed"
-      :color="textColorComputed"
-      :thickness="0.15"
-      indeterminate
-    />
+    <template v-if="loading">
+      <slot name="loading" v-bind="{
+        size: loaderSizeComputed,
+        color: textColorComputed,
+      }">
+        <va-progress-circle
+          class="va-button__loader"
+          :size="loaderSizeComputed"
+          :color="textColorComputed"
+          :thickness="0.15"
+          indeterminate
+        />
+      </slot>
+      </template>
   </component>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, computed, ref, ShallowRef, toRef } from 'vue'
+import { defineComponent, PropType, computed, shallowRef, toRef } from 'vue'
 
 import { useFocus } from '../../composables/useFocus'
 import { useHover, useHoverProps } from '../../composables/useHover'
@@ -51,7 +57,7 @@ import { useLoadingProps } from '../../composables/useLoading'
 import { useSize, useSizeProps } from '../../composables/useSize'
 import { useRouterLink, useRouterLinkProps } from '../../composables/useRouterLink'
 
-import VaIcon from '../va-icon'
+import { VaIcon } from '../va-icon'
 import { VaProgressCircle } from '../va-progress-circle'
 
 export default defineComponent({
@@ -93,7 +99,7 @@ export default defineComponent({
   setup (props, { slots }) {
     // colors
     const { getColor } = useColors()
-    const colorComputed = computed(() => getColor(props.color, 'primary'))
+    const colorComputed = computed(() => getColor(props.color))
     const isTransparentBg = toRef(props, 'plain')
 
     // loader size
@@ -104,25 +110,7 @@ export default defineComponent({
     })
 
     // attributes
-    const { tagComputed, hrefComputed, isLinkTag } = useRouterLink(props)
-    const linkAttributesComputed = computed(() => {
-      if (!isLinkTag.value) { return {} }
-
-      return tagComputed.value === 'a'
-        ? {
-          target: props.target,
-          href: hrefComputed.value,
-        }
-        : {
-          target: props.target,
-          to: props.to,
-          replace: props.replace,
-          append: props.append,
-          activeClass: props.activeClass,
-          exact: props.exact,
-          exactActiveClass: props.exactActiveClass,
-        }
-    })
+    const { tagComputed, linkAttributesComputed, isLinkTag } = useRouterLink(props)
 
     const typeComputed = computed(() => isLinkTag.value ? undefined : props.type)
     const buttonAttributesComputed = computed(() => {
@@ -143,7 +131,7 @@ export default defineComponent({
     const attributesComputed = computed(() => ({ ...linkAttributesComputed.value, ...buttonAttributesComputed.value }))
 
     // states
-    const button: ShallowRef<HTMLElement | undefined> = ref()
+    const button = shallowRef<HTMLElement>()
     const { isFocused, focus, blur } = useFocus(button)
     const { isHovered } = useHover(button)
     const { isPressed } = usePressed(button)
@@ -178,6 +166,7 @@ export default defineComponent({
 
     // background color
     const backgroundColorComputed = computed(() => (
+      // may be we should change this to useElementBackground hook later
       props.gradient
         ? getGradientBackground(colorComputed.value)
         : colorComputed.value
@@ -266,6 +255,8 @@ export default defineComponent({
       ...contentColorComputed.value,
     }))
 
+    const publicMethods = { focus, blur }
+
     return {
       button,
       tagComputed,
@@ -277,9 +268,7 @@ export default defineComponent({
       wrapperClassComputed,
       iconAttributesComputed,
 
-      // exposed only for external usage
-      focus,
-      blur,
+      ...publicMethods,
     }
   },
 })
