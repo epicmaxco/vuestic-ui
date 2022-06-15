@@ -1,7 +1,7 @@
 <template>
   <va-dropdown
     class="va-popover"
-    v-bind="VaDropdownPropValues"
+    v-bind="computedDropdownProps"
     :modelValue="modelValue"
     :closeOnClickOutside="autoHide"
     :offset="$props.offset"
@@ -47,11 +47,13 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType } from 'vue'
-import VaDropdown from '../va-dropdown/VaDropdown.vue'
-import VaIcon from '../va-icon/VaIcon.vue'
+
 import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
 import { useColors } from '../../composables/useColor'
 import { useTextColor } from '../../composables/useTextColor'
+
+import { VaDropdown } from '../va-dropdown'
+import { VaIcon } from '../va-icon'
 
 const VaDropdownProps = extractComponentProps(VaDropdown, ['closeOnClickOutside'])
 
@@ -73,20 +75,20 @@ export default defineComponent({
   },
 
   setup (props) {
-    const VaDropdownPropValues = filterComponentProps(props, VaDropdownProps)
+    const computedDropdownProps = filterComponentProps(props, VaDropdownProps)
 
     const { getColor, getBoxShadowColor } = useColors()
 
     const { textColorComputed } = useTextColor()
 
     const computedPopoverStyle = computed(() => ({
-      boxShadow: `0px 2px 3px 0 ${getBoxShadowColor(getColor(props.color))}`,
+      boxShadow: `var(--va-popover-content-box-shadow) ${getBoxShadowColor(getColor(props.color))}`,
       backgroundColor: getColor(props.color),
       color: textColorComputed.value,
     }))
 
     return {
-      VaDropdownPropValues,
+      computedDropdownProps,
       computedPopoverStyle,
       textColorComputed,
     }
@@ -102,8 +104,8 @@ export default defineComponent({
   display: var(--va-popover-display);
 
   &__content-wrapper {
-    background-color: white;
-    border-radius: 0.5rem;
+    background-color: var(--va-popover-content-wrapper-background-color);
+    border-radius: var(--va-popover-content-wrapper-border-radius);
   }
 
   &__content {
