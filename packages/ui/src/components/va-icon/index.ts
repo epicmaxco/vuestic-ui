@@ -1,4 +1,4 @@
 import withConfigTransport from '../../services/config-transport/withConfigTransport'
-import VaIcon from './VaIcon.vue'
+import _VaIcon from './VaIcon.vue'
 
-export default withConfigTransport(VaIcon)
+export const VaIcon = withConfigTransport(_VaIcon)

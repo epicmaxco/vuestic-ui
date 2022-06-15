@@ -98,9 +98,9 @@ import { useCarousel } from './hooks/useCarousel'
 import { useCarouselAnimation } from './hooks/useCarouselAnimation'
 import { useCarouselColor } from './hooks/useCarouselColors'
 import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
-import VaImage from '../va-image'
-import VaButton from '../va-button'
-import VaHover from '../va-hover'
+import { VaImage } from '../va-image'
+import { VaButton } from '../va-button'
+import { VaHover } from '../va-hover'
 
 export default defineComponent({
   name: 'VaCarousel',
@@ -123,10 +123,18 @@ export default defineComponent({
     // Visual
     arrows: { type: Boolean, default: true },
     indicators: { type: Boolean, default: true },
-    indicatorTrigger: { type: String as PropType<'click' | 'hover'>, default: 'click' },
+    indicatorTrigger: {
+      type: String as PropType<'click' | 'hover'>,
+      default: 'click',
+      validator: (value: string) => ['click', 'hover'].includes(value),
+    },
     vertical: { type: Boolean, default: false },
     height: { type: String, default: '300px' },
-    effect: { type: String as PropType<'fade' | 'transition'>, default: 'transition' },
+    effect: {
+      type: String as PropType<'fade' | 'transition'>,
+      default: 'transition',
+      validator: (value: string) => ['fade', 'transition'].includes(value),
+    },
     color: { type: String, default: 'primary' },
   },
 

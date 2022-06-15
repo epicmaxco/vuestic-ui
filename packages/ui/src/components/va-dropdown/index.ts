@@ -1,5 +1,5 @@
 import withConfigTransport from '../../services/config-transport/withConfigTransport'
-import VaDropdown from './VaDropdown.vue'
-export { default as VaDropdownContent } from './components/VaDropdownContent'
+import _VaDropdown from './VaDropdown.vue'
 
-export default withConfigTransport(VaDropdown)
+export const VaDropdown = withConfigTransport(_VaDropdown)
+export { VaDropdownContent } from './components/VaDropdownContent'

@@ -1,12 +1,12 @@
 import { VNode } from 'vue'
 
-export type NotificationPosition =
+export type ToastPosition =
   'top-right'
   | 'top-left'
   | 'bottom-right'
   | 'bottom-left'
 
-export interface NotificationOptions {
+export interface ToastOptions {
   /** Title */
   title?: string;
 
@@ -41,7 +41,7 @@ export interface NotificationOptions {
   offsetX?: number;
 
   /** custom position */
-  position?: NotificationPosition;
+  position?: ToastPosition;
 
   offsetY?: number;
 

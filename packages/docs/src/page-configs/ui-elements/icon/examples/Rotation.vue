@@ -1,42 +1,35 @@
 <template>
   <va-button-toggle
+    class="mb-4"
     v-model="flip"
     :options="flipOptions"
     :rounded="false"
     outline
-    class="mb-4"
   />
 
   <va-switch
+    class="mb-2"
     label="Enable rotation"
     size="small"
     v-model="isRotation"
   />
 
   <va-slider
+    class="mb-4"
     :step="5"
     :min="-180"
     :max="180"
+    track-label-visible
     :disabled="!isRotation"
-    class="mb-4"
     :model-value="rotation || 0"
     @update:model-value="isRotation ? rotation = $event : () => {}"
-  >
-    <template #append>
-      <va-input
-        v-model.number="rotation"
-        readonly
-        style="width: 65px; flex-shrink: 0;"
-      />
-    </template>
-  </va-slider>
+  />
 
   <div>
     <va-icon
+      class="mr-3"
       name="thumb_up"
       size="large"
-      :rotation="0"
-      class="mr-3"
     />
     <va-icon
       name="thumb_up"

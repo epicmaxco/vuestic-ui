@@ -239,9 +239,9 @@
 </template>
 
 <script>
-import VaIcon from '../va-icon'
-import VaConfig from '../va-config'
-import VaButton from './index'
+import { VaIcon } from '../va-icon'
+import { VaConfig } from '../va-config'
+import { VaButton } from './index'
 
 export default {
   components: { VaButton, VaIcon, VaConfig },

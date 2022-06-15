@@ -1,20 +1,22 @@
 export default `
-import { VuesticPlugin } from 'vuestic-ui'
+import { createVuestic } from 'vuestic-ui'
 
 createApp(App)
-  .use(VuesticPlugin, {
-    icons: [ ... ],
-    components: {
-      VaDateInput: {
-        formatDate: (date) => {
-          // ...
-        },
-        parseDate: (str) => {
-          // ...
+  .use(createVuestic({
+    config: {
+      icons: [ ... ],
+      components: {
+        VaDateInput: {
+          formatDate: (date) => {
+            // ...
+          },
+          parseDate: (str) => {
+            // ...
+          }
         }
-      }
+      },
+      colors: { ... },
     },
-    colors: { ... },
-  })
+  }))
   .mount('#app')
 `

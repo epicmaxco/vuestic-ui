@@ -1,4 +1,4 @@
-import { computed, nextTick, onBeforeUnmount, onMounted, ref, Ref, watch } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref, Ref, watch } from 'vue'
 
 export const useCarouselAnimation = (props: {
   items: any[],

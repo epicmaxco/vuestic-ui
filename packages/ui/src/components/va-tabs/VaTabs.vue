@@ -74,8 +74,8 @@ import {
   watch,
   Ref,
 } from 'vue'
-import VaButton from '../va-button'
-import VaConfig from '../va-config'
+import { VaButton } from '../va-button'
+import { VaConfig } from '../va-config'
 import { useStateful, useStatefulProps } from '../../composables/useStateful'
 import { useColors } from '../../composables/useColor'
 import { TabsViewKey, TabComponent } from './types'
