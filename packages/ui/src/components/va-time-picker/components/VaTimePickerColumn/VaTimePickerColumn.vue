@@ -96,12 +96,8 @@ export default defineComponent({
     }
 
     const onScroll = debounce(() => {
-      if (!rootElement.value) { return }
-
-      const idx = getIndex()
-
-      if (idx !== syncActiveItemIndex.value) {
-        syncActiveItemIndex.value = idx
+      if (rootElement.value && syncActiveItemIndex.value !== -1) {
+        syncActiveItemIndex.value = getIndex()
       }
     }, 200)
 
