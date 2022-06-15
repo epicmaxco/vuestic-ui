@@ -1,5 +1,5 @@
-import { StringWithAutocomplete } from '../../../types/string-with-autocomplete'
 import { Ref, computed, watch, ref } from 'vue'
+
 import { DataTableRow, DataTableItem, DataTableSelectMode } from '../types'
 
 interface useSelectableProps {

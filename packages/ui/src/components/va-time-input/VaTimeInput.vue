@@ -105,7 +105,7 @@ import VaInput from '../va-input/VaInput.vue'
 import VaIcon from '../va-icon/VaIcon.vue'
 import { VaDropdown, VaDropdownContent } from '../va-dropdown/'
 import { useSyncProp } from '../../composables/useSyncProp'
-import { useValidation, useValidationEmits } from '../../composables/useValidation'
+import { useValidation, useValidationEmits, useValidationProps, ValidationProps } from '../../composables/useValidation'
 import { useClearable, useClearableEmits } from '../../composables/useClearable'
 import { useTimeParser } from './hooks/time-text-parser'
 import { useTimeFormatter } from './hooks/time-text-formatter'
@@ -133,10 +133,11 @@ export default defineComponent({
   props: {
     ...VaInputProps,
     ...extractComponentProps(VaTimePicker),
+    ...useValidationProps as ValidationProps<Date>,
 
     isOpen: { type: Boolean, default: undefined },
     modelValue: { type: Date, default: undefined },
-    clearValue: { type: String, default: undefined },
+    clearValue: { type: Date, default: undefined },
 
     format: { type: Function as PropType<(date: Date) => string> },
 
@@ -162,10 +163,10 @@ export default defineComponent({
     const { format } = useTimeFormatter(props)
 
     const valueText = computed<string | undefined>(() => {
-      if (!isValid.value) { return props.clearValue }
-      if (!modelValueSync.value) { return props.clearValue }
+      if (!isValid.value) { return format(props.clearValue || new Date()) }
+      if (!modelValueSync.value) { return format(props.clearValue || new Date()) }
 
-      if (props.format) { return props.format(modelValueSync.value) }
+      if (props.format) { return format(modelValueSync.value) }
 
       return format(modelValueSync.value)
     })

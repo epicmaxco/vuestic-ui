@@ -80,17 +80,19 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, InputHTMLAttributes, PropType, shallowRef, toRefs } from 'vue'
+import { computed, defineComponent, InputHTMLAttributes, shallowRef, toRefs } from 'vue'
 import omit from 'lodash/omit.js'
 import pick from 'lodash/pick.js'
 
 import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
 import { useFormProps } from '../../composables/useForm'
-import { useValidation, useValidationProps, useValidationEmits } from '../../composables/useValidation'
+import { useValidation, useValidationProps, useValidationEmits, ValidationProps } from '../../composables/useValidation'
 import { useFocus } from '../../composables/useFocus'
 import { useEmitProxy } from '../../composables/useEmitProxy'
 import { useClearableProps, useClearable, useClearableEmits } from '../../composables/useClearable'
 import { useCleave, useCleaveProps } from './hooks/useCleave'
+
+import type { AnyStringPropType } from '../../types/prop-type'
 
 import VaInputWrapper from './components/VaInputWrapper.vue'
 import VaTextarea from './components/VaTextarea/VaTextarea.vue'
@@ -118,7 +120,7 @@ export default defineComponent({
 
   props: {
     ...useFormProps,
-    ...useValidationProps,
+    ...useValidationProps as ValidationProps<string>,
     ...useClearableProps,
     ...useCleaveProps,
     ...VaTextareaProps,
@@ -128,7 +130,7 @@ export default defineComponent({
     tabindex: { type: Number, default: 0 },
     modelValue: { type: [String, Number], default: '' },
     label: { type: String, default: '' },
-    type: { type: String as PropType<'text' | 'textarea'>, default: 'text' },
+    type: { type: String as AnyStringPropType<'textarea' | 'text' | 'password'>, default: 'text' },
     loading: { type: Boolean, default: false },
     inputClass: { type: String, default: '' },
     pattern: { type: String },

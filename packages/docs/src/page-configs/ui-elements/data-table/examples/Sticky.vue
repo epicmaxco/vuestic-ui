@@ -2,28 +2,48 @@
   <div class="sticky-table-example">
     <va-data-table
       :items="items"
+      footer-clone
       height="180px"
     />
 
     <va-data-table
       :items="items"
       sticky-header
+      footer-clone
       height="180px"
     />
 
     <va-data-table
       :items="items"
       :style="{
-        '--va-data-table-scroll-table-height': '180px',
+        '--va-data-table-scroll-table-height': '300px',
         '--va-data-table-scroll-table-color': 'orange',
       }"
       sticky-header
-    />
+      footer-clone
+      sticky-footer
+    >
+      <template #headerAppend>
+        <tr>
+          <th colspan="1">#</th>
+          <th colspan="2">User info</th>
+          <th colspan="3">Contact info</th>
+        </tr>
+      </template>
+      <template #footerPrepend>
+        <tr>
+          <th colspan="6">Additional data in the footer prepend slot</th>
+        </tr>
+      </template>
+    </va-data-table>
 
     <va-data-table
       :items="items"
       class="my-custom-table-class"
       sticky-header
+      footer-clone
+      sticky-footer
+      selected-color="warning"
     />
   </div>
 </template>
@@ -119,10 +139,10 @@ export default defineComponent({
 
   .my-custom-table-class {
     &.va-data-table--sticky {
-      height: 180px;
+      height: 220px;
 
       .va-data-table__table-thead--sticky {
-        background-color: #262824;
+        background-color: gray;
 
         .va-data-table__table-th {
           color: white;
