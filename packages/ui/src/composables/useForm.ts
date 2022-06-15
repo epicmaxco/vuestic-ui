@@ -19,10 +19,10 @@ export const useFormPropsWithId = {
  * @param props component props.
  * @returns computed classes object starting with `prefix` and ending with form state BEM modifier.
  */
-export const useForm = (
-  prefix = '',
+export const useForm = <Prefix extends string = ''>(
+  prefix: Prefix,
   props: ExtractPropTypes<typeof useFormProps>,
 ) => {
-  const computedClasses = useBem(prefix, computed(() => pick(props, ['disabled', 'readonly'])))
+  const computedClasses = useBem<'disabled' | 'readonly', Prefix>(prefix, computed(() => pick(props, ['disabled', 'readonly'])))
   return { computedClasses }
 }

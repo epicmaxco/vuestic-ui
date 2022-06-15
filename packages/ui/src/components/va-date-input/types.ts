@@ -1,3 +1,4 @@
-export type DateInputDate = string | number | Date
-export type DateInputRange = { start?: DateInputDate | null, end?: DateInputDate | null }
-export type DateInputModelValue = DateInputDate | DateInputDate[] | DateInputRange | undefined
+export type DateInputDate = string | Date
+export type DateInputRange<T> = { start?: T | null, end?: T | null }
+export type DateInputValue = Date | Date[] | DateInputRange<Date>
+export type DateInputModelValue = DateInputDate | DateInputDate[] | DateInputRange<DateInputDate> | undefined
