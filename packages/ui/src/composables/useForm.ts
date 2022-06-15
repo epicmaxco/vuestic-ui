@@ -1,4 +1,6 @@
 import { computed, ExtractPropTypes, PropType } from 'vue'
+import { useBem } from './useBem'
+import pick from 'lodash/pick.js'
 
 export const useFormProps = {
   disabled: { type: Boolean, default: false },
@@ -12,48 +14,15 @@ export const useFormPropsWithId = {
 }
 
 /**
- * Create `readonly` and `disabled` BEM modifiers.
- * @param props component props
- * @param prefix string with which classes starts (and ends with form state BEM modifier)
+ * @description creates `readonly` and `disabled` BEM modifiers.
+ * @param prefix string that classes start with (base BEM class).
+ * @param props component props.
+ * @returns computed classes object starting with `prefix` and ending with form state BEM modifier.
  */
-export const useForm = <Prefix extends string>(
+export const useForm = (
+  prefix = '',
   props: ExtractPropTypes<typeof useFormProps>,
-  prefix?: Prefix,
 ) => {
-  const computedClassesWithoutWarning = computed(() => ({
-    [`${prefix || ''}--disabled`]: props.disabled,
-    [`${prefix || ''}--readonly`]: props.readonly,
-  }) as Record<`${Prefix}--disabled` | `${Prefix}--readonly`, boolean>)
-
-  /**
-   * Computed Object with classes which starts with `prefix` and ends with form state BEM modifier
-   */
-  const computedClasses = computed(() => {
-    if (!prefix) {
-      console.warn('You must pass the @param "prefix" to the useForm hook!')
-    }
-
-    return computedClassesWithoutWarning.value
-  })
-
-  const computedClassesArrayWithoutWarning = computed(() => [
-    props.disabled && `${prefix || ''}--disabled`,
-    props.readonly && `${prefix || ''}--readonly`,
-  ].filter(Boolean) as Array<`${Prefix}--disabled` | `${Prefix}--readonly`>)
-
-  /**
-   * Computed Array with classes which starts with `prefix` and ends with form state BEM modifier
-   */
-  const computedClassesArray = computed(() => {
-    if (!prefix) {
-      console.warn('You must pass the @param "prefix" to the useForm hook!')
-    }
-
-    return computedClassesArrayWithoutWarning.value
-  })
-
-  return {
-    computedClasses,
-    computedClassesArray,
-  }
+  const computedClasses = useBem(prefix, computed(() => pick(props, ['disabled', 'readonly'])))
+  return { computedClasses }
 }
