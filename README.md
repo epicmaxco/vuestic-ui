@@ -83,11 +83,11 @@ Make sure you've imported both styles and plugin into your entry file:
 //main.js
 import { createApp } from 'vue'
 import App from './App.vue'
-import { VuesticPlugin } from 'vuestic-ui' //(✓)
-import 'vuestic-ui/dist/vuestic-ui.css' //(✓)
+import { createVuestic } from 'vuestic-ui'
+import 'vuestic-ui/dist/vuestic-ui.css'
 //...
 const app = createApp(App)
-app.use(VuesticPlugin) //(✓)
+app.use(createVuestic())
 //...
 ```
 

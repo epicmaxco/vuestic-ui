@@ -1,4 +1,4 @@
-import { VaModal } from './index'
+import { VaModal } from './VaModal'
 import type { ModalOptions } from './types'
 import { VNode, render, AppContext, h, nextTick } from 'vue'
 

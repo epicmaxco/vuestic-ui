@@ -222,7 +222,7 @@
 import { defineComponent } from 'vue'
 import shuffle from 'lodash/shuffle.js'
 import cloneDeep from 'lodash/cloneDeep.js'
-import { VaDataTable } from './'
+import { DataTableSelectMode, DataTableSortingOrder, VaDataTable } from './'
 import { VaChip } from '../va-chip'
 import { VaAlert } from '../va-alert'
 
@@ -372,12 +372,12 @@ export default defineComponent({
       filteredCount: users.length,
 
       sortBy: 'username',
-      sortingOrder: 'asc',
+      sortingOrder: 'asc' as DataTableSortingOrder,
 
       clickable: false,
       selectable: true,
       selectedItems: [] as { id: number }[],
-      selectMode: 'single',
+      selectMode: 'single' as DataTableSelectMode,
       selectedColor: 'danger',
 
       perPage: 2,

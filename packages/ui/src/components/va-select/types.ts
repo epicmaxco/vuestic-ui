@@ -1,7 +1,7 @@
 export type { Placement } from '../../composables/usePopover'
-export type { SelectableOption } from '../../composables/useSelectableList'
+export type { SelectableOption as SelectOption } from '../../composables/useSelectableList'
 
-export type VaSelectDropdownIcon = {
+export type SelectDropdownIcon = {
   open: string,
   close: string
 }
