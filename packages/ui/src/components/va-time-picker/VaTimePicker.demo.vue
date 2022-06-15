@@ -80,11 +80,11 @@
       </div>
       <br />
       <div class="d-flex">
-        <VaTimePicker v-model="value" visible-cells-count="2" />
+        <VaTimePicker v-model="value" :visible-cells-count="2" />
         <va-divider vertical />
-        <VaTimePicker v-model="value" visible-cells-count="5" />
+        <VaTimePicker v-model="value" :visible-cells-count="5" />
         <va-divider vertical />
-        <VaTimePicker v-model="value" visible-cells-count="9" />
+        <VaTimePicker v-model="value" :visible-cells-count="9" />
       </div>
     </VbCard>
   </VbDemo>
@@ -92,8 +92,8 @@
 
 <script>
 import VaTimePicker from './VaTimePicker.vue'
-import VaDivider from '../va-divider'
-import VaSwitch from '../va-switch'
+import { VaDivider } from '../va-divider'
+import { VaSwitch } from '../va-switch'
 
 export default {
   components: {
