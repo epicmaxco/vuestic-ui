@@ -908,6 +908,7 @@
         "hoverable": "Allows the hover state on table rows within a `tbody`. The highlighting color of the hover state takes from `selected-color` prop",
         "animated": "Sets css `transition` to table rows",
         "stickyHeader": "Enables sticky header (sticky header is achieved through CSS with `position: sticky` for `thead`)",
+        "stickyFooter": "Enables sticky footer (sticky footer is achieved through CSS with `position: sticky` for `tfoot`)",
         "height": "Sets the height to the table and enables scrolling",
         "rowBind": "Adds attributes to a table row using `v-bind`. This can be an object type (with attributes that vue supports) or a function that returns such an object. The function receives a table row element (type `Record<string, any>`) and an index as arguments",
         "cellBind": "Adds attributes to a table cell using `v-bind`. This can be an object type (with attributes that vue supports) or a function that returns such an object. As arguments, the function receives a table cell element (`any` type), a row (`DataTableItem` type), a column (`TableColumn` type), and a row index"
@@ -3808,10 +3809,10 @@
         "title": "Row and cell attrs binding",
         "text": "Row and cell customization can be achieved by binding attributes for items using `row-bind` and `cell-bind`."
       },
-      "stickyHeader": {
-        "title": "Sticky header",
+      "sticky": {
+        "title": "Sticky header and footer",
         "text": [
-          "The sticky header is set by the `sticky-header` property. Sticky header is achieved through CSS with `position: sticky`. This is NOT supported on all browsers. Check [caniuse.com](https://caniuse.com/?search=sticky)[[target=_blank]] before using this technique.",
+          "The sticky header and footer are set by the `sticky-header` and `sticky-footer` properties. Sticky behavior is achieved through CSS with `position: sticky`. This is NOT supported on all browsers. Check [caniuse.com](https://caniuse.com/?search=sticky)[[target=_blank]] before using this technique.",
           "To work correctly, it is important to limit the height (set the value in the `height` property of the component or using the CSS `height` or `max-height` properties) of the table and assign a background color (set the CSS value `background-color`) of the table header."
         ]
       },
