@@ -41,7 +41,7 @@ export function useStateful<T, D extends T = T> (
     stateful ? watchModelValue() : unwatchModelValue?.()
   }, { immediate: true })
 
-  const valueComputed = computed({
+  const valueComputed = computed<T>({
     get () {
       if (props.stateful) {
         return valueState.value

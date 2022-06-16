@@ -4,12 +4,13 @@ import isFunction from 'lodash/isFunction.js'
 
 type Key<Prefix extends string, ModifierKey extends string> = `${Prefix}--${ModifierKey}`
 
-type ClassesObject<Key extends string> = Record<Key, true>
+type ClassesObject<Key extends string> = Record<Key, boolean>
 
-type ComputedClasses<Key extends string> = Ref<ClassesObject<Key>> & {
-  asObject: ComputedRef<ClassesObject<Key>>
-  asArray: ComputedRef<Key[]>
-  asString: ComputedRef<string>
+type ComputedClasses<Key extends string> = ClassesObject<Key> & {
+  // TODO: How to remove it from spread?
+  get asObject(): ComputedRef<ClassesObject<Key>>
+  get asArray(): ComputedRef<Key[]>
+  get asString(): ComputedRef<string>
 }
 
 /**
@@ -25,7 +26,7 @@ type ComputedClasses<Key extends string> = Ref<ClassesObject<Key>> & {
  *  result.asArray.value: ['va-component--success']
  *  result.asString.value: 'va-component--success'
  */
-export const useBem = <Prefix extends string, ModifierKey extends string>(
+export const useBem = <ModifierKey extends string, Prefix extends string>(
   prefix: Prefix,
   modifiers: Record<ModifierKey, boolean> | Ref<Record<ModifierKey, boolean>> | (() => Record<ModifierKey, boolean>),
 ) => {
