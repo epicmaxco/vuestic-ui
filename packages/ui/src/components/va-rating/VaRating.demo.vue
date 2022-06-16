@@ -47,7 +47,7 @@
     <VbCard title="Custom color for unselected">
       <va-rating
         hover
-        unselected-color="danger"
+        unselected-color="warning"
         v-model="value"
       />
     </VbCard>
