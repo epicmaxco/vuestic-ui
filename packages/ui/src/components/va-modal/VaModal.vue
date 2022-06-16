@@ -56,7 +56,7 @@
                 :style="{ maxWidth: $props.maxWidth, maxHeight: $props.maxHeight }"
               >
                 <div v-if="$slots.content">
-                  <slot name="content" />
+                  <slot name="content" v-bind="{ cancel, ok }" />
                 </div>
                 <template v-if="!$slots.content">
                   <div

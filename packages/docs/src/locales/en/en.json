@@ -1891,6 +1891,10 @@
         }
       ]
     },
+    "customContent": {
+      "title": "Custom content",
+      "text": "You can remove default padding with `no-padding` prop and change default action buttons with `content` slot."
+    },
     "anchor": {
       "title": "Slot: `anchor`",
       "text": "Using the `anchor` slot, the user can access the `show()`, `hide()` and `toggle()` methods."
