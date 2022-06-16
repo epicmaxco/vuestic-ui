@@ -1,12 +1,10 @@
 <template>
   <div class="mb-3">
-    <va-content>
-      <DocsCode
-        v-if="component"
-        :code="component"
-        language="scss"
-      />
-    </va-content>
+    <DocsCode
+      v-if="component"
+      :code="component"
+      language="scss"
+    />
   </div>
 </template>
 
@@ -30,7 +28,6 @@ export default defineComponent({
     async function importComponent () {
       const file = (await props.file)
       if (file) {
-        console.log(file)
         component.value = file.default
       }
     }

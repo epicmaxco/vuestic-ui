@@ -70,7 +70,6 @@ export class PageGenerationHelper {
   }
 
   example (component: string, exampleOptions: ExampleOptions = {}): ApiDocsBlock {
-    console.log(this.path, component)
     return {
       type: BlockType.EXAMPLE,
       path: this.path,
