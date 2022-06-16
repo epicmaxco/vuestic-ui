@@ -7,7 +7,7 @@
     :style="computedStyle"
     v-bind="attributesComputed"
   >
-    <div class="va-button__content" :class="wrapperClassComputed">
+    <span class="va-button__content" :class="wrapperClassComputed">
       <va-icon
         v-if="icon"
         class="va-button__left-icon"
@@ -21,7 +21,7 @@
         :name="iconRight"
         v-bind="iconAttributesComputed"
       />
-    </div>
+    </span>
     <template v-if="loading">
       <slot name="loading" v-bind="{
         size: loaderSizeComputed,
@@ -42,23 +42,24 @@
 <script lang="ts">
 import { defineComponent, PropType, computed, shallowRef, toRef } from 'vue'
 
+import { useBem } from '../../composables/useBem'
 import { useFocus } from '../../composables/useFocus'
 import { useHover, useHoverProps } from '../../composables/useHover'
 import { usePressed, usePressedProps } from '../../composables/usePressed'
 import { useTextColor } from '../../composables/useTextColor'
 import { useColors } from '../../services/color-config/color-config'
-import {
-  colorToRgba,
-  isLightBackground,
-  getGradientBackground,
-  getStateMaskGradientBackground,
-} from '../../services/color-config/color-functions'
+import { isLightBackground } from '../../services/color-config/color-functions'
 import { useLoadingProps } from '../../composables/useLoading'
 import { useSize, useSizeProps } from '../../composables/useSize'
 import { useRouterLink, useRouterLinkProps } from '../../composables/useRouterLink'
 
+import { useButtonBackground } from './hooks/useButtonBackground'
+import { useButtonTextColor } from './hooks/useButtonTextColor'
+
 import { VaIcon } from '../va-icon'
 import { VaProgressCircle } from '../va-progress-circle'
+
+import pick from 'lodash/pick.js'
 
 export default defineComponent({
   name: 'VaButton',
@@ -80,12 +81,10 @@ export default defineComponent({
     backgroundOpacity: { type: Number, default: 1 },
     borderColor: { type: String, default: '' },
 
+    // only for filled bg state
     gradient: { type: Boolean, default: false },
     plain: { type: Boolean, default: false },
-
-    // only for standalone-icon state
     round: { type: Boolean, default: false },
-    spaceBetweenItems: { type: Boolean, default: false },
     size: {
       type: String as PropType<'small' | 'medium'>,
       default: 'medium',
@@ -147,106 +146,24 @@ export default defineComponent({
     const wrapperClassComputed = computed(() => ({ 'va-button__content--loading': props.loading }))
 
     const isSlotContentPassed = computed(() => !!slots.default?.()?.[0]?.children)
-    const isOneIcon = computed(() => (props.iconRight && !props.icon) || (!props.iconRight && props.icon))
-    const computedClass = computed(() => ({
-      'va-button--small': props.size === 'small',
-      'va-button--normal': !props.size || props.size === 'medium',
-      'va-button--plain': props.plain,
-      'va-button--opacity': props.textOpacity < 1,
-      'va-button--icon-only': !slots.default && isOneIcon.value,
-      'va-button--round': props.round && !isSlotContentPassed.value && isOneIcon.value,
-      'va-button--bordered': !!props.borderColor,
-      'va-button--no-label': !isSlotContentPassed.value,
-      'va-button--space-between-items': props.spaceBetweenItems,
-      'va-button--focused': isFocused.value,
-      'va-button--loading': props.loading,
-      'va-button--block': props.block,
-      'va-button--disabled': props.disabled,
+    const isOneIcon = computed(() => !!((props.iconRight && !props.icon) || (!props.iconRight && props.icon)))
+    const computedClass = useBem('va-button', () => ({
+      ...pick(props, ['disabled', 'block', 'loading', 'round', 'plain']),
+      small: props.size === 'small',
+      normal: !props.size || props.size === 'medium',
+      opacity: props.textOpacity < 1,
+      'icon-only': !slots.default && isOneIcon.value,
+      bordered: !!props.borderColor,
+      'no-label': !isSlotContentPassed.value,
+      focused: isFocused.value,
     }))
-
-    // background color
-    const backgroundColorComputed = computed(() => (
-      // may be we should change this to useElementBackground hook later
-      props.gradient
-        ? getGradientBackground(colorComputed.value)
-        : colorComputed.value
-    ))
-
-    const getOpacityStateBackground = (stateOpacity: number) => ({
-      background: props.gradient
-        ? backgroundColorComputed.value
-        : colorToRgba(backgroundColorComputed.value, stateOpacity),
-    })
-
-    const getStateBackground = (maskColor: string, stateOpacity: number, stateBehaviour: string) => {
-      return stateBehaviour === 'opacity'
-        ? { ...getOpacityStateBackground(stateOpacity) }
-        : { background: getStateMaskGradientBackground(colorComputed.value, maskColor, stateOpacity) }
-    }
-
-    const hoverBackgroundComputed = computed(() => {
-      return getStateBackground(props.hoverMaskColor, props.hoverOpacity, props.hoverBehaviour)
-    })
-
-    const pressedBackgroundComputed = computed(() => {
-      return getStateBackground(props.pressedMaskColor, props.pressedOpacity, props.pressedBehaviour)
-    })
-
-    const backgroundComputed = computed(() => {
-      if (isTransparentBg.value) { return { background: 'transparent' } }
-      if (isPressed.value) { return pressedBackgroundComputed.value }
-      if (isHovered.value) { return hoverBackgroundComputed.value }
-
-      return { ...getOpacityStateBackground(props.backgroundOpacity) }
-    })
-
-    // content color
-    const plainColorStyles = computed(() => ({
-      color: 'transparent',
-      '-webkit-background-clip': 'text',
-      'background-clip': 'text',
-      background: textColorComputed.value,
-      opacity: getPlainTextOpacity.value,
-    }))
-
-    const getStateColor = (maskColor: string, stateOpacity: number, stateBehaviour: string) => {
-      const res = stateBehaviour === 'opacity'
-        ? { color: colorToRgba(textColorComputed.value, stateOpacity) }
-        : { background: getStateMaskGradientBackground(colorComputed.value, maskColor, stateOpacity) }
-      return { ...plainColorStyles.value, ...res }
-    }
-
-    const hoverTextColorComputed = computed(() => {
-      return getStateColor(props.hoverMaskColor, props.hoverOpacity, props.hoverBehaviour)
-    })
-
-    const pressedTextColorComputed = computed(() => {
-      return getStateColor(props.pressedMaskColor, props.pressedOpacity, props.pressedBehaviour)
-    })
 
     const { textColorComputed } = useTextColor(
       colorComputed,
       isTransparentBg.value || isLightBackground(colorComputed.value, props.backgroundOpacity),
     )
-
-    const getPlainTextOpacity = computed(() => {
-      if (props.disabled) { return undefined }
-      if (props.textOpacity === 1 || (isHovered.value && !isPressed.value)) { return 1 }
-      return isPressed.value ? 0.9 : props.textOpacity
-    })
-
-    const contentColorComputed = computed(() => {
-      const defaultColorStyles = {
-        color: textColorComputed.value,
-      }
-
-      props.plain && Object.assign(defaultColorStyles, plainColorStyles.value)
-
-      if (!isTransparentBg.value) { return defaultColorStyles }
-      if (isPressed.value) { return pressedTextColorComputed.value }
-      if (isHovered.value) { return hoverTextColorComputed.value }
-      return defaultColorStyles
-    })
+    const backgroundComputed = useButtonBackground(props, colorComputed, isPressed, isHovered, isTransparentBg)
+    const contentColorComputed = useButtonTextColor(props, textColorComputed, colorComputed, isPressed, isHovered, isTransparentBg)
 
     // styles object
     const computedStyle = computed(() => ({
@@ -406,7 +323,7 @@ export default defineComponent({
   }
 
   &--round {
-    border-radius: 50%;
+    border-radius: 999px;
   }
 
   &--bordered {
@@ -427,21 +344,6 @@ export default defineComponent({
     .va-button__right-icon {
       margin-left: 0;
       margin-right: 0;
-    }
-  }
-
-  &--space-between-items {
-    .va-button__content > * {
-      margin-right: calc(var(--va-button-space-between-items) / 2);
-      margin-left: calc(var(--va-button-space-between-items) / 2);
-
-      &:last-child {
-        margin-right: 0;
-      }
-
-      &:first-child {
-        margin-left: 0;
-      }
     }
   }
 
