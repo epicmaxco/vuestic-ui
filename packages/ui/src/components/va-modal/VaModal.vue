@@ -189,7 +189,7 @@ export default defineComponent({
       'va-modal--fullscreen': props.fullscreen,
       'va-modal--mobile-fullscreen': props.mobileFullscreen,
       'va-modal--fixed-layout': props.fixedLayout,
-      'va-modal--noPadding': props.noPadding,
+      'va-modal--no-padding': props.noPadding,
       [`va-modal--size-${props.size}`]: props.size !== 'medium',
     }))
     const computedModalContainerStyle = computed(() => ({ 'z-index': props.zIndex } as StyleValue))
@@ -432,7 +432,7 @@ export default defineComponent({
     }
   }
 
-  &--noPadding {
+  &--no-padding {
     .va-modal__inner {
       padding: 0;
     }

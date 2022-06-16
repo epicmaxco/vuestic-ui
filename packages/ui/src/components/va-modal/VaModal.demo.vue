@@ -85,7 +85,7 @@
         Show no padding modal
       </button>
       <va-modal no-padding v-model="showNoPaddingModal">
-        <div>{{ message }}</div>
+        {{ message }}
       </va-modal>
     </VbCard>
     <VbCard title="stateful">
