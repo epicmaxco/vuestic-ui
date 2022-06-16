@@ -3000,9 +3000,13 @@
         "title": "Formatting",
         "text": "You can pass the format function to VaDateInput which will format input text like you want to. This way you can use any format that you want. For example, you can use [date-fns](https://date-fns.org/v2.23.0/docs/format)[[target=_blank]]."
       },
+      "manual": {
+        "title": "Date Manual Input",
+        "text": "You can add `manual-input` attribute to allow user input text from keyboard manually."
+      },
       "input": {
-        "title": "Input date",
-        "text": "You can allow user to input text from keyboard. You need to set readonly prop as true. You can pass the parse function to VaDateInput which will parse input text like you want to. This way you can use any format that you want. For example, you can use [date-fns](https://date-fns.org/v2.23.0/docs/format)[[target=_blank]] to parse date string. By default we parse this input using standard `Date.parse` method."
+        "title": "Parsing",
+        "text": "You can pass the parse function to VaDateInput which will parse input text like you want to. This way you can use any format that you want. For example, you can use [date-fns](https://date-fns.org/v2.23.0/docs/format)[[target=_blank]] to parse date string. By default we parse this input using standard `Date.parse` method."
       },
       "inputProps": {
         "title": "Input props",
