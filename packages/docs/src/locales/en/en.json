@@ -1369,6 +1369,7 @@
     "api": "API",
     "methods": "Methods",
     "options": "Options",
+    "cssVariables": "CSS Variables",
     "faq": "FAQ",
     "code": {
       "or": "or",
@@ -1524,7 +1525,8 @@
         "title": "With icons",
         "text": "The `icon` prop is used to display icons inside an avatar."
       }
-    }
+    },
+    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/tree/develop/packages/ui/src/components/va-avatar/_variables.scss)[[target=_blank]]"
   },
   "affix": {
     "title": "Affix",
@@ -1539,7 +1541,8 @@
       "target": {
         "title": "Fixes element relative to custom container"
       }
-    }
+    },
+    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-affix/_variables.scss)[[target=_blank]]"
   },
   "breadcrumbs": {
     "title": "Breadcrumbs",
@@ -1570,6 +1573,7 @@
         "text": "Some `va-breadcrumbs-item` props examples."
       }
     },
+    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-breadcrumbs/_variables.scss)[[target=_blank]]",
     "api": {
       "item": {
         "title": "Item API",
@@ -1611,7 +1615,8 @@
       "color": {
         "title": "Color"
       }
-    }
+    },
+    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/tree/develop/packages/ui/src/components/va-badge/_variables.scss)[[target=_blank]]"
   },
   "button": {
     "title": "Button",
@@ -1657,7 +1662,8 @@
         "title": "Disabled",
         "text": "The `disabled` prop prevent any actions with button."
       }
-    }
+    },
+    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-button/_variables.scss)[[target=_blank]]"
   },
   "slider": {
     "title": "Slider",
@@ -1715,7 +1721,8 @@
         "title": "Vertical",
         "text": "Vertical state of slider."
       }
-    }
+    },
+    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-slider/_variables.scss)[[target=_blank]]"
   },
   "switch": {
     "title": "Switch",
@@ -1764,7 +1771,8 @@
         "title": "Error",
         "text": "Switch has an error style."
       }
-    }
+    },
+    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-switch/_variables.scss)[[target=_blank]]"
   },
   "rating": {
     "title": "Rating",
@@ -1807,6 +1815,7 @@
         "text": "Providing this prop to component allows you to add custom icons."
       }
     },
+    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-rating/_variables.scss)[[target=_blank]]",
     "faq": {
       "questions": [
         {
@@ -1852,6 +1861,7 @@
         "text": "You can set custom onClick event to handle the click on button."
       }
     },
+    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-toast/_variables.scss)[[target=_blank]]",
     "faq": {
       "questions": [
         {
@@ -1925,7 +1935,8 @@
     "functionalApi": {
       "title": "Modal functional API",
       "text": "To make it easier to create modal we have a shorthands. For options API it is `$vaModal` that provides the VaModalPlugin (automatically installed with createVuestic). For composition Api we have `useModal` hook. Hook and global object have similar API."
-    }
+    },
+    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-modal/_variables.scss)[[target=_blank]]"
   },
   "pagination": {
     "title": "Pagination",
@@ -1960,6 +1971,7 @@
         "text": "You can provide `total` and `page-size` props to `va-pagination` component and let it calculate the length of pagination itself. The value of the component in this case would be equal to the number of the first item at the selected page."
       }
     },
+    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-pagination/_variables.scss)[[target=_blank]]",
     "faq": {
       "questions": [
         {
@@ -1998,6 +2010,7 @@
         "text": "Set different colors using the `color` prop. You can either use a theme string or the HEX color value. Inactive tabs have `inherit` color. If you need to change inactive tabs color, you can set color for va-tabs using CSS."
       }
     },
+    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-tabs/_variables.scss)[[target=_blank]]",
     "faq": {
       "questions": [
         {
@@ -2032,7 +2045,8 @@
         "title": "As gallery",
         "text": "With `type === gallery` prop you can show user picture preview of uploaded files"
       }
-    }
+    },
+    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-file-upload/_variables.scss)[[target=_blank]]"
   },
   "divider": {
     "title": "Divider",
@@ -2062,7 +2076,8 @@
         "title": "Divider with lists",
         "text": "Dividers perfectly work with `va-list`."
       }
-    }
+    },
+    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-divider/_variables.scss)[[target=_blank]]"
   },
   "form": {
     "title": "Form",
@@ -2145,6 +2160,7 @@
         "values": "Valid values for `align`: left, center, right, between, around, stretch."
       }
     },
+    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-card/_variables.scss)[[target=_blank]]",
     "faq": {
       "questions": [
         {
@@ -2199,6 +2215,7 @@
         "text": "You can make Navbar background gradient"
       }
     },
+    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-sidebar/_variables.scss)[[target=_blank]]",
     "faq": {
       "questions": [
         {
@@ -2261,7 +2278,8 @@
         "title": "Error slot",
         "text": "Is visible when `src` path is incorrect."
       }
-    }
+    },
+    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-image/_variables.scss)[[target=_blank]]"
   },
   "optionList": {
     "title": "Option List",
@@ -2283,7 +2301,8 @@
         "title": "Array of objects",
         "text": "Instead of array of strings you can provide array of objects and specify which key is for each setting."
       }
-    }
+    },
+    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-option-list/_variables.scss)[[target=_blank]]"
   },
   "checkbox": {
     "title": "Checkbox",
@@ -2311,7 +2330,8 @@
         "title": "Errors",
         "text": "You can show your error messages while using `va-checkbox` with form."
       }
-    }
+    },
+    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-checkbox/_variables.scss)[[target=_blank]]"
   },
   "progressBar": {
     "title": "Progress Bar",
@@ -2341,7 +2361,8 @@
         "title": "Buffer",
         "text": "When dealing with media content like streaming videos we can use progress bars to show the buffering progress indicator on a video."
       }
-    }
+    },
+    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-progress-bar/_variables.scss)[[target=_blank]]"
   },
   "progressCircle": {
     "title": "Progress Circle",
@@ -2371,7 +2392,8 @@
         "title": "Thickness",
         "text": "Use the `thickness` prop to adjust the stroke size."
       }
-    }
+    },
+    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-progress-circle/_variables.scss)[[target=_blank]]"
   },
   "infiniteScroll": {
     "title": "Inifinite Scroll",
@@ -2393,7 +2415,8 @@
         "title": "Custom scroll target container",
         "text": "Provide either DOM element or CSS Selector to be used instead of default scroll container. "
       }
-    }
+    },
+    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-infinite-scroll/_variables.scss)[[target=_blank]]"
   },
   "input": {
     "title": "Input",
@@ -2435,7 +2458,8 @@
         "title": "Styles",
         "text": "There are tree styles for input: Default (solid), outline, bordered."
       }
-    }
+    },
+    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-input/_variables.scss)[[target=_blank]]"
   },
   "alert": {
     "title": "Alert",
@@ -2502,7 +2526,8 @@
       "customCloseIcon": "You read this important alert message with a custom close icon.",
       "messageInsteadIcon": "You read this important alert message with a text instead of an icon.",
       "slottedTextInsteadIcon": "You read this important alert message with a slotted text instead of an icon."
-    }
+    },
+    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-alert/_variables.scss)[[target=_blank]]"
   },
   "icon": {
     "title": "Icon",
@@ -2536,7 +2561,8 @@
         "title": "Custom tag",
         "text": "With the `tag` prop you can attach the icon to another tag."
       }
-    }
+    },
+    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-icon/_variables.scss)[[target=_blank]]"
   },
   "radio": {
     "title": "Radio",
@@ -2558,7 +2584,8 @@
         "title": "Disabled",
         "text": "With `disabled` prop you can disable a user interaction  with `va-radio` component."
       }
-    }
+    },
+    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-radio/_variables.scss)[[target=_blank]]"
   },
   "collapse": {
     "title": "Collapse",
@@ -2580,7 +2607,8 @@
         "title": "Color",
         "text": "Use two color schemes."
       }
-    }
+    },
+    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-collapse/_variables.scss)[[target=_blank]]"
   },
   "accordion": {
     "title": "Accordion",
@@ -2648,7 +2676,8 @@
         "title": "Shadow",
         "text": "You can set a shadow."
       }
-    }
+    },
+    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-chip/_variables.scss)[[target=_blank]]"
   },
   "grid": {
     "title": "Grid System",
@@ -2771,6 +2800,7 @@
         "text": "You can divide item label content on a custom count of lines."
       }
     },
+    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-list/_variables.scss)[[target=_blank]]",
     "api": {
       "list": {
         "text": "API for `va-list` component."
@@ -2849,7 +2879,8 @@
         "title": "Styles",
         "text": "Select styles inherit from input styles"
       }
-    }
+    },
+    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-select/_variables.scss)[[target=_blank]]"
   },
   "parallax": {
     "title": "Parallax",
@@ -2871,7 +2902,8 @@
         "title": "Slot",
         "text": "You can provide some kind of content over the parallax."
       }
-    }
+    },
+    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-parallax/_variables.scss)[[target=_blank]]"
   },
   "backtop": {
     "title": "Backtop",
@@ -2881,7 +2913,8 @@
         "title": "Basic usage",
         "text": "By default `va-backtop` watches for a body element offset height. You can change a target element, positioning and scrolling speed."
       }
-    }
+    },
+    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/tree/develop/packages/ui/src/components/va-backtop/_variables.scss)[[target=_blank]]"
   },
   "reset": {
     "title": "CSS Reset",
@@ -2978,7 +3011,8 @@
         "title": "Disabled",
         "text": "Disabled picker that can be used in forms."
       }
-    }
+    },
+    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-date-picker/_variables.scss)[[target=_blank]]"
   },
   "dateInput": {
     "title": "Date Input",
@@ -3061,7 +3095,8 @@
         "title": "Icons",
         "text": "Looks good with icons provided to buttons."
       }
-    }
+    },
+    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-button-group/_variables.scss)[[target=_blank]]"
   },
   "buttonToggle": {
     "title": "Button Toggle",
@@ -3125,7 +3160,8 @@
         "title": "Shadow",
         "text": "You can set a shadow with `shadow-on-scroll` prop. You need to define `target`."
       }
-    }
+    },
+    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-app-bar/_variables.scss)[[target=_blank]]"
   },
   "innerLoading": {
     "title": "Inner Loading",
@@ -3147,7 +3183,8 @@
         "title": "Icon",
         "text": "You can change the loading icon."
       }
-    }
+    },
+    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-inner-loading/_variables.scss)[[target=_blank]]"
   },
   "installation": {
     "title": "Installation",
@@ -3410,7 +3447,8 @@
         "title": "Slots",
         "text": "You can use slots for pass custom elements: `content` (you can access to **value**) instead of **input** element, `decreaseAction` (you can access to **decrease** function) instead of decrease icon or button and `increaseAction` (you can access to **increase** function) instead of increase icon or button."
       }
-    }
+    },
+    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-counter/_variables.scss)[[target=_blank]]"
   },
   "guide": {
     "title": "Contribution guide",
@@ -3636,7 +3674,8 @@
         "title": "Shape",
         "text": "You can add the shape to navbar background. Shape color will be taken automatic from `color` prop."
       }
-    }
+    },
+    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-navbar/_variables.scss)[[target=_blank]]"
   },
   "buttonDropdown": {
     "title": "Button Dropdown",
@@ -3678,7 +3717,8 @@
         "title": "Click inside",
         "text": "You could set the dropdown to be closed or not after clicking on its content."
       }
-    }
+    },
+    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-button-dropdown/_variables.scss)[[target=_blank]]"
   },
   "popover": {
     "title": "Popover",
@@ -3708,7 +3748,8 @@
         "title": "Trigger",
         "text": "Events triggering the popover separated with spaces: `hover`, `click` or `focus`."
       }
-    }
+    },
+    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-popover/_variables.scss)[[target=_blank]]"
   },
   "typography": {
     "title": "Typography",
@@ -3827,7 +3868,8 @@
           "Example of `va-data-table` with **CRUD** actions using a `va-modal` component for editing each row:"
         ]
       }
-    }
+    },
+    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-data-table/_variables.scss)[[target=_blank]]"
   },
   "uiElementGuide": {
     "title": "UI Element Requirements",
@@ -3897,7 +3939,8 @@
         "title": "Filter",
         "text": "You can hide specific time and user will not be able to select it."
       }
-    }
+    },
+    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-time-picker/_variables.scss)[[target=_blank]]"
   },
   "timeInput": {
     "title": "Time Input",
@@ -3988,7 +4031,8 @@
         "title": "Fade",
         "text": "Additional carousel slide switch effect."
       }
-    }
+    },
+    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-carousel/_variables.scss)[[target=_blank]]"
   },
   "nuxt": {
     "title": "Nuxt integration",

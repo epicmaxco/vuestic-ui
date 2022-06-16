@@ -1291,6 +1291,7 @@
     "api": "API",
     "methods": "Methods",
     "options": "Options",
+    "cssVariables": "CSS Переменные",
     "faq": "FAQ",
     "code": {
       "or": "или"
@@ -1423,7 +1424,8 @@
         "title": "Иконки",
         "text": "Свойство `icon` используется для отображения иконок внутри аватара."
       }
-    }
+    },
+    "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/tree/develop/packages/ui/src/components/va-avatar/_variables.scss)[[target=_blank]]"
   },
   "affix": {
     "title": "Affix",
@@ -1438,7 +1440,8 @@
       "target": {
         "title": "Фиксирует элемент относительно настраиваемого контейнера"
       }
-    }
+    },
+    "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-affix/_variables.scss)[[target=_blank]]"
   },
   "breadcrumbs": {
     "title": "Breadcrumbs",
@@ -1469,6 +1472,7 @@
         "text": "Элемент в иерархии навигации `va-breadcrumbs-item`."
       }
     },
+    "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-breadcrumbs/_variables.scss)[[target=_blank]]",
     "api": {
       "item": {
         "title": "Item API",
@@ -1510,7 +1514,8 @@
       "color": {
         "title": "Цвет"
       }
-    }
+    },
+    "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/tree/develop/packages/ui/src/components/va-badge/_variables.scss)[[target=_blank]]"
   },
   "button": {
     "title": "Button",
@@ -1556,7 +1561,8 @@
         "title": "Недоступная кнопка",
         "text": "Свойство `disabled` запрещает любые действия с кнопкой."
       }
-    }
+    },
+    "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-button/_variables.scss)[[target=_blank]]"
   },
   "slider": {
     "title": "Slider",
@@ -1614,7 +1620,8 @@
         "title": "Вертикальный слайдер",
         "text": "Свойство `vertical` изменяет отображение слайдера на вертикальное."
       }
-    }
+    },
+    "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-slider/_variables.scss)[[target=_blank]]"
   },
   "switch": {
     "title": "Switch",
@@ -1663,11 +1670,13 @@
         "title": "Ошибка",
         "text": "Свойство `error` стилизует переключатель информируя об ошибке. Свойство `error-messages` добавляет сообщение об ошибке."
       }
-    }
+    },
+    "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-switch/_variables.scss)[[target=_blank]]"
   },
   "rating": {
     "title": "Rating",
     "summaryText": "Компонент `va-rating` это простой, но мощный элемент для сбора отзывов пользователей. Всего в нескольких строках кода он может предоставить вам оценку пользователей о вашем продукте или приложении.",
+    "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-rating/_variables.scss)[[target=_blank]]",
     "examples": {
       "default": {
         "title": "Базовое использование",
@@ -1748,6 +1757,7 @@
         "text": "Вы можете установить собственное событие `onClick` для обработки нажатия на уведомление."
       }
     },
+    "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-toast/_variables.scss)[[target=_blank]]",
     "faq": {
       "questions": [
         {
@@ -1821,7 +1831,8 @@
     "functionalApi": {
       "title": "Функциональное API",
       "text": "Чтобы упростить создание модального окна, у нас есть сокращение. Для Options API - это `$vaModal`, который предоставляет VaModalPlugin (автоматически устанавливается вместе с createVuestic). Для Composition API у нас есть хук `useModal`. Хук и глобальный объект имеют похожий API."
-    }
+    },
+    "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-modal/_variables.scss)[[target=_blank]]"
   },
   "pagination": {
     "title": "Pagination",
@@ -1856,6 +1867,7 @@
         "text": "Свойства `total` и `page-size` позволяют компоненту вычислить длину отображаемых элементов. Значение компонента в этом случае будет равно номеру первого элемента на выбранной странице."
       }
     },
+    "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-pagination/_variables.scss)[[target=_blank]]",
     "faq": {
       "questions": [
         {
@@ -1894,6 +1906,7 @@
         "text": "Свойство `color` используется для изменения цвета компонента, `text-color` изменяет цвет текста (предопределенные опции цвета или `HEX`)."
       }
     },
+    "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-tabs/_variables.scss)[[target=_blank]]",
     "faq": {
       "questions": [
         {
@@ -1928,7 +1941,8 @@
         "title": "Превью",
         "text": "Свойство `type` со значением `gallery` включит отображение превью загружаемого файла."
       }
-    }
+    },
+    "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-file-upload/_variables.scss)[[target=_blank]]"
   },
   "divider": {
     "title": "Divider",
@@ -1958,7 +1972,8 @@
         "title": "Разделитель списков",
         "text": "Разделитель отлично работает с компонентом [va-list](https://vuestic.dev/en/ui-elements/list)[[target=_blank]]."
       }
-    }
+    },
+    "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-divider/_variables.scss)[[target=_blank]]"
   },
   "form": {
     "title": "Form",
@@ -2041,6 +2056,7 @@
         "values": "Допустимые значения для `align`: left, center, right, between, around, stretch."
       }
     },
+    "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-card/_variables.scss)[[target=_blank]]",
     "faq": {
       "questions": [
         {
@@ -2095,6 +2111,7 @@
         "text": "Свойство `gradient` задает градиент фону."
       }
     },
+    "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-sidebar/_variables.scss)[[target=_blank]]",
     "faq": {
       "questions": [
         {
@@ -2157,7 +2174,8 @@
         "title": "Слот ошибки",
         "text": "Виден, когда путь `src` неверен."
       }
-    }
+    },
+    "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-image/_variables.scss)[[target=_blank]]"
   },
   "optionList": {
     "title": "Option List",
@@ -2179,7 +2197,8 @@
         "title": "Массив объектов",
         "text": "Вместо массива строк вы можете использовать массив объектов и указать, какой ключ используется для каждого параметра."
       }
-    }
+    },
+    "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-option-list/_variables.scss)[[target=_blank]]"
   },
   "checkbox": {
     "title": "Checkbox",
@@ -2207,7 +2226,8 @@
         "title": "Ошибка",
         "text": "Свойство `error` включает стиль ошибки для чекбокса, свойство `error-messages` добавит сообщение с текстом ошибки."
       }
-    }
+    },
+    "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-checkbox/_variables.scss)[[target=_blank]]"
   },
   "progressBar": {
     "title": "Progress Bar",
@@ -2237,7 +2257,8 @@
         "title": "Буфер",
         "text": "При работе с мультимедийным контентом, таким как потоковое видео, вы можете использовать компонент, чтобы показать индикатор выполнения буферизации на видео."
       }
-    }
+    },
+    "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-progress-bar/_variables.scss)[[target=_blank]]"
   },
   "progressCircle": {
     "title": "Progress Circle",
@@ -2267,7 +2288,8 @@
         "title": "Ширина полосы индикатора",
         "text": "Свойство `thickness` задает ширину полосы индикатора."
       }
-    }
+    },
+    "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-progress-circle/_variables.scss)[[target=_blank]]"
   },
   "infiniteScroll": {
     "title": "Infinite Scroll",
@@ -2289,7 +2311,8 @@
         "title": "Кастомный целевой контейнер прокрутки",
         "text": "Предоставьте элемент DOM или селектор CSS для использования вместо контейнера прокрутки по умолчанию."
       }
-    }
+    },
+    "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-infinite-scroll/_variables.scss)[[target=_blank]]"
   },
   "input": {
     "title": "Input",
@@ -2331,7 +2354,8 @@
         "title": "Стили",
         "text": "Поддерживаются три свойства для стилизации компонента: `solid` (по умолчанию), `outline`, `bordered`."
       }
-    }
+    },
+    "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-input/_variables.scss)[[target=_blank]]"
   },
   "alert": {
     "title": "Alert",
@@ -2398,7 +2422,8 @@
       "customCloseIcon": "Вы читаете это важное сообщение с пользовательской иконкой закрытия.",
       "messageInsteadIcon": "Вы читаете это важное сообщение с текстом вместо иконки закрытия.",
       "slottedTextInsteadIcon": "Вы читаете это важное сообщение с текстом в слоте вместо иконки закрытия."
-    }
+    },
+    "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-alert/_variables.scss)[[target=_blank]]"
   },
   "icon": {
     "title": "Icon",
@@ -2432,7 +2457,8 @@
         "title": "Произвольный тег",
         "text": "Свойство `tag` позволяет обернуть иконку в произвольный тег."
       }
-    }
+    },
+    "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-icon/_variables.scss)[[target=_blank]]"
   },
   "radio": {
     "title": "Radio",
@@ -2454,7 +2480,8 @@
         "title": "Недоступная опция",
         "text": "Свойство `disabled` запрещает любые действия с компонентом `va-radio`."
       }
-    }
+    },
+    "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-radio/_variables.scss)[[target=_blank]]"
   },
   "collapse": {
     "title": "Collapse",
@@ -2476,7 +2503,8 @@
         "title": "Цвет",
         "text": "Свойство `color` используется для изменения цвета компонента (предопределенные опции цвета или `HEX`)."
       }
-    }
+    },
+    "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-collapse/_variables.scss)[[target=_blank]]"
   },
   "accordion": {
     "title": "Accordion",
@@ -2544,7 +2572,8 @@
         "title": "Тень",
         "text": "Вы можете установить тень."
       }
-    }
+    },
+    "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-chip/_variables.scss)[[target=_blank]]"
   },
   "grid": {
     "title": "Grid Layout",
@@ -2667,6 +2696,7 @@
         "text": "Свойство `lines` позовляет разделить содержимое элемента списка на произвольное количество строк."
       }
     },
+    "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-list/_variables.scss)[[target=_blank]]",
     "api": {
       "list": {
         "text": "API for `va-list` component."
@@ -2745,7 +2775,8 @@
         "title": "Стили",
         "text": "Применяются стили, унаследованные от стилей поля ввода."
       }
-    }
+    },
+    "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-select/_variables.scss)[[target=_blank]]"
   },
   "parallax": {
     "title": "Parallax",
@@ -2767,7 +2798,8 @@
         "title": "Слот",
         "text": "Вы можете добавить любой контент поверх параллакса."
       }
-    }
+    },
+    "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-parallax/_variables.scss)[[target=_blank]]"
   },
   "backtop": {
     "title": "Backtop",
@@ -2777,7 +2809,8 @@
         "title": "Базовое использование",
         "text": "По умолчанию компонент `va-backtop` следит за значением `offset-height` тела документа. Вы можете изменить целевой элемент, положение и скорость прокрутки."
       }
-    }
+    },
+    "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/tree/develop/packages/ui/src/components/va-backtop/_variables.scss)[[target=_blank]]"
   },
   "reset": {
     "title": "Сброс CSS",
@@ -2866,7 +2899,8 @@
         "title": "Цвета",
         "text": "Вы можете изменить цвета с помощью переменных `CSS` для более глубокой настройки, но также вы можете просто изменить цвета с помощью этого свойства."
       }
-    }
+    },
+    "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-date-picker/_variables.scss)[[target=_blank]]"
   },
   "dateInput": {
     "title": "Date Input",
@@ -2942,7 +2976,8 @@
         "title": "Иконки",
         "text": "Вы можете кастомизировать ваши кнопки используя иконки."
       }
-    }
+    },
+    "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-button-group/_variables.scss)[[target=_blank]]"
   },
   "buttonToggle": {
     "title": "Button Toggle",
@@ -3006,7 +3041,8 @@
         "title": "Тень",
         "text": "Вы можете добавить тень панели приложения при прокрутке с помощью `shadow-on-scroll`. Вы должны определить `target`."
       }
-    }
+    },
+    "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-app-bar/_variables.scss)[[target=_blank]]"
   },
   "innerLoading": {
     "title": "Inner Loading",
@@ -3028,7 +3064,8 @@
         "title": "Иконка",
         "text": "Свойство `icon` задает необходимую вам иконку."
       }
-    }
+    },
+    "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-inner-loading/_variables.scss)[[target=_blank]]"
   },
   "installation": {
     "title": "Установка",
@@ -3289,7 +3326,8 @@
         "title": "Слоты",
         "text": "При помощи слотов можно установить пользовательские компоненты: `content` (есть доступ к значению **value**) вместо элемента поля ввода, `decreaseAction` (есть доступ к функции **decrease**) и `increaseAction` (есть доступ к функции **increase**) вместо, соответственно, иконок и кнопок уменьшения и увеличения."
       }
-    }
+    },
+    "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-counter/_variables.scss)[[target=_blank]]"
   },
   "guide": {
     "title": "Руководство для контрибьюторов",
@@ -3514,7 +3552,8 @@
         "title": "Shape",
         "text": "Свойство `shape` добавляет фигуру на фон панели навигации. Цвет формы будет автоматически взят из свойства `color`."
       }
-    }
+    },
+    "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-navbar/_variables.scss)[[target=_blank]]"
   },
   "buttonDropdown": {
     "title": "Button Dropdown",
@@ -3556,7 +3595,8 @@
         "title": "Внутренний клик (контент)",
         "text": "Свойство `close-on-content-click` позволяет настроить закрытие или отменить его по клику на контент."
       }
-    }
+    },
+    "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-button-dropdown/_variables.scss)[[target=_blank]]"
   },
   "popover": {
     "title": "Popover",
@@ -3586,7 +3626,8 @@
         "title": "Триггер",
         "text": "События, запускающие всплывающее окно, разделенные пробелами: `hover`, `click` или `focus`."
       }
-    }
+    },
+    "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-popover/_variables.scss)[[target=_blank]]"
   },
   "typography": {
     "title": "Типографика",
@@ -3704,7 +3745,8 @@
           "Пример `va-data-table` с операциями **CRUD** с использованием компонента `va-modal` для редактирования каждой строки:"
         ]
       }
-    }
+    },
+    "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-data-table/_variables.scss)[[target=_blank]]"
   },
   "uiElementGuide": {
     "title": "Требования к элементам UI",
@@ -3774,7 +3816,8 @@
         "title": "Фильтр",
         "text": "Свойство позволит скрыть определенное время от пользователя."
       }
-    }
+    },
+    "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-time-picker/_variables.scss)[[target=_blank]]"
   },
   "timeInput": {
     "title": "Time Input",
@@ -3827,7 +3870,8 @@
     }
   },
   "carousel": {
-    "title": "Карусель"
+    "title": "Карусель",
+    "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-carousel/_variables.scss)[[target=_blank]]"
   },
   "treeShaking": {
     "title": "Tree shaking",
