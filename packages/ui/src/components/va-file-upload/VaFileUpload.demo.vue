@@ -43,7 +43,7 @@
     </VbCard>
     <VbCard
       title="disabled"
-      tyle="width: 100%"
+      style="width: 100%;"
     >
       <va-file-upload
         v-model="basic"
@@ -76,11 +76,77 @@
         color="info"
       />
     </VbCard>
+
+    <VbCard
+      title="custom drop zone and button text"
+      style="width: 100%;"
+    >
+      <va-file-upload
+        v-model="basic"
+        dropzone
+        drop-zone-text="Custom drop zone text"
+        upload-button-text="Custom upload button text"
+        color="info"
+      />
+    </VbCard>
+
+    <VbCard
+      title="slot"
+      style="width: 100%;"
+    >
+      <va-file-upload
+        v-model="basic"
+      >
+        <div class="p-4">
+          <p class="mb-2">This is slot, click or drag'n'drop file to upload</p>
+          <img src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png" width="100" height="100" alt="" />
+        </div>
+      </va-file-upload>
+    </VbCard>
+
+    <VbCard
+      title="undo"
+      style="width: 100%;"
+    >
+      <p>list</p>
+      <va-file-upload v-model="defaultFileList" undo />
+      <p>gallery</p>
+      <va-file-upload
+        v-model="defaultFileList"
+        type="gallery"
+        undo
+      />
+    </VbCard>
+    <VbCard
+      title="undo with custom duration"
+      style="width: 100%;"
+    >
+      <p>list</p>
+      <va-file-upload v-model="defaultFileList" undo :undoDuration="10000" />
+      <p>gallery</p>
+      <va-file-upload
+        v-model="defaultFileList"
+        type="gallery"
+        undo
+        :undoDuration="10000"
+      />
+    </VbCard>
+
+    <VbCard
+            title="file-removed and file-added event"
+      style="width: 100%;"
+    >
+      <va-file-upload
+        v-model="basic"
+        @file-removed="$vaToast.init('File removed')"
+        @file-added="$vaToast.init('File added')"
+      />
+    </VbCard>
   </VbDemo>
 </template>
 
 <script>
-import VaFileUpload from './index'
+import { VaFileUpload } from './index'
 export default {
   components: { VaFileUpload },
   data () {

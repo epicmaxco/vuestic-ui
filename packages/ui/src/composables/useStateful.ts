@@ -1,9 +1,8 @@
-import { ref, computed, PropType } from 'vue'
+import { ref, computed, PropType, Ref, watch } from 'vue'
 
 export type StatefulProps<T> = {
   stateful: boolean
   modelValue: T
-  [prop: string]: unknown
 }
 
 /**
@@ -14,7 +13,7 @@ export type StatefulProps<T> = {
  */
 export const useStatefulProps = {
   stateful: { type: Boolean as PropType<boolean>, default: false },
-  modelValue: { type: undefined as any as PropType<unknown> },
+  modelValue: { type: undefined as any },
 }
 
 export const useStatefulEmits = ['update:modelValue']
@@ -24,21 +23,32 @@ export const useStatefulEmits = ['update:modelValue']
  * if `stateful` prop is `false`
  * Record<any, any> & Record<'modelValue', T>
  */
-export function useStateful<T, D extends T | undefined> (
+export function useStateful<T, D extends T = T> (
   props: StatefulProps<T>,
   emit: (event: 'update:modelValue', newValue: T) => void,
   defaultValue?: D,
 ) {
-  const valueState = ref(defaultValue === undefined ? props.modelValue : defaultValue)
+  const valueState = ref(defaultValue === undefined ? props.modelValue : defaultValue) as Ref<T>
+  let unwatchModelValue: Function
 
-  const valueComputed = computed({
+  const watchModelValue = () => {
+    unwatchModelValue = watch(() => props.modelValue, (modelValue) => {
+      valueState.value = modelValue
+    })
+  }
+
+  watch(() => props.stateful, (stateful: boolean) => {
+    stateful ? watchModelValue() : unwatchModelValue?.()
+  }, { immediate: true })
+
+  const valueComputed = computed<T>({
     get () {
       if (props.stateful) {
         return valueState.value
       }
       return props.modelValue
     },
-    set (value: any) {
+    set (value: T) {
       if (props.stateful) {
         valueState.value = value
       }

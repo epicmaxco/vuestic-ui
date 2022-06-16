@@ -1,1 +1,1 @@
-export { default } from './VaConfig'
+export { default as VaConfig } from './VaConfig'

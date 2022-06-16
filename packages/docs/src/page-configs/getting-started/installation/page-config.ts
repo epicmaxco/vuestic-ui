@@ -1,13 +1,11 @@
 import { ApiDocsBlock } from '@/types/configTypes'
 import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import {
-  installation,
+  installationObject,
   quickStart,
   fontInstallationCSS,
   fontInstallationHTML,
   cliPrepare,
-  treeShakingExample,
-  treeShakingPluginExample,
 } from './code-examples'
 
 const block = new PageGenerationHelper(__dirname)
@@ -30,7 +28,7 @@ const config: ApiDocsBlock[] = [
   block.paragraph('installation.manual.prerequisites'),
   block.list(['installation.manual.node', 'installation.manual.npm']),
   block.paragraph('installation.manual.afterCheck'),
-  block.code(installation, 'bash'),
+  block.code(installationObject, 'bash'),
 
   block.headline('installation.fonts.title'),
   block.paragraph('installation.fonts.description'),
@@ -46,25 +44,7 @@ const config: ApiDocsBlock[] = [
   block.subtitle('installation.codesandbox.title'),
   block.component('OpenCodeSandbox'),
 
-  block.subtitle('installation.treeShaking.title'),
-  block.paragraph('installation.treeShaking.description'),
-
-  block.paragraph('installation.treeShaking.example.title'),
-  block.code(treeShakingExample),
-  block.paragraph('installation.treeShaking.example.footer'),
-
-  block.paragraph('installation.treeShaking.plugins.title'),
-  block.list([
-    'installation.treeShaking.plugins.GlobalConfigPlugin',
-    'installation.treeShaking.plugins.ColorHelpersPlugin',
-    'installation.treeShaking.plugins.ToastInstall',
-    'installation.treeShaking.plugins.DropdownPopperSubplugin',
-  ]),
-
-  block.paragraph('installation.treeShaking.plugins.example.title'),
-  block.code(treeShakingPluginExample),
-
-  block.alert('installation.treeShaking.attention.cssLoader', 'info'),
+  // block.alert('installation.treeShaking.attention.cssLoader', 'info'),
 ]
 
 export default config

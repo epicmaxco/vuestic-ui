@@ -10,11 +10,10 @@
     :error-count="errorCount"
   >
     <div
+      ref="container"
       class="va-checkbox__input-container"
       @click="toggleSelection"
-      tabindex="-1"
       @blur="onBlur"
-      ref="container"
     >
       <div
         class="va-checkbox__square"
@@ -24,47 +23,53 @@
         <input
           ref="input"
           type="checkbox"
-          role="checkbox"
-          readonly
-          :id="id"
-          :name="name"
+          class="va-checkbox__input"
+          :id="computedId"
+          :indeterminate="indeterminate"
+          :value="label"
+          :checked="isActive"
+          v-bind="inputAttributesComputed"
           v-on="keyboardFocusListeners"
           @focus="onFocus"
           @blur="onBlur"
-          class="va-checkbox__input"
           @click.stop.prevent
           @keypress.prevent="toggleSelection"
-          :disabled="disabled"
-          :indeterminate="indeterminate"
         >
         <va-icon
+          v-show="isActive"
           class="va-checkbox__icon"
-          :name="computedIconName"
           size="20px"
+          :name="computedIconName"
+          :color="textColorComputed"
         />
       </div>
-      <div
-        class="va-checkbox__label"
-        :style="labelStyle"
+      <label
+        v-if="label || $slots.label"
         ref="label"
-        tabindex="-1"
+        class="va-checkbox__label"
+        :for="computedId"
+        :style="labelStyle"
         @blur="onBlur"
       >
         <slot name="label">{{ label }}</slot>
-      </div>
+      </label>
     </div>
   </VaMessageListWrapper>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, PropType, ref } from 'vue'
+import { defineComponent, computed, PropType, shallowRef } from 'vue'
+
+import { generateUniqueId } from '../../services/utils'
+import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'
+import { useColors } from '../../composables/useColor'
+import { useSelectable, useSelectableProps, useSelectableEmits, Elements } from '../../composables/useSelectable'
+import { useTextColor } from '../../composables/useTextColor'
 
 import { VaMessageListWrapper } from '../va-input'
-import VaIcon from '../va-icon/'
+import { VaIcon } from '../va-icon/'
 
-import { useColors } from '../../composables/useColor'
-import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'
-import { useSelectable, useSelectableProps, useSelectableEmits } from './useSelectable'
+const VaCheckboxValueType = [Boolean, Array, String, Object] as PropType<boolean | null | string | number | Record<any, unknown> | unknown[]>
 
 export default defineComponent({
   name: 'VaCheckbox',
@@ -72,18 +77,21 @@ export default defineComponent({
   emits: useSelectableEmits,
   props: {
     ...useSelectableProps,
-    modelValue: { type: null as any as PropType<unknown>, default: false },
-    color: { type: String as PropType<string>, default: 'primary' },
-    checkedIcon: { type: String as PropType<string>, default: 'check' },
-    indeterminateIcon: { type: String as PropType<string>, default: 'remove' },
-    id: { type: String as PropType<string>, default: '' },
-    name: { type: String as PropType<string>, default: '' },
+    modelValue: { type: VaCheckboxValueType, default: false },
+    color: { type: String, default: 'primary' },
+    checkedIcon: { type: String, default: 'check' },
+    indeterminate: { type: Boolean, default: false },
+    indeterminateValue: { type: VaCheckboxValueType, default: null },
+    indeterminateIcon: { type: String, default: 'remove' },
+    id: { type: String, default: '' },
+    name: { type: String, default: '' },
+    ariaLabel: { type: String, default: undefined },
   },
   setup (props, { emit }) {
-    const elements = {
-      container: ref(null),
-      input: ref(null),
-      label: ref(null),
+    const elements: Elements = {
+      container: shallowRef<HTMLElement>(),
+      input: shallowRef<HTMLElement>(),
+      label: shallowRef<HTMLElement>(),
     }
 
     const {
@@ -97,6 +105,9 @@ export default defineComponent({
     } = useSelectable(props, emit, elements)
     const { getColor } = useColors()
     const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
+    const { textColorComputed } = useTextColor()
+
+    const isActive = computed(() => isChecked.value || isIndeterminate.value)
 
     const computedClass = computed(() => ({
       'va-checkbox--selected': isChecked.value,
@@ -120,10 +131,9 @@ export default defineComponent({
     })
 
     const inputStyle = computed(() => {
-      const isActive = isChecked.value || isIndeterminate.value
       const style = {
-        background: isActive ? getColor(props.color) : '',
-        borderColor: isActive ? getColor(props.color) : '',
+        background: isActive.value ? getColor(props.color) : '',
+        borderColor: isActive.value ? getColor(props.color) : '',
       }
 
       if (computedError.value) {
@@ -138,17 +148,40 @@ export default defineComponent({
       : props.checkedIcon,
     )
 
+    const uniqueId = computed(generateUniqueId)
+    const computedId = computed(() => props.id || uniqueId.value)
+    const computedName = computed(() => props.name || uniqueId.value)
+    const inputAttributesComputed = computed(() => ({
+      name: computedName.value,
+      disabled: props.disabled,
+      readonly: props.readonly,
+      tabindex: props.disabled ? -1 : 0,
+      ariaLabel: props.ariaLabel,
+      ariaDisabled: props.disabled,
+      ariaReadOnly: props.readonly,
+      ariaChecked: isActive.value,
+      'aria-invalid': !!computedErrorMessages.value.length,
+      'aria-errormessage': typeof computedErrorMessages.value === 'string'
+        ? computedErrorMessages.value
+        : computedErrorMessages.value.join(', '),
+    }))
+
     return {
+      isActive,
       computedClass,
       labelStyle,
       inputStyle,
       computedIconName,
+      textColorComputed,
       computedError,
       computedErrorMessages,
       keyboardFocusListeners,
       toggleSelection,
       onBlur,
       onFocus,
+      inputAttributesComputed,
+      computedId,
+      computedName,
     }
   },
 })
@@ -206,9 +239,7 @@ export default defineComponent({
   }
 
   &__input {
-    opacity: 0;
-    width: 0;
-    height: 0 !important;
+    @include visually-hidden;
   }
 
   &__label {
@@ -219,7 +250,6 @@ export default defineComponent({
   &__icon {
     pointer-events: var(--va-checkbox-icon-pointer-events);
     position: var(--va-checkbox-icon-position);
-    color: var(--va-checkbox-icon-color);
   }
 
   &--selected {

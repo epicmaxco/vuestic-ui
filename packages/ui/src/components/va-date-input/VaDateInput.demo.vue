@@ -7,6 +7,8 @@
       <va-date-input v-model="range" leftIcon />
       Dates and clearable
       <va-date-input v-model="dates" clearable />
+      Statefull
+      <va-date-input stateful clearable />
     </VbCard>
 
     <VbCard title="icon & clearable">
@@ -94,8 +96,7 @@
 
     <VbCard title="weekends">
       <va-date-input v-model="value" label="Highlight weekend" highlight-weekends class="mb-4" />
-
-      <va-date-input v-model="value" label="Every second day is weeked" highlight-weekends :weekends="(date) => date.getDay() % 2 === 0" class="mb-4" />
+      <va-date-input v-model="value" label="Every second day is weekend" highlight-weekends :weekends="(date) => date.getDay() % 2 === 0" class="mb-4" />
     </VbCard>
 
     <VbCard title="dropdown">
@@ -103,9 +104,14 @@
     </VbCard>
 
     <VbCard title="reset on close (range)">
-      <va-date-input v-model="range" v-model:is-open="isOpen" label="enabled" class="mb-4" />
+      <va-date-input v-model="range" label="enabled" class="mb-4" />
+      <va-date-input v-model="range" label="disabled" :reset-on-close="false" class="mb-4" />
+    </VbCard>
 
-      <va-date-input v-model="range" v-model:is-open="isOpen" label="disabled" :reset-on-close="false" class="mb-4" />
+    <VbCard title="values as strings and numbers">
+      <va-date-input v-model="string" class="mb-4" />
+      <va-date-input v-model="strings" class="mb-4" />
+      <va-date-input v-model="stringRange" class="mb-4" />
     </VbCard>
 
     <VbCard title="slots to calendar">
@@ -144,12 +150,55 @@
     <VbCard title="disable dates">
       <va-date-input v-model="value" label="Disable all Tuesday and Thursday" :allowedDays="(date) => date.getDay() !== 2 && date.getDay() !== 4" />
     </VbCard>
+
+    <VbCard title="Manual Input">
+      <va-date-input
+          v-model="value"
+          manual-input
+          label="Manual Input"
+      />
+    </VbCard>
+
+    <VbCard title="View prop">
+      <va-date-input
+          v-model="value"
+          v-model:view="dayView"
+          label="Calendar should open on 2013"
+      />
+    </VbCard>
+
+    <VbCard title="Reset Model Value">
+      <va-button @click="resetModelValue()">Reset model value</va-button>
+    </VbCard>
+
+    <VbCard title="Set Model Value">
+      <va-button @click="setModelValue()">Set model value</va-button>
+    </VbCard>
+
+    <VbCard title="state">
+      <va-date-input v-model="value" disabled clearable label="Disabled" />
+      <va-date-input v-model="value" readonly clearable label="Readonly" />
+      <va-date-input v-model="value" success clearable label="Success" />
+      <va-date-input v-model="value" error clearable label="Error" />
+    </VbCard>
+
+    <VbCard title="validation">
+      <va-date-input v-model="value" :rules="validationRules1" clearable />
+      <va-date-input v-model="value" :rules="validationRules2" clearable />
+    </VbCard>
+
+    <VbCard title="Focus and Blur">
+      <va-date-input ref="dateInputRef" v-model="value" :rules="validationRules1" clearable />
+      <va-button @click="focusDateInput">Focus</va-button>
+      <va-button @click="blurDateInput">Blur</va-button>
+    </VbCard>
   </VbDemo>
 </template>
 
 <script lang="ts">
 import { VaDateInput } from './index'
-import VaChip from '../va-chip'
+import { VaChip } from '../va-chip'
+import { VaButton } from '../va-button'
 
 const datePlusDay = (date: Date, days: number) => {
   const d = new Date(date)
@@ -159,16 +208,44 @@ const datePlusDay = (date: Date, days: number) => {
 const nextWeek = datePlusDay(new Date(), 7)
 
 export default {
-  components: { VaDateInput, VaChip },
+  components: { VaButton, VaDateInput, VaChip },
   data () {
     return {
       value: new Date(),
       range: { start: new Date(), end: nextWeek },
       dates: [new Date(), nextWeek],
+      dayView: { type: 'day', month: 3, year: 2013 },
+      string: new Date().toString(),
+      strings: [Date.now() + 1e9, new Date().toString()],
+      stringRange: { start: new Date().toString(), end: Date.now() + 1e9 },
+
+      validationRules1: [(value: Date) => {
+        return !!value || 'Should be value'
+      }],
+
+      validationRules2: [(value: Date) => {
+        if (!value) { return true }
+        return value.getDate?.() === 10 || 'Should be 10th day'
+      }],
 
       // Dropdown
       isOpen: false,
     }
+  },
+  methods: {
+    resetModelValue () {
+      (this as any).value = undefined;
+      (this as any).range = undefined;
+      (this as any).dates = undefined
+    },
+    setModelValue () {
+      (this as any).value = new Date();
+      (this as any).range = { start: new Date(), end: nextWeek };
+      (this as any).dates = [new Date(), nextWeek]
+    },
+
+    focusDateInput () { (this as any).$refs.dateInputRef.focus() },
+    blurDateInput () { (this as any).$refs.dateInputRef.blur() },
   },
 }
 </script>

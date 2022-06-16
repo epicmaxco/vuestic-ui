@@ -36,6 +36,12 @@
                 :style="{ color: colorComputed }"
               >
                 {{ label }}
+                <span
+                  v-if="requiredMark"
+                  class="va-input__required-mark"
+                >
+                  *
+                </span>
               </label>
 
               <div v-if="$slots.content" class="va-input__content__input">
@@ -79,7 +85,7 @@
       </div>
     </div>
 
-    <div class="va-input-wrapper__message-list-wrapper">
+    <div v-if="hasMessages" class="va-input-wrapper__message-list-wrapper">
       <slot name="messages" v-bind="{ messages: messagesComputed, errorLimit, color: messagesColor }">
         <va-message-list
           :color="messagesColor"
@@ -96,8 +102,9 @@ import { computed, defineComponent } from 'vue'
 import { useBem } from '../../../composables/useBem'
 import { useFormProps } from '../../../composables/useForm'
 import { useValidationProps } from '../../../composables/useValidation'
-import { getColor } from '../../../services/color-config/color-config'
-import VaMessageList from './VaMessageList'
+import { useColors } from '../../../services/color-config/color-config'
+import { VaMessageList } from './VaMessageList'
+import pick from 'lodash/pick.js'
 
 export default defineComponent({
   name: 'VaInputWrapper',
@@ -115,6 +122,7 @@ export default defineComponent({
     focused: { type: Boolean, default: false },
     error: { type: Boolean, default: false },
     success: { type: Boolean, default: false },
+    requiredMark: { type: Boolean, default: false },
   },
 
   emits: [
@@ -127,22 +135,24 @@ export default defineComponent({
   ],
 
   setup (props) {
-    const { createModifiersClasses } = useBem('va-input')
+    const { getColor } = useColors()
+
+    const wrapperClass = useBem('va-input', () => ({
+      ...pick(props, ['outline', 'bordered', 'success', 'focused', 'error', 'disabled', 'readonly']),
+      labeled: !!props.label,
+      solid: !props.outline && !props.bordered,
+    }))
 
     const colorComputed = computed(() => getColor(props.color))
 
+    const messagesComputed = computed(() => props.error ? props.errorMessages : props.messages)
+
+    const hasMessages = computed(() => Boolean(
+      typeof messagesComputed.value === 'string' ? messagesComputed.value : messagesComputed.value?.length,
+    ))
+
     return {
-      wrapperClass: createModifiersClasses(() => ({
-        outline: props.outline,
-        bordered: props.bordered,
-        solid: !props.outline && !props.bordered,
-        disabled: props.disabled,
-        readonly: props.readonly,
-        labeled: !!props.label,
-        success: props.success,
-        focused: props.focused,
-        error: props.error,
-      })),
+      wrapperClass,
 
       colorComputed,
       borderColorComputed: computed(() => props.focused ? colorComputed.value : undefined),
@@ -153,8 +163,9 @@ export default defineComponent({
 
         return ''
       }),
-      messagesComputed: computed(() => props.error ? props.errorMessages : props.messages),
-      errorLimit: computed(() => props.error ? props.errorCount : 99),
+      messagesComputed,
+      hasMessages,
+      errorLimit: computed(() => props.error ? Number(props.errorCount) : 99),
     }
   },
 })
@@ -189,6 +200,9 @@ export default defineComponent({
     border-width: var(--va-input-border-width);
     overflow: hidden;
     padding: 0 var(--va-input-content-horizontal-padding);
+    z-index: 0;
+
+    @include va-background(var(--va-input-color), null, -1);
 
     /* Creates gap between prepend, content, validation icons, append */
     & > * {
@@ -226,9 +240,9 @@ export default defineComponent({
   }
 
   &__content-wrapper {
+    width: stretch;
     display: flex;
     align-items: center;
-    width: 100%;
 
     .va-input__content {
       width: 100%;
@@ -264,10 +278,6 @@ export default defineComponent({
         &::placeholder {
           color: var(--va-input-placeholder-text-color);
         }
-
-        &:disabled {
-          opacity: var(--va-input-disabled-opacity);
-        }
       }
     }
   }
@@ -284,6 +294,19 @@ export default defineComponent({
         margin-right: 0;
       }
     }
+
+    &__reset {
+      &:focus {
+        @include focus-outline;
+      }
+    }
+  }
+
+  &__required-mark {
+    transform: translate(0, -2px);
+    color: var(--va-danger);
+    font-size: 18px;
+    font-weight: var(--va-input-container-label-font-weight);
   }
 
   textarea {
@@ -293,8 +316,8 @@ export default defineComponent({
 
   &--labeled {
     .va-input__content-wrapper {
-      padding-top: 12px;
       height: 100%;
+      padding-top: 12px;
       align-items: flex-end;
     }
 
@@ -304,18 +327,13 @@ export default defineComponent({
       height: 12px;
       transform: translateY(-100%);
       position: absolute;
-      display: block;
       left: 0;
       top: 0;
+      display: flex;
       padding-top: 1px;
       max-width: var(--va-input-container-label-max-width);
-      color: var(--va-input-container-label-color);
       font-size: var(--va-input-container-label-font-size);
-      letter-spacing:
-        var(
-          --va-input-container-label-letter-spacing,
-          var(--va-letter-spacing)
-        );
+      letter-spacing: var(--va-input-container-label-letter-spacing, var(--va-letter-spacing));
       line-height: var(--va-input-container-label-line-height);
       font-weight: var(--va-input-container-label-font-weight);
       text-transform: var(--va-input-container-label-text-transform);
@@ -330,21 +348,22 @@ export default defineComponent({
   /* We have 3 styles and two states for each style separately */
   &--solid {
     .va-input__container {
-      background: var(--va-input-color);
       border-color: var(--va-input-color);
       border-radius: var(--va-input-border-radius);
     }
 
     &.va-input--success {
       .va-input__container {
-        background: var(--va-input-success-background);
+        @include va-background-opacity(var(--va-input-success-color), var(--va-input-opacity));
+
         border-color: var(--va-input-success-color);
       }
     }
 
     &.va-input--error {
       .va-input__container {
-        background: var(--va-input-error-background);
+        @include va-background-opacity(var(--va-input-error-color), var(--va-input-opacity));
+
         border-color: var(--va-input-error-color);
       }
     }
@@ -358,14 +377,16 @@ export default defineComponent({
 
     &.va-input--success {
       .va-input__container {
-        background: var(--va-input-success-background);
+        @include va-background-opacity(var(--va-input-success-color), var(--va-input-opacity));
+
         border-color: var(--va-input-success-color);
       }
     }
 
     &.va-input--error {
       .va-input__container {
-        background: var(--va-input-error-background);
+        @include va-background-opacity(var(--va-input-error-color), var(--va-input-opacity));
+
         border-color: var(--va-input-error-color);
       }
     }
@@ -388,7 +409,6 @@ export default defineComponent({
     }
 
     .va-input__container {
-      background: var(--va-input-color);
       border-top-left-radius: var(--va-input-border-radius);
       border-top-right-radius: var(--va-input-border-radius);
       border-color: transparent !important;
@@ -396,20 +416,20 @@ export default defineComponent({
 
     &.va-input--success {
       .va-input__container {
-        background: var(--va-input-success-background);
+        @include va-background-opacity(var(--va-input-success-color), var(--va-input-opacity));
       }
 
-      .va-input_bordered__border {
+      .va-input--bordered__border {
         border-color: var(--va-input-success-color);
       }
     }
 
     &.va-input--error {
       .va-input__container {
-        background: var(--va-input-error-background);
+        @include va-background-opacity(var(--va-input-error-color), var(--va-input-opacity));
       }
 
-      .va-input_bordered__border {
+      .va-input--bordered__border {
         border-color: var(--va-input-error-color);
       }
     }

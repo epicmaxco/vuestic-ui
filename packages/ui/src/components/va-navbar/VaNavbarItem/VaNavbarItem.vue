@@ -5,7 +5,19 @@
 </template>
 
 <script>
-export default {
+import { defineComponent } from 'vue'
+
+export default defineComponent({
   name: 'VaNavbarItem',
-}
+})
 </script>
+
+<style lang="scss">
+@import "../../../styles/resources";
+
+.va-navbar__item {
+  display: flex;
+  align-items: center;
+  font-family: var(--va-font-family);
+}
+</style>

@@ -73,7 +73,9 @@
       <input type="checkbox" v-model="isStriped">
       <label>Striped style</label><br>
       <label>No data (due to filtering) message</label>
-      <input type="text" v-model="noDataFilteredHtml">
+      <input type="text" v-model="noDataFilteredHtml"><br />
+      <input type="checkbox" v-model="clickable" />
+      <label>Clickable rows</label>
 
       <va-data-table
         :columns="evenColumnsSortable2"
@@ -94,6 +96,9 @@
         :allow-footer-sorting="allowFooterSorting"
         :no-data-filtered-html="noDataFilteredHtml"
         :striped="isStriped"
+        :clickable="clickable"
+        sticky-header
+        style="--scroll-table-height: 250px; --scroll-table-color: orange;"
       />
     </VbCard>
 
@@ -368,78 +373,78 @@
 
     <VbCard title="Alignment" class="demo">
       First heading align and vertical align:
-      <select v-model="alignColumns[0].alignHead">
+      <select v-model="alignColumns[0].thAlign">
         <option value="left">Left</option>
         <option value="center">Center</option>
         <option value="right">Right</option>
       </select>
 
-      <select v-model="alignColumns[0].verticalAlignHead">
+      <select v-model="alignColumns[0].thVerticalAlign">
         <option value="top">Top</option>
         <option value="middle">Middle</option>
         <option value="bottom">Bottom</option>
       </select><br>
 
       Second heading align and vertical align:
-      <select v-model="alignColumns[1].alignHead">
+      <select v-model="alignColumns[1].thAlign">
         <option value="left">Left</option>
         <option value="center">Center</option>
         <option value="right">Right</option>
       </select>
 
-      <select v-model="alignColumns[1].verticalAlignHead">
+      <select v-model="alignColumns[1].thVerticalAlign">
         <option value="top">Top</option>
         <option value="middle">Middle</option>
         <option value="bottom">Bottom</option>
       </select><br>
 
       Third heading align and vertical align:
-      <select v-model="alignColumns[2].alignHead">
+      <select v-model="alignColumns[2].thAlign">
         <option value="left">Left</option>
         <option value="center">Center</option>
         <option value="right">Right</option>
       </select>
 
-      <select v-model="alignColumns[2].verticalAlignHead">
+      <select v-model="alignColumns[2].thVerticalAlign">
         <option value="top">Top</option>
         <option value="middle">Middle</option>
         <option value="bottom">Bottom</option>
       </select><br>
 
       First column align and vertical align:
-      <select v-model="alignColumns[0].align">
+      <select v-model="alignColumns[0].tdAlign">
         <option value="left">Left</option>
         <option value="center">Center</option>
         <option value="right">Right</option>
       </select>
 
-      <select v-model="alignColumns[0].verticalAlign">
+      <select v-model="alignColumns[0].tdVerticalAlign">
         <option value="top">Top</option>
         <option value="middle">Middle</option>
         <option value="bottom">Bottom</option>
       </select><br>
 
       Second column align and vertical align:
-      <select v-model="alignColumns[1].align">
+      <select v-model="alignColumns[1].tdAlign">
         <option value="left">Left</option>
         <option value="center">Center</option>
         <option value="right">Right</option>
       </select>
 
-      <select v-model="alignColumns[1].verticalAlign">
+      <select v-model="alignColumns[1].tdVerticalAlign">
         <option value="top">Top</option>
         <option value="middle">Middle</option>
         <option value="bottom">Bottom</option>
       </select><br>
 
       Third column align and vertical align:
-      <select v-model="alignColumns[2].align">
+      <select v-model="alignColumns[2].tdAlign">
         <option value="left">Left</option>
         <option value="center">Center</option>
         <option value="right">Right</option>
       </select>
 
-      <select v-model="alignColumns[2].verticalAlign">
+      <select v-model="alignColumns[2].tdVerticalAlign">
         <option value="top">Top</option>
         <option value="middle">Middle</option>
         <option value="bottom">Bottom</option>
@@ -492,12 +497,12 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import VaDataTable from './'
-import cloneDeep from 'lodash/cloneDeep'
-import shuffle from 'lodash/shuffle'
-import VaSwitch from '../va-switch'
-import VaPagination from '../va-pagination'
-import VaButton from '../va-button'
+import cloneDeep from 'lodash/cloneDeep.js'
+import shuffle from 'lodash/shuffle.js'
+import { DataTableColumn, DataTableColumnSource, DataTableSelectMode, DataTableSortingOrder, VaDataTable } from './'
+import { VaSwitch } from '../va-switch'
+import { VaPagination } from '../va-pagination'
+import { VaButton } from '../va-button'
 
 interface EvenItems {
     id?: number;
@@ -578,30 +583,30 @@ export default defineComponent({
         {
           key: 'id',
           label: 'A Unique ID',
-          alignHead: 'center',
-          verticalAlignHead: 'middle',
-          align: 'center',
-          verticalAlign: 'middle',
+          thAlign: 'center',
+          thVerticalAlign: 'middle',
+          tdAlign: 'center',
+          tdVerticalAlign: 'middle',
         },
 
         {
           key: 'text',
           label: 'A long text',
-          alignHead: 'center',
-          verticalAlignHead: 'middle',
-          align: 'center',
-          verticalAlign: 'middle',
+          thAlign: 'center',
+          thVerticalAlign: 'middle',
+          tdAlign: 'center',
+          tdVerticalAlign: 'middle',
         },
 
         {
           key: 'target',
           label: 'Target field',
-          alignHead: 'center',
-          verticalAlignHead: 'middle',
-          align: 'center',
-          verticalAlign: 'middle',
+          thAlign: 'center',
+          thVerticalAlign: 'middle',
+          tdAlign: 'center',
+          tdVerticalAlign: 'middle',
         },
-      ],
+      ] as DataTableColumn[],
 
       alignItems: [
         { id: 1, text: 'Somewhat long text (I need to expand it a bit so that the text gets wrapped (and thus occupies multiple lines) so that we can see how the other rows are vertically aligned)', target: 'Pretty short prop' },
@@ -656,7 +661,7 @@ export default defineComponent({
 
       sortByModelId: 'id',
       sortByModel: 'idSquared',
-      sortingOrderModel: 'desc',
+      sortingOrderModel: 'desc' as DataTableSortingOrder,
 
       manyItems,
       currentPage: 1,
@@ -683,8 +688,8 @@ export default defineComponent({
       sortBy2: '',
       sortingOrder2: null,
       useSelectableRow: true,
-      selectedItemsIds: [],
-      selectMode: 'single',
+      selectedItemsIds: [] as any[],
+      selectMode: 'single' as DataTableSelectMode,
       selectedColor: 'primary',
       usePagination: true,
       perPage: 10,
@@ -696,6 +701,7 @@ export default defineComponent({
       hideDefaultHeader: false,
       footerClone: false,
       allowFooterSorting: false,
+      clickable: false,
 
       columnsTest2: ['columnOne', 'columnTwo'],
       itemsTest2: [{ columnOne: 1, columnThree: 3 }, { columnTwo: 2, columnOne: 1 }],

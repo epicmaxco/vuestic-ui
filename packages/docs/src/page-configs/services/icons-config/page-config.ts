@@ -17,15 +17,14 @@ const columns: TableColumn[] = [
 ]
 
 const tableData: TableData = [
-  ['name', 'string | RegExp', 'iconsConfig.api.name'],
   [
     'class',
-    'string | ((...dynamicSegments: string[]) => string) | undefined',
+    'string | undefined',
     'iconsConfig.api.iconClass',
   ],
   [
     'content',
-    'string | ((...dynamicSegments: string[]) => string | undefined) | undefined',
+    'string | undefined',
     'iconsConfig.api.content',
   ],
   [
@@ -34,8 +33,8 @@ const tableData: TableData = [
     'iconsConfig.api.component',
   ],
   [
-    'componentProps',
-    '`Record<string, any> | ((...dynamicSegments: string[]) => Record<string, any>) | undefined`',
+    'attrs',
+    '`Record<string, any> | undefined`',
     'iconsConfig.api.componentProps',
   ],
   ['to', '`string | undefined`', 'iconsConfig.api.to'],
@@ -60,6 +59,11 @@ const config: ApiDocsBlock[] = [
   block.code('<i class="fas fa-star"></i>'),
 
   block.paragraph('iconsConfig.problem.summary'),
+
+  // api
+  block.subtitle('iconsConfig.api.title'),
+  block.table(columns, tableData),
+  block.paragraph('iconsConfig.api.description'),
 
   // fonts
   block.subtitle('iconsConfig.fonts.title'),
@@ -96,10 +100,6 @@ const config: ApiDocsBlock[] = [
   block.subtitle('iconsConfig.setup.title'),
   block.paragraph('iconsConfig.setup.about'),
   block.code(setupCodeExample),
-
-  // api
-  block.subtitle('iconsConfig.api.title'),
-  block.table(columns, tableData),
 ]
 
 export default config

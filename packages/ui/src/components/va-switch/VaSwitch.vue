@@ -10,43 +10,42 @@
     :error-count="$props.errorCount"
   >
     <div
+      ref="container"
       class="va-switch__container"
       tabindex="-1"
       @blur="onBlur"
-      ref="container"
     >
       <div
         class="va-switch__inner"
-        @click="onWrapperClick()"
+        @click="toggleSelection"
       >
         <input
-          class="va-switch__input"
           ref="input"
+          class="va-switch__input"
           type="checkbox"
           role="switch"
-          :aria-checked="isChecked"
-          :id="String($props.id)"
-          :name="String($props.name)"
-          readonly
-          :disabled="$props.disabled"
-          v-on="SetupContext.keyboardFocusListeners"
+          v-bind="inputAttributesComputed"
+          v-on="keyboardFocusListeners"
           @focus="onFocus"
           @blur="onBlur"
-          @keypress.prevent="toggleSelection()"
+          @keypress.enter.prevent="toggleSelection"
         >
         <div
           class="va-switch__track"
+          aria-hidden="true"
           :style="trackStyle"
         >
-          <div class="va-switch__track-label">
+          <div
+            v-if="computedInnerLabel || $slots.innerLabel"
+            class="va-switch__track-label"
+            :style="trackLabelStyle"
+            >
             <slot name="innerLabel">
               {{ computedInnerLabel }}
             </slot>
           </div>
           <div class="va-switch__checker-wrapper">
-            <span
-              class="va-switch__checker"
-            >
+            <span class="va-switch__checker">
               <va-progress-circle
                 v-if="$props.loading"
                 indeterminate
@@ -58,11 +57,14 @@
         </div>
       </div>
       <div
-        class="va-switch__label"
+        v-if="computedLabel || $slots.default"
         ref="label"
-        @blur="onBlur"
+        class="va-switch__label"
         :style="labelStyle"
-        @click="onWrapperClick()"
+        :id="ariaLabelIdComputed"
+        @blur="onBlur"
+        @click="toggleSelection"
+        @keydown.enter.stop="toggleSelection"
       >
         <slot>
           {{ computedLabel }}
@@ -73,122 +75,156 @@
 </template>
 
 <script lang="ts">
-import { Options, prop, mixins, setup, Vue } from 'vue-class-component'
+import { defineComponent, PropType, computed, shallowRef } from 'vue'
 
-import ColorMixin from '../../services/color-config/ColorMixin'
-import { SelectableMixin } from '../../mixins/SelectableMixin/SelectableMixin'
-import { LoadingMixin } from '../../mixins/LoadingMixin/LoadingMixin'
-import { VaProgressCircle } from '../va-progress-bar'
-import { VaMessageListWrapper } from '../va-input'
 import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'
+import { useSelectable, useSelectableProps, useSelectableEmits } from '../../composables/useSelectable'
+import { useColors } from '../../composables/useColor'
+import { useTextColor } from '../../composables/useTextColor'
+import { generateUniqueId } from '../../services/utils'
 
-class SwitchProps {
-  modelValue = prop<boolean | any[] | string | Record<string, unknown>>({
-    type: [Boolean, Array, String, Object],
-    default: false,
-  })
+import { VaProgressCircle } from '../va-progress-circle'
+import { VaMessageListWrapper } from '../va-input'
 
-  size = prop<string>({
-    type: String,
-    default: 'medium',
-    validator: (modelValue: string) => {
-      return ['medium', 'small', 'large'].includes(modelValue)
-    },
-  })
-
-  trueLabel = prop<string>({ type: String, default: null })
-  falseLabel = prop<string>({ type: String, default: null })
-  trueInnerLabel = prop<string>({ type: String, default: null })
-  falseInnerLabel = prop<string>({ type: String, default: null })
-  color = prop<string>({ type: String, default: 'primary' })
-}
-
-const SwitchPropsMixin = Vue.with(SwitchProps)
-
-@Options({
+export default defineComponent({
   name: 'VaSwitch',
   components: { VaProgressCircle, VaMessageListWrapper },
-  emits: ['focus', 'blur', 'update:modelValue'],
-})
-export default class VaSwitch extends mixins(
-  SelectableMixin,
-  LoadingMixin,
-  ColorMixin,
-  SwitchPropsMixin,
-) {
-  SetupContext = setup(() => {
+  emits: [
+    ...useSelectableEmits,
+    'focus', 'blur', 'update:modelValue',
+  ],
+  props: {
+    ...useSelectableProps,
+    id: { type: String, default: '' },
+    name: { type: String, default: '' },
+    modelValue: {
+      type: [Boolean, Array, String, Object] as PropType<boolean | unknown[] | string | number | Record<string, unknown> | null>,
+      default: false,
+    },
+    trueLabel: { type: String, default: null },
+    falseLabel: { type: String, default: null },
+    trueInnerLabel: { type: String, default: null },
+    falseInnerLabel: { type: String, default: null },
+    color: { type: String, default: 'primary' },
+    offColor: { type: String, default: 'gray' },
+    size: {
+      type: String as PropType<'medium' | 'small' | 'large'>,
+      default: 'medium',
+      validator: (value: string) => ['medium', 'small', 'large'].includes(value),
+    },
+
+  },
+  setup (props, { emit }) {
+    const elements = {
+      container: shallowRef<HTMLElement>(),
+      input: shallowRef<HTMLElement>(),
+      label: shallowRef<HTMLElement>(),
+    }
+
+    const { getColor } = useColors()
     const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
+    const {
+      isChecked,
+      computedError,
+      isIndeterminate,
+      computedErrorMessages,
+      ...selectable
+    } = useSelectable(props, emit, elements)
+
+    const computedBackground = computed(() => getColor(isChecked.value ? props.color : props.offColor))
+    const { textColorComputed } = useTextColor(computedBackground)
+
+    const computedInnerLabel = computed(() => {
+      if (props.trueInnerLabel && isChecked.value) {
+        return props.trueInnerLabel
+      }
+      if (props.falseInnerLabel && !isChecked.value) {
+        return props.falseInnerLabel
+      }
+      return ''
+    })
+
+    const computedLabel = computed(() => {
+      if (props.trueLabel && isChecked.value) {
+        return props.trueLabel
+      }
+      if (props.falseLabel && !isChecked.value) {
+        return props.falseLabel
+      }
+      return props.label
+    })
+
+    const computedClass = computed(() => ({
+      'va-switch--checked': isChecked.value,
+      'va-switch--indeterminate': isIndeterminate.value,
+      'va-switch--small': props.size === 'small',
+      'va-switch--large': props.size === 'large',
+      'va-switch--disabled': props.disabled,
+      'va-switch--readonly': props.readonly,
+      'va-switch--left-label': props.leftLabel,
+      'va-switch--error': computedError.value,
+      'va-switch--on-keyboard-focus': hasKeyboardFocus.value,
+    }))
+
+    const progressCircleSize = computed(() => {
+      const size = { small: '15px', medium: '20px', large: '25px' }
+
+      return size[props.size]
+    })
+
+    const trackStyle = computed(() => ({
+      borderColor: props.error ? getColor('danger') : '',
+      backgroundColor: computedBackground.value,
+    }))
+
+    const labelStyle = computed(() => ({
+      color: props.error ? getColor('danger') : '',
+    }))
+
+    const trackLabelStyle = computed(() => ({
+      color: textColorComputed.value,
+    }))
+
+    const ariaLabelIdComputed = computed(() => `aria-label-id-${generateUniqueId()}`)
+    const inputAttributesComputed = computed(() => ({
+      id: props.id,
+      name: props.name,
+      disabled: props.disabled,
+      readonly: props.readonly,
+      ariaDisabled: props.disabled,
+      ariaReadOnly: props.readonly,
+      ariaChecked: !!props.modelValue,
+      ariaLabelledby: ariaLabelIdComputed.value,
+      'aria-invalid': !!computedErrorMessages.value.length,
+      'aria-errormessage': typeof computedErrorMessages.value === 'string'
+        ? computedErrorMessages.value
+        : computedErrorMessages.value.join(', '),
+    }))
 
     return {
-      hasKeyboardFocus,
+      ...selectable,
+      computedErrorMessages,
+      isChecked,
+      computedError,
+      isIndeterminate,
       keyboardFocusListeners,
+      computedInnerLabel,
+      computedLabel,
+      computedClass,
+      progressCircleSize,
+      trackStyle,
+      labelStyle,
+      trackLabelStyle,
+      ariaLabelIdComputed,
+      inputAttributesComputed,
     }
-  })
-
-  get computedInnerLabel () {
-    if (this.$props.trueInnerLabel && this.isChecked) {
-      return this.$props.trueInnerLabel
-    }
-    if (this.$props.falseInnerLabel && !this.isChecked) {
-      return this.$props.falseInnerLabel
-    }
-    return ''
-  }
-
-  get computedLabel () {
-    if (this.$props.trueLabel && this.isChecked) {
-      return this.$props.trueLabel
-    }
-    if (this.$props.falseLabel && !this.isChecked) {
-      return this.$props.falseLabel
-    }
-    return this.$props.label
-  }
-
-  get computedClass () {
-    return {
-      'va-switch--checked': this.isChecked,
-      'va-switch--indeterminate': this.isIndeterminate,
-      'va-switch--small': this.$props.size === 'small',
-      'va-switch--large': this.$props.size === 'large',
-      'va-switch--disabled': this.$props.disabled,
-      'va-switch--left-label': this.$props.leftLabel,
-      'va-switch--error': this.computedError,
-      'va-switch--on-keyboard-focus': this.SetupContext.hasKeyboardFocus,
-    }
-  }
-
-  get progressCircleSize () {
-    const size: any = {
-      small: '15px',
-      medium: '20px',
-      large: '25px',
-    }
-    return size[this.$props.size as string]
-  }
-
-  get trackStyle () {
-    return {
-      borderColor: this.$props.error
-        ? this.theme.getColor('danger')
-        : '',
-      backgroundColor: this.isChecked
-        ? this.colorComputed
-        : this.theme.getColor('gray'),
-    }
-  }
-
-  get labelStyle () {
-    return {
-      color: this.$props.error ? this.theme.getColor('danger') : '',
-    }
-  }
-}
+  },
+})
 </script>
 
 <style lang="scss">
 @import "../../styles/resources";
-@import 'variables';
+@import "variables";
 
 .va-switch {
   @at-root {
@@ -251,6 +287,15 @@ export default class VaSwitch extends mixins(
 
   &--disabled {
     @include va-disabled;
+  }
+
+  &--readonly {
+    @include va-readonly;
+
+    .va-switch__label {
+      cursor: initial;
+      pointer-events: auto;
+    }
   }
 
   &--left-label {
@@ -393,10 +438,7 @@ export default class VaSwitch extends mixins(
   }
 
   &__input {
-    position: absolute;
-    opacity: 0;
-    height: 0;
-    width: 0;
+    @include visually-hidden;
   }
 }
 </style>

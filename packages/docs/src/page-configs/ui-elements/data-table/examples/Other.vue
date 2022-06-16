@@ -3,13 +3,6 @@
     <div class="flex lg4 mb-2">
       <va-switch
         class="mt-2"
-        label="Hoverable rows"
-        size="small"
-        v-model="isTableHoverable"
-      />
-      <br />
-      <va-switch
-        class="mt-2"
         label="Striped style"
         size="small"
         v-model="isTableStriped"
@@ -83,7 +76,6 @@
     :items="items"
     :columns="columns"
     :striped="isTableStriped"
-    :hoverable="isTableHoverable"
     :selectable="true"
     :clickable="isTableRowsClickable"
     :loading="isTableLoading"
@@ -91,9 +83,9 @@
     :footer-clone="footerClone"
     :allow-footer-sorting="footerSorting"
     :animated="animated"
-    @row:click="rowEventType = $event.event.type, rowId = $event.item.id"
-    @row:dblclick="rowEventType = $event.event.type, rowId = $event.item.id"
-    @row:contextmenu="rowEventType = $event.event.type, rowId = $event.item.id"
+    @row:click="handleClick"
+    @row:dblclick="handleClick"
+    @row:contextmenu="handleClick"
   >
     <template #headerPrepend v-if="prependSlot">
       <tr><th colspan="8">Custom cell which span 8 cells (headPrepend slot)</th></tr>
@@ -183,7 +175,6 @@ export default defineComponent({
       columns,
       isTableLoading: false,
       isTableStriped: true,
-      isTableHoverable: true,
       isTableRowsClickable: false,
       hideDefaultHeader: false,
       footerClone: true,
@@ -202,6 +193,13 @@ export default defineComponent({
         this.rowEventType = ''
         this.rowId = ''
       }
+    },
+  },
+
+  methods: {
+    handleClick (event) {
+      this.rowEventType = event.event.type
+      this.rowId = event.item.id
     },
   },
 })

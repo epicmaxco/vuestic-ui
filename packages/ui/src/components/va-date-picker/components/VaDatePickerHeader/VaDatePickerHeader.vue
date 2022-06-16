@@ -1,46 +1,75 @@
 <template>
-  <div class="va-date-picker-header va-date-picker__header" v-if="syncView.type !== 'year'">
+  <div
+    v-if="syncView.type !== 'year'"
+    class="va-date-picker-header va-date-picker__header"
+  >
     <slot name="buttonPrev" v-bind="{ onClick: prev }">
-      <va-button icon="chevron_left" flat size="small" :color="color" @click="prev" />
+      <va-button
+        :disabled="$props.disabled"
+        icon="chevron_left"
+        flat
+        size="small"
+        :color="color"
+        textColor="dark"
+        aria-label="next period"
+        @click="prev"
+      />
     </slot>
 
-    <div class="va-date-picker-header__text">
+    <div class="va-date-picker__header__text">
       <slot name="header" v-bind="{ year: syncView.year, month: syncView.month, monthNames, view: syncView, changeView, switchView }">
-        <va-button flat @click="switchView" size="small" :color="color">
-          <span class="mr-1">
-            <slot name="year" v-bind="{ year: syncView.year }">{{ syncView.year }}</slot>
-          </span>
+        <va-button
+          :disabled="$props.disabled"
+          flat
+          size="small"
+          :rounded="false"
+          :color="color"
+          textColor="dark"
+          aria-label="switch view"
+          @click="switchView"
+        >
+          <slot name="year" v-bind="{ year: syncView.year }">{{ syncView.year }}</slot>
 
-          <slot v-if="syncView.type === 'day'" name="month" v-bind="{ month: syncView.month }">{{ monthNames[syncView.month] }}</slot>
+          <slot v-if="syncView.type === 'day'" name="month" v-bind="{ month: syncView.month }">
+            <span class="ml-1">{{ monthNames[syncView.month] }}</span>
+          </slot>
         </va-button>
       </slot>
     </div>
 
     <slot name="buttonNext" v-bind="{ onClick: next }">
-      <va-button icon="chevron_right" flat size="small" :color="color" @click="next" />
+      <va-button
+        :disabled="$props.disabled"
+        icon="chevron_right"
+        flat
+        size="small"
+        :color="color"
+        textColor="dark"
+        aria-label="previous period"
+        @click="next"
+      />
     </slot>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
-import { VaDatePickerView } from '../../types/types'
+
 import { useView } from '../../hooks/view'
-import VaButton from '../../../va-button'
+
+import { DatePickerView } from '../../types'
+
+import { VaButton } from '../../../va-button'
 
 export default defineComponent({
   name: 'VaDatePickerHeader',
-
   components: { VaButton },
-
   emits: ['update:view'],
-
   props: {
     monthNames: { type: Array, required: true },
-    view: { type: Object as PropType<VaDatePickerView> },
-
-    // Colors
+    view: { type: Object as PropType<DatePickerView> },
     color: { type: String, default: undefined },
+    disabled: { type: Boolean, default: false },
   },
 
   setup (props, { emit }) {
@@ -54,7 +83,7 @@ export default defineComponent({
       }
     }
 
-    const changeView = (view: VaDatePickerView) => {
+    const changeView = (view: DatePickerView) => {
       syncView.value = view
     }
 
@@ -63,7 +92,7 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .va-date-picker {
   &__header {
     display: flex;
@@ -72,11 +101,6 @@ export default defineComponent({
 
     &__text {
       color: var(--va-dark);
-      font-family: Source Sans Pro;
-      font-style: normal;
-      font-weight: 600;
-      font-size: 12px;
-      line-height: 15px;
     }
   }
 }

@@ -1,6 +1,8 @@
 <template>
   <component
     :is="tagComputed"
+    class="va-list-item"
+    role="listitem"
     :href="hrefComputed"
     :target="target"
     :to="to"
@@ -8,11 +10,8 @@
     :exact="exact"
     :active-class="activeClass"
     :exact-active-class="exactActiveClass"
-    class="va-list-item"
     :class="computedClass"
-    :style="computedStyle"
-    v-on="SetupContext.keyboardFocusListeners"
-    :tabindex="indexComputed"
+    :tabindex="tabIndexComputed"
   >
     <div
       class="va-list-item__inner"
@@ -25,58 +24,49 @@
 </template>
 
 <script lang="ts">
-import { Options, prop, mixins, setup, Vue } from 'vue-class-component'
+import { defineComponent, computed } from 'vue'
 
-import { RouterLinkMixin } from '../../mixins/RouterLinkMixin/RouterLinkMixin'
-import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'
+import { useRouterLinkProps, useRouterLink } from '../../composables/useRouterLink'
 
-class ListItemProps {
-  tag = prop<string>({ type: String, default: 'div' })
-  disabled = prop<boolean>({ type: Boolean, default: false })
-}
-
-const ListItemPropsMixin = Vue.with(ListItemProps)
-
-@Options({
+export default defineComponent({
   name: 'VaListItem',
   emits: ['focus', 'click'],
+  props: {
+    ...useRouterLinkProps,
+    tag: { type: String, default: 'div' },
+    disabled: { type: Boolean, default: false },
+  },
+
+  setup (props) {
+    const tabIndexComputed = computed(() => props.disabled ? -1 : 0)
+
+    const computedClass = computed(() => ({
+      'va-list-item--disabled': props.disabled,
+    }))
+
+    return {
+      ...useRouterLink(props),
+      tabIndexComputed,
+      computedClass,
+    }
+  },
 })
-export default class VaListItem extends mixins(
-  RouterLinkMixin,
-  ListItemPropsMixin,
-) {
-  SetupContext = setup(() => {
-    const { keyboardFocusListeners, hasKeyboardFocus } = useKeyboardOnlyFocus()
-
-    return {
-      keyboardFocusListeners,
-      hasKeyboardFocus,
-    }
-  })
-
-  get indexComputed () {
-    return this.disabled ? -1 : 0
-  }
-
-  get computedClass () {
-    return {
-      'va-list-item--disabled': this.disabled,
-    }
-  }
-
-  get computedStyle () {
-    return {
-      outline: this.SetupContext.hasKeyboardFocus ? '2px solid rgba(0, 0, 0, 0.3)' : 'none', // just to have at least some highlighting of the focused items
-    }
-  }
-}
 </script>
 
 <style lang="scss">
-@import 'variables';
+@import "../../styles/resources";
+@import "variables";
 
 .va-list-item {
   font-family: var(--va-font-family);
+
+  &__disabled {
+    @include va-disabled;
+  }
+
+  &:focus {
+    @include focus-outline;
+  }
 
   &__inner {
     display: var(--va-list-item-display);

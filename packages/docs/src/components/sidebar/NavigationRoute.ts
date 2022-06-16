@@ -10,4 +10,5 @@ export type NavigationRoute = {
   },
   disabled?: boolean,
   children?: NavigationRoute[],
+  path?: string,
 }

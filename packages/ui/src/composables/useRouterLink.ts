@@ -1,65 +1,38 @@
-import { computed, PropType, getCurrentInstance } from 'vue'
-
-import { RouteLocationRaw } from 'vue-router'
-export interface RouterLinkProps {
-  tag: string
-  to: RouteLocationRaw
-  replace: boolean
-  append: boolean
-  exact: boolean
-  activeClass: string
-  exactActiveClass: string
-  href: string
-  target: string
-  [prop: string]: unknown
-}
+import { computed, PropType, getCurrentInstance, ExtractPropTypes } from 'vue'
 
 export const useRouterLinkProps = {
-  tag: { type: String as PropType<string>, default: 'router-link' },
-  to: { type: [String, Object] as PropType<RouteLocationRaw>, default: '' },
-  replace: { type: Boolean as PropType<boolean>, default: false },
-  append: { type: Boolean as PropType<boolean>, default: false },
-  exact: { type: Boolean as PropType<boolean>, default: false },
-  activeClass: { type: String as PropType<string>, default: '' },
-  exactActiveClass: { type: String as PropType<string>, default: '' },
-  href: { type: String as PropType<string>, default: '' },
-  target: { type: String as PropType<string>, default: '' },
+  tag: { type: String, default: 'span' },
+  to: { type: [String, Object] as PropType<string | Record<string, any>>, default: '' },
+  replace: { type: Boolean, default: false },
+  append: { type: Boolean, default: false },
+  exact: { type: Boolean, default: false },
+  activeClass: { type: String, default: '' },
+  exactActiveClass: { type: String, default: '' },
+  href: { type: String, default: '' },
+  target: { type: String, default: '' },
+  disabled: { type: Boolean, default: false },
 }
 
-export const useRouterLink = (props: RouterLinkProps) => {
+export const useRouterLink = (props: ExtractPropTypes<typeof useRouterLinkProps>) => {
   const globalProperties = computed(() => getCurrentInstance()?.appContext.config.globalProperties)
   const isNuxt = computed(() => !!globalProperties.value?.$nuxt)
   const vueRouter = computed(() => globalProperties.value?.$router)
   const vueRoute = computed(() => globalProperties.value?.$route)
 
-  const hasRouterLinkParams = computed(() => Boolean(
-    props.to ||
-    props.append ||
-    props.replace ||
-    props.exact ||
-    props.activeClass ||
-    props.href ||
-    props.exactActiveClass,
-  ))
-
   const tagComputed = computed(() => {
-    if (props.tag === 'a' || (props.href && !props.to) || props.target) {
-      return 'a'
-    }
-    if (props.tag === 'nuxt-link' || (isNuxt.value && hasRouterLinkParams.value)) {
-      return 'nuxt-link'
-    }
-    if (props.tag === 'router-link' || hasRouterLinkParams.value) {
-      return 'router-link'
-    }
+    if (props.disabled) { return props.tag }
+
+    if (props.href && !props.to) { return 'a' }
+
+    if (props.to) { return isNuxt.value ? 'nuxt-link' : 'router-link' }
 
     return props.tag
   })
 
+  const isLinkTag = computed(() => ['a', 'router-link', 'nuxt-link'].includes(tagComputed.value))
+
   const isActiveRouterLink = computed(() => {
-    if (!vueRouter.value || !props.to) {
-      return false
-    }
+    if (!vueRouter.value || !props.to) { return false }
 
     const to = vueRouter.value.resolve(props.to).href
     const currentHref = vueRouter.value.currentRoute.value.path
@@ -71,13 +44,13 @@ export const useRouterLink = (props: RouterLinkProps) => {
     // to resolve href on server for SEO optimization
     // https://github.com/nuxt/nuxt.js/issues/8204
     // @ts-ignore
-    return props.href || (props.to ? vueRouter.value?.resolve(props.to, vueRoute.value).href : null)
+    return props.href || (props.to ? vueRouter.value?.resolve(props.to, vueRoute.value).href : '')
   })
 
   return {
-    hasRouterLinkParams,
     tagComputed,
     isActiveRouterLink,
     hrefComputed,
+    isLinkTag,
   }
 }

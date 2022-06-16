@@ -1,20 +1,19 @@
 <template>
-  <div class="spacer" />
+  <div class="va-spacer" aria-hidden="true" />
 </template>
 
 <script lang="ts">
-import { Vue, Options } from 'vue-class-component'
+import { defineComponent } from 'vue'
 
-@Options({
+export default defineComponent({
   name: 'VaSpacer',
 })
-export default class VaSpacer extends Vue {}
 </script>
 
 <style lang="scss">
 @import 'variables';
 
-.spacer {
+.va-spacer {
   flex-grow: var(--va-spacer-flex-grow);
 }
 </style>

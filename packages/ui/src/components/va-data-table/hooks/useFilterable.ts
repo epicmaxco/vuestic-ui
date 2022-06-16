@@ -1,29 +1,34 @@
 import { Ref, watch, computed } from 'vue'
-import { TableRow, ITableItem } from './useRows'
 
-export type TFilterMethod = (source: any) => boolean
-export type TFilteredArgs = { items: ITableItem[], itemsIndexes: number[] }
+import { DataTableRow, DataTableFilterMethod, DataTableItem } from '../types'
+
+interface useFilterableProps {
+  filter: string
+  filterMethod: DataTableFilterMethod | undefined
+  [prop: string]: unknown
+}
+
+export type TFilteredArgs = { items: DataTableItem[], itemsIndexes: number[] }
 export type TFilterableEmits = (event: 'filtered', arg: TFilteredArgs) => void
 
 export default function useFilterable (
-  rawRows: Ref<TableRow[]>,
-  filter: Ref<string>,
-  filterMethod: Ref<TFilterMethod | undefined>,
+  rawRows: Ref<DataTableRow[]>,
+  props: useFilterableProps,
   emit: TFilterableEmits,
 ) {
-  const filteredRows = computed<TableRow[]>(() => {
+  const filteredRows = computed<DataTableRow[]>(() => {
     if (!rawRows.value.length) {
       return rawRows.value
     }
 
-    if (filter.value === '' && !filterMethod.value) {
+    if (props.filter === '' && !props.filterMethod) {
       return rawRows.value
     }
 
     return rawRows.value.filter(row => row.cells.some(cell => {
-      return typeof filterMethod.value === 'function'
-        ? filterMethod.value(cell.source)
-        : cell.value.toLowerCase().includes(filter.value.toLowerCase())
+      return typeof props.filterMethod === 'function'
+        ? props.filterMethod(cell.rowData[cell.column.key])
+        : cell.value.toLowerCase().includes(props.filter.toLowerCase())
     }))
   })
 

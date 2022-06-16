@@ -1,20 +1,18 @@
 <template>
-  <div class="va-separator" />
+  <div class="va-separator" aria-hidden="true" />
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component'
+import { defineComponent } from 'vue'
 
-@Options({
+export default defineComponent({
   name: 'VaSeparator',
 })
-export default class VaSeparator extends Vue {
-}
 </script>
 
 <style lang="scss">
 @import "../../styles/resources";
-@import 'variables';
+@import "variables";
 
 .va-separator {
   height: var(--va-separator-height);

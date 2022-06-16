@@ -11,23 +11,23 @@
 }
 
 .link-secondary {
-  color: var(--va-link-color-secondary) !important;
+  color: var(--va-link-color-secondary);
 }
 
 .link,
 .link-secondary {
   cursor: pointer;
 
-  &:hover {
-    color: var(--va-link-color-hover) !important;
-  }
-
   &:active {
-    color: var(--va-link-color-active) !important;
+    color: var(--va-link-color-active);
   }
 
   &:visited {
-    color: var(--va-link-color-visited) !important;
+    color: var(--va-link-color-visited);
+  }
+
+  &:hover {
+    color: var(--va-link-color-hover);
   }
 }
 
@@ -190,11 +190,6 @@ ol.va-ordered {
 
 .va-table {
   @include va-table();
-}
-
-.vue-misc {
-  margin-top: 5.625rem;
-  margin-bottom: 2rem;
 }
 
 .text-block {

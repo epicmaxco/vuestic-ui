@@ -1,33 +1,27 @@
 <template>
   <div
+    aria-hidden="true"
     class="va-list-separator"
     :class="computedClass"
   />
 </template>
 
 <script lang="ts">
-import { Options, Vue, prop, mixins } from 'vue-class-component'
+import { defineComponent, computed } from 'vue'
 
-class ListSeparatorProps {
-  fit = prop<boolean>({ type: Boolean, default: false })
-  spaced = prop<boolean>({ type: Boolean, default: false })
-}
-
-const ListSeparatorPropsMixin = Vue.with(ListSeparatorProps)
-
-@Options({
+export default defineComponent({
   name: 'VaListSeparator',
+  props: {
+    fit: { type: Boolean, default: false },
+    spaced: { type: Boolean, default: false },
+  },
+  setup: (props) => ({
+    computedClass: computed(() => ({
+      'va-list-separator--offset': !props.fit,
+      'va-list-separator--spaced': props.spaced,
+    })),
+  }),
 })
-export default class VaListSeparator extends mixins(
-  ListSeparatorPropsMixin,
-) {
-  get computedClass () {
-    return {
-      'va-list-separator--offset': !this.fit,
-      'va-list-separator--spaced': this.spaced,
-    }
-  }
-}
 </script>
 
 <style lang="scss">

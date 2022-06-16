@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent, computed, PropType, VNode, h, Fragment } from 'vue'
+import { computed, defineComponent, Fragment, h, ref, VNode } from 'vue'
 
 import { useAlign, useAlignProps } from '../../composables/useAlign'
 import { useColors } from '../../composables/useColor'
@@ -9,10 +9,10 @@ export default defineComponent({
   name: 'VaBreadcrumbs',
   props: {
     ...useAlignProps,
-    separator: { type: String as PropType<string>, default: '/' },
-    color: { type: String as PropType<string>, default: 'gray' },
-    activeColor: { type: String as PropType<string>, default: null },
-    separatorColor: { type: String as PropType<string>, default: null },
+    separator: { type: String, default: '/' },
+    color: { type: String, default: 'gray' },
+    activeColor: { type: String, default: null },
+    separatorColor: { type: String, default: null },
   },
   setup (props, { slots }) {
     const { alignComputed } = useAlign(props)
@@ -35,10 +35,13 @@ export default defineComponent({
     }
 
     const createSeparatorComponent = () => {
-      // Temp fix for https://github.com/vuejs/vue-next/issues/3666. Move `separatorNode` outside this method.
-      const separatorNode = (slots.separator ? slots.separator() : 0) || [props.separator]
+      // Temp fix for https://github.com/intlify/vue-i18n-next/issues/412
+      // `separatorNode` can be moved outside this method after update vuestic's minimal vue version to 3.1.0
+      // testing: have to monitor errors after leaving breadcrumbs page in doc
+      const separatorNode = slots.separator ? slots.separator() : [props.separator]
 
       return h('span', {
+        ariaHidden: true,
         class: ['va-breadcrumbs__separator'],
         style: [{ color: computedThemesSeparatorColor.value }],
       }, separatorNode)
@@ -57,14 +60,24 @@ export default defineComponent({
       return Boolean(childPropData.disabled)
     }
 
+    const isAllChildLinks = ref(true)
     const getChildren = () => {
       const childNodes = (slots as any)?.default()?.reduce(childNodeFilter, []) || []
       const childNodesLength = childNodes.length
       const isLastIndexChildNodes = (index: number) => index === childNodesLength - 1
+      const isChildLink = (child: VNode) => {
+        const childPropData = child?.props
+        if (!childPropData || !hasOwnProperty(childPropData, 'to')) {
+          return false
+        }
+
+        return !!(childPropData.to && !childPropData.disabled)
+      }
 
       const createChildComponent = (child: VNode, index: number) => h(
         'span', {
           class: 'va-breadcrumbs__item',
+          ariaCurrent: (isLastIndexChildNodes(index) && isChildLink(child)) ? 'location' : false,
           style: {
             color: (!isLastIndexChildNodes(index) && !isDisabledChild(child)) ? computedThemesActiveColor.value : null,
           },
@@ -76,6 +89,10 @@ export default defineComponent({
 
       if (childNodesLength) {
         childNodes.forEach((child: VNode, index: number) => {
+          if (isAllChildLinks.value && !isChildLink(child)) {
+            isAllChildLinks.value = false
+          }
+
           children.push(createChildComponent(child, index))
 
           if (!isLastIndexChildNodes(index)) {
@@ -90,6 +107,8 @@ export default defineComponent({
     return () => h('div', {
       class: 'va-breadcrumbs',
       style: alignComputed.value,
+      role: isAllChildLinks.value ? 'navigation' : undefined,
+      ariaLabel: isAllChildLinks.value ? 'breadcrumbs' : undefined,
     }, getChildren())
   },
 })

@@ -1,4 +1,4 @@
 import withConfigTransport from '../../services/config-transport/withConfigTransport'
-import VaSlider from './VaSlider.vue'
+import _VaSlider from './VaSlider.vue'
 
-export default withConfigTransport(VaSlider)
+export const VaSlider = withConfigTransport(_VaSlider)

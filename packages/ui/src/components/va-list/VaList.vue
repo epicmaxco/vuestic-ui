@@ -1,6 +1,7 @@
 <template>
   <div
     class="va-list"
+    role="list"
     :class="computedClass"
   >
     <slot />
@@ -8,29 +9,23 @@
 </template>
 
 <script lang="ts">
-import { Options, prop, mixins, Vue } from 'vue-class-component'
+import { defineComponent, computed } from 'vue'
 
-class ListProps {
-  fit = prop<boolean>({ type: Boolean, default: false })
-}
-
-const ListPropsMixin = Vue.with(ListProps)
-
-@Options({
+export default defineComponent({
   name: 'VaList',
+  props: {
+    fit: { type: Boolean, default: false },
+  },
+
+  setup: (props) => ({
+    computedClass: computed(() => ({ 'va-list--fit': props.fit })),
+  }),
 })
-export default class VaList extends mixins(
-  ListPropsMixin,
-) {
-  get computedClass () {
-    return { 'va-list--fit': this.fit }
-  }
-}
 </script>
 
 <style lang="scss">
 @import "../../styles/resources";
-@import 'variables';
+@import "variables";
 
 .va-list {
   padding: var(--va-list-padding);

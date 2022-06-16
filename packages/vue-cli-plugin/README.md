@@ -1,5 +1,7 @@
 # vue-cli-plugin-vuestic-ui
 
+<p align="center"><img src="https://img.shields.io/npm/v/vue-cli-plugin-vuestic-ui?label=vue-cli-plugin"></p>
+
 ## Usage
 
 To install [vuestic-ui](https://github.com/epicmaxco/vuestic-ui) to your Vue application simply use:
@@ -21,3 +23,6 @@ When you run it here's what we do:
 yarn add -D file:/full/path/to/your/plugin
 vue invoke vuestic-ui
 ```
+
+Vue cli plugin creates vuestic's environment based on user's answers. Reaction to answers can be changed or created in `generator/configs`.
+Tempplates for vite or webpack can be found in `generator/templates`.

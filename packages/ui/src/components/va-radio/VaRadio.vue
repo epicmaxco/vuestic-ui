@@ -8,13 +8,17 @@
       type="radio"
       :checked="isActive"
       :disabled="disabled"
-      :name="name"
+      :readonly="readonly"
+      :name="computedName"
+      :value="computedLabel"
+      :aria-checked="isActive"
+      :tabindex="tabIndexComputed"
       @change="onClick"
       @focus="onFocus"
-      :tabindex="tabindex"
     >
 
     <span
+      aria-hidden="true"
       class="va-radio__icon"
       :style="iconComputedStyles"
     >
@@ -37,104 +41,83 @@
 </template>
 
 <script lang="ts">
-import { Options, mixins, Vue, prop } from 'vue-class-component'
+import { defineComponent, PropType, computed } from 'vue'
+import { useColors } from '../../composables/useColor'
+import { useFormProps, useForm } from '../../composables/useForm'
+import { generateUniqueId } from '../../services/utils'
 
-import ColorMixin from '../../services/color-config/ColorMixin'
-
-class RadioProps {
-  modelValue = prop<string | number | Record<string, unknown> | boolean>({
-    type: [Object, String, Number, Boolean],
-    default: null,
-  })
-
-  option = prop<string | number | Record<string, unknown> | boolean>({
-    type: [Object, String, Number, Boolean],
-    default: null,
-  })
-
-  name = prop<string | number>({ type: [String, Number], default: '' })
-  disabled = prop<boolean>({ type: Boolean, default: false })
-  label = prop<string>({ type: String, default: '' })
-  leftLabel = prop<boolean>({ type: Boolean, default: false })
-  color = prop<string>({ type: String, default: 'primary' })
-  tabindex = prop<number>({ type: Number, default: 0 })
-}
-
-const RadioPropsMixin = Vue.with(RadioProps)
-
-@Options({
+export default defineComponent({
   name: 'VaRadio',
   emits: ['update:modelValue', 'focus'],
+  props: {
+    ...useFormProps,
+    modelValue: { type: [Boolean, Array, String, Object] as PropType<boolean | null | string | number | Record<any, unknown> | unknown[]>, default: null },
+    option: { default: null },
+    name: { type: String as PropType<string>, default: '' },
+    label: { type: String as PropType<string>, default: '' },
+    leftLabel: { type: Boolean as PropType<boolean>, default: false },
+    color: { type: String as PropType<string>, default: 'primary' },
+    tabindex: { type: Number as PropType<number>, default: 0 },
+  },
+  setup (props, { emit }) {
+    const { getColor } = useColors()
+
+    const isActive = computed(() => props.modelValue === props.option)
+
+    const { computedClasses } = useForm('va-radio', props)
+
+    const computedClass = computed(() => ({
+      'va-radio--left-label': props.leftLabel,
+      ...computedClasses,
+    }))
+
+    const iconBackgroundComputedStyles = computed(() => ({
+      backgroundColor: getColor(props.color),
+    }))
+
+    const iconDotComputedStyles = computed(() => {
+      if (!isActive.value) { return }
+
+      return {
+        borderColor: getColor(props.color),
+        backgroundColor: getColor(props.color),
+      }
+    })
+
+    const iconComputedStyles = computed(() => {
+      if (!isActive.value) { return }
+
+      return { borderColor: getColor(props.color) }
+    })
+
+    const computedLabel = computed(() => props.label || props.option)
+
+    const onClick = (e: Event) => {
+      if (props.readonly || props.disabled) { return }
+      emit('update:modelValue', props.option, e)
+    }
+
+    const onFocus = (e: Event) => emit('focus', e)
+
+    return {
+      computedClass,
+      isActive,
+      iconBackgroundComputedStyles,
+      iconDotComputedStyles,
+      iconComputedStyles,
+      computedLabel,
+      onClick,
+      onFocus,
+      computedName: computed(() => props.name || generateUniqueId()),
+      tabIndexComputed: computed(() => props.disabled ? -1 : props.tabindex),
+    }
+  },
 })
-export default class VaRadio extends mixins(
-  ColorMixin,
-  RadioPropsMixin,
-) {
-  get isActive () {
-    return this.modelValue === this.option
-  }
-
-  get computedClass () {
-    return {
-      'va-radio--disabled': this.disabled,
-      'va-radio--left-label': this.leftLabel,
-    }
-  }
-
-  get iconBackgroundComputedStyles () {
-    return {
-      backgroundColor: this.colorComputed,
-    }
-  }
-
-  get iconDotComputedStyles () {
-    if (this.isActive) {
-      return {
-        borderColor: this.colorComputed,
-        backgroundColor: this.colorComputed,
-      }
-    }
-    return {}
-  }
-
-  get iconComputedStyles () {
-    if (this.isActive) {
-      return {
-        borderColor: this.colorComputed,
-      }
-    }
-    return {}
-  }
-
-  get computedLabel () {
-    return this.label || this.option
-  }
-
-  onClick (e: Event) {
-    if (!this.disabled) {
-      this.$emit('update:modelValue', this.option, e)
-    }
-  }
-
-  onFocus (e: Event) {
-    if (!this.disabled) {
-      this.$emit('focus', e)
-    }
-  }
-
-  validate () {
-    return null
-  }
-
-  clear () {
-    this.$emit('update:modelValue', null)
-  }
-}
 </script>
 
 <style lang="scss">
-@import '../../styles/resources';
-@import 'variables';
+@import "../../styles/resources";
+@import "variables";
 
 .va-radio {
   display: var(--va-radio-display);
@@ -155,6 +138,16 @@ export default class VaRadio extends mixins(
     cursor: var(--va-radio-disabled-cursor);
   }
 
+  &--readonly {
+    @include va-readonly;
+
+    .va-radio--left-label,
+    .va-radio__text {
+      cursor: initial;
+      pointer-events: auto;
+    }
+  }
+
   &--left-label {
     flex-direction: row-reverse;
     display: inline-flex;
@@ -165,13 +158,7 @@ export default class VaRadio extends mixins(
   }
 
   &__input {
-    width: 0;
-    height: 0;
-    position: absolute;
-    top: 0;
-    left: 0;
-    opacity: 0;
-    z-index: -1;
+    @include visually-hidden;
   }
 
   &__icon {
@@ -210,7 +197,11 @@ export default class VaRadio extends mixins(
     }
 
     &__background {
-      transition: var(--va-radio-background-transition, var(--va-swing-transition));
+      transition:
+        var(
+          --va-radio-background-transition,
+          var(--va-swing-transition)
+        );
       position: var(--va-radio-background-position);
       top: var(--va-radio-background-top);
       left: var(--va-radio-background-left);
@@ -250,5 +241,4 @@ export default class VaRadio extends mixins(
     }
   }
 }
-
 </style>

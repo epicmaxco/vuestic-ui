@@ -2,12 +2,12 @@
   <div class="flex row">
     <div class="flex">
       <h6>Reset on close (resetOnClose = true)</h6>
-      <va-date-input mode="range" v-model="range" />
+      <va-date-input v-model="range" />
     </div>
 
     <div class="flex">
       <h6>Don't reset on close (resetOnClose = false)</h6>
-      <va-date-input :reset-on-close="false" mode="range" v-model="range" />
+      <va-date-input :reset-on-close="false" v-model="range" />
     </div>
   </div>
 </template>

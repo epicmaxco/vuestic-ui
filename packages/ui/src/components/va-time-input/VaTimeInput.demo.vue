@@ -64,16 +64,45 @@
     <VbCard title="validation">
       <VaTimeInput v-model="value" :rules="validationRules" clearable />
     </VbCard>
+
+    <VbCard title="required mark">
+      <VaTimeInput v-model="value" label="time" required-mark />
+    </VbCard>
+
+    <VbCard title="Hours and minutes filter">
+      <VaInput
+          v-model="hoursAndMinutesDivisor"
+          label="Hours and minutes divisor:"
+      />
+      <VaTimeInput
+          v-model="value"
+          ampm
+          :hoursFilter="hoursAndMinutesFilter"
+          :minutesFilter="hoursAndMinutesFilter"
+      />
+    </VbCard>
+
+    <VbCard title="Focus and Blur">
+      <va-time-input ref="timeInputRef" v-model="value" clearable />
+      <va-button @click="focusTimeInput">Focus</va-button>
+      <va-button @click="blurTimeInput">Blur</va-button>
+    </VbCard>
+
   </VbDemo>
 </template>
 
 <script>
 import VaTimeInput from './VaTimeInput.vue'
-import VaIcon from '../va-icon'
+import { VaIcon } from '../va-icon'
+import { VaInput } from '../va-input'
+import { VaButton } from '../va-button'
 
 export default {
   components: {
-    VaTimeInput, VaIcon,
+    VaInput,
+    VaTimeInput,
+    VaIcon,
+    VaButton,
   },
 
   data () {
@@ -84,13 +113,15 @@ export default {
         if (!value) { return true }
         return value.getHours?.() > 12 || 'Should be PM'
       }],
+      hoursAndMinutesDivisor: 2,
     }
+  },
+  methods: {
+    hoursAndMinutesFilter (hourOrMinute) {
+      return hourOrMinute % this.hoursAndMinutesDivisor === 0
+    },
+    focusTimeInput () { this.$refs.timeInputRef.focus() },
+    blurTimeInput () { this.$refs.timeInputRef.blur() },
   },
 }
 </script>
-
-<style lang="scss" scoped>
-  *:focus {
-    border: 1px solid red;
-  }
-</style>

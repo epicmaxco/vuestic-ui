@@ -1,4 +1,4 @@
 import withConfigTransport from '../../../services/config-transport/withConfigTransport'
-import VaFileUploadSingleItem from './VaFileUploadSingleItem.vue'
+import _VaFileUploadSingleItem from './VaFileUploadSingleItem.vue'
 
-export default withConfigTransport(VaFileUploadSingleItem)
+export const VaFileUploadSingleItem = withConfigTransport(_VaFileUploadSingleItem)

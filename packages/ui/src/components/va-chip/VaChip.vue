@@ -15,11 +15,10 @@
   >
     <span
       class="va-chip__inner"
-      v-on="SetupContext.keyboardFocusListeners"
+      v-on="keyboardFocusListeners"
       @focus="$emit('focus')"
-      @mouseenter="updateHoverState(true)"
-      @mouseleave="updateHoverState(false)"
-      :tabindex="indexComputed"
+      @mouseenter="onMouseEnter"
+      @mouseleave="onMouseLeave"
     >
       <va-icon
         v-if="icon"
@@ -34,140 +33,132 @@
         v-if="closeable"
         class="va-chip__close-icon"
         name="close"
+        role="button"
+        aria-label="close"
+        aria-hidden="false"
+        :tabindex="tabIndexComputed"
         :size="iconSize"
-        @click.stop="close()"
+        @click.stop="close"
+        @keydown.enter.stop="close"
+        @keydown.space.stop="close"
       />
     </span>
   </component>
 </template>
 
 <script lang="ts">
-import { watch } from 'vue'
-import { Options, prop, mixins, setup, Vue } from 'vue-class-component'
+import { defineComponent, PropType, computed, toRef } from 'vue'
 
-import {
-  getBoxShadowColor,
-  getHoverColor,
-  getFocusColor, getTextColor,
-} from '../../services/color-config/color-functions'
-import ColorMixin from '../../services/color-config/ColorMixin'
-import { RouterLinkMixin } from '../../mixins/RouterLinkMixin/RouterLinkMixin'
-import { StatefulMixin } from '../../mixins/StatefulMixin/StatefulMixin'
+import { getBoxShadowColor, getHoverColor, getFocusColor } from '../../services/color-config/color-functions'
 import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'
-import VaIcon from '../va-icon'
+import { useRouterLink, useRouterLinkProps } from '../../composables/useRouterLink'
+import { useColors, useColorProps } from '../../composables/useColor'
+import { useStateful, useStatefulEmits, useStatefulProps } from '../../composables/useStateful'
+import { useHover } from '../../composables/useHover'
+import { useTextColor } from '../../composables/useTextColor'
 
-class ChipProps {
-  modelValue = prop<boolean>({ type: Boolean, default: true })
-  closeable = prop<boolean>({ type: Boolean, default: false })
-  color = prop<string>({ type: String, default: 'primary' })
-  outline = prop<boolean>({ type: Boolean, default: false })
-  flat = prop<boolean>({ type: Boolean, default: false })
-  icon = prop<string>({ type: String, default: '' })
-  disabled = prop<boolean>({ type: Boolean, default: false })
-  square = prop<boolean>({ type: Boolean, default: false })
-  tag = prop<string>({ type: String, default: 'span' })
-  size = prop<string>({
-    type: String,
-    default: 'medium',
-    validator: (value: string) => {
-      return ['medium', 'small', 'large'].includes(value)
-    },
-  })
-  shadow = prop<boolean>({ type: Boolean, default: false })
-}
+import { VaIcon } from '../va-icon'
 
-const ChipPropsMixin = Vue.with(ChipProps)
-
-@Options({
+export default defineComponent({
   name: 'VaChip',
+
   components: { VaIcon },
-  emits: ['focus'],
-})
-export default class VaChip extends mixins(
-  RouterLinkMixin,
-  StatefulMixin,
-  ColorMixin,
-  ChipPropsMixin,
-) {
-  SetupContext = setup(() => {
-    const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
 
-    return {
-      hasKeyboardFocus,
-      keyboardFocusListeners,
-    }
-  })
+  emits: [...useStatefulEmits, 'focus'],
 
-  hoverState = false
-  focusState = false
+  props: {
+    ...useRouterLinkProps,
+    ...useColorProps,
+    ...useStatefulProps,
+    modelValue: { type: Boolean, default: true },
+    closeable: { type: Boolean, default: false },
+    outline: { type: Boolean, default: false },
+    disabled: { type: Boolean, default: false },
+    square: { type: Boolean, default: false },
+    shadow: { type: Boolean, default: false },
+    flat: { type: Boolean, default: false },
+    icon: { type: String, default: '' },
+    tag: { type: String, default: 'span' },
+    size: {
+      type: String as PropType<'small' | 'medium' | 'large'>,
+      default: 'medium',
+      validator: (value: string) => ['small', 'medium', 'large'].includes(value),
+    },
+  },
 
-  created () {
-    watch(() => this.hoverState, (value) => {
-      this.updateHoverState(value)
-    })
-  }
-
-  get iconSize () {
-    const size: any = {
+  setup (props, { emit }) {
+    const { getColor } = useColors()
+    const colorComputed = computed(() => getColor(props.color))
+    const borderColor = computed(() => props.outline ? colorComputed.value : '')
+    const isTransparentBackground = computed(() => Boolean(props.outline || props.flat))
+    const { textColorComputed } = useTextColor(toRef(props, 'color'), isTransparentBackground)
+    const size = {
       small: '0.875rem',
       medium: '1rem',
       large: '1.25rem',
-    }
-    return size[this.size]
-  }
+    } as Record<string, string>
 
-  get indexComputed () {
-    return this.disabled ? -1 : 0
-  }
-
-  get computedClass () {
-    return {
-      'va-chip--small': this.size === 'small',
-      'va-chip--large': this.size === 'large',
-      'va-chip--square': this.square,
-      'va-chip--disabled': this.disabled,
-    }
-  }
-
-  get shadowStyle () {
-    if (!this.shadow || this.flat || this.outline || this.disabled || this.SetupContext.hasKeyboardFocus) {
-      return
-    }
-    return '0 0.125rem 0.19rem 0 ' + getBoxShadowColor(this.colorComputed)
-  }
-
-  get computedStyle () {
-    const borderColor = this.outline ? this.colorComputed : ''
-    const computedStyle = {
-      color: this.colorComputed,
-      borderColor,
-      background: '',
-      boxShadow: this.shadowStyle,
-    }
-
-    if (this.outline || this.flat) {
-      if (this.SetupContext.hasKeyboardFocus) {
-        computedStyle.background = getFocusColor(this.colorComputed)
-      } else if (this.hoverState) {
-        computedStyle.background = getHoverColor(this.colorComputed)
+    const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
+    const shadowStyle = computed(() => {
+      if (!props.shadow || props.flat || props.outline || props.disabled || hasKeyboardFocus.value) {
+        return
       }
-    } else {
-      computedStyle.color = getTextColor(this.colorComputed)
-      computedStyle.background = this.colorComputed
-    }
-    return computedStyle
-  }
+      return `0 0.125rem 0.19rem 0 ${getBoxShadowColor(colorComputed.value)}`
+    })
 
-  updateHoverState (isHover: boolean) {
-    this.hoverState = isHover
-  }
+    const { valueComputed } = useStateful(props, emit)
+    const { tagComputed, hrefComputed } = useRouterLink(props)
+    const { isHovered, onMouseEnter, onMouseLeave } = useHover()
 
-  close () {
-    if (!this.disabled) {
-      this.valueComputed = false
+    return {
+      keyboardFocusListeners,
+      valueComputed,
+      hrefComputed,
+      tagComputed,
+      onMouseEnter,
+      onMouseLeave,
+      isHovered,
+
+      close: () => {
+        if (!props.disabled) {
+          valueComputed.value = false
+        }
+      },
+
+      iconSize: computed(() => size[props.size]),
+
+      tabIndexComputed: computed(() => props.disabled ? -1 : 0),
+
+      computedClass: computed(() => ({
+        'va-chip--small': props.size === 'small',
+        'va-chip--large': props.size === 'large',
+        'va-chip--square': props.square,
+        'va-chip--disabled': props.disabled,
+      })),
+
+      computedStyle: computed(() => {
+        const result = {
+          color: textColorComputed.value,
+          borderColor: borderColor.value,
+          background: '',
+          boxShadow: shadowStyle.value,
+        }
+
+        if (props.outline || props.flat) {
+          if (hasKeyboardFocus.value) {
+            result.background = getFocusColor(colorComputed.value)
+          } else if (isHovered.value) {
+            result.background = getHoverColor(colorComputed.value)
+          }
+        } else {
+          result.background = colorComputed.value
+        }
+
+        return result
+      }),
     }
-  }
-}
+  },
+})
 </script>
 
 <style lang="scss">
@@ -212,6 +203,10 @@ export default class VaChip extends mixins(
 
   &__close-icon {
     cursor: pointer;
+
+    &:focus {
+      @include focus-outline;
+    }
 
     @at-root {
       .va-chip--disabled {

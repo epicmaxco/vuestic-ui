@@ -1,7 +1,7 @@
 <template>
   <VbDemo>
     <VbCard title="modal size">
-      <p>
+      <p class="my-3">
         <button @click="showModalSizeSmall = !showModalSizeSmall">
           show modal size small
         </button>
@@ -10,9 +10,16 @@
           title="Simple Popup, Full Width"
           :message="message"
           size="small"
+          @ok="() => logger('ok')"
+          @cancel="logger('cancel')"
+          @before-open="logger('before-open')"
+          @open="logger('open')"
+          @before-close="logger('before-close')"
+          @close="logger('close')"
+          @click-outside="logger('click-outside')"
         />
       </p>
-      <p>
+      <p class="my-3">
         <button @click="showModalSizeMedium = !showModalSizeMedium">
           show modal size medium (default)
         </button>
@@ -22,7 +29,7 @@
           :message="message"
         />
       </p>
-      <p>
+      <p class="my-3">
         <button @click="showModalSizeLarge = !showModalSizeLarge">
           show modal size large
         </button>
@@ -45,14 +52,20 @@
         <template #header>
           <h2>Step 2. Centered Layout</h2>
         </template>
-        <slot>
-          <div>{{ message }}</div>
-        </slot>
+        <div>{{ message }}</div>
         <template #footer>
           <va-button @click="customActionClick()">
             Custom action
           </va-button>
         </template>
+      </va-modal>
+    </VbCard>
+    <VbCard title="Anchor">
+      <va-modal v-model="showAnchorModal">
+        <template #anchor="{ show }">
+          <button @click="show()">Anchor-button</button>
+        </template>
+        <div>{{ message }}</div>
       </va-modal>
     </VbCard>
     <VbCard title="stateful">
@@ -63,9 +76,15 @@
         <template #header>
           <h2>Step 2. Centered Layout</h2>
         </template>
-        <slot>
-          <div>{{ message }}</div>
-        </slot>
+        <div>{{ message }}</div>
+      </va-modal>
+    </VbCard>
+    <VbCard title="stateful with anchor">
+      <va-modal stateful class="example-modal" anchor-class="example-modal-anchor">
+        <template #anchor="{ show }">
+          <button @click="show()">Anchor-button</button>
+        </template>
+        <div>{{ message }}</div>
       </va-modal>
     </VbCard>
     <VbCard title="mobile-fullscreen: false">
@@ -123,6 +142,17 @@
         :message="message"
       />
     </VbCard>
+    <VbCard title="blur: true">
+      <button @click="showModalBlur = !showModalBlur">
+        Show modal
+      </button>
+      <va-modal
+        v-model="showModalBlur"
+        blur
+        title="Step 2. Centered Layout"
+        :message="message"
+      />
+    </VbCard>
     <VbCard title="several lays">
       <button @click="showModalFirstLay = !showModalFirstLay">
         Show modal
@@ -132,16 +162,14 @@
         title="Several lays"
         :message="message"
       >
-        <slot>
-          <button @click="showModalSecondLay = !showModalSecondLay">
-            Show modal
-          </button>
-          <va-modal
-            v-model="showModalSecondLay"
-            title="Several layers"
-            :message="message"
-          />
-        </slot>
+        <button @click="showModalSecondLay = !showModalSecondLay">
+          Show modal
+        </button>
+        <va-modal
+          v-model="showModalSecondLay"
+          title="Several layers"
+          :message="message"
+        />
       </va-modal>
     </VbCard>
     <VbCard title="fixed layout">
@@ -250,12 +278,42 @@
         </template>
       </va-modal>
     </VbCard>
+    <VbCard title="custom background">
+      <button @click="showModalCustomBackground = !showModalCustomBackground">
+        Show modal
+      </button>
+      <va-modal
+        v-model="showModalCustomBackground"
+        :message="longMessage"
+        backgroundColor="#222"
+      >
+      </va-modal>
+    </VbCard>
+    <VbCard title="nested modals">
+      <button @click="showModalNested1 = !showModalNested1">
+        Show first modal
+      </button>
+
+      <va-modal v-model="showModalNested1" :message="message" hide-default-actions>
+        <button class="mt-5" @click="showModalNested2 = !showModalNested2" color="secondary">
+          Show second modal
+        </button>
+
+        <va-modal v-model="showModalNested2" :message="message">
+          Second Modal
+        </va-modal>
+      </va-modal>
+    </VbCard>
+
+    <VbCard title="vaModal return by click">
+      <button @click="buttonClick">init vaModal</button>
+    </VbCard>
   </VbDemo>
 </template>
 
 <script>
-import VaModal from './index'
-import VaButton from '../va-button'
+import { VaModal } from './'
+import { VaButton } from '../va-button'
 
 export default {
   components: { VaModal, VaButton },
@@ -265,6 +323,7 @@ export default {
       showModalSizeMedium: false,
       showModalSizeLarge: false,
       showFullScreenModal: false,
+      showAnchorModal: false,
       showActionsModal: false,
       showFixedLayoutModal: false,
       showWithoutDefaultActions: false,
@@ -282,8 +341,12 @@ export default {
       showModalNoDismiss: false,
       showModalOverlay: false,
       showModalOverlayOpacity: false,
+      showModalBlur: false,
       showModalZIndex: false,
       showModalCustomFooter: false,
+      showModalCustomBackground: false,
+      showModalNested1: false,
+      showModalNested2: false,
       message: this.$vb.lorem(),
       longMessage: this.$vb.lorem(5000),
     }
@@ -298,6 +361,36 @@ export default {
     customActionClick () {
       this.$vb.log('custom action click')
     },
+    logger (message) {
+      console.log(message !== 'undefined' ? message : '-- log --')
+    },
+    buttonClick () {
+      this.$vaModal.init({
+        title: 'Click Event',
+        message: 'First Modal',
+        withoutTransitions: true,
+        'onUpdate:modelValue': this.logger,
+        onOk: () => this.logger('clicked OK button'),
+      })
+
+      setTimeout(() => {
+        this.$vaModal.init('Second Modal')
+      }, 3000)
+    },
   },
 }
 </script>
+
+<style lang="scss">
+.example-modal-anchor {
+  button {
+    color: red;
+  }
+}
+
+.example-modal {
+  .va-modal__container {
+    background-color: blue;
+  }
+}
+</style>

@@ -73,7 +73,7 @@ export default class OpenSource extends Vue {}
   &__title {
     @include title-font();
 
-    padding-bottom: 1.7rem;
+    padding-bottom: 1rem;
 
     // sm
     @include sm(text-align, center);
@@ -88,7 +88,7 @@ export default class OpenSource extends Vue {}
   &__text {
     @include text-font();
 
-    line-height: 1.5rem;
+    line-height: 1.5;
 
     // sm
     @include sm(text-align, center);

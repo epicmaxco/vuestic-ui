@@ -1,6 +1,7 @@
 <template>
   <div
     class="va-badge"
+    role="alert"
     :class="badgeClass"
   >
     <span
@@ -19,21 +20,24 @@
 
 <script lang="ts">
 import { defineComponent, computed, PropType } from 'vue'
+
 import { useColors } from '../../composables/useColor'
+import { useTextColor } from '../../composables/useTextColor'
+import { generateUniqueId } from '../../services/utils'
 
 export default defineComponent({
   name: 'VaBadge',
   props: {
-    color: { type: String as PropType<string>, default: 'danger' },
-    textColor: { type: String as PropType<string>, default: 'var(--va-white)' },
+    color: { type: String, default: 'danger' },
+    textColor: { type: String },
     text: { type: [String, Number] as PropType<string | number>, default: '' },
-    overlap: { type: Boolean as PropType<boolean>, default: false },
-    multiLine: { type: Boolean as PropType<boolean>, default: false },
-    visibleEmpty: { type: Boolean as PropType<boolean>, default: false },
-    dot: { type: Boolean as PropType<boolean>, default: false },
-    transparent: { type: Boolean as PropType<boolean>, default: false },
-    left: { type: Boolean as PropType<boolean>, default: false },
-    bottom: { type: Boolean as PropType<boolean>, default: false },
+    overlap: { type: Boolean, default: false },
+    multiLine: { type: Boolean, default: false },
+    visibleEmpty: { type: Boolean, default: false },
+    dot: { type: Boolean, default: false },
+    transparent: { type: Boolean, default: false },
+    left: { type: Boolean, default: false },
+    bottom: { type: Boolean, default: false },
   },
   setup (props, { slots }) {
     const isEmpty = computed(() => !(props.text || props.visibleEmpty || props.dot || slots.text))
@@ -52,9 +56,10 @@ export default defineComponent({
     }))
 
     const { getColor } = useColors()
+    const { textColorComputed } = useTextColor()
     const colorComputed = computed(() => getColor(props.color))
     const badgeStyle = computed(() => ({
-      color: getColor(props.textColor, 'var(--va-white)'),
+      color: textColorComputed.value,
       borderColor: colorComputed.value,
       backgroundColor: colorComputed.value,
       opacity: props.transparent ? 0.5 : 1,

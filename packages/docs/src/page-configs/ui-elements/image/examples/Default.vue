@@ -1,7 +1,3 @@
 <template>
-  <div class="row">
-    <div class="flex md6 lg4">
-      <va-image src="https://picsum.photos/1500" />
-    </div>
-  </div>
+  <va-image class="flex md6 lg4" src="https://picsum.photos/1500" />
 </template>

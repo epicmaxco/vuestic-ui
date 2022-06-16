@@ -2,6 +2,8 @@
   <div
     class="va-avatar"
     :style="computedStyle"
+    :aria-hidden="!$props.src"
+    aria-live="polite"
   >
     <slot>
       <va-progress-circle
@@ -11,26 +13,28 @@
         indeterminate
       />
       <img
-        v-else-if="src"
-        :src="src"
+        v-else-if="$props.src"
+        :src="$props.src"
+        :alt="$props.alt"
       >
       <va-icon
-        v-else-if="icon"
-        :name="icon"
+        v-else-if="$props.icon"
+        :name="$props.icon"
       />
     </slot>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, computed } from 'vue'
+import { defineComponent, computed } from 'vue'
 
 import { useColors } from '../../composables/useColor'
 import { useSize, useSizeProps } from '../../composables/useSize'
 import { useLoadingProps } from '../../composables/useLoading'
+import { useTextColor } from '../../composables/useTextColor'
 
-import VaIcon from '../va-icon'
-import { VaProgressCircle } from '../va-progress-bar'
+import { VaIcon } from '../va-icon'
+import { VaProgressCircle } from '../va-progress-circle'
 
 export default defineComponent({
   name: 'VaAvatar',
@@ -38,20 +42,22 @@ export default defineComponent({
   props: {
     ...useLoadingProps,
     ...useSizeProps,
-    color: { type: String as PropType<string>, default: 'info' },
-    textColor: { type: String as PropType<string>, default: 'var(--va-white)' },
-    square: { type: Boolean as PropType<boolean>, default: false },
-    icon: { type: String as PropType<string>, default: '' },
-    src: { type: String as PropType<string>, default: null },
-    fontSize: { type: String as PropType<string>, default: '' },
+    color: { type: String, default: 'info' },
+    textColor: { type: String, default: 'white' },
+    square: { type: Boolean, default: false },
+    icon: { type: String, default: '' },
+    src: { type: String, default: null },
+    alt: { type: String, default: '' },
+    fontSize: { type: String, default: '' },
   },
   setup (props) {
     const { getColor } = useColors()
     const colorComputed = computed(() => getColor(props.color))
     const { sizeComputed, fontSizeComputed } = useSize(props, 'VaAvatar')
+    const { textColorComputed } = useTextColor()
 
     const computedStyle = computed(() => ({
-      color: getColor(props.textColor, 'var(--va-white)'),
+      color: textColorComputed.value,
       backgroundColor: props.loading ? 'transparent' : colorComputed.value,
       borderRadius: props.square ? 0 : '',
       fontSize: props.fontSize || fontSizeComputed.value,

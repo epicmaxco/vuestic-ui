@@ -2,10 +2,10 @@
   <div class="va-file-upload-undo">
     <span>File was successfully deleted</span>
     <va-button
-      @click="$emit('recover')"
-      outline
-      size="small"
       class="va-file-upload-undo__button"
+      size="small"
+      outline
+      @click="$emit('recover')"
     >
       Undo
     </va-button>
@@ -13,20 +13,17 @@
 </template>
 
 <script lang="ts">
-import { Vue, Options } from 'vue-class-component'
+import { defineComponent } from 'vue'
 
-import VaButton from '../../va-button'
+import { VaButton } from '../../va-button'
 
-@Options({
+export default defineComponent({
   name: 'VaFileUploadUndo',
   components: {
     VaButton,
   },
   emits: ['recover'],
 })
-export default class VaFileUploadUndo extends Vue {
-
-}
 </script>
 
 <style lang="scss">
@@ -36,6 +33,7 @@ export default class VaFileUploadUndo extends Vue {
   height: var(--va-file-upload-undo-height);
   display: flex;
   align-items: center;
+  justify-content: space-between;
 
   &__button {
     line-height: var(--va-file-upload-undo-button-line-height);

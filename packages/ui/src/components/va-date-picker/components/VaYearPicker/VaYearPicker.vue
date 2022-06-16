@@ -1,13 +1,13 @@
 <template>
   <div
-    class="va-year-picker"
     ref="rootNode"
+    class="va-year-picker"
     v-bind="containerAttributes"
     @keydown.space.prevent
   >
     <va-date-picker-cell
       v-for="(year, index) in years"
-      :key="year"
+      :key="year.toString()"
       :in-range="isInRange(year)"
       :selected="isSelected(year)"
       :disabled="isYearDisabled(year)"
@@ -25,24 +25,27 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, toRefs, onMounted, ref, computed, watch } from 'vue'
-import { VaDatePickerMode, VaDatePickerModelValue, VaDatePickerView } from '../../types/types'
-import VaDatePickerCell from '../VaDatePickerCell.vue'
-import { createYearDate, isDatesYearEqual } from '../../utils/date-utils'
+import { defineComponent, PropType, toRefs, onMounted, computed, watch, shallowRef } from 'vue'
+
+import { createYearDate } from '../../utils/date-utils'
 import { useGridKeyboardNavigation } from '../../hooks/grid-keyboard-navigation'
 import { useDatePicker } from '../../hooks/use-picker'
+
+import { DatePickerMode, DatePickerModelValue, DatePickerView } from '../../types'
+
+import VaDatePickerCell from '../VaDatePickerCell.vue'
 
 export default defineComponent({
   name: 'VaYearPicker',
   components: { VaDatePickerCell },
 
   props: {
-    modelValue: { type: [Date, Array, Object] as PropType<VaDatePickerModelValue> },
+    modelValue: { type: [Date, Array, Object] as PropType<DatePickerModelValue> },
     allowedYears: { type: Function as PropType<(date: Date) => boolean>, default: undefined },
     highlightToday: { type: Boolean, default: true },
-    mode: { type: String as PropType<VaDatePickerMode>, default: 'auto' },
-    view: { type: Object as PropType<VaDatePickerView>, default: () => ({ type: 'year' }) },
-    startYear: { type: Number, default: () => 1970 },
+    startYear: { type: Number, default: 1970 },
+    mode: { type: String as PropType<DatePickerMode>, default: 'auto' },
+    view: { type: Object as PropType<DatePickerView>, default: () => ({ type: 'year' }) },
     endYear: { type: Number, default: () => new Date().getFullYear() + 50 },
     readonly: { type: Boolean, default: false },
   },
@@ -50,8 +53,9 @@ export default defineComponent({
   emits: ['update:modelValue', 'hover:year', 'click:year'],
 
   setup (props, { emit }) {
+    const rootNode = shallowRef<HTMLElement>()
+
     const { view } = toRefs(props)
-    const rootNode = ref<HTMLElement | null>(null)
 
     const generateYearsArray = (start: number, end: number) => {
       const yearsCount = end - start + 1
@@ -143,10 +147,5 @@ export default defineComponent({
   grid-gap: var(--va-date-picker-cell-gap);
   max-height: 100%;
   position: relative;
-
-  .va-year-picker-cell {
-    width: 100%;
-    height: 30px;
-  }
 }
 </style>

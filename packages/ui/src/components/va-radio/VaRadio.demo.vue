@@ -49,6 +49,15 @@
         disabled
       />
     </VbCard>
+    <VbCard title="Readonly">
+      <va-radio
+        v-for="(option, index) in options"
+        :key="index"
+        v-model="selectedOptionString"
+        :option="option"
+        readonly
+      />
+    </VbCard>
     <VbCard title="Left label">
       <va-radio
         v-for="(option, index) in options"
@@ -82,7 +91,7 @@
 </template>
 
 <script>
-import VaRadio from './index'
+import { VaRadio } from './index'
 
 export default {
   components: { VaRadio },

@@ -2,12 +2,12 @@
   <div>
     <va-slider v-model="value1">
       <template #prepend>
-        <va-input type="number" v-model="value1"></va-input>
+        <va-input style="width: 70px;" type="number" v-model.number="value1"></va-input>
       </template>
     </va-slider>
     <va-slider v-model="value2">
       <template #append>
-        <va-input type="number" v-model="value2"></va-input>
+        <va-input style="width: 70px;" type="number" v-model.number="value2"></va-input>
       </template>
     </va-slider>
     <va-slider v-model="value3">

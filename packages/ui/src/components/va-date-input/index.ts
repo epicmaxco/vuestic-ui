@@ -1,4 +1,4 @@
 import withConfigTransport from '../../services/config-transport/withConfigTransport'
-import VaDateInputComponent from '../va-date-input/VaDateInput.vue'
+import _VaDateInput from '../va-date-input/VaDateInput.vue'
 
-export const VaDateInput = withConfigTransport(VaDateInputComponent)
+export const VaDateInput = withConfigTransport(_VaDateInput)

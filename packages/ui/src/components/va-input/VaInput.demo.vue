@@ -269,6 +269,13 @@
         </template>
       </va-input>
     </VbCard>
+    <VbCard title="Required Mark">
+      <va-input
+        v-model="text"
+        label="name"
+        required-mark
+      />
+    </VbCard>
     <VbCard title="Disabled">
       <va-input
         v-model="text"
@@ -565,8 +572,8 @@
     >
       <va-input
         class="mb-4"
-        input-class="red"
-        model-value="This input must have margin bottom and red text in input"
+        input-class="red text--right"
+        model-value="This input must have margin bottom and right-aligned red text."
       />
       <va-input
         class="border-blue"
@@ -578,12 +585,12 @@
   </VbDemo>
 </template>
 
-<script>
-import VaInput from './index'
-import VaButton from './../va-button'
-import VaIcon from './../va-icon'
-import VaInputValidation from './VaInput-validation'
-import VaCheckbox from '../va-checkbox'
+<script lang="ts">
+import { VaInput } from './index'
+import { VaButton } from './../va-button'
+import { VaIcon } from './../va-icon'
+import VaInputValidation from './VaInput-validation.vue'
+import { VaCheckbox } from '../va-checkbox'
 
 export default {
   components: {

@@ -1,9 +1,9 @@
 <template>
   <div class="va-month-picker" v-bind="containerAttributes">
     <div
-      class="va-month-picker__month-wrapper"
       v-for="(month, monthIndex) in months"
       :key="monthIndex"
+      class="va-month-picker__month-wrapper"
       @mouseenter="hoveredIndex = monthIndex"
       @mouseleave="hoveredIndex = -1"
     >
@@ -27,10 +27,13 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType, toRefs, watch } from 'vue'
-import { VaDatePickerMode, VaDatePickerView, VaDatePickerModelValue } from '../../types/types'
-import VaDatePickerCell from '../VaDatePickerCell.vue'
+
 import { useGridKeyboardNavigation } from '../../hooks/grid-keyboard-navigation'
 import { useDatePicker } from '../../hooks/use-picker'
+
+import { DatePickerMode, DatePickerView, DatePickerModelValue } from '../../types'
+
+import VaDatePickerCell from '../VaDatePickerCell.vue'
 
 export default defineComponent({
   name: 'VaMonthPicker',
@@ -38,12 +41,12 @@ export default defineComponent({
   components: { VaDatePickerCell },
 
   props: {
-    modelValue: { type: [Date, Array, Object] as PropType<VaDatePickerModelValue> },
+    modelValue: { type: [Date, Array, Object] as PropType<DatePickerModelValue> },
     monthNames: { type: Array as PropType<string[]>, required: true },
-    view: { type: Object as PropType<VaDatePickerView>, default: () => ({ type: 'month' }) },
+    view: { type: Object as PropType<DatePickerView>, default: () => ({ type: 'month' }) },
     allowedMonths: { type: Function as PropType<(date: Date) => boolean>, default: undefined },
     highlightToday: { type: Boolean, default: true },
-    mode: { type: String as PropType<VaDatePickerMode>, default: 'auto' },
+    mode: { type: String as PropType<DatePickerMode>, default: 'auto' },
     readonly: { type: Boolean, default: false },
   },
 
@@ -85,6 +88,7 @@ export default defineComponent({
       isInRange,
       isDisabled,
       containerAttributes,
+      focusedCellIndex,
     }
   },
 })
@@ -93,29 +97,16 @@ export default defineComponent({
 <style lang="scss">
 .va-month-picker {
   display: grid;
-  // 4 columns
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr); // 4 columns
   grid-gap: var(--va-date-picker-cell-gap);
-  // 7 days + gap
-  min-width: calc(var(--va-date-picker-cell-size) * 7 + var(--va-date-picker-cell-gap) * 6);
+  min-width: calc(var(--va-date-picker-cell-size) * 7 + var(--va-date-picker-cell-gap) * 6); // 7 days + gap
   width: 100%;
 
   &__month-wrapper {
-    padding: 1px;
-    border-radius: 6px;
+    border-radius: var(--va-date-picker-cell-radius);
     text-align: center;
     user-select: none;
     overflow: hidden;
-  }
-
-  &__month {
-    color: var(--va-secondary);
-    font-style: normal;
-    font-weight: bold;
-    font-size: 12px;
-    height: var(--va-date-picker-cell-size);
-    line-height: var(--va-date-picker-cell-size);
-    position: relative;
   }
 }
 </style>

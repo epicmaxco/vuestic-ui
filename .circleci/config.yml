@@ -108,7 +108,7 @@ workflows:
           context: vuestic-ui-staging-docs
           filters:
             branches:
-              only: develop
+              only: master
 #          requires:
 #            - deploy-demos
 #            - test

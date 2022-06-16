@@ -1,87 +1,101 @@
 <template>
-  <router-link custom :to="to" v-slot="{ href, navigate }">
-    <a
-      v-bind="$attrs"
-      class="va-sidebar__item va-sidebar-item"
-      :class="{ 'va-sidebar-item--active': active }"
-      :style="computedStyle"
-      :href="href"
-      @click="navigate"
-      @mouseenter="onMouseEnter"
-      @mouseleave="onMouseLeave"
-      v-on="keyboardFocusListeners"
-    >
-      <slot />
-    </a>
-  </router-link>
+  <component
+    ref="anchor"
+    class="va-sidebar__item va-sidebar-item"
+    tabindex="0"
+    :class="{ 'va-sidebar-item--active': $props.active }"
+    :style="computedStyle"
+    :href="hrefComputed"
+    :to="$props.to"
+    :is="tagComputed"
+    v-bind="$attrs"
+    v-on="keyboardFocusListeners"
+  >
+    <slot />
+  </component>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref, computed } from 'vue'
+import { defineComponent, ref, computed } from 'vue'
 import { useColors } from '../../../services/color-config/color-config'
 import useKeyboardOnlyFocus from '../../../composables/useKeyboardOnlyFocus'
-
-const useHover = () => {
-  const isHovered = ref(false)
-  const onMouseEnter = () => { isHovered.value = true }
-  const onMouseLeave = () => { isHovered.value = false }
-
-  return { isHovered, onMouseEnter, onMouseLeave }
-}
+import { useHover } from '../../../composables/useHover'
+import { useRouterLink, useRouterLinkProps } from '../../../composables/useRouterLink'
+import { useTextColor } from '../../../composables/useTextColor'
+import { useSidebarItem } from '../hooks/useSidebar'
 
 export default defineComponent({
   name: 'VaSidebarItem',
+
+  inheritAttrs: false,
+
   props: {
-    to: {
-      type: [String, Object] as PropType<string | Record<string, any>>,
-      default: () => ({}),
-    },
+    ...useRouterLinkProps,
     active: { type: Boolean, default: false },
     textColor: { type: String, default: undefined },
     activeColor: { type: String, default: 'primary' },
     hoverColor: { type: String, default: undefined },
     borderColor: { type: String, default: undefined },
   },
-  setup (props) {
-    const { isHovered, onMouseEnter, onMouseLeave } = useHover()
-    const { getColor, getHoverColor, getTextColor, getFocusColor } = useColors()
 
+  setup (props) {
+    const anchor = ref<HTMLAnchorElement>()
+
+    const { isHovered } = useHover(anchor)
+    const { getColor, getHoverColor, getFocusColor } = useColors()
     const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
+    const { sidebarColor } = useSidebarItem()
+
+    const backgroundColorComputed = computed(() => {
+      if (isHovered.value) {
+        return getHoverColor(getColor(props.hoverColor || props.activeColor))
+      }
+
+      if (props.active) {
+        return getColor(props.activeColor)
+      }
+
+      if (hasKeyboardFocus.value) {
+        return getFocusColor(getColor(props.hoverColor || props.activeColor))
+      }
+
+      return getColor(sidebarColor.value)
+    })
+
+    const { textColorComputed } = useTextColor(backgroundColorComputed)
 
     const computedStyle = computed(() => {
       const style: Record<string, string> = {}
 
-      style.color = getColor(props.textColor, 'inherit')
+      style.color = textColorComputed.value
 
-      if (isHovered.value) {
-        style['background-color'] = getHoverColor(getColor(props.hoverColor || props.activeColor))
+      if (isHovered.value || props.active || hasKeyboardFocus.value) {
+        style.backgroundColor = backgroundColorComputed.value
       }
 
       if (props.active) {
-        const border = props.borderColor === undefined ? props.activeColor : props.borderColor
-
-        style['border-color'] = getColor(border)
-        style['background-color'] = getColor(props.activeColor)
-        style.color = getTextColor(style['background-color'], getColor('dark'), '#ffffff')
+        style.borderColor = getColor(props.borderColor || props.activeColor)
       }
-
-      if (hasKeyboardFocus.value) {
-        style['background-color'] = getFocusColor(getColor(props.hoverColor || props.activeColor))
-      }
-
-      // Override default link color from VaContent
-      style.color = `${style.color} !important`
 
       return style
     })
 
-    return { isHovered, onMouseEnter, onMouseLeave, computedStyle, keyboardFocusListeners }
+    const { tagComputed, hrefComputed } = useRouterLink(props)
+
+    return {
+      anchor,
+      computedStyle,
+      keyboardFocusListeners,
+      tagComputed,
+      hrefComputed,
+      isHovered,
+    }
   },
 })
 </script>
 
 <style lang="scss">
-@import '../variables';
+@import "../variables";
 
 .va-sidebar__item {
   border-left: var(--va-sidebar-item-active-border-size) solid transparent;

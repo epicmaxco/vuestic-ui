@@ -1,27 +1,23 @@
 <template>
-  <div>
-    <va-button-toggle
-      outline
-      v-model="model"
-      :options="options"
-    />
+  <va-button-toggle
+    outline
+    v-model="model"
+    :options="options"
+    class="mb-4"
+  />
 
-    <div class="mb-2" />
+  <va-button-toggle
+    flat
+    v-model="model"
+    :options="options"
+    class="mb-4"
+  />
 
-    <va-button-toggle
-      flat
-      v-model="model"
-      :options="options"
-    />
-
-    <div class="mb-2" />
-
-    <va-button-toggle
-      :rounded="false"
-      v-model="model"
-      :options="options"
-    />
-  </div>
+  <va-button-toggle
+    :rounded="false"
+    v-model="model"
+    :options="options"
+  />
 </template>
 
 <script>

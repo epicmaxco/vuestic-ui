@@ -1,59 +1,52 @@
 <template>
   <va-card
     class="va-file-upload-list-item"
-    :stripe="removed"
+    :class="{'file-upload-list-item--undo': removed}"
+    :stripe="removed && undo"
     :stripeColor="color"
     no-margin
     no-padding
-    :class="{'file-upload-list-item--undo': removed}"
   >
     <va-file-upload-undo
+      v-if="removed && undo"
       @recover="recoverFile"
-      v-if="removed"
     />
     <div
-      class="va-file-upload-list-item__content"
       v-else
+      class="va-file-upload-list-item__content"
     >
       <div class="va-file-upload-list-item__name">
-        {{ file.name }}
+        {{ file && file.name }}
       </div>
       <div class="va-file-upload-list-item__size">
-        {{ file.size }}
+        {{ file && file.size }}
       </div>
       <va-icon
-        color="danger"
-        name="clear"
-        @click="removeFile()"
         class="va-file-upload-list-item__delete"
+        name="clear"
+        role="button"
+        aria-hidden="false"
+        aria-label="remove file"
+        tabindex="0"
+        color="danger"
+        @click="removeFile"
+        @keydown.enter.stop="removeFile"
+        @keydown.space.stop="removeFile"
       />
     </div>
   </va-card>
 </template>
 
 <script lang="ts">
-import { Vue, Options, prop, mixins } from 'vue-class-component'
+import { defineComponent, PropType, ref } from 'vue'
 
-import VaCard from '../../va-card'
-import VaIcon from '../../va-icon'
+import { ConvertedFile } from '../types'
 
-import VaFileUploadUndo from '../VaFileUploadUndo'
+import { VaCard } from '../../va-card'
+import { VaIcon } from '../../va-icon'
+import { VaFileUploadUndo } from '../VaFileUploadUndo'
 
-class FileUploadListItemProps {
-  file = prop<Record<string, unknown>>({
-    type: Object,
-    default: null,
-  })
-
-  color = prop<string>({
-    type: String,
-    default: 'success',
-  })
-}
-
-const FileUploadListItemPropsMixin = Vue.with(FileUploadListItemProps)
-
-@Options({
+export default defineComponent({
   name: 'VaFileUploadListItem',
   components: {
     VaIcon,
@@ -61,29 +54,45 @@ const FileUploadListItemPropsMixin = Vue.with(FileUploadListItemProps)
     VaFileUploadUndo,
   },
   emits: ['remove'],
-})
-export default class VaFileUploadListItem extends mixins(FileUploadListItemPropsMixin) {
-  removed = false
+  props: {
+    file: { type: Object as PropType<ConvertedFile | null>, default: null },
+    color: { type: String, default: 'success' },
+    undo: { type: Boolean, default: false },
+    undoDuration: { type: Number, default: 3000 },
+  },
+  setup (props, { emit }) {
+    const removed = ref(false)
 
-  removeFile () {
-    this.removed = true
-    setTimeout(() => {
-      if (this.removed) {
-        this.$emit('remove')
-        this.removed = false
+    const removeFile = () => {
+      if (props.undo) {
+        removed.value = true
+
+        setTimeout(() => {
+          if (removed.value) {
+            emit('remove')
+            removed.value = false
+          }
+        }, props.undoDuration)
+      } else {
+        emit('remove')
+        removed.value = false
       }
-    }, 2000)
-  }
+    }
 
-  recoverFile () {
-    this.removed = false
-  }
-}
+    const recoverFile = () => { removed.value = false }
+
+    return {
+      removed,
+      removeFile,
+      recoverFile,
+    }
+  },
+})
 </script>
 
 <style lang='scss'>
-@import '../../../styles/resources';
-@import 'variables';
+@import "../../../styles/resources";
+@import "variables";
 
 .va-file-upload-list-item {
   & + & {
@@ -115,6 +124,10 @@ export default class VaFileUploadListItem extends mixins(FileUploadListItemProps
   &__delete {
     font-size: 1.5rem;
     cursor: pointer;
+
+    &:focus {
+      @include focus-outline;
+    }
   }
 
   &--undo {

@@ -9,35 +9,24 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue, prop, mixins } from 'vue-class-component'
+import { defineComponent, computed, StyleValue } from 'vue'
 
-class ListItemLabelProps {
-  caption = prop<boolean>({ type: Boolean, default: false })
-  lines = prop<number>({ type: Number, default: 1 })
-}
-
-const ListItemLabelPropsMixin = Vue.with(ListItemLabelProps)
-
-@Options({
+export default defineComponent({
   name: 'VaListItemLabel',
-})
-export default class VaListItemLabel extends mixins(
-  ListItemLabelPropsMixin,
-) {
-  get computedClass () {
-    return { 'va-list-item-label--caption': this.caption }
-  }
+  props: {
+    caption: { type: Boolean, default: false },
+    lines: { type: Number, default: 1 },
+  },
 
-  get computedStyle () {
-    return {
-      '-webkit-line-clamp': this.lines,
-    }
-  }
-}
+  setup: (props) => ({
+    computedClass: computed(() => ({ 'va-list-item-label--caption': props.caption })),
+    computedStyle: computed(() => ({ '-webkit-line-clamp': props.lines } as StyleValue)),
+  }),
+})
 </script>
 
 <style lang="scss">
-@import 'variables';
+@import "variables";
 
 .va-list-item-label {
   font-family: var(--va-font-family);

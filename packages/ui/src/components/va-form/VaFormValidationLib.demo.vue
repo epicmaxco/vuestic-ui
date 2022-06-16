@@ -19,9 +19,9 @@
           v-model="v.age.$model"
           :error="v.age.$error"
           :error-messages="[
-            !v.age.required && 'reqired',
-            !v.age.numeric && 'Age must be a number',
-            !v.age.between && 'Age must be between 10 and 100'
+            !$v.age.required && 'required',
+            !$v.age.numeric && 'Age must be a number',
+            !$v.age.between && 'Age must be between 10 and 100'
           ]"
         />
         <va-input
@@ -29,8 +29,8 @@
           v-model="v.email.$model"
           :error="v.email.$error"
           :error-messages="[
-            !v.email.required && 'reqired',
-            !v.email.email && 'Email must be correct'
+            !$v.email.required && 'required',
+            !$v.email.email && 'Email must be correct'
           ]"
         />
         <button @click="$refs.vuelidateForm.reset()">
@@ -45,9 +45,8 @@
 import { defineComponent, ref } from 'vue'
 
 import { useValidation, useValidationProps } from '../../composables/useValidation'
-
-import VaForm from './index'
-import VaInput from '../va-input'
+import { VaForm } from './index'
+import { VaInput } from '../va-input'
 
 import useVuelidate from '@vuelidate/core'
 import { required, minLength, email, between, numeric } from 'vuelidate/lib/validators'

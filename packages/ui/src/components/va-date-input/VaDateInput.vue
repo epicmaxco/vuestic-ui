@@ -1,21 +1,32 @@
 <template>
   <div class="va-date-input">
-    <va-dropdown v-model="isOpenSync" :offset="[0, 10]" :close-on-content-click="false" :disabled="disabled">
+    <va-dropdown
+      v-model="isOpenSync"
+      trigger="none"
+      anchorSelector=".va-input-wrapper__input"
+      :offset="[2, 0]"
+      :close-on-content-click="false"
+      :stateful="false"
+      :disabled="disabled"
+    >
       <template #anchor>
-        <slot name="input" v-bind="{ valueText, inputProps, color }">
+        <slot name="input" v-bind="{ valueText, inputProps, inputListeners }">
           <va-input
-            v-bind="inputProps"
             ref="input"
             class="va-date-input__input"
+            v-bind="inputProps"
+            v-on="inputListeners"
             :model-value="valueText"
-            :error="!isValid"
-            :readonly="readonly || !manualInput"
+            aria-label="selected date"
             @change="onInputTextChanged"
+            @click="toggleDropdown()"
+            @keydown.enter.stop="showAndFocus"
+            @keydown.space.stop="showAndFocus"
           >
             <template
               v-for="name in filterSlots"
-              v-slot:[name]="slotScope"
               :key="name"
+              v-slot:[name]="slotScope"
             >
               <slot :name="name" v-bind="slotScope" />
             </template>
@@ -31,8 +42,15 @@
             <template #icon>
               <va-icon
                 v-if="canBeCleared"
+                aria-hiden="false"
+                role="button"
+                aria-label="reset"
+                tabindex="0"
+                class="va-date-input__clear-icon"
                 v-bind="clearIconProps"
-                @click.stop="clear()"
+                @click="reset()"
+                @keydown.enter.stop="reset()"
+                @keydown.space.stop="reset()"
               />
               <va-icon
                 v-else-if="!$props.leftIcon"
@@ -43,9 +61,26 @@
         </slot>
       </template>
 
-      <va-dropdown-content>
-        <va-date-picker v-bind="datePickerProps" v-model="valueComputed">
-          <template v-for="(_, name) in $slots" v-slot:[name]="bind">
+      <va-dropdown-content
+        @keydown.esc.stop.prevent="hideAndFocus()"
+      >
+        <va-date-picker
+            ref="datePicker"
+            v-bind="datePickerProps"
+            v-model="valueWithoutText"
+            @click:day="$emit('click:day', $event)"
+            @click:month="$emit('click:month', $event)"
+            @click:year="$emit('click:year', $event)"
+            @hover:day="$emit('hover:day', $event)"
+            @hover:month="$emit('hover:month', $event)"
+            @hover:year="$emit('hover:year', $event)"
+            @update:view="$emit('update:view', $event)"
+        >
+          <template
+            v-for="(_, name) in $slots"
+            :key="name"
+            v-slot:[name]="bind"
+          >
             <slot :name="name" v-bind="bind" />
           </template>
         </va-date-picker>
@@ -55,39 +90,36 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, toRefs, watch, ref } from 'vue'
-import { useClearableProps, useClearableEmits, useClearable } from '../../composables/useClearable'
-import { useFormProps } from '../../composables/useForm'
-import { useStateful } from '../../mixins/StatefulMixin/cStatefulMixin'
+import { computed, defineComponent, PropType, toRefs, watch, ref, nextTick } from 'vue'
 
-import { isRange, isSingleDate, isDates } from '../va-date-picker/hooks/model-value-helper'
+import { filterComponentProps, extractComponentProps, extractComponentEmits } from '../../utils/child-props'
+import { useClearableEmits, useClearable } from '../../composables/useClearable'
+import { useValidation, useValidationEmits, useValidationProps, ValidationProps } from '../../composables/useValidation'
+import { useStateful, useStatefulEmits } from '../../composables/useStateful'
 import { useSyncProp } from '../va-date-picker/hooks/sync-prop'
-import { filterComponentProps, extractComponentProps } from '../../utils/child-props'
+import { useParsable } from '../../composables/useParsable'
+import { isRange, isSingleDate, isDates } from '../va-date-picker/utils/date-utils'
 import { useRangeModelValueGuard } from './hooks/range-model-value-guard'
-import { useDateParser } from './hooks/date-text-parser'
+import { useDateParser } from './hooks/input-text-parser'
+import { parseModelValue } from './hooks/model-value-parser'
+
+import { DateInputModelValue, DateInputValue } from './types'
 
 import VaDatePicker from '../va-date-picker/VaDatePicker.vue'
-import vaDropdown, { VaDropdownContent } from '../va-dropdown'
-import VaInput from '../va-input'
-import VaIcon from '../va-icon'
-import { VaDatePickerModelValue } from '../va-date-picker/types/types'
+import { VaDropdown, VaDropdownContent } from '../va-dropdown'
+import { VaInput } from '../va-input'
+import { VaIcon } from '../va-icon'
 
-const VaInputProps = {
-  ...useFormProps,
-
-  label: { type: String, required: false },
-  color: { type: String, default: 'primary' },
-  placeholder: { type: String, default: '' },
-  tabindex: { type: Number, default: 0 },
-  outline: { Boolean, default: false },
-  bordered: { type: Boolean, default: false },
-}
+const VaInputProps = extractComponentProps(VaInput, [
+  'mask', 'returnRaw', 'autosize', 'minRows', 'maxRows', 'type', 'inputmode',
+])
+const VaDatePickerProps = extractComponentProps(VaDatePicker)
 
 export default defineComponent({
   name: 'VaDateInput',
 
   components: {
-    vaDropdown,
+    VaDropdown,
     VaDropdownContent,
     VaDatePicker,
     VaInput,
@@ -95,89 +127,149 @@ export default defineComponent({
   },
 
   props: {
-    ...extractComponentProps(VaDatePicker),
     ...VaInputProps,
+    ...VaDatePickerProps,
+    ...useValidationProps as ValidationProps<DateInputModelValue>,
 
-    ...useClearableProps,
-    clearValue: { type: Date as PropType<VaDatePickerModelValue>, default: undefined },
+    clearValue: { type: Date as PropType<DateInputModelValue>, default: undefined },
+    modelValue: { type: [Date, Array, Object, String, Number] as PropType<DateInputModelValue> },
 
     resetOnClose: { type: Boolean, default: true },
-    isOpen: { type: Boolean },
+    isOpen: { type: Boolean, default: undefined },
 
-    format: { type: Function as PropType<(date: VaDatePickerModelValue | undefined) => string> },
-    formatDate: { type: Function as PropType<(date: Date) => string>, default: () => (d: Date) => d.toLocaleDateString() },
-    parse: { type: Function as PropType<(input: string) => VaDatePickerModelValue> },
+    format: { type: Function as PropType<(date: DateInputModelValue) => string> },
+    formatDate: { type: Function as PropType<(date: Date) => string>, default: (d: Date) => d.toLocaleDateString() },
+    parse: { type: Function as PropType<(input: string) => DateInputValue> },
     parseDate: { type: Function as PropType<(input: string) => Date> },
+    parseValue: { type: Function as PropType<typeof parseModelValue> },
 
     delimiter: { type: String, default: ', ' },
     rangeDelimiter: { type: String, default: ' ~ ' },
     manualInput: { type: Boolean, default: false },
 
+    color: { type: String, default: 'primary' },
     leftIcon: { type: Boolean, default: false },
     icon: { type: String, default: 'calendar_today' },
   },
 
   emits: [
-    'update:modelValue',
-    'hover:day', 'hover:month',
-    'update:year', 'update:month', 'update:view',
-    'click:month', 'click:day',
+    ...extractComponentEmits(VaDatePicker),
+    ...useClearableEmits,
+    ...useValidationEmits,
+    ...useStatefulEmits,
     'update:is-open',
     'update:text',
-    ...useClearableEmits,
   ],
 
   setup (props, { emit, slots }) {
+    const input = ref<typeof VaInput>()
+    const datePicker = ref<typeof VaDatePicker>()
+
     const { isOpen, resetOnClose } = toRefs(props)
-    const { valueComputed: statefulValue } = useStateful(props, emit)
+    const { valueComputed: statefulValue } = useStateful<DateInputModelValue>(props, emit)
     const { syncProp: isOpenSync } = useSyncProp(isOpen, 'is-open', emit, false)
 
     const isRangeModelValueGuardDisabled = computed(() => !resetOnClose.value)
-    const { valueComputed, reset } = useRangeModelValueGuard(statefulValue, isRangeModelValueGuardDisabled)
-    watch(isOpenSync, (isOpened) => { if (!isOpened && !isRangeModelValueGuardDisabled.value) { reset() } })
+
+    const {
+      valueComputed,
+      reset: resetInvalidRange,
+    } = useRangeModelValueGuard(statefulValue, isRangeModelValueGuardDisabled, props.parseValue)
+
+    watch(isOpenSync, (isOpened) => {
+      if (!isOpened && !isRangeModelValueGuardDisabled.value) { resetInvalidRange() }
+    })
 
     const dateOrNothing = (date: Date | undefined | null) => date ? props.formatDate(date) : '...'
 
-    const input = ref(0)
-
     const { parseDateInputValue, isValid } = useDateParser(props)
+
+    const modelValueToString = (value: DateInputModelValue): string => {
+      if (props.format) {
+        return props.format(valueComputed.value)
+      }
+
+      if (isDates(value)) {
+        return value.map((d) => props.formatDate(d)).join(props.delimiter)
+      }
+      if (isSingleDate(value)) {
+        return props.formatDate(value)
+      }
+      if (isRange(value)) {
+        return dateOrNothing(value.start) + props.rangeDelimiter + dateOrNothing(value.end)
+      }
+
+      throw new Error('VaDatePicker: Invalid model value. Value should be Date, Date[] or { start: Date, end: Date | null }')
+    }
+
+    const {
+      text,
+      value: valueWithoutText,
+    } = useParsable(valueComputed, parseDateInputValue, modelValueToString)
 
     const valueText = computed(() => {
       if (!isValid.value) {
         return ''
       }
 
-      if (props.format) {
-        return props.format(valueComputed.value)
+      if (!valueComputed.value) {
+        if (!props.clearValue) { return '' }
+        return modelValueToString(props.clearValue)
       }
 
-      if (!valueComputed.value) { return '' }
-
-      if (isDates(valueComputed.value)) {
-        return valueComputed.value.map((d) => props.formatDate(d)).join(props.delimiter)
-      }
-      if (isSingleDate(valueComputed.value)) {
-        return props.formatDate(valueComputed.value)
-      }
-      if (isRange(valueComputed.value)) {
-        return dateOrNothing(valueComputed.value.start) + props.rangeDelimiter + dateOrNothing(valueComputed.value.end)
-      }
-
-      throw new Error('VaDatePicker: Invalid model value. Value should be Date, Date[] or { start: Date, end: Date | null }')
+      return text.value
     })
 
-    const onInputTextChanged = (text: string) => {
-      const parsedValue = parseDateInputValue(text)
+    const onInputTextChanged = ({ target } : Event) => {
+      const parsedValue = parseDateInputValue((target as HTMLInputElement).value)
 
       if (isValid.value) {
         valueComputed.value = parsedValue
       }
     }
 
-    const clear = () => {
-      valueComputed.value = props.clearValue
+    const reset = (): void => {
+      statefulValue.value = props.clearValue
       emit('clear')
     }
+
+    const focus = (): void => {
+      input.value?.focus()
+    }
+
+    const hideAndFocus = (): void => {
+      isOpenSync.value = false
+      focus()
+    }
+
+    const focusDatePicker = (): void => {
+      nextTick(() => datePicker.value?.focusCurrentPicker())
+    }
+
+    const focusInputOrPicker = (): void => {
+      props.manualInput ? focus() : focusDatePicker()
+    }
+
+    const toggleDropdown = () => {
+      isOpenSync.value = !isOpenSync.value
+      focusInputOrPicker()
+    }
+
+    const showAndFocus = (event: Event): void => {
+      if (props.manualInput) { return }
+
+      isOpenSync.value = true
+      focusDatePicker()
+      event.preventDefault()
+    }
+
+    const blur = (): void => {
+      input.value?.blur()
+    }
+
+    const { computedError, computedErrorMessages, listeners } = useValidation(props, emit, reset, focus)
+
+    const hasError = computed(() => (!isValid.value && valueComputed.value !== props.clearValue) || computedError.value)
 
     const filterSlots = computed(() => {
       const slotsWithIcons = [
@@ -190,6 +282,8 @@ export default defineComponent({
     const {
       canBeCleared,
       clearIconProps,
+      onFocus,
+      onBlur,
     } = useClearable(props, valueComputed)
 
     const iconProps = computed(() => ({
@@ -199,35 +293,71 @@ export default defineComponent({
       class: 'va-date-input__icon',
     }))
 
+    const computedInputProps = computed(() => ({
+      ...filterComponentProps(props, VaInputProps).value,
+      clearable: false,
+      rules: [],
+      error: hasError.value,
+      errorMessages: computedErrorMessages.value,
+      readonly: props.readonly || !props.manualInput,
+    }))
+
+    const computedInputListeners = computed(() => ({
+      focus: () => {
+        onFocus()
+        listeners.onFocus()
+      },
+      blur: () => {
+        onBlur()
+        listeners.onBlur()
+      },
+    }))
+
     return {
+      datePicker,
       valueText,
+      valueWithoutText,
       valueComputed,
       isOpenSync,
-      isValid,
       onInputTextChanged,
 
       input,
-
-      inputProps: filterComponentProps(props, VaInputProps),
+      inputProps: computedInputProps,
+      inputListeners: computedInputListeners,
       datePickerProps: filterComponentProps(props, extractComponentProps(VaDatePicker)),
 
       filterSlots,
       canBeCleared,
       clearIconProps,
       iconProps,
-      clear,
+
+      hideAndFocus,
+      showAndFocus,
+      toggleDropdown,
+      focusInputOrPicker,
+      reset,
+      focus,
+      blur,
     }
   },
 })
 </script>
 
 <style lang="scss">
+@import "../../styles/resources";
+
 .va-date-input {
   display: flex;
   font-family: var(--va-font-family);
 
   &__icon {
     cursor: pointer;
+  }
+
+  &__clear-icon {
+    &:focus {
+      @include focus-outline;
+    }
   }
 
   &__input.va-input_readonly {

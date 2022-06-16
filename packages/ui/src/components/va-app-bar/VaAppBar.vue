@@ -1,5 +1,10 @@
 <template>
-  <header :class="computedClass" :style="computedStyle" ref="scrollRoot">
+  <header
+    ref="scrollRoot"
+    role="toolbar"
+    :class="computedClass"
+    :style="computedStyle"
+  >
     <slot />
   </header>
 </template>
@@ -7,20 +12,20 @@
 <script lang="ts">
 import { defineComponent, PropType, computed, ref } from 'vue'
 
-import { setupScroll } from '../../mixins/ScrollMixin/ScrollMixin'
+import { setupScroll } from '../../composables/useScroll'
 import { getGradientBackground, getBoxShadowColor } from '../../services/color-config/color-functions'
 import { useColors } from '../../services/color-config/color-config'
 
 export default defineComponent({
   name: 'VaAppBar',
   props: {
-    gradient: { type: Boolean as PropType<boolean>, default: false },
-    bottom: { type: Boolean as PropType<boolean>, default: false },
+    gradient: { type: Boolean, default: false },
+    bottom: { type: Boolean, default: false },
     target: { type: [Object, String] as PropType<string | Element>, default: '' },
-    hideOnScroll: { type: Boolean as PropType<boolean>, default: false },
-    shadowOnScroll: { type: Boolean as PropType<boolean>, default: false },
-    shadowColor: { type: String as PropType<string>, default: '' },
-    color: { type: String as PropType<string>, default: undefined },
+    hideOnScroll: { type: Boolean, default: false },
+    shadowOnScroll: { type: Boolean, default: false },
+    shadowColor: { type: String, default: '' },
+    color: { type: String, default: undefined },
   },
   setup (props) {
     const prevScrollPosition = ref(0)
@@ -51,7 +56,7 @@ export default defineComponent({
 
     const computedShadow = computed(() => {
       const shadow = getBoxShadowColor(props.shadowColor ? shadowColorComputed.value : colorComputed.value)
-      return doShowShadow.value ? `0px 0px 12px 2px ${shadow}` : ''
+      return doShowShadow.value ? `var(--va-app-bar-shadow) ${shadow}` : ''
     })
 
     const transformComputed = computed(() => {
@@ -85,7 +90,7 @@ export default defineComponent({
 .va-app-bar {
   display: flex;
   align-items: center;
-  position: var(--va-app-bar-position);
+  position: absolute;
   transition: all 0.5s ease;
   top: 0;
   left: 0;
@@ -94,6 +99,7 @@ export default defineComponent({
   min-height: var(--va-app-bar-height);
   min-width: 100%;
   font-family: var(--va-font-family);
+  z-index: var(--va-app-bar-z-index);
 
   &--bottom {
     top: 100%;

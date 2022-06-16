@@ -48,6 +48,14 @@
           Inner
         </template>
       </va-switch>
+       <va-switch
+        v-model="value"
+        color="banana"
+      >
+        <template #innerLabel>
+          Inner
+        </template>
+      </va-switch>
     </VbCard>
     <VbCard title="Sizes">
       <va-switch
@@ -143,6 +151,12 @@
         disabled
       />
     </VbCard>
+    <VbCard title="Readonly">
+      <va-switch
+        v-model="value"
+        readonly
+      />
+    </VbCard>
     <VbCard title="Loading">
       <va-switch
         v-model="value"
@@ -192,7 +206,7 @@
 </template>
 
 <script>
-import VaSwitch from './index'
+import { VaSwitch } from './index'
 
 export default {
   components: {

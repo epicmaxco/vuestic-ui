@@ -19,7 +19,8 @@
 
 import VaIconMenu from '../../iconset/VaIconMenu.vue'
 import VaIconMenuCollapsed from '../../iconset/VaIconMenuCollapsed.vue'
-import { getColors } from '../../../../../ui/src/main'
+import { useColors } from '../../../../../ui/src/main'
+import { computed } from 'vue'
 
 export default {
   name: 'DocsHeaderSelector',
@@ -34,10 +35,12 @@ export default {
     },
   },
 
-  computed: {
-    colors () {
-      return getColors()
-    },
+  setup () {
+    const { getColors } = useColors()
+
+    return {
+      colors: computed(getColors),
+    }
   },
 }
 </script>

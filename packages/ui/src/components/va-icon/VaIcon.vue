@@ -1,103 +1,96 @@
 <template>
   <component
-    v-bind="computedAttrs"
-    aria-hidden="true"
-    notranslate
-    class="va-icon"
     :is="computedTag"
+    class="va-icon"
+    aria-hidden="true"
     :class="computedClass"
     :style="computedStyle"
+    v-bind="computedAttrs"
+    notranslate
   >
-    <slot>{{ computedContent }}</slot>
+    <slot>
+      <template v-if="iconConfig.content">
+        {{ iconConfig.content }}
+      </template>
+    </slot>
   </component>
 </template>
 
 <script lang="ts">
-import { Options, mixins, prop, Vue, setup } from 'vue-class-component'
-import ColorMixin from '../../services/color-config/ColorMixin'
-import { SizeMixin } from '../../mixins/SizeMixin'
+import { defineComponent, PropType, computed } from 'vue'
+import omit from 'lodash/omit.js'
+
 import { useIcons } from '../../services/icon-config/icon-config'
-import omit from 'lodash/omit'
+import { useColors } from '../../composables/useColor'
+import { useSize, useSizeProps } from '../../composables/useSize'
 
-class IconProps {
-  name = prop<string>({ type: String, default: '' })
-  tag = prop<string>({ type: String })
-  component = prop<Record<string, any>>({ type: Object })
-  color = prop<string>({ type: String, default: undefined })
-  rotation = prop<number | string>({ type: [String, Number], default: undefined })
-  spin = prop<string | boolean>({ type: [String, Boolean], default: undefined })
-  flip = prop<string>({
-    type: String,
-    default: 'off',
-    validator: (value: string) => ['off', 'horizontal', 'vertical', 'both'].includes(value),
-  })
-}
-
-const IconPropsMixin = Vue.with(IconProps)
-
-@Options({
+export default defineComponent({
   name: 'VaIcon',
-})
-export default class VaIcon extends mixins(
-  ColorMixin,
-  SizeMixin,
-  IconPropsMixin,
-) {
-  iconContext = setup(() => useIcons(this.$props))
+  props: {
+    ...useSizeProps,
+    name: { type: String, default: '' },
+    tag: { type: String },
+    component: { type: Object as PropType<any> },
+    color: { type: String },
+    rotation: { type: [String, Number] as PropType<number | string> },
+    spin: { type: [String, Boolean] as PropType<string | boolean> },
+    flip: {
+      type: String as PropType<'off' | 'horizontal' | 'vertical' | 'both'>,
+      default: 'off',
+      validator: (value: string) => ['off', 'horizontal', 'vertical', 'both'].includes(value),
+    },
+  },
+  setup (props, { attrs }) {
+    const { getColor } = useColors()
+    const { sizeComputed } = useSize(props)
+    const { getIcon } = useIcons(props)
 
-  get iconConfig () {
-    return this.iconContext.getIcon(this.name)
-  }
+    const iconConfig = computed(() => getIcon(props.name))
 
-  get computedTag () {
-    return this.$props.component || this.$props.tag || this.iconConfig.component || this.iconConfig.tag || 'i'
-  }
+    const computedTag = computed(() => props.component || props.tag || iconConfig.value.component || iconConfig.value.tag || 'i')
 
-  get computedAttrs () {
-    return { ...this.iconConfig.attrs, ...omit(this.$attrs, ['class']) }
-  }
+    const computedAttrs = computed(() => ({ ...iconConfig.value.attrs, ...omit(attrs, ['class']) }))
 
-  get computedClass () {
-    const spin = this.$props.spin === undefined ? this.iconConfig.spin : this.$props.spin
-
-    return [
-      this.iconConfig.class,
-      this.getSpinClass(spin),
-    ]
-  }
-
-  getSpinClass (spin?: string | boolean) {
-    if (spin === undefined) { return }
-    return spin === 'counter-clockwise' ? 'va-icon--spin-reverse' : 'va-icon--spin'
-  }
-
-  get transformStyle () {
-    const rotation = this.rotation ? 'rotate(' + this.rotation + 'deg)' : ''
-
-    const flipY = (this.flip === 'vertical' || this.flip === 'both') ? -1 : 1
-    const flipX = (this.flip === 'horizontal' || this.flip === 'both') ? -1 : 1
-    const scale = this.flip === 'off' ? '' : `scale(${flipY}, ${flipX})`
-
-    return `${scale} ${rotation}`.trim()
-  }
-
-  get computedStyle () {
-    return {
-      transform: this.transformStyle,
-      cursor: this.$attrs.onClick ? 'pointer' : null,
-      color: this.$props.color !== undefined ? this.colorComputed : this.iconConfig.color,
-      fontSize: this.sizeComputed,
+    const getSpinClass = (spin?: string | boolean) => {
+      if (spin === undefined || spin === false) { return }
+      return spin === 'counter-clockwise' ? 'va-icon--spin-reverse' : 'va-icon--spin'
     }
-  }
 
-  get computedContent () {
-    return this.iconConfig.content
-  }
-}
+    const computedClass = computed(() => [
+      iconConfig.value.class,
+      getSpinClass(props.spin ?? iconConfig.value.spin),
+    ])
+
+    const transformStyle = computed(() => {
+      const rotation = props.rotation ? `rotate(${props.rotation}deg)` : ''
+
+      const flipY = (props.flip === 'vertical' || props.flip === 'both') ? -1 : 1
+      const flipX = (props.flip === 'horizontal' || props.flip === 'both') ? -1 : 1
+      const scale = props.flip === 'off' ? '' : `scale(${flipY}, ${flipX})`
+
+      return `${scale} ${rotation}`.trim()
+    })
+
+    const computedStyle = computed(() => ({
+      transform: transformStyle.value,
+      cursor: attrs.onClick ? 'pointer' : null,
+      color: props.color ? getColor(props.color, undefined, true) : iconConfig.value.color,
+      fontSize: sizeComputed.value,
+    }))
+
+    return {
+      iconConfig,
+      computedTag,
+      computedAttrs,
+      computedClass,
+      computedStyle,
+    }
+  },
+})
 </script>
 
 <style lang="scss">
-@import 'variables';
+@import "variables";
 
 .va-icon {
   vertical-align: var(--va-icon-vertical-align);

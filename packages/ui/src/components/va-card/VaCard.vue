@@ -20,55 +20,55 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, PropType } from 'vue'
+import { defineComponent, computed } from 'vue'
 
 import { getGradientBackground } from '../../services/color-config/color-functions'
-import { useColors, useColorProps } from '../../composables/useColor'
+import { useColors } from '../../composables/useColor'
 import { useRouterLink, useRouterLinkProps } from '../../composables/useRouterLink'
+import { useTextColor } from '../../composables/useTextColor'
 
 export default defineComponent({
   name: 'VaCard',
   emits: ['click'],
   props: {
-    ...useColorProps,
     ...useRouterLinkProps,
-    tag: { type: String as PropType<string>, default: 'div' },
-    square: { type: Boolean as PropType<boolean>, default: false },
-    outlined: { type: Boolean as PropType<boolean>, default: false },
-    bordered: { type: Boolean as PropType<boolean>, default: true },
-    disabled: { type: Boolean as PropType<boolean>, default: false },
-    href: { type: String as PropType<string>, default: '' },
-    target: { type: String as PropType<string>, default: '' },
-    stripe: { type: Boolean as PropType<boolean>, default: false },
-    stripeColor: { type: String as PropType<string>, default: '' },
-    gradient: { type: Boolean as PropType<boolean>, default: false },
-    dark: { type: Boolean as PropType<boolean>, default: false },
+    tag: { type: String, default: 'div' },
+    square: { type: Boolean, default: false },
+    outlined: { type: Boolean, default: false },
+    bordered: { type: Boolean, default: true },
+    disabled: { type: Boolean, default: false },
+    href: { type: String, default: '' },
+    target: { type: String, default: '' },
+    stripe: { type: Boolean, default: false },
+    stripeColor: { type: String, default: '' },
+    gradient: { type: Boolean, default: false },
+    textColor: { type: String },
+    color: { type: String, default: 'white' },
   },
   setup (props) {
     const { getColor } = useColors()
-    const { hasRouterLinkParams, tagComputed, hrefComputed } = useRouterLink(props)
+    const { isLinkTag, tagComputed, hrefComputed } = useRouterLink(props)
+    const { textColorComputed } = useTextColor()
 
     const stripeStyles = computed(() => ({ background: getColor(props.stripeColor) }))
 
     const cardClasses = computed(() => ({
-      'va-card--dark': props.dark,
       'va-card--square': props.square,
       'va-card--outlined': props.outlined,
       'va-card--no-border': !props.bordered,
       'va-card--disabled': props.disabled,
-      'va-card--link': props.href || hasRouterLinkParams.value,
+      'va-card--link': isLinkTag.value,
     }))
 
     const cardStyles = computed(() => {
-      const color = props.dark ? getColor(props.color || 'dark') : getColor(props.color, 'var(--va-white)')
-
       if (props.gradient && props.color) {
         return {
-          background: getGradientBackground(color),
+          background: getGradientBackground(getColor(props.color)),
+          color: textColorComputed.value,
         }
       }
 
-      return { background: color }
+      return { background: getColor(props.color), color: textColorComputed.value }
     })
 
     return {
@@ -101,11 +101,6 @@ export default defineComponent({
     height: 100%;
   }
 
-  &--dark {
-    color: var(--va-card-dark-color);
-    background-color: var(--va-card-dark-background-color);
-  }
-
   &--square {
     border-radius: 0;
   }
@@ -120,9 +115,7 @@ export default defineComponent({
   }
 
   &--disabled {
-    opacity: 0.6;
-    pointer-events: none;
-    user-select: none;
+    @include va-disabled;
   }
 
   &--link {

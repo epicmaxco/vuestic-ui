@@ -103,7 +103,7 @@
       <va-date-picker v-model="monthValue" v-model:view="dayView" type="day" class="mb-4" />
 
       <h5 class="mb-2">month</h5>
-      <va-date-picker v-model="monthRange" v-model:view="monthView" type="day" class="mb-4" />
+      <va-date-picker v-model="monthValue" v-model:view="monthView" type="day" class="mb-4" />
 
       <h5 class="mb-2">year</h5>
       <va-date-picker v-model="months" v-model:view="yearView" type="day" class="mb-4" />
@@ -149,12 +149,17 @@
         :allowedDays="(date) => date.getDay() !== 5"
       />
     </VbCard>
+    <VbCard title="needs to be open on this date: March 3000">
+      <va-date-picker
+        v-model="futureDate"
+      />
+    </VbCard>
   </VbDemo>
 </template>
 
 <script lang="ts">
 import { VaDatePicker } from './index'
-import VaChip from '../va-chip'
+import { VaChip } from '../va-chip'
 
 const datePlusDay = (date: Date, days: number) => {
   const d = new Date(date)
@@ -170,6 +175,7 @@ export default {
       value: new Date(),
       range: { start: new Date(), end: nextWeek },
       dates: [new Date(), nextWeek],
+      futureDate: new Date(3000, 2, 3),
       monthValue: new Date(),
       monthRange: { start: new Date(), end: datePlusDay(new Date(), 62) },
       months: [new Date(), datePlusDay(new Date(), 62)],
