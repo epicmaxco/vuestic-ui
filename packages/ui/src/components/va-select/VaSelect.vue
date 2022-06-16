@@ -23,6 +23,7 @@
       <div class="va-select">
         <va-input
           ref="input"
+          aria-label="selected option"
           :model-value="valueComputedString"
           :success="$props.success"
           :error="computedError"
@@ -65,8 +66,13 @@
           <template #icon>
             <va-icon
               v-if="showClearIcon"
+              aria-hidden="false"
+              aria-label="reset"
+              class="va-select__icons__reset"
               v-bind="clearIconProps"
-              @click.stop="reset()"
+              @click.stop="reset"
+              @keydown.enter.stop="reset"
+              @keydown.space.stop="reset"
             />
           </template>
 
@@ -98,8 +104,8 @@
     <va-dropdown-content
       class="va-select-dropdown__content"
       :style="{ width: $props.width }"
-      @keyup.enter.stop
-      @keydown.tab.stop.prevent
+      @keyup.enter.stop="() => undefined"
+      @keydown.tab.stop.prevent="() => undefined"
       @keydown.esc.prevent="hideAndFocus()"
     >
       <va-input
@@ -107,7 +113,8 @@
         ref="searchBar"
         class="va-select__input"
         placeholder="Search"
-        :tabindex="tabindex + 1"
+        aria-label="options filter"
+        :tabindex="tabIndexComputed"
         :bordered="true"
         v-model="searchInput"
         @keydown.up.stop.prevent="hoverPreviousOption()"
@@ -131,7 +138,7 @@
           :search="searchInput"
           :no-options-text="$props.noOptionsText"
           :color="$props.color"
-          :tabindex="tabindex + 1"
+          :tabindex="tabIndexComputed"
           @select-option="selectOption"
           @no-previous-option-to-hover="focusSearchBar()"
           @keydown.enter.stop.prevent="selectHoveredOption()"
@@ -148,26 +155,21 @@
 <script lang="ts">
 import { defineComponent, PropType, ref, computed, watch, nextTick, Ref } from 'vue'
 
-import { useSelectableList, useSelectableListProps, SelectableOption } from '../../composables/useSelectableList'
-import { useValidation, useValidationProps, useValidationEmits } from '../../composables/useValidation'
+import { useSelectableList, useSelectableListProps } from '../../composables/useSelectableList'
+import { useValidation, useValidationProps, useValidationEmits, ValidationProps } from '../../composables/useValidation'
 import { useFormProps } from '../../composables/useForm'
 import { useLoadingProps } from '../../composables/useLoading'
 import { useColor } from '../../composables/useColor'
 import { useMaxSelections, useMaxSelectionsProps } from '../../composables/useMaxSelections'
 import { useClearableProps, useClearable, useClearableEmits } from '../../composables/useClearable'
-import { Placement } from '../../composables/usePopover'
 import { useColors } from '../../services/color-config/color-config'
 import { warn } from '../../services/utils'
-import VaDropdown, { VaDropdownContent } from '../va-dropdown'
-import VaIcon from '../va-icon'
-import VaInput from '../va-input'
-import VaSelectOptionList from './VaSelectOptionList'
+import { VaDropdown, VaDropdownContent } from '../va-dropdown'
+import { VaIcon } from '../va-icon'
+import { VaInput } from '../va-input'
+import { VaSelectOptionList } from './VaSelectOptionList'
 import { useFocus } from '../../composables/useFocus'
-
-type DropdownIcon = {
-  open: string,
-  close: string
-}
+import { SelectDropdownIcon, SelectOption, Placement } from './types'
 
 export default defineComponent({
   name: 'VaSelect',
@@ -191,20 +193,20 @@ export default defineComponent({
 
   props: {
     ...useSelectableListProps,
-    ...useValidationProps,
+    ...useValidationProps as ValidationProps<SelectOption>,
     ...useLoadingProps,
     ...useMaxSelectionsProps,
     ...useClearableProps,
     ...useFormProps,
 
     modelValue: {
-      type: [String, Number, Object] as PropType<SelectableOption>,
+      type: [String, Number, Array, Object] as PropType<SelectOption | SelectOption[]>,
       default: '',
     },
 
     // Dropdown placement
     placement: {
-      type: String as PropType<Partial<Placement>>,
+      type: String as PropType<Placement>,
       default: 'bottom',
       validator: (placement: string) => ['top', 'bottom'].includes(placement),
     },
@@ -226,12 +228,12 @@ export default defineComponent({
     hideSelected: { type: Boolean as PropType<boolean>, default: false },
     tabindex: { type: Number as PropType<number>, default: 0 },
     dropdownIcon: {
-      type: [String, Object] as PropType<string | DropdownIcon>,
-      default: (): DropdownIcon => ({
+      type: [String, Object] as PropType<string | SelectDropdownIcon>,
+      default: (): SelectDropdownIcon => ({
         open: 'expand_more',
         close: 'expand_less',
       }),
-      validator: (value: string | DropdownIcon) => {
+      validator: (value: string | SelectDropdownIcon) => {
         if (typeof value === 'string') { return true }
 
         const isOpenIconString = typeof value.open === 'string'
@@ -281,7 +283,7 @@ export default defineComponent({
 
     // Select value
 
-    const valueComputed = computed<SelectableOption | SelectableOption[]>({
+    const valueComputed = computed<SelectOption | SelectOption[]>({
       get () {
         const value = getOptionByValue(props.modelValue)
 
@@ -308,7 +310,7 @@ export default defineComponent({
         return value
       },
 
-      set (value: SelectableOption | SelectableOption[]) {
+      set (value: SelectOption | SelectOption[]) {
         if (Array.isArray(value)) {
           emit('update:modelValue', value.map(getValue))
         } else {
@@ -361,7 +363,7 @@ export default defineComponent({
       return props.options
     })
 
-    const checkIsOptionSelected = (option: SelectableOption) => {
+    const checkIsOptionSelected = (option: SelectOption) => {
       if (!valueComputed.value) { return false }
 
       if (Array.isArray(valueComputed.value)) {
@@ -371,7 +373,7 @@ export default defineComponent({
       return compareOptions(valueComputed.value, option)
     }
 
-    const compareOptions = (option1: SelectableOption, option2: SelectableOption) => {
+    const compareOptions = (option1: SelectOption, option2: SelectOption) => {
       const one = getValue(option1)
       const two = getValue(option2)
 
@@ -392,9 +394,9 @@ export default defineComponent({
       return false
     }
 
-    const isValueComputedArray = (v: Ref<SelectableOption | SelectableOption[]>): v is Ref<SelectableOption[]> => Array.isArray(v.value)
+    const isValueComputedArray = (v: Ref<SelectOption | SelectOption[]>): v is Ref<SelectOption[]> => Array.isArray(v.value)
 
-    const selectOption = (option: SelectableOption) => {
+    const selectOption = (option: SelectOption) => {
       if (hoveredOption.value === null) {
         hideAndFocus()
         return
@@ -424,7 +426,7 @@ export default defineComponent({
 
     const addNewOption = () => {
       // Do not emit if option already exist and allow create is `unique`
-      const hasAddedOption = props.options?.some((option: SelectableOption) => getText(option) === searchInput.value)
+      const hasAddedOption = props.options?.some((option: SelectOption) => getText(option) === searchInput.value)
 
       if (!(props.allowCreate === 'unique' && hasAddedOption)) {
         emit('create-new', searchInput.value)
@@ -434,7 +436,7 @@ export default defineComponent({
 
     // Hovered options
 
-    const hoveredOption = ref<SelectableOption | null>(null)
+    const hoveredOption = ref<SelectOption | null>(null)
 
     const selectHoveredOption = () => {
       if (!hoveredOption.value) { return }
@@ -699,6 +701,14 @@ export default defineComponent({
 
   .va-input {
     cursor: var(--va-select-cursor);
+  }
+
+  &__icons {
+    &__reset {
+      &:focus {
+        @include focus-outline;
+      }
+    }
   }
 }
 

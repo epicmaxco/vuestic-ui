@@ -58,11 +58,16 @@ const config: ApiDocsBlock[] = [
     'dataTable.examples.styling.text',
     'Styling',
   ),
+  ...block.exampleBlock(
+    'dataTable.examples.binding.title',
+    'dataTable.examples.binding.text',
+    'Binding',
+  ),
 
-  block.headline('dataTable.examples.stickyHeader.title'),
-  block.paragraph('dataTable.examples.stickyHeader.text[0]'),
-  block.paragraph('dataTable.examples.stickyHeader.text[1]'),
-  block.example('StickyHeader'),
+  block.headline('dataTable.examples.sticky.title'),
+  block.paragraph('dataTable.examples.sticky.text[0]'),
+  block.paragraph('dataTable.examples.sticky.text[1]'),
+  block.example('Sticky'),
 
   ...block.exampleBlock(
     'dataTable.examples.other.title',

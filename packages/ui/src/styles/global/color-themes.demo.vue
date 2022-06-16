@@ -127,7 +127,7 @@
 </template>
 
 <script>
-import VaButton from './../../vuestic-components/va-button/VaButton'
+import { VaButton } from './../../vuestic-components/va-button/VaButton'
 import VaAlert
   from './../../vuestic-components/va-alert/VaAlert'
 import VaProgressBar

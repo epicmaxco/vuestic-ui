@@ -159,9 +159,9 @@
 </template>
 
 <script>
-import VaSidebar, { VaSidebarItem, VaSidebarItemContent, VaSidebarItemTitle } from './index'
-import VaCheckbox from '../va-checkbox'
-import VaIcon from '../va-icon'
+import { VaSidebar, VaSidebarItem, VaSidebarItemContent, VaSidebarItemTitle } from './index'
+import { VaCheckbox } from '../va-checkbox'
+import { VaIcon } from '../va-icon'
 import { navigationRoutes } from './navigation-router-example'
 
 export default {

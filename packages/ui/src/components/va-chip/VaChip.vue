@@ -23,7 +23,6 @@
       <va-icon
         v-if="icon"
         class="va-chip__icon"
-        aria-hidden="true"
         :name="icon"
         :size="iconSize"
       />
@@ -40,6 +39,8 @@
         :tabindex="tabIndexComputed"
         :size="iconSize"
         @click.stop="close"
+        @keydown.enter.stop="close"
+        @keydown.space.stop="close"
       />
     </span>
   </component>
@@ -47,18 +48,16 @@
 
 <script lang="ts">
 import { defineComponent, PropType, computed, toRef } from 'vue'
-import {
-  getBoxShadowColor,
-  getHoverColor,
-  getFocusColor,
-} from '../../services/color-config/color-functions'
-import { useRouterLink, useRouterLinkProps } from '../../composables/useRouterLink'
+
+import { getBoxShadowColor, getHoverColor, getFocusColor } from '../../services/color-config/color-functions'
 import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'
+import { useRouterLink, useRouterLinkProps } from '../../composables/useRouterLink'
 import { useColors, useColorProps } from '../../composables/useColor'
 import { useStateful, useStatefulEmits, useStatefulProps } from '../../composables/useStateful'
 import { useHover } from '../../composables/useHover'
 import { useTextColor } from '../../composables/useTextColor'
-import VaIcon from '../va-icon'
+
+import { VaIcon } from '../va-icon'
 
 export default defineComponent({
   name: 'VaChip',
@@ -80,7 +79,6 @@ export default defineComponent({
     flat: { type: Boolean, default: false },
     icon: { type: String, default: '' },
     tag: { type: String, default: 'span' },
-
     size: {
       type: String as PropType<'small' | 'medium' | 'large'>,
       default: 'medium',

@@ -4,6 +4,15 @@
   </div>
 </template>
 
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
+  name: 'VaSidebarItemContent',
+})
+
+</script>
+
 <style lang="scss">
 @import '../variables';
 

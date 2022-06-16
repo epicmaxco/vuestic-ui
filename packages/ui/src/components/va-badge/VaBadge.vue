@@ -2,11 +2,9 @@
   <div
     class="va-badge"
     role="alert"
-    :aria-labelledby="labelIdComputed"
     :class="badgeClass"
   >
     <span
-      :id="labelIdComputed"
       class="va-badge__text-wrapper"
       :style="badgeStyle"
     >
@@ -22,6 +20,7 @@
 
 <script lang="ts">
 import { defineComponent, computed, PropType } from 'vue'
+
 import { useColors } from '../../composables/useColor'
 import { useTextColor } from '../../composables/useTextColor'
 import { generateUniqueId } from '../../services/utils'
@@ -29,16 +28,16 @@ import { generateUniqueId } from '../../services/utils'
 export default defineComponent({
   name: 'VaBadge',
   props: {
-    color: { type: String as PropType<string>, default: 'danger' },
-    textColor: { type: String as PropType<string> },
+    color: { type: String, default: 'danger' },
+    textColor: { type: String },
     text: { type: [String, Number] as PropType<string | number>, default: '' },
-    overlap: { type: Boolean as PropType<boolean>, default: false },
-    multiLine: { type: Boolean as PropType<boolean>, default: false },
-    visibleEmpty: { type: Boolean as PropType<boolean>, default: false },
-    dot: { type: Boolean as PropType<boolean>, default: false },
-    transparent: { type: Boolean as PropType<boolean>, default: false },
-    left: { type: Boolean as PropType<boolean>, default: false },
-    bottom: { type: Boolean as PropType<boolean>, default: false },
+    overlap: { type: Boolean, default: false },
+    multiLine: { type: Boolean, default: false },
+    visibleEmpty: { type: Boolean, default: false },
+    dot: { type: Boolean, default: false },
+    transparent: { type: Boolean, default: false },
+    left: { type: Boolean, default: false },
+    bottom: { type: Boolean, default: false },
   },
   setup (props, { slots }) {
     const isEmpty = computed(() => !(props.text || props.visibleEmpty || props.dot || slots.text))
@@ -66,9 +65,7 @@ export default defineComponent({
       opacity: props.transparent ? 0.5 : 1,
     }))
 
-    const labelIdComputed = computed(() => `aria-label-${generateUniqueId()}`)
-
-    return { badgeClass, badgeStyle, labelIdComputed }
+    return { badgeClass, badgeStyle }
   },
 })
 </script>

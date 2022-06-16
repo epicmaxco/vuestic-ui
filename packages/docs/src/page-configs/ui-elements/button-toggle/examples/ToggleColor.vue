@@ -4,7 +4,6 @@
     color="#7e06ae"
     v-model="model"
     :options="options"
-    class="mb-4"
   />
 </template>
 

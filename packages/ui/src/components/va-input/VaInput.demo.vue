@@ -585,12 +585,12 @@
   </VbDemo>
 </template>
 
-<script>
-import VaInput from './index'
-import VaButton from './../va-button'
-import VaIcon from './../va-icon'
-import VaInputValidation from './VaInput-validation'
-import VaCheckbox from '../va-checkbox'
+<script lang="ts">
+import { VaInput } from './index'
+import { VaButton } from './../va-button'
+import { VaIcon } from './../va-icon'
+import VaInputValidation from './VaInput-validation.vue'
+import { VaCheckbox } from '../va-checkbox'
 
 export default {
   components: {

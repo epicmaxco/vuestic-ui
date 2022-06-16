@@ -10,8 +10,18 @@
       <va-date-picker
         stateful
         highlight-weekend
-        :weekends="(date) => [0, 1, 5, 6].includes(date.getDay())"
+        :weekends="getWeekends"
       />
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  methods: {
+    getWeekends (date) {
+      return [0, 1, 5, 6].includes(date?.getDay())
+    },
+  },
+}
+</script>

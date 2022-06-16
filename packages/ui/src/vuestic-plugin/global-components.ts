@@ -38,3 +38,5 @@ type VuesticComponentNames = keyof VuesticComponentsMap
 export type VuesticComponents<NAMES extends string = VuesticComponentNames> = {
   [name in NAMES]: SafeAccess<VuesticComponentsMap, name>
 }
+
+export {}

@@ -10,9 +10,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { useColor } from '../../../composables/useColor'
-
-// Components
-import VaIcon from '../../va-icon'
+import { VaIcon } from '../../va-icon'
 
 export default defineComponent({
   name: 'SquareWithIcon',

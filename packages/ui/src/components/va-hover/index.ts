@@ -1,4 +1,4 @@
 import withConfigTransport from '../../services/config-transport/withConfigTransport'
-import VaHover from './VaHover.vue'
+import _VaHover from './VaHover.vue'
 
-export default withConfigTransport(VaHover)
+export const VaHover = withConfigTransport(_VaHover)

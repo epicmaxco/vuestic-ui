@@ -12,7 +12,7 @@
 <script lang="ts">
 import { computed, defineComponent, toRef } from 'vue'
 import { useValidationProps } from '../../../composables/useValidation'
-import VaMessageList from './VaMessageList'
+import { VaMessageList } from './VaMessageList'
 
 export default defineComponent({
   name: 'VaMessageListWrapper',

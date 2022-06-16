@@ -1,5 +1,5 @@
 <script lang="ts">
-import { computed, defineComponent, Fragment, h, PropType, ref, VNode } from 'vue'
+import { computed, defineComponent, Fragment, h, ref, VNode } from 'vue'
 
 import { useAlign, useAlignProps } from '../../composables/useAlign'
 import { useColors } from '../../composables/useColor'
@@ -9,10 +9,10 @@ export default defineComponent({
   name: 'VaBreadcrumbs',
   props: {
     ...useAlignProps,
-    separator: { type: String as PropType<string>, default: '/' },
-    color: { type: String as PropType<string>, default: 'gray' },
-    activeColor: { type: String as PropType<string>, default: null },
-    separatorColor: { type: String as PropType<string>, default: null },
+    separator: { type: String, default: '/' },
+    color: { type: String, default: 'gray' },
+    activeColor: { type: String, default: null },
+    separatorColor: { type: String, default: null },
   },
   setup (props, { slots }) {
     const { alignComputed } = useAlign(props)
@@ -41,6 +41,7 @@ export default defineComponent({
       const separatorNode = slots.separator ? slots.separator() : [props.separator]
 
       return h('span', {
+        ariaHidden: true,
         class: ['va-breadcrumbs__separator'],
         style: [{ color: computedThemesSeparatorColor.value }],
       }, separatorNode)
@@ -76,7 +77,7 @@ export default defineComponent({
       const createChildComponent = (child: VNode, index: number) => h(
         'span', {
           class: 'va-breadcrumbs__item',
-          ariaCurrent: (isLastIndexChildNodes(index) && isChildLink(child)) ? 'location' : null,
+          ariaCurrent: (isLastIndexChildNodes(index) && isChildLink(child)) ? 'location' : false,
           style: {
             color: (!isLastIndexChildNodes(index) && !isDisabledChild(child)) ? computedThemesActiveColor.value : null,
           },
@@ -106,8 +107,8 @@ export default defineComponent({
     return () => h('div', {
       class: 'va-breadcrumbs',
       style: alignComputed.value,
-      role: isAllChildLinks.value ? 'navigation' : null,
-      ariaLabel: isAllChildLinks.value ? 'breadcrumbs' : null,
+      role: isAllChildLinks.value ? 'navigation' : undefined,
+      ariaLabel: isAllChildLinks.value ? 'breadcrumbs' : undefined,
     }, getChildren())
   },
 })

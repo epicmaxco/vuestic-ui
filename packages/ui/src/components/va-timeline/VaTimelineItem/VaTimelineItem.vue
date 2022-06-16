@@ -1,5 +1,5 @@
 <script>
-import VaTimelineSeparator from '../VaTimelineSeparator/index.ts'
+import { VaTimelineSeparator } from '../VaTimelineSeparator/index.ts'
 import { h } from 'vue'
 
 export const $root = 'va-timeline-item'
