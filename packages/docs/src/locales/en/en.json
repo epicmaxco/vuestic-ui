@@ -1032,7 +1032,6 @@
         "parse": "Function that transforms input field text to date, date array or date period",
         "parseDate": "Function that transforms input field text to date",
         "parseValue": "Function that transforms string value to date, date array or date period"
-
       },
       "events": {
         "clear": "Emitted if select value has been cleared",
@@ -1255,6 +1254,12 @@
         "nextArrow": "Custom style for next button",
         "prevArrow": "Custom style for previous button"
       }
+    },
+    "VaSpacer": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
     }
   },
   "menu": {
@@ -1362,7 +1367,8 @@
     "carousel": "Carousel",
     "treeShaking": "Tree Shaking",
     "counter": "Counter",
-    "nuxt": "Nuxt"
+    "nuxt": "Nuxt",
+    "spacer": "Spacer"
   },
   "all": {
     "examples": "Examples",
@@ -4042,6 +4048,16 @@
       "plugin": "Install integration module:",
       "nuxtConfig": "Then you need to update nuxt-config.ts file:",
       "moreAboutConfig": "More about configuration"
+    }
+  },
+  "spacer": {
+    "title": "Spacer component",
+    "summaryText": "`va-spacer` is an equivalent for the `flex-grow` property. It allows you to get more space between flex components.",
+    "examples": {
+      "default": {
+        "title": "Basic usage",
+        "text": "`va-spacer` adding a div with the `.va-spacer` class."
+      }
     }
   }
 }
