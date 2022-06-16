@@ -24,7 +24,7 @@
       Custom color
       <va-progress-bar
         :modelValue="value"
-        color="purple"
+        color="#22ff00"
       />
     </VbCard>
 
@@ -122,39 +122,39 @@
     <VbCard title="context checks">
       <div>
         value:
-        <VaContext :components="{VaProgressBar: {value: 50}}">
+        <VaConfig :components="{ VaProgressBar: { modelValue: 50 } }">
           <VaProgressBar />
-        </VaContext>
+        </VaConfig>
       </div>
       <div>
         indeterminate:
-        <VaContext :components="{VaProgressBar: {indeterminate: true}}">
+        <VaConfig :components="{ VaProgressBar: { indeterminate: true } }">
           <VaProgressBar />
-        </VaContext>
+        </VaConfig>
       </div>
       <div>
         color:
-        <VaContext :components="{VaProgressBar: {color: 'danger'}}">
-          <VaProgressBar :modelValue="80" />
-        </VaContext>
+        <VaConfig :components="{ VaProgressBar: { color: 'danger' } }">
+          <VaProgressBar :modelValue="value" />
+        </VaConfig>
       </div>
       <div>
         size:
-        <VaContext :components="{VaProgressBar: {size: 30}}">
-          <VaProgressBar :modelValue="80" />
-        </VaContext>
+        <VaConfig :components="{ VaProgressBar: { size: 30 } }">
+          <VaProgressBar :modelValue="value" />
+        </VaConfig>
       </div>
       <div>
         reverse:
-        <VaContext :components="{VaProgressBar: {reverse: true}}">
-          <VaProgressBar :modelValue="30" />
-        </VaContext>
+        <VaConfig :components="{ VaProgressBar: { reverse: true } }">
+          <VaProgressBar :modelValue="value" />
+        </VaConfig>
       </div>
       <div>
         rounded (false):
-        <VaContext :components="{VaProgressBar: {rounded: false}}">
-          <VaProgressBar />
-        </VaContext>
+        <VaConfig :components="{ VaProgressBar: { rounded: false } }">
+          <VaProgressBar :modelValue="value" />
+        </VaConfig>
       </div>
     </VbCard>
 
@@ -206,14 +206,15 @@
 
 <script>
 import { VaProgressBar } from './index'
+import { VaConfig } from '../va-config'
 
 export default {
   components: {
-    VaProgressBar,
+    VaProgressBar, VaConfig,
   },
   data () {
     return {
-      bufferValue: 45,
+      bufferValue: 75,
       value: 35,
     }
   },
