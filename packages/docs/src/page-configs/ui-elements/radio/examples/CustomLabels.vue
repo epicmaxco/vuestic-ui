@@ -1,5 +1,5 @@
 <template>
-  <div class="mb-4">
+  <div>
     <va-radio
       v-for="(option, index) in options"
       :key="index"
@@ -8,7 +8,7 @@
       :label="labels[index]"
     />
   </div>
-  <div class="mb-4">
+  <div>
     <va-radio
       v-for="(option, index) in options"
       :key="index"
@@ -18,7 +18,7 @@
       left-label
     />
   </div>
-  <div class="mb-4">
+  <div>
     <va-radio
       v-for="(option, index) in options"
       :key="option"
@@ -27,9 +27,9 @@
     >
       Slotted label: {{ labels[index] }}
     </va-radio>
-    <div>
-        Selected: {{ selectedOption }}
-    </div>
+  </div>
+  <div>
+    Selected: {{ selectedOption }}
   </div>
 </template>
 
