@@ -3862,7 +3862,7 @@
     "examples": {
       "default": {
         "title": "Базовое использование",
-        "text": "`va-spacer` добавляет div с классом `.spacer`."
+        "text": "`va-spacer` добавляет div с классом `.va-spacer`."
       }
     }
   }

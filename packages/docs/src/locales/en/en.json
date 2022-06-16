@@ -4001,7 +4001,7 @@
     "examples": {
       "default": {
         "title": "Basic usage",
-        "text": "`va-spacer` adding a div with the `.spacer` class."
+        "text": "`va-spacer` adding a div with the `.va-spacer` class."
       }
     }
   }

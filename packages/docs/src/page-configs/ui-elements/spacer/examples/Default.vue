@@ -9,12 +9,12 @@
 </template>
 
 <style>
-  .spacer {
+  .va-spacer {
     text-align: center;
     border: 2px dashed #847979;
   }
 
-  .spacer::after {
-    content: "Va-Spacer is here!";
+  .va-spacer::after {
+    content: "VaSpacer is here!";
   }
 </style>
