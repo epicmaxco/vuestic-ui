@@ -21,6 +21,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType, ref, computed, onMounted, onBeforeUnmount, shallowRef } from 'vue'
+import { warn } from '../../services/utils'
 
 export default defineComponent({
   name: 'VaParallax',
@@ -71,7 +72,7 @@ export default defineComponent({
 
       if (element) { return element }
 
-      console.warn('VaParallax target prop got wrong selector. Target is null')
+      warn('VaParallax target prop got wrong selector. Target is null')
       return null
     })
 
