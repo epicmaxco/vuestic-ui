@@ -330,6 +330,10 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'color-palette',
         displayName: 'menu.colorPalette',
       },
+      {
+        name: 'spacer',
+        displayName: 'menu.spacer',
+      },
       // GENERATOR_ADD - uiElements
     ],
   },
