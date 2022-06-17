@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <va-slider v-model="value" color="success" />
-  </div>
+  <va-slider v-model="value" color="success" />
 </template>
 
 <script>
