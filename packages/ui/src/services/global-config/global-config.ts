@@ -2,7 +2,7 @@ import merge from 'lodash/merge.js'
 import cloneDeep from 'lodash/cloneDeep.js'
 import { ref, inject, Ref } from 'vue'
 import { GlobalConfig, GlobalConfigUpdater } from './types'
-import { getComponentsAllDefaultConfig, getComponentsDefaultConfig } from './config-default'
+import { getComponentsDefaultConfig } from './config-default'
 import { createIconsConfig } from '../icon-config/icon-config-helpers'
 import { colorsPresets } from '../color-config/color-theme-presets'
 
@@ -24,8 +24,6 @@ export const createGlobalConfig = () => {
     colors: colorsPresets.default,
     icons: createIconsConfig({}),
     components: getComponentsDefaultConfig(),
-    componentsAll: getComponentsAllDefaultConfig(),
-    componentsPresets: {},
   })
 
   const getGlobalConfig = (): GlobalConfig => globalConfig.value

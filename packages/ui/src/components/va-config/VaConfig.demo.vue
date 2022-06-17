@@ -27,7 +27,7 @@
       </va-button>
     </VbCard>
 
-    <VbCard title="Global config -> componentsAll">
+    <VbCard title="Global config -> components -> all">
       <div class="center">
         <va-button @click="setComponentsAllColor()">Should set dark red color on click</va-button>
         <va-rating icon="heart" empty-icon="heart_empty" stateful></va-rating>
@@ -43,9 +43,9 @@
         <hr />
         <pre>{{ getGlobalConfig().components }}</pre>
 
-        <p class="mt-2">Current ComponentsAll:</p>
+        <p class="mt-2">Current components.all:</p>
         <hr />
-        <pre>{{ getGlobalConfig().componentsAll }}</pre>
+        <pre>{{ getGlobalConfig().components.all }}</pre>
       </div>
     </VbCard>
 
@@ -155,34 +155,25 @@ export default {
       },
     }
 
-    setGlobalConfig(config => ({
-      ...config,
+    mergeGlobalConfig({
       components: {
-        ...config.components,
         ConfigUsageTest: {
           color: getColor('#0000ff'),
         },
         VaBadge: {
-          ...config.components.VaBadge,
           color: 'info',
           label: 'default label',
         },
         VaButton: {
-          ...config.components.VaButton,
           size: 'small',
-          // icon: 'room',
           outline: true,
         },
-        VaIcon: {
-          ...config.components.VaIcon,
+        presets: {
+          VaCard: cardPreset,
+          VaButton: buttonPreset,
         },
       },
-      componentsPresets: {
-        ...config.componentsPresets,
-        VaCard: cardPreset,
-        VaButton: buttonPreset,
-      },
-    }))
+    })
 
     const buttonRoundConfigValue = computed(() => {
       const globalConfig = getGlobalConfig()
@@ -210,7 +201,7 @@ export default {
       },
     },
     getComponentsPresets () {
-      return this.getGlobalConfig().componentsPresets
+      return this.getGlobalConfig().components.presets
     },
     showButtonPreset () {
       return this.getComponentsPresets?.VaButton?.[this.buttonPresetName] || 'No preset currently'
@@ -240,15 +231,15 @@ export default {
     },
     setComponentsAllColor () {
       this.mergeGlobalConfig({
-        componentsAll: {
-          color: '#bd1313',
+        components: {
+          all: { color: '#bd1313' },
         },
       })
     },
     resetComponentsAllColor () {
-      this.setGlobalConfig({
-        ...this.getGlobalConfig(),
-        componentsAll: {},
+      this.setGlobalConfig((config) => {
+        config.components.all = {}
+        return config
       })
     },
     toggleButtonPreset () {
@@ -265,9 +256,9 @@ export default {
         ? {}
         : { VaButton: this.buttonPreset, VaCard: this.cardPreset }
 
-      this.setGlobalConfig({
-        ...this.getGlobalConfig(),
-        ...{ componentsPresets: presetsConfig },
+      this.setGlobalConfig((config) => {
+        config.components.presets = presetsConfig
+        return config
       })
 
       this.hasPresetsInConfig = !this.hasPresetsInConfig
