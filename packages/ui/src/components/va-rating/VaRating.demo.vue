@@ -42,7 +42,7 @@
       <va-rating color="warning" v-model="value" />
       <va-rating color="danger" v-model="value" />
       <va-rating color="dark" v-model="value" />
-      <va-rating color="grey" v-model="value" />
+      <va-rating color="white" v-model="value" />
     </VbCard>
     <VbCard title="Custom color for unselected">
       <va-rating
