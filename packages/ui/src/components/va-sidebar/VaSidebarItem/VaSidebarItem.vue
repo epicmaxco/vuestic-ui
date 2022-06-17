@@ -8,7 +8,6 @@
     :href="hrefComputed"
     :to="$props.to"
     :is="tagComputed"
-    v-bind="$attrs"
     v-on="keyboardFocusListeners"
   >
     <slot />
@@ -16,9 +15,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref, computed } from 'vue'
-import { RouteLocationRaw } from 'vue-router'
-import { useColors } from '../../../services/color-config/color-config'
+import { defineComponent, computed, shallowRef, StyleValue } from 'vue'
+
+import { useColors } from '../../../composables/useColor'
 import useKeyboardOnlyFocus from '../../../composables/useKeyboardOnlyFocus'
 import { useHover } from '../../../composables/useHover'
 import { useRouterLink, useRouterLinkProps } from '../../../composables/useRouterLink'
@@ -27,8 +26,6 @@ import { useSidebarItem } from '../hooks/useSidebar'
 
 export default defineComponent({
   name: 'VaSidebarItem',
-
-  inheritAttrs: false,
 
   props: {
     ...useRouterLinkProps,
@@ -40,7 +37,7 @@ export default defineComponent({
   },
 
   setup (props) {
-    const anchor = ref<HTMLAnchorElement>()
+    const anchor = shallowRef<HTMLAnchorElement>()
 
     const { isHovered } = useHover(anchor)
     const { getColor, getHoverColor, getFocusColor } = useColors()
@@ -66,7 +63,7 @@ export default defineComponent({
     const { textColorComputed } = useTextColor(backgroundColorComputed)
 
     const computedStyle = computed(() => {
-      const style: Record<string, string> = {}
+      const style: StyleValue = {}
 
       style.color = textColorComputed.value
 
@@ -103,7 +100,6 @@ export default defineComponent({
   padding-right: var(--va-sidebar-item-active-border-size);
   display: inline-block;
   width: 100%;
-  color: inherit !important;
   font-family: var(--va-font-family);
 }
 </style>
