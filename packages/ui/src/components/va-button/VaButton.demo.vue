@@ -246,6 +246,7 @@ import { VaButton } from './index'
 export default {
   components: { VaButton, VaIcon, VaConfig },
   data: () => ({
+    // temp
     vaButtonPresets: {
       primary: {
         backgroundOpacity: 0.1,

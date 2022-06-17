@@ -1,20 +1,10 @@
 <template>
   <div class="va-button-toggle">
-    <va-button-group
-      :color="color"
-      :textColor="textColor"
-      :rounded="rounded"
-      :outline="outline"
-      :flat="flat"
-      :gradient="gradient"
-    >
+    <va-button-group v-bind="buttonGroupPropsComputed">
       <va-button
         v-for="option in options"
         :key="option.value"
         :aria-pressed="isToggled(option.value)"
-        :class="getButtonClass(option.value)"
-        :disabled="disabled"
-        :size="size"
         v-bind="getButtonProps(option)"
         @click="changeValue(option.value)"
       >
@@ -29,12 +19,13 @@ import { defineComponent, PropType, computed } from 'vue'
 
 import { shiftHSLAColor } from '../../services/color-config/color-functions'
 import { useColors } from '../../composables/useColor'
-import { useTextColor } from '../../composables/useTextColor'
 
 import { ButtonOption } from './types'
 
 import { VaButton } from '../va-button'
 import { VaButtonGroup } from '../va-button-group'
+
+import pick from 'lodash/pick.js'
 
 export default defineComponent({
   name: 'VaButtonToggle',
@@ -44,80 +35,68 @@ export default defineComponent({
   },
   emits: ['update:modelValue'],
   props: {
+    modelValue: { type: [String, Number] as PropType<string | number>, default: '' },
     options: {
       type: Array as PropType<ButtonOption[]>,
       required: true,
     },
+    activeButtonTextColor: { type: String },
+    toggleColor: { type: String, default: '' },
+
+    size: {
+      type: String as PropType<'small' | 'medium'>,
+      default: 'medium',
+      validator: (value: string) => ['small', 'medium'].includes(value),
+    },
     color: { type: String, default: 'primary' },
     textColor: { type: String, default: undefined },
-    activeButtonTextColor: { type: String },
-    modelValue: { type: [String, Number] as PropType<string | number>, default: '' },
-    outline: { type: Boolean, default: false },
-    flat: { type: Boolean, default: false },
-    rounded: { type: Boolean, default: true },
-    disabled: { type: Boolean, default: false },
-    size: {
-      type: String as PropType<'medium' | 'small' | 'large'>,
-      default: 'medium',
-      validator: (value: string) => ['medium', 'small', 'large'].includes(value),
-    },
-    toggleColor: { type: String, default: '' },
     gradient: { type: Boolean, default: false },
+    plain: { type: Boolean, default: false },
+    disabled: { type: Boolean, default: false },
+    round: { type: Boolean, default: false },
   },
+
   setup (props, { emit }) {
     const { getColor } = useColors()
     const colorComputed = computed(() => getColor(props.color))
 
-    const isFlatOrOutline = computed(() => props.outline || props.flat)
+    const isToggled = (value: any) => value === props.modelValue
+
     const activeButtonColor = computed(() => {
       if (props.toggleColor) {
         return getColor(props.toggleColor)
       } else {
-        return isFlatOrOutline.value ? colorComputed.value : shiftHSLAColor(colorComputed.value, { l: -6 })
+        return props.plain ? colorComputed.value : shiftHSLAColor(colorComputed.value, { l: -6 })
       }
     })
 
-    const { textColorComputed: activeButtonTextColor } = useTextColor(activeButtonColor)
-
-    const isToggled = (value: any) => value === props.modelValue
-
+    const activeButtonPropsComputed = computed(() => ({
+      color: activeButtonColor.value,
+      textColor: props.activeButtonTextColor,
+    }))
     const getButtonProps = (option: ButtonOption = {} as ButtonOption) => {
-      const iconsProps = {
-        icon: option.icon,
-        iconRight: option.iconRight,
-      }
+      const iconsProps = { icon: option.icon, iconRight: option.iconRight }
 
       if (!isToggled(option.value)) { return iconsProps }
 
       return {
-        color: activeButtonColor.value,
-        textColor: props.activeButtonTextColor ?? activeButtonTextColor.value,
+        ...(isToggled(option.value) && activeButtonPropsComputed.value),
         ...iconsProps,
-        ...(isFlatOrOutline.value && { outline: false, flat: false }),
       }
     }
 
-    const getButtonClass = (buttonValue: any) => ({ 'va-button--active': isToggled(buttonValue) })
+    const buttonGroupPropsComputed = computed(() =>
+      pick(props, ['color', 'textColor', 'round', 'plain', 'gradient', 'size', 'disabled']),
+    )
 
     const changeValue = (value: any) => emit('update:modelValue', value)
 
     return {
+      buttonGroupPropsComputed,
       getButtonProps,
-      getButtonClass,
       changeValue,
       isToggled,
     }
   },
 })
 </script>
-
-<style lang="scss">
-.va-button-toggle {
-  .va-button {
-    &:focus,
-    &:hover {
-      box-shadow: none !important;
-    }
-  }
-}
-</style>

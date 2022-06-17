@@ -33,11 +33,6 @@
               :options="options"
             />
             <va-button-toggle
-              size="large"
-              v-model="model"
-              :options="options"
-            />
-            <va-button-toggle
               size="small"
               v-model="model"
               :options="options"
@@ -281,3 +276,9 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+.va-button-toggle {
+  margin-bottom: 16px;
+}
+</style>

@@ -31,13 +31,13 @@ export const useButtonBackground: UseButtonBackground = (
       : colorComputed.value
   ))
 
-  const getOpacityStateBackground = (stateOpacity = 1) => ({
+  const getOpacityStateBackground = (stateOpacity: number) => ({
     background: isGradientBg.value
       ? backgroundColorComputed.value
       : colorToRgba(backgroundColorComputed.value, stateOpacity),
   })
 
-  const defaultBackground = computed(() => ({ ...getOpacityStateBackground(props.backgroundOpacity) }))
+  const defaultBackground = computed(() => ({ ...getOpacityStateBackground(props.backgroundOpacity as number) }))
 
   const getStateBackground = (maskColor: string, stateOpacity: number, stateBehaviour: string) => {
     if (stateBehaviour === 'opacity') { return { ...getOpacityStateBackground(stateOpacity) } }
@@ -48,7 +48,6 @@ export const useButtonBackground: UseButtonBackground = (
   const hoverBackgroundComputed = computed(() => {
     return getStateBackground(props.hoverMaskColor as string, props.hoverOpacity as number, props.hoverBehaviour as string)
   })
-
   const pressedBackgroundComputed = computed(() => {
     return getStateBackground(props.pressedMaskColor as string, props.pressedOpacity as number, props.pressedBehaviour as string)
   })

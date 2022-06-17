@@ -54,6 +54,7 @@ import { useSize, useSizeProps } from '../../composables/useSize'
 import { useRouterLink, useRouterLinkProps } from '../../composables/useRouterLink'
 
 import { useButtonBackground } from './hooks/useButtonBackground'
+import { useButtonAttributes } from './hooks/useButtonAttributes'
 import { useButtonTextColor } from './hooks/useButtonTextColor'
 
 import { VaIcon } from '../va-icon'
@@ -109,25 +110,8 @@ export default defineComponent({
     })
 
     // attributes
-    const { tagComputed, linkAttributesComputed, isLinkTag } = useRouterLink(props)
-
-    const typeComputed = computed(() => isLinkTag.value ? undefined : props.type)
-    const buttonAttributesComputed = computed(() => {
-      const disabledAttributes = {
-        ariaDisabled: props.disabled,
-        disabled: props.disabled,
-      }
-
-      if (isLinkTag.value) { return disabledAttributes }
-
-      return {
-        type: typeComputed.value,
-        tabindex: props.loading || props.disabled ? -1 : 0,
-        ...disabledAttributes,
-      }
-    })
-
-    const attributesComputed = computed(() => ({ ...linkAttributesComputed.value, ...buttonAttributesComputed.value }))
+    const { tagComputed } = useRouterLink(props)
+    const attributesComputed = useButtonAttributes(props)
 
     // states
     const button = shallowRef<HTMLElement>()
@@ -158,14 +142,13 @@ export default defineComponent({
       focused: isFocused.value,
     }))
 
-    const { textColorComputed } = useTextColor(
-      colorComputed,
-      isTransparentBg.value || isLightBackground(colorComputed.value, props.backgroundOpacity),
-    )
+    // styles
+    const isLowContrastBg = computed(() => isTransparentBg.value || isLightBackground(colorComputed.value, props.backgroundOpacity))
+    const { textColorComputed } = useTextColor(colorComputed, isLowContrastBg.value)
+
     const backgroundComputed = useButtonBackground(props, colorComputed, isPressed, isHovered, isTransparentBg)
     const contentColorComputed = useButtonTextColor(props, textColorComputed, colorComputed, isPressed, isHovered, isTransparentBg)
 
-    // styles object
     const computedStyle = computed(() => ({
       borderColor: props.borderColor ? getColor(props.borderColor) : 'transparent',
       ...backgroundComputed.value,

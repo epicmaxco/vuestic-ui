@@ -1,4 +1,4 @@
-import { PropType, ref, Ref, onMounted, onBeforeUnmount, unref } from 'vue'
+import { PropType, ref, Ref, onMounted, onBeforeUnmount } from 'vue'
 
 export const usePressedProps = {
   pressedBehaviour: {
