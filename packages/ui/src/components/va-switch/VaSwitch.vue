@@ -21,8 +21,8 @@
       >
         <input
           ref="input"
-          class="va-switch__input"
           type="checkbox"
+          class="va-switch__input"
           role="switch"
           v-bind="inputAttributesComputed"
           v-on="keyboardFocusListeners"
@@ -77,11 +77,11 @@
 <script lang="ts">
 import { defineComponent, PropType, computed, shallowRef } from 'vue'
 
+import { generateUniqueId } from '../../services/utils'
 import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'
 import { useSelectable, useSelectableProps, useSelectableEmits } from '../../composables/useSelectable'
 import { useColors } from '../../composables/useColor'
 import { useTextColor } from '../../composables/useTextColor'
-import { generateUniqueId } from '../../services/utils'
 
 import { VaProgressCircle } from '../va-progress-circle'
 import { VaMessageListWrapper } from '../va-input'
