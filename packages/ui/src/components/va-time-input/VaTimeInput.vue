@@ -77,8 +77,8 @@
             :tabindex="iconsTabIndexComputed"
             :id="componentIconId"
             v-bind="iconProps"
-            @click="dropdownToggle"
-            @keydown.enter.stop="dropdownToggle"
+            @click="dropdownToggle(true)"
+            @keydown.enter.stop="dropdownToggle(true)"
           />
         </template>
       </va-input>
@@ -275,16 +275,18 @@ export default defineComponent({
       focus()
     }
 
-    const showDropdown = () => {
+    const showDropdown = (forceFocus = false) => {
       if (props.disabled || props.readonly) { return }
       isOpenSync.value = true
       nextTick(() => {
-        timePicker.value?.focus()
+        if (!props.manualInput || forceFocus) {
+          timePicker.value?.focus()
+        }
       })
     }
 
-    const dropdownToggle = () => {
-      isOpenSync.value ? hideDropdown() : showDropdown()
+    const dropdownToggle = (forceFocus = false) => {
+      isOpenSync.value ? hideDropdown() : showDropdown(forceFocus)
     }
 
     // we use the global handler to prevent the toggle dropdown on any click and execute additional logic
@@ -307,10 +309,6 @@ export default defineComponent({
       const isClickInSlot = slotsSelectors.some(selector => !!(e.target as HTMLElement)?.closest(selector))
       if (isClickInSlot) {
         return
-      }
-
-      if (props.manualInput) {
-        return isOpenSync.value && hideDropdown()
       }
 
       dropdownToggle()
