@@ -6,6 +6,10 @@ import compositionApiExample from './examples/composition-api'
 import optionsApiExample from './examples/options-api'
 import { methodsApi, optionsApi } from './toast-api'
 
+// @ts-ignore
+// eslint-disable-next-line import/no-webpack-loader-syntax
+const cssVariables = import('!raw-loader!vuestic-ui/src/components/va-toast/_variables.scss')
+
 const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [
@@ -56,6 +60,9 @@ const config: ApiDocsBlock[] = [
 
   block.subtitle('all.api'),
   block.api(VaToast, apiOptions),
+
+  block.subtitle('all.cssVariables'),
+  block.file(cssVariables),
 
   block.subtitle('all.faq'),
   block.headline('toast.faq.questions[0].question'),
