@@ -22,12 +22,7 @@ const useTreeBuilder: UseTreeBuilderFunc = ({ nodes, expandAll }) => {
       if (node.children?.length) {
         const children = buildTree(node.children, level + 1)
 
-        return createNode({
-          node,
-          children,
-          expandAll: expandAll,
-          level,
-        })
+        return createNode({ node, children, expandAll, level })
       }
 
       return createNode({ node, expandAll, level })

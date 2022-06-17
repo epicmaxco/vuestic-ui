@@ -4,7 +4,7 @@ const useTreeFilter: UseTreeFilterFunc = ({ nodes, labelKey, filter }) => {
   const filterNodes = (filteredNodes: TreeNode[], node: TreeNode) => {
     const label: string = node[labelKey]?.toLowerCase()
 
-    if (label.indexOf(filter.toLowerCase()) > -1) {
+    if (label.includes(filter.toLowerCase())) {
       filteredNodes.push(node)
 
       return filteredNodes
