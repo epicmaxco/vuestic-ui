@@ -1,52 +1,43 @@
-import { onMounted, onBeforeUnmount, ref, getCurrentInstance, onUpdated, computed, nextTick } from 'vue'
-
-const useCaptureEvent = (event: string, cb: (...args: any[]) => void) => {
-  onMounted(() => {
-    window.addEventListener(event, cb, true)
-    cb()
-  })
-  onBeforeUnmount(() => {
-    window.removeEventListener(event, cb)
-  })
-}
+import { ref, computed, Ref, onMounted } from 'vue'
+import { useCaptureEvent } from './useCaptureEvent'
+import { useCurrentElement } from './useCurrentElement'
 
 const useActiveElement = () => {
   const activeEl = ref<HTMLElement>()
 
-  const onFocus = () => {
+  const updateActiveElement = () => {
     activeEl.value = document.activeElement as HTMLElement
   }
 
-  useCaptureEvent('focus', onFocus)
-  useCaptureEvent('blur', onFocus)
+  onMounted(updateActiveElement)
+
+  useCaptureEvent('focus', updateActiveElement)
+  useCaptureEvent('blur', updateActiveElement)
 
   return activeEl
 }
 
-const useCurrentElement = () => {
-  const vm = getCurrentInstance()!
-  const el = ref<HTMLElement>()
-  onMounted(() => { el.value = vm.proxy!.$el })
-  onUpdated(() => { el.value = vm.proxy!.$el })
-
-  return el
-}
-
-export const useFocusDeep = () => {
+export const useFocusDeep = (el?: Ref<HTMLElement | undefined>) => {
   const focused = useActiveElement()
-  const current = useCurrentElement()
+  const current = useCurrentElement(el)
+  // Cache previouslyFocusedElement, so we can simply come back to it
+  let previouslyFocusedElement: HTMLElement | null = null
 
   return computed({
     get () {
       if (!focused.value) { return false }
       if (focused.value === current.value) { return true }
-      return current.value?.contains(focused.value)
+
+      const isFocused = current.value?.contains(focused.value)
+      if (isFocused) { previouslyFocusedElement = focused.value }
+      return isFocused
     },
     set (value) {
+      const target = previouslyFocusedElement ?? current.value
       if (value) {
-        current.value?.focus()
+        target?.focus()
       } else {
-        current.value?.blur()
+        target?.blur()
       }
     },
   })
