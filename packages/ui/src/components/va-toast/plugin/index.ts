@@ -1,4 +1,5 @@
-import { App, ref } from 'vue'
+import { App } from 'vue'
+
 import { defineVuesticPlugin, defineGlobalProperty } from '../../../vuestic-plugin/utils'
 import { createToastInstance, closeById, closeAllNotifications, NotificationOptions } from '../toast'
 
