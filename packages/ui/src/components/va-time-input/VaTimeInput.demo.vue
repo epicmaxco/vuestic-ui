@@ -92,7 +92,7 @@
 </template>
 
 <script>
-import VaTimeInput from './VaTimeInput.vue'
+import { VaTimeInput } from './index'
 import { VaIcon } from '../va-icon'
 import { VaInput } from '../va-input'
 import { VaButton } from '../va-button'
