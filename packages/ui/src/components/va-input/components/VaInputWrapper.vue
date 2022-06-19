@@ -224,6 +224,7 @@ export default defineComponent({
   &__text {
     width: 100%;
     position: relative;
+    min-height: var(--va-input-line-height);
 
     input,
     textarea {
@@ -292,7 +293,7 @@ export default defineComponent({
     .va-input-wrapper__text {
       height: 100%;
       padding-top: 12px;
-      align-items: flex-end;
+      box-sizing: content-box;
     }
 
     .va-input-wrapper__label {
