@@ -1,6 +1,7 @@
 import { computed, onBeforeUnmount, onMounted, Ref, unref, watch } from 'vue'
-import { useDomRect } from './useDomRect'
+
 import { mapObject } from '../utils/map-object'
+import { useDomRect } from './useDomRect'
 import { useClientOnly } from './useClientOnly'
 
 export type PlacementPosition = 'top' | 'bottom' | 'left' | 'right'
@@ -183,7 +184,7 @@ export const usePopover = (
       coords = calculateClipToEdge(coords, offsetCoords, contentDomRect.value, anchorDomRect.value, rootRect)
     }
 
-    Object.assign(contentRef.value?.style, {
+    Object.assign((contentRef.value as HTMLElement)?.style, {
       ...css,
       ...coordsToCss(coords),
     })

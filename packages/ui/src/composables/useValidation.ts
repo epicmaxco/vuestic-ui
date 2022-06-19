@@ -2,9 +2,10 @@ import { inject, onBeforeUnmount, onMounted, PropType, watch, ExtractPropTypes }
 import flatten from 'lodash/flatten.js'
 import isFunction from 'lodash/isFunction.js'
 import isString from 'lodash/isString.js'
+
 import { useSyncProp } from './useSyncProp'
-import { FormServiceKey } from '../components/va-form/consts'
 import { useFocus } from './useFocus'
+import { FormServiceKey } from '../components/va-form/consts'
 
 type ValidationRule<V extends any = any> = ((v: V) => any | string)
 
