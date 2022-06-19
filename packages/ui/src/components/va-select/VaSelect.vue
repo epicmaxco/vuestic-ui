@@ -68,6 +68,7 @@
             aria-hidden="false"
             aria-label="reset"
             class="va-select__icons__reset"
+            tabindex="0"
             v-bind="clearIconProps"
             @click.stop="reset"
             @keydown.enter.stop="reset"
