@@ -3,7 +3,7 @@ import { VNode, createVNode, render, AppContext } from 'vue'
 import { getGlobal } from '../../utils/ssr-utils'
 import type { ToastOptions } from './types'
 
-import VaToast from './VaToast'
+import { VaToast } from './index'
 
 const GAP = 5
 let seed = 1
