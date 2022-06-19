@@ -1,14 +1,12 @@
 <template>
-  <div>
-    <va-option-list
-      :options="options"
-      v-model="listValue"
-      valueBy="altValue"
-      disabledBy="altDisabled"
-      :textBy="option => option.altText"
-    />
-    Selected: <pre> {{ listValue }} </pre>
-  </div>
+  <va-option-list
+    :options="options"
+    v-model="listValue"
+    valueBy="altValue"
+    disabledBy="altDisabled"
+    :textBy="option => option.altText"
+  />
+  Selected: <pre>{{ listValue }}</pre>
 </template>
 
 <script>
