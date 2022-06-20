@@ -115,7 +115,7 @@
 </template>
 
 <script>
-import VaDivider from './index'
+import { VaDivider } from './index'
 import DividerWithList from './DividerWithList'
 
 export default {

@@ -10,6 +10,7 @@
       <div
         class="va-popover__content"
         :style="computedPopoverStyle"
+        role="tooltip"
       >
         <div
           v-if="$props.icon"
@@ -24,6 +25,7 @@
           <div
             v-if="$props.title"
             class="va-popover__title"
+            aria-hidden="true"
           >
             {{ $props.title }}
           </div>

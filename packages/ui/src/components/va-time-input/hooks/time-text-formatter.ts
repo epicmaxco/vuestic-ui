@@ -1,6 +1,7 @@
 export const useTimeFormatter = (props: {
   ampm?: boolean,
   view?: 'hours' | 'minutes' | 'seconds'
+  format?: (date: Date) => string
 }) => {
   const formatDate = (date: Date) => {
     if (!date) { return '' }
@@ -37,6 +38,6 @@ export const useTimeFormatter = (props: {
   }
 
   return {
-    format: formatWithView,
+    format: (date: Date) => props.format ? props.format(date) : formatWithView(date),
   }
 }

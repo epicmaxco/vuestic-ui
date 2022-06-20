@@ -24,16 +24,11 @@
           ref="input"
           type="checkbox"
           class="va-checkbox__input"
-          :aria-label="$props.ariaLabel"
           :id="computedId"
-          :name="computedName"
-          :tabindex="computedTabIndex"
-          :disabled="disabled"
-          :readonly="readonly"
           :indeterminate="indeterminate"
           :value="label"
-          :aria-checked="isActive"
           :checked="isActive"
+          v-bind="inputAttributesComputed"
           v-on="keyboardFocusListeners"
           @focus="onFocus"
           @blur="onBlur"
@@ -44,7 +39,6 @@
           v-show="isActive"
           class="va-checkbox__icon"
           size="20px"
-          aria-hidden="true"
           :name="computedIconName"
           :color="textColorComputed"
         />
@@ -64,18 +58,18 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, PropType, ref } from 'vue'
+import { defineComponent, computed, PropType, shallowRef } from 'vue'
+
+import { generateUniqueId } from '../../services/utils'
+import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'
+import { useColors } from '../../composables/useColor'
+import { useSelectable, useSelectableProps, useSelectableEmits, Elements } from '../../composables/useSelectable'
+import { useTextColor } from '../../composables/useTextColor'
 
 import { VaMessageListWrapper } from '../va-input'
-import VaIcon from '../va-icon/'
+import { VaIcon } from '../va-icon/'
 
-import { useColors } from '../../composables/useColor'
-import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'
-import { useSelectable, useSelectableProps, useSelectableEmits } from '../../composables/useSelectable'
-import { useTextColor } from '../../composables/useTextColor'
-import { generateUniqueId } from '../../services/utils'
-
-const vaCheckboxValueType = [Boolean, Array, String, Object] as PropType<boolean | null | string | number | Record<any, unknown> | unknown[]>
+const VaCheckboxValueType = [Boolean, Array, String, Object] as PropType<boolean | null | string | number | Record<any, unknown> | unknown[]>
 
 export default defineComponent({
   name: 'VaCheckbox',
@@ -83,21 +77,21 @@ export default defineComponent({
   emits: useSelectableEmits,
   props: {
     ...useSelectableProps,
-    modelValue: { type: vaCheckboxValueType, default: false },
-    color: { type: String as PropType<string>, default: 'primary' },
-    checkedIcon: { type: String as PropType<string>, default: 'check' },
+    modelValue: { type: VaCheckboxValueType, default: false },
+    color: { type: String, default: 'primary' },
+    checkedIcon: { type: String, default: 'check' },
     indeterminate: { type: Boolean, default: false },
-    indeterminateValue: { type: vaCheckboxValueType, default: null },
-    indeterminateIcon: { type: String as PropType<string>, default: 'remove' },
-    id: { type: String as PropType<string>, default: '' },
-    name: { type: String as PropType<string>, default: '' },
-    ariaLabel: { type: String, default: '' },
+    indeterminateValue: { type: VaCheckboxValueType, default: null },
+    indeterminateIcon: { type: String, default: 'remove' },
+    id: { type: String, default: '' },
+    name: { type: String, default: '' },
+    ariaLabel: { type: String, default: undefined },
   },
   setup (props, { emit }) {
-    const elements = {
-      container: ref(null),
-      input: ref(null),
-      label: ref(null),
+    const elements: Elements = {
+      container: shallowRef<HTMLElement>(),
+      input: shallowRef<HTMLElement>(),
+      label: shallowRef<HTMLElement>(),
     }
 
     const {
@@ -111,7 +105,6 @@ export default defineComponent({
     } = useSelectable(props, emit, elements)
     const { getColor } = useColors()
     const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
-
     const { textColorComputed } = useTextColor()
 
     const isActive = computed(() => isChecked.value || isIndeterminate.value)
@@ -156,6 +149,22 @@ export default defineComponent({
     )
 
     const uniqueId = computed(generateUniqueId)
+    const computedId = computed(() => props.id || uniqueId.value)
+    const computedName = computed(() => props.name || uniqueId.value)
+    const inputAttributesComputed = computed(() => ({
+      name: computedName.value,
+      disabled: props.disabled,
+      readonly: props.readonly,
+      tabindex: props.disabled ? -1 : 0,
+      ariaLabel: props.ariaLabel,
+      ariaDisabled: props.disabled,
+      ariaReadOnly: props.readonly,
+      ariaChecked: isActive.value,
+      'aria-invalid': !!computedErrorMessages.value.length,
+      'aria-errormessage': typeof computedErrorMessages.value === 'string'
+        ? computedErrorMessages.value
+        : computedErrorMessages.value.join(', '),
+    }))
 
     return {
       isActive,
@@ -170,9 +179,9 @@ export default defineComponent({
       toggleSelection,
       onBlur,
       onFocus,
-      computedTabIndex: computed(() => props.disabled ? -1 : 0),
-      computedId: computed(() => props.id || uniqueId.value),
-      computedName: computed(() => props.name || uniqueId.value),
+      inputAttributesComputed,
+      computedId,
+      computedName,
     }
   },
 })

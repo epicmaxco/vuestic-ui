@@ -17,6 +17,7 @@
     "lint": "yarn workspace vuestic-ui lint",
     "build": "yarn workspace vuestic-ui build",
     "build:book": "yarn workspace vuestic-ui build:book",
+    "build:types": "yarn workspace vuestic-ui build:types",
     "test:unit": "yarn workspace vuestic-ui test:unit",
     "test:coverage": "yarn workspace vuestic-ui test:coverage",
     "lint:style": "yarn workspace vuestic-ui lint:style",

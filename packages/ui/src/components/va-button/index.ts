@@ -1,4 +1,4 @@
-import VaButton from './VaButton.vue'
 import withConfigTransport from '../../services/config-transport/withConfigTransport'
+import _VaButton from './VaButton.vue'
 
-export default withConfigTransport(VaButton)
+export const VaButton = withConfigTransport(_VaButton)

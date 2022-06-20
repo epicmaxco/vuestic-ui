@@ -20,7 +20,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, PropType } from 'vue'
+import { defineComponent, computed } from 'vue'
 
 import { getGradientBackground } from '../../services/color-config/color-functions'
 import { useColors } from '../../composables/useColor'
@@ -32,22 +32,22 @@ export default defineComponent({
   emits: ['click'],
   props: {
     ...useRouterLinkProps,
-    tag: { type: String as PropType<string>, default: 'div' },
-    square: { type: Boolean as PropType<boolean>, default: false },
-    outlined: { type: Boolean as PropType<boolean>, default: false },
-    bordered: { type: Boolean as PropType<boolean>, default: true },
-    disabled: { type: Boolean as PropType<boolean>, default: false },
-    href: { type: String as PropType<string>, default: '' },
-    target: { type: String as PropType<string>, default: '' },
-    stripe: { type: Boolean as PropType<boolean>, default: false },
-    stripeColor: { type: String as PropType<string>, default: '' },
-    gradient: { type: Boolean as PropType<boolean>, default: false },
-    textColor: { type: String as PropType<string> },
-    color: { type: String as PropType<string>, default: 'background-soft' },
+    tag: { type: String, default: 'div' },
+    square: { type: Boolean, default: false },
+    outlined: { type: Boolean, default: false },
+    bordered: { type: Boolean, default: true },
+    disabled: { type: Boolean, default: false },
+    href: { type: String, default: '' },
+    target: { type: String, default: '' },
+    stripe: { type: Boolean, default: false },
+    stripeColor: { type: String, default: '' },
+    gradient: { type: Boolean, default: false },
+    textColor: { type: String },
+    color: { type: String, default: 'background-soft' },
   },
   setup (props) {
     const { getColor } = useColors()
-    const { hasRouterLinkParams, tagComputed, hrefComputed } = useRouterLink(props)
+    const { isLinkTag, tagComputed, hrefComputed } = useRouterLink(props)
     const { textColorComputed } = useTextColor()
 
     const stripeStyles = computed(() => ({ background: getColor(props.stripeColor) }))
@@ -57,7 +57,7 @@ export default defineComponent({
       'va-card--outlined': props.outlined,
       'va-card--no-border': !props.bordered,
       'va-card--disabled': props.disabled,
-      'va-card--link': props.href || hasRouterLinkParams.value,
+      'va-card--link': isLinkTag.value,
     }))
 
     const cardStyles = computed(() => {
@@ -100,11 +100,6 @@ export default defineComponent({
     width: 100%;
     height: 100%;
   }
-
-  // &--dark {
-  //   color: var(--va-card-dark-color);
-  //   background-color: var(--va-card-dark-background-color);
-  // }
 
   &--square {
     border-radius: 0;

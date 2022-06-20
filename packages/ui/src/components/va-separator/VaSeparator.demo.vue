@@ -18,9 +18,9 @@
 </template>
 
 <script>
-import VaSeparator from './index'
-import VaTabs, { VaTab } from '../va-tabs'
-import VaCard, { VaCardContent } from '../va-card'
+import { VaSeparator } from './index'
+import { VaTabs, VaTab } from '../va-tabs'
+import { VaCard, VaCardContent } from '../va-card'
 
 export default {
   components: {

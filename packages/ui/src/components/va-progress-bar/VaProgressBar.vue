@@ -1,5 +1,10 @@
 <template>
-  <div class="va-progress-bar" :class="rootClass" :style="rootStyle">
+  <div
+    class="va-progress-bar"
+    :class="rootClass"
+    :style="rootStyle"
+    v-bind="ariaAttributesComputed"
+  >
     <div v-if="!isLarge" class="va-progress-bar__info">
       <slot />
     </div>
@@ -28,8 +33,6 @@ import clamp from 'lodash/clamp.js'
 import { computed, defineComponent, PropType } from 'vue'
 import { useColors } from '../../services/color-config/color-config'
 
-type VaProgressSize = 'medium' | 'large' | 'small';
-
 export default defineComponent({
   name: 'VaProgressBar',
 
@@ -38,7 +41,7 @@ export default defineComponent({
     indeterminate: { type: Boolean, default: false },
     color: { type: String, default: 'primary' },
     size: {
-      type: [Number, String] as PropType<number | VaProgressSize>,
+      type: [Number, String] as PropType<number | 'medium' | 'large' | 'small'>,
       default: 'medium',
     },
     buffer: { type: Number, default: 100 },
@@ -87,6 +90,12 @@ export default defineComponent({
       intermediateStyle: computed(() => ({
         backgroundColor: getColor(props.color),
         animationDirection: props.reverse ? 'reverse' : 'normal',
+      })),
+
+      ariaAttributesComputed: computed(() => ({
+        role: 'progressbar',
+        ariaLabel: 'progress state',
+        ariaValuenow: !props.indeterminate ? props.modelValue : undefined,
       })),
     }
   },

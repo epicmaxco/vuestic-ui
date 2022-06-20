@@ -146,7 +146,7 @@
 </template>
 
 <script>
-import VaFileUpload from './index'
+import { VaFileUpload } from './index'
 export default {
   components: { VaFileUpload },
   data () {

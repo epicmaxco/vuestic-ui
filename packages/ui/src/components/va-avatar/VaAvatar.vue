@@ -26,14 +26,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, computed } from 'vue'
+import { defineComponent, computed } from 'vue'
 
 import { useColors } from '../../composables/useColor'
 import { useSize, useSizeProps } from '../../composables/useSize'
 import { useLoadingProps } from '../../composables/useLoading'
 import { useTextColor } from '../../composables/useTextColor'
 
-import VaIcon from '../va-icon'
+import { VaIcon } from '../va-icon'
 import { VaProgressCircle } from '../va-progress-circle'
 
 export default defineComponent({

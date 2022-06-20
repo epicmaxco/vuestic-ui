@@ -145,4 +145,11 @@ export class PageGenerationHelper {
       this.example(example, exampleOptions),
     ]
   }
+
+  file (file: Promise<Record<string, any>>): ApiDocsBlock {
+    return {
+      type: BlockType.FILE,
+      file,
+    }
+  }
 }

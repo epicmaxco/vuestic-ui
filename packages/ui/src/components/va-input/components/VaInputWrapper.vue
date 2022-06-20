@@ -104,7 +104,8 @@ import { useFormProps } from '../../../composables/useForm'
 import { useValidationProps } from '../../../composables/useValidation'
 import { useTextColor } from '../../../composables/useTextColor'
 import { useColors } from '../../../services/color-config/color-config'
-import VaMessageList from './VaMessageList'
+import { VaMessageList } from './VaMessageList'
+import pick from 'lodash/pick.js'
 
 export default defineComponent({
   name: 'VaInputWrapper',
@@ -137,7 +138,12 @@ export default defineComponent({
 
   setup (props) {
     const { getColor } = useColors()
-    const { createModifiersClasses } = useBem('va-input')
+
+    const wrapperClass = useBem('va-input', () => ({
+      ...pick(props, ['outline', 'bordered', 'success', 'focused', 'error', 'disabled', 'readonly']),
+      labeled: !!props.label,
+      solid: !props.outline && !props.bordered,
+    }))
 
     const colorComputed = computed(() => getColor(props.color))
     const borderColorComputed = computed(() => props.focused ? colorComputed.value : undefined)
@@ -157,18 +163,8 @@ export default defineComponent({
     }))
 
     return {
-      wrapperClass: createModifiersClasses(() => ({
-        outline: props.outline,
-        bordered: props.bordered,
-        solid: !props.outline && !props.bordered,
-        disabled: props.disabled,
-        readonly: props.readonly,
-        labeled: !!props.label,
-        success: props.success,
-        focused: props.focused,
-        error: props.error,
-      })),
       containerStyle,
+      wrapperClass,
 
       colorComputed,
       borderColorComputed,
@@ -311,6 +307,12 @@ export default defineComponent({
 
       &:last-child {
         margin-right: 0;
+      }
+    }
+
+    &__reset {
+      &:focus {
+        @include focus-outline;
       }
     }
   }

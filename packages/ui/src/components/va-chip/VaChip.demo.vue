@@ -165,8 +165,8 @@
 </template>
 
 <script>
-import VaChip from './index'
-import VaCheckbox from '../va-checkbox'
+import { VaChip } from './index'
+import { VaCheckbox } from '../va-checkbox'
 
 export default {
   components: {

@@ -2,6 +2,7 @@
   <component
     ref="rootElement"
     class="va-sidebar__item va-sidebar-item"
+    tabindex="0"
     :class="{ 'va-sidebar-item--active': $props.active }"
     :style="computedStyle"
     :href="hrefComputed"

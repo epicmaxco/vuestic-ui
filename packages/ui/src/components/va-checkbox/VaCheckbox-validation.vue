@@ -15,7 +15,7 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 
-import VaCheckbox from './index'
+import { VaCheckbox } from './index'
 
 export default defineComponent({
   name: 'VaCheckbox-validation',

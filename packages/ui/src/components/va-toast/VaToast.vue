@@ -2,13 +2,13 @@
   <transition name="va-toast-fade">
     <div
       v-show="visible"
+      ref="rootElement"
+      :role="$props.closeable ? 'alertdialog' : 'alert'"
       :class="['va-toast', ...toastClasses]"
       :style="toastStyles"
       @mouseenter="clearTimer"
       @mouseleave="startTimer"
       @click="onToastClick"
-      role="alert"
-      ref="rootElement"
     >
       <div class="va-toast__group">
         <h2 v-if="$props.title" class="va-toast__title" v-text="$props.title" />
@@ -24,10 +24,15 @@
 
         <va-icon
           v-if="$props.closeable"
+          class="va-toast__close-icon"
+          role="button"
+          aria-label="close toast"
+          aria-hidden="false"
+          tabindex="0"
           size="small"
           :name="$props.icon"
-          class="va-toast__close-icon"
           @click.stop="onToastClose"
+          @keydown.enter.stop="onToastClose"
         />
       </div>
     </div>
@@ -42,7 +47,7 @@ import { useTimer } from '../../composables/useTimer'
 import { useTextColor } from '../../composables/useTextColor'
 import VaIcon from '../va-icon/VaIcon.vue'
 
-import { NotificationPosition } from './types'
+import { ToastPosition } from './types'
 
 const VaToastRenderer = defineComponent({
   name: 'VaToastRenderer',
@@ -71,7 +76,7 @@ export default defineComponent({
     onClick: { type: Function },
     multiLine: { type: Boolean as PropType<boolean>, default: false },
     position: {
-      type: String as PropType<NotificationPosition>,
+      type: String as PropType<ToastPosition>,
       default: 'top-right',
       validator: (value: string) => ['top-right', 'top-left', 'bottom-right', 'bottom-left'].includes(value),
     },
@@ -235,6 +240,10 @@ export default defineComponent({
 
     &:hover {
       opacity: 1;
+    }
+
+    &:focus {
+      @include focus-outline;
     }
   }
 }

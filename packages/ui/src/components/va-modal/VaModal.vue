@@ -2,6 +2,9 @@
   <div
     ref="rootElement"
     class="va-modal-entry"
+    role="dialog"
+    aria-modal="true"
+    :aria-labelledby="title"
     :class="$props.anchorClass"
   >
     <div v-if="$slots.anchor" class="va-modal__anchor">
@@ -38,9 +41,15 @@
             >
               <va-icon
                 v-if="$props.fullscreen"
-                @click="cancel"
                 name="close"
                 class="va-modal__close"
+                role="button"
+                aria-label="close"
+                aria-hidden="false"
+                tabindex="0"
+                @click="cancel"
+                @keydown.space="cancel"
+                @keydown.enter="cancel"
               />
 
               <div
@@ -110,8 +119,8 @@ import { watch, h, Transition, defineComponent, PropType, computed, StyleValue, 
 import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
 import { useColors } from '../../composables/useColor'
 import { useTextColor } from '../../composables/useTextColor'
-import VaButton from '../va-button'
-import VaIcon from '../va-icon'
+import { VaButton } from '../va-button'
+import { VaIcon } from '../va-icon'
 import { ModalSize } from './types'
 
 const ModalElement = defineComponent({
@@ -444,6 +453,10 @@ export default defineComponent({
     font-style: normal;
     color: var(--va-secondary);
     z-index: 1;
+
+    &:focus {
+      @include focus-outline;
+    }
   }
 
   &__footer {

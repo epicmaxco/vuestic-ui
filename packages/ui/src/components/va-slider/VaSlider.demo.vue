@@ -32,6 +32,13 @@
           v-model="value"
         />
       </div>
+      <div style="height: 300px;">
+        <va-slider
+          vertical
+          range
+          v-model="value2"
+        />
+      </div>
     </VbCard>
     <VbCard
       width="500px"

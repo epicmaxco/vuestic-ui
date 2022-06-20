@@ -5,7 +5,7 @@ export default defineManualApi({
     default: { },
   },
   events: {
-    click: { types: '`() => Event`' },
+    click: { types: '`() => Event`', isDOMEvent: true },
   },
   methods: {
     focus: { types: '`() => void`' },
