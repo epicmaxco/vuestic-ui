@@ -165,8 +165,8 @@ export default defineComponent({
     const { format } = useTimeFormatter(props)
 
     const valueText = computed<string | undefined>(() => {
-      if (!isValid.value) { return format(props.clearValue || new Date()) }
-      if (!modelValueSync.value) { return format(props.clearValue || new Date()) }
+      if (!isValid.value) { return props.clearValue ? format(props.clearValue) : '' }
+      if (!modelValueSync.value) { return props.clearValue ? format(props.clearValue) : '' }
 
       if (props.format) { return format(modelValueSync.value) }
 
