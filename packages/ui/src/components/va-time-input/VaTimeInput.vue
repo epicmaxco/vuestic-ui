@@ -8,6 +8,7 @@
     :offset="[2, 0]"
     :close-on-content-click="false"
     :disabled="$props.disabled"
+    :readonly="$props.readonly"
     anchorSelector=".va-input__container"
     :stateful="false"
     trigger="none"
@@ -277,13 +278,11 @@ export default defineComponent({
     }
 
     const showDropdownWithoutFocus = () => {
-      if (props.disabled || props.readonly) { return }
       isOpenSync.value = true
     }
 
     const showDropdown = () => {
-      if (props.disabled || props.readonly) { return }
-      isOpenSync.value = true
+      showDropdownWithoutFocus()
       nextTick(() => {
         timePicker.value?.focus()
       })
