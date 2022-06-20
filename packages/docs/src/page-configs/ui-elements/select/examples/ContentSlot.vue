@@ -8,7 +8,7 @@
       multiple
     >
       <template #content="{ valueString }">
-        <div tabindex="1">{{ valueString }}</div>
+        <div tabindex="0">{{ valueString }}</div>
       </template>
     </va-select>
 
@@ -20,7 +20,7 @@
       multiple
     >
       <template #content="{ value }">
-        <div tabindex="1">
+        <div tabindex="0">
           <va-chip
             v-for="chip in value.slice(0, 3)"
             :key="chip"
@@ -41,7 +41,7 @@
       multiple
     >
       <template #content="{ value }">
-        <div tabindex="1">
+        <div tabindex="0">
           <va-chip
             v-for="chip in value"
             :key="chip"

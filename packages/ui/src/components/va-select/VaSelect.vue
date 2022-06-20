@@ -34,7 +34,6 @@
         :outline="$props.outline"
         :bordered="$props.bordered"
         :required-mark="$props.requiredMark"
-        :tabindex="tabIndexComputed"
         :messages="$props.messages"
         :error-messages="computedErrorMessages"
         :focused="isFocused"
@@ -93,13 +92,13 @@
         >
           <slot
             name="content"
-            v-bind="{ valueString: valueComputedString, value: valueComputed }"
+            v-bind="{ valueString: valueComputedString, value: valueComputed, tabindex: tabIndexComputed }"
           >
             <input
               ref="input"
               v-model="valueComputedString"
               aria-label="selected option"
-              tabindex="-1"
+              :tabindex="tabIndexComputed"
               readonly
             />
           </slot>
