@@ -1,10 +1,10 @@
-import { computed, getCurrentInstance, onBeforeUnmount, onMounted, onUpdated, Ref, ref } from 'vue'
+import { computed, getCurrentInstance, onBeforeUnmount, onMounted, onUpdated, Ref, shallowRef } from 'vue'
 
 const extractHTMLElement = (el: any): HTMLElement => el && '$el' in el ? el.$el : el
 
 export const useTemplateRef = (key: string) => {
   const vm = getCurrentInstance()!
-  const el = ref<HTMLElement | undefined>()
+  const el = shallowRef<HTMLElement | undefined>()
 
   const updateEl = () => {
     el.value = vm.proxy?.$refs[key] as HTMLElement
@@ -26,7 +26,7 @@ export const useHTMLElement = (key?: string): Ref<HTMLElement> => {
     })
   }
 
-  const el = ref()
+  const el = shallowRef()
   return computed({
     set (value) {
       el.value = extractHTMLElement(value)

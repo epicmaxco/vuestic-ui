@@ -65,6 +65,7 @@
         <template #icon>
           <va-icon
             v-if="showClearIcon"
+            role="button"
             aria-hidden="false"
             aria-label="reset"
             class="va-select__icons__reset"
@@ -94,7 +95,13 @@
             name="content"
             v-bind="{ valueString: valueComputedString, value: valueComputed }"
           >
-            <input tabindex="-1" ref="input" readonly v-model="valueComputedString" />
+            <input
+              ref="input"
+              v-model="valueComputedString"
+              aria-label="selected option"
+              tabindex="-1"
+              readonly
+            />
           </slot>
         </template>
       </va-input-wrapper>
