@@ -32,8 +32,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import 'variables';
-
 .va-accordion {
   font-family: var(--va-font-family);
 
