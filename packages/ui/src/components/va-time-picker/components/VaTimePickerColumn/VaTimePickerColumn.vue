@@ -5,8 +5,8 @@
     @keydown.down.stop.prevent="makeActiveNext()"
     @keydown.space.stop.prevent="makeActiveNext(5)"
     @keydown.up.stop.prevent="makeActivePrev()"
-    @scroll="onScroll"
-    @touchmove="onScroll"
+    @scroll.passive="onScroll"
+    @touchmove.passive="onScroll"
     ref="rootElement"
   >
     <div
