@@ -11,9 +11,10 @@
     anchorSelector=".va-input__container"
     :stateful="false"
     trigger="none"
-    @keydown.up.prevent="showDropdown()"
-    @keydown.down.prevent="showDropdown()"
-    @keydown.space.prevent="showDropdown()"
+    @keydown.up.prevent="showDropdown"
+    @keydown.down.prevent="showDropdown"
+    @keydown.space.prevent="showDropdown"
+    @keydown.esc.prevent="hideDropdown"
     @click="handleComponentClick"
   >
     <template #anchor>
@@ -32,14 +33,14 @@
         >
           <slot
             :name="name"
-            v-bind="{ ...slotScope, dropdownToggle, showDropdown, hideDropdown, isOpen: isOpenSync, focus }"
+            v-bind="{ ...slotScope, toggleDropdown, showDropdown, hideDropdown, isOpen: isOpenSync, focus }"
           />
         </template>
 
         <template #prependInner="slotScope">
           <slot
             name="prependInner"
-            v-bind="{ ...slotScope, dropdownToggle, showDropdown, hideDropdown, isOpen: isOpenSync, focus }"
+            v-bind="{ ...slotScope, toggleDropdown, showDropdown, hideDropdown, isOpen: isOpenSync, focus }"
           />
           <va-icon
             v-if="$props.leftIcon"
@@ -50,8 +51,8 @@
             :tabindex="iconsTabIndexComputed"
             :id="componentIconId"
             v-bind="iconProps"
-            @click="dropdownToggle"
-            @keydown.enter.stop="dropdownToggle"
+            @click="toggleDropdown"
+            @keydown.enter.stop="toggleDropdown"
           />
         </template>
 
@@ -77,8 +78,8 @@
             :tabindex="iconsTabIndexComputed"
             :id="componentIconId"
             v-bind="iconProps"
-            @click="dropdownToggle(true)"
-            @keydown.enter.stop="dropdownToggle(true)"
+            @click="toggleDropdown"
+            @keydown.enter.stop="toggleDropdown"
           />
         </template>
       </va-input>
@@ -86,7 +87,7 @@
 
     <va-dropdown-content
       no-padding
-      @keydown.esc.prevent="hideDropdown()"
+      @keydown.esc.prevent="hideDropdown"
     >
       <va-time-picker
         ref="timePicker"
@@ -275,18 +276,25 @@ export default defineComponent({
       focus()
     }
 
-    const showDropdown = (forceFocus = false) => {
+    const showDropdownWithoutFocus = () => {
+      if (props.disabled || props.readonly) { return }
+      isOpenSync.value = true
+    }
+
+    const showDropdown = () => {
       if (props.disabled || props.readonly) { return }
       isOpenSync.value = true
       nextTick(() => {
-        if (!props.manualInput || forceFocus) {
-          timePicker.value?.focus()
-        }
+        timePicker.value?.focus()
       })
     }
 
-    const dropdownToggle = (forceFocus = false) => {
-      isOpenSync.value ? hideDropdown() : showDropdown(forceFocus)
+    const toggleDropdown = () => {
+      isOpenSync.value ? hideDropdown() : showDropdown()
+    }
+
+    const toggleDropdownWithoutFocus = () => {
+      isOpenSync.value ? hideDropdown() : showDropdownWithoutFocus()
     }
 
     // we use the global handler to prevent the toggle dropdown on any click and execute additional logic
@@ -311,7 +319,7 @@ export default defineComponent({
         return
       }
 
-      dropdownToggle()
+      toggleDropdownWithoutFocus()
     }
 
     return {
@@ -337,7 +345,7 @@ export default defineComponent({
 
       hideDropdown,
       showDropdown,
-      dropdownToggle,
+      toggleDropdown,
 
       handleComponentClick,
 
