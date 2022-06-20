@@ -7,7 +7,7 @@ export const useHoverProps = {
     validator: (value: string) => ['opacity', 'mask'].includes(value),
   },
   hoverOpacity: { type: Number, default: 0.15 },
-  hoverMaskColor: { type: String, default: '#ffffff' },
+  hoverMaskColor: { type: String, default: 'white' },
 }
 
 const getEl = (el: any) => el.$el ?? el

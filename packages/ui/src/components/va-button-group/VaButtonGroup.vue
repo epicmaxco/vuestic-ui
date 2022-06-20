@@ -10,6 +10,8 @@
 import { defineComponent, computed } from 'vue'
 import { extractComponentProps } from '../../utils/child-props'
 
+import { useBem } from '../../composables/useBem'
+
 import { VaConfig } from '../va-config'
 import { VaButton } from '../va-button'
 
@@ -22,7 +24,10 @@ export default defineComponent({
 
   setup: (props) => ({
     buttonConfig: computed(() => ({ VaButton: { ...props } })),
-    computedClass: computed(() => ({ 'va-button-group--square': !props.round })),
+    computedClass: useBem('va-button-group', () => ({
+      square: !props.round,
+      small: props.size === 'small',
+    })),
   }),
 })
 </script>
@@ -40,6 +45,12 @@ export default defineComponent({
 
   &--square {
     border-radius: var(--va-button-border-radius);
+  }
+
+  &--small {
+    &.va-button-group--square {
+      border-radius: var(--va-button-sm-border-radius);
+    }
   }
 
   .va-button {

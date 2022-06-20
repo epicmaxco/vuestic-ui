@@ -3,6 +3,7 @@ import {
   colorToRgba,
   getStateMaskGradientBackground,
 } from '../../../services/color-config/color-functions'
+import { useColors } from '../../../composables/useColor'
 
 import { ButtonPropsTypes } from '../types'
 
@@ -29,6 +30,8 @@ export const useButtonTextColor: UseButtonTextColor = (
   isHovered,
   isTransparentBg,
 ) => {
+  const { getColor } = useColors()
+
   const plainColorStyles = computed(() => ({
     color: 'transparent',
     '-webkit-background-clip': 'text',
@@ -44,11 +47,14 @@ export const useButtonTextColor: UseButtonTextColor = (
     return { ...plainColorStyles.value, ...res }
   }
 
+  const hoverMaskColorComputed = computed(() => getColor(props.hoverMaskColor))
   const hoverTextColorComputed = computed(() => {
-    return getStateColor(props.hoverMaskColor as string, props.hoverOpacity as number, props.hoverBehaviour as string)
+    return getStateColor(hoverMaskColorComputed.value, props.hoverOpacity as number, props.hoverBehaviour as string)
   })
+
+  const pressedMaskColorComputed = computed(() => getColor(props.pressedMaskColor))
   const pressedTextColorComputed = computed(() => {
-    return getStateColor(props.pressedMaskColor as string, props.pressedOpacity as number, props.pressedBehaviour as string)
+    return getStateColor(pressedMaskColorComputed.value, props.pressedOpacity as number, props.pressedBehaviour as string)
   })
 
   const getPlainTextOpacity = computed(() => {

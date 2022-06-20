@@ -4,6 +4,7 @@ import {
   getGradientBackground,
   getStateMaskGradientBackground,
 } from '../../../services/color-config/color-functions'
+import { useColors } from '../../../composables/useColor'
 
 import { ButtonPropsTypes } from '../types'
 
@@ -22,6 +23,8 @@ export const useButtonBackground: UseButtonBackground = (
   isHovered,
   isTransparentBg,
 ) => {
+  const { getColor } = useColors()
+
   const isGradientBg = computed(() => props.gradient && props.backgroundOpacity === 1)
 
   const backgroundColorComputed = computed(() => (
@@ -45,11 +48,14 @@ export const useButtonBackground: UseButtonBackground = (
     return { background: getStateMaskGradientBackground(colorComputed.value, maskColor, stateOpacity) }
   }
 
+  const hoverMaskColorComputed = computed(() => getColor(props.hoverMaskColor))
   const hoverBackgroundComputed = computed(() => {
-    return getStateBackground(props.hoverMaskColor as string, props.hoverOpacity as number, props.hoverBehaviour as string)
+    return getStateBackground(hoverMaskColorComputed.value, props.hoverOpacity as number, props.hoverBehaviour as string)
   })
+
+  const pressedMaskColorComputed = computed(() => getColor(props.pressedMaskColor))
   const pressedBackgroundComputed = computed(() => {
-    return getStateBackground(props.pressedMaskColor as string, props.pressedOpacity as number, props.pressedBehaviour as string)
+    return getStateBackground(pressedMaskColorComputed.value, props.pressedOpacity as number, props.pressedBehaviour as string)
   })
 
   return computed(() => {

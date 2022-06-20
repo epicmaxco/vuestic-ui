@@ -19,13 +19,16 @@ import { defineComponent, PropType, computed } from 'vue'
 
 import { shiftHSLAColor } from '../../services/color-config/color-functions'
 import { useColors } from '../../composables/useColor'
+import { extractComponentProps } from '../../utils/child-props'
 
 import { ButtonOption } from './types'
 
 import { VaButton } from '../va-button'
 import { VaButtonGroup } from '../va-button-group'
 
-import pick from 'lodash/pick.js'
+import omit from 'lodash/omit.js'
+
+const VaButtonProps = extractComponentProps(VaButton)
 
 export default defineComponent({
   name: 'VaButtonToggle',
@@ -35,25 +38,14 @@ export default defineComponent({
   },
   emits: ['update:modelValue'],
   props: {
-    modelValue: { type: [String, Number] as PropType<string | number>, default: '' },
+    ...VaButtonProps,
+    modelValue: { type: [String, Number], default: '' },
     options: {
       type: Array as PropType<ButtonOption[]>,
       required: true,
     },
     activeButtonTextColor: { type: String },
     toggleColor: { type: String, default: '' },
-
-    size: {
-      type: String as PropType<'small' | 'medium'>,
-      default: 'medium',
-      validator: (value: string) => ['small', 'medium'].includes(value),
-    },
-    color: { type: String, default: 'primary' },
-    textColor: { type: String, default: undefined },
-    gradient: { type: Boolean, default: false },
-    plain: { type: Boolean, default: false },
-    disabled: { type: Boolean, default: false },
-    round: { type: Boolean, default: false },
   },
 
   setup (props, { emit }) {
@@ -86,7 +78,7 @@ export default defineComponent({
     }
 
     const buttonGroupPropsComputed = computed(() =>
-      pick(props, ['color', 'textColor', 'round', 'plain', 'gradient', 'size', 'disabled']),
+      omit(props, ['modelValue', 'options', 'activeButtonTextColor', 'toggleColor']),
     )
 
     const changeValue = (value: any) => emit('update:modelValue', value)
