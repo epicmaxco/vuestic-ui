@@ -15,6 +15,7 @@
     @keydown.up.prevent="showDropdown"
     @keydown.down.prevent="showDropdown"
     @keydown.space.prevent="showDropdown"
+    @keydown.enter.prevent="showDropdown"
     @keydown.esc.prevent="hideDropdown"
     @click="handleComponentClick"
   >
