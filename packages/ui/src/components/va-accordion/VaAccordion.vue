@@ -34,5 +34,28 @@ export default defineComponent({
 <style lang="scss">
 .va-accordion {
   font-family: var(--va-font-family);
+
+  // Do not remove border radius from expanded and next to it collapse
+  .va-collapse:not(.va-collapse--expanded, .va-collapse--expanded + .va-collapse) {
+    &:not(:first-child, :last-child) {
+      .va-collapse__header__content {
+        border-radius: 0;
+      }
+    }
+
+    &:first-child {
+      .va-collapse__header__content {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+    }
+
+    &:last-child {
+      .va-collapse__header__content {
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+      }
+    }
+  }
 }
 </style>
