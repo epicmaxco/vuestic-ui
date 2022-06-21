@@ -104,7 +104,7 @@ import { VaRating } from '../va-rating/'
 import { VaChip } from '../va-chip'
 import { VaConfig } from './'
 import { VaCard } from '../va-card'
-import { VaCardContent } from '../va-card/VaCardContent'
+import VaCardContent from '../va-card/VaCardContent'
 import { VaColorInput } from '../va-color-input/'
 
 export default {
