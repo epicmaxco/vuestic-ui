@@ -42,13 +42,23 @@
           <slot />
         </div>
 
-        <div
-          v-if="$slots.icon"
-          class="va-input-wrapper__icons"
-          @click="$emit('click-icon', $event)"
-        >
-          <slot name="icon" />
-        </div>
+        <va-icon
+          v-if="success"
+          color="success"
+          name="check_circle"
+          size="small"
+          aria-hidden="false"
+          aria-label="reset"
+        />
+        <va-icon
+          v-if="error"
+          color="danger"
+          name="warning"
+          size="small"
+          aria-hidden="false"
+          aria-label="reset"
+        />
+        <slot name="icon" />
 
         <div
           v-if="$slots.appendInner"
@@ -114,7 +124,6 @@ export default defineComponent({
     'click-append',
     'click-prepend-inner',
     'click-append-inner',
-    'click-icon',
   ],
 
   setup (props) {

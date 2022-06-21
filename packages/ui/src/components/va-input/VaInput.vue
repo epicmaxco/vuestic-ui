@@ -29,18 +29,6 @@
 
     <template #icon="slotScope">
       <va-icon
-        v-if="success"
-        color="success"
-        name="check_circle"
-        size="small"
-      />
-      <va-icon
-        v-if="computedError"
-        color="danger"
-        name="warning"
-        size="small"
-      />
-      <va-icon
         v-if="canBeCleared"
         role="button"
         aria-hidden="false"
@@ -107,7 +95,6 @@ const { createEmits: createFieldEmits, createListeners: createFieldListeners } =
   'click-append',
   'click-prepend-inner',
   'click-append-inner',
-  'click-icon',
 ])
 
 export default defineComponent({
