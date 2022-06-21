@@ -4,7 +4,7 @@ const extractHTMLElement = (el: any): HTMLElement => el && '$el' in el ? el.$el 
 
 export const useTemplateRef = (key: string) => {
   const vm = getCurrentInstance()!
-  const el = shallowRef<HTMLElement | undefined>()
+  const el = shallowRef<HTMLElement>()
 
   const updateEl = () => {
     el.value = vm.proxy?.$refs[key] as HTMLElement
