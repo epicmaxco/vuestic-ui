@@ -14,10 +14,7 @@
         <slot name="prepend" />
       </div>
 
-      <div
-        class="va-input-wrapper__field"
-        ref="container"
-      >
+      <div class="va-input-wrapper__field">
         <div
           v-if="$slots.prependInner"
           class="va-input-wrapper__prepend-inner"
@@ -71,16 +68,14 @@
       </div>
     </div>
 
-    <!-- TODO: Can we move it out? -->
-    <div v-if="hasMessages" class="va-input-wrapper__message-list-wrapper">
-      <slot name="messages" v-bind="{ messages: messagesComputed, errorLimit, color: messagesColor }">
-        <va-message-list
-          :color="messagesColor"
-          :model-value="messagesComputed"
-          :limit="errorLimit"
-        />
-      </slot>
-    </div>
+    <slot name="messages" v-bind="{ messages: messagesComputed, errorLimit, color: messagesColor }">
+      <va-message-list
+        v-if="hasMessages"
+        :color="messagesColor"
+        :model-value="messagesComputed"
+        :limit="errorLimit"
+      />
+    </slot>
   </div>
 </template>
 
@@ -209,7 +204,7 @@ export default defineComponent({
     align-items: center;
   }
 
-  &__message-list-wrapper {
+  & > .va-message-list {
     margin-top: 2px;
   }
 

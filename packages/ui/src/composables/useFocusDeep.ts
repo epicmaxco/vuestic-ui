@@ -1,9 +1,9 @@
-import { ref, computed, Ref, onMounted } from 'vue'
+import { shallowRef, computed, Ref, onMounted } from 'vue'
 import { useCaptureEvent } from './useCaptureEvent'
 import { useCurrentElement } from './useCurrentElement'
 
 const useActiveElement = () => {
-  const activeEl = ref<HTMLElement>()
+  const activeEl = shallowRef<HTMLElement>()
 
   const updateActiveElement = () => {
     activeEl.value = document.activeElement as HTMLElement

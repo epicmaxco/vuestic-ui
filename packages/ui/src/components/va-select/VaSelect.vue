@@ -3,7 +3,7 @@
     ref="dropdown"
     class="va-select__dropdown va-select-dropdown"
     trigger="none"
-    anchorSelector=".va-input-wrapper__input"
+    anchorSelector=".va-input-wrapper__field"
     :placement="$props.placement"
     :disabled="$props.disabled"
     :max-height="$props.maxHeight"
@@ -108,7 +108,6 @@
 
     <!-- Stop propagation for enter keyup event, to prevent VaDropdown closing -->
     <va-dropdown-content
-      ref="dropdownContent"
       class="va-select-dropdown__content"
       :style="{ width: $props.width }"
       @keyup.enter.stop="() => undefined"
@@ -177,7 +176,6 @@ import { VaInput, VaInputWrapper } from '../va-input'
 import { VaSelectOptionList } from './VaSelectOptionList'
 import { SelectDropdownIcon, SelectOption, Placement } from './types'
 import { useFocusDeep } from '../../composables/useFocusDeep'
-import { useHTMLElement } from '../../composables/useHTMLElement'
 
 export default defineComponent({
   name: 'VaSelect',
