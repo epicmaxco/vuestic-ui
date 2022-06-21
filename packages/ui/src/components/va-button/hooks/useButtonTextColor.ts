@@ -1,4 +1,4 @@
-import { computed, Ref, ComputedRef } from 'vue'
+import { computed, Ref, ComputedRef, getCurrentInstance } from 'vue'
 import {
   colorToRgba,
   getStateMaskGradientBackground,
@@ -8,12 +8,10 @@ import { useColors } from '../../../composables/useColor'
 import { ButtonPropsTypes } from '../types'
 
 type UseButtonTextColor = (
-  props: ButtonPropsTypes,
   textColorComputed: Ref<string>,
   colorComputed: Ref<string>,
   isPressed: Ref<boolean>,
   isHovered: Ref<boolean>,
-  isTransparentBg: Ref<boolean>,
 ) => ComputedRef<{
   color: string
   background?: string
@@ -23,13 +21,16 @@ type UseButtonTextColor = (
 }>
 
 export const useButtonTextColor: UseButtonTextColor = (
-  props,
   textColorComputed,
   colorComputed,
   isPressed,
   isHovered,
-  isTransparentBg,
 ) => {
+  const instance = getCurrentInstance()
+  if (!instance) { throw new Error('`useButtonTextColor` hook must be used only inside of setup function!') }
+
+  const props = instance.props as Required<ButtonPropsTypes>
+
   const { getColor } = useColors()
 
   const plainColorStyles = computed(() => ({
@@ -41,20 +42,20 @@ export const useButtonTextColor: UseButtonTextColor = (
   }))
 
   const getStateColor = (maskColor: string, stateOpacity: number, stateBehaviour: string) => {
+    const maskStateColor = getColor(maskColor)
+
     const res = stateBehaviour === 'opacity'
       ? { color: colorToRgba(textColorComputed.value, stateOpacity) }
-      : { background: getStateMaskGradientBackground(colorComputed.value, maskColor, stateOpacity) }
+      : { background: getStateMaskGradientBackground(colorComputed.value, maskStateColor, stateOpacity) }
     return { ...plainColorStyles.value, ...res }
   }
 
-  const hoverMaskColorComputed = computed(() => getColor(props.hoverMaskColor))
   const hoverTextColorComputed = computed(() => {
-    return getStateColor(hoverMaskColorComputed.value, props.hoverOpacity as number, props.hoverBehaviour as string)
+    return getStateColor(props.hoverMaskColor, props.hoverOpacity, props.hoverBehaviour)
   })
 
-  const pressedMaskColorComputed = computed(() => getColor(props.pressedMaskColor))
   const pressedTextColorComputed = computed(() => {
-    return getStateColor(pressedMaskColorComputed.value, props.pressedOpacity as number, props.pressedBehaviour as string)
+    return getStateColor(props.pressedMaskColor, props.pressedOpacity, props.pressedBehaviour)
   })
 
   const getPlainTextOpacity = computed(() => {
@@ -70,7 +71,7 @@ export const useButtonTextColor: UseButtonTextColor = (
 
     props.plain && Object.assign(defaultColorStyles, plainColorStyles.value)
 
-    if (!isTransparentBg.value) { return defaultColorStyles }
+    if (!props.plain) { return defaultColorStyles }
     if (isPressed.value) { return pressedTextColorComputed.value }
     if (isHovered.value) { return hoverTextColorComputed.value }
     return defaultColorStyles

@@ -52,6 +52,7 @@ import { isLightBackground } from '../../services/color-config/color-functions'
 import { useLoadingProps } from '../../composables/useLoading'
 import { useSize, useSizeProps } from '../../composables/useSize'
 import { useRouterLink, useRouterLinkProps } from '../../composables/useRouterLink'
+import { useDeprecatedProps } from '../../composables/useDeprecatedProps'
 
 import { useButtonBackground } from './hooks/useButtonBackground'
 import { useButtonAttributes } from './hooks/useButtonAttributes'
@@ -119,9 +120,9 @@ export default defineComponent({
     plain: { type: Boolean, default: false },
     round: { type: Boolean, default: false },
     size: {
-      type: String as PropType<'small' | 'medium'>,
+      type: String as PropType<'small' | 'medium' | 'large'>,
       default: 'medium',
-      validator: (v: string) => ['small', 'medium'].includes(v),
+      validator: (v: string) => ['small', 'medium', 'large'].includes(v),
     },
 
     icon: { type: String, default: '' },
@@ -129,10 +130,12 @@ export default defineComponent({
     iconColor: { type: String, default: '' },
   },
   setup (props, { slots }) {
+    // temp
+    useDeprecatedProps(['flat', 'outline'])
+
     // colors
     const { getColor } = useColors()
     const colorComputed = computed(() => getColor(props.color))
-    const isTransparentBg = toRef(props, 'plain')
 
     // loader size
     const { sizeComputed } = useSize(props)
@@ -167,6 +170,7 @@ export default defineComponent({
       ...pick(props, ['disabled', 'block', 'loading', 'round', 'plain']),
       small: props.size === 'small',
       normal: !props.size || props.size === 'medium',
+      large: props.size === 'large',
       opacity: props.textOpacity < 1,
       'icon-only': !slots.default && isOneIcon.value,
       bordered: !!props.borderColor,
@@ -175,11 +179,11 @@ export default defineComponent({
     }))
 
     // styles
-    const isLowContrastBg = computed(() => isTransparentBg.value || isLightBackground(colorComputed.value, props.backgroundOpacity))
+    const isLowContrastBg = computed(() => props.plain || isLightBackground(colorComputed.value, props.backgroundOpacity))
     const { textColorComputed } = useTextColor(colorComputed, isLowContrastBg.value)
 
-    const backgroundComputed = useButtonBackground(props, colorComputed, isPressed, isHovered, isTransparentBg)
-    const contentColorComputed = useButtonTextColor(props, textColorComputed, colorComputed, isPressed, isHovered, isTransparentBg)
+    const backgroundComputed = useButtonBackground(colorComputed, isPressed, isHovered)
+    const contentColorComputed = useButtonTextColor(textColorComputed, colorComputed, isPressed, isHovered)
 
     const computedStyle = computed(() => ({
       borderColor: props.borderColor ? getColor(props.borderColor) : 'transparent',
@@ -310,7 +314,9 @@ export default defineComponent({
     }
 
     &.va-button--bordered {
-      line-height: calc(var(--va-button-line-height) - 2 * var(--va-button-bordered-border));
+      & .va-button__content {
+        line-height: calc(var(--va-button-line-height) - 2 * var(--va-button-bordered-border));
+      }
     }
 
     .va-button__left-icon,
@@ -325,6 +331,46 @@ export default defineComponent({
 
     .va-button__right-icon {
       margin-left: var(--va-button-icons-spacing);
+    }
+  }
+
+  &--large {
+    @include va-button(var(--va-button-lg-content-py), var(--va-button-lg-content-px), var(--va-button-lg-font-size), var(--va-button-lg-line-height), var(--va-button-lg-border-radius));
+
+    letter-spacing: var(--va-button-lg-letter-spacing);
+    min-height: var(--va-button-lg-size);
+    min-width: var(--va-button-lg-size);
+
+    .va-button__content {
+      padding: var(--va-button-lg-content-py) var(--va-button-lg-content-px);
+    }
+
+    &.va-button--icon-only {
+      width: var(--va-button-lg-size);
+      height: var(--va-button-lg-size);
+
+      & .va-button__content {
+        padding-right: var(--va-button-lg-content-px);
+        padding-left: var(--va-button-lg-content-px);
+      }
+    }
+
+    &.va-button--bordered {
+      line-height: calc(var(--va-button-lg-line-height) - 2 * var(--va-button-bordered-border));
+    }
+
+    .va-button__left-icon,
+    .va-button__right-icon {
+      // until we haven't size config for icons
+      font-size: var(--va-button-lg-line-height) !important;
+    }
+
+    .va-button__left-icon {
+      margin-right: var(--va-button-lg-icons-spacing);
+    }
+
+    .va-button__right-icon {
+      margin-left: var(--va-button-lg-icons-spacing);
     }
   }
 
@@ -348,10 +394,6 @@ export default defineComponent({
 
   &.va-button--disabled {
     @include va-disabled;
-  }
-
-  &.va-button--disabled.va-button--opacity {
-    opacity: 0.24;
   }
 
   &--no-label {

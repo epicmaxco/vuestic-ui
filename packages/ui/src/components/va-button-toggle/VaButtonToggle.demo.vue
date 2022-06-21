@@ -53,6 +53,11 @@
               v-model="model"
               :options="options"
             />
+            <va-button-toggle
+              size="large"
+              v-model="model"
+              :options="options"
+            />
           </td>
         </tr>
         <tr>
@@ -131,7 +136,7 @@
           </td>
         </tr>
         <tr>
-          <td>Flat State Colors</td>
+          <td>Plain State Colors</td>
           <td>
             <va-button-toggle
               v-model="model"

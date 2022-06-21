@@ -44,24 +44,24 @@
               </va-button-group>
             </VbCard>
             <VbCard title="Primary Button Group">
-              <va-button-group>
-                <va-button v-bind="VaButtonPresets.primary">Button 1</va-button>
-                <va-button v-bind="VaButtonPresets.primary">Button 2</va-button>
-                <va-button v-bind="VaButtonPresets.primary">Button 3</va-button>
+              <va-button-group v-bind="VaButtonPresets.primary">
+                <va-button>Button 1</va-button>
+                <va-button>Button 2</va-button>
+                <va-button>Button 3</va-button>
               </va-button-group>
             </VbCard>
             <VbCard title="Round Primary Button Group">
-              <va-button-group round>
-                <va-button v-bind="VaButtonPresets.primary">Button 1</va-button>
-                <va-button v-bind="VaButtonPresets.primary">Button 2</va-button>
-                <va-button v-bind="VaButtonPresets.primary">Button 3</va-button>
+              <va-button-group round v-bind="VaButtonPresets.primary">
+                <va-button>Button 1</va-button>
+                <va-button>Button 2</va-button>
+                <va-button>Button 3</va-button>
               </va-button-group>
             </VbCard>
             <VbCard title="Outline Button Group">
-              <va-button-group border-color="primary">
-                <va-button v-bind="VaButtonPresets.primary">Button 1</va-button>
-                <va-button v-bind="VaButtonPresets.primary">Button 2</va-button>
-                <va-button v-bind="VaButtonPresets.primary">Button 3</va-button>
+              <va-button-group border-color="primary" v-bind="VaButtonPresets.primary">
+                <va-button>Button 1</va-button>
+                <va-button>Button 2</va-button>
+                <va-button>Button 3</va-button>
               </va-button-group>
             </VbCard>
             <VbCard title="Plain Button Group">
@@ -88,19 +88,37 @@
                 <va-button>Small Button 2</va-button>
                 <va-button>Small Button 3</va-button>
               </va-button-group>
+
+              <va-button-group size="large">
+                <va-button>Large Button 1</va-button>
+                <va-button>Large Button 2</va-button>
+                <va-button>Large Button 3</va-button>
+              </va-button-group>
             </VbCard>
             <VbCard title="Primary Button Group">
-              <va-button-group size="small">
-                <va-button v-bind="VaButtonPresets.primary">Small Button 1</va-button>
-                <va-button v-bind="VaButtonPresets.primary">Small Button 2</va-button>
-                <va-button v-bind="VaButtonPresets.primary">Small Button 3</va-button>
+              <va-button-group size="small" v-bind="VaButtonPresets.primary">
+                <va-button>Small Button 1</va-button>
+                <va-button>Small Button 2</va-button>
+                <va-button>Small Button 3</va-button>
+              </va-button-group>
+
+              <va-button-group size="large" v-bind="VaButtonPresets.primary">
+                <va-button>Large Button 1</va-button>
+                <va-button>Large Button 2</va-button>
+                <va-button>Large Button 3</va-button>
               </va-button-group>
             </VbCard>
             <VbCard title="Outline Button Group">
-              <va-button-group border-color="primary" size="small">
-                <va-button v-bind="VaButtonPresets.primary">Small Button 1</va-button>
-                <va-button v-bind="VaButtonPresets.primary">Small Button 2</va-button>
-                <va-button v-bind="VaButtonPresets.primary">Small Button 3</va-button>
+              <va-button-group border-color="primary" size="small" v-bind="VaButtonPresets.primary">
+                <va-button>Small Button 1</va-button>
+                <va-button>Small Button 2</va-button>
+                <va-button>Small Button 3</va-button>
+              </va-button-group>
+
+              <va-button-group border-color="primary" size="large" v-bind="VaButtonPresets.primary">
+                <va-button>Large Button 1</va-button>
+                <va-button>Large Button 2</va-button>
+                <va-button>Large Button 3</va-button>
               </va-button-group>
             </VbCard>
             <VbCard title="Plain Button Group">
@@ -113,6 +131,18 @@
                 </va-button>
                 <va-button>
                   Small Button 3
+                </va-button>
+              </va-button-group>
+
+              <va-button-group plain border-color="primary" size="large">
+                <va-button>
+                  Large Button 1
+                </va-button>
+                <va-button>
+                  Large Button 2
+                </va-button>
+                <va-button>
+                  Large Button 3
                 </va-button>
               </va-button-group>
             </VbCard>
@@ -129,17 +159,17 @@
               </va-button-group>
             </VbCard>
             <VbCard title="Primary Button Group">
-              <va-button-group>
-                <va-button v-bind="VaButtonPresets.primary" icon="create" />
-                <va-button v-bind="VaButtonPresets.primary" icon="add" />
-                <va-button v-bind="VaButtonPresets.primary" icon="add_circle_outline" />
+              <va-button-group v-bind="VaButtonPresets.primary">
+                <va-button icon="create" />
+                <va-button icon="add" />
+                <va-button icon="add_circle_outline" />
               </va-button-group>
             </VbCard>
             <VbCard title="Outline Button Group">
-              <va-button-group border-color="primary">
-                <va-button v-bind="VaButtonPresets.primary" icon="create" />
-                <va-button v-bind="VaButtonPresets.primary" icon="add" />
-                <va-button v-bind="VaButtonPresets.primary" icon="add_circle_outline" />
+              <va-button-group border-color="primary" v-bind="VaButtonPresets.primary">
+                <va-button icon="create" />
+                <va-button icon="add" />
+                <va-button icon="add_circle_outline" />
               </va-button-group>
             </VbCard>
             <VbCard title="Plain Button Group">
@@ -162,17 +192,17 @@
               </va-button-group>
             </VbCard>
             <VbCard title="Primary Button Group">
-              <va-button-group size="small">
-                <va-button v-bind="VaButtonPresets.primary" icon="create" />
-                <va-button v-bind="VaButtonPresets.primary" icon="add" />
-                <va-button v-bind="VaButtonPresets.primary" icon="add_circle_outline" />
+              <va-button-group size="small" v-bind="VaButtonPresets.primary">
+                <va-button icon="create" />
+                <va-button icon="add" />
+                <va-button icon="add_circle_outline" />
               </va-button-group>
             </VbCard>
             <VbCard title="Outline Button Group">
-              <va-button-group border-color="primary" size="small">
-                <va-button v-bind="VaButtonPresets.primary" icon="create" />
-                <va-button v-bind="VaButtonPresets.primary" icon="add" />
-                <va-button v-bind="VaButtonPresets.primary" icon="add_circle_outline" />
+              <va-button-group border-color="primary" size="small" v-bind="VaButtonPresets.primary">
+                <va-button icon="create" />
+                <va-button icon="add" />
+                <va-button icon="add_circle_outline" />
               </va-button-group>
             </VbCard>
             <VbCard title="Plain Button Group">
@@ -199,28 +229,16 @@
                   Third
                 </va-button>
               </va-button-group>
-              <va-button-group color="dark">
-                <va-button v-bind="VaButtonPresets.primary">
-                  One
-                </va-button>
-                <va-button v-bind="VaButtonPresets.primary">
-                  Two
-                </va-button>
-                <va-button v-bind="VaButtonPresets.primary">
-                  Three
-                </va-button>
-                <va-button v-bind="VaButtonPresets.primary" icon="clear" />
+              <va-button-group color="dark" v-bind="VaButtonPresets.primary">
+                <va-button>One</va-button>
+                <va-button>Two</va-button>
+                <va-button>Three</va-button>
+                <va-button icon="clear" />
               </va-button-group>
-              <va-button-group border-color="primary" color="info">
-                <va-button v-bind="VaButtonPresets.primary">
-                  First
-                </va-button>
-                <va-button v-bind="VaButtonPresets.primary" icon-right="create">
-                  Second
-                </va-button>
-                <va-button v-bind="VaButtonPresets.primary">
-                  Third
-                </va-button>
+              <va-button-group border-color="primary" color="info" v-bind="VaButtonPresets.primary">
+                <va-button>First</va-button>
+                <va-button icon-right="create">Second</va-button>
+                <va-button>Third</va-button>
               </va-button-group>
               <va-button-group plain border-color="primary" color="warning">
                 <va-button icon="create" />

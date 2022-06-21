@@ -11,6 +11,7 @@ import { defineComponent, computed } from 'vue'
 import { extractComponentProps } from '../../utils/child-props'
 
 import { useBem } from '../../composables/useBem'
+import { useDeprecatedProps } from '../../composables/useDeprecatedProps'
 
 import { VaConfig } from '../va-config'
 import { VaButton } from '../va-button'
@@ -22,13 +23,20 @@ export default defineComponent({
   components: { VaConfig },
   props: { ...VaButtonProps },
 
-  setup: (props) => ({
-    buttonConfig: computed(() => ({ VaButton: { ...props } })),
-    computedClass: useBem('va-button-group', () => ({
-      square: !props.round,
-      small: props.size === 'small',
-    })),
-  }),
+  setup: (props) => {
+    // temp
+    useDeprecatedProps(['flat', 'outline'])
+
+    return {
+      buttonConfig: computed(() => ({ VaButton: { ...props } })),
+      computedClass: useBem('va-button-group', () => ({
+        square: !props.round,
+        small: props.size === 'small',
+        large: props.size === 'large',
+        filled: props.backgroundOpacity === 1 && !props.disabled,
+      })),
+    }
+  },
 })
 </script>
 
@@ -53,6 +61,12 @@ export default defineComponent({
     }
   }
 
+  &--large {
+    &.va-button-group--square {
+      border-radius: var(--va-button-lg-border-radius);
+    }
+  }
+
   .va-button {
     margin: var(--va-button-group-button-margin);
     box-shadow: none;
@@ -69,6 +83,10 @@ export default defineComponent({
     &.va-button--small {
       padding-right: var(--va-button-group-sm-button-padding);
     }
+
+    &.va-button--large {
+      padding-right: var(--va-button-group-lg-button-padding);
+    }
   }
 
   & > .va-button:first-child {
@@ -78,6 +96,19 @@ export default defineComponent({
     &.va-button--small {
       padding-left: var(--va-button-group-sm-button-padding);
     }
+
+    &.va-button--large {
+      padding-left: var(--va-button-group-lg-button-padding);
+    }
+  }
+
+  // safari artefact fix
+  &--filled .va-button:first-child {
+    -webkit-margin-end: -0.2px;
+  }
+
+  &--filled > .va-button:last-child {
+    -webkit-margin-start: -0.2px;
   }
 
   & > .va-button:not(:last-child) {

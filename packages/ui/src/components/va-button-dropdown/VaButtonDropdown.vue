@@ -88,6 +88,7 @@ import { useBem } from '../../composables/useBem'
 import { useEmitProxy } from '../../composables/useEmitProxy'
 import { Placement, placementsPositions } from '../../composables/usePopover'
 import { useStatefulProps, useStateful } from '../../composables/useStateful'
+import { useDeprecatedProps } from '../../composables/useDeprecatedProps'
 
 import { VaButton } from '../va-button'
 import { VaButtonGroup } from '../va-button-group'
@@ -144,14 +145,15 @@ export default defineComponent({
   },
 
   setup (props, { emit, slots }) {
+    // temp
+    useDeprecatedProps(['flat', 'outline'])
+
     const { valueComputed } = useStateful(props, emit)
 
     const computedIcon = computed(() => valueComputed.value ? props.openedIcon : props.icon)
 
     const computedClass = useBem('va-button-dropdown', () => ({
       split: props.split,
-      small: props.size === 'small',
-      normal: props.size === 'medium' || !props.size,
     }))
 
     const computedButtonIcons = computed(() => {

@@ -1,25 +1,24 @@
 <template>
-  <div class="va-button-toggle">
-    <va-button-group v-bind="buttonGroupPropsComputed">
-      <va-button
-        v-for="option in options"
-        :key="option.value"
-        :aria-pressed="isToggled(option.value)"
-        v-bind="getButtonProps(option)"
-        @click="changeValue(option.value)"
-      >
-        {{ option.label }}
-      </va-button>
-    </va-button-group>
-  </div>
+  <va-button-group v-bind="buttonGroupPropsComputed">
+    <va-button
+      v-for="option in options"
+      :key="option.value"
+      :aria-pressed="isToggled(option.value)"
+      v-bind="getButtonProps(option)"
+      @click="changeValue(option.value)"
+    >
+      {{ option.label }}
+    </va-button>
+  </va-button-group>
 </template>
 
 <script lang="ts">
 import { defineComponent, PropType, computed } from 'vue'
+import { extractComponentProps } from '../../utils/child-props'
 
 import { shiftHSLAColor } from '../../services/color-config/color-functions'
 import { useColors } from '../../composables/useColor'
-import { extractComponentProps } from '../../utils/child-props'
+import { useDeprecatedProps } from '../../composables/useDeprecatedProps'
 
 import { ButtonOption } from './types'
 
@@ -49,28 +48,34 @@ export default defineComponent({
   },
 
   setup (props, { emit }) {
+    // temp
+    useDeprecatedProps(['flat', 'outline'])
+
     const { getColor } = useColors()
     const colorComputed = computed(() => getColor(props.color))
 
     const isToggled = (value: any) => value === props.modelValue
 
     const activeButtonColor = computed(() => {
-      if (props.toggleColor) {
-        return getColor(props.toggleColor)
-      } else {
-        return props.plain ? colorComputed.value : shiftHSLAColor(colorComputed.value, { l: -6 })
-      }
+      if (props.toggleColor) { return getColor(props.toggleColor) }
+      return shiftHSLAColor(colorComputed.value, { l: props.plain ? -16 : -6 })
+    })
+
+    const activeButtonBackgroundOpacityComputed = computed(() => {
+      if (props.backgroundOpacity === 1) { return {} }
+      return { backgroundOpacity: props.backgroundOpacity + 0.1 }
     })
 
     const activeButtonPropsComputed = computed(() => ({
       color: activeButtonColor.value,
       textColor: props.activeButtonTextColor,
+      ...activeButtonBackgroundOpacityComputed.value,
     }))
+
     const getButtonProps = (option: ButtonOption = {} as ButtonOption) => {
       const iconsProps = { icon: option.icon, iconRight: option.iconRight }
 
       if (!isToggled(option.value)) { return iconsProps }
-
       return {
         ...(isToggled(option.value) && activeButtonPropsComputed.value),
         ...iconsProps,

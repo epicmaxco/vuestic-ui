@@ -23,6 +23,18 @@
             <va-button size="small" v-bind="VaButtonPresets.plainOpacity">Plain with opacity</va-button>
           </td>
         </tr>
+
+        <tr>
+          <td>Large size</td>
+          <td>
+            <va-button size="large">Accent (default)</va-button>
+            <va-button size="large" v-bind="VaButtonPresets.primary">Primary</va-button>
+            <va-button size="large" v-bind="VaButtonPresets.secondary">Secondary</va-button>
+            <va-button size="large" v-bind="VaButtonPresets.plain">Plain</va-button>
+            <va-button size="large" v-bind="VaButtonPresets.plainOpacity">Plain with opacity</va-button>
+          </td>
+        </tr>
+
         <tr>
           <td>With icons</td>
           <td>

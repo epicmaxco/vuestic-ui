@@ -48,6 +48,12 @@
         Content
       </va-button-dropdown>
       <va-button-dropdown
+        size="large"
+        label="large"
+      >
+        Content
+      </va-button-dropdown>
+      <va-button-dropdown
         label="outline"
         v-bind="VaButtonPresets.secondary"
         border-color="primary"
@@ -55,7 +61,7 @@
         Content
       </va-button-dropdown>
       <va-button-dropdown
-        label="flat"
+        label="plain"
         v-bind="VaButtonPresets.plain"
       >
         Content
