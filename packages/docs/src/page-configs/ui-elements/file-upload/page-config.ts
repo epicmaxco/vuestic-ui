@@ -40,6 +40,11 @@ const config: ApiDocsBlock[] = [
     'fileUpload.examples.slots.text',
     'Slots',
   ),
+  ...block.exampleBlock(
+    'fileUpload.examples.undo.title',
+    'fileUpload.examples.undo.description',
+    'Undo',
+  ),
 
   block.subtitle('all.api'),
   block.api(VaFileUpload, apiOptions),
