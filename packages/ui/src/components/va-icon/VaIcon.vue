@@ -23,11 +23,13 @@ import omit from 'lodash/omit.js'
 import { useIcons } from '../../services/icon-config/icon-config'
 import { useColors } from '../../composables/useColor'
 import { useSize, useSizeProps } from '../../composables/useSize'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 export default defineComponent({
   name: 'VaIcon',
   props: {
     ...useSizeProps,
+    ...useComponentPresetProp,
     name: { type: String, default: '' },
     tag: { type: String },
     component: { type: Object as PropType<any> },

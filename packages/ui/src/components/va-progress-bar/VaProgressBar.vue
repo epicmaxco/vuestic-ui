@@ -32,11 +32,13 @@
 import clamp from 'lodash/clamp.js'
 import { computed, defineComponent, PropType } from 'vue'
 import { useColors } from '../../services/color-config/color-config'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 export default defineComponent({
   name: 'VaProgressBar',
 
   props: {
+    ...useComponentPresetProp,
     modelValue: { type: Number, default: 0 },
     indeterminate: { type: Boolean, default: false },
     color: { type: String, default: 'primary' },

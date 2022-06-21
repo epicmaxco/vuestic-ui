@@ -27,12 +27,14 @@
 import { defineComponent, computed } from 'vue'
 
 import { useRouterLinkProps, useRouterLink } from '../../composables/useRouterLink'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 export default defineComponent({
   name: 'VaListItem',
   emits: ['focus', 'click'],
   props: {
     ...useRouterLinkProps,
+    ...useComponentPresetProp,
     tag: { type: String, default: 'div' },
     disabled: { type: Boolean, default: false },
   },

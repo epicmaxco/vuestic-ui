@@ -1,12 +1,14 @@
 <script>
 import { h } from 'vue'
 import { useColors } from '../../../services/color-config/color-config.ts'
+import { useComponentPresetProp } from '../../../composables/useComponentPreset'
 
 const $root = 'va-timeline-separator'
 
 export default {
   name: $root,
   props: {
+    ...useComponentPresetProp,
     color: {
       type: String,
       default: 'success',

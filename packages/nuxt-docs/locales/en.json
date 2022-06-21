@@ -3140,9 +3140,9 @@
     },
     "components": {
       "title": "Components config",
-      "intro": "If you want to set global defaults for Vuestic components — we've got a config for that either!",
+      "intro": "If you want to set global defaults for Vuestic components or create presets — we have config for this as well!",
       "description": "Let’s say you want all of your buttons to be `outline` and `small` to match your design, but by default that's not the case:",
-      "action": "To solve that problem edit to `main.js` file the following way:",
+      "action": "To solve that problem edit `main.js` file the following way:",
       "result": "Now all of your buttons by default will look like this:",
       "example": "You can configure any prop for any Vuestic UI component in such a manner.",
       "more": "In case your customization runs deeper consider [overriding CSS variables](/styles/css-variables#overriding) or even directly the `.class`' properties (components use BEM-notation so it should be easy to figure out which selector to address with the help of standard dev-tooling)."

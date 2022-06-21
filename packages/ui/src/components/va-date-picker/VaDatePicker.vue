@@ -68,6 +68,7 @@ import { filterComponentProps, extractComponentProps, extractComponentEmits } fr
 import { useColors } from '../../services/color-config/color-config'
 import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
 import { useView } from './hooks/view'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 import { DatePickerModelValue, DatePickerType, DatePickerView } from './types'
 
@@ -86,6 +87,7 @@ export default defineComponent({
 
   props: {
     ...useStatefulProps,
+    ...useComponentPresetProp,
     ...extractComponentProps(VaDatePickerHeader),
     ...extractComponentProps(VaDayPicker),
     ...extractComponentProps(VaMonthPicker),

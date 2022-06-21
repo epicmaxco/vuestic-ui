@@ -64,6 +64,7 @@ import { useColors } from '../../composables/useColor'
 import { useSyncProp } from '../../composables/useSyncProp'
 import { useTextColor } from '../../composables/useTextColor'
 import { useAccordionItem } from '../va-accordion/hooks/useAccordion'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 import { VaIcon } from '../va-icon'
 
@@ -73,6 +74,7 @@ export default defineComponent({
     VaIcon,
   },
   props: {
+    ...useComponentPresetProp,
     modelValue: { type: Boolean, default: undefined },
     disabled: { type: Boolean, default: false },
     header: { type: String, default: '' },

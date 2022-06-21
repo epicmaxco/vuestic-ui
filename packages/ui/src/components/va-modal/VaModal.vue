@@ -120,6 +120,7 @@ import { useStateful, useStatefulProps, useStatefulEmits } from '../../composabl
 import { useColors } from '../../composables/useColor'
 import { useTextColor } from '../../composables/useTextColor'
 import { VaButton } from '../va-button'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 import { VaIcon } from '../va-icon'
 import { ModalSize } from './types'
 
@@ -127,6 +128,7 @@ const ModalElement = defineComponent({
   name: 'ModalElement',
   inheritAttrs: false,
   props: {
+    ...useComponentPresetProp,
     isTransition: { type: Boolean, default: true },
   },
   setup: (props, { slots, attrs }) => () => props.isTransition

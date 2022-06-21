@@ -20,6 +20,7 @@ export const withConfigTransport = <T>(component: T): WithConfigTransport<T> => 
   } else {
     // Options api. We need to transform it to Composition API and then create proxy.
     (component as any).setup = () => ({ /* Fake setup function */})
+    // TODO: remove this? no point if this will not work anyway
     return createProxyComponent(component as any)
   }
 }

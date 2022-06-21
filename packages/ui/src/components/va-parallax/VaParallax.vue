@@ -21,10 +21,12 @@
 
 <script lang="ts">
 import { defineComponent, PropType, ref, Ref, computed, onMounted, onBeforeUnmount } from 'vue'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 export default defineComponent({
   name: 'VaParallax',
   props: {
+    ...useComponentPresetProp,
     target: { type: [Object, String] as PropType<Element | string | undefined> },
     src: { type: String as PropType<string>, default: '', required: true },
     alt: { type: String as PropType<string>, default: 'parallax' },

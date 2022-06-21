@@ -65,6 +65,7 @@ import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'
 import { useColors } from '../../composables/useColor'
 import { useSelectable, useSelectableProps, useSelectableEmits, Elements } from '../../composables/useSelectable'
 import { useTextColor } from '../../composables/useTextColor'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 import { VaMessageListWrapper } from '../va-input'
 import { VaIcon } from '../va-icon/'
@@ -77,6 +78,7 @@ export default defineComponent({
   emits: useSelectableEmits,
   props: {
     ...useSelectableProps,
+    ...useComponentPresetProp,
     modelValue: { type: VaCheckboxValueType, default: false },
     color: { type: String, default: 'primary' },
     checkedIcon: { type: String, default: 'check' },

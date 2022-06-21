@@ -63,6 +63,7 @@ import { useColors, useColorProps } from '../../../composables/useColor'
 import { SelectableOption } from '../../..//composables/useSelectableList'
 import { VaIcon } from '../../va-icon'
 import { scrollToElement } from '../../../utils/scroll-to-element'
+import { useComponentPresetProp } from '../../../composables/useComponentPreset'
 
 export default defineComponent({
   name: 'VaSelectOptionList',
@@ -75,6 +76,7 @@ export default defineComponent({
   ],
   props: {
     ...useColorProps,
+    ...useComponentPresetProp,
     options: { type: Array as PropType<SelectableOption[]>, default: () => [] },
     noOptionsText: { type: String as PropType<string>, default: 'Items not found' },
     getSelectedState: { type: Function as PropType<(option: SelectableOption) => boolean>, required: true },

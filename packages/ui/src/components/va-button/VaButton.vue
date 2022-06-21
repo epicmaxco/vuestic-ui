@@ -61,6 +61,7 @@ import { useColors } from '../../composables/useColor'
 import { useRouterLink, useRouterLinkProps } from '../../composables/useRouterLink'
 import { useSizeProps, useSize } from '../../composables/useSize'
 import { useLoadingProps } from '../../composables/useLoading'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 import { VaIcon } from '../va-icon'
 import { VaProgressCircle } from '../va-progress-circle'
@@ -72,6 +73,7 @@ export default defineComponent({
     ...useSizeProps,
     ...useLoadingProps,
     ...useRouterLinkProps,
+    ...useComponentPresetProp,
     color: { type: String, default: 'primary' },
     textColor: { type: String, default: undefined },
     tag: { type: String, default: 'button' },

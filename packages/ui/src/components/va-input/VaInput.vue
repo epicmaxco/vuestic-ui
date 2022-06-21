@@ -85,6 +85,7 @@ import { useFormProps } from '../../composables/useForm'
 import { useValidation, useValidationProps, useValidationEmits, ValidationProps } from '../../composables/useValidation'
 import { useCleave, useCleaveProps } from './hooks/useCleave'
 import { useFocus } from '../../composables/useFocus'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 import { useEmitProxy } from '../../composables/useEmitProxy'
 import VaInputWrapper from './components/VaInputWrapper.vue'
 import { useClearableProps, useClearable, useClearableEmits } from '../../composables/useClearable'
@@ -121,6 +122,7 @@ export default defineComponent({
     ...useClearableProps,
     ...useCleaveProps,
     ...VaTextareaProps,
+    ...useComponentPresetProp,
 
     // input
     placeholder: { type: String, default: '' },
