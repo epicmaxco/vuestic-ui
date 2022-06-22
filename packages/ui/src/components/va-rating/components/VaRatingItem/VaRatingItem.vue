@@ -44,6 +44,7 @@ export default defineComponent({
     hover: { type: Boolean, default: false },
     tabindex: { type: Number, default: 0 },
     disabled: { type: Boolean, default: false },
+    readonly: { type: Boolean, default: false },
     size: { type: [String, Number], default: 'medium' },
     emptyIconColor: { type: String },
     color: { type: String, default: 'primary' },
@@ -57,7 +58,7 @@ export default defineComponent({
     const hoveredValue = ref<number | null>(null)
 
     const visibleValue = computed(() => {
-      if (props.hover) {
+      if (props.hover && !props.disabled && !props.readonly) {
         return hoveredValue.value || modelValue.value
       }
       return modelValue.value
