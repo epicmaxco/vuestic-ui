@@ -29,18 +29,6 @@
 
     <template #icon="slotScope">
       <va-icon
-        v-if="success"
-        color="success"
-        name="check_circle"
-        size="small"
-      />
-      <va-icon
-        v-if="computedError"
-        color="danger"
-        name="warning"
-        size="small"
-      />
-      <va-icon
         v-if="canBeCleared"
         role="button"
         aria-hidden="false"
@@ -84,7 +72,7 @@ import { computed, defineComponent, InputHTMLAttributes, PropType, ref, toRefs }
 import { useFormProps } from '../../composables/useForm'
 import { useValidation, useValidationProps, useValidationEmits, ValidationProps } from '../../composables/useValidation'
 import { useCleave, useCleaveProps } from './hooks/useCleave'
-import { useFocus } from '../../composables/useFocus'
+import { useFocusDeep } from '../../composables/useFocusDeep'
 import { useEmitProxy } from '../../composables/useEmitProxy'
 import VaInputWrapper from './components/VaInputWrapper.vue'
 import { useClearableProps, useClearable, useClearableEmits } from '../../composables/useClearable'
@@ -107,7 +95,6 @@ const { createEmits: createFieldEmits, createListeners: createFieldListeners } =
   'click-append',
   'click-prepend-inner',
   'click-append-inner',
-  'click-icon',
 ])
 
 export default defineComponent({
@@ -154,7 +141,7 @@ export default defineComponent({
   setup (props, { emit, attrs, slots }) {
     const input = ref<HTMLInputElement | typeof VaTextarea | undefined>()
 
-    const { isFocused, onFocus: onFocusListener, onBlur: onBlurListener } = useFocus()
+    const isFocused = useFocusDeep()
 
     const reset = () => {
       emit('update:modelValue', props.clearValue)
@@ -200,13 +187,11 @@ export default defineComponent({
     const onFocus = (e: Event) => {
       inputListeners.onFocus(e)
       validationListeners.onFocus()
-      onFocusListener()
     }
 
     const onBlur = (e: Event) => {
       inputListeners.onBlur(e)
       validationListeners.onBlur()
-      onBlurListener()
     }
 
     const inputEvents = {
