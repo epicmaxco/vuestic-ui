@@ -1293,6 +1293,7 @@
     "treeShaking": "Tree Shaking",
     "counter": "Counter",
     "nuxt": "Nuxt",
+    "ssrGuide": "Ssr Guide",
     "spacer": "Spacer"
   },
   "all": {
@@ -3917,9 +3918,11 @@
       "moreAboutConfig": "Подробнее про конфигурирование"
     }
   },
+  "ssrGuide": {
+    "title": "SSR Guide"
+  },
   "spacer": {
     "title": "Spacer component",
-    "summaryText": "`va-spacer` аналог для свойства `flex-grow`. Он позволяет добавить пустое пространсто между компонентами.",
     "examples": {
       "default": {
         "title": "Базовое использование",

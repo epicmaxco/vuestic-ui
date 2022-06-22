@@ -1370,6 +1370,7 @@
     "treeShaking": "Tree Shaking",
     "counter": "Counter",
     "nuxt": "Nuxt",
+    "ssrGuide": "SSR",
     "spacer": "Spacer"
   },
   "all": {
@@ -4060,6 +4061,29 @@
       "plugin": "Install integration module:",
       "nuxtConfig": "Then you need to update nuxt-config.ts file:",
       "moreAboutConfig": "More about configuration"
+    }
+  },
+  "ssrGuide": {
+    "title": "SSR",
+    "description": "Vuestic is fully compatible with server-side rendering.",
+    "cssVariables": {
+      "title": "CSS variables",
+      "description": "Vuestic UI uses `CSS variables` in components. For SSR you need to define them in html head element. You can use following code to generate CSS Variables based on your [ColorConfig](/services/colors-config):"
+    },
+    "solutions": {
+      "title": "Examples",
+      "description": "Here are two examples how you can add CSS variables to html head",
+      
+      "nuxt": "Look at Nuxt3 guide",
+
+      "viteSsrPlugin": { 
+        "title": "Vite SSR Plugin",
+        "description": "Learn more about [Vite SSR Plugin](https://vite-plugin-ssr.com/vue-tour)"
+      },
+      "vitesse": { 
+        "title": "Vitesse",
+        "description": "Learn more about [Vitesse](https://github.com/antfu/vitesse) and [useHead](https://github.com/vueuse/head#server-side-rendering)"
+      }
     }
   },
   "spacer": {
