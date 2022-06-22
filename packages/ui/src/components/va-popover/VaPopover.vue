@@ -44,8 +44,7 @@ import { extractComponentProps, filterComponentProps } from '../../utils/child-p
 import { useColors } from '../../composables/useColor'
 import { useTextColor } from '../../composables/useTextColor'
 
-import VaDropdown from '../va-dropdown/VaDropdown.vue'
-import VaIcon from '../va-icon/VaIcon.vue'
+import { VaDropdown, VaIcon } from '../'
 
 const VaDropdownProps = extractComponentProps(VaDropdown, ['closeOnClickOutside'])
 

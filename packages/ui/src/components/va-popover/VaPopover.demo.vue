@@ -24,17 +24,17 @@
             </va-popover>
             <va-popover
               placement="left"
-              message="Placement Right"
+              message="Placement Left"
               class="mr-4"
             >
-              <va-button>Right</va-button>
+              <va-button>Left</va-button>
             </va-popover>
 
             <va-popover
               placement="right"
-              message="Placement Left"
+              message="Placement Right"
             >
-              <va-button>Left</va-button>
+              <va-button>Right</va-button>
             </va-popover>
           </td>
         </tr>

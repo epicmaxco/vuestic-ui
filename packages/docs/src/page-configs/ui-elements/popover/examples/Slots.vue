@@ -16,13 +16,3 @@
     </template>
   </va-popover>
 </template>
-
-<script>
-import { VaButton, VaPopover } from 'vuestic-ui/src/components'
-
-export default {
-  name: 'Slots',
-
-  components: { VaButton, VaPopover },
-}
-</script>

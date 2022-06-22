@@ -1138,7 +1138,7 @@
       "slots": {
         "icon": "By default replaces with a `va-icon` and icon name from `icon` property",
         "title": "Custom title slot",
-        "body": " Custom body slot"
+        "body": "Custom body slot"
       }
     },
     "VaTimePicker": {
