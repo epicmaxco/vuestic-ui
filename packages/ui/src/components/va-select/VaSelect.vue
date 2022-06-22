@@ -21,8 +21,9 @@
   >
     <template #anchor>
       <va-input-wrapper
-        aria-label="selected option"
+        ref="input"
         class="va-select"
+        aria-label="selected option"
         :model-value="valueComputedString"
         :success="$props.success"
         :error="computedError"
@@ -37,6 +38,7 @@
         :messages="$props.messages"
         :error-messages="computedErrorMessages"
         :focused="isFocused"
+        :tabindex="tabIndexComputed"
         @focus="onInputFocus()"
         @blur="onInputBlur()"
       >
@@ -92,15 +94,13 @@
         >
           <slot
             name="content"
-            v-bind="{ valueString: valueComputedString, value: valueComputed, tabindex: tabIndexComputed }"
+            v-bind="{
+              valueString: valueComputedString,
+              value: valueComputed,
+              tabindex: tabIndexComputed,
+            }"
           >
-            <input
-              ref="input"
-              v-model="valueComputedString"
-              aria-label="selected option"
-              :tabindex="tabIndexComputed"
-              readonly
-            />
+            {{ valueComputedString }}
           </slot>
         </template>
       </va-input-wrapper>

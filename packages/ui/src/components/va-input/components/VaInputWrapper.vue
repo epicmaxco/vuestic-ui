@@ -47,16 +47,12 @@
           color="success"
           name="check_circle"
           size="small"
-          aria-hidden="false"
-          aria-label="reset"
         />
         <va-icon
           v-if="error"
           color="danger"
           name="warning"
           size="small"
-          aria-hidden="false"
-          aria-label="reset"
         />
         <slot name="icon" />
 
@@ -200,10 +196,10 @@ export default defineComponent({
 
     /* Creates gap between prepend, content, validation icons, append */
     & > * {
-      padding-right: var(--va-input-content-items-gap);
+      margin-right: var(--va-input-content-items-gap);
 
       &:last-child {
-        padding-right: 0;
+        margin-right: 0;
       }
     }
   }
