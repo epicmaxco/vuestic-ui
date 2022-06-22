@@ -90,6 +90,7 @@
     <va-dropdown-content
       no-padding
       @keydown.esc.prevent="hideDropdown"
+      @keypress.enter.prevent="hideDropdown"
     >
       <va-time-picker
         ref="timePicker"
