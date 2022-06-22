@@ -4,7 +4,7 @@
       class="flex mb-2 md6"
       v-model="sortBy"
       label="Sort by"
-      :options="sortByOptions"
+      :options="sortByOptions()"
     />
 
     <va-select
@@ -195,7 +195,9 @@ export default defineComponent({
 
   methods: {
     sortByOptions () {
-      return this.columns.map(({ name, key }) => name || key)
+      return this.columns
+        .map(({ name, key, sortable }) => sortable && (name || key))
+        .filter(Boolean)
     },
   },
 })
