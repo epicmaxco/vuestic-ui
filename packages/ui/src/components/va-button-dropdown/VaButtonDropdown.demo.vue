@@ -1,5 +1,5 @@
 <template>
-  <VbDemo>
+  <VbDemo class="va-button-dropdown-demo">
     <VbCard title="default">
       <va-button-dropdown label="label">
         Content
@@ -55,20 +55,20 @@
       </va-button-dropdown>
       <va-button-dropdown
         label="outline"
-        v-bind="VaButtonPresets.secondary"
+        preset="secondary"
         border-color="primary"
       >
         Content
       </va-button-dropdown>
       <va-button-dropdown
         label="plain"
-        v-bind="VaButtonPresets.plain"
+        preset="plain"
       >
         Content
       </va-button-dropdown>
       <va-button-dropdown
         label="outline split"
-        v-bind="VaButtonPresets.secondary"
+        preset="secondary"
         border-color="primary"
         split
       >
@@ -196,7 +196,6 @@
 
 <script>
 import { VaButtonDropdown } from './index'
-import { VaButtonPresets } from '../va-button/VaButton'
 
 export default {
   name: 'VaButtonDropdownDemo',
@@ -210,15 +209,16 @@ export default {
     },
   },
   data: () => ({
-    VaButtonPresets,
     value: true,
   }),
 }
 </script>
 
 <style lang="scss">
-.va-button-dropdown {
-  margin-right: 16px;
-  margin-bottom: 16px;
+.va-button-dropdown-demo {
+  .va-button-dropdown {
+    margin-right: 16px;
+    margin-bottom: 16px;
+  }
 }
 </style>

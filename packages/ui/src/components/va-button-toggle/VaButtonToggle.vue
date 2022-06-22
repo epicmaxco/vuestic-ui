@@ -4,7 +4,7 @@
       v-for="option in options"
       :key="option.value"
       :aria-pressed="isToggled(option.value)"
-      v-bind="getButtonProps(option)"
+      v-bind.prop="getButtonProps(option)"
       @click="changeValue(option.value)"
     >
       {{ option.label }}
@@ -19,6 +19,7 @@ import { extractComponentProps } from '../../utils/child-props'
 import { shiftHSLAColor } from '../../services/color-config/color-functions'
 import { useColors } from '../../composables/useColor'
 import { useDeprecatedProps } from '../../composables/useDeprecatedProps'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 import { ButtonOption } from './types'
 
@@ -38,6 +39,7 @@ export default defineComponent({
   emits: ['update:modelValue'],
   props: {
     ...VaButtonProps,
+    ...useComponentPresetProp,
     modelValue: { type: [String, Number], default: '' },
     options: {
       type: Array as PropType<ButtonOption[]>,
@@ -62,8 +64,8 @@ export default defineComponent({
     })
 
     const activeButtonBackgroundOpacityComputed = computed(() => {
-      if (props.backgroundOpacity === 1) { return {} }
-      return { backgroundOpacity: props.backgroundOpacity + 0.1 }
+      if (!props.preset || props.preset === 'default') { return {} }
+      return { backgroundOpacity: props.pressedOpacity }
     })
 
     const activeButtonPropsComputed = computed(() => ({

@@ -89,6 +89,7 @@ import { useEmitProxy } from '../../composables/useEmitProxy'
 import { Placement, placementsPositions } from '../../composables/usePopover'
 import { useStatefulProps, useStateful } from '../../composables/useStateful'
 import { useDeprecatedProps } from '../../composables/useDeprecatedProps'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 import { VaButton } from '../va-button'
 import { VaButtonGroup } from '../va-button-group'
@@ -114,6 +115,7 @@ export default defineComponent({
   emits: ['update:modelValue', ...createEmits(), ...createMainButtonEmits()],
   props: {
     ...VaButtonProps,
+    ...useComponentPresetProp,
     ...useStatefulProps,
     modelValue: { type: Boolean, default: false },
     stateful: { type: Boolean, default: true },

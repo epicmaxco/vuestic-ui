@@ -1,5 +1,5 @@
 <template>
-  <VbDemo>
+  <VbDemo class="va-button-toggle-demo">
     <VbCard>
       <table class="table table-bordered">
         <tr>
@@ -15,28 +15,18 @@
             />
             <va-button-toggle
               v-model="model"
-              v-bind="VaButtonPresets.primary"
+              preset="primary"
               :options="options"
             />
             <va-button-toggle
               v-model="model"
               border-color="primary"
-              v-bind="VaButtonPresets.primary"
+              preset="primary"
               :options="options"
             />
             <va-button-toggle
               v-model="model"
-              v-bind="VaButtonPresets.secondary"
-              :options="options"
-            />
-            <va-button-toggle
-              v-model="model"
-              v-bind="VaButtonPresets.plain"
-              :options="options"
-            />
-            <va-button-toggle
-              v-model="model"
-              v-bind="VaButtonPresets.plainOpacity"
+              preset="secondary"
               :options="options"
             />
           </td>
@@ -100,77 +90,37 @@
             <va-button-toggle
               v-model="model"
               border-color="primary"
-              v-bind="VaButtonPresets.primary"
+              preset="primary"
               :options="options"
             />
             <va-button-toggle
               border-color="dark"
               v-model="model"
-              v-bind="VaButtonPresets.primary"
+              preset="primary"
               :options="options"
             />
             <va-button-toggle
               border-color="gray"
               v-model="model"
-              v-bind="VaButtonPresets.primary"
+              preset="primary"
               :options="options"
             />
             <va-button-toggle
               border-color="warning"
               v-model="model"
-              v-bind="VaButtonPresets.primary"
+              preset="primary"
               :options="options"
             />
             <va-button-toggle
               border-color="danger"
               v-model="model"
-              v-bind="VaButtonPresets.primary"
+              preset="primary"
               :options="options"
             />
             <va-button-toggle
               border-color="info"
               v-model="model"
-              v-bind="VaButtonPresets.primary"
-              :options="options"
-            />
-          </td>
-        </tr>
-        <tr>
-          <td>Plain State Colors</td>
-          <td>
-            <va-button-toggle
-              v-model="model"
-              v-bind="VaButtonPresets.plain"
-              :options="options"
-            />
-            <va-button-toggle
-              v-model="model"
-              color="info"
-              v-bind="VaButtonPresets.plain"
-              :options="options"
-            />
-            <va-button-toggle
-              v-model="model"
-              color="warning"
-              v-bind="VaButtonPresets.plain"
-              :options="options"
-            />
-            <va-button-toggle
-              v-model="model"
-              color="gray"
-              v-bind="VaButtonPresets.plain"
-              :options="options"
-            />
-            <va-button-toggle
-              v-model="model"
-              color="dark"
-              v-bind="VaButtonPresets.plain"
-              :options="options"
-            />
-            <va-button-toggle
-              v-model="model"
-              color="danger"
-              v-bind="VaButtonPresets.plain"
+              preset="primary"
               :options="options"
             />
           </td>
@@ -186,13 +136,7 @@
             <va-button-toggle
               v-model="model"
               border-color="primary"
-              v-bind="VaButtonPresets.primary"
-              :options="options"
-              disabled
-            />
-            <va-button-toggle
-              v-model="model"
-              v-bind="VaButtonPresets.plain"
+              preset="primary"
               :options="options"
               disabled
             />
@@ -217,7 +161,7 @@
               border-color="primary"
               toggle-color="danger"
               :options="options"
-              v-bind="VaButtonPresets.primary"
+              preset="primary"
             />
             <va-button-toggle
               v-model="model"
@@ -225,20 +169,20 @@
               toggle-color="success"
               color="info"
               :options="options"
-              v-bind="VaButtonPresets.primary"
+              preset="primary"
             />
             <va-button-toggle
               v-model="model"
               toggle-color="info"
               :options="options"
-              v-bind="VaButtonPresets.plain"
+              preset="plain"
             />
             <va-button-toggle
               v-model="model"
               toggle-color="dark"
               color="info"
               :options="options"
-              v-bind="VaButtonPresets.plain"
+              preset="plain"
             />
           </td>
         </tr>
@@ -262,14 +206,12 @@
 
 <script>
 import { VaButtonToggle } from './index'
-import { VaButtonPresets } from '../va-button/VaButton'
 
 export default {
   components: {
     VaButtonToggle,
   },
   data: () => ({
-    VaButtonPresets,
     options: [
       { label: 'One', value: 'one' },
       { label: 'Two', value: 'two' },
@@ -291,7 +233,9 @@ export default {
 </script>
 
 <style lang="scss">
-.va-button-toggle {
-  margin-bottom: 16px;
+.va-button-toggle-demo {
+  .va-button-group {
+    margin-bottom: 16px;
+  }
 }
 </style>

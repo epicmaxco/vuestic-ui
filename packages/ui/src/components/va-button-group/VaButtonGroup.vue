@@ -12,6 +12,7 @@ import { extractComponentProps } from '../../utils/child-props'
 
 import { useBem } from '../../composables/useBem'
 import { useDeprecatedProps } from '../../composables/useDeprecatedProps'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 import { VaConfig } from '../va-config'
 import { VaButton } from '../va-button'
@@ -21,7 +22,10 @@ const VaButtonProps = extractComponentProps(VaButton)
 export default defineComponent({
   name: 'VaButtonGroup',
   components: { VaConfig },
-  props: { ...VaButtonProps },
+  props: {
+    ...VaButtonProps,
+    ...useComponentPresetProp,
+  },
 
   setup: (props) => {
     // temp
@@ -33,7 +37,6 @@ export default defineComponent({
         square: !props.round,
         small: props.size === 'small',
         large: props.size === 'large',
-        filled: props.backgroundOpacity === 1 && !props.disabled,
       })),
     }
   },
@@ -100,15 +103,6 @@ export default defineComponent({
     &.va-button--large {
       padding-left: var(--va-button-group-lg-button-padding);
     }
-  }
-
-  // safari artefact fix
-  &--filled .va-button:first-child {
-    -webkit-margin-end: -0.2px;
-  }
-
-  &--filled > .va-button:last-child {
-    -webkit-margin-start: -0.2px;
   }
 
   & > .va-button:not(:last-child) {

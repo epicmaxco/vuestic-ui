@@ -1,9 +1,9 @@
 <template>
-  <va-button icon="home" :color="color" v-bind="VaButtonPresets.plain" />
-  <va-button icon="info" :color="color" v-bind="VaButtonPresets.plain" />
-  <va-button icon="battery" :color="color" v-bind="VaButtonPresets.plain" />
+  <va-button icon="home" :color="color" preset="plain" />
+  <va-button icon="info" :color="color" preset="plain" />
+  <va-button icon="battery" :color="color" preset="plain" />
   <va-spacer />
-  <va-button :color="color" v-bind="VaButtonPresets.plain">
+  <va-button :color="color" preset="plain">
     Login
   </va-button>
   <va-button-dropdown :color="color" size="small" icon="ellipsis">
@@ -15,7 +15,6 @@
 import { VaButton } from '../va-button'
 import VaSpacer from '../va-spacer/VaSpacer.vue'
 import VaButtonDropdown from '../va-button-dropdown/VaButtonDropdown.vue'
-import { VaButtonPresets } from '../va-button/VaButton'
 
 export default {
   name: 'AppBarContentExample',
@@ -30,8 +29,5 @@ export default {
       default: undefined,
     },
   },
-  data: () => ({
-    VaButtonPresets,
-  }),
 }
 </script>

@@ -6,10 +6,10 @@
           <td>Types</td>
           <td>
             <va-button>Accent (default)</va-button>
-            <va-button v-bind="VaButtonPresets.primary">Primary</va-button>
-            <va-button v-bind="VaButtonPresets.secondary">Secondary</va-button>
-            <va-button v-bind="VaButtonPresets.plain">Plain</va-button>
-            <va-button v-bind="VaButtonPresets.plainOpacity">Plain with opacity</va-button>
+            <va-button preset="primary">Primary</va-button>
+            <va-button preset="secondary">Secondary</va-button>
+            <va-button preset="plain">Plain</va-button>
+            <va-button preset="plainOpacity">Plain with opacity</va-button>
           </td>
         </tr>
 
@@ -17,10 +17,10 @@
           <td>Small size</td>
           <td>
             <va-button size="small">Accent (default)</va-button>
-            <va-button size="small" v-bind="VaButtonPresets.primary">Primary</va-button>
-            <va-button size="small" v-bind="VaButtonPresets.secondary">Secondary</va-button>
-            <va-button size="small" v-bind="VaButtonPresets.plain">Plain</va-button>
-            <va-button size="small" v-bind="VaButtonPresets.plainOpacity">Plain with opacity</va-button>
+            <va-button size="small" preset="primary">Primary</va-button>
+            <va-button size="small" preset="secondary">Secondary</va-button>
+            <va-button size="small" preset="plain">Plain</va-button>
+            <va-button size="small" preset="plainOpacity">Plain with opacity</va-button>
           </td>
         </tr>
 
@@ -28,10 +28,10 @@
           <td>Large size</td>
           <td>
             <va-button size="large">Accent (default)</va-button>
-            <va-button size="large" v-bind="VaButtonPresets.primary">Primary</va-button>
-            <va-button size="large" v-bind="VaButtonPresets.secondary">Secondary</va-button>
-            <va-button size="large" v-bind="VaButtonPresets.plain">Plain</va-button>
-            <va-button size="large" v-bind="VaButtonPresets.plainOpacity">Plain with opacity</va-button>
+            <va-button size="large" preset="primary">Primary</va-button>
+            <va-button size="large" preset="secondary">Secondary</va-button>
+            <va-button size="large" preset="plain">Plain</va-button>
+            <va-button size="large" preset="plainOpacity">Plain with opacity</va-button>
           </td>
         </tr>
 
@@ -39,31 +39,31 @@
           <td>With icons</td>
           <td>
             <va-button icon="create">Edit Button</va-button>
-            <va-button v-bind="VaButtonPresets.secondary" icon="gavel" iconRight="clear">Mixed Button</va-button>
-            <va-button v-bind="VaButtonPresets.plainOpacity" icon="gavel">Plain with icon</va-button>
-            <va-button v-bind="VaButtonPresets.primary" size="small" icon="create">Small Edit Button</va-button>
-            <va-button v-bind="VaButtonPresets.primary" icon="gavel" icon-color="warning">Mixed Colors</va-button>
-            <va-button v-bind="VaButtonPresets.primary" icon-right="clear">Dropdown Button</va-button>
+            <va-button preset="secondary" icon="gavel" iconRight="clear">Mixed Button</va-button>
+            <va-button preset="plainOpacity" icon="gavel">Plain with icon</va-button>
+            <va-button preset="primary" size="small" icon="create">Small Edit Button</va-button>
+            <va-button preset="primary" icon="gavel" icon-color="warning">Mixed Colors</va-button>
+            <va-button preset="primary" icon-right="clear">Dropdown Button</va-button>
           </td>
         </tr>
         <tr>
           <td>Button Colors</td>
           <td>
             <va-button color="info">Info</va-button>
-            <va-button v-bind="VaButtonPresets.primary" color="danger">Danger</va-button>
-            <va-button v-bind="VaButtonPresets.secondary" color="warning">Warning</va-button>
-            <va-button v-bind="VaButtonPresets.plain" color="gray">Gray</va-button>
-            <va-button v-bind="VaButtonPresets.plainOpacity" color="dark">Dark</va-button>
+            <va-button preset="primary" color="danger">Danger</va-button>
+            <va-button preset="secondary" color="warning">Warning</va-button>
+            <va-button preset="plain" color="gray">Gray</va-button>
+            <va-button preset="plainOpacity" color="dark">Dark</va-button>
           </td>
         </tr>
         <tr>
           <td>Disabled state</td>
           <td>
             <va-button disabled>Accent (default)</va-button>
-            <va-button v-bind="VaButtonPresets.primary" disabled>Primary</va-button>
-            <va-button v-bind="VaButtonPresets.secondary" disabled>Secondary</va-button>
-            <va-button v-bind="VaButtonPresets.plain" disabled>Plain</va-button>
-            <va-button v-bind="VaButtonPresets.plainOpacity" disabled>Plain with opacity</va-button>
+            <va-button preset="primary" disabled>Primary</va-button>
+            <va-button preset="secondary" disabled>Secondary</va-button>
+            <va-button preset="plain" disabled>Plain</va-button>
+            <va-button preset="plainOpacity" disabled>Plain with opacity</va-button>
           </td>
         </tr>
         <tr>
@@ -83,7 +83,7 @@
                 Colored icons
                 <va-icon name="shield" color="white" />
               </va-button>
-              <va-button v-bind="VaButtonPresets.plain" color="warning">
+              <va-button preset="plain" color="warning">
                 <va-icon name="gavel" color="warning" />
                 Colored icons
                 <va-icon name="shield" color="warning" />
@@ -94,9 +94,9 @@
         <tr>
           <td>Outline Buttons With icons</td>
           <td>
-            <va-button border-color="primary" v-bind="VaButtonPresets.secondary" icon="create">Secondary</va-button>
-            <va-button border-color="primary" v-bind="VaButtonPresets.secondary" iconRight="clear">Secondary</va-button>
-            <va-button border-color="primary" v-bind="VaButtonPresets.secondary" icon="create" iconRight="clear">
+            <va-button border-color="primary" preset="secondary" icon="create">Secondary</va-button>
+            <va-button border-color="primary" preset="secondary" iconRight="clear">Secondary</va-button>
+            <va-button border-color="primary" preset="secondary" icon="create" iconRight="clear">
               Secondary
             </va-button>
           </td>
@@ -105,10 +105,10 @@
           <td>Icons-only Buttons</td>
           <td>
             <va-button icon="block" />
-            <va-button v-bind="VaButtonPresets.primary" icon="block" />
-            <va-button v-bind="VaButtonPresets.secondary" icon="block" />
-            <va-button v-bind="VaButtonPresets.plain" icon="block" />
-            <va-button v-bind="VaButtonPresets.plainOpacity" icon="block" />
+            <va-button preset="primary" icon="block" />
+            <va-button preset="secondary" icon="block" />
+            <va-button preset="plain" icon="block" />
+            <va-button preset="plainOpacity" icon="block" />
           </td>
         </tr>
         <tr>
@@ -117,7 +117,7 @@
           </td>
           <td>
             <va-button :loading="buttonLoading" @click="buttonLoading = true">Start loading</va-button>
-            <va-button v-bind="VaButtonPresets.primary" :loading="buttonLoading" @click="buttonLoading = true">Start
+            <va-button preset="primary" :loading="buttonLoading" @click="buttonLoading = true">Start
               loading
             </va-button>
             <va-button @click="buttonLoading = false">Stop loading</va-button>
@@ -128,8 +128,9 @@
             Round button
           </td>
           <td>
+            <va-button round>Label</va-button>
             <va-button round icon="block" />
-            <va-button v-bind="VaButtonPresets.primary" round icon="block" />
+            <va-button preset="primary" round icon="block" />
           </td>
         </tr>
 
@@ -165,12 +166,10 @@
 import { VaIcon } from '../va-icon'
 import { VaConfig } from '../va-config'
 import { VaButton } from './index'
-import { VaButtonPresets } from './VaButton'
 
 export default {
   components: { VaButton, VaIcon, VaConfig },
   data: () => ({
-    VaButtonPresets,
     buttonLoading: true,
   }),
 }
