@@ -59,9 +59,15 @@
       <va-rating :size="60" v-model="value" />
     </VbCard>
     <VbCard title="Disabled">
-      <va-rating disabled hover v-model="value" />
+      <va-rating disabled v-model="value" />
     </VbCard>
     <VbCard title="Readonly">
+      <va-rating readonly v-model="value" />
+    </VbCard>
+    <VbCard title="Disabled and hover">
+      <va-rating disabled hover v-model="value" />
+    </VbCard>
+    <VbCard title="Readonly and hover">
       <va-rating readonly hover v-model="value" />
     </VbCard>
     <VbCard title="With custom icons">
