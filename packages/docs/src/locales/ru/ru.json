@@ -397,7 +397,9 @@
         "dropzone": "Включает Drag&Drop",
         "value": "Массив с загруженными файлами",
         "dropZoneText": "Текст, заменяющий стандартную надпись на drop zone",
-        "uploadButtonText": "Текст, заменяющий стандартную надпись кнопки загрузки"
+        "uploadButtonText": "Текст, заменяющий стандартную надпись кнопки загрузки",
+        "undo": "Отмена действия удаления прикрепленных файлов",
+        "undoDuration": "Длительность отображения отмены действия удаления"
       }
     },
     "VaHover": {
@@ -1947,6 +1949,12 @@
       "gallery": {
         "title": "Превью",
         "text": "Свойство `type` со значением `gallery` включит отображение превью загружаемого файла."
+      },
+      "undo": {
+        "title": "Отмена действия удаления прикрепленных файлов",
+        "description": "Добавьте свойство `undo` для отмены удаления загруженных файлов, а с помощью свойства `undo-duration` задайте время для отмены действия",
+        "galleryViewLabel": "Включить режим Галереи",
+        "inputLabel": "Длительность отмены"
       }
     },
     "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-file-upload/_variables.scss)[[target=_blank]]"

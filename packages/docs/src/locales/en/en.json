@@ -398,7 +398,9 @@
         "hideFileList": "Hide file list if you want to show files somewhere else.",
         "value": "The array with uploaded files",
         "dropZoneText": "Custom drop zone label text",
-        "uploadButtonText": "Custom upload button text"
+        "uploadButtonText": "Custom upload button text",
+        "undo": "Enables the canceling of the removing action for the added files",
+        "undoDuration": "Undoing action duration"
       },
       "events": {
         "fileRemoved": "Emits after file is removed",
@@ -2054,6 +2056,12 @@
       "gallery": {
         "title": "As gallery",
         "text": "With `type === gallery` prop you can show user picture preview of uploaded files"
+      },
+      "undo": {
+        "title": "Canceling the removing action",
+        "description": "Add the `undo` property to cancel the removing action, and with a `undo-duration` property set the time to cancel removing",
+        "galleryViewLabel": "Enable gallery view",
+        "inputLabel": "Undo duration"
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-file-upload/_variables.scss)[[target=_blank]]"
