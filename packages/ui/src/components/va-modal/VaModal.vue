@@ -51,59 +51,63 @@
                 @keydown.space="cancel"
                 @keydown.enter="cancel"
               />
-
               <div
                 class="va-modal__inner"
                 :style="{ maxWidth: $props.maxWidth, maxHeight: $props.maxHeight }"
               >
-                <div
-                  v-if="title"
-                  class="va-modal__title"
-                  :style="{ color: getColor('primary') }"
-                >
-                  {{ $props.title }}
+                <div v-if="$slots.content">
+                  <slot name="content" v-bind="{ cancel, ok }" />
                 </div>
-                <div
-                  v-if="$slots.header"
-                  class="va-modal__header"
-                >
-                  <slot name="header" />
-                </div>
-                <div
-                  v-if="$props.message"
-                  class="va-modal__message"
-                >
-                  {{ $props.message }}
-                </div>
-                <div
-                  v-if="$slots.default"
-                  class="va-modal__message"
-                >
-                  <slot />
-                </div>
-                <div
-                  v-if="($props.cancelText || $props.okText) && !$props.hideDefaultActions"
-                  class="va-modal__footer"
-                >
-                  <va-button
-                    v-if="$props.cancelText"
-                    color="gray"
-                    class="mr-2"
-                    flat
-                    @click="cancel"
+                <template v-if="!$slots.content">
+                  <div
+                    v-if="title"
+                    class="va-modal__title"
+                    :style="{ color: getColor('primary') }"
                   >
-                    {{ $props.cancelText }}
-                  </va-button>
-                  <va-button @click="ok">
-                    {{ $props.okText }}
-                  </va-button>
-                </div>
-                <div
-                  v-if="$slots.footer"
-                  class="va-modal__footer"
-                >
-                  <slot name="footer" />
-                </div>
+                    {{ $props.title }}
+                  </div>
+                  <div
+                    v-if="$slots.header"
+                    class="va-modal__header"
+                  >
+                    <slot name="header" />
+                  </div>
+                  <div
+                    v-if="$props.message"
+                    class="va-modal__message"
+                  >
+                    {{ $props.message }}
+                  </div>
+                  <div
+                    v-if="$slots.default"
+                    class="va-modal__message"
+                  >
+                    <slot />
+                  </div>
+                  <div
+                    v-if="($props.cancelText || $props.okText) && !$props.hideDefaultActions"
+                    class="va-modal__footer"
+                  >
+                    <va-button
+                      v-if="$props.cancelText"
+                      color="gray"
+                      class="mr-2"
+                      flat
+                      @click="cancel"
+                    >
+                      {{ $props.cancelText }}
+                    </va-button>
+                    <va-button @click="ok">
+                      {{ $props.okText }}
+                    </va-button>
+                  </div>
+                  <div
+                    v-if="$slots.footer"
+                    class="va-modal__footer"
+                  >
+                    <slot name="footer" />
+                  </div>
+                </template>
               </div>
             </div>
           </div>
@@ -172,6 +176,7 @@ export default defineComponent({
     blur: { type: Boolean, default: false },
     zIndex: { type: [Number, String] as PropType<number | string | undefined>, default: undefined },
     backgroundColor: { type: String, default: 'white' },
+    noPadding: { type: Boolean, default: false },
   },
   setup (props, { emit }) {
     const rootElement = shallowRef<HTMLElement>()
@@ -184,6 +189,7 @@ export default defineComponent({
       'va-modal--fullscreen': props.fullscreen,
       'va-modal--mobile-fullscreen': props.mobileFullscreen,
       'va-modal--fixed-layout': props.fixedLayout,
+      'va-modal--no-padding': props.noPadding,
       [`va-modal--size-${props.size}`]: props.size !== 'medium',
     }))
     const computedModalContainerStyle = computed(() => ({ 'z-index': props.zIndex } as StyleValue))
@@ -406,23 +412,29 @@ export default defineComponent({
   &--fixed-layout {
     .va-modal__inner {
       overflow: hidden;
-      padding: $modal-padding-top 0 $modal-padding-bottom;
+      padding: var(--va-modal-padding-top) 0 var(--va-modal-padding-bottom);
       max-height: calc(100vh - 2rem);
 
       .va-modal__header,
       .va-modal__footer,
       .va-modal__title {
-        padding: 0 $modal-padding-right 0 $modal-padding-left;
+        padding: 0 var(--va-modal-padding-right) 0 var(--va-modal-padding-left);
       }
 
       .va-modal__message {
-        padding: 0 $modal-padding-right 0 $modal-padding-left;
+        padding: 0 var(--va-modal-padding-right) 0 var(--va-modal-padding-left);
         overflow: auto;
       }
     }
 
     .va-modal__dialog {
       overflow: hidden;
+    }
+  }
+
+  &--no-padding {
+    .va-modal__inner {
+      padding: 0;
     }
   }
 
@@ -435,7 +447,7 @@ export default defineComponent({
     display: flex;
     position: relative;
     flex-flow: column;
-    padding: $modal-padding-top $modal-padding-right $modal-padding-bottom $modal-padding-left;
+    padding: var(--va-modal-padding);
     max-width: map_get($grid-breakpoints, md);
     margin: auto;
 
