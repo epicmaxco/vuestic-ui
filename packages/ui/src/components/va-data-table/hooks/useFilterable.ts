@@ -27,7 +27,7 @@ export default function useFilterable (
 
     return rawRows.value.filter(row => row.cells.some(cell => {
       return typeof props.filterMethod === 'function'
-        ? props.filterMethod(cell.rowData[cell.column.key])
+        ? props.filterMethod(cell.source)
         : cell.value.toLowerCase().includes(props.filter.toLowerCase())
     }))
   })
