@@ -8,6 +8,7 @@
 import { defineComponent, PropType } from 'vue'
 
 import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 import { useAccordion } from './hooks/useAccordion'
 
 export default defineComponent({
@@ -15,6 +16,7 @@ export default defineComponent({
   emits: useStatefulEmits,
   props: {
     ...useStatefulProps,
+    ...useComponentPresetProp,
     modelValue: { type: Array as PropType<boolean[]>, default: () => [] as boolean[] },
     multiply: { type: Boolean, default: false },
     inset: { type: Boolean, default: false },

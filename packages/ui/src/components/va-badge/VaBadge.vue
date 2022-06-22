@@ -23,11 +23,13 @@ import { defineComponent, computed, PropType } from 'vue'
 
 import { useColors } from '../../composables/useColor'
 import { useTextColor } from '../../composables/useTextColor'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 import { generateUniqueId } from '../../services/utils'
 
 export default defineComponent({
   name: 'VaBadge',
   props: {
+    ...useComponentPresetProp,
     color: { type: String, default: 'danger' },
     textColor: { type: String },
     text: { type: [String, Number] as PropType<string | number>, default: '' },

@@ -1,12 +1,14 @@
 <script>
 import { VaTimelineSeparator } from '../VaTimelineSeparator/index.ts'
 import { h } from 'vue'
+import { useComponentPresetProp } from '../../../composables/useComponentPreset'
 
 export const $root = 'va-timeline-item'
 
 export default {
   name: $root,
   props: {
+    ...useComponentPresetProp,
     color: {
       type: String,
       default: 'success',

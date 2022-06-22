@@ -45,6 +45,7 @@ import { defineComponent, PropType, ref, computed, onMounted } from 'vue'
 import { useColors } from '../../composables/useColor'
 import { useTimer } from '../../composables/useTimer'
 import { useTextColor } from '../../composables/useTextColor'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 import VaIcon from '../va-icon/VaIcon.vue'
 
 import { ToastPosition } from './types'
@@ -62,6 +63,7 @@ export default defineComponent({
   components: { VaIcon, VaToastRenderer },
   emits: ['on-click', 'on-close'],
   props: {
+    ...useComponentPresetProp,
     title: { type: String as PropType<string>, default: '' },
     offsetY: { type: Number as PropType<number>, default: 16 },
     offsetX: { type: Number as PropType<number>, default: 16 },

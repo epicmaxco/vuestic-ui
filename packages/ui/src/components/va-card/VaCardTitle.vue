@@ -11,10 +11,12 @@
 import { defineComponent, computed } from 'vue'
 
 import { useColors } from '../../composables/useColor'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 export default defineComponent({
   name: 'VaCardTitle',
   props: {
+    ...useComponentPresetProp,
     textColor: { type: String },
   },
   setup (props) {

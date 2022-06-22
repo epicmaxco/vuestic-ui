@@ -56,6 +56,7 @@ import { useColors, useColorProps } from '../../composables/useColor'
 import { useStateful, useStatefulEmits, useStatefulProps } from '../../composables/useStateful'
 import { useHover } from '../../composables/useHover'
 import { useTextColor } from '../../composables/useTextColor'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 import { VaIcon } from '../va-icon'
 
@@ -70,6 +71,7 @@ export default defineComponent({
     ...useRouterLinkProps,
     ...useColorProps,
     ...useStatefulProps,
+    ...useComponentPresetProp,
     modelValue: { type: Boolean, default: true },
     closeable: { type: Boolean, default: false },
     outline: { type: Boolean, default: false },

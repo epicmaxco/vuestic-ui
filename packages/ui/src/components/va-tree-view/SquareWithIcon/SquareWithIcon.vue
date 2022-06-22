@@ -10,12 +10,14 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { useColor } from '../../../composables/useColor'
+import { useComponentPresetProp } from '../../../composables/useComponentPreset'
 import { VaIcon } from '../../va-icon'
 
 export default defineComponent({
   name: 'SquareWithIcon',
   components: { VaIcon },
   props: {
+    ...useComponentPresetProp,
     icon: {
       type: String,
       default: '',

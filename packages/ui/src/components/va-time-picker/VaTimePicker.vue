@@ -22,6 +22,7 @@ import VaTimePickerColumn from './components/VaTimePickerColumn.vue'
 import { useStateful, useStatefulEmits, useStatefulProps } from '../../composables/useStateful'
 import { useFormProps, useForm } from '../../composables/useForm'
 import { useArrayRefs } from '../../composables/useArrayRefs'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 export default defineComponent({
   name: 'VaTimePicker',
@@ -31,6 +32,7 @@ export default defineComponent({
   props: {
     ...useStatefulProps,
     ...useFormProps,
+    ...useComponentPresetProp,
     modelValue: { type: Date, required: false },
     ampm: { type: Boolean, default: false },
     hidePeriodSwitch: { type: Boolean, default: false },

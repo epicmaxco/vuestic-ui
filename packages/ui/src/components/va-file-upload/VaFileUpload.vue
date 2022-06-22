@@ -62,6 +62,7 @@ import { computed, defineComponent, onMounted, ref, PropType, shallowRef } from 
 
 import { shiftHSLAColor } from '../../services/color-config/color-functions'
 import { useColors } from '../../composables/useColor'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 import type { VaFile } from './types'
 
@@ -79,6 +80,7 @@ export default defineComponent({
   },
 
   props: {
+    ...useComponentPresetProp,
     fileTypes: { type: String, default: '' },
     dropzone: { type: Boolean, default: false },
     hideFileList: { type: Boolean, default: false },

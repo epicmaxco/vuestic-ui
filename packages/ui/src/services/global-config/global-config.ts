@@ -2,7 +2,7 @@ import merge from 'lodash/merge.js'
 import cloneDeep from 'lodash/cloneDeep.js'
 import { ref, inject, Ref } from 'vue'
 import { GlobalConfig, GlobalConfigUpdater } from './types'
-import { getComponentsAllDefaultConfig, getComponentsDefaultConfig } from './config-default'
+import { getComponentsDefaultConfig } from './config-default'
 import { createIconsConfig } from '../icon-config/icon-config-helpers'
 import { colorsPresets } from '../color-config/color-theme-presets'
 
@@ -24,7 +24,6 @@ export const createGlobalConfig = () => {
     colors: colorsPresets.default,
     icons: createIconsConfig({}),
     components: getComponentsDefaultConfig(),
-    componentsAll: getComponentsAllDefaultConfig(),
   })
 
   const getGlobalConfig = (): GlobalConfig => globalConfig.value
@@ -46,7 +45,7 @@ export const createGlobalConfig = () => {
   }
 }
 
-/** Use this function if you don't want to throw error if hook used ouside setup function by useGlobalConfig */
+/** Use this function if you don't want to throw error if hook used outside setup function by useGlobalConfig */
 export function useGlobalConfigSafe () {
   return inject<ProvidedGlobalConfig>(GLOBAL_CONFIG)
 }

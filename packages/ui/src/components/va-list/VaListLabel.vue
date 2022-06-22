@@ -9,12 +9,14 @@
 
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 import { useColors } from '../../composables/useColor'
 
 export default defineComponent({
   name: 'VaListLabel',
   props: {
+    ...useComponentPresetProp,
     color: { type: String, default: 'primary' },
   },
   setup: (props) => {

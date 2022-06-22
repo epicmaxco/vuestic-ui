@@ -1,5 +1,6 @@
 <script>
 import { h, Fragment } from 'vue'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 const getPropsData = (slot) => {
   return slot && slot.props
@@ -91,6 +92,7 @@ const $root = 'va-timeline'
 export default {
   name: $root,
   props: {
+    ...useComponentPresetProp,
     vertical: Boolean,
     centered: Boolean,
     alignTop: Boolean,

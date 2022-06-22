@@ -30,10 +30,12 @@ import { defineComponent, computed } from 'vue'
 import { shiftHSLAColor } from '../../services/color-config/color-functions'
 import { useColors } from '../../services/color-config/color-config'
 import { useTextColor } from '../../composables/useTextColor'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 export default defineComponent({
   name: 'VaNavbar',
   props: {
+    ...useComponentPresetProp,
     color: { type: String, default: 'secondary' },
     textColor: { type: String },
     shape: { type: Boolean, default: false },

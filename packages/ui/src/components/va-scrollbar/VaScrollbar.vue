@@ -32,9 +32,12 @@
 </template>
 
 <script>
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
+
 export default {
   name: 'VaScrollbar',
   props: {
+    ...useComponentPresetProp,
     speed: {
       type: Number,
       default: 20,

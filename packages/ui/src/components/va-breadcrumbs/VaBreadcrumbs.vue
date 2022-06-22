@@ -3,12 +3,14 @@ import { computed, defineComponent, Fragment, h, ref, VNode } from 'vue'
 
 import { useAlign, useAlignProps } from '../../composables/useAlign'
 import { useColors } from '../../composables/useColor'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 import { hasOwnProperty } from '../../services/utils'
 
 export default defineComponent({
   name: 'VaBreadcrumbs',
   props: {
     ...useAlignProps,
+    ...useComponentPresetProp,
     separator: { type: String, default: '/' },
     color: { type: String, default: 'gray' },
     activeColor: { type: String, default: null },

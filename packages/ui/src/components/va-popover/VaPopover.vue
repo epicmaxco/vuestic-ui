@@ -52,6 +52,7 @@ import VaIcon from '../va-icon/VaIcon.vue'
 import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
 import { useColors } from '../../composables/useColor'
 import { useTextColor } from '../../composables/useTextColor'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 const VaDropdownProps = extractComponentProps(VaDropdown, ['closeOnClickOutside'])
 
@@ -62,6 +63,7 @@ export default defineComponent({
 
   props: {
     ...VaDropdownProps,
+    ...useComponentPresetProp,
     trigger: { default: 'hover' },
     color: { type: String, default: 'dark' },
     textColor: { type: String },

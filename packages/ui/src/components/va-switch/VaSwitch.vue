@@ -81,6 +81,7 @@ import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'
 import { useSelectable, useSelectableProps, useSelectableEmits } from '../../composables/useSelectable'
 import { useColors } from '../../composables/useColor'
 import { useTextColor } from '../../composables/useTextColor'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 import { generateUniqueId } from '../../services/utils'
 
 import { VaProgressCircle } from '../va-progress-circle'
@@ -95,6 +96,7 @@ export default defineComponent({
   ],
   props: {
     ...useSelectableProps,
+    ...useComponentPresetProp,
     id: { type: String, default: '' },
     name: { type: String, default: '' },
     modelValue: {
