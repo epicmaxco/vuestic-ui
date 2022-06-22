@@ -37,3 +37,5 @@ export const useComponentConfigProps = <T extends DefineComponent>(component: T)
     return props
   })
 }
+
+export type Props = Record<string, any>
