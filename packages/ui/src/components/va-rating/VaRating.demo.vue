@@ -189,6 +189,9 @@
         <va-rating stateful />
       </va-config>
     </VbCard>
+    <VbCard title="One star (with halves) hover hitbox">
+      <va-rating stateful hover :max="1" halves />
+    </VbCard>
   </VbDemo>
 </template>
 
