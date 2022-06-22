@@ -6,7 +6,7 @@ type Map<O extends Record<any, any>> = { [K in keyof O]: O[K] }
 type SafeAccess<O, K> = K extends keyof O ? O[K] : never
 
 /** List of all exported components */
-type VuesticComponentsMap = Map<typeof vuesticComponents>
+export type VuesticComponentsMap = Map<typeof vuesticComponents>
 /** Component names */
 type VuesticComponentNames = keyof VuesticComponentsMap
 
