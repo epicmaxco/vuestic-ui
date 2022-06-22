@@ -2,6 +2,11 @@ import { ApiDocsBlock } from '@/types/configTypes'
 import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaModal from 'vuestic-ui/src/components/va-modal/VaModal.vue'
 import apiOptions from './api-options'
+import { apiExamplesObject, methodsApi, optionsApi } from './modal-api'
+
+// @ts-ignore
+// eslint-disable-next-line import/no-webpack-loader-syntax
+const cssVariables = import('!raw-loader!vuestic-ui/src/components/va-modal/_variables.scss')
 
 const block = new PageGenerationHelper(__dirname)
 
@@ -41,6 +46,11 @@ const config: ApiDocsBlock[] = [
     'Anchor',
   ),
   ...block.exampleBlock(
+    'modal.customContent.title',
+    'modal.customContent.text',
+    'CustomContent',
+  ),
+  ...block.exampleBlock(
     'modal.disableAnimation.title',
     'modal.disableAnimation.text',
     'DisableAnimation',
@@ -78,6 +88,18 @@ const config: ApiDocsBlock[] = [
 
   block.subtitle('all.api'),
   block.api(VaModal, apiOptions),
+
+  block.subtitle('all.cssVariables'),
+  block.file(cssVariables),
+
+  block.subtitle('modal.functionalApi.title'),
+  block.paragraph('modal.functionalApi.text'),
+  block.code(apiExamplesObject),
+  block.example('Create'),
+  block.headline('all.methods'),
+  methodsApi(block),
+  block.headline('all.options'),
+  optionsApi(block),
 ]
 
 export default config

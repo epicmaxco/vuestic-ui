@@ -5,12 +5,14 @@ export const scheme = `
 
 {{ $t('colors.syntax.example') }}:
   const app = createApp(App)
-  app.use(VuesticPlugin, {
-    colors: {
-      primary: '#B456C0',
-      custom: '#A35600',
+  app.use(createVuestic({
+    config: {
+      colors: {
+        primary: '#B456C0',
+        custom: '#A35600',
+      },
     },
-  })
+  }))
 
 {{ $t('colors.syntax.availableCss') }}:
   --va-primary: #B456C0

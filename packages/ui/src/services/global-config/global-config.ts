@@ -1,6 +1,6 @@
 import merge from 'lodash/merge.js'
 import cloneDeep from 'lodash/cloneDeep.js'
-import { ref, inject, getCurrentInstance, Ref } from 'vue'
+import { ref, inject, Ref } from 'vue'
 import { GlobalConfig, GlobalConfigUpdater } from './types'
 import { getComponentsAllDefaultConfig, getComponentsDefaultConfig } from './config-default'
 import { createIconsConfig } from '../icon-config/icon-config-helpers'
@@ -9,6 +9,10 @@ import { colorsPresets } from '../color-config/color-theme-presets'
 export type ProvidedGlobalConfig = {
   globalConfig: Ref<GlobalConfig>,
   getGlobalConfig: () => GlobalConfig,
+  /**
+   * Set new global config
+   * @see mergeGlobalConfig if you want to update existing config
+   */
   setGlobalConfig: (updater: GlobalConfig | GlobalConfigUpdater) => void,
   mergeGlobalConfig: (updater: GlobalConfig | GlobalConfigUpdater) => void
 }
@@ -42,30 +46,19 @@ export const createGlobalConfig = () => {
   }
 }
 
-export function useGlobalConfig () {
-  const globalConfig = inject<ProvidedGlobalConfig>(
-    GLOBAL_CONFIG,
-    getCurrentInstance()?.appContext.config.globalProperties.$vaConfig,
-  )
+/** Use this function if you don't want to throw error if hook used ouside setup function by useGlobalConfig */
+export function useGlobalConfigSafe () {
+  return inject<ProvidedGlobalConfig>(GLOBAL_CONFIG)
+}
 
-  if (!globalConfig) {
-    throw new Error('Global config plugin is not registered')
+export function useGlobalConfig () {
+  const injected = inject<ProvidedGlobalConfig>(GLOBAL_CONFIG)
+
+  if (!injected) {
+    throw new Error('useGlobalConfig must be used in setup function or Vuestic GlobalConfigPluign is not registered')
   }
 
-  return globalConfig
-}
-
-export function setGlobalConfig (updater: GlobalConfig | GlobalConfigUpdater) {
-  useGlobalConfig().setGlobalConfig(updater)
-}
-
-/** Merge current config with new value */
-export function mergeGlobalConfig (updater: GlobalConfig | GlobalConfigUpdater) {
-  useGlobalConfig().mergeGlobalConfig(updater)
-}
-
-export function getGlobalConfig (): GlobalConfig {
-  return useGlobalConfig().getGlobalConfig()
+  return injected
 }
 
 export * from './types'

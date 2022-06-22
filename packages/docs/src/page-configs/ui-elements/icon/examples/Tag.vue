@@ -1,14 +1,12 @@
 <template>
-  <div>
-    <va-icon
-      tag="span"
-      name="home"
-      class="mr-2"
-    />
-    <va-icon
-      tag="div"
-      name="home"
-      class="mr-2"
-    />
-  </div>
+  <va-icon
+    class="mr-2"
+    tag="span"
+    name="home"
+  />
+  <va-icon
+    class="mr-2"
+    tag="div"
+    name="home"
+  />
 </template>

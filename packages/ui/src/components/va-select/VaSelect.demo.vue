@@ -595,10 +595,10 @@
 
 <script>
 import CountriesList from '../../data/CountriesList'
-import VaIcon from '../va-icon'
-import VaCheckbox from '../va-checkbox'
-import VaChip from '../va-chip'
-import VaSelect from './index'
+import { VaIcon } from '../va-icon'
+import { VaCheckbox } from '../va-checkbox'
+import { VaChip } from '../va-chip'
+import { VaSelect } from './index'
 
 import { objectOptionsList, iconOptionsList } from './getDemoData'
 

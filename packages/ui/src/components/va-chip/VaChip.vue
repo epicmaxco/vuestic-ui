@@ -19,7 +19,6 @@
       @focus="$emit('focus')"
       @mouseenter="onMouseEnter"
       @mouseleave="onMouseLeave"
-      :tabindex="indexComputed"
     >
       <va-icon
         v-if="icon"
@@ -34,28 +33,31 @@
         v-if="closeable"
         class="va-chip__close-icon"
         name="close"
+        role="button"
+        aria-label="close"
+        aria-hidden="false"
+        :tabindex="tabIndexComputed"
         :size="iconSize"
         @click.stop="close"
+        @keydown.enter.stop="close"
+        @keydown.space.stop="close"
       />
     </span>
   </component>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, computed } from 'vue'
-import {
-  getBoxShadowColor,
-  getHoverColor,
-  getFocusColor,
-  getTextColor,
-} from '../../services/color-config/color-functions'
-import { useRouterLink, useRouterLinkProps } from '../../composables/useRouterLink'
+import { defineComponent, PropType, computed, toRef } from 'vue'
+
+import { getBoxShadowColor, getHoverColor, getFocusColor } from '../../services/color-config/color-functions'
 import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'
+import { useRouterLink, useRouterLinkProps } from '../../composables/useRouterLink'
 import { useColors, useColorProps } from '../../composables/useColor'
 import { useStateful, useStatefulEmits, useStatefulProps } from '../../composables/useStateful'
 import { useHover } from '../../composables/useHover'
 import { useTextColor } from '../../composables/useTextColor'
-import VaIcon from '../va-icon'
+
+import { VaIcon } from '../va-icon'
 
 export default defineComponent({
   name: 'VaChip',
@@ -77,7 +79,6 @@ export default defineComponent({
     flat: { type: Boolean, default: false },
     icon: { type: String, default: '' },
     tag: { type: String, default: 'span' },
-
     size: {
       type: String as PropType<'small' | 'medium' | 'large'>,
       default: 'medium',
@@ -90,7 +91,7 @@ export default defineComponent({
     const colorComputed = computed(() => getColor(props.color))
     const borderColor = computed(() => props.outline ? colorComputed.value : '')
     const isTransparentBackground = computed(() => Boolean(props.outline || props.flat))
-    const { textColorComputed } = useTextColor(props.color, isTransparentBackground)
+    const { textColorComputed } = useTextColor(toRef(props, 'color'), isTransparentBackground)
     const size = {
       small: '0.875rem',
       medium: '1rem',
@@ -126,7 +127,7 @@ export default defineComponent({
 
       iconSize: computed(() => size[props.size]),
 
-      indexComputed: computed(() => props.disabled ? -1 : 0),
+      tabIndexComputed: computed(() => props.disabled ? -1 : 0),
 
       computedClass: computed(() => ({
         'va-chip--small': props.size === 'small',
@@ -202,6 +203,10 @@ export default defineComponent({
 
   &__close-icon {
     cursor: pointer;
+
+    &:focus {
+      @include focus-outline;
+    }
 
     @at-root {
       .va-chip--disabled {

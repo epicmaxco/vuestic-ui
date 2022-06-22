@@ -5,7 +5,6 @@
     :class="classComputed"
     :style="styleComputed"
     :focused="isFocused"
-    @click="focus()"
     @keydown.up.prevent="increaseCount()"
     @keydown.down.prevent="decreaseCount()"
   >
@@ -17,6 +16,7 @@
         <slot name="decreaseAction" v-bind="{ ...slotScope, decreaseCount }">
           <va-button
             class="va-counter__button-decrease"
+            aria-label="decrease counter"
             v-bind="decreaseButtonProps"
             @click="decreaseCount()"
           />
@@ -43,6 +43,7 @@
         <slot name="increaseAction" v-bind="{ ...slotScope, increaseCount }">
           <va-button
             class="va-counter__button-increase"
+            aria-label="increase counter"
             v-bind="increaseButtonProps"
             @click="increaseCount()"
           />
@@ -69,8 +70,8 @@
 
     <input
       v-if="!$slots.content"
-      class="va-input__content__input"
       ref="input"
+      class="va-input__content__input"
       type="number"
       inputmode="decimal"
       v-bind="{ ...inputAttributesComputed, ...inputListeners }"
@@ -82,15 +83,17 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, InputHTMLAttributes, ref, PropType, ComputedRef } from 'vue'
+import { computed, defineComponent, InputHTMLAttributes, PropType, ComputedRef, shallowRef } from 'vue'
 import omit from 'lodash/omit'
 import pick from 'lodash/pick'
+
 import { useFormProps } from '../../composables/useForm'
 import { useEmitProxy } from '../../composables/useEmitProxy'
 import { useFocus, useFocusEmits } from '../../composables/useFocus'
 import { useStatefulProps, useStateful } from '../../composables/useStateful'
-import { useColor } from '../../composables/useColor'
+import { useColors } from '../../composables/useColor'
 import { safeCSSLength } from '../../utils/css-utils'
+
 import VaInputWrapper from '../va-input/components/VaInputWrapper.vue'
 import VaIcon from '../va-icon/VaIcon.vue'
 import VaButton from '../va-button/VaButton.vue'
@@ -116,27 +119,27 @@ export default defineComponent({
     ...useStatefulProps,
     // input
     modelValue: { type: [String, Number] as PropType<string | number>, default: 0 },
-    manualInput: { type: Boolean as PropType<boolean>, default: false },
-    stateful: { type: Boolean as PropType<boolean>, default: false },
-    min: { type: Number as PropType<number>, default: undefined },
-    max: { type: Number as PropType<number>, default: undefined },
-    step: { type: Number as PropType<number>, default: 1 },
-    label: { type: String as PropType<string>, default: '' },
+    manualInput: { type: Boolean, default: false },
+    stateful: { type: Boolean, default: false },
+    min: { type: Number, default: undefined },
+    max: { type: Number, default: undefined },
+    step: { type: Number, default: 1 },
+    label: { type: String, default: '' },
     // hint
     messages: { type: [Array, String] as PropType<string[] | string>, default: () => [] },
     // style
     width: { type: [String, Number] as PropType<string | number>, default: '160px' },
-    color: { type: String as PropType<string>, default: 'primary' },
-    outline: { type: Boolean as PropType<boolean> },
-    bordered: { type: Boolean as PropType<boolean> },
+    color: { type: String, default: 'primary' },
+    outline: { type: Boolean },
+    bordered: { type: Boolean },
     // icons & buttons
-    increaseIcon: { type: String as PropType<string>, default: 'add' },
-    decreaseIcon: { type: String as PropType<string>, default: 'remove' },
-    buttons: { type: Boolean as PropType<boolean>, default: false },
-    flat: { type: Boolean as PropType<boolean>, default: true },
-    rounded: { type: Boolean as PropType<boolean>, default: false },
+    increaseIcon: { type: String, default: 'add' },
+    decreaseIcon: { type: String, default: 'remove' },
+    buttons: { type: Boolean, default: false },
+    flat: { type: Boolean, default: true },
+    rounded: { type: Boolean, default: false },
     margins: { type: [String, Number] as PropType<string | number>, default: '4px' },
-    textColor: { type: String as PropType<string | undefined>, default: undefined },
+    textColor: { type: String, default: undefined },
   },
 
   emits: [
@@ -149,11 +152,10 @@ export default defineComponent({
   inheritAttrs: false,
 
   setup (props, { emit, attrs }) {
-    const input = ref<HTMLInputElement | HTMLDivElement | undefined>()
+    const input = shallowRef<HTMLInputElement | HTMLDivElement>()
 
     const {
       isFocused,
-      // will be useful when we resolve problem with 'withConfigTransport'
       focus,
       blur,
     } = useFocus(input, emit)
@@ -205,6 +207,8 @@ export default defineComponent({
         : Number(valueComputed.value) >= props.max
     })
 
+    const tabIndexComputed = computed(() => props.disabled ? -1 : 0)
+
     const isDecreaseActionDisabled = computed(() => (
       isMinReached.value || props.readonly || props.disabled
     ))
@@ -223,7 +227,8 @@ export default defineComponent({
       calculateCounterValue(Number(valueComputed.value) + props.step)
     }
 
-    const { colorComputed } = useColor(props)
+    const { getColor } = useColors()
+    const colorComputed = computed(() => getColor(props.color))
 
     const decreaseIconProps = computed(() => ({
       class: { 'va-counter__icon--inactive': isDecreaseActionDisabled.value },
@@ -262,7 +267,10 @@ export default defineComponent({
     }))
 
     const inputAttributesComputed = computed(() => ({
-      ariaLabel: props.label,
+      tabindex: tabIndexComputed.value,
+      ariaLabel: props.label || 'counter value',
+      ariaValuemin: props.min,
+      ariaValuemax: props.max,
       ...omit(attrs, ['class', 'style']),
       ...pick(props, ['disabled', 'min', 'max', 'step']),
       readonly: props.readonly || !props.manualInput,
@@ -309,16 +317,9 @@ export default defineComponent({
       styleComputed,
       marginComputed,
 
-      // while we have problem with 'withConfigTransport'
-      // focus,
-      // blur,
+      focus,
+      blur,
     }
-  },
-
-  // we will use this while we have problem with 'withConfigTransport'
-  methods: {
-    focus () { this.input?.focus() },
-    blur () { this.input?.blur() },
   },
 })
 </script>

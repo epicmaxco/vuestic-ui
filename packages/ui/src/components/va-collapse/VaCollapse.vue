@@ -2,18 +2,23 @@
   <div class="va-collapse" :class="computedClasses">
     <div
       class="va-collapse__header"
+      role="button"
+      :tabindex="tabIndexComputed"
+      :aria-expanded="computedModelValue"
+      :id="headerIdComputed"
+      :aria-controls="panelIdComputed"
+      :aria-disabled="$props.disabled"
       v-on="keyboardFocusListeners"
-      @click="toggle()"
       @focus="$emit('focus')"
-      @keydown.enter="toggle()"
-      @keydown.space="toggle()"
-      :tabindex="disabled ? -1 : 0"
+      @click="toggle"
+      @keydown.enter="toggle"
+      @keydown.space="toggle"
     >
       <slot
         name="header"
         v-bind="{
           value: computedModelValue,
-          hasKeyboardFocus: hasKeyboardFocus
+          hasKeyboardFocus: hasKeyboardFocus,
         }"
       >
         <div
@@ -37,20 +42,30 @@
         </div>
       </slot>
     </div>
-    <div class="va-collapse__body" ref="body" :style="contentStyle">
+    <div
+      ref="body"
+      class="va-collapse__body"
+      role="region"
+      :style="contentStyle"
+      :id="panelIdComputed"
+      :aria-labelledby="headerIdComputed"
+    >
       <slot />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import VaIcon from '../va-icon'
-import { useColors } from '../../composables/useColor'
 import { computed, defineComponent, shallowRef } from 'vue'
+
+import { generateUniqueId } from '../../services/utils'
 import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'
-import { useAccordionItem } from '../va-accordion/hooks/useAccordion'
+import { useColors } from '../../composables/useColor'
 import { useSyncProp } from '../../composables/useSyncProp'
 import { useTextColor } from '../../composables/useTextColor'
+import { useAccordionItem } from '../va-accordion/hooks/useAccordion'
+
+import { VaIcon } from '../va-icon'
 
 export default defineComponent({
   name: 'VaCollapse',
@@ -70,13 +85,14 @@ export default defineComponent({
   emits: ['focus', 'update:modelValue'],
 
   setup (props, { emit, slots }) {
-    const body = shallowRef<HTMLElement | null>(null)
+    const body = shallowRef<HTMLElement>()
+
     const [computedModelValue] = useSyncProp('modelValue', props, emit, false)
 
     const { getColor, getHoverColor } = useColors()
     const { accordionProps, toggle } = useAccordionItem(computedModelValue)
 
-    const { textColorComputed } = useTextColor(props.color)
+    const { textColorComputed } = useTextColor()
 
     const getTextNodeHeight = (textNode: Node) => {
       const range = document.createRange()
@@ -114,6 +130,11 @@ export default defineComponent({
         : ''
     }
 
+    const uniqueId = computed(generateUniqueId)
+    const headerIdComputed = computed(() => `header-${uniqueId.value}`)
+    const panelIdComputed = computed(() => `panel-${uniqueId.value}`)
+    const tabIndexComputed = computed(() => props.disabled ? -1 : 0)
+
     return {
       body,
       height,
@@ -126,7 +147,12 @@ export default defineComponent({
 
       textColorComputed,
 
+      headerIdComputed,
+      panelIdComputed,
+      tabIndexComputed,
+
       computedClasses: computed(() => ({
+        'va-collapse--expanded': computedModelValue.value,
         'va-collapse--disabled': props.disabled,
         'va-collapse--solid': props.solid,
         'va-collapse--active': props.solid && computedModelValue.value,
@@ -167,7 +193,6 @@ export default defineComponent({
   &__body {
     transition: var(--va-collapse-body-transition);
     overflow: var(--va-collapse-body-overflow);
-    margin-top: var(--va-collapse-body-margin-top);
   }
 
   &__header {

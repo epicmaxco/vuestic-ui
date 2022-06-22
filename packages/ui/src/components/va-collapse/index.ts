@@ -1,4 +1,4 @@
 import withConfigTransport from '../../services/config-transport/withConfigTransport'
-import VaCollapse from './VaCollapse.vue'
+import _VaCollapse from './VaCollapse.vue'
 
-export default withConfigTransport(VaCollapse)
+export const VaCollapse = withConfigTransport(_VaCollapse)

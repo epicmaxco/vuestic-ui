@@ -137,7 +137,7 @@ import dedent from 'dedent'
 // @ts-ignore
 import Prism from '../PrismWrapper'
 import { shiftHSLAColor } from 'vuestic-ui/src/services/color-config/color-functions'
-import { getColors } from 'vuestic-ui/src/services/color-config/color-config'
+import { useColors } from 'vuestic-ui/src/services/color-config/color-config'
 
 @Options({
   name: 'LandingCustomize',
@@ -205,7 +205,7 @@ export default class Customize extends Vue {
   }
 
   get colors () {
-    return getColors()
+    return useColors().getColors()
   }
 
   get themeColor () {

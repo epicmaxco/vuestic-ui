@@ -117,8 +117,8 @@
 
 <script>
 
-import VaAccordion from './index'
-import VaCollapse from '../va-collapse'
+import { VaAccordion } from './'
+import { VaCollapse } from '../va-collapse'
 
 export default {
   components: {

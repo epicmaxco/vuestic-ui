@@ -39,19 +39,19 @@ export default definePageConfig({
   manualApi: {
     props: {
       columns: {
-        types: "`(string | ITableColumn)[]`",
+        types: "`(string | DataTableColumn)[]`",
       },
       filterMethod: {
-        types: "`TFilterMethod: (source: any) => boolean`",
+        types: "`DataTableFilterMethod: (source: any) => boolean`",
       },
       items: {
-        types: "`ITableItem[]`",
+        types: "`DataTableItem[]`",
       },
       selectMode: {
-        types: "`TSelectMode: 'single'|'multiple'`",
+        types: "`DataTableSelectMode: 'single'|'multiple'`",
       },
       sortingOrder: {
-        types: "`TSortingOrder: 'asc'|'desc'|null`",
+        types: "`DataTableSortingOrder: 'asc'|'desc'|null`",
       },
     },
     events: {
@@ -68,7 +68,7 @@ export default definePageConfig({
         types: "`() => String`",
       },
       "update:sortingOrder": {
-        types: "`() => TSortingOrder`",
+        types: "`() => DataTableSortingOrder`",
       },
       "row:click": {
         types: "`() => RowClickEmit`",

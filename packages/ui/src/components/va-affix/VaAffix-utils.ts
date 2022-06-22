@@ -1,5 +1,4 @@
 import throttle from 'lodash/throttle.js'
-import type { VueElement } from 'vue'
 
 export type State = {
   isTopAffixed: boolean;
@@ -68,34 +67,29 @@ function checkAffixedStateChange (currentState: State, nextState: State): boolea
 export type Context = {
   offsetTop?: number;
   offsetBottom?: number;
-  element: VueElement | Element | VueElement[] | Element[];
+  element: HTMLElement | undefined;
   target: HTMLElement | Window | undefined;
   setState: (state: State) => void;
   getState: () => State;
-  initialPosition?: ClientRect;
+  initialPosition?: DOMRect | undefined;
 }
 
 export function handleThrottledEvent (eventName: string | null, context: Context) {
   const { target, element, offsetTop, offsetBottom, setState, getState, initialPosition } = context
 
-  let nextState
+  if (!element) { return }
 
   const isInitialCall = !eventName
-
-  // Fixme: getBoundingClientRect should always exist on element
-  const coordinates = (element as HTMLElement).getBoundingClientRect()
-
+  const coordinates = element.getBoundingClientRect()
   const options = {
     offsetBottom,
     offsetTop,
     target,
   }
 
-  if (isInitialCall && initialPosition) {
-    nextState = computeAffixedState({ coordinates: initialPosition, ...options })
-  } else {
-    nextState = computeAffixedState({ coordinates, ...options })
-  }
+  const nextState = isInitialCall && initialPosition
+    ? computeAffixedState({ coordinates: initialPosition, ...options })
+    : computeAffixedState({ coordinates, ...options })
 
   const prevState = getState()
 

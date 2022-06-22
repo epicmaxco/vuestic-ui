@@ -12,12 +12,12 @@ type MaybeArray<T> = T | T[]
 
 const safeArray = <T>(a: MaybeArray<T>) => Array.isArray(a) ? a : [a]
 
-export const useClickOutside = (elements: MaybeArray<MaybeRef<HTMLElement>>, cb: (el: HTMLElement) => void) => {
+export const useClickOutside = (elements: MaybeArray<MaybeRef<HTMLElement | undefined>>, cb: (el: HTMLElement) => void) => {
   const clickHandler = (event: MouseEvent) => {
     const clickTarget = event.target as HTMLElement
 
     const isClickInside = safeArray(elements)
-      .some((element) => unref(element) && checkIfElementChild(unref(element), clickTarget))
+      .some((element) => unref(element) && checkIfElementChild(unref(element) as HTMLElement, clickTarget))
 
     if (!isClickInside) { cb(clickTarget) }
   }

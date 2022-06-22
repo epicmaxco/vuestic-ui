@@ -206,7 +206,7 @@
 </template>
 
 <script>
-import VaSwitch from './index'
+import { VaSwitch } from './index'
 
 export default {
   components: {

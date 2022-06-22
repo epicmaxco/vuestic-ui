@@ -1,4 +1,6 @@
-import { ref, onMounted, onBeforeUnmount, Ref } from 'vue'
+import { ref, watch, onMounted, onBeforeUnmount, Ref } from 'vue'
+
+const getEl = (el: any) => el.$el !== undefined ? el.$el : el
 
 export function useHover (el?: Ref<HTMLElement | null | undefined>) {
   const isHovered = ref(false)
@@ -7,13 +9,17 @@ export function useHover (el?: Ref<HTMLElement | null | undefined>) {
   const onMouseLeave = () => { isHovered.value = false }
 
   if (el) {
-    onMounted(() => {
-      el.value?.addEventListener('mouseenter', onMouseEnter)
-      el.value?.addEventListener('mouseleave', onMouseLeave)
-    })
-    onBeforeUnmount(() => {
-      el.value?.removeEventListener('mouseenter', onMouseEnter)
-      el.value?.removeEventListener('mouseleave', onMouseLeave)
+    watch(el, (n, o) => {
+      if (n) {
+        const newEl = getEl(n)
+        newEl.addEventListener('mouseenter', onMouseEnter)
+        newEl.addEventListener('mouseleave', onMouseLeave)
+      }
+      if (o) {
+        const oldEl = getEl(o)
+        oldEl.removeEventListener('mouseenter', onMouseEnter)
+        oldEl.removeEventListener('mouseleave', onMouseLeave)
+      }
     })
   }
 

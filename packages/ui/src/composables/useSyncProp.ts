@@ -22,8 +22,8 @@ export function useSyncProp<
   Props extends { [key in PropName]?: T },
   Emit extends (event: any, newValue: Props[PropName]) => any,
   DefaultValue extends Props[PropName],
-  ReturnValue extends DefaultValue extends undefined ? Props[PropName] : NonNullable<Props[PropName]>
-> (propName: PropName, props: Props, emit: Emit, defaultValue?: DefaultValue) {
+  ReturnValue extends DefaultValue extends undefined ? Props[PropName] : DefaultValue
+> (propName: PropName, props: Props, emit: Emit, defaultValue?: NonNullable<DefaultValue>) {
   if (defaultValue === undefined) {
     return [
       computed<ReturnValue>({

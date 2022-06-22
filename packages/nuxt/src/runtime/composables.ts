@@ -1,11 +1,6 @@
 export {
   useGlobalConfig,
-  getGlobalConfig,
-  setGlobalConfig,
-  mergeGlobalConfig,
   useColors,
-  getColor,
-  getColors,
-  setColors,
-  useToast
+  useToast,
+  useModal,
 } from 'vuestic-ui'

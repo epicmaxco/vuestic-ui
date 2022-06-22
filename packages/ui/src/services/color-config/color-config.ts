@@ -1,4 +1,4 @@
-import { GlobalConfig, useGlobalConfig } from '../global-config/global-config'
+import { GlobalConfig, useGlobalConfigSafe } from '../global-config/global-config'
 import {
   getBoxShadowColor,
   getHoverColor,
@@ -16,7 +16,13 @@ export type ColorConfig = { [colorName: string]: CssColor }
 
 // Here expose methods that user wants to use in vue component
 export const useColors = () => {
-  const { setGlobalConfig, getGlobalConfig } = useGlobalConfig()
+  const globalConfg = useGlobalConfigSafe()
+
+  if (!globalConfg) {
+    throw new Error('useColors must be used in setup function or Vuestic GlobalConfigPluign is not registered')
+  }
+
+  const { setGlobalConfig, getGlobalConfig } = globalConfg
 
   const setColors = (colors: ColorConfig): void => {
     setGlobalConfig((config: GlobalConfig) => ({
@@ -30,17 +36,19 @@ export const useColors = () => {
   }
 
   /**
-   * Most default color - fallback when nothing else is found.
-   */
-  const DEFAULT_COLOR = getColors().primary
-
-  /**
    * Returns color from config by name or return prop if color is a valid hex, hsl, hsla, rgb or rgba color.
    * @param prop - should be color name or color in hex, hsl, hsla, rgb or rgba format.
    * @param preferVariables - function should return (if possible) CSS variable instead of hex (hex is needed to set opacity).
    * @param defaultColor - this color will be used if prop is invalid.
    */
-  const getColor = (prop?: string, defaultColor: string = DEFAULT_COLOR, preferVariables?: boolean): CssColor => {
+  const getColor = (prop?: string, defaultColor?: string, preferVariables?: boolean): CssColor => {
+    if (!defaultColor) {
+      /**
+       * Most default color - fallback when nothing else is found.
+       */
+      defaultColor = getColors().primary
+    }
+
     const colors = getColors()
 
     if (!prop) {
@@ -72,7 +80,7 @@ export const useColors = () => {
       .keys(colors)
       .filter((key) => colors[key] !== undefined)
       .reduce((acc: Record<string, any>, colorName: string) => {
-        acc[`--${prefix}-${colorName}`] = getColor(colors[colorName], DEFAULT_COLOR, true)
+        acc[`--${prefix}-${colorName}`] = getColor(colors[colorName], undefined, true)
         return acc
       }, {})
   }
@@ -90,26 +98,4 @@ export const useColors = () => {
     setHSLAColor,
     colorsToCSSVariable,
   }
-}
-
-export const setColors = (colors: ColorConfig): void => {
-  useColors().setColors(colors)
-}
-
-export const getColors = (): ColorConfig => {
-  return useColors().getColors()
-}
-
-/**
- * Returns color from config by name or return prop if color is a valid hex, hsl, hsla, rgb or rgba color.
- * @param prop - should be color name or color in hex, hsl, hsla, rgb or rgba format.
- * @param preferVariables - function should return (if possible) CSS variable instead of hex (hex is needed to set opacity).
- * @param defaultColor - this color will be used if prop is invalid.
- */
-export const getColor = (prop?: string, defaultColor?: string, preferVariables?: boolean): CssColor => {
-  return useColors().getColor(prop, defaultColor, preferVariables)
-}
-
-export const colorsToCSSVariable = (colors: { [colorName: string]: string | undefined }, prefix = 'va') => {
-  return useColors().colorsToCSSVariable(colors, prefix)
 }

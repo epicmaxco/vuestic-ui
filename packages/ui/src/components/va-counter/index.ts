@@ -1,4 +1,4 @@
 import withConfigTransport from '../../services/config-transport/withConfigTransport'
-import VaCounter from './VaCounter.vue'
+import _VaCounter from './VaCounter.vue'
 
-export default withConfigTransport(VaCounter)
+export const VaCounter = withConfigTransport(_VaCounter)

@@ -197,8 +197,8 @@
 
 <script lang="ts">
 import { VaDateInput } from './index'
-import VaChip from '../va-chip'
-import VaButton from '../va-button/VaButton.vue'
+import { VaChip } from '../va-chip'
+import { VaButton } from '../va-button'
 
 const datePlusDay = (date: Date, days: number) => {
   const d = new Date(date)

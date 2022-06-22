@@ -1,6 +1,6 @@
 {
   "name": "vuestic-ui",
-  "version": "1.4.0-alpha6",
+  "version": "1.4.1",
   "description": "Vue 3 UI Framework",
   "license": "MIT",
   "homepage": "https://vuestic.dev",
@@ -90,7 +90,6 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^5.0.0",
     "eslint-plugin-vue": "^7.0.1",
-    "font-awesome": "^4.7.0",
     "friendly-errors-webpack-plugin": "^1.7.0",
     "identity-obj-proxy": "^3.0.0",
     "ionicons": "^3.0.0",
@@ -126,7 +125,8 @@
     "webpack": "^5.4.1",
     "webpack-bundle-analyzer": "^4.1.0",
     "webpack-cli": "^4.4.0",
-    "webpack-merge": "^5.5.0"
+    "webpack-merge": "^5.5.0",
+    "yargs": "^17.5.1"
   },
   "peerDependencies": {
     "vue": "^3.0.4"

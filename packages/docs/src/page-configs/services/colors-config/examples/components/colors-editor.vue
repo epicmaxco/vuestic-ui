@@ -9,8 +9,7 @@
 </template>
 
 <script>
-import { ref, toRefs } from '@vue/reactivity'
-import { computed, watch } from '@vue/runtime-core'
+import { ref, toRefs, watch } from 'vue'
 
 export default {
   emits: ['update:modelValue'],

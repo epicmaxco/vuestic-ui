@@ -48,7 +48,7 @@ export default defineComponent({
       return isMinimized.value ? props.minimizedWidth : props.width
     })
 
-    const { textColorComputed } = useTextColor(props.color)
+    const { textColorComputed } = useTextColor()
 
     const computedStyle = computed(() => {
       const backgroundColor = getColor(props.color)

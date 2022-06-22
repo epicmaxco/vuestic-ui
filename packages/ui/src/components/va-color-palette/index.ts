@@ -1,5 +1,4 @@
 import withConfigTransport from '../../services/config-transport/withConfigTransport'
+import _VaColorPalette from './VaColorPalette.vue'
 
-import VaColorPaletteComponent from './VaColorPalette.vue'
-
-export const VaColorPalette = withConfigTransport(VaColorPaletteComponent)
+export const VaColorPalette = withConfigTransport(_VaColorPalette)

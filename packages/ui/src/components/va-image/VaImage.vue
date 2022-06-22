@@ -1,5 +1,5 @@
 <template>
-  <div class="va-image">
+  <div class="va-image" aria-live="polite">
     <div
       v-if="loadingError"
       class="va-image__error"
@@ -11,11 +11,11 @@
     <div
       v-show="!loadingError && !loading"
       class="va-image__img"
-      ref="img"
     >
       <img
         :style="imageStyles"
-        :src="src"
+        :src="$props.src"
+        :alt="$props.alt"
         @error="handleError"
         @load="handleLoad"
       />
@@ -33,15 +33,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, watch, PropType, ref } from 'vue'
+import { defineComponent, computed, watch, ref } from 'vue'
 
 export default defineComponent({
   name: 'VaImage',
   emits: ['loaded', 'error'],
   props: {
-    ratio: { type: Number as PropType<number>, default: 1 },
-    contain: { type: Boolean as PropType<boolean>, default: false },
-    src: { type: String as PropType<string>, required: true },
+    ratio: { type: Number, default: 1 },
+    contain: { type: Boolean, default: false },
+    src: { type: String, required: true },
+    alt: { type: String, default: '' },
   },
   setup (props, { emit }) {
     const loading = ref(true)
