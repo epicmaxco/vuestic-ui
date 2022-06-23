@@ -19,6 +19,7 @@
         :empty-icon-color="$props.unselectedColor"
         :tabindex="tabIndexComputed"
         :disabled="$props.disabled"
+        :readonly="$props.readonly"
         @hover="isInteractionsEnabled && onItemHoveredValueUpdate(itemNumber - 1, $event)"
         @update:model-value="isInteractionsEnabled && onItemValueUpdate(itemNumber - 1, $event)"
       >
