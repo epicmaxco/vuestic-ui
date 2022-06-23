@@ -96,11 +96,12 @@ import { useValidationProps } from '../../../composables/useValidation'
 import { useColors } from '../../../composables/useColor'
 
 import { VaMessageList } from './VaMessageList'
+import { VaIcon } from '../../'
 
 export default defineComponent({
   name: 'VaInputWrapper',
 
-  components: { VaMessageList },
+  components: { VaMessageList, VaIcon },
 
   props: {
     ...useFormProps,
