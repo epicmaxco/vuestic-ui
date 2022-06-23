@@ -2,7 +2,7 @@ import { computed, Ref, unref, ComputedRef } from 'vue'
 import { __DEV__ } from '../utils/global-utils'
 import isFunction from 'lodash/isFunction.js'
 
-type Key<Prefix extends string, ModifierKey extends string> = `${Prefix | string}--${ModifierKey}`
+type Key<Prefix extends string, ModifierKey extends string> = `${Prefix}--${ModifierKey | string}`
 
 type ClassesObject<Key extends string> = Record<Key, boolean>
 
@@ -35,14 +35,14 @@ export const useBem = <ModifierKey extends string, Prefix extends string>(
   }
 
   const isUppercase = (str: string) => str !== str.toLowerCase()
-  const prefixComputed = computed(() => {
-    if (!isUppercase(prefix) || isUppercase(prefix.charAt(0))) { return prefix.toLowerCase() }
+  const getModifierKey = (key: string) => {
+    if (!isUppercase(key) || isUppercase(key.charAt(0))) { return key.toLowerCase() }
 
-    return prefix.split('').reduce((acc, char) => {
-      isUppercase(char) ? acc += `-${char.toLowerCase}` : acc += char
+    return key.split('').reduce((acc, char) => {
+      isUppercase(char) ? acc += `-${char.toLowerCase()}` : acc += char
       return acc
     }, '')
-  })
+  }
 
   const modifiersList = computed(() => isFunction(modifiers) ? modifiers() : unref(modifiers))
 
@@ -50,7 +50,7 @@ export const useBem = <ModifierKey extends string, Prefix extends string>(
     return Object
       .entries(unref(modifiersList))
       .reduce((classesObj: Record<string, boolean>, [modifierName, value]) => {
-        if (value) { classesObj[`${prefixComputed.value}--${modifierName}`] = true }
+        if (value) { classesObj[`${prefix}--${getModifierKey(modifierName)}`] = true }
         return classesObj
       }, {})
   })
