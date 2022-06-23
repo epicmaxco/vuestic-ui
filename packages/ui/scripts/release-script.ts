@@ -24,27 +24,23 @@ export type ReleaseConfig = {
   shouldCommit: boolean,
 }
 
-const argv: {
-  releaseType: ReleaseType,
-  semverReleaseType: string,
-  dryRun: boolean
-} = yargs(hideBin(process.argv))
+const argv = yargs(hideBin(process.argv))
   .option('releaseType', {
     description: 'Internal release type',
     choices: ['monthly', 'weekly', 'next', 'experimental'],
-    default: 'alpha',
+    default: 'experimental' as ReleaseType,
   })
   .option('dryRun', {
     type: 'boolean',
     description: 'Run without uploading anywhere',
     default: false,
   })
-  .argv
+  .argv as { releaseType: ReleaseType, dryRun: boolean }
 
 const getReleaseConfig = async (releaseType: ReleaseType): Promise<ReleaseConfig> => {
   const currentBranchName = await executeCommand('git rev-parse --abbrev-ref HEAD')
   // 20220602
-  const dateIsoShort = new Date().toISOString().split('T')[0].replaceAll('-', '')
+  const dateIsoShort = new Date().toISOString().split('T')[0].replace(/-/g, '')
   // 12a4dd78
   const commitHash = await getCommitHash()
   // 1.2.3
@@ -52,11 +48,13 @@ const getReleaseConfig = async (releaseType: ReleaseType): Promise<ReleaseConfig
   // v1.2.3
   const gitTag = `v${currentVersion}`
 
-  let result = null
+  let result: Partial<ReleaseConfig> | null = null
 
   if (releaseType === 'monthly') {
+    const version = semver.inc(currentVersion, 'minor')
+    if (!version) { throw new Error('Unable to increment minor version') }
     result = {
-      version: semver.inc(currentVersion, 'minor'),
+      version,
       gitTag,
       distTag: 'latest',
       shouldCommit: true,
@@ -64,8 +62,10 @@ const getReleaseConfig = async (releaseType: ReleaseType): Promise<ReleaseConfig
     }
   }
   if (releaseType === 'weekly') {
+    const version = semver.inc(currentVersion, 'minor')
+    if (!version) { throw new Error('Unable to increment minor version') }
     result = {
-      version: semver.inc(currentVersion, 'minor'),
+      version,
       gitTag,
       distTag: 'latest',
       shouldCommit: true,
@@ -73,28 +73,32 @@ const getReleaseConfig = async (releaseType: ReleaseType): Promise<ReleaseConfig
     }
   }
   if (releaseType === 'next') {
+    const version = semver.inc(currentVersion, 'patch')
+    if (!version) { throw new Error('Unable to increment patch version') }
     result = {
-      version: `${semver.inc(currentVersion, 'patch')}-next-${commitHash}-${dateIsoShort}`,
-      gitTag: null,
+      version: `${version}-next-${commitHash}-${dateIsoShort}`,
+      gitTag: undefined,
       distTag: 'next',
       shouldCommit: false,
       requiredBranch: 'develop',
     }
   }
   if (releaseType === 'experimental') {
+    const version = semver.inc(currentVersion, 'patch')
+    if (!version) { throw new Error('Unable to increment patch version') }
     result = {
-      version: `${semver.inc(currentVersion, 'patch')}-experimental-${commitHash}-${dateIsoShort}`,
-      gitTag: null,
+      version: `${version}-experimental-${commitHash}-${dateIsoShort}`,
+      gitTag: undefined,
       distTag: 'experimental',
       shouldCommit: false,
-      requiredBranch: null,
+      requiredBranch: undefined,
     }
   }
 
-  result.branch = currentBranchName
-  result.commit = commitHash
+  result!.branch = currentBranchName
+  result!.commit = commitHash
 
-  return result
+  return result! as ReleaseConfig
 }
 
 ;(async () => {
