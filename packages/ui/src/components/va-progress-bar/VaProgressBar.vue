@@ -12,12 +12,12 @@
 
       <template v-if="indeterminate">
         <div
-          :style="intermediateStyle"
           class="va-progress-bar__progress--indeterminate-start"
+          :style="intermediateStyle"
         />
         <div
-          :style="intermediateStyle"
           class="va-progress-bar__progress--indeterminate-end"
+          :style="intermediateStyle"
         />
       </template>
       <div v-else class="va-progress-bar__progress" :style="progressStyle">
@@ -28,9 +28,10 @@
 </template>
 
 <script lang="ts">
-import clamp from 'lodash/clamp.js'
 import { computed, defineComponent, PropType } from 'vue'
-import { useColors } from '../../services/color-config/color-config'
+import clamp from 'lodash/clamp.js'
+
+import { useColors } from '../../composables/useColor'
 
 export default defineComponent({
   name: 'VaProgressBar',
@@ -65,7 +66,6 @@ export default defineComponent({
       isLarge,
 
       rootClass: computed(() => ({
-        'va-progress-bar': true,
         'va-progress-bar--square': !props.rounded,
         [`va-progress-bar--${props.size}`]: isTextSize.value,
       })),
@@ -119,7 +119,7 @@ export default defineComponent({
     text-transform: var(--va-progress-bar-info-text-transform);
 
     &:not(:empty) {
-      margin-bottom: 0.3125rem;
+      margin-bottom: var(--va-progress-bar-info-not-empty-margin-bottom);
     }
   }
 
@@ -139,10 +139,10 @@ export default defineComponent({
     #{$p}--large & {
       height: var(--va-progress-bar-lg-height);
     }
+  }
 
-    &__square {
-      border-radius: var(--va-progress-bar-square-border-radius);
-    }
+  &--square &__wrapper {
+    border-radius: var(--va-progress-bar-square-border-radius);
   }
 
   &__buffer {

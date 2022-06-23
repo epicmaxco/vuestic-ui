@@ -398,7 +398,9 @@
         "hideFileList": "Hide file list if you want to show files somewhere else.",
         "value": "The array with uploaded files",
         "dropZoneText": "Custom drop zone label text",
-        "uploadButtonText": "Custom upload button text"
+        "uploadButtonText": "Custom upload button text",
+        "undo": "Enables the canceling of the removing action for the added files",
+        "undoDuration": "Undoing action duration"
       },
       "events": {
         "fileRemoved": "Emits after file is removed",
@@ -885,8 +887,8 @@
     },
     "VaDataTable": {
       "props": {
-        "columns": "The property `columns` must be an array, that configures the columns of the table. In this case:\n\n `DataTableColumn` &#123; `key: string;` `label?: string;` `headerTitle?: string;` `sortable?: boolean;` `sortingFn?: (a: any, b: any) => number;` `alignHead?: DataTableColumnAlign;` `verticalAlignHead?: DataTableColumnVerticalAlign;` `align?: DataTableColumnAlign;` `verticalAlign?: DataTableColumnVerticalAlign;` `width?: string`&#124;`number;` `classes?: DataTableColumnClasses;` `headerClasses?: DataTableColumnClasses;` `style?: DataTableColumnStyle;` `headerStyle?: DataTableColumnStyle;` &#125;;\n\n `DataTableColumnAlign: 'left'`&#124;`'center'`&#124;`'right'`;\n\n `DataTableColumnVerticalAlign: 'top'`&#124;`'middle'`&#124;`'bottom'`;\n\n `DataTableColumnClasses: string`&#124;`string[]`&#124;`(() => string`&#124;`string[])`;\n\n `DataTableColumnStyle: Record<string, any>`&#124;`(() => Record<string, any>)`",
-        "items": "Array of objects with table data (`DataTableItem: Record<string, any>`). The `va-data-table` automatically calculates the amount and the titles of columns (if not specified otherwise with the `columns` prop) based on these object's keys. When calculating the columns' names based on the item's objects' keys `va-data-table` uses [Lodash's startCase](https://lodash.com/docs/4.17.15#startCase)[[target=_blank]] internally. Faulty values are replaced with an empty string",
+        "columns": "The property `columns` must be an array, that configures the columns of the table",
+        "items": "Array of objects with table data (`DataTableItem` type). The `va-data-table` automatically calculates the amount and the titles of columns (if not specified otherwise with the `columns` prop) based on these object's keys. When calculating the columns' names based on the item's objects' keys `va-data-table` uses [Lodash's startCase](https://lodash.com/docs/4.17.15#startCase)[[target=_blank]] internally. Faulty values are replaced with an empty string",
         "filter": "If a `filter` is provided, only rows in which at least one cell contains the specified value will be displayed. To disable filtering at runtime (clear `filter`), specify an empty string",
         "filterMethod": "A custom filtering function. The function takes the initial value of the currently checked cell (the `source` is a formal parameter) and should return a `boolean` value, indicating whether to include the row containing this cell or not",
         "sortBy": "Sets the column to sort by. Works through the `v-model`",
@@ -910,7 +912,7 @@
         "stickyHeader": "Enables sticky header (sticky header is achieved through CSS with `position: sticky` for `thead`)",
         "stickyFooter": "Enables sticky footer (sticky footer is achieved through CSS with `position: sticky` for `tfoot`)",
         "height": "Sets the height to the table and enables scrolling",
-        "rowBind": "Adds attributes to a table row using `v-bind`. This can be an object type (with attributes that vue supports) or a function that returns such an object. The function receives a table row element (type `Record<string, any>`) and an index as arguments",
+        "rowBind": "Adds attributes to a table row using `v-bind`. This can be an object type (with attributes that vue supports) or a function that returns such an object. The function receives a table row element (`DataTableItem` type) and an index as arguments",
         "cellBind": "Adds attributes to a table cell using `v-bind`. This can be an object type (with attributes that vue supports) or a function that returns such an object. As arguments, the function receives a table cell element (`any` type), a row (`DataTableItem` type), a column (`TableColumn` type), and a row index"
       },
       "events": {
@@ -1135,7 +1137,11 @@
       },
       "events": {},
       "methods": {},
-      "slots": {}
+      "slots": {
+        "icon": "By default replaces with a `va-icon` and icon name from `icon` property",
+        "title": "Custom title slot",
+        "body": "Custom body slot"
+      }
     },
     "VaTimePicker": {
       "props": {
@@ -1368,6 +1374,7 @@
     "treeShaking": "Tree Shaking",
     "counter": "Counter",
     "nuxt": "Nuxt",
+    "ssrGuide": "SSR",
     "spacer": "Spacer"
   },
   "all": {
@@ -1910,6 +1917,10 @@
         }
       ]
     },
+    "customContent": {
+      "title": "Custom content",
+      "text": "You can remove default padding with `no-padding` prop and change default action buttons with `content` slot."
+    },
     "anchor": {
       "title": "Slot: `anchor`",
       "text": "Using the `anchor` slot, the user can access the `show()`, `hide()` and `toggle()` methods."
@@ -2050,6 +2061,12 @@
       "gallery": {
         "title": "As gallery",
         "text": "With `type === gallery` prop you can show user picture preview of uploaded files"
+      },
+      "undo": {
+        "title": "Canceling the removing action",
+        "description": "Add the `undo` property to cancel the removing action, and with a `undo-duration` property set the time to cancel removing",
+        "galleryViewLabel": "Enable gallery view",
+        "inputLabel": "Undo duration"
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-file-upload/_variables.scss)[[target=_blank]]"
@@ -3753,6 +3770,10 @@
       "trigger": {
         "title": "Trigger",
         "text": "Events triggering the popover separated with spaces: `hover`, `click` or `focus`."
+      },
+      "slots": {
+        "title": "Slots usage",
+        "description": "You can use `icon`, `title` and `body` slots to provide your own extra content into the popover component."
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-popover/_variables.scss)[[target=_blank]]"
@@ -4048,6 +4069,29 @@
       "plugin": "Install integration module:",
       "nuxtConfig": "Then you need to update nuxt-config.ts file:",
       "moreAboutConfig": "More about configuration"
+    }
+  },
+  "ssrGuide": {
+    "title": "SSR",
+    "description": "Vuestic is fully compatible with server-side rendering.",
+    "cssVariables": {
+      "title": "CSS variables",
+      "description": "Vuestic UI uses `CSS variables` in components. For SSR you need to define them in html head element. You can use following code to generate CSS Variables based on your [ColorConfig](/services/colors-config):"
+    },
+    "solutions": {
+      "title": "Examples",
+      "description": "Here are two examples how you can add CSS variables to html head",
+      
+      "nuxt": "Look at Nuxt3 guide",
+
+      "viteSsrPlugin": { 
+        "title": "Vite SSR Plugin",
+        "description": "Learn more about [Vite SSR Plugin](https://vite-plugin-ssr.com/vue-tour)"
+      },
+      "vitesse": { 
+        "title": "Vitesse",
+        "description": "Learn more about [Vitesse](https://github.com/antfu/vitesse) and [useHead](https://github.com/vueuse/head#server-side-rendering)"
+      }
     }
   },
   "spacer": {

@@ -46,6 +46,11 @@ const config: ApiDocsBlock[] = [
     'Anchor',
   ),
   ...block.exampleBlock(
+    'modal.customContent.title',
+    'modal.customContent.text',
+    'CustomContent',
+  ),
+  ...block.exampleBlock(
     'modal.disableAnimation.title',
     'modal.disableAnimation.text',
     'DisableAnimation',

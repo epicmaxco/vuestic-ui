@@ -1,7 +1,7 @@
 <template>
   <VbDemo>
-    <VbCard style="max-width: 800px; width: 100%;">
-      <table class="table table-bordered">
+    <VbCard>
+      <table class="table">
         <tr>
           <th>Description</th>
           <th>VaPopover</th>
@@ -10,29 +10,31 @@
           <td>Placement<br> (default - bottom)</td>
           <td>
             <va-popover
+              message="Placement Bottom"
+              class="mr-4"
+            >
+              <va-button>Bottom</va-button>
+            </va-popover>
+            <va-popover
               placement="top"
               message="Placement Top"
+              class="mr-4"
             >
               <va-button>Top</va-button>
             </va-popover>
             <va-popover
-              placement="right"
-              message="Placement Right"
-            >
-              <va-button>Right</va-button>
-            </va-popover>
-
-            <va-popover
               placement="left"
               message="Placement Left"
+              class="mr-4"
             >
               <va-button>Left</va-button>
             </va-popover>
 
             <va-popover
-              message="Placement Bottom"
+              placement="right"
+              message="Placement Right"
             >
-              <va-button>Bottom</va-button>
+              <va-button>Right</va-button>
             </va-popover>
           </td>
         </tr>
@@ -43,6 +45,7 @@
               placement="right"
               icon="error"
               message="Popover with icon"
+              class="mr-4"
             >
               <va-button>Hover me</va-button>
             </va-popover>
@@ -55,6 +58,7 @@
               placement="right"
               title="Popover title"
               message="Popover text"
+              class="mr-4"
             >
               <va-button>Hover me</va-button>
             </va-popover>
@@ -68,6 +72,7 @@
               title="Popover title"
               icon="error"
               message="Popover dummy text"
+              class="mr-4"
             >
               <va-button>Hover me</va-button>
             </va-popover>
@@ -80,6 +85,7 @@
               placement="right"
               message="Popover dummy text"
               color="warning"
+              class="mr-4"
             >
               <va-button color="warning">
                 Hover me
@@ -90,6 +96,7 @@
               placement="right"
               message="Popover dummy text"
               color="info"
+              class="mr-4"
             >
               <va-button color="info">
                 Hover me
@@ -100,6 +107,7 @@
               placement="right"
               message="Popover dummy text"
               color="danger"
+              class="mr-4"
             >
               <va-button color="danger">
                 Hover me
@@ -110,6 +118,7 @@
               placement="right"
               message="Popover dummy text"
               color="dark"
+              class="mr-4"
             >
               <va-button color="dark">
                 Hover me
@@ -120,6 +129,7 @@
               placement="right"
               message="Popover dummy text"
               color="gray"
+              class="mr-4"
             >
               <va-button color="gray">
                 Hover me
@@ -150,11 +160,31 @@
           <td>Default open</td>
           <td>
             <va-popover
+              :model-value="true"
+              :auto-hide="false"
+              trigger="click"
               placement="right"
               message="Popover dummy text"
-              :modelValue="true"
             >
               <va-button>Hover me</va-button>
+            </va-popover>
+          </td>
+        </tr>
+        <tr>
+          <td>Slots</td>
+          <td>
+            <va-popover trigger="click">
+              <va-button>Click me</va-button>
+              <template #icon>
+                <va-button icon="create" size="small" />
+              </template>
+              <template #title>
+                <i>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</i>
+              </template>
+              <template #body>
+                <p>Suspendisse pharetra risus magna, in luctus turpis mollis non.</p>
+                <p>Donec est nulla, imperdiet id dapibus sed, consequat eget odio.</p>
+              </template>
             </va-popover>
           </td>
         </tr>
@@ -164,16 +194,16 @@
 </template>
 
 <script>
-import { VaPopover } from './index'
-import { VaButton } from '../va-button'
+import { VaPopover, VaButton } from '../index'
 
 export default {
-  components: {
-    VaPopover,
-    VaButton,
-  },
-  data () {
-    return {}
-  },
+  components: { VaPopover, VaButton },
 }
 </script>
+
+<style scoped>
+.table {
+  border-collapse: separate;
+  border-spacing: 1rem;
+}
+</style>

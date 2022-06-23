@@ -59,9 +59,15 @@
       <va-rating :size="60" v-model="value" />
     </VbCard>
     <VbCard title="Disabled">
-      <va-rating disabled hover v-model="value" />
+      <va-rating disabled v-model="value" />
     </VbCard>
     <VbCard title="Readonly">
+      <va-rating readonly v-model="value" />
+    </VbCard>
+    <VbCard title="Disabled and hover">
+      <va-rating disabled hover v-model="value" />
+    </VbCard>
+    <VbCard title="Readonly and hover">
       <va-rating readonly hover v-model="value" />
     </VbCard>
     <VbCard title="With custom icons">
@@ -183,6 +189,9 @@
         <va-rating stateful />
       </va-config>
     </VbCard>
+    <VbCard title="Widened wrapper hover-hitbox (with halves)">
+      <va-rating stateful hover :max="2" halves class="wide" />
+    </VbCard>
   </VbDemo>
 </template>
 
@@ -202,3 +211,12 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+.wide {
+  .va-rating-item__wrapper {
+    background-color: lightblue !important;
+    width: 100px;
+  }
+}
+</style>

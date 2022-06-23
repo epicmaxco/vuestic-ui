@@ -1,6 +1,6 @@
 //  @ts-nocheck
-
 import isObject from 'lodash/isObject.js'
+import { __DEV__ } from '../utils/global-utils'
 
 export const sleep = (ms = 0) => {
   return new Promise(resolve => setTimeout(resolve, ms))
@@ -32,8 +32,10 @@ export const deepEqual = (a, b) => {
 
 // vuestic-ui warn, currently is mostly a placeholder, but later might provide ability to disable warns etc.
 export const warn = (...attrs) => {
-  // eslint-disable-next-line  no-console
-  console.warn(...attrs)
+  if (__DEV__) {
+    // eslint-disable-next-line  no-console
+    console.warn(...attrs)
+  }
   return false
 }
 

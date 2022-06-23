@@ -3,7 +3,7 @@
     ref="dropdown"
     class="va-select__dropdown va-select-dropdown"
     trigger="none"
-    anchorSelector=".va-input-wrapper__input"
+    anchorSelector=".va-input-wrapper__field"
     :placement="$props.placement"
     :disabled="$props.disabled"
     :max-height="$props.maxHeight"
@@ -20,84 +20,90 @@
     @click.prevent="onSelectClick()"
   >
     <template #anchor>
-      <div class="va-select">
-        <va-input
-          ref="input"
-          aria-label="selected option"
-          :model-value="valueComputedString"
-          :success="$props.success"
-          :error="computedError"
-          :color="$props.color"
-          :label="$props.label"
-          :placeholder="$props.placeholder"
-          :loading="$props.loading"
-          :disabled="$props.disabled"
-          :outline="$props.outline"
-          :bordered="$props.bordered"
-          :required-mark="$props.requiredMark"
-          :tabindex="tabIndexComputed"
-          :messages="$props.messages"
-          :error-messages="computedErrorMessages"
-          readonly
-          @focus="onInputFocus()"
-          @blur="onInputBlur()"
+      <va-input-wrapper
+        ref="input"
+        class="va-select"
+        aria-label="selected option"
+        :model-value="valueComputedString"
+        :success="$props.success"
+        :error="computedError"
+        :color="$props.color"
+        :label="$props.label"
+        :placeholder="$props.placeholder"
+        :loading="$props.loading"
+        :disabled="$props.disabled"
+        :outline="$props.outline"
+        :bordered="$props.bordered"
+        :required-mark="$props.requiredMark"
+        :messages="$props.messages"
+        :error-messages="computedErrorMessages"
+        :focused="isFocused"
+        :tabindex="tabIndexComputed"
+        @focus="onInputFocus()"
+        @blur="onInputBlur()"
+      >
+        <template
+          v-if="$slots.prepend"
+          #prepend
         >
-          <template
-            v-if="$slots.prepend"
-            #prepend
+          <slot name="prepend" />
+        </template>
+
+        <template
+          v-if="$slots.append"
+          #append
+        >
+          <slot name="append" />
+        </template>
+
+        <template
+          v-if="$slots.prependInner"
+          #prependInner
+        >
+          <slot name="prependInner" />
+        </template>
+
+        <template #icon>
+          <va-icon
+            v-if="showClearIcon"
+            role="button"
+            aria-hidden="false"
+            aria-label="reset"
+            class="va-select__icons__reset"
+            tabindex="0"
+            v-bind="clearIconProps"
+            @click.stop="reset"
+            @keydown.enter.stop="reset"
+            @keydown.space.stop="reset"
+          />
+        </template>
+
+        <template #appendInner>
+          <slot
+            v-if="$slots.appendInner"
+            name="appendInner"
+          />
+          <va-icon
+            :color="toggleIconColor"
+            :name="toggleIcon"
+          />
+        </template>
+
+        <template
+          #default
+        >
+          <slot
+            name="content"
+            v-bind="{
+              valueString: valueComputedString,
+              value: valueComputed,
+              tabindex: tabIndexComputed,
+            }"
           >
-            <slot name="prepend" />
-          </template>
-
-          <template
-            v-if="$slots.append"
-            #append
-          >
-            <slot name="append" />
-          </template>
-
-          <template
-            v-if="$slots.prependInner"
-            #prependInner
-          >
-            <slot name="prependInner" />
-          </template>
-
-          <template #icon>
-            <va-icon
-              v-if="showClearIcon"
-              aria-hidden="false"
-              aria-label="reset"
-              class="va-select__icons__reset"
-              v-bind="clearIconProps"
-              @click.stop="reset"
-              @keydown.enter.stop="reset"
-              @keydown.space.stop="reset"
-            />
-          </template>
-
-          <template #appendInner>
-            <slot
-              v-if="$slots.appendInner"
-              name="appendInner"
-            />
-            <va-icon
-              :color="toggleIconColor"
-              :name="toggleIcon"
-            />
-          </template>
-
-          <template
-            v-if="$slots.content"
-            #content
-          >
-            <slot
-              name="content"
-              v-bind="{ valueString: valueComputedString, value: valueComputed }"
-            />
-          </template>
-        </va-input>
-      </div>
+            {{ valueComputedString }}
+          </slot>
+        </template>
+      </va-input-wrapper>
     </template>
 
     <!-- Stop propagation for enter keyup event, to prevent VaDropdown closing -->
@@ -166,10 +172,10 @@ import { useColors } from '../../services/color-config/color-config'
 import { warn } from '../../services/utils'
 import { VaDropdown, VaDropdownContent } from '../va-dropdown'
 import { VaIcon } from '../va-icon'
-import { VaInput } from '../va-input'
+import { VaInput, VaInputWrapper } from '../va-input'
 import { VaSelectOptionList } from './VaSelectOptionList'
-import { useFocus } from '../../composables/useFocus'
 import { SelectDropdownIcon, SelectOption, Placement } from './types'
+import { useFocusDeep } from '../../composables/useFocusDeep'
 
 export default defineComponent({
   name: 'VaSelect',
@@ -180,6 +186,7 @@ export default defineComponent({
     VaDropdown,
     VaDropdownContent,
     VaInput,
+    VaInputWrapper,
   },
 
   emits: [
@@ -255,7 +262,8 @@ export default defineComponent({
     const optionList = ref<typeof VaSelectOptionList>()
     const input = ref<typeof VaInput>()
     const searchBar = ref<typeof VaInput>()
-    const { isFocused } = useFocus()
+    const isInputFocused = useFocusDeep()
+    const isFocused = computed(() => isInputFocused.value || showDropdownContent.value)
 
     const { getHoverColor } = useColors()
     const { getOptionByValue, getValue, getText, getTrackBy, getGroupBy } = useSelectableList(props)
@@ -512,7 +520,7 @@ export default defineComponent({
 
     const hideAndFocus = () => {
       hideDropdown()
-      input.value?.focus()
+      isInputFocused.value = true
     }
 
     const focusSearchBar = () => {
@@ -533,7 +541,7 @@ export default defineComponent({
     })
 
     const onInputFocus = () => {
-      isFocused.value = true
+      isInputFocused.value = true
       onFocus()
     }
 
@@ -542,8 +550,8 @@ export default defineComponent({
 
       onBlur()
 
-      isFocused.value
-        ? isFocused.value = false
+      isInputFocused.value
+        ? isInputFocused.value = false
         : validate()
     }
 
@@ -629,6 +637,8 @@ export default defineComponent({
     }
 
     return {
+      isFocused,
+
       input,
       optionList,
       searchBar,
@@ -698,10 +708,6 @@ export default defineComponent({
 
 .va-select {
   cursor: var(--va-select-cursor);
-
-  .va-input {
-    cursor: var(--va-select-cursor);
-  }
 
   &__icons {
     &__reset {
