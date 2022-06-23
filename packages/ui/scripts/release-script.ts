@@ -37,6 +37,8 @@ const argv = yargs(hideBin(process.argv))
   })
   .argv as { releaseType: ReleaseType, dryRun: boolean }
 
+const gitTagFromVersion = (version: string) => `v${version}`
+
 const getReleaseConfig = async (releaseType: ReleaseType): Promise<ReleaseConfig> => {
   const currentBranchName = await executeCommand('git rev-parse --abbrev-ref HEAD')
   // 20220602
@@ -45,8 +47,6 @@ const getReleaseConfig = async (releaseType: ReleaseType): Promise<ReleaseConfig
   const commitHash = await getCommitHash()
   // 1.2.3
   const currentVersion = getPackageJsonVersion()
-  // v1.2.3
-  const gitTag = `v${currentVersion}`
 
   let result: Partial<ReleaseConfig> | null = null
 
@@ -55,7 +55,7 @@ const getReleaseConfig = async (releaseType: ReleaseType): Promise<ReleaseConfig
     if (!version) { throw new Error('Unable to increment minor version') }
     result = {
       version,
-      gitTag,
+      gitTag: gitTagFromVersion(version),
       distTag: 'latest',
       shouldCommit: true,
       requiredBranch: 'master',
@@ -66,7 +66,7 @@ const getReleaseConfig = async (releaseType: ReleaseType): Promise<ReleaseConfig
     if (!version) { throw new Error('Unable to increment patch version') }
     result = {
       version,
-      gitTag,
+      gitTag: gitTagFromVersion(version),
       distTag: 'latest',
       shouldCommit: true,
       requiredBranch: 'develop',
