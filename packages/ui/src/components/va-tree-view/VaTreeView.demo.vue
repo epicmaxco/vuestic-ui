@@ -12,7 +12,7 @@
         node-key="id"
         expand-all
       >
-        <template #node-icon="{icon}">
+        <template #icon="{icon}">
           <va-icon
             v-if="icon"
             :name="icon"
@@ -41,7 +41,7 @@
         selectable
         :selection-type="selectionType"
       >
-        <template #node-icon="{icon}">
+        <template #icon="{icon}">
           <va-icon
             v-if="icon"
             :name="icon"
@@ -55,7 +55,7 @@
         :nodes="customBodyNodes"
         node-key="id"
       >
-        <template #node-body="prop">
+        <template #content="prop">
           <div class="d-flex align--center">
             <va-avatar
               v-if="prop.image"

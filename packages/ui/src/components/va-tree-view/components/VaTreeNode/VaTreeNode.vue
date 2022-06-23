@@ -18,7 +18,7 @@
           v-if="$props.node.hasChildren"
           class="va-tree-node-content__item va-tree-node-content__item--leaf"
         >
-          <slot v-bind="$props.node" name="node-icon-toggle">
+          <slot v-bind="$props.node" name="icon-toggle">
             <va-icon
               :name="isExpandedComputed ? 'keyboard_arrow_down' : 'keyboard_arrow_right'"
               size="20px"
@@ -30,7 +30,7 @@
           class="va-tree-node-content__item"
           @click.stop
         >
-          <slot name="node-checkbox">
+          <slot name="checkbox">
             <va-checkbox
               v-model="$props.node.checked"
               :color="colorComputed"
@@ -39,10 +39,10 @@
           </slot>
         </div>
         <div v-if="hasIconComputed" class="va-tree-node-content__item">
-          <slot name="node-icon" v-bind="$props.node"></slot>
+          <slot name="icon" v-bind="$props.node"></slot>
         </div>
         <div class="va-tree-node-content__body">
-          <slot name="node-body" v-bind="$props.node">{{ labelComputed }}</slot>
+          <slot name="content" v-bind="$props.node">{{ labelComputed }}</slot>
         </div>
       </div>
     </div>
@@ -58,7 +58,7 @@
         :key="childNode[$props.node.nodeKey]"
         :node="childNode"
       >
-        <template v-for="(_, name) in $slots" v-slot:[name]="slotScope">
+        <template v-for="(_, name) in $slots" :key="name" v-slot:[name]="slotScope">
           <slot :name="name" v-bind="slotScope" />
         </template>
       </va-tree-node>

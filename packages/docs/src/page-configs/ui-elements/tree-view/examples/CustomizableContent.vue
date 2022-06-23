@@ -4,7 +4,7 @@
     node-key="id"
     class="customizable-content"
   >
-    <template #node-body="prop">
+    <template #content="prop">
       <div class="d-flex align--center">
         <va-avatar
           v-if="prop.image"
