@@ -29,18 +29,6 @@
 
     <template #icon="slotScope">
       <va-icon
-        v-if="$props.success"
-        color="success"
-        name="check_circle"
-        size="small"
-      />
-      <va-icon
-        v-if="computedError"
-        color="danger"
-        name="warning"
-        size="small"
-      />
-      <va-icon
         v-if="canBeCleared"
         role="button"
         aria-hidden="false"
@@ -87,7 +75,7 @@ import pick from 'lodash/pick.js'
 import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
 import { useFormProps } from '../../composables/useForm'
 import { useValidation, useValidationProps, useValidationEmits, ValidationProps } from '../../composables/useValidation'
-import { useFocus } from '../../composables/useFocus'
+import { useFocusDeep } from '../../composables/useFocusDeep'
 import { useEmitProxy } from '../../composables/useEmitProxy'
 import { useClearableProps, useClearable, useClearableEmits } from '../../composables/useClearable'
 import { useCleave, useCleaveProps } from './hooks/useCleave'
@@ -110,7 +98,6 @@ const { createEmits: createFieldEmits, createListeners: createFieldListeners } =
   'click-append',
   'click-prepend-inner',
   'click-append-inner',
-  'click-icon',
 ])
 
 export default defineComponent({
@@ -157,7 +144,7 @@ export default defineComponent({
   setup (props, { emit, attrs, slots }) {
     const input = shallowRef<HTMLInputElement | typeof VaTextarea>()
 
-    const { isFocused, onFocus: onFocusListener, onBlur: onBlurListener } = useFocus()
+    const isFocused = useFocusDeep()
 
     const reset = () => {
       emit('update:modelValue', props.clearValue)
@@ -190,11 +177,10 @@ export default defineComponent({
     } = useClearable(props, modelValue, emit, input, computedError)
 
     /** Use cleave only if this component is input, because it will break. */
-    const computedCleaveTarget = computed(() => {
-      return props.type === 'textarea'
-        ? undefined
-        : input.value as HTMLInputElement | undefined
-    })
+    const computedCleaveTarget = computed(() => props.type === 'textarea'
+      ? undefined
+      : input.value as HTMLInputElement | undefined)
+
     const { computedValue, onInput } = useCleave(computedCleaveTarget, props, emit)
 
     const inputListeners = createInputListeners(emit)
@@ -203,13 +189,11 @@ export default defineComponent({
     const onFocus = (e: Event) => {
       inputListeners.onFocus(e)
       validationListeners.onFocus()
-      onFocusListener()
     }
 
     const onBlur = (e: Event) => {
       inputListeners.onBlur(e)
       validationListeners.onBlur()
-      onBlurListener()
     }
 
     const inputEvents = {
