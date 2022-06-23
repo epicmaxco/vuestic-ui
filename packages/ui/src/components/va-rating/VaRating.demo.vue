@@ -189,8 +189,8 @@
         <va-rating stateful />
       </va-config>
     </VbCard>
-    <VbCard title="One star (with halves) hover hitbox">
-      <va-rating stateful hover :max="1" halves />
+    <VbCard title="Widened wrapper hover-hitbox (with halves)">
+      <va-rating stateful hover :max="2" halves class="wide" />
     </VbCard>
   </VbDemo>
 </template>
@@ -211,3 +211,12 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+.wide {
+  .va-rating-item__wrapper {
+    background-color: lightblue !important;
+    width: 100px;
+  }
+}
+</style>
