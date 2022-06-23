@@ -1,22 +1,22 @@
 <template>
   <div
+    ref="rootEl"
     class="va-rating-item"
     role="button"
     :tabindex="tabIndexComputed"
     @keyup.enter="onClick"
     @keyup.space="onClick"
+    @mousemove="onMouseMove"
+    @mouseleave="onMouseLeave"
   >
     <slot :props="{ value: visibleValue, onClick }">
       <va-icon
-        ref="itemEl"
         class="va-rating-item__wrapper"
         tabindex="-1"
         tag="button"
         :name="computedIconName"
         :size="$props.size"
         :color="getColor($props.color)"
-        @mousemove="onMouseMove"
-        @mouseleave="onMouseLeave"
         @click="onClick"
       />
     </slot>
@@ -53,7 +53,7 @@ export default defineComponent({
   emits: ['update:modelValue', 'click', 'hover'],
 
   setup (props, { emit }) {
-    const itemEl = ref()
+    const rootEl = ref<HTMLElement>()
     const [modelValue] = useSyncProp('modelValue', props, emit, RatingValue.EMPTY)
     const hoveredValue = ref<number | null>(null)
 
@@ -65,10 +65,9 @@ export default defineComponent({
     })
 
     const onMouseMove = (ev: MouseEvent) => {
-      if (!itemEl.value) { return }
-      ev.stopPropagation()
+      if (!rootEl.value) { return }
       const { offsetX } = ev
-      const iconWidth = itemEl.value.$el.clientWidth
+      const iconWidth = rootEl.value.clientWidth
 
       if (props.halves) {
         hoveredValue.value = offsetX / iconWidth <= RatingValue.HALF ? RatingValue.HALF : RatingValue.FULL
@@ -94,7 +93,7 @@ export default defineComponent({
 
     return {
       ...useColors(),
-      itemEl,
+      rootEl,
       onEnter,
       onClick,
       onMouseMove,
