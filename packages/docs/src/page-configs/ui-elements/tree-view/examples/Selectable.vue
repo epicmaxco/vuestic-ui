@@ -1,5 +1,7 @@
 <template>
-  <va-input v-model="selectedNodes" />
+  <va-chip square outline>
+    {{ selectedNodes.length ? selectedNodes.join(',') : 'Please, select nodes' }}
+  </va-chip>
   <va-color-palette
     v-model="selectedColor"
     :palette="colorsPalette"
