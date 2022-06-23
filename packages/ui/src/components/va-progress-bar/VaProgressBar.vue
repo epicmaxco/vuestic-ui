@@ -2,13 +2,12 @@
   <div
     class="va-progress-bar"
     :class="rootClass"
-    :style="rootStyle"
     v-bind="ariaAttributesComputed"
   >
     <div v-if="!isLarge" class="va-progress-bar__info">
       <slot />
     </div>
-    <div class="va-progress-bar__wrapper">
+    <div class="va-progress-bar__wrapper" :style="wrapperStyle">
       <div class="va-progress-bar__buffer" :style="bufferStyle" />
 
       <template v-if="indeterminate">
@@ -71,7 +70,7 @@ export default defineComponent({
         [`va-progress-bar--${props.size}`]: isTextSize.value,
       })),
 
-      rootStyle: computed(() => ({
+      wrapperStyle: computed(() => ({
         height: getCSSHeight(),
       })),
 
@@ -107,19 +106,12 @@ export default defineComponent({
 @import 'variables';
 
 .va-progress-bar {
+  $p: &;
+
   width: var(--va-progress-bar-width);
   position: var(--va-progress-bar-position);
   overflow: var(--va-progress-bar-overflow);
   font-family: var(--va-font-family);
-  height: var(--va-progress-bar-height);
-
-  &--small {
-    height: var(--va-progress-bar-sm-height);
-  }
-
-  &--large {
-    height: var(--va-progress-bar-lg-height);
-  }
 
   &__info {
     font-weight: var(--va-progress-bar-info-font-weight);
@@ -135,7 +127,18 @@ export default defineComponent({
     position: var(--va-progress-bar--wrapper-position);
     overflow: var(--va-progress-bar--wrapper-overflow);
     border-radius: var(--va-progress-bar--wrapper-border-radius);
-    height: inherit;
+
+    #{$p}--small & {
+      height: var(--va-progress-bar-sm-height);
+    }
+
+    #{$p}--medium & {
+      height: var(--va-progress-bar-height);
+    }
+
+    #{$p}--large & {
+      height: var(--va-progress-bar-lg-height);
+    }
   }
 
   &--square &__wrapper {
