@@ -79,8 +79,8 @@ import {
   useValidation, useValidationProps, useValidationEmits, ValidationProps,
   useEmitProxy,
   useClearable, useClearableProps, useClearableEmits,
+  useFocusDeep,
 } from '../../composables'
-import { useFocusDeep } from '../../composables/useFocusDeep'
 import { useCleave, useCleaveProps } from './hooks/useCleave'
 
 import type { AnyStringPropType } from '../../types/prop-type'

@@ -169,7 +169,7 @@ import {
   useColors,
   useMaxSelections, useMaxSelectionsProps,
   useClearableProps, useClearable, useClearableEmits,
-  useFocus,
+  useFocusDeep,
 } from '../../composables'
 import { warn } from '../../services/utils'
 import { VaDropdown, VaDropdownContent } from '../va-dropdown'
@@ -177,7 +177,6 @@ import { VaIcon } from '../va-icon'
 import { VaInput, VaInputWrapper } from '../va-input'
 import { VaSelectOptionList } from './VaSelectOptionList'
 import { SelectDropdownIcon, SelectOption, Placement } from './types'
-import { useFocusDeep } from '../../composables/useFocusDeep'
 
 export default defineComponent({
   name: 'VaSelect',
