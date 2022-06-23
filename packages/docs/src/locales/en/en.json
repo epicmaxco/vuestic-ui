@@ -1276,12 +1276,17 @@
         "nodes": "Tree node array",
         "selectable": "Selectable",
         "selectionType": "Selection type where is a `leaf` current and all children nodes, `independent` - single selectable nodes"
+      }
+    },
+    "VaTreeNode": {
+      "props": {
+        "node": "Tree node object"
       },
       "slots": {
-        "nodeBody": "Configurable node body",
-        "nodeCheckbox": "Checkbox icon placeholder",
-        "nodeIcon": "Additional icon placeholder",
-        "nodeIconToggle": "Node leaf icon"
+        "content": "Configurable node content",
+        "checkbox": "Checkbox icon placeholder",
+        "icon": "Additional icon placeholder",
+        "iconToggle": "Node leaf icon"
       }
     }
   },
@@ -4127,6 +4132,10 @@
       "selectable": {
         "title": "Selectable"
       }
+    },
+    "api": {
+      "treeViewTitle": "Tree view API",
+      "treeNodeTitle": "Tree node API"
     }
   },
   "spacer": {

@@ -1192,19 +1192,24 @@
     },
     "VaTreeView": {
       "props": {
-        "expandAll": "Раскрыть все узлы дерева по умолчанию",
-        "filter": "Строка для фильтра элементов дерева",
-        "nodeKey": "Ключ для индексации элементов дерева",
-        "labelKey": "Ключ для отображения текстового значения в элементе дерева",
-        "nodes": "Массив элементов дерева",
-        "selectable": "Отображение чекбоксов",
-        "selectionType": "Способ выбора чекбокса, `leaf` - текущий и дочерние элементы дерева, `independent` - независимый выбор элементов дерева"
+        "expandAll": "Expand or hide all nodes by default",
+        "filter": "Tree view filter",
+        "nodeKey": "Key to index nodes",
+        "labelKey": "Key to show the value of node item",
+        "nodes": "Tree node array",
+        "selectable": "Selectable",
+        "selectionType": "Selection type where is a `leaf` current and all children nodes, `independent` - single selectable nodes"
+      }
+    },
+    "VaTreeNode": {
+      "props": {
+        "node": "Tree node object"
       },
       "slots": {
-        "nodeBody": "Настраиваемое тело элемента дерева",
-        "nodeCheckbox": "Иконка чекбокса",
-        "nodeIcon": "Дополнительная иконка",
-        "nodeIconToggle": "Иконка раскрытия/скрытия элемента дерева"
+        "content": "Configurable node content",
+        "checkbox": "Checkbox icon placeholder",
+        "icon": "Additional icon placeholder",
+        "iconToggle": "Node leaf icon"
       }
     }
   },
@@ -3964,6 +3969,10 @@
       "selectable": {
         "title": "Чекбоксы"
       }
+    },
+    "api": {
+      "treeViewTitle": "Tree view API",
+      "treeNodeTitle": "Tree node API"
     }
   },
   "spacer": {
