@@ -6,9 +6,9 @@ type Map<O extends Record<any, any>> = { [K in keyof O]: O[K] }
 type SafeAccess<O, K> = K extends keyof O ? O[K] : never
 
 /** List of all exported components */
-type VuesticComponentsMap = Map<typeof vuesticComponents>
+export type VuesticComponentsMap = Map<typeof vuesticComponents>
 /** Component names */
-type VuesticComponentNames = keyof VuesticComponentsMap
+export type VuesticComponentName = keyof VuesticComponentsMap
 
 /**
  * Names of Vuestic components that must be accessable globally.
@@ -35,7 +35,7 @@ type VuesticComponentNames = keyof VuesticComponentsMap
  * @important Prefer interface instead of type, this will break all component types.
  * @eslint You can safely ignore `@typescript-eslint/no-empty-interface` eslint rule
  * */
-export type VuesticComponents<NAMES extends string = VuesticComponentNames> = {
+export type VuesticComponents<NAMES extends string = VuesticComponentName> = {
   [name in NAMES]: SafeAccess<VuesticComponentsMap, name>
 }
 

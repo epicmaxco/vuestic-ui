@@ -55,6 +55,10 @@ export const navigationRoutes: NavigationRoute[] = [
           badge: 'new',
         },
       },
+      {
+        name: 'ssr-guide',
+        displayName: 'menu.ssrGuide',
+      },
       // GENERATOR_ADD - gettingStarted
     ],
   },

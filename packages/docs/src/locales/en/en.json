@@ -398,7 +398,9 @@
         "hideFileList": "Hide file list if you want to show files somewhere else.",
         "value": "The array with uploaded files",
         "dropZoneText": "Custom drop zone label text",
-        "uploadButtonText": "Custom upload button text"
+        "uploadButtonText": "Custom upload button text",
+        "undo": "Enables the canceling of the removing action for the added files",
+        "undoDuration": "Undoing action duration"
       },
       "events": {
         "fileRemoved": "Emits after file is removed",
@@ -1135,7 +1137,11 @@
       },
       "events": {},
       "methods": {},
-      "slots": {}
+      "slots": {
+        "icon": "By default replaces with a `va-icon` and icon name from `icon` property",
+        "title": "Custom title slot",
+        "body": "Custom body slot"
+      }
     },
     "VaTimePicker": {
       "props": {
@@ -1368,6 +1374,7 @@
     "treeShaking": "Tree Shaking",
     "counter": "Counter",
     "nuxt": "Nuxt",
+    "ssrGuide": "SSR",
     "spacer": "Spacer"
   },
   "all": {
@@ -1910,6 +1917,10 @@
         }
       ]
     },
+    "customContent": {
+      "title": "Custom content",
+      "text": "You can remove default padding with `no-padding` prop and change default action buttons with `content` slot."
+    },
     "anchor": {
       "title": "Slot: `anchor`",
       "text": "Using the `anchor` slot, the user can access the `show()`, `hide()` and `toggle()` methods."
@@ -2050,6 +2061,12 @@
       "gallery": {
         "title": "As gallery",
         "text": "With `type === gallery` prop you can show user picture preview of uploaded files"
+      },
+      "undo": {
+        "title": "Canceling the removing action",
+        "description": "Add the `undo` property to cancel the removing action, and with a `undo-duration` property set the time to cancel removing",
+        "galleryViewLabel": "Enable gallery view",
+        "inputLabel": "Undo duration"
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-file-upload/_variables.scss)[[target=_blank]]"
@@ -3753,6 +3770,10 @@
       "trigger": {
         "title": "Trigger",
         "text": "Events triggering the popover separated with spaces: `hover`, `click` or `focus`."
+      },
+      "slots": {
+        "title": "Slots usage",
+        "description": "You can use `icon`, `title` and `body` slots to provide your own extra content into the popover component."
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-popover/_variables.scss)[[target=_blank]]"
@@ -4048,6 +4069,29 @@
       "plugin": "Install integration module:",
       "nuxtConfig": "Then you need to update nuxt-config.ts file:",
       "moreAboutConfig": "More about configuration"
+    }
+  },
+  "ssrGuide": {
+    "title": "SSR",
+    "description": "Vuestic is fully compatible with server-side rendering.",
+    "cssVariables": {
+      "title": "CSS variables",
+      "description": "Vuestic UI uses `CSS variables` in components. For SSR you need to define them in html head element. You can use following code to generate CSS Variables based on your [ColorConfig](/services/colors-config):"
+    },
+    "solutions": {
+      "title": "Examples",
+      "description": "Here are two examples how you can add CSS variables to html head",
+      
+      "nuxt": "Look at Nuxt3 guide",
+
+      "viteSsrPlugin": { 
+        "title": "Vite SSR Plugin",
+        "description": "Learn more about [Vite SSR Plugin](https://vite-plugin-ssr.com/vue-tour)"
+      },
+      "vitesse": { 
+        "title": "Vitesse",
+        "description": "Learn more about [Vitesse](https://github.com/antfu/vitesse) and [useHead](https://github.com/vueuse/head#server-side-rendering)"
+      }
     }
   },
   "spacer": {

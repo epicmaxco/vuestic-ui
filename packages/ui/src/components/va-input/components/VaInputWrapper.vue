@@ -2,9 +2,10 @@
   <div
     class="va-input-wrapper"
     :class="wrapperClass"
+    :style="wrapperStyle"
     @click="$emit('click', $event)"
   >
-    <div class="va-input-wrapper__input">
+    <div class="va-input-wrapper__container">
       <div
         v-if="$slots.prepend"
         class="va-input-wrapper__prepend-inner"
@@ -13,67 +14,55 @@
         <slot name="prepend" />
       </div>
 
-      <div class="va-input-wrapper__content">
+      <div class="va-input-wrapper__field">
         <div
-          class="va-input__container"
-          ref="container"
-          :style="{ borderColor: borderColorComputed }"
+          v-if="$slots.prependInner"
+          class="va-input-wrapper__prepend-inner"
+          @click="$emit('click-prepend-inner', $event)"
         >
-          <div
-            v-if="$slots.prependInner"
-            class="va-input__prepend-inner"
-            @click="$emit('click-prepend-inner', $event)"
-          >
-            <slot name="prependInner" />
-          </div>
-
-          <div class="va-input__content-wrapper">
-            <div class="va-input__content">
-              <label
-                v-if="label"
-                aria-hidden="true"
-                class="va-input__label"
-                :style="{ color: colorComputed }"
-              >
-                {{ label }}
-                <span
-                  v-if="requiredMark"
-                  class="va-input__required-mark"
-                >
-                  *
-                </span>
-              </label>
-
-              <div v-if="$slots.content" class="va-input__content__input">
-                <slot name="content" />
-              </div>
-
-              <slot />
-            </div>
-          </div>
-
-          <div
-            v-if="$slots.icon"
-            class="va-input__icons"
-            @click="$emit('click-icon', $event)"
-          >
-            <slot name="icon" />
-          </div>
-
-          <div
-            v-if="$slots.appendInner"
-            class="va-input__append-inner"
-            @click="$emit('click-append-inner', $event)"
-          >
-            <slot name="appendInner" />
-          </div>
+          <slot name="prependInner" />
         </div>
 
-        <div
-          v-if="bordered"
-          class="va-input--bordered__border"
-          :style="{ borderColor: borderColorComputed }"
+        <div class="va-input-wrapper__text">
+          <label
+            v-if="label"
+            aria-hidden="true"
+            class="va-input-wrapper__label"
+            :style="{ color: colorComputed }"
+          >
+            {{ label }}
+            <span
+              v-if="requiredMark"
+              class="va-input-wrapper__required-mark"
+            >
+              *
+            </span>
+          </label>
+
+          <slot />
+        </div>
+
+        <va-icon
+          v-if="success"
+          color="success"
+          name="check_circle"
+          size="small"
         />
+        <va-icon
+          v-if="error"
+          color="danger"
+          name="warning"
+          size="small"
+        />
+        <slot name="icon" />
+
+        <div
+          v-if="$slots.appendInner"
+          class="va-input-wrapper__append-inner"
+          @click="$emit('click-append-inner', $event)"
+        >
+          <slot name="appendInner" />
+        </div>
       </div>
 
       <div
@@ -85,21 +74,21 @@
       </div>
     </div>
 
-    <div v-if="hasMessages" class="va-input-wrapper__message-list-wrapper">
-      <slot name="messages" v-bind="{ messages: messagesComputed, errorLimit, color: messagesColor }">
-        <va-message-list
-          :color="messagesColor"
-          :model-value="messagesComputed"
-          :limit="errorLimit"
-        />
-      </slot>
-    </div>
+    <slot name="messages" v-bind="{ messages: messagesComputed, errorLimit, color: messagesColor }">
+      <va-message-list
+        v-if="hasMessages"
+        :color="messagesColor"
+        :model-value="messagesComputed"
+        :limit="errorLimit"
+      />
+    </slot>
   </div>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
 import { useBem } from '../../../composables/useBem'
+import { useCSSVariables } from '../../../composables/useCSSVariables'
 import { useFormProps } from '../../../composables/useForm'
 import { useValidationProps } from '../../../composables/useValidation'
 import { useColors } from '../../../services/color-config/color-config'
@@ -131,16 +120,19 @@ export default defineComponent({
     'click-append',
     'click-prepend-inner',
     'click-append-inner',
-    'click-icon',
   ],
 
   setup (props) {
     const { getColor } = useColors()
 
-    const wrapperClass = useBem('va-input', () => ({
+    const wrapperClass = useBem('va-input-wrapper', () => ({
       ...pick(props, ['outline', 'bordered', 'success', 'focused', 'error', 'disabled', 'readonly']),
       labeled: !!props.label,
       solid: !props.outline && !props.bordered,
+    }))
+
+    const wrapperStyle = useCSSVariables('va-input-wrapper', () => ({
+      color: colorComputed.value,
     }))
 
     const colorComputed = computed(() => getColor(props.color))
@@ -153,9 +145,9 @@ export default defineComponent({
 
     return {
       wrapperClass,
+      wrapperStyle,
 
       colorComputed,
-      borderColorComputed: computed(() => props.focused ? colorComputed.value : undefined),
 
       messagesColor: computed(() => {
         if (props.error) { return 'danger' }
@@ -175,62 +167,52 @@ export default defineComponent({
 @import '../../../styles/resources/index.scss';
 @import '../variables';
 
-.va-input {
+.va-input-wrapper {
   position: relative;
   color: var(--va-input-text-color);
   cursor: var(--va-input-cursor);
   font-family: var(--va-font-family);
 
-  &--readonly {
-    cursor: default;
-  }
+  // Util CSS variables used to change component style during runtime
+  --va-input-wrapper-color: var(--va-primary);
+  --va-input-wrapper-background: var(--va-input-color);
+  --va-input-wrapper-background-opacity: 1;
+  --va-input-wrapper-border-color: var(--va-input-bordered-color);
 
-  &--disabled {
-    @include va-disabled;
-  }
-
-  &__container {
-    display: flex;
+  &__field {
     position: relative;
+    display: flex;
     align-items: center;
     width: 100%;
     min-height: var(--va-input-min-height);
-    border-color: var(--va-input-color);
+    border-color: var(--va-input-wrapper-border-color);
     border-style: solid;
     border-width: var(--va-input-border-width);
-    overflow: hidden;
     padding: 0 var(--va-input-content-horizontal-padding);
     z-index: 0;
+    overflow: hidden;
 
-    @include va-background(var(--va-input-color), null, -1);
+    @include va-background(var(--va-input-wrapper-background), var(--va-input-wrapper-background-opacity), -1);
 
     /* Creates gap between prepend, content, validation icons, append */
     & > * {
-      padding-right: var(--va-input-content-items-gap);
-      line-height: 0;
+      margin-right: var(--va-input-content-items-gap);
 
       &:last-child {
-        padding-right: 0;
+        margin-right: 0;
       }
     }
   }
 
-  &-wrapper__input {
+  &__container {
     display: flex;
     align-items: center;
   }
 
-  &-wrapper__message-list-wrapper {
+  & > .va-message-list {
     margin-top: 2px;
   }
 
-  &-wrapper__content {
-    position: relative;
-    flex-grow: 1;
-  }
-
-  &-wrapper__prepend-inner,
-  &-wrapper__append-inner,
   &__prepend-inner,
   &__append-inner {
     display: flex;
@@ -239,45 +221,38 @@ export default defineComponent({
     align-items: center;
   }
 
-  &__content-wrapper {
-    width: stretch;
-    display: flex;
-    align-items: center;
+  &__text {
+    width: 100%;
+    position: relative;
+    min-height: var(--va-input-line-height);
 
-    .va-input__content {
+    input,
+    textarea {
+      @include va-scroll(var(--va-input-scroll-color));
+
       width: 100%;
-      position: relative;
+      // Use line-height as min-height for empty content slot
+      min-height: var(--va-input-line-height);
+      color: var(--va-input-text-color);
+      background-color: transparent;
+      border-style: none;
+      outline: none;
+      line-height: var(--va-input-line-height);
+      font-size: var(--va-input-font-size);
+      font-family: inherit;
+      font-weight: var(--va-input-font-weight);
+      font-style: var(--va-input-font-style);
+      font-stretch: var(--va-input-font-stretch);
+      letter-spacing: var(--va-input-letter-spacing);
+      transform: translateY(-1px);
+      cursor: inherit;
 
-      input {
-        cursor: inherit;
+      &::-webkit-scrollbar {
+        width: 10px;
       }
 
-      &__input {
-        @include va-scroll(var(--va-input-scroll-color));
-
-        width: 100%;
-        // Use line-height as min-height for empty content slot
-        min-height: var(--va-input-line-height);
-        color: var(--va-input-text-color);
-        background-color: transparent;
-        border-style: none;
-        outline: none;
-        line-height: var(--va-input-line-height);
-        font-size: var(--va-input-font-size);
-        font-family: inherit;
-        font-weight: var(--va-input-font-weight);
-        font-style: var(--va-input-font-style);
-        font-stretch: var(--va-input-font-stretch);
-        letter-spacing: var(--va-input-letter-spacing);
-        transform: translateY(-1px);
-
-        &::-webkit-scrollbar {
-          width: 10px;
-        }
-
-        &::placeholder {
-          color: var(--va-input-placeholder-text-color);
-        }
+      &::placeholder {
+        color: var(--va-input-placeholder-text-color);
       }
     }
   }
@@ -315,17 +290,16 @@ export default defineComponent({
   }
 
   &--labeled {
-    .va-input__content-wrapper {
+    .va-input-wrapper__text {
       height: 100%;
       padding-top: 12px;
-      align-items: flex-end;
+      box-sizing: content-box;
     }
 
-    .va-input__label {
+    .va-input-wrapper__label {
       @include va-ellipsis();
 
       height: 12px;
-      transform: translateY(-100%);
       position: absolute;
       left: 0;
       top: 0;
@@ -345,61 +319,25 @@ export default defineComponent({
     }
   }
 
-  /* We have 3 styles and two states for each style separately */
+  /* Styles */
   &--solid {
-    .va-input__container {
-      border-color: var(--va-input-color);
+    --va-input-wrapper-border-color: var(--va-input-color);
+
+    .va-input-wrapper__field {
       border-radius: var(--va-input-border-radius);
-    }
-
-    &.va-input--success {
-      .va-input__container {
-        @include va-background-opacity(var(--va-input-success-color), var(--va-input-opacity));
-
-        border-color: var(--va-input-success-color);
-      }
-    }
-
-    &.va-input--error {
-      .va-input__container {
-        @include va-background-opacity(var(--va-input-error-color), var(--va-input-opacity));
-
-        border-color: var(--va-input-error-color);
-      }
     }
   }
 
   &--outline {
-    .va-input__container {
+    .va-input-wrapper__field {
       border-radius: 0;
-      border-color: var(--va-input-bordered-color);
-    }
-
-    &.va-input--success {
-      .va-input__container {
-        @include va-background-opacity(var(--va-input-success-color), var(--va-input-opacity));
-
-        border-color: var(--va-input-success-color);
-      }
-    }
-
-    &.va-input--error {
-      .va-input__container {
-        @include va-background-opacity(var(--va-input-error-color), var(--va-input-opacity));
-
-        border-color: var(--va-input-error-color);
-      }
     }
   }
 
   &--bordered {
-    /*
-      We can not just set border-bottom, because we also have border on the other sides.
-      We also can not use after or before, because we need to set border-color according to
-      color prop
-    */
-    &__border {
-      border-color: var(--va-input-bordered-color);
+    &::after {
+      content: '';
+      border-color: var(--va-input-wrapper-border-color);
       position: absolute;
       height: 0;
       border-bottom-width: var(--va-input-border-width);
@@ -408,31 +346,35 @@ export default defineComponent({
       bottom: 0;
     }
 
-    .va-input__container {
+    .va-input-wrapper__field {
       border-top-left-radius: var(--va-input-border-radius);
       border-top-right-radius: var(--va-input-border-radius);
       border-color: transparent !important;
     }
+  }
 
-    &.va-input--success {
-      .va-input__container {
-        @include va-background-opacity(var(--va-input-success-color), var(--va-input-opacity));
-      }
+  // States
+  &--focused {
+    --va-input-wrapper-border-color: var(--va-input-wrapper-color);
+  }
 
-      .va-input--bordered__border {
-        border-color: var(--va-input-success-color);
-      }
-    }
+  &--readonly {
+    cursor: default;
+  }
 
-    &.va-input--error {
-      .va-input__container {
-        @include va-background-opacity(var(--va-input-error-color), var(--va-input-opacity));
-      }
+  &--disabled {
+    @include va-disabled;
+  }
 
-      .va-input--bordered__border {
-        border-color: var(--va-input-error-color);
-      }
-    }
+  // States: Validations
+  &--error {
+    --va-input-wrapper-background: var(--va-input-error-color, --va-danger);
+    --va-input-wrapper-background-opacity: var(--va-input-opacity);
+  }
+
+  &--success {
+    --va-input-wrapper-background: var(--va-input-success-color, --va-success);
+    --va-input-wrapper-background-opacity: var(--va-input-opacity);
   }
 }
 </style>

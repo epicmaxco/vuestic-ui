@@ -397,7 +397,9 @@
         "dropzone": "Включает Drag&Drop",
         "value": "Массив с загруженными файлами",
         "dropZoneText": "Текст, заменяющий стандартную надпись на drop zone",
-        "uploadButtonText": "Текст, заменяющий стандартную надпись кнопки загрузки"
+        "uploadButtonText": "Текст, заменяющий стандартную надпись кнопки загрузки",
+        "undo": "Отмена действия удаления прикрепленных файлов",
+        "undoDuration": "Длительность отображения отмены действия удаления"
       }
     },
     "VaHover": {
@@ -1122,7 +1124,11 @@
       },
       "events": {},
       "methods": {},
-      "slots": {}
+      "slots": {
+        "icon": "По умолчанию используется `va-icon` с названием из свойства компонента `icon`",
+        "title": "Слот для заголовка",
+        "body": "Слот для контента компонента"
+      }
     },
     "VaTimePicker": {
       "props": {},
@@ -1291,6 +1297,7 @@
     "treeShaking": "Tree Shaking",
     "counter": "Counter",
     "nuxt": "Nuxt",
+    "ssrGuide": "Ssr Guide",
     "spacer": "Spacer"
   },
   "all": {
@@ -1947,6 +1954,12 @@
       "gallery": {
         "title": "Превью",
         "text": "Свойство `type` со значением `gallery` включит отображение превью загружаемого файла."
+      },
+      "undo": {
+        "title": "Отмена действия удаления прикрепленных файлов",
+        "description": "Добавьте свойство `undo` для отмены удаления загруженных файлов, а с помощью свойства `undo-duration` задайте время для отмены действия",
+        "galleryViewLabel": "Включить режим Галереи",
+        "inputLabel": "Длительность отмены"
       }
     },
     "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-file-upload/_variables.scss)[[target=_blank]]"
@@ -3632,6 +3645,10 @@
       "trigger": {
         "title": "Триггер",
         "text": "События, запускающие всплывающее окно, разделенные пробелами: `hover`, `click` или `focus`."
+      },
+      "slots": {
+        "title": "Использование слотов",
+        "description": "Вы можете использовать слоты `icon`, `title` и `body` для отображения дополнительного контента."
       }
     },
     "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-popover/_variables.scss)[[target=_blank]]"
@@ -3909,9 +3926,11 @@
       "moreAboutConfig": "Подробнее про конфигурирование"
     }
   },
+  "ssrGuide": {
+    "title": "SSR Guide"
+  },
   "spacer": {
     "title": "Spacer component",
-    "summaryText": "`va-spacer` аналог для свойства `flex-grow`. Он позволяет добавить пустое пространсто между компонентами.",
     "examples": {
       "default": {
         "title": "Базовое использование",
