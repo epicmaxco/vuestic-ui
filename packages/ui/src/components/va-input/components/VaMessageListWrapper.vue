@@ -3,15 +3,17 @@
       <slot />
       <va-message-list
         :color="messagesColor"
-        :model-value="messagesComputed"
         :limit="errorLimit"
+        :model-value="messagesComputed"
       />
     </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, toRef } from 'vue'
+import { computed, defineComponent } from 'vue'
+
 import { useValidationProps } from '../../../composables/useValidation'
+
 import { VaMessageList } from './VaMessageList'
 
 export default defineComponent({
@@ -28,7 +30,6 @@ export default defineComponent({
       messagesColor: computed(() => {
         if (props.error) { return 'danger' }
         if (props.success) { return 'success' }
-
         return ''
       }),
       messagesComputed: computed(() => props.error ? props.errorMessages : props.messages),

@@ -155,9 +155,9 @@ export default defineComponent({
       messagesColor: computed(() => {
         if (props.error) { return 'danger' }
         if (props.success) { return 'success' }
-
         return ''
       }),
+
       messagesComputed,
       hasMessages,
       errorLimit: computed(() => props.error ? Number(props.errorCount) : 99),

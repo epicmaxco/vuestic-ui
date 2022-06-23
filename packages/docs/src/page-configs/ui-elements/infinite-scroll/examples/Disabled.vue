@@ -3,7 +3,10 @@
     <va-button
       class="mb-2"
       @click="disabled = !disabled"
-    >{{ disabled ? 'Enable' : 'Disable' }}</va-button>
+    >
+      {{ disabled ? 'Enable' : 'Disable' }}
+    </va-button>
+
     <div class="row">
       <div
         style="height: 200px;"
@@ -29,7 +32,7 @@
 export default {
   data () {
     return {
-      records: [{}, {}, {}, {}, {}, {}, {}, {}],
+      records: [{}, {}, {}, {}, {}, {}],
       disabled: false,
     }
   },
