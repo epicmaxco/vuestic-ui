@@ -110,6 +110,7 @@ const getApiTableEvents = (
       version: event.version || manualOptions.version || '',
       name: eventName,
       types: event.types,
+      isDOMEvent: event.isDOMEvent === true,
       description: getTranslation('events', eventKey, componentName, event.translation),
     }
   }

@@ -29,18 +29,6 @@
 
     <template #icon="slotScope">
       <va-icon
-        v-if="success"
-        color="success"
-        name="check_circle"
-        size="small"
-      />
-      <va-icon
-        v-if="computedError"
-        color="danger"
-        name="warning"
-        size="small"
-      />
-      <va-icon
         v-if="canBeCleared"
         role="button"
         aria-hidden="false"
@@ -82,9 +70,9 @@
 <script lang="ts">
 import { computed, defineComponent, InputHTMLAttributes, PropType, ref, toRefs } from 'vue'
 import { useFormProps } from '../../composables/useForm'
-import { useValidation, useValidationProps, useValidationEmits } from '../../composables/useValidation'
+import { useValidation, useValidationProps, useValidationEmits, ValidationProps } from '../../composables/useValidation'
 import { useCleave, useCleaveProps } from './hooks/useCleave'
-import { useFocus } from '../../composables/useFocus'
+import { useFocusDeep } from '../../composables/useFocusDeep'
 import { useEmitProxy } from '../../composables/useEmitProxy'
 import VaInputWrapper from './components/VaInputWrapper.vue'
 import { useClearableProps, useClearable, useClearableEmits } from '../../composables/useClearable'
@@ -93,6 +81,7 @@ import VaIcon from '../va-icon/VaIcon.vue'
 import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
 import omit from 'lodash/omit.js'
 import pick from 'lodash/pick.js'
+import type { AnyStringPropType } from '../../types/prop-type'
 
 const VaTextareaProps = extractComponentProps(VaTextarea)
 
@@ -106,7 +95,6 @@ const { createEmits: createFieldEmits, createListeners: createFieldListeners } =
   'click-append',
   'click-prepend-inner',
   'click-append-inner',
-  'click-icon',
 ])
 
 export default defineComponent({
@@ -116,7 +104,7 @@ export default defineComponent({
 
   props: {
     ...useFormProps,
-    ...useValidationProps,
+    ...useValidationProps as ValidationProps<string>,
     ...useClearableProps,
     ...useCleaveProps,
     ...VaTextareaProps,
@@ -126,7 +114,7 @@ export default defineComponent({
     tabindex: { type: Number, default: 0 },
     modelValue: { type: [String, Number], default: '' },
     label: { type: String, default: '' },
-    type: { type: String as PropType<'text' | 'textarea'>, default: 'text' },
+    type: { type: String as AnyStringPropType<'textarea' | 'text' | 'password'>, default: 'text' },
     loading: { type: Boolean, default: false },
     inputClass: { type: String, default: '' },
     pattern: { type: String },
@@ -153,7 +141,7 @@ export default defineComponent({
   setup (props, { emit, attrs, slots }) {
     const input = ref<HTMLInputElement | typeof VaTextarea | undefined>()
 
-    const { isFocused, onFocus: onFocusListener, onBlur: onBlurListener } = useFocus()
+    const isFocused = useFocusDeep()
 
     const reset = () => {
       emit('update:modelValue', props.clearValue)
@@ -199,13 +187,11 @@ export default defineComponent({
     const onFocus = (e: Event) => {
       inputListeners.onFocus(e)
       validationListeners.onFocus()
-      onFocusListener()
     }
 
     const onBlur = (e: Event) => {
       inputListeners.onBlur(e)
       validationListeners.onBlur()
-      onBlurListener()
     }
 
     const inputEvents = {

@@ -64,7 +64,7 @@
         <div
           v-for="order in orders"
           :key="'dot' + order"
-          :ref="(el) => setItemRef(el, order)"
+          :ref="setItemRefByIndex(order)"
           class="va-slider__handler"
           :class="dotClass[order]"
           :style="dottedStyles[order]"
@@ -198,7 +198,7 @@ export default defineComponent({
 
     const sliderContainer = shallowRef<HTMLElement>()
     const dot = shallowRef<HTMLElement>()
-    const { setItemRef, itemRefs: dots } = useArrayRefs()
+    const { setItemRefByIndex, itemRefs: dots } = useArrayRefs()
 
     const isFocused = ref(false)
     const flag = ref(false)
@@ -357,7 +357,8 @@ export default defineComponent({
         if (!props.range) {
           index = 0
         } else if (Array.isArray(position.value)) {
-          const pos = getPos(e instanceof TouchEvent ? e.touches[0] : e)
+          const touch = 'touches' in e ? e.touches[0] : e
+          const pos = getPos(touch)
 
           index = pos > ((position.value[1] - position.value[0]) / 2 + position.value[0]) ? 1 : 0
         }
@@ -723,7 +724,7 @@ export default defineComponent({
       getColor,
       dot,
       dots,
-      setItemRef,
+      setItemRefByIndex,
       orders,
       sliderContainer,
       val,

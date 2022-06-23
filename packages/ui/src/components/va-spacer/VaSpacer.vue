@@ -1,5 +1,5 @@
 <template>
-  <div class="spacer" aria-hidden="true" />
+  <div class="va-spacer" aria-hidden="true" />
 </template>
 
 <script lang="ts">
@@ -13,7 +13,7 @@ export default defineComponent({
 <style lang="scss">
 @import 'variables';
 
-.spacer {
+.va-spacer {
   flex-grow: var(--va-spacer-flex-grow);
 }
 </style>

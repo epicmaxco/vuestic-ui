@@ -6,7 +6,7 @@
   Vue.js 3.0 UI Library
   <br>
   Developed by <a href="https://epicmax.co">Epicmax</a>. Designed by
-  <a href="https://xxsavitski.com/">Vasili Savitski</a>.
+  <a href="https://twitter.com/xxsavitski">Vasili Savitski</a>.
   <br>
 </p>
 
@@ -83,11 +83,11 @@ Make sure you've imported both styles and plugin into your entry file:
 //main.js
 import { createApp } from 'vue'
 import App from './App.vue'
-import { VuesticPlugin } from 'vuestic-ui' //(✓)
-import 'vuestic-ui/dist/vuestic-ui.css' //(✓)
+import { createVuestic } from 'vuestic-ui'
+import 'vuestic-ui/dist/vuestic-ui.css'
 //...
 const app = createApp(App)
-app.use(VuesticPlugin) //(✓)
+app.use(createVuestic())
 //...
 ```
 
