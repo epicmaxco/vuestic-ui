@@ -2,7 +2,7 @@ import { computed, Ref, unref, ComputedRef } from 'vue'
 import { __DEV__ } from '../utils/global-utils'
 import isFunction from 'lodash/isFunction.js'
 
-type Key<Prefix extends string, ModifierKey extends string> = `${Prefix}--${ModifierKey}`
+type Key<Prefix extends string, ModifierKey extends string> = `${Prefix | string}--${ModifierKey}`
 
 type ClassesObject<Key extends string> = Record<Key, boolean>
 
@@ -34,13 +34,23 @@ export const useBem = <ModifierKey extends string, Prefix extends string>(
     console.warn('You must pass the @param "prefix" to the useBem hook!')
   }
 
+  const isUppercase = (str: string) => str !== str.toLowerCase()
+  const prefixComputed = computed(() => {
+    if (!isUppercase(prefix) || isUppercase(prefix.charAt(0))) { return prefix.toLowerCase() }
+
+    return prefix.split('').reduce((acc, char) => {
+      isUppercase(char) ? acc += `-${char.toLowerCase}` : acc += char
+      return acc
+    }, '')
+  })
+
   const modifiersList = computed(() => isFunction(modifiers) ? modifiers() : unref(modifiers))
 
   const computedBemClassesObject = computed(() => {
     return Object
       .entries(unref(modifiersList))
       .reduce((classesObj: Record<string, boolean>, [modifierName, value]) => {
-        if (value) { classesObj[`${prefix}--${modifierName}`] = true }
+        if (value) { classesObj[`${prefixComputed.value}--${modifierName}`] = true }
         return classesObj
       }, {})
   })
