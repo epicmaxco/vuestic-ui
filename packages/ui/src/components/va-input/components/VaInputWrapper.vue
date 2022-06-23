@@ -93,12 +93,13 @@ import { useFormProps } from '../../../composables/useForm'
 import { useValidationProps } from '../../../composables/useValidation'
 import { useColors } from '../../../services/color-config/color-config'
 import { VaMessageList } from './VaMessageList'
+import { VaIcon } from '../../'
 import pick from 'lodash/pick.js'
 
 export default defineComponent({
   name: 'VaInputWrapper',
 
-  components: { VaMessageList },
+  components: { VaMessageList, VaIcon },
 
   props: {
     ...useFormProps,
