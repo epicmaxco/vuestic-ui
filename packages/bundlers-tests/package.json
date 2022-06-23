@@ -20,7 +20,6 @@
     "@vue/cli-service": "5",
     "jest": "^27.0.6",
     "rollup-plugin-visualizer": "^5.5.4",
-    "ts-node": "^10.1.0",
     "vue": "^3.0.5"
   },
   "devDependencies": {
