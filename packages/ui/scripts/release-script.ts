@@ -153,11 +153,12 @@ const getReleaseConfig = async (releaseType: ReleaseType): Promise<ReleaseConfig
   if (!dryRun) {
     if (shouldCommit) {
       await executeAndLog(`git commit -am "chore: bump version to ${gitTag}"`)
-      await executeAndLog('git push vuestic-ui ')
+      // TODO: Maybe save remote name in .env or pass as arg.
+      await executeAndLog('git push upstream ')
     }
     if (gitTag) {
       await executeAndLog(`git tag ${gitTag}`)
-      await executeAndLog(`git push vuestic-ui ${gitTag}`)
+      await executeAndLog(`git push upstream ${gitTag}`)
     }
   }
 
