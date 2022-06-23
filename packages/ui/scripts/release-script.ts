@@ -62,8 +62,8 @@ const getReleaseConfig = async (releaseType: ReleaseType): Promise<ReleaseConfig
     }
   }
   if (releaseType === 'weekly') {
-    const version = semver.inc(currentVersion, 'minor')
-    if (!version) { throw new Error('Unable to increment minor version') }
+    const version = semver.inc(currentVersion, 'patch')
+    if (!version) { throw new Error('Unable to increment patch version') }
     result = {
       version,
       gitTag,
