@@ -1137,7 +1137,11 @@
       },
       "events": {},
       "methods": {},
-      "slots": {}
+      "slots": {
+        "icon": "By default replaces with a `va-icon` and icon name from `icon` property",
+        "title": "Custom title slot",
+        "body": "Custom body slot"
+      }
     },
     "VaTimePicker": {
       "props": {
@@ -3766,6 +3770,10 @@
       "trigger": {
         "title": "Trigger",
         "text": "Events triggering the popover separated with spaces: `hover`, `click` or `focus`."
+      },
+      "slots": {
+        "title": "Slots usage",
+        "description": "You can use `icon`, `title` and `body` slots to provide your own extra content into the popover component."
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-popover/_variables.scss)[[target=_blank]]"
