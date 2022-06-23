@@ -7,20 +7,20 @@
       aria-hidden="true"
     >
       <va-icon
+        class="inner-loading__spinner"
         spin
-        :color="$props.color"
+        :color="colorComputed"
         :size="$props.size"
         :name="$props.icon"
-        class="inner-loading__spinner"
       />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue'
+import { defineComponent, computed } from 'vue'
 
-import { useLoadingProps } from '../../composables'
+import { useColors, useLoadingProps } from '../../composables'
 import { VaIcon } from '../va-icon'
 
 export default defineComponent({
@@ -28,9 +28,15 @@ export default defineComponent({
   components: { VaIcon },
   props: {
     ...useLoadingProps,
-    color: { type: String as PropType<string>, default: '' },
-    icon: { type: String as PropType<string>, default: 'loop' },
-    size: { type: Number as PropType<number>, default: 30 },
+    color: { type: String },
+    icon: { type: String, default: 'autorenew' },
+    size: { type: Number, default: 30 },
+  },
+  setup (props) {
+    const { getColor } = useColors()
+    const colorComputed = computed(() => getColor(props.color))
+
+    return { colorComputed }
   },
 })
 </script>

@@ -8,7 +8,7 @@
       multiple
     >
       <template #content="{ valueString }">
-        <div>{{ valueString }}</div>
+        {{ valueString }}
       </template>
     </va-select>
 

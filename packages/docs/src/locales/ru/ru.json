@@ -1124,7 +1124,11 @@
       },
       "events": {},
       "methods": {},
-      "slots": {}
+      "slots": {
+        "icon": "По умолчанию используется `va-icon` с названием из свойства компонента `icon`",
+        "title": "Слот для заголовка",
+        "body": "Слот для контента компонента"
+      }
     },
     "VaTimePicker": {
       "props": {},
@@ -3641,6 +3645,10 @@
       "trigger": {
         "title": "Триггер",
         "text": "События, запускающие всплывающее окно, разделенные пробелами: `hover`, `click` или `focus`."
+      },
+      "slots": {
+        "title": "Использование слотов",
+        "description": "Вы можете использовать слоты `icon`, `title` и `body` для отображения дополнительного контента."
       }
     },
     "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-popover/_variables.scss)[[target=_blank]]"

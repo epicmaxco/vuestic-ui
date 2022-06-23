@@ -74,15 +74,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, watch, PropType, ref, Ref, computed, nextTick } from 'vue'
+import { defineComponent, watch, PropType, ref, computed, nextTick, shallowRef } from 'vue'
 
 import { __DEV__ } from '../../utils/global-utils'
 import { useColors, useTextColor, useStateful, useStatefulProps, useStatefulEmits } from '../../composables'
+import { setPaginationRange } from './setPaginationRange'
 
 import { VaButtonGroup } from '../va-button-group'
 import { VaButton } from '../va-button'
-
-import { setPaginationRange } from './setPaginationRange'
 
 export default defineComponent({
   name: 'VaPagination',
@@ -100,7 +99,6 @@ export default defineComponent({
       default: 'medium',
       validator: (v: string) => ['medium', 'small', 'large'].includes(v),
     },
-
     boundaryLinks: { type: Boolean, default: true },
     boundaryNumbers: { type: Boolean, default: false },
     directionLinks: { type: Boolean, default: true },
@@ -116,8 +114,9 @@ export default defineComponent({
   },
 
   setup (props, { emit }) {
+    const htmlInput = shallowRef<HTMLInputElement>()
+
     const inputValue = ref('')
-    const htmlInput: Ref<HTMLInputElement | null> = ref(null)
 
     const usedTotal = computed(() => !!((props.total || props.pageSize === 0) && props.pageSize))
 

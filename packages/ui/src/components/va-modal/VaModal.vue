@@ -121,9 +121,9 @@
 import { watch, h, Transition, defineComponent, PropType, computed, StyleValue, shallowRef, toRef } from 'vue'
 
 import { useStateful, useStatefulProps, useStatefulEmits, useColors, useTextColor } from '../../composables'
+
 import { VaButton } from '../va-button'
 import { VaIcon } from '../va-icon'
-import { ModalSize } from './types'
 
 const ModalElement = defineComponent({
   name: 'ModalElement',
@@ -163,9 +163,9 @@ export default defineComponent({
     maxHeight: { type: String, default: '' },
     anchorClass: { type: String },
     size: {
-      type: String as PropType<ModalSize>,
+      type: String as PropType<'medium' | 'small' | 'large'>,
       default: 'medium',
-      validator: (size: string) => ['medium', 'small', 'large'].includes(size),
+      validator: (value: string) => ['medium', 'small', 'large'].includes(value),
     },
     fixedLayout: { type: Boolean, default: false },
     withoutTransitions: { type: Boolean, default: false },

@@ -1,190 +1,188 @@
 <template>
-  <div>
-    <VbDemo>
-      <VbCard title="Default">
-        <div
-          class="scroll__container"
+  <VbDemo>
+    <VbCard title="Default">
+      <div
+        class="scroll__container"
+      >
+        <va-infinite-scroll
+          :load="appendRecordsAsync"
         >
-          <va-infinite-scroll
-            :load="appendRecordsAsync"
+          <div
+            v-for="(record, index) in records"
+            :key="record.id"
           >
-            <div
-              v-for="(record, index) in records"
-              :key="record.id"
-            >
-              {{ record.text }} #{{ index }}
-            </div>
-          </va-infinite-scroll>
-        </div>
-      </VbCard>
+            {{ record.text }} #{{ index }}
+          </div>
+        </va-infinite-scroll>
+      </div>
+    </VbCard>
 
-      <VbCard title="Custom loading slot">
-        <div
-          class="scroll__container"
+    <VbCard title="Custom loading slot">
+      <div
+        class="scroll__container"
+      >
+        <va-infinite-scroll
+          :load="appendRecordsAsync"
         >
-          <va-infinite-scroll
-            :load="appendRecordsAsync"
+          <div
+            v-for="(record, index) in records"
+            :key="record.id"
           >
-            <div
-              v-for="(record, index) in records"
-              :key="record.id"
-            >
-              {{ record.text }} #{{ index }}
-            </div>
-            <template #loading>
-              <va-progress-circle
-                indeterminate
-                :thickness=".5"
-                color="red"
-              />
-            </template>
-          </va-infinite-scroll>
-        </div>
-      </VbCard>
+            {{ record.text }} #{{ index }}
+          </div>
+          <template #loading>
+            <va-progress-circle
+              indeterminate
+              :thickness=".5"
+              color="warning"
+            />
+          </template>
+        </va-infinite-scroll>
+      </div>
+    </VbCard>
 
-      <VbCard title="Offset 0px">
-        <div
-          class="scroll__container"
+    <VbCard title="Offset 0px">
+      <div
+        class="scroll__container"
+      >
+        <va-infinite-scroll
+          :offset="0"
+          :load="appendRecordsAsync"
         >
-          <va-infinite-scroll
-            :offset="0"
-            :load="appendRecordsAsync"
+          <div
+            v-for="(record, index) in records"
+            :key="record.id"
           >
-            <div
-              v-for="(record, index) in records"
-              :key="record.id"
-            >
-              {{ record.text }} #{{ index }}
-            </div>
-          </va-infinite-scroll>
-        </div>
-      </VbCard>
+            {{ record.text }} #{{ index }}
+          </div>
+        </va-infinite-scroll>
+      </div>
+    </VbCard>
 
-      <VbCard title="ref target">
-        <div
-          class="scroll__container"
-          ref="scrollTarget"
+    <VbCard title="ref target">
+      <div
+        ref="infiniteScrollTarget"
+        class="scroll__container"
+      >
+        <va-infinite-scroll
+          :scroll-target="$refs.infiniteScrollTarget"
+          :load="appendRecordsAsync"
         >
-          <va-infinite-scroll
-            :scroll-target="$refs.scrollTarget"
-            :load="appendRecordsAsync"
+          <div
+            v-for="(record, index) in records"
+            :key="record.id"
           >
-            <div
-              v-for="(record, index) in records"
-              :key="record.id"
-            >
-              {{ record.text }} #{{ index }}
-            </div>
-          </va-infinite-scroll>
-        </div>
-      </VbCard>
+            {{ record.text }} #{{ index }}
+          </div>
+        </va-infinite-scroll>
+      </div>
+    </VbCard>
 
-      <VbCard title="selector target">
-        <div
-          id="target"
-          class="scroll__container"
+    <VbCard title="selector target">
+      <div
+        id="infinite-scroll-custom-target"
+        class="scroll__container"
+      >
+        <va-infinite-scroll
+          scroll-target="#infinite-scroll-custom-target"
+          :load="appendRecordsAsync"
         >
-          <va-infinite-scroll
-            scroll-target="#target"
-            :load="appendRecordsAsync"
+          <div
+            v-for="(record, index) in records"
+            :key="record.id"
           >
-            <div
-              v-for="(record, index) in records"
-              :key="record.id"
-            >
-              {{ record.text }} #{{ index }}
-            </div>
-          </va-infinite-scroll>
-        </div>
-      </VbCard>
+            {{ record.text }} #{{ index }}
+          </div>
+        </va-infinite-scroll>
+      </div>
+    </VbCard>
 
-      <VbCard title="ul tag">
-        <div
-          tag="ul"
-          class="scroll__container"
+    <VbCard title="ul tag">
+      <div
+        tag="ul"
+        class="scroll__container"
+      >
+        <va-infinite-scroll
+          :load="appendRecordsAsync"
         >
-          <va-infinite-scroll
-            :load="appendRecordsAsync"
+          <li
+            v-for="(record, index) in records"
+            :key="record.id"
           >
-            <li
-              v-for="(record, index) in records"
-              :key="record.id"
-            >
-              {{ record.text }} #{{ index }}
-            </li>
-          </va-infinite-scroll>
-        </div>
-      </VbCard>
+            {{ record.text }} #{{ index }}
+          </li>
+        </va-infinite-scroll>
+      </div>
+    </VbCard>
 
-      <VbCard title="debounce">
-        <div
-          class="scroll__container"
+    <VbCard title="debounce">
+      <div
+        class="scroll__container"
+      >
+        <va-infinite-scroll
+          :debounce="5000"
+          :load="appendRecordsAsync"
         >
-          <va-infinite-scroll
-            :debounce="5000"
-            :load="appendRecordsAsync"
+          <div
+            v-for="(record, index) in records"
+            :key="record.id"
           >
-            <div
-              v-for="(record, index) in records"
-              :key="record.id"
-            >
-              {{ record.text }} #{{ index }}
-            </div>
-          </va-infinite-scroll>
-        </div>
-      </VbCard>
+            {{ record.text }} #{{ index }}
+          </div>
+        </va-infinite-scroll>
+      </div>
+    </VbCard>
 
-      <VbCard title="load failed">
-        <div
-          class="scroll__container"
+    <VbCard title="load failed">
+      <div
+        class="scroll__container"
+      >
+        <va-infinite-scroll
+          :load="failedLoadAsync"
         >
-          <va-infinite-scroll
-            :load="failedLoadAsync"
+          <div
+            v-for="(record, index) in records"
+            :key="record.id"
           >
-            <div
-              v-for="(record, index) in records"
-              :key="record.id"
-            >
-              {{ record.text }} #{{ index }}
-            </div>
-          </va-infinite-scroll>
-        </div>
-      </VbCard>
+            {{ record.text }} #{{ index }}
+          </div>
+        </va-infinite-scroll>
+      </div>
+    </VbCard>
 
-      <VbCard title="reverse">
-        <div class="scroll__container">
-          <va-infinite-scroll
-            reverse
-            :load="appendRecordsAsync"
+    <VbCard title="reverse">
+      <div class="scroll__container">
+        <va-infinite-scroll
+          reverse
+          :load="appendRecordsAsync"
+        >
+          <div
+            v-for="(record, index) in records"
+            :key="record.id"
           >
-            <div
-              v-for="(record, index) in records"
-              :key="record.id"
-            >
-              {{ record.text }} #{{ index }}
-            </div>
-          </va-infinite-scroll>
-        </div>
-      </VbCard>
+            {{ record.text }} #{{ index }}
+          </div>
+        </va-infinite-scroll>
+      </div>
+    </VbCard>
 
-      <VbCard title="disabled">
-        <va-checkbox v-model="disabled" label="Disabled" />
-        <div class="scroll__container">
-          <va-infinite-scroll
-            :disabled="disabled"
-            :load="appendRecordsAsync"
+    <VbCard title="disabled">
+      <va-checkbox v-model="disabled" label="Disabled" />
+      <div class="scroll__container">
+        <va-infinite-scroll
+          :disabled="disabled"
+          :load="appendRecordsAsync"
+        >
+          <div
+            v-for="(record, index) in records"
+            :key="record.id"
           >
-            <div
-              v-for="(record, index) in records"
-              :key="record.id"
-            >
-              {{ record.text }} #{{ index }}
-            </div>
-          </va-infinite-scroll>
-        </div>
-      </VbCard>
-    </VbDemo>
-  </div>
+            {{ record.text }} #{{ index }}
+          </div>
+        </va-infinite-scroll>
+      </div>
+    </VbCard>
+  </VbDemo>
 </template>
 
 <script>

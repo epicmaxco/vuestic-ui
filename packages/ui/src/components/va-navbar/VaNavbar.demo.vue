@@ -73,9 +73,8 @@
 </template>
 
 <script>
-import VaNavbar from './VaNavbar'
+import { VaNavbar, VaNavbarItem } from './'
 import VaIconMenuCollapsed from './demo/VaIconMenuCollapsed.vue'
-import VaNavbarItem from './VaNavbarItem/VaNavbarItem.vue'
 
 export default {
   components: {
