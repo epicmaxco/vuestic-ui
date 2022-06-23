@@ -80,14 +80,16 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, InputHTMLAttributes, PropType, ref, toRefs } from 'vue'
-import { useFormProps } from '../../composables/useForm'
-import { useValidation, useValidationProps, useValidationEmits, ValidationProps } from '../../composables/useValidation'
+import { computed, defineComponent, InputHTMLAttributes, ref, toRefs } from 'vue'
+import {
+  useFormProps,
+  useValidation, useValidationProps, useValidationEmits, ValidationProps,
+  useFocus,
+  useEmitProxy,
+  useClearable, useClearableProps, useClearableEmits,
+} from '../../composables'
 import { useCleave, useCleaveProps } from './hooks/useCleave'
-import { useFocus } from '../../composables/useFocus'
-import { useEmitProxy } from '../../composables/useEmitProxy'
 import VaInputWrapper from './components/VaInputWrapper.vue'
-import { useClearableProps, useClearable, useClearableEmits } from '../../composables/useClearable'
 import VaTextarea from './components/VaTextarea/VaTextarea.vue'
 import VaIcon from '../va-icon/VaIcon.vue'
 import { extractComponentProps, filterComponentProps } from '../../utils/child-props'

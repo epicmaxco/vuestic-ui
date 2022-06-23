@@ -155,20 +155,21 @@
 <script lang="ts">
 import { defineComponent, PropType, ref, computed, watch, nextTick, Ref } from 'vue'
 
-import { useSelectableList, useSelectableListProps } from '../../composables/useSelectableList'
-import { useValidation, useValidationProps, useValidationEmits, ValidationProps } from '../../composables/useValidation'
-import { useFormProps } from '../../composables/useForm'
-import { useLoadingProps } from '../../composables/useLoading'
-import { useColor } from '../../composables/useColor'
-import { useMaxSelections, useMaxSelectionsProps } from '../../composables/useMaxSelections'
-import { useClearableProps, useClearable, useClearableEmits } from '../../composables/useClearable'
-import { useColors } from '../../services/color-config/color-config'
+import {
+  useSelectableList, useSelectableListProps,
+  useValidation, useValidationProps, useValidationEmits, ValidationProps,
+  useFormProps,
+  useLoadingProps,
+  useColors,
+  useMaxSelections, useMaxSelectionsProps,
+  useClearableProps, useClearable, useClearableEmits,
+  useFocus,
+} from '../../composables'
 import { warn } from '../../services/utils'
 import { VaDropdown, VaDropdownContent } from '../va-dropdown'
 import { VaIcon } from '../va-icon'
 import { VaInput } from '../va-input'
 import { VaSelectOptionList } from './VaSelectOptionList'
-import { useFocus } from '../../composables/useFocus'
 import { SelectDropdownIcon, SelectOption, Placement } from './types'
 
 export default defineComponent({
@@ -266,7 +267,8 @@ export default defineComponent({
       computedErrorMessages,
     } = useValidation(props, emit, () => reset(), () => focus())
 
-    const { colorComputed } = useColor(props)
+    const { getColor } = useColors()
+    const colorComputed = computed(() => getColor(props.color))
     const toggleIconColor = computed(() => props.readonly ? getHoverColor(colorComputed.value) : colorComputed.value)
 
     const onScrollBottom = () => {

@@ -93,11 +93,13 @@
 import { computed, defineComponent, PropType, toRefs, watch, ref, nextTick } from 'vue'
 
 import { filterComponentProps, extractComponentProps, extractComponentEmits } from '../../utils/child-props'
-import { useClearableEmits, useClearable } from '../../composables/useClearable'
-import { useValidation, useValidationEmits, useValidationProps, ValidationProps } from '../../composables/useValidation'
-import { useStateful, useStatefulEmits } from '../../composables/useStateful'
+import {
+  useClearable, useClearableEmits,
+  useValidation, useValidationEmits, useValidationProps, ValidationProps,
+  useStateful, useStatefulEmits,
+  useParsable,
+} from '../../composables'
 import { useSyncProp } from '../va-date-picker/hooks/sync-prop'
-import { useParsable } from '../../composables/useParsable'
 import { isRange, isSingleDate, isDates } from '../va-date-picker/utils/date-utils'
 import { useRangeModelValueGuard } from './hooks/range-model-value-guard'
 import { useDateParser } from './hooks/input-text-parser'

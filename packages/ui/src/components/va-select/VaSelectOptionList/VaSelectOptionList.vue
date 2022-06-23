@@ -58,9 +58,7 @@
 <script lang="ts">
 import { defineComponent, PropType, watch, ref, Ref, computed, ComponentPublicInstance } from 'vue'
 
-import { getHoverColor } from '../../../services/color-config/color-functions'
-import { useColors, useColorProps } from '../../../composables/useColor'
-import { SelectableOption } from '../../..//composables/useSelectableList'
+import { useColors, useColorProps, SelectableOption } from '../../../composables'
 import { VaIcon } from '../../va-icon'
 import { scrollToElement } from '../../../utils/scroll-to-element'
 
@@ -90,7 +88,7 @@ export default defineComponent({
     },
   },
   setup (props, { emit }) {
-    const { getColor } = useColors()
+    const { getColor, getHoverColor } = useColors()
 
     const itemRefs: Ref<Record<number, HTMLElement>> = ref({})
     const rootElement: Ref<HTMLElement | null> = ref(null)

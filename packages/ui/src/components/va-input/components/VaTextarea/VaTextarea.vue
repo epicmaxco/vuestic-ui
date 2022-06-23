@@ -9,11 +9,10 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, ref, watch, nextTick, StyleValue, CSSProperties } from 'vue'
+import { computed, defineComponent, onMounted, ref, watch, nextTick, CSSProperties } from 'vue'
 import pick from 'lodash/pick.js'
-import { useFormProps } from '../../../../composables/useForm'
+import { useFormProps, useEmitProxy } from '../../../../composables'
 import { useTextareaRowHeight } from './useTextareaRowHeight'
-import { useEmitProxy } from '../../../../composables/useEmitProxy'
 
 const positiveNumberValidator = (val: number) => {
   if (val > 0 && (val | 0) === val) {

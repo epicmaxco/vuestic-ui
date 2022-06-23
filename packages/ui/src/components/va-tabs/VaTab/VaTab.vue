@@ -52,9 +52,7 @@ import {
   ref,
 } from 'vue'
 import { VaIcon } from '../../va-icon'
-import { useRouterLink, useRouterLinkProps } from '../../../composables/useRouterLink'
-import useKeyboardOnlyFocus from '../../../composables/useKeyboardOnlyFocus'
-import { useColor } from '../../../composables/useColor'
+import { useRouterLink, useRouterLinkProps, useKeyboardOnlyFocus, useColors } from '../../../composables'
 import { TabsViewKey, TabsView, TabComponent } from '../types'
 
 export default defineComponent({
@@ -82,7 +80,8 @@ export default defineComponent({
     const leftSidePosition = ref(0)
     const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
     const { tagComputed, hrefComputed, isActiveRouterLink } = useRouterLink(props)
-    const { colorComputed } = useColor(props)
+    const { getColor } = useColors()
+    const colorComputed = computed(() => getColor(props.color))
     const classComputed = computed(() => ({ 'va-tab--disabled': props.disabled }))
     const {
       parentDisabled,

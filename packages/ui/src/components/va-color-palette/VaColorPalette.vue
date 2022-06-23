@@ -24,7 +24,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
 
-import { useStatefulProps, useStateful, useStatefulEmits } from '../../composables/useStateful'
+import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables'
 
 import { VaColorIndicator } from '../va-color-indicator'
 

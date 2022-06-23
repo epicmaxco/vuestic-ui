@@ -99,10 +99,7 @@
 
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
-import { useBem } from '../../../composables/useBem'
-import { useFormProps } from '../../../composables/useForm'
-import { useValidationProps } from '../../../composables/useValidation'
-import { useColors } from '../../../services/color-config/color-config'
+import { useBem, useFormProps, useValidationProps, useColors } from '../../../composables'
 import { VaMessageList } from './VaMessageList'
 import pick from 'lodash/pick.js'
 

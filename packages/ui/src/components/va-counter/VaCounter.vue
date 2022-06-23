@@ -87,11 +87,13 @@ import { computed, defineComponent, InputHTMLAttributes, PropType, ComputedRef, 
 import omit from 'lodash/omit'
 import pick from 'lodash/pick'
 
-import { useFormProps } from '../../composables/useForm'
-import { useEmitProxy } from '../../composables/useEmitProxy'
-import { useFocus, useFocusEmits } from '../../composables/useFocus'
-import { useStatefulProps, useStateful } from '../../composables/useStateful'
-import { useColors } from '../../composables/useColor'
+import {
+  useFormProps,
+  useEmitProxy,
+  useFocus, useFocusEmits,
+  useStateful, useStatefulProps,
+  useColors,
+} from '../../composables'
 import { safeCSSLength } from '../../utils/css-utils'
 
 import VaInputWrapper from '../va-input/components/VaInputWrapper.vue'

@@ -25,8 +25,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, ref, watch } from 'vue'
-import { useColors } from '../../../../services/color-config/color-config'
-import { useSyncProp } from '../../../../composables/useSyncProp'
+import { useColors, useSyncProp } from '../../../../composables'
 import { VaIcon } from '../../../va-icon'
 import { RatingValue } from '../../types'
 

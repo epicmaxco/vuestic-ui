@@ -12,9 +12,8 @@
 <script lang="ts">
 import { defineComponent, PropType, computed, ref } from 'vue'
 
-import { setupScroll } from '../../composables/useScroll'
+import { setupScroll, useColors } from '../../composables'
 import { getGradientBackground, getBoxShadowColor } from '../../services/color-config/color-functions'
-import { useColors } from '../../services/color-config/color-config'
 
 export default defineComponent({
   name: 'VaAppBar',

@@ -108,9 +108,11 @@ import VaTimePicker from '../va-time-picker/VaTimePicker.vue'
 import VaInput from '../va-input/VaInput.vue'
 import VaIcon from '../va-icon/VaIcon.vue'
 import { VaDropdown, VaDropdownContent } from '../va-dropdown/'
-import { useSyncProp } from '../../composables/useSyncProp'
-import { useValidation, useValidationEmits, useValidationProps, ValidationProps } from '../../composables/useValidation'
-import { useClearable, useClearableEmits } from '../../composables/useClearable'
+import {
+  useSyncProp,
+  useValidation, useValidationEmits, useValidationProps, ValidationProps,
+  useClearable, useClearableEmits,
+} from '../../composables'
 import { useTimeParser } from './hooks/time-text-parser'
 import { useTimeFormatter } from './hooks/time-text-formatter'
 import { extractComponentProps, filterComponentProps } from '../../utils/child-props'

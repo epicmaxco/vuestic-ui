@@ -47,7 +47,7 @@ import { defineComponent, computed, PropType } from 'vue'
 
 import { useRating, useRatingProps } from './hooks/useRating'
 import { useVaRatingColors, useVaRatingColorsProps } from './hooks/useVaRatingColors'
-import { useForm, useFormProps } from '../../composables/useForm'
+import { useForm, useFormProps } from '../../composables'
 import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
 import { RatingValue } from './types'
 

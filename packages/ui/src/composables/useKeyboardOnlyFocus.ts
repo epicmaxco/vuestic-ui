@@ -2,7 +2,7 @@
 
 import { ref } from 'vue'
 
-export default function useKeyboardOnlyFocus () {
+export function useKeyboardOnlyFocus () {
   const hasKeyboardFocus = ref(false)
   let previouslyClicked = false
 

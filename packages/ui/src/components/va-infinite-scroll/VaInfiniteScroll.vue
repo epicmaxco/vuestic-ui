@@ -35,7 +35,7 @@
 import debounce from 'lodash/debounce.js'
 import { computed, defineComponent, PropType, ref, watch } from 'vue'
 import { sleep } from '../../services/utils'
-import { useColor } from '../../composables/useColor'
+import { useColors } from '../../composables'
 import { useScroll } from './hooks/useScroll'
 import { VaProgressCircle } from '../va-progress-circle'
 
@@ -84,10 +84,10 @@ export default defineComponent({
       removeScrollListener,
     } = useScroll(props, scrollTargetElement, debouncedLoad)
 
-    const { computeColor } = useColor(props)
+    const { getColor } = useColors()
 
     const spinnerColor = computed(() => {
-      return error.value ? computeColor('danger') : computeColor('primary')
+      return error.value ? getColor('danger') : getColor('primary')
     })
 
     const spinnerHeight = computed(() => {

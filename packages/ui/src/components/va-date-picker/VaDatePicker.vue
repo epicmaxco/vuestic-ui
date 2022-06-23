@@ -65,8 +65,7 @@
 import { computed, defineComponent, nextTick, PropType, ref, watch } from 'vue'
 
 import { filterComponentProps, extractComponentProps, extractComponentEmits } from '../../utils/child-props'
-import { useColors } from '../../services/color-config/color-config'
-import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
+import { useColors, useStateful, useStatefulProps, useStatefulEmits } from '../../composables'
 import { useView } from './hooks/view'
 
 import { DatePickerModelValue, DatePickerType, DatePickerView } from './types'

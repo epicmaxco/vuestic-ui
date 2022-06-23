@@ -76,10 +76,8 @@ import {
 } from 'vue'
 import { VaButton } from '../va-button'
 import { VaConfig } from '../va-config'
-import { useStateful, useStatefulProps } from '../../composables/useStateful'
-import { useColors } from '../../composables/useColor'
+import { useStateful, useStatefulProps, useColors, useResizeObserver } from '../../composables'
 import { TabsViewKey, TabComponent } from './types'
-import { useResizeObserver } from '../../composables/useResizeObserver'
 
 const getClientWidth = (element: HTMLElement | null | undefined): number => element?.clientWidth || 0
 

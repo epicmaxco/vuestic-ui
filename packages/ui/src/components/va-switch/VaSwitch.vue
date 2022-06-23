@@ -77,10 +77,11 @@
 <script lang="ts">
 import { defineComponent, PropType, computed, shallowRef } from 'vue'
 
-import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'
-import { useSelectable, useSelectableProps, useSelectableEmits } from '../../composables/useSelectable'
-import { useColors } from '../../composables/useColor'
-import { useTextColor } from '../../composables/useTextColor'
+import {
+  useKeyboardOnlyFocus,
+  useSelectable, useSelectableProps, useSelectableEmits,
+  useColors, useTextColor,
+} from '../../composables'
 import { generateUniqueId } from '../../services/utils'
 
 import { VaProgressCircle } from '../va-progress-circle'

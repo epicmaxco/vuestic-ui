@@ -31,7 +31,7 @@
 <script lang="ts">
 import clamp from 'lodash/clamp.js'
 import { computed, defineComponent, PropType } from 'vue'
-import { useColors } from '../../services/color-config/color-config'
+import { useColors } from '../../composables'
 
 export default defineComponent({
   name: 'VaProgressBar',

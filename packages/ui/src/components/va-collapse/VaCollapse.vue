@@ -58,12 +58,10 @@
 <script lang="ts">
 import { computed, defineComponent, shallowRef } from 'vue'
 
-import { generateUniqueId } from '../../services/utils'
-import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'
-import { useColors } from '../../composables/useColor'
-import { useSyncProp } from '../../composables/useSyncProp'
-import { useTextColor } from '../../composables/useTextColor'
+import { useKeyboardOnlyFocus, useColors, useSyncProp, useTextColor } from '../../composables'
 import { useAccordionItem } from '../va-accordion/hooks/useAccordion'
+
+import { generateUniqueId } from '../../services/utils'
 
 import { VaIcon } from '../va-icon'
 

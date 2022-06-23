@@ -28,8 +28,7 @@
 import { defineComponent, computed } from 'vue'
 
 import { shiftHSLAColor } from '../../services/color-config/color-functions'
-import { useColors } from '../../services/color-config/color-config'
-import { useTextColor } from '../../composables/useTextColor'
+import { useColors, useTextColor } from '../../composables'
 
 export default defineComponent({
   name: 'VaNavbar',

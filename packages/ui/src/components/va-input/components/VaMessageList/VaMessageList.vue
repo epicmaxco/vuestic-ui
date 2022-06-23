@@ -16,7 +16,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType } from 'vue'
-import { useColor } from '../../../../composables/useColor'
+import { useColors } from '../../../../composables'
 
 export default defineComponent({
   name: 'VaMessageList',
@@ -31,7 +31,8 @@ export default defineComponent({
   },
 
   setup (props) {
-    const { colorComputed } = useColor(props)
+    const { getColor } = useColors()
+    const colorComputed = computed(() => getColor(props.color))
 
     return {
       messages: computed<string[]>(() => {

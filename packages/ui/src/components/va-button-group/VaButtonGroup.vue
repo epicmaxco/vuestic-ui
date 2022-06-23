@@ -9,9 +9,7 @@
 <script lang="ts">
 import { defineComponent, computed, PropType } from 'vue'
 
-import { getGradientBackground } from '../../services/color-config/color-functions'
-import { useColors } from '../../composables/useColor'
-import { useTextColor } from '../../composables/useTextColor'
+import { useColors, useTextColor } from '../../composables'
 
 import { VaConfig } from '../va-config'
 
@@ -32,7 +30,7 @@ export default defineComponent({
     },
   },
   setup (props) {
-    const { getColor } = useColors()
+    const { getColor, getGradientBackground } = useColors()
     const colorComputed = computed(() => getColor(props.color))
 
     const isTransparentBackground = computed(() => Boolean(props.outline || props.flat))

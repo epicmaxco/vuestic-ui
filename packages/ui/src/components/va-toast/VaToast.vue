@@ -42,9 +42,7 @@
 <script lang="ts">
 import { defineComponent, PropType, ref, computed, onMounted } from 'vue'
 
-import { useColors } from '../../composables/useColor'
-import { useTimer } from '../../composables/useTimer'
-import { useTextColor } from '../../composables/useTextColor'
+import { useColors, useTimer, useTextColor } from '../../composables'
 import VaIcon from '../va-icon/VaIcon.vue'
 
 import { ToastPosition } from './types'

@@ -10,8 +10,8 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, toRef } from 'vue'
-import { useValidationProps } from '../../../composables/useValidation'
+import { computed, defineComponent } from 'vue'
+import { useValidationProps } from '../../../composables'
 import { VaMessageList } from './VaMessageList'
 
 export default defineComponent({

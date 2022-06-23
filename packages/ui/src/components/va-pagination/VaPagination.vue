@@ -77,9 +77,7 @@
 import { defineComponent, watch, PropType, ref, Ref, computed, nextTick } from 'vue'
 
 import { __DEV__ } from '../../utils/global-utils'
-import { useColors } from '../../composables/useColor'
-import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
-import { useTextColor } from '../../composables/useTextColor'
+import { useColors, useTextColor, useStateful, useStatefulProps, useStatefulEmits } from '../../composables'
 
 import { VaButtonGroup } from '../va-button-group'
 import { VaButton } from '../va-button'

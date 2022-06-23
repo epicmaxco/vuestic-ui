@@ -20,7 +20,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
 
-import { useLoadingProps } from '../../composables/useLoading'
+import { useLoadingProps } from '../../composables'
 import { VaIcon } from '../va-icon'
 
 export default defineComponent({
