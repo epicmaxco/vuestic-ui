@@ -8,7 +8,7 @@ export type DataTableColumnStyle = unknown | (() => unknown)
 // should look like an array of the following objects (and/or strings)
 export type DataTableColumn = {
   [key: string]: any
-  key: string // name of an item's property
+  key: string // name of an item's property: 'userName', 'address.zipCode'
   name?: string // column unique name (used in slots)
   label?: string // what to display in the respective heading
   thTitle?: string // <th>'s `title` attribute's value
