@@ -14,6 +14,7 @@
   --va-progress-bar-info-font-weight: 700;
   --va-progress-bar-info-text-align: center;
   --va-progress-bar-info-text-transform: uppercase;
+  --va-progress-bar-info-not-empty-margin-bottom: 0.25rem;
 
   /* Wrapper */
   --va-progress-bar--wrapper-position: relative;
@@ -26,14 +27,10 @@
   /* Buffer */
   --va-progress-bar-buffer-position: absolute;
   --va-progress-bar-buffer-top: 0;
-  //--va-progress-bar-buffer-height: inherit;
-  //--va-progress-bar-buffer-border-radius: inherit;
   --va-progress-bar-buffer-opacity: 0.3;
   --va-progress-bar-buffer-transition: width ease 2s;
 
   /* Overlay */
-  //--va-progress-bar-height: inherit;
-  //--va-progress-bar-border-radius: inherit;
   --va-progress-bar-transition: width ease 2s;
   --va-progress-bar-text-align: center;
   --va-progress-bar-color: #ffffff;

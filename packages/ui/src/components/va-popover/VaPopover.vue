@@ -79,7 +79,7 @@ export default defineComponent({
     )
 
     const computedPopoverStyle = computed(() => ({
-      boxShadow: `0px 2px 3px 0 ${getBoxShadowColor(getColor(props.color))}`,
+      boxShadow: `var(--va-popover-content-box-shadow) ${getBoxShadowColor(getColor(props.color))}`,
       backgroundColor: getColor(props.color),
       color: textColorComputed.value,
     }))
