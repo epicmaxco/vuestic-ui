@@ -1,6 +1,18 @@
 import { defineManualApi } from '@/components/DocsApi/ManualApiOptions'
 
-export default defineManualApi({
+export const VaTreeNodeItemOptions = defineManualApi({
+  props: {
+    node: { types: 'VaTreeNode' },
+  },
+  slots: {
+    'icon-toggle': { },
+    checkbox: { },
+    icon: { },
+    content: { },
+  },
+})
+
+export const VaTreeViewOptions = defineManualApi({
   props: {
     modelValue: { types: '(number | string)[]' },
     nodes: { types: 'TreeNode[]' },
@@ -9,11 +21,5 @@ export default defineManualApi({
     selectable: { types: 'boolean' },
     selectionType: { types: "'leaf' | 'independent'" },
     filter: { types: 'string' },
-  },
-  slots: {
-    'node-icon-toggle': { },
-    'node-checkbox': { },
-    'node-icon': { },
-    'node-body': { },
   },
 })
