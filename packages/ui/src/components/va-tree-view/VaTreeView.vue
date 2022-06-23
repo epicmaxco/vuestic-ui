@@ -5,7 +5,7 @@
       :key="nodeItem[$props.nodeKey]"
       :node="nodeItem"
     >
-      <template v-for="(_, name) in $slots" v-slot:[name]="slotScope">
+      <template v-for="(_, name) in $slots" :key="name" v-slot:[name]="slotScope">
         <slot :name="name" v-bind="slotScope" />
       </template>
     </va-tree-node>
@@ -19,10 +19,10 @@ import { TreeViewKey, TreeNode, TreeViewProvide } from './types'
 import useTreeBuilder from './hooks/useTreeBuilder'
 import useTreeFilter from './hooks/useTreeFilter'
 
-import { useColors } from '../../services/color-config/color-config'
-import { getTextColor } from '../../services/color-config/color-functions'
+import { useColors } from '../../composables/useColor'
+import { useTextColor } from '../../composables/useTextColor'
 
-import VaTreeNode from './components/VaTreeNode'
+import { VaTreeNode } from './components/VaTreeNode'
 
 export default defineComponent({
   name: 'VaTreeView',
@@ -34,7 +34,7 @@ export default defineComponent({
     },
     color: {
       type: String,
-      default: () => 'primary',
+      default: 'primary',
     },
     nodes: {
       type: Array as PropType<TreeNode[]>,
@@ -42,31 +42,28 @@ export default defineComponent({
     },
     nodeKey: {
       type: [String, Number],
-      required: true,
-      default: () => (''),
+      default: '',
     },
     labelKey: {
       type: String,
-      required: false,
-      default: () => ('label'),
+      default: 'label',
     },
     expandAll: {
       type: Boolean,
-      required: false,
-      default: () => false,
+      default: false,
     },
     selectable: {
       type: Boolean,
-      required: false,
-      default: () => false,
+      default: false,
     },
     selectionType: {
-      type: String as PropType<'leaf' | 'independent'>,
-      default: () => 'leaf',
+      type: String,
+      default: 'leaf',
+      validator: (v: string) => ['leaf', 'independent'].includes(v),
     },
     filter: {
       type: String,
-      default: () => '',
+      default: '',
     },
   },
 
@@ -78,7 +75,7 @@ export default defineComponent({
     const selectedNodes = ref(new Set())
     const { getColor } = useColors()
     const colorComputed = computed(() => getColor(props.color))
-    const iconColor = computed(() => getTextColor(colorComputed.value))
+    const iconColor = computed(() => useTextColor(colorComputed))
     const nodeItems = reactive({ list: props.nodes.slice() })
     const treeItems = computed({
       get: () => useTreeBuilder({
