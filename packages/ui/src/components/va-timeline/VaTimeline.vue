@@ -77,10 +77,10 @@ const processSlots = (context) => {
   return slots
 }
 
-const componentName = 'va-timeline'
+const COMPONENT_NAME = 'va-timeline'
 
 export default {
-  name: componentName,
+  name: COMPONENT_NAME,
   props: {
     vertical: { type: Boolean },
     centered: { type: Boolean },
@@ -91,9 +91,9 @@ export default {
       'div',
       {
         class: {
-          [componentName]: true,
-          [`${componentName}--vertical`]: props.vertical,
-          [`${componentName}--align-top`]: props.alignTop,
+          [COMPONENT_NAME]: true,
+          [`${COMPONENT_NAME}--vertical`]: props.vertical,
+          [`${COMPONENT_NAME}--align-top`]: props.alignTop,
         },
       },
       processSlots({ props, slots }),

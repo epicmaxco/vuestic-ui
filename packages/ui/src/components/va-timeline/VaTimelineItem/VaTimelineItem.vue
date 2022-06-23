@@ -5,11 +5,11 @@ import { extractComponentProps, filterComponentProps } from '../../../utils/chil
 
 import { VaTimelineSeparator } from '../VaTimelineSeparator'
 
-const componentName = 'va-timeline-item'
+const COMPONENT_NAME = 'va-timeline-item'
 const VaTimelineSeparatorProps = extractComponentProps(VaTimelineSeparator)
 
 export default {
-  name: componentName,
+  name: COMPONENT_NAME,
   props: {
     ...VaTimelineSeparatorProps,
     color: { type: String, default: 'primary' },
@@ -31,7 +31,7 @@ export default {
       children.unshift(
         h(
           'div',
-          { class: `${componentName}__before` },
+          { class: `${COMPONENT_NAME}__before` },
           before(),
         ),
       )
@@ -43,7 +43,7 @@ export default {
       children.push(
         h(
           'div',
-          { class: `${componentName}__after` },
+          { class: `${COMPONENT_NAME}__after` },
           after(),
         ),
       )
@@ -53,10 +53,10 @@ export default {
       'div',
       {
         class: [
-          { [componentName]: true },
-          { [`${componentName}--vertical`]: props.vertical },
-          { [`${componentName}--is-first`]: props.isFirst },
-          { [`${componentName}--is-last`]: props.isLast },
+          { [COMPONENT_NAME]: true },
+          { [`${COMPONENT_NAME}--vertical`]: props.vertical },
+          { [`${COMPONENT_NAME}--is-first`]: props.isFirst },
+          { [`${COMPONENT_NAME}--is-last`]: props.isLast },
         ],
       },
       children,
