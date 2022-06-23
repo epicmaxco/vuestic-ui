@@ -31,7 +31,10 @@
     "generate:docs": "yarn workspace docs generate:docspage",
     "generate:component": "yarn workspace docs generate:component",
     "run-all": "wt -d packages/ui --title vuestic-book cmd /k yarn serve --port 8080; split-pane -d packages/docs --title vuestic-docs cmd /k yarn serve --port 8081",
-    "version:bump-patch": "cd packages/ui && ts-node build/bump-version.ts --type patch && build && npm publish --tag=next --dry-run"
+    "release:montly": "cd packages/ui && tsx build/bump-version.ts --type=monthly",
+    "release:weekly": "cd packages/ui && tsx build/bump-version.ts --type=weekly",
+    "release:next": "cd packages/ui && tsx build/bump-version.ts --type=next",
+    "release:experimental": "cd packages/ui && tsx build/bump-version.ts --type=experimental"
   },
   "workspaces": {
     "packages": [

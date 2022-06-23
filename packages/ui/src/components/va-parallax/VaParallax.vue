@@ -6,37 +6,41 @@
   >
     <div class="va-parallax__image-container">
       <img
-        class="va-parallax__image"
         ref="img"
+        class="va-parallax__image"
         :src="$props.src"
         :alt="$props.alt"
         :style="computedImgStyles"
       />
     </div>
     <div class="va-parallax__item-container">
-      <slot></slot>
+      <slot />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref, Ref, computed, onMounted, onBeforeUnmount } from 'vue'
+import { defineComponent, PropType, ref, computed, onMounted, onBeforeUnmount, shallowRef } from 'vue'
+import { warn } from '../../services/utils'
 
 export default defineComponent({
   name: 'VaParallax',
   props: {
-    target: { type: [Object, String] as PropType<Element | string | undefined> },
-    src: { type: String as PropType<string>, default: '', required: true },
-    alt: { type: String as PropType<string>, default: 'parallax' },
-    height: { type: Number as PropType<number>, default: 400 },
-    reversed: { type: Boolean as PropType<boolean>, default: false },
+    target: { type: [Object, String] as PropType<HTMLElement | string | undefined> },
+    src: { type: String, default: '', required: true },
+    alt: { type: String, default: 'parallax' },
+    height: { type: Number, default: 400 },
+    reversed: { type: Boolean, default: false },
     speed: {
-      type: Number as PropType<number>,
+      type: Number,
       default: 0.5,
       validator: (value: number) => value >= 0 && value <= 1,
     },
   },
   setup (props) {
+    const rootElement = shallowRef<HTMLElement>()
+    const img = shallowRef<HTMLImageElement>()
+
     const elOffsetTop = ref(0)
     const parallax = ref(0)
     const parallaxDist = ref(0)
@@ -55,19 +59,24 @@ export default defineComponent({
       top: props.reversed ? 0 : 'auto',
     }))
 
-    const rootElement: Ref<HTMLElement | null> = ref(null)
     const targetElement = computed(() => {
-      if (typeof props.target !== 'string') {
+      if (!props.target) {
         return getScrollableParent(rootElement.value?.parentElement)
+      }
+
+      if (props.target instanceof HTMLElement) { // there is a bug if to target passed ref
+        return props.target
       }
 
       const element = document.querySelector(props.target)
 
       if (element) { return element }
 
-      throw new Error('VaParallax target prop got wrong selector. Target is null')
+      warn('VaParallax target prop got wrong selector. Target is null')
+      return null
     })
-    const getScrollableParent = (element?: Element | null): Element | null => {
+
+    const getScrollableParent = (element?: HTMLElement | null): HTMLElement | null => {
       if (!element) {
         return document.body
       }
@@ -79,7 +88,6 @@ export default defineComponent({
       return getScrollableParent(element.parentElement)
     }
 
-    const img: Ref<HTMLImageElement | null> = ref(null)
     const imgHeight = computed(() => img.value?.naturalHeight || 0)
 
     const calcDimensions = () => {

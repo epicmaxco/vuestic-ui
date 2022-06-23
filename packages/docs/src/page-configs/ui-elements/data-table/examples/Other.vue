@@ -109,7 +109,7 @@
     </template>
   </va-data-table>
 
-  <va-alert v-if="isTableRowsClickable" class="mt-3" border="left">
+  <va-alert v-if="isTableRowsClickable" class="mt-3" color="info" outline>
     <span>
       Last row click event (id, event type):
       <va-chip v-if="rowId">{{ rowId }}</va-chip>

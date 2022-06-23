@@ -1,5 +1,7 @@
 import { Ref, computed } from 'vue'
 
+import { getValueByPath } from '../../../services/utils'
+
 import { DataTableColumnInternal, DataTableItem, DataTableCell, DataTableRow } from '../types'
 
 interface useRowsProps {
@@ -7,13 +9,16 @@ interface useRowsProps {
   [prop: string]: unknown
 }
 
-const buildTableCell = (rowIndex: number, column: DataTableColumnInternal, rowData: DataTableItem): DataTableCell => ({
-  rowIndex,
-  rowData,
-  column,
-  source: rowData[column.key],
-  value: rowData[column.key]?.toString?.() || '',
-})
+const buildTableCell = (rowIndex: number, column: DataTableColumnInternal, rowData: DataTableItem): DataTableCell => {
+  const source = getValueByPath(rowData, column.key)
+  return {
+    rowIndex,
+    rowData,
+    column,
+    source,
+    value: source?.toString?.() || '',
+  }
+}
 
 const buildTableRow = (source: DataTableItem, initialIndex: number, columns: DataTableColumnInternal[]): DataTableRow => ({
   source,

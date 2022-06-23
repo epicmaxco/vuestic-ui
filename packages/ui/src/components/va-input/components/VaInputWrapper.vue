@@ -87,14 +87,16 @@
 
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
+import pick from 'lodash/pick.js'
+
 import { useBem } from '../../../composables/useBem'
 import { useCSSVariables } from '../../../composables/useCSSVariables'
 import { useFormProps } from '../../../composables/useForm'
 import { useValidationProps } from '../../../composables/useValidation'
-import { useColors } from '../../../services/color-config/color-config'
+import { useColors } from '../../../composables/useColor'
+
 import { VaMessageList } from './VaMessageList'
 import { VaIcon } from '../../va-icon'
-import pick from 'lodash/pick.js'
 
 export default defineComponent({
   name: 'VaInputWrapper',
@@ -153,9 +155,9 @@ export default defineComponent({
       messagesColor: computed(() => {
         if (props.error) { return 'danger' }
         if (props.success) { return 'success' }
-
         return ''
       }),
+
       messagesComputed,
       hasMessages,
       errorLimit: computed(() => props.error ? Number(props.errorCount) : 99),

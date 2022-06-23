@@ -1,13 +1,7 @@
 <template>
   <div class="flex lg6 xs12">
-    <div class="mt-2 mb-5">
-      <div class="my-2 text--bold muted">Default:</div>
-      <va-progress-bar :model-value="value" />
-    </div>
-    <div class="row mb-4 mx-0 flex lg8 xs12">
-      <va-slider v-model="value" />
-      <span class="ml-4">{{ `${value}%`}}</span>
-    </div>
+    <va-progress-bar :model-value="value" />
+    <va-slider class="mt-3" v-model="value" track-label-visible />
   </div>
 </template>
 

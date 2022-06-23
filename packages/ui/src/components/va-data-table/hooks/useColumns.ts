@@ -17,6 +17,7 @@ export const buildTableColumn = (source: DataTableColumnSource, initialIndex: nu
     source,
     initialIndex,
     key: input.key,
+    name: input.name || input.key,
     label: input.label || startCase(input.key),
     thTitle: input.thTitle || input.headerTitle || input.label || startCase(input.key),
     sortable: input.sortable || false,
