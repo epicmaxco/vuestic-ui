@@ -17,11 +17,11 @@ There are a couple of cli arguments you can pass to script to modify its behavio
 ```sh
 npx tsx build/release-script.ts
 
+  # release type (required) - monthly | weekly | development | experimental
+  --release-type=experimental
+
   # for testing - doesn't push changes anywhere and performs a cleanup
   --dry-run 
-  
-  # release type - monthly | weekly | development | experimental, default: experimental
-  --release-type=experimental
 ```
 
 ### Repo root commands
@@ -40,7 +40,7 @@ release:experimental
 |---------------------|:-----------:|:----------:|:------------------------------:|:--------------------------------------:|
 | **git tag**         |      +      |     +      |               -                |                   -                    |
 | **dist tag**        |  `latest`   |  `latest`  |             `next`             |             `experimental`             |
-| **dist version**    |   `1.2.0`   |  `1.2.1`   | `1.2.1-next-de4db33f-20220608` | `1.2.1-experimental-de4db33f-20220608` |
+| **dist version**    |   `1.2.0`   |  `1.2.1`   | `1.2.1-next-de4db33f-20220608` | `0.0.0-experimental-de4db33f-20220608` |
 | **commits version** |      +      |     +      |               -                |                   -                    |
 | **branch**          |  `master`   | `develop`  |           `develop`            |                  any                   |
 
