@@ -1921,7 +1921,7 @@
       },
       "content": {
         "title": "Контент",
-        "text": "Табы с настраиваемым содержимом текущего таба в слоте по умолчанию."
+        "text": "Табы с настраиваемым содержимым текущего таба в слоте по умолчанию."
       }
     },
     "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-tabs/_variables.scss)[[target=_blank]]",
