@@ -1,11 +1,11 @@
-<script>
-import { h } from 'vue'
+<script lang="ts">
+import { defineComponent, h } from 'vue'
 
 import { useColors } from '../../../composables/useColor'
 
 const componentName = 'va-timeline-separator'
 
-export default {
+export default defineComponent({
   name: componentName,
   props: {
     color: { type: String, default: 'primary' },
@@ -56,7 +56,7 @@ export default {
       ],
     )
   },
-}
+})
 </script>
 
 <style lang="scss">
