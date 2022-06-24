@@ -16,9 +16,8 @@ export type ComponentConfig = Partial<{
   [componentName in VuesticComponentName]: {
     [key in keyof PropTypes<VuesticComponentsMap[componentName]>]: PropTypes<VuesticComponentsMap[componentName]>[key]
   }
-} & { all: Props | Presets, presets: Presets }>
+} & { all: Props, presets: Presets }>
 
-const extracPresetProp = (props: any) => 'preset' in props ? props.preset as string : null
 export const useComponentConfigProps = <T extends DefineComponent>(component: T, instance: ComponentInternalInstance) => {
   const localConfig = useLocalConfig()
   const { globalConfig } = useGlobalConfig()
@@ -29,13 +28,13 @@ export const useComponentConfigProps = <T extends DefineComponent>(component: T,
       ...globalConfig.value.components?.[component.name as VuesticComponentName],
     }
 
-    const localConfigProps = localConfig.value
+    const localConfigProps: Props = localConfig.value
       .reduce((finalConfig, config) => config[component.name as VuesticComponentName]
         ? { ...finalConfig, ...config[component.name as VuesticComponentName] }
         : finalConfig
-      , {} as NonNullable<ComponentConfig[VuesticComponentName]>)
+      , {})
 
-    const presetName = instance.props?.preset || extracPresetProp(localConfigProps) || globalConfigProps.preset
+    const presetName = instance.props?.preset || localConfigProps.preset || globalConfigProps.preset
     const getPresetProps = () => globalConfig.value.components?.presets?.[component.name as VuesticComponentName]?.[presetName]
 
     const presetProps = presetName && getPresetProps()
