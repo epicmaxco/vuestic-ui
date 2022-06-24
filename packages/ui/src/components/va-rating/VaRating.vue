@@ -18,6 +18,8 @@
         :aria-label="`vote rating ${itemNumber} of ${$props.max}`"
         :model-value="getItemValue(itemNumber - 1)"
         :tabindex="tabIndexComputed"
+        :disabled="$props.disabled"
+        :readonly="$props.readonly"
         @hover="isInteractionsEnabled && onItemHoveredValueUpdate(itemNumber - 1, $event)"
         @update:model-value="isInteractionsEnabled && onItemValueUpdate(itemNumber - 1, $event)"
       >

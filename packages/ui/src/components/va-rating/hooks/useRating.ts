@@ -3,6 +3,7 @@ import clamp from 'lodash/clamp.js'
 
 import { useHover } from '../../../composables/useHover'
 import { useStateful, useStatefulProps } from '../../../composables/useStateful'
+import { useFormProps } from '../../../composables/useForm'
 import { RatingValue } from '../types'
 
 const getContext = <P extends Record<string, any> = Record<string, any>, E extends string = string>() => {
@@ -24,14 +25,13 @@ export const useRatingProps = {
   hover: { type: Boolean, default: false },
 }
 
-export const useRating = (props: ExtractPropTypes<typeof useRatingProps>) => {
+export const useRating = (props: ExtractPropTypes<typeof useRatingProps> & ExtractPropTypes<typeof useFormProps>) => {
   const { emit } = getContext()
   const { isHovered, onMouseEnter, onMouseLeave } = useHover()
   const { valueComputed: modelValue } = useStateful(props, emit)
 
   const hoveredValue = ref(0)
-
-  const visibleValue = computed(() => props.hover && isHovered.value ? hoveredValue.value : modelValue.value)
+  const visibleValue = computed(() => !props.disabled && !props.readonly && props.hover && isHovered.value ? hoveredValue.value : modelValue.value)
 
   const onItemValueUpdate = (itemIndex: number, newValue: number) => {
     const newModelValue = itemIndex + newValue

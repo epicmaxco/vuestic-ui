@@ -31,7 +31,7 @@
     @selectionChange="selectedItemsEmitted = $event.currentSelectedItems"
   />
 
-  <va-alert class="mt-3" border="left">
+  <va-alert class="mt-3" color="info" outline>
     <span>
       Selected items (click to unselect):
       <va-chip

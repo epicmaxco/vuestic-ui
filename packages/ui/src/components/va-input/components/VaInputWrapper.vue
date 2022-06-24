@@ -96,7 +96,7 @@ import { useValidationProps } from '../../../composables/useValidation'
 import { useColors } from '../../../composables/useColor'
 
 import { VaMessageList } from './VaMessageList'
-import { VaIcon } from '../../'
+import { VaIcon } from '../../va-icon'
 
 export default defineComponent({
   name: 'VaInputWrapper',
@@ -155,9 +155,9 @@ export default defineComponent({
       messagesColor: computed(() => {
         if (props.error) { return 'danger' }
         if (props.success) { return 'success' }
-
         return ''
       }),
+
       messagesComputed,
       hasMessages,
       errorLimit: computed(() => props.error ? Number(props.errorCount) : 99),

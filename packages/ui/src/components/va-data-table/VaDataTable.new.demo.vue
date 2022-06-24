@@ -13,9 +13,6 @@
       >
         <template #header(address)>Street</template>
         <template #header(company)>Company Name</template>
-
-        <template #cell(address)="{ rowData }">{{ rowData.address.street }}</template>
-        <template #cell(company)="{ rowData }">{{ rowData.company.name }}</template>
       </va-data-table>
 
       <va-alert class="mt-3" border="left">
@@ -108,9 +105,9 @@
         <option
           v-for="column in columns"
           :key="column.key"
-          :value="column.key"
+          :value="column.name || column.key"
         >
-          {{ column.key }}
+          {{ column.name || column.key }}
         </option>
       </select><br>
 
@@ -127,11 +124,8 @@
         v-model:sort-by="sortBy"
         v-model:sorting-order="sortingOrder"
       >
-        <template #header(address)>Street</template>
-        <template #header(company)>Company Name</template>
-
-        <template #cell(address)="{ rowData }">{{ rowData.address.street }}</template>
-        <template #cell(company)="{ rowData }">{{ rowData.company.name }}</template>
+        <template #header(street)="{ label }">{{ label }}</template>
+        <template #header(companyName)>Company Name</template>
       </va-data-table>
     </VbCard>
 
@@ -359,8 +353,8 @@ export default defineComponent({
       { key: 'email', sortable: true },
       { key: 'name', sortable: true },
       { key: 'id', sortable: true, sortingFn: () => -1 },
-      { key: 'address', sortable: true },
-      { key: 'company', sortable: true },
+      { key: 'address.street', name: 'street', label: 'Street', sortable: true },
+      { key: 'company.name', name: 'companyName', sortable: true },
     ]
 
     return {

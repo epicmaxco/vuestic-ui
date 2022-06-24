@@ -2,18 +2,19 @@
   <textarea
     ref="textarea"
     class="textarea"
+    :style="computedStyle"
     v-bind="{ ...computedProps, ...listeners }"
     :value="modelValue"
-    :style="computedStyle"
   />
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, ref, watch, nextTick, StyleValue, CSSProperties } from 'vue'
+import { computed, defineComponent, onMounted, ref, watch, nextTick, CSSProperties, shallowRef } from 'vue'
 import pick from 'lodash/pick.js'
+
 import { useFormProps } from '../../../../composables/useForm'
-import { useTextareaRowHeight } from './useTextareaRowHeight'
 import { useEmitProxy } from '../../../../composables/useEmitProxy'
+import { useTextareaRowHeight } from './useTextareaRowHeight'
 
 const positiveNumberValidator = (val: number) => {
   if (val > 0 && (val | 0) === val) {
@@ -39,7 +40,6 @@ export default defineComponent({
       default: 1,
       validator: positiveNumberValidator,
     },
-
     maxRows: {
       type: Number,
       validator: positiveNumberValidator,
@@ -49,7 +49,8 @@ export default defineComponent({
   emits: createEmits(),
 
   setup (props, { emit }) {
-    const textarea = ref<HTMLTextAreaElement | undefined>()
+    const textarea = shallowRef<HTMLTextAreaElement>()
+
     const rowHeight = ref(-1)
     const height = ref(-1)
     const { calculateRowHeight, calculateHeight } = useTextareaRowHeight(textarea)
@@ -103,17 +104,9 @@ export default defineComponent({
       computedStyle,
       listeners: createListeners(emit),
       computedProps,
-
-      // will used after fix 'useConfigTransport'
-      // focus,
-      // blur,
+      focus,
+      blur,
     }
-  },
-
-  // we use this while we have problem with 'useConfigTransport'
-  methods: {
-    focus () { this.textarea?.focus() },
-    blur () { this.textarea?.blur() },
   },
 })
 </script>

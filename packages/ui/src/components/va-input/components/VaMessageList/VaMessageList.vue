@@ -16,7 +16,8 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType } from 'vue'
-import { useColor } from '../../../../composables/useColor'
+
+import { useColors } from '../../../../composables/useColor'
 
 export default defineComponent({
   name: 'VaMessageList',
@@ -31,16 +32,15 @@ export default defineComponent({
   },
 
   setup (props) {
-    const { colorComputed } = useColor(props)
+    const { getColor } = useColors()
 
     return {
       messages: computed<string[]>(() => {
         if (!props.modelValue) { return [] }
         if (!Array.isArray(props.modelValue)) { return [props.modelValue] }
-
         return props.modelValue.slice(0, props.limit)
       }),
-      computedStyle: computed(() => props.color ? { color: colorComputed.value } : {}),
+      computedStyle: computed(() => props.color ? { color: getColor(props.color) } : {}),
     }
   },
 })
@@ -53,8 +53,9 @@ export default defineComponent({
   color: var(--va-message-list-color);
 
   &__message {
-    vertical-align: middle;
-    font-size: $font-size-mini;
+    vertical-align: var(--va-message-list-vertical-align);
+    font-size: var(--va-message-list-font-size);
+    line-height: var(--va-message-list-line-height);
   }
 }
 </style>
