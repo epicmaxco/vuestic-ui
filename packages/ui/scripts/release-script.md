@@ -26,12 +26,13 @@ npx tsx build/release-script.ts
 
 ### Repo root commands
 You have the following commands from repo root to simplify script usage:
-
+> **Note**
+> Run this commands with npm instead of yarn to prevent auth issues
 ```bash
-release:montly
-release:weekly
-release:next
-release:experimental
+npm run release:monthly
+npm run release:weekly
+npm run release:next
+npm run release:experimental
 ```
 
 ### Release types
