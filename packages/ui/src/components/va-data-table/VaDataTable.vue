@@ -318,7 +318,7 @@ export default defineComponent({
     striped: { type: Boolean, default: false },
     stickyHeader: { type: Boolean, default: false },
     stickyFooter: { type: Boolean, default: false },
-    height: { type: [String, Number] as PropType<string | number> },
+    height: { type: [String, Number] },
     rowBind: { type: null as unknown as PropType<DataTableRowBind> },
     cellBind: { type: null as unknown as PropType<DataTableCellBind> },
   },
