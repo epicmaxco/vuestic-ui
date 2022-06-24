@@ -3,7 +3,7 @@
     <va-dropdown
       v-model="isOpenSync"
       trigger="none"
-      anchorSelector=".va-input-wrapper__input"
+      anchorSelector=".va-input-wrapper__field"
       :offset="[2, 0]"
       :close-on-content-click="false"
       :stateful="false"
@@ -67,7 +67,7 @@
         <va-date-picker
             ref="datePicker"
             v-bind="datePickerProps"
-            v-model="valueComputed"
+            v-model="valueWithoutText"
             @click:day="$emit('click:day', $event)"
             @click:month="$emit('click:month', $event)"
             @click:year="$emit('click:year', $event)"
@@ -97,13 +97,14 @@ import { useClearableEmits, useClearable } from '../../composables/useClearable'
 import { useValidation, useValidationEmits, useValidationProps, ValidationProps } from '../../composables/useValidation'
 import { useStateful, useStatefulEmits } from '../../composables/useStateful'
 import { useSyncProp } from '../va-date-picker/hooks/sync-prop'
+import { useParsable } from '../../composables/useParsable'
 import { isRange, isSingleDate, isDates } from '../va-date-picker/utils/date-utils'
 import { useRangeModelValueGuard } from './hooks/range-model-value-guard'
 import { useDateParser } from './hooks/input-text-parser'
 import { parseModelValue } from './hooks/model-value-parser'
 import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
-import { DateInputModelValue, DateInputRange } from './types'
+import { DateInputModelValue, DateInputValue } from './types'
 
 import VaDatePicker from '../va-date-picker/VaDatePicker.vue'
 import { VaDropdown, VaDropdownContent } from '../va-dropdown'
@@ -140,7 +141,7 @@ export default defineComponent({
 
     format: { type: Function as PropType<(date: DateInputModelValue) => string> },
     formatDate: { type: Function as PropType<(date: Date) => string>, default: (d: Date) => d.toLocaleDateString() },
-    parse: { type: Function as PropType<(input: string) => DateInputModelValue> },
+    parse: { type: Function as PropType<(input: string) => DateInputValue> },
     parseDate: { type: Function as PropType<(input: string) => Date> },
     parseValue: { type: Function as PropType<typeof parseModelValue> },
 
@@ -203,6 +204,11 @@ export default defineComponent({
       throw new Error('VaDatePicker: Invalid model value. Value should be Date, Date[] or { start: Date, end: Date | null }')
     }
 
+    const {
+      text,
+      value: valueWithoutText,
+    } = useParsable(valueComputed, parseDateInputValue, modelValueToString)
+
     const valueText = computed(() => {
       if (!isValid.value) {
         return ''
@@ -213,7 +219,7 @@ export default defineComponent({
         return modelValueToString(props.clearValue)
       }
 
-      return modelValueToString(valueComputed.value)
+      return text.value
     })
 
     const onInputTextChanged = ({ target } : Event) => {
@@ -312,6 +318,7 @@ export default defineComponent({
     return {
       datePicker,
       valueText,
+      valueWithoutText,
       valueComputed,
       isOpenSync,
       onInputTextChanged,

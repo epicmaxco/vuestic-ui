@@ -10,13 +10,13 @@
     <slot name="default" />
 
     <div
+      ref="spinnerSlotContainer"
       class="va-infinite-scroll__spinner"
       :class="{ 'va-infinite-scroll__spinner--invisible': !fetching }"
-      ref="spinnerSlotContainer"
     >
       <slot
-        name="loading"
         v-if="!$props.disabled"
+        name="loading"
       >
         <div class="va-infinite-scroll__spinner__default">
           <va-progress-circle
@@ -32,11 +32,13 @@
 </template>
 
 <script lang="ts">
+import { computed, defineComponent, PropType, ref, shallowRef, watch } from 'vue'
 import debounce from 'lodash/debounce.js'
-import { computed, defineComponent, PropType, ref, watch } from 'vue'
+
 import { sleep } from '../../services/utils'
-import { useColor } from '../../composables/useColor'
+import { useColors } from '../../composables/useColor'
 import { useScroll } from './hooks/useScroll'
+
 import { VaProgressCircle } from '../va-progress-circle'
 import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
@@ -51,7 +53,7 @@ export default defineComponent({
     offset: { type: Number, default: 500 },
     reverse: { type: Boolean, default: false },
     disabled: { type: Boolean, default: false },
-    scrollTarget: { type: String as PropType<string | Element>, default: null },
+    scrollTarget: { type: [String, Object] as PropType<string | HTMLElement>, default: undefined },
     debounce: { type: Number, default: 100 },
     tag: { type: String, default: 'div' },
   },
@@ -59,8 +61,8 @@ export default defineComponent({
   emits: ['onload', 'onerror'],
 
   setup (props, { emit }) {
-    const element = ref<HTMLElement>()
-    const spinnerSlotContainer = ref<HTMLDivElement>()
+    const element = shallowRef<HTMLElement>()
+    const spinnerSlotContainer = shallowRef<HTMLDivElement>()
 
     const fetching = ref(false)
     const error = ref(false)
@@ -86,10 +88,10 @@ export default defineComponent({
       removeScrollListener,
     } = useScroll(props, scrollTargetElement, debouncedLoad)
 
-    const { computeColor } = useColor(props)
+    const { getColor } = useColors()
 
     const spinnerColor = computed(() => {
-      return error.value ? computeColor('danger') : computeColor('primary')
+      return error.value ? getColor('danger') : getColor('primary')
     })
 
     const spinnerHeight = computed(() => {

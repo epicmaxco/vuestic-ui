@@ -2,23 +2,22 @@
   <div
     class="va-progress-bar"
     :class="rootClass"
-    :style="rootStyle"
     v-bind="ariaAttributesComputed"
   >
     <div v-if="!isLarge" class="va-progress-bar__info">
       <slot />
     </div>
-    <div class="va-progress-bar__wrapper">
+    <div class="va-progress-bar__wrapper" :style="wrapperStyle">
       <div class="va-progress-bar__buffer" :style="bufferStyle" />
 
       <template v-if="indeterminate">
         <div
-          :style="intermediateStyle"
           class="va-progress-bar__progress--indeterminate-start"
+          :style="intermediateStyle"
         />
         <div
-          :style="intermediateStyle"
           class="va-progress-bar__progress--indeterminate-end"
+          :style="intermediateStyle"
         />
       </template>
       <div v-else class="va-progress-bar__progress" :style="progressStyle">
@@ -29,10 +28,11 @@
 </template>
 
 <script lang="ts">
-import clamp from 'lodash/clamp.js'
 import { computed, defineComponent, PropType } from 'vue'
-import { useColors } from '../../services/color-config/color-config'
 import { useComponentPresetProp } from '../../composables/useComponentPreset'
+import clamp from 'lodash/clamp.js'
+
+import { useColors } from '../../composables/useColor'
 
 export default defineComponent({
   name: 'VaProgressBar',
@@ -68,12 +68,11 @@ export default defineComponent({
       isLarge,
 
       rootClass: computed(() => ({
-        'va-progress-bar': true,
         'va-progress-bar--square': !props.rounded,
         [`va-progress-bar--${props.size}`]: isTextSize.value,
       })),
 
-      rootStyle: computed(() => ({
+      wrapperStyle: computed(() => ({
         height: getCSSHeight(),
       })),
 
@@ -109,19 +108,12 @@ export default defineComponent({
 @import 'variables';
 
 .va-progress-bar {
+  $p: &;
+
   width: var(--va-progress-bar-width);
   position: var(--va-progress-bar-position);
   overflow: var(--va-progress-bar-overflow);
   font-family: var(--va-font-family);
-  height: var(--va-progress-bar-height);
-
-  &--small {
-    height: var(--va-progress-bar-sm-height);
-  }
-
-  &--large {
-    height: var(--va-progress-bar-lg-height);
-  }
 
   &__info {
     font-weight: var(--va-progress-bar-info-font-weight);
@@ -129,7 +121,7 @@ export default defineComponent({
     text-transform: var(--va-progress-bar-info-text-transform);
 
     &:not(:empty) {
-      margin-bottom: 0.3125rem;
+      margin-bottom: var(--va-progress-bar-info-not-empty-margin-bottom);
     }
   }
 
@@ -137,11 +129,22 @@ export default defineComponent({
     position: var(--va-progress-bar--wrapper-position);
     overflow: var(--va-progress-bar--wrapper-overflow);
     border-radius: var(--va-progress-bar--wrapper-border-radius);
-    height: inherit;
 
-    &__square {
-      border-radius: var(--va-progress-bar-square-border-radius);
+    #{$p}--small & {
+      height: var(--va-progress-bar-sm-height);
     }
+
+    #{$p}--medium & {
+      height: var(--va-progress-bar-height);
+    }
+
+    #{$p}--large & {
+      height: var(--va-progress-bar-lg-height);
+    }
+  }
+
+  &--square &__wrapper {
+    border-radius: var(--va-progress-bar-square-border-radius);
   }
 
   &__buffer {

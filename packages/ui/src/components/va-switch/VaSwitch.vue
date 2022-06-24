@@ -2,6 +2,7 @@
   <VaMessageListWrapper
     class="va-switch"
     :class="computedClass"
+    :style="styleComputed"
     :disabled="$props.disabled"
     :success="$props.success"
     :messages="$props.messages"
@@ -77,12 +78,16 @@
 <script lang="ts">
 import { defineComponent, PropType, computed, shallowRef } from 'vue'
 
-import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'
-import { useSelectable, useSelectableProps, useSelectableEmits } from '../../composables/useSelectable'
+import { useBem } from '../../composables/useBem'
 import { useColors } from '../../composables/useColor'
 import { useTextColor } from '../../composables/useTextColor'
 import { useComponentPresetProp } from '../../composables/useComponentPreset'
+import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'
+import { useSelectable, useSelectableProps, useSelectableEmits } from '../../composables/useSelectable'
+
 import { generateUniqueId } from '../../services/utils'
+
+import pick from 'lodash/pick.js'
 
 import { VaProgressCircle } from '../va-progress-circle'
 import { VaMessageListWrapper } from '../va-input'
@@ -156,16 +161,19 @@ export default defineComponent({
       return props.label
     })
 
-    const computedClass = computed(() => ({
-      'va-switch--checked': isChecked.value,
-      'va-switch--indeterminate': isIndeterminate.value,
-      'va-switch--small': props.size === 'small',
-      'va-switch--large': props.size === 'large',
-      'va-switch--disabled': props.disabled,
-      'va-switch--readonly': props.readonly,
-      'va-switch--left-label': props.leftLabel,
-      'va-switch--error': computedError.value,
-      'va-switch--on-keyboard-focus': hasKeyboardFocus.value,
+    const computedClass = useBem('va-switch', () => ({
+      ...pick(props, ['readonly', 'disabled']),
+      checked: isChecked.value,
+      indeterminate: isIndeterminate.value,
+      small: props.size === 'small',
+      large: props.size === 'large',
+      'left-label': props.leftLabel,
+      error: computedError.value,
+      'on-keyboard-focus': hasKeyboardFocus.value,
+    }))
+
+    const styleComputed = computed(() => ({
+      lineHeight: computedErrorMessages.value.length ? 1 : 0,
     }))
 
     const progressCircleSize = computed(() => {
@@ -213,6 +221,7 @@ export default defineComponent({
       computedInnerLabel,
       computedLabel,
       computedClass,
+      styleComputed,
       progressCircleSize,
       trackStyle,
       labelStyle,
@@ -225,10 +234,12 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "../../styles/resources";
 @import "variables";
+@import "../../styles/resources";
 
 .va-switch {
+  line-height: 0;
+
   @at-root {
     .va-switch__container {
       display: var(--va-switch-container-display);
@@ -362,8 +373,7 @@ export default defineComponent({
 
     @at-root {
       .va-switch--on-keyboard-focus#{&} {
-        transition: all, 0.6s, ease-in;
-        box-shadow: 0 0 0.5rem 0 rgba(0, 0, 0, 0.3);
+        @include focus-outline('inherit');
       }
 
       .va-switch--small#{&} {

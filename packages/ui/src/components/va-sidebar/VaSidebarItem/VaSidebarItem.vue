@@ -16,8 +16,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref, computed } from 'vue'
-import { RouteLocationRaw } from 'vue-router'
+import { defineComponent, ref, computed } from 'vue'
 import { useColors } from '../../../services/color-config/color-config'
 import useKeyboardOnlyFocus from '../../../composables/useKeyboardOnlyFocus'
 import { useHover } from '../../../composables/useHover'
