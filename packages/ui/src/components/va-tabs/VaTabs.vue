@@ -18,7 +18,7 @@
         :color="color"
         flat
         :icon="$props.prevIcon"
-        @click="movePaginationLeft()"
+        @click="movePaginationLeft"
       />
       <div
         ref="container"
@@ -40,7 +40,7 @@
 
           <va-config :components="tabConfig">
             <div class="va-tabs__tabs-items">
-              <slot name="tabs"></slot>
+              <slot name="tabs" />
             </div>
           </va-config>
         </div>
@@ -54,7 +54,7 @@
         :disabled="disablePaginationRight"
         flat
         :icon="$props.nextIcon"
-        @click="movePaginationRight()"
+        @click="movePaginationRight"
       />
     </div>
     <div class="va-tabs__content">
@@ -64,22 +64,16 @@
 </template>
 
 <script lang="ts">
-import {
-  computed,
-  defineComponent,
-  provide,
-  reactive,
-  ref,
-  unref,
-  watch,
-  Ref,
-} from 'vue'
-import { VaButton } from '../va-button'
-import { VaConfig } from '../va-config'
+import { computed, defineComponent, provide, reactive, ref, unref, watch, Ref, shallowRef, StyleValue } from 'vue'
+
 import { useStateful, useStatefulProps } from '../../composables/useStateful'
 import { useColors } from '../../composables/useColor'
-import { TabsViewKey, TabComponent } from './types'
 import { useResizeObserver } from '../../composables/useResizeObserver'
+
+import { TabsViewKey, TabComponent } from './types'
+
+import { VaButton } from '../va-button'
+import { VaConfig } from '../va-config'
 
 const getClientWidth = (element: HTMLElement | null | undefined): number => element?.clientWidth || 0
 
@@ -104,9 +98,9 @@ export default defineComponent({
   },
 
   setup: (props, { emit }) => {
-    const wrapper = ref<HTMLElement>()
-    const container = ref<HTMLElement>()
-    const tabs = ref<HTMLElement>()
+    const wrapper = shallowRef<HTMLElement>()
+    const container = shallowRef<HTMLElement>()
+    const tabs = shallowRef<HTMLElement>()
 
     const tabsList: Ref<TabComponent[]> = ref([])
     const sliderHeight = ref<number | null>(null)
@@ -117,7 +111,7 @@ export default defineComponent({
     const tabsContentOffset = ref(0)
     const startingXPoint = ref(0)
     const animationIncluded = ref(false)
-    const { valueComputed: tabSelected }: { valueComputed: Ref<string | number | null> } = useStateful(props, emit)
+    const { valueComputed: tabSelected } = useStateful<string | number | null>(props, emit)
     const tabConfig = reactive({
       VaTab: {
         color: props.color,
@@ -125,13 +119,7 @@ export default defineComponent({
     })
 
     const computedClass = computed(() => {
-      const {
-        left,
-        right,
-        center,
-        grow,
-        disabled,
-      } = props
+      const { left, right, center, grow, disabled } = props
 
       return {
         'va-tabs__container--left': left && !right && !center && !grow,
@@ -147,7 +135,7 @@ export default defineComponent({
     const { getColor } = useColors()
     const colorComputed = computed(() => getColor(props.color))
 
-    const sliderStyles = computed(() => {
+    const sliderStyles = computed<StyleValue>(() => {
       if (props.hideSlider) {
         return { display: 'none' }
       }
@@ -161,7 +149,7 @@ export default defineComponent({
       }
     })
 
-    const paginationControlledStyles = computed(() => {
+    const paginationControlledStyles = computed<StyleValue>(() => {
       // Prevents the movement of vertical tabs
       if (props.vertical) {
         return {
@@ -392,7 +380,7 @@ export default defineComponent({
     // Lifecycle hooks
     watch(() => props.modelValue, updateTabsState)
 
-    const resizeObserver = useResizeObserver([wrapper, tabs], redrawTabs)
+    useResizeObserver([wrapper, tabs], redrawTabs)
 
     return {
       wrapper,
@@ -405,7 +393,6 @@ export default defineComponent({
       sliderOffsetY,
       showPagination,
       tabsContentOffset,
-      resizeObserver,
       startingXPoint,
       animationIncluded,
       colorComputed,

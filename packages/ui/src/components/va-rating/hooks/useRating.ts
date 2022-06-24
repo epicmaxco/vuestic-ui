@@ -1,6 +1,7 @@
-import clamp from 'lodash/clamp.js'
-import { useHover } from '../../../composables/useHover'
 import { ref, getCurrentInstance, computed, ExtractPropTypes } from 'vue'
+import clamp from 'lodash/clamp.js'
+
+import { useHover } from '../../../composables/useHover'
 import { useStateful, useStatefulProps } from '../../../composables/useStateful'
 import { useFormProps } from '../../../composables/useForm'
 import { RatingValue } from '../types'

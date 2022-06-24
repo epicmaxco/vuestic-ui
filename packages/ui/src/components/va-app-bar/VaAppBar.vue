@@ -21,7 +21,7 @@ export default defineComponent({
   props: {
     gradient: { type: Boolean, default: false },
     bottom: { type: Boolean, default: false },
-    target: { type: [Object, String] as PropType<string | Element>, default: '' },
+    target: { type: [Object, String] as PropType<string | HTMLElement>, default: '' },
     hideOnScroll: { type: Boolean, default: false },
     shadowOnScroll: { type: Boolean, default: false },
     shadowColor: { type: String, default: '' },
@@ -33,7 +33,7 @@ export default defineComponent({
     const isHidden = ref(false)
 
     const scrollRoot = setupScroll(props.target, (e) => {
-      const target = e.target as Element
+      const target = e.target as HTMLElement
 
       if (prevScrollPosition.value < target.scrollTop) {
         // Scroll down

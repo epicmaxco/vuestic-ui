@@ -1,5 +1,6 @@
 import { computed, ExtractPropTypes } from 'vue'
-import { useColors } from '../../../services/color-config/color-config'
+
+import { useColors } from '../../../composables/useColor'
 import { RatingValue } from '../types'
 
 export const useVaRatingColorsProps = {

@@ -1,93 +1,62 @@
 <script>
-import { VaTimelineSeparator } from '../VaTimelineSeparator/index.ts'
 import { h } from 'vue'
 
-export const $root = 'va-timeline-item'
+import { extractComponentProps, filterComponentProps } from '../../../utils/child-props'
+
+import { VaTimelineSeparator } from '../VaTimelineSeparator'
+
+const COMPONENT_NAME = 'va-timeline-item'
+const VaTimelineSeparatorProps = extractComponentProps(VaTimelineSeparator)
 
 export default {
-  name: $root,
+  name: COMPONENT_NAME,
   props: {
-    color: {
-      type: String,
-      default: 'success',
-    },
-    vertical: {
-      type: Boolean,
-    },
-    active: {
-      type: Boolean,
-    },
-    activePrevious: {
-      type: Boolean,
-    },
-    activeNext: {
-      type: Boolean,
-    },
-    isFirst: {
-      type: Boolean,
-    },
-    isLast: {
-      type: Boolean,
-    },
-    inverted: {
-      type: Boolean,
-    },
+    ...VaTimelineSeparatorProps,
+    color: { type: String, default: 'primary' },
+    isFirst: { type: Boolean },
+    isLast: { type: Boolean },
+    inverted: { type: Boolean },
   },
-  render () {
-    const props = {
-      color: this.color,
-      vertical: this.vertical,
-      active: this.active,
-      activePrevious: this.activePrevious,
-      activeNext: this.activeNext,
-    }
-
+  setup (props, { slots }) {
     const children = [
       h(
         VaTimelineSeparator,
-        {
-          ...props,
-        },
+        { ...filterComponentProps(props, VaTimelineSeparatorProps).value },
       ),
     ]
 
-    const before = this.inverted ? this.$slots.after : this.$slots.before
+    const before = props.inverted ? slots.after : slots.before
 
     if (before) {
       children.unshift(
         h(
           'div',
-          {
-            class: `${$root}__before`,
-            ...props,
-          },
+          { class: `${COMPONENT_NAME}__before` },
           before(),
         ),
       )
     }
 
-    const after = this.inverted ? this.$slots.before : this.$slots.after
+    const after = props.inverted ? slots.before : slots.after
+
     if (after) {
       children.push(
         h(
           'div',
-          {
-            class: `${$root}__after`,
-            ...props,
-          },
+          { class: `${COMPONENT_NAME}__after` },
           after(),
         ),
       )
     }
 
-    return h(
+    return () => h(
       'div',
       {
         class: [
-          { [$root]: true },
-          { [`${$root}--vertical`]: this.vertical },
-          { [`${$root}--is-first`]: this.isFirst },
-          { [`${$root}--is-last`]: this.isLast },
+          { [COMPONENT_NAME]: true },
+          { [`${COMPONENT_NAME}--vertical`]: props.vertical },
+          { [`${COMPONENT_NAME}--is-first`]: props.isFirst },
+          { [`${COMPONENT_NAME}--is-last`]: props.isLast },
         ],
       },
       children,
@@ -129,17 +98,17 @@ export default {
     }
   }
 
-  &__before {
-    .va-timeline-item__text {
-      float: right;
-    }
-  }
+  // &__before {
+  //   .va-timeline-item__text {
+  //     float: right;
+  //   }
+  // }
 
-  &__after {
-    .va-timeline-item__text {
-      float: left;
-    }
-  }
+  // &__after {
+  //   .va-timeline-item__text {
+  //     float: left;
+  //   }
+  // }
 
   &:not(&--vertical) {
     .va-timeline-item__before,
@@ -153,25 +122,25 @@ export default {
     }
 
     .va-timeline-item__after {
-      padding-top: 1rem;
+      padding-top: 0.5rem;
     }
   }
 
-  &__title {
-    text-align: var(--va-timeline-item-title-text-align);
-    color: var(--va-timeline-item-title-color);
-    font-weight: var(--va-timeline-item-title-font-weight);
-    font-size: var(--va-timeline-item-title-font-size);
-    text-transform: var(--va-timeline-item-title-text-transform);
-  }
+  // &__title {
+  //   text-align: var(--va-timeline-item-title-text-align);
+  //   color: var(--va-timeline-item-title-color);
+  //   font-weight: var(--va-timeline-item-title-font-weight);
+  //   font-size: var(--va-timeline-item-title-font-size);
+  //   text-transform: var(--va-timeline-item-title-text-transform);
+  // }
 
-  &__description {
-    margin-top: var(--va-timeline-item-description-margin-top);
-    text-align: var(--va-timeline-item-description-text-align);
-  }
+  // &__description {
+  //   margin-top: var(--va-timeline-item-description-margin-top);
+  //   text-align: var(--va-timeline-item-description-text-align);
+  // }
 
-  &__text {
-    line-height: 1;
-  }
+  // &__text {
+  //   line-height: 1;
+  // }
 }
 </style>

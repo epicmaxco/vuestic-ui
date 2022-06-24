@@ -1,6 +1,7 @@
 import { computed, Ref, unref, watch } from 'vue'
-import { useDomRect } from './useDomRect'
+
 import { mapObject } from '../utils/map-object'
+import { useDomRect } from './useDomRect'
 import { useClientOnly } from './useClientOnly'
 
 export type PlacementPosition = 'top' | 'bottom' | 'left' | 'right'

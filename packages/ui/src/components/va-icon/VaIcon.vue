@@ -32,8 +32,8 @@ export default defineComponent({
     tag: { type: String },
     component: { type: Object as PropType<any> },
     color: { type: String },
-    rotation: { type: [String, Number] as PropType<number | string> },
-    spin: { type: [String, Boolean] as PropType<string | boolean> },
+    rotation: { type: [String, Number] },
+    spin: { type: [String, Boolean] },
     flip: {
       type: String as PropType<'off' | 'horizontal' | 'vertical' | 'both'>,
       default: 'off',

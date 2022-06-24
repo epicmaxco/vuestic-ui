@@ -1,5 +1,6 @@
 import { computed, getCurrentInstance, Ref, unref } from 'vue'
-import { useColors } from '../services/color-config/color-config'
+
+import { useColors } from './useColor'
 
 type PropsType = {
   textColor: string,

@@ -46,8 +46,9 @@
         :key="index"
         v-model="selectedOptionString"
         :option="option"
-        disabled
+        :disabled="isDisabled"
       />
+      <va-checkbox class="mt-2" v-model="isDisabled" label="is Disabled" />
     </VbCard>
     <VbCard title="Readonly">
       <va-radio
@@ -55,8 +56,9 @@
         :key="index"
         v-model="selectedOptionString"
         :option="option"
-        readonly
+        :readonly="isReadonly"
       />
+      <va-checkbox class="mt-2" v-model="isReadonly" label="is Readonly" />
     </VbCard>
     <VbCard title="Left label">
       <va-radio
@@ -92,9 +94,10 @@
 
 <script>
 import { VaRadio } from './index'
+import { VaCheckbox } from '../va-checkbox'
 
 export default {
-  components: { VaRadio },
+  components: { VaRadio, VaCheckbox },
   data () {
     const objectOptions = [
       { key: 1, name: 'one' },
@@ -112,6 +115,8 @@ export default {
 
       objectOptions,
       selectedOptionObject: objectOptions[0],
+      isDisabled: true,
+      isReadonly: true,
     }
   },
 }

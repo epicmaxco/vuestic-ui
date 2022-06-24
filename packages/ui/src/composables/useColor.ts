@@ -1,4 +1,5 @@
-import { PropType, computed, Ref, unref } from 'vue'
+import { computed } from 'vue'
+
 import { useColors } from '../services/color-config/color-config'
 
 /**
@@ -9,7 +10,7 @@ import { useColors } from '../services/color-config/color-config'
  */
 export const useColorProps = {
   color: {
-    type: String as PropType<string>,
+    type: String,
     default: '',
   },
 }

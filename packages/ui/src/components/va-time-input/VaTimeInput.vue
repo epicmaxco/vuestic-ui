@@ -29,8 +29,8 @@
       >
         <template
           v-for="name in filterSlots"
-          v-slot:[name]="slotScope"
           :key="name"
+          v-slot:[name]="slotScope"
         >
           <slot
             :name="name"
@@ -103,17 +103,19 @@
 <script lang="ts">
 import { computed, defineComponent, PropType, watch, shallowRef, nextTick } from 'vue'
 import omit from 'lodash/omit.js'
-import VaTimePicker from '../va-time-picker/VaTimePicker.vue'
-import VaInput from '../va-input/VaInput.vue'
-import VaIcon from '../va-icon/VaIcon.vue'
-import { VaDropdown, VaDropdownContent } from '../va-dropdown/'
+
+import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
+import { generateUniqueId } from '../../services/utils'
 import { useSyncProp } from '../../composables/useSyncProp'
 import { useValidation, useValidationEmits, useValidationProps, ValidationProps } from '../../composables/useValidation'
 import { useClearable, useClearableEmits } from '../../composables/useClearable'
 import { useTimeParser } from './hooks/time-text-parser'
 import { useTimeFormatter } from './hooks/time-text-formatter'
-import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
-import { generateUniqueId } from '../../services/utils'
+
+import VaTimePicker from '../va-time-picker/VaTimePicker.vue'
+import VaInput from '../va-input/VaInput.vue'
+import VaIcon from '../va-icon/VaIcon.vue'
+import { VaDropdown, VaDropdownContent } from '../va-dropdown'
 
 const slotsSelectors = [
   '.va-input-wrapper__prepend-inner',
@@ -153,8 +155,8 @@ export default defineComponent({
   inheritAttrs: false,
 
   setup (props, { emit, attrs, slots }) {
-    const input = shallowRef<typeof VaInput | undefined>()
-    const timePicker = shallowRef<typeof VaTimePicker | undefined>()
+    const input = shallowRef<typeof VaInput>()
+    const timePicker = shallowRef<typeof VaTimePicker>()
 
     const clearIconId = generateUniqueId()
     const componentIconId = generateUniqueId()
