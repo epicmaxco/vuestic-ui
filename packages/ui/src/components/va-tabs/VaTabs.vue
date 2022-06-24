@@ -425,6 +425,8 @@ export default defineComponent({
 @import 'variables';
 
 .va-tabs {
+  display: var(--va-tabs-display);
+  align-items: var(--va-tabs-align-items-horizontal);
   position: var(--va-tabs-position);
   font-family: var(--va-font-family);
 
@@ -489,6 +491,8 @@ export default defineComponent({
   }
 
   &--vertical {
+    align-items: var(--va-tabs-align-items-vertical);
+
     .va-tabs__wrapper {
       flex: 0 0 auto;
     }
