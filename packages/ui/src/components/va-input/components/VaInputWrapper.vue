@@ -74,6 +74,15 @@
       </div>
     </div>
 
+    <div v-if="hasCounterOrMaxLengthComputed || $slots.hint" class="va-input-wrapper-bottom">
+      <div v-if="$slots.hint" class="va-input-wrapper-bottom__hint">
+        <slot name="hint" />
+      </div>
+      <div v-if="hasCounterOrMaxLengthComputed" class="va-input-wrapper-bottom__counter">
+        {{ $props.counterOrMaxLength }}
+      </div>
+    </div>
+
     <slot name="messages" v-bind="{ messages: messagesComputed, errorLimit, color: messagesColor }">
       <va-message-list
         v-if="hasMessages"
@@ -106,6 +115,7 @@ export default defineComponent({
   props: {
     ...useFormProps,
     ...useValidationProps,
+    counterOrMaxLength: { type: [String, Number], default: undefined },
 
     label: { type: String, default: '' },
     color: { type: String, default: 'primary' },
@@ -146,11 +156,16 @@ export default defineComponent({
       typeof messagesComputed.value === 'string' ? messagesComputed.value : messagesComputed.value?.length,
     ))
 
+    const hasCounterOrMaxLengthComputed = computed(
+      () => typeof props.counterOrMaxLength !== 'undefined',
+    )
+
     return {
       wrapperClass,
       wrapperStyle,
 
       colorComputed,
+      hasCounterOrMaxLengthComputed,
 
       messagesColor: computed(() => {
         if (props.error) { return 'danger' }
@@ -285,6 +300,19 @@ export default defineComponent({
     color: var(--va-danger);
     font-size: 18px;
     font-weight: var(--va-input-container-label-font-weight);
+  }
+
+  &-bottom {
+    display: var(--va-input-wrapper-bottom-display);
+    color: var(--va-input-wrapper-bottom-color);
+    font-size: var(--va-input-wrapper-bottom-font-size);
+    line-height: var(--va-input-wrapper-bottom-line-height);
+
+    &__counter {
+      color: var(--va-input-wrapper-counter-color);
+      flex: var(--va-input-wrapper-counter-flex);
+      margin-left: var(--va-input-wrapper-counter-margin-left);
+    }
   }
 
   textarea {

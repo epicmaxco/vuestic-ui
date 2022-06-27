@@ -16,6 +16,7 @@
     :outline="$props.outline"
     :requiredMark="$props.requiredMark"
     :focused="isFocused"
+    :counter-or-max-length="counterOrMaxLengthComputed"
     @click="focus"
   >
     <!-- Simply proxy slots to VaInputWrapper -->
@@ -123,6 +124,8 @@ export default defineComponent({
     pattern: { type: String },
     inputmode: { type: String, default: 'text' },
     ariaLabel: { type: String, default: undefined },
+    counter: { type: Boolean, default: false },
+    maxLength: { type: Number, default: undefined },
 
     // style
     color: { type: String, default: 'primary' },
@@ -222,12 +225,22 @@ export default defineComponent({
     const computedInputAttributes = computed(() => ({
       ...computedChildAttributes.value,
       ...pick(props, ['type', 'disabled', 'readonly', 'placeholder', 'pattern', 'inputmode']),
+      maxlength: props.maxLength,
     }) as InputHTMLAttributes)
+
+    const counterOrMaxLengthComputed = computed(() => {
+      if (typeof computedValue.value !== 'string') { return }
+
+      return props.maxLength
+        ? `${computedValue.value.length}/${props.maxLength}`
+        : computedValue.value.length
+    })
 
     return {
       input,
       inputEvents,
 
+      counterOrMaxLengthComputed,
       computedChildAttributes,
       computedInputAttributes,
       textareaProps: filterComponentProps(props, VaTextareaProps),
