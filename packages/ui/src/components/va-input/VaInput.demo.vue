@@ -565,6 +565,70 @@
         type="number"
       />
     </VbCard>
+    <VbCard title="Counter">
+      <va-input v-model="counterOrMaxLengthValue" counter />
+      <br />
+      <va-input
+        v-model="counterOrMaxLengthValue"
+        label="Name"
+        type="textarea"
+        counter
+      />
+      <br />
+      <va-input
+        v-model="counterOrMaxLengthValue"
+        counter
+        messages="Additional message"
+      >
+        <template #hint>
+          <b>Remaining symbols</b>
+        </template>
+      </va-input>
+      <br />
+      <va-input
+        v-model="counterOrMaxLengthValue"
+        label="Name"
+        type="textarea"
+        counter
+        messages="Additional message"
+      >
+        <template #hint>
+          <i>Remaining symbols</i>
+        </template>
+      </va-input>
+    </VbCard>
+    <VbCard title="Max length">
+      <va-input v-model="counterOrMaxLengthValue" :max-length="maxLength" />
+      <br />
+      <va-input
+        v-model="counterOrMaxLengthValue"
+        label="Name"
+        type="textarea"
+        :max-length="maxLength"
+      />
+      <br />
+      <va-input
+        v-model="counterOrMaxLengthValue"
+        :max-length="maxLength"
+        messages="Additional message"
+      >
+        <template #hint>
+          <b>Total symbols</b>
+        </template>
+      </va-input>
+      <br />
+      <va-input
+        v-model="counterOrMaxLengthValue"
+        label="Name"
+        type="textarea"
+        :max-length="maxLength"
+        messages="Additional message"
+      >
+        <template #hint>
+          <i>Total symbols</i>
+        </template>
+      </va-input>
+    </VbCard>
     <VbCard
       title="CSS Classes"
       class="va-input-css-classes-demo"
@@ -621,6 +685,9 @@ export default {
       num: 10,
 
       isClearable: true,
+
+      counterOrMaxLengthValue: '',
+      maxLength: 30,
     }
   },
 }
