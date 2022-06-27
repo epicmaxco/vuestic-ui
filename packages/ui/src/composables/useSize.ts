@@ -1,4 +1,5 @@
 import { computed, getCurrentInstance, PropType } from 'vue'
+
 import { useGlobalConfig, SizeConfig } from '../services/global-config/global-config'
 import type { VuesticComponentName } from '../vuestic-plugin/global-components'
 
@@ -34,7 +35,7 @@ interface SizeProps {
  */
 export const useSizeProps = {
   size: {
-    type: [String, Number] as PropType<string | number>,
+    type: [String, Number],
     default: '',
     validator: (size: string | number) => {
       return typeof size === 'string' || typeof size === 'number'

@@ -1,4 +1,21 @@
-export default [
+export type User = {
+  id: string,
+  firstName: string,
+  lastName: string,
+  fullName: string,
+  email: string,
+  country: string,
+  starred: boolean,
+  hasReport: boolean,
+  status: string,
+  checked: boolean,
+  trend: string,
+  color: string,
+  graph: string,
+  graphColor: string,
+}
+
+export const users: User[] = [
   {
     id: '5d2c865e9a0bae79a6ef7cfa',
     firstName: 'Ashley',

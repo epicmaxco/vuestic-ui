@@ -18,5 +18,6 @@ export default defineComponent({
 .va-sidebar__title {
   flex-grow: 1;
   white-space: var(--va-sidebar-item-title-white-space);
+  transition: opacity 0.2s ease-in-out;
 }
 </style>

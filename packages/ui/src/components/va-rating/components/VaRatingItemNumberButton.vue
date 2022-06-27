@@ -18,8 +18,9 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { useVaRatingColorsProps, useVaRatingColors } from '../hooks/useVaRatingColors'
+
 import { useSize, useSizeProps } from '../../../composables'
+import { useVaRatingColorsProps, useVaRatingColors } from '../hooks/useVaRatingColors'
 
 export default defineComponent({
   name: 'VaRatingItemNumberButton',

@@ -1,7 +1,6 @@
 <template>
   <div
     class="va-progress-circle"
-    ref="progress"
     :style="rootStyle"
     :class="rootClass"
     v-bind="ariaAttributesComputed"
@@ -35,6 +34,7 @@
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
 import clamp from 'lodash/clamp.js'
+
 import { useColors, useSize, useSizeProps } from '../../composables'
 
 export default defineComponent({

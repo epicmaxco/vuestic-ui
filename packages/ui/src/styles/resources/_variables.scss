@@ -80,7 +80,6 @@ $top-mobile-nav-height: 6.5rem !default;
 
 $top-nav-height: 4.0625rem !default;
 $sidebar-width: 15.75rem !default;
-$sidebar-width--hidden: 3.5rem !default;
 $sidebar-menu-item-icon-size: 19px !default;
 $sidebar-viewport-min-height: calc(100vh - #{$top-nav-height}) !default;
 $sidebar-viewport-height: calc(100% - #{$top-nav-height}) !default;
@@ -289,7 +288,6 @@ $card-border-radius: 0.375rem !default;
 $card-box-shadow: 0 2px 3px 0 $card-border-color !default;
 $card-title-font-size: 0.625rem !default;
 $card-title-letter-spacing: $letter-spacing !default;
-$card-padding: 1.25rem !default;
 
 // List
 $list-padding: 1.5rem 0 2.125rem 0 !default;

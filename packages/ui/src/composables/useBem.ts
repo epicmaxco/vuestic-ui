@@ -1,6 +1,7 @@
 import { computed, Ref, unref, ComputedRef } from 'vue'
-import { __DEV__ } from '../utils/global-utils'
 import isFunction from 'lodash/isFunction.js'
+
+import { __DEV__ } from '../utils/global-utils'
 
 type Key<Prefix extends string, ModifierKey extends string> = `${Prefix}--${ModifierKey}`
 

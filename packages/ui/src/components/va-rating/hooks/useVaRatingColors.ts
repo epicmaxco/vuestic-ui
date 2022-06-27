@@ -1,4 +1,5 @@
 import { computed, ExtractPropTypes } from 'vue'
+
 import { useColors } from '../../../composables'
 import { RatingValue } from '../types'
 

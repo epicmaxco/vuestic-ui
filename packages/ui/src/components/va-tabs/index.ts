@@ -4,3 +4,5 @@ import _VaTabs from './VaTabs.vue'
 export { VaTab } from './VaTab'
 
 export const VaTabs = withConfigTransport(_VaTabs)
+
+export * from './types'

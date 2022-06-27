@@ -1,19 +1,17 @@
 <template>
   <div
+    ref="rootElement"
     tabindex="0"
     class="va-time-picker-column"
     @keydown.down.stop.prevent="makeActiveNext()"
     @keydown.space.stop.prevent="makeActiveNext(5)"
     @keydown.up.stop.prevent="makeActivePrev()"
-    ref="rootElement"
   >
     <div class="va-time-picker-cell va-time-picker-cell--fake" />
     <div
       v-for="(item, index) in items" :key="item"
-      :class="{
-        'va-time-picker-cell': true,
-        'va-time-picker-cell--active': index === $props.activeItemIndex
-      }"
+      class="va-time-picker-cell"
+      :class="{ 'va-time-picker-cell--active': index === $props.activeItemIndex }"
       @click="onCellClick(index)"
     >
       <slot name="cell" v-bind="{ item, index, activeItemIndex, items, formattedItem: formatCell(item) }">
@@ -25,7 +23,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, nextTick, onMounted, PropType, ref, watch } from 'vue'
+import { defineComponent, nextTick, onMounted, PropType, shallowRef, watch } from 'vue'
+
 import { useSyncProp, useFocus, useFocusEmits } from '../../../composables'
 
 export default defineComponent({
@@ -39,9 +38,8 @@ export default defineComponent({
   emits: ['item-selected', 'update:activeItemIndex', ...useFocusEmits],
 
   setup (props, { emit }) {
-    const rootElement = ref<HTMLElement>()
+    const rootElement = shallowRef<HTMLElement>()
 
-    // Will be used later, after fix 'withConfigTransport'
     const { focus, blur } = useFocus(rootElement, emit)
 
     const [syncActiveItemIndex] = useSyncProp('activeItemIndex', props, emit)
@@ -106,16 +104,9 @@ export default defineComponent({
       onCellClick,
       formatCell,
 
-      // Will be used later, after fix 'withConfigTransport'
-      // focus,
-      // blur,
+      focus,
+      blur,
     }
-  },
-
-  // we will use this while we have problem with 'withConfigTransport'
-  methods: {
-    focus () { (this as any).rootElement?.focus() },
-    blur () { (this as any).rootElement?.blur() },
   },
 })
 </script>
