@@ -160,14 +160,13 @@ export default defineComponent({
     })
 
     const computedClass = useBem('va-switch', () => ({
-      ...pick(props, ['readonly', 'disabled']),
+      ...pick(props, ['readonly', 'disabled', 'leftLabel']),
       checked: isChecked.value,
       indeterminate: isIndeterminate.value,
       small: props.size === 'small',
       large: props.size === 'large',
-      'left-label': props.leftLabel,
       error: computedError.value,
-      'on-keyboard-focus': hasKeyboardFocus.value,
+      onKeyboardFocus: hasKeyboardFocus.value,
     }))
 
     const styleComputed = computed(() => ({
