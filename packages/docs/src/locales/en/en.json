@@ -685,7 +685,9 @@
         "immediateValidation": "Sets the validation to be performed when the component is mounted",
         "inputClass": "Classes for `input` (not its wrapper)",
         "pattern": "The pattern prop specifies a regular expression the input value should match",
-        "inputmode": "The inputmode prop is an enumerated prop that hints at the type of data that might be entered by the user while editing the element or its contents. This alows a browser to display an apropriate virtual keyboard"
+        "inputmode": "The inputmode prop is an enumerated prop that hints at the type of data that might be entered by the user while editing the element or its contents. This alows a browser to display an apropriate virtual keyboard",
+        "counter": "Show a counter",
+        "maxLength": "Specify a max length of value"
       },
       "events": {
         "change": "Emitted when the input loose focus or on `enter`",
@@ -710,7 +712,8 @@
         "prependInner": "Adds an item inside the input and before input content",
         "append": "Adds an item outside the input and after input content",
         "appendInner": "Adds an item inside the input and after input content",
-        "messages": "Replaces messages under input field with slot content"
+        "messages": "Replaces messages under input field with slot content",
+        "hint": "Adds an item under the field"
       }
     },
     "VaList": {
@@ -4081,14 +4084,14 @@
     "solutions": {
       "title": "Examples",
       "description": "Here are two examples how you can add CSS variables to html head",
-      
+
       "nuxt": "Look at Nuxt3 guide",
 
-      "viteSsrPlugin": { 
+      "viteSsrPlugin": {
         "title": "Vite SSR Plugin",
         "description": "Learn more about [Vite SSR Plugin](https://vite-plugin-ssr.com/vue-tour)"
       },
-      "vitesse": { 
+      "vitesse": {
         "title": "Vitesse",
         "description": "Learn more about [Vitesse](https://github.com/antfu/vitesse) and [useHead](https://github.com/vueuse/head#server-side-rendering)"
       }
