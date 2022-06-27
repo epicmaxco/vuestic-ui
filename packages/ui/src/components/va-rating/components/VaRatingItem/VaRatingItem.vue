@@ -16,7 +16,7 @@
         tag="button"
         :name="computedIconName"
         :size="$props.size"
-        :color="getColor($props.color)"
+        :color="computedColor"
         @click="onClick"
       />
     </slot>
@@ -24,11 +24,14 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, watch } from 'vue'
-import { useColors } from '../../../../services/color-config/color-config'
+import { computed, defineComponent, ref, shallowRef, watch } from 'vue'
+
+import { useColors } from '../../../../composables/useColor'
 import { useSyncProp } from '../../../../composables/useSyncProp'
-import { VaIcon } from '../../../va-icon'
+
 import { RatingValue } from '../../types'
+
+import { VaIcon } from '../../../va-icon'
 
 export default defineComponent({
   name: 'VaRatingItem',
@@ -44,24 +47,33 @@ export default defineComponent({
     hover: { type: Boolean, default: false },
     tabindex: { type: Number, default: 0 },
     disabled: { type: Boolean, default: false },
+    readonly: { type: Boolean, default: false },
     size: { type: [String, Number], default: 'medium' },
-    emptyIconColor: { type: String },
+    unselectedColor: { type: String },
     color: { type: String, default: 'primary' },
   },
 
   emits: ['update:modelValue', 'click', 'hover'],
 
   setup (props, { emit }) {
-    const rootEl = ref<HTMLElement>()
+    const rootEl = shallowRef<HTMLElement>()
+
     const [modelValue] = useSyncProp('modelValue', props, emit, RatingValue.EMPTY)
     const hoveredValue = ref<number | null>(null)
 
     const visibleValue = computed(() => {
-      if (props.hover) {
+      if (props.hover && !props.disabled && !props.readonly) {
         return hoveredValue.value || modelValue.value
       }
       return modelValue.value
     })
+
+    const { getColor } = useColors()
+    const computedColor = computed(() => getColor(
+      props.unselectedColor && visibleValue.value === RatingValue.EMPTY
+        ? props.unselectedColor
+        : props.color,
+    ))
 
     const onMouseMove = (ev: MouseEvent) => {
       if (!rootEl.value) { return }
@@ -91,7 +103,7 @@ export default defineComponent({
     watch(hoveredValue, () => emit('hover', hoveredValue.value || RatingValue.EMPTY))
 
     return {
-      ...useColors(),
+      computedColor,
       rootEl,
       onEnter,
       onClick,

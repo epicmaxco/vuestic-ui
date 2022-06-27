@@ -96,7 +96,7 @@ import { useValidationProps } from '../../../composables/useValidation'
 import { useColors } from '../../../composables/useColor'
 
 import { VaMessageList } from './VaMessageList'
-import { VaIcon } from '../../'
+import { VaIcon } from '../../va-icon'
 
 export default defineComponent({
   name: 'VaInputWrapper',

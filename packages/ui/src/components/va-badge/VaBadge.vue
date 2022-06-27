@@ -19,18 +19,17 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, PropType } from 'vue'
+import { defineComponent, computed } from 'vue'
 
 import { useColors } from '../../composables/useColor'
 import { useTextColor } from '../../composables/useTextColor'
-import { generateUniqueId } from '../../services/utils'
 
 export default defineComponent({
   name: 'VaBadge',
   props: {
     color: { type: String, default: 'danger' },
     textColor: { type: String },
-    text: { type: [String, Number] as PropType<string | number>, default: '' },
+    text: { type: [String, Number], default: '' },
     overlap: { type: Boolean, default: false },
     multiLine: { type: Boolean, default: false },
     visibleEmpty: { type: Boolean, default: false },

@@ -1,11 +1,8 @@
 <template>
   <va-data-table :items="items" :columns="columns">
-    <template #header(address)>Street</template>
-    <template #header(company)>Company Name</template>
-
-    <template #cell(username)="{ rowData }"><va-chip>{{ rowData.username }}</va-chip></template>
-    <template #cell(address)="{ rowData }">{{ rowData.address.street }}</template>
-    <template #cell(company)="{ rowData }">{{ rowData.company.name }}</template>
+    <template #header(street)="{ label }"><va-chip size="small">{{ label }}</va-chip></template>
+    <template #header(companyName)>Company Name</template>
+    <template #cell(street)="{ value }"><va-chip size="small">{{ value }}</va-chip></template>
   </va-data-table>
 </template>
 
@@ -93,8 +90,8 @@ export default defineComponent({
       { key: 'email' },
       { key: 'phone' },
       { key: 'website' },
-      { key: 'address' },
-      { key: 'company' },
+      { key: 'address.street', name: 'street', label: 'Street' },
+      { key: 'company.name', name: 'companyName', label: 'Company Name' },
     ]
 
     return {

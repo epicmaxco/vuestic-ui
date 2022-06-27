@@ -51,7 +51,7 @@ export default defineComponent({
     color: { type: String, default: 'primary' },
     textColor: { type: String, default: undefined },
     activeButtonTextColor: { type: String },
-    modelValue: { type: [String, Number] as PropType<string | number>, default: '' },
+    modelValue: { type: [String, Number], default: '' },
     outline: { type: Boolean, default: false },
     flat: { type: Boolean, default: false },
     rounded: { type: Boolean, default: true },

@@ -23,7 +23,7 @@ export const useFocusDeep = (el?: Ref<HTMLElement | undefined>) => {
   // Cache previouslyFocusedElement, so we can simply come back to it
   let previouslyFocusedElement: HTMLElement | null = null
 
-  return computed({
+  return computed<boolean | undefined>({
     get () {
       if (!focused.value) { return false }
       if (focused.value === current.value) { return true }

@@ -1,7 +1,7 @@
 <template>
   <va-button  @click="$vaToast.init({
     message: 'Notification with onClick handler',
-    onClick: clickHandler
+    onClick: clickHandler,
   })">notification with custom onClick handler</va-button>
 </template>
 

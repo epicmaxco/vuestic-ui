@@ -8,7 +8,8 @@ export type DataTableColumnStyle = unknown | (() => unknown)
 // should look like an array of the following objects (and/or strings)
 export type DataTableColumn = {
   [key: string]: any
-  key: string // name of an item's property
+  key: string // name of an item's property: 'userName', 'address.zipCode'
+  name?: string // column unique name (used in slots)
   label?: string // what to display in the respective heading
   thTitle?: string // <th>'s `title` attribute's value
   sortable?: boolean // whether the table can be sorted by that column
@@ -59,6 +60,7 @@ export interface DataTableColumnInternal {
   source: DataTableColumnSource
   initialIndex: number
   key: string
+  name: string
   label: string
   thTitle: string
   sortable: boolean
@@ -79,9 +81,9 @@ export type DataTableItem = Record<string, any>
 // the inner representation of table cells
 export interface DataTableCell {
   rowIndex: number
-  rowData: DataTableItem;
+  rowData: DataTableItem
   column: DataTableColumnInternal
-  source: any;
+  source: any
   value: string
 }
 

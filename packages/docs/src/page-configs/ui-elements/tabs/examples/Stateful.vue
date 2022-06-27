@@ -1,8 +1,5 @@
 <template>
-  <va-tabs
-    stateful
-    grow
-  >
+  <va-tabs stateful grow>
     <template #tabs>
       <va-tab
         v-for="title in ['One', 'Two', 'Three']"
@@ -14,6 +11,3 @@
     </template>
   </va-tabs>
 </template>
-<script>
-export default {}
-</script>

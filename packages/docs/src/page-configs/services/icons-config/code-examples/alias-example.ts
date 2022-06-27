@@ -1,5 +1,3 @@
-import { $root } from 'vuestic-ui/src/components/va-timeline/VaTimelineItem/VaTimelineItem.vue'
-
 export const aliasCodeExample = `
 const aliases = [
   {

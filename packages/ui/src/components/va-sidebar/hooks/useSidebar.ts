@@ -3,7 +3,7 @@ import { provide, inject, getCurrentInstance, toRef, ref } from 'vue'
 const key = Symbol('VaSidebar')
 
 export const useSidebar = () => {
-  const { props } = getCurrentInstance()!
+  const { props } = getCurrentInstance() as unknown as { props: { color?: string } }
 
   provide(key, {
     color: toRef(props, 'color'),

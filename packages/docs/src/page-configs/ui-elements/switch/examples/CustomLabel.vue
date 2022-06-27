@@ -1,8 +1,7 @@
 <template>
-  <div>
-    <va-switch v-model="value" true-label="Agree" false-label="Disagree" />
-  </div>
+  <va-switch v-model="value" true-label="Agree" false-label="Disagree" />
 </template>
+
 <script>
 export default {
   data () {

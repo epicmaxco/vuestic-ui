@@ -1,11 +1,11 @@
 <template>
   <component
-    class="va-tab"
+    :is="tagComputed"
     ref="tabElement"
+    class="va-tab"
     role="tab"
     :aria-selected="isActive"
     :aria-disabled="$props.disabled || parentDisabled"
-    :is="tagComputed"
     :href="hrefComputed"
     :target="target"
     :to="to"
@@ -22,9 +22,9 @@
       class="va-tab__content"
       v-on="keyboardFocusListeners"
       :tabindex="tabIndexComputed"
-      @focus="onFocus()"
-      @click="onTabClick()"
-      @keydown.enter="onTabKeydown()"
+      @focus="onFocus"
+      @click="onTabClick"
+      @keydown.enter="onTabKeydown"
     >
       <slot>
         <va-icon
@@ -43,19 +43,15 @@
 </template>
 
 <script lang="ts">
-import {
-  computed,
-  defineComponent,
-  inject,
-  onBeforeUnmount,
-  onMounted,
-  ref,
-} from 'vue'
-import { VaIcon } from '../../va-icon'
+import { computed, defineComponent, inject, onBeforeUnmount, onMounted, ref, shallowRef } from 'vue'
+
 import { useRouterLink, useRouterLinkProps } from '../../../composables/useRouterLink'
 import useKeyboardOnlyFocus from '../../../composables/useKeyboardOnlyFocus'
-import { useColor } from '../../../composables/useColor'
+import { useColors } from '../../../composables/useColor'
+
 import { TabsViewKey, TabsView, TabComponent } from '../types'
+
+import { VaIcon } from '../../va-icon'
 
 export default defineComponent({
   name: 'VaTab',
@@ -74,7 +70,7 @@ export default defineComponent({
   },
 
   setup: (props, { emit }) => {
-    const tabElement = ref<HTMLElement>()
+    const tabElement = shallowRef<HTMLElement>()
 
     const isActive = ref(false)
     const hoverState = ref(false)
@@ -82,7 +78,6 @@ export default defineComponent({
     const leftSidePosition = ref(0)
     const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
     const { tagComputed, hrefComputed, isActiveRouterLink } = useRouterLink(props)
-    const { colorComputed } = useColor(props)
     const classComputed = computed(() => ({ 'va-tab--disabled': props.disabled }))
     const {
       parentDisabled,
@@ -99,6 +94,9 @@ export default defineComponent({
       unregisterTab: (tab: TabComponent) => tab,
     })
     const tabIndexComputed = computed(() => (props.disabled || parentDisabled) ? -1 : 0)
+
+    const { getColor } = useColors()
+    const colorComputed = computed(() => getColor(props.color))
 
     const computedStyle = computed(() => ({
       color: hasKeyboardFocus.value || hoverState.value || isActive.value ? colorComputed.value : 'inherit',
