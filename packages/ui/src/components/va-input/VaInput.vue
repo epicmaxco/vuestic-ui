@@ -184,7 +184,7 @@ export default defineComponent({
       ? undefined
       : input.value as HTMLInputElement | undefined)
 
-    const { computedValue, onInput } = useCleave(computedCleaveTarget, props, emit)
+    const { cleave, computedValue, onInput } = useCleave(computedCleaveTarget, props, emit)
 
     const inputListeners = createInputListeners(emit)
 
@@ -231,9 +231,11 @@ export default defineComponent({
     const counterOrMaxLengthComputed = computed(() => {
       if (typeof computedValue.value !== 'string') { return }
 
-      return props.maxLength
-        ? `${computedValue.value.length}/${props.maxLength}`
-        : computedValue.value.length
+      if (props.maxLength) {
+        return `${computedValue.value.length}/${props.maxLength}`
+      }
+
+      return computedValue.value.length
     })
 
     return {
