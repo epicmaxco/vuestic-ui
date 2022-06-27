@@ -8,8 +8,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import { useColor } from '../../../composables/useColor'
+import { defineComponent, computed } from 'vue'
+import { useColors } from '../../../composables'
 import { VaIcon } from '../../va-icon'
 
 export default defineComponent({
@@ -27,7 +27,8 @@ export default defineComponent({
     },
   },
   setup (props) {
-    const { colorComputed } = useColor(props)
+    const { getColor } = useColors()
+    const colorComputed = computed(() => getColor(props.color))
 
     return {
       colorComputed,

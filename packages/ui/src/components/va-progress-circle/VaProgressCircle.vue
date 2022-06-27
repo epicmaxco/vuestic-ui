@@ -35,8 +35,7 @@
 import { computed, defineComponent } from 'vue'
 import clamp from 'lodash/clamp.js'
 
-import { useColors } from '../../composables/useColor'
-import { useSize, useSizeProps } from '../../composables/useSize'
+import { useColors, useSize, useSizeProps } from '../../composables'
 
 export default defineComponent({
   name: 'VaProgressCircle',

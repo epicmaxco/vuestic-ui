@@ -1,7 +1,7 @@
 import { computed } from 'vue'
 
 import { safeCSSLength } from '../../../utils/css-utils'
-import { useColors } from '../../../composables/useColor'
+import { useColors } from '../../../composables'
 
 import {
   DataTableColumnInternal,

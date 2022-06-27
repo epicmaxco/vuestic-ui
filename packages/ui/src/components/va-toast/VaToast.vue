@@ -43,9 +43,7 @@
 <script lang="ts">
 import { defineComponent, PropType, ref, computed, onMounted, shallowRef } from 'vue'
 
-import { useColors } from '../../composables/useColor'
-import { useTimer } from '../../composables/useTimer'
-import { useTextColor } from '../../composables/useTextColor'
+import { useColors, useTimer, useTextColor } from '../../composables'
 
 import { ToastPosition } from './types'
 

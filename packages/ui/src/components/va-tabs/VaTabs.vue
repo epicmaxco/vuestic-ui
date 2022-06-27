@@ -66,9 +66,7 @@
 <script lang="ts">
 import { computed, defineComponent, provide, reactive, ref, unref, watch, Ref, shallowRef, StyleValue } from 'vue'
 
-import { useStateful, useStatefulProps } from '../../composables/useStateful'
-import { useColors } from '../../composables/useColor'
-import { useResizeObserver } from '../../composables/useResizeObserver'
+import { useStateful, useStatefulProps, useColors, useResizeObserver } from '../../composables'
 
 import { TabsViewKey, TabComponent } from './types'
 

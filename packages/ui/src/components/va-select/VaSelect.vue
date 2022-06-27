@@ -161,22 +161,25 @@
 <script lang="ts">
 import { defineComponent, PropType, ref, computed, watch, nextTick, Ref, shallowRef } from 'vue'
 
-import { warn } from '../../services/utils'
-import { useSelectableList, useSelectableListProps } from '../../composables/useSelectableList'
-import { useValidation, useValidationProps, useValidationEmits, ValidationProps } from '../../composables/useValidation'
-import { useFormProps } from '../../composables/useForm'
-import { useLoadingProps } from '../../composables/useLoading'
-import { useColors } from '../../composables/useColor'
-import { useMaxSelections, useMaxSelectionsProps } from '../../composables/useMaxSelections'
-import { useClearableProps, useClearable, useClearableEmits } from '../../composables/useClearable'
-import { useFocusDeep } from '../../composables/useFocusDeep'
+import {
+  useSelectableList, useSelectableListProps,
+  useValidation, useValidationProps, useValidationEmits, ValidationProps,
+  useFormProps,
+  useLoadingProps,
+  useColors,
+  useMaxSelections, useMaxSelectionsProps,
+  useClearableProps, useClearable, useClearableEmits,
+  useFocusDeep,
+} from '../../composables'
 
-import { SelectDropdownIcon, SelectOption, Placement } from './types'
+import { warn } from '../../services/utils'
 
 import { VaDropdown, VaDropdownContent } from '../va-dropdown'
 import { VaIcon } from '../va-icon'
 import { VaInput, VaInputWrapper } from '../va-input'
 import { VaSelectOptionList } from './VaSelectOptionList'
+
+import { SelectDropdownIcon, SelectOption, Placement } from './types'
 
 export default defineComponent({
   name: 'VaSelect',

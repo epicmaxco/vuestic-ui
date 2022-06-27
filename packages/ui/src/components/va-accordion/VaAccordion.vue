@@ -7,7 +7,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
 
-import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
+import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables'
 import { useAccordion } from './hooks/useAccordion'
 
 export default defineComponent({

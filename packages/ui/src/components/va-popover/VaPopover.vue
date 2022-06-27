@@ -41,8 +41,7 @@
 import { computed, defineComponent, PropType } from 'vue'
 
 import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
-import { useColors } from '../../composables/useColor'
-import { useTextColor } from '../../composables/useTextColor'
+import { useColors, useTextColor } from '../../composables'
 
 import { VaDropdown, VaIcon } from '../'
 

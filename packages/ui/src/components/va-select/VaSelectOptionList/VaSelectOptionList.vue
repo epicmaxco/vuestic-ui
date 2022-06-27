@@ -59,8 +59,7 @@
 import { defineComponent, PropType, watch, ref, computed, ComponentPublicInstance, shallowRef } from 'vue'
 
 import { scrollToElement } from '../../../utils/scroll-to-element'
-import { useColors, useColorProps } from '../../../composables/useColor'
-import { SelectableOption } from '../../../composables/useSelectableList'
+import { useColors, useColorProps, SelectableOption } from '../../../composables'
 
 import { VaIcon } from '../../va-icon'
 

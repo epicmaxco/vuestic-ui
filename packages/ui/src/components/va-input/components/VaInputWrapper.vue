@@ -89,11 +89,7 @@
 import { computed, defineComponent } from 'vue'
 import pick from 'lodash/pick.js'
 
-import { useBem } from '../../../composables/useBem'
-import { useCSSVariables } from '../../../composables/useCSSVariables'
-import { useFormProps } from '../../../composables/useForm'
-import { useValidationProps } from '../../../composables/useValidation'
-import { useColors } from '../../../composables/useColor'
+import { useBem, useFormProps, useValidationProps, useColors, useCSSVariables } from '../../../composables'
 
 import { VaMessageList } from './VaMessageList'
 import { VaIcon } from '../../va-icon'

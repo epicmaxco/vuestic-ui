@@ -17,11 +17,13 @@
 <script lang="ts">
 import { defineComponent, computed, shallowRef, StyleValue } from 'vue'
 
-import { useColors } from '../../../composables/useColor'
-import useKeyboardOnlyFocus from '../../../composables/useKeyboardOnlyFocus'
-import { useHover } from '../../../composables/useHover'
-import { useRouterLink, useRouterLinkProps } from '../../../composables/useRouterLink'
-import { useTextColor } from '../../../composables/useTextColor'
+import {
+  useColors,
+  useKeyboardOnlyFocus,
+  useHover,
+  useRouterLink, useRouterLinkProps,
+  useTextColor,
+} from '../../../composables'
 import { useSidebarItem } from '../hooks/useSidebar'
 
 export default defineComponent({

@@ -1,4 +1,4 @@
-import { useColors } from '../color-config'
+import { useColors } from '../../../composables'
 
 import { ColorInput } from 'colortranslator/dist/@types'
 const {

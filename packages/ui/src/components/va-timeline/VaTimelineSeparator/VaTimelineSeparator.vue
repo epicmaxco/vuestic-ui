@@ -1,7 +1,7 @@
 <script lang="ts">
 import { defineComponent, h } from 'vue'
 
-import { useColors } from '../../../composables/useColor'
+import { useColors } from '../../../composables'
 
 const componentName = 'va-timeline-separator'
 

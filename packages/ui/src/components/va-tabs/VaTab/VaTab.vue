@@ -45,9 +45,7 @@
 <script lang="ts">
 import { computed, defineComponent, inject, onBeforeUnmount, onMounted, ref, shallowRef } from 'vue'
 
-import { useRouterLink, useRouterLinkProps } from '../../../composables/useRouterLink'
-import useKeyboardOnlyFocus from '../../../composables/useKeyboardOnlyFocus'
-import { useColors } from '../../../composables/useColor'
+import { useRouterLink, useRouterLinkProps, useKeyboardOnlyFocus, useColors } from '../../../composables'
 
 import { TabsViewKey, TabsView, TabComponent } from '../types'
 

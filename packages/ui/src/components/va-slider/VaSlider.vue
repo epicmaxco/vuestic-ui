@@ -161,8 +161,7 @@
 import { defineComponent, watch, PropType, ref, computed, onMounted, onBeforeUnmount, shallowRef, CSSProperties } from 'vue'
 
 import { generateUniqueId } from '../../services/utils'
-import { useColors } from '../../composables/useColor'
-import { useArrayRefs } from '../../composables/useArrayRefs'
+import { useColors, useArrayRefs } from '../../composables'
 import { validateSlider } from './validateSlider'
 
 import { VaIcon } from '../va-icon'

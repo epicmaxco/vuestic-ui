@@ -21,8 +21,7 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
 
-import { useColors } from '../../composables/useColor'
-import { useTextColor } from '../../composables/useTextColor'
+import { useColors, useTextColor } from '../../composables'
 
 export default defineComponent({
   name: 'VaBadge',

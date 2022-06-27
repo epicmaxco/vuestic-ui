@@ -80,11 +80,13 @@ import { defineComponent, PropType, computed, shallowRef } from 'vue'
 import pick from 'lodash/pick.js'
 
 import { generateUniqueId } from '../../services/utils'
-import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'
-import { useSelectable, useSelectableProps, useSelectableEmits } from '../../composables/useSelectable'
-import { useColors } from '../../composables/useColor'
-import { useTextColor } from '../../composables/useTextColor'
-import { useBem } from '../../composables/useBem'
+
+import {
+  useKeyboardOnlyFocus,
+  useSelectable, useSelectableProps, useSelectableEmits,
+  useColors, useTextColor,
+  useBem,
+} from '../../composables'
 
 import { VaProgressCircle } from '../va-progress-circle'
 import { VaMessageListWrapper } from '../va-input'

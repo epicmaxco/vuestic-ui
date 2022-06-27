@@ -16,8 +16,7 @@
 import { defineComponent, computed, ref, PropType } from 'vue'
 
 import { getGradientBackground } from '../../services/color-config/color-functions'
-import { useColors } from '../../composables/useColor'
-import { useTextColor } from '../../composables/useTextColor'
+import { useColors, useTextColor } from '../../composables'
 import { useSidebar } from './hooks/useSidebar'
 
 export default defineComponent({
