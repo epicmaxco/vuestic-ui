@@ -43,6 +43,24 @@
       placeholder="Readonly"
       readonly
     />
+    <va-input
+      v-model="value"
+      counter
+      class="mb-4"
+    >
+      <template #hint>
+        <i>Counter</i>
+      </template>
+    </va-input>
+    <va-input
+      v-model="value"
+      :max-length="30"
+      class="mb-4"
+    >
+      <template #hint>
+        <b>Max length</b>
+      </template>
+    </va-input>
   </div>
 </template>
 
