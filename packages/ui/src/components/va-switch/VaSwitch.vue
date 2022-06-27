@@ -166,7 +166,7 @@ export default defineComponent({
       small: props.size === 'small',
       large: props.size === 'large',
       error: computedError.value,
-      'on-keyboard-focus': hasKeyboardFocus.value,
+      onKeyboardFocus: hasKeyboardFocus.value,
     }))
 
     const styleComputed = computed(() => ({
