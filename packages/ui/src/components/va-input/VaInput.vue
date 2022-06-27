@@ -235,7 +235,7 @@ export default defineComponent({
         return `${computedValue.value.length}/${props.maxLength}`
       }
 
-      return computedValue.value.length
+      return props.counter ? computedValue.value.length : undefined
     })
 
     return {
