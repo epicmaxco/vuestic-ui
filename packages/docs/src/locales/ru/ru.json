@@ -1918,6 +1918,10 @@
       "color": {
         "title": "Цвет",
         "text": "Свойство `color` используется для изменения цвета компонента, `text-color` изменяет цвет текста (предопределенные опции цвета или `HEX`)."
+      },
+      "content": {
+        "title": "Контент",
+        "text": "Табы с настраиваемым содержимым текущего таба в слоте по умолчанию."
       }
     },
     "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-tabs/_variables.scss)[[target=_blank]]",
