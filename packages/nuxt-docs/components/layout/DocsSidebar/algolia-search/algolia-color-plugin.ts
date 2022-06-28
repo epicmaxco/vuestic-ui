@@ -1,4 +1,4 @@
-import { getColors } from '../../../../../ui/src/services/color-config/color-config'
+import { useColors } from 'vuestic-ui/src/composables'
 import { addOrUpdateStyleElement } from '../../../../../ui/src/services/dom-functions'
 import { getHoverColor } from '../../../../../ui/src/services/color-config/color-functions'
 import { App, ref, watch } from 'vue'
@@ -16,7 +16,7 @@ const AlgoliaColorPlugin = {
   install (app: App) {
     app.mixin({
       setup () {
-        const colors = ref(getColors().colors)
+        const colors = ref(useColors().getColors().colors)
         return { colors }
       },
       created () {

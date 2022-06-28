@@ -23,9 +23,7 @@
 import { defineComponent, computed } from 'vue'
 
 import { getGradientBackground } from '../../services/color-config/color-functions'
-import { useColors } from '../../composables/useColor'
-import { useRouterLink, useRouterLinkProps } from '../../composables/useRouterLink'
-import { useTextColor } from '../../composables/useTextColor'
+import { useColors, useTextColor, useRouterLink, useRouterLinkProps } from '../../composables'
 
 export default defineComponent({
   name: 'VaCard',

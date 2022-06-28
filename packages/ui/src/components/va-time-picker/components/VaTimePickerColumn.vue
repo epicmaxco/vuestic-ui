@@ -25,8 +25,7 @@
 <script lang="ts">
 import { defineComponent, nextTick, onMounted, PropType, shallowRef, watch } from 'vue'
 
-import { useSyncProp } from '../../../composables/useSyncProp'
-import { useFocus, useFocusEmits } from '../../../composables/useFocus'
+import { useSyncProp, useFocus, useFocusEmits } from '../../../composables'
 
 export default defineComponent({
   name: 'VaTimePickerColumn',

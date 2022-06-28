@@ -9,13 +9,13 @@
 </template>
 
 <script>
-import { getColors } from '../../../../../ui/src/services/color-config/color-config'
+import { useColors } from 'vuestic-ui/src/composables'
 
 export default {
   name: 'IconAdmin',
   computed: {
     colors () {
-      return getColors()
+      return useColors().getColors()
     },
   },
 }

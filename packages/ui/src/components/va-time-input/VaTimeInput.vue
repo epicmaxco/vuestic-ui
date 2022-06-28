@@ -106,9 +106,12 @@ import omit from 'lodash/omit.js'
 
 import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
 import { generateUniqueId } from '../../services/utils'
-import { useSyncProp } from '../../composables/useSyncProp'
-import { useValidation, useValidationEmits, useValidationProps, ValidationProps } from '../../composables/useValidation'
-import { useClearable, useClearableEmits } from '../../composables/useClearable'
+
+import {
+  useSyncProp,
+  useValidation, useValidationEmits, useValidationProps, ValidationProps,
+  useClearable, useClearableEmits,
+} from '../../composables'
 import { useTimeParser } from './hooks/time-text-parser'
 import { useTimeFormatter } from './hooks/time-text-formatter'
 

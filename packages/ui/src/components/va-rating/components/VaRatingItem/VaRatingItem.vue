@@ -26,8 +26,7 @@
 <script lang="ts">
 import { computed, defineComponent, ref, shallowRef, watch } from 'vue'
 
-import { useColors } from '../../../../composables/useColor'
-import { useSyncProp } from '../../../../composables/useSyncProp'
+import { useColors, useSyncProp } from '../../../../composables'
 
 import { RatingValue } from '../../types'
 

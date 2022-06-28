@@ -28,7 +28,7 @@ const argv = yargs(hideBin(process.argv))
   .option('releaseType', {
     description: 'Internal release type',
     choices: ['monthly', 'weekly', 'next', 'experimental'],
-    default: 'experimental' as ReleaseType,
+    required: true,
   })
   .option('dryRun', {
     type: 'boolean',
@@ -38,6 +38,14 @@ const argv = yargs(hideBin(process.argv))
   .argv as { releaseType: ReleaseType, dryRun: boolean }
 
 const gitTagFromVersion = (version: string) => `v${version}`
+
+const incrementVersion = (version: string, type: 'major' | 'minor' | 'patch'): string => {
+  const result = semver.inc(version, type)
+  if (!result) {
+    throw new Error(`Unable to increment ${type} version on '${version}'`)
+  }
+  return result
+}
 
 const getReleaseConfig = async (releaseType: ReleaseType): Promise<ReleaseConfig> => {
   const currentBranchName = await executeCommand('git rev-parse --abbrev-ref HEAD')
@@ -51,8 +59,7 @@ const getReleaseConfig = async (releaseType: ReleaseType): Promise<ReleaseConfig
   let result: Partial<ReleaseConfig> | null = null
 
   if (releaseType === 'monthly') {
-    const version = semver.inc(currentVersion, 'minor')
-    if (!version) { throw new Error('Unable to increment minor version') }
+    const version = incrementVersion(currentVersion, 'minor')
     result = {
       version,
       gitTag: gitTagFromVersion(version),
@@ -62,8 +69,7 @@ const getReleaseConfig = async (releaseType: ReleaseType): Promise<ReleaseConfig
     }
   }
   if (releaseType === 'weekly') {
-    const version = semver.inc(currentVersion, 'patch')
-    if (!version) { throw new Error('Unable to increment patch version') }
+    const version = incrementVersion(currentVersion, 'patch')
     result = {
       version,
       gitTag: gitTagFromVersion(version),
@@ -73,8 +79,7 @@ const getReleaseConfig = async (releaseType: ReleaseType): Promise<ReleaseConfig
     }
   }
   if (releaseType === 'next') {
-    const version = semver.inc(currentVersion, 'patch')
-    if (!version) { throw new Error('Unable to increment patch version') }
+    const version = incrementVersion(currentVersion, 'patch')
     result = {
       version: `${version}-next-${commitHash}-${dateIsoShort}`,
       gitTag: undefined,
@@ -84,10 +89,8 @@ const getReleaseConfig = async (releaseType: ReleaseType): Promise<ReleaseConfig
     }
   }
   if (releaseType === 'experimental') {
-    const version = semver.inc(currentVersion, 'patch')
-    if (!version) { throw new Error('Unable to increment patch version') }
     result = {
-      version: `${version}-experimental-${commitHash}-${dateIsoShort}`,
+      version: `0.0.0-experimental-${commitHash}-${dateIsoShort}`,
       gitTag: undefined,
       distTag: 'experimental',
       shouldCommit: false,
@@ -132,11 +135,11 @@ const getReleaseConfig = async (releaseType: ReleaseType): Promise<ReleaseConfig
     await executeCommand('git diff-index --quiet HEAD --')
   } catch (e) {
     console.error('You have uncommited changes, please commit them before continuing.')
-    process.exit()
+    return
   }
   if (!dryRun && requiredBranch && branch !== requiredBranch) {
     console.error(`${branch} is incorrect for this flow, use ${requiredBranch} instead`)
-    process.exit()
+    return
   }
 
   // **** Update version strings ****

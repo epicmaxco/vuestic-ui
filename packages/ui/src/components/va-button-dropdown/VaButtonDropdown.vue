@@ -84,9 +84,7 @@
 import { computed, defineComponent, PropType } from 'vue'
 import pick from 'lodash/pick.js'
 
-import { useStatefulProps, useStateful } from '../../composables/useStateful'
-import { useEmitProxy } from '../../composables/useEmitProxy'
-import { Placement, placementsPositions } from '../../composables/usePopover'
+import { useStateful, useStatefulProps, useEmitProxy, Placement, placementsPositions } from '../../composables'
 
 import { VaDropdown, VaDropdownContent } from '../va-dropdown'
 import { VaButton } from '../va-button'

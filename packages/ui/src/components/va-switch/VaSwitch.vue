@@ -80,11 +80,13 @@ import { defineComponent, PropType, computed, shallowRef } from 'vue'
 import pick from 'lodash/pick.js'
 
 import { generateUniqueId } from '../../services/utils'
-import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'
-import { useSelectable, useSelectableProps, useSelectableEmits } from '../../composables/useSelectable'
-import { useColors } from '../../composables/useColor'
-import { useTextColor } from '../../composables/useTextColor'
-import { useBem } from '../../composables/useBem'
+
+import {
+  useKeyboardOnlyFocus,
+  useSelectable, useSelectableProps, useSelectableEmits,
+  useColors, useTextColor,
+  useBem,
+} from '../../composables'
 
 import { VaProgressCircle } from '../va-progress-circle'
 import { VaMessageListWrapper } from '../va-input'
@@ -158,14 +160,13 @@ export default defineComponent({
     })
 
     const computedClass = useBem('va-switch', () => ({
-      ...pick(props, ['readonly', 'disabled']),
+      ...pick(props, ['readonly', 'disabled', 'leftLabel']),
       checked: isChecked.value,
       indeterminate: isIndeterminate.value,
       small: props.size === 'small',
       large: props.size === 'large',
-      'left-label': props.leftLabel,
       error: computedError.value,
-      'on-keyboard-focus': hasKeyboardFocus.value,
+      onKeyboardFocus: hasKeyboardFocus.value,
     }))
 
     const styleComputed = computed(() => ({

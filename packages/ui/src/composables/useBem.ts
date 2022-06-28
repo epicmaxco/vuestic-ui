@@ -1,9 +1,11 @@
 import { computed, Ref, unref, ComputedRef } from 'vue'
+
 import isFunction from 'lodash/isFunction.js'
+import kebab from 'lodash/kebabCase.js'
 
 import { __DEV__ } from '../utils/global-utils'
 
-type Key<Prefix extends string, ModifierKey extends string> = `${Prefix}--${ModifierKey}`
+type Key<Prefix extends string, ModifierKey extends string> = `${Prefix}--${ModifierKey | string}`
 
 type ClassesObject<Key extends string> = Record<Key, boolean>
 
@@ -16,16 +18,17 @@ type ComputedClasses<Key extends string> = ClassesObject<Key> & {
 
 /**
  * @description creates BEM modifiers based on transferred prefix (base BEM class) & modifiers list.
+ * camelCase modifiers names will be transformed to the kebab-case.
  * @param prefix string that classes start with (base BEM class).
  * @param modifiers list of options that will serve as state BEM modifiers.
  * @returns computed classes starting with "prefix" and ending with form state BEM modifier.
  * @example
- *  const result = useBem('va-component', computed(() => pick(props, ['success'])))
- *  // if success is `true`
- *  { ...result }: { 'va-component--success': true }
- *  result.asObject.value: { 'va-component--success': true }
- *  result.asArray.value: ['va-component--success']
- *  result.asString.value: 'va-component--success'
+ *  const result = useBem('va-component', computed(() => pick(props, ['success, noError'])))
+ *  // if success & noError are `true`
+ *  { ...result }: { 'va-component--success': true, va-component--no-error: true }
+ *  result.asObject.value: { 'va-component--success': true, va-component--no-error: true }
+ *  result.asArray.value: ['va-component--success', 'va-component--no-error']
+ *  result.asString.value: 'va-component--success va-component--no-error'
  */
 export const useBem = <ModifierKey extends string, Prefix extends string>(
   prefix: Prefix,
@@ -41,7 +44,7 @@ export const useBem = <ModifierKey extends string, Prefix extends string>(
     return Object
       .entries(unref(modifiersList))
       .reduce((classesObj: Record<string, boolean>, [modifierName, value]) => {
-        if (value) { classesObj[`${prefix}--${modifierName}`] = true }
+        if (value) { classesObj[`${prefix}--${kebab(modifierName)}`] = true }
         return classesObj
       }, {})
   })

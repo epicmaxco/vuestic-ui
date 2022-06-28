@@ -1,5 +1,5 @@
-<script>
-import { h } from 'vue'
+<script lang="ts">
+import { defineComponent, h } from 'vue'
 
 import { extractComponentProps, filterComponentProps } from '../../../utils/child-props'
 
@@ -8,7 +8,7 @@ import { VaTimelineSeparator } from '../VaTimelineSeparator'
 const COMPONENT_NAME = 'va-timeline-item'
 const VaTimelineSeparatorProps = extractComponentProps(VaTimelineSeparator)
 
-export default {
+export default defineComponent({
   name: COMPONENT_NAME,
   props: {
     ...VaTimelineSeparatorProps,
@@ -62,7 +62,7 @@ export default {
       children,
     )
   },
-}
+})
 </script>
 
 <style lang="scss">

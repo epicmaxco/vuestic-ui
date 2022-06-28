@@ -18,9 +18,11 @@
 <script lang="ts">
 import { defineComponent, PropType, ref } from 'vue'
 
-import { useStateful, useStatefulEmits, useStatefulProps } from '../../composables/useStateful'
-import { useFormProps, useForm } from '../../composables/useForm'
-import { useArrayRefs } from '../../composables/useArrayRefs'
+import {
+  useStateful, useStatefulEmits, useStatefulProps,
+  useFormProps, useForm,
+  useArrayRefs,
+} from '../../composables'
 import { useTimePicker } from './hooks/useTimePicker'
 
 import VaTimePickerColumn from './components/VaTimePickerColumn.vue'

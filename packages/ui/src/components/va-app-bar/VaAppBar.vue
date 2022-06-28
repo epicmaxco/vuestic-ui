@@ -12,9 +12,8 @@
 <script lang="ts">
 import { defineComponent, PropType, computed, ref } from 'vue'
 
-import { setupScroll } from '../../composables/useScroll'
+import { setupScroll, useColors } from '../../composables'
 import { getGradientBackground, getBoxShadowColor } from '../../services/color-config/color-functions'
-import { useColors } from '../../services/color-config/color-config'
 
 export default defineComponent({
   name: 'VaAppBar',
@@ -26,6 +25,7 @@ export default defineComponent({
     shadowOnScroll: { type: Boolean, default: false },
     shadowColor: { type: String, default: '' },
     color: { type: String, default: undefined },
+    absolute: { type: Boolean, default: false },
   },
   setup (props) {
     const prevScrollPosition = ref(0)
@@ -68,6 +68,7 @@ export default defineComponent({
       background: props.gradient ? getGradientBackground(colorComputed.value) : colorComputed.value,
       'box-shadow': computedShadow.value,
       transform: transformComputed.value,
+      position: props.absolute ? 'absolute' as const : undefined,
     }))
 
     const computedClass = computed(() => ({
@@ -90,7 +91,7 @@ export default defineComponent({
 .va-app-bar {
   display: flex;
   align-items: center;
-  position: absolute;
+  position: var(--va-app-bar-position);
   transition: all 0.5s ease;
   top: 0;
   left: 0;

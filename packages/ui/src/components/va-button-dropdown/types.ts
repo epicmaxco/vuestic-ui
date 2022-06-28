@@ -1,1 +1,1 @@
-export type { Placement } from '../../composables/usePopover'
+export type { Placement } from '../../composables'
