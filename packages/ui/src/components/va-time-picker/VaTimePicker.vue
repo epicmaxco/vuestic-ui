@@ -23,10 +23,17 @@
 <script lang="ts">
 import { defineComponent, ref, computed, PropType } from 'vue'
 import { useTimePicker } from './hooks/useTimePicker'
+
 import VaTimePickerColumn from './components/VaTimePickerColumn'
-import { useStateful, useStatefulEmits, useStatefulProps } from '../../composables/useStateful'
-import { useForm, useFormProps } from '../../composables/useForm'
-import { useArrayRefs } from '../../composables/useArrayRefs'
+
+import {
+  useStatefulProps,
+  useStatefulEmits,
+  useStateful,
+  useFormProps,
+  useForm,
+  useArrayRefs,
+} from '../../composables'
 
 export default defineComponent({
   name: 'VaTimePicker',
@@ -57,7 +64,7 @@ export default defineComponent({
 
     const { setItemRef, itemRefs: pickers } = useArrayRefs()
 
-    const activeColumnIndex = ref<number | undefined>()
+    const activeColumnIndex = ref<number>()
 
     const focus = (idx = 0): void => {
       pickers.value[idx]?.focus()
@@ -67,7 +74,7 @@ export default defineComponent({
       idx ? pickers.value[idx]?.blur() : pickers.value.forEach((el) => el?.blur())
     }
 
-    const { computedClasses: computedFormClasses } = useForm(props, 'va-time-picker')
+    const { computedClasses: computedFormClasses } = useForm('va-time-picker', props)
 
     const focusNext = () => {
       const nextIndex = (activeColumnIndex?.value || 0) + 1
@@ -83,7 +90,7 @@ export default defineComponent({
       focus(activeColumnIndex.value)
     }
 
-    const computedClass = computed(() => ({
+    const computedClasses = computed(() => ({
       ...computedFormClasses,
       'va-time-picker--framed': props.framed,
     }))
@@ -100,8 +107,8 @@ export default defineComponent({
 
     return {
       columns,
-      computedClass,
       computedStyles,
+      computedClasses,
       isPM,
       pickers,
       setItemRef,

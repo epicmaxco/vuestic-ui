@@ -4,7 +4,7 @@ import { DatePickerModelValue } from '../../va-date-picker/types'
 import { defaultParseDateFunction } from './input-text-parser'
 import { DateInputRange, DateInputModelValue, DateInputDate } from '../types'
 
-export const isRange = (date: DateInputModelValue): date is DateInputRange => {
+export const isRange = (date: DateInputModelValue): date is DateInputRange<DateInputDate> => {
   return typeof date === 'object' && ('start' in date || 'end' in date)
 }
 

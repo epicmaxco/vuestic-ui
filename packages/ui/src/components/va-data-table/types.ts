@@ -1,15 +1,15 @@
-import { StringWithAutocomplete } from '../../types/string-with-autocomplete'
-
-export type DataTableAlignOptions = StringWithAutocomplete<'left' | 'center' | 'right'>
-export type DataTableVerticalAlignOptions = StringWithAutocomplete<'top' | 'middle' | 'bottom'>
+export type DataTableAlignOptions = 'left' | 'center' | 'right'
+export type DataTableVerticalAlignOptions = 'top' | 'middle' | 'bottom'
 
 export type DataTableColumnClass = unknown | (() => unknown)
 export type DataTableColumnStyle = unknown | (() => unknown)
 
 // provided column definitions (<va-data-table `:columns="myColumns"` />)
 // should look like an array of the following objects (and/or strings)
-export interface DataTableColumn {
-  key: string // name of an item's property
+export type DataTableColumn = {
+  [key: string]: any
+  key: string // name of an item's property: 'userName', 'address.zipCode'
+  name?: string // column unique name (used in slots)
   label?: string // what to display in the respective heading
   thTitle?: string // <th>'s `title` attribute's value
   sortable?: boolean // whether the table can be sorted by that column
@@ -56,9 +56,11 @@ export type DataTableColumnSource = DataTableColumn | string
 
 // inner representation of the columns
 export interface DataTableColumnInternal {
+  [key: string]: any
   source: DataTableColumnSource
   initialIndex: number
   key: string
+  name: string
   label: string
   thTitle: string
   sortable: boolean
@@ -79,9 +81,9 @@ export type DataTableItem = Record<string, any>
 // the inner representation of table cells
 export interface DataTableCell {
   rowIndex: number
-  rowData: DataTableItem;
+  rowData: DataTableItem
   column: DataTableColumnInternal
-  source: any;
+  source: any
   value: string
 }
 
@@ -94,9 +96,9 @@ export interface DataTableRow {
 
 export type DataTableFilterMethod = (source: any) => boolean
 
-export type DataTableSortingOrder = StringWithAutocomplete<'asc' | 'desc'> | null
+export type DataTableSortingOrder = 'asc' | 'desc' | null
 
-export type DataTableSelectMode = StringWithAutocomplete<'single' | 'multiple'>
+export type DataTableSelectMode = 'single' | 'multiple'
 
 export type DataTableRowBind = Record<string, string> | ((item: DataTableItem, index: number) => Record<string, string>)
 

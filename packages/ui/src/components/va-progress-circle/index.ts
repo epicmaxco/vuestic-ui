@@ -1,4 +1,4 @@
 import withConfigTransport from '../../services/config-transport/withConfigTransport'
-import _VaProgressCircleComponent from './VaProgressCircle.vue'
+import _VaProgressCircle from './VaProgressCircle.vue'
 
-export const VaProgressCircle = withConfigTransport(_VaProgressCircleComponent)
+export const VaProgressCircle = withConfigTransport(_VaProgressCircle)

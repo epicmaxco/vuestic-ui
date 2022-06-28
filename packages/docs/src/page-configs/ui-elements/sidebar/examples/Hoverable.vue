@@ -1,14 +1,14 @@
 <template>
-  <div style="height: 13rem; border: 2px solid var(--va-primary);">
+  <div style="height: 13rem; border: 1px solid var(--va-secondary);">
     <va-sidebar hoverable textColor="dark" minimizedWidth="64px">
       <va-sidebar-item
         v-for="item in items"
-        :key="item.to"
+        :key="item.title"
         :active="item.active"
       >
         <va-sidebar-item-content>
           <va-icon :name="item.icon" />
-          <va-sidebar-item-title style="height: 24px;">
+          <va-sidebar-item-title>
             {{ item.title }}
           </va-sidebar-item-title>
         </va-sidebar-item-content>
@@ -30,17 +30,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-.va-sidebar {
-  .va-sidebar__title {
-    transition: opacity 0.2s ease-in-out;
-  }
-
-  &--minimized {
-    .va-sidebar__title {
-      opacity: 0;
-    }
-  }
-}
-</style>

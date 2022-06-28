@@ -1,5 +1,6 @@
 <template>
   <div
+    ref="rootElement"
     tabindex="0"
     class="va-time-picker-column"
     @keydown.down.stop.prevent="makeActiveNext()"
@@ -7,7 +8,6 @@
     @keydown.up.stop.prevent="makeActivePrev()"
     @scroll.passive="onScroll"
     @touchmove.passive="onScroll"
-    ref="rootElement"
   >
     <div
       v-for="(item, index) in items" :key="item"
@@ -59,14 +59,17 @@ export default defineComponent({
 
     const makeActiveByIndex = (index: number) => {
       syncActiveItemIndex.value = index
+      nextTick(() => scrollTo(syncActiveItemIndex.value))
     }
 
     const makeActiveNext = (times?: number) => {
       syncActiveItemIndex.value = (syncActiveItemIndex.value + (times || 1)) % props.items.length
+      nextTick(() => scrollTo(syncActiveItemIndex.value))
     }
 
     const makeActivePrev = (times?: number) => {
       syncActiveItemIndex.value = (syncActiveItemIndex.value - (times || 1) + props.items.length) % props.items.length
+      nextTick(() => scrollTo(syncActiveItemIndex.value))
     }
 
     const onCellClick = (index: number) => {

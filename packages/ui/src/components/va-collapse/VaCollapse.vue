@@ -58,12 +58,10 @@
 <script lang="ts">
 import { computed, defineComponent, shallowRef } from 'vue'
 
-import { generateUniqueId } from '../../services/utils'
-import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'
-import { useColors } from '../../composables/useColor'
-import { useSyncProp } from '../../composables/useSyncProp'
-import { useTextColor } from '../../composables/useTextColor'
+import { useKeyboardOnlyFocus, useColors, useSyncProp, useTextColor } from '../../composables'
 import { useAccordionItem } from '../va-accordion/hooks/useAccordion'
+
+import { generateUniqueId } from '../../services/utils'
 
 import { VaIcon } from '../va-icon'
 
@@ -152,6 +150,7 @@ export default defineComponent({
       tabIndexComputed,
 
       computedClasses: computed(() => ({
+        'va-collapse--expanded': computedModelValue.value,
         'va-collapse--disabled': props.disabled,
         'va-collapse--solid': props.solid,
         'va-collapse--active': props.solid && computedModelValue.value,
@@ -192,7 +191,6 @@ export default defineComponent({
   &__body {
     transition: var(--va-collapse-body-transition);
     overflow: var(--va-collapse-body-overflow);
-    margin-top: var(--va-collapse-body-margin-top);
   }
 
   &__header {

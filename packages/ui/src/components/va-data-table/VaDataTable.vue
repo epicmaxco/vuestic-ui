@@ -44,9 +44,9 @@
 
           <th
             v-for="column in columnsComputed"
-            :key="column.key"
+            :key="column.name"
             scope="col"
-            :aria-sort="getColumnAriaSortOrder(column.key)"
+            :aria-sort="getColumnAriaSortOrder(column.name)"
             :aria-label="column.sortable ? `sort column by ${column.label}` : undefined"
             :title="column.thTitle"
             class="va-data-table__table-th"
@@ -56,11 +56,11 @@
             @keydown.enter.stop="column.sortable && toggleSorting(column)"
           >
             <div class="va-data-table__table-th-wrapper" :tabindex="column.sortable ? 0 : -1">
-              <span v-if="`header(${column.key})` in $slots">
-                <slot :name="`header(${column.key})`" v-bind="column" />
+              <span v-if="`header(${column.name})` in $slots">
+                <slot :name="`header(${column.name})`" v-bind="{ label: column.label, key: column.key }" />
               </span>
 
-              <slot v-else name="header" v-bind="column">
+              <slot v-else name="header" v-bind="{ label: column.label, key: column.key }">
                 <span>{{ column.label }}</span>
               </slot>
 
@@ -74,7 +74,7 @@
                   :name="sortingOrderSync === 'asc' ? 'expand_less' : 'expand_more'"
                   size="small"
                   class="va-data-table__table-th-sorting-icon"
-                  :class="{ active: sortBySync === column.key && sortingOrderSync !== null }"
+                  :class="{ active: sortBySync === column.name && sortingOrderSync !== null }"
                 />
               </div>
             </div>
@@ -145,15 +145,15 @@
 
             <td
               v-for="cell in row.cells"
-              :key="`table-cell_${cell.column.key + cell.rowIndex}`"
+              :key="`table-cell_${cell.column.name + cell.rowIndex}`"
               class="va-data-table__table-td"
               :class="getClass(cell.column.tdClass)"
               :style="[getCellCSSVariables(cell), getStyle(cell.column.tdStyle)]"
               v-bind="getCellBind(cell, row)"
             >
               <slot
-                v-if="`cell(${cell.column.key})` in $slots"
-                :name="`cell(${cell.column.key})`"
+                v-if="`cell(${cell.column.name})` in $slots"
+                :name="`cell(${cell.column.name})`"
                 v-bind="cell"
               />
 
@@ -167,7 +167,11 @@
         <slot name="bodyAppend" />
       </tbody>
 
-      <tfoot v-if="footerClone" class="va-data-table__table-tfoot">
+      <tfoot
+        v-if="footerClone"
+        class="va-data-table__table-tfoot"
+        :class="{ 'va-data-table__table-tfoot--sticky': $props.stickyFooter }"
+      >
         <slot name="footerPrepend" />
 
         <tr v-if="!hideDefaultHeader" class="va-data-table__table-tr">
@@ -187,7 +191,7 @@
 
           <th
             v-for="column in columnsComputed"
-            :key="column.key"
+            :key="column.name"
             :title="column.thTitle"
             :aria-label="allowFooterSorting && column.sortable ? `sort column by ${column.label}` : undefined"
             class="va-data-table__table-th"
@@ -197,8 +201,8 @@
             @keydown.enter.stop="allowFooterSorting && column.sortable && toggleSorting(column)"
           >
             <div class="va-data-table__table-th-wrapper" :tabindex="allowFooterSorting && column.sortable ? 0 : -1">
-              <span v-if="`footer(${column.key})` in $slots">
-                <slot :name="`footer(${column.key})`" v-bind="column" />
+              <span v-if="`footer(${column.name})` in $slots">
+                <slot :name="`footer(${column.name})`" v-bind="{ label: column.label, key: column.key }" />
               </span>
 
               <slot v-else name="footer" v-bind="column">
@@ -214,7 +218,7 @@
                   :name="sortingOrderSync === 'asc' ? 'expand_less' : 'expand_more'"
                   size="small"
                   class="va-data-table__table-th-sorting-icon"
-                  :class="{ active: sortBySync === column.key && sortingOrderSync !== null }"
+                  :class="{ active: sortBySync === column.name && sortingOrderSync !== null }"
                 />
               </div>
             </div>
@@ -313,7 +317,8 @@ export default defineComponent({
     allowFooterSorting: { type: Boolean, default: false },
     striped: { type: Boolean, default: false },
     stickyHeader: { type: Boolean, default: false },
-    height: { type: [String, Number] as PropType<string | number> },
+    stickyFooter: { type: Boolean, default: false },
+    height: { type: [String, Number] },
     rowBind: { type: null as unknown as PropType<DataTableRowBind> },
     cellBind: { type: null as unknown as PropType<DataTableCellBind> },
   },
@@ -385,7 +390,7 @@ export default defineComponent({
 
     const computedAttributes = computed(() => ({
       class: [
-        { 'va-data-table--sticky': props.stickyHeader },
+        { 'va-data-table--sticky': props.stickyHeader || props.stickyFooter },
         { 'va-data-table--scroll': !!props.height },
         attrs.class,
       ],
@@ -397,7 +402,7 @@ export default defineComponent({
       class: pick(props, ['striped', 'selectable', 'hoverable', 'clickable']),
     }) as TableHTMLAttributes)
 
-    const getColumnAriaSortOrder = (columnKey: string) => sortingOrderSync.value && sortBySync.value === columnKey
+    const getColumnAriaSortOrder = (columnName: string) => sortingOrderSync.value && sortBySync.value === columnName
       ? sortingOrderSync.value === 'asc' ? 'ascending' : 'descending'
       : 'none'
 
@@ -461,6 +466,12 @@ export default defineComponent({
 
     .va-data-table__table-thead {
       border-bottom: var(--va-data-table-thead-border);
+      color: var(--va-data-table-thead-color);
+
+      th {
+        border-bottom: none;
+        box-shadow: var(--va-data-table-thead-border-bottom-shadow);
+      }
 
       &--sticky {
         position: sticky;
@@ -479,6 +490,19 @@ export default defineComponent({
 
     .va-data-table__table-tfoot {
       border-top: var(--va-data-table-thead-border);
+      color: var(--va-data-table-thead-color);
+
+      th {
+        border-bottom: none;
+        box-shadow: var(--va-data-table-thead-border-top-shadow);
+      }
+
+      &--sticky {
+        position: sticky;
+        bottom: 0;
+        z-index: 1;
+        background-color: var(--va-data-table-scroll-table-color);
+      }
     }
 
     .va-data-table__table-th {
@@ -487,7 +511,6 @@ export default defineComponent({
       min-width: var(--va-data-table-width);
       text-align: var(--va-data-table-align);
       vertical-align: var(--va-data-table-vertical-align);
-      color: var(--va-data-table-thead-color);
       font-size: var(--va-data-table-thead-font-size);
       line-height: var(--va-data-table-thead-line-height);
       font-weight: var(--va-data-table-thead-font-weight);

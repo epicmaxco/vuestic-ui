@@ -3635,6 +3635,13 @@
         "title": "Row and cell attrs binding",
         "text": "Row and cell customization can be achieved by binding attributes for items using `row-bind` and `cell-bind`."
       },
+      "sticky": {
+        "title": "Sticky header and footer",
+        "text": [
+          "The sticky header and footer are set by the `sticky-header` and `sticky-footer` properties. Sticky behavior is achieved through CSS with `position: sticky`. This is NOT supported on all browsers. Check [caniuse.com](https://caniuse.com/?search=sticky)[[target=_blank]] before using this technique.",
+          "To work correctly, it is important to limit the height (set the value in the `height` property of the component or using the CSS `height` or `max-height` properties) of the table and assign a background color (set the CSS value `background-color`) of the table header."
+        ]
+      },
       "other": {
         "title": "Other",
         "text": [

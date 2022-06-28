@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { useColors } from './color-config'
+import { useColors } from '../../composables'
 
 export default {
   methods: {

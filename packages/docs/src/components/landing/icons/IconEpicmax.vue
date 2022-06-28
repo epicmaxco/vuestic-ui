@@ -9,7 +9,7 @@
 
 <script setup>
 import { computed } from 'vue'
-import { useColors } from 'vuestic-ui/src/services/color-config/color-config'
+import { useColors } from 'vuestic-ui/src/composables'
 
 const { getColors } = useColors()
 const colors = computed(getColors)

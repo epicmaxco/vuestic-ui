@@ -34,10 +34,12 @@
 <script lang="ts">
 import { computed, defineComponent, PropType, shallowRef, toRef } from 'vue'
 
-import { useStateful, useStatefulEmits, useStatefulProps } from '../../composables/useStateful'
-import { useDebounceFn } from '../../composables/useDebounce'
-import { usePopover, placementsPositions, Placement } from '../../composables/usePopover'
-import { useClickOutside } from '../../composables/useClickOutside'
+import {
+  useStateful, useStatefulEmits, useStatefulProps,
+  useDebounceFn,
+  usePopover, placementsPositions, Placement,
+  useClickOutside,
+} from '../../composables'
 
 export default defineComponent({
   name: 'VaDropdown',
@@ -47,6 +49,7 @@ export default defineComponent({
     stateful: { default: true },
     modelValue: { type: Boolean, default: false },
     disabled: { type: Boolean },
+    readonly: { type: Boolean },
     anchorSelector: { type: String, default: '' },
     attachElement: { type: String, default: 'body' },
     disableAttachment: { type: Boolean, default: false },
@@ -76,7 +79,11 @@ export default defineComponent({
     const anchorRef = shallowRef<HTMLElement>()
     const contentRef = shallowRef<HTMLElement>()
 
-    const { valueComputed } = useStateful(props, emit)
+    const { valueComputed: statefulVal } = useStateful(props, emit)
+    const valueComputed = computed({
+      get: () => statefulVal.value && !props.disabled && !props.readonly,
+      set (val) { statefulVal.value = val },
+    })
 
     const computedClass = computed(() => ({
       'va-dropdown--disabled': props.disabled,

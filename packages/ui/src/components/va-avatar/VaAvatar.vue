@@ -28,10 +28,7 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
 
-import { useColors } from '../../composables/useColor'
-import { useSize, useSizeProps } from '../../composables/useSize'
-import { useLoadingProps } from '../../composables/useLoading'
-import { useTextColor } from '../../composables/useTextColor'
+import { useColors, useTextColor, useSize, useSizeProps, useLoadingProps } from '../../composables'
 
 import { VaIcon } from '../va-icon'
 import { VaProgressCircle } from '../va-progress-circle'

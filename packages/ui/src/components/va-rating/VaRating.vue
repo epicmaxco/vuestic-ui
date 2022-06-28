@@ -1,7 +1,8 @@
 <template>
-  <div class="va-rating"
-       :class="rootClass"
-       :aria-label="`current rating ${$props.modelValue} of ${$props.max}`"
+  <div
+    class="va-rating"
+    :class="rootClass"
+    :aria-label="`current rating ${$props.modelValue} of ${$props.max}`"
   >
     <div
       class="va-rating__item-wrapper"
@@ -16,9 +17,9 @@
         v-bind="VaRatingItemProps"
         :aria-label="`vote rating ${itemNumber} of ${$props.max}`"
         :model-value="getItemValue(itemNumber - 1)"
-        :empty-icon-color="$props.unselectedColor"
         :tabindex="tabIndexComputed"
         :disabled="$props.disabled"
+        :readonly="$props.readonly"
         @hover="isInteractionsEnabled && onItemHoveredValueUpdate(itemNumber - 1, $event)"
         @update:model-value="isInteractionsEnabled && onItemValueUpdate(itemNumber - 1, $event)"
       >
@@ -45,16 +46,17 @@
 <script lang="ts">
 import { defineComponent, computed, PropType } from 'vue'
 
+import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
+import { useForm, useFormProps } from '../../composables'
 import { useRating, useRatingProps } from './hooks/useRating'
 import { useVaRatingColors, useVaRatingColorsProps } from './hooks/useVaRatingColors'
-import { useForm, useFormProps } from '../../composables/useForm'
-import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
+
 import { RatingValue } from './types'
 
 import VaRatingItem from './components/VaRatingItem/VaRatingItem.vue'
 import VaRatingItemNumberButton from './components/VaRatingItemNumberButton.vue'
 
-const VaRatingItemProps = extractComponentProps(VaRatingItem, ['unselectedColor'])
+const VaRatingItemProps = extractComponentProps(VaRatingItem)
 const VaRatingItemNumberButtonProps = extractComponentProps(VaRatingItemNumberButton, ['modelValue', 'itemNumber'])
 
 export default defineComponent({
@@ -73,7 +75,7 @@ export default defineComponent({
   emits: ['update:modelValue'],
   components: { VaRatingItem, VaRatingItemNumberButton },
   setup (props) {
-    const { computedClasses: rootClass } = useForm(props, 'va-rating')
+    const { computedClasses: rootClass } = useForm('va-rating', props)
     const rating = useRating(props)
     const isInteractionsEnabled = computed(() => !props.disabled && !props.readonly)
 

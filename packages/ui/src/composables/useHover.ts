@@ -1,4 +1,4 @@
-import { ref, watch, onMounted, onBeforeUnmount, Ref } from 'vue'
+import { ref, watch, Ref } from 'vue'
 
 const getEl = (el: any) => el.$el !== undefined ? el.$el : el
 

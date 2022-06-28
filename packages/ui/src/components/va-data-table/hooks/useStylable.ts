@@ -1,7 +1,7 @@
 import { computed } from 'vue'
 
 import { safeCSSLength } from '../../../utils/css-utils'
-import { useColors } from '../../../composables/useColor'
+import { useColors } from '../../../composables'
 
 import {
   DataTableColumnInternal,
@@ -19,6 +19,7 @@ interface useStylableProps {
   selectedColor: string
   allowFooterSorting: boolean
   stickyHeader: boolean
+  stickyFooter: boolean
   height: string | number | undefined
 }
 
@@ -36,7 +37,7 @@ export default function useStyleable (props: useStylableProps) {
   }))
 
   const stickyCSSVariables = computed(() => ({
-    [`${prefix}-scroll-table-color`]: (props.height || props.stickyHeader) && shiftHSLAColor(color.value, { l: 20 }),
+    [`${prefix}-scroll-table-color`]: (props.height || props.stickyHeader || props.stickyFooter) && shiftHSLAColor(color.value, { l: 40 }),
     [`${prefix}-scroll-table-height`]: props.height && safeCSSLength(props.height),
   }))
 
