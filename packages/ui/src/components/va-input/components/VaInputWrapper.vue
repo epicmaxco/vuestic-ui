@@ -161,7 +161,7 @@ export default defineComponent({
 
     const isCounterVisible = computed(() => typeof props.counter !== 'undefined')
     const isMaxLengthVisible = computed(() => typeof props.maxLength !== 'undefined')
-    const counterValueComputed = computed(() => isCounterVisible.value ? String(props.modelValue).length : 0)
+    const counterValueComputed = computed(() => isCounterVisible.value ? props.counter : 0)
 
     return {
       wrapperClass,
@@ -309,9 +309,13 @@ export default defineComponent({
 
   &-bottom {
     display: var(--va-input-wrapper-bottom-display);
+    align-items: var(--va-input-wrapper-bottom-align-items);
     color: var(--va-input-wrapper-bottom-color);
-    font-size: var(--va-input-wrapper-bottom-font-size);
-    line-height: var(--va-input-wrapper-bottom-line-height);
+
+    * {
+      font-size: var(--va-input-wrapper-bottom-font-size);
+      line-height: var(--va-input-wrapper-bottom-line-height);
+    }
 
     &__counter {
       color: var(--va-input-wrapper-counter-color);

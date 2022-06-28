@@ -70,7 +70,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, InputHTMLAttributes, shallowRef, toRefs } from 'vue'
+import { computed, defineComponent, InputHTMLAttributes, shallowRef, toRefs, ref } from 'vue'
 import omit from 'lodash/omit.js'
 import pick from 'lodash/pick.js'
 
@@ -228,7 +228,11 @@ export default defineComponent({
       ...pick(props, ['type', 'disabled', 'readonly', 'placeholder', 'pattern', 'inputmode']),
     }) as InputHTMLAttributes)
 
-    const counterComputed = computed(() => props.counter ? String(computedValue.value).length : undefined)
+    const counterComputed = computed(() => {
+      if (typeof computedValue.value !== 'string') { return }
+
+      return props.counter ? computedValue.value.length : undefined
+    })
 
     return {
       input,
