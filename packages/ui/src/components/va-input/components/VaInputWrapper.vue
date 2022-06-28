@@ -311,11 +311,8 @@ export default defineComponent({
     display: var(--va-input-wrapper-bottom-display);
     align-items: var(--va-input-wrapper-bottom-align-items);
     color: var(--va-input-wrapper-bottom-color);
-
-    * {
-      font-size: var(--va-input-wrapper-bottom-font-size);
-      line-height: var(--va-input-wrapper-bottom-line-height);
-    }
+    font-size: var(--va-input-wrapper-bottom-font-size);
+    line-height: var(--va-input-wrapper-bottom-line-height);
 
     &__counter {
       color: var(--va-input-wrapper-counter-color);
