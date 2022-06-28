@@ -1,7 +1,7 @@
 <template>
   <div
     class="va-time-picker"
-    :class="computedClass"
+    :class="computedClasses"
     :style="computedStyles"
   >
     <VaTimePickerColumn
@@ -24,7 +24,7 @@
 import { defineComponent, ref, computed, PropType } from 'vue'
 import { useTimePicker } from './hooks/useTimePicker'
 
-import VaTimePickerColumn from './components/VaTimePickerColumn'
+import { VaTimePickerColumn } from './components/VaTimePickerColumn'
 
 import {
   useStatefulProps,

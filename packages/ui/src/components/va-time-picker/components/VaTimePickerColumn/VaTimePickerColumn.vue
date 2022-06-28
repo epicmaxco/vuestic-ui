@@ -23,10 +23,10 @@
 </template>
 
 <script lang="ts">
-import debounce from 'lodash/debounce.js'
 import { defineComponent, nextTick, shallowRef, watch, onMounted, PropType } from 'vue'
-import { useSyncProp } from '../../../../composables/useSyncProp'
-import { useFocus, useFocusEmits } from '../../../../composables/useFocus'
+
+import debounce from 'lodash/debounce.js'
+import { useSyncProp, useFocus, useFocusEmits } from '../../../../composables'
 
 export default defineComponent({
   name: 'VaTimePickerColumn',
