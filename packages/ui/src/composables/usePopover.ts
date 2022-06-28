@@ -144,6 +144,8 @@ export const usePopover = (
   const css = {
     width: 'max-content',
     position: 'absolute',
+    top: 0,
+    left: 0,
   }
 
   const updateContentCSS = () => {
