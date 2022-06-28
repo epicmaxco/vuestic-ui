@@ -11,9 +11,9 @@ type ClassesObject<Key extends string> = Record<Key, boolean>
 
 type ComputedClasses<Key extends string> = ClassesObject<Key> & {
   // TODO: How to remove it from spread?
-  get asObject(): ComputedRef<ClassesObject<Key>>
-  get asArray(): ComputedRef<Key[]>
-  get asString(): ComputedRef<string>
+  readonly asObject: ComputedRef<ClassesObject<Key>>
+  readonly asArray: ComputedRef<Key[]>
+  readonly asString: ComputedRef<string>
 }
 
 /**
