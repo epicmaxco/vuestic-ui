@@ -132,6 +132,9 @@ export default defineComponent({
   display: inline-block;
 
   &:focus {
+    @include focus-outline();
+    // in purpose outline not to touch closest rating items
+    outline-offset: -2px;
     transform: scale(1.1);
   }
 
