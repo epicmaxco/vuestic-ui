@@ -19,7 +19,7 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
 
-import { useRouterLink, useRouterLinkProps } from '../../../composables/useRouterLink'
+import { useRouterLink, useRouterLinkProps } from '../../../composables'
 
 export default defineComponent({
   name: 'VaBreadcrumbsItem',

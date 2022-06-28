@@ -1,6 +1,6 @@
 :root {
-  --va-separator-height: 0.0625rem;
-  --va-separator-background-color: #e6e9ec;
+  --va-separator-height: 1px;
+  --va-separator-background-color: var(--va-divider);
   --va-separator-margin-top: 1rem;
   --va-separator-margin-bottom: 1rem;
 }

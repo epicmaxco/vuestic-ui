@@ -125,15 +125,6 @@
         multiple
         tags
       />
-      <va-select
-        v-model="defaultMultiSelect.value"
-        class="mb-4"
-        label="Deletable tags"
-        :options="defaultMultiSelect.options"
-        multiple
-        tags
-        deletable-tags
-      />
     </VbCard>
     <VbCard
       title="Object options"
@@ -713,7 +704,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-@import "../../styles/grid/_grid-global-styles";
-</style>

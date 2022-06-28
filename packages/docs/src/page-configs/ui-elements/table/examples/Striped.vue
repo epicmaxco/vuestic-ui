@@ -27,15 +27,17 @@
 </template>
 
 <script lang="ts">
-import users from 'vuestic-ui/src/data/Users'
+import { defineComponent } from 'vue'
 
-export default {
+import { users } from 'vuestic-ui/src/data/Users'
+
+export default defineComponent({
   data () {
     return {
       users: users.slice(0, 4),
     }
   },
-}
+})
 </script>
 
 <style lang="scss" scoped>

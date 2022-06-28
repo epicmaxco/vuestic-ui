@@ -14,7 +14,7 @@
         </th>
         <th colspan="1">
           <va-button
-            @click="addNewItem()"
+            @click="addNewItem"
             :disabled="!isNewData"
           >
             Add
@@ -32,8 +32,8 @@
   <va-modal
     :model-value="!!editedItem"
     message="Edit item"
-    @ok="editItem()"
-    @cancel="resetEditedItem()"
+    @ok="editItem"
+    @cancel="resetEditedItem"
   >
     <slot>
       <va-input
@@ -91,7 +91,6 @@ export default defineComponent({
     return {
       items,
       columns,
-
       editedItemId: null,
       editedItem: null,
       createdItem: { ...defaultItem },

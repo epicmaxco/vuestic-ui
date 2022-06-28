@@ -875,8 +875,8 @@
     },
     "VaDataTable": {
       "props": {
-        "columns": "Свойство `columns` должно быть массивом, который настраивает столбцы таблицы. При этом:\n\n `DataTableColumn` &#123; `key: string;` `label?: string;` `headerTitle?: string;` `sortable?: boolean;` `sortingFn?: (a: any, b: any) => number;` `alignHead?: DataTableColumnAlign;` `verticalAlignHead?: DataTableColumnVerticalAlign;` `align?: DataTableColumnAlign;` `verticalAlign?: DataTableColumnVerticalAlign;` `width?: string`&#124;`number;` `classes?: DataTableColumnClasses;` `headerClasses?: DataTableColumnClasses;` `style?: DataTableColumnStyle;` `headerStyle?: DataTableColumnStyle;` &#125;;\n\n `DataTableColumnAlign: 'left'`&#124;`'center'`&#124;`'right'`;\n\n `DataTableColumnVerticalAlign: 'top'`&#124;`'middle'`&#124;`'bottom'`;\n\n `DataTableColumnClasses: string`&#124;`string[]`&#124;`(() => string`&#124;`string[])`;\n\n `DataTableColumnStyle: Record<string, any>`&#124;`(() => Record<string, any>)`",
-        "items": "Массив объектов с табличными данными (`DataTableItem: Record<string, any>`). Таблица `va-data-table` автоматически вычисляет количество и заголовки столбцов (если не указано иное с помощью свойства `columns`) на основе ключей этих объектов. При вычислении имен столбцов на основе ключей объектов элемента `va-data-table` внутренне использует [Lodash's startCase](https://lodash.com/docs/4.17.15#startCase)[[target=_blank]]. Ошибочные значения заменяются пустой строкой",
+        "columns": "Свойство `columns` должно быть массивом, который настраивает столбцы таблицы",
+        "items": "Массив объектов с табличными данными (тип `DataTableItem`). Таблица `va-data-table` автоматически вычисляет количество и заголовки столбцов (если не указано иное с помощью свойства `columns`) на основе ключей этих объектов. При вычислении имен столбцов на основе ключей объектов элемента `va-data-table` внутренне использует [Lodash's startCase](https://lodash.com/docs/4.17.15#startCase)[[target=_blank]]. Ошибочные значения заменяются пустой строкой",
         "filter": "Если предоставляется `filter`, будут отображаться только те строки, в которых хотя бы одна ячейка содержит указанное значение. Чтобы отключить фильтрацию во время выполнения (очистить `filter`), укажите пустую строку",
         "filterMethod": "Пользовательская функция фильтрации. Функция принимает начальное значение текущей проверяемой ячейки (`source` является формальным параметром) и должна возвращать `boolean` значение, указывающее, включать ли строку, содержащую эту ячейку, или нет",
         "sortBy": "Устанавливает столбец, по которому выполнять сортировку. Работает через `v-model`",
@@ -900,7 +900,7 @@
         "stickyHeader": "Включает закрепление `thead` таблицы (путем установки CSS свойства `position: sticky`)",
         "stickyFooter": "Включает закрепление `tfoot` таблицы (путем установки CSS свойства `position: sticky`)",
         "height": "Устанавливает высоту таблицы и включает прокрутку",
-        "rowBind": "Добавляет атрибуты в строку таблицы с помощью `v-bind`. Это может быть тип объекта (с атрибутами, которые поддерживает vue) или функция, которая возвращает такой объект. Функция получает элемент строки таблицы (тип `Record<string, any>`) и индекс в качестве аргументов",
+        "rowBind": "Добавляет атрибуты в строку таблицы с помощью `v-bind`. Это может быть тип объекта (с атрибутами, которые поддерживает vue) или функция, которая возвращает такой объект. Функция получает элемент строки таблицы (тип `DataTableItem`) и индекс в качестве аргументов",
         "cellBind": "Добавляет атрибуты в ячейку таблицы, используя `v-bind`. Это может быть тип объекта (с атрибутами, которые поддерживает vue) или функция, которая возвращает такой объект. В качестве аргументов функция получает элемент ячейки таблицы (`any` тип), строку (тип `DataTableItem`), столбец (тип `TableColumn`) и индекс строки"
       },
       "events": {

@@ -34,10 +34,12 @@
 <script lang="ts">
 import { computed, defineComponent, PropType, shallowRef, toRef } from 'vue'
 
-import { useStateful, useStatefulEmits, useStatefulProps } from '../../composables/useStateful'
-import { useDebounceFn } from '../../composables/useDebounce'
-import { usePopover, placementsPositions, Placement } from '../../composables/usePopover'
-import { useClickOutside } from '../../composables/useClickOutside'
+import {
+  useStateful, useStatefulEmits, useStatefulProps,
+  useDebounceFn,
+  usePopover, placementsPositions, Placement,
+  useClickOutside,
+} from '../../composables'
 
 export default defineComponent({
   name: 'VaDropdown',

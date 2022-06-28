@@ -17,11 +17,15 @@
 
 <script lang="ts">
 import { defineComponent, PropType, ref } from 'vue'
+
+import {
+  useStateful, useStatefulEmits, useStatefulProps,
+  useFormProps, useForm,
+  useArrayRefs,
+} from '../../composables'
 import { useTimePicker } from './hooks/useTimePicker'
+
 import VaTimePickerColumn from './components/VaTimePickerColumn.vue'
-import { useStateful, useStatefulEmits, useStatefulProps } from '../../composables/useStateful'
-import { useFormProps, useForm } from '../../composables/useForm'
-import { useArrayRefs } from '../../composables/useArrayRefs'
 
 export default defineComponent({
   name: 'VaTimePicker',
@@ -49,7 +53,7 @@ export default defineComponent({
 
     const { setItemRef, itemRefs: pickers } = useArrayRefs()
 
-    const activeColumnIndex = ref<number | undefined>()
+    const activeColumnIndex = ref<number>()
 
     const focus = (idx = 0): void => {
       pickers.value[idx]?.focus()

@@ -1,5 +1,3 @@
-import { ref } from 'vue'
-
 export const useTimer = () => {
   let timer: ReturnType<typeof setTimeout> | undefined
 

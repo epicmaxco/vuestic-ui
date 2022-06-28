@@ -1,22 +1,23 @@
 <template>
-  <div class="mb-4" style="height: 16rem; border: 2px solid var(--va-primary);">
+  <div class="mb-4" style="height: 16rem; border: 1px solid var(--va-secondary);">
     <va-sidebar color="primary" text-color="background" gradient minimizedWidth="64px" width="18rem">
-      <va-sidebar-item>
+      <va-sidebar-item text-color="background">
         <va-sidebar-item-content>
           <va-sidebar-item-title>
-            background primary
+            background primary and 'background' text color
           </va-sidebar-item-title>
         </va-sidebar-item-content>
       </va-sidebar-item>
       <va-sidebar-item
         v-for="item in items"
-        :key="item.to"
+        :key="item.title"
         :active="item.active"
         active-color="background"
+        text-color="background"
       >
         <va-sidebar-item-content>
           <va-icon :name="item.icon" />
-          <va-sidebar-item-title style="height: 24px;">
+          <va-sidebar-item-title>
             {{ item.title }}
           </va-sidebar-item-title>
         </va-sidebar-item-content>
@@ -24,7 +25,7 @@
     </va-sidebar>
   </div>
 
-  <div class="mb-4" style="height: 16rem; border: 2px solid var(--va-primary);">
+  <div class="mb-4" style="height: 16rem; border: 1px solid var(--va-secondary);">
     <va-sidebar color="dark" gradient minimizedWidth="64px" width="18rem">
       <va-sidebar-item>
         <va-sidebar-item-content>
@@ -35,13 +36,13 @@
       </va-sidebar-item>
       <va-sidebar-item
         v-for="item in items"
-        :key="item.to"
+        :key="item.title"
         :active="item.active"
         active-color="background"
       >
         <va-sidebar-item-content>
           <va-icon :name="item.icon" />
-          <va-sidebar-item-title style="height: 24px;">
+          <va-sidebar-item-title>
             {{ item.title }}
           </va-sidebar-item-title>
         </va-sidebar-item-content>
@@ -49,24 +50,24 @@
     </va-sidebar>
   </div>
 
-  <div class="mb-4"  style="height: 16rem; border: 2px solid var(--va-primary);">
+  <div class="mb-4"  style="height: 16rem; border: 1px solid var(--va-secondary);">
     <va-sidebar color="success" gradient minimizedWidth="64px" width="18rem">
       <va-sidebar-item>
         <va-sidebar-item-content>
           <va-sidebar-item-title>
-            background success, auto text color
+            background success auto text color
           </va-sidebar-item-title>
         </va-sidebar-item-content>
       </va-sidebar-item>
       <va-sidebar-item
         v-for="item in items"
-        :key="item.to"
+        :key="item.title"
         :active="item.active"
         active-color="background"
       >
         <va-sidebar-item-content>
           <va-icon :name="item.icon" />
-          <va-sidebar-item-title style="height: 24px;">
+          <va-sidebar-item-title>
             {{ item.title }}
           </va-sidebar-item-title>
         </va-sidebar-item-content>
@@ -74,9 +75,9 @@
     </va-sidebar>
   </div>
 
-  <div class="mb-4" style="height: 16rem; border: 2px solid var(--va-primary);">
+  <div class="mb-4" style="height: 16rem; border: 1px solid var(--va-secondary);">
     <va-sidebar color="danger" gradient text-color="success" minimizedWidth="64px" width="18rem">
-      <va-sidebar-item>
+      <va-sidebar-item text-color="success">
         <va-sidebar-item-content>
           <va-sidebar-item-title>
             background danger, success text
@@ -85,13 +86,14 @@
       </va-sidebar-item>
       <va-sidebar-item
         v-for="item in items"
-        :key="item.to"
+        :key="item.title"
         :active="item.active"
         active-color="background"
+        text-color="success"
       >
         <va-sidebar-item-content>
           <va-icon :name="item.icon" />
-          <va-sidebar-item-title style="height: 24px;">
+          <va-sidebar-item-title>
             {{ item.title }}
           </va-sidebar-item-title>
         </va-sidebar-item-content>

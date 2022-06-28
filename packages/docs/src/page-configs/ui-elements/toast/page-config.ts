@@ -2,9 +2,7 @@ import { ApiDocsBlock } from '@/types/configTypes'
 import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaToast from 'vuestic-ui/src/components/va-toast/VaToast.vue'
 import apiOptions from './api-options'
-import compositionApiExample from './examples/composition-api'
-import optionsApiExample from './examples/options-api'
-import { methodsApi, optionsApi } from './toast-api'
+import { methodsApi, optionsApi, apiExamplesObject } from './toast-api'
 
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax
@@ -16,10 +14,8 @@ const config: ApiDocsBlock[] = [
   block.title('toast.title'),
   block.paragraph('toast.summaryText'),
   block.paragraph('toast.optionsAPI'),
-  block.code(optionsApiExample),
-
   block.paragraph('toast.compositionAPI'),
-  block.code(compositionApiExample),
+  block.code(apiExamplesObject),
 
   methodsApi(block),
   block.subtitle('toast.toastOptionsHeader'),

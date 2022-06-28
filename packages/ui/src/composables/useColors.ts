@@ -1,4 +1,4 @@
-import { GlobalConfig, useGlobalConfigSafe } from '../global-config/global-config'
+import { GlobalConfig, useGlobalConfigSafe } from '../services/global-config/global-config'
 import {
   getBoxShadowColor,
   getHoverColor,
@@ -9,20 +9,32 @@ import {
   shiftHSLAColor,
   setHSLAColor,
   isCSSVariable,
-} from './color-functions'
+} from '../services/color-config/color-functions'
 
 export type CssColor = string
 export type ColorConfig = { [colorName: string]: CssColor }
 
-// Here expose methods that user wants to use in vue component
-export const useColors = () => {
-  const globalConfg = useGlobalConfigSafe()
+/**
+ * You can add these props to any component by destructuring them inside props option.
+ * @example
+ * props: { ...useColorProps, componentsOwnProp, etc. }
+ * It's better to add props at the beginning to make sure that component own props will be used instead in case of collision.
+ */
+export const useColorProps = {
+  color: {
+    type: String,
+    default: '',
+  },
+}
 
-  if (!globalConfg) {
-    throw new Error('useColors must be used in setup function or Vuestic GlobalConfigPluign is not registered')
+export const useColors = () => {
+  const globalConfig = useGlobalConfigSafe()
+
+  if (!globalConfig) {
+    throw new Error('useColors must be used in setup function or Vuestic GlobalConfigPlugin is not registered!')
   }
 
-  const { setGlobalConfig, getGlobalConfig } = globalConfg
+  const { setGlobalConfig, getGlobalConfig } = globalConfig
 
   const setColors = (colors: ColorConfig): void => {
     setGlobalConfig((config: GlobalConfig) => ({

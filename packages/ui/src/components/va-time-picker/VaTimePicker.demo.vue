@@ -13,9 +13,9 @@
     </VbCard>
 
     <VbCard title="view">
-      <VaTimePicker v-model="value" :view="'seconds'" />
+      <VaTimePicker v-model="value" view="seconds" />
       <br />
-      <VaTimePicker v-model="value" :view="'hours'" />
+      <VaTimePicker v-model="value" view="hours" />
     </VbCard>
 
     <VbCard title="ampm">
@@ -31,11 +31,11 @@
       <br />
       <VaTimePicker v-model="value" :ampm="true" />
       <br />
-      <VaTimePicker v-model="value" :ampm="false" :view="'seconds'" />
+      <VaTimePicker v-model="value" :ampm="false" view="seconds" />
     </VbCard>
 
     <VbCard title="filter">
-      <VaTimePicker v-model="value" :view="'seconds'" :ampm="false" :hoursFilter="(h) => h >= 9 && h <= 19" :minutesFilter="(m) => m % 10 === 0" :secondsFilter="(s) => s % 20 === 0" />
+      <VaTimePicker v-model="value" view="seconds" :ampm="false" :hoursFilter="(h) => h >= 9 && h <= 19" :minutesFilter="(m) => m % 10 === 0" :secondsFilter="(s) => s % 20 === 0" />
     </VbCard>
 
     <VbCard title="readonly">
@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import VaTimePicker from './VaTimePicker.vue'
+import { VaTimePicker } from './index'
 
 export default {
   components: {

@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <va-slider v-model="value" pins />
-  </div>
+  <va-slider v-model="value" pins />
 </template>
 
 <script>export default {

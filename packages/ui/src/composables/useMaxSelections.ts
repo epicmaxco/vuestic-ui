@@ -1,4 +1,4 @@
-import { PropType, Ref } from 'vue'
+import { Ref } from 'vue'
 
 /**
  * You could add these props to any component by destructuring them inside props option.
@@ -8,7 +8,7 @@ import { PropType, Ref } from 'vue'
  */
 export const useMaxSelectionsProps = {
   maxSelections: {
-    type: [Number, String] as PropType<number | string>,
+    type: [Number, String],
     default: undefined,
   },
 }
