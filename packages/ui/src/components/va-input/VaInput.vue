@@ -224,8 +224,7 @@ export default defineComponent({
 
     const computedInputAttributes = computed(() => ({
       ...computedChildAttributes.value,
-      ...pick(props, ['type', 'disabled', 'readonly', 'placeholder', 'pattern', 'inputmode']),
-      maxlength: props.maxLength,
+      ...pick(props, ['type', 'disabled', 'readonly', 'placeholder', 'pattern', 'inputmode', 'maxLength']),
     }) as InputHTMLAttributes)
 
     const counterOrMaxLengthComputed = computed(() => {
