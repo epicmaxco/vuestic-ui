@@ -74,13 +74,15 @@
       </div>
     </div>
 
-    <div v-if="hasCounterOrMaxLengthComputed || $slots.hint" class="va-input-wrapper-bottom">
-      <div v-if="$slots.hint" class="va-input-wrapper-bottom__hint">
-        <slot name="hint" />
-      </div>
-      <div v-if="hasCounterOrMaxLengthComputed" class="va-input-wrapper-bottom__counter">
-        {{ $props.counterOrMaxLength }}
-      </div>
+    <div v-if="isCounterVisible" class="va-input-wrapper-bottom">
+      <slot name="counter" v-bind="{ counter: counterValueComputed, maxLength: $props.maxLength }">
+        <div v-if="isCounterVisible && !isMaxLengthVisible" class="va-input-wrapper-bottom__counter">
+          {{ counter }}
+        </div>
+        <div v-else class="va-input-wrapper-bottom__counter">
+          {{ `${counter} / ${maxLength}` }}
+        </div>
+      </slot>
     </div>
 
     <slot name="messages" v-bind="{ messages: messagesComputed, errorLimit, color: messagesColor }">
@@ -115,7 +117,8 @@ export default defineComponent({
   props: {
     ...useFormProps,
     ...useValidationProps,
-    counterOrMaxLength: { type: [String, Number], default: undefined },
+    counter: { type: Number, default: undefined },
+    maxLength: { type: Number, default: undefined },
 
     label: { type: String, default: '' },
     color: { type: String, default: 'primary' },
@@ -156,16 +159,18 @@ export default defineComponent({
       typeof messagesComputed.value === 'string' ? messagesComputed.value : messagesComputed.value?.length,
     ))
 
-    const hasCounterOrMaxLengthComputed = computed(
-      () => typeof props.counterOrMaxLength !== 'undefined',
-    )
+    const isCounterVisible = computed(() => typeof props.counter !== 'undefined')
+    const isMaxLengthVisible = computed(() => typeof props.maxLength !== 'undefined')
+    const counterValueComputed = computed(() => isCounterVisible.value ? String(props.modelValue).length : 0)
 
     return {
       wrapperClass,
       wrapperStyle,
 
       colorComputed,
-      hasCounterOrMaxLengthComputed,
+      isCounterVisible,
+      counterValueComputed,
+      isMaxLengthVisible,
 
       messagesColor: computed(() => {
         if (props.error) { return 'danger' }

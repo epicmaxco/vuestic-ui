@@ -566,68 +566,61 @@
       />
     </VbCard>
     <VbCard title="Counter">
-      <va-input v-model="counterOrMaxLengthValue" counter />
-      <br />
       <va-input
         v-model="counterOrMaxLengthValue"
-        label="Name"
-        type="textarea"
         counter
+        class="mb-4"
       />
-      <br />
       <va-input
         v-model="counterOrMaxLengthValue"
         counter
-        messages="Additional message"
-      >
-        <template #hint>
-          <b>Remaining symbols</b>
-        </template>
-      </va-input>
-      <br />
-      <va-input
-        v-model="counterOrMaxLengthValue"
         label="Name"
         type="textarea"
+        class="mb-4"
+      />
+      <va-input
+        v-model="counterOrMaxLengthValue"
         counter
         messages="Additional message"
-      >
-        <template #hint>
-          <i>Remaining symbols</i>
-        </template>
-      </va-input>
+        class="mb-4"
+      />
+      <va-input
+        v-model="counterOrMaxLengthValue"
+        messages="Additional message"
+        counter
+        label="Name"
+        type="textarea"
+      />
     </VbCard>
     <VbCard title="Max length">
-      <va-input v-model="counterOrMaxLengthValue" :max-length="maxLength" />
-      <br />
       <va-input
         v-model="counterOrMaxLengthValue"
-        label="Name"
-        type="textarea"
         :max-length="maxLength"
+        counter
       />
-      <br />
       <va-input
         v-model="counterOrMaxLengthValue"
         :max-length="maxLength"
-        messages="Additional message"
-      >
-        <template #hint>
-          <b>Total symbols</b>
-        </template>
-      </va-input>
-      <br />
-      <va-input
-        v-model="counterOrMaxLengthValue"
+        counter
         label="Name"
         type="textarea"
+        class="mb-4"
+      />
+      <va-input
+        v-model="counterOrMaxLengthValue"
         :max-length="maxLength"
+        counter
         messages="Additional message"
-      >
-        <template #hint>
-          <i>Total symbols</i>
-        </template>
-      </va-input>
+        class="mb-4"
+      />
+      <va-input
+        v-model="counterOrMaxLengthValue"
+        :max-length="maxLength"
+        counter
+        label="Name"
+        messages="Additional message"
+        type="textarea"
+      />
     </VbCard>
     <VbCard
       title="CSS Classes"

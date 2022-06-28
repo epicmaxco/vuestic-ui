@@ -46,13 +46,13 @@
 
   /* Bottom */
   --va-input-wrapper-bottom-display: flex;
+  --va-input-wrapper-bottom-justify-content: flex-end;
   --va-input-wrapper-bottom-line-height: 1.5;
   --va-input-wrapper-bottom-font-size: 0.8rem;
   --va-input-wrapper-bottom-color: var(--va-secondary);
 
   /* Counter */
-  --va-input-wrapper-hint-flex: 1;
-  --va-input-wrapper-counter-flex: 0;
+  --va-input-wrapper-counter-flex: 0 0 auto;
   --va-input-wrapper-counter-margin-left: auto;
   --va-input-wrapper-counter-color: var(--va-secondary);
 }

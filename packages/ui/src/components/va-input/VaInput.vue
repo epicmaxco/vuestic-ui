@@ -16,7 +16,8 @@
     :outline="$props.outline"
     :requiredMark="$props.requiredMark"
     :focused="isFocused"
-    :counter-or-max-length="counterOrMaxLengthComputed"
+    :counter="counterComputed"
+    :max-length="$props.maxLength"
     @click="focus"
   >
     <!-- Simply proxy slots to VaInputWrapper -->
@@ -184,7 +185,7 @@ export default defineComponent({
       ? undefined
       : input.value as HTMLInputElement | undefined)
 
-    const { cleave, computedValue, onInput } = useCleave(computedCleaveTarget, props, emit)
+    const { computedValue, onInput } = useCleave(computedCleaveTarget, props, emit)
 
     const inputListeners = createInputListeners(emit)
 
@@ -224,24 +225,16 @@ export default defineComponent({
 
     const computedInputAttributes = computed(() => ({
       ...computedChildAttributes.value,
-      ...pick(props, ['type', 'disabled', 'readonly', 'placeholder', 'pattern', 'inputmode', 'maxLength']),
+      ...pick(props, ['type', 'disabled', 'readonly', 'placeholder', 'pattern', 'inputmode']),
     }) as InputHTMLAttributes)
 
-    const counterOrMaxLengthComputed = computed(() => {
-      if (typeof computedValue.value !== 'string') { return }
-
-      if (props.maxLength) {
-        return `${computedValue.value.length}/${props.maxLength}`
-      }
-
-      return props.counter ? computedValue.value.length : undefined
-    })
+    const counterComputed = computed(() => props.counter ? String(computedValue.value).length : undefined)
 
     return {
       input,
       inputEvents,
 
-      counterOrMaxLengthComputed,
+      counterComputed,
       computedChildAttributes,
       computedInputAttributes,
       textareaProps: filterComponentProps(props, VaTextareaProps),
