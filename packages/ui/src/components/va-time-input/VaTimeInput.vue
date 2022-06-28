@@ -125,7 +125,7 @@ const slotsSelectors = [
 ]
 
 const VaInputProps = extractComponentProps(VaInput, [
-  'mask', 'returnRaw', 'autosize', 'minRows', 'maxRows', 'type', 'inputmode',
+  'mask', 'returnRaw', 'autosize', 'minRows', 'maxRows', 'type', 'inputmode', 'counter', 'maxLength',
 ])
 
 export default defineComponent({
