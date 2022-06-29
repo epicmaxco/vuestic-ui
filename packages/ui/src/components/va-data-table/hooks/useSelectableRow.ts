@@ -58,12 +58,12 @@ export default function useSelectableRow (
   watch(paginatedRows, () => { setPrevSelectedRowIndex(-1) })
 
   // emit the "selection-change" event each time the selection changes
-  watch(selectedItemsSync, (currentSelectedItems, previousSelectedItems) => {
+  watch(selectedItemsSync, (currentSelectedItems, previousSelectedItems = []) => {
     emit('selectionChange', {
       currentSelectedItems,
       previousSelectedItems,
     })
-  })
+  }, { immediate: true })
 
   // if user provide `props.itemTrackBy !== ''` than `selectedItemsSync` and `props.modelValue`
   // should be the array with strings (received from `props.itemTrackBy`)
