@@ -1,28 +1,31 @@
 import { Ref, computed, watch, ref } from 'vue'
 
-import { DataTableRow, DataTableItem, DataTableSelectMode } from '../types'
+import { getItemKey } from './useRows'
+
+import { DataTableRow, DataTableItem, DataTableSelectMode, DataTableItemKey } from '../types'
 
 interface useSelectableProps {
-  modelValue: DataTableItem[] | undefined // selectedItems
+  modelValue: (DataTableItem | DataTableItemKey)[] | undefined // selectedItems
   selectable: boolean
   selectMode: DataTableSelectMode
+  itemTrackBy: string
   [prop: string]: unknown
 }
 export type TEmits = 'update:modelValue' | 'selectionChange'
 export type TSelectionChange = {
-  currentSelectedItems: DataTableItem[],
-  previousSelectedItems: DataTableItem[],
+  currentSelectedItems: (DataTableItem | DataTableItemKey)[],
+  previousSelectedItems: (DataTableItem | DataTableItemKey)[],
 }
-export type TSelectableEmits = (event: TEmits, arg: DataTableItem[] | TSelectionChange) => void
+export type TSelectableEmits = (event: TEmits, arg: (DataTableItem | DataTableItemKey)[] | TSelectionChange) => void
 
 export default function useSelectableRow (
   paginatedRows: Ref<DataTableRow[]>,
   props: useSelectableProps,
   emit: TSelectableEmits,
 ) {
-  const selectedItemsFallback = ref([] as DataTableItem[])
+  const selectedItemsFallback = ref<(DataTableItem | DataTableItemKey)[]>([])
 
-  const selectedItemsSync = computed<DataTableItem[]>({
+  const selectedItemsSync = computed<(DataTableItem | DataTableItemKey)[]>({
     get () {
       if (props.modelValue === undefined) {
         return selectedItemsFallback.value
@@ -46,7 +49,7 @@ export default function useSelectableRow (
   // (though it's safe enough to leave a selected item when changing from single to multiple
   watch(() => props.selectMode, (newSelectMode, oldSelectMode) => {
     if (newSelectMode === 'single' && oldSelectMode === 'multiple') {
-      unselectAllRows()
+      selectedItemsSync.value = []
       setPrevSelectedRowIndex(-1)
     }
   })
@@ -62,48 +65,55 @@ export default function useSelectableRow (
     })
   })
 
+  // if user provide `props.itemTrackBy !== ''` than `selectedItemsSync` and `props.modelValue`
+  // should be the array with strings (received from `props.itemTrackBy`)
+  // else they should be the array with source (`DataTableItem` type)
+  const getKey = (source: DataTableItem) => props.itemTrackBy
+    ? getItemKey(source, props.itemTrackBy)
+    : source
+
   const noRowsSelected = computed(() => (
-    !paginatedRows.value.some(({ source }) => selectedItemsSync.value.includes(source))
+    !paginatedRows.value.some(({ source }) => selectedItemsSync.value.includes(getKey(source)))
   ))
 
   const allRowsSelected = computed(() => {
     if (paginatedRows.value.length === 0) { return false }
 
-    return paginatedRows.value.every(({ source }) => selectedItemsSync.value.includes(source))
+    return paginatedRows.value.every(({ source }) => selectedItemsSync.value.includes(getKey(source)))
   })
 
   const severalRowsSelected = computed(() => !noRowsSelected.value && !allRowsSelected.value)
 
   function isRowSelected (row: DataTableRow) {
-    return selectedItemsSync.value.includes(row.source)
+    return selectedItemsSync.value.includes(getKey(row.source))
   }
 
   function selectAllRows () {
     selectedItemsSync.value = [...new Set([
       ...selectedItemsSync.value,
-      ...paginatedRows.value.map(row => row.source),
+      ...paginatedRows.value.map(row => getKey(row.source)),
     ])]
   }
 
   function unselectAllRows () {
-    const paginatedRowsSource = paginatedRows.value.map(row => row.source)
+    const paginatedRowsKeys = paginatedRows.value.map(row => getKey(row.source))
 
     selectedItemsSync.value = selectedItemsSync.value
-      .filter((row) => !paginatedRowsSource.includes(row))
+      .filter((item) => !paginatedRowsKeys.includes(item))
   }
 
   // The one calling this function must guarantee that the row isn't already selected
   function selectRow (row: DataTableRow) {
-    selectedItemsSync.value = [...selectedItemsSync.value, row.source]
+    selectedItemsSync.value = [...selectedItemsSync.value, getKey(row.source)]
   }
 
   function selectOnlyRow (row: DataTableRow) {
-    selectedItemsSync.value = [row.source]
+    selectedItemsSync.value = [getKey(row.source)]
   }
 
   // The one calling this function must guarantee that the row is selected
   function unselectRow (row: DataTableRow) {
-    const index = selectedItemsSync.value.findIndex(selectedItem => selectedItem === row.source)
+    const index = selectedItemsSync.value.findIndex(item => item === getKey(row.source))
 
     selectedItemsSync.value = [
       ...selectedItemsSync.value.slice(0, index),
@@ -139,23 +149,23 @@ export default function useSelectableRow (
   }
 
   function mergeSelection (rowsToSelect: DataTableRow[]) {
-    const rowsToSelectSource = rowsToSelect.map(row => row.source)
+    const rowsToSelectedItems = rowsToSelect.map(row => getKey(row.source))
 
     if (noRowsSelected.value) {
-      selectedItemsSync.value = rowsToSelectSource
+      selectedItemsSync.value = rowsToSelectedItems
       return
     }
 
-    const isInternalSelection = rowsToSelectSource.every(rowSource => selectedItemsSync.value.includes(rowSource))
+    const isInternalSelection = rowsToSelectedItems.every(item => selectedItemsSync.value.includes(item))
 
     if (isInternalSelection) {
-      selectedItemsSync.value = selectedItemsSync.value.filter(row => !rowsToSelectSource.includes(row))
+      selectedItemsSync.value = selectedItemsSync.value.filter(item => !rowsToSelectedItems.includes(item))
       return
     }
 
     selectedItemsSync.value = [...new Set([
       ...selectedItemsSync.value,
-      ...rowsToSelectSource,
+      ...rowsToSelectedItems,
     ])]
   }
 
