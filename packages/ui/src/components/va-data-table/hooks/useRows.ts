@@ -4,8 +4,9 @@ import { getValueByPath } from '../../../services/utils'
 
 import { DataTableColumnInternal, DataTableItem, DataTableCell, DataTableRow, DataTableItemKey } from '../types'
 
-export const getItemKey = (source: any, itemTrackBy: string): DataTableItemKey => JSON
-  .stringify(getValueByPath(source, itemTrackBy) || source)
+export const getItemKey = (source: any, itemTrackBy: string): DataTableItemKey => (
+  getValueByPath(source, itemTrackBy) || source
+)
 
 interface useRowsProps {
   items: DataTableItem[]

@@ -66,11 +66,9 @@ export default function useSelectableRow (
   }, { immediate: true })
 
   // if user provide `props.itemTrackBy !== ''` than `selectedItemsSync` and `props.modelValue`
-  // should be the array with strings (received from `props.itemTrackBy`)
-  // else they should be the array with source (`DataTableItem` type)
-  const getKey = (source: DataTableItem) => props.itemTrackBy
-    ? getItemKey(source, props.itemTrackBy)
-    : source
+  // would be the array with keys (received from `props.itemTrackBy`)
+  // else they would be the array with source (`DataTableItem` type)
+  const getKey = (source: DataTableItem) => getItemKey(source, props.itemTrackBy)
 
   const noRowsSelected = computed(() => (
     !paginatedRows.value.some(({ source }) => selectedItemsSync.value.includes(getKey(source)))

@@ -77,7 +77,7 @@ export interface DataTableColumnInternal {
 }
 
 export type DataTableItem = Record<string, any>
-export type DataTableItemKey = string
+export type DataTableItemKey = any
 
 // the inner representation of table cells
 export interface DataTableCell {
