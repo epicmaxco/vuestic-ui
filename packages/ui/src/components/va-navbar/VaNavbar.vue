@@ -1,5 +1,6 @@
 <template>
   <header
+    ref="scrollRoot"
     class="va-navbar"
     :style="computedStyle"
   >
@@ -27,19 +28,23 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
 
-import { useColors, useTextColor } from '../../composables'
+import { useColors, useTextColor, setupScroll, useFixedBar, useFixedBarProps } from '../../composables'
 
 export default defineComponent({
   name: 'VaNavbar',
   props: {
+    ...useFixedBarProps,
     color: { type: String, default: 'secondary' },
     textColor: { type: String },
     shape: { type: Boolean, default: false },
   },
+
   setup (props) {
+    const { scrollRoot, isScrolledDown } = setupScroll(props.fixed)
+    const { fixedBarStyleComputed } = useFixedBar(props, isScrolledDown)
+
     const { getColor, shiftHSLAColor } = useColors()
     const { textColorComputed } = useTextColor()
-
     const color = computed(() => getColor(props.color))
 
     const shapeStyleComputed = computed(() => ({
@@ -47,15 +52,13 @@ export default defineComponent({
     }))
 
     const computedStyle = computed(() => ({
+      ...fixedBarStyleComputed.value,
       backgroundColor: color.value,
       color: textColorComputed.value,
       fill: textColorComputed.value,
     }))
 
-    return {
-      computedStyle,
-      shapeStyleComputed,
-    }
+    return { computedStyle, shapeStyleComputed, scrollRoot }
   },
 })
 </script>
@@ -66,20 +69,24 @@ export default defineComponent({
 
 .va-navbar {
   transition: var(--va-navbar-transition);
-  position: relative;
+  position: var(--va-navbar-position);
   height: var(--va-navbar-height);
   padding-left: var(--va-navbar-padding-left);
   padding-right: var(--va-navbar-padding-right);
   background-color: var(--va-primary);
   display: flex;
   font-family: var(--va-font-family);
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-width: 100%;
+  z-index: var(--va-navbar-z-index);
 
   &__content {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    z-index: 1;
 
     @include media-breakpoint-down(sm) {
       flex-direction: column;
