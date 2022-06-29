@@ -8,7 +8,7 @@ interface useSelectableProps {
   modelValue: (DataTableItem | DataTableItemKey)[] | undefined // selectedItems
   selectable: boolean
   selectMode: DataTableSelectMode
-  itemTrackBy: string
+  itemsTrackBy: string
   [prop: string]: unknown
 }
 export type TEmits = 'update:modelValue' | 'selectionChange'
@@ -65,10 +65,10 @@ export default function useSelectableRow (
     })
   }, { immediate: true })
 
-  // if user provide `props.itemTrackBy !== ''` than `selectedItemsSync` and `props.modelValue`
-  // would be the array with keys (received from `props.itemTrackBy`)
+  // if user provide `props.itemsTrackBy !== ''` than `selectedItemsSync` and `props.modelValue`
+  // would be the array with keys (received from `props.itemsTrackBy`)
   // else they would be the array with source (`DataTableItem` type)
-  const getKey = (source: DataTableItem) => getItemKey(source, props.itemTrackBy)
+  const getKey = (source: DataTableItem) => getItemKey(source, props.itemsTrackBy)
 
   const noRowsSelected = computed(() => (
     !paginatedRows.value.some(({ source }) => selectedItemsSync.value.includes(getKey(source)))

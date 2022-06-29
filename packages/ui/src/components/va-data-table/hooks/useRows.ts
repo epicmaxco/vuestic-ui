@@ -4,13 +4,13 @@ import { getValueByPath } from '../../../services/utils'
 
 import { DataTableColumnInternal, DataTableItem, DataTableCell, DataTableRow, DataTableItemKey } from '../types'
 
-export const getItemKey = (source: any, itemTrackBy: string): DataTableItemKey => (
-  getValueByPath(source, itemTrackBy) || source
+export const getItemKey = (source: any, itemsTrackBy: string): DataTableItemKey => (
+  getValueByPath(source, itemsTrackBy) || source
 )
 
 interface useRowsProps {
   items: DataTableItem[]
-  itemTrackBy: string
+  itemsTrackBy: string
   [prop: string]: unknown
 }
 
@@ -35,10 +35,10 @@ const buildTableCell = (
 const buildTableRow = (
   source: DataTableItem,
   initialIndex: number,
-  itemTrackBy: string,
+  itemsTrackBy: string,
   columns: DataTableColumnInternal[],
 ): DataTableRow => {
-  const itemKey = getItemKey(source, itemTrackBy)
+  const itemKey = getItemKey(source, itemsTrackBy)
 
   return {
     initialIndex,
@@ -53,7 +53,7 @@ export default function useRows (
   props: useRowsProps,
 ) {
   const rowsComputed = computed(() => props.items
-    .map((rawItem, index) => buildTableRow(rawItem, index, props.itemTrackBy, columns.value)))
+    .map((rawItem, index) => buildTableRow(rawItem, index, props.itemsTrackBy, columns.value)))
 
   return {
     rowsComputed,

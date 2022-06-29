@@ -296,7 +296,7 @@ export default defineComponent({
   props: {
     columns: { type: Array as PropType<DataTableColumnSource[]>, default: () => [] as DataTableColumnSource[] },
     items: { type: Array as PropType<DataTableItem[]>, default: () => [] as DataTableItem[] },
-    itemTrackBy: { type: String, default: '' },
+    itemsTrackBy: { type: String, default: '' },
     modelValue: { type: Array as PropType<(DataTableItem | DataTableItemKey)[]> }, // selectedItems
     sortingOrder: { type: String as PropType<DataTableSortingOrder> }, // model-able
     sortBy: { type: String }, // model-able
