@@ -159,14 +159,13 @@
 
 <script lang="ts">
 import { defineComponent, watch, PropType, ref, computed, onMounted, onBeforeUnmount, shallowRef, CSSProperties } from 'vue'
+import pick from 'lodash/pick.js'
 
 import { generateUniqueId } from '../../services/utils'
 import { useColors, useArrayRefs, useBem } from '../../composables'
 import { validateSlider } from './validateSlider'
 
 import { VaIcon } from '../va-icon'
-
-import pick from 'lodash/pick.js'
 
 export default defineComponent({
   name: 'VaSlider',
@@ -226,7 +225,7 @@ export default defineComponent({
 
     const dotClass = useBem('va-slider__handler', () => ({
       onFocus: !props.range && (flag.value || isFocused.value),
-      inactive: !isFocused.value && props.range,
+      inactive: !isFocused.value,
     }))
 
     const labelStyles = computed(() => ({
