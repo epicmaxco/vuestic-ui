@@ -8,7 +8,7 @@ interface useSelectableProps {
   modelValue: (DataTableItem | DataTableItemKey)[] | undefined // selectedItems
   selectable: boolean
   selectMode: DataTableSelectMode
-  itemsTrackBy: string
+  itemsTrackBy: string | ((item: DataTableItem) => any)
   [prop: string]: unknown
 }
 export type TEmits = 'update:modelValue' | 'selectionChange'

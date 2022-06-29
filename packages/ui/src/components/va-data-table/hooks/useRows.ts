@@ -4,13 +4,15 @@ import { getValueByPath } from '../../../services/utils'
 
 import { DataTableColumnInternal, DataTableItem, DataTableCell, DataTableRow, DataTableItemKey } from '../types'
 
-export const getItemKey = (source: any, itemsTrackBy: string): DataTableItemKey => (
-  getValueByPath(source, itemsTrackBy) || source
+export const getItemKey = (source: DataTableItem, itemsTrackBy: string | ((item: DataTableItem) => any)): DataTableItemKey => (
+  typeof itemsTrackBy === 'function'
+    ? itemsTrackBy(source)
+    : getValueByPath(source, itemsTrackBy) || source
 )
 
 interface useRowsProps {
   items: DataTableItem[]
-  itemsTrackBy: string
+  itemsTrackBy: string | ((item: DataTableItem) => any)
   [prop: string]: unknown
 }
 
@@ -35,7 +37,7 @@ const buildTableCell = (
 const buildTableRow = (
   source: DataTableItem,
   initialIndex: number,
-  itemsTrackBy: string,
+  itemsTrackBy: string | ((item: DataTableItem) => any),
   columns: DataTableColumnInternal[],
 ): DataTableRow => {
   const itemKey = getItemKey(source, itemsTrackBy)
