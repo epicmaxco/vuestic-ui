@@ -133,9 +133,6 @@ export default defineComponent({
 
   &:focus {
     @include focus-outline();
-    // in purpose outline not to touch closest rating items
-    outline-offset: -2px;
-    transform: scale(1.1);
   }
 
   &__wrapper {
