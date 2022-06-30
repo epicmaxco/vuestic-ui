@@ -55,6 +55,10 @@
               <va-icon
                 v-else-if="!$props.leftIcon"
                 v-bind="iconProps"
+                tabindex="0"
+                @click="toggleDropdown"
+                @keydown.enter.stop="toggleDropdown"
+                @keydown.space.stop="toggleDropdown"
               />
             </template>
           </va-input>
@@ -249,12 +253,12 @@ export default defineComponent({
     }
 
     const focusInputOrPicker = (): void => {
-      props.manualInput ? focus() : focusDatePicker()
+      isOpenSync.value ? focusDatePicker() : focus()
     }
 
     const toggleDropdown = () => {
       isOpenSync.value = !isOpenSync.value
-      focusInputOrPicker()
+      nextTick(focusInputOrPicker)
     }
 
     const showAndFocus = (event: Event): void => {

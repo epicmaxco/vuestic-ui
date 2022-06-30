@@ -58,6 +58,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
+@import '../../../styles/resources';
+
 .va-date-picker-cell {
   position: relative;
   color: var(--va-date-picker-text-color);
@@ -121,6 +123,10 @@ export default defineComponent({
 
   &_other-month {
     opacity: var(--va-date-picker-cell-opacity);
+  }
+
+  &_focused {
+    @include focus-outline;
   }
 
   &:hover,
