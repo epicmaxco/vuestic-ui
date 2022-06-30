@@ -1,48 +1,26 @@
 <template>
-  <div class="row">
-    <va-checkbox
-      class="flex mb-2 md4"
-      label="Selectable"
-      v-model="selectable"
-    />
-
-    <va-select
-      class="flex mb-2 md4"
-      v-model="selectMode"
-      label="Select mode"
-      :options="selectModeOptions"
-    />
-
-    <va-select
-      class="flex mb-2 md4"
-      v-model="selectedColor"
-      label="Selected color"
-      :options="selectColorOptions"
-    />
-  </div>
-
-  <va-button @click="shuffleItems">Shuffle items</va-button>
+  <va-button @click="shuffleItems">Shuffle and update items</va-button>
 
   <va-data-table
     :items="items"
+    items-track-by="username"
     :columns="columns"
-    :selectable="selectable"
+    selectable
     v-model="selectedItems"
-    :select-mode="selectMode"
-    :selected-color="selectedColor"
-    @selectionChange="selectedItemsEmitted = $event.currentSelectedItems"
+    select-mode="multiple"
+    @selection-change="selectedItemsEmitted = $event.currentSelectedItems"
   />
 
   <va-alert class="mt-3" color="info" outline>
     <span>
       Selected items (click to unselect):
       <va-chip
-        class="ml-2"
-        :key="item.id"
         v-for="item in selectedItemsEmitted"
+        :key="item"
+        class="ml-2"
         @click="unselectItem(item)"
       >
-        {{ item.id }}
+        {{ item }}
       </va-chip>
     </span>
   </va-alert>
@@ -103,22 +81,9 @@ export default defineComponent({
     return {
       items: users,
       columns,
-      selectable: true,
-      selectedItems: [users[1]],
+      selectedItems: ['Antonette'],
       selectedItemsEmitted: [],
-      selectMode: 'multiple',
-      selectedColor: '#888888',
-      selectModeOptions: ['single', 'multiple'],
-      selectColorOptions: ['primary', 'danger', 'warning', '#888888'],
     }
-  },
-
-  watch: {
-    selectable (value) {
-      if (!value) {
-        this.selectedItems = []
-      }
-    },
   },
 
   methods: {
@@ -126,7 +91,8 @@ export default defineComponent({
       this.selectedItems = this.selectedItems.filter(selectedItem => selectedItem !== item)
     },
     shuffleItems () {
-      this.items = shuffle(this.items)
+      const items = this.items.map(item => ({ ...item, name: shuffle(item.name).join('') }))
+      this.items = shuffle(items)
     },
   },
 })
