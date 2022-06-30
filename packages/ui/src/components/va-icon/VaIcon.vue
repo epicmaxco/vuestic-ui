@@ -90,10 +90,17 @@ export default defineComponent({
 
 <style lang="scss">
 @import "variables";
+@import '../../styles/resources';
 
 .va-icon {
   vertical-align: var(--va-icon-vertical-align);
   user-select: var(--va-icon-user-select);
+
+  &[tabindex]:not([tabindex^="-"]) {
+    &:focus {
+      @include focus-outline;
+    }
+  }
 
   &#{&} {
     // need 2 classes to make it work

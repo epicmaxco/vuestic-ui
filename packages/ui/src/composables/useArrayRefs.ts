@@ -1,4 +1,5 @@
-import { onBeforeUpdate, shallowRef, ComponentPublicInstance } from 'vue'
+import { onBeforeUpdate, ComponentPublicInstance } from 'vue'
+import { shallowRef } from '@vue/reactivity'
 
 type TemplateRef = HTMLElement | (ComponentPublicInstance & HTMLElement)
 

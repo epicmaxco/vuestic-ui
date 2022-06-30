@@ -178,13 +178,5 @@ export default defineComponent({
     /* overflow: hidden; */
     z-index: var(--va-dropdown-content-wrapper-z-index);
   }
-
-  &__icons {
-    &__reset {
-      &:focus {
-        @include focus-outline;
-      }
-    }
-  }
 }
 </style>
