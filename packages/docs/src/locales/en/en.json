@@ -1148,12 +1148,15 @@
     },
     "VaTimePicker": {
       "props": {
-        "ampm": "Use 12-hours time format.",
+        "ampm": "Use 12-hours time format",
         "hoursFilter": "Function that allows you to hide some specific hours",
         "minutesFilter": "Function that allows you to hide some specific minutes",
         "secondsFilter": "Function that allows you to hide some specific seconds",
         "view": "View specifying which columns will be shown",
-        "periodUpdatesModelValue": "If user will change period it will automatically update model value. You can turn off it and am/pm switch will only change view."
+        "periodUpdatesModelValue": "If user will change period it will automatically update model value. You can turn off it and am/pm switch will only change view.",
+        "framed": "Adds borders to center of the picker",
+        "cellHeight": "Height of the time cell",
+        "visibleCellsCount": "Count of time cells to display"
       },
       "events": {},
       "methods": {},
@@ -3956,6 +3959,14 @@
       "default": {
         "title": "Default",
         "text": ""
+      },
+      "framed": {
+        "title": "Framed",
+        "text": ""
+      },
+      "visibleCellsCount": {
+        "title": "Controlling the count of displayed cells",
+        "text": "For the better view need to set odd numbers"
       },
       "readonlyAndDisabled": {
         "title": "Readonly and disabled",
