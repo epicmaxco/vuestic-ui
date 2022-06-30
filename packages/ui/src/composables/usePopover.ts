@@ -15,7 +15,7 @@ type AlignCoords = { main: number, cross: number }
 export const placementsPositions = ['top', 'bottom', 'left', 'right']
   .reduce((acc, position) => [...acc, position, `${position}-start`, `${position}-end`, `${position}-center`], ['auto'] as string[])
 
-const coordsToCss = ({ x, y }: Coords) => ({ transform: `translate(${x}px, ${y}px)` })
+const coordsToCss = ({ x, y }: Coords) => ({ left: `${x}px`, top: `${y}px` })
 
 const parsePlacement = (placement: Placement) => {
   const [position, align] = placement.split('-') as [PlacementPosition, PlacementAlignment | undefined]

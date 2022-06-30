@@ -2025,6 +2025,10 @@
       "color": {
         "title": "Color",
         "text": "Set different colors using the `color` prop. You can either use a theme string or the HEX color value. Inactive tabs have `inherit` color. If you need to change inactive tabs color, you can set color for va-tabs using CSS."
+      },
+      "content": {
+        "title": "Content",
+        "text": "Tabs with a custom content in the default slot."
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-tabs/_variables.scss)[[target=_blank]]",
@@ -4081,14 +4085,14 @@
     "solutions": {
       "title": "Examples",
       "description": "Here are two examples how you can add CSS variables to html head",
-      
+
       "nuxt": "Look at Nuxt3 guide",
 
-      "viteSsrPlugin": { 
+      "viteSsrPlugin": {
         "title": "Vite SSR Plugin",
         "description": "Learn more about [Vite SSR Plugin](https://vite-plugin-ssr.com/vue-tour)"
       },
-      "vitesse": { 
+      "vitesse": {
         "title": "Vitesse",
         "description": "Learn more about [Vitesse](https://github.com/antfu/vitesse) and [useHead](https://github.com/vueuse/head#server-side-rendering)"
       }

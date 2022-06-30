@@ -132,7 +132,7 @@ export default defineComponent({
   display: inline-block;
 
   &:focus {
-    transform: scale(1.1);
+    @include focus-outline();
   }
 
   &__wrapper {
