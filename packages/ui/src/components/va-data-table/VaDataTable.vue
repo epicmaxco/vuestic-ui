@@ -255,6 +255,7 @@ import {
   DataTableSelectMode,
   DataTableRowBind,
   DataTableCellBind,
+  DataTableItemKey,
 } from './types'
 
 import { VaInnerLoading } from '../va-inner-loading'
@@ -295,7 +296,8 @@ export default defineComponent({
   props: {
     columns: { type: Array as PropType<DataTableColumnSource[]>, default: () => [] as DataTableColumnSource[] },
     items: { type: Array as PropType<DataTableItem[]>, default: () => [] as DataTableItem[] },
-    modelValue: { type: Array as PropType<DataTableItem[]> }, // selectedItems
+    itemsTrackBy: { type: [String, Function] as PropType<string | ((item: DataTableItem) => any)>, default: '' },
+    modelValue: { type: Array as PropType<(DataTableItem | DataTableItemKey)[]> }, // selectedItems
     sortingOrder: { type: String as PropType<DataTableSortingOrder> }, // model-able
     sortBy: { type: String }, // model-able
     filter: { type: String, default: '' },

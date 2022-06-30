@@ -1,7 +1,7 @@
-import { App, ComponentCustomProperties } from 'vue'
+import { App, AppContext, ComponentCustomProperties } from 'vue'
 
 /** Type safe return app global properties for assign */
-export const extractGlobalProperties = (app: App) => app.config.globalProperties as ComponentCustomProperties
+export const extractGlobalProperties = (app: App | AppContext) => app.config.globalProperties as ComponentCustomProperties
 
 /**
  * Type safe set vue global property
@@ -21,6 +21,6 @@ export const defineGlobalProperty = <Key extends keyof ComponentCustomProperties
 }
 
 /** Type safe return vue global property */
-export const getGlobalProperty = <Key extends keyof ComponentCustomProperties>(app: App, key: Key): ComponentCustomProperties[Key] => {
+export const getGlobalProperty = <Key extends keyof ComponentCustomProperties>(app: App | AppContext, key: Key): ComponentCustomProperties[Key] => {
   return extractGlobalProperties(app)[key]
 }
