@@ -1,10 +1,10 @@
 <template>
   <div class="flex lg6 xs12">
-    <div class="mt-2 text--bold muted">When you use a default size:</div>
+    <div class="mt-2 text--bold muted">When you use a default slot:</div>
     <va-progress-bar :model-value="value">
       {{ value + '%' }}
     </va-progress-bar>
-    <div class="mt-4 mb-2 text--bold muted">When you use a 'large' size:</div>
+    <div class="mt-4 mb-2 text--bold muted">When you use a 'slot-inside' prop:</div>
     <va-progress-bar
       :model-value="value"
       size="large"
