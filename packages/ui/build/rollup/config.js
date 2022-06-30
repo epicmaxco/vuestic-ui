@@ -1,5 +1,6 @@
 import { createCJSConfig, createESMConfig, createIIFEConfig, createStylesConfig } from './configs/index'
 import fs from 'fs'
+import { execSync } from 'child_process'
 
 const defaultBuildParams = { input: './src/main.ts', minify: true, sourcemap: true }
 
@@ -7,6 +8,9 @@ if (fs.existsSync('./dist')) {
   // Remove ./dist folder before build.
   fs.rmdirSync('./dist', { recursive: true })
 }
+
+// Build types before build.
+execSync('npm run build:types')
 
 export const RollupConfig = [
   createESMConfig({ ...defaultBuildParams, outDir: 'dist/esm' }),
