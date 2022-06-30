@@ -23,6 +23,7 @@
       class="mt-2"
       :model-value="value"
       size="1.5rem"
+      color="warning"
       content-inside
       show-percent
     />

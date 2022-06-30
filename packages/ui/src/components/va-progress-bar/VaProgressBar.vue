@@ -67,6 +67,7 @@ export default defineComponent({
   setup (props) {
     const { getColor, getHoverColor } = useColors()
     const { textColorComputed } = useTextColor()
+    const colorComputed = computed(() => getColor(props.color))
 
     const isTextSize = computed(() => typeof props.size === 'string' && ['small', 'medium', 'large'].includes(props.size))
 
@@ -84,8 +85,8 @@ export default defineComponent({
       })),
 
       rooStyle: computed(() => ({
-        '--va-progress-bar-color': getColor(props.color),
-        '--va-progress-bar-background-color': getHoverColor(getColor(props.color)),
+        '--va-progress-bar-color': colorComputed.value,
+        '--va-progress-bar-background-color': getHoverColor(colorComputed.value),
       }) as StyleValue),
 
       wrapperStyle: computed(() => ({
