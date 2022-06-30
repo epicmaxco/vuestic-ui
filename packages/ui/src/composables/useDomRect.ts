@@ -24,6 +24,14 @@ export const useDomRect = (target: Ref<HTMLElement | undefined>) => {
     prev = rect
   })
 
+  watch(target, (newVal) => {
+    if (newVal) {
+      domRect.value = newVal.getBoundingClientRect()
+    } else {
+      domRect.value = null
+    }
+  })
+
   return {
     domRect,
   }
