@@ -3,6 +3,7 @@
   --va-progress-bar-position: relative;
   --va-progress-bar-overflow: hidden;
   --va-progress-bar-height: 0.5rem;
+  --va-progress-bar-background-color: var(--va-primary);
 
   /* Small */
   --va-progress-bar-sm-height: 2px;
@@ -14,7 +15,7 @@
   --va-progress-bar-info-font-weight: 700;
   --va-progress-bar-info-text-align: center;
   --va-progress-bar-info-text-transform: uppercase;
-  --va-progress-bar-info-not-empty-margin-bottom: 0.25rem;
+  --va-progress-bar-info-not-empty-margin-bottom: 0.1rem;
 
   /* Wrapper */
   --va-progress-bar--wrapper-position: relative;
