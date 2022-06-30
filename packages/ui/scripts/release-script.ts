@@ -12,7 +12,7 @@ import semver from 'semver'
 
 const { hideBin } = require('yargs/helpers')
 
-export type ReleaseType = 'monthly' | 'weekly' | 'next' | 'experimental'
+export type ReleaseType = 'large' | 'tiny' | 'next' | 'experimental'
 
 export type ReleaseConfig = {
   version: string, // 1.2.3
@@ -27,7 +27,7 @@ export type ReleaseConfig = {
 const argv = yargs(hideBin(process.argv))
   .option('releaseType', {
     description: 'Internal release type',
-    choices: ['monthly', 'weekly', 'next', 'experimental'],
+    choices: ['large', 'tiny', 'next', 'experimental'],
     required: true,
   })
   .option('dryRun', {
@@ -58,7 +58,7 @@ const getReleaseConfig = async (releaseType: ReleaseType): Promise<ReleaseConfig
 
   let result: Partial<ReleaseConfig> | null = null
 
-  if (releaseType === 'monthly') {
+  if (releaseType === 'large') {
     const version = incrementVersion(currentVersion, 'minor')
     result = {
       version,
@@ -68,7 +68,7 @@ const getReleaseConfig = async (releaseType: ReleaseType): Promise<ReleaseConfig
       requiredBranch: 'master',
     }
   }
-  if (releaseType === 'weekly') {
+  if (releaseType === 'tiny') {
     const version = incrementVersion(currentVersion, 'patch')
     result = {
       version,
