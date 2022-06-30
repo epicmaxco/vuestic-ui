@@ -1,11 +1,10 @@
 <template>
-  <va-accordion class="sidebar-accordion" v-model="accordionValue" multiply>
+  <va-accordion v-model="accordionValue" multiply>
     <va-collapse
       v-for="(route, idx) in items"
       :key="idx"
       :class="{ expanded: accordionValue[idx] && route.children }"
     >
-
       <template #header>
         <va-sidebar-item
           :active="isRouteActive(route)"
@@ -15,22 +14,21 @@
             <va-sidebar-item-title>
               {{ $tie(route.displayName) }}
             </va-sidebar-item-title>
-
             <va-icon v-if="route.children" :name="accordionValue[idx] ? 'expand_less' : 'expand_more'" />
           </va-sidebar-item-content>
         </va-sidebar-item>
       </template>
-
-      <div v-for="(child, index) in route.children" :key="index">
-        <va-sidebar-item @click="setRouteActive(child)" :active="isRouteActive(child)">
-          <va-sidebar-item-content>
-            <va-sidebar-item-title>
-              {{ $tie(child.displayName) }}
-            </va-sidebar-item-title>
-          </va-sidebar-item-content>
-        </va-sidebar-item>
-      </div>
-
+      <va-sidebar-item
+        v-for="(child, index) in route.children" :key="index"
+        :active="isRouteActive(child)"
+        @click="setRouteActive(child)"
+      >
+        <va-sidebar-item-content>
+          <va-sidebar-item-title>
+            {{ $tie(child.displayName) }}
+          </va-sidebar-item-title>
+        </va-sidebar-item-content>
+      </va-sidebar-item>
     </va-collapse>
   </va-accordion>
 </template>
@@ -78,7 +76,6 @@ export default defineComponent({
     },
     setRouteActive (route: DemoRoute) {
       if (route.children) { return }
-
       this.activeRouteName = route.name
     },
   },
@@ -87,6 +84,6 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .expanded {
-  background-color: #f2f3ae;
+  background-color: var(--va-background);
 }
 </style>

@@ -1,31 +1,32 @@
 <template>
   <div
     class="va-color-indicator"
-    @click="valueComputed = !valueComputed"
     :class="computedClass"
     :style="computedStyle"
+    @click="toggleModelValue"
+    @keydown.enter="toggleModelValue"
+    @keydown.space="toggleModelValue"
   >
     <div
       class="va-color-indicator__core"
-      :style="{ ...computedStyle, backgroundColor: colorComputed }"
+      :style="computedStyle"
     />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, PropType } from 'vue'
+import { defineComponent, computed } from 'vue'
 
-import { useColors } from '../../composables/useColor'
-import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
+import { useColors, useStateful, useStatefulProps, useStatefulEmits } from '../../composables'
 
 export default defineComponent({
   name: 'VaColorIndicator',
   emits: useStatefulEmits,
   props: {
     ...useStatefulProps,
-    modelValue: { type: Boolean as PropType<boolean>, default: null },
-    color: { type: String as PropType<string>, default: '' },
-    square: { type: Boolean as PropType<boolean>, default: false },
+    modelValue: { type: Boolean, default: null },
+    color: { type: String, default: '' },
+    square: { type: Boolean, default: false },
   },
   setup (props, { emit }) {
     const { valueComputed } = useStateful(props, emit)
@@ -33,18 +34,23 @@ export default defineComponent({
 
     const colorComputed = computed(() => getColor(props.color))
 
-    const computedStyle = computed(() => ({ borderRadius: props.square ? '0px' : '50%' }))
+    const computedStyle = computed(() => ({
+      borderRadius: props.square ? '0px' : '50%',
+      backgroundColor: colorComputed.value,
+    }))
 
     const computedClass = computed(() => ({
       'va-color-indicator--selected': valueComputed.value,
       'va-color-indicator--hoverable': valueComputed.value !== undefined,
     }))
 
+    const toggleModelValue = () => { valueComputed.value = !valueComputed.value }
+
     return {
-      colorComputed,
       valueComputed,
       computedStyle,
       computedClass,
+      toggleModelValue,
     }
   },
 })
@@ -68,14 +74,14 @@ export default defineComponent({
     border-color: $vue-darkest-blue;
   }
 
-  &--hoverable &__core:hover {
+  &--hoverable &__core:hover,
+  &:focus {
     transform: scale(1.1);
     transition: transform 0.1s linear;
   }
 
   &__core {
     transition: transform 0.1s linear;
-    vertical-align: baseline;
     border-radius: 50%;
     width: 1rem;
     height: 1rem;

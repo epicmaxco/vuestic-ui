@@ -1,7 +1,7 @@
 import withConfigTransport from '../../services/config-transport/withConfigTransport'
-import VaTreeView from './VaTreeView.vue'
+import _VaTreeView from './VaTreeView.vue'
 
-export { default as VaTreeNode } from './VaTreeNode'
-export { default as VaTreeCategory } from './VaTreeCategory'
+export const VaTreeView = withConfigTransport(_VaTreeView)
 
-export default withConfigTransport(VaTreeView as any)
+export { VaTreeNode } from './VaTreeNode'
+export { VaTreeCategory } from './VaTreeCategory'

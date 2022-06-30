@@ -90,33 +90,33 @@
     <VbCard title="context checks">
       <div>
         value:
-        <VaContext :components="{VaProgressCircle: {modelValue: 50}}">
+        <VaConfig :components="{ VaProgressCircle: { modelValue: 50 } }">
           <VaProgressCircle />
-        </VaContext>
+        </VaConfig>
       </div>
       <div>
         indeterminate:
-        <VaContext :components="{VaProgressCircle: {indeterminate: true}}">
+        <VaConfig :components="{ VaProgressCircle: { indeterminate: true } }">
           <VaProgressCircle />
-        </VaContext>
+        </VaConfig>
       </div>
       <div>
         color:
-        <VaContext :components="{VaProgressCircle: {color: 'danger'}}">
+        <VaConfig :components="{ VaProgressCircle: { color: 'danger' } }">
           <VaProgressCircle :modelValue="value" />
-        </VaContext>
+        </VaConfig>
       </div>
       <div>
         thickness:
-        <VaContext :components="{VaProgressCircle: {thickness: 0.20}}">
+        <VaConfig :components="{ VaProgressCircle: { thickness: 0.20 } }">
           <VaProgressCircle :modelValue="value" />
-        </VaContext>
+        </VaConfig>
       </div>
       <div>
         size:
-        <VaContext :components="{VaProgressCircle: {size: 30}}">
+        <VaConfig :components="{ VaProgressCircle: { size: 30 } }">
           <VaProgressCircle :modelValue="value" />
-        </VaContext>
+        </VaConfig>
       </div>
     </VbCard>
 
@@ -140,12 +140,12 @@
 
 <script>
 import { VaProgressCircle } from './index'
-import VaContext from '../va-config'
+import { VaConfig } from '../va-config'
 
 export default {
   components: {
-    VaContext,
     VaProgressCircle,
+    VaConfig,
   },
   data () {
     return {

@@ -2,17 +2,20 @@
   <div
     class="va-slider"
     :class="sliderClass"
+    v-bind="ariaAttributesComputed"
   >
     <div
-      class="va-slider__input-wrapper"
       v-if="vertical ? $slots.append : $slots.prepend"
+      class="va-slider__input-wrapper"
+      aria-hidden="true"
     >
       <slot :name="vertical ? 'append' : 'prepend'" />
     </div>
     <span
       v-if="($slots.label || label) && !invertLabel"
-      :style="labelStyles"
       class="va-input__label"
+      :id="ariaLabelIdComputed"
+      :style="labelStyles"
     >
       <slot name="label">
         {{ label }}
@@ -21,6 +24,7 @@
     <span
       v-if="vertical ? iconAppend : iconPrepend"
       class="va-input__label"
+      aria-hidden="true"
     >
       <va-icon
         :name="vertical ? iconAppend : iconPrepend"
@@ -29,14 +33,15 @@
       />
     </span>
     <div
-      class="va-slider__container"
       ref="sliderContainer"
+      class="va-slider__container"
       @mousedown="clickOnContainer"
-      @touchstart="clickOnContainer"
       @mouseup="hasMouseDown = false"
+      @touchstart="clickOnContainer"
     >
       <div
         class="va-slider__track"
+        aria-hidden="true"
         :style="trackStyles"
       />
       <template v-if="pins">
@@ -48,23 +53,24 @@
           :style="getPinStyles(pin)"
         />
       </template>
-      <template v-if="isRange">
+      <template v-if="$props.range">
         <div
           ref="process"
           class="va-slider__track va-slider__track--selected"
+          aria-hidden="true"
           :class="{'va-slider__track--active': isFocused}"
           :style="processedStyles"
         />
         <div
-          v-for="order in ($props.vertical ? [1, 0] : [0, 1])"
+          v-for="order in orders"
           :key="'dot' + order"
-          :ref="'dot' + order"
+          :ref="setItemRefByIndex(order)"
           class="va-slider__handler"
-          :class="dotClass[order]"
-          :style="dottedStyles[order]"
+          :class="dotClass"
+          :style="getDottedStyles(order)"
+          :tabindex="disabled || readonly ? undefined : 0"
           @focus="isFocused = true, currentSliderDotIndex = order"
           @blur="isFocused = false"
-          :tabindex="disabled || readonly ? undefined : 0"
         >
           <div
             v-if="isActiveDot(order)"
@@ -78,9 +84,9 @@
           >
             <slot
               name="trackLabel"
-              v-bind="{ value: val[order], order }"
+              v-bind="{ value: getValueByOrder(order), order }"
             >
-              {{ getTrackLabel(val[order], order) }}
+              {{ getTrackLabel(getValueByOrder(order), order) }}
             </slot>
           </div>
         </div>
@@ -88,6 +94,7 @@
       <template v-else>
         <div
           ref="process"
+          aria-hidden="true"
           class="va-slider__track va-slider__track--selected"
           :class="{'va-slider__track--active': isFocused}"
           :style="processedStyles"
@@ -97,9 +104,9 @@
           class="va-slider__handler"
           :class="dotClass"
           :style="dottedStyles"
+          :tabindex="$props.disabled || $props.readonly ? undefined : 0"
           @focus="isFocused = true"
           @blur="isFocused = false"
-          :tabindex="$props.disabled || $props.readonly ? undefined : 0"
         >
           <div
             v-if="isActiveDot(0)"
@@ -108,14 +115,14 @@
           />
           <div
             v-if="trackLabelVisible"
-            :style="labelStyles"
             class="va-slider__handler__dot--value"
+            :style="labelStyles"
           >
             <slot
               name="trackLabel"
-              v-bind="{ value: val }"
+              v-bind="{ value: getValueByOrder() }"
             >
-              {{ getTrackLabel(val) }}
+              {{ getTrackLabel(getValueByOrder()) }}
             </slot>
           </div>
         </div>
@@ -124,6 +131,7 @@
     <span
       v-if="vertical ? iconPrepend : iconAppend"
       class="va-input__label--inverse"
+      aria-hidden="true"
     >
       <va-icon
         :name="vertical ? iconPrepend : iconAppend"
@@ -133,16 +141,16 @@
     </span>
     <span
       v-if="($slots.label || label) && invertLabel"
-      :style="labelStyles"
       class="va-input__label va-input__label--inverse"
+      :style="labelStyles"
     >
       <slot name="label">
         {{ label }}
       </slot>
     </span>
     <div
-      class="va-slider__input-wrapper"
       v-if="vertical ? $slots.prepend : $slots.append"
+      class="va-slider__input-wrapper"
     >
       <slot :name="vertical ? 'prepend' : 'append'" />
     </div>
@@ -150,45 +158,46 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, watch, PropType, ref, computed, onMounted, onBeforeUnmount } from 'vue'
+import { defineComponent, watch, PropType, ref, computed, onMounted, onBeforeUnmount, shallowRef, CSSProperties } from 'vue'
+import pick from 'lodash/pick.js'
 
-import { getHoverColor } from '../../services/color-config/color-functions'
+import { generateUniqueId } from '../../services/utils'
+import { useColors, useArrayRefs, useBem } from '../../composables'
 import { validateSlider } from './validateSlider'
-import VaIcon from '../va-icon'
-import { useColors } from '../../composables/useColor'
+
+import { VaIcon } from '../va-icon'
 
 export default defineComponent({
   name: 'VaSlider',
   components: { VaIcon },
   emits: ['drag-start', 'drag-end', 'change', 'update:modelValue'],
   props: {
-    range: { type: Boolean as PropType<boolean>, default: false },
-    modelValue: ({ type: [Number, Array] as PropType<number | number[]>, default: () => [] }),
-    trackLabel: ({ type: Function as PropType<((val: any, order?: number) => string) | undefined> }),
-    color: { type: String as PropType<string>, default: 'primary' },
-    trackColor: { type: String as PropType<string>, default: '' },
-    labelColor: { type: String as PropType<string>, default: '' },
-    trackLabelVisible: { type: Boolean as PropType<boolean>, default: false },
-    min: { type: Number as PropType<number>, default: 0 },
-    max: { type: Number as PropType<number>, default: 100 },
-    step: { type: Number as PropType<number>, default: 1 },
-    label: { type: String as PropType<string>, default: '' },
-    invertLabel: { type: Boolean as PropType<boolean>, default: false },
-    disabled: { type: Boolean as PropType<boolean>, default: false },
-    readonly: { type: Boolean as PropType<boolean>, default: false },
-    pins: { type: Boolean as PropType<boolean>, default: false },
-    iconPrepend: { type: String as PropType<string>, default: '' },
-    iconAppend: { type: String as PropType<string>, default: '' },
-    vertical: { type: Boolean as PropType<boolean>, default: false },
-    showTrack: { type: Boolean as PropType<boolean>, default: true },
+    range: { type: Boolean, default: false },
+    modelValue: ({ type: [Number, Array] as PropType<number | number[]>, default: 0 }),
+    trackLabel: ({ type: [Function, String] as PropType<string | ((val: number, order?: number) => string) | undefined> }),
+    color: { type: String, default: 'primary' },
+    trackColor: { type: String, default: '' },
+    labelColor: { type: String, default: '' },
+    trackLabelVisible: { type: Boolean, default: false },
+    min: { type: Number, default: 0 },
+    max: { type: Number, default: 100 },
+    step: { type: Number, default: 1 },
+    label: { type: String, default: '' },
+    invertLabel: { type: Boolean, default: false },
+    disabled: { type: Boolean, default: false },
+    readonly: { type: Boolean, default: false },
+    pins: { type: Boolean, default: false },
+    iconPrepend: { type: String, default: '' },
+    iconAppend: { type: String, default: '' },
+    vertical: { type: Boolean, default: false },
+    showTrack: { type: Boolean, default: true },
   },
   setup (props, { emit }) {
-    const { getColor } = useColors()
+    const { getColor, getHoverColor } = useColors()
 
-    const dot = ref<HTMLElement>()
-    const dot0 = ref<HTMLElement>()
-    const dot1 = ref<HTMLElement>()
-    const sliderContainer = ref<HTMLElement>()
+    const sliderContainer = shallowRef<HTMLElement>()
+    const dot = shallowRef<HTMLElement>()
+    const { setItemRefByIndex, itemRefs: dots } = useArrayRefs()
 
     const isFocused = ref(false)
     const flag = ref(false)
@@ -198,6 +207,8 @@ export default defineComponent({
     const currentSliderDotIndex = ref(0)
     const hasMouseDown = ref(false)
 
+    const orders = computed(() => props.vertical ? [1, 0] : [0, 1])
+
     const pinPositionStyle = computed(() => props.vertical ? 'bottom' : 'left')
     const trackSizeStyle = computed(() => props.vertical ? 'height' : 'width')
 
@@ -205,27 +216,17 @@ export default defineComponent({
 
     const lessToMore = computed(() => Array.isArray(val.value) && (val.value[0] + props.step) > val.value[1])
 
-    const sliderClass = computed(() => ({
-      'va-slider--active': isFocused.value,
-      'va-slider--disabled': props.disabled,
-      'va-slider--readonly': props.readonly,
-      'va-slider--horizontal': !props.vertical,
-      'va-slider--vertical': props.vertical,
+    const sliderClass = useBem('va-slider', () => ({
+      ...pick(props, ['disabled', 'readonly', 'vertical']),
+      active: isFocused.value,
+      horizontal: !props.vertical,
+      grabbing: hasMouseDown.value,
     }))
 
-    const dotClass = computed(() => {
-      if (props.range) {
-        return [
-          { 'va-slider__handler--inactive': !isFocused.value },
-          { 'va-slider__handler--inactive': !isFocused.value },
-        ]
-      }
-
-      return {
-        'va-slider__handler--on-focus': !props.range && (flag.value || isFocused),
-        'va-slider__handler--inactive': !isFocused.value,
-      }
-    })
+    const dotClass = useBem('va-slider__handler', () => ({
+      onFocus: !props.range && (flag.value || isFocused.value),
+      inactive: !isFocused.value,
+    }))
 
     const labelStyles = computed(() => ({
       color: props.labelColor ? getColor(props.labelColor) : getColor(props.color),
@@ -249,7 +250,7 @@ export default defineComponent({
           [trackSizeStyle.value]: `${val1 - val0}%`,
           backgroundColor: getColor(props.color),
           visibility: props.showTrack ? 'visible' : 'hidden',
-        }
+        } as CSSProperties
       } else {
         const val = ((validatedValue - props.min) / (props.max - props.min)) * 100
 
@@ -257,7 +258,7 @@ export default defineComponent({
           [trackSizeStyle.value]: `${val}%`,
           backgroundColor: getColor(props.color),
           visibility: props.showTrack ? 'visible' : 'hidden',
-        }
+        } as CSSProperties
       }
     })
 
@@ -279,7 +280,7 @@ export default defineComponent({
             backgroundColor: isActiveDot(1) ? getColor(props.color) : '#ffffff',
             borderColor: getColor(props.color),
           },
-        ]
+        ] as CSSProperties[]
       } else {
         const val = ((validatedValue - props.min) / (props.max - props.min)) * 100
 
@@ -287,9 +288,13 @@ export default defineComponent({
           [pinPositionStyle.value]: `${val}%`,
           backgroundColor: isActiveDot(0) ? getColor(props.color) : '#ffffff',
           borderColor: getColor(props.color),
-        }
+        } as CSSProperties
       }
     })
+
+    const getDottedStyles = (index?: number) => props.range && index !== undefined
+      ? (dottedStyles.value as CSSProperties[])[index]
+      : dottedStyles.value
 
     const val = computed({
       get: () => props.modelValue,
@@ -305,6 +310,10 @@ export default defineComponent({
         emit('update:modelValue', val)
       },
     })
+
+    const getValueByOrder = (order?: number) => props.range && order !== undefined
+      ? (val.value as number[])[order]
+      : val.value as number
 
     const gap = computed(() => {
       const total = (props.max - props.min) / props.step
@@ -345,7 +354,8 @@ export default defineComponent({
         if (!props.range) {
           index = 0
         } else if (Array.isArray(position.value)) {
-          const pos = getPos(e instanceof TouchEvent ? e.touches[0] : e)
+          const touch = 'touches' in e ? e.touches[0] : e
+          const pos = getPos(touch)
 
           index = pos > ((position.value[1] - position.value[0]) / 2 + position.value[0]) ? 1 : 0
         }
@@ -356,7 +366,7 @@ export default defineComponent({
       }
 
       Array.isArray(props.modelValue)
-        ? (index === 0 ? dot0 : dot1).value?.focus()
+        ? dots.value[index]?.focus()
         : dot.value?.focus()
 
       flag.value = true
@@ -366,6 +376,8 @@ export default defineComponent({
 
     const moving = (e: TouchEvent | MouseEvent) => {
       if (!hasMouseDown.value || !flag.value || props.disabled || props.readonly) { return }
+
+      e.preventDefault()
 
       if ('touches' in e) {
         setValueOnPos(getPos(e.touches[0]))
@@ -378,8 +390,7 @@ export default defineComponent({
       if (!props.disabled && !props.readonly) {
         if (flag.value) {
           emit('drag-end')
-
-          emit('change', /* props.range ? Array.from(props.modelValue) : */ props.modelValue)
+          emit('change', props.modelValue)
         } else {
           return false
         }
@@ -391,7 +402,7 @@ export default defineComponent({
 
     const moveWithKeys = (event: KeyboardEvent) => {
       // don't do anything if a dot isn't focused or if the slider's disabled or readonly
-      if (![dot0.value, dot1.value, dot.value].includes(document.activeElement as HTMLElement)) {
+      if (![dots.value[0], dots.value[1], dot.value].includes(document.activeElement as HTMLElement)) {
         return
       }
       if (props.disabled || props.readonly) {
@@ -456,22 +467,22 @@ export default defineComponent({
       const isActive = (el?: HTMLElement) => el === document.activeElement
 
       if (props.range && Array.isArray(val.value)) {
-        const isVerticalDot0More = (event: KeyboardEvent) => props.vertical && isActive(dot0.value) && event.key === 'ArrowUp'
-        const isVerticalDot0Less = (event: KeyboardEvent) => props.vertical && isActive(dot0.value) && event.key === 'ArrowDown'
-        const isVerticalDot1More = (event: KeyboardEvent) => props.vertical && isActive(dot1.value) && event.key === 'ArrowUp'
-        const isVerticalDot1Less = (event: KeyboardEvent) => props.vertical && isActive(dot1.value) && event.key === 'ArrowDown'
-        const isHorizontalDot0Less = (event: KeyboardEvent) => !props.vertical && isActive(dot0.value) && event.key === 'ArrowLeft'
-        const isHorizontalDot0More = (event: KeyboardEvent) => !props.vertical && isActive(dot0.value) && event.key === 'ArrowRight'
-        const isHorizontalDot1Less = (event: KeyboardEvent) => !props.vertical && isActive(dot1.value) && event.key === 'ArrowLeft'
-        const isHorizontalDot1More = (event: KeyboardEvent) => !props.vertical && isActive(dot1.value) && event.key === 'ArrowRight'
+        const isVerticalDot0More = (event: KeyboardEvent) => props.vertical && isActive(dots.value[0]) && event.key === 'ArrowUp'
+        const isVerticalDot0Less = (event: KeyboardEvent) => props.vertical && isActive(dots.value[0]) && event.key === 'ArrowDown'
+        const isVerticalDot1More = (event: KeyboardEvent) => props.vertical && isActive(dots.value[1]) && event.key === 'ArrowUp'
+        const isVerticalDot1Less = (event: KeyboardEvent) => props.vertical && isActive(dots.value[1]) && event.key === 'ArrowDown'
+        const isHorizontalDot0Less = (event: KeyboardEvent) => !props.vertical && isActive(dots.value[0]) && event.key === 'ArrowLeft'
+        const isHorizontalDot0More = (event: KeyboardEvent) => !props.vertical && isActive(dots.value[0]) && event.key === 'ArrowRight'
+        const isHorizontalDot1Less = (event: KeyboardEvent) => !props.vertical && isActive(dots.value[1]) && event.key === 'ArrowLeft'
+        const isHorizontalDot1More = (event: KeyboardEvent) => !props.vertical && isActive(dots.value[1]) && event.key === 'ArrowRight'
 
         switch (true) {
           case (isVerticalDot1Less(event) || isHorizontalDot1Less(event)) && moreToLess.value && val.value[0] !== props.min:
-            dot0.value?.focus()
+            dots.value[0]?.focus()
             moveDot(true, 0, 0)
             break
           case (isVerticalDot0More(event) || isHorizontalDot0More(event)) && lessToMore.value && val.value[1] !== props.max:
-            dot1.value?.focus()
+            dots.value[1]?.focus()
             moveDot(true, 1, 1)
             break
           case (isVerticalDot0Less(event) || isHorizontalDot0Less(event)) && val.value[0] !== props.min:
@@ -544,9 +555,9 @@ export default defineComponent({
     const getTrackLabel = (val: number, order?: number) => {
       if (!props.trackLabel) { return val }
 
-      if (typeof props.trackLabel === 'function') {
-        return props.trackLabel(val, order)
-      }
+      return typeof props.trackLabel === 'function'
+        ? props.trackLabel(val, order)
+        : props.trackLabel
     }
 
     const setCurrentValue = (newValue: number) => {
@@ -579,7 +590,9 @@ export default defineComponent({
       const valueRange = valueLimit.value
 
       // set focus on current thumb
-      const dotToFocus = Array.isArray(props.modelValue) ? (currentSliderDotIndex.value ? dot1.value : dot0.value) : dot.value
+      const dotToFocus = Array.isArray(props.modelValue)
+        ? dots.value[currentSliderDotIndex.value]
+        : dot.value
 
       dotToFocus?.focus()
 
@@ -651,7 +664,7 @@ export default defineComponent({
 
     const bindEvents = () => {
       document.addEventListener('mousemove', moving)
-      document.addEventListener('touchmove', moving)
+      document.addEventListener('touchmove', moving, { passive: false })
       document.addEventListener('mouseup', moveEnd)
       document.addEventListener('mouseleave', moveEnd)
       document.addEventListener('touchcancel', moveEnd)
@@ -669,8 +682,21 @@ export default defineComponent({
       document.removeEventListener('keydown', moveWithKeys)
     }
 
+    const ariaLabelIdComputed = computed(() => `aria-label-id-${generateUniqueId()}`)
+
+    const ariaAttributesComputed = computed(() => ({
+      role: 'slider',
+      ariaValuemin: props.min,
+      ariaValuemax: props.max,
+      ariaLabelledby: ariaLabelIdComputed.value,
+      ariaOrientation: props.vertical ? 'vertical' : 'horizontal',
+      ariaDisabled: props.disabled,
+      ariaReadonly: props.readonly,
+      ariaValuenow: !Array.isArray(props.modelValue) ? props.modelValue : undefined,
+    }))
+
     onMounted(() => {
-      if (validateSlider(props.modelValue, props.step, props.min, props.max)) {
+      if (validateSlider(props.modelValue, props.step, props.min, props.max, props.range)) {
         getStaticData()
         bindEvents()
       }
@@ -683,8 +709,9 @@ export default defineComponent({
       () => props.step,
       () => props.min,
       () => props.max,
-    ], ([value, step, min, max]) => {
-      validateSlider(value, step, min, max)
+      () => props.range,
+    ], ([value, step, min, max, range]) => {
+      validateSlider(value, step, min, max, range)
     })
 
     watch(hasMouseDown, (hasMouseDown) => {
@@ -694,18 +721,20 @@ export default defineComponent({
     return {
       getColor,
       dot,
-      dot0,
-      dot1,
+      dots,
+      setItemRefByIndex,
+      orders,
       sliderContainer,
       val,
+      getValueByOrder,
       sliderClass,
       dotClass,
       labelStyles,
       processedStyles,
       getPinStyles,
       dottedStyles,
+      getDottedStyles,
       clickOnContainer,
-      moveStart,
       hasMouseDown,
       trackStyles,
       pinsCol,
@@ -714,7 +743,8 @@ export default defineComponent({
       isActiveDot,
       getTrackLabel,
       currentSliderDotIndex,
-      isRange: Array.isArray(props.modelValue),
+      ariaLabelIdComputed,
+      ariaAttributesComputed,
     }
   },
 })
@@ -808,7 +838,7 @@ export default defineComponent({
     text-transform: var(--va-slider-input-label-inverse-text-transform);
   }
 
-  &--active {
+  &--grabbing {
     .va-slider__container {
       cursor: grabbing;
     }

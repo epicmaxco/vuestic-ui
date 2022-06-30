@@ -4,7 +4,7 @@
   <div class="d-flex">
     <VaTimePicker
       v-model="value"
-      :view="'seconds'"
+      view="seconds"
       :hoursFilter="(h) => h >= 9 && h <= 19"
       :minutesFilter="(m) => m % 10 === 0"
       :secondsFilter="(s) => s % 20 === 0"
@@ -14,7 +14,7 @@
 
     <VaTimePicker
       v-model="value"
-      :view="'seconds'"
+      view="seconds"
       ampm
       :hoursFilter="(h) => h >= 9 && h <= 19"
       :minutesFilter="(m) => m % 10 === 0"

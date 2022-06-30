@@ -125,15 +125,6 @@
         multiple
         tags
       />
-      <va-select
-        v-model="defaultMultiSelect.value"
-        class="mb-4"
-        label="Deletable tags"
-        :options="defaultMultiSelect.options"
-        multiple
-        tags
-        deletable-tags
-      />
     </VbCard>
     <VbCard
       title="Object options"
@@ -363,16 +354,16 @@
       <va-select
         v-model="defaultSingleSelect.value"
         class="mb-4"
-        label="Custom list position (top)"
+        label="Custom list placement (top)"
         :options="defaultSingleSelect.options"
-        position="top"
+        placement="top"
       />
       <va-select
         v-model="defaultSingleSelect.value"
         class="mb-4"
-        label="Custom list position (bottom)"
+        label="Custom list placement (bottom)"
         :options="defaultSingleSelect.options"
-        position="bottom"
+        placement="bottom"
       />
       <va-select
         v-model="defaultSingleSelect.value"
@@ -595,10 +586,10 @@
 
 <script>
 import CountriesList from '../../data/CountriesList'
-import VaIcon from '../va-icon'
-import VaCheckbox from '../va-checkbox'
-import VaChip from '../va-chip'
-import VaSelect from './index'
+import { VaIcon } from '../va-icon'
+import { VaCheckbox } from '../va-checkbox'
+import { VaChip } from '../va-chip'
+import { VaSelect } from './index'
 
 import { objectOptionsList, iconOptionsList } from './getDemoData'
 
@@ -713,7 +704,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-@import "../../styles/grid/_grid-global-styles";
-</style>

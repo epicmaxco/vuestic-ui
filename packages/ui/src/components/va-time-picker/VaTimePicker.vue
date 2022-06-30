@@ -1,8 +1,8 @@
 <template>
-  <div class="va-time-picker" :class="computedClass">
+  <div class="va-time-picker" :class="computedClasses">
     <VaTimePickerColumn
       v-for="(column, idx) in columns" :key="idx"
-      :ref="(el) => pickers.push(el)"
+      :ref="setItemRef"
       :items="column.items"
       :tabindex="disabled ? -1 : 0"
       v-model:activeItemIndex="column.activeItem.value"
@@ -16,11 +16,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, PropType, ref } from 'vue'
+import { defineComponent, PropType, ref } from 'vue'
+
+import {
+  useStateful, useStatefulEmits, useStatefulProps,
+  useFormProps, useForm,
+  useArrayRefs,
+} from '../../composables'
 import { useTimePicker } from './hooks/useTimePicker'
+
 import VaTimePickerColumn from './components/VaTimePickerColumn.vue'
-import { useStateful, statefulComponentOptions } from '../../mixins/StatefulMixin/cStatefulMixin'
-import { useFormProps, useForm } from '../../composables/useForm'
 
 export default defineComponent({
   name: 'VaTimePicker',
@@ -28,7 +33,7 @@ export default defineComponent({
   components: { VaTimePickerColumn },
 
   props: {
-    ...statefulComponentOptions.props,
+    ...useStatefulProps,
     ...useFormProps,
     modelValue: { type: Date, required: false },
     ampm: { type: Boolean, default: false },
@@ -40,15 +45,15 @@ export default defineComponent({
     secondsFilter: { type: Function as PropType<(h: number) => boolean> },
   },
 
-  emits: [...statefulComponentOptions.emits],
+  emits: useStatefulEmits,
 
   setup (props, { emit }) {
     const { valueComputed } = useStateful(props, emit)
     const { columns, isPM } = useTimePicker(props, valueComputed)
 
-    const pickers = ref<(typeof VaTimePickerColumn | undefined)[]>([])
+    const { setItemRef, itemRefs: pickers } = useArrayRefs()
 
-    const activeColumnIndex = ref<number | undefined>()
+    const activeColumnIndex = ref<number>()
 
     const focus = (idx = 0): void => {
       pickers.value[idx]?.focus()
@@ -58,9 +63,7 @@ export default defineComponent({
       idx ? pickers.value[idx]?.blur() : pickers.value.forEach((el) => el?.blur())
     }
 
-    const { createComputedClass } = useForm(props)
-
-    const computedClass = createComputedClass('va-time-picker')
+    const { computedClasses } = useForm('va-time-picker', props)
 
     const focusNext = () => {
       const nextIndex = (activeColumnIndex?.value || 0) + 1
@@ -74,30 +77,20 @@ export default defineComponent({
       focus(activeColumnIndex.value)
     }
 
-    onMounted(() => { focus() })
-
     return {
       columns,
-      computedClass,
+      computedClasses,
       isPM,
       pickers,
+      setItemRef,
 
       focusNext,
       focusPrev,
       activeColumnIndex,
 
-      // Will be used later, after fix 'withConfigTransport'
-      // focus,
-      // blur,
+      focus,
+      blur,
     }
-  },
-
-  // we will use this while we have problem with 'withConfigTransport'
-  methods: {
-    focus (idx = 0) { (this as any).pickers[idx]?.focus() },
-    blur (idx?: number) {
-      idx ? (this as any).pickers[idx]?.blur() : (this as any).pickers.value.forEach((el: any) => el?.blur())
-    },
   },
 })
 </script>

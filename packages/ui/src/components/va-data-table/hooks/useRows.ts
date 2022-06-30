@@ -1,28 +1,33 @@
 import { Ref, computed } from 'vue'
-import { TableColumn, ITableItem, TableCell, TableRow } from '../types'
+
+import { getValueByPath } from '../../../services/utils'
+
+import { DataTableColumnInternal, DataTableItem, DataTableCell, DataTableRow } from '../types'
 
 interface useRowsProps {
-  items: ITableItem[]
+  items: DataTableItem[]
   [prop: string]: unknown
 }
 
-const buildTableCell = (rowIndex: number, column: TableColumn, rowData: ITableItem): TableCell => ({
-  rowData,
-  /** @deprecated */
-  source: rowData[column.key],
-  rowIndex,
-  column,
-  value: rowData[column.key]?.toString?.() || '',
-})
+const buildTableCell = (rowIndex: number, column: DataTableColumnInternal, rowData: DataTableItem): DataTableCell => {
+  const source = getValueByPath(rowData, column.key)
+  return {
+    rowIndex,
+    rowData,
+    column,
+    source,
+    value: source?.toString?.() || '',
+  }
+}
 
-const buildTableRow = (source: ITableItem, initialIndex: number, columns: TableColumn[]): TableRow => ({
+const buildTableRow = (source: DataTableItem, initialIndex: number, columns: DataTableColumnInternal[]): DataTableRow => ({
   source,
   initialIndex,
   cells: columns.map(column => buildTableCell(initialIndex, column, source)),
 })
 
 export default function useRows (
-  columns: Ref<TableColumn[]>,
+  columns: Ref<DataTableColumnInternal[]>,
   props: useRowsProps,
 ) {
   const rowsComputed = computed(() => {

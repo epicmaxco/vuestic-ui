@@ -56,14 +56,25 @@
           <va-navbar-item>Hello!</va-navbar-item>
         </template>
       </va-navbar>
+      <va-navbar color="white">
+        <template #left>
+          <va-icon-menu-collapsed :collapsed="isSidebarCollapsed" @click="isSidebarCollapsed = !isSidebarCollapsed" class="va-navbar__item" />
+          <va-navbar-item>LONG LOGO</va-navbar-item>
+        </template>
+        <template #center>
+          <va-navbar-item>Hello!</va-navbar-item>
+        </template>
+        <template #right>
+          <va-navbar-item>Hello!</va-navbar-item>
+        </template>
+      </va-navbar>
     </VbCard>
   </VbDemo>
 </template>
 
 <script>
-import VaNavbar from './VaNavbar'
+import { VaNavbar, VaNavbarItem } from './'
 import VaIconMenuCollapsed from './demo/VaIconMenuCollapsed.vue'
-import VaNavbarItem from './VaNavbarItem/VaNavbarItem.vue'
 
 export default {
   components: {

@@ -42,12 +42,12 @@
       <va-rating color="warning" v-model="value" />
       <va-rating color="danger" v-model="value" />
       <va-rating color="dark" v-model="value" />
-      <va-rating color="grey" v-model="value" />
+      <va-rating color="white" v-model="value" />
     </VbCard>
     <VbCard title="Custom color for unselected">
       <va-rating
         hover
-        unselected-color="danger"
+        unselected-color="warning"
         v-model="value"
       />
     </VbCard>
@@ -59,9 +59,15 @@
       <va-rating :size="60" v-model="value" />
     </VbCard>
     <VbCard title="Disabled">
-      <va-rating disabled hover v-model="value" />
+      <va-rating disabled v-model="value" />
     </VbCard>
     <VbCard title="Readonly">
+      <va-rating readonly v-model="value" />
+    </VbCard>
+    <VbCard title="Disabled and hover">
+      <va-rating disabled hover v-model="value" />
+    </VbCard>
+    <VbCard title="Readonly and hover">
       <va-rating readonly hover v-model="value" />
     </VbCard>
     <VbCard title="With custom icons">
@@ -172,7 +178,7 @@
     <VbCard
       title="Uses context and is stateful"
     >
-      <va-context :components="{
+      <va-config :components="{
         VaRating: {
           color: 'danger',
           max: 10,
@@ -181,19 +187,22 @@
         }
       }">
         <va-rating stateful />
-      </va-context>
+      </va-config>
+    </VbCard>
+    <VbCard title="Widened wrapper hover-hitbox (with halves)">
+      <va-rating stateful hover :max="2" halves class="wide" />
     </VbCard>
   </VbDemo>
 </template>
 
 <script>
-import VaRating from './index'
-import VaContext from '../va-config'
+import { VaRating } from './index'
+import { VaConfig } from '../va-config'
 
 export default {
   components: {
     VaRating,
-    VaContext,
+    VaConfig,
   },
   data () {
     return {
@@ -202,3 +211,12 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+.wide {
+  .va-rating-item__wrapper {
+    background-color: lightblue !important;
+    width: 100px;
+  }
+}
+</style>

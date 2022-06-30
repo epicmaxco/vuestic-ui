@@ -46,10 +46,6 @@
         name="home"
         color="primary"
       />
-      <va-icon
-        name="home"
-        color="pink"
-      />
     </VbCard>
     <VbCard title="Rotation">
       <va-icon
@@ -94,29 +90,34 @@
 </template>
 
 <script>
-import VaIcon from './index'
-import SvgComponent from './demo/VaIconVue'
+import { defineComponent, markRaw, ref } from 'vue'
+
 import { useGlobalConfig } from '../../main'
 import { createIconsConfig } from '../../services/icon-config/icon-config'
 import DemoIconsAliases from '../../vue-book/vuestic-config/demo-icon-aliases'
 import DemoIconsFonts from '../../vue-book/vuestic-config/demo-icon-fonts'
-import { markRaw } from 'vue'
 
-export default {
+import SvgComponent from './demo/VaIconVue'
+import { VaIcon } from './index'
+
+export default defineComponent({
   components: {
     VaIcon,
   },
-  data () {
+  setup () {
+    const clickedCount = ref(0)
+
+    const { mergeGlobalConfig } = useGlobalConfig()
+
     return {
-      clickedCount: 0,
+      clickedCount,
+      mergeGlobalConfig,
     }
   },
   created () {
-    const { mergeGlobalConfig } = useGlobalConfig()
-
     this.SvgComponent = SvgComponent
 
-    mergeGlobalConfig({
+    this.mergeGlobalConfig({
       icons: createIconsConfig({
         aliases: [
           {
@@ -131,7 +132,7 @@ export default {
       }),
     })
   },
-}
+})
 </script>
 
 <style scoped>

@@ -1,17 +1,17 @@
-import { PropType, computed } from 'vue'
+import { computed } from 'vue'
 
 export const useAlignProps = {
   align: {
-    type: String as PropType<string>,
+    type: String,
     default: 'left',
   },
   vertical: {
-    type: Boolean as PropType<boolean>,
+    type: Boolean,
     default: false,
   },
 }
 
-const horizMap = {
+const horizontalMap = {
   left: 'flex-start',
   center: 'center',
   right: 'flex-end',
@@ -19,7 +19,7 @@ const horizMap = {
   around: 'space-around',
 }
 
-const vertMap = {
+const verticalMap = {
   left: 'flex-start',
   center: 'center',
   right: 'flex-end',
@@ -30,12 +30,12 @@ const justify = (align: string, vertical: boolean) => {
   return vertical
     ? 'center'
     : align
-      ? horizMap[align as keyof typeof horizMap]
+      ? horizontalMap[align as keyof typeof horizontalMap]
       : 'flex-start'
 }
 
 const items = (align: string, vertical: boolean) => {
-  return vertical ? vertMap[align as keyof typeof vertMap] : 'center'
+  return vertical ? verticalMap[align as keyof typeof verticalMap] : 'center'
 }
 
 export function useAlign (props: any) {

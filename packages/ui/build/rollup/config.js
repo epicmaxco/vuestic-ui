@@ -1,5 +1,6 @@
 import { createCJSConfig, createESMConfig, createIIFEConfig, createStylesConfig, createJsonBuilderConfig } from './configs/index'
 import fs from 'fs'
+import { execSync } from 'child_process'
 
 const defaultBuildParams = { input: './src/main.ts', minify: true, sourcemap: true }
 
@@ -8,11 +9,15 @@ if (fs.existsSync('./dist')) {
   fs.rmdirSync('./dist', { recursive: true })
 }
 
+// Build types before build.
+execSync('npm run build:types')
+
 export const RollupConfig = [
-  createESMConfig({ ...defaultBuildParams, outDir: 'dist/esm', minify: true }),
-  createESMConfig({ ...defaultBuildParams, outDir: 'dist/esm-ssr', ssr: true, minify: true }),
+  createESMConfig({ ...defaultBuildParams, outDir: 'dist/esm' }),
+  createESMConfig({ ...defaultBuildParams, outDir: 'dist/esm-node', outExt: 'mjs' }),
+  createESMConfig({ ...defaultBuildParams, outDir: 'dist/esm-ssr', ssr: true }),
+  createIIFEConfig({ ...defaultBuildParams, outDir: 'dist/iife' }),
+  createCJSConfig({ ...defaultBuildParams, outDir: 'dist/cjs' }),
+  createStylesConfig({ ...defaultBuildParams, outDir: 'dist', input: ['./src/styles/vuestic-styles.scss', defaultBuildParams.input] }),
   createJsonBuilderConfig({ outDir: 'dist/json', minify: true, input: './src/json.ts' }),
-  createIIFEConfig({ ...defaultBuildParams, outDir: 'dist/iife', minify: true }),
-  createCJSConfig({ ...defaultBuildParams, outDir: 'dist/cjs', minify: true }),
-  createStylesConfig({ ...defaultBuildParams, outDir: 'dist', minify: true, input: './src/styles/vuestic-styles.scss' }),
 ]

@@ -143,7 +143,7 @@
   }
 }
 
-@mixin va-scroll($color: grey) {
+@mixin va-scroll($color: var(--va-gray)) {
   &::-webkit-scrollbar {
     width: 4px;
     height: 4px;
@@ -162,4 +162,44 @@
 
   scrollbar-color: $color transparent;
   scrollbar-width: thin;
+}
+
+@mixin va-background($color, $opacity: 1, $index: auto) {
+  &::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    content: '';
+    background: $color;
+    opacity: $opacity;
+    z-index: $index;
+  }
+}
+
+@mixin va-background-opacity($color, $opacity: 1) {
+  &::after {
+    background: $color;
+    opacity: $opacity;
+  }
+}
+
+@mixin visually-hidden() {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
+@mixin focus-outline($border-radius: 2px, $outline-width: 2px) {
+  // important in purpose to overwrite reset class
+  outline: $outline-width solid var(--va-focus) !important;
+  border-radius: $border-radius;
 }

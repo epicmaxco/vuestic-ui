@@ -2,236 +2,181 @@
   <div class="va-collapse" :class="computedClasses">
     <div
       class="va-collapse__header"
-      v-on="SetupContext.keyboardFocusListeners"
-      @click="changeValue()"
+      role="button"
+      :tabindex="tabIndexComputed"
+      :aria-expanded="computedModelValue"
+      :id="headerIdComputed"
+      :aria-controls="panelIdComputed"
+      :aria-disabled="$props.disabled"
+      v-on="keyboardFocusListeners"
       @focus="$emit('focus')"
-      @keydown.enter="changeValue()"
-      @keydown.space="changeValue()"
-      :tabindex="collapseIndexComputed"
+      @click="toggle"
+      @keydown.enter="toggle"
+      @keydown.space="toggle"
     >
-      <slot name="header" v-bind="{ value: valueProxy, hasKeyboardFocus: SetupContext.hasKeyboardFocus }">
+      <slot
+        name="header"
+        v-bind="{
+          value: computedModelValue,
+          hasKeyboardFocus: hasKeyboardFocus,
+        }"
+      >
         <div
           class="va-collapse__header__content"
-          :style="contentStyle"
+          :style="headerStyle"
         >
           <va-icon
             v-if="icon"
             class="va-collapse__header__icon"
             :name="icon"
-            :color="textColor"
+            :color="textColorComputed"
           />
           <div class="va-collapse__header__text">
             {{ header }}
           </div>
           <va-icon
             class="va-collapse__header__icon"
-            :name="valueProxy ? 'expand_less' : 'expand_more'"
-            :color="textColor"
+            :name="computedModelValue ? 'expand_less' : 'expand_more'"
+            :color="textColorComputed"
           />
         </div>
       </slot>
     </div>
-    <div class="va-collapse__body" ref="body" :style="stylesComputed">
+    <div
+      ref="body"
+      class="va-collapse__body"
+      role="region"
+      :style="contentStyle"
+      :id="panelIdComputed"
+      :aria-labelledby="headerIdComputed"
+    >
       <slot />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { inject } from 'vue'
-import { mixins, Options, prop, setup, Vue } from 'vue-class-component'
-import VaIcon from '../va-icon'
-import ColorMixin from '../../services/color-config/ColorMixin'
-import { getHoverColor } from '../../services/color-config/color-functions'
-import { StatefulMixin } from '../../mixins/StatefulMixin/StatefulMixin'
-import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'
-import { Accordion, AccordionServiceKey } from '../va-accordion/VaAccordion.vue'
+import { computed, defineComponent, shallowRef } from 'vue'
 
-class Props {
-  modelValue = prop<boolean>({ type: Boolean, default: false })
-  disabled = prop<boolean>({ type: Boolean, default: false })
-  header = prop<string>({ type: String, default: '' })
-  icon = prop<string>({ type: String, default: '' })
-  solid = prop<boolean>({ type: Boolean, default: false })
-  color = prop<string>({ type: String, default: '' })
-  textColor = prop<string>({ type: String, default: '' })
-  colorAll = prop<boolean>({ type: Boolean, default: false })
-}
+import { useKeyboardOnlyFocus, useColors, useSyncProp, useTextColor } from '../../composables'
+import { useAccordionItem } from '../va-accordion/hooks/useAccordion'
 
-const PropsMixin = Vue.with(Props)
+import { generateUniqueId } from '../../services/utils'
 
-const TEXT_NODE_TYPE = 3
+import { VaIcon } from '../va-icon'
 
-@Options({
+export default defineComponent({
   name: 'VaCollapse',
-  components: { VaIcon },
-  emits: ['focus'],
-})
-export default class VaCollapse extends mixins(
-  StatefulMixin,
-  ColorMixin,
-  PropsMixin,
-) {
-  height = 0
-  transitionDuration = this.getTransitionDuration()
-  mutationObserver: any = null
-  valueCollapse = {
-    value: undefined,
-  }
+  components: {
+    VaIcon,
+  },
+  props: {
+    modelValue: { type: Boolean, default: undefined },
+    disabled: { type: Boolean, default: false },
+    header: { type: String, default: '' },
+    icon: { type: String, default: '' },
+    solid: { type: Boolean, default: false },
+    color: { type: String, default: 'background' },
+    textColor: { type: String, default: '' },
+    colorAll: { type: Boolean, default: false },
+  },
+  emits: ['focus', 'update:modelValue'],
 
-  accordion: Accordion = setup(() => {
-    return inject(
-      AccordionServiceKey,
-      {
-        isInsideAccordion: false,
-        getProps: () => undefined,
-        getState: () => undefined,
-        onChildChange: (ctx: any) => undefined,
-        onChildMounted: (ctx: any) => undefined,
-        onChildUnmounted: (ctx: any) => undefined,
-      })
-  })
+  setup (props, { emit, slots }) {
+    const body = shallowRef<HTMLElement>()
 
-  SetupContext = setup(() => {
+    const [computedModelValue] = useSyncProp('modelValue', props, emit, false)
+
+    const { getColor, getHoverColor } = useColors()
+    const { accordionProps, toggle } = useAccordionItem(computedModelValue)
+
+    const { textColorComputed } = useTextColor()
+
+    const getTextNodeHeight = (textNode: Node) => {
+      const range = document.createRange()
+      range.selectNodeContents(textNode)
+      const rect = range.getBoundingClientRect()
+
+      return rect.bottom - rect.top
+    }
+
+    const getNodeHeight = (node: Node) => {
+      // https://developer.mozilla.org/en-US/docs/Web/API/Node/nodeName
+      if (node.nodeName === '#text') { return getTextNodeHeight(node) }
+      if (node.nodeName === '#comment') { return 0 }
+
+      return (node as Element).clientHeight
+    }
+
+    const height = computed(() => {
+      if (!computedModelValue.value || !body.value) { return 0 }
+
+      const nodes = Array.from(body.value.childNodes) as HTMLElement[]
+      return nodes.reduce((result: number, node: HTMLElement) => result + getNodeHeight(node), 0)
+    })
+
     const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
 
+    const getTransition = () => {
+      const duration = height.value / 1000 * 0.2
+      return `${duration > 0.2 ? duration : 0.2}s`
+    }
+
+    const getBackground = () => {
+      return props.color && props.colorAll
+        ? getHoverColor(getColor(props.color))
+        : ''
+    }
+
+    const uniqueId = computed(generateUniqueId)
+    const headerIdComputed = computed(() => `header-${uniqueId.value}`)
+    const panelIdComputed = computed(() => `panel-${uniqueId.value}`)
+    const tabIndexComputed = computed(() => props.disabled ? -1 : 0)
+
     return {
+      body,
+      height,
+
+      toggle,
+      computedModelValue,
+
       hasKeyboardFocus,
       keyboardFocusListeners,
+
+      textColorComputed,
+
+      headerIdComputed,
+      panelIdComputed,
+      tabIndexComputed,
+
+      computedClasses: computed(() => ({
+        'va-collapse--expanded': computedModelValue.value,
+        'va-collapse--disabled': props.disabled,
+        'va-collapse--solid': props.solid,
+        'va-collapse--active': props.solid && computedModelValue.value,
+        'va-collapse--popout': accordionProps.value.popout && computedModelValue.value,
+        'va-collapse--inset': accordionProps.value.inset && computedModelValue.value,
+      })),
+
+      headerStyle: computed(() => ({
+        paddingLeft: props.icon && 0,
+        color: textColorComputed.value,
+        backgroundColor: props.color ? getColor(props.color) : '',
+      })),
+
+      contentStyle: computed(() => {
+        const hasContent = computedModelValue.value && !!slots.default?.()[0]
+
+        return {
+          visibility: hasContent ? 'visible' as const : 'hidden' as const,
+          height: `${height.value}px`,
+          transitionDuration: getTransition(),
+          background: hasContent ? getBackground() : '',
+        }
+      }),
     }
-  })
-
-  get body (): HTMLElement {
-    return this.$refs?.body as HTMLElement
-  }
-
-  get valueProxy () {
-    if (this.accordion.isInsideAccordion) {
-      return this.valueCollapse.value
-    }
-
-    return this.valueComputed
-  }
-
-  set valueProxy (value) {
-    if (this.accordion.isInsideAccordion) {
-      this.valueCollapse.value = value
-    }
-
-    this.valueComputed = value
-    this.setCollapseParams()
-  }
-
-  get computedClasses () {
-    const accordionProps = this.accordion.getProps()
-
-    return {
-      'va-collapse--disabled': this.disabled,
-      'va-collapse--solid': this.solid,
-      'va-collapse--active': this.solid && this.valueProxy,
-      'va-collapse--popout': accordionProps?.popout && this.valueProxy,
-      'va-collapse--inset': accordionProps?.inset && this.valueProxy,
-    }
-  }
-
-  get contentStyle () {
-    return {
-      paddingLeft: this.icon && 0,
-      color: this.textColor ? this.theme.getColor(this.textColor) : '',
-      backgroundColor: this.color ? this.colorComputed : '',
-      boxShadow: this.SetupContext.hasKeyboardFocus ? '0 0 0.5rem 0 rgba(0, 0, 0, 0.3)' : '',
-    }
-  }
-
-  get stylesComputed () {
-    if (this.valueProxy && (this as any).$slots.default()?.[0]) {
-      return {
-        visibility: 'visible', // allows for better a11y and works well with height-transitions (compared to v-show (display: none in general)
-        height: this.height + 'px',
-        transitionDuration: this.transitionDuration + 's',
-        background:
-          this.color && this.colorAll
-            ? getHoverColor(this.colorComputed)
-            : '',
-      }
-    }
-    return {
-      visibility: 'hidden',
-      height: this.height + 'px',
-      transitionDuration: this.transitionDuration + 's',
-    }
-  }
-
-  get collapseIndexComputed () {
-    return this.disabled ? -1 : 0
-  }
-
-  changeValue () {
-    if (!this.disabled) {
-      this.valueProxy = !this.valueProxy
-      this.accordion.onChildChange(this)
-    }
-  }
-
-  getHeight () {
-    if (!this.valueProxy) {
-      return 0
-    }
-
-    const nodes = Array.from(this.body?.childNodes) as HTMLElement[]
-    return nodes.reduce((result: number, node: HTMLElement) => {
-      result += node.nodeType === TEXT_NODE_TYPE ? this.getTextNodeHeight(node) : node.clientHeight
-      return result
-    }, 0)
-  }
-
-  getTransitionDuration () {
-    const duration = this.height / 1000 * 0.2
-    return duration > 0.2 ? duration : 0.2
-  }
-
-  getTextNodeHeight (textNode: Node) {
-    const range = document.createRange()
-    range.selectNodeContents(textNode)
-    const rect = range.getBoundingClientRect()
-
-    return rect.bottom - rect.top
-  }
-
-  setCollapseParams () {
-    this.height = this.getHeight()
-    this.transitionDuration = this.getTransitionDuration()
-  }
-
-  mounted () {
-    this.getHeight()
-
-    this.setCollapseParams()
-
-    this.mutationObserver = new MutationObserver(() => {
-      setTimeout(() => this.setCollapseParams(), 16)
-    })
-
-    this.mutationObserver.observe(this.body, {
-      attributes: true,
-      childList: true,
-      subtree: true,
-    })
-
-    if (this.accordion.isInsideAccordion) {
-      this.accordion.onChildMounted(this)
-    }
-  }
-
-  beforeUnmount () {
-    if (this.mutationObserver) {
-      this.mutationObserver.disconnect()
-    }
-    if (this.accordion.isInsideAccordion) {
-      this.accordion.onChildUnmounted(this)
-    }
-  }
-}
+  },
+})
 </script>
 
 <style lang="scss">
@@ -245,7 +190,6 @@ export default class VaCollapse extends mixins(
   &__body {
     transition: var(--va-collapse-body-transition);
     overflow: var(--va-collapse-body-overflow);
-    margin-top: var(--va-collapse-body-margin-top);
   }
 
   &__header {
@@ -273,6 +217,10 @@ export default class VaCollapse extends mixins(
       margin-left: var(--va-collapse-header-content-icon-margin-left);
       margin-right: var(--va-collapse-header-content-icon-margin-right);
       color: var(--va-collapse-header-content-icon-color);
+    }
+
+    &:focus {
+      @include focus-outline(var(--va-collapse-header-content-border-radius));
     }
   }
 

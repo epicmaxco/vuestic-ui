@@ -5,65 +5,64 @@
       style="margin-bottom: 200vh;"
     >
       <VbCard title="Position">
-      <va-radio
-        v-for="(option, index) in optionHorizontal"
-        :key="index + 'h'"
-        v-model="positionHorizontal"
-        :option="option"
-      />
-      <br />
-      <va-radio
-        v-for="(option, index) in optionVertical"
-        :key="index + 'v'"
-        v-model="positionVertical"
-        :option="option"
-      />
+        <va-radio
+          v-for="(option, index) in optionHorizontal"
+          :key="index + 'h'"
+          v-model="positionHorizontal"
+          :option="option"
+        />
+        <br />
+        <va-radio
+          v-for="(option, index) in optionVertical"
+          :key="index + 'v'"
+          v-model="positionVertical"
+          :option="option"
+        />
       </VbCard>
 
       <VbCard title="Offset">
-      <va-slider
-        label="v:"
-        track-label-visible
-        v-model="verticalOffset"
-        :track-label="getTrackLabelWithPercent"
-        :min="1"
-        :max="100"
-      />
-      <br />
-      <va-slider
-        label="h:"
-        track-label-visible
-        v-model="horizontalOffset"
-        :track-label="getTrackLabelWithPercent"
-        :min="1"
-        :max="100"
-      />
+        <va-slider
+          label="v:"
+          track-label-visible
+          v-model="verticalOffset"
+          :track-label="getTrackLabelWithPercent"
+          :min="1"
+          :max="100"
+        />
+        <br />
+        <va-slider
+          label="h:"
+          track-label-visible
+          v-model="horizontalOffset"
+          :track-label="getTrackLabelWithPercent"
+          :min="1"
+          :max="100"
+        />
       </VbCard>
 
       <VbCard title="Visibility Height">
-      <va-slider
-        track-label-visible
-        v-model="visibilityHeight"
-        :track-label="getTrackLabel"
-        :min="0"
-        :max="600"
-      />
+        <va-slider
+          track-label-visible
+          v-model="visibilityHeight"
+          :min="0"
+          :max="600"
+        />
       </VbCard>
 
       <VbCard title="Scroll back speed">
-      <va-slider
-        track-label-visible
-        v-model="scrollSpeed"
-        :track-label="getTrackLabel"
-        :min="1"
-        :max="500"
-      />
+        <va-slider
+          track-label-visible
+          v-model="scrollSpeed"
+          :min="1"
+          :max="500"
+        />
       </VbCard>
 
       <VbCard title="Slot">
-      <va-checkbox
-        v-model="isSlot"
-        :label="`Active Slot: ${isSlot}`" />
+        <va-checkbox
+          v-model="isSlot"
+          :label="`Active Slot: ${isSlot}`"
+        />
       </VbCard>
 
       <va-backtop
@@ -82,10 +81,10 @@
 </template>
 
 <script>
-import VaBacktop from './index'
-import VaRadio from '../va-radio'
-import VaSlider from '../va-slider'
-import VaCheckbox from '../va-checkbox'
+import { VaBacktop } from './index'
+import { VaRadio } from '../va-radio'
+import { VaSlider } from '../va-slider'
+import { VaCheckbox } from '../va-checkbox'
 
 export default {
   components: {
@@ -115,7 +114,6 @@ export default {
     }
   },
   methods: {
-    getTrackLabel (value) { return `${value}` },
     getTrackLabelWithPercent (value) { return `${value}%` },
   },
 }

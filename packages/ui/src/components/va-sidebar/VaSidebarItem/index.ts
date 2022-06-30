@@ -1,9 +1,8 @@
 import withConfigTransport from '../../../services/config-transport/withConfigTransport'
-import VaSidebarItem from './VaSidebarItem.vue'
-import VaSidebarItemContentComponent from './VaSidebarItemContent.vue'
-import VaSidebarItemTitleComponent from './VaSidebarItemTitle.vue'
+import _VaSidebarItem from './VaSidebarItem.vue'
+import _VaSidebarItemContent from './VaSidebarItemContent.vue'
+import _VaSidebarItemTitle from './VaSidebarItemTitle.vue'
 
-export const VaSidebarItemContent = withConfigTransport(VaSidebarItemContentComponent)
-export const VaSidebarItemTitle = withConfigTransport(VaSidebarItemTitleComponent)
-
-export default withConfigTransport(VaSidebarItem)
+export const VaSidebarItemContent = withConfigTransport(_VaSidebarItemContent)
+export const VaSidebarItemTitle = withConfigTransport(_VaSidebarItemTitle)
+export const VaSidebarItem = withConfigTransport(_VaSidebarItem)

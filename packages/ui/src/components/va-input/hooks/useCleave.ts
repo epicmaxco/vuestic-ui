@@ -1,6 +1,6 @@
+import { computed, onBeforeUnmount, onMounted, PropType, ref, Ref, watch } from 'vue'
 import Cleave from 'cleave.js'
 import { CleaveOptions } from 'cleave.js/options'
-import { computed, onBeforeUnmount, onMounted, ref, Ref, watch } from 'vue'
 
 const DEFAULT_MASK_TOKENS: Record<string, Record<string, unknown>> = {
   creditCard: {
@@ -22,13 +22,13 @@ const DEFAULT_MASK_TOKENS: Record<string, Record<string, unknown>> = {
 }
 
 export const useCleaveProps = {
-  mask: { type: [String, Object], default: '' },
+  mask: { type: [String, Object] as PropType<string | Record<string, number[]>>, default: '' },
   returnRaw: { type: Boolean, default: true },
   modelValue: { type: String },
 }
 
 type Props = {
-  mask: string | Record<string, string>,
+  mask: string | Record<string, number[]>,
   returnRaw: boolean,
   modelValue: string | number,
 }

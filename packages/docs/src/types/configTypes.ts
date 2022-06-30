@@ -46,7 +46,8 @@ export enum BlockType {
   TABLE = 'TABLE',
   LINK = 'LINK',
   ALERT = 'ALERT',
-  LIST = 'LIST'
+  LIST = 'LIST',
+  FILE = 'FILE',
 }
 
 export type TextBlockType =
@@ -75,9 +76,9 @@ export type ApiDocsBlock =
     exampleOptions?: ExampleOptions,
   }
   | {
-  type: BlockType.COMPONENT,
-  path: string, // path to directory
-  component: string, // component name
+    type: BlockType.COMPONENT,
+    path: string, // path to directory
+    component: string, // component name
   }
   | {
     type: BlockType.CODE,
@@ -104,4 +105,8 @@ export type ApiDocsBlock =
       type: BlockType.ALERT,
       translationString: TranslationString,
       color: string,
+    }
+  | {
+      type: BlockType.FILE,
+      file: Promise<Record<string, any>>
     }

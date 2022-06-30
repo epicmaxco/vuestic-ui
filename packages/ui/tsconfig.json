@@ -23,17 +23,8 @@
     "lib": [
       "esnext",
       "dom",
-      "dom.iterable",
-      "scripthost"
+      "dom.iterable"
     ],
-    "paths": {
-      "v-tooltip": [
-        "src/types/v-tooltip.d.ts"
-      ],
-      "json-loader": [
-        "src/types/json-loader.d.ts"
-      ]
-    }
   },
   "include": [
     "src/**/*.ts",

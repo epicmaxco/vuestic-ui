@@ -80,7 +80,6 @@ $top-mobile-nav-height: 6.5rem !default;
 
 $top-nav-height: 4.0625rem !default;
 $sidebar-width: 15.75rem !default;
-$sidebar-width--hidden: 3.5rem !default;
 $sidebar-menu-item-icon-size: 19px !default;
 $sidebar-viewport-min-height: calc(100vh - #{$top-nav-height}) !default;
 $sidebar-viewport-height: calc(100% - #{$top-nav-height}) !default;
@@ -282,49 +281,6 @@ $popover-body-padding-y: 0 !default;
 $popover-icon-size: 1.35rem !default;
 $popover-icon-color: $brand-primary !default;
 
-// Toasts
-
-$toast-width: 330px !default;
-$toast-padding: 14px 26px 14px 13px !default;
-$toast-radius: 8px !default;
-$toast-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1) !default;
-$toast-icon-size: 24px !default;
-$toast-close-font-size: $font-size-base !default;
-$toast-group-margin-left: 13px !default;
-$toast-group-margin-right: 8px !default;
-$toast-content-font-size: $font-size-base !default;
-$toast-content-color: #606266 !default;
-$toast-title-font-size: $font-size-base !default;
-$toast-title-color: #303133 !default;
-
-$toast-close-color: #909399 !default;
-$toast-close-hover-color: #909399 !default;
-
-$toast-success-icon-color: $brand-success !default;
-$toast-info-icon-color: $brand-info !default;
-$toast-warning-icon-color: $theme-warning !default;
-$toast-danger-icon-color: $theme-danger !default;
-
-/* Notification
--------------------------- */
-
-$toast-font-size: $font-size-base !default;
-$toast-line-height: $popover-line-height !default;
-$toast-font-weight: normal !default;
-$toast-min-height: 3.25rem !default;
-$toast-box-shadow: $popover-box-shadow !default;
-$toast-bg: $darkest-gray !default;
-$toast-border-radius: $font-size-base * 0.5 !default;
-$toast-color: $white !default;
-
-$toast-padding-x: 1.15rem !default;
-$toast-padding-y: 0.5rem !default;
-
-$toast-icon-size: $popover-icon-size !default;
-$toast-icon-color: $popover-icon-color !default;
-$toast-icon-ml: 0 !default;
-$toast-icon-mr: 0.625rem !default;
-
 // Cards
 $card-border-color: rgba(52, 56, 85, 0.25) !default;
 $card-border: thin solid $card-border-color !default;
@@ -332,11 +288,6 @@ $card-border-radius: 0.375rem !default;
 $card-box-shadow: 0 2px 3px 0 $card-border-color !default;
 $card-title-font-size: 0.625rem !default;
 $card-title-letter-spacing: $letter-spacing !default;
-$card-padding: 1.25rem !default;
-
-// Datepickers
-
-$datepicker-box-shadow: 0 2px 3px 0 rgba(98, 106, 119, 0.25) !default;
 
 // List
 $list-padding: 1.5rem 0 2.125rem 0 !default;
@@ -362,10 +313,6 @@ $display-margins: (
 
 // Modals
 $zindex-modal: 1050 !default;
-$modal-padding-top: 1.25rem !default;
-$modal-padding-right: 1.875rem !default;
-$modal-padding-bottom: 1.5rem !default;
-$modal-padding-left: 1.5rem !default;
 
 // Affix
 $zindex-affix: 10 !default;

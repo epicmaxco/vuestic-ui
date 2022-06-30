@@ -5,11 +5,9 @@
       <va-button
         v-if="!exampleOptions.forceShowCode"
         class="mt-2 d-block docs-example__show-code-button"
-        style="background: transparent !important; box-shadow: none !important;"
         flat
         size="small"
         color="primary"
-        :rounded="false"
         @click="showCode = !showCode"
       >
         {{ showCode ? $t('docsExample.hideCode') : $t('docsExample.showCode') }}
@@ -119,11 +117,9 @@ export default {
 <style lang="scss">
 .docs-example {
   &__show-code-button {
-    .va-button {
-      &__content {
-        padding: 0 !important;
-      }
-    }
+    --va-button-sm-content-px: 6px;
+
+    transform: translateX(calc(var(--va-button-sm-content-px) * -1));
   }
 }
 </style>

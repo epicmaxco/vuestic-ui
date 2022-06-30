@@ -21,6 +21,10 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'browser-support',
         displayName: 'menu.browserSupport',
       },
+      {
+        name: 'accessibility-guide',
+        displayName: 'menu.accessibilityGuide',
+      },
       // GENERATOR_ADD - introduction
     ],
   },
@@ -37,12 +41,23 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: 'menu.installation',
       },
       {
-        name: 'accessibility-guide',
-        displayName: 'menu.accessibilityGuide',
-      },
-      {
         name: 'configuration-guide',
         displayName: 'menu.configurationGuide',
+      },
+      {
+        name: 'tree-shaking',
+        displayName: 'menu.treeShaking',
+      },
+      {
+        name: 'nuxt',
+        displayName: 'menu.nuxt',
+        meta: {
+          badge: 'new',
+        },
+      },
+      {
+        name: 'ssr-guide',
+        displayName: 'menu.ssrGuide',
       },
       // GENERATOR_ADD - gettingStarted
     ],
@@ -120,6 +135,13 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: 'menu.image',
       },
       {
+        name: 'carousel',
+        displayName: 'menu.carousel',
+        meta: {
+          badge: 'new',
+        },
+      },
+      {
         name: 'chip',
         displayName: 'menu.chip',
       },
@@ -138,9 +160,6 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: 'data-table',
         displayName: 'menu.dataTable',
-        meta: {
-          badge: 'new',
-        },
       },
       {
         category: 'menu.categories.form',
@@ -158,6 +177,13 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: 'checkbox',
         displayName: 'menu.checkbox',
+      },
+      {
+        name: 'counter',
+        displayName: 'menu.counter',
+        meta: {
+          badge: 'new',
+        },
       },
       {
         name: 'radio',
@@ -198,16 +224,10 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: 'time-picker',
         displayName: 'menu.timePicker',
-        meta: {
-          badge: 'new',
-        },
       },
       {
         name: 'time-input',
         displayName: 'menu.timeInput',
-        meta: {
-          badge: 'new',
-        },
       },
       {
         category: 'menu.categories.layout',
@@ -314,6 +334,10 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'color-palette',
         displayName: 'menu.colorPalette',
       },
+      {
+        name: 'spacer',
+        displayName: 'menu.spacer',
+      },
       // GENERATOR_ADD - uiElements
     ],
   },
@@ -383,9 +407,6 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: 'ag-grid',
         displayName: 'menu.agGrid',
-        meta: {
-          badge: 'new',
-        },
       },
       // GENERATOR_ADD - extensions
     ],

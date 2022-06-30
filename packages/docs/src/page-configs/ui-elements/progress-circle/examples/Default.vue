@@ -1,12 +1,12 @@
 <template>
   <div class="flex lg6 xs12">
-    <div class="mt-2 mb-5">
-      <va-progress-circle v-model="value" />
-    </div>
-    <div class="row mb-4 mx-0 flex lg8 xs12">
-      <va-slider v-model="value" />
-      <span class="ml-4">{{ `${value}%`}}</span>
-    </div>
+    <va-progress-circle v-model="value" />
+
+    <va-slider class="mt-3"
+      v-model="value"
+      track-label-visible
+      :track-label="(v) => `${v}%`"
+    />
   </div>
 </template>
 

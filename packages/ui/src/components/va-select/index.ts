@@ -1,7 +1,8 @@
 import withConfigTransport from '../../services/config-transport/withConfigTransport'
-import VaSelect from './VaSelect.vue'
-import VaSelectOptionListBase from './VaSelectOptionList/VaSelectOptionList.vue'
+import _VaSelect from './VaSelect.vue'
 
-export const VaSelectOptionList = withConfigTransport(VaSelectOptionListBase)
+export { VaSelectOptionList } from './VaSelectOptionList'
 
-export default withConfigTransport(VaSelect)
+export const VaSelect = withConfigTransport(_VaSelect)
+
+export * from './types'

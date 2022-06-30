@@ -1,4 +1,4 @@
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, UnwrapRef } from 'vue'
 
 /**
  * Returns computed that emits update:${propName} on edit.
@@ -22,8 +22,8 @@ export function useSyncProp<
   Props extends { [key in PropName]?: T },
   Emit extends (event: any, newValue: Props[PropName]) => any,
   DefaultValue extends Props[PropName],
-  ReturnValue extends DefaultValue extends undefined ? Props[PropName] : NonNullable<Props[PropName]>
-> (propName: PropName, props: Props, emit: Emit, defaultValue?: DefaultValue) {
+  ReturnValue extends DefaultValue extends undefined ? Props[PropName] : DefaultValue
+> (propName: PropName, props: Props, emit: Emit, defaultValue?: NonNullable<DefaultValue>) {
   if (defaultValue === undefined) {
     return [
       computed<ReturnValue>({
@@ -43,13 +43,13 @@ export function useSyncProp<
   watch(() => props[propName], (newVal) => {
     if (newVal === undefined) { return }
 
-    statefulValue.value = newVal as ReturnValue
+    statefulValue.value = newVal as UnwrapRef<ReturnValue>
   })
 
   return [
     computed<ReturnValue>({
       set (value: ReturnValue) {
-        statefulValue.value = value as ReturnValue
+        statefulValue.value = value as UnwrapRef<ReturnValue>
         emit(`update:${propName}`, value)
       },
       get (): ReturnValue {

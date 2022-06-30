@@ -1,9 +1,7 @@
 <template>
-  <div>
-    <va-slider label="label" v-model="value1" />
-    <va-slider label="inverted" invert-label v-model="value2" />
-    <va-slider label="danger" label-color="danger" v-model="value3" />
-  </div>
+  <va-slider label="label" v-model="value1" />
+  <va-slider label="inverted" invert-label v-model="value2" />
+  <va-slider label="danger" label-color="danger" v-model="value3" />
 </template>
 
 <script>

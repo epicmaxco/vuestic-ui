@@ -3,20 +3,20 @@
     v-bind="fieldListeners"
     :class="$attrs.class"
     :style="$attrs.style"
-    :color="color"
-    :readonly="readonly"
-    :disabled="disabled"
-    :success="success"
-    :messages="messages"
+    :color="$props.color"
+    :readonly="$props.readonly"
+    :disabled="$props.disabled"
+    :success="$props.success"
+    :messages="$props.messages"
     :error="computedError"
     :error-messages="computedErrorMessages"
     :error-count="errorCount"
-    :label="label"
-    :bordered="bordered"
-    :outline="outline"
+    :label="$props.label"
+    :bordered="$props.bordered"
+    :outline="$props.outline"
+    :requiredMark="$props.requiredMark"
     :focused="isFocused"
-    :requiredMark="requiredMark"
-    @click="input && input.focus()"
+    @click="focus"
   >
     <!-- Simply proxy slots to VaInputWrapper -->
     <template
@@ -29,25 +29,20 @@
 
     <template #icon="slotScope">
       <va-icon
-        v-if="success"
-        color="success"
-        name="check_circle"
-        size="small"
-      />
-      <va-icon
-        v-if="computedError"
-        color="danger"
-        name="warning"
-        size="small"
-      />
-      <va-icon
         v-if="canBeCleared"
+        role="button"
+        aria-hidden="false"
+        aria-label="reset"
+        class="va-input__icons__reset"
+        :tabindex="tabIndexComputed"
         v-bind="clearIconProps"
-        @click.stop="reset()"
+        @click.stop="reset"
+        @keydown.enter.stop="reset"
+        @keydown.space.stop="reset"
       />
       <va-icon
-        v-if="loading"
-        :color="color"
+        v-if="$props.loading"
+        :color="$props.color"
         size="small"
         name="loop"
         spin="counter-clockwise"
@@ -73,18 +68,26 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, InputHTMLAttributes, PropType, ref, toRefs } from 'vue'
-import { useFormProps } from '../../composables/useForm'
-import { useValidation, useValidationProps, useValidationEmits } from '../../composables/useValidation'
+import { computed, defineComponent, InputHTMLAttributes, shallowRef, toRefs } from 'vue'
+import omit from 'lodash/omit.js'
+import pick from 'lodash/pick.js'
+
+import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
+
+import {
+  useFormProps,
+  useValidation, useValidationProps, useValidationEmits, ValidationProps,
+  useEmitProxy,
+  useClearable, useClearableProps, useClearableEmits,
+  useFocusDeep,
+} from '../../composables'
 import { useCleave, useCleaveProps } from './hooks/useCleave'
-import { useEmitProxy } from '../../composables/useEmitProxy'
+
+import type { AnyStringPropType } from '../../types/prop-type'
+
 import VaInputWrapper from './components/VaInputWrapper.vue'
-import { useClearableProps, useClearable, useClearableEmits } from '../../composables/useClearable'
 import VaTextarea from './components/VaTextarea/VaTextarea.vue'
 import VaIcon from '../va-icon/VaIcon.vue'
-import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
-import omit from 'lodash/omit'
-import pick from 'lodash/pick'
 
 const VaTextareaProps = extractComponentProps(VaTextarea)
 
@@ -98,7 +101,6 @@ const { createEmits: createFieldEmits, createListeners: createFieldListeners } =
   'click-append',
   'click-prepend-inner',
   'click-append-inner',
-  'click-icon',
 ])
 
 export default defineComponent({
@@ -108,7 +110,7 @@ export default defineComponent({
 
   props: {
     ...useFormProps,
-    ...useValidationProps,
+    ...useValidationProps as ValidationProps<string>,
     ...useClearableProps,
     ...useCleaveProps,
     ...VaTextareaProps,
@@ -118,11 +120,12 @@ export default defineComponent({
     tabindex: { type: Number, default: 0 },
     modelValue: { type: [String, Number], default: '' },
     label: { type: String, default: '' },
-    type: { type: String as PropType<'text' | 'textarea'>, default: 'text' },
+    type: { type: String as AnyStringPropType<'textarea' | 'text' | 'password'>, default: 'text' },
     loading: { type: Boolean, default: false },
     inputClass: { type: String, default: '' },
     pattern: { type: String },
     inputmode: { type: String, default: 'text' },
+    ariaLabel: { type: String, default: undefined },
 
     // style
     color: { type: String, default: 'primary' },
@@ -142,7 +145,9 @@ export default defineComponent({
   inheritAttrs: false,
 
   setup (props, { emit, attrs, slots }) {
-    const input = ref<HTMLInputElement | typeof VaTextarea | undefined>()
+    const input = shallowRef<HTMLInputElement | typeof VaTextarea>()
+
+    const isFocused = useFocusDeep()
 
     const reset = () => {
       emit('update:modelValue', props.clearValue)
@@ -163,24 +168,22 @@ export default defineComponent({
     })
 
     const {
-      isFocused,
-      listeners: validationListeners,
       computedError,
       computedErrorMessages,
+      listeners: validationListeners,
     } = useValidation(props, emit, reset, focus)
 
     const { modelValue } = toRefs(props)
     const {
       canBeCleared,
       clearIconProps,
-    } = useClearable(props, modelValue, isFocused, computedError)
+    } = useClearable(props, modelValue, emit, input, computedError)
 
     /** Use cleave only if this component is input, because it will break. */
-    const computedCleaveTarget = computed(() => {
-      return props.type === 'textarea'
-        ? undefined
-        : input.value as HTMLInputElement | undefined
-    })
+    const computedCleaveTarget = computed(() => props.type === 'textarea'
+      ? undefined
+      : input.value as HTMLInputElement | undefined)
+
     const { computedValue, onInput } = useCleave(computedCleaveTarget, props, emit)
 
     const inputListeners = createInputListeners(emit)
@@ -203,15 +206,25 @@ export default defineComponent({
       onInput,
     }
 
+    const tabIndexComputed = computed(() => props.disabled ? -1 : props.tabindex)
+
     const computedChildAttributes = computed(() => ({
-      ariaLabel: props.label,
+      ariaLabel: props.ariaLabel || props.label,
+      ariaRequired: props.requiredMark,
+      ariaDisabled: props.disabled,
+      ariaReadOnly: props.readonly,
+      'aria-invalid': !!computedErrorMessages.value.length,
+      'aria-errormessage': typeof computedErrorMessages.value === 'string'
+        ? computedErrorMessages.value
+        : computedErrorMessages.value.join(', '),
+      tabindex: tabIndexComputed.value,
       class: props.inputClass,
       ...omit(attrs, ['class', 'style']),
     }) as InputHTMLAttributes)
 
     const computedInputAttributes = computed(() => ({
       ...computedChildAttributes.value,
-      ...pick(props, ['type', 'tabindex', 'disabled', 'readonly', 'placeholder', 'pattern', 'inputmode']),
+      ...pick(props, ['type', 'disabled', 'readonly', 'placeholder', 'pattern', 'inputmode']),
     }) as InputHTMLAttributes)
 
     return {
@@ -222,6 +235,7 @@ export default defineComponent({
       computedInputAttributes,
       textareaProps: filterComponentProps(props, VaTextareaProps),
       computedValue,
+      tabIndexComputed,
 
       // Validations
       computedError,
@@ -233,19 +247,11 @@ export default defineComponent({
       clearIconProps,
 
       fieldListeners: createFieldListeners(emit),
-      reset,
       filterSlots,
-
-      // while we have problem with 'withConfigTransport'
-      // focus,
-      // blur,
+      reset,
+      focus,
+      blur,
     }
-  },
-
-  // we will use this while we have problem with 'withConfigTransport'
-  methods: {
-    focus () { this.input?.focus() },
-    blur () { this.input?.blur() },
   },
 })
 </script>

@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <va-slider v-model="length" :max="15" style="width: 50%;" />
+  <div class="flex lg6 xs12">
+    <va-slider v-model="length" :max="15" />
     <va-rating v-model="value" :max="length" numbers />
   </div>
 </template>

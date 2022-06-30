@@ -20,6 +20,11 @@
         v-model="value"
         label="Purple"
       />
+       <va-checkbox
+        color="#FFFF00"
+        v-model="value"
+        label="Yellow"
+      />
       <va-checkbox
         color="primary"
         v-model="value"
@@ -193,7 +198,7 @@
 </template>
 
 <script>
-import VaCheckbox from './index'
+import { VaCheckbox } from './index'
 import VaCheckboxValidation from './VaCheckbox-validation'
 
 export default {

@@ -10,6 +10,13 @@
           title="Simple Popup, Full Width"
           :message="message"
           size="small"
+          @ok="() => logger('ok')"
+          @cancel="logger('cancel')"
+          @before-open="logger('before-open')"
+          @open="logger('open')"
+          @before-close="logger('before-close')"
+          @close="logger('close')"
+          @click-outside="logger('click-outside')"
         />
       </p>
       <p class="my-3">
@@ -33,6 +40,18 @@
           size="large"
         />
       </p>
+    </VbCard>
+    <VbCard title="custom content">
+      <button @click="showCustomContent = !showCustomContent">
+        Show custom content modal
+      </button>
+      <va-modal
+        v-model="showCustomContent"
+      >
+        <template #content>
+          <h1>Custom content modal</h1>
+        </template>
+      </va-modal>
     </VbCard>
     <VbCard title="fullscreen, slots use, custom action">
       <button @click="showFullScreenModal = !showFullScreenModal">
@@ -59,6 +78,14 @@
           <button @click="show()">Anchor-button</button>
         </template>
         <div>{{ message }}</div>
+      </va-modal>
+    </VbCard>
+    <VbCard title="No padding">
+      <button @click="showNoPaddingModal = !showNoPaddingModal">
+        Show no padding modal
+      </button>
+      <va-modal no-padding v-model="showNoPaddingModal">
+        {{ message }}
       </va-modal>
     </VbCard>
     <VbCard title="stateful">
@@ -131,6 +158,17 @@
       <va-modal
         v-model="showModalOverlay"
         :overlay="false"
+        title="Step 2. Centered Layout"
+        :message="message"
+      />
+    </VbCard>
+    <VbCard title="blur: true">
+      <button @click="showModalBlur = !showModalBlur">
+        Show modal
+      </button>
+      <va-modal
+        v-model="showModalBlur"
+        blur
         title="Step 2. Centered Layout"
         :message="message"
       />
@@ -260,12 +298,42 @@
         </template>
       </va-modal>
     </VbCard>
+    <VbCard title="custom background">
+      <button @click="showModalCustomBackground = !showModalCustomBackground">
+        Show modal
+      </button>
+      <va-modal
+        v-model="showModalCustomBackground"
+        :message="longMessage"
+        backgroundColor="#222"
+      >
+      </va-modal>
+    </VbCard>
+    <VbCard title="nested modals">
+      <button @click="showModalNested1 = !showModalNested1">
+        Show first modal
+      </button>
+
+      <va-modal v-model="showModalNested1" :message="message" hide-default-actions>
+        <button class="mt-5" @click="showModalNested2 = !showModalNested2" color="secondary">
+          Show second modal
+        </button>
+
+        <va-modal v-model="showModalNested2" :message="message">
+          Second Modal
+        </va-modal>
+      </va-modal>
+    </VbCard>
+
+    <VbCard title="vaModal return by click">
+      <button @click="buttonClick">init vaModal</button>
+    </VbCard>
   </VbDemo>
 </template>
 
 <script>
-import VaModal from './index'
-import VaButton from '../va-button'
+import { VaModal } from './'
+import { VaButton } from '../va-button'
 
 export default {
   components: { VaModal, VaButton },
@@ -274,6 +342,7 @@ export default {
       showModalSizeSmall: false,
       showModalSizeMedium: false,
       showModalSizeLarge: false,
+      showCustomContent: false,
       showFullScreenModal: false,
       showAnchorModal: false,
       showActionsModal: false,
@@ -293,8 +362,13 @@ export default {
       showModalNoDismiss: false,
       showModalOverlay: false,
       showModalOverlayOpacity: false,
+      showModalBlur: false,
       showModalZIndex: false,
       showModalCustomFooter: false,
+      showModalCustomBackground: false,
+      showModalNested1: false,
+      showModalNested2: false,
+      showNoPaddingModal: false,
       message: this.$vb.lorem(),
       longMessage: this.$vb.lorem(5000),
     }
@@ -308,6 +382,22 @@ export default {
     },
     customActionClick () {
       this.$vb.log('custom action click')
+    },
+    logger (message) {
+      console.log(message !== 'undefined' ? message : '-- log --')
+    },
+    buttonClick () {
+      this.$vaModal.init({
+        title: 'Click Event',
+        message: 'First Modal',
+        withoutTransitions: true,
+        'onUpdate:modelValue': this.logger,
+        onOk: () => this.logger('clicked OK button'),
+      })
+
+      setTimeout(() => {
+        this.$vaModal.init('Second Modal')
+      }, 3000)
     },
   },
 }

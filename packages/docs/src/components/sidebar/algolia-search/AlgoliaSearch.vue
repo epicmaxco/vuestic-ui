@@ -32,7 +32,6 @@ export default class Search extends Vue {
 
   onFocusHandler (colorValue: string, displayValue: string): void {
     this.color = colorValue
-    // @ts-ignore
     const el: HTMLElement | null = document.querySelector('.ds-dropdown-menu')
     if (el) { el.style.display = displayValue }
   }
@@ -66,12 +65,14 @@ export default class Search extends Vue {
 @import '~vuestic-ui/src/styles/vuestic-styles';
 
 #search-form {
+  position: relative;
   padding: 1rem;
   padding-bottom: 0.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  z-index: 1;
 
   .va-input__container {
     background-color: transparent !important;
@@ -170,7 +171,7 @@ export default class Search extends Vue {
 
             .algolia-docsearch-suggestion--highlight {
               padding: 0;
-              color: #2c82e0;
+              color: var(--va-primary);
               background: rgba(44, 130, 224, 0.1);
             }
           }
@@ -184,7 +185,7 @@ export default class Search extends Vue {
             color: $default-gray;
 
             .algolia-docsearch-suggestion--highlight {
-              color: #2c82e0;
+              color: var(--va-primary);
               background: rgba(44, 130, 224, 0.1);
               box-shadow: none;
             }

@@ -1,6 +1,7 @@
 <template>
   <va-rating v-model="value" clearable />
 </template>
+
 <script>
 export default {
   data () {

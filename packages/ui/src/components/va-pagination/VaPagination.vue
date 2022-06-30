@@ -6,15 +6,19 @@
     :size="$props.size"
     :color="$props.color"
     outline
+    @keydown.left.stop="onUserInput(currentValue - 1)"
+    @keydown.right.stop="onUserInput(currentValue + 1)"
   >
     <va-button
       v-if="showBoundaryLinks"
+      aria-label="go first page"
       :disabled="$props.disabled || currentValue === 1"
       :icon="$props.boundaryIconLeft"
       @click="onUserInput(1)"
     />
     <va-button
       v-if="showDirectionLinks"
+      aria-label="go prev page"
       outline
       :disabled="$props.disabled || currentValue === 1"
       :icon="$props.directionIconLeft"
@@ -24,11 +28,14 @@
       <va-button
         v-for="(n, i) in paginationRange"
         :key="i"
+        class="va-pagination__numeric-button"
+        outline
+        :aria-label="`go to ${n} page`"
+        :aria-current="n === currentValue"
         :style="activeButtonStyle(n)"
         :disabled="$props.disabled || n === '...'"
         :class="{ 'va-button--ellipsis': n === '...'}"
         @click="onUserInput(n)"
-        outline
       >
         {{ n }}
       </va-button>
@@ -37,21 +44,19 @@
       v-else
       ref="htmlInput"
       class="va-pagination__input va-button"
-      :style="{
-        cursor: 'default',
-        color: getColor($props.color),
-        opacity: $props.disabled ? 0.4 : 1
-      }"
+      aria-label="enter the page number to go"
+      v-model="inputValue"
+      :disabled="$props.disabled"
+      :placeholder="`${currentValue}/${lastPage}`"
+      :style="inputStyleComputed"
       :class="{ 'va-pagination__input--flat': $props.flat }"
       @keydown.enter="changeValue"
       @focus="focusInput"
       @blur="changeValue"
-      :disabled="$props.disabled"
-      :placeholder="`${currentValue}/${lastPage}`"
-      v-model="inputValue"
     />
     <va-button
       v-if="showDirectionLinks"
+      aria-label="go next page"
       outline
       :disabled="$props.disabled || currentValue === lastPage"
       :icon="$props.directionIconRight"
@@ -59,6 +64,7 @@
     />
     <va-button
       v-if="showBoundaryLinks"
+      aria-label="go last page"
       outline
       :disabled="$props.disabled || currentValue === lastPage"
       :icon="$props.boundaryIconRight"
@@ -68,16 +74,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, watch, PropType, ref, Ref, computed, nextTick } from 'vue'
+import { defineComponent, watch, PropType, ref, computed, nextTick, shallowRef } from 'vue'
 
 import { __DEV__ } from '../../utils/global-utils'
-import { useColors } from '../../composables/useColor'
-import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
-
-import VaButtonGroup from '../va-button-group'
-import VaButton from '../va-button'
-
+import { useColors, useTextColor, useStateful, useStatefulProps, useStatefulEmits } from '../../composables'
 import { setPaginationRange } from './setPaginationRange'
+
+import { VaButtonGroup } from '../va-button-group'
+import { VaButton } from '../va-button'
 
 export default defineComponent({
   name: 'VaPagination',
@@ -85,37 +89,40 @@ export default defineComponent({
   emits: useStatefulEmits,
   props: {
     ...useStatefulProps,
-    modelValue: { type: Number as PropType<number>, default: 1 },
-    visiblePages: { type: Number as PropType<number>, default: 0 },
-    pages: { type: Number as PropType<number>, default: 0 },
-    disabled: { type: Boolean as PropType<boolean>, default: false },
-    color: { type: String as PropType<string>, default: 'primary' },
+    modelValue: { type: Number, default: 1 },
+    visiblePages: { type: Number, default: 0 },
+    pages: { type: Number, default: 0 },
+    disabled: { type: Boolean, default: false },
+    color: { type: String, default: 'primary' },
     size: {
       type: String as PropType<'medium' | 'small' | 'large'>,
       default: 'medium',
       validator: (v: string) => ['medium', 'small', 'large'].includes(v),
     },
-
-    boundaryLinks: { type: Boolean as PropType<boolean>, default: true },
-    boundaryNumbers: { type: Boolean as PropType<boolean>, default: false },
-    directionLinks: { type: Boolean as PropType<boolean>, default: true },
-    input: { type: Boolean as PropType<boolean>, default: false },
-    hideOnSinglePage: { type: Boolean as PropType<boolean>, default: false },
-    flat: { type: Boolean as PropType<boolean>, default: false },
-    total: { type: Number as PropType<number>, default: null },
-    pageSize: { type: Number as PropType<number>, default: null },
-    boundaryIconLeft: { type: String as PropType<string>, default: 'first_page' },
-    boundaryIconRight: { type: String as PropType<string>, default: 'last_page' },
-    directionIconLeft: { type: String as PropType<string>, default: 'chevron_left' },
-    directionIconRight: { type: String as PropType<string>, default: 'chevron_right' },
+    boundaryLinks: { type: Boolean, default: true },
+    boundaryNumbers: { type: Boolean, default: false },
+    directionLinks: { type: Boolean, default: true },
+    input: { type: Boolean, default: false },
+    hideOnSinglePage: { type: Boolean, default: false },
+    flat: { type: Boolean, default: false },
+    total: { type: Number, default: null },
+    pageSize: { type: Number, default: null },
+    boundaryIconLeft: { type: String, default: 'first_page' },
+    boundaryIconRight: { type: String, default: 'last_page' },
+    directionIconLeft: { type: String, default: 'chevron_left' },
+    directionIconRight: { type: String, default: 'chevron_right' },
   },
+
   setup (props, { emit }) {
+    const htmlInput = shallowRef<HTMLInputElement>()
+
     const inputValue = ref('')
-    const htmlInput: Ref<HTMLInputElement | null> = ref(null)
 
     const usedTotal = computed(() => !!((props.total || props.pageSize === 0) && props.pageSize))
 
     const { valueComputed } = useStateful<number>(props, emit)
+
+    const { textColorComputed } = useTextColor()
 
     const currentValue = computed({
       get: () => usedTotal.value ? Math.ceil(valueComputed.value / props.pageSize) || 1 : valueComputed.value,
@@ -191,7 +198,7 @@ export default defineComponent({
       if (buttonValue === currentValue.value) {
         return {
           backgroundColor: getColor(props.color),
-          color: '#ffffff',
+          color: textColorComputed.value,
         }
       }
 
@@ -200,6 +207,12 @@ export default defineComponent({
       }
     }
 
+    const inputStyleComputed = computed(() => ({
+      cursor: 'default',
+      color: getColor(props.color),
+      opacity: props.disabled ? 0.4 : 1,
+    }))
+
     watch([usedTotal, () => props.pages], () => {
       if (__DEV__ && usedTotal.value && props.pages) {
         throw new Error('Please, use either `total` and `page-size` props, or `pages`.')
@@ -207,7 +220,6 @@ export default defineComponent({
     })
 
     return {
-      getColor,
       currentValue,
       lastPage,
       changeValue,
@@ -219,6 +231,7 @@ export default defineComponent({
       showDirectionLinks,
       paginationRange,
       focusInput,
+      inputStyleComputed,
     }
   },
 })
@@ -239,6 +252,35 @@ export default defineComponent({
 
     &--flat {
       border-top-width: var(--va-pagination-input-flat-border-top-width);
+    }
+  }
+
+  &__numeric-button {
+    &.va-button {
+      .va-button__content {
+        // Remove paddings from button content
+        padding: 0;
+        justify-content: center;
+      }
+
+      // Add paddings to button content in min-width
+      &--normal {
+        .va-button__content {
+          min-width: calc(var(--va-button-content-px) * 2 + var(--va-pagination-button-content-width));
+        }
+      }
+
+      &--small {
+        .va-button__content {
+          min-width: calc(var(--va-button-sm-content-px) * 2 + var(--va-pagination-button-content-width));
+        }
+      }
+
+      &--large {
+        .va-button__content {
+          min-width: calc(var(--va-button-lg-content-px) * 2 + var(--va-pagination-button-content-width));
+        }
+      }
     }
   }
 

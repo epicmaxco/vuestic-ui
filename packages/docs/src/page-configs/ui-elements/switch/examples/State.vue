@@ -1,8 +1,7 @@
 <template>
-  <div>
-    <va-switch v-model="value" disabled class="mr-4" />
-    <va-switch v-model="value" readonly class="mr-4" />
-  </div>
+  <va-switch v-model="value" :disabled="isState" class="mr-4" />
+  <va-switch v-model="value" :readonly="isState" class="mr-4" />
+  <va-checkbox class="mt-2" v-model="isState" label="States enabled" />
 </template>
 
 <script>
@@ -10,6 +9,7 @@ export default {
   data () {
     return {
       value: true,
+      isState: true,
     }
   },
 }

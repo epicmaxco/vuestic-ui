@@ -1,5 +1,6 @@
 <template>
   <aside
+    class="va-sidebar"
     :class="computedClass"
     :style="computedStyle"
     @mouseenter="updateHoverState(true)"
@@ -15,7 +16,8 @@
 import { defineComponent, computed, ref, PropType } from 'vue'
 
 import { getGradientBackground } from '../../services/color-config/color-functions'
-import { useColors } from '../../services/color-config/color-config'
+import { useColors, useTextColor } from '../../composables'
+import { useSidebar } from './hooks/useSidebar'
 
 export default defineComponent({
   name: 'VaSidebar',
@@ -25,13 +27,18 @@ export default defineComponent({
     gradient: { type: Boolean, default: false },
     minimized: { type: Boolean, default: false },
     hoverable: { type: Boolean, default: false },
-    position: { type: String as PropType<'top' | 'bottom' | 'left' | 'right'>, default: 'left' },
+    position: {
+      type: String as PropType<'top' | 'bottom' | 'left' | 'right'>,
+      default: 'left',
+      validator: (v: string) => ['top', 'bottom', 'left', 'right'].includes(v),
+    },
     width: { type: String, default: '16rem' },
     minimizedWidth: { type: String, default: '2.5rem' },
     modelValue: { type: Boolean, default: true },
   },
   setup (props) {
-    const { getColor, getTextColor } = useColors()
+    const { getColor } = useColors()
+    useSidebar()
 
     const isHovered = ref(false)
 
@@ -45,11 +52,13 @@ export default defineComponent({
       return isMinimized.value ? props.minimizedWidth : props.width
     })
 
+    const { textColorComputed } = useTextColor()
+
     const computedStyle = computed(() => {
       const backgroundColor = getColor(props.color)
       const background = props.gradient ? getGradientBackground(backgroundColor) : backgroundColor
 
-      const color = props.textColor ? getColor(props.textColor) : getTextColor(backgroundColor)
+      const color = textColorComputed.value
 
       return {
         color,
@@ -59,9 +68,7 @@ export default defineComponent({
     })
 
     const computedClass = computed(() => ({
-      'va-sidebar': true,
       'va-sidebar--minimized': isMinimized.value,
-      'va-sidebar--hidden': !props.modelValue,
       'va-sidebar--right': props.position === 'right',
     }))
 
@@ -104,14 +111,8 @@ export default defineComponent({
   &--minimized {
     left: 0;
 
-    .va-sidebar-link-group {
-      .va-sidebar-link__content {
-        padding-right: 0;
-      }
-    }
-
-    & + .content-wrap {
-      margin-left: $sidebar-width--hidden !important;
+    .va-sidebar__title {
+      opacity: 0;
     }
   }
 

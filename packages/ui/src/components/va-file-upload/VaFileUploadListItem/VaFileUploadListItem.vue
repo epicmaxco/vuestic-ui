@@ -1,19 +1,19 @@
 <template>
   <va-card
     class="va-file-upload-list-item"
-    :stripe="removed"
+    :class="{'file-upload-list-item--undo': removed}"
+    :stripe="removed && undo"
     :stripeColor="color"
     no-margin
     no-padding
-    :class="{'file-upload-list-item--undo': removed}"
   >
     <va-file-upload-undo
+      v-if="removed && undo"
       @recover="recoverFile"
-      v-if="removed"
     />
     <div
-      class="va-file-upload-list-item__content"
       v-else
+      class="va-file-upload-list-item__content"
     >
       <div class="va-file-upload-list-item__name">
         {{ file && file.name }}
@@ -22,10 +22,16 @@
         {{ file && file.size }}
       </div>
       <va-icon
-        color="danger"
-        name="clear"
-        @click="removeFile()"
         class="va-file-upload-list-item__delete"
+        name="clear"
+        role="button"
+        aria-hidden="false"
+        aria-label="remove file"
+        tabindex="0"
+        color="danger"
+        @click="removeFile"
+        @keydown.enter.stop="removeFile"
+        @keydown.space.stop="removeFile"
       />
     </div>
   </va-card>
@@ -34,12 +40,11 @@
 <script lang="ts">
 import { defineComponent, PropType, ref } from 'vue'
 
-import VaCard from '../../va-card'
-import VaIcon from '../../va-icon'
+import { ConvertedFile } from '../types'
 
-import { VaFile } from '../types'
-
-import VaFileUploadUndo from '../VaFileUploadUndo'
+import { VaCard } from '../../va-card'
+import { VaIcon } from '../../va-icon'
+import { VaFileUploadUndo } from '../VaFileUploadUndo'
 
 export default defineComponent({
   name: 'VaFileUploadListItem',
@@ -50,21 +55,28 @@ export default defineComponent({
   },
   emits: ['remove'],
   props: {
-    file: { type: Object as PropType<VaFile | null>, default: null },
-    color: { type: String as PropType<string>, default: 'success' },
+    file: { type: Object as PropType<ConvertedFile | null>, default: null },
+    color: { type: String, default: 'success' },
+    undo: { type: Boolean, default: false },
+    undoDuration: { type: Number, default: 3000 },
   },
   setup (props, { emit }) {
     const removed = ref(false)
 
     const removeFile = () => {
-      removed.value = true
+      if (props.undo) {
+        removed.value = true
 
-      setTimeout(() => {
-        if (removed.value) {
-          emit('remove')
-          removed.value = false
-        }
-      }, 2000)
+        setTimeout(() => {
+          if (removed.value) {
+            emit('remove')
+            removed.value = false
+          }
+        }, props.undoDuration)
+      } else {
+        emit('remove')
+        removed.value = false
+      }
     }
 
     const recoverFile = () => { removed.value = false }
@@ -112,6 +124,10 @@ export default defineComponent({
   &__delete {
     font-size: 1.5rem;
     cursor: pointer;
+
+    &:focus {
+      @include focus-outline;
+    }
   }
 
   &--undo {

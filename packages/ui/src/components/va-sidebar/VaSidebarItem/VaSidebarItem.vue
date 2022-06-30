@@ -1,37 +1,36 @@
 <template>
-  <router-link custom :to="to" v-slot="{ href, navigate }">
-    <a
-      ref="anchor"
-      v-bind="$attrs"
-      class="va-sidebar__item va-sidebar-item"
-      :class="{ 'va-sidebar-item--active': $props.active }"
-      :style="computedStyle"
-      :href="href"
-      @click="navigate"
-      v-on="keyboardFocusListeners"
-    >
-      <slot />
-    </a>
-  </router-link>
+  <component
+    ref="anchor"
+    class="va-sidebar__item va-sidebar-item"
+    tabindex="0"
+    :class="{ 'va-sidebar-item--active': $props.active }"
+    :style="computedStyle"
+    :href="hrefComputed"
+    :to="$props.to"
+    :is="tagComputed"
+    v-on="keyboardFocusListeners"
+  >
+    <slot />
+  </component>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref, computed } from 'vue'
-import { RouteLocationRaw } from 'vue-router'
-import { useColors } from '../../../services/color-config/color-config'
-import useKeyboardOnlyFocus from '../../../composables/useKeyboardOnlyFocus'
-import { useHover } from '../../../composables/useHover'
+import { defineComponent, computed, shallowRef, StyleValue } from 'vue'
+
+import {
+  useColors,
+  useKeyboardOnlyFocus,
+  useHover,
+  useRouterLink, useRouterLinkProps,
+  useTextColor,
+} from '../../../composables'
+import { useSidebarItem } from '../hooks/useSidebar'
 
 export default defineComponent({
   name: 'VaSidebarItem',
 
-  inheritAttrs: false,
-
   props: {
-    to: {
-      type: [String, Object] as PropType<RouteLocationRaw>,
-      default: () => ({}),
-    },
+    ...useRouterLinkProps,
     active: { type: Boolean, default: false },
     textColor: { type: String, default: undefined },
     activeColor: { type: String, default: 'primary' },
@@ -40,41 +39,56 @@ export default defineComponent({
   },
 
   setup (props) {
-    const anchor = ref<HTMLAnchorElement>()
+    const anchor = shallowRef<HTMLAnchorElement>()
 
     const { isHovered } = useHover(anchor)
-    const { getColor, getHoverColor, getTextColor, getFocusColor } = useColors()
+    const { getColor, getHoverColor, getFocusColor } = useColors()
     const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
+    const { sidebarColor } = useSidebarItem()
 
-    const computedStyle = computed(() => {
-      const style: Record<string, string> = {}
-
-      style.color = getColor(props.textColor)
-
+    const backgroundColorComputed = computed(() => {
       if (isHovered.value) {
-        style['background-color'] = getHoverColor(getColor(props.hoverColor || props.activeColor))
+        return getHoverColor(getColor(props.hoverColor || props.activeColor))
       }
 
       if (props.active) {
-        style['border-color'] = getColor(props.borderColor === undefined ? props.activeColor : props.borderColor)
-        style['background-color'] = getColor(props.activeColor)
-        style.color = getTextColor(style['background-color'])
+        return getColor(props.activeColor)
       }
 
       if (hasKeyboardFocus.value) {
-        style['background-color'] = getFocusColor(getColor(props.hoverColor || props.activeColor))
+        return getFocusColor(getColor(props.hoverColor || props.activeColor))
       }
 
-      // Override default link color from VaContent
-      style.color = `${style.color} !important`
+      return getColor(sidebarColor.value)
+    })
+
+    const { textColorComputed } = useTextColor(backgroundColorComputed)
+
+    const computedStyle = computed(() => {
+      const style: StyleValue = {}
+
+      style.color = textColorComputed.value
+
+      if (isHovered.value || props.active || hasKeyboardFocus.value) {
+        style.backgroundColor = backgroundColorComputed.value
+      }
+
+      if (props.active) {
+        style.borderColor = getColor(props.borderColor || props.activeColor)
+      }
 
       return style
     })
+
+    const { tagComputed, hrefComputed } = useRouterLink(props)
 
     return {
       anchor,
       computedStyle,
       keyboardFocusListeners,
+      tagComputed,
+      hrefComputed,
+      isHovered,
     }
   },
 })
@@ -88,7 +102,6 @@ export default defineComponent({
   padding-right: var(--va-sidebar-item-active-border-size);
   display: inline-block;
   width: 100%;
-  color: inherit !important;
   font-family: var(--va-font-family);
 }
 </style>

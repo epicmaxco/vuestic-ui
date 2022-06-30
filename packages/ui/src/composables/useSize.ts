@@ -1,5 +1,7 @@
 import { computed, getCurrentInstance, PropType } from 'vue'
-import { getGlobalConfig, SizeConfig } from '../services/global-config/global-config'
+
+import { useGlobalConfig, SizeConfig } from '../services/global-config/global-config'
+import type { VuesticComponentName } from '../vuestic-plugin/global-components'
 
 export const sizesConfig: SizeConfig = {
   defaultSize: 48,
@@ -33,7 +35,7 @@ interface SizeProps {
  */
 export const useSizeProps = {
   size: {
-    type: [String, Number] as PropType<string | number>,
+    type: [String, Number],
     default: '',
     validator: (size: string | number) => {
       return typeof size === 'string' || typeof size === 'number'
@@ -59,9 +61,11 @@ export const useSize = (
   props: SizeProps,
   componentName: string | undefined = getCurrentInstance()?.type.name,
 ) => {
+  const { getGlobalConfig } = useGlobalConfig()
+
   const sizesConfigGlobal = computed<SizeConfig>(() => {
     return componentName
-      ? getGlobalConfig().components?.[componentName]?.sizesConfig
+      ? (getGlobalConfig().components as any)?.[componentName as VuesticComponentName]?.sizesConfig
       : undefined
   })
 

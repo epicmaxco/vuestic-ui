@@ -1,27 +1,18 @@
 <template>
   <VbDemo>
     <VbCard title="Timeline Item with Label">
-      <va-timeline-item
-        is-first
-        is-last
-      >
+      <va-timeline-item active>
         <template #before>
-          <div>
-            22 February, 2018
-          </div>
+          22 February, 2018
         </template>
       </va-timeline-item>
     </VbCard>
     <VbCard title="Timeline Item with Card">
-      <va-timeline-item
-        is-first
-        is-last
-      >
+      <va-timeline-item active-previous>
         <template #after>
           <va-card
             stripe
             stripe-color="success"
-            title-on-image
           >
             <va-card-content>
               Running out of pages in your passport. Two trailer park girls go
@@ -35,9 +26,8 @@
 </template>
 
 <script>
-import VaTimelineItem from './VaTimelineItem.vue'
-import VaCard from '../../va-card/VaCard'
-import VaCardContent from '../../va-card/VaCardContent'
+import { VaTimelineItem } from './index'
+import { VaCard, VaCardContent } from '../../va-card'
 
 export default {
   components: {

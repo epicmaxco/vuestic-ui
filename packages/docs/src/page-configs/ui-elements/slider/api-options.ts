@@ -11,9 +11,6 @@ export default defineManualApi({
     change: {
       types: '`Number | [Number, Number]`',
     },
-    input: {
-      types: '`Number | [Number, Number]`',
-    },
   },
   slots: {
     append: { },

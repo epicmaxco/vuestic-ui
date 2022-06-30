@@ -1,15 +1,22 @@
 <template>
-  <div>
-    <div class="code">
-      {
-      <p class="tab"> name: <va-input v-model="iconName" />,</p>
-      <p class="tab">
-        resolve:
-        (<span class="params">{ {{ params }} }</span>) => ({ class: <span class="params">`{{ resolved }}`</span> })
-      </p>
-      }
-    </div>
-  </div>
+  <code class="code language-javascript">
+    {
+    <span class="tab"> name: <va-input v-model="iconName" />,</span>
+    <span class="tab">
+      resolve:
+      (<span class="params">{ {{ params }} }</span>) => ({ class: <span class="params">`{{ resolved }}`</span> })
+    </span>
+    }
+  </code>
+  <code class="code language-javascript">
+    {
+    <span class="tab"> name: <va-input v-model="regexIconName" />,</span>
+    <span class="tab">
+      resolveFromRegex:
+      (<span class="params"> {{ regexParams }} </span>) => ({ class: <span class="params">`{{ resolved }}`</span> })
+    </span>
+    }
+  </code>
 </template>
 
 <script>
@@ -20,7 +27,6 @@ const getValuesInBrackets = (s) => {
   const values = s.match(/{([^}]*)}/g) || []
   return values
     .map((v) => v.replace(/\{|\}/g, ''))
-    .filter((v) => v !== '')
 }
 
 export default {
@@ -33,6 +39,22 @@ export default {
       return groups.value.reduce((acc, v) => `${acc} ${v},`, '').slice(0, -1)
     })
 
+    const regexIconName = ref('/(fas|far|fal|fad|fab)-(.*)/')
+    const regexParams = computed(() => {
+      const map = ['code', 'type']
+
+      return regexIconName.value
+        .split('(')
+        .map((g) => {
+          const group = '(' + g
+
+          return (group.match(/\(.*\)/) || [])[0]
+        })
+        .filter((g) => g)
+        .map((g, i) => map[i] || `group${i - 1}`)
+        .join(', ')
+    })
+
     const resolved = computed(() => {
       const classes = groups.value.map((item) => 'fa-${' + `${item}` + '}')
       return `fa ${classes.join(' ')}`
@@ -42,6 +64,8 @@ export default {
       params,
       iconName,
       resolved,
+      regexIconName,
+      regexParams,
     }
   },
 }
@@ -52,9 +76,11 @@ export default {
   background: #f4f8fa;
   color: var(--va-dark);
   padding: 0.5rem;
+  width: 100%;
 
   .tab {
     padding-left: 1rem;
+    display: block;
   }
 
   .params {
@@ -65,13 +91,12 @@ export default {
     margin: 0;
   }
 
-  .va-input:deep() {
+  .va-input {
     display: inline-block;
 
-    .va-input__container {
-      background: rgba($color: #000000, $alpha: 0.2) !important;
-      border-radius: 0.5rem !important;
-    }
+    --va-input-color: rgba(0, 0, 0, 0.2);
+
+    border-radius: 0.5rem !important;
   }
 }
 </style>

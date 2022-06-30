@@ -1,4 +1,4 @@
 import withConfigTransport from '../../services/config-transport/withConfigTransport'
-import VaImage from './VaImage.vue'
+import _VaImage from './VaImage.vue'
 
-export default withConfigTransport(VaImage)
+export const VaImage = withConfigTransport(_VaImage)

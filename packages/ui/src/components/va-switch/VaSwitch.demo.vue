@@ -1,5 +1,5 @@
 <template>
-  <VbDemo>
+  <VbDemo class="va-switch-demo">
     <VbCard title="Default">
       <div>
         {{ value }}
@@ -43,6 +43,14 @@
     <VbCard title="With inner label slot">
       <va-switch
         v-model="value"
+      >
+        <template #innerLabel>
+          Inner
+        </template>
+      </va-switch>
+       <va-switch
+        v-model="value"
+        color="banana"
       >
         <template #innerLabel>
           Inner
@@ -198,7 +206,7 @@
 </template>
 
 <script>
-import VaSwitch from './index'
+import { VaSwitch } from './index'
 
 export default {
   components: {
@@ -223,3 +231,12 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+.va-switch-demo {
+  .va-switch {
+    margin-right: 16px;
+    margin-bottom: 16px;
+  }
+}
+</style>

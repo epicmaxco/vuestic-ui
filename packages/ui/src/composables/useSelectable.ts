@@ -1,25 +1,26 @@
-import { PropType, computed, SetupContext, Ref } from 'vue'
+import { PropType, computed, SetupContext, ShallowRef, ExtractPropTypes } from 'vue'
 
 import { useStateful, useStatefulProps, StatefulProps } from './useStateful'
 import { useLoadingProps, LoadingProps } from './useLoading'
 import { useValidation, useValidationProps, ValidationProps, useValidationEmits } from './useValidation'
+import { useFocus } from './useFocus'
 
-export interface SelectableProps extends StatefulProps<unknown>, LoadingProps, ValidationProps {
-  arrayValue: unknown | null,
+export type SelectableProps<V = any> = StatefulProps<V> & LoadingProps & ExtractPropTypes<ValidationProps<V>> & {
+  arrayValue: V | null,
   label: string,
   leftLabel: boolean,
   trueValue: boolean,
   falseValue: boolean,
   indeterminate: boolean,
-  indeterminateValue: unknown | null,
+  indeterminateValue: V | null,
   disabled: boolean,
   readonly: boolean,
 }
 
-type Elements = {
-  input: Ref<HTMLElement | null>,
-  label: Ref<HTMLElement | null>,
-  container: Ref<HTMLElement | null>,
+export type Elements = {
+  input: ShallowRef<HTMLElement | undefined>,
+  label: ShallowRef<HTMLElement | undefined>,
+  container: ShallowRef<HTMLElement | undefined>,
 }
 
 export const useSelectableProps = {
@@ -27,11 +28,11 @@ export const useSelectableProps = {
   ...useLoadingProps,
   ...useValidationProps,
   arrayValue: { type: null as any as PropType<unknown>, default: null },
-  label: { type: String as PropType<string>, default: '' },
-  leftLabel: { type: Boolean as PropType<boolean>, default: false },
+  label: { type: String, default: '' },
+  leftLabel: { type: Boolean, default: false },
   trueValue: { type: null as any as PropType<unknown>, default: true },
   falseValue: { type: null as any as PropType<unknown>, default: false },
-  indeterminate: { type: Boolean as PropType<boolean>, default: false },
+  indeterminate: { type: Boolean, default: false },
   indeterminateValue: { type: null as any as PropType<unknown>, default: null },
   disabled: { type: Boolean, default: false },
   readonly: { type: Boolean, default: false },
@@ -65,10 +66,11 @@ export const useSelectable = (
   const reset = () => emit('update:modelValue', false)
   const focus = () => input.value?.focus()
 
-  const { isFocused, computedError, computedErrorMessages, validate } = useValidation(props, emit, reset, focus)
+  const { computedError, computedErrorMessages, validate } = useValidation(props, emit, reset, focus)
   const { valueComputed } = useStateful(props, emit)
+  const { isFocused } = useFocus()
 
-  const isElementRelated = (element: HTMLElement | null) => {
+  const isElementRelated = (element: HTMLElement | undefined) => {
     return !!element && [label.value, container.value].includes(element)
   }
   const onBlur = (event: FocusEvent) => {
@@ -79,7 +81,10 @@ export const useSelectable = (
       emit('blur', event)
     }
   }
-  const onFocus = (event: FocusEvent) => emit('focus', event)
+  const onFocus = (event: FocusEvent) => {
+    isFocused.value = true
+    emit('focus', event)
+  }
 
   const isIndeterminate = computed(() => !!props.indeterminate && valueComputed.value === props.indeterminateValue)
   const modelIsArray = computed(() => props.arrayValue !== null)

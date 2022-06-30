@@ -2,18 +2,18 @@
   <textarea
     ref="textarea"
     class="textarea"
+    :style="computedStyle"
     v-bind="{ ...computedProps, ...listeners }"
     :value="modelValue"
-    :style="computedStyle"
   />
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, ref, watch, nextTick } from 'vue'
-import pick from 'lodash/pick'
-import { useFormProps } from '../../../../composables/useForm'
+import { computed, defineComponent, onMounted, ref, watch, nextTick, CSSProperties, shallowRef } from 'vue'
+import pick from 'lodash/pick.js'
+
+import { useFormProps, useEmitProxy } from '../../../../composables'
 import { useTextareaRowHeight } from './useTextareaRowHeight'
-import { useEmitProxy } from '../../../../composables/useEmitProxy'
 
 const positiveNumberValidator = (val: number) => {
   if (val > 0 && (val | 0) === val) {
@@ -39,7 +39,6 @@ export default defineComponent({
       default: 1,
       validator: positiveNumberValidator,
     },
-
     maxRows: {
       type: Number,
       validator: positiveNumberValidator,
@@ -49,13 +48,14 @@ export default defineComponent({
   emits: createEmits(),
 
   setup (props, { emit }) {
-    const textarea = ref<HTMLTextAreaElement | undefined>()
+    const textarea = shallowRef<HTMLTextAreaElement>()
+
     const rowHeight = ref(-1)
     const height = ref(-1)
     const { calculateRowHeight, calculateHeight } = useTextareaRowHeight(textarea)
 
     const isResizable = computed(() => {
-      return (props.autosize || props.maxRows || props.minRows !== 1) && textarea.value
+      return Boolean((props.autosize || props.maxRows || props.minRows !== 1) && textarea.value)
     })
 
     const updateRowHeight = () => {
@@ -81,13 +81,13 @@ export default defineComponent({
 
     const computedStyle = computed(() => ({
       minHeight: rowHeight.value * props.minRows + 'px',
-      maxHeight: props.maxRows && (rowHeight.value * props.maxRows + 'px'),
+      maxHeight: props.maxRows ? (rowHeight.value * props.maxRows + 'px') : undefined,
       height: height.value + 'px',
-      resize: isResizable.value && 'none',
-    }))
+      resize: isResizable.value ? undefined : 'none',
+    }) as CSSProperties)
 
     const computedProps = computed(() => ({
-      ...pick(props, ['disabled', 'readonly', 'placeholder']),
+      ...pick(props, ['disabled', 'readonly', 'placeholder', 'ariaLabel']),
     }))
 
     const focus = () => {
@@ -103,17 +103,9 @@ export default defineComponent({
       computedStyle,
       listeners: createListeners(emit),
       computedProps,
-
-      // will used after fix 'useConfigTransport'
-      // focus,
-      // blur,
+      focus,
+      blur,
     }
-  },
-
-  // we use this while we have problem with 'useConfigTransport'
-  methods: {
-    focus () { this.textarea?.focus() },
-    blur () { this.textarea?.blur() },
   },
 })
 </script>

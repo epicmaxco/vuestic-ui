@@ -1,9 +1,9 @@
 <template>
   <div
     class="va-progress-circle"
-    ref="progress"
     :style="rootStyle"
     :class="rootClass"
+    v-bind="ariaAttributesComputed"
   >
     <svg
       class="va-progress-circle__wrapper"
@@ -33,9 +33,9 @@
 
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
-import clamp from 'lodash/clamp'
-import { useColors } from '../../services/color-config/color-config'
-import { useSize, useSizeProps } from '../../composables/useSize'
+import clamp from 'lodash/clamp.js'
+
+import { useColors, useSize, useSizeProps } from '../../composables'
 
 export default defineComponent({
   name: 'VaProgressCircle',
@@ -57,7 +57,7 @@ export default defineComponent({
     const radius = computed(() => 20 - (20 * cappedThickness.value / 100))
     const dasharray = computed(() => 2 * Math.PI * radius.value)
     const dashoffset = computed(() => dasharray.value * (1 - clamp(props.modelValue, 0, 100) / 100))
-    const colorComputed = computed(() => getColor(props.color))
+    const colorComputed = computed(() => getColor(props.color, undefined, true))
 
     return {
       infoStyle: computed(() => ({ color: colorComputed.value })),
@@ -67,6 +67,11 @@ export default defineComponent({
       })),
       rootClass: computed(() => ({
         'va-progress-circle--indeterminate': props.indeterminate,
+      })),
+      ariaAttributesComputed: computed(() => ({
+        role: 'progressbar',
+        ariaLabel: 'progress state',
+        ariaValuenow: !props.indeterminate ? props.modelValue : undefined,
       })),
 
       colorComputed,

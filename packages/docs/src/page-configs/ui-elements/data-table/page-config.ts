@@ -3,6 +3,10 @@ import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaDataTable from 'vuestic-ui/src/components/va-data-table/VaDataTable.vue'
 import apiOptions from './api-options'
 
+// @ts-ignore
+// eslint-disable-next-line import/no-webpack-loader-syntax
+const cssVariables = import('!raw-loader!vuestic-ui/src/components/va-data-table/_variables.scss')
+
 const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [
@@ -22,7 +26,7 @@ const config: ApiDocsBlock[] = [
   block.headline('dataTable.examples.slots.title'),
   block.paragraph('dataTable.examples.slots.text[0]'),
   block.paragraph('dataTable.examples.slots.text[1]'),
-  block.alert('dataTable.examples.slots.text[4]', '#f7cc36'),
+  block.alert('dataTable.examples.slots.text[4]', 'warning'),
   block.example('CustomSlots'),
   block.paragraph('dataTable.examples.slots.text[2]'),
   block.example('StaticSlots'),
@@ -54,11 +58,16 @@ const config: ApiDocsBlock[] = [
     'dataTable.examples.styling.text',
     'Styling',
   ),
+  ...block.exampleBlock(
+    'dataTable.examples.binding.title',
+    'dataTable.examples.binding.text',
+    'Binding',
+  ),
 
-  block.headline('dataTable.examples.stickyHeader.title'),
-  block.paragraph('dataTable.examples.stickyHeader.text[0]'),
-  block.paragraph('dataTable.examples.stickyHeader.text[1]'),
-  block.example('StickyHeader'),
+  block.headline('dataTable.examples.sticky.title'),
+  block.paragraph('dataTable.examples.sticky.text[0]'),
+  block.paragraph('dataTable.examples.sticky.text[1]'),
+  block.example('Sticky'),
 
   ...block.exampleBlock(
     'dataTable.examples.other.title',
@@ -71,6 +80,9 @@ const config: ApiDocsBlock[] = [
 
   block.subtitle('all.api'),
   block.api(VaDataTable, apiOptions),
+
+  block.subtitle('all.cssVariables'),
+  block.file(cssVariables),
 ]
 
 export default config

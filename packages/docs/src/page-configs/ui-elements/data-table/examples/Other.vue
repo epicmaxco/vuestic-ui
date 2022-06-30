@@ -83,9 +83,9 @@
     :footer-clone="footerClone"
     :allow-footer-sorting="footerSorting"
     :animated="animated"
-    @row:click="rowEventType = $event.event.type, rowId = $event.item.id"
-    @row:dblclick="rowEventType = $event.event.type, rowId = $event.item.id"
-    @row:contextmenu="rowEventType = $event.event.type, rowId = $event.item.id"
+    @row:click="handleClick"
+    @row:dblclick="handleClick"
+    @row:contextmenu="handleClick"
   >
     <template #headerPrepend v-if="prependSlot">
       <tr><th colspan="8">Custom cell which span 8 cells (headPrepend slot)</th></tr>
@@ -109,7 +109,7 @@
     </template>
   </va-data-table>
 
-  <va-alert v-if="isTableRowsClickable" class="mt-3" border="left">
+  <va-alert v-if="isTableRowsClickable" class="mt-3" color="info" outline>
     <span>
       Last row click event (id, event type):
       <va-chip v-if="rowId">{{ rowId }}</va-chip>
@@ -193,6 +193,13 @@ export default defineComponent({
         this.rowEventType = ''
         this.rowId = ''
       }
+    },
+  },
+
+  methods: {
+    handleClick (event) {
+      this.rowEventType = event.event.type
+      this.rowId = event.item.id
     },
   },
 })

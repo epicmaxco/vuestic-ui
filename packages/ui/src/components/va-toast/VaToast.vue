@@ -2,32 +2,38 @@
   <transition name="va-toast-fade">
     <div
       v-show="visible"
-      :class="['va-toast', ...toastClasses]"
+      ref="rootElement"
+      :role="$props.closeable ? 'alertdialog' : 'alert'"
+      class="va-toast"
+      :class="toastClasses"
       :style="toastStyles"
       @mouseenter="clearTimer"
       @mouseleave="startTimer"
       @click="onToastClick"
-      role="alert"
-      ref="rootElement"
     >
       <div class="va-toast__group">
-        <h2 v-if="title" class="va-toast__title" v-text="title" />
+        <h2 v-if="$props.title" class="va-toast__title" v-text="$props.title" />
 
-        <div class="va-toast__content" v-show="message">
-          <p v-if="html" v-html="computedMessage" />
+        <div class="va-toast__content" v-show="$props.message">
+          <div v-if="$props.dangerouslyUseHtmlString" v-html="computedMessage" />
           <p v-else v-text="computedMessage" />
         </div>
 
-        <div class="va-toast__content" v-if="render">
-          <VaToastRenderer :content="render" />
+        <div class="va-toast__content" v-if="$props.render">
+          <VaToastRenderer :render="$props.render" />
         </div>
 
         <va-icon
-          v-if="closeable"
-          size="small"
-          :name="icon"
+          v-if="$props.closeable"
           class="va-toast__close-icon"
+          role="button"
+          aria-label="close toast"
+          aria-hidden="false"
+          tabindex="0"
+          size="small"
+          :name="$props.icon"
           @click.stop="onToastClose"
+          @keydown.enter.stop="onToastClose"
         />
       </div>
     </div>
@@ -35,20 +41,20 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, h, PropType, ref, computed, onMounted, render, VNode } from 'vue'
+import { defineComponent, PropType, ref, computed, onMounted, shallowRef } from 'vue'
 
-import { useColors } from '../../composables/useColor'
-import { useTimer } from '../../composables/useTimer'
+import { useColors, useTimer, useTextColor } from '../../composables'
+
+import { ToastPosition } from './types'
+
 import VaIcon from '../va-icon/VaIcon.vue'
-
-import { NotificationPosition } from './types'
 
 const VaToastRenderer = defineComponent({
   name: 'VaToastRenderer',
   props: {
-    content: { type: Function, required: true },
+    render: { type: Function, required: true },
   },
-  setup: (props) => props.content(h),
+  setup: (props) => () => props.render(),
 })
 
 export default defineComponent({
@@ -56,30 +62,32 @@ export default defineComponent({
   components: { VaIcon, VaToastRenderer },
   emits: ['on-click', 'on-close'],
   props: {
-    title: { type: String as PropType<string>, default: '' },
-    offsetY: { type: Number as PropType<number>, default: 16 },
-    offsetX: { type: Number as PropType<number>, default: 16 },
+    title: { type: String, default: '' },
+    offsetY: { type: Number, default: 16 },
+    offsetX: { type: Number, default: 16 },
     message: { type: [String, Function], default: '' },
-    html: { type: Boolean as PropType<boolean>, default: false },
-    icon: { type: String as PropType<string>, default: 'close' },
-    customClass: { type: String as PropType<string>, default: '' },
-    duration: { type: Number as PropType<number>, default: 5000 },
-    color: { type: String as PropType<string>, default: '' },
-    closeable: { type: Boolean as PropType<boolean>, default: true },
+    dangerouslyUseHtmlString: { type: Boolean, default: false },
+    icon: { type: String, default: 'close' },
+    customClass: { type: String, default: '' },
+    duration: { type: Number, default: 5000 },
+    color: { type: String, default: '' },
+    closeable: { type: Boolean, default: true },
     onClose: { type: Function },
     onClick: { type: Function },
-    multiLine: { type: Boolean as PropType<boolean>, default: false },
+    multiLine: { type: Boolean, default: false },
     position: {
-      type: String as PropType<NotificationPosition>,
+      type: String as PropType<ToastPosition>,
       default: 'top-right',
       validator: (value: string) => ['top-right', 'top-left', 'bottom-right', 'bottom-left'].includes(value),
     },
     render: { type: Function },
   },
   setup (props, { emit }) {
+    const rootElement = shallowRef<HTMLElement>()
+
     const { getColor } = useColors()
 
-    const rootElement = ref<HTMLElement>()
+    const { textColorComputed } = useTextColor()
 
     const visible = ref(false)
 
@@ -100,6 +108,7 @@ export default defineComponent({
       [positionY.value]: `${props.offsetY}px`,
       [positionX.value]: `${props.offsetX}px`,
       backgroundColor: getColor(props.color),
+      color: textColorComputed.value,
     }))
 
     const computedMessage = computed(() => (typeof props.message === 'function') ? props.message() : props.message)
@@ -163,24 +172,18 @@ export default defineComponent({
 @import "variables";
 
 .va-toast {
-  display: flex;
-  width: $toast-width;
-  padding: $toast-padding;
-  align-items: center;
-  border-radius: $toast-radius;
-  box-sizing: border-box;
-  border: 1px solid var(--va-toast-border-color);
   position: fixed;
-  background-color: white;
-  color: #ffffff;
-  box-shadow: $toast-shadow;
-  transition:
-    opacity 0.3s,
-    transform 0.3s,
-    left 0.3s,
-    right 0.3s,
-    top 0.4s,
-    bottom 0.3s;
+  box-sizing: border-box;
+  width: var(--va-toast-width);
+  padding: var(--va-toast-padding);
+  display: flex;
+  align-items: center;
+  border-radius: var(--va-toast-border-radius);
+  border: 1px solid var(--va-toast-border-color);
+  background-color: var(--va-toast-background-color);
+  color: var(--va-toast-color);
+  box-shadow: var(--va-toast-box-shadow);
+  transition: var(--va-toast-transition);
   overflow: hidden;
   z-index: var(--va-toast-z-index);
   font-family: var(--va-font-family);
@@ -214,7 +217,8 @@ export default defineComponent({
     line-height: var(--va-toast-content-line-height);
     padding-right: var(--va-toast-content-padding-right);
 
-    p {
+    p,
+    div {
       margin: 0;
     }
   }
@@ -228,13 +232,17 @@ export default defineComponent({
   &__close-icon {
     position: absolute;
     top: 50%;
-    right: 15px;
+    right: var(--va-toast-close-icon-right);
     cursor: pointer;
     transform: translateY(-50%);
-    font-size: $toast-close-font-size;
+    font-size: var(--va-toast-close-icon-font-siz);
 
     &:hover {
       color: var(--va-toast-hover-color);
+    }
+
+    &:focus {
+      @include focus-outline;
     }
   }
 }

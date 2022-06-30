@@ -2,6 +2,7 @@
   <button
     class="va-rating__number-item"
     tabindex="-1"
+    aria-hidden="true"
     :style="{
       background: backgroundComputed,
       color: textColorComputed,
@@ -17,8 +18,9 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+
+import { useSize, useSizeProps } from '../../../composables'
 import { useVaRatingColorsProps, useVaRatingColors } from '../hooks/useVaRatingColors'
-import { useSize, useSizeProps } from '../../../composables/useSize'
 
 export default defineComponent({
   name: 'VaRatingItemNumberButton',

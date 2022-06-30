@@ -50,7 +50,7 @@
         />
         Better check yourself, you're not looking too good.
       </va-alert>
-      <va-alert color="danger">
+      <va-alert color="danger" textColor='banana'>
         <va-badge
           color="danger"
           label="Danger"
@@ -209,9 +209,9 @@
 </template>
 
 <script>
-import VaAlert from './index'
-import VaBadge from '../va-badge'
-import VaIcon from '../va-icon'
+import { VaAlert } from './'
+import { VaBadge } from '../va-badge'
+import { VaIcon } from '../va-icon'
 
 export default {
   components: {
