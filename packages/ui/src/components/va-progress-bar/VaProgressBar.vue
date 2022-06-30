@@ -6,7 +6,7 @@
     v-bind="ariaAttributesComputed"
   >
     <div
-      v-if="!$props.slotInside"
+      v-if="!$props.contentInside"
       class="va-progress-bar__info"
       v-bind="{ value: $props.modelValue }"
     >
@@ -15,7 +15,7 @@
 
     <div class="va-progress-bar__wrapper" :style="wrapperStyle">
       <div class="va-progress-bar__buffer" :style="bufferStyle">
-        <slot v-if="$props.slotInside" v-bind="{ value: $props.modelValue }" />
+        <slot v-if="$props.contentInside" v-bind="{ value: $props.modelValue }" />
       </div>
 
       <template v-if="indeterminate">
@@ -53,7 +53,7 @@ export default defineComponent({
     buffer: { type: Number, default: 100 },
     rounded: { type: Boolean, default: true },
     reverse: { type: Boolean, default: false },
-    slotInside: { type: Boolean, default: false },
+    contentInside: { type: Boolean, default: false },
   },
 
   setup (props) {
