@@ -8,14 +8,21 @@
     <div
       v-if="!$props.contentInside"
       class="va-progress-bar__info"
-      v-bind="{ value: $props.modelValue }"
     >
-      <slot />
+      <slot v-bind="{ value: $props.modelValue }">
+        <template v-if="$props.showPercent">
+          {{ $props.modelValue }}%
+        </template>
+      </slot>
     </div>
 
     <div class="va-progress-bar__wrapper" :style="wrapperStyle">
       <div class="va-progress-bar__buffer" :style="bufferStyle">
-        <slot v-if="$props.contentInside" v-bind="{ value: $props.modelValue }" />
+        <slot v-if="$props.contentInside" v-bind="{ value: $props.modelValue }">
+          <template v-if="$props.showPercent">
+            {{ $props.modelValue }}%
+          </template>
+        </slot>
       </div>
 
       <template v-if="indeterminate">
@@ -37,7 +44,7 @@
 import { computed, defineComponent, PropType, StyleValue } from 'vue'
 import clamp from 'lodash/clamp.js'
 
-import { useColors } from '../../composables'
+import { useColors, useTextColor } from '../../composables'
 
 export default defineComponent({
   name: 'VaProgressBar',
@@ -54,10 +61,12 @@ export default defineComponent({
     rounded: { type: Boolean, default: true },
     reverse: { type: Boolean, default: false },
     contentInside: { type: Boolean, default: false },
+    showPercent: { type: Boolean, default: false },
   },
 
   setup (props) {
-    const { getColor } = useColors()
+    const { getColor, getHoverColor } = useColors()
+    const { textColorComputed } = useTextColor()
 
     const isTextSize = computed(() => typeof props.size === 'string' && ['small', 'medium', 'large'].includes(props.size))
 
@@ -75,7 +84,8 @@ export default defineComponent({
       })),
 
       rooStyle: computed(() => ({
-        '--va-progress-bar-background-color': getColor(props.color),
+        '--va-progress-bar-color': getColor(props.color),
+        '--va-progress-bar-background-color': getHoverColor(getColor(props.color)),
       }) as StyleValue),
 
       wrapperStyle: computed(() => ({
@@ -84,6 +94,7 @@ export default defineComponent({
 
       bufferStyle: computed(() => ({
         width: `${props.indeterminate ? 100 : clamp(props.buffer, 0, 100)}%`,
+        color: textColorComputed.value,
         [props.reverse ? 'right' : 'left']: 0,
       })),
 
@@ -117,6 +128,7 @@ export default defineComponent({
   position: var(--va-progress-bar-position);
   overflow: var(--va-progress-bar-overflow);
   font-family: var(--va-font-family);
+  line-height: var(--va-progress-bar-line-height);
 
   &__info {
     font-weight: var(--va-progress-bar-info-font-weight);
@@ -159,32 +171,27 @@ export default defineComponent({
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: var(--va-progress-bar-info-font-weight);
-
-    @include va-background(var(--va-progress-bar-background-color), var(--va-progress-bar-buffer-opacity));
+    letter-spacing: var(--va-progress-bar-letter-spacing);
+    font-size: var(--va-progress-bar-font-size);
+    font-weight: var(--va-progress-bar-font-weight);
+    background-color: var(--va-progress-bar-background-color);
   }
 
   &__progress {
     height: inherit;
     border-radius: inherit;
     transition: var(--va-progress-bar-transition);
-    text-align: var(--va-progress-bar-text-align);
-    color: var(--va-progress-bar-color);
-    background-color: var(--va-progress-bar-background-color);
-    letter-spacing: var(--va-progress-bar-letter-spacing);
-    line-height: var(--va-progress-bar-line-height);
-    font-size: var(--va-progress-bar-font-size);
-    font-weight: var(--va-progress-bar-font-weight);
+    background-color: var(--va-progress-bar-color);
 
     &--indeterminate-start {
-      background-color: var(--va-progress-bar-background-color);
+      background-color: var(--va-progress-bar-color);
       animation: va-progress-bar-indeterminate-start 2s ease-in infinite;
       position: absolute;
       height: inherit;
     }
 
     &--indeterminate-end {
-      background-color: var(--va-progress-bar-background-color);
+      background-color: var(--va-progress-bar-color);
       animation: va-progress-bar-indeterminate-end 2s ease-out 1s infinite;
       position: absolute;
       height: inherit;
