@@ -73,6 +73,7 @@
         :modelValue="value"
         :rounded="false"
         size="large"
+        slot-inside
       >
         {{ value + '%' }}
       </va-progress-bar>

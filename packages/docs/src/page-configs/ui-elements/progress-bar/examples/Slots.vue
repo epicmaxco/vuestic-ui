@@ -8,6 +8,7 @@
     <va-progress-bar
       :model-value="value"
       size="large"
+      slot-inside
     >
       {{ value + '%' }}
     </va-progress-bar>
