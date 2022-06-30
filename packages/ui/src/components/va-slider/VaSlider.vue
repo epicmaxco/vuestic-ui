@@ -159,9 +159,10 @@
 
 <script lang="ts">
 import { defineComponent, watch, PropType, ref, computed, onMounted, onBeforeUnmount, shallowRef, CSSProperties } from 'vue'
+import pick from 'lodash/pick.js'
 
 import { generateUniqueId } from '../../services/utils'
-import { useColors, useArrayRefs } from '../../composables'
+import { useColors, useArrayRefs, useBem } from '../../composables'
 import { validateSlider } from './validateSlider'
 
 import { VaIcon } from '../va-icon'
@@ -215,24 +216,17 @@ export default defineComponent({
 
     const lessToMore = computed(() => Array.isArray(val.value) && (val.value[0] + props.step) > val.value[1])
 
-    const sliderClass = computed(() => ({
-      'va-slider--active': isFocused.value,
-      'va-slider--disabled': props.disabled,
-      'va-slider--readonly': props.readonly,
-      'va-slider--horizontal': !props.vertical,
-      'va-slider--vertical': props.vertical,
+    const sliderClass = useBem('va-slider', () => ({
+      ...pick(props, ['disabled', 'readonly', 'vertical']),
+      active: isFocused.value,
+      horizontal: !props.vertical,
+      grabbing: hasMouseDown.value,
     }))
 
-    const dotClass = computed(() => {
-      if (props.range) {
-        return { 'va-slider__handler--inactive': !isFocused.value }
-      }
-
-      return {
-        'va-slider__handler--on-focus': !props.range && (flag.value || isFocused),
-        'va-slider__handler--inactive': !isFocused.value,
-      }
-    })
+    const dotClass = useBem('va-slider__handler', () => ({
+      onFocus: !props.range && (flag.value || isFocused.value),
+      inactive: !isFocused.value,
+    }))
 
     const labelStyles = computed(() => ({
       color: props.labelColor ? getColor(props.labelColor) : getColor(props.color),
@@ -844,7 +838,7 @@ export default defineComponent({
     text-transform: var(--va-slider-input-label-inverse-text-transform);
   }
 
-  &--active {
+  &--grabbing {
     .va-slider__container {
       cursor: grabbing;
     }
