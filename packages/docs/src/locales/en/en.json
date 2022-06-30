@@ -535,7 +535,9 @@
         "indeterminate": "Create a indeterminate loading bar",
         "buffer": "Create a loading bar with a buffer. Commonly used in videos",
         "reverse": "Reverse the progress bar direction",
-        "rounded": "Add a border radius to the `va-progress-bar` component (default: true)"
+        "rounded": "Add a border radius to the `va-progress-bar` component (default: true)",
+        "contentInside": "Sets the content of the slot inside the progress bar",
+        "showPercent": "Shows the indicator value with a percent sign"
       },
       "slots": {
         "default": "Display any additional info about the progress"
