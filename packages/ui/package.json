@@ -30,7 +30,7 @@
     "serve": "vue-cli-service serve --mode book",
     "serve:production": "vue-cli-service serve --mode production",
     "build:dev": "tsc build/config.ts && webpack --config build/config.js --progress",
-    "build": "yarn build:types && yarn build:rollup",
+    "build": "yarn build:rollup",
     "build:rollup": "rollup -c",
     "build:types": "vue-tsc --declaration --emitDeclarationOnly --outDir dist/types",
     "build:book": "vue-cli-service build --mode book",

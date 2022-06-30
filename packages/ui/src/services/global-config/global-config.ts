@@ -60,7 +60,7 @@ export function useGlobalConfig (): ProvidedGlobalConfig {
     const vm = getCurrentInstance()
     if (!vm) { throw new Error('useGlobalConfig must be called in setup function') }
 
-    const config = getGlobalProperty(vm.appContext.app, '$vaConfig')
+    const config = getGlobalProperty(vm.appContext, '$vaConfig')
 
     if (!config) {
       throw new Error('Vuestic GlobalConfigPlugin is not registered')
