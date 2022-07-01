@@ -15,7 +15,7 @@ Here's what script does:
 There are a couple of cli arguments you can pass to script to modify its behaviour:
 
 ```sh
-npx tsx build/release-script.ts
+npx tsx release-script/release-script.ts
 
   # release type (required) - large | tiny | development | experimental
   --release-type=experimental

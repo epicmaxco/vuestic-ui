@@ -5,12 +5,12 @@ import {
   bumpGithubTemplateVersions,
   bumpVersionInGenerators,
   executeCommand, getCommitHash,
-} from '../build/utils'
+} from './utils'
 
-import yargs from 'yargs/yargs'
 import semver from 'semver'
 
-const { hideBin } = require('yargs/helpers')
+import inquirer, { DistinctQuestion } from 'inquirer'
+import chalk from 'chalk'
 
 export type ReleaseType = 'large' | 'tiny' | 'next' | 'experimental'
 
@@ -23,19 +23,6 @@ export type ReleaseConfig = {
   commit: string, // '12345678'
   shouldCommit: boolean,
 }
-
-const argv = yargs(hideBin(process.argv))
-  .option('releaseType', {
-    description: 'Internal release type',
-    choices: ['large', 'tiny', 'next', 'experimental'],
-    required: true,
-  })
-  .option('dryRun', {
-    type: 'boolean',
-    description: 'Run without uploading anywhere',
-    default: false,
-  })
-  .argv as { releaseType: ReleaseType, dryRun: boolean }
 
 const gitTagFromVersion = (version: string) => `v${version}`
 
@@ -104,11 +91,27 @@ const getReleaseConfig = async (releaseType: ReleaseType): Promise<ReleaseConfig
   return result! as ReleaseConfig
 }
 
-;(async () => {
-  const { dryRun, releaseType } = argv
+// Check if we have correct state to go for release
+const runReleaseChecks = async (releaseConfig :ReleaseConfig, dryRun: boolean) => {
+  const {
+    branch,
+    requiredBranch,
+  } = releaseConfig
 
-  const releaseConfig = await getReleaseConfig(releaseType)
+  try {
+    await executeCommand('git diff-index --quiet HEAD --')
+  } catch (e) {
+    console.log(chalk.red('You have uncommited changes, please commit before attempting to release.'))
+    return false
+  }
+  if (!dryRun && requiredBranch && branch !== requiredBranch) {
+    console.log(chalk.red(`${branch} is incorrect for this flow, use ${requiredBranch} instead`))
+    return false
+  }
+  return true
+}
 
+const runReleaseScript = async (releaseConfig :ReleaseConfig, dryRun: boolean) => {
   const {
     version,
     gitTag,
@@ -119,40 +122,30 @@ const getReleaseConfig = async (releaseType: ReleaseType): Promise<ReleaseConfig
     commit,
   } = releaseConfig
 
-  console.table({
-    version,
-    gitTag,
-    distTag,
-    branch,
-    requiredBranch,
-    commit,
-    shouldCommit,
-  })
+  // **** Attempt building dist ****
 
-  // **** Check if we have correct state to go for release ****
-
-  try {
-    await executeCommand('git diff-index --quiet HEAD --')
-  } catch (e) {
-    console.error('You have uncommited changes, please commit them before continuing.')
-    return
-  }
-  if (!dryRun && requiredBranch && branch !== requiredBranch) {
-    console.error(`${branch} is incorrect for this flow, use ${requiredBranch} instead`)
-    return
+  if (dryRun) {
+    console.log(chalk.yellow('Skipping build because dry-run'))
+  } else {
+    // For test it's pain to wait for build as you can test build separately.
+    await executeAndLog('cd ../ui && npm run build')
   }
 
   // **** Update version strings ****
 
-  console.log(`Bumping version to ${version}`)
-  bumpPackageJsonVersion('../package.json', version) // ui
+  console.log(chalk.white(`Bumping version to ${version}`))
+  bumpPackageJsonVersion('../../ui/package.json', version) // ui
   bumpVersionInGenerators(version) // vue-cli-plugin
   bumpGithubTemplateVersions(version) // root .github
 
+  // **** Publishing on npm ****
+
+  await executeAndLog(`cd ../ui && npm publish --tag=${distTag} --verbose${dryRun ? ' --dry-run' : ''}`)
+
+
   // **** Git updates ****
 
-  console.log('Committing updates')
-
+  console.log(chalk.white('Committing updates'))
   if (!dryRun) {
     if (shouldCommit) {
       await executeAndLog(`git commit -am "chore: bump version to ${gitTag}"`)
@@ -164,21 +157,63 @@ const getReleaseConfig = async (releaseType: ReleaseType): Promise<ReleaseConfig
       await executeAndLog(`git push upstream ${gitTag}`)
     }
   }
-
-  // **** Dealing with dist ****
-
-  if (dryRun) {
-    console.log('Skipping build because dry-run')
-  } else {
-    // For test it's pain to wait for build as you can test build separately.
-    await executeAndLog('npm run build')
-  }
-
-  await executeAndLog(`npm publish --tag=${distTag}${dryRun ? ' --dry-run' : ''}`)
-
   // **** Cleanup ****
 
   await executeAndLog('git reset --hard HEAD')
 
-  console.log('Released - GLORIOUS SUCCESS')
+  console.log(chalk.green('Released - 😎 GLORIOUS SUCCESS 😎'))
+}
+
+const simplePrompt = async <T> (question: DistinctQuestion<T>): Promise<T> => {
+  const result = await inquirer.prompt({
+    name: 'question',
+    ...question,
+  })
+  // Inquirer typing is pure pain.
+  return (result as unknown as { question: T }).question
+}
+const inquireReleaseType = async () => simplePrompt<ReleaseType>({
+  type: 'list',
+  message: 'Select build type',
+  choices: ['large', 'tiny', 'next', 'experimental'],
+  default: 'experimental',
+})
+const inquireDryRun = async () => simplePrompt<boolean>({
+  type: 'confirm',
+  default: false,
+  message: 'Do you want a dry-run? (there won\'t be any non reversible changes)',
+})
+const checkIfTooLate = async (releaseType: ReleaseType) => {
+  const result = await simplePrompt<boolean | undefined>({
+    type: 'confirm',
+    default: false,
+    when: () => new Date().getHours() > 20 && ['large', 'tiny'].includes(releaseType),
+    message: 'It\'s too late already, sure you\'re up for release at this time?',
+  })
+  if (result === undefined) {
+    return true
+  }
+  return result
+}
+const confirmRelease = async () => simplePrompt<boolean>({
+    type: 'confirm',
+    default: false,
+    message: 'Please check release details are correct. All good?',
+  })
+
+;(async () => {
+  const releaseType = await inquireReleaseType()
+  const dryRun = await inquireDryRun()
+  const releaseConfig = await getReleaseConfig(releaseType)
+
+  console.table(releaseConfig)
+
+  if (!(
+    await runReleaseChecks(releaseConfig, dryRun)
+    && await confirmRelease()
+    && await checkIfTooLate(releaseType)
+  )) {
+    return
+  }
+  await runReleaseScript(releaseConfig, dryRun)
 })()
