@@ -10,7 +10,12 @@ if (fs.existsSync('./dist')) {
 }
 
 // Build types before build.
-execSync('npm run build:types')
+try {
+  execSync('yarn build:types', { stdio: 'inherit' })
+} catch (e) {
+  console.error('Error when build types.')
+  process.exit(1)
+}
 
 export const RollupConfig = [
   createESMConfig({ ...defaultBuildParams, outDir: 'dist/esm' }),
