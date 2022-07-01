@@ -17,7 +17,7 @@ There are a couple of cli arguments you can pass to script to modify its behavio
 ```sh
 npx tsx build/release-script.ts
 
-  # release type (required) - monthly | weekly | development | experimental
+  # release type (required) - large | tiny | development | experimental
   --release-type=experimental
 
   # for testing - doesn't push changes anywhere and performs a cleanup
@@ -29,15 +29,15 @@ You have the following commands from repo root to simplify script usage:
 > **Note**
 > Run this commands with npm instead of yarn to prevent auth issues
 ```bash
-npm run release:monthly
-npm run release:weekly
+npm run release:large
+npm run release:tiny
 npm run release:next
 npm run release:experimental
 ```
 
 ### Release types
 
-|                     | **monthly** | **weekly** |            **next**            |            **experimental**            |
+|                     | **large** | **tiny** |            **next**            |            **experimental**            |
 |---------------------|:-----------:|:----------:|:------------------------------:|:--------------------------------------:|
 | **git tag**         |      +      |     +      |               -                |                   -                    |
 | **dist tag**        |  `latest`   |  `latest`  |             `next`             |             `experimental`             |
@@ -45,8 +45,8 @@ npm run release:experimental
 | **commits version** |      +      |     +      |               -                |                   -                    |
 | **branch**          |  `master`   | `develop`  |           `develop`            |                  any                   |
 
-* **monthly** - large release - we should advertize it and include fancy features;
-* **weekly** - once-in-a-week release, includes all current features;
+* **large** - large release - we should advertize it and include fancy features;
+* **tiny** - once-in-a-week release, includes all current features;
 * **next** - release for each commit in `develop` branch;
 * **exprimental** - release for developer to showcase the build.
 
