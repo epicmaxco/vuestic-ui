@@ -177,6 +177,7 @@ export default defineComponent({
   &__content-wrapper {
     /* overflow: hidden; */
     z-index: var(--va-dropdown-content-wrapper-z-index);
+    font-family: var(--va-font-family);
   }
 }
 </style>
