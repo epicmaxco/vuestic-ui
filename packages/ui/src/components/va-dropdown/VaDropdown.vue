@@ -9,9 +9,9 @@
     <div
       ref="anchorRef"
       class="va-dropdown__anchor"
-      @click="onAnchorClick()"
-      @mouseenter="onMouseEnter()"
-      @mouseleave="onMouseLeave()"
+      @click="onAnchorClick"
+      @mouseenter="onMouseEnter"
+      @mouseleave="onMouseLeave"
     >
       <slot name="anchor" />
     </div>
@@ -21,7 +21,7 @@
           ref="contentRef"
           class="va-dropdown__content-wrapper"
           @mouseover="$props.isContentHoverable && onMouseEnter()"
-          @mouseout="onMouseLeave()"
+          @mouseout="onMouseLeave"
           @click.stop="emitAndClose('dropdown-content-click', closeOnContentClick)"
         >
           <slot />
@@ -33,12 +33,14 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType, shallowRef, toRef } from 'vue'
+import pick from 'lodash/pick.js'
 
 import {
   useStateful, useStatefulEmits, useStatefulProps,
   useDebounceFn,
   usePopover, placementsPositions, Placement,
   useClickOutside,
+  useBem,
 } from '../../composables'
 
 export default defineComponent({
@@ -85,9 +87,7 @@ export default defineComponent({
       set (val) { statefulVal.value = val },
     })
 
-    const computedClass = computed(() => ({
-      'va-dropdown--disabled': props.disabled,
-    }))
+    const computedClass = useBem('va-dropdown', () => pick(props, ['disabled']))
 
     // to be able to select specific anchor element inside anchorRef
     const computedAnchorRef = computed(() => (
@@ -177,6 +177,7 @@ export default defineComponent({
   &__content-wrapper {
     /* overflow: hidden; */
     z-index: var(--va-dropdown-content-wrapper-z-index);
+    font-family: var(--va-font-family);
   }
 }
 </style>
