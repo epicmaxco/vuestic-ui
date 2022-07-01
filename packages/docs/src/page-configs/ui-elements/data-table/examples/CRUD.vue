@@ -24,8 +24,8 @@
     </template>
 
     <template #cell(actions)="{ rowIndex }">
-      <va-button flat icon="edit" @click="openModalToEditItemById(rowIndex)" />
-      <va-button flat icon="delete" @click="deleteItemById(rowIndex)" />
+      <va-button preset="plain" icon="edit" @click="openModalToEditItemById(rowIndex)" />
+      <va-button preset="plain" icon="delete" @click="deleteItemById(rowIndex)" />
     </template>
   </va-data-table>
 

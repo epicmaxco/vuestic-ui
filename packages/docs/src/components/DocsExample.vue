@@ -5,9 +5,8 @@
       <va-button
         v-if="!exampleOptions.forceShowCode"
         class="mt-2 d-block docs-example__show-code-button"
-        flat
+        preset="plain"
         size="small"
-        color="primary"
         @click="showCode = !showCode"
       >
         {{ showCode ? $t('docsExample.hideCode') : $t('docsExample.showCode') }}

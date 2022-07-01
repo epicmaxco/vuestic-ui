@@ -14,6 +14,46 @@
         </tr>
 
         <tr>
+          <td>
+            Custom hover behaviour
+          </td>
+          <td>
+            <va-button :backgroundOpacity="0.9" hoverBehaviour="opacity" :hoverOpacity="0.4">
+              Hover me
+            </va-button>
+            <va-button preset="primary" hoverBehaviour="mask" hoverMaskColor="warning" :hoverOpacity="1">
+              Hover me
+            </va-button>
+            <va-button preset="secondary" hoverBehaviour="opacity" :hoverOpacity="0.4">
+              Hover me
+            </va-button>
+            <va-button preset="plain" hoverBehaviour="mask" hoverMaskColor="warning" :hoverOpacity="1">
+              Hover me
+            </va-button>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            Custom press behaviour
+          </td>
+          <td>
+            <va-button :backgroundOpacity="0.9" pressedBehaviur="opacity" :hoverOpacity="0.4">
+              Hover me
+            </va-button>
+            <va-button preset="primary" pressedBehaviur="mask" hoverMaskColor="warning" :hoverOpacity="1">
+              Hover me
+            </va-button>
+            <va-button preset="secondary" pressedBehaviur="opacity" :hoverOpacity="0.4">
+              Hover me
+            </va-button>
+            <va-button preset="plain" hoverBehaviour="mask" hoverMaskColor="warning" :hoverOpacity="1">
+              Hover me
+            </va-button>
+          </td>
+        </tr>
+
+        <tr>
           <td>Small size</td>
           <td>
             <va-button size="small">Accent (default)</va-button>
@@ -46,6 +86,7 @@
             <va-button preset="primary" icon-right="clear">Dropdown Button</va-button>
           </td>
         </tr>
+
         <tr>
           <td>Button Colors</td>
           <td>
@@ -56,6 +97,7 @@
             <va-button preset="plainOpacity" color="dark">Dark</va-button>
           </td>
         </tr>
+
         <tr>
           <td>Disabled state</td>
           <td>
@@ -66,6 +108,7 @@
             <va-button preset="plainOpacity" disabled>Plain with opacity</va-button>
           </td>
         </tr>
+
         <tr>
           <td>Button tags</td>
           <td>
@@ -74,6 +117,7 @@
             <va-button to="/demo">Router-link Button</va-button>
           </td>
         </tr>
+
         <tr>
           <td>Buttons with icons (as slots with config)</td>
           <td>
@@ -91,16 +135,18 @@
             </va-config>
           </td>
         </tr>
+
         <tr>
-          <td>Outline Buttons With icons</td>
+          <td>Outline Buttons</td>
           <td>
-            <va-button border-color="primary" preset="secondary" icon="create">Secondary</va-button>
+            <va-button border-color="primary" preset="primary" icon="create">Secondary</va-button>
             <va-button border-color="primary" preset="secondary" iconRight="clear">Secondary</va-button>
-            <va-button border-color="primary" preset="secondary" icon="create" iconRight="clear">
+            <va-button border-color="primary" preset="plain" icon="create" iconRight="clear">
               Secondary
             </va-button>
           </td>
         </tr>
+
         <tr>
           <td>Icons-only Buttons</td>
           <td>
@@ -111,6 +157,7 @@
             <va-button preset="plainOpacity" icon="block" />
           </td>
         </tr>
+
         <tr>
           <td>
             Buttons with loading status
@@ -123,6 +170,7 @@
             <va-button @click="buttonLoading = false">Stop loading</va-button>
           </td>
         </tr>
+
         <tr>
           <td>
             Round button
@@ -131,6 +179,7 @@
             <va-button round>Label</va-button>
             <va-button round icon="block" />
             <va-button preset="primary" round icon="block" />
+            <va-button preset="primary" border-color="warning" round>Label</va-button>
           </td>
         </tr>
 
@@ -144,6 +193,7 @@
             <va-button @click="$refs.testButton.blur()">Blur Main Button</va-button>
           </td>
         </tr>
+
         <tr>
           <td>
             Multiline text

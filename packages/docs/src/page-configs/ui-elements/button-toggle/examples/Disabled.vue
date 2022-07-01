@@ -7,7 +7,7 @@
   />
 
   <va-button-toggle
-    :rounded="false"
+    round
     disabled
     v-model="model"
     :options="options"
@@ -15,7 +15,8 @@
   />
 
   <va-button-toggle
-    outline
+    preset="secondary"
+    border-color="primary"
     disabled
     v-model="model"
     :options="options"
@@ -23,7 +24,7 @@
   />
 
   <va-button-toggle
-    flat
+    preset="plain"
     disabled
     v-model="model"
     :options="options"

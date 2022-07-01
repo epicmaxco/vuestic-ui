@@ -7,7 +7,7 @@
     Button without label
   </va-button-dropdown>
 
-  <va-button-dropdown class="mr-2 mb-2" :rounded="false">
+  <va-button-dropdown class="mr-2 mb-2" round>
     Button without label
   </va-button-dropdown>
 

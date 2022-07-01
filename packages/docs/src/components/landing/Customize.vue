@@ -347,7 +347,6 @@ export default class Customize extends Vue {
               <div class="component">
                 <va-button-toggle
                   v-model="theme"
-                  color="primary"
                   :options="themeToggleOptions"
                   @input="updateTheme"
                 />
@@ -367,7 +366,7 @@ export default class Customize extends Vue {
               </div>
 
               <div class="component">
-                <va-button color="primary">
+                <va-button>
                   Submit
                 </va-button>
               </div>

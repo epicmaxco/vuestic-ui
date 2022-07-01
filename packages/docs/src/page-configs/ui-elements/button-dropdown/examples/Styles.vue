@@ -1,14 +1,16 @@
 <template>
   <va-button-dropdown
     class="mr-2 mb-2"
-    outline
+    preset="secondary"
+    border-color="primary"
     label="outline"
   >
     Content
   </va-button-dropdown>
   <va-button-dropdown
     class="mr-2 mb-2"
-    outline
+    preset="secondary"
+    border-color="primary"
     split
     label="outline"
   >
@@ -16,7 +18,7 @@
   </va-button-dropdown>
   <va-button-dropdown
     class="mr-2 mb-2"
-    flat
+    preset="plain"
     split
     label="flat"
   >

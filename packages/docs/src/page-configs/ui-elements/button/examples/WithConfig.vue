@@ -6,16 +6,12 @@
       <va-icon size="large" name="shield" />
     </va-button>
 
-    <va-button class="mr-4 mb-2" space-between-items>
-      <va-icon name="gavel" />
+    <va-button class="mr-4 mb-2" icon="gavel" icon-color="danger" icon-right="shield">
       Colored icons
-      <va-icon name="shield" />
     </va-button>
 
-    <va-button size="small" :rounded="false" class="mr-4 mb-2" space-between-items>
-      <va-icon size="small" name="gavel" />
+    <va-button size="small" class="mr-4 mb-2" icon="gavel" icon-color="danger" icon-right="shield">
       Colored icons
-      <va-icon size="small" name="shield" />
     </va-button>
   </va-config>
 </template>

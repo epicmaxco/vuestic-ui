@@ -11,7 +11,7 @@
             <div class="block__components">
 
               <div class="component">
-                <va-button color="primary">Пампуй</va-button>
+                <va-button>Пампуй</va-button>
               </div>
 
               <div class="component">

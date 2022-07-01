@@ -10,7 +10,8 @@
   <va-button-dropdown
     class="mr-2 mb-2"
     split
-    outline
+    preset="secondary"
+    border-color="primary"
     leftIcon
     label="Split"
   >
@@ -29,7 +30,8 @@
   <va-button-dropdown
     class="mr-2 mb-2"
     split
-    outline
+    preset="secondary"
+    border-color="primary"
     leftIcon
     :rounded="false"
     label="Split"

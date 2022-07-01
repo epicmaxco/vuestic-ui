@@ -5,11 +5,14 @@
   --va-button-align-items: center;
   --va-button-background-image: none;
   --va-button-box-shadow: none;
-  --va-button-border: 0;
+  --va-button-border-width: 0;
+  --va-button-border-color: unset;
+  --va-button-border-style: none;
   --va-button-font-weight: 600;
   --va-button-transition: none;
   --va-button-margin: 0;
   --va-button-padding: 0;
+  --va-button-cursor: pointer;
 
   /* Small */
   --va-button-sm-size: 1.5rem;

@@ -191,7 +191,9 @@ export default defineComponent({
   display: var(--va-button-display);
   justify-content: var(--va-button-justify-content);
   align-items: var(--va-button-align-items);
-  border: var(--va-button-border);
+  border-width: var(--va-button-border-width);
+  border-color: var(--va-button-border-color);
+  border-style: var(--va-button-border-style);
   background-image: var(--va-button-background-image);
   box-shadow: var(--va-button-box-shadow);
   font-family: var(--va-font-family);
@@ -200,7 +202,7 @@ export default defineComponent({
   text-transform: initial;
   transition: var(--va-button-transition);
   box-sizing: border-box;
-  cursor: pointer;
+  cursor: var(--va-button-cursor);
 
   &__content {
     height: 100%;
@@ -222,8 +224,9 @@ export default defineComponent({
   }
 
   &--small {
-    @include va-button(var(--va-button-sm-content-py), var(--va-button-sm-content-px), var(--va-button-sm-font-size), var(--va-button-sm-line-height), var(--va-button-sm-border-radius));
-
+    font-size: var(--va-button-sm-font-size);
+    line-height: var(--va-button-sm-line-height);
+    border-radius: var(--va-button-sm-border-radius);
     letter-spacing: var(--va-button-sm-letter-spacing);
     min-height: var(--va-button-sm-size);
     min-width: var(--va-button-sm-size);
@@ -262,8 +265,9 @@ export default defineComponent({
   }
 
   &--normal {
-    @include va-button(var(--va-button-content-py), var(--va-button-content-px), var(--va-button-font-size), var(--va-button-line-height), var(--va-button-border-radius));
-
+    font-size: var(--va-button-font-size);
+    line-height: var(--va-button-line-height);
+    border-radius: var(--va-button-border-radius);
     letter-spacing: var(--va-button-letter-spacing);
     min-height: var(--va-button-size);
     min-width: var(--va-button-size);
@@ -305,8 +309,9 @@ export default defineComponent({
   }
 
   &--large {
-    @include va-button(var(--va-button-lg-content-py), var(--va-button-lg-content-px), var(--va-button-lg-font-size), var(--va-button-lg-line-height), var(--va-button-lg-border-radius));
-
+    font-size: var(--va-button-lg-font-size);
+    line-height: var(--va-button-lg-line-height);
+    border-radius: var(--va-button-lg-border-radius);
     letter-spacing: var(--va-button-lg-letter-spacing);
     min-height: var(--va-button-lg-size);
     min-width: var(--va-button-lg-size);

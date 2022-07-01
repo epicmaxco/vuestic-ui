@@ -3,9 +3,9 @@
     <va-button-toggle
       class="pb-2"
       v-model="selectedTheme"
-      outline
-      small
-      color="primary"
+      border-color="primary"
+      preset="secondary"
+      size="small"
       :options="themeOptions"
       style="max-width: 100%;"
     />

@@ -22,9 +22,8 @@
         <va-button
           v-for="(link, index) in links"
           :key="index"
-          flat
+          preset="plain"
           class="header__links__button ml-2"
-          color="primary"
           :to="link.to"
           :href="link.url"
           :target="link.target"

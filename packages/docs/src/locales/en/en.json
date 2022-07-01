@@ -1633,7 +1633,7 @@
   },
   "button": {
     "title": "Button",
-    "summaryText": "The `va-button` component replaces the standard HTML button. It offers multiple built-in styles and allows a user to change color and size manually.",
+    "summaryText": "The `va-button` component replaces the standard HTML button. It offers multiple built-in styles and allows user to change color and size manually.",
     "examples": {
       "default": {
         "title": "Default",
@@ -1645,7 +1645,7 @@
       },
       "withGradient": {
         "title": "Gradient",
-        "text": "It’s used to apply a gradient style to a background."
+        "text": "Used to apply a gradient style to a background (only if `backgroundOpacity` prop is equals `1`)."
       },
       "withTextColor": {
         "title": "Text colors",

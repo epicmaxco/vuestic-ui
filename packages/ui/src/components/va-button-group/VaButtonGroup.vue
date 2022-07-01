@@ -31,14 +31,14 @@ export default defineComponent({
     // temp
     useDeprecatedProps(['flat', 'outline'])
 
-    return {
-      buttonConfig: computed(() => ({ VaButton: { ...props } })),
-      computedClass: useBem('va-button-group', () => ({
-        square: !props.round,
-        small: props.size === 'small',
-        large: props.size === 'large',
-      })),
-    }
+    const buttonConfig = computed(() => ({ VaButton: { ...props } }))
+    const computedClass = useBem('va-button-group', () => ({
+      square: !props.round,
+      small: props.size === 'small',
+      large: props.size === 'large',
+    }))
+
+    return { buttonConfig, computedClass }
   },
 })
 </script>
