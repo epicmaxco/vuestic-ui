@@ -150,11 +150,11 @@ const runReleaseScript = async (releaseConfig :ReleaseConfig, dryRun: boolean) =
     if (shouldCommit) {
       await executeAndLog(`git commit -am "chore: bump version to ${gitTag}"`)
       // TODO: Maybe save remote name in .env or pass as arg.
-      await executeAndLog('git push upstream ')
+      await executeAndLog('git push vuestic-ui')
     }
     if (gitTag) {
       await executeAndLog(`git tag ${gitTag}`)
-      await executeAndLog(`git push upstream ${gitTag}`)
+      await executeAndLog(`git push vuestic-ui ${gitTag}`)
     }
   }
   // **** Cleanup ****
