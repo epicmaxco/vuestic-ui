@@ -33,6 +33,7 @@ import {
   useFormProps,
   useForm,
   useArrayRefs,
+  useCSSVariables,
 } from '../../composables'
 
 export default defineComponent({
@@ -95,13 +96,13 @@ export default defineComponent({
       'va-time-picker--framed': props.framed,
     }))
 
-    const computedStyles = computed(() => {
+    const computedStyles = useCSSVariables('va-time-picker', () => {
       const gapHeight = (props.visibleCellsCount - 1) / 2 * props.cellHeight
 
       return {
-        '--va-time-picker-height': `${props.cellHeight * props.visibleCellsCount}px`,
-        '--va-time-picker-cell-height': `${props.cellHeight}px`,
-        '--va-time-picker-column-gap-height': `${gapHeight}px`,
+        height: `${props.cellHeight * props.visibleCellsCount}px`,
+        'cell-height': `${props.cellHeight}px`,
+        'column-gap-height': `${gapHeight}px`,
       }
     })
 
