@@ -87,7 +87,7 @@ export default defineComponent({
       set (val) { statefulVal.value = val },
     })
 
-    const computedClass = useBem('va-dropdown', pick(props, ['disabled']))
+    const computedClass = useBem('va-dropdown', () => pick(props, ['disabled']))
 
     // to be able to select specific anchor element inside anchorRef
     const computedAnchorRef = computed(() => (
