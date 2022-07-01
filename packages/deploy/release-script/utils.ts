@@ -42,7 +42,7 @@ export const bumpPackageJsonVersion = (filePath: string, newVersion: string) => 
 }
 
 export const getPackageJsonVersion = (): string => {
-  const packageJsonPath = path.resolve(__dirname, '../package.json')
+  const packageJsonPath = path.resolve(__dirname, '../../../packages/ui/package.json')
   // Coerce keeps only 1.2.3 from full version string - useful in case we sit on some weird version.
   return semver.coerce(JSON.parse(fs.readFileSync(packageJsonPath)).version)
 }
