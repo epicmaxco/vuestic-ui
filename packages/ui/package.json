@@ -114,7 +114,6 @@
     "stylelint-config-standard": "^22.0.0",
     "ts-jest": "^26.5.4",
     "ts-loader": "^8.0.14",
-    "tsx": "^3.5.0",
     "typescript": "4.7.4",
     "vue": "^3.0.4",
     "vue-book": "0.2.0-alpha.0",
@@ -142,6 +141,10 @@
     ".{htm,html,css,sss,less,scss}": [
       "stylelint '**/*.{vue,html,css,scss}' --fix"
     ]
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
   },
   "exports": {
     ".": {

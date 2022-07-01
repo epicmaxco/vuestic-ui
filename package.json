@@ -30,11 +30,7 @@
     "push-production": "yarn workspace vuestic-ui push-production",
     "generate:docs": "yarn workspace docs generate:docspage",
     "generate:component": "yarn workspace docs generate:component",
-    "run-all": "wt -d packages/ui --title vuestic-book cmd /k yarn serve --port 8080; split-pane -d packages/docs --title vuestic-docs cmd /k yarn serve --port 8081",
-    "release:large": "cd packages/ui && tsx scripts/release-script.ts --release-type=large",
-    "release:tiny": "cd packages/ui && tsx scripts/release-script.ts --release-type=tiny",
-    "release:next": "cd packages/ui && tsx scripts/release-script.ts --release-type=next",
-    "release:experimental": "cd packages/ui && tsx scripts/release-script.ts --release-type=experimental"
+    "release": "yarn workspace deploy release"
   },
   "workspaces": {
     "packages": [
