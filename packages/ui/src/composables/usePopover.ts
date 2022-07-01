@@ -1,4 +1,4 @@
-import { computed, onBeforeUnmount, onMounted, Ref, unref, watch } from 'vue'
+import { computed, Ref, unref, watch } from 'vue'
 import { useDomRect } from './useDomRect'
 import { mapObject } from '../utils/map-object'
 import { useClientOnly } from './useClientOnly'
@@ -14,7 +14,7 @@ type AlignCoords = { main: number, cross: number }
 export const placementsPositions = ['top', 'bottom', 'left', 'right']
   .reduce((acc, position) => [...acc, position, `${position}-start`, `${position}-end`, `${position}-center`], ['auto'] as string[])
 
-const coordsToCss = ({ x, y }: Coords) => ({ left: `${x}px`, top: `${y}px` })
+const coordsToCss = ({ x, y }: Coords) => ({ transform: `translate(${x}px, ${y}px)` })
 
 const parsePlacement = (placement: Placement) => {
   const [position, align] = placement.split('-') as [PlacementPosition, PlacementAlignment | undefined]
@@ -123,8 +123,8 @@ export type usePopoverOptions = {
  * @param options make options reactive if you want popover to react on options change.
  */
 export const usePopover = (
-  anchorRef: Ref<HTMLElement | null | undefined>,
-  contentRef: Ref<HTMLElement | null | undefined>,
+  anchorRef: Ref<HTMLElement | undefined>,
+  contentRef: Ref<HTMLElement | undefined>,
   options: usePopoverOptions | Ref<usePopoverOptions>,
 ) => {
   const documentRef = useClientOnly(() => document)
@@ -140,15 +140,15 @@ export const usePopover = (
   const { domRect: anchorDomRect } = useDomRect(anchorRef)
   const { domRect: contentDomRect } = useDomRect(contentRef)
 
+  const css = {
+    width: 'max-content',
+    position: 'absolute',
+  }
+
   const updateContentCSS = () => {
     if (!rootRef.value || !anchorDomRect.value || !contentDomRect.value) { return }
 
     let offsetCoords: Coords = { x: 0, y: 0 }
-
-    const css = {
-      width: 'max-content',
-      position: 'fixed',
-    }
 
     const { placement, keepAnchorWidth, offset, autoPlacement, stickToEdges } = unref(options)
 
@@ -183,18 +183,17 @@ export const usePopover = (
       coords = calculateClipToEdge(coords, offsetCoords, contentDomRect.value, anchorDomRect.value, rootRect)
     }
 
-    Object.assign(contentRef.value?.style, {
-      ...css,
-      ...coordsToCss(coords),
-    })
+    if (contentRef.value) {
+      Object.assign(contentRef.value.style, {
+        ...css,
+        ...coordsToCss(coords),
+      })
+    }
   }
 
   watch(anchorDomRect, updateContentCSS)
   watch(contentDomRect, updateContentCSS)
   watch(options, updateContentCSS, { deep: true })
-
-  onMounted(() => { window.addEventListener('resize', updateContentCSS) })
-  onBeforeUnmount(() => { window.removeEventListener('resize', updateContentCSS) })
 
   return {
     anchorDomRect,

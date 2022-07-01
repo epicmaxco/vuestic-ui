@@ -6,8 +6,9 @@
   --va-popover-content-padding: 0.65rem 1rem;
   --va-popover-content-border-radius: 0.5rem;
   --va-popover-content-font-size: 1rem;
-  --va-popover-content-wrapper-background-color: #ffffff;
-  --va-popover-content-wrapper-border-radius: 0.5rem;
+  --va-popover-content-box-shadow: 0 2px 3px 0;
+  --va-popover-content-background-color: var(--va-white);
   --va-popover-title-font-weight: 700;
   --va-popover-title-margin-bottom: 0.125rem;
+  --va-popover-body-line-height: 1.5;
 }

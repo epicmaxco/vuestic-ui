@@ -2,12 +2,12 @@
   <div class="row">
     <div
       style="height: 200px;"
-      ref="scrollTarget"
+      ref="infiniteScrollTarget"
       class="flex md6 lg4"
     >
       <va-infinite-scroll
         :load="appendRecordsAsyncRef"
-        :scroll-target="$refs.scrollTarget"
+        :scroll-target="$refs.infiniteScrollTarget"
       >
         <div
           v-for="(record, index) in recordsRef"
@@ -22,12 +22,12 @@
 
     <div
       style="height: 200px;"
-      id="target"
+      id="infinite-scroll-custom-target"
       class="flex md6 lg4"
     >
       <va-infinite-scroll
         :load="appendRecordsAsyncId"
-        scroll-target="#target"
+        scroll-target="#infinite-scroll-custom-target"
       >
         <div
           v-for="(record, index) in recordsId"
@@ -44,18 +44,18 @@
 export default {
   data () {
     return {
-      recordsRef: [{}, {}, {}, {}, {}, {}, {}, {}],
-      recordsId: [{}, {}, {}, {}, {}, {}, {}, {}],
+      recordsRef: [{}, {}, {}, {}, {}, {}, {}],
+      recordsId: [{}, {}, {}, {}, {}, {}, {}],
     }
   },
   methods: {
     async appendRecordsAsyncRef () {
       await new Promise(resolve => setTimeout(resolve, 1000))
-      this.recordsRef.push({}, {}, {})
+      this.recordsRef.push({}, {}, {}, {})
     },
     async appendRecordsAsyncId () {
       await new Promise(resolve => setTimeout(resolve, 1000))
-      this.recordsId.push({}, {}, {})
+      this.recordsId.push({}, {}, {}, {})
     },
   },
 }

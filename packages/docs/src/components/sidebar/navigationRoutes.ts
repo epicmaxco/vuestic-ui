@@ -55,6 +55,10 @@ export const navigationRoutes: NavigationRoute[] = [
           badge: 'new',
         },
       },
+      {
+        name: 'ssr-guide',
+        displayName: 'menu.ssrGuide',
+      },
       // GENERATOR_ADD - gettingStarted
     ],
   },
@@ -329,6 +333,10 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: 'color-palette',
         displayName: 'menu.colorPalette',
+      },
+      {
+        name: 'spacer',
+        displayName: 'menu.spacer',
       },
       // GENERATOR_ADD - uiElements
     ],
