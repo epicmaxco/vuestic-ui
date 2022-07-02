@@ -72,7 +72,7 @@
         v-bind="computedMainButtonProps"
         v-on="mainButtonListeners"
       >
-        <slot name="label">
+        <slot>
           {{ label }}
         </slot>
       </va-button>

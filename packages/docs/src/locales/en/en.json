@@ -1633,11 +1633,15 @@
   },
   "button": {
     "title": "Button",
-    "summaryText": "The `va-button` component replaces the standard HTML button. It offers multiple built-in styles and allows user to change color and size manually.",
+    "summaryText": "The `va-button` component replaces the standard HTML button. It offers multiple built-in style presets and allows user to change different attributes (size, color, opacity etc.) manually.",
     "examples": {
       "default": {
         "title": "Default",
         "text": "Just a simple button."
+      },
+      "presets": {
+        "title": "Presets",
+        "text": "The `preset` prop is used to change the build-in style of the component."
       },
       "withColor": {
         "title": "Colors",
@@ -1655,17 +1659,17 @@
         "title": "Sizes",
         "text": "The `size` prop is used to fit your button to any place on your web page."
       },
+      "withRound": {
+        "title": "Rounded",
+        "text": "You can make your button rounded using `round` prop."
+      },
       "withStyle": {
         "title": "Different styles",
-        "text": "We have 3 styles available: `outlined`, `flat` and `square`."
+        "text": "We have 3 styles available: `outline`, `plain` and `round`."
       },
       "withIcon": {
         "title": "Add icons",
         "text": "You can add icons to `va-button` with 2 different props: `icon` and `icon-right`"
-      },
-      "withConfig": {
-        "title": "Icons as slots with config",
-        "text": "You can wrap your buttons with `VaConfig` and pass icons as slots"
       },
       "withLoading": {
         "title": "Loading state",

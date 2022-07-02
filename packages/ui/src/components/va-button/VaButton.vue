@@ -40,7 +40,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, computed, shallowRef, toRef } from 'vue'
+import { defineComponent, PropType, computed, shallowRef, ComputedRef } from 'vue'
 
 import { useBem } from '../../composables/useBem'
 import { useFocus } from '../../composables/useFocus'
@@ -63,6 +63,7 @@ import { VaIcon } from '../va-icon'
 import { VaProgressCircle } from '../va-progress-circle'
 
 import pick from 'lodash/pick.js'
+import isFunction from 'lodash/isFunction.js'
 
 export default defineComponent({
   name: 'VaButton',
@@ -134,7 +135,22 @@ export default defineComponent({
     // classes
     const wrapperClassComputed = computed(() => ({ 'va-button__content--loading': props.loading }))
 
-    const isSlotContentPassed = computed(() => !!slots.default?.()?.[0]?.children)
+    const checkSlotChildrenDeep = (v: any, initial: boolean): boolean => {
+      if (!v || (initial && (!isFunction(v) || !v() || !v().length))) { return false }
+
+      const slotData = initial ? v() : v
+      if (Array.isArray(slotData)) {
+        return slotData.some((el: any) => {
+          return Array.isArray(el.children) ? checkSlotChildrenDeep(el.children, false) : !!el.children
+        })
+      }
+      return !!slotData.children
+    }
+
+    const isSlotContentPassed = computed(() => {
+      return checkSlotChildrenDeep(slots.default, true)
+    })
+
     const isOneIcon = computed(() => !!((props.iconRight && !props.icon) || (!props.iconRight && props.icon)))
     const computedClass = useBem('va-button', () => ({
       ...pick(props, ['disabled', 'block', 'loading', 'round', 'plain']),
@@ -142,9 +158,8 @@ export default defineComponent({
       normal: !props.size || props.size === 'medium',
       large: props.size === 'large',
       opacity: props.textOpacity < 1,
-      'icon-only': !slots.default && isOneIcon.value,
+      'icon-only': !isSlotContentPassed.value && isOneIcon.value,
       bordered: !!props.borderColor,
-      'no-label': !isSlotContentPassed.value,
       focused: isFocused.value,
     }))
 
@@ -235,16 +250,6 @@ export default defineComponent({
       padding: var(--va-button-sm-content-py) var(--va-button-sm-content-px);
     }
 
-    &.va-button--icon-only {
-      width: var(--va-button-sm-size);
-      height: var(--va-button-sm-size);
-
-      & .va-button__content {
-        padding-right: var(--va-button-sm-content-px);
-        padding-left: var(--va-button-sm-content-px);
-      }
-    }
-
     &.va-button--bordered {
       line-height: calc(var(--va-button-sm-line-height) - 2 * var(--va-button-bordered-border));
     }
@@ -261,6 +266,24 @@ export default defineComponent({
 
     .va-button__right-icon {
       margin-left: var(--va-button-sm-icons-spacing);
+    }
+
+    &.va-button--icon-only {
+      width: var(--va-button-sm-size);
+      height: var(--va-button-sm-size);
+
+      & .va-button__content {
+        padding-right: var(--va-button-sm-content-px);
+        padding-left: var(--va-button-sm-content-px);
+      }
+
+      & .va-button__left-icon {
+        margin-right: 0;
+      }
+
+      & .va-button__left-icon {
+        margin-right: 0;
+      }
     }
   }
 
@@ -369,14 +392,6 @@ export default defineComponent({
 
   &.va-button--disabled {
     @include va-disabled;
-  }
-
-  &--no-label {
-    .va-button__left-icon,
-    .va-button__right-icon {
-      margin-left: 0;
-      margin-right: 0;
-    }
   }
 
   &--focused {

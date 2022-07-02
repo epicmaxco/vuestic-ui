@@ -1,7 +1,11 @@
 <template>
   <div class="language-dropdown">
     <va-button-dropdown
-      preset="plain"
+      :pressedOpacity="0.13"
+      pressedBehaviour="mask"
+      :hoverOpacity="0.15"
+      hoverBehaviour="mask"
+      plain
       :label="currentLanguageName"
       :offset="[0, 10]"
     >
