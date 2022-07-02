@@ -50,9 +50,9 @@ const config: ApiDocsBlock[] = [
     'WithRound',
   ),
   ...block.exampleBlock(
-    'button.examples.withStyle.title',
-    'button.examples.withStyle.text',
-    'WithStyle',
+    'button.examples.withOutline.title',
+    'button.examples.withOutline.text',
+    'WithOutline',
   ),
   ...block.exampleBlock(
     'button.examples.withIcon.title',

@@ -276,14 +276,6 @@ export default defineComponent({
         padding-right: var(--va-button-sm-content-px);
         padding-left: var(--va-button-sm-content-px);
       }
-
-      & .va-button__left-icon {
-        margin-right: 0;
-      }
-
-      & .va-button__left-icon {
-        margin-right: 0;
-      }
     }
   }
 
@@ -392,6 +384,14 @@ export default defineComponent({
 
   &.va-button--disabled {
     @include va-disabled;
+  }
+
+  &--icon-only {
+    .va-button__left-icon,
+    .va-button__right-icon {
+      margin-left: 0;
+      margin-right: 0;
+    }
   }
 
   &--focused {

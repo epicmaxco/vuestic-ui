@@ -1663,9 +1663,9 @@
         "title": "Rounded",
         "text": "You can make your button rounded using `round` prop."
       },
-      "withStyle": {
-        "title": "Different styles",
-        "text": "We have 3 styles available: `outline`, `plain` and `round`."
+      "withOutline": {
+        "title": "Outlined",
+        "text": "You can make the button outlined using prop `border-color`."
       },
       "withIcon": {
         "title": "Add icons",
