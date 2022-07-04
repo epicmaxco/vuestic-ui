@@ -100,7 +100,7 @@ const { createEmits: createMainButtonEmits, createVOnListeners: createMainButton
   [{ listen: 'click', emit: 'main-button-click' }],
 )
 
-const VaButtonProps = omit(extractComponentProps(VaButton), ['iconRight'])
+const VaButtonProps = omit(extractComponentProps(VaButton), ['iconRight', 'block'])
 
 export default defineComponent({
   name: 'VaButtonDropdown',
