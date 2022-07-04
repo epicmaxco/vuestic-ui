@@ -55,6 +55,9 @@
               <va-icon
                 v-else-if="!$props.leftIcon"
                 v-bind="iconProps"
+                tabindex="0"
+                @keydown.enter.stop="showDropdown"
+                @keydown.space.stop="showDropdown"
               />
             </template>
           </va-input>
@@ -186,6 +189,10 @@ export default defineComponent({
 
     const { parseDateInputValue, isValid } = useDateParser(props)
 
+    watch(valueComputed, () => {
+      isValid.value = true
+    })
+
     const modelValueToString = (value: DateInputModelValue): string => {
       if (props.format) {
         return props.format(valueComputed.value)
@@ -249,12 +256,17 @@ export default defineComponent({
     }
 
     const focusInputOrPicker = (): void => {
-      props.manualInput ? focus() : focusDatePicker()
+      isOpenSync.value ? focusDatePicker() : focus()
+    }
+
+    const showDropdown = () => {
+      isOpenSync.value = true
+      nextTick(focusInputOrPicker)
     }
 
     const toggleDropdown = () => {
       isOpenSync.value = !isOpenSync.value
-      focusInputOrPicker()
+      nextTick(focusInputOrPicker)
     }
 
     const showAndFocus = (event: Event): void => {
@@ -336,6 +348,7 @@ export default defineComponent({
       hideAndFocus,
       showAndFocus,
       toggleDropdown,
+      showDropdown,
       focusInputOrPicker,
       reset,
       focus,

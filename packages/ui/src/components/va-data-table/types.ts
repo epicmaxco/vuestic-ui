@@ -77,10 +77,12 @@ export interface DataTableColumnInternal {
 }
 
 export type DataTableItem = Record<string, any>
+export type DataTableItemKey = any
 
 // the inner representation of table cells
 export interface DataTableCell {
   rowIndex: number
+  rowKey: DataTableItemKey
   rowData: DataTableItem
   column: DataTableColumnInternal
   source: any
@@ -89,8 +91,9 @@ export interface DataTableCell {
 
 // the inner representation of table rows
 export interface DataTableRow {
-  source: DataTableItem
   initialIndex: number
+  itemKey: DataTableItemKey
+  source: DataTableItem
   cells: DataTableCell[]
 }
 

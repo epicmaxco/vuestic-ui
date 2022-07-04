@@ -14,7 +14,7 @@
   --va-progress-bar-info-font-weight: 700;
   --va-progress-bar-info-text-align: center;
   --va-progress-bar-info-text-transform: uppercase;
-  --va-progress-bar-info-not-empty-margin-bottom: 0.25rem;
+  --va-progress-bar-info-not-empty-margin-bottom: 0.1rem;
 
   /* Wrapper */
   --va-progress-bar--wrapper-position: relative;
@@ -32,10 +32,8 @@
 
   /* Overlay */
   --va-progress-bar-transition: width ease 2s;
-  --va-progress-bar-text-align: center;
-  --va-progress-bar-color: #ffffff;
   --va-progress-bar-letter-spacing: 0.6px;
-  --va-progress-bar-line-height: 16px;
-  --va-progress-bar-font-size: 12px;
+  --va-progress-bar-line-height: 1;
+  --va-progress-bar-font-size: 0.8em;
   --va-progress-bar-font-weight: 700;
 }

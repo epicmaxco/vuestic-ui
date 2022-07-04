@@ -40,6 +40,11 @@ const config: ApiDocsBlock[] = [
     'tabs.examples.stateful.text',
     'Stateful',
   ),
+  ...block.exampleBlock(
+    'tabs.examples.content.title',
+    'tabs.examples.content.text',
+    'Content',
+  ),
 
   block.subtitle('all.api'),
   block.api(VaTabs, apiOptions),
