@@ -28,7 +28,7 @@ import { VaButtonGroup } from '../va-button-group'
 
 import omit from 'lodash/omit.js'
 
-const VaButtonProps = extractComponentProps(VaButton)
+const VaButtonProps = omit(extractComponentProps(VaButton), ['block'])
 
 export default defineComponent({
   name: 'VaButtonToggle',
