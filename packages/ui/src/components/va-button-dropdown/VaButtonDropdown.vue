@@ -165,9 +165,15 @@ export default defineComponent({
 
     const buttonPropsFiltered = computed(() => {
       let ignoredProps = ['to', 'href', 'loading', 'icon']
+      const presetProps = [
+        'plain',
+        'textOpacity', 'backgroundOpacity',
+        'hoverOpacity', 'hoverBehaviour', 'hoverOpacity',
+        'pressedOpacity', 'pressedBehaviour', 'pressedOpacity',
+      ]
 
       if (props.preset) {
-        ignoredProps = [...ignoredProps, 'plain', 'textOpacity', 'hoverOpacity', 'pressedBehaviour', 'pressedOpacity', 'backgroundOpacity']
+        ignoredProps = [...ignoredProps, ...presetProps]
       }
 
       const filteredProps = omit(VaButtonProps, ignoredProps)
