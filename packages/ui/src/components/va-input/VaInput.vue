@@ -1,6 +1,7 @@
 <template>
   <VaInputWrapper
     v-bind="fieldListeners"
+    :model-value="computedValue"
     :class="$attrs.class"
     :style="$attrs.style"
     :color="$props.color"
@@ -16,7 +17,7 @@
     :outline="$props.outline"
     :requiredMark="$props.requiredMark"
     :focused="isFocused"
-    :counter="counterComputed"
+    :counter="$props.counter"
     :max-length="$props.maxLength"
     @click="focus"
   >
@@ -231,17 +232,10 @@ export default defineComponent({
       ...pick(props, ['type', 'disabled', 'readonly', 'placeholder', 'pattern', 'inputmode']),
     }) as InputHTMLAttributes)
 
-    const counterComputed = computed(() => {
-      if (typeof computedValue.value !== 'string') { return }
-
-      return props.counter ? computedValue.value.length : undefined
-    })
-
     return {
       input,
       inputEvents,
 
-      counterComputed,
       computedChildAttributes,
       computedInputAttributes,
       textareaProps: filterComponentProps(props, VaTextareaProps),
