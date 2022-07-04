@@ -581,16 +581,22 @@
       <va-input
         v-model="counterOrMaxLengthValue"
         counter
-        messages="Additional message"
         class="mb-4"
-      />
+      >
+        <template #counter="{ valueLength }">
+          Additional message, {{ valueLength }}
+        </template>
+      </va-input>
       <va-input
         v-model="counterOrMaxLengthValue"
-        messages="Additional message"
         counter
         label="Name"
         type="textarea"
-      />
+      >
+        <template #counter="{ valueLength }">
+          Additional message, {{ valueLength }}
+        </template>
+      </va-input>
     </VbCard>
     <VbCard title="Max length">
       <va-input
@@ -610,17 +616,23 @@
         v-model="counterOrMaxLengthValue"
         :max-length="maxLength"
         counter
-        messages="Additional message"
         class="mb-4"
-      />
+      >
+        <template #counter="{ valueLength, maxLength }">
+          Additional message, {{ `${valueLength}/${maxLength}` }}
+        </template>
+      </va-input>
       <va-input
         v-model="counterOrMaxLengthValue"
         :max-length="maxLength"
         counter
         label="Name"
-        messages="Additional message"
         type="textarea"
-      />
+      >
+        <template #counter="{ valueLength, maxLength }">
+          Additional message, {{ `${valueLength}/${maxLength}` }}
+        </template>
+      </va-input>
     </VbCard>
     <VbCard
       title="CSS Classes"
