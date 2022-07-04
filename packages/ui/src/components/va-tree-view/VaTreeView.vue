@@ -14,13 +14,11 @@
 
 <script lang="ts">
 import { defineComponent, provide, watch, reactive, ref, computed, PropType } from 'vue'
-import { TreeViewKey, TreeNode, TreeViewProvide } from './types'
+import { useColors, useTextColor } from '../../composables/'
 
+import { TreeViewKey, TreeNode, TreeViewProvide } from './types'
 import useTreeBuilder from './hooks/useTreeBuilder'
 import useTreeFilter from './hooks/useTreeFilter'
-
-import { useColors } from '../../composables/useColor'
-import { useTextColor } from '../../composables/useTextColor'
 
 import { VaTreeNode } from './components/VaTreeNode'
 
@@ -75,7 +73,7 @@ export default defineComponent({
     const selectedNodes = ref(new Set())
     const { getColor } = useColors()
     const colorComputed = computed(() => getColor(props.color))
-    const iconColor = computed(() => useTextColor(colorComputed))
+    const { textColorComputed } = useTextColor(colorComputed)
     const nodeItems = reactive({ list: props.nodes.slice() })
     const treeItems = computed({
       get: () => useTreeBuilder({
@@ -140,9 +138,9 @@ export default defineComponent({
     watch(() => props.filter, filterWatcher)
 
     const treeView: TreeViewProvide = {
-      colorComputed,
-      iconColor,
       treeItems,
+      colorComputed,
+      iconColor: textColorComputed,
       nodeKey: props.nodeKey,
       labelKey: props.labelKey,
       selectable: props.selectable,
