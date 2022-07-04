@@ -19,7 +19,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 
-import { useSize, useSizeProps } from '../../../composables/useSize'
+import { useSize, useSizeProps } from '../../../composables'
 import { useVaRatingColorsProps, useVaRatingColors } from '../hooks/useVaRatingColors'
 
 export default defineComponent({

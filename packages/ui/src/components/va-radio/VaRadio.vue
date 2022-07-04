@@ -44,8 +44,7 @@
 import { defineComponent, PropType, computed } from 'vue'
 
 import { generateUniqueId } from '../../services/utils'
-import { useColors } from '../../composables/useColor'
-import { useFormProps, useForm } from '../../composables/useForm'
+import { useColors, useFormProps, useForm } from '../../composables'
 
 export default defineComponent({
   name: 'VaRadio',

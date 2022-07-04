@@ -1,4 +1,4 @@
-import useKeyboardOnlyFocus from '../useKeyboardOnlyFocus'
+import { useKeyboardOnlyFocus } from '../useKeyboardOnlyFocus'
 import { mount } from '@vue/test-utils'
 
 describe('useKeyboardOnlyFocus', () => {

@@ -1,16 +1,32 @@
 <template>
   <div class="flex lg6 xs12">
-    <div class="mt-2 text--bold muted">When you use a default size:</div>
+    <div class="mt-2 text--bold muted">When you use a default slot:</div>
     <va-progress-bar :model-value="value">
-      {{ value + '%' }}
+      {{ value }}
     </va-progress-bar>
-    <div class="mt-4 mb-2 text--bold muted">When you use a 'large' size:</div>
+
+    <div class="mt-4 mb-2 text--bold muted">When you use a 'content-inside' prop:</div>
     <va-progress-bar
       :model-value="value"
       size="large"
+      content-inside
     >
-      {{ value + '%' }}
+      {{ value }}
     </va-progress-bar>
+
+    <div class="mt-4 mb-2 text--bold muted">When you use a 'show-percent' prop:</div>
+    <va-progress-bar
+      :model-value="value"
+      show-percent
+    />
+    <va-progress-bar
+      class="mt-2"
+      :model-value="value"
+      size="1.5rem"
+      color="warning"
+      content-inside
+      show-percent
+    />
   </div>
 </template>
 
@@ -18,7 +34,7 @@
 export default {
   data () {
     return {
-      value: 35,
+      value: 75,
     }
   },
 }

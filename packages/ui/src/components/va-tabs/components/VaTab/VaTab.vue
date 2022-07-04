@@ -45,13 +45,11 @@
 <script lang="ts">
 import { computed, defineComponent, inject, onBeforeUnmount, onMounted, ref, shallowRef } from 'vue'
 
-import { useRouterLink, useRouterLinkProps } from '../../../composables/useRouterLink'
-import useKeyboardOnlyFocus from '../../../composables/useKeyboardOnlyFocus'
-import { useColors } from '../../../composables/useColor'
+import { useRouterLink, useRouterLinkProps, useKeyboardOnlyFocus, useColors } from '../../../../composables'
 
-import { TabsViewKey, TabsView, TabComponent } from '../types'
+import { TabsViewKey, TabsView, TabComponent } from '../../types'
 
-import { VaIcon } from '../../va-icon'
+import { VaIcon } from '../../../va-icon'
 
 export default defineComponent({
   name: 'VaTab',
@@ -182,7 +180,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "../../../styles/resources";
+@import "../../../../styles/resources";
 @import 'variables';
 
 .va-tab {

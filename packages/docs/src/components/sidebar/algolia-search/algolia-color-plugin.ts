@@ -1,4 +1,4 @@
-import { useColors } from '../../../../../ui/src/services/color-config/color-config'
+import { useColors } from 'vuestic-ui/src/composables'
 import { addOrUpdateStyleElement } from '../../../../../ui/src/services/dom-functions'
 import { getHoverColor } from '../../../../../ui/src/services/color-config/color-functions'
 import { App, computed, watch } from 'vue'

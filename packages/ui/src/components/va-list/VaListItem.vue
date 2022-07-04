@@ -26,7 +26,7 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
 
-import { useRouterLinkProps, useRouterLink } from '../../composables/useRouterLink'
+import { useRouterLink, useRouterLinkProps } from '../../composables'
 
 export default defineComponent({
   name: 'VaListItem',

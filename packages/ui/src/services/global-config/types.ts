@@ -1,4 +1,4 @@
-import type { ColorConfig } from '../color-config/color-config'
+import { ColorConfig } from '../../composables'
 import type { ComponentConfig, Props } from '../component-config/component-config'
 import type { IconConfig } from '../icon-config/types'
 

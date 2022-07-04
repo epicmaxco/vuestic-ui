@@ -13,29 +13,51 @@
     </VbCard>
 
     <VbCard title="view">
-      <VaTimePicker v-model="value" view="seconds" />
-      <br />
-      <VaTimePicker v-model="value" view="hours" />
+      <div class="d-flex">
+        <VaTimePicker v-model="value" view="seconds" />
+        <va-divider vertical />
+        <VaTimePicker v-model="value" view="hours" />
+      </div>
     </VbCard>
 
     <VbCard title="ampm">
-      <VaTimePicker v-model="value" :ampm="ampm" />
+      <div class="d-flex justify--center">
+        <va-switch
+          v-model="ampm"
+          label="ampm"
+          size="small"
+        />
+      </div>
       <br />
-      <VaTimePicker v-model="value" :ampm="ampm" />
+      <div class="d-flex">
+        <VaTimePicker v-model="value" :ampm="ampm" />
+        <va-divider vertical />
+        <VaTimePicker v-model="value" :ampm="ampm" />
+      </div>
     </VbCard>
 
     <VbCard title="value">
-      23:05:53
+      <div class="d-flex justify--space-around">
+        <span>23:05:53</span>
+        <span>{{ selectedTime }}</span>
+      </div>
       <br />
-      {{ value.getHours() }}:{{ value.getMinutes() }}:{{ value.getSeconds() }}
-      <br />
-      <VaTimePicker v-model="value" :ampm="true" />
-      <br />
-      <VaTimePicker v-model="value" :ampm="false" view="seconds" />
+      <div class="d-flex">
+        <VaTimePicker v-model="value" ampm />
+        <va-divider vertical />
+        <VaTimePicker v-model="value" :ampm="false" view="seconds" />
+      </div>
     </VbCard>
 
     <VbCard title="filter">
-      <VaTimePicker v-model="value" view="seconds" :ampm="false" :hoursFilter="(h) => h >= 9 && h <= 19" :minutesFilter="(m) => m % 10 === 0" :secondsFilter="(s) => s % 20 === 0" />
+      <VaTimePicker
+        v-model="value"
+        view="seconds"
+        :ampm="false"
+        :hoursFilter="(h) => h >= 9 && h <= 19"
+        :minutesFilter="(m) => m % 10 === 0"
+        :secondsFilter="(s) => s % 20 === 0"
+      />
     </VbCard>
 
     <VbCard title="readonly">
@@ -45,15 +67,39 @@
     <VbCard title="disabled">
       <VaTimePicker v-model="value" disabled />
     </VbCard>
+
+    <VbCard title="Framed">
+      <VaTimePicker v-model="value" framed />
+    </VbCard>
+
+    <VbCard title="Visible cells count">
+      <div class="d-flex justify--space-around">
+        <span>Show 2</span>
+        <span>Show 5</span>
+        <span>Show 12</span>
+      </div>
+      <br />
+      <div class="d-flex">
+        <VaTimePicker v-model="value" :visible-cells-count="2" />
+        <va-divider vertical />
+        <VaTimePicker v-model="value" :visible-cells-count="5" />
+        <va-divider vertical />
+        <VaTimePicker v-model="value" :visible-cells-count="9" />
+      </div>
+    </VbCard>
   </VbDemo>
 </template>
 
 <script>
-import { VaTimePicker } from './index'
+import VaTimePicker from './VaTimePicker.vue'
+import { VaDivider } from '../va-divider'
+import { VaSwitch } from '../va-switch'
 
 export default {
   components: {
     VaTimePicker,
+    VaDivider,
+    VaSwitch,
   },
 
   data () {
@@ -62,6 +108,17 @@ export default {
       undefValue: undefined,
       ampm: false,
     }
+  },
+
+  computed: {
+    selectedTime () {
+      const formatTime = (time) => time < 10 ? `0${time}` : time
+      const hours = formatTime(this.value.getHours())
+      const minutes = formatTime(this.value.getMinutes())
+      const seconds = formatTime(this.value.getSeconds())
+
+      return `${hours}:${minutes}:${seconds}`
+    },
   },
 }
 </script>

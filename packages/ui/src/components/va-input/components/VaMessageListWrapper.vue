@@ -12,7 +12,7 @@
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
 
-import { useValidationProps } from '../../../composables/useValidation'
+import { useValidationProps } from '../../../composables'
 
 import { VaMessageList } from './VaMessageList'
 

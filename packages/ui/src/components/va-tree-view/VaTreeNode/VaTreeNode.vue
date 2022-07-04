@@ -15,7 +15,7 @@
     >
       <va-icon
         :name="$props.icon"
-        :color="theme.getColor('info')"
+        :color="getColor('info')"
         :size="24"
       />
     </div>
@@ -29,7 +29,7 @@
     >
       <va-icon
         :name="$props.iconRight"
-        :color="theme.getColor('info')"
+        :color="getColor('info')"
       />
     </div>
   </div>
@@ -37,7 +37,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, inject, onBeforeUnmount, onMounted, provide } from 'vue'
-import { useColor } from '../../../composables/useColor'
+import { useColors } from '../../../composables'
 import { VaIcon } from '../../va-icon'
 import { TreeNodeCommon, TreeCategoryKey, TreeNodeKey } from '../types'
 
@@ -63,7 +63,7 @@ export default defineComponent({
     },
   },
   setup (props) {
-    const { theme } = useColor(props)
+    const { getColor } = useColors()
     const treeCategory: TreeNodeCommon<typeof TreeNodeKey> = inject(TreeCategoryKey, {
       onChildMounted: (value: typeof TreeNodeKey) => undefined,
       onChildUnmounted: (value: typeof TreeNodeKey) => undefined,
@@ -78,7 +78,7 @@ export default defineComponent({
 
     return {
       treeCategory,
-      theme,
+      getColor,
     }
   },
 })

@@ -42,7 +42,6 @@ export function createESMConfig ({
     ],
 
     plugins: [
-      typescriptPlugin({ check: false }),
       vuePlugin({
         target: ssr ? 'node' : 'browser',
         preprocessStyles: true,
@@ -54,6 +53,7 @@ export function createESMConfig ({
         inject: false,
       }),
       nodeResolvePlugin(),
+      typescriptPlugin({ check: false }),
     ],
   })
 

@@ -66,9 +66,7 @@
 <script lang="ts">
 import { computed, defineComponent, provide, reactive, ref, unref, watch, Ref, shallowRef, StyleValue } from 'vue'
 
-import { useStateful, useStatefulProps } from '../../composables/useStateful'
-import { useColors } from '../../composables/useColor'
-import { useResizeObserver } from '../../composables/useResizeObserver'
+import { useStateful, useStatefulProps, useColors, useResizeObserver } from '../../composables'
 
 import { TabsViewKey, TabComponent } from './types'
 
@@ -425,6 +423,8 @@ export default defineComponent({
 @import 'variables';
 
 .va-tabs {
+  display: var(--va-tabs-display);
+  align-items: var(--va-tabs-align-items-horizontal);
   position: var(--va-tabs-position);
   font-family: var(--va-font-family);
 
@@ -489,6 +489,8 @@ export default defineComponent({
   }
 
   &--vertical {
+    align-items: var(--va-tabs-align-items-vertical);
+
     .va-tabs__wrapper {
       flex: 0 0 auto;
     }

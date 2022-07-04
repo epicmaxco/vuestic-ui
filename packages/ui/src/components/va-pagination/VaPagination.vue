@@ -74,12 +74,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, watch, PropType, ref, Ref, computed, nextTick, shallowRef } from 'vue'
+import { defineComponent, watch, PropType, ref, computed, nextTick, shallowRef } from 'vue'
 
 import { __DEV__ } from '../../utils/global-utils'
-import { useColors } from '../../composables/useColor'
-import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
-import { useTextColor } from '../../composables/useTextColor'
+import { useColors, useTextColor, useStateful, useStatefulProps, useStatefulEmits } from '../../composables'
 import { setPaginationRange } from './setPaginationRange'
 
 import { VaButtonGroup } from '../va-button-group'

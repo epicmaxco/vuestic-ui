@@ -120,9 +120,7 @@
 <script lang="ts">
 import { watch, h, Transition, defineComponent, PropType, computed, StyleValue, shallowRef, toRef } from 'vue'
 
-import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
-import { useColors } from '../../composables/useColor'
-import { useTextColor } from '../../composables/useTextColor'
+import { useStateful, useStatefulProps, useStatefulEmits, useColors, useTextColor } from '../../composables'
 
 import { VaButton } from '../va-button'
 import { VaIcon } from '../va-icon'

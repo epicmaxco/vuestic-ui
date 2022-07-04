@@ -58,12 +58,10 @@
 <script lang="ts">
 import { computed, defineComponent, shallowRef } from 'vue'
 
-import { generateUniqueId } from '../../services/utils'
-import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'
-import { useColors } from '../../composables/useColor'
-import { useSyncProp } from '../../composables/useSyncProp'
-import { useTextColor } from '../../composables/useTextColor'
+import { useKeyboardOnlyFocus, useColors, useSyncProp, useTextColor } from '../../composables'
 import { useAccordionItem } from '../va-accordion/hooks/useAccordion'
+
+import { generateUniqueId } from '../../services/utils'
 
 import { VaIcon } from '../va-icon'
 
@@ -164,7 +162,6 @@ export default defineComponent({
         paddingLeft: props.icon && 0,
         color: textColorComputed.value,
         backgroundColor: props.color ? getColor(props.color) : '',
-        boxShadow: hasKeyboardFocus.value ? '0 0 0.5rem 0 rgba(0, 0, 0, 0.3)' : '',
       })),
 
       contentStyle: computed(() => {
@@ -220,6 +217,10 @@ export default defineComponent({
       margin-left: var(--va-collapse-header-content-icon-margin-left);
       margin-right: var(--va-collapse-header-content-icon-margin-right);
       color: var(--va-collapse-header-content-icon-color);
+    }
+
+    &:focus {
+      @include focus-outline(var(--va-collapse-header-content-border-radius));
     }
   }
 
