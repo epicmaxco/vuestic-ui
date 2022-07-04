@@ -57,7 +57,7 @@
 
         <template #icon>
           <va-icon
-            v-if="canBeCleared"
+            v-if="canBeClearedComputed"
             role="button"
             aria-label="reset"
             aria-hidden="false"
@@ -65,6 +65,8 @@
             v-bind="clearIconProps"
             @click.stop="reset"
             @keydown.enter.stop="reset"
+            @focus="onFocus"
+            @blur="onBlur"
           />
           <va-icon
             v-else-if="!$props.leftIcon"
@@ -132,7 +134,7 @@ export default defineComponent({
     isOpen: { type: Boolean, default: undefined },
     modelValue: { type: Date, default: undefined },
     clearValue: { type: Date, default: undefined },
-    format: { type: Function as PropType<(date: Date) => string> },
+    format: { type: Function as PropType<(date?: Date) => string> },
     parse: { type: Function as PropType<(input: string) => Date> },
     manualInput: { type: Boolean, default: false },
     leftIcon: { type: Boolean, default: false },
@@ -151,12 +153,9 @@ export default defineComponent({
     const { parse, isValid } = useTimeParser(props)
     const { format } = useTimeFormatter(props)
 
-    const valueText = computed<string | undefined>(() => {
-      if (!isValid.value) { return props.clearValue ? format(props.clearValue) : '' }
-      if (!modelValueSync.value) { return props.clearValue ? format(props.clearValue) : '' }
-
-      return format(modelValueSync.value)
-    })
+    const valueText = computed<string>(() => modelValueSync.value
+      ? format(modelValueSync.value)
+      : format(props.clearValue))
 
     const onInputTextChanged = (val: string) => {
       const v = parse(val)
@@ -201,7 +200,7 @@ export default defineComponent({
 
     const { computedError, computedErrorMessages, listeners } = useValidation(props, emit, reset, focus)
 
-    const hasError = computed(() => (!isValid.value && valueText.value !== props.clearValue) || computedError.value)
+    const hasError = computed(() => (!isValid.value && valueText.value !== format(props.clearValue)) || computedError.value)
 
     const {
       canBeCleared,
@@ -209,6 +208,10 @@ export default defineComponent({
       onFocus,
       onBlur,
     } = useClearable(props, valueText)
+
+    const canBeClearedComputed = computed(() => {
+      return canBeCleared.value && valueText.value !== format(props.clearValue)
+    })
 
     const iconProps = computed(() => ({
       name: props.icon,
@@ -295,7 +298,7 @@ export default defineComponent({
       valueText,
       onInputTextChanged,
       onValueInput,
-      canBeCleared,
+      canBeClearedComputed,
       iconProps,
       clearIconProps,
       filteredSlots,
@@ -308,6 +311,9 @@ export default defineComponent({
       reset,
       focus,
       blur,
+
+      onFocus,
+      onBlur,
     }
   },
 })
