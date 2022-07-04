@@ -16,8 +16,25 @@
     Content
   </va-button-dropdown>
   <va-button-dropdown
+    preset="primary"
     color="#525252"
     label="#525252"
+    split
+  >
+    Content
+  </va-button-dropdown>
+  <va-button-dropdown
+    preset="secondary"
+    color="warning"
+    label="warning"
+    split
+  >
+    Content
+  </va-button-dropdown>
+  <va-button-dropdown
+    preset="plain"
+    color="success"
+    label="success"
     split
   >
     Content
