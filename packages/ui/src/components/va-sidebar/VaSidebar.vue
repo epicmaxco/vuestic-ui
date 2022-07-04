@@ -33,7 +33,7 @@ export default defineComponent({
       validator: (v: string) => ['top', 'bottom', 'left', 'right'].includes(v),
     },
     width: { type: String, default: '16rem' },
-    minimizedWidth: { type: String, default: '2.5rem' },
+    minimizedWidth: { type: String, default: '4rem' },
     modelValue: { type: Boolean, default: true },
   },
   setup (props) {
@@ -100,6 +100,8 @@ export default defineComponent({
   font-family: var(--va-font-family);
 
   &__menu {
+    display: flex;
+    flex-direction: column;
     max-height: var(--va-sidebar-menu-max-height);
     margin-bottom: var(--va-sidebar-menu-margin-bottom);
     list-style: var(--va-sidebar-menu-list-style);
@@ -112,7 +114,7 @@ export default defineComponent({
     left: 0;
 
     .va-sidebar__title {
-      opacity: 0;
+      display: none;
     }
   }
 
