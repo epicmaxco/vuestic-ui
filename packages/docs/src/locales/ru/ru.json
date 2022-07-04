@@ -1305,7 +1305,7 @@
     "treeShaking": "Tree Shaking",
     "counter": "Counter",
     "nuxt": "Nuxt",
-    "ssrGuide": "Ssr Guide",
+    "ssrGuide": "SSR Guide",
     "spacer": "Spacer"
   },
   "all": {
@@ -3006,7 +3006,7 @@
       },
       "styles": {
         "title": "Пресеты и стили",
-        "text": "Вы можете использовать стили компонента [va-button](https://vuestic.dev/ui-elements/button)[[target=_blank]]."
+        "text": "Можно использовать те же встроенные пресеты и стили, что и для компонента [va-button](https://vuestic.dev/ui-elements/button)[[target=_blank]]."
       },
       "icons": {
         "title": "Иконки",
@@ -3041,7 +3041,7 @@
       },
       "styles": {
         "title": "Пресеты и стили",
-        "text": "Вы можете использовать стили компонента [va-button](https://vuestic.dev/ui-elements/button)[[target=_blank]]."
+        "text": "Можно использовать те же встроенные пресеты и стили, что и для компонента [va-button](https://vuestic.dev/ui-elements/button)[[target=_blank]]."
       },
       "disabled": {
         "title": "Недоступная кнопка",
@@ -3612,7 +3612,7 @@
         "text": "Свойство `size` задает размер кнопке."
       },
       "styles": {
-        "title": "Стили",
+        "title": "Пресеты и стили",
         "text": "Можно использовать те же встроенные пресеты и стили, что и для компонента [va-button](https://vuestic.dev/ui-elements/button)[[target=_blank]]."
       },
       "disabled": {

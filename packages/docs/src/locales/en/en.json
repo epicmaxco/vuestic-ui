@@ -3126,7 +3126,7 @@
       },
       "styles": {
         "title": "Presets & styles",
-        "text": "You can use the same presets and styles as in `va-button`."
+        "text": "You can use the same presets and styles as in [va-button](https://vuestic.dev/ui-elements/button)[[target=_blank]]."
       },
       "icons": {
         "title": "Icons",
@@ -3160,8 +3160,8 @@
         "text": "You can provide size presets to the component."
       },
       "styles": {
-        "title": "Styles",
-        "text": "You can set button styles to the component."
+        "title": "Presets & styles",
+        "text": "You can use the same presets and styles as in [va-button](https://vuestic.dev/ui-elements/button)[[target=_blank]]."
       },
       "disabled": {
         "title": "Disabled",
@@ -3736,7 +3736,7 @@
       },
       "styles": {
         "title": "Presets & styles",
-        "text": "You can use the same presets and styles as in `va-button`."
+        "text": "You can use the same presets and styles as in [va-button](https://vuestic.dev/ui-elements/button)[[target=_blank]]."
       },
       "disabled": {
         "title": "Disabled",

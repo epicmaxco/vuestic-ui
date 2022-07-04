@@ -1,7 +1,12 @@
 <template>
   <va-button-toggle
-    preset="secondary"
-    border-color="primary"
+    v-model="model"
+    :options="options"
+    class="mb-4"
+  />
+
+  <va-button-toggle
+    preset="primary"
     v-model="model"
     :options="options"
     class="mb-4"
@@ -16,6 +21,14 @@
 
   <va-button-toggle
     round
+    v-model="model"
+    :options="options"
+    class="mb-4"
+  />
+
+  <va-button-toggle
+    preset="secondary"
+    border-color="primary"
     v-model="model"
     :options="options"
   />
