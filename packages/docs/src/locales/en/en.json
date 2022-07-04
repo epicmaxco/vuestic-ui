@@ -157,7 +157,8 @@
         "iconColor": "Sets up an icon color.",
         "type": "Will be used as value for html `type` attribute.",
         "plain": "Applies `plain` styling.",
-        "round": "Adds rounded corners (or make a button fully rounded if only icon is passed)."
+        "round": "Adds rounded corners (or make a button fully rounded if only icon is passed).",
+        "iconRight": "The icon to be displayed to the right of a title."
       }
     },
     "VaBadge": {
@@ -178,7 +179,6 @@
         "gradient": "Makes the button background color a gradient (only if `backgroundColor` prop is equal to `1`).",
         "href": "Will be used as value for html `href` attribute (if used, `<button />` will be replaced with `<a>` tag).",
         "target": "Will be used as value for html `target` attribute.",
-        "iconRight": "The icon to be displayed to the right of a title.",
         "block": "Applies block styling (will take 100% of container width)."
       },
       "slots": {
@@ -3106,7 +3106,7 @@
   },
   "buttonGroup": {
     "title": "Button Group",
-    "summaryText": "It is a special component that wraps buttons and applies special styles to them.",
+    "summaryText": "It is a special component that wrap buttons and applies special styles to them.",
     "examples": {
       "default": {
         "title": "Basic usage",
@@ -3125,12 +3125,12 @@
         "text": "You can set different sizes."
       },
       "styles": {
-        "title": "Styles",
-        "text": "You can set button styles."
+        "title": "Presets & styles",
+        "text": "You can use the same presets and styles as in `va-button`."
       },
       "icons": {
         "title": "Icons",
-        "text": "Looks good with icons provided to buttons."
+        "text": "Looks good with icons provided to buttons. "
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-button-group/_variables.scss)[[target=_blank]]"
@@ -3734,7 +3734,7 @@
         "title": "Sizes",
         "text": "Component can apply button sizes."
       },
-      "presets": {
+      "styles": {
         "title": "Presets & styles",
         "text": "You can use the same presets and styles as in `va-button`."
       },
