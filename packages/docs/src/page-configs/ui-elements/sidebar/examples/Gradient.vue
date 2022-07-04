@@ -13,7 +13,6 @@
         :key="item.title"
         :active="item.active"
         active-color="background"
-        text-color="background"
       >
         <va-sidebar-item-content>
           <va-icon :name="item.icon" />
