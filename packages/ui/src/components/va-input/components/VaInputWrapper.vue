@@ -74,9 +74,9 @@
       </div>
     </div>
 
-    <div v-if="$props.counter" class="va-input-wrapper-bottom">
+    <div v-if="$props.counter" class="va-input-wrapper__bottom">
       <slot name="counter" v-bind="{ valueLength, maxLength: $props.maxLength }">
-        <div class="va-input-wrapper-bottom__counter">
+        <div class="va-input-wrapper__bottom-counter">
           {{ $props.maxLength ? `${valueLength}/${$props.maxLength}` : valueLength }}
         </div>
       </slot>
@@ -299,14 +299,14 @@ export default defineComponent({
     font-weight: var(--va-input-container-label-font-weight);
   }
 
-  &-bottom {
+  &__bottom {
     display: var(--va-input-wrapper-bottom-display);
     align-items: var(--va-input-wrapper-bottom-align-items);
     color: var(--va-input-wrapper-bottom-color);
     font-size: var(--va-input-wrapper-bottom-font-size);
     line-height: var(--va-input-wrapper-bottom-line-height);
 
-    &__counter {
+    &-counter {
       color: var(--va-input-wrapper-counter-color);
       flex: var(--va-input-wrapper-counter-flex);
       margin-left: var(--va-input-wrapper-counter-margin-left);
