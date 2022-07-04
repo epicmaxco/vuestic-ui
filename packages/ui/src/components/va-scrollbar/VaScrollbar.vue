@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import { useComponentPresetProp } from '../../composables/useComponentPreset'
+import { useComponentPresetProp } from '../../composables/useComponentPreset.ts'
 
 export default {
   name: 'VaScrollbar',
