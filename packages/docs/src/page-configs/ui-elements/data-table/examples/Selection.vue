@@ -21,6 +21,8 @@
     />
   </div>
 
+  <va-button @click="shuffleItems">Shuffle items</va-button>
+
   <va-data-table
     :items="items"
     :columns="columns"
@@ -48,6 +50,7 @@
 
 <script>
 import { defineComponent } from 'vue'
+import shuffle from 'lodash/shuffle.js'
 
 export default defineComponent({
   data () {
@@ -97,19 +100,16 @@ export default defineComponent({
       { key: 'phone', sortable: true },
     ]
 
-    const selectModeOptions = ['single', 'multiple']
-    const selectColorOptions = ['primary', 'danger', 'warning', '#888888']
-
     return {
       items: users,
       columns,
       selectable: true,
-      selectedItems: [],
+      selectedItems: [users[1]],
       selectedItemsEmitted: [],
       selectMode: 'multiple',
       selectedColor: '#888888',
-      selectModeOptions,
-      selectColorOptions,
+      selectModeOptions: ['single', 'multiple'],
+      selectColorOptions: ['primary', 'danger', 'warning', '#888888'],
     }
   },
 
@@ -123,11 +123,10 @@ export default defineComponent({
 
   methods: {
     unselectItem (item) {
-      const index = this.selectedItems.indexOf(item)
-      this.selectedItems = [
-        ...this.selectedItems.slice(0, index),
-        ...this.selectedItems.slice(index + 1),
-      ]
+      this.selectedItems = this.selectedItems.filter(selectedItem => selectedItem !== item)
+    },
+    shuffleItems () {
+      this.items = shuffle(this.items)
     },
   },
 })

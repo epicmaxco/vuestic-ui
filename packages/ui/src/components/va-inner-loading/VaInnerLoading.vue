@@ -21,9 +21,7 @@
 import { useComponentPresetProp } from '../../composables/useComponentPreset'
 import { defineComponent, computed } from 'vue'
 
-import { useLoadingProps } from '../../composables/useLoading'
-import { useColors } from '../../composables/useColor'
-
+import { useColors, useLoadingProps } from '../../composables'
 import { VaIcon } from '../va-icon'
 
 export default defineComponent({

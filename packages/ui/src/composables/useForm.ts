@@ -1,6 +1,7 @@
-import { computed, ExtractPropTypes, PropType } from 'vue'
-import { useBem } from './useBem'
+import { computed, ExtractPropTypes } from 'vue'
 import pick from 'lodash/pick.js'
+
+import { useBem } from './useBem'
 
 export const useFormProps = {
   disabled: { type: Boolean, default: false },
@@ -9,8 +10,8 @@ export const useFormProps = {
 
 export const useFormPropsWithId = {
   ...useFormProps,
-  id: { type: [String, Number] as PropType<string | number>, default: undefined },
-  name: { type: [String, Number] as PropType<string | number>, default: undefined },
+  id: { type: [String, Number], default: undefined },
+  name: { type: [String, Number], default: undefined },
 }
 
 /**

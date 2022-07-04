@@ -1,25 +1,10 @@
 import { computed, ref, Ref, toRefs, watch } from 'vue'
-
-interface TimePickerProps {
-  ampm: boolean;
-  hidePeriodSwitch: boolean;
-  periodUpdatesModelValue: boolean;
-  view: 'hours' | 'minutes' | 'seconds';
-  modelValue?: Date;
-  hoursFilter?: (h: number) => boolean,
-  minutesFilter?: (h: number) => boolean
-  secondsFilter?: (h: number) => boolean
-
-  readonly?: boolean;
-}
-
-type ModelValueRef = Ref<Date | null | undefined>
+import { TimePickerProps, ModelValueRef } from '../types'
 
 // Use safeModelValue if we need to update model value
 const safeModelValue = (m: ModelValueRef) => m.value ? m.value : new Date(new Date().setHours(0, 0, 0, 0))
 
-const createNumbersArray = (length: number) => Array
-  .from(Array(length).keys())
+const createNumbersArray = (length: number) => Array.from(Array(length).keys())
 
 /**
  * Convert 00:00 -> 12:00 am, 00:01 -> 01:00 am.
@@ -103,7 +88,7 @@ const createMinutesColumn = (props: TimePickerProps, modelValue: ModelValueRef) 
   }))
 }
 
-const createSecondsColumn = (props: TimePickerProps, modelValue:ModelValueRef) => {
+const createSecondsColumn = (props: TimePickerProps, modelValue: ModelValueRef) => {
   const items = computed(() => {
     const array = createNumbersArray(60)
 

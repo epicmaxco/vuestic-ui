@@ -73,12 +73,15 @@ import omit from 'lodash/omit.js'
 import pick from 'lodash/pick.js'
 
 import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
-import { useFormProps } from '../../composables/useForm'
-import { useValidation, useValidationProps, useValidationEmits, ValidationProps } from '../../composables/useValidation'
-import { useComponentPresetProp } from '../../composables/useComponentPreset'
-import { useFocusDeep } from '../../composables/useFocusDeep'
-import { useEmitProxy } from '../../composables/useEmitProxy'
-import { useClearableProps, useClearable, useClearableEmits } from '../../composables/useClearable'
+
+import {
+  useComponentPresetProp,
+  useFormProps,
+  useValidation, useValidationProps, useValidationEmits, ValidationProps,
+  useEmitProxy,
+  useClearable, useClearableProps, useClearableEmits,
+  useFocusDeep,
+} from '../../composables'
 import { useCleave, useCleaveProps } from './hooks/useCleave'
 
 import type { AnyStringPropType } from '../../types/prop-type'

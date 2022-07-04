@@ -1,15 +1,15 @@
-import { ref } from 'vue'
+type SetTimeout = Window['setTimeout']
 
 export const useTimer = () => {
-  let timer: ReturnType<typeof setTimeout> | undefined
+  let timer: ReturnType<SetTimeout> | undefined
 
-  const start = (...args: Parameters<typeof setTimeout>) => {
-    timer = setTimeout(...args)
+  const start = (...args: Parameters<SetTimeout>) => {
+    timer = window.setTimeout(...args)
 
     return timer
   }
 
-  const clear = () => timer && clearTimeout(timer)
+  const clear = () => timer && window.clearTimeout(timer)
 
   return {
     start,

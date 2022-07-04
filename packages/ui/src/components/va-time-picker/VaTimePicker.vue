@@ -1,10 +1,15 @@
 <template>
-  <div class="va-time-picker" :class="computedClasses">
+  <div
+    class="va-time-picker"
+    :class="computedClasses"
+    :style="computedStyles"
+  >
     <VaTimePickerColumn
       v-for="(column, idx) in columns" :key="idx"
       :ref="setItemRef"
       :items="column.items"
       :tabindex="disabled ? -1 : 0"
+      :cell-height="$props.cellHeight"
       v-model:activeItemIndex="column.activeItem.value"
       @keydown.right.stop.prevent="focusNext()"
       @keydown.tab.exact.stop.prevent="focusNext()"
@@ -16,13 +21,21 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref } from 'vue'
+import { defineComponent, ref, computed, PropType } from 'vue'
 import { useTimePicker } from './hooks/useTimePicker'
-import VaTimePickerColumn from './components/VaTimePickerColumn.vue'
-import { useStateful, useStatefulEmits, useStatefulProps } from '../../composables/useStateful'
-import { useFormProps, useForm } from '../../composables/useForm'
-import { useArrayRefs } from '../../composables/useArrayRefs'
-import { useComponentPresetProp } from '../../composables/useComponentPreset'
+
+import { VaTimePickerColumn } from './components/VaTimePickerColumn'
+
+import {
+  useComponentPresetProp,
+  useStatefulProps,
+  useStatefulEmits,
+  useStateful,
+  useFormProps,
+  useForm,
+  useArrayRefs,
+  useCSSVariables,
+} from '../../composables'
 
 export default defineComponent({
   name: 'VaTimePicker',
@@ -41,6 +54,9 @@ export default defineComponent({
     hoursFilter: { type: Function as PropType<(h: number) => boolean> },
     minutesFilter: { type: Function as PropType<(h: number) => boolean> },
     secondsFilter: { type: Function as PropType<(h: number) => boolean> },
+    framed: { type: Boolean, default: false },
+    cellHeight: { type: Number, default: 30 },
+    visibleCellsCount: { type: Number, default: 7 },
   },
 
   emits: useStatefulEmits,
@@ -51,7 +67,7 @@ export default defineComponent({
 
     const { setItemRef, itemRefs: pickers } = useArrayRefs()
 
-    const activeColumnIndex = ref<number | undefined>()
+    const activeColumnIndex = ref<number>()
 
     const focus = (idx = 0): void => {
       pickers.value[idx]?.focus()
@@ -61,22 +77,40 @@ export default defineComponent({
       idx ? pickers.value[idx]?.blur() : pickers.value.forEach((el) => el?.blur())
     }
 
-    const { computedClasses } = useForm('va-time-picker', props)
+    const { computedClasses: computedFormClasses } = useForm('va-time-picker', props)
 
     const focusNext = () => {
       const nextIndex = (activeColumnIndex?.value || 0) + 1
+
       activeColumnIndex.value = nextIndex % columns.value.length
       focus(activeColumnIndex.value)
     }
 
     const focusPrev = () => {
       const nextIndex = (activeColumnIndex?.value || 0) - 1 + columns.value.length
+
       activeColumnIndex.value = nextIndex % columns.value.length
       focus(activeColumnIndex.value)
     }
 
+    const computedClasses = computed(() => ({
+      ...computedFormClasses,
+      'va-time-picker--framed': props.framed,
+    }))
+
+    const computedStyles = useCSSVariables('va-time-picker', () => {
+      const gapHeight = (props.visibleCellsCount - 1) / 2 * props.cellHeight
+
+      return {
+        height: `${props.cellHeight * props.visibleCellsCount}px`,
+        'cell-height': `${props.cellHeight}px`,
+        'column-gap-height': `${gapHeight}px`,
+      }
+    })
+
     return {
       columns,
+      computedStyles,
       computedClasses,
       isPM,
       pickers,
@@ -123,6 +157,23 @@ export default defineComponent({
       @include after-overlay();
 
       opacity: var(--va-time-picker-disabled-opacity);
+    }
+
+    &--framed {
+      position: relative;
+
+      &::before {
+        content: "";
+        height: var(--va-time-picker-cell-height);
+        width: 100%;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+        border-top: 1px solid var(--va-divider);
+        border-bottom: 1px solid var(--va-divider);
+        z-index: 0;
+      }
     }
   }
 </style>

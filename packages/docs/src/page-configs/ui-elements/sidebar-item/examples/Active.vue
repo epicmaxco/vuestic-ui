@@ -1,5 +1,9 @@
 <template>
-  <va-sidebar-item v-for="(route, idx) in items" :key="idx" @click="setRouteActive(route)" :active="isRouteActive(route)">
+  <va-sidebar-item
+    v-for="(route, idx) in items" :key="idx"
+    :active="isRouteActive(route)"
+    @click="setRouteActive(route)"
+  >
     <va-sidebar-item-content>
       <va-sidebar-item-title>
         {{ $tie(route.name) }}
@@ -15,12 +19,9 @@ export default defineComponent({
   data () {
     return {
       items: [
-        {
-          name: 'Home',
-        },
-        {
-          name: 'Docs',
-        },
+        { name: 'Home' },
+        { name: 'Docs' },
+        { name: 'Media' },
       ],
       activeRouteName: 'Docs',
     }

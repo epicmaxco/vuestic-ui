@@ -193,12 +193,7 @@ export default defineComponent({
   &.va-sidebar {
     z-index: 1;
     height: 100%;
-    min-width: 16rem;
     color: var(--va-dark, #323742);
-
-    &.va-sidebar--hidden {
-      min-width: 0;
-    }
 
     @include media-breakpoint-down(sm) {
       z-index: 100;

@@ -7,14 +7,15 @@
       <va-rating-item />
     </VbCard>
     <VbCard title="Custom empty color">
-      <va-rating-item empty-icon-color="danger" />
+      <va-rating-item hover unselected-color="danger" />
     </VbCard>
     <VbCard title="Half icon">
-      <va-rating-item :modelValue="0.5" halves />
+      <va-rating-item hover halves />
     </VbCard>
     <VbCard title="Use custom icon">
-      <va-rating-item :modelValue="1" filled-icon-name="heart" />
-      <va-rating-item empty-icon-name="heart_empty" />
+      <va-rating-item hover icon="verified" />
+      <va-rating-item hover halves half-icon="contrast" />
+      <va-rating-item hover empty-icon="heart_empty" />
     </VbCard>
     <VbCard title="Sizes">
       <va-rating-item :modelValue="1" :size="40" />
@@ -33,10 +34,9 @@
       <p>With halves</p>
       <va-rating-item halves hover />
     </VbCard>
-
     <VbCard title="With value">
-      <input v-model.number="ratingModel" style="width: 40px;">
-      <va-rating-item empty-icon-color="danger" hover v-model="ratingModel" halves />
+      <va-counter v-model="ratingModel" :min="0" :step="0.5" :max="1" />
+      <va-rating-item unselected-color="danger" hover v-model="ratingModel" halves />
     </VbCard>
 
     <VbCard title="Click event">
@@ -72,12 +72,13 @@
 </template>
 
 <script>
-
 import { VaRatingItem } from './index'
+import { VaCounter } from '../../../va-counter'
 
 export default {
   components: {
     VaRatingItem,
+    VaCounter,
   },
   data () {
     return {

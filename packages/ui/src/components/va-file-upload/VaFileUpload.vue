@@ -60,9 +60,7 @@
 <script lang="ts">
 import { computed, defineComponent, onMounted, ref, PropType, shallowRef } from 'vue'
 
-import { shiftHSLAColor } from '../../services/color-config/color-functions'
-import { useColors } from '../../composables/useColor'
-import { useComponentPresetProp } from '../../composables/useComponentPreset'
+import { useComponentPresetProp, useColors } from '../../composables'
 
 import type { VaFile } from './types'
 
@@ -109,7 +107,7 @@ export default defineComponent({
     const modal = ref(false)
     const dropzoneHighlight = ref(false)
 
-    const { getColor } = useColors()
+    const { getColor, shiftHSLAColor } = useColors()
     const colorComputed = computed(() => getColor(props.color))
 
     const computedStyle = computed(() => ({

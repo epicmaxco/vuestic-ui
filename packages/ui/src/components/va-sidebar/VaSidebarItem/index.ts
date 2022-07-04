@@ -5,5 +5,4 @@ import _VaSidebarItemTitle from './VaSidebarItemTitle.vue'
 
 export const VaSidebarItemContent = withConfigTransport(_VaSidebarItemContent)
 export const VaSidebarItemTitle = withConfigTransport(_VaSidebarItemTitle)
-
 export const VaSidebarItem = withConfigTransport(_VaSidebarItem)

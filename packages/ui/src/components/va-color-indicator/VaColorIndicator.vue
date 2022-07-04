@@ -17,9 +17,7 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
 
-import { useColors } from '../../composables/useColor'
-import { useComponentPresetProp } from '../../composables/useComponentPreset'
-import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
+import { useComponentPresetProp, useColors, useStateful, useStatefulProps, useStatefulEmits } from '../../composables'
 
 export default defineComponent({
   name: 'VaColorIndicator',

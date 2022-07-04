@@ -535,7 +535,9 @@
         "indeterminate": "Create a indeterminate loading bar",
         "buffer": "Create a loading bar with a buffer. Commonly used in videos",
         "reverse": "Reverse the progress bar direction",
-        "rounded": "Add a border radius to the `va-progress-bar` component (default: true)"
+        "rounded": "Add a border radius to the `va-progress-bar` component (default: true)",
+        "contentInside": "Sets the content of the slot inside the progress bar",
+        "showPercent": "Shows the indicator value with a percent sign"
       },
       "slots": {
         "default": "Display any additional info about the progress"
@@ -889,6 +891,7 @@
       "props": {
         "columns": "The property `columns` must be an array, that configures the columns of the table",
         "items": "Array of objects with table data (`DataTableItem` type). The `va-data-table` automatically calculates the amount and the titles of columns (if not specified otherwise with the `columns` prop) based on these object's keys. When calculating the columns' names based on the item's objects' keys `va-data-table` uses [Lodash's startCase](https://lodash.com/docs/4.17.15#startCase)[[target=_blank]] internally. Faulty values are replaced with an empty string",
+        "itemsTrackBy": "The `item` key that is used to keep track of the selected `item`. Can be string (path to the key) or a function of type: `(item) => item.track`",
         "filter": "If a `filter` is provided, only rows in which at least one cell contains the specified value will be displayed. To disable filtering at runtime (clear `filter`), specify an empty string",
         "filterMethod": "A custom filtering function. The function takes the initial value of the currently checked cell (the `source` is a formal parameter) and should return a `boolean` value, indicating whether to include the row containing this cell or not",
         "sortBy": "Sets the column to sort by. Works through the `v-model`",
@@ -923,7 +926,7 @@
         "rowClick": "When row clicked the event is thrown with the following param: `RowClickEmit` = \n &#123;\n &nbsp; `event: Event`,\n &nbsp; `item: DataTableItem`,\n &nbsp; `itemIndex: number`\n &#125;",
         "rowDblclick": "Double-clicking a row raises an event with the `RowClickEmit` param",
         "rowContextmenu": "When the context menu is clicked on a row, an event is raised with the `RowClickEmit` param",
-        "selectionChange": "The `selectionChange` event is thrown each time the selection changes. It provides the following object: `SelectionChangeEmit` = \n&#123;\n &nbsp; `currentSelectedItems: DataTableItem[]`,\n &nbsp; `previousSelectedItems: DataTableItem[]`\n &#125;"
+        "selectionChange": "The `selectionChange` event is thrown each time the selection changes. It provides the following object: `SelectionChangeEmit` = \n&#123;\n &nbsp; `currentSelectedItems: (DataTableItem | DataTableItemKey)[]`,\n &nbsp; `previousSelectedItems: (DataTableItem | DataTableItemKey)[]`\n &#125;"
       },
       "methods": {},
       "slots": {
@@ -1145,12 +1148,15 @@
     },
     "VaTimePicker": {
       "props": {
-        "ampm": "Use 12-hours time format.",
+        "ampm": "Use 12-hours time format",
         "hoursFilter": "Function that allows you to hide some specific hours",
         "minutesFilter": "Function that allows you to hide some specific minutes",
         "secondsFilter": "Function that allows you to hide some specific seconds",
         "view": "View specifying which columns will be shown",
-        "periodUpdatesModelValue": "If user will change period it will automatically update model value. You can turn off it and am/pm switch will only change view."
+        "periodUpdatesModelValue": "If user will change period it will automatically update model value. You can turn off it and am/pm switch will only change view.",
+        "framed": "Adds borders to center of the picker",
+        "cellHeight": "Height of the time cell",
+        "visibleCellsCount": "Count of time cells to display"
       },
       "events": {},
       "methods": {},
@@ -2025,6 +2031,10 @@
       "color": {
         "title": "Color",
         "text": "Set different colors using the `color` prop. You can either use a theme string or the HEX color value. Inactive tabs have `inherit` color. If you need to change inactive tabs color, you can set color for va-tabs using CSS."
+      },
+      "content": {
+        "title": "Content",
+        "text": "Tabs with a custom content in the default slot."
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-tabs/_variables.scss)[[target=_blank]]",
@@ -3867,7 +3877,11 @@
       },
       "selection": {
         "title": "Selection",
-        "text": "Use the `selectable` prop to indicate whether the `va-data-table` should have selectable rows or not. The highlighting color of the selected row might be changed with the `selected-color` prop, passing a string with one of the possible color options: `'primary'`, `'danger'` and so on.\n\nThe selection may optionally be attached to a model with the standard `v-model` (using the `:model-value` prop and the `update:modelValue` event). This also allows to set the initial selection on the `va-data-table`."
+        "text": [
+          "Use the `selectable` prop to indicate whether the `va-data-table` should have selectable rows or not. The highlighting color of the selected row might be changed with the `selected-color` prop.",
+          "The selection may optionally be attached to a model with the standard `v-model` (using the `:model-value` prop and the `update:modelValue` event). This also allows to set the initial selection on the `va-data-table`.",
+          "If you have items that can be updated (from the backend, for example), you must set the `items-track-by` prop to track your selected items properly."
+        ]
       },
       "pagination": {
         "title": "Pagination",
@@ -3945,6 +3959,14 @@
       "default": {
         "title": "Default",
         "text": ""
+      },
+      "framed": {
+        "title": "Framed",
+        "text": ""
+      },
+      "visibleCellsCount": {
+        "title": "Controlling the count of displayed cells",
+        "text": "For the better view need to set odd numbers"
       },
       "readonlyAndDisabled": {
         "title": "Readonly and disabled",
@@ -4081,14 +4103,14 @@
     "solutions": {
       "title": "Examples",
       "description": "Here are two examples how you can add CSS variables to html head",
-      
+
       "nuxt": "Look at Nuxt3 guide",
 
-      "viteSsrPlugin": { 
+      "viteSsrPlugin": {
         "title": "Vite SSR Plugin",
         "description": "Learn more about [Vite SSR Plugin](https://vite-plugin-ssr.com/vue-tour)"
       },
-      "vitesse": { 
+      "vitesse": {
         "title": "Vitesse",
         "description": "Learn more about [Vitesse](https://github.com/antfu/vitesse) and [useHead](https://github.com/vueuse/head#server-side-rendering)"
       }

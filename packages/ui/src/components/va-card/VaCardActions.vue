@@ -9,8 +9,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { useAlignProps, useAlign } from '../../composables/useAlign'
-import { useComponentPresetProp } from '../../composables/useComponentPreset'
+import { useComponentPresetProp, useAlignProps, useAlign } from '../../composables'
 
 export default defineComponent({
   name: 'VaCardActions',

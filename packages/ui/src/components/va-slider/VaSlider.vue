@@ -33,8 +33,8 @@
       />
     </span>
     <div
-      class="va-slider__container"
       ref="sliderContainer"
+      class="va-slider__container"
       @mousedown="clickOnContainer"
       @mouseup="hasMouseDown = false"
       @touchstart="clickOnContainer"
@@ -53,7 +53,7 @@
           :style="getPinStyles(pin)"
         />
       </template>
-      <template v-if="isRange">
+      <template v-if="$props.range">
         <div
           ref="process"
           class="va-slider__track va-slider__track--selected"
@@ -66,11 +66,11 @@
           :key="'dot' + order"
           :ref="setItemRefByIndex(order)"
           class="va-slider__handler"
-          :class="dotClass[order]"
-          :style="dottedStyles[order]"
+          :class="dotClass"
+          :style="getDottedStyles(order)"
+          :tabindex="disabled || readonly ? undefined : 0"
           @focus="isFocused = true, currentSliderDotIndex = order"
           @blur="isFocused = false"
-          :tabindex="disabled || readonly ? undefined : 0"
         >
           <div
             v-if="isActiveDot(order)"
@@ -84,9 +84,9 @@
           >
             <slot
               name="trackLabel"
-              v-bind="{ value: val[order], order }"
+              v-bind="{ value: getValueByOrder(order), order }"
             >
-              {{ getTrackLabel(val[order], order) }}
+              {{ getTrackLabel(getValueByOrder(order), order) }}
             </slot>
           </div>
         </div>
@@ -104,9 +104,9 @@
           class="va-slider__handler"
           :class="dotClass"
           :style="dottedStyles"
+          :tabindex="$props.disabled || $props.readonly ? undefined : 0"
           @focus="isFocused = true"
           @blur="isFocused = false"
-          :tabindex="$props.disabled || $props.readonly ? undefined : 0"
         >
           <div
             v-if="isActiveDot(0)"
@@ -115,14 +115,14 @@
           />
           <div
             v-if="trackLabelVisible"
-            :style="labelStyles"
             class="va-slider__handler__dot--value"
+            :style="labelStyles"
           >
             <slot
               name="trackLabel"
-              v-bind="{ value: val }"
+              v-bind="{ value: getValueByOrder() }"
             >
-              {{ getTrackLabel(val) }}
+              {{ getTrackLabel(getValueByOrder()) }}
             </slot>
           </div>
         </div>
@@ -141,16 +141,16 @@
     </span>
     <span
       v-if="($slots.label || label) && invertLabel"
-      :style="labelStyles"
       class="va-input__label va-input__label--inverse"
+      :style="labelStyles"
     >
       <slot name="label">
         {{ label }}
       </slot>
     </span>
     <div
-      class="va-slider__input-wrapper"
       v-if="vertical ? $slots.prepend : $slots.append"
+      class="va-slider__input-wrapper"
     >
       <slot :name="vertical ? 'prepend' : 'append'" />
     </div>
@@ -158,14 +158,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, watch, PropType, ref, computed, onMounted, onBeforeUnmount, CSSProperties, shallowRef } from 'vue'
+import { defineComponent, watch, PropType, ref, computed, onMounted, onBeforeUnmount, shallowRef, CSSProperties } from 'vue'
+import pick from 'lodash/pick.js'
 
-import { getHoverColor } from '../../services/color-config/color-functions'
-import { validateSlider } from './validateSlider'
-import { useColors } from '../../composables/useColor'
-import { useArrayRefs } from '../../composables/useArrayRefs'
-import { useComponentPresetProp } from '../../composables/useComponentPreset'
 import { generateUniqueId } from '../../services/utils'
+import { useComponentPresetProp, useColors, useArrayRefs, useBem } from '../../composables'
+import { validateSlider } from './validateSlider'
 
 import { VaIcon } from '../va-icon'
 
@@ -175,28 +173,28 @@ export default defineComponent({
   emits: ['drag-start', 'drag-end', 'change', 'update:modelValue'],
   props: {
     ...useComponentPresetProp,
-    range: { type: Boolean as PropType<boolean>, default: false },
-    modelValue: ({ type: [Number, Array] as PropType<number | number[]>, default: () => [] }),
-    trackLabel: ({ type: [Function, String] as PropType<string | ((val: any, order?: number) => string) | undefined> }),
-    color: { type: String as PropType<string>, default: 'primary' },
-    trackColor: { type: String as PropType<string>, default: '' },
-    labelColor: { type: String as PropType<string>, default: '' },
-    trackLabelVisible: { type: Boolean as PropType<boolean>, default: false },
-    min: { type: Number as PropType<number>, default: 0 },
-    max: { type: Number as PropType<number>, default: 100 },
-    step: { type: Number as PropType<number>, default: 1 },
-    label: { type: String as PropType<string>, default: '' },
-    invertLabel: { type: Boolean as PropType<boolean>, default: false },
-    disabled: { type: Boolean as PropType<boolean>, default: false },
-    readonly: { type: Boolean as PropType<boolean>, default: false },
-    pins: { type: Boolean as PropType<boolean>, default: false },
-    iconPrepend: { type: String as PropType<string>, default: '' },
-    iconAppend: { type: String as PropType<string>, default: '' },
-    vertical: { type: Boolean as PropType<boolean>, default: false },
-    showTrack: { type: Boolean as PropType<boolean>, default: true },
+    range: { type: Boolean, default: false },
+    modelValue: ({ type: [Number, Array] as PropType<number | number[]>, default: 0 }),
+    trackLabel: ({ type: [Function, String] as PropType<string | ((val: number, order?: number) => string) | undefined> }),
+    color: { type: String, default: 'primary' },
+    trackColor: { type: String, default: '' },
+    labelColor: { type: String, default: '' },
+    trackLabelVisible: { type: Boolean, default: false },
+    min: { type: Number, default: 0 },
+    max: { type: Number, default: 100 },
+    step: { type: Number, default: 1 },
+    label: { type: String, default: '' },
+    invertLabel: { type: Boolean, default: false },
+    disabled: { type: Boolean, default: false },
+    readonly: { type: Boolean, default: false },
+    pins: { type: Boolean, default: false },
+    iconPrepend: { type: String, default: '' },
+    iconAppend: { type: String, default: '' },
+    vertical: { type: Boolean, default: false },
+    showTrack: { type: Boolean, default: true },
   },
   setup (props, { emit }) {
-    const { getColor } = useColors()
+    const { getColor, getHoverColor } = useColors()
 
     const sliderContainer = shallowRef<HTMLElement>()
     const dot = shallowRef<HTMLElement>()
@@ -219,27 +217,17 @@ export default defineComponent({
 
     const lessToMore = computed(() => Array.isArray(val.value) && (val.value[0] + props.step) > val.value[1])
 
-    const sliderClass = computed(() => ({
-      'va-slider--active': isFocused.value,
-      'va-slider--disabled': props.disabled,
-      'va-slider--readonly': props.readonly,
-      'va-slider--horizontal': !props.vertical,
-      'va-slider--vertical': props.vertical,
+    const sliderClass = useBem('va-slider', () => ({
+      ...pick(props, ['disabled', 'readonly', 'vertical']),
+      active: isFocused.value,
+      horizontal: !props.vertical,
+      grabbing: hasMouseDown.value,
     }))
 
-    const dotClass = computed(() => {
-      if (props.range) {
-        return [
-          { 'va-slider__handler--inactive': !isFocused.value },
-          { 'va-slider__handler--inactive': !isFocused.value },
-        ]
-      }
-
-      return {
-        'va-slider__handler--on-focus': !props.range && (flag.value || isFocused),
-        'va-slider__handler--inactive': !isFocused.value,
-      }
-    })
+    const dotClass = useBem('va-slider__handler', () => ({
+      onFocus: !props.range && (flag.value || isFocused.value),
+      inactive: !isFocused.value,
+    }))
 
     const labelStyles = computed(() => ({
       color: props.labelColor ? getColor(props.labelColor) : getColor(props.color),
@@ -293,7 +281,7 @@ export default defineComponent({
             backgroundColor: isActiveDot(1) ? getColor(props.color) : '#ffffff',
             borderColor: getColor(props.color),
           },
-        ]
+        ] as CSSProperties[]
       } else {
         const val = ((validatedValue - props.min) / (props.max - props.min)) * 100
 
@@ -301,9 +289,13 @@ export default defineComponent({
           [pinPositionStyle.value]: `${val}%`,
           backgroundColor: isActiveDot(0) ? getColor(props.color) : '#ffffff',
           borderColor: getColor(props.color),
-        }
+        } as CSSProperties
       }
     })
+
+    const getDottedStyles = (index?: number) => props.range && index !== undefined
+      ? (dottedStyles.value as CSSProperties[])[index]
+      : dottedStyles.value
 
     const val = computed({
       get: () => props.modelValue,
@@ -319,6 +311,10 @@ export default defineComponent({
         emit('update:modelValue', val)
       },
     })
+
+    const getValueByOrder = (order?: number) => props.range && order !== undefined
+      ? (val.value as number[])[order]
+      : val.value as number
 
     const gap = computed(() => {
       const total = (props.max - props.min) / props.step
@@ -701,7 +697,7 @@ export default defineComponent({
     }))
 
     onMounted(() => {
-      if (validateSlider(props.modelValue, props.step, props.min, props.max)) {
+      if (validateSlider(props.modelValue, props.step, props.min, props.max, props.range)) {
         getStaticData()
         bindEvents()
       }
@@ -714,8 +710,9 @@ export default defineComponent({
       () => props.step,
       () => props.min,
       () => props.max,
-    ], ([value, step, min, max]) => {
-      validateSlider(value, step, min, max)
+      () => props.range,
+    ], ([value, step, min, max, range]) => {
+      validateSlider(value, step, min, max, range)
     })
 
     watch(hasMouseDown, (hasMouseDown) => {
@@ -730,12 +727,14 @@ export default defineComponent({
       orders,
       sliderContainer,
       val,
+      getValueByOrder,
       sliderClass,
       dotClass,
       labelStyles,
       processedStyles,
       getPinStyles,
       dottedStyles,
+      getDottedStyles,
       clickOnContainer,
       hasMouseDown,
       trackStyles,
@@ -745,7 +744,6 @@ export default defineComponent({
       isActiveDot,
       getTrackLabel,
       currentSliderDotIndex,
-      isRange: Array.isArray(props.modelValue),
       ariaLabelIdComputed,
       ariaAttributesComputed,
     }
@@ -841,7 +839,7 @@ export default defineComponent({
     text-transform: var(--va-slider-input-label-inverse-text-transform);
   }
 
-  &--active {
+  &--grabbing {
     .va-slider__container {
       cursor: grabbing;
     }

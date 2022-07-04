@@ -1,77 +1,63 @@
-<script>
-import { h } from 'vue'
-import { useColors } from '../../../services/color-config/color-config.ts'
-import { useComponentPresetProp } from '../../../composables/useComponentPreset'
+<script lang="ts">
+import { defineComponent, h } from 'vue'
 
-const $root = 'va-timeline-separator'
+import { useComponentPresetProp, useColors } from '../../../composables'
 
-export default {
-  name: $root,
+const componentName = 'va-timeline-separator'
+
+export default defineComponent({
+  name: componentName,
   props: {
     ...useComponentPresetProp,
-    color: {
-      type: String,
-      default: 'success',
-    },
-    vertical: {
-      type: Boolean,
-    },
-    active: {
-      type: Boolean,
-    },
-    activePrevious: {
-      type: Boolean,
-    },
-    activeNext: {
-      type: Boolean,
-    },
+    color: { type: String, default: 'primary' },
+    vertical: { type: Boolean },
+    active: { type: Boolean },
+    activePrevious: { type: Boolean },
+    activeNext: { type: Boolean },
   },
-  setup () {
-    return {
-      ...useColors(),
-    }
-  },
-  render () {
-    return h(
+  setup (props) {
+    const { getColor } = useColors()
+
+    return () => h(
       'div',
       {
         class: {
-          [$root]: true,
-          [`${$root}--vertical`]: this.$props.vertical,
+          [componentName]: true,
+          [`${componentName}--vertical`]: props.vertical,
         },
       },
       [
         h('div', {
           class: {
-            [`${$root}__line`]: true,
-            [`${$root}__line--active`]: this.$props.activePrevious,
+            [`${componentName}__line`]: true,
+            [`${componentName}__line--active`]: props.activePrevious,
           },
           style: {
-            backgroundColor: this.$props.activePrevious ? this.getColor(this.$props.color) : '#dddddd',
+            backgroundColor: getColor(props.activePrevious ? props.color : 'divider'),
           },
         }),
         h('div', {
           class: {
-            [`${$root}__center`]: true,
-            [`${$root}__center--active`]: this.$props.active,
+            [`${componentName}__center`]: true,
+            [`${componentName}__center--active`]: props.active,
           },
           style: {
-            backgroundColor: this.$props.active ? this.getColor(this.$props.color) : '#dddddd',
+            backgroundColor: getColor(props.active ? props.color : 'divider'),
           },
         }),
         h('div', {
           class: {
-            [`${$root}__line`]: true,
-            [`${$root}__line--active`]: this.$props.activeNext,
+            [`${componentName}__line`]: true,
+            [`${componentName}__line--active`]: props.activeNext,
           },
           style: {
-            backgroundColor: this.$props.activeNext ? this.getColor(this.$props.color) : '#dddddd',
+            backgroundColor: getColor(props.activeNext ? props.color : 'divider'),
           },
         }),
       ],
     )
   },
-}
+})
 </script>
 
 <style lang="scss">

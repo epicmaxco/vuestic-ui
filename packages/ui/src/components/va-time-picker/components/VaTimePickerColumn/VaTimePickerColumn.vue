@@ -1,33 +1,32 @@
 <template>
   <div
+    ref="rootElement"
     tabindex="0"
     class="va-time-picker-column"
     @keydown.down.stop.prevent="makeActiveNext()"
     @keydown.space.stop.prevent="makeActiveNext(5)"
     @keydown.up.stop.prevent="makeActivePrev()"
-    ref="rootElement"
+    @scroll.passive="onScroll"
+    @touchmove.passive="onScroll"
   >
-    <div class="va-time-picker-cell va-time-picker-cell--fake" />
     <div
       v-for="(item, index) in items" :key="item"
-      :class="{
-        'va-time-picker-cell': true,
-        'va-time-picker-cell--active': index === $props.activeItemIndex
-      }"
+      class="va-time-picker-cell"
+      :class="{ 'va-time-picker-cell--active': index === $props.activeItemIndex }"
       @click="onCellClick(index)"
     >
       <slot name="cell" v-bind="{ item, index, activeItemIndex, items, formattedItem: formatCell(item) }">
         {{ formatCell(item) }}
       </slot>
     </div>
-    <div class="va-time-picker-cell va-time-picker-cell--fake" />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, nextTick, onMounted, PropType, ref, watch } from 'vue'
-import { useSyncProp } from '../../../composables/useSyncProp'
-import { useFocus, useFocusEmits } from '../../../composables/useFocus'
+import { defineComponent, nextTick, shallowRef, watch, onMounted, PropType } from 'vue'
+
+import debounce from 'lodash/debounce.js'
+import { useSyncProp, useFocus, useFocusEmits } from '../../../../composables'
 
 export default defineComponent({
   name: 'VaTimePickerColumn',
@@ -35,39 +34,25 @@ export default defineComponent({
   props: {
     items: { type: Array as PropType<string[] | number[]>, default: () => [] },
     activeItemIndex: { type: Number, default: 0 },
+    cellHeight: { type: Number, default: 30 },
   },
 
   emits: ['item-selected', 'update:activeItemIndex', ...useFocusEmits],
 
   setup (props, { emit }) {
-    const rootElement = ref<HTMLElement>()
-
-    // Will be used later, after fix 'withConfigTransport'
+    const rootElement = shallowRef<HTMLElement>()
     const { focus, blur } = useFocus(rootElement, emit)
-
     const [syncActiveItemIndex] = useSyncProp('activeItemIndex', props, emit)
 
     watch(syncActiveItemIndex, (newVal) => { scrollTo(newVal) })
 
     onMounted(() => scrollTo(syncActiveItemIndex.value, false))
 
-    const scrollTo = (index: number, animate = true) => {
+    const scrollTo = (index: number, animated = true) => {
       nextTick(() => {
-        const children = rootElement.value!.children
-
-        const element = children[index] as HTMLElement
-
-        if (!element) {
-          rootElement.value?.scrollTo({
-            behavior: animate ? 'smooth' : 'auto',
-            top: 0,
-          })
-          return
-        }
-
-        rootElement.value?.scrollTo({
-          behavior: animate ? 'smooth' : 'auto',
-          top: element.offsetTop - element.parentElement!.offsetTop,
+        rootElement.value!.scrollTo({
+          behavior: animated ? 'smooth' : 'auto',
+          top: index * props.cellHeight,
         })
       })
     }
@@ -97,32 +82,48 @@ export default defineComponent({
       return n < 10 ? `0${n}` : `${n}`
     }
 
+    const getIndex = () => {
+      const scrollTop = rootElement.value!.scrollTop
+      const calculatedIndex = Math.max(
+        (scrollTop - scrollTop % props.cellHeight) / props.cellHeight,
+        scrollTop / props.cellHeight,
+      )
+
+      if (syncActiveItemIndex.value * props.cellHeight < scrollTop) {
+        return Math.ceil(calculatedIndex)
+      } else if (syncActiveItemIndex.value * props.cellHeight > scrollTop) {
+        return Math.floor(calculatedIndex)
+      } else {
+        return Math.round(calculatedIndex)
+      }
+    }
+
+    const onScroll = debounce(() => {
+      if (rootElement.value && syncActiveItemIndex.value !== -1) {
+        syncActiveItemIndex.value = getIndex()
+      }
+    }, 200)
+
     return {
       rootElement,
 
       makeActiveNext,
       makeActivePrev,
       makeActiveByIndex,
+      onScroll,
 
       onCellClick,
       formatCell,
 
-      // Will be used later, after fix 'withConfigTransport'
-      // focus,
-      // blur,
+      focus,
+      blur,
     }
-  },
-
-  // we will use this while we have problem with 'withConfigTransport'
-  methods: {
-    focus () { (this as any).rootElement?.focus() },
-    blur () { (this as any).rootElement?.blur() },
   },
 })
 </script>
 
 <style lang="scss">
-  @import './_variables.scss';
+  @import 'variables';
 
   @mixin hiddenYScroll {
     overflow-y: scroll;
@@ -138,6 +139,14 @@ export default defineComponent({
 
     height: 100%;
     border-right: var(--va-time-picker-column-border-right);
+
+    &::before,
+    &::after {
+      content: "";
+      display: block;
+      height: var(--va-time-picker-column-gap-height);
+      width: 100%;
+    }
 
     &:last-child {
       border-right: 0;
@@ -169,26 +178,8 @@ export default defineComponent({
         }
       }
 
-      &--fake {
-        visibility: hidden;
-
-        &:last-child {
-          height: calc(100% - var(--va-time-picker-cell-height) * 2);
-        }
-      }
-
       &:hover {
         background: var(--va-time-picker-cell-background-color-hover);
-      }
-    }
-
-    &:focus {
-      .va-time-picker-cell {
-        &--active {
-          &::before {
-            opacity: var(--va-time-picker-cell-active-background-opacity-hover);
-          }
-        }
       }
     }
   }

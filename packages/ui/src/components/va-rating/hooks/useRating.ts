@@ -1,8 +1,8 @@
-import clamp from 'lodash/clamp.js'
-import { useHover } from '../../../composables/useHover'
 import { ref, getCurrentInstance, computed, ExtractPropTypes } from 'vue'
-import { useStateful, useStatefulProps } from '../../../composables/useStateful'
-import { useFormProps } from '../../../composables/useForm'
+import clamp from 'lodash/clamp.js'
+
+import { useHover, useStateful, useStatefulProps, useFormProps } from '../../../composables'
+
 import { RatingValue } from '../types'
 
 const getContext = <P extends Record<string, any> = Record<string, any>, E extends string = string>() => {

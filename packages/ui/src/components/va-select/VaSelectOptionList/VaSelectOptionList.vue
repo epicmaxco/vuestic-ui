@@ -1,7 +1,7 @@
 <template>
   <div
-    class="va-select-option-list"
     ref="rootElement"
+    class="va-select-option-list"
     :tabindex="tabindex"
     @keydown.up.stop.prevent="hoverPreviousOption"
     @keydown.left.stop.prevent="hoverPreviousOption"
@@ -22,9 +22,9 @@
       <div
         v-for="option in options"
         :key="$props.getTrackBy(option)"
+        :ref="setItemRef(option)"
         role="option"
         :aria-selected="!!$props.getSelectedState(option)"
-        :ref="setItemRef(option)"
         :class="getOptionClass(option)"
         :style="getOptionStyle(option)"
         @click="selectOption(option)"
@@ -56,14 +56,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, watch, ref, Ref, computed, ComponentPublicInstance } from 'vue'
+import { defineComponent, PropType, watch, ref, computed, ComponentPublicInstance, shallowRef } from 'vue'
 
-import { getHoverColor } from '../../../services/color-config/color-functions'
-import { useColors, useColorProps } from '../../../composables/useColor'
-import { SelectableOption } from '../../..//composables/useSelectableList'
-import { VaIcon } from '../../va-icon'
 import { scrollToElement } from '../../../utils/scroll-to-element'
-import { useComponentPresetProp } from '../../../composables/useComponentPreset'
+import { useComponentPresetProp, useColors, useColorProps, SelectableOption } from '../../../composables'
+
+import { VaIcon } from '../../va-icon'
 
 export default defineComponent({
   name: 'VaSelectOptionList',
@@ -78,24 +76,24 @@ export default defineComponent({
     ...useColorProps,
     ...useComponentPresetProp,
     options: { type: Array as PropType<SelectableOption[]>, default: () => [] },
-    noOptionsText: { type: String as PropType<string>, default: 'Items not found' },
+    noOptionsText: { type: String, default: 'Items not found' },
     getSelectedState: { type: Function as PropType<(option: SelectableOption) => boolean>, required: true },
     getText: { type: Function as PropType<(option: SelectableOption) => string>, required: true },
     getTrackBy: { type: Function as PropType<(option: SelectableOption) => number>, required: true },
     getGroupBy: { type: Function as PropType<(option: SelectableOption) => string>, required: true },
-    multiple: { type: Boolean as PropType<boolean>, default: false },
-    search: { type: String as PropType<string>, default: '' },
-    tabindex: { type: Number as PropType<number>, default: 0 },
+    multiple: { type: Boolean, default: false },
+    search: { type: String, default: '' },
+    tabindex: { type: Number, default: 0 },
     hoveredOption: {
       type: [String, Number, Object] as PropType<SelectableOption | null>,
       default: null,
     },
   },
   setup (props, { emit }) {
-    const { getColor } = useColors()
+    const { getColor, getHoverColor } = useColors()
 
-    const itemRefs: Ref<Record<number, HTMLElement>> = ref({})
-    const rootElement: Ref<HTMLElement | null> = ref(null)
+    const rootElement = shallowRef<HTMLElement>()
+    const itemRefs = ref<Record<number, HTMLElement>>({})
 
     const onScroll = (event: UIEvent) => {
       const target = event.target as Element
@@ -244,16 +242,6 @@ export default defineComponent({
       updateHoveredOption,
       ...publicMethods,
     }
-  },
-
-  // we will use this while we have 'withConfigTransport'
-  methods: {
-    hoverPreviousOption () { (this as any).rootElement?.hoverPreviousOption() },
-    hoverNextOption () { (this as any).rootElement?.hoverNextOption() },
-    hoverFirstOption () { (this as any).rootElement?.hoverFirstOption() },
-    focus () { (this as any).rootElement?.focus() },
-    scrollToOption () { (this as any).rootElement?.scrollToOption() },
-
   },
 })
 </script>

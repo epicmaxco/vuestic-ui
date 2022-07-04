@@ -24,9 +24,9 @@ export default defineComponent({
     margin-top: 0;
   }
 
-  .va-card .va-card__body:not(.va-card__body--no-padding-h, .va-card__body--no-padding) > & {
-    margin-right: -$card-padding;
-    margin-left: -$card-padding;
+  .va-card :is(.va-card__title, .va-card__content, .va-card__actions, .va-card_actions__vertical) > & {
+    margin-right: calc(-1 * var(--va-card-padding));
+    margin-left: calc(-1 * var(--va-card-padding));
   }
 }
 </style>

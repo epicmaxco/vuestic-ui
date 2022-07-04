@@ -27,10 +27,7 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
 
-import { shiftHSLAColor } from '../../services/color-config/color-functions'
-import { useColors } from '../../composables/useColor'
-import { useTextColor } from '../../composables/useTextColor'
-import { useComponentPresetProp } from '../../composables/useComponentPreset'
+import { useComponentPresetProp, useColors, useTextColor } from '../../composables'
 
 export default defineComponent({
   name: 'VaNavbar',
@@ -41,7 +38,7 @@ export default defineComponent({
     shape: { type: Boolean, default: false },
   },
   setup (props) {
-    const { getColor } = useColors()
+    const { getColor, shiftHSLAColor } = useColors()
     const { textColorComputed } = useTextColor()
 
     const color = computed(() => getColor(props.color))

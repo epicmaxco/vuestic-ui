@@ -28,9 +28,7 @@
 import { defineComponent, PropType, computed } from 'vue'
 
 import { shiftHSLAColor } from '../../services/color-config/color-functions'
-import { useColors } from '../../composables/useColor'
-import { useTextColor } from '../../composables/useTextColor'
-import { useComponentPresetProp } from '../../composables/useComponentPreset'
+import { useComponentPresetProp, useColors, useTextColor } from '../../composables'
 
 import { ButtonOption } from './types'
 
@@ -53,7 +51,7 @@ export default defineComponent({
     color: { type: String, default: 'primary' },
     textColor: { type: String, default: undefined },
     activeButtonTextColor: { type: String },
-    modelValue: { type: [String, Number] as PropType<string | number>, default: '' },
+    modelValue: { type: [String, Number], default: '' },
     outline: { type: Boolean, default: false },
     flat: { type: Boolean, default: false },
     rounded: { type: Boolean, default: true },

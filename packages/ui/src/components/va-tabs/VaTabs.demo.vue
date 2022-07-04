@@ -17,6 +17,34 @@
       </va-tabs>
       Value: {{ tabValue1 }}
     </VbCard>
+    <VbCard title="Tabs with content slot" style="width: 100%;">
+      <va-tabs
+        v-model="tabsWithContentValue"
+        vertical
+        grow
+      >
+        <template #tabs>
+          <va-tab
+            v-for="tab in tabsWithContent"
+            :key="tab.title"
+            :name="tab.title"
+          >
+            <va-icon :name="tab.icon" size="small" class="mr-2" />
+            {{tab.title}}
+          </va-tab>
+        </template>
+
+        <va-card square outlined>
+          <va-card-title>
+            <va-icon :name="currentTabWithContent.icon" size="small" class="mr-2" color="gray" />
+            {{ currentTabWithContent.title }}
+          </va-card-title>
+          <va-card-content>
+            {{ currentTabWithContent.content }}
+          </va-card-content>
+        </va-card>
+      </va-tabs>
+    </VbCard>
     <VbCard
       title="Tabs Without name"
       style="width: 100%;"
@@ -383,13 +411,26 @@
 </template>
 
 <script>
+import { VaCard, VaCardTitle, VaCardContent, VaIcon } from '../index'
 import { VaTabs, VaTab } from './index'
+
+const TABS_WITH_CONTENT = [
+  { icon: 'feed', title: 'Feed', content: 'Feed content' },
+  { icon: 'person', title: 'Profile', content: 'Profile content' },
+  { icon: 'mail', title: 'Messages', content: 'Messages content' },
+  { icon: 'tune', title: 'Settings', content: 'Settings content' },
+]
 
 export default {
   components: {
     VaTabs,
     VaTab,
+    VaIcon,
+    VaCard,
+    VaCardTitle,
+    VaCardContent,
   },
+
   data () {
     return {
       tabStatic: ['One', 'Two', 'Three', 'Four'],
@@ -404,7 +445,15 @@ export default {
       tabStateful: [1, 2, 3, 4],
       show: false,
       deletedTabIndex: '',
+      tabsWithContent: TABS_WITH_CONTENT,
+      tabsWithContentValue: TABS_WITH_CONTENT[0].title,
     }
+  },
+
+  computed: {
+    currentTabWithContent () {
+      return this.tabsWithContent.find(tab => tab.title === this.tabsWithContentValue)
+    },
   },
 }
 </script>
