@@ -9,6 +9,7 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
 import { extractComponentProps } from '../../utils/child-props'
+import omit from 'lodash/omit.js'
 
 import { useBem } from '../../composables/useBem'
 import { useDeprecatedProps } from '../../composables/useDeprecatedProps'
@@ -17,7 +18,7 @@ import { useComponentPresetProp } from '../../composables/useComponentPreset'
 import { VaConfig } from '../va-config'
 import { VaButton } from '../va-button'
 
-const VaButtonProps = extractComponentProps(VaButton)
+const VaButtonProps = omit(extractComponentProps(VaButton), ['block'])
 
 export default defineComponent({
   name: 'VaButtonGroup',
