@@ -12,8 +12,6 @@
     >
       <template #anchor>
         <va-button
-          :disabled="$props.disabled"
-          :round="!$props.label && !$slots.label"
           v-bind="{ ...computedButtonIcons, ...buttonPropsComputed }"
           v-on="listeners"
           @keydown.esc.prevent="hideDropdown"
@@ -72,7 +70,7 @@
         v-bind="computedMainButtonProps"
         v-on="mainButtonListeners"
       >
-        <slot>
+        <slot name="label">
           {{ label }}
         </slot>
       </va-button>
@@ -102,7 +100,7 @@ const { createEmits: createMainButtonEmits, createVOnListeners: createMainButton
   [{ listen: 'click', emit: 'main-button-click' }],
 )
 
-const VaButtonProps = extractComponentProps(VaButton)
+const VaButtonProps = omit(extractComponentProps(VaButton), ['iconRight'])
 
 export default defineComponent({
   name: 'VaButtonDropdown',
@@ -114,8 +112,8 @@ export default defineComponent({
   },
   emits: ['update:modelValue', ...createEmits(), ...createMainButtonEmits()],
   props: {
-    ...VaButtonProps,
     ...useComponentPresetProp,
+    ...VaButtonProps,
     ...useStatefulProps,
     modelValue: { type: Boolean, default: false },
     stateful: { type: Boolean, default: true },
@@ -166,7 +164,13 @@ export default defineComponent({
     })
 
     const buttonPropsFiltered = computed(() => {
-      const filteredProps = omit(VaButtonProps, ['to', 'href', 'loading', 'icon', 'iconRight', 'disabled'])
+      let ignoredProps = ['to', 'href', 'loading', 'icon']
+
+      if (props.preset) {
+        ignoredProps = [...ignoredProps, 'plain', 'textOpacity', 'hoverOpacity', 'pressedBehaviour', 'pressedOpacity', 'backgroundOpacity']
+      }
+
+      const filteredProps = omit(VaButtonProps, ignoredProps)
       return Object.keys(filteredProps)
     })
     const buttonPropsComputed = computed(
