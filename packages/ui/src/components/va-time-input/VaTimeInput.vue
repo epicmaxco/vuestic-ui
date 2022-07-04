@@ -16,7 +16,7 @@
     @keydown.space.prevent="showDropdown"
     @keydown.enter.prevent="showDropdown"
     @keydown.esc.prevent="hideDropdown"
-    @click="handleComponentClick"
+    @click="toggleDropdownWithoutFocus"
   >
     <template #anchor>
       <va-input
@@ -28,7 +28,7 @@
         @update:modelValue="onValueInput"
       >
         <template
-          v-for="name in filterSlots"
+          v-for="name in filteredSlots"
           :key="name"
           v-slot:[name]="slotScope"
         >
@@ -48,11 +48,9 @@
             role="button"
             aria-label="toggle dropdown"
             aria-hidden="false"
-            class="va-dropdown__icons__reset"
             :tabindex="iconsTabIndexComputed"
-            :id="componentIconId"
             v-bind="iconProps"
-            @click="toggleDropdown"
+            @click.stop="toggleDropdown"
             @keydown.enter.stop="toggleDropdown"
           />
         </template>
@@ -63,11 +61,9 @@
             role="button"
             aria-label="reset"
             aria-hidden="false"
-            class="va-dropdown__icons__reset"
             :tabindex="iconsTabIndexComputed"
-            :id="clearIconId"
             v-bind="clearIconProps"
-            @click="reset"
+            @click.stop="reset"
             @keydown.enter.stop="reset"
           />
           <va-icon
@@ -77,9 +73,8 @@
             aria-hidden="false"
             class="va-dropdown__icons__reset"
             :tabindex="iconsTabIndexComputed"
-            :id="componentIconId"
             v-bind="iconProps"
-            @click="toggleDropdown"
+            @click.stop="toggleDropdown"
             @keydown.enter.stop="toggleDropdown"
           />
         </template>
@@ -105,8 +100,6 @@ import { computed, defineComponent, PropType, watch, shallowRef, nextTick } from
 import omit from 'lodash/omit.js'
 
 import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
-import { generateUniqueId } from '../../services/utils'
-
 import {
   useSyncProp,
   useValidation, useValidationEmits, useValidationProps, ValidationProps,
@@ -119,13 +112,6 @@ import VaTimePicker from '../va-time-picker/VaTimePicker.vue'
 import VaInput from '../va-input/VaInput.vue'
 import VaIcon from '../va-icon/VaIcon.vue'
 import { VaDropdown, VaDropdownContent } from '../va-dropdown'
-
-const slotsSelectors = [
-  '.va-input-wrapper__prepend-inner',
-  '.va-input__prepend-inner',
-  '.va-input__append-inner',
-  '.va-input-wrapper__append-inner',
-]
 
 const VaInputProps = extractComponentProps(VaInput, [
   'mask', 'returnRaw', 'autosize', 'minRows', 'maxRows', 'type', 'inputmode',
@@ -146,9 +132,7 @@ export default defineComponent({
     isOpen: { type: Boolean, default: undefined },
     modelValue: { type: Date, default: undefined },
     clearValue: { type: Date, default: undefined },
-
     format: { type: Function as PropType<(date: Date) => string> },
-
     parse: { type: Function as PropType<(input: string) => Date> },
     manualInput: { type: Boolean, default: false },
     leftIcon: { type: Boolean, default: false },
@@ -161,9 +145,6 @@ export default defineComponent({
     const input = shallowRef<typeof VaInput>()
     const timePicker = shallowRef<typeof VaTimePicker>()
 
-    const clearIconId = generateUniqueId()
-    const componentIconId = generateUniqueId()
-
     const [isOpenSync] = useSyncProp('isOpen', props, emit, false)
     const [modelValueSync] = useSyncProp('modelValue', props, emit)
 
@@ -173,8 +154,6 @@ export default defineComponent({
     const valueText = computed<string | undefined>(() => {
       if (!isValid.value) { return props.clearValue ? format(props.clearValue) : '' }
       if (!modelValueSync.value) { return props.clearValue ? format(props.clearValue) : '' }
-
-      if (props.format) { return format(modelValueSync.value) }
 
       return format(modelValueSync.value)
     })
@@ -266,7 +245,7 @@ export default defineComponent({
       ...omit(attrs, ['class', 'style']),
     }))
 
-    const filterSlots = computed(() => {
+    const filteredSlots = computed(() => {
       const slotsWithIcons = [
         props.leftIcon && 'prependInner',
         (!props.leftIcon || props.clearable) && 'icon',
@@ -302,36 +281,9 @@ export default defineComponent({
       isOpenSync.value ? hideDropdown() : showDropdownWithoutFocus()
     }
 
-    // we use the global handler to prevent the toggle dropdown on any click and execute additional logic
-    // we don't want to use `event.stopPropagation()` on clicks because it breaks closing the dropdown
-    const handleComponentClick = (e: Event & { target: { id: string | undefined }}) => {
-      const id = e.target?.id
-
-      // (here and below) we have to use `id` instead of `ref`
-      // because the icon disappears after the click and `ref` becomes `null`
-      if (id === clearIconId) {
-        return focus()
-      }
-
-      if (id === componentIconId) {
-        return timePicker.value?.focus()
-      }
-
-      // here we check that the slots have been clicked and prevent the dropdown from opening
-      // the user decides to open or hide the dropdown itself
-      const isClickInSlot = slotsSelectors.some(selector => !!(e.target as HTMLElement)?.closest(selector))
-      if (isClickInSlot) {
-        return
-      }
-
-      toggleDropdownWithoutFocus()
-    }
-
     return {
       input,
       timePicker,
-      clearIconId,
-      componentIconId,
 
       timePickerProps: filterComponentProps(props, extractComponentProps(VaTimePicker)),
       computedInputProps,
@@ -346,13 +298,12 @@ export default defineComponent({
       canBeCleared,
       iconProps,
       clearIconProps,
-      filterSlots,
+      filteredSlots,
 
       hideDropdown,
       showDropdown,
       toggleDropdown,
-
-      handleComponentClick,
+      toggleDropdownWithoutFocus,
 
       reset,
       focus,
