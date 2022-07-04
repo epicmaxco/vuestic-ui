@@ -139,11 +139,13 @@ export default defineComponent({
       if (!v || (initial && (!isFunction(v) || !v() || !v().length))) { return false }
 
       const slotData = initial ? v() : v
+
       if (Array.isArray(slotData)) {
         return slotData.some((el: any) => {
-          return Array.isArray(el.children) ? checkSlotChildrenDeep(el.children, false) : !!el.children
+          return Array.isArray(el.children) ? checkSlotChildrenDeep(el.children, false) : el.children || el.props
         })
       }
+
       return !!slotData.children
     }
 
