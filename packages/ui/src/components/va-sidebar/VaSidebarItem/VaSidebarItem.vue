@@ -8,7 +8,6 @@
     :href="hrefComputed"
     :to="$props.to"
     :is="tagComputed"
-    v-bind="$attrs"
     v-on="keyboardFocusListeners"
   >
     <slot />
@@ -17,22 +16,25 @@
 
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
-import { useColors, appyColors } from '../../../services/color-config/color-config'
-import useKeyboardOnlyFocus from '../../../composables/useKeyboardOnlyFocus'
-import { useHover } from '../../../composables/useHover'
-import { useRouterLink, useRouterLinkProps } from '../../../composables/useRouterLink'
-import { useElementRef } from '../../../composables/useElementRef'
-import { useTextColor } from '../../../composables/useTextColor'
-import { useElementBackground } from '../../../composables/useElementBackground'
+
+import {
+  appyColors,
+  useElementRef,
+  useColors,
+  useKeyboardOnlyFocus,
+  useHover,
+  useRouterLink, useRouterLinkProps,
+  useTextColor,
+} from '../../../composables'
 import { useSidebarItem } from '../hooks/useSidebar'
+import { useComponentPresetProp } from '../../../composables/useComponentPreset'
 
 export default defineComponent({
   name: 'VaSidebarItem',
 
-  inheritAttrs: false,
-
   props: {
     ...useRouterLinkProps,
+    ...useComponentPresetProp,
     active: { type: Boolean, default: false },
     textColor: { type: String, default: undefined },
     activeColor: { type: String, default: 'primary' },

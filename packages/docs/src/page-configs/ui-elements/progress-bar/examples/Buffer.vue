@@ -1,16 +1,20 @@
 <template>
   <div class="flex lg6 xs12">
-    <div class="mt-4 mb-5">
-      <va-progress-bar :model-value="value" :buffer="bufferValue" />
-    </div>
-    <div class="row mb-4 mx-0 flex">
-      <va-slider v-model="value" />
-      <span class="ml-4">Value: {{ `${value}%`}}</span>
-    </div>
-    <div class="row mb-4 mx-0 flex">
-      <va-slider v-model="bufferValue" />
-      <span class="ml-4">Buffer: {{ `${bufferValue}%`}}</span>
-    </div>
+    <va-progress-bar :model-value="value" :buffer="bufferValue" />
+
+    <va-slider class="mt-4"
+      v-model="value"
+      track-label-visible
+      :track-label="(v) => `${v}%`"
+      label="Value:"
+    />
+    <va-slider class="mt-2"
+      v-model="bufferValue"
+      track-label-visible
+      :track-label="(v) => `${v}%`"
+      label="Buffer:"
+
+    />
   </div>
 </template>
 
@@ -19,7 +23,7 @@ export default {
   data () {
     return {
       value: 35,
-      bufferValue: 65,
+      bufferValue: 100,
     }
   },
 }

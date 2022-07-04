@@ -9,7 +9,9 @@
 
   <va-sidebar-item text-color="danger">
     <va-sidebar-item-content>
-      <va-sidebar-item-title>Danger text color</va-sidebar-item-title>
+      <va-sidebar-item-title>
+        Danger text color
+      </va-sidebar-item-title>
     </va-sidebar-item-content>
   </va-sidebar-item>
 

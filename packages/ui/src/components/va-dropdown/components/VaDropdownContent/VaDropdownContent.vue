@@ -11,8 +11,7 @@
 <script lang="ts">
 import { computed, defineComponent, toRef } from 'vue'
 
-import { useColors } from '../../../../services/color-config/color-config'
-import { useTextColor } from '../../../../composables/useTextColor'
+import { useColors, useTextColor } from '../../../../composables'
 
 export default defineComponent({
   name: 'VaDropdownContent',

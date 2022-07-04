@@ -32,7 +32,7 @@
 <script lang="ts">
 import { defineComponent, PropType, shallowRef, computed } from 'vue'
 
-import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
+import { useComponentPresetProp, useStateful, useStatefulProps, useStatefulEmits } from '../../composables'
 
 import { VaColorIndicator } from '../va-color-indicator'
 import { VaInput } from '../va-input'
@@ -46,6 +46,7 @@ export default defineComponent({
   emits: useStatefulEmits,
   props: {
     ...useStatefulProps,
+    ...useComponentPresetProp,
     modelValue: { type: String, default: null },
     disabled: { type: Boolean, default: false },
     indicator: {

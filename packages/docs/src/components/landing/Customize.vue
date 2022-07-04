@@ -137,7 +137,7 @@ import dedent from 'dedent'
 // @ts-ignore
 import Prism from '../PrismWrapper'
 import { shiftHSLAColor } from 'vuestic-ui/src/services/color-config/color-functions'
-import { useColors } from 'vuestic-ui/src/services/color-config/color-config'
+import { useColors } from 'vuestic-ui/src/composables'
 
 @Options({
   name: 'LandingCustomize',

@@ -398,7 +398,9 @@
         "hideFileList": "Hide file list if you want to show files somewhere else.",
         "value": "The array with uploaded files",
         "dropZoneText": "Custom drop zone label text",
-        "uploadButtonText": "Custom upload button text"
+        "uploadButtonText": "Custom upload button text",
+        "undo": "Enables the canceling of the removing action for the added files",
+        "undoDuration": "Undoing action duration"
       },
       "events": {
         "fileRemoved": "Emits after file is removed",
@@ -533,7 +535,9 @@
         "indeterminate": "Create a indeterminate loading bar",
         "buffer": "Create a loading bar with a buffer. Commonly used in videos",
         "reverse": "Reverse the progress bar direction",
-        "rounded": "Add a border radius to the `va-progress-bar` component (default: true)"
+        "rounded": "Add a border radius to the `va-progress-bar` component (default: true)",
+        "contentInside": "Sets the content of the slot inside the progress bar",
+        "showPercent": "Shows the indicator value with a percent sign"
       },
       "slots": {
         "default": "Display any additional info about the progress"
@@ -885,8 +889,9 @@
     },
     "VaDataTable": {
       "props": {
-        "columns": "The property `columns` must be an array, that configures the columns of the table. In this case:\n\n `DataTableColumn` &#123; `key: string;` `label?: string;` `headerTitle?: string;` `sortable?: boolean;` `sortingFn?: (a: any, b: any) => number;` `alignHead?: DataTableColumnAlign;` `verticalAlignHead?: DataTableColumnVerticalAlign;` `align?: DataTableColumnAlign;` `verticalAlign?: DataTableColumnVerticalAlign;` `width?: string`&#124;`number;` `classes?: DataTableColumnClasses;` `headerClasses?: DataTableColumnClasses;` `style?: DataTableColumnStyle;` `headerStyle?: DataTableColumnStyle;` &#125;;\n\n `DataTableColumnAlign: 'left'`&#124;`'center'`&#124;`'right'`;\n\n `DataTableColumnVerticalAlign: 'top'`&#124;`'middle'`&#124;`'bottom'`;\n\n `DataTableColumnClasses: string`&#124;`string[]`&#124;`(() => string`&#124;`string[])`;\n\n `DataTableColumnStyle: Record<string, any>`&#124;`(() => Record<string, any>)`",
-        "items": "Array of objects with table data (`DataTableItem: Record<string, any>`). The `va-data-table` automatically calculates the amount and the titles of columns (if not specified otherwise with the `columns` prop) based on these object's keys. When calculating the columns' names based on the item's objects' keys `va-data-table` uses [Lodash's startCase](https://lodash.com/docs/4.17.15#startCase)[[target=_blank]] internally. Faulty values are replaced with an empty string",
+        "columns": "The property `columns` must be an array, that configures the columns of the table",
+        "items": "Array of objects with table data (`DataTableItem` type). The `va-data-table` automatically calculates the amount and the titles of columns (if not specified otherwise with the `columns` prop) based on these object's keys. When calculating the columns' names based on the item's objects' keys `va-data-table` uses [Lodash's startCase](https://lodash.com/docs/4.17.15#startCase)[[target=_blank]] internally. Faulty values are replaced with an empty string",
+        "itemsTrackBy": "The `item` key that is used to keep track of the selected `item`. Can be string (path to the key) or a function of type: `(item) => item.track`",
         "filter": "If a `filter` is provided, only rows in which at least one cell contains the specified value will be displayed. To disable filtering at runtime (clear `filter`), specify an empty string",
         "filterMethod": "A custom filtering function. The function takes the initial value of the currently checked cell (the `source` is a formal parameter) and should return a `boolean` value, indicating whether to include the row containing this cell or not",
         "sortBy": "Sets the column to sort by. Works through the `v-model`",
@@ -910,7 +915,7 @@
         "stickyHeader": "Enables sticky header (sticky header is achieved through CSS with `position: sticky` for `thead`)",
         "stickyFooter": "Enables sticky footer (sticky footer is achieved through CSS with `position: sticky` for `tfoot`)",
         "height": "Sets the height to the table and enables scrolling",
-        "rowBind": "Adds attributes to a table row using `v-bind`. This can be an object type (with attributes that vue supports) or a function that returns such an object. The function receives a table row element (type `Record<string, any>`) and an index as arguments",
+        "rowBind": "Adds attributes to a table row using `v-bind`. This can be an object type (with attributes that vue supports) or a function that returns such an object. The function receives a table row element (`DataTableItem` type) and an index as arguments",
         "cellBind": "Adds attributes to a table cell using `v-bind`. This can be an object type (with attributes that vue supports) or a function that returns such an object. As arguments, the function receives a table cell element (`any` type), a row (`DataTableItem` type), a column (`TableColumn` type), and a row index"
       },
       "events": {
@@ -921,7 +926,7 @@
         "rowClick": "When row clicked the event is thrown with the following param: `RowClickEmit` = \n &#123;\n &nbsp; `event: Event`,\n &nbsp; `item: DataTableItem`,\n &nbsp; `itemIndex: number`\n &#125;",
         "rowDblclick": "Double-clicking a row raises an event with the `RowClickEmit` param",
         "rowContextmenu": "When the context menu is clicked on a row, an event is raised with the `RowClickEmit` param",
-        "selectionChange": "The `selectionChange` event is thrown each time the selection changes. It provides the following object: `SelectionChangeEmit` = \n&#123;\n &nbsp; `currentSelectedItems: DataTableItem[]`,\n &nbsp; `previousSelectedItems: DataTableItem[]`\n &#125;"
+        "selectionChange": "The `selectionChange` event is thrown each time the selection changes. It provides the following object: `SelectionChangeEmit` = \n&#123;\n &nbsp; `currentSelectedItems: (DataTableItem | DataTableItemKey)[]`,\n &nbsp; `previousSelectedItems: (DataTableItem | DataTableItemKey)[]`\n &#125;"
       },
       "methods": {},
       "slots": {
@@ -1135,16 +1140,23 @@
       },
       "events": {},
       "methods": {},
-      "slots": {}
+      "slots": {
+        "icon": "By default replaces with a `va-icon` and icon name from `icon` property",
+        "title": "Custom title slot",
+        "body": "Custom body slot"
+      }
     },
     "VaTimePicker": {
       "props": {
-        "ampm": "Use 12-hours time format.",
+        "ampm": "Use 12-hours time format",
         "hoursFilter": "Function that allows you to hide some specific hours",
         "minutesFilter": "Function that allows you to hide some specific minutes",
         "secondsFilter": "Function that allows you to hide some specific seconds",
         "view": "View specifying which columns will be shown",
-        "periodUpdatesModelValue": "If user will change period it will automatically update model value. You can turn off it and am/pm switch will only change view."
+        "periodUpdatesModelValue": "If user will change period it will automatically update model value. You can turn off it and am/pm switch will only change view.",
+        "framed": "Adds borders to center of the picker",
+        "cellHeight": "Height of the time cell",
+        "visibleCellsCount": "Count of time cells to display"
       },
       "events": {},
       "methods": {},
@@ -1368,6 +1380,7 @@
     "treeShaking": "Tree Shaking",
     "counter": "Counter",
     "nuxt": "Nuxt",
+    "ssrGuide": "SSR",
     "spacer": "Spacer"
   },
   "all": {
@@ -1910,6 +1923,10 @@
         }
       ]
     },
+    "customContent": {
+      "title": "Custom content",
+      "text": "You can remove default padding with `no-padding` prop and change default action buttons with `content` slot."
+    },
     "anchor": {
       "title": "Slot: `anchor`",
       "text": "Using the `anchor` slot, the user can access the `show()`, `hide()` and `toggle()` methods."
@@ -2014,6 +2031,10 @@
       "color": {
         "title": "Color",
         "text": "Set different colors using the `color` prop. You can either use a theme string or the HEX color value. Inactive tabs have `inherit` color. If you need to change inactive tabs color, you can set color for va-tabs using CSS."
+      },
+      "content": {
+        "title": "Content",
+        "text": "Tabs with a custom content in the default slot."
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-tabs/_variables.scss)[[target=_blank]]",
@@ -2050,6 +2071,12 @@
       "gallery": {
         "title": "As gallery",
         "text": "With `type === gallery` prop you can show user picture preview of uploaded files"
+      },
+      "undo": {
+        "title": "Canceling the removing action",
+        "description": "Add the `undo` property to cancel the removing action, and with a `undo-duration` property set the time to cancel removing",
+        "galleryViewLabel": "Enable gallery view",
+        "inputLabel": "Undo duration"
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-file-upload/_variables.scss)[[target=_blank]]"
@@ -3315,7 +3342,7 @@
     },
     "components": {
       "title": "Components config",
-      "intro": "If you want to set global defaults for Vuestic components — we've got a config for that either!",
+      "intro": "If you want to set global defaults for Vuestic components or create presets — we have config for this as well!",
       "description": "Let’s say you want all of your buttons to be `outline` and `small` to match your design, but by default that's not the case:",
       "action": "To solve that problem edit to `main.js` file the following way:",
       "result": "Now all of your buttons by default will look like this:",
@@ -3753,6 +3780,10 @@
       "trigger": {
         "title": "Trigger",
         "text": "Events triggering the popover separated with spaces: `hover`, `click` or `focus`."
+      },
+      "slots": {
+        "title": "Slots usage",
+        "description": "You can use `icon`, `title` and `body` slots to provide your own extra content into the popover component."
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-popover/_variables.scss)[[target=_blank]]"
@@ -3846,7 +3877,11 @@
       },
       "selection": {
         "title": "Selection",
-        "text": "Use the `selectable` prop to indicate whether the `va-data-table` should have selectable rows or not. The highlighting color of the selected row might be changed with the `selected-color` prop, passing a string with one of the possible color options: `'primary'`, `'danger'` and so on.\n\nThe selection may optionally be attached to a model with the standard `v-model` (using the `:model-value` prop and the `update:modelValue` event). This also allows to set the initial selection on the `va-data-table`."
+        "text": [
+          "Use the `selectable` prop to indicate whether the `va-data-table` should have selectable rows or not. The highlighting color of the selected row might be changed with the `selected-color` prop.",
+          "The selection may optionally be attached to a model with the standard `v-model` (using the `:model-value` prop and the `update:modelValue` event). This also allows to set the initial selection on the `va-data-table`.",
+          "If you have items that can be updated (from the backend, for example), you must set the `items-track-by` prop to track your selected items properly."
+        ]
       },
       "pagination": {
         "title": "Pagination",
@@ -3924,6 +3959,14 @@
       "default": {
         "title": "Default",
         "text": ""
+      },
+      "framed": {
+        "title": "Framed",
+        "text": ""
+      },
+      "visibleCellsCount": {
+        "title": "Controlling the count of displayed cells",
+        "text": "For the better view need to set odd numbers"
       },
       "readonlyAndDisabled": {
         "title": "Readonly and disabled",
@@ -4048,6 +4091,29 @@
       "plugin": "Install integration module:",
       "nuxtConfig": "Then you need to update nuxt-config.ts file:",
       "moreAboutConfig": "More about configuration"
+    }
+  },
+  "ssrGuide": {
+    "title": "SSR",
+    "description": "Vuestic is fully compatible with server-side rendering.",
+    "cssVariables": {
+      "title": "CSS variables",
+      "description": "Vuestic UI uses `CSS variables` in components. For SSR you need to define them in html head element. You can use following code to generate CSS Variables based on your [ColorConfig](/services/colors-config):"
+    },
+    "solutions": {
+      "title": "Examples",
+      "description": "Here are two examples how you can add CSS variables to html head",
+
+      "nuxt": "Look at Nuxt3 guide",
+
+      "viteSsrPlugin": {
+        "title": "Vite SSR Plugin",
+        "description": "Learn more about [Vite SSR Plugin](https://vite-plugin-ssr.com/vue-tour)"
+      },
+      "vitesse": {
+        "title": "Vitesse",
+        "description": "Learn more about [Vitesse](https://github.com/antfu/vitesse) and [useHead](https://github.com/vueuse/head#server-side-rendering)"
+      }
     }
   },
   "spacer": {

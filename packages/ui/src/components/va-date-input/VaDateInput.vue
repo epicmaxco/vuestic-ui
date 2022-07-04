@@ -3,7 +3,7 @@
     <va-dropdown
       v-model="isOpenSync"
       trigger="none"
-      anchorSelector=".va-input-wrapper__input"
+      anchorSelector=".va-input-wrapper__field"
       :offset="[2, 0]"
       :close-on-content-click="false"
       :stateful="false"
@@ -55,6 +55,9 @@
               <va-icon
                 v-else-if="!$props.leftIcon"
                 v-bind="iconProps"
+                tabindex="0"
+                @keydown.enter.stop="showDropdown"
+                @keydown.space.stop="showDropdown"
               />
             </template>
           </va-input>
@@ -93,15 +96,18 @@
 import { computed, defineComponent, PropType, toRefs, watch, ref, nextTick } from 'vue'
 
 import { filterComponentProps, extractComponentProps, extractComponentEmits } from '../../utils/child-props'
-import { useClearableEmits, useClearable } from '../../composables/useClearable'
-import { useValidation, useValidationEmits, useValidationProps, ValidationProps } from '../../composables/useValidation'
-import { useStateful, useStatefulEmits } from '../../composables/useStateful'
+import {
+  useClearable, useClearableEmits,
+  useValidation, useValidationEmits, useValidationProps, ValidationProps,
+  useStateful, useStatefulEmits,
+  useParsable,
+} from '../../composables'
 import { useSyncProp } from '../va-date-picker/hooks/sync-prop'
-import { useParsable } from '../../composables/useParsable'
 import { isRange, isSingleDate, isDates } from '../va-date-picker/utils/date-utils'
 import { useRangeModelValueGuard } from './hooks/range-model-value-guard'
 import { useDateParser } from './hooks/input-text-parser'
 import { parseModelValue } from './hooks/model-value-parser'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 import { DateInputModelValue, DateInputValue } from './types'
 
@@ -130,6 +136,7 @@ export default defineComponent({
     ...VaInputProps,
     ...VaDatePickerProps,
     ...useValidationProps as ValidationProps<DateInputModelValue>,
+    ...useComponentPresetProp,
 
     clearValue: { type: Date as PropType<DateInputModelValue>, default: undefined },
     modelValue: { type: [Date, Array, Object, String, Number] as PropType<DateInputModelValue> },
@@ -183,6 +190,10 @@ export default defineComponent({
     const dateOrNothing = (date: Date | undefined | null) => date ? props.formatDate(date) : '...'
 
     const { parseDateInputValue, isValid } = useDateParser(props)
+
+    watch(valueComputed, () => {
+      isValid.value = true
+    })
 
     const modelValueToString = (value: DateInputModelValue): string => {
       if (props.format) {
@@ -247,12 +258,17 @@ export default defineComponent({
     }
 
     const focusInputOrPicker = (): void => {
-      props.manualInput ? focus() : focusDatePicker()
+      isOpenSync.value ? focusDatePicker() : focus()
+    }
+
+    const showDropdown = () => {
+      isOpenSync.value = true
+      nextTick(focusInputOrPicker)
     }
 
     const toggleDropdown = () => {
       isOpenSync.value = !isOpenSync.value
-      focusInputOrPicker()
+      nextTick(focusInputOrPicker)
     }
 
     const showAndFocus = (event: Event): void => {
@@ -334,6 +350,7 @@ export default defineComponent({
       hideAndFocus,
       showAndFocus,
       toggleDropdown,
+      showDropdown,
       focusInputOrPicker,
       reset,
       focus,

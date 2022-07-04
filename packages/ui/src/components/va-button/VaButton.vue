@@ -55,12 +55,13 @@
 <script lang="ts">
 import { defineComponent, computed, ref, ComputedRef, shallowRef, PropType } from 'vue'
 
-import { getGradientBackground, shiftHSLAColor } from '../../services/color-config/color-functions'
-import { useTextColor } from '../../composables/useTextColor'
-import { useColors } from '../../composables/useColor'
-import { useRouterLink, useRouterLinkProps } from '../../composables/useRouterLink'
-import { useSizeProps, useSize } from '../../composables/useSize'
-import { useLoadingProps } from '../../composables/useLoading'
+import {
+  useComponentPresetProp,
+  useColors, useTextColor,
+  useRouterLink, useRouterLinkProps,
+  useSize, useSizeProps,
+  useLoadingProps,
+} from '../../composables'
 
 import { VaIcon } from '../va-icon'
 import { VaProgressCircle } from '../va-progress-circle'
@@ -72,6 +73,7 @@ export default defineComponent({
     ...useSizeProps,
     ...useLoadingProps,
     ...useRouterLinkProps,
+    ...useComponentPresetProp,
     color: { type: String, default: 'primary' },
     textColor: { type: String, default: undefined },
     tag: { type: String, default: 'button' },
@@ -101,7 +103,7 @@ export default defineComponent({
     const hoverState = ref(false)
     const focusState = ref(false)
 
-    const { getColor } = useColors()
+    const { getColor, getGradientBackground, shiftHSLAColor } = useColors()
     const colorComputed = computed(() => getColor(props.color))
     const isTransparentBackground = computed(() => Boolean(props.outline || props.flat))
     const { textColorComputed } = useTextColor(colorComputed, isTransparentBackground)

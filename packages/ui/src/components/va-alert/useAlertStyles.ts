@@ -1,7 +1,5 @@
 import { computed, toRef } from 'vue'
-import { useColors } from './../../composables/useColor'
-import { useTextColor } from './../../composables/useTextColor'
-import { useElementBackground } from '../../composables/useElementBackground'
+import { useElementBackground, useColors, useTextColor } from '../../composables'
 
 type AlertStyleProps = {
   modelValue: boolean,

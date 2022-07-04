@@ -10,6 +10,7 @@
     </template>
   </va-tabs>
 </template>
+
 <script>
 export default {
   data () {

@@ -87,11 +87,14 @@ import { computed, defineComponent, InputHTMLAttributes, PropType, ComputedRef, 
 import omit from 'lodash/omit'
 import pick from 'lodash/pick'
 
-import { useFormProps } from '../../composables/useForm'
-import { useEmitProxy } from '../../composables/useEmitProxy'
-import { useFocus, useFocusEmits } from '../../composables/useFocus'
-import { useStatefulProps, useStateful } from '../../composables/useStateful'
-import { useColors } from '../../composables/useColor'
+import {
+  useComponentPresetProp,
+  useFormProps,
+  useEmitProxy,
+  useFocus, useFocusEmits,
+  useStateful, useStatefulProps,
+  useColors,
+} from '../../composables'
 import { safeCSSLength } from '../../utils/css-utils'
 
 import VaInputWrapper from '../va-input/components/VaInputWrapper.vue'
@@ -117,8 +120,9 @@ export default defineComponent({
   props: {
     ...useFormProps,
     ...useStatefulProps,
+    ...useComponentPresetProp,
     // input
-    modelValue: { type: [String, Number] as PropType<string | number>, default: 0 },
+    modelValue: { type: [String, Number], default: 0 },
     manualInput: { type: Boolean, default: false },
     stateful: { type: Boolean, default: false },
     min: { type: Number, default: undefined },
@@ -128,7 +132,7 @@ export default defineComponent({
     // hint
     messages: { type: [Array, String] as PropType<string[] | string>, default: () => [] },
     // style
-    width: { type: [String, Number] as PropType<string | number>, default: '160px' },
+    width: { type: [String, Number], default: '160px' },
     color: { type: String, default: 'primary' },
     outline: { type: Boolean },
     bordered: { type: Boolean },
@@ -138,7 +142,7 @@ export default defineComponent({
     buttons: { type: Boolean, default: false },
     flat: { type: Boolean, default: true },
     rounded: { type: Boolean, default: false },
-    margins: { type: [String, Number] as PropType<string | number>, default: '4px' },
+    margins: { type: [String, Number], default: '4px' },
     textColor: { type: String, default: undefined },
   },
 

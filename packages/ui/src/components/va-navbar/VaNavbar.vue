@@ -4,15 +4,15 @@
     :style="computedStyle"
   >
     <div class="va-navbar__content">
-      <div class="va-navbar__left">
+      <div v-if="$slots.left" class="va-navbar__left">
         <slot name="left" />
       </div>
 
-      <div class="va-navbar__center">
+      <div v-if="$slots.center" class="va-navbar__center">
         <slot name="center" />
       </div>
 
-      <div class="va-navbar__right">
+      <div v-if="$slots.right" class="va-navbar__right">
         <slot name="right" />
       </div>
     </div>
@@ -27,19 +27,18 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
 
-import { shiftHSLAColor } from '../../services/color-config/color-functions'
-import { useColors } from '../../services/color-config/color-config'
-import { useTextColor } from '../../composables/useTextColor'
+import { useComponentPresetProp, useColors, useTextColor } from '../../composables'
 
 export default defineComponent({
   name: 'VaNavbar',
   props: {
+    ...useComponentPresetProp,
     color: { type: String, default: 'backgroundSoft' },
     textColor: { type: String },
     shape: { type: Boolean, default: false },
   },
   setup (props) {
-    const { getColor } = useColors()
+    const { getColor, shiftHSLAColor } = useColors()
     const { textColorComputed } = useTextColor()
 
     const color = computed(() => getColor(props.color))

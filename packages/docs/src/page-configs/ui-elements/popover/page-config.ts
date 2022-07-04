@@ -45,6 +45,11 @@ const config: ApiDocsBlock[] = [
     'popover.examples.trigger.text',
     'Trigger',
   ),
+  ...block.exampleBlock(
+    'popover.examples.slots.title',
+    'popover.examples.slots.description',
+    'Slots',
+  ),
 
   block.subtitle('all.api'),
   block.api(VaPopover, apiOptions),

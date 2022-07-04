@@ -3,6 +3,7 @@
   <br />
   <va-switch v-model="value2" indeterminate indeterminate-value="middle" :label="String(value2)" />
 </template>
+
 <script>
 export default {
   data () {

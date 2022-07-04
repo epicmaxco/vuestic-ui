@@ -9,9 +9,9 @@
     <div
       ref="anchorRef"
       class="va-dropdown__anchor"
-      @click="onAnchorClick()"
-      @mouseenter="onMouseEnter()"
-      @mouseleave="onMouseLeave()"
+      @click="onAnchorClick"
+      @mouseenter="onMouseEnter"
+      @mouseleave="onMouseLeave"
     >
       <slot name="anchor" />
     </div>
@@ -21,7 +21,7 @@
           ref="contentRef"
           class="va-dropdown__content-wrapper"
           @mouseover="$props.isContentHoverable && onMouseEnter()"
-          @mouseout="onMouseLeave()"
+          @mouseout="onMouseLeave"
           @click.stop="emitAndClose('dropdown-content-click', closeOnContentClick)"
         >
           <slot />
@@ -33,20 +33,27 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType, shallowRef, toRef } from 'vue'
+import pick from 'lodash/pick.js'
 
-import { useStateful, useStatefulEmits, useStatefulProps } from '../../composables/useStateful'
-import { useDebounceFn } from '../../composables/useDebounce'
-import { usePopover, placementsPositions, Placement } from '../../composables/usePopover'
-import { useClickOutside } from '../../composables/useClickOutside'
+import {
+  useComponentPresetProp,
+  useStateful, useStatefulEmits, useStatefulProps,
+  useDebounceFn,
+  usePopover, placementsPositions, Placement,
+  useClickOutside,
+  useBem,
+} from '../../composables'
 
 export default defineComponent({
   name: 'VaDropdown',
 
   props: {
     ...useStatefulProps,
+    ...useComponentPresetProp,
     stateful: { default: true },
     modelValue: { type: Boolean, default: false },
     disabled: { type: Boolean },
+    readonly: { type: Boolean },
     anchorSelector: { type: String, default: '' },
     attachElement: { type: String, default: 'body' },
     disableAttachment: { type: Boolean, default: false },
@@ -76,11 +83,13 @@ export default defineComponent({
     const anchorRef = shallowRef<HTMLElement>()
     const contentRef = shallowRef<HTMLElement>()
 
-    const { valueComputed } = useStateful(props, emit)
+    const { valueComputed: statefulVal } = useStateful(props, emit)
+    const valueComputed = computed({
+      get: () => statefulVal.value && !props.disabled && !props.readonly,
+      set (val) { statefulVal.value = val },
+    })
 
-    const computedClass = computed(() => ({
-      'va-dropdown--disabled': props.disabled,
-    }))
+    const computedClass = useBem('va-dropdown', () => pick(props, ['disabled']))
 
     // to be able to select specific anchor element inside anchorRef
     const computedAnchorRef = computed(() => (
@@ -170,14 +179,7 @@ export default defineComponent({
   &__content-wrapper {
     /* overflow: hidden; */
     z-index: var(--va-dropdown-content-wrapper-z-index);
-  }
-
-  &__icons {
-    &__reset {
-      &:focus {
-        @include focus-outline;
-      }
-    }
+    font-family: var(--va-font-family);
   }
 }
 </style>

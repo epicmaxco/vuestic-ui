@@ -1,6 +1,10 @@
 import { warn } from '../../services/utils'
 
-export const validateSlider = (value: number | number[], step: number, min: number, max: number) => {
+export const validateSlider = (value: number | number[], step: number, min: number, max: number, range: boolean) => {
+  if ((Array.isArray(value) && !range) || (!Array.isArray(value) && range)) {
+    warn(`The type "${Array.isArray(value) ? 'array' : typeof value}" of prop "model-value" does not match prop "range = ${range}".`)
+  }
+
   if (max < min) {
     warn('The maximum value can not be less than the minimum value.')
   }
@@ -22,7 +26,7 @@ export const validateSlider = (value: number | number[], step: number, min: numb
   }
 
   if (Array.isArray(value)) {
-    value.map((v) => inRange(v))
+    value.map(inRange)
   } else {
     inRange(value)
   }

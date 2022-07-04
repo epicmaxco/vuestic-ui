@@ -397,7 +397,9 @@
         "dropzone": "Включает Drag&Drop",
         "value": "Массив с загруженными файлами",
         "dropZoneText": "Текст, заменяющий стандартную надпись на drop zone",
-        "uploadButtonText": "Текст, заменяющий стандартную надпись кнопки загрузки"
+        "uploadButtonText": "Текст, заменяющий стандартную надпись кнопки загрузки",
+        "undo": "Отмена действия удаления прикрепленных файлов",
+        "undoDuration": "Длительность отображения отмены действия удаления"
       }
     },
     "VaHover": {
@@ -528,7 +530,9 @@
         "indeterminate": "Бесконечная анимация прогресса",
         "buffer": "Создает полосу загрузки с буфером. Обычно используется в видео",
         "reverse": "Измените направление индикатора прогресса",
-        "rounded": "Добавляет закругления (`border-radius`, включено по умолчанию)"
+        "rounded": "Добавляет закругления (`border-radius`, включено по умолчанию)",
+        "contentInside": "Устанавливает содержимое слота внутри индикатора",
+        "showPercent": "Показывает значение индикатора со значком процента"
       },
       "slots": {
         "default": "Отображение любой дополнительной информации"
@@ -873,8 +877,9 @@
     },
     "VaDataTable": {
       "props": {
-        "columns": "Свойство `columns` должно быть массивом, который настраивает столбцы таблицы. При этом:\n\n `DataTableColumn` &#123; `key: string;` `label?: string;` `headerTitle?: string;` `sortable?: boolean;` `sortingFn?: (a: any, b: any) => number;` `alignHead?: DataTableColumnAlign;` `verticalAlignHead?: DataTableColumnVerticalAlign;` `align?: DataTableColumnAlign;` `verticalAlign?: DataTableColumnVerticalAlign;` `width?: string`&#124;`number;` `classes?: DataTableColumnClasses;` `headerClasses?: DataTableColumnClasses;` `style?: DataTableColumnStyle;` `headerStyle?: DataTableColumnStyle;` &#125;;\n\n `DataTableColumnAlign: 'left'`&#124;`'center'`&#124;`'right'`;\n\n `DataTableColumnVerticalAlign: 'top'`&#124;`'middle'`&#124;`'bottom'`;\n\n `DataTableColumnClasses: string`&#124;`string[]`&#124;`(() => string`&#124;`string[])`;\n\n `DataTableColumnStyle: Record<string, any>`&#124;`(() => Record<string, any>)`",
-        "items": "Массив объектов с табличными данными (`DataTableItem: Record<string, any>`). Таблица `va-data-table` автоматически вычисляет количество и заголовки столбцов (если не указано иное с помощью свойства `columns`) на основе ключей этих объектов. При вычислении имен столбцов на основе ключей объектов элемента `va-data-table` внутренне использует [Lodash's startCase](https://lodash.com/docs/4.17.15#startCase)[[target=_blank]]. Ошибочные значения заменяются пустой строкой",
+        "columns": "Свойство `columns` должно быть массивом, который настраивает столбцы таблицы",
+        "items": "Массив объектов с табличными данными (тип `DataTableItem`). Таблица `va-data-table` автоматически вычисляет количество и заголовки столбцов (если не указано иное с помощью свойства `columns`) на основе ключей этих объектов. При вычислении имен столбцов на основе ключей объектов элемента `va-data-table` внутренне использует [Lodash's startCase](https://lodash.com/docs/4.17.15#startCase)[[target=_blank]]. Ошибочные значения заменяются пустой строкой",
+        "itemsTrackBy": "Ключ `item`, который используется для отслеживания выбранного `item`. Может быть строкой (путь к ключу) или функцией типа: `(item) => item.track`",
         "filter": "Если предоставляется `filter`, будут отображаться только те строки, в которых хотя бы одна ячейка содержит указанное значение. Чтобы отключить фильтрацию во время выполнения (очистить `filter`), укажите пустую строку",
         "filterMethod": "Пользовательская функция фильтрации. Функция принимает начальное значение текущей проверяемой ячейки (`source` является формальным параметром) и должна возвращать `boolean` значение, указывающее, включать ли строку, содержащую эту ячейку, или нет",
         "sortBy": "Устанавливает столбец, по которому выполнять сортировку. Работает через `v-model`",
@@ -898,7 +903,7 @@
         "stickyHeader": "Включает закрепление `thead` таблицы (путем установки CSS свойства `position: sticky`)",
         "stickyFooter": "Включает закрепление `tfoot` таблицы (путем установки CSS свойства `position: sticky`)",
         "height": "Устанавливает высоту таблицы и включает прокрутку",
-        "rowBind": "Добавляет атрибуты в строку таблицы с помощью `v-bind`. Это может быть тип объекта (с атрибутами, которые поддерживает vue) или функция, которая возвращает такой объект. Функция получает элемент строки таблицы (тип `Record<string, any>`) и индекс в качестве аргументов",
+        "rowBind": "Добавляет атрибуты в строку таблицы с помощью `v-bind`. Это может быть тип объекта (с атрибутами, которые поддерживает vue) или функция, которая возвращает такой объект. Функция получает элемент строки таблицы (тип `DataTableItem`) и индекс в качестве аргументов",
         "cellBind": "Добавляет атрибуты в ячейку таблицы, используя `v-bind`. Это может быть тип объекта (с атрибутами, которые поддерживает vue) или функция, которая возвращает такой объект. В качестве аргументов функция получает элемент ячейки таблицы (`any` тип), строку (тип `DataTableItem`), столбец (тип `TableColumn`) и индекс строки"
       },
       "events": {
@@ -909,7 +914,7 @@
         "rowClick": "При щелчке по строке возникает событие со следующим параметром: `RowClickEmit` = \n &#123;\n &nbsp; `event: Event`,\n &nbsp; `item: DataTableItem`,\n &nbsp; `itemIndex: number`\n &#125;",
         "rowDblclick": "Двойной щелчок по строке вызывает событие с параметром `RowClickEmit`",
         "rowContextmenu": "При щелчке контекстного меню по строке возникает событие с параметром `RowClickEmit`",
-        "selectionChange": "Событие `selectionChange` генерируется каждый раз при изменении выделения строк. Он предоставляет следующий объект: `SelectionChangeEmit` = \n&#123;\n &nbsp; `currentSelectedItems: DataTableItem[]`,\n &nbsp; `previousSelectedItems: DataTableItem[]`\n &#125;"
+        "selectionChange": "Событие `selectionChange` генерируется каждый раз при изменении выделения строк. Он предоставляет следующий объект: `SelectionChangeEmit` = \n&#123;\n &nbsp; `currentSelectedItems: (DataTableItem | DataTableItemKey)[]`,\n &nbsp; `previousSelectedItems: (DataTableItem | DataTableItemKey)[]`\n &#125;"
       },
       "methods": {},
       "slots": {
@@ -1122,10 +1127,24 @@
       },
       "events": {},
       "methods": {},
-      "slots": {}
+      "slots": {
+        "icon": "По умолчанию используется `va-icon` с названием из свойства компонента `icon`",
+        "title": "Слот для заголовка",
+        "body": "Слот для контента компонента"
+      }
     },
     "VaTimePicker": {
-      "props": {},
+      "props": {
+        "ampm": "12 часовой формат",
+        "hoursFilter": "Функция, позволяющая скрыть определенные часы",
+        "minutesFilter": "Функция, позволяющая скрыть определенные минуты",
+        "secondsFilter": "Функция, позволяющая скрыть определенные секунды",
+        "view": "Отображение только выбранных колонок",
+        "periodUpdatesModelValue": "Изменение периода времен автоматически обновит model value при переключении AM/PM",
+        "framed": "Добавляет рамки по центру компонента для выделения выбранных значений",
+        "cellHeight": "Высота ячейки времени",
+        "visibleCellsCount": "Количество ячеек времени для отображения"
+      },
       "events": {},
       "methods": {},
       "slots": {}
@@ -1291,6 +1310,7 @@
     "treeShaking": "Tree Shaking",
     "counter": "Counter",
     "nuxt": "Nuxt",
+    "ssrGuide": "Ssr Guide",
     "spacer": "Spacer"
   },
   "all": {
@@ -1911,6 +1931,10 @@
       "color": {
         "title": "Цвет",
         "text": "Свойство `color` используется для изменения цвета компонента, `text-color` изменяет цвет текста (предопределенные опции цвета или `HEX`)."
+      },
+      "content": {
+        "title": "Контент",
+        "text": "Табы с настраиваемым содержимым текущего таба в слоте по умолчанию."
       }
     },
     "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-tabs/_variables.scss)[[target=_blank]]",
@@ -1947,6 +1971,12 @@
       "gallery": {
         "title": "Превью",
         "text": "Свойство `type` со значением `gallery` включит отображение превью загружаемого файла."
+      },
+      "undo": {
+        "title": "Отмена действия удаления прикрепленных файлов",
+        "description": "Добавьте свойство `undo` для отмены удаления загруженных файлов, а с помощью свойства `undo-duration` задайте время для отмены действия",
+        "galleryViewLabel": "Включить режим Галереи",
+        "inputLabel": "Длительность отмены"
       }
     },
     "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-file-upload/_variables.scss)[[target=_blank]]"
@@ -3632,6 +3662,10 @@
       "trigger": {
         "title": "Триггер",
         "text": "События, запускающие всплывающее окно, разделенные пробелами: `hover`, `click` или `focus`."
+      },
+      "slots": {
+        "title": "Использование слотов",
+        "description": "Вы можете использовать слоты `icon`, `title` и `body` для отображения дополнительного контента."
       }
     },
     "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-popover/_variables.scss)[[target=_blank]]"
@@ -3724,7 +3758,11 @@
       },
       "selection": {
         "title": "Выбор",
-        "text": "Используйте свойство `selectable`, чтобы указать, должна ли `va-data-table` иметь выбираемые строки или нет. Цвет выделения выбранной строки можно изменить с помощью свойства `selected-color`, передав строку с одним из возможных вариантов цвета: `'primary'`, `'dangerous'` и так далее.\n\nВыбор в таблице по желанию может быть прикреплен к модели со стандартной `v-model` (с использованием свойства `:model-value` и события `update:modelValue`). Это также позволяет установить начальный выбор в таблице `va-data-table`."
+        "text": [
+          "Используйте свойство `selectable`, чтобы указать, должна ли `va-data-table` иметь выбираемые строки или нет. Цвет выделения выбранной строки можно изменить с помощью свойства `selected-color`.",
+          "Выбор в таблице по желанию может быть прикреплен к модели со стандартной `v-model` (с использованием свойства `:model-value` и события `update:modelValue`). Это также позволяет установить начальный выбор в таблице `va-data-table`.",
+          "Если у вас есть элементы, которые можно обновлять (например, из бэкэнда), вы должны установить `items-track-by`, чтобы правильно отслеживать ваши выбранные элементы."
+        ]
       },
       "pagination": {
         "title": "Пагинация",
@@ -3802,6 +3840,14 @@
       "default": {
         "title": "Базовое использование",
         "text": ""
+      },
+      "framed": {
+        "title": "Рамки",
+        "text": ""
+      },
+      "visibleCellsCount": {
+        "title": "Контроль количества отображаемых ячеек",
+        "text": "Для лучшего вида, нужно задавать нечетные числа"
       },
       "readonlyAndDisabled": {
         "title": "Только для чтения и отключение",
@@ -3909,9 +3955,11 @@
       "moreAboutConfig": "Подробнее про конфигурирование"
     }
   },
+  "ssrGuide": {
+    "title": "SSR Guide"
+  },
   "spacer": {
     "title": "Spacer component",
-    "summaryText": "`va-spacer` аналог для свойства `flex-grow`. Он позволяет добавить пустое пространсто между компонентами.",
     "examples": {
       "default": {
         "title": "Базовое использование",

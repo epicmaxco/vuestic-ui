@@ -628,7 +628,7 @@ export default {
 
 <style lang="scss">
 .va-input-css-classes-demo {
-  .va-input {
+  .va-input-wrapper {
     margin-bottom: 1rem;
   }
 

@@ -1,7 +1,7 @@
 import { computed } from 'vue'
 
 import { safeCSSLength } from '../../../utils/css-utils'
-import { useColors } from '../../../composables/useColor'
+import { useColors } from '../../../composables'
 
 import {
   DataTableColumnInternal,
@@ -33,12 +33,12 @@ export default function useStyleable (props: useStylableProps) {
 
   const rowCSSVariables = computed(() => ({
     [`${prefix}-hover-color`]: getHoverColor(color.value),
-    [`${prefix}-selected-color`]: props.selectable && getFocusColor(color.value),
+    [`${prefix}-selected-color`]: props.selectable ? getFocusColor(color.value) : undefined,
   }))
 
   const stickyCSSVariables = computed(() => ({
     [`${prefix}-scroll-table-color`]: (props.height || props.stickyHeader || props.stickyFooter) && shiftHSLAColor(color.value, { l: 40 }),
-    [`${prefix}-scroll-table-height`]: props.height && safeCSSLength(props.height),
+    [`${prefix}-scroll-table-height`]: props.height ? safeCSSLength(props.height) : undefined,
   }))
 
   const getHeaderCSSVariables = (column: DataTableColumnInternal) => ({

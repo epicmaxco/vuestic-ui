@@ -2,5 +2,5 @@ export {
   useGlobalConfig,
   useColors,
   useToast,
-  useModal,
+  useModal
 } from 'vuestic-ui'

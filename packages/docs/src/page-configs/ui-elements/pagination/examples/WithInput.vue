@@ -5,6 +5,7 @@
     input
   />
 </template>
+
 <script>
 export default {
   data () {

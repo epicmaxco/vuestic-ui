@@ -1,4 +1,4 @@
 import withConfigTransport from '../../services/config-transport/withConfigTransport'
-import _VaTimePickerComponent from './VaTimePicker.vue'
+import _VaTimePicker from './VaTimePicker.vue'
 
-export const VaTimePicker = withConfigTransport(_VaTimePickerComponent)
+export const VaTimePicker = withConfigTransport(_VaTimePicker)

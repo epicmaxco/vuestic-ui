@@ -14,7 +14,9 @@
         <va-chip
           size="small"
           :color="order === 0 ? 'success' : 'danger'"
-        >{{ value }}</va-chip>
+        >
+          {{ value }}
+        </va-chip>
       </template>
     </va-slider>
   </div>

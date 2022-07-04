@@ -1,6 +1,7 @@
 <template>
   <div class="wrapper">
     <va-app-bar
+      absolute
       hide-on-scroll
       target="#va-app-bar-hide"
     >

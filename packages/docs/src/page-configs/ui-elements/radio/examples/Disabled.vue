@@ -1,13 +1,11 @@
 <template>
-  <div>
-    <va-radio
-      v-for="(option, index) in options"
-      :key="index"
-      v-model="selectedOption"
-      :option="option"
-      disabled
-    />
-  </div>
+  <va-radio
+    v-for="(option, index) in options"
+    :key="index"
+    v-model="selectedOption"
+    :option="option"
+    disabled
+  />
 </template>
 
 <script>

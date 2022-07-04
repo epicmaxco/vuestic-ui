@@ -9,10 +9,12 @@
 
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 export default defineComponent({
   name: 'VaListItemSection',
   props: {
+    ...useComponentPresetProp,
     icon: { type: Boolean, default: false },
     avatar: { type: Boolean, default: false },
   },

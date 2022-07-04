@@ -61,10 +61,12 @@
 import { defineComponent, computed, PropType, shallowRef } from 'vue'
 
 import { generateUniqueId } from '../../services/utils'
-import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'
-import { useColors } from '../../composables/useColor'
-import { useSelectable, useSelectableProps, useSelectableEmits, Elements } from '../../composables/useSelectable'
-import { useTextColor } from '../../composables/useTextColor'
+import {
+  useComponentPresetProp,
+  useKeyboardOnlyFocus,
+  useColors, useTextColor,
+  useSelectable, useSelectableProps, useSelectableEmits, Elements,
+} from '../../composables'
 
 import { VaMessageListWrapper } from '../va-input'
 import { VaIcon } from '../va-icon/'
@@ -77,6 +79,7 @@ export default defineComponent({
   emits: useSelectableEmits,
   props: {
     ...useSelectableProps,
+    ...useComponentPresetProp,
     modelValue: { type: VaCheckboxValueType, default: false },
     color: { type: String, default: 'primary' },
     checkedIcon: { type: String, default: 'check' },

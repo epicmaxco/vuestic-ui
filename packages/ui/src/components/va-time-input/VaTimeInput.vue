@@ -8,12 +8,14 @@
     :offset="[2, 0]"
     :close-on-content-click="false"
     :disabled="$props.disabled"
-    anchorSelector=".va-input__container"
+    anchorSelector=".va-input-wrapper__field"
     :stateful="false"
     trigger="none"
-    @keydown.up.prevent="showDropdown()"
-    @keydown.down.prevent="showDropdown()"
-    @keydown.space.prevent="showDropdown()"
+    @keydown.up.prevent="showDropdown"
+    @keydown.down.prevent="showDropdown"
+    @keydown.space.prevent="showDropdown"
+    @keydown.enter.prevent="showDropdown"
+    @keydown.esc.prevent="hideDropdown"
     @click="handleComponentClick"
   >
     <template #anchor>
@@ -27,19 +29,19 @@
       >
         <template
           v-for="name in filterSlots"
-          v-slot:[name]="slotScope"
           :key="name"
+          v-slot:[name]="slotScope"
         >
           <slot
             :name="name"
-            v-bind="{ ...slotScope, dropdownToggle, showDropdown, hideDropdown, isOpen: isOpenSync, focus }"
+            v-bind="{ ...slotScope, toggleDropdown, showDropdown, hideDropdown, isOpen: isOpenSync, focus }"
           />
         </template>
 
         <template #prependInner="slotScope">
           <slot
             name="prependInner"
-            v-bind="{ ...slotScope, dropdownToggle, showDropdown, hideDropdown, isOpen: isOpenSync, focus }"
+            v-bind="{ ...slotScope, toggleDropdown, showDropdown, hideDropdown, isOpen: isOpenSync, focus }"
           />
           <va-icon
             v-if="$props.leftIcon"
@@ -50,8 +52,8 @@
             :tabindex="iconsTabIndexComputed"
             :id="componentIconId"
             v-bind="iconProps"
-            @click="dropdownToggle"
-            @keydown.enter.stop="dropdownToggle"
+            @click="toggleDropdown"
+            @keydown.enter.stop="toggleDropdown"
           />
         </template>
 
@@ -77,8 +79,8 @@
             :tabindex="iconsTabIndexComputed"
             :id="componentIconId"
             v-bind="iconProps"
-            @click="dropdownToggle"
-            @keydown.enter.stop="dropdownToggle"
+            @click="toggleDropdown"
+            @keydown.enter.stop="toggleDropdown"
           />
         </template>
       </va-input>
@@ -86,7 +88,8 @@
 
     <va-dropdown-content
       no-padding
-      @keydown.esc.prevent="hideDropdown()"
+      @keydown.esc.prevent="hideDropdown"
+      @keypress.enter.prevent="hideDropdown"
     >
       <va-time-picker
         ref="timePicker"
@@ -100,17 +103,23 @@
 <script lang="ts">
 import { computed, defineComponent, PropType, watch, shallowRef, nextTick } from 'vue'
 import omit from 'lodash/omit.js'
+
+import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
+import { generateUniqueId } from '../../services/utils'
+
+import {
+  useComponentPresetProp,
+  useSyncProp,
+  useValidation, useValidationEmits, useValidationProps, ValidationProps,
+  useClearable, useClearableEmits,
+} from '../../composables'
+import { useTimeParser } from './hooks/time-text-parser'
+import { useTimeFormatter } from './hooks/time-text-formatter'
+
 import VaTimePicker from '../va-time-picker/VaTimePicker.vue'
 import VaInput from '../va-input/VaInput.vue'
 import VaIcon from '../va-icon/VaIcon.vue'
-import { VaDropdown, VaDropdownContent } from '../va-dropdown/'
-import { useSyncProp } from '../../composables/useSyncProp'
-import { useValidation, useValidationEmits, useValidationProps, ValidationProps } from '../../composables/useValidation'
-import { useClearable, useClearableEmits } from '../../composables/useClearable'
-import { useTimeParser } from './hooks/time-text-parser'
-import { useTimeFormatter } from './hooks/time-text-formatter'
-import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
-import { generateUniqueId } from '../../services/utils'
+import { VaDropdown, VaDropdownContent } from '../va-dropdown'
 
 const slotsSelectors = [
   '.va-input-wrapper__prepend-inner',
@@ -131,6 +140,7 @@ export default defineComponent({
   emits: [...useValidationEmits, ...useClearableEmits, 'update:modelValue', 'update:isOpen'],
 
   props: {
+    ...useComponentPresetProp,
     ...VaInputProps,
     ...extractComponentProps(VaTimePicker),
     ...useValidationProps as ValidationProps<Date>,
@@ -150,8 +160,8 @@ export default defineComponent({
   inheritAttrs: false,
 
   setup (props, { emit, attrs, slots }) {
-    const input = shallowRef<typeof VaInput | undefined>()
-    const timePicker = shallowRef<typeof VaTimePicker | undefined>()
+    const input = shallowRef<typeof VaInput>()
+    const timePicker = shallowRef<typeof VaTimePicker>()
 
     const clearIconId = generateUniqueId()
     const componentIconId = generateUniqueId()
@@ -163,8 +173,8 @@ export default defineComponent({
     const { format } = useTimeFormatter(props)
 
     const valueText = computed<string | undefined>(() => {
-      if (!isValid.value) { return format(props.clearValue || new Date()) }
-      if (!modelValueSync.value) { return format(props.clearValue || new Date()) }
+      if (!isValid.value) { return props.clearValue ? format(props.clearValue) : '' }
+      if (!modelValueSync.value) { return props.clearValue ? format(props.clearValue) : '' }
 
       if (props.format) { return format(modelValueSync.value) }
 
@@ -275,16 +285,23 @@ export default defineComponent({
       focus()
     }
 
-    const showDropdown = () => {
-      if (props.disabled || props.readonly) { return }
+    const showDropdownWithoutFocus = () => {
       isOpenSync.value = true
+    }
+
+    const showDropdown = () => {
+      showDropdownWithoutFocus()
       nextTick(() => {
         timePicker.value?.focus()
       })
     }
 
-    const dropdownToggle = () => {
+    const toggleDropdown = () => {
       isOpenSync.value ? hideDropdown() : showDropdown()
+    }
+
+    const toggleDropdownWithoutFocus = () => {
+      isOpenSync.value ? hideDropdown() : showDropdownWithoutFocus()
     }
 
     // we use the global handler to prevent the toggle dropdown on any click and execute additional logic
@@ -309,11 +326,7 @@ export default defineComponent({
         return
       }
 
-      if (props.manualInput) {
-        return isOpenSync.value && hideDropdown()
-      }
-
-      dropdownToggle()
+      toggleDropdownWithoutFocus()
     }
 
     return {
@@ -339,7 +352,7 @@ export default defineComponent({
 
       hideDropdown,
       showDropdown,
-      dropdownToggle,
+      toggleDropdown,
 
       handleComponentClick,
 

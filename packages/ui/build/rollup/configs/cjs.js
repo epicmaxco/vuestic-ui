@@ -26,13 +26,13 @@ export function createCJSConfig ({ input, outDir = 'dist/', minify = false, decl
     ],
 
     plugins: [
-      typescriptPlugin({ check: false }),
       vuePlugin({ template: { optimizeSSR: ssr }, preprocessStyles: true }),
       commonjsPlugin(),
       nodeResolvePlugin({ browser: !ssr }),
       postcssPlugin({
         plugins: [postcssImport()],
       }),
+      typescriptPlugin({ check: false }),
     ],
   })
 

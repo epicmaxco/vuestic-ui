@@ -2,41 +2,56 @@
   <div
     class="va-progress-bar"
     :class="rootClass"
-    :style="rootStyle"
+    :style="rooStyle"
     v-bind="ariaAttributesComputed"
   >
-    <div v-if="!isLarge" class="va-progress-bar__info">
-      <slot />
+    <div
+      v-if="!$props.contentInside"
+      class="va-progress-bar__info"
+    >
+      <slot v-bind="{ value: $props.modelValue }">
+        <template v-if="$props.showPercent">
+          {{ $props.modelValue }}%
+        </template>
+      </slot>
     </div>
-    <div class="va-progress-bar__wrapper">
-      <div class="va-progress-bar__buffer" :style="bufferStyle" />
+
+    <div class="va-progress-bar__wrapper" :style="wrapperStyle">
+      <div class="va-progress-bar__buffer" :style="bufferStyle">
+        <slot v-if="$props.contentInside" v-bind="{ value: $props.modelValue }">
+          <template v-if="$props.showPercent">
+            {{ $props.modelValue }}%
+          </template>
+        </slot>
+      </div>
 
       <template v-if="indeterminate">
         <div
-          :style="intermediateStyle"
           class="va-progress-bar__progress--indeterminate-start"
+          :style="intermediateStyle"
         />
         <div
-          :style="intermediateStyle"
           class="va-progress-bar__progress--indeterminate-end"
+          :style="intermediateStyle"
         />
       </template>
-      <div v-else class="va-progress-bar__progress" :style="progressStyle">
-        <slot v-if="isLarge" />
-      </div>
+      <div v-else class="va-progress-bar__progress" :style="progressStyle" />
     </div>
   </div>
 </template>
 
 <script lang="ts">
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
+import { computed, defineComponent, PropType, StyleValue } from 'vue'
 import clamp from 'lodash/clamp.js'
-import { computed, defineComponent, PropType } from 'vue'
-import { useColors } from '../../services/color-config/color-config'
+
+import { useColors, useTextColor } from '../../composables'
 
 export default defineComponent({
   name: 'VaProgressBar',
 
   props: {
+    ...useComponentPresetProp,
     modelValue: { type: Number, default: 0 },
     indeterminate: { type: Boolean, default: false },
     color: { type: String, default: 'primary' },
@@ -47,12 +62,15 @@ export default defineComponent({
     buffer: { type: Number, default: 100 },
     rounded: { type: Boolean, default: true },
     reverse: { type: Boolean, default: false },
+    contentInside: { type: Boolean, default: false },
+    showPercent: { type: Boolean, default: false },
   },
 
   setup (props) {
-    const { getColor } = useColors()
+    const { getColor, getHoverColor } = useColors()
+    const { textColorComputed } = useTextColor()
+    const colorComputed = computed(() => getColor(props.color))
 
-    const isLarge = computed(() => props.size === 'large')
     const isTextSize = computed(() => typeof props.size === 'string' && ['small', 'medium', 'large'].includes(props.size))
 
     const getCSSHeight = () => {
@@ -63,32 +81,32 @@ export default defineComponent({
     }
 
     return {
-      isLarge,
-
       rootClass: computed(() => ({
-        'va-progress-bar': true,
         'va-progress-bar--square': !props.rounded,
         [`va-progress-bar--${props.size}`]: isTextSize.value,
       })),
 
-      rootStyle: computed(() => ({
+      rooStyle: computed(() => ({
+        '--va-progress-bar-color': colorComputed.value,
+        '--va-progress-bar-background-color': getHoverColor(colorComputed.value),
+      }) as StyleValue),
+
+      wrapperStyle: computed(() => ({
         height: getCSSHeight(),
       })),
 
       bufferStyle: computed(() => ({
         width: `${props.indeterminate ? 100 : clamp(props.buffer, 0, 100)}%`,
-        backgroundColor: getColor(props.color),
+        color: textColorComputed.value,
         [props.reverse ? 'right' : 'left']: 0,
       })),
 
       progressStyle: computed(() => ({
         width: `${clamp(props.modelValue, 0, 100)}%`,
-        backgroundColor: getColor(props.color),
         marginLeft: props.reverse ? 'auto' : undefined,
       })),
 
       intermediateStyle: computed(() => ({
-        backgroundColor: getColor(props.color),
         animationDirection: props.reverse ? 'reverse' : 'normal',
       })),
 
@@ -107,19 +125,13 @@ export default defineComponent({
 @import 'variables';
 
 .va-progress-bar {
+  $p: &;
+
   width: var(--va-progress-bar-width);
   position: var(--va-progress-bar-position);
   overflow: var(--va-progress-bar-overflow);
   font-family: var(--va-font-family);
-  height: var(--va-progress-bar-height);
-
-  &--small {
-    height: var(--va-progress-bar-sm-height);
-  }
-
-  &--large {
-    height: var(--va-progress-bar-lg-height);
-  }
+  line-height: var(--va-progress-bar-line-height);
 
   &__info {
     font-weight: var(--va-progress-bar-info-font-weight);
@@ -127,7 +139,7 @@ export default defineComponent({
     text-transform: var(--va-progress-bar-info-text-transform);
 
     &:not(:empty) {
-      margin-bottom: 0.3125rem;
+      margin-bottom: var(--va-progress-bar-info-not-empty-margin-bottom);
     }
   }
 
@@ -135,11 +147,22 @@ export default defineComponent({
     position: var(--va-progress-bar--wrapper-position);
     overflow: var(--va-progress-bar--wrapper-overflow);
     border-radius: var(--va-progress-bar--wrapper-border-radius);
-    height: inherit;
 
-    &__square {
-      border-radius: var(--va-progress-bar-square-border-radius);
+    #{$p}--small & {
+      height: var(--va-progress-bar-sm-height);
     }
+
+    #{$p}--medium & {
+      height: var(--va-progress-bar-height);
+    }
+
+    #{$p}--large & {
+      height: var(--va-progress-bar-lg-height);
+    }
+  }
+
+  &--square &__wrapper {
+    border-radius: var(--va-progress-bar-square-border-radius);
   }
 
   &__buffer {
@@ -147,28 +170,31 @@ export default defineComponent({
     top: var(--va-progress-bar-buffer-top);
     height: inherit;
     border-radius: inherit;
-    opacity: var(--va-progress-bar-buffer-opacity);
     transition: var(--va-progress-bar-buffer-transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: var(--va-progress-bar-letter-spacing);
+    font-size: var(--va-progress-bar-font-size);
+    font-weight: var(--va-progress-bar-font-weight);
+    background-color: var(--va-progress-bar-background-color);
   }
 
   &__progress {
     height: inherit;
     border-radius: inherit;
     transition: var(--va-progress-bar-transition);
-    text-align: var(--va-progress-bar-text-align);
-    color: var(--va-progress-bar-color);
-    letter-spacing: var(--va-progress-bar-letter-spacing);
-    line-height: var(--va-progress-bar-line-height);
-    font-size: var(--va-progress-bar-font-size);
-    font-weight: var(--va-progress-bar-font-weight);
+    background-color: var(--va-progress-bar-color);
 
     &--indeterminate-start {
+      background-color: var(--va-progress-bar-color);
       animation: va-progress-bar-indeterminate-start 2s ease-in infinite;
       position: absolute;
       height: inherit;
     }
 
     &--indeterminate-end {
+      background-color: var(--va-progress-bar-color);
       animation: va-progress-bar-indeterminate-end 2s ease-out 1s infinite;
       position: absolute;
       height: inherit;
