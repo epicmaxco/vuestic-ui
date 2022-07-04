@@ -133,31 +133,33 @@
       </va-button-dropdown>
     </VbCard>
     <VbCard title="icon">
-      <va-button-dropdown
-        label="without icon"
-        hideIcon
-      >
-        Content
-      </va-button-dropdown>
-      <va-button-dropdown
-        label="left icon"
-        leftIcon
-      >
-        Content
-      </va-button-dropdown>
-      <va-button-dropdown
-        label="custom icon"
-        icon="done"
-      >
-        Content
-      </va-button-dropdown>
-      <va-button-dropdown
-        label="custom icon && icon-open"
-        icon="arrow_forward_ios"
-        opened-icon="arrow_back_ios"
-      >
-        Content
-      </va-button-dropdown>
+      <div style="display: flex; align-items: center;">
+        <va-button-dropdown
+          label="without icon"
+          hideIcon
+        >
+          Content
+        </va-button-dropdown>
+        <va-button-dropdown
+          label="left icon"
+          leftIcon
+        >
+          Content
+        </va-button-dropdown>
+        <va-button-dropdown
+          label="custom icon"
+          icon="done"
+        >
+          Content
+        </va-button-dropdown>
+        <va-button-dropdown
+          label="custom icon && icon-open"
+          icon="arrow_forward_ios"
+          opened-icon="arrow_back_ios"
+        >
+          Content
+        </va-button-dropdown>
+      </div>
     </VbCard>
     <VbCard title="events">
       <va-button-dropdown
