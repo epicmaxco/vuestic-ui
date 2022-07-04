@@ -54,9 +54,10 @@
       counter
       class="mb-4"
     >
-      <template #counter="{ counter, maxLength }">
-        <span>Remaining symbols</span>
-        <b style="margin-left: auto;">{{ `${counter} / ${maxLength}` }}</b>
+      <template #counter="{ valueLength, maxLength }">
+        <b>{{ `${valueLength} / ${maxLength}` }}</b>
+        &nbsp;
+        <span>characters left</span>
       </template>
     </va-input>
     <va-input
@@ -65,11 +66,11 @@
       counter
       class="mb-4"
     >
-      <template #counter="{ counter, maxLength }">
+      <template #counter="{ valueLength, maxLength }">
         <b
           style="margin-left: auto;"
-          :style="{color: counter > maxLength ? 'var(--va-danger)' : 'var(--va-success)'}">
-          {{ maxLength - counter }}
+          :style="{color: valueLength > maxLength ? 'var(--va-danger)' : 'var(--va-success)'}">
+          {{ maxLength - valueLength }}
         </b>
       </template>
     </va-input>
