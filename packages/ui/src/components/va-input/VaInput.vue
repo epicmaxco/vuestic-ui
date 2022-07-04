@@ -177,7 +177,7 @@ export default defineComponent({
     const {
       canBeCleared,
       clearIconProps,
-    } = useClearable(props, modelValue, emit, input, computedError)
+    } = useClearable(props, modelValue, input, computedError)
 
     /** Use cleave only if this component is input, because it will break. */
     const computedCleaveTarget = computed(() => props.type === 'textarea'
