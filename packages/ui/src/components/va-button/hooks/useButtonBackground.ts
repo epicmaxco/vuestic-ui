@@ -1,10 +1,6 @@
 import { computed, Ref, ComputedRef, getCurrentInstance } from 'vue'
-import {
-  colorToRgba,
-  getGradientBackground,
-  getStateMaskGradientBackground,
-} from '../../../services/color-config/color-functions'
-import { useColors } from '../../../composables/useColor'
+
+import { useColors } from '../../../composables'
 
 import { ButtonPropsTypes } from '../types'
 
@@ -24,7 +20,7 @@ export const useButtonBackground: UseButtonBackground = (
 
   const props = instance.props as Required<ButtonPropsTypes>
 
-  const { getColor } = useColors()
+  const { getColor, colorToRgba, getGradientBackground, getStateMaskGradientBackground } = useColors()
 
   const isGradientBg = computed(() => props.gradient && props.backgroundOpacity === 1)
 

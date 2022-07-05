@@ -1,6 +1,6 @@
 import { computed, ComputedRef } from 'vue'
 import { ButtonPropsTypes } from '../types'
-import { useRouterLink } from '../../../composables/useRouterLink'
+import { useRouterLink } from '../../../composables'
 
 type UseButtonAttributes = (
   props: ButtonPropsTypes,

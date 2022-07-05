@@ -1,9 +1,6 @@
 import { computed, Ref, ComputedRef, getCurrentInstance } from 'vue'
-import {
-  colorToRgba,
-  getStateMaskGradientBackground,
-} from '../../../services/color-config/color-functions'
-import { useColors } from '../../../composables/useColor'
+
+import { useColors } from '../../../composables'
 
 import { ButtonPropsTypes } from '../types'
 
@@ -31,7 +28,7 @@ export const useButtonTextColor: UseButtonTextColor = (
 
   const props = instance.props as Required<ButtonPropsTypes>
 
-  const { getColor } = useColors()
+  const { getColor, colorToRgba, getStateMaskGradientBackground } = useColors()
 
   const plainColorStyles = computed(() => ({
     color: 'transparent',

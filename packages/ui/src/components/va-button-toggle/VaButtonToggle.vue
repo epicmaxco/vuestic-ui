@@ -16,7 +16,6 @@
 import { defineComponent, PropType, computed } from 'vue'
 import { extractComponentProps } from '../../utils/child-props'
 
-import { shiftHSLAColor } from '../../services/color-config/color-functions'
 import { useDeprecatedProps, useComponentPresetProp, useColors } from '../../composables'
 
 import { ButtonOption } from './types'
@@ -51,7 +50,7 @@ export default defineComponent({
     // temp
     useDeprecatedProps(['flat', 'outline'])
 
-    const { getColor } = useColors()
+    const { getColor, shiftHSLAColor } = useColors()
     const colorComputed = computed(() => getColor(props.color))
 
     const isToggled = (value: any) => value === props.modelValue

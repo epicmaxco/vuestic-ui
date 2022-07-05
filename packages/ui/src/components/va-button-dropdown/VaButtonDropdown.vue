@@ -82,7 +82,14 @@
 import { defineComponent, PropType, computed } from 'vue'
 import { extractComponentProps } from '../../utils/child-props'
 
-import { useBem, useDeprecatedProps, useComponentPresetProp, useStateful, useStatefulProps, useEmitProxy, Placement, placementsPositions } from '../../composables'
+import {
+  useBem,
+  useDeprecatedProps,
+  useComponentPresetProp,
+  useStateful, useStatefulProps,
+  useEmitProxy,
+  Placement, placementsPositions,
+} from '../../composables'
 
 import { VaButton } from '../va-button'
 import { VaButtonGroup } from '../va-button-group'

@@ -40,20 +40,20 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, computed, shallowRef, ComputedRef } from 'vue'
+import { defineComponent, PropType, computed, shallowRef } from 'vue'
 
-import { useBem } from '../../composables/useBem'
-import { useFocus } from '../../composables/useFocus'
-import { useHover, useHoverProps } from '../../composables/useHover'
-import { usePressed, usePressedProps } from '../../composables/usePressed'
-import { useTextColor } from '../../composables/useTextColor'
-import { useColors } from '../../services/color-config/color-config'
-import { isLightBackground } from '../../services/color-config/color-functions'
-import { useLoadingProps } from '../../composables/useLoading'
-import { useSize, useSizeProps } from '../../composables/useSize'
-import { useRouterLink, useRouterLinkProps } from '../../composables/useRouterLink'
-import { useDeprecatedProps } from '../../composables/useDeprecatedProps'
-import { useComponentPresetProp } from '../../composables/useComponentPreset'
+import {
+  useBem,
+  useFocus,
+  useHover, useHoverProps,
+  usePressed, usePressedProps,
+  useColors, useTextColor,
+  useLoadingProps,
+  useSize, useSizeProps,
+  useRouterLink, useRouterLinkProps,
+  useDeprecatedProps,
+  useComponentPresetProp,
+} from '../../composables'
 
 import { useButtonBackground } from './hooks/useButtonBackground'
 import { useButtonAttributes } from './hooks/useButtonAttributes'
@@ -105,7 +105,7 @@ export default defineComponent({
     useDeprecatedProps(['flat', 'outline'])
 
     // colors
-    const { getColor } = useColors()
+    const { getColor, isLightBackground } = useColors()
     const colorComputed = computed(() => getColor(props.color))
 
     // loader size
