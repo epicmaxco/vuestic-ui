@@ -144,7 +144,10 @@
         "indeterminateValue": "Overrides a state value that is not set.",
         "borderColor": "Color css style `border` (theme supported options or `HEX`).",
         "clearableIcon": "Sets the cleaning button icon.",
-        "tabindex": "Sets the custom `tabindex`."
+        "tabindex": "Sets the custom `tabindex`.",
+        "preset": "Named preset combination of component props.",
+        "hideOnScroll": "Hides component when scrolling.",
+        "bottom": "Sets the component position to the bottom."
       }
     },
     "VaBadge": {
@@ -155,7 +158,6 @@
         "multiLine": "Badge text will wrap to next line.",
         "visibleEmpty": "Badge will be shown even when there is no text.",
         "dot": "Shows dot instead of full badge. Useful to notify user without grabbing too much attention.",
-        "bottom": "Position badge to the bottom.",
         "left": "Position badge to the left"
       }
     },
@@ -1077,11 +1079,10 @@
     "VaAppBar": {
       "props": {
         "gradient": "Applies gradient style to background",
-        "bottom": "Sets the component position to the bottom",
-        "hideOnScroll": "Hides component when scrolling target",
         "shadowOnScroll": "Applies box-shadow to the component when scrolling target",
         "shadowColor": "Sets color to the box-shadow",
-        "target": "Target for scrolling"
+        "target": "Target for scrolling",
+        "fixed": "Switches component position to `fixed`."
       },
       "events": {},
       "methods": {},
@@ -1121,7 +1122,8 @@
     },
     "VaNavbar": {
       "props": {
-        "shape": "If this prop true, then shape will be drawn at navbar background."
+        "shape": "If this prop true, then shape will be drawn at navbar background.",
+        "fixed": "Switches component position to `fixed`."
       },
       "events": {},
       "methods": {},
@@ -1553,9 +1555,6 @@
     "examples": {
       "top": {
         "title": "Fixed at the top"
-      },
-      "bottom": {
-        "title": "Fixed at them bottom"
       },
       "target": {
         "title": "Fixes element relative to custom container"

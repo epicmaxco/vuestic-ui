@@ -28,7 +28,12 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
 
-import { useComponentPresetProp, useColors, useTextColor, setupScroll, useFixedBar, useFixedBarProps } from '../../composables'
+import {
+  useComponentPresetProp,
+  useColors, useTextColor,
+  setupScroll,
+  useFixedBar, useFixedBarProps,
+} from '../../composables'
 
 export default defineComponent({
   name: 'VaNavbar',
