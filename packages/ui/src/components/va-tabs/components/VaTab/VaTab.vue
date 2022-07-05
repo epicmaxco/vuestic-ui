@@ -45,7 +45,7 @@
 <script lang="ts">
 import { computed, defineComponent, inject, onBeforeUnmount, onMounted, ref, shallowRef } from 'vue'
 
-import { useRouterLink, useRouterLinkProps, useKeyboardOnlyFocus, useColors } from '../../../../composables'
+import { useComponentPresetProp, useRouterLink, useRouterLinkProps, useKeyboardOnlyFocus, useColors } from '../../../../composables'
 
 import { TabsViewKey, TabsView, TabComponent } from '../../types'
 
@@ -58,6 +58,7 @@ export default defineComponent({
 
   props: {
     ...useRouterLinkProps,
+    ...useComponentPresetProp,
     selected: { type: Boolean, default: false },
     color: { type: String, default: '' },
     icon: { type: String, default: '' },

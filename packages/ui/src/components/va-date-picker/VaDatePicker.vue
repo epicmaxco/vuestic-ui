@@ -67,6 +67,7 @@ import { computed, defineComponent, nextTick, PropType, ref, watch } from 'vue'
 import { filterComponentProps, extractComponentProps, extractComponentEmits } from '../../utils/child-props'
 import { useColors, useStateful, useStatefulProps, useStatefulEmits } from '../../composables'
 import { useView } from './hooks/view'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 import { DatePickerModelValue, DatePickerType, DatePickerView } from './types'
 
@@ -85,6 +86,7 @@ export default defineComponent({
 
   props: {
     ...useStatefulProps,
+    ...useComponentPresetProp,
     ...extractComponentProps(VaDatePickerHeader),
     ...extractComponentProps(VaDayPicker),
     ...extractComponentProps(VaMonthPicker),

@@ -10,10 +10,12 @@
 
 <script lang="ts">
 import { defineComponent, computed, StyleValue } from 'vue'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 export default defineComponent({
   name: 'VaListItemLabel',
   props: {
+    ...useComponentPresetProp,
     caption: { type: Boolean, default: false },
     lines: { type: Number, default: 1 },
   },

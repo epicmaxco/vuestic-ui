@@ -12,12 +12,13 @@
 <script lang="ts">
 import { defineComponent, PropType, computed } from 'vue'
 
-import { setupScroll, useColors, useFixedBar, useFixedBarProps } from '../../composables'
+import { setupScroll, useColors, useFixedBar, useFixedBarProps, useComponentPresetProp } from '../../composables'
 
 export default defineComponent({
   name: 'VaAppBar',
   props: {
     ...useFixedBarProps,
+    ...useComponentPresetProp,
     gradient: { type: Boolean, default: false },
     target: { type: [Object, String] as PropType<string | HTMLElement>, default: '' },
     shadowOnScroll: { type: Boolean, default: false },

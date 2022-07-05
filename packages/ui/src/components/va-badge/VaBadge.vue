@@ -21,11 +21,12 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
 
-import { useColors, useTextColor } from '../../composables'
+import { useColors, useTextColor, useComponentPresetProp } from '../../composables'
 
 export default defineComponent({
   name: 'VaBadge',
   props: {
+    ...useComponentPresetProp,
     color: { type: String, default: 'danger' },
     textColor: { type: String },
     text: { type: [String, Number], default: '' },

@@ -62,6 +62,7 @@ import { defineComponent, computed, PropType, shallowRef } from 'vue'
 
 import { generateUniqueId } from '../../services/utils'
 import {
+  useComponentPresetProp,
   useKeyboardOnlyFocus,
   useColors, useTextColor,
   useSelectable, useSelectableProps, useSelectableEmits, Elements,
@@ -78,6 +79,7 @@ export default defineComponent({
   emits: useSelectableEmits,
   props: {
     ...useSelectableProps,
+    ...useComponentPresetProp,
     modelValue: { type: VaCheckboxValueType, default: false },
     color: { type: String, default: 'primary' },
     checkedIcon: { type: String, default: 'check' },

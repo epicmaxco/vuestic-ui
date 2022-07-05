@@ -21,12 +21,13 @@ import { defineComponent, PropType, computed } from 'vue'
 import omit from 'lodash/omit.js'
 
 import { useIcons } from '../../services/icon-config/icon-config'
-import { useColors, useSize, useSizeProps } from '../../composables'
+import { useComponentPresetProp, useColors, useSize, useSizeProps } from '../../composables'
 
 export default defineComponent({
   name: 'VaIcon',
   props: {
     ...useSizeProps,
+    ...useComponentPresetProp,
     name: { type: String, default: '' },
     tag: { type: String },
     component: { type: Object as PropType<any> },
@@ -90,10 +91,17 @@ export default defineComponent({
 
 <style lang="scss">
 @import "variables";
+@import '../../styles/resources';
 
 .va-icon {
   vertical-align: var(--va-icon-vertical-align);
   user-select: var(--va-icon-user-select);
+
+  &[tabindex]:not([tabindex^="-"]) {
+    &:focus {
+      @include focus-outline;
+    }
+  }
 
   &#{&} {
     // need 2 classes to make it work

@@ -51,6 +51,7 @@ import { defineComponent, PropType, computed, toRef } from 'vue'
 
 import { getBoxShadowColor, getHoverColor, getFocusColor } from '../../services/color-config/color-functions'
 import {
+  useComponentPresetProp,
   useKeyboardOnlyFocus,
   useRouterLink, useRouterLinkProps,
   useColors, useColorProps,
@@ -72,6 +73,7 @@ export default defineComponent({
     ...useRouterLinkProps,
     ...useColorProps,
     ...useStatefulProps,
+    ...useComponentPresetProp,
     modelValue: { type: Boolean, default: true },
     closeable: { type: Boolean, default: false },
     outline: { type: Boolean, default: false },

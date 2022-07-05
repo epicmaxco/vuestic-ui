@@ -18,6 +18,7 @@
 </template>
 
 <script lang="ts">
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 import { defineComponent, computed } from 'vue'
 
 import { useColors, useLoadingProps } from '../../composables'
@@ -28,6 +29,7 @@ export default defineComponent({
   components: { VaIcon },
   props: {
     ...useLoadingProps,
+    ...useComponentPresetProp,
     color: { type: String },
     icon: { type: String, default: 'autorenew' },
     size: { type: Number, default: 30 },

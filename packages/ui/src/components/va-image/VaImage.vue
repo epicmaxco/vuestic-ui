@@ -34,11 +34,13 @@
 
 <script lang="ts">
 import { defineComponent, computed, watch, ref } from 'vue'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 export default defineComponent({
   name: 'VaImage',
   emits: ['loaded', 'error'],
   props: {
+    ...useComponentPresetProp,
     ratio: { type: Number, default: 1 },
     contain: { type: Boolean, default: false },
     src: { type: String, required: true },

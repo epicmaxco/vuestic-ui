@@ -25,12 +25,14 @@ import {
   useTextColor,
 } from '../../../composables'
 import { useSidebarItem } from '../hooks/useSidebar'
+import { useComponentPresetProp } from '../../../composables/useComponentPreset'
 
 export default defineComponent({
   name: 'VaSidebarItem',
 
   props: {
     ...useRouterLinkProps,
+    ...useComponentPresetProp,
     active: { type: Boolean, default: false },
     textColor: { type: String, default: undefined },
     activeColor: { type: String, default: 'primary' },

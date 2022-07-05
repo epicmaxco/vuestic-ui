@@ -8,10 +8,12 @@
 import { defineComponent, nextTick, provide, ref } from 'vue'
 import { useColors } from '../../composables'
 import { TreeCategory, TreeViewKey, TreeViewProvide } from './types'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 export default defineComponent({
   name: 'VaTreeView',
   props: {
+    ...useComponentPresetProp,
     color: {
       type: String,
       default: '',

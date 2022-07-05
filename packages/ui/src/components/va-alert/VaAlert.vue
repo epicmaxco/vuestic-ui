@@ -82,7 +82,8 @@
 import { defineComponent, computed, PropType } from 'vue'
 
 import { generateUniqueId } from '../../services/utils'
-import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables'
+import { useComponentPresetProp, useStateful, useStatefulProps, useStatefulEmits } from '../../composables'
+
 import { useAlertStyles } from './useAlertStyles'
 
 import { VaIcon } from '../va-icon'
@@ -93,6 +94,7 @@ export default defineComponent({
   emits: useStatefulEmits,
   props: {
     ...useStatefulProps,
+    ...useComponentPresetProp,
     modelValue: { type: Boolean, default: true },
     color: { type: String, default: 'primary' },
     textColor: { type: String, default: '' },

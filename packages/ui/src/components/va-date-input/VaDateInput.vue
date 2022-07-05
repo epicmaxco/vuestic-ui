@@ -55,6 +55,9 @@
               <va-icon
                 v-else-if="!$props.leftIcon"
                 v-bind="iconProps"
+                tabindex="0"
+                @keydown.enter.stop="showDropdown"
+                @keydown.space.stop="showDropdown"
               />
             </template>
           </va-input>
@@ -104,6 +107,7 @@ import { isRange, isSingleDate, isDates } from '../va-date-picker/utils/date-uti
 import { useRangeModelValueGuard } from './hooks/range-model-value-guard'
 import { useDateParser } from './hooks/input-text-parser'
 import { parseModelValue } from './hooks/model-value-parser'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 import { DateInputModelValue, DateInputValue } from './types'
 
@@ -132,6 +136,7 @@ export default defineComponent({
     ...VaInputProps,
     ...VaDatePickerProps,
     ...useValidationProps as ValidationProps<DateInputModelValue>,
+    ...useComponentPresetProp,
 
     clearValue: { type: Date as PropType<DateInputModelValue>, default: undefined },
     modelValue: { type: [Date, Array, Object, String, Number] as PropType<DateInputModelValue> },
@@ -185,6 +190,10 @@ export default defineComponent({
     const dateOrNothing = (date: Date | undefined | null) => date ? props.formatDate(date) : '...'
 
     const { parseDateInputValue, isValid } = useDateParser(props)
+
+    watch(valueComputed, () => {
+      isValid.value = true
+    })
 
     const modelValueToString = (value: DateInputModelValue): string => {
       if (props.format) {
@@ -249,12 +258,17 @@ export default defineComponent({
     }
 
     const focusInputOrPicker = (): void => {
-      props.manualInput ? focus() : focusDatePicker()
+      isOpenSync.value ? focusDatePicker() : focus()
+    }
+
+    const showDropdown = () => {
+      isOpenSync.value = true
+      nextTick(focusInputOrPicker)
     }
 
     const toggleDropdown = () => {
       isOpenSync.value = !isOpenSync.value
-      focusInputOrPicker()
+      nextTick(focusInputOrPicker)
     }
 
     const showAndFocus = (event: Event): void => {
@@ -336,6 +350,7 @@ export default defineComponent({
       hideAndFocus,
       showAndFocus,
       toggleDropdown,
+      showDropdown,
       focusInputOrPicker,
       reset,
       focus,

@@ -40,6 +40,7 @@ import { useColors } from '../../composables'
 import { useScroll } from './hooks/useScroll'
 
 import { VaProgressCircle } from '../va-progress-circle'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 export default defineComponent({
   name: 'VaInfiniteScroll',
@@ -47,6 +48,7 @@ export default defineComponent({
   components: { VaProgressCircle },
 
   props: {
+    ...useComponentPresetProp,
     load: { type: Function, required: true },
     offset: { type: Number, default: 500 },
     reverse: { type: Boolean, default: false },

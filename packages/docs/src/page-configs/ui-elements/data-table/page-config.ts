@@ -43,11 +43,14 @@ const config: ApiDocsBlock[] = [
     'dataTable.examples.sorting.text',
     'Sorting',
   ),
-  ...block.exampleBlock(
-    'dataTable.examples.selection.title',
-    'dataTable.examples.selection.text',
-    'Selection',
-  ),
+
+  block.headline('dataTable.examples.selection.title'),
+  block.paragraph('dataTable.examples.selection.text[0]'),
+  block.paragraph('dataTable.examples.selection.text[1]'),
+  block.example('Selection'),
+  block.paragraph('dataTable.examples.selection.text[2]'),
+  block.example('SelectionWithKeys'),
+
   ...block.exampleBlock(
     'dataTable.examples.pagination.title',
     'dataTable.examples.pagination.text',

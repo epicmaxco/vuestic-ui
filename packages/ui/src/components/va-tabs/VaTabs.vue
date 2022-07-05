@@ -66,7 +66,7 @@
 <script lang="ts">
 import { computed, defineComponent, provide, reactive, ref, unref, watch, Ref, shallowRef, StyleValue } from 'vue'
 
-import { useStateful, useStatefulProps, useColors, useResizeObserver } from '../../composables'
+import { useComponentPresetProp, useStateful, useStatefulProps, useColors, useResizeObserver } from '../../composables'
 
 import { TabsViewKey, TabComponent } from './types'
 
@@ -82,6 +82,7 @@ export default defineComponent({
 
   props: {
     ...useStatefulProps,
+    ...useComponentPresetProp,
     modelValue: { type: [String, Number], default: null },
     left: { type: Boolean, default: true },
     right: { type: Boolean, default: false },

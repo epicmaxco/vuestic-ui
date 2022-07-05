@@ -23,13 +23,14 @@
 import { defineComponent, computed } from 'vue'
 
 import { getGradientBackground } from '../../services/color-config/color-functions'
-import { useColors, useTextColor, useRouterLink, useRouterLinkProps } from '../../composables'
+import { useComponentPresetProp, useColors, useTextColor, useRouterLink, useRouterLinkProps } from '../../composables'
 
 export default defineComponent({
   name: 'VaCard',
   emits: ['click'],
   props: {
     ...useRouterLinkProps,
+    ...useComponentPresetProp,
     tag: { type: String, default: 'div' },
     square: { type: Boolean, default: false },
     outlined: { type: Boolean, default: false },

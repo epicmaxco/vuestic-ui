@@ -60,6 +60,7 @@ import VaIcon from '../../va-icon/VaIcon.vue'
 import { useColors } from '../../../composables'
 import { TreeCategory, TreeNodeCommon, TreeCategoryKey, TreeNodeComponent, TreeViewKey } from '../types'
 import VaTreeNode from '../VaTreeNode/VaTreeNode.vue'
+import { useComponentPresetProp } from '../../../composables/useComponentPreset'
 
 export default defineComponent({
   name: 'VaTreeCategory',
@@ -68,6 +69,7 @@ export default defineComponent({
     VaIcon,
   },
   props: {
+    ...useComponentPresetProp,
     label: {
       type: [String, Number],
       default: '',

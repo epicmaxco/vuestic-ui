@@ -44,13 +44,14 @@
 import { defineComponent, PropType, computed } from 'vue'
 
 import { generateUniqueId } from '../../services/utils'
-import { useColors, useFormProps, useForm } from '../../composables'
+import { useComponentPresetProp, useColors, useFormProps, useForm } from '../../composables'
 
 export default defineComponent({
   name: 'VaRadio',
   emits: ['update:modelValue', 'focus'],
   props: {
     ...useFormProps,
+    ...useComponentPresetProp,
     modelValue: { type: [Boolean, Array, String, Object] as PropType<boolean | null | string | number | Record<any, unknown> | unknown[]>, default: null },
     option: { default: null },
     name: { type: String, default: '' },

@@ -17,8 +17,7 @@
     "allowJs": true,
     "types": [
       "webpack-env",
-      "jest",
-      "node"
+      "jest"
     ],
     "lib": [
       "esnext",

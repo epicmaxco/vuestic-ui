@@ -9,13 +9,14 @@
 
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
-import { useColors } from '../../../composables'
+import { useComponentPresetProp, useColors } from '../../../composables'
 import { VaIcon } from '../../va-icon'
 
 export default defineComponent({
   name: 'SquareWithIcon',
   components: { VaIcon },
   props: {
+    ...useComponentPresetProp,
     icon: {
       type: String,
       default: '',
