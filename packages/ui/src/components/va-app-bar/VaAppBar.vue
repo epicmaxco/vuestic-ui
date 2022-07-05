@@ -43,7 +43,7 @@ export default defineComponent({
     const computedStyle = computed(() => ({
       ...fixedBarStyleComputed.value,
       background: props.gradient ? getGradientBackground(colorComputed.value) : colorComputed.value,
-      'box-shadow': computedShadow.value,
+      boxShadow: computedShadow.value,
     }))
 
     return { scrollRoot, computedStyle }
