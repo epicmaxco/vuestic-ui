@@ -42,7 +42,6 @@
     "push": "npm publish --tag=next",
     "push-production": "npm publish --tag=latest",
     "precommit": "lint-staged --concurrent=false",
-    "builder": "node dist/json/builder.js",
     "server:webapp": "npx http-server dist --push-state"
   },
   "dependencies": {

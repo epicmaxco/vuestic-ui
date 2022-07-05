@@ -1,4 +1,4 @@
-import { createCJSConfig, createESMConfig, createIIFEConfig, createStylesConfig, createJsonBuilderConfig } from './configs/index'
+import { createCJSConfig, createESMConfig, createIIFEConfig, createStylesConfig } from './configs/index'
 import fs from 'fs'
 import { execSync } from 'child_process'
 
@@ -19,5 +19,4 @@ export const RollupConfig = [
   createIIFEConfig({ ...defaultBuildParams, outDir: 'dist/iife' }),
   createCJSConfig({ ...defaultBuildParams, outDir: 'dist/cjs' }),
   createStylesConfig({ ...defaultBuildParams, outDir: 'dist', input: ['./src/styles/vuestic-styles.scss', defaultBuildParams.input] }),
-  createJsonBuilderConfig({ outDir: 'dist/json', minify: true, input: './src/json.ts' }),
 ]
