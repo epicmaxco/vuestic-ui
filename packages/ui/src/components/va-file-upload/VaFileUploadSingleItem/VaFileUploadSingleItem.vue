@@ -18,7 +18,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
 
-import { VaButton } from '../../va-button'
+import { VaButton } from '../../index'
 
 import { ConvertedFile } from '../types'
 

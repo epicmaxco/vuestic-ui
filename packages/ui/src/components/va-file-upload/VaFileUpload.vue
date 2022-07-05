@@ -64,8 +64,7 @@ import { useColors } from '../../composables'
 
 import type { VaFile } from './types'
 
-import { VaButton } from '../va-button'
-import { VaModal } from '../va-modal'
+import { VaButton, VaModal } from '../index'
 import { VaFileUploadList } from './VaFileUploadList'
 
 export default defineComponent({

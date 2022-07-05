@@ -42,8 +42,7 @@ import { defineComponent, PropType, ref } from 'vue'
 
 import { ConvertedFile } from '../types'
 
-import { VaCard } from '../../va-card'
-import { VaIcon } from '../../va-icon'
+import { VaCard, VaIcon } from '../../index'
 import { VaFileUploadUndo } from '../VaFileUploadUndo'
 
 export default defineComponent({

@@ -60,7 +60,7 @@ import { colorToRgba } from '../../../services/color-config/color-functions'
 
 import type { ConvertedFile } from '../types'
 
-import { VaButton } from '../../va-button'
+import { VaButton } from '../../index'
 import { VaFileUploadUndo } from '../VaFileUploadUndo'
 
 export default defineComponent({
