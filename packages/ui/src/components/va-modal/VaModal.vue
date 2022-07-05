@@ -120,9 +120,7 @@
 <script lang="ts">
 import { watch, h, Transition, defineComponent, PropType, computed, StyleValue, shallowRef, toRef } from 'vue'
 
-import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
-import { useColors } from '../../composables/useColor'
-import { useTextColor } from '../../composables/useTextColor'
+import { useStateful, useStatefulProps, useStatefulEmits, useColors, useTextColor } from '../../composables'
 
 import { VaButton } from '../va-button'
 import { useComponentPresetProp } from '../../composables/useComponentPreset'
@@ -174,9 +172,9 @@ export default defineComponent({
     fixedLayout: { type: Boolean, default: false },
     withoutTransitions: { type: Boolean, default: false },
     overlay: { type: Boolean, default: true },
-    overlayOpacity: { type: [Number, String] as PropType<number | string>, default: 0.6 },
+    overlayOpacity: { type: [Number, String], default: 0.6 },
     blur: { type: Boolean, default: false },
-    zIndex: { type: [Number, String] as PropType<number | string | undefined>, default: undefined },
+    zIndex: { type: [Number, String] },
     backgroundColor: { type: String, default: 'white' },
     noPadding: { type: Boolean, default: false },
   },

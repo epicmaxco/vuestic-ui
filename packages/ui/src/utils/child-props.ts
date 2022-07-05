@@ -8,7 +8,7 @@ import { getComponentProps } from './resolve-component-props'
  */
 export const filterComponentProps = <
   ChildProps extends Record<string, unknown>,
-  Props extends Record<keyof ChildProps, unknown>,
+  Props extends Record<string, unknown>,
   Result extends ExtractPropTypes<ChildProps>
 >(propsValues: Props, childProps: ChildProps) => {
   return computed(() => {

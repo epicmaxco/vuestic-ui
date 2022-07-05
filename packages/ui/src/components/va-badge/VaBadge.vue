@@ -19,12 +19,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, PropType } from 'vue'
+import { defineComponent, computed } from 'vue'
 
-import { useColors } from '../../composables/useColor'
-import { useTextColor } from '../../composables/useTextColor'
-import { useComponentPresetProp } from '../../composables/useComponentPreset'
-import { generateUniqueId } from '../../services/utils'
+import { useColors, useTextColor, useComponentPresetProp } from '../../composables'
 
 export default defineComponent({
   name: 'VaBadge',
@@ -32,7 +29,7 @@ export default defineComponent({
     ...useComponentPresetProp,
     color: { type: String, default: 'danger' },
     textColor: { type: String },
-    text: { type: [String, Number] as PropType<string | number>, default: '' },
+    text: { type: [String, Number], default: '' },
     overlap: { type: Boolean, default: false },
     multiLine: { type: Boolean, default: false },
     visibleEmpty: { type: Boolean, default: false },

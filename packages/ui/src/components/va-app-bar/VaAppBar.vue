@@ -12,10 +12,8 @@
 <script lang="ts">
 import { defineComponent, PropType, computed, ref } from 'vue'
 
-import { setupScroll } from '../../composables/useScroll'
+import { setupScroll, useColors, useComponentPresetProp } from '../../composables'
 import { getGradientBackground, getBoxShadowColor } from '../../services/color-config/color-functions'
-import { useColors } from '../../services/color-config/color-config'
-import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 export default defineComponent({
   name: 'VaAppBar',
@@ -23,11 +21,12 @@ export default defineComponent({
     ...useComponentPresetProp,
     gradient: { type: Boolean, default: false },
     bottom: { type: Boolean, default: false },
-    target: { type: [Object, String] as PropType<string | Element>, default: '' },
+    target: { type: [Object, String] as PropType<string | HTMLElement>, default: '' },
     hideOnScroll: { type: Boolean, default: false },
     shadowOnScroll: { type: Boolean, default: false },
     shadowColor: { type: String, default: '' },
     color: { type: String, default: undefined },
+    absolute: { type: Boolean, default: false },
   },
   setup (props) {
     const prevScrollPosition = ref(0)
@@ -35,7 +34,7 @@ export default defineComponent({
     const isHidden = ref(false)
 
     const scrollRoot = setupScroll(props.target, (e) => {
-      const target = e.target as Element
+      const target = e.target as HTMLElement
 
       if (prevScrollPosition.value < target.scrollTop) {
         // Scroll down
@@ -70,6 +69,7 @@ export default defineComponent({
       background: props.gradient ? getGradientBackground(colorComputed.value) : colorComputed.value,
       'box-shadow': computedShadow.value,
       transform: transformComputed.value,
+      position: props.absolute ? 'absolute' as const : undefined,
     }))
 
     const computedClass = computed(() => ({
@@ -92,7 +92,7 @@ export default defineComponent({
 .va-app-bar {
   display: flex;
   align-items: center;
-  position: absolute;
+  position: var(--va-app-bar-position);
   transition: all 0.5s ease;
   top: 0;
   left: 0;

@@ -8,9 +8,8 @@
     </VbCard>
     <VbCard
       title="Vertical Timeline Separator"
-      height="50px"
     >
-      <va-timeline-separator vertical />
+      <va-timeline-separator vertical style="height: 100px;" />
     </VbCard>
     <VbCard
       title="Active Timeline Center"

@@ -16,7 +16,7 @@
         tag="button"
         :name="computedIconName"
         :size="$props.size"
-        :color="getColor($props.color)"
+        :color="computedColor"
         @click="onClick"
       />
     </slot>
@@ -24,11 +24,13 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, watch } from 'vue'
-import { useColors } from '../../../../services/color-config/color-config'
-import { useSyncProp } from '../../../../composables/useSyncProp'
-import { VaIcon } from '../../../va-icon'
+import { computed, defineComponent, ref, shallowRef, watch } from 'vue'
+
+import { useColors, useSyncProp } from '../../../../composables'
+
 import { RatingValue } from '../../types'
+
+import { VaIcon } from '../../../va-icon'
 
 export default defineComponent({
   name: 'VaRatingItem',
@@ -46,14 +48,15 @@ export default defineComponent({
     disabled: { type: Boolean, default: false },
     readonly: { type: Boolean, default: false },
     size: { type: [String, Number], default: 'medium' },
-    emptyIconColor: { type: String },
+    unselectedColor: { type: String },
     color: { type: String, default: 'primary' },
   },
 
   emits: ['update:modelValue', 'click', 'hover'],
 
   setup (props, { emit }) {
-    const rootEl = ref<HTMLElement>()
+    const rootEl = shallowRef<HTMLElement>()
+
     const [modelValue] = useSyncProp('modelValue', props, emit, RatingValue.EMPTY)
     const hoveredValue = ref<number | null>(null)
 
@@ -63,6 +66,13 @@ export default defineComponent({
       }
       return modelValue.value
     })
+
+    const { getColor } = useColors()
+    const computedColor = computed(() => getColor(
+      props.unselectedColor && visibleValue.value === RatingValue.EMPTY
+        ? props.unselectedColor
+        : props.color,
+    ))
 
     const onMouseMove = (ev: MouseEvent) => {
       if (!rootEl.value) { return }
@@ -92,7 +102,7 @@ export default defineComponent({
     watch(hoveredValue, () => emit('hover', hoveredValue.value || RatingValue.EMPTY))
 
     return {
-      ...useColors(),
+      computedColor,
       rootEl,
       onEnter,
       onClick,
@@ -122,7 +132,7 @@ export default defineComponent({
   display: inline-block;
 
   &:focus {
-    transform: scale(1.1);
+    @include focus-outline();
   }
 
   &__wrapper {

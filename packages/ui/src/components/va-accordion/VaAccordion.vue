@@ -7,8 +7,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
 
-import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
-import { useComponentPresetProp } from '../../composables/useComponentPreset'
+import { useComponentPresetProp, useStateful, useStatefulProps, useStatefulEmits } from '../../composables'
 import { useAccordion } from './hooks/useAccordion'
 
 export default defineComponent({
@@ -37,11 +36,18 @@ export default defineComponent({
 .va-accordion {
   font-family: var(--va-font-family);
 
-  // Do not remove border radius from expanded and next to it collapse
-  .va-collapse:not(.va-collapse--expanded, .va-collapse--expanded + .va-collapse) {
+  .va-collapse {
     &:not(:first-child, :last-child) {
       .va-collapse__header__content {
         border-radius: 0;
+      }
+    }
+
+    &.va-collapse--expanded {
+      &:last-child {
+        .va-collapse__header__content {
+          border-radius: 0;
+        }
       }
     }
 

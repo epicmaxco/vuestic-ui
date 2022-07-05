@@ -17,9 +17,7 @@ import { defineComponent, PropType, computed } from 'vue'
 import { extractComponentProps } from '../../utils/child-props'
 
 import { shiftHSLAColor } from '../../services/color-config/color-functions'
-import { useColors } from '../../composables/useColor'
-import { useDeprecatedProps } from '../../composables/useDeprecatedProps'
-import { useComponentPresetProp } from '../../composables/useComponentPreset'
+import { useDeprecatedProps, useComponentPresetProp, useColors } from '../../composables'
 
 import { ButtonOption } from './types'
 

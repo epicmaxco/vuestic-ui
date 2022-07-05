@@ -1,9 +1,7 @@
 <script lang="ts">
 import { computed, defineComponent, Fragment, h, ref, VNode } from 'vue'
 
-import { useAlign, useAlignProps } from '../../composables/useAlign'
-import { useColors } from '../../composables/useColor'
-import { useComponentPresetProp } from '../../composables/useComponentPreset'
+import { useComponentPresetProp, useAlign, useAlignProps, useColors } from '../../composables'
 import { hasOwnProperty } from '../../services/utils'
 
 export default defineComponent({

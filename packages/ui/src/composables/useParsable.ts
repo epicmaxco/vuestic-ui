@@ -1,6 +1,7 @@
 import { computed, Ref } from 'vue'
 
 type Not<P, N> = P extends N ? never : P
+
 export const useParsable = <Text extends string | number, Original, Value extends Not<Original, Text>>(
   parsable: Ref<Original>,
   parse: (t: Text) => Value,

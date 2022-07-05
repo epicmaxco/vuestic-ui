@@ -1,22 +1,8 @@
-import { ReleaseType } from '../scripts/release-script'
 import { exec } from 'child_process'
 
 const fs = require('fs')
 const semver = require('semver')
 const path = require('path')
-
-// import type { ReleaseType } from 'semver'
-
-// TODO This whole structure is a huge pain - would be much happier to use
-//  es imports. Heard that's coming, so maybe updating ts/ts-node might help.
-/**
- * @param version - 1.0.0
- * @param releaseType - ReleaseType
- * @returns 1.0.1
- */
-export const increaseVersion = (version: string, releaseType: ReleaseType): string => {
-  return semver.inc(version, releaseType)
-}
 
 export const bumpGithubTemplateVersions = (newVersion: string) => {
   // Bump patch .version in package.json.
@@ -56,7 +42,7 @@ export const bumpPackageJsonVersion = (filePath: string, newVersion: string) => 
 }
 
 export const getPackageJsonVersion = (): string => {
-  const packageJsonPath = path.resolve(__dirname, '../package.json')
+  const packageJsonPath = path.resolve(__dirname, '../../../packages/ui/package.json')
   // Coerce keeps only 1.2.3 from full version string - useful in case we sit on some weird version.
   return semver.coerce(JSON.parse(fs.readFileSync(packageJsonPath)).version)
 }

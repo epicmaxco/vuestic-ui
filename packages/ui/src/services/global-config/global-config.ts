@@ -1,10 +1,11 @@
 import merge from 'lodash/merge.js'
 import cloneDeep from 'lodash/cloneDeep.js'
-import { ref, inject, Ref } from 'vue'
+import { ref, inject, Ref, getCurrentInstance } from 'vue'
 import { GlobalConfig, GlobalConfigUpdater } from './types'
 import { getComponentsDefaultConfig } from './config-default'
 import { createIconsConfig } from '../icon-config/icon-config-helpers'
 import { colorsPresets } from '../color-config/color-theme-presets'
+import { getGlobalProperty } from '../../vuestic-plugin/utils'
 
 export type ProvidedGlobalConfig = {
   globalConfig: Ref<GlobalConfig>,
@@ -50,11 +51,21 @@ export function useGlobalConfigSafe () {
   return inject<ProvidedGlobalConfig>(GLOBAL_CONFIG)
 }
 
-export function useGlobalConfig () {
+export function useGlobalConfig (): ProvidedGlobalConfig {
   const injected = inject<ProvidedGlobalConfig>(GLOBAL_CONFIG)
 
   if (!injected) {
-    throw new Error('useGlobalConfig must be used in setup function or Vuestic GlobalConfigPluign is not registered')
+    // TODO: Hotfix, maybe deal with inject
+    const vm = getCurrentInstance()
+    if (!vm) { throw new Error('useGlobalConfig must be called in setup function') }
+
+    const config = getGlobalProperty(vm.appContext, '$vaConfig')
+
+    if (!config) {
+      throw new Error('Vuestic GlobalConfigPlugin is not registered')
+    }
+
+    return config
   }
 
   return injected

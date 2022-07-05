@@ -1,20 +1,22 @@
 <template>
-  <va-card color="background" style="padding: 0.75rem;">
-    <div class="d-flex" style="width: 100%;">
-      <va-button>Button</va-button>
-      <va-spacer />
-      <va-button>Button</va-button>
-    </div>
+  <va-card color="background">
+    <va-card-content>
+      <div class="d-flex">
+        <va-button>Button</va-button>
+        <va-spacer class="spacer" />
+        <va-button>Button</va-button>
+      </div>
+    </va-card-content>
   </va-card>
 </template>
 
-<style>
-  .va-spacer {
-    text-align: center;
-    border: 2px dashed #847979;
-  }
+<style lang="scss">
+.spacer {
+  text-align: center;
+  border: 2px dashed var(--va-secondary);
 
-  .va-spacer::after {
+  &::after {
     content: "VaSpacer is here!";
   }
+}
 </style>

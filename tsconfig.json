@@ -13,13 +13,13 @@
     "baseUrl": ".",
     "types": [
       "webpack-env",
-      "jest"
+      "jest",
+      "node"
     ],
     "lib": [
       "esnext",
       "dom",
-      "dom.iterable",
-      "scripthost"
+      "dom.iterable"
     ],
     "paths": {
       "v-tooltip": [

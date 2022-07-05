@@ -37,3 +37,36 @@ export const optionsApi = (block: PageGenerationHelper) => block.table(
   ['name', { title: 'type', type: 'code' }],
   optionsTableData,
 )
+
+const optionsApiExample = `
+export default {
+  methods: {
+    onButtonClick() {
+      this.$vaToast.init('Toast example!')
+    },
+  },
+
+  beforeRouteLeave (to, from, next) {
+    this.$vaToast.closeAll()
+    next()
+  },
+}
+`
+
+const compositionApiExample = `
+import { useToast } from 'vuestic-ui'
+export default defineComponent({
+  setup() {
+    const { init, close, closeAll } = useToast()
+
+    return {
+      onButtonClick: () => init('Toast example!'),
+    }
+  }
+})
+`
+
+export const apiExamplesObject = {
+  'options Api': optionsApiExample,
+  'composition Api': compositionApiExample,
+}

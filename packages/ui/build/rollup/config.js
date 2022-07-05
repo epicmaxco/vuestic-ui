@@ -1,11 +1,20 @@
 import { createCJSConfig, createESMConfig, createIIFEConfig, createStylesConfig } from './configs/index'
 import fs from 'fs'
+import { execSync } from 'child_process'
 
 const defaultBuildParams = { input: './src/main.ts', minify: true, sourcemap: true }
 
 if (fs.existsSync('./dist')) {
   // Remove ./dist folder before build.
   fs.rmdirSync('./dist', { recursive: true })
+}
+
+// Build types before build.
+try {
+  execSync('yarn build:types', { stdio: 'inherit' })
+} catch (e) {
+  console.error('Error when build types.')
+  process.exit(1)
 }
 
 export const RollupConfig = [

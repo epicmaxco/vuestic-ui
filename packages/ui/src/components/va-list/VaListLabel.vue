@@ -11,7 +11,7 @@
 import { defineComponent, computed } from 'vue'
 import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
-import { useColors } from '../../composables/useColor'
+import { useColors } from '../../composables'
 
 export default defineComponent({
   name: 'VaListLabel',

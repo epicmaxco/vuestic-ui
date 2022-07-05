@@ -89,11 +89,7 @@
 import { computed, defineComponent } from 'vue'
 import pick from 'lodash/pick.js'
 
-import { useBem } from '../../../composables/useBem'
-import { useCSSVariables } from '../../../composables/useCSSVariables'
-import { useFormProps } from '../../../composables/useForm'
-import { useValidationProps } from '../../../composables/useValidation'
-import { useColors } from '../../../composables/useColor'
+import { useBem, useFormProps, useValidationProps, useColors, useCSSVariables } from '../../../composables'
 
 import { VaMessageList } from './VaMessageList'
 import { VaIcon } from '../../va-icon'
@@ -196,20 +192,21 @@ export default defineComponent({
     overflow: hidden;
 
     @include va-background(var(--va-input-wrapper-background), var(--va-input-wrapper-background-opacity), -1);
-
-    /* Creates gap between prepend, content, validation icons, append */
-    & > * {
-      margin-right: var(--va-input-content-items-gap);
-
-      &:last-child {
-        margin-right: 0;
-      }
-    }
   }
 
   &__container {
     display: flex;
     align-items: center;
+  }
+
+  // Creates gap between prepend, content, validation icons, append
+  &__field > *,
+  &__container > * {
+    margin-right: var(--va-input-content-items-gap);
+
+    &:last-child {
+      margin-right: 0;
+    }
   }
 
   & > .va-message-list {
@@ -292,6 +289,7 @@ export default defineComponent({
     resize: vertical;
   }
 
+  // styles
   &--labeled {
     .va-input-wrapper__text {
       height: 100%;
@@ -322,7 +320,6 @@ export default defineComponent({
     }
   }
 
-  /* Styles */
   &--solid {
     --va-input-wrapper-border-color: var(--va-input-color);
 
@@ -356,6 +353,19 @@ export default defineComponent({
     }
   }
 
+  // Validations
+  &--error {
+    --va-input-wrapper-border-color: var(--va-input-error-color, --va-danger);
+    --va-input-wrapper-background: var(--va-input-error-color, --va-danger);
+    --va-input-wrapper-background-opacity: var(--va-input-opacity);
+  }
+
+  &--success {
+    --va-input-wrapper-border-color: var(--va-input-success-color, --va-success);
+    --va-input-wrapper-background: var(--va-input-success-color, --va-success);
+    --va-input-wrapper-background-opacity: var(--va-input-opacity);
+  }
+
   // States
   &--focused {
     --va-input-wrapper-border-color: var(--va-input-wrapper-color);
@@ -367,17 +377,6 @@ export default defineComponent({
 
   &--disabled {
     @include va-disabled;
-  }
-
-  // States: Validations
-  &--error {
-    --va-input-wrapper-background: var(--va-input-error-color, --va-danger);
-    --va-input-wrapper-background-opacity: var(--va-input-opacity);
-  }
-
-  &--success {
-    --va-input-wrapper-background: var(--va-input-success-color, --va-success);
-    --va-input-wrapper-background-opacity: var(--va-input-opacity);
   }
 }
 </style>

@@ -7,8 +7,8 @@
       class="va-radio__input"
       type="radio"
       :checked="isActive"
-      :disabled="disabled"
-      :readonly="readonly"
+      :disabled="$props.disabled"
+      :readonly="$props.readonly"
       :name="computedName"
       :value="computedLabel"
       :aria-checked="isActive"
@@ -42,10 +42,9 @@
 
 <script lang="ts">
 import { defineComponent, PropType, computed } from 'vue'
-import { useColors } from '../../composables/useColor'
-import { useFormProps, useForm } from '../../composables/useForm'
+
 import { generateUniqueId } from '../../services/utils'
-import { useComponentPresetProp } from '../../composables/useComponentPreset'
+import { useComponentPresetProp, useColors, useFormProps, useForm } from '../../composables'
 
 export default defineComponent({
   name: 'VaRadio',
@@ -55,11 +54,11 @@ export default defineComponent({
     ...useComponentPresetProp,
     modelValue: { type: [Boolean, Array, String, Object] as PropType<boolean | null | string | number | Record<any, unknown> | unknown[]>, default: null },
     option: { default: null },
-    name: { type: String as PropType<string>, default: '' },
-    label: { type: String as PropType<string>, default: '' },
-    leftLabel: { type: Boolean as PropType<boolean>, default: false },
-    color: { type: String as PropType<string>, default: 'primary' },
-    tabindex: { type: Number as PropType<number>, default: 0 },
+    name: { type: String, default: '' },
+    label: { type: String, default: '' },
+    leftLabel: { type: Boolean, default: false },
+    color: { type: String, default: 'primary' },
+    tabindex: { type: Number, default: 0 },
   },
   setup (props, { emit }) {
     const { getColor } = useColors()
@@ -153,10 +152,6 @@ export default defineComponent({
   &--left-label {
     flex-direction: row-reverse;
     display: inline-flex;
-
-    & + & {
-      margin-top: 0;
-    }
   }
 
   &__input {

@@ -5,7 +5,7 @@
         :options="baseData.options"
         v-model="baseData.selected"
       />
-      Selected: {{ baseData.selected }}
+      Selected: <pre>{{ baseData.selected }}</pre>
     </VbCard>
     <VbCard title="Color">
       <va-option-list
@@ -13,20 +13,21 @@
         v-model="baseData.selected"
         color="danger"
       />
+      Selected: <pre>{{ baseData.selected }}</pre>
     </VbCard>
     <VbCard title="DefaultValue array">
       <va-option-list
         :options="baseData.options"
         v-model="baseData.withDefault"
       />
-      Selected: {{ baseData.withDefault }}
+      Selected: <pre>{{ baseData.withDefault }}</pre>
     </VbCard>
     <VbCard title="DefaultValue not array (should by warning)">
       <va-option-list
         :options="baseData.options"
         v-model="baseData.withDefaultSingle"
       />
-      Selected: {{ baseData.withDefaultSingle }}
+      Selected: <pre>{{ baseData.withDefaultSingle }}</pre>
     </VbCard>
     <VbCard title="Left label">
       <va-option-list
@@ -34,6 +35,7 @@
         v-model="baseData.selected"
         left-label
       />
+      Selected: <pre>{{ baseData.selected }}</pre>
     </VbCard>
     <VbCard title="Disable all">
       <va-option-list
@@ -41,6 +43,7 @@
         v-model="baseData.selected"
         disabled
       />
+      Selected: <pre>{{ baseData.selected }}</pre>
     </VbCard>
     <VbCard title="Readonly">
       <va-option-list
@@ -48,6 +51,7 @@
         v-model="baseData.selected"
         readonly
       />
+      Selected: <pre>{{ baseData.selected }}</pre>
     </VbCard>
 
     <VbCard title="Use more complex data with value-by (value-by = 'value')">
@@ -56,7 +60,7 @@
         v-model="complexData.selectedValue"
         value-by="value"
       />
-      Selected: {{ complexData.selectedValue }}
+      Selected: <pre>{{ complexData.selectedValue }}</pre>
     </VbCard>
     <VbCard title="valueBy (value-by = 'altValue')">
       <va-option-list
@@ -64,7 +68,7 @@
         v-model="complexData.selectedObjectValueBy"
         value-by="altValue"
       />
-      Selected: <pre> {{ complexData.selectedObjectValueBy }} </pre>
+      Selected: <pre>{{ complexData.selectedObjectValueBy }}</pre>
     </VbCard>
     <VbCard title="textBy (text-by = 'altName')">
       <va-option-list
@@ -72,6 +76,7 @@
         v-model="complexData.selectedObject"
         text-by="altName"
       />
+      Selected: <pre>{{ complexData.selectedObject }}</pre>
     </VbCard>
     <VbCard title="disabledBy (disabled-by = 'altDisabled')">
       <va-option-list
@@ -79,20 +84,21 @@
         v-model="complexData.selectedObjectDisabledBy"
         disabled-by="altDisabled"
       />
+      Selected: <pre>{{ complexData.selectedObjectDisabledBy }}</pre>
     </VbCard>
     <VbCard title="Return whole object">
       <va-option-list
         :options="complexData.options"
         v-model="complexData.selectedObject"
       />
-      Selected: <pre> {{ complexData.selectedObject }} </pre>
+      Selected: <pre>{{ complexData.selectedObject }}</pre>
     </VbCard>
     <VbCard title="Complex data with defaultValue">
       <va-option-list
         :options="complexData.options"
         v-model="complexData.withDefault"
       />
-      Selected: <pre> {{ complexData.withDefault }} </pre>
+      Selected: <pre>{{ complexData.withDefault }}</pre>
     </VbCard>
 
     <VbCard title="Using slot">
@@ -124,7 +130,7 @@
         :options="baseRadioData.options"
         v-model="baseRadioData.selected"
       />
-      Selected: {{ baseRadioData.selected }}
+      Selected: <pre>{{ baseRadioData.selected }}</pre>
     </VbCard>
     <VbCard title="DefaultValue">
       <va-option-list
@@ -132,7 +138,7 @@
         :options="baseRadioData.options"
         v-model="baseRadioData.withDefault"
       />
-      Selected: {{ baseRadioData.withDefault }}
+      Selected: <pre>{{ baseRadioData.withDefault }}</pre>
     </VbCard>
     <VbCard title="Disabled">
       <va-option-list
@@ -141,6 +147,7 @@
         :options="baseRadioData.options"
         v-model="baseRadioData.selected"
       />
+      Selected: <pre>{{ baseRadioData.selected }}</pre>
     </VbCard>
     <VbCard title="Readonly">
       <va-option-list
@@ -149,6 +156,7 @@
         :options="baseRadioData.options"
         v-model="baseRadioData.selected"
       />
+      Selected: <pre>{{ baseRadioData.selected }}</pre>
     </VbCard>
     <VbCard title="Use complex data and returns object">
       <va-option-list
@@ -156,7 +164,7 @@
         :options="complexRadioData.options"
         v-model="complexRadioData.selectedObject"
       />
-      Selected: <pre> {{ complexRadioData.selectedObject }} </pre>
+      Selected: <pre>{{ complexRadioData.selectedObject }}</pre>
     </VbCard>
      <VbCard title="String options">
       <va-option-list
@@ -164,7 +172,7 @@
         :options="baseData.options"
         v-model="baseData.selected"
       />
-      Selected: {{ baseData.selected }}
+      Selected: <pre>{{ baseData.selected }}</pre>
     </VbCard>
     <VbCard title="Color">
       <va-option-list
@@ -173,6 +181,7 @@
         v-model="baseData.selected"
         color="danger"
       />
+      Selected: <pre>{{ baseRadioData.selected }}</pre>
     </VbCard>
     <VbCard title="DefaultValue array">
       <va-option-list
@@ -180,7 +189,7 @@
         :options="baseData.options"
         v-model="baseData.withDefault"
       />
-      Selected: {{ baseData.withDefault }}
+      Selected: <pre>{{ baseData.withDefault }}</pre>
     </VbCard>
     <VbCard title="DefaultValue not array (should by warning)">
       <va-option-list
@@ -188,7 +197,7 @@
         :options="baseData.options"
         v-model="baseData.withDefaultSingle"
       />
-      Selected: {{ baseData.withDefaultSingle }}
+      Selected: <pre>{{ baseData.withDefaultSingle }}</pre>
     </VbCard>
     <VbCard title="Left label">
       <va-option-list
@@ -197,6 +206,7 @@
         v-model="baseData.selected"
         left-label
       />
+      Selected: <pre>{{ baseData.selected }}</pre>
     </VbCard>
     <VbCard title="Disable all">
       <va-option-list
@@ -205,6 +215,7 @@
         v-model="baseData.selected"
         disabled
       />
+      Selected: <pre>{{ baseData.selected }}</pre>
     </VbCard>
     <VbCard title="Readonly">
       <va-option-list
@@ -213,6 +224,7 @@
         v-model="baseData.selected"
         readonly
       />
+      Selected: <pre>{{ baseData.selected }}</pre>
     </VbCard>
     <VbCard title="valueBy (value-by = 'altValue')">
       <va-option-list
@@ -221,7 +233,7 @@
         v-model="complexData.selectedObjectValueBy"
         value-by="altValue"
       />
-      Selected: <pre> {{ complexData.selectedObjectValueBy }} </pre>
+      Selected: <pre>{{ complexData.selectedObjectValueBy }}</pre>
     </VbCard>
     <VbCard title="Use complex data and textBy (text-by = 'altName')">
       <va-option-list
@@ -230,6 +242,7 @@
         v-model="complexData.selectedObject"
         text-by="altName"
       />
+      Selected: <pre>{{ complexData.selectedObject }}</pre>
     </VbCard>
     <VbCard title="disabledBy (disabled-by = 'altDisabled')">
       <va-option-list
@@ -238,6 +251,7 @@
         v-model="complexData.selectedObjectDisabledBy"
         disabled-by="altDisabled"
       />
+      Selected: <pre>{{ complexData.selectedObjectDisabledBy }}</pre>
     </VbCard>
     <VbCard title="Return whole object">
       <va-option-list
@@ -245,7 +259,7 @@
         :options="complexData.options"
         v-model="complexData.selectedObject"
       />
-      Selected: <pre> {{ complexData.selectedObject }} </pre>
+      Selected: <pre>{{ complexData.selectedObject }}</pre>
     </VbCard>
     <VbCard title="Complex data with default value">
       <va-option-list
@@ -253,7 +267,7 @@
         :options="complexData.options"
         v-model="complexData.withDefault"
       />
-      Selected: <pre> {{ complexData.withDefault }} </pre>
+      Selected: <pre>{{ complexData.withDefault }}</pre>
     </VbCard>
   </VbDemo>
 </template>
@@ -312,16 +326,16 @@ export default {
     return {
       baseData: {
         options: planeOptions,
-        selected: undefined,
+        selected: [],
         withDefault: [planeOptions[0], planeOptions[2]],
         withDefaultSingle: planeOptions[0],
       },
       complexData: {
         options: complexOptions,
-        selectedValue: undefined,
-        selectedObject: undefined,
-        selectedObjectValueBy: undefined,
-        selectedObjectDisabledBy: undefined,
+        selectedValue: [],
+        selectedObject: [],
+        selectedObjectValueBy: [],
+        selectedObjectDisabledBy: [],
         withDefault: [complexOptions[0], complexOptions[1]],
       },
       baseRadioData: {

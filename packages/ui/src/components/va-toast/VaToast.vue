@@ -4,7 +4,8 @@
       v-show="visible"
       ref="rootElement"
       :role="$props.closeable ? 'alertdialog' : 'alert'"
-      :class="['va-toast', ...toastClasses]"
+      class="va-toast"
+      :class="toastClasses"
       :style="toastStyles"
       @mouseenter="clearTimer"
       @mouseleave="startTimer"
@@ -40,15 +41,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref, computed, onMounted } from 'vue'
+import { defineComponent, PropType, ref, computed, onMounted, shallowRef } from 'vue'
 
-import { useColors } from '../../composables/useColor'
-import { useTimer } from '../../composables/useTimer'
-import { useTextColor } from '../../composables/useTextColor'
-import { useComponentPresetProp } from '../../composables/useComponentPreset'
-import VaIcon from '../va-icon/VaIcon.vue'
+import { useComponentPresetProp, useColors, useTimer, useTextColor } from '../../composables'
 
 import { ToastPosition } from './types'
+
+import VaIcon from '../va-icon/VaIcon.vue'
 
 const VaToastRenderer = defineComponent({
   name: 'VaToastRenderer',
@@ -64,19 +63,19 @@ export default defineComponent({
   emits: ['on-click', 'on-close'],
   props: {
     ...useComponentPresetProp,
-    title: { type: String as PropType<string>, default: '' },
-    offsetY: { type: Number as PropType<number>, default: 16 },
-    offsetX: { type: Number as PropType<number>, default: 16 },
+    title: { type: String, default: '' },
+    offsetY: { type: Number, default: 16 },
+    offsetX: { type: Number, default: 16 },
     message: { type: [String, Function], default: '' },
-    dangerouslyUseHtmlString: { type: Boolean as PropType<boolean>, default: false },
-    icon: { type: String as PropType<string>, default: 'close' },
-    customClass: { type: String as PropType<string>, default: '' },
-    duration: { type: Number as PropType<number>, default: 5000 },
-    color: { type: String as PropType<string>, default: '' },
-    closeable: { type: Boolean as PropType<boolean>, default: true },
+    dangerouslyUseHtmlString: { type: Boolean, default: false },
+    icon: { type: String, default: 'close' },
+    customClass: { type: String, default: '' },
+    duration: { type: Number, default: 5000 },
+    color: { type: String, default: '' },
+    closeable: { type: Boolean, default: true },
     onClose: { type: Function },
     onClick: { type: Function },
-    multiLine: { type: Boolean as PropType<boolean>, default: false },
+    multiLine: { type: Boolean, default: false },
     position: {
       type: String as PropType<ToastPosition>,
       default: 'top-right',
@@ -85,11 +84,11 @@ export default defineComponent({
     render: { type: Function },
   },
   setup (props, { emit }) {
+    const rootElement = shallowRef<HTMLElement>()
+
     const { getColor } = useColors()
 
     const { textColorComputed } = useTextColor()
-
-    const rootElement = ref<HTMLElement>()
 
     const visible = ref(false)
 

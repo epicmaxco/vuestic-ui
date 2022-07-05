@@ -11,8 +11,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 
-import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
-import { useComponentPresetProp } from '../../composables/useComponentPreset'
+import { useComponentPresetProp, useStateful, useStatefulProps, useStatefulEmits } from '../../composables'
 
 export default defineComponent({
   name: 'VaHover',

@@ -11,9 +11,7 @@ import { defineComponent, computed } from 'vue'
 import { extractComponentProps } from '../../utils/child-props'
 import omit from 'lodash/omit.js'
 
-import { useBem } from '../../composables/useBem'
-import { useDeprecatedProps } from '../../composables/useDeprecatedProps'
-import { useComponentPresetProp } from '../../composables/useComponentPreset'
+import { useBem, useDeprecatedProps, useComponentPresetProp } from '../../composables'
 
 import { VaConfig } from '../va-config'
 import { VaButton } from '../va-button'

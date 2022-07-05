@@ -1,13 +1,5 @@
 import { ref, Ref, isRef, unref } from 'vue'
 
-function safeUnref<T> (refOrRaw: Ref<T> | T): T {
-  if (isRef(refOrRaw)) {
-    return unref(refOrRaw)
-  }
-
-  return refOrRaw
-}
-
 function isUndefined<T> (t: T | undefined): t is undefined {
   return t === undefined
 }
@@ -36,7 +28,7 @@ export const useGridKeyboardNavigation = (
     if (previouslyClicked) { return }
     previouslyClicked = false
 
-    const index = onFocusIndex === undefined ? safeUnref(start) || 0 : safeUnref(onFocusIndex)
+    const index = onFocusIndex === undefined ? unref(start) || 0 : unref(onFocusIndex)
 
     focusedCellIndex.value = index
   }
@@ -73,11 +65,11 @@ export const useGridKeyboardNavigation = (
       focusedCellIndex.value -= rowSize
     }
 
-    if (!isUndefined(start) && focusedCellIndex.value < safeUnref(start)) {
-      focusedCellIndex.value = safeUnref(start)
+    if (!isUndefined(start) && focusedCellIndex.value < unref(start)) {
+      focusedCellIndex.value = unref(start)
     }
-    if (!isUndefined(end) && focusedCellIndex.value > safeUnref(end) - 1) {
-      focusedCellIndex.value = safeUnref(end) - 1
+    if (!isUndefined(end) && focusedCellIndex.value > unref(end) - 1) {
+      focusedCellIndex.value = unref(end) - 1
     }
   }
 

@@ -1,19 +1,16 @@
 <template>
-  <div
-    class="demo-content"
-    style="height: 13rem; border: 2px solid var(--va-primary);"
-  >
+  <div style="height: 13rem; border: 1px solid var(--va-secondary);">
     <va-sidebar
       :minimized="minimized"
       textColor="dark"
       width="11rem"
       minimizedWidth="64px"
     >
-      <template v-for="item in items" :key="item.to">
+      <template v-for="item in items" :key="item.title">
         <va-sidebar-item :active="item.active">
           <va-sidebar-item-content>
             <va-icon :name="item.icon" />
-            <va-sidebar-item-title v-if="!minimized" style="height: 24px;">
+            <va-sidebar-item-title>
               {{ item.title }}
             </va-sidebar-item-title>
           </va-sidebar-item-content>
@@ -22,12 +19,7 @@
     </va-sidebar>
   </div>
 
-  <div
-    class="demo-controls px-2 py-2"
-    style="background: var(--va-background); width: 100%;"
-  >
-    <va-checkbox v-model="minimized" label="Minimized" />
-  </div>
+  <va-checkbox class="mt-2" v-model="minimized" label="Minimized" />
 </template>
 
 <script>

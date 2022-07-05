@@ -1,4 +1,4 @@
-import { CssColor } from './color-config'
+import { CssColor } from '../../composables'
 
 type VuesticColorsPreset = {
   primary: CssColor,
