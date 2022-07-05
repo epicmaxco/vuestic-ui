@@ -210,9 +210,9 @@ export default defineComponent({
       onBlur,
     } = useClearable(props, valueText)
 
-    const canBeClearedComputed = computed(() => {
-      return canBeCleared.value && valueText.value !== format(props.clearValue)
-    })
+    const canBeClearedComputed = computed(() => (
+      canBeCleared.value && valueText.value !== format(props.clearValue)
+    ))
 
     const iconProps = computed(() => ({
       name: props.icon,
