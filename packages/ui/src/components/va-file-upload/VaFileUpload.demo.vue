@@ -68,12 +68,12 @@
       <va-file-upload
         v-model="gallery"
         type="gallery"
-        color="info"
+        color="success"
       />
       <va-file-upload
         v-model="basic"
         dropzone
-        color="info"
+        color="warning"
       />
     </VbCard>
 
