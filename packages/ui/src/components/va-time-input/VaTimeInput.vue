@@ -14,9 +14,9 @@
     @keydown.up.prevent="showDropdown"
     @keydown.down.prevent="showDropdown"
     @keydown.space.prevent="showDropdown"
-    @keydown.enter.prevent="showDropdown"
     @keydown.esc.prevent="hideDropdown"
-    @click="toggleDropdownWithoutFocus"
+    @keydown.enter="!$props.manualInput && showDropdown()"
+    @click="(!$props.manualInput || isOpenSync) && toggleDropdownWithoutFocus()"
   >
     <template #anchor>
       <va-input
@@ -25,7 +25,6 @@
         v-on="computedInputListeners"
         :modelValue="valueText"
         @change="onInputTextChanged($event.target.value)"
-        @update:modelValue="onValueInput"
       >
         <template
           v-for="name in filteredSlots"
@@ -98,7 +97,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, watch, shallowRef, nextTick } from 'vue'
+import { computed, defineComponent, PropType, shallowRef, nextTick } from 'vue'
 import omit from 'lodash/omit.js'
 
 import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
@@ -158,28 +157,36 @@ export default defineComponent({
       : format(props.clearValue))
 
     const onInputTextChanged = (val: string) => {
+      if (!val) {
+        return reset()
+      }
+
       const v = parse(val)
 
       if (isValid.value && v) {
         modelValueSync.value = v
+      } else {
+        modelValueSync.value = undefined
+        isValid.value = true
       }
     }
 
-    const changePeriod = (isPM: boolean) => {
-      if (!modelValueSync.value) { return }
+    // --- not used yet ---
+    // const changePeriod = (isPM: boolean) => {
+    //   if (!modelValueSync.value) { return }
 
-      const halfDayPeriod = 12
-      const h = modelValueSync.value.getHours()
+    //   const halfDayPeriod = 12
+    //   const h = modelValueSync.value.getHours()
 
-      if (isPM && h <= halfDayPeriod) {
-        modelValueSync.value = new Date(modelValueSync.value.setHours(h + halfDayPeriod))
-      } else if (!isPM && h >= halfDayPeriod) {
-        modelValueSync.value = new Date(modelValueSync.value.setHours(h - halfDayPeriod))
-      }
-    }
+    //   if (isPM && h <= halfDayPeriod) {
+    //     modelValueSync.value = new Date(modelValueSync.value.setHours(h + halfDayPeriod))
+    //   } else if (!isPM && h >= halfDayPeriod) {
+    //     modelValueSync.value = new Date(modelValueSync.value.setHours(h - halfDayPeriod))
+    //   }
+    // }
 
-    const changePeriodToPm = () => changePeriod(true)
-    const changePeriodToAm = () => changePeriod(false)
+    // const changePeriodToPm = () => changePeriod(true)
+    // const changePeriodToAm = () => changePeriod(false)
 
     const reset = (): void => {
       emit('update:modelValue', props.clearValue)
@@ -194,13 +201,7 @@ export default defineComponent({
       input.value?.blur()
     }
 
-    const onValueInput = (val: string) => {
-      !val && reset()
-    }
-
     const { computedError, computedErrorMessages, listeners } = useValidation(props, emit, reset, focus)
-
-    const hasError = computed(() => (!isValid.value && valueText.value !== format(props.clearValue)) || computedError.value)
 
     const {
       canBeCleared,
@@ -223,7 +224,7 @@ export default defineComponent({
       ...filterComponentProps(props, VaInputProps).value,
       clearable: false,
       rules: [],
-      error: hasError.value,
+      error: computedError.value,
       errorMessages: computedErrorMessages.value,
       readonly: props.readonly || !props.manualInput,
     }))
@@ -254,10 +255,6 @@ export default defineComponent({
         (!props.leftIcon || props.clearable) && 'icon',
       ]
       return Object.keys(slots).filter(slot => !slotsWithIcons.includes(slot))
-    })
-
-    watch(modelValueSync, () => {
-      isValid.value = true
     })
 
     const hideDropdown = () => {
@@ -297,7 +294,6 @@ export default defineComponent({
       modelValueSync,
       valueText,
       onInputTextChanged,
-      onValueInput,
       canBeClearedComputed,
       iconProps,
       clearIconProps,
