@@ -18,7 +18,7 @@ try {
 }
 
 export const RollupConfig = [
-  createESMConfig({ ...defaultBuildParams, outDir: 'dist/esm' }),
+  createESMConfig({ ...defaultBuildParams, outDir: 'dist/esm', minify: false }),
   createESMConfig({ ...defaultBuildParams, outDir: 'dist/esm-node', outExt: 'mjs' }),
   createESMConfig({ ...defaultBuildParams, outDir: 'dist/esm-ssr', ssr: true }),
   createIIFEConfig({ ...defaultBuildParams, outDir: 'dist/iife' }),
