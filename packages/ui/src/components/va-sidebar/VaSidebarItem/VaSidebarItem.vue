@@ -48,7 +48,7 @@ export default defineComponent({
 
     const backgroundColorComputed = computed(() => {
       if (props.active && !isHovered.value && !hasKeyboardFocus.value) {
-        return getColor(getColor(props.activeColor))
+        return getColor(props.activeColor)
       }
 
       return getColor(sidebarColor.value)
