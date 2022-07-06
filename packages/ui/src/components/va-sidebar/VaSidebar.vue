@@ -28,9 +28,9 @@ export default defineComponent({
     minimized: { type: Boolean, default: false },
     hoverable: { type: Boolean, default: false },
     position: {
-      type: String as PropType<'top' | 'bottom' | 'left' | 'right'>,
+      type: String as PropType<'left' | 'right'>,
       default: 'left',
-      validator: (v: string) => ['top', 'bottom', 'left', 'right'].includes(v),
+      validator: (v: string) => ['left', 'right'].includes(v),
     },
     width: { type: String, default: '16rem' },
     minimizedWidth: { type: String, default: '4rem' },
