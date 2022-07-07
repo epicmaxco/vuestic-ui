@@ -231,11 +231,9 @@ export default defineComponent({
       ...pick(props, ['type', 'disabled', 'readonly', 'placeholder', 'pattern', 'inputmode']),
     }) as InputHTMLAttributes)
 
-    const valueLengthComputed = computed(() => {
-      if (!props.counter) { return }
-
-      return typeof computedValue.value === 'string' ? computedValue.value.length : undefined
-    })
+    const valueLengthComputed = computed(() =>
+      props.counter && typeof computedValue.value === 'string' ? computedValue.value.length : undefined,
+    )
 
     return {
       input,
