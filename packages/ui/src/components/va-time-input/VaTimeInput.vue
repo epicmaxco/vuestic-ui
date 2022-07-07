@@ -14,9 +14,9 @@
     @keydown.up.prevent="showDropdown"
     @keydown.down.prevent="showDropdown"
     @keydown.space.prevent="showDropdown"
-    @keydown.enter.prevent="showDropdown"
     @keydown.esc.prevent="hideDropdown"
-    @click="handleComponentClick"
+    @keydown.enter="!$props.manualInput && showDropdown()"
+    @click="(!$props.manualInput || isOpenSync) && toggleDropdownWithoutFocus()"
   >
     <template #anchor>
       <va-input
@@ -25,10 +25,9 @@
         v-on="computedInputListeners"
         :modelValue="valueText"
         @change="onInputTextChanged($event.target.value)"
-        @update:modelValue="onValueInput"
       >
         <template
-          v-for="name in filterSlots"
+          v-for="name in filteredSlots"
           :key="name"
           v-slot:[name]="slotScope"
         >
@@ -48,27 +47,25 @@
             role="button"
             aria-label="toggle dropdown"
             aria-hidden="false"
-            class="va-dropdown__icons__reset"
             :tabindex="iconsTabIndexComputed"
-            :id="componentIconId"
             v-bind="iconProps"
-            @click="toggleDropdown"
+            @click.stop="toggleDropdown"
             @keydown.enter.stop="toggleDropdown"
           />
         </template>
 
         <template #icon>
           <va-icon
-            v-if="canBeCleared"
+            v-if="canBeClearedComputed"
             role="button"
             aria-label="reset"
             aria-hidden="false"
-            class="va-dropdown__icons__reset"
             :tabindex="iconsTabIndexComputed"
-            :id="clearIconId"
             v-bind="clearIconProps"
-            @click="reset"
+            @click.stop="reset"
             @keydown.enter.stop="reset"
+            @focus="onFocus"
+            @blur="onBlur"
           />
           <va-icon
             v-else-if="!$props.leftIcon"
@@ -77,9 +74,8 @@
             aria-hidden="false"
             class="va-dropdown__icons__reset"
             :tabindex="iconsTabIndexComputed"
-            :id="componentIconId"
             v-bind="iconProps"
-            @click="toggleDropdown"
+            @click.stop="toggleDropdown"
             @keydown.enter.stop="toggleDropdown"
           />
         </template>
@@ -101,12 +97,10 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, watch, shallowRef, nextTick } from 'vue'
+import { computed, defineComponent, PropType, shallowRef, nextTick } from 'vue'
 import omit from 'lodash/omit.js'
 
 import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
-import { generateUniqueId } from '../../services/utils'
-
 import {
   useSyncProp,
   useValidation, useValidationEmits, useValidationProps, ValidationProps,
@@ -119,13 +113,6 @@ import VaTimePicker from '../va-time-picker/VaTimePicker.vue'
 import VaInput from '../va-input/VaInput.vue'
 import VaIcon from '../va-icon/VaIcon.vue'
 import { VaDropdown, VaDropdownContent } from '../va-dropdown'
-
-const slotsSelectors = [
-  '.va-input-wrapper__prepend-inner',
-  '.va-input__prepend-inner',
-  '.va-input__append-inner',
-  '.va-input-wrapper__append-inner',
-]
 
 const VaInputProps = extractComponentProps(VaInput, [
   'mask', 'returnRaw', 'autosize', 'minRows', 'maxRows', 'type', 'inputmode',
@@ -146,9 +133,7 @@ export default defineComponent({
     isOpen: { type: Boolean, default: undefined },
     modelValue: { type: Date, default: undefined },
     clearValue: { type: Date, default: undefined },
-
-    format: { type: Function as PropType<(date: Date) => string> },
-
+    format: { type: Function as PropType<(date?: Date) => string> },
     parse: { type: Function as PropType<(input: string) => Date> },
     manualInput: { type: Boolean, default: false },
     leftIcon: { type: Boolean, default: false },
@@ -161,47 +146,45 @@ export default defineComponent({
     const input = shallowRef<typeof VaInput>()
     const timePicker = shallowRef<typeof VaTimePicker>()
 
-    const clearIconId = generateUniqueId()
-    const componentIconId = generateUniqueId()
-
     const [isOpenSync] = useSyncProp('isOpen', props, emit, false)
     const [modelValueSync] = useSyncProp('modelValue', props, emit)
 
     const { parse, isValid } = useTimeParser(props)
     const { format } = useTimeFormatter(props)
 
-    const valueText = computed<string | undefined>(() => {
-      if (!isValid.value) { return props.clearValue ? format(props.clearValue) : '' }
-      if (!modelValueSync.value) { return props.clearValue ? format(props.clearValue) : '' }
-
-      if (props.format) { return format(modelValueSync.value) }
-
-      return format(modelValueSync.value)
-    })
+    const valueText = computed<string>(() => format(modelValueSync.value || props.clearValue))
 
     const onInputTextChanged = (val: string) => {
+      if (!val) {
+        return reset()
+      }
+
       const v = parse(val)
 
       if (isValid.value && v) {
         modelValueSync.value = v
+      } else {
+        modelValueSync.value = undefined
+        isValid.value = true
       }
     }
 
-    const changePeriod = (isPM: boolean) => {
-      if (!modelValueSync.value) { return }
+    // --- not used yet ---
+    // const changePeriod = (isPM: boolean) => {
+    //   if (!modelValueSync.value) { return }
 
-      const halfDayPeriod = 12
-      const h = modelValueSync.value.getHours()
+    //   const halfDayPeriod = 12
+    //   const h = modelValueSync.value.getHours()
 
-      if (isPM && h <= halfDayPeriod) {
-        modelValueSync.value = new Date(modelValueSync.value.setHours(h + halfDayPeriod))
-      } else if (!isPM && h >= halfDayPeriod) {
-        modelValueSync.value = new Date(modelValueSync.value.setHours(h - halfDayPeriod))
-      }
-    }
+    //   if (isPM && h <= halfDayPeriod) {
+    //     modelValueSync.value = new Date(modelValueSync.value.setHours(h + halfDayPeriod))
+    //   } else if (!isPM && h >= halfDayPeriod) {
+    //     modelValueSync.value = new Date(modelValueSync.value.setHours(h - halfDayPeriod))
+    //   }
+    // }
 
-    const changePeriodToPm = () => changePeriod(true)
-    const changePeriodToAm = () => changePeriod(false)
+    // const changePeriodToPm = () => changePeriod(true)
+    // const changePeriodToAm = () => changePeriod(false)
 
     const reset = (): void => {
       emit('update:modelValue', props.clearValue)
@@ -216,13 +199,7 @@ export default defineComponent({
       input.value?.blur()
     }
 
-    const onValueInput = (val: string) => {
-      !val && reset()
-    }
-
     const { computedError, computedErrorMessages, listeners } = useValidation(props, emit, reset, focus)
-
-    const hasError = computed(() => (!isValid.value && valueText.value !== props.clearValue) || computedError.value)
 
     const {
       canBeCleared,
@@ -230,6 +207,10 @@ export default defineComponent({
       onFocus,
       onBlur,
     } = useClearable(props, valueText)
+
+    const canBeClearedComputed = computed(() => (
+      canBeCleared.value && valueText.value !== format(props.clearValue)
+    ))
 
     const iconProps = computed(() => ({
       name: props.icon,
@@ -241,7 +222,7 @@ export default defineComponent({
       ...filterComponentProps(props, VaInputProps).value,
       clearable: false,
       rules: [],
-      error: hasError.value,
+      error: computedError.value,
       errorMessages: computedErrorMessages.value,
       readonly: props.readonly || !props.manualInput,
     }))
@@ -266,16 +247,12 @@ export default defineComponent({
       ...omit(attrs, ['class', 'style']),
     }))
 
-    const filterSlots = computed(() => {
+    const filteredSlots = computed(() => {
       const slotsWithIcons = [
         props.leftIcon && 'prependInner',
         (!props.leftIcon || props.clearable) && 'icon',
       ]
       return Object.keys(slots).filter(slot => !slotsWithIcons.includes(slot))
-    })
-
-    watch(modelValueSync, () => {
-      isValid.value = true
     })
 
     const hideDropdown = () => {
@@ -302,36 +279,9 @@ export default defineComponent({
       isOpenSync.value ? hideDropdown() : showDropdownWithoutFocus()
     }
 
-    // we use the global handler to prevent the toggle dropdown on any click and execute additional logic
-    // we don't want to use `event.stopPropagation()` on clicks because it breaks closing the dropdown
-    const handleComponentClick = (e: Event & { target: { id: string | undefined }}) => {
-      const id = e.target?.id
-
-      // (here and below) we have to use `id` instead of `ref`
-      // because the icon disappears after the click and `ref` becomes `null`
-      if (id === clearIconId) {
-        return focus()
-      }
-
-      if (id === componentIconId) {
-        return timePicker.value?.focus()
-      }
-
-      // here we check that the slots have been clicked and prevent the dropdown from opening
-      // the user decides to open or hide the dropdown itself
-      const isClickInSlot = slotsSelectors.some(selector => !!(e.target as HTMLElement)?.closest(selector))
-      if (isClickInSlot) {
-        return
-      }
-
-      toggleDropdownWithoutFocus()
-    }
-
     return {
       input,
       timePicker,
-      clearIconId,
-      componentIconId,
 
       timePickerProps: filterComponentProps(props, extractComponentProps(VaTimePicker)),
       computedInputProps,
@@ -342,21 +292,22 @@ export default defineComponent({
       modelValueSync,
       valueText,
       onInputTextChanged,
-      onValueInput,
-      canBeCleared,
+      canBeClearedComputed,
       iconProps,
       clearIconProps,
-      filterSlots,
+      filteredSlots,
 
       hideDropdown,
       showDropdown,
       toggleDropdown,
-
-      handleComponentClick,
+      toggleDropdownWithoutFocus,
 
       reset,
       focus,
       blur,
+
+      onFocus,
+      onBlur,
     }
   },
 })
