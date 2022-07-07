@@ -16,8 +16,7 @@
     :outline="$props.outline"
     :requiredMark="$props.requiredMark"
     :focused="isFocused"
-    :counter="$props.counter"
-    :value-length="valueLengthComputed"
+    :counter-value="valueLengthComputed"
     :max-length="$props.maxLength"
     @click="focus"
   >
@@ -232,7 +231,13 @@ export default defineComponent({
       ...pick(props, ['type', 'disabled', 'readonly', 'placeholder', 'pattern', 'inputmode']),
     }) as InputHTMLAttributes)
 
-    const valueLengthComputed = computed(() => (computedValue.value as string)?.length || 0)
+    const valueLengthComputed = computed(
+      () => {
+        if (!props.counter) { return }
+
+        return typeof computedValue.value === 'string' ? computedValue.value.length : undefined
+      },
+    )
 
     return {
       input,

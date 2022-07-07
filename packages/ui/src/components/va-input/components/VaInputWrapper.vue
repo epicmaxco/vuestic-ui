@@ -74,10 +74,10 @@
       </div>
     </div>
 
-    <div v-if="$props.counter" class="va-input-wrapper__bottom">
-      <slot name="counter" v-bind="{ valueLength: $props.valueLength, maxLength: $props.maxLength }">
+    <div v-if="isCounterVisible" class="va-input-wrapper__bottom">
+      <slot name="counter" v-bind="{ valueLength: $props.counterValue, maxLength: $props.maxLength }">
         <div class="va-input-wrapper__bottom-counter">
-          {{ $props.maxLength ? `${valueLength}/${$props.maxLength}` : valueLength }}
+          {{ $props.maxLength ? `${$props.counterValue}/${$props.maxLength}` : $props.counterValue }}
         </div>
       </slot>
     </div>
@@ -110,8 +110,7 @@ export default defineComponent({
   props: {
     ...useFormProps,
     ...useValidationProps,
-    counter: { type: Boolean, default: false },
-    valueLength: { type: Number, default: undefined },
+    counterValue: { type: Number, default: undefined },
     maxLength: { type: Number, default: undefined },
 
     label: { type: String, default: '' },
@@ -161,10 +160,15 @@ export default defineComponent({
 
     const errorLimit = computed(() => props.error ? Number(props.errorCount) : 99)
 
+    const isCounterVisible = computed(
+      () => typeof props.counterValue !== 'undefined',
+    )
+
     return {
       wrapperClass,
       wrapperStyle,
 
+      isCounterVisible,
       colorComputed,
       messagesColor,
       messagesComputed,
