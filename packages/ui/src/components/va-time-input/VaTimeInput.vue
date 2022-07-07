@@ -115,7 +115,7 @@ import VaIcon from '../va-icon/VaIcon.vue'
 import { VaDropdown, VaDropdownContent } from '../va-dropdown'
 
 const VaInputProps = extractComponentProps(VaInput, [
-  'mask', 'returnRaw', 'autosize', 'minRows', 'maxRows', 'type', 'inputmode',
+  'mask', 'returnRaw', 'autosize', 'minRows', 'maxRows', 'type', 'inputmode', 'counter', 'maxLength',
 ])
 
 export default defineComponent({
