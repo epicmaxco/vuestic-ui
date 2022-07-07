@@ -243,6 +243,8 @@ export default defineComponent({
     width: 100%;
     position: relative;
     min-height: var(--va-input-line-height);
+    display: flex;
+    align-items: center;
 
     input,
     textarea {
