@@ -75,7 +75,7 @@
     </div>
 
     <div v-if="$props.counter" class="va-input-wrapper__bottom">
-      <slot name="counter" v-bind="{ valueLength, maxLength: $props.maxLength }">
+      <slot name="counter" v-bind="{ valueLength: $props.valueLength, maxLength: $props.maxLength }">
         <div class="va-input-wrapper__bottom-counter">
           {{ $props.maxLength ? `${valueLength}/${$props.maxLength}` : valueLength }}
         </div>
@@ -111,6 +111,7 @@ export default defineComponent({
     ...useFormProps,
     ...useValidationProps,
     counter: { type: Boolean, default: false },
+    valueLength: { type: Number, default: undefined },
     maxLength: { type: Number, default: undefined },
 
     label: { type: String, default: '' },
@@ -152,26 +153,23 @@ export default defineComponent({
       typeof messagesComputed.value === 'string' ? messagesComputed.value : messagesComputed.value?.length,
     ))
 
-    const valueLength = computed(
-      () => (props.modelValue as string).length,
-    )
+    const messagesColor = computed(() => {
+      if (props.error) { return 'danger' }
+      if (props.success) { return 'success' }
+      return ''
+    })
+
+    const errorLimit = computed(() => props.error ? Number(props.errorCount) : 99)
 
     return {
       wrapperClass,
       wrapperStyle,
 
       colorComputed,
-      valueLength,
-
-      messagesColor: computed(() => {
-        if (props.error) { return 'danger' }
-        if (props.success) { return 'success' }
-        return ''
-      }),
-
+      messagesColor,
       messagesComputed,
       hasMessages,
-      errorLimit: computed(() => props.error ? Number(props.errorCount) : 99),
+      errorLimit,
     }
   },
 })

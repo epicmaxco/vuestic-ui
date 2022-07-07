@@ -1,7 +1,6 @@
 <template>
   <VaInputWrapper
     v-bind="fieldListeners"
-    :model-value="computedValue"
     :class="$attrs.class"
     :style="$attrs.style"
     :color="$props.color"
@@ -18,6 +17,7 @@
     :requiredMark="$props.requiredMark"
     :focused="isFocused"
     :counter="$props.counter"
+    :value-length="valueLengthComputed"
     :max-length="$props.maxLength"
     @click="focus"
   >
@@ -71,7 +71,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, InputHTMLAttributes, shallowRef, toRefs, ref } from 'vue'
+import { computed, defineComponent, InputHTMLAttributes, shallowRef, toRefs } from 'vue'
 import omit from 'lodash/omit.js'
 import pick from 'lodash/pick.js'
 
@@ -232,10 +232,13 @@ export default defineComponent({
       ...pick(props, ['type', 'disabled', 'readonly', 'placeholder', 'pattern', 'inputmode']),
     }) as InputHTMLAttributes)
 
+    const valueLengthComputed = computed(() => (computedValue.value as string)?.length || 0)
+
     return {
       input,
       inputEvents,
 
+      valueLengthComputed,
       computedChildAttributes,
       computedInputAttributes,
       textareaProps: filterComponentProps(props, VaTextareaProps),

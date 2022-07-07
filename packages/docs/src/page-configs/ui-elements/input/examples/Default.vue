@@ -53,13 +53,7 @@
       :max-length="30"
       counter
       class="mb-4"
-    >
-      <template #counter="{ valueLength, maxLength }">
-        <b>{{ `${valueLength} / ${maxLength}` }}</b>
-        &nbsp;
-        <span>characters left</span>
-      </template>
-    </va-input>
+    />
     <va-input
       v-model="value"
       :max-length="30"
@@ -69,7 +63,7 @@
       <template #counter="{ valueLength, maxLength }">
         <b
           style="margin-left: auto;"
-          :style="{color: valueLength > maxLength ? 'var(--va-danger)' : 'var(--va-success)'}">
+          :style="{ color: valueLength > maxLength ? 'var(--va-danger)' : 'var(--va-success)' }">
           {{ maxLength - valueLength }}
         </b>
       </template>

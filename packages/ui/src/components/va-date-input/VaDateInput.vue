@@ -116,7 +116,7 @@ import { VaInput } from '../va-input'
 import { VaIcon } from '../va-icon'
 
 const VaInputProps = extractComponentProps(VaInput, [
-  'mask', 'returnRaw', 'autosize', 'minRows', 'maxRows', 'type', 'inputmode', 'counter', 'maxLength',
+  'mask', 'returnRaw', 'autosize', 'minRows', 'maxRows', 'type', 'inputmode', 'counter', 'maxLength', 'value-length',
 ])
 const VaDatePickerProps = extractComponentProps(VaDatePicker)
 
