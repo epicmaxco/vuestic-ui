@@ -159,10 +159,7 @@ export default defineComponent({
     })
 
     const errorLimit = computed(() => props.error ? Number(props.errorCount) : 99)
-
-    const isCounterVisible = computed(
-      () => typeof props.counterValue !== 'undefined',
-    )
+    const isCounterVisible = computed(() => typeof props.counterValue !== 'undefined')
 
     return {
       wrapperClass,
