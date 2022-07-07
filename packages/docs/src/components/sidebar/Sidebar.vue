@@ -15,7 +15,7 @@
         :key="key"
       >
         <template #header="{ value, hasKeyboardFocus }">
-          <div
+          <va-sidebar-item
             class="sidebar__collapse-custom-header"
             :class="{
               'sidebar__collapse-custom-header--active': routeHasActiveChild(route),
@@ -24,7 +24,7 @@
           >
             {{ t(route.displayName) }}
             <va-icon :name="value ? 'expand_less' : 'expand_more'" />
-          </div>
+          </va-sidebar-item>
         </template>
         <div
           v-for="(childRoute, index) in route.children"
