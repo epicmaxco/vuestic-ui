@@ -132,10 +132,10 @@ export default defineComponent({
 
     const headerAttributes = computed(() => ({
       id: headerIdComputed.value,
-      tabIndexComputed: tabIndexComputed.value,
-      ariaControls: panelIdComputed.value,
-      ariaExpanded: computedModelValue.value,
-      ariaDisabled: props.disabled,
+      tabindex: tabIndexComputed.value,
+      'aria-controls': panelIdComputed.value,
+      'aria-expanded': computedModelValue.value,
+      'aria-disabled': props.disabled,
       role: 'button',
     }))
 
