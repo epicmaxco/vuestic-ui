@@ -187,9 +187,7 @@ export default defineComponent({
     &:focus {
       .va-time-picker-cell {
         &--active {
-          @include focus-outline(4px);
-
-          outline-offset: -2px;
+          @include focus-outline($radius: 4px, $offset: -2px);
         }
       }
     }
