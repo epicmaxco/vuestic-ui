@@ -102,6 +102,7 @@ export default defineComponent({
   display: inline-block;
   width: 100%;
   font-family: var(--va-font-family);
+  transition: var(--va-sidebar-item-transition);
   box-sizing: border-box;
 
   &:visited {

@@ -37,16 +37,7 @@
 
 .sidebar__link {
   display: block;
-  color: inherit;
   padding: 1rem 0 1rem 2rem;
   line-height: normal;
-
-  .va-list-item-section {
-    color: inherit;
-
-    .va-list-item-label {
-      color: inherit;
-    }
-  }
 }
 </style>
