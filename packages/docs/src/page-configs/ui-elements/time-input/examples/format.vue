@@ -18,7 +18,7 @@ export default {
   data () {
     return {
       value: new Date(),
-      formatFn: (d) => d.toLocaleTimeString(),
+      formatFn: (d) => d?.toLocaleTimeString?.(),
     }
   },
 }
