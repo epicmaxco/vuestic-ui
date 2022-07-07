@@ -152,9 +152,7 @@ export default defineComponent({
     const { parse, isValid } = useTimeParser(props)
     const { format } = useTimeFormatter(props)
 
-    const valueText = computed<string>(() => modelValueSync.value
-      ? format(modelValueSync.value)
-      : format(props.clearValue))
+    const valueText = computed<string>(() => format(modelValueSync.value || props.clearValue))
 
     const onInputTextChanged = (val: string) => {
       if (!val) {
