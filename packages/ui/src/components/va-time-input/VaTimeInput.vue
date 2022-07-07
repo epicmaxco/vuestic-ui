@@ -13,9 +13,9 @@
     trigger="none"
     @keydown.up.prevent="showDropdown"
     @keydown.down.prevent="showDropdown"
-    @keydown.space.prevent="showDropdown"
-    @keydown.esc.prevent="hideDropdown"
+    @keydown.space="showDropdown($event, $props.manualInput, !$props.manualInput)"
     @keydown.enter="!$props.manualInput && showDropdown()"
+    @keydown.esc.prevent="hideDropdown"
     @click="(!$props.manualInput || isOpenSync) && toggleDropdownWithoutFocus()"
   >
     <template #anchor>
@@ -264,11 +264,12 @@ export default defineComponent({
       isOpenSync.value = true
     }
 
-    const showDropdown = () => {
+    const showDropdown = (event?: KeyboardEvent, cancel?: boolean, prevent?: boolean) => {
+      if (cancel) { return }
+      if (prevent) { event?.preventDefault() }
+
       showDropdownWithoutFocus()
-      nextTick(() => {
-        timePicker.value?.focus()
-      })
+      nextTick(() => timePicker.value?.focus())
     }
 
     const toggleDropdown = () => {
