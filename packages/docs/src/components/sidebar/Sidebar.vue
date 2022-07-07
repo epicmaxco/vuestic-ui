@@ -213,14 +213,6 @@ export default defineComponent({
       font-size: 16px;
       line-height: 20px;
     }
-
-    .va-sidebar-item--active {
-      color: var(--va-dark, #323742) !important;
-
-      .va-sidebar-item-title {
-        color: var(--va-dark, #323742) !important;
-      }
-    }
   }
 
   .va-sidebar__child {

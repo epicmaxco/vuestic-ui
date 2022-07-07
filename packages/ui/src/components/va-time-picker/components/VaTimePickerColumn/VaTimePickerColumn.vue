@@ -124,6 +124,7 @@ export default defineComponent({
 
 <style lang="scss">
   @import 'variables';
+  @import '../../../../styles/resources';
 
   @mixin hiddenYScroll {
     overflow-y: scroll;
@@ -180,6 +181,14 @@ export default defineComponent({
 
       &:hover {
         background: var(--va-time-picker-cell-background-color-hover);
+      }
+    }
+
+    &:focus {
+      .va-time-picker-cell {
+        &--active {
+          @include focus-outline($radius: 4px, $offset: -2px);
+        }
       }
     }
   }
