@@ -1,6 +1,6 @@
 {
   "name": "@vuestic/nuxt",
-  "description": "Nuxt 3 Module for Vuestic UI",
+  "description": "Vuestic UI module for Nuxt 3",
   "keywords": [
     "vuesticui",
     "vuestic",
