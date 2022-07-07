@@ -43,6 +43,31 @@
       placeholder="Readonly"
       readonly
     />
+    <va-input
+      v-model="value"
+      counter
+      class="mb-4"
+    />
+    <va-input
+      v-model="value"
+      :max-length="30"
+      counter
+      class="mb-4"
+    />
+    <va-input
+      v-model="value"
+      :max-length="30"
+      counter
+      class="mb-4"
+    >
+      <template #counter="{ valueLength, maxLength }">
+        <b
+          style="margin-left: auto;"
+          :style="{ color: valueLength > maxLength ? 'var(--va-danger)' : 'var(--va-success)' }">
+          {{ maxLength - valueLength }}
+        </b>
+      </template>
+    </va-input>
   </div>
 </template>
 

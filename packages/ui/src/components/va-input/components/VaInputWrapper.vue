@@ -74,6 +74,14 @@
       </div>
     </div>
 
+    <div v-if="isCounterVisible" class="va-input-wrapper__bottom">
+      <slot name="counter" v-bind="{ valueLength: $props.counterValue, maxLength: $props.maxLength }">
+        <div class="va-input-wrapper__bottom-counter">
+          {{ counterComputed }}
+        </div>
+      </slot>
+    </div>
+
     <slot name="messages" v-bind="{ messages: messagesComputed, errorLimit, color: messagesColor }">
       <va-message-list
         v-if="hasMessages"
@@ -102,6 +110,8 @@ export default defineComponent({
   props: {
     ...useFormProps,
     ...useValidationProps,
+    counterValue: { type: Number, default: undefined },
+    maxLength: { type: Number, default: undefined },
 
     label: { type: String, default: '' },
     color: { type: String, default: 'primary' },
@@ -142,21 +152,29 @@ export default defineComponent({
       typeof messagesComputed.value === 'string' ? messagesComputed.value : messagesComputed.value?.length,
     ))
 
+    const messagesColor = computed(() => {
+      if (props.error) { return 'danger' }
+      if (props.success) { return 'success' }
+      return ''
+    })
+
+    const errorLimit = computed(() => props.error ? Number(props.errorCount) : 99)
+    const isCounterVisible = computed(() => props.counterValue !== undefined)
+    const counterComputed = computed(() =>
+      props.maxLength !== undefined ? `${props.counterValue}/${props.maxLength}` : props.counterValue,
+    )
+
     return {
       wrapperClass,
       wrapperStyle,
 
+      isCounterVisible,
+      counterComputed,
       colorComputed,
-
-      messagesColor: computed(() => {
-        if (props.error) { return 'danger' }
-        if (props.success) { return 'success' }
-        return ''
-      }),
-
+      messagesColor,
       messagesComputed,
       hasMessages,
-      errorLimit: computed(() => props.error ? Number(props.errorCount) : 99),
+      errorLimit,
     }
   },
 })
@@ -282,6 +300,20 @@ export default defineComponent({
     color: var(--va-danger);
     font-size: 18px;
     font-weight: var(--va-input-container-label-font-weight);
+  }
+
+  &__bottom {
+    display: var(--va-input-wrapper-bottom-display);
+    align-items: var(--va-input-wrapper-bottom-align-items);
+    color: var(--va-input-wrapper-bottom-color);
+    font-size: var(--va-input-wrapper-bottom-font-size);
+    line-height: var(--va-input-wrapper-bottom-line-height);
+
+    &-counter {
+      color: var(--va-input-wrapper-counter-color);
+      flex: var(--va-input-wrapper-counter-flex);
+      margin-left: var(--va-input-wrapper-counter-margin-left);
+    }
   }
 
   textarea {
