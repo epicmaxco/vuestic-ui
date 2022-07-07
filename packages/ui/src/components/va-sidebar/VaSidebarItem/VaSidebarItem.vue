@@ -71,7 +71,7 @@ export default defineComponent({
 
       if (isHovered.value || props.active || hasKeyboardFocus.value) {
         style.backgroundColor = backgroundColorComputed.value
-        style.transition = 'background-color 0.6s ease-in-out'
+        style.transition = 'var(--va-sidebar-item-transition)'
       }
 
       if (props.active) {
@@ -104,6 +104,6 @@ export default defineComponent({
   display: inline-block;
   width: 100%;
   font-family: var(--va-font-family);
-  transition: 0.6s ease-in-out;
+  transition: var(--va-sidebar-item-transition);
 }
 </style>
