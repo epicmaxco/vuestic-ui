@@ -107,9 +107,5 @@ export default defineComponent({
   &:visited {
     color: currentColor;
   }
-
-  &:focus {
-    @include focus-outline();
-  }
 }
 </style>
