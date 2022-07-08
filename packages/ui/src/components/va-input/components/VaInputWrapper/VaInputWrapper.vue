@@ -183,6 +183,7 @@ export default defineComponent({
 <style lang="scss">
 @import '../../../../styles/resources/index.scss';
 @import '../../variables';
+@import './variables';
 
 .va-input-wrapper {
   position: relative;
