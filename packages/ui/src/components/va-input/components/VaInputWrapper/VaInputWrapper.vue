@@ -191,12 +191,6 @@ export default defineComponent({
   cursor: var(--va-input-cursor);
   font-family: var(--va-font-family);
 
-  // Util CSS variables used to change component style during runtime
-  --va-input-wrapper-color: var(--va-primary);
-  --va-input-wrapper-background: var(--va-input-color);
-  --va-input-wrapper-background-opacity: 1;
-  --va-input-wrapper-border-color: var(--va-input-bordered-color);
-
   &__field {
     position: relative;
     display: flex;
