@@ -13,6 +13,7 @@ module.exports = {
       return args
     })
   },
+  filenameHashing: true,
   configureWebpack: {
     node: {
       __dirname: true,

@@ -8,7 +8,7 @@ type VuesticComponentName = keyof VuesticComponentsMap
 type VueDefaultPropNames = keyof (VNodeProps & AllowedComponentProps) | `on${string}`
 
 export type Props = { [propName: string]: any }
-export type Presets = { [componentName in VuesticComponentName]: { [presetName: string]: Props } }
+export type Presets = { [componentName in VuesticComponentName]?: { [presetName: string]: Props } }
 export type PropTypes<C> = C extends { new(): { $props: infer Props } } ? Omit<Props, VueDefaultPropNames> : never
 export type ComponentConfig = Partial<{
   // key-value hack to avoid generics in type (like Omit, PropTypes, etc.)

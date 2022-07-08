@@ -687,7 +687,9 @@
         "immediateValidation": "Sets the validation to be performed when the component is mounted",
         "inputClass": "Classes for `input` (not its wrapper)",
         "pattern": "The pattern prop specifies a regular expression the input value should match",
-        "inputmode": "The inputmode prop is an enumerated prop that hints at the type of data that might be entered by the user while editing the element or its contents. This alows a browser to display an apropriate virtual keyboard"
+        "inputmode": "The inputmode prop is an enumerated prop that hints at the type of data that might be entered by the user while editing the element or its contents. This alows a browser to display an apropriate virtual keyboard",
+        "counter": "Show a counter of value length",
+        "maxLength": "Specify a max length of value"
       },
       "events": {
         "change": "Emitted when the input loose focus or on `enter`",

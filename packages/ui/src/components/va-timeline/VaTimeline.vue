@@ -1,6 +1,6 @@
 <script>
 import { h, Fragment } from 'vue'
-import { useComponentPresetProp } from '../../composables/useComponentPreset'
+import { useComponentPresetProp } from '../../composables/useComponentPreset.ts'
 
 const getPropsData = (slot) => slot?.props
 

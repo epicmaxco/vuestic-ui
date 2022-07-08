@@ -51,11 +51,7 @@ export default defineComponent({
     const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
 
     const backgroundColorComputed = computed(() => {
-      if (isHovered.value) {
-        return getHoverColor(getColor(props.hoverColor || props.activeColor))
-      }
-
-      if (props.active) {
+      if (props.active && !isHovered.value && !hasKeyboardFocus.value) {
         return getColor(props.activeColor)
       }
 
@@ -81,6 +77,14 @@ export default defineComponent({
         style.borderColor = getColor(mergedProps.borderColor || mergedProps.activeColor)
       }
 
+      if (hasKeyboardFocus.value) {
+        style.backgroundColor = getFocusColor(getColor(props.hoverColor || props.activeColor))
+      }
+
+      if (isHovered.value) {
+        style.backgroundColor = getHoverColor(getColor(props.hoverColor || props.activeColor))
+      }
+
       return style
     })
 
@@ -103,6 +107,7 @@ export default defineComponent({
 
 <style lang="scss">
 @import "../variables";
+@import "../../../styles/resources";
 
 .va-sidebar__item {
   border-left: var(--va-sidebar-item-active-border-size) solid transparent;
@@ -110,5 +115,11 @@ export default defineComponent({
   display: inline-block;
   width: 100%;
   font-family: var(--va-font-family);
+  transition: var(--va-sidebar-item-transition);
+  box-sizing: border-box;
+
+  &:visited {
+    color: currentColor;
+  }
 }
 </style>

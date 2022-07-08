@@ -1,13 +1,7 @@
 <template>
   <div class="va-collapse" :class="computedClasses">
     <div
-      class="va-collapse__header"
-      role="button"
-      :tabindex="tabIndexComputed"
-      :aria-expanded="computedModelValue"
-      :id="headerIdComputed"
-      :aria-controls="panelIdComputed"
-      :aria-disabled="$props.disabled"
+      class="va-collapse__header-wrapper"
       v-on="keyboardFocusListeners"
       @focus="$emit('focus')"
       @click="toggle"
@@ -19,10 +13,13 @@
         v-bind="{
           value: computedModelValue,
           hasKeyboardFocus: hasKeyboardFocus,
+          bind: headerAttributes,
+          attributes: headerAttributes,
         }"
       >
         <div
-          class="va-collapse__header__content"
+          v-bind="headerAttributes"
+          class="va-collapse__header"
           :style="headerStyle"
         >
           <va-icon
@@ -135,6 +132,15 @@ export default defineComponent({
     const panelIdComputed = computed(() => `panel-${uniqueId.value}`)
     const tabIndexComputed = computed(() => props.disabled ? -1 : 0)
 
+    const headerAttributes = computed(() => ({
+      id: headerIdComputed.value,
+      tabindex: tabIndexComputed.value,
+      'aria-controls': panelIdComputed.value,
+      'aria-expanded': computedModelValue.value,
+      'aria-disabled': props.disabled,
+      role: 'button',
+    }))
+
     return {
       body,
       height,
@@ -148,6 +154,7 @@ export default defineComponent({
       textColorComputed,
 
       headerIdComputed,
+      headerAttributes,
       panelIdComputed,
       tabIndexComputed,
 
@@ -195,18 +202,16 @@ export default defineComponent({
   }
 
   &__header {
-    &__content {
-      display: var(--va-collapse-header-content-display);
-      justify-content: var(--va-collapse-header-content-justify-content);
-      cursor: var(--va-collapse-header-content-cursor);
-      background-color: var(--va-collapse-header-content-background-color);
-      box-shadow: var(--va-collapse-header-content-box-shadow, var(--va-block-box-shadow));
-      border-radius: var(--va-collapse-header-content-border-radius, var(--va-block-border-radius));
-      align-items: var(--va-collapse-header-content-align-items);
-      padding-top: var(--va-collapse-header-content-padding-top);
-      padding-bottom: var(--va-collapse-header-content-padding-bottom);
-      padding-left: var(--va-collapse-header-content-padding-left);
-    }
+    display: var(--va-collapse-header-content-display);
+    justify-content: var(--va-collapse-header-content-justify-content);
+    cursor: var(--va-collapse-header-content-cursor);
+    background-color: var(--va-collapse-header-content-background-color);
+    box-shadow: var(--va-collapse-header-content-box-shadow, var(--va-block-box-shadow));
+    border-radius: var(--va-collapse-header-content-border-radius, var(--va-block-border-radius));
+    align-items: var(--va-collapse-header-content-align-items);
+    padding-top: var(--va-collapse-header-content-padding-top);
+    padding-bottom: var(--va-collapse-header-content-padding-bottom);
+    padding-left: var(--va-collapse-header-content-padding-left);
 
     &__text {
       width: var(--va-collapse-header-content-text-width);
@@ -232,12 +237,10 @@ export default defineComponent({
 
     .va-collapse {
       &__header {
-        &__content {
-          border-radius: var(--va-collapse-solid-header-content-border-radius, var(--va-block-border-radius));
-          transition: var(--va-collapse-solid-header-content-transition);
-          box-shadow: var(--va-collapse-solid-header-content-box-shadow, var(--va-block-box-shadow));
-          background-color: var(--va-collapse-solid-header-content-background-color);
-        }
+        border-radius: var(--va-collapse-solid-header-content-border-radius, var(--va-block-border-radius));
+        transition: var(--va-collapse-solid-header-content-transition);
+        box-shadow: var(--va-collapse-solid-header-content-box-shadow, var(--va-block-box-shadow));
+        background-color: var(--va-collapse-solid-header-content-background-color);
       }
 
       &__body {
