@@ -37,14 +37,14 @@ const createMutationObserver = () => {
   })
 }
 
-const destroyMutatuinObserver = () => {
+const destroyMutationObserver = () => {
   if (!observer) { return }
 
   if (callbacks.length > 0) { return }
   observer.disconnect()
 }
 
-/** Creates on globa watched for dom changes */
+/** Creates on global watched for dom changes */
 export const useDomChangesObserver = (cb: () => void, el: () => HTMLElement) => {
   onMounted(() => {
     createMutationObserver()
@@ -53,6 +53,6 @@ export const useDomChangesObserver = (cb: () => void, el: () => HTMLElement) => 
 
   onBeforeUnmount(() => {
     callbacks = callbacks.filter((c) => c.cb !== cb)
-    destroyMutatuinObserver()
+    destroyMutationObserver()
   })
 }

@@ -1,5 +1,5 @@
 import type { Ref } from 'vue'
-import type { CssColor } from '../services/color-config/color-config'
+import type { CssColor } from '../composables/useColors'
 import { useElementBackground } from './useElementBackground'
 import { useTextColor } from './useTextColor'
 
@@ -15,7 +15,7 @@ const isRefString = (r: any): r is Ref<string> => typeof r.value === 'string'
  * If element not provided current instance element will be used.
  */
 export const useElementTextColor = (background?: Ref<HTMLElement | CssColor | undefined> | CssColor) => {
-  if (isRefString(background)) {
+  if (isRefString(background) || typeof background === 'string') {
     const { textColorComputed } = useTextColor(background)
     return textColorComputed
   }

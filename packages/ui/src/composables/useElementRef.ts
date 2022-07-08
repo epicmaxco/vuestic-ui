@@ -1,4 +1,4 @@
-import { ComponentPublicInstance, computed, ref, unref, Ref } from 'vue'
+import { ComponentPublicInstance, computed, shallowRef, unref, Ref } from 'vue'
 
 type Maybe<T> = T | undefined
 export type MaybeElement<T extends Maybe<HTMLElement>> = T | ComponentPublicInstance
@@ -9,7 +9,7 @@ const unrefElement = <T extends Maybe<HTMLElement>>(el: Ref<MaybeElement<T>>): T
 }
 
 export const useElementRef = <T extends Maybe<HTMLElement>>() => {
-  const el = ref<MaybeElement<T>>()
+  const el = shallowRef<MaybeElement<T>>()
 
   return computed({
     get () {

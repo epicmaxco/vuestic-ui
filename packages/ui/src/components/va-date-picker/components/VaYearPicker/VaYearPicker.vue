@@ -15,7 +15,8 @@
       :focused="focusedCellIndex === index"
       :highlight-today="highlightToday"
       :readonly="readonly"
-      :color="color"      @click="onClick(year); focusedCellIndex = index"
+      :color="color"
+      @click="onClick(year); focusedCellIndex = index"
       @mouseenter="hoveredIndex = index"
       @mouseleave="hoveredIndex = -1"
     >
