@@ -16,6 +16,8 @@
     :outline="$props.outline"
     :requiredMark="$props.requiredMark"
     :focused="isFocused"
+    :counter-value="valueLengthComputed"
+    :max-length="$props.maxLength"
     @click="focus"
   >
     <!-- Simply proxy slots to VaInputWrapper -->
@@ -128,6 +130,8 @@ export default defineComponent({
     pattern: { type: String },
     inputmode: { type: String, default: 'text' },
     ariaLabel: { type: String, default: undefined },
+    counter: { type: Boolean, default: false },
+    maxLength: { type: Number, default: undefined },
 
     // style
     color: { type: String, default: 'primary' },
@@ -179,7 +183,7 @@ export default defineComponent({
     const {
       canBeCleared,
       clearIconProps,
-    } = useClearable(props, modelValue, emit, input, computedError)
+    } = useClearable(props, modelValue, input, computedError)
 
     /** Use cleave only if this component is input, because it will break. */
     const computedCleaveTarget = computed(() => props.type === 'textarea'
@@ -229,10 +233,15 @@ export default defineComponent({
       ...pick(props, ['type', 'disabled', 'readonly', 'placeholder', 'pattern', 'inputmode']),
     }) as InputHTMLAttributes)
 
+    const valueLengthComputed = computed(() =>
+      props.counter && typeof computedValue.value === 'string' ? computedValue.value.length : undefined,
+    )
+
     return {
       input,
       inputEvents,
 
+      valueLengthComputed,
       computedChildAttributes,
       computedInputAttributes,
       textareaProps: filterComponentProps(props, VaTextareaProps),
