@@ -97,10 +97,10 @@
 import { computed, defineComponent } from 'vue'
 import pick from 'lodash/pick.js'
 
-import { useBem, useFormProps, useValidationProps, useColors, useCSSVariables } from '../../../composables'
+import { useBem, useFormProps, useValidationProps, useColors, useCSSVariables } from '../../../../composables'
 
-import { VaMessageList } from './VaMessageList'
-import { VaIcon } from '../../va-icon'
+import { VaMessageList } from '../VaMessageList'
+import { VaIcon } from '../../../va-icon'
 
 export default defineComponent({
   name: 'VaInputWrapper',
