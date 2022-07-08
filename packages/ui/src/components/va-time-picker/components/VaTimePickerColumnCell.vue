@@ -5,9 +5,8 @@
 </template>
 
 <script lang="ts">
-import { useHover } from '../../../composables/useHover'
+import { useHover, useColors } from '../../../composables'
 import { computed, defineComponent } from 'vue'
-import { useColors } from '../../../services/color-config/color-config'
 
 export default defineComponent({
   name: 'VaTimePickerColumnCell',

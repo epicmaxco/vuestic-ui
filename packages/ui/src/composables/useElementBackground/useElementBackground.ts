@@ -2,7 +2,7 @@ import { useInterval } from './useInterval'
 import { ColorArray, parseRGBA, getElementBackground } from './utils'
 import { ref, getCurrentInstance, watch, Ref, onMounted } from 'vue'
 import { useTempMap } from './useTempMap'
-import { appyColors, useColors } from '../../services/color-config/color-config'
+import { appyColors, useColors } from '../useColors'
 
 type Maybe<T> = T | null | undefined
 
