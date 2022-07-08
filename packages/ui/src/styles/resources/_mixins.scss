@@ -198,8 +198,8 @@
   overflow: hidden;
 }
 
-@mixin focus-outline($border-radius: 2px, $outline-width: 2px) {
-  // important in purpose to overwrite reset class
-  outline: $outline-width solid var(--va-focus) !important;
-  border-radius: $border-radius;
+@mixin focus-outline($radius: 2px, $width: 2px, $offset: null, $style: solid) {
+  outline: $width $style var(--va-focus) !important; // important in purpose to overwrite reset class
+  border-radius: $radius;
+  outline-offset: $offset;
 }
