@@ -3805,7 +3805,8 @@
     "links": "Links",
     "textHighlighted": "Highlighted text",
     "blockquote": "Blockquote",
-    "textBlock": "Text block"
+    "textBlock": "Text block",
+    "textUtils": "Text utils"
   },
   "ag-grid": {
     "title": "AG Grid Theme",

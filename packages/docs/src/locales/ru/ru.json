@@ -3686,7 +3686,8 @@
     "links": "Ссылки",
     "textHighlighted": "Выделенный текст",
     "blockquote": "Цитата",
-    "textBlock": "Текстовый блок"
+    "textBlock": "Текстовый блок",
+    "textUtils": "Текстовые утилиты"
   },
   "ag-grid": {
     "title": "Тема для AG Grid",

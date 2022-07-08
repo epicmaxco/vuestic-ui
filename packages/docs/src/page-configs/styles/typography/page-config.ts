@@ -44,6 +44,9 @@ const config: ApiDocsBlock[] = [
 
   block.headline('typography.textBlock'),
   block.example('textBlock'),
+
+  block.headline('typography.textUtils'),
+  block.example('textUtils'),
 ]
 
 export default config
