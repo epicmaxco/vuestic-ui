@@ -41,9 +41,12 @@ export default defineComponent({
     const themes = Object.keys(COLOR_THEMES).map((themeName) => ({ value: themeName, label: capitalizeFirstLetter(themeName) }))
 
     const setTheme = (theme: string) => {
+      localStorage.setItem('vuestic-docs-theme', theme)
       const colors = COLOR_THEMES[theme as keyof typeof COLOR_THEMES]
       setColors(colors)
     }
+
+    setTheme(localStorage.getItem('vuestic-docs-theme') || 'DEFAULT')
 
     return {
       themes,

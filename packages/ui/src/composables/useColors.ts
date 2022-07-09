@@ -32,15 +32,15 @@ export const useColorProps = {
 }
 
 export const useColors = () => {
-  const globalConfig = useGlobalConfigSafe()
+  const gc = useGlobalConfigSafe()
 
-  if (!globalConfig) {
+  if (!gc) {
     throw new Error('useColors must be used in setup function or Vuestic GlobalConfigPlugin is not registered!')
   }
 
-  const { setGlobalConfig, getGlobalConfig } = globalConfig
+  const { setGlobalConfig, getGlobalConfig, globalConfig } = gc
 
-  const colors = computed(() => getGlobalConfig().colors || {})
+  const colors = computed(() => globalConfig.value.colors || {})
 
   const setColors = (colors: ColorConfig): void => {
     setGlobalConfig((config: GlobalConfig) => ({

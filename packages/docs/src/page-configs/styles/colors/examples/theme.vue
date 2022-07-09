@@ -23,7 +23,7 @@ import { useColors } from 'vuestic-ui/src/main'
 const useTheme = () => {
   const { setColors } = useColors()
 
-  const theme = ref('light')
+  const theme = ref(localStorage.getItem('vuestic-docs-theme')?.toLowerCase() || 'light')
   const themes = {
     light: {
       // Background
