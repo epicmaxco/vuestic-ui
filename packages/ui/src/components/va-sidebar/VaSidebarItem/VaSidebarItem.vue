@@ -49,16 +49,8 @@ export default defineComponent({
     const { sidebarColor } = useSidebarItem()
 
     const backgroundColorComputed = computed(() => {
-      if (isHovered.value) {
-        return getHoverColor(getColor(props.hoverColor || props.activeColor))
-      }
-
-      if (props.active) {
+      if (props.active && !isHovered.value && !hasKeyboardFocus.value) {
         return getColor(props.activeColor)
-      }
-
-      if (hasKeyboardFocus.value) {
-        return getFocusColor(getColor(props.hoverColor || props.activeColor))
       }
 
       return getColor(sidebarColor.value)
@@ -67,16 +59,22 @@ export default defineComponent({
     const { textColorComputed } = useTextColor(backgroundColorComputed)
 
     const computedStyle = computed(() => {
-      const style: StyleValue = {}
-
-      style.color = textColorComputed.value
-
-      if (isHovered.value || props.active || hasKeyboardFocus.value) {
-        style.backgroundColor = backgroundColorComputed.value
+      const style: StyleValue = {
+        color: props.textColor,
       }
 
       if (props.active) {
+        style.backgroundColor = backgroundColorComputed.value
+        style.color = textColorComputed.value
         style.borderColor = getColor(props.borderColor || props.activeColor)
+      }
+
+      if (hasKeyboardFocus.value) {
+        style.backgroundColor = getFocusColor(getColor(props.hoverColor || props.activeColor))
+      }
+
+      if (isHovered.value) {
+        style.backgroundColor = getHoverColor(getColor(props.hoverColor || props.activeColor))
       }
 
       return style
@@ -98,6 +96,7 @@ export default defineComponent({
 
 <style lang="scss">
 @import "../variables";
+@import "../../../styles/resources";
 
 .va-sidebar__item {
   border-left: var(--va-sidebar-item-active-border-size) solid transparent;
@@ -105,5 +104,11 @@ export default defineComponent({
   display: inline-block;
   width: 100%;
   font-family: var(--va-font-family);
+  transition: var(--va-sidebar-item-transition);
+  box-sizing: border-box;
+
+  &:visited {
+    color: currentColor;
+  }
 }
 </style>

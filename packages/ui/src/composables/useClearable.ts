@@ -23,11 +23,10 @@ export const useClearableEmits = ['clear']
 export const useClearable = (
   props: ClearableProps,
   inputValue: Ref<any>,
-  emit?: (event: 'focus' | 'blur', e?: Event) => void,
   el?: Ref<any>,
   hasError?: Ref<boolean>,
 ) => {
-  const { isFocused, onFocus, onBlur } = useFocus(el, emit)
+  const { isFocused, onFocus, onBlur } = useFocus(el)
 
   const clearedValues = [null, undefined, props.clearValue]
 
@@ -43,7 +42,7 @@ export const useClearable = (
     if (hasError?.value) { return 'danger' }
     if (props.success) { return 'success' }
 
-    return 'gray'
+    return 'secondary'
   })
 
   const clearIconProps = computed(() => ({
