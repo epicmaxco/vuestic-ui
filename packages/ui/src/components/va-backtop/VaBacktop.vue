@@ -20,7 +20,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType, ref, computed, onMounted, onBeforeUnmount } from 'vue'
-import { useComponentPresetProp } from '../../composables/useComponentPreset'
+import { useComponentPresetProp } from '../../composables'
 import { VaButton } from '../va-button'
 
 export default defineComponent({

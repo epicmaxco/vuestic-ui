@@ -1272,6 +1272,21 @@
       "events": {},
       "methods": {},
       "slots": {}
+    },
+    "VaSplit": {
+      "props": {
+        "vertical": "Changes `va-split` orientation to vertical.",
+        "limits": "Array of maximal sizes (%) for start/end panels.",
+        "maximization": "End panel size maximization via separator double click.",
+        "maximizeStart": "Maximize size of the start panel instead of end one."
+      },
+      "events": {},
+      "methods": {},
+      "slots": {
+        "dragger": "Changes default separator-dragger (`va-divider` component) to custom.",
+        "start": "Start panel content.",
+        "end": "End panel content."
+      }
     }
   },
   "menu": {
@@ -1381,7 +1396,8 @@
     "counter": "Counter",
     "nuxt": "Nuxt",
     "ssrGuide": "SSR",
-    "spacer": "Spacer"
+    "spacer": "Spacer",
+    "split": "Split"
   },
   "all": {
     "examples": "Examples",
@@ -4123,6 +4139,36 @@
       "default": {
         "title": "Basic usage",
         "text": "`va-spacer` adding a div with the `.va-spacer` class."
+      }
+    }
+  },
+  "split": {
+    "title": "Split",
+    "summaryText": "`va-split` component splits container into 2 horizontal/vertical panels. You can change panels sizes via grabbing the separator-grabber between them.",
+    "examples": {
+      "default": {
+        "title": "Basic usage",
+        "text": ""
+      },
+      "vertical": {
+        "title": "Vertical",
+        "text": "Prop `vertical` changes components orientation to vertical."
+      },
+      "customGrabber": {
+        "title": "Custom grabber",
+        "text": "You can pass via `grabber` slot any content which will overwrite default grabber (`va-divider`)."
+      },
+      "nested": {
+        "title": "Nested",
+        "text": "Passing another `va-split` component via `start`/`end` slot you can gain different panels combinations."
+      },
+      "maximization": {
+        "title": "Maximization",
+        "text": "Prop `maximization` allows to maximize end panel size via double click on dragger (additional prop `maximizeStart` changes this logic - start panel maximizing instead)."
+      },
+      "disabled": {
+        "title": "Disabled",
+        "text": "`disabled` prop restricts to change panels size (including option via `maximization` prop)."
       }
     }
   }

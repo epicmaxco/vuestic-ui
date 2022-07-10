@@ -1,92 +1,189 @@
 <template>
   <section
-    ref="splitContainer"
+    ref="splitPanelsContainer"
     aria-label="split panels"
+    class="va-split"
+    :class="classComputed"
     @mousemove="processDragging"
     @mouseup="stopDragging"
-    @mouseleave="stopDragging"
-    :style="`display: flex`">
-    <div :style="`width: ${splitterPositionComputed}%`">
+    @mouseleave="stopDragging">
+    <div
+      class="va-split__panel"
+      :style="getPanelStyle('start')">
       <slot name="start" />
     </div>
     <div
-      style="min-width: 10px;"
-      @mousedown="startDragging">+++</div>
-    <div :style="`width: ${100 - splitterPositionComputed}%`">
+      class="va-split__dragger"
+      :style="draggerStyleComputed"
+      @mousedown="startDragging"
+      @dblclick="maximizePanel">
+      <slot name="grabber">
+        <va-divider
+          class="fill-width"
+          :vertical="!$props.vertical" />
+      </slot>
+    </div>
+    <div
+      class="va-split__panel"
+      :style="getPanelStyle('end')">
       <slot name="end" />
     </div>
   </section>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref, shallowRef, computed } from 'vue'
+import { defineComponent, PropType, ref, shallowRef, computed, watch } from 'vue'
+import { useBem, useComponentPresetProp, useStateful, useStatefulEmits, useStatefulProps } from '../../composables'
+import { __DEV__ } from '../../utils/global-utils'
+
+import { VaDivider } from '../va-divider'
 
 export default defineComponent({
   name: 'VaSplit',
 
+  components: { VaDivider },
+
   props: {
-    paneSize: {
+    ...useComponentPresetProp,
+    ...useStatefulProps,
+    modelValue: {
       type: Number,
       default: 50,
       validator: (v: number) => v <= 100,
     },
-    gutterSize: { type: Number, default: 15 },
     vertical: { type: Boolean, default: false },
-    resizable: { type: Boolean, default: false },
-    maximizeWithDblClick: { type: Boolean, default: false },
-    leftPaneMaximization: { type: Boolean, default: false },
+    disabled: { type: Boolean, default: false },
+    maximization: { type: Boolean, default: false },
+    maximizeStart: { type: Boolean, default: false },
     limits: { type: Array as any as PropType<[number, number]>, default: () => [30, 70] },
   },
 
-  emits: ['update:modelValue'],
+  emits: useStatefulEmits,
 
-  setup: (props) => {
-    const splitContainer = shallowRef<HTMLElement>()
+  setup: (props, { emit }) => {
+    const { valueComputed } = useStateful(props, emit)
+
+    const splitPanelsContainer = shallowRef<HTMLElement>()
     const containerSizeComputed = computed(() => {
-      if (!splitContainer.value) { return undefined }
+      if (!splitPanelsContainer.value) { return undefined }
+      return props.vertical ? splitPanelsContainer.value.offsetHeight : splitPanelsContainer.value.offsetWidth
+    })
 
-      return props.vertical ? splitContainer.value.offsetHeight : splitContainer.value.offsetWidth
+    const splitterPosition = ref(props.modelValue)
+    const splitterPositionComputed = computed(() => {
+      if (splitterPosition.value < props.limits[0]) { return props.limits[0] }
+      if (splitterPosition.value > props.limits[1]) { return props.limits[1] }
+      return splitterPosition.value
     })
 
     const isDragging = ref(false)
     const dragStartPosition = ref(0)
-
-    const splitterPosition = ref(50)
-    const splitterPositionComputed = computed({
-      get: () => splitterPosition.value,
-      set: (v) => {
-        if (v < props.limits[0]) {
-          splitterPosition.value = props.limits[0]
-        } else if (v > props.limits[1]) {
-          splitterPosition.value = props.limits[1]
-        } else {
-          splitterPosition.value = v
-        }
-      },
-    })
+    const dragStartSplitterPosition = ref(0)
 
     const startDragging = (e: MouseEvent) => {
+      if (props.disabled || !containerSizeComputed.value) { return }
+
       isDragging.value = true
       dragStartPosition.value = props.vertical ? e.pageY : e.pageX
+      dragStartSplitterPosition.value = splitterPositionComputed.value
     }
 
     const processDragging = (e: MouseEvent) => {
-      if (!isDragging.value || !containerSizeComputed.value) { return }
+      if (!isDragging.value) { return }
 
-      const dragEndPosition = props.vertical ? e.pageY : e.pageX
-      const distance = dragEndPosition - dragStartPosition.value
-      console.log(distance, dragEndPosition, dragStartPosition.value)
-
-      splitterPositionComputed.value = splitterPositionComputed.value + Math.floor((distance / containerSizeComputed.value) * 100)
+      const currentPosition = props.vertical ? e.pageY : e.pageX
+      const distance = currentPosition - dragStartPosition.value
+      splitterPosition.value = dragStartSplitterPosition.value + Math.floor((distance / containerSizeComputed.value!) * 100)
     }
 
-    const stopDragging = () => (isDragging.value = false)
+    const maximizePanel = () => {
+      if (!props.maximization || props.disabled) { return }
 
-    return { splitContainer, startDragging, processDragging, stopDragging, splitterPositionComputed }
+      splitterPosition.value = props.maximizeStart ? props.limits[1] : props.limits[0]
+    }
+
+    const stopDragging = () => {
+      valueComputed.value = splitterPositionComputed.value
+      isDragging.value = false
+    }
+
+    watch(valueComputed, (v) => {
+      if (__DEV__ && (v < props.limits[0] || v > props.limits[1])) {
+        console.warn('Incorrect `modelValue`. Check current `limits` value.')
+      }
+
+      splitterPosition.value = v
+    })
+
+    const sizePropertyComputed = computed(() => props.vertical ? 'height' : 'width')
+    const getPanelStyle = (position: 'start' | 'end') => ({
+      [sizePropertyComputed.value]: `${position === 'start' ? splitterPositionComputed.value : 100 - splitterPositionComputed.value}%`,
+    })
+
+    const draggerStyleComputed = computed(() => {
+      if (props.disabled) { return {} }
+      let cursor = props.vertical ? 'var(--va-split-vertical-dragger-cursor)' : 'var(--va-split-horizontal-dragger-cursor)'
+      if (isDragging.value) { cursor = 'var(--va-split-dragging-cursor)' }
+      return { cursor }
+    })
+
+    const classComputed = useBem('va-split', () => ({
+      horizontal: !props.vertical,
+      vertical: props.vertical,
+      dragging: isDragging.value,
+    }))
+
+    return {
+      splitPanelsContainer,
+      startDragging,
+      processDragging,
+      stopDragging,
+      getPanelStyle,
+      maximizePanel,
+      classComputed,
+      draggerStyleComputed,
+    }
   },
 })
 </script>
 
 <style lang="scss">
+@import 'variables';
 
+.va-split {
+  display: flex;
+
+  &__dragger {
+    display: var(--va-split-dragger-display);
+  }
+
+  &__panel {
+    overflow: var(--va-split-panel-overflow);
+  }
+
+  &--dragging {
+    & .va-split__panel {
+      user-select: none;
+      cursor: var(--va-split-dragging-cursor);
+    }
+  }
+
+  &--vertical {
+    flex-direction: column;
+
+    &.va-split__dragger {
+      height: var(--va-split-dragger-size);
+      align-items: var(--va-split-dragger-align-items);
+    }
+  }
+
+  &--horizontal {
+    flex-direction: row;
+
+    &.va-split__dragger {
+      width: var(--va-split-dragger-size);
+      justify-content: var(--va-split-dragger-justify-content);
+    }
+  }
+}
 </style>
