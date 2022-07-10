@@ -53,7 +53,7 @@
           :style="getPinStyles(pin)"
         />
       </template>
-      <template v-if="$props.range">
+      <template v-if="range">
         <div
           ref="process"
           class="va-slider__track va-slider__track--selected"
@@ -172,7 +172,6 @@ export default defineComponent({
   components: { VaIcon },
   emits: ['drag-start', 'drag-end', 'change', 'update:modelValue'],
   props: {
-    range: { type: Boolean, default: false },
     modelValue: ({ type: [Number, Array] as PropType<number | number[]>, default: 0 }),
     trackLabel: ({ type: [Function, String] as PropType<string | ((val: number, order?: number) => string) | undefined> }),
     color: { type: String, default: 'primary' },
@@ -216,6 +215,8 @@ export default defineComponent({
 
     const lessToMore = computed(() => Array.isArray(val.value) && (val.value[0] + props.step) > val.value[1])
 
+    const range = computed(() => Array.isArray(props.modelValue))
+
     const sliderClass = useBem('va-slider', () => ({
       ...pick(props, ['disabled', 'readonly', 'vertical']),
       active: isFocused.value,
@@ -224,7 +225,7 @@ export default defineComponent({
     }))
 
     const dotClass = useBem('va-slider__handler', () => ({
-      onFocus: !props.range && (flag.value || isFocused.value),
+      onFocus: !range.value && (flag.value || isFocused.value),
       inactive: !isFocused.value,
     }))
 
@@ -292,14 +293,14 @@ export default defineComponent({
       }
     })
 
-    const getDottedStyles = (index?: number) => props.range && index !== undefined
+    const getDottedStyles = (index?: number) => range.value && index !== undefined
       ? (dottedStyles.value as CSSProperties[])[index]
       : dottedStyles.value
 
     const val = computed({
       get: () => props.modelValue,
       set: (val) => {
-        if (!props.range) {
+        if (!range.value) {
           val = limitValue(val)
         }
 
@@ -311,7 +312,7 @@ export default defineComponent({
       },
     })
 
-    const getValueByOrder = (order?: number) => props.range && order !== undefined
+    const getValueByOrder = (order?: number) => range.value && order !== undefined
       ? (val.value as number[])[order]
       : val.value as number
 
@@ -344,14 +345,14 @@ export default defineComponent({
         return false
       }
 
-      return props.range ? currentSliderDotIndex.value === index : currentSliderDotIndex.value === 0
+      return range.value ? currentSliderDotIndex.value === index : currentSliderDotIndex.value === 0
     }
 
     const moveStart = (e: MouseEvent | TouchEvent, index = currentSliderDotIndex.value) => {
       e.preventDefault() // prevent page scrolling
 
       if (!index) {
-        if (!props.range) {
+        if (!range.value) {
           index = 0
         } else if (Array.isArray(position.value)) {
           const touch = 'touches' in e ? e.touches[0] : e
@@ -466,7 +467,7 @@ export default defineComponent({
 
       const isActive = (el?: HTMLElement) => el === document.activeElement
 
-      if (props.range && Array.isArray(val.value)) {
+      if (range.value && Array.isArray(val.value)) {
         const isVerticalDot0More = (event: KeyboardEvent) => props.vertical && isActive(dots.value[0]) && event.key === 'ArrowUp'
         const isVerticalDot0Less = (event: KeyboardEvent) => props.vertical && isActive(dots.value[0]) && event.key === 'ArrowDown'
         const isVerticalDot1More = (event: KeyboardEvent) => props.vertical && isActive(dots.value[1]) && event.key === 'ArrowUp'
@@ -696,7 +697,7 @@ export default defineComponent({
     }))
 
     onMounted(() => {
-      if (validateSlider(props.modelValue, props.step, props.min, props.max, props.range)) {
+      if (validateSlider(props.modelValue, props.step, props.min, props.max, range.value)) {
         getStaticData()
         bindEvents()
       }
@@ -709,7 +710,7 @@ export default defineComponent({
       () => props.step,
       () => props.min,
       () => props.max,
-      () => props.range,
+      () => range.value,
     ], ([value, step, min, max, range]) => {
       validateSlider(value, step, min, max, range)
     })
@@ -745,6 +746,7 @@ export default defineComponent({
       currentSliderDotIndex,
       ariaLabelIdComputed,
       ariaAttributesComputed,
+      range,
     }
   },
 })
