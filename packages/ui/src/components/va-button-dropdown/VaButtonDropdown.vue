@@ -16,6 +16,7 @@
           :round="!$props.label && !$slots.label"
           v-bind="{ ...computedButtonIcons, ...computedViewStyles }"
           v-on="listeners"
+          @keydown.esc.prevent="hideDropdown"
         >
           <slot name="label">
             {{ label }}
@@ -31,12 +32,12 @@
     <va-button-group
       v-else
       :class="{ 'va-button-group__left-icon': $props.leftIcon }"
-      v-bind="{ ...computedViewStyles }"
+      v-bind="computedViewStyles"
     >
       <va-button
         v-if="!$props.leftIcon"
         :disabled="$props.disabled || $props.disableButton"
-        v-bind="{ ...computedMainButtonProps }"
+        v-bind="computedMainButtonProps"
         v-on="mainButtonListeners"
       >
         <slot name="label">
@@ -53,9 +54,11 @@
       >
         <template #anchor>
           <va-button
+            aria-label="toggle dropdown"
             :disabled="$props.disabled || $props.disableDropdown"
             :icon="computedIcon"
             v-on="listeners"
+            @keydown.esc.prevent="hideDropdown"
           />
         </template>
         <va-dropdown-content>
@@ -66,7 +69,7 @@
       <va-button
         v-if="$props.leftIcon"
         :disabled="$props.disabled || $props.disableButton"
-        v-bind="{ ...computedMainButtonProps }"
+        v-bind="computedMainButtonProps"
         v-on="mainButtonListeners"
       >
         <slot name="label">
@@ -81,13 +84,11 @@
 import { computed, defineComponent, PropType } from 'vue'
 import pick from 'lodash/pick.js'
 
-import { useStatefulProps, useStateful } from '../../composables/useStateful'
-import { useEmitProxy } from '../../composables/useEmitProxy'
-import { Placement, placementsPositions } from '../../composables/usePopover'
+import { useComponentPresetProp, useStateful, useStatefulProps, useEmitProxy, Placement, placementsPositions } from '../../composables'
 
-import VaDropdown, { VaDropdownContent } from '../va-dropdown'
-import VaButton from '../va-button'
-import VaButtonGroup from '../va-button-group'
+import { VaDropdown, VaDropdownContent } from '../va-dropdown'
+import { VaButton } from '../va-button'
+import { VaButtonGroup } from '../va-button-group'
 
 const { createEmits, createVOnListeners: createListeners } = useEmitProxy(
   ['click'],
@@ -113,6 +114,7 @@ export default defineComponent({
 
   props: {
     ...useStatefulProps,
+    ...useComponentPresetProp,
 
     modelValue: { type: Boolean, default: false },
     stateful: { type: Boolean, default: true },
@@ -120,7 +122,7 @@ export default defineComponent({
     color: { type: String, default: 'primary' },
     textColor: { type: String, default: undefined },
     size: {
-      type: String,
+      type: String as PropType<'medium' | 'small' | 'large'>,
       default: 'medium',
       validator: (value: string) => ['medium', 'small', 'large'].includes(value),
     },
@@ -143,7 +145,7 @@ export default defineComponent({
       default: 'bottom',
       validator: (placement: string) => placementsPositions.includes(placement),
     },
-    offset: { type: [Number, Array] as PropType<number | [number, number]>, default: () => ([0, 1]) },
+    offset: { type: [Number, Array] as PropType<number | [number, number]>, default: 2 },
     keepAnchorWidth: { type: Boolean, default: false },
     closeOnContentClick: { type: Boolean, default: true },
 
@@ -165,7 +167,7 @@ export default defineComponent({
     const computedClass = computed(() => ({
       'va-button-dropdown': true,
       'va-button-dropdown--split': props.split,
-      'va-button-dropdown--normal': props.size === 'normal',
+      'va-button-dropdown--normal': props.size === 'medium',
       'va-button-dropdown--large': props.size === 'large',
       'va-button-dropdown--small': props.size === 'small',
     }))
@@ -185,7 +187,10 @@ export default defineComponent({
       loading: props.loading,
     }))
 
+    const hideDropdown = () => { valueComputed.value = false }
+
     return {
+      hideDropdown,
       valueComputed,
       computedIcon,
       computedClass,

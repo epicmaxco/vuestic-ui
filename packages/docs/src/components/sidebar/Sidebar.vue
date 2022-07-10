@@ -15,7 +15,7 @@
         :key="key"
       >
         <template #header="{ value, hasKeyboardFocus }">
-          <div
+          <va-sidebar-item
             class="sidebar__collapse-custom-header"
             :class="{
               'sidebar__collapse-custom-header--active': routeHasActiveChild(route),
@@ -24,7 +24,7 @@
           >
             {{ t(route.displayName) }}
             <va-icon :name="value ? 'expand_less' : 'expand_more'" />
-          </div>
+          </va-sidebar-item>
         </template>
         <div
           v-for="(childRoute, index) in route.children"
@@ -106,9 +106,8 @@ export default defineComponent({
       return path === route.path
     }
 
-    const routeHasActiveChild = (section: NavigationRoute) => {
-      return section.children?.some(({ name }) => route.path.endsWith(name))
-    }
+    const routeHasActiveChild = (section: NavigationRoute) =>
+      section.children?.some(({ name }) => route.path.endsWith(`/${name}`))
 
     const setActiveExpand = () => {
       value.value = props.navigationRoutes.map((route, i) => {
@@ -163,17 +162,6 @@ export default defineComponent({
     line-height: 20px;
     cursor: pointer;
 
-    ::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: var(--va-primary);
-      opacity: 0;
-    }
-
     &:hover {
       ::before {
         opacity: 0.2;
@@ -194,12 +182,7 @@ export default defineComponent({
   &.va-sidebar {
     z-index: 1;
     height: 100%;
-    min-width: 16rem;
     color: var(--va-dark, #323742);
-
-    &.va-sidebar--hidden {
-      min-width: 0;
-    }
 
     @include media-breakpoint-down(sm) {
       z-index: 100;
@@ -218,14 +201,6 @@ export default defineComponent({
       font-weight: 500;
       font-size: 16px;
       line-height: 20px;
-    }
-
-    .va-sidebar-item--active {
-      color: var(--va-dark, #323742) !important;
-
-      .va-sidebar-item-title {
-        color: var(--va-dark, #323742) !important;
-      }
     }
   }
 

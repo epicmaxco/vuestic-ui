@@ -1,39 +1,38 @@
 <template>
-  <router-link custom :to="to" v-slot="{ href, navigate }">
-    <a
-      ref="anchor"
-      v-bind="$attrs"
-      class="va-sidebar__item va-sidebar-item"
-      :class="{ 'va-sidebar-item--active': $props.active }"
-      :style="computedStyle"
-      :href="href"
-      @click="navigate"
-      v-on="keyboardFocusListeners"
-    >
-      <slot />
-    </a>
-  </router-link>
+  <component
+    ref="anchor"
+    class="va-sidebar__item va-sidebar-item"
+    tabindex="0"
+    :class="{ 'va-sidebar-item--active': $props.active }"
+    :style="computedStyle"
+    :href="hrefComputed"
+    :to="$props.to"
+    :is="tagComputed"
+    v-on="keyboardFocusListeners"
+  >
+    <slot />
+  </component>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref, computed } from 'vue'
-import { RouteLocationRaw } from 'vue-router'
-import { useColors } from '../../../services/color-config/color-config'
-import useKeyboardOnlyFocus from '../../../composables/useKeyboardOnlyFocus'
-import { useHover } from '../../../composables/useHover'
-import { useTextColor } from '../../../composables/useTextColor'
+import { defineComponent, computed, shallowRef, StyleValue } from 'vue'
+
+import {
+  useColors,
+  useKeyboardOnlyFocus,
+  useHover,
+  useRouterLink, useRouterLinkProps,
+  useTextColor,
+} from '../../../composables'
 import { useSidebarItem } from '../hooks/useSidebar'
+import { useComponentPresetProp } from '../../../composables/useComponentPreset'
 
 export default defineComponent({
   name: 'VaSidebarItem',
 
-  inheritAttrs: false,
-
   props: {
-    to: {
-      type: [String, Object] as PropType<RouteLocationRaw>,
-      default: () => ({}),
-    },
+    ...useRouterLinkProps,
+    ...useComponentPresetProp,
     active: { type: Boolean, default: false },
     textColor: { type: String, default: undefined },
     activeColor: { type: String, default: 'primary' },
@@ -42,7 +41,7 @@ export default defineComponent({
   },
 
   setup (props) {
-    const anchor = ref<HTMLAnchorElement>()
+    const anchor = shallowRef<HTMLAnchorElement>()
 
     const { isHovered } = useHover(anchor)
     const { getColor, getHoverColor, getFocusColor } = useColors()
@@ -50,16 +49,8 @@ export default defineComponent({
     const { sidebarColor } = useSidebarItem()
 
     const backgroundColorComputed = computed(() => {
-      if (isHovered.value) {
-        return getHoverColor(getColor(props.hoverColor || props.activeColor))
-      }
-
-      if (props.active) {
+      if (props.active && !isHovered.value && !hasKeyboardFocus.value) {
         return getColor(props.activeColor)
-      }
-
-      if (hasKeyboardFocus.value) {
-        return getFocusColor(getColor(props.hoverColor || props.activeColor))
       }
 
       return getColor(sidebarColor.value)
@@ -68,28 +59,36 @@ export default defineComponent({
     const { textColorComputed } = useTextColor(backgroundColorComputed)
 
     const computedStyle = computed(() => {
-      const style: Record<string, string> = {}
-
-      style.color = textColorComputed.value
-
-      if (isHovered.value || props.active || hasKeyboardFocus.value) {
-        style.backgroundColor = backgroundColorComputed.value
+      const style: StyleValue = {
+        color: props.textColor,
       }
 
       if (props.active) {
+        style.backgroundColor = backgroundColorComputed.value
+        style.color = textColorComputed.value
         style.borderColor = getColor(props.borderColor || props.activeColor)
       }
 
-      // Override default link color from VaContent
-      style.color = `${style.color} !important`
+      if (hasKeyboardFocus.value) {
+        style.backgroundColor = getFocusColor(getColor(props.hoverColor || props.activeColor))
+      }
+
+      if (isHovered.value) {
+        style.backgroundColor = getHoverColor(getColor(props.hoverColor || props.activeColor))
+      }
 
       return style
     })
+
+    const { tagComputed, hrefComputed } = useRouterLink(props)
 
     return {
       anchor,
       computedStyle,
       keyboardFocusListeners,
+      tagComputed,
+      hrefComputed,
+      isHovered,
     }
   },
 })
@@ -97,13 +96,19 @@ export default defineComponent({
 
 <style lang="scss">
 @import "../variables";
+@import "../../../styles/resources";
 
 .va-sidebar__item {
   border-left: var(--va-sidebar-item-active-border-size) solid transparent;
   padding-right: var(--va-sidebar-item-active-border-size);
   display: inline-block;
   width: 100%;
-  color: inherit !important;
   font-family: var(--va-font-family);
+  transition: var(--va-sidebar-item-transition);
+  box-sizing: border-box;
+
+  &:visited {
+    color: currentColor;
+  }
 }
 </style>

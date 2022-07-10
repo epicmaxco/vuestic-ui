@@ -7,12 +7,10 @@
   </div>
 
   <h6>Custom format function</h6>
-
+  <code> (d) => d.toLocaleTimeString() </code>
   <div class="d-flex">
     <va-time-input v-model="value" :format="formatFn" />
   </div>
-
-  <code> (d) => d.toLocaleTimeString() </code>
 </template>
 
 <script>
@@ -20,7 +18,7 @@ export default {
   data () {
     return {
       value: new Date(),
-      formatFn: (d) => d.toLocaleTimeString(),
+      formatFn: (d) => d?.toLocaleTimeString?.(),
     }
   },
 }

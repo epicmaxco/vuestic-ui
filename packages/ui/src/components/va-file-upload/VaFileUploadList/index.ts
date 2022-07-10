@@ -1,4 +1,4 @@
 import withConfigTransport from '../../../services/config-transport/withConfigTransport'
-import VaFileUploadList from './VaFileUploadList.vue'
+import _VaFileUploadList from './VaFileUploadList.vue'
 
-export default withConfigTransport(VaFileUploadList)
+export const VaFileUploadList = withConfigTransport(_VaFileUploadList)

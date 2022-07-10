@@ -8,16 +8,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import { useColor } from '../../../composables/useColor'
-
-// Components
-import VaIcon from '../../va-icon'
+import { defineComponent, computed } from 'vue'
+import { useComponentPresetProp, useColors } from '../../../composables'
+import { VaIcon } from '../../va-icon'
 
 export default defineComponent({
   name: 'SquareWithIcon',
   components: { VaIcon },
   props: {
+    ...useComponentPresetProp,
     icon: {
       type: String,
       default: '',
@@ -29,7 +28,8 @@ export default defineComponent({
     },
   },
   setup (props) {
-    const { colorComputed } = useColor(props)
+    const { getColor } = useColors()
+    const colorComputed = computed(() => getColor(props.color))
 
     return {
       colorComputed,

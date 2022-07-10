@@ -1,12 +1,13 @@
 <template>
   <div
+    role="separator"
+    class="va-divider"
     :class="classComputed"
     :aria-orientation="vertical ? 'vertical' : 'horizontal'"
   >
     <div
       v-if="hasSlot && !vertical"
-      :class="slotClassComputed"
-      role="separator"
+      class="va-divider__text"
     >
       <slot />
     </div>
@@ -15,15 +16,17 @@
 
 <script lang="ts">
 import { defineComponent, computed, PropType } from 'vue'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 const prefixClass = 'va-divider'
 
 export default defineComponent({
   name: 'VaDivider',
   props: {
-    vertical: { type: Boolean as PropType<boolean>, default: false },
-    dashed: { type: Boolean as PropType<boolean>, default: false },
-    inset: { type: Boolean as PropType<boolean>, default: false },
+    ...useComponentPresetProp,
+    vertical: { type: Boolean, default: false },
+    dashed: { type: Boolean, default: false },
+    inset: { type: Boolean, default: false },
     orientation: {
       type: String as PropType<'left' | 'right' | 'center'>,
       default: 'center',
@@ -32,9 +35,7 @@ export default defineComponent({
   },
   setup: (props, { slots }) => ({
     hasSlot: computed(() => !!slots.default),
-    slotClassComputed: computed(() => `${prefixClass}__text`),
     classComputed: computed(() => ({
-      [`${prefixClass}`]: true,
       [`${prefixClass}--vertical`]: props.vertical,
       [`${prefixClass}--inset`]: props.inset,
       [`${prefixClass}--${props.orientation}`]: props.orientation && !props.vertical,

@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import VaParallax from './index'
+import { VaParallax } from './index'
 
 export default {
   components: {

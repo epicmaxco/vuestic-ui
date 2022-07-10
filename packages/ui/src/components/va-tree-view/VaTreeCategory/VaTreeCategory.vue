@@ -22,7 +22,7 @@
       >
         <va-icon
           :name="$props.icon"
-          :color="theme.getColor('info')"
+          :color="getColor('info')"
         />
       </div>
       <div class="va-tree-category__header-label">
@@ -53,12 +53,14 @@ import {
   ref,
   Ref,
   watch,
+  computed,
 } from 'vue'
 import SquareWithIcon from '../SquareWithIcon/SquareWithIcon.vue'
 import VaIcon from '../../va-icon/VaIcon.vue'
-import { useColor } from '../../../composables/useColor'
+import { useColors } from '../../../composables'
 import { TreeCategory, TreeNodeCommon, TreeCategoryKey, TreeNodeComponent, TreeViewKey } from '../types'
 import VaTreeNode from '../VaTreeNode/VaTreeNode.vue'
+import { useComponentPresetProp } from '../../../composables/useComponentPreset'
 
 export default defineComponent({
   name: 'VaTreeCategory',
@@ -67,6 +69,7 @@ export default defineComponent({
     VaIcon,
   },
   props: {
+    ...useComponentPresetProp,
     label: {
       type: [String, Number],
       default: '',
@@ -85,6 +88,9 @@ export default defineComponent({
     },
   },
   setup: (props) => {
+    const { getColor } = useColors()
+    const colorComputed = computed(() => getColor(props.color))
+
     const nodes: Ref<TreeNodeComponent[]> = ref([])
     const isOpenCached = ref<boolean | undefined>(false)
 
@@ -159,7 +165,8 @@ export default defineComponent({
       collapse,
       expand,
       toggle,
-      ...useColor(props),
+      getColor,
+      colorComputed,
     }
   },
 })

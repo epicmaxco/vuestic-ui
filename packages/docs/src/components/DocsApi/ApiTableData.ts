@@ -23,6 +23,7 @@ export type ApiSlotRowOptions = ApiRowOptions & {
 
 export type ApiEventRowOptions = ApiRowOptions & {
   types: string;
+  isDOMEvent: boolean;
   // add more here
 }
 

@@ -15,29 +15,15 @@
     "baseUrl": ".",
     "declarationMap": false,
     "allowJs": true,
-    // https://vitejs.dev/guide/features.html#typescript-compiler-options
-    // disabled because of problems with vue-tsc
-    // "isolatedModules": true,
     "types": [
       "webpack-env",
-      "jest",
-      "node",
-      "vite/client"
+      "jest"
     ],
     "lib": [
       "esnext",
       "dom",
-      "dom.iterable",
-      "scripthost"
+      "dom.iterable"
     ],
-    "paths": {
-      "v-tooltip": [
-        "src/types/v-tooltip.d.ts"
-      ],
-      "json-loader": [
-        "src/types/json-loader.d.ts"
-      ]
-    }
   },
   "include": [
     "src/**/*.ts",

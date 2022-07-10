@@ -8,14 +8,17 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, computed } from 'vue'
+import { defineComponent, computed } from 'vue'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 export default defineComponent({
   name: 'VaListItemSection',
   props: {
-    icon: { type: Boolean as PropType<boolean>, default: false },
-    avatar: { type: Boolean as PropType<boolean>, default: false },
+    ...useComponentPresetProp,
+    icon: { type: Boolean, default: false },
+    avatar: { type: Boolean, default: false },
   },
+
   setup: (props) => ({
     computedClass: computed(() => ({
       'va-list-item-section--main': !props.icon && !props.avatar,

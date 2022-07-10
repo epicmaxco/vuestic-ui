@@ -33,7 +33,6 @@ export function createIIFEConfig ({ input, outDir = 'dist/', minify = false, dec
     external: ['vue'],
 
     plugins: [
-      typescriptPlugin({ check: false }),
       vuePlugin({ target: 'browser', preprocessStyles: true }),
       commonjsPlugin(),
       nodeResolve({ browser: true }),
@@ -42,6 +41,7 @@ export function createIIFEConfig ({ input, outDir = 'dist/', minify = false, dec
         extract: true,
         plugins: [postcssImport()],
       }),
+      typescriptPlugin({ check: false }),
     ],
   })
 

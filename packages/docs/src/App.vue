@@ -6,7 +6,7 @@
 <script>
 import { defineComponent } from '@vue/runtime-core'
 import emitter from 'tiny-emitter/instance'
-import { setColors } from '../../ui/src/main'
+import { useColors, useToast } from '../../ui/src/main'
 import { COLOR_THEMES, ThemeName } from './config/theme-config'
 
 const eventBus = {
@@ -24,7 +24,17 @@ export default defineComponent({
     }
   },
   setup () {
-    setColors(COLOR_THEMES[ThemeName.DEFAULT])
+    const { init } = useToast()
+    window.page_reload_notification = () => {
+      init({
+        message: 'New content is available. Page will be reloaded in 3 sec.',
+        color: 'success',
+        position: 'bottom-right',
+        closeable: false,
+        duration: 3000,
+      })
+    }
+    useColors().setColors(COLOR_THEMES[ThemeName.DEFAULT])
   },
 })
 </script>

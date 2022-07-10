@@ -1,13 +1,17 @@
 <template>
-  <div class="va-dropdown__content" :style="computedStyle">
+  <div
+    class="va-dropdown__content"
+    :style="computedStyle"
+    role="listbox"
+  >
     <slot />
   </div>
 </template>
 
 <script lang="ts">
-import { useColors } from '../../../../services/color-config/color-config'
-import { useTextColor } from '../../../../composables/useTextColor'
-import { computed, defineComponent } from 'vue'
+import { computed, defineComponent, toRef } from 'vue'
+
+import { useColors, useTextColor } from '../../../../composables'
 
 export default defineComponent({
   name: 'VaDropdownContent',
@@ -19,7 +23,7 @@ export default defineComponent({
 
   setup (props) {
     const { getColor } = useColors()
-    const { textColorComputed } = useTextColor(props.background)
+    const { textColorComputed } = useTextColor(toRef(props, 'background'))
 
     const computedStyle = computed(() => ({
       background: getColor(props.background, undefined, true),
@@ -33,14 +37,14 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  @import "variables";
+@import "variables";
 
-  .va-dropdown {
-    &__content {
-      padding: var(--va-dropdown-content-padding);
-      box-shadow: var(--va-dropdown-content-box-shadow);
-      border-radius: var(--va-dropdown-content-border-radius);
-      font-family: var(--va-font-family);
-    }
+.va-dropdown {
+  &__content {
+    padding: var(--va-dropdown-content-padding);
+    box-shadow: var(--va-dropdown-content-box-shadow);
+    border-radius: var(--va-dropdown-content-border-radius);
+    font-family: var(--va-font-family);
   }
+}
 </style>

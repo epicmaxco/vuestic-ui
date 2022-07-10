@@ -1,42 +1,44 @@
+import { computed } from 'vue'
 import startCase from 'lodash/startCase.js'
 import merge from 'lodash/merge.js'
-import { computed, Ref } from 'vue'
-import { TTableColumnSource, TableColumn, ITableItem } from '../types'
+
+import { DataTableColumnSource, DataTableColumnInternal, DataTableItem } from '../types'
 
 interface useColumnsProps {
-  columns: TTableColumnSource[]
-  items: ITableItem[]
+  columns: DataTableColumnSource[]
+  items: DataTableItem[]
   [prop: string]: unknown
 }
 
-export const buildTableColumn = (source: TTableColumnSource, initialIndex: number): TableColumn => {
+export const buildTableColumn = (source: DataTableColumnSource, initialIndex: number): DataTableColumnInternal => {
   const input = typeof source === 'string' ? { key: source } : source
 
   return {
     source,
     initialIndex,
     key: input.key,
+    name: input.name || input.key,
     label: input.label || startCase(input.key),
-    headerTitle: input.headerTitle || input.label || startCase(input.key),
+    thTitle: input.thTitle || input.headerTitle || input.label || startCase(input.key),
     sortable: input.sortable || false,
-    sortingFn: input.sortingFn || undefined,
-    alignHead: input.alignHead || 'left',
-    verticalAlignHead: input.verticalAlignHead || 'middle',
-    align: input.align || 'left',
-    verticalAlign: input.verticalAlign || 'middle',
-    width: input.width || '',
-    classes: input.classes || '',
-    headerClasses: input.headerClasses || '',
-    style: input.style || {},
-    headerStyle: input.headerStyle || {},
+    sortingFn: input.sortingFn,
+    thAlign: input.thAlign || input.alignHead || 'left',
+    thVerticalAlign: input.thVerticalAlign || input.verticalAlignHead || 'middle',
+    tdAlign: input.tdAlign || input.align || 'left',
+    tdVerticalAlign: input.tdVerticalAlign || input.verticalAlign || 'middle',
+    width: input.width,
+    tdClass: input.tdClass || input.classes,
+    thClass: input.thClass || input.headerClasses,
+    tdStyle: input.tdStyle || input.style,
+    thStyle: input.thStyle || input.headerStyle,
   }
 }
 
-const buildColumnsFromItems = (items: ITableItem[]) => {
+const buildColumnsFromItems = (items: DataTableItem[]) => {
   return Object.keys(merge({}, ...items)).map(buildTableColumn)
 }
 
-const buildNormalizedColumns = (columns: TTableColumnSource[]) => {
+const buildNormalizedColumns = (columns: DataTableColumnSource[]) => {
   return columns.map(buildTableColumn)
 }
 

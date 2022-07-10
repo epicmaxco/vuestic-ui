@@ -1,36 +1,32 @@
 <template>
   <va-dropdown
-    class="va-popover"
     v-bind="VaDropdownPropValues"
-    :modelValue="modelValue"
-    :closeOnClickOutside="autoHide"
+    :model-value="modelValue"
+    :close-on-click-outside="autoHide"
     :offset="$props.offset"
+    class="va-popover"
   >
     <template #default>
-      <div class="va-popover__content-wrapper">
+      <div
+        :style="computedPopoverStyle"
+        class="va-popover__content"
+        role="tooltip"
+      >
         <div
-          class="va-popover__content"
-          :style="computedPopoverStyle"
+          v-if="showIconComputed"
+          aria-hidden="true"
+          class="va-popover__icon"
         >
-          <div
-            v-if="$props.icon"
-            class="va-popover__icon"
-          >
-            <va-icon
-              :name="$props.icon"
-              :color="textColorComputed"
-            />
+          <slot name="icon">
+            <va-icon :name="$props.icon" :color="textColorComputed" />
+          </slot>
+        </div>
+        <div v-if="showPopoverContentComputed">
+          <div v-if="showTitleComputed" class="va-popover__title">
+            <slot name="title">{{ $props.title }}</slot>
           </div>
-          <div v-if="$props.title || $props.message">
-            <div
-              v-if="$props.title"
-              class="va-popover__title"
-            >
-              {{ $props.title }}
-            </div>
-            <div class="va-popover__text">
-              {{ $props.message }}
-            </div>
+          <div v-if="showBodyComputed" class="va-popover__body">
+            <slot name="body">{{ $props.message }}</slot>
           </div>
         </div>
       </div>
@@ -43,11 +39,11 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType } from 'vue'
-import VaDropdown from '../va-dropdown/VaDropdown.vue'
-import VaIcon from '../va-icon/VaIcon.vue'
+
 import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
-import { useColors } from '../../composables/useColor'
-import { useTextColor } from '../../composables/useTextColor'
+import { useComponentPresetProp, useColors, useTextColor } from '../../composables'
+
+import { VaDropdown, VaIcon } from '../'
 
 const VaDropdownProps = extractComponentProps(VaDropdown, ['closeOnClickOutside'])
 
@@ -58,6 +54,7 @@ export default defineComponent({
 
   props: {
     ...VaDropdownProps,
+    ...useComponentPresetProp,
     trigger: { default: 'hover' },
     color: { type: String, default: 'dark' },
     textColor: { type: String },
@@ -68,23 +65,34 @@ export default defineComponent({
     offset: { type: [Array, Number] as PropType<number | [number, number]>, default: 4 },
   },
 
-  setup (props) {
+  setup (props, { slots }) {
     const VaDropdownPropValues = filterComponentProps(props, VaDropdownProps)
 
     const { getColor, getBoxShadowColor } = useColors()
 
-    const { textColorComputed } = useTextColor(props.color)
+    const { textColorComputed } = useTextColor()
+    const showIconComputed = computed(() => props.icon || slots.icon)
+    const showTitleComputed = computed(() => props.title || slots.title)
+    const showBodyComputed = computed(() => props.message || slots.body)
+    const showPopoverContentComputed = computed(
+      () => showTitleComputed.value || showBodyComputed.value,
+    )
 
     const computedPopoverStyle = computed(() => ({
-      boxShadow: `0px 2px 3px 0 ${getBoxShadowColor(getColor(props.color))}`,
+      boxShadow: `var(--va-popover-content-box-shadow) ${getBoxShadowColor(getColor(props.color))}`,
       backgroundColor: getColor(props.color),
       color: textColorComputed.value,
     }))
 
     return {
-      VaDropdownPropValues,
-      computedPopoverStyle,
       textColorComputed,
+      VaDropdownPropValues,
+
+      showBodyComputed,
+      showIconComputed,
+      showTitleComputed,
+      computedPopoverStyle,
+      showPopoverContentComputed,
     }
   },
 })
@@ -97,12 +105,8 @@ export default defineComponent({
 .va-popover {
   display: var(--va-popover-display);
 
-  &__content-wrapper {
-    background-color: white;
-    border-radius: 0.5rem;
-  }
-
   &__content {
+    background-color: var(--va-popover-content-background-color);
     opacity: var(--va-popover-content-opacity);
     display: var(--va-popover-content-display);
     align-items: var(--va-popover-content-align-items);
@@ -113,8 +117,8 @@ export default defineComponent({
 
   &__icon + div {
     padding-left: 0.75rem;
-    width: 100%;
     overflow: hidden;
+    width: 100%;
   }
 
   &__title {
@@ -122,8 +126,8 @@ export default defineComponent({
     margin-bottom: var(--va-popover-title-margin-bottom);
   }
 
-  &__text {
-    line-height: 1.5;
+  &__body {
+    line-height: var(--va-popover-body-line-height);
   }
 }
 </style>

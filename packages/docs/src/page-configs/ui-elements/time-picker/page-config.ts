@@ -3,6 +3,10 @@ import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaTimePicker from 'vuestic-ui/src/components/va-time-picker/VaTimePicker.vue'
 import apiOptions from './api-options'
 
+// @ts-ignore
+// eslint-disable-next-line import/no-webpack-loader-syntax
+const cssVariables = import('!raw-loader!vuestic-ui/src/components/va-time-picker/_variables.scss')
+
 const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [
@@ -14,6 +18,18 @@ const config: ApiDocsBlock[] = [
     'timePicker.examples.default.title',
     'timePicker.examples.default.text',
     'default',
+  ),
+
+  ...block.exampleBlock(
+    'timePicker.examples.framed.title',
+    'timePicker.examples.framed.text',
+    'framed',
+  ),
+
+  ...block.exampleBlock(
+    'timePicker.examples.visibleCellsCount.title',
+    'timePicker.examples.visibleCellsCount.text',
+    'visibleCellsCount',
   ),
 
   ...block.exampleBlock(
@@ -47,6 +63,9 @@ const config: ApiDocsBlock[] = [
   ),
 
   block.api(VaTimePicker, apiOptions),
+
+  block.subtitle('all.cssVariables'),
+  block.file(cssVariables),
 ]
 
 export default config

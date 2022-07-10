@@ -1,5 +1,3 @@
-import { PropType } from 'vue'
-
 export type LoadingProps = {
   loading: boolean
 }
@@ -11,13 +9,13 @@ export type LoadingProps = {
  * It's better to add props at the beginning, to make sure that Component own props will be used instead in case of collision
  */
 export const useLoadingProps = {
-  loading: { type: Boolean as PropType<boolean>, default: false },
+  loading: { type: Boolean, default: false },
 }
 
-export const useLoading = () => {
-  const hasLoading = true
+// export const useLoading = () => {
+//   const hasLoading = true
 
-  return {
-    hasLoading,
-  }
-}
+//   return {
+//     hasLoading,
+//   }
+// }

@@ -8,13 +8,13 @@
 </template>
 
 <script>
-import { getColors } from 'vuestic-ui/src/services/color-config/color-config'
+import { useColors } from 'vuestic-ui/src/composables'
 
 export default {
   name: 'IconEpicmax',
   computed: {
     colors () {
-      return getColors()
+      return useColors().getColors()
     },
   },
 }

@@ -10,7 +10,7 @@
     </template>
   </va-tabs>
   <prism-wrapper
-    :code="contents[index]"
+    :code="escapeVuesticImport(contents[index])"
     :lang="$props.language"
     class="DocsCode"
   />
@@ -47,9 +47,14 @@ export default defineComponent({
       nextTick(() => { doShowCode.value = true }) // nextTick() triggers v-if, that causes re-rendering of component.
     }
 
+    // Hack: Remove this with alias when moving to vite.
+    const escapeVuesticImport = (code: string) => {
+      return code.replace(/vuestic-ui\/src\/main/g, 'vuestic-ui')
+    }
+
     watch(() => props.code, forceUpdate, { immediate: true })
 
-    return { isString, tabs, contents, index }
+    return { isString, tabs, contents, index, escapeVuesticImport }
   },
 })
 </script>

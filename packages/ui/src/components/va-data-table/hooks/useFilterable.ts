@@ -1,21 +1,22 @@
 import { Ref, watch, computed } from 'vue'
-import { TableRow, TFilterMethod, ITableItem } from '../types'
+
+import { DataTableRow, DataTableFilterMethod, DataTableItem } from '../types'
 
 interface useFilterableProps {
   filter: string
-  filterMethod: TFilterMethod | undefined
+  filterMethod: DataTableFilterMethod | undefined
   [prop: string]: unknown
 }
 
-export type TFilteredArgs = { items: ITableItem[], itemsIndexes: number[] }
+export type TFilteredArgs = { items: DataTableItem[], itemsIndexes: number[] }
 export type TFilterableEmits = (event: 'filtered', arg: TFilteredArgs) => void
 
 export default function useFilterable (
-  rawRows: Ref<TableRow[]>,
+  rawRows: Ref<DataTableRow[]>,
   props: useFilterableProps,
   emit: TFilterableEmits,
 ) {
-  const filteredRows = computed<TableRow[]>(() => {
+  const filteredRows = computed<DataTableRow[]>(() => {
     if (!rawRows.value.length) {
       return rawRows.value
     }
@@ -26,7 +27,7 @@ export default function useFilterable (
 
     return rawRows.value.filter(row => row.cells.some(cell => {
       return typeof props.filterMethod === 'function'
-        ? props.filterMethod(cell.rowData[cell.column.key])
+        ? props.filterMethod(cell.source)
         : cell.value.toLowerCase().includes(props.filter.toLowerCase())
     }))
   })

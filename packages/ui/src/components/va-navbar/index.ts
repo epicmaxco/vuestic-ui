@@ -1,6 +1,6 @@
 import withConfigTransport from '../../services/config-transport/withConfigTransport'
-import VaNavbar from './VaNavbar.vue'
-import VaNavbarItemComponent from './VaNavbarItem/VaNavbarItem.vue'
+import _VaNavbar from './VaNavbar.vue'
+import _VaNavbarItem from './VaNavbarItem/VaNavbarItem.vue'
 
-export default withConfigTransport(VaNavbar)
-export const VaNavbarItem = withConfigTransport(VaNavbarItemComponent)
+export const VaNavbar = withConfigTransport(_VaNavbar)
+export const VaNavbarItem = withConfigTransport(_VaNavbarItem)

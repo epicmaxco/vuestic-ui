@@ -6,6 +6,9 @@
     <div
       class="va-alert"
       :style="alertStyle"
+      :role="closeable ? 'alertdialog' : 'alert'"
+      :aria-labelledby="titleIdComputed"
+      :aria-describedby="descriptionIdComputed"
     >
       <div
         :style="borderStyle"
@@ -14,9 +17,10 @@
       />
 
       <div
+        v-if="hasIcon"
         :style="contentStyle"
         class="va-alert__icon"
-        v-if="hasIcon"
+        aria-hidden="true"
       >
         <slot name="icon">
           <va-icon :name="icon" />
@@ -28,27 +32,36 @@
         class="va-alert__content"
       >
         <div
+          v-if="hasTitle"
           :style="titleStyle"
           class="va-alert__title"
-          v-if="hasTitle"
+          :id="titleIdComputed"
         >
           <slot name="title">
             {{ title }}
           </slot>
         </div>
-        <slot>
-          {{ description }}
-        </slot>
+
+        <span :id="descriptionIdComputed">
+          <slot>
+            {{ $props.description }}
+          </slot>
+        </span>
       </div>
 
       <div
-        class="va-alert__close"
         v-if="closeable"
+        class="va-alert__close"
       >
         <div
           :style="contentStyle"
           class="va-alert__close--closeable"
+          role="button"
+          tabindex="0"
+          :aria-label="closeText || 'close alert'"
           @click="hide()"
+          @keydown.space="hide()"
+          @keydown.enter="hide()"
         >
           <slot name="close">
             <va-icon
@@ -68,9 +81,12 @@
 <script lang="ts">
 import { defineComponent, computed, PropType } from 'vue'
 
-import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
+import { generateUniqueId } from '../../services/utils'
+import { useComponentPresetProp, useStateful, useStatefulProps, useStatefulEmits } from '../../composables'
+
 import { useAlertStyles } from './useAlertStyles'
-import VaIcon from '../va-icon'
+
+import { VaIcon } from '../va-icon'
 
 export default defineComponent({
   name: 'VaAlert',
@@ -78,20 +94,21 @@ export default defineComponent({
   emits: useStatefulEmits,
   props: {
     ...useStatefulProps,
-    modelValue: { type: Boolean as PropType<boolean>, default: true },
-    color: { type: String as PropType<string>, default: 'primary' },
-    textColor: { type: String as PropType<string>, default: '' },
-    title: { type: String as PropType<string>, default: '' },
-    description: { type: String as PropType<string>, default: '' },
-    icon: { type: String as PropType<string>, default: '' },
-    closeText: { type: String as PropType<string>, default: '' },
-    closeable: { type: Boolean as PropType<boolean>, default: false },
-    dense: { type: Boolean as PropType<boolean>, default: false },
-    outline: { type: Boolean as PropType<boolean>, default: false },
-    center: { type: Boolean as PropType<boolean>, default: false },
-    borderColor: { type: String as PropType<string>, default: '' },
+    ...useComponentPresetProp,
+    modelValue: { type: Boolean, default: true },
+    color: { type: String, default: 'primary' },
+    textColor: { type: String, default: '' },
+    title: { type: String, default: '' },
+    description: { type: String, default: '' },
+    icon: { type: String, default: '' },
+    closeText: { type: String, default: '' },
+    closeable: { type: Boolean, default: false },
+    dense: { type: Boolean, default: false },
+    outline: { type: Boolean, default: false },
+    center: { type: Boolean, default: false },
+    borderColor: { type: String, default: '' },
     border: {
-      type: String as PropType<string>,
+      type: String as PropType<'top' | 'right' | 'bottom' | 'left' | ''>,
       default: '',
       validator: (value: string) => ['top', 'right', 'bottom', 'left', ''].includes(value),
     },
@@ -111,6 +128,10 @@ export default defineComponent({
 
     const closeIcon = computed(() => props.closeText || 'close')
 
+    const uniqueId = computed(generateUniqueId)
+    const titleIdComputed = computed(() => `aria-title-${uniqueId.value}`)
+    const descriptionIdComputed = computed(() => `aria-description-${uniqueId.value}`)
+
     return {
       ...alertStyles,
       valueComputed,
@@ -119,6 +140,8 @@ export default defineComponent({
       borderClass,
       closeIcon,
       hide,
+      titleIdComputed,
+      descriptionIdComputed,
     }
   },
 })
@@ -203,6 +226,10 @@ export default defineComponent({
       display: flex;
       align-items: center;
       cursor: pointer;
+
+      &:focus {
+        @include focus-outline;
+      }
     }
   }
 

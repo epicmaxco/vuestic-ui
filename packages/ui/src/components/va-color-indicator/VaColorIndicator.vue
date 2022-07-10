@@ -1,9 +1,11 @@
 <template>
   <div
     class="va-color-indicator"
-    @click="toggleModelValue"
     :class="computedClass"
     :style="computedStyle"
+    @click="toggleModelValue"
+    @keydown.enter="toggleModelValue"
+    @keydown.space="toggleModelValue"
   >
     <div
       class="va-color-indicator__core"
@@ -15,14 +17,14 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
 
-import { useColors } from '../../composables/useColor'
-import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables/useStateful'
+import { useComponentPresetProp, useColors, useStateful, useStatefulProps, useStatefulEmits } from '../../composables'
 
 export default defineComponent({
   name: 'VaColorIndicator',
   emits: useStatefulEmits,
   props: {
     ...useStatefulProps,
+    ...useComponentPresetProp,
     modelValue: { type: Boolean, default: null },
     color: { type: String, default: '' },
     square: { type: Boolean, default: false },
@@ -73,7 +75,8 @@ export default defineComponent({
     border-color: $vue-darkest-blue;
   }
 
-  &--hoverable &__core:hover {
+  &--hoverable &__core:hover,
+  &:focus {
     transform: scale(1.1);
     transition: transform 0.1s linear;
   }

@@ -7,31 +7,31 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, PropType, reactive } from 'vue'
+import { defineComponent, computed, PropType } from 'vue'
 
-import VaConfig from '../va-config'
-import { getGradientBackground } from '../../services/color-config/color-functions'
-import { useColors } from '../../composables/useColor'
-import { useTextColor } from '../../composables/useTextColor'
+import { useComponentPresetProp, useColors, useTextColor } from '../../composables'
+
+import { VaConfig } from '../va-config'
 
 export default defineComponent({
   name: 'VaButtonGroup',
   components: { VaConfig },
   props: {
-    color: { type: String as PropType<string>, default: 'primary' },
-    gradient: { type: Boolean as PropType<boolean>, default: undefined },
-    textColor: { type: String as PropType<string>, default: undefined },
-    rounded: { type: Boolean as PropType<boolean>, default: true },
-    outline: { type: Boolean as PropType<boolean>, default: false },
-    flat: { type: Boolean as PropType<boolean>, default: false },
+    ...useComponentPresetProp,
+    color: { type: String, default: 'primary' },
+    gradient: { type: Boolean, default: undefined },
+    textColor: { type: String, default: undefined },
+    rounded: { type: Boolean, default: true },
+    outline: { type: Boolean, default: false },
+    flat: { type: Boolean, default: false },
     size: {
-      type: String as PropType<string>,
+      type: String as PropType<'medium' | 'small' | 'large'>,
       default: 'medium',
-      validator: (v: string) => ['medium', 'small', 'large'].includes(v),
+      validator: (value: string) => ['medium', 'small', 'large'].includes(value),
     },
   },
   setup (props) {
-    const { getColor } = useColors()
+    const { getColor, getGradientBackground } = useColors()
     const colorComputed = computed(() => getColor(props.color))
 
     const isTransparentBackground = computed(() => Boolean(props.outline || props.flat))
@@ -52,12 +52,13 @@ export default defineComponent({
       }
     })
 
-    const buttonConfig = reactive({
+    const buttonConfig = computed(() => ({
       VaButton: {
         ...props,
         color: props.gradient ? '#00000000' : props.color,
+        textColor: textColorComputed.value,
       },
-    })
+    }))
 
     const computedClass = computed(() => ({ 'va-button-group_square': !props.rounded }))
 
@@ -87,19 +88,19 @@ export default defineComponent({
 
   .va-button {
     margin: var(--va-button-group-button-margin);
-    box-shadow: none !important;
+    box-shadow: none;
   }
 
   & > .va-button:last-child {
     width: auto;
-    padding-right: 1rem !important;
+    padding-right: 1rem;
 
     &.va-button--small {
-      padding-right: 0.75rem !important;
+      padding-right: 0.75rem;
     }
 
     &.va-button--large {
-      padding-right: 1.5rem !important;
+      padding-right: 1.5rem;
     }
   }
 
@@ -119,7 +120,7 @@ export default defineComponent({
   & > .va-button:not(:last-child) {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
-    padding-right: 0.5rem;
+    padding-right: var(--va-button-group-gap);
     border-right: 0;
 
     .va-button__content {
@@ -135,7 +136,7 @@ export default defineComponent({
   & > .va-button + .va-button {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
-    padding-left: 0.5rem;
+    padding-left: var(--va-button-group-gap);
     border-left: 0;
 
     .va-button__content {

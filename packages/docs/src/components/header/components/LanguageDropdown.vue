@@ -30,7 +30,7 @@
 
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
-import { getColors } from 'vuestic-ui/src/main'
+import { useColors } from 'vuestic-ui/src/main'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 import { languages } from '../../../locales'
@@ -61,6 +61,7 @@ export default defineComponent({
     }
 
     const options = languages
+    const { getColors } = useColors()
     const colors = computed(getColors)
     const currentLanguageName = computed(() => options.find(({ code }) => code === locale.value)?.name)
 

@@ -34,10 +34,10 @@
 </template>
 
 <script>
-import VaButton from '../va-button'
-import VaCard, { VaCardTitle, VaCardContent } from '../va-card'
-import VaSpacer from '../va-spacer'
-import VaInnerLoading from './index'
+import { VaButton } from '../va-button'
+import { VaCard, VaCardTitle, VaCardContent } from '../va-card'
+import { VaSpacer } from '../va-spacer'
+import { VaInnerLoading } from './index'
 
 export default {
   components: {
@@ -55,6 +55,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-</style>

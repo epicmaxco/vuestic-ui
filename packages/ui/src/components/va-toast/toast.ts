@@ -1,7 +1,9 @@
-import VaToast from './VaToast'
-import type { NotificationOptions } from './types'
 import { VNode, createVNode, render, AppContext } from 'vue'
+
 import { getGlobal } from '../../utils/ssr-utils'
+import type { ToastOptions } from './types'
+
+import { VaToast } from './index'
 
 const GAP = 5
 let seed = 1
@@ -14,7 +16,7 @@ declare global {
 
 getGlobal().vaToastInstances = []
 
-type OptionKeys = keyof NotificationOptions;
+type OptionKeys = keyof ToastOptions;
 
 export type VaToastId = string
 
@@ -142,7 +144,7 @@ export const closeById = (id: string) => {
   }
 }
 
-const getToastOptions = (options: string | NotificationOptions): any => {
+const getToastOptions = (options: string | ToastOptions): any => {
   if (typeof options === 'string') {
     return {
       message: options,
@@ -151,7 +153,7 @@ const getToastOptions = (options: string | NotificationOptions): any => {
   return options
 }
 
-export const createToastInstance = (customProps: NotificationOptions | string, appContext?: AppContext): VaToastId | null => {
+export const createToastInstance = (customProps: ToastOptions | string, appContext?: AppContext): VaToastId | null => {
   const { vNode, el } = mount(VaToast, { appContext, props: getToastOptions(customProps) })
 
   const nodeProps = getNodeProps(vNode)
@@ -187,4 +189,4 @@ export const createToastInstance = (customProps: NotificationOptions | string, a
   return null
 }
 
-export type { NotificationOptions } from './types'
+export type { ToastOptions as NotificationOptions } from './types'

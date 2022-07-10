@@ -210,6 +210,7 @@ updateAccordionValue()
     color: var(--va-dark, #323742);
 
     .va-sidebar__menu {
+      display: flex;
       @include va-scroll(var(--va-primary));
     }
 

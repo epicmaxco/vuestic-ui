@@ -7,8 +7,8 @@
     <slot>
       <div class="va-file-upload__field">
         <div
-          class="va-file-upload__field__text"
           v-if="dropzone"
+          class="va-file-upload__field__text"
         >
           {{ dropZoneText }}
         </div>
@@ -16,9 +16,9 @@
           class="va-file-upload__field__button"
           :disabled="disabled"
           :color="colorComputed"
-          @change="changeFieldValue"
-          @click="callFileDialogue()"
           :style="{ 'pointer-events': dropzoneHighlight ? 'none' : '' }"
+          @change="changeFieldValue"
+          @click="callFileDialogue"
         >
           {{ uploadButtonText }}
         </va-button>
@@ -29,16 +29,17 @@
       ref="fileInputRef"
       type="file"
       class="va-file-upload__field__input"
+      :tabindex="-1"
+      aria-hidden="true"
       :accept="fileTypes"
       :multiple="type !== 'single'"
       :disabled="disabled"
       @change="changeFieldValue"
       @dragenter="dropzoneHighlight = true"
       @dragleave="dropzoneHighlight = false"
-      tabindex="-1"
     >
     <va-file-upload-list
-      v-if="files.length"
+      v-if="files.length && !$props.hideFileList"
       :type="type"
       :files="files"
       :color="colorComputed"
@@ -58,13 +59,14 @@
 
 <script lang="ts">
 import { computed, defineComponent, onMounted, ref, PropType, shallowRef } from 'vue'
-import { useColors } from '../../services/color-config/color-config'
-import { shiftHSLAColor } from '../../services/color-config/color-functions'
-import VaButton from '../va-button'
-import VaModal from '../va-modal'
-import VaFileUploadList from './VaFileUploadList'
+
+import { useComponentPresetProp, useColors } from '../../composables'
 
 import type { VaFile } from './types'
+
+import { VaButton } from '../va-button'
+import { VaModal } from '../va-modal'
+import { VaFileUploadList } from './VaFileUploadList'
 
 export default defineComponent({
   name: 'VaFileUpload',
@@ -76,19 +78,19 @@ export default defineComponent({
   },
 
   props: {
-    fileTypes: { type: String as PropType<string>, default: '' },
-    dropzone: { type: Boolean as PropType<boolean>, default: false },
-    color: { type: String as PropType<string>, default: 'primary' },
-    disabled: { type: Boolean as PropType<boolean>, default: false },
-    undo: { type: Boolean as PropType<boolean>, default: false },
-    undoDuration: { type: Number as PropType<number>, default: 3000 },
-    dropZoneText: { type: String as PropType<string>, default: 'Drag’n’drop files or' },
-    uploadButtonText: { type: String as PropType<string>, default: 'Upload file' },
-
+    ...useComponentPresetProp,
+    fileTypes: { type: String, default: '' },
+    dropzone: { type: Boolean, default: false },
+    hideFileList: { type: Boolean, default: false },
+    color: { type: String, default: 'primary' },
+    disabled: { type: Boolean, default: false },
+    undo: { type: Boolean, default: false },
+    undoDuration: { type: Number, default: 3000 },
+    dropZoneText: { type: String, default: 'Drag’n’drop files or' },
+    uploadButtonText: { type: String, default: 'Upload file' },
     modelValue: {
-      type: Array as PropType<VaFile[]>,
+      type: [Object, Array] as PropType<VaFile | VaFile[]>,
       default: () => [],
-      validator: (value: VaFile[]) => Array.isArray(value),
     },
     type: {
       type: String as PropType<'list' | 'gallery' | 'single'>,
@@ -100,27 +102,29 @@ export default defineComponent({
   emits: ['update:modelValue', 'file-removed', 'file-added'],
 
   setup (props, { emit }) {
+    const fileInputRef = shallowRef<HTMLInputElement>()
+
     const modal = ref(false)
     const dropzoneHighlight = ref(false)
-    const fileInputRef = shallowRef<HTMLInputElement | null>(null)
 
-    const { getColor } = useColors()
-
+    const { getColor, shiftHSLAColor } = useColors()
     const colorComputed = computed(() => getColor(props.color))
 
-    const computedStyle = computed(() => {
-      if (props.dropzone) {
-        return {
-          backgroundColor: shiftHSLAColor(colorComputed.value, { a: dropzoneHighlight.value ? -0.82 : -0.92 }),
-        }
-      }
-
-      return { backgroundColor: 'transparent' }
-    })
+    const computedStyle = computed(() => ({
+      backgroundColor: props.dropzone
+        ? shiftHSLAColor(colorComputed.value, { a: dropzoneHighlight.value ? -0.82 : -0.92 })
+        : 'transparent',
+    }))
 
     const files = computed<VaFile[]>({
-      get () { return props.modelValue },
-      set (files) { emit('update:modelValue', files) },
+      get () { return Array.isArray(props.modelValue) ? props.modelValue : [props.modelValue] },
+      set (files) {
+        if (props.type === 'single') {
+          emit('update:modelValue', files[0])
+        } else {
+          emit('update:modelValue', files)
+        }
+      },
     })
 
     const validateFiles = (files: VaFile[]) => files.filter((file) => {
@@ -136,9 +140,9 @@ export default defineComponent({
         return true
       }
 
-      const extn = fileName.substring(fileName.lastIndexOf('.') + 1).toLowerCase()
+      const extension = fileName.substring(fileName.lastIndexOf('.') + 1).toLowerCase()
 
-      const isCorrectExt = props.fileTypes.includes(extn)
+      const isCorrectExt = props.fileTypes.includes(extension)
       if (!isCorrectExt) { modal.value = true }
 
       return isCorrectExt
@@ -150,7 +154,9 @@ export default defineComponent({
       if (!f) { return }
 
       const validatedFiles = props.fileTypes ? validateFiles(Array.from(f)) : f
-      files.value = [...files.value, ...validatedFiles]
+
+      files.value = props.type === 'single' ? (validatedFiles as VaFile[]) : [...files.value, ...validatedFiles]
+
       emit('file-added', validatedFiles)
     }
 

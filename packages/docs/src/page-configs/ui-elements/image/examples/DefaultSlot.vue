@@ -1,14 +1,10 @@
 <template>
-  <div class="row">
-    <div class="flex md6 lg4">
-      <va-image
-        style="min-height: 300px;"
-        src="https://picsum.photos/1500"
-      >
-        <va-badge text="default slot" />
-      </va-image>
-    </div>
-  </div>
+  <va-image
+    class="flex md6 lg4"
+    src="https://picsum.photos/1500"
+  >
+    <va-badge text="default slot" />
+  </va-image>
 </template>
 
 <script>

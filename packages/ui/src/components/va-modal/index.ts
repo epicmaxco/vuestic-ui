@@ -1,4 +1,3 @@
-import withConfigTransport from '../../services/config-transport/withConfigTransport'
-import VaModal from './VaModal.vue'
-
-export default withConfigTransport(VaModal)
+export { useModal } from './hooks/useModal'
+export * from './types'
+export { VaModal } from './VaModal'

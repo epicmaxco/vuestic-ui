@@ -2,25 +2,27 @@
   <div
     class="va-dropdown"
     :class="computedClass"
+    aria-haspopup="listbox"
+    :aria-disabled="$props.disabled"
+    :aria-expanded="!!valueComputed"
   >
     <div
-      class="va-dropdown__anchor"
-      @click="onAnchorClick()"
-      @mouseenter="onMouseEnter()"
-      @mouseleave="onMouseLeave()"
-      @keyup.enter.stop.prevent="onAnchorClick()"
       ref="anchorRef"
+      class="va-dropdown__anchor"
+      @click="onAnchorClick"
+      @mouseenter="onMouseEnter"
+      @mouseleave="onMouseLeave"
     >
       <slot name="anchor" />
     </div>
     <template v-if="valueComputed">
       <teleport :to="attachElement" :disabled="disableAttachment">
         <div
+          ref="contentRef"
           class="va-dropdown__content-wrapper"
           @mouseover="$props.isContentHoverable && onMouseEnter()"
-          @mouseout="onMouseLeave()"
+          @mouseout="onMouseLeave"
           @click.stop="emitAndClose('dropdown-content-click', closeOnContentClick)"
-          ref="contentRef"
         >
           <slot />
         </div>
@@ -30,20 +32,28 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, ref, toRef } from 'vue'
-import { useStateful, useStatefulEmits, useStatefulProps } from '../../composables/useStateful'
-import { useDebounceFn } from '../../composables/useDebounce'
-import { usePopover, placementsPositions, Placement } from '../../composables/usePopover'
-import { useClickOutside } from '../../composables/useClickOutside'
+import { computed, defineComponent, PropType, shallowRef, toRef } from 'vue'
+import pick from 'lodash/pick.js'
+
+import {
+  useComponentPresetProp,
+  useStateful, useStatefulEmits, useStatefulProps,
+  useDebounceFn,
+  usePopover, placementsPositions, Placement,
+  useClickOutside,
+  useBem,
+} from '../../composables'
 
 export default defineComponent({
   name: 'VaDropdown',
 
   props: {
     ...useStatefulProps,
+    ...useComponentPresetProp,
     stateful: { default: true },
     modelValue: { type: Boolean, default: false },
     disabled: { type: Boolean },
+    readonly: { type: Boolean },
     anchorSelector: { type: String, default: '' },
     attachElement: { type: String, default: 'body' },
     disableAttachment: { type: Boolean, default: false },
@@ -54,37 +64,39 @@ export default defineComponent({
     closeOnAnchorClick: { type: Boolean, default: true },
     hoverOverTimeout: { type: Number, default: 30 },
     hoverOutTimeout: { type: Number, default: 200 },
-    offset: { type: [Array, Number] as PropType<number | [number, number]>, default: () => 0 },
+    offset: { type: [Array, Number] as PropType<number | [number, number]>, default: 0 },
     trigger: {
       type: String as PropType<'click' | 'hover' | 'none'>,
       default: 'click',
-      validator: (trigger: string) => ['click', 'hover', 'none'].includes(trigger),
+      validator: (value: string) => ['click', 'hover', 'none'].includes(value),
     },
     placement: {
       type: String as PropType<Placement>,
       default: 'bottom',
-      validator: (placement: string) => placementsPositions.includes(placement),
+      validator: (value: string) => placementsPositions.includes(value),
     },
   },
 
   emits: [...useStatefulEmits, 'anchor-click', 'dropdown-content-click', 'click-outside'],
 
   setup (props, { emit }) {
-    const anchorRef = ref()
-    const contentRef = ref()
-    const { valueComputed } = useStateful(props, emit)
+    const anchorRef = shallowRef<HTMLElement>()
+    const contentRef = shallowRef<HTMLElement>()
 
-    const computedClass = computed(() => ({
-      'va-dropdown': true,
-      'va-dropdown--disabled': props.disabled,
-    }))
+    const { valueComputed: statefulVal } = useStateful(props, emit)
+    const valueComputed = computed({
+      get: () => statefulVal.value && !props.disabled && !props.readonly,
+      set (val) { statefulVal.value = val },
+    })
+
+    const computedClass = useBem('va-dropdown', () => pick(props, ['disabled']))
 
     // to be able to select specific anchor element inside anchorRef
-    const computedAnchorRef = computed(() => {
-      return (anchorRef.value && props.anchorSelector)
+    const computedAnchorRef = computed(() => (
+      anchorRef.value && props.anchorSelector
         ? anchorRef.value.querySelector(props.anchorSelector) || anchorRef.value
         : anchorRef.value
-    })
+      ) as HTMLElement | undefined)
 
     usePopover(computedAnchorRef, contentRef, computed(() => ({
       placement: props.placement,
@@ -167,6 +179,7 @@ export default defineComponent({
   &__content-wrapper {
     /* overflow: hidden; */
     z-index: var(--va-dropdown-content-wrapper-z-index);
+    font-family: var(--va-font-family);
   }
 }
 </style>

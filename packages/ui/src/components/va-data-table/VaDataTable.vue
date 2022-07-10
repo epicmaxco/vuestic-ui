@@ -1,19 +1,14 @@
 <template>
   <va-inner-loading
     class="va-data-table"
-    :class="[
-      { 'va-data-table--sticky': $props.stickyHeader },
-      { 'va-data-table--scroll': !!$props.height },
-    ]"
-    :style="getStickyCSSVariables()"
+    aria-live="polite"
+    v-bind="computedAttributes"
     :loading="loading"
     :color="loadingColor"
-    v-bind="componentAttributes"
   >
     <table
       class="va-data-table__table"
-      :class="{ striped, selectable, hoverable, clickable }"
-      v-bind="tableAttributes"
+      v-bind="computedTableAttributes"
     >
       <colgroup v-if="'colgroup' in $slots">
         <slot name="colgroup" v-bind="columnsComputed" />
@@ -31,47 +26,55 @@
         >
           <th
             v-if="selectable"
-            :class="['va-data-table__table-th', 'va-data-table__table-cell-select']"
+            scope="col"
+            class="va-data-table__table-th va-data-table__table-cell-select"
           >
             <va-checkbox
               v-if="selectMode === 'multiple'"
+              aria-label="select all rows"
               :model-value="severalRowsSelected ? 'idl' : allRowsSelected"
               :true-value="true"
               :false-value="false"
+              :color="selectedColor"
               indeterminate-value="idl"
               indeterminate
               @update:model-value="toggleBulkSelection"
-              :color="selectedColor"
             />
           </th>
 
           <th
             v-for="column in columnsComputed"
-            :key="column.key"
-            :title="column.headerTitle"
+            :key="column.name"
+            scope="col"
+            :aria-sort="getColumnAriaSortOrder(column.name)"
+            :aria-label="column.sortable ? `sort column by ${column.label}` : undefined"
+            :title="column.thTitle"
+            class="va-data-table__table-th"
+            :class="getClass(column.thClass)"
+            :style="[getHeaderCSSVariables(column), getStyle(column.thStyle)]"
             @click.exact="column.sortable && toggleSorting(column)"
-            :style="{ ...getHeaderCSSVariables(column), ...getStyles(column.headerStyle) }"
-            :class="['va-data-table__table-th', ...getClasses(column.headerClasses)]"
+            @keydown.enter.stop="column.sortable && toggleSorting(column)"
           >
-            <div class="va-data-table__table-th-wrapper">
-              <span v-if="`header(${column.key})` in $slots">
-                <slot :name="`header(${column.key})`" v-bind="column" />
+            <div class="va-data-table__table-th-wrapper" :tabindex="column.sortable ? 0 : -1">
+              <span v-if="`header(${column.name})` in $slots">
+                <slot :name="`header(${column.name})`" v-bind="{ label: column.label, key: column.key }" />
               </span>
 
-              <slot v-else name="header" v-bind="column">
+              <slot v-else name="header" v-bind="{ label: column.label, key: column.key }">
                 <span>{{ column.label }}</span>
               </slot>
 
               <div
                 v-if="column.sortable"
                 class="va-data-table__table-th-sorting"
+                aria-hidden="true"
                 @selectstart.prevent
               >
                 <va-icon
                   :name="sortingOrderSync === 'asc' ? 'expand_less' : 'expand_more'"
                   size="small"
                   class="va-data-table__table-th-sorting-icon"
-                  :class="{ active: sortBySync === column.key && sortingOrderSync !== null }"
+                  :class="{ active: sortBySync === column.name && sortingOrderSync !== null }"
                 />
               </div>
             </div>
@@ -118,35 +121,39 @@
             v-for="row in rows"
             :key="`table-row_${row.initialIndex}`"
             class="va-data-table__table-tr"
-            :class="{ selected: isRowSelected(row) }"
+            :class="[{ selected: isRowSelected(row) }]"
+            v-bind="getRowBind(row)"
             @click="onRowClickHandler('row:click', $event, row)"
             @dblclick="onRowClickHandler('row:dblclick', $event, row)"
             @contextmenu="onRowClickHandler('row:contextmenu', $event, row)"
           >
             <td
               v-if="selectable"
-              :class="['va-data-table__table-td', 'va-data-table__table-cell-select']"
+              class="va-data-table__table-td va-data-table__table-cell-select"
               :key="`selectable_${row.initialIndex}`"
               @selectstart.prevent
             >
               <va-checkbox
                 :model-value="isRowSelected(row)"
-                @click.shift.exact="shiftSelectRows(row)"
-                @click.ctrl.exact="ctrlSelectRow(row)"
-                @click.exact="ctrlSelectRow(row)"
                 :color="selectedColor"
+                :aria-label="`select row ${row.initialIndex}`"
+                @click.shift.exact.stop="shiftSelectRows(row)"
+                @click.ctrl.exact.stop="ctrlSelectRow(row)"
+                @click.exact.stop="ctrlSelectRow(row)"
               />
             </td>
 
             <td
               v-for="cell in row.cells"
-              :key="`table-cell_${cell.column.key + cell.rowIndex}`"
-              :style="{ ...getCellCSSVariables(cell), ...getStyles(cell.column.style) }"
-              :class="['va-data-table__table-td', ...getClasses(cell.column.classes)]"
+              :key="`table-cell_${cell.column.name + cell.rowIndex}`"
+              class="va-data-table__table-td"
+              :class="getClass(cell.column.tdClass)"
+              :style="[getCellCSSVariables(cell), getStyle(cell.column.tdStyle)]"
+              v-bind="getCellBind(cell, row)"
             >
               <slot
-                v-if="`cell(${cell.column.key})` in $slots"
-                :name="`cell(${cell.column.key})`"
+                v-if="`cell(${cell.column.name})` in $slots"
+                :name="`cell(${cell.column.name})`"
                 v-bind="cell"
               />
 
@@ -160,34 +167,42 @@
         <slot name="bodyAppend" />
       </tbody>
 
-      <tfoot v-if="footerClone" class="va-data-table__table-tfoot">
+      <tfoot
+        v-if="footerClone"
+        class="va-data-table__table-tfoot"
+        :class="{ 'va-data-table__table-tfoot--sticky': $props.stickyFooter }"
+      >
         <slot name="footerPrepend" />
 
         <tr v-if="!hideDefaultHeader" class="va-data-table__table-tr">
           <th v-if="selectable" class="va-data-table__table-th">
             <va-checkbox
               v-if="selectMode === 'multiple'"
+              aria-label="select all rows"
               :model-value="severalRowsSelected ? 'idl' : allRowsSelected"
               :true-value="true"
               :false-value="false"
+              :color="selectedColor"
               indeterminate-value="idl"
               indeterminate
               @update:model-value="toggleBulkSelection"
-              :color="selectedColor"
             />
           </th>
 
           <th
             v-for="column in columnsComputed"
-            :key="column.key"
-            :title="column.headerTitle"
+            :key="column.name"
+            :title="column.thTitle"
+            :aria-label="allowFooterSorting && column.sortable ? `sort column by ${column.label}` : undefined"
+            class="va-data-table__table-th"
+            :class="getClass(column.thClass)"
+            :style="[getFooterCSSVariables(column), getStyle(column.thStyle)]"
             @click.exact="allowFooterSorting && column.sortable && toggleSorting(column)"
-            :style="{ ...getFooterCSSVariables(column), ...getStyles(column.headerStyle) }"
-            :class="['va-data-table__table-th', ...getClasses(column.headerClasses)]"
+            @keydown.enter.stop="allowFooterSorting && column.sortable && toggleSorting(column)"
           >
-            <div class="va-data-table__table-th-wrapper">
-              <span v-if="`footer(${column.key})` in $slots">
-                <slot :name="`footer(${column.key})`" v-bind="column" />
+            <div class="va-data-table__table-th-wrapper" :tabindex="allowFooterSorting && column.sortable ? 0 : -1">
+              <span v-if="`footer(${column.name})` in $slots">
+                <slot :name="`footer(${column.name})`" v-bind="{ label: column.label, key: column.key }" />
               </span>
 
               <slot v-else name="footer" v-bind="column">
@@ -203,7 +218,7 @@
                   :name="sortingOrderSync === 'asc' ? 'expand_less' : 'expand_more'"
                   size="small"
                   class="va-data-table__table-th-sorting-icon"
-                  :class="{ active: sortBySync === column.key && sortingOrderSync !== null }"
+                  :class="{ active: sortBySync === column.name && sortingOrderSync !== null }"
                 />
               </div>
             </div>
@@ -220,9 +235,7 @@
 import { computed, defineComponent, HTMLAttributes, PropType, TableHTMLAttributes } from 'vue'
 import omit from 'lodash/omit.js'
 import pick from 'lodash/pick.js'
-import VaInnerLoading from '../va-inner-loading'
-import VaCheckbox from '../va-checkbox'
-import VaIcon from '../va-icon'
+
 import useColumns from './hooks/useColumns'
 import useRows from './hooks/useRows'
 import useFilterable from './hooks/useFilterable'
@@ -230,15 +243,25 @@ import useSortable from './hooks/useSortable'
 import usePaginatedRows from './hooks/usePaginatedRows'
 import useSelectableRow from './hooks/useSelectableRow'
 import useStylable from './hooks/useStylable'
+import useBinding from './hooks/useBinding'
 import useAnimationName from './hooks/useAnimationName'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
+
 import {
-  TTableColumnSource,
-  ITableItem,
-  TableRow,
-  TFilterMethod,
-  TSortingOrder,
-  TSelectMode,
+  DataTableColumnSource,
+  DataTableItem,
+  DataTableRow,
+  DataTableFilterMethod,
+  DataTableSortingOrder,
+  DataTableSelectMode,
+  DataTableRowBind,
+  DataTableCellBind,
+  DataTableItemKey,
 } from './types'
+
+import { VaInnerLoading } from '../va-inner-loading'
+import { VaCheckbox } from '../va-checkbox'
+import { VaIcon } from '../va-icon'
 
 type emitNames = 'update:modelValue' |
   'update:sortBy' |
@@ -272,18 +295,20 @@ export default defineComponent({
   inheritAttrs: false,
 
   props: {
-    columns: { type: Array as PropType<TTableColumnSource[]>, default: () => [] as TTableColumnSource[] },
-    items: { type: Array as PropType<ITableItem[]>, default: () => [] as ITableItem[] },
-    modelValue: { type: Array as PropType<ITableItem[]> }, // selectedItems
-    sortingOrder: { type: String as PropType<TSortingOrder> }, // model-able
+    ...useComponentPresetProp,
+    columns: { type: Array as PropType<DataTableColumnSource[]>, default: () => [] as DataTableColumnSource[] },
+    items: { type: Array as PropType<DataTableItem[]>, default: () => [] as DataTableItem[] },
+    itemsTrackBy: { type: [String, Function] as PropType<string | ((item: DataTableItem) => any)>, default: '' },
+    modelValue: { type: Array as PropType<(DataTableItem | DataTableItemKey)[]> }, // selectedItems
+    sortingOrder: { type: String as PropType<DataTableSortingOrder> }, // model-able
     sortBy: { type: String }, // model-able
     filter: { type: String, default: '' },
-    filterMethod: { type: Function as PropType<TFilterMethod> },
+    filterMethod: { type: Function as PropType<DataTableFilterMethod> },
     hoverable: { type: Boolean, default: false },
     clickable: { type: Boolean, default: false },
     animated: { type: Boolean, default: true },
     selectable: { type: Boolean, default: false },
-    selectMode: { type: String as PropType<TSelectMode>, default: 'multiple' },
+    selectMode: { type: String as PropType<DataTableSelectMode>, default: 'multiple' },
     selectedColor: { type: String, default: 'primary' },
     perPage: { type: Number },
     currentPage: { type: Number },
@@ -296,7 +321,10 @@ export default defineComponent({
     allowFooterSorting: { type: Boolean, default: false },
     striped: { type: Boolean, default: false },
     stickyHeader: { type: Boolean, default: false },
-    height: { type: [String, Number] as PropType<string | number> },
+    stickyFooter: { type: Boolean, default: false },
+    height: { type: [String, Number] },
+    rowBind: { type: null as unknown as PropType<DataTableRowBind> },
+    cellBind: { type: null as unknown as PropType<DataTableCellBind> },
   },
 
   emits: [
@@ -337,14 +365,16 @@ export default defineComponent({
     } = useSelectableRow(paginatedRows, props, emit)
 
     const {
-      getHeaderCSSVariables,
       rowCSSVariables,
+      stickyCSSVariables,
+      getHeaderCSSVariables,
       getCellCSSVariables,
       getFooterCSSVariables,
-      getStickyCSSVariables,
-      getClasses,
-      getStyles,
+      getClass,
+      getStyle,
     } = useStylable(props)
+
+    const { getRowBind, getCellBind } = useBinding(props)
 
     const animationName = useAnimationName(props, paginatedRows)
 
@@ -352,7 +382,7 @@ export default defineComponent({
 
     const showNoDataFilteredHtml = computed(() => paginatedRows.value.length === 0)
 
-    const onRowClickHandler = (name: emitNames, event: Event, row: TableRow) => {
+    const onRowClickHandler = (name: emitNames, event: Event, row: DataTableRow) => {
       if (props.clickable) {
         emit(name, {
           event,
@@ -362,13 +392,23 @@ export default defineComponent({
       }
     }
 
-    const componentAttributes = computed(() => ({
-      ...pick(attrs, ['class', 'style']),
+    const computedAttributes = computed(() => ({
+      class: [
+        { 'va-data-table--sticky': props.stickyHeader || props.stickyFooter },
+        { 'va-data-table--scroll': !!props.height },
+        attrs.class,
+      ],
+      style: [stickyCSSVariables.value, attrs.style],
     }) as HTMLAttributes)
 
-    const tableAttributes = computed(() => ({
+    const computedTableAttributes = computed(() => ({
       ...omit(attrs, ['class', 'style']),
+      class: pick(props, ['striped', 'selectable', 'hoverable', 'clickable']),
     }) as TableHTMLAttributes)
+
+    const getColumnAriaSortOrder = (columnName: string) => sortingOrderSync.value && sortBySync.value === columnName
+      ? sortingOrderSync.value === 'asc' ? 'ascending' : 'descending'
+      : 'none'
 
     return {
       columnsComputed,
@@ -382,19 +422,21 @@ export default defineComponent({
       sortBySync,
       sortingOrderSync,
       toggleSorting,
-      getHeaderCSSVariables,
       rowCSSVariables,
+      getHeaderCSSVariables,
       getCellCSSVariables,
       getFooterCSSVariables,
-      getStickyCSSVariables,
-      getClasses,
-      getStyles,
+      getClass,
+      getStyle,
       showNoDataHtml,
       showNoDataFilteredHtml,
       onRowClickHandler,
-      componentAttributes,
-      tableAttributes,
+      computedAttributes,
+      computedTableAttributes,
       animationName,
+      getColumnAriaSortOrder,
+      getRowBind,
+      getCellBind,
     }
   },
 })
@@ -428,6 +470,12 @@ export default defineComponent({
 
     .va-data-table__table-thead {
       border-bottom: var(--va-data-table-thead-border);
+      color: var(--va-data-table-thead-color);
+
+      th {
+        border-bottom: none;
+        box-shadow: var(--va-data-table-thead-border-bottom-shadow);
+      }
 
       &--sticky {
         position: sticky;
@@ -446,6 +494,19 @@ export default defineComponent({
 
     .va-data-table__table-tfoot {
       border-top: var(--va-data-table-thead-border);
+      color: var(--va-data-table-thead-color);
+
+      th {
+        border-bottom: none;
+        box-shadow: var(--va-data-table-thead-border-top-shadow);
+      }
+
+      &--sticky {
+        position: sticky;
+        bottom: 0;
+        z-index: 1;
+        background-color: var(--va-data-table-scroll-table-color);
+      }
     }
 
     .va-data-table__table-th {
@@ -454,7 +515,6 @@ export default defineComponent({
       min-width: var(--va-data-table-width);
       text-align: var(--va-data-table-align);
       vertical-align: var(--va-data-table-vertical-align);
-      color: var(--va-data-table-thead-color);
       font-size: var(--va-data-table-thead-font-size);
       line-height: var(--va-data-table-thead-line-height);
       font-weight: var(--va-data-table-thead-font-weight);
@@ -465,6 +525,10 @@ export default defineComponent({
       .va-data-table__table-th-wrapper {
         display: flex;
         align-items: center;
+
+        &:focus {
+          @include focus-outline;
+        }
       }
 
       .va-data-table__table-th-sorting {

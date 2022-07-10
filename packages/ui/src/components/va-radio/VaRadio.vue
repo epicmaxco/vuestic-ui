@@ -7,14 +7,18 @@
       class="va-radio__input"
       type="radio"
       :checked="isActive"
-      :disabled="disabled"
-      :name="name"
+      :disabled="$props.disabled"
+      :readonly="$props.readonly"
+      :name="computedName"
+      :value="computedLabel"
+      :aria-checked="isActive"
+      :tabindex="tabIndexComputed"
       @change="onClick"
       @focus="onFocus"
-      :tabindex="tabindex"
     >
 
     <span
+      aria-hidden="true"
       class="va-radio__icon"
       :style="iconComputedStyles"
     >
@@ -38,33 +42,34 @@
 
 <script lang="ts">
 import { defineComponent, PropType, computed } from 'vue'
-import { useColors } from '../../composables/useColor'
-import { useFormProps, useForm } from '../../composables/useForm'
+
+import { generateUniqueId } from '../../services/utils'
+import { useComponentPresetProp, useColors, useFormProps, useForm } from '../../composables'
 
 export default defineComponent({
   name: 'VaRadio',
   emits: ['update:modelValue', 'focus'],
   props: {
     ...useFormProps,
+    ...useComponentPresetProp,
     modelValue: { type: [Boolean, Array, String, Object] as PropType<boolean | null | string | number | Record<any, unknown> | unknown[]>, default: null },
     option: { default: null },
-    name: { type: String as PropType<string>, default: '' },
-    label: { type: String as PropType<string>, default: '' },
-    leftLabel: { type: Boolean as PropType<boolean>, default: false },
-    color: { type: String as PropType<string>, default: 'primary' },
-    tabindex: { type: Number as PropType<number>, default: 0 },
+    name: { type: String, default: '' },
+    label: { type: String, default: '' },
+    leftLabel: { type: Boolean, default: false },
+    color: { type: String, default: 'primary' },
+    tabindex: { type: Number, default: 0 },
   },
   setup (props, { emit }) {
     const { getColor } = useColors()
 
-    const { createComputedClass } = useForm(props)
-    const formComputedClasses = createComputedClass('va-radio')
-
     const isActive = computed(() => props.modelValue === props.option)
+
+    const { computedClasses } = useForm('va-radio', props)
 
     const computedClass = computed(() => ({
       'va-radio--left-label': props.leftLabel,
-      ...formComputedClasses.value,
+      ...computedClasses,
     }))
 
     const iconBackgroundComputedStyles = computed(() => ({
@@ -104,6 +109,8 @@ export default defineComponent({
       computedLabel,
       onClick,
       onFocus,
+      computedName: computed(() => props.name || generateUniqueId()),
+      tabIndexComputed: computed(() => props.disabled ? -1 : props.tabindex),
     }
   },
 })
@@ -145,20 +152,10 @@ export default defineComponent({
   &--left-label {
     flex-direction: row-reverse;
     display: inline-flex;
-
-    & + & {
-      margin-top: 0;
-    }
   }
 
   &__input {
-    width: 0;
-    height: 0;
-    position: absolute;
-    top: 0;
-    left: 0;
-    opacity: 0;
-    z-index: -1;
+    @include visually-hidden;
   }
 
   &__icon {

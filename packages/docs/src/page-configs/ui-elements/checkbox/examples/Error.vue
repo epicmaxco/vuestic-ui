@@ -1,19 +1,17 @@
 <template>
-  <div>
-    <va-checkbox
-      v-model="value"
-      error
-      error-messages="Error message"
-      label="Error message"
-    />
-  </div>
+  <va-checkbox
+    v-model="value"
+    error
+    error-messages="Error message"
+    label="Error message"
+  />
 </template>
 
 <script>
 export default {
   data () {
     return {
-      value: false,
+      value: true,
     }
   },
 }

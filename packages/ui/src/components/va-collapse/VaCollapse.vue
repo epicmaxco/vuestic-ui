@@ -1,23 +1,25 @@
 <template>
   <div class="va-collapse" :class="computedClasses">
     <div
-      class="va-collapse__header"
+      class="va-collapse__header-wrapper"
       v-on="keyboardFocusListeners"
-      @click="toggle()"
       @focus="$emit('focus')"
-      @keydown.enter="toggle()"
-      @keydown.space="toggle()"
-      :tabindex="disabled ? -1 : 0"
+      @click="toggle"
+      @keydown.enter="toggle"
+      @keydown.space="toggle"
     >
       <slot
         name="header"
         v-bind="{
           value: computedModelValue,
-          hasKeyboardFocus: hasKeyboardFocus
+          hasKeyboardFocus: hasKeyboardFocus,
+          bind: headerAttributes,
+          attributes: headerAttributes,
         }"
       >
         <div
-          class="va-collapse__header__content"
+          v-bind="headerAttributes"
+          class="va-collapse__header"
           :style="headerStyle"
         >
           <va-icon
@@ -37,20 +39,29 @@
         </div>
       </slot>
     </div>
-    <div class="va-collapse__body" ref="body" :style="contentStyle">
+    <div
+      ref="body"
+      class="va-collapse__body"
+      role="region"
+      :style="contentStyle"
+      :id="panelIdComputed"
+      :aria-labelledby="headerIdComputed"
+    >
       <slot />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import VaIcon from '../va-icon'
-import { useColors } from '../../composables/useColor'
 import { computed, defineComponent, shallowRef } from 'vue'
-import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'
+
+import { useKeyboardOnlyFocus, useColors, useSyncProp, useTextColor } from '../../composables'
 import { useAccordionItem } from '../va-accordion/hooks/useAccordion'
-import { useSyncProp } from '../../composables/useSyncProp'
-import { useTextColor } from '../../composables/useTextColor'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
+
+import { generateUniqueId } from '../../services/utils'
+
+import { VaIcon } from '../va-icon'
 
 export default defineComponent({
   name: 'VaCollapse',
@@ -58,6 +69,7 @@ export default defineComponent({
     VaIcon,
   },
   props: {
+    ...useComponentPresetProp,
     modelValue: { type: Boolean, default: undefined },
     disabled: { type: Boolean, default: false },
     header: { type: String, default: '' },
@@ -70,13 +82,14 @@ export default defineComponent({
   emits: ['focus', 'update:modelValue'],
 
   setup (props, { emit, slots }) {
-    const body = shallowRef<HTMLElement | null>(null)
+    const body = shallowRef<HTMLElement>()
+
     const [computedModelValue] = useSyncProp('modelValue', props, emit, false)
 
     const { getColor, getHoverColor } = useColors()
     const { accordionProps, toggle } = useAccordionItem(computedModelValue)
 
-    const { textColorComputed } = useTextColor(props.color)
+    const { textColorComputed } = useTextColor()
 
     const getTextNodeHeight = (textNode: Node) => {
       const range = document.createRange()
@@ -114,6 +127,20 @@ export default defineComponent({
         : ''
     }
 
+    const uniqueId = computed(generateUniqueId)
+    const headerIdComputed = computed(() => `header-${uniqueId.value}`)
+    const panelIdComputed = computed(() => `panel-${uniqueId.value}`)
+    const tabIndexComputed = computed(() => props.disabled ? -1 : 0)
+
+    const headerAttributes = computed(() => ({
+      id: headerIdComputed.value,
+      tabindex: tabIndexComputed.value,
+      'aria-controls': panelIdComputed.value,
+      'aria-expanded': computedModelValue.value,
+      'aria-disabled': props.disabled,
+      role: 'button',
+    }))
+
     return {
       body,
       height,
@@ -126,7 +153,13 @@ export default defineComponent({
 
       textColorComputed,
 
+      headerIdComputed,
+      headerAttributes,
+      panelIdComputed,
+      tabIndexComputed,
+
       computedClasses: computed(() => ({
+        'va-collapse--expanded': computedModelValue.value,
         'va-collapse--disabled': props.disabled,
         'va-collapse--solid': props.solid,
         'va-collapse--active': props.solid && computedModelValue.value,
@@ -138,7 +171,6 @@ export default defineComponent({
         paddingLeft: props.icon && 0,
         color: textColorComputed.value,
         backgroundColor: props.color ? getColor(props.color) : '',
-        boxShadow: hasKeyboardFocus.value ? '0 0 0.5rem 0 rgba(0, 0, 0, 0.3)' : '',
       })),
 
       contentStyle: computed(() => {
@@ -167,22 +199,19 @@ export default defineComponent({
   &__body {
     transition: var(--va-collapse-body-transition);
     overflow: var(--va-collapse-body-overflow);
-    margin-top: var(--va-collapse-body-margin-top);
   }
 
   &__header {
-    &__content {
-      display: var(--va-collapse-header-content-display);
-      justify-content: var(--va-collapse-header-content-justify-content);
-      cursor: var(--va-collapse-header-content-cursor);
-      background-color: var(--va-collapse-header-content-background-color);
-      box-shadow: var(--va-collapse-header-content-box-shadow, var(--va-block-box-shadow));
-      border-radius: var(--va-collapse-header-content-border-radius, var(--va-block-border-radius));
-      align-items: var(--va-collapse-header-content-align-items);
-      padding-top: var(--va-collapse-header-content-padding-top);
-      padding-bottom: var(--va-collapse-header-content-padding-bottom);
-      padding-left: var(--va-collapse-header-content-padding-left);
-    }
+    display: var(--va-collapse-header-content-display);
+    justify-content: var(--va-collapse-header-content-justify-content);
+    cursor: var(--va-collapse-header-content-cursor);
+    background-color: var(--va-collapse-header-content-background-color);
+    box-shadow: var(--va-collapse-header-content-box-shadow, var(--va-block-box-shadow));
+    border-radius: var(--va-collapse-header-content-border-radius, var(--va-block-border-radius));
+    align-items: var(--va-collapse-header-content-align-items);
+    padding-top: var(--va-collapse-header-content-padding-top);
+    padding-bottom: var(--va-collapse-header-content-padding-bottom);
+    padding-left: var(--va-collapse-header-content-padding-left);
 
     &__text {
       width: var(--va-collapse-header-content-text-width);
@@ -196,6 +225,10 @@ export default defineComponent({
       margin-right: var(--va-collapse-header-content-icon-margin-right);
       color: var(--va-collapse-header-content-icon-color);
     }
+
+    &:focus {
+      @include focus-outline(var(--va-collapse-header-content-border-radius));
+    }
   }
 
   &--solid {
@@ -204,12 +237,10 @@ export default defineComponent({
 
     .va-collapse {
       &__header {
-        &__content {
-          border-radius: var(--va-collapse-solid-header-content-border-radius, var(--va-block-border-radius));
-          transition: var(--va-collapse-solid-header-content-transition);
-          box-shadow: var(--va-collapse-solid-header-content-box-shadow, var(--va-block-box-shadow));
-          background-color: var(--va-collapse-solid-header-content-background-color);
-        }
+        border-radius: var(--va-collapse-solid-header-content-border-radius, var(--va-block-border-radius));
+        transition: var(--va-collapse-solid-header-content-transition);
+        box-shadow: var(--va-collapse-solid-header-content-box-shadow, var(--va-block-box-shadow));
+        background-color: var(--va-collapse-solid-header-content-background-color);
       }
 
       &__body {

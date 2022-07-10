@@ -1,19 +1,25 @@
 <template>
-  <div class="va-rating" :class="rootClass">
+  <div
+    class="va-rating"
+    :class="rootClass"
+    :aria-label="`current rating ${$props.modelValue} of ${$props.max}`"
+  >
     <div
+      class="va-rating__item-wrapper"
       @keyup.left="onArrowKeyPress(-1)"
       @keyup.right="onArrowKeyPress(1)"
-      @mouseenter="onMouseEnter()"
+      @mouseenter="onMouseEnter"
       @mouseleave="onMouseLeave"
-      class="va-rating__item-wrapper"
     >
       <va-rating-item
         v-for="itemNumber in $props.max"
-        v-bind="VaRatingItemProps"
-        :model-value="getItemValue(itemNumber - 1)"
         :key="itemNumber"
-        :empty-icon-color="$props.unselectedColor"
-        :tabindex="tabindex"
+        v-bind="VaRatingItemProps"
+        :aria-label="`vote rating ${itemNumber} of ${$props.max}`"
+        :model-value="getItemValue(itemNumber - 1)"
+        :tabindex="tabIndexComputed"
+        :disabled="$props.disabled"
+        :readonly="$props.readonly"
         @hover="isInteractionsEnabled && onItemHoveredValueUpdate(itemNumber - 1, $event)"
         @update:model-value="isInteractionsEnabled && onItemValueUpdate(itemNumber - 1, $event)"
       >
@@ -40,16 +46,18 @@
 <script lang="ts">
 import { defineComponent, computed, PropType } from 'vue'
 
+import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
+import { useForm, useFormProps } from '../../composables'
 import { useRating, useRatingProps } from './hooks/useRating'
 import { useVaRatingColors, useVaRatingColorsProps } from './hooks/useVaRatingColors'
-import { useForm, useFormProps } from '../../composables/useForm'
-import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
+
 import { RatingValue } from './types'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 import VaRatingItem from './components/VaRatingItem/VaRatingItem.vue'
 import VaRatingItemNumberButton from './components/VaRatingItemNumberButton.vue'
 
-const VaRatingItemProps = extractComponentProps(VaRatingItem, ['unselectedColor'])
+const VaRatingItemProps = extractComponentProps(VaRatingItem)
 const VaRatingItemNumberButtonProps = extractComponentProps(VaRatingItemNumberButton, ['modelValue', 'itemNumber'])
 
 export default defineComponent({
@@ -60,6 +68,7 @@ export default defineComponent({
     ...useFormProps,
     ...VaRatingItemProps,
     ...VaRatingItemNumberButtonProps,
+    ...useComponentPresetProp,
     numbers: { type: Boolean, default: false },
     halves: { type: Boolean, default: false },
     max: { type: Number, default: 5 },
@@ -68,18 +77,18 @@ export default defineComponent({
   emits: ['update:modelValue'],
   components: { VaRatingItem, VaRatingItemNumberButton },
   setup (props) {
-    const { createComputedClass } = useForm(props)
+    const { computedClasses: rootClass } = useForm('va-rating', props)
     const rating = useRating(props)
     const isInteractionsEnabled = computed(() => !props.disabled && !props.readonly)
 
     return {
       ...useVaRatingColors(props),
       ...rating,
-      rootClass: createComputedClass('va-rating'),
+      rootClass,
       VaRatingItemProps: filterComponentProps(props, VaRatingItemProps),
       VaRatingItemNumberButtonProps: filterComponentProps(props, VaRatingItemNumberButtonProps),
       isInteractionsEnabled,
-      tabindex: computed(() => isInteractionsEnabled.value ? 0 : undefined),
+      tabIndexComputed: computed(() => isInteractionsEnabled.value ? 0 : undefined),
       onArrowKeyPress: (direction: 1 | -1) => {
         const step = props.halves ? RatingValue.HALF : RatingValue.FULL
         rating.onItemValueUpdate(rating.visibleValue.value, step * direction)

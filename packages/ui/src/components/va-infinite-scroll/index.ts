@@ -1,4 +1,4 @@
 import withConfigTransport from '../../services/config-transport/withConfigTransport'
-import VaInfiniteScroll from './VaInfiniteScroll.vue'
+import _VaInfiniteScroll from './VaInfiniteScroll.vue'
 
-export default withConfigTransport(VaInfiniteScroll)
+export const VaInfiniteScroll = withConfigTransport(_VaInfiniteScroll)

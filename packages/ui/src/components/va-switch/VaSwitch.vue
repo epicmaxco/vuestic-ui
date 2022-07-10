@@ -2,6 +2,7 @@
   <VaMessageListWrapper
     class="va-switch"
     :class="computedClass"
+    :style="styleComputed"
     :disabled="$props.disabled"
     :success="$props.success"
     :messages="$props.messages"
@@ -10,32 +11,29 @@
     :error-count="$props.errorCount"
   >
     <div
+      ref="container"
       class="va-switch__container"
       tabindex="-1"
       @blur="onBlur"
-      ref="container"
     >
       <div
         class="va-switch__inner"
         @click="toggleSelection"
       >
         <input
-          class="va-switch__input"
           ref="input"
           type="checkbox"
+          class="va-switch__input"
           role="switch"
-          :aria-checked="isChecked"
-          :id="String($props.id)"
-          :name="String($props.name)"
-          readonly
-          :disabled="$props.disabled"
+          v-bind="inputAttributesComputed"
           v-on="keyboardFocusListeners"
           @focus="onFocus"
           @blur="onBlur"
-          @keypress.prevent="toggleSelection"
+          @keypress.enter.prevent="toggleSelection"
         >
         <div
           class="va-switch__track"
+          aria-hidden="true"
           :style="trackStyle"
         >
           <div
@@ -61,11 +59,13 @@
       </div>
       <div
         v-if="computedLabel || $slots.default"
-        class="va-switch__label"
         ref="label"
-        @blur="onBlur"
+        class="va-switch__label"
         :style="labelStyle"
-        @click="toggleSelection()"
+        :id="ariaLabelIdComputed"
+        @blur="onBlur"
+        @click="toggleSelection"
+        @keydown.enter.stop="toggleSelection"
       >
         <slot>
           {{ computedLabel }}
@@ -76,14 +76,21 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, computed, ref } from 'vue'
+import { defineComponent, PropType, computed, shallowRef } from 'vue'
+import pick from 'lodash/pick.js'
+
+import { generateUniqueId } from '../../services/utils'
+
+import {
+  useComponentPresetProp,
+  useKeyboardOnlyFocus,
+  useSelectable, useSelectableProps, useSelectableEmits,
+  useColors, useTextColor,
+  useBem,
+} from '../../composables'
 
 import { VaProgressCircle } from '../va-progress-circle'
 import { VaMessageListWrapper } from '../va-input'
-import useKeyboardOnlyFocus from '../../composables/useKeyboardOnlyFocus'
-import { useSelectable, useSelectableProps, useSelectableEmits } from '../../composables/useSelectable'
-import { useColors } from '../../composables/useColor'
-import { useTextColor } from '../../composables/useTextColor'
 
 export default defineComponent({
   name: 'VaSwitch',
@@ -94,13 +101,13 @@ export default defineComponent({
   ],
   props: {
     ...useSelectableProps,
+    ...useComponentPresetProp,
     id: { type: String, default: '' },
     name: { type: String, default: '' },
     modelValue: {
       type: [Boolean, Array, String, Object] as PropType<boolean | unknown[] | string | number | Record<string, unknown> | null>,
       default: false,
     },
-
     trueLabel: { type: String, default: null },
     falseLabel: { type: String, default: null },
     trueInnerLabel: { type: String, default: null },
@@ -110,20 +117,26 @@ export default defineComponent({
     size: {
       type: String as PropType<'medium' | 'small' | 'large'>,
       default: 'medium',
-      validator: (modelValue: string) => ['medium', 'small', 'large'].includes(modelValue),
+      validator: (value: string) => ['medium', 'small', 'large'].includes(value),
     },
 
   },
   setup (props, { emit }) {
     const elements = {
-      container: ref(null),
-      input: ref(null),
-      label: ref(null),
+      container: shallowRef<HTMLElement>(),
+      input: shallowRef<HTMLElement>(),
+      label: shallowRef<HTMLElement>(),
     }
 
     const { getColor } = useColors()
     const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
-    const { isChecked, computedError, isIndeterminate, ...selectable } = useSelectable(props, emit, elements)
+    const {
+      isChecked,
+      computedError,
+      isIndeterminate,
+      computedErrorMessages,
+      ...selectable
+    } = useSelectable(props, emit, elements)
 
     const computedBackground = computed(() => getColor(isChecked.value ? props.color : props.offColor))
     const { textColorComputed } = useTextColor(computedBackground)
@@ -148,16 +161,18 @@ export default defineComponent({
       return props.label
     })
 
-    const computedClass = computed(() => ({
-      'va-switch--checked': isChecked.value,
-      'va-switch--indeterminate': isIndeterminate.value,
-      'va-switch--small': props.size === 'small',
-      'va-switch--large': props.size === 'large',
-      'va-switch--disabled': props.disabled,
-      'va-switch--readonly': props.readonly,
-      'va-switch--left-label': props.leftLabel,
-      'va-switch--error': computedError.value,
-      'va-switch--on-keyboard-focus': hasKeyboardFocus.value,
+    const computedClass = useBem('va-switch', () => ({
+      ...pick(props, ['readonly', 'disabled', 'leftLabel']),
+      checked: isChecked.value,
+      indeterminate: isIndeterminate.value,
+      small: props.size === 'small',
+      large: props.size === 'large',
+      error: computedError.value,
+      onKeyboardFocus: hasKeyboardFocus.value,
+    }))
+
+    const styleComputed = computed(() => ({
+      lineHeight: computedErrorMessages.value.length ? 1 : 0,
     }))
 
     const progressCircleSize = computed(() => {
@@ -179,8 +194,25 @@ export default defineComponent({
       color: textColorComputed.value,
     }))
 
+    const ariaLabelIdComputed = computed(() => `aria-label-id-${generateUniqueId()}`)
+    const inputAttributesComputed = computed(() => ({
+      id: props.id,
+      name: props.name,
+      disabled: props.disabled,
+      readonly: props.readonly,
+      ariaDisabled: props.disabled,
+      ariaReadOnly: props.readonly,
+      ariaChecked: !!props.modelValue,
+      ariaLabelledby: ariaLabelIdComputed.value,
+      'aria-invalid': !!computedErrorMessages.value.length,
+      'aria-errormessage': typeof computedErrorMessages.value === 'string'
+        ? computedErrorMessages.value
+        : computedErrorMessages.value.join(', '),
+    }))
+
     return {
       ...selectable,
+      computedErrorMessages,
       isChecked,
       computedError,
       isIndeterminate,
@@ -188,20 +220,25 @@ export default defineComponent({
       computedInnerLabel,
       computedLabel,
       computedClass,
+      styleComputed,
       progressCircleSize,
       trackStyle,
       labelStyle,
       trackLabelStyle,
+      ariaLabelIdComputed,
+      inputAttributesComputed,
     }
   },
 })
 </script>
 
 <style lang="scss">
-@import "../../styles/resources";
 @import "variables";
+@import "../../styles/resources";
 
 .va-switch {
+  line-height: 0;
+
   @at-root {
     .va-switch__container {
       display: var(--va-switch-container-display);
@@ -335,8 +372,7 @@ export default defineComponent({
 
     @at-root {
       .va-switch--on-keyboard-focus#{&} {
-        transition: all, 0.6s, ease-in;
-        box-shadow: 0 0 0.5rem 0 rgba(0, 0, 0, 0.3);
+        @include focus-outline('inherit');
       }
 
       .va-switch--small#{&} {
@@ -413,10 +449,7 @@ export default defineComponent({
   }
 
   &__input {
-    position: absolute;
-    opacity: 0;
-    height: 0;
-    width: 0;
+    @include visually-hidden;
   }
 }
 </style>

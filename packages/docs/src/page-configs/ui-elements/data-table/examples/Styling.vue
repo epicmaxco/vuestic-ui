@@ -2,13 +2,13 @@
   <div class='row mb-4'>
     <div class='flex md4'>
       <va-select
-        v-model="columns[0].alignHead"
+        v-model="columns[0].thAlign"
         label="First heading align"
         :options="alignOptions"
       />
       <va-select
         class="mt-2"
-        v-model="columns[0].verticalAlignHead"
+        v-model="columns[0].thVerticalAlign"
         label="First heading vertical align"
         :options="verticalAlignOptions"
       />
@@ -22,13 +22,13 @@
     </div>
     <div class='flex md4'>
       <va-select
-        v-model="columns[1].alignHead"
+        v-model="columns[1].thAlign"
         label="Second heading align"
         :options="alignOptions"
       />
       <va-select
         class="mt-2"
-        v-model="columns[1].verticalAlignHead"
+        v-model="columns[1].thVerticalAlign"
         label="Second heading vertical align"
         :options="verticalAlignOptions"
       />
@@ -42,13 +42,13 @@
     </div>
     <div class='flex md4'>
       <va-select
-        v-model="columns[2].alignHead"
+        v-model="columns[2].thAlign"
         label="Third heading align"
         :options="alignOptions"
       />
       <va-select
         class="mt-2"
-        v-model="columns[2].verticalAlignHead"
+        v-model="columns[2].thVerticalAlign"
         label="Third heading vertical align"
         :options="verticalAlignOptions"
       />
@@ -65,14 +65,14 @@
   <div class='row mb-4'>
     <div class='flex md4'>
       <va-select
-        v-model="columns[0].align"
+        v-model="columns[0].tdAlign"
         label="First column align"
         :options="alignOptions"
         color="#990099"
       />
       <va-select
         class="mt-2"
-        v-model="columns[0].verticalAlign"
+        v-model="columns[0].tdVerticalAlign"
         label="First column vertical align"
         :options="verticalAlignOptions"
         color="#990099"
@@ -80,14 +80,14 @@
     </div>
     <div class='flex md4'>
       <va-select
-        v-model="columns[1].align"
+        v-model="columns[1].tdAlign"
         label="Second column align"
         :options="alignOptions"
         color="#990099"
       />
       <va-select
         class="mt-2"
-        v-model="columns[1].verticalAlign"
+        v-model="columns[1].tdVerticalAlign"
         label="Second column vertical align"
         :options="verticalAlignOptions"
         color="#990099"
@@ -95,14 +95,14 @@
     </div>
     <div class='flex md4'>
       <va-select
-        v-model="columns[2].align"
+        v-model="columns[2].tdAlign"
         label="Third column align"
         :options="alignOptions"
         color="#990099"
       />
       <va-select
         class="mt-2"
-        v-model="columns[2].verticalAlign"
+        v-model="columns[2].tdVerticalAlign"
         label="Third column vertical align"
         :options="verticalAlignOptions"
         color="#990099"
@@ -131,13 +131,10 @@
 </template>
 
 <script>
-import { defineComponent, ref } from 'vue'
+import { defineComponent } from 'vue'
 
 export default defineComponent({
   data () {
-    const useAdditionalClass = ref(false)
-    const useAdditionalStyle = ref(false)
-
     const items = [
       {
         id: 1,
@@ -160,28 +157,28 @@ export default defineComponent({
       {
         key: 'id',
         label: 'ID',
-        alignHead: 'left',
-        verticalAlignHead: 'top',
-        align: 'left',
-        verticalAlign: 'top',
+        thAlign: 'left',
+        thVerticalAlign: 'top',
+        tdAlign: 'left',
+        tdVerticalAlign: 'top',
         sortable: true,
       },
       {
         key: 'text',
         label: 'Text',
-        alignHead: 'center',
-        verticalAlignHead: 'middle',
-        align: 'center',
-        verticalAlign: 'middle',
+        thAlign: 'center',
+        thVerticalAlign: 'middle',
+        tdAlign: 'center',
+        tdVerticalAlign: 'middle',
         sortable: true,
       },
       {
         key: 'target',
         label: 'Target',
-        alignHead: 'right',
-        verticalAlignHead: 'bottom',
-        align: 'right',
-        verticalAlign: 'bottom',
+        thAlign: 'right',
+        thVerticalAlign: 'bottom',
+        tdAlign: 'right',
+        tdVerticalAlign: 'bottom',
         sortable: true,
       },
     ]
@@ -189,10 +186,6 @@ export default defineComponent({
     const verticalAlignOptions = ['top', 'middle', 'bottom']
     const alignOptions = ['left', 'center', 'right']
     const widthOptions = ['25%', '200px', 300]
-    const additionalStyle = {
-      color: 'blue',
-      fontWeight: 900,
-    }
 
     return {
       items,
@@ -200,18 +193,23 @@ export default defineComponent({
       verticalAlignOptions,
       alignOptions,
       widthOptions,
-      useAdditionalClass,
-      useAdditionalStyle,
-      additionalStyle,
+      useAdditionalClass: true,
+      useAdditionalStyle: true,
     }
   },
 
   watch: {
-    useAdditionalClass (value) {
-      this.columns[0].classes = value ? 'additional-class' : ''
+    useAdditionalClass: {
+      handler (value) {
+        this.columns[0].tdClass = value && 'additionalClass'
+      },
+      immediate: true,
     },
-    useAdditionalStyle (value) {
-      this.columns[1].style = value ? this.additionalStyle : {}
+    useAdditionalStyle: {
+      handler (value) {
+        this.columns[1].tdStyle = value && { color: 'blue', fontWeight: 900 }
+      },
+      immediate: true,
     },
   },
 })
@@ -234,7 +232,7 @@ export default defineComponent({
   }
 }
 
-.additional-class {
+.additionalClass {
   color: orange;
   font-style: italic;
   font-weight: 900;

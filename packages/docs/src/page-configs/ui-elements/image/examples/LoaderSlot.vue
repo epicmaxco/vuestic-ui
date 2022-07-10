@@ -1,21 +1,16 @@
 <template>
-  <div class="row">
-    <div class="flex md6 lg4">
-      <va-image
-        style="min-height: 300px;"
-        :src="slotImagePath"
-      >
-        <template #loader>
-          <va-progress-circle indeterminate />
-        </template>
-      </va-image>
-      <div class="flex">
-        <va-button color="success" @click="newImage">
-          New image
-        </va-button>
-      </div>
-    </div>
-  </div>
+  <va-image
+    class="flex md6 lg4"
+    :src="slotImagePath"
+  >
+    <template #loader>
+      <va-progress-circle indeterminate />
+    </template>
+  </va-image>
+
+  <va-button class="flex mt-2" color="success" @click="newImage">
+    New image
+  </va-button>
 </template>
 
 <script>

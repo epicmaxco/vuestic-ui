@@ -1,5 +1,6 @@
 <template>
   <aside
+    class="va-sidebar"
     :class="computedClass"
     :style="computedStyle"
     @mouseenter="updateHoverState(true)"
@@ -15,21 +16,26 @@
 import { defineComponent, computed, ref, PropType } from 'vue'
 
 import { getGradientBackground } from '../../services/color-config/color-functions'
-import { useColors } from '../../services/color-config/color-config'
-import { useTextColor } from '../../composables/useTextColor'
+import { useColors, useTextColor } from '../../composables'
 import { useSidebar } from './hooks/useSidebar'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 export default defineComponent({
   name: 'VaSidebar',
   props: {
+    ...useComponentPresetProp,
     color: { type: String, default: 'background' },
     textColor: { type: String },
     gradient: { type: Boolean, default: false },
     minimized: { type: Boolean, default: false },
     hoverable: { type: Boolean, default: false },
-    position: { type: String as PropType<'top' | 'bottom' | 'left' | 'right'>, default: 'left' },
+    position: {
+      type: String as PropType<'left' | 'right'>,
+      default: 'left',
+      validator: (v: string) => ['left', 'right'].includes(v),
+    },
     width: { type: String, default: '16rem' },
-    minimizedWidth: { type: String, default: '2.5rem' },
+    minimizedWidth: { type: String, default: '4rem' },
     modelValue: { type: Boolean, default: true },
   },
   setup (props) {
@@ -48,7 +54,7 @@ export default defineComponent({
       return isMinimized.value ? props.minimizedWidth : props.width
     })
 
-    const { textColorComputed } = useTextColor(props.color)
+    const { textColorComputed } = useTextColor()
 
     const computedStyle = computed(() => {
       const backgroundColor = getColor(props.color)
@@ -64,9 +70,7 @@ export default defineComponent({
     })
 
     const computedClass = computed(() => ({
-      'va-sidebar': true,
       'va-sidebar--minimized': isMinimized.value,
-      'va-sidebar--hidden': !props.modelValue,
       'va-sidebar--right': props.position === 'right',
     }))
 
@@ -98,6 +102,8 @@ export default defineComponent({
   font-family: var(--va-font-family);
 
   &__menu {
+    display: flex;
+    flex-direction: column;
     max-height: var(--va-sidebar-menu-max-height);
     margin-bottom: var(--va-sidebar-menu-margin-bottom);
     list-style: var(--va-sidebar-menu-list-style);
@@ -109,14 +115,8 @@ export default defineComponent({
   &--minimized {
     left: 0;
 
-    .va-sidebar-link-group {
-      .va-sidebar-link__content {
-        padding-right: 0;
-      }
-    }
-
-    & + .content-wrap {
-      margin-left: $sidebar-width--hidden !important;
+    .va-sidebar__title {
+      display: none;
     }
   }
 

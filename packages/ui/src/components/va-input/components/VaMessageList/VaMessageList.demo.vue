@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import VaMessageList from './index'
+import { VaMessageList } from './index'
 
 export default {
   components: {

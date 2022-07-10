@@ -565,6 +565,75 @@
         type="number"
       />
     </VbCard>
+    <VbCard title="Counter">
+      <va-input
+        v-model="counterOrMaxLengthValue"
+        counter
+        class="mb-4"
+      />
+      <va-input
+        v-model="counterOrMaxLengthValue"
+        counter
+        label="Name"
+        type="textarea"
+        class="mb-4"
+      />
+      <va-input
+        v-model="counterOrMaxLengthValue"
+        counter
+        class="mb-4"
+      >
+        <template #counter="{ valueLength }">
+          Additional message, {{ valueLength }}
+        </template>
+      </va-input>
+      <va-input
+        v-model="counterOrMaxLengthValue"
+        counter
+        label="Name"
+        type="textarea"
+      >
+        <template #counter="{ valueLength }">
+          Additional message, {{ valueLength }}
+        </template>
+      </va-input>
+    </VbCard>
+    <VbCard title="Max length">
+      <va-input
+        v-model="counterOrMaxLengthValue"
+        :max-length="maxLength"
+        counter
+      />
+      <va-input
+        v-model="counterOrMaxLengthValue"
+        :max-length="maxLength"
+        counter
+        label="Name"
+        type="textarea"
+        class="mb-4"
+      />
+      <va-input
+        v-model="counterOrMaxLengthValue"
+        :max-length="maxLength"
+        counter
+        class="mb-4"
+      >
+        <template #counter="{ valueLength, maxLength }">
+          Additional message, {{ `${valueLength}/${maxLength}` }}
+        </template>
+      </va-input>
+      <va-input
+        v-model="counterOrMaxLengthValue"
+        :max-length="maxLength"
+        counter
+        label="Name"
+        type="textarea"
+      >
+        <template #counter="{ valueLength, maxLength }">
+          Additional message, {{ `${valueLength}/${maxLength}` }}
+        </template>
+      </va-input>
+    </VbCard>
     <VbCard
       title="CSS Classes"
       class="va-input-css-classes-demo"
@@ -585,12 +654,12 @@
   </VbDemo>
 </template>
 
-<script>
-import VaInput from './index'
-import VaButton from './../va-button'
-import VaIcon from './../va-icon'
-import VaInputValidation from './VaInput-validation'
-import VaCheckbox from '../va-checkbox'
+<script lang="ts">
+import { VaInput } from './index'
+import { VaButton } from './../va-button'
+import { VaIcon } from './../va-icon'
+import VaInputValidation from './VaInput-validation.vue'
+import { VaCheckbox } from '../va-checkbox'
 
 export default {
   components: {
@@ -621,6 +690,9 @@ export default {
       num: 10,
 
       isClearable: true,
+
+      counterOrMaxLengthValue: '',
+      maxLength: 30,
     }
   },
 }
@@ -628,7 +700,7 @@ export default {
 
 <style lang="scss">
 .va-input-css-classes-demo {
-  .va-input {
+  .va-input-wrapper {
     margin-bottom: 1rem;
   }
 

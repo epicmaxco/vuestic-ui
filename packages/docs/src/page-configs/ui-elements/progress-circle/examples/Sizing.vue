@@ -5,16 +5,19 @@
       size="small"
       :modelValue="value"
     />
+
     <div class="my-2 text--bold muted">large</div>
     <va-progress-circle
       size="large"
       :modelValue="value"
     />
+
     <div class="my-2 text--bold muted">25px</div>
     <va-progress-circle
       :size="25"
       :modelValue="value"
     />
+
     <div class="my-2 text--bold muted">2rem</div>
     <va-progress-circle
       size="2rem"

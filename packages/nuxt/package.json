@@ -1,6 +1,6 @@
 {
   "name": "@vuestic/nuxt",
-  "description": "Nuxt 3 Module for Vuestic UI",
+  "description": "Vuestic UI module for Nuxt 3",
   "keywords": [
     "vuesticui",
     "vuestic",
@@ -8,7 +8,7 @@
     "nuxt",
     "vue"
   ],
-  "version": "1.0.0",
+  "version": "1.0.2",
   "license": "MIT",
   "type": "module",
   "exports": {

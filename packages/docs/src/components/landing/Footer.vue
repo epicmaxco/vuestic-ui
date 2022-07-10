@@ -91,7 +91,7 @@ import { Options, Vue } from 'vue-class-component'
 import IconEpicmax from './icons/IconEpicmax.vue'
 import IconAdmin from './icons/IconAdmin.vue'
 import IconSpinners from './icons/IconSpinners.vue'
-import { getColor } from 'vuestic-ui/src/main'
+import { useColors } from 'vuestic-ui/src/main'
 import { markRaw } from 'vue'
 
 @Options({
@@ -103,7 +103,8 @@ export default class Footer extends Vue {
   IconSpinners = markRaw(IconSpinners);
 
   get primaryColor () {
-    return getColor('primary')
+    // TODO: Replace with setup FN
+    return useColors().getColor('primary')
   }
 }
 </script>

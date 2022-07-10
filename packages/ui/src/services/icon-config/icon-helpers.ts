@@ -1,5 +1,4 @@
 import merge from 'lodash/merge.js'
-import { getGlobalConfig } from '../global-config/global-config'
 import { isMatchDynamicSegments, dynamicSegments } from './utils/dynamic-segment'
 import { isMatchRegex, regexGroupsValues } from './utils/regex'
 import {
@@ -11,10 +10,6 @@ import {
   isIconConfigurationRegex,
   IconProps,
 } from './types'
-
-const getIconConfig = (): IconConfig => {
-  return getGlobalConfig().icons || []
-}
 
 const isMatchConfiguration = (iconName: string, iconConfiguration: IconConfiguration) => {
   if (isIconConfigurationString(iconConfiguration)) {
@@ -86,7 +81,7 @@ const iconPropsFromIconConfiguration = (iconConfiguration: IconConfiguration): I
   return configuration
 }
 
-export const getIconConfiguration = (name: string, iconConfig: IconConfig = getIconConfig()): IconProps => {
+export const getIconConfiguration = (name: string, iconConfig: IconConfig): IconProps => {
   const configuration = findIconConfiguration(name, iconConfig)
 
   if (configuration === undefined) { return {} }

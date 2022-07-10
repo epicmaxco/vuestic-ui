@@ -1,6 +1,7 @@
 <template>
   <div
     class="va-badge"
+    role="alert"
     :class="badgeClass"
   >
     <span
@@ -18,24 +19,24 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, PropType } from 'vue'
-import { useColors } from '../../composables/useColor'
-import { getTextColor } from '../../services/color-config/color-functions'
-import { useTextColor } from '../../composables/useTextColor'
+import { defineComponent, computed } from 'vue'
+
+import { useColors, useTextColor, useComponentPresetProp } from '../../composables'
 
 export default defineComponent({
   name: 'VaBadge',
   props: {
-    color: { type: String as PropType<string>, default: 'danger' },
-    textColor: { type: String as PropType<string> },
-    text: { type: [String, Number] as PropType<string | number>, default: '' },
-    overlap: { type: Boolean as PropType<boolean>, default: false },
-    multiLine: { type: Boolean as PropType<boolean>, default: false },
-    visibleEmpty: { type: Boolean as PropType<boolean>, default: false },
-    dot: { type: Boolean as PropType<boolean>, default: false },
-    transparent: { type: Boolean as PropType<boolean>, default: false },
-    left: { type: Boolean as PropType<boolean>, default: false },
-    bottom: { type: Boolean as PropType<boolean>, default: false },
+    ...useComponentPresetProp,
+    color: { type: String, default: 'danger' },
+    textColor: { type: String },
+    text: { type: [String, Number], default: '' },
+    overlap: { type: Boolean, default: false },
+    multiLine: { type: Boolean, default: false },
+    visibleEmpty: { type: Boolean, default: false },
+    dot: { type: Boolean, default: false },
+    transparent: { type: Boolean, default: false },
+    left: { type: Boolean, default: false },
+    bottom: { type: Boolean, default: false },
   },
   setup (props, { slots }) {
     const isEmpty = computed(() => !(props.text || props.visibleEmpty || props.dot || slots.text))
@@ -54,7 +55,7 @@ export default defineComponent({
     }))
 
     const { getColor } = useColors()
-    const { textColorComputed } = useTextColor(props.color)
+    const { textColorComputed } = useTextColor()
     const colorComputed = computed(() => getColor(props.color))
     const badgeStyle = computed(() => ({
       color: textColorComputed.value,

@@ -47,6 +47,12 @@ const config: ApiDocsBlock[] = [
   ),
 
   ...block.exampleBlock(
+    'dateInput.examples.manual.title',
+    'dateInput.examples.manual.text',
+    'manual',
+  ),
+
+  ...block.exampleBlock(
     'dateInput.examples.input.title',
     'dateInput.examples.input.text',
     'input',

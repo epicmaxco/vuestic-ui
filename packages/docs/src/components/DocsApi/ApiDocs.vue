@@ -60,7 +60,10 @@
               class="ApiDocs__table__row"
             >
               <td>
-                <strong>{{ apiEventOption.name }}</strong>
+                <div class="d-flex align--center">
+                  <strong>{{ apiEventOption.name }}</strong>
+                  <va-badge class="ml-2" color="info" v-if="apiEventOption.isDOMEvent" text="native" />
+                </div>
               </td>
               <td>
                 <MarkdownView :value="$tie(apiEventOption.description)" />
@@ -234,6 +237,14 @@ export default defineComponent({
 
     &__row {
       border-bottom: 1px solid $prism-background;
+
+      & .MarkdownView {
+        code,
+        p {
+          font-size: inherit;
+          margin-bottom: 0;
+        }
+      }
     }
 
     th {
