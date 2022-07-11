@@ -66,13 +66,18 @@ export default class Search extends Vue {
 
 #search-form {
   position: relative;
-  padding: 1rem;
-  padding-bottom: 0.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
   z-index: 1;
+
+  .va-input-wrapper__container {
+    padding: 0.25rem;
+    padding-left: 0.75rem;
+    background: var(--va-input-wrapper-background);
+    border-radius: 0.25rem;
+  }
 
   .va-input__container {
     background-color: transparent !important;
@@ -88,12 +93,12 @@ export default class Search extends Vue {
   }
 
   .search-input {
-    display: flex;
     background: none;
     border: none;
     font-size: 100%;
     width: 100%;
-    padding-left: 0.2rem;
+    max-width: 20rem;
+    padding-left: 0.1rem;
   }
 
   #algolia-search-input::placeholder {
