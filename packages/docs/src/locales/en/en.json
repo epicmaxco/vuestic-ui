@@ -3689,7 +3689,7 @@
     "examples": {
       "profile": {
         "title": "CSS variables override example",
-        "description": "If you dislike how component looks, you can override default component style. Each component has list of CSS variables, that you override. For example, you want to change avatar border radius:"
+        "description": "If you dislike how component looks, you can override default component style. Each component has list of CSS variables, that you override. For example, you want to change avatar `border-radius`:"
       }
     }
   },
