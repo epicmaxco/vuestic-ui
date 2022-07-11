@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { resolve } from '../common-config'
-import readDirRecursive from '../utils.mjs'
+import { readDirRecursive } from '../utils.mjs'
 
 const cssInputs = readDirRecursive('./src/styles')
   .filter((el) => ['.css', '.scss']
@@ -12,6 +12,7 @@ export default defineConfig({
 
   build: {
     outDir: 'dist/styles',
+
     assetsDir: './',
 
     rollupOptions: {
