@@ -14,6 +14,7 @@ const config: ApiDocsBlock[] = [
     'cssVariables.convention.list[0]',
     'cssVariables.convention.list[1]',
   ]),
+  block.alert('cssVariables.convention.notice', 'info'),
 
   ...block.exampleBlock(
     'cssVariables.examples.profile.title',

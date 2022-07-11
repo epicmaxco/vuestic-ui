@@ -3680,7 +3680,8 @@
       "list": [
         "`components-name` can include sub block names, for example: `card`, `button-content`, `input-placeholder`.",
         "`variable-name` usually is just CSS property name, for example: `display`, `align`, `border-radius`."
-      ]
+      ],
+      "notice": "List of component CSS variables can be found at the bottom of its documentation page."
     },
     "overriding": {
       "title": "Global Overriding",
