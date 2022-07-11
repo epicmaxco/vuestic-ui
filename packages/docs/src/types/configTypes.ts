@@ -24,6 +24,7 @@ export type CodesandboxConfig = {
 export type PathToExample = string
 export type ExampleOptions = {
   hideCode?: boolean,
+  hideTemplate?: boolean,
   forceShowCode?: boolean
   codesandboxConfig?: CodesandboxConfig
 }
