@@ -97,10 +97,10 @@
 import { computed, defineComponent } from 'vue'
 import pick from 'lodash/pick.js'
 
-import { useBem, useFormProps, useValidationProps, useColors, useCSSVariables } from '../../../composables'
+import { useBem, useFormProps, useValidationProps, useColors, useCSSVariables } from '../../../../composables'
 
-import { VaMessageList } from './VaMessageList'
-import { VaIcon } from '../../va-icon'
+import { VaMessageList } from '../VaMessageList'
+import { VaIcon } from '../../../va-icon'
 
 export default defineComponent({
   name: 'VaInputWrapper',
@@ -181,8 +181,9 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import '../../../styles/resources/index.scss';
-@import '../variables';
+@import '../../../../styles/resources/index.scss';
+@import '../../variables';
+@import './variables';
 
 .va-input-wrapper {
   position: relative;
@@ -190,16 +191,11 @@ export default defineComponent({
   cursor: var(--va-input-cursor);
   font-family: var(--va-font-family);
 
-  // Util CSS variables used to change component style during runtime
-  --va-input-wrapper-color: var(--va-primary);
-  --va-input-wrapper-background: var(--va-input-color);
-  --va-input-wrapper-background-opacity: 1;
-  --va-input-wrapper-border-color: var(--va-input-bordered-color);
-
   &__field {
     position: relative;
     display: flex;
     align-items: center;
+    min-width: var(--va-input-wrapper-min-width);
     width: 100%;
     min-height: var(--va-input-min-height);
     border-color: var(--va-input-wrapper-border-color);
