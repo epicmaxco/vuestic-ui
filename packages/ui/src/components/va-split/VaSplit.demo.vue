@@ -3,10 +3,10 @@
     <VbCard title="default">
       <va-split>
         <template #start>
-          <div>{{$vb.lorem(1000)}}</div>
+          {{$vb.lorem(1000)}}
         </template>
         <template #end>
-          <div>{{$vb.lorem(1000)}}</div>
+          {{$vb.lorem(1000)}}
         </template>
       </va-split>
     </VbCard>
@@ -14,10 +14,10 @@
     <VbCard title="vertical">
       <va-split vertical>
         <template #start>
-          <div>{{$vb.lorem(1000)}}</div>
+          {{$vb.lorem(1000)}}
         </template>
         <template #end>
-          <div>{{$vb.lorem(1000)}}</div>
+          {{$vb.lorem(1000)}}
         </template>
       </va-split>
     </VbCard>
@@ -25,15 +25,15 @@
     <VbCard title="custom grabber">
       <va-split>
         <template #start>
-          <div>{{$vb.lorem(1000)}}</div>
+          {{$vb.lorem(1000)}}
         </template>
         <template #grabber>
-          <div style="height: 100%; width: 100%; display: flex; align-items: center; justify-content: center; background-color: greenyellow;">
+          <div class="custom-grabber">
             <va-icon name="face" />
           </div>
         </template>
         <template #end>
-          <div>{{$vb.lorem(1000)}}</div>
+          {{$vb.lorem(1000)}}
         </template>
       </va-split>
     </VbCard>
@@ -41,10 +41,10 @@
     <VbCard title="disabled">
       <va-split disabled>
         <template #start>
-          <div>{{$vb.lorem(1000)}}</div>
+          {{$vb.lorem(1000)}}
         </template>
         <template #end>
-          <div>{{$vb.lorem(1000)}}</div>
+          {{$vb.lorem(1000)}}
         </template>
       </va-split>
     </VbCard>
@@ -52,10 +52,10 @@
     <VbCard title="double click on separator to maximize right panel">
       <va-split maximization>
         <template #start>
-          <div>{{$vb.lorem(1000)}}</div>
+          {{$vb.lorem(1000)}}
         </template>
         <template #end>
-          <div>{{$vb.lorem(1000)}}</div>
+          {{$vb.lorem(1000)}}
         </template>
       </va-split>
     </VbCard>
@@ -63,10 +63,10 @@
     <VbCard title="double click on separator to maximize left panel">
       <va-split maximization maximize-start>
         <template #start>
-          <div>{{$vb.lorem(1000)}}</div>
+          {{$vb.lorem(1000)}}
         </template>
         <template #end>
-          <div>{{$vb.lorem(1000)}}</div>
+          {{$vb.lorem(1000)}}
         </template>
       </va-split>
     </VbCard>
@@ -74,10 +74,10 @@
     <VbCard title="custom limits">
       <va-split :limits="[10, 90]">
         <template #start>
-          <div>{{$vb.lorem(1000)}}</div>
+          {{$vb.lorem(1000)}}
         </template>
         <template #end>
-          <div>{{$vb.lorem(1000)}}</div>
+          {{$vb.lorem(1000)}}
         </template>
       </va-split>
     </VbCard>
@@ -87,20 +87,20 @@
         <template #start>
           <va-split :limits="[10, 90]">
             <template #start>
-              <div>{{$vb.lorem(1000)}}</div>
+              {{$vb.lorem(1000)}}
             </template>
             <template #end>
-              <div>{{$vb.lorem(1000)}}</div>
+              {{$vb.lorem(1000)}}
             </template>
           </va-split>
         </template>
         <template #end>
           <va-split :limits="[10, 90]" vertical>
             <template #start>
-              <div>{{$vb.lorem(1000)}}</div>
+              {{$vb.lorem(1000)}}
             </template>
             <template #end>
-              <div>{{$vb.lorem(1000)}}</div>
+              {{$vb.lorem(1000)}}
             </template>
           </va-split>
         </template>
@@ -110,10 +110,10 @@
     <VbCard title="stateful">
       <va-split stateful>
         <template #start>
-          <div>{{$vb.lorem(1000)}}</div>
+          {{$vb.lorem(1000)}}
         </template>
         <template #end>
-          <div>{{$vb.lorem(1000)}}</div>
+          {{$vb.lorem(1000)}}
         </template>
       </va-split>
     </VbCard>
@@ -140,6 +140,15 @@ export default {
     &__panel {
       padding: 0.5rem;
     }
+  }
+
+  & .custom-grabber {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: greenyellow;
   }
 }
 </style>

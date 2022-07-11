@@ -5,8 +5,7 @@
     class="va-split"
     :class="classComputed"
     @mousemove="processDragging"
-    @mouseup="stopDragging"
-    @mouseleave="stopDragging">
+    @mouseup="stopDragging">
     <div
       class="va-split__panel"
       :style="getPanelStyle('start')">
@@ -16,6 +15,7 @@
       class="va-split__dragger"
       :style="draggerStyleComputed"
       @mousedown="startDragging"
+      @touchstart="startDragging"
       @dblclick="maximizePanel">
       <slot name="grabber">
         <va-divider
@@ -34,6 +34,7 @@
 <script lang="ts">
 import { defineComponent, PropType, ref, shallowRef, computed, watch } from 'vue'
 import { useBem, useComponentPresetProp, useStateful, useStatefulEmits, useStatefulProps } from '../../composables'
+import { useSplitDragger, useSplitDraggerProps } from './useSplitDragger'
 import { __DEV__ } from '../../utils/global-utils'
 
 import { VaDivider } from '../va-divider'
@@ -45,14 +46,13 @@ export default defineComponent({
 
   props: {
     ...useComponentPresetProp,
+    ...useSplitDraggerProps,
     ...useStatefulProps,
     modelValue: {
       type: Number,
       default: 50,
       validator: (v: number) => v <= 100,
     },
-    vertical: { type: Boolean, default: false },
-    disabled: { type: Boolean, default: false },
     maximization: { type: Boolean, default: false },
     maximizeStart: { type: Boolean, default: false },
     limits: { type: Array as any as PropType<[number, number]>, default: () => [30, 70] },
@@ -65,7 +65,7 @@ export default defineComponent({
 
     const splitPanelsContainer = shallowRef<HTMLElement>()
     const containerSizeComputed = computed(() => {
-      if (!splitPanelsContainer.value) { return undefined }
+      if (!splitPanelsContainer.value) { return }
       return props.vertical ? splitPanelsContainer.value.offsetHeight : splitPanelsContainer.value.offsetWidth
     })
 
@@ -76,35 +76,18 @@ export default defineComponent({
       return splitterPosition.value
     })
 
-    const isDragging = ref(false)
-    const dragStartPosition = ref(0)
-    const dragStartSplitterPosition = ref(0)
-
-    const startDragging = (e: MouseEvent) => {
-      if (props.disabled || !containerSizeComputed.value) { return }
-
-      isDragging.value = true
-      dragStartPosition.value = props.vertical ? e.pageY : e.pageX
-      dragStartSplitterPosition.value = splitterPositionComputed.value
-    }
-
-    const processDragging = (e: MouseEvent) => {
-      if (!isDragging.value) { return }
-
-      const currentPosition = props.vertical ? e.pageY : e.pageX
-      const distance = currentPosition - dragStartPosition.value
-      splitterPosition.value = dragStartSplitterPosition.value + Math.floor((distance / containerSizeComputed.value!) * 100)
-    }
+    const {
+      isDragging,
+      startDragging,
+      processDragging,
+      stopDragging,
+      currentSplitterPosition,
+    } = useSplitDragger(containerSizeComputed, splitterPositionComputed, props)
 
     const maximizePanel = () => {
       if (!props.maximization || props.disabled) { return }
 
       splitterPosition.value = props.maximizeStart ? props.limits[1] : props.limits[0]
-    }
-
-    const stopDragging = () => {
-      valueComputed.value = splitterPositionComputed.value
-      isDragging.value = false
     }
 
     watch(valueComputed, (v) => {
@@ -115,6 +98,15 @@ export default defineComponent({
       splitterPosition.value = v
     })
 
+    watch(currentSplitterPosition, (v) => {
+      splitterPosition.value = v
+    })
+
+    watch(isDragging, (v) => {
+      if (!v) { valueComputed.value = splitterPositionComputed.value }
+      document.documentElement.style.cursor = v ? 'var(--va-split-dragging-cursor)' : ''
+    })
+
     const sizePropertyComputed = computed(() => props.vertical ? 'height' : 'width')
     const getPanelStyle = (position: 'start' | 'end') => ({
       [sizePropertyComputed.value]: `${position === 'start' ? splitterPositionComputed.value : 100 - splitterPositionComputed.value}%`,
@@ -122,9 +114,8 @@ export default defineComponent({
 
     const draggerStyleComputed = computed(() => {
       if (props.disabled) { return {} }
-      let cursor = props.vertical ? 'var(--va-split-vertical-dragger-cursor)' : 'var(--va-split-horizontal-dragger-cursor)'
-      if (isDragging.value) { cursor = 'var(--va-split-dragging-cursor)' }
-      return { cursor }
+      if (isDragging.value) { return { cursor: 'var(--va-split-dragging-cursor)' } }
+      return { cursor: props.vertical ? 'var(--va-split-vertical-dragger-cursor)' : 'var(--va-split-horizontal-dragger-cursor)' }
     })
 
     const classComputed = useBem('va-split', () => ({

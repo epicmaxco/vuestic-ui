@@ -1,15 +1,15 @@
 <template>
   <va-split class="split-demo">
     <template #start>
-      <div>{{ lorem }}</div>
+      {{ lorem }}
     </template>
     <template #grabber>
-      <div style="height: 100%; width: 100%; display: flex; align-items: center; justify-content: center; background-color: greenyellow;">
+      <div class="custom-grabber">
         <va-icon name="face" />
       </div>
     </template>
     <template #end>
-      <div>{{ lorem }}</div>
+      {{ lorem }}
     </template>
   </va-split>
 </template>
@@ -25,3 +25,16 @@ export default {
   }),
 }
 </script>
+
+<style lang="scss">
+.split-demo {
+  & .custom-grabber {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: greenyellow;
+  }
+}
+</style>

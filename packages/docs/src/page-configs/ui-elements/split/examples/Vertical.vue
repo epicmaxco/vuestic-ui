@@ -1,10 +1,10 @@
 <template>
   <va-split class="split-demo" vertical>
     <template #start>
-      <div>{{ lorem }}</div>
+      {{ lorem }}
     </template>
     <template #end>
-      <div>{{ lorem }}</div>
+      {{ lorem }}
     </template>
   </va-split>
 </template>

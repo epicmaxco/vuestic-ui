@@ -1,10 +1,14 @@
 <template>
-  <va-split class="split-demo">
+  <va-split class="split-demo split-demo--image">
     <template #start>
-      <div>{{ lorem }}</div>
+      <div class="img-block">
+        <img src="https://picsum.photos/seed/picsum/1536/800" class="img img--start" alt="" />
+      </div>
     </template>
     <template #end>
-      <div>{{ lorem }}</div>
+      <div class="img-block">
+        <img src="https://picsum.photos/seed/picsum/1536/800?grayscale" class="img img--end" alt="" />
+      </div>
     </template>
   </va-split>
 </template>
@@ -24,12 +28,46 @@ export default {
 
 <style lang="scss">
 .split-demo {
+  position: relative;
   height: 11rem;
   padding: 1rem;
   border: 1px solid gainsboro;
 
   & .va-split__panel {
     padding: 0.5rem;
+  }
+
+  &--image {
+    height: 22rem;
+    padding: 0;
+
+    & .va-split__panel {
+      padding: 0;
+    }
+
+    & .va-split__dragger {
+      width: 0.5rem;
+    }
+  }
+
+  & .img-block {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .img {
+    position: absolute;
+    top: 0;
+    width: 70vw;
+
+    &--start {
+      left: 0;
+    }
+
+    &--end {
+      right: 0;
+    }
   }
 }
 </style>
