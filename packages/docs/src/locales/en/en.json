@@ -3677,21 +3677,21 @@
     "convention": {
       "title": "Convention",
       "description": "Vuestic UI uses the following convention to organize CSS Variables for the sake of convenience:",
-      "scheme": "Scheme",
-      "example": "Example",
-      "unnecessary": "is unnecessary part needed only for specific cases.",
-      "componentScheme": "Component scheme - for component-level styles",
-      "componentName": "component name started with va- prefix.",
-      "state": "state of elements or its preset.",
-      "nestedElement": "some element that can be nested in root component.",
-      "groupOfElements": "group or type of HTML elements.",
-      "size": "size of target element.",
-      "property": "common css property.",
-      "generalScheme": "Component scheme - for component-level styles"
+      "list": [
+        "`components-name` can include sub block names, for example: `card`, `button-content`, `input-placeholder`.",
+        "`variable-name` usually is just CSS property name, for example: `display`, `align`, `border-radius`."
+      ],
+      "notice": "List of component CSS variables can be found at the bottom of its documentation page."
     },
     "overriding": {
-      "title": "Overriding",
+      "title": "Global Overriding",
       "description": "No additional tooling is needed. Just create a CSS file (like `overrides.css`), import it into your `main.js` and start redefining the variables as you do with any other CSS properties:"
+    },
+    "examples": {
+      "profile": {
+        "title": "CSS variables override example",
+        "description": "If you dislike how component looks, you can override default component style. Each component has list of CSS variables, that you override. For example, you want to change avatar `border-radius`:"
+      }
     }
   },
   "navbar": {

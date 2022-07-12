@@ -96,7 +96,7 @@ import {
 } from '../../composables'
 import { safeCSSLength } from '../../utils/css-utils'
 
-import VaInputWrapper from '../va-input/components/VaInputWrapper.vue'
+import { VaInputWrapper } from '../va-input'
 import VaIcon from '../va-icon/VaIcon.vue'
 import VaButton from '../va-button/VaButton.vue'
 
