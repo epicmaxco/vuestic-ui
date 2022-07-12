@@ -164,7 +164,7 @@
         "default": "./dist/vuestic-ui.css"
       }
     },
-    "./iife": "./dist/iife/vuestic-ui.js",
+    "./iife": "./dist/iife/main.js",
     "./styles/": "./dist/styles/",
     "./types": "./dist/types/main.d.ts",
     "./dist/": "./dist/"
