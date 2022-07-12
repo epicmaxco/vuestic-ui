@@ -190,6 +190,8 @@ export default defineComponent({
   color: var(--va-input-text-color);
   cursor: var(--va-input-cursor);
   font-family: var(--va-font-family);
+  display: var(--va-input-wrapper-display);
+  vertical-align: var(--va-input-wrapper-vertical-align);
 
   &__field {
     position: relative;

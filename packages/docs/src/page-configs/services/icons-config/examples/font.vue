@@ -1,16 +1,17 @@
+
 <template>
   <code class="code language-javascript">
     {
-    <span class="tab"> name: <va-input v-model="iconName" />,</span>
+    <span class="tab"> name: <va-input v-model="iconName" style="--va-input-wrapper-background: rgba(0, 0, 0, 0.1);" />,</span>
     <span class="tab">
       resolve:
       (<span class="params">{ {{ params }} }</span>) => ({ class: <span class="params">`{{ resolved }}`</span> })
     </span>
-    }
+    },
   </code>
   <code class="code language-javascript">
     {
-    <span class="tab"> name: <va-input v-model="regexIconName" />,</span>
+    <span class="tab"> name: <va-input v-model="regexIconName" style="--va-input-wrapper-background: rgba(0, 0, 0, 0.1);" />,</span>
     <span class="tab">
       resolveFromRegex:
       (<span class="params"> {{ regexParams }} </span>) => ({ class: <span class="params">`{{ resolved }}`</span> })
