@@ -1,18 +1,13 @@
 export const fontCodeExample = `
 const fonts = [
   {
-    name: 'fa4-{code}',
-    resolve: ({ code }) => ({ class: \`fa fa-\${code}\` }),
-    color: '#e0e0e0'
-  },
-  {
     name: 'fa5 {code}',
     resolve: ({ code }) => ({ class:\`fas fa-\${code} \` }),
   },
   {
-    name: 'fa5 {code} {type}',
-    // fas, fab, fad etc
-    resolve: ({ code }) => ({ class: \`fa\${type} fa-\${code}\` }),
+    name: 'ant-{code}',
+    tag: 'span',
+    resolve: ({ code }) => ({ class: \`iconify\`, attrs: { 'data-icon': \`ant-design:\${code}\` } }),
   },
   {
     name: 'flag-{code}-{size}',

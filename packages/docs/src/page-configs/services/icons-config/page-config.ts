@@ -69,6 +69,8 @@ const config: ApiDocsBlock[] = [
   block.subtitle('iconsConfig.fonts.title'),
   block.paragraph('iconsConfig.fonts.about'),
 
+  block.component('playground'),
+
   block.headline('iconsConfig.fonts.fontNamePattern.title'),
   block.paragraph('iconsConfig.fonts.fontNamePattern.about'),
   block.example('font', { hideCode: true }),
