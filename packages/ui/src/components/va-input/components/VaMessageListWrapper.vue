@@ -2,7 +2,8 @@
     <div class="va-message-list-wrapper">
       <slot />
       <va-message-list
-        :color="messagesColor"
+        :error="$props.error"
+        :success="$props.success"
         :limit="errorLimit"
         :model-value="messagesComputed"
       />
@@ -25,17 +26,10 @@ export default defineComponent({
     ...useValidationProps,
   },
 
-  setup (props) {
-    return {
-      messagesColor: computed(() => {
-        if (props.error) { return 'danger' }
-        if (props.success) { return 'success' }
-        return ''
-      }),
-      messagesComputed: computed(() => props.error ? props.errorMessages : props.messages),
-      errorLimit: computed(() => props.error ? Number(props.errorCount) : 99),
-    }
-  },
+  setup: (props) => ({
+    messagesComputed: computed(() => props.error ? props.errorMessages : props.messages),
+    errorLimit: computed(() => props.error ? +props.errorCount : 99),
+  }),
 })
 </script>
 
