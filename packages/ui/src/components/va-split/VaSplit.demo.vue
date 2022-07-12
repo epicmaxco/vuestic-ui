@@ -71,8 +71,8 @@
       </va-split>
     </VbCard>
 
-    <VbCard title="custom limits">
-      <va-split :limits="[10, 90]">
+    <VbCard title="custom min size">
+      <va-split :min-size="20">
         <template #start>
           {{$vb.lorem(1000)}}
         </template>
@@ -83,9 +83,9 @@
     </VbCard>
 
     <VbCard title="nested">
-      <va-split :limits="[10, 90]">
+      <va-split :min-size="10">
         <template #start>
-          <va-split :limits="[10, 90]">
+          <va-split :min-size="10">
             <template #start>
               {{$vb.lorem(1000)}}
             </template>
@@ -95,7 +95,7 @@
           </va-split>
         </template>
         <template #end>
-          <va-split :limits="[10, 90]" vertical>
+          <va-split :min-size="10" vertical>
             <template #start>
               {{$vb.lorem(1000)}}
             </template>

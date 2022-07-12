@@ -1276,7 +1276,7 @@
     "VaSplit": {
       "props": {
         "vertical": "Changes `va-split` orientation to vertical.",
-        "limits": "Array of maximal sizes (%) for start/end panels.",
+        "minSize": "Minimal size of the each panel (%).",
         "maximization": "End panel size maximization via separator double click.",
         "maximizeStart": "Maximize size of the start panel instead of end one."
       },
