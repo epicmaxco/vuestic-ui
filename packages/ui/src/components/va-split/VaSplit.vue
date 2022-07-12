@@ -3,9 +3,7 @@
     ref="splitPanelsContainer"
     aria-label="split panels"
     class="va-split"
-    :class="classComputed"
-    @mousemove="processDragging"
-    @mouseup="stopDragging">
+    :class="classComputed">
     <div
       class="va-split__panel"
       :style="getPanelStyle('start')">
@@ -32,7 +30,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref, shallowRef, computed, watch } from 'vue'
+import { defineComponent, ref, shallowRef, computed, watch } from 'vue'
 import { useBem, useComponentPresetProp, useStateful, useStatefulEmits, useStatefulProps } from '../../composables'
 import { useSplitDragger, useSplitDraggerProps } from './useSplitDragger'
 import { __DEV__ } from '../../utils/global-utils'
@@ -55,7 +53,11 @@ export default defineComponent({
     },
     maximization: { type: Boolean, default: false },
     maximizeStart: { type: Boolean, default: false },
-    limits: { type: Array as any as PropType<[number, number]>, default: () => [30, 70] },
+    minSize: {
+      type: Number,
+      default: 30,
+      validator: (v: number) => v <= 100 && v >= 0,
+    },
   },
 
   emits: useStatefulEmits,
@@ -71,8 +73,8 @@ export default defineComponent({
 
     const splitterPosition = ref(props.modelValue)
     const splitterPositionComputed = computed(() => {
-      if (splitterPosition.value < props.limits[0]) { return props.limits[0] }
-      if (splitterPosition.value > props.limits[1]) { return props.limits[1] }
+      if (splitterPosition.value < props.minSize) { return props.minSize }
+      if (splitterPosition.value > 100 - props.minSize) { return 100 - props.minSize }
       return splitterPosition.value
     })
 
@@ -87,12 +89,12 @@ export default defineComponent({
     const maximizePanel = () => {
       if (!props.maximization || props.disabled) { return }
 
-      splitterPosition.value = props.maximizeStart ? props.limits[1] : props.limits[0]
+      splitterPosition.value = props.maximizeStart ? 100 - props.minSize : props.minSize
     }
 
     watch(valueComputed, (v) => {
-      if (__DEV__ && (v < props.limits[0] || v > props.limits[1])) {
-        console.warn('Incorrect `modelValue`. Check current `limits` value.')
+      if (__DEV__ && (v < props.minSize || v > 100 - props.minSize)) {
+        console.warn('Incorrect `modelValue`. Check current `minSize` prop value.')
       }
 
       splitterPosition.value = v
@@ -146,6 +148,7 @@ export default defineComponent({
 
   &__dragger {
     display: var(--va-split-dragger-display);
+    user-select: none;
   }
 
   &__panel {

@@ -44,7 +44,6 @@ export const useSplitDragger = (
     document.addEventListener('mousemove', processDragging)
     document.addEventListener('touchmove', processDragging)
     document.addEventListener('mouseup', stopDragging)
-    document.addEventListener('mouseleave', stopDragging)
     document.addEventListener('touchcancel', stopDragging)
   })
 
@@ -52,7 +51,6 @@ export const useSplitDragger = (
     document.removeEventListener('mousemove', processDragging)
     document.removeEventListener('touchmove', processDragging)
     document.removeEventListener('mouseup', stopDragging)
-    document.removeEventListener('mouseleave', stopDragging)
     document.removeEventListener('touchcancel', stopDragging)
   })
 
