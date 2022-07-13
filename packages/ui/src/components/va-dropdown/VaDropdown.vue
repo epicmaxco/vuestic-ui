@@ -1,14 +1,13 @@
 <template>
-  <div
-    class="va-dropdown"
-    :class="computedClass"
-    aria-haspopup="listbox"
-    :aria-disabled="$props.disabled"
-    :aria-expanded="!!valueComputed"
-  >
+  <div class="va-dropdown" :class="computedClass">
     <div
       ref="anchorRef"
       class="va-dropdown__anchor"
+      role="button"
+      aria-label="toggle dropdown"
+      :aria-disabled="$props.disabled"
+      :aria-expanded="!!valueComputed"
+      :aria-controls="idComputed"
       @click="onAnchorClick"
       @mouseenter="onMouseEnter"
       @mouseleave="onMouseLeave"
@@ -20,6 +19,7 @@
         <div
           ref="contentRef"
           class="va-dropdown__content-wrapper"
+          :id="idComputed"
           @mouseover="$props.isContentHoverable && onMouseEnter()"
           @mouseout="onMouseLeave"
           @click.stop="emitAndClose('dropdown-content-click', closeOnContentClick)"
@@ -34,6 +34,8 @@
 <script lang="ts">
 import { computed, defineComponent, PropType, shallowRef, toRef } from 'vue'
 import pick from 'lodash/pick.js'
+
+import { generateUniqueId } from '../../services/utils'
 
 import {
   useStateful, useStatefulEmits, useStatefulProps,
@@ -147,6 +149,8 @@ export default defineComponent({
       }
     })
 
+    const idComputed = computed(generateUniqueId)
+
     return {
       valueComputed,
       anchorRef,
@@ -156,6 +160,7 @@ export default defineComponent({
       onAnchorClick,
       onMouseEnter,
       onMouseLeave,
+      idComputed,
     }
   },
 })
