@@ -1,146 +1,108 @@
 <template>
   <div>
-    <p class="code-snippet">
-      <div>name: <input class="code-input" v-model="name" /></div>
-      resolve: ({<span class="params">{{ args }}</span> }) => ({
-        <div class="ml-4" v-for="key in Object.keys(resolve)" :key="key">
-          {{ key }}: <input class="code-input" v-model="(resolve as any)[key]" />
+    <div class="demo-header mb-2">
+      <va-select
+        v-model="exampleValue"
+        :rounded="false"
+        :options="exampleOptions"
+        text-by="label"
+        value-by="value"
+      />
+      <div class="code-snippet ml-2">
+        <span class="tag">va-icon name="<CodeInput class="code-input" v-model="iconName" />" /</span>
+      </div>
+    </div>
+
+    <div class="code-snippet">
+      <div>name: '<CodeInput class="code-input" v-model="configName" />',</div>
+      {{ resolveFnName }}: (<span class="params">{{ args }}</span>) => ({
+        <div class="ml-4 mb-1" v-for="key in Object.keys(resolve)" :key="key">
+          {{ key }}: <CodeInput v-model="(resolve as any)[key]" />,
         </div>
       })
-    </p>
-    <p>
-      Vue:
-      <div class="code-snippet">
-        <span class="tag">va-icon name="<input class="code-input" v-model="iconName" />" /</span>
+      <va-button class="copy-button" flat icon="content_copy" @click="copy" />
+    </div>
+
+    <div class="demo-footer mt-2">
+      <div class="d-flex align--center">
+        <div style="width: 64px;" class="code-snippet code-snippet--icon mr-2" v-html="renderHTML(iconName)" />
+        <div class="code-snippet" style="width: 100%;">{{ renderHTML(iconName) }}</div>
       </div>
-    </p>
-    <p>
-      Result:
-      <div class="code-snippet">{{ renderHTML() }}</div>
-    </p>
+    </div>
+
+    <MarkdownView class="mt-2" v-if="description" :value="description" />
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed, reactive, ref } from 'vue'
-import { dynamicSegments } from 'vuestic-ui/src/services/icon-config/utils/dynamic-segment'
+import CodeInput from '../../../../components/demo/CodeInput.vue'
+import MarkdownView from '../../../../components/markdown-view/MarkdownView.vue'
+import { getArgs, parseConfig } from './playground-utils'
+import { useCopyToClipboard } from './use-copy-to-clipboard'
+import { useExampleSelect } from './use-example-select'
 
-// Resolved dynamic segments that must be scope of resolve function
-type Scope = Record<string, any>
-
-const getValuesInBrackets = (s: string) => {
-  const values = s.match(/{([^}]*)}/g) || []
-  return values
-    .map((v) => v.replace(/\{|\}/g, ''))
-}
-
-const name = ref('fa-{code}')
-const args = computed(() => getValuesInBrackets(name.value).reduce((acc, v) => `${acc} ${v},`, '').slice(0, -1))
 const resolve = reactive({
-  // eslint-disable-next-line no-template-curly-in-string
-  class: '`fa-solid fa-${code}`',
+  class: '',
   content: '',
   attrs: '',
+  tag: '',
 })
-const iconName = ref('fa-plane')
-
-/** Imitate JS execution with scope */
-const callStringWithScope = (scope: Record<string, any>, code: string) => {
-  const vars = Object.keys(scope).reduce((acc, key) => {
-    return acc + `let ${key} = ${JSON.stringify(scope[key])};`
-  }, '')
-
-  // TODO: Not sure if CSP will not block it :(
-  // eslint-disable-next-line no-new-func
-  return new Function(`${vars};return (${code})`)()
-
-  // console.log(code)
-
-  // code = code.replace(/`/g, '"')
-  // code = code.replace(/'/g, '"')
-  // code = Object.entries(scope).reduce((acc, [key, value]) => {
-  //   console.log(key, value, `\${${key}}`)
-  //   return acc.replaceAll(`\${${key}}`, value)
-  // }, code)
-
-  // console.log(code)
-
-  // console.log('js', JSON.parse(code))
-
-  // return JSON.parse(code)
-}
-
-const removeQuotes = (s: string) => {
-  ['`', "'", '"'].forEach((a) => {
-    if (s.startsWith(a) && s.endsWith(a)) {
-      s = s.slice(1, -1)
-    }
-  })
-  return s
-}
-
-const isQuoted = (s: string) => {
-  return ['`', "'"].some((a) => {
-    return s.startsWith(a) && s.endsWith(a)
-  })
-}
-
-const parseAttrs = (s: string, scope: Scope) => {
-  if (s.startsWith('{') && s.endsWith('}')) {
-    s = s.slice(1, -1)
-  }
-
-  if (!s) { return '' }
-
-  return s.split(',').reduce((acc, v) => {
-    let [key, value] = v.split(':')
-    if (!key || !value) { return acc }
-    key = removeQuotes(key.trim())
-    value = value.trim()
-
-    if (!isQuoted(value)) {
-      value = scope[value]
-    }
-
-    acc[key] = value
-    return acc
-  }, {} as Record<string, string>)
-}
-
-const parsedConfig = computed(() => {
-  // const config = resolve.value.split(',')
-  const segments = dynamicSegments(iconName.value, name.value) as Record<string, string>
-
-  return Object.entries(resolve).reduce((acc, [key, value]) => {
-    // acc[key] = callStringWithScope(seg, value)
-    const code = Object.entries(segments).reduce((acc, [key, value]) => {
-      return acc.replaceAll(`\${${key}}`, value)
-    }, value)
-
-    acc[removeQuotes(key)] = removeQuotes(code)
-
-    if (key === 'attrs') {
-      acc[key] = parseAttrs(acc[key], segments)
-    }
-
-    return acc
-  }, {} as Record<string, any>)
+const configName = ref('')
+const iconName = ref('fa-book')
+const isRegex = computed(() => configName.value.startsWith('/') && configName.value.endsWith('/'))
+const resolveFnName = computed(() => isRegex.value ? 'resolveFromRegex' : 'resolve')
+const description = ref<string | undefined>('')
+const args = computed(() => {
+  return getArgs(iconName.value, configName.value)
 })
 
-const renderHTML = () => {
+const { exampleOptions, exampleValue } = useExampleSelect((example) => {
+  (Object.keys(resolve) as (keyof typeof resolve)[]).forEach((key) => {
+    resolve[key] = example.resolve[key] || ''
+  })
+  configName.value = example.name
+  iconName.value = example.exampleName
+  description.value = example.description
+})
+
+const renderHTML = (iconName: string) => {
   const {
     tag = 'i',
     class: className = '',
     attrs = {},
     content = '',
-  } = parsedConfig.value
+  } = parseConfig(iconName, configName.value, resolve)
 
   const attributes = [
     className ? `class="${className}"` : undefined,
     ...Object.entries(attrs).map(([key, value]) => `${key}="${value}"`),
   ].filter(Boolean).join(' ')
 
-  return `<${tag} ${attributes} >${content}</${tag}>`
+  return `<${tag} ${attributes}>${content}</${tag}>`
+}
+
+const renderResolve = (tab = 4) => {
+  return Object
+    .entries(resolve)
+    .filter(([key, value]) => Boolean(value))
+    .map(([key, value]) => `${' '.repeat(tab)}${key}: ${value},`)
+    .join('\n')
+}
+
+const renderConfig = () => {
+  return `{
+  name: '${configName.value}',
+  resolve: ({ ${args.value} }) => ({
+${renderResolve()}
+  }),
+},`
+}
+
+const copyToClipboard = useCopyToClipboard()
+
+const copy = () => {
+  copyToClipboard(renderConfig())
 }
 </script>
 
@@ -151,19 +113,51 @@ const renderHTML = () => {
 
   .tag {
     &::before {
-      content: '<'
+      content: '<';
     }
+
     &::after {
-      content: '>'
+      content: '>';
     }
   }
 
-  .code-input {
-    background-color: rgba(0, 0, 0, 0.2);
+  .code-snippet {
     color: currentColor;
-    border: none;
-    padding: 2px;
-    width: min-content;
-    min-width: 300px;
+    background: var(--va-background);
+    position: relative;
+
+    .copy-button {
+      position: absolute;
+      right: 8px;
+      top: 8px;
+    }
+  }
+
+  .demo-header {
+    display: flex;
+    align-items: center;
+
+    .code-snippet {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      height: var(--va-input-min-height);
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+  }
+
+  .demo-footer {
+    .code-snippet {
+      height: 48px;
+      display: flex;
+      align-items: center;
+
+      &--icon {
+        width: 48px;
+        justify-content: center;
+        padding: 0;
+      }
+    }
   }
 </style>

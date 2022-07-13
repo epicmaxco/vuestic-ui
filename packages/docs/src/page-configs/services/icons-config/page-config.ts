@@ -52,34 +52,24 @@ const config: ApiDocsBlock[] = [
   block.link('iconsConfig.readBeforeStart', '/ui-elements/icon'),
 
   block.paragraph('iconsConfig.problem.definition'),
-  block.paragraph('iconsConfig.problem.materialIcons'),
-  block.code('<span class="material-icons">star</span>'),
+  // block.paragraph('iconsConfig.problem.materialIcons'),
+  // block.code('<span class="material-icons">star</span>'),
 
-  block.paragraph('iconsConfig.problem.fontAwesome'),
-  block.code('<i class="fas fa-star"></i>'),
+  // block.paragraph('iconsConfig.problem.fontAwesome'),
+  // block.code('<i class="fas fa-star"></i>'),
 
   block.paragraph('iconsConfig.problem.summary'),
-
-  // api
-  block.subtitle('iconsConfig.api.title'),
-  block.table(columns, tableData),
-  block.paragraph('iconsConfig.api.description'),
 
   // fonts
   block.subtitle('iconsConfig.fonts.title'),
   block.paragraph('iconsConfig.fonts.about'),
 
-  block.component('playground'),
-
   block.headline('iconsConfig.fonts.fontNamePattern.title'),
   block.paragraph('iconsConfig.fonts.fontNamePattern.about'),
-  block.example('font', { hideCode: true }),
 
   block.headline('iconsConfig.fonts.example.title'),
   block.paragraph('iconsConfig.fonts.example.about'),
-  block.code(fontCodeExample),
-  block.paragraph('iconsConfig.fonts.example.explain'),
-  block.code(fontTransformationsExample),
+  block.component('playground'),
 
   block.link(
     'iconsConfig.fonts.advancedFontsUsage',
@@ -102,6 +92,11 @@ const config: ApiDocsBlock[] = [
   block.subtitle('iconsConfig.setup.title'),
   block.paragraph('iconsConfig.setup.about'),
   block.code(setupCodeExample),
+
+  // api
+  block.subtitle('iconsConfig.api.title'),
+  block.table(columns, tableData),
+  block.paragraph('iconsConfig.api.description'),
 ]
 
 export default config
