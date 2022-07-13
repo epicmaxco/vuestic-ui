@@ -339,6 +339,8 @@ export default defineComponent({
     }))
 
     const inputAttributesComputed = computed(() => ({
+      readonly: props.readonly || !props.manualInput,
+      tabindex: tabindexComputed.value,
       value: valueText.value,
       ariaLabel: props.label || 'selected date',
       ariaRequired: props.requiredMark,
@@ -348,8 +350,6 @@ export default defineComponent({
       'aria-errormessage': typeof computedErrorMessages.value === 'string'
         ? computedErrorMessages.value
         : computedErrorMessages.value.join(', '),
-      readonly: props.readonly || !props.manualInput,
-      tabindex: tabindexComputed.value,
     }))
 
     return {
