@@ -4,8 +4,6 @@
     v-model="writableVisible"
     :width="sidebarWidth"
   >
-    <algolia-search />
-
     <va-accordion
       v-model="value"
       multiply
@@ -76,14 +74,12 @@ import { defineComponent, watch, ref, computed, PropType } from 'vue'
 import { useRoute, RouteRecord } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 
-import AlgoliaSearch from './algolia-search/AlgoliaSearch.vue'
 import { useColors } from 'vuestic-ui/src/main'
 
 import { NavigationRoute } from './NavigationRoute'
 
 export default defineComponent({
   name: 'DocsSidebar',
-  components: { AlgoliaSearch },
   props: {
     navigationRoutes: { type: Array as PropType<NavigationRoute[]>, default: () => [] },
     visible: { type: Boolean, default: false },
