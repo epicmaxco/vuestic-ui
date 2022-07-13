@@ -601,8 +601,7 @@
         "component": "Allows to use the `svg` component as an icon",
         "rotation": "Rotates a component by a degree value",
         "spin": "Starts rotation animation",
-        "flip": "Specifies mirror image relative to horizontal and vertical planes. `\"off\"`, `\"horizontal\"`, `\"vertical\"` and `\"both\"` values are available",
-        "iconsConfig": "Allows you to configurate iconset."
+        "flip": "Specifies mirror image relative to horizontal and vertical planes. `\"off\"`, `\"horizontal\"`, `\"vertical\"` and `\"both\"` values are available"
       }
     },
     "VaRadio": {
@@ -2567,10 +2566,12 @@
   "icon": {
     "title": "Icon",
     "summaryText": "The `va-icon` component allows you to use different icon fonts. By default Vuestic UI provides [Material Design Icons](https://fonts.google.com/icons)[[target=_blank]].",
+    "iconsConfig": "Read more how you can use different icon libraries with Vuestic UI Icon Config",
     "examples": {
       "default": {
         "title": "Default",
-        "text": "Basic usage of the component with different icon fonts."
+        "text": "Basic usage of the component with different icon fonts.",
+        "alert": "Notice that Vuestic UI uses only Material Icons by default. You need to manualy install additional libraries."
       },
       "color": {
         "title": "Color",
