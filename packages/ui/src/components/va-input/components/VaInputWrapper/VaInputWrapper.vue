@@ -97,7 +97,7 @@
 import { computed, defineComponent } from 'vue'
 import pick from 'lodash/pick.js'
 
-import { useBem, useFormProps, useValidationProps, useColors, useCSSVariables } from '../../../../composables'
+import { useBem, useFormProps, useValidationProps, useColors, useCSSVariables, useClearableProps } from '../../../../composables'
 
 import { VaMessageList } from '../VaMessageList'
 import { VaIcon } from '../../../va-icon'
@@ -108,6 +108,7 @@ export default defineComponent({
   components: { VaMessageList, VaIcon },
 
   props: {
+    ...useClearableProps,
     ...useFormProps,
     ...useValidationProps,
     counterValue: { type: Number, default: undefined },
