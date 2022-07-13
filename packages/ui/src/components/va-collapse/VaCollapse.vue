@@ -54,12 +54,12 @@
 
 <script lang="ts">
 import { computed, defineComponent, shallowRef } from 'vue'
+import pick from 'lodash/pick.js'
 
 import { useKeyboardOnlyFocus, useColors, useSyncProp, useTextColor, useBem } from '../../composables'
 import { useAccordionItem } from '../va-accordion/hooks/useAccordion'
 
 import { generateUniqueId } from '../../services/utils'
-import pick from 'lodash/pick.js'
 
 import { VaIcon } from '../va-icon'
 
