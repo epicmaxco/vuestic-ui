@@ -54,8 +54,9 @@
 
 <script lang="ts">
 import { computed, defineComponent, shallowRef } from 'vue'
+import pick from 'lodash/pick.js'
 
-import { useKeyboardOnlyFocus, useColors, useSyncProp, useTextColor } from '../../composables'
+import { useKeyboardOnlyFocus, useColors, useSyncProp, useTextColor, useBem } from '../../composables'
 import { useAccordionItem } from '../va-accordion/hooks/useAccordion'
 
 import { generateUniqueId } from '../../services/utils'
@@ -139,6 +140,14 @@ export default defineComponent({
       role: 'button',
     }))
 
+    const computedClasses = useBem('va-collapse', () => ({
+      ...pick(props, ['disabled', 'solid']),
+      expanded: computedModelValue.value,
+      active: props.solid && computedModelValue.value,
+      popout: !!(accordionProps.value.popout && computedModelValue.value),
+      inset: !!(accordionProps.value.inset && computedModelValue.value),
+    }))
+
     return {
       body,
       height,
@@ -156,14 +165,7 @@ export default defineComponent({
       panelIdComputed,
       tabIndexComputed,
 
-      computedClasses: computed(() => ({
-        'va-collapse--expanded': computedModelValue.value,
-        'va-collapse--disabled': props.disabled,
-        'va-collapse--solid': props.solid,
-        'va-collapse--active': props.solid && computedModelValue.value,
-        'va-collapse--popout': accordionProps.value.popout && computedModelValue.value,
-        'va-collapse--inset': accordionProps.value.inset && computedModelValue.value,
-      })),
+      computedClasses,
 
       headerStyle: computed(() => ({
         paddingLeft: props.icon && 0,
@@ -258,8 +260,6 @@ export default defineComponent({
 
   &--disabled {
     @include va-disabled();
-
-    pointer-events: none;
   }
 }
 </style>
