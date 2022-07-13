@@ -21,9 +21,7 @@
               <input
                 ref="input"
                 class="va-date-input__input"
-                :value="valueText"
-                :readonly="$props.readonly || !$props.manualInput"
-                :tabindex="tabindexComputed"
+                v-bind="inputAttributesComputed"
                 v-on="inputListeners"
                 @change="onInputTextChanged"
               />
@@ -340,6 +338,20 @@ export default defineComponent({
       },
     }))
 
+    const inputAttributesComputed = computed(() => ({
+      value: valueText.value,
+      ariaLabel: props.label || 'selected date',
+      ariaRequired: props.requiredMark,
+      ariaDisabled: props.disabled,
+      ariaReadOnly: props.readonly,
+      'aria-invalid': !!computedErrorMessages.value.length,
+      'aria-errormessage': typeof computedErrorMessages.value === 'string'
+        ? computedErrorMessages.value
+        : computedErrorMessages.value.join(', '),
+      readonly: props.readonly || !props.manualInput,
+      tabindex: tabindexComputed.value,
+    }))
+
     return {
       datePicker,
       valueText,
@@ -353,6 +365,7 @@ export default defineComponent({
       input,
       inputWrapperProps: computedInputWrapperProps,
       inputListeners: computedInputListeners,
+      inputAttributesComputed,
       datePickerProps: filterComponentProps(props, extractComponentProps(VaDatePicker)),
 
       filterSlots,
