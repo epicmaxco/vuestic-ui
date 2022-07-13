@@ -14,12 +14,16 @@
     </div>
 
     <div class="code-snippet">
-      <div>name: '<CodeInput class="code-input" v-model="configName" />',</div>
-      {{ resolveFnName }}: (<span class="params">{{ args }}</span>) => ({
-        <div class="ml-4 mb-1" v-for="key in Object.keys(resolve)" :key="key">
-          {{ key }}: <CodeInput v-model="(resolve as any)[key]" />,
-        </div>
-      })
+      const fonts = [{
+      <div class="ml-4">
+        <div>name: '<CodeInput class="code-input" v-model="configName" />',</div>
+        {{ resolveFnName }}: (<span class="params">{{ args }}</span>) => ({
+          <div class="ml-4 mb-1" v-for="key in Object.keys(resolve)" :key="key">
+            {{ key }}: <CodeInput v-model="(resolve as any)[key]" />,
+          </div>
+        })
+      </div>
+      }]
       <va-button class="copy-button" flat icon="content_copy" @click="copy" />
     </div>
 
@@ -91,12 +95,12 @@ const renderResolve = (tab = 4) => {
 }
 
 const renderConfig = () => {
-  return `{
+  return `const fonts = [{
   name: '${configName.value}',
   resolve: ({ ${args.value} }) => ({
 ${renderResolve()}
   }),
-},`
+}]`
 }
 
 const copyToClipboard = useCopyToClipboard()

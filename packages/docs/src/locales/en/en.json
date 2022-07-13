@@ -3560,28 +3560,25 @@
   },
   "iconsConfig": {
     "title": "Icons config",
-    "about": "By default Vuestic UI uses [Material Design icons](https://fonts.google.com/icons)[[target=_blank]]. If you want to use other font libraries you can configure `VaIcon` to use them.",
+    "about": "By default Vuestic UI uses [Material Design icons](https://fonts.google.com/icons)[[target=_blank]]. If you want to use other font libraries you can configure `VaIcon` to use them with Icons Config.",
     "readBeforeStart": "Find out more about the VaIcon component",
     "problem": {
       "definition": "There is a problem with icon libraries however: they usually use different interfaces to render icons.",
-      "materialIcons": "For example Material Icons wants us to set `material-icons` class and provide icon name inside the `span` tag.",
-      "fontAwesome": "If we want to use FontAwesome5 we need to provide the `fas` class and then another one with the name of the icon (prefixed with `fa-` on the `i` tag).",
-      "summary": "With Icons config we can instead provide an icon name using any style that fits our needs the best. We only need to configure how an icon for with the provided name will be rendered once."
+      "summary": "With Icons config we can instead provide an icon name using any style that fits our needs the best. We only need to configure how an icon for with the provided name will be rendered."
     },
     "fonts": {
       "title": "Fonts",
-      "about": "We want to use the `<va-icon name='icon-name' />` pattern. We can setup a config for a specific icon name pattern. In that config we provide an icon class, contents (innerHTML) or a Vue component relative to icon name.",
+      "about": "We want to use the `<va-icon name='icon-name' />` pattern. We can setup a config for a specific icon name pattern. In that config we provide an icon class, attributes, tag, contents (innerHTML) or a Vue component relative to icon name.",
       "fontNamePattern": {
         "title": "Font name pattern",
         "about": "Font name pattern is similar to vue dynamic routes. We can use dynamic segments to dynamically generate `IconConfig` in resolve function. Dynamic segments should be written in curly brackets."
       },
       "example": {
-        "title": "Example fonts config",
-        "about": "Let`s take a look at some examples",
-        "explain": "Below we can see how the icons would be transformed"
+        "title": "Interactive playground",
+        "about": "Here you can see how your code will be transformed with different icon configs. You can change icon config params to see how it impact on final render. See our presets before play.",
+        "alert": "By default Vuestic require only Material Icons. Other icon libraries you need to setup yourself."
       },
-      "readMore": "More information on",
-      "advancedFontsUsage": "advanced fonts usage"
+      "readMore": "More information on"
     },
     "aliases": {
       "title": "Aliases",

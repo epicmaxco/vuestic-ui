@@ -2,9 +2,6 @@ import { ApiDocsBlock } from '@/types/configTypes'
 import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import {
   aliasCodeExample,
-  aliasesTransformationsExample,
-  fontCodeExample,
-  fontTransformationsExample,
   setupCodeExample,
 } from '@/page-configs/services/icons-config/code-examples'
 
@@ -52,12 +49,6 @@ const config: ApiDocsBlock[] = [
   block.link('iconsConfig.readBeforeStart', '/ui-elements/icon'),
 
   block.paragraph('iconsConfig.problem.definition'),
-  // block.paragraph('iconsConfig.problem.materialIcons'),
-  // block.code('<span class="material-icons">star</span>'),
-
-  // block.paragraph('iconsConfig.problem.fontAwesome'),
-  // block.code('<i class="fas fa-star"></i>'),
-
   block.paragraph('iconsConfig.problem.summary'),
 
   // fonts
@@ -69,13 +60,8 @@ const config: ApiDocsBlock[] = [
 
   block.headline('iconsConfig.fonts.example.title'),
   block.paragraph('iconsConfig.fonts.example.about'),
+  block.alert('iconsConfig.fonts.example.alert', 'info'),
   block.component('playground'),
-
-  block.link(
-    'iconsConfig.fonts.advancedFontsUsage',
-    '/services/global-config',
-    { preText: 'iconsConfig.fonts.readMore' },
-  ),
 
   // aliases
   block.subtitle('iconsConfig.aliases.title'),
@@ -83,10 +69,6 @@ const config: ApiDocsBlock[] = [
 
   block.headline('iconsConfig.aliases.example.title'),
   block.code(aliasCodeExample),
-
-  block.paragraph('iconsConfig.aliases.example.about'),
-  block.code(aliasesTransformationsExample),
-  block.paragraph('iconsConfig.aliases.example.explain'),
 
   // setup
   block.subtitle('iconsConfig.setup.title'),
