@@ -17,6 +17,10 @@ export default defineConfig({
 
     rollupOptions: {
       input: [...cssInputs],
+
+      output: {
+        assetFileNames: '[name].[ext]',
+      },
     },
   },
 

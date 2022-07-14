@@ -24,13 +24,3 @@ export const getSplitDataByPath = (filePath) => {
 export const kebabToPascalCase = (name) => {
   return name.split('-').map((el) => el.charAt(0).toUpperCase() + el.slice(1)).join('')
 }
-
-// vite/rollup, for example, generates assets names as `[path]/[name].[hash].[extension]`
-export const deleteHashFromFilename = (filePath) => {
-  const { splitFileName, pathBase } = getSplitDataByPath(filePath)
-
-  splitFileName.splice(1, 1)
-  const newFileName = splitFileName.join('.')
-
-  renameSync(filePath, `${pathBase}/${newFileName}`)
-}

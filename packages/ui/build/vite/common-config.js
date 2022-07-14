@@ -4,15 +4,8 @@ import { resolve as resolver } from 'path'
 import { chunkSplitPlugin } from 'vite-plugin-chunk-split'
 
 const packageJSON = JSON.parse(readFileSync(resolver(process.cwd(), './package.json')))
-export const dependencies = [...Object.keys(packageJSON.dependencies), ...Object.keys(packageJSON.peerDependencies)]
-
-// https://github.com/sanyuan0704/vite-plugin-chunk-split
-export const chunkPlugin = chunkSplitPlugin({ strategy: 'unbundle' })
-
-export const vuePlugin = vue({
-  isProduction: true,
-  exclude: [/\.md$/, /\.spec\.ts$/, /\.spec\.disabled$/],
-})
+const dependencies = [...Object.keys(packageJSON.dependencies), ...Object.keys(packageJSON.peerDependencies)]
+const external = { external: dependencies }
 
 export const resolve = {
   alias: {
@@ -22,29 +15,33 @@ export const resolve = {
   },
 }
 
-export const commonOptions = {
-  sourcemap: true,
+const rollupMjsBuildOptions = {
+  input: resolver(process.cwd(), 'src/main.ts'),
 
-  // may be in future - less transpiling, faster (default 'modules')
-  // if the build.minify option is 'terser', 'esnext' will be forced down to 'es2019'
-  // target: 'esnext',
-
-  // default esbuild, not available for esm format in lib mode
-  minify: 'terser',
-
-  terserOptions: {
-    // https://stackoverflow.com/questions/57720816/rails-webpacker-terser-keep-fnames
-
-    // disable mangling class names (for vue class component)
-    keep_classnames: true,
-
-    // disable mangling functions names
-    keep_fnames: true,
+  output: {
+    sourcemap: true,
+    dir: 'dist/esm-node',
+    format: 'esm',
+    entryFileNames: '[name].mjs',
+    chunkFileNames: '[name].mjs',
+    assetFileNames: '[name].[ext]',
   },
 }
 
-export default function getViteConfig (isProduction, format) {
-  const isEsm = format === 'esm'
+const libBuildOptions = (format) => ({
+  lib: {
+    entry: resolver(process.cwd(), 'src/main.ts'),
+    fileName: () => 'main.js',
+    formats: [format],
+
+    // only for iife/umd
+    name: 'vuestic',
+  },
+})
+
+export default function createViteConfig (format) {
+  const isEsm = ['esm', 'esm-node'].includes(format)
+  const isMjs = format === 'esm-node'
 
   const config = {
     resolve,
@@ -54,26 +51,40 @@ export default function getViteConfig (isProduction, format) {
 
       cssCodeSplit: isEsm,
 
-      lib: {
-        entry: resolver(process.cwd(), 'src/main.ts'),
-        fileName: () => 'main.js',
-        formats: [format],
+      sourcemap: true,
 
-        // only for iife/umd
-        name: 'vuestic',
-      },
+      // may be in future - less transpiling, faster (default 'modules')
+      // if the build.minify option is 'terser', 'esnext' will be forced down to 'es2019'
+      // target: 'esnext',
 
-      ...commonOptions,
+      // default esbuild, not available for esm format in lib mode
+      minify: 'terser',
 
-      rollupOptions: {
-        external: dependencies,
+      terserOptions: {
+        // https://stackoverflow.com/questions/57720816/rails-webpacker-terser-keep-fnames
+
+        // disable mangling class names (for vue class component)
+        keep_classnames: true,
+
+        // disable mangling functions names
+        keep_fnames: true,
       },
     },
 
-    plugins: [vuePlugin],
+    plugins: [
+      vue({
+        isProduction: true,
+        exclude: [/\.md$/, /\.spec\.ts$/, /\.spec\.disabled$/],
+      }),
+    ],
   }
 
-  isEsm && config.plugins.push(chunkPlugin)
+  // https://github.com/sanyuan0704/vite-plugin-chunk-split
+  isEsm && config.plugins.push(chunkSplitPlugin({ strategy: 'unbundle' }))
+
+  if (!isMjs) { config.build = { ...config.build, ...libBuildOptions(format) } }
+
+  config.build.rollupOptions = isMjs ? { ...external, ...rollupMjsBuildOptions } : external
 
   return config
 }

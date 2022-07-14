@@ -1,8 +1,8 @@
 import { defineConfig } from 'vite'
-import getViteConfig from '../common-config'
+import createViteConfig from '../common-config'
 
-export default ({ mode }) => {
+export default () => {
   return defineConfig({
-    ...getViteConfig(mode === 'production', 'esm'),
+    ...createViteConfig('esm'),
   })
 }
