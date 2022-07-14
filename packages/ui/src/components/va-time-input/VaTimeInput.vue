@@ -5,6 +5,8 @@
     placement="bottom-start"
     trigger="none"
     anchorSelector=".va-input-wrapper__field"
+    :class="$attrs.class"
+    :style="$attrs.style"
     :offset="[2, 0]"
     :close-on-content-click="false"
     :stateful="false"
@@ -54,7 +56,7 @@
             role="button"
             aria-label="toggle dropdown"
             aria-hidden="false"
-            :tabindex="tabindexComputed"
+            :tabindex="iconTabindexComputed"
             v-bind="iconProps"
             @click.stop="toggleDropdown"
             @keydown.enter.stop="toggleDropdown"
@@ -68,7 +70,7 @@
             role="button"
             aria-label="reset"
             aria-hidden="false"
-            :tabindex="tabindexComputed"
+            :tabindex="iconTabindexComputed"
             v-bind="clearIconProps"
             @click.stop="reset"
             @keydown.enter.stop="reset"
@@ -80,7 +82,7 @@
             aria-label="toggle dropdown"
             aria-hidden="false"
             class="va-dropdown__icons__reset"
-            :tabindex="tabindexComputed"
+            :tabindex="iconTabindexComputed"
             v-bind="iconProps"
             @click.stop="toggleDropdown"
             @keydown.enter.stop="toggleDropdown"
@@ -120,6 +122,7 @@ import VaTimePicker from '../va-time-picker/VaTimePicker.vue'
 import { VaInputWrapper } from '../va-input'
 import VaIcon from '../va-icon/VaIcon.vue'
 import { VaDropdown, VaDropdownContent } from '../va-dropdown'
+import omit from 'lodash/omit'
 
 const VaInputWrapperProps = extractComponentProps(VaInputWrapper, ['focused', 'maxLength', 'counterValue'])
 
@@ -145,7 +148,9 @@ export default defineComponent({
     icon: { type: String, default: 'schedule' },
   },
 
-  setup (props, { emit, slots }) {
+  inheritAttrs: false,
+
+  setup (props, { emit, slots, attrs }) {
     const input = shallowRef<HTMLInputElement>()
     const timePicker = shallowRef<typeof VaTimePicker>()
 
@@ -223,6 +228,7 @@ export default defineComponent({
       error: computedError.value,
       errorMessages: computedErrorMessages.value,
       readonly: props.readonly || !props.manualInput,
+      ...omit(attrs, ['class', 'style']),
     }))
 
     const computedInputListeners = computed(() => ({
@@ -256,6 +262,8 @@ export default defineComponent({
     }
 
     const showDropdownWithoutFocus = () => {
+      if (props.disabled || props.readonly) { return }
+
       isOpenSync.value = true
     }
 
@@ -268,6 +276,8 @@ export default defineComponent({
     }
 
     const toggleDropdown = () => {
+      if (props.disabled || props.readonly) { return }
+
       isOpenSync.value ? hideDropdown() : showDropdown()
     }
 
@@ -275,6 +285,7 @@ export default defineComponent({
       isOpenSync.value ? hideDropdown() : showDropdownWithoutFocus()
     }
 
+    const iconTabindexComputed = computed(() => props.disabled || props.readonly ? -1 : 0)
     const tabindexComputed = computed(() => props.disabled ? -1 : 0)
     const inputAttributesComputed = computed(() => ({
       readonly: props.readonly || !props.manualInput,
@@ -304,6 +315,7 @@ export default defineComponent({
       filteredSlots,
       inputAttributesComputed,
       tabindexComputed,
+      iconTabindexComputed,
 
       hideDropdown,
       showDropdown,

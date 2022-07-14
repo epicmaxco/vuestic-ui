@@ -77,7 +77,7 @@ import pick from 'lodash/pick.js'
 import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
 
 import {
-  useForm, useFormProps,
+  useFormProps,
   useValidation, useValidationProps, useValidationEmits, ValidationProps,
   useEmitProxy,
   useClearable, useClearableProps, useClearableEmits,
