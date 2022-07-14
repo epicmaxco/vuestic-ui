@@ -1,5 +1,5 @@
 <template>
-  <VbDemo class="va-input-demo">
+  <VbDemo class="va-checkbox-demo">
     <VbCard title="Default">
       <va-checkbox
         v-model="value"
@@ -221,7 +221,7 @@ export default {
 </script>
 
 <style lang="scss">
-.va-input-demo {
+.va-checkbox-demo {
   & .VbCard {
     display: flex;
     flex-direction: column;
