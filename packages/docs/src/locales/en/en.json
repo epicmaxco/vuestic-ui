@@ -601,8 +601,7 @@
         "component": "Allows to use the `svg` component as an icon",
         "rotation": "Rotates a component by a degree value",
         "spin": "Starts rotation animation",
-        "flip": "Specifies mirror image relative to horizontal and vertical planes. `\"off\"`, `\"horizontal\"`, `\"vertical\"` and `\"both\"` values are available",
-        "iconsConfig": "Allows you to configurate iconset."
+        "flip": "Specifies mirror image relative to horizontal and vertical planes. `\"off\"`, `\"horizontal\"`, `\"vertical\"` and `\"both\"` values are available"
       }
     },
     "VaRadio": {
@@ -2567,10 +2566,12 @@
   "icon": {
     "title": "Icon",
     "summaryText": "The `va-icon` component allows you to use different icon fonts. By default Vuestic UI provides [Material Design Icons](https://fonts.google.com/icons)[[target=_blank]].",
+    "iconsConfig": "Read more how you can use different icon libraries with Vuestic UI Icon Config",
     "examples": {
       "default": {
         "title": "Default",
-        "text": "Basic usage of the component with different icon fonts."
+        "text": "Basic usage of the component with different icon fonts.",
+        "alert": "Notice that Vuestic UI uses only Material Icons by default. You need to manualy install additional libraries."
       },
       "color": {
         "title": "Color",
@@ -3340,7 +3341,7 @@
       "title": "Icon fonts",
       "description": "By default Vuestic UI uses **material icons**, so make sure to install the package:",
       "subtitle": "Using custom icons",
-      "subDescription": "With Icons Config you can use any icon font you'd like by simply transforming the icon names to respective props."
+      "subDescription": "With icons config you can use any icon font you'd like by simply transforming the icon names to respective props."
     },
     "components": {
       "title": "Components config",
@@ -3559,29 +3560,30 @@
     }
   },
   "iconsConfig": {
+    "problem": {
+      "materialIcons": "For example Material Icons wants us to set `material-icons` class and provide icon name inside the `span` tag.",
+      "fontAwesome": "If we want to use FontAwesome5 we need to provide the `fas` class and then another one with the name of the icon (prefixed with `fa-` on the `i` tag)."
+    },
     "title": "Icons config",
-    "about": "By default Vuestic UI uses [Material Design icons](https://fonts.google.com/icons)[[target=_blank]]. If you want to use other font libraries you can configure `VaIcon` to use them.",
+    "about": "By default Vuestic UI uses [Material Design icons](https://fonts.google.com/icons)[[target=_blank]]. If that's too basic for you - vuestic has powerful icon config.",
     "readBeforeStart": "Find out more about the VaIcon component",
     "problem": {
-      "definition": "There is a problem with icon libraries however: they usually use different interfaces to render icons.",
-      "materialIcons": "For example Material Icons wants us to set `material-icons` class and provide icon name inside the `span` tag.",
-      "fontAwesome": "If we want to use FontAwesome5 we need to provide the `fas` class and then another one with the name of the icon (prefixed with `fa-` on the `i` tag).",
-      "summary": "With Icons config we can instead provide an icon name using any style that fits our needs the best. We only need to configure how an icon for with the provided name will be rendered once."
+      "definition": "Depending on icon library, they could use classes, ligatures or components. So you have to configure vuestic icons to work with your icon solution.",
+      "summary": "With icons config we can instead provide an icon name using any style that fits our needs the best. We only need to configure how an icon for with the provided name will be rendered."
     },
     "fonts": {
       "title": "Fonts",
-      "about": "We want to use the `<va-icon name='icon-name' />` pattern. We can setup a config for a specific icon name pattern. In that config we provide an icon class, contents (innerHTML) or a Vue component relative to icon name.",
+      "about": "We want to use the `<va-icon name='icon-name' />` pattern. We can setup a config for a specific icon name pattern. In that config we provide an icon class, attributes, tag, contents (innerHTML) or a Vue component relative to icon name.",
       "fontNamePattern": {
         "title": "Font name pattern",
         "about": "Font name pattern is similar to vue dynamic routes. We can use dynamic segments to dynamically generate `IconConfig` in resolve function. Dynamic segments should be written in curly brackets."
       },
       "example": {
-        "title": "Example fonts config",
-        "about": "Let`s take a look at some examples",
-        "explain": "Below we can see how the icons would be transformed"
+        "title": "Interactive playground",
+        "about": "Here you can see how your code will be transformed with different icon configs. You can change icon config params to see how it impact on final render. See our presets before play.",
+        "alert": "By default Vuestic require only Material Icons. Other icon libraries you need to setup yourself."
       },
-      "readMore": "More information on",
-      "advancedFontsUsage": "advanced fonts usage"
+      "readMore": "More information on"
     },
     "aliases": {
       "title": "Aliases",
