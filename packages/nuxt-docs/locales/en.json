@@ -3136,7 +3136,7 @@
       "title": "Icon fonts",
       "description": "By default Vuestic UI uses **material icons**, so make sure to install the package:",
       "subtitle": "Using custom icons",
-      "subDescription": "With Icons Config you can use any icon font you'd like by simply transforming the icon names to respective props."
+      "subDescription": "With icons config you can use any icon font you'd like by simply transforming the icon names to respective props."
     },
     "components": {
       "title": "Components config",
@@ -3312,13 +3312,12 @@
   },
   "iconsConfig": {
     "title": "Icons config",
-    "about": "By default Vuestic UI uses [Material Design icons](https://fonts.google.com/icons)[[target=_blank]]. If you want to use other font libraries you can configure `VaIcon` to use them.",
+    "about": "By default Vuestic UI uses [Material Design icons](https://fonts.google.com/icons)[[target=_blank]]. But if you need something else - read on!",
     "readBeforeStart": "Find out more about the VaIcon component",
     "problem": {
-      "definition": "There is a problem with icon libraries however: they usually use different interfaces to render icons.",
+      "definition": "Depending on icon library, they could use classes, ligatures or components. So you have to configure vuestic icons to support your particular solution.",
       "materialIcons": "For example Material Icons wants us to set `material-icons` class and provide icon name inside the `span` tag.",
-      "fontAwesome": "If we want to use FontAwesome5 we need to provide the `fas` class and then another one with the name of the icon (prefixed with `fa-` on the `i` tag).",
-      "summary": "With Icons config we can instead provide an icon name using any style that fits our needs the best. We only need to configure how an icon for with the provided name will be rendered once."
+      "fontAwesome": "If we want to use FontAwesome5 we need to provide the `fas` class and then another one with the name of the icon (prefixed with `fa-` on the `i` tag)."
     },
     "fonts": {
       "title": "Fonts",

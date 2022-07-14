@@ -3341,7 +3341,7 @@
       "title": "Icon fonts",
       "description": "By default Vuestic UI uses **material icons**, so make sure to install the package:",
       "subtitle": "Using custom icons",
-      "subDescription": "With Icons Config you can use any icon font you'd like by simply transforming the icon names to respective props."
+      "subDescription": "With icons config you can use any icon font you'd like by simply transforming the icon names to respective props."
     },
     "components": {
       "title": "Components config",
@@ -3560,12 +3560,16 @@
     }
   },
   "iconsConfig": {
+    "problem": {
+      "materialIcons": "For example Material Icons wants us to set `material-icons` class and provide icon name inside the `span` tag.",
+      "fontAwesome": "If we want to use FontAwesome5 we need to provide the `fas` class and then another one with the name of the icon (prefixed with `fa-` on the `i` tag)."
+    },
     "title": "Icons config",
-    "about": "By default Vuestic UI uses [Material Design icons](https://fonts.google.com/icons)[[target=_blank]]. If you want to use other font libraries you can configure `VaIcon` to use them with Icons Config.",
+    "about": "By default Vuestic UI uses [Material Design icons](https://fonts.google.com/icons)[[target=_blank]]. If that's too basic for you - vuestic has powerful icon config.",
     "readBeforeStart": "Find out more about the VaIcon component",
     "problem": {
-      "definition": "There is a problem with icon libraries however: they usually use different interfaces to render icons.",
-      "summary": "With Icons config we can instead provide an icon name using any style that fits our needs the best. We only need to configure how an icon for with the provided name will be rendered."
+      "definition": "Depending on icon library, they could use classes, ligatures or components. So you have to configure vuestic icons to work with your icon solution.",
+      "summary": "With icons config we can instead provide an icon name using any style that fits our needs the best. We only need to configure how an icon for with the provided name will be rendered."
     },
     "fonts": {
       "title": "Fonts",

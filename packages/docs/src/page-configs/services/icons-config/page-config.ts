@@ -46,10 +46,8 @@ const block = new PageGenerationHelper(__dirname)
 const config: ApiDocsBlock[] = [
   block.title('iconsConfig.title'),
   block.paragraph('iconsConfig.about'),
-  block.link('iconsConfig.readBeforeStart', '/ui-elements/icon'),
-
   block.paragraph('iconsConfig.problem.definition'),
-  block.paragraph('iconsConfig.problem.summary'),
+  block.link('iconsConfig.readBeforeStart', '/ui-elements/icon'),
 
   // fonts
   block.subtitle('iconsConfig.fonts.title'),
