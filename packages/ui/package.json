@@ -30,7 +30,7 @@
     "serve": "vue-cli-service serve --mode book",
     "serve:production": "vue-cli-service serve --mode production",
     "build:dev": "tsc build/config.ts && webpack --config build/config.js --progress",
-    "build": "yarn build:rollup",
+    "build": "zx ./build/vite/build.mjs",
     "build:rollup": "rollup -c",
     "build:types": "vue-tsc --declaration --emitDeclarationOnly --outDir dist/types",
     "build:book": "vue-cli-service build --mode book",
@@ -47,8 +47,7 @@
   "dependencies": {
     "cleave.js": "^1.6.0",
     "colortranslator": "^1.9.2",
-    "lodash": "^4.17.21",
-    "normalize.css": "^8.0.1"
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "@babel/core": "^7.12.3",
@@ -69,6 +68,7 @@
     "@types/yargs": "^17.0.10",
     "@typescript-eslint/eslint-plugin": "^4.12.0",
     "@typescript-eslint/parser": "^4.12.0",
+    "@vitejs/plugin-vue": "^2.3.2",
     "@vue/cli-plugin-babel": "^5.0.0-alpha.3",
     "@vue/cli-plugin-e2e-cypress": "^5.0.0-alpha.3",
     "@vue/cli-plugin-eslint": "^5.0.0-alpha.3",
@@ -115,6 +115,8 @@
     "ts-jest": "^26.5.4",
     "ts-loader": "^8.0.14",
     "typescript": "4.7.4",
+    "vite": "^2.9.8",
+    "vite-plugin-chunk-split": "^0.2.2",
     "vue": "^3.0.4",
     "vue-book": "0.2.0-alpha.0",
     "vue-jest": "^5.0.0-alpha.7",
@@ -125,7 +127,8 @@
     "webpack-bundle-analyzer": "^4.1.0",
     "webpack-cli": "^4.4.0",
     "webpack-merge": "^5.5.0",
-    "yargs": "^17.5.1"
+    "yargs": "^17.5.1",
+    "zx": "^6.1.0"
   },
   "peerDependencies": {
     "vue": "^3.0.4"
@@ -154,13 +157,15 @@
       },
       "require": "./dist/cjs/main.js"
     },
-    "./ssr": {
-      "import": "./dist/esm-ssr/main.mjs"
+    "./css": {
+      "import": {
+        "node": "./dist/styles/index.css",
+        "default": "./dist/vuestic-ui.css"
+      }
     },
-    "./iife": "./dist/iife/vuestic-ui.js",
+    "./iife": "./dist/iife/main.js",
     "./styles/": "./dist/styles/",
     "./types": "./dist/types/main.d.ts",
-    "./css": "./dist/vuestic-ui.css",
     "./dist/": "./dist/"
   }
 }
