@@ -104,9 +104,6 @@ export default defineComponent({
   font-family: var(--va-font-family);
   transition: var(--va-sidebar-item-transition);
   box-sizing: border-box;
-
-  &:visited {
-    color: currentColor;
-  }
+  color: currentColor;
 }
 </style>

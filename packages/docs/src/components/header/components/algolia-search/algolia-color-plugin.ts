@@ -1,6 +1,6 @@
 import { useColors } from 'vuestic-ui/src/composables'
-import { addOrUpdateStyleElement } from '../../../../../ui/src/services/dom-functions'
-import { getHoverColor } from '../../../../../ui/src/services/color-config/color-functions'
+import { addOrUpdateStyleElement } from '../../../../../../ui/src/services/dom-functions'
+import { getHoverColor } from '../../../../../../ui/src/services/color-config/color-functions'
 import { App, computed, watch } from 'vue'
 
 const createThemeColorStyles = (themes: Record<string, string>): string => {
