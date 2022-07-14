@@ -77,8 +77,8 @@ const config: ApiDocsBlock[] = [
 
   // api
   block.subtitle('iconsConfig.api.title'),
-  block.table(columns, tableData),
   block.paragraph('iconsConfig.api.description'),
+  block.table(columns, tableData),
 ]
 
 export default config

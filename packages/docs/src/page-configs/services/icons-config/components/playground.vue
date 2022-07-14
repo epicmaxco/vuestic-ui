@@ -1,15 +1,20 @@
 <template>
   <div>
-    <div class="demo-header mb-2">
-      <va-select
-        v-model="exampleValue"
-        :rounded="false"
-        :options="exampleOptions"
-        text-by="label"
-        value-by="value"
-      />
-      <div class="code-snippet ml-2">
-        <span class="tag">va-icon name="<CodeInput class="code-input" v-model="iconName" />" /</span>
+    <div class="demo-header mb-2 row">
+      <div class="col">
+        <va-select
+          v-model="exampleValue"
+          :rounded="false"
+          :options="exampleOptions"
+          text-by="label"
+          value-by="value"
+        />
+      </div>
+
+      <div class="col" style="width: 100%;">
+        <div class="code-snippet">
+          <span class="tag">va-icon name="<CodeInput class="code-input" v-model="iconName" />" /</span>
+        </div>
       </div>
     </div>
 
@@ -140,6 +145,19 @@ const copy = () => {
   .demo-header {
     display: flex;
     align-items: center;
+    flex-wrap: nowrap;
+    margin: -0.5rem;
+
+    & > * {
+      padding: 0.5rem;
+    }
+
+    @media screen and (max-width: 1024px) {
+      flex-direction: column;
+      align-items: stretch;
+
+      & > * { width: 100%; }
+    }
 
     .code-snippet {
       display: flex;
