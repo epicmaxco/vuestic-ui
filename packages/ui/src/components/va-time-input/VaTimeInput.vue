@@ -196,7 +196,7 @@ export default defineComponent({
       emit('clear')
     }
 
-    const { computedError, computedErrorMessages, listeners } = useValidation(props, emit, reset, focus)
+    const { computedError, computedErrorMessages, listeners, validationAriaAttributes } = useValidation(props, emit, reset, focus)
 
     const {
       canBeCleared,
@@ -284,10 +284,7 @@ export default defineComponent({
       ariaRequired: props.requiredMark,
       ariaDisabled: props.disabled,
       ariaReadOnly: props.readonly,
-      'aria-invalid': !!computedErrorMessages.value.length,
-      'aria-errormessage': typeof computedErrorMessages.value === 'string'
-        ? computedErrorMessages.value
-        : computedErrorMessages.value.join(', '),
+      ...validationAriaAttributes.value,
     }))
 
     return {
