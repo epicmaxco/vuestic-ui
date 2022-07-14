@@ -1,16 +1,19 @@
 import { createVuestic, createVuesticEssential } from 'vuestic-ui'
 import { ref } from 'vue'
+import { defineNuxtPlugin } from 'nuxt/app'
+import type { VuesticOptions } from '../module'
 
 function getGlobalProperty (app, key) {
   return app.config.globalProperties[key]
 }
 
-// @ts-ignore: ts isn't working in proper way into plugin templates
-export default (nuxtApp) => {
+export default defineNuxtPlugin((nuxtApp) => {
   const { vueApp: app } = nuxtApp
 
-  const config = JSON.parse('<%= options.config %>')
-  const withoutComponents = JSON.parse('<%= options.withoutComponents %>' || 'false')
+  // It's important to use `, because TS will compile qoutes to " and JSON will not be parsed...
+  const { config }: VuesticOptions = JSON.parse(`<%= options.value %>`)
+  // TODO: Deal with tree-shaking later
+  const withoutComponents = false
 
   app.use(withoutComponents ? createVuesticEssential({ config }) : createVuestic({ config }))
 
@@ -32,4 +35,4 @@ export default (nuxtApp) => {
       }))
     }
   }
-}
+})
