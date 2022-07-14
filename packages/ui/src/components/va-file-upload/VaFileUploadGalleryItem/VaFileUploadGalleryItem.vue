@@ -1,18 +1,5 @@
-
 <template>
-  <div
-    v-if="removed && undo"
-    class="va-file-upload-gallery-item"
-    :class="{ 'va-file-upload-gallery-item--undo': removed }"
-  >
-    <va-file-upload-undo
-      class="va-file-upload-gallery-item--undo"
-      @recover="recoverImage"
-    />
-  </div>
-
-  <div
-    v-else
+  <va-list-item
     tabindex="0"
     class="va-file-upload-gallery-item"
     :class="{
@@ -22,35 +9,44 @@
     @focus="isFocused = true"
     @blur="isFocused = false"
   >
-    <img
-      v-if="previewImage"
-      :src="previewImage"
-      alt=""
-      class="va-file-upload-gallery-item__image"
-    >
-    <div class="va-file-upload-gallery-item__overlay">
-      <div
-        class="va-file-upload-gallery-item__overlay-background"
-        :style="overlayStyles"
+    <va-list-item-section v-if="removed && undo">
+      <va-file-upload-undo
+        :duration="undoDuration"
+        vertical
+        @recover="recoverImage"
       />
-      <div
-        class="va-file-upload-gallery-item__name"
-        :title="file.name"
+    </va-list-item-section>
+    <va-list-item-section v-else>
+      <img
+        v-if="previewImage"
+        :src="previewImage"
+        alt=""
+        class="va-file-upload-gallery-item__image"
       >
-        {{ file.name }}
+      <div class="va-file-upload-gallery-item__overlay">
+        <div
+          class="va-file-upload-gallery-item__overlay-background"
+          :style="overlayStyles"
+        />
+        <div
+          class="va-file-upload-gallery-item__name"
+          :title="file.name"
+        >
+          {{ file.name }}
+        </div>
+        <va-button
+          flat
+          color="danger"
+          icon="delete_outline"
+          class="va-file-upload-gallery-item__delete"
+          aria-label="remove image"
+          @click="removeImage"
+          @focus="isFocused = true"
+          @blur="isFocused = false"
+        />
       </div>
-      <va-button
-        flat
-        color="danger"
-        icon="delete_outline"
-        class="va-file-upload-gallery-item__delete"
-        aria-label="remove image"
-        @click="removeImage"
-        @focus="isFocused = true"
-        @blur="isFocused = false"
-      />
-    </div>
-  </div>
+    </va-list-item-section>
+  </va-list-item>
 </template>
 
 <script lang="ts">
@@ -60,12 +56,17 @@ import { colorToRgba } from '../../../services/color-config/color-functions'
 
 import type { ConvertedFile } from '../types'
 
-import { VaButton } from '../../index'
+import { VaButton, VaListItem, VaListItemSection } from '../../index'
 import { VaFileUploadUndo } from '../VaFileUploadUndo'
 
 export default defineComponent({
   name: 'VaFileUploadGalleryItem',
-  components: { VaFileUploadUndo, VaButton },
+  components: {
+    VaFileUploadUndo,
+    VaButton,
+    VaListItem,
+    VaListItemSection,
+  },
   emits: ['remove'],
   props: {
     file: { type: Object as PropType<ConvertedFile>, default: null },
@@ -222,28 +223,6 @@ $max-image-size: 8.5714rem;
     cursor: pointer;
     font-size: 1.5rem;
     margin-top: auto;
-  }
-
-  &--undo {
-    box-shadow: none;
-
-    .va-file-upload-gallery-item--undo {
-      padding: 0.5rem;
-      display: flex;
-      flex-direction: column;
-      font-size: 0.875rem;
-      height: 100%;
-      justify-content: space-between;
-      align-items: flex-start;
-
-      span {
-        margin-right: 0.5rem;
-      }
-
-      .va-button {
-        margin: 0;
-      }
-    }
   }
 }
 
