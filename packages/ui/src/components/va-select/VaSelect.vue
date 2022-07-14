@@ -311,7 +311,7 @@ export default defineComponent({
             return [value]
           }
 
-          return value
+          return value.map((o) => getOptionByValue(o))
         }
 
         if (Array.isArray(value)) {
@@ -356,7 +356,9 @@ export default defineComponent({
     } = useClearable(props, valueComputed)
 
     const showClearIcon = computed(() => {
-      return props.multiple && Array.isArray(valueComputed.value) ? !!valueComputed.value.length : canBeCleared.value
+      if (!canBeCleared.value) { return false }
+      if (props.multiple && Array.isArray(valueComputed.value)) { return !!valueComputed.value.length }
+      return true
     })
 
     const toggleIcon = computed(() => {
