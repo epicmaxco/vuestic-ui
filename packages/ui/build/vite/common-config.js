@@ -11,7 +11,6 @@ export const resolve = {
   alias: {
     '@': resolver(process.cwd(), 'src'),
     '~/': resolver(process.cwd(), 'src'),
-    '~normalize.css/normalize.css': 'normalize.css/normalize.css',
   },
 }
 

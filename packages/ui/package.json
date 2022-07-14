@@ -47,8 +47,7 @@
   "dependencies": {
     "cleave.js": "^1.6.0",
     "colortranslator": "^1.9.2",
-    "lodash": "^4.17.21",
-    "normalize.css": "^8.0.1"
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "@babel/core": "^7.12.3",
