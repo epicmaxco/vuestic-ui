@@ -86,7 +86,7 @@ export const useSelectable = (
     emit('focus', event)
   }
 
-  const isIndeterminate = computed(() => !!props.indeterminate && valueComputed.value === props.indeterminateValue)
+  const isIndeterminate = computed(() => props.indeterminate && valueComputed.value === props.indeterminateValue)
   const modelIsArray = computed(() => props.arrayValue !== null)
   const isChecked = computed(() => {
     if (modelIsArray.value) {

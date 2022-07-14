@@ -12,6 +12,8 @@
   --va-checkbox-icon-pointer-events: none;
   --va-checkbox-icon-position: absolute;
   --va-checkbox-icon-color: transparent;
+  --va-checkbox-font-size: 15px;
+  --va-checkbox-line-height: 20px;
 
   /* Square */
   --va-checkbox-square-width: 1.35rem;
@@ -20,5 +22,5 @@
   --va-checkbox-square-position: relative;
   --va-checkbox-square-background-color: var(--va-white);
   --va-checkbox-square-border: solid 0.125rem var(--va-gray);
-  --va-checkbox-square-border-radius: 0.25rem;
+  --va-checkbox-square-border-radius: 0.125rem;
 }
