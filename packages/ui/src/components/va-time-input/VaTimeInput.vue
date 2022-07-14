@@ -1,31 +1,38 @@
 <template>
   <va-dropdown
-    class="va-time-input"
-    :class="$attrs.class"
-    :style="$attrs.style"
     v-model="isOpenSync"
+    class="va-time-input"
     placement="bottom-start"
+    trigger="none"
+    anchorSelector=".va-input-wrapper__field"
     :offset="[2, 0]"
     :close-on-content-click="false"
-    :disabled="$props.disabled"
-    anchorSelector=".va-input-wrapper__field"
     :stateful="false"
-    trigger="none"
+    :disabled="$props.disabled"
+    @click="(!$props.manualInput || isOpenSync) && toggleDropdownWithoutFocus"
     @keydown.up.prevent="showDropdown"
     @keydown.down.prevent="showDropdown"
     @keydown.space="showDropdown($event, $props.manualInput, !$props.manualInput)"
-    @keydown.enter="!$props.manualInput && showDropdown()"
+    @keydown.enter="!$props.manualInput && showDropdown"
     @keydown.esc.prevent="hideDropdown"
-    @click="(!$props.manualInput || isOpenSync) && toggleDropdownWithoutFocus()"
   >
     <template #anchor>
-      <va-input
-        ref="input"
-        v-bind="{ ...computedInputProps, ...computedInputAttrs }"
-        v-on="computedInputListeners"
-        :modelValue="valueText"
-        @change="onInputTextChanged($event.target.value)"
+      <va-input-wrapper
+        v-bind="computedInputWrapperProps"
+        @click="toggleDropdownWithoutFocus"
+        @keydown.enter.stop="toggleDropdown"
+        @keydown.space.stop="toggleDropdown"
       >
+        <template #default>
+          <input
+            ref="input"
+            class="va-time-input__input"
+            v-bind="inputAttributesComputed"
+            v-on="computedInputListeners"
+            @change="onInputTextChanged"
+          />
+        </template>
+
         <template
           v-for="name in filteredSlots"
           :key="name"
@@ -47,10 +54,11 @@
             role="button"
             aria-label="toggle dropdown"
             aria-hidden="false"
-            :tabindex="iconsTabIndexComputed"
+            :tabindex="tabindexComputed"
             v-bind="iconProps"
             @click.stop="toggleDropdown"
             @keydown.enter.stop="toggleDropdown"
+            @keydown.space.stop="toggleDropdown"
           />
         </template>
 
@@ -60,12 +68,11 @@
             role="button"
             aria-label="reset"
             aria-hidden="false"
-            :tabindex="iconsTabIndexComputed"
+            :tabindex="tabindexComputed"
             v-bind="clearIconProps"
             @click.stop="reset"
             @keydown.enter.stop="reset"
-            @focus="onFocus"
-            @blur="onBlur"
+            @keydown.space.stop="reset"
           />
           <va-icon
             v-else-if="!$props.leftIcon"
@@ -73,13 +80,14 @@
             aria-label="toggle dropdown"
             aria-hidden="false"
             class="va-dropdown__icons__reset"
-            :tabindex="iconsTabIndexComputed"
+            :tabindex="tabindexComputed"
             v-bind="iconProps"
             @click.stop="toggleDropdown"
             @keydown.enter.stop="toggleDropdown"
+            @keydown.space.stop="toggleDropdown"
           />
         </template>
-      </va-input>
+      </va-input-wrapper>
     </template>
 
     <va-dropdown-content
@@ -98,35 +106,32 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType, shallowRef, nextTick } from 'vue'
-import omit from 'lodash/omit.js'
 
 import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
 import {
   useSyncProp,
   useValidation, useValidationEmits, useValidationProps, ValidationProps,
-  useClearable, useClearableEmits,
+  useClearable, useClearableEmits, useFocus,
 } from '../../composables'
 import { useTimeParser } from './hooks/time-text-parser'
 import { useTimeFormatter } from './hooks/time-text-formatter'
 
 import VaTimePicker from '../va-time-picker/VaTimePicker.vue'
-import VaInput from '../va-input/VaInput.vue'
+import { VaInputWrapper } from '../va-input'
 import VaIcon from '../va-icon/VaIcon.vue'
 import { VaDropdown, VaDropdownContent } from '../va-dropdown'
 
-const VaInputProps = extractComponentProps(VaInput, [
-  'mask', 'returnRaw', 'autosize', 'minRows', 'maxRows', 'type', 'inputmode', 'counter', 'maxLength',
-])
+const VaInputWrapperProps = extractComponentProps(VaInputWrapper, ['focused', 'maxLength', 'counterValue'])
 
 export default defineComponent({
   name: 'VaTimeInput',
 
-  components: { VaDropdown, VaDropdownContent, VaTimePicker, VaIcon, VaInput },
+  components: { VaDropdown, VaDropdownContent, VaTimePicker, VaIcon, VaInputWrapper },
 
   emits: [...useValidationEmits, ...useClearableEmits, 'update:modelValue', 'update:isOpen'],
 
   props: {
-    ...VaInputProps,
+    ...VaInputWrapperProps,
     ...extractComponentProps(VaTimePicker),
     ...useValidationProps as ValidationProps<Date>,
 
@@ -140,10 +145,8 @@ export default defineComponent({
     icon: { type: String, default: 'schedule' },
   },
 
-  inheritAttrs: false,
-
-  setup (props, { emit, attrs, slots }) {
-    const input = shallowRef<typeof VaInput>()
+  setup (props, { emit, slots }) {
+    const input = shallowRef<HTMLInputElement>()
     const timePicker = shallowRef<typeof VaTimePicker>()
 
     const [isOpenSync] = useSyncProp('isOpen', props, emit, false)
@@ -153,6 +156,8 @@ export default defineComponent({
     const { format } = useTimeFormatter(props)
 
     const valueText = computed<string>(() => format(modelValueSync.value || props.clearValue))
+
+    const { isFocused, focus, blur, onFocus: focusListener, onBlur: blurListener } = useFocus(input)
 
     const onInputTextChanged = (val: string) => {
       if (!val) {
@@ -191,14 +196,6 @@ export default defineComponent({
       emit('clear')
     }
 
-    const focus = (): void => {
-      input.value?.focus()
-    }
-
-    const blur = (): void => {
-      input.value?.blur()
-    }
-
     const { computedError, computedErrorMessages, listeners } = useValidation(props, emit, reset, focus)
 
     const {
@@ -218,8 +215,9 @@ export default defineComponent({
       size: 'small',
     }))
 
-    const computedInputProps = computed(() => ({
-      ...filterComponentProps(props, VaInputProps).value,
+    const computedInputWrapperProps = computed(() => ({
+      ...filterComponentProps(props, VaInputWrapperProps).value,
+      focused: isFocused.value,
       clearable: false,
       rules: [],
       error: computedError.value,
@@ -229,22 +227,19 @@ export default defineComponent({
 
     const computedInputListeners = computed(() => ({
       focus: () => {
+        if (props.disabled) { return }
+
         onFocus()
+        focusListener()
         listeners.onFocus()
       },
       blur: () => {
+        if (props.disabled) { return }
+
         onBlur()
+        blurListener()
         listeners.onBlur()
       },
-    }))
-
-    const iconsTabIndexComputed = computed(() => props.disabled || props.readonly ? -1 : 0)
-    const computedInputAttrs = computed(() => ({
-      ariaLabel: props.label || 'selected time',
-      ariaDisabled: props.disabled,
-      ariaReadonly: props.readonly,
-      tabindex: props.disabled ? -1 : 0,
-      ...omit(attrs, ['class', 'style']),
     }))
 
     const filteredSlots = computed(() => {
@@ -280,15 +275,28 @@ export default defineComponent({
       isOpenSync.value ? hideDropdown() : showDropdownWithoutFocus()
     }
 
+    const tabindexComputed = computed(() => props.disabled ? -1 : 0)
+    const inputAttributesComputed = computed(() => ({
+      readonly: props.readonly || !props.manualInput,
+      tabindex: tabindexComputed.value,
+      value: valueText.value,
+      ariaLabel: props.label || 'selected date',
+      ariaRequired: props.requiredMark,
+      ariaDisabled: props.disabled,
+      ariaReadOnly: props.readonly,
+      'aria-invalid': !!computedErrorMessages.value.length,
+      'aria-errormessage': typeof computedErrorMessages.value === 'string'
+        ? computedErrorMessages.value
+        : computedErrorMessages.value.join(', '),
+    }))
+
     return {
       input,
       timePicker,
 
       timePickerProps: filterComponentProps(props, extractComponentProps(VaTimePicker)),
-      computedInputProps,
-      computedInputAttrs,
+      computedInputWrapperProps,
       computedInputListeners,
-      iconsTabIndexComputed,
       isOpenSync,
       modelValueSync,
       valueText,
@@ -297,6 +305,8 @@ export default defineComponent({
       iconProps,
       clearIconProps,
       filteredSlots,
+      inputAttributesComputed,
+      tabindexComputed,
 
       hideDropdown,
       showDropdown,
@@ -306,9 +316,6 @@ export default defineComponent({
       reset,
       focus,
       blur,
-
-      onFocus,
-      onBlur,
     }
   },
 })
