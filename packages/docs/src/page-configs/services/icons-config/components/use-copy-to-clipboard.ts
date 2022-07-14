@@ -4,9 +4,9 @@ import { getWindow } from 'vuestic-ui/src/utils/ssr-utils'
 export const useCopyToClipboard = () => {
   const { init } = useToast()
 
-  const copy = (text: string) => {
+  const copy = async (text: string) => {
     try {
-      getWindow()?.navigator.clipboard.writeText(text)
+      await getWindow()?.navigator.clipboard.writeText(text)
       init({
         color: 'success',
         message: 'Copied to clipboard',

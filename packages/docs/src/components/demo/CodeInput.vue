@@ -1,13 +1,17 @@
 <template>
   <div class="code-input">
-    <input class="code-input__input" v-model="valueComputed" :style="{ width: `${textDivWidth}px` }" />
+    <input
+      v-model="valueComputed"
+      class="code-input__input"
+      :style="{ width: `${textDivWidth}px` }"
+    />
     <div class="code-input__text" ref="textDiv">{{ valueComputed }}</div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { nextTick } from 'process'
-import { computed, ref, defineProps, defineEmits, watch, onMounted } from 'vue'
+import { computed, ref, defineProps, defineEmits, watch, onMounted, onUpdated } from 'vue'
 
 const props = defineProps({
   modelValue: { type: String },
@@ -22,8 +26,6 @@ const valueComputed = computed({
 
 const textDiv = ref<HTMLDivElement>()
 const textDivWidth = ref(0)
-const inputPaddingX = 4
-const inputPaddingXPx = `${inputPaddingX}px`
 
 watch(valueComputed, () => {
   nextTick(() => {
@@ -32,6 +34,10 @@ watch(valueComputed, () => {
 })
 
 onMounted(() => {
+  textDivWidth.value = (textDiv.value?.offsetWidth || 0)
+})
+
+onUpdated(() => {
   textDivWidth.value = (textDiv.value?.offsetWidth || 0)
 })
 </script>
@@ -46,7 +52,7 @@ onMounted(() => {
     &__input {
       position: relative;
       border: none;
-      padding: 0px v-bind(inputPaddingXPx);
+      padding: 0px 4px;
       box-sizing: content-box;
       background: transparent;
       z-index: 1;

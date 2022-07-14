@@ -30,6 +30,7 @@ export const examples: { label: string, value: IconConfigExample }[] = [
       resolve: {
         class: '\'material-icons\'',
         content: 'icon',
+        tag: "'span'",
       },
       exampleName: 'mdi-book',
     },
