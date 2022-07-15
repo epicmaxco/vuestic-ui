@@ -68,7 +68,7 @@
           <va-icon
             v-if="canBeClearedComputed"
             role="button"
-            aria-label="reset"
+            aria-label="reset time"
             aria-hidden="false"
             :tabindex="iconTabindexComputed"
             v-bind="clearIconProps"
@@ -79,9 +79,9 @@
           <va-icon
             v-else-if="!$props.leftIcon"
             role="button"
+            class="va-dropdown__icons__reset"
             aria-label="toggle dropdown"
             aria-hidden="false"
-            class="va-dropdown__icons__reset"
             :tabindex="iconTabindexComputed"
             v-bind="iconProps"
             @click.stop="showDropdown"
