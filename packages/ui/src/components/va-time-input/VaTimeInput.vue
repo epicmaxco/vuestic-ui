@@ -31,7 +31,7 @@
             class="va-time-input__input"
             v-bind="inputAttributesComputed"
             v-on="computedInputListeners"
-            @change="onInputTextChanged"
+            @change="onInputTextChanged($event.target.value)"
           />
         </template>
 
@@ -58,9 +58,9 @@
             aria-hidden="false"
             :tabindex="iconTabindexComputed"
             v-bind="iconProps"
-            @click.stop="toggleDropdown"
-            @keydown.enter.stop="toggleDropdown"
-            @keydown.space.stop="toggleDropdown"
+            @click.stop="showDropdown"
+            @keydown.enter.stop="showDropdown"
+            @keydown.space.stop="showDropdown"
           />
         </template>
 
@@ -84,9 +84,9 @@
             class="va-dropdown__icons__reset"
             :tabindex="iconTabindexComputed"
             v-bind="iconProps"
-            @click.stop="toggleDropdown"
-            @keydown.enter.stop="toggleDropdown"
-            @keydown.space.stop="toggleDropdown"
+            @click.stop="showDropdown"
+            @keydown.enter.stop="showDropdown"
+            @keydown.space.stop="showDropdown"
           />
         </template>
       </va-input-wrapper>
@@ -108,6 +108,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType, shallowRef, nextTick } from 'vue'
+import omit from 'lodash/omit'
 
 import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
 import {
@@ -122,7 +123,6 @@ import VaTimePicker from '../va-time-picker/VaTimePicker.vue'
 import { VaInputWrapper } from '../va-input'
 import VaIcon from '../va-icon/VaIcon.vue'
 import { VaDropdown, VaDropdownContent } from '../va-dropdown'
-import omit from 'lodash/omit'
 
 const VaInputWrapperProps = extractComponentProps(VaInputWrapper, ['focused', 'maxLength', 'counterValue'])
 
@@ -146,6 +146,7 @@ export default defineComponent({
     manualInput: { type: Boolean, default: false },
     leftIcon: { type: Boolean, default: false },
     icon: { type: String, default: 'schedule' },
+    placeholder: { type: String, default: '' },
   },
 
   inheritAttrs: false,
@@ -262,13 +263,11 @@ export default defineComponent({
     }
 
     const showDropdownWithoutFocus = () => {
-      if (props.disabled || props.readonly) { return }
-
       isOpenSync.value = true
     }
 
     const showDropdown = (event?: KeyboardEvent, cancel?: boolean, prevent?: boolean) => {
-      if (cancel) { return }
+      if (cancel || props.disabled || props.readonly) { return }
       if (prevent) { event?.preventDefault() }
 
       showDropdownWithoutFocus()
@@ -276,20 +275,22 @@ export default defineComponent({
     }
 
     const toggleDropdown = () => {
-      if (props.disabled || props.readonly) { return }
+      if (props.disabled || props.readonly || props.manualInput) { return }
 
       isOpenSync.value ? hideDropdown() : showDropdown()
     }
 
     const toggleDropdownWithoutFocus = () => {
+      if (props.disabled || props.readonly || props.manualInput) { return }
+
       isOpenSync.value ? hideDropdown() : showDropdownWithoutFocus()
     }
 
     const iconTabindexComputed = computed(() => props.disabled || props.readonly ? -1 : 0)
-    const tabindexComputed = computed(() => props.disabled ? -1 : 0)
     const inputAttributesComputed = computed(() => ({
+      placeholder: props.placeholder,
       readonly: props.readonly || !props.manualInput,
-      tabindex: tabindexComputed.value,
+      tabindex: props.disabled ? -1 : 0,
       value: valueText.value,
       ariaLabel: props.label || 'selected date',
       ariaRequired: props.requiredMark,
@@ -314,7 +315,6 @@ export default defineComponent({
       clearIconProps,
       filteredSlots,
       inputAttributesComputed,
-      tabindexComputed,
       iconTabindexComputed,
 
       hideDropdown,

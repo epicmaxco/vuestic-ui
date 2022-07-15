@@ -4,13 +4,15 @@
       v-model="isOpenSync"
       trigger="none"
       anchorSelector=".va-input-wrapper__field"
+      :class="$attrs.class"
+      :style="$attrs.style"
       :offset="[2, 0]"
       :close-on-content-click="false"
       :stateful="false"
       :disabled="$props.disabled"
     >
       <template #anchor>
-        <slot name="input" v-bind="{ valueText, inputWrapperProps, inputListeners }">
+        <slot name="input" v-bind="{ inputAttributesComputed, inputWrapperProps, inputListeners }">
           <va-input-wrapper
             v-bind="inputWrapperProps"
             @click="toggleDropdown"
@@ -46,11 +48,11 @@
             <template #icon>
               <va-icon
                 v-if="canBeCleared"
-                role="button"
-                aria-label="reset"
-                aria-hiden="false"
-                :tabindex="tabindexComputed"
                 class="va-date-input__clear-icon"
+                role="button"
+                aria-label="reset date"
+                aria-hiden="false"
+                :tabindex="iconTabindexComputed"
                 v-bind="clearIconProps"
                 @click="reset"
                 @keydown.enter.stop="reset"
@@ -58,7 +60,7 @@
               />
               <va-icon
                 v-else-if="!$props.leftIcon"
-                :tabindex="tabindexComputed"
+                :tabindex="iconTabindexComputed"
                 v-bind="iconProps"
                 @click.stop="showDropdown"
                 @keydown.enter.stop="showDropdown"
@@ -74,8 +76,8 @@
       >
         <va-date-picker
             ref="datePicker"
-            v-bind="datePickerProps"
             v-model="valueWithoutText"
+            v-bind="datePickerProps"
             @click:day="$emit('click:day', $event)"
             @click:month="$emit('click:month', $event)"
             @click:year="$emit('click:year', $event)"
@@ -99,6 +101,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType, toRefs, watch, ref, shallowRef, nextTick } from 'vue'
+import omit from 'lodash/omit'
 
 import { filterComponentProps, extractComponentProps, extractComponentEmits } from '../../utils/child-props'
 import {
@@ -172,7 +175,9 @@ export default defineComponent({
     'update:text',
   ],
 
-  setup (props, { emit, slots }) {
+  inheritAttrs: false,
+
+  setup (props, { emit, slots, attrs }) {
     const input = shallowRef<HTMLInputElement>()
     const datePicker = ref<typeof VaDatePicker>()
 
@@ -237,7 +242,7 @@ export default defineComponent({
       return text.value
     })
 
-    const onInputTextChanged = ({ target } : Event) => {
+    const onInputTextChanged = ({ target }: Event) => {
       const parsedValue = parseDateInputValue((target as HTMLInputElement).value)
 
       if (isValid.value) {
@@ -264,19 +269,21 @@ export default defineComponent({
     }
 
     const showDropdown = () => {
+      if (props.disabled || props.readonly) { return }
+
       isOpenSync.value = true
       nextTick(focusInputOrPicker)
     }
 
     const toggleDropdown = () => {
-      if (props.manualInput) { return }
+      if (props.manualInput || props.disabled || props.readonly) { return }
 
       isOpenSync.value = !isOpenSync.value
       nextTick(focusInputOrPicker)
     }
 
     const showAndFocus = (event: Event): void => {
-      if (props.manualInput) { return }
+      if (props.manualInput || props.disabled || props.readonly) { return }
 
       isOpenSync.value = true
       focusDatePicker()
@@ -309,7 +316,7 @@ export default defineComponent({
       class: 'va-date-input__icon',
     }))
 
-    const tabindexComputed = computed(() => props.disabled ? -1 : 0)
+    const iconTabindexComputed = computed(() => props.disabled || props.readonly ? -1 : 0)
 
     const computedInputWrapperProps = computed(() => ({
       ...filterComponentProps(props, VaInputWrapperProps).value,
@@ -319,6 +326,7 @@ export default defineComponent({
       error: hasError.value,
       errorMessages: computedErrorMessages.value,
       readonly: props.readonly || !props.manualInput,
+      ...omit(attrs, ['class', 'style']),
     }))
 
     const computedInputListeners = computed(() => ({
@@ -339,8 +347,9 @@ export default defineComponent({
     }))
 
     const inputAttributesComputed = computed(() => ({
+      placeholder: props.placeholder,
       readonly: props.readonly || !props.manualInput,
-      tabindex: tabindexComputed.value,
+      tabindex: props.disabled ? -1 : 0,
       value: valueText.value,
       ariaLabel: props.label || 'selected date',
       ariaRequired: props.requiredMark,
@@ -378,7 +387,7 @@ export default defineComponent({
       reset,
       focus,
       blur,
-      tabindexComputed,
+      iconTabindexComputed,
     }
   },
 })
