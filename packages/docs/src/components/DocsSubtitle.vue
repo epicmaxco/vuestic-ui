@@ -39,6 +39,7 @@ export default class DocsSubtitle extends mixins(PropsMixin) {
 <style lang="scss" scoped>
   .docs-subtitle {
     margin-top: 4rem;
+    margin-bottom: 1.5rem;
 
     .docs-title + & {
       margin-top: 1.25rem;
