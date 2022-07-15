@@ -37,28 +37,28 @@ export default defineComponent({
 
   .va-collapse {
     &:not(:first-child, :last-child) {
-      .va-collapse__header__content {
+      .va-collapse__header {
         border-radius: 0;
       }
     }
 
     &.va-collapse--expanded {
       &:last-child {
-        .va-collapse__header__content {
+        .va-collapse__header {
           border-radius: 0;
         }
       }
     }
 
     &:first-child {
-      .va-collapse__header__content {
+      .va-collapse__header {
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
       }
     }
 
     &:last-child {
-      .va-collapse__header__content {
+      .va-collapse__header {
         border-top-left-radius: 0;
         border-top-right-radius: 0;
       }
