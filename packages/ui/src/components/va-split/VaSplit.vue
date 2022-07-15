@@ -31,9 +31,11 @@
 
 <script lang="ts">
 import { defineComponent, ref, shallowRef, computed, watch } from 'vue'
+
 import { useBem, useComponentPresetProp, useStateful, useStatefulEmits, useStatefulProps } from '../../composables'
 import { useSplitDragger, useSplitDraggerProps } from './useSplitDragger'
-import { __DEV__ } from '../../utils/global-utils'
+
+import { warn } from '../../services/utils'
 
 import { VaDivider } from '../va-divider'
 
@@ -93,9 +95,7 @@ export default defineComponent({
     }
 
     watch(valueComputed, (v) => {
-      if (__DEV__ && (v < props.minSize || v > 100 - props.minSize)) {
-        console.warn('Incorrect `modelValue`. Check current `minSize` prop value.')
-      }
+      if (v < props.minSize || v > 100 - props.minSize) { warn('Incorrect `modelValue`. Check current `minSize` prop value.') }
 
       splitterPosition.value = v
     })
