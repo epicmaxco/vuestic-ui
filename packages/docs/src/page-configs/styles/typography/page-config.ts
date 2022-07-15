@@ -8,36 +8,29 @@ const config: ApiDocsBlock[] = [
   block.title('typography.title'),
   block.paragraph('typography.description'),
 
-  block.subtitle('typography.headings'),
-  block.example('headings'),
-
-  block.headline('typography.titled'),
-  block.example('title'),
-
   block.headline('typography.textStyles'),
-  block.example('textStyles'),
+  block.example('headings/heading1'),
+  block.example('headings/heading2'),
+  block.example('headings/heading3'),
+  block.example('headings/heading4'),
+  block.example('headings/heading5'),
+  block.example('headings/heading6'),
+  block.example('title'),
+  block.example('text/default'),
+  block.example('text/secondary'),
 
   block.headline('typography.codeSnippet'),
   block.example('codeSnippet'),
+  block.example('textCode'),
   block.alert('typography.codeSnippetWarn', 'warning'),
   block.code(fontUsing, 'html'),
 
-  block.headline('typography.textCode'),
-  block.example('textCode'),
-
-  block.subtitle('typography.other'),
-
-  block.headline('typography.orderedList'),
+  block.headline('typography.list'),
   block.example('orderedList'),
-
-  block.headline('typography.unorderedList'),
   block.example('unorderedList'),
 
   block.headline('typography.links'),
   block.example('links'),
-
-  block.headline('typography.textHighlighted'),
-  block.example('textHighlighted'),
 
   block.headline('typography.blockquote'),
   block.example('blockquote'),
@@ -46,7 +39,8 @@ const config: ApiDocsBlock[] = [
   block.example('textBlock'),
 
   block.headline('typography.textUtils'),
-  block.example('textUtils'),
+  block.example('text-utils/alignment'),
+  block.example('text-utils/transform'),
 ]
 
 export default config
