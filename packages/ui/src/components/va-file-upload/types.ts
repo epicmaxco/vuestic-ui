@@ -1,3 +1,13 @@
+import { ComputedRef, InjectionKey } from 'vue'
+
+export type VaFileUpload = {
+  undoDuration: ComputedRef<number>
+  undoButtonText: ComputedRef<string>
+  deletedFileMessage: ComputedRef<string>
+}
+
+export const VaFileUploadKey = Symbol('VaFileUpload') as InjectionKey<VaFileUpload>
+
 export interface VaFile extends Partial<File> {
   url?: string
 }
