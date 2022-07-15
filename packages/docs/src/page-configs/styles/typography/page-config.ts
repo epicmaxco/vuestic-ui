@@ -38,10 +38,10 @@ const config: ApiDocsBlock[] = [
   block.subtitle('typography.textBlock'),
   block.example('textBlock'),
 
-  block.subtitle('typography.textUtils'),
-  block.example('text-utils/alignment'),
-  block.example('text-utils/truncate'),
-  block.example('text-utils/transform'),
+  block.subtitle('typography.textHelpers'),
+  block.example('text-helpers/alignment'),
+  block.example('text-helpers/truncate'),
+  block.example('text-helpers/transform'),
 ]
 
 export default config

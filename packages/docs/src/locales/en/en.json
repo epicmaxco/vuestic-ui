@@ -3809,7 +3809,7 @@
     "textHighlighted": "Highlighted text",
     "blockquote": "Blockquote",
     "textBlock": "Text block",
-    "textUtils": "Text utils"
+    "textHelpers": "Text helpers"
   },
   "ag-grid": {
     "title": "AG Grid Theme",
