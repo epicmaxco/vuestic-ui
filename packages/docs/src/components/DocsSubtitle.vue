@@ -1,5 +1,5 @@
 <template>
-  <h3>
+  <h3 class="docs-subtitle">
     <MarkdownView
       tag="span"
       inline
@@ -35,3 +35,13 @@ export default class DocsSubtitle extends mixins(PropsMixin) {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  .docs-subtitle {
+    margin-top: 4rem;
+
+    .docs-title + & {
+      margin-top: 1.25rem;
+    }
+  }
+</style>

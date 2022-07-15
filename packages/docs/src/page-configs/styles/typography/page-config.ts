@@ -8,7 +8,7 @@ const config: ApiDocsBlock[] = [
   block.title('typography.title'),
   block.paragraph('typography.description'),
 
-  block.headline('typography.textStyles'),
+  block.subtitle('typography.textStyles'),
   block.example('headings/heading1'),
   block.example('headings/heading2'),
   block.example('headings/heading3'),
@@ -19,27 +19,28 @@ const config: ApiDocsBlock[] = [
   block.example('text/default'),
   block.example('text/secondary'),
 
-  block.headline('typography.codeSnippet'),
+  block.subtitle('typography.codeSnippet'),
   block.example('codeSnippet'),
   block.example('textCode'),
   block.alert('typography.codeSnippetWarn', 'warning'),
   block.code(fontUsing, 'html'),
 
-  block.headline('typography.list'),
+  block.subtitle('typography.list'),
   block.example('orderedList'),
   block.example('unorderedList'),
 
-  block.headline('typography.links'),
+  block.subtitle('typography.links'),
   block.example('links'),
 
-  block.headline('typography.blockquote'),
+  block.subtitle('typography.blockquote'),
   block.example('blockquote'),
 
-  block.headline('typography.textBlock'),
+  block.subtitle('typography.textBlock'),
   block.example('textBlock'),
 
-  block.headline('typography.textUtils'),
+  block.subtitle('typography.textUtils'),
   block.example('text-utils/alignment'),
+  block.example('text-utils/truncate'),
   block.example('text-utils/transform'),
 ]
 

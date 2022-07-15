@@ -45,7 +45,7 @@
         color="gray"
       >
         <va-icon class="docs-navigation__button__icon" size="13px">
-          <svg width="19" height="20" viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M0 88h88V0H0v88Zm79-9V9H9v70h70Z" /></svg>
+          <svg width="13" height="13" viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M0 88h88V0H0v88Zm79-9V9H9v70h70Z" /></svg>
         </va-icon>
         <span class="docs-navigation__button__text">{{ $t('docsNavigation.openCodeSandbox') }}</span>
       </va-button>
@@ -120,7 +120,7 @@ const gitLink = computed(
   border-radius: 0.25rem;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
-  padding: 0 var(--va-card-padding);
+  padding: 0 calc(var(--va-card-padding) - var(--va-button-sm-content-px) / 2);
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -129,10 +129,6 @@ const gitLink = computed(
     padding: 0.5rem 0rem;
     margin-right: 0.25rem;
     font-weight: bold;
-
-    &:first-child {
-      margin-left: calc(var(--va-button-sm-content-px) / -2);
-    }
 
     div {
       color: var(--va-gray);
