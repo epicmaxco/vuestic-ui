@@ -62,7 +62,7 @@ export default class Search extends Vue {
 
 <style lang="scss">
 
-@import '~vuestic-ui/src/styles/vuestic-styles';
+@import '~vuestic-ui/src/styles/index.scss';
 
 #search-form {
   position: relative;

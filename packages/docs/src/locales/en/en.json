@@ -3273,6 +3273,10 @@
     },
     "attention": {
       "cssLoader": "As all components' code is separated, you may need a CSS loader to load component-specific CSS.\nBut you probably already have one."
+    },
+    "css": {
+      "title": "CSS Code Split",
+      "description": "We separated our CSS into modules: `essential`, `typography`, `grid` and `reset`. Instead of import `vuestic/css` you can import `vuestic/styles/essential.css` - module without typography, grid and normalize. This is usually need if you already using some CSS framework to prevent style conflicts."
     }
   },
   "roadmap": {

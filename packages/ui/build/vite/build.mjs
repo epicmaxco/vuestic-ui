@@ -26,6 +26,7 @@ await Promise.all([
   $`vite build --config ./build/vite/configs/vite.iife.js`,
   $`vite build --config ./build/vite/configs/vite.esm.js`,
   $`vite build --config ./build/vite/configs/vite.styles.js`,
+  $`vite build --config ./build/vite/configs/vite.styles-essential.js`,
   $`npm run build:types`,
 ])
 
@@ -44,7 +45,7 @@ const proceedCssImport = (buildName) => {
 
       existsSync(componentFilePath) &&
       existsSync(componentCssPath) &&
-      appendFileSync(componentFilePath, `\n import './${componentsName}.css'`);
+      appendFileSync(componentFilePath, `\n import './${componentsName}.css'`)
     })
 }
 
