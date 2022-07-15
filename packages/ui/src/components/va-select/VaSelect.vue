@@ -4,6 +4,7 @@
     class="va-select__dropdown va-select-dropdown"
     trigger="none"
     anchorSelector=".va-input-wrapper__field"
+    :aria-label="`select option (currently selected: ${$props.modelValue})`"
     :placement="$props.placement"
     :disabled="$props.disabled"
     :max-height="$props.maxHeight"
@@ -23,7 +24,6 @@
       <va-input-wrapper
         ref="input"
         class="va-select"
-        aria-label="selected option"
         :model-value="valueComputedString"
         :success="$props.success"
         :error="computedError"
@@ -311,7 +311,7 @@ export default defineComponent({
             return [value]
           }
 
-          return value
+          return value.map((o) => getOptionByValue(o))
         }
 
         if (Array.isArray(value)) {
@@ -356,7 +356,9 @@ export default defineComponent({
     } = useClearable(props, valueComputed)
 
     const showClearIcon = computed(() => {
-      return props.multiple && Array.isArray(valueComputed.value) ? !!valueComputed.value.length : canBeCleared.value
+      if (!canBeCleared.value) { return false }
+      if (props.multiple && Array.isArray(valueComputed.value)) { return !!valueComputed.value.length }
+      return true
     })
 
     const toggleIcon = computed(() => {

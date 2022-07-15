@@ -5,7 +5,10 @@ import apiOptions from './api-options'
 
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax
-const cssVariables = import('!raw-loader!vuestic-ui/src/components/va-input/_variables.scss')
+const inputCssVariables = import('!raw-loader!vuestic-ui/src/components/va-input/_variables.scss')
+// @ts-ignore
+// eslint-disable-next-line import/no-webpack-loader-syntax
+const inputWrapperCssVariables = import('!raw-loader!vuestic-ui/src/components/va-input/components/VaInputWrapper/_variables.scss')
 
 const block = new PageGenerationHelper(__dirname)
 
@@ -60,7 +63,10 @@ const config: ApiDocsBlock[] = [
   block.api(VaInput, apiOptions),
 
   block.subtitle('all.cssVariables'),
-  block.file(cssVariables),
+  block.paragraph('VaInput:'),
+  block.file(inputCssVariables),
+  block.paragraph('VaInputWrapper:'),
+  block.file(inputWrapperCssVariables),
 ]
 
 export default config

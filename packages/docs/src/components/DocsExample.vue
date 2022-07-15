@@ -14,12 +14,14 @@
       </va-button>
       <va-content v-if="showCode || exampleOptions.forceShowCode">
         <DocsNavigation
+          v-if="componentTemplate"
           :code="componentTemplate"
           :config="exampleOptions.codesandboxConfig"
           :git-url="path"
           :git-component="file"
         />
         <DocsCode
+          v-if="!exampleOptions.hideTemplate"
           language="markup"
           :code="parsed.template"
         />
