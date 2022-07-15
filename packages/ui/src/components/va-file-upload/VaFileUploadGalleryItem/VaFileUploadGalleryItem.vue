@@ -1,13 +1,9 @@
 <template>
   <va-list-item
-    tabindex="0"
     class="va-file-upload-gallery-item"
-    :class="{
-      'file-upload-gallery-item_not-image': !previewImage,
-      'va-file-upload-gallery-item--focused': isFocused,
-    }"
-    @focus="isFocused = true"
-    @blur="isFocused = false"
+    :class="classesComputed"
+    @focus="onFocus"
+    @blur="onBlur"
   >
     <va-list-item-section v-if="removed && undo">
       <va-file-upload-undo
@@ -20,13 +16,13 @@
       <img
         v-if="previewImage"
         :src="previewImage"
-        alt=""
+        :alt="file.name"
         class="va-file-upload-gallery-item__image"
       >
       <div class="va-file-upload-gallery-item__overlay">
         <div
           class="va-file-upload-gallery-item__overlay-background"
-          :style="overlayStyles"
+          :style="overlayStylesComputed"
         />
         <div
           class="va-file-upload-gallery-item__name"
@@ -41,8 +37,8 @@
           class="va-file-upload-gallery-item__delete"
           aria-label="remove image"
           @click="removeImage"
-          @focus="isFocused = true"
-          @blur="isFocused = false"
+          @focus="onFocus"
+          @blur="onBlur"
         />
       </div>
     </va-list-item-section>
@@ -50,9 +46,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, PropType, ref, watch, computed } from 'vue'
+import { defineComponent, onMounted, ref, watch, computed, PropType } from 'vue'
 
 import { colorToRgba } from '../../../services/color-config/color-functions'
+import { useFocus } from '../../../composables'
 
 import type { ConvertedFile } from '../types'
 
@@ -75,11 +72,18 @@ export default defineComponent({
     undoDuration: { type: Number, default: 3000 },
   },
   setup (props, { emit }) {
+    const { isFocused, onFocus, onBlur } = useFocus()
     const previewImage = ref('')
     const removed = ref(false)
-    const isFocused = ref(false)
 
-    const overlayStyles = computed(() => ({ backgroundColor: colorToRgba(props.color, 0.7) }))
+    const overlayStylesComputed = computed(() => ({
+      backgroundColor: colorToRgba(props.color, 0.7),
+    }))
+
+    const classesComputed = computed(() => ({
+      'file-upload-gallery-item_not-image': !previewImage.value,
+      'va-file-upload-gallery-item--focused': isFocused.value,
+    }))
 
     const removeImage = () => {
       if (props.undo) {
@@ -106,6 +110,7 @@ export default defineComponent({
         previewImage.value = props.file.image.url
       } else if (props.file.image instanceof File) {
         const reader = new FileReader()
+
         reader.readAsDataURL(props.file.image)
         reader.onload = (e) => {
           if ((e.target?.result as string).includes('image')) {
@@ -119,12 +124,16 @@ export default defineComponent({
     watch(() => props.file, convertToImg)
 
     return {
-      previewImage,
       removed,
       isFocused,
-      recoverImage,
-      overlayStyles,
+      previewImage,
+      classesComputed,
+      overlayStylesComputed,
+
+      onBlur,
+      onFocus,
       removeImage,
+      recoverImage,
     }
   },
 })
