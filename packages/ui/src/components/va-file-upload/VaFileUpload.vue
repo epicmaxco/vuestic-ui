@@ -58,11 +58,12 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, ref, PropType, shallowRef } from 'vue'
+import { computed, defineComponent, onMounted, ref, PropType, shallowRef, provide } from 'vue'
 
 import { useColors } from '../../composables'
 
 import type { VaFile } from './types'
+import { VaFileUploadKey } from './types'
 
 import { VaButton, VaModal } from '../index'
 import { VaFileUploadList } from './VaFileUploadList'
@@ -84,8 +85,10 @@ export default defineComponent({
     disabled: { type: Boolean, default: false },
     undo: { type: Boolean, default: false },
     undoDuration: { type: Number, default: 3000 },
+    undoButtonText: { type: String, default: 'Undo' },
     dropZoneText: { type: String, default: 'Drag’n’drop files or' },
     uploadButtonText: { type: String, default: 'Upload file' },
+    deletedFileMessage: { type: String, default: 'File was successfully deleted' },
     modelValue: {
       type: [Object, Array] as PropType<VaFile | VaFile[]>,
       default: () => [],
@@ -192,6 +195,12 @@ export default defineComponent({
       if (Array.isArray(files.value)) {
         files.value = validateFiles(files.value)
       }
+    })
+
+    provide(VaFileUploadKey, {
+      undoDuration: computed(() => props.undoDuration),
+      undoButtonText: computed(() => props.undoButtonText),
+      deletedFileMessage: computed(() => props.deletedFileMessage),
     })
 
     return {

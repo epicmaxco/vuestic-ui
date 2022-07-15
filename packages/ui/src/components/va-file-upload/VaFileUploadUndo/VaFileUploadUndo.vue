@@ -8,20 +8,22 @@
       :rounded="false"
       class="va-file-upload-undo__progress-bar"
     />
-    <span class="va-file-upload-undo__text">File was successfully deleted</span>
+    <span class="va-file-upload-undo__text">{{ deletedFileMessage }}</span>
     <va-button
       class="va-file-upload-undo__button"
       size="small"
       outline
       @click="$emit('recover')"
     >
-      Undo
+      {{ undoButtonText }}
     </va-button>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted } from 'vue'
+import { defineComponent, computed, inject, ref, onMounted } from 'vue'
+
+import { VaFileUploadKey } from '../types'
 
 import { VaButton, VaProgressBar } from '../../index'
 
@@ -35,14 +37,19 @@ export default defineComponent({
 
   props: {
     vertical: { type: Boolean, default: false },
-    duration: { type: Number, default: 0 },
   },
 
   emits: ['recover'],
 
-  setup: (props) => {
+  setup: () => {
     const progress = ref(100)
     let timer: ReturnType<typeof setInterval>
+
+    const { undoDuration, deletedFileMessage, undoButtonText } = inject(VaFileUploadKey, {
+      undoDuration: computed(() => 3000),
+      deletedFileMessage: computed(() => 'File was successfully deleted'),
+      undoButtonText: computed(() => 'Undo'),
+    })
 
     onMounted(() => {
       timer = setInterval(() => {
@@ -52,10 +59,15 @@ export default defineComponent({
           progress.value = 0
           clearInterval(timer)
         }
-      }, props.duration * 0.1)
+      }, undoDuration.value * 0.1)
     })
 
-    return { progress }
+    return {
+      progress,
+      undoDuration,
+      undoButtonText,
+      deletedFileMessage,
+    }
   },
 })
 </script>
@@ -73,7 +85,7 @@ export default defineComponent({
     flex: 1 100%;
     margin-bottom: 1rem;
 
-    --va-progress-bar-transition: width v-bind(duration) ease;
+    --va-progress-bar-transition: width 0.2s ease;
   }
 
   &__button {
@@ -88,6 +100,10 @@ export default defineComponent({
     justify-content: center;
     align-items: center;
     padding: 0.5rem;
+
+    .va-file-upload-undo__text {
+      text-align: center;
+    }
 
     .va-file-upload-undo__button {
       margin-top: 1rem;

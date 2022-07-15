@@ -6,11 +6,7 @@
     @blur="onBlur"
   >
     <va-list-item-section v-if="removed && undo">
-      <va-file-upload-undo
-        :duration="undoDuration"
-        vertical
-        @recover="recoverImage"
-      />
+      <va-file-upload-undo vertical @recover="recoverImage" />
     </va-list-item-section>
     <va-list-item-section v-else>
       <img
@@ -152,6 +148,7 @@ $max-image-size: 8.5714rem;
   margin-right: 0.5rem;
   flex-basis: calc(14.2857% - 0.5rem);
   max-width: calc(14.2857% - 0.5rem);
+  min-width: $max-image-size;
   border-radius: 0.375rem;
   overflow: hidden;
   width: 100%;

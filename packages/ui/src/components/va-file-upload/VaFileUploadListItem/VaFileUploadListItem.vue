@@ -4,10 +4,7 @@
     :class="{'file-upload-list-item--undo': removed}"
   >
     <va-list-item-section v-if="removed && undo">
-      <va-file-upload-undo
-        :duration="undoDuration"
-        @recover="recoverFile"
-      />
+      <va-file-upload-undo @recover="recoverFile" />
     </va-list-item-section>
     <va-list-item-section v-else>
       <div class="va-file-upload-list-item__content">
