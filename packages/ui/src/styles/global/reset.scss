@@ -27,11 +27,6 @@ hr {
   overflow: visible;
 }
 
-pre {
-  font-family: monospace, monospace;
-  font-size: 1em;
-}
-
 abbr[title] {
   border-bottom: none;
   text-decoration: underline;
@@ -45,8 +40,9 @@ strong {
 
 code,
 kbd,
-samp {
-  font-family: monospace, monospace;
+samp,
+pre {
+  font-family: monospace;
   font-size: 1em;
 }
 
