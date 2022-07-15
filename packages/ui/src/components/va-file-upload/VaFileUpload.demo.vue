@@ -122,13 +122,17 @@
       style="width: 100%;"
     >
       <p>list</p>
-      <va-file-upload v-model="defaultFileList" undo :undoDuration="10000" />
+      <va-file-upload
+        v-model="defaultFileList"
+        undo
+        :undo-duration="10000"
+      />
       <p>gallery</p>
       <va-file-upload
         v-model="defaultFileList"
         type="gallery"
         undo
-        :undoDuration="10000"
+        :undo-duration="10000"
       />
     </VbCard>
 
@@ -140,6 +144,28 @@
         v-model="basic"
         @file-removed="$vaToast.init('File removed')"
         @file-added="$vaToast.init('File added')"
+      />
+    </VbCard>
+
+    <VbCard
+      title="Custom undo button text; custom deleted file message"
+    >
+      <p>list</p>
+      <va-file-upload
+        v-model="defaultFileList"
+        undo
+        :undo-duration="10000"
+        undo-button-text="Cancel"
+        deleted-file-message="Woah! File just disappeared!"
+      />
+      <p>gallery</p>
+      <va-file-upload
+        v-model="defaultFileList"
+        type="gallery"
+        undo
+        :undo-duration="10000"
+        undo-button-text="Cancel"
+        deleted-file-message="Woah! File just disappeared!"
       />
     </VbCard>
   </VbDemo>
