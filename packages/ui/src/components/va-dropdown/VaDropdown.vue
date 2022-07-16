@@ -8,7 +8,7 @@
     :aria-disabled="$props.disabled"
     :aria-expanded="!!valueComputed"
     :aria-controls="idComputed">
-    <slot name="anchor" />
+    <slot name="anchor" v-bind="{ value: valueComputed, hide, show }" />
 
     <template v-if="valueComputed">
       <teleport v-if="isMounted" :to="target" :disabled="disabled">
@@ -20,7 +20,7 @@
           @mouseout="onMouseLeave"
           @click.stop="emitAndClose('content-click', closeOnContentClick)"
         >
-          <slot />
+          <slot v-bind="{ value: valueComputed, hide, show }" />
         </div>
       </teleport>
     </template>
@@ -45,6 +45,7 @@ import { useAnchorSelector } from './hooks/useAnchorSelector'
 import { useCursorAnchor } from './hooks/useCursorAnchor'
 import { useIsMounted } from '../../composables/useIsMounted'
 import { trigger } from '@vue/reactivity'
+import { useEvent } from '../../composables/useEvent'
 
 export default defineComponent({
   name: 'VaDropdown',
@@ -161,10 +162,15 @@ export default defineComponent({
       stickToEdges: props.stickToEdges,
       autoPlacement: props.autoPlacement,
       root: props.target,
-      cursor: true,
     })))
 
     const idComputed = computed(generateUniqueId)
+
+    useEvent('blur', () => {
+      if (props.closeOnClickOutside && props.trigger !== 'none') {
+        valueComputed.value = false
+      }
+    })
 
     return {
       isMounted: useIsMounted(),
@@ -175,6 +181,8 @@ export default defineComponent({
       idComputed,
       emitAndClose,
       onMouseEnter,
+      hide: () => { valueComputed.value = false },
+      show: () => { valueComputed.value = true },
     }
   },
 })
