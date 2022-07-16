@@ -7,8 +7,7 @@ const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [
   block.title('dropdown.title'),
-
-  block.subtitle('all.examples'),
+  block.paragraph('dropdown.text'),
 
   // examples/
   ...block.exampleBlock(

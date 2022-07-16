@@ -1290,7 +1290,8 @@
         "offset": "Dropdown content will be moved by main and cross axis according to current `placement`",
         "placement": "Dropdown content will be placed on `placement` side of anchor",
         "stickToEdges": "Dropdown will not be rendered outside of viewport. It will be moved in opposite direction",
-        "trigger": "Action which will open and close dropdown"
+        "trigger": "Action which will open and close dropdown",
+        "target": "Dropdown content parent. Dropdown content will be attached to `target` to prevent overflow"
       },
       "events": {
         "anchorClick": "The event is triggered when anchor is clicked",
@@ -4157,9 +4158,10 @@
   },
   "dropdown": {
     "title": "Dropdown",
+    "text": "Dropdown component is a component that allow you to show some content near anchor. It is more utility component. You can use it with `VaDropdownContent` or `VaCard` component. This component looks like popover, but without any additional styling as `VaPopover` has.",
     "examples": {
       "Default": {
-        "title": "Default",
+        "title": "Default usage",
         "text": ""
       },
       "PlacementAndOffset": {
