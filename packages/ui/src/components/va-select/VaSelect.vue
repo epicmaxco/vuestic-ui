@@ -3,7 +3,6 @@
     ref="dropdown"
     class="va-select__dropdown va-select-dropdown"
     trigger="none"
-    anchorSelector=".va-input-wrapper__field"
     :aria-label="`select option (currently selected: ${$props.modelValue})`"
     :placement="$props.placement"
     :disabled="$props.disabled"

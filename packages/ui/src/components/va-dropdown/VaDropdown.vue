@@ -1,21 +1,17 @@
 <template>
-  <div class="va-dropdown" :class="computedClass">
-    <div
-      ref="anchorRef"
-      class="va-dropdown__anchor"
-      role="button"
-      aria-label="toggle dropdown"
-      :aria-disabled="$props.disabled"
-      :aria-expanded="!!valueComputed"
-      :aria-controls="idComputed"
-      @click="onAnchorClick"
-      @mouseenter="onMouseEnter"
-      @mouseleave="onMouseLeave"
-    >
-      <slot name="anchor" />
-    </div>
+  <div
+    class="va-dropdown"
+    :class="computedClass"
+    ref="anchorRef"
+    role="button"
+    aria-label="toggle dropdown"
+    :aria-disabled="$props.disabled"
+    :aria-expanded="!!valueComputed"
+    :aria-controls="idComputed">
+    <slot name="anchor" />
+
     <template v-if="valueComputed">
-      <teleport :to="attachElement" :disabled="disableAttachment">
+      <teleport :to="target" :disabled="disableAttachment">
         <div
           ref="contentRef"
           class="va-dropdown__content-wrapper"
@@ -34,6 +30,7 @@
 <script lang="ts">
 import { computed, defineComponent, PropType, shallowRef, toRef } from 'vue'
 import pick from 'lodash/pick.js'
+import kebabCase from 'lodash/kebabCase.js'
 
 import { generateUniqueId } from '../../services/utils'
 
@@ -44,6 +41,7 @@ import {
   useClickOutside,
   useBem,
 } from '../../composables'
+import { useAnchorSelector } from './hooks/useAnchorSelector'
 
 export default defineComponent({
   name: 'VaDropdown',
@@ -55,7 +53,8 @@ export default defineComponent({
     disabled: { type: Boolean },
     readonly: { type: Boolean },
     anchorSelector: { type: String, default: '' },
-    attachElement: { type: String, default: 'body' },
+    /** Element where dropdown content will be rendered */
+    target: { type: String, default: 'body' },
     disableAttachment: { type: Boolean, default: false },
     keepAnchorWidth: { type: Boolean, default: false },
     isContentHoverable: { type: Boolean, default: true },
@@ -65,6 +64,8 @@ export default defineComponent({
     hoverOverTimeout: { type: Number, default: 30 },
     hoverOutTimeout: { type: Number, default: 200 },
     offset: { type: [Array, Number] as PropType<number | [number, number]>, default: 0 },
+    stickToEdges: { type: Boolean, default: false },
+    autoPlacement: { type: Boolean, default: false },
     trigger: {
       type: String as PropType<'click' | 'hover' | 'none'>,
       default: 'click',
@@ -80,7 +81,6 @@ export default defineComponent({
   emits: [...useStatefulEmits, 'anchor-click', 'dropdown-content-click', 'click-outside'],
 
   setup (props, { emit }) {
-    const anchorRef = shallowRef<HTMLElement>()
     const contentRef = shallowRef<HTMLElement>()
 
     const { valueComputed: statefulVal } = useStateful(props, emit)
@@ -90,22 +90,6 @@ export default defineComponent({
     })
 
     const computedClass = useBem('va-dropdown', () => pick(props, ['disabled']))
-
-    // to be able to select specific anchor element inside anchorRef
-    const computedAnchorRef = computed(() => (
-      anchorRef.value && props.anchorSelector
-        ? anchorRef.value.querySelector(props.anchorSelector) || anchorRef.value
-        : anchorRef.value
-      ) as HTMLElement | undefined)
-
-    usePopover(computedAnchorRef, contentRef, computed(() => ({
-      placement: props.placement,
-      keepAnchorWidth: props.keepAnchorWidth,
-      offset: props.offset,
-      stickToEdges: true,
-      autoPlacement: true,
-      root: props.attachElement,
-    })))
 
     const { debounced: debounceHover, cancel: cancelHoverDebounce } = useDebounceFn(toRef(props, 'hoverOverTimeout'))
     const onMouseEnter = () => {
@@ -143,11 +127,61 @@ export default defineComponent({
       }
     }
 
-    useClickOutside([anchorRef, contentRef], () => {
+    const { anchorRef, computedAnchorRef } = useAnchorSelector(props, {
+      click () {
+        if (props.trigger !== 'click' || props.disabled) { return }
+
+        if (valueComputed.value) {
+          emitAndClose('anchor-click', props.closeOnAnchorClick)
+        } else {
+          valueComputed.value = true
+          emit('anchor-click')
+        }
+      },
+      contextmenu (e) {
+        if (kebabCase(props.trigger) !== 'right-click' || props.disabled) { return }
+
+        e.preventDefault()
+
+        if (valueComputed.value) {
+          emitAndClose('anchor-click', props.closeOnAnchorClick)
+        } else {
+          valueComputed.value = true
+          emit('anchor-click')
+        }
+      },
+      mouseenter () {
+        if (props.trigger !== 'hover' || props.disabled) { return }
+
+        debounceHover(() => { valueComputed.value = true })
+        cancelUnHoverDebounce()
+      },
+      mouseleave () {
+        if (props.trigger !== 'hover' || props.disabled) { return }
+
+        if (props.isContentHoverable) {
+          debounceUnHover(() => { valueComputed.value = false })
+        } else {
+          valueComputed.value = false
+        }
+        cancelHoverDebounce()
+      },
+    })
+
+    useClickOutside([computedAnchorRef, contentRef], () => {
       if (props.closeOnClickOutside && valueComputed.value) {
         emitAndClose('click-outside', props.closeOnClickOutside)
       }
     })
+
+    usePopover(computedAnchorRef, contentRef, computed(() => ({
+      placement: props.placement,
+      keepAnchorWidth: props.keepAnchorWidth,
+      offset: props.offset,
+      stickToEdges: props.stickToEdges,
+      autoPlacement: props.autoPlacement,
+      root: props.target,
+    })))
 
     const idComputed = computed(generateUniqueId)
 
@@ -156,11 +190,12 @@ export default defineComponent({
       anchorRef,
       contentRef,
       computedClass,
+      idComputed,
       emitAndClose,
       onAnchorClick,
       onMouseEnter,
       onMouseLeave,
-      idComputed,
+      computedAnchorRef,
     }
   },
 })
@@ -174,13 +209,13 @@ export default defineComponent({
   /* Solved the alignment problem (if we try to align inline and block elements) */
   line-height: var(--va-dropdown-line-height);
   font-family: var(--va-font-family);
+  display: var(--va-dropdown-display);
 
   &--disabled {
     @include va-disabled;
   }
 
   &__content-wrapper {
-    /* overflow: hidden; */
     z-index: var(--va-dropdown-content-wrapper-z-index);
     font-family: var(--va-font-family);
   }

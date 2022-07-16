@@ -3,7 +3,6 @@
     <va-dropdown
       v-model="isOpenSync"
       trigger="none"
-      anchorSelector=".va-input-wrapper__field"
       :offset="[2, 0]"
       :close-on-content-click="false"
       :stateful="false"

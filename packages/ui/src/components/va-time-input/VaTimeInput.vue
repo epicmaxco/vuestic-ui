@@ -8,7 +8,6 @@
     :offset="[2, 0]"
     :close-on-content-click="false"
     :disabled="$props.disabled"
-    anchorSelector=".va-input-wrapper__field"
     :stateful="false"
     trigger="none"
     @keydown.up.prevent="showDropdown"
