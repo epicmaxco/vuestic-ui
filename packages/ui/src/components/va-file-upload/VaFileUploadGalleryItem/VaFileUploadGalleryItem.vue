@@ -77,8 +77,9 @@ export default defineComponent({
     }))
 
     const classesComputed = computed(() => ({
-      'file-upload-gallery-item_not-image': !previewImage.value,
+      'va-file-upload-gallery-item--not-image': !previewImage.value,
       'va-file-upload-gallery-item--focused': isFocused.value,
+      'va-file-upload-gallery-item--undo': removed.value,
     }))
 
     const removeImage = () => {
@@ -230,11 +231,30 @@ $max-image-size: 8.5714rem;
     font-size: 1.5rem;
     margin-top: auto;
   }
-}
 
-.file-upload-gallery-item_not-image {
-  .file-upload-gallery-item__overlay {
-    display: flex;
+  &--not-image {
+    .va-file-upload-gallery-item__overlay {
+      display: flex;
+    }
+  }
+
+  &--undo {
+    padding: 0;
+
+    --va-file-upload-undo-padding: 0.5rem;
+
+    .va-list-item__inner {
+      display: flex;
+      align-items: flex-start;
+    }
+
+    .va-list-item-section {
+      height: inherit;
+    }
+
+    .va-file-upload-undo {
+      flex: 1;
+    }
   }
 }
 </style>

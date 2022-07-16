@@ -1,7 +1,7 @@
 <template>
   <va-list-item
     class="va-file-upload-list-item"
-    :class="{'file-upload-list-item--undo': removed}"
+    :class="computedClasses"
   >
     <va-list-item-section v-if="removed && undo">
       <va-file-upload-undo @recover="recoverFile" />
@@ -32,7 +32,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref } from 'vue'
+import { defineComponent, computed, PropType, ref } from 'vue'
 
 import { ConvertedFile } from '../types'
 
@@ -75,8 +75,14 @@ export default defineComponent({
 
     const recoverFile = () => { removed.value = false }
 
+    const computedClasses = computed(() => ({
+      'va-file-upload-list-item--undo': removed.value,
+    }))
+
     return {
       removed,
+      computedClasses,
+
       removeFile,
       recoverFile,
     }
@@ -89,14 +95,6 @@ export default defineComponent({
 @import "variables";
 
 .va-file-upload-list-item {
-  & + & {
-    margin-top: 0.5rem;
-  }
-
-  .va-list-item__inner {
-    padding: 0;
-  }
-
   background-color: var(--va-file-upload-list-item-background-color);
   box-shadow: var(--va-file-upload-list-item, var(--va-block-box-shadow));
   border-radius: var(--va-file-upload-list-item-border-radius, var(--va-block-border-radius));
@@ -105,6 +103,15 @@ export default defineComponent({
   padding: 1.125rem 0.5rem 1rem 1rem;
   max-width: 100%;
   width: 100%;
+
+  & + & {
+    margin-top: 0.5rem;
+  }
+
+  .va-list-item__inner {
+    padding: 0;
+    overflow: hidden;
+  }
 
   &__content {
     display: flex;
@@ -133,8 +140,8 @@ export default defineComponent({
   }
 
   &--undo {
-    background: none;
-    box-shadow: none;
+    overflow: hidden;
+    padding: 0;
   }
 }
 </style>
