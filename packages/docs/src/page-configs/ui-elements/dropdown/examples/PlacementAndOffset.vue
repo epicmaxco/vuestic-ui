@@ -28,11 +28,11 @@
         </td>
       </tr>
       <tr>
-        <td style="color: var(--va-primary)">Main:</td>
+        <td style="color: var(--va-primary);">Main:</td>
         <td><va-counter v-model="offset[0]" manual-input /></td>
       </tr>
       <tr>
-        <td style="color: var(--va-secondary)">Cross:</td>
+        <td style="color: var(--va-secondary);">Cross:</td>
         <td><va-counter v-model="offset[1]" manual-input /></td>
       </tr>
     </table>

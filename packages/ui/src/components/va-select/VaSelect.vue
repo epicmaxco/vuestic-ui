@@ -2,7 +2,6 @@
   <va-dropdown
     ref="dropdown"
     class="va-select__dropdown va-select-dropdown"
-    trigger="none"
     :aria-label="`select option (currently selected: ${$props.modelValue})`"
     :placement="$props.placement"
     :disabled="$props.disabled"
@@ -16,7 +15,6 @@
     @keydown.down.stop.prevent="showDropdown"
     @keydown.space.stop.prevent="showDropdown"
     @keydown.enter.stop.prevent="showDropdown"
-    @click.prevent="onSelectClick"
   >
     <template #anchor>
       <va-input-wrapper

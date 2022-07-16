@@ -3,19 +3,17 @@
     class="va-time-input"
     :class="$attrs.class"
     :style="$attrs.style"
-    v-model="isOpenSync"
+    v-model="doShowDropdown"
     placement="bottom-start"
     :offset="[2, 0]"
     :close-on-content-click="false"
     :disabled="$props.disabled"
     :stateful="false"
-    trigger="none"
     @keydown.up.prevent="showDropdown"
     @keydown.down.prevent="showDropdown"
     @keydown.space="showDropdown($event, $props.manualInput, !$props.manualInput)"
     @keydown.enter="!$props.manualInput && showDropdown()"
     @keydown.esc.prevent="hideDropdown"
-    @click="(!$props.manualInput || isOpenSync) && toggleDropdownWithoutFocus()"
   >
     <template #anchor>
       <va-input
@@ -153,6 +151,22 @@ export default defineComponent({
 
     const valueText = computed<string>(() => format(modelValueSync.value || props.clearValue))
 
+    const doShowDropdown = computed({
+      get () {
+        return isOpenSync.value
+      },
+      set (v: boolean) {
+        isOpenSync.value = v
+
+        if (v && !props.manualInput) {
+          nextTick(() => timePicker.value?.focus())
+        }
+        if (!v) {
+          nextTick(() => input.value?.focus())
+        }
+      },
+    })
+
     const onInputTextChanged = (val: string) => {
       if (!val) {
         return reset()
@@ -255,28 +269,15 @@ export default defineComponent({
     })
 
     const hideDropdown = () => {
-      isOpenSync.value = false
-      focus()
-    }
-
-    const showDropdownWithoutFocus = () => {
-      isOpenSync.value = true
+      doShowDropdown.value = false
     }
 
     const showDropdown = (event?: KeyboardEvent, cancel?: boolean, prevent?: boolean) => {
-      if (cancel) { return }
-      if (prevent) { event?.preventDefault() }
-
-      showDropdownWithoutFocus()
-      nextTick(() => timePicker.value?.focus())
+      doShowDropdown.value = true
     }
 
     const toggleDropdown = () => {
-      isOpenSync.value ? hideDropdown() : showDropdown()
-    }
-
-    const toggleDropdownWithoutFocus = () => {
-      isOpenSync.value ? hideDropdown() : showDropdownWithoutFocus()
+      doShowDropdown.value = !doShowDropdown.value
     }
 
     return {
@@ -289,6 +290,7 @@ export default defineComponent({
       computedInputListeners,
       iconsTabIndexComputed,
       isOpenSync,
+      doShowDropdown,
       modelValueSync,
       valueText,
       onInputTextChanged,
@@ -300,7 +302,6 @@ export default defineComponent({
       hideDropdown,
       showDropdown,
       toggleDropdown,
-      toggleDropdownWithoutFocus,
 
       reset,
       focus,

@@ -35,6 +35,12 @@ const config: ApiDocsBlock[] = [
     'Cursor',
   ),
 
+  ...block.exampleBlock(
+    'dropdown.examples.PreventOverflow.title',
+    'dropdown.examples.PreventOverflow.text',
+    'PreventOverflow',
+  ),
+
   block.api(VaDropdown, apiOptions),
 ]
 

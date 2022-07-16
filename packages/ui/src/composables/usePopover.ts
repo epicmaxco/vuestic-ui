@@ -1,4 +1,4 @@
-import { computed, Ref, unref, watch, watchEffect } from 'vue'
+import { computed, Ref, unref, watch, watchEffect, watchPostEffect } from 'vue'
 
 import { mapObject } from '../utils/map-object'
 import { useDomRect } from './useDomRect'
@@ -109,8 +109,8 @@ const getAutoPlacement = (placement: Placement, coords: Coords, content: DOMRect
   return overflow[position] ? newPlacements[position] : placement
 }
 
-const findFirstRelativeParent = (el: Element) => {
-  while (el.parentElement) {
+const findFirstRelativeParent = (el: Element | null) => {
+  while (el) {
     if (window.getComputedStyle(el).position === 'relative') { return el }
     el = el.parentElement
   }
@@ -159,7 +159,7 @@ export const usePopover = (
     position: 'absolute',
   }
 
-  watchEffect(() => {
+  watchPostEffect(() => {
     if (!rootRef.value || !anchorDomRect.value || !contentDomRect.value) { return }
 
     const { placement, offset, keepAnchorWidth, autoPlacement, stickToEdges } = unref(options)

@@ -11,7 +11,7 @@
     <slot name="anchor" />
 
     <template v-if="valueComputed">
-      <teleport :to="target" :disabled="disabled">
+      <teleport v-if="isMounted" :to="target" :disabled="disabled">
         <div
           ref="contentRef"
           class="va-dropdown__content-wrapper"
@@ -43,6 +43,8 @@ import {
 } from '../../composables'
 import { useAnchorSelector } from './hooks/useAnchorSelector'
 import { useCursorAnchor } from './hooks/useCursorAnchor'
+import { useIsMounted } from '../../composables/useIsMounted'
+import { trigger } from '@vue/reactivity'
 
 export default defineComponent({
   name: 'VaDropdown',
@@ -82,7 +84,7 @@ export default defineComponent({
     },
   },
 
-  emits: [...useStatefulEmits, 'anchor-click', 'content-click', 'click-outside'],
+  emits: [...useStatefulEmits, 'anchor-click', 'anchor-right-click', 'content-click', 'click-outside'],
 
   setup (props, { emit }) {
     const contentRef = shallowRef<HTMLElement>()
@@ -146,7 +148,7 @@ export default defineComponent({
     })
 
     useClickOutside([anchorRef, contentRef], () => {
-      if (props.closeOnClickOutside && valueComputed.value) {
+      if (props.closeOnClickOutside && valueComputed.value && props.trigger !== 'none') {
         emitAndClose('click-outside', props.closeOnClickOutside)
       }
     })
@@ -165,6 +167,7 @@ export default defineComponent({
     const idComputed = computed(generateUniqueId)
 
     return {
+      isMounted: useIsMounted(),
       anchorRef,
       valueComputed,
       contentRef,
