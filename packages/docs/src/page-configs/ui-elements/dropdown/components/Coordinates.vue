@@ -31,7 +31,7 @@ const crossReversed = computed(() => cross.value === 'y')
 const computedStyle = computed(() => {
   return {
     [main.value]: { fill: 'var(--va-primary)', transform: mainReversed.value ? 'scale(-1) translate(-100%, -100%)' : '' },
-    [cross.value]: { fill: 'var(--va-secondary)', transform: crossReversed.value ? 'scale(-1) translate(-100%, -100%)' : '' },
+    [cross.value]: { fill: 'var(--va-secondary)', opacity: 0.3, transform: crossReversed.value ? 'scale(-1) translate(-100%, -100%)' : '' },
   }
 })
 </script>

@@ -330,6 +330,8 @@ export default defineComponent({
 @import "variables";
 
 .va-counter {
+  --va-input-wrapper-min-width: none;
+
   &.va-counter--input-square {
     .va-input__container {
       border-radius: 0;

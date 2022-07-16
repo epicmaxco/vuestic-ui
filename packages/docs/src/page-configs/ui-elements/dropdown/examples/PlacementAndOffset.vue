@@ -1,12 +1,6 @@
 <template>
     <table>
       <tr>
-        <td>Placement:</td>
-        <td>
-          <va-select :options="$options.placements" v-model="placement" />
-        </td>
-      </tr>
-      <tr>
         <td colspan="2" style="padding: 4rem;">
           <div class="d-flex flex-direction--column align--center">
             <div class="title mb-2">Offset direction</div>
@@ -25,6 +19,12 @@
               <va-dropdown-content> Dropdown </va-dropdown-content>
             </va-dropdown>
           </div>
+        </td>
+      </tr>
+      <tr>
+        <td>Placement:</td>
+        <td>
+          <va-select :options="$options.placements" v-model="placement" />
         </td>
       </tr>
       <tr>

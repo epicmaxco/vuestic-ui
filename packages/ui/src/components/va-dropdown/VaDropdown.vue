@@ -11,14 +11,14 @@
     <slot name="anchor" />
 
     <template v-if="valueComputed">
-      <teleport :to="target" :disabled="disableAttachment">
+      <teleport :to="target" :disabled="disabled">
         <div
           ref="contentRef"
           class="va-dropdown__content-wrapper"
           :id="idComputed"
           @mouseover="$props.isContentHoverable && onMouseEnter()"
           @mouseout="onMouseLeave"
-          @click.stop="emitAndClose('dropdown-content-click', closeOnContentClick)"
+          @click.stop="emitAndClose('content-click', closeOnContentClick)"
         >
           <slot />
         </div>
@@ -42,6 +42,7 @@ import {
   useBem,
 } from '../../composables'
 import { useAnchorSelector } from './hooks/useAnchorSelector'
+import { useCursorAnchor } from './hooks/useCursorAnchor'
 
 export default defineComponent({
   name: 'VaDropdown',
@@ -53,9 +54,11 @@ export default defineComponent({
     disabled: { type: Boolean },
     readonly: { type: Boolean },
     anchorSelector: { type: String, default: '' },
+    innerAnchorSelector: { type: String, default: '' },
     /** Element where dropdown content will be rendered */
     target: { type: String, default: 'body' },
-    disableAttachment: { type: Boolean, default: false },
+    // TODO: This prop must turn off DOM Rect observer. For now it is useless to disable teleport.
+    // disableTeleport: { type: Boolean, default: true },
     keepAnchorWidth: { type: Boolean, default: false },
     isContentHoverable: { type: Boolean, default: true },
     closeOnContentClick: { type: Boolean, default: true },
@@ -66,19 +69,20 @@ export default defineComponent({
     offset: { type: [Array, Number] as PropType<number | [number, number]>, default: 0 },
     stickToEdges: { type: Boolean, default: false },
     autoPlacement: { type: Boolean, default: false },
+    cursor: { type: Boolean, default: false },
     trigger: {
-      type: String as PropType<'click' | 'hover' | 'none'>,
+      type: String as PropType<'click' | 'right-click' | 'hover' | 'none'>,
       default: 'click',
-      validator: (value: string) => ['click', 'hover', 'none'].includes(value),
+      validator: (value: string) => ['click', 'right-click', 'hover', 'none'].includes(value),
     },
     placement: {
       type: String as PropType<Placement>,
-      default: 'bottom',
+      default: 'auto',
       validator: (value: string) => placementsPositions.includes(value),
     },
   },
 
-  emits: [...useStatefulEmits, 'anchor-click', 'dropdown-content-click', 'click-outside'],
+  emits: [...useStatefulEmits, 'anchor-click', 'content-click', 'click-outside'],
 
   setup (props, { emit }) {
     const contentRef = shallowRef<HTMLElement>()
@@ -92,6 +96,8 @@ export default defineComponent({
     const computedClass = useBem('va-dropdown', () => pick(props, ['disabled']))
 
     const { debounced: debounceHover, cancel: cancelHoverDebounce } = useDebounceFn(toRef(props, 'hoverOverTimeout'))
+    const { debounced: debounceUnHover, cancel: cancelUnHoverDebounce } = useDebounceFn(toRef(props, 'hoverOutTimeout'))
+
     const onMouseEnter = () => {
       if (props.trigger !== 'hover' || props.disabled) { return }
 
@@ -99,63 +105,34 @@ export default defineComponent({
       cancelUnHoverDebounce()
     }
 
-    const { debounced: debounceUnHover, cancel: cancelUnHoverDebounce } = useDebounceFn(toRef(props, 'hoverOutTimeout'))
-    const onMouseLeave = () => {
-      if (props.trigger !== 'hover' || props.disabled) { return }
-
-      if (props.isContentHoverable) {
-        debounceUnHover(() => { valueComputed.value = false })
-      } else {
-        valueComputed.value = false
-      }
-      cancelHoverDebounce()
-    }
-
-    const emitAndClose = (eventName: string, close?: boolean) => {
-      emit(eventName)
+    const emitAndClose = (eventName: string, close?: boolean, e?: Event) => {
+      emit(eventName, e)
       if (close) { valueComputed.value = false }
     }
 
-    const onAnchorClick = () => {
-      if (props.trigger !== 'click' || props.disabled) { return }
-
-      if (valueComputed.value) {
-        emitAndClose('anchor-click', props.closeOnAnchorClick)
-      } else {
-        valueComputed.value = true
-        emit('anchor-click')
-      }
-    }
-
-    const { anchorRef, computedAnchorRef } = useAnchorSelector(props, {
-      click () {
-        if (props.trigger !== 'click' || props.disabled) { return }
-
+    const { anchorRef } = useAnchorSelector(props, {
+      click (e) {
+        if ((props.trigger !== 'click' && kebabCase(props.trigger) !== 'right-click') || props.disabled) { return }
         if (valueComputed.value) {
-          emitAndClose('anchor-click', props.closeOnAnchorClick)
+          emitAndClose('anchor-click', props.closeOnAnchorClick, e)
         } else {
+          if (props.trigger !== 'click') { return }
           valueComputed.value = true
-          emit('anchor-click')
+          emit('anchor-click', e)
         }
       },
       contextmenu (e) {
         if (kebabCase(props.trigger) !== 'right-click' || props.disabled) { return }
-
         e.preventDefault()
 
         if (valueComputed.value) {
-          emitAndClose('anchor-click', props.closeOnAnchorClick)
+          emitAndClose('anchor-right-click', props.closeOnAnchorClick, e)
         } else {
           valueComputed.value = true
-          emit('anchor-click')
+          emit('anchor-right-click', e)
         }
       },
-      mouseenter () {
-        if (props.trigger !== 'hover' || props.disabled) { return }
-
-        debounceHover(() => { valueComputed.value = true })
-        cancelUnHoverDebounce()
-      },
+      mouseenter: onMouseEnter,
       mouseleave () {
         if (props.trigger !== 'hover' || props.disabled) { return }
 
@@ -168,34 +145,33 @@ export default defineComponent({
       },
     })
 
-    useClickOutside([computedAnchorRef, contentRef], () => {
+    useClickOutside([anchorRef, contentRef], () => {
       if (props.closeOnClickOutside && valueComputed.value) {
         emitAndClose('click-outside', props.closeOnClickOutside)
       }
     })
 
-    usePopover(computedAnchorRef, contentRef, computed(() => ({
+    const cursorAnchor = useCursorAnchor(anchorRef, valueComputed)
+    usePopover(computed(() => props.cursor ? cursorAnchor.value : anchorRef.value), contentRef, computed(() => ({
       placement: props.placement,
       keepAnchorWidth: props.keepAnchorWidth,
       offset: props.offset,
       stickToEdges: props.stickToEdges,
       autoPlacement: props.autoPlacement,
       root: props.target,
+      cursor: true,
     })))
 
     const idComputed = computed(generateUniqueId)
 
     return {
-      valueComputed,
       anchorRef,
+      valueComputed,
       contentRef,
       computedClass,
       idComputed,
       emitAndClose,
-      onAnchorClick,
       onMouseEnter,
-      onMouseLeave,
-      computedAnchorRef,
     }
   },
 })

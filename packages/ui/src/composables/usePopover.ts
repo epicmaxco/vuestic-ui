@@ -125,7 +125,7 @@ export type usePopoverOptions = {
   placement: Placement,
   offset?: Offset,
   /** Root element selector */
-  root?: string
+  root?: string,
 }
 
 /**

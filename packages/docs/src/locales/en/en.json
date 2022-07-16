@@ -1276,9 +1276,27 @@
     },
     "VaDropdown": {
       "props": {
-        "anchor-selector": "Anchor CSS selector instead of passing slot"
+        "anchorSelector": "Anchor CSS selector instead of passing slot",
+        "innerAnchorSelector": "Anchor CSS selector inside passed slot",
+        "autoPlacement": "If dropdown doesn't fit viewport, it will be placed automatically to fit viewport",
+        "closeOnAnchorClick": "Dropdown will be closed when anchor is clicked",
+        "closeOnClickOutside": "Dropdown will be closed when clicked outside dropdown content and anchor",
+        "closeOnContentClick": "Dropdown will be closed when clicked inside dropdown content",
+        "cursor": "Dropdown will be rendered relative to cursor position",
+        "hoverOutTimeout": "Time in `ms` after mouse leave dropdown before it will be closed",
+        "hoverOverTimeout": "Time in `ms` after mouse enter dropdown before it will be opened",
+        "isContentHoverable": "If true, dropdown content will be hoverable",
+        "keepAnchorWidth": "If true, dropdown content will have exact same width as anchor",
+        "offset": "Dropdown content will be moved by main and cross axis according to current `placement`",
+        "placement": "Dropdown content will be placed on `placement` side of anchor",
+        "stickToEdges": "Dropdown will not be rendered outside of viewport. It will be moved in opposite direction",
+        "trigger": "Action which will open and close dropdown"
       },
-      "events": {},
+      "events": {
+        "anchorClick": "The event is triggered when anchor is clicked",
+        "clickOutside": "The event is triggered when clicked outside dropdown content and anchor",
+        "contentClick": "The event is triggered when clicked inside dropdown content"
+      },
       "methods": {},
       "slots": {}
     }
@@ -4151,6 +4169,10 @@
       "Trigger": {
         "title": "Trigger",
         "text": "You can use `click`, `hover` or `none` trigger which will open dropdown. If you want dropdown to be opened only programatically use `none` trigger"
+      },
+      "Cursor": {
+        "title": "Place on cursor",
+        "text": "You can render dropdown content on cursor position. It is usefull to use `cursor` props with `auto-placement` so if content do not fit target it will be placed somewhere else."
       }
     }
   }

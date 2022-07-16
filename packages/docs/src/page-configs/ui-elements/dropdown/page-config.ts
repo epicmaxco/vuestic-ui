@@ -29,6 +29,12 @@ const config: ApiDocsBlock[] = [
     'Trigger',
   ),
 
+  ...block.exampleBlock(
+    'dropdown.examples.Cursor.title',
+    'dropdown.examples.Cursor.text',
+    'Cursor',
+  ),
+
   block.api(VaDropdown, apiOptions),
 ]
 
