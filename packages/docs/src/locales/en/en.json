@@ -1273,6 +1273,14 @@
       "events": {},
       "methods": {},
       "slots": {}
+    },
+    "VaDropdown": {
+      "props": {
+        "anchor-selector": "Anchor CSS selector instead of passing slot"
+      },
+      "events": {},
+      "methods": {},
+      "slots": {}
     }
   },
   "menu": {
@@ -1382,7 +1390,8 @@
     "counter": "Counter",
     "nuxt": "Nuxt",
     "ssrGuide": "SSR",
-    "spacer": "Spacer"
+    "spacer": "Spacer",
+    "dropdown": "Dropdown"
   },
   "all": {
     "examples": "Examples",
@@ -3565,16 +3574,12 @@
   },
   "iconsConfig": {
     "problem": {
-      "materialIcons": "For example Material Icons wants us to set `material-icons` class and provide icon name inside the `span` tag.",
-      "fontAwesome": "If we want to use FontAwesome5 we need to provide the `fas` class and then another one with the name of the icon (prefixed with `fa-` on the `i` tag)."
+      "definition": "Depending on icon library, they could use classes, ligatures or components. So you have to configure vuestic icons to work with your icon solution.",
+      "summary": "With icons config we can instead provide an icon name using any style that fits our needs the best. We only need to configure how an icon for with the provided name will be rendered."
     },
     "title": "Icons config",
     "about": "By default Vuestic UI uses [Material Design icons](https://fonts.google.com/icons)[[target=_blank]]. If that's too basic for you - vuestic has powerful icon config.",
     "readBeforeStart": "Find out more about the VaIcon component",
-    "problem": {
-      "definition": "Depending on icon library, they could use classes, ligatures or components. So you have to configure vuestic icons to work with your icon solution.",
-      "summary": "With icons config we can instead provide an icon name using any style that fits our needs the best. We only need to configure how an icon for with the provided name will be rendered."
-    },
     "fonts": {
       "title": "Fonts",
       "about": "We want to use the `<va-icon name='icon-name' />` pattern. We can setup a config for a specific icon name pattern. In that config we provide an icon class, attributes, tag, contents (innerHTML) or a Vue component relative to icon name.",
@@ -4111,9 +4116,7 @@
     "solutions": {
       "title": "Examples",
       "description": "Here are two examples how you can add CSS variables to html head",
-
       "nuxt": "Look at Nuxt3 guide",
-
       "viteSsrPlugin": {
         "title": "Vite SSR Plugin",
         "description": "Learn more about [Vite SSR Plugin](https://vite-plugin-ssr.com/vue-tour)"
@@ -4131,6 +4134,23 @@
       "default": {
         "title": "Basic usage",
         "text": "`va-spacer` adding a div with the `.va-spacer` class."
+      }
+    }
+  },
+  "dropdown": {
+    "title": "Dropdown",
+    "examples": {
+      "Default": {
+        "title": "Default",
+        "text": ""
+      },
+      "PlacementAndOffset": {
+        "title": "Placement and Offset",
+        "text": "You can place dropdown any direction you want. Offset is calculated relative to `placement` prop. We use `main` and `cross` offset. Means `main` will be relative to `placement` direction while `cross` is perpendicular. `auto` placement will be `bottom` by default, but will change to `top` if it is not possible to display on bottom."
+      },
+      "Trigger": {
+        "title": "Trigger",
+        "text": "You can use `click`, `hover` or `none` trigger which will open dropdown. If you want dropdown to be opened only programatically use `none` trigger"
       }
     }
   }

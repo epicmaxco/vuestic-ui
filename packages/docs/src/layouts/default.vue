@@ -28,7 +28,7 @@
 <!--          </template>-->
 <!--        </va-breadcrumbs>-->
 
-        <div class="layout gutter--xl">
+        <div class="layout gutter--xl pb-6">
           <router-view />
         </div>
       </div>
@@ -230,13 +230,12 @@ html {
 
     padding: 2em;
     padding-top: 0;
-
-    & > :last-child {
-      padding-bottom: 2em;
-    }
-
     overflow-y: auto;
     overflow-x: hidden;
+
+    & > .layout.gutter--xl {
+      padding-bottom: 2rem;
+    }
 
     @media (max-width: 670px) {
       & > .layout.gutter--xl {
