@@ -22,6 +22,7 @@ export type ReleaseConfig = {
   requiredBranch: string // 'develop'
   commit: string, // '12345678'
   shouldCommit: boolean,
+  remote: string,
 }
 
 const gitTagFromVersion = (version: string) => `v${version}`
@@ -35,6 +36,8 @@ const incrementVersion = (version: string, type: 'major' | 'minor' | 'patch'): s
 }
 
 const getReleaseConfig = async (releaseType: ReleaseType): Promise<ReleaseConfig> => {
+  const remote = (await enterRemoteName()) || 'upstream'
+
   const currentBranchName = await executeCommand('git rev-parse --abbrev-ref HEAD')
   // 20220602
   const dateIsoShort = new Date().toISOString().split('T')[0].replace(/-/g, '')
@@ -87,6 +90,7 @@ const getReleaseConfig = async (releaseType: ReleaseType): Promise<ReleaseConfig
 
   result!.branch = currentBranchName
   result!.commit = commitHash
+  result!.remote = remote
 
   return result! as ReleaseConfig
 }
@@ -111,7 +115,7 @@ const runReleaseChecks = async (releaseConfig :ReleaseConfig, dryRun: boolean) =
   return true
 }
 
-const runReleaseScript = async (releaseConfig :ReleaseConfig, dryRun: boolean) => {
+const runReleaseScript = async (releaseConfig: ReleaseConfig, dryRun: boolean) => {
   const {
     version,
     gitTag,
@@ -120,6 +124,7 @@ const runReleaseScript = async (releaseConfig :ReleaseConfig, dryRun: boolean) =
     requiredBranch,
     shouldCommit,
     commit,
+    remote,
   } = releaseConfig
 
   // **** Attempt building dist ****
@@ -150,11 +155,11 @@ const runReleaseScript = async (releaseConfig :ReleaseConfig, dryRun: boolean) =
     if (shouldCommit) {
       await executeAndLog(`git commit -am "chore: bump version to ${gitTag}"`)
       // TODO: Maybe save remote name in .env or pass as arg.
-      await executeAndLog('git push vuestic-ui')
+      await executeAndLog(`git push ${remote}`)
     }
     if (gitTag) {
       await executeAndLog(`git tag ${gitTag}`)
-      await executeAndLog(`git push vuestic-ui ${gitTag}`)
+      await executeAndLog(`git push ${remote} ${gitTag}`)
     }
   }
   // **** Cleanup ****
@@ -175,7 +180,7 @@ const simplePrompt = async <T> (question: DistinctQuestion<T>): Promise<T> => {
 const inquireReleaseType = async () => simplePrompt<ReleaseType>({
   type: 'list',
   message: 'Select build type',
-  choices: ['large', 'tiny', 'next', 'experimental'],
+  choices: ['experimental', 'next', 'tiny', 'large'],
   default: 'experimental',
 })
 const inquireDryRun = async () => simplePrompt<boolean>({
@@ -195,6 +200,11 @@ const checkIfTooLate = async (releaseType: ReleaseType) => {
   }
   return result
 }
+const enterRemoteName = async () => simplePrompt<string>({
+  type: 'input',
+  default: 'upstream',
+  message: 'Enter remote name',
+})
 const confirmRelease = async () => simplePrompt<boolean>({
     type: 'confirm',
     default: false,

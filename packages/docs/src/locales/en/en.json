@@ -601,8 +601,7 @@
         "component": "Allows to use the `svg` component as an icon",
         "rotation": "Rotates a component by a degree value",
         "spin": "Starts rotation animation",
-        "flip": "Specifies mirror image relative to horizontal and vertical planes. `\"off\"`, `\"horizontal\"`, `\"vertical\"` and `\"both\"` values are available",
-        "iconsConfig": "Allows you to configurate iconset."
+        "flip": "Specifies mirror image relative to horizontal and vertical planes. `\"off\"`, `\"horizontal\"`, `\"vertical\"` and `\"both\"` values are available"
       }
     },
     "VaRadio": {
@@ -687,7 +686,9 @@
         "immediateValidation": "Sets the validation to be performed when the component is mounted",
         "inputClass": "Classes for `input` (not its wrapper)",
         "pattern": "The pattern prop specifies a regular expression the input value should match",
-        "inputmode": "The inputmode prop is an enumerated prop that hints at the type of data that might be entered by the user while editing the element or its contents. This alows a browser to display an apropriate virtual keyboard"
+        "inputmode": "The inputmode prop is an enumerated prop that hints at the type of data that might be entered by the user while editing the element or its contents. This alows a browser to display an apropriate virtual keyboard",
+        "counter": "Show a counter of value length",
+        "maxLength": "Specify a max length of value"
       },
       "events": {
         "change": "Emitted when the input loose focus or on `enter`",
@@ -2588,10 +2589,12 @@
   "icon": {
     "title": "Icon",
     "summaryText": "The `va-icon` component allows you to use different icon fonts. By default Vuestic UI provides [Material Design Icons](https://fonts.google.com/icons)[[target=_blank]].",
+    "iconsConfig": "Read more how you can use different icon libraries with Vuestic UI Icon Config",
     "examples": {
       "default": {
         "title": "Default",
-        "text": "Basic usage of the component with different icon fonts."
+        "text": "Basic usage of the component with different icon fonts.",
+        "alert": "Notice that Vuestic UI uses only Material Icons by default. You need to manualy install additional libraries."
       },
       "color": {
         "title": "Color",
@@ -3293,6 +3296,10 @@
     },
     "attention": {
       "cssLoader": "As all components' code is separated, you may need a CSS loader to load component-specific CSS.\nBut you probably already have one."
+    },
+    "css": {
+      "title": "CSS Code Split",
+      "description": "We separated our CSS into modules: `essential`, `typography`, `grid` and `reset`. Instead of import `vuestic/css` you can import `vuestic/styles/essential.css` - module without typography, grid and normalize. This is usually need if you already using some CSS framework to prevent style conflicts."
     }
   },
   "roadmap": {
@@ -3361,7 +3368,7 @@
       "title": "Icon fonts",
       "description": "By default Vuestic UI uses **material icons**, so make sure to install the package:",
       "subtitle": "Using custom icons",
-      "subDescription": "With Icons Config you can use any icon font you'd like by simply transforming the icon names to respective props."
+      "subDescription": "With icons config you can use any icon font you'd like by simply transforming the icon names to respective props."
     },
     "components": {
       "title": "Components config",
@@ -3580,29 +3587,30 @@
     }
   },
   "iconsConfig": {
+    "problem": {
+      "materialIcons": "For example Material Icons wants us to set `material-icons` class and provide icon name inside the `span` tag.",
+      "fontAwesome": "If we want to use FontAwesome5 we need to provide the `fas` class and then another one with the name of the icon (prefixed with `fa-` on the `i` tag)."
+    },
     "title": "Icons config",
-    "about": "By default Vuestic UI uses [Material Design icons](https://fonts.google.com/icons)[[target=_blank]]. If you want to use other font libraries you can configure `VaIcon` to use them.",
+    "about": "By default Vuestic UI uses [Material Design icons](https://fonts.google.com/icons)[[target=_blank]]. If that's too basic for you - vuestic has powerful icon config.",
     "readBeforeStart": "Find out more about the VaIcon component",
     "problem": {
-      "definition": "There is a problem with icon libraries however: they usually use different interfaces to render icons.",
-      "materialIcons": "For example Material Icons wants us to set `material-icons` class and provide icon name inside the `span` tag.",
-      "fontAwesome": "If we want to use FontAwesome5 we need to provide the `fas` class and then another one with the name of the icon (prefixed with `fa-` on the `i` tag).",
-      "summary": "With Icons config we can instead provide an icon name using any style that fits our needs the best. We only need to configure how an icon for with the provided name will be rendered once."
+      "definition": "Depending on icon library, they could use classes, ligatures or components. So you have to configure vuestic icons to work with your icon solution.",
+      "summary": "With icons config we can instead provide an icon name using any style that fits our needs the best. We only need to configure how an icon for with the provided name will be rendered."
     },
     "fonts": {
       "title": "Fonts",
-      "about": "We want to use the `<va-icon name='icon-name' />` pattern. We can setup a config for a specific icon name pattern. In that config we provide an icon class, contents (innerHTML) or a Vue component relative to icon name.",
+      "about": "We want to use the `<va-icon name='icon-name' />` pattern. We can setup a config for a specific icon name pattern. In that config we provide an icon class, attributes, tag, contents (innerHTML) or a Vue component relative to icon name.",
       "fontNamePattern": {
         "title": "Font name pattern",
         "about": "Font name pattern is similar to vue dynamic routes. We can use dynamic segments to dynamically generate `IconConfig` in resolve function. Dynamic segments should be written in curly brackets."
       },
       "example": {
-        "title": "Example fonts config",
-        "about": "Let`s take a look at some examples",
-        "explain": "Below we can see how the icons would be transformed"
+        "title": "Interactive playground",
+        "about": "Here you can see how your code will be transformed with different icon configs. You can change icon config params to see how it impact on final render. See our presets before play.",
+        "alert": "By default Vuestic require only Material Icons. Other icon libraries you need to setup yourself."
       },
-      "readMore": "More information on",
-      "advancedFontsUsage": "advanced fonts usage"
+      "readMore": "More information on"
     },
     "aliases": {
       "title": "Aliases",
@@ -3698,21 +3706,21 @@
     "convention": {
       "title": "Convention",
       "description": "Vuestic UI uses the following convention to organize CSS Variables for the sake of convenience:",
-      "scheme": "Scheme",
-      "example": "Example",
-      "unnecessary": "is unnecessary part needed only for specific cases.",
-      "componentScheme": "Component scheme - for component-level styles",
-      "componentName": "component name started with va- prefix.",
-      "state": "state of elements or its preset.",
-      "nestedElement": "some element that can be nested in root component.",
-      "groupOfElements": "group or type of HTML elements.",
-      "size": "size of target element.",
-      "property": "common css property.",
-      "generalScheme": "Component scheme - for component-level styles"
+      "list": [
+        "`components-name` can include sub block names, for example: `card`, `button-content`, `input-placeholder`.",
+        "`variable-name` usually is just CSS property name, for example: `display`, `align`, `border-radius`."
+      ],
+      "notice": "List of component CSS variables can be found at the bottom of its documentation page."
     },
     "overriding": {
-      "title": "Overriding",
+      "title": "Global Overriding",
       "description": "No additional tooling is needed. Just create a CSS file (like `overrides.css`), import it into your `main.js` and start redefining the variables as you do with any other CSS properties:"
+    },
+    "examples": {
+      "profile": {
+        "title": "CSS variables override example",
+        "description": "If you dislike how component looks, you can override default component style. Each component has list of CSS variables, that you override. For example, you want to change avatar `border-radius`:"
+      }
     }
   },
   "navbar": {

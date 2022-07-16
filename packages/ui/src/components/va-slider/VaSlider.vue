@@ -203,7 +203,10 @@ export default defineComponent({
     const flag = ref(false)
     const offset = ref(0)
     const size = ref(0)
-    const currentValue = ref(props.modelValue)
+
+    // setting up initial value, don't change to `ref(props.modelValue)` because of https://github.com/epicmaxco/vuestic-ui/issues/2073
+    const currentValue = ref(Array.isArray(props.modelValue) ? [...props.modelValue] : props.modelValue)
+
     const currentSliderDotIndex = ref(0)
     const hasMouseDown = ref(false)
 

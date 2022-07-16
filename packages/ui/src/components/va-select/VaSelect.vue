@@ -4,6 +4,7 @@
     class="va-select__dropdown va-select-dropdown"
     trigger="none"
     anchorSelector=".va-input-wrapper__field"
+    :aria-label="`select option (currently selected: ${$props.modelValue})`"
     :placement="$props.placement"
     :disabled="$props.disabled"
     :max-height="$props.maxHeight"
@@ -23,13 +24,11 @@
       <va-input-wrapper
         ref="input"
         class="va-select"
-        aria-label="selected option"
         :model-value="valueComputedString"
         :success="$props.success"
         :error="computedError"
         :color="$props.color"
         :label="$props.label"
-        :placeholder="$props.placeholder"
         :loading="$props.loading"
         :disabled="$props.disabled"
         :outline="$props.outline"
@@ -39,8 +38,8 @@
         :error-messages="computedErrorMessages"
         :focused="isFocused"
         :tabindex="tabIndexComputed"
-        @focus="onInputFocus()"
-        @blur="onInputBlur()"
+        @focus="onInputFocus"
+        @blur="onInputBlur"
       >
         <template
           v-if="$slots.prepend"
@@ -69,7 +68,6 @@
             role="button"
             aria-hidden="false"
             aria-label="reset"
-            class="va-select__icons__reset"
             tabindex="0"
             v-bind="clearIconProps"
             @click.stop="reset"
@@ -92,7 +90,14 @@
         <template
           #default
         >
+          <span
+            v-if="isPlaceholder"
+            class="va-select__placeholder"
+          >
+            {{ $props.placeholder }}
+          </span>
           <slot
+            v-else
             name="content"
             v-bind="{
               valueString: valueComputedString,
@@ -161,6 +166,7 @@
 <script lang="ts">
 import { defineComponent, PropType, ref, computed, watch, nextTick, Ref, shallowRef } from 'vue'
 
+import { warn } from '../../services/utils'
 import {
   useSelectableList, useSelectableListProps,
   useValidation, useValidationProps, useValidationEmits, ValidationProps,
@@ -171,8 +177,6 @@ import {
   useClearableProps, useClearable, useClearableEmits,
   useFocusDeep,
 } from '../../composables'
-
-import { warn } from '../../services/utils'
 
 import { VaDropdown, VaDropdownContent } from '../va-dropdown'
 import { VaIcon } from '../va-icon'
@@ -307,7 +311,7 @@ export default defineComponent({
             return [value]
           }
 
-          return value
+          return value.map((o) => getOptionByValue(o))
         }
 
         if (Array.isArray(value)) {
@@ -330,7 +334,7 @@ export default defineComponent({
       },
     })
 
-    const valueComputedString = computed(() => {
+    const valueComputedString = computed<string>(() => {
       if (!valueComputed.value) { return props.clearValue }
       if (typeof valueComputed.value === 'string' || typeof valueComputed.value === 'number') { return valueComputed.value }
       if (Array.isArray(valueComputed.value)) {
@@ -339,6 +343,8 @@ export default defineComponent({
 
       return getText(valueComputed.value)
     })
+
+    const isPlaceholder = computed(() => props.placeholder && !valueComputedString.value)
 
     // Icons
 
@@ -350,7 +356,9 @@ export default defineComponent({
     } = useClearable(props, valueComputed)
 
     const showClearIcon = computed(() => {
-      return props.multiple && Array.isArray(valueComputed.value) ? !!valueComputed.value.length : canBeCleared.value
+      if (!canBeCleared.value) { return false }
+      if (props.multiple && Array.isArray(valueComputed.value)) { return !!valueComputed.value.length }
+      return true
     })
 
     const toggleIcon = computed(() => {
@@ -686,6 +694,7 @@ export default defineComponent({
       getGroupBy,
       onScrollBottom,
       clearIconProps,
+      isPlaceholder,
     }
   },
 })
@@ -698,12 +707,8 @@ export default defineComponent({
 .va-select {
   cursor: var(--va-select-cursor);
 
-  &__icons {
-    &__reset {
-      &:focus {
-        @include focus-outline;
-      }
-    }
+  &__placeholder {
+    color: var(--va-input-placeholder-text-color);
   }
 }
 

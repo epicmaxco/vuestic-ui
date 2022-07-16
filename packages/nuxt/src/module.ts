@@ -1,11 +1,12 @@
+import type { Import } from 'unimport'
+import type { GlobalConfig } from 'vuestic-ui'
+import type { NuxtOptions } from '@nuxt/schema'
 import {
   defineNuxtModule,
   addPluginTemplate,
-  addAutoImport
+  addAutoImport,
 } from '@nuxt/kit'
-import { GlobalConfig } from 'vuestic-ui'
 import { resolve } from 'pathe'
-import { NuxtOptions } from '@nuxt/schema'
 import { distDir } from './dirs'
 
 export interface VuesticOptions {
@@ -53,9 +54,8 @@ export default defineNuxtModule<VuesticOptions>({
 
       // Use JSON.stringify() here, because it will be inserted in ejs template as string. Then we will JSON.parse it.
       options: {
-        config: JSON.stringify(options.config),
-        // withoutComponents: JSON.stringify(options.withoutComponents)
-      }
+        value: JSON.stringify(options),
+      },
     })
 
     /**
@@ -68,7 +68,7 @@ export default defineNuxtModule<VuesticOptions>({
       'useToast',
       'useModal',
     ]
-    const autoImportsList = []
+    const autoImportsList: Import[] = []
     for (const item of composablesNamesList) {
       autoImportsList.push({ name: item, as: item, from: composablesFrom })
     }
