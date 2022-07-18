@@ -142,7 +142,11 @@ export default defineComponent({
 
   &--undo {
     overflow: hidden;
-    padding: 0;
+    position: relative;
+
+    .va-list-item-section {
+      padding: 0;
+    }
   }
 }
 </style>

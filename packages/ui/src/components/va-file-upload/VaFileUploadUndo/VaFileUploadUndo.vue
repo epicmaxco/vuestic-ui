@@ -81,6 +81,10 @@ export default defineComponent({
 @import 'variables';
 
 .va-file-upload-undo-progress-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+
   --va-progress-bar-transition: width v-bind(undoDurationStyle) linear;
 }
 
@@ -89,7 +93,6 @@ export default defineComponent({
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  padding: var(--va-file-upload-undo-padding);
 
   &__button {
     line-height: var(--va-file-upload-undo-button-line-height);

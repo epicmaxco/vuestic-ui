@@ -239,17 +239,15 @@ $max-image-size: 8.5714rem;
   }
 
   &--undo {
-    padding: 0;
-
-    --va-file-upload-undo-padding: 0.5rem;
-
     .va-list-item__inner {
       display: flex;
       align-items: flex-start;
+      position: relative;
     }
 
     .va-list-item-section {
       height: inherit;
+      padding: 0;
     }
 
     .va-file-upload-undo {
