@@ -11,17 +11,11 @@
     :close-on-content-click="false"
     :stateful="false"
     :disabled="$props.disabled"
-    @click="(!$props.manualInput || isOpenSync) && toggleDropdownWithoutFocus"
-    @keydown.up.prevent="showDropdown"
-    @keydown.down.prevent="showDropdown"
-    @keydown.space="showDropdown($event, $props.manualInput, !$props.manualInput)"
-    @keydown.enter="!$props.manualInput && showDropdown"
-    @keydown.esc.prevent="hideDropdown"
   >
     <template #anchor>
       <va-input-wrapper
         v-bind="computedInputWrapperProps"
-        @click="toggleDropdownWithoutFocus"
+        @click="toggleDropdown"
         @keydown.enter.stop="toggleDropdown"
         @keydown.space.stop="toggleDropdown"
       >
@@ -114,7 +108,8 @@ import { extractComponentProps, filterComponentProps } from '../../utils/child-p
 import {
   useSyncProp,
   useValidation, useValidationEmits, useValidationProps, ValidationProps,
-  useClearable, useClearableEmits, useFocus,
+  useClearable, useClearableEmits, useClearableProps,
+  useFocus, useFocusEmits,
 } from '../../composables'
 import { useTimeParser } from './hooks/time-text-parser'
 import { useTimeFormatter } from './hooks/time-text-formatter'
@@ -131,9 +126,16 @@ export default defineComponent({
 
   components: { VaDropdown, VaDropdownContent, VaTimePicker, VaIcon, VaInputWrapper },
 
-  emits: [...useValidationEmits, ...useClearableEmits, 'update:modelValue', 'update:isOpen'],
+  emits: [
+    ...useFocusEmits,
+    ...useValidationEmits,
+    ...useClearableEmits,
+    'update:modelValue',
+    'update:isOpen',
+  ],
 
   props: {
+    ...useClearableProps,
     ...VaInputWrapperProps,
     ...extractComponentProps(VaTimePicker),
     ...useValidationProps as ValidationProps<Date>,
@@ -224,8 +226,6 @@ export default defineComponent({
     const computedInputWrapperProps = computed(() => ({
       ...filterComponentProps(props, VaInputWrapperProps).value,
       focused: isFocused.value,
-      clearable: false,
-      rules: [],
       error: computedError.value,
       errorMessages: computedErrorMessages.value,
       readonly: props.readonly || !props.manualInput,
@@ -262,28 +262,33 @@ export default defineComponent({
       focus()
     }
 
-    const showDropdownWithoutFocus = () => {
-      isOpenSync.value = true
-    }
-
-    const showDropdown = (event?: KeyboardEvent, cancel?: boolean, prevent?: boolean) => {
-      if (cancel || props.disabled || props.readonly) { return }
-      if (prevent) { event?.preventDefault() }
-
-      showDropdownWithoutFocus()
+    const focusTimePicker = (): void => {
       nextTick(() => timePicker.value?.focus())
     }
 
-    const toggleDropdown = () => {
-      if (props.disabled || props.readonly || props.manualInput) { return }
-
-      isOpenSync.value ? hideDropdown() : showDropdown()
+    const focusInputOrPicker = () => {
+      isOpenSync.value ? focusTimePicker() : focus()
     }
 
-    const toggleDropdownWithoutFocus = () => {
-      if (props.disabled || props.readonly || props.manualInput) { return }
+    const checkProhibitedDropdownOpening = (e?: KeyboardEvent) => {
+      if (isOpenSync.value) { return false }
+      if (props.disabled || props.readonly) { return true }
+      return props.manualInput && e?.code !== 'Space'
+    }
 
-      isOpenSync.value ? hideDropdown() : showDropdownWithoutFocus()
+    const toggleDropdown = (event: Event | KeyboardEvent) => {
+      if (checkProhibitedDropdownOpening(event instanceof KeyboardEvent ? event : undefined)) { return }
+
+      isOpenSync.value = !isOpenSync.value
+      nextTick(focusInputOrPicker)
+    }
+
+    // icon interaction
+    const showDropdown = () => {
+      if (props.disabled || props.readonly) { return }
+
+      isOpenSync.value = true
+      nextTick(focusInputOrPicker)
     }
 
     const iconTabindexComputed = computed(() => props.disabled || props.readonly ? -1 : 0)
@@ -320,7 +325,6 @@ export default defineComponent({
       hideDropdown,
       showDropdown,
       toggleDropdown,
-      toggleDropdownWithoutFocus,
 
       reset,
       focus,

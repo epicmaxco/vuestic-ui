@@ -12,12 +12,12 @@
       :disabled="$props.disabled"
     >
       <template #anchor>
-        <slot name="input" v-bind="{ inputAttributesComputed, inputWrapperProps, inputListeners }">
+        <slot name="input" v-bind="{ inputAttributes: inputAttributesComputed, inputWrapperProps, inputListeners }">
           <va-input-wrapper
             v-bind="inputWrapperProps"
             @click="toggleDropdown"
-            @keydown.enter.stop="showAndFocus"
-            @keydown.space.stop="showAndFocus"
+            @keydown.enter.stop="toggleDropdown"
+            @keydown.space.stop="toggleDropdown"
           >
             <template #default>
               <input
@@ -54,7 +54,7 @@
                 aria-hiden="false"
                 :tabindex="iconTabindexComputed"
                 v-bind="clearIconProps"
-                @click="reset"
+                @click.stop="reset"
                 @keydown.enter.stop="reset"
                 @keydown.space.stop="reset"
               />
@@ -72,7 +72,7 @@
       </template>
 
       <va-dropdown-content
-        @keydown.esc.stop.prevent="hideAndFocus"
+        @keydown.esc.prevent="hideAndFocus"
       >
         <va-date-picker
             ref="datePicker"
@@ -105,11 +105,11 @@ import omit from 'lodash/omit'
 
 import { filterComponentProps, extractComponentProps, extractComponentEmits } from '../../utils/child-props'
 import {
-  useClearable, useClearableEmits,
+  useClearable, useClearableEmits, useClearableProps,
   useValidation, useValidationEmits, useValidationProps, ValidationProps,
   useStateful, useStatefulEmits,
   useParsable,
-  useFocus,
+  useFocus, useFocusEmits,
 } from '../../composables'
 import { useSyncProp } from '../va-date-picker/hooks/sync-prop'
 import { useRangeModelValueGuard } from './hooks/range-model-value-guard'
@@ -140,6 +140,7 @@ export default defineComponent({
   },
 
   props: {
+    ...useClearableProps,
     ...VaInputWrapperProps,
     ...VaDatePickerProps,
     ...useValidationProps as ValidationProps<DateInputModelValue>,
@@ -167,6 +168,7 @@ export default defineComponent({
   },
 
   emits: [
+    ...useFocusEmits,
     ...extractComponentEmits(VaDatePicker),
     ...useClearableEmits,
     ...useValidationEmits,
@@ -264,30 +266,29 @@ export default defineComponent({
       nextTick(() => datePicker.value?.focusCurrentPicker())
     }
 
-    const focusInputOrPicker = (): void => {
+    const focusInputOrPicker = () => {
       isOpenSync.value ? focusDatePicker() : focus()
     }
 
-    const showDropdown = () => {
-      if (props.disabled || props.readonly) { return }
-
-      isOpenSync.value = true
-      nextTick(focusInputOrPicker)
+    const checkProhibitedDropdownOpening = (e?: KeyboardEvent) => {
+      if (isOpenSync.value) { return false }
+      if (props.disabled || props.readonly) { return true }
+      return props.manualInput && e?.code !== 'Space'
     }
 
-    const toggleDropdown = () => {
-      if (props.manualInput || props.disabled || props.readonly) { return }
+    const toggleDropdown = (event: Event | KeyboardEvent) => {
+      if (checkProhibitedDropdownOpening(event instanceof KeyboardEvent ? event : undefined)) { return }
 
       isOpenSync.value = !isOpenSync.value
       nextTick(focusInputOrPicker)
     }
 
-    const showAndFocus = (event: Event): void => {
-      if (props.manualInput || props.disabled || props.readonly) { return }
+    // icon interaction
+    const showDropdown = () => {
+      if (props.disabled || props.readonly) { return }
 
       isOpenSync.value = true
-      focusDatePicker()
-      event.preventDefault()
+      nextTick(focusInputOrPicker)
     }
 
     const { computedError, computedErrorMessages, listeners, validationAriaAttributes } = useValidation(props, emit, reset, focus)
@@ -321,8 +322,6 @@ export default defineComponent({
     const computedInputWrapperProps = computed(() => ({
       ...filterComponentProps(props, VaInputWrapperProps).value,
       focused: isFocused.value,
-      clearable: false,
-      rules: [],
       error: hasError.value,
       errorMessages: computedErrorMessages.value,
       readonly: props.readonly || !props.manualInput,
@@ -380,7 +379,6 @@ export default defineComponent({
       iconProps,
 
       hideAndFocus,
-      showAndFocus,
       toggleDropdown,
       showDropdown,
       focusInputOrPicker,
