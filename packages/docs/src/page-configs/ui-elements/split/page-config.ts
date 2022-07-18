@@ -34,6 +34,12 @@ const config: ApiDocsBlock[] = [
   ),
 
   ...block.exampleBlock(
+    'split.examples.customLimits.title',
+    'split.examples.customLimits.text',
+    'CustomLimits',
+  ),
+
+  ...block.exampleBlock(
     'split.examples.nested.title',
     'split.examples.nested.text',
     'Nested',

@@ -1276,7 +1276,7 @@
     "VaSplit": {
       "props": {
         "vertical": "Changes `va-split` orientation to vertical.",
-        "minSize": "Minimal size of the each panel (%).",
+        "limits": "Min-max size limits of the each panel.",
         "maximization": "End panel size maximization via separator double click.",
         "maximizeStart": "Maximize size of the start panel instead of end one."
       },
@@ -4157,6 +4157,10 @@
       "customGrabber": {
         "title": "Custom grabber",
         "text": "You can pass via `grabber` slot any content which will overwrite default grabber (`va-divider`)."
+      },
+      "customLimits": {
+        "title": "Limits",
+        "text": "`limits` prop allows you to set up panels min-max sizes. For example, `[[10, 'any'], ['50px', '30rem']]` (one of the panels max size should be equal to 100%) will set up min size of the start panel to 10%, max - 100%. For the end panel - 50px and 30rem accordingly. If you don't need max sizes limits but only min ones, you can use this record form: `[10px, 50%]`."
       },
       "nested": {
         "title": "Nested",

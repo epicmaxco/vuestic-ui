@@ -1,7 +1,7 @@
 <template>
-  <va-split :limits="[10, 90]" class="split-demo">
+  <va-split class="split-demo">
     <template #start>
-      <va-split :limits="[10, 90]">
+      <va-split>
         <template #start>
           {{ lorem }}
         </template>
@@ -11,7 +11,7 @@
       </va-split>
     </template>
     <template #end>
-      <va-split :limits="[10, 90]" vertical style="height: 11rem;">
+      <va-split vertical style="height: 8rem;">
         <template #start>
           {{ lorem }}
         </template>

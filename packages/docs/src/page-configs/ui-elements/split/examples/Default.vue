@@ -1,5 +1,5 @@
 <template>
-  <va-split class="split-demo split-demo--image">
+  <va-split class="split-demo split-demo--image" :limits="[10, 10]">
     <template #start>
       <div class="img-block">
         <img src="https://picsum.photos/seed/picsum/1536/800" class="img img--start" alt="" />
@@ -54,6 +54,7 @@ export default {
     position: relative;
     height: 100%;
     overflow: hidden;
+    user-select: none;
   }
 
   .img {
