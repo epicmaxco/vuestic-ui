@@ -32,7 +32,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, PropType, ref } from 'vue'
+import { defineComponent, PropType, ref } from 'vue'
 
 import { useBem } from '../../../composables'
 import { ConvertedFile } from '../types'

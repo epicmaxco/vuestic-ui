@@ -21,7 +21,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, inject, ref, nextTick, onMounted } from 'vue'
+import { defineComponent, computed, inject, ref, onMounted } from 'vue'
 
 import { useBem } from '../../../composables'
 import { VaFileUploadKey } from '../types'
