@@ -1,9 +1,9 @@
-import { ComputedRef, InjectionKey } from 'vue'
+import { Ref, InjectionKey } from 'vue'
 
 export type VaFileUpload = {
-  undoDuration: ComputedRef<number>
-  undoButtonText: ComputedRef<string>
-  deletedFileMessage: ComputedRef<string>
+  undoDuration: Ref<number>
+  undoButtonText: Ref<string>
+  deletedFileMessage: Ref<string>
 }
 
 export const VaFileUploadKey = Symbol('VaFileUpload') as InjectionKey<VaFileUpload>

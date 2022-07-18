@@ -45,7 +45,7 @@
 import { defineComponent, onMounted, ref, watch, computed, PropType } from 'vue'
 
 import { colorToRgba } from '../../../services/color-config/color-functions'
-import { useFocus } from '../../../composables'
+import { useFocus, useBem } from '../../../composables'
 
 import type { ConvertedFile } from '../types'
 
@@ -76,11 +76,11 @@ export default defineComponent({
       backgroundColor: colorToRgba(props.color, 0.7),
     }))
 
-    const classesComputed = computed(() => ({
-      'va-file-upload-gallery-item--not-image': !previewImage.value,
-      'va-file-upload-gallery-item--focused': isFocused.value,
-      'va-file-upload-gallery-item--undo': removed.value,
-    }))
+    const classesComputed = useBem('va-file-upload-gallery-item', {
+      notImage: !previewImage.value,
+      focused: isFocused.value,
+      undo: removed.value,
+    })
 
     const removeImage = () => {
       if (props.undo) {

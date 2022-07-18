@@ -58,7 +58,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, ref, PropType, shallowRef, provide } from 'vue'
+import { computed, defineComponent, onMounted, ref, toRef, PropType, shallowRef, provide } from 'vue'
 
 import { useColors } from '../../composables'
 
@@ -198,9 +198,9 @@ export default defineComponent({
     })
 
     provide(VaFileUploadKey, {
-      undoDuration: computed(() => props.undoDuration),
-      undoButtonText: computed(() => props.undoButtonText),
-      deletedFileMessage: computed(() => props.deletedFileMessage),
+      undoDuration: toRef(props, 'undoDuration'),
+      undoButtonText: toRef(props, 'undoButtonText'),
+      deletedFileMessage: toRef(props, 'deletedFileMessage'),
     })
 
     return {

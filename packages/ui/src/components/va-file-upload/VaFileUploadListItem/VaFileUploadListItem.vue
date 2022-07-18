@@ -34,6 +34,7 @@
 <script lang="ts">
 import { defineComponent, computed, PropType, ref } from 'vue'
 
+import { useBem } from '../../../composables'
 import { ConvertedFile } from '../types'
 
 import { VaListItem, VaListItemSection, VaIcon } from '../../index'
@@ -75,9 +76,9 @@ export default defineComponent({
 
     const recoverFile = () => { removed.value = false }
 
-    const computedClasses = computed(() => ({
-      'va-file-upload-list-item--undo': removed.value,
-    }))
+    const computedClasses = useBem('va-file-upload-list-item', {
+      undo: removed.value,
+    })
 
     return {
       removed,

@@ -23,6 +23,7 @@
 <script lang="ts">
 import { defineComponent, computed, inject, ref, onMounted } from 'vue'
 
+import { useBem } from '../../../composables'
 import { VaFileUploadKey } from '../types'
 
 import { VaButton, VaProgressBar } from '../../index'
@@ -46,14 +47,14 @@ export default defineComponent({
     let timer: ReturnType<typeof setTimeout>
 
     const { undoDuration, deletedFileMessage, undoButtonText } = inject(VaFileUploadKey, {
-      undoDuration: computed(() => 3000),
-      deletedFileMessage: computed(() => 'File was successfully deleted'),
-      undoButtonText: computed(() => 'Undo'),
+      undoDuration: ref(3000),
+      deletedFileMessage: ref('File was successfully deleted'),
+      undoButtonText: ref('Undo'),
     })
 
-    const computedClasses = computed(() => ({
-      'va-file-upload-undo--vertical': props.vertical,
-    }))
+    const computedClasses = useBem('va-file-upload-undo', {
+      vertical: props.vertical,
+    })
 
     onMounted(() => {
       timer = setTimeout(() => {
