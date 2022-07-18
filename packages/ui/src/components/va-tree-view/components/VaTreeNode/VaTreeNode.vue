@@ -35,6 +35,7 @@
               v-model="$props.node.checked"
               :color="colorComputed"
               @update:model-value="(isChecked) => toggleCheckbox($props.node, isChecked)"
+              class="va-tree-node__checkbox"
             />
           </slot>
         </div>
@@ -163,11 +164,6 @@ export default defineComponent({
 @import "../../../../styles/resources/index";
 @import 'variables';
 
-%va-tree-node-content-item {
-  flex: var(--va-tree-node-content-item-flex);
-  min-width: var(--va-tree-node-indent);
-}
-
 .va-tree-node {
   &-root {
     display: flex;
@@ -207,7 +203,8 @@ export default defineComponent({
     width: 100%;
 
     &__item {
-      @extend %va-tree-node-content-item;
+      flex: var(--va-tree-node-content-item-flex);
+      min-width: var(--va-tree-node-indent);
 
       &--leaf {
         cursor: pointer;
@@ -226,16 +223,17 @@ export default defineComponent({
 
   &-children {
     display: none;
-    background-image: linear-gradient(#adb3b9 33%, rgba(255, 255, 255, 0) 0%);
-    background-position: 15px;
-    background-size: 1px 3px;
-    background-repeat: repeat-y;
+    background: var(--va-tree-node-children-background);
     padding-left: var(--va-tree-node-indent);
     width: 100%;
 
     &--expanded {
       display: block;
     }
+  }
+
+  &__checkbox {
+    --va-checkbox-input-padding: 0;
   }
 }
 </style>
