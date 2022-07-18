@@ -21,7 +21,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, inject, ref, onMounted } from 'vue'
+import { defineComponent, computed, inject, ref, nextTick, onMounted } from 'vue'
 
 import { useBem } from '../../../composables'
 import { VaFileUploadKey } from '../types'
@@ -44,7 +44,6 @@ export default defineComponent({
 
   setup: (props) => {
     const progress = ref(100)
-    let timer: ReturnType<typeof setTimeout>
 
     const { undoDuration, deletedFileMessage, undoButtonText } = inject(VaFileUploadKey, {
       undoDuration: ref(3000),
@@ -56,14 +55,14 @@ export default defineComponent({
       vertical: props.vertical,
     }))
 
+    const undoDurationStyle = computed(() => `${undoDuration.value}ms`)
+
     onMounted(() => {
-      timer = setTimeout(() => {
+      const timer = setTimeout(() => {
         progress.value = 0
         clearTimeout(timer)
       }, 0)
     })
-
-    const undoDurationStyle = computed(() => `${undoDuration.value}ms`)
 
     return {
       progress,
