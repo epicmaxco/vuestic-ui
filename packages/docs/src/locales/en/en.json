@@ -470,7 +470,8 @@
         "position": "Position of `va-sidebar`, can be `right` or `left`.",
         "width": "Width of component in maximized state.",
         "minimizedWidth": "Width of component in minimized state.",
-        "value": "The current visibility state of `va-sidebar`."
+        "value": "The current visibility state of `va-sidebar`.",
+        "animated": "Sets css `transition` to component"
       }
     },
     "VaImage": {
