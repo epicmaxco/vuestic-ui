@@ -76,8 +76,8 @@
       >
         <va-date-picker
             ref="datePicker"
-            v-model="valueWithoutText"
             v-bind="datePickerProps"
+            v-model="valueWithoutText"
             @click:day="$emit('click:day', $event)"
             @click:month="$emit('click:month', $event)"
             @click:year="$emit('click:year', $event)"
@@ -371,7 +371,7 @@ export default defineComponent({
       inputWrapperProps: computedInputWrapperProps,
       inputListeners: computedInputListeners,
       inputAttributesComputed,
-      datePickerProps: filterComponentProps(props, extractComponentProps(VaDatePicker)),
+      datePickerProps: filterComponentProps(props, VaDatePickerProps),
 
       filterSlots,
       canBeCleared,
