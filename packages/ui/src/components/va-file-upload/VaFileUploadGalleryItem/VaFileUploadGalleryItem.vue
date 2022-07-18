@@ -76,11 +76,11 @@ export default defineComponent({
       backgroundColor: colorToRgba(props.color, 0.7),
     }))
 
-    const classesComputed = useBem('va-file-upload-gallery-item', {
+    const classesComputed = useBem('va-file-upload-gallery-item', () => ({
       notImage: !previewImage.value,
       focused: isFocused.value,
       undo: removed.value,
-    })
+    }))
 
     const removeImage = () => {
       if (props.undo) {

@@ -76,9 +76,9 @@ export default defineComponent({
 
     const recoverFile = () => { removed.value = false }
 
-    const computedClasses = useBem('va-file-upload-list-item', {
+    const computedClasses = useBem('va-file-upload-list-item', () => ({
       undo: removed.value,
-    })
+    }))
 
     return {
       removed,

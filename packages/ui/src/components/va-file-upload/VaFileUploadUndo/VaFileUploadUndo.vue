@@ -52,9 +52,9 @@ export default defineComponent({
       undoButtonText: ref('Undo'),
     })
 
-    const computedClasses = useBem('va-file-upload-undo', {
+    const computedClasses = useBem('va-file-upload-undo', () => ({
       vertical: props.vertical,
-    })
+    }))
 
     onMounted(() => {
       timer = setTimeout(() => {
