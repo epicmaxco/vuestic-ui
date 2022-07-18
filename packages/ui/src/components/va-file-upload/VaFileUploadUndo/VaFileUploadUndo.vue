@@ -44,8 +44,11 @@ export default defineComponent({
 
   setup: (props) => {
     const progress = ref(100)
-
-    const { undoDuration, deletedFileMessage, undoButtonText } = inject(VaFileUploadKey, {
+    const {
+      undoDuration,
+      deletedFileMessage,
+      undoButtonText,
+    } = inject(VaFileUploadKey, {
       undoDuration: ref(3000),
       deletedFileMessage: ref('File was successfully deleted'),
       undoButtonText: ref('Undo'),
