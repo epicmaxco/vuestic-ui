@@ -106,10 +106,4 @@ export default defineComponent({
   box-sizing: border-box;
   color: currentColor;
 }
-
-.va-sidebar:not(.va-sidebar--animated) {
-  .va-sidebar__item {
-    transition: none;
-  }
-}
 </style>
