@@ -119,7 +119,7 @@ import { VaInputWrapper } from '../va-input'
 import VaIcon from '../va-icon/VaIcon.vue'
 import { VaDropdown, VaDropdownContent } from '../va-dropdown'
 
-const VaInputWrapperProps = extractComponentProps(VaInputWrapper, ['focused', 'maxLength', 'counterValue'])
+const VaInputWrapperProps = extractComponentProps(VaInputWrapper, ['requiredMark', 'focused', 'maxLength', 'counterValue'])
 
 export default defineComponent({
   name: 'VaTimeInput',
@@ -148,7 +148,6 @@ export default defineComponent({
     manualInput: { type: Boolean, default: false },
     leftIcon: { type: Boolean, default: false },
     icon: { type: String, default: 'schedule' },
-    placeholder: { type: String, default: '' },
   },
 
   inheritAttrs: false,
@@ -229,7 +228,7 @@ export default defineComponent({
       error: computedError.value,
       errorMessages: computedErrorMessages.value,
       readonly: props.readonly || !props.manualInput,
-      ...omit(attrs, ['class', 'style']),
+      requiredMark: Object.keys(attrs).includes('required-mark'),
     }))
 
     const computedInputListeners = computed(() => ({
@@ -292,12 +291,11 @@ export default defineComponent({
       if (props.disabled || props.readonly) { return }
 
       isOpenSync.value = true
-      nextTick(focusInputOrPicker)
+      nextTick(focusTimePicker)
     }
 
     const iconTabindexComputed = computed(() => props.disabled || props.readonly ? -1 : 0)
     const inputAttributesComputed = computed(() => ({
-      placeholder: props.placeholder,
       readonly: props.readonly || !props.manualInput,
       tabindex: props.disabled ? -1 : 0,
       value: valueText.value,
@@ -306,6 +304,7 @@ export default defineComponent({
       ariaDisabled: props.disabled,
       ariaReadOnly: props.readonly,
       ...validationAriaAttributes.value,
+      ...omit(attrs, ['class', 'style']),
     }))
 
     return {

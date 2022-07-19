@@ -125,7 +125,7 @@ import { VaDropdown, VaDropdownContent } from '../va-dropdown'
 import { VaInputWrapper } from '../va-input'
 import { VaIcon } from '../va-icon'
 
-const VaInputWrapperProps = extractComponentProps(VaInputWrapper, ['focused', 'maxLength', 'counterValue'])
+const VaInputWrapperProps = extractComponentProps(VaInputWrapper, ['requiredMark', 'focused', 'maxLength', 'counterValue'])
 const VaDatePickerProps = extractComponentProps(VaDatePicker)
 
 export default defineComponent({
@@ -160,7 +160,6 @@ export default defineComponent({
     delimiter: { type: String, default: ', ' },
     rangeDelimiter: { type: String, default: ' ~ ' },
     manualInput: { type: Boolean, default: false },
-    placeholder: { type: String, default: '' },
 
     color: { type: String, default: 'primary' },
     leftIcon: { type: Boolean, default: false },
@@ -288,7 +287,7 @@ export default defineComponent({
       if (props.disabled || props.readonly) { return }
 
       isOpenSync.value = true
-      nextTick(focusInputOrPicker)
+      nextTick(focusDatePicker)
     }
 
     const { computedError, computedErrorMessages, listeners, validationAriaAttributes } = useValidation(props, emit, reset, focus)
@@ -325,7 +324,7 @@ export default defineComponent({
       error: hasError.value,
       errorMessages: computedErrorMessages.value,
       readonly: props.readonly || !props.manualInput,
-      ...omit(attrs, ['class', 'style']),
+      requiredMark: Object.keys(attrs).includes('required-mark'),
     }))
 
     const computedInputListeners = computed(() => ({
@@ -350,7 +349,6 @@ export default defineComponent({
     }))
 
     const inputAttributesComputed = computed(() => ({
-      placeholder: props.placeholder,
       readonly: props.readonly || !props.manualInput,
       tabindex: props.disabled ? -1 : 0,
       value: valueText.value,
@@ -359,6 +357,7 @@ export default defineComponent({
       ariaDisabled: props.disabled,
       ariaReadOnly: props.readonly,
       ...validationAriaAttributes.value,
+      ...omit(attrs, ['class', 'style']),
     }))
 
     return {
