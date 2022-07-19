@@ -332,15 +332,19 @@ export default defineComponent({
       focus: () => {
         if (props.disabled) { return }
 
-        onFocus()
         focusListener()
+
+        if (props.readonly) { return }
+        onFocus()
         listeners.onFocus()
       },
       blur: () => {
         if (props.disabled) { return }
 
-        onBlur()
         blurListener()
+
+        if (props.readonly) { return }
+        onBlur()
         listeners.onBlur()
       },
     }))
