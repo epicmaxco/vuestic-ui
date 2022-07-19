@@ -54,5 +54,5 @@ export const useSplitDragger = (
     document.removeEventListener('touchcancel', stopDragging)
   })
 
-  return { isDragging, startDragging, processDragging, stopDragging, currentSplitterPosition }
+  return { isDragging, startDragging, currentSplitterPosition }
 }

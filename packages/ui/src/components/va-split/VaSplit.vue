@@ -35,6 +35,8 @@
 import { defineComponent, PropType, ref, shallowRef, computed, watch, onMounted } from 'vue'
 import isString from 'lodash/isString.js'
 import isNumber from 'lodash/isNumber.js'
+import isUndefined from 'lodash/isUndefined.js'
+import clamp from 'lodash/clamp.js'
 
 import {
   useBem,
@@ -114,7 +116,7 @@ export default defineComponent({
       }
     }
     const getPanelMinMax = (v: SplitLimit) => {
-      if (!v || !containerSize.value) { return }
+      if (isUndefined(v) || !containerSize.value) { return }
 
       let minPercents = 0
       let maxPercents = 100
@@ -139,42 +141,36 @@ export default defineComponent({
       const result = getPanelMinMax(props.limits[1])
 
       // here potentially can be a conflict between two checks below but the first one won't break component
-      if (result?.min && startPanelMinMax.value?.min && Math.floor(result.min + startPanelMinMax.value.min) > 100) {
+      if (result?.min && isUndefined(startPanelMinMax.value?.min) && Math.floor(result.min + startPanelMinMax.value!.min) > 100) {
         warn('The sum of different panels min sizes should be lesser than 100% of the container size!')
-        result.min = 100 - startPanelMinMax.value.min
+        result.min = 100 - startPanelMinMax.value!.min
       }
 
       if (result?.min && result?.max &&
-        startPanelMinMax.value?.min && startPanelMinMax.value?.max &&
-        (Math.ceil(result.min + startPanelMinMax.value.max) < 100 ||
-          Math.ceil(result.max + startPanelMinMax.value.min) < 100)) {
+        !isUndefined(startPanelMinMax.value?.min) && isUndefined(startPanelMinMax.value?.max) &&
+        (Math.ceil(result.min + startPanelMinMax.value!.max) < 100 ||
+          Math.ceil(result.max + startPanelMinMax.value!.min) < 100)) {
         warn('The sum of different panels min and max sizes should be equal to 100% of the container size!')
-        result.min = 100 - startPanelMinMax.value.max
+        result.min = 100 - startPanelMinMax.value!.max
       }
 
       return result
     })
 
-    const splitterPosition = ref(props.modelValue)
+    const splitterPosition = ref(valueComputed.value)
     const splitterPositionComputed = computed(() => {
       if (!startPanelMinMax.value || !endPanelMinMax.value) { return splitterPosition.value }
 
-      // checking min panels size
-      if (splitterPosition.value < startPanelMinMax.value.min) { return startPanelMinMax.value.min }
-      if (splitterPosition.value > 100 - endPanelMinMax.value.min) { return 100 - endPanelMinMax.value.min }
-
-      // checking max panels size
-      if (splitterPosition.value > startPanelMinMax.value.max) { return startPanelMinMax.value.max }
-      if (splitterPosition.value < 100 - endPanelMinMax.value.max) { return 100 - endPanelMinMax.value.max }
-
-      return splitterPosition.value
+      return clamp(
+        splitterPosition.value,
+        Math.max(startPanelMinMax.value.min, 100 - endPanelMinMax.value.max),
+        Math.min(startPanelMinMax.value.max, 100 - endPanelMinMax.value.min),
+      )
     })
 
     const {
       isDragging,
       startDragging,
-      processDragging,
-      stopDragging,
       currentSplitterPosition,
     } = useSplitDragger(containerSize, splitterPositionComputed, props)
 
@@ -226,8 +222,6 @@ export default defineComponent({
       splitPanelsContainer,
 
       startDragging,
-      processDragging,
-      stopDragging,
       getPanelStyle,
       maximizePanel,
 
