@@ -71,7 +71,6 @@ export default defineComponent({
   &__inner {
     display: var(--va-list-item-display);
     align-items: var(--va-list-item-align-items);
-    padding: var(--va-list-item-padding);
     width: var(--va-list-item-width);
     height: var(--va-list-item-height);
   }

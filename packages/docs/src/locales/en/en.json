@@ -400,11 +400,13 @@
         "dropZoneText": "Custom drop zone label text",
         "uploadButtonText": "Custom upload button text",
         "undo": "Enables the canceling of the removing action for the added files",
-        "undoDuration": "Undoing action duration"
+        "undoDuration": "Undoing action duration",
+        "undoButtonText": "Cancel button text",
+        "deletedFileMessage": "Deleted file message"
       },
       "events": {
-        "fileRemoved": "Emits after file is removed",
-        "fileAdded": "Emits after files are added"
+        "fileAdded": "Emits after files are added",
+        "fileRemoved": "Emits after file is removed"
       }
     },
     "VaHover": {
@@ -2078,7 +2080,9 @@
         "title": "Canceling the removing action",
         "description": "Add the `undo` property to cancel the removing action, and with a `undo-duration` property set the time to cancel removing",
         "galleryViewLabel": "Enable gallery view",
-        "inputLabel": "Undo duration"
+        "durationFieldLabel": "Undo duration",
+        "cancelFieldLabel": "Cancel button text",
+        "deletedFileFieldLabel": "Deleted file message"
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-file-upload/_variables.scss)[[target=_blank]]"

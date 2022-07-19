@@ -399,7 +399,13 @@
         "dropZoneText": "Текст, заменяющий стандартную надпись на drop zone",
         "uploadButtonText": "Текст, заменяющий стандартную надпись кнопки загрузки",
         "undo": "Отмена действия удаления прикрепленных файлов",
-        "undoDuration": "Длительность отображения отмены действия удаления"
+        "undoDuration": "Длительность отображения отмены действия удаления",
+        "undoButtonText": "Текст кнопки отмены удаления",
+        "deletedFileMessage": "Текст сообщения об удалении файла"
+      },
+      "events": {
+        "fileAdded": "Срабатывает после добавления файла",
+        "fileRemoved": "Срабатывает после удаления файла"
       }
     },
     "VaHover": {
@@ -1979,7 +1985,9 @@
         "title": "Отмена действия удаления прикрепленных файлов",
         "description": "Добавьте свойство `undo` для отмены удаления загруженных файлов, а с помощью свойства `undo-duration` задайте время для отмены действия",
         "galleryViewLabel": "Включить режим Галереи",
-        "inputLabel": "Длительность отмены"
+        "inputLabel": "Длительность отмены",
+        "cancelFieldLabel": "Текст кнопки отмены удаления",
+        "deletedFileFieldLabel": "Текст сообщения об удалении файла"
       }
     },
     "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-file-upload/_variables.scss)[[target=_blank]]"

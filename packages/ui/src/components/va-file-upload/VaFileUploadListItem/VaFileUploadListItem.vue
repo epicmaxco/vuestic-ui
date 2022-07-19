@@ -1,56 +1,51 @@
 <template>
-  <va-card
+  <va-list-item
     class="va-file-upload-list-item"
-    :class="{'file-upload-list-item--undo': removed}"
-    :stripe="removed && undo"
-    :stripeColor="color"
-    no-margin
-    no-padding
+    :class="computedClasses"
   >
-    <va-file-upload-undo
-      v-if="removed && undo"
-      @recover="recoverFile"
-    />
-    <div
-      v-else
-      class="va-file-upload-list-item__content"
-    >
-      <div class="va-file-upload-list-item__name">
-        {{ file && file.name }}
+    <va-list-item-section v-if="removed && undo">
+      <va-file-upload-undo @recover="recoverFile" />
+    </va-list-item-section>
+    <va-list-item-section v-else>
+      <div class="va-file-upload-list-item__content">
+        <div v-if="file && file.name" class="va-file-upload-list-item__name">
+          {{ file && file.name }}
+        </div>
+        <div class="va-file-upload-list-item__size">
+          {{ file && file.size }}
+        </div>
+        <va-icon
+          class="va-file-upload-list-item__delete"
+          name="clear"
+          role="button"
+          aria-hidden="false"
+          aria-label="remove file"
+          tabindex="0"
+          color="danger"
+          @click.stop="removeFile"
+          @keydown.enter.stop="removeFile"
+          @keydown.space.stop="removeFile"
+        />
       </div>
-      <div class="va-file-upload-list-item__size">
-        {{ file && file.size }}
-      </div>
-      <va-icon
-        class="va-file-upload-list-item__delete"
-        name="clear"
-        role="button"
-        aria-hidden="false"
-        aria-label="remove file"
-        tabindex="0"
-        color="danger"
-        @click="removeFile"
-        @keydown.enter.stop="removeFile"
-        @keydown.space.stop="removeFile"
-      />
-    </div>
-  </va-card>
+    </va-list-item-section>
+  </va-list-item>
 </template>
 
 <script lang="ts">
 import { defineComponent, PropType, ref } from 'vue'
 
+import { useBem } from '../../../composables'
 import { ConvertedFile } from '../types'
 
-import { VaCard } from '../../va-card'
-import { VaIcon } from '../../va-icon'
+import { VaListItem, VaListItemSection, VaIcon } from '../../index'
 import { VaFileUploadUndo } from '../VaFileUploadUndo'
 
 export default defineComponent({
   name: 'VaFileUploadListItem',
   components: {
+    VaListItem,
+    VaListItemSection,
     VaIcon,
-    VaCard,
     VaFileUploadUndo,
   },
   emits: ['remove'],
@@ -81,8 +76,14 @@ export default defineComponent({
 
     const recoverFile = () => { removed.value = false }
 
+    const computedClasses = useBem('va-file-upload-list-item', () => ({
+      undo: removed.value,
+    }))
+
     return {
       removed,
+      computedClasses,
+
       removeFile,
       recoverFile,
     }
@@ -95,14 +96,23 @@ export default defineComponent({
 @import "variables";
 
 .va-file-upload-list-item {
+  background-color: var(--va-file-upload-list-item-background-color);
+  box-shadow: var(--va-file-upload-list-item, var(--va-block-box-shadow));
+  border-radius: var(--va-file-upload-list-item-border-radius, var(--va-block-border-radius));
+  position: relative;
+  line-height: 1.5rem;
+  padding: 1.125rem 0.5rem 1rem 1rem;
+  max-width: 100%;
+  width: 100%;
+
   & + & {
     margin-top: 0.5rem;
   }
 
-  line-height: 1.5rem;
-  width: 100%;
-  max-width: 100%;
-  padding: 1.125rem 0.5rem 1rem 1rem;
+  .va-list-item__inner {
+    padding: 0;
+    overflow: hidden;
+  }
 
   &__content {
     display: flex;
@@ -131,8 +141,12 @@ export default defineComponent({
   }
 
   &--undo {
-    background: none;
-    box-shadow: none;
+    overflow: hidden;
+    position: relative;
+
+    .va-list-item-section {
+      padding: 0;
+    }
   }
 }
 </style>
