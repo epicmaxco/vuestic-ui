@@ -27,11 +27,12 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
 
-import { useColors, useTextColor } from '../../composables'
+import { useComponentPresetProp, useColors, useTextColor } from '../../composables'
 
 export default defineComponent({
   name: 'VaNavbar',
   props: {
+    ...useComponentPresetProp,
     color: { type: String, default: 'secondary' },
     textColor: { type: String },
     shape: { type: Boolean, default: false },

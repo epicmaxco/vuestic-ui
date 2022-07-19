@@ -9,12 +9,13 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { useAlignProps, useAlign } from '../../composables'
+import { useComponentPresetProp, useAlignProps, useAlign } from '../../composables'
 
 export default defineComponent({
   name: 'VaCardActions',
   props: {
     ...useAlignProps,
+    ...useComponentPresetProp,
   },
   setup (props) {
     const { alignComputed } = useAlign(props)

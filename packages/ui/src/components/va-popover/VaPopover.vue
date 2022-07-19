@@ -41,7 +41,7 @@
 import { computed, defineComponent, PropType } from 'vue'
 
 import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
-import { useColors, useTextColor } from '../../composables'
+import { useComponentPresetProp, useColors, useTextColor } from '../../composables'
 
 import { VaDropdown, VaIcon } from '../'
 
@@ -54,6 +54,7 @@ export default defineComponent({
 
   props: {
     ...VaDropdownProps,
+    ...useComponentPresetProp,
     trigger: { default: 'hover' },
     color: { type: String, default: 'dark' },
     textColor: { type: String },

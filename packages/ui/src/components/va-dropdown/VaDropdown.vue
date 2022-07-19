@@ -38,6 +38,7 @@ import pick from 'lodash/pick.js'
 import { generateUniqueId } from '../../services/utils'
 
 import {
+  useComponentPresetProp,
   useStateful, useStatefulEmits, useStatefulProps,
   useDebounceFn,
   usePopover, placementsPositions, Placement,
@@ -50,6 +51,7 @@ export default defineComponent({
 
   props: {
     ...useStatefulProps,
+    ...useComponentPresetProp,
     stateful: { default: true },
     modelValue: { type: Boolean, default: false },
     disabled: { type: Boolean },

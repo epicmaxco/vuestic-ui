@@ -58,6 +58,7 @@ import pick from 'lodash/pick.js'
 
 import { useKeyboardOnlyFocus, useColors, useSyncProp, useTextColor, useBem } from '../../composables'
 import { useAccordionItem } from '../va-accordion/hooks/useAccordion'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 import { generateUniqueId } from '../../services/utils'
 
@@ -69,6 +70,7 @@ export default defineComponent({
     VaIcon,
   },
   props: {
+    ...useComponentPresetProp,
     modelValue: { type: Boolean, default: undefined },
     disabled: { type: Boolean, default: false },
     header: { type: String, default: '' },

@@ -20,13 +20,14 @@
 
 <script lang="ts">
 import { defineComponent, PropType, ref, computed, onMounted, onBeforeUnmount } from 'vue'
-
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 import { VaButton } from '../va-button'
 
 export default defineComponent({
   name: 'VaBacktop',
   components: { VaButton },
   props: {
+    ...useComponentPresetProp,
     target: {
       type: [Object, String] as PropType<Element | string | undefined>,
       default: undefined,

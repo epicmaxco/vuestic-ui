@@ -8,10 +8,12 @@
 
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 export default defineComponent({
   name: 'VaListSeparator',
   props: {
+    ...useComponentPresetProp,
     fit: { type: Boolean, default: false },
     spaced: { type: Boolean, default: false },
   },

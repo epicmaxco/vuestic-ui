@@ -1,4 +1,4 @@
-import { ComponentConfig, Props } from '../../component-config/component-config'
+import { ComponentConfig } from '../../component-config/component-config'
 
 export const getComponentsDefaultConfig = (): ComponentConfig =>
   // TODO: Should be handled in size service
@@ -23,6 +23,6 @@ export const getComponentsDefaultConfig = (): ComponentConfig =>
         },
       },
     },
+    all: {},
+    presets: {},
   })
-
-export const getComponentsAllDefaultConfig = (): Props => ({})

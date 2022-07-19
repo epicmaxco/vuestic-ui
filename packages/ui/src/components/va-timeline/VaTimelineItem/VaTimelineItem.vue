@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent, h } from 'vue'
-
+import { useComponentPresetProp } from '../../../composables'
 import { extractComponentProps, filterComponentProps } from '../../../utils/child-props'
 
 import { VaTimelineSeparator } from '../VaTimelineSeparator'
@@ -11,6 +11,7 @@ const VaTimelineSeparatorProps = extractComponentProps(VaTimelineSeparator)
 export default defineComponent({
   name: COMPONENT_NAME,
   props: {
+    ...useComponentPresetProp,
     ...VaTimelineSeparatorProps,
     color: { type: String, default: 'primary' },
     isFirst: { type: Boolean },

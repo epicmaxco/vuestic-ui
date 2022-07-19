@@ -1,13 +1,14 @@
 <script lang="ts">
 import { computed, defineComponent, Fragment, h, ref, VNode } from 'vue'
 
-import { useAlign, useAlignProps, useColors } from '../../composables'
+import { useComponentPresetProp, useAlign, useAlignProps, useColors } from '../../composables'
 import { hasOwnProperty } from '../../services/utils'
 
 export default defineComponent({
   name: 'VaBreadcrumbs',
   props: {
     ...useAlignProps,
+    ...useComponentPresetProp,
     separator: { type: String, default: '/' },
     color: { type: String, default: 'gray' },
     activeColor: { type: String, default: null },

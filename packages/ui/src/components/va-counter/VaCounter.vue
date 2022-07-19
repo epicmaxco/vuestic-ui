@@ -88,6 +88,7 @@ import omit from 'lodash/omit'
 import pick from 'lodash/pick'
 
 import {
+  useComponentPresetProp,
   useFormProps,
   useEmitProxy,
   useFocus, useFocusEmits,
@@ -119,6 +120,7 @@ export default defineComponent({
   props: {
     ...useFormProps,
     ...useStatefulProps,
+    ...useComponentPresetProp,
     // input
     modelValue: { type: [String, Number], default: 0 },
     manualInput: { type: Boolean, default: false },

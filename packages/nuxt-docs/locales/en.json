@@ -266,6 +266,7 @@
     },
     "VaModal": {
       "props": {
+        "value": "The current visibility state of the modal",
         "title": "Text content to place in the title",
         "message": "Content of modal body",
         "attachElement": "A valid selector of element, where modal will be rendered",
@@ -285,13 +286,11 @@
         "withoutTransitions": "Use `without-transitions: true` to turn off the open and close animations on the modal",
         "overlay": "Use `overlay: false` to hide the overlay",
         "overlayOpacity": "Set the overlay's opacity",
-        "anchorClass": "Set class name to the `anchor` slot container",
-        "zIndex": "Set the modal's `z-index`",
-        "blur": "Use `blur` filter to overlay. Root `css` variable `--va-modal-overlay-background-blur-radius` sets the blur radius"
+        "zIndex": "Set the modal's `z-index`"
       },
       "events": {
-        "updateModelValue": "The event is triggered when the component needs to change visibility",
         "clickOutside": "Emits when overlay is clicked",
+        "input": "Emits when modal's visibility should change",
         "ok": "Emits when **Ok** button is clicked",
         "beforeOpen": "Emits before modal's open after transition started",
         "open": "Emits when modal's is open and transition is complete",
@@ -300,13 +299,12 @@
         "cancel": "Emits when the user closes the modal window without side effects"
       },
       "methods": {
-        "hide": "Hide modal (change `modelValue`)",
-        "show": "Show modal (change `modelValue`)",
-        "toggle": "Toggle a modal's visibility (change `modelValue`)"
+        "hide": "Hide modal. On stateless modal only emits `input`",
+        "open": "Show modal. On stateless modal only emits `input`",
+        "toggle": "Toggle a modal's visibility. On stateless modal only emits `input`"
       },
       "slots": {
         "default": "Content of modal body",
-        "anchor": "Modal anchor content. There is access to the `show`, `hide` and `toggle` methods in the slots scope",
         "header": "Modal header content",
         "footer": "Modal footer content"
       }
@@ -395,16 +393,7 @@
         "type": "Specify the format of component. Supported types are `single`, `list` and `gallery`",
         "fileTypes": "Specify supported file formats",
         "dropzone": "Enables Drag&Drop",
-        "hideFileList": "Hide file list if you want to show files somewhere else.",
-        "value": "The array with uploaded files",
-        "dropZoneText": "Custom drop zone label text",
-        "uploadButtonText": "Custom upload button text",
-        "undo": "Enables the canceling of the removing action for the added files",
-        "undoDuration": "Undoing action duration"
-      },
-      "events": {
-        "fileRemoved": "Emits after file is removed",
-        "fileAdded": "Emits after files are added"
+        "value": "The array with uploaded files"
       }
     },
     "VaHover": {
@@ -444,7 +433,7 @@
         "position": "Sets the position of the notification",
         "render": "Render function to use a custom content",
         "multiLine": "Sets more space for the Toast component",
-        "dangerouslyUseHtmlString": "Sets the ability to use `message` as innerHtml. **Please note that this can lead to XSS attacks**, so make sure that you sanitize the `message` by yourself"
+        "html": "Sets the ability to use `message` as innerHtml. **Please note that this can lead to XSS attacks**, so make sure that you sanitize the `message` by yourself"
       },
       "events": {
         "onClick": "Emits when toast is clicked",
@@ -475,7 +464,6 @@
     },
     "VaImage": {
       "props": {
-        "alt": "Specifies an alternate text for an image.",
         "ratio": "Width to height ratio.",
         "contain": "Scales the image while maintaining the proportions so that the whole image fits inside the block."
       },
@@ -491,13 +479,14 @@
     },
     "VaOptionList": {
       "props": {
+        "value": "The array of currently selected items in a list",
         "disabledBy": "Specify the key in the object to be used as item `disabled` prop. Can be string (path to the key) or function of type: `(option) => option.disabled`",
-        "valueBy": "When `options` prop is an object, this key will be used as `modelValue`. Can be string (path to the key) or function of type: `(option) => option.value`",
-        "trackBy": "When `options` prop is an object, this key will be used to track selected `options`. Can be string (path to the key) or function of type: `(option) => option.track`",
-        "textBy": "When `options` prop is an object, this key will be used as displayed text. Can be string (path to the key) or function of type: `(option) => option.text`",
+        "valueBy": "Specify the key in the object to be used as item `value` prop. Can be string (path to the key) or function of type: `(option) => option.value`",
+        "trackBy": "Specify the key in the object to be used as item `key` prop. Can be string (path to the key) or function of type: `(option) => option.track`",
+        "textBy": "Specify the key in the object to be used as item `text` prop. Can be string (path to the key) or function of type: `(option) => option.text`",
         "options": "The array of items to be displayed",
         "type": "Specify the format of component. Supported types are `\"radio\"`, `\"checkbox\"` and `\"switch\"`",
-        "defaultValue": "This value will be pre-selected for the stateful component",
+        "defaultValue": "This value will be pre-selected when component mounts",
         "leftLabel": "Put the labels to the left"
       },
       "events": {
@@ -511,7 +500,6 @@
       "props": {
         "icon": "The icon to be displayed inside a container",
         "src": "URL to the image (will be placed inside `src` attribute of image tag)",
-        "alt": "Specifies an alternate text for an avatar image (not icon)",
         "fontSize": "The font-size of text inside avatar",
         "email": "Будет отображать `gravatar` для предоставленного email"
       },
@@ -535,9 +523,7 @@
         "indeterminate": "Create a indeterminate loading bar",
         "buffer": "Create a loading bar with a buffer. Commonly used in videos",
         "reverse": "Reverse the progress bar direction",
-        "rounded": "Add a border radius to the `va-progress-bar` component (default: true)",
-        "contentInside": "Sets the content of the slot inside the progress bar",
-        "showPercent": "Shows the indicator value with a percent sign"
+        "rounded": "Add a border radius to the `va-progress-bar` component (default: true)"
       },
       "slots": {
         "default": "Display any additional info about the progress"
@@ -601,7 +587,8 @@
         "component": "Allows to use the `svg` component as an icon",
         "rotation": "Rotates a component by a degree value",
         "spin": "Starts rotation animation",
-        "flip": "Specifies mirror image relative to horizontal and vertical planes. `\"off\"`, `\"horizontal\"`, `\"vertical\"` and `\"both\"` values are available"
+        "flip": "Specifies mirror image relative to horizontal and vertical planes. `\"off\"`, `\"horizontal\"`, `\"vertical\"` and `\"both\"` values are available",
+        "iconsConfig": "Allows you to configurate iconset."
       }
     },
     "VaRadio": {
@@ -682,13 +669,7 @@
         "bordered": "Applies underscore",
         "focused": "Applies focus style",
         "canBeFocused": "If false, then input can not be focused using mouse or keyboard",
-        "requiredMark": "Adds required mark to the label",
-        "immediateValidation": "Sets the validation to be performed when the component is mounted",
-        "inputClass": "Classes for `input` (not its wrapper)",
-        "pattern": "The pattern prop specifies a regular expression the input value should match",
-        "inputmode": "The inputmode prop is an enumerated prop that hints at the type of data that might be entered by the user while editing the element or its contents. This alows a browser to display an apropriate virtual keyboard",
-        "counter": "Show a counter of value length",
-        "maxLength": "Specify a max length of value"
+        "immediateValidation": "Sets the validation to be performed when the component is mounted"
       },
       "events": {
         "change": "Emitted when the input loose focus or on `enter`",
@@ -768,10 +749,9 @@
         "clearValue": "Sets value that should be set after clearing",
         "options": "Available options that the user can select from",
         "disabledBy": "Specify the key in the object to be used as item `disabled` prop. Can be string (path to the key) or function of type: `(option) => option.disabled`",
-        "valueBy": "When `options` prop is an object, this key will be used as `modelValue`. Can be string (path to the key) or function of type: `(option) => option.value`",
-        "trackBy": "When `options` prop is an object, this key will be used to track selected `options`. Can be string (path to the key) or function of type: `(option) => option.track`",
-        "textBy": "When `options` prop is an object, this key will be used as displayed text. Can be string (path to the key) or function of type: `(option) => option.text`",
-        "groupBy": "When `options` prop is an object, this key will be used to group up options. Can be string (path to the key) or function of type: `(option) => option.group`",
+        "valueBy": "Specify the key in the object to be used as item `value` prop. Can be string (path to the key) or function of type: `(option) => option.value`",
+        "trackBy": "Specify the key in the object to be used as item `key` prop. Can be string (path to the key) or function of type: `(option) => option.track`",
+        "textBy": "Specify the key in the object to be used as item `text` prop. Can be string (path to the key) or function of type: `(option) => option.text`",
         "placeholder": "Sets the placeholder text to input",
         "placement": "Sets option list placement",
         "tagMax": "Sets maximum tag count after whom selection will be cropped",
@@ -790,7 +770,6 @@
         "clearIcon": "Sets the clear icon",
         "dropdownIcon": "Sets the dropdown icon. Can be object if you want to sets different open/close icons",
         "bordered": "Applies style with bottom border",
-        "requiredMark": "Adds required mark to the label",
         "separator": "Text to separate selected values"
       },
       "events": {
@@ -866,8 +845,7 @@
       },
       "methods": {},
       "slots": {
-        "default": "Dropdown content slot.",
-        "label": "Content for dropdown button."
+        "default": "Dropdown content slot."
       }
     },
     "VaColorInput": {
@@ -890,9 +868,8 @@
     },
     "VaDataTable": {
       "props": {
-        "columns": "The property `columns` must be an array, that configures the columns of the table",
-        "items": "Array of objects with table data (`DataTableItem` type). The `va-data-table` automatically calculates the amount and the titles of columns (if not specified otherwise with the `columns` prop) based on these object's keys. When calculating the columns' names based on the item's objects' keys `va-data-table` uses [Lodash's startCase](https://lodash.com/docs/4.17.15#startCase)[[target=_blank]] internally. Faulty values are replaced with an empty string",
-        "itemsTrackBy": "The `item` key that is used to keep track of the selected `item`. Can be string (path to the key) or a function of type: `(item) => item.track`",
+        "columns": "The property `columns` must be an array, that configures the columns of the table. In this case:\n\n `DataTableColumn` &#123; `key: string;` `label?: string;` `headerTitle?: string;` `sortable?: boolean;` `sortingFn?: (a: any, b: any) => number;` `alignHead?: DataTableColumnAlign;` `verticalAlignHead?: DataTableColumnVerticalAlign;` `align?: DataTableColumnAlign;` `verticalAlign?: DataTableColumnVerticalAlign;` `width?: string`&#124;`number;` `classes?: DataTableColumnClasses;` `headerClasses?: DataTableColumnClasses;` `style?: DataTableColumnStyle;` `headerStyle?: DataTableColumnStyle;` &#125;;\n\n `DataTableColumnAlign: 'left'`&#124;`'center'`&#124;`'right'`;\n\n `DataTableColumnVerticalAlign: 'top'`&#124;`'middle'`&#124;`'bottom'`;\n\n `DataTableColumnClasses: string`&#124;`string[]`&#124;`(() => string`&#124;`string[])`;\n\n `DataTableColumnStyle: Record<string, any>`&#124;`(() => Record<string, any>)`",
+        "items": "Array of objects with table data (`DataTableItem: Record<string, any>`). The `va-data-table` automatically calculates the amount and the titles of columns (if not specified otherwise with the `columns` prop) based on these object's keys. When calculating the columns' names based on the item's objects' keys `va-data-table` uses [Lodash's startCase](https://lodash.com/docs/4.17.15#startCase)[[target=_blank]] internally. Faulty values are replaced with an empty string",
         "filter": "If a `filter` is provided, only rows in which at least one cell contains the specified value will be displayed. To disable filtering at runtime (clear `filter`), specify an empty string",
         "filterMethod": "A custom filtering function. The function takes the initial value of the currently checked cell (the `source` is a formal parameter) and should return a `boolean` value, indicating whether to include the row containing this cell or not",
         "sortBy": "Sets the column to sort by. Works through the `v-model`",
@@ -901,22 +878,21 @@
         "clickable": "Sets whether the `va-data-table` should have clickable (the click events will be emitted) rows or not",
         "selectMode": "Sets the select mode. `'single'` selection allows for only a single row to be selected at a time, while `'multiple'` mode allows to select multiple rows by clicking on checkboxes or using the **ctrl**/**shift** keys when clicking rows",
         "selectedColor": "Sets the highlighting color of the selected row",
-        "perPage": "Sets the maximum number of rows displayed in the table's `tbody`",
+        "perPage": "Sets the maximum number of rows displayed in the table's `<tbody>`",
         "currentPage": "Sets the number of the current table page",
         "loading": "Sets the loading state for the table (by displaying the spinning loading-indicator)",
         "loadingColor": "Sets the color of the spinning loading-indicator",
         "noDataHtml": "Sets html-content for cases where there are no items passed in the `items` option at all",
         "noDataFilteredHtml": "Sets html-content for cases where there are no items found when filtering the table using the `filter` prop",
         "hideDefaultHeader": "Sets whether to show the default headers for columns",
-        "footerClone": "Sets whether to clone the `thead` columns into the `tfoot`. Has no effect if the default `thead` is hidden with the `hide-default-header` prop",
-        "allowFooterSorting": "Allows clicks on `tfoot` column headers to sort (and to display the sorting status) the rows",
-        "striped": "Sets the striped style to the `tbody` rows (highlights each 2nd row)",
-        "hoverable": "Allows the hover state on table rows within a `tbody`. The highlighting color of the hover state takes from `selected-color` prop",
+        "footerClone": "Sets whether to clone the `<thead>` columns into the `<tfoot>`. Has no effect if the default `<thead>` is hidden with the `hide-default-header` prop",
+        "allowFooterSorting": "Allows clicks on `<tfoot>` column headers to sort (and to display the sorting status) the rows",
+        "striped": "Sets the striped style to the `<tbody>` rows (highlights each 2nd row)",
+        "hoverable": "Allows the hover state on table rows within a `<tbody>`. The highlighting color of the hover state takes from `selected-color` prop",
         "animated": "Sets css `transition` to table rows",
         "stickyHeader": "Enables sticky header (sticky header is achieved through CSS with `position: sticky` for `thead`)",
-        "stickyFooter": "Enables sticky footer (sticky footer is achieved through CSS with `position: sticky` for `tfoot`)",
         "height": "Sets the height to the table and enables scrolling",
-        "rowBind": "Adds attributes to a table row using `v-bind`. This can be an object type (with attributes that vue supports) or a function that returns such an object. The function receives a table row element (`DataTableItem` type) and an index as arguments",
+        "rowBind": "Adds attributes to a table row using `v-bind`. This can be an object type (with attributes that vue supports) or a function that returns such an object. The function receives a table row element (type `Record<string, any>`) and an index as arguments",
         "cellBind": "Adds attributes to a table cell using `v-bind`. This can be an object type (with attributes that vue supports) or a function that returns such an object. As arguments, the function receives a table cell element (`any` type), a row (`DataTableItem` type), a column (`TableColumn` type), and a row index"
       },
       "events": {
@@ -927,23 +903,23 @@
         "rowClick": "When row clicked the event is thrown with the following param: `RowClickEmit` = \n &#123;\n &nbsp; `event: Event`,\n &nbsp; `item: DataTableItem`,\n &nbsp; `itemIndex: number`\n &#125;",
         "rowDblclick": "Double-clicking a row raises an event with the `RowClickEmit` param",
         "rowContextmenu": "When the context menu is clicked on a row, an event is raised with the `RowClickEmit` param",
-        "selectionChange": "The `selectionChange` event is thrown each time the selection changes. It provides the following object: `SelectionChangeEmit` = \n&#123;\n &nbsp; `currentSelectedItems: (DataTableItem | DataTableItemKey)[]`,\n &nbsp; `previousSelectedItems: (DataTableItem | DataTableItemKey)[]`\n &#125;"
+        "selectionChange": "The `selectionChange` event is thrown each time the selection changes. It provides the following object: `SelectionChangeEmit` = \n&#123;\n &nbsp; `currentSelectedItems: DataTableItem[]`,\n &nbsp; `previousSelectedItems: DataTableItem[]`\n &#125;"
       },
       "methods": {},
       "slots": {
-        "colgroup": "The contents of this slot is wrapped (if provided) inside the `colgroup` tag, allowing to specify certain column options. Bound to columns (not the prop, but their internal representation)",
-        "headerPrepend": "Prepends custom rows in table header (`thead`). Isn't bound to anything",
+        "colgroup": "The contents of this slot is wrapped (if provided) inside the `<colgroup>` tag, allowing to specify certain column options. Bound to columns (not the prop, but their internal representation)",
+        "headerPrepend": "Prepends custom rows in table header (`<thead>`). Isn't bound to anything",
         "header": "Targets all the table headings. Is bound to columns (to their internal representation)",
         "headerKey": "Targets a specific table header by the column's `key`. Is bound to column",
-        "headerAppend": "Appends custom rows inside table header (`thead`)",
-        "bodyPrepend": "Prepends `tbody` with custom rows",
+        "headerAppend": "Appends custom rows inside table header (`<thead>`)",
+        "bodyPrepend": "Prepends `<tbody>` with custom rows",
         "cell": "Targets all the cells. Is bound to the current cell (to it internal representation)",
         "cellKey": "Allows to target only cells of a specified by the given `key` column. Is bound to the current cell",
-        "bodyAppend": "Appends rows to the table's `tbody`",
-        "footerPrepend": "Prepends rows to the table's `tfoot`",
-        "footer": "Targets all the headers inside `tfoot`. Works if there's a `footer-clone` prop set to `true`",
-        "footerKey": "A specific header in `tfoot`. Is bound to the column (to it internal representation) with the given `key`. Works if there's a `footer-clone` prop set to `true`",
-        "footerAppend": "Appends rows to the `tfoot`"
+        "bodyAppend": "Appends rows to the table's `<tbody>`",
+        "footerPrepend": "Prepends rows to the table's `<tfoot>`",
+        "footer": "Targets all the headers inside `<tfoot>`. Works if there's a `footer-clone` prop set to `true`",
+        "footerKey": "A specific header in `<tfoot>`. Is bound to the column (to it internal representation) with the given `key`. Works if there's a `footer-clone` prop set to `true`",
+        "footerAppend": "Appends rows to the `<tfoot>`"
       }
     },
     "VaDatePicker": {
@@ -1011,8 +987,6 @@
         "weekendsColor": "Color of the weekend cells (theme string or HEX string).",
         "mode": "Specify if picker value is single date, multiple dates or date range.",
         "clearable": "Adds a button to reset the input field value",
-        "clearValue": "Default input field value",
-        "formatDate": "Function that accepts picker value and transforms it to the string",
         "format": "Function that accepts picker value and should transform it to text for input",
         "isOpen": "Value for dropdown. If `true`, then dropdown is shown",
         "resetOnClose": "If true, range value will be reset to previous valid value",
@@ -1034,13 +1008,9 @@
         "error": "Sets input state to error",
         "errorMessages": "Displays a list of error messages or message if using a string",
         "errorCount": "Number of error messages displayed",
-        "manualInput": "Allows user to manually input date in VaInput",
-        "parse": "Function that transforms input field text to date, date array or date period",
-        "parseDate": "Function that transforms input field text to date",
-        "parseValue": "Function that transforms string value to date, date array or date period"
+        "manualInput": "Allows user to manually input date in VaInput"
       },
       "events": {
-        "clear": "Emitted if select value has been cleared",
         "updateView": "The event is triggered when the component needs to change the view",
         "updateMonth": "The event is triggered when the component needs to change the month",
         "updateYear": "The event is triggered when the component needs to change the year",
@@ -1048,10 +1018,8 @@
         "updateText": "The event is triggered when the component needs to change the input text",
         "hoverDay": "The event is triggered when the mouse hover the day cell",
         "hoverMonth": "The event is triggered when the mouse hover the month cell",
-        "hoverYear": "The event is triggered when the mouse hover the year cell",
         "clickDay": "The event is triggered when clicked the day cell",
-        "clickMonth": "The event is triggered when clicked the month cell",
-        "clickYear": "The event is triggered when clicked the year cell"
+        "clickMonth": "The event is triggered when clicked the month cell"
       },
       "methods": {},
       "slots": {}
@@ -1141,23 +1109,16 @@
       },
       "events": {},
       "methods": {},
-      "slots": {
-        "icon": "By default replaces with a `va-icon` and icon name from `icon` property",
-        "title": "Custom title slot",
-        "body": "Custom body slot"
-      }
+      "slots": {}
     },
     "VaTimePicker": {
       "props": {
-        "ampm": "Use 12-hours time format",
+        "ampm": "Use 12-hours time format.",
         "hoursFilter": "Function that allows you to hide some specific hours",
         "minutesFilter": "Function that allows you to hide some specific minutes",
         "secondsFilter": "Function that allows you to hide some specific seconds",
         "view": "View specifying which columns will be shown",
-        "periodUpdatesModelValue": "If user will change period it will automatically update model value. You can turn off it and am/pm switch will only change view.",
-        "framed": "Adds borders to center of the picker",
-        "cellHeight": "Height of the time cell",
-        "visibleCellsCount": "Count of time cells to display"
+        "periodUpdatesModelValue": "If user will change period it will automatically update model value. You can turn off it and am/pm switch will only change view."
       },
       "events": {},
       "methods": {},
@@ -1201,46 +1162,11 @@
         "focused": "Applies focus style",
         "canBeFocused": "If false, then input can not be focused using mouse or keyboard",
         "icon": "Sets an icon. The default icon position is on the right",
-        "requiredMark": "Adds required mark to the label",
         "leftIcon": "Sets the icon position to the left"
       },
       "events": {},
       "methods": {},
       "slots": {}
-    },
-    "VaCounter": {
-      "props": {
-        "manualInput": "Allows user to manually input value",
-        "label": "Sets component label",
-        "color": "Sets component color",
-        "min": "The minimum value to accept for this input",
-        "max": "The maximum value to accept for this input",
-        "step": "Step of changing input field values",
-        "disabled": "Disable the component",
-        "readonly": "Puts component in **readonly** state",
-        "messages": "Displays a list of hint messages (or message if using a string)",
-        "bordered": "Applies component `underscore` styling",
-        "outline": "Applies component `outline` styling",
-        "flat": "Applies `flat` styling of outside buttons",
-        "rounded": "Adds rounded corners to outside buttons",
-        "buttons": "Enables display of the component with external buttons",
-        "width": "Sets a component width",
-        "margins": "Sets the margin of the outside buttons",
-        "increaseIcon": "Sets an increase icon",
-        "decreaseIcon": "Sets a decrease icon"
-      },
-      "events": {
-        "clickDecreaseButton": "The event is triggered when clicked decrease outside button",
-        "clickIncreaseButton": "The event is triggered when clicked increase outside button",
-        "clickDecreaseIcon": "The event is triggered when clicked decrease inner icon",
-        "clickIncreaseIcon": "The event is triggered when clicked increase inner icon",
-        "change": "The **change** input event is fired when input is submitted (when `manual-input` prop enabled)"
-      },
-      "slots": {
-        "decreaseAction": "Adds an item instead of decrease icon or button",
-        "increaseAction": "Adds an item instead of increase icon or button",
-        "content": "Adds an item instead the input"
-      }
     },
     "VaCarousel": {
       "props": {
@@ -1253,7 +1179,7 @@
         "indicatorTrigger": "Event which will trigger indicator to change slide",
         "indicators": "Show or hide indicators at the bottom of slider",
         "infinite": "If true, after last slide first will be shown.",
-        "items": "List of slide items. Can be any array. Default item should be an image src or object containing `src` and `alt`. You can use item later in `default` slot.",
+        "items": "List of slide items. Can be any array. By default should be a image src, but you can use item later in `default` slot.",
         "loop": "If true, after last slide slider will scroll to first one through all items before.",
         "modelValue": "Slide index to be shown.",
         "vertical": "Change slider scroll orientation.",
@@ -1266,34 +1192,6 @@
         "indicator": "Custom style for indicator button",
         "nextArrow": "Custom style for next button",
         "prevArrow": "Custom style for previous button"
-      }
-    },
-    "VaSpacer": {
-      "props": {},
-      "events": {},
-      "methods": {},
-      "slots": {}
-    },
-    "VaTreeView": {
-      "props": {
-        "expandAll": "Expand or hide all nodes by default",
-        "filter": "Tree view filter",
-        "nodeKey": "Key to index nodes",
-        "labelKey": "Key to show the value of node item",
-        "nodes": "Tree node array",
-        "selectable": "Selectable",
-        "selectionType": "Selection type where is a `leaf` current and all children nodes, `independent` - single selectable nodes"
-      }
-    },
-    "VaTreeNode": {
-      "props": {
-        "node": "Tree node object"
-      },
-      "slots": {
-        "content": "Configurable node content",
-        "checkbox": "Checkbox icon placeholder",
-        "icon": "Additional icon placeholder",
-        "iconToggle": "Node leaf icon"
       }
     }
   },
@@ -1399,46 +1297,14 @@
     "colors": "Colors",
     "timePicker": "Time Picker",
     "timeInput": "Time Input",
-    "carousel": "Carousel",
-    "treeShaking": "Tree Shaking",
-    "counter": "Counter",
-    "nuxt": "Nuxt",
-    "ssrGuide": "SSR",
-    "spacer": "Spacer",
-    "treeView": "Tree view"
+    "carousel": "Carousel"
   },
   "all": {
     "examples": "Examples",
     "api": "API",
-    "methods": "Methods",
-    "options": "Options",
-    "cssVariables": "CSS Variables",
     "faq": "FAQ",
     "code": {
-      "or": "or",
-      "folderStructure": {
-        "componentDirectory": "component directory",
-        "componentItself": "component itself",
-        "componentDemo": "component demo",
-        "componentTests": "compoennt tests"
-      },
-      "npmScripts": {
-        "runVueBookDevServer": "Run vue-book dev server",
-        "generateFilesForComponent": "Generate all needed files for component (component itself, docs, tests)",
-        "buildVueBook": "Build vue-book bundle",
-        "lint": "Lint everything",
-        "runTests": "Run tests",
-        "runVuepressDevServer": "Run vuepress dev server",
-        "buildVuepress": "Build vuepress bundle"
-      },
-      "aliasAndFontExample": {
-        "twitterColor": "Twitter blue brand color",
-        "vuesticColor": "Vuestic green brand color",
-        "from": "from",
-        "alias": "alias",
-        "font": "font",
-        "to": "to"
-      }
+      "or": "or"
     },
     "examplesTexts": {
       "button": "Your button"
@@ -1568,8 +1434,7 @@
         "title": "With icons",
         "text": "The `icon` prop is used to display icons inside an avatar."
       }
-    },
-    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/tree/develop/packages/ui/src/components/va-avatar/_variables.scss)[[target=_blank]]"
+    }
   },
   "affix": {
     "title": "Affix",
@@ -1584,8 +1449,7 @@
       "target": {
         "title": "Fixes element relative to custom container"
       }
-    },
-    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-affix/_variables.scss)[[target=_blank]]"
+    }
   },
   "breadcrumbs": {
     "title": "Breadcrumbs",
@@ -1616,7 +1480,6 @@
         "text": "Some `va-breadcrumbs-item` props examples."
       }
     },
-    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-breadcrumbs/_variables.scss)[[target=_blank]]",
     "api": {
       "item": {
         "title": "Item API",
@@ -1658,8 +1521,7 @@
       "color": {
         "title": "Color"
       }
-    },
-    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/tree/develop/packages/ui/src/components/va-badge/_variables.scss)[[target=_blank]]"
+    }
   },
   "button": {
     "title": "Button",
@@ -1705,8 +1567,7 @@
         "title": "Disabled",
         "text": "The `disabled` prop prevent any actions with button."
       }
-    },
-    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-button/_variables.scss)[[target=_blank]]"
+    }
   },
   "slider": {
     "title": "Slider",
@@ -1764,8 +1625,7 @@
         "title": "Vertical",
         "text": "Vertical state of slider."
       }
-    },
-    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-slider/_variables.scss)[[target=_blank]]"
+    }
   },
   "switch": {
     "title": "Switch",
@@ -1814,8 +1674,7 @@
         "title": "Error",
         "text": "Switch has an error style."
       }
-    },
-    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-switch/_variables.scss)[[target=_blank]]"
+    }
   },
   "rating": {
     "title": "Rating",
@@ -1858,7 +1717,6 @@
         "text": "Providing this prop to component allows you to add custom icons."
       }
     },
-    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-rating/_variables.scss)[[target=_blank]]",
     "faq": {
       "questions": [
         {
@@ -1875,7 +1733,7 @@
   "toast": {
     "title": "Toast",
     "summaryText": "Component for sending a notification to the user. To make it easier to create toast we have a shorthands. For options API it is `$vaToast`. For composition api we have `useToast` hook. Hook and global object have similar API.",
-    "optionsAPI": "In options API you can use VaToastPlugin (automatically installed with createVuestic). `$vaToast` have a few methods: init, close, closeAll.",
+    "optionsAPI": "In options API you can use ToastPlugin (automatically installed with VuesticPlugin). `$vaToast` have a few methods: init, close, closeAll.",
     "compositionAPI": "In composition API you can use `useToast` hook.",
     "toastOptionsHeader": "Init Options",
     "examples": {
@@ -1904,7 +1762,6 @@
         "text": "You can set custom onClick event to handle the click on button."
       }
     },
-    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-toast/_variables.scss)[[target=_blank]]",
     "faq": {
       "questions": [
         {
@@ -1917,73 +1774,58 @@
   "modal": {
     "title": "Modal",
     "summaryText": "Classic modal overlay which represents a dialog box or other interactive component, such as a dismissible alert, sub-window, etc.",
-    "overview": {
-      "title": "Overview",
-      "text": "`va-modal`, by default, has the **OK** and **Cancel** buttons in the footer. You can provide a custom message and title with the `message` and `title` props respectively.\n\n`va-modal` supports close on **Esc** (enabled by default) and close on overlay click (enabled by default). These features may be disabled by setting the props `no-esc-dismiss` and `no-outside-dismiss` respectively, or `no-dismiss` as a shorthand to disable both of them."
-    },
-    "stateful": {
-      "title": "Stateful",
-      "text": "By default `va-modal` is stateless. You can change it by setting the `stateful` prop"
-    },
-    "fullscreen": {
-      "title": "Full screen",
-      "text": "Add the `fullscreen` prop to cover the whole page.\n\nNote that `va-modal` is full screen on mobile viewports by default. You can change it by setting the `mobile-fullscreen` prop to `false`."
-    },
-    "modalSizing": {
-      "title": "Modal sizing",
-      "text": "Modals have three optional sizes, available via the prop `size`. These sizes kick in at certain breakpoints to avoid horizontal scrollbars on narrower viewports. Valid optional sizes are `small`, `medium` (default), and `large`."
-    },
-    "toggleVisibility": {
-      "title": "Toggle modal visibility",
-      "text": "There are several methods that you can employ to toggle the visibility of `va-modal`.",
-      "sections": [
-        {
-          "title": "Using `v-model` property",
-          "text": "`v-model` property is always automatically synced with `va-modal` visible state and you can show/hide using `v-model`."
-        },
-        {
-          "title": "Using `show()`, `hide()`, and `toggle()` component methods",
-          "text": "You can access modal using `ref` attribute and then call the `show()`, `hide()` or `toggle()` methods."
-        }
-      ]
-    },
-    "customContent": {
-      "title": "Custom content",
-      "text": "You can remove default padding with `no-padding` prop and change default action buttons with `content` slot."
-    },
-    "anchor": {
-      "title": "Slot: `anchor`",
-      "text": "Using the `anchor` slot, the user can access the `show()`, `hide()` and `toggle()` methods."
-    },
-    "disableAnimation": {
-      "title": "Disable open and close animation",
-      "text": "To disable the transition/animation when modal opens and closes, set the prop `without-transitions`."
-    },
-    "hidingOverlay": {
-      "title": "Hiding the overlay",
-      "text": "Hide the modal's overlay via setting the `overlay` prop to `false`.\n\nNote that clicking outside of the modal will still close the modal even though the overlay is hidden. You can disable this behaviour by setting the `no-outside-dismiss` prop on `va-modal`."
-    },
-    "blurredOverlay": {
-      "title": "Blurred overlay",
-      "text": "Use the `blur` CSS filter for the overlay layer by setting the `blur` property to `true`. You can override the root CSS variable `--va-modal-overlay-background-blur-radius` to set your own blur radius."
-    },
-    "scrollingLongContent": {
-      "title": "Scrolling long content",
-      "text": "When modals become too long for the user's viewport or device, they allow the scrolling of the modal body. Try the demo below to see what we mean.\n\nYou can also allow scrolling only content in modal via setting the `fixed-layout` prop. Title and actions will be fixed."
-    },
-    "customization": {
-      "title": "Customization",
-      "text": "`va-modal` provides several slots (`default`, `header` and `footer`), that you can use to customize the content of various sections of the modal.\n\nYou can set custom text for **Cancel** and **Ok** buttons via `ok-text` and `cancel-text` props respectively, or you can hide them via `hide-default-actions` prop.\n\n`va-modal` also supports custom `overlay-opacity` as well as `z-index`, `max-width` and `max-height` for a modal."
-    },
-    "nestedModals": {
-      "title": "Nested modals",
-      "text": "Modals can be nested: you can open one modal from another."
-    },
-    "functionalApi": {
-      "title": "Modal functional API",
-      "text": "To make it easier to create modal we have a shorthands. For options API it is `$vaModal` that provides the VaModalPlugin (automatically installed with createVuestic). For composition Api we have `useModal` hook. Hook and global object have similar API."
-    },
-    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-modal/_variables.scss)[[target=_blank]]"
+    "examples": {
+      "overview": {
+        "title": "Overview",
+        "text": "`<va-modal>`, by default, has the **OK** and **Cancel** buttons in the footer. You can provide a custom message and title with the `message` and `title` props respectively.\n\n`<va-modal>` supports close on **Esc** (enabled by default) and close on overlay click (enabled by default). These features may be disabled by setting the props `no-esc-dismiss` and `no-outside-dismiss` respectively, or `no-dismiss` as a shorthand to disable both of them."
+      },
+      "stateful": {
+        "title": "Stateful",
+        "text": "By default `va-modal` is stateless. You can change it by setting the `stateful` prop"
+      },
+      "fullscreen": {
+        "title": "Full screen",
+        "text": "Add the `fullscreen` prop to cover the whole page.\n\nNote that `va-modal` is full screen on mobile viewports by default. You can change it by setting the `mobile-fullscreen` prop to `false`."
+      },
+      "modalSizing": {
+        "title": "Modal sizing",
+        "text": "Modals have three optional sizes, available via the prop `size`. These sizes kick in at certain breakpoints to avoid horizontal scrollbars on narrower viewports. Valid optional sizes are `small`, `medium` (default), and `large`."
+      },
+      "toggleVisibility": {
+        "title": "Toggle modal visibility",
+        "text": "There are several methods that you can employ to toggle the visibility of `<va-modal>`.",
+        "sections": [
+          {
+            "title": "Using `v-model` property",
+            "text": "`v-model` property is always automatically synced with `<va-modal>` visible state and you can show/hide using `v-model`."
+          },
+          {
+            "title": "Using `show()`, `hide()`, and `toggle()` component methods",
+            "text": "You can access modal using `ref` attribute and then call the `show()`, `hide()` or `toggle()` methods."
+          }
+        ]
+      },
+      "disableAnimation": {
+        "title": "Disable open and close animation",
+        "text": "To disable the transition/animation when modal opens and closes, set the prop `without-transitions`."
+      },
+      "hidingOverlay": {
+        "title": "Hiding the overlay",
+        "text": "Hide the modal's overlay via setting the `overlay` prop to `false`.\n\nNote that clicking outside of the modal will still close the modal even though the overlay is hidden. You can disable this behaviour by setting the `no-outside-dismiss` prop on `<va-modal>`."
+      },
+      "scrollingLongContent": {
+        "title": "Scrolling long content",
+        "text": "When modals become too long for the user's viewport or device, they allow the scrolling of the modal body. Try the demo below to see what we mean.\n\nYou can also allow scrolling only content in modal via setting the `fixed-layout` prop. Title and actions will be fixed."
+      },
+      "customization": {
+        "title": "Customization",
+        "text": "`<va-modal>` provides several slots (`default`, `header` and `footer`), that you can use to customize the content of various sections of the modal.\n\nYou can set custom text for **Cancel** and **Ok** buttons via `ok-text` and `cancel-text` props respectively, or you can hide them via `hide-default-actions` prop.\n\n`va-modal` also supports custom `overlay-opacity` as well as `z-index`, `max-width` and `max-height` for a modal."
+      },
+      "nestedModals": {
+        "title": "Nested modals",
+        "text": "Modals can be nested: you can open one modal from another."
+      }
+    }
   },
   "pagination": {
     "title": "Pagination",
@@ -2018,7 +1860,6 @@
         "text": "You can provide `total` and `page-size` props to `va-pagination` component and let it calculate the length of pagination itself. The value of the component in this case would be equal to the number of the first item at the selected page."
       }
     },
-    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-pagination/_variables.scss)[[target=_blank]]",
     "faq": {
       "questions": [
         {
@@ -2055,13 +1896,8 @@
       "color": {
         "title": "Color",
         "text": "Set different colors using the `color` prop. You can either use a theme string or the HEX color value. Inactive tabs have `inherit` color. If you need to change inactive tabs color, you can set color for va-tabs using CSS."
-      },
-      "content": {
-        "title": "Content",
-        "text": "Tabs with a custom content in the default slot."
       }
     },
-    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-tabs/_variables.scss)[[target=_blank]]",
     "faq": {
       "questions": [
         {
@@ -2081,12 +1917,7 @@
       },
       "dragAndDrop": {
         "title": "Drag & Drop",
-        "text": "The `dropzone` prop is used to add drag and drop possibility to the `va-file-upload` component",
-        "exampleText": "This is slot, click or drag'n'drop file to upload"
-      },
-      "slots": {
-        "title": "Slot",
-        "text": "Allows to create custom file upload area."
+        "text": "The `dropzone` prop is used to add drag and drop possibility to the `va-file-upload` component"
       },
       "validation": {
         "title": "Specify file types",
@@ -2095,15 +1926,8 @@
       "gallery": {
         "title": "As gallery",
         "text": "With `type === gallery` prop you can show user picture preview of uploaded files"
-      },
-      "undo": {
-        "title": "Canceling the removing action",
-        "description": "Add the `undo` property to cancel the removing action, and with a `undo-duration` property set the time to cancel removing",
-        "galleryViewLabel": "Enable gallery view",
-        "inputLabel": "Undo duration"
       }
-    },
-    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-file-upload/_variables.scss)[[target=_blank]]"
+    }
   },
   "divider": {
     "title": "Divider",
@@ -2133,8 +1957,7 @@
         "title": "Divider with lists",
         "text": "Dividers perfectly work with `va-list`."
       }
-    },
-    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-divider/_variables.scss)[[target=_blank]]"
+    }
   },
   "form": {
     "title": "Form",
@@ -2144,7 +1967,7 @@
         "title": "Default usage",
         "text": "All elements have `rules` prop which offers flexible solutions when it comes to elements validation. By using this prop you’ll be able to specify exact cases when the field is *valid* or *invalid*."
       },
-      "advanced": {
+      "withInputs": {
         "title": "Trigger validation",
         "text": "You can trigger validation from a parent component by using the `validate()` method of the `va-form` component."
       },
@@ -2217,7 +2040,6 @@
         "values": "Valid values for `align`: left, center, right, between, around, stretch."
       }
     },
-    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-card/_variables.scss)[[target=_blank]]",
     "faq": {
       "questions": [
         {
@@ -2272,7 +2094,6 @@
         "text": "You can make Navbar background gradient"
       }
     },
-    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-sidebar/_variables.scss)[[target=_blank]]",
     "faq": {
       "questions": [
         {
@@ -2335,8 +2156,7 @@
         "title": "Error slot",
         "text": "Is visible when `src` path is incorrect."
       }
-    },
-    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-image/_variables.scss)[[target=_blank]]"
+    }
   },
   "optionList": {
     "title": "Option List",
@@ -2358,8 +2178,7 @@
         "title": "Array of objects",
         "text": "Instead of array of strings you can provide array of objects and specify which key is for each setting."
       }
-    },
-    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-option-list/_variables.scss)[[target=_blank]]"
+    }
   },
   "checkbox": {
     "title": "Checkbox",
@@ -2387,8 +2206,7 @@
         "title": "Errors",
         "text": "You can show your error messages while using `va-checkbox` with form."
       }
-    },
-    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-checkbox/_variables.scss)[[target=_blank]]"
+    }
   },
   "progressBar": {
     "title": "Progress Bar",
@@ -2418,8 +2236,7 @@
         "title": "Buffer",
         "text": "When dealing with media content like streaming videos we can use progress bars to show the buffering progress indicator on a video."
       }
-    },
-    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-progress-bar/_variables.scss)[[target=_blank]]"
+    }
   },
   "progressCircle": {
     "title": "Progress Circle",
@@ -2449,8 +2266,7 @@
         "title": "Thickness",
         "text": "Use the `thickness` prop to adjust the stroke size."
       }
-    },
-    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-progress-circle/_variables.scss)[[target=_blank]]"
+    }
   },
   "infiniteScroll": {
     "title": "Inifinite Scroll",
@@ -2472,8 +2288,7 @@
         "title": "Custom scroll target container",
         "text": "Provide either DOM element or CSS Selector to be used instead of default scroll container. "
       }
-    },
-    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-infinite-scroll/_variables.scss)[[target=_blank]]"
+    }
   },
   "input": {
     "title": "Input",
@@ -2499,14 +2314,6 @@
         "title": "Textarea",
         "text": "Support a multi-line `va-input`, useful for larger amounts of text. You can make textarea auto-expandable or manually control min/max number of lines."
       },
-      "inputClass": {
-        "title": "Input Class",
-        "text": "To assign a class directly to input, rather than its wrapper, use the `input-class` property. For example, you can use the build-in component class (or any other class you've created) to align the input text &mdash; `text--center` and `text--right` to align the center or right.",
-        "exampleTexts": [
-          "This input must have right-aligned red text with bottom indent.",
-          "Native input element must have red text. VaInput wrapper has a gray border."
-        ]
-      },
       "mask": {
         "title": "Mask",
         "text": "Support possibility to force/help the user to input a specific format with help from mask prop. You can pass some mask presets or custom options based on [cleave.js](https://nosir.github.io/cleave.js/)[[target=_blank]]. By default returning a raw value."
@@ -2515,8 +2322,7 @@
         "title": "Styles",
         "text": "There are tree styles for input: Default (solid), outline, bordered."
       }
-    },
-    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-input/_variables.scss)[[target=_blank]]"
+    }
   },
   "alert": {
     "title": "Alert",
@@ -2583,18 +2389,15 @@
       "customCloseIcon": "You read this important alert message with a custom close icon.",
       "messageInsteadIcon": "You read this important alert message with a text instead of an icon.",
       "slottedTextInsteadIcon": "You read this important alert message with a slotted text instead of an icon."
-    },
-    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-alert/_variables.scss)[[target=_blank]]"
+    }
   },
   "icon": {
     "title": "Icon",
     "summaryText": "The `va-icon` component allows you to use different icon fonts. By default Vuestic UI provides [Material Design Icons](https://fonts.google.com/icons)[[target=_blank]].",
-    "iconsConfig": "Read more how you can use different icon libraries with Vuestic UI Icon Config",
     "examples": {
       "default": {
         "title": "Default",
-        "text": "Basic usage of the component with different icon fonts.",
-        "alert": "Notice that Vuestic UI uses only Material Icons by default. You need to manualy install additional libraries."
+        "text": "Basic usage of the component with different icon fonts."
       },
       "color": {
         "title": "Color",
@@ -2620,8 +2423,7 @@
         "title": "Custom tag",
         "text": "With the `tag` prop you can attach the icon to another tag."
       }
-    },
-    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-icon/_variables.scss)[[target=_blank]]"
+    }
   },
   "radio": {
     "title": "Radio",
@@ -2643,8 +2445,7 @@
         "title": "Disabled",
         "text": "With `disabled` prop you can disable a user interaction  with `va-radio` component."
       }
-    },
-    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-radio/_variables.scss)[[target=_blank]]"
+    }
   },
   "collapse": {
     "title": "Collapse",
@@ -2666,8 +2467,7 @@
         "title": "Color",
         "text": "Use two color schemes."
       }
-    },
-    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-collapse/_variables.scss)[[target=_blank]]"
+    }
   },
   "accordion": {
     "title": "Accordion",
@@ -2735,8 +2535,7 @@
         "title": "Shadow",
         "text": "You can set a shadow."
       }
-    },
-    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-chip/_variables.scss)[[target=_blank]]"
+    }
   },
   "grid": {
     "title": "Grid System",
@@ -2818,9 +2617,8 @@
           "`.justify--start` - items are packed toward the start line",
           "`.justify--end` - items are packed toward to end line",
           "`.justify--center` - items are centered along the line",
-          "`.justify--space-around` - items are evenly distributed in the line, items have equal space around on either end",
-          "`.justify--space-between` - items are evenly distributed in the line; first item is on the start line, last item is on the end line",
-          "`.justify--space-evenly` - items are evenly distributed in the line; items have equal space around them"
+          "`.justify--space-around` - items are evenly distributed in the line with equal space around them",
+          "`.justify--space-between` - items are evenly distributed in the line; first item is on the start line, last item is on the end line"
         ]
       },
       "justifySelf": {
@@ -2859,7 +2657,6 @@
         "text": "You can divide item label content on a custom count of lines."
       }
     },
-    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-list/_variables.scss)[[target=_blank]]",
     "api": {
       "list": {
         "text": "API for `va-list` component."
@@ -2938,8 +2735,7 @@
         "title": "Styles",
         "text": "Select styles inherit from input styles"
       }
-    },
-    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-select/_variables.scss)[[target=_blank]]"
+    }
   },
   "parallax": {
     "title": "Parallax",
@@ -2961,8 +2757,7 @@
         "title": "Slot",
         "text": "You can provide some kind of content over the parallax."
       }
-    },
-    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-parallax/_variables.scss)[[target=_blank]]"
+    }
   },
   "backtop": {
     "title": "Backtop",
@@ -2972,8 +2767,7 @@
         "title": "Basic usage",
         "text": "By default `va-backtop` watches for a body element offset height. You can change a target element, positioning and scrolling speed."
       }
-    },
-    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/tree/develop/packages/ui/src/components/va-backtop/_variables.scss)[[target=_blank]]"
+    }
   },
   "reset": {
     "title": "CSS Reset",
@@ -3070,8 +2864,7 @@
         "title": "Disabled",
         "text": "Disabled picker that can be used in forms."
       }
-    },
-    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-date-picker/_variables.scss)[[target=_blank]]"
+    }
   },
   "dateInput": {
     "title": "Date Input",
@@ -3093,13 +2886,9 @@
         "title": "Formatting",
         "text": "You can pass the format function to VaDateInput which will format input text like you want to. This way you can use any format that you want. For example, you can use [date-fns](https://date-fns.org/v2.23.0/docs/format)[[target=_blank]]."
       },
-      "manual": {
-        "title": "Date Manual Input",
-        "text": "You can add `manual-input` attribute to allow user input text from keyboard manually."
-      },
       "input": {
-        "title": "Parsing",
-        "text": "You can pass the parse function to VaDateInput which will parse input text like you want to. This way you can use any format that you want. For example, you can use [date-fns](https://date-fns.org/v2.23.0/docs/format)[[target=_blank]] to parse date string. By default we parse this input using standard `Date.parse` method."
+        "title": "Input date",
+        "text": "You can allow user to input text from keyboard. You need to set readonly prop as true. You can pass the parse function to VaDateInput which will parse input text like you want to. This way you can use any format that you want. For example, you can use [date-fns](https://date-fns.org/v2.23.0/docs/format)[[target=_blank]] to parse date string. By default we parse this input using standard `Date.parse` method."
       },
       "inputProps": {
         "title": "Input props",
@@ -3109,20 +2898,8 @@
         "title": "Advanced formatting",
         "text": "If you need specific format for multiple or range modes you can use."
       },
-      "view": {
-        "title": "View",
-        "text": "You can set specific view for date picker. With `view` prop you can define how date picker will displayed, year and month that will be shown."
-      },
       "formattingGlobalConfig": {
         "text": "You can easily use your format functions for all VaDateInputs using [Global Config](/services/components-config) feature."
-      },
-      "validation": {
-        "title": "Validation",
-        "text": "Validation works the same way as `VaInput` validation, except rules functions should accept `Date` instead of `string`."
-      },
-      "mode": {
-        "title": "Mode",
-        "text": "You can use date input in three different ways. By default date input uses `auto` mode. This means that `mode` will be chosen based on `modelValue`. There is three modes: `single`, `multiple` and `range`. Different modes require different model values."
       }
     }
   },
@@ -3154,8 +2931,7 @@
         "title": "Icons",
         "text": "Looks good with icons provided to buttons."
       }
-    },
-    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-button-group/_variables.scss)[[target=_blank]]"
+    }
   },
   "buttonToggle": {
     "title": "Button Toggle",
@@ -3188,10 +2964,6 @@
       "disabled": {
         "title": "Disabled",
         "text": "The component can be disabled."
-      },
-      "icons": {
-        "title": "Icons",
-        "text": "You can set icon instead (or in addition) of label for buttons via `options` props (`icon` and `iconRight` attributes)."
       }
     }
   },
@@ -3219,8 +2991,7 @@
         "title": "Shadow",
         "text": "You can set a shadow with `shadow-on-scroll` prop. You need to define `target`."
       }
-    },
-    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-app-bar/_variables.scss)[[target=_blank]]"
+    }
   },
   "innerLoading": {
     "title": "Inner Loading",
@@ -3242,8 +3013,7 @@
         "title": "Icon",
         "text": "You can change the loading icon."
       }
-    },
-    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-inner-loading/_variables.scss)[[target=_blank]]"
+    }
   },
   "installation": {
     "title": "Installation",
@@ -3270,6 +3040,27 @@
       "title": "CodeSandbox",
       "button": "Try Vuestic-UI on CodeSandbox"
     },
+    "treeShaking": {
+      "title": "Tree shaking",
+      "description": "If you plan to use only several components in your application and thus reduce the size of your bundle, you can use the Vuestic ESM build. Webpack (vue-cli) and Vite do that automatically.",
+      "example": {
+        "title": "First, you don't need to use `VuesticPlugin` since it registers all the `vuestic` components globally. Instead, you can import specific components from the `vuestic-ui` package.",
+        "footer": "Alternatively, you can import them directly in your `.vue` files."
+      },
+      "plugins": {
+        "title": "In such a case you'd also have to register Vuestic plugins by yourself. We recommend to use all of them:",
+        "GlobalConfigPlugin": "GlobalConfigPlugin - used for `VaConfig` component and global props reassignment. [Read more](/services/global-config).",
+        "ToastInstall": "ToastInstall - used by `VaToast` component.",
+        "ColorHelpersPlugin": "ColorHelpersPlugin - used to create reactive CSS variables. Requires `GlobalConfigPlugin`. [Read more](/services/colors-config).",
+        "DropdownPopperSubplugin": "DropdownPopperSubplugin - used by `VaDropdown` component.",
+        "example": {
+          "title": "All of these plugins are also available through the `VuesticPluginsWithoutComponents`:"
+        }
+      },
+      "attention": {
+        "cssLoader": "As all components' code is separated, you may need a CSS loader to load component-specific CSS.\nBut you probably already have one."
+      }
+    },
     "manual": {
       "title": "Manual installation",
       "subtitle": "If you decide to install Vuestic UI manually, all you need to do is to install a NPM package, a couple of other necessary assets (such as fonts and CSS styles) and slightly modify your application's entry point (most probably `index.js` or `main.js`, depending on your setup).",
@@ -3277,29 +3068,6 @@
       "node": "[Node.js](https://nodejs.org/en/)[[target=_blank]] (>=v14.0.0)",
       "npm": "[npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)[[target=_blank]] (>=v3.0.0) (or [yarn](https://yarnpkg.com/lang/en/docs/install)[[target=_blank]] (>= v1.16.0)) and [Git](https://git-scm.com/)[[target=_blank]]",
       "afterCheck": "After checking the prerequisites, install Vuestic UI via npm or yarn:"
-    }
-  },
-  "treeShaking": {
-    "title": "Tree shaking",
-    "description": "If you plan to use only several components in your application and thus reduce the size of your bundle, you can use the Vuestic ESM build. Webpack (vue-cli) and Vite do that automatically.",
-    "example": {
-      "title": "First, you don't need to use `createVuestic` since it registers all the `vuestic` components globally. We have `createVuesticEssential` instead, which register only essential plugins. You can specify components to declare globally. Or you can import them later.",
-      "footer": "You can also specify Vuestic subplugins as `plugins` option. "
-    },
-    "plugins": {
-      "title": "Here is a list of plugins that you can use with Vuestic:",
-      "GlobalConfigPlugin": "GlobalConfigPlugin (essential) - used for `VaConfig` component and global props reassignment. [Read more](/services/global-config).",
-      "ColorHelpersPlugin": "ColorHelpersPlugin (essential) - used to create reactive CSS variables. Requires `GlobalConfigPlugin`. [Read more](/services/colors-config).",
-      "VaToastPlugin": "VaToastPlugin - provides methods for creating Toasts within vue context. [Read more](/ui-elements/toast)",
-      "VaModalPlugin": "VaModalPlugin - provides method for creating Modal within vue context. [Read more](/ui-elements/modal)",
-      "VaDropdownPlugin": "VaDropdownPlugin - provides methods for dropdown closing within vue context. `VaDropdown` is used in `VaSelect`, `VaTimeInput`, `VaDateInput`, `VaButtonDropdown` component."
-    },
-    "attention": {
-      "cssLoader": "As all components' code is separated, you may need a CSS loader to load component-specific CSS.\nBut you probably already have one."
-    },
-    "css": {
-      "title": "CSS Code Split",
-      "description": "We separated our CSS into modules: `essential`, `typography`, `grid` and `reset`. Instead of import `vuestic/css` you can import `vuestic/styles/essential.css` - module without typography, grid and normalize. This is usually need if you already using some CSS framework to prevent style conflicts."
     }
   },
   "roadmap": {
@@ -3351,7 +3119,7 @@
     "description": "Vuestic UI components support keyboard interactions for all mouse-based actions and utilize HTML5 semantic elements where applicable.",
     "keyboardInteractions": {
       "title": "Keyboard accessible",
-      "description": "All the interactive elements on your page (e.g. text boxes, buttons, etc.) can be accessed with the keyboard. That means you should be able to focus them by using `Tab` and `Shift+Tab` keys."
+      "description": "All the interactive elements on your page (e.g. text boxes, buttons, etc.) can be accessed with the keyboard. That means you should be able to focus them by using Tab and Shift+Tab keys."
     }
   },
   "configurationGuide": {
@@ -3368,13 +3136,13 @@
       "title": "Icon fonts",
       "description": "By default Vuestic UI uses **material icons**, so make sure to install the package:",
       "subtitle": "Using custom icons",
-      "subDescription": "With icons config you can use any icon font you'd like by simply transforming the icon names to respective props."
+      "subDescription": "With Icons Config you can use any icon font you'd like by simply transforming the icon names to respective props."
     },
     "components": {
       "title": "Components config",
       "intro": "If you want to set global defaults for Vuestic components or create presets — we have config for this as well!",
       "description": "Let’s say you want all of your buttons to be `outline` and `small` to match your design, but by default that's not the case:",
-      "action": "To solve that problem edit to `main.js` file the following way:",
+      "action": "To solve that problem edit `main.js` file the following way:",
       "result": "Now all of your buttons by default will look like this:",
       "example": "You can configure any prop for any Vuestic UI component in such a manner.",
       "more": "In case your customization runs deeper consider [overriding CSS variables](/styles/css-variables#overriding) or even directly the `.class`' properties (components use BEM-notation so it should be easy to figure out which selector to address with the help of standard dev-tooling)."
@@ -3429,8 +3197,7 @@
     },
     "code": {
       "title": "Translations inside code blocks",
-      "description": "It's sometimes important to see a translated text instead of vue-i18n function inside a code block, so, we created some helpers that allow us to translate the text inside code blocks like we translate it inside a vue templates.",
-      "warn": "Using translation in demos is an exceptional case. Generally we want to leave filler text untranslated, as it's expensive to support and provides no useful information.",
+      "description": "It's important to see a translated text instead of vue-i18n function inside a code block, so, we created some helpers that allow us to translate the text inside code blocks like we translate it inside a vue templates.",
       "basicTitle": "Basic syntax",
       "basicText": "Just pass the vue-i18n function inside a code and the helper will return a translated text wrapped inside brackets.",
       "mustacheTitle": "Mustache syntax",
@@ -3469,49 +3236,6 @@
         "text": "Change the cursor to `pointer` when hovering rows by adding the `.va-table--clickable` class"
       }
     }
-  },
-  "counter": {
-    "title": "Counter",
-    "summaryText": "The `va-counter` component is intended to be used as a simple counter.",
-    "examples": {
-      "default": {
-        "title": "Basic usage",
-        "text": "By default, `va-counter` has `v-model` prop, and may also include `stateful` state. With `manual-input` the user can manually enter a value."
-      },
-      "style": {
-        "title": "Style",
-        "text": "There are tree styles for component: default (solid), outline, bordered."
-      },
-      "buttons": {
-        "title": "Buttons",
-        "text": "By default, `va-counter` uses internal icons. The component with prop `buttons` will use external buttons."
-      },
-      "width": {
-        "title": "Width",
-        "text": "You can set the width of the entire component with `width`, as well as the indentation of external buttons with `margins`."
-      },
-      "buttonsStyle": {
-        "title": "Buttons style",
-        "text": "You can select different button styles using properties `flat` (by default `flat = true`), `rounded` (by default `rounded = false`) and `margins`."
-      },
-      "iconsColors": {
-        "title": "Custom icons and colors",
-        "text": "You can select different icons using the `increaseIcon` and `decreaseIcon` properties, and you can also select colors using `color` and `text-color`."
-      },
-      "state": {
-        "title": "State",
-        "text": "Component can be `disabled` or `readonly`."
-      },
-      "maxMinStep": {
-        "title": "Max, min, step",
-        "text": "You can define `min`, `max` and `step` values."
-      },
-      "slots": {
-        "title": "Slots",
-        "text": "You can use slots for pass custom elements: `content` (you can access to **value**) instead of **input** element, `decreaseAction` (you can access to **decrease** function) instead of decrease icon or button and `increaseAction` (you can access to **increase** function) instead of increase icon or button."
-      }
-    },
-    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-counter/_variables.scss)[[target=_blank]]"
   },
   "guide": {
     "title": "Contribution guide",
@@ -3569,7 +3293,7 @@
     "title": "Global config",
     "subtitle": "With the help of Global config one can configure default values for colors, icons and components' props. ",
     "structure": "Global config consists of `icons`, `colors`, `components` and `componentsAll` configs. ",
-    "setupExampleTitle": "You can provide a custom config to `createVuestic` fabric:",
+    "setupExampleTitle": "You can provide a custom config as the second argument when registering the `VuesticPlugin`:",
     "reactiveUpdateExampleTitle": "Or you can update the configuration partially at the runtime:",
     "reactiveSetExampleTitle": "Alternatively, you can substitute the whole configuration object at the runtime with another one:",
     "links": {
@@ -3587,30 +3311,29 @@
     }
   },
   "iconsConfig": {
-    "problem": {
-      "materialIcons": "For example Material Icons wants us to set `material-icons` class and provide icon name inside the `span` tag.",
-      "fontAwesome": "If we want to use FontAwesome5 we need to provide the `fas` class and then another one with the name of the icon (prefixed with `fa-` on the `i` tag)."
-    },
     "title": "Icons config",
-    "about": "By default Vuestic UI uses [Material Design icons](https://fonts.google.com/icons)[[target=_blank]]. If that's too basic for you - vuestic has powerful icon config.",
+    "about": "By default Vuestic UI uses [Material Design icons](https://fonts.google.com/icons)[[target=_blank]]. If you want to use other font libraries you can configure `VaIcon` to use them.",
     "readBeforeStart": "Find out more about the VaIcon component",
     "problem": {
-      "definition": "Depending on icon library, they could use classes, ligatures or components. So you have to configure vuestic icons to work with your icon solution.",
-      "summary": "With icons config we can instead provide an icon name using any style that fits our needs the best. We only need to configure how an icon for with the provided name will be rendered."
+      "definition": "There is a problem with icon libraries however: they usually use different interfaces to render icons.",
+      "materialIcons": "For example Material Icons wants us to set `material-icons` class and provide icon name inside the `span` tag.",
+      "fontAwesome": "If we want to use FontAwesome5 we need to provide the `fas` class and then another one with the name of the icon (prefixed with `fa-` on the `i` tag).",
+      "summary": "With Icons config we can instead provide an icon name using any style that fits our needs the best. We only need to configure how an icon for with the provided name will be rendered once."
     },
     "fonts": {
       "title": "Fonts",
-      "about": "We want to use the `<va-icon name='icon-name' />` pattern. We can setup a config for a specific icon name pattern. In that config we provide an icon class, attributes, tag, contents (innerHTML) or a Vue component relative to icon name.",
+      "about": "We want to use the `<va-icon name='icon-name' />` pattern. We can setup a config for a specific icon name pattern. In that config we provide an icon class, contents (innerHTML) or a Vue component relative to icon name.",
       "fontNamePattern": {
         "title": "Font name pattern",
-        "about": "Font name pattern is similar to vue dynamic routes. We can use dynamic segments to dynamically generate `IconConfig` in resolve function. Dynamic segments should be written in curly brackets."
+        "about": "Font name pattern is similar to vue dynamic routes. We can use dynamic segments to dynamically generate the icon class, content and props. Dynamic segments should be written in curly brackets."
       },
       "example": {
-        "title": "Interactive playground",
-        "about": "Here you can see how your code will be transformed with different icon configs. You can change icon config params to see how it impact on final render. See our presets before play.",
-        "alert": "By default Vuestic require only Material Icons. Other icon libraries you need to setup yourself."
+        "title": "Example fonts config",
+        "about": "Let`s take a look at some examples",
+        "explain": "Below we can see how the icons would be transformed"
       },
-      "readMore": "More information on"
+      "readMore": "More information on",
+      "advancedFontsUsage": "advanced fonts usage"
     },
     "aliases": {
       "title": "Aliases",
@@ -3626,8 +3349,7 @@
       "about": "We need to update icons config in our global config. Icons config is a flat array with Vuestic default font and aliases. We can use the `createIconsConfig()` helper to create a new config with Vuestic defaults and our custom fonts and aliases merged together. For example:"
     },
     "api": {
-      "title": "IconConfig",
-      "description": "You can use IconConfig properties in aliases, fonts and as return in resolve function.",
+      "title": "Icon config API",
       "name": "String or regex. Can be a string with dynamic segment or regex to use this config as font.",
       "iconClass": "Class that will be applied to the icon. Can be a string or a function that accepts dynamic segment value and returns a string.",
       "content": "Content that will be inside the icon. Can be a string or a function that accepts dynamic segment value and returns a string.",
@@ -3706,21 +3428,21 @@
     "convention": {
       "title": "Convention",
       "description": "Vuestic UI uses the following convention to organize CSS Variables for the sake of convenience:",
-      "list": [
-        "`components-name` can include sub block names, for example: `card`, `button-content`, `input-placeholder`.",
-        "`variable-name` usually is just CSS property name, for example: `display`, `align`, `border-radius`."
-      ],
-      "notice": "List of component CSS variables can be found at the bottom of its documentation page."
+      "scheme": "Scheme",
+      "example": "Example",
+      "unnecessary": "is unnecessary part needed only for specific cases.",
+      "componentScheme": "Component scheme - for component-level styles",
+      "componentName": "component name started with va- prefix.",
+      "state": "state of elements or its preset.",
+      "nestedElement": "some element that can be nested in root component.",
+      "groupOfElements": "group or type of HTML elements.",
+      "size": "size of target element.",
+      "property": "common css property.",
+      "generalScheme": "Component scheme - for component-level styles"
     },
     "overriding": {
-      "title": "Global Overriding",
+      "title": "Overriding",
       "description": "No additional tooling is needed. Just create a CSS file (like `overrides.css`), import it into your `main.js` and start redefining the variables as you do with any other CSS properties:"
-    },
-    "examples": {
-      "profile": {
-        "title": "CSS variables override example",
-        "description": "If you dislike how component looks, you can override default component style. Each component has list of CSS variables, that you override. For example, you want to change avatar `border-radius`:"
-      }
     }
   },
   "navbar": {
@@ -3738,8 +3460,7 @@
         "title": "Shape",
         "text": "You can add the shape to navbar background. Shape color will be taken automatic from `color` prop."
       }
-    },
-    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-navbar/_variables.scss)[[target=_blank]]"
+    }
   },
   "buttonDropdown": {
     "title": "Button Dropdown",
@@ -3781,8 +3502,7 @@
         "title": "Click inside",
         "text": "You could set the dropdown to be closed or not after clicking on its content."
       }
-    },
-    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-button-dropdown/_variables.scss)[[target=_blank]]"
+    }
   },
   "popover": {
     "title": "Popover",
@@ -3811,13 +3531,8 @@
       "trigger": {
         "title": "Trigger",
         "text": "Events triggering the popover separated with spaces: `hover`, `click` or `focus`."
-      },
-      "slots": {
-        "title": "Slots usage",
-        "description": "You can use `icon`, `title` and `body` slots to provide your own extra content into the popover component."
       }
-    },
-    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-popover/_variables.scss)[[target=_blank]]"
+    }
   },
   "typography": {
     "title": "Typography",
@@ -3826,7 +3541,6 @@
     "titled": "Title heading",
     "textStyles": "Text styles",
     "codeSnippet": "Code snippet",
-    "codeSnippetWarn": "You need to install `Source Code Pro` font if you want to use `.code-snippet` class",
     "textCode": "Text-code",
     "other": "Other typography styles",
     "orderedList": "Ordered list",
@@ -3836,7 +3550,7 @@
     "blockquote": "Blockquote",
     "textBlock": "Text block"
   },
-  "ag-grid": {
+  "agGrid": {
     "title": "AG Grid Theme",
     "description": "If you need more flexible customization of the display of tables, we recommend using the [AG Grid](https://www.ag-grid.com/vue-data-grid/getting-started)[[target=_blank]] library. Vuestic UI provides a ready-made style theme for this library.",
     "otherTables": {
@@ -3877,7 +3591,7 @@
   },
   "dataTable": {
     "title": "Data table",
-    "description": "The `va-data-table` component is used for displaying tabular data. Features include sorting, searching, pagination, row selection, ability to add additional row(s) to table header (`thead`), body (`tbody`) or footer (`tfoot`) and other functions.",
+    "description": "The `va-data-table` component is used for displaying tabular data. Features include sorting, searching, pagination, row selection, ability to add additional row(s) to table header (`<thead>`), body (`<tbody>`) or footer (`<tfoot>`) and other functions.",
     "otherTables": {
       "text": "Also, we provide styles for HTML Table and have own theme for AG-Grid:",
       "htmlTable": "HTML Table",
@@ -3894,8 +3608,7 @@
           "Slots allow you to control the display of data and their views in different parts of the table. The examples below demonstrate some of these slots and what you can do with each of them.",
           "**Using custom slots**. Custom slots (*username*, *street* and *company name*) display certain data.",
           "**Showing header, body and footer's prepend and append static rows**. For added (prepended and appended) static rows an additional `className` with a background color is set.",
-          "**Using `colgroup` slot to set specific attributes to columns**. For last column an additional `className` with a background color is set.",
-          "Slot names that are not in `columns` will be omitted."
+          "**Using `colgroup` slot to set specific attributes to columns**. For last column an additional `className` with a background color is set."
         ]
       },
       "filtering": {
@@ -3908,11 +3621,7 @@
       },
       "selection": {
         "title": "Selection",
-        "text": [
-          "Use the `selectable` prop to indicate whether the `va-data-table` should have selectable rows or not. The highlighting color of the selected row might be changed with the `selected-color` prop.",
-          "The selection may optionally be attached to a model with the standard `v-model` (using the `:model-value` prop and the `update:modelValue` event). This also allows to set the initial selection on the `va-data-table`.",
-          "If you have items that can be updated (from the backend, for example), you must set the `items-track-by` prop to track your selected items properly."
-        ]
+        "text": "Use the `selectable` prop to indicate whether the `va-data-table` should have selectable rows or not. The highlighting color of the selected row might be changed with the `selected-color` prop, passing a string with one of the possible color options: `'primary'`, `'danger'` and so on.\n\nThe selection may optionally be attached to a model with the standard `v-model` (using the `:model-value` prop and the `update:modelValue` event). This also allows to set the initial selection on the `va-data-table`."
       },
       "pagination": {
         "title": "Pagination",
@@ -3940,8 +3649,7 @@
           "Example of `va-data-table` with **CRUD** actions using a `va-modal` component for editing each row:"
         ]
       }
-    },
-    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-data-table/_variables.scss)[[target=_blank]]"
+    }
   },
   "uiElementGuide": {
     "title": "UI Element Requirements",
@@ -3991,14 +3699,6 @@
         "title": "Default",
         "text": ""
       },
-      "framed": {
-        "title": "Framed",
-        "text": ""
-      },
-      "visibleCellsCount": {
-        "title": "Controlling the count of displayed cells",
-        "text": "For the better view need to set odd numbers"
-      },
       "readonlyAndDisabled": {
         "title": "Readonly and disabled",
         "text": ""
@@ -4019,8 +3719,7 @@
         "title": "Filter",
         "text": "You can hide specific time and user will not be able to select it."
       }
-    },
-    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-time-picker/_variables.scss)[[target=_blank]]"
+    }
   },
   "timeInput": {
     "title": "Time Input",
@@ -4079,102 +3778,37 @@
   "carousel": {
     "title": "Carousel",
     "examples": {
-      "Default": {
+      "default": {
         "title": "Default",
         "text": ""
       },
-      "Arrows": {
+      "arrows": {
         "title": "Arrow buttons",
         "text": "Arrow buttons allow user switch to next or previous slide."
       },
-      "Indicators": {
+      "indicators": {
         "title": "Indicator buttons",
         "text": "Indicators (or dots) used to quicly change slide by it's index."
       },
-      "Vertical": {
+      "vertical": {
         "title": "Vertical",
         "text": ""
       },
-      "Slots": {
+      "slots": {
         "title": "Slots",
         "text": "Slots allow you to customize carousel component."
       },
-      "Infinite": {
+      "infinite": {
         "title": "Infinite",
         "text": "Smooth scroll transition."
       },
-      "Autoscroll": {
+      "autoscroll": {
         "title": "Autoscroll",
         "text": "Autoscroll animation."
       },
-      "Fade": {
+      "fade": {
         "title": "Fade",
         "text": "Additional carousel slide switch effect."
-      }
-    },
-    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-carousel/_variables.scss)[[target=_blank]]"
-  },
-  "nuxt": {
-    "title": "Nuxt integration",
-    "description": "Vuestic UI is fully compatible with Nuxt3. You can use Vuestic UI in your Nuxt3 project.",
-    "installation": {
-      "title": "Installation",
-      "plugin": "Install integration module:",
-      "nuxtConfig": "Then you need to update nuxt-config.ts file:",
-      "moreAboutConfig": "More about configuration"
-    }
-  },
-  "ssrGuide": {
-    "title": "SSR",
-    "description": "Vuestic is fully compatible with server-side rendering.",
-    "cssVariables": {
-      "title": "CSS variables",
-      "description": "Vuestic UI uses `CSS variables` in components. For SSR you need to define them in html head element. You can use following code to generate CSS Variables based on your [ColorConfig](/services/colors-config):"
-    },
-    "solutions": {
-      "title": "Examples",
-      "description": "Here are two examples how you can add CSS variables to html head",
-      "nuxt": "Look at Nuxt3 guide",
-      "viteSsrPlugin": {
-        "title": "Vite SSR Plugin",
-        "description": "Learn more about [Vite SSR Plugin](https://vite-plugin-ssr.com/vue-tour)"
-      },
-      "vitesse": {
-        "title": "Vitesse",
-        "description": "Learn more about [Vitesse](https://github.com/antfu/vitesse) and [useHead](https://github.com/vueuse/head#server-side-rendering)"
-      }
-    }
-  },
-  "treeView": {
-    "title": "Tree view",
-    "description": "Component for the hierarchical and nested data",
-    "examples": {
-      "default": {
-        "title": "Basic usage"
-      },
-      "customizableContent": {
-        "title": "Customizable content",
-        "description": "You can customize the body of node"
-      },
-      "filters": {
-        "title": "Filters"
-      },
-      "selectable": {
-        "title": "Selectable"
-      }
-    },
-    "api": {
-      "treeViewTitle": "Tree view API",
-      "treeNodeTitle": "Tree node API"
-    }
-  },
-  "spacer": {
-    "title": "Spacer component",
-    "summaryText": "`va-spacer` is an equivalent for the `flex-grow` property. It allows you to get more space between flex components.",
-    "examples": {
-      "default": {
-        "title": "Basic usage",
-        "text": "`va-spacer` adding a div with the `.va-spacer` class."
       }
     }
   }

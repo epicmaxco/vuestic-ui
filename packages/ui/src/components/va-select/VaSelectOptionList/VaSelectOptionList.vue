@@ -59,7 +59,7 @@
 import { defineComponent, PropType, watch, ref, computed, ComponentPublicInstance, shallowRef } from 'vue'
 
 import { scrollToElement } from '../../../utils/scroll-to-element'
-import { useColors, useColorProps, SelectableOption } from '../../../composables'
+import { useComponentPresetProp, useColors, useColorProps, SelectableOption } from '../../../composables'
 
 import { VaIcon } from '../../va-icon'
 
@@ -74,6 +74,7 @@ export default defineComponent({
   ],
   props: {
     ...useColorProps,
+    ...useComponentPresetProp,
     options: { type: Array as PropType<SelectableOption[]>, default: () => [] },
     noOptionsText: { type: String, default: 'Items not found' },
     getSelectedState: { type: Function as PropType<(option: SelectableOption) => boolean>, required: true },

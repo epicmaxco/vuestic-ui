@@ -12,12 +12,13 @@
 <script lang="ts">
 import { defineComponent, PropType, computed, ref } from 'vue'
 
-import { setupScroll, useColors } from '../../composables'
+import { setupScroll, useColors, useComponentPresetProp } from '../../composables'
 import { getGradientBackground, getBoxShadowColor } from '../../services/color-config/color-functions'
 
 export default defineComponent({
   name: 'VaAppBar',
   props: {
+    ...useComponentPresetProp,
     gradient: { type: Boolean, default: false },
     bottom: { type: Boolean, default: false },
     target: { type: [Object, String] as PropType<string | HTMLElement>, default: '' },

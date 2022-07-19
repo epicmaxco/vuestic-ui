@@ -102,6 +102,7 @@ import omit from 'lodash/omit.js'
 
 import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
 import {
+  useComponentPresetProp,
   useSyncProp,
   useValidation, useValidationEmits, useValidationProps, ValidationProps,
   useClearable, useClearableEmits,
@@ -126,6 +127,7 @@ export default defineComponent({
   emits: [...useValidationEmits, ...useClearableEmits, 'update:modelValue', 'update:isOpen'],
 
   props: {
+    ...useComponentPresetProp,
     ...VaInputProps,
     ...extractComponentProps(VaTimePicker),
     ...useValidationProps as ValidationProps<Date>,
