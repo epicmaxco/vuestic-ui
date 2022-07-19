@@ -125,7 +125,7 @@ import { VaDropdown, VaDropdownContent } from '../va-dropdown'
 import { VaInputWrapper } from '../va-input'
 import { VaIcon } from '../va-icon'
 
-const VaInputWrapperProps = extractComponentProps(VaInputWrapper, ['requiredMark', 'focused', 'maxLength', 'counterValue'])
+const VaInputWrapperProps = extractComponentProps(VaInputWrapper, ['focused', 'maxLength', 'counterValue'])
 const VaDatePickerProps = extractComponentProps(VaDatePicker)
 
 export default defineComponent({
@@ -324,7 +324,6 @@ export default defineComponent({
       error: hasError.value,
       errorMessages: computedErrorMessages.value,
       readonly: props.readonly || !props.manualInput,
-      requiredMark: Object.keys(attrs).includes('required-mark'),
     }))
 
     const computedInputListeners = computed(() => ({
