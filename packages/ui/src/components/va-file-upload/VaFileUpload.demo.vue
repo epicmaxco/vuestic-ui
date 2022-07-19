@@ -99,7 +99,12 @@
       >
         <div class="p-4">
           <p class="mb-2">This is slot, click or drag'n'drop file to upload</p>
-          <img src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png" width="100" height="100" alt="" />
+          <img
+            src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+            width="100"
+            height="100"
+            alt="Slot usage"
+          />
         </div>
       </va-file-upload>
     </VbCard>
@@ -137,7 +142,7 @@
     </VbCard>
 
     <VbCard
-            title="file-removed and file-added event"
+      title="file-removed and file-added event"
       style="width: 100%;"
     >
       <va-file-upload
@@ -173,6 +178,7 @@
 
 <script>
 import { VaFileUpload } from './index'
+
 export default {
   components: { VaFileUpload },
   data () {
