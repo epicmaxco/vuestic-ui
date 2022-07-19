@@ -6,7 +6,8 @@
     :class="classComputed">
     <div
       class="va-split__panel"
-      :style="getPanelStyle('start')">
+      :style="getPanelStyle('start')"
+    >
       <slot name="start" />
     </div>
     <div
@@ -23,7 +24,8 @@
     </div>
     <div
       class="va-split__panel"
-      :style="getPanelStyle('end')">
+      :style="getPanelStyle('end')"
+    >
       <slot name="end" />
     </div>
   </section>
@@ -34,14 +36,19 @@ import { defineComponent, PropType, ref, shallowRef, computed, watch, onMounted 
 import isString from 'lodash/isString.js'
 import isNumber from 'lodash/isNumber.js'
 
-import { useBem, useComponentPresetProp, useStateful, useStatefulEmits, useStatefulProps, useResizeObserver } from '../../composables'
+import {
+  useBem,
+  useComponentPresetProp,
+  useStateful, useStatefulEmits, useStatefulProps,
+  useResizeObserver,
+} from '../../composables'
 import { useSplitDragger, useSplitDraggerProps } from './useSplitDragger'
 
 import { warn } from '../../services/utils'
 
-import { VaDivider } from '../va-divider'
+import { SplitLimit } from './types'
 
-type SplitLimit = number | string | string[]
+import { VaDivider } from '../va-divider'
 
 export default defineComponent({
   name: 'VaSplit',
@@ -61,7 +68,7 @@ export default defineComponent({
     maximizeStart: { type: Boolean, default: false },
     limits: {
       type: Array as any as PropType<[SplitLimit, SplitLimit]>,
-      default: () => ['30%', '30%'],
+      default: () => [0, 0],
     },
   },
 
@@ -86,7 +93,7 @@ export default defineComponent({
       if (isNumber(v)) { return v }
 
       v.split('')
-        .filter((char) => char)
+        .filter((char) => char && char !== ' ')
         .forEach((char) => {
           !isNaN(+char) ? numberValue += char : measureValue += char
         })
@@ -131,9 +138,18 @@ export default defineComponent({
     const endPanelMinMax = computed(() => {
       const result = getPanelMinMax(props.limits[1])
 
-      if (result?.max && startPanelMinMax.value?.max && result.max !== 100 && startPanelMinMax.value.max !== 100) {
-        result.max = 100
-        warn('One of the panels max size should be equal to 100%!')
+      // here potentially can be a conflict between two checks below but the first one won't break component
+      if (result?.min && startPanelMinMax.value?.min && Math.floor(result.min + startPanelMinMax.value.min) > 100) {
+        warn('The sum of different panels min sizes should be lesser than 100% of the container size!')
+        result.min = 100 - startPanelMinMax.value.min
+      }
+
+      if (result?.min && result?.max &&
+        startPanelMinMax.value?.min && startPanelMinMax.value?.max &&
+        (Math.ceil(result.min + startPanelMinMax.value.max) < 100 ||
+          Math.ceil(result.max + startPanelMinMax.value.min) < 100)) {
+        warn('The sum of different panels min and max sizes should be equal to 100% of the container size!')
+        result.min = 100 - startPanelMinMax.value.max
       }
 
       return result
@@ -174,7 +190,7 @@ export default defineComponent({
       }
 
       splitterPosition.value = v
-    })
+    }, { immediate: true })
 
     watch(currentSplitterPosition, (v) => {
       splitterPosition.value = v
@@ -186,9 +202,13 @@ export default defineComponent({
     })
 
     const sizePropertyComputed = computed(() => props.vertical ? 'height' : 'width')
-    const getPanelStyle = (position: 'start' | 'end') => ({
-      [sizePropertyComputed.value]: `${position === 'start' ? splitterPositionComputed.value : 100 - splitterPositionComputed.value}%`,
-    })
+    const getPanelStyle = (position: 'start' | 'end') => {
+      let sizeValue = position === 'start' ? splitterPositionComputed.value : 100 - splitterPositionComputed.value
+      if (sizeValue < 0) { sizeValue = 0 }
+      if (sizeValue > 100) { sizeValue = 100 }
+
+      return { [sizePropertyComputed.value]: `${sizeValue}%` }
+    }
 
     const draggerStyleComputed = computed(() => {
       if (props.disabled) { return {} }

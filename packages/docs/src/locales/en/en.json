@@ -4160,7 +4160,7 @@
       },
       "customLimits": {
         "title": "Limits",
-        "text": "`limits` prop allows you to set up panels min-max sizes. For example, `[[10, 'any'], ['50px', '30rem']]` (one of the panels max size should be equal to 100%) will set up min size of the start panel to 10%, max - 100%. For the end panel - 50px and 30rem accordingly. If you don't need max sizes limits but only min ones, you can use this record form: `[10px, 50%]`."
+        "text": "`limits` prop allows you to set up panels min-max sizes. For example, `[[10, 'any'], ['50px', '30rem']]` (sum of different panels min and max size should be equal to 100%) will set up min size of the start panel to 10%, max - 100%. For the end panel - 50px and 30rem accordingly. If you don't need max sizes limits but only min ones, you can use this record form: `[10px, 50%]`."
       },
       "nested": {
         "title": "Nested",
