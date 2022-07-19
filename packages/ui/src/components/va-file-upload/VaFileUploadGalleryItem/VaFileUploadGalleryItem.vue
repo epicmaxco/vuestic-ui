@@ -12,7 +12,7 @@
       <img
         v-if="previewImage"
         :src="previewImage"
-        :alt="file.name"
+        :alt="file.name || ''"
         class="va-file-upload-gallery-item__image"
       >
       <div class="va-file-upload-gallery-item__overlay">
@@ -21,6 +21,7 @@
           :style="overlayStylesComputed"
         />
         <div
+          v-if="file && file.name"
           class="va-file-upload-gallery-item__name"
           :title="file.name"
         >

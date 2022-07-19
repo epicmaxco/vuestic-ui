@@ -8,7 +8,7 @@
     </va-list-item-section>
     <va-list-item-section v-else>
       <div class="va-file-upload-list-item__content">
-        <div class="va-file-upload-list-item__name">
+        <div v-if="file && file.name" class="va-file-upload-list-item__name">
           {{ file && file.name }}
         </div>
         <div class="va-file-upload-list-item__size">
@@ -22,7 +22,7 @@
           aria-label="remove file"
           tabindex="0"
           color="danger"
-          @click="removeFile"
+          @click.stop="removeFile"
           @keydown.enter.stop="removeFile"
           @keydown.space.stop="removeFile"
         />
