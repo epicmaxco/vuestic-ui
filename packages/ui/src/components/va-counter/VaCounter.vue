@@ -99,6 +99,7 @@ import { safeCSSLength } from '../../utils/css-utils'
 import { VaInputWrapper } from '../va-input'
 import VaIcon from '../va-icon/VaIcon.vue'
 import VaButton from '../va-button/VaButton.vue'
+import { validateCounter } from './validateCounter'
 
 const { createEmits: createInputEmits, createListeners: createInputListeners } = useEmitProxy(
   ['change'],
@@ -293,6 +294,8 @@ export default defineComponent({
     }))
 
     const marginComputed = computed(() => safeCSSLength(props.margins))
+
+    validateCounter(props.modelValue, props.step, props.min, props.max)
 
     return {
       input,
