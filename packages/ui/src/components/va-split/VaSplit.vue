@@ -177,7 +177,7 @@ export default defineComponent({
     const maximizePanel = () => {
       if (!props.maximization || props.disabled || !startPanelMinMax.value || !endPanelMinMax.value) { return }
 
-      splitterPosition.value = props.maximizeStart ? 100 - endPanelMinMax.value.min : startPanelMinMax.value.min
+      splitterPosition.value = props.maximizeStart ? startPanelMinMax.value.max : 100 - endPanelMinMax.value.max
     }
 
     watch(valueComputed, (v) => {
