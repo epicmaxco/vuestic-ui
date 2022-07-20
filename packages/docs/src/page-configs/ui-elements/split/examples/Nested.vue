@@ -24,11 +24,9 @@
 </template>
 
 <script>
-import { VaSplit } from 'vuestic-ui/src/components/va-split'
 import { lorem } from './Default'
 
 export default {
-  components: { VaSplit },
   data: () => ({
     lorem,
   }),
