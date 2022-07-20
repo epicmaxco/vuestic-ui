@@ -39,7 +39,7 @@ export default defineComponent({
       default: () => ([]),
     },
     nodeKey: {
-      type: [String, Number],
+      type: String,
       default: '',
     },
     labelKey: {
