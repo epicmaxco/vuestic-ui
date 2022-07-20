@@ -88,7 +88,7 @@ export default defineComponent({
     onMounted(getContainerSize)
     useResizeObserver([splitPanelsContainer], getContainerSize)
 
-    const convertToPercents = (v: string | number) => {
+    const convertToPercents = (v: string | number, type: 'min' | 'max') => {
       let numberValue = ''
       let measureValue = ''
 
@@ -108,6 +108,7 @@ export default defineComponent({
         case 'rem':
           return ((+numberValue * 16) / containerSize.value!) * 100
         case 'any':
+          return type === 'min' ? 0 : 100
         case '':
           return 100
         default:
@@ -121,11 +122,11 @@ export default defineComponent({
       let minPercents = 0
       let maxPercents = 100
 
-      if (isString(v) || isNumber(v)) { minPercents = convertToPercents(v) }
+      if (isString(v) || isNumber(v)) { minPercents = convertToPercents(v, 'min') }
 
       if (Array.isArray(v)) {
-        minPercents = convertToPercents(v[0])
-        maxPercents = convertToPercents(v[1])
+        minPercents = convertToPercents(v[0], 'min')
+        maxPercents = convertToPercents(v[1], 'max')
       }
 
       if (minPercents > maxPercents) {
@@ -133,38 +134,42 @@ export default defineComponent({
         maxPercents = minPercents
       }
 
-      return { min: minPercents, max: maxPercents }
+      return { min: minPercents ?? 0, max: maxPercents ?? 100 }
     }
 
-    const startPanelMinMax = computed(() => getPanelMinMax(props.limits[0]))
-    const endPanelMinMax = computed(() => {
-      const result = getPanelMinMax(props.limits[1])
+    const startPanelMinMax = computed(() => getPanelMinMax(props.limits[0]) ?? { min: 0, max: 100 })
+    const endPanelMinMax = computed(() => getPanelMinMax(props.limits[1]) ?? { min: 0, max: 100 })
 
-      // here potentially can be a conflict between two checks below but the first one won't break component
-      if (result?.min && isUndefined(startPanelMinMax.value?.min) && Math.floor(result.min + startPanelMinMax.value!.min) > 100) {
-        warn('The sum of different panels min sizes should be lesser than 100% of the container size!')
-        result.min = 100 - startPanelMinMax.value!.min
+    const endPanelMinChecked = computed(() => {
+      const passedCheck = !(startPanelMinMax.value.min + endPanelMinMax.value.min > 100)
+      if (!passedCheck) {
+        warn('The sum of different panels min sizes should be lesser or equal to 100% of the container size!')
+      }
+      return !passedCheck ? 100 - startPanelMinMax.value.min : endPanelMinMax.value.min
+    })
+    const panelsMinMax = computed(() => {
+      if (Math.ceil(endPanelMinMax.value.max + startPanelMinMax.value.max) < 100) {
+        warn('The sum of different panels max sizes should be equal to 100% of the container size!')
       }
 
-      if (result?.min && result?.max &&
-        !isUndefined(startPanelMinMax.value?.min) && isUndefined(startPanelMinMax.value?.max) &&
-        (Math.ceil(result.min + startPanelMinMax.value!.max) < 100 ||
-          Math.ceil(result.max + startPanelMinMax.value!.min) < 100)) {
-        warn('The sum of different panels min and max sizes should be equal to 100% of the container size!')
-        result.min = 100 - startPanelMinMax.value!.max
+      return {
+        start: {
+          min: startPanelMinMax.value.min,
+          max: Math.min(startPanelMinMax.value.max, 100 - endPanelMinChecked.value),
+        },
+        end: {
+          min: endPanelMinChecked.value,
+          max: Math.min(endPanelMinMax.value.max, 100 - startPanelMinMax.value.min),
+        },
       }
-
-      return result
     })
 
     const splitterPosition = ref(valueComputed.value)
     const splitterPositionComputed = computed(() => {
-      if (!startPanelMinMax.value || !endPanelMinMax.value) { return splitterPosition.value }
-
       return clamp(
         splitterPosition.value,
-        Math.max(startPanelMinMax.value.min, 100 - endPanelMinMax.value.max),
-        Math.min(startPanelMinMax.value.max, 100 - endPanelMinMax.value.min),
+        Math.max(panelsMinMax.value.start.min, 100 - panelsMinMax.value.end.max),
+        Math.min(panelsMinMax.value.start.max, 100 - panelsMinMax.value.end.min),
       )
     })
 
@@ -175,13 +180,13 @@ export default defineComponent({
     } = useSplitDragger(containerSize, splitterPositionComputed, props)
 
     const maximizePanel = () => {
-      if (!props.maximization || props.disabled || !startPanelMinMax.value || !endPanelMinMax.value) { return }
+      if (!props.maximization || props.disabled) { return }
 
-      splitterPosition.value = props.maximizeStart ? startPanelMinMax.value.max : 100 - endPanelMinMax.value.max
+      splitterPosition.value = props.maximizeStart ? panelsMinMax.value.start.max : 100 - panelsMinMax.value.end.max
     }
 
     watch(valueComputed, (v) => {
-      if ((startPanelMinMax.value && endPanelMinMax.value) && (v < startPanelMinMax.value.min || v > 100 - endPanelMinMax.value.min)) {
+      if (v < panelsMinMax.value.start.min || v > 100 - panelsMinMax.value.end.min) {
         warn('Incorrect `modelValue`. Check current `limits` prop value.')
       }
 

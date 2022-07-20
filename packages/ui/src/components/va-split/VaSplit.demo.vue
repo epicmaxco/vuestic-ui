@@ -23,7 +23,7 @@
     </VbCard>
 
     <VbCard title="custom limits">
-      <va-split :limits="[[10, 'any'], ['50px', '30rem']]">
+      <va-split :limits="[[5, 'any'], ['0%', '800px']]">
         <template #start>
           {{$vb.lorem(1000)}}
         </template>
