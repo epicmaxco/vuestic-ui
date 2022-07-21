@@ -31,16 +31,16 @@ export default defineComponent({
 
 <style lang="scss" scoped>
   .docs-headline {
-    a,
-    a:visited {
-      color: var(--va-primary);
-    }
-
     margin-top: 4rem;
 
     .docs-subtitle + &,
     .docs-title + & {
       margin-top: 1.25rem;
+    }
+
+    a,
+    a:visited {
+      color: var(--va-primary);
     }
   }
 </style>

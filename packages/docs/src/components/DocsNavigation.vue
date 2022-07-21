@@ -66,10 +66,10 @@ const query = '?query=file=/src/App.vue'
 type ButtonStates = 'active' | 'error' | 'default'
 
 const props = defineProps({
-  code: { type: String as PropType<string>, default: '' },
+  code: { type: String, default: '' },
   config: { type: Object as PropType<CodesandboxConfig>, default: () => ({}) },
-  gitUrl: { type: String as PropType<string>, default: '' },
-  gitComponent: { type: String as PropType<string>, default: '' },
+  gitUrl: { type: String, default: '' },
+  gitComponent: { type: String, default: '' },
   showCode: { type: Boolean, required: true },
   hideShowCodeButton: { type: Boolean, default: false },
 })
