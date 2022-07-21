@@ -29,8 +29,15 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .docs-headline {
+    margin-top: 4rem;
+
+    .docs-subtitle + &,
+    .docs-title + & {
+      margin-top: 1.25rem;
+    }
+
     a,
     a:visited {
       color: var(--va-primary);
