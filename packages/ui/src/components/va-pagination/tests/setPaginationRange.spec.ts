@@ -1,4 +1,5 @@
 import { setPaginationRange } from '../setPaginationRange'
+import { describe, it, expect } from 'vitest'
 
 describe('pagination', () => {
   it('should set first page', () => {

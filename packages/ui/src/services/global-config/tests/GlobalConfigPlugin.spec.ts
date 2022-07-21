@@ -2,6 +2,7 @@ import { mount, config } from '@vue/test-utils'
 
 import { GlobalConfig, useGlobalConfig } from '../../global-config/global-config'
 import { GlobalConfigPlugin } from '../../global-config/config-default'
+import { describe, it, expect, beforeEach } from 'vitest'
 
 config.global.plugins.push([GlobalConfigPlugin])
 
