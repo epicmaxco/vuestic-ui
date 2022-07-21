@@ -25,7 +25,7 @@
             class="va-time-input__input"
             v-bind="inputAttributesComputed"
             v-on="computedInputListeners"
-            @change="onInputTextChanged($event.target.value)"
+            @change="onInputTextChanged"
           />
         </template>
 
@@ -166,7 +166,8 @@ export default defineComponent({
 
     const { isFocused, focus, blur, onFocus: focusListener, onBlur: blurListener } = useFocus(input)
 
-    const onInputTextChanged = (val: string) => {
+    const onInputTextChanged = (e: Event) => {
+      const val = (e.target as HTMLInputElement)?.value
       if (!val) {
         return reset()
       }
