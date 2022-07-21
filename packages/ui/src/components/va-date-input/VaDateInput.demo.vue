@@ -71,7 +71,7 @@
 
       <va-date-input v-model="value">
         <template #input="{ valueText }">
-          <input :value="valueText" />
+          <input :value="valueText" aria-hidden="true" />
         </template>
       </va-date-input>
     </VbCard>

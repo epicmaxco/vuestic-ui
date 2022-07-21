@@ -44,6 +44,6 @@
 
 <style>
 .va-date-input {
-  max-width: 240px;
+  max-width: 280px;
 }
 </style>

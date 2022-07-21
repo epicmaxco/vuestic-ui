@@ -133,6 +133,7 @@ export default defineComponent({
       computedError,
       isIndeterminate,
       computedErrorMessages,
+      validationAriaAttributes,
       ...selectable
     } = useSelectable(props, emit, elements)
 
@@ -202,10 +203,7 @@ export default defineComponent({
       ariaReadOnly: props.readonly,
       ariaChecked: !!props.modelValue,
       ariaLabelledby: ariaLabelIdComputed.value,
-      'aria-invalid': !!computedErrorMessages.value.length,
-      'aria-errormessage': typeof computedErrorMessages.value === 'string'
-        ? computedErrorMessages.value
-        : computedErrorMessages.value.join(', '),
+      ...validationAriaAttributes.value,
     }))
 
     return {
