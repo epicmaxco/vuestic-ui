@@ -30,7 +30,7 @@
     "serve": "vue-cli-service serve --mode book",
     "serve:production": "vue-cli-service serve --mode production",
     "build:dev": "tsc build/config.ts && webpack --config build/config.js --progress",
-    "build": "zx ./build/vite/build.mjs",
+    "build": "tsx ./build/vite/build.ts",
     "build:rollup": "rollup -c",
     "build:types": "vue-tsc --declaration --emitDeclarationOnly --outDir dist/types",
     "build:book": "vue-cli-service build --mode book",
@@ -127,8 +127,7 @@
     "webpack-bundle-analyzer": "^4.1.0",
     "webpack-cli": "^4.4.0",
     "webpack-merge": "^5.5.0",
-    "yargs": "^17.5.1",
-    "zx": "^6.1.0"
+    "yargs": "^17.5.1"
   },
   "peerDependencies": {
     "vue": "^3.0.4"
