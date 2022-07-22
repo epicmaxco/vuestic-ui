@@ -1,9 +1,5 @@
-import type { VuesticOptions } from './../module';
-import {
-  defineNuxtModule,
-  addPluginTemplate,
-  addAutoImport,
-} from '@nuxt/kit'
+import type { VuesticOptions } from './../types';
+import { addPluginTemplate } from '@nuxt/kit'
 
 import { resolve } from 'pathe'
 import { distDir } from '../dirs'

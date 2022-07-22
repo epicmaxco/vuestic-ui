@@ -29,7 +29,7 @@
     "dev:prepare": "nuxt-module-build --stub && nuxi prepare playground"
   },
   "dependencies": {
-    "vuestic-ui": "latest"
+    "vuestic-ui": "^1.4.7"
   },
   "devDependencies": {
     "@nuxt/kit": "^3.0.0-rc.1",

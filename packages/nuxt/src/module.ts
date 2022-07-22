@@ -1,24 +1,11 @@
-import type { Import } from 'unimport'
-import type { GlobalConfig } from 'vuestic-ui'
+import { VuesticOptions } from './types'
 import { defineNuxtModule } from '@nuxt/kit'
 import { useVuesticCSS } from './composables/use-css'
 import { useVuesticPlugin } from './composables/use-plugin'
 import { useVuesticComposables } from './composables/use-composables'
+import { useVuesticComponents } from './composables/use-components'
+import defaultComponentNames from './config/components'
 
-export interface VuesticOptions {
-  /** Removes global components registration */
-  config?: GlobalConfig,
-
-  /** 
-   * Choose which CSS modules will be added to nuxt
-   * 
-   * If `true`, all CSS modules will be added. If `false`, no CSS modules will be added.
-   * If an array, only CSS modules from this array will be added.
-   * 
-   * @default true
-   */
-  css?: Array<'typography' | 'grid' | 'reset'> | boolean,
-}
 
 export default defineNuxtModule<VuesticOptions>({
   meta: {
@@ -32,6 +19,7 @@ export default defineNuxtModule<VuesticOptions>({
   defaults: {
     config: {},
     css: true,
+    components: defaultComponentNames as VuesticOptions['components']
   },
 
   hooks: {},
@@ -39,15 +27,7 @@ export default defineNuxtModule<VuesticOptions>({
   setup (options, nuxt) {
     useVuesticCSS(options, nuxt)
     useVuesticPlugin(options)
+    useVuesticComponents(options)
     useVuesticComposables()
   }
 })
-
-/**
- * declaring options
- */
-declare module '@nuxt/schema' {
-  interface NuxtConfig {
-    vuestic?: VuesticOptions
-  }
-}
