@@ -48,13 +48,13 @@ Some other ground rules:
 
 ## 1.3. Typography and colors
 
-Built-in font sizes, colors & contrast ratio should be fully accessible (soon, some accessibility features are waiting for 1.5.0 version). 
+Built-in font sizes, colors & contrast ratio should be fully accessible (awaiting for 1.5.0 version). 
 
-Anyway, feel free to create an issue if you've mentioned any problems.
+Anyway, feel free to create an issue if you've mentioned some problems.
 
 # 2. Checking accessibility
 
-We are using Lighthouse from ChromeDevTools & manual testing.
+We use Lighthouse from ChromeDevTools & manual testing.
 
 # 2.1. Lighthouse
 
