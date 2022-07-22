@@ -82,11 +82,14 @@ export default defineComponent({
     const { valueComputed } = useStateful(props, emit)
 
     const containerSize = ref()
-    const getContainerSize = () => {
+    const bodyFontSize = ref(16)
+
+    const handleContainerResize = () => {
       containerSize.value = props.vertical ? splitPanelsContainer.value?.offsetHeight : splitPanelsContainer.value?.offsetWidth
+      bodyFontSize.value = parseFloat(getComputedStyle(document.documentElement).fontSize)
     }
-    onMounted(getContainerSize)
-    useResizeObserver([splitPanelsContainer], getContainerSize)
+    onMounted(handleContainerResize)
+    useResizeObserver([splitPanelsContainer], handleContainerResize)
 
     const convertToPercents = (v: string | number, type: 'min' | 'max') => {
       let numberValue = ''
@@ -106,7 +109,7 @@ export default defineComponent({
         case 'px':
           return (+numberValue / containerSize.value!) * 100
         case 'rem':
-          return ((+numberValue * 16) / containerSize.value!) * 100
+          return ((+numberValue * bodyFontSize.value) / containerSize.value!) * 100
         case 'any':
           return type === 'min' ? 0 : 100
         case '':
