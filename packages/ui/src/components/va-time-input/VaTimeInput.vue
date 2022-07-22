@@ -1,16 +1,21 @@
 <template>
   <va-dropdown
-    v-model="isOpenSync"
+    v-model="doShowDropdown"
     class="va-time-input"
     placement="bottom-start"
     trigger="none"
-    anchorSelector=".va-input-wrapper__field"
+    inner-anchor-selector=".va-input-wrapper__field"
     :class="$attrs.class"
     :style="$attrs.style"
     :offset="[2, 0]"
     :close-on-content-click="false"
-    :stateful="false"
     :disabled="$props.disabled"
+    :stateful="false"
+    @keydown.up.prevent="showDropdown"
+    @keydown.down.prevent="showDropdown"
+    @keydown.space="showDropdown($event, $props.manualInput, !$props.manualInput)"
+    @keydown.enter="!$props.manualInput && showDropdown()"
+    @keydown.esc.prevent="hideDropdown"
   >
     <template #anchor>
       <va-input-wrapper
@@ -164,6 +169,24 @@ export default defineComponent({
 
     const valueText = computed<string>(() => format(modelValueSync.value || props.clearValue))
 
+    const doShowDropdown = computed({
+      get () {
+        if (props.disabled || props.readonly) { return false }
+
+        return isOpenSync.value
+      },
+      set (v: boolean) {
+        isOpenSync.value = v
+
+        if (v && !props.manualInput) {
+          nextTick(() => timePicker.value?.focus())
+        }
+        if (!v) {
+          nextTick(() => input.value?.focus())
+        }
+      },
+    })
+
     const { isFocused, focus, blur, onFocus: focusListener, onBlur: blurListener } = useFocus(input)
 
     const onInputTextChanged = (e: Event) => {
@@ -261,8 +284,11 @@ export default defineComponent({
     })
 
     const hideDropdown = () => {
-      isOpenSync.value = false
-      focus()
+      doShowDropdown.value = false
+    }
+
+    const showDropdown = (event?: KeyboardEvent, cancel?: boolean, prevent?: boolean) => {
+      doShowDropdown.value = true
     }
 
     const focusTimePicker = (): void => {
@@ -282,16 +308,7 @@ export default defineComponent({
     const toggleDropdown = (event: Event | KeyboardEvent) => {
       if (checkProhibitedDropdownOpening(event instanceof KeyboardEvent ? event : undefined)) { return }
 
-      isOpenSync.value = !isOpenSync.value
-      nextTick(focusInputOrPicker)
-    }
-
-    // icon interaction
-    const showDropdown = () => {
-      if (props.disabled || props.readonly) { return }
-
-      isOpenSync.value = true
-      nextTick(focusTimePicker)
+      doShowDropdown.value = !doShowDropdown.value
     }
 
     const iconTabindexComputed = computed(() => props.disabled || props.readonly ? -1 : 0)
@@ -315,6 +332,7 @@ export default defineComponent({
       computedInputWrapperProps,
       computedInputListeners,
       isOpenSync,
+      doShowDropdown,
       modelValueSync,
       valueText,
       onInputTextChanged,

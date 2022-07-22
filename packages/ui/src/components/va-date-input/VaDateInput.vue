@@ -1,102 +1,102 @@
 <template>
-  <div class="va-date-input">
-    <va-dropdown
-      v-model="isOpenSync"
-      trigger="none"
-      anchorSelector=".va-input-wrapper__field"
-      :class="$attrs.class"
-      :style="$attrs.style"
-      :offset="[2, 0]"
-      :close-on-content-click="false"
-      :stateful="false"
-      :disabled="$props.disabled"
-    >
-      <template #anchor>
-        <slot name="input" v-bind="{ inputAttributes: inputAttributesComputed, inputWrapperProps, inputListeners }">
-          <va-input-wrapper
-            v-bind="inputWrapperProps"
-            @click="toggleDropdown"
-            @keydown.enter.stop="toggleDropdown"
-            @keydown.space.stop="toggleDropdown"
-          >
-            <template #default>
-              <input
-                ref="input"
-                class="va-date-input__input"
-                v-bind="inputAttributesComputed"
-                v-on="inputListeners"
-                @change="onInputTextChanged"
-              />
-            </template>
-
-            <template
-              v-for="name in filterSlots"
-              :key="name"
-              v-slot:[name]="slotScope"
-            >
-              <slot :name="name" v-bind="slotScope" />
-            </template>
-
-            <template #prependInner="slotScope">
-              <slot name="prependInner" v-bind="slotScope" />
-              <va-icon
-                v-if="$props.leftIcon"
-                v-bind="iconProps"
-              />
-            </template>
-
-            <template #icon>
-              <va-icon
-                v-if="canBeCleared"
-                class="va-date-input__clear-icon"
-                role="button"
-                aria-label="reset date"
-                aria-hiden="false"
-                :tabindex="iconTabindexComputed"
-                v-bind="clearIconProps"
-                @click.stop="reset"
-                @keydown.enter.stop="reset"
-                @keydown.space.stop="reset"
-              />
-              <va-icon
-                v-else-if="!$props.leftIcon"
-                :tabindex="iconTabindexComputed"
-                v-bind="iconProps"
-                @click.stop="showDropdown"
-                @keydown.enter.stop="showDropdown"
-                @keydown.space.stop="showDropdown"
-              />
-            </template>
-          </va-input-wrapper>
-        </slot>
-      </template>
-
-      <va-dropdown-content
-        @keydown.esc.prevent="hideAndFocus"
-      >
-        <va-date-picker
-            ref="datePicker"
-            v-bind="datePickerProps"
-            v-model="valueWithoutText"
-            @click:day="$emit('click:day', $event)"
-            @click:month="$emit('click:month', $event)"
-            @click:year="$emit('click:year', $event)"
-            @hover:day="$emit('hover:day', $event)"
-            @hover:month="$emit('hover:month', $event)"
-            @hover:year="$emit('hover:year', $event)"
-            @update:view="$emit('update:view', $event)"
+  <va-dropdown
+    v-model="isOpenSync"
+    trigger="none"
+    class="va-date-input"
+    inner-anchor-selector=".va-input-wrapper__field"
+    :class="$attrs.class"
+    :style="$attrs.style"
+    :offset="[2, 0]"
+    :close-on-content-click="false"
+    :stateful="false"
+    :disabled="$props.disabled"
+  >
+    <template #anchor>
+      <slot name="input" v-bind="{ valueText, inputAttributes: inputAttributesComputed, inputWrapperProps, inputListeners }">
+        <va-input-wrapper
+          v-bind="inputWrapperProps"
+          @click="toggleDropdown"
+          @keydown.enter.stop="toggleDropdown"
+          @keydown.space.stop="toggleDropdown"
         >
-          <template
-            v-for="(_, name) in $slots"
-            :key="name"
-            v-slot:[name]="bind"
-          >
-            <slot :name="name" v-bind="bind" />
+          <template #default>
+            <input
+              ref="input"
+              class="va-date-input__input"
+              v-bind="inputAttributesComputed"
+              v-on="inputListeners"
+              @change="onInputTextChanged"
+            />
           </template>
-        </va-date-picker>
-      </va-dropdown-content>
-    </va-dropdown>
-  </div>
+
+          <template
+            v-for="name in filterSlots"
+            :key="name"
+            v-slot:[name]="slotScope"
+          >
+            <slot :name="name" v-bind="slotScope" />
+          </template>
+
+          <template #prependInner="slotScope">
+            <slot name="prependInner" v-bind="slotScope" />
+            <va-icon
+              v-if="$props.leftIcon"
+              v-bind="iconProps"
+            />
+          </template>
+
+          <template #icon>
+            <va-icon
+              v-if="canBeCleared"
+              class="va-date-input__clear-icon"
+              role="button"
+              aria-label="reset date"
+              aria-hiden="false"
+              :tabindex="iconTabindexComputed"
+              v-bind="clearIconProps"
+              @click.stop="reset"
+              @keydown.enter.stop="reset"
+              @keydown.space.stop="reset"
+            />
+            <va-icon
+              v-else-if="!$props.leftIcon"
+              :tabindex="iconTabindexComputed"
+              v-bind="iconProps"
+              @click.stop="showDropdown"
+              @keydown.enter.stop="showDropdown"
+              @keydown.space.stop="showDropdown"
+            />
+          </template>
+        </va-input-wrapper>
+      </slot>
+    </template>
+
+    <va-dropdown-content
+      @keydown.esc.stop.prevent="hideAndFocus"
+      class="va-date-input__dropdown-content"
+    >
+      <va-date-picker
+          ref="datePicker"
+          v-bind="datePickerProps"
+          v-model="valueWithoutText"
+          @click:day="$emit('click:day', $event)"
+          @click:month="$emit('click:month', $event)"
+          @click:year="$emit('click:year', $event)"
+          @hover:day="$emit('hover:day', $event)"
+          @hover:month="$emit('hover:month', $event)"
+          @hover:year="$emit('hover:year', $event)"
+          @update:view="$emit('update:view', $event)"
+      >
+        <template
+          v-for="(_, name) in $slots"
+          :key="name"
+          v-slot:[name]="bind"
+        >
+          <slot :name="name" v-bind="bind" />
+        </template>
+      </va-date-picker>
+    </va-dropdown-content>
+  </va-dropdown>
 </template>
 
 <script lang="ts">
@@ -418,8 +418,9 @@ export default defineComponent({
     }
   }
 
-  .va-dropdown {
-    width: 100%;
+  &__dropdown-content {
+    display: flex;
+    justify-content: center;
   }
 }
 </style>

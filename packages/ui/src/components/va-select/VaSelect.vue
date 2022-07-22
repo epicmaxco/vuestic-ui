@@ -2,23 +2,20 @@
   <va-dropdown
     ref="dropdown"
     class="va-select__dropdown va-select-dropdown"
-    trigger="none"
-    anchorSelector=".va-input-wrapper__field"
     :aria-label="`select option (currently selected: ${$props.modelValue})`"
     :placement="$props.placement"
     :disabled="$props.disabled"
     :max-height="$props.maxHeight"
-    :fixed="$props.fixed"
     :close-on-content-click="closeOnContentClick"
     :stateful="false"
     :offset="[1, 0]"
     keep-anchor-width
+    inner-anchor-selector=".va-input-wrapper__field"
     v-model="showDropdownContentComputed"
     @keydown.up.stop.prevent="showDropdown"
     @keydown.down.stop.prevent="showDropdown"
     @keydown.space.stop.prevent="showDropdown"
     @keydown.enter.stop.prevent="showDropdown"
-    @click.prevent="onSelectClick"
   >
     <template #anchor>
       <va-input-wrapper
@@ -239,7 +236,6 @@ export default defineComponent({
     width: { type: String, default: '100%' },
     maxHeight: { type: String, default: '256px' },
     noOptionsText: { type: String, default: 'Items not found' },
-    fixed: { type: Boolean, default: true },
     hideSelected: { type: Boolean, default: false },
     tabindex: { type: Number, default: 0 },
     dropdownIcon: {

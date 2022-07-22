@@ -1211,6 +1211,12 @@
       "events": {},
       "methods": {},
       "slots": {}
+    },
+    "VaDropdown": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
     }
   },
   "menu": {
@@ -1320,7 +1326,8 @@
     "counter": "Counter",
     "nuxt": "Nuxt",
     "ssrGuide": "Ssr Guide",
-    "spacer": "Spacer"
+    "spacer": "Spacer",
+    "dropdown": "Dropdown"
   },
   "all": {
     "examples": "Примеры",
@@ -3977,5 +3984,8 @@
         "text": "`va-spacer` добавляет div с классом `.va-spacer`."
       }
     }
+  },
+  "dropdown": {
+    "title": "-- Here is the title --"
   }
 }
