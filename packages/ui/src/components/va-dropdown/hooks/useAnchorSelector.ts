@@ -12,16 +12,15 @@ export const useAnchorSelector = (
   const document = useDocument()
 
   const computedAnchorRef = computed<HTMLElement | undefined>({
-    set (v) {
-      if (props.anchorSelector) {
-        anchorRef.value = document.value?.querySelector(props.anchorSelector) ?? v
-      } else if (props.innerAnchorSelector) {
-        anchorRef.value = document.value?.querySelector(props.innerAnchorSelector) ?? v
-      } else {
-        anchorRef.value = v
-      }
+    set (v: HTMLElement | undefined) {
+      anchorRef.value = v
     },
     get () {
+      if (props.anchorSelector) {
+        return document.value?.querySelector<HTMLElement>(props.anchorSelector) ?? anchorRef.value
+      } else if (props.innerAnchorSelector && anchorRef.value) {
+        return anchorRef.value?.querySelector<HTMLElement>(props.innerAnchorSelector) ?? anchorRef.value
+      }
       return anchorRef.value
     },
   })

@@ -16,8 +16,8 @@
         <va-input-wrapper
           v-bind="inputWrapperProps"
           @click="toggleDropdown"
-          @keydown.enter.stop="showAndFocus"
-          @keydown.space.stop="showAndFocus"
+          @keydown.enter.stop="toggleDropdown"
+          @keydown.space.stop="toggleDropdown"
         >
           <template #default>
             <input
