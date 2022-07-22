@@ -3811,12 +3811,14 @@
     "codeSnippetWarn": "You need to install `Source Code Pro` font if you want to use `.code-snippet` class",
     "textCode": "Text-code",
     "other": "Other typography styles",
+    "list": "List styles",
     "orderedList": "Ordered list",
     "unorderedList": "Unordered list",
     "links": "Links",
     "textHighlighted": "Highlighted text",
     "blockquote": "Blockquote",
-    "textBlock": "Text block"
+    "textBlock": "Text block",
+    "textHelpers": "Text helpers"
   },
   "ag-grid": {
     "title": "AG Grid Theme",

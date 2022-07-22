@@ -100,6 +100,7 @@ export default defineComponent({
       computedError,
       isIndeterminate,
       computedErrorMessages,
+      validationAriaAttributes,
       toggleSelection,
       onBlur,
       onFocus,
@@ -161,10 +162,7 @@ export default defineComponent({
       ariaDisabled: props.disabled,
       ariaReadOnly: props.readonly,
       ariaChecked: isActive.value,
-      'aria-invalid': !!computedErrorMessages.value.length,
-      'aria-errormessage': typeof computedErrorMessages.value === 'string'
-        ? computedErrorMessages.value
-        : computedErrorMessages.value.join(', '),
+      ...validationAriaAttributes.value,
     }))
 
     return {
