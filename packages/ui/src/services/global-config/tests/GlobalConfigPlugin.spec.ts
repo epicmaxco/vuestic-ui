@@ -1,10 +1,12 @@
-import { mount, config } from '@vue/test-utils'
+import { mount } from '@vue/test-utils'
 
-import { GlobalConfig, useGlobalConfig } from '../../global-config/global-config'
-import { GlobalConfigPlugin } from '../../global-config/config-default'
+import {
+  GlobalConfig,
+  useGlobalConfig,
+  GLOBAL_CONFIG, createGlobalConfig,
+} from '../../global-config/global-config'
+import { GlobalConfigPlugin } from '../../global-config/plugin'
 import { describe, it, expect, beforeEach } from 'vitest'
-
-config.global.plugins.push([GlobalConfigPlugin])
 
 describe('GlobalConfigPlugin', () => {
   describe('setGlobalConfig', () => {
@@ -29,7 +31,13 @@ describe('GlobalConfigPlugin', () => {
         },
       }
 
-      const wrapper = mount(Component)
+      const wrapper = mount(Component, {
+        global: {
+          provide: {
+            [GLOBAL_CONFIG]: createGlobalConfig(),
+          },
+        },
+      })
 
       instance = wrapper.vm
 

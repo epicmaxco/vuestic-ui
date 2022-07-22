@@ -17,7 +17,7 @@ describe('useStateful', () => {
     ${{ stateful: false, modelValue: 'modelValue' }} | ${undefined} |  ${'modelValue'} | ${'modelValue'}
   `)(
     'props %s & defaultValue %s should be %s & then %s',
-    async ({ props, defaultValue, expected, setExpected }) => {
+    async (props, defaultValue, expected, setExpected) => {
       const wrapper = mount(TestComponent)
       expect(wrapper.exists()).toBeTruthy()
       await wrapper.setProps(props)
