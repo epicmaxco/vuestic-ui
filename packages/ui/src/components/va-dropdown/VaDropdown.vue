@@ -141,6 +141,10 @@ export default defineComponent({
 
         if (valueComputed.value) {
           emitAndClose('anchor-right-click', props.closeOnAnchorClick, e)
+
+          setTimeout(() => {
+            valueComputed.value = true
+          })
         } else {
           valueComputed.value = true
           emit('anchor-right-click', e)
