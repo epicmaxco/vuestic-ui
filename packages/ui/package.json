@@ -163,8 +163,8 @@
       }
     },
     "./iife": "./dist/iife/main.js",
-    "./styles/": "./dist/styles/",
     "./types": "./dist/types/main.d.ts",
-    "./dist/": "./dist/"
+    "./styles/*": "./dist/styles/",
+    "./dist/*": "./dist/*"
   }
 }
