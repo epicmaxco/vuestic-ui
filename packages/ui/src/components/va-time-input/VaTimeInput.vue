@@ -9,6 +9,7 @@
     :close-on-content-click="false"
     :disabled="$props.disabled"
     :stateful="false"
+    inner-anchor-selector=".va-input-wrapper__field"
     @keydown.up.prevent="showDropdown"
     @keydown.down.prevent="showDropdown"
     @keydown.space="showDropdown($event, $props.manualInput, !$props.manualInput)"

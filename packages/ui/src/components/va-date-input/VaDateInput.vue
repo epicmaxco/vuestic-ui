@@ -5,7 +5,7 @@
     :close-on-content-click="false"
     :disabled="disabled"
     :keep-anchor-width="true"
-    inner-anchor-selector=".va-date-input__input"
+    inner-anchor-selector=".va-input-wrapper__field"
     class="va-date-input"
   >
     <template #anchor>

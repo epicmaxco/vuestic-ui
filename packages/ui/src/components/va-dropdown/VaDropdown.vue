@@ -40,12 +40,11 @@ import {
   usePopover, placementsPositions, Placement,
   useClickOutside,
   useBem,
+  useEvent,
+  useIsMounted,
 } from '../../composables'
 import { useAnchorSelector } from './hooks/useAnchorSelector'
 import { useCursorAnchor } from './hooks/useCursorAnchor'
-import { useIsMounted } from '../../composables/useIsMounted'
-import { trigger } from '@vue/reactivity'
-import { useEvent } from '../../composables/useEvent'
 
 export default defineComponent({
   name: 'VaDropdown',

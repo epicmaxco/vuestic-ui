@@ -1,5 +1,5 @@
-import { useDocument } from './../../../composables'
 import { computed, ref, watch } from 'vue'
+import { useDocument } from './../../../composables'
 
 export const useAnchorSelector = (
   props: {
@@ -12,13 +12,17 @@ export const useAnchorSelector = (
   const document = useDocument()
 
   const computedAnchorRef = computed<HTMLElement | undefined>({
-    set (v) { anchorRef.value = v },
+    set (v) {
+      if (props.anchorSelector) {
+        anchorRef.value = document.value?.querySelector(props.anchorSelector) ?? v
+      } else if (props.innerAnchorSelector) {
+        anchorRef.value = document.value?.querySelector(props.innerAnchorSelector) ?? v
+      } else {
+        anchorRef.value = v
+      }
+    },
     get () {
-      if (props.innerAnchorSelector) { return anchorRef.value?.querySelector(props.innerAnchorSelector) || anchorRef.value }
-
-      return props.anchorSelector
-        ? document.value?.querySelector(props.anchorSelector) || anchorRef.value
-        : anchorRef.value
+      return anchorRef.value
     },
   })
 

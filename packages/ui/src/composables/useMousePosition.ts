@@ -1,9 +1,10 @@
-import { useClientOnly } from './useClientOnly'
-import { onMounted, onBeforeUnmount, Ref, reactive } from 'vue'
+import { Ref, reactive } from 'vue'
+import { useEvent } from './useEvent'
+import { useWindow } from './useWindow'
 
 export const useMousePosition = (el?: Ref<GlobalEventHandlers | undefined | null>) => {
   if (!el) {
-    el = useClientOnly(() => window as GlobalEventHandlers)
+    el = useWindow()
   }
 
   const mouse = reactive({ x: 0, y: 0 })
@@ -13,13 +14,7 @@ export const useMousePosition = (el?: Ref<GlobalEventHandlers | undefined | null
     mouse.y = e.clientY
   }
 
-  onMounted(() => {
-    el?.value?.addEventListener('mousemove', onMouseMove)
-  })
-
-  onBeforeUnmount(() => {
-    el?.value?.removeEventListener('mousemove', onMouseMove)
-  })
+  useEvent('mousemove', onMouseMove, el)
 
   return mouse
 }

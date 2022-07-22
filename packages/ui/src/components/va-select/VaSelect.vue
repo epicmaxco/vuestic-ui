@@ -10,6 +10,7 @@
     :stateful="false"
     :offset="[1, 0]"
     keep-anchor-width
+    inner-anchor-selector=".va-input-wrapper__field"
     v-model="showDropdownContentComputed"
     @keydown.up.stop.prevent="showDropdown"
     @keydown.down.stop.prevent="showDropdown"
