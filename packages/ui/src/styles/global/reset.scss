@@ -9,6 +9,7 @@ body {
   height: 100%;
   min-height: 100vh;
   position: relative;
+  line-height: 1;
 }
 
 main {
@@ -26,15 +27,6 @@ hr {
   overflow: visible;
 }
 
-pre {
-  font-family: monospace, monospace;
-  font-size: 1em;
-}
-
-a {
-  background-color: transparent;
-}
-
 abbr[title] {
   border-bottom: none;
   text-decoration: underline;
@@ -48,8 +40,9 @@ strong {
 
 code,
 kbd,
-samp {
-  font-family: monospace, monospace;
+samp,
+pre {
+  font-family: monospace;
   font-size: 1em;
 }
 
@@ -111,13 +104,6 @@ button::-moz-focus-inner,
 [type="submit"]::-moz-focus-inner {
   border-style: none;
   padding: 0;
-}
-
-button:-moz-focusring,
-[type="button"]:-moz-focusring,
-[type="reset"]:-moz-focusring,
-[type="submit"]:-moz-focusring {
-  outline: 1px dotted ButtonText;
 }
 
 fieldset {
@@ -195,6 +181,7 @@ b {
 }
 
 // reset
+
 /* We use reset.css to reduce browser inconsistencies in things like default
  line heights, margins and font sizes of headings, and so on. */
 html,
@@ -288,6 +275,7 @@ video {
 
 a {
   text-decoration: none;
+  background-color: transparent;
 }
 
 input {
@@ -308,10 +296,6 @@ menu,
 nav,
 section {
   display: block;
-}
-
-body {
-  line-height: 1;
 }
 
 ol,

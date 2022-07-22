@@ -18,7 +18,14 @@ export const useDateParser = (props: {
   const isValid = ref(true)
 
   const parseDate = (text: string) => {
-    const date = (props.parseDate || defaultParseDateFunction)(text)
+    /**
+     * for american locales 01.02.2000 will be parsed as 02 Jan 2000 (not 01 Feb 2000)
+     * iso 8601 (YYYY-MM-DD) solves this problem
+     */
+    const splitDate = text.split('.')
+    const valueToParse = splitDate?.length === 3 ? splitDate.reverse().join('-') : text
+
+    const date = (props.parseDate || defaultParseDateFunction)(valueToParse)
 
     isValid.value = isValidDate(date)
 
