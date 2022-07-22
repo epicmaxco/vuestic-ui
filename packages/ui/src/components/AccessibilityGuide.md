@@ -27,20 +27,20 @@ And some common:
 - `aria-labeledby`,
 - `aria-disabled` etc.
 
-Try to append as much aria-attributes as possible, because it will give additional information for screen-readers.
+Try to append as much aria-attributes as possible, because it will give the additional information for screen-readers.
 
-**How to understand, which roles & aria-attributes belong to the one or another block?** Human logic, source of truth and Google (`okey, google, tabs accessibility`).
+**How can you understand, which roles & aria-attributes belong to the one or another block?** Human logic, source of truth and Google (`okey, google, tabs accessibility`).
 
-Some other rules:
-- pure graphics (like icons) which isn't used as button or link may be hidden via `aria-hidden` attribute;
+Some other ground rules:
+- pure graphics (like icons) which aren't used as button or link may be hidden via `aria-hidden` attribute;
 - all images should have `alt` attribute, even it's empty, **very important**;
-- all links should contain text, describing where user will be taken by them (home page, cart etc.). In case of images-links use `aria-label` attribute.
+- all links must contain text, describing where user will be taken by them (home page, cart etc.). In case of images-links use `aria-label` attribute.
 
 ## 1.2. Keyboard accessibility
 
 Every interactive item should be accessible via `Tab` button (should have `tabindex="0"` attribute).
 
-Some other rules:
+Some other ground rules:
 - `focused` state should be highlighted via `focus-outline` SCSS mixin;
 - `tabindex` attribute can be `-1` (excluded from tab navigation) or `0`, no other values;
 - elements with `tabindex="0"` shouldn't be hidden via `aria-hidden="true"` attribute;
