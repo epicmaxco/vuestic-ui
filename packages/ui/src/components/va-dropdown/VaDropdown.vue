@@ -11,7 +11,7 @@
     <slot name="anchor" v-bind="{ value: valueComputed, hide, show }" />
 
     <template v-if="valueComputed">
-      <teleport v-if="isMounted" :to="target" :disabled="disabled">
+      <teleport v-if="isMounted" :to="teleportTargetComputed" :disabled="disabled">
         <div
           ref="contentRef"
           class="va-dropdown__content-wrapper"
@@ -42,6 +42,7 @@ import {
   useBem,
   useEvent,
   useIsMounted,
+  useDocument,
 } from '../../composables'
 import { useAnchorSelector } from './hooks/useAnchorSelector'
 import { useCursorAnchor } from './hooks/useCursorAnchor'
@@ -171,7 +172,12 @@ export default defineComponent({
       }
     })
 
+    const document = useDocument()
+
+    const teleportTargetComputed = computed(() => document.value?.querySelector(props.target) ? props.target : 'body')
+
     return {
+      teleportTargetComputed,
       isMounted: useIsMounted(),
       anchorRef,
       valueComputed,
