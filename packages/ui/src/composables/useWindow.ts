@@ -1,3 +1,3 @@
 import { useClientOnly } from './useClientOnly'
 
-export const useWindow = () => useClientOnly(() => document)
+export const useWindow = () => useClientOnly(() => window)
