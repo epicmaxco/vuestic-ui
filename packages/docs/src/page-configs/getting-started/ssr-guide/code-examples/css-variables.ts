@@ -1,3 +1,3 @@
 export default `
-app.config.globalProperties.$vaColorConfig.renderCSSVarialbes()
+app.config.globalProperties.$vaColorConfig.renderCSSVariables()
 `

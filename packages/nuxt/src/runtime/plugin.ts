@@ -30,7 +30,7 @@ export default defineNuxtPlugin((nuxtApp) => {
       // Add reactive CSS varialbes to head so they are taken from colorConfig
       head.addHeadObjs(ref({
         htmlAttrs: {
-          style: colorConfig.renderCSSVarialbes()
+          style: colorConfig.renderCSSVariables()
         }
       }))
     }
