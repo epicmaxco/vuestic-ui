@@ -18,6 +18,8 @@ export default defineNuxtPlugin((nuxtApp) => {
     config,
     // TODO: Would be nice to tree-shake plugins, but they're small so we don't cant for now.
     plugins: { VaDropdownPlugin, VaToastPlugin, VaModalPlugin },
+    /** Do not import any components. Nuxt will import them automatically */
+    components: {},
   }))
 
   /**

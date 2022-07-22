@@ -29,7 +29,7 @@ export interface VuesticOptions {
    *
    * @see https://vuestic.dev/en/getting-started/tree-shaking
    */
-  components: VuesticComponentName[],
+  components: VuesticComponentName[] | undefined,
 }
 
 /** Declare Vuestic module options in NuxtConfig */

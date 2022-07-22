@@ -4,8 +4,6 @@ import { useVuesticCSS } from './composables/use-css'
 import { useVuesticPlugin } from './composables/use-plugin'
 import { useVuesticComposables } from './composables/use-composables'
 import { useVuesticComponents } from './composables/use-components'
-import defaultComponentNames from './config/components'
-
 
 export default defineNuxtModule<VuesticOptions>({
   meta: {
@@ -19,7 +17,7 @@ export default defineNuxtModule<VuesticOptions>({
   defaults: {
     config: {},
     css: true,
-    components: defaultComponentNames as VuesticOptions['components']
+    components: undefined,
   },
 
   hooks: {},
