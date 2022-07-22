@@ -7,7 +7,8 @@
     aria-label="toggle dropdown"
     :aria-disabled="$props.disabled"
     :aria-expanded="!!valueComputed"
-    :aria-controls="idComputed">
+    :aria-controls="idComputed"
+  >
     <slot name="anchor" v-bind="{ value: valueComputed, hide, show }" />
 
     <template v-if="valueComputed">
@@ -28,7 +29,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, shallowRef, toRef } from 'vue'
+import { computed, defineComponent, nextTick, PropType, shallowRef, toRef } from 'vue'
 import pick from 'lodash/pick.js'
 import kebabCase from 'lodash/kebabCase.js'
 
@@ -121,14 +122,18 @@ export default defineComponent({
 
     const emitAndClose = (eventName: string, close?: boolean, e?: Event) => {
       emit(eventName, e)
-      if (close) { valueComputed.value = false }
+      if (close && props.trigger !== 'none') { valueComputed.value = false }
     }
 
     const { anchorRef } = useAnchorSelector(props, {
       click (e) {
         if ((props.trigger !== 'click' && kebabCase(props.trigger) !== 'right-click') || props.disabled) { return }
+
         if (valueComputed.value) {
           emitAndClose('anchor-click', props.closeOnAnchorClick, e)
+          if (props.cursor) {
+            nextTick(() => { valueComputed.value = true })
+          }
         } else {
           if (props.trigger !== 'click') { return }
           valueComputed.value = true
@@ -142,9 +147,9 @@ export default defineComponent({
         if (valueComputed.value) {
           emitAndClose('anchor-right-click', props.closeOnAnchorClick, e)
 
-          setTimeout(() => {
-            valueComputed.value = true
-          })
+          if (props.cursor) {
+            nextTick(() => { valueComputed.value = true })
+          }
         } else {
           valueComputed.value = true
           emit('anchor-right-click', e)
@@ -155,7 +160,7 @@ export default defineComponent({
     })
 
     useClickOutside([anchorRef, contentRef], () => {
-      if (props.closeOnClickOutside && valueComputed.value && props.trigger !== 'none') {
+      if (props.closeOnClickOutside && valueComputed.value) {
         emitAndClose('click-outside', props.closeOnClickOutside)
       }
     })
