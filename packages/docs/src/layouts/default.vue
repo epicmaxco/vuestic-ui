@@ -186,6 +186,10 @@ html {
   font-size: $font-size-root;
 }
 
+a:not(.va-button, .va-sidebar__item):focus {
+  @include focus-outline();
+}
+
 .base-layout {
   height: 100vh;
   position: fixed;

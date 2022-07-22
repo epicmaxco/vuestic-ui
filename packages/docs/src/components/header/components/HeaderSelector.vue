@@ -1,15 +1,21 @@
 <template>
-  <div class="header-selector flex-center">
+  <div
+    class="header-selector flex-center"
+    role="button"
+    tabindex="0"
+    :aria-label="`${minimized ? `expand` : `minimize`} navigation menu`">
     <va-icon-menu
       v-if="minimized"
       class="i-nav"
-      @click="$emit('toggleSidebar', !minimized)"
+      @click="toggleSidebar"
+      @keydown.enter="toggleSidebar"
       :color="colors.primary"
     />
     <va-icon-menu-collapsed
       v-else
       class="i-nav"
-      @click="$emit('toggleSidebar', !minimized)"
+      @click="toggleSidebar"
+      @keydown.enter="toggleSidebar"
       :color="colors.primary"
     />
   </div>
@@ -35,11 +41,14 @@ export default {
     },
   },
 
-  setup () {
+  setup (props: any, { emit }: any) {
     const { getColors } = useColors()
+
+    const toggleSidebar = () => emit('toggleSidebar', !props.minimized)
 
     return {
       colors: computed(getColors),
+      toggleSidebar,
     }
   },
 }
@@ -69,6 +78,10 @@ export default {
 .header-selector {
   cursor: pointer;
   max-width: 55px;
+
+  &:focus {
+    @include focus-outline();
+  }
 }
 
 </style>

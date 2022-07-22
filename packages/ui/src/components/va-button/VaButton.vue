@@ -5,6 +5,7 @@
     ref="button"
     aria-live="polite"
     :aria-disabled="$props.disabled"
+    :aria-label="ariaLabelComputed"
     :class="computedClass"
     :style="computedStyle"
     :disabled="$props.disabled"
@@ -120,8 +121,8 @@ export default defineComponent({
       }
     })
 
-    const hasOneIcon = computed(() => {
-      return Boolean((props.iconRight && !props.icon) || (!props.iconRight && props.icon))
+    const onlyIcon = computed(() => {
+      return Boolean(!slots.default && ((props.iconRight && !props.icon) || (!props.iconRight && props.icon)))
     })
 
     const computedClass = computed(() => ({
@@ -137,10 +138,12 @@ export default defineComponent({
       'va-button--loading': props.loading,
       'va-button--block': props.block,
       'va-button--square': !props.rounded,
-      'va-button--round': props.round || (!slots.default && hasOneIcon.value),
+      'va-button--round': props.round || onlyIcon.value,
       'va-button--no-label': !isSlotContentPassed.value,
       'va-button--space-between-items': props.spaceBetweenItems,
     }))
+
+    const ariaLabelComputed = computed(() => onlyIcon.value ? props.icon || props.iconRight : undefined)
 
     const loaderSize = computed(() => {
       const size = /([0-9]*)(px)/.exec(sizeComputed.value) as null | [string, string, string]
@@ -197,6 +200,7 @@ export default defineComponent({
       textColorComputed,
       loaderSize,
       focusState,
+      ariaLabelComputed,
       hoverState,
       focus,
       blur,

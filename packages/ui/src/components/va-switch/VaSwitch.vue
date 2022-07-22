@@ -119,7 +119,7 @@ export default defineComponent({
     },
 
   },
-  setup (props, { emit }) {
+  setup (props, { emit, slots }) {
     const elements = {
       container: shallowRef<HTMLElement>(),
       input: shallowRef<HTMLElement>(),
@@ -194,14 +194,14 @@ export default defineComponent({
 
     const ariaLabelIdComputed = computed(() => `aria-label-id-${generateUniqueId()}`)
     const inputAttributesComputed = computed(() => ({
-      id: props.id,
-      name: props.name,
+      id: props.id || undefined,
+      name: props.name || undefined,
       disabled: props.disabled,
       readonly: props.readonly,
       ariaDisabled: props.disabled,
       ariaReadOnly: props.readonly,
       ariaChecked: !!props.modelValue,
-      ariaLabelledby: ariaLabelIdComputed.value,
+      'aria-labelledby': computedLabel.value || slots.default ? ariaLabelIdComputed.value : undefined,
       'aria-invalid': !!computedErrorMessages.value.length,
       'aria-errormessage': typeof computedErrorMessages.value === 'string'
         ? computedErrorMessages.value

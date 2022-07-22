@@ -8,11 +8,12 @@
           @toggleSidebar="toggleSidebar"
         />
         <router-link to="/" custom v-slot="{ navigate, href }">
-          <a :href="href">
+          <a :href="href" aria-label="go to the documentation main page">
             <vuestic-logo
               class="header__logo__wrapper__image"
               height="30"
               width="150"
+              aria-hidden="true"
               @click="navigate"
             />
           </a>
