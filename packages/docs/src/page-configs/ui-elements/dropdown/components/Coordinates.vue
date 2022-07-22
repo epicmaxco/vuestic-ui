@@ -1,5 +1,5 @@
 <template>
-  <svg xmlns="http://www.w3.org/2000/svg" width="104" height="104" fill="none">
+  <svg class="placement-coordinates" xmlns="http://www.w3.org/2000/svg" width="104" height="104" fill="none">
     <g>
       <path
         :style="computedStyle.y"
@@ -35,3 +35,10 @@ const computedStyle = computed(() => {
   }
 })
 </script>
+
+<style lang="scss" scoped>
+  .placement-coordinates {
+    border: 1px solid var(--va-divider);
+    padding: 4px;
+  }
+</style>

@@ -1,9 +1,13 @@
 <template>
     <table>
       <tr>
+        <td colspan="2">
+          <div class="title text--center mb-2">Offset direction</div>
+        </td>
+      </tr>
+      <tr>
         <td colspan="2" style="padding: 4rem;">
           <div class="d-flex flex-direction--column align--center">
-            <div class="title mb-2">Offset direction</div>
             <va-dropdown
               :model-value="true"
               :placement="placement"
