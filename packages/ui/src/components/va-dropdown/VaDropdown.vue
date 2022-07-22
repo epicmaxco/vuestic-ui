@@ -108,6 +108,17 @@ export default defineComponent({
       cancelUnHoverDebounce()
     }
 
+    const onMouseLeave = () => {
+      if (props.trigger !== 'hover' || props.disabled) { return }
+
+      if (props.isContentHoverable) {
+        debounceUnHover(() => { valueComputed.value = false })
+      } else {
+        valueComputed.value = false
+      }
+      cancelHoverDebounce()
+    }
+
     const emitAndClose = (eventName: string, close?: boolean, e?: Event) => {
       emit(eventName, e)
       if (close) { valueComputed.value = false }
@@ -136,16 +147,7 @@ export default defineComponent({
         }
       },
       mouseenter: onMouseEnter,
-      mouseleave () {
-        if (props.trigger !== 'hover' || props.disabled) { return }
-
-        if (props.isContentHoverable) {
-          debounceUnHover(() => { valueComputed.value = false })
-        } else {
-          valueComputed.value = false
-        }
-        cancelHoverDebounce()
-      },
+      mouseleave: onMouseLeave,
     })
 
     useClickOutside([anchorRef, contentRef], () => {
@@ -186,6 +188,7 @@ export default defineComponent({
       idComputed,
       emitAndClose,
       onMouseEnter,
+      onMouseLeave,
       hide: () => { valueComputed.value = false },
       show: () => { valueComputed.value = true },
     }
