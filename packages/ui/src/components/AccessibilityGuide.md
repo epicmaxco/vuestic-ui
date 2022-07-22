@@ -5,7 +5,7 @@ We want to provide following accessibility features:
 - keyboard accessibility,
 - proper typography, colors and contrast ratio.
 
-**Source of truth:** https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles
+**Source of truth:** https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles and https://www.w3.org/WAI/standards-guidelines/aria/
 
 ## 1.1. Roles & aria attributes
 
@@ -44,11 +44,11 @@ Some other ground rules:
 - `focused` state should be highlighted via `focus-outline` SCSS mixin;
 - `tabindex` attribute can be `-1` (excluded from tab navigation) or `0`, no other values;
 - elements with `tabindex="0"` shouldn't be hidden via `aria-hidden="true"` attribute;
-- interaction with an element should be available via the `enter`, `space` or other keys (list of them is specified in the source of truth for each role).
+- interaction with an element should be reachable via the `enter`, `space` or other keys (list of them is specified in the source of truth for each role).
 
 ## 1.3. Typography and colors
 
-Build-in font sizes, colors & contrast ratio should be fully accessible (soon, some accessibility features are waiting for 1.5.0 version). 
+Built-in font sizes, colors & contrast ratio should be fully accessible (soon, some accessibility features are waiting for 1.5.0 version). 
 
 Anyway, feel free to create an issue if you've mentioned any problems.
 
