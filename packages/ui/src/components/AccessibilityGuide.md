@@ -44,7 +44,7 @@ Some other ground rules:
 - `focused` state should be highlighted via `focus-outline` SCSS mixin;
 - `tabindex` attribute can be `-1` (excluded from tab navigation) or `0`, no other values;
 - elements with `tabindex="0"` shouldn't be hidden via `aria-hidden="true"` attribute;
-- interaction with an element should be available via `enter`, `space` or other keys (list of them is specified in the source of truth for each role).
+- interaction with an element should be available via the `enter`, `space` or other keys (list of them is specified in the source of truth for each role).
 
 ## 1.3. Typography and colors
 
