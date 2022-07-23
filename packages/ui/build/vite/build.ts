@@ -9,7 +9,7 @@ import fs, {
   lstatSync,
 } from 'fs'
 import { exec } from 'child_process'
-import { readDirRecursive, kebabToPascalCase } from './utils.mjs'
+import { readDirRecursive, isComponentsName } from './utils.mjs'
 
 export const $ = (command: string): Promise<string> => {
   let _resolve: any
@@ -52,23 +52,22 @@ export const $ = (command: string): Promise<string> => {
   // adding css imports to esm/esm-node build components recursively
   const proceedCssImport = (buildName: string) => {
     const componentsDirectoryPath = `./dist/${buildName}/src/components`
-    const isMjsFormat = buildName === 'esm-node'
 
     const cssImportRecursive = (dirPath: string) => {
       readdirSync(dirPath)
         .forEach((entryName) => {
           const currentPath = `${dirPath}/${entryName}`
 
-          lstatSync(currentPath).isDirectory() && cssImportRecursive(currentPath)
+          if (lstatSync(currentPath).isDirectory()) { return cssImportRecursive(currentPath) }
 
-          const componentsName = kebabToPascalCase(entryName)
+          if (!isComponentsName(entryName)) { return }
 
-          const componentFilePath = `${currentPath}/${componentsName}.${isMjsFormat ? 'mjs' : 'js'}`
-          const componentCssPath = `${currentPath}/${componentsName}.css`
+          const componentCssFilename = `${entryName.split('.')[0]}.css`
+          const componentCssPath = `${dirPath}/${componentCssFilename}`
 
-          existsSync(componentFilePath) &&
+          existsSync(currentPath) &&
           existsSync(componentCssPath) &&
-          appendFileSync(componentFilePath, `\n import './${componentsName}.css'`)
+          appendFileSync(currentPath, `\n import './${componentCssFilename}'`)
         })
     }
 
