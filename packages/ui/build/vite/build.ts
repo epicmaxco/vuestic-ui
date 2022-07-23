@@ -59,13 +59,7 @@ export const $ = (command: string): Promise<string> => {
         .forEach((entryName) => {
           const currentPath = `${dirPath}/${entryName}`
 
-          lstatSync(currentPath).isDirectory() && readdirSync(currentPath)
-            .forEach((nestedEntryName: string) => {
-              const currentNestedPath = `${currentPath}/${nestedEntryName}`
-              if (lstatSync(currentNestedPath).isDirectory()) {
-                cssImportRecursive(currentNestedPath)
-              }
-            })
+          lstatSync(currentPath).isDirectory() && cssImportRecursive(currentPath)
 
           const componentsName = kebabToPascalCase(entryName)
 
