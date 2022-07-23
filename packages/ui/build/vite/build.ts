@@ -6,28 +6,10 @@ import fs, {
   unlinkSync,
   readdirSync,
   appendFileSync,
+  lstatSync,
 } from 'fs'
-import { exec } from 'child_process'
-import { readDirRecursive, kebabToPascalCase } from './utils.mjs'
-
-export const $ = (command: string): Promise<string> => {
-  let _resolve: any
-  let _reject: any
-  exec(command, (err: any, stdout: any, stderr: any) => {
-    if (err) {
-      // on error
-      _reject(err)
-    } else {
-      // the *entire* stdout and stderr (buffered)
-      _resolve(stdout.trim())
-    }
-  })
-
-  return new Promise((resolve, reject) => {
-    _resolve = resolve
-    _reject = reject
-  })
-}
+import { $ } from 'deploy/execute'
+import { readDirRecursive, isComponentsName } from './utils.mjs'
 
 (async () => {
   // removing dist dir before we start
@@ -35,36 +17,39 @@ export const $ = (command: string): Promise<string> => {
     fs.rmSync('./dist', { recursive: true })
   }
 
-  // making esm-node (mjs) build separately because for some reasons it has conflicts with styles build
-  await $('vite build --config ./build/vite/configs/vite.mjs.js')
-
-  // parallel build for all formats
   await Promise.all([
-    $('vite build --config ./build/vite/configs/vite.cjs.js'),
-    $('vite build --config ./build/vite/configs/vite.iife.js'),
-    $('vite build --config ./build/vite/configs/vite.esm.js'),
-    $('vite build --config ./build/vite/configs/vite.styles.js'),
-    $('vite build --config ./build/vite/configs/vite.styles-essential.js'),
-    $('npm run build:types'),
+    $('npm run build:types', { successMessage: 'types built' }),
+    $('vite build --config ./build/vite/configs/vite.cjs.js', { successMessage: 'cjs built' }),
+    $('vite build --config ./build/vite/configs/vite.iife.js', { successMessage: 'iife built' }),
+    $('vite build --config ./build/vite/configs/vite.esm.js', { successMessage: 'esm built' }),
+    $('vite build --config ./build/vite/configs/vite.mjs.js', { successMessage: 'esm-node built' }),
+    $('vite build --config ./build/vite/configs/vite.styles.js', { successMessage: 'styles built' }),
+    $('vite build --config ./build/vite/configs/vite.styles-essential.js', { successMessage: 'essential styles built' }),
   ])
 
-  // adding css imports to esm/esm-node build components
-  const proceedCssImport = (buildName) => {
+  // adding css imports to esm/esm-node build components recursively
+  const proceedCssImport = (buildName: string) => {
     const componentsDirectoryPath = `./dist/${buildName}/src/components`
-    const isMjsFormat = buildName === 'esm-node'
 
-    readdirSync(componentsDirectoryPath)
-      .forEach((folderName) => {
-        const currentPath = `${componentsDirectoryPath}/${folderName}`
-        const componentsName = kebabToPascalCase(folderName)
+    const cssImportRecursive = (dirPath: string) => {
+      readdirSync(dirPath)
+        .forEach((entryName) => {
+          const currentPath = `${dirPath}/${entryName}`
 
-        const componentFilePath = `${currentPath}/${componentsName}.${isMjsFormat ? 'mjs' : 'js'}`
-        const componentCssPath = `${currentPath}/${componentsName}.css`
+          if (lstatSync(currentPath).isDirectory()) { return cssImportRecursive(currentPath) }
 
-        existsSync(componentFilePath) &&
-        existsSync(componentCssPath) &&
-        appendFileSync(componentFilePath, `\n import './${componentsName}.css'`)
-      })
+          if (!isComponentsName(entryName)) { return }
+
+          const componentCssFilename = `${entryName.split('.')[0]}.css`
+          const componentCssPath = `${dirPath}/${componentCssFilename}`
+
+          existsSync(currentPath) &&
+          existsSync(componentCssPath) &&
+          appendFileSync(currentPath, `\nimport './${componentCssFilename}'`)
+        })
+    }
+
+    cssImportRecursive(componentsDirectoryPath)
   }
 
   ['esm', 'esm-node'].forEach((buildName) => proceedCssImport(buildName))
@@ -79,5 +64,5 @@ export const $ = (command: string): Promise<string> => {
 
   // deleting empty styles files, renaming others
   const stylesFiles = readDirRecursive('./dist/styles')
-  stylesFiles.forEach((file) => statSync(file).size <= 1 && rmSync(file))
+  stylesFiles.forEach((file: string) => statSync(file).size <= 1 && rmSync(file))
 })()

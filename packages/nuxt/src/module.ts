@@ -1,19 +1,9 @@
-import type { Import } from 'unimport'
-import type { GlobalConfig } from 'vuestic-ui'
-import type { NuxtOptions } from '@nuxt/schema'
-import {
-  defineNuxtModule,
-  addPluginTemplate,
-  addAutoImport,
-} from '@nuxt/kit'
-import { resolve } from 'pathe'
-import { distDir } from './dirs'
-
-export interface VuesticOptions {
-  /** Removes global components registration */
-  // withoutComponents?: boolean, //  TODO: Deal with tree-shanking in next version
-  config?: GlobalConfig,
-}
+import { VuesticOptions } from './types'
+import { defineNuxtModule } from '@nuxt/kit'
+import { useVuesticCSS } from './composables/use-css'
+import { useVuesticPlugin } from './composables/use-plugin'
+import { useVuesticComposables } from './composables/use-composables'
+import { useVuesticComponents } from './composables/use-components'
 
 export default defineNuxtModule<VuesticOptions>({
   meta: {
@@ -25,62 +15,17 @@ export default defineNuxtModule<VuesticOptions>({
   },
 
   defaults: {
-    // withoutComponents: false,
-    config: {}
+    config: {},
+    css: true,
+    components: undefined,
   },
 
   hooks: {},
 
   setup (options, nuxt) {
-    /**
-     * registering css
-     */
-    nuxt.options.css.push('vuestic-ui/dist/vuestic-ui.css')
-    // nuxt 3 ssr
-    nuxt.options.app = nuxt.options.app || {} as NuxtOptions['app']
-    nuxt.options.app.head = nuxt.options.app.head || {}
-    nuxt.options.app.head.link = nuxt.options.app.head.link || []
-    nuxt.options.app.head.link.push(
-      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;1,700&display=swap' },
-      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/icon?family=Material+Icons' }
-    )
-
-    /**
-     * registering plugin as a template and passing vuestic ui options to it
-     */
-    addPluginTemplate({
-      src: resolve(distDir, './runtime/plugin.mjs'),
-      filename: 'plugin.mjs',
-
-      // Use JSON.stringify() here, because it will be inserted in ejs template as string. Then we will JSON.parse it.
-      options: {
-        value: JSON.stringify(options),
-      },
-    })
-
-    /**
-     * registering composables globally
-     */
-    const composablesFrom = resolve(distDir, './runtime/composables.mjs')
-    const composablesNamesList = [
-      'useGlobalConfig',
-      'useColors',
-      'useToast',
-      'useModal',
-    ]
-    const autoImportsList: Import[] = []
-    for (const item of composablesNamesList) {
-      autoImportsList.push({ name: item, as: item, from: composablesFrom })
-    }
-    addAutoImport(autoImportsList)
+    useVuesticCSS(options, nuxt)
+    useVuesticPlugin(options)
+    useVuesticComponents(options)
+    useVuesticComposables()
   }
 })
-
-/**
- * declaring options
- */
-declare module '@nuxt/schema' {
-  interface NuxtConfig {
-    vuestic?: VuesticOptions
-  }
-}
