@@ -1,4 +1,4 @@
-import { lstatSync, readdirSync } from "fs";
+import { lstatSync, readdirSync } from 'fs'
 
 export const readDirRecursive = (path) => {
   return readdirSync(path)
@@ -14,5 +14,5 @@ export const readDirRecursive = (path) => {
 }
 
 export const isComponentsName = (filename) => {
-  return new RegExp(/Va.*\.js$|mjs$/).test(filename)
+  return /Va.*\.js$|mjs$/.test(filename)
 }

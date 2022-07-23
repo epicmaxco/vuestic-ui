@@ -8,27 +8,8 @@ import fs, {
   appendFileSync,
   lstatSync,
 } from 'fs'
-import { exec } from 'child_process'
+import { $ } from 'deploy/execute'
 import { readDirRecursive, isComponentsName } from './utils.mjs'
-
-export const $ = (command: string): Promise<string> => {
-  let _resolve: any
-  let _reject: any
-  exec(command, (err: any, stdout: any, stderr: any) => {
-    if (err) {
-      // on error
-      _reject(err)
-    } else {
-      // the *entire* stdout and stderr (buffered)
-      _resolve(stdout.trim())
-    }
-  })
-
-  return new Promise((resolve, reject) => {
-    _resolve = resolve
-    _reject = reject
-  })
-}
 
 (async () => {
   // removing dist dir before we start
@@ -36,17 +17,14 @@ export const $ = (command: string): Promise<string> => {
     fs.rmSync('./dist', { recursive: true })
   }
 
-  // making esm-node (mjs) build separately because for some reasons it has conflicts with styles build
-  await $('vite build --config ./build/vite/configs/vite.mjs.js')
-
-  // parallel build for all formats
   await Promise.all([
-    $('vite build --config ./build/vite/configs/vite.cjs.js'),
-    $('vite build --config ./build/vite/configs/vite.iife.js'),
-    $('vite build --config ./build/vite/configs/vite.esm.js'),
-    $('vite build --config ./build/vite/configs/vite.styles.js'),
-    $('vite build --config ./build/vite/configs/vite.styles-essential.js'),
-    $('npm run build:types'),
+    $('npm run build:types', { successMessage: 'types built' }),
+    $('vite build --config ./build/vite/configs/vite.cjs.js', { successMessage: 'cjs built' }),
+    $('vite build --config ./build/vite/configs/vite.iife.js', { successMessage: 'iife built' }),
+    $('vite build --config ./build/vite/configs/vite.esm.js', { successMessage: 'esm built' }),
+    $('vite build --config ./build/vite/configs/vite.mjs.js', { successMessage: 'esm-node built' }),
+    $('vite build --config ./build/vite/configs/vite.styles.js', { successMessage: 'styles built' }),
+    $('vite build --config ./build/vite/configs/vite.styles-essential.js', { successMessage: 'essential styles built' }),
   ])
 
   // adding css imports to esm/esm-node build components recursively
@@ -67,7 +45,7 @@ export const $ = (command: string): Promise<string> => {
 
           existsSync(currentPath) &&
           existsSync(componentCssPath) &&
-          appendFileSync(currentPath, `\n import './${componentCssFilename}'`)
+          appendFileSync(currentPath, `\nimport './${componentCssFilename}'`)
         })
     }
 
