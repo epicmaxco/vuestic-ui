@@ -17,8 +17,7 @@ export default defineNuxtModule<VuesticOptions>({
 
   defaults: {
     config: {},
-    css: true,
-    components: undefined,
+    css: true
   },
 
   setup (options) {

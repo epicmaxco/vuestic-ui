@@ -1,10 +1,10 @@
 import { VuesticOptions } from './../types';
 import { addComponent } from '@nuxt/kit'
-import defaultComponentNames from '../config/components'
+import componentNames from '../config/components'
 
 /** Register vuestic composables globally with auto-import */
 export const useVuesticComponents = (options: VuesticOptions) => {
-  const importNames = options.components ?? defaultComponentNames
+  const importNames = componentNames
 
   importNames.forEach((name) => {
     /** 
