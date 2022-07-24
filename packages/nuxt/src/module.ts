@@ -1,3 +1,4 @@
+import { useTranspile } from './composables/use-transpile';
 import { VuesticOptions } from './types'
 import { defineNuxtModule } from '@nuxt/kit'
 import { useVuesticCSS } from './composables/use-css'
@@ -20,12 +21,11 @@ export default defineNuxtModule<VuesticOptions>({
     components: undefined,
   },
 
-  hooks: {},
-
-  setup (options, nuxt) {
-    useVuesticCSS(options, nuxt)
+  setup (options) {
+    useVuesticCSS(options)
     useVuesticPlugin(options)
     useVuesticComponents(options)
     useVuesticComposables()
+    useTranspile()
   }
 })
