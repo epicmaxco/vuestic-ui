@@ -1,71 +1,66 @@
-
 <template>
-  <div
-    v-if="removed && undo"
+  <va-list-item
     class="va-file-upload-gallery-item"
-    :class="{ 'va-file-upload-gallery-item--undo': removed }"
+    :class="classesComputed"
+    @focus="onFocus"
+    @blur="onBlur"
   >
-    <va-file-upload-undo
-      class="va-file-upload-gallery-item--undo"
-      @recover="recoverImage"
-    />
-  </div>
-
-  <div
-    v-else
-    tabindex="0"
-    class="va-file-upload-gallery-item"
-    :class="{
-      'file-upload-gallery-item_not-image': !previewImage,
-      'va-file-upload-gallery-item--focused': isFocused,
-    }"
-    @focus="isFocused = true"
-    @blur="isFocused = false"
-  >
-    <img
-      v-if="previewImage"
-      :src="previewImage"
-      alt=""
-      class="va-file-upload-gallery-item__image"
-    >
-    <div class="va-file-upload-gallery-item__overlay">
-      <div
-        class="va-file-upload-gallery-item__overlay-background"
-        :style="overlayStyles"
-      />
-      <div
-        class="va-file-upload-gallery-item__name"
-        :title="file.name"
+    <va-list-item-section v-if="removed && undo">
+      <va-file-upload-undo vertical @recover="recoverImage" />
+    </va-list-item-section>
+    <va-list-item-section v-else>
+      <img
+        v-if="previewImage"
+        :src="previewImage"
+        :alt="file.name || ''"
+        class="va-file-upload-gallery-item__image"
       >
-        {{ file.name }}
+      <div class="va-file-upload-gallery-item__overlay">
+        <div
+          class="va-file-upload-gallery-item__overlay-background"
+          :style="overlayStylesComputed"
+        />
+        <div
+          v-if="file && file.name"
+          class="va-file-upload-gallery-item__name"
+          :title="file.name"
+        >
+          {{ file.name }}
+        </div>
+        <va-button
+          flat
+          color="danger"
+          icon="delete_outline"
+          class="va-file-upload-gallery-item__delete"
+          aria-label="remove image"
+          @click="removeImage"
+          @focus="onFocus"
+          @blur="onBlur"
+        />
       </div>
-      <va-button
-        flat
-        color="danger"
-        icon="delete_outline"
-        class="va-file-upload-gallery-item__delete"
-        aria-label="remove image"
-        @click="removeImage"
-        @focus="isFocused = true"
-        @blur="isFocused = false"
-      />
-    </div>
-  </div>
+    </va-list-item-section>
+  </va-list-item>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, PropType, ref, watch, computed } from 'vue'
+import { defineComponent, onMounted, ref, watch, computed, PropType } from 'vue'
 
 import { colorToRgba } from '../../../services/color-config/color-functions'
+import { useFocus, useBem } from '../../../composables'
 
 import type { ConvertedFile } from '../types'
 
-import { VaButton } from '../../va-button'
+import { VaButton, VaListItem, VaListItemSection } from '../../index'
 import { VaFileUploadUndo } from '../VaFileUploadUndo'
 
 export default defineComponent({
   name: 'VaFileUploadGalleryItem',
-  components: { VaFileUploadUndo, VaButton },
+  components: {
+    VaFileUploadUndo,
+    VaButton,
+    VaListItem,
+    VaListItemSection,
+  },
   emits: ['remove'],
   props: {
     file: { type: Object as PropType<ConvertedFile>, default: null },
@@ -74,11 +69,19 @@ export default defineComponent({
     undoDuration: { type: Number, default: 3000 },
   },
   setup (props, { emit }) {
+    const { isFocused, onFocus, onBlur } = useFocus()
     const previewImage = ref('')
     const removed = ref(false)
-    const isFocused = ref(false)
 
-    const overlayStyles = computed(() => ({ backgroundColor: colorToRgba(props.color, 0.7) }))
+    const overlayStylesComputed = computed(() => ({
+      backgroundColor: colorToRgba(props.color, 0.7),
+    }))
+
+    const classesComputed = useBem('va-file-upload-gallery-item', () => ({
+      notImage: !previewImage.value,
+      focused: isFocused.value,
+      undo: removed.value,
+    }))
 
     const removeImage = () => {
       if (props.undo) {
@@ -105,6 +108,7 @@ export default defineComponent({
         previewImage.value = props.file.image.url
       } else if (props.file.image instanceof File) {
         const reader = new FileReader()
+
         reader.readAsDataURL(props.file.image)
         reader.onload = (e) => {
           if ((e.target?.result as string).includes('image')) {
@@ -118,12 +122,16 @@ export default defineComponent({
     watch(() => props.file, convertToImg)
 
     return {
-      previewImage,
       removed,
       isFocused,
-      recoverImage,
-      overlayStyles,
+      previewImage,
+      classesComputed,
+      overlayStylesComputed,
+
+      onBlur,
+      onFocus,
       removeImage,
+      recoverImage,
     }
   },
 })
@@ -142,6 +150,7 @@ $max-image-size: 8.5714rem;
   margin-right: 0.5rem;
   flex-basis: calc(14.2857% - 0.5rem);
   max-width: calc(14.2857% - 0.5rem);
+  min-width: $max-image-size;
   border-radius: 0.375rem;
   overflow: hidden;
   width: 100%;
@@ -224,32 +233,27 @@ $max-image-size: 8.5714rem;
     margin-top: auto;
   }
 
-  &--undo {
-    box-shadow: none;
-
-    .va-file-upload-gallery-item--undo {
-      padding: 0.5rem;
+  &--not-image {
+    .va-file-upload-gallery-item__overlay {
       display: flex;
-      flex-direction: column;
-      font-size: 0.875rem;
-      height: 100%;
-      justify-content: space-between;
-      align-items: flex-start;
-
-      span {
-        margin-right: 0.5rem;
-      }
-
-      .va-button {
-        margin: 0;
-      }
     }
   }
-}
 
-.file-upload-gallery-item_not-image {
-  .file-upload-gallery-item__overlay {
-    display: flex;
+  &--undo {
+    .va-list-item__inner {
+      display: flex;
+      align-items: flex-start;
+      position: relative;
+    }
+
+    .va-list-item-section {
+      height: inherit;
+      padding: 0;
+    }
+
+    .va-file-upload-undo {
+      flex: 1;
+    }
   }
 }
 </style>

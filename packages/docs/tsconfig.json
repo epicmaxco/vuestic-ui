@@ -43,5 +43,13 @@
     "node_modules",
     "src/**/*.spec.ts",
     "./src/examples"
-  ]
+  ],
+  "ts-node": {
+    // TS node is used in plop
+    "transpileOnly": true,
+    "compiler": "typescript",
+    "compilerOptions": {
+      "module": "commonjs",
+    }
+}
 }

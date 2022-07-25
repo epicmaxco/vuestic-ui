@@ -3,9 +3,8 @@
     <div class="header__wrapper">
       <div class="header__inner">
         <div class="header__logo">
-          <!--        TODO: add root link-->
-          <a href="/">
-            <vuestic-logo height="30" width="150" />
+          <a href="/" aria-label="go to the main page">
+            <vuestic-logo height="30" width="150" aria-hidden="true" />
           </a>
           <div class="menu" @click="onClick(!isHidden)" :style="{position: !isHidden ? 'fixed' : 'absolute'}">
             <img v-if="!isHidden" src="../../assets/landing/images/hamburger.svg" alt="menu">

@@ -110,6 +110,10 @@
   &-nowrap {
     flex-wrap: nowrap;
   }
+
+  &-wrap {
+    flex-wrap: wrap;
+  }
 }
 
 .align {
@@ -214,6 +218,24 @@
   }
 }
 
+.flex-direction {
+  &--row {
+    flex-direction: row;
+  }
+
+  &--row-reverse {
+    flex-direction: row-reverse;
+  }
+
+  &--column {
+    flex-direction: column;
+  }
+
+  &--column-reverse {
+    flex-direction: column-reverse;
+  }
+}
+
 .spacer {
   @include va-spacer();
 }
@@ -253,11 +275,6 @@
 
 .d-inline-flex {
   display: inline-flex !important;
-}
-
-// Not solitary. Is used in other places.
-.fill-height {
-  height: 100%;
 }
 
 .no-wrap {

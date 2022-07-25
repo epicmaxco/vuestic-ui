@@ -62,7 +62,7 @@
       </div>
     </template>
 
-    <template v-if="$slots.content" #content="slotScope">
+    <template v-if="$slots.content" #default="slotScope">
       <div ref="input" tabindex="0">
         <slot name="content" v-bind="{ ...slotScope, value: Number(valueComputed) }" />
       </div>
@@ -97,7 +97,7 @@ import {
 } from '../../composables'
 import { safeCSSLength } from '../../utils/css-utils'
 
-import VaInputWrapper from '../va-input/components/VaInputWrapper.vue'
+import { VaInputWrapper } from '../va-input'
 import VaIcon from '../va-icon/VaIcon.vue'
 import VaButton from '../va-button/VaButton.vue'
 
@@ -332,6 +332,8 @@ export default defineComponent({
 @import "variables";
 
 .va-counter {
+  --va-input-wrapper-min-width: none;
+
   &.va-counter--input-square {
     .va-input__container {
       border-radius: 0;

@@ -68,6 +68,7 @@
     "stylelint": "^13.13.1",
     "stylelint-config-standard": "^22.0.0",
     "ts-jest": "^26.5.4",
+    "ts-node": "^10.9.1",
     "typescript": "^4.2.4",
     "vue-auto-routing": "^1.0.1",
     "vue-class-component": "^8.0.0-rc.1",
