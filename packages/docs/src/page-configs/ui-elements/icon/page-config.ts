@@ -13,6 +13,8 @@ const config: ApiDocsBlock[] = [
   block.title('icon.title'),
   block.paragraph('icon.summaryText'),
 
+  block.link('icon.iconsConfig', 'services/icons-config'),
+
   block.subtitle('all.examples'),
 
   ...block.exampleBlock(
@@ -25,6 +27,7 @@ const config: ApiDocsBlock[] = [
       },
     },
   ),
+  block.alert('icon.examples.default.alert', 'warning'),
   ...block.exampleBlock(
     'icon.examples.color.title',
     'icon.examples.color.text',

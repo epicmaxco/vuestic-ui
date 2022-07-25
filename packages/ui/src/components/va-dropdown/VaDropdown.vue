@@ -2,29 +2,26 @@
   <div
     class="va-dropdown"
     :class="computedClass"
-    aria-haspopup="listbox"
+    ref="anchorRef"
+    role="button"
+    aria-label="toggle dropdown"
     :aria-disabled="$props.disabled"
     :aria-expanded="!!valueComputed"
+    :aria-controls="idComputed"
   >
-    <div
-      ref="anchorRef"
-      class="va-dropdown__anchor"
-      @click="onAnchorClick"
-      @mouseenter="onMouseEnter"
-      @mouseleave="onMouseLeave"
-    >
-      <slot name="anchor" />
-    </div>
+    <slot name="anchor" v-bind="{ value: valueComputed, hide, show }" />
+
     <template v-if="valueComputed">
-      <teleport :to="attachElement" :disabled="disableAttachment">
+      <teleport v-if="isMounted" :to="teleportTargetComputed" :disabled="disabled">
         <div
           ref="contentRef"
           class="va-dropdown__content-wrapper"
+          :id="idComputed"
           @mouseover="$props.isContentHoverable && onMouseEnter()"
           @mouseout="onMouseLeave"
-          @click.stop="emitAndClose('dropdown-content-click', closeOnContentClick)"
+          @click.stop="emitAndClose('content-click', closeOnContentClick)"
         >
-          <slot />
+          <slot v-bind="{ value: valueComputed, hide, show }" />
         </div>
       </teleport>
     </template>
@@ -32,8 +29,11 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, shallowRef, toRef } from 'vue'
+import { computed, defineComponent, nextTick, PropType, shallowRef, toRef } from 'vue'
 import pick from 'lodash/pick.js'
+import kebabCase from 'lodash/kebabCase.js'
+
+import { generateUniqueId } from '../../services/utils'
 
 import {
   useComponentPresetProp,
@@ -42,7 +42,12 @@ import {
   usePopover, placementsPositions, Placement,
   useClickOutside,
   useBem,
+  useEvent,
+  useIsMounted,
+  useDocument,
 } from '../../composables'
+import { useAnchorSelector } from './hooks/useAnchorSelector'
+import { useCursorAnchor } from './hooks/useCursorAnchor'
 
 export default defineComponent({
   name: 'VaDropdown',
@@ -55,8 +60,11 @@ export default defineComponent({
     disabled: { type: Boolean },
     readonly: { type: Boolean },
     anchorSelector: { type: String, default: '' },
-    attachElement: { type: String, default: 'body' },
-    disableAttachment: { type: Boolean, default: false },
+    innerAnchorSelector: { type: String, default: '' },
+    /** Element where dropdown content will be rendered */
+    target: { type: String, default: 'body' },
+    // TODO: This prop must turn off DOM Rect observer. For now it is useless to disable teleport.
+    // disableTeleport: { type: Boolean, default: true },
     keepAnchorWidth: { type: Boolean, default: false },
     isContentHoverable: { type: Boolean, default: true },
     closeOnContentClick: { type: Boolean, default: true },
@@ -65,22 +73,24 @@ export default defineComponent({
     hoverOverTimeout: { type: Number, default: 30 },
     hoverOutTimeout: { type: Number, default: 200 },
     offset: { type: [Array, Number] as PropType<number | [number, number]>, default: 0 },
+    stickToEdges: { type: Boolean, default: false },
+    autoPlacement: { type: Boolean, default: false },
+    cursor: { type: Boolean, default: false },
     trigger: {
-      type: String as PropType<'click' | 'hover' | 'none'>,
+      type: String as PropType<'click' | 'right-click' | 'hover' | 'none'>,
       default: 'click',
-      validator: (value: string) => ['click', 'hover', 'none'].includes(value),
+      validator: (value: string) => ['click', 'right-click', 'hover', 'none'].includes(value),
     },
     placement: {
       type: String as PropType<Placement>,
-      default: 'bottom',
+      default: 'auto',
       validator: (value: string) => placementsPositions.includes(value),
     },
   },
 
-  emits: [...useStatefulEmits, 'anchor-click', 'dropdown-content-click', 'click-outside'],
+  emits: [...useStatefulEmits, 'anchor-click', 'anchor-right-click', 'content-click', 'click-outside'],
 
   setup (props, { emit }) {
-    const anchorRef = shallowRef<HTMLElement>()
     const contentRef = shallowRef<HTMLElement>()
 
     const { valueComputed: statefulVal } = useStateful(props, emit)
@@ -91,23 +101,9 @@ export default defineComponent({
 
     const computedClass = useBem('va-dropdown', () => pick(props, ['disabled']))
 
-    // to be able to select specific anchor element inside anchorRef
-    const computedAnchorRef = computed(() => (
-      anchorRef.value && props.anchorSelector
-        ? anchorRef.value.querySelector(props.anchorSelector) || anchorRef.value
-        : anchorRef.value
-      ) as HTMLElement | undefined)
-
-    usePopover(computedAnchorRef, contentRef, computed(() => ({
-      placement: props.placement,
-      keepAnchorWidth: props.keepAnchorWidth,
-      offset: props.offset,
-      stickToEdges: true,
-      autoPlacement: true,
-      root: props.attachElement,
-    })))
-
     const { debounced: debounceHover, cancel: cancelHoverDebounce } = useDebounceFn(toRef(props, 'hoverOverTimeout'))
+    const { debounced: debounceUnHover, cancel: cancelUnHoverDebounce } = useDebounceFn(toRef(props, 'hoverOutTimeout'))
+
     const onMouseEnter = () => {
       if (props.trigger !== 'hover' || props.disabled) { return }
 
@@ -115,7 +111,6 @@ export default defineComponent({
       cancelUnHoverDebounce()
     }
 
-    const { debounced: debounceUnHover, cancel: cancelUnHoverDebounce } = useDebounceFn(toRef(props, 'hoverOutTimeout'))
     const onMouseLeave = () => {
       if (props.trigger !== 'hover' || props.disabled) { return }
 
@@ -127,21 +122,44 @@ export default defineComponent({
       cancelHoverDebounce()
     }
 
-    const emitAndClose = (eventName: string, close?: boolean) => {
-      emit(eventName)
-      if (close) { valueComputed.value = false }
+    const emitAndClose = (eventName: string, close?: boolean, e?: Event) => {
+      emit(eventName, e)
+      if (close && props.trigger !== 'none') { valueComputed.value = false }
     }
 
-    const onAnchorClick = () => {
-      if (props.trigger !== 'click' || props.disabled) { return }
+    const { anchorRef } = useAnchorSelector(props, {
+      click (e) {
+        if ((props.trigger !== 'click' && kebabCase(props.trigger) !== 'right-click') || props.disabled) { return }
 
-      if (valueComputed.value) {
-        emitAndClose('anchor-click', props.closeOnAnchorClick)
-      } else {
-        valueComputed.value = true
-        emit('anchor-click')
-      }
-    }
+        if (valueComputed.value) {
+          emitAndClose('anchor-click', props.closeOnAnchorClick, e)
+          if (props.cursor) {
+            nextTick(() => { valueComputed.value = true })
+          }
+        } else {
+          if (props.trigger !== 'click') { return }
+          valueComputed.value = true
+          emit('anchor-click', e)
+        }
+      },
+      contextmenu (e) {
+        if (kebabCase(props.trigger) !== 'right-click' || props.disabled) { return }
+        e.preventDefault()
+
+        if (valueComputed.value) {
+          emitAndClose('anchor-right-click', props.closeOnAnchorClick, e)
+
+          if (props.cursor) {
+            nextTick(() => { valueComputed.value = true })
+          }
+        } else {
+          valueComputed.value = true
+          emit('anchor-right-click', e)
+        }
+      },
+      mouseenter: onMouseEnter,
+      mouseleave: onMouseLeave,
+    })
 
     useClickOutside([anchorRef, contentRef], () => {
       if (props.closeOnClickOutside && valueComputed.value) {
@@ -149,15 +167,41 @@ export default defineComponent({
       }
     })
 
+    const cursorAnchor = useCursorAnchor(anchorRef, valueComputed)
+    usePopover(computed(() => props.cursor ? cursorAnchor.value : anchorRef.value), contentRef, computed(() => ({
+      placement: props.placement,
+      keepAnchorWidth: props.keepAnchorWidth,
+      offset: props.offset,
+      stickToEdges: props.stickToEdges,
+      autoPlacement: props.autoPlacement,
+      root: props.target,
+    })))
+
+    const idComputed = computed(generateUniqueId)
+
+    useEvent('blur', () => {
+      if (props.closeOnClickOutside && props.trigger !== 'none') {
+        valueComputed.value = false
+      }
+    })
+
+    const document = useDocument()
+
+    const teleportTargetComputed = computed(() => document.value?.querySelector(props.target) ? props.target : 'body')
+
     return {
-      valueComputed,
+      teleportTargetComputed,
+      isMounted: useIsMounted(),
       anchorRef,
+      valueComputed,
       contentRef,
       computedClass,
+      idComputed,
       emitAndClose,
-      onAnchorClick,
       onMouseEnter,
       onMouseLeave,
+      hide: () => { valueComputed.value = false },
+      show: () => { valueComputed.value = true },
     }
   },
 })
@@ -171,13 +215,13 @@ export default defineComponent({
   /* Solved the alignment problem (if we try to align inline and block elements) */
   line-height: var(--va-dropdown-line-height);
   font-family: var(--va-font-family);
+  display: var(--va-dropdown-display);
 
   &--disabled {
     @include va-disabled;
   }
 
   &__content-wrapper {
-    /* overflow: hidden; */
     z-index: var(--va-dropdown-content-wrapper-z-index);
     font-family: var(--va-font-family);
   }

@@ -1,4 +1,4 @@
-import { computed, Ref, unref, watch } from 'vue'
+import { computed, Ref, unref, watch, watchEffect, watchPostEffect } from 'vue'
 
 import { mapObject } from '../utils/map-object'
 import { useDomRect } from './useDomRect'
@@ -109,6 +109,15 @@ const getAutoPlacement = (placement: Placement, coords: Coords, content: DOMRect
   return overflow[position] ? newPlacements[position] : placement
 }
 
+const findFirstRelativeParent = (el: Element | null) => {
+  while (el) {
+    if (window.getComputedStyle(el).position === 'relative') { return el }
+    el = el.parentElement
+  }
+
+  return document.body
+}
+
 export type usePopoverOptions = {
   keepAnchorWidth?: boolean,
   autoPlacement?: boolean,
@@ -116,7 +125,7 @@ export type usePopoverOptions = {
   placement: Placement,
   offset?: Offset,
   /** Root element selector */
-  root?: string
+  root?: string,
 }
 
 /**
@@ -134,7 +143,11 @@ export const usePopover = (
 
     const { root } = unref(options)
 
-    if (root) { return documentRef.value.querySelector(root) }
+    if (root) {
+      const el = documentRef.value.querySelector(root)
+      if (!el) { return documentRef.value.body }
+      return findFirstRelativeParent(el)
+    }
 
     return documentRef.value.body
   })
@@ -146,26 +159,19 @@ export const usePopover = (
     position: 'absolute',
   }
 
-  const updateContentCSS = () => {
+  watchPostEffect(() => {
     if (!rootRef.value || !anchorDomRect.value || !contentDomRect.value) { return }
 
-    let offsetCoords: Coords = { x: 0, y: 0 }
-
-    const { placement, keepAnchorWidth, offset, autoPlacement, stickToEdges } = unref(options)
+    const { placement, offset, keepAnchorWidth, autoPlacement, stickToEdges } = unref(options)
 
     // calculate coords (x and y) of content left-top corner
     let coords = calculateContentCoords(placement, anchorDomRect.value, contentDomRect.value)
 
+    let offsetCoords: Coords = { x: 0, y: 0 }
     if (offset) {
       offsetCoords = calculateOffsetCoords(placement, offset)
       coords = mapObject(coords, (c, key) => c + offsetCoords[key])
     }
-
-    if (keepAnchorWidth) {
-      const { width } = anchorDomRect.value
-      Object.assign(css, { width: `${width}px`, maxWidth: `${width}px` })
-    }
-
     const rootRect = rootRef.value.getBoundingClientRect()
 
     if (autoPlacement) {
@@ -184,17 +190,21 @@ export const usePopover = (
       coords = calculateClipToEdge(coords, offsetCoords, contentDomRect.value, anchorDomRect.value, rootRect)
     }
 
+    coords.x -= rootRect.x
+    coords.y -= rootRect.y
+
     if (contentRef.value) {
+      if (keepAnchorWidth) {
+        const { width } = anchorDomRect.value
+        Object.assign(css, { width: `${width}px`, maxWidth: `${width}px` })
+      }
+
       Object.assign(contentRef.value.style, {
         ...css,
         ...coordsToCss(coords),
       })
     }
-  }
-
-  watch(anchorDomRect, updateContentCSS)
-  watch(contentDomRect, updateContentCSS)
-  watch(options, updateContentCSS, { deep: true })
+  })
 
   return {
     anchorDomRect,

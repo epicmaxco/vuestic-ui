@@ -1,11 +1,12 @@
 import { ApiDocsBlock } from '@/types/configTypes'
 import { PageGenerationHelper } from '@/helpers/DocsHelper'
-import { treeShakingExample } from './code-examples'
+import { treeShakingExample, cssCodeSplit } from './code-examples'
 
 const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [
   block.title('treeShaking.title'),
+  block.paragraph('treeShaking.components.title'),
   block.paragraph('treeShaking.description'),
 
   block.paragraph('treeShaking.example.title'),
@@ -20,6 +21,10 @@ const config: ApiDocsBlock[] = [
     'treeShaking.plugins.VaModalPlugin',
     'treeShaking.plugins.VaDropdownPlugin',
   ]),
+
+  block.subtitle('treeShaking.css.title'),
+  block.paragraph('treeShaking.css.description'),
+  block.code(cssCodeSplit),
 ]
 
 export default config

@@ -18,7 +18,7 @@
 import { defineComponent, computed, ref, PropType } from 'vue'
 
 import { getGradientBackground } from '../../services/color-config/color-functions'
-import { useColors, useTextColor } from '../../composables'
+import { useColors, useTextColor, useBem } from '../../composables'
 import { useSidebar } from './hooks/useSidebar'
 import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
@@ -42,6 +42,7 @@ export default defineComponent({
     width: { type: String, default: '16rem' },
     minimizedWidth: { type: String, default: '4rem' },
     modelValue: { type: Boolean, default: true },
+    animated: { type: Boolean, default: true },
   },
   setup (props) {
     const { getColor } = useColors()
@@ -74,9 +75,10 @@ export default defineComponent({
       }
     })
 
-    const computedClass = computed(() => ({
-      'va-sidebar--minimized': isMinimized.value,
-      'va-sidebar--right': props.position === 'right',
+    const computedClass = useBem('va-sidebar', () => ({
+      minimized: isMinimized.value,
+      right: props.position === 'right',
+      animated: props.animated,
     }))
 
     const updateHoverState = (newHoverState: boolean) => {
@@ -108,7 +110,6 @@ export default defineComponent({
   position: var(--va-sidebar-position);
   top: var(--va-sidebar-top);
   left: var(--va-sidebar-left);
-  transition: var(--va-sidebar-transition);
   z-index: var(--va-sidebar-z-index);
   font-family: var(--va-font-family);
 
@@ -121,6 +122,10 @@ export default defineComponent({
     padding-left: var(--va-sidebar-menu-padding-left);
     overflow-y: var(--va-sidebar-menu-overflow-y);
     overflow-x: var(--va-sidebar-menu-overflow-x);
+  }
+
+  &--animated {
+    transition: var(--va-sidebar-transition);
   }
 
   &--minimized {

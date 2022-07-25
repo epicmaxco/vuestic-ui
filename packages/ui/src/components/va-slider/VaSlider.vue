@@ -143,6 +143,7 @@
       v-if="($slots.label || label) && invertLabel"
       class="va-input__label va-input__label--inverse"
       :style="labelStyles"
+      :id="ariaLabelIdComputed"
     >
       <slot name="label">
         {{ label }}
@@ -193,7 +194,7 @@ export default defineComponent({
     vertical: { type: Boolean, default: false },
     showTrack: { type: Boolean, default: true },
   },
-  setup (props, { emit }) {
+  setup (props, { emit, slots }) {
     const { getColor, getHoverColor } = useColors()
 
     const sliderContainer = shallowRef<HTMLElement>()
@@ -204,7 +205,10 @@ export default defineComponent({
     const flag = ref(false)
     const offset = ref(0)
     const size = ref(0)
-    const currentValue = ref(props.modelValue)
+
+    // setting up initial value, don't change to `ref(props.modelValue)` because of https://github.com/epicmaxco/vuestic-ui/issues/2073
+    const currentValue = ref(Array.isArray(props.modelValue) ? [...props.modelValue] : props.modelValue)
+
     const currentSliderDotIndex = ref(0)
     const hasMouseDown = ref(false)
 
@@ -687,13 +691,15 @@ export default defineComponent({
 
     const ariaAttributesComputed = computed(() => ({
       role: 'slider',
-      ariaValuemin: props.min,
-      ariaValuemax: props.max,
-      ariaLabelledby: ariaLabelIdComputed.value,
+      'aria-valuemin': props.min,
+      'aria-valuemax': props.max,
+      'aria-label': !slots.label && !props.label ? `current slider value is ${String(props.modelValue)}` : undefined,
+      'aria-labelledby': slots.label || props.label ? ariaLabelIdComputed.value : undefined,
       ariaOrientation: props.vertical ? 'vertical' : 'horizontal',
       ariaDisabled: props.disabled,
-      ariaReadonly: props.readonly,
-      ariaValuenow: !Array.isArray(props.modelValue) ? props.modelValue : undefined,
+      'aria-readonly': props.readonly,
+      'aria-valuenow': !props.range ? props.modelValue : undefined,
+      'aria-valuetext': props.range && String(props.modelValue),
     }))
 
     onMounted(() => {

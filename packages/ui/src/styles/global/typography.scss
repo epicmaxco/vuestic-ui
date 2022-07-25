@@ -72,6 +72,10 @@
     text-align: center !important;
   }
 
+  &--justify {
+    text-align: justify !important;
+  }
+
   &--uppercase {
     text-transform: uppercase !important;
   }
@@ -101,8 +105,10 @@
     padding: 0.1rem 0.2rem;
   }
 
+  // Colors
+  // TODO: Move it to CSS Helpers
   &--secondary {
-    opacity: 0.4;
+    color: var(--va-secondary);
   }
 }
 

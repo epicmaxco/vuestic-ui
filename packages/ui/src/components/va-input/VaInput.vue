@@ -88,7 +88,7 @@ import { useCleave, useCleaveProps } from './hooks/useCleave'
 
 import type { AnyStringPropType } from '../../types/prop-type'
 
-import VaInputWrapper from './components/VaInputWrapper.vue'
+import VaInputWrapper from './components/VaInputWrapper/VaInputWrapper.vue'
 import VaTextarea from './components/VaTextarea/VaTextarea.vue'
 import VaIcon from '../va-icon/VaIcon.vue'
 
@@ -177,6 +177,7 @@ export default defineComponent({
       computedError,
       computedErrorMessages,
       listeners: validationListeners,
+      validationAriaAttributes,
     } = useValidation(props, emit, reset, focus)
 
     const { modelValue } = toRefs(props)
@@ -217,14 +218,11 @@ export default defineComponent({
     const computedChildAttributes = computed(() => ({
       ariaLabel: props.ariaLabel || props.label,
       ariaRequired: props.requiredMark,
-      ariaDisabled: props.disabled,
-      ariaReadOnly: props.readonly,
-      'aria-invalid': !!computedErrorMessages.value.length,
-      'aria-errormessage': typeof computedErrorMessages.value === 'string'
-        ? computedErrorMessages.value
-        : computedErrorMessages.value.join(', '),
       tabindex: tabIndexComputed.value,
       class: props.inputClass,
+      ariaDisabled: props.disabled,
+      ariaReadonly: props.readonly,
+      ...validationAriaAttributes.value,
       ...omit(attrs, ['class', 'style']),
     }) as InputHTMLAttributes)
 
