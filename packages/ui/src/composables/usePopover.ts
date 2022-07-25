@@ -199,14 +199,16 @@ export const usePopover = (
     coords.y -= rootRect.y
 
     if (contentRef.value) {
+      let widthCss = {}
       if (keepAnchorWidth) {
         const { width } = anchorDomRect.value
-        Object.assign(css, { width: `${width}px`, maxWidth: `${width}px` })
+        widthCss = { width: `${width}px`, maxWidth: `${width}px` }
       }
 
       Object.assign(contentRef.value.style, {
         ...css,
         ...coordsToCss(coords),
+        ...widthCss,
       })
     }
   })

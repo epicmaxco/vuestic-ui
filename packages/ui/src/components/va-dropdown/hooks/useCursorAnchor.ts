@@ -5,19 +5,20 @@ export const useCursorAnchor = (anchorRef: Ref<HTMLElement | undefined>, noUpdat
   const mouse = reactive({ x: 0, y: 0 })
 
   useEvent(['mousemove', 'mousedown', 'mouseup'], (e: MouseEvent) => {
-    mouse.x = e.clientX
-    mouse.y = e.clientY
+    const { x, y } = anchorRef.value!.getBoundingClientRect()
+    mouse.x = e.clientX - x
+    mouse.y = e.clientY - y
   }, anchorRef)
 
-  const cache = {
+  const mouseOffset = {
     x: 0,
     y: 0,
   }
 
   watchEffect(() => {
     if (noUpdate.value) { return }
-    cache.x = mouse.x
-    cache.y = mouse.y
+    mouseOffset.x = mouse.x
+    mouseOffset.y = mouse.y
   })
 
   return computed(() => {
@@ -26,10 +27,12 @@ export const useCursorAnchor = (anchorRef: Ref<HTMLElement | undefined>, noUpdat
     const target = anchorRef.value
 
     const getBoundingClientRect = () => {
-      const x = cache.x
-      const y = cache.y
+      const rect = target.getBoundingClientRect()
+      const x = rect.left + mouseOffset.x
+      const y = rect.top + mouseOffset.y
 
       return {
+        ...rect,
         x: x,
         y: y,
         bottom: y + 1,

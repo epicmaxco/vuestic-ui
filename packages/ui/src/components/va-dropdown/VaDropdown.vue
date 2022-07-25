@@ -11,20 +11,19 @@
   >
     <slot name="anchor" v-bind="{ value: valueComputed, hide, show }" />
 
-    <template v-if="valueComputed">
-      <teleport v-if="isMounted" :to="teleportTargetComputed" :disabled="disabled">
-        <div
-          ref="contentRef"
-          class="va-dropdown__content-wrapper"
-          :id="idComputed"
-          @mouseover="$props.isContentHoverable && onMouseEnter()"
-          @mouseout="onMouseLeave"
-          @click.stop="emitAndClose('content-click', closeOnContentClick)"
-        >
-          <slot v-bind="{ value: valueComputed, hide, show }" />
-        </div>
-      </teleport>
-    </template>
+    <teleport v-if="isMounted" :to="teleportTargetComputed" :disabled="teleportDisabled">
+      <div
+        v-if="valueComputed"
+        ref="contentRef"
+        class="va-dropdown__content-wrapper"
+        :id="idComputed"
+        @mouseover="$props.isContentHoverable && onMouseEnter()"
+        @mouseout="onMouseLeave"
+        @click.stop="emitAndClose('content-click', closeOnContentClick)"
+      >
+        <slot v-bind="{ value: valueComputed, hide, show }" />
+      </div>
+    </teleport>
   </div>
 </template>
 
@@ -60,9 +59,8 @@ export default defineComponent({
     anchorSelector: { type: String, default: '' },
     innerAnchorSelector: { type: String, default: '' },
     /** Element where dropdown content will be rendered */
-    target: { type: String, default: 'body' },
-    // TODO: This prop must turn off DOM Rect observer. For now it is useless to disable teleport.
-    // disableTeleport: { type: Boolean, default: true },
+    target: { type: String, default: undefined },
+    preventOverflow: { type: Boolean, default: false },
     keepAnchorWidth: { type: Boolean, default: false },
     isContentHoverable: { type: Boolean, default: true },
     closeOnContentClick: { type: Boolean, default: true },
@@ -185,8 +183,14 @@ export default defineComponent({
 
     const document = useDocument()
 
+    const isPopoverFloating = computed(() => props.preventOverflow || props.cursor)
+
     const teleportTargetComputed = computed(() => {
-      const target = document.value?.querySelector<HTMLElement>(props.target)
+      if (!isPopoverFloating.value) {
+        return anchorRef.value
+      }
+
+      const target = document.value?.querySelector<HTMLElement>(props.target || 'body')
 
       if (!target) { return 'body' }
 
@@ -195,8 +199,11 @@ export default defineComponent({
       return target
     })
 
+    const teleportDisabled = computed(() => props.disabled || !isPopoverFloating.value)
+
     return {
       teleportTargetComputed,
+      teleportDisabled,
       isMounted: useIsMounted(),
       anchorRef,
       valueComputed,
@@ -222,6 +229,7 @@ export default defineComponent({
   line-height: var(--va-dropdown-line-height);
   font-family: var(--va-font-family);
   display: var(--va-dropdown-display);
+  position: relative;
 
   &--disabled {
     @include va-disabled;
