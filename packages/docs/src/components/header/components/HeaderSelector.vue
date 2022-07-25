@@ -81,7 +81,7 @@ export default defineComponent({
   max-width: 55px;
 
   &:focus {
-    @include focus-outline();
+    @include focus-outline(2px, 2px, 2px);
   }
 }
 

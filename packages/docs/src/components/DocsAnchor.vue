@@ -3,7 +3,7 @@
     :id="anchor"
     :style="{ color: primary }"
     :href="`#${anchor}`"
-  > #</a>
+  >#</a>
 </template>
 <script lang='ts'>
 import { defineComponent, PropType, computed } from 'vue'

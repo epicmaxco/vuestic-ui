@@ -4,7 +4,7 @@
       tag="span"
       inline
       :value="textComputed"
-    />&#x202F;
+    />
     <DocsAnchor :text="linkTextComputed" />
   </h3>
 </template>
@@ -43,6 +43,10 @@ export default class DocsSubtitle extends mixins(PropsMixin) {
 
     .docs-title + & {
       margin-top: 1.25rem;
+    }
+
+    & > :not(:last-child) {
+      padding-right: 0.25rem;
     }
   }
 </style>

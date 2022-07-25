@@ -4,7 +4,7 @@
       tag="span"
       inline
       :value="textComputed"
-    />&#x202F;
+    />
     <DocsAnchor :text="linkTextComputed" />
   </h5>
 </template>
@@ -41,6 +41,10 @@ export default defineComponent({
     a,
     a:visited {
       color: var(--va-primary);
+    }
+
+    & > :not(:last-child) {
+      padding-right: 0.25rem;
     }
   }
 </style>

@@ -4,7 +4,7 @@
 </template>
 
 <script>
-import { defineComponent, onMounted, getCurrentInstance } from '@vue/runtime-core'
+import { defineComponent } from '@vue/runtime-core'
 import emitter from 'tiny-emitter/instance'
 import { useColors, useToast } from '../../ui/src/main'
 import { COLOR_THEMES, ThemeName } from './config/theme-config'
@@ -39,11 +39,6 @@ export default defineComponent({
     }
 
     useColors().setColors(COLOR_THEMES[ThemeName.DEFAULT])
-
-    onMounted(() => {
-      const currentLocale = getCurrentInstance()?.ctx?.$i18n?.locale
-      if (currentLocale) { document.documentElement.setAttribute('lang', currentLocale) }
-    })
   },
 })
 </script>
