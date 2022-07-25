@@ -22,13 +22,14 @@
 </template>
 
 <script lang="ts">
+import { defineComponent, computed } from 'vue'
+
+import { useColors } from '../../../../../ui/src/main'
 
 import VaIconMenu from '../../iconset/VaIconMenu.vue'
 import VaIconMenuCollapsed from '../../iconset/VaIconMenuCollapsed.vue'
-import { useColors } from '../../../../../ui/src/main'
-import { computed } from 'vue'
 
-export default {
+export default defineComponent({
   name: 'DocsHeaderSelector',
   components: {
     VaIconMenu,
@@ -41,7 +42,7 @@ export default {
     },
   },
 
-  setup (props: any, { emit }: any) {
+  setup (props, { emit }) {
     const { getColors } = useColors()
 
     const toggleSidebar = () => emit('toggleSidebar', !props.minimized)
@@ -51,7 +52,7 @@ export default {
       toggleSidebar,
     }
   },
-}
+})
 </script>
 
 <style lang="scss" scoped>
