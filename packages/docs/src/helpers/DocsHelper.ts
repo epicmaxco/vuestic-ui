@@ -78,11 +78,12 @@ export class PageGenerationHelper {
     }
   }
 
-  component (component: string): ApiDocsBlock {
+  component (component: string, options?: Partial<{ bind: Record<string, any> }>): ApiDocsBlock {
     return {
       type: BlockType.COMPONENT,
       path: this.path,
       component,
+      bind: options?.bind,
     }
   }
 

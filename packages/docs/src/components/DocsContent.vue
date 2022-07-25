@@ -13,6 +13,7 @@
         :key="block.type + index"
         :value="block.component"
         :path="block.path"
+        :bind="block.bind"
       />
       <DocsCode
         v-else-if="block.type === BlockType.CODE"
