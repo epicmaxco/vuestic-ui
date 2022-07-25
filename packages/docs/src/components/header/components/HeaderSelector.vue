@@ -3,19 +3,20 @@
     class="header-selector flex-center"
     role="button"
     tabindex="0"
-    :aria-label="`${minimized ? `expand` : `minimize`} navigation menu`">
+    :aria-label="`${minimized ? `expand` : `minimize`} navigation menu`"
+    @click="toggleSidebar"
+    @keydown.enter="toggleSidebar"
+  >
     <va-icon-menu
       v-if="minimized"
+      aria-hidden="true"
       class="i-nav"
-      @click="toggleSidebar"
-      @keydown.enter="toggleSidebar"
       :color="colors.primary"
     />
     <va-icon-menu-collapsed
       v-else
+      aria-hidden="true"
       class="i-nav"
-      @click="toggleSidebar"
-      @keydown.enter="toggleSidebar"
       :color="colors.primary"
     />
   </div>
