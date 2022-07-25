@@ -19,17 +19,6 @@ export interface VuesticOptions {
    * @see https://vuestic.dev/en/getting-started/tree-shaking#css-code-split
    */
   css: Array<'typography' | 'grid' | 'reset'> | boolean,
-
-  /**
-   * Component names that will be registered globally. Component name must starts with `Va` prefix.
-   *
-   * @default all components from vuestic-ui
-   *
-   * @example ['VaDropdown', 'VaToast', 'VaModal']
-   *
-   * @see https://vuestic.dev/en/getting-started/tree-shaking
-   */
-  components: VuesticComponentName[] | undefined,
 }
 
 /** Declare Vuestic module options in NuxtConfig */

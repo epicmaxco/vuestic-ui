@@ -1,3 +1,4 @@
+import { useNuxt } from '@nuxt/kit';
 import type { Nuxt, NuxtOptions } from "@nuxt/schema";
 import type { VuesticOptions } from "../types";
 
@@ -14,7 +15,9 @@ const registerDefaultFonts = (nuxt: Nuxt) => {
 }
 
 /** Register CSS modules */
-export const useVuesticCSS = (options: VuesticOptions, nuxt: Nuxt) => {
+export const useVuesticCSS = (options: VuesticOptions) => {
+  const nuxt = useNuxt()
+
   if (Array.isArray(options.css)) {
     /** Register essential css. Vuestic will not work without essential.css */
     nuxt.options.css.push('vuestic-ui/dist/styles/essential.css')
