@@ -172,7 +172,7 @@ export default defineComponent({
       offset: props.offset,
       stickToEdges: props.stickToEdges,
       autoPlacement: props.autoPlacement,
-      root: props.target,
+      root: teleportTargetComputed.value,
     })))
 
     const idComputed = computed(generateUniqueId)
@@ -185,7 +185,15 @@ export default defineComponent({
 
     const document = useDocument()
 
-    const teleportTargetComputed = computed(() => document.value?.querySelector(props.target) ? props.target : 'body')
+    const teleportTargetComputed = computed(() => {
+      const target = document.value?.querySelector<HTMLElement>(props.target)
+
+      if (!target) { return 'body' }
+
+      if (anchorRef.value && !target.contains(anchorRef.value)) { return 'body' }
+
+      return target
+    })
 
     return {
       teleportTargetComputed,
