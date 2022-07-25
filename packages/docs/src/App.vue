@@ -18,13 +18,16 @@ const eventBus = {
 
 export default defineComponent({
   name: 'App',
+
   data () {
     return {
       eventBus,
     }
   },
+
   setup () {
     const { init } = useToast()
+
     window.page_reload_notification = () => {
       init({
         message: 'New content is available. Page will be reloaded in 3 sec.',
@@ -34,6 +37,7 @@ export default defineComponent({
         duration: 3000,
       })
     }
+
     useColors().setColors(COLOR_THEMES[ThemeName.DEFAULT])
   },
 })

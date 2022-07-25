@@ -42,5 +42,9 @@ export default defineComponent({
     a:visited {
       color: var(--va-primary);
     }
+
+    & > :not(:last-child) {
+      padding-right: 0.25rem;
+    }
   }
 </style>
