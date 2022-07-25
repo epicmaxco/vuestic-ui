@@ -220,10 +220,6 @@ a:not(.va-button, .va-sidebar__item):focus {
     z-index: 0;
   }
 
-  &__header {
-    background-color: #ffffff;
-  }
-
   &__content {
     height: 100%;
     width: 100%;

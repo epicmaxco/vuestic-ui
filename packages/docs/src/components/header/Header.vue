@@ -38,7 +38,7 @@
           </va-button>
       </div>
       <div class="header__prefences sm-hidden flex">
-  <!--      <color-dropdown class="mr-1" />-->
+       <color-dropdown class="mr-1" />
         <language-dropdown class="mr-3" />
         <version-dropdown />
       </div>
@@ -110,7 +110,7 @@ export default class Header extends mixins(PropsMixin) {
 .header {
   width: 100%;
   height: 4rem;
-  box-shadow: 0 2px 8px rgba(122, 139, 173, 0.2);
+  box-shadow: 0 2px 8px var(--va-shadow);
   display: flex;
   justify-content: space-between;
   align-items: center;

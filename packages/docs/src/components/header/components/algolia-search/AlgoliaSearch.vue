@@ -76,7 +76,7 @@ export default class Search extends Vue {
   .va-input-wrapper__field {
     padding: 0.25rem;
     padding-left: 0.75rem;
-    background: var(--va-input-wrapper-background);
+    background: var(--va-background-mute);
     border-radius: 0.25rem;
   }
 
