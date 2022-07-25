@@ -14,9 +14,11 @@ Every tag has its role and list of attributes related to it. For example, `<butt
 
 `<div role="button" />`
 
+> For example, `VaDropdown` anchor is not actually button, but behave like button.
+
 **Role doesn't influence visual state of the tag. It's used only by screen-readers and has no effect for regular browsers.**
 
-As mentioned, every role has a list of attributes, related to it. Some of them specific to the role, others - common for all (or almost for all).
+As mentioned, every role has a list of attributes related to it. Some of them specific to the role, others - common for all (or almost for all).
 
 For example, `button` role has specific attributes:
 - `aria-pressed`,
@@ -27,14 +29,26 @@ And some common:
 - `aria-labeledby`,
 - `aria-disabled` etc.
 
-Try to append as much aria-attributes as possible, because it will give the additional information for screen-readers.
+See more: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/button_role
 
-**How can you understand, which roles & aria-attributes belong to the one or another block?** Human logic, source of truth and Google (`okey, google, tabs accessibility`).
+> **Note**
+> 
+> Try to append as much aria-attributes as possible, because it will give the additional information for screen-readers.
+
+> **Important note**
+> 
+>In some cases aria-attributes aren't getting transformed into the proper snake-case from the camelCase:
+> `ariaValuemin="0"` -> `ariavaluemin="0"` instead of expected `aria-valuemin="0"`
+> So you need to check if aria-attributes are transformed in the proper way or to use snake-case instead of camelCase for their keys.
+
+**How can you understand, which roles & aria-attributes belong to the one or another block?**
+
+Human logic, source of truth and [Google](https://letmegooglethat.com/?q=tab+accessibility).
 
 Some other ground rules:
 - pure graphics (like icons) which aren't used as button or link may be hidden via `aria-hidden` attribute;
 - all images should have `alt` attribute, even it's empty, **very important**;
-- all links must contain text, describing where user will be taken by them (home page, cart etc.). In case of images-links use `aria-label` attribute.
+- all links must contain text, which describes where user will be taken by them (home page, cart etc.). In case of images-links use `aria-label` attribute.
 
 ## 1.2. Keyboard accessibility
 
@@ -48,9 +62,7 @@ Some other ground rules:
 
 ## 1.3. Typography and colors
 
-Built-in font sizes, colors & contrast ratio should be fully accessible (awaiting for 1.5.0 version). 
-
-Anyway, feel free to create an issue if you've mentioned some problems.
+Built-in font sizes, colors & contrast ratio should be fully accessible (awaiting for 1.5.0 version). Anyway, feel free to create an issue if you've mentioned some problems.
 
 # 2. Checking accessibility
 
@@ -60,15 +72,15 @@ We use Lighthouse from ChromeDevTools & manual testing.
 
 After a few moments you'll gain a report:
 
-![](http://joxi.ru/Vm6jNGjH3d5YWm.jpg)
+![](https://wd.imgix.net/image/admin/2O9SByfzzLWTPQAcPlgN.png?auto=format)
 
 Check it and try to fix listed problems:
 
-![](http://joxi.ru/DrlxdGxcKO8g5r.jpg)
+![](https://wd.imgix.net/image/admin/62KIEtieXbeJl36cN0kQ.png?auto=format)
 
 Also, you are able to investigate how screen-reader will parse the element via `Accessibility` tab:
 
-![](http://joxi.ru/zAN7wb7s1znnBr.jpg)
+![](https://wd.imgix.net/image/NJdAV9UgKuN8AhoaPBquL7giZQo1/w3l7Zbtti7m5NuxuOalR.png?auto=format)
 
 # 2.2. Manual testing
 
