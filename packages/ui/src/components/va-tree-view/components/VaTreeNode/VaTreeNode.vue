@@ -56,7 +56,7 @@
     >
       <va-tree-node
         v-for="childNode in $props.node.children"
-        :key="childNode[$props.node.nodeKey]"
+        :key="getKey(childNode)"
         :node="childNode"
       >
         <template v-for="(_, name) in $slots" :key="name" v-slot:[name]="slotScope">
@@ -70,9 +70,10 @@
 <script lang="ts">
 import { defineComponent, inject, computed, PropType } from 'vue'
 
-import { VaIcon } from '../../../va-icon'
-import { VaCheckbox } from '../../../va-checkbox'
-import { TreeViewKey, TreeNode, TreeViewProvide } from '../../types'
+import { useBem } from '../../../../composables'
+
+import { VaIcon, VaCheckbox } from '../../../'
+import { TreeViewKey, TreeNode } from '../../types'
 
 export default defineComponent({
   name: 'VaTreeNode',
@@ -88,46 +89,35 @@ export default defineComponent({
   components: { VaCheckbox, VaIcon },
 
   setup: (props, { slots }) => {
-    let nodes: TreeNode[] = []
     const {
       nodeKey,
       labelKey,
       iconColor,
-      treeItems,
       selectable,
-      toggleNode,
       colorComputed,
+      getKey,
+      toggleNode,
       toggleCheckbox,
-    } = inject<TreeViewProvide>(TreeViewKey, {
+    } = inject(TreeViewKey, {
       iconColor: computed(() => 'var(--va-white)'),
       colorComputed: computed(() => 'primary'),
-      treeItems: computed({
-        get: () => nodes,
-        set: (value: TreeNode[]) => {
-          nodes = value
-        },
-      }),
-      labelKey: '',
-      nodeKey: '',
+      labelKey: 'label',
+      nodeKey: 'id',
       selectable: false,
       toggleNode: (node: TreeNode) => node,
       toggleCheckbox: (node: TreeNode, isSelected: boolean) => ({ node, isSelected }),
+      getKey: () => 'id',
     })
 
     const labelComputed = computed(() => props.node[labelKey] || '')
-    const isExpandedComputed = computed(() => props.node.expanded)
-    const hasIconComputed = computed(() => slots['node-icon'] && props.node.icon)
-    const expandedClassComputed = computed(
-      () => ({
-        'va-tree-node-children--expanded': isExpandedComputed.value,
-      }),
-    )
-    const gapClassComputed = computed(
-      () => ({
-        'va-tree-node-content--indent': (selectable || hasIconComputed) &&
-          props.node.hasChildren === false,
-      }),
-    )
+    const isExpandedComputed = computed(() => !!props.node.expanded)
+    const hasIconComputed = computed(() => slots.icon && props.node.icon)
+    const expandedClassComputed = useBem('va-tree-node-children', () => ({
+      expanded: isExpandedComputed.value,
+    }))
+    const gapClassComputed = useBem('va-tree-node-content', () => ({
+      indent: (selectable || hasIconComputed) && props.node.hasChildren === false,
+    }))
     const tabIndexComputed = computed(() => props.node.disabled ? -1 : 0)
 
     const handleToggleNode = (event: Event, node: TreeNode) => {
@@ -141,9 +131,9 @@ export default defineComponent({
     return {
       nodeKey,
       iconColor,
-      treeItems,
       selectable,
 
+      getKey,
       toggleNode,
       toggleCheckbox,
       handleToggleNode,

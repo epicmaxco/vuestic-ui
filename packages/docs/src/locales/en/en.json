@@ -1293,7 +1293,8 @@
         "content": "Configurable node content",
         "checkbox": "Checkbox icon placeholder",
         "icon": "Additional icon placeholder",
-        "iconToggle": "Node leaf icon"
+        "iconToggle": "Node leaf icon",
+        "notFound": "No matching nodes to the filter message"
       }
     }
   },

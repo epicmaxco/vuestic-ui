@@ -1,6 +1,6 @@
 <template>
   <VbDemo>
-    <VbCard title="default">
+    <VbCard title="Default">
       <va-tree-view
         :nodes="nodes"
         node-key="id"
@@ -85,7 +85,7 @@
         placeholder="Filter the tree view"
       />
       <va-tree-view
-        :nodes="nodes"
+        :nodes="filterableNodes"
         node-key="id"
         expand-all
         :filter="filterValue"
@@ -108,13 +108,15 @@
 </template>
 
 <script>
+import {
+  VaRadio,
+  VaInput,
+  VaAvatar,
+  VaButton,
+  VaIcon,
+  VaColorPalette,
+} from '../'
 import { VaTreeView } from './'
-import { VaRadio } from '../va-radio'
-import { VaInput } from '../va-input'
-import { VaAvatar } from '../va-avatar'
-import { VaButton } from '../va-button'
-import { VaIcon } from '../va-icon'
-import { VaColorPalette } from '../va-color-palette'
 
 const COLORS_PALETTE = [
   '#4ae387',
@@ -274,6 +276,63 @@ export default {
         label: 'Item',
       },
     ],
+    filterableNodes: [
+      {
+        id: 1,
+        label: 'One',
+        children: [
+          {
+            id: 2,
+            label: 'Two',
+            children: [
+              { id: 3, label: 'Three' },
+              { id: 4, label: 'Four' },
+            ],
+          },
+          {
+            id: 5,
+            label: 'Five',
+            children: [
+              { id: 6, label: 'Six' },
+            ],
+          },
+        ],
+      },
+      {
+        id: 7,
+        label: 'Seven',
+        children: [
+          { id: 8, label: 'Eight' },
+        ],
+      },
+      {
+        id: 9,
+        label: 'Nine',
+        children: [
+          { id: 10, label: 'Ten' },
+        ],
+      },
+      {
+        id: 11,
+        label: 'Eleven',
+        children: [
+          { id: 12, label: 'Twelve' },
+          {
+            id: 13,
+            label: 'Thirteen',
+            children: [
+              {
+                id: 14,
+                label: 'Fourteen',
+                children: [
+                  { id: 15, label: 'Fifteen' },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   }),
 }
 </script>
@@ -285,7 +344,7 @@ export default {
   justify-content: space-between;
 
   &__item {
-    + .custom-body-example__item {
+    & + & {
       margin-left: 0.5rem;
     }
   }

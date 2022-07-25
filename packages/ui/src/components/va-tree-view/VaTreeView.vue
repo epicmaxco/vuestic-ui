@@ -1,24 +1,28 @@
 <template>
   <div class="va-tree-view" role="tree">
-    <va-tree-node
-      v-for="nodeItem in treeItems"
-      :key="nodeItem[$props.nodeKey]"
-      :node="nodeItem"
-    >
-      <template v-for="(_, name) in $slots" :key="name" v-slot:[name]="slotScope">
-        <slot :name="name" v-bind="slotScope" />
-      </template>
-    </va-tree-node>
+    <template v-if="$props.filter && !treeItems.length">
+      <slot name="not-found">No matching nodes found</slot>
+    </template>
+    <template v-else>
+      <va-tree-node
+        v-for="nodeItem in treeItems"
+        :key="getKey(nodeItem)"
+        :node="nodeItem"
+      >
+        <template v-for="(_, name) in $slots" :key="name" v-slot:[name]="slotScope">
+          <slot :name="name" v-bind="slotScope" />
+        </template>
+      </va-tree-node>
+    </template>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, provide, watch, reactive, ref, computed, PropType } from 'vue'
+import { defineComponent, provide, ref, toRefs, computed, PropType } from 'vue'
 import { useColors, useTextColor } from '../../composables/'
 
-import { TreeViewKey, TreeNode, TreeViewProvide } from './types'
+import { TreeViewKey, TreeNode } from './types'
 import useTreeBuilder from './hooks/useTreeBuilder'
-import useTreeFilter from './hooks/useTreeFilter'
 
 import { VaTreeNode } from './components/VaTreeNode'
 
@@ -26,6 +30,10 @@ export default defineComponent({
   name: 'VaTreeView',
 
   props: {
+    nodes: {
+      type: Array as PropType<TreeNode[]>,
+      default: () => ([]),
+    },
     modelValue: {
       type: Array as PropType<(number | string)[]>,
       default: () => ([]),
@@ -34,13 +42,9 @@ export default defineComponent({
       type: String,
       default: 'primary',
     },
-    nodes: {
-      type: Array as PropType<TreeNode[]>,
-      default: () => ([]),
-    },
     nodeKey: {
       type: String,
-      default: '',
+      default: 'id',
     },
     labelKey: {
       type: String,
@@ -74,21 +78,12 @@ export default defineComponent({
     const { getColor } = useColors()
     const colorComputed = computed(() => getColor(props.color))
     const { textColorComputed } = useTextColor(colorComputed)
-    const nodeItems = reactive({ list: props.nodes.slice() })
-    const treeItems = computed({
-      get: () => useTreeBuilder({
-        nodes: nodeItems.list,
-        expandAll: props.expandAll,
-      }).treeItems,
-      set: (value: TreeNode[]) => {
-        nodeItems.list = value
-      },
-    })
+    const { treeItems } = useTreeBuilder(toRefs(props))
 
-    const toggleCheckbox = (node: TreeNode, isChecked: boolean) => {
+    const toggleCheckbox = (node: TreeNode, isChecked: boolean): void => {
       if (node.disabled) { return }
 
-      const toggleChildNodeCheckbox = (nodes: TreeNode[]) => {
+      const toggleChildNodeCheckbox = (nodes: TreeNode[]): void => {
         nodes.forEach((childNode: TreeNode) => {
           childNode.checked = isChecked
 
@@ -127,30 +122,20 @@ export default defineComponent({
       }
     }
 
-    const filterWatcher = (filterValue: string) => {
-      nodeItems.list = useTreeFilter({
-        filter: filterValue,
-        nodes: props.nodes.slice(),
-        labelKey: props.labelKey,
-      })
-    }
+    const getKey = (node: TreeNode) => node[props.nodeKey]
 
-    watch(() => props.filter, filterWatcher)
-
-    const treeView: TreeViewProvide = {
-      treeItems,
+    provide(TreeViewKey, {
       colorComputed,
       iconColor: textColorComputed,
       nodeKey: props.nodeKey,
       labelKey: props.labelKey,
       selectable: props.selectable,
+      getKey,
       toggleNode,
       toggleCheckbox,
-    }
+    })
 
-    provide(TreeViewKey, treeView)
-
-    return { nodeItems, treeView, treeItems }
+    return { treeItems, getKey }
   },
 })
 </script>

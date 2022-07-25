@@ -5,10 +5,11 @@ export const VaTreeNodeItemOptions = defineManualApi({
     node: { types: 'VaTreeNode' },
   },
   slots: {
-    'icon-toggle': { },
-    checkbox: { },
     icon: { },
     content: { },
+    checkbox: { },
+    'not-found': { },
+    'icon-toggle': { },
   },
 })
 

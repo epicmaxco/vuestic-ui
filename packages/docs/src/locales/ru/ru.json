@@ -1207,24 +1207,25 @@
     },
     "VaTreeView": {
       "props": {
-        "expandAll": "Expand or hide all nodes by default",
-        "filter": "Tree view filter",
-        "nodeKey": "Key to index nodes",
-        "labelKey": "Key to show the value of node item",
-        "nodes": "Tree node array",
-        "selectable": "Selectable",
-        "selectionType": "Selection type where is a `leaf` current and all children nodes, `independent` - single selectable nodes"
+        "expandAll": "Раскрыть все элементы дерева по умолчанию",
+        "filter": "Фильтр tree view",
+        "nodeKey": "Ключ для индексации элементов дерева",
+        "labelKey": "Ключ для отображения значения элемента дерева",
+        "nodes": "Массив элементов дерева",
+        "selectable": "Отображение чекбоксов",
+        "selectionType": "Способ выбора элементов дерева, где `leaf` выбор текущего и дочерних элементов дерева, `independent` - одиночный выбор элементов"
       }
     },
     "VaTreeNode": {
       "props": {
-        "node": "Tree node object"
+        "node": "Объект элемента дерева"
       },
       "slots": {
-        "content": "Configurable node content",
-        "checkbox": "Checkbox icon placeholder",
-        "icon": "Additional icon placeholder",
-        "iconToggle": "Node leaf icon"
+        "content": "Настраиваемое отображение элемента дерева",
+        "checkbox": "Настраиваемый чекбокс",
+        "icon": "Дополнительная иконка",
+        "iconToggle": "Иконка для отображения свернутого/развернутого элемента дерева",
+        "notFound": "Сообщение о не найденных элементов дерева, соответствующих фильтру"
       }
     }
   },

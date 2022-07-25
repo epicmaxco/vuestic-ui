@@ -1,56 +1,51 @@
-import { ComputedRef, WritableComputedRef } from 'vue'
-
-export const TreeViewKey = Symbol('TreeView')
+import { ComputedRef, InjectionKey, Ref } from 'vue'
 
 export interface TreeNode {
   id: number | string
   children: TreeNode[]
-  hasChildren?: boolean
-  expanded?: boolean
+  level?: number
   checked?: boolean
   disabled?: boolean
-  level?: number
+  expanded?: boolean
+  hasChildren?: boolean
+  matchesFilter?: boolean
   [key: string]: any
 }
 
-export interface TreeViewProvide {
+export interface TreeView {
   nodeKey: string | number
   labelKey: string
   selectable: boolean
   iconColor: ComputedRef<string>
   colorComputed: ComputedRef<string>
   toggleNode: (node: TreeNode) => void
-  treeItems: WritableComputedRef<TreeNode[]>
   toggleCheckbox: (node: TreeNode, isSelected: boolean) => void
+  getKey: (node:TreeNode) => string,
 }
+
+export const TreeViewKey = Symbol('TreeView') as InjectionKey<TreeView>
 
 export type CreateNodeProps = {
   node: TreeNode
-  children?: TreeNode[]
   level?: number
-  expandAll?: boolean
+  children?: TreeNode[]
+  filter?: Ref<string>
+  labelKey?: Ref<string>
+  expandAll?: Ref<boolean>
 }
 
 export type CreateNodeFunc = (props: CreateNodeProps) => TreeNode
 
 export type UseTreeBuilderProps = {
-  expandAll: boolean
-  nodes: TreeNode[]
+  filter: Ref<string>
+  labelKey: Ref<string>
+  nodes: Ref<TreeNode[]>
+  expandAll: Ref<boolean>
+  [key: string]: any
 }
 
 export type UseTreeBuilderFunc = (props: UseTreeBuilderProps) => {
-  treeItems: TreeNode[]
+  treeItems: ComputedRef<TreeNode[]>
 }
 
-export type TreeBuilderFunc = (
-  nodes: TreeNode[],
-  level?: number
-) => TreeNode[]
-
-export type UseTreeFilterProps = {
-  nodes: TreeNode[]
-  labelKey: string
-  filter: string
-}
-
-export type UseTreeFilterFunc = (props: UseTreeFilterProps) => TreeNode[]
+export type TreeBuilderFunc = (nodes: TreeNode[], level?: number) => TreeNode[]
