@@ -698,7 +698,7 @@ export default defineComponent({
       ariaDisabled: props.disabled,
       'aria-readonly': props.readonly,
       'aria-valuenow': !props.range ? props.modelValue : undefined,
-      'aria-valuetext': props.range && String(props.modelValue)
+      'aria-valuetext': props.range && String(props.modelValue),
     }))
 
     onMounted(() => {
