@@ -66,8 +66,6 @@ export default defineComponent({
     const colors = computed(getColors)
     const currentLanguageName = computed(() => options.find(({ code }) => code === locale.value)?.name)
 
-    watch(locale, () => setHtmlLang())
-
     const setHtmlLang = () => {
       if (!document?.documentElement) { return }
 
@@ -75,6 +73,7 @@ export default defineComponent({
     }
 
     onMounted(setHtmlLang)
+    watch(locale, setHtmlLang)
 
     return {
       colors,
