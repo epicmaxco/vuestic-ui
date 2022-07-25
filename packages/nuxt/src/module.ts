@@ -23,7 +23,7 @@ export default defineNuxtModule<VuesticOptions>({
   setup (options) {
     useVuesticCSS(options)
     useVuesticPlugin(options)
-    useVuesticComponents(options)
+    useVuesticComponents()
     useVuesticComposables()
     useTranspile()
   }
