@@ -4,7 +4,7 @@
       tag="span"
       inline
       :value="textComputed"
-    />
+    />&#x202F;
     <DocsAnchor :text="linkTextComputed" />
   </h5>
 </template>
