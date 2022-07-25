@@ -12,11 +12,13 @@ export default {
 
 <style lang="scss">
 @import '../../styles/resources';
-@import '../../styles/global';
+@import '../../styles/typography/index.scss';
 
 .va-content {
   line-height: $line-height;
   font-family: var(--va-font-family);
+
+  @include va-typography;
 
   h1 {
     @include va-display(1);
@@ -46,12 +48,6 @@ export default {
     font-style: italic;
   }
 
-  hr.separator {
-    height: 2px;
-    background-color: #eeeeee;
-    border: none;
-  }
-
   p {
     font-size: 1rem;
     margin-top: 0;
@@ -78,14 +74,12 @@ export default {
     font-weight: $font-weight-bold;
   }
 
-  // NOTE Ideally we want this to work with mixins too, but no idea how to achieve that :/.
   ol {
-    @extend .va-ordered;
+    @include va-ordered;
   }
 
-  //This is kind of weird though not sure about any workaround :(
   ul:not(.va-option-list__list) {
-    @extend .va-unordered;
+    @include va-unordered;
   }
 
   blockquote {
@@ -110,7 +104,7 @@ export default {
   }
 
   table {
-    @extend .va-table;
+    @include va-table;
   }
 
   a {
