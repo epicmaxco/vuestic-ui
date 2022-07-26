@@ -25,7 +25,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
+import { defineComponent, computed, inject } from 'vue'
 
 import { useColors, useTextColor } from '../../composables'
 
