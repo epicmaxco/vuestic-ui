@@ -38,7 +38,6 @@
     "lint:style": "stylelint '**/*.{vue,html,css,scss}'",
     "test:e2e": "vue-cli-service test:e2e",
     "test:unit": "vitest",
-    "test:unit:coverage": "vitest --coverage --run",
     "push": "npm publish --tag=next",
     "push-production": "npm publish --tag=latest",
     "precommit": "lint-staged --concurrent=false && yarn test:unit --run",
