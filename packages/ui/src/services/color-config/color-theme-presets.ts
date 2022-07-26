@@ -1,32 +1,6 @@
-import { CssColor } from '../../composables'
+import type { ColorConfigEssentialColors } from './types'
 
-type VuesticColorsPreset = {
-  // Accent colors
-  primary: CssColor,
-  secondary: CssColor,
-  success: CssColor,
-  info: CssColor,
-  danger: CssColor,
-  warning: CssColor,
-  // Background colors
-  background: CssColor,
-  backgroundSoft: CssColor,
-  backgroundMute: CssColor,
-  // Text colors
-  textLight: CssColor,
-  textDark: CssColor,
-  // Misc
-  /** Cards, Navbar etc. shadow */
-  shadow: CssColor,
-  /** Outline color when component is focused */
-  focus: CssColor,
-
-  // TODO: Think about better name
-  /** Form background in switch and borders in checkbox, ratio etc */
-  form: CssColor,
-}
-
-export const colorsPresets: Record<string, VuesticColorsPreset> = {
+export const colorsPresets: Record<string, ColorConfigEssentialColors> = {
   default: {
     // Accent
     primary: '#2C82E0',

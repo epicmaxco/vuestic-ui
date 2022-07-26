@@ -1,3 +1,4 @@
+import type { ColorConfig, CssColor } from '../services/color-config'
 import { computed } from 'vue'
 import { GlobalConfig, useGlobalConfigSafe } from '../services/global-config/global-config'
 import {
@@ -14,9 +15,6 @@ import {
 } from '../services/color-config/color-functions'
 
 import { cssVariableName, normalizeColorName } from '../services/color-config/utils'
-
-export type CssColor = string
-export type ColorConfig = { [colorName: string]: CssColor }
 
 /**
  * You can add these props to any component by destructuring them inside props option.
@@ -42,15 +40,15 @@ export const useColors = () => {
 
   const colors = computed(() => globalConfig.value.colors || {})
 
-  const setColors = (colors: ColorConfig): void => {
+  const setColors = (colors: Partial<ColorConfig>): void => {
     setGlobalConfig((config: GlobalConfig) => ({
       ...config,
-      colors: { ...config.colors, ...colors },
+      colors: { ...config.colors, ...colors } as ColorConfig,
     }))
   }
 
   const getColors = (): ColorConfig => {
-    return getGlobalConfig().colors || {}
+    return getGlobalConfig().colors!
   }
 
   /**
@@ -128,3 +126,4 @@ export const useColors = () => {
 }
 
 export * from '../services/color-config/color-functions'
+export * from '../services/color-config'
