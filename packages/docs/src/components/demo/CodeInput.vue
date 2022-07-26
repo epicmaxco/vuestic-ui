@@ -58,6 +58,7 @@ onUpdated(() => {
       z-index: 1;
       font-family: inherit;
       font-size: inherit;
+      color: currentColor;
     }
 
     &::after {
