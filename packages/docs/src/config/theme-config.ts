@@ -33,7 +33,7 @@ export const COLOR_THEMES: Record<ThemeName, Record<string, string>> = {
   },
   [ThemeName.DARK]: {
     // Accent
-    primary: '#2C82E0',
+    primary: '#00b4d8',
     secondary: '#767C88',
     success: '#40e583',
     info: '#2c82e0',
@@ -43,9 +43,9 @@ export const COLOR_THEMES: Record<ThemeName, Record<string, string>> = {
     textDark: '#242424',
     textLight: '#F1F1F1',
     // Background Colors
-    background: '#0d1117',
-    backgroundMute: '#0a0d12',
-    backgroundSoft: '#161b22',
+    background: '#262626',
+    backgroundMute: '#1F1F1F',
+    backgroundSoft: '#333333',
     // Misc
     shadow: 'rgba(0, 0, 0, 0.37)',
     focus: '#FF0',

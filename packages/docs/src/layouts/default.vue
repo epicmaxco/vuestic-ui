@@ -182,7 +182,7 @@ export default class DocsLayout extends Vue {
 
 html {
   font-family: $font-family-sans-serif;
-  color: var(--va-dark);
+  // color: var(--va-dark);
   font-size: $font-size-root;
 }
 
@@ -218,6 +218,10 @@ a:not(.va-button, .va-sidebar__item):focus {
     flex-grow: 2;
     overflow: hidden;
     z-index: 0;
+  }
+
+  &__header {
+    z-index: 1;
   }
 
   &__content {

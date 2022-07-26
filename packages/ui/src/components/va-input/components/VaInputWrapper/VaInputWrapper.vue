@@ -160,6 +160,7 @@ export default defineComponent({
 
     const containerStyle = computed(() => ({
       color: textColorComputed.value,
+      'caret-color': textColorComputed.value,
       '--va-input-color': props.background ? getColor(props.background) : undefined,
       borderColor: borderColorComputed.value,
     }))
@@ -180,6 +181,7 @@ export default defineComponent({
       containerStyle,
       wrapperClass,
       wrapperStyle,
+      textColorComputed,
 
       isCounterVisible,
       counterComputed,
@@ -205,6 +207,7 @@ export default defineComponent({
   font-family: var(--va-font-family);
   display: var(--va-input-wrapper-display);
   vertical-align: var(--va-input-wrapper-vertical-align);
+  color: v-bind(textColorComputed);
 
   &__field {
     position: relative;
@@ -234,7 +237,7 @@ export default defineComponent({
 
     input,
     textarea {
-      color: currentColor;
+      color: v-bind(textColorComputed);
     }
     // TODO: Choose va-background
     @include va-background(var(--va-input-wrapper-background), var(--va-input-wrapper-background-opacity), -1);
@@ -281,7 +284,7 @@ export default defineComponent({
       width: 100%;
       // Use line-height as min-height for empty content slot
       min-height: var(--va-input-line-height);
-      color: var(--va-input-text-color);
+      color: v-bind(textColorComputed);
       background-color: transparent;
       border-style: none;
       outline: none;

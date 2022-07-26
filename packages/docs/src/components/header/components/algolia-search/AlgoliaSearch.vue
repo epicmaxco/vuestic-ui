@@ -106,6 +106,11 @@ export default class Search extends Vue {
     color: var(--va-secondary);
   }
 
+  .algolia-docsearch-suggestion {
+    background: transparent;
+    color: currentColor !important;
+  }
+
   .ds-dropdown-menu {
     color: currentColor;
 
@@ -142,7 +147,6 @@ export default class Search extends Vue {
         .algolia-docsearch-suggestion--category-header {
           padding: 0.25rem 1rem;
           border-bottom: none;
-          // border-top: 1px solid $prism-background;
 
           &-lvl0 {
             font-family: Source Sans Pro;
@@ -153,11 +157,6 @@ export default class Search extends Vue {
             letter-spacing: 0.6px;
             text-transform: uppercase;
             color: currentColor;
-            // color: $default-gray;
-
-            .algolia-docsearch-suggestion--highlight {
-              // box-shadow: inset 0 -2px 0 0 rgba(44, 130, 224, 0.1);
-            }
           }
         }
 
@@ -186,7 +185,6 @@ export default class Search extends Vue {
             font-size: 16px;
             line-height: 20px;
             color: currentColor !important;
-            // color: var(--va-dark);
 
             .algolia-docsearch-suggestion--highlight {
               padding: 0;
@@ -201,7 +199,6 @@ export default class Search extends Vue {
             font-weight: normal;
             font-size: 15px;
             line-height: 20px;
-            // color: $default-gray;
 
             .algolia-docsearch-suggestion--highlight {
               color: var(--va-primary);
