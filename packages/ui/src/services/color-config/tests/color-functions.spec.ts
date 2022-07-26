@@ -1,4 +1,5 @@
 import { setHSLAColor } from '../color-functions'
+import { describe, it, expect } from 'vitest'
 
 describe('ColorFunctions', () => {
   describe('setHSLAColor', () => {
