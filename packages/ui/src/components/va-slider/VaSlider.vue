@@ -697,8 +697,8 @@ export default defineComponent({
       ariaOrientation: props.vertical ? 'vertical' : 'horizontal',
       ariaDisabled: props.disabled,
       'aria-readonly': props.readonly,
-      'aria-valuenow': !props.range ? props.modelValue : undefined,
-      'aria-valuetext': props.range && String(props.modelValue),
+      'aria-valuenow': !Array.isArray(props.modelValue) ? props.modelValue : undefined,
+      'aria-valuetext': Array.isArray(props.modelValue) ? String(props.modelValue) : undefined,
     }))
 
     onMounted(() => {
