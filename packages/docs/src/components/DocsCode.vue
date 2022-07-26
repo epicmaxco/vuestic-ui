@@ -102,6 +102,8 @@ pre.DocsCode {
     padding: 1rem;
     margin: 0;
     overflow: auto;
+
+    @include va-scroll(var(--va-primary));
   }
 
   /* Inline code */

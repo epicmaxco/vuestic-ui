@@ -1,5 +1,5 @@
 <template>
-  <div style="height: 13rem; border: 1px solid var(--va-secondary);">
+  <div style="height: 13rem;">
     <va-sidebar
       :minimized="minimized"
       width="11rem"

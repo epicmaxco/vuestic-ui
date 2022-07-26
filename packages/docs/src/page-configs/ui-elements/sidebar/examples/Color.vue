@@ -1,5 +1,5 @@
 <template>
-  <div class="mb-4" style="height: 16rem; border: 2px solid var(--va-primary);">
+  <div class="mb-4" style="height: 16rem;">
     <va-sidebar color="primary" minimizedWidth="64px" width="18rem">
       <va-sidebar-item active-color="background">
         <va-sidebar-item-content>
@@ -24,7 +24,7 @@
     </va-sidebar>
   </div>
 
-  <div class="mb-4" style="height: 16rem; border: 2px solid var(--va-primary);">
+  <div class="mb-4" style="height: 16rem;">
     <va-sidebar color="background-mute" minimizedWidth="64px" width="18rem">
       <va-sidebar-item>
         <va-sidebar-item-content>
@@ -73,7 +73,7 @@
     </va-sidebar>
   </div>
 
-  <div class="mb-4" style="height: 16rem; border: 2px solid var(--va-primary);">
+  <div class="mb-4" style="height: 16rem;">
     <va-sidebar color="danger" active-color="background" text-color="success" minimizedWidth="64px" width="18rem">
       <va-sidebar-item>
         <va-sidebar-item-content>
