@@ -1,30 +1,31 @@
 <template>
   <div class="docs-roadmap d-flex flex-wrap">
-    <router-link
-      class="roadmap-item__wrapper"
-      v-for="(item, index) in roadmap"
-      :key="index"
-      :to="item.link"
-    >
-      <va-card
-        :color="colors[index]"
-        gradient
-        class="roadmap-item"
-      >
-        <div class="d-flex justify--center flex-direction--column" style="height: 100%; color: white;">
-          <h5>{{ title(item) }}</h5>
-          <div class="roadmap-item__type title">
-            {{ type(item) }}
-          </div>
+    <div class="docs-roadmap__columns">
+      <div class="docs-roadmap__column-wrapper" v-for="col in columns" :key="col.title">
+        <div class="docs-roadmap__column">
+          <h5>{{ col.title }}</h5>
+
+          <va-card v-for="item in col.items" :key="item.title">
+            <a :href="item.link" target="_blank">
+              <va-card-content class="px-4 py-2">
+                <h6 class="link">{{ item.title }}</h6>
+
+                <div class="docs-roadmap__image" v-if="item.image">
+                  <component style="width: 100%; height: auto;" :is="item.image" />
+                </div>
+              </va-card-content>
+            </a>
+          </va-card>
         </div>
-      </va-card>
-    </router-link>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { defineProps, PropType } from 'vue'
+import { defineProps, PropType, computed } from 'vue'
 import { RoadmapItem } from '../types'
+import images from '../images'
 
 const props = defineProps({
   roadmap: {
@@ -35,38 +36,75 @@ const props = defineProps({
 
 const colors = ['#007bba', '#f17300', '#679436', '#7a7978', '#b5179e', '#9381ff']
 
-const title = (item: RoadmapItem) => {
-  if (typeof item === 'string') {
-    return item
-  }
-  return item.title
-}
+const items = computed(() => {
+  return props.roadmap.map((item, index) => {
+    return {
+      ...item,
+      title: typeof item === 'string' ? item : item.title,
+      type: typeof item === 'string' ? '' : item.type,
+      color: colors[index],
+      image: item.image ? images[item.image] as any : undefined,
+    }
+  })
+})
 
-const type = (item: RoadmapItem) => {
-  return typeof item === 'string' ? '' : item.type
-}
+const components = computed(() => items.value.filter((item) => item.type === 'component'))
+const services = computed(() => items.value.filter((item) => item.type === 'service'))
+const other = computed(() => items.value.filter((item) => item.type !== 'service' && item.type !== 'component'))
+
+const columns = computed(() => [
+  {
+    title: 'Components',
+    items: components.value,
+    color: 'var(--va-primary)',
+  },
+  {
+    title: 'Services',
+    items: services.value,
+    color: 'var(--va-secondary)',
+  },
+  {
+    title: 'Other',
+    items: other.value,
+  },
+].sort((a, b) => b.items.length - a.items.length))
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+
+$gap: 1rem;
+
 .docs-roadmap {
-  margin: -1rem;
+  margin: 0 -$gap;
 
-  .roadmap-item {
-    padding: 0.5rem 1rem;
-    color: var(--va-white);
+  &__columns {
+    margin: calc($gap / 2);
+    display: flex;
+    width: 100%;
 
-    &__wrapper {
-      width: 33%;
-      padding: 0.5rem;
-      box-sizing: border-box;
-    }
+    .docs-roadmap__column {
+      &-wrapper {
+        width: 33%;
+        padding: calc($gap / 2);
+      }
 
-    h5 {
-      color: currentColor;
-    }
+      & > *:not(h6) {
+        margin-bottom: $gap;
+      }
 
-    &__type {
-      height: 1.25rem;
+      background-color: var(--va-background);
+      padding: $gap;
+      height: 100%;
+
+      .docs-roadmap__image {
+        display: flex;
+        justify-content: center;
+
+        svg {
+          max-height: 150px;
+          max-width: 200px;
+        }
+      }
     }
   }
 }
