@@ -29,7 +29,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 
-import { users } from 'vuestic-ui/src/data/Users'
+import { users } from '@/assets/data/Users'
 
 export default defineComponent({
   data () {
