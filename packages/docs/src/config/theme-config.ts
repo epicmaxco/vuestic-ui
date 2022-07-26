@@ -49,5 +49,6 @@ export const COLOR_THEMES: Record<ThemeName, Record<string, string>> = {
     // Misc
     shadow: 'rgba(0, 0, 0, 0.37)',
     focus: '#FF0',
+    form: '#767C88',
   },
 }
