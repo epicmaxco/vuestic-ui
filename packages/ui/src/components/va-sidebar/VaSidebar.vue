@@ -122,6 +122,8 @@ export default defineComponent({
     padding-left: var(--va-sidebar-menu-padding-left);
     overflow-y: var(--va-sidebar-menu-overflow-y);
     overflow-x: var(--va-sidebar-menu-overflow-x);
+
+    @include va-scroll(var(--va-primary));
   }
 
   &--animated {

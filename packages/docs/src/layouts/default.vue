@@ -237,6 +237,8 @@ a:not(.va-button, .va-sidebar__item):focus {
     overflow-y: auto;
     overflow-x: hidden;
 
+    @include va-scroll(var(--va-primary));
+
     & > .layout.gutter--xl {
       padding-bottom: 2rem;
     }
