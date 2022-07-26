@@ -14,17 +14,18 @@
         <div class="va-file-upload-list-item__size">
           {{ file && file.size }}
         </div>
-        <va-icon
-          class="va-file-upload-list-item__delete"
-          name="clear"
-          role="button"
-          aria-hidden="false"
-          aria-label="remove file"
-          tabindex="0"
+        <va-button
+          :disabled="disabled"
+          flat
           color="danger"
+          icon="clear"
+          class="va-file-upload-list-item__delete"
+          aria-label="remove image"
           @click.stop="removeFile"
           @keydown.enter.stop="removeFile"
           @keydown.space.stop="removeFile"
+          @focus="onFocus"
+          @blur="onBlur"
         />
       </div>
     </va-list-item-section>
@@ -32,12 +33,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref } from 'vue'
+import { defineComponent, inject, ref, PropType } from 'vue'
 
-import { useBem } from '../../../composables'
-import { ConvertedFile } from '../types'
+import { useBem, useFocus } from '../../../composables'
+import { ConvertedFile, VaFileUploadKey } from '../types'
 
-import { VaListItem, VaListItemSection, VaIcon } from '../../index'
+import { VaListItem, VaListItemSection, VaButton } from '../../index'
 import { VaFileUploadUndo } from '../VaFileUploadUndo'
 
 export default defineComponent({
@@ -45,8 +46,8 @@ export default defineComponent({
   components: {
     VaListItem,
     VaListItemSection,
-    VaIcon,
     VaFileUploadUndo,
+    VaButton,
   },
   emits: ['remove'],
   props: {
@@ -56,6 +57,7 @@ export default defineComponent({
     undoDuration: { type: Number, default: 3000 },
   },
   setup (props, { emit }) {
+    const { onFocus, onBlur } = useFocus()
     const removed = ref(false)
 
     const removeFile = () => {
@@ -80,10 +82,15 @@ export default defineComponent({
       undo: removed.value,
     }))
 
+    const { disabled } = inject(VaFileUploadKey, { disabled: ref(false) })
+
     return {
       removed,
+      disabled,
       computedClasses,
 
+      onBlur,
+      onFocus,
       removeFile,
       recoverFile,
     }

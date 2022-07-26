@@ -28,6 +28,7 @@
           {{ file.name }}
         </div>
         <va-button
+          :disabled="disabled"
           flat
           color="danger"
           icon="delete_outline"
@@ -43,12 +44,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref, watch, computed, PropType } from 'vue'
+import { defineComponent, inject, onMounted, ref, watch, computed, PropType } from 'vue'
 
 import { colorToRgba } from '../../../services/color-config/color-functions'
 import { useFocus, useBem } from '../../../composables'
 
 import type { ConvertedFile } from '../types'
+import { VaFileUploadKey } from '../types'
 
 import { VaButton, VaListItem, VaListItemSection } from '../../index'
 import { VaFileUploadUndo } from '../VaFileUploadUndo'
@@ -118,11 +120,16 @@ export default defineComponent({
       }
     }
 
+    const { disabled } = inject(VaFileUploadKey, {
+      disabled: ref(false),
+    })
+
     onMounted(convertToImg)
     watch(() => props.file, convertToImg)
 
     return {
       removed,
+      disabled,
       isFocused,
       previewImage,
       classesComputed,

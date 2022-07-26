@@ -1,7 +1,7 @@
 <template>
   <div
     class="va-file-upload"
-    :class="{ 'va-file-upload--dropzone': dropzone }"
+    :class="computedClasses"
     :style="computedStyle"
   >
     <slot>
@@ -58,9 +58,9 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, ref, toRef, PropType, shallowRef, provide } from 'vue'
+import { computed, defineComponent, onMounted, ref, toRefs, PropType, shallowRef, provide } from 'vue'
 
-import { useColors } from '../../composables'
+import { useColors, useBem } from '../../composables'
 
 import type { VaFile } from './types'
 import { VaFileUploadKey } from './types'
@@ -115,6 +115,10 @@ export default defineComponent({
       backgroundColor: props.dropzone
         ? shiftHSLAColor(colorComputed.value, { a: dropzoneHighlight.value ? -0.82 : -0.92 })
         : 'transparent',
+    }))
+
+    const computedClasses = useBem('va-file-upload', () => ({
+      dropzone: props.dropzone,
     }))
 
     const files = computed<VaFile[]>({
@@ -197,11 +201,7 @@ export default defineComponent({
       }
     })
 
-    provide(VaFileUploadKey, {
-      undoDuration: toRef(props, 'undoDuration'),
-      undoButtonText: toRef(props, 'undoButtonText'),
-      deletedFileMessage: toRef(props, 'deletedFileMessage'),
-    })
+    provide(VaFileUploadKey, toRefs(props))
 
     return {
       modal,
@@ -209,9 +209,10 @@ export default defineComponent({
       fileInputRef,
       colorComputed,
       computedStyle,
+      computedClasses,
+      files,
       uploadFile,
       changeFieldValue,
-      files,
       removeFile,
       removeSingleFile,
       callFileDialogue,

@@ -5,6 +5,7 @@
     </div>
     <va-button
       class="va-file-upload-single-item__button"
+      :disabled="disabled"
       size="small"
       color="danger"
       flat
@@ -16,20 +17,31 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue'
+import { defineComponent, inject, ref, PropType } from 'vue'
 
 import { VaButton } from '../../index'
 
-import { ConvertedFile } from '../types'
+import { ConvertedFile, VaFileUploadKey } from '../types'
 
 export default defineComponent({
   name: 'VaFileUploadSingleItem',
+
   components: {
     VaButton,
   },
+
   emits: ['remove'],
+
   props: {
     file: { type: Object as PropType<ConvertedFile | null>, default: null },
+  },
+
+  setup () {
+    const { disabled } = inject(VaFileUploadKey, {
+      disabled: ref(false),
+    })
+
+    return { disabled }
   },
 })
 </script>
