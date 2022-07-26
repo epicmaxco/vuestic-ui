@@ -20,7 +20,7 @@ aliases:
 
 docker: &docker
   docker:
-    - image: circleci/node:14.17.5
+    - image: circleci/node:16.16.0
 
 defaults: &defaults
   <<: *docker
