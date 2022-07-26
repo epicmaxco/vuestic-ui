@@ -1,11 +1,25 @@
-import { readFileSync } from 'fs'
+import { readFileSync, lstatSync, readdirSync } from 'fs'
 import vue from '@vitejs/plugin-vue'
 import { resolve as resolver } from 'path'
 import { chunkSplitPlugin } from 'vite-plugin-chunk-split'
+import { appendComponentCss } from './plugins/append-component-css'
 
 const packageJSON = JSON.parse(readFileSync(resolver(process.cwd(), './package.json')))
 const dependencies = [...Object.keys(packageJSON.dependencies), ...Object.keys(packageJSON.peerDependencies)]
 const external = { external: dependencies }
+
+export const readDirRecursive = (path) => {
+  return readdirSync(path)
+    .reduce((acc, entry) => {
+      const p = `${path}/${entry}`
+
+      if (lstatSync(p).isDirectory()) {
+        return [...acc, ...readDirRecursive(p)]
+      }
+
+      return [...acc, p]
+    }, [])
+}
 
 export const resolve = {
   alias: {
@@ -80,6 +94,7 @@ export default function createViteConfig (format) {
 
   // https://github.com/sanyuan0704/vite-plugin-chunk-split
   isEsm && config.plugins.push(chunkSplitPlugin({ strategy: 'unbundle' }))
+  isEsm && config.plugins.push(appendComponentCss())
 
   if (!isMjs) { config.build = { ...config.build, ...libBuildOptions(format) } }
 

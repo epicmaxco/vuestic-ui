@@ -9,6 +9,7 @@ module.exports = {
     'color-hex-case': 'lower',
     'at-rule-no-unknown': null,
     'value-list-max-empty-lines': 1,
+    'value-keyword-case': null,
   },
   ignoreFiles: ['dist/**/*'],
 }

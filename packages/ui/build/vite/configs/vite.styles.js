@@ -1,7 +1,6 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import { resolve } from '../common-config'
-import { readDirRecursive } from '../utils.mjs'
+import { resolve, readDirRecursive } from '../common-config'
 
 const cssInputs = readDirRecursive('./src/styles')
   .filter((el) => ['.css', '.scss']

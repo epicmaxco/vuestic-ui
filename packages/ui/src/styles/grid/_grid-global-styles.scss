@@ -277,11 +277,6 @@
   display: inline-flex !important;
 }
 
-// Not solitary. Is used in other places.
-.fill-height {
-  height: 100%;
-}
-
 .no-wrap {
   @include va-no-wrap();
 }

@@ -339,6 +339,10 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: 'menu.spacer',
       },
       {
+        name: 'dropdown',
+        displayName: 'menu.dropdown',
+      },
+      {
         name: 'tree-view',
         displayName: 'menu.treeView',
       },

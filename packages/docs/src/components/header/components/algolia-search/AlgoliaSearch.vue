@@ -8,9 +8,9 @@
       @focus="onFocusHandler('dark', 'block')"
       @blur="onFocusHandler('gray', 'none')"
     >
-      <template #prepend>
+      <template #prependInner>
         <va-icon
-          class="search-icon"
+          class="search-icon mr-2"
           name="search"
           :color="color"
           size="100%"
@@ -72,7 +72,7 @@ export default class Search extends Vue {
   width: 100%;
   z-index: 1;
 
-  .va-input-wrapper__container {
+  .va-input-wrapper__field {
     padding: 0.25rem;
     padding-left: 0.75rem;
     background: var(--va-input-wrapper-background);
