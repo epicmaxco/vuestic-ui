@@ -28,10 +28,11 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue'
+import { defineComponent, computed, watch, onMounted } from 'vue'
 import { useColors } from 'vuestic-ui/src/main'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
+
 import { languages } from '../../../locales'
 
 export default defineComponent({
@@ -63,6 +64,15 @@ export default defineComponent({
     const { getColors } = useColors()
     const colors = computed(getColors)
     const currentLanguageName = computed(() => options.find(({ code }) => code === locale.value)?.name)
+
+    const setHtmlLang = () => {
+      if (!document?.documentElement) { return }
+
+      document.documentElement.setAttribute('lang', locale.value || 'en')
+    }
+
+    onMounted(setHtmlLang)
+    watch(locale, setHtmlLang)
 
     return {
       colors,

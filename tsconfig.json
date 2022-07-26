@@ -36,6 +36,5 @@
   ],
   "exclude": [
     "node_modules"
-  ],
-  "extends": "./packages/nuxt-docs/tsconfig.json"
+  ]
 }

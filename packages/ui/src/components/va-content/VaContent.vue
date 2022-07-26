@@ -20,39 +20,26 @@ export default {
 
   h1 {
     @include va-display(1);
-    @include va-header-margin(1);
-
-    line-height: 3.5rem;
   }
 
   h2 {
     @include va-display(2);
-    @include va-header-margin(2);
   }
 
   h3 {
     @include va-display(3);
-    @include va-header-margin(3);
-
-    line-height: 2.5rem;
-    margin-bottom: 1rem;
   }
 
   h4 {
     @include va-display(4);
-    @include va-header-margin(4);
   }
 
   h5 {
     @include va-display(5);
-    @include va-header-margin(5);
-
-    line-height: 1.875rem;
   }
 
   h6 {
     @include va-display(6);
-    @include va-header-margin(6);
   }
 
   i {

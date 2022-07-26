@@ -1,6 +1,7 @@
 import { useMaxSelections, useMaxSelectionsProps } from '../useMaxSelections'
 import { mount } from '@vue/test-utils'
 import { ref } from 'vue'
+import { describe, it, expect } from 'vitest'
 
 const TestComponent = {
   template: '<p></p>',

@@ -66,7 +66,7 @@ export const useSelectable = (
   const reset = () => emit('update:modelValue', false)
   const focus = () => input.value?.focus()
 
-  const { computedError, computedErrorMessages, validate } = useValidation(props, emit, reset, focus)
+  const { computedError, computedErrorMessages, validate, validationAriaAttributes } = useValidation(props, emit, reset, focus)
   const { valueComputed } = useStateful(props, emit)
   const { isFocused } = useFocus()
 
@@ -86,7 +86,7 @@ export const useSelectable = (
     emit('focus', event)
   }
 
-  const isIndeterminate = computed(() => !!props.indeterminate && valueComputed.value === props.indeterminateValue)
+  const isIndeterminate = computed(() => props.indeterminate && valueComputed.value === props.indeterminateValue)
   const modelIsArray = computed(() => props.arrayValue !== null)
   const isChecked = computed(() => {
     if (modelIsArray.value) {
@@ -143,5 +143,6 @@ export const useSelectable = (
     focus,
     computedError,
     computedErrorMessages,
+    validationAriaAttributes,
   }
 }

@@ -118,9 +118,18 @@
 </template>
 
 <script lang="ts">
-import { watch, h, Transition, defineComponent, PropType, computed, StyleValue, shallowRef, toRef } from 'vue'
+import type { PropType, StyleValue } from 'vue'
+import { Transition, h, defineComponent, computed, shallowRef, toRef, watchEffect } from 'vue'
 
-import { useStateful, useStatefulProps, useStatefulEmits, useColors, useTextColor } from '../../composables'
+import {
+  useStateful,
+  useStatefulProps,
+  useStatefulEmits,
+  useColors,
+  useTextColor,
+  useWindow,
+  useDocument,
+} from '../../composables'
 
 import { VaButton } from '../va-button'
 import { useComponentPresetProp } from '../../composables/useComponentPreset'
@@ -204,7 +213,7 @@ export default defineComponent({
       // Supposedly solves some case when background wasn't shown.
       // As a side effect removes background from nested modals.
 
-      const moreThanOneModalIsOpen = !!document.querySelectorAll('.va-modal__overlay').length
+      const moreThanOneModalIsOpen = !!document.value?.querySelectorAll('.va-modal__overlay').length
 
       if (!props.overlay || moreThanOneModalIsOpen) { return }
 
@@ -246,21 +255,24 @@ export default defineComponent({
       setTimeout(hideModal)
     }
 
-    watch(valueComputed, (value: boolean) => {
-      if (value) {
-        window.addEventListener('keyup', listenKeyUp)
+    const window = useWindow()
+    const document = useDocument()
+
+    watchEffect(() => {
+      if (valueComputed.value) {
+        window.value?.addEventListener('keyup', listenKeyUp)
       } else {
-        window.removeEventListener('keyup', listenKeyUp)
+        window.value?.removeEventListener('keyup', listenKeyUp)
       }
 
       if (props.blur) {
-        if (value) {
-          document.body.classList.add('va-modal-overlay-background--blurred')
+        if (valueComputed.value) {
+          document.value?.body.classList.add('va-modal-overlay-background--blurred')
         } else {
-          document.body.classList.remove('va-modal-overlay-background--blurred')
+          document.value?.body.classList.remove('va-modal-overlay-background--blurred')
         }
       }
-    }, { immediate: true })
+    })
 
     const publicMethods = {
       show,

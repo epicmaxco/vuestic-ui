@@ -35,6 +35,7 @@
           <va-button
             class="footer__social__item"
             href="https://github.com/epicmaxco/vuestic-ui/"
+            aria-label="go to the vuestic ui github page"
             target="blank"
             preset="plain"
           >
@@ -43,6 +44,7 @@
           <va-button
             class="footer__social__item"
             href="https://discord.gg/u7fQdqQt8c"
+            aria-label="go to the vuestic ui discord channel"
             target="blank"
             preset="plain"
           >
@@ -51,6 +53,7 @@
           <va-button
             class="footer__social__item"
             href="https://www.facebook.com/epicmaxco/"
+            aria-label="go to the vuestic ui facebook page"
             target="blank"
             preset="plain"
           >
@@ -59,6 +62,7 @@
           <va-button
             class="footer__social__item"
             href="https://twitter.com/epicmaxco"
+            aria-label="go to the vuestic ui twitter page"
             target="blank"
             preset="plain"
           >

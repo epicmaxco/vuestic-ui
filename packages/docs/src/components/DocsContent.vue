@@ -28,6 +28,7 @@
       />
       <MarkdownView
         v-else-if="block.type === BlockType.TITLE"
+        class="docs-title"
         :key="block.type + index"
         :value="`# ${$t(block.translationString)}`"
       />
@@ -126,15 +127,3 @@ export default defineComponent({
   },
 })
 </script>
-
-<style lang="scss">
-.va-content h5 {
-  margin-top: 4rem;
-  line-height: 1.25;
-
-  &:first-of-type {
-    margin-top: 1.25rem;
-    margin-bottom: 0.75rem;
-  }
-}
-</style>

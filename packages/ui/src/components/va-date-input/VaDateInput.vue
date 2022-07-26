@@ -1,124 +1,132 @@
 <template>
-  <div class="va-date-input">
-    <va-dropdown
-      v-model="isOpenSync"
-      trigger="none"
-      anchorSelector=".va-input-wrapper__field"
-      :offset="[2, 0]"
-      :close-on-content-click="false"
-      :stateful="false"
-      :disabled="disabled"
-    >
-      <template #anchor>
-        <slot name="input" v-bind="{ valueText, inputProps, inputListeners }">
-          <va-input
-            ref="input"
-            class="va-date-input__input"
-            v-bind="inputProps"
-            v-on="inputListeners"
-            :model-value="valueText"
-            aria-label="selected date"
-            @change="onInputTextChanged"
-            @click="toggleDropdown()"
-            @keydown.enter.stop="showAndFocus"
-            @keydown.space.stop="showAndFocus"
-          >
-            <template
-              v-for="name in filterSlots"
-              :key="name"
-              v-slot:[name]="slotScope"
-            >
-              <slot :name="name" v-bind="slotScope" />
-            </template>
-
-            <template #prependInner="slotScope">
-              <slot name="prependInner" v-bind="slotScope" />
-              <va-icon
-                v-if="$props.leftIcon"
-                v-bind="iconProps"
-              />
-            </template>
-
-            <template #icon>
-              <va-icon
-                v-if="canBeCleared"
-                aria-hiden="false"
-                role="button"
-                aria-label="reset"
-                tabindex="0"
-                class="va-date-input__clear-icon"
-                v-bind="clearIconProps"
-                @click="reset()"
-                @keydown.enter.stop="reset()"
-                @keydown.space.stop="reset()"
-              />
-              <va-icon
-                v-else-if="!$props.leftIcon"
-                v-bind="iconProps"
-                tabindex="0"
-                @keydown.enter.stop="showDropdown"
-                @keydown.space.stop="showDropdown"
-              />
-            </template>
-          </va-input>
-        </slot>
-      </template>
-
-      <va-dropdown-content
-        @keydown.esc.stop.prevent="hideAndFocus()"
-      >
-        <va-date-picker
-            ref="datePicker"
-            v-bind="datePickerProps"
-            v-model="valueWithoutText"
-            @click:day="$emit('click:day', $event)"
-            @click:month="$emit('click:month', $event)"
-            @click:year="$emit('click:year', $event)"
-            @hover:day="$emit('hover:day', $event)"
-            @hover:month="$emit('hover:month', $event)"
-            @hover:year="$emit('hover:year', $event)"
-            @update:view="$emit('update:view', $event)"
+  <va-dropdown
+    v-model="isOpenSync"
+    trigger="none"
+    class="va-date-input"
+    inner-anchor-selector=".va-input-wrapper__field"
+    :class="$attrs.class"
+    :style="$attrs.style"
+    :offset="[2, 0]"
+    :close-on-content-click="false"
+    :stateful="false"
+    :disabled="$props.disabled"
+  >
+    <template #anchor>
+      <slot name="input" v-bind="{ valueText, inputAttributes: inputAttributesComputed, inputWrapperProps, inputListeners }">
+        <va-input-wrapper
+          v-bind="inputWrapperProps"
+          @click="toggleDropdown"
+          @keydown.enter.stop="toggleDropdown"
+          @keydown.space.stop="toggleDropdown"
         >
-          <template
-            v-for="(_, name) in $slots"
-            :key="name"
-            v-slot:[name]="bind"
-          >
-            <slot :name="name" v-bind="bind" />
+          <template #default>
+            <input
+              ref="input"
+              class="va-date-input__input"
+              v-bind="inputAttributesComputed"
+              v-on="inputListeners"
+              @change="onInputTextChanged"
+            />
           </template>
-        </va-date-picker>
-      </va-dropdown-content>
-    </va-dropdown>
-  </div>
+
+          <template
+            v-for="name in filterSlots"
+            :key="name"
+            v-slot:[name]="slotScope"
+          >
+            <slot :name="name" v-bind="slotScope" />
+          </template>
+
+          <template #prependInner="slotScope">
+            <slot name="prependInner" v-bind="slotScope" />
+            <va-icon
+              v-if="$props.leftIcon"
+              v-bind="iconProps"
+            />
+          </template>
+
+          <template #icon>
+            <va-icon
+              v-if="canBeCleared"
+              class="va-date-input__clear-icon"
+              role="button"
+              aria-label="reset date"
+              aria-hiden="false"
+              :tabindex="iconTabindexComputed"
+              v-bind="clearIconProps"
+              @click.stop="reset"
+              @keydown.enter.stop="reset"
+              @keydown.space.stop="reset"
+            />
+            <va-icon
+              v-else-if="!$props.leftIcon"
+              :tabindex="iconTabindexComputed"
+              v-bind="iconProps"
+              @click.stop="showDropdown"
+              @keydown.enter.stop="showDropdown"
+              @keydown.space.stop="showDropdown"
+            />
+          </template>
+        </va-input-wrapper>
+      </slot>
+    </template>
+
+    <va-dropdown-content
+      @keydown.esc.stop.prevent="hideAndFocus"
+      class="va-date-input__dropdown-content"
+    >
+      <va-date-picker
+          ref="datePicker"
+          v-bind="datePickerProps"
+          v-model="valueWithoutText"
+          @click:day="$emit('click:day', $event)"
+          @click:month="$emit('click:month', $event)"
+          @click:year="$emit('click:year', $event)"
+          @hover:day="$emit('hover:day', $event)"
+          @hover:month="$emit('hover:month', $event)"
+          @hover:year="$emit('hover:year', $event)"
+          @update:view="$emit('update:view', $event)"
+      >
+        <template
+          v-for="(_, name) in $slots"
+          :key="name"
+          v-slot:[name]="bind"
+        >
+          <slot :name="name" v-bind="bind" />
+        </template>
+      </va-date-picker>
+    </va-dropdown-content>
+  </va-dropdown>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, toRefs, watch, ref, nextTick } from 'vue'
+import { computed, defineComponent, PropType, toRefs, watch, ref, shallowRef, nextTick } from 'vue'
+import omit from 'lodash/omit'
 
 import { filterComponentProps, extractComponentProps, extractComponentEmits } from '../../utils/child-props'
 import {
-  useClearable, useClearableEmits,
+  useClearable, useClearableEmits, useClearableProps,
   useValidation, useValidationEmits, useValidationProps, ValidationProps,
   useStateful, useStatefulEmits,
   useParsable,
+  useFocus, useFocusEmits,
 } from '../../composables'
 import { useSyncProp } from '../va-date-picker/hooks/sync-prop'
-import { isRange, isSingleDate, isDates } from '../va-date-picker/utils/date-utils'
 import { useRangeModelValueGuard } from './hooks/range-model-value-guard'
 import { useDateParser } from './hooks/input-text-parser'
 import { parseModelValue } from './hooks/model-value-parser'
 import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
+import { isRange, isSingleDate, isDates } from '../va-date-picker/utils/date-utils'
+
 import { DateInputModelValue, DateInputValue } from './types'
 
 import VaDatePicker from '../va-date-picker/VaDatePicker.vue'
 import { VaDropdown, VaDropdownContent } from '../va-dropdown'
-import { VaInput } from '../va-input'
+import { VaInputWrapper } from '../va-input'
 import { VaIcon } from '../va-icon'
 
-const VaInputProps = extractComponentProps(VaInput, [
-  'mask', 'returnRaw', 'autosize', 'minRows', 'maxRows', 'type', 'inputmode', 'counter', 'maxLength',
-])
+const VaInputWrapperProps = extractComponentProps(VaInputWrapper, ['focused', 'maxLength', 'counterValue'])
 const VaDatePickerProps = extractComponentProps(VaDatePicker)
 
 export default defineComponent({
@@ -128,12 +136,13 @@ export default defineComponent({
     VaDropdown,
     VaDropdownContent,
     VaDatePicker,
-    VaInput,
+    VaInputWrapper,
     VaIcon,
   },
 
   props: {
-    ...VaInputProps,
+    ...useClearableProps,
+    ...VaInputWrapperProps,
     ...VaDatePickerProps,
     ...useValidationProps as ValidationProps<DateInputModelValue>,
     ...useComponentPresetProp,
@@ -160,6 +169,7 @@ export default defineComponent({
   },
 
   emits: [
+    ...useFocusEmits,
     ...extractComponentEmits(VaDatePicker),
     ...useClearableEmits,
     ...useValidationEmits,
@@ -168,13 +178,17 @@ export default defineComponent({
     'update:text',
   ],
 
-  setup (props, { emit, slots }) {
-    const input = ref<typeof VaInput>()
+  inheritAttrs: false,
+
+  setup (props, { emit, slots, attrs }) {
+    const input = shallowRef<HTMLInputElement>()
     const datePicker = ref<typeof VaDatePicker>()
 
     const { isOpen, resetOnClose } = toRefs(props)
     const { valueComputed: statefulValue } = useStateful<DateInputModelValue>(props, emit)
     const { syncProp: isOpenSync } = useSyncProp(isOpen, 'is-open', emit, false)
+
+    const { isFocused, focus, blur, onFocus: focusListener, onBlur: blurListener } = useFocus(input)
 
     const isRangeModelValueGuardDisabled = computed(() => !resetOnClose.value)
 
@@ -231,7 +245,7 @@ export default defineComponent({
       return text.value
     })
 
-    const onInputTextChanged = ({ target } : Event) => {
+    const onInputTextChanged = ({ target }: Event) => {
       const parsedValue = parseDateInputValue((target as HTMLInputElement).value)
 
       if (isValid.value) {
@@ -244,10 +258,6 @@ export default defineComponent({
       emit('clear')
     }
 
-    const focus = (): void => {
-      input.value?.focus()
-    }
-
     const hideAndFocus = (): void => {
       isOpenSync.value = false
       focus()
@@ -257,33 +267,32 @@ export default defineComponent({
       nextTick(() => datePicker.value?.focusCurrentPicker())
     }
 
-    const focusInputOrPicker = (): void => {
+    const focusInputOrPicker = () => {
       isOpenSync.value ? focusDatePicker() : focus()
     }
 
-    const showDropdown = () => {
-      isOpenSync.value = true
-      nextTick(focusInputOrPicker)
+    const checkProhibitedDropdownOpening = (e?: KeyboardEvent) => {
+      if (isOpenSync.value) { return false }
+      if (props.disabled || props.readonly) { return true }
+      return props.manualInput && e?.code !== 'Space'
     }
 
-    const toggleDropdown = () => {
+    const toggleDropdown = (event: Event | KeyboardEvent) => {
+      if (checkProhibitedDropdownOpening(event instanceof KeyboardEvent ? event : undefined)) { return }
+
       isOpenSync.value = !isOpenSync.value
       nextTick(focusInputOrPicker)
     }
 
-    const showAndFocus = (event: Event): void => {
-      if (props.manualInput) { return }
+    // icon interaction
+    const showDropdown = () => {
+      if (props.disabled || props.readonly) { return }
 
       isOpenSync.value = true
-      focusDatePicker()
-      event.preventDefault()
+      nextTick(focusDatePicker)
     }
 
-    const blur = (): void => {
-      input.value?.blur()
-    }
-
-    const { computedError, computedErrorMessages, listeners } = useValidation(props, emit, reset, focus)
+    const { computedError, computedErrorMessages, listeners, validationAriaAttributes } = useValidation(props, emit, reset, focus)
 
     const hasError = computed(() => (!isValid.value && valueComputed.value !== props.clearValue) || computedError.value)
 
@@ -309,10 +318,11 @@ export default defineComponent({
       class: 'va-date-input__icon',
     }))
 
-    const computedInputProps = computed(() => ({
-      ...filterComponentProps(props, VaInputProps).value,
-      clearable: false,
-      rules: [],
+    const iconTabindexComputed = computed(() => props.disabled || props.readonly ? -1 : 0)
+
+    const computedInputWrapperProps = computed(() => ({
+      ...filterComponentProps(props, VaInputWrapperProps).value,
+      focused: isFocused.value,
       error: hasError.value,
       errorMessages: computedErrorMessages.value,
       readonly: props.readonly || !props.manualInput,
@@ -320,13 +330,35 @@ export default defineComponent({
 
     const computedInputListeners = computed(() => ({
       focus: () => {
+        if (props.disabled) { return }
+
+        focusListener()
+
+        if (props.readonly) { return }
         onFocus()
         listeners.onFocus()
       },
       blur: () => {
+        if (props.disabled) { return }
+
+        blurListener()
+
+        if (props.readonly) { return }
         onBlur()
         listeners.onBlur()
       },
+    }))
+
+    const inputAttributesComputed = computed(() => ({
+      readonly: props.readonly || !props.manualInput,
+      tabindex: props.disabled ? -1 : 0,
+      value: valueText.value,
+      ariaLabel: props.label || 'selected date',
+      ariaRequired: props.requiredMark,
+      ariaDisabled: props.disabled,
+      ariaReadOnly: props.readonly,
+      ...validationAriaAttributes.value,
+      ...omit(attrs, ['class', 'style']),
     }))
 
     return {
@@ -337,10 +369,13 @@ export default defineComponent({
       isOpenSync,
       onInputTextChanged,
 
+      isFocused,
+
       input,
-      inputProps: computedInputProps,
+      inputWrapperProps: computedInputWrapperProps,
       inputListeners: computedInputListeners,
-      datePickerProps: filterComponentProps(props, extractComponentProps(VaDatePicker)),
+      inputAttributesComputed,
+      datePickerProps: filterComponentProps(props, VaDatePickerProps),
 
       filterSlots,
       canBeCleared,
@@ -348,13 +383,13 @@ export default defineComponent({
       iconProps,
 
       hideAndFocus,
-      showAndFocus,
       toggleDropdown,
       showDropdown,
       focusInputOrPicker,
       reset,
       focus,
       blur,
+      iconTabindexComputed,
     }
   },
 })
@@ -364,6 +399,8 @@ export default defineComponent({
 @import "../../styles/resources";
 
 .va-date-input {
+  --va-date-picker-cell-size: 28px;
+
   display: flex;
   font-family: var(--va-font-family);
 
@@ -377,14 +414,15 @@ export default defineComponent({
     }
   }
 
-  &__input.va-input_readonly {
-    cursor: pointer;
+  &__input {
+    &:read-only {
+      cursor: pointer;
+    }
   }
 
-  --va-date-picker-cell-size: 28px;
-
-  .va-dropdown {
-    width: 100%;
+  &__dropdown-content {
+    display: flex;
+    justify-content: center;
   }
 }
 </style>

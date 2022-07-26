@@ -1,28 +1,36 @@
 <template>
-  <div class="header-selector flex-center">
+  <div
+    class="header-selector flex-center"
+    role="button"
+    tabindex="0"
+    :aria-label="`${minimized ? `expand` : `minimize`} navigation menu`"
+    @click="toggleSidebar"
+    @keydown.enter="toggleSidebar"
+  >
     <va-icon-menu
       v-if="minimized"
+      aria-hidden="true"
       class="i-nav"
-      @click="$emit('toggleSidebar', !minimized)"
       :color="colors.primary"
     />
     <va-icon-menu-collapsed
       v-else
+      aria-hidden="true"
       class="i-nav"
-      @click="$emit('toggleSidebar', !minimized)"
       :color="colors.primary"
     />
   </div>
 </template>
 
 <script lang="ts">
+import { defineComponent, computed } from 'vue'
+
+import { useColors } from '../../../../../ui/src/main'
 
 import VaIconMenu from '../../iconset/VaIconMenu.vue'
 import VaIconMenuCollapsed from '../../iconset/VaIconMenuCollapsed.vue'
-import { useColors } from '../../../../../ui/src/main'
-import { computed } from 'vue'
 
-export default {
+export default defineComponent({
   name: 'DocsHeaderSelector',
   components: {
     VaIconMenu,
@@ -35,14 +43,17 @@ export default {
     },
   },
 
-  setup () {
+  setup (props, { emit }) {
     const { getColors } = useColors()
+
+    const toggleSidebar = () => emit('toggleSidebar', !props.minimized)
 
     return {
       colors: computed(getColors),
+      toggleSidebar,
     }
   },
-}
+})
 </script>
 
 <style lang="scss" scoped>
@@ -69,6 +80,10 @@ export default {
 .header-selector {
   cursor: pointer;
   max-width: 55px;
+
+  &:focus {
+    @include focus-outline(2px, 2px, 2px);
+  }
 }
 
 </style>

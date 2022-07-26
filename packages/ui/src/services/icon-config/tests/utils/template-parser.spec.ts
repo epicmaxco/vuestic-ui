@@ -1,4 +1,5 @@
 import { dynamicSegments, isMatchDynamicSegments } from '../../utils/dynamic-segment'
+import { describe, it, expect } from 'vitest'
 
 describe('IconsConfig', () => {
   it('dynamicSegments', () => {

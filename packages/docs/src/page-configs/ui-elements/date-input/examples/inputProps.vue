@@ -41,9 +41,3 @@
     bordered
   />
 </template>
-
-<style>
-.va-date-input {
-  max-width: 240px;
-}
-</style>

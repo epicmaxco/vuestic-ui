@@ -49,6 +49,7 @@ export default defineComponent({
 @import "../../../../styles/resources/index.scss";
 
 .va-message-list {
+  margin-top: var(--va-message-list--margin-top);
   color: var(--va-message-list-color);
 
   &__message {

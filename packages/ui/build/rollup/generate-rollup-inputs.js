@@ -1,5 +1,4 @@
 import { readdirSync, existsSync, lstatSync } from 'fs'
-import { resolve } from 'path'
 
 const readDirRecursive = (path) => {
   return readdirSync(path)
