@@ -35,7 +35,7 @@ export const useAlertStyles = (props: AlertStyleProps) => {
     }
 
     if (props.border) {
-      background = 'var(--va-background)'
+      background = 'var(--va-background-primary)'
       boxShadow = 'var(--va-alert-box-shadow)'
     }
 

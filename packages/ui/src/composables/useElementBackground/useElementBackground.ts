@@ -29,7 +29,7 @@ const recursiveGetBackground = (element: Maybe<HTMLElement>): string => {
 export const useElementBackground = (element?: Ref<HTMLElement | undefined>) => {
   const el = element || useEl()
   const { getColor } = useColors()
-  const background = ref(getColor('background'))
+  const background = ref(getColor('background-primary'))
 
   const isInViewPort = useInViewPort(el)
 

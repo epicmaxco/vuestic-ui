@@ -30,7 +30,7 @@
   }
 
   #va-app-bar-hide {
-    background: var(--va-background);
+    background: var(--va-background-primary);
     padding-bottom: 500px;
     overflow: auto;
   }

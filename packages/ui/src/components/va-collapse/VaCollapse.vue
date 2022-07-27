@@ -76,7 +76,7 @@ export default defineComponent({
     header: { type: String, default: '' },
     icon: { type: String, default: '' },
     solid: { type: Boolean, default: false },
-    color: { type: String, default: 'background-mute' },
+    color: { type: String, default: 'background-secondary' },
     textColor: { type: String, default: '' },
     colorAll: { type: Boolean, default: false },
   },

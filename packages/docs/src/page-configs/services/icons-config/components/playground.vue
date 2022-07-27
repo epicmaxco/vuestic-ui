@@ -132,7 +132,7 @@ const copy = () => {
 
   .code-snippet {
     color: currentColor;
-    background: var(--va-background-mute);
+    background: var(--va-background-secondary);
     position: relative;
 
     .copy-button {

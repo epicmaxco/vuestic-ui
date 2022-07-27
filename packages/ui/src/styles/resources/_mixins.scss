@@ -121,7 +121,7 @@
     tr {
       &:nth-child(even) {
         td {
-          background-color: var(--va-background-mute);
+          background-color: var(--va-background-secondary);
         }
       }
     }
@@ -131,7 +131,7 @@
     tr {
       &:hover {
         td {
-          background-color: var(--va-background);
+          background-color: var(--va-background-primary);
         }
       }
     }
@@ -144,7 +144,7 @@
   }
 }
 
-@mixin va-scroll($color: var(--va-background-mute)) {
+@mixin va-scroll($color: var(--va-background-secondary)) {
   &::-webkit-scrollbar {
     width: 4px;
     height: 4px;

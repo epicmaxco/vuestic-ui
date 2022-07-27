@@ -33,7 +33,7 @@ export default defineComponent({
   name: 'VaNavbar',
   props: {
     ...useComponentPresetProp,
-    color: { type: String, default: 'backgroundSoft' },
+    color: { type: String, default: 'backgroundTertiary' },
     textColor: { type: String },
     shape: { type: Boolean, default: false },
   },

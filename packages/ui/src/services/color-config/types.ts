@@ -9,9 +9,9 @@ export type ColorConfigEssentialColors = {
   danger: CssColor,
   warning: CssColor,
   // Background colors
-  background: CssColor,
-  backgroundSoft: CssColor,
-  backgroundMute: CssColor,
+  backgroundPrimary: CssColor,
+  backgroundTertiary: CssColor,
+  backgroundSecondary: CssColor,
   // TODO: Think about better name
   /** Form background in switch and borders in checkbox, ratio etc */
   backgroundForm: CssColor,

@@ -47,6 +47,6 @@ export default {
 .content {
   width: 100%;
   height: 100%;
-  background-color: var(--va-background);
+  background-color: var(--va-background-primary);
 }
 </style>

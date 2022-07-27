@@ -12,7 +12,7 @@ export default {
   name: 'VaContent',
 
   props: {
-    background: { type: String, default: 'background' },
+    background: { type: String, default: 'background-primary' },
   },
 
   setup (props) {

@@ -34,7 +34,7 @@ export default defineComponent({
 
   setup () {
     return {
-      textColor: useElementTextColor('background'),
+      textColor: useElementTextColor('background-primary'),
     }
   },
 })

@@ -13,12 +13,12 @@ export const colorsPresets: Record<string, ColorConfigEssentialColors> = {
     textDark: '#242424',
     textLight: '#F1F1F1',
     // Background Colors
-    background: '#161b21',
-    backgroundMute: '#0d1118',
-    backgroundSoft: '#21262c',
+    backgroundPrimary: '#161b21',
+    backgroundSecondary: '#0d1118',
+    backgroundTertiary: '#21262c',
+    backgroundForm: '#babfc2',
     // Misc
     shadow: 'rgba(0, 0, 0, 0.12)',
     focus: '#ffc700',
-    backgroundForm: '#babfc2',
   },
 }

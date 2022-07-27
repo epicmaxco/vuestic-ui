@@ -19,9 +19,10 @@ export const COLOR_THEMES: Record<ThemeName, Record<string, string>> = {
     danger: '#DE1041',
     warning: '#FFAC0A',
 
-    background: '#ffffff',
-    backgroundSoft: '#ffffff',
-    backgroundMute: '#f4f8fa',
+    backgroundPrimary: '#ffffff',
+    backgroundTertiary: '#ffffff',
+    backgroundSecondary: '#f4f8fa',
+    backgroundForm: '#babfc2',
 
     // Default
     textLight: '#fff',
@@ -29,7 +30,6 @@ export const COLOR_THEMES: Record<ThemeName, Record<string, string>> = {
     // Misc
     shadow: 'rgba(0, 0, 0, 0.12)',
     focus: '#FF0',
-    form: '#babfc2',
   },
   [ThemeName.DARK]: {
     // Accent
@@ -43,12 +43,12 @@ export const COLOR_THEMES: Record<ThemeName, Record<string, string>> = {
     textDark: '#242424',
     textLight: '#F1F1F1',
     // Background Colors
-    background: '#262626',
-    backgroundMute: '#1F1F1F',
-    backgroundSoft: '#333333',
+    backgroundPrimary: '#1F1F1F',
+    backgroundSecondary: '#333333',
+    backgroundTertiary: '#262626',
+    backgroundForm: '#767C88',
     // Misc
     shadow: 'rgba(0, 0, 0, 0.37)',
     focus: '#FF0',
-    form: '#767C88',
   },
 }

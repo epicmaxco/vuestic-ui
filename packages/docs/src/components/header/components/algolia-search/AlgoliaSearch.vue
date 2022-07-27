@@ -35,7 +35,7 @@ export default class Search extends Vue {
     if (el) { el.style.display = displayValue }
   }
 
-  // TODO: Compute text color from va-background-soft
+  // TODO: Compute text color from va-background-tertiary
 
   initialize () {
     Promise.all([
@@ -76,7 +76,7 @@ export default class Search extends Vue {
   .va-input-wrapper__field {
     padding: 0.25rem;
     padding-left: 0.75rem;
-    background: var(--va-background-mute);
+    background: var(--va-background-secondary);
     border-radius: 0.25rem;
   }
 
@@ -115,7 +115,7 @@ export default class Search extends Vue {
     color: currentColor;
 
     [class^="ds-dataset-"] {
-      background: var(--va-background-soft) !important;
+      background: var(--va-background-tertiary) !important;
     }
 
     &::before {
@@ -211,7 +211,7 @@ export default class Search extends Vue {
 
       .ds-cursor {
         .algolia-docsearch-suggestion--content {
-          background-color: var(--va-background-soft);
+          background-color: var(--va-background-tertiary);
         }
       }
 

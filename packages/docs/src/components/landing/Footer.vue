@@ -104,7 +104,7 @@ export default defineComponent({
     const { getComputedColor } = useColors()
 
     return {
-      textColor: useElementTextColor('background'),
+      textColor: useElementTextColor('background-primary'),
       IconEpicmax: markRaw(IconEpicmax),
       IconAdmin: markRaw(IconAdmin),
       IconSpinners: markRaw(IconSpinners),

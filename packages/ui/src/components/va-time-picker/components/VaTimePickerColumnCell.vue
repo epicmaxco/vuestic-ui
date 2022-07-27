@@ -17,8 +17,8 @@ export default defineComponent({
 
     const styleComputed = computed(() => isHovered.value
       ? ({
-        color: getColor(getTextColor(getColor('background-soft'))),
-        background: getColor('background-soft'),
+        color: getColor(getTextColor(getColor('background-tertiary'))),
+        background: getColor('background-tertiary'),
       })
       : undefined)
 

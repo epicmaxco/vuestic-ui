@@ -1,5 +1,5 @@
 <template>
-  <va-card color="background-mute" style="padding: 0.75rem;">
+  <va-card color="background-secondary" style="padding: 0.75rem;">
     <div class="row">
       <div class="flex" style="width: 100%;">
         <div class="item">{{ $t('grid.examples.default.example') }}</div>
@@ -20,7 +20,7 @@ export default {
 
 .item {
   border: 1px solid var(--va-background-form);
-  background-color: var(--va-background-soft);
+  background-color: var(--va-background-tertiary);
   text-align: center;
 }
 </style>

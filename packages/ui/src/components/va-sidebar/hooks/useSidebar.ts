@@ -3,7 +3,7 @@ import { inject, provide, ExtractPropTypes } from 'vue'
 const VaSidebarKey = Symbol('VaSidebar')
 
 export const useSidebarProps = {
-  color: { type: String, default: 'background-mute' },
+  color: { type: String, default: 'background-secondary' },
   textColor: { type: String },
 }
 
@@ -13,7 +13,7 @@ export const useSidebar = (props: ExtractPropTypes<typeof useSidebarProps>) => {
 
 export const useSidebarItem = () => {
   return inject<ExtractPropTypes<typeof useSidebarProps>>(VaSidebarKey, {
-    color: 'background-mute',
+    color: 'background-secondary',
     // activeColor: 'primary',
   })
 }

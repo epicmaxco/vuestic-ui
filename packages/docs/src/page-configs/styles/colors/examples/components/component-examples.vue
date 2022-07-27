@@ -94,7 +94,7 @@
   height: 500px;
   overflow: hidden;
   margin: 16px 0;
-  background: var(--va-background);
+  background: var(--va-background-primary);
 }
 
 .card {

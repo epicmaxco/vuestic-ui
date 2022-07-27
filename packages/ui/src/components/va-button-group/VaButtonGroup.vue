@@ -44,7 +44,7 @@ export default defineComponent({
     })
 
     const computedStyle = computed(() => {
-      const backgroundProperty = props.gradient ? 'background-image' : 'background'
+      const backgroundProperty = props.gradient ? 'background-image' : 'background-primary'
 
       return {
         [backgroundProperty]: computedBackground.value,

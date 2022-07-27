@@ -77,7 +77,7 @@ https://prismjs.com/download.html#themes=prism&languages=css */
 // Here class is being applied twice, while it should have been applied only on external container
 pre.DocsCode {
   margin-bottom: 0.2rem;
-  background: var(--va-background-mute);
+  background: var(--va-background-secondary);
   padding-top: 1.3rem;
   font-size: calc(1rem / 1.4);
 

@@ -4,7 +4,7 @@
       <va-sidebar-item text-color="background">
         <va-sidebar-item-content>
           <va-sidebar-item-title>
-            background primary and 'background' text color
+            background primary and 'background-primary' text color
           </va-sidebar-item-title>
         </va-sidebar-item-content>
       </va-sidebar-item>

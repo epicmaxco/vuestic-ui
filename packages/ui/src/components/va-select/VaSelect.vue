@@ -727,7 +727,7 @@ export default defineComponent({
   &__options-wrapper {
     overflow-y: auto;
 
-    @include va-scroll(var(--va-background-mute));
+    @include va-scroll(var(--va-background-secondary));
   }
 }
 </style>

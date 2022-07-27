@@ -1,5 +1,5 @@
 <template>
-  <va-card color="background-mute" style="padding: 0.75rem;">
+  <va-card color="background-secondary" style="padding: 0.75rem;">
     <!-- justify--start -->
     <div class="row justify--start">
       <div class="flex xs2">
@@ -92,12 +92,12 @@ export default {
 @import '~vuestic-ui/src/styles/resources';
 
 .row + .row {
-  border-top: 1px solid var(--va-background-mute);
+  border-top: 1px solid var(--va-background-secondary);
 }
 
 .item {
   border: 1px solid var(--va-background-form);
-  background-color: var(--va-background-soft);
+  background-color: var(--va-background-tertiary);
   text-align: center;
 }
 </style>

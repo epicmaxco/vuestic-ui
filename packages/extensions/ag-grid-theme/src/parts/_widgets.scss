@@ -15,7 +15,7 @@
     border: 1px solid var(--va-input-color);
 
     &:focus {
-      border: 1px solid var(--va-background-soft); // keyboard focus color
+      border: 1px solid var(--va-background-tertiary); // keyboard focus color
     }
   }
 
@@ -24,7 +24,7 @@
   ////////////////////////////////////////
   .ag-list-item {
     &.ag-active-item {
-      background-color: var(--va-background-mute);
+      background-color: var(--va-background-secondary);
     }
   }
 
@@ -42,7 +42,7 @@
       cursor: pointer;
       padding: 0 var(--va-input-content-horizontal-padding);
       background: var(--va-input-color);
-      border: 1px solid var(--va-background-soft);
+      border: 1px solid var(--va-background-tertiary);
       border-radius: var(--va-input-border-radius);
     }
 
@@ -62,7 +62,7 @@
 
     &::after {
       font-size: $radio-size;
-      color: var(--va-background);
+      color: var(--va-background-primary);
       line-height: $radio-size;
     }
 
