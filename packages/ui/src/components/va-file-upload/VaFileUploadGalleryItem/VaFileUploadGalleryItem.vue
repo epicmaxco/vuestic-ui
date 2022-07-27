@@ -95,7 +95,7 @@ export default defineComponent({
     }))
 
     const removeImage = () => {
-      if (undo?.value) {
+      if (undo.value) {
         removed.value = true
 
         setTimeout(() => {
@@ -103,7 +103,7 @@ export default defineComponent({
 
           emit('remove')
           removed.value = false
-        }, undoDuration?.value || 3000)
+        }, undoDuration.value ?? 0)
       } else {
         emit('remove')
         removed.value = false

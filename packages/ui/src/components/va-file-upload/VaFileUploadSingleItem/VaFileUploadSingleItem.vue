@@ -41,7 +41,7 @@ export default defineComponent({
   },
 
   setup: () => ({
-    disabled: useStrictInject<VaFileUploadInject>(VaFileUploadKey, INJECTION_ERROR_MESSAGE).disabled || false,
+    disabled: useStrictInject<VaFileUploadInject>(VaFileUploadKey, INJECTION_ERROR_MESSAGE).disabled,
   }),
 })
 </script>

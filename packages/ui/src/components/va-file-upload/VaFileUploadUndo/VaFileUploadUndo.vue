@@ -57,7 +57,7 @@ export default defineComponent({
       vertical: props.vertical,
     }))
 
-    const undoDurationStyle = computed(() => `${undoDuration?.value || 3000}ms`)
+    const undoDurationStyle = computed(() => `${undoDuration.value ?? 0}ms`)
 
     onMounted(() => {
       const timer = setTimeout(() => {

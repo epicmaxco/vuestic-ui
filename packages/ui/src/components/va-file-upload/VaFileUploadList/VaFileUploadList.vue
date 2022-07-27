@@ -11,8 +11,6 @@
         role="listitem"
         :file="file"
         :color="color"
-        :undo="undo"
-        :undoDuration="undoDuration"
         @remove="$emit('remove', index)"
       />
     </template>
@@ -23,8 +21,6 @@
         :file="file"
         :key="file.name"
         :color="color"
-        :undo="undo"
-        :undoDuration="undoDuration"
         @remove="$emit('remove', index)"
       />
     </template>

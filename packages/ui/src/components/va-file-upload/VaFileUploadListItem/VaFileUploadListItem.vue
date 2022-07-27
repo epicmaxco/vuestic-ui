@@ -71,7 +71,7 @@ export default defineComponent({
     const removed = ref(false)
 
     const removeFile = () => {
-      if (undo?.value) {
+      if (undo.value) {
         removed.value = true
 
         setTimeout(() => {
@@ -79,7 +79,7 @@ export default defineComponent({
             emit('remove')
             removed.value = false
           }
-        }, undoDuration?.value || 3000)
+        }, undoDuration.value ?? 0)
       } else {
         emit('remove')
         removed.value = false
@@ -152,10 +152,6 @@ export default defineComponent({
     cursor: pointer;
 
     --va-button-size: 1.5rem;
-
-    &:focus {
-      @include focus-outline;
-    }
   }
 
   &--undo {
