@@ -126,6 +126,7 @@ export type usePopoverOptions = {
   offset?: Offset,
   /** Root element selector */
   root?: string | HTMLElement,
+  viewport?: HTMLElement,
 }
 
 /**
@@ -178,9 +179,10 @@ export const usePopover = (
       coords = mapObject(coords, (c, key) => c + offsetCoords[key])
     }
     const rootRect = rootRef.value.getBoundingClientRect()
+    const viewportRect = unref(options).viewport?.getBoundingClientRect() ?? rootRect
 
     if (autoPlacement) {
-      const newPlacement = getAutoPlacement(placement, coords, contentDomRect.value, rootRect)
+      const newPlacement = getAutoPlacement(placement, coords, contentDomRect.value, viewportRect)
       if (newPlacement !== placement) {
         coords = calculateContentCoords(newPlacement, anchorDomRect.value, contentDomRect.value)
 
@@ -192,7 +194,7 @@ export const usePopover = (
     }
 
     if (stickToEdges) {
-      coords = calculateClipToEdge(coords, offsetCoords, contentDomRect.value, anchorDomRect.value, rootRect)
+      coords = calculateClipToEdge(coords, offsetCoords, contentDomRect.value, anchorDomRect.value, viewportRect)
     }
 
     coords.x -= rootRect.x

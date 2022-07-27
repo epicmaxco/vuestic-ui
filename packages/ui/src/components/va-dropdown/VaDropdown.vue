@@ -171,12 +171,13 @@ export default defineComponent({
       stickToEdges: props.stickToEdges,
       autoPlacement: props.autoPlacement,
       root: teleportTargetComputed.value,
+      viewport: targetComputed.value,
     })))
 
     const idComputed = computed(generateUniqueId)
 
     useEvent('blur', () => {
-      if (props.closeOnClickOutside && props.trigger !== 'none') {
+      if (props.closeOnClickOutside) {
         valueComputed.value = false
       }
     })
@@ -185,18 +186,21 @@ export default defineComponent({
 
     const isPopoverFloating = computed(() => props.preventOverflow || props.cursor)
 
+    const targetComputed = computed(() => {
+      const target = document.value?.querySelector<HTMLElement>(props.target || 'body')
+
+      if (!target) { return document.value?.body }
+
+      if (anchorRef.value && !target.contains(anchorRef.value)) { return document.value?.body }
+
+      return target
+    })
+
     const teleportTargetComputed = computed(() => {
       if (!isPopoverFloating.value) {
         return anchorRef.value
       }
-
-      const target = document.value?.querySelector<HTMLElement>(props.target || 'body')
-
-      if (!target) { return 'body' }
-
-      if (anchorRef.value && !target.contains(anchorRef.value)) { return 'body' }
-
-      return target
+      return targetComputed.value
     })
 
     const teleportDisabled = computed(() => props.disabled || !isPopoverFloating.value)
