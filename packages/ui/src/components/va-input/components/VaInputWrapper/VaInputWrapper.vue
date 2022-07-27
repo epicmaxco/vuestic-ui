@@ -192,12 +192,12 @@ export default defineComponent({
   font-family: var(--va-font-family);
   display: var(--va-input-wrapper-display);
   vertical-align: var(--va-input-wrapper-vertical-align);
+  min-width: var(--va-input-wrapper-min-width);
 
   &__field {
     position: relative;
     display: flex;
     align-items: center;
-    min-width: var(--va-input-wrapper-min-width);
     width: 100%;
     min-height: var(--va-input-min-height);
     border-color: var(--va-input-wrapper-border-color);
