@@ -40,13 +40,9 @@ export default defineComponent({
     file: { type: Object as PropType<ConvertedFile | null>, default: null },
   },
 
-  setup () {
-    const {
-      disabled = ref(false),
-    } = useStrictInject<VaFileUploadInject>(VaFileUploadKey, INJECTION_ERROR_MESSAGE)
-
-    return { disabled }
-  },
+  setup: () => ({
+    disabled: useStrictInject<VaFileUploadInject>(VaFileUploadKey, INJECTION_ERROR_MESSAGE).disabled || false,
+  }),
 })
 </script>
 

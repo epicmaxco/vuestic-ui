@@ -76,9 +76,9 @@ export default defineComponent({
 
   setup (props, { emit }) {
     const {
-      undo = ref(false),
-      disabled = ref(false),
-      undoDuration = ref(3000),
+      undo,
+      disabled,
+      undoDuration,
     } = useStrictInject<VaFileUploadInject>(VaFileUploadKey, INJECTION_ERROR_MESSAGE)
     const { isFocused, onFocus, onBlur } = useFocus()
     const previewImage = ref('')
@@ -95,7 +95,7 @@ export default defineComponent({
     }))
 
     const removeImage = () => {
-      if (undo.value) {
+      if (undo?.value) {
         removed.value = true
 
         setTimeout(() => {
@@ -103,7 +103,7 @@ export default defineComponent({
 
           emit('remove')
           removed.value = false
-        }, undoDuration.value)
+        }, undoDuration?.value || 3000)
       } else {
         emit('remove')
         removed.value = false
@@ -133,6 +133,7 @@ export default defineComponent({
     watch(() => props.file, convertToImg)
 
     return {
+      undo,
       removed,
       disabled,
       isFocused,

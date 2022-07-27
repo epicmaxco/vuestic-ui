@@ -48,16 +48,16 @@ export default defineComponent({
   setup: (props) => {
     const progress = ref(100)
     const {
-      undoDuration = ref(3000),
-      undoButtonText = ref('Undo'),
-      deletedFileMessage = ref('File was successfully deleted'),
+      undoDuration,
+      undoButtonText,
+      deletedFileMessage,
     } = useStrictInject<VaFileUploadInject>(VaFileUploadKey, INJECTION_ERROR_MESSAGE)
 
     const computedClasses = useBem('va-file-upload-undo', () => ({
       vertical: props.vertical,
     }))
 
-    const undoDurationStyle = computed(() => `${undoDuration.value}ms`)
+    const undoDurationStyle = computed(() => `${undoDuration?.value || 3000}ms`)
 
     onMounted(() => {
       const timer = setTimeout(() => {

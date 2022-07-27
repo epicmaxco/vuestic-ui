@@ -63,18 +63,15 @@ export default defineComponent({
 
   setup (props, { emit }) {
     const {
-      undo = ref(false),
-      disabled = ref(false),
-      undoDuration = ref(3000),
-    } = useStrictInject<VaFileUploadInject>(
-      VaFileUploadKey,
-      INJECTION_ERROR_MESSAGE,
-    )
+      undo,
+      disabled,
+      undoDuration,
+    } = useStrictInject<VaFileUploadInject>(VaFileUploadKey, INJECTION_ERROR_MESSAGE)
     const { onFocus, onBlur } = useFocus()
     const removed = ref(false)
 
     const removeFile = () => {
-      if (undo.value) {
+      if (undo?.value) {
         removed.value = true
 
         setTimeout(() => {
@@ -82,7 +79,7 @@ export default defineComponent({
             emit('remove')
             removed.value = false
           }
-        }, undoDuration.value)
+        }, undoDuration?.value || 3000)
       } else {
         emit('remove')
         removed.value = false
@@ -153,6 +150,8 @@ export default defineComponent({
   &__delete {
     font-size: 1.5rem;
     cursor: pointer;
+
+    --va-button-size: 1.5rem;
 
     &:focus {
       @include focus-outline;
