@@ -37,7 +37,7 @@ export default {
 @import '~vuestic-ui/src/styles/resources';
 
 .item {
-  border: 1px solid var(--va-form);
+  border: 1px solid var(--va-background-form);
   background-color: var(--va-background-soft);
   text-align: center;
 }

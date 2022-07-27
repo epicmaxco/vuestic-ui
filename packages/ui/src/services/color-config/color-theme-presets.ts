@@ -19,6 +19,6 @@ export const colorsPresets: Record<string, ColorConfigEssentialColors> = {
     // Misc
     shadow: 'rgba(0, 0, 0, 0.12)',
     focus: '#ffc700',
-    form: '#babfc2',
+    backgroundForm: '#babfc2',
   },
 }

@@ -12,6 +12,9 @@ export type ColorConfigEssentialColors = {
   background: CssColor,
   backgroundSoft: CssColor,
   backgroundMute: CssColor,
+  // TODO: Think about better name
+  /** Form background in switch and borders in checkbox, ratio etc */
+  backgroundForm: CssColor,
   // Text colors
   textLight: CssColor,
   textDark: CssColor,
@@ -20,10 +23,6 @@ export type ColorConfigEssentialColors = {
   shadow: CssColor,
   /** Outline color when component is focused */
   focus: CssColor,
-
-  // TODO: Think about better name
-  /** Form background in switch and borders in checkbox, ratio etc */
-  form: CssColor,
 }
 
 export type ColorConfig = { [colorName: string]: CssColor } & ColorConfigEssentialColors
