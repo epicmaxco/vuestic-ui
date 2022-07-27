@@ -14,6 +14,7 @@
     <template #anchor>
       <slot name="input" v-bind="{ valueText, inputAttributes: inputAttributesComputed, inputWrapperProps, inputListeners }">
         <va-input-wrapper
+          class="va-date-input__anchor"
           v-bind="inputWrapperProps"
           @click="toggleDropdown"
           @keydown.enter.stop="toggleDropdown"
@@ -399,8 +400,13 @@ export default defineComponent({
 .va-date-input {
   --va-date-picker-cell-size: 28px;
 
-  display: flex;
+  min-width: var(--va-date-input-min-width);
   font-family: var(--va-font-family);
+
+  &__anchor {
+    min-width: auto;
+    width: 100%;
+  }
 
   &__icon {
     cursor: pointer;
