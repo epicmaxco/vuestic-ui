@@ -46,6 +46,7 @@ import {
 } from '../../composables'
 import { useAnchorSelector } from './hooks/useAnchorSelector'
 import { useCursorAnchor } from './hooks/useCursorAnchor'
+import { useAnchorKeyboardNavigation, useAnchorMouseNavigation } from './hooks/useDropdownNavigation'
 
 export default defineComponent({
   name: 'VaDropdown',
@@ -73,15 +74,17 @@ export default defineComponent({
     autoPlacement: { type: Boolean, default: false },
     cursor: { type: Boolean, default: false },
     trigger: {
-      type: String as PropType<'click' | 'right-click' | 'hover' | 'none'>,
+      type: String as PropType<'click' | 'right-click' | 'hover' | 'dblclick' | 'none'>,
       default: 'click',
-      validator: (value: string) => ['click', 'right-click', 'hover', 'none'].includes(value),
+      validator: (value: string) => ['click', 'right-click', 'hover', 'dblclick', 'none'].includes(value),
     },
     placement: {
       type: String as PropType<Placement>,
       default: 'auto',
       validator: (value: string) => placementsPositions.includes(value),
     },
+    /** Not reactive */
+    keyboardNavigation: { type: Boolean, default: false },
   },
 
   emits: [...useStatefulEmits, 'anchor-click', 'anchor-right-click', 'content-click', 'click-outside'],
@@ -123,7 +126,13 @@ export default defineComponent({
       if (close && props.trigger !== 'none') { valueComputed.value = false }
     }
 
-    const { anchorRef } = useAnchorSelector(props, {
+    const { anchorRef } = useAnchorSelector(props)
+
+    if (props.keyboardNavigation) {
+      useAnchorKeyboardNavigation(anchorRef, valueComputed)
+    }
+
+    useAnchorMouseNavigation(anchorRef, {
       click (e) {
         if ((props.trigger !== 'click' && kebabCase(props.trigger) !== 'right-click') || props.disabled) { return }
 
@@ -151,6 +160,19 @@ export default defineComponent({
         } else {
           valueComputed.value = true
           emit('anchor-right-click', e)
+        }
+      },
+      dblclick (e) {
+        if (props.trigger !== 'dblclick' || props.disabled) { return }
+        if (valueComputed.value) {
+          emitAndClose('anchor-right-click', props.closeOnAnchorClick, e)
+
+          if (props.cursor) {
+            nextTick(() => { valueComputed.value = true })
+          }
+        } else {
+          valueComputed.value = true
+          emit('anchor-dblclick', e)
         }
       },
       mouseenter: onMouseEnter,
