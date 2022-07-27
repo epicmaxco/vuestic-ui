@@ -71,7 +71,7 @@
                 @selectstart.prevent
               >
                 <va-icon
-                  :name="sortingOrderSync === 'asc' ? 'expand_less' : 'expand_more'"
+                  :name="sortingOrderIconName"
                   size="small"
                   class="va-data-table__table-th-sorting-icon"
                   :class="{ active: sortBySync === column.name && sortingOrderSync !== null }"
@@ -215,7 +215,7 @@
                 @selectstart.prevent
               >
                 <va-icon
-                  :name="sortingOrderSync === 'asc' ? 'expand_less' : 'expand_more'"
+                  :name="sortingOrderIconName"
                   size="small"
                   class="va-data-table__table-th-sorting-icon"
                   :class="{ active: sortBySync === column.name && sortingOrderSync !== null }"
@@ -252,6 +252,7 @@ import {
   DataTableRow,
   DataTableFilterMethod,
   DataTableSortingOrder,
+  DataTableSortingOptions,
   DataTableSelectMode,
   DataTableRowBind,
   DataTableCellBind,
@@ -300,6 +301,15 @@ export default defineComponent({
     modelValue: { type: Array as PropType<(DataTableItem | DataTableItemKey)[]> }, // selectedItems
     sortingOrder: { type: String as PropType<DataTableSortingOrder> }, // model-able
     sortBy: { type: String }, // model-able
+    sortingOptions: {
+      type: Array as PropType<DataTableSortingOptions>,
+      default: () => ['asc', 'desc', null],
+      validator: (options: DataTableSortingOptions) => (
+        (options.length === 2 || options.length === 3) &&
+        (options.length === [...new Set(options)].length) &&
+        (options.every((option) => ['asc', 'desc', null].includes(option)))
+      ),
+    },
     filter: { type: String, default: '' },
     filterMethod: { type: Function as PropType<DataTableFilterMethod> },
     hoverable: { type: Boolean, default: false },
@@ -349,6 +359,7 @@ export default defineComponent({
       sortingOrderSync,
       toggleSorting,
       sortedRows,
+      sortingOrderIconName,
     } = useSortable(columnsComputed, filteredRows, props, emit)
 
     const { paginatedRows } = usePaginatedRows(sortedRows, props)
@@ -420,6 +431,7 @@ export default defineComponent({
       sortBySync,
       sortingOrderSync,
       toggleSorting,
+      sortingOrderIconName,
       rowCSSVariables,
       getHeaderCSSVariables,
       getCellCSSVariables,
