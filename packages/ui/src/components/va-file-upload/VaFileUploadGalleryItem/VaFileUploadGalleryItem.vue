@@ -29,11 +29,12 @@
         </div>
         <va-button
           :disabled="disabled"
+          :aria-disabled="disabled"
           flat
           color="danger"
           icon="delete_outline"
           class="va-file-upload-gallery-item__delete"
-          aria-label="remove image"
+          aria-label="remove file"
           @click="removeImage"
           @focus="onFocus"
           @blur="onBlur"
@@ -44,33 +45,41 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, inject, onMounted, ref, watch, computed, PropType } from 'vue'
+import { defineComponent, onMounted, ref, watch, computed, PropType } from 'vue'
 
 import { colorToRgba } from '../../../services/color-config/color-functions'
-import { useFocus, useBem } from '../../../composables'
+import { useFocus, useBem, useStrictInject } from '../../../composables'
 
-import type { ConvertedFile } from '../types'
-import { VaFileUploadKey } from '../types'
+import { VaFileUploadKey, ConvertedFile, VaFileUploadInject } from '../types'
 
 import { VaButton, VaListItem, VaListItemSection } from '../../index'
 import { VaFileUploadUndo } from '../VaFileUploadUndo'
 
+const INJECTION_ERROR_MESSAGE = 'The VaFileUploadGalleryItem component should be used in the context of VaFileUpload component'
+
 export default defineComponent({
   name: 'VaFileUploadGalleryItem',
+
   components: {
     VaFileUploadUndo,
     VaButton,
     VaListItem,
     VaListItemSection,
   },
+
   emits: ['remove'],
+
   props: {
     file: { type: Object as PropType<ConvertedFile>, default: null },
     color: { type: String, default: 'success' },
-    undo: { type: Boolean, default: false },
-    undoDuration: { type: Number, default: 3000 },
   },
+
   setup (props, { emit }) {
+    const {
+      undo = ref(false),
+      disabled = ref(false),
+      undoDuration = ref(3000),
+    } = useStrictInject<VaFileUploadInject>(VaFileUploadKey, INJECTION_ERROR_MESSAGE)
     const { isFocused, onFocus, onBlur } = useFocus()
     const previewImage = ref('')
     const removed = ref(false)
@@ -86,7 +95,7 @@ export default defineComponent({
     }))
 
     const removeImage = () => {
-      if (props.undo) {
+      if (undo.value) {
         removed.value = true
 
         setTimeout(() => {
@@ -94,7 +103,7 @@ export default defineComponent({
 
           emit('remove')
           removed.value = false
-        }, props.undoDuration)
+        }, undoDuration.value)
       } else {
         emit('remove')
         removed.value = false
@@ -119,10 +128,6 @@ export default defineComponent({
         }
       }
     }
-
-    const { disabled } = inject(VaFileUploadKey, {
-      disabled: ref(false),
-    })
 
     onMounted(convertToImg)
     watch(() => props.file, convertToImg)

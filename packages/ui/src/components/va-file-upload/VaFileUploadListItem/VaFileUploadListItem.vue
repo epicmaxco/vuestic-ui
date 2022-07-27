@@ -16,11 +16,12 @@
         </div>
         <va-button
           :disabled="disabled"
+          :aria-disabled="disabled"
           flat
           color="danger"
           icon="clear"
           class="va-file-upload-list-item__delete"
-          aria-label="remove image"
+          aria-label="remove file"
           @click.stop="removeFile"
           @keydown.enter.stop="removeFile"
           @keydown.space.stop="removeFile"
@@ -33,35 +34,47 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, inject, ref, PropType } from 'vue'
+import { defineComponent, ref, PropType } from 'vue'
 
-import { useBem, useFocus } from '../../../composables'
-import { ConvertedFile, VaFileUploadKey } from '../types'
+import { useBem, useFocus, useStrictInject } from '../../../composables'
+import { VaFileUploadKey, ConvertedFile, VaFileUploadInject } from '../types'
 
 import { VaListItem, VaListItemSection, VaButton } from '../../index'
 import { VaFileUploadUndo } from '../VaFileUploadUndo'
 
+const INJECTION_ERROR_MESSAGE = 'The VaFileUploadListItem component should be used in the context of VaFileUpload component'
+
 export default defineComponent({
   name: 'VaFileUploadListItem',
+
   components: {
     VaListItem,
     VaListItemSection,
     VaFileUploadUndo,
     VaButton,
   },
+
   emits: ['remove'],
+
   props: {
     file: { type: Object as PropType<ConvertedFile | null>, default: null },
     color: { type: String, default: 'success' },
-    undo: { type: Boolean, default: false },
-    undoDuration: { type: Number, default: 3000 },
   },
+
   setup (props, { emit }) {
+    const {
+      undo = ref(false),
+      disabled = ref(false),
+      undoDuration = ref(3000),
+    } = useStrictInject<VaFileUploadInject>(
+      VaFileUploadKey,
+      INJECTION_ERROR_MESSAGE,
+    )
     const { onFocus, onBlur } = useFocus()
     const removed = ref(false)
 
     const removeFile = () => {
-      if (props.undo) {
+      if (undo.value) {
         removed.value = true
 
         setTimeout(() => {
@@ -69,7 +82,7 @@ export default defineComponent({
             emit('remove')
             removed.value = false
           }
-        }, props.undoDuration)
+        }, undoDuration.value)
       } else {
         emit('remove')
         removed.value = false
@@ -82,9 +95,8 @@ export default defineComponent({
       undo: removed.value,
     }))
 
-    const { disabled } = inject(VaFileUploadKey, { disabled: ref(false) })
-
     return {
+      undo,
       removed,
       disabled,
       computedClasses,

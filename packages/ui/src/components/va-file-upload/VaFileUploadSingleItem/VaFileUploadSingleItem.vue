@@ -6,6 +6,8 @@
     <va-button
       class="va-file-upload-single-item__button"
       :disabled="disabled"
+      :aria-disabled="disabled"
+      aria-label="remove file"
       size="small"
       color="danger"
       flat
@@ -17,11 +19,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, inject, ref, PropType } from 'vue'
+import { defineComponent, ref, PropType } from 'vue'
+import { useStrictInject } from '../../../composables'
 
-import { VaButton } from '../../index'
+import { VaButton, VaFileUploadInject } from '../../index'
+import { VaFileUploadKey, ConvertedFile } from '../types'
 
-import { ConvertedFile, VaFileUploadKey } from '../types'
+const INJECTION_ERROR_MESSAGE = 'The VaFileUploadSingleItem component should be used in the context of VaFileUpload component'
 
 export default defineComponent({
   name: 'VaFileUploadSingleItem',
@@ -37,9 +41,9 @@ export default defineComponent({
   },
 
   setup () {
-    const { disabled } = inject(VaFileUploadKey, {
-      disabled: ref(false),
-    })
+    const {
+      disabled = ref(false),
+    } = useStrictInject<VaFileUploadInject>(VaFileUploadKey, INJECTION_ERROR_MESSAGE)
 
     return { disabled }
   },
