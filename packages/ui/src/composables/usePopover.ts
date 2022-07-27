@@ -18,7 +18,10 @@ export const placementsPositions = ['top', 'bottom', 'left', 'right']
 const coordsToCss = ({ x, y }: Coords) => ({ left: `${x}px`, top: `${y}px` })
 
 const parsePlacement = (placement: Placement) => {
-  const [position, align] = placement.split('-') as [PlacementPosition, PlacementAlignment | undefined]
+  let [position, align] = placement.split('-') as [PlacementPosition | 'auto', PlacementAlignment | undefined]
+  if (position === 'auto') {
+    position = 'bottom'
+  }
 
   return { position, align: align || 'center' }
 }

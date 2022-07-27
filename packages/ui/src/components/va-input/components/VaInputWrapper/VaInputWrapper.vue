@@ -177,6 +177,11 @@ export default defineComponent({
       errorLimit,
     }
   },
+
+  methods: {
+    focus () { this.$el.focus() },
+    blur () { this.$el.blur() },
+  },
 })
 </script>
 

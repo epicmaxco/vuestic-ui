@@ -43,10 +43,11 @@ import {
   useEvent,
   useIsMounted,
   useDocument,
+  useHTMLElement,
 } from '../../composables'
 import { useAnchorSelector } from './hooks/useAnchorSelector'
 import { useCursorAnchor } from './hooks/useCursorAnchor'
-import { useAnchorKeyboardNavigation, useAnchorMouseNavigation } from './hooks/useDropdownNavigation'
+import { useKeyboardNavigation, useMouseNavigation } from './hooks/useDropdownNavigation'
 
 export default defineComponent({
   name: 'VaDropdown',
@@ -71,7 +72,7 @@ export default defineComponent({
     hoverOutTimeout: { type: Number, default: 200 },
     offset: { type: [Array, Number] as PropType<number | [number, number]>, default: 0 },
     stickToEdges: { type: Boolean, default: false },
-    autoPlacement: { type: Boolean, default: false },
+    autoPlacement: { type: Boolean, default: true },
     cursor: { type: Boolean, default: false },
     trigger: {
       type: String as PropType<'click' | 'right-click' | 'hover' | 'dblclick' | 'none'>,
@@ -87,7 +88,7 @@ export default defineComponent({
     keyboardNavigation: { type: Boolean, default: false },
   },
 
-  emits: [...useStatefulEmits, 'anchor-click', 'anchor-right-click', 'content-click', 'click-outside'],
+  emits: [...useStatefulEmits, 'anchor-click', 'anchor-right-click', 'content-click', 'click-outside', 'close', 'open'],
 
   setup (props, { emit }) {
     const contentRef = shallowRef<HTMLElement>()
@@ -95,7 +96,14 @@ export default defineComponent({
     const { valueComputed: statefulVal } = useStateful(props, emit)
     const valueComputed = computed({
       get: () => statefulVal.value && !props.disabled && !props.readonly,
-      set (val) { statefulVal.value = val },
+      set (val) {
+        statefulVal.value = val
+        if (val) {
+          emit('open')
+        } else {
+          emit('close')
+        }
+      },
     })
 
     const computedClass = useBem('va-dropdown', () => pick(props, ['disabled']))
@@ -126,13 +134,13 @@ export default defineComponent({
       if (close && props.trigger !== 'none') { valueComputed.value = false }
     }
 
-    const { anchorRef } = useAnchorSelector(props)
+    const elRef = useHTMLElement('anchorRef')
 
     if (props.keyboardNavigation) {
-      useAnchorKeyboardNavigation(anchorRef, valueComputed)
+      useKeyboardNavigation(elRef, valueComputed)
     }
 
-    useAnchorMouseNavigation(anchorRef, {
+    useMouseNavigation(elRef, {
       click (e) {
         if ((props.trigger !== 'click' && kebabCase(props.trigger) !== 'right-click') || props.disabled) { return }
 
@@ -179,14 +187,15 @@ export default defineComponent({
       mouseleave: onMouseLeave,
     })
 
-    useClickOutside([anchorRef, contentRef], () => {
+    const { anchorRef: computedAnchorRef } = useAnchorSelector(props)
+    useClickOutside([computedAnchorRef, contentRef], () => {
       if (props.closeOnClickOutside && valueComputed.value) {
         emitAndClose('click-outside', props.closeOnClickOutside)
       }
     })
 
-    const cursorAnchor = useCursorAnchor(anchorRef, valueComputed)
-    usePopover(computed(() => props.cursor ? cursorAnchor.value : anchorRef.value), contentRef, computed(() => ({
+    const cursorAnchor = useCursorAnchor(computedAnchorRef, valueComputed)
+    usePopover(computed(() => props.cursor ? cursorAnchor.value : computedAnchorRef.value), contentRef, computed(() => ({
       placement: props.placement,
       keepAnchorWidth: props.keepAnchorWidth,
       offset: props.offset,
@@ -199,7 +208,7 @@ export default defineComponent({
     const idComputed = computed(generateUniqueId)
 
     useEvent('blur', () => {
-      if (props.closeOnClickOutside) {
+      if (props.closeOnClickOutside && valueComputed.value) {
         valueComputed.value = false
       }
     })
@@ -213,14 +222,14 @@ export default defineComponent({
 
       if (!target) { return document.value?.body }
 
-      if (anchorRef.value && !target.contains(anchorRef.value)) { return document.value?.body }
+      if (computedAnchorRef.value && !target.contains(computedAnchorRef.value)) { return document.value?.body }
 
       return target
     })
 
     const teleportTargetComputed = computed(() => {
       if (!isPopoverFloating.value) {
-        return anchorRef.value
+        return computedAnchorRef.value
       }
       return targetComputed.value
     })
@@ -231,7 +240,7 @@ export default defineComponent({
       teleportTargetComputed,
       teleportDisabled,
       isMounted: useIsMounted(),
-      anchorRef,
+      anchorRef: computedAnchorRef,
       valueComputed,
       contentRef,
       computedClass,

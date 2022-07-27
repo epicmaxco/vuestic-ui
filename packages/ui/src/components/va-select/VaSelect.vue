@@ -10,12 +10,10 @@
     :stateful="false"
     :offset="[1, 0]"
     keep-anchor-width
+    keyboard-navigation
     inner-anchor-selector=".va-input-wrapper__field"
     v-model="showDropdownContentComputed"
-    @keydown.up.stop.prevent="showDropdown"
-    @keydown.down.stop.prevent="showDropdown"
-    @keydown.space.stop.prevent="showDropdown"
-    @keydown.enter.stop.prevent="showDropdown"
+    @close="focus"
   >
     <template #anchor>
       <va-input-wrapper
@@ -112,9 +110,6 @@
     <va-dropdown-content
       class="va-select-dropdown__content"
       :style="{ width: $props.width }"
-      @keyup.enter.stop="() => undefined"
-      @keydown.tab.stop.prevent="() => undefined"
-      @keydown.esc.prevent="hideAndFocus"
     >
       <va-input
         v-if="showSearchInput"
@@ -262,10 +257,10 @@ export default defineComponent({
 
   setup (props, { emit }) {
     const optionList = shallowRef<typeof VaSelectOptionList>()
-    const input = shallowRef<typeof VaInput>()
+    const input = shallowRef<typeof VaInputWrapper>()
     const searchBar = shallowRef<typeof VaInput>()
 
-    const isInputFocused = useFocusDeep()
+    const isInputFocused = useFocusDeep(input as any)
     const isFocused = computed(() => isInputFocused.value || showDropdownContent.value)
 
     const { getHoverColor, getColor } = useColors()

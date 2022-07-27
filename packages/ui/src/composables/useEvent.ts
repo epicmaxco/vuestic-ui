@@ -21,20 +21,19 @@ type UseEventEvent<N extends UseEventEventName, D> = N extends keyof GlobalEvent
 export const useEvent = <N extends UseEventEventName, E extends Event>(
   event: N,
   listener: (this: GlobalEventHandlers, event: UseEventEvent<N, E>) => any,
-  target?: MaybeRef<GlobalEventHandlers | undefined | null>,
+  target?: MaybeRef<GlobalEventHandlers | undefined | null> | boolean,
 ) => {
-  if (!target) {
-    target = useClientOnly(() => window)
-  }
+  const source = target && typeof target !== 'boolean' ? target : useClientOnly(() => window)
+  const capture = typeof target === 'boolean' ? target : false
 
-  watch(target, (newValue, oldValue) => {
+  watch(source, (newValue, oldValue) => {
     if (!Array.isArray(event)) {
-      unref(newValue)?.addEventListener(event, listener as any)
-      unref(oldValue)?.removeEventListener(event, listener as any)
+      unref(newValue)?.addEventListener(event, listener as any, capture)
+      unref(oldValue)?.removeEventListener(event, listener as any, capture)
     } else {
       event.forEach((e) => {
-        unref(newValue)?.addEventListener(e, listener as any)
-        unref(oldValue)?.removeEventListener(e, listener as any)
+        unref(newValue)?.addEventListener(e, listener as any, capture)
+        unref(oldValue)?.removeEventListener(e, listener as any, capture)
       })
     }
   }, { immediate: true })

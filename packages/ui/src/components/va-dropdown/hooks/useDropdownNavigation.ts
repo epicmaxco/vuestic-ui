@@ -10,13 +10,8 @@ const isTyping = (e: Event) => {
 
 const openKey = ['ArrowDown', 'ArrowUp', 'Enter', 'Space']
 
-export const useAnchorKeyboardNavigation = (anchorRef: Ref<HTMLElement | undefined>, isOpened: Ref<boolean>) => {
+export const useKeyboardNavigation = (anchorRef: Ref<HTMLElement | undefined>, isOpened: Ref<boolean>) => {
   useEvent('keydown', (e) => {
-    if (e.key === 'Esc') {
-      isOpened.value = false
-      return
-    }
-
     if (isTyping(e)) { return }
 
     if (!openKey.includes(e.key)) { return }
@@ -24,10 +19,17 @@ export const useAnchorKeyboardNavigation = (anchorRef: Ref<HTMLElement | undefin
     isOpened.value = !isOpened.value
     e.preventDefault()
   }, anchorRef)
+
+  useEvent('keydown', (e) => {
+    if (e.key === 'Escape' && isOpened.value) {
+      isOpened.value = false
+      e.preventDefault()
+    }
+  }, true)
 }
 
 type MouseEventName = 'mouseleave' | 'mouseenter' | 'click' | 'dblclick' | 'contextmenu'
-export const useAnchorMouseNavigation = (
+export const useMouseNavigation = (
   anchorRef: Ref<HTMLElement | undefined>,
   listeners: Record<MouseEventName, (e: MouseEvent) => any>,
 ) => {
