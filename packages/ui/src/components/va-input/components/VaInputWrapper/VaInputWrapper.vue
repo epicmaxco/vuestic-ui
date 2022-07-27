@@ -275,26 +275,6 @@ export default defineComponent({
     }
   }
 
-  &__icons {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    & > * {
-      margin-right: calc(var(--va-input-content-items-gap) / 4);
-
-      &:last-child {
-        margin-right: 0;
-      }
-    }
-
-    &__reset {
-      &:focus {
-        @include focus-outline;
-      }
-    }
-  }
-
   &__required-mark {
     transform: translate(0, -2px);
     color: var(--va-danger);
