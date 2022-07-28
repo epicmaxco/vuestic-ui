@@ -8,29 +8,24 @@
       <va-file-upload-list-item
         v-for="(file, index) in filesList"
         :key="file.name"
-        role="listitem"
         :file="file"
         :color="color"
-        :undo="undo"
-        :undoDuration="undoDuration"
+        role="listitem"
         @remove="$emit('remove', index)"
       />
     </template>
     <template v-if="type === 'gallery'">
       <va-file-upload-gallery-item
         v-for="(file, index) in filesList"
-        role="listitem"
-        :file="file"
         :key="file.name"
+        :file="file"
         :color="color"
-        :undo="undo"
-        :undoDuration="undoDuration"
+        role="listitem"
         @remove="$emit('remove', index)"
       />
     </template>
     <template v-if="type === 'single' && filesList.length">
       <va-file-upload-single-item
-        role="listitem"
         :file="filesList[filesList.length - 1]"
         @remove="$emit('removeSingle')"
       />
@@ -61,8 +56,6 @@ export default defineComponent({
     type: { type: String, default: '' },
     files: { type: Array as PropType<VaFile[]>, default: null },
     color: { type: String, default: 'success' },
-    undo: { type: Boolean, default: false },
-    undoDuration: { type: Number, default: 3000 },
   },
   setup (props) {
     const filesList = computed(() => props.files.map(convertFile))

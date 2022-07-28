@@ -1,5 +1,5 @@
 <template>
-  <VaInputWrapper
+  <va-input-wrapper
     class="va-counter"
     v-bind="{ ...fieldListeners, ...inputWrapperPropsComputed }"
     :class="classComputed"
@@ -79,7 +79,7 @@
       @input="setCountInput"
       @change="setCountChange"
     >
-  </VaInputWrapper>
+  </va-input-wrapper>
 </template>
 
 <script lang="ts">

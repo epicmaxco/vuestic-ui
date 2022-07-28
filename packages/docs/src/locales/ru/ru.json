@@ -1995,6 +1995,10 @@
         "inputLabel": "Длительность отмены",
         "cancelFieldLabel": "Текст кнопки отмены удаления",
         "deletedFileFieldLabel": "Текст сообщения об удалении файла"
+      },
+      "disabled": {
+        "title": "Disabled",
+        "description": "Используйте свойство `disabled` для отключения любого взаимодействия с компонентом"
       }
     },
     "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-file-upload/_variables.scss)[[target=_blank]]"
