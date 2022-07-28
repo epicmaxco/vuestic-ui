@@ -3321,7 +3321,11 @@
     "description": "Our team is constantly improving the existing code base and adding new features that help building applications even easier.",
     "inDevelopment": {
       "title": "In development",
-      "description": "The following releases are currently being developed:"
+      "description": "The following features are currently being in development:"
+    },
+    "1-5": {
+      "title": "[v1.5](https://github.com/epicmaxco/vuestic-ui/milestone/11)",
+      "description": "We focus on new services, components, testing and automation."
     },
     "1-4": {
       "title": "[v1.4](https://github.com/epicmaxco/vuestic-ui/milestone/7)",
