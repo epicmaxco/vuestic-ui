@@ -146,9 +146,6 @@ export default defineComponent({
 
         if (valueComputed.value) {
           emitAndClose('anchor-click', props.closeOnAnchorClick, e)
-          if (props.cursor) {
-            nextTick(() => { valueComputed.value = true })
-          }
         } else {
           if (props.trigger !== 'click') { return }
           valueComputed.value = true
@@ -173,7 +170,7 @@ export default defineComponent({
       dblclick (e) {
         if (props.trigger !== 'dblclick' || props.disabled) { return }
         if (valueComputed.value) {
-          emitAndClose('anchor-right-click', props.closeOnAnchorClick, e)
+          emitAndClose('anchor-dblclick', props.closeOnAnchorClick, e)
 
           if (props.cursor) {
             nextTick(() => { valueComputed.value = true })
@@ -209,7 +206,7 @@ export default defineComponent({
 
     useEvent('blur', () => {
       if (props.closeOnClickOutside && valueComputed.value) {
-        valueComputed.value = false
+        emitAndClose('click-outside', props.closeOnClickOutside)
       }
     })
 
@@ -229,7 +226,7 @@ export default defineComponent({
 
     const teleportTargetComputed = computed(() => {
       if (!isPopoverFloating.value) {
-        return computedAnchorRef.value
+        return elRef.value
       }
       return targetComputed.value
     })

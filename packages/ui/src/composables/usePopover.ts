@@ -181,6 +181,7 @@ export const usePopover = (
       offsetCoords = calculateOffsetCoords(placement, offset)
       coords = mapObject(coords, (c, key) => c + offsetCoords[key])
     }
+
     const rootRect = rootRef.value.getBoundingClientRect()
     const viewportRect = unref(options).viewport?.getBoundingClientRect() ?? rootRect
 

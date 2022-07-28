@@ -3,6 +3,7 @@
     <div class="demo-ignore-overflow" style="overflow: hidden;">
       <va-dropdown
         :modelValue="true"
+        :auto-placement="false"
         trigger="none"
         placement="top"
         target=".demo-viewport"

@@ -1,5 +1,5 @@
 import { shallowRef, computed, Ref, onMounted, DefineComponent } from 'vue'
-import { useHTMLElement } from '.'
+import { useHTMLElement } from './useHTMLElement'
 import { useCaptureEvent } from './useCaptureEvent'
 import { useCurrentElement } from './useCurrentElement'
 
