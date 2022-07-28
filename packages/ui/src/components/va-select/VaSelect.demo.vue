@@ -585,7 +585,7 @@
 </template>
 
 <script>
-import CountriesList from '../../data/CountriesList'
+import CountriesList from '../demo/CountriesList'
 import { VaIcon } from '../va-icon'
 import { VaCheckbox } from '../va-checkbox'
 import { VaChip } from '../va-chip'
