@@ -93,11 +93,7 @@ export default defineComponent({
 
     const bodyHeight = ref()
     useResizeObserver([body], () => {
-      if (body.value) {
-        bodyHeight.value = body.value.clientHeight
-      } else {
-        bodyHeight.value = 0
-      }
+      bodyHeight.value = body.value?.clientHeight ?? 0
     })
 
     const height = computed(() => computedModelValue.value ? bodyHeight.value : 0)
