@@ -1,0 +1,175 @@
+@import './mixins';
+@import '../resources/variables';
+
+/** Isolated typography so it can be used in VaContent */
+@mixin va-typography {
+  ::selection {
+    background-color: var(--va-text-selected);
+    color: var(--va-white);
+  }
+
+  .link {
+    @include link();
+
+    // TODO:(1.5.0) Move to CSS Helpers. Why no BEM?
+    &-secondary {
+      color: var(--va-link-color-secondary);
+    }
+  }
+
+  .title {
+    @include va-title();
+
+    &--va-info {
+      color: var(--va-info);
+    }
+
+    &--va-danger {
+      color: var(--va-danger);
+    }
+
+    &--va-warning {
+      color: var(--va-warning);
+    }
+
+    &--va-gray {
+      color: var(--brand-gray);
+    }
+  }
+
+  .text {
+    &--bold {
+      font-weight: bold;
+    }
+
+    &--highlighted {
+      background-color: var(--va-text-highlighted);
+    }
+
+    &--left {
+      text-align: left !important;
+    }
+
+    &--right {
+      text-align: right !important;
+    }
+
+    &--center {
+      text-align: center !important;
+    }
+
+    &--justify {
+      text-align: justify !important;
+    }
+
+    &--uppercase {
+      text-transform: uppercase !important;
+    }
+
+    &--lowercase {
+      text-transform: lowercase !important;
+    }
+
+    &--capitalize {
+      text-transform: capitalize !important;
+    }
+
+    &--no-wrap {
+      white-space: nowrap !important;
+    }
+
+    &--truncate {
+      white-space: nowrap !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+    }
+
+    &--code {
+      @include va-code;
+
+      padding: 0.1rem 0.2rem;
+    }
+
+    // Colors
+    // TODO: Move it to CSS Helpers
+    &--secondary {
+      color: var(--va-secondary);
+    }
+  }
+
+  .code-snippet {
+    @include va-code-snippet();
+  }
+
+  .va-blockquote {
+    border-left: 0.25rem solid var(--va-primary);
+    border-radius: 0.125rem;
+    padding: 0.4rem 0 0.4rem 0.8rem;
+    color: var(--va-secondary);
+
+    p {
+      margin-bottom: 0.5rem;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  @each $element, $size in $display-font-sizes {
+    .display-#{$element} {
+      @include va-display($element);
+    }
+  }
+
+  ul.va-unordered {
+    @include va-unordered;
+
+    ul.va-unordered,
+    ol.va-ordered {
+      margin-bottom: 0;
+      margin-top: 0;
+    }
+  }
+
+  ol.va-ordered {
+    @include va-ordered;
+
+    ul.va-unordered,
+    ol.va-ordered {
+      margin-bottom: 0;
+      margin-top: 0;
+    }
+  }
+
+  .va-table {
+    @include va-table();
+  }
+
+  .text-block {
+    padding: 1.2rem;
+    background-color: var(--va-text-block);
+  }
+
+  // TODO:(1.5.0) Looks like we don't even need it.
+  .muted {
+    color: var(--va-muted);
+  }
+
+  i {
+    font-style: italic;
+  }
+
+  hr.va-separator {
+    height: 2px;
+    // TODO:(1.5.0) Rename color
+    background-color: var(--va-divider);
+    border: none;
+  }
+
+  p.va-paragraph {
+    font-size: 1rem;
+    margin-top: 0;
+    margin-bottom: 1rem;
+  }
+}
