@@ -2111,6 +2111,10 @@
         "durationFieldLabel": "Undo duration",
         "cancelFieldLabel": "Cancel button text",
         "deletedFileFieldLabel": "Deleted file message"
+      },
+      "disabled": {
+        "title": "Disabled",
+        "description": "Use the `disabled` prop to disable any actions with a component"
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-file-upload/_variables.scss)[[target=_blank]]"

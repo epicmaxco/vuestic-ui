@@ -173,6 +173,14 @@
         deleted-file-message="Woah! File just disappeared!"
       />
     </VbCard>
+    <VbCard title="Disabled">
+      single
+      <va-file-upload v-model="defaultFileList" disabled />
+      list
+      <va-file-upload v-model="defaultFileList" disabled />
+      gallery
+      <va-file-upload v-model="defaultFileList" disabled />
+    </VbCard>
   </VbDemo>
 </template>
 
