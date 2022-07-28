@@ -2,6 +2,7 @@ import { computed } from 'vue'
 import startCase from 'lodash/startCase.js'
 import merge from 'lodash/merge.js'
 
+import { warn } from '../../../services/utils'
 import {
   DataTableColumnSource,
   DataTableColumnInternal,
@@ -16,12 +17,26 @@ interface useColumnsProps {
   [prop: string]: unknown
 }
 
+export const sortingOptionsValidator = (options: DataTableSortingOptions) => (
+  (options.length === 2 || options.length === 3) &&
+  (options.length === [...new Set(options)].length) &&
+  (options.every((option) => ['asc', 'desc', null].includes(option)))
+)
+
 export const buildTableColumn = (
   source: DataTableColumnSource,
   initialIndex: number,
   props: useColumnsProps,
 ): DataTableColumnInternal => {
   const input = typeof source === 'string' ? { key: source } : source
+
+  const isValidOptions = input.sortingOptions
+    ? sortingOptionsValidator(input.sortingOptions)
+    : true
+
+  if (!isValidOptions) {
+    warn(`The "sortingOptions" array in the column with "${input.key}" key is invalid. For this column, the "sortingOptions" value is taken as for the table: ${JSON.stringify(props.sortingOptions)}.`)
+  }
 
   return {
     source,
@@ -32,7 +47,7 @@ export const buildTableColumn = (
     thTitle: input.thTitle || input.headerTitle || input.label || startCase(input.key),
     sortable: input.sortable || false,
     sortingFn: input.sortingFn,
-    sortingOptions: input.sortingOptions || props.sortingOptions,
+    sortingOptions: (isValidOptions && input.sortingOptions) || props.sortingOptions,
     thAlign: input.thAlign || input.alignHead || 'left',
     thVerticalAlign: input.thVerticalAlign || input.verticalAlignHead || 'middle',
     tdAlign: input.tdAlign || input.align || 'left',

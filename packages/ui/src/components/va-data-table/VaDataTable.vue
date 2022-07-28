@@ -236,7 +236,7 @@ import { computed, defineComponent, HTMLAttributes, PropType, TableHTMLAttribute
 import omit from 'lodash/omit.js'
 import pick from 'lodash/pick.js'
 
-import useColumns from './hooks/useColumns'
+import useColumns, { sortingOptionsValidator } from './hooks/useColumns'
 import useRows from './hooks/useRows'
 import useFilterable from './hooks/useFilterable'
 import useSortable from './hooks/useSortable'
@@ -304,11 +304,7 @@ export default defineComponent({
     sortingOptions: {
       type: Array as PropType<DataTableSortingOptions>,
       default: () => ['asc', 'desc', null],
-      validator: (options: DataTableSortingOptions) => (
-        (options.length === 2 || options.length === 3) &&
-        (options.length === [...new Set(options)].length) &&
-        (options.every((option) => ['asc', 'desc', null].includes(option)))
-      ),
+      validator: sortingOptionsValidator,
     },
     filter: { type: String, default: '' },
     filterMethod: { type: Function as PropType<DataTableFilterMethod> },
