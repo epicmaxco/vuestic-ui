@@ -66,11 +66,11 @@ const calculateOffsetCoords = (placement: Placement, offset: Offset): Coords => 
 }
 
 /** Returns how much content overflow */
-const calculateContentOverflow = (coords: Coords, content: DOMRect, root: DOMRect) => {
-  const xMax = root.right
-  const yMax = root.bottom
-  const xMin = root.left
-  const yMin = root.top
+const calculateContentOverflow = (coords: Coords, content: DOMRect, viewport: DOMRect) => {
+  const xMax = viewport.right
+  const yMax = viewport.bottom
+  const xMin = viewport.left
+  const yMin = viewport.top
 
   return {
     top: Math.max(yMin - coords.y, 0),
@@ -82,8 +82,8 @@ const calculateContentOverflow = (coords: Coords, content: DOMRect, root: DOMRec
 
 const clamp = (min: number, v: number, max: number) => Math.max(Math.min(v, max), min)
 
-const calculateClipToEdge = (coords: Coords, offsetCoords: Coords, content: DOMRect, anchor: DOMRect, root: DOMRect) => {
-  const { top, bottom, left, right } = calculateContentOverflow(coords, content, root)
+const calculateClipToEdge = (coords: Coords, offsetCoords: Coords, content: DOMRect, anchor: DOMRect, viewport: DOMRect) => {
+  const { top, bottom, left, right } = calculateContentOverflow(coords, content, viewport)
 
   // Add left overflow, sub right overflow so content always stick to edge
   const x = coords.x - right + left
@@ -98,9 +98,9 @@ const calculateClipToEdge = (coords: Coords, offsetCoords: Coords, content: DOMR
   }
 }
 
-const getAutoPlacement = (placement: Placement, coords: Coords, content: DOMRect, root: DOMRect): Placement => {
+const getAutoPlacement = (placement: Placement, coords: Coords, content: DOMRect, viewport: DOMRect): Placement => {
   const { position, align } = parsePlacement(placement)
-  const overflow = calculateContentOverflow(coords, content, root)
+  const overflow = calculateContentOverflow(coords, content, viewport)
 
   const newPlacements = {
     top: ['bottom', align].join('-') as Placement,
