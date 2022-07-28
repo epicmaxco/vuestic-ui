@@ -10,8 +10,8 @@
         :key="file.name"
         :file="file"
         :color="color"
-        @remove="$emit('remove', index)"
         role="listitem"
+        @remove="$emit('remove', index)"
       />
     </template>
     <template v-if="type === 'gallery'">
@@ -20,8 +20,8 @@
         :key="file.name"
         :file="file"
         :color="color"
-        @remove="$emit('remove', index)"
         role="listitem"
+        @remove="$emit('remove', index)"
       />
     </template>
     <template v-if="type === 'single' && filesList.length">

@@ -1,26 +1,25 @@
 <template>
   <va-list-item
-    tabindex="-1"
     :disabled="disabled"
     :aria-disabled="disabled"
+    class="va-file-upload-single-item"
+    tabindex="-1"
   >
-    <va-list-item-section>
-      <div class="va-file-upload-single-item">
-        <div class="va-file-upload-single-item__name">
-          {{ file && file.name }}
-        </div>
-        <va-button
-          v-if="!disabled"
-          class="va-file-upload-single-item__button"
-          aria-label="remove file"
-          size="small"
-          color="danger"
-          flat
-          @click="$emit('remove')"
-        >
-          Delete
-        </va-button>
+    <va-list-item-section class="va-file-upload-single-item__content">
+      <div class="va-file-upload-single-item__name">
+        {{ file && file.name }}
       </div>
+      <va-button
+        v-if="!disabled"
+        class="va-file-upload-single-item__button"
+        aria-label="remove file"
+        size="small"
+        color="danger"
+        flat
+        @click="$emit('remove')"
+      >
+        Delete
+      </va-button>
     </va-list-item-section>
   </va-list-item>
 </template>
@@ -57,10 +56,15 @@ export default defineComponent({
 
 <style lang='scss'>
 .va-file-upload-single-item {
-  display: flex;
-  align-items: center;
-  max-width: 100%;
   width: 100%;
+
+  &__content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    max-width: 100%;
+    width: 100%;
+  }
 
   &__name {
     margin-right: 0.25rem;
