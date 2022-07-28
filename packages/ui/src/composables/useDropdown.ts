@@ -136,7 +136,7 @@ export type usePopoverOptions = {
  * Updates `contentRef` css, make it position fixed and moves relative to `anchorRef`
  * @param options make options reactive if you want popover to react on options change.
  */
-export const usePopover = (
+export const useDropdown = (
   anchorRef: Ref<HTMLElement | undefined>,
   contentRef: Ref<HTMLElement | undefined>,
   options: usePopoverOptions | Ref<usePopoverOptions>,

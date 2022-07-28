@@ -37,7 +37,7 @@ import { generateUniqueId } from '../../services/utils'
 import {
   useStateful, useStatefulEmits, useStatefulProps,
   useDebounceFn,
-  usePopover, placementsPositions, Placement,
+  useDropdown, placementsPositions, Placement,
   useClickOutside,
   useBem,
   useEvent,
@@ -192,7 +192,7 @@ export default defineComponent({
     })
 
     const cursorAnchor = useCursorAnchor(computedAnchorRef, valueComputed)
-    usePopover(computed(() => props.cursor ? cursorAnchor.value : computedAnchorRef.value), contentRef, computed(() => ({
+    useDropdown(computed(() => props.cursor ? cursorAnchor.value : computedAnchorRef.value), contentRef, computed(() => ({
       placement: props.placement,
       keepAnchorWidth: props.keepAnchorWidth,
       offset: props.offset,
