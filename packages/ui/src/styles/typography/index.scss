@@ -9,20 +9,7 @@
   }
 
   .link {
-    color: var(--va-link-color);
-    cursor: pointer;
-
-    &:active {
-      color: var(--va-link-color-active);
-    }
-
-    &:visited {
-      color: var(--va-link-color-visited);
-    }
-
-    &:hover {
-      color: var(--va-link-color-hover);
-    }
+    @include link();
 
     // TODO:(1.5.0) Move to CSS Helpers. Why no BEM?
     &-secondary {
@@ -175,6 +162,7 @@
 
   hr.va-separator {
     height: 2px;
+    // TODO:(1.5.0) Rename color
     background-color: var(--va-divider);
     border: none;
   }
