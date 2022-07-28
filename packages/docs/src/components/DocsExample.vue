@@ -120,8 +120,6 @@ function parseTemplate (target: string, template: string) {
 
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
-    position: relative;
-    z-index: 1;
 
     &::after {
       content: '';

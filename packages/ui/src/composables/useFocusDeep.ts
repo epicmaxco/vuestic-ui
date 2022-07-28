@@ -1,4 +1,5 @@
-import { shallowRef, computed, Ref, onMounted } from 'vue'
+import { shallowRef, computed, Ref, onMounted, DefineComponent } from 'vue'
+import { useHTMLElement } from './useHTMLElement'
 import { useCaptureEvent } from './useCaptureEvent'
 import { useCurrentElement } from './useCurrentElement'
 
@@ -17,9 +18,9 @@ const useActiveElement = () => {
   return activeEl
 }
 
-export const useFocusDeep = (el?: Ref<HTMLElement | undefined>) => {
+export const useFocusDeep = (el?: Ref<HTMLElement | DefineComponent | undefined>) => {
   const focused = useActiveElement()
-  const current = useCurrentElement(el)
+  const current = useCurrentElement(useHTMLElement(el))
   // Cache previouslyFocusedElement, so we can simply come back to it
   let previouslyFocusedElement: HTMLElement | null = null
 
@@ -33,7 +34,12 @@ export const useFocusDeep = (el?: Ref<HTMLElement | undefined>) => {
       return isFocused
     },
     set (value) {
-      const target = previouslyFocusedElement ?? current.value
+      let target = previouslyFocusedElement ?? current.value
+
+      if (!current.value?.contains(target!)) {
+        target = current.value
+      }
+
       if (value) {
         target?.focus()
       } else {

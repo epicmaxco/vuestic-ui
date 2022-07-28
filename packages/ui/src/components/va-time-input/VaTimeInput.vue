@@ -3,27 +3,18 @@
     v-model="doShowDropdown"
     class="va-time-input"
     placement="bottom-start"
-    trigger="none"
     inner-anchor-selector=".va-input-wrapper__field"
     :class="$attrs.class"
     :style="$attrs.style"
     :offset="[2, 0]"
     :close-on-content-click="false"
     :disabled="$props.disabled"
-    :stateful="false"
-    @keydown.up.prevent="showDropdown"
-    @keydown.down.prevent="showDropdown"
-    @keydown.space="showDropdown($event, $props.manualInput, !$props.manualInput)"
-    @keydown.enter="!$props.manualInput && showDropdown()"
-    @keydown.esc.prevent="hideDropdown"
+    keyboard-navigation
   >
     <template #anchor>
       <va-input-wrapper
         class="va-time-input__anchor"
         v-bind="computedInputWrapperProps"
-        @click="toggleDropdown"
-        @keydown.enter.stop="toggleDropdown"
-        @keydown.space.stop="toggleDropdown"
       >
         <template #default>
           <input
@@ -58,9 +49,6 @@
             aria-hidden="false"
             :tabindex="iconTabindexComputed"
             v-bind="iconProps"
-            @click.stop="showDropdown"
-            @keydown.enter.stop="showDropdown"
-            @keydown.space.stop="showDropdown"
           />
         </template>
 
@@ -83,9 +71,6 @@
             aria-hidden="false"
             :tabindex="iconTabindexComputed"
             v-bind="iconProps"
-            @click.stop="showDropdown"
-            @keydown.enter.stop="showDropdown"
-            @keydown.space.stop="showDropdown"
           />
         </template>
       </va-input-wrapper>
@@ -178,10 +163,9 @@ export default defineComponent({
       set (v: boolean) {
         isOpenSync.value = v
 
-        if (v && !props.manualInput) {
+        if (v) {
           nextTick(() => timePicker.value?.focus())
-        }
-        if (!v) {
+        } else {
           nextTick(() => input.value?.focus())
         }
       },

@@ -1294,7 +1294,8 @@
         "placement": "Dropdown content will be placed on `placement` side of anchor",
         "stickToEdges": "Dropdown will not be rendered outside of viewport. It will be moved in opposite direction",
         "trigger": "Action which will open and close dropdown",
-        "target": "Dropdown content parent. Dropdown content will be attached to `target` to prevent overflow"
+        "target": "Dropdown content parent. Dropdown content will be attached to `target` to prevent overflow",
+        "preventOverflow": "If true, dropdown will be teleported to `target` ignoring `overflow: hidden` on relative position elements"
       },
       "events": {
         "anchorClick": "The event is triggered when anchor is clicked",

@@ -1,7 +1,6 @@
 <template>
   <va-dropdown
     v-model="isOpenSync"
-    trigger="none"
     class="va-date-input"
     inner-anchor-selector=".va-input-wrapper__field"
     :class="$attrs.class"
@@ -10,16 +9,13 @@
     :close-on-content-click="false"
     :stateful="false"
     :disabled="$props.disabled"
+    keyboard-navigation
+    @open="focusDatePicker"
+    @close="focus"
   >
     <template #anchor>
       <slot name="input" v-bind="{ valueText, inputAttributes: inputAttributesComputed, inputWrapperProps, inputListeners }">
-        <va-input-wrapper
-          class="va-date-input__anchor"
-          v-bind="inputWrapperProps"
-          @click="toggleDropdown"
-          @keydown.enter.stop="toggleDropdown"
-          @keydown.space.stop="toggleDropdown"
-        >
+        <va-input-wrapper v-bind="inputWrapperProps">
           <template #default>
             <input
               ref="input"
@@ -63,19 +59,13 @@
               v-else-if="!$props.leftIcon"
               :tabindex="iconTabindexComputed"
               v-bind="iconProps"
-              @click.stop="showDropdown"
-              @keydown.enter.stop="showDropdown"
-              @keydown.space.stop="showDropdown"
             />
           </template>
         </va-input-wrapper>
       </slot>
     </template>
 
-    <va-dropdown-content
-      @keydown.esc.stop.prevent="hideAndFocus"
-      class="va-date-input__dropdown-content"
-    >
+    <va-dropdown-content class="va-date-input__dropdown-content">
       <va-date-picker
           ref="datePicker"
           v-bind="datePickerProps"
@@ -385,6 +375,7 @@ export default defineComponent({
       toggleDropdown,
       showDropdown,
       focusInputOrPicker,
+      focusDatePicker,
       reset,
       focus,
       blur,
