@@ -19,7 +19,7 @@ interface useColumnsProps {
 
 export const sortingOptionsValidator = (options: DataTableSortingOptions) => (
   (options.length === 2 || options.length === 3) &&
-  (options.length === [...new Set(options)].length) &&
+  (options.length === new Set(options).size) &&
   (options.every((option) => ['asc', 'desc', null].includes(option)))
 )
 
