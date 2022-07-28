@@ -11,8 +11,6 @@
               <th>Description</th>
               <th style="min-width: 200px;">Types</th>
               <th>Default</th>
-              <th>Required</th>
-              <th>Version</th>
             </tr>
           </thead>
           <tbody>
@@ -22,7 +20,10 @@
               class="ApiDocs__table__row"
             >
               <td>
-                <strong>{{ apiPropOption.name }}</strong>
+                <div class="d-flex align--center">
+                  <strong>{{ apiPropOption.name }}</strong>
+                  <va-badge  v-if="apiPropOption.required" class="ml-2" text="required" color="primary" />
+                </div>
               </td>
               <td>
                 <MarkdownView :value="$t(apiPropOption.description)" />
@@ -33,8 +34,6 @@
               <td>
                 <MarkdownView :value="cleanDefaultValue(apiPropOption.default)" />
               </td>
-              <td>{{ apiPropOption.required ? "+" : "" }}</td>
-              <td>{{ apiPropOption.version }}</td>
             </tr>
           </tbody>
         </table>
@@ -50,7 +49,6 @@
               <th>Name</th>
               <th>Description</th>
               <th>Types</th>
-              <th>Version</th>
             </tr>
           </thead>
           <tbody>
@@ -71,9 +69,6 @@
               <td>
                 <MarkdownView :value="apiEventOption.types" />
               </td>
-              <td>
-                {{ apiEventOption.version }}
-              </td>
             </tr>
           </tbody>
         </table>
@@ -89,7 +84,6 @@
             <tr>
               <th>Name</th>
               <th>Description</th>
-              <th>Version</th>
             </tr>
           </thead>
           <tbody>
@@ -103,9 +97,6 @@
               </td>
               <td>
                 <MarkdownView :value="$tie(apiSlotOption.description)" />
-              </td>
-              <td>
-                <pre>{{ apiSlotOption.version }}</pre>
               </td>
             </tr>
           </tbody>
@@ -123,7 +114,6 @@
               <th>Name</th>
               <th>Description</th>
               <th>Types</th>
-              <th>Version</th>
             </tr>
           </thead>
           <tbody>
@@ -140,9 +130,6 @@
               </td>
               <td>
                 <MarkdownView :value="apiMethodOption.types" />
-              </td>
-              <td>
-                <pre>{{ apiMethodOption.version }}</pre>
               </td>
             </tr>
           </tbody>

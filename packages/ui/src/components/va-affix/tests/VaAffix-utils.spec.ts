@@ -1,4 +1,5 @@
 import { computeAffixedState } from '../VaAffix-utils'
+import { describe, test, expect } from 'vitest'
 
 describe('VaAffix utils', () => {
   let target: Window | HTMLElement = window
@@ -88,10 +89,10 @@ describe('VaAffix utils', () => {
 
     function setDimensions ({ top, bottom }: TargetRect) {
       // TODO: think of a way of not to test the implementation details
-      (target as any).getBoundingClientRect = jest.fn(() => ({
+      (target as any).getBoundingClientRect = () => ({
         top,
         bottom,
-      }))
+      })
     }
 
     let targetRect = {

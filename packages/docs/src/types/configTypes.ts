@@ -80,6 +80,7 @@ export type ApiDocsBlock =
     type: BlockType.COMPONENT,
     path: string, // path to directory
     component: string, // component name
+    bind?: Record<string, any>,
   }
   | {
     type: BlockType.CODE,

@@ -697,6 +697,8 @@ export default defineComponent({
 
 .va-select {
   cursor: var(--va-select-cursor);
+  min-width: auto;
+  width: 100%;
 
   &__placeholder {
     color: var(--va-input-placeholder-text-color);
@@ -704,6 +706,8 @@ export default defineComponent({
 }
 
 .va-select-dropdown {
+  min-width: var(--va-select-min-width);
+
   .va-dropdown__anchor {
     display: block;
   }

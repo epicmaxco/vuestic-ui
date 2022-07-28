@@ -152,6 +152,23 @@
         </div>
       </va-collapse>
     </VbCard>
+
+    <VbCard title="Dynamic content">
+      <va-collapse stateful style="width: 400px;" :header="collapseHeader">
+        <template #header="{ value }">
+          <div>
+            {{ collapseHeader }} ({{ value ? 'opened' : 'closed' }})
+            <button @click.stop="items.push('Item ' + items.length)">
+              Add item
+            </button>
+          </div>
+        </template>
+
+        <div class="collapse-content" v-for="item in items" :key="item">
+          {{ item }}
+        </div>
+      </va-collapse>
+    </VbCard>
   </VbDemo>
 </template>
 
@@ -169,6 +186,7 @@ export default {
       collapseSecondLayerValue: [false, false, false],
       collapseHeader: 'Expand This Block',
       collapseContent: 'Expand content',
+      items: [],
     }
   },
 }

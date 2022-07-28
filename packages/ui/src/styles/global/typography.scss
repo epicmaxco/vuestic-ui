@@ -1,208 +1,88 @@
-@import "../resources/variables";
-@import "../resources/mixins";
+@import '../typography';
+@import '../resources';
 
-::selection {
-  background-color: var(--va-text-selected);
-  color: var(--va-white);
+// TODO: Move it to GLOBAL-CSS service, so it can be turned off and scoped.
+@include va-typography;
+
+* {
+  font-family: var(--va-font-family);
 }
 
-.link {
-  color: var(--va-link-color);
-}
+.va-typography-block {
+  line-height: $line-height;
+  font-family: var(--va-font-family);
 
-.link-secondary {
-  color: var(--va-link-color-secondary);
-}
-
-.link,
-.link-secondary {
-  cursor: pointer;
-
-  &:active {
-    color: var(--va-link-color-active);
+  @for $i from 1 through 6 {
+    h#{$i} {
+      @include va-display($i);
+    }
   }
 
-  &:visited {
-    color: var(--va-link-color-visited);
+  i {
+    font-style: italic;
   }
 
-  &:hover {
-    color: var(--va-link-color-hover);
-  }
-}
-
-.title {
-  @include va-title();
-
-  &--va-info {
-    color: var(--va-info);
+  p {
+    font-size: 1rem;
+    margin-top: 0;
+    margin-bottom: 1rem;
   }
 
-  &--va-danger {
-    color: var(--va-danger);
+  pre {
+    margin-bottom: 1rem;
+    overflow-x: auto;
+    white-space: pre;
+    word-wrap: normal;
+
+    &.code {
+      @include va-code-snippet();
+    }
   }
 
-  &--va-warning {
-    color: var(--va-warning);
+  code {
+    display: inline-block;
+    word-wrap: break-word;
   }
 
-  &--va-gray {
-    color: var(--brand-gray);
-  }
-}
-
-.text {
-  &--bold {
+  strong,
+  b {
     font-weight: $font-weight-bold;
   }
 
-  &--highlighted {
-    background-color: var(--va-text-highlighted);
+  ol:not([class^="va"]) {
+    @include va-ordered;
   }
 
-  &--left {
-    text-align: left !important;
+  ul:not([class^="va"]) {
+    @include va-unordered;
   }
 
-  &--right {
-    text-align: right !important;
+  blockquote {
+    @extend .va-blockquote;
   }
 
-  &--center {
-    text-align: center !important;
-  }
+  figure {
+    border-radius: 0;
+    border: none;
+    box-sizing: border-box;
+    box-shadow: $widget-box-shadow;
+    word-wrap: break-word;
 
-  &--justify {
-    text-align: justify !important;
-  }
+    figcaption {
+      flex: 1 1 auto;
+      padding: 1.25rem;
+    }
 
-  &--uppercase {
-    text-transform: uppercase !important;
-  }
-
-  &--lowercase {
-    text-transform: lowercase !important;
-  }
-
-  &--capitalize {
-    text-transform: capitalize !important;
-  }
-
-  &--no-wrap {
-    white-space: nowrap !important;
-  }
-
-  &--truncate {
-    white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-  }
-
-  &--code {
-    color: var(--va-white);
-    font-family: "Source Code Pro";
-    background-color: $vue-darkest-blue;
-    padding: 0.1rem 0.2rem;
-  }
-
-  // Colors
-  // TODO: Move it to CSS Helpers
-  &--secondary {
-    color: var(--va-secondary);
-  }
-}
-
-.va-blockquote {
-  border-left: 0.25rem solid var(--va-primary);
-  border-radius: 0.125rem;
-  padding: 0.4rem 0 0.4rem 0.8rem;
-  color: $blockquote-font-color;
-
-  p {
-    margin-bottom: 0.5rem;
-
-    &:last-child {
+    p:last-child {
       margin-bottom: 0;
     }
   }
-}
 
-@each $element, $size in $display-font-sizes {
-  .display-#{$element} {
-    @include va-display($element);
-  }
-}
-
-.code-snippet {
-  @include va-code-snippet();
-}
-
-ul.va-unordered {
-  margin: 1rem 0;
-  padding: 0;
-  list-style-type: none;
-
-  ul.va-unordered,
-  ol.va-ordered {
-    margin-bottom: 0;
-    margin-top: 0;
+  table {
+    @include va-table;
   }
 
-  & > li {
-    padding-left: 1rem;
-    position: relative;
-
-    &::before {
-      content: "";
-      width: 0.5rem;
-      height: 0.5rem;
-      border-radius: 50%;
-      position: absolute;
-      left: 0;
-      top: 0;
-      margin-top: 0.5rem;
-      background-color: var(--va-li-background);
-    }
+  a {
+    @include link();
   }
-}
-
-ol.va-ordered {
-  margin-bottom: 1rem;
-  padding: 0;
-  counter-reset: olCounter;
-
-  ul.va-unordered,
-  ol.va-ordered {
-    margin-bottom: 0;
-    margin-top: 0;
-  }
-
-  & > li {
-    list-style: none;
-    padding: 0 1rem;
-
-    &::before {
-      counter-increment: olCounter;
-      content: counter(olCounter) ". ";
-      display: inline-block;
-      min-width: 0.75rem;
-      height: 0.75rem;
-      position: relative;
-      right: 1rem;
-      margin-right: -0.75em;
-    }
-  }
-}
-
-.va-table {
-  @include va-table();
-}
-
-.text-block {
-  padding: 1.2rem;
-  background-color: var(--va-text-block);
-}
-
-.muted {
-  color: var(--va-muted);
 }

@@ -391,8 +391,13 @@ export default defineComponent({
 .va-date-input {
   --va-date-picker-cell-size: 28px;
 
-  display: flex;
+  min-width: var(--va-date-input-min-width);
   font-family: var(--va-font-family);
+
+  &__anchor {
+    min-width: auto;
+    width: 100%;
+  }
 
   &__icon {
     cursor: pointer;

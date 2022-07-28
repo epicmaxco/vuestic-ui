@@ -1,4 +1,5 @@
 import { validateSlider } from '../validateSlider'
+import { describe, it, expect } from 'vitest'
 
 describe('slider', () => {
   it('slider right value', () => {

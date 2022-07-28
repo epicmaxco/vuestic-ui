@@ -13,6 +13,7 @@
   >
     <template #anchor>
       <va-input-wrapper
+        class="va-time-input__anchor"
         v-bind="computedInputWrapperProps"
       >
         <template #default>
@@ -66,7 +67,6 @@
           <va-icon
             v-else-if="!$props.leftIcon"
             role="button"
-            class="va-dropdown__icons__reset"
             aria-label="toggle dropdown"
             aria-hidden="false"
             :tabindex="iconTabindexComputed"
@@ -338,3 +338,17 @@ export default defineComponent({
   },
 })
 </script>
+
+<style lang="scss">
+@import "variables";
+
+.va-time-input {
+  min-width: var(--va-time-input-min-width);
+
+  &__anchor {
+    min-width: auto;
+    width: 100%;
+  }
+}
+
+</style>

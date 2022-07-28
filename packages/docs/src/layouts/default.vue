@@ -178,12 +178,9 @@ export default class DocsLayout extends Vue {
 </script>
 
 <style lang="scss">
-@import "src/assets/main";
-
 html {
-  font-family: $font-family-sans-serif;
+  font-family: var(--va-font-family);
   color: var(--va-dark);
-  font-size: $font-size-root;
 }
 
 a:not(.va-button, .va-sidebar__item):focus {

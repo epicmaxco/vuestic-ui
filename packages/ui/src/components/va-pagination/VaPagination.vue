@@ -46,10 +46,9 @@
       class="va-pagination__input va-button"
       aria-label="enter the page number to go"
       v-model="inputValue"
-      :disabled="$props.disabled"
-      :placeholder="`${currentValue}/${lastPage}`"
       :style="inputStyleComputed"
       :class="{ 'va-pagination__input--flat': $props.flat }"
+      v-bind="inputAttributesComputed"
       @keydown.enter="changeValue"
       @focus="focusInput"
       @blur="changeValue"
@@ -219,6 +218,11 @@ export default defineComponent({
       }
     })
 
+    const inputAttributesComputed = computed(() => ({
+      disabled: props.disabled,
+      placeholder: `${currentValue.value}/${lastPage.value}`,
+    }))
+
     return {
       currentValue,
       lastPage,
@@ -232,6 +236,7 @@ export default defineComponent({
       paginationRange,
       focusInput,
       inputStyleComputed,
+      inputAttributesComputed,
     }
   },
 })
