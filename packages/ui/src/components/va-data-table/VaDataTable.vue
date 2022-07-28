@@ -537,7 +537,7 @@ export default defineComponent({
         align-items: center;
 
         &:focus {
-          @include focus-outline;
+          @include focus-outline($offset: 2px);
         }
       }
 
