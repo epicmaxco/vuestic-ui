@@ -178,6 +178,8 @@ export default class DocsLayout extends Vue {
 </script>
 
 <style lang="scss">
+@import '../../../ui/src/styles/resources';
+
 html {
   font-family: var(--va-font-family);
   color: var(--va-dark);
