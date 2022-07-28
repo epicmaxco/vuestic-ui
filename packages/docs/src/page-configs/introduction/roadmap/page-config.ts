@@ -70,6 +70,12 @@ const config: ApiDocsBlock[] = [
           link: 'https://github.com/epicmaxco/vuestic-ui/pull/2109',
           image: 'Dropdown',
         },
+        {
+          title: 'Attributes Config',
+          type: 'service',
+          link: 'https://github.com/epicmaxco/vuestic-ui/issues/1954',
+          image: 'AttributesConfig',
+        },
       ],
     } as {
       roadmap: RoadmapItem[]
