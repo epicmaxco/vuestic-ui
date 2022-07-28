@@ -1,28 +1,35 @@
 <template>
-  <div class="va-file-upload-single-item">
-    <div class="va-file-upload-single-item__name">
-      {{ file && file.name }}
-    </div>
-    <va-button
-      class="va-file-upload-single-item__button"
-      :disabled="disabled"
-      :aria-disabled="disabled"
-      aria-label="remove file"
-      size="small"
-      color="danger"
-      flat
-      @click="$emit('remove')"
-    >
-      Delete
-    </va-button>
-  </div>
+  <va-list-item
+    tabindex="-1"
+    :disabled="disabled"
+    :aria-disabled="disabled"
+  >
+    <va-list-item-section>
+      <div class="va-file-upload-single-item">
+        <div class="va-file-upload-single-item__name">
+          {{ file && file.name }}
+        </div>
+        <va-button
+          v-if="!disabled"
+          class="va-file-upload-single-item__button"
+          aria-label="remove file"
+          size="small"
+          color="danger"
+          flat
+          @click="$emit('remove')"
+        >
+          Delete
+        </va-button>
+      </div>
+    </va-list-item-section>
+  </va-list-item>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, PropType } from 'vue'
+import { defineComponent, PropType } from 'vue'
 import { useStrictInject } from '../../../composables'
 
-import { VaButton, VaFileUploadInject } from '../../index'
+import { VaButton, VaListItem, VaListItemSection } from '../../index'
 import { VaFileUploadKey, ConvertedFile } from '../types'
 
 const INJECTION_ERROR_MESSAGE = 'The VaFileUploadSingleItem component should be used in the context of VaFileUpload component'
@@ -32,6 +39,8 @@ export default defineComponent({
 
   components: {
     VaButton,
+    VaListItem,
+    VaListItemSection,
   },
 
   emits: ['remove'],
@@ -41,7 +50,7 @@ export default defineComponent({
   },
 
   setup: () => ({
-    disabled: useStrictInject<VaFileUploadInject>(VaFileUploadKey, INJECTION_ERROR_MESSAGE).disabled,
+    disabled: useStrictInject(VaFileUploadKey, INJECTION_ERROR_MESSAGE).disabled,
   }),
 })
 </script>
@@ -51,6 +60,7 @@ export default defineComponent({
   display: flex;
   align-items: center;
   max-width: 100%;
+  width: 100%;
 
   &__name {
     margin-right: 0.25rem;

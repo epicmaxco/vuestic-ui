@@ -60,11 +60,11 @@ export default defineComponent({
 .va-list-item {
   font-family: var(--va-font-family);
 
-  &__disabled {
+  &--disabled {
     @include va-disabled;
   }
 
-  &:focus {
+  &:focus:not(.va-list-item--disabled) {
     @include focus-outline;
   }
 

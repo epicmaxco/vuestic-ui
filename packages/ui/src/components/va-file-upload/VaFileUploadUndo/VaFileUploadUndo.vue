@@ -25,7 +25,7 @@
 import { defineComponent, computed, ref, onMounted } from 'vue'
 
 import { useBem, useStrictInject } from '../../../composables'
-import { VaFileUploadInject, VaFileUploadKey } from '../types'
+import { VaFileUploadKey } from '../types'
 
 import { VaButton, VaProgressBar } from '../../index'
 
@@ -51,7 +51,7 @@ export default defineComponent({
       undoDuration,
       undoButtonText,
       deletedFileMessage,
-    } = useStrictInject<VaFileUploadInject>(VaFileUploadKey, INJECTION_ERROR_MESSAGE)
+    } = useStrictInject(VaFileUploadKey, INJECTION_ERROR_MESSAGE)
 
     const computedClasses = useBem('va-file-upload-undo', () => ({
       vertical: props.vertical,

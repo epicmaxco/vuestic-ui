@@ -1,7 +1,10 @@
 <template>
   <va-list-item
     class="va-file-upload-gallery-item"
+    tabindex="-1"
     :class="classesComputed"
+    :disabled="disabled"
+    :aria-disabled="disabled"
     @focus="onFocus"
     @blur="onBlur"
   >
@@ -28,8 +31,7 @@
           {{ file.name }}
         </div>
         <va-button
-          :disabled="disabled"
-          :aria-disabled="disabled"
+          v-if="!disabled"
           flat
           color="danger"
           icon="delete_outline"
@@ -50,7 +52,7 @@ import { defineComponent, onMounted, ref, watch, computed, PropType } from 'vue'
 import { colorToRgba } from '../../../services/color-config/color-functions'
 import { useFocus, useBem, useStrictInject } from '../../../composables'
 
-import { VaFileUploadKey, ConvertedFile, VaFileUploadInject } from '../types'
+import { VaFileUploadKey, ConvertedFile } from '../types'
 
 import { VaButton, VaListItem, VaListItemSection } from '../../index'
 import { VaFileUploadUndo } from '../VaFileUploadUndo'
@@ -79,7 +81,7 @@ export default defineComponent({
       undo,
       disabled,
       undoDuration,
-    } = useStrictInject<VaFileUploadInject>(VaFileUploadKey, INJECTION_ERROR_MESSAGE)
+    } = useStrictInject(VaFileUploadKey, INJECTION_ERROR_MESSAGE)
     const { isFocused, onFocus, onBlur } = useFocus()
     const previewImage = ref('')
     const removed = ref(false)

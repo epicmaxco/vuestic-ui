@@ -1,7 +1,10 @@
 <template>
   <va-list-item
     class="va-file-upload-list-item"
+    tabindex="-1"
     :class="computedClasses"
+    :disabled="disabled"
+    :aria-disabled="disabled"
   >
     <va-list-item-section v-if="removed && undo">
       <va-file-upload-undo @recover="recoverFile" />
@@ -15,8 +18,7 @@
           {{ file && file.size }}
         </div>
         <va-button
-          :disabled="disabled"
-          :aria-disabled="disabled"
+          v-if="!disabled"
           flat
           color="danger"
           icon="clear"
@@ -37,7 +39,7 @@
 import { defineComponent, ref, PropType } from 'vue'
 
 import { useBem, useFocus, useStrictInject } from '../../../composables'
-import { VaFileUploadKey, ConvertedFile, VaFileUploadInject } from '../types'
+import { VaFileUploadKey, ConvertedFile } from '../types'
 
 import { VaListItem, VaListItemSection, VaButton } from '../../index'
 import { VaFileUploadUndo } from '../VaFileUploadUndo'
@@ -66,7 +68,7 @@ export default defineComponent({
       undo,
       disabled,
       undoDuration,
-    } = useStrictInject<VaFileUploadInject>(VaFileUploadKey, INJECTION_ERROR_MESSAGE)
+    } = useStrictInject(VaFileUploadKey, INJECTION_ERROR_MESSAGE)
     const { onFocus, onBlur } = useFocus()
     const removed = ref(false)
 
