@@ -1,4 +1,5 @@
 @mixin va-title() {
+  font-family: var(--va-font-family);
   font-size: 0.625rem;
   letter-spacing: 0.6px;
   line-height: 1.2;
@@ -39,6 +40,7 @@ $va-display-margins: (
   font-size: map-get($va-display-font-sizes, $element);
   margin: map-get($va-display-margins, $element);
   line-height: map-get($va-display-line-height, $element);
+  font-family: var(--va-font-family);
   // TODO: currentColor?
   color: currentColor;
   // TODO:(1.5.0) rename to textDark
@@ -67,6 +69,7 @@ $va-display-margins: (
   list-style-type: none;
   padding: 0;
   margin: 0;
+  font-family: var(--va-font-family);
 
   & > li {
     list-style: none;
@@ -113,6 +116,8 @@ $va-display-margins: (
 }
 
 @mixin va-table {
+  font-family: var(--va-font-family);
+
   th,
   td {
     text-align: left;
@@ -161,6 +166,7 @@ $va-display-margins: (
 @mixin link {
   color: var(--va-link-color);
   cursor: pointer;
+  font-family: var(--va-font-family);
 
   &:active {
     color: var(--va-link-color);
