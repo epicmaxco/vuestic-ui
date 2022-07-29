@@ -2,7 +2,10 @@ import { warn } from '../../services/utils'
 
 export const validateCounter = (value: string | number, step: number, min?: number, max?: number) => {
   const val = Number(value)
-  if (!Number.isNaN(val)) {
+  if (Number.isNaN(val)) {
+    warn('The value is not a number or cannot be reduced to a number.')
+    return
+  }
     if (min && max) {
       if (max < min) {
         warn(`The maximum value (${max}) can not be less than the minimum value (${min}).`)
