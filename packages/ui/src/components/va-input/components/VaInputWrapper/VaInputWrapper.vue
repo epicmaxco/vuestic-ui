@@ -204,8 +204,9 @@ export default defineComponent({
     position: relative;
     display: flex;
     align-items: center;
-    width: 100%;
+    flex: 1;
     min-height: var(--va-input-min-height);
+    width: var(--va-form-element-default-width);
     border-color: var(--va-input-wrapper-border-color);
     border-style: solid;
     border-width: var(--va-input-border-width);
@@ -244,7 +245,6 @@ export default defineComponent({
   }
 
   &__text {
-    width: var(--va-form-element-default-width);
     min-height: var(--va-input-line-height);
     position: relative;
     display: inline-flex;
