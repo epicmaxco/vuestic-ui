@@ -346,8 +346,7 @@ export default defineComponent({
   min-width: var(--va-time-input-min-width);
 
   &__anchor {
-    min-width: auto;
-    width: 100%;
+    flex: 1;
   }
 }
 

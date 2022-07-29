@@ -15,7 +15,7 @@
   >
     <template #anchor>
       <slot name="input" v-bind="{ valueText, inputAttributes: inputAttributesComputed, inputWrapperProps, inputListeners }">
-        <va-input-wrapper v-bind="inputWrapperProps">
+        <va-input-wrapper v-bind="inputWrapperProps" class="va-date-input__anchor">
           <template #default>
             <input
               ref="input"
@@ -395,8 +395,7 @@ export default defineComponent({
   font-family: var(--va-font-family);
 
   &__anchor {
-    min-width: auto;
-    width: 100%;
+    flex: 1;
   }
 
   &__icon {

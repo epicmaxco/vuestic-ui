@@ -262,6 +262,8 @@ export default defineComponent({
   font-family: var(--va-font-family);
   display: var(--va-dropdown-display);
   position: relative;
+  max-width: 100%;
+  vertical-align: middle;
 
   &--disabled {
     @include va-disabled;
