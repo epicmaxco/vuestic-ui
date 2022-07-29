@@ -21,7 +21,7 @@ export const validateCounter = (value: string | number, step: number, min?: numb
     if (max && val > max) {
       warn(`The value of the counter is ${val}, the maximum value is ${max}, the value of this counter can not be greater than the maximum value`)
     }
-    if (val % step !== 0) {
+    if ((val - min) % step !== 0) {
       warn(`Value ${val} is not match the allowed steps (${step}).`)
     }
   } else {
