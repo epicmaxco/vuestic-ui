@@ -20,7 +20,7 @@ const useActiveElement = () => {
 
 export const useFocusDeep = (el?: Ref<HTMLElement | DefineComponent | undefined>) => {
   const focused = useActiveElement()
-  const current = useCurrentElement(useHTMLElement(el))
+  const current = useCurrentElement(el ? useHTMLElement(el) : undefined)
   // Cache previouslyFocusedElement, so we can simply come back to it
   let previouslyFocusedElement: HTMLElement | null = null
 
