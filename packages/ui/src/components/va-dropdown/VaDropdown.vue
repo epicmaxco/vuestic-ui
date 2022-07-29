@@ -204,11 +204,11 @@ export default defineComponent({
 
     const idComputed = computed(generateUniqueId)
 
-    useEvent('blur', () => {
-      if (props.closeOnClickOutside && valueComputed.value) {
-        emitAndClose('click-outside', props.closeOnClickOutside)
-      }
-    })
+    // useEvent('blur', () => {
+    //   if (props.closeOnClickOutside && valueComputed.value) {
+    //     emitAndClose('click-outside', props.closeOnClickOutside)
+    //   }
+    // })
 
     const document = useDocument()
 
