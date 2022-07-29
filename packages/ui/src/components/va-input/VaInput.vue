@@ -1,6 +1,7 @@
 <template>
   <va-input-wrapper
     v-bind="fieldListeners"
+    class="va-input"
     :class="$attrs.class"
     :style="$attrs.style"
     :color="$props.color"

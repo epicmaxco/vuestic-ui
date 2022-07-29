@@ -1,7 +1,7 @@
 <template>
   <va-dropdown
     ref="dropdown"
-    class="va-select__dropdown va-select-dropdown"
+    class="va-select va-select__dropdown va-select-dropdown"
     :aria-label="`select option (currently selected: ${$props.modelValue})`"
     :placement="$props.placement"
     :disabled="$props.disabled"
@@ -18,7 +18,7 @@
     <template #anchor>
       <va-input-wrapper
         ref="input"
-        class="va-select"
+        class="va-select__anchor va-select-anchor__input"
         :model-value="valueComputedString"
         :success="$props.success"
         :error="computedError"
@@ -87,7 +87,7 @@
         >
           <span
             v-if="isPlaceholder"
-            class="va-select__placeholder"
+            class="va-select-anchor__placeholder"
           >
             {{ $props.placeholder }}
           </span>
@@ -114,7 +114,7 @@
       <va-input
         v-if="showSearchInput"
         ref="searchBar"
-        class="va-select__input"
+        class="va-select-dropdown__content-search-input"
         placeholder="Search"
         aria-label="options filter"
         :tabindex="tabIndexComputed"
@@ -696,9 +696,15 @@ export default defineComponent({
 @import "variables";
 
 .va-select {
-  cursor: var(--va-select-cursor);
-  min-width: auto;
-  width: 100%;
+  min-width: var(--va-select-min-width);
+}
+
+.va-select-anchor {
+  &__input {
+    cursor: var(--va-select-cursor);
+    min-width: auto;
+    width: 100%;
+  }
 
   &__placeholder {
     color: var(--va-input-placeholder-text-color);
@@ -706,12 +712,6 @@ export default defineComponent({
 }
 
 .va-select-dropdown {
-  min-width: var(--va-select-min-width);
-
-  .va-dropdown__anchor {
-    display: block;
-  }
-
   &__content {
     overflow: hidden;
     border-bottom-right-radius: var(--va-select-dropdown-border-radius);
@@ -720,6 +720,11 @@ export default defineComponent({
     border-top-left-radius: 0;
     box-shadow: var(--va-select-box-shadow);
     padding: 0;
+  }
+
+  &__content-search-input {
+    min-width: auto;
+    width: 100%;
   }
 
   &__options-wrapper {
