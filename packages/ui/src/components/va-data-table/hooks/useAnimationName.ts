@@ -1,6 +1,6 @@
 
 import { computed, Ref, ref, watch } from 'vue'
-import { DataTableRow } from '../types'
+import type { DataTableRow } from '../types'
 
 interface useSelectableProps {
   currentPage: number | undefined

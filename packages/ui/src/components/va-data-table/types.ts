@@ -4,6 +4,9 @@ export type DataTableVerticalAlignOptions = 'top' | 'middle' | 'bottom'
 export type DataTableColumnClass = unknown | (() => unknown)
 export type DataTableColumnStyle = unknown | (() => unknown)
 
+export type DataTableSortingOrder = 'asc' | 'desc' | null
+export type DataTableSortingOptions = DataTableSortingOrder[]
+
 // provided column definitions (<va-data-table `:columns="myColumns"` />)
 // should look like an array of the following objects (and/or strings)
 export type DataTableColumn = {
@@ -14,6 +17,7 @@ export type DataTableColumn = {
   thTitle?: string // <th>'s `title` attribute's value
   sortable?: boolean // whether the table can be sorted by that column
   sortingFn?: (a: any, b: any) => number // a custom sorting function. `a` and `b` are currently compared cells' original values (sources). Must return a number (see the standard JS's Array.prototype.sort)
+  sortingOptions?: DataTableSortingOptions
   thAlign?: DataTableAlignOptions // horizontal alignment
   thVerticalAlign?: DataTableVerticalAlignOptions // vertical alignment
   tdAlign?: DataTableAlignOptions // horizontal alignment
@@ -65,6 +69,7 @@ export interface DataTableColumnInternal {
   thTitle: string
   sortable: boolean
   sortingFn: ((a: any, b: any) => number) | undefined
+  sortingOptions: DataTableSortingOptions
   thAlign: DataTableAlignOptions
   thVerticalAlign: DataTableVerticalAlignOptions
   tdAlign: DataTableAlignOptions
@@ -98,8 +103,6 @@ export interface DataTableRow {
 }
 
 export type DataTableFilterMethod = (source: any) => boolean
-
-export type DataTableSortingOrder = 'asc' | 'desc' | null
 
 export type DataTableSelectMode = 'single' | 'multiple'
 
