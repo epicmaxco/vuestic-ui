@@ -11,9 +11,6 @@ export const validateCounter = (value: string | number, step: number, min?: numb
         warn(`The maximum value (${max}) can not be less than the minimum value (${min}).`)
       }
 
-      if ((max - min) % step !== 0) {
-        warn(`Step ${step} is illegal. Counter is non-divisible (Min:Max-${min}:${max}).`)
-      }
     }
     if (min && val < min) {
       warn(`The value of the counter is ${val}, the minimum value is ${min}, the value of this counter can not be less than the minimum value`)
