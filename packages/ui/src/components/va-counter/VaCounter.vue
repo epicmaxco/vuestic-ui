@@ -83,7 +83,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, InputHTMLAttributes, PropType, ComputedRef, shallowRef } from 'vue'
+import { computed, defineComponent, InputHTMLAttributes, PropType, ComputedRef, shallowRef, watch } from 'vue'
 import omit from 'lodash/omit'
 import pick from 'lodash/pick'
 
@@ -100,6 +100,7 @@ import { VaInputWrapper } from '../va-input'
 import VaIcon from '../va-icon/VaIcon.vue'
 import VaButton from '../va-button/VaButton.vue'
 import { validateCounter } from './validateCounter'
+import { validateSlider } from '../va-slider/validateSlider'
 
 const { createEmits: createInputEmits, createListeners: createInputListeners } = useEmitProxy(
   ['change'],
@@ -296,6 +297,15 @@ export default defineComponent({
     const marginComputed = computed(() => safeCSSLength(props.margins))
 
     validateCounter(props.modelValue, props.step, props.min, props.max)
+
+    watch([
+      () => props.modelValue,
+      () => props.step,
+      () => props.min,
+      () => props.max,
+    ], ([value, step, min, max]) => {
+      validateCounter(value, step, min, max)
+    })
 
     return {
       input,
