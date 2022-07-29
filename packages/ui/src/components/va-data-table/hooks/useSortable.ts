@@ -1,6 +1,6 @@
 import { computed, ref, Ref, watch } from 'vue'
 
-import {
+import type {
   DataTableColumnInternal,
   DataTableRow,
   DataTableItem,

@@ -3,7 +3,7 @@ import startCase from 'lodash/startCase.js'
 import merge from 'lodash/merge.js'
 
 import { warn } from '../../../services/utils'
-import {
+import type {
   DataTableColumnSource,
   DataTableColumnInternal,
   DataTableItem,
@@ -17,11 +17,13 @@ interface useColumnsProps {
   [prop: string]: unknown
 }
 
-export const sortingOptionsValidator = (options: DataTableSortingOptions) => (
-  (options.length === 2 || options.length === 3) &&
-  (options.length === new Set(options).size) &&
-  (options.every((option) => ['asc', 'desc', null].includes(option)))
-)
+export const sortingOptionsValidator = (options: DataTableSortingOptions) => {
+  const isAllowedOptionsLength = options.length === 2 || options.length === 3
+  const isAvailableOptions = options.every((option) => ['asc', 'desc', null].includes(option))
+  const isUniqueOptions = (options.length === new Set(options).size)
+
+  return isAllowedOptionsLength && isAvailableOptions && isUniqueOptions
+}
 
 export const buildTableColumn = (
   source: DataTableColumnSource,

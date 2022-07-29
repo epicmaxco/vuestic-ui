@@ -246,7 +246,7 @@ import useStylable from './hooks/useStylable'
 import useBinding from './hooks/useBinding'
 import useAnimationName from './hooks/useAnimationName'
 
-import {
+import type {
   DataTableColumnSource,
   DataTableItem,
   DataTableRow,
