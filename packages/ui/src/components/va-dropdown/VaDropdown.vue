@@ -263,6 +263,7 @@ export default defineComponent({
   display: var(--va-dropdown-display);
   position: relative;
   max-width: 100%;
+  vertical-align: middle;
 
   &--disabled {
     @include va-disabled;

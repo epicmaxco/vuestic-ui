@@ -702,8 +702,7 @@ export default defineComponent({
 .va-select-anchor {
   &__input {
     cursor: var(--va-select-cursor);
-    min-width: auto;
-    width: 100%;
+    flex: 1;
   }
 
   &__placeholder {
