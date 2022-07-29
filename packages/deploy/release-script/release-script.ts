@@ -190,10 +190,6 @@ const runReleaseScript = async (releaseConfig: ReleaseConfig, dryRun: boolean) =
   bumpVersionInGenerators(version) // vue-cli-plugin
   bumpGithubTemplateVersions(version) // root .github
 
-  // **** Publishing on npm ****
-
-  await executeAndLog(`cd ../ui && npm publish --tag=${distTag} --verbose${dryRun ? ' --dry-run' : ''}`)
-
 
   // **** Git updates ****
 
@@ -209,6 +205,11 @@ const runReleaseScript = async (releaseConfig: ReleaseConfig, dryRun: boolean) =
       await executeAndLog(`git push upstream ${gitTag}`)
     }
   }
+
+  // **** Publishing on npm ****
+
+  await executeAndLog(`cd ../ui && npm publish --tag=${distTag} --verbose${dryRun ? ' --dry-run' : ''}`)
+
   // **** Cleanup ****
 
   await executeAndLog('git reset --hard HEAD')
