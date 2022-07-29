@@ -198,6 +198,7 @@ export default defineComponent({
   display: var(--va-input-wrapper-display);
   vertical-align: var(--va-input-wrapper-vertical-align);
   min-width: var(--va-input-wrapper-min-width);
+  max-width: 100%;
 
   &__field {
     position: relative;
@@ -243,11 +244,12 @@ export default defineComponent({
   }
 
   &__text {
-    width: 100%;
-    position: relative;
+    width: var(--va-form-element-default-width);
     min-height: var(--va-input-line-height);
-    display: flex;
+    position: relative;
+    display: inline-flex;
     align-items: center;
+    flex: 1;
 
     input,
     textarea {
