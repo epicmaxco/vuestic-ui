@@ -82,10 +82,18 @@ $gap: 1rem;
     display: flex;
     width: 100%;
 
+    @media screen and (max-width: 479px) {
+      flex-direction: column;
+    }
+
     .docs-roadmap__column {
       &-wrapper {
         width: 33%;
         padding: calc($gap / 2);
+
+        @media screen and (max-width: 479px) {
+          width: 100%;
+        }
       }
 
       & > *:not(h6) {
