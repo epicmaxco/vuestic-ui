@@ -20,7 +20,8 @@
     "@vue/cli-service": "5",
     "jest": "^27.0.6",
     "rollup-plugin-visualizer": "^5.5.4",
-    "vue": "^3.0.5"
+    "vue": "^3.0.5",
+    "vuestic-ui": "./packages/ui"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^1.3.0",
