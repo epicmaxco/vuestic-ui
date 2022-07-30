@@ -1,6 +1,6 @@
 import { existsSync, rmSync } from 'fs'
 
-export const removeDist = () => {
+export const buildStart = () => {
   if (existsSync('./dist')) {
     rmSync('./dist', { recursive: true })
   }
