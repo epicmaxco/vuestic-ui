@@ -5,7 +5,7 @@
         <va-select
           :options="directionList"
           v-model="selectedMarginDirection"
-          :label="$t('spacingPlayground.margin')"
+          label="Margin"
           :max-height="null"
           no-clear
         />
@@ -14,7 +14,7 @@
         <va-select
           :options="sizesList"
           v-model="selectedMarginSize"
-          :label="$t('spacingPlayground.value')"
+          label="Value"
           :max-height="null"
           no-clear
         />
@@ -23,7 +23,7 @@
         <va-select
           :options="directionList"
           v-model="selectedPaddingDirection"
-          :label="$t('spacingPlayground.padding')"
+          label="Padding"
           :max-height="null"
           no-clear
         />
@@ -32,7 +32,7 @@
         <va-select
           :options="sizesList"
           v-model="selectedPaddingSize"
-          :label="$t('spacingPlayground.value')"
+          label="Value"
           :max-height="null"
           no-clear
         />
@@ -64,32 +64,15 @@
         </div>
       </div>
     </div>
-
-    <div class="row">
-      <div class="flex xs12 sm6">
-        <va-color-presentation
-          color="#ffd093"
-          :name="$t('spacingPlayground.margin')"
-        />
-      </div>
-      <div class="flex xs12 sm6">
-        <va-color-presentation
-          color="#c9f7db"
-          :name="$t('spacingPlayground.padding')"
-        />
-      </div>
-    </div>
   </div>
 </template>
 
 <script>
-import VaSelect from '../../vuestic-components/va-select/VaSelect'
-import VaColorPresentation
-  from '../../vuestic-components/va-color-presentation/VaColorPresentation'
+import { VaSelect } from '../../components/va-select'
 
 export default {
-  name: 'SpacingPlaygroud',
-  components: { VaColorPresentation, VaSelect },
+  name: 'SpacingPlayground',
+  components: { VaSelect },
   data () {
     return {
       directionList: ['a', 'y', 'x', 't', 'r', 'b', 'l'],

@@ -1,6 +1,6 @@
 <template>
-  <div class="demo-container">
-    <div class="layout gutter--md">
+  <div class="grid-demo">
+    <div class="layout gutter--3">
       <div class="row">
         <div class="flex">
           Grid sizes
@@ -129,7 +129,7 @@
       </div>
     </div>
 
-    <div class="layout gutter--xs">
+    <div class="layout gutter--1">
       <div class="row">
         <div class="flex">
           xs gutter
@@ -148,7 +148,7 @@
       </div>
     </div>
 
-    <div class="layout gutter--sm">
+    <div class="layout gutter--2">
       <div class="row">
         <div class="flex">
           sm gutter
@@ -167,7 +167,7 @@
       </div>
     </div>
 
-    <div class="layout gutter--sm">
+    <div class="layout gutter--2">
       <div class="row">
         <div class="flex">
           sm gutter
@@ -186,7 +186,7 @@
       </div>
     </div>
 
-    <div class="layout gutter--md">
+    <div class="layout gutter--3">
       <div class="row">
         <div class="flex">
           md gutter
@@ -205,7 +205,7 @@
       </div>
     </div>
 
-    <div class="layout gutter--lg">
+    <div class="layout gutter--4">
       <div class="row">
         <div class="flex">
           lg gutter
@@ -224,7 +224,7 @@
       </div>
     </div>
 
-    <div class="layout gutter--xl">
+    <div class="layout gutter--5">
       <div class="row">
         <div class="flex">
           xl gutter
@@ -245,12 +245,14 @@
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import '../resources';
 @import 'grid-global-styles';
 
-._blue-rectangle {
-  background-color: #b6ecff;
-  border: 1px solid #738dff;
+.grid-demo {
+  & ._blue-rectangle {
+    background-color: #b6ecff;
+    border: 1px solid #738dff;
+  }
 }
 </style>

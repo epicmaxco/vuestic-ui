@@ -1,23 +1,56 @@
 <template>
   <va-card color="background" style="padding: 0.75rem;">
-    <div class="layout gutter--md">
+    <div class="layout gutter--1">
       <div class="row">
         <div class="flex xs6">
-          <div class="item">gutter--md</div>
+          <div class="item">gutter--1</div>
         </div>
         <div class="flex xs6">
-          <div class="item">gutter--md</div>
+          <div class="item">gutter--1</div>
         </div>
       </div>
     </div>
     <br />
-    <div class="layout gutter--xl">
+    <div class="layout gutter--2">
       <div class="row">
         <div class="flex xs6">
-          <div class="item">gutter--xl</div>
+          <div class="item">gutter--2</div>
         </div>
         <div class="flex xs6">
-          <div class="item">gutter--xl</div>
+          <div class="item">gutter--2</div>
+        </div>
+      </div>
+    </div>
+    <br />
+    <div class="layout gutter--3">
+      <div class="row">
+        <div class="flex xs6">
+          <div class="item">gutter--3</div>
+        </div>
+        <div class="flex xs6">
+          <div class="item">gutter--3</div>
+        </div>
+      </div>
+    </div>
+    <br />
+    <div class="layout gutter--4">
+      <div class="row">
+        <div class="flex xs6">
+          <div class="item">gutter--4</div>
+        </div>
+        <div class="flex xs6">
+          <div class="item">gutter--4</div>
+        </div>
+      </div>
+    </div>
+    <br />
+    <div class="layout gutter--5">
+      <div class="row">
+        <div class="flex xs6">
+          <div class="item">gutter--5</div>
+        </div>
+        <div class="flex xs6">
+          <div class="item">gutter--5</div>
         </div>
       </div>
     </div>

@@ -2760,11 +2760,11 @@
         "title": "Breakpoints",
         "text": "Use the following classes (`breakpoints`) to apply provided styling to screens of certain widths exclusively.",
         "sizes": {
-          "xs": "`.xs` - (< 576px ) - Extra small devices",
-          "sm": "`.sm` - (≥ 576px ) - Small devices",
-          "md": "`.md` - (≥ 768px ) - Medium devices",
-          "lg": "`.lg` - (≥ 992px ) - Large devices",
-          "xl": "`.xl` - (≥ 1200px) - Extra large devices"
+          "xs": "`.xs` - (< 600px) - Extra small devices",
+          "sm": "`.sm` - (<= 600px && < 1024px) - Small devices",
+          "md": "`.md` - (<= 1024px && < 1440px) - Medium devices",
+          "lg": "`.lg` - (<= 1440px && < 1920px) - Large devices",
+          "xl": "`.xl` - (>= 1920) - Extra large devices"
         }
       },
       "offsets": {
@@ -2785,11 +2785,11 @@
         "title": "Gutters",
         "text": "Set the margins between the \"`cell`s\" of you flex-container with the `gutter` classes.",
         "sizes": {
-          "xs": "`.gutter--xs` - Extra small gutter between cells",
-          "sm": "`.gutter--sm` - Small gutter between cells",
-          "md": "`.gutter--md` - Default gutter between cells",
-          "lg": "`.gutter--lg` - Large gutter between cells",
-          "xl": "`.gutter--xl` - Extra large gutter between cells"
+          "xs": "`.gutter--1` - Extra small gutter between cells",
+          "sm": "`.gutter--2` - Small gutter between cells",
+          "md": "`.gutter--3` - Default gutter between cells",
+          "lg": "`.gutter--4` - Large gutter between cells",
+          "xl": "`.gutter--5` - Extra large gutter between cells"
         }
       }
     },

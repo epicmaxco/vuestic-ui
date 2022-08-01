@@ -18,6 +18,10 @@ const routes = [
     requireContext: require.context('../components', true, /.demo.vue$/),
     path: '/demo',
   }),
+  createRoute({
+    requireContext: require.context('../styles/grid', false, /.demo.vue$/),
+    path: '/grid-tests',
+  }),
   {
     path: '/:pathMatch(.*)*',
     redirect: '/demo',
