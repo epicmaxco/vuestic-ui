@@ -14,6 +14,7 @@
     <template #anchor>
       <va-input-wrapper
         class="va-time-input__anchor"
+        :style="cursorStyleComputed"
         v-bind="computedInputWrapperProps"
       >
         <template #default>
@@ -44,10 +45,7 @@
           />
           <va-icon
             v-if="$props.leftIcon"
-            role="button"
             aria-label="toggle dropdown"
-            aria-hidden="false"
-            :tabindex="iconTabindexComputed"
             v-bind="iconProps"
           />
         </template>
@@ -55,21 +53,15 @@
         <template #icon>
           <va-icon
             v-if="canBeClearedComputed"
-            role="button"
             aria-label="reset time"
-            aria-hidden="false"
-            :tabindex="iconTabindexComputed"
-            v-bind="clearIconProps"
+            v-bind="{ ...iconProps, ...clearIconProps }"
             @click.stop="reset"
             @keydown.enter.stop="reset"
             @keydown.space.stop="reset"
           />
           <va-icon
             v-else-if="!$props.leftIcon"
-            role="button"
             aria-label="toggle dropdown"
-            aria-hidden="false"
-            :tabindex="iconTabindexComputed"
             v-bind="iconProps"
           />
         </template>
@@ -109,7 +101,7 @@ import { VaInputWrapper } from '../va-input'
 import VaIcon from '../va-icon/VaIcon.vue'
 import { VaDropdown, VaDropdownContent } from '../va-dropdown'
 
-const VaInputWrapperProps = extractComponentProps(VaInputWrapper, ['focused', 'maxLength', 'counterValue'])
+const VaInputWrapperProps = extractComponentProps(VaInputWrapper, ['focused', 'maxLength', 'counterValue', 'disabled'])
 
 export default defineComponent({
   name: 'VaTimeInput',
@@ -224,12 +216,6 @@ export default defineComponent({
       canBeCleared.value && valueText.value !== format(props.clearValue)
     ))
 
-    const iconProps = computed(() => ({
-      name: props.icon,
-      color: props.color,
-      size: 'small',
-    }))
-
     const computedInputWrapperProps = computed(() => ({
       ...filterComponentProps(props, VaInputWrapperProps).value,
       focused: isFocused.value,
@@ -275,14 +261,6 @@ export default defineComponent({
       doShowDropdown.value = true
     }
 
-    const focusTimePicker = (): void => {
-      nextTick(() => timePicker.value?.focus())
-    }
-
-    const focusInputOrPicker = () => {
-      isOpenSync.value ? focusTimePicker() : focus()
-    }
-
     const checkProhibitedDropdownOpening = (e?: KeyboardEvent) => {
       if (isOpenSync.value) { return false }
       if (props.disabled || props.readonly) { return true }
@@ -295,7 +273,23 @@ export default defineComponent({
       doShowDropdown.value = !doShowDropdown.value
     }
 
+    const cursorStyleComputed = computed(() => {
+      if (props.disabled) { return {} }
+      if (props.manualInput) { return { cursor: 'text' } }
+      return { cursor: 'pointer' }
+    })
+
     const iconTabindexComputed = computed(() => props.disabled || props.readonly ? -1 : 0)
+
+    const iconProps = computed(() => ({
+      role: 'button',
+      ariaHidden: false,
+      size: 'small',
+      name: props.icon,
+      color: props.color,
+      tabindex: iconTabindexComputed.value,
+    }))
+
     const inputAttributesComputed = computed(() => ({
       readonly: props.readonly || !props.manualInput,
       tabindex: props.disabled ? -1 : 0,
@@ -325,7 +319,7 @@ export default defineComponent({
       clearIconProps,
       filteredSlots,
       inputAttributesComputed,
-      iconTabindexComputed,
+      cursorStyleComputed,
 
       hideDropdown,
       showDropdown,
