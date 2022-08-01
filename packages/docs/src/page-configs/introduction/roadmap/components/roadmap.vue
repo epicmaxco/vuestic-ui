@@ -80,11 +80,14 @@ $gap: 1rem;
   &__columns {
     margin: calc($gap / 2);
     display: flex;
+    flex-wrap: wrap;
     width: 100%;
 
     .docs-roadmap__column {
       &-wrapper {
-        width: 33%;
+        width: 100%;
+        min-width: 300px;
+        flex: 1;
         padding: calc($gap / 2);
       }
 
