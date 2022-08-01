@@ -1,12 +1,10 @@
 import { createBreakpointsConfigPlugin } from './create-service'
 import { defineGlobalProperty, defineVuesticPlugin } from '../../../vuestic-plugin/utils'
 
-import { BreakpointsSymbol } from '../types'
-
 export const BreakpointsConfigPlugin = defineVuesticPlugin(() => ({
   install (app) {
     const breakpointsConfig = createBreakpointsConfigPlugin(app)
-    app.provide(BreakpointsSymbol, breakpointsConfig)
+    app.provide('$vaBreakpoints', breakpointsConfig)
     defineGlobalProperty(app, '$vaBreakpoints', breakpointsConfig)
   },
 }))

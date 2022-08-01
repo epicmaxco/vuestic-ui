@@ -1,5 +1,3 @@
-export const BreakpointsSymbol = Symbol('BREAKPOINTS')
-
 export type ThresholdsKeys = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 
 export type BodyClass = `screen--${ThresholdsKeys}`
