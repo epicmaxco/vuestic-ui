@@ -1,13 +1,12 @@
-import { ColorConfig } from '../../composables'
-import type { ComponentConfig, Props } from '../component-config/component-config'
+import type { ComponentConfig } from '../component-config/component-config'
+import type { ColorConfig } from '../../composables'
 import type { IconConfig } from '../icon-config/types'
 import { BreakpointsConfig } from '../breakpoints'
 
 export type GlobalConfig = {
   colors?: ColorConfig,
   icons?: IconConfig,
-  components?: ComponentConfig
-  componentsAll?: Props,
+  components?: ComponentConfig,
   breakpoints?: BreakpointsConfig,
 }
 

@@ -57,6 +57,7 @@
 import { defineComponent, computed, ref, ComputedRef, shallowRef, PropType } from 'vue'
 
 import {
+  useComponentPresetProp,
   useColors, useTextColor,
   useRouterLink, useRouterLinkProps,
   useSize, useSizeProps,
@@ -73,6 +74,7 @@ export default defineComponent({
     ...useSizeProps,
     ...useLoadingProps,
     ...useRouterLinkProps,
+    ...useComponentPresetProp,
     color: { type: String, default: 'primary' },
     textColor: { type: String, default: undefined },
     tag: { type: String, default: 'button' },

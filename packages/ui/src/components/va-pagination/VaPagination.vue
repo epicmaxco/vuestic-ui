@@ -77,7 +77,7 @@
 import { defineComponent, watch, PropType, ref, computed, nextTick, shallowRef } from 'vue'
 
 import { __DEV__ } from '../../utils/global-utils'
-import { useColors, useTextColor, useStateful, useStatefulProps, useStatefulEmits } from '../../composables'
+import { useComponentPresetProp, useColors, useTextColor, useStateful, useStatefulProps, useStatefulEmits } from '../../composables'
 import { setPaginationRange } from './setPaginationRange'
 
 import { VaButtonGroup } from '../va-button-group'
@@ -89,6 +89,7 @@ export default defineComponent({
   emits: useStatefulEmits,
   props: {
     ...useStatefulProps,
+    ...useComponentPresetProp,
     modelValue: { type: Number, default: 1 },
     visiblePages: { type: Number, default: 0 },
     pages: { type: Number, default: 0 },

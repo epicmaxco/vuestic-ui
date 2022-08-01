@@ -111,6 +111,7 @@ import omit from 'lodash/omit'
 
 import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
 import {
+  useComponentPresetProp,
   useSyncProp,
   useValidation, useValidationEmits, useValidationProps, ValidationProps,
   useClearable, useClearableEmits, useClearableProps,
@@ -140,6 +141,7 @@ export default defineComponent({
   ],
 
   props: {
+    ...useComponentPresetProp,
     ...useClearableProps,
     ...VaInputWrapperProps,
     ...extractComponentProps(VaTimePicker),

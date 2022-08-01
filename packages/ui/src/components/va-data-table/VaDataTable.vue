@@ -245,6 +245,7 @@ import useSelectableRow from './hooks/useSelectableRow'
 import useStylable from './hooks/useStylable'
 import useBinding from './hooks/useBinding'
 import useAnimationName from './hooks/useAnimationName'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 import {
   DataTableColumnSource,
@@ -294,6 +295,7 @@ export default defineComponent({
   inheritAttrs: false,
 
   props: {
+    ...useComponentPresetProp,
     columns: { type: Array as PropType<DataTableColumnSource[]>, default: () => [] as DataTableColumnSource[] },
     items: { type: Array as PropType<DataTableItem[]>, default: () => [] as DataTableItem[] },
     itemsTrackBy: { type: [String, Function] as PropType<string | ((item: DataTableItem) => any)>, default: '' },

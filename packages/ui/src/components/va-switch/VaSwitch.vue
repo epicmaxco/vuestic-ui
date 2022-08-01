@@ -82,6 +82,7 @@ import pick from 'lodash/pick.js'
 import { generateUniqueId } from '../../services/utils'
 
 import {
+  useComponentPresetProp,
   useKeyboardOnlyFocus,
   useSelectable, useSelectableProps, useSelectableEmits,
   useColors, useTextColor,
@@ -100,6 +101,7 @@ export default defineComponent({
   ],
   props: {
     ...useSelectableProps,
+    ...useComponentPresetProp,
     id: { type: String, default: '' },
     name: { type: String, default: '' },
     modelValue: {

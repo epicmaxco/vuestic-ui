@@ -21,12 +21,13 @@ import { defineComponent, PropType, computed } from 'vue'
 import omit from 'lodash/omit.js'
 
 import { useIcons } from '../../services/icon-config/icon-config'
-import { useColors, useSize, useSizeProps } from '../../composables'
+import { useComponentPresetProp, useColors, useSize, useSizeProps } from '../../composables'
 
 export default defineComponent({
   name: 'VaIcon',
   props: {
     ...useSizeProps,
+    ...useComponentPresetProp,
     name: { type: String, default: '' },
     tag: { type: String },
     component: { type: Object as PropType<any> },

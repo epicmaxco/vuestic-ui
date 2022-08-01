@@ -132,12 +132,14 @@ import {
 } from '../../composables'
 
 import { VaButton } from '../va-button'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 import { VaIcon } from '../va-icon'
 
 const ModalElement = defineComponent({
   name: 'ModalElement',
   inheritAttrs: false,
   props: {
+    ...useComponentPresetProp,
     isTransition: { type: Boolean, default: true },
   },
   setup: (props, { slots, attrs }) => () => props.isTransition

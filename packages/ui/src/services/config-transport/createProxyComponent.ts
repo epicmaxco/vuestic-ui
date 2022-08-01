@@ -23,7 +23,7 @@ const createPropsWithCustomConfig = (instance: ComponentInternalInstance, propsF
        * Props passed to VNode. Not compiled at all and not reactive.
        * VNode props contained only props passed from parent.
        */
-      const incommingProps: RawProps = instance.vnode.props || {}
+      const incomingProps: RawProps = instance.vnode.props || {}
 
       /**
        * Make sure to access both original and from config prop in get.
@@ -32,10 +32,10 @@ const createPropsWithCustomConfig = (instance: ComponentInternalInstance, propsF
        * If original prop will not be accessed vue will not track reactivity for original props object.
        */
       const originalProp = target[key]
-      const propFromConfig = propsFromConfig.value[key]
+      const propFromConfig = propsFromConfig.value?.[key]
 
       // Return prop from config only if user didn't pass props manually
-      if (incommingProps[key] === undefined && propFromConfig !== undefined) {
+      if (incomingProps[key] === undefined && propFromConfig !== undefined) {
         return propFromConfig
       }
 
@@ -55,7 +55,7 @@ const patchInstanceProps = (instance: ComponentInternalInstance, props: Props) =
 export const createProxyComponent = <T extends DefineComponent>(component: T) => {
   const customSetup = (originalProps: Props, ctx: SetupContext) => {
     const instance = getCurrentInstance()! // Not null during setup call
-    const propsFromConfig = useComponentConfigProps(component)
+    const propsFromConfig = useComponentConfigProps(component, instance)
 
     const props = createPropsWithCustomConfig(instance, propsFromConfig)
 

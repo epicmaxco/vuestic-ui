@@ -9,7 +9,7 @@
 <script lang="ts">
 import { defineComponent, computed, PropType } from 'vue'
 
-import { useColors, useTextColor } from '../../composables'
+import { useComponentPresetProp, useColors, useTextColor } from '../../composables'
 
 import { VaConfig } from '../va-config'
 
@@ -17,6 +17,7 @@ export default defineComponent({
   name: 'VaButtonGroup',
   components: { VaConfig },
   props: {
+    ...useComponentPresetProp,
     color: { type: String, default: 'primary' },
     gradient: { type: Boolean, default: undefined },
     textColor: { type: String, default: undefined },

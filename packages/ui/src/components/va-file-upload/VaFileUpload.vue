@@ -60,7 +60,7 @@
 <script lang="ts">
 import { computed, defineComponent, onMounted, ref, toRef, PropType, shallowRef, provide } from 'vue'
 
-import { useColors } from '../../composables'
+import { useComponentPresetProp, useColors } from '../../composables'
 
 import type { VaFile } from './types'
 import { VaFileUploadKey } from './types'
@@ -78,6 +78,7 @@ export default defineComponent({
   },
 
   props: {
+    ...useComponentPresetProp,
     fileTypes: { type: String, default: '' },
     dropzone: { type: Boolean, default: false },
     hideFileList: { type: Boolean, default: false },

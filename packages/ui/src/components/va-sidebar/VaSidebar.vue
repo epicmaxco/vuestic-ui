@@ -18,10 +18,12 @@ import { defineComponent, computed, ref, PropType } from 'vue'
 import { getGradientBackground } from '../../services/color-config/color-functions'
 import { useColors, useTextColor, useBem } from '../../composables'
 import { useSidebar } from './hooks/useSidebar'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 export default defineComponent({
   name: 'VaSidebar',
   props: {
+    ...useComponentPresetProp,
     color: { type: String, default: 'background' },
     textColor: { type: String },
     gradient: { type: Boolean, default: false },
