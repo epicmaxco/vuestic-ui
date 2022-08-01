@@ -80,20 +80,15 @@ $gap: 1rem;
   &__columns {
     margin: calc($gap / 2);
     display: flex;
+    flex-wrap: wrap;
     width: 100%;
-
-    @media screen and (max-width: 479px) {
-      flex-direction: column;
-    }
 
     .docs-roadmap__column {
       &-wrapper {
-        width: 33%;
+        width: 100%;
+        min-width: 300px;
+        flex: 1;
         padding: calc($gap / 2);
-
-        @media screen and (max-width: 479px) {
-          width: 100%;
-        }
       }
 
       & > *:not(h6) {
