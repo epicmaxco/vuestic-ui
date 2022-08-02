@@ -40,6 +40,12 @@ const config: ApiDocsBlock[] = [
   ),
 
   ...block.exampleBlock(
+    'split.examples.snapping.title',
+    'split.examples.snapping.text',
+    'Snapping',
+  ),
+
+  ...block.exampleBlock(
     'split.examples.nested.title',
     'split.examples.nested.text',
     'Nested',

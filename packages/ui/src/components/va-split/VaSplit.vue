@@ -54,7 +54,7 @@ import { useSplitDragger, useSplitDraggerProps } from './useSplitDragger'
 
 import { warn } from '../../services/utils'
 
-import { SplitLimit } from './types'
+import { SplitLimit, SnappingMark } from './types'
 
 import { VaDivider } from '../va-divider'
 
@@ -78,6 +78,11 @@ export default defineComponent({
       type: Array as any as PropType<[SplitLimit, SplitLimit]>,
       default: () => [0, 0],
     },
+    snapping: {
+      type: Array as any as PropType<SnappingMark[]>,
+      default: undefined,
+    },
+    snappingRange: { type: Number, default: 4 },
   },
 
   emits: useStatefulEmits,
@@ -97,7 +102,7 @@ export default defineComponent({
     onMounted(handleContainerResize)
     useResizeObserver([splitPanelsContainer], handleContainerResize)
 
-    const convertToPercents = (v: string | number, type: 'min' | 'max') => {
+    const convertToPercents = (v: string | number, type: 'min' | 'max' | 'snapping') => {
       let numberValue = ''
       let measureValue = ''
 
@@ -117,7 +122,7 @@ export default defineComponent({
         case 'rem':
           return ((+numberValue * bodyFontSize.value) / containerSize.value!) * 100
         case 'any':
-          return type === 'min' ? 0 : 100
+          return ['min', 'snapping'].includes(type) ? 0 : 100
         case '':
           return 100
         default:
@@ -173,8 +178,35 @@ export default defineComponent({
       }
     })
 
+    const checkSnappingLimitsCondition = (el: number) =>
+      el >= panelsMinMax.value.start.min &&
+      el >= panelsMinMax.value.end.min &&
+      el <= panelsMinMax.value.start.max &&
+      el <= panelsMinMax.value.end.max
+
+    const snappingMarksPosition = computed(() => {
+      if (!Array.isArray(props.snapping)) { return }
+
+      const result = props.snapping.map((el) => convertToPercents(el, 'snapping'))
+
+      if (!result.every(checkSnappingLimitsCondition)) {
+        const filteredMarks = result.filter(checkSnappingLimitsCondition)
+        warn(`Some of the snapping marks (${result}) are not in allowed range (${Object.values(panelsMinMax.value.start).join('-')} / ${Object.values(panelsMinMax.value.end).join('-')}) and will be removed (${filteredMarks})!`)
+        return filteredMarks
+      }
+
+      return result
+    })
+
     const splitterPosition = ref(valueComputed.value)
     const splitterPositionComputed = computed(() => {
+      if (snappingMarksPosition.value) {
+        const nearestSnappingMark = snappingMarksPosition.value.find((el) => {
+          return splitterPosition.value + props.snappingRange > el && splitterPosition.value - props.snappingRange < el
+        })
+        if (nearestSnappingMark) { return nearestSnappingMark }
+      }
+
       return clamp(
         splitterPosition.value,
         Math.max(panelsMinMax.value.start.min, 100 - panelsMinMax.value.end.max),

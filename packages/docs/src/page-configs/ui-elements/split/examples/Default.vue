@@ -53,7 +53,7 @@ export default {
   .img {
     position: absolute;
     top: 0;
-    width: 70vw;
+    width: 67vw;
 
     &--start {
       left: 0;

@@ -33,6 +33,17 @@
       </va-split>
     </VbCard>
 
+    <VbCard title="snapping">
+      <va-split :snapping="[20, 80]">
+        <template #start>
+          {{$vb.lorem(1000)}}
+        </template>
+        <template #end>
+          {{$vb.lorem(1000)}}
+        </template>
+      </va-split>
+    </VbCard>
+
     <VbCard title="custom grabber">
       <va-split>
         <template #start>
@@ -138,7 +149,7 @@ export default {
     height: 10rem;
 
     &__panel {
-      padding: 0.5rem;
+      padding: 0.75rem;
     }
   }
 
