@@ -16,7 +16,7 @@
 import { defineComponent, computed, ref, PropType } from 'vue'
 
 import { getGradientBackground } from '../../services/color-config/color-functions'
-import { useColors, useTextColor } from '../../composables'
+import { useColors, useTextColor, useBem } from '../../composables'
 import { useSidebar } from './hooks/useSidebar'
 import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
@@ -30,13 +30,14 @@ export default defineComponent({
     minimized: { type: Boolean, default: false },
     hoverable: { type: Boolean, default: false },
     position: {
-      type: String as PropType<'top' | 'bottom' | 'left' | 'right'>,
+      type: String as PropType<'left' | 'right'>,
       default: 'left',
-      validator: (v: string) => ['top', 'bottom', 'left', 'right'].includes(v),
+      validator: (v: string) => ['left', 'right'].includes(v),
     },
     width: { type: String, default: '16rem' },
-    minimizedWidth: { type: String, default: '2.5rem' },
+    minimizedWidth: { type: String, default: '4rem' },
     modelValue: { type: Boolean, default: true },
+    animated: { type: Boolean, default: true },
   },
   setup (props) {
     const { getColor } = useColors()
@@ -69,9 +70,10 @@ export default defineComponent({
       }
     })
 
-    const computedClass = computed(() => ({
-      'va-sidebar--minimized': isMinimized.value,
-      'va-sidebar--right': props.position === 'right',
+    const computedClass = useBem('va-sidebar', () => ({
+      minimized: isMinimized.value,
+      right: props.position === 'right',
+      animated: props.animated,
     }))
 
     const updateHoverState = (newHoverState: boolean) => {
@@ -97,11 +99,12 @@ export default defineComponent({
   position: var(--va-sidebar-position);
   top: var(--va-sidebar-top);
   left: var(--va-sidebar-left);
-  transition: var(--va-sidebar-transition);
   z-index: var(--va-sidebar-z-index);
   font-family: var(--va-font-family);
 
   &__menu {
+    display: flex;
+    flex-direction: column;
     max-height: var(--va-sidebar-menu-max-height);
     margin-bottom: var(--va-sidebar-menu-margin-bottom);
     list-style: var(--va-sidebar-menu-list-style);
@@ -110,11 +113,15 @@ export default defineComponent({
     overflow-x: var(--va-sidebar-menu-overflow-x);
   }
 
+  &--animated {
+    transition: var(--va-sidebar-transition);
+  }
+
   &--minimized {
     left: 0;
 
     .va-sidebar__title {
-      opacity: 0;
+      display: none;
     }
   }
 

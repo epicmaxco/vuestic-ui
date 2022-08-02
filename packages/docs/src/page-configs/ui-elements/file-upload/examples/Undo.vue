@@ -6,8 +6,18 @@
       class="mb-4"
     />
     <va-input
-      v-model="undoDuration"
-      :label="$t('fileUpload.examples.undo.inputLabel')"
+      v-model.number="undoDuration"
+      :label="$t('fileUpload.examples.undo.durationFieldLabel')"
+      class="mb-4"
+    />
+    <va-input
+      v-model="deletedFileMessage"
+      :label="$t('fileUpload.examples.undo.cancelFieldLabel')"
+      class="mb-4"
+    />
+    <va-input
+      v-model="undoButtonText"
+      :label="$t('fileUpload.examples.undo.deletedFileFieldLabel')"
       class="mb-4"
     />
   </div>
@@ -16,6 +26,8 @@
     undo
     :type="galleryType"
     :undo-duration="undoDuration"
+    :undo-button-text="undoButtonText"
+    :deleted-file-message="deletedFileMessage"
   />
 </template>
 
@@ -27,7 +39,9 @@ export default {
 
   data: () => ({
     isGalleryViewEnabled: false,
-    undoDuration: 1000,
+    undoDuration: 5000,
+    deletedFileMessage: 'File exterminated',
+    undoButtonText: 'Cancel',
     basic: [{ name: 'example 1.png', url: 'https://picsum.photos/100' }],
   }),
 

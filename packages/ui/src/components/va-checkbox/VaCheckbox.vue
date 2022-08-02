@@ -102,6 +102,7 @@ export default defineComponent({
       computedError,
       isIndeterminate,
       computedErrorMessages,
+      validationAriaAttributes,
       toggleSelection,
       onBlur,
       onFocus,
@@ -163,10 +164,7 @@ export default defineComponent({
       ariaDisabled: props.disabled,
       ariaReadOnly: props.readonly,
       ariaChecked: isActive.value,
-      'aria-invalid': !!computedErrorMessages.value.length,
-      'aria-errormessage': typeof computedErrorMessages.value === 'string'
-        ? computedErrorMessages.value
-        : computedErrorMessages.value.join(', '),
+      ...validationAriaAttributes.value,
     }))
 
     return {
@@ -204,6 +202,8 @@ export default defineComponent({
     display: var(--va-checkbox-input-display);
     padding: var(--va-checkbox-input-padding);
     cursor: var(--va-checkbox-input-cursor);
+    font-size: var(--va-checkbox-font-size);
+    line-height: var(--va-checkbox-line-height);
 
     @at-root {
       .va-checkbox--disabled & {
@@ -231,7 +231,7 @@ export default defineComponent({
     position: var(--va-checkbox-square-position);
     background-color: var(--va-checkbox-square-background-color, var(--va-background-color));
     border: var(--va-checkbox-square-border, var(--va-control-border));
-    border-radius: var(--va-checkbox-square-border-radius, var(--va-square-border-radius));
+    border-radius: var(--va-checkbox-square-border-radius);
 
     @at-root {
       .va-checkbox--on-keyboard-focus#{&} {

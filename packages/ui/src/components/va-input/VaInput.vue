@@ -16,6 +16,8 @@
     :outline="$props.outline"
     :requiredMark="$props.requiredMark"
     :focused="isFocused"
+    :counter-value="valueLengthComputed"
+    :max-length="$props.maxLength"
     @click="focus"
   >
     <!-- Simply proxy slots to VaInputWrapper -->
@@ -86,7 +88,7 @@ import { useCleave, useCleaveProps } from './hooks/useCleave'
 
 import type { AnyStringPropType } from '../../types/prop-type'
 
-import VaInputWrapper from './components/VaInputWrapper.vue'
+import VaInputWrapper from './components/VaInputWrapper/VaInputWrapper.vue'
 import VaTextarea from './components/VaTextarea/VaTextarea.vue'
 import VaIcon from '../va-icon/VaIcon.vue'
 
@@ -128,6 +130,8 @@ export default defineComponent({
     pattern: { type: String },
     inputmode: { type: String, default: 'text' },
     ariaLabel: { type: String, default: undefined },
+    counter: { type: Boolean, default: false },
+    maxLength: { type: Number, default: undefined },
 
     // style
     color: { type: String, default: 'primary' },
@@ -173,13 +177,14 @@ export default defineComponent({
       computedError,
       computedErrorMessages,
       listeners: validationListeners,
+      validationAriaAttributes,
     } = useValidation(props, emit, reset, focus)
 
     const { modelValue } = toRefs(props)
     const {
       canBeCleared,
       clearIconProps,
-    } = useClearable(props, modelValue, emit, input, computedError)
+    } = useClearable(props, modelValue, input, computedError)
 
     /** Use cleave only if this component is input, because it will break. */
     const computedCleaveTarget = computed(() => props.type === 'textarea'
@@ -213,14 +218,11 @@ export default defineComponent({
     const computedChildAttributes = computed(() => ({
       ariaLabel: props.ariaLabel || props.label,
       ariaRequired: props.requiredMark,
-      ariaDisabled: props.disabled,
-      ariaReadOnly: props.readonly,
-      'aria-invalid': !!computedErrorMessages.value.length,
-      'aria-errormessage': typeof computedErrorMessages.value === 'string'
-        ? computedErrorMessages.value
-        : computedErrorMessages.value.join(', '),
       tabindex: tabIndexComputed.value,
       class: props.inputClass,
+      ariaDisabled: props.disabled,
+      ariaReadonly: props.readonly,
+      ...validationAriaAttributes.value,
       ...omit(attrs, ['class', 'style']),
     }) as InputHTMLAttributes)
 
@@ -229,10 +231,15 @@ export default defineComponent({
       ...pick(props, ['type', 'disabled', 'readonly', 'placeholder', 'pattern', 'inputmode']),
     }) as InputHTMLAttributes)
 
+    const valueLengthComputed = computed(() =>
+      props.counter && typeof computedValue.value === 'string' ? computedValue.value.length : undefined,
+    )
+
     return {
       input,
       inputEvents,
 
+      valueLengthComputed,
       computedChildAttributes,
       computedInputAttributes,
       textareaProps: filterComponentProps(props, VaTextareaProps),

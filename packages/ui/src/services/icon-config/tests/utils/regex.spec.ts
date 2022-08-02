@@ -1,4 +1,5 @@
 import { regexGroupsValues } from '../../utils/regex'
+import { describe, it, expect } from 'vitest'
 
 describe('IconsConfg', () => {
   describe('utils', () => {

@@ -10,8 +10,8 @@ export const setCSSVariable = (name: string, value: string, root: HTMLElement) =
 export const createColorConfigPlugin = (app: App) => {
   const globalConfig = getGlobalProperty(app, '$vaConfig').globalConfig
 
-  /** Renders CSS varialbes string. Use this in SSR mode */
-  const renderCSSVarialbes = (colors: GlobalConfig['colors'] = globalConfig.value.colors) => {
+  /** Renders CSS variables string. Use this in SSR mode */
+  const renderCSSVariables = (colors: GlobalConfig['colors'] = globalConfig.value.colors) => {
     if (!colors) { return }
 
     const colorNames = Object.keys(colors)
@@ -36,5 +36,11 @@ export const createColorConfigPlugin = (app: App) => {
     updateColors(newValue)
   }, { immediate: true, deep: true })
 
-  return { renderCSSVarialbes, updateColors }
+  return {
+    // Let's have this method for a while, it is used in nuxt plugin that uses `latest` vuestic-ui version.
+    /** @deprecated it's typo here, lol */
+    renderCSSVarialbes: renderCSSVariables,
+    renderCSSVariables,
+    updateColors,
+  }
 }

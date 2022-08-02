@@ -18,7 +18,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
 
-import { VaButton } from '../../va-button'
+import { VaButton } from '../../index'
 
 import { ConvertedFile } from '../types'
 
@@ -46,6 +46,7 @@ export default defineComponent({
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    line-height: normal;
   }
 
   &__button {

@@ -1,0 +1,21 @@
+:root {
+  --va-input-wrapper-color: var(--va-primary);
+  --va-input-wrapper-background: var(--va-background, #f5f9fb);
+  --va-input-wrapper-background-opacity: 1;
+  --va-input-wrapper-border-color: var(--va-input-bordered-color);
+  --va-input-wrapper-min-width: 240px;
+  --va-input-wrapper-display: inline-block;
+  --va-input-wrapper-vertical-align: middle;
+
+  /* Counter container */
+  --va-input-wrapper-bottom-display: flex;
+  --va-input-wrapper-bottom-align-items: center;
+  --va-input-wrapper-bottom-line-height: 1.5;
+  --va-input-wrapper-bottom-font-size: 0.8rem;
+  --va-input-wrapper-bottom-color: var(--va-secondary);
+
+  /* Counter */
+  --va-input-wrapper-counter-flex: 0 0 auto;
+  --va-input-wrapper-counter-margin-left: auto;
+  --va-input-wrapper-counter-color: var(--va-secondary);
+}

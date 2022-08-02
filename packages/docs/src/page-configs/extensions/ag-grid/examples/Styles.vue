@@ -1,17 +1,15 @@
 <template>
-  <div>
-    <va-checkbox v-model="isStriped" label="Striped" />
-    <va-checkbox v-model="isHoverable" label="Hoverable" />
-    <div style="height: 300px; width: 100%;">
-      <ag-grid-vue
-        class="ag-theme-vuestic"
-        :class="{ 'ag-theme-vuestic--striped': isStriped, 'ag-theme-vuestic--hoverable': isHoverable }"
-        style="width: 100%; height: 100%;"
-        :columnDefs="columnDefs"
-        :rowData="rowData"
-        :modules="modules"
-      />
-    </div>
+  <va-checkbox v-model="isStriped" label="Striped" />
+  <va-checkbox v-model="isHoverable" label="Hoverable" />
+  <div style="height: 300px; width: 100%;">
+    <ag-grid-vue
+      class="ag-theme-vuestic"
+      :class="{ 'ag-theme-vuestic--striped': isStriped, 'ag-theme-vuestic--hoverable': isHoverable }"
+      style="width: 100%; height: 100%;"
+      :columnDefs="columnDefs"
+      :rowData="rowData"
+      :modules="modules"
+    />
   </div>
 </template>
 
@@ -44,7 +42,9 @@ export default {
   beforeMount () {
     fetch('https://www.ag-grid.com/example-assets/olympic-winners.json')
       .then(result => result.json())
-      .then(rowData => { this.rowData = rowData })
+      .then(rowData => {
+        this.rowData = rowData
+      })
   },
 }
 </script>
