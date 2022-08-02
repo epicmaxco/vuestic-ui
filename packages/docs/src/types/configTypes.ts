@@ -49,6 +49,7 @@ export enum BlockType {
   ALERT = 'ALERT',
   LIST = 'LIST',
   FILE = 'FILE',
+  MARKDOWN = 'MARKDOWN'
 }
 
 export type TextBlockType =
@@ -112,3 +113,7 @@ export type ApiDocsBlock =
       type: BlockType.FILE,
       file: Promise<Record<string, any>>
     }
+  | {
+    type: BlockType.MARKDOWN,
+    content: string,
+  }

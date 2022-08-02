@@ -153,4 +153,11 @@ export class PageGenerationHelper {
       file,
     }
   }
+
+  markdown (content: string): ApiDocsBlock {
+    return {
+      type: BlockType.MARKDOWN,
+      content,
+    }
+  }
 }

@@ -78,6 +78,11 @@
         :key="block.type + index"
         :file="block.file"
       />
+      <MarkdownView
+        v-else-if="block.type === BlockType.MARKDOWN"
+        :key="block.type + index"
+        :value="block.content"
+      />
     </template>
   </va-content>
 </template>
