@@ -2,12 +2,12 @@
   <va-split class="split-demo split-demo--image" :limits="[10, 10]">
     <template #start>
       <div class="img-block">
-        <img src="https://picsum.photos/seed/picsum/1536/800" class="img img--start" alt="" />
+        <img src="https://picsum.photos/seed/picsum/1536/800" draggable="false" class="img img--start" alt="" />
       </div>
     </template>
     <template #end>
       <div class="img-block">
-        <img src="https://picsum.photos/seed/picsum/1536/800?grayscale" class="img img--end" alt="" />
+        <img src="https://picsum.photos/seed/picsum/1536/800?grayscale" draggable="false" class="img img--end" alt="" />
       </div>
     </template>
   </va-split>
@@ -31,7 +31,7 @@ export default {
   border: 1px solid gainsboro;
 
   & .va-split__panel {
-    padding: 0.5rem;
+    padding: 0.75rem;
   }
 
   &--image {
@@ -40,10 +40,6 @@ export default {
 
     & .va-split__panel {
       padding: 0;
-    }
-
-    & .va-split__dragger {
-      width: 0.5rem;
     }
   }
 

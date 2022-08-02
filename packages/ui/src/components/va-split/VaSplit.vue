@@ -10,17 +10,23 @@
     >
       <slot name="start" />
     </div>
-    <div
-      class="va-split__dragger"
-      :style="draggerStyleComputed"
-      @mousedown="startDragging"
-      @touchstart="startDragging"
-      @dblclick="maximizePanel">
-      <slot name="grabber">
-        <va-divider
-          class="fill-width"
-          :vertical="!$props.vertical" />
-      </slot>
+    <div class="va-split__dragger">
+      <div
+        class="va-split__dragger__overlay"
+        :style="draggerStyleComputed"
+        @mousedown.prevent="startDragging"
+        @touchstart.prevent="startDragging"
+        @dblclick.prevent="maximizePanel"
+        @contextmenu.prevent
+        @dragstart.prevent
+      >
+        <slot name="grabber">
+          <va-divider
+            class="va-split__dragger__default"
+            :vertical="!$props.vertical"
+          />
+        </slot>
+      </div>
     </div>
     <div
       class="va-split__panel"
@@ -244,11 +250,21 @@ export default defineComponent({
 @import 'variables';
 
 .va-split {
+  position: relative;
   display: flex;
 
   &__dragger {
-    display: var(--va-split-dragger-display);
-    user-select: none;
+    position: relative;
+
+    &__overlay {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      display: var(--va-split-dragger-display);
+      z-index: 1;
+    }
   }
 
   &__panel {
@@ -265,18 +281,36 @@ export default defineComponent({
   &--vertical {
     flex-direction: column;
 
-    &.va-split__dragger {
-      height: var(--va-split-dragger-size);
-      align-items: var(--va-split-dragger-align-items);
+    & > .va-split__dragger {
+      height: 1px;
+
+      .va-split__dragger__overlay {
+        top: calc((var(--va-split-dragger-overlay-size) / -2));
+        height: var(--va-split-dragger-overlay-size);
+        align-items: var(--va-split-dragger-align-items);
+      }
+
+      .va-split__dragger__default {
+        width: 100%;
+      }
     }
   }
 
   &--horizontal {
     flex-direction: row;
 
-    &.va-split__dragger {
-      width: var(--va-split-dragger-size);
-      justify-content: var(--va-split-dragger-justify-content);
+    & > .va-split__dragger {
+      width: 1px;
+
+      .va-split__dragger__overlay {
+        left: calc((var(--va-split-dragger-overlay-size) / -2));
+        width: var(--va-split-dragger-overlay-size);
+        justify-content: var(--va-split-dragger-justify-content);
+      }
+
+      .va-split__dragger__default {
+        height: 100%;
+      }
     }
   }
 }
