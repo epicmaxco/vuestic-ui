@@ -50,6 +50,8 @@
         :placement="$props.placement"
         :offset="$props.offset"
         :stateful="$props.stateful"
+        :close-on-content-click="$props.closeOnContentClick"
+        prevent-overflow
         v-model="valueComputed"
       >
         <template #anchor>
