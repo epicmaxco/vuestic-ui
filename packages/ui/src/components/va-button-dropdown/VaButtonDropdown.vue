@@ -210,6 +210,7 @@ export default defineComponent({
 .va-button-dropdown {
   display: inline-block;
   font-family: var(--va-font-family);
+  vertical-align: middle;
 
   .va-button {
     margin: var(--va-button-dropdown-button-margin);
