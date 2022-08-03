@@ -49,7 +49,8 @@ export enum BlockType {
   ALERT = 'ALERT',
   LIST = 'LIST',
   FILE = 'FILE',
-  MARKDOWN = 'MARKDOWN'
+  MARKDOWN = 'MARKDOWN',
+  COLLAPSE = 'COLLAPSE',
 }
 
 export type TextBlockType =
@@ -116,4 +117,9 @@ export type ApiDocsBlock =
   | {
     type: BlockType.MARKDOWN,
     content: string,
+  }
+  | {
+    type: BlockType.COLLAPSE,
+    header: string,
+    blocks: ApiDocsBlock[]
   }

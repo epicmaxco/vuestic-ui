@@ -83,6 +83,13 @@
         :key="block.type + index"
         :value="block.content"
       />
+      <VaCollapse
+        v-else-if="block.type === BlockType.COLLAPSE"
+        :key="block.type + index"
+        :header="block.header"
+      >
+        <DocsContent :config="block.blocks" />
+      </VaCollapse>
     </template>
   </va-content>
 </template>
