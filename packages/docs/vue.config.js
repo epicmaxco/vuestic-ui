@@ -26,5 +26,13 @@ module.exports = {
         'vuestic-ui': resolve('../ui'),
       },
     },
+    module: {
+      rules: [
+        {
+          test: /\.md$/,
+          type: 'asset/source',
+        },
+      ],
+    },
   },
 }

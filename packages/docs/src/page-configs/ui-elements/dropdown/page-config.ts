@@ -3,6 +3,8 @@ import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaDropdown from 'vuestic-ui/src/components/va-dropdown/VaDropdown.vue'
 import apiOptions from './api-options'
 
+import specs from './specs.md'
+
 const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [
@@ -41,6 +43,11 @@ const config: ApiDocsBlock[] = [
   ),
 
   block.api(VaDropdown, apiOptions),
+
+  block.collapse(
+    'useDropdown hook specs',
+    block.markdown(specs),
+  ),
 ]
 
 export default config
