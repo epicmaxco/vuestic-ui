@@ -43,6 +43,7 @@ export const useGridKeyboardNavigation = (
     if (['ArrowRight', 'ArrowLeft', 'ArrowDown', 'ArrowUp', 'Enter', 'Space'].includes(e.key)) {
       // Prevent default for arrow keys and enter. Do not prevent default for tab! :)
       e.preventDefault()
+      e.stopPropagation()
     }
 
     if (e.key === 'Enter' || e.key === 'Space') {

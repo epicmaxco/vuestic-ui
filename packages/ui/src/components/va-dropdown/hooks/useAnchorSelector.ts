@@ -6,7 +6,6 @@ export const useAnchorSelector = (
     anchorSelector: string | undefined,
     innerAnchorSelector: string | undefined,
   },
-  listeners: Record<string, (...args: any[]) => any>,
 ) => {
   const anchorRef = ref<HTMLElement>()
   const document = useDocument()
@@ -24,15 +23,6 @@ export const useAnchorSelector = (
       return anchorRef.value
     },
   })
-
-  watch(computedAnchorRef, (newValue, oldValue) => {
-    if (newValue === oldValue) { return }
-
-    Object.keys(listeners).forEach((listener) => {
-      oldValue?.removeEventListener(listener, listeners[listener])
-      newValue?.addEventListener(listener, listeners[listener])
-    })
-  }, { immediate: true })
 
   return {
     anchorRef: computedAnchorRef,

@@ -99,7 +99,9 @@ export default defineComponent({
   vertical-align: var(--va-icon-vertical-align);
   user-select: var(--va-icon-user-select);
 
-  &[tabindex]:not([tabindex^="-"]) {
+  &[role^="button"][tabindex]:not([tabindex^="-"]) {
+    cursor: pointer;
+
     &:focus {
       @include focus-outline;
     }

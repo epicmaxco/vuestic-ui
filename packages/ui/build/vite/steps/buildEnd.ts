@@ -4,13 +4,20 @@ import {
   existsSync,
   renameSync,
   unlinkSync,
+  readFileSync,
+  writeFileSync,
+  appendFileSync,
 } from 'fs'
 import { readDirRecursive } from '../common-config'
 
-export const cleanJunk = () => {
+export const buildEnd = () => {
   // moving common css (resources & components styles) to the dist root
   const cjsStylesPath = './dist/cjs/style.css'
   existsSync(cjsStylesPath) && renameSync(cjsStylesPath, './dist/vuestic-ui.css')
+
+  // Add css modules code to all styles
+  const cssModules = readFileSync('./dist/styles/index.css')
+  appendFileSync('./dist/vuestic-ui.css', cssModules)
 
   // deleting common css double
   const iifeStylesPath = './dist/iife/style.css'
