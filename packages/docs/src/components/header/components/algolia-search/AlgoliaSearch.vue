@@ -63,6 +63,11 @@ export default class Search extends Vue {
 <style lang="scss">
 
 @import '~vuestic-ui/src/styles/index.scss';
+@import '@/assets/smart-grid.scss';
+
+.header {
+  position: relative;
+}
 
 #search-form {
   position: relative;
@@ -72,11 +77,23 @@ export default class Search extends Vue {
   width: 100%;
   z-index: 1;
 
+  &:focus-within {
+    @include xs(position, absolute);
+    @include xs(left, 0);
+    @include xs(padding, 0 calc(1.2rem + 4px));
+  }
+
   .va-input-wrapper__field {
     padding: 0.25rem;
     padding-left: 0.75rem;
     background: var(--va-input-wrapper-background);
     border-radius: 0.25rem;
+
+    @include xs(width, 5rem);
+
+    &:focus-within {
+      @include xs(width, var(--va-form-element-default-width));
+    }
   }
 
   .va-input__container {
@@ -99,6 +116,10 @@ export default class Search extends Vue {
     width: 100%;
     max-width: 20rem;
     padding-left: 0.1rem;
+
+    &:focus-within {
+      @include xs(max-width, none);
+    }
   }
 
   #algolia-search-input::placeholder {
