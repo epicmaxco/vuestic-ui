@@ -1,4 +1,4 @@
-import type { GlobalConfig, VuesticComponentName } from 'vuestic-ui'
+import type { GlobalConfig } from 'vuestic-ui'
 
 export interface VuesticOptions {
   /**

@@ -1,4 +1,4 @@
-import { GlobalConfig } from 'vuestic-ui/src/main'
+import { GlobalConfig } from 'vuestic-ui'
 import { icons } from './icons-config/icons-config'
 
 const scrollWrapperSelector = '.base-layout__content'

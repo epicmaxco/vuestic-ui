@@ -6,3 +6,7 @@ declare module '*.vue' {
 }
 
 declare module '*.md'
+
+declare module 'vuestic' {
+  export * from 'vuestic-ui/src/main'
+}

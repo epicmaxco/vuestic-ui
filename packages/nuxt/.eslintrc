@@ -5,6 +5,7 @@
   "rules": {
     "@typescript-eslint/no-unused-vars": [
       "off"
-    ]
+    ],
+    "import/named": "off"
   }
 }

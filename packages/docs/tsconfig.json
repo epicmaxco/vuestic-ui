@@ -18,6 +18,9 @@
       ],
       "vuestic-ui/*": [
         "../ui/*"
+      ],
+      "vuestic-ui": [
+        "../ui/src/main.ts"
       ]
     },
     "types": [

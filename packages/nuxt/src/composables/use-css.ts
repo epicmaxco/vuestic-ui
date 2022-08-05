@@ -1,6 +1,6 @@
-import { useNuxt } from '@nuxt/kit';
-import type { Nuxt, NuxtOptions } from "@nuxt/schema";
-import type { VuesticOptions } from "../types";
+import { useNuxt } from '@nuxt/kit'
+import type { Nuxt, NuxtOptions } from '@nuxt/schema'
+import type { VuesticOptions } from '../types'
 
 const VUESTIC_DEFAULT_FONTS = [
   { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;1,700&display=swap' },

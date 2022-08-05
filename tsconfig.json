@@ -1,4 +1,5 @@
 {
+  "extends": "./packages/nuxt-docs/tsconfig.json",
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
@@ -11,6 +12,10 @@
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "baseUrl": ".",
+    "rootDir": ".",
+    "paths": {
+      "vuestic-ui": ["packages/ui/src/main"]
+    },
     "types": [
       "webpack-env",
       "jest",
@@ -23,11 +28,7 @@
     ],
   },
   "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "src/**/*.vue",
-    "tests/**/*.ts",
-    "tests/**/*.tsx"
+    "packages/*/src",
   ],
   "exclude": [
     "node_modules"

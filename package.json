@@ -6,7 +6,8 @@
   "devDependencies": {
     "@vue/cli-plugin-typescript": "5.0.0-alpha.8",
     "lerna": "^3.20.2",
-    "yorkie": "^2.0.0"
+    "yorkie": "^2.0.0",
+    "vuestic-ui": "workspace:*"
   },
   "private": true,
   "scripts": {
@@ -33,9 +34,5 @@
     "packages": [
       "packages/*"
     ]
-  },
-  "gitHooks": {
-    "pre-commit": "lerna run --concurrency 1 --stream precommit --since HEAD"
-  },
-  "dependencies": {}
+  }
 }
