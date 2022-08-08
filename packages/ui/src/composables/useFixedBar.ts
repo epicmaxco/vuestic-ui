@@ -11,7 +11,9 @@ export function useFixedBar (props: ExtractPropTypes<typeof useFixedBarProps>, i
 
   const transformComputed = computed(() => {
     if (!props.bottom && !isHiddenComputed.value) { return '' }
-    return props.bottom && isHiddenComputed.value ? 'translateY(100%)' : 'translateY(-100%)'
+    if (props.bottom && !props.fixed) { return isHiddenComputed.value ? 'translateY(100%)' : 'translateY(0)' }
+    if (props.bottom && props.fixed) { return isHiddenComputed.value ? 'translateY(100%)' : 'translateY(-100%)' }
+    return 'translateY(-100%)'
   })
 
   const positionComputed = computed(() => {
@@ -20,9 +22,9 @@ export function useFixedBar (props: ExtractPropTypes<typeof useFixedBarProps>, i
   })
 
   const fixedBarStyleComputed = computed(() => ({
-    top: props.bottom && '100%',
+    top: props.bottom && ((props.hideOnScroll && isHiddenComputed.value) || props.fixed) ? '100%' : undefined,
     position: positionComputed.value,
-    transform: transformComputed.value,
+    transform: props.hideOnScroll || props.fixed ? transformComputed.value : undefined,
   }))
 
   return { fixedBarStyleComputed }
