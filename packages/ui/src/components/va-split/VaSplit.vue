@@ -41,7 +41,6 @@
 import { defineComponent, PropType, ref, shallowRef, computed, watch, onMounted } from 'vue'
 import isString from 'lodash/isString.js'
 import isNumber from 'lodash/isNumber.js'
-import isUndefined from 'lodash/isUndefined.js'
 import clamp from 'lodash/clamp.js'
 
 import {
@@ -82,7 +81,7 @@ export default defineComponent({
       type: Array as any as PropType<SnappingMark[]>,
       default: undefined,
     },
-    snappingRange: { type: Number, default: 4 },
+    snappingRange: { type: [Number, String] as PropType<number | string>, default: 4 },
   },
 
   emits: useStatefulEmits,
@@ -118,9 +117,9 @@ export default defineComponent({
         case '%':
           return +numberValue
         case 'px':
-          return (+numberValue / containerSize.value!) * 100
+          return (+numberValue / containerSize.value) * 100
         case 'rem':
-          return ((+numberValue * bodyFontSize.value) / containerSize.value!) * 100
+          return ((+numberValue * bodyFontSize.value) / containerSize.value) * 100
         case 'any':
           return ['min', 'snapping'].includes(type) ? 0 : 100
         case '':
@@ -131,7 +130,7 @@ export default defineComponent({
       }
     }
     const getPanelMinMax = (v: SplitLimit) => {
-      if (isUndefined(v) || !containerSize.value) { return }
+      if (v === 'undefined' || !containerSize.value) { return }
 
       let minPercents = 0
       let maxPercents = 100
@@ -185,24 +184,37 @@ export default defineComponent({
       el <= panelsMinMax.value.end.max
 
     const snappingMarksPosition = computed(() => {
-      if (!Array.isArray(props.snapping)) { return }
+      if (!Array.isArray(props.snapping) || !containerSize.value) { return }
 
-      const result = props.snapping.map((el) => convertToPercents(el, 'snapping'))
+      let result = props.snapping.map((el) => convertToPercents(el, 'snapping'))
 
       if (!result.every(checkSnappingLimitsCondition)) {
         const filteredMarks = result.filter(checkSnappingLimitsCondition)
         warn(`Some of the snapping marks (${result}) are not in allowed range (${Object.values(panelsMinMax.value.start).join('-')} / ${Object.values(panelsMinMax.value.end).join('-')}) and will be removed (${filteredMarks})!`)
-        return filteredMarks
+        result = filteredMarks
+      }
+
+      const checkSnappingRange = () => {
+        return result.every((el, index, array) => {
+          if (!array[index + 1]) { return true }
+          return Math.abs(el - array[index]) > props.snappingRange
+        })
+      }
+
+      if (!checkSnappingRange()) {
+        warn('Distance between some snapping marks is lesser than snapping range!')
       }
 
       return result
     })
 
+    const snappingRangeParsed = computed(() => convertToPercents(props.snappingRange, 'snapping'))
+
     const splitterPosition = ref(valueComputed.value)
     const splitterPositionComputed = computed(() => {
       if (snappingMarksPosition.value) {
         const nearestSnappingMark = snappingMarksPosition.value.find((el) => {
-          return splitterPosition.value + props.snappingRange > el && splitterPosition.value - props.snappingRange < el
+          return splitterPosition.value + snappingRangeParsed.value > el && splitterPosition.value - snappingRangeParsed.value < el
         })
         if (nearestSnappingMark) { return nearestSnappingMark }
       }

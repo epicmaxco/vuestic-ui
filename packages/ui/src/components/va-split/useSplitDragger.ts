@@ -1,4 +1,6 @@
-import { ExtractPropTypes, onBeforeUnmount, onMounted, ref, Ref } from 'vue'
+import { ExtractPropTypes, ref, Ref } from 'vue'
+
+import { useEvent } from '../../composables'
 
 export const useSplitDraggerProps = {
   vertical: { type: Boolean, default: false },
@@ -40,19 +42,8 @@ export const useSplitDragger = (
     isDragging.value = false
   }
 
-  onMounted(() => {
-    document.addEventListener('mousemove', processDragging)
-    document.addEventListener('touchmove', processDragging)
-    document.addEventListener('mouseup', stopDragging)
-    document.addEventListener('touchcancel', stopDragging)
-  })
-
-  onBeforeUnmount(() => {
-    document.removeEventListener('mousemove', processDragging)
-    document.removeEventListener('touchmove', processDragging)
-    document.removeEventListener('mouseup', stopDragging)
-    document.removeEventListener('touchcancel', stopDragging)
-  })
+  useEvent(['mousemove', 'touchmove'], processDragging)
+  useEvent(['mouseup', 'touchcancel'], stopDragging)
 
   return { isDragging, startDragging, currentSplitterPosition }
 }
