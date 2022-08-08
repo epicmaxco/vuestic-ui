@@ -7,6 +7,7 @@
     Content
   </va-button-dropdown>
   <va-button-dropdown
+    class="mr-2 mb-2"
     @main-button-click="mainButtonClick"
     @click="click"
     split

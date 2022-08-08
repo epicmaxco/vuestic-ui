@@ -1,6 +1,12 @@
 import { computed, ref, Ref, watch } from 'vue'
 
-import { DataTableColumnInternal, DataTableRow, DataTableItem, DataTableSortingOrder } from '../types'
+import type {
+  DataTableColumnInternal,
+  DataTableRow,
+  DataTableItem,
+  DataTableSortingOrder,
+  DataTableSortingOptions,
+} from '../types'
 
 interface useSortableProps {
   sortBy: string | undefined
@@ -103,28 +109,39 @@ export default function useSortable (
     })
   })
 
+  const getNextSortingOptionsValue = (value: DataTableSortingOrder, options: DataTableSortingOptions) => {
+    const index = options.findIndex((sortingValue) => sortingValue === value)
+
+    return index !== -1
+      ? options[(index + 1) % options.length]
+      : options[0]
+  }
+
   // a function to invoke when a heading of the table is clicked.
   // Sets the clicked heading's column as a one to sort by and toggles the sorting order from "asc" to "desc" to `null`
   // (un-sorted) if the same column is clicked again or sets sorting order to "asc" if some other column is chosen.
   function toggleSorting (column: DataTableColumnInternal) {
     if (column.name === sortBySync.value) {
-      if (sortingOrderSync.value === null) {
-        sortingOrderSync.value = 'asc'
-      } else if (sortingOrderSync.value === 'asc') {
-        sortingOrderSync.value = 'desc'
-      } else {
-        sortingOrderSync.value = null
-      }
+      sortingOrderSync.value = getNextSortingOptionsValue(sortingOrderSync.value, column.sortingOptions)
     } else {
       sortBySync.value = column.name
-      sortingOrderSync.value = 'asc'
+      sortingOrderSync.value = column.sortingOptions[0]
     }
   }
+
+  const sortingOrderIconName = computed(() => {
+    return sortingOrderSync.value === 'asc'
+      ? 'expand_less'
+      : sortingOrderSync.value === 'desc'
+        ? 'expand_more'
+        : 'unfold_more'
+  })
 
   return {
     sortBySync,
     sortingOrderSync,
     toggleSorting,
     sortedRows,
+    sortingOrderIconName,
   }
 }

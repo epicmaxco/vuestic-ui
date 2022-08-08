@@ -1,10 +1,10 @@
 import { $ } from 'deploy/execute'
 import { defineVuesticBuild } from './define-vuestic-build'
-import { removeDist } from './steps/removeDist'
-import { cleanJunk } from './steps/cleanJunk'
+import { buildStart } from './steps/buildStart'
+import { buildEnd } from './steps/buildEnd'
 
 defineVuesticBuild(async () => {
-  removeDist()
+  buildStart()
 
   await Promise.all([
     $('npm run build:types', { successMessage: 'types built' }),
@@ -16,5 +16,5 @@ defineVuesticBuild(async () => {
     $('vite build --config ./build/vite/configs/vite.styles-essential.js', { successMessage: 'essential styles built' }),
   ])
 
-  cleanJunk()
+  buildEnd()
 })

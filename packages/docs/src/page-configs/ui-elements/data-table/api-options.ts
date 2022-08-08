@@ -17,6 +17,9 @@ export default defineManualApi({
     sortingOrder: {
       types: '`DataTableSortingOrder: \'asc\'|\'desc\'|null`',
     },
+    sortingOptions: {
+      types: '`DataTableSortingOrder[]`',
+    },
   },
   events: {
     filtered: {

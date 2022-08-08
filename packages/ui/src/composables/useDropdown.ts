@@ -18,7 +18,10 @@ export const placementsPositions = ['top', 'bottom', 'left', 'right']
 const coordsToCss = ({ x, y }: Coords) => ({ left: `${x}px`, top: `${y}px` })
 
 const parsePlacement = (placement: Placement) => {
-  const [position, align] = placement.split('-') as [PlacementPosition, PlacementAlignment | undefined]
+  let [position, align] = placement.split('-') as [PlacementPosition | 'auto', PlacementAlignment | undefined]
+  if (position === 'auto') {
+    position = 'bottom'
+  }
 
   return { position, align: align || 'center' }
 }
@@ -63,11 +66,11 @@ const calculateOffsetCoords = (placement: Placement, offset: Offset): Coords => 
 }
 
 /** Returns how much content overflow */
-const calculateContentOverflow = (coords: Coords, content: DOMRect, root: DOMRect) => {
-  const xMax = root.right
-  const yMax = root.bottom
-  const xMin = root.left
-  const yMin = root.top
+const calculateContentOverflow = (coords: Coords, content: DOMRect, viewport: DOMRect) => {
+  const xMax = viewport.right
+  const yMax = viewport.bottom
+  const xMin = viewport.left
+  const yMin = viewport.top
 
   return {
     top: Math.max(yMin - coords.y, 0),
@@ -79,8 +82,8 @@ const calculateContentOverflow = (coords: Coords, content: DOMRect, root: DOMRec
 
 const clamp = (min: number, v: number, max: number) => Math.max(Math.min(v, max), min)
 
-const calculateClipToEdge = (coords: Coords, offsetCoords: Coords, content: DOMRect, anchor: DOMRect, root: DOMRect) => {
-  const { top, bottom, left, right } = calculateContentOverflow(coords, content, root)
+const calculateClipToEdge = (coords: Coords, offsetCoords: Coords, content: DOMRect, anchor: DOMRect, viewport: DOMRect) => {
+  const { top, bottom, left, right } = calculateContentOverflow(coords, content, viewport)
 
   // Add left overflow, sub right overflow so content always stick to edge
   const x = coords.x - right + left
@@ -95,9 +98,9 @@ const calculateClipToEdge = (coords: Coords, offsetCoords: Coords, content: DOMR
   }
 }
 
-const getAutoPlacement = (placement: Placement, coords: Coords, content: DOMRect, root: DOMRect): Placement => {
+const getAutoPlacement = (placement: Placement, coords: Coords, content: DOMRect, viewport: DOMRect): Placement => {
   const { position, align } = parsePlacement(placement)
-  const overflow = calculateContentOverflow(coords, content, root)
+  const overflow = calculateContentOverflow(coords, content, viewport)
 
   const newPlacements = {
     top: ['bottom', align].join('-') as Placement,
@@ -126,13 +129,14 @@ export type usePopoverOptions = {
   offset?: Offset,
   /** Root element selector */
   root?: string | HTMLElement,
+  viewport?: HTMLElement,
 }
 
 /**
  * Updates `contentRef` css, make it position fixed and moves relative to `anchorRef`
  * @param options make options reactive if you want popover to react on options change.
  */
-export const usePopover = (
+export const useDropdown = (
   anchorRef: Ref<HTMLElement | undefined>,
   contentRef: Ref<HTMLElement | undefined>,
   options: usePopoverOptions | Ref<usePopoverOptions>,
@@ -177,10 +181,12 @@ export const usePopover = (
       offsetCoords = calculateOffsetCoords(placement, offset)
       coords = mapObject(coords, (c, key) => c + offsetCoords[key])
     }
+
     const rootRect = rootRef.value.getBoundingClientRect()
+    const viewportRect = unref(options).viewport?.getBoundingClientRect() ?? rootRect
 
     if (autoPlacement) {
-      const newPlacement = getAutoPlacement(placement, coords, contentDomRect.value, rootRect)
+      const newPlacement = getAutoPlacement(placement, coords, contentDomRect.value, viewportRect)
       if (newPlacement !== placement) {
         coords = calculateContentCoords(newPlacement, anchorDomRect.value, contentDomRect.value)
 
@@ -192,21 +198,23 @@ export const usePopover = (
     }
 
     if (stickToEdges) {
-      coords = calculateClipToEdge(coords, offsetCoords, contentDomRect.value, anchorDomRect.value, rootRect)
+      coords = calculateClipToEdge(coords, offsetCoords, contentDomRect.value, anchorDomRect.value, viewportRect)
     }
 
     coords.x -= rootRect.x
     coords.y -= rootRect.y
 
     if (contentRef.value) {
+      let widthCss = {}
       if (keepAnchorWidth) {
         const { width } = anchorDomRect.value
-        Object.assign(css, { width: `${width}px`, maxWidth: `${width}px` })
+        widthCss = { width: `${width}px`, maxWidth: `${width}px` }
       }
 
       Object.assign(contentRef.value.style, {
         ...css,
         ...coordsToCss(coords),
+        ...widthCss,
       })
     }
   })
