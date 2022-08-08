@@ -113,15 +113,15 @@
         "errorMessages": "Сообщения об ошибках для компонента",
         "errorCount": "Количество отображаемых сообщений об ошибках",
         "stateful": "Добавляет возможность работы с компонентом без настройки `v-model`",
-        "color": "Цвет компонента (поддерживаемый темой опции или `HEX`)",
-        "textColor": "Цвет текста (поддерживаемый темой опции или `HEX`)",
+        "color": "Цвет компонента (поддерживаемые темой варианты или `HEX`).",
+        "textColor": "Цвет текста (поддерживаемые темой варианты или `HEX`).",
         "rules": "Правила валидации <!-- TODO Add link -->",
         "to": "Целевой маршрут ссылки, [подробнее](https://router.vuejs.org/api/#to \"Vue router docs\")[[target=_blank]]",
         "replace": "Если установлено, при навигации вызывается `router.replace()` вместо `router.push()`, поэтому запись в истории не сохраняется. [Подробнее](https://router.vuejs.org/api/#replace \"Vue router docs\")[[target=_blank]]",
         "append": "Если установлено, всегда добавляется относительный путь к текущему, [подробнее](https://router.vuejs.org/api/#append \"Vue router docs\")[[target=_blank]]",
-        "exact": "Проверяет точное соотвествие ссылки. Без знака `'/'` будет соответствовать каждому маршруту, [подробнее](https://router.vuejs.org/api/#exact \"Vue router docs\")[[target=_blank]]",
+        "exact": "Проверяет точное соответствие ссылки. Без знака `'/'` будет соответствовать каждому маршруту, [подробнее](https://router.vuejs.org/api/#exact \"Vue router docs\")[[target=_blank]]",
         "activeClass": "Применяется к активной ссылке, [подробнее](https://router.vuejs.org/api/#active-class \"Vue router docs\")[[target=_blank]]",
-        "exactActiveClass": "Применяется к активной ссылке c точным соотвествием, [подробнее](https://router.vuejs.org/api/#exact-active-class \"Vue router docs\")[[target=_blank]]",
+        "exactActiveClass": "Применяется к активной ссылке c точным соответствием, [подробнее](https://router.vuejs.org/api/#exact-active-class \"Vue router docs\")[[target=_blank]]",
         "href": "Определяет компонент как привязку и применяет атрибут href, [подробнее](https://router.vuejs.org/api/#href \"Vue router docs\")[[target=_blank]].",
         "target": "Целевой указатель навигации, [подробнее](https://developer.mozilla.org/docs/Web/HTML/Element/A)[[target=_blank]].",
         "src": "Исходный URL",
@@ -144,7 +144,10 @@
         "indeterminateValue": "Переопределяет не установленное значение состояния",
         "borderColor": "Цвет css стиля `border` (поддерживаемые темой опции или `HEX`)",
         "clearableIcon": "Устанавливает иконку кнопки очистки",
-        "tabindex": "Устанавливает кастомный `tabindex`"
+        "tabindex": "Устанавливает кастомный `tabindex`",
+        "preset": "Именованная предустановленная комбинация свойств компонента.",
+        "hideOnScroll": "Скрывает компонент при прокрутке.",
+        "bottom": "Устанавливает положение компонента внизу страницы (для `fixed` позиционирования)."
       }
     },
     "VaBadge": {
@@ -1073,12 +1076,12 @@
     },
     "VaAppBar": {
       "props": {
-        "gradient": "Применяет градиент к фону",
-        "bottom": "Закрепляет панель приложения внизу",
-        "hideOnScroll": "Скрывает панель приложения при прокрутке",
-        "shadowOnScroll": "Применяет к компоненту стиль `box-shadow` при прокрутке",
-        "shadowColor": "Задает цвет тени компонента",
-        "target": "Цель для прокрутки"
+        "gradient": "Применяет градиент к фону.",
+        "bottom": "Закрепляет компонент внизу страницы (для `fixed` позиционирования).",
+        "hideOnScroll": "Скрывает панель при прокрутке.",
+        "shadowOnScroll": "Применяет к компоненту стиль `box-shadow` при прокрутке.",
+        "shadowColor": "Задает цвет тени компонента.",
+        "target": "Цель для прокрутки."
       },
       "events": {},
       "methods": {},
@@ -1118,7 +1121,8 @@
     },
     "VaNavbar": {
       "props": {
-        "shape": "Задает отображение фигуры на фоне"
+        "shape": "Задает отображение фигуры на фоне.",
+        "fixed": "Меняет `position` компонента на `fixed`."
       },
       "events": {},
       "methods": {},
@@ -3091,9 +3095,9 @@
         "title": "Цвет",
         "text": "Свойство `color` используется для изменения цвета компонента (предопределенные опции цвета или `HEX`). Свойство `gradient` устанавливает градиент к цвету."
       },
-      "bottom": {
-        "title": "Отображения внизу экрана",
-        "text": "Установив свойство `bottom`, вы можете сделать так, чтобы панель приложений располагалась в нижней части экрана."
+      "fixed": {
+        "title": "Fixed",
+        "text": "Вы можете сменить позиционирование панели на `fixed` используя одноименное свойство."
       },
       "hide": {
         "title": "Скрытие при прокрутке",
@@ -3609,7 +3613,7 @@
       },
       "shape": {
         "title": "Shape",
-        "text": "Свойство `shape` добавляет фигуру на фон панели навигации. Цвет формы будет автоматически взят из свойства `color`."
+        "text": "Свойство `shape` добавляет фигуру на фон панели навигации. Цвет фигуры будет автоматически взят из свойства `color`."
       }
     },
     "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-navbar/_variables.scss)[[target=_blank]]"

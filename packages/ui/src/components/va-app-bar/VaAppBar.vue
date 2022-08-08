@@ -2,7 +2,7 @@
   <header
     ref="scrollRoot"
     role="toolbar"
-    :class="computedClass"
+    class="va-app-bar"
     :style="computedStyle"
   >
     <slot />
@@ -10,78 +10,43 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, computed, ref } from 'vue'
+import { defineComponent, PropType, computed } from 'vue'
 
-import { setupScroll, useColors, useComponentPresetProp } from '../../composables'
-import { getGradientBackground, getBoxShadowColor } from '../../services/color-config/color-functions'
+import { setupScroll, useColors, useFixedBar, useFixedBarProps, useComponentPresetProp } from '../../composables'
 
 export default defineComponent({
   name: 'VaAppBar',
   props: {
+    ...useFixedBarProps,
     ...useComponentPresetProp,
     gradient: { type: Boolean, default: false },
-    bottom: { type: Boolean, default: false },
     target: { type: [Object, String] as PropType<string | HTMLElement>, default: '' },
-    hideOnScroll: { type: Boolean, default: false },
     shadowOnScroll: { type: Boolean, default: false },
     shadowColor: { type: String, default: '' },
     color: { type: String, default: undefined },
-    absolute: { type: Boolean, default: false },
   },
+
   setup (props) {
-    const prevScrollPosition = ref(0)
-    const doShowShadow = ref(false)
-    const isHidden = ref(false)
+    const { scrollRoot, isScrolledDown } = setupScroll(props.fixed, props.target)
+    const { fixedBarStyleComputed } = useFixedBar(props, isScrolledDown)
 
-    const scrollRoot = setupScroll(props.target, (e) => {
-      const target = e.target as HTMLElement
-
-      if (prevScrollPosition.value < target.scrollTop) {
-        // Scroll down
-        isHidden.value = !!props.hideOnScroll
-        doShowShadow.value = !!props.shadowOnScroll
-      } else {
-        // Scroll up
-        isHidden.value = false
-        doShowShadow.value = false
-      }
-
-      prevScrollPosition.value = target.scrollTop
-    })
-
-    const { getColor } = useColors()
-
-    const colorComputed = computed(() => getColor(props.color, 'primary'))
-
+    const { getColor, getGradientBackground, getBoxShadowColor } = useColors()
+    const colorComputed = computed(() => getColor(props.color))
+    const showShadowComputed = computed(() => isScrolledDown.value ? !!props.shadowOnScroll : false)
     const shadowColorComputed = computed(() => getColor(props.shadowColor, colorComputed.value))
 
     const computedShadow = computed(() => {
       const shadow = getBoxShadowColor(props.shadowColor ? shadowColorComputed.value : colorComputed.value)
-      return doShowShadow.value ? `var(--va-app-bar-shadow) ${shadow}` : ''
-    })
-
-    const transformComputed = computed(() => {
-      if (!isHidden.value) { return '' }
-      return props.bottom ? 'translateY(100%)' : 'translateY(-100%)'
+      return showShadowComputed.value ? `var(--va-app-bar-shadow) ${shadow}` : ''
     })
 
     const computedStyle = computed(() => ({
+      ...fixedBarStyleComputed.value,
       background: props.gradient ? getGradientBackground(colorComputed.value) : colorComputed.value,
-      'box-shadow': computedShadow.value,
-      transform: transformComputed.value,
-      position: props.absolute ? 'absolute' as const : undefined,
+      boxShadow: computedShadow.value,
     }))
 
-    const computedClass = computed(() => ({
-      'va-app-bar': true,
-      'va-app-bar--bottom': props.bottom,
-    }))
-
-    return {
-      scrollRoot,
-      computedStyle,
-      computedClass,
-    }
+    return { scrollRoot, computedStyle }
   },
 })
 </script>
@@ -93,7 +58,7 @@ export default defineComponent({
   display: flex;
   align-items: center;
   position: var(--va-app-bar-position);
-  transition: all 0.5s ease;
+  transition: var(--va-app-bar-transition);
   top: 0;
   left: 0;
   width: 100%;
@@ -102,10 +67,5 @@ export default defineComponent({
   min-width: 100%;
   font-family: var(--va-font-family);
   z-index: var(--va-app-bar-z-index);
-
-  &--bottom {
-    top: 100%;
-    transform: translateY(-100%);
-  }
 }
 </style>

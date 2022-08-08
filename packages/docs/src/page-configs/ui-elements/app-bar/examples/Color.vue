@@ -16,7 +16,7 @@
 
   <div class="mt-2" style="position: relative;">
     <va-app-bar
-      color="secondary"
+      color="warning"
       gradient
     >
       <va-button icon="home" color="#fff" flat :rounded="false" />

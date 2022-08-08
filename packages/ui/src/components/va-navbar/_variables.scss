@@ -2,7 +2,9 @@
   --va-navbar-height: 4.0625rem;
   --va-navbar-padding-left: 1rem;
   --va-navbar-padding-right: 1rem;
-  --va-navbar-transition: background-color 0.3s ease; // sidebar's bg color transitions as well -> consistency
+  --va-navbar-transition: transform 0.5s ease;
+  --va-navbar-position: relative;
+  --va-nav-z-index: calc(var(--va-z-index-teleport-overlay) - 100);
 
   // sm
   --va-navbar-sm-padding: 1.1875rem 1rem 1rem;
