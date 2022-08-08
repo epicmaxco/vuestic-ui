@@ -1,6 +1,6 @@
 import { Ref, watch, computed } from 'vue'
 
-import { DataTableRow, DataTableFilterMethod, DataTableItem } from '../types'
+import type { DataTableRow, DataTableFilterMethod, DataTableItem } from '../types'
 
 interface useFilterableProps {
   filter: string

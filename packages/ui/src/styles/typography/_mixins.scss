@@ -1,0 +1,185 @@
+@mixin va-title() {
+  font-family: var(--va-font-family);
+  font-size: 0.625rem;
+  letter-spacing: 0.6px;
+  line-height: 1.2;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: currentColor;
+}
+
+$va-display-font-sizes: (
+  1: 3rem,
+  2: 2.5rem,
+  3: 2rem,
+  4: 1.75rem,
+  5: 1.5rem,
+  6: 1.25rem,
+) !default;
+
+$va-display-line-height: (
+  1: 3.5rem,
+  2: 3rem,
+  3: 2.5rem,
+  4: 2rem,
+  5: 1.75rem,
+  6: 1.5rem,
+) !default;
+
+$va-display-margins: (
+  1: 0.5rem 0 0.5rem 0,
+  2: 0.5rem 0 0.5rem 0,
+  3: 0.5rem 0 0.5rem 0,
+  4: 0.5rem 0 0.5rem 0,
+  5: 0.5rem 0 0.5rem 0,
+  6: 0.5rem 0 0.5rem 0,
+) !default;
+
+/** This is va-heading actually... */
+@mixin va-display($element) {
+  font-size: map-get($va-display-font-sizes, $element);
+  margin: map-get($va-display-margins, $element);
+  line-height: map-get($va-display-line-height, $element);
+  font-family: var(--va-font-family);
+  // TODO: currentColor?
+  color: currentColor;
+  // TODO:(1.5.0) rename to textDark
+  // color: var(--va-dark);
+  font-weight: 700;
+}
+
+@mixin va-code {
+  font-size: 14px;
+  // TODO:(1.5.0) rename to textDark
+  color: var(--va-dark);
+  font-family: 'Source Code Pro';
+  // TODO:(1.5.0) rename to background
+  background-color: var(--va-background);
+}
+
+@mixin va-code-snippet {
+  @include va-code;
+
+  padding: 1rem;
+}
+
+/** Inner mixin use only inside @va-ordered and @va-unordered  */
+@mixin va-list {
+  list-style: none;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  font-family: var(--va-font-family);
+
+  & > li {
+    list-style: none;
+    padding: 0 1rem;
+    position: relative;
+  }
+}
+
+@mixin va-ordered {
+  @include va-list;
+
+  counter-reset: olCounter;
+
+  & > li::before {
+    $size: 0.75rem;
+
+    counter-increment: olCounter;
+    content: counter(olCounter) ". ";
+    display: inline-block;
+    min-width: $size;
+    height: $size;
+    position: relative;
+    right: 1rem;
+    margin-right: -$size;
+  }
+}
+
+@mixin va-unordered {
+  @include va-list;
+
+  & > li::before {
+    $size: 0.5rem;
+
+    content: "";
+    width: $size;
+    height: $size;
+    border-radius: 50%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    margin-top: $size;
+    background-color: var(--va-li-background);
+  }
+}
+
+@mixin va-table {
+  font-family: var(--va-font-family);
+
+  th,
+  td {
+    text-align: left;
+    padding: 0.625rem;
+  }
+
+  th {
+    @include va-title();
+
+    // TODO:(1.5.0) use CSS variables
+    color: $vue-darkest-blue;
+    border-bottom: 2px solid $vue-darkest-blue;
+  }
+
+  td {
+    vertical-align: top;
+  }
+
+  &--striped {
+    tr {
+      &:nth-child(even) {
+        td {
+          background-color: $light-gray3;
+        }
+      }
+    }
+  }
+
+  &--hoverable {
+    tr {
+      &:hover {
+        td {
+          background-color: $light-gray2;
+        }
+      }
+    }
+  }
+
+  &--clickable {
+    td {
+      cursor: pointer;
+    }
+  }
+}
+
+@mixin link {
+  color: var(--va-link-color);
+  cursor: pointer;
+  font-family: var(--va-font-family);
+
+  &:active {
+    color: var(--va-link-color);
+    filter: brightness(150%);
+  }
+
+  &:visited {
+    color: var(--va-link-color);
+    filter: brightness(90%);
+  }
+
+  &:hover {
+    color: var(--va-link-color);
+    filter: brightness(125%);
+  }
+}

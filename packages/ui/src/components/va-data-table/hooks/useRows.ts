@@ -2,7 +2,13 @@ import { Ref, computed } from 'vue'
 
 import { getValueByPath } from '../../../services/utils'
 
-import { DataTableColumnInternal, DataTableItem, DataTableCell, DataTableRow, DataTableItemKey } from '../types'
+import type {
+  DataTableColumnInternal,
+  DataTableItem,
+  DataTableCell,
+  DataTableRow,
+  DataTableItemKey,
+} from '../types'
 
 export const getItemKey = (source: DataTableItem, itemsTrackBy: string | ((item: DataTableItem) => any)): DataTableItemKey => (
   typeof itemsTrackBy === 'function'

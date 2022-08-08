@@ -1,5 +1,6 @@
 export const overriding = `
 :root {
-  --va-button-sm-font-size: 1rem
+  --va-checkbox-square-border-radius: 50%;
+  --va-input-border-radius: 99999px;
 }
 `

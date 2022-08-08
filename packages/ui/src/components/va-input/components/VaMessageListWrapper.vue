@@ -1,12 +1,12 @@
 <template>
-    <div class="va-message-list-wrapper">
-      <slot />
-      <va-message-list
-        :color="messagesColor"
-        :limit="errorLimit"
-        :model-value="messagesComputed"
-      />
-    </div>
+  <div class="va-message-list-wrapper">
+    <slot />
+    <va-message-list
+      :color="messagesColor"
+      :limit="errorLimit"
+      :model-value="messagesComputed"
+    />
+  </div>
 </template>
 
 <script lang="ts">

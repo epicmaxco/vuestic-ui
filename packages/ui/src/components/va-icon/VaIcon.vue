@@ -76,6 +76,8 @@ export default defineComponent({
       cursor: attrs.onClick ? 'pointer' : null,
       color: props.color ? getColor(props.color, undefined, true) : iconConfig.value.color,
       fontSize: sizeComputed.value,
+      height: sizeComputed.value,
+      lineHeight: sizeComputed.value,
     }))
 
     return {
@@ -97,7 +99,9 @@ export default defineComponent({
   vertical-align: var(--va-icon-vertical-align);
   user-select: var(--va-icon-user-select);
 
-  &[tabindex]:not([tabindex^="-"]) {
+  &[role^="button"][tabindex]:not([tabindex^="-"]) {
+    cursor: pointer;
+
     &:focus {
       @include focus-outline;
     }
@@ -125,6 +129,11 @@ export default defineComponent({
     to {
       transform: rotate(360deg);
     }
+  }
+
+  svg {
+    fill: currentColor;
+    height: 100%;
   }
 }
 </style>

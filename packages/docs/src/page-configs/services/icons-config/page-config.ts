@@ -2,9 +2,6 @@ import { ApiDocsBlock } from '@/types/configTypes'
 import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import {
   aliasCodeExample,
-  aliasesTransformationsExample,
-  fontCodeExample,
-  fontTransformationsExample,
   setupCodeExample,
 } from '@/page-configs/services/icons-config/code-examples'
 
@@ -49,21 +46,8 @@ const block = new PageGenerationHelper(__dirname)
 const config: ApiDocsBlock[] = [
   block.title('iconsConfig.title'),
   block.paragraph('iconsConfig.about'),
-  block.link('iconsConfig.readBeforeStart', '/ui-elements/icon'),
-
   block.paragraph('iconsConfig.problem.definition'),
-  block.paragraph('iconsConfig.problem.materialIcons'),
-  block.code('<span class="material-icons">star</span>'),
-
-  block.paragraph('iconsConfig.problem.fontAwesome'),
-  block.code('<i class="fas fa-star"></i>'),
-
-  block.paragraph('iconsConfig.problem.summary'),
-
-  // api
-  block.subtitle('iconsConfig.api.title'),
-  block.table(columns, tableData),
-  block.paragraph('iconsConfig.api.description'),
+  block.link('iconsConfig.readBeforeStart', '/ui-elements/icon'),
 
   // fonts
   block.subtitle('iconsConfig.fonts.title'),
@@ -71,19 +55,11 @@ const config: ApiDocsBlock[] = [
 
   block.headline('iconsConfig.fonts.fontNamePattern.title'),
   block.paragraph('iconsConfig.fonts.fontNamePattern.about'),
-  block.example('font', { hideCode: true }),
 
   block.headline('iconsConfig.fonts.example.title'),
   block.paragraph('iconsConfig.fonts.example.about'),
-  block.code(fontCodeExample),
-  block.paragraph('iconsConfig.fonts.example.explain'),
-  block.code(fontTransformationsExample),
-
-  block.link(
-    'iconsConfig.fonts.advancedFontsUsage',
-    '/services/global-config',
-    { preText: 'iconsConfig.fonts.readMore' },
-  ),
+  block.alert('iconsConfig.fonts.example.alert', 'info'),
+  block.component('playground'),
 
   // aliases
   block.subtitle('iconsConfig.aliases.title'),
@@ -92,14 +68,15 @@ const config: ApiDocsBlock[] = [
   block.headline('iconsConfig.aliases.example.title'),
   block.code(aliasCodeExample),
 
-  block.paragraph('iconsConfig.aliases.example.about'),
-  block.code(aliasesTransformationsExample),
-  block.paragraph('iconsConfig.aliases.example.explain'),
-
   // setup
   block.subtitle('iconsConfig.setup.title'),
   block.paragraph('iconsConfig.setup.about'),
   block.code(setupCodeExample),
+
+  // api
+  block.subtitle('iconsConfig.api.title'),
+  block.paragraph('iconsConfig.api.description'),
+  block.table(columns, tableData),
 ]
 
 export default config

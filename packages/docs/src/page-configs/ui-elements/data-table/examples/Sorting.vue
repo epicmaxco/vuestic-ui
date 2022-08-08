@@ -168,7 +168,7 @@ export default defineComponent({
     ]
 
     const columns = [
-      { key: 'id', sortable: true },
+      { key: 'id', sortable: true, sortingOptions: ['desc', 'asc'] },
       { key: 'username', sortable: true },
       { key: 'name', sortable: true },
       { key: 'address.city', name: 'city', label: 'City', sortable: true },

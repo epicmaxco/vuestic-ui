@@ -1,5 +1,7 @@
 import { useStateful, useStatefulProps, StatefulProps } from '../useStateful'
 import { mount } from '@vue/test-utils'
+import { describe, it, expect } from 'vitest'
+import { fromTable } from '../../utils/test-utils'
 
 const TestComponent = {
   template: '<p></p>',
@@ -7,15 +9,15 @@ const TestComponent = {
 }
 
 describe('useStateful', () => {
-  it.each`
+  it.each(fromTable`
     props                                            | defaultValue |  expected        | setExpected
     ${{ stateful: true, modelValue: 'modelValue' }}  | ${true}      |  ${true}         | ${'newModelValue'}
     ${{ stateful: false, modelValue: 'modelValue' }} | ${true}      |  ${'modelValue'} | ${'modelValue'}
     ${{ stateful: true, modelValue: 'modelValue' }}  | ${undefined} |  ${'modelValue'} | ${'newModelValue'}
     ${{ stateful: false, modelValue: 'modelValue' }} | ${undefined} |  ${'modelValue'} | ${'modelValue'}
-  `(
-    'props $props & defaultValue $defaultValue should be $expected & then $setExpected',
-    async ({ props, defaultValue, expected, setExpected }) => {
+  `)(
+    'props %s & defaultValue %s should be %s & then %s',
+    async (props, defaultValue, expected, setExpected) => {
       const wrapper = mount(TestComponent)
       expect(wrapper.exists()).toBeTruthy()
       await wrapper.setProps(props)

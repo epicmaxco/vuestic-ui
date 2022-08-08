@@ -24,6 +24,7 @@ export type CodesandboxConfig = {
 export type PathToExample = string
 export type ExampleOptions = {
   hideCode?: boolean,
+  hideTemplate?: boolean,
   forceShowCode?: boolean
   codesandboxConfig?: CodesandboxConfig
 }
@@ -48,6 +49,8 @@ export enum BlockType {
   ALERT = 'ALERT',
   LIST = 'LIST',
   FILE = 'FILE',
+  MARKDOWN = 'MARKDOWN',
+  COLLAPSE = 'COLLAPSE',
 }
 
 export type TextBlockType =
@@ -79,6 +82,7 @@ export type ApiDocsBlock =
     type: BlockType.COMPONENT,
     path: string, // path to directory
     component: string, // component name
+    bind?: Record<string, any>,
   }
   | {
     type: BlockType.CODE,
@@ -110,3 +114,12 @@ export type ApiDocsBlock =
       type: BlockType.FILE,
       file: Promise<Record<string, any>>
     }
+  | {
+    type: BlockType.MARKDOWN,
+    content: string,
+  }
+  | {
+    type: BlockType.COLLAPSE,
+    header: string,
+    blocks: ApiDocsBlock[]
+  }

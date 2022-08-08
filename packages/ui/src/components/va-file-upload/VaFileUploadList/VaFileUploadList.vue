@@ -1,5 +1,5 @@
 <template>
-  <div
+  <va-list
     class="va-file-upload-list"
     :role="type !== 'single' ? 'list' : undefined"
     :class="`va-file-upload-list--${type}`"
@@ -8,23 +8,19 @@
       <va-file-upload-list-item
         v-for="(file, index) in filesList"
         :key="file.name"
-        role="listitem"
         :file="file"
         :color="color"
-        :undo="undo"
-        :undoDuration="undoDuration"
+        role="listitem"
         @remove="$emit('remove', index)"
       />
     </template>
     <template v-if="type === 'gallery'">
       <va-file-upload-gallery-item
         v-for="(file, index) in filesList"
-        role="listitem"
-        :file="file"
         :key="file.name"
+        :file="file"
         :color="color"
-        :undo="undo"
-        :undoDuration="undoDuration"
+        role="listitem"
         @remove="$emit('remove', index)"
       />
     </template>
@@ -34,12 +30,13 @@
         @remove="$emit('removeSingle')"
       />
     </template>
-  </div>
+  </va-list>
 </template>
 
 <script lang="ts">
 import { defineComponent, PropType, computed } from 'vue'
 
+import { VaList } from '../../index'
 import { VaFileUploadListItem } from '../VaFileUploadListItem'
 import { VaFileUploadGalleryItem } from '../VaFileUploadGalleryItem'
 import { VaFileUploadSingleItem } from '../VaFileUploadSingleItem'
@@ -49,6 +46,7 @@ import type { VaFile, ConvertedFile } from '../types'
 export default defineComponent({
   name: 'VaFileUploadList',
   components: {
+    VaList,
     VaFileUploadListItem,
     VaFileUploadGalleryItem,
     VaFileUploadSingleItem,
@@ -58,8 +56,6 @@ export default defineComponent({
     type: { type: String, default: '' },
     files: { type: Array as PropType<VaFile[]>, default: null },
     color: { type: String, default: 'success' },
-    undo: { type: Boolean, default: false },
-    undoDuration: { type: Number, default: 3000 },
   },
   setup (props) {
     const filesList = computed(() => props.files.map(convertFile))

@@ -4,7 +4,9 @@ import {
   getPackageJsonVersion,
   bumpGithubTemplateVersions,
   bumpVersionInGenerators,
-  executeCommand, getCommitHash,
+  executeCommand,
+  getCommitHash,
+  getRecommendedNodeVersion,
 } from './utils'
 
 import semver from 'semver'
@@ -22,6 +24,7 @@ export type ReleaseConfig = {
   requiredBranch: string // 'develop'
   commit: string, // '12345678'
   shouldCommit: boolean,
+  showSleepCheck: boolean,
 }
 
 const gitTagFromVersion = (version: string) => `v${version}`
@@ -53,6 +56,7 @@ const getReleaseConfig = async (releaseType: ReleaseType): Promise<ReleaseConfig
       distTag: 'latest',
       shouldCommit: true,
       requiredBranch: 'master',
+      showSleepCheck: true,
     }
   }
   if (releaseType === 'tiny') {
@@ -63,6 +67,7 @@ const getReleaseConfig = async (releaseType: ReleaseType): Promise<ReleaseConfig
       distTag: 'latest',
       shouldCommit: true,
       requiredBranch: 'develop',
+      showSleepCheck: true,
     }
   }
   if (releaseType === 'next') {
@@ -73,6 +78,7 @@ const getReleaseConfig = async (releaseType: ReleaseType): Promise<ReleaseConfig
       distTag: 'next',
       shouldCommit: false,
       requiredBranch: 'develop',
+      showSleepCheck: false,
     }
   }
   if (releaseType === 'experimental') {
@@ -82,6 +88,7 @@ const getReleaseConfig = async (releaseType: ReleaseType): Promise<ReleaseConfig
       distTag: 'experimental',
       shouldCommit: false,
       requiredBranch: undefined,
+      showSleepCheck: false,
     }
   }
 
@@ -91,35 +98,81 @@ const getReleaseConfig = async (releaseType: ReleaseType): Promise<ReleaseConfig
   return result! as ReleaseConfig
 }
 
+const confirmRelease = async () => simplePrompt<boolean>({
+  type: 'confirm',
+  default: false,
+  message: 'Please check release details are correct. All good?',
+})
+
+const confirmNode = async () => {
+  const current = await executeCommand('node -v')
+  const recommended = getRecommendedNodeVersion()
+  return current === recommended
+}
+
+const confirmTagAvailable = async (tagName: string): Promise<boolean> => {
+  const result = await executeCommand('git ls-remote --tags upstream')
+  return !result.match(new RegExp(`refs\\/tags\\/${tagName}\\b`))
+}
+
+const confirmNpmVersionAvailable = async (distTag: string): Promise<boolean> => {
+  return !await executeCommand(`npm view vuestic-ui@${distTag}`)
+}
+
 // Check if we have correct state to go for release
-const runReleaseChecks = async (releaseConfig :ReleaseConfig, dryRun: boolean) => {
+const runReleaseChecks = async (releaseConfig: ReleaseConfig, dryRun: boolean) => {
   const {
     branch,
     requiredBranch,
+    showSleepCheck,
+    gitTag,
+    distTag,
+    version
   } = releaseConfig
 
+  if (!dryRun && requiredBranch && branch !== requiredBranch) {
+    console.log(chalk.red(`${branch} is incorrect for this flow, use ${requiredBranch} instead`))
+    return false
+  }
+  if (!await confirmNode()) {
+    console.log(chalk.red(`Your node version is incorrect. You can use "nvm use" in the root of the project to set the proper one.`))
+    return false
+  }
+  try {
+    await executeCommand(`git remote show upstream`)
+  } catch (e) {
+    console.log(chalk.red(`It doesn't seem you have "upstream" remote. Maybe yours is named differently? (you can rename it via "git remote rename your-name upstream")`))
+    return false
+  }
+  if (gitTag && !await confirmTagAvailable(gitTag)) {
+    console.log(chalk.red(`Tag ${gitTag} is already on upstream. You can remove it if it was by mistake.`))
+    return false
+  }
+  if (!await confirmNpmVersionAvailable(version)) {
+    console.log(chalk.red(`Version ${version} is already on NPM, you can bump version manually to fix that.`))
+    return false
+  }
   try {
     await executeCommand('git diff-index --quiet HEAD --')
   } catch (e) {
     console.log(chalk.red('You have uncommited changes, please commit before attempting to release.'))
     return false
   }
-  if (!dryRun && requiredBranch && branch !== requiredBranch) {
-    console.log(chalk.red(`${branch} is incorrect for this flow, use ${requiredBranch} instead`))
+  if (!await confirmRelease()) {
+    return false
+  }
+  if (showSleepCheck && !await checkIfTooLate()) {
     return false
   }
   return true
 }
 
-const runReleaseScript = async (releaseConfig :ReleaseConfig, dryRun: boolean) => {
+const runReleaseScript = async (releaseConfig: ReleaseConfig, dryRun: boolean) => {
   const {
     version,
     gitTag,
     distTag,
-    branch,
-    requiredBranch,
     shouldCommit,
-    commit,
   } = releaseConfig
 
   // **** Attempt building dist ****
@@ -138,10 +191,6 @@ const runReleaseScript = async (releaseConfig :ReleaseConfig, dryRun: boolean) =
   bumpVersionInGenerators(version) // vue-cli-plugin
   bumpGithubTemplateVersions(version) // root .github
 
-  // **** Publishing on npm ****
-
-  await executeAndLog(`cd ../ui && npm publish --tag=${distTag} --verbose${dryRun ? ' --dry-run' : ''}`)
-
 
   // **** Git updates ****
 
@@ -150,13 +199,18 @@ const runReleaseScript = async (releaseConfig :ReleaseConfig, dryRun: boolean) =
     if (shouldCommit) {
       await executeAndLog(`git commit -am "chore: bump version to ${gitTag}"`)
       // TODO: Maybe save remote name in .env or pass as arg.
-      await executeAndLog('git push vuestic-ui')
+      await executeAndLog(`git push upstream`)
     }
     if (gitTag) {
       await executeAndLog(`git tag ${gitTag}`)
-      await executeAndLog(`git push vuestic-ui ${gitTag}`)
+      await executeAndLog(`git push upstream ${gitTag}`)
     }
   }
+
+  // **** Publishing on npm ****
+
+  await executeAndLog(`cd ../ui && npm publish --tag=${distTag} --verbose${dryRun ? ' --dry-run' : ''}`)
+
   // **** Cleanup ****
 
   await executeAndLog('git reset --hard HEAD')
@@ -175,7 +229,7 @@ const simplePrompt = async <T> (question: DistinctQuestion<T>): Promise<T> => {
 const inquireReleaseType = async () => simplePrompt<ReleaseType>({
   type: 'list',
   message: 'Select build type',
-  choices: ['large', 'tiny', 'next', 'experimental'],
+  choices: ['experimental', 'next', 'tiny', 'large'],
   default: 'experimental',
 })
 const inquireDryRun = async () => simplePrompt<boolean>({
@@ -183,23 +237,18 @@ const inquireDryRun = async () => simplePrompt<boolean>({
   default: false,
   message: 'Do you want a dry-run? (there won\'t be any non reversible changes)',
 })
-const checkIfTooLate = async (releaseType: ReleaseType) => {
-  const result = await simplePrompt<boolean | undefined>({
-    type: 'confirm',
-    default: false,
-    when: () => new Date().getHours() > 20 && ['large', 'tiny'].includes(releaseType),
-    message: 'It\'s too late already, sure you\'re up for release at this time?',
-  })
-  if (result === undefined) {
-    return true
+const checkIfTooLate = async () => {
+    const result = await simplePrompt<boolean | undefined>({
+      type: 'confirm',
+      default: false,
+      when: () => new Date().getHours() > 20,
+      message: 'It\'s too late already, sure you\'re up for release at this time?',
+    })
+    if (result === undefined) {
+      return true
+    }
+    return result
   }
-  return result
-}
-const confirmRelease = async () => simplePrompt<boolean>({
-    type: 'confirm',
-    default: false,
-    message: 'Please check release details are correct. All good?',
-  })
 
 ;(async () => {
   const releaseType = await inquireReleaseType()
@@ -208,12 +257,9 @@ const confirmRelease = async () => simplePrompt<boolean>({
 
   console.table(releaseConfig)
 
-  if (!(
-    await runReleaseChecks(releaseConfig, dryRun)
-    && await confirmRelease()
-    && await checkIfTooLate(releaseType)
-  )) {
+  if (!(await runReleaseChecks(releaseConfig, dryRun))) {
     return
   }
+
   await runReleaseScript(releaseConfig, dryRun)
 })()

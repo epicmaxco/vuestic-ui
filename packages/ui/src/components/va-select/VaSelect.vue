@@ -1,37 +1,30 @@
 <template>
   <va-dropdown
     ref="dropdown"
-    class="va-select__dropdown va-select-dropdown"
-    trigger="none"
-    anchorSelector=".va-input-wrapper__field"
+    class="va-select va-select__dropdown va-select-dropdown"
+    :aria-label="`select option (currently selected: ${$props.modelValue})`"
     :placement="$props.placement"
     :disabled="$props.disabled"
     :max-height="$props.maxHeight"
-    :fixed="$props.fixed"
     :close-on-content-click="closeOnContentClick"
     :stateful="false"
     :offset="[1, 0]"
     keep-anchor-width
+    keyboard-navigation
+    inner-anchor-selector=".va-input-wrapper__field"
     v-model="showDropdownContentComputed"
-    @keydown.up.stop.prevent="showDropdown"
-    @keydown.down.stop.prevent="showDropdown"
-    @keydown.space.stop.prevent="showDropdown"
-    @keydown.enter.stop.prevent="showDropdown"
-    @click.prevent="onSelectClick"
+    @close="focus"
   >
     <template #anchor>
       <va-input-wrapper
         ref="input"
-        class="va-select"
-        aria-label="selected option"
+        class="va-select__anchor va-select-anchor__input"
         :model-value="valueComputedString"
         :success="$props.success"
         :error="computedError"
         :color="$props.color"
         :label="$props.label"
-        :placeholder="$props.placeholder"
         :loading="$props.loading"
-        :disabled="$props.disabled"
         :outline="$props.outline"
         :bordered="$props.bordered"
         :required-mark="$props.requiredMark"
@@ -39,8 +32,8 @@
         :error-messages="computedErrorMessages"
         :focused="isFocused"
         :tabindex="tabIndexComputed"
-        @focus="onInputFocus()"
-        @blur="onInputBlur()"
+        @focus="onInputFocus"
+        @blur="onInputBlur"
       >
         <template
           v-if="$slots.prepend"
@@ -69,7 +62,6 @@
             role="button"
             aria-hidden="false"
             aria-label="reset"
-            class="va-select__icons__reset"
             tabindex="0"
             v-bind="clearIconProps"
             @click.stop="reset"
@@ -92,7 +84,14 @@
         <template
           #default
         >
+          <span
+            v-if="isPlaceholder"
+            class="va-select-anchor__placeholder"
+          >
+            {{ $props.placeholder }}
+          </span>
           <slot
+            v-else
             name="content"
             v-bind="{
               valueString: valueComputedString,
@@ -110,14 +109,11 @@
     <va-dropdown-content
       class="va-select-dropdown__content"
       :style="{ width: $props.width }"
-      @keyup.enter.stop="() => undefined"
-      @keydown.tab.stop.prevent="() => undefined"
-      @keydown.esc.prevent="hideAndFocus"
     >
       <va-input
         v-if="showSearchInput"
         ref="searchBar"
-        class="va-select__input"
+        class="va-select-dropdown__content-search-input"
         placeholder="Search"
         aria-label="options filter"
         :tabindex="tabIndexComputed"
@@ -161,6 +157,7 @@
 <script lang="ts">
 import { defineComponent, PropType, ref, computed, watch, nextTick, Ref, shallowRef } from 'vue'
 
+import { warn } from '../../services/utils'
 import {
   useComponentPresetProp,
   useSelectableList, useSelectableListProps,
@@ -172,8 +169,6 @@ import {
   useClearableProps, useClearable, useClearableEmits,
   useFocusDeep,
 } from '../../composables'
-
-import { warn } from '../../services/utils'
 
 import { VaDropdown, VaDropdownContent } from '../va-dropdown'
 import { VaIcon } from '../va-icon'
@@ -236,7 +231,6 @@ export default defineComponent({
     width: { type: String, default: '100%' },
     maxHeight: { type: String, default: '256px' },
     noOptionsText: { type: String, default: 'Items not found' },
-    fixed: { type: Boolean, default: true },
     hideSelected: { type: Boolean, default: false },
     tabindex: { type: Number, default: 0 },
     dropdownIcon: {
@@ -263,10 +257,10 @@ export default defineComponent({
 
   setup (props, { emit }) {
     const optionList = shallowRef<typeof VaSelectOptionList>()
-    const input = shallowRef<typeof VaInput>()
+    const input = shallowRef<typeof VaInputWrapper>()
     const searchBar = shallowRef<typeof VaInput>()
 
-    const isInputFocused = useFocusDeep()
+    const isInputFocused = useFocusDeep(input as any)
     const isFocused = computed(() => isInputFocused.value || showDropdownContent.value)
 
     const { getHoverColor, getColor } = useColors()
@@ -308,7 +302,7 @@ export default defineComponent({
             return [value]
           }
 
-          return value
+          return value.map((o) => getOptionByValue(o))
         }
 
         if (Array.isArray(value)) {
@@ -331,7 +325,7 @@ export default defineComponent({
       },
     })
 
-    const valueComputedString = computed(() => {
+    const valueComputedString = computed<string>(() => {
       if (!valueComputed.value) { return props.clearValue }
       if (typeof valueComputed.value === 'string' || typeof valueComputed.value === 'number') { return valueComputed.value }
       if (Array.isArray(valueComputed.value)) {
@@ -340,6 +334,8 @@ export default defineComponent({
 
       return getText(valueComputed.value)
     })
+
+    const isPlaceholder = computed(() => props.placeholder && !valueComputedString.value)
 
     // Icons
 
@@ -351,7 +347,9 @@ export default defineComponent({
     } = useClearable(props, valueComputed)
 
     const showClearIcon = computed(() => {
-      return props.multiple && Array.isArray(valueComputed.value) ? !!valueComputed.value.length : canBeCleared.value
+      if (!canBeCleared.value) { return false }
+      if (props.multiple && Array.isArray(valueComputed.value)) { return !!valueComputed.value.length }
+      return true
     })
 
     const toggleIcon = computed(() => {
@@ -687,6 +685,7 @@ export default defineComponent({
       getGroupBy,
       onScrollBottom,
       clearIconProps,
+      isPlaceholder,
     }
   },
 })
@@ -697,22 +696,21 @@ export default defineComponent({
 @import "variables";
 
 .va-select {
-  cursor: var(--va-select-cursor);
+  min-width: var(--va-select-min-width);
+}
 
-  &__icons {
-    &__reset {
-      &:focus {
-        @include focus-outline;
-      }
-    }
+.va-select-anchor {
+  &__input {
+    cursor: var(--va-select-cursor);
+    flex: 1;
+  }
+
+  &__placeholder {
+    color: var(--va-input-placeholder-text-color);
   }
 }
 
 .va-select-dropdown {
-  .va-dropdown__anchor {
-    display: block;
-  }
-
   &__content {
     overflow: hidden;
     border-bottom-right-radius: var(--va-select-dropdown-border-radius);
@@ -721,6 +719,11 @@ export default defineComponent({
     border-top-left-radius: 0;
     box-shadow: var(--va-select-box-shadow);
     padding: 0;
+  }
+
+  &__content-search-input {
+    min-width: auto;
+    width: 100%;
   }
 
   &__options-wrapper {

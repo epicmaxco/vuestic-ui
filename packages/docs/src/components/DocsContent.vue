@@ -13,6 +13,7 @@
         :key="block.type + index"
         :value="block.component"
         :path="block.path"
+        :bind="block.bind"
       />
       <DocsCode
         v-else-if="block.type === BlockType.CODE"
@@ -28,6 +29,7 @@
       />
       <MarkdownView
         v-else-if="block.type === BlockType.TITLE"
+        class="docs-title"
         :key="block.type + index"
         :value="`# ${$t(block.translationString)}`"
       />
@@ -76,6 +78,18 @@
         :key="block.type + index"
         :file="block.file"
       />
+      <MarkdownView
+        v-else-if="block.type === BlockType.MARKDOWN"
+        :key="block.type + index"
+        :value="block.content"
+      />
+      <VaCollapse
+        v-else-if="block.type === BlockType.COLLAPSE"
+        :key="block.type + index"
+        :header="block.header"
+      >
+        <DocsContent :config="block.blocks" />
+      </VaCollapse>
     </template>
   </va-content>
 </template>
@@ -126,15 +140,3 @@ export default defineComponent({
   },
 })
 </script>
-
-<style lang="scss">
-.va-content h5 {
-  margin-top: 4rem;
-  line-height: 1.25;
-
-  &:first-of-type {
-    margin-top: 1.25rem;
-    margin-bottom: 0.75rem;
-  }
-}
-</style>

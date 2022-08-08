@@ -61,18 +61,17 @@ export default defineComponent({
 .va-list-item {
   font-family: var(--va-font-family);
 
-  &__disabled {
+  &--disabled {
     @include va-disabled;
   }
 
-  &:focus {
+  &:focus:not(.va-list-item--disabled) {
     @include focus-outline;
   }
 
   &__inner {
     display: var(--va-list-item-display);
     align-items: var(--va-list-item-align-items);
-    padding: var(--va-list-item-padding);
     width: var(--va-list-item-width);
     height: var(--va-list-item-height);
   }

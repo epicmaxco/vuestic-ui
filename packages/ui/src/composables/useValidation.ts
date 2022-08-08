@@ -1,4 +1,4 @@
-import { inject, onBeforeUnmount, onMounted, PropType, watch, ExtractPropTypes } from 'vue'
+import { inject, onBeforeUnmount, onMounted, PropType, watch, ExtractPropTypes, computed } from 'vue'
 import flatten from 'lodash/flatten.js'
 import isFunction from 'lodash/isFunction.js'
 import isString from 'lodash/isString.js'
@@ -90,6 +90,13 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
 
   const form = inject(FormServiceKey, undefined)
 
+  const validationAriaAttributes = computed(() => ({
+    'aria-invalid': !!computedErrorMessages.value.length,
+    'aria-errormessage': typeof computedErrorMessages.value === 'string'
+      ? computedErrorMessages.value
+      : computedErrorMessages.value.join(', '),
+  }))
+
   onMounted(() => {
     form?.onChildMounted(context as any)
   })
@@ -104,5 +111,6 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
     listeners: { onFocus, onBlur },
     validate,
     resetValidation,
+    validationAriaAttributes,
   }
 }

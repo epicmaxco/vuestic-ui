@@ -1,5 +1,5 @@
 <template>
-  <h3>
+  <h3 class="docs-subtitle">
     <MarkdownView
       tag="span"
       inline
@@ -35,3 +35,18 @@ export default class DocsSubtitle extends mixins(PropsMixin) {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  .docs-subtitle {
+    margin-top: 4rem;
+    margin-bottom: 1.5rem;
+
+    .docs-title + & {
+      margin-top: 1.25rem;
+    }
+
+    & > :not(:last-child) {
+      padding-right: 0.25rem;
+    }
+  }
+</style>

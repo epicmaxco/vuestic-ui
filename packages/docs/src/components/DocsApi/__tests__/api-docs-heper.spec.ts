@@ -1,4 +1,5 @@
 import { normalizeEventNames } from '../api-docs-helpers'
+import { describe, it, expect } from 'vitest'
 
 describe('normalizeEventNames', () => {
   it('Sync events', () => {

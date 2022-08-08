@@ -13,6 +13,7 @@ module.exports = {
       return args
     })
   },
+  filenameHashing: true,
   configureWebpack: {
     node: {
       __dirname: true,
@@ -24,6 +25,14 @@ module.exports = {
       alias: {
         'vuestic-ui': resolve('../ui'),
       },
+    },
+    module: {
+      rules: [
+        {
+          test: /\.md$/,
+          type: 'asset/source',
+        },
+      ],
     },
   },
 }

@@ -338,6 +338,10 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'spacer',
         displayName: 'menu.spacer',
       },
+      {
+        name: 'dropdown',
+        displayName: 'menu.dropdown',
+      },
       // GENERATOR_ADD - uiElements
     ],
   },

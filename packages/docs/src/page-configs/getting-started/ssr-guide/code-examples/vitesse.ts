@@ -16,7 +16,7 @@ export const createApp = ViteSSG(
     const colorConfig = app.config.globalProperties.$vaColorConfig
     head.addHeadObjs(ref({
       htmlAttrs: {
-        style: colorConfig.renderCSSVarialbes(),
+        style: colorConfig.renderCSSVariables(),
       },
     }))
   },
