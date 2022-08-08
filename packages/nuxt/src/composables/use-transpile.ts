@@ -1,4 +1,4 @@
-import { useNuxt } from "@nuxt/kit"
+import { useNuxt } from '@nuxt/kit'
 
 /** Transpile vuestic-ui */
 export const useTranspile = () => {

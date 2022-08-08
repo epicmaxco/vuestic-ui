@@ -29,7 +29,7 @@ export const useVuesticCSS = (options: VuesticOptions) => {
     registerDefaultFonts(nuxt)
   } else if (options.css === true) {
     /** Register all CSS */
-    nuxt.options.css.push('vuestic-ui/dist/vuestic-ui.css')
+    nuxt.options.css.push('vuestic-ui/css')
     registerDefaultFonts(nuxt)
   }
   // Do not register any CSS if `options.css` is `false`

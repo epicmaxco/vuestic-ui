@@ -1,10 +1,12 @@
 import { defineNuxtModule } from '@nuxt/kit'
 import { useTranspile } from './composables/use-transpile'
-import { VuesticOptions } from './types'
 import { useVuesticCSS } from './composables/use-css'
 import { useVuesticPlugin } from './composables/use-plugin'
 import { useVuesticComposables } from './composables/use-composables'
 import { useVuesticComponents } from './composables/use-components'
+import { useLodashImportFixer } from './composables/use-lodash-optimizer'
+
+import type { VuesticOptions } from './types'
 
 export default defineNuxtModule<VuesticOptions>({
   meta: {
@@ -26,5 +28,6 @@ export default defineNuxtModule<VuesticOptions>({
     useVuesticComponents()
     useVuesticComposables()
     useTranspile()
+    useLodashImportFixer()
   }
 })
