@@ -113,8 +113,8 @@
         "errorMessages": "Error messages for the component.",
         "errorCount": "Number of error messages displayed.",
         "stateful": "Add possibility to work with component without setting `v-model`.",
-        "color": "Color of the component (theme string or *HEX* string).",
-        "textColor": "Text color (theme string or *HEX* string).",
+        "color": "Color of the component (theme string or HEX string).",
+        "textColor": "Text color (theme string or HEX string).",
         "rules": "Validation rules <!-- TODO Add link -->.",
         "to": "The target route of the link. [More info here](https://router.vuejs.org/api/#to \"Vue router docs\")[[target=_blank]].",
         "replace": "When set, calls `router.replace()` instead of `router.push()` when navigated, so it will not leave a history record. [More info here](https://router.vuejs.org/api/#replace \"Vue router docs\")[[target=_blank]].",
@@ -147,7 +147,7 @@
         "tabindex": "Sets the custom `tabindex`.",
         "preset": "Named preset combination of component props.",
         "hideOnScroll": "Hides component when scrolling.",
-        "bottom": "Sets the component position to the bottom."
+        "bottom": "Sets the component position to the bottom (`fixed` state)."
       }
     },
     "VaBadge": {
@@ -1083,10 +1083,10 @@
     },
     "VaAppBar": {
       "props": {
-        "gradient": "Applies gradient style to background",
-        "shadowOnScroll": "Applies box-shadow to the component when scrolling target",
-        "shadowColor": "Sets color to the box-shadow",
-        "target": "Target for scrolling",
+        "gradient": "Applies gradient style to background.",
+        "shadowOnScroll": "Applies box-shadow to the component when scrolling target.",
+        "shadowColor": "Sets color to the box-shadow.",
+        "target": "Target for scrolling.",
         "fixed": "Switches component position to `fixed`."
       },
       "events": {},
@@ -1127,7 +1127,7 @@
     },
     "VaNavbar": {
       "props": {
-        "shape": "If this prop true, then shape will be drawn at navbar background.",
+        "shape": "If true, shape will be drawn at navbar background.",
         "fixed": "Switches component position to `fixed`."
       },
       "events": {},
@@ -3222,9 +3222,9 @@
         "title": "Color",
         "text": "You can set a background color and gradient of the component with `color` and `gradient` props."
       },
-      "bottom": {
-        "title": "Bottom",
-        "text": "You can make app bar sit at the bottom of the screen with `bottom` prop."
+      "fixed": {
+        "title": "Fixed",
+        "text": "You can make app bar position fixed via `fixed` prop."
       },
       "hide": {
         "title": "Hide",
