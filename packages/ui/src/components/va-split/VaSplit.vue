@@ -197,7 +197,7 @@ export default defineComponent({
       const checkSnappingRange = () => {
         return result.every((el, index, array) => {
           if (!array[index + 1]) { return true }
-          return Math.abs(el - array[index]) > props.snappingRange
+          return Math.abs(el - array[index + 1]) > props.snappingRange
         })
       }
 

@@ -34,7 +34,7 @@
     </VbCard>
 
     <VbCard title="snapping">
-      <va-split :snapping="[20, 21, 80]">
+      <va-split :snapping="[20, 80]">
         <template #start>
           {{$vb.lorem(1000)}}
         </template>
