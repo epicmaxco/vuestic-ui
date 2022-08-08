@@ -1,7 +1,7 @@
 <template>
   <div
     class="va-file-upload"
-    :class="{ 'va-file-upload--dropzone': dropzone }"
+    :class="computedClasses"
     :style="computedStyle"
   >
     <slot>
@@ -15,6 +15,7 @@
         <va-button
           class="va-file-upload__field__button"
           :disabled="disabled"
+          :aria-disabled="disabled"
           :color="colorComputed"
           :style="{ 'pointer-events': dropzoneHighlight ? 'none' : '' }"
           @change="changeFieldValue"
@@ -43,8 +44,6 @@
       :type="type"
       :files="files"
       :color="colorComputed"
-      :undo="undo"
-      :undoDuration="undoDuration"
       @remove="removeFile"
       @removeSingle="removeSingleFile"
     />
@@ -58,12 +57,11 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, ref, toRef, PropType, shallowRef, provide } from 'vue'
+import { computed, defineComponent, onMounted, ref, toRef, shallowRef, provide, PropType } from 'vue'
 
-import { useComponentPresetProp, useColors } from '../../composables'
+import { useColors, useComponentPresetProp, useBem } from '../../composables'
 
-import type { VaFile } from './types'
-import { VaFileUploadKey } from './types'
+import { VaFileUploadKey, VaFile } from './types'
 
 import { VaButton, VaModal } from '../index'
 import { VaFileUploadList } from './VaFileUploadList'
@@ -116,6 +114,11 @@ export default defineComponent({
       backgroundColor: props.dropzone
         ? shiftHSLAColor(colorComputed.value, { a: dropzoneHighlight.value ? -0.82 : -0.92 })
         : 'transparent',
+    }))
+
+    const computedClasses = useBem('va-file-upload', () => ({
+      dropzone: props.dropzone,
+      disabled: props.disabled,
     }))
 
     const files = computed<VaFile[]>({
@@ -199,6 +202,8 @@ export default defineComponent({
     })
 
     provide(VaFileUploadKey, {
+      undo: toRef(props, 'undo'),
+      disabled: toRef(props, 'disabled'),
       undoDuration: toRef(props, 'undoDuration'),
       undoButtonText: toRef(props, 'undoButtonText'),
       deletedFileMessage: toRef(props, 'deletedFileMessage'),
@@ -210,9 +215,10 @@ export default defineComponent({
       fileInputRef,
       colorComputed,
       computedStyle,
+      computedClasses,
+      files,
       uploadFile,
       changeFieldValue,
-      files,
       removeFile,
       removeSingleFile,
       callFileDialogue,
@@ -232,6 +238,37 @@ export default defineComponent({
 
   .va-file-upload-list {
     margin-top: var(--va-file-upload-list-margin-top);
+  }
+
+  &__field {
+    overflow: var(--va-file-upload-dropzone-field-overflow);
+    display: var(--va-file-upload-dropzone-field-display);
+    align-items: var(--va-file-upload-dropzone-field-align-items);
+    position: var(--va-file-upload-dropzone-field-position);
+
+    &__button {
+      margin: var(--va-file-upload-dropzone-field-button-margin);
+      z-index: var(--va-file-upload-dropzone-field-button-z-index);
+    }
+
+    &__text {
+      padding-right: var(--va-file-upload-dropzone-field-text-pr);
+    }
+
+    &__input {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+      width: 100%;
+      color: transparent;
+      opacity: 0;
+      cursor: pointer;
+
+      &::-webkit-file-upload-button {
+        cursor: pointer;
+      }
+    }
   }
 
   &--dropzone {
@@ -266,33 +303,12 @@ export default defineComponent({
     }
   }
 
-  &__field {
-    overflow: var(--va-file-upload-dropzone-field-overflow);
-    display: var(--va-file-upload-dropzone-field-display);
-    align-items: var(--va-file-upload-dropzone-field-align-items);
-    position: var(--va-file-upload-dropzone-field-position);
-
-    &__button {
-      margin: var(--va-file-upload-dropzone-field-button-margin);
-      z-index: var(--va-file-upload-dropzone-field-button-z-index);
-    }
-
-    &__text {
-      padding-right: var(--va-file-upload-dropzone-field-text-pr);
-    }
-
-    &__input {
-      position: absolute;
-      top: 0;
-      right: 0;
-      height: 100%;
-      width: 100%;
-      color: transparent;
-      opacity: 0;
-      cursor: pointer;
+  &--disabled {
+    .va-file-upload__field__input {
+      cursor: default;
 
       &::-webkit-file-upload-button {
-        cursor: pointer;
+        cursor: inherit;
       }
     }
   }

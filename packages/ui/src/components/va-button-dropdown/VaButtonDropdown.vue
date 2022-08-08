@@ -50,6 +50,8 @@
         :placement="$props.placement"
         :offset="$props.offset"
         :stateful="$props.stateful"
+        :close-on-content-click="$props.closeOnContentClick"
+        prevent-overflow
         v-model="valueComputed"
       >
         <template #anchor>
@@ -210,6 +212,7 @@ export default defineComponent({
 .va-button-dropdown {
   display: inline-block;
   font-family: var(--va-font-family);
+  vertical-align: middle;
 
   .va-button {
     margin: var(--va-button-dropdown-button-margin);

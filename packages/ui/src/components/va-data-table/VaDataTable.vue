@@ -71,7 +71,7 @@
                 @selectstart.prevent
               >
                 <va-icon
-                  :name="sortingOrderSync === 'asc' ? 'expand_less' : 'expand_more'"
+                  :name="sortingOrderIconName"
                   size="small"
                   class="va-data-table__table-th-sorting-icon"
                   :class="{ active: sortBySync === column.name && sortingOrderSync !== null }"
@@ -215,7 +215,7 @@
                 @selectstart.prevent
               >
                 <va-icon
-                  :name="sortingOrderSync === 'asc' ? 'expand_less' : 'expand_more'"
+                  :name="sortingOrderIconName"
                   size="small"
                   class="va-data-table__table-th-sorting-icon"
                   :class="{ active: sortBySync === column.name && sortingOrderSync !== null }"
@@ -236,7 +236,7 @@ import { computed, defineComponent, HTMLAttributes, PropType, TableHTMLAttribute
 import omit from 'lodash/omit.js'
 import pick from 'lodash/pick.js'
 
-import useColumns from './hooks/useColumns'
+import useColumns, { sortingOptionsValidator } from './hooks/useColumns'
 import useRows from './hooks/useRows'
 import useFilterable from './hooks/useFilterable'
 import useSortable from './hooks/useSortable'
@@ -247,12 +247,13 @@ import useBinding from './hooks/useBinding'
 import useAnimationName from './hooks/useAnimationName'
 import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
-import {
+import type {
   DataTableColumnSource,
   DataTableItem,
   DataTableRow,
   DataTableFilterMethod,
   DataTableSortingOrder,
+  DataTableSortingOptions,
   DataTableSelectMode,
   DataTableRowBind,
   DataTableCellBind,
@@ -302,6 +303,11 @@ export default defineComponent({
     modelValue: { type: Array as PropType<(DataTableItem | DataTableItemKey)[]> }, // selectedItems
     sortingOrder: { type: String as PropType<DataTableSortingOrder> }, // model-able
     sortBy: { type: String }, // model-able
+    sortingOptions: {
+      type: Array as PropType<DataTableSortingOptions>,
+      default: () => ['asc', 'desc', null],
+      validator: sortingOptionsValidator,
+    },
     filter: { type: String, default: '' },
     filterMethod: { type: Function as PropType<DataTableFilterMethod> },
     hoverable: { type: Boolean, default: false },
@@ -351,6 +357,7 @@ export default defineComponent({
       sortingOrderSync,
       toggleSorting,
       sortedRows,
+      sortingOrderIconName,
     } = useSortable(columnsComputed, filteredRows, props, emit)
 
     const { paginatedRows } = usePaginatedRows(sortedRows, props)
@@ -422,6 +429,7 @@ export default defineComponent({
       sortBySync,
       sortingOrderSync,
       toggleSorting,
+      sortingOrderIconName,
       rowCSSVariables,
       getHeaderCSSVariables,
       getCellCSSVariables,
@@ -527,7 +535,7 @@ export default defineComponent({
         align-items: center;
 
         &:focus {
-          @include focus-outline;
+          @include focus-outline($offset: 2px);
         }
       }
 

@@ -1,6 +1,7 @@
 <template>
-  <VaInputWrapper
+  <va-input-wrapper
     v-bind="fieldListeners"
+    class="va-input"
     :class="$attrs.class"
     :style="$attrs.style"
     :color="$props.color"
@@ -66,7 +67,7 @@
       v-bind="{ ...computedInputAttributes, ...inputEvents }"
       :value="computedValue"
     >
-  </VaInputWrapper>
+  </va-input-wrapper>
 </template>
 
 <script lang="ts">

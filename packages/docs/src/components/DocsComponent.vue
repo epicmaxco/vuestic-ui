@@ -1,6 +1,6 @@
 <template>
   <div class="mb-3">
-    <component :is="component" />
+    <component :is="component" v-bind="bind" />
   </div>
 </template>
 
@@ -18,6 +18,9 @@ export default {
     path: {
       type: String,
       default: undefined,
+    },
+    bind: {
+      type: Object,
     },
   },
   setup (props) {

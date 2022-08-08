@@ -1,4 +1,5 @@
 import { deepEqual, getValueByKey, getValueByPath, getNestedValue, generateUniqueId } from './utils'
+import { describe, it, expect } from 'vitest'
 
 describe('utils', () => {
   it('deepEqual', () => {
