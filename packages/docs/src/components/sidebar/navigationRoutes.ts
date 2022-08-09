@@ -243,6 +243,13 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: 'menu.list',
       },
       {
+        name: 'split',
+        displayName: 'menu.split',
+        meta: {
+          badge: 'new',
+        },
+      },
+      {
         name: 'collapse',
         displayName: 'menu.collapse',
       },
