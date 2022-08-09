@@ -6,7 +6,8 @@ export default definePageConfig({
 
   setup() {
     return [
-      block.component('default')
+      block.component('default'),
+      block.example('test'),
     ]
   }
 })

@@ -1,4 +1,6 @@
-import { defineNuxtModule } from '@nuxt/kit';
+import { addComponent, defineNuxtModule } from '@nuxt/kit';
+import { compileComponentBlock, compileExampleBlock } from './blocks'
+import { resolve } from 'pathe'
 
 export const addPathToDefinePageConfig = (code: string, path: string) => {
   return code.replaceAll(
@@ -9,10 +11,6 @@ export const addPathToDefinePageConfig = (code: string, path: string) => {
 
 export const removeDefinePageConfig = (code: string) => {
   return code.replace(/definePageConfig\(([\w|\W]*)\)/, '$1')
-}
-
-export const replaceComponentImport = (code: string) => {
-  return code.replaceAll(/block.component\(['|"](.*)['|"]\)/g, "import('./components/$1')")
 }
 
 /** Module used to add current file path to page-config */
@@ -26,6 +24,11 @@ export default defineNuxtModule({
   },
 
   setup(options, nuxt) {
+    addComponent({
+      name: 'PageConfig',
+      filePath: resolve(__dirname, './blocks/index.vue')
+    })
+
     nuxt.hook('vite:extendConfig', (vite) => {
       vite.plugins?.push({
         name: 'vuestic:define-page-config',
@@ -38,7 +41,8 @@ export default defineNuxtModule({
           // if block is component('test') we can replace it with import('./components/test')
           code = addPathToDefinePageConfig(code, id)
           code = removeDefinePageConfig(code)
-          code = replaceComponentImport(code)
+          code = compileComponentBlock(code)
+          code = compileExampleBlock(code)
           return code
         }
       })
