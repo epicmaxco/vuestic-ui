@@ -13,7 +13,7 @@
     <VbCard title="Color">
       <div class="frame">
         <div class="display">
-          <va-app-bar color="secondary">
+          <va-app-bar color="warning">
             <AppBarContentExample />
           </va-app-bar>
         </div>
@@ -23,7 +23,16 @@
     <VbCard title="Bottom">
       <div class="frame">
         <div class="display">
-          <va-app-bar bottom>
+          <div
+            class="content"
+            id="scrollable-element"
+          >
+            {{ $vb.lorem(2000)}}
+          </div>
+          <va-app-bar
+            bottom
+            target="#scrollable-element"
+          >
             <AppBarContentExample color="gray" />
           </va-app-bar>
         </div>
@@ -52,19 +61,19 @@
     <VbCard title="Hide & Bottom">
       <div class="frame">
         <div class="display">
-          <va-app-bar
-            bottom
-            hide-on-scroll
-            target="#scrollable-element"
-          >
-            <AppBarContentExample color="gray" />
-          </va-app-bar>
           <div
             class="content"
-            id="scrollable-element"
+            id="scrollable-element6"
           >
             {{ $vb.lorem(2000)}}
           </div>
+          <va-app-bar
+            bottom
+            hide-on-scroll
+            target="#scrollable-element6"
+          >
+            <AppBarContentExample color="gray" />
+          </va-app-bar>
         </div>
       </div>
     </VbCard>
@@ -91,6 +100,12 @@
     <VbCard title="Shadow on scroll & Bottom">
       <div class="frame">
         <div class="display">
+          <div
+            class="content"
+            id="scrollable-element4"
+          >
+            {{ $vb.lorem(2000)}}
+          </div>
           <va-app-bar
             bottom
             shadow-on-scroll
@@ -98,12 +113,6 @@
           >
             <AppBarContentExample color="gray" />
           </va-app-bar>
-          <div
-            class="content"
-            id="scrollable-element4"
-          >
-            {{ $vb.lorem(2000)}}
-          </div>
         </div>
       </div>
     </VbCard>

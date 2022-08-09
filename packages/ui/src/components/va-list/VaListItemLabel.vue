@@ -36,11 +36,11 @@ export default defineComponent({
   display: var(--va-list-item-label-display);
   -webkit-box-orient: var(--va-list-item-label-box-orient);
   overflow: var(--va-list-item-label-overflow);
+  line-height: var(--va-list-item-label-line-height);
 
   &--caption {
     font-size: var(--va-list-item-label-caption-font-size);
     color: var(--va-list-item-label-caption-color);
-    line-height: var(--va-list-item-label-caption-line-height);
   }
 }
 </style>

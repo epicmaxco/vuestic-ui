@@ -113,8 +113,8 @@
         "errorMessages": "Error messages for the component.",
         "errorCount": "Number of error messages displayed.",
         "stateful": "Add possibility to work with component without setting `v-model`.",
-        "color": "Color of the component (theme string or *HEX* string).",
-        "textColor": "Text color (theme string or *HEX* string).",
+        "color": "Color of the component (theme string or HEX string).",
+        "textColor": "Text color (theme string or HEX string).",
         "rules": "Validation rules <!-- TODO Add link -->.",
         "to": "The target route of the link. [More info here](https://router.vuejs.org/api/#to \"Vue router docs\")[[target=_blank]].",
         "replace": "When set, calls `router.replace()` instead of `router.push()` when navigated, so it will not leave a history record. [More info here](https://router.vuejs.org/api/#replace \"Vue router docs\")[[target=_blank]].",
@@ -144,7 +144,10 @@
         "indeterminateValue": "Overrides a state value that is not set.",
         "borderColor": "Color css style `border` (theme supported options or `HEX`).",
         "clearableIcon": "Sets the cleaning button icon.",
-        "tabindex": "Sets the custom `tabindex`."
+        "tabindex": "Sets the custom `tabindex`.",
+        "preset": "Named preset combination of component props.",
+        "hideOnScroll": "Hides component when scrolling.",
+        "bottom": "Sets the component position to the bottom (`fixed` state)."
       }
     },
     "VaBadge": {
@@ -155,7 +158,6 @@
         "multiLine": "Badge text will wrap to next line.",
         "visibleEmpty": "Badge will be shown even when there is no text.",
         "dot": "Shows dot instead of full badge. Useful to notify user without grabbing too much attention.",
-        "bottom": "Position badge to the bottom.",
         "left": "Position badge to the left"
       }
     },
@@ -900,6 +902,7 @@
         "filterMethod": "A custom filtering function. The function takes the initial value of the currently checked cell (the `source` is a formal parameter) and should return a `boolean` value, indicating whether to include the row containing this cell or not",
         "sortBy": "Sets the column to sort by. Works through the `v-model`",
         "sortingOrder": "Sets the sorting order. Works through the `v-model`",
+        "sortingOptions": "An array from a set of values (`'asc'`, `'desc'`, `null`) that specifies the order and allowed sort directions.",
         "selectable": "Sets whether the `va-data-table` should have selectable rows or not",
         "clickable": "Sets whether the `va-data-table` should have clickable (the click events will be emitted) rows or not",
         "selectMode": "Sets the select mode. `'single'` selection allows for only a single row to be selected at a time, while `'multiple'` mode allows to select multiple rows by clicking on checkboxes or using the **ctrl**/**shift** keys when clicking rows",
@@ -1080,12 +1083,11 @@
     },
     "VaAppBar": {
       "props": {
-        "gradient": "Applies gradient style to background",
-        "bottom": "Sets the component position to the bottom",
-        "hideOnScroll": "Hides component when scrolling target",
-        "shadowOnScroll": "Applies box-shadow to the component when scrolling target",
-        "shadowColor": "Sets color to the box-shadow",
-        "target": "Target for scrolling"
+        "gradient": "Applies gradient style to background.",
+        "shadowOnScroll": "Applies box-shadow to the component when scrolling target.",
+        "shadowColor": "Sets color to the box-shadow.",
+        "target": "Target for scrolling.",
+        "fixed": "Switches component position to `fixed`."
       },
       "events": {},
       "methods": {},
@@ -1125,7 +1127,8 @@
     },
     "VaNavbar": {
       "props": {
-        "shape": "If this prop true, then shape will be drawn at navbar background."
+        "shape": "If true, shape will be drawn at navbar background.",
+        "fixed": "Switches component position to `fixed`."
       },
       "events": {},
       "methods": {},
@@ -1294,7 +1297,8 @@
         "placement": "Dropdown content will be placed on `placement` side of anchor",
         "stickToEdges": "Dropdown will not be rendered outside of viewport. It will be moved in opposite direction",
         "trigger": "Action which will open and close dropdown",
-        "target": "Dropdown content parent. Dropdown content will be attached to `target` to prevent overflow"
+        "target": "Dropdown content parent. Dropdown content will be attached to `target` to prevent overflow",
+        "preventOverflow": "If true, dropdown will be teleported to `target` ignoring `overflow: hidden` on relative position elements"
       },
       "events": {
         "anchorClick": "The event is triggered when anchor is clicked",
@@ -1585,9 +1589,6 @@
     "examples": {
       "top": {
         "title": "Fixed at the top"
-      },
-      "bottom": {
-        "title": "Fixed at them bottom"
       },
       "target": {
         "title": "Fixes element relative to custom container"
@@ -2111,6 +2112,10 @@
         "durationFieldLabel": "Undo duration",
         "cancelFieldLabel": "Cancel button text",
         "deletedFileFieldLabel": "Deleted file message"
+      },
+      "disabled": {
+        "title": "Disabled",
+        "description": "Use the `disabled` prop to disable any actions with a component"
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-file-upload/_variables.scss)[[target=_blank]]"
@@ -3217,9 +3222,9 @@
         "title": "Color",
         "text": "You can set a background color and gradient of the component with `color` and `gradient` props."
       },
-      "bottom": {
-        "title": "Bottom",
-        "text": "You can make app bar sit at the bottom of the screen with `bottom` prop."
+      "fixed": {
+        "title": "Fixed",
+        "text": "You can make app bar position fixed via `fixed` prop."
       },
       "hide": {
         "title": "Hide",
@@ -3317,7 +3322,11 @@
     "description": "Our team is constantly improving the existing code base and adding new features that help building applications even easier.",
     "inDevelopment": {
       "title": "In development",
-      "description": "The following releases are currently being developed:"
+      "description": "The following features are currently being in development:"
+    },
+    "1-5": {
+      "title": "[v1.5](https://github.com/epicmaxco/vuestic-ui/milestone/11)",
+      "description": "We focus on new services, components, testing and automation."
     },
     "1-4": {
       "title": "[v1.4](https://github.com/epicmaxco/vuestic-ui/milestone/7)",
@@ -3912,7 +3921,12 @@
       },
       "sorting": {
         "title": "Sorting",
-        "text": "You can specify which columns should be sortable by providing a column definition object (see the `columns` prop below) with the `sortable: true` field. Making a column sortable means allowing to click the column's header to toggle the sorting by that column's values.\n\nYou can also provide a custom sorting function for a given column using the `sortingFn` field on the column definition object: `sortingFn: (a: any, b: any) => number`. The function takes two cells' initial values (a, b) (**note: initial values** (i.e. in the form the user provided them, rather than stringified)) and must return a number (-1, 0, +1) indicating whether the two rows should be swapped the places or not. See the standard JS's [Array.prototype.sort](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort)[[target=_blank]] for details. If you want to runtime-disable the custom function and start making use of the built-in one, pass the `undefined` to the `sortingFn`.\n\n`va-data-table` also optionally accepts the `sort-by` and the `sorting-order` modeled props, which allow users to change sorting settings from-outside and to model the changes introduced to the table's sorting by interacting with the table itself. They also allow to provide initial sorting values. **Properties work through the `v-model`**."
+        "text": [
+          "You can specify which columns should be sortable by providing a column definition object (see the `columns` prop below) with the `sortable: true` field. Making a column sortable means allowing to click the column's header to toggle the sorting by that column's values.",
+          "You can use the `sortingOptions` property to set the sort order for the table as a whole, as well as for each column individually in the `columns` object.",
+          "You can also provide a custom sorting function for a given column using the `sortingFn` field on the column definition object: `sortingFn: (a: any, b: any) => number`. The function takes two cells' initial values (a, b) (**note: initial values** (i.e. in the form the user provided them, rather than stringified)) and must return a number (-1, 0, +1) indicating whether the two rows should be swapped the places or not. See the standard JS's [Array.prototype.sort](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort)[[target=_blank]] for details. If you want to runtime-disable the custom function and start making use of the built-in one, pass the `undefined` to the `sortingFn`.",
+          "`va-data-table` also optionally accepts the `sort-by` and the `sorting-order` modeled props, which allow users to change sorting settings from-outside and to model the changes introduced to the table's sorting by interacting with the table itself. They also allow to provide initial sorting values. **Properties work through the `v-model`**."
+        ]
       },
       "selection": {
         "title": "Selection",

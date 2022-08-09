@@ -177,6 +177,11 @@ export default defineComponent({
       errorLimit,
     }
   },
+
+  methods: {
+    focus () { this.$el.focus() },
+    blur () { this.$el.blur() },
+  },
 })
 </script>
 
@@ -192,14 +197,16 @@ export default defineComponent({
   font-family: var(--va-font-family);
   display: var(--va-input-wrapper-display);
   vertical-align: var(--va-input-wrapper-vertical-align);
+  min-width: var(--va-input-wrapper-min-width);
+  max-width: 100%;
 
   &__field {
     position: relative;
     display: flex;
     align-items: center;
-    min-width: var(--va-input-wrapper-min-width);
-    width: 100%;
+    flex: 1;
     min-height: var(--va-input-min-height);
+    width: var(--va-form-element-default-width);
     border-color: var(--va-input-wrapper-border-color);
     border-style: solid;
     border-width: var(--va-input-border-width);
@@ -238,11 +245,11 @@ export default defineComponent({
   }
 
   &__text {
-    width: 100%;
-    position: relative;
     min-height: var(--va-input-line-height);
-    display: flex;
+    position: relative;
+    display: inline-flex;
     align-items: center;
+    flex: 1;
 
     input,
     textarea {
@@ -271,26 +278,6 @@ export default defineComponent({
 
       &::placeholder {
         color: var(--va-input-placeholder-text-color);
-      }
-    }
-  }
-
-  &__icons {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    & > * {
-      margin-right: calc(var(--va-input-content-items-gap) / 4);
-
-      &:last-child {
-        margin-right: 0;
-      }
-    }
-
-    &__reset {
-      &:focus {
-        @include focus-outline;
       }
     }
   }
