@@ -1,11 +1,14 @@
-import { App, ref, Ref, computed, watch } from 'vue'
+import { App, Ref, computed, watch, reactive } from 'vue'
+
+import { useEvent } from '../../../composables'
 
 import { warn } from '../../utils'
+import { isClient } from '../../../utils/ssr-utils'
 import { getGlobalProperty } from '../../../vuestic-plugin/utils'
 import { addOrUpdateStyleElement } from '../../dom-functions'
 
 import { GlobalConfig } from '../../global-config/types'
-import { ThresholdsKeys, BreakpointsConfig, BodyClass } from '../types'
+import { ThresholdsKeys, BreakpointsConfig, BodyClass, WindowSizes } from '../types'
 
 export const createBreakpointsConfigPlugin = (app: App) => {
   const globalConfig: Ref<GlobalConfig> | undefined = getGlobalProperty(app, '$vaConfig')?.globalConfig
@@ -29,28 +32,28 @@ export const createBreakpointsConfigPlugin = (app: App) => {
     return {}
   }
 
-  const isMounted = computed(() => !!document.documentElement)
-  const windowWidth = ref<number | undefined>()
-  const windowHeight = ref<number | undefined>()
+  const isMounted = computed(isClient)
+  const windowSizes = reactive<WindowSizes>({
+    width: undefined,
+    height: undefined,
+  })
 
-  const setCurrentDocumentSizes = () => {
-    windowWidth.value = document.documentElement.clientWidth
-    windowHeight.value = document.documentElement.clientHeight
+  const setCurrentWindowSizes = () => {
+    windowSizes.width = window?.innerWidth
+    windowSizes.height = window?.innerHeight
   }
 
   watch(isMounted, (v) => {
     if (!v) { return }
-
-    setCurrentDocumentSizes()
-
-    window.addEventListener('resize', setCurrentDocumentSizes, true)
+    setCurrentWindowSizes()
+    useEvent('resize', setCurrentWindowSizes, true)
   }, { immediate: true })
 
-  const getCurrentBreakpoint = computed(() => {
-    if (!isMounted.value || !windowWidth.value) { return }
+  const currentBreakpoints = computed(() => {
+    if (!isMounted.value || !windowSizes.width) { return }
 
     return Object.entries(breakpointsConfig.thresholds).reduce((acc: string, [key, value]) => {
-      if (windowWidth.value! >= value) { acc = key }
+      if (windowSizes.width! >= value) { acc = key }
       return acc
     }, 'xs') as unknown as ThresholdsKeys
   })
@@ -64,26 +67,24 @@ export const createBreakpointsConfigPlugin = (app: App) => {
 
   const getHelpersMedia = () => {
     let result = ''
-    const mediaHeader = (minWidth: number) => `@media screen and (min-width: ${minWidth}px) {`
-    const mediaFooter = '}\n'
 
     Object.values(breakpointsConfig.thresholds)
       .forEach((thresholdValue, index) => {
-        result += mediaHeader(thresholdValue)
+        result += `@media screen and (min-width: ${thresholdValue}px) {`
         // 0.2 coefficient for xs threshold and 1 for xl, experimental value for now
         result += `:root { --media-ratio: ${(index + 1) * 0.2} }`
-        result += mediaFooter
+        result += '}\n'
       })
 
     return result
   }
 
-  watch(getCurrentBreakpoint, (v) => {
+  watch(currentBreakpoints, (v) => {
     if (!v) { return }
 
     addOrUpdateStyleElement('helpers-media', getHelpersMedia)
 
-    if (!breakpointsConfig.bodyClass || !getCurrentBreakpoint.value) { return }
+    if (!breakpointsConfig.bodyClass || !currentBreakpoints.value) { return }
 
     document.body.classList.forEach((className: string) => {
       if ((Object.values(screenClasses.value) as string[]).includes(className)) {
@@ -91,41 +92,43 @@ export const createBreakpointsConfigPlugin = (app: App) => {
       }
     })
 
-    document.body.classList.add(screenClasses.value[getCurrentBreakpoint.value])
+    document.body.classList.add(screenClasses.value[currentBreakpoints.value])
   }, { immediate: true })
 
-  const isXs = computed(() => getCurrentBreakpoint.value === 'xs')
-  const isSm = computed(() => getCurrentBreakpoint.value === 'sm')
-  const isMd = computed(() => getCurrentBreakpoint.value === 'md')
-  const isLg = computed(() => getCurrentBreakpoint.value === 'lg')
-  const isXl = computed(() => getCurrentBreakpoint.value === 'xl')
+  const breakpointsHelpers = computed(() => {
+    const isXs = currentBreakpoints.value === 'xs'
+    const isSm = currentBreakpoints.value === 'sm'
+    const isMd = currentBreakpoints.value === 'md'
+    const isLg = currentBreakpoints.value === 'lg'
+    const isXl = currentBreakpoints.value === 'xl'
 
-  const breakpointsHelpers = computed(() => ({
-    xs: isXs.value,
-    sm: isSm.value,
-    md: isMd.value,
-    lg: isLg.value,
-    xl: isXl.value,
+    return {
+      xs: isXs,
+      sm: isSm,
+      md: isMd,
+      lg: isLg,
+      xl: isXl,
 
-    smUp: isSm.value || isMd.value || isLg.value || isXl.value,
-    mdUp: isMd.value || isLg.value || isXl.value,
-    lgUp: isLg.value || isXl.value,
+      smUp: isSm || isMd || isLg || isXl,
+      mdUp: isMd || isLg || isXl,
+      lgUp: isLg || isXl,
 
-    smDown: isXs.value || isSm.value,
-    mdDown: isXs.value || isSm.value || isMd.value,
-    lgDown: isXs.value || isSm.value || isMd.value || isLg.value,
+      smDown: isXs || isSm,
+      mdDown: isXs || isSm || isMd,
+      lgDown: isXs || isSm || isMd || isLg,
 
-    xsOnly: isXs.value,
-    smOnly: isSm.value,
-    mdOnly: isMd.value,
-    lgOnly: isLg.value,
-    xlOnly: isXl.value,
-  }))
+      xsOnly: isXs,
+      smOnly: isSm,
+      mdOnly: isMd,
+      lgOnly: isLg,
+      xlOnly: isXl,
+    }
+  })
 
   const result = computed(() => ({
-    width: windowWidth.value,
-    height: windowHeight.value,
-    current: getCurrentBreakpoint.value,
+    width: windowSizes.width,
+    height: windowSizes.height,
+    current: currentBreakpoints.value,
     thresholds: breakpointsConfig.thresholds,
     ...breakpointsHelpers.value,
   }))

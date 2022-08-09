@@ -1,3 +1,5 @@
+export type WindowSizes = Record<'width' | 'height', number | undefined>
+
 export type ThresholdsKeys = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 
 export type BodyClass = `screen--${ThresholdsKeys}`
