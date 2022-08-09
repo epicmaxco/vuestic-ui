@@ -65,10 +65,6 @@ export default class Search extends Vue {
 @import '~vuestic-ui/src/styles/index.scss';
 @import '@/assets/smart-grid.scss';
 
-.header {
-  position: relative;
-}
-
 #search-form {
   position: relative;
   display: flex;
