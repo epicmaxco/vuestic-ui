@@ -79,6 +79,10 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: 'menu.grid',
       },
       {
+        name: 'smart-helpers',
+        displayName: 'menu.smartHelpers',
+      },
+      {
         name: 'colors',
         displayName: 'menu.colors',
       },
@@ -396,6 +400,10 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: 'colors-config',
         displayName: 'menu.colorsConfig',
+      },
+      {
+        name: 'breakpoints',
+        displayName: 'menu.breakpoints',
       },
       // GENERATOR_ADD - services
     ],

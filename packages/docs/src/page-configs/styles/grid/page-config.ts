@@ -28,15 +28,6 @@ const config: ApiDocsBlock[] = [
   block.paragraph('grid.examples.offsets.sizes.xl'),
   block.example('Offsets'),
 
-  block.headline('grid.examples.gutters.title'),
-  block.paragraph('grid.examples.gutters.text'),
-  block.paragraph('grid.examples.gutters.sizes.xs'),
-  block.paragraph('grid.examples.gutters.sizes.sm'),
-  block.paragraph('grid.examples.gutters.sizes.md'),
-  block.paragraph('grid.examples.gutters.sizes.lg'),
-  block.paragraph('grid.examples.gutters.sizes.xl'),
-  block.example('Gutters'),
-
   block.subtitle('all.api'),
   block.headline('grid.api.align.title'),
   block.paragraph('grid.api.align.variants[0]'),

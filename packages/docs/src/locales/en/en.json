@@ -1399,7 +1399,9 @@
     "advancedIconsConfig": "Advanced Icons Config",
     "componentsConfig": "Components Config",
     "colorsConfig": "Colors Config",
+    "breakpoints": "Breakpoints",
     "cssVariables": "CSS Variables",
+    "smartHelpers": "Smart Helpers",
     "sidebarItem": "Sidebar Item",
     "navbar": "Navbar",
     "toast": "Toast",
@@ -2753,6 +2755,34 @@
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-chip/_variables.scss)[[target=_blank]]"
   },
+  "smartHelpers": {
+    "title": "Smart Helpers",
+    "summaryText": "Vuestic UI provides amount of smart CSS helpers which are adopting to the current breakpoint (see also [Breakpoints Service](/services/breakpoints)).",
+    "examples": {
+      "gutters": {
+        "title": "Gutters",
+        "text": "Sets the margin between the cells of your flex-container with the `gutter` class.",
+        "sizes": {
+          "xs": "`.gutter--1` - Extra small gutter between cells",
+          "sm": "`.gutter--2` - Small gutter between cells",
+          "md": "`.gutter--3` - Default gutter between cells",
+          "lg": "`.gutter--4` - Large gutter between cells",
+          "xl": "`.gutter--5` - Extra large gutter between cells"
+        }
+      },
+      "spacing": {
+        "title": "Spacing",
+        "text": "Sets the margin (`x` or `y`) between child items of the container with the `spacing` class.",
+        "sizes": {
+          "xs": "`.space-x/y-1` - Extra small spacing between items",
+          "sm": "`.space-x/y-2` - Small spacing between items",
+          "md": "`.space-x/y-3` - Default spacing between items",
+          "lg": "`.space-x/y-4` - Large spacing between items",
+          "xl": "`.space-x/y-5` - Extra large spacing between items"
+        }
+      }
+    }
+  },
   "grid": {
     "title": "Grid System",
     "summaryText": "Vuestic UI provides you with some flexbox helper classes. Of course, you can opt out using CSS Grid instead (or any other layout-scheme you'd like), but if you prefer using flexbox, we've got you covered. Still, the final decision is totally up to you.",
@@ -2785,17 +2815,6 @@
         "first": "First",
         "second": "Second",
         "last": "Last"
-      },
-      "gutters": {
-        "title": "Gutters",
-        "text": "Set the margins between the \"`cell`s\" of you flex-container with the `gutter` classes.",
-        "sizes": {
-          "xs": "`.gutter--1` - Extra small gutter between cells",
-          "sm": "`.gutter--2` - Small gutter between cells",
-          "md": "`.gutter--3` - Default gutter between cells",
-          "lg": "`.gutter--4` - Large gutter between cells",
-          "xl": "`.gutter--5` - Extra large gutter between cells"
-        }
       }
     },
     "api": {
@@ -3713,6 +3732,41 @@
       "getFocusColor": "Return a color that you can use as a `focus` color.",
       "getGradientBackground": "Return a gradient-color that you can use as a `background-image` CSS property's value.",
       "hookMethods": "useColors hook methods"
+    }
+  },
+  "breakpoints": {
+    "title": "Breakpoints Service",
+    "about": "Vuestic UI provides breakpoints service that allows you to control every aspect of your application which depends on the window size.",
+    "sizes": {
+      "intro": "We use the following breakpoints:",
+      "xs": "`.xs` - (< 600px) - Extra small devices",
+      "sm": "`.sm` - (<= 600px && < 1024px) - Small devices",
+      "md": "`.md` - (<= 1024px && < 1440px) - Medium devices",
+      "lg": "`.lg` - (<= 1440px && < 1920px) - Large devices",
+      "xl": "`.xl` - (>= 1920) - Extra large devices"
+    },
+    "helpers": {
+      "title": "Helpers",
+      "about": "Breakpoints service provides amount of helpers to use them in template or setup function.",
+      "list": {
+        "title": "Helpers list:",
+        "thresholds": "List of the current thresholds.",
+        "exactThreshold": "`true` only for mentioned threshold.",
+        "exactThresholdAlias": "Alias for `xs`/`sm`/`md`/`lg`/`xl`-like helpers.",
+        "width": "Current window width (`px`).",
+        "height": "Current window height (`px`).",
+        "current": "Current breakpoint name.",
+        "downHelper": "`true` for mentioned threshold and all below it.",
+        "upHelper": "`true` for mentioned threshold and all above it."
+      }
+    },
+    "class": {
+      "title": "Threshold Class",
+      "about": "Optional part of the service - reactive `body` class (`screen-lg` for example) that allows you to build the following CSS constructions:"
+    },
+    "configuring": {
+      "title": "Configuring",
+      "about": "You can specify your own thresholds values, disable threshold class support or the whole service via Vuestic UI configuration object."
     }
   },
   "cssVariables": {
