@@ -24,31 +24,34 @@ type UseTreeBuilderProps = {
   [key: string]: any
 }
 
-type UseTreeBuilderFunc = (props: UseTreeBuilderProps) => {
-  treeItems: ComputedRef<TreeNode[]>
-}
+type UseTreeBuilderFunc = (props: UseTreeBuilderProps) => { treeItems: ComputedRef<TreeNode[]> }
 
 type TreeBuilderFunc = (nodes: TreeNode[], level?: number) => TreeNode[]
 
-export const createNode: CreateNodeFunc = ({
-  node,
-  children = [],
-  level = 0,
-  expandAll = ref(false),
-  textBy = ref(''),
-  filter = ref(''),
-  computedFilterMethod,
-}) => (reactive({
-  ...node,
-  children,
-  level,
-  hasChildren: !!children.length,
-  expanded: expandAll.value || node.expanded || false,
-  checked: node.checked || false,
-  disabled: node.disabled || false,
-  matchesFilter: filter.value ? computedFilterMethod.value?.(node, filter.value, textBy.value) : true,
-  indeterminate: false,
-}))
+export const createNode: CreateNodeFunc = (props) => {
+  const {
+    node,
+    children = [],
+    level = 0,
+    expandAll = ref(false),
+    textBy = ref(''),
+    filter = ref(''),
+    computedFilterMethod,
+  } = props
+
+  const matchesFilter = filter.value ? computedFilterMethod.value?.(node, filter.value, textBy.value) : true
+
+  return reactive({
+    ...node,
+    level,
+    children,
+    matchesFilter,
+    hasChildren: !!children.length,
+    checked: node.checked || false,
+    disabled: node.disabled || false,
+    expanded: expandAll.value || node.expanded || false,
+  })
+}
 
 const useTreeBuilder: UseTreeBuilderFunc = (props) => {
   const { nodes, expandAll, filter, filterMethod, textBy } = props

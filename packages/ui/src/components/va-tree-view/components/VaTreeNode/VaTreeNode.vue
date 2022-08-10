@@ -1,6 +1,7 @@
 <template>
   <div
     class="va-tree-node"
+    :class="treeNodeClassComputed"
     role="treeitem"
     :aria-expanded="$props.node.expanded"
     :aria-disabled="$props.node.disabled"
@@ -105,6 +106,9 @@ export default defineComponent({
     const labelComputed = computed(() => props.node[textBy] || '')
     const isExpandedComputed = computed(() => !!props.node.expanded)
     const hasIconComputed = computed(() => slots.icon && props.node.icon)
+    const treeNodeClassComputed = useBem('va-tree-node', () => ({
+      disabled: !!props.node.disabled,
+    }))
     const expandedClassComputed = useBem('va-tree-node-children', () => ({
       expanded: isExpandedComputed.value,
     }))
@@ -138,6 +142,7 @@ export default defineComponent({
       gapClassComputed,
       isExpandedComputed,
       expandedClassComputed,
+      treeNodeClassComputed,
     }
   },
 })
@@ -169,6 +174,10 @@ export default defineComponent({
     &:hover::before {
       opacity: var(--va-tree-node-interactive-bg-opacity);
     }
+  }
+
+  &--disabled {
+    @include va-disabled;
   }
 
   &:focus > .va-tree-node-root {
