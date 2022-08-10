@@ -22,7 +22,7 @@ import { defineComponent, provide, ref, toRefs, computed, PropType } from 'vue'
 import { useColors, useTextColor } from '../../composables/'
 
 import { TreeViewKey, TreeNode } from './types'
-import useTreeBuilder from './hooks/useTreeBuilder'
+import useTreeBuilder, { TreeViewFilterMethod } from './hooks/useTreeBuilder'
 
 import { VaTreeNode } from './components/VaTreeNode'
 
@@ -42,13 +42,17 @@ export default defineComponent({
       type: String,
       default: 'primary',
     },
-    nodeKey: {
+    keyBy: {
       type: String,
       default: 'id',
     },
-    labelKey: {
+    textBy: {
       type: String,
       default: 'label',
+    },
+    valueBy: {
+      type: String,
+      default: '',
     },
     expandAll: {
       type: Boolean,
@@ -66,6 +70,10 @@ export default defineComponent({
     filter: {
       type: String,
       default: '',
+    },
+    filterMethod: {
+      type: Function as PropType<TreeViewFilterMethod>,
+      default: undefined,
     },
   },
 
@@ -122,13 +130,13 @@ export default defineComponent({
       }
     }
 
-    const getKey = (node: TreeNode) => node[props.nodeKey]
+    const getKey = (node: TreeNode) => node[props.keyBy]
 
     provide(TreeViewKey, {
       colorComputed,
       iconColor: textColorComputed,
-      nodeKey: props.nodeKey,
-      labelKey: props.labelKey,
+      keyBy: props.keyBy,
+      textBy: props.textBy,
       selectable: props.selectable,
       getKey,
       toggleNode,
@@ -145,6 +153,5 @@ export default defineComponent({
 
 .va-tree-view {
   padding: var(--va-tree-view-padding);
-  font-family: var(--va-font-family);
 }
 </style>

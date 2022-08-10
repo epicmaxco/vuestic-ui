@@ -1310,8 +1310,9 @@
       "props": {
         "expandAll": "Expand or hide all nodes by default",
         "filter": "Tree view filter",
-        "nodeKey": "Key to index nodes",
-        "labelKey": "Key to show the value of node item",
+        "filterMethod": "Custom tree view filter method",
+        "keyBy": "Key to index nodes",
+        "textBy": "Key to show the value of node item",
         "nodes": "Tree node array",
         "selectable": "Selectable",
         "selectionType": "Selection type where is a `leaf` current and all children nodes, `independent` - single selectable nodes"

@@ -17,10 +17,11 @@ export const VaTreeViewOptions = defineManualApi({
   props: {
     modelValue: { types: '(number | string)[]' },
     nodes: { types: 'TreeNode[]' },
-    nodeKey: { types: 'string' },
+    keyBy: { types: 'string' },
     expandAll: { types: 'boolean' },
     selectable: { types: 'boolean' },
     selectionType: { types: "'leaf' | 'independent'" },
     filter: { types: 'string' },
+    filterMethod: { types: 'function' },
   },
 })

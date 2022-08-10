@@ -68,12 +68,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, inject, computed, PropType } from 'vue'
+import { defineComponent, computed, PropType } from 'vue'
 
-import { useBem } from '../../../../composables'
+import { useBem, useStrictInject } from '../../../../composables'
 
 import { VaIcon, VaCheckbox } from '../../../'
 import { TreeViewKey, TreeNode } from '../../types'
+
+const INJECTION_ERROR_MESSAGE = 'The VaTreeNode component should be used in the context of VaTreeView component'
 
 export default defineComponent({
   name: 'VaTreeNode',
@@ -90,26 +92,17 @@ export default defineComponent({
 
   setup: (props, { slots }) => {
     const {
-      nodeKey,
-      labelKey,
+      keyBy,
+      textBy,
       iconColor,
       selectable,
       colorComputed,
       getKey,
       toggleNode,
       toggleCheckbox,
-    } = inject(TreeViewKey, {
-      iconColor: computed(() => 'var(--va-white)'),
-      colorComputed: computed(() => 'primary'),
-      labelKey: 'label',
-      nodeKey: 'id',
-      selectable: false,
-      toggleNode: (node: TreeNode) => node,
-      toggleCheckbox: (node: TreeNode, isSelected: boolean) => ({ node, isSelected }),
-      getKey: () => 'id',
-    })
+    } = useStrictInject(TreeViewKey, INJECTION_ERROR_MESSAGE)
 
-    const labelComputed = computed(() => props.node[labelKey] || '')
+    const labelComputed = computed(() => props.node[textBy] || '')
     const isExpandedComputed = computed(() => !!props.node.expanded)
     const hasIconComputed = computed(() => slots.icon && props.node.icon)
     const expandedClassComputed = useBem('va-tree-node-children', () => ({
@@ -129,7 +122,7 @@ export default defineComponent({
     }
 
     return {
-      nodeKey,
+      keyBy,
       iconColor,
       selectable,
 

@@ -1,17 +1,10 @@
 <template>
   <VbDemo>
     <VbCard title="Default">
-      <va-tree-view
-        :nodes="nodes"
-        node-key="id"
-      />
+      <va-tree-view :nodes="nodes" />
     </VbCard>
     <VbCard title="Icons">
-      <va-tree-view
-        :nodes="nodesWithIcons"
-        node-key="id"
-        expand-all
-      >
+      <va-tree-view :nodes="nodesWithIcons" expand-all>
         <template #icon="{icon}">
           <va-icon
             v-if="icon"
@@ -36,7 +29,6 @@
       <va-tree-view
         v-model="selectedNodes"
         :nodes="nodesWithIcons"
-        node-key="id"
         expand-all
         selectable
         :selection-type="selectionType"
@@ -51,44 +43,32 @@
       </va-tree-view>
     </VbCard>
     <VbCard title="With custom body">
-      <va-tree-view
-        :nodes="customBodyNodes"
-        node-key="id"
-      >
-        <template #content="prop">
-          <div class="d-flex align--center">
-            <va-avatar
-              v-if="prop.image"
-              :src="prop.image"
-              style="margin-right: 0.5rem;"
-            />
-
-            <div style="margin-right: 0.5rem;">
-              <b v-if="prop.label">{{ prop.label }}</b>
-              <p v-if="prop.description">{{ prop.description }}</p>
-            </div>
-
-            <va-button
-              v-if="prop.hasAction"
-              flat
-              icon="add"
-              size="small"
-              style="margin-left: auto;"
-            />
+      <va-tree-view :nodes="customBodyNodes">
+        <template #content="props">
+          <img
+            v-if="props.image"
+            :src="props.image"
+            :alt="props.title"
+            style="height: 70px; width: 70px; float: left; margin-right: 5px;"
+          />
+          <div>
+            <b v-if="props.label" style="color: var(--va-primary);">{{props.label}}</b>
+            <br />
+            <i v-if="props.description" style="color: var(--va-secondary); line-height: 1;">
+              {{props.description}}
+            </i>
           </div>
         </template>
       </va-tree-view>
     </VbCard>
     <VbCard title="Filter">
-      <va-input
-        v-model="filterValue"
-        placeholder="Filter the tree view"
-      />
+      <va-input v-model="filterValue" placeholder="Filter the tree view" style="margin-bottom: 1rem;" />
+      <va-checkbox v-model="isFilterCaseSensitive" label="Case sensitive" />
       <va-tree-view
         :nodes="filterableNodes"
-        node-key="id"
-        expand-all
         :filter="filterValue"
+        :filter-method="customFilterMethod"
+        expand-all
       />
     </VbCard>
     <VbCard title="Colored checkboxes">
@@ -98,10 +78,9 @@
       />
       <va-tree-view
         :nodes="nodes"
-        node-key="id"
+        :color="selectedColor"
         selectable
         expand-all
-        :color="selectedColor"
       />
     </VbCard>
   </VbDemo>
@@ -111,10 +90,9 @@
 import {
   VaRadio,
   VaInput,
-  VaAvatar,
-  VaButton,
   VaIcon,
   VaColorPalette,
+  VaCheckbox,
 } from '../'
 import { VaTreeView } from './'
 
@@ -135,10 +113,9 @@ export default {
     VaTreeView,
     VaRadio,
     VaInput,
-    VaAvatar,
-    VaButton,
     VaIcon,
     VaColorPalette,
+    VaCheckbox,
   },
 
   data: () => ({
@@ -333,20 +310,17 @@ export default {
         ],
       },
     ],
+    isFilterCaseSensitive: false,
   }),
+
+  computed: {
+    customFilterMethod () {
+      return this.isFilterCaseSensitive
+        ? (node, filter, textBy) => node[textBy].includes(filter)
+        : undefined
+    },
+  },
 }
 </script>
 
-<style lang="scss" scoped>
-.custom-body-example {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  &__item {
-    & + & {
-      margin-left: 0.5rem;
-    }
-  }
-}
-</style>
+<style lang="scss" scoped></style>
