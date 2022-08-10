@@ -197,6 +197,7 @@ export default defineComponent({
     &__item {
       flex: var(--va-tree-node-content-item-flex);
       min-width: var(--va-tree-node-indent);
+      line-height: 1;
 
       &--leaf {
         cursor: pointer;
