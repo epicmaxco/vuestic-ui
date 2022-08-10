@@ -337,7 +337,7 @@ import { VaButton } from '../va-button'
 import { VaCollapse } from '@/components'
 
 export default {
-  components: { VaModal, VaButton, VaCollapse },
+  components: { VaModal, VaButton },
   data () {
     return {
       showModalSizeSmall: false,

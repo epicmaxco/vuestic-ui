@@ -4,8 +4,9 @@ import { useWindow } from './useWindow'
 
 const TAB_KEYCODE = 9
 const FOCUSABLE_ELEMENTS_SELECTOR = ':where(a, button, input, textarea, select):not([disabled]), *[tabindex]'
+let trapInEl: HTMLElement | null = null
 
-export const useTrapFocus = (trapInEl: Ref<HTMLElement | undefined | null>) => {
+export const useTrapFocus = () => {
   const document = useDocument()
   const window = useWindow()
 
@@ -55,14 +56,21 @@ export const useTrapFocus = (trapInEl: Ref<HTMLElement | undefined | null>) => {
     }
   }
 
+  const trapFocusIn = (el: HTMLElement) => {
+    trapInEl = el
+
+    freeFocus()
+    trapFocus()
+  }
+
   const trapFocus = () => {
     nextTick(() => {
       console.log('trap')
-      if (!trapInEl.value) {
+      if (!trapInEl) {
         return
       }
 
-      focusableElements = Array.from(trapInEl.value.querySelectorAll(FOCUSABLE_ELEMENTS_SELECTOR))
+      focusableElements = Array.from(trapInEl.querySelectorAll(FOCUSABLE_ELEMENTS_SELECTOR))
       firstFocusableElement = focusableElements[0]
       lastFocusableElement = focusableElements[focusableElements.length - 1]
 
@@ -82,5 +90,6 @@ export const useTrapFocus = (trapInEl: Ref<HTMLElement | undefined | null>) => {
   return {
     trapFocus,
     freeFocus,
+    trapFocusIn,
   }
 }

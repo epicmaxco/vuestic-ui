@@ -191,10 +191,15 @@ export default defineComponent({
   setup (props, { emit }) {
     const rootElement = shallowRef<HTMLElement>()
     const modalDialog = shallowRef<HTMLElement>()
-    const { trapFocus, freeFocus } = useTrapFocus(modalDialog)
+    const { trapFocusIn, freeFocus } = useTrapFocus()
 
     const currentModalLevel = ref<null | number>(null)
-    const { getModalLevelOnClose, getModalLevelOnOpen, isTopLevelModal } = useModalLevel(currentModalLevel)
+    const {
+      getModalLevelOnClose,
+      getModalLevelOnOpen,
+      isTopLevelModal,
+      isLowestLevelModal,
+    } = useModalLevel(currentModalLevel)
 
     const { getColor } = useColors()
     const { textColorComputed } = useTextColor(toRef(props, 'backgroundColor'))
@@ -264,10 +269,13 @@ export default defineComponent({
       // put this into watchEffect -> max recursion stack
       if (newValue) {
         getModalLevelOnOpen()
-      } else {
-        getModalLevelOnClose()
+        return
+      }
+
+      if (isLowestLevelModal.value) {
         freeFocus()
       }
+      getModalLevelOnClose()
     })
 
     watchEffect(() => {
@@ -285,8 +293,8 @@ export default defineComponent({
         }
       }
 
-      if (isTopLevelModal.value) {
-        trapFocus()
+      if (isTopLevelModal.value && modalDialog.value) {
+        trapFocusIn(modalDialog.value)
       }
     })
 
@@ -320,8 +328,6 @@ export default defineComponent({
       computedModalContainerStyle,
       computedOverlayStyles,
       ...publicMethods,
-      currentModalLevel,
-      isTopLevelModal,
     }
   },
 })

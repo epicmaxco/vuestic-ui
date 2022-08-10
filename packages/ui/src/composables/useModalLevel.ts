@@ -1,23 +1,25 @@
 import { computed, Ref, ref } from 'vue'
 
-const maxModalLevel = ref(0)
+const LOWEST_MODAL_LEVEL = 1
+const NO_MODALS_LEVEL = 0
+const currentModalLevel = ref(NO_MODALS_LEVEL)
 
-export const useModalLevel = (currentModalLevel: Ref<null | number>) => {
+export const useModalLevel = (modalLevel: Ref<null | number>) => {
   const getModalLevelOnClose = () => {
-    maxModalLevel.value--
-
-    currentModalLevel.value = null
+    currentModalLevel.value--
+    modalLevel.value = null
   }
   const getModalLevelOnOpen = () => {
-    maxModalLevel.value++
-
-    currentModalLevel.value = maxModalLevel.value
+    currentModalLevel.value++
+    modalLevel.value = currentModalLevel.value
   }
-  const isTopLevelModal = computed(() => currentModalLevel.value === maxModalLevel.value)
+  const isTopLevelModal = computed(() => modalLevel.value === currentModalLevel.value)
+  const isLowestLevelModal = computed(() => modalLevel.value === LOWEST_MODAL_LEVEL)
 
   return {
     getModalLevelOnClose,
     getModalLevelOnOpen,
     isTopLevelModal,
+    isLowestLevelModal,
   }
 }
