@@ -35,6 +35,7 @@
             :style="computedModalContainerStyle"
           >
             <div
+              ref="modalDialog"
               class="va-modal__dialog"
               :class="computedClass"
               :style="computedDialogStyle"
@@ -119,7 +120,7 @@
 
 <script lang="ts">
 import type { PropType, StyleValue } from 'vue'
-import { Transition, h, defineComponent, computed, shallowRef, toRef, watchEffect } from 'vue'
+import { Transition, h, defineComponent, computed, shallowRef, toRef, watchEffect, ref, watch, onMounted } from 'vue'
 
 import {
   useStateful,
@@ -129,6 +130,8 @@ import {
   useTextColor,
   useWindow,
   useDocument,
+  useTrapFocus,
+  useModalLevel,
 } from '../../composables'
 
 import { VaButton } from '../va-button'
@@ -187,6 +190,11 @@ export default defineComponent({
   },
   setup (props, { emit }) {
     const rootElement = shallowRef<HTMLElement>()
+    const modalDialog = shallowRef<HTMLElement>()
+    const { trapFocus, freeFocus } = useTrapFocus(modalDialog)
+
+    const currentModalLevel = ref<null | number>(null)
+    const { getModalLevelOnClose, getModalLevelOnOpen, isTopLevelModal } = useModalLevel(currentModalLevel)
 
     const { getColor } = useColors()
     const { textColorComputed } = useTextColor(toRef(props, 'backgroundColor'))
@@ -239,13 +247,9 @@ export default defineComponent({
     const onBeforeLeaveTransition = (el: HTMLElement) => emit('before-close', el)
     const onAfterLeaveTransition = (el: HTMLElement) => emit('close', el)
 
-    const listenKeyUp = (e: KeyboardEvent & { modalsCounter?: number }) => {
-      e.modalsCounter = e.modalsCounter ? e.modalsCounter + 1 : 1
-      const modalNumber = e.modalsCounter
-      const isOnTop = () => e.modalsCounter === modalNumber
-
+    const listenKeyUp = (e: KeyboardEvent) => {
       const hideModal = () => {
-        if (e.code === 'Escape' && !props.noEscDismiss && !props.noDismiss && isOnTop()) {
+        if (e.code === 'Escape' && !props.noEscDismiss && !props.noDismiss && isTopLevelModal.value) {
           cancel()
         }
       }
@@ -255,6 +259,16 @@ export default defineComponent({
 
     const window = useWindow()
     const document = useDocument()
+
+    watch(valueComputed, (newValue) => {
+      // put this into watchEffect -> max recursion stack
+      if (newValue) {
+        getModalLevelOnOpen()
+      } else {
+        getModalLevelOnClose()
+        freeFocus()
+      }
+    })
 
     watchEffect(() => {
       if (valueComputed.value) {
@@ -269,6 +283,16 @@ export default defineComponent({
         } else {
           document.value?.body.classList.remove('va-modal-overlay-background--blurred')
         }
+      }
+
+      if (isTopLevelModal.value) {
+        trapFocus()
+      }
+    })
+
+    onMounted(() => {
+      if (valueComputed.value) { // case when open modal with this.$vaModal.init case
+        getModalLevelOnOpen()
       }
     })
 
@@ -289,12 +313,15 @@ export default defineComponent({
     return {
       getColor,
       rootElement,
+      modalDialog,
       valueComputed,
       computedClass,
       computedDialogStyle,
       computedModalContainerStyle,
       computedOverlayStyles,
       ...publicMethods,
+      currentModalLevel,
+      isTopLevelModal,
     }
   },
 })

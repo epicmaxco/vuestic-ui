@@ -334,9 +334,10 @@
 <script>
 import { VaModal } from './'
 import { VaButton } from '../va-button'
+import { VaCollapse } from '@/components'
 
 export default {
-  components: { VaModal, VaButton },
+  components: { VaModal, VaButton, VaCollapse },
   data () {
     return {
       showModalSizeSmall: false,
@@ -371,6 +372,7 @@ export default {
       showNoPaddingModal: false,
       message: this.$vb.lorem(),
       longMessage: this.$vb.lorem(5000),
+      tmp: false,
     }
   },
   methods: {
