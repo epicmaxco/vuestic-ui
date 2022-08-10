@@ -193,13 +193,12 @@ export default defineComponent({
     const modalDialog = shallowRef<HTMLElement>()
     const { trapFocusIn, freeFocus } = useTrapFocus()
 
-    const currentModalLevel = ref<null | number>(null)
     const {
       getModalLevelOnClose,
       getModalLevelOnOpen,
       isTopLevelModal,
       isLowestLevelModal,
-    } = useModalLevel(currentModalLevel)
+    } = useModalLevel()
 
     const { getColor } = useColors()
     const { textColorComputed } = useTextColor(toRef(props, 'backgroundColor'))
