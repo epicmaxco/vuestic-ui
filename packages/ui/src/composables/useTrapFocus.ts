@@ -46,7 +46,6 @@ export const useTrapFocus = () => {
     if (document.value?.activeElement === lastFocusableElement && !isShiftPressed) {
       evt.preventDefault()
       focusFirstElement()
-
       return
     }
 
@@ -65,7 +64,6 @@ export const useTrapFocus = () => {
 
   const trapFocus = () => {
     nextTick(() => {
-      console.log('trap')
       if (!trapInEl) {
         return
       }
@@ -78,7 +76,6 @@ export const useTrapFocus = () => {
     })
   }
   const freeFocus = () => {
-    console.log('free')
     focusableElements = []
     firstFocusableElement = null
     lastFocusableElement = null
