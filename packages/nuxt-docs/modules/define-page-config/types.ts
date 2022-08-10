@@ -11,7 +11,7 @@ export type PageConfigOptions = {
     visibility?: boolean
   },
 
-  setup(this: { path: string }): PageConfigBlockCompiled[]
+  blocks: PageConfigBlockCompiled[]
 }
 
 export type CompiledPageConfig = PageConfigOptions & { path: string }

@@ -4,10 +4,8 @@ export default definePageConfig({
     category: 'component'
   },
 
-  setup() {
-    return [
-      block.component('default'),
-      block.example('test'),
-    ]
-  }
+  blocks: [
+    block.component('default'),
+    block.example('test'),
+  ]
 })
