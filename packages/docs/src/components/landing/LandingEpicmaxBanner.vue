@@ -33,7 +33,7 @@ export default class EpicmaxBanner extends Vue {
 
   get developersCount () {
     const currentMonth = new Date().getUTCMonth()
-    return currentMonth % 3 + 2
+    return currentMonth % 3 + 1
   }
 }
 </script>
