@@ -11,9 +11,10 @@
     <div class="preview-wrapper">
       <Header />
       <Preview />
+      <Partners />
     </div>
-    <SeamlessIntegration />
     <Customize />
+    <SeamlessIntegration />
     <OpenSource />
     <Admin />
     <Footer />
@@ -25,6 +26,7 @@
 import { Options, Vue } from 'vue-class-component'
 import Header from '../components/landing/Header.vue'
 import Preview from '../components/landing/Preview.vue'
+import Partners from '../components/landing/Partners.vue'
 import Admin from '../components/landing/Admin.vue'
 import Footer from '../components/landing/Footer.vue'
 import OpenSource from '../components/landing/OpenSource.vue'
@@ -36,6 +38,7 @@ import Customize from '../components/landing/Customize.vue'
   components: {
     Header,
     Preview,
+    Partners,
     Footer,
     OpenSource,
     Admin,

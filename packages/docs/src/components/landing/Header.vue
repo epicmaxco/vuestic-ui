@@ -14,7 +14,7 @@
         <nav class="header__links">
           <!-- vuestic buttons -->
           <va-button :to="`/${$root.$i18n.locale}/introduction/overview`" class="header__links--link" flat color="primary">{{ $t('landing.header.buttons.overview') }}</va-button>
-          <va-button :to="`/${$root.$i18n.locale}/introduction/overview`" class="header__links--link" flat color="primary">{{ $t('landing.header.buttons.docs') }}</va-button>
+          <va-button href="https://vuestic.epicmax.co/admin/dashboard" target="blank" class="header__links--link" flat color="primary">Vuestic Admin</va-button>
           <va-button href="https://discord.gg/u7fQdqQt8c" target="blank" class="header__links--link" flat color="primary">{{ $t('landing.header.buttons.discord') }}</va-button>
           <LanguageDropdown />
           <stars-button class="ml-2" repo="epicmaxco/vuestic-ui" />
@@ -160,6 +160,10 @@ export default class Header extends Vue {
     justify-content: space-between;
   }
 
+  ::v-deep(.va-dropdown__content) {
+    background: #f6f8f9 !important;
+  }
+
   &__links {
     @include col();
     @include size(9);
@@ -170,11 +174,17 @@ export default class Header extends Vue {
 
     @include sm(display, none);
 
+    ::v-deep(.va-button--flat) {
+      background: transparent !important;
+    }
+
     &--link {
       @include link-font();
 
       line-height: 1.5rem;
       margin-left: 0.5rem;
+      background: transparent !important;
+      white-space: nowrap;
 
       @include sm(width, 100%);
     }

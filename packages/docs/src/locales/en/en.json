@@ -10,7 +10,7 @@
       }
     },
     "preview": {
-      "title": "Vue.js 3.0 UI Framework",
+      "title": "Vue 3 UI Framework",
       "buttons": {
         "start": "Get started",
         "github": "View on GitHub",
@@ -30,6 +30,9 @@
           "text": "Supported browsers list"
         }
       }
+    },
+    "partners": {
+      "title": "Partners & Sponsors ❤️"
     },
     "seamless": {
       "title": "Seamless Integration",
@@ -76,12 +79,19 @@
       }
     },
     "footer": {
-      "text": "Open source, free to use. Development inquiries:",
+      "text": "Vuestic UI. Open source, free to use. Development inquiries: ",
       "buttons": {
         "epicmax": "About Epicmax",
         "admin": "Vuestic Admin",
         "spinners": "Epic Spinners"
-      }
+      },
+      "contactUs": "Contact us",
+      "bannerText": [
+        "expert",
+        "s",
+        "available in",
+        "to build and launch your product"
+      ]
     }
   },
   "api": {
