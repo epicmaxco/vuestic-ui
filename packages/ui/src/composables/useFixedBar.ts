@@ -1,4 +1,4 @@
-import { computed, ExtractPropTypes, Ref } from 'vue'
+import { computed, ExtractPropTypes, Ref, StyleValue } from 'vue'
 
 export const useFixedBarProps = {
   hideOnScroll: { type: Boolean, default: false },
@@ -21,11 +21,16 @@ export function useFixedBar (props: ExtractPropTypes<typeof useFixedBarProps>, i
     return isHiddenComputed.value ? 'absolute' : undefined
   })
 
-  const fixedBarStyleComputed = computed(() => ({
-    top: props.bottom && (isHiddenComputed.value || props.fixed) ? '100%' : undefined,
-    position: positionComputed.value,
-    transform: props.hideOnScroll || props.fixed ? transformComputed.value : undefined,
-  }))
+  const fixedBarStyleComputed = computed(() => {
+    const result = {
+      top: props.bottom && (isHiddenComputed.value || props.fixed) ? '100%' : undefined,
+      transform: props.hideOnScroll || props.fixed ? transformComputed.value : undefined,
+    }
+
+    positionComputed.value && Object.assign(result, { position: positionComputed.value })
+
+    return result
+  })
 
   return { fixedBarStyleComputed }
 }
