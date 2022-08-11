@@ -93,7 +93,7 @@ export default defineComponent({
 
   setup: (props, { slots }) => {
     const {
-      keyBy,
+      trackBy,
       textBy,
       iconColor,
       selectable,
@@ -126,7 +126,7 @@ export default defineComponent({
     }
 
     return {
-      keyBy,
+      trackBy,
       iconColor,
       selectable,
 

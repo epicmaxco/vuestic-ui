@@ -1311,7 +1311,7 @@
         "expandAll": "Expand or hide all nodes by default",
         "filter": "Tree view filter",
         "filterMethod": "Custom tree view filter method",
-        "keyBy": "Key to index nodes",
+        "trackBy": "Key to index nodes",
         "textBy": "Key to show the value of node item",
         "nodes": "Tree node array",
         "selectable": "Selectable",

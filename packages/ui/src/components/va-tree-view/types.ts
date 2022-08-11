@@ -14,7 +14,7 @@ export interface TreeNode {
 }
 
 export interface TreeView {
-  keyBy: string | number
+  trackBy: string | number
   textBy: string
   selectable: boolean
   iconColor: ComputedRef<string>

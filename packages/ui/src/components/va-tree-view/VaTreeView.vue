@@ -42,7 +42,7 @@ export default defineComponent({
       type: String,
       default: 'primary',
     },
-    keyBy: {
+    trackBy: {
       type: String,
       default: 'id',
     },
@@ -130,12 +130,12 @@ export default defineComponent({
       }
     }
 
-    const getKey = (node: TreeNode) => node[props.keyBy]
+    const getKey = (node: TreeNode) => node[props.trackBy]
 
     provide(TreeViewKey, {
       colorComputed,
       iconColor: textColorComputed,
-      keyBy: props.keyBy,
+      trackBy: props.trackBy,
       textBy: props.textBy,
       selectable: props.selectable,
       getKey,
