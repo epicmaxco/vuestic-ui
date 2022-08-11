@@ -105,7 +105,7 @@ export default {
     @include title-font();
 
     padding-top: 4.5rem;
-    font-size: 6rem;
+    font-size: 5rem;
     width: 100%;
     text-align: center;
     background: -webkit-linear-gradient(315deg, #3be88e 12%, #0c33f7);
@@ -114,10 +114,10 @@ export default {
 
     // lg
     @include lg(padding-top, 5rem);
-    @include lg(font-size, 4.5rem);
+    @include lg(font-size, 4rem);
 
     // md
-    @include md(font-size, 4rem);
+    @include md(font-size, 3.5rem);
 
     // sm
     @include sm(padding-top, 4rem);
