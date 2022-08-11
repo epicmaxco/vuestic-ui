@@ -8,8 +8,7 @@
           <va-button class="admin__buttons--button"
                      href="https://github.com/epicmaxco/vuestic-admin"
                      target="blank"
-                     :rounded="false"
-                     color="primary"
+                     preset="plain"
           >
             <va-icon class="fa fa-github" style="margin-right: 0.5rem;" />
             {{ $t('landing.admin.buttons.github') }}
@@ -17,9 +16,7 @@
           <va-button class="admin__buttons--button"
                      href="https://vuestic.epicmax.co/admin/dashboard"
                      target="blank"
-                     :rounded="false"
-                     color="primary"
-                     flat
+                     preset="plain"
           >
             {{ $t('landing.admin.buttons.demo') }}
           </va-button>

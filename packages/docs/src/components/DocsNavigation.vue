@@ -13,7 +13,7 @@
     </va-button>
 
     <va-button
-      flat
+      preset="plain"
       size="small"
       class="docs-navigation__button"
       color="gray"
@@ -24,7 +24,7 @@
     </va-button>
 
     <va-button
-      flat
+      preset="plain"
       size="small"
       class="docs-navigation__button"
       color="gray"
@@ -38,7 +38,7 @@
     <form :action="sandboxDefineUrl" method="POST" target="_blank">
       <input type="hidden" name="parameters" :value="sandboxParams" />
       <va-button
-        flat
+        preset="plain"
         type="submit"
         size="small"
         class="docs-navigation__button"

@@ -7,11 +7,12 @@
       <va-button
         :disabled="$props.disabled"
         icon="chevron_left"
-        flat
+        preset="plain"
         size="small"
         :color="color"
         textColor="dark"
         aria-label="next period"
+        round
         @click="prev"
       />
     </slot>
@@ -20,9 +21,8 @@
       <slot name="header" v-bind="{ year: syncView.year, month: syncView.month, monthNames, view: syncView, changeView, switchView }">
         <va-button
           :disabled="$props.disabled"
-          flat
+          preset="plain"
           size="small"
-          :rounded="false"
           :color="color"
           textColor="dark"
           aria-label="switch view"
@@ -41,12 +41,13 @@
       <va-button
         :disabled="$props.disabled"
         icon="chevron_right"
-        flat
+        preset="plain"
         size="small"
         :color="color"
         textColor="dark"
         aria-label="previous period"
         @click="next"
+        round
       />
     </slot>
   </div>

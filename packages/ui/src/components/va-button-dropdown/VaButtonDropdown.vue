@@ -1,20 +1,18 @@
 <template>
-  <div :class="computedClass">
+  <div class="va-button-dropdown" :class="computedClass">
     <va-dropdown
       v-if="!$props.split"
+      v-model="valueComputed"
       :disabled="$props.disabled"
       :placement="$props.placement"
       :offset="$props.offset"
       :keep-anchor-width="$props.keepAnchorWidth"
       :close-on-content-click="$props.closeOnContentClick"
       :stateful="$props.stateful"
-      v-model="valueComputed"
     >
       <template #anchor>
         <va-button
-          :disabled="$props.disabled"
-          :round="!$props.label && !$slots.label"
-          v-bind="{ ...computedButtonIcons, ...computedViewStyles }"
+          v-bind="{ ...computedButtonIcons, ...buttonPropsComputed }"
           v-on="listeners"
           @keydown.esc.prevent="hideDropdown"
         >
@@ -31,8 +29,8 @@
 
     <va-button-group
       v-else
-      :class="{ 'va-button-group__left-icon': $props.leftIcon }"
-      v-bind="computedViewStyles"
+      :class="splitButtonClassComputed"
+      v-bind="buttonPropsComputed"
     >
       <va-button
         v-if="!$props.leftIcon"
@@ -46,13 +44,13 @@
       </va-button>
 
       <va-dropdown
+        v-model="valueComputed"
         :disabled="$props.disabled || $props.disableDropdown"
         :placement="$props.placement"
         :offset="$props.offset"
         :stateful="$props.stateful"
         :close-on-content-click="$props.closeOnContentClick"
         prevent-overflow
-        v-model="valueComputed"
       >
         <template #anchor>
           <va-button
@@ -83,64 +81,55 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType } from 'vue'
-import pick from 'lodash/pick.js'
+import { defineComponent, PropType, computed } from 'vue'
+import { extractComponentProps } from '../../utils/child-props'
 
-import { useComponentPresetProp, useStateful, useStatefulProps, useEmitProxy, Placement, placementsPositions } from '../../composables'
+import {
+  useBem,
+  useDeprecatedProps,
+  useComponentPresetProp,
+  useStateful, useStatefulProps,
+  useEmitProxy,
+  Placement, placementsPositions,
+} from '../../composables'
 
-import { VaDropdown, VaDropdownContent } from '../va-dropdown'
 import { VaButton } from '../va-button'
 import { VaButtonGroup } from '../va-button-group'
+import { VaDropdown, VaDropdownContent } from '../va-dropdown'
 
-const { createEmits, createVOnListeners: createListeners } = useEmitProxy(
-  ['click'],
-)
+import omit from 'lodash/omit.js'
 
+const { createEmits, createVOnListeners: createListeners } = useEmitProxy(['click'])
 const { createEmits: createMainButtonEmits, createVOnListeners: createMainButtonListeners } = useEmitProxy(
   [{ listen: 'click', emit: 'main-button-click' }],
 )
 
-const componentName = 'VaButtonDropdown'
+const VaButtonProps = omit(extractComponentProps(VaButton), ['iconRight', 'block'])
 
 export default defineComponent({
-  name: componentName,
-
+  name: 'VaButtonDropdown',
   components: {
-    VaButtonGroup,
     VaButton,
     VaDropdown,
+    VaButtonGroup,
     VaDropdownContent,
   },
-
   emits: ['update:modelValue', ...createEmits(), ...createMainButtonEmits()],
-
   props: {
-    ...useStatefulProps,
     ...useComponentPresetProp,
-
+    ...VaButtonProps,
+    ...useStatefulProps,
     modelValue: { type: Boolean, default: false },
     stateful: { type: Boolean, default: true },
-
-    color: { type: String, default: 'primary' },
-    textColor: { type: String, default: undefined },
-    size: {
-      type: String as PropType<'medium' | 'small' | 'large'>,
-      default: 'medium',
-      validator: (value: string) => ['medium', 'small', 'large'].includes(value),
-    },
-    outline: { type: Boolean, default: false },
-    flat: { type: Boolean, default: false },
-    rounded: { type: Boolean, default: true },
-    gradient: { type: Boolean, default: undefined },
 
     icon: { type: String, default: 'expand_more' },
     openedIcon: { type: String, default: 'expand_less' },
     hideIcon: { type: Boolean, default: false },
     leftIcon: { type: Boolean, default: false },
 
+    disabled: { type: Boolean, default: false },
     disableButton: { type: Boolean, default: false },
     disableDropdown: { type: Boolean, default: false },
-    disabled: { type: Boolean, default: false },
 
     placement: {
       type: String as PropType<Placement>,
@@ -160,27 +149,47 @@ export default defineComponent({
   },
 
   setup (props, { emit, slots }) {
+    // TODO(1.6.0): Remove deprecated props
+    useDeprecatedProps(['flat', 'outline'])
+
     const { valueComputed } = useStateful(props, emit)
 
-    const computedIcon = computed<string>(() => {
-      return valueComputed.value ? props.openedIcon : props.icon
-    })
+    const computedIcon = computed(() => valueComputed.value ? props.openedIcon : props.icon)
 
-    const computedClass = computed(() => ({
-      'va-button-dropdown': true,
-      'va-button-dropdown--split': props.split,
-      'va-button-dropdown--normal': props.size === 'medium',
-      'va-button-dropdown--large': props.size === 'large',
-      'va-button-dropdown--small': props.size === 'small',
+    const computedClass = useBem('va-button-dropdown', () => ({
+      split: props.split,
     }))
 
     const computedButtonIcons = computed(() => {
+      if (props.hideIcon) { return {} }
+
       const propName = (props.label || slots.label) && !props.leftIcon ? 'icon-right' : 'icon'
-      return props.hideIcon ? {} : { [propName]: computedIcon.value }
+      return { [propName]: computedIcon.value }
     })
 
-    const computedViewStyles = computed(
-      () => pick(props, ['outline', 'gradient', 'rounded', 'flat', 'size', 'color']),
+    const buttonPropsFiltered = computed(() => {
+      let ignoredProps = ['to', 'href', 'loading', 'icon']
+      const presetProps = [
+        'plain',
+        'textOpacity', 'backgroundOpacity',
+        'hoverOpacity', 'hoverBehaviour', 'hoverOpacity',
+        'pressedOpacity', 'pressedBehaviour', 'pressedOpacity',
+      ]
+
+      if (props.preset) {
+        ignoredProps = [...ignoredProps, ...presetProps]
+      }
+
+      const filteredProps = omit(VaButtonProps, ignoredProps)
+      return Object.keys(filteredProps)
+    })
+    const buttonPropsComputed = computed(
+      () => Object.entries(props)
+        .filter(([key, _]) => buttonPropsFiltered.value.includes(key))
+        .reduce((acc, [key, value]) => {
+          Object.assign(acc, { [key]: value })
+          return acc
+        }, {}),
     )
 
     const computedMainButtonProps = computed(() => ({
@@ -189,6 +198,8 @@ export default defineComponent({
       loading: props.loading,
     }))
 
+    const splitButtonClassComputed = computed(() => ({ 'va-button-group__left-icon': props.leftIcon }))
+
     const hideDropdown = () => { valueComputed.value = false }
 
     return {
@@ -196,11 +207,12 @@ export default defineComponent({
       valueComputed,
       computedIcon,
       computedClass,
+      computedButtonIcons,
+      buttonPropsComputed,
+      computedMainButtonProps,
+      splitButtonClassComputed,
       listeners: createListeners(emit),
       mainButtonListeners: createMainButtonListeners(emit),
-      computedButtonIcons,
-      computedViewStyles,
-      computedMainButtonProps,
     }
   },
 })

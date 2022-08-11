@@ -15,12 +15,12 @@
     </template>
 
     <template #buttonNext="{ onClick }">
-      <va-button flat size="small" class="link" @click="onClick">
+      <va-button preset="plain" size="small" class="link" @click="onClick">
         →
       </va-button>
     </template>
     <template #buttonPrev="{ onClick }">
-      <va-button flat size="small" class="link" @click="onClick">
+      <va-button preset="plain" size="small" class="link" @click="onClick">
         ←
       </va-button>
     </template>

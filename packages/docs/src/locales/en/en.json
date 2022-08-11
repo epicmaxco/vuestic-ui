@@ -147,7 +147,20 @@
         "tabindex": "Sets the custom `tabindex`.",
         "preset": "Named preset combination of component props.",
         "hideOnScroll": "Hides component when scrolling.",
-        "bottom": "Sets the component position to the bottom (`fixed` state)."
+        "bottom": "Sets the component position to the bottom (`fixed` state).",
+        "backgroundOpacity": "Sets up button background opacity.",
+        "hoverBehaviour": "Behaviour of the button, when it's being hovered. Can be `mask` (superimposes color mask on the background or text color for plain state) or `opacity` (adds opacity to the background or text color for plain state).",
+        "hoverMaskColor": "Mask color for `mask` behaviour.",
+        "hoverOpacity": "Opacity value for `opacity` behaviour and mask opacity for `mask` behaviour.",
+        "pressedBehaviour": "Behaviour of the button, when it's being pressed. Can be `mask` (superimposes color mask on the background or text color for plain state) or `opacity` (adds opacity to the background or text color for plain state).",
+        "pressedMaskColor": "Mask color for `mask` behaviour.",
+        "pressedOpacity": "Opacity value for `opacity` behaviour and mask opacity for `mask` behaviour.",
+        "textOpacity": "Sets up button text opacity.",
+        "iconColor": "Sets up an icon color.",
+        "type": "Will be used as value for html `type` attribute.",
+        "plain": "Applies `plain` styling.",
+        "round": "Adds rounded corners (or make a button fully rounded if only icon is passed).",
+        "iconRight": "The icon to be displayed to the right of a title."
       }
     },
     "VaBadge": {
@@ -163,18 +176,11 @@
     },
     "VaButton": {
       "props": {
-        "outline": "Applies outline styling",
-        "flat": "Applies `flat` styling",
-        "icon": "The icon to be displayed to the left of a title",
-        "iconRight": "The icon to be displayed to the right of a title",
-        "type": "Will be used as value for html `type` attribute",
-        "block": "Applies block styling (will take 100% of container width)",
-        "rounded": "Adds rounded corners",
-        "round": "Makes the button round",
-        "spaceBetweenItems": "Sets margin between multiple buttons",
-        "gradient": "Makes the button color a gradient",
-        "href": "Will be used as value for html `href` attribute. (If used, `<button />` will be replaced with `<a>` tag)",
-        "target": "Will be used as value for html `target` attribute (If used, `<button />` will be replaced with `<a>` tag)"
+        "icon": "The icon to be displayed to the left of the title.",
+        "gradient": "Makes the button background color a gradient (only if `backgroundColor` prop is equal to `1`).",
+        "href": "Will be used as value for html `href` attribute (if used, `<button />` will be replaced with `<a>` tag).",
+        "target": "Will be used as value for html `target` attribute.",
+        "block": "Applies block styling (will take 100% of container width)."
       },
       "slots": {
         "default": "Slot for button content"
@@ -848,22 +854,21 @@
     },
     "VaButtonDropdown": {
       "props": {
-        "size": "Specify size for component. `\"small\"`, `\"medium\"`, `\"large\"` sizes are available.",
         "disableDropdown": "Disables the dropdown menu.",
         "disableButton": "Disables the button.",
-        "round": "Sets the square style for a button.",
         "split": "Divides the button into two parts. This is useful when you have main action (button) and a number of secondary actions (icon + dropdown).",
         "splitTo": "Sets a vue navigation link in a split component.",
         "splitHref": "Sets a native navigation link in a split component.",
         "icon": "Applies a custom icon in the dropdown section.",
-        "leftIcon": "Sets the icon position to the left",
-        "hideIcon": "Hide icon (when `split = false`)",
+        "leftIcon": "Sets the icon position to the left.",
+        "hideIcon": "Hide icon (when `split` is disabled).",
         "openedIcon": "Applies a custom icon in the dropdown section when the dropdown is opened.",
         "placement": "Sets the placement of the dropdown content.",
         "keepAnchorWidth": "Keeps anchor position the same.",
         "offset": "Sets the distance between dropdown and anchor.",
         "modelValue": "Sets a dropdown state.",
-        "closeOnContentClick": "Sets dropdown content on click behavior."
+        "closeOnContentClick": "Sets dropdown content on click behavior.",
+        "gradient": "Makes the button background color a gradient (only if `backgroundColor` prop is equal to `1`)."
       },
       "events": {
         "click": "Emitted when user clicks on button.",
@@ -1690,11 +1695,15 @@
   },
   "button": {
     "title": "Button",
-    "summaryText": "The `va-button` component replaces the standard HTML button. It offers multiple built-in styles and allows a user to change color and size manually.",
+    "summaryText": "The `va-button` component replaces the standard HTML button. It offers multiple built-in style presets and allows user to change different attributes (size, color, opacity etc.) manually.",
     "examples": {
       "default": {
         "title": "Default",
         "text": "Just a simple button."
+      },
+      "presets": {
+        "title": "Presets",
+        "text": "The `preset` prop is used to change the build-in style of the component."
       },
       "withColor": {
         "title": "Colors",
@@ -1702,7 +1711,7 @@
       },
       "withGradient": {
         "title": "Gradient",
-        "text": "It’s used to apply a gradient style to a background."
+        "text": "Used to apply a gradient style to a background (only if `backgroundOpacity` prop is equals `1`)."
       },
       "withTextColor": {
         "title": "Text colors",
@@ -1712,25 +1721,29 @@
         "title": "Sizes",
         "text": "The `size` prop is used to fit your button to any place on your web page."
       },
-      "withStyle": {
-        "title": "Different styles",
-        "text": "We have 3 styles available: `outlined`, `flat` and `square`."
+      "withRound": {
+        "title": "Rounded",
+        "text": "You can make your button rounded using `round` prop."
+      },
+      "withOutline": {
+        "title": "Outlined",
+        "text": "You can make the button outlined using prop `border-color`."
       },
       "withIcon": {
         "title": "Add icons",
-        "text": "You can add icons to `va-button` with 2 different props: `icon` and `icon-right`"
-      },
-      "withConfig": {
-        "title": "Icons as slots with config",
-        "text": "You can wrap your buttons with `VaConfig` and pass icons as slots"
+        "text": "You can add icons to `va-button` with 2 different props: `icon` and `icon-right`. Also you can specify color for them via `icon-color` prop."
       },
       "withLoading": {
         "title": "Loading state",
-        "text": "You can add loading state to the button"
+        "text": "You can add loading state to the button."
       },
       "disabled": {
         "title": "Disabled",
-        "text": "The `disabled` prop prevent any actions with button."
+        "text": "The `disabled` prop prevents any actions with button."
+      },
+      "behaviour": {
+        "title": "Behaviour",
+        "text": "You can change hover or pressed behavior of the button via `hover`/`pressedBehaviour`, `hover`/`pressedMaskColor` and `hover`/`pressedOpacity` props."
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-button/_variables.scss)[[target=_blank]]"
@@ -3161,7 +3174,7 @@
   },
   "buttonGroup": {
     "title": "Button Group",
-    "summaryText": "It is a special component that wraps buttons and applies special styles to them.",
+    "summaryText": "It is a special component that wrap buttons and applies special styles to them.",
     "examples": {
       "default": {
         "title": "Basic usage",
@@ -3180,12 +3193,12 @@
         "text": "You can set different sizes."
       },
       "styles": {
-        "title": "Styles",
-        "text": "You can set button styles."
+        "title": "Presets & styles",
+        "text": "You can use the same presets and styles as in [va-button](https://vuestic.dev/ui-elements/button)[[target=_blank]]."
       },
       "icons": {
         "title": "Icons",
-        "text": "Looks good with icons provided to buttons."
+        "text": "Looks good with icons provided to buttons. "
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-button-group/_variables.scss)[[target=_blank]]"
@@ -3215,8 +3228,8 @@
         "text": "You can provide size presets to the component."
       },
       "styles": {
-        "title": "Styles",
-        "text": "You can set button styles to the component."
+        "title": "Presets & styles",
+        "text": "You can use the same presets and styles as in [va-button](https://vuestic.dev/ui-elements/button)[[target=_blank]]."
       },
       "disabled": {
         "title": "Disabled",
@@ -3780,7 +3793,7 @@
     "examples": {
       "default": {
         "title": "Basic usage",
-        "text": "By default, wrap your content in `va-button-dropdown` component."
+        "text": "By default, wraps your content in `va-button-dropdown` component."
       },
       "split": {
         "title": "Split",
@@ -3795,8 +3808,8 @@
         "text": "Component can apply button sizes."
       },
       "styles": {
-        "title": "Styles",
-        "text": "You can use the same styles as in `va-button`."
+        "title": "Presets & styles",
+        "text": "You can use the same presets and styles as in [va-button](https://vuestic.dev/ui-elements/button)[[target=_blank]]."
       },
       "disabled": {
         "title": "Disabled",
@@ -3804,7 +3817,7 @@
       },
       "icons": {
         "title": "Icons",
-        "text": "You can set the dropdown icon."
+        "text": "You can set the dropdown icon and its color."
       },
       "events": {
         "title": "Events",

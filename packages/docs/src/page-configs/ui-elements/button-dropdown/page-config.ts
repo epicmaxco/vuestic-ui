@@ -36,7 +36,7 @@ const config: ApiDocsBlock[] = [
   ...block.exampleBlock(
     'buttonDropdown.examples.styles.title',
     'buttonDropdown.examples.styles.text',
-    'Styles',
+    'Presets',
   ),
   ...block.exampleBlock(
     'buttonDropdown.examples.disabled.title',

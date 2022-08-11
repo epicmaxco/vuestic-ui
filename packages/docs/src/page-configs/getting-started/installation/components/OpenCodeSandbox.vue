@@ -4,8 +4,8 @@
     <input type="hidden" name="parameters" :value="sandboxParams" />
     <va-button
       type="submit"
-      outline
-      :rounded="false"
+      preset="secondary"
+      border-color="primary"
     >
       {{ $t('installation.codesandbox.button') }}
     </va-button>

@@ -1,247 +1,133 @@
 <template>
   <VbDemo>
-    <VbCard title="empty">
-      <va-button />
-    </VbCard>
-
-    <VbCard>
+    <VbCard class="va-button-demo">
       <table class="table table-bordered">
-        <tr>
-          <th>Description</th>
-          <th>Vuestic Button</th>
-        </tr>
         <tr>
           <td>Types</td>
           <td>
-            <va-button outline>
-              Outline Button
-            </va-button>
-            <va-button flat>
-              Flat Button
-            </va-button>
+            <va-button>Accent (default)</va-button>
+            <va-button preset="primary">Primary</va-button>
+            <va-button preset="secondary">Secondary</va-button>
+            <va-button preset="plain">Plain</va-button>
+            <va-button preset="plainOpacity">Plain with opacity</va-button>
           </td>
         </tr>
+
         <tr>
-          <td>Sizes</td>
           <td>
-            <va-button>
-              Default Button
+            Custom hover behaviour
+          </td>
+          <td>
+            <va-button :backgroundOpacity="0.9" hoverBehaviour="opacity" :hoverOpacity="0.4">
+              Hover me
             </va-button>
-            <va-button size="large">
-              Large Button
+            <va-button preset="primary" hoverBehaviour="mask" hoverMaskColor="warning" :hoverOpacity="1">
+              Hover me
             </va-button>
-            <va-button size="small">
-              Small Button
+            <va-button preset="secondary" hoverBehaviour="opacity" :hoverOpacity="0.4">
+              Hover me
             </va-button>
-            <va-button outline>
-              Default Button
-            </va-button>
-            <va-button
-              size="large"
-              outline
-            >
-              Large Button
-            </va-button>
-            <va-button
-              size="small"
-              outline
-            >
-              Small Button
-            </va-button>
-            <va-button flat>
-              Default Button
-            </va-button>
-            <va-button
-              size="large"
-              flat
-            >
-              Large Button
-            </va-button>
-            <va-button
-              size="small"
-              flat
-            >
-              Small Button
+            <va-button preset="plain" hoverBehaviour="mask" hoverMaskColor="warning" :hoverOpacity="1">
+              Hover me
             </va-button>
           </td>
         </tr>
+
         <tr>
-          <td>Primary Button Colors</td>
           <td>
-            <div>
-              <va-button>
-                Success Button
-              </va-button>
-              <va-button color="info">
-                Info Button
-              </va-button>
-              <va-button color="danger">
-                Danger Button
-              </va-button>
-              <va-button color="warning">
-                Warning Button
-              </va-button>
-              <va-button color="gray">
-                Gray Button
-              </va-button>
-              <va-button color="dark">
-                Dark Button
-              </va-button>
-            </div>
+            Custom press behaviour
+          </td>
+          <td>
+            <va-button :backgroundOpacity="0.9" pressedBehaviur="opacity" :hoverOpacity="0.4">
+              Hover me
+            </va-button>
+            <va-button preset="primary" pressedBehaviur="mask" hoverMaskColor="warning" :hoverOpacity="1">
+              Hover me
+            </va-button>
+            <va-button preset="secondary" pressedBehaviur="opacity" :hoverOpacity="0.4">
+              Hover me
+            </va-button>
+            <va-button preset="plain" hoverBehaviour="mask" hoverMaskColor="warning" :hoverOpacity="1">
+              Hover me
+            </va-button>
           </td>
         </tr>
+
         <tr>
-          <td>Outline Button Colors</td>
+          <td>Small size</td>
           <td>
-            <div>
-              <va-button outline>
-                Success Button
-              </va-button>
-              <va-button
-                outline
-                color="info"
-              >
-                Info Button
-              </va-button>
-              <va-button
-                outline
-                color="danger"
-              >
-                Danger Button
-              </va-button>
-              <va-button
-                outline
-                color="warning"
-              >
-                Warning Button
-              </va-button>
-              <va-button
-                outline
-                color="gray"
-              >
-                Gray Button
-              </va-button>
-              <va-button
-                outline
-                color="dark"
-              >
-                Dark Button
-              </va-button>
-            </div>
+            <va-button size="small">Accent (default)</va-button>
+            <va-button size="small" preset="primary">Primary</va-button>
+            <va-button size="small" preset="secondary">Secondary</va-button>
+            <va-button size="small" preset="plain">Plain</va-button>
+            <va-button size="small" preset="plainOpacity">Plain with opacity</va-button>
           </td>
         </tr>
+
         <tr>
-          <td>Flat Button Colors</td>
+          <td>Large size</td>
           <td>
-            <div>
-              <va-button flat>
-                Success Button
-              </va-button>
-              <va-button
-                flat
-                color="info"
-              >
-                Info Button
-              </va-button>
-              <va-button
-                flat
-                color="danger"
-              >
-                Danger Button
-              </va-button>
-              <va-button
-                flat
-                color="warning"
-              >
-                Warning Button
-              </va-button>
-              <va-button
-                flat
-                color="gray"
-              >
-                Gray Button
-              </va-button>
-              <va-button
-                flat
-                color="dark"
-              >
-                Dark Button
-              </va-button>
-            </div>
+            <va-button size="large">Accent (default)</va-button>
+            <va-button size="large" preset="primary">Primary</va-button>
+            <va-button size="large" preset="secondary">Secondary</va-button>
+            <va-button size="large" preset="plain">Plain</va-button>
+            <va-button size="large" preset="plainOpacity">Plain with opacity</va-button>
           </td>
         </tr>
+
+        <tr>
+          <td>With icons</td>
+          <td>
+            <va-button icon="create">Edit Button</va-button>
+            <va-button preset="secondary" icon="gavel" iconRight="clear">Mixed Button</va-button>
+            <va-button preset="plainOpacity" icon="gavel">Plain with icon</va-button>
+            <va-button preset="primary" size="small" icon="create">Small Edit Button</va-button>
+            <va-button preset="primary" icon="gavel" icon-color="warning">Mixed Colors</va-button>
+            <va-button preset="primary" icon-right="clear">Dropdown Button</va-button>
+          </td>
+        </tr>
+
+        <tr>
+          <td>Button Colors</td>
+          <td>
+            <va-button color="info">Info</va-button>
+            <va-button preset="primary" color="danger">Danger</va-button>
+            <va-button preset="secondary" color="warning">Warning</va-button>
+            <va-button preset="plain" color="gray">Gray</va-button>
+            <va-button preset="plainOpacity" color="dark">Dark</va-button>
+          </td>
+        </tr>
+
         <tr>
           <td>Disabled state</td>
           <td>
-            <va-button disabled>
-              Default Button
-            </va-button>
-            <va-button
-              disabled
-              outline
-            >
-              Outline Button
-            </va-button>
-            <va-button
-              disabled
-              flat
-            >
-              Flat Button
-            </va-button>
+            <va-button disabled>Accent (default)</va-button>
+            <va-button preset="primary" disabled>Primary</va-button>
+            <va-button preset="secondary" disabled>Secondary</va-button>
+            <va-button preset="plain" disabled>Plain</va-button>
+            <va-button preset="plainOpacity" disabled>Plain with opacity</va-button>
           </td>
         </tr>
+
         <tr>
           <td>Button tags</td>
           <td>
-            <va-button>
-              Default Button
-            </va-button>
-            <va-button
-              href="http://epic-spinners.epicmax.co/"
-            >
-              A-link Button
-            </va-button>
-            <va-button
-              to="/demo"
-            >
-              Router-link Button
-            </va-button>
+            <va-button>Default</va-button>
+            <va-button href="http://epic-spinners.epicmax.co/">A-link Button</va-button>
+            <va-button to="/demo">Router-link Button</va-button>
           </td>
         </tr>
+
         <tr>
-          <td>Primary Buttons With icons</td>
-          <td>
-            <va-button icon="create">
-              Plus Button
-            </va-button>
-            <va-button iconRight="clear">
-              Dropdown button
-            </va-button>
-            <va-button icon="create" iconRight="clear">
-              Mixed button
-            </va-button>
-            <va-button icon="palette" color="warning" text-color="danger" />
-            <va-button icon-right="create" color="warning" text-color="danger" />
-            <va-button icon="palette" icon-right="create" color="warning" text-color="#45ffaa" />
-          </td>
-        </tr>
-        <tr>
-          <td>Buttons with icons (As slots with config)</td>
+          <td>Buttons with icons (as slots with config)</td>
           <td>
             <va-config :components="{ VaIcon: { color: '#f00' } }">
-              <va-button color="warning" space-between-items>
+              <va-button color="danger">
                 <va-icon name="gavel" color="white" />
                 Colored icons
                 <va-icon name="shield" color="white" />
               </va-button>
-
-              <va-button color="warning" flat space-between-items>
-                <va-icon name="gavel" color="warning" />
-                Colored icons
-                <va-icon name="shield" color="warning" />
-              </va-button>
-
-              <va-button color="warning" outline space-between-items>
+              <va-button preset="plain" color="warning">
                 <va-icon name="gavel" color="warning" />
                 Colored icons
                 <va-icon name="shield" color="warning" />
@@ -249,164 +135,39 @@
             </va-config>
           </td>
         </tr>
+
         <tr>
-          <td>Outline Buttons With icons</td>
+          <td>Outline Buttons</td>
           <td>
-            <va-button outline icon="create">
-              Plus Button
-            </va-button>
-            <va-button outline iconRight="clear">
-              Dropdown button
-            </va-button>
-            <va-button outline icon="create" iconRight="clear">
-              Mixed button
+            <va-button border-color="primary" preset="primary" icon="create">Secondary</va-button>
+            <va-button border-color="primary" preset="secondary" iconRight="clear">Secondary</va-button>
+            <va-button border-color="primary" preset="plain" icon="create" iconRight="clear">
+              Secondary
             </va-button>
           </td>
         </tr>
+
         <tr>
-          <td>Flat Buttons With icons</td>
-          <td>
-            <va-button flat icon="create">
-              Plus Button
-            </va-button>
-            <va-button flat iconRight="clear">
-              Dropdown button
-            </va-button>
-            <va-button flat icon="create" iconRight="clear">
-              Mixed button
-            </va-button>
-          </td>
-        </tr>
-        <tr>
-          <td>Large Buttons With icons</td>
-          <td>
-            <va-button
-              size="large"
-              icon="create"
-            >
-              Plus Button
-            </va-button>
-            <va-button
-              outline
-              size="large"
-              iconRight="clear"
-            >
-              Dropdown button
-            </va-button>
-            <va-button
-              flat
-              size="large"
-              icon="create" iconRight="clear"
-            >
-              Mixed button
-            </va-button>
-          </td>
-        </tr>
-        <tr>
-          <td>Small Buttons With icons</td>
-          <td>
-            <va-button size="small" icon="create">
-              Plus Button
-            </va-button>
-            <va-button outline size="small" iconRight="clear">
-              Dropdown button
-            </va-button>
-            <va-button flat size="small" icon="create" iconRight="clear">
-              Mixed button
-            </va-button>
-          </td>
-        </tr>
-        <tr>
-          <td>All Buttons Without Title</td>
+          <td>Icons-only Buttons</td>
           <td>
             <va-button icon="block" />
-            <va-button size="large" icon="block" />
-            <va-button size="small" icon="block" />
-            <va-button outline icon="block" />
-            <va-button outline size="large" icon="block" />
-            <va-button outline size="small" icon="block" />
-            <va-button flat icon="block" />
-            <va-button flat size="large" icon="block" />
-            <va-button flat size="small" icon="block" />
+            <va-button preset="primary" icon="block" />
+            <va-button preset="secondary" icon="block" />
+            <va-button preset="plain" icon="block" />
+            <va-button preset="plainOpacity" icon="block" />
           </td>
         </tr>
+
         <tr>
           <td>
             Buttons with loading status
           </td>
           <td>
-            <va-button
-              :loading="buttonLoading"
-              @click="buttonLoading = true"
-              size="small"
-            >
-              Start loading
+            <va-button :loading="buttonLoading" @click="buttonLoading = true">Start loading</va-button>
+            <va-button preset="primary" :loading="buttonLoading" @click="buttonLoading = true">Start
+              loading
             </va-button>
-            <va-button
-              :loading="buttonLoading"
-              @click="buttonLoading = true"
-              size="medium"
-            >
-              Start loading
-            </va-button>
-            <va-button
-              :loading="buttonLoading"
-              @click="buttonLoading = true"
-              size="large"
-            >
-              Start loading
-            </va-button>
-            <va-button
-              @click="buttonLoading = false"
-            >
-              Stop loading
-            </va-button>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            Block button (full width)
-          </td>
-          <td>
-            <va-button block>
-              Block Button
-            </va-button>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            Square button
-          </td>
-          <td style="padding-top: 10px;">
-            <va-button
-              :rounded="false"
-              size="small"
-              style="margin-right: 10px;"
-            >
-              Square Button
-            </va-button>
-            <va-button
-              :rounded="false"
-              size="medium"
-              style="margin-left: 10px;"
-            >
-              Square Button
-            </va-button>
-            <va-button
-              :rounded="false"
-              size="large"
-              style="margin-left: 10px;"
-            >
-              Square Button
-            </va-button>
-            <va-button
-              :rounded="false"
-              size="medium"
-              outline
-              style="margin-left: 10px;"
-            >
-              Square Button
-            </va-button>
+            <va-button @click="buttonLoading = false">Stop loading</va-button>
           </td>
         </tr>
 
@@ -414,32 +175,11 @@
           <td>
             Round button
           </td>
-          <td style="padding-top: 10px;">
-            <va-button
-              style="margin-right: 10px;"
-              round
-            >
-            </va-button>
-          </td>
-        </tr>
-
-        <tr>
           <td>
-            Space between items
-          </td>
-          <td style="padding-top: 10px;">
-            <va-button
-              style="margin-right: 10px;"
-              spaceBetweenItems
-            >
-              Item
-            </va-button>
-            <va-button
-              style="margin-right: 10px;"
-              spaceBetweenItems
-            >
-              Item
-            </va-button>
+            <va-button round>Label</va-button>
+            <va-button round icon="block" />
+            <va-button preset="primary" round icon="block" />
+            <va-button preset="primary" border-color="warning" round>Label</va-button>
           </td>
         </tr>
 
@@ -447,26 +187,10 @@
           <td>
             Public methods (focus, blur)
           </td>
-          <td style="padding-top: 10px;">
-            <va-button
-              style="margin-right: 10px;"
-              @click="$refs.testButton.focus()"
-            >
-              Focus right button
-            </va-button>
-            <va-button
-              size="large"
-              style="margin-right: 10px;"
-              ref="testButton"
-            >
-              Button
-            </va-button>
-            <va-button
-              style="margin-right: 10px;"
-              @click="$refs.testButton.blur()"
-            >
-              Blur left button
-            </va-button>
+          <td>
+            <va-button @click="$refs.testButton.focus()">Focus Main Button</va-button>
+            <va-button ref="testButton">Main Button</va-button>
+            <va-button @click="$refs.testButton.blur()">Blur Main Button</va-button>
           </td>
         </tr>
 
@@ -474,12 +198,9 @@
           <td>
             Multiline text
           </td>
-          <td style="padding-top: 10px;">
+          <td>
             <va-button style="width: 150px;">
               Default Button with long text
-            </va-button>
-            <va-button size="large" style="width: 150px;">
-              Large Button with long text
             </va-button>
             <va-button size="small" style="width: 150px;">
               Small Button with long text
@@ -497,13 +218,23 @@ import { VaConfig } from '../va-config'
 import { VaButton } from './index'
 
 export default {
-  components: {
-    VaButton, VaIcon, VaConfig,
-  },
-  data () {
-    return {
-      buttonLoading: true,
-    }
-  },
+  components: { VaButton, VaIcon, VaConfig },
+  data: () => ({
+    buttonLoading: true,
+  }),
 }
 </script>
+
+<style lang="scss">
+.va-button-demo {
+  & .va-button {
+    margin-right: 16px;
+  }
+
+  & td {
+    padding-top: 16px;
+    display: flex;
+    align-items: center;
+  }
+}
+</style>

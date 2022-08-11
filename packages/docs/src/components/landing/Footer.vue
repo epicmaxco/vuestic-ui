@@ -7,9 +7,7 @@
             class="footer__buttons__button"
             href="https://epicmax.co/about"
             target="blank"
-            :rounded="false"
-            color="primary"
-            flat
+            preset="plain"
           >
             <va-icon class="button-icon" :component="IconEpicmax" />
             {{ $t("landing.footer.buttons.epicmax") }}
@@ -18,9 +16,7 @@
             class="footer__buttons__button"
             href="https://github.com/epicmaxco/vuestic-admin"
             target="blank"
-            :rounded="false"
-            color="primary"
-            flat
+            preset="plain"
           >
             <va-icon class="button-icon" :component="IconAdmin" />
             {{ $t("landing.footer.buttons.admin") }}
@@ -29,9 +25,7 @@
             class="footer__buttons__button"
             href="https://github.com/epicmaxco/epic-spinners"
             target="blank"
-            :rounded="false"
-            color="primary"
-            flat
+            preset="plain"
           >
             <va-icon class="button-icon" :component="IconSpinners" />
             {{ $t("landing.footer.buttons.spinners") }}
@@ -43,8 +37,7 @@
             href="https://github.com/epicmaxco/vuestic-ui/"
             aria-label="go to the vuestic ui github page"
             target="blank"
-            color="primary"
-            flat
+            preset="plain"
           >
             <va-icon class="mdi mdi-github" />
           </va-button>
@@ -53,8 +46,7 @@
             href="https://discord.gg/u7fQdqQt8c"
             aria-label="go to the vuestic ui discord channel"
             target="blank"
-            color="primary"
-            flat
+            preset="plain"
           >
             <va-icon class="mdi mdi-discord" />
           </va-button>
@@ -63,8 +55,7 @@
             href="https://www.facebook.com/epicmaxco/"
             aria-label="go to the vuestic ui facebook page"
             target="blank"
-            color="primary"
-            flat
+            preset="plain"
           >
             <va-icon class="mdi mdi-facebook" />
           </va-button>
@@ -73,8 +64,7 @@
             href="https://twitter.com/epicmaxco"
             aria-label="go to the vuestic ui twitter page"
             target="blank"
-            color="primary"
-            flat
+            preset="plain"
           >
             <va-icon class="mdi mdi-twitter" />
           </va-button>
