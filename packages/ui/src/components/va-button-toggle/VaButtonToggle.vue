@@ -47,7 +47,7 @@ export default defineComponent({
   },
 
   setup (props, { emit }) {
-    // temp
+    // TODO(1.6.0): Remove deprecated props
     useDeprecatedProps(['flat', 'outline'])
 
     const { getColor, shiftHSLAColor } = useColors()

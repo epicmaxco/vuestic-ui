@@ -149,7 +149,7 @@ export default defineComponent({
   },
 
   setup (props, { emit, slots }) {
-    // temp
+    // TODO(1.6.0): Remove deprecated props
     useDeprecatedProps(['flat', 'outline'])
 
     const { valueComputed } = useStateful(props, emit)

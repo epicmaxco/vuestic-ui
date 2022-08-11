@@ -1,21 +1,8 @@
-import { computed, getCurrentInstance, onBeforeUnmount, onMounted, onUpdated, isRef, Ref, shallowRef, DefineComponent } from 'vue'
+import { computed, isRef, Ref, shallowRef, DefineComponent } from 'vue'
+
+import { useTemplateRef } from './'
 
 const extractHTMLElement = (el: any): HTMLElement => el && '$el' in el ? el.$el : el
-
-export const useTemplateRef = (key: string) => {
-  const vm = getCurrentInstance()!
-  const el = shallowRef<HTMLElement>()
-
-  const updateEl = () => {
-    el.value = vm.proxy?.$refs[key] as HTMLElement
-  }
-
-  onMounted(updateEl)
-  onUpdated(updateEl)
-  onBeforeUnmount(updateEl)
-
-  return el
-}
 
 export const useHTMLElement = (key?: string | Ref<HTMLElement | DefineComponent | undefined>): Ref<HTMLElement> => {
   if (isRef(key)) {

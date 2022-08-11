@@ -24,7 +24,6 @@ export const getComponentsDefaultConfig = (): ComponentConfig =>
       },
     },
     all: {},
-    // @ts-ignore
     presets: {
       VaButton: {
         default: {

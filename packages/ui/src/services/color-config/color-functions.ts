@@ -10,6 +10,7 @@ export const colorToRgba = (color: ColorInput, opacity: number) => {
 }
 
 export const isLightBackground = (color: ColorInput, opacity = 1) => {
+  // TODO: replace with color mixin (doesn't play any role in dark theme)
   const { R, G, B } = new ColorTranslator(color)
   return opacity < 0.6 || Math.sqrt(R * R * 0.241 + G * G * 0.691 + B * B * 0.068) > 200
 }

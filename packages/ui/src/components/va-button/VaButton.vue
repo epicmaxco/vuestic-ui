@@ -45,8 +45,8 @@ import { defineComponent, PropType, computed, shallowRef } from 'vue'
 import {
   useBem,
   useFocus,
-  useHover, useHoverProps,
-  usePressed, usePressedProps,
+  useHover, useHoverStyleProps,
+  usePressed, usePressedStyleProps,
   useColors, useTextColor,
   useLoadingProps,
   useSize, useSizeProps,
@@ -71,8 +71,8 @@ export default defineComponent({
   props: {
     ...useComponentPresetProp,
     ...useSizeProps,
-    ...useHoverProps,
-    ...usePressedProps,
+    ...useHoverStyleProps,
+    ...usePressedStyleProps,
     ...useLoadingProps,
     ...useRouterLinkProps,
     tag: { type: String, default: 'button' },
@@ -101,7 +101,7 @@ export default defineComponent({
     iconColor: { type: String, default: '' },
   },
   setup (props, { slots }) {
-    // temp
+    // TODO(1.6.0): Remove deprecated props
     useDeprecatedProps(['flat', 'outline'])
 
     // colors

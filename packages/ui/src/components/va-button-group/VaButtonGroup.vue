@@ -27,7 +27,7 @@ export default defineComponent({
   },
 
   setup: (props) => {
-    // temp
+    // TODO(1.6.0): Remove deprecated props
     useDeprecatedProps(['flat', 'outline'])
 
     const buttonConfig = computed(() => ({ VaButton: { ...props } }))
