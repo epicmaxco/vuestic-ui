@@ -39,24 +39,25 @@
         </div>
       </slot>
     </div>
-    <div
-      ref="body"
-      class="va-collapse__body"
-      role="region"
-      :style="contentStyle"
-      :id="panelIdComputed"
-      :aria-labelledby="headerIdComputed"
-    >
-      <slot />
+    <div class="va-collapse__body-wrapper" :style="contentStyle">
+      <div
+        class="va-collapse_body"
+        ref="body"
+        role="region"
+        :id="panelIdComputed"
+        :aria-labelledby="headerIdComputed"
+      >
+        <slot />
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, shallowRef } from 'vue'
+import { computed, defineComponent, ref, shallowRef } from 'vue'
 import pick from 'lodash/pick.js'
 
-import { useKeyboardOnlyFocus, useColors, useSyncProp, useTextColor, useBem } from '../../composables'
+import { useKeyboardOnlyFocus, useColors, useSyncProp, useTextColor, useBem, useResizeObserver } from '../../composables'
 import { useAccordionItem } from '../va-accordion/hooks/useAccordion'
 import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
@@ -92,28 +93,12 @@ export default defineComponent({
 
     const { textColorComputed } = useTextColor()
 
-    const getTextNodeHeight = (textNode: Node) => {
-      const range = document.createRange()
-      range.selectNodeContents(textNode)
-      const rect = range.getBoundingClientRect()
-
-      return rect.bottom - rect.top
-    }
-
-    const getNodeHeight = (node: Node) => {
-      // https://developer.mozilla.org/en-US/docs/Web/API/Node/nodeName
-      if (node.nodeName === '#text') { return getTextNodeHeight(node) }
-      if (node.nodeName === '#comment') { return 0 }
-
-      return (node as Element).clientHeight
-    }
-
-    const height = computed(() => {
-      if (!computedModelValue.value || !body.value) { return 0 }
-
-      const nodes = Array.from(body.value.childNodes) as HTMLElement[]
-      return nodes.reduce((result: number, node: HTMLElement) => result + getNodeHeight(node), 0)
+    const bodyHeight = ref()
+    useResizeObserver([body], () => {
+      bodyHeight.value = body.value?.clientHeight ?? 0
     })
+
+    const height = computed(() => computedModelValue.value ? bodyHeight.value : 0)
 
     const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
 
@@ -198,9 +183,16 @@ export default defineComponent({
   transition: var(--va-collapse-transition, var(--va-swing-transition));
   font-family: var(--va-font-family);
 
-  &__body {
+  &__body-wrapper {
+    position: relative;
     transition: var(--va-collapse-body-transition);
-    overflow: var(--va-collapse-body-overflow);
+    overflow: hidden;
+  }
+
+  &__body {
+    position: absolute;
+    top: 0;
+    left: 0;
   }
 
   &__header {

@@ -1,7 +1,7 @@
 <template>
   <va-dropdown
     ref="dropdown"
-    class="va-select__dropdown va-select-dropdown"
+    class="va-select va-select__dropdown va-select-dropdown"
     :aria-label="`select option (currently selected: ${$props.modelValue})`"
     :placement="$props.placement"
     :disabled="$props.disabled"
@@ -10,24 +10,21 @@
     :stateful="false"
     :offset="[1, 0]"
     keep-anchor-width
+    keyboard-navigation
     inner-anchor-selector=".va-input-wrapper__field"
     v-model="showDropdownContentComputed"
-    @keydown.up.stop.prevent="showDropdown"
-    @keydown.down.stop.prevent="showDropdown"
-    @keydown.space.stop.prevent="showDropdown"
-    @keydown.enter.stop.prevent="showDropdown"
+    @close="focus"
   >
     <template #anchor>
       <va-input-wrapper
         ref="input"
-        class="va-select"
+        class="va-select__anchor va-select-anchor__input"
         :model-value="valueComputedString"
         :success="$props.success"
         :error="computedError"
         :color="$props.color"
         :label="$props.label"
         :loading="$props.loading"
-        :disabled="$props.disabled"
         :outline="$props.outline"
         :bordered="$props.bordered"
         :required-mark="$props.requiredMark"
@@ -89,7 +86,7 @@
         >
           <span
             v-if="isPlaceholder"
-            class="va-select__placeholder"
+            class="va-select-anchor__placeholder"
           >
             {{ $props.placeholder }}
           </span>
@@ -112,14 +109,11 @@
     <va-dropdown-content
       class="va-select-dropdown__content"
       :style="{ width: $props.width }"
-      @keyup.enter.stop="() => undefined"
-      @keydown.tab.stop.prevent="() => undefined"
-      @keydown.esc.prevent="hideAndFocus"
     >
       <va-input
         v-if="showSearchInput"
         ref="searchBar"
-        class="va-select__input"
+        class="va-select-dropdown__content-search-input"
         placeholder="Search"
         aria-label="options filter"
         :tabindex="tabIndexComputed"
@@ -263,10 +257,10 @@ export default defineComponent({
 
   setup (props, { emit }) {
     const optionList = shallowRef<typeof VaSelectOptionList>()
-    const input = shallowRef<typeof VaInput>()
+    const input = shallowRef<typeof VaInputWrapper>()
     const searchBar = shallowRef<typeof VaInput>()
 
-    const isInputFocused = useFocusDeep()
+    const isInputFocused = useFocusDeep(input as any)
     const isFocused = computed(() => isInputFocused.value || showDropdownContent.value)
 
     const { getHoverColor, getColor } = useColors()
@@ -702,7 +696,14 @@ export default defineComponent({
 @import "variables";
 
 .va-select {
-  cursor: var(--va-select-cursor);
+  min-width: var(--va-select-min-width);
+}
+
+.va-select-anchor {
+  &__input {
+    cursor: var(--va-select-cursor);
+    flex: 1;
+  }
 
   &__placeholder {
     color: var(--va-input-placeholder-text-color);
@@ -710,10 +711,6 @@ export default defineComponent({
 }
 
 .va-select-dropdown {
-  .va-dropdown__anchor {
-    display: block;
-  }
-
   &__content {
     overflow: hidden;
     border-bottom-right-radius: var(--va-select-dropdown-border-radius);
@@ -722,6 +719,11 @@ export default defineComponent({
     border-top-left-radius: 0;
     box-shadow: var(--va-select-box-shadow);
     padding: 0;
+  }
+
+  &__content-search-input {
+    min-width: auto;
+    width: 100%;
   }
 
   &__options-wrapper {

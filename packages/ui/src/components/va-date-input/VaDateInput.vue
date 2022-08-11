@@ -1,7 +1,6 @@
 <template>
   <va-dropdown
     v-model="isOpenSync"
-    trigger="none"
     class="va-date-input"
     inner-anchor-selector=".va-input-wrapper__field"
     :class="$attrs.class"
@@ -10,14 +9,16 @@
     :close-on-content-click="false"
     :stateful="false"
     :disabled="$props.disabled"
+    keyboard-navigation
+    @open="focusDatePicker"
+    @close="focus"
   >
     <template #anchor>
       <slot name="input" v-bind="{ valueText, inputAttributes: inputAttributesComputed, inputWrapperProps, inputListeners }">
         <va-input-wrapper
+          class="va-date-input__anchor"
+          :style="cursorStyleComputed"
           v-bind="inputWrapperProps"
-          @click="toggleDropdown"
-          @keydown.enter.stop="toggleDropdown"
-          @keydown.space.stop="toggleDropdown"
         >
           <template #default>
             <input
@@ -41,6 +42,7 @@
             <slot name="prependInner" v-bind="slotScope" />
             <va-icon
               v-if="$props.leftIcon"
+              aria-label="toggle dropdown"
               v-bind="iconProps"
             />
           </template>
@@ -48,33 +50,23 @@
           <template #icon>
             <va-icon
               v-if="canBeCleared"
-              class="va-date-input__clear-icon"
-              role="button"
               aria-label="reset date"
-              aria-hiden="false"
-              :tabindex="iconTabindexComputed"
-              v-bind="clearIconProps"
+              v-bind="{ ...iconProps, ...clearIconProps }"
               @click.stop="reset"
               @keydown.enter.stop="reset"
               @keydown.space.stop="reset"
             />
             <va-icon
               v-else-if="!$props.leftIcon"
-              :tabindex="iconTabindexComputed"
+              aria-label="toggle dropdown"
               v-bind="iconProps"
-              @click.stop="showDropdown"
-              @keydown.enter.stop="showDropdown"
-              @keydown.space.stop="showDropdown"
             />
           </template>
         </va-input-wrapper>
       </slot>
     </template>
 
-    <va-dropdown-content
-      @keydown.esc.stop.prevent="hideAndFocus"
-      class="va-date-input__dropdown-content"
-    >
+    <va-dropdown-content class="va-date-input__dropdown-content">
       <va-date-picker
           ref="datePicker"
           v-bind="datePickerProps"
@@ -126,7 +118,7 @@ import { VaDropdown, VaDropdownContent } from '../va-dropdown'
 import { VaInputWrapper } from '../va-input'
 import { VaIcon } from '../va-icon'
 
-const VaInputWrapperProps = extractComponentProps(VaInputWrapper, ['focused', 'maxLength', 'counterValue'])
+const VaInputWrapperProps = extractComponentProps(VaInputWrapper, ['focused', 'maxLength', 'counterValue', 'disabled'])
 const VaDatePickerProps = extractComponentProps(VaDatePicker)
 
 export default defineComponent({
@@ -311,14 +303,22 @@ export default defineComponent({
       onBlur,
     } = useClearable(props, valueComputed)
 
-    const iconProps = computed(() => ({
-      name: props.icon,
-      color: props.color,
-      size: 'small',
-      class: 'va-date-input__icon',
-    }))
+    const cursorStyleComputed = computed(() => {
+      if (props.disabled) { return {} }
+      if (props.manualInput) { return { cursor: 'text' } }
+      return { cursor: 'pointer' }
+    })
 
     const iconTabindexComputed = computed(() => props.disabled || props.readonly ? -1 : 0)
+
+    const iconProps = computed(() => ({
+      role: 'button',
+      ariaHidden: false,
+      size: 'small',
+      name: props.icon,
+      color: props.color,
+      tabindex: iconTabindexComputed.value,
+    }))
 
     const computedInputWrapperProps = computed(() => ({
       ...filterComponentProps(props, VaInputWrapperProps).value,
@@ -381,15 +381,16 @@ export default defineComponent({
       canBeCleared,
       clearIconProps,
       iconProps,
+      cursorStyleComputed,
 
       hideAndFocus,
       toggleDropdown,
       showDropdown,
       focusInputOrPicker,
+      focusDatePicker,
       reset,
       focus,
       blur,
-      iconTabindexComputed,
     }
   },
 })
@@ -401,17 +402,11 @@ export default defineComponent({
 .va-date-input {
   --va-date-picker-cell-size: 28px;
 
-  display: flex;
+  min-width: var(--va-date-input-min-width);
   font-family: var(--va-font-family);
 
-  &__icon {
-    cursor: pointer;
-  }
-
-  &__clear-icon {
-    &:focus {
-      @include focus-outline;
-    }
+  &__anchor {
+    flex: 1;
   }
 
   &__input {

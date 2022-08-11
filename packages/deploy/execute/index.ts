@@ -50,7 +50,7 @@ export const $ = defineExecute((command, options = {
           console.error(`${chalk.bgRed(' Error ')} ${command} exited with code ${code}`)
         }
         
-        reject(code)
+        reject(stdout)
       }
     });
   })

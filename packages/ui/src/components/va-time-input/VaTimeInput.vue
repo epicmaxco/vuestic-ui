@@ -3,26 +3,19 @@
     v-model="doShowDropdown"
     class="va-time-input"
     placement="bottom-start"
-    trigger="none"
     inner-anchor-selector=".va-input-wrapper__field"
     :class="$attrs.class"
     :style="$attrs.style"
     :offset="[2, 0]"
     :close-on-content-click="false"
     :disabled="$props.disabled"
-    :stateful="false"
-    @keydown.up.prevent="showDropdown"
-    @keydown.down.prevent="showDropdown"
-    @keydown.space="showDropdown($event, $props.manualInput, !$props.manualInput)"
-    @keydown.enter="!$props.manualInput && showDropdown()"
-    @keydown.esc.prevent="hideDropdown"
+    keyboard-navigation
   >
     <template #anchor>
       <va-input-wrapper
+        class="va-time-input__anchor"
+        :style="cursorStyleComputed"
         v-bind="computedInputWrapperProps"
-        @click="toggleDropdown"
-        @keydown.enter.stop="toggleDropdown"
-        @keydown.space.stop="toggleDropdown"
       >
         <template #default>
           <input
@@ -52,40 +45,24 @@
           />
           <va-icon
             v-if="$props.leftIcon"
-            role="button"
             aria-label="toggle dropdown"
-            aria-hidden="false"
-            :tabindex="iconTabindexComputed"
             v-bind="iconProps"
-            @click.stop="showDropdown"
-            @keydown.enter.stop="showDropdown"
-            @keydown.space.stop="showDropdown"
           />
         </template>
 
         <template #icon>
           <va-icon
             v-if="canBeClearedComputed"
-            role="button"
             aria-label="reset time"
-            aria-hidden="false"
-            :tabindex="iconTabindexComputed"
-            v-bind="clearIconProps"
+            v-bind="{ ...iconProps, ...clearIconProps }"
             @click.stop="reset"
             @keydown.enter.stop="reset"
             @keydown.space.stop="reset"
           />
           <va-icon
             v-else-if="!$props.leftIcon"
-            role="button"
-            class="va-dropdown__icons__reset"
             aria-label="toggle dropdown"
-            aria-hidden="false"
-            :tabindex="iconTabindexComputed"
             v-bind="iconProps"
-            @click.stop="showDropdown"
-            @keydown.enter.stop="showDropdown"
-            @keydown.space.stop="showDropdown"
           />
         </template>
       </va-input-wrapper>
@@ -125,7 +102,7 @@ import { VaInputWrapper } from '../va-input'
 import VaIcon from '../va-icon/VaIcon.vue'
 import { VaDropdown, VaDropdownContent } from '../va-dropdown'
 
-const VaInputWrapperProps = extractComponentProps(VaInputWrapper, ['focused', 'maxLength', 'counterValue'])
+const VaInputWrapperProps = extractComponentProps(VaInputWrapper, ['focused', 'maxLength', 'counterValue', 'disabled'])
 
 export default defineComponent({
   name: 'VaTimeInput',
@@ -180,10 +157,9 @@ export default defineComponent({
       set (v: boolean) {
         isOpenSync.value = v
 
-        if (v && !props.manualInput) {
+        if (v) {
           nextTick(() => timePicker.value?.focus())
-        }
-        if (!v) {
+        } else {
           nextTick(() => input.value?.focus())
         }
       },
@@ -242,12 +218,6 @@ export default defineComponent({
       canBeCleared.value && valueText.value !== format(props.clearValue)
     ))
 
-    const iconProps = computed(() => ({
-      name: props.icon,
-      color: props.color,
-      size: 'small',
-    }))
-
     const computedInputWrapperProps = computed(() => ({
       ...filterComponentProps(props, VaInputWrapperProps).value,
       focused: isFocused.value,
@@ -293,14 +263,6 @@ export default defineComponent({
       doShowDropdown.value = true
     }
 
-    const focusTimePicker = (): void => {
-      nextTick(() => timePicker.value?.focus())
-    }
-
-    const focusInputOrPicker = () => {
-      isOpenSync.value ? focusTimePicker() : focus()
-    }
-
     const checkProhibitedDropdownOpening = (e?: KeyboardEvent) => {
       if (isOpenSync.value) { return false }
       if (props.disabled || props.readonly) { return true }
@@ -313,7 +275,23 @@ export default defineComponent({
       doShowDropdown.value = !doShowDropdown.value
     }
 
+    const cursorStyleComputed = computed(() => {
+      if (props.disabled) { return {} }
+      if (props.manualInput) { return { cursor: 'text' } }
+      return { cursor: 'pointer' }
+    })
+
     const iconTabindexComputed = computed(() => props.disabled || props.readonly ? -1 : 0)
+
+    const iconProps = computed(() => ({
+      role: 'button',
+      ariaHidden: false,
+      size: 'small',
+      name: props.icon,
+      color: props.color,
+      tabindex: iconTabindexComputed.value,
+    }))
+
     const inputAttributesComputed = computed(() => ({
       readonly: props.readonly || !props.manualInput,
       tabindex: props.disabled ? -1 : 0,
@@ -343,7 +321,7 @@ export default defineComponent({
       clearIconProps,
       filteredSlots,
       inputAttributesComputed,
-      iconTabindexComputed,
+      cursorStyleComputed,
 
       hideDropdown,
       showDropdown,
@@ -356,3 +334,16 @@ export default defineComponent({
   },
 })
 </script>
+
+<style lang="scss">
+@import "variables";
+
+.va-time-input {
+  min-width: var(--va-time-input-min-width);
+
+  &__anchor {
+    flex: 1;
+  }
+}
+
+</style>

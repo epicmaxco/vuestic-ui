@@ -21,11 +21,6 @@
       "dom",
       "dom.iterable"
     ],
-    "paths": {
-      "v-tooltip": [
-        "src/types/v-tooltip.d.ts"
-      ]
-    }
   },
   "include": [
     "src/**/*.ts",

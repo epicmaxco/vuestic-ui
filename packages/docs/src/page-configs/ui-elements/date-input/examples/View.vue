@@ -1,26 +1,25 @@
 <template>
   <div class="row">
-    <div class="mr-4">
-      <va-date-input
-        v-model="value"
-        v-model:view="dayView"
-        label="Day"
-      />
-    </div>
-    <div class="mr-4">
-      <va-date-input
-        v-model="value"
-        v-model:view="monthView"
-        label="Month"
-      />
-    </div>
-    <div class="mr-4">
-      <va-date-input
-        v-model="value"
-        v-model:view="yearView"
-        label="Year"
-      />
-    </div>
+    <va-date-input
+      class="mb-4 mr-4"
+      v-model="value"
+      v-model:view="dayView"
+      label="Day"
+    />
+
+    <va-date-input
+      class="mb-4 mr-4"
+      v-model="value"
+      v-model:view="monthView"
+      label="Month"
+    />
+
+    <va-date-input
+      class="mb-4 mr-4"
+      v-model="value"
+      v-model:view="yearView"
+      label="Year"
+    />
   </div>
 </template>
 

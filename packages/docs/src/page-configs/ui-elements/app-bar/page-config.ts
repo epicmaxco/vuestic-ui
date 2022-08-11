@@ -13,22 +13,15 @@ const config: ApiDocsBlock[] = [
   block.title('appBar.title'),
   block.paragraph('appBar.summaryText'),
   block.subtitle('all.examples'),
-
-  ...block.exampleBlock(
-    'appBar.examples.default.title',
-    'appBar.examples.default.text',
-    'Default',
-  ),
-
-  ...block.exampleBlock(
-    'appBar.examples.color.title',
-    'appBar.examples.color.text',
-    'Color',
-  ),
-
-  block.headline('appBar.examples.bottom.title'),
-  block.paragraph('appBar.examples.bottom.text'),
-  block.example('Bottom'),
+  block.headline('appBar.examples.default.title'),
+  block.paragraph('appBar.examples.default.text'),
+  block.example('Default'),
+  block.headline('appBar.examples.color.title'),
+  block.paragraph('appBar.examples.color.text'),
+  block.example('Color'),
+  block.headline('appBar.examples.fixed.title'),
+  block.paragraph('appBar.examples.fixed.text'),
+  block.example('Fixed'),
   block.headline('appBar.examples.hide.title'),
   block.paragraph('appBar.examples.hide.text'),
   block.example('Hide'),

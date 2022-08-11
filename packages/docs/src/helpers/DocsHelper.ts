@@ -78,11 +78,12 @@ export class PageGenerationHelper {
     }
   }
 
-  component (component: string): ApiDocsBlock {
+  component (component: string, options?: Partial<{ bind: Record<string, any> }>): ApiDocsBlock {
     return {
       type: BlockType.COMPONENT,
       path: this.path,
       component,
+      bind: options?.bind,
     }
   }
 
@@ -134,6 +135,21 @@ export class PageGenerationHelper {
     return {
       type: BlockType.LIST,
       translationStringList,
+    }
+  }
+
+  collapse (header: string, ...blocks: ApiDocsBlock[]): ApiDocsBlock {
+    return {
+      type: BlockType.COLLAPSE,
+      header,
+      blocks: blocks,
+    }
+  }
+
+  markdown (content: string): ApiDocsBlock {
+    return {
+      type: BlockType.MARKDOWN,
+      content,
     }
   }
 

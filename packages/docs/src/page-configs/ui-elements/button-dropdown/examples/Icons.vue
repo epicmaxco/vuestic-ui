@@ -21,6 +21,7 @@
     Content
   </va-button-dropdown>
   <va-button-dropdown
+    class="mr-2 mb-2"
     label="custom icon && icon-open"
     icon="info"
     opened-icon="check_circle"

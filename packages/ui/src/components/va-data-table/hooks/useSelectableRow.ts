@@ -2,7 +2,7 @@ import { Ref, computed, watch, ref } from 'vue'
 
 import { getItemKey } from './useRows'
 
-import { DataTableRow, DataTableItem, DataTableSelectMode, DataTableItemKey } from '../types'
+import type { DataTableRow, DataTableItem, DataTableSelectMode, DataTableItemKey } from '../types'
 
 interface useSelectableProps {
   modelValue: (DataTableItem | DataTableItemKey)[] | undefined // selectedItems

@@ -1,0 +1,88 @@
+@import 'module';
+@import '../resources';
+
+// TODO: Move it to GLOBAL-CSS service, so it can be turned off and scoped.
+@include va-typography;
+
+* {
+  font-family: var(--va-font-family);
+}
+
+.va-typography-block {
+  line-height: $line-height;
+  font-family: var(--va-font-family);
+
+  @for $i from 1 through 6 {
+    h#{$i} {
+      @include va-display($i);
+    }
+  }
+
+  i {
+    font-style: italic;
+  }
+
+  p {
+    font-size: 1rem;
+    margin-top: 0;
+    margin-bottom: 1rem;
+  }
+
+  pre {
+    margin-bottom: 1rem;
+    overflow-x: auto;
+    white-space: pre;
+    word-wrap: normal;
+
+    &.code {
+      @include va-code-snippet();
+    }
+  }
+
+  code {
+    display: inline-block;
+    word-wrap: break-word;
+  }
+
+  strong,
+  b {
+    font-weight: $font-weight-bold;
+  }
+
+  ol:not([class^="va"]) {
+    @include va-ordered;
+  }
+
+  ul:not([class^="va"]) {
+    @include va-unordered;
+  }
+
+  blockquote {
+    @extend .va-blockquote;
+  }
+
+  figure {
+    border-radius: 0;
+    border: none;
+    box-sizing: border-box;
+    box-shadow: $widget-box-shadow;
+    word-wrap: break-word;
+
+    figcaption {
+      flex: 1 1 auto;
+      padding: 1.25rem;
+    }
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  table {
+    @include va-table;
+  }
+
+  a {
+    @include link();
+  }
+}
