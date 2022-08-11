@@ -4,10 +4,15 @@
     placeholder="Filter the tree view"
     clearable
   />
+  <va-checkbox
+    v-model="isFilterCaseSensitive"
+    label="Case sensitive"
+    style="margin-top: 1rem;"
+  />
   <va-tree-view
     :nodes="nodes"
     :filter="filter"
-    node-key="id"
+    :filter-method="customFilterMethod"
     expand-all
   />
 </template>
@@ -18,6 +23,7 @@ export default {
 
   data: () => ({
     filter: '',
+    isFilterCaseSensitive: false,
     nodes: [
       {
         id: 1,
@@ -60,6 +66,14 @@ export default {
       },
     ],
   }),
+
+  computed: {
+    customFilterMethod () {
+      return this.isFilterCaseSensitive
+        ? (node, filterText, key) => node[key].includes(filterText)
+        : undefined
+    },
+  },
 }
 </script>
 
