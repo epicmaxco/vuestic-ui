@@ -2,7 +2,7 @@
   <footer class="footer">
     <div class="footer__wrapper">
       <div class="footer__inner">
-        <EpicmaxBanner />
+        <LandingEpicmaxBanner />
         <div class="footer__buttons">
           <va-button
             class="footer__buttons__button"
@@ -98,12 +98,12 @@ import IconAdmin from './icons/IconAdmin.vue'
 import IconSpinners from './icons/IconSpinners.vue'
 import { useColors } from 'vuestic-ui/src/main'
 import { markRaw } from 'vue'
-import EpicmaxBanner from '@/components/landing/EpicmaxBanner.vue'
+import LandingEpicmaxBanner from '@/components/landing/LandingEpicmaxBanner.vue'
 
 @Options({
   name: 'LandingFooter',
   components: {
-    EpicmaxBanner,
+    LandingEpicmaxBanner,
   },
 })
 export default class Footer extends Vue {

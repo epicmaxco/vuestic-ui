@@ -16,7 +16,7 @@
           <va-button :to="`/${$root.$i18n.locale}/introduction/overview`" class="header__links--link" flat color="primary">{{ $t('landing.header.buttons.overview') }}</va-button>
           <va-button href="https://discord.gg/u7fQdqQt8c" target="blank" class="header__links--link" flat color="primary">{{ $t('landing.header.buttons.discord') }}</va-button>
           <LanguageDropdown class="header__links--link" />
-          <stars-button class="ml-2" repo="epicmaxco/vuestic-ui" />
+          <landing-stars-button class="ml-2" repo="epicmaxco/vuestic-ui" />
         </nav>
         <!-- mobile -->
         <nav class="mobile-menu" :class="computedClass">
@@ -63,8 +63,8 @@
               </va-list-item>
             </div>
 
-            <div class="star-button-wrapper">
-              <stars-button repo="epicmaxco/vuestic-admin" />
+            <div class="stars-button-wrapper">
+              <landing-stars-button repo="epicmaxco/vuestic-admin" />
             </div>
           </va-list>
         </nav>
@@ -79,12 +79,12 @@ import { Options, Vue } from 'vue-class-component'
 import { languages } from '../../locales'
 import VuesticLogo from '../header/components/VuesticLogo.vue'
 import LanguageDropdown from '../header/components/LanguageDropdown.vue'
-import StarsButton from './StarsButton.vue'
+import LandingStarsButton from './LandingStarsButton.vue'
 
 @Options({
   name: 'LandingHeader',
   components: {
-    LanguageDropdown, StarsButton, VuesticLogo,
+    LanguageDropdown, LandingStarsButton, VuesticLogo,
   },
 })
 export default class Header extends Vue {
@@ -302,14 +302,14 @@ export default class Header extends Vue {
   }
 }
 
-.star-button-wrapper {
+.stars-button-wrapper {
   display: flex;
   justify-content: center;
   padding-bottom: 1rem;
   padding-top: 0.5rem;
 }
 
-.star-button {
+.stars-button {
   @include code-font();
 
   min-height: 1.8rem;

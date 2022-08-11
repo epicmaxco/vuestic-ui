@@ -25,7 +25,7 @@
           </va-button>
 
           <div class="admin__buttons--button">
-            <stars-button repo="epicmaxco/vuestic-admin" />
+            <landing-stars-button repo="epicmaxco/vuestic-admin" />
           </div>
         </div>
         <div class="admin__content">
@@ -73,11 +73,11 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
-import StarsButton from './StarsButton.vue'
+import LandingStarsButton from './LandingStarsButton.vue'
 
 @Options({
   name: 'LandingAdmin',
-  components: { StarsButton },
+  components: { LandingStarsButton },
 })
 export default class Admin extends Vue {}
 </script>
@@ -228,7 +228,7 @@ export default class Admin extends Vue {}
   }
 }
 
-.star-button {
+.stars-button {
   @include code-font();
 
   padding: 0 !important;
