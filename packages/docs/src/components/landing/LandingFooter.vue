@@ -2,6 +2,7 @@
   <footer class="footer">
     <div class="footer__wrapper">
       <div class="footer__inner">
+        <LandingEpicmaxBanner />
         <div class="footer__buttons">
           <va-button
             class="footer__buttons__button"
@@ -80,7 +81,7 @@
           </va-button>
         </div>
         <div class="footer__subtitle">
-          {{ $t("landing.footer.text") }}
+          © {{ currentYear }} {{ $t("landing.footer.text") }}
           <a :style="{ color: primaryColor }" href="mailto:hello@epicmax.co">
             hello@epicmax.co
           </a>
@@ -97,9 +98,13 @@ import IconAdmin from './icons/IconAdmin.vue'
 import IconSpinners from './icons/IconSpinners.vue'
 import { useColors } from 'vuestic-ui/src/main'
 import { markRaw } from 'vue'
+import LandingEpicmaxBanner from '@/components/landing/LandingEpicmaxBanner.vue'
 
 @Options({
   name: 'LandingFooter',
+  components: {
+    LandingEpicmaxBanner,
+  },
 })
 export default class Footer extends Vue {
   IconEpicmax = markRaw(IconEpicmax);
@@ -109,6 +114,21 @@ export default class Footer extends Vue {
   get primaryColor () {
     // TODO: Replace with setup FN
     return useColors().getColor('primary')
+  }
+
+  get currentYear () {
+    const date = new Date() // 2009-11-10
+    return date.getFullYear()
+  }
+
+  get currentMonthName () {
+    const date = new Date() // 2009-11-10
+    return date.toLocaleString('en', { month: 'long' })
+  }
+
+  get developersCount () {
+    const currentMonth = new Date().getUTCMonth()
+    return currentMonth % 3 + 2
   }
 }
 </script>
@@ -214,6 +234,39 @@ export default class Footer extends Vue {
       margin-left: 0.5rem;
       margin-right: 0.5rem;
       font-size: 1rem;
+    }
+  }
+
+  &__banner {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    &-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: calc(100% - 4rem);
+      background: linear-gradient(180.81deg, #182879 0.7%, #5b3c9b 99.3%);
+      max-width: 53rem;
+      margin: 0 2rem 2rem 2rem;
+      padding: 1.7rem;
+      color: #ffffff;
+      border-radius: 0.5rem;
+
+      @include sm(flex-direction, column);
+      @include sm(align-items, start);
+    }
+
+    &-text {
+      line-height: 1.5;
+    }
+
+    &-logo {
+      margin-left: 3rem;
+
+      @include sm(margin-top, 1rem);
+      @include sm(align-self, end);
     }
   }
 }
