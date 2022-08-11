@@ -14,9 +14,8 @@
         <nav class="header__links">
           <!-- vuestic buttons -->
           <va-button :to="`/${$root.$i18n.locale}/introduction/overview`" class="header__links--link" flat color="primary">{{ $t('landing.header.buttons.overview') }}</va-button>
-          <va-button href="https://vuestic.epicmax.co/admin/dashboard" target="blank" class="header__links--link" flat color="primary">Vuestic Admin</va-button>
           <va-button href="https://discord.gg/u7fQdqQt8c" target="blank" class="header__links--link" flat color="primary">{{ $t('landing.header.buttons.discord') }}</va-button>
-          <LanguageDropdown />
+          <LanguageDropdown class="header__links--link" />
           <stars-button class="ml-2" repo="epicmaxco/vuestic-ui" />
         </nav>
         <!-- mobile -->
