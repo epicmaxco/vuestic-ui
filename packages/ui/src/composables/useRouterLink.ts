@@ -31,6 +31,25 @@ export const useRouterLink = (props: ExtractPropTypes<typeof useRouterLinkProps>
 
   const isLinkTag = computed(() => ['a', 'router-link', 'nuxt-link'].includes(tagComputed.value))
 
+  const linkAttributesComputed = computed(() => {
+    if (!isLinkTag.value) { return {} }
+
+    return tagComputed.value === 'a'
+      ? {
+        target: props.target,
+        href: hrefComputed.value,
+      }
+      : {
+        target: props.target,
+        to: props.to,
+        replace: props.replace,
+        append: props.append,
+        activeClass: props.activeClass,
+        exact: props.exact,
+        exactActiveClass: props.exactActiveClass,
+      }
+  })
+
   const isActiveRouterLink = computed(() => {
     if (!vueRouter.value || !props.to) { return false }
 
@@ -48,9 +67,10 @@ export const useRouterLink = (props: ExtractPropTypes<typeof useRouterLinkProps>
   })
 
   return {
-    tagComputed,
-    isActiveRouterLink,
-    hrefComputed,
     isLinkTag,
+    tagComputed,
+    hrefComputed,
+    isActiveRouterLink,
+    linkAttributesComputed,
   }
 }

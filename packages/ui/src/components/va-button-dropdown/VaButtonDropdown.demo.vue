@@ -1,5 +1,5 @@
 <template>
-  <VbDemo>
+  <VbDemo class="va-button-dropdown-demo">
     <VbCard title="default">
       <va-button-dropdown label="label">
         Content
@@ -54,35 +54,30 @@
         Content
       </va-button-dropdown>
       <va-button-dropdown
-        outline
         label="outline"
+        preset="secondary"
+        border-color="primary"
       >
         Content
       </va-button-dropdown>
       <va-button-dropdown
-        flat
-        label="flat"
+        label="plain"
+        preset="plain"
       >
         Content
       </va-button-dropdown>
       <va-button-dropdown
-        outline
-        split
         label="outline split"
+        preset="secondary"
+        border-color="primary"
+        split
       >
         Content
       </va-button-dropdown>
       <va-button-dropdown
+        label="small + split"
         size="small"
         split
-        label="small + split"
-      >
-        Content
-      </va-button-dropdown>
-      <va-button-dropdown
-        size="large"
-        split
-        label="large + split"
       >
         Content
       </va-button-dropdown>
@@ -138,31 +133,33 @@
       </va-button-dropdown>
     </VbCard>
     <VbCard title="icon">
-      <va-button-dropdown
-        label="without icon"
-        hideIcon
-      >
-        Content
-      </va-button-dropdown>
-      <va-button-dropdown
-        label="left icon"
-        leftIcon
-      >
-        Content
-      </va-button-dropdown>
-      <va-button-dropdown
-        label="custom icon"
-        icon="done"
-      >
-        Content
-      </va-button-dropdown>
-      <va-button-dropdown
-        label="custom icon && icon-open"
-        icon="arrow_forward_ios"
-        opened-icon="arrow_back_ios"
-      >
-        Content
-      </va-button-dropdown>
+      <div style="display: flex; align-items: center;">
+        <va-button-dropdown
+          label="without icon"
+          hideIcon
+        >
+          Content
+        </va-button-dropdown>
+        <va-button-dropdown
+          label="left icon"
+          leftIcon
+        >
+          Content
+        </va-button-dropdown>
+        <va-button-dropdown
+          label="custom icon"
+          icon="done"
+        >
+          Content
+        </va-button-dropdown>
+        <va-button-dropdown
+          label="custom icon && icon-open"
+          icon="arrow_forward_ios"
+          opened-icon="arrow_back_ios"
+        >
+          Content
+        </va-button-dropdown>
+      </div>
     </VbCard>
     <VbCard title="events">
       <va-button-dropdown
@@ -213,10 +210,17 @@ export default {
       console.log('click', e)
     },
   },
-  data () {
-    return {
-      value: true,
-    }
-  },
+  data: () => ({
+    value: true,
+  }),
 }
 </script>
+
+<style lang="scss">
+.va-button-dropdown-demo {
+  .va-button-dropdown {
+    margin-right: 16px;
+    margin-bottom: 16px;
+  }
+}
+</style>

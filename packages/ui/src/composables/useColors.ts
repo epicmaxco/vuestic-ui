@@ -9,6 +9,9 @@ import {
   shiftHSLAColor,
   setHSLAColor,
   isCSSVariable,
+  isLightBackground,
+  colorToRgba,
+  getStateMaskGradientBackground,
 } from '../services/color-config/color-functions'
 
 export type CssColor = string
@@ -109,5 +112,8 @@ export const useColors = () => {
     shiftHSLAColor,
     setHSLAColor,
     colorsToCSSVariable,
+    isLightBackground,
+    colorToRgba,
+    getStateMaskGradientBackground,
   }
 }

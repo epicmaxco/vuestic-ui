@@ -65,6 +65,7 @@ export {
   VaSidebarItemTitle,
   VaSlider,
   VaSpacer,
+  VaSplit,
   VaSwitch,
   VaTabs, VaTab,
   VaTimeInput,

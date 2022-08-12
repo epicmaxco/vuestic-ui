@@ -6,8 +6,6 @@
         <div class="preview__buttons">
           <va-button class="preview__buttons--button"
             :to="`/${$root.$i18n.locale}/getting-started/installation`"
-            :rounded="false"
-            color="primary"
           >
             {{$t('landing.preview.buttons.start')}}
           </va-button>
@@ -19,9 +17,7 @@
           >
             <va-button href="https://github.com/epicmaxco/vuestic-ui"
                        target="_blank"
-                       :rounded="false"
-                       color="primary"
-                       flat
+                       preset="plain"
             >
               <va-icon class="fa fa-github" style="margin-right: 0.5rem;" />
               {{$t('landing.preview.buttons.github')}}

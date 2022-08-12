@@ -26,20 +26,20 @@ export function useFocus (
     el?.value?.blur()
   }
 
-  if (el) {
-    onMounted(() => {
-      if (el?.value instanceof HTMLElement) {
-        el.value?.addEventListener('focus', onFocus)
-        el.value?.addEventListener('blur', onBlur)
-      }
-    })
-    onBeforeUnmount(() => {
-      if (el?.value instanceof HTMLElement) {
-        el.value?.removeEventListener('focus', onFocus)
-        el.value?.removeEventListener('blur', onBlur)
-      }
-    })
-  }
+  let element: any
+  onMounted(() => {
+    element = (el?.value as any)?.$el ?? el?.value
+    if (element) {
+      element.addEventListener('focus', onFocus)
+      element.addEventListener('blur', onBlur)
+    }
+  })
+  onBeforeUnmount(() => {
+    if (element) {
+      element.removeEventListener('focus', onFocus)
+      element.removeEventListener('blur', onBlur)
+    }
+  })
 
   return {
     isFocused,

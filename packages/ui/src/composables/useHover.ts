@@ -1,6 +1,6 @@
-import { ref, watch, Ref } from 'vue'
+import { ref, Ref, onMounted } from 'vue'
 
-const getEl = (el: any) => el.$el !== undefined ? el.$el : el
+import { useHTMLElement, useEvent } from './'
 
 export function useHover (el?: Ref<HTMLElement | null | undefined>) {
   const isHovered = ref(false)
@@ -8,24 +8,12 @@ export function useHover (el?: Ref<HTMLElement | null | undefined>) {
   const onMouseEnter = () => { isHovered.value = true }
   const onMouseLeave = () => { isHovered.value = false }
 
-  if (el) {
-    watch(el, (n, o) => {
-      if (n) {
-        const newEl = getEl(n)
-        newEl.addEventListener('mouseenter', onMouseEnter)
-        newEl.addEventListener('mouseleave', onMouseLeave)
-      }
-      if (o) {
-        const oldEl = getEl(o)
-        oldEl.removeEventListener('mouseenter', onMouseEnter)
-        oldEl.removeEventListener('mouseleave', onMouseLeave)
-      }
-    })
-  }
+  onMounted(() => {
+    if (!el?.value) { return }
+    const getTarget = useHTMLElement(el as Ref<HTMLElement>)
+    useEvent('mouseenter', onMouseEnter, getTarget)
+    useEvent('mouseleave', onMouseLeave, getTarget)
+  })
 
-  return {
-    isHovered,
-    onMouseEnter,
-    onMouseLeave,
-  }
+  return { isHovered, onMouseEnter, onMouseLeave }
 }

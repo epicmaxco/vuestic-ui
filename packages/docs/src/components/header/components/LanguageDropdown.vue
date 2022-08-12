@@ -1,8 +1,7 @@
 <template>
   <div class="language-dropdown">
     <va-button-dropdown
-      color="primary"
-      flat
+      preset="secondary"
       :label="currentLanguageName"
       :offset="[0, 10]"
     >

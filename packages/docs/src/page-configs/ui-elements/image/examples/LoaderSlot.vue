@@ -8,7 +8,7 @@
     </template>
   </va-image>
 
-  <va-button class="flex mt-2" color="success" @click="newImage">
+  <va-button class="mt-2" color="success" @click="newImage">
     New image
   </va-button>
 </template>
