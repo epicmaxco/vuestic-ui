@@ -10,6 +10,8 @@
     <p>Primary color is: {{ getColor('primary') }}</p>
     
     <PageConfig :page-config="pageConfig" />
+
+    <NuxtPage />
   </div>
 </template>
 

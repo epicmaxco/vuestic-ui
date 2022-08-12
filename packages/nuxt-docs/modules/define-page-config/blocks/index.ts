@@ -4,10 +4,6 @@ import type { PageConfigExample } from './example'
 export type PageConfigBlockFabric = {
   component: PageConfigComponent
   example: PageConfigExample
-  // code: (name: string) => {
-  //   type: 'code'
-  //   source: string
-  // }
 }
 
 export type PageConfigBlock = PageConfigBlockFabric[keyof PageConfigBlockFabric]

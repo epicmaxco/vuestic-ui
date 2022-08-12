@@ -12,7 +12,7 @@ const props = defineProps({
   }
 })
 
-const blocks = props.pageConfig.setup()
+const blocks = props.pageConfig.blocks
 
 const pageConfigComponent = {
   'component': PageConfigComponent,
