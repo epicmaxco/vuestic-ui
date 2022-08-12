@@ -1,4 +1,4 @@
-import { App, Ref, computed, watch, reactive } from 'vue'
+import { App, Ref, computed, watch, reactive, ComputedRef } from 'vue'
 
 import { useEvent } from '../../../composables'
 
@@ -17,17 +17,17 @@ export const createBreakpointsConfigPlugin = (app: App) => {
     return {}
   }
 
-  const breakpointsConfig: BreakpointsConfig | undefined = globalConfig.value.breakpoints
-  if (!breakpointsConfig) {
-    warn('createBreakpointsConfigPlugin: breakpointsConfig is not defined!')
+  const breakpointsConfig: ComputedRef<BreakpointsConfig> = computed(() => {
+    const breakpoints = globalConfig.value.breakpoints
+    if (!breakpoints) { warn('createBreakpointsConfigPlugin: breakpointsConfig is not defined!') }
+    return breakpoints ?? {} as BreakpointsConfig
+  })
+
+  if (!breakpointsConfig.value.enabled) {
     return {}
   }
 
-  if (!breakpointsConfig.enabled) {
-    return {}
-  }
-
-  if (!breakpointsConfig.thresholds || !Object.values(breakpointsConfig.thresholds).length) {
+  if (!breakpointsConfig.value.thresholds || !Object.values(breakpointsConfig.value.thresholds).length) {
     warn('createBreakpointsConfigPlugin: there are no defined thresholds!')
     return {}
   }
@@ -49,17 +49,17 @@ export const createBreakpointsConfigPlugin = (app: App) => {
     useEvent('resize', setCurrentWindowSizes, true)
   }, { immediate: true })
 
-  const currentBreakpoints = computed(() => {
+  const currentBreakpoint = computed(() => {
     if (!isMounted.value || !windowSizes.width) { return }
 
-    return Object.entries(breakpointsConfig.thresholds).reduce((acc: string, [key, value]) => {
+    return Object.entries(breakpointsConfig.value.thresholds).reduce((acc: string, [key, value]) => {
       if (windowSizes.width! >= value) { acc = key }
       return acc
     }, 'xs') as unknown as ThresholdsKeys
   })
 
   const screenClasses = computed(() =>
-    (Object.keys(breakpointsConfig.thresholds) as ThresholdsKeys[])
+    (Object.keys(breakpointsConfig.value.thresholds) as ThresholdsKeys[])
       .reduce((acc: Record<ThresholdsKeys, BodyClass>, threshold: ThresholdsKeys) => {
         acc[threshold] = `screen--${threshold}`
         return acc
@@ -68,7 +68,7 @@ export const createBreakpointsConfigPlugin = (app: App) => {
   const getHelpersMedia = () => {
     let result = ''
 
-    Object.values(breakpointsConfig.thresholds)
+    Object.values(breakpointsConfig.value.thresholds)
       .forEach((thresholdValue, index) => {
         result += `@media screen and (min-width: ${thresholdValue}px) {`
         // 0.2 coefficient for xs threshold and 1 for xl, experimental value for now
@@ -79,12 +79,12 @@ export const createBreakpointsConfigPlugin = (app: App) => {
     return result
   }
 
-  watch(currentBreakpoints, (v) => {
+  watch(currentBreakpoint, (v) => {
     if (!v) { return }
 
     addOrUpdateStyleElement('helpers-media', getHelpersMedia)
 
-    if (!breakpointsConfig.bodyClass || !currentBreakpoints.value) { return }
+    if (!breakpointsConfig.value.bodyClass || !currentBreakpoint.value) { return }
 
     document.body.classList.forEach((className: string) => {
       if ((Object.values(screenClasses.value) as string[]).includes(className)) {
@@ -92,15 +92,15 @@ export const createBreakpointsConfigPlugin = (app: App) => {
       }
     })
 
-    document.body.classList.add(screenClasses.value[currentBreakpoints.value])
+    document.body.classList.add(screenClasses.value[currentBreakpoint.value])
   }, { immediate: true })
 
   const breakpointsHelpers = computed(() => {
-    const isXs = currentBreakpoints.value === 'xs'
-    const isSm = currentBreakpoints.value === 'sm'
-    const isMd = currentBreakpoints.value === 'md'
-    const isLg = currentBreakpoints.value === 'lg'
-    const isXl = currentBreakpoints.value === 'xl'
+    const isXs = currentBreakpoint.value === 'xs'
+    const isSm = currentBreakpoint.value === 'sm'
+    const isMd = currentBreakpoint.value === 'md'
+    const isLg = currentBreakpoint.value === 'lg'
+    const isXl = currentBreakpoint.value === 'xl'
 
     return {
       xs: isXs,
@@ -128,8 +128,8 @@ export const createBreakpointsConfigPlugin = (app: App) => {
   const result = computed(() => ({
     width: windowSizes.width,
     height: windowSizes.height,
-    current: currentBreakpoints.value,
-    thresholds: breakpointsConfig.thresholds,
+    current: currentBreakpoint.value,
+    thresholds: breakpointsConfig.value.thresholds,
     ...breakpointsHelpers.value,
   }))
 
