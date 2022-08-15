@@ -28,7 +28,6 @@
           class="va-toast__close-icon"
           role="button"
           aria-label="close toast"
-          aria-hidden="false"
           tabindex="0"
           size="small"
           :name="$props.icon"
@@ -240,10 +239,6 @@ export default defineComponent({
 
     &:hover {
       color: var(--va-toast-hover-color);
-    }
-
-    &:focus {
-      @include focus-outline;
     }
   }
 }
