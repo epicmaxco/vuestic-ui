@@ -46,6 +46,7 @@
                 role="button"
                 aria-label="close"
                 tabindex="0"
+                :disable-focus-style="$props.disableFocusStyle"
                 @click="cancel"
                 @keydown.space="cancel"
                 @keydown.enter="cancel"
@@ -125,6 +126,7 @@ import {
   useColors, useTextColor,
   useWindow, useDocument,
   useComponentPresetProp,
+  useKeyboardFocusStyleProps,
 } from '../../composables'
 
 import { VaButton } from '../va-button'
@@ -151,6 +153,7 @@ export default defineComponent({
     'cancel', 'ok', 'before-open', 'open', 'before-close', 'close', 'click-outside',
   ],
   props: {
+    ...useKeyboardFocusStyleProps,
     ...useStatefulProps,
     modelValue: { type: Boolean, default: false },
     attachElement: { type: String, default: 'body' },

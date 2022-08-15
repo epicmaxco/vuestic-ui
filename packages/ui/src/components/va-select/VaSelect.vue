@@ -60,9 +60,9 @@
           <va-icon
             v-if="showClearIcon"
             role="button"
-            aria-hidden="false"
             aria-label="reset"
             tabindex="0"
+            :disable-focus-style="$props.disableFocusStyle"
             v-bind="clearIconProps"
             @click.stop="reset"
             @keydown.enter.stop="reset"
@@ -159,6 +159,7 @@ import { defineComponent, PropType, ref, computed, watch, nextTick, Ref, shallow
 
 import { warn } from '../../services/utils'
 import {
+  useKeyboardFocusStyleProps,
   useComponentPresetProp,
   useSelectableList, useSelectableListProps,
   useValidation, useValidationProps, useValidationEmits, ValidationProps,
@@ -198,6 +199,7 @@ export default defineComponent({
   ],
 
   props: {
+    ...useKeyboardFocusStyleProps,
     ...useSelectableListProps,
     ...useValidationProps as ValidationProps<SelectOption>,
     ...useLoadingProps,

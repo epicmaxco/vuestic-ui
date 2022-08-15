@@ -35,7 +35,6 @@
         v-if="canBeCleared"
         role="button"
         aria-label="reset"
-        class="va-input__icons__reset"
         :tabindex="tabIndexComputed"
         :disable-focus-style="$props.disableFocusStyle"
         v-bind="clearIconProps"

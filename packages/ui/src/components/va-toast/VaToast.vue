@@ -31,6 +31,7 @@
           tabindex="0"
           size="small"
           :name="$props.icon"
+          :disable-focus-style="$props.disableFocusStyle"
           @click.stop="onToastClose"
           @keydown.enter.stop="onToastClose"
         />
@@ -42,7 +43,7 @@
 <script lang="ts">
 import { defineComponent, PropType, ref, computed, onMounted, shallowRef } from 'vue'
 
-import { useComponentPresetProp, useColors, useTimer, useTextColor } from '../../composables'
+import { useComponentPresetProp, useColors, useTimer, useTextColor, useKeyboardFocusStyleProps } from '../../composables'
 
 import { ToastPosition } from './types'
 
@@ -61,6 +62,7 @@ export default defineComponent({
   components: { VaIcon, VaToastRenderer },
   emits: ['on-click', 'on-close'],
   props: {
+    ...useKeyboardFocusStyleProps,
     ...useComponentPresetProp,
     title: { type: String, default: '' },
     offsetY: { type: Number, default: 16 },
