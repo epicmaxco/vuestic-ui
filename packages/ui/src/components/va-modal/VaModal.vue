@@ -280,24 +280,23 @@ export default defineComponent({
     const window = useWindow()
     const document = useDocument()
 
-    watch(valueComputed, (newValue) => {
-      // put this into watchEffect -> max recursion stack
+    watch(isTopLevelModal, newValue => {
       if (newValue) {
-        registerModal()
-        return
+        trapFocusInModal()
       }
-
-      if (isLowestLevelModal.value) {
-        freeFocus()
-      }
-      unregisterModal()
     })
 
     watchEffect(() => {
       if (valueComputed.value) {
         window.value?.addEventListener('keyup', listenKeyUp)
+        console.log('register')
+        registerModal()
       } else {
         window.value?.removeEventListener('keyup', listenKeyUp)
+        if (isLowestLevelModal.value) {
+          freeFocus()
+        }
+        unregisterModal()
       }
 
       if (props.blur) {
@@ -306,10 +305,6 @@ export default defineComponent({
         } else {
           document.value?.body.classList.remove('va-modal-overlay-background--blurred')
         }
-      }
-
-      if (isTopLevelModal.value) {
-        trapFocusInModal()
       }
     })
 

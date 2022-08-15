@@ -27,7 +27,7 @@ export const useModalLevel = () => {
   }
 
   const isTopLevelModal = computed(
-    () => modalLevel.value === modalsStack.length - 1,
+    () => modalLevel.value !== -1 && modalLevel.value === modalsStack.length - 1,
   )
   const isLowestLevelModal = computed(
     () => modalLevel.value === 0,
