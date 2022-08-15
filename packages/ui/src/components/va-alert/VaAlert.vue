@@ -54,14 +54,16 @@
         class="va-alert__close"
       >
         <div
-          :style="contentStyle"
-          class="va-alert__close--closeable"
           role="button"
+          class="va-alert__close--closeable"
           tabindex="0"
+          :class="closeButtonClass"
           :aria-label="closeText || 'close alert'"
-          @click="hide()"
-          @keydown.space="hide()"
-          @keydown.enter="hide()"
+          :style="contentStyle"
+          @click="hide"
+          @keydown.space="hide"
+          @keydown.enter="hide"
+          v-on="keyboardFocusListeners"
         >
           <slot name="close">
             <va-icon
@@ -82,7 +84,12 @@
 import { defineComponent, computed, PropType } from 'vue'
 
 import { generateUniqueId } from '../../services/utils'
-import { useComponentPresetProp, useStateful, useStatefulProps, useStatefulEmits } from '../../composables'
+import {
+  useBem,
+  useComponentPresetProp,
+  useStateful, useStatefulProps, useStatefulEmits,
+  useKeyboardFocusStyle, useKeyboardFocusStyleProps,
+} from '../../composables'
 
 import { useAlertStyles } from './useAlertStyles'
 
@@ -93,6 +100,7 @@ export default defineComponent({
   components: { VaIcon },
   emits: useStatefulEmits,
   props: {
+    ...useKeyboardFocusStyleProps,
     ...useStatefulProps,
     ...useComponentPresetProp,
     modelValue: { type: Boolean, default: true },
@@ -132,6 +140,11 @@ export default defineComponent({
     const titleIdComputed = computed(() => `aria-title-${uniqueId.value}`)
     const descriptionIdComputed = computed(() => `aria-description-${uniqueId.value}`)
 
+    const { keyboardFocusListeners, hasKeyboardFocusStyle } = useKeyboardFocusStyle(props)
+    const closeButtonClass = useBem('va-alert__close', () => ({
+      focused: hasKeyboardFocusStyle.value,
+    }))
+
     return {
       ...alertStyles,
       valueComputed,
@@ -142,6 +155,8 @@ export default defineComponent({
       hide,
       titleIdComputed,
       descriptionIdComputed,
+      keyboardFocusListeners,
+      closeButtonClass,
     }
   },
 })
@@ -226,10 +241,10 @@ export default defineComponent({
       display: flex;
       align-items: center;
       cursor: pointer;
+    }
 
-      &:focus {
-        @include focus-outline;
-      }
+    &--focused {
+      @include focus-outline;
     }
   }
 
