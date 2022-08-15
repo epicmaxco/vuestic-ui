@@ -1,8 +1,6 @@
 <template>
-  <va-tree-view
-    :nodes="nodes"
-    node-key="id"
-  />
+  <p>List of video game genres:</p>
+  <va-tree-view :nodes="nodes" />
 </template>
 
 <script>
@@ -12,44 +10,59 @@ export default {
   data: () => ({
     nodes: [
       {
-        id: 1,
-        label: 'Category',
+        label: 'Action',
+        icon: 'healing',
         children: [
+          { label: 'Platform games' },
+          { label: 'Shooter games' },
+          { label: 'Fighting games' },
+        ],
+      },
+      {
+        label: 'Adventure',
+        icon: 'interests',
+        children: [
+          { label: 'Text adventures' },
+          { label: 'Graphic adventures' },
+          { label: 'Visual novels' },
+        ],
+      },
+      {
+        label: 'Puzzle',
+        icon: 'extension',
+        children: [
+          { label: 'Breakout clone game' },
           {
-            id: 2,
-            label: 'Subcategory',
+            label: 'Logical game',
             children: [
-              { id: 3, label: 'Item' },
-              { id: 4, label: 'Item' },
+              { label: 'Physics game' },
             ],
           },
-          {
-            id: 5,
-            label: 'Subcategory',
-            children: [
-              { id: 6, label: 'Item' },
-            ],
-          },
         ],
       },
       {
-        id: 7,
-        label: 'Category',
+        label: 'Strategy',
+        icon: 'fort',
         children: [
-          { id: 8, label: 'Item' },
+          { label: 'Real-time strategy (RTS)' },
+          { label: 'Real-time tactics (RTT)' },
+          { label: 'Tower defense' },
+          { label: 'Turn-based strategy (TBS)' },
+          { label: 'Turn-based tactics (TBT)' },
         ],
       },
       {
-        id: 9,
-        label: 'Category',
+        label: 'Sports',
+        icon: 'pool',
         children: [
-          { id: 10, label: 'Item' },
+          { label: 'Racing' },
+          { label: 'Sports game' },
+          { label: 'Competitive' },
+          { label: 'Sports-based fighting' },
         ],
       },
-      {
-        id: 11,
-        label: 'Item',
-      },
+      { label: 'Simulation', icon: 'motorcycle' },
+      { label: 'MMO', icon: 'groups' },
     ],
   }),
 }
