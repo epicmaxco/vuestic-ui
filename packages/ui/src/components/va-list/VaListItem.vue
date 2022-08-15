@@ -12,6 +12,7 @@
     :exact-active-class="exactActiveClass"
     :class="computedClass"
     :tabindex="tabIndexComputed"
+    v-on="keyboardFocusListeners"
   >
     <div
       class="va-list-item__inner"
@@ -25,13 +26,20 @@
 
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
+import pick from 'lodash/pick'
 
-import { useComponentPresetProp, useRouterLink, useRouterLinkProps } from '../../composables'
+import {
+  useBem,
+  useComponentPresetProp,
+  useRouterLink, useRouterLinkProps,
+  useKeyboardFocusStyle, useKeyboardFocusStyleProps,
+} from '../../composables'
 
 export default defineComponent({
   name: 'VaListItem',
   emits: ['focus', 'click'],
   props: {
+    ...useKeyboardFocusStyleProps,
     ...useRouterLinkProps,
     ...useComponentPresetProp,
     tag: { type: String, default: 'div' },
@@ -41,12 +49,15 @@ export default defineComponent({
   setup (props) {
     const tabIndexComputed = computed(() => props.disabled ? -1 : 0)
 
-    const computedClass = computed(() => ({
-      'va-list-item--disabled': props.disabled,
+    const { keyboardFocusListeners, hasKeyboardFocusStyle } = useKeyboardFocusStyle(props)
+    const computedClass = useBem('va-list-item', () => ({
+      ...pick(props, ['disabled']),
+      focused: hasKeyboardFocusStyle.value,
     }))
 
     return {
       ...useRouterLink(props),
+      keyboardFocusListeners,
       tabIndexComputed,
       computedClass,
     }
@@ -65,7 +76,7 @@ export default defineComponent({
     @include va-disabled;
   }
 
-  &:focus:not(.va-list-item--disabled) {
+  &--focused {
     @include focus-outline;
   }
 
