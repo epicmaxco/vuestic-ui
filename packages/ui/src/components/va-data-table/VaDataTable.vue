@@ -55,7 +55,7 @@
             @click.exact="column.sortable && toggleSorting(column)"
             @keydown.enter.stop="column.sortable && toggleSorting(column)"
           >
-            <div class="va-data-table__table-th-wrapper" :tabindex="column.sortable ? 0 : -1">
+            <div class="va-data-table__table-th-wrapper">
               <span v-if="`header(${column.name})` in $slots">
                 <slot :name="`header(${column.name})`" v-bind="{ label: column.label, key: column.key }" />
               </span>
@@ -71,6 +71,8 @@
                 @selectstart.prevent
               >
                 <va-icon
+                  :role="column.sortable ? 'button' : undefined"
+                  :tabindex="column.sortable ? 0 : -1"
                   :name="sortingOrderIconName"
                   size="small"
                   class="va-data-table__table-th-sorting-icon"
@@ -200,7 +202,7 @@
             @click.exact="allowFooterSorting && column.sortable && toggleSorting(column)"
             @keydown.enter.stop="allowFooterSorting && column.sortable && toggleSorting(column)"
           >
-            <div class="va-data-table__table-th-wrapper" :tabindex="allowFooterSorting && column.sortable ? 0 : -1">
+            <div class="va-data-table__table-th-wrapper">
               <span v-if="`footer(${column.name})` in $slots">
                 <slot :name="`footer(${column.name})`" v-bind="{ label: column.label, key: column.key }" />
               </span>
@@ -215,6 +217,8 @@
                 @selectstart.prevent
               >
                 <va-icon
+                  :role="allowFooterSorting && column.sortable ? 'button' : undefined"
+                  :tabindex="allowFooterSorting && column.sortable ? 0 : -1"
                   :name="sortingOrderIconName"
                   size="small"
                   class="va-data-table__table-th-sorting-icon"
@@ -245,7 +249,7 @@ import useSelectableRow from './hooks/useSelectableRow'
 import useStylable from './hooks/useStylable'
 import useBinding from './hooks/useBinding'
 import useAnimationName from './hooks/useAnimationName'
-import { useComponentPresetProp } from '../../composables/useComponentPreset'
+import { useComponentPresetProp } from '../../composables'
 
 import type {
   DataTableColumnSource,
@@ -533,10 +537,6 @@ export default defineComponent({
       .va-data-table__table-th-wrapper {
         display: flex;
         align-items: center;
-
-        &:focus {
-          @include focus-outline($offset: 2px);
-        }
       }
 
       .va-data-table__table-th-sorting {
@@ -549,6 +549,7 @@ export default defineComponent({
         user-select: none;
         pointer-events: none;
 
+        &:focus,
         &.active {
           opacity: 1;
           pointer-events: initial;
