@@ -6,7 +6,7 @@
     <template v-else>
       <va-tree-node
         v-for="nodeItem in treeItems"
-        :key="getKey(nodeItem)"
+        :key="getTrackBy(nodeItem)"
         :node="nodeItem"
       >
         <template v-for="(_, name) in $slots" :key="name" v-slot:[name]="slotScope">
@@ -18,66 +18,37 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, provide, ref, toRefs, computed, PropType } from 'vue'
+import { defineComponent, provide, ref, computed, PropType } from 'vue'
+
 import { useColors, useTextColor } from '../../composables/'
 
-import { TreeViewKey, TreeNode } from './types'
-import useTreeBuilder, { TreeViewFilterMethod } from './hooks/useTreeBuilder'
+import useTreeView from './hooks/useTreeView'
+import { useTreeViewProps } from './hooks/useTreeHelpers'
 
+import { TreeViewKey, TreeNode } from './types'
 import { VaTreeNode } from './components/VaTreeNode'
 
 export default defineComponent({
   name: 'VaTreeView',
 
   props: {
-    nodes: {
-      type: Array as PropType<TreeNode[]>,
-      default: () => ([]),
+    ...useTreeViewProps,
+    stateful: {
+      type: Boolean as PropType<boolean>,
+      default: false,
     },
     modelValue: {
-      type: Array as PropType<(number | string)[]>,
-      default: () => ([]),
+      type: undefined as any,
     },
     color: {
       type: String,
       default: 'primary',
     },
-    trackBy: {
-      type: String,
-      default: 'id',
-    },
-    textBy: {
-      type: String,
-      default: 'label',
-    },
-    valueBy: {
-      type: String,
-      default: '',
-    },
-    expandAll: {
-      type: Boolean,
-      default: false,
-    },
-    selectable: {
-      type: Boolean,
-      default: false,
-    },
-    selectionType: {
-      type: String,
-      default: 'leaf',
-      validator: (v: string) => ['leaf', 'independent'].includes(v),
-    },
-    filter: {
-      type: String,
-      default: '',
-    },
-    filterMethod: {
-      type: Function as PropType<TreeViewFilterMethod>,
-      default: undefined,
-    },
   },
 
-  emits: ['update:modelValue'],
+  emits: [
+    'update:modelValue',
+  ],
 
   components: { VaTreeNode },
 
@@ -86,7 +57,11 @@ export default defineComponent({
     const { getColor } = useColors()
     const colorComputed = computed(() => getColor(props.color))
     const { textColorComputed } = useTextColor(colorComputed)
-    const { treeItems } = useTreeBuilder(toRefs(props))
+    const {
+      treeItems,
+      getText,
+      getTrackBy,
+    } = useTreeView(props)
 
     const toggleCheckbox = (node: TreeNode, isChecked: boolean): void => {
       if (node.disabled) { return }
@@ -130,20 +105,22 @@ export default defineComponent({
       }
     }
 
-    const getKey = (node: TreeNode) => node[props.trackBy]
-
     provide(TreeViewKey, {
       colorComputed,
       iconColor: textColorComputed,
-      trackBy: props.trackBy,
-      textBy: props.textBy,
       selectable: props.selectable,
-      getKey,
+      getText,
+      getTrackBy,
       toggleNode,
       toggleCheckbox,
     })
 
-    return { treeItems, getKey }
+    return {
+      treeItems,
+
+      getText,
+      getTrackBy,
+    }
   },
 })
 </script>

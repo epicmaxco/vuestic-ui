@@ -14,14 +14,17 @@ export interface TreeNode {
 }
 
 export interface TreeView {
-  trackBy: string | number
-  textBy: string
   selectable: boolean
   iconColor: ComputedRef<string>
   colorComputed: ComputedRef<string>
   toggleNode: (node: TreeNode) => void
   toggleCheckbox: (node: TreeNode, isSelected: boolean) => void
-  getKey: (node:TreeNode) => string,
+  getText: (node: TreeNode) => string
+  getTrackBy: (node: TreeNode) => string
 }
 
 export const TreeViewKey = Symbol('TreeView') as InjectionKey<TreeView>
+
+export type TreeViewSelectableProp = string | ((node: TreeNode) => string | number)
+
+export type TreeViewFilterMethod = (node: TreeNode, filter: string, textBy: TreeViewSelectableProp) => boolean

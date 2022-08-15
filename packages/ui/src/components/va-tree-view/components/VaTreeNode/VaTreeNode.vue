@@ -57,7 +57,7 @@
     >
       <va-tree-node
         v-for="childNode in $props.node.children"
-        :key="getKey(childNode)"
+        :key="getTrackBy(childNode)"
         :node="childNode"
       >
         <template v-for="(_, name) in $slots" :key="name" v-slot:[name]="slotScope">
@@ -93,28 +93,31 @@ export default defineComponent({
 
   setup: (props, { slots }) => {
     const {
-      trackBy,
-      textBy,
       iconColor,
       selectable,
       colorComputed,
-      getKey,
+      getText,
+      getTrackBy,
       toggleNode,
       toggleCheckbox,
     } = useStrictInject(TreeViewKey, INJECTION_ERROR_MESSAGE)
 
-    const labelComputed = computed(() => props.node[textBy] || '')
+    const labelComputed = computed(() => getText(props.node) || '')
     const isExpandedComputed = computed(() => !!props.node.expanded)
     const hasIconComputed = computed(() => slots.icon && props.node.icon)
+
     const treeNodeClassComputed = useBem('va-tree-node', () => ({
       disabled: !!props.node.disabled,
     }))
+
     const expandedClassComputed = useBem('va-tree-node-children', () => ({
       expanded: isExpandedComputed.value,
     }))
+
     const gapClassComputed = useBem('va-tree-node-content', () => ({
       indent: (selectable || hasIconComputed) && props.node.hasChildren === false,
     }))
+
     const tabIndexComputed = computed(() => props.node.disabled ? -1 : 0)
 
     const handleToggleNode = (event: Event, node: TreeNode) => {
@@ -126,11 +129,11 @@ export default defineComponent({
     }
 
     return {
-      trackBy,
       iconColor,
       selectable,
 
-      getKey,
+      getText,
+      getTrackBy,
       toggleNode,
       toggleCheckbox,
       handleToggleNode,
