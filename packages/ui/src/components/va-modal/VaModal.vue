@@ -45,7 +45,6 @@
                 class="va-modal__close"
                 role="button"
                 aria-label="close"
-                aria-hidden="false"
                 tabindex="0"
                 @click="cancel"
                 @keydown.space="cancel"
@@ -122,17 +121,13 @@ import type { PropType, StyleValue } from 'vue'
 import { Transition, h, defineComponent, computed, shallowRef, toRef, watchEffect } from 'vue'
 
 import {
-  useStateful,
-  useStatefulProps,
-  useStatefulEmits,
-  useColors,
-  useTextColor,
-  useWindow,
-  useDocument,
+  useStateful, useStatefulProps, useStatefulEmits,
+  useColors, useTextColor,
+  useWindow, useDocument,
+  useComponentPresetProp,
 } from '../../composables'
 
 import { VaButton } from '../va-button'
-import { useComponentPresetProp } from '../../composables/useComponentPreset'
 import { VaIcon } from '../va-icon'
 
 const ModalElement = defineComponent({
@@ -477,10 +472,6 @@ export default defineComponent({
     font-style: normal;
     color: var(--va-secondary);
     z-index: 1;
-
-    &:focus {
-      @include focus-outline;
-    }
   }
 
   &__footer {
