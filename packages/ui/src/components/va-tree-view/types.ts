@@ -13,18 +13,19 @@ export interface TreeNode {
   [key: string]: any
 }
 
+export type TreeViewPropKey = string | ((node: TreeNode) => string | number)
+
+export type TreeViewFilterMethod = (node: TreeNode, filter: string, textBy: TreeViewPropKey) => boolean
+
 export interface TreeView {
   selectable: boolean
-  iconColor: ComputedRef<string>
+  iconBy: TreeViewPropKey
   colorComputed: ComputedRef<string>
-  toggleNode: (node: TreeNode) => void
-  toggleCheckbox: (node: TreeNode, isSelected: boolean) => void
   getText: (node: TreeNode) => string
+  toggleNode: (node: TreeNode) => void
   getTrackBy: (node: TreeNode) => string
+  toggleCheckbox: (node: TreeNode, isSelected: boolean) => void
+  getNodeProperty: (node: TreeNode, key: TreeViewPropKey) => unknown
 }
 
 export const TreeViewKey = Symbol('TreeView') as InjectionKey<TreeView>
-
-export type TreeViewSelectableProp = string | ((node: TreeNode) => string | number)
-
-export type TreeViewFilterMethod = (node: TreeNode, filter: string, textBy: TreeViewSelectableProp) => boolean

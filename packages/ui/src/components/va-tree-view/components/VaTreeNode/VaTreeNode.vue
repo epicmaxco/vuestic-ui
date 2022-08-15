@@ -14,7 +14,7 @@
       class="va-tree-node-root"
       @click.stop="toggleNode($props.node)"
     >
-      <div class="va-tree-node-content" :class="gapClassComputed">
+      <div class="va-tree-node-content" :class="indentClassComputed">
         <div
           v-if="$props.node.hasChildren"
           class="va-tree-node-content__item va-tree-node-content__item--leaf"
@@ -40,8 +40,10 @@
             />
           </slot>
         </div>
-        <div v-if="hasIconComputed" class="va-tree-node-content__item">
-          <slot name="icon" v-bind="$props.node"></slot>
+        <div v-if="iconComputed" class="va-tree-node-content__item">
+          <slot name="icon" v-bind="$props.node">
+            <va-icon :name="iconComputed" size="small" />
+          </slot>
         </div>
         <div class="va-tree-node-content__body">
           <slot name="content" v-bind="$props.node">{{ labelComputed }}</slot>
@@ -93,18 +95,19 @@ export default defineComponent({
 
   setup: (props, { slots }) => {
     const {
-      iconColor,
+      iconBy,
       selectable,
       colorComputed,
       getText,
       getTrackBy,
       toggleNode,
       toggleCheckbox,
+      getNodeProperty,
     } = useStrictInject(TreeViewKey, INJECTION_ERROR_MESSAGE)
 
     const labelComputed = computed(() => getText(props.node) || '')
     const isExpandedComputed = computed(() => !!props.node.expanded)
-    const hasIconComputed = computed(() => slots.icon && props.node.icon)
+    const iconComputed = computed(() => getNodeProperty(props.node, iconBy))
 
     const treeNodeClassComputed = useBem('va-tree-node', () => ({
       disabled: !!props.node.disabled,
@@ -114,8 +117,8 @@ export default defineComponent({
       expanded: isExpandedComputed.value,
     }))
 
-    const gapClassComputed = useBem('va-tree-node-content', () => ({
-      indent: (selectable || hasIconComputed) && props.node.hasChildren === false,
+    const indentClassComputed = useBem('va-tree-node-content', () => ({
+      indent: props.node.hasChildren === false,
     }))
 
     const tabIndexComputed = computed(() => props.node.disabled ? -1 : 0)
@@ -129,7 +132,6 @@ export default defineComponent({
     }
 
     return {
-      iconColor,
       selectable,
 
       getText,
@@ -138,11 +140,11 @@ export default defineComponent({
       toggleCheckbox,
       handleToggleNode,
 
+      iconComputed,
       labelComputed,
       colorComputed,
-      hasIconComputed,
       tabIndexComputed,
-      gapClassComputed,
+      indentClassComputed,
       isExpandedComputed,
       expandedClassComputed,
       treeNodeClassComputed,

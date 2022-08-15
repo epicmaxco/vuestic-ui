@@ -1,6 +1,6 @@
 import { computed, reactive, toRefs, ComputedRef, ExtractPropTypes } from 'vue'
 
-import type { TreeNode, TreeViewFilterMethod } from '../types'
+import type { TreeNode, TreeViewPropKey, TreeViewFilterMethod } from '../types'
 import { useTreeHelpers, useTreeViewProps } from './useTreeHelpers'
 
 type CreateNodeProps = {
@@ -19,12 +19,20 @@ type UseTreeBuilderFunc = (props: ExtractPropTypes<typeof useTreeViewProps>) => 
   getText: (node: TreeNode) => string | number
   getDisabled: (node: TreeNode) => boolean
   getTrackBy: (node: TreeNode) => TreeNode | string | number
+  getNodeProperty: (node: TreeNode, key: TreeViewPropKey) => unknown
 }
 
 type TreeBuilderFunc = (nodes: TreeNode[], level?: number) => TreeNode[]
 
 const useTreeView: UseTreeBuilderFunc = (props) => {
-  const { getValue, getNodeByValue, getText, getDisabled, getTrackBy } = useTreeHelpers(props)
+  const {
+    getText,
+    getValue,
+    getTrackBy,
+    getDisabled,
+    getNodeByValue,
+    getNodeProperty,
+  } = useTreeHelpers(props)
   const { nodes, expandAll, filter, filterMethod, textBy } = toRefs(props)
 
   const createNode: CreateNodeFunc = (props) => {
@@ -79,11 +87,12 @@ const useTreeView: UseTreeBuilderFunc = (props) => {
 
   return {
     treeItems: computed(() => buildTree(nodes.value)),
-    getValue,
-    getNodeByValue,
     getText,
-    getDisabled,
+    getValue,
     getTrackBy,
+    getDisabled,
+    getNodeByValue,
+    getNodeProperty,
   }
 }
 

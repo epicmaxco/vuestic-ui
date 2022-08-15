@@ -56,11 +56,11 @@ export default defineComponent({
     const selectedNodes = ref(new Set())
     const { getColor } = useColors()
     const colorComputed = computed(() => getColor(props.color))
-    const { textColorComputed } = useTextColor(colorComputed)
     const {
       treeItems,
       getText,
       getTrackBy,
+      getNodeProperty,
     } = useTreeView(props)
 
     const toggleCheckbox = (node: TreeNode, isChecked: boolean): void => {
@@ -107,12 +107,13 @@ export default defineComponent({
 
     provide(TreeViewKey, {
       colorComputed,
-      iconColor: textColorComputed,
       selectable: props.selectable,
+      iconBy: props.iconBy,
       getText,
       getTrackBy,
       toggleNode,
       toggleCheckbox,
+      getNodeProperty,
     })
 
     return {

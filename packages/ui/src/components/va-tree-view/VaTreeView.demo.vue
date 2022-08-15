@@ -5,10 +5,10 @@
     </VbCard>
     <VbCard title="Icons">
       <va-tree-view :nodes="nodesWithIcons" expand-all>
-        <template #icon="{icon}">
+        <template #icon="{ icon, iconColor }">
           <va-icon
-            v-if="icon"
             :name="icon"
+            :color="iconColor"
             size="20px"
           />
         </template>
@@ -212,11 +212,13 @@ export default {
         id: 1,
         label: 'Category',
         icon: 'mail',
+        iconColor: 'var(--va-danger)',
         children: [
           {
             id: 2,
             label: 'Subcategory',
             icon: 'mail',
+            iconColor: '#4b0082',
             children: [
               { id: 3, label: 'Item' },
               { id: 4, label: 'Item', icon: 'mail' },
@@ -236,6 +238,7 @@ export default {
         id: 7,
         label: 'Category',
         icon: 'mail',
+        iconColor: 'var(--va-warning)',
         children: [
           { id: 8, label: 'Item' },
         ],
@@ -244,6 +247,7 @@ export default {
         id: 9,
         label: 'Category',
         icon: 'mail',
+        iconColor: 'var(--va-success)',
         children: [
           { id: 10, label: 'Item' },
         ],

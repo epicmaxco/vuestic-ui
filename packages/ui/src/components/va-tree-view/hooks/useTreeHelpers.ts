@@ -1,6 +1,6 @@
 import { PropType, ExtractPropTypes } from 'vue'
 
-import type {TreeNode, TreeViewFilterMethod, TreeViewSelectableProp} from '../types'
+import type { TreeNode, TreeViewFilterMethod, TreeViewPropKey } from '../types'
 
 import { getValueByKey } from '../../../services/utils'
 
@@ -19,19 +19,23 @@ export const useTreeViewProps = {
     validator: (v: string) => ['leaf', 'independent'].includes(v),
   },
   valueBy: {
-    type: [String, Function] as PropType<TreeViewSelectableProp>,
+    type: [String, Function] as PropType<TreeViewPropKey>,
     default: '',
   },
   textBy: {
-    type: [String, Function] as PropType<TreeViewSelectableProp>,
+    type: [String, Function] as PropType<TreeViewPropKey>,
     default: 'label',
   },
   trackBy: {
-    type: [String, Function] as PropType<TreeViewSelectableProp>,
+    type: [String, Function] as PropType<TreeViewPropKey>,
     default: 'id',
   },
+  iconBy: {
+    type: [String, Function] as PropType<TreeViewPropKey>,
+    default: 'icon',
+  },
   disabledBy: {
-    type: [String, Function] as PropType<TreeViewSelectableProp>,
+    type: [String, Function] as PropType<TreeViewPropKey>,
     default: 'disabled',
   },
   expandAll: {
@@ -55,8 +59,8 @@ export const useTreeHelpers = (props: ExtractPropTypes<typeof useTreeViewProps>)
     return typeOfNode === 'string' || typeOfNode === 'number'
   }
 
-  const getNodeProperty = (node: TreeNode, selector: TreeViewSelectableProp) =>
-    !selector || isStringOrNumber(node) ? node : getValueByKey(node, selector)
+  const getNodeProperty = (node: TreeNode, key: TreeViewPropKey) =>
+    !key || isStringOrNumber(node) ? node : getValueByKey(node, key)
 
   const getValue = (node: TreeNode) => getNodeProperty(node, props.valueBy)
 
@@ -68,13 +72,14 @@ export const useTreeHelpers = (props: ExtractPropTypes<typeof useTreeViewProps>)
 
   const getText = (node: TreeNode) => getNodeProperty(node, props.textBy)
   const getDisabled = (node: TreeNode) => getValueByKey(node, props.disabledBy)
-  const getTrackBy = (node: TreeNode) => getNodeProperty(node, props.trackBy)
+  const getTrackBy = (node: TreeNode) => getNodeProperty(node, props.trackBy) || getText(node)
 
   return {
-    getValue,
-    getNodeByValue,
     getText,
-    getDisabled,
+    getValue,
     getTrackBy,
+    getDisabled,
+    getNodeByValue,
+    getNodeProperty,
   }
 }
