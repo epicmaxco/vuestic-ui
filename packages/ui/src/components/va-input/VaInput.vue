@@ -34,10 +34,10 @@
       <va-icon
         v-if="canBeCleared"
         role="button"
-        aria-hidden="false"
         aria-label="reset"
         class="va-input__icons__reset"
         :tabindex="tabIndexComputed"
+        :disable-focus-style="$props.disableFocusStyle"
         v-bind="clearIconProps"
         @click.stop="reset"
         @keydown.enter.stop="reset"
@@ -78,6 +78,7 @@ import pick from 'lodash/pick.js'
 import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
 
 import {
+  useKeyboardFocusStyleProps,
   useComponentPresetProp,
   useFormProps,
   useValidation, useValidationProps, useValidationEmits, ValidationProps,
@@ -113,6 +114,7 @@ export default defineComponent({
   components: { VaInputWrapper, VaTextarea, VaIcon },
 
   props: {
+    ...useKeyboardFocusStyleProps,
     ...useFormProps,
     ...useValidationProps as ValidationProps<string>,
     ...useClearableProps,
