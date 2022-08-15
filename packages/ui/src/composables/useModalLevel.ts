@@ -1,27 +1,46 @@
-import { computed, ref } from 'vue'
+import { computed, shallowReactive } from 'vue'
+import { uniqueId } from 'lodash'
 
-const LOWEST_MODAL_LEVEL = 1
-const NO_MODALS_LEVEL = 0
-const currentModalsLevel = ref(NO_MODALS_LEVEL)
+export type ModalInStack = {
+  id: string;
+  // can add some modal info, methods here
+};
+
+const modalsStack = shallowReactive<ModalInStack[]>([])
 
 export const useModalLevel = () => {
-  const currentModalLevel = ref<null | number>(null)
-  const getModalLevelOnClose = () => {
-    currentModalsLevel.value--
-    currentModalLevel.value = null
+  const modalId = uniqueId()
+  const modalLevel = computed<number>(() =>
+    modalsStack.findIndex(({ id }) => id === modalId),
+  )
+  const registerModal = () => {
+    modalsStack.push({
+      id: modalId,
+    })
   }
-  const getModalLevelOnOpen = () => {
-    currentModalsLevel.value++
-    currentModalLevel.value = currentModalsLevel.value
+  const unregisterModal = () => {
+    if (modalLevel.value === -1) {
+      return
+    }
+
+    modalsStack.splice(modalLevel.value, 1)
   }
-  const isTopLevelModal = computed(() => currentModalLevel.value === currentModalsLevel.value)
-  const isLowestLevelModal = computed(() => currentModalLevel.value === LOWEST_MODAL_LEVEL)
+
+  const isTopLevelModal = computed(
+    () => modalLevel.value === modalsStack.length - 1,
+  )
+  const isLowestLevelModal = computed(
+    () => modalLevel.value === 0,
+  )
+  const isMoreThenOneModalOpen = computed(() => modalsStack.length > 1)
 
   return {
-    getModalLevelOnClose,
-    getModalLevelOnOpen,
+    modalId,
+    modalLevel,
+    registerModal,
+    unregisterModal,
     isTopLevelModal,
     isLowestLevelModal,
-    currentModalLevel,
+    isMoreThenOneModalOpen,
   }
 }

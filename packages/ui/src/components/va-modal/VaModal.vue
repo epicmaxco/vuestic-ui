@@ -120,7 +120,18 @@
 
 <script lang="ts">
 import type { PropType, StyleValue } from 'vue'
-import { Transition, h, defineComponent, computed, shallowRef, toRef, watchEffect, ref, watch, onMounted } from 'vue'
+import {
+  Transition,
+  h,
+  defineComponent,
+  computed,
+  shallowRef,
+  toRef,
+  watchEffect,
+  watch,
+  onMounted,
+  nextTick,
+} from 'vue'
 
 import {
   useStateful,
@@ -194,8 +205,8 @@ export default defineComponent({
     const { trapFocusIn, freeFocus } = useTrapFocus()
 
     const {
-      getModalLevelOnClose,
-      getModalLevelOnOpen,
+      registerModal,
+      unregisterModal,
       isTopLevelModal,
       isLowestLevelModal,
     } = useModalLevel()
@@ -223,9 +234,7 @@ export default defineComponent({
       // Supposedly solves some case when background wasn't shown.
       // As a side effect removes background from nested modals.
 
-      const moreThanOneModalIsOpen = !!document.value?.querySelectorAll('.va-modal__overlay').length
-
-      if (!props.overlay || moreThanOneModalIsOpen) { return }
+      if (!props.overlay || !isLowestLevelModal.value) { return }
 
       return {
         'background-color': `rgba(0, 0, 0, ${props.overlayOpacity})`,
@@ -238,6 +247,13 @@ export default defineComponent({
     const toggle = () => { valueComputed.value = !valueComputed.value }
     const cancel = () => { hide(); emit('cancel') }
     const ok = () => { hide(); emit('ok') }
+    const trapFocusInModal = () => {
+      nextTick(() => {
+        if (modalDialog.value) {
+          trapFocusIn(modalDialog.value)
+        }
+      })
+    }
 
     const onOutsideClick = () => {
       if (props.noOutsideDismiss || props.noDismiss) { return }
@@ -267,14 +283,14 @@ export default defineComponent({
     watch(valueComputed, (newValue) => {
       // put this into watchEffect -> max recursion stack
       if (newValue) {
-        getModalLevelOnOpen()
+        registerModal()
         return
       }
 
       if (isLowestLevelModal.value) {
         freeFocus()
       }
-      getModalLevelOnClose()
+      unregisterModal()
     })
 
     watchEffect(() => {
@@ -292,14 +308,14 @@ export default defineComponent({
         }
       }
 
-      if (isTopLevelModal.value && modalDialog.value) {
-        trapFocusIn(modalDialog.value)
+      if (isTopLevelModal.value) {
+        trapFocusInModal()
       }
     })
 
     onMounted(() => {
-      if (valueComputed.value) { // case when open modal with this.$vaModal.init case
-        getModalLevelOnOpen()
+      if (valueComputed.value) { // case when open modal with this.$vaModal.init
+        registerModal()
       }
     })
 

@@ -1,4 +1,3 @@
-import { nextTick, Ref } from 'vue'
 import { useDocument } from './useDocument'
 import { useWindow } from './useWindow'
 
@@ -16,14 +15,10 @@ export const useTrapFocus = () => {
   let isFocusTrapped = false
 
   const focusFirstElement = () => {
-    if (firstFocusableElement) {
-      firstFocusableElement.focus()
-    }
+    firstFocusableElement?.focus()
   }
   const focusLastElement = () => {
-    if (lastFocusableElement) {
-      lastFocusableElement.focus()
-    }
+    lastFocusableElement?.focus()
   }
 
   const onKeydown = (evt: KeyboardEvent) => {
@@ -63,17 +58,15 @@ export const useTrapFocus = () => {
   }
 
   const trapFocus = () => {
-    nextTick(() => {
-      if (!trapInEl) {
-        return
-      }
+    if (!trapInEl) {
+      return
+    }
 
-      focusableElements = Array.from(trapInEl.querySelectorAll(FOCUSABLE_ELEMENTS_SELECTOR))
-      firstFocusableElement = focusableElements[0]
-      lastFocusableElement = focusableElements[focusableElements.length - 1]
+    focusableElements = Array.from(trapInEl.querySelectorAll(FOCUSABLE_ELEMENTS_SELECTOR))
+    firstFocusableElement = focusableElements[0]
+    lastFocusableElement = focusableElements[focusableElements.length - 1]
 
-      window.value?.addEventListener('keydown', onKeydown)
-    })
+    window.value?.addEventListener('keydown', onKeydown)
   }
   const freeFocus = () => {
     focusableElements = []
