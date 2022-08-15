@@ -248,7 +248,7 @@ export default defineComponent({
     const cancel = () => { hide(); emit('cancel') }
     const ok = () => { hide(); emit('ok') }
     const trapFocusInModal = () => {
-      nextTick(() => {
+      nextTick(() => { // trapFocusIn use querySelector, so need nextTick, to be sure, that DOM has been updated after modal has been opened
         if (modalDialog.value) {
           trapFocusIn(modalDialog.value)
         }
@@ -280,12 +280,6 @@ export default defineComponent({
     const window = useWindow()
     const document = useDocument()
 
-    watch(isTopLevelModal, newValue => {
-      if (newValue) {
-        trapFocusInModal()
-      }
-    })
-
     watchEffect(() => {
       if (valueComputed.value) {
         window.value?.addEventListener('keyup', listenKeyUp)
@@ -296,6 +290,10 @@ export default defineComponent({
           freeFocus()
         }
         unregisterModal()
+      }
+
+      if (isTopLevelModal.value) {
+        trapFocusInModal()
       }
 
       if (props.blur) {

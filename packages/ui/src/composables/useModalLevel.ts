@@ -10,10 +10,14 @@ const modalsStack = shallowReactive<ModalInStack[]>([])
 
 export const useModalLevel = () => {
   const modalId = uniqueId()
-  const modalLevel = computed<number>(() =>
+  const modalLevel = computed(() =>
     modalsStack.findIndex(({ id }) => id === modalId),
   )
   const registerModal = () => {
+    if (modalLevel.value !== -1) {
+      return
+    }
+
     modalsStack.push({
       id: modalId,
     })
