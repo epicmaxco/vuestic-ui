@@ -83,7 +83,7 @@ import { generateUniqueId } from '../../services/utils'
 
 import {
   useComponentPresetProp,
-  useKeyboardOnlyFocus,
+  useKeyboardFocusStyle, useKeyboardFocusStyleProps,
   useSelectable, useSelectableProps, useSelectableEmits,
   useColors, useTextColor,
   useBem,
@@ -100,6 +100,7 @@ export default defineComponent({
     'focus', 'blur', 'update:modelValue',
   ],
   props: {
+    ...useKeyboardFocusStyleProps,
     ...useSelectableProps,
     ...useComponentPresetProp,
     id: { type: String, default: '' },
@@ -129,7 +130,7 @@ export default defineComponent({
     }
 
     const { getColor } = useColors()
-    const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
+    const { hasKeyboardFocusStyle, keyboardFocusListeners } = useKeyboardFocusStyle(props)
     const {
       isChecked,
       computedError,
@@ -169,7 +170,7 @@ export default defineComponent({
       small: props.size === 'small',
       large: props.size === 'large',
       error: computedError.value,
-      onKeyboardFocus: hasKeyboardFocus.value,
+      onKeyboardFocus: hasKeyboardFocusStyle.value,
     }))
 
     const styleComputed = computed(() => ({
