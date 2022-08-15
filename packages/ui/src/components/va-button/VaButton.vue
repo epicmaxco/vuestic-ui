@@ -402,7 +402,7 @@ export default defineComponent({
   }
 
   &--focused {
-    @include focus-outline;
+    @include focus-outline('inherit');
   }
 
   &--loading {
