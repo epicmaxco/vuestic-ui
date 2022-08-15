@@ -22,7 +22,7 @@ export const useTrapFocus = () => {
   }
 
   const onKeydown = (evt: KeyboardEvent) => {
-    const isTabPressed = evt.key === String(TAB_KEYCODE) || evt.keyCode === TAB_KEYCODE
+    const isTabPressed = evt.code === 'Tab'
     const isShiftPressed = evt.shiftKey
 
     if (!isTabPressed) {
