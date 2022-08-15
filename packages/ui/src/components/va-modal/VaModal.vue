@@ -289,7 +289,6 @@ export default defineComponent({
     watchEffect(() => {
       if (valueComputed.value) {
         window.value?.addEventListener('keyup', listenKeyUp)
-        console.log('register')
         registerModal()
       } else {
         window.value?.removeEventListener('keyup', listenKeyUp)
