@@ -128,7 +128,6 @@ import {
   shallowRef,
   toRef,
   watchEffect,
-  watch,
   onMounted,
   nextTick,
 } from 'vue'
@@ -283,9 +282,25 @@ export default defineComponent({
     watchEffect(() => {
       if (valueComputed.value) {
         window.value?.addEventListener('keyup', listenKeyUp)
-        registerModal()
       } else {
         window.value?.removeEventListener('keyup', listenKeyUp)
+      }
+    })
+
+    watchEffect(() => {
+      if (props.blur) {
+        if (valueComputed.value) {
+          document.value?.body.classList.add('va-modal-overlay-background--blurred')
+        } else {
+          document.value?.body.classList.remove('va-modal-overlay-background--blurred')
+        }
+      }
+    })
+
+    watchEffect(() => { // register/unregister when open/close & trap/free focus effect
+      if (valueComputed.value) {
+        registerModal()
+      } else {
         if (isLowestLevelModal.value) {
           freeFocus()
         }
@@ -294,14 +309,6 @@ export default defineComponent({
 
       if (isTopLevelModal.value) {
         trapFocusInModal()
-      }
-
-      if (props.blur) {
-        if (valueComputed.value) {
-          document.value?.body.classList.add('va-modal-overlay-background--blurred')
-        } else {
-          document.value?.body.classList.remove('va-modal-overlay-background--blurred')
-        }
       }
     })
 
