@@ -298,5 +298,9 @@ export default defineComponent({
     height: 100%;
     width: 100%;
   }
+
+  .va-button--focused {
+    @include focus-outline($radius: 'inherit', $offset: -2px);
+  }
 }
 </style>

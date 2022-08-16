@@ -77,7 +77,7 @@ export default defineComponent({
   }
 
   &--focused {
-    @include focus-outline;
+    @include focus-outline($offset: -2px);
   }
 
   &__inner {
