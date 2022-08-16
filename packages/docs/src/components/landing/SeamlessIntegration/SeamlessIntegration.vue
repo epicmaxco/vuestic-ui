@@ -78,7 +78,7 @@ import SeamlessIntegrationAnotherRangeSlider from './SeamlessIntegrationAnotherR
 import SeamlessIntegrationAnotherCheckbox from './SeamlessIntegrationAnotherCheckbox.vue'
 
 @Options({
-  name: 'LandingSeamlessIntegration',
+  name: 'SeamlessIntegration',
   components: {
     SeamlessIntegrationAnotherButton,
     SeamlessIntegrationAnotherSelect,

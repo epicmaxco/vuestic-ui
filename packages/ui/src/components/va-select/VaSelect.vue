@@ -25,7 +25,6 @@
         :color="$props.color"
         :label="$props.label"
         :loading="$props.loading"
-        :disabled="$props.disabled"
         :outline="$props.outline"
         :bordered="$props.bordered"
         :required-mark="$props.requiredMark"

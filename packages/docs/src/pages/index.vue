@@ -9,38 +9,41 @@
 <template>
   <div class="landing">
     <div class="preview-wrapper">
-      <Header />
-      <Preview />
+      <LandingHeader />
+      <LandingPreview />
+      <LandingPartners />
     </div>
+    <LandingCustomize />
     <SeamlessIntegration />
-    <Customize />
-    <OpenSource />
-    <Admin />
-    <Footer />
+    <LandingOpenSource />
+    <LandingAdmin />
+    <LandingFooter />
   </div>
 </template>
 
 <script lang="ts">
 // @ts-nocheck
 import { Options, Vue } from 'vue-class-component'
-import Header from '../components/landing/Header.vue'
-import Preview from '../components/landing/Preview.vue'
-import Admin from '../components/landing/Admin.vue'
-import Footer from '../components/landing/Footer.vue'
-import OpenSource from '../components/landing/OpenSource.vue'
+import LandingHeader from '../components/landing/LandingHeader.vue'
+import LandingPreview from '../components/landing/LandingPreview.vue'
+import LandingPartners from '../components/landing/LandingPartners.vue'
+import LandingAdmin from '../components/landing/LandingAdmin.vue'
+import LandingFooter from '../components/landing/LandingFooter.vue'
+import LandingOpenSource from '../components/landing/LandingOpenSource.vue'
 import SeamlessIntegration from '../components/landing/SeamlessIntegration/SeamlessIntegration.vue'
-import Customize from '../components/landing/Customize.vue'
+import LandingCustomize from '../components/landing/LandingCustomize.vue'
 
 @Options({
   name: 'DocsLandingPage',
   components: {
-    Header,
-    Preview,
-    Footer,
-    OpenSource,
-    Admin,
+    LandingHeader,
+    LandingPreview,
+    LandingPartners,
+    LandingFooter,
+    LandingOpenSource,
+    LandingAdmin,
     SeamlessIntegration,
-    Customize,
+    LandingCustomize,
   },
 })
 export default class Landing extends Vue {}

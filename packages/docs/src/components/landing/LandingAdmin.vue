@@ -6,25 +6,26 @@
         <div class="admin__subtitle">{{ $t('landing.admin.text') }}</div>
         <div class="admin__buttons">
           <va-button class="admin__buttons--button"
-                     href="https://github.com/epicmaxco/vuestic-admin"
+                     href="https://vuestic.epicmax.co/admin/dashboard"
                      target="blank"
                      :rounded="false"
                      color="primary"
           >
-            <va-icon class="fa fa-github" style="margin-right: 0.5rem;" />
-            {{ $t('landing.admin.buttons.github') }}
+            {{ $t('landing.admin.buttons.demo') }}
           </va-button>
           <va-button class="admin__buttons--button"
-                     href="https://vuestic.epicmax.co/admin/dashboard"
+                     href="https://github.com/epicmaxco/vuestic-admin"
                      target="blank"
                      :rounded="false"
                      color="primary"
                      flat
           >
-            {{ $t('landing.admin.buttons.demo') }}
+            <va-icon class="fa fa-github" style="margin-right: 0.5rem;" />
+            {{ $t('landing.admin.buttons.github') }}
           </va-button>
+
           <div class="admin__buttons--button">
-            <stars-button repo="epicmaxco/vuestic-admin" />
+            <landing-stars-button repo="epicmaxco/vuestic-admin" />
           </div>
         </div>
         <div class="admin__content">
@@ -72,11 +73,11 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
-import StarsButton from './StarsButton.vue'
+import LandingStarsButton from './LandingStarsButton.vue'
 
 @Options({
   name: 'LandingAdmin',
-  components: { StarsButton },
+  components: { LandingStarsButton },
 })
 export default class Admin extends Vue {}
 </script>
@@ -126,39 +127,25 @@ export default class Admin extends Vue {}
 
   &__buttons {
     @include row-flex();
-    @include col();
-    @include size(8);
-    @include shift-left(2);
 
+    margin: 0 auto;
     display: flex;
     justify-content: center;
     align-items: center;
     padding-top: 1.5rem;
 
-    // lg
-    @include size-lg(10);
-    @include shift-lg-left(1);
-    // md
-    @include size-md(6);
-    @include shift-md-left(3);
-    // xs
-    @include size-xs(10);
-    @include shift-xs-left(1);
-
     &--button {
-      @include col();
-      @include size(4);
       @include button-font();
+      @include md(margin-bottom, 1rem);
+      @include md(justify-content, center);
+      @include xs(width, 100%);
+      @include xs(margin, 0 1rem 1rem 1rem);
 
       height: 3rem;
+      margin-right: 1rem;
       display: flex;
       align-items: center;
       justify-content: center;
-
-      // md
-      @include size-md(12);
-      @include md(margin-bottom, 1rem);
-      @include md(justify-content, center);
     }
   }
 
@@ -241,7 +228,7 @@ export default class Admin extends Vue {}
   }
 }
 
-.star-button {
+.stars-button {
   @include code-font();
 
   padding: 0 !important;

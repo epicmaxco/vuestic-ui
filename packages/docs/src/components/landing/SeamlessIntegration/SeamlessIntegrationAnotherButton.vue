@@ -10,7 +10,7 @@
   border: none;
   color: #ffffff;
   transition-duration: 0.4s;
-  overflow: hidden;
+  overflow: hidden !important;
   border-radius: 4px;
   padding: 8px 16px !important;
 
