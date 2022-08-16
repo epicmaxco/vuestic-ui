@@ -77,6 +77,11 @@ export default class Search extends Vue {
     @include xs(position, absolute);
     @include xs(left, 0);
     @include xs(padding, 0 calc(1.2rem + 4px));
+
+    .ds-dataset-1 {
+      @include xs(width, 100vw);
+      @include xs(left, 0);
+    }
   }
 
   .va-input-wrapper__field {
