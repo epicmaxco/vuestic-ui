@@ -18,14 +18,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, provide, ref, computed, PropType } from 'vue'
-
-import { useColors, useTextColor } from '../../composables/'
+import { defineComponent } from 'vue'
 
 import useTreeView from './hooks/useTreeView'
 import { useTreeViewProps } from './hooks/useTreeHelpers'
 
-import { TreeViewKey, TreeNode } from './types'
 import { VaTreeNode } from './components/VaTreeNode'
 
 export default defineComponent({
@@ -33,95 +30,19 @@ export default defineComponent({
 
   props: {
     ...useTreeViewProps,
-    stateful: {
-      type: Boolean as PropType<boolean>,
-      default: false,
-    },
-    modelValue: {
-      type: undefined as any,
-    },
-    color: {
-      type: String,
-      default: 'primary',
-    },
   },
 
   emits: [
     'update:modelValue',
+    'update:checked',
   ],
 
   components: { VaTreeNode },
 
-  setup: (props, { emit }) => {
-    const selectedNodes = ref(new Set())
-    const { getColor } = useColors()
-    const colorComputed = computed(() => getColor(props.color))
-    const {
-      treeItems,
-      getText,
-      getTrackBy,
-      getNodeProperty,
-    } = useTreeView(props)
+  setup: (props) => {
+    const { treeItems, getTrackBy } = useTreeView(props)
 
-    const toggleCheckbox = (node: TreeNode, isChecked: boolean): void => {
-      if (node.disabled) { return }
-
-      const toggleChildNodeCheckbox = (nodes: TreeNode[]): void => {
-        nodes.forEach((childNode: TreeNode) => {
-          childNode.checked = isChecked
-
-          if (isChecked) {
-            selectedNodes.value.add(childNode.id)
-          } else {
-            selectedNodes.value.delete(childNode.id)
-          }
-
-          emit('update:modelValue', Array.from(selectedNodes.value.values()))
-
-          if (childNode.hasChildren) {
-            toggleChildNodeCheckbox(childNode.children)
-          }
-        })
-      }
-
-      if (isChecked) {
-        selectedNodes.value.add(node.id)
-      } else {
-        selectedNodes.value.delete(node.id)
-      }
-
-      emit('update:modelValue', Array.from(selectedNodes.value.values()))
-
-      if (props.selectionType === 'leaf' && node.hasChildren) {
-        toggleChildNodeCheckbox(node.children)
-      }
-
-      node.checked = isChecked
-    }
-
-    const toggleNode = (node: TreeNode): void => {
-      if (node.hasChildren && !node.disabled) {
-        node.expanded = !node.expanded
-      }
-    }
-
-    provide(TreeViewKey, {
-      colorComputed,
-      selectable: props.selectable,
-      iconBy: props.iconBy,
-      getText,
-      getTrackBy,
-      toggleNode,
-      toggleCheckbox,
-      getNodeProperty,
-    })
-
-    return {
-      treeItems,
-
-      getText,
-      getTrackBy,
-    }
+    return { treeItems, getTrackBy }
   },
 })
 </script>

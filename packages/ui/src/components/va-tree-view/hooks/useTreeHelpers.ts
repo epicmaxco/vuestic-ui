@@ -1,4 +1,4 @@
-import { PropType, ExtractPropTypes } from 'vue'
+import { PropType, ExtractPropTypes, ref } from 'vue'
 
 import type { TreeNode, TreeViewFilterMethod, TreeViewPropKey } from '../types'
 
@@ -50,6 +50,14 @@ export const useTreeViewProps = {
     type: Function as PropType<TreeViewFilterMethod | undefined>,
     default: undefined,
   },
+  checked: {
+    type: Array as PropType<(string | number | TreeNode)[]>,
+    default: [],
+  },
+  color: {
+    type: String,
+    default: 'primary',
+  },
 }
 
 export const useTreeHelpers = (props: ExtractPropTypes<typeof useTreeViewProps>) => {
@@ -74,11 +82,22 @@ export const useTreeHelpers = (props: ExtractPropTypes<typeof useTreeViewProps>)
   const getDisabled = (node: TreeNode) => getValueByKey(node, props.disabledBy)
   const getTrackBy = (node: TreeNode) => getNodeProperty(node, props.trackBy) || getText(node)
 
+  const iterateNodes = (nodes: TreeNode[], cb: (node: TreeNode) => unknown) => {
+    nodes.forEach((node: TreeNode) => {
+      const children = node.children || []
+
+      if (children.length) { iterateNodes(children, cb) }
+
+      cb(node)
+    })
+  }
+
   return {
     getText,
     getValue,
     getTrackBy,
     getDisabled,
+    iterateNodes,
     getNodeByValue,
     getNodeProperty,
   }

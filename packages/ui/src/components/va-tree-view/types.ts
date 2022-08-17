@@ -24,8 +24,8 @@ export interface TreeView {
   getText: (node: TreeNode) => string
   toggleNode: (node: TreeNode) => void
   getTrackBy: (node: TreeNode) => string
-  toggleCheckbox: (node: TreeNode, isSelected: boolean) => void
   getNodeProperty: (node: TreeNode, key: TreeViewPropKey) => unknown
+  toggleCheckbox: (node: TreeNode, state: boolean) => void
 }
 
 export const TreeViewKey = Symbol('TreeView') as InjectionKey<TreeView>

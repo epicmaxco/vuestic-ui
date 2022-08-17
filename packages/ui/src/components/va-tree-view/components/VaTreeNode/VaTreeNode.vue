@@ -34,8 +34,9 @@
           <slot name="checkbox">
             <va-checkbox
               v-model="$props.node.checked"
+              :indeterminate="$props.node.indeterminate"
               :color="colorComputed"
-              @update:model-value="(isChecked) => toggleCheckbox($props.node, isChecked)"
+              @update:model-value="(v) => toggleCheckbox($props.node, v)"
               class="va-tree-node__checkbox"
             />
           </slot>
@@ -93,7 +94,7 @@ export default defineComponent({
 
   components: { VaCheckbox, VaIcon },
 
-  setup: (props, { slots }) => {
+  setup: (props) => {
     const {
       iconBy,
       selectable,
@@ -101,8 +102,8 @@ export default defineComponent({
       getText,
       getTrackBy,
       toggleNode,
-      toggleCheckbox,
       getNodeProperty,
+      toggleCheckbox,
     } = useStrictInject(TreeViewKey, INJECTION_ERROR_MESSAGE)
 
     const labelComputed = computed(() => getText(props.node) || '')
@@ -137,8 +138,8 @@ export default defineComponent({
       getText,
       getTrackBy,
       toggleNode,
-      toggleCheckbox,
       handleToggleNode,
+      toggleCheckbox,
 
       iconComputed,
       labelComputed,
