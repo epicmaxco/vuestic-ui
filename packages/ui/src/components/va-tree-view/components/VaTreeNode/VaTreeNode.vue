@@ -34,8 +34,8 @@
           <slot name="checkbox">
             <va-checkbox
               v-model="$props.node.checked"
-              :indeterminate="$props.node.indeterminate"
               :color="colorComputed"
+              indeterminate
               @update:model-value="(v) => toggleCheckbox($props.node, v)"
               class="va-tree-node__checkbox"
             />

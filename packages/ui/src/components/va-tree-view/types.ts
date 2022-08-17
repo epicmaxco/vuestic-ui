@@ -1,10 +1,10 @@
-import { ComputedRef, InjectionKey } from 'vue'
+import { ComputedRef, InjectionKey, Ref } from 'vue'
 
 export interface TreeNode {
   id: number | string
   children: TreeNode[]
   level?: number
-  checked?: boolean
+  checked?: boolean | null
   disabled?: boolean
   expanded?: boolean
   hasChildren?: boolean

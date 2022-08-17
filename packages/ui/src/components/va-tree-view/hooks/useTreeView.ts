@@ -30,6 +30,7 @@ type TreeBuilderFunc = (nodes: TreeNode[], level?: number) => TreeNode[]
 const useTreeView: UseTreeViewFunc = (props) => {
   const { getColor } = useColors()
   const colorComputed = computed(() => getColor(props.color))
+  const isLeafSelectionComputed = computed(() => props.selectionType === 'leaf')
   const {
     getText,
     getTrackBy,
@@ -50,29 +51,37 @@ const useTreeView: UseTreeViewFunc = (props) => {
   }
 
   const toggleCheckbox = (node: TreeNode, state: boolean) => {
-    if (props.selectionType === 'leaf') {
-      if (node.children.length) {
-        const values = [getTrackBy(node)]
-        const cb = (node: TreeNode) => values.push(getTrackBy(node))
+    const stateValue = state === null ? true : state
+    const trackByValue = getTrackBy(node)
+
+    if (isLeafSelectionComputed.value) {
+      if (node.hasChildren) {
+        const values = [trackByValue]
+        const cb = (childNode: TreeNode) => values.push(getTrackBy(childNode))
 
         iterateNodes(node.children, cb)
-        updateCheckedList(values, state)
-      } else {
-        updateCheckedList([getTrackBy(node)], state)
+        updateCheckedList(values, stateValue)
       }
-    } else {
-      updateCheckedList([getTrackBy(node)], state)
     }
+
+    updateCheckedList([trackByValue], stateValue)
   }
 
   const createNode: CreateNodeFunc = ({ node, level, children = [], computedFilterMethod }) => {
+    const trackByValue = getTrackBy(node)
     const matchesFilter = filter.value ? computedFilterMethod.value?.(node, filter.value, textBy.value) : true
     const hasChildren = !!children.length
     let indeterminate = false
-    const checked = node.checked || checkedList.value.includes(getTrackBy(node)) || false
+    let checked: boolean | null = node.checked || checkedList.value.includes(trackByValue) || false
 
-    if (hasChildren) {
-      indeterminate = children.some(c => c.indeterminate || checkedList.value.includes(getTrackBy(c)) || false)
+    if (isLeafSelectionComputed.value && hasChildren) {
+      const isAllChildrenChecked = children.every(c => c.checked)
+
+      checked = isAllChildrenChecked
+      updateCheckedList([trackByValue], isAllChildrenChecked)
+      indeterminate = !isAllChildrenChecked && children.some(c => c.indeterminate || c.checked)
+
+      if (indeterminate) { checked = null }
     }
 
     return reactive({
