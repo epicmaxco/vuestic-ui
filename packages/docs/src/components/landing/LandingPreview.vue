@@ -90,6 +90,10 @@ export default {
   padding-top: 4.5rem;
   background: transparent;
 
+  ::selection {
+    -webkit-text-fill-color: white;
+  }
+
   &__wrapper {
     @include wrapper();
   }
