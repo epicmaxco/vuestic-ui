@@ -161,7 +161,7 @@
     },
     "./iife": "./dist/iife/main.js",
     "./types": "./dist/types/main.d.ts",
-    "./styles/*": "./dist/styles/",
+    "./styles/*": "./dist/styles/*",
     "./dist/*": "./dist/*"
   }
 }
