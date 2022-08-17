@@ -153,7 +153,7 @@ export default {
       position: relative;
       bottom: -2px;
       font-size: 12px;
-      color: var(--va-charcoal);
+      color: var(--va-secondary);
     }
   }
 }
