@@ -1,7 +1,5 @@
 <template>
-  <form id="search-form">
-    <div id="docsearch" />
-  </form>
+  <div id="docsearch" />
 </template>
 
 <script lang="ts">
@@ -21,14 +19,10 @@ export default class Search extends Vue {
         indexName: 'vuestic',
         apiKey: 'cd8e70cb466bf6df138543a38c33ea5e',
         transformItems: process.env.NODE_ENV === 'development'
-          ? (items) => {
-            return items.map((item) => {
-              return {
-                ...item,
-                url: item.url.replace(/^https.*\/en/, `${window.location.origin}/ru`),
-              }
-            })
-          }
+          ? (items) => items.map((item) => ({
+            ...item,
+            url: item.url.replace(/^https.*\/en/, `${window.location.origin}/ru`),
+          }))
           : undefined,
       })
     })
@@ -46,18 +40,9 @@ export default class Search extends Vue {
 @import '~vuestic-ui/src/styles/index.scss';
 @import '@/assets/smart-grid.scss';
 
-#search-form {
-  position: relative;
+#docsearch {
+  flex-grow: 1;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  z-index: 1;
-
-  #docsearch {
-    flex-grow: 1;
-    display: flex;
-  }
 
   .DocSearch-Button {
     margin-left: 0;
@@ -83,4 +68,5 @@ export default class Search extends Vue {
     @include xs(display, none);
   }
 }
+
 </style>
