@@ -43,7 +43,7 @@ export default defineNuxtPlugin(({ vueApp, ssrContext, provide }) => {
     },
   })
 
-  provide('i18n', i18n.global)
+  // provide('i18n', i18n.global)
 
   const { beforeEach, replace } = useRouter()
 
