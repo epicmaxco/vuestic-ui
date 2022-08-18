@@ -19,7 +19,7 @@
     "precommit": "lint-staged --concurrent=false"
   },
   "dependencies": {
-    "@docsearch/js": "3",
+    "@docsearch/js": "^3.2.1",
     "@vuestic/ag-grid-theme": "latest",
     "codesandbox": "^2.2.3",
     "core-js": "^3.12.1",
