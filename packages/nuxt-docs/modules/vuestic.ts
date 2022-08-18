@@ -3,6 +3,9 @@ import { resolve } from 'pathe'
 import { VuesticOptions } from './../../nuxt/src/types';
 import originalNuxtModule from '../../nuxt/src/module'
 
+/** 
+ * @vuestic/nuxt module wrapper with relative resolved vuestic from packages/ui
+ */
 export default defineNuxtModule<VuesticOptions>({
   meta: {
     name: '@vuestic/nuxt-dev',

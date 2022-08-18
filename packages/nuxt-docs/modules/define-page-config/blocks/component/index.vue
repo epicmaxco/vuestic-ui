@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineAsyncComponent, PropType } from 'vue';
+import { PropType } from 'vue';
 import { PageConfigComponent } from '.';
 
 const props = defineProps({
@@ -8,10 +8,8 @@ const props = defineProps({
     required: true
   }
 })
-
-const c = props.config.component
 </script>
 
 <template>
-  <component :is="c" />
+  <component :is="props.config.component" />
 </template>
