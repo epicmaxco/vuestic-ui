@@ -35,6 +35,7 @@
             :style="computedModalContainerStyle"
           >
             <div
+              ref="modalDialog"
               class="va-modal__dialog"
               :class="computedClass"
               :style="computedDialogStyle"
@@ -119,7 +120,17 @@
 
 <script lang="ts">
 import type { PropType, StyleValue } from 'vue'
-import { Transition, h, defineComponent, computed, shallowRef, toRef, watchEffect } from 'vue'
+import {
+  Transition,
+  h,
+  defineComponent,
+  computed,
+  shallowRef,
+  toRef,
+  watchEffect,
+  onMounted,
+  nextTick, watch,
+} from 'vue'
 
 import {
   useStateful,
@@ -129,6 +140,8 @@ import {
   useTextColor,
   useWindow,
   useDocument,
+  useTrapFocus,
+  useModalLevel,
 } from '../../composables'
 
 import { VaButton } from '../va-button'
@@ -187,6 +200,15 @@ export default defineComponent({
   },
   setup (props, { emit }) {
     const rootElement = shallowRef<HTMLElement>()
+    const modalDialog = shallowRef<HTMLElement>()
+    const { trapFocusIn, freeFocus } = useTrapFocus()
+
+    const {
+      registerModal,
+      unregisterModal,
+      isTopLevelModal,
+      isLowestLevelModal,
+    } = useModalLevel()
 
     const { getColor } = useColors()
     const { textColorComputed } = useTextColor(toRef(props, 'backgroundColor'))
@@ -211,9 +233,7 @@ export default defineComponent({
       // Supposedly solves some case when background wasn't shown.
       // As a side effect removes background from nested modals.
 
-      const moreThanOneModalIsOpen = !!document.value?.querySelectorAll('.va-modal__overlay').length
-
-      if (!props.overlay || moreThanOneModalIsOpen) { return }
+      if (!props.overlay || !isLowestLevelModal.value) { return }
 
       return {
         'background-color': `rgba(0, 0, 0, ${props.overlayOpacity})`,
@@ -226,6 +246,13 @@ export default defineComponent({
     const toggle = () => { valueComputed.value = !valueComputed.value }
     const cancel = () => { hide(); emit('cancel') }
     const ok = () => { hide(); emit('ok') }
+    const trapFocusInModal = () => {
+      nextTick(() => { // trapFocusIn use querySelector, so need nextTick, to be sure, that DOM has been updated after modal has been opened
+        if (modalDialog.value) {
+          trapFocusIn(modalDialog.value)
+        }
+      })
+    }
 
     const onOutsideClick = () => {
       if (props.noOutsideDismiss || props.noDismiss) { return }
@@ -239,13 +266,9 @@ export default defineComponent({
     const onBeforeLeaveTransition = (el: HTMLElement) => emit('before-close', el)
     const onAfterLeaveTransition = (el: HTMLElement) => emit('close', el)
 
-    const listenKeyUp = (e: KeyboardEvent & { modalsCounter?: number }) => {
-      e.modalsCounter = e.modalsCounter ? e.modalsCounter + 1 : 1
-      const modalNumber = e.modalsCounter
-      const isOnTop = () => e.modalsCounter === modalNumber
-
+    const listenKeyUp = (e: KeyboardEvent) => {
       const hideModal = () => {
-        if (e.code === 'Escape' && !props.noEscDismiss && !props.noDismiss && isOnTop()) {
+        if (e.code === 'Escape' && !props.noEscDismiss && !props.noDismiss && isTopLevelModal.value) {
           cancel()
         }
       }
@@ -262,13 +285,39 @@ export default defineComponent({
       } else {
         window.value?.removeEventListener('keyup', listenKeyUp)
       }
+    })
 
+    watchEffect(() => {
       if (props.blur) {
         if (valueComputed.value) {
           document.value?.body.classList.add('va-modal-overlay-background--blurred')
         } else {
           document.value?.body.classList.remove('va-modal-overlay-background--blurred')
         }
+      }
+    })
+
+    watch(valueComputed, newValueComputed => { // watch for open/close modal
+      if (newValueComputed) {
+        registerModal()
+        return
+      }
+
+      if (isLowestLevelModal.value) {
+        freeFocus()
+      }
+      unregisterModal()
+    })
+
+    watch(isTopLevelModal, newIsTopLevelModal => {
+      if (newIsTopLevelModal) {
+        trapFocusInModal()
+      }
+    })
+
+    onMounted(() => {
+      if (valueComputed.value) { // case when open modal with this.$vaModal.init
+        registerModal()
       }
     })
 
@@ -289,6 +338,7 @@ export default defineComponent({
     return {
       getColor,
       rootElement,
+      modalDialog,
       valueComputed,
       computedClass,
       computedDialogStyle,

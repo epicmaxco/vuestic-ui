@@ -324,9 +324,38 @@
         </va-modal>
       </va-modal>
     </VbCard>
-
     <VbCard title="vaModal return by click">
       <button @click="buttonClick">init vaModal</button>
+    </VbCard>
+    <VbCard title="Test focus trap">
+      <button @click="showModalFocusTrap1 = !showModalFocusTrap1">
+        Show first modal
+      </button>
+
+      <va-modal v-model="showModalFocusTrap1" :message="message" hide-default-actions>
+        <va-collapse
+          v-model="collapseValue"
+          style="width: 400px;"
+          :header="'collapseHeader'"
+          solid
+        >
+          <div class="collapse-content">
+            content
+          </div>
+        </va-collapse>
+        <a tabindex="0" target="_blank" href="https://google.com">
+          Google
+        </a>
+        <va-button class="mt-5" @click="showModalFocusTrap2 = !showModalFocusTrap2" color="secondary">
+          Show second modal
+        </va-button>
+        <input type="text" />
+        <va-modal v-model="showModalFocusTrap2" :message="message">
+          Second Modal
+          <va-input placeholder="lalala" />
+          <va-date-picker />
+        </va-modal>
+      </va-modal>
     </VbCard>
   </VbDemo>
 </template>
@@ -334,9 +363,10 @@
 <script>
 import { VaModal } from './'
 import { VaButton } from '../va-button'
+import { VaCollapse, VaInput, VaDatePicker } from '@/components'
 
 export default {
-  components: { VaModal, VaButton },
+  components: { VaModal, VaButton, VaCollapse, VaInput, VaDatePicker },
   data () {
     return {
       showModalSizeSmall: false,
@@ -369,8 +399,11 @@ export default {
       showModalNested1: false,
       showModalNested2: false,
       showNoPaddingModal: false,
+      showModalFocusTrap1: false,
+      showModalFocusTrap2: false,
       message: this.$vb.lorem(),
       longMessage: this.$vb.lorem(5000),
+      collapseValue: false,
     }
   },
   methods: {
