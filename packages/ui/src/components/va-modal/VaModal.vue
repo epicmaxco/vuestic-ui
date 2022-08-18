@@ -129,7 +129,7 @@ import {
   toRef,
   watchEffect,
   onMounted,
-  nextTick,
+  nextTick, watch,
 } from 'vue'
 
 import {
@@ -297,17 +297,20 @@ export default defineComponent({
       }
     })
 
-    watchEffect(() => { // register/unregister when open/close & trap/free focus effect
-      if (valueComputed.value) {
+    watch(valueComputed, newValueComputed => { // watch for open/close modal
+      if (newValueComputed) {
         registerModal()
-      } else {
-        if (isLowestLevelModal.value) {
-          freeFocus()
-        }
-        unregisterModal()
+        return
       }
 
-      if (isTopLevelModal.value) {
+      if (isLowestLevelModal.value) {
+        freeFocus()
+      }
+      unregisterModal()
+    })
+
+    watch(isTopLevelModal, newIsTopLevelModal => {
+      if (newIsTopLevelModal) {
         trapFocusInModal()
       }
     })
