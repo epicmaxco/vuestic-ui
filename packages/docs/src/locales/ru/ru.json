@@ -10,7 +10,7 @@
       }
     },
     "preview": {
-      "title": "Vue.js 3.0 UI Framework",
+      "title": "Vue 3 UI Framework",
       "buttons": {
         "start": "Начать",
         "github": "Открыть на GitHub",
@@ -30,6 +30,9 @@
           "text": "Список поддерживаемых браузеров"
         }
       }
+    },
+    "partners": {
+      "title": "Партнеры & Спонсоры ❤️"
     },
     "seamless": {
       "title": "Полная интеграция",
@@ -76,12 +79,19 @@
       }
     },
     "footer": {
-      "text": "Открытый исходный код, бесплатно для использования. Предложения о сотрудничестве:",
+      "text": "Vuestic UI. Открытый исходный код, бесплатно для использования. Предложения о сотрудничестве:",
       "buttons": {
         "epicmax": "Про Epicmax",
         "admin": "Vuestic Admin",
         "spinners": "Epic Spinners"
-      }
+      },
+      "contactUs": "Contact us",
+      "bannerText": [
+        "expert",
+        "s",
+        "available in",
+        "to build and launch your product"
+      ]
     }
   },
   "api": {
@@ -2450,6 +2460,13 @@
       "styles": {
         "title": "Стили",
         "text": "Поддерживаются три свойства для стилизации компонента: `solid` (по умолчанию), `outline`, `bordered`."
+      },
+      "types": {
+        "title": "Типы input",
+        "description": [
+          "С помощью атрибута `type` вы можете задать тип input, который будет отрендерен как нативный элемент`<input type=\"text/password/search/etc\" />`.",
+          "Смотрите доступные типы [здесь](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#input_types) (некоторые не поддерживаются или реализованы как отдельные компоненты Vuestic UI)."
+        ]
       }
     },
     "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-input/_variables.scss)[[target=_blank]]"

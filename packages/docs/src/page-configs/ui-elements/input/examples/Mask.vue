@@ -40,7 +40,8 @@
       :returnRaw="false"
       mask="date"
     />
-    Value: {{maskReturnFormattedValue}}
+    <br />
+    Value: {{ maskReturnFormattedValue }}
   </div>
 </template>
 

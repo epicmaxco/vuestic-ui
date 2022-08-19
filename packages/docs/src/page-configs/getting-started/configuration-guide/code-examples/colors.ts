@@ -2,7 +2,7 @@ export const colorsConfig = `
 // main.js
 ...
 import { createVuestic } from 'vuestic-ui'
-import 'vuestic-ui/dist/vuestic-ui.css'
+import 'vuestic-ui/css'
 
 const app = createApp(App)
 app.use(createVuestic({

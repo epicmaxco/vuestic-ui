@@ -10,7 +10,7 @@
       }
     },
     "preview": {
-      "title": "Vue.js 3.0 UI Framework",
+      "title": "Vue 3 UI Framework",
       "buttons": {
         "start": "Get started",
         "github": "View on GitHub",
@@ -30,6 +30,9 @@
           "text": "Supported browsers list"
         }
       }
+    },
+    "partners": {
+      "title": "Partners & Sponsors ❤️"
     },
     "seamless": {
       "title": "Seamless Integration",
@@ -76,12 +79,19 @@
       }
     },
     "footer": {
-      "text": "Open source, free to use. Development inquiries:",
+      "text": "Vuestic UI. Open source, free to use. Development inquiries: ",
       "buttons": {
         "epicmax": "About Epicmax",
         "admin": "Vuestic Admin",
         "spinners": "Epic Spinners"
-      }
+      },
+      "contactUs": "Contact us",
+      "bannerText": [
+        "expert",
+        "s",
+        "available in",
+        "to build and launch your product"
+      ]
     }
   },
   "api": {
@@ -2560,6 +2570,13 @@
       "styles": {
         "title": "Styles",
         "text": "There are tree styles for input: Default (solid), outline, bordered."
+      },
+      "types": {
+        "title": "Input types",
+        "description": [
+          "With a `type` property you can set the type of the input which will render native `<input type=\"text/password/search/etc\" />`.",
+          "Watch available types [here](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#input_types) (some types aren't supported or have implemented as a Veustic UI component)."
+        ]
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-input/_variables.scss)[[target=_blank]]"
