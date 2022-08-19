@@ -1,5 +1,15 @@
 import { useNuxt } from '@nuxt/kit';
 import type { NuxtPage } from '@nuxt/schema';
+
+const localizeChildren = (pages: NuxtPage[]) => {
+  return pages.map((page) => ({
+    ...page,
+    name: `locale-${page.name}`,
+    path: `:locale?/${page.path}`,
+    children: page.children ? localizeChildren(page.children) : [],
+  }))
+}
+
 export const usePagePrefix = () => {
   const nuxt = useNuxt()
 
@@ -15,20 +25,11 @@ export const usePagePrefix = () => {
           name: `locale-${page.name}`,
           path: `/:locale?${page.path}`,
           file: page.file,
-          children: []
+          children: localizeChildren(page.children),
         } as NuxtPage
       })
       .filter(Boolean)
 
     pages.unshift(...localeRoutes)
-
-    // // Remove nuxt optional mark. 
-    // // This was broking localization path, because localized path had higher priority.
-    // // https://router.vuejs.org/guide/essentials/route-matching-syntax.html#sensitive-and-strict-route-options
-    // pages.forEach((page) => {
-    //   if (/\/:\w*\?/.test(page.path)) {
-    //     page.path = page.path.replace('?', '')
-    //   }
-    // })
   })
 }

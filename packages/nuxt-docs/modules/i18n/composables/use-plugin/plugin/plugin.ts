@@ -1,7 +1,7 @@
 import { createI18n, I18n, VueI18n } from 'vue-i18n'
 import { messages, locales } from '~/locales'
 import { useRouter, useRoute } from '#app'
-import { useSSRCookie } from './composables/useSSRCookie'
+import { useSSRCookie } from '../../shared/useSSRCookie'
 
 type Locale = keyof typeof messages
 
