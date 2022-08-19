@@ -1,6 +1,6 @@
 import { useLocalConfig } from '../../components/va-config/VaConfig'
 import { useGlobalConfig } from '../global-config/global-config'
-import { ComponentInternalInstance, computed, watchEffect, ref } from 'vue'
+import { computed } from 'vue'
 import type { VuesticComponentsMap } from '../../vuestic-plugin'
 import type { DefineComponent, VNodeProps, AllowedComponentProps } from 'vue'
 
@@ -18,12 +18,12 @@ export type ComponentConfig = Partial<{
   }
 } & { all: Props, presets: Presets }>
 
-export const useComponentConfigProps = <T extends DefineComponent>(component: T, instance: ComponentInternalInstance) => {
+export const useComponentConfigProps = <T extends DefineComponent>(component: T, originalProps: Props) => {
   const localConfig = useLocalConfig()
   const { globalConfig } = useGlobalConfig()
 
-  const instancePreset = ref(instance.props?.preset)
-  watchEffect(() => (instancePreset.value = instance.props?.preset))
+  const instancePreset = computed(() => originalProps.preset)
+  const getPresetProps = (presetName: string) => globalConfig.value.components?.presets?.[component.name as VuesticComponentName]?.[presetName]
 
   return computed(() => {
     const globalConfigProps: Props = {
@@ -38,9 +38,7 @@ export const useComponentConfigProps = <T extends DefineComponent>(component: T,
       , {})
 
     const presetName = instancePreset.value || localConfigProps.preset || globalConfigProps.preset
-    const getPresetProps = () => globalConfig.value.components?.presets?.[component.name as VuesticComponentName]?.[presetName]
-
-    const presetProps = presetName && getPresetProps()
+    const presetProps = presetName && getPresetProps(presetName)
 
     return { ...globalConfigProps, ...localConfigProps, ...presetProps }
   })
