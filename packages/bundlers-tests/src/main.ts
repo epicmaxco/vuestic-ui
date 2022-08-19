@@ -1,5 +1,5 @@
 import { createApp } from 'vue'
-import App from './App.vue'
+import App from './app.vue'
 import { createVuesticEssential, VaInput, VaTimePicker, VaTimeInput, VaButton  } from "vuestic-ui";
 import 'vuestic-ui/styles/essential.css'
 import 'vuestic-ui/styles/typography.css'
