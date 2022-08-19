@@ -44,8 +44,8 @@ export default {
   justify-content: space-between;
   align-items: center;
 
-  .va-button--focused {
-    @include focus-outline($radius: 'inherit', $offset: -2px);
+  .va-button {
+    @include keyboard-focus($radius: 'inherit', $offset: -2px);
   }
 }
 </style>

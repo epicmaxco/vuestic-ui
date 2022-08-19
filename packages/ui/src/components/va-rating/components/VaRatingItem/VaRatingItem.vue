@@ -3,7 +3,7 @@
     ref="rootEl"
     role="button"
     class="va-rating-item"
-    :class="classComputed"
+    :class="keyboardFocusClass"
     :tabindex="tabIndexComputed"
     @keyup.enter="onClick"
     @keyup.space="onClick"
@@ -28,7 +28,7 @@
 <script lang="ts">
 import { computed, defineComponent, ref, shallowRef, watch } from 'vue'
 
-import { useBem, useColors, useSyncProp, useKeyboardFocusStyle, useKeyboardFocusStyleProps } from '../../../../composables'
+import { useColors, useSyncProp, useKeyboardFocusClass, useKeyboardFocusClassProps } from '../../../../composables'
 
 import { RatingValue } from '../../types'
 
@@ -40,7 +40,7 @@ export default defineComponent({
   components: { VaIcon },
 
   props: {
-    ...useKeyboardFocusStyleProps,
+    ...useKeyboardFocusClassProps,
     modelValue: { type: Number, default: 0 },
     icon: { type: String, default: 'star' },
     halfIcon: { type: String, default: 'star_half' },
@@ -104,13 +104,10 @@ export default defineComponent({
 
     watch(hoveredValue, () => emit('hover', hoveredValue.value || RatingValue.EMPTY))
 
-    const { hasKeyboardFocusStyle, keyboardFocusListeners } = useKeyboardFocusStyle(props)
-    const classComputed = useBem('va-rating-item', () => ({
-      focused: hasKeyboardFocusStyle.value,
-    }))
+    const { keyboardFocusClass, keyboardFocusListeners } = useKeyboardFocusClass(props, 'va-rating-item')
 
     return {
-      classComputed,
+      keyboardFocusClass,
       computedColor,
       rootEl,
       onEnter,
@@ -142,9 +139,7 @@ export default defineComponent({
 .va-rating-item {
   display: inline-block;
 
-  &--focused {
-    @include focus-outline();
-  }
+  @include keyboard-focus;
 
   &__wrapper {
     @include normalize-button();

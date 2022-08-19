@@ -62,7 +62,7 @@
             role="button"
             aria-label="reset"
             tabindex="0"
-            :disable-focus-style="$props.disableFocusStyle"
+            :disable-focus-style="$props.disableFocusClass"
             v-bind="clearIconProps"
             @click.stop="reset"
             @keydown.enter.stop="reset"
@@ -159,7 +159,7 @@ import { defineComponent, PropType, ref, computed, watch, nextTick, Ref, shallow
 
 import { warn } from '../../services/utils'
 import {
-  useKeyboardFocusStyleProps,
+  useKeyboardFocusClassProps,
   useComponentPresetProp,
   useSelectableList, useSelectableListProps,
   useValidation, useValidationProps, useValidationEmits, ValidationProps,
@@ -199,7 +199,7 @@ export default defineComponent({
   ],
 
   props: {
-    ...useKeyboardFocusStyleProps,
+    ...useKeyboardFocusClassProps,
     ...useSelectableListProps,
     ...useValidationProps as ValidationProps<SelectOption>,
     ...useLoadingProps,

@@ -54,7 +54,7 @@ import {
   useRouterLink, useRouterLinkProps,
   useDeprecatedProps,
   useComponentPresetProp,
-  useKeyboardFocusStyle, useKeyboardFocusStyleProps,
+  useKeyboardFocusClass, useKeyboardFocusClassProps,
 } from '../../composables'
 
 import { useButtonBackground } from './hooks/useButtonBackground'
@@ -71,7 +71,7 @@ export default defineComponent({
   name: 'VaButton',
   components: { VaIcon, VaProgressCircle },
   props: {
-    ...useKeyboardFocusStyleProps,
+    ...useKeyboardFocusClassProps,
     ...useComponentPresetProp,
     ...useSizeProps,
     ...useHoverStyleProps,
@@ -156,7 +156,7 @@ export default defineComponent({
       return checkSlotChildrenDeep(slots.default, true)
     })
 
-    const { keyboardFocusListeners, hasKeyboardFocusStyle } = useKeyboardFocusStyle(props)
+    const { keyboardFocusListeners, hasKeyboardFocusClass } = useKeyboardFocusClass(props)
     const isOneIcon = computed(() => !!((props.iconRight && !props.icon) || (!props.iconRight && props.icon)))
     const computedClass = useBem('va-button', () => ({
       ...pick(props, ['disabled', 'block', 'loading', 'round', 'plain']),
@@ -166,7 +166,7 @@ export default defineComponent({
       opacity: props.textOpacity < 1,
       iconOnly: !isSlotContentPassed.value && isOneIcon.value,
       bordered: !!props.borderColor,
-      focused: hasKeyboardFocusStyle.value,
+      keyboardFocus: hasKeyboardFocusClass.value,
     }))
 
     // styles
@@ -401,9 +401,7 @@ export default defineComponent({
     }
   }
 
-  &--focused {
-    @include focus-outline('inherit');
-  }
+  @include keyboard-focus('inherit');
 
   &--loading {
     pointer-events: none;

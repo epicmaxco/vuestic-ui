@@ -20,12 +20,12 @@
   >
     <div
       class="va-tab__content"
-      :class="contentComputedClass"
+      :class="keyboardFocusClass"
       :tabindex="tabIndexComputed"
       @focus="onFocus"
       @click="onTabClick"
       @keydown.enter="onTabKeydown"
-      v-on="keyboardFocusListeners"
+      v-on="listeners"
     >
       <slot>
         <va-icon
@@ -47,11 +47,11 @@
 import { computed, defineComponent, inject, onBeforeUnmount, onMounted, ref, shallowRef } from 'vue'
 
 import {
+  useKeyboardOnlyFocus,
   useComponentPresetProp,
   useRouterLink, useRouterLinkProps,
-  useKeyboardFocusStyle, useKeyboardFocusStyleProps,
+  useKeyboardFocusClass, useKeyboardFocusClassProps,
   useColors,
-  useBem,
 } from '../../../../composables'
 
 import { TabsViewKey, TabsView, TabComponent } from '../../types'
@@ -64,7 +64,7 @@ export default defineComponent({
   emits: ['click', 'keydown-enter', 'focus'],
 
   props: {
-    ...useKeyboardFocusStyleProps,
+    ...useKeyboardFocusClassProps,
     ...useRouterLinkProps,
     ...useComponentPresetProp,
     selected: { type: Boolean, default: false },
@@ -83,7 +83,11 @@ export default defineComponent({
     const hoverState = ref(false)
     const rightSidePosition = ref(0)
     const leftSidePosition = ref(0)
-    const { hasKeyboardFocusStyle, keyboardFocusListeners } = useKeyboardFocusStyle(props)
+
+    const { keyboardFocusListeners: keyboardOnlyFocusListeners, hasKeyboardFocus } = useKeyboardOnlyFocus()
+    const { keyboardFocusClass, keyboardFocusListeners } = useKeyboardFocusClass(props, 'va-tab__content')
+    const listeners = { ...keyboardOnlyFocusListeners, ...keyboardFocusListeners }
+
     const { tagComputed, hrefComputed, isActiveRouterLink } = useRouterLink(props)
     const classComputed = computed(() => ({ 'va-tab--disabled': props.disabled }))
     const {
@@ -109,10 +113,6 @@ export default defineComponent({
       color: hoverState.value || isActive.value ? colorComputed.value : 'inherit',
     }))
 
-    const contentComputedClass = useBem('va-tab__content', () => ({
-      focused: hasKeyboardFocusStyle.value,
-    }))
-
     const updateHoverState = (isHover: boolean) => {
       hoverState.value = isHover
     }
@@ -136,7 +136,7 @@ export default defineComponent({
     }
 
     const onFocus = () => {
-      if (hasKeyboardFocusStyle.value) {
+      if (hasKeyboardFocus.value) {
         moveToTab(tabComponent)
       }
 
@@ -171,7 +171,6 @@ export default defineComponent({
       parentDisabled,
       isActive,
       hoverState,
-      keyboardFocusListeners,
       tagComputed,
       hrefComputed,
       isActiveRouterLink,
@@ -186,7 +185,8 @@ export default defineComponent({
       onTabClick,
       onTabKeydown,
       onFocus,
-      contentComputedClass,
+      keyboardFocusClass,
+      listeners,
     }
   },
 })
@@ -223,10 +223,7 @@ export default defineComponent({
     padding: var(--va-tab-content-padding);
     cursor: var(--va-tab-content-cursor);
 
-    &--focused {
-      @include focus-outline($offset: -2px);
-    }
-  }
+    @include keyboard-focus($offset: -2px); }
 
   &__icon {
     margin-right: var(--va-tab-icon-margin-right);

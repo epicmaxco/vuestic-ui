@@ -32,14 +32,14 @@ import {
   useBem,
   useComponentPresetProp,
   useRouterLink, useRouterLinkProps,
-  useKeyboardFocusStyle, useKeyboardFocusStyleProps,
+  useKeyboardFocusClass, useKeyboardFocusClassProps,
 } from '../../composables'
 
 export default defineComponent({
   name: 'VaListItem',
   emits: ['focus', 'click'],
   props: {
-    ...useKeyboardFocusStyleProps,
+    ...useKeyboardFocusClassProps,
     ...useRouterLinkProps,
     ...useComponentPresetProp,
     tag: { type: String, default: 'div' },
@@ -49,10 +49,10 @@ export default defineComponent({
   setup (props) {
     const tabIndexComputed = computed(() => props.disabled ? -1 : 0)
 
-    const { keyboardFocusListeners, hasKeyboardFocusStyle } = useKeyboardFocusStyle(props)
+    const { keyboardFocusListeners, hasKeyboardFocusClass } = useKeyboardFocusClass(props)
     const computedClass = useBem('va-list-item', () => ({
       ...pick(props, ['disabled']),
-      focused: hasKeyboardFocusStyle.value,
+      keyboardFocus: hasKeyboardFocusClass.value,
     }))
 
     return {
@@ -76,9 +76,7 @@ export default defineComponent({
     @include va-disabled;
   }
 
-  &--focused {
-    @include focus-outline($offset: -2px);
-  }
+  @include keyboard-focus($offset: -2px);
 
   &__inner {
     display: var(--va-list-item-display);

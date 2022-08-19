@@ -57,7 +57,7 @@
           role="button"
           class="va-alert__close--closeable"
           tabindex="0"
-          :class="closeButtonClass"
+          :class="keyboardFocusClass"
           :aria-label="closeText || 'close alert'"
           :style="contentStyle"
           @click="hide"
@@ -85,10 +85,9 @@ import { defineComponent, computed, PropType } from 'vue'
 
 import { generateUniqueId } from '../../services/utils'
 import {
-  useBem,
   useComponentPresetProp,
   useStateful, useStatefulProps, useStatefulEmits,
-  useKeyboardFocusStyle, useKeyboardFocusStyleProps,
+  useKeyboardFocusClass, useKeyboardFocusClassProps,
 } from '../../composables'
 
 import { useAlertStyles } from './useAlertStyles'
@@ -100,7 +99,7 @@ export default defineComponent({
   components: { VaIcon },
   emits: useStatefulEmits,
   props: {
-    ...useKeyboardFocusStyleProps,
+    ...useKeyboardFocusClassProps,
     ...useStatefulProps,
     ...useComponentPresetProp,
     modelValue: { type: Boolean, default: true },
@@ -140,10 +139,7 @@ export default defineComponent({
     const titleIdComputed = computed(() => `aria-title-${uniqueId.value}`)
     const descriptionIdComputed = computed(() => `aria-description-${uniqueId.value}`)
 
-    const { keyboardFocusListeners, hasKeyboardFocusStyle } = useKeyboardFocusStyle(props)
-    const closeButtonClass = useBem('va-alert__close', () => ({
-      focused: hasKeyboardFocusStyle.value,
-    }))
+    const { keyboardFocusListeners, keyboardFocusClass } = useKeyboardFocusClass(props, 'va-alert__close')
 
     return {
       ...alertStyles,
@@ -156,7 +152,7 @@ export default defineComponent({
       titleIdComputed,
       descriptionIdComputed,
       keyboardFocusListeners,
-      closeButtonClass,
+      keyboardFocusClass,
     }
   },
 })
@@ -243,9 +239,7 @@ export default defineComponent({
       cursor: pointer;
     }
 
-    &--focused {
-      @include focus-outline;
-    }
+    @include keyboard-focus;
   }
 
   @include media-breakpoint-down(xs) {

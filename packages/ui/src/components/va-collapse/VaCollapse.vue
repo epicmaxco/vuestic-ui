@@ -12,14 +12,14 @@
           value: computedModelValue,
           bind: headerAttributes,
           attributes: headerAttributes,
-          classes: headerClassesComputed,
+          keyboardFocusClass,
           listeners: keyboardFocusListeners,
         }"
       >
         <div
           v-bind="headerAttributes"
           class="va-collapse__header"
-          :class="headerClassesComputed"
+          :class="keyboardFocusClass"
           :style="headerStyle"
           v-on="keyboardFocusListeners"
         >
@@ -64,7 +64,7 @@ import {
   useBem,
   useResizeObserver,
   useComponentPresetProp,
-  useKeyboardFocusStyle, useKeyboardFocusStyleProps,
+  useKeyboardFocusClass, useKeyboardFocusClassProps,
 } from '../../composables'
 import { useAccordionItem } from '../va-accordion/hooks/useAccordion'
 
@@ -78,7 +78,7 @@ export default defineComponent({
     VaIcon,
   },
   props: {
-    ...useKeyboardFocusStyleProps,
+    ...useKeyboardFocusClassProps,
     ...useComponentPresetProp,
     modelValue: { type: Boolean, default: undefined },
     disabled: { type: Boolean, default: false },
@@ -141,10 +141,7 @@ export default defineComponent({
       inset: !!(accordionProps.value.inset && computedModelValue.value),
     }))
 
-    const { hasKeyboardFocusStyle, keyboardFocusListeners } = useKeyboardFocusStyle(props)
-    const headerClassesComputed = useBem('va-collapse__header', () => ({
-      focused: hasKeyboardFocusStyle.value,
-    }))
+    const { keyboardFocusClass, keyboardFocusListeners } = useKeyboardFocusClass(props, 'va-collapse__header')
 
     return {
       body,
@@ -160,7 +157,7 @@ export default defineComponent({
 
       textColorComputed,
       computedClasses,
-      headerClassesComputed,
+      keyboardFocusClass,
 
       keyboardFocusListeners,
 
@@ -230,9 +227,7 @@ export default defineComponent({
       color: var(--va-collapse-header-content-icon-color);
     }
 
-    &--focused {
-      @include focus-outline(var(--va-collapse-header-content-border-radius));
-    }
+    @include keyboard-focus(var(--va-collapse-header-content-border-radius));
   }
 
   &--solid {

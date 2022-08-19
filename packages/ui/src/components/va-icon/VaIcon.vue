@@ -25,15 +25,14 @@ import { useIcons } from '../../services/icon-config/icon-config'
 import {
   useComponentPresetProp,
   useColors,
-  useBem,
   useSize, useSizeProps,
-  useKeyboardFocusStyle, useKeyboardFocusStyleProps,
+  useKeyboardFocusClass, useKeyboardFocusClassProps,
 } from '../../composables'
 
 export default defineComponent({
   name: 'VaIcon',
   props: {
-    ...useKeyboardFocusStyleProps,
+    ...useKeyboardFocusClassProps,
     ...useSizeProps,
     ...useComponentPresetProp,
     name: { type: String, default: '' },
@@ -64,16 +63,12 @@ export default defineComponent({
       return spin === 'counter-clockwise' ? 'va-icon--spin-reverse' : 'va-icon--spin'
     }
 
-    const { keyboardFocusListeners, hasKeyboardFocusStyle } = useKeyboardFocusStyle(props)
-
-    const bemClasses = useBem('va-icon', () => ({
-      focused: hasKeyboardFocusStyle.value,
-    }))
+    const { keyboardFocusListeners, keyboardFocusClass } = useKeyboardFocusClass(props, 'va-icon')
 
     const computedClass = computed(() => [
       iconConfig.value.class,
       getSpinClass(props.spin ?? iconConfig.value.spin),
-      ...bemClasses.asArray.value,
+      keyboardFocusClass.value,
     ])
 
     const transformStyle = computed(() => {
@@ -136,9 +131,7 @@ export default defineComponent({
     }
   }
 
-  &--focused {
-    @include focus-outline;
-  }
+  @include keyboard-focus;
 
   @keyframes va-icon--spin-animation {
     from {
