@@ -32,13 +32,13 @@
     "vuestic-ui": "^1.4.9"
   },
   "devDependencies": {
-    "@nuxt/kit": "^3.0.0-rc.1",
+    "@nuxt/kit": "^3.0.0-rc.8",
     "@nuxt/module-builder": "latest",
-    "@nuxt/schema": "^3.0.0-rc.1",
-    "@nuxt/vite-builder": "^3.0.0-rc.1",
+    "@nuxt/schema": "^3.0.0-rc.8",
+    "@nuxt/vite-builder": "^3.0.0-rc.8",
     "@nuxtjs/eslint-config-typescript": "latest",
     "eslint": "latest",
-    "nuxt": "^3.0.0-rc.1",
+    "nuxt": "^3.0.0-rc.8",
     "vue": "^3.2.33"
   }
 }

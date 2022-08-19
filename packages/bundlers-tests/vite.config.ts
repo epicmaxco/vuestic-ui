@@ -7,8 +7,8 @@ export default defineConfig({
   plugins: [
     vue(),
     visualizer({
-      filename: './dist/stats.html',
-      title: 'Vuestic Test App',
+      filename: './dist/vite.stats.html',
+      title: 'Vuestic Vite App',
       template: 'sunburst',
       sourcemap: true,
     })
