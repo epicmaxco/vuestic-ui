@@ -205,47 +205,47 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import 'variables';
+  @import 'variables';
 
-.va-button-dropdown {
-  display: inline-block;
-  font-family: var(--va-font-family);
-  vertical-align: middle;
+  .va-button-dropdown {
+    display: inline-block;
+    font-family: var(--va-font-family);
+    vertical-align: middle;
 
-  .va-button {
-    margin: var(--va-button-dropdown-button-margin);
-  }
-
-  &--split {
-    .va-dropdown {
-      .va-dropdown__anchor {
-        margin: var(--va-button-dropdown-button-margin);
-      }
+    .va-button {
+      margin: var(--va-button-dropdown-button-margin);
     }
 
-    .va-button-group__left-icon {
+    &--split {
       .va-dropdown {
-        .va-button {
-          border-top-right-radius: 0;
-          border-bottom-right-radius: 0;
+        .va-dropdown__anchor {
+          margin: var(--va-button-dropdown-button-margin);
         }
       }
 
-      > .va-button {
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
-        border-left: none;
-      }
-    }
+      .va-button-group__left-icon {
+        .va-dropdown {
+          .va-button {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+          }
+        }
 
-    :not(.va-button-group__left-icon) {
-      .va-dropdown {
-        .va-button {
+        > .va-button {
           border-top-left-radius: 0;
           border-bottom-left-radius: 0;
+          border-left: none;
+        }
+      }
+
+      :not(.va-button-group__left-icon) {
+        .va-dropdown {
+          .va-button {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+          }
         }
       }
     }
   }
-}
 </style>

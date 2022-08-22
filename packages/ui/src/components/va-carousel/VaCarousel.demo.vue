@@ -85,7 +85,7 @@ export default {
 </script>
 
 <style>
-.va-carousel {
-  min-width: 300px;
-}
+  .va-carousel {
+    min-width: 300px;
+  }
 </style>

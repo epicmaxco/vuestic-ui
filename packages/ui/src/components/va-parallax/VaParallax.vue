@@ -150,49 +150,49 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "../../styles/resources";
-@import "variables";
+  @import "../../styles/resources";
+  @import "variables";
 
-.va-parallax {
-  display: var(--va-parallax-display);
-  position: var(--va-parallax-position);
-  overflow: var(--va-parallax-overflow);
-  width: var(--va-parallax-width);
-  z-index: var(--va-parallax-z-index);
-  font-family: var(--va-font-family);
+  .va-parallax {
+    display: var(--va-parallax-display);
+    position: var(--va-parallax-position);
+    overflow: var(--va-parallax-overflow);
+    width: var(--va-parallax-width);
+    z-index: var(--va-parallax-z-index);
+    font-family: var(--va-font-family);
 
-  &__image-container {
-    position: var(--va-parallax-image-container-position);
-    top: var(--va-parallax-image-container-top);
-    left: var(--va-parallax-image-container-left);
-    right: var(--va-parallax-image-container-right);
-    bottom: var(--va-parallax-image-container-bottom);
-    z-index: var(--va-parallax-image-container-z-index);
-    contain: var(--va-parallax-image-container-contain);
-    user-select: var(--va-parallax-image-container-user-select);
+    &__image-container {
+      position: var(--va-parallax-image-container-position);
+      top: var(--va-parallax-image-container-top);
+      left: var(--va-parallax-image-container-left);
+      right: var(--va-parallax-image-container-right);
+      bottom: var(--va-parallax-image-container-bottom);
+      z-index: var(--va-parallax-image-container-z-index);
+      contain: var(--va-parallax-image-container-contain);
+      user-select: var(--va-parallax-image-container-user-select);
+    }
+
+    &__image {
+      position: var(--va-parallax-image-position);
+      bottom: var(--va-parallax-image-bottom);
+      left: var(--va-parallax-image-left);
+      min-width: var(--va-parallax-image-min-width);
+      min-height: var(--va-parallax-image-min-height);
+      display: var(--va-parallax-image-display);
+      transform: var(--va-parallax-image-transform);
+      will-change: var(--va-parallax-image-will-change);
+      transition: var(--va-parallax-image-transition);
+      z-index: var(--va-parallax-image-z-index);
+    }
+
+    &__item-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 2;
+      contain: strict;
+    }
   }
-
-  &__image {
-    position: var(--va-parallax-image-position);
-    bottom: var(--va-parallax-image-bottom);
-    left: var(--va-parallax-image-left);
-    min-width: var(--va-parallax-image-min-width);
-    min-height: var(--va-parallax-image-min-height);
-    display: var(--va-parallax-image-display);
-    transform: var(--va-parallax-image-transform);
-    will-change: var(--va-parallax-image-will-change);
-    transition: var(--va-parallax-image-transition);
-    z-index: var(--va-parallax-image-z-index);
-  }
-
-  &__item-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 2;
-    contain: strict;
-  }
-}
 </style>

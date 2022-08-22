@@ -187,86 +187,86 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "../../styles/resources";
-@import "variables";
+  @import "../../styles/resources";
+  @import "variables";
 
-.va-checkbox {
-  display: var(--va-checkbox-display);
-  max-width: var(--va-checkbox-max-width);
-  font-family: var(--va-font-family);
+  .va-checkbox {
+    display: var(--va-checkbox-display);
+    max-width: var(--va-checkbox-max-width);
+    font-family: var(--va-font-family);
 
-  &__input-container {
-    align-items: var(--va-checkbox-input-align-items);
-    display: var(--va-checkbox-input-display);
-    padding: var(--va-checkbox-input-padding);
-    cursor: var(--va-checkbox-input-cursor);
-    font-size: var(--va-checkbox-font-size);
-    line-height: var(--va-checkbox-line-height);
+    &__input-container {
+      align-items: var(--va-checkbox-input-align-items);
+      display: var(--va-checkbox-input-display);
+      padding: var(--va-checkbox-input-padding);
+      cursor: var(--va-checkbox-input-cursor);
+      font-size: var(--va-checkbox-font-size);
+      line-height: var(--va-checkbox-line-height);
 
-    @at-root {
-      .va-checkbox--disabled & {
-        @include va-disabled();
+      @at-root {
+        .va-checkbox--disabled & {
+          @include va-disabled();
 
-        cursor: var(--va-checkbox-disabled-cursor);
+          cursor: var(--va-checkbox-disabled-cursor);
+        }
+
+        .va-checkbox--readonly & {
+          cursor: var(--va-checkbox-readonly-cursor);
+        }
+
+        .va-checkbox--left-label & {
+          flex-direction: row-reverse;
+        }
       }
+    }
 
-      .va-checkbox--readonly & {
-        cursor: var(--va-checkbox-readonly-cursor);
+    #{&}__square {
+      @include flex-center();
+
+      width: var(--va-checkbox-square-width);
+      min-width: var(--va-checkbox-square-min-width);
+      height: var(--va-checkbox-square-height);
+      position: var(--va-checkbox-square-position);
+      background-color: var(--va-checkbox-square-background-color, var(--va-background-color));
+      border: var(--va-checkbox-square-border, var(--va-control-border));
+      border-radius: var(--va-checkbox-square-border-radius);
+
+      @at-root {
+        .va-checkbox--on-keyboard-focus#{&} {
+          transition: all, 0.6s, ease-in;
+          box-shadow: 0 0 0.5rem 0 rgba(0, 0, 0, 0.3);
+        }
       }
+    }
 
-      .va-checkbox--left-label & {
-        flex-direction: row-reverse;
+    &__input {
+      @include visually-hidden;
+    }
+
+    &__label {
+      display: var(--va-checkbox-label-display);
+      position: var(--va-checkbox-label-position);
+    }
+
+    &__icon {
+      pointer-events: var(--va-checkbox-icon-pointer-events);
+      position: var(--va-checkbox-icon-position);
+    }
+
+    &--selected {
+      .va-checkbox {
+        &__icon {
+          color: var(--va-checkbox-selected-icon-color);
+        }
+      }
+    }
+
+    &--indeterminate {
+      .va-checkbox {
+        &__icon {
+          color: var(--va-checkbox-indeterminate-icon-color);
+        }
       }
     }
   }
-
-  #{&}__square {
-    @include flex-center();
-
-    width: var(--va-checkbox-square-width);
-    min-width: var(--va-checkbox-square-min-width);
-    height: var(--va-checkbox-square-height);
-    position: var(--va-checkbox-square-position);
-    background-color: var(--va-checkbox-square-background-color, var(--va-background-color));
-    border: var(--va-checkbox-square-border, var(--va-control-border));
-    border-radius: var(--va-checkbox-square-border-radius);
-
-    @at-root {
-      .va-checkbox--on-keyboard-focus#{&} {
-        transition: all, 0.6s, ease-in;
-        box-shadow: 0 0 0.5rem 0 rgba(0, 0, 0, 0.3);
-      }
-    }
-  }
-
-  &__input {
-    @include visually-hidden;
-  }
-
-  &__label {
-    display: var(--va-checkbox-label-display);
-    position: var(--va-checkbox-label-position);
-  }
-
-  &__icon {
-    pointer-events: var(--va-checkbox-icon-pointer-events);
-    position: var(--va-checkbox-icon-position);
-  }
-
-  &--selected {
-    .va-checkbox {
-      &__icon {
-        color: var(--va-checkbox-selected-icon-color);
-      }
-    }
-  }
-
-  &--indeterminate {
-    .va-checkbox {
-      &__icon {
-        color: var(--va-checkbox-indeterminate-icon-color);
-      }
-    }
-  }
-}
 </style>

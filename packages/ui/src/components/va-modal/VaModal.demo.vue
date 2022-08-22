@@ -437,15 +437,15 @@ export default {
 </script>
 
 <style lang="scss">
-.example-modal-anchor {
-  button {
-    color: red;
+  .example-modal-anchor {
+    button {
+      color: red;
+    }
   }
-}
 
-.example-modal {
-  .va-modal__container {
-    background-color: blue;
+  .example-modal {
+    .va-modal__container {
+      background-color: blue;
+    }
   }
-}
 </style>

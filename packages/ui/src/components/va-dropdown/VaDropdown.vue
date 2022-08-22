@@ -253,25 +253,25 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import '../../styles/resources';
-@import 'variables';
+  @import '../../styles/resources';
+  @import 'variables';
 
-.va-dropdown {
-  /* Solved the alignment problem (if we try to align inline and block elements) */
-  line-height: var(--va-dropdown-line-height);
-  font-family: var(--va-font-family);
-  display: var(--va-dropdown-display);
-  position: relative;
-  max-width: 100%;
-  vertical-align: middle;
-
-  &--disabled {
-    @include va-disabled;
-  }
-
-  &__content-wrapper {
-    z-index: var(--va-dropdown-content-wrapper-z-index);
+  .va-dropdown {
+    /* Solved the alignment problem (if we try to align inline and block elements) */
+    line-height: var(--va-dropdown-line-height);
     font-family: var(--va-font-family);
+    display: var(--va-dropdown-display);
+    position: relative;
+    max-width: 100%;
+    vertical-align: middle;
+
+    &--disabled {
+      @include va-disabled;
+    }
+
+    &__content-wrapper {
+      z-index: var(--va-dropdown-content-wrapper-z-index);
+      font-family: var(--va-font-family);
+    }
   }
-}
 </style>

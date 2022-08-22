@@ -54,19 +54,19 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-.va-color-palette {
-  padding-top: 3px;
+  .va-color-palette {
+    padding-top: 3px;
 
-  &__colors {
-    display: flex;
+    &__colors {
+      display: flex;
 
-    & > * {
-      margin-right: 0.25rem;
+      & > * {
+        margin-right: 0.25rem;
 
-      &:last-child {
-        margin-right: 0;
+        &:last-child {
+          margin-right: 0;
+        }
       }
     }
   }
-}
 </style>

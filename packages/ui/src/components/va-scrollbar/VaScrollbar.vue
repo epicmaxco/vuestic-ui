@@ -171,46 +171,46 @@ export default {
 </script>
 
 <style lang="scss">
-@import 'variables';
+  @import 'variables';
 
-.va-scrollbar {
-  background: var(--va-scrollbar-background);
-  transition: var(--va-scrollbar-transition);
-  position: var(--va-scrollbar-position);
-  font-family: var(--va-font-family);
+  .va-scrollbar {
+    background: var(--va-scrollbar-background);
+    transition: var(--va-scrollbar-transition);
+    position: var(--va-scrollbar-position);
+    font-family: var(--va-font-family);
 
-  .scrollbar-wrapper {
-    border-radius: var(--va-scrollbar-wrapper-border-radius);
-    box-shadow: var(--va-scrollbar-wrapper-box-shadow);
-    position: var(--va-scrollbar-wrapper-position);
-    overflow: var(--va-scrollbar-wrapper-overflow);
-    max-height: var(--va-scrollbar-wrapper-max-height);
+    .scrollbar-wrapper {
+      border-radius: var(--va-scrollbar-wrapper-border-radius);
+      box-shadow: var(--va-scrollbar-wrapper-box-shadow);
+      position: var(--va-scrollbar-wrapper-position);
+      overflow: var(--va-scrollbar-wrapper-overflow);
+      max-height: var(--va-scrollbar-wrapper-max-height);
 
-    .track {
-      width: var(--va-scrollbar-wrapper-track-width);
-      position: var(--va-scrollbar-wrapper-track-position);
-      right: var(--va-scrollbar-wrapper-track-right);
-      top: var(--va-scrollbar-wrapper-track-top);
-      height: var(--va-scrollbar-wrapper-track-height);
+      .track {
+        width: var(--va-scrollbar-wrapper-track-width);
+        position: var(--va-scrollbar-wrapper-track-position);
+        right: var(--va-scrollbar-wrapper-track-right);
+        top: var(--va-scrollbar-wrapper-track-top);
+        height: var(--va-scrollbar-wrapper-track-height);
 
-      .thumb {
-        transition: var(--va-scrollbar-thumb-transition);
-        position: var(--va-scrollbar-thumb-position);
-        width: var(--va-scrollbar-thumb-width);
-        background-color: var(--va-scrollbar-thumb-background-color);
-        opacity: var(--va-scrollbar-thumb-opacity);
+        .thumb {
+          transition: var(--va-scrollbar-thumb-transition);
+          position: var(--va-scrollbar-thumb-position);
+          width: var(--va-scrollbar-thumb-width);
+          background-color: var(--va-scrollbar-thumb-background-color);
+          opacity: var(--va-scrollbar-thumb-opacity);
 
-        &.active {
-          opacity: 0.3;
+          &.active {
+            opacity: 0.3;
+          }
         }
       }
     }
-  }
 
-  &:hover {
-    .thumb.active {
-      opacity: 1 !important;
+    &:hover {
+      .thumb.active {
+        opacity: 1 !important;
+      }
     }
   }
-}
 </style>
