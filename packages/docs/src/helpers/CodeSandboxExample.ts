@@ -65,7 +65,7 @@ const packageJson = ({ dependencies = {}, devDependencies = {} }: CodesandboxCon
     },
     dependencies: Object.assign(commonDeps, dependencies),
     devDependencies: Object.assign(commonDevDeps, devDependencies),
-  })
+  }, null, 2)
 }
 
 export default (code: string = defaultExample, config: CodesandboxConfig = {}): string => getParameters({
