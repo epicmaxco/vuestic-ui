@@ -1,4 +1,4 @@
-import { computed, Ref, unref, watch, watchEffect, watchPostEffect } from 'vue'
+import { computed, Ref, unref, watchPostEffect } from 'vue'
 
 import { mapObject } from '../utils/map-object'
 import { useDomRect } from './useDomRect'
@@ -114,7 +114,7 @@ const getAutoPlacement = (placement: Placement, coords: Coords, content: DOMRect
 
 const findFirstRelativeParent = (el: Element | null) => {
   while (el) {
-    if (window.getComputedStyle(el).position === 'relative') { return el }
+    if (window.getComputedStyle(el).getPropertyValue('position') === 'relative') { return el }
     el = el.parentElement
   }
 
