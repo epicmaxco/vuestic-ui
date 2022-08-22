@@ -1,216 +1,462 @@
 <template>
-  <VbDemo>
+  <VbDemo class="va-pagination-demo">
     <VbCard>
       Current Page
       <input
-        type="number"
         v-model.number="activePage"
+        aria-hidden="true"
+        type="number"
       />
     </VbCard>
     <VbCard>
       <table class="table table-bordered">
         <tr>
           <th>Description</th>
-          <th>Va Pagination</th>
+          <th>VaPagination</th>
         </tr>
         <tr>
-          <td>Default Pagination</td>
+          <td>Default</td>
           <td>
             <VbCard>
               <va-pagination
+                v-model="activePage"
                 :pages="5"
-                v-model="activePage"
               />
             </VbCard>
           </td>
         </tr>
         <tr>
-          <td>Pagination With Visible Pages</td>
+          <td>Presets</td>
           <td>
             <VbCard>
               <va-pagination
-                :pages="10"
-                :visible-pages="3"
                 v-model="activePage"
+                :pages="5"
+                preset="default"
+              />
+              <va-pagination
+                v-model="activePage"
+                :pages="5"
+                preset="primary"
+              />
+              <va-pagination
+                v-model="activePage"
+                :pages="5"
+                preset="secondary"
+              />
+              <va-pagination
+                v-model="activePage"
+                :pages="5"
+                preset="plain"
+              />
+              <va-pagination
+                v-model="activePage"
+                :pages="5"
+                preset="plainOpacity"
               />
             </VbCard>
           </td>
         </tr>
         <tr>
-          <td>Pagination Sizes</td>
+          <td>Gapped</td>
           <td>
             <VbCard>
               <va-pagination
-                size="small"
-                :pages="10"
-                :visible-pages="3"
                 v-model="activePage"
+                :pages="5"
+                gapped
+                preset="default"
               />
               <va-pagination
-                size="large"
+                v-model="activePage"
+                :pages="5"
+                gapped
+                preset="primary"
+              />
+              <va-pagination
+                v-model="activePage"
+                :pages="5"
+                gapped
+                preset="secondary"
+              />
+              <va-pagination
+                v-model="activePage"
+                :pages="5"
+                gapped
+                preset="plain"
+              />
+              <va-pagination
+                v-model="activePage"
+                :pages="5"
+                gapped
+                preset="plainOpacity"
+              />
+            </VbCard>
+          </td>
+
+        </tr>
+        <tr>
+          <td>Visible Pages</td>
+          <td>
+            <VbCard>
+              <va-pagination
+                v-model="activePage"
                 :pages="10"
                 :visible-pages="3"
+                preset="default"
+              />
+              <va-pagination
                 v-model="activePage"
+                :pages="10"
+                :visible-pages="3"
+                preset="primary"
+              />
+              <va-pagination
+                v-model="activePage"
+                :pages="10"
+                :visible-pages="3"
+                preset="secondary"
+              />
+              <va-pagination
+                v-model="activePage"
+                :pages="10"
+                :visible-pages="3"
+                preset="plain"
+              />
+              <va-pagination
+                v-model="activePage"
+                :pages="10"
+                :visible-pages="3"
+                preset="plainOpacity"
               />
             </VbCard>
           </td>
         </tr>
         <tr>
-          <td>Colored Pagination</td>
+          <td>Bordered</td>
           <td>
             <VbCard>
               <va-pagination
                 v-model="activePage"
-                :visible-pages="4"
                 :pages="15"
+                :visible-pages="5"
+                border-color="primary"
+                gapped
+                preset="default"
+              />
+              <va-pagination
+                v-model="activePage"
+                :pages="15"
+                :visible-pages="5"
+                border-color="primary"
+                gapped
+                preset="primary"
+              />
+              <va-pagination
+                v-model="activePage"
+                :pages="15"
+                :visible-pages="5"
+                border-color="primary"
+                gapped
+                preset="secondary"
+              />
+              <va-pagination
+                v-model="activePage"
+                :pages="15"
+                :visible-pages="5"
+                border-color="primary"
+                gapped
+                preset="plain"
+              />
+              <va-pagination
+                v-model="activePage"
+                :pages="15"
+                :visible-pages="5"
+                border-color="primary"
+                gapped
+                preset="plainOpacity"
+              />
+            </VbCard>
+          </td>
+        </tr>
+        <tr>
+          <td>Rounded</td>
+          <td>
+            <VbCard>
+              <va-pagination
+                v-model="activePage"
+                :pages="15"
+                :visible-pages="5"
+                border-color="primary"
+                gapped
+                rounded
+                preset="default"
+              />
+              <va-pagination
+                v-model="activePage"
+                :pages="15"
+                :visible-pages="5"
+                border-color="primary"
+                gapped
+                rounded
+                preset="primary"
+              />
+              <va-pagination
+                v-model="activePage"
+                :pages="15"
+                :visible-pages="5"
+                border-color="primary"
+                gapped
+                rounded
+                preset="secondary"
+              />
+              <va-pagination
+                v-model="activePage"
+                :pages="15"
+                :visible-pages="5"
+                border-color="primary"
+                gapped
+                rounded
+                preset="plain"
+              />
+              <va-pagination
+                v-model="activePage"
+                :pages="15"
+                :visible-pages="5"
+                border-color="primary"
+                gapped
+                rounded
+                preset="plainOpacity"
+              />
+            </VbCard>
+          </td>
+        </tr>
+        <tr>
+          <td>Custom active page border</td>
+          <td>
+            <VbCard>
+              <va-pagination
+                v-model="activePage"
+                :pages="15"
+                :visible-pages="5"
+                preset="default"
+                current-page-border-color="primary"
+                gapped
+                rounded
+              />
+              <va-pagination
+                v-model="activePage"
+                :pages="15"
+                :visible-pages="5"
+                preset="primary"
+                current-page-border-color="primary"
+                gapped
+                rounded
+              />
+              <va-pagination
+                v-model="activePage"
+                :pages="15"
+                :visible-pages="5"
+                preset="secondary"
+                current-page-border-color="primary"
+                gapped
+                rounded
+              />
+              <va-pagination
+                v-model="activePage"
+                :pages="15"
+                :visible-pages="5"
+                preset="plain"
+                current-page-border-color="primary"
+                gapped
+                rounded
+              />
+              <va-pagination
+                v-model="activePage"
+                :pages="15"
+                :visible-pages="5"
+                preset="plainOpacity"
+                current-page-border-color="primary"
+                gapped
+                rounded
+              />
+            </VbCard>
+          </td>
+        </tr>
+        <tr>
+          <td>Sizes</td>
+          <td>
+            <VbCard>
+              <va-pagination
+                v-model="activePage"
+                :pages="10"
+                :visible-pages="3"
+                size="small"
+              />
+              <va-pagination
+                v-model="activePage"
+                :pages="10"
+                :visible-pages="3"
+                size="medium"
+              />
+              <va-pagination
+                v-model="activePage"
+                :pages="10"
+                :visible-pages="3"
+                size="large"
+              />
+            </VbCard>
+          </td>
+        </tr>
+        <tr>
+          <td>Colored</td>
+          <td>
+            <VbCard>
+              <va-pagination
+                v-model="activePage"
+                :pages="15"
+                :visible-pages="4"
                 color="info"
               />
               <va-pagination
                 v-model="activePage"
-                :visible-pages="4"
                 :pages="15"
+                :visible-pages="4"
                 color="danger"
               />
               <va-pagination
                 v-model="activePage"
-                :visible-pages="4"
                 :pages="15"
+                :visible-pages="4"
                 color="warning"
               />
             </VbCard>
           </td>
         </tr>
         <tr>
-          <td>Disabled Pagination</td>
+          <td>Disabled</td>
           <td>
             <VbCard>
               <va-pagination
                 v-model="activePage"
-                :visible-pages="4"
                 :pages="15"
+                :visible-pages="4"
                 disabled
               />
             </VbCard>
           </td>
         </tr>
         <tr>
-          <td>Pagination Without Links</td>
+          <td>Without Links</td>
           <td>
             <VbCard>
               <va-pagination
+                v-model="activePage"
+                :boundary-links="false"
                 :pages="10"
                 :visible-pages="3"
-                :boundary-links="false"
-                v-model="activePage"
               />
               <va-pagination
+                v-model="activePage"
+                :direction-links="false"
                 :pages="10"
                 :visible-pages="3"
-                :direction-links="false"
-                v-model="activePage"
               />
             </VbCard>
           </td>
         </tr>
         <tr>
-          <td>Pagination With Icons</td>
+          <td>Icons</td>
           <td>
             <VbCard>
               <va-pagination
+                v-model="activePage"
                 :pages="10"
                 :visible-pages="3"
-                direction-icon-left='volume_mute'
-                direction-icon-right='volume_down'
-                v-model="activePage"
+                direction-icon-left="volume_mute"
+                direction-icon-right="volume_down"
               />
               <va-pagination
+                v-model="activePage"
                 :pages="10"
                 :visible-pages="3"
-                boundary-icon-left='volume_off'
-                boundary-icon-right='volume_up'
-                v-model="activePage"
+                boundary-icon-left="volume_off"
+                boundary-icon-right="volume_up"
               />
               <va-pagination
+                v-model="activePage"
                 :pages="10"
                 :visible-pages="3"
-                boundary-icon-left='volume_off'
-                boundary-icon-right='volume_up'
-                direction-icon-right='volume_down'
-                direction-icon-left='volume_mute'
-                v-model="activePage"
+                boundary-icon-left="volume_off"
+                boundary-icon-right="volume_up"
+                direction-icon-left="volume_mute"
+                direction-icon-right="volume_down"
               />
             </VbCard>
           </td>
         </tr>
-      </table>
-    </VbCard>
-    <VbCard
-      title="With input"
-    >
-      <va-pagination
-        :pages="20"
-        v-model="activePage"
-        input
-      />
-    </VbCard>
-    <VbCard
-      title="With boundary numbers"
-    >
-      <va-pagination
-        :pages="20"
-        :visible-pages="5"
-        v-model="activePage"
-        boundary-numbers
-      />
-      <va-pagination
-        :pages="20"
-        :visible-pages="7"
-        v-model="activePage"
-        boundary-numbers
-      />
-    </VbCard>
-    <VbCard
-      title="Flat"
-    >
-      <va-pagination
-        :pages="20"
-        :visible-pages="5"
-        v-model="activePage"
-        flat
-      />
-    </VbCard>
-    <VbCard
-      title="Flat with input"
-    >
-      <va-pagination
-        :pages="20"
-        v-model="activePage"
-        flat
-        :visible-pages="5"
-        input
-      />
-    </VbCard>
-    <VbCard
-      title="Hide on single page"
-    >
-      <va-pagination
-        :pages="1"
-        hide-on-single-page
-      />
-    </VbCard>
-    <VbCard
-      title="Stateful"
-    >
-      <va-pagination
-        :pages="10"
-        stateful
-        :visible-pages="5"
-      />
-    </VbCard>
-    <VbCard
-      title="Use context"
-    >
-      <va-config :components="{
+        <tr>
+          <td>Input</td>
+          <td>
+            <VbCard>
+              <va-pagination
+                v-model="activePage"
+                :pages="20"
+                input
+              />
+            </VbCard>
+          </td>
+        </tr>
+        <tr>
+          <td>Boundary Icons</td>
+          <td>
+            <VbCard>
+              <va-pagination
+                v-model="activePage"
+                :pages="20"
+                :visible-pages="5"
+                boundary-numbers
+              />
+              <va-pagination
+                v-model="activePage"
+                :pages="20"
+                :visible-pages="7"
+                boundary-numbers
+              />
+            </VbCard>
+          </td>
+        </tr>
+        <tr>
+          <td>Plain with input</td>
+          <td>
+            <VbCard>
+              <va-pagination
+                v-model="activePage"
+                :pages="20"
+                :visible-pages="5"
+                input
+                plain
+              />
+            </VbCard>
+          </td>
+        </tr>
+        <tr>
+          <td>Stateful</td>
+          <td>
+            <VbCard>
+              <va-pagination
+                :pages="10"
+                :visible-pages="5"
+                stateful
+              />
+            </VbCard>
+          </td>
+        </tr>
+        <tr>
+          <td>Use context</td>
+          <td>
+            <VbCard>
+              <va-config :components="{
         VaPagination: {
           color: 'danger',
           pages: 10,
@@ -219,42 +465,37 @@
           input: true,
         }
       }">
-        <va-pagination />
-      </va-config>
-      <va-config :components="{
-        VaPagination: {
-          color: 'info',
-          size: 'small',
-          boundaryNumbers: true,
-          flat: true,
-          pages: 10,
-          visiblePages: 5,
-        }
-      }">
-        <va-pagination v-model="activePage" />
-      </va-config>
-    </VbCard>
-    <VbCard
-      title="Use total and page-size"
-    >
-      <div>
-        Page size
-        <input type="number" v-model.number="pageSize">
-      </div>
-      <div>
-        Total
-        <input type="number" v-model.number="total">
-      </div>
-      <va-pagination
-        :visible-pages="5"
-        v-model="activeTotalPage"
-        :total="total"
-        boundary-numbers
-        :page-size="pageSize"
-      />
-      <div>
-        value: {{activeTotalPage}}
-      </div>
+                <va-pagination />
+              </va-config>
+            </VbCard>
+          </td>
+        </tr>
+        <tr>
+          <td>Use total and page size</td>
+          <td>
+            <VbCard>
+              <div>
+                Page size:
+                <input v-model.number="pageSize" aria-hidden="true" type="number">
+              </div>
+              <div>
+                Total:
+                <input v-model.number="total" aria-hidden="true" type="number">
+              </div>
+              <va-pagination
+                v-model="activeTotalPage"
+                :page-size="pageSize"
+                :total="total"
+                :visible-pages="5"
+                boundary-numbers
+              />
+              <div>
+                Value: {{ activeTotalPage }}
+              </div>
+            </VbCard>
+          </td>
+        </tr>
+      </table>
     </VbCard>
   </VbDemo>
 </template>
@@ -279,3 +520,11 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+.va-pagination-demo {
+  & .va-button-group {
+    padding: 1rem;
+  }
+}
+</style>
