@@ -38,7 +38,6 @@
     "@nuxt/vite-builder": "^3.0.0-rc.8",
     "@nuxtjs/eslint-config-typescript": "latest",
     "eslint": "latest",
-    "nuxt": "^3.0.0-rc.8",
-    "vue": "^3.2.33"
+    "nuxt": "^3.0.0-rc.8"
   }
 }
