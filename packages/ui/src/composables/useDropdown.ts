@@ -114,7 +114,11 @@ const getAutoPlacement = (placement: Placement, coords: Coords, content: DOMRect
 
 const findFirstRelativeParent = (el: Element | null) => {
   while (el) {
-    if (window.getComputedStyle(el).getPropertyValue('position') === 'relative') { return el }
+    const positionValue = window.getComputedStyle(el).getPropertyValue('position') ||
+      (el as HTMLElement).style.position
+
+    if (positionValue === 'relative') { return el }
+
     el = el.parentElement
   }
 

@@ -8,6 +8,7 @@
     :aria-disabled="$props.disabled"
     :aria-expanded="!!valueComputed"
     :aria-controls="idComputed"
+    style="position: relative;"
   >
     <slot name="anchor" v-bind="{ value: valueComputed, hide, show }" />
 
