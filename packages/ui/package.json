@@ -29,7 +29,7 @@
   "scripts": {
     "serve": "vue-cli-service serve --mode book",
     "serve:production": "vue-cli-service serve --mode production",
-    "build:dev": "tsc build/config.ts && webpack --config build/config.js --progress",
+    "build": "tsx build/build.ts",
     "build": "tsx ./build/vite/build.ts",
     "build:rollup": "rollup -c",
     "build:types": "vue-tsc --declaration --emitDeclarationOnly --outDir dist/types",
