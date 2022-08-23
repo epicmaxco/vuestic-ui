@@ -322,6 +322,17 @@ export default defineComponent({
     }
   }
 
+  &__dragger__default {
+    opacity: 0.7;
+  }
+
+  &:focus,
+  &:hover {
+    .va-split__dragger__default {
+      opacity: 1;
+    }
+  }
+
   &--vertical {
     flex-direction: column;
 
