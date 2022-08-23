@@ -47,7 +47,7 @@
                 role="button"
                 aria-label="close"
                 tabindex="0"
-                :disable-focus-style="$props.disableFocusClass"
+                :disable-focus-class="$props.disableFocusClass"
                 @click="cancel"
                 @keydown.space="cancel"
                 @keydown.enter="cancel"

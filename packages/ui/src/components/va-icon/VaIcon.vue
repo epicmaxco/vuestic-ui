@@ -90,7 +90,8 @@ export default defineComponent({
       lineHeight: sizeComputed.value,
     }))
 
-    const ariaHiddenComputed = computed(() => attrs.role !== 'button')
+    const tabindexComputed = computed(() => attrs.tabindex as number | undefined ?? -1)
+    const ariaHiddenComputed = computed(() => attrs.role !== 'button' || tabindexComputed.value < 0)
 
     return {
       iconConfig,

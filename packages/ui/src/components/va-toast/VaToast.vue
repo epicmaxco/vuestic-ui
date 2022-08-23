@@ -31,7 +31,7 @@
           tabindex="0"
           size="small"
           :name="$props.icon"
-          :disable-focus-style="$props.disableFocusClass"
+          :disable-focus-class="$props.disableFocusClass"
           @click.stop="onToastClose"
           @keydown.enter.stop="onToastClose"
         />

@@ -25,7 +25,7 @@
       @focus="onFocus"
       @click="onTabClick"
       @keydown.enter="onTabKeydown"
-      v-on="listeners"
+      v-on="keyboardFocusListeners"
     >
       <slot>
         <va-icon
@@ -47,7 +47,6 @@
 import { computed, defineComponent, inject, onBeforeUnmount, onMounted, ref, shallowRef } from 'vue'
 
 import {
-  useKeyboardOnlyFocus,
   useComponentPresetProp,
   useRouterLink, useRouterLinkProps,
   useKeyboardFocusClass, useKeyboardFocusClassProps,
@@ -84,9 +83,11 @@ export default defineComponent({
     const rightSidePosition = ref(0)
     const leftSidePosition = ref(0)
 
-    const { keyboardFocusListeners: keyboardOnlyFocusListeners, hasKeyboardFocus } = useKeyboardOnlyFocus()
-    const { keyboardFocusClass, keyboardFocusListeners } = useKeyboardFocusClass(props, 'va-tab__content')
-    const listeners = { ...keyboardOnlyFocusListeners, ...keyboardFocusListeners }
+    const {
+      keyboardFocusClass,
+      keyboardFocusListeners,
+      hasKeyboardFocus,
+    } = useKeyboardFocusClass(props, 'va-tab__content')
 
     const { tagComputed, hrefComputed, isActiveRouterLink } = useRouterLink(props)
     const classComputed = computed(() => ({ 'va-tab--disabled': props.disabled }))
@@ -186,7 +187,7 @@ export default defineComponent({
       onTabKeydown,
       onFocus,
       keyboardFocusClass,
-      listeners,
+      keyboardFocusListeners,
     }
   },
 })

@@ -36,7 +36,7 @@
         role="button"
         aria-label="reset"
         :tabindex="tabIndexComputed"
-        :disable-focus-style="$props.disableFocusClass"
+        :disable-focus-class="$props.disableFocusClass"
         v-bind="clearIconProps"
         @click.stop="reset"
         @keydown.enter.stop="reset"
