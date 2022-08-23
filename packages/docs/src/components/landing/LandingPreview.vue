@@ -9,20 +9,13 @@
           >
             {{$t('landing.preview.buttons.start')}}
           </va-button>
-          <va-popover class="preview__buttons--button"
-                      :message="this.$t('landing.preview.buttons.askForStars')"
-                      :modelValue=true
-                      :autoHide=false
-                      trigger="click"
-          >
-            <va-button href="https://github.com/epicmaxco/vuestic-ui"
+          <va-button class="preview__buttons--button" href="https://github.com/epicmaxco/vuestic-ui"
                        target="_blank"
                        preset="plain"
             >
               <va-icon class="fa fa-github" style="margin-right: 0.5rem;" />
               {{$t('landing.preview.buttons.github')}}
             </va-button>
-          </va-popover>
         </div>
 <!--        <div class="preview__image">-->
 <!--          <div class="components-slideshow">-->
@@ -93,6 +86,10 @@ export default {
   padding-top: 4.5rem;
   background: transparent;
 
+  ::selection {
+    -webkit-text-fill-color: white;
+  }
+
   &__wrapper {
     @include wrapper();
   }
@@ -105,49 +102,53 @@ export default {
 
   &__title {
     @include col();
-    @include size(12);
     @include title-font();
 
-    padding-top: 3.5rem;
+    padding-top: 4.5rem;
+    font-size: 5rem;
+    width: 100%;
     text-align: center;
-    font-weight: 900;
-    font-size: 4.5rem;
+    background: -webkit-linear-gradient(315deg, #3be88e 12%, #0c33f7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    // lg
+    @include lg(padding-top, 5rem);
+    @include lg(font-size, 4rem);
+
+    // md
+    @include md(font-size, 3.5rem);
 
     // sm
-    @include sm(padding-top, 2rem);
+    @include sm(padding-top, 4rem);
+
+    // xs
+    @include xs(font-size, 3rem);
   }
 
   &__buttons {
     @include row-flex();
     @include col();
-    @include size(8);
-    @include shift-left(2);
 
     display: flex;
+    width: 100%;
     justify-content: center;
     align-items: center;
     padding-top: 1.5rem;
 
-    // lg
-    @include size-lg(10);
-    @include shift-lg-left(1);
-    // md
-    @include size-md(6);
-    @include shift-md-left(3);
-    // xs
-    @include size-xs(10);
-    @include shift-xs-left(1);
-
     &--button {
-      @include col();
-      @include size(4);
       @include button-font();
 
+      margin-top: 1rem;
       height: 3rem;
 
-      // md
-      @include size-md(12);
-      @include md(margin-bottom, 1rem);
+      @include xs(width, 100%);
+    }
+
+    &--button:nth-child(1) {
+      margin-right: 1rem;
+
+      @include xs(margin-right, 0);
     }
   }
 
@@ -173,12 +174,12 @@ export default {
     padding-bottom: 8rem;
     justify-content: center;
 
-    // md
-    //@include md(padding-top, 27rem);
-    // sm
-    //@include sm(padding-top, 26rem);
     @include sm(padding-bottom, 4rem);
   }
+}
+
+.va-button__content {
+  height: 100%;
 }
 
 .item {

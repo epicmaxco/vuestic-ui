@@ -5,7 +5,7 @@ import { useRouterLink } from '../../../composables'
 type UseButtonAttributes = (
   props: ButtonPropsTypes,
 ) => ComputedRef<{
-  ariaDisabled: boolean,
+  'aria-disabled': boolean,
   disabled: boolean,
   type?: any,
   tabindex?: number,
@@ -25,7 +25,7 @@ export const useButtonAttributes: UseButtonAttributes = (props) => {
   const typeComputed = computed(() => isLinkTag.value ? undefined : props.type)
   const buttonAttributesComputed = computed(() => {
     const disabledAttributes = {
-      ariaDisabled: !!props.disabled,
+      'aria-disabled': !!props.disabled,
       disabled: !!props.disabled,
     }
 

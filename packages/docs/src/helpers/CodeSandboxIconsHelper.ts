@@ -15,7 +15,7 @@ export const iconsConfig = `
   import { createApp } from "vue"
   import App from "./App.vue"
   import { createVuestic, createIconsConfig } from "vuestic-ui"
-  import 'vuestic-ui/dist/vuestic-ui.css'
+  import 'vuestic-ui/css'
 
   const fonts = [
     {
