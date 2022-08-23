@@ -114,6 +114,8 @@ const getAutoPlacement = (placement: Placement, coords: Coords, content: DOMRect
 
 const findFirstRelativeParent = (el: Element | null) => {
   while (el) {
+    // TODO: Remove the el.style.position after fix of this issue: https://github.com/nuxt/framework/issues/3587
+    // TODO: Remove from the va-dropdown.vue the inline style (position: relative)
     const positionValue = window.getComputedStyle(el).getPropertyValue('position') ||
       (el as HTMLElement).style.position
 
