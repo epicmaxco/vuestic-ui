@@ -301,7 +301,7 @@ export default defineComponent({
             return [value]
           }
 
-          return value.map((o) => getOptionByValue(o))
+          return value.map(getValue)
         }
 
         if (Array.isArray(value)) {
