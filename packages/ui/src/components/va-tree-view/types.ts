@@ -1,4 +1,4 @@
-import { ComputedRef, InjectionKey, Ref } from 'vue'
+import { ComputedRef, InjectionKey } from 'vue'
 
 export interface TreeNode {
   id: number | string
@@ -27,5 +27,8 @@ export interface TreeView {
   getNodeProperty: (node: TreeNode, key: TreeViewPropKey) => unknown
   toggleCheckbox: (node: TreeNode, state: boolean) => void
 }
+
+// TODO: Implement in future versions the update:selected emit
+export type TreeViewEmitsList = 'update:selected' | 'update:checked'
 
 export const TreeViewKey = Symbol('TreeView') as InjectionKey<TreeView>

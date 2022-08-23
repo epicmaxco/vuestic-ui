@@ -1,4 +1,4 @@
-import { PropType, ExtractPropTypes, ref } from 'vue'
+import { PropType, ExtractPropTypes } from 'vue'
 
 import type { TreeNode, TreeViewFilterMethod, TreeViewPropKey } from '../types'
 
@@ -8,6 +8,10 @@ export const useTreeViewProps = {
   nodes: {
     type: Array as PropType<TreeNode[]>,
     default: [],
+  },
+  stateful: {
+    type: Boolean,
+    default: true,
   },
   selectable: {
     type: Boolean,
@@ -59,6 +63,8 @@ export const useTreeViewProps = {
     default: 'primary',
   },
 }
+
+export const useTreeViewEmits = ['update:modelValue', 'update:checked']
 
 export const useTreeHelpers = (props: ExtractPropTypes<typeof useTreeViewProps>) => {
   const isStringOrNumber = (node: TreeNode): node is any => {

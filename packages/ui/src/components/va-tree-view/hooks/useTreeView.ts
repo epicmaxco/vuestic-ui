@@ -1,6 +1,15 @@
-import { computed, reactive, toRefs, ComputedRef, ExtractPropTypes, ref, provide } from 'vue'
+import {
+  computed,
+  reactive,
+  toRefs,
+  ref,
+  provide,
+  watch,
+  ComputedRef,
+  ExtractPropTypes,
+} from 'vue'
 
-import type { TreeNode, TreeViewPropKey, TreeViewFilterMethod } from '../types'
+import type { TreeNode, TreeViewPropKey, TreeViewFilterMethod, TreeViewEmitsList } from '../types'
 import { useTreeHelpers, useTreeViewProps } from './useTreeHelpers'
 import { TreeViewKey } from '../types'
 import { useColors } from '../../../composables'
@@ -14,7 +23,9 @@ type CreateNodeProps = {
 
 type CreateNodeFunc = (props: CreateNodeProps) => TreeNode
 
-type UseTreeViewFunc = (props: ExtractPropTypes<typeof useTreeViewProps>) => {
+type TreeViewEmitsFunc = (event: TreeViewEmitsList, newValues: unknown) => void
+
+type UseTreeViewFunc = (props: ExtractPropTypes<typeof useTreeViewProps>, emit: TreeViewEmitsFunc) => {
   treeItems: ComputedRef<TreeNode[]>
   getValue?: (node: TreeNode) => TreeNode
   getNodeByValue?: (node: TreeNode) => TreeNode
@@ -27,7 +38,7 @@ type UseTreeViewFunc = (props: ExtractPropTypes<typeof useTreeViewProps>) => {
 
 type TreeBuilderFunc = (nodes: TreeNode[], level?: number) => TreeNode[]
 
-const useTreeView: UseTreeViewFunc = (props) => {
+const useTreeView: UseTreeViewFunc = (props, emit) => {
   const { getColor } = useColors()
   const colorComputed = computed(() => getColor(props.color))
   const isLeafSelectionComputed = computed(() => props.selectionType === 'leaf')
@@ -37,11 +48,16 @@ const useTreeView: UseTreeViewFunc = (props) => {
     iterateNodes,
     getNodeProperty,
   } = useTreeHelpers(props)
-  const { nodes, expandAll, filter, filterMethod, textBy } = toRefs(props)
+  const { nodes, expandAll, filter, filterMethod, textBy, checked, stateful } = toRefs(props)
+  const checkedList = ref(checked.value.length ? checked.value : [])
 
-  const checkedList = ref<(string | number | TreeNode)[]>([])
+  watch(() => checkedList.value, (newValue) => {
+    if (!stateful.value) {
+      emit('update:checked', newValue)
+    }
+  })
 
-  const updateCheckedList = (values: (string|number|TreeNode)[], state: boolean) => {
+  const updateCheckedList = (values: (string | number | TreeNode)[], state: boolean) => {
     if (state) {
       checkedList.value = checkedList.value.concat(values)
         .filter((value, idx, self) => self.indexOf(value) === idx)
@@ -57,9 +73,11 @@ const useTreeView: UseTreeViewFunc = (props) => {
     if (isLeafSelectionComputed.value) {
       if (node.hasChildren) {
         const values = [trackByValue]
-        const cb = (childNode: TreeNode) => values.push(getTrackBy(childNode))
 
-        iterateNodes(node.children, cb)
+        iterateNodes(
+          node.children,
+          (childNode: TreeNode) => values.push(getTrackBy(childNode)),
+        )
         updateCheckedList(values, stateValue)
       }
     }
@@ -78,7 +96,7 @@ const useTreeView: UseTreeViewFunc = (props) => {
       const isAllChildrenChecked = children.every(c => c.checked)
 
       checked = isAllChildrenChecked
-      updateCheckedList([trackByValue], isAllChildrenChecked)
+      isAllChildrenChecked && updateCheckedList([trackByValue], isAllChildrenChecked)
       indeterminate = !isAllChildrenChecked && children.some(c => c.indeterminate || c.checked)
 
       if (indeterminate) { checked = null }

@@ -21,26 +21,21 @@
 import { defineComponent } from 'vue'
 
 import useTreeView from './hooks/useTreeView'
-import { useTreeViewProps } from './hooks/useTreeHelpers'
+import { useTreeViewProps, useTreeViewEmits } from './hooks/useTreeHelpers'
 
 import { VaTreeNode } from './components/VaTreeNode'
 
 export default defineComponent({
   name: 'VaTreeView',
 
-  props: {
-    ...useTreeViewProps,
-  },
+  props: { ...useTreeViewProps },
 
-  emits: [
-    'update:modelValue',
-    'update:checked',
-  ],
+  emits: [...useTreeViewEmits],
 
   components: { VaTreeNode },
 
-  setup: (props) => {
-    const { treeItems, getTrackBy } = useTreeView(props)
+  setup: (props, { emit }) => {
+    const { treeItems, getTrackBy } = useTreeView(props, emit)
 
     return { treeItems, getTrackBy }
   },
