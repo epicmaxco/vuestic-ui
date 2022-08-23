@@ -31,7 +31,6 @@
     "serve:production": "vue-cli-service serve --mode production",
     "build": "tsx build/build.ts",
     "build": "tsx ./build/vite/build.ts",
-    "build:rollup": "rollup -c",
     "build:types": "vue-tsc --declaration --emitDeclarationOnly --outDir dist/types",
     "build:book": "vue-cli-service build --mode book",
     "lint": "vue-cli-service lint",
