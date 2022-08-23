@@ -4,11 +4,13 @@
       <va-tree-view :nodes="nodes" />
     </VbCard>
     <VbCard title="Icons">
-      <va-tree-view :nodes="nodesWithIcons" expand-all>
-        <template #icon="{ icon, iconColor }">
+      <va-tree-view :nodes="nodesWithIcons" />
+      <va-tree-view :nodes="nodesWithIcons">
+        <template #icon="node">
           <va-icon
-            :name="icon"
-            :color="iconColor"
+            :name="node.icon"
+            :color="node.iconColor"
+            :title="node.label"
             size="20px"
           />
         </template>
@@ -22,6 +24,11 @@
         :option="option"
       />
       <br />
+      <va-color-palette
+        v-model="selectedColor"
+        :palette="colorsPalette"
+      />
+      <br />
       <p>
         {{ JSON.stringify(selectedNodes) }}
       </p>
@@ -29,18 +36,11 @@
       <va-tree-view
         v-model="selectedNodes"
         :nodes="nodesWithIcons"
+        :color="selectedColor"
         expand-all
         selectable
         :selection-type="selectionType"
-      >
-        <template #icon="{icon}">
-          <va-icon
-            v-if="icon"
-            :name="icon"
-            size="20px"
-          />
-        </template>
-      </va-tree-view>
+      />
     </VbCard>
     <VbCard title="With custom body">
       <va-tree-view :nodes="customBodyNodes">
@@ -68,18 +68,6 @@
         :nodes="filterableNodes"
         :filter="filterValue"
         :filter-method="customFilterMethod"
-        expand-all
-      />
-    </VbCard>
-    <VbCard title="Colored checkboxes">
-      <va-color-palette
-        v-model="selectedColor"
-        :palette="colorsPalette"
-      />
-      <va-tree-view
-        :nodes="nodes"
-        :color="selectedColor"
-        selectable
         expand-all
       />
     </VbCard>
@@ -179,27 +167,6 @@ export default {
               { id: 4, label: 'Item' },
             ],
           },
-          {
-            id: 5,
-            label: 'Subcategory',
-            children: [
-              { id: 6, label: 'Item' },
-            ],
-          },
-        ],
-      },
-      {
-        id: 7,
-        label: 'Category',
-        children: [
-          { id: 8, label: 'Item' },
-        ],
-      },
-      {
-        id: 9,
-        label: 'Category',
-        children: [
-          { id: 10, label: 'Item' },
         ],
       },
       {
@@ -221,40 +188,16 @@ export default {
             iconColor: '#4b0082',
             children: [
               { id: 3, label: 'Item' },
-              { id: 4, label: 'Item', icon: 'mail' },
-            ],
-          },
-          {
-            id: 5,
-            label: 'Subcategory',
-            icon: 'mail',
-            children: [
-              { id: 6, label: 'Item' },
+              { id: 4, label: 'Item' },
             ],
           },
         ],
       },
       {
-        id: 7,
-        label: 'Category',
+        id: 5,
+        label: 'Item',
         icon: 'mail',
         iconColor: 'var(--va-warning)',
-        children: [
-          { id: 8, label: 'Item' },
-        ],
-      },
-      {
-        id: 9,
-        label: 'Category',
-        icon: 'mail',
-        iconColor: 'var(--va-success)',
-        children: [
-          { id: 10, label: 'Item' },
-        ],
-      },
-      {
-        id: 11,
-        label: 'Item',
       },
     ],
     filterableNodes: [
@@ -270,48 +213,11 @@ export default {
               { id: 4, label: 'Four' },
             ],
           },
-          {
-            id: 5,
-            label: 'Five',
-            children: [
-              { id: 6, label: 'Six' },
-            ],
-          },
         ],
       },
       {
-        id: 7,
-        label: 'Seven',
-        children: [
-          { id: 8, label: 'Eight' },
-        ],
-      },
-      {
-        id: 9,
-        label: 'Nine',
-        children: [
-          { id: 10, label: 'Ten' },
-        ],
-      },
-      {
-        id: 11,
-        label: 'Eleven',
-        children: [
-          { id: 12, label: 'Twelve' },
-          {
-            id: 13,
-            label: 'Thirteen',
-            children: [
-              {
-                id: 14,
-                label: 'Fourteen',
-                children: [
-                  { id: 15, label: 'Fifteen' },
-                ],
-              },
-            ],
-          },
-        ],
+        id: 5,
+        label: 'Five',
       },
     ],
     isFilterCaseSensitive: false,
