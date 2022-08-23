@@ -3,14 +3,24 @@ import vue from '@vitejs/plugin-vue'
 import { resolve as resolver } from 'path'
 import { chunkSplitPlugin } from 'vite-plugin-chunk-split'
 import { appendComponentCss } from './plugins/append-component-css'
+import {
+  UserConfig,
+  PluginOption,
+  BuildOptions,
+} from 'vite'
+import { RollupOptions } from 'rollup'
 
-const packageJSON = JSON.parse(readFileSync(resolver(process.cwd(), './package.json')))
+console.log('readFileSync(resolver(process.cwd(), ./package.json)')
+
+const packageJSON = JSON.parse(readFileSync(resolver(process.cwd(), './package.json')).toString())
 const dependencies = [...Object.keys(packageJSON.dependencies), ...Object.keys(packageJSON.peerDependencies)]
 const external = { external: dependencies }
 
-export const readDirRecursive = (path) => {
+export type BuildFormat = 'iife' | 'es' | 'cjs' | 'esm-node'
+
+export const readDirRecursive = (path: string): string[] => {
   return readdirSync(path)
-    .reduce((acc, entry) => {
+    .reduce<string[]>((acc, entry) => {
       const p = `${path}/${entry}`
 
       if (lstatSync(p).isDirectory()) {
@@ -28,7 +38,7 @@ export const resolve = {
   },
 }
 
-const rollupMjsBuildOptions = {
+const rollupMjsBuildOptions: RollupOptions = {
   input: resolver(process.cwd(), 'src/main.ts'),
 
   output: {
@@ -41,7 +51,7 @@ const rollupMjsBuildOptions = {
   },
 }
 
-const libBuildOptions = (format) => ({
+const libBuildOptions = (format: 'iife' | 'es' | 'cjs'): BuildOptions => ({
   lib: {
     entry: resolver(process.cwd(), 'src/main.ts'),
     fileName: () => 'main.js',
@@ -52,8 +62,8 @@ const libBuildOptions = (format) => ({
   },
 })
 
-export default function createViteConfig (format) {
-  const isEsm = ['esm', 'esm-node'].includes(format)
+export default function createViteConfig (format: BuildFormat): UserConfig {
+  const isEsm = ['es', 'esm-node'].includes(format)
   const isMjs = format === 'esm-node'
 
   const config = {
@@ -82,19 +92,19 @@ export default function createViteConfig (format) {
         // disable mangling functions names
         keep_fnames: true,
       },
-    },
+    } as BuildOptions,
 
     plugins: [
       vue({
         isProduction: true,
         exclude: [/\.md$/, /\.spec\.ts$/, /\.spec\.disabled$/],
       }),
-    ],
+    ] as PluginOption[],
   }
 
   // https://github.com/sanyuan0704/vite-plugin-chunk-split
-  isEsm && config.plugins.push(chunkSplitPlugin({ strategy: 'unbundle' }))
-  isEsm && config.plugins.push(appendComponentCss())
+  isEsm && config.plugins?.push(chunkSplitPlugin({ strategy: 'unbundle' }))
+  isEsm && config.plugins?.push(appendComponentCss())
 
   if (!isMjs) { config.build = { ...config.build, ...libBuildOptions(format) } }
 
