@@ -223,7 +223,8 @@ export default defineComponent({
     padding: var(--va-tab-content-padding);
     cursor: var(--va-tab-content-cursor);
 
-    @include keyboard-focus($offset: -2px); }
+    @include keyboard-focus($offset: -2px);
+  }
 
   &__icon {
     margin-right: var(--va-tab-icon-margin-right);
