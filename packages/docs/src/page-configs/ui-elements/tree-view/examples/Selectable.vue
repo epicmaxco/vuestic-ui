@@ -7,10 +7,9 @@
     :palette="colorsPalette"
   />
   <va-tree-view
-    v-model="selectedNodes"
+    v-model:checked="selectedNodes"
     :nodes="nodes"
     :color="selectedColor"
-    node-key="id"
     selectable
     expand-all
   />

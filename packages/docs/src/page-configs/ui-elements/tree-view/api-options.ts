@@ -8,20 +8,28 @@ export const VaTreeNodeItemOptions = defineManualApi({
     icon: { },
     content: { },
     checkbox: { },
-    'not-found': { },
     'icon-toggle': { },
   },
 })
 
 export const VaTreeViewOptions = defineManualApi({
   props: {
-    modelValue: { types: '(number | string)[]' },
-    nodes: { types: 'TreeNode[]' },
-    trackBy: { types: 'string' },
-    expandAll: { types: 'boolean' },
+    nodes: { types: '(TreeNode | object)[]' },
+    stateful: { types: 'boolean' },
     selectable: { types: 'boolean' },
     selectionType: { types: "'leaf' | 'independent'" },
+    valueBy: { types: 'string | function' },
+    textBy: { types: 'string | function' },
+    trackBy: { types: 'string | function' },
+    iconBy: { types: 'string | function' },
+    disabledBy: { types: 'string | function' },
+    expandAll: { types: 'boolean' },
     filter: { types: 'string' },
     filterMethod: { types: 'function' },
+    checked: { types: '(string | number | TreeNode | object)[]' },
+    color: { types: 'string' },
+  },
+  slots: {
+    'not-found': { },
   },
 })

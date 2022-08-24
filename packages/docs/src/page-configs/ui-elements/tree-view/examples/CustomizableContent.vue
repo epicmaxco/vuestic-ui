@@ -1,24 +1,23 @@
 <template>
   <va-tree-view
     :nodes="nodes"
-    node-key="id"
     class="customizable-content"
   >
-    <template #content="prop">
+    <template #content="node">
       <div class="d-flex align--center">
         <va-avatar
-          v-if="prop.image"
-          :src="prop.image"
+          v-if="node.image"
+          :src="node.image"
           style="margin-right: 0.5rem;"
         />
 
         <div style="margin-right: 0.5rem;">
-          <b v-if="prop.label">{{ prop.label }}</b>
-          <p v-if="prop.description">{{ prop.description }}</p>
+          <b v-if="node.label">{{ node.label }}</b>
+          <p v-if="node.description">{{ node.description }}</p>
         </div>
 
         <va-button
-          v-if="prop.hasAction"
+          v-if="node.hasAction"
           flat
           icon="add"
           size="small"

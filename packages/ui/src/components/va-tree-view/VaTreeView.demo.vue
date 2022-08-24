@@ -34,14 +34,12 @@
       </p>
       <br />
       <va-tree-view
+        v-model:checked="selectedNodes"
         :nodes="nodesWithIcons"
         :color="selectedColor"
-        :checked="selectedNodes"
         :selection-type="selectionType"
-        :stateful="false"
         expand-all
         selectable
-        @update:checked="(v) => selectedNodes = v"
       />
     </VbCard>
     <VbCard title="With custom body">

@@ -52,7 +52,7 @@ const useTreeView: UseTreeViewFunc = (props, emit) => {
   const checkedList = ref(checked.value.length ? checked.value : [])
 
   watch(() => checkedList.value, (newValue) => {
-    if (!stateful.value) {
+    if (stateful.value) {
       emit('update:checked', newValue)
     }
   })
@@ -96,7 +96,7 @@ const useTreeView: UseTreeViewFunc = (props, emit) => {
       const isAllChildrenChecked = children.every(c => c.checked)
 
       checked = isAllChildrenChecked
-      isAllChildrenChecked && updateCheckedList([trackByValue], isAllChildrenChecked)
+      updateCheckedList([trackByValue], isAllChildrenChecked)
       indeterminate = !isAllChildrenChecked && children.some(c => c.indeterminate || c.checked)
 
       if (indeterminate) { checked = null }
