@@ -363,7 +363,7 @@
         "directionIconLeft": "Set the icon name for left direction icon.",
         "directionIconRight": "Set the icon name for right direction icon.",
         "size": "Specify size for component. `small`, `medium`, `large` sizes are available.",
-        "currentPageBorderColor": "Specifies border color of the current page button.",
+        "activePageColor": "Specifies color of the currently active page button.",
         "gapped": "Enables gaps between page buttons."
       }
     },
@@ -2074,15 +2074,15 @@
       },
       "presets": {
         "title": "Presets",
-        "text": "We provide several built-in style presets: `default`, `primary`, `secondary`, `plain`, `plainOpacity`. You can switch between them via `preset` prop."
+        "text": "We provide several built-in style presets: `default`, `primary`, `secondary` (inherited from [VaButton](/ui-elements/button)). You can switch between them via `preset` prop."
       },
       "bordered": {
         "title": "Borders",
         "text": "Specifying `border-color` prop will add borders to the pagination items."
       },
-      "customBorder": {
-        "title": "Active pagination page border",
-        "text": "You can specify border color of the current pagination item via `current-page-border-color` prop."
+      "activeColor": {
+        "title": "Active pagination button color",
+        "text": "You can specify color of the current pagination item via `active-page-color` prop."
       },
       "rounded": {
         "title": "Rounded",

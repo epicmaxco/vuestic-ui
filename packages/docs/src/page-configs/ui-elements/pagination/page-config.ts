@@ -56,9 +56,9 @@ const config: ApiDocsBlock[] = [
     'Rounded',
   ),
   ...block.exampleBlock(
-    'pagination.examples.customBorder.title',
-    'pagination.examples.customBorder.text',
-    'CustomActivePageBorder',
+    'pagination.examples.activeColor.title',
+    'pagination.examples.activeColor.text',
+    'ActiveColor',
   ),
   ...block.exampleBlock(
     'pagination.examples.icons.title',

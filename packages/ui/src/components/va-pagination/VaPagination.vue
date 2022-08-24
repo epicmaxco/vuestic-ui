@@ -1,17 +1,20 @@
 <template>
-  <va-button-group
+  <nav
     v-if="showPagination"
     class="va-pagination"
+    aria-label="pagination"
     :class="classComputed"
-    v-bind="paginationAttributesComputed"
-    @keydown.left.stop="onUserInput(currentValue - 1)"
-    @keydown.right.stop="onUserInput(currentValue + 1)"
+    @keydown.left.stop="goPrevPage"
+    @keydown.right.stop="goNextPage"
+    @keydown.up.stop="goPrevPage"
+    @keydown.down.stop="goNextPage"
   >
     <va-button
       v-if="showBoundaryLinks"
       aria-label="go to the first page"
       :disabled="$props.disabled || currentValue === 1"
       :icon="$props.boundaryIconLeft"
+      v-bind="buttonPropsComputed"
       @click="onUserInput(1)"
     />
     <va-button
@@ -19,17 +22,18 @@
       aria-label="go to the previous page"
       :disabled="$props.disabled || currentValue === 1"
       :icon="$props.directionIconLeft"
-      @click="onUserInput(currentValue - 1)"
+      v-bind="buttonPropsComputed"
+      @click="goPrevPage"
     />
     <slot v-if="!$props.input">
       <va-button
         v-for="(n, i) in paginationRange"
         :key="`pagination-page-${i}`"
         :class="{ 'va-button--ellipsis': n === '...'}"
-        :style="n === currentValue && currentPageButtonStyle"
         :aria-label="`go to the ${n} page`"
         :aria-current="n === currentValue"
         :disabled="$props.disabled || ['...', currentValue].includes(n)"
+        v-bind="getPageButtonProps(n)"
         @click="onUserInput(n)"
       >
         {{ n }}
@@ -53,16 +57,18 @@
       aria-label="go next page"
       :disabled="$props.disabled || currentValue === lastPage"
       :icon="$props.directionIconRight"
-      @click="onUserInput(currentValue + 1)"
+      v-bind="buttonPropsComputed"
+      @click="goNextPage"
     />
     <va-button
       v-if="showBoundaryLinks"
       aria-label="go last page"
       :disabled="$props.disabled || currentValue === lastPage"
       :icon="$props.boundaryIconRight"
+      v-bind="buttonPropsComputed"
       @click="onUserInput(lastPage)"
     />
-  </va-button-group>
+  </nav>
 </template>
 
 <script lang="ts">
@@ -79,12 +85,11 @@ import {
 } from '../../composables'
 import { setPaginationRange } from './setPaginationRange'
 
-import { VaButtonGroup } from '../va-button-group'
 import { VaButton } from '../va-button'
 
 export default defineComponent({
   name: 'VaPagination',
-  components: { VaButtonGroup, VaButton },
+  components: { VaButton },
   emits: useStatefulEmits,
   props: {
     ...useStatefulProps,
@@ -114,7 +119,7 @@ export default defineComponent({
     gapped: { type: Boolean, default: false },
     borderColor: { type: String, default: '' },
     rounded: { type: Boolean, default: false },
-    currentPageBorderColor: { type: String, default: '' },
+    activePageColor: { type: String, default: '' },
   },
 
   setup (props, { emit }) {
@@ -125,7 +130,7 @@ export default defineComponent({
 
     const inputValue = ref('')
 
-    const usedTotal = computed(() => !!((props.total || props.pageSize === 0) && props.pageSize))
+    const usedTotal = computed(() => !!((props.total || props.total === 0) && props.pageSize))
 
     const { valueComputed } = useStateful<number>(props, emit)
 
@@ -216,13 +221,26 @@ export default defineComponent({
       placeholder: `${currentValue.value}/${lastPage.value}`,
     }))
 
-    const paginationAttributesComputed = computed(() => ({
-      preset: props.preset,
-      plain: props.plain,
+    const buttonPropsComputed = computed(() => ({
       size: props.size,
       color: props.color,
+      plain: props.preset ? undefined : props.plain,
       borderColor: props.borderColor,
+      preset: props.preset,
     }))
+
+    const currentPageButtonProps = computed(() => ({
+      preset: !props.preset || props.preset === 'default' ? 'primary' : 'default',
+      color: props.activePageColor || 'primary',
+    }))
+
+    const getPageButtonProps = (n: number | '...') => {
+      if (!isNaN(+n) && n === currentValue.value) {
+        return Object.assign({}, buttonPropsComputed.value, currentPageButtonProps.value)
+      }
+
+      return buttonPropsComputed.value
+    }
 
     const inputClassComputed = useBem('va-pagination__input', () => ({
       ...pick(props, ['plain']),
@@ -233,13 +251,11 @@ export default defineComponent({
       bordered: !!props.borderColor,
     }))
 
-    const currentPageButtonStyle = computed(() => ({
-      outline: props.currentPageBorderColor ? `1px solid ${getColor(props.currentPageBorderColor)}` : 'inherit',
-      outlineOffset: props.currentPageBorderColor ? '-1px' : 'inherit',
-    }))
+    const goNextPage = () => onUserInput(currentValue.value + 1)
+    const goPrevPage = () => onUserInput(currentValue.value - 1)
 
     return {
-      currentPageButtonStyle,
+      getPageButtonProps,
       inputClassComputed,
       classComputed,
       currentValue,
@@ -254,7 +270,9 @@ export default defineComponent({
       focusInput,
       inputStyleComputed,
       inputAttributesComputed,
-      paginationAttributesComputed,
+      goNextPage,
+      goPrevPage,
+      buttonPropsComputed,
     }
   },
 })
@@ -265,6 +283,7 @@ export default defineComponent({
 @import "variables";
 
 .va-pagination {
+  display: flex;
   font-family: var(--va-font-family);
 
   &__input {
@@ -292,9 +311,27 @@ export default defineComponent({
       opacity: 0.4;
     }
 
-    &.va-button--disabled {
-      opacity: 0.8;
+    &--disabled {
+      opacity: 1;
     }
+
+    &--focused {
+      outline-offset: -2px;
+    }
+  }
+
+  & > :not(:first-child):not(:last-child) {
+    border-radius: 0;
+  }
+
+  & > :first-child {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  & > :last-child {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
   }
 
   &--gapped {

@@ -40,7 +40,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, computed, shallowRef } from 'vue'
+import { defineComponent, PropType, computed, toRefs, shallowRef } from 'vue'
 
 import {
   useBem,
@@ -120,9 +120,10 @@ export default defineComponent({
     const attributesComputed = useButtonAttributes(props)
 
     // states
+    const { disabled } = toRefs(props)
     const button = shallowRef<HTMLElement>()
     const { isFocused, focus, blur } = useFocus(button)
-    const { isHovered } = useHover(button)
+    const { isHovered } = useHover(button, disabled)
     const { isPressed } = usePressed(button)
 
     // icon attributes
@@ -167,7 +168,7 @@ export default defineComponent({
 
     // styles
     const isLowContrastBg = computed(() => props.plain || isLightBackground(colorComputed.value, props.backgroundOpacity))
-    const { textColorComputed } = useTextColor(colorComputed, isLowContrastBg.value)
+    const { textColorComputed } = useTextColor(colorComputed, isLowContrastBg)
 
     const backgroundComputed = useButtonBackground(colorComputed, isPressed, isHovered)
     const contentColorComputed = useButtonTextColor(textColorComputed, colorComputed, isPressed, isHovered)

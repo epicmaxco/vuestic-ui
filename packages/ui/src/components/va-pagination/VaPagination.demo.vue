@@ -44,16 +44,6 @@
                 :pages="5"
                 preset="secondary"
               />
-              <va-pagination
-                v-model="activePage"
-                :pages="5"
-                preset="plain"
-              />
-              <va-pagination
-                v-model="activePage"
-                :pages="5"
-                preset="plainOpacity"
-              />
             </VbCard>
           </td>
         </tr>
@@ -78,18 +68,6 @@
                 :pages="5"
                 gapped
                 preset="secondary"
-              />
-              <va-pagination
-                v-model="activePage"
-                :pages="5"
-                gapped
-                preset="plain"
-              />
-              <va-pagination
-                v-model="activePage"
-                :pages="5"
-                gapped
-                preset="plainOpacity"
               />
             </VbCard>
           </td>
@@ -116,18 +94,6 @@
                 :pages="10"
                 :visible-pages="3"
                 preset="secondary"
-              />
-              <va-pagination
-                v-model="activePage"
-                :pages="10"
-                :visible-pages="3"
-                preset="plain"
-              />
-              <va-pagination
-                v-model="activePage"
-                :pages="10"
-                :visible-pages="3"
-                preset="plainOpacity"
               />
             </VbCard>
           </td>
@@ -159,22 +125,6 @@
                 border-color="primary"
                 gapped
                 preset="secondary"
-              />
-              <va-pagination
-                v-model="activePage"
-                :pages="15"
-                :visible-pages="5"
-                border-color="primary"
-                gapped
-                preset="plain"
-              />
-              <va-pagination
-                v-model="activePage"
-                :pages="15"
-                :visible-pages="5"
-                border-color="primary"
-                gapped
-                preset="plainOpacity"
               />
             </VbCard>
           </td>
@@ -210,24 +160,6 @@
                 rounded
                 preset="secondary"
               />
-              <va-pagination
-                v-model="activePage"
-                :pages="15"
-                :visible-pages="5"
-                border-color="primary"
-                gapped
-                rounded
-                preset="plain"
-              />
-              <va-pagination
-                v-model="activePage"
-                :pages="15"
-                :visible-pages="5"
-                border-color="primary"
-                gapped
-                rounded
-                preset="plainOpacity"
-              />
             </VbCard>
           </td>
         </tr>
@@ -240,7 +172,7 @@
                 :pages="15"
                 :visible-pages="5"
                 preset="default"
-                current-page-border-color="primary"
+                active-page-color="warning"
                 gapped
                 rounded
               />
@@ -249,7 +181,7 @@
                 :pages="15"
                 :visible-pages="5"
                 preset="primary"
-                current-page-border-color="primary"
+                active-page-color="warning"
                 gapped
                 rounded
               />
@@ -258,25 +190,7 @@
                 :pages="15"
                 :visible-pages="5"
                 preset="secondary"
-                current-page-border-color="primary"
-                gapped
-                rounded
-              />
-              <va-pagination
-                v-model="activePage"
-                :pages="15"
-                :visible-pages="5"
-                preset="plain"
-                current-page-border-color="primary"
-                gapped
-                rounded
-              />
-              <va-pagination
-                v-model="activePage"
-                :pages="15"
-                :visible-pages="5"
-                preset="plainOpacity"
-                current-page-border-color="primary"
+                active-page-color="warning"
                 gapped
                 rounded
               />
@@ -523,7 +437,7 @@ export default {
 
 <style lang="scss">
 .va-pagination-demo {
-  & .va-button-group {
+  & .va-pagination {
     padding: 1rem;
   }
 }
