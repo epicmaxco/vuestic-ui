@@ -6,7 +6,7 @@ export const helpersCodeTemplate = `
 
 export const helpersCodeSetup = `
 setup: () => {
-  const breakpoints = inject('$vaBreakpoints')
+  const breakpoints = useBreakpoints()
   if (breakpoints.xl) { console.log("It's XL breakpoint!") }
 }
 `

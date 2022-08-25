@@ -26,10 +26,10 @@ const tableDataHelpersTypes: TableData = [
   ['mdDown', 'boolean', 'breakpoints.helpers.list.downHelper'],
   ['lgDown', 'boolean', 'breakpoints.helpers.list.downHelper'],
   ['xsOnly', 'boolean', 'breakpoints.helpers.list.exactThresholdAlias'],
-  ['xsOnly', 'boolean', 'breakpoints.helpers.list.exactThresholdAlias'],
-  ['xsOnly', 'boolean', 'breakpoints.helpers.list.exactThresholdAlias'],
-  ['xsOnly', 'boolean', 'breakpoints.helpers.list.exactThresholdAlias'],
-  ['xsOnly', 'boolean', 'breakpoints.helpers.list.exactThresholdAlias'],
+  ['smOnly', 'boolean', 'breakpoints.helpers.list.exactThresholdAlias'],
+  ['mdOnly', 'boolean', 'breakpoints.helpers.list.exactThresholdAlias'],
+  ['lgOnly', 'boolean', 'breakpoints.helpers.list.exactThresholdAlias'],
+  ['xlOnly', 'boolean', 'breakpoints.helpers.list.exactThresholdAlias'],
 ]
 
 const block = new PageGenerationHelper(__dirname)

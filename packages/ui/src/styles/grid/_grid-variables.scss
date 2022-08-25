@@ -28,9 +28,6 @@ $grid-gutters: (
 ) !default;
 
 // spacers are used for various paddings and typings to make them consistent, also depending on current breakpoint
-$spacer-x: #{var(--grid-spacer-default)} !default;
-$spacer-y: #{var(--grid-spacer-default)} !default;
-
 $spacers: (
   0: 0,
   1: #{calc(var(--grid-spacing-base) * 0.25)},

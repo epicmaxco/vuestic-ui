@@ -2,7 +2,7 @@ import { App, Ref, computed, watch, reactive, ComputedRef } from 'vue'
 
 import { useEvent } from '../../../composables'
 
-import { warn } from '../../utils'
+import { warn, generateUniqueId } from '../../utils'
 import { isClient } from '../../../utils/ssr-utils'
 import { getGlobalProperty } from '../../../vuestic-plugin/utils'
 import { addOrUpdateStyleElement } from '../../dom-functions'
@@ -79,10 +79,12 @@ export const createBreakpointsConfigPlugin = (app: App) => {
     return result
   }
 
+  const uniqueId = computed(generateUniqueId)
+
   watch(currentBreakpoint, (v) => {
     if (!v) { return }
 
-    addOrUpdateStyleElement('helpers-media', getHelpersMedia)
+    addOrUpdateStyleElement(`va-helpers-media-${uniqueId.value}`, getHelpersMedia)
 
     if (!breakpointsConfig.value.bodyClass || !currentBreakpoint.value) { return }
 

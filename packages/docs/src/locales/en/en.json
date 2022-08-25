@@ -2827,9 +2827,9 @@
         "text": "Use the following classes (`breakpoints`) to apply provided styling to screens of certain widths exclusively.",
         "sizes": {
           "xs": "`.xs` - (< 600px) - Extra small devices",
-          "sm": "`.sm` - (<= 600px && < 1024px) - Small devices",
-          "md": "`.md` - (<= 1024px && < 1440px) - Medium devices",
-          "lg": "`.lg` - (<= 1440px && < 1920px) - Large devices",
+          "sm": "`.sm` - (>= 600px && < 1024px) - Small devices",
+          "md": "`.md` - (>= 1024px && < 1440px) - Medium devices",
+          "lg": "`.lg` - (>= 1440px && < 1920px) - Large devices",
           "xl": "`.xl` - (>= 1920) - Extra large devices"
         }
       },
@@ -3771,9 +3771,9 @@
     "sizes": {
       "intro": "We use the following breakpoints:",
       "xs": "`.xs` - (< 600px) - Extra small devices",
-      "sm": "`.sm` - (<= 600px && < 1024px) - Small devices",
-      "md": "`.md` - (<= 1024px && < 1440px) - Medium devices",
-      "lg": "`.lg` - (<= 1440px && < 1920px) - Large devices",
+      "sm": "`.sm` - (>= 600px && < 1024px) - Small devices",
+      "md": "`.md` - (>= 1024px && < 1440px) - Medium devices",
+      "lg": "`.lg` - (>= 1440px && < 1920px) - Large devices",
       "xl": "`.xl` - (>= 1920) - Extra large devices"
     },
     "helpers": {
