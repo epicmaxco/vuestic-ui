@@ -15,7 +15,6 @@ export const VaTreeNodeItemOptions = defineManualApi({
 export const VaTreeViewOptions = defineManualApi({
   props: {
     nodes: { types: '(TreeNode | object)[]' },
-    stateful: { types: 'boolean' },
     selectable: { types: 'boolean' },
     selectionType: { types: "'leaf' | 'independent'" },
     valueBy: { types: 'string | function' },
