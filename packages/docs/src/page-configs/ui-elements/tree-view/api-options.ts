@@ -23,6 +23,7 @@ export const VaTreeViewOptions = defineManualApi({
     trackBy: { types: 'string | function' },
     iconBy: { types: 'string | function' },
     disabledBy: { types: 'string | function' },
+    expandedBy: { types: 'string | function' },
     expandAll: { types: 'boolean' },
     filter: { types: 'string' },
     filterMethod: { types: 'function' },

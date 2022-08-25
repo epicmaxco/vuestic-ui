@@ -41,6 +41,20 @@
         expand-all
         selectable
       />
+      <br />
+      <p>
+        {{ JSON.stringify(selectedNodesValueBy) }}
+      </p>
+      <br />
+      <va-tree-view
+        v-model:checked="selectedNodesValueBy"
+        :nodes="nodesWithIcons"
+        :color="selectedColor"
+        :selection-type="selectionType"
+        :value-by="({id, label}) => `${id}_${label}`"
+        expand-all
+        selectable
+      />
     </VbCard>
     <VbCard title="With custom body">
       <va-tree-view :nodes="customBodyNodes">
@@ -110,6 +124,7 @@ export default {
     selectionType: 'leaf',
     selectionTypeOptions: ['leaf', 'independent'],
     selectedNodes: [],
+    selectedNodesValueBy: [],
     filterValue: '',
     colorsPalette: COLORS_PALETTE,
     selectedColor: COLORS_PALETTE[0],

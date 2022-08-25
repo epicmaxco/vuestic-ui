@@ -24,7 +24,7 @@ export const useTreeViewProps = {
   },
   valueBy: {
     type: [String, Function] as PropType<TreeViewPropKey>,
-    default: '',
+    default: 'id',
   },
   textBy: {
     type: [String, Function] as PropType<TreeViewPropKey>,
@@ -41,6 +41,10 @@ export const useTreeViewProps = {
   disabledBy: {
     type: [String, Function] as PropType<TreeViewPropKey>,
     default: 'disabled',
+  },
+  expandedBy: {
+    type: [String, Function] as PropType<TreeViewPropKey>,
+    default: 'expanded',
   },
   expandAll: {
     type: Boolean,
@@ -85,7 +89,8 @@ export const useTreeHelpers = (props: ExtractPropTypes<typeof useTreeViewProps>)
   }
 
   const getText = (node: TreeNode) => getNodeProperty(node, props.textBy)
-  const getDisabled = (node: TreeNode) => getValueByKey(node, props.disabledBy)
+  const getDisabled = (node: TreeNode) => getNodeProperty(node, props.disabledBy)
+  const getExpanded = (node: TreeNode) => getNodeProperty(node, props.expandedBy)
   const getTrackBy = (node: TreeNode) => getNodeProperty(node, props.trackBy) || getText(node)
 
   const iterateNodes = (nodes: TreeNode[], cb: (node: TreeNode) => unknown) => {
@@ -103,6 +108,7 @@ export const useTreeHelpers = (props: ExtractPropTypes<typeof useTreeViewProps>)
     getValue,
     getTrackBy,
     getDisabled,
+    getExpanded,
     iterateNodes,
     getNodeByValue,
     getNodeProperty,

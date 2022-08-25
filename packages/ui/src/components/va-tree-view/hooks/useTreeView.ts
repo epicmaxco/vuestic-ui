@@ -44,7 +44,10 @@ const useTreeView: UseTreeViewFunc = (props, emit) => {
   const isLeafSelectionComputed = computed(() => props.selectionType === 'leaf')
   const {
     getText,
+    getValue,
     getTrackBy,
+    getDisabled,
+    getExpanded,
     iterateNodes,
     getNodeProperty,
   } = useTreeHelpers(props)
@@ -68,35 +71,35 @@ const useTreeView: UseTreeViewFunc = (props, emit) => {
 
   const toggleCheckbox = (node: TreeNode, state: boolean) => {
     const stateValue = state === null ? true : state
-    const trackByValue = getTrackBy(node)
+    const valueBy = getValue(node)
 
     if (isLeafSelectionComputed.value) {
       if (node.hasChildren) {
-        const values = [trackByValue]
+        const values = [valueBy]
 
         iterateNodes(
           node.children,
-          (childNode: TreeNode) => values.push(getTrackBy(childNode)),
+          (childNode: TreeNode) => values.push(getValue(childNode)),
         )
         updateCheckedList(values, stateValue)
       }
     }
 
-    updateCheckedList([trackByValue], stateValue)
+    updateCheckedList([valueBy], stateValue)
   }
 
   const createNode: CreateNodeFunc = ({ node, level, children = [], computedFilterMethod }) => {
-    const trackByValue = getTrackBy(node)
+    const valueBy = getValue(node)
     const matchesFilter = filter.value ? computedFilterMethod.value?.(node, filter.value, textBy.value) : true
     const hasChildren = !!children.length
     let indeterminate = false
-    let checked: boolean | null = node.checked || checkedList.value.includes(trackByValue) || false
+    let checked: boolean | null = node.checked || checkedList.value.includes(valueBy) || false
 
     if (isLeafSelectionComputed.value && hasChildren) {
       const isAllChildrenChecked = children.every(c => c.checked)
 
       checked = isAllChildrenChecked
-      updateCheckedList([trackByValue], isAllChildrenChecked)
+      updateCheckedList([valueBy], isAllChildrenChecked)
       indeterminate = !isAllChildrenChecked && children.some(c => c.indeterminate || c.checked)
 
       if (indeterminate) { checked = null }
@@ -110,8 +113,8 @@ const useTreeView: UseTreeViewFunc = (props, emit) => {
       hasChildren,
       matchesFilter,
       indeterminate,
-      disabled: node.disabled || false,
-      expanded: expandAll.value || node.expanded || false,
+      disabled: getDisabled(node) || false,
+      expanded: expandAll.value || getExpanded(node) || false,
     })
   }
 
