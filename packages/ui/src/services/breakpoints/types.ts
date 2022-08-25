@@ -2,7 +2,7 @@ export type WindowSizes = Record<'width' | 'height', number | undefined>
 
 export type ThresholdsKeys = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 
-export type BodyClass = `screen-${ThresholdsKeys}`
+export type BodyClass = `va-screen-${ThresholdsKeys}`
 
 export type ThresholdsConfig = { [key in ThresholdsKeys]: number }
 

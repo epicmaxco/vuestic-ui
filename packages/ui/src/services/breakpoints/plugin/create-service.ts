@@ -61,7 +61,7 @@ export const createBreakpointsConfigPlugin = (app: App) => {
   const screenClasses = computed(() =>
     (Object.keys(breakpointsConfig.value.thresholds) as ThresholdsKeys[])
       .reduce((acc: Record<ThresholdsKeys, BodyClass>, threshold: ThresholdsKeys) => {
-        acc[threshold] = `screen-${threshold}`
+        acc[threshold] = `va-screen-${threshold}`
         return acc
       }, {} as Record<ThresholdsKeys, BodyClass>))
 

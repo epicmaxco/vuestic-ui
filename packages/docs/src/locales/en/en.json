@@ -3793,7 +3793,7 @@
     },
     "class": {
       "title": "Threshold Class",
-      "about": "Optional part of the service - reactive `body` class (`screen-lg` for example) that allows you to build the following CSS constructions:"
+      "about": "Optional part of the service - reactive `body` class (`.va-screen-lg` for example) that allows you to build the following CSS constructions:"
     },
     "configuring": {
       "title": "Configuring",

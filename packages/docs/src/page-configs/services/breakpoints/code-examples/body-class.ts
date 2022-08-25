@@ -1,9 +1,9 @@
 export const bodyClassCode = `
-.screen-lg {
+.va-screen-lg {
   .layout { width: 1000px; }
 }
 
-.screen-sm {
+.va-screen-sm {
   .layout { width: 300px; }
 }
 `
