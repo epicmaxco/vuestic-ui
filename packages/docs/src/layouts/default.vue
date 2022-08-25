@@ -28,7 +28,7 @@
 <!--          </template>-->
 <!--        </va-breadcrumbs>-->
 
-        <div class="layout gutter--5 pb-6">
+        <div class="layout va-gutter-5 pb-6">
           <router-view />
         </div>
       </div>
@@ -236,12 +236,12 @@ a:not(.va-button, .va-sidebar__item):focus {
     overflow-y: auto;
     overflow-x: hidden;
 
-    & > .layout.gutter--5 {
+    & > .layout.va-gutter-5 {
       padding-bottom: 2rem;
     }
 
     @media (max-width: 670px) {
-      & > .layout.gutter--5 {
+      & > .layout.va-gutter-5 {
         padding: 0;
         padding-bottom: 2rem;
       }

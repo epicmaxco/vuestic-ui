@@ -2794,22 +2794,22 @@
         "title": "Gutters",
         "text": "Sets the margin between the cells of your flex-container with the `gutter` class.",
         "sizes": {
-          "xs": "`.gutter--1` - Extra small gutter between cells",
-          "sm": "`.gutter--2` - Small gutter between cells",
-          "md": "`.gutter--3` - Default gutter between cells",
-          "lg": "`.gutter--4` - Large gutter between cells",
-          "xl": "`.gutter--5` - Extra large gutter between cells"
+          "xs": "`.va-gutter-1` - Extra small gutter between cells",
+          "sm": "`.va-gutter-2` - Small gutter between cells",
+          "md": "`.va-gutter-3` - Default gutter between cells",
+          "lg": "`.va-gutter-4` - Large gutter between cells",
+          "xl": "`.va-gutter-5` - Extra large gutter between cells"
         }
       },
       "spacing": {
         "title": "Spacing",
         "text": "Sets the margin (`x` or `y`) between child items of the container with the `spacing` class.",
         "sizes": {
-          "xs": "`.space-x/y-1` - Extra small spacing between items",
-          "sm": "`.space-x/y-2` - Small spacing between items",
-          "md": "`.space-x/y-3` - Default spacing between items",
-          "lg": "`.space-x/y-4` - Large spacing between items",
-          "xl": "`.space-x/y-5` - Extra large spacing between items"
+          "xs": "`.va-spacing-x/y-1` - Extra small spacing between items",
+          "sm": "`.va-spacing-x/y-2` - Small spacing between items",
+          "md": "`.va-spacing-x/y-3` - Default spacing between items",
+          "lg": "`.va-spacing-x/y-4` - Large spacing between items",
+          "xl": "`.va-spacing-x/y-5` - Extra large spacing between items"
         }
       }
     }

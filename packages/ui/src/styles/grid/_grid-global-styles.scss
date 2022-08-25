@@ -24,7 +24,7 @@
 
   // generating gutter classes
   @each $size, $gutter in $grid-gutters {
-    &.gutter--#{$size} {
+    &.va-gutter-#{$size} {
       padding: $gutter;
 
       .row:only-child {

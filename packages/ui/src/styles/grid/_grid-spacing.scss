@@ -56,7 +56,7 @@
 // spacings between items in the block
 @each $prop, $direction in (x: right, y: bottom) {
   @each $level, $spacer in $spacers {
-    .spacing-#{$prop}-#{$level} {
+    .va-spacing-#{$prop}-#{$level} {
       & > * {
         margin-#{$direction}: $spacer;
 
