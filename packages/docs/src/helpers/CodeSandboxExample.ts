@@ -1,11 +1,9 @@
 import { getParameters } from 'codesandbox/lib/api/define'
 import { iconsStyles, iconsConfig } from './CodeSandboxIconsHelper'
 import { CodesandboxConfig } from '../types/configTypes'
-// @ts-ignore
+
 import packageUi from 'vuestic-ui/package.json'
-// @ts-ignore
 import exampleTsconfig from './codesandbox-example-config/example-tsconfig.json'
-// @ts-ignore
 import exampleTsConfigNode from './codesandbox-example-config/example-tsconfig.node.json'
 
 const main = `import { createApp } from "vue"
