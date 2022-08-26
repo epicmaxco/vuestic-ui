@@ -1,10 +1,12 @@
-import { useTranspile } from './composables/use-transpile';
-import { VuesticOptions } from './types'
 import { defineNuxtModule } from '@nuxt/kit'
+
 import { useVuesticCSS } from './composables/use-css'
 import { useVuesticPlugin } from './composables/use-plugin'
 import { useVuesticComposables } from './composables/use-composables'
 import { useVuesticComponents } from './composables/use-components'
+import { useTranspile } from './composables/use-transpile';
+
+import type { VuesticOptions } from './types'
 
 export default defineNuxtModule<VuesticOptions>({
   meta: {

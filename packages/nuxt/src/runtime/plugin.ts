@@ -1,7 +1,8 @@
-import type { VuesticOptions } from '../types'
+import { defineNuxtPlugin } from 'nuxt/app'
 import { createVuesticEssential, VaDropdownPlugin, VaToastPlugin, VaModalPlugin } from 'vuestic-ui'
 import { ref } from 'vue'
-import { defineNuxtPlugin } from 'nuxt/app'
+
+import type { VuesticOptions } from '../types'
 
 function getGlobalProperty (app, key) {
   return app.config.globalProperties[key]
