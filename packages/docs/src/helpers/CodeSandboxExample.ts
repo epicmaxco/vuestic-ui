@@ -93,11 +93,11 @@ export default (code: string = defaultExample, config: CodesandboxConfig = {}): 
       isBinary: false,
     },
     'tsconfig.json': {
-      content: exampleTsconfig,
+      content: JSON.stringify(exampleTsconfig),
       isBinary: false,
     },
     'tsconfig.node.json': {
-      content: exampleTsConfigNode,
+      content: JSON.stringify(exampleTsConfigNode),
       isBinary: false,
     },
     'src/vite-env.d.ts': {
