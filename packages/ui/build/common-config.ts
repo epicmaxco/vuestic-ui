@@ -3,6 +3,8 @@ import vue from '@vitejs/plugin-vue'
 import { resolve as resolver } from 'path'
 import { chunkSplitPlugin } from 'vite-plugin-chunk-split'
 import { appendComponentCss } from './plugins/append-component-css'
+import { fixImportHell } from './plugins/fix-import-hell'
+
 import {
   UserConfig,
   PluginOption,
@@ -103,8 +105,9 @@ export default function createViteConfig (format: BuildFormat): UserConfig {
   }
 
   // https://github.com/sanyuan0704/vite-plugin-chunk-split
-  isEsm && config.plugins?.push(chunkSplitPlugin({ strategy: 'unbundle' }))
-  isEsm && config.plugins?.push(appendComponentCss())
+  isEsm && config.plugins.push(chunkSplitPlugin({ strategy: 'unbundle' }))
+  isEsm && config.plugins.push(appendComponentCss())
+  isEsm && config.plugins.push(fixImportHell())
 
   if (!isMjs) { config.build = { ...config.build, ...libBuildOptions(format) } }
 
