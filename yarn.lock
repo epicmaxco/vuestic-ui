@@ -4574,6 +4574,11 @@
     "@ag-grid-community/vue3" "^26.1.0"
     vue-class-component "^8.0.0-rc.1"
 
+"@vuestic/nuxt@./packages/nuxt":
+  version "1.0.5"
+  dependencies:
+    vuestic-ui "^1.4.9"
+
 "@vueuse/head@^0.7.9":
   version "0.7.9"
   resolved "https://registry.yarnpkg.com/@vueuse/head/-/head-0.7.9.tgz#888ab87667ab6dbe6edba10d176fa91c1b0ec021"
