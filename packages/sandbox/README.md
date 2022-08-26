@@ -9,18 +9,23 @@ It uses `vuestic-ui` package as node module.
 Before run this package, go to `ui` package and run `yarn build` command or run:
 `bash ./build-vuestic-ui.sh`
 
+> [info]
+> Notice that you testing here builds of `vuestic` and `@vuestic/nuxt` packages. Don't forget to build vuestic before test.
+
 - `yarn` - install dependencies. `vuestic-ui` should be installed from `packages/vuestic-ui` folder.
-- `yarn test` - run tests that before create bundles using `vue-cli` and `vite`.
 - `yarn build` - create bundles using `vue-cli`, `vite` and `nuxt` 
 - `yarn build:vite`
 - `yarn build:vue-cli`
 - `yarn build:nuxt`
+- `yarn build:vuestic` - builds `vuestic` dist that will be used in `vite`, `vue-cli` and `nuxt`
+- `yarn build:vuestic-nuxt` - builds `@vuestic/nuxt` package
 - `yarn dev:vite` - run `./src` project in dev mode using vite
 - `yarn dev:vue-cli` - run `./src` project in dev mode using vue-cli (webpack)
-- `yarn dev:nuxt` - run `./src` project in dev mode using vue-cli (webpack)
+- `yarn dev:nuxt` - run `./src` project in dev mode using nuxt
 - `yarn serve:vite` - serve builded `./dist/vite` project in production mode using vite
 - `yarn serve:vue-cli` -  serve builded `./dist/vue-cli` project in production mode using vue-cli (webpack)
-- `yarn serve:nuxt` -  serve builded `./dist/nuxt` project in production mode using vue-cli (webpack)
+- `yarn serve:nuxt` -  serve builded `./dist/nuxt` project in production mode using nuxt
+- `yarn test` - run tests
 
 ### Tests
 

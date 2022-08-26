@@ -13,7 +13,9 @@
     "serve:vite": "vite preview",
     "serve:vue-cli": "serve -s dist/vue-cli",
     "serve:nuxt": "nuxt preview ./dist/nuxt",
-    "test": "vitest"
+    "test": "vitest",
+    "build:vuestic": "yarn --cwd ../ui build",
+    "build:vuestic-nuxt": "yarn --cwd ../nuxt build"
   },
   "dependencies": {
     "@vue/cli-service": "5",
