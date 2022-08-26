@@ -40,6 +40,7 @@
   </va-popover>
 
   <va-popover
+    class="mb-2"
     message="Popover text"
     color="#9f03e0"
   >
