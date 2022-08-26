@@ -53,13 +53,13 @@ const getCodeSandboxMain = ({ requireIcons = false }: CodesandboxConfig): string
 
 const packageJson = ({ dependencies = {}, devDependencies = {} }: CodesandboxConfig): string => {
   const commonDeps = {
-    vue: '^3.0.0',
+    vue: 'latest',
     'vuestic-ui': `${packageUi.version}`,
   }
   const commonDevDeps = {
-    '@vitejs/plugin-vue': '^3.0.3',
-    vite: '^3.0.7',
-    sass: '^1.54.5',
+    '@vitejs/plugin-vue': 'latest',
+    vite: 'latest',
+    sass: 'latest',
   }
   return JSON.stringify({
     type: 'module',
