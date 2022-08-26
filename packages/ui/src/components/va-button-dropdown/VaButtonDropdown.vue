@@ -8,6 +8,7 @@
       :keep-anchor-width="$props.keepAnchorWidth"
       :close-on-content-click="$props.closeOnContentClick"
       :stateful="$props.stateful"
+      prevent-overflow
       v-model="valueComputed"
     >
       <template #anchor>
