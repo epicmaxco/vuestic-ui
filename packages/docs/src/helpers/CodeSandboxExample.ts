@@ -7,16 +7,20 @@ import packageUi from 'vuestic-ui/package.json'
 const main = `import { createApp } from "vue"
 import App from "./App.vue"
 import { createVuestic } from "vuestic-ui"
-import 'vuestic-ui/css'
+import 'vuestic-ui/dist/vuestic-ui.css'
 
 const app = createApp(App)
 app.use(createVuestic())
 app.mount("#app")
 `
 
-const babel = `export const presets = [
-  '@vue/cli-plugin-babel/preset'
-];`
+const viteConfig = `import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+
+export default defineConfig({
+  plugins: [vue()]
+})
+`
 
 const defaultExample = `<template>
   <div class="pa-4">
@@ -37,31 +41,30 @@ const getCodeSandboxHtml = ({ requireIcons = false }: CodesandboxConfig): string
     >
     ${requireIcons ? iconsStyles : ''}
     <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
   `
 }
 
 const getCodeSandboxMain = ({ requireIcons = false }: CodesandboxConfig): string => {
-  if (requireIcons) {
-    return iconsConfig
-  }
+  if (requireIcons) { return iconsConfig }
 
   return main
 }
 
 const packageJson = ({ dependencies = {}, devDependencies = {} }: CodesandboxConfig): string => {
   const commonDeps = {
-    'core-js': '^3.6.5',
     vue: '^3.0.0',
     'vuestic-ui': `${packageUi.version}`,
   }
   const commonDevDeps = {
-    '@vue/cli-plugin-babel': '~4.5.0',
-    '@vue/cli-service': '~4.5.0',
-    '@vue/compiler-sfc': '^3.0.0',
+    '@vitejs/plugin-vue': '^3.0.3',
+    vite: '^3.0.7',
+    sass: '^1.54.5',
   }
   return JSON.stringify({
+    type: 'module',
     scripts: {
-      serve: 'vue-cli-service serve',
+      serve: 'vite',
     },
     dependencies: Object.assign(commonDeps, dependencies),
     devDependencies: Object.assign(commonDevDeps, devDependencies),
@@ -74,8 +77,8 @@ export default (code: string = defaultExample, config: CodesandboxConfig = {}): 
       content: packageJson(config),
       isBinary: false,
     },
-    'babel.config.js': {
-      content: babel,
+    'vite.config.js': {
+      content: viteConfig,
       isBinary: false,
     },
     'src/main.js': {
@@ -86,7 +89,7 @@ export default (code: string = defaultExample, config: CodesandboxConfig = {}): 
       content: code,
       isBinary: false,
     },
-    'public/index.html': {
+    'index.html': {
       content: getCodeSandboxHtml(config),
       isBinary: false,
     },
