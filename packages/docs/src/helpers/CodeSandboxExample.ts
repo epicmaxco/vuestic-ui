@@ -3,6 +3,10 @@ import { iconsStyles, iconsConfig } from './CodeSandboxIconsHelper'
 import { CodesandboxConfig } from '../types/configTypes'
 // @ts-ignore
 import packageUi from 'vuestic-ui/package.json'
+// @ts-ignore
+import exampleTsconfig from './codesandbox-example-config/example-tsconfig.json'
+// @ts-ignore
+import exampleTsConfigNode from './codesandbox-example-config/example-tsconfig.node.json'
 
 const main = `import { createApp } from "vue"
 import App from "./App.vue"
@@ -20,6 +24,13 @@ import vue from '@vitejs/plugin-vue'
 export default defineConfig({
   plugins: [vue()]
 })
+`
+
+const viteEnv = `declare module '*.vue' {
+  import type { DefineComponent } from 'vue'
+  const component: DefineComponent<{}, {}, any>
+  export default component
+}
 `
 
 const defaultExample = `<template>
@@ -41,7 +52,7 @@ const getCodeSandboxHtml = ({ requireIcons = false }: CodesandboxConfig): string
     >
     ${requireIcons ? iconsStyles : ''}
     <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
+    <script type="module" src="/src/main.ts"></script>
   `
 }
 
@@ -57,7 +68,9 @@ const packageJson = ({ dependencies = {}, devDependencies = {} }: CodesandboxCon
     'vuestic-ui': `${packageUi.version}`,
   }
   const commonDevDeps = {
-    '@vitejs/plugin-vue': 'latest',
+    '@vitejs/plugin-vue': '~3.0.0',
+    typescript: 'latest',
+    'vue-tsc': 'latest',
     vite: 'latest',
     sass: 'latest',
   }
@@ -81,7 +94,19 @@ export default (code: string = defaultExample, config: CodesandboxConfig = {}): 
       content: viteConfig,
       isBinary: false,
     },
-    'src/main.js': {
+    'tsconfig.json': {
+      content: exampleTsconfig,
+      isBinary: false,
+    },
+    'tsconfig.node.json': {
+      content: exampleTsConfigNode,
+      isBinary: false,
+    },
+    'src/vite-env.d.ts': {
+      content: viteEnv,
+      isBinary: false,
+    },
+    'src/main.ts': {
       content: getCodeSandboxMain(config),
       isBinary: false,
     },
