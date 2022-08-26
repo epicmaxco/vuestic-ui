@@ -1,4 +1,5 @@
-const { readFileSync, readdirSync } = require('fs')
+import { describe, it, expect } from 'vitest'
+import { readFileSync, readdirSync } from 'fs'
 
 const tests = {
   components: (output) => {
