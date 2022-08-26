@@ -26,6 +26,9 @@
     "push-production": "yarn workspace vuestic-ui push-production",
     "generate:docs": "yarn workspace docs generate:docspage",
     "generate:component": "yarn workspace docs generate:component",
+    "sandbox:vite": "yarn workspace sandbox dev:vite",
+    "sandbox:nuxt": "yarn workspace sandbox dev:nuxt",
+    "sandbox:vue-cli": "yarn workspace sandbox dev:vue-cli",
     "release": "yarn workspace deploy release"
   },
   "workspaces": {

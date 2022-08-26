@@ -1,8 +1,8 @@
-# Bundlers tests
+# Sandbox
 
 <p align="center"><img src="https://img.shields.io/github/package-json/v/epicmaxco/vuestic-ui?filename=packages%2Fbundlers-tests%2Fpackage.json&label=bundlers-tests"></p>
 
-This package exists to help you testing `vuestic-ui` with vite (rollup) and vue-cli (webpack).
+This package exists to help you testing `vuestic-ui` with vite (rollup), vue-cli (webpack) and nuxt.
 It uses `vuestic-ui` package as node module.
 
 ### How it works
@@ -11,13 +11,16 @@ Before run this package, go to `ui` package and run `yarn build` command or run:
 
 - `yarn` - install dependencies. `vuestic-ui` should be installed from `packages/vuestic-ui` folder.
 - `yarn test` - run tests that before create bundles using `vue-cli` and `vite`.
-- `yarn build` - create bundles using `vue-cli` and `vite
+- `yarn build` - create bundles using `vue-cli`, `vite` and `nuxt` 
 - `yarn build:vite`
 - `yarn build:vue-cli`
+- `yarn build:nuxt`
 - `yarn dev:vite` - run `./src` project in dev mode using vite
 - `yarn dev:vue-cli` - run `./src` project in dev mode using vue-cli (webpack)
-- `yarn serve:vite` - server `./dist/vite` project in production mode using vite
-- `yarn serve:vue-cli` - server `./dist/vue-cli` project in production mode using vue-cli (webpack)
+- `yarn dev:nuxt` - run `./src` project in dev mode using vue-cli (webpack)
+- `yarn serve:vite` - serve builded `./dist/vite` project in production mode using vite
+- `yarn serve:vue-cli` -  serve builded `./dist/vue-cli` project in production mode using vue-cli (webpack)
+- `yarn serve:nuxt` -  serve builded `./dist/nuxt` project in production mode using vue-cli (webpack)
 
 ### Tests
 
