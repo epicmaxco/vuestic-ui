@@ -8,6 +8,7 @@
     :aria-disabled="$props.disabled"
     :aria-expanded="!!valueComputed"
     :aria-controls="idComputed"
+    style="position: relative;"
   >
     <slot name="anchor" v-bind="{ value: valueComputed, hide, show }" />
 
@@ -192,26 +193,7 @@ export default defineComponent({
     })
 
     const cursorAnchor = useCursorAnchor(computedAnchorRef, valueComputed)
-    useDropdown(computed(() => props.cursor ? cursorAnchor.value : computedAnchorRef.value), contentRef, computed(() => ({
-      placement: props.placement,
-      keepAnchorWidth: props.keepAnchorWidth,
-      offset: props.offset,
-      stickToEdges: props.stickToEdges,
-      autoPlacement: props.autoPlacement,
-      root: teleportTargetComputed.value,
-      viewport: targetComputed.value,
-    })))
-
-    const idComputed = computed(generateUniqueId)
-
-    // useEvent('blur', () => {
-    //   if (props.closeOnClickOutside && valueComputed.value) {
-    //     emitAndClose('click-outside', props.closeOnClickOutside)
-    //   }
-    // })
-
     const document = useDocument()
-
     const isPopoverFloating = computed(() => props.preventOverflow || props.cursor)
 
     const targetComputed = computed(() => {
@@ -232,6 +214,28 @@ export default defineComponent({
     })
 
     const teleportDisabled = computed(() => props.disabled || !isPopoverFloating.value)
+
+    useDropdown(
+      computed(() => props.cursor ? cursorAnchor.value : computedAnchorRef.value),
+      contentRef,
+      computed(() => ({
+        placement: props.placement,
+        keepAnchorWidth: props.keepAnchorWidth,
+        offset: props.offset,
+        stickToEdges: props.stickToEdges,
+        autoPlacement: props.autoPlacement,
+        root: teleportTargetComputed.value,
+        viewport: targetComputed.value,
+      })),
+    )
+
+    const idComputed = computed(generateUniqueId)
+
+    // useEvent('blur', () => {
+    //   if (props.closeOnClickOutside && valueComputed.value) {
+    //     emitAndClose('click-outside', props.closeOnClickOutside)
+    //   }
+    // })
 
     return {
       teleportTargetComputed,
