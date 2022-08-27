@@ -351,196 +351,196 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "../../styles/resources";
-@import "variables";
+  @import "../../styles/resources";
+  @import "variables";
 
-.va-modal-overlay-background--blurred > :not(div[class*="va-"]) {
-  filter: blur(var(--va-modal-overlay-background-blur-radius));
-  position: absolute;
-  height: 100%;
-  width: 100%;
-}
-
-.va-modal {
-  position: var(--va-modal-position);
-  display: var(--va-modal-display);
-  align-items: var(--va-modal-align-items);
-  justify-content: var(--va-modal-justify-content);
-  width: var(--va-modal-width);
-  height: var(--va-modal-height);
-  top: var(--va-modal-top);
-  left: var(--va-modal-left);
-  overflow: var(--va-modal-overflow);
-  outline: var(--va-modal-outline);
-  z-index: var(--va-modal-z-index);
-  font-family: var(--va-font-family);
-
-  &__title {
-    margin-bottom: 1.5rem;
-
-    @include va-title();
+  .va-modal-overlay-background--blurred > :not(div[class*="va-"]) {
+    filter: blur(var(--va-modal-overlay-background-blur-radius));
+    position: absolute;
+    height: 100%;
+    width: 100%;
   }
 
-  &__container {
-    z-index: var(--va-modal-container-z-index);
-  }
+  .va-modal {
+    position: var(--va-modal-position);
+    display: var(--va-modal-display);
+    align-items: var(--va-modal-align-items);
+    justify-content: var(--va-modal-justify-content);
+    width: var(--va-modal-width);
+    height: var(--va-modal-height);
+    top: var(--va-modal-top);
+    left: var(--va-modal-left);
+    overflow: var(--va-modal-overflow);
+    outline: var(--va-modal-outline);
+    z-index: var(--va-modal-z-index);
+    font-family: var(--va-font-family);
 
-  &-enter-from &__container,
-  &-leave-to &__container {
-    opacity: 0;
-    transform: translateY(-30%);
-  }
+    &__title {
+      margin-bottom: 1.5rem;
 
-  &-enter-active &__container,
-  &-leave-active &__container {
-    transition: var(--va-modal-opacity-transition), var(--va-modal-transform-transition);
-  }
+      @include va-title();
+    }
 
-  &__dialog {
-    min-height: var(--va-modal-dialog-min-height);
-    height: var(--va-modal-dialog-height);
-    border-radius: var(--va-modal-dialog-border-radius, var(--va-block-border-radius));
-    margin: var(--va-modal-dialog-margin);
-    box-shadow: var(--va-modal-dialog-box-shadow, var(--va-block-box-shadow));
-    max-width: var(--va-modal-dialog-max-width);
-    max-height: var(--va-modal-dialog-max-height);
-    position: var(--va-modal-dialog-position);
-    overflow: auto;
-  }
+    &__container {
+      z-index: var(--va-modal-container-z-index);
+    }
 
-  &__overlay {
-    position: var(--va-modal-overlay-position);
-    top: var(--va-modal-overlay-top);
-    left: var(--va-modal-overlay-left);
-    z-index: var(--va-modal-overlay-z-index);
-    width: var(--va-modal-overlay-width);
-    height: var(--va-modal-overlay-height);
-  }
+    &-enter-from &__container,
+    &-leave-to &__container {
+      opacity: 0;
+      transform: translateY(-30%);
+    }
 
-  &-enter-from &__overlay,
-  &-leave-to &__overlay {
-    opacity: 0;
-  }
+    &-enter-active &__container,
+    &-leave-active &__container {
+      transition: var(--va-modal-opacity-transition), var(--va-modal-transform-transition);
+    }
 
-  &-enter-active &__overlay,
-  &-leave-active &_overlay {
-    transition: var(--va-modal-overlay-opacity-transition);
-  }
+    &__dialog {
+      min-height: var(--va-modal-dialog-min-height);
+      height: var(--va-modal-dialog-height);
+      border-radius: var(--va-modal-dialog-border-radius, var(--va-block-border-radius));
+      margin: var(--va-modal-dialog-margin);
+      box-shadow: var(--va-modal-dialog-box-shadow, var(--va-block-box-shadow));
+      max-width: var(--va-modal-dialog-max-width);
+      max-height: var(--va-modal-dialog-max-height);
+      position: var(--va-modal-dialog-position);
+      overflow: auto;
+    }
 
-  &--fullscreen {
-    min-width: 100vw !important;
-    min-height: 100vh !important;
-    border-radius: 0;
-    margin: 0;
-  }
+    &__overlay {
+      position: var(--va-modal-overlay-position);
+      top: var(--va-modal-overlay-top);
+      left: var(--va-modal-overlay-left);
+      z-index: var(--va-modal-overlay-z-index);
+      width: var(--va-modal-overlay-width);
+      height: var(--va-modal-overlay-height);
+    }
 
-  &--mobile-fullscreen {
-    @media all and (max-width: map-get($grid-breakpoints, sm)) {
-      margin: 0 !important;
+    &-enter-from &__overlay,
+    &-leave-to &__overlay {
+      opacity: 0;
+    }
+
+    &-enter-active &__overlay,
+    &-leave-active &_overlay {
+      transition: var(--va-modal-overlay-opacity-transition);
+    }
+
+    &--fullscreen {
       min-width: 100vw !important;
       min-height: 100vh !important;
       border-radius: 0;
+      margin: 0;
     }
-  }
 
-  &--size {
-    &-small {
-      max-width: map_get($grid-breakpoints, sm);
-
+    &--mobile-fullscreen {
       @media all and (max-width: map-get($grid-breakpoints, sm)) {
-        max-width: 100vw !important;
+        margin: 0 !important;
+        min-width: 100vw !important;
+        min-height: 100vh !important;
+        border-radius: 0;
       }
+    }
 
-      .va-modal__inner {
+    &--size {
+      &-small {
         max-width: map_get($grid-breakpoints, sm);
 
         @media all and (max-width: map-get($grid-breakpoints, sm)) {
           max-width: 100vw !important;
         }
+
+        .va-modal__inner {
+          max-width: map_get($grid-breakpoints, sm);
+
+          @media all and (max-width: map-get($grid-breakpoints, sm)) {
+            max-width: 100vw !important;
+          }
+        }
       }
-    }
 
-    &-large {
-      max-width: map-get($grid-breakpoints, lg);
-
-      .va-modal__inner {
+      &-large {
         max-width: map-get($grid-breakpoints, lg);
-      }
-    }
-  }
 
-  &--fixed-layout {
-    .va-modal__inner {
-      overflow: hidden;
-      padding: var(--va-modal-padding-top) 0 var(--va-modal-padding-bottom);
-      max-height: calc(100vh - 2rem);
-
-      .va-modal__header,
-      .va-modal__footer,
-      .va-modal__title {
-        padding: 0 var(--va-modal-padding-right) 0 var(--va-modal-padding-left);
-      }
-
-      .va-modal__message {
-        padding: 0 var(--va-modal-padding-right) 0 var(--va-modal-padding-left);
-        overflow: auto;
+        .va-modal__inner {
+          max-width: map-get($grid-breakpoints, lg);
+        }
       }
     }
 
-    .va-modal__dialog {
-      overflow: hidden;
+    &--fixed-layout {
+      .va-modal__inner {
+        overflow: hidden;
+        padding: var(--va-modal-padding-top) 0 var(--va-modal-padding-bottom);
+        max-height: calc(100vh - 2rem);
+
+        .va-modal__header,
+        .va-modal__footer,
+        .va-modal__title {
+          padding: 0 var(--va-modal-padding-right) 0 var(--va-modal-padding-left);
+        }
+
+        .va-modal__message {
+          padding: 0 var(--va-modal-padding-right) 0 var(--va-modal-padding-left);
+          overflow: auto;
+        }
+      }
+
+      .va-modal__dialog {
+        overflow: hidden;
+      }
+    }
+
+    &--no-padding {
+      .va-modal__inner {
+        padding: 0;
+      }
+    }
+
+    &__message {
+      margin-bottom: 1.5rem;
+    }
+
+    &__inner {
+      overflow: visible;
+      display: flex;
+      position: relative;
+      flex-flow: column;
+      padding: var(--va-modal-padding);
+      max-width: map_get($grid-breakpoints, md);
+      margin: auto;
+
+      > div:last-of-type {
+        margin-bottom: 0;
+      }
+    }
+
+    &__close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      cursor: pointer;
+      font-size: 1.5rem;
+      font-style: normal;
+      color: var(--va-secondary);
+      z-index: 1;
+
+      &:focus {
+        @include focus-outline;
+      }
+    }
+
+    &__footer {
+      margin-top: auto;
+      min-height: fit-content;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+
+      &:last-of-type {
+        margin-bottom: 0;
+      }
     }
   }
-
-  &--no-padding {
-    .va-modal__inner {
-      padding: 0;
-    }
-  }
-
-  &__message {
-    margin-bottom: 1.5rem;
-  }
-
-  &__inner {
-    overflow: visible;
-    display: flex;
-    position: relative;
-    flex-flow: column;
-    padding: var(--va-modal-padding);
-    max-width: map_get($grid-breakpoints, md);
-    margin: auto;
-
-    > div:last-of-type {
-      margin-bottom: 0;
-    }
-  }
-
-  &__close {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    cursor: pointer;
-    font-size: 1.5rem;
-    font-style: normal;
-    color: var(--va-secondary);
-    z-index: 1;
-
-    &:focus {
-      @include focus-outline;
-    }
-  }
-
-  &__footer {
-    margin-top: auto;
-    min-height: fit-content;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-
-    &:last-of-type {
-      margin-bottom: 0;
-    }
-  }
-}
 </style>

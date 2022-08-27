@@ -419,117 +419,117 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "../../styles/resources";
-@import 'variables';
+  @import "../../styles/resources";
+  @import 'variables';
 
-.va-tabs {
-  display: var(--va-tabs-display);
-  align-items: var(--va-tabs-align-items-horizontal);
-  position: var(--va-tabs-position);
-  font-family: var(--va-font-family);
+  .va-tabs {
+    display: var(--va-tabs-display);
+    align-items: var(--va-tabs-align-items-horizontal);
+    position: var(--va-tabs-position);
+    font-family: var(--va-font-family);
 
-  &__wrapper {
-    overflow: hidden;
-    contain: content;
-    display: flex;
-    flex: 1 1 auto;
-  }
-
-  .va-tabs__pagination {
-    flex: 0 0 auto;
-  }
-
-  .va-tabs__container {
-    overflow: var(--va-tabs-container-overflow);
-    flex: var(--va-tabs-container-flex);
-    display: var(--va-tabs-container-display);
-    height: var(--va-tabs-container-height);
-    margin: var(--va-tabs-container-margin);
-    white-space: var(--va-tabs-container-white-space);
-    position: var(--va-tabs-container-position);
-
-    .va-tabs__tabs {
-      position: absolute;
-      height: 100%;
-    }
-
-    .va-tabs__tabs-items {
+    &__wrapper {
+      overflow: hidden;
+      contain: content;
       display: flex;
+      flex: 1 1 auto;
     }
 
-    &--right {
-      justify-content: flex-end;
-    }
-
-    &--grow {
-      .va-tabs__tabs {
-        display: flex;
-        min-width: 100%;
-      }
-
-      .va-tabs__tabs-items {
-        width: 100%;
-      }
-
-      .va-tab {
-        flex: 1 0 auto;
-        max-width: none;
-      }
-    }
-
-    &--center {
-      justify-content: center;
-    }
-
-    &--disabled {
-      @include va-disabled();
-
-      pointer-events: none;
-    }
-  }
-
-  &--vertical {
-    align-items: var(--va-tabs-align-items-vertical);
-
-    .va-tabs__wrapper {
+    .va-tabs__pagination {
       flex: 0 0 auto;
     }
 
     .va-tabs__container {
-      height: auto;
-
-      .va-tabs__tabs-items {
-        flex-direction: column;
-      }
+      overflow: var(--va-tabs-container-overflow);
+      flex: var(--va-tabs-container-flex);
+      display: var(--va-tabs-container-display);
+      height: var(--va-tabs-container-height);
+      margin: var(--va-tabs-container-margin);
+      white-space: var(--va-tabs-container-white-space);
+      position: var(--va-tabs-container-position);
 
       .va-tabs__tabs {
-        position: relative;
+        position: absolute;
+        height: 100%;
+      }
+
+      .va-tabs__tabs-items {
+        display: flex;
+      }
+
+      &--right {
+        justify-content: flex-end;
+      }
+
+      &--grow {
+        .va-tabs__tabs {
+          display: flex;
+          min-width: 100%;
+        }
+
+        .va-tabs__tabs-items {
+          width: 100%;
+        }
+
+        .va-tab {
+          flex: 1 0 auto;
+          max-width: none;
+        }
+      }
+
+      &--center {
+        justify-content: center;
+      }
+
+      &--disabled {
+        @include va-disabled();
+
+        pointer-events: none;
       }
     }
 
-    .va-tab {
-      display: flex;
+    &--vertical {
+      align-items: var(--va-tabs-align-items-vertical);
 
-      &__content {
+      .va-tabs__wrapper {
         flex: 0 0 auto;
       }
+
+      .va-tabs__container {
+        height: auto;
+
+        .va-tabs__tabs-items {
+          flex-direction: column;
+        }
+
+        .va-tabs__tabs {
+          position: relative;
+        }
+      }
+
+      .va-tab {
+        display: flex;
+
+        &__content {
+          flex: 0 0 auto;
+        }
+      }
+
+      .va-tabs__content {
+        flex: 1 0 auto;
+      }
     }
 
-    .va-tabs__content {
-      flex: 1 0 auto;
+    .va-tabs__slider-wrapper {
+      bottom: var(--va-tabs-slider-wrapper-bottom);
+      margin: var(--va-tabs-slider-wrapper-margin);
+      position: var(--va-tabs-slider-wrapper-position);
+      z-index: var(--va-tabs-slider-wrapper-z-index);
+
+      .va-tabs__slider {
+        width: var(--va-tabs-slider-width);
+        height: var(--va-tabs-slider-height);
+      }
     }
   }
-
-  .va-tabs__slider-wrapper {
-    bottom: var(--va-tabs-slider-wrapper-bottom);
-    margin: var(--va-tabs-slider-wrapper-margin);
-    position: var(--va-tabs-slider-wrapper-position);
-    z-index: var(--va-tabs-slider-wrapper-z-index);
-
-    .va-tabs__slider {
-      width: var(--va-tabs-slider-width);
-      height: var(--va-tabs-slider-height);
-    }
-  }
-}
 </style>

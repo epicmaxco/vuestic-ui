@@ -28,41 +28,41 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "variables";
+  @import "variables";
 
-.va-list-item-section {
-  display: flex;
-  font-family: var(--va-font-family);
+  .va-list-item-section {
+    display: flex;
+    font-family: var(--va-font-family);
 
-  &--main {
-    min-width: 0; // for ellipsis to work correctly
-    flex-direction: column;
-    flex: 1 0;
-  }
+    &--main {
+      min-width: 0; // for ellipsis to work correctly
+      flex-direction: column;
+      flex: 1 0;
+    }
 
-  &--icon {
-    min-width: var(--va-list-item-section-icon-min-width);
-    align-items: var(--va-list-item-section-icon-align-items);
-    justify-content: var(--va-list-item-section-icon-justify-content);
-    margin: var(--va-list-item-section-icon-margin);
+    &--icon {
+      min-width: var(--va-list-item-section-icon-min-width);
+      align-items: var(--va-list-item-section-icon-align-items);
+      justify-content: var(--va-list-item-section-icon-justify-content);
+      margin: var(--va-list-item-section-icon-margin);
 
-    .va-icon {
-      font-size: var(--va-list-item-section-icon-font-size);
+      .va-icon {
+        font-size: var(--va-list-item-section-icon-font-size);
+      }
+    }
+
+    &--avatar {
+      min-width: var(--va-list-item-section-avatar-min-width);
     }
   }
 
-  &--avatar {
-    min-width: var(--va-list-item-section-avatar-min-width);
-  }
-}
+  .va-list-item-section + .va-list-item-section {
+    margin-left: 0.5rem;
 
-.va-list-item-section + .va-list-item-section {
-  margin-left: 0.5rem;
-
-  &--icon {
-    &:last-child {
-      margin-left: 1rem;
+    &--icon {
+      &:last-child {
+        margin-left: 1rem;
+      }
     }
   }
-}
 </style>

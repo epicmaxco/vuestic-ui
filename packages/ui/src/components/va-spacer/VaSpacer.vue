@@ -11,9 +11,9 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import 'variables';
+  @import 'variables';
 
-.va-spacer {
-  flex-grow: var(--va-spacer-flex-grow);
-}
+  .va-spacer {
+    flex-grow: var(--va-spacer-flex-grow);
+  }
 </style>

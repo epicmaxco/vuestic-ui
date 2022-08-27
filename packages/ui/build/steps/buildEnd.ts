@@ -5,7 +5,6 @@ import {
   renameSync,
   unlinkSync,
   readFileSync,
-  writeFileSync,
   appendFileSync,
 } from 'fs'
 import { readDirRecursive } from '../common-config'

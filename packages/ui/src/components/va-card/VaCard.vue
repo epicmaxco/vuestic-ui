@@ -81,73 +81,73 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "../../styles/resources";
-@import "variables";
+  @import "../../styles/resources";
+  @import "variables";
 
-.va-card {
-  display: var(--va-card-display);
-  position: var(--va-card-position);
-  overflow: var(--va-card-overflow);
-  box-shadow: var(--va-card-box-shadow, var(--va-block-box-shadow));
-  border-radius: var(--va-card-border-radius, var(--va-block-border-radius));
-  color: var(--va-card-color);
-  background-color: var(--va-card-background-color);
-  font-family: var(--va-font-family);
+  .va-card {
+    display: var(--va-card-display);
+    position: var(--va-card-position);
+    overflow: var(--va-card-overflow);
+    box-shadow: var(--va-card-box-shadow, var(--va-block-box-shadow));
+    border-radius: var(--va-card-border-radius, var(--va-block-border-radius));
+    color: var(--va-card-color);
+    background-color: var(--va-card-background-color);
+    font-family: var(--va-font-family);
 
-  &__inner {
-    width: 100%;
-    height: 100%;
-  }
+    &__inner {
+      width: 100%;
+      height: 100%;
+    }
 
-  &--square {
-    border-radius: 0;
-  }
+    &--square {
+      border-radius: 0;
+    }
 
-  &--outlined {
-    box-shadow: var(--va-card-outlined-box-shadow);
-    border: var(--va-card-outlined-border, var(--va-block-border));
-  }
+    &--outlined {
+      box-shadow: var(--va-card-outlined-box-shadow);
+      border: var(--va-card-outlined-border, var(--va-block-border));
+    }
 
-  &--no-border {
-    border: none;
-  }
+    &--no-border {
+      border: none;
+    }
 
-  &--disabled {
-    @include va-disabled;
-  }
+    &--disabled {
+      @include va-disabled;
+    }
 
-  &--link {
-    cursor: pointer;
-  }
+    &--link {
+      cursor: pointer;
+    }
 
-  &__stripe {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: var(--va-card-stripe-border-size);
-    top: 0;
-    left: 0;
-  }
+    &__stripe {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: var(--va-card-stripe-border-size);
+      top: 0;
+      left: 0;
+    }
 
-  &__title,
-  &__content,
-  &__actions,
-  &__actions_vertical {
-    padding: var(--va-card-padding);
+    &__title,
+    &__content,
+    &__actions,
+    &__actions_vertical {
+      padding: var(--va-card-padding);
 
-    + .va-card__title,
-    + .va-card__content,
-    + .va-card__actions,
-    + .va-card_actions__vertical {
-      padding-top: 0;
+      + .va-card__title,
+      + .va-card__content,
+      + .va-card__actions,
+      + .va-card_actions__vertical {
+        padding-top: 0;
+      }
+    }
+
+    &__title {
+      display: flex;
+      align-items: center;
+
+      @include va-title();
     }
   }
-
-  &__title {
-    display: flex;
-    align-items: center;
-
-    @include va-title();
-  }
-}
 </style>

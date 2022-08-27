@@ -691,45 +691,45 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "../../styles/resources";
-@import "variables";
+  @import "../../styles/resources";
+  @import "variables";
 
-.va-select {
-  min-width: var(--va-select-min-width);
-}
-
-.va-select-anchor {
-  &__input {
-    cursor: var(--va-select-cursor);
-    flex: 1;
+  .va-select {
+    min-width: var(--va-select-min-width);
   }
 
-  &__placeholder {
-    color: var(--va-input-placeholder-text-color);
-  }
-}
+  .va-select-anchor {
+    &__input {
+      cursor: var(--va-select-cursor);
+      flex: 1;
+    }
 
-.va-select-dropdown {
-  &__content {
-    overflow: hidden;
-    border-bottom-right-radius: var(--va-select-dropdown-border-radius);
-    border-bottom-left-radius: var(--va-select-dropdown-border-radius);
-    border-top-right-radius: 0;
-    border-top-left-radius: 0;
-    box-shadow: var(--va-select-box-shadow);
-    padding: 0;
+    &__placeholder {
+      color: var(--va-input-placeholder-text-color);
+    }
   }
 
-  &__content-search-input {
-    min-width: auto;
-    width: 100%;
-  }
+  .va-select-dropdown {
+    &__content {
+      overflow: hidden;
+      border-bottom-right-radius: var(--va-select-dropdown-border-radius);
+      border-bottom-left-radius: var(--va-select-dropdown-border-radius);
+      border-top-right-radius: 0;
+      border-top-left-radius: 0;
+      box-shadow: var(--va-select-box-shadow);
+      padding: 0;
+    }
 
-  &__options-wrapper {
-    background: var(--va-select-dropdown-background);
-    overflow-y: auto;
+    &__content-search-input {
+      min-width: auto;
+      width: 100%;
+    }
 
-    @include va-scroll();
+    &__options-wrapper {
+      background: var(--va-select-dropdown-background);
+      overflow-y: auto;
+
+      @include va-scroll();
+    }
   }
-}
 </style>

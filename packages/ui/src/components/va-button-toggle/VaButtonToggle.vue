@@ -111,12 +111,12 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-.va-button-toggle {
-  .va-button {
-    &:focus,
-    &:hover {
-      box-shadow: none !important;
+  .va-button-toggle {
+    .va-button {
+      &:focus,
+      &:hover {
+        box-shadow: none !important;
+      }
     }
   }
-}
 </style>

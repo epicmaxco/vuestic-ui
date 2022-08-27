@@ -6,7 +6,7 @@
   "homepage": "https://vuestic.dev",
   "repository": "https://github.com/epicmaxco/vuestic-ui",
   "main": "dist/cjs/main.js",
-  "module": "dist/esm/main.js",
+  "module": "dist/es/main.js",
   "jsdelivr": "dist/iife/main.js",
   "unpkg": "dist/iife/main.js",
   "types": "dist/types/main.d.ts",
@@ -29,9 +29,7 @@
   "scripts": {
     "serve": "vue-cli-service serve --mode book",
     "serve:production": "vue-cli-service serve --mode production",
-    "build:dev": "tsc build/config.ts && webpack --config build/config.js --progress",
-    "build": "tsx ./build/vite/build.ts",
-    "build:rollup": "rollup -c",
+    "build": "tsx build/build.ts",
     "build:types": "vue-tsc --declaration --emitDeclarationOnly --outDir dist/types",
     "build:book": "vue-cli-service build --mode book",
     "lint": "vue-cli-service lint",
@@ -149,7 +147,7 @@
     ".": {
       "import": {
         "node": "./dist/esm-node/main.mjs",
-        "default": "./dist/esm/main.js"
+        "default": "./dist/es/main.js"
       },
       "require": "./dist/cjs/main.js"
     },

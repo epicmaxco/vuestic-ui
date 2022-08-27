@@ -1,7 +1,8 @@
 import { existsSync, readdirSync, readFileSync, writeFileSync, lstatSync } from 'fs'
 import { extname, dirname, basename } from 'path'
+import { PluginOption } from 'vite'
 
-const parsePath = (path) => {
+const parsePath = (path: string) => {
   const ext = extname(path).replace('.', '')
 
   return {
@@ -11,17 +12,17 @@ const parsePath = (path) => {
   }
 }
 
-const isVuesticComponent = (filename) => {
+const isVuesticComponent = (filename: string) => {
   return /^Va.*\.(js|mjs)$/.test(filename)
 }
 
 const SOURCE_MAP_COMMENT_FRAGMENT = '//# sourceMappingURL='
 
-const appendBeforeSourceMapComment = (content, append) => {
+const appendBeforeSourceMapComment = (content: string, append: string): string => {
   return content.replace(SOURCE_MAP_COMMENT_FRAGMENT, `${append}\n${SOURCE_MAP_COMMENT_FRAGMENT}`)
 }
 
-const appendCssImportToComponent = (componentPath) => {
+const appendCssImportToComponent = (componentPath: string) => {
   if (!existsSync(componentPath)) { return }
 
   const { name, dir } = parsePath(componentPath)
@@ -34,7 +35,7 @@ const appendCssImportToComponent = (componentPath) => {
   writeFileSync(componentPath, appendBeforeSourceMapComment(componentContent, `\nimport './${name}.css';`))
 }
 
-export const appendCssImportToComponentsDir = (componentsDir) => {
+export const appendCssImportToComponentsDir = (componentsDir: string) => {
   readdirSync(componentsDir)
     .forEach((entryName) => {
       const currentPath = `${componentsDir}/${entryName}`
@@ -49,19 +50,15 @@ export const appendCssImportToComponentsDir = (componentsDir) => {
     })
 }
 
-export const appendComponentCss = () => {
+export const appendComponentCss = (): PluginOption => {
   let outDir = ''
 
   return {
     name: 'vuestic:append-component-css',
-
-    configResolved (config) {
+    configResolved: (config) => {
       outDir = config.build.outDir
     },
-
-    closeBundle (err) {
-      if (err) { return }
-
+    closeBundle: () => {
       appendCssImportToComponentsDir(`${outDir}/src/components`)
     },
   }
