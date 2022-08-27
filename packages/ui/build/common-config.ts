@@ -66,7 +66,7 @@ const libBuildOptions = (format: 'iife' | 'es' | 'cjs'): BuildOptions => ({
 
 export default function createViteConfig (format: BuildFormat): UserConfig {
   const isEsm = ['es', 'esm-node'].includes(format)
-  const isMjs = format === 'esm-node'
+  const isNode = format === 'esm-node'
 
   const config = {
     resolve,
@@ -106,12 +106,12 @@ export default function createViteConfig (format: BuildFormat): UserConfig {
 
   // https://github.com/sanyuan0704/vite-plugin-chunk-split
   isEsm && config.plugins.push(chunkSplitPlugin({ strategy: 'unbundle' }))
-  isEsm && config.plugins.push(appendComponentCss())
+  isEsm && !isNode && config.plugins.push(appendComponentCss())
   isEsm && config.plugins.push(fixImportHell())
 
-  if (!isMjs) { config.build = { ...config.build, ...libBuildOptions(format) } }
+  if (!isNode) { config.build = { ...config.build, ...libBuildOptions(format) } }
 
-  config.build.rollupOptions = isMjs ? { ...external, ...rollupMjsBuildOptions } : external
+  config.build.rollupOptions = isNode ? { ...external, ...rollupMjsBuildOptions } : external
 
   return config
 }

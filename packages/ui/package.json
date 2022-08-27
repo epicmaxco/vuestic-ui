@@ -153,8 +153,8 @@
     },
     "./css": {
       "import": {
-        "node": "./dist/styles/index.css",
-        "default": "./dist/vuestic-ui.css"
+        "node": "./dist/vuestic-ui.css",
+        "default": "./dist/styles/index.css"
       }
     },
     "./iife": "./dist/iife/main.js",
