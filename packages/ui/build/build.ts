@@ -1,5 +1,5 @@
 import { $ } from 'deploy/execute'
-import { defineVuesticBuild } from './define-vuestic-build'
+import { defineVuesticBuild } from './types/define-vuestic-build'
 import { buildStart } from './steps/buildStart'
 import { buildEnd } from './steps/buildEnd'
 

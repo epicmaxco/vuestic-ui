@@ -1,6 +1,6 @@
 import { existsSync, readdirSync, readFileSync, writeFileSync, lstatSync } from 'fs'
 import { extname, dirname, basename } from 'path'
-import { PluginOption } from 'vite'
+import { Plugin } from 'vite'
 
 const parsePath = (path: string) => {
   const ext = extname(path).replace('.', '')
@@ -50,7 +50,7 @@ export const appendCssImportToComponentsDir = (componentsDir: string) => {
     })
 }
 
-export const appendComponentCss = (): PluginOption => {
+export const appendComponentCss = (): Plugin => {
   let outDir = ''
 
   return {

@@ -1,5 +1,5 @@
 import { existsSync, readdirSync, readFileSync, writeFileSync, lstatSync } from 'fs'
-import { PluginOption } from 'vite'
+import { Plugin } from 'vite'
 
 const processFile = (componentPath) => {
   if (!existsSync(componentPath)) { return }
@@ -22,7 +22,7 @@ export const processFiles = (componentsDir) => {
     })
 }
 
-export const fixImportHell = (): PluginOption => {
+export const fixImportHell = (): Plugin => {
   let outDir = ''
 
   return {
