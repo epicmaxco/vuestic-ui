@@ -1,4 +1,4 @@
-import { defineNuxtPlugin } from 'nuxt/app'
+import { defineNuxtPlugin } from '#app'
 import { createVuesticEssential, VaDropdownPlugin, VaToastPlugin, VaModalPlugin } from 'vuestic-ui'
 import { ref } from 'vue'
 
