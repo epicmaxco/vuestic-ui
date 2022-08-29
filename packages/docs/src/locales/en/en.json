@@ -4167,6 +4167,14 @@
       "title": "Tree shaking",
       "description": "Vuestic UI is tree-shaking friendly in Nuxt as well. You can choose which css modules will be used. This can be configured in `nuxt.config.ts`. Components must be tree-shakable automatically.",
       "css": "In `css` options you can pass array of css modules that will be used in the project or `false` to remove all css from Vuestic exepct components css. Available modules: `typography`, `grid`, `reset`. In example below grid will not be used in project. This is helpful in case you already using some other library."
+    },
+    "options": {
+      "title": "Options",
+      "option": {
+        "config": "Vuestic [Global Config](/services/global-config)",
+        "css": "Choose which CSS modules will be added to nuxt. If `true` all CSS modules will be added",
+        "fonts": "Adds Vuestic default fonts to head"
+      }
     }
   },
   "ssrGuide": {
