@@ -67,7 +67,7 @@ const packageJson = ({ dependencies = {}, devDependencies = {} }: CodesandboxCon
   }
   const commonDevDeps = {
     '@vitejs/plugin-vue': '~3.0.0',
-    typescript: 'latest',
+    typescript: '^4.7.4',
     'vue-tsc': 'latest',
     vite: 'latest',
     sass: 'latest',
