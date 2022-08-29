@@ -2826,8 +2826,8 @@
         "title": "Breakpoints",
         "text": "Use the following classes (`breakpoints`) to apply provided styling to screens of certain widths exclusively.",
         "sizes": {
-          "xs": "`.xs` - (< 600px) - Extra small devices",
-          "sm": "`.sm` - (>= 600px && < 1024px) - Small devices",
+          "xs": "`.xs` - (< 640px) - Extra small devices",
+          "sm": "`.sm` - (>= 640px && < 1024px) - Small devices",
           "md": "`.md` - (>= 1024px && < 1440px) - Medium devices",
           "lg": "`.lg` - (>= 1440px && < 1920px) - Large devices",
           "xl": "`.xl` - (>= 1920) - Extra large devices"
@@ -3770,8 +3770,8 @@
     "about": "Vuestic UI provides breakpoints service that allows you to control every aspect of your application which depends on the window size.",
     "sizes": {
       "intro": "We use the following breakpoints:",
-      "xs": "`.xs` - (< 600px) - Extra small devices",
-      "sm": "`.sm` - (>= 600px && < 1024px) - Small devices",
+      "xs": "`.xs` - (< 640px) - Extra small devices",
+      "sm": "`.sm` - (>= 640px && < 1024px) - Small devices",
       "md": "`.md` - (>= 1024px && < 1440px) - Medium devices",
       "lg": "`.lg` - (>= 1440px && < 1920px) - Large devices",
       "xl": "`.xl` - (>= 1920) - Extra large devices"
@@ -3783,7 +3783,6 @@
         "title": "Helpers list:",
         "thresholds": "List of the current thresholds.",
         "exactThreshold": "`true` only for mentioned threshold.",
-        "exactThresholdAlias": "Alias for `xs`/`sm`/`md`/`lg`/`xl`-like helpers.",
         "width": "Current window width (`px`).",
         "height": "Current window height (`px`).",
         "current": "Current breakpoint name.",

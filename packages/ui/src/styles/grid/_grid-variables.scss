@@ -1,10 +1,10 @@
 // variables for runtime calculations, --media-ratio variable is overwritten by breakpoints service
 :root {
-  --media-ratio-default: var(--media-ratio, 1);
-  --grid-gutter-default: 0.5rem;
-  --grid-gutter-base: calc(var(--media-ratio-default) * var(--grid-gutter-default));
-  --grid-spacing-default: 1rem;
-  --grid-spacing-base: calc(var(--media-ratio-default) * var(--grid-spacing-default));
+  --va-media-ratio-default: var(--va-media-ratio, 1);
+  --va-grid-gutter-default: 0.5rem;
+  --va-grid-gutter-base: calc(var(--va-media-ratio-default) * var(--va-grid-gutter-default));
+  --va-grid-spacing-default: 1rem;
+  --va-grid-spacing-base: calc(var(--va-media-ratio-default) * var(--va-grid-spacing-default));
 }
 
 // breakpoints must be always synchronized with breakpoints service defaults
@@ -20,21 +20,21 @@ $grid-columns: 12 !default;
 
 // gutters are depending on the current breakpoint (provided by breakpoints service via --media-ratio)
 $grid-gutters: (
-  1: #{calc(var(--grid-gutter-base) * 0.25)},
-  2: #{calc(var(--grid-gutter-base) * 0.5)},
-  3: #{var(--grid-gutter-base)},
-  4: #{calc(var(--grid-gutter-base) * 2)},
-  5: #{calc(var(--grid-gutter-base) * 3)},
+  1: #{calc(var(--va-grid-gutter-base) * 0.25)},
+  2: #{calc(var(--va-grid-gutter-base) * 0.5)},
+  3: #{var(--va-grid-gutter-base)},
+  4: #{calc(var(--va-grid-gutter-base) * 2)},
+  5: #{calc(var(--va-grid-gutter-base) * 3)},
 ) !default;
 
 // spacers are used for various paddings and typings to make them consistent, also depending on current breakpoint
 $spacers: (
   0: 0,
-  1: #{calc(var(--grid-spacing-base) * 0.25)},
-  2: #{calc(var(--grid-spacing-base) * 0.5)},
-  3: #{var(--grid-spacing-base)},
-  4: #{calc(var(--grid-spacing-base) * 1.5)},
-  5: #{calc(var(--grid-spacing-base) * 3)},
+  1: #{calc(var(--va-grid-spacing-base) * 0.25)},
+  2: #{calc(var(--va-grid-spacing-base) * 0.5)},
+  3: #{var(--va-grid-spacing-base)},
+  4: #{calc(var(--va-grid-spacing-base) * 1.5)},
+  5: #{calc(var(--va-grid-spacing-base) * 3)},
 );
 
 // xs and sm are full width
