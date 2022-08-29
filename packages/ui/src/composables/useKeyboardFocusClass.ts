@@ -1,4 +1,5 @@
-import { computed, ExtractPropTypes } from 'vue'
+import { computed, ExtractPropTypes, getCurrentInstance } from 'vue'
+import kebabCase from 'lodash/kebabCase.js'
 
 import { useKeyboardOnlyFocus } from './'
 
@@ -9,7 +10,10 @@ export function useKeyboardFocusClass (props: ExtractPropTypes<typeof useKeyboar
 
   const hasKeyboardFocusClass = computed(() => !props.disableFocusClass && hasKeyboardFocus.value)
 
-  const keyboardFocusClass = computed(() => ({ [`${parentClass ?? ''}--keyboard-focus`]: hasKeyboardFocusClass.value }))
+  const componentName = getCurrentInstance()?.type.name
+  const parentClassComputed = computed(() => componentName ? kebabCase(componentName) : parentClass ?? '')
+  const keyboardFocusClass = computed(() => ({ [`${parentClassComputed.value}--keyboard-focus`]: hasKeyboardFocusClass.value }))
+  console.log(keyboardFocusClass.value)
 
   return { keyboardFocusListeners, keyboardFocusClass, hasKeyboardFocusClass, hasKeyboardFocus }
 }

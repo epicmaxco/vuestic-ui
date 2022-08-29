@@ -104,7 +104,7 @@ export default defineComponent({
 
     watch(hoveredValue, () => emit('hover', hoveredValue.value || RatingValue.EMPTY))
 
-    const { keyboardFocusClass, keyboardFocusListeners } = useKeyboardFocusClass(props, 'va-rating-item')
+    const { keyboardFocusClass, keyboardFocusListeners } = useKeyboardFocusClass(props)
 
     return {
       keyboardFocusClass,

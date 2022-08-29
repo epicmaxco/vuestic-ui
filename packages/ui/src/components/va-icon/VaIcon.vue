@@ -63,7 +63,7 @@ export default defineComponent({
       return spin === 'counter-clockwise' ? 'va-icon--spin-reverse' : 'va-icon--spin'
     }
 
-    const { keyboardFocusListeners, keyboardFocusClass } = useKeyboardFocusClass(props, 'va-icon')
+    const { keyboardFocusListeners, keyboardFocusClass } = useKeyboardFocusClass(props)
 
     const computedClass = computed(() => [
       iconConfig.value.class,
