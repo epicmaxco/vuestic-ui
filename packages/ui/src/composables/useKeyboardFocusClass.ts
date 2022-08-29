@@ -10,10 +10,9 @@ export function useKeyboardFocusClass (props: ExtractPropTypes<typeof useKeyboar
 
   const hasKeyboardFocusClass = computed(() => !props.disableFocusClass && hasKeyboardFocus.value)
 
-  const componentName = getCurrentInstance()?.type.name
+  const componentName = getCurrentInstance()?.type?.name
   const parentClassComputed = computed(() => componentName ? kebabCase(componentName) : parentClass ?? '')
   const keyboardFocusClass = computed(() => ({ [`${parentClassComputed.value}--keyboard-focus`]: hasKeyboardFocusClass.value }))
-  console.log(keyboardFocusClass.value)
 
   return { keyboardFocusListeners, keyboardFocusClass, hasKeyboardFocusClass, hasKeyboardFocus }
 }
