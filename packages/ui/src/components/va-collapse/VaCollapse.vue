@@ -2,8 +2,6 @@
   <div class="va-collapse" :class="computedClasses">
     <div
       class="va-collapse__header-wrapper"
-      v-on="keyboardFocusListeners"
-      @focus="$emit('focus')"
       @click="toggle"
       @keydown.enter="toggle"
       @keydown.space="toggle"
@@ -12,15 +10,18 @@
         name="header"
         v-bind="{
           value: computedModelValue,
-          hasKeyboardFocus: hasKeyboardFocus,
           bind: headerAttributes,
           attributes: headerAttributes,
+          keyboardFocusClass,
+          listeners: keyboardFocusListeners,
         }"
       >
         <div
           v-bind="headerAttributes"
           class="va-collapse__header"
+          :class="keyboardFocusClass"
           :style="headerStyle"
+          v-on="keyboardFocusListeners"
         >
           <va-icon
             v-if="icon"
@@ -57,9 +58,15 @@
 import { computed, defineComponent, ref, shallowRef } from 'vue'
 import pick from 'lodash/pick.js'
 
-import { useKeyboardOnlyFocus, useColors, useSyncProp, useTextColor, useBem, useResizeObserver } from '../../composables'
+import {
+  useColors, useTextColor,
+  useSyncProp,
+  useBem,
+  useResizeObserver,
+  useComponentPresetProp,
+  useKeyboardFocusClass, useKeyboardFocusClassProps,
+} from '../../composables'
 import { useAccordionItem } from '../va-accordion/hooks/useAccordion'
-import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 import { generateUniqueId } from '../../services/utils'
 
@@ -71,6 +78,7 @@ export default defineComponent({
     VaIcon,
   },
   props: {
+    ...useKeyboardFocusClassProps,
     ...useComponentPresetProp,
     modelValue: { type: Boolean, default: undefined },
     disabled: { type: Boolean, default: false },
@@ -81,7 +89,7 @@ export default defineComponent({
     textColor: { type: String, default: '' },
     colorAll: { type: Boolean, default: false },
   },
-  emits: ['focus', 'update:modelValue'],
+  emits: ['update:modelValue'],
 
   setup (props, { emit, slots }) {
     const body = shallowRef<HTMLElement>()
@@ -99,8 +107,6 @@ export default defineComponent({
     })
 
     const height = computed(() => computedModelValue.value ? bodyHeight.value : 0)
-
-    const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
 
     const getTransition = () => {
       const duration = height.value / 1000 * 0.2
@@ -135,6 +141,8 @@ export default defineComponent({
       inset: !!(accordionProps.value.inset && computedModelValue.value),
     }))
 
+    const { keyboardFocusClass, keyboardFocusListeners } = useKeyboardFocusClass(props, 'va-collapse__header')
+
     return {
       body,
       height,
@@ -142,17 +150,16 @@ export default defineComponent({
       toggle,
       computedModelValue,
 
-      hasKeyboardFocus,
-      keyboardFocusListeners,
-
-      textColorComputed,
-
       headerIdComputed,
       headerAttributes,
       panelIdComputed,
       tabIndexComputed,
 
+      textColorComputed,
       computedClasses,
+      keyboardFocusClass,
+
+      keyboardFocusListeners,
 
       headerStyle: computed(() => ({
         paddingLeft: props.icon && 0,
@@ -220,9 +227,7 @@ export default defineComponent({
       color: var(--va-collapse-header-content-icon-color);
     }
 
-    &:focus {
-      @include focus-outline(var(--va-collapse-header-content-border-radius));
-    }
+    @include keyboard-focus(var(--va-collapse-header-content-border-radius));
   }
 
   &--solid {

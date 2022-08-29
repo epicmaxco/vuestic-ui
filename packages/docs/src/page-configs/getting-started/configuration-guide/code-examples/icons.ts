@@ -7,7 +7,7 @@ export const iconsConfig = `
 // main.js
 ...
 import { createVuestic, createIconsConfig } from 'vuestic-ui/src/main'
-import 'vuestic-ui/dist/vuestic-ui.css'
+import 'vuestic-ui/css'
 
 createApp(App)
   .use(createVuestic({

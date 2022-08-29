@@ -1,14 +1,16 @@
 <template>
-  <va-button icon="home" :color="color" preset="plain" />
-  <va-button icon="info" :color="color" preset="plain" />
-  <va-button icon="battery" :color="color" preset="plain" />
-  <va-spacer />
-  <va-button :color="color" preset="plain">
-    Login
-  </va-button>
-  <va-button-dropdown :color="color" size="small" icon="ellipsis">
-    Content
-  </va-button-dropdown>
+  <div class="app-bar-content-example">
+    <va-button icon="home" :color="color" preset="plain" />
+    <va-button icon="info" :color="color" preset="plain" />
+    <va-button icon="battery" :color="color" preset="plain" />
+    <va-spacer />
+    <va-button :color="color" preset="plain">
+      Login
+    </va-button>
+    <va-button-dropdown :color="color" size="small" icon="ellipsis">
+      Content
+    </va-button-dropdown>
+  </div>
 </template>
 
 <script>
@@ -31,3 +33,19 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+@import "../../styles/resources";
+@import "./_variables.scss";
+
+.app-bar-content-example {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .va-button {
+    @include keyboard-focus($radius: 'inherit', $offset: -2px);
+  }
+}
+</style>

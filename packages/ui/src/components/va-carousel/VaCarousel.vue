@@ -298,5 +298,9 @@ export default defineComponent({
     height: 100%;
     width: 100%;
   }
+
+  .va-button {
+    @include keyboard-focus($radius: 'inherit', $offset: -2px);
+  }
 }
 </style>

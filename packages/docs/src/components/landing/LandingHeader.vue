@@ -14,10 +14,9 @@
         <nav class="header__links">
           <!-- vuestic buttons -->
           <va-button :to="`/${$root.$i18n.locale}/introduction/overview`" class="header__links--link" preset="secondary">{{ $t('landing.header.buttons.overview') }}</va-button>
-          <va-button :to="`/${$root.$i18n.locale}/introduction/overview`" class="header__links--link" preset="secondary">{{ $t('landing.header.buttons.docs') }}</va-button>
           <va-button href="https://discord.gg/u7fQdqQt8c" target="blank" class="header__links--link" preset="secondary">{{ $t('landing.header.buttons.discord') }}</va-button>
-          <language-dropdown class="ml-2" />
-          <stars-button class="ml-2" repo="epicmaxco/vuestic-ui" />
+          <language-dropdown class="header__links--link ml-2" />
+          <landing-stars-button class="ml-2" repo="epicmaxco/vuestic-ui" />
         </nav>
         <!-- mobile -->
         <nav class="mobile-menu" :class="computedClass">
@@ -64,8 +63,8 @@
               </va-list-item>
             </div>
 
-            <div class="star-button-wrapper">
-              <stars-button repo="epicmaxco/vuestic-admin" />
+            <div class="stars-button-wrapper">
+              <landing-stars-button repo="epicmaxco/vuestic-admin" />
             </div>
           </va-list>
         </nav>
@@ -80,12 +79,12 @@ import { Options, Vue } from 'vue-class-component'
 import { languages } from '../../locales'
 import VuesticLogo from '../header/components/VuesticLogo.vue'
 import LanguageDropdown from '../header/components/LanguageDropdown.vue'
-import StarsButton from './StarsButton.vue'
+import LandingStarsButton from './LandingStarsButton.vue'
 
 @Options({
   name: 'LandingHeader',
   components: {
-    LanguageDropdown, StarsButton, VuesticLogo,
+    LanguageDropdown, LandingStarsButton, VuesticLogo,
   },
 })
 export default class Header extends Vue {
@@ -160,6 +159,10 @@ export default class Header extends Vue {
     justify-content: space-between;
   }
 
+  ::v-deep(.va-dropdown__content) {
+    background: #f6f8f9 !important;
+  }
+
   &__links {
     @include col();
     @include size(9);
@@ -170,11 +173,17 @@ export default class Header extends Vue {
 
     @include sm(display, none);
 
+    ::v-deep(.va-button--flat) {
+      background: transparent !important;
+    }
+
     &--link {
       @include link-font();
 
       line-height: 1.5rem;
       margin-left: 0.5rem;
+      background: transparent !important;
+      white-space: nowrap;
 
       @include sm(width, 100%);
     }
@@ -293,14 +302,14 @@ export default class Header extends Vue {
   }
 }
 
-.star-button-wrapper {
+.stars-button-wrapper {
   display: flex;
   justify-content: center;
   padding-bottom: 1rem;
   padding-top: 0.5rem;
 }
 
-.star-button {
+.stars-button {
   @include code-font();
 
   min-height: 1.8rem;

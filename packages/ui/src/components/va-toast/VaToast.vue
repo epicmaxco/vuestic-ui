@@ -28,10 +28,10 @@
           class="va-toast__close-icon"
           role="button"
           aria-label="close toast"
-          aria-hidden="false"
           tabindex="0"
           size="small"
           :name="$props.icon"
+          :disable-focus-class="$props.disableFocusClass"
           @click.stop="onToastClose"
           @keydown.enter.stop="onToastClose"
         />
@@ -43,7 +43,7 @@
 <script lang="ts">
 import { defineComponent, PropType, ref, computed, onMounted, shallowRef } from 'vue'
 
-import { useComponentPresetProp, useColors, useTimer, useTextColor } from '../../composables'
+import { useComponentPresetProp, useColors, useTimer, useTextColor, useKeyboardFocusClassProps } from '../../composables'
 
 import { ToastPosition } from './types'
 
@@ -62,6 +62,7 @@ export default defineComponent({
   components: { VaIcon, VaToastRenderer },
   emits: ['on-click', 'on-close'],
   props: {
+    ...useKeyboardFocusClassProps,
     ...useComponentPresetProp,
     title: { type: String, default: '' },
     offsetY: { type: Number, default: 16 },
@@ -240,10 +241,6 @@ export default defineComponent({
 
     &:hover {
       color: var(--va-toast-hover-color);
-    }
-
-    &:focus {
-      @include focus-outline;
     }
   }
 }

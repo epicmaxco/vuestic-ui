@@ -220,6 +220,7 @@ export default defineComponent({
 
 <style lang="scss">
 @import 'variables';
+@import '../../styles/resources';
 
 .va-button-dropdown {
   display: inline-block;
@@ -259,6 +260,10 @@ export default defineComponent({
           border-bottom-left-radius: 0;
         }
       }
+    }
+
+    .va-button {
+      @include keyboard-focus($radius: 'inherit', $offset: -2px);
     }
   }
 }

@@ -6,6 +6,7 @@
     :class="computedClass"
     :style="computedStyle"
     v-bind="attributesComputed"
+    v-on="keyboardFocusListeners"
   >
     <span class="va-button__content" :class="wrapperClassComputed">
       <va-icon
@@ -53,6 +54,7 @@ import {
   useRouterLink, useRouterLinkProps,
   useDeprecatedProps,
   useComponentPresetProp,
+  useKeyboardFocusClass, useKeyboardFocusClassProps,
 } from '../../composables'
 
 import { useButtonBackground } from './hooks/useButtonBackground'
@@ -69,6 +71,7 @@ export default defineComponent({
   name: 'VaButton',
   components: { VaIcon, VaProgressCircle },
   props: {
+    ...useKeyboardFocusClassProps,
     ...useComponentPresetProp,
     ...useSizeProps,
     ...useHoverStyleProps,
@@ -101,7 +104,7 @@ export default defineComponent({
     iconColor: { type: String, default: '' },
   },
   setup (props, { slots }) {
-    // TODO(1.6.0): Remove deprecated props
+    // TODO: Remove deprecated props in 1.6.0
     useDeprecatedProps(['flat', 'outline'])
 
     // colors
@@ -121,7 +124,7 @@ export default defineComponent({
 
     // states
     const button = shallowRef<HTMLElement>()
-    const { isFocused, focus, blur } = useFocus(button)
+    const { focus, blur } = useFocus(button)
     const { isHovered } = useHover(button)
     const { isPressed } = usePressed(button)
 
@@ -153,6 +156,7 @@ export default defineComponent({
       return checkSlotChildrenDeep(slots.default, true)
     })
 
+    const { keyboardFocusListeners, hasKeyboardFocusClass } = useKeyboardFocusClass(props)
     const isOneIcon = computed(() => !!((props.iconRight && !props.icon) || (!props.iconRight && props.icon)))
     const computedClass = useBem('va-button', () => ({
       ...pick(props, ['disabled', 'block', 'loading', 'round', 'plain']),
@@ -160,9 +164,9 @@ export default defineComponent({
       normal: !props.size || props.size === 'medium',
       large: props.size === 'large',
       opacity: props.textOpacity < 1,
-      'icon-only': !isSlotContentPassed.value && isOneIcon.value,
+      iconOnly: !isSlotContentPassed.value && isOneIcon.value,
       bordered: !!props.borderColor,
-      focused: isFocused.value,
+      keyboardFocus: hasKeyboardFocusClass.value,
     }))
 
     // styles
@@ -190,6 +194,7 @@ export default defineComponent({
       attributesComputed,
       wrapperClassComputed,
       iconAttributesComputed,
+      keyboardFocusListeners,
 
       ...publicMethods,
     }
@@ -396,9 +401,7 @@ export default defineComponent({
     }
   }
 
-  &--focused {
-    @include focus-outline('inherit');
-  }
+  @include keyboard-focus('inherit');
 
   &--loading {
     pointer-events: none;

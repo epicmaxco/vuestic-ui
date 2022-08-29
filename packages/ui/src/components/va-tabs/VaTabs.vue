@@ -66,7 +66,12 @@
 <script lang="ts">
 import { computed, defineComponent, provide, reactive, ref, unref, watch, Ref, shallowRef, StyleValue } from 'vue'
 
-import { useComponentPresetProp, useStateful, useStatefulProps, useColors, useResizeObserver } from '../../composables'
+import {
+  useComponentPresetProp,
+  useStateful, useStatefulProps,
+  useColors,
+  useResizeObserver,
+} from '../../composables'
 
 import { TabsViewKey, TabComponent } from './types'
 
@@ -531,6 +536,10 @@ export default defineComponent({
       width: var(--va-tabs-slider-width);
       height: var(--va-tabs-slider-height);
     }
+  }
+
+  .va-button {
+    @include keyboard-focus($radius: 'inherit', $offset: -2px);
   }
 }
 </style>

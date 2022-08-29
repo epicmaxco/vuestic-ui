@@ -1,6 +1,6 @@
 <template>
   <va-button
-    class="star-button"
+    class="stars-button"
     target="blank"
     :href="url"
     color="dark"

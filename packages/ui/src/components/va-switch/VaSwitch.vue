@@ -83,7 +83,7 @@ import { generateUniqueId } from '../../services/utils'
 
 import {
   useComponentPresetProp,
-  useKeyboardOnlyFocus,
+  useKeyboardFocusClass, useKeyboardFocusClassProps,
   useSelectable, useSelectableProps, useSelectableEmits,
   useColors, useTextColor,
   useBem,
@@ -100,6 +100,7 @@ export default defineComponent({
     'focus', 'blur', 'update:modelValue',
   ],
   props: {
+    ...useKeyboardFocusClassProps,
     ...useSelectableProps,
     ...useComponentPresetProp,
     id: { type: String, default: '' },
@@ -129,7 +130,7 @@ export default defineComponent({
     }
 
     const { getColor } = useColors()
-    const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
+    const { hasKeyboardFocusClass, keyboardFocusListeners } = useKeyboardFocusClass(props)
     const {
       isChecked,
       computedError,
@@ -169,7 +170,7 @@ export default defineComponent({
       small: props.size === 'small',
       large: props.size === 'large',
       error: computedError.value,
-      onKeyboardFocus: hasKeyboardFocus.value,
+      keyboardFocus: hasKeyboardFocusClass.value,
     }))
 
     const styleComputed = computed(() => ({
@@ -369,7 +370,7 @@ export default defineComponent({
     transition: var(--va-switch-track-transition);
 
     @at-root {
-      .va-switch--on-keyboard-focus#{&} {
+      .va-switch--keyboard-focus#{&} {
         @include focus-outline('inherit');
       }
 

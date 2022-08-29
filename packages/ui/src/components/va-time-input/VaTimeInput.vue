@@ -93,6 +93,7 @@ import {
   useValidation, useValidationEmits, useValidationProps, ValidationProps,
   useClearable, useClearableEmits, useClearableProps,
   useFocus, useFocusEmits,
+  useKeyboardFocusClassProps,
 } from '../../composables'
 import { useTimeParser } from './hooks/time-text-parser'
 import { useTimeFormatter } from './hooks/time-text-formatter'
@@ -118,6 +119,7 @@ export default defineComponent({
   ],
 
   props: {
+    ...useKeyboardFocusClassProps,
     ...useComponentPresetProp,
     ...useClearableProps,
     ...VaInputWrapperProps,
@@ -290,6 +292,7 @@ export default defineComponent({
       name: props.icon,
       color: props.color,
       tabindex: iconTabindexComputed.value,
+      disableFocusClass: props.disableFocusClass,
     }))
 
     const inputAttributesComputed = computed(() => ({
