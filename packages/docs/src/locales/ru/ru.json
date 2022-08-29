@@ -1228,6 +1228,12 @@
       "events": {},
       "methods": {},
       "slots": {}
+    },
+    "VaScrollContainer": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
     }
   },
   "menu": {
@@ -1338,7 +1344,8 @@
     "nuxt": "Nuxt",
     "ssrGuide": "Ssr Guide",
     "spacer": "Spacer",
-    "dropdown": "Dropdown"
+    "dropdown": "Dropdown",
+    "scrollContainer": "Scroll Container"
   },
   "all": {
     "examples": "Примеры",
@@ -4014,5 +4021,8 @@
   },
   "dropdown": {
     "title": "-- Here is the title --"
+  },
+  "scrollContainer": {
+    "title": "Scroll container"
   }
 }
