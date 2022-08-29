@@ -128,195 +128,195 @@ export default class Header extends Vue {
 </script>
 
 <style lang="scss" scoped>
-@import "~@/assets/main.scss";
+  @import "~@/assets/main.scss";
 
-.header {
-  z-index: 2000;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background: transparent;
+  .header {
+    z-index: 2000;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: transparent;
 
-  &__wrapper {
-    @include wrapper();
-  }
-
-  &__inner {
-    @include row-flex();
-
-    position: relative;
-    align-items: center;
-    height: 4.5rem;
-  }
-
-  &__logo {
-    @include col();
-    @include size(3);
-    @include size-sm(12);
-
-    display: flex;
-    justify-content: space-between;
-  }
-
-  ::v-deep(.va-dropdown__content) {
-    background: #f6f8f9 !important;
-  }
-
-  &__links {
-    @include col();
-    @include size(9);
-
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-
-    @include sm(display, none);
-
-    ::v-deep(.va-button--flat) {
-      background: transparent !important;
+    &__wrapper {
+      @include wrapper();
     }
 
-    &--link {
+    &__inner {
+      @include row-flex();
+
+      position: relative;
+      align-items: center;
+      height: 4.5rem;
+    }
+
+    &__logo {
+      @include col();
+      @include size(3);
+      @include size-sm(12);
+
+      display: flex;
+      justify-content: space-between;
+    }
+
+    ::v-deep(.va-dropdown__content) {
+      background: #f6f8f9 !important;
+    }
+
+    &__links {
+      @include col();
+      @include size(9);
+
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+
+      @include sm(display, none);
+
+      ::v-deep(.va-button--flat) {
+        background: transparent !important;
+      }
+
+      &--link {
+        @include link-font();
+
+        line-height: 1.5rem;
+        margin-left: 0.5rem;
+        background: transparent !important;
+        white-space: nowrap;
+
+        @include sm(width, 100%);
+      }
+
+      &--dropdown {
+        @include sm(width, 100%);
+      }
+    }
+  }
+
+  .menu {
+    position: absolute;
+    right: 1.5rem;
+    top: 1.5rem;
+    z-index: 1000;
+    display: none;
+    cursor: pointer;
+
+    @include sm(display, block);
+
+    img {
+      display: block;
+    }
+  }
+
+  .language-dropdown {
+    cursor: pointer;
+    // TODO: fix dropdown
+    max-height: 36px; // temporary solution
+
+    @include sm(width, 100%);
+
+    &__content {
+      background-color: #f6f8f9;
+      border-radius: 0.5rem;
+      // min-width: 12rem;
+      padding: 0.5rem 0;
+    }
+
+    &__item {
+      padding: 0.75rem 1rem;
+      cursor: pointer;
+      flex-wrap: nowrap;
+      color: green;
+
+      &:hover,
+      &.active {
+        .dropdown-item__text {
+          color: #1b1a1f;
+        }
+      }
+    }
+
+    .dropdown-item__text {
+      color: #2550c0;
+    }
+
+    .va-dropdown__anchor {
+      display: inline-block;
+    }
+  }
+
+  .mobile-menu {
+    display: none;
+
+    @include col();
+    @include size-sm(12);
+    @include sm(margin, 0);
+    @include sm(width, 100%);
+    @include sm(height, 100vh);
+    @include sm(flex-direction, column);
+    @include sm(justify-content, center);
+    @include sm(background-color, #fff);
+    @include sm(padding, 1rem 0);
+    @include sm(position, fixed);
+    @include sm(top, 0);
+    @include sm(left, 0);
+
+    &--open {
+      @include sm(display, flex);
+    }
+
+    &__languages {
+      overflow: auto;
+      height: 35vh;
+    }
+
+    &__language {
+      &.active {
+        .language {
+          color: #1b1a1f;
+        }
+      }
+    }
+
+    &__label {
+      font-size: 10px;
+      padding-top: 3rem;
+      padding-bottom: 0.5rem;
+    }
+
+    &__link {
       @include link-font();
 
-      line-height: 1.5rem;
+      text-align: center;
+
+      span,
+      a {
+        color: #2550c0;
+        padding: 0.5rem 0;
+
+        &:hover {
+          color: #1b1a1f;
+        }
+      }
+    }
+  }
+
+  .stars-button-wrapper {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 1rem;
+    padding-top: 0.5rem;
+  }
+
+  .stars-button {
+    @include code-font();
+
+    min-height: 1.8rem;
+    padding: 0 !important;
+
+    &--desktop {
       margin-left: 0.5rem;
-      background: transparent !important;
-      white-space: nowrap;
-
-      @include sm(width, 100%);
-    }
-
-    &--dropdown {
-      @include sm(width, 100%);
     }
   }
-}
-
-.menu {
-  position: absolute;
-  right: 1.5rem;
-  top: 1.5rem;
-  z-index: 1000;
-  display: none;
-  cursor: pointer;
-
-  @include sm(display, block);
-
-  img {
-    display: block;
-  }
-}
-
-.language-dropdown {
-  cursor: pointer;
-  // TODO: fix dropdown
-  max-height: 36px; // temporary solution
-
-  @include sm(width, 100%);
-
-  &__content {
-    background-color: #f6f8f9;
-    border-radius: 0.5rem;
-    // min-width: 12rem;
-    padding: 0.5rem 0;
-  }
-
-  &__item {
-    padding: 0.75rem 1rem;
-    cursor: pointer;
-    flex-wrap: nowrap;
-    color: green;
-
-    &:hover,
-    &.active {
-      .dropdown-item__text {
-        color: #1b1a1f;
-      }
-    }
-  }
-
-  .dropdown-item__text {
-    color: #2550c0;
-  }
-
-  .va-dropdown__anchor {
-    display: inline-block;
-  }
-}
-
-.mobile-menu {
-  display: none;
-
-  @include col();
-  @include size-sm(12);
-  @include sm(margin, 0);
-  @include sm(width, 100%);
-  @include sm(height, 100vh);
-  @include sm(flex-direction, column);
-  @include sm(justify-content, center);
-  @include sm(background-color, #fff);
-  @include sm(padding, 1rem 0);
-  @include sm(position, fixed);
-  @include sm(top, 0);
-  @include sm(left, 0);
-
-  &--open {
-    @include sm(display, flex);
-  }
-
-  &__languages {
-    overflow: auto;
-    height: 35vh;
-  }
-
-  &__language {
-    &.active {
-      .language {
-        color: #1b1a1f;
-      }
-    }
-  }
-
-  &__label {
-    font-size: 10px;
-    padding-top: 3rem;
-    padding-bottom: 0.5rem;
-  }
-
-  &__link {
-    @include link-font();
-
-    text-align: center;
-
-    span,
-    a {
-      color: #2550c0;
-      padding: 0.5rem 0;
-
-      &:hover {
-        color: #1b1a1f;
-      }
-    }
-  }
-}
-
-.stars-button-wrapper {
-  display: flex;
-  justify-content: center;
-  padding-bottom: 1rem;
-  padding-top: 0.5rem;
-}
-
-.stars-button {
-  @include code-font();
-
-  min-height: 1.8rem;
-  padding: 0 !important;
-
-  &--desktop {
-    margin-left: 0.5rem;
-  }
-}
 </style>

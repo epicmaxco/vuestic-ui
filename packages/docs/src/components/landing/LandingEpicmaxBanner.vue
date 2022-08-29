@@ -39,38 +39,38 @@ export default class EpicmaxBanner extends Vue {
 </script>
 
 <style lang="scss" scoped>
-@import "src/assets/main";
+  @import "src/assets/main";
 
-.epicmax__banner {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-
-  &-content {
+  .epicmax__banner {
+    width: 100%;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: calc(100% - 4rem);
-    background: linear-gradient(180.81deg, #182879 0.7%, #5b3c9b 99.3%);
-    max-width: 53rem;
-    margin: 0 2rem 2rem 2rem;
-    padding: 1.7rem;
-    color: #ffffff;
-    border-radius: 0.5rem;
+    justify-content: center;
 
-    @include sm(flex-direction, column);
-    @include sm(align-items, start);
+    &-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: calc(100% - 4rem);
+      background: linear-gradient(180.81deg, #182879 0.7%, #5b3c9b 99.3%);
+      max-width: 53rem;
+      margin: 0 2rem 2rem 2rem;
+      padding: 1.7rem;
+      color: #ffffff;
+      border-radius: 0.5rem;
+
+      @include sm(flex-direction, column);
+      @include sm(align-items, start);
+    }
+
+    &-text {
+      line-height: 1.5;
+    }
+
+    &-logo {
+      margin-left: 3rem;
+
+      @include sm(margin-top, 1rem);
+      @include sm(align-self, end);
+    }
   }
-
-  &-text {
-    line-height: 1.5;
-  }
-
-  &-logo {
-    margin-left: 3rem;
-
-    @include sm(margin-top, 1rem);
-    @include sm(align-self, end);
-  }
-}
 </style>

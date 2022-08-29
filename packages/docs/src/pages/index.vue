@@ -50,21 +50,21 @@ export default class Landing extends Vue {}
 </script>
 
 <style lang="scss">
-@import "~vuestic-ui/src/styles/resources";
-//@import "./../assets/main";
+  @import "~vuestic-ui/src/styles/resources";
+  //@import "./../assets/main";
 
-.landing {
-  font-family: Source Sans Pro;
+  .landing {
+    font-family: Source Sans Pro;
 
-  a:not(.va-button):focus {
-    @include focus-outline(2px, 2px, 2px);
+    a:not(.va-button):focus {
+      @include focus-outline(2px, 2px, 2px);
+    }
   }
-}
 
-.preview-wrapper {
-  background-image: url("../assets/landing/images/pattern.svg");
-  background-size: unset;
-  background-repeat: no-repeat;
-  background-position: top;
-}
+  .preview-wrapper {
+    background-image: url("../assets/landing/images/pattern.svg");
+    background-size: unset;
+    background-repeat: no-repeat;
+    background-position: top;
+  }
 </style>

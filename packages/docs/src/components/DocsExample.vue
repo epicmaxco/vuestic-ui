@@ -104,13 +104,13 @@ function parseTemplate (target: string, template: string) {
 </script>
 
 <style lang="scss">
-.docs-example {
-  &__show-code-button {
-    --va-button-sm-content-px: 6px;
+  .docs-example {
+    &__show-code-button {
+      --va-button-sm-content-px: 6px;
 
-    transform: translateX(calc(var(--va-button-sm-content-px) * -1));
+      transform: translateX(calc(var(--va-button-sm-content-px) * -1));
+    }
   }
-}
 </style>
 
 <style lang="scss" scoped>
