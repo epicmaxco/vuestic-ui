@@ -22,14 +22,16 @@ export const useVuesticCSS = (options: VuesticOptions) => {
     /** Register essential css. Vuestic will not work without essential.css */
     nuxt.options.css.push('vuestic-ui/dist/styles/essential.css')
 
-    /** Register other css modules that user choose */
+    /** Register other css modules that user has chosen */
     options.css.forEach((cssModuleName) => {
       nuxt.options.css.push(`vuestic-ui/dist/styles/${cssModuleName}.css`)
     })
-    registerDefaultFonts(nuxt)
   } else if (options.css === true) {
     /** Register all CSS */
     nuxt.options.css.push('vuestic-ui/dist/vuestic-ui.css')
+  }
+
+  if (options.fonts) {
     registerDefaultFonts(nuxt)
   }
   // Do not register any CSS if `options.css` is `false`
