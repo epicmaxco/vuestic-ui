@@ -29,7 +29,7 @@ export default class ApiDocsPropsRow extends mixins(PropsMixin) {
 </script>
 
 <style lang="scss">
-.ApiDocsPropsRow {
+  .ApiDocsPropsRow {
 
-}
+  }
 </style>

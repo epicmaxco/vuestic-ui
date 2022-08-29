@@ -53,24 +53,24 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "~vuestic-ui/src/styles/resources";
+  @import "~vuestic-ui/src/styles/resources";
 
-.MarkdownView {
-  code {
-    margin: 0 0.3rem;
-    color: $markdown-code;
+  .MarkdownView {
+    code {
+      margin: 0 0.3rem;
+      color: $markdown-code;
+    }
   }
-}
 
-.MarkdownView__link--external {
-  position: relative;
-
-  &::after {
-    content: '\279A';
+  .MarkdownView__link--external {
     position: relative;
-    opacity: 0.35;
-    line-height: 1;
-    vertical-align: text-top;
+
+    &::after {
+      content: '\279A';
+      position: relative;
+      opacity: 0.35;
+      line-height: 1;
+      vertical-align: text-top;
+    }
   }
-}
 </style>

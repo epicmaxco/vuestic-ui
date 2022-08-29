@@ -57,33 +57,33 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import '~vuestic-ui/src/styles/resources';
+  @import '~vuestic-ui/src/styles/resources';
 
-.i-nav {
-  display: inline-block;
-  height: 1.5rem;
-  width: 1.5rem;
-}
-
-.i-menu-expanded {
-  @extend .i-nav;
-
-  background: url("@/assets/icons/menu-collapsed.svg") no-repeat center;
-}
-
-.i-menu-collapsed {
-  @extend .i-nav;
-
-  background: url("@/assets/icons/menu-expanded.svg") no-repeat center;
-}
-
-.header-selector {
-  cursor: pointer;
-  max-width: 55px;
-
-  &:focus {
-    @include focus-outline(2px, 2px, 2px);
+  .i-nav {
+    display: inline-block;
+    height: 1.5rem;
+    width: 1.5rem;
   }
-}
+
+  .i-menu-expanded {
+    @extend .i-nav;
+
+    background: url("@/assets/icons/menu-collapsed.svg") no-repeat center;
+  }
+
+  .i-menu-collapsed {
+    @extend .i-nav;
+
+    background: url("@/assets/icons/menu-expanded.svg") no-repeat center;
+  }
+
+  .header-selector {
+    cursor: pointer;
+    max-width: 55px;
+
+    &:focus {
+      @include focus-outline(2px, 2px, 2px);
+    }
+  }
 
 </style>

@@ -128,27 +128,27 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-.sticky-table-example {
-  .va-data-table {
-    border: 1px solid;
-  }
+  .sticky-table-example {
+    .va-data-table {
+      border: 1px solid;
+    }
 
-  .va-data-table + .va-data-table {
-    margin-top: 2rem;
-  }
+    .va-data-table + .va-data-table {
+      margin-top: 2rem;
+    }
 
-  .my-custom-table-class {
-    &.va-data-table--sticky {
-      height: 220px;
+    .my-custom-table-class {
+      &.va-data-table--sticky {
+        height: 220px;
 
-      .va-data-table__table-thead--sticky {
-        background-color: gray;
+        .va-data-table__table-thead--sticky {
+          background-color: gray;
 
-        .va-data-table__table-th {
-          color: white;
+          .va-data-table__table-th {
+            color: white;
+          }
         }
       }
     }
   }
-}
 </style>

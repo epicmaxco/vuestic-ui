@@ -34,86 +34,86 @@ export default class OpenSource extends Vue {}
 </script>
 
 <style lang="scss" scoped>
-@import "~@/assets/main.scss";
+  @import "~@/assets/main.scss";
 
-.opensource {
-  width: 100%;
-  position: relative;
-  padding-top: 10rem;
-  padding-bottom: 10rem;
-  background-image: url("../../assets/landing/images/pattern-2.svg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: top;
-
-  // sm
-  @include sm(padding-top, 5rem);
-  @include sm(padding-bottom, 5rem);
-
-  &__wrapper {
-    @include wrapper();
-  }
-
-  &__inner {
-    @include row-flex();
-
-    align-items: center;
-  }
-
-  &__info {
-    @include col();
-    @include size(5);
-    @include shift-left(1);
+  .opensource {
+    width: 100%;
+    position: relative;
+    padding-top: 10rem;
+    padding-bottom: 10rem;
+    background-image: url("../../assets/landing/images/pattern-2.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top;
 
     // sm
-    @include size-sm(12);
-    @include shift-sm-left(0);
-  }
+    @include sm(padding-top, 5rem);
+    @include sm(padding-bottom, 5rem);
 
-  &__title {
-    @include title-font();
+    &__wrapper {
+      @include wrapper();
+    }
 
-    padding-bottom: 1rem;
+    &__inner {
+      @include row-flex();
 
-    // sm
-    @include sm(text-align, center);
-  }
+      align-items: center;
+    }
 
-  &__icon {
-    display: flex;
-    // sm
-    @include sm(justify-content, center);
-  }
+    &__info {
+      @include col();
+      @include size(5);
+      @include shift-left(1);
 
-  &__text {
-    @include text-font();
+      // sm
+      @include size-sm(12);
+      @include shift-sm-left(0);
+    }
 
-    line-height: 1.5;
+    &__title {
+      @include title-font();
 
-    // sm
-    @include sm(text-align, center);
+      padding-bottom: 1rem;
 
-    a {
-      color: var(--va-primary);
+      // sm
+      @include sm(text-align, center);
+    }
+
+    &__icon {
+      display: flex;
+      // sm
+      @include sm(justify-content, center);
+    }
+
+    &__text {
+      @include text-font();
+
+      line-height: 1.5;
+
+      // sm
+      @include sm(text-align, center);
+
+      a {
+        color: var(--va-primary);
+      }
+    }
+
+    &__actions {
+      @include col();
+      @include size(6);
+
+      // sm
+      @include size-sm(8);
+      @include shift-sm-left(2);
+      @include sm(padding-top, 1rem);
+      // xs
+      @include size-xs(12);
+      @include shift-xs-left(0);
+
+      img {
+        max-width: 100%;
+        max-height: 100%;
+      }
     }
   }
-
-  &__actions {
-    @include col();
-    @include size(6);
-
-    // sm
-    @include size-sm(8);
-    @include shift-sm-left(2);
-    @include sm(padding-top, 1rem);
-    // xs
-    @include size-xs(12);
-    @include shift-xs-left(0);
-
-    img {
-      max-width: 100%;
-      max-height: 100%;
-    }
-  }
-}
 </style>
