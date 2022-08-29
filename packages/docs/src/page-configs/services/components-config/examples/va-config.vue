@@ -22,9 +22,9 @@
 </template>
 
 <style lang="scss" scoped>
-.alert-content {
-  .va-button {
-    margin-right: 0.5rem;
+  .alert-content {
+    .va-button {
+      margin-right: 0.5rem;
+    }
   }
-}
 </style>

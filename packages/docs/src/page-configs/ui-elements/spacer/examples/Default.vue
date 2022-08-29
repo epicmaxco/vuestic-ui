@@ -11,12 +11,12 @@
 </template>
 
 <style lang="scss">
-.spacer {
-  text-align: center;
-  border: 2px dashed var(--va-secondary);
+  .spacer {
+    text-align: center;
+    border: 2px dashed var(--va-secondary);
 
-  &::after {
-    content: "VaSpacer is here!";
+    &::after {
+      content: "VaSpacer is here!";
+    }
   }
-}
 </style>
