@@ -45,9 +45,9 @@ export default {
 </script>
 
 <style lang="scss">
-.va-icon-menu-collapsed {
-  display: inline-block;
-  width: 24px;
-  height: 24px;
-}
+  .va-icon-menu-collapsed {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+  }
 </style>

@@ -71,81 +71,81 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "variables";
+  @import "variables";
 
-.va-button-group {
-  display: flex;
-  justify-content: stretch;
-  width: max-content;
-  overflow: hidden;
-  border-radius: 9999999px;
-  font-family: var(--va-font-family);
+  .va-button-group {
+    display: flex;
+    justify-content: stretch;
+    width: max-content;
+    overflow: hidden;
+    border-radius: 9999999px;
+    font-family: var(--va-font-family);
 
-  &_square {
-    border-radius: var(--va-button-square-border-radius);
-  }
-
-  .va-button {
-    margin: var(--va-button-group-button-margin);
-    box-shadow: none;
-  }
-
-  & > .va-button:last-child {
-    width: auto;
-    padding-right: 1rem;
-
-    &.va-button--small {
-      padding-right: 0.75rem;
+    &_square {
+      border-radius: var(--va-button-square-border-radius);
     }
 
-    &.va-button--large {
-      padding-right: 1.5rem;
-    }
-  }
-
-  & > .va-button:first-child {
-    width: auto;
-    padding-left: 1rem;
-
-    &.va-button--small {
-      padding-left: 0.75rem;
+    .va-button {
+      margin: var(--va-button-group-button-margin);
+      box-shadow: none;
     }
 
-    &.va-button--large {
-      padding-left: 1.5rem;
+    & > .va-button:last-child {
+      width: auto;
+      padding-right: 1rem;
+
+      &.va-button--small {
+        padding-right: 0.75rem;
+      }
+
+      &.va-button--large {
+        padding-right: 1.5rem;
+      }
     }
-  }
 
-  & > .va-button:not(:last-child) {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-    padding-right: var(--va-button-group-gap);
-    border-right: 0;
+    & > .va-button:first-child {
+      width: auto;
+      padding-left: 1rem;
 
-    .va-button__content {
-      /**
+      &.va-button--small {
+        padding-left: 0.75rem;
+      }
+
+      &.va-button--large {
+        padding-left: 1.5rem;
+      }
+    }
+
+    & > .va-button:not(:last-child) {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      padding-right: var(--va-button-group-gap);
+      border-right: 0;
+
+      .va-button__content {
+        /**
         We need to prevent minus margin because we had:
           border-right: 2px;
           maring-right: -2px;
       */
-      margin-right: 0;
+        margin-right: 0;
+      }
     }
-  }
 
-  & > .va-button + .va-button {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    padding-left: var(--va-button-group-gap);
-    border-left: 0;
+    & > .va-button + .va-button {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      padding-left: var(--va-button-group-gap);
+      border-left: 0;
 
-    .va-button__content {
-      /**
+      .va-button__content {
+        /**
         We need to prevent minus margin because we had:
           border-left: 2px;
           maring-left: -2px;
       */
-      margin-left: 0;
+        margin-left: 0;
+      }
     }
   }
-}
 </style>

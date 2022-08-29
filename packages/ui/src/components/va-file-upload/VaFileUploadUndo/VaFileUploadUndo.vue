@@ -79,43 +79,43 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import 'variables';
+  @import 'variables';
 
-.va-file-upload-undo-progress-bar {
-  position: absolute;
-  top: 0;
-  left: 0;
+  .va-file-upload-undo-progress-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
 
-  --va-progress-bar-transition: width v-bind(undoDurationStyle) linear;
-}
-
-.va-file-upload-undo {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-
-  &__button {
-    line-height: var(--va-file-upload-undo-button-line-height);
-    margin-left: var(--va-file-upload-undo-margin-left);
-    margin-top: var(--va-file-upload-undo-button-margin-top);
-    margin-bottom: var(--va-file-upload-undo-button-margin-bottom);
+    --va-progress-bar-transition: width v-bind(undoDurationStyle) linear;
   }
 
-  &--vertical {
-    justify-content: center;
+  .va-file-upload-undo {
+    display: flex;
     align-items: center;
-    align-content: center;
-    padding: var(--va-file-upload-undo-padding);
+    justify-content: space-between;
+    flex-wrap: wrap;
 
-    .va-file-upload-undo__text {
-      margin: 1rem 0 0;
-      text-align: center;
+    &__button {
+      line-height: var(--va-file-upload-undo-button-line-height);
+      margin-left: var(--va-file-upload-undo-margin-left);
+      margin-top: var(--va-file-upload-undo-button-margin-top);
+      margin-bottom: var(--va-file-upload-undo-button-margin-bottom);
     }
 
-    .va-file-upload-undo__button {
-      margin: 1rem 0 0;
+    &--vertical {
+      justify-content: center;
+      align-items: center;
+      align-content: center;
+      padding: var(--va-file-upload-undo-padding);
+
+      .va-file-upload-undo__text {
+        margin: 1rem 0 0;
+        text-align: center;
+      }
+
+      .va-file-upload-undo__button {
+        margin: 1rem 0 0;
+      }
     }
   }
-}
 </style>

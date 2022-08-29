@@ -136,7 +136,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.va-icon + .va-icon {
-  margin-left: 5px;
-}
+  .va-icon + .va-icon {
+    margin-left: 5px;
+  }
 </style>

@@ -143,24 +143,24 @@ export default {
 </script>
 
 <style>
-.frame {
-  border-radius: 1rem;
-  background: #2c2c2c;
-  padding: 3rem 0.5rem;
-  display: block;
-}
+  .frame {
+    border-radius: 1rem;
+    background: #2c2c2c;
+    padding: 3rem 0.5rem;
+    display: block;
+  }
 
-.display {
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  background: linear-gradient(90deg, aqua, yellow);
-  width: 314px;
-  height: 536px;
-  overflow: hidden;
-}
+  .display {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background: linear-gradient(90deg, aqua, yellow);
+    width: 314px;
+    height: 536px;
+    overflow: hidden;
+  }
 
-.content {
-  overflow: auto;
-}
+  .content {
+    overflow: auto;
+  }
 </style>
