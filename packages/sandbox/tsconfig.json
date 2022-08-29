@@ -11,6 +11,7 @@
     "esModuleInterop": true,
     "lib": ["esnext", "dom"],
     "skipLibCheck": true,
+    "noEmit": false,
 
     "types": [
       "vite/client", 

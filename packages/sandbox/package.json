@@ -1,12 +1,11 @@
 {
-  "name": "vue-lib-tree-shaking-test",
+  "name": "sandbox",
   "private": true,
   "version": "0.0.1",
   "scripts": {
     "build": "rm -rf ./dist && yarn build:vite && yarn build:vue-cli && yarn build:nuxt",
     "build:vite": "vue-tsc --noEmit && vite build",
     "build:vue-cli": "vue-cli-service build",
-    "build:vuestic": "build-vuestic-ui.sh",
     "build:nuxt": "nuxt build",
     "dev:vite": "vite",
     "dev:vue-cli": "vue-cli-service serve",
@@ -14,14 +13,14 @@
     "serve:vite": "vite preview",
     "serve:vue-cli": "serve -s dist/vue-cli",
     "serve:nuxt": "nuxt preview ./dist/nuxt",
-    "viteBuildAndPreview": "vue-tsc --noEmit && vite build && vite preview",
-    "test": "yarn build && jest",
-    "test-without-build": "jest",
-    "reinstall": "rm -rf ./node_modules && yarn"
+    "test": "vitest",
+    "test:ci": "vitest run",
+    "build:vuestic": "yarn --cwd ../ui build",
+    "build:vuestic-nuxt": "yarn --cwd ../nuxt build",
+    "ci": "yarn build:vuestic && yarn build:vuestic-nuxt && yarn build && yarn test:ci"
   },
   "dependencies": {
     "@vue/cli-service": "5",
-    "jest": "^27.0.6",
     "rollup-plugin-visualizer": "^5.5.4",
     "vue": "*"
   },
@@ -34,6 +33,7 @@
     "ts-node": "^10.8.1",
     "typescript": "^4.3.2",
     "vite": "^2.4.4",
+    "vitest": "^0.22.1",
     "vue-bundle-renderer": "0.4.1",
     "vue-tsc": "^0.38.2",
     "webpack": "5",

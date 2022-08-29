@@ -3,14 +3,10 @@ import vue from '@vitejs/plugin-vue'
 import { resolve as resolver } from 'path'
 import { chunkSplitPlugin } from 'vite-plugin-chunk-split'
 import { appendComponentCss } from './plugins/append-component-css'
-import {
-  UserConfig,
-  PluginOption,
-  BuildOptions,
-} from 'vite'
-import { RollupOptions } from 'rollup'
+import { fixImportHell } from './plugins/fix-import-hell'
+import { defineVitePlugin } from './types/define-vite-plugin'
 
-console.log('readFileSync(resolver(process.cwd(), ./package.json)')
+import type { RollupOptions } from 'rollup'
 
 const packageJSON = JSON.parse(readFileSync(resolver(process.cwd(), './package.json')).toString())
 const dependencies = [...Object.keys(packageJSON.dependencies), ...Object.keys(packageJSON.peerDependencies)]
@@ -51,7 +47,7 @@ const rollupMjsBuildOptions: RollupOptions = {
   },
 }
 
-const libBuildOptions = (format: 'iife' | 'es' | 'cjs'): BuildOptions => ({
+const libBuildOptions = (format: 'iife' | 'es' | 'cjs') => ({
   lib: {
     entry: resolver(process.cwd(), 'src/main.ts'),
     fileName: () => 'main.js',
@@ -62,11 +58,11 @@ const libBuildOptions = (format: 'iife' | 'es' | 'cjs'): BuildOptions => ({
   },
 })
 
-export default function createViteConfig (format: BuildFormat): UserConfig {
+export default function createViteConfig (format: BuildFormat) {
   const isEsm = ['es', 'esm-node'].includes(format)
-  const isMjs = format === 'esm-node'
+  const isNode = format === 'esm-node'
 
-  const config = {
+  const config = defineVitePlugin({
     resolve,
 
     build: {
@@ -92,23 +88,24 @@ export default function createViteConfig (format: BuildFormat): UserConfig {
         // disable mangling functions names
         keep_fnames: true,
       },
-    } as BuildOptions,
+    },
 
     plugins: [
       vue({
         isProduction: true,
         exclude: [/\.md$/, /\.spec\.ts$/, /\.spec\.disabled$/],
       }),
-    ] as PluginOption[],
-  }
+    ],
+  })
 
   // https://github.com/sanyuan0704/vite-plugin-chunk-split
-  isEsm && config.plugins?.push(chunkSplitPlugin({ strategy: 'unbundle' }))
-  isEsm && config.plugins?.push(appendComponentCss())
+  isEsm && config.plugins.push(chunkSplitPlugin({ strategy: 'unbundle' }))
+  isEsm && !isNode && config.plugins.push(appendComponentCss())
+  isEsm && config.plugins.push(fixImportHell())
 
-  if (!isMjs) { config.build = { ...config.build, ...libBuildOptions(format) } }
+  if (!isNode) { config.build = { ...config.build, ...libBuildOptions(format) } }
 
-  config.build.rollupOptions = isMjs ? { ...external, ...rollupMjsBuildOptions } : external
+  config.build.rollupOptions = isNode ? { ...external, ...rollupMjsBuildOptions } : external
 
   return config
 }

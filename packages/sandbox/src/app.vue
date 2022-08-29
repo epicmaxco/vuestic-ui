@@ -24,6 +24,9 @@
         :ampm="ampm"
         :minutesFilter="minutesFilter"/>
   </div>
+  <div class="va-chip">
+    This is not va-chip component, just use .va-chip class. Must be plain text
+  </div>
 </template>
 
 <script lang="ts">
