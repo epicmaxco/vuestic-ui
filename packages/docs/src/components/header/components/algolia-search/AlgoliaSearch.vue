@@ -33,44 +33,44 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import '@docsearch/css';
-@import '~vuestic-ui/src/styles/index.scss';
-@import '@/assets/smart-grid.scss';
+  @import '@docsearch/css';
+  @import '~vuestic-ui/src/styles/index.scss';
+  @import '@/assets/smart-grid.scss';
 
-:root {
-  --docsearch-primary-color: var(--va-primary);
-  --docsearch-searchbox-shadow: inset 0 0 0 var(--va-input-border-width) var(--va-primary);
-  --docsearch-text-color: var(--va-secondary);
-}
+  :root {
+    --docsearch-primary-color: var(--va-primary);
+    --docsearch-searchbox-shadow: inset 0 0 0 var(--va-input-border-width) var(--va-primary);
+    --docsearch-text-color: var(--va-secondary);
+  }
 
-#docsearch {
-  flex-grow: 1;
-  display: flex;
-
-  .DocSearch-Button {
-    margin-left: 0;
+  #docsearch {
     flex-grow: 1;
-    max-width: 320px;
-    border-radius: var(--va-input-border-radius);
-    background-color: var(--va-input-wrapper-background);
-  }
+    display: flex;
 
-  .DocSearch-Button-Placeholder {
-    @media (max-width: 768px) {
-      display: block;
+    .DocSearch-Button {
+      margin-left: 0;
+      flex-grow: 1;
+      max-width: 320px;
+      border-radius: var(--va-input-border-radius);
+      background-color: var(--va-input-wrapper-background);
     }
 
-    @media (max-width: 480px) {
-      display: block;
+    .DocSearch-Button-Placeholder {
+      @media (max-width: 768px) {
+        display: block;
+      }
+
+      @media (max-width: 480px) {
+        display: block;
+      }
+    }
+
+    .DocSearch-Button-Keys {
+      @media (max-width: 768px) {
+        display: flex;
+      }
+
+      @include xs(display, none);
     }
   }
-
-  .DocSearch-Button-Keys {
-    @media (max-width: 768px) {
-      display: flex;
-    }
-
-    @include xs(display, none);
-  }
-}
 </style>

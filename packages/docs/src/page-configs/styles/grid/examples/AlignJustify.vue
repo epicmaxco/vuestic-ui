@@ -89,15 +89,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~vuestic-ui/src/styles/resources';
+  @import '~vuestic-ui/src/styles/resources';
 
-.row + .row {
-  border-top: 1px solid $lighter-gray;
-}
+  .row + .row {
+    border-top: 1px solid $lighter-gray;
+  }
 
-.item {
-  border: 1px solid $gray;
-  background-color: $white;
-  text-align: center;
-}
+  .item {
+    border: 1px solid $gray;
+    background-color: $white;
+    text-align: center;
+  }
 </style>

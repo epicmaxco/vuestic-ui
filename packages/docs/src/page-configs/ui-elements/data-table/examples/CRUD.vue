@@ -138,11 +138,11 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.table-example--slot {
-  th {
-    padding-top: 5px;
-    padding-bottom: 5px;
-    vertical-align: middle;
+  .table-example--slot {
+    th {
+      padding-top: 5px;
+      padding-bottom: 5px;
+      vertical-align: middle;
+    }
   }
-}
 </style>
