@@ -1,8 +1,10 @@
 import { getParameters } from 'codesandbox/lib/api/define'
 import { iconsStyles, iconsConfig } from './CodeSandboxIconsHelper'
 import { CodesandboxConfig } from '../types/configTypes'
-// @ts-ignore
+
 import packageUi from 'vuestic-ui/package.json'
+import exampleTsconfig from './codesandbox-example-config/example-tsconfig.json'
+import exampleTsConfigNode from './codesandbox-example-config/example-tsconfig.node.json'
 
 const main = `import { createApp } from "vue"
 import App from "./App.vue"
@@ -14,9 +16,20 @@ app.use(createVuestic())
 app.mount("#app")
 `
 
-const babel = `export const presets = [
-  '@vue/cli-plugin-babel/preset'
-];`
+const viteConfig = `import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+
+export default defineConfig({
+  plugins: [vue()]
+})
+`
+
+const viteEnv = `declare module '*.vue' {
+  import type { DefineComponent } from 'vue'
+  const component: DefineComponent<{}, {}, any>
+  export default component
+}
+`
 
 const defaultExample = `<template>
   <div class="pa-4">
@@ -37,35 +50,36 @@ const getCodeSandboxHtml = ({ requireIcons = false }: CodesandboxConfig): string
     >
     ${requireIcons ? iconsStyles : ''}
     <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
   `
 }
 
 const getCodeSandboxMain = ({ requireIcons = false }: CodesandboxConfig): string => {
-  if (requireIcons) {
-    return iconsConfig
-  }
+  if (requireIcons) { return iconsConfig }
 
   return main
 }
 
 const packageJson = ({ dependencies = {}, devDependencies = {} }: CodesandboxConfig): string => {
   const commonDeps = {
-    'core-js': '^3.6.5',
-    vue: '^3.0.0',
+    vue: 'latest',
     'vuestic-ui': `${packageUi.version}`,
   }
   const commonDevDeps = {
-    '@vue/cli-plugin-babel': '~4.5.0',
-    '@vue/cli-service': '~4.5.0',
-    '@vue/compiler-sfc': '^3.0.0',
+    '@vitejs/plugin-vue': '~3.0.0',
+    typescript: '^4.7.4',
+    'vue-tsc': 'latest',
+    vite: 'latest',
+    sass: 'latest',
   }
   return JSON.stringify({
+    type: 'module',
     scripts: {
-      serve: 'vue-cli-service serve',
+      serve: 'vite',
     },
     dependencies: Object.assign(commonDeps, dependencies),
     devDependencies: Object.assign(commonDevDeps, devDependencies),
-  })
+  }, null, 2)
 }
 
 export default (code: string = defaultExample, config: CodesandboxConfig = {}): string => getParameters({
@@ -74,11 +88,23 @@ export default (code: string = defaultExample, config: CodesandboxConfig = {}): 
       content: packageJson(config),
       isBinary: false,
     },
-    'babel.config.js': {
-      content: babel,
+    'vite.config.js': {
+      content: viteConfig,
       isBinary: false,
     },
-    'src/main.js': {
+    'tsconfig.json': {
+      content: JSON.stringify(exampleTsconfig),
+      isBinary: false,
+    },
+    'tsconfig.node.json': {
+      content: JSON.stringify(exampleTsConfigNode),
+      isBinary: false,
+    },
+    'src/vite-env.d.ts': {
+      content: viteEnv,
+      isBinary: false,
+    },
+    'src/main.ts': {
       content: getCodeSandboxMain(config),
       isBinary: false,
     },
@@ -86,7 +112,7 @@ export default (code: string = defaultExample, config: CodesandboxConfig = {}): 
       content: code,
       isBinary: false,
     },
-    'public/index.html': {
+    'index.html': {
       content: getCodeSandboxHtml(config),
       isBinary: false,
     },

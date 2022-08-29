@@ -327,82 +327,82 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "variables";
+  @import "variables";
 
-.va-counter {
-  --va-input-wrapper-min-width: none;
+  .va-counter {
+    --va-input-wrapper-min-width: none;
 
-  &.va-counter--input-square {
-    .va-input__container {
-      border-radius: 0;
-      border-left: none;
-      border-right: none;
-    }
-
-    .va-counter__prepend-wrapper {
-      .va-counter__button-decrease {
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
+    &.va-counter--input-square {
+      .va-input__container {
+        border-radius: 0;
+        border-left: none;
+        border-right: none;
       }
 
-      .va-counter__button-decrease:not(.va-button--square) {
-        width: unset;
+      .va-counter__prepend-wrapper {
+        .va-counter__button-decrease {
+          border-top-right-radius: 0;
+          border-bottom-right-radius: 0;
+        }
 
-        .va-button__content {
-          padding-right: var(--va-counter-button-padding--inner);
-          padding-left: var(--va-counter-button-padding--outer);
+        .va-counter__button-decrease:not(.va-button--square) {
+          width: unset;
+
+          .va-button__content {
+            padding-right: var(--va-counter-button-padding--inner);
+            padding-left: var(--va-counter-button-padding--outer);
+          }
+        }
+      }
+
+      .va-counter__append-wrapper {
+        .va-counter__button-increase {
+          border-top-left-radius: 0;
+          border-bottom-left-radius: 0;
+        }
+
+        .va-counter__button-increase:not(.va-button--square) {
+          width: unset;
+
+          .va-button__content {
+            padding-left: var(--va-counter-button-padding--inner);
+            padding-right: var(--va-counter-button-padding--outer);
+          }
         }
       }
     }
 
-    .va-counter__append-wrapper {
-      .va-counter__button-increase {
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
-      }
-
-      .va-counter__button-increase:not(.va-button--square) {
-        width: unset;
-
-        .va-button__content {
-          padding-left: var(--va-counter-button-padding--inner);
-          padding-right: var(--va-counter-button-padding--outer);
+    &:not(.va-counter--input-square) {
+      .va-counter__prepend-wrapper,
+      .va-counter__append-wrapper {
+        .va-counter__button-decrease,
+        .va-counter__button-increase {
+          .va-button__content {
+            padding: unset;
+          }
         }
       }
     }
-  }
 
-  &:not(.va-counter--input-square) {
-    .va-counter__prepend-wrapper,
-    .va-counter__append-wrapper {
-      .va-counter__button-decrease,
-      .va-counter__button-increase {
-        .va-button__content {
-          padding: unset;
-        }
+    .va-input__content__input {
+      text-align: center;
+
+      // Chrome, Safari, Edge, Opera
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+      // Firefox
+      &[type=number] {
+        -moz-appearance: textfield;
       }
     }
-  }
 
-  .va-input__content__input {
-    text-align: center;
-
-    // Chrome, Safari, Edge, Opera
-    &::-webkit-outer-spin-button,
-    &::-webkit-inner-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
-    // Firefox
-    &[type=number] {
-      -moz-appearance: textfield;
+    .va-counter__icon--inactive {
+      cursor: inherit;
+      user-select: none;
+      opacity: 0.4;
     }
   }
-
-  .va-counter__icon--inactive {
-    cursor: inherit;
-    user-select: none;
-    opacity: 0.4;
-  }
-}
 </style>

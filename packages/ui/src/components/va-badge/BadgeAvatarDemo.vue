@@ -55,8 +55,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.item {
-  margin-right: 1rem;
-  margin-bottom: 1rem;
-}
+  .item {
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+  }
 </style>

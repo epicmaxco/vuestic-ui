@@ -218,8 +218,8 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-.scroll__container {
-  height: 400px;
-  width: 200px;
-}
+  .scroll__container {
+    height: 400px;
+    width: 200px;
+  }
 </style>

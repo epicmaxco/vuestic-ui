@@ -217,9 +217,9 @@ export default {
 </script>
 
 <style scoped>
-.center {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+  .center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 </style>

@@ -337,17 +337,17 @@ export default {
 </script>
 
 <style lang="scss">
-.va-counter-css-classes-demo {
-  .VbCard {
-    min-width: 240px;
+  .va-counter-css-classes-demo {
+    .VbCard {
+      min-width: 240px;
 
-    & > .va-button {
-      margin-bottom: 2.5rem;
+      & > .va-button {
+        margin-bottom: 2.5rem;
+      }
+    }
+
+    .va-counter {
+      margin-bottom: 1.5rem;
     }
   }
-
-  .va-counter {
-    margin-bottom: 1.5rem;
-  }
-}
 </style>
