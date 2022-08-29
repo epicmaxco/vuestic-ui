@@ -2,11 +2,12 @@
   <component
     :is="computedTag"
     class="va-icon"
-    aria-hidden="true"
     :class="computedClass"
     :style="computedStyle"
-    v-bind="computedAttrs"
+    :aria-hidden="ariaHiddenComputed"
     notranslate
+    v-bind="computedAttrs"
+    v-on="keyboardFocusListeners"
   >
     <slot>
       <template v-if="iconConfig.content">
@@ -21,11 +22,17 @@ import { defineComponent, PropType, computed } from 'vue'
 import omit from 'lodash/omit.js'
 
 import { useIcons } from '../../services/icon-config/icon-config'
-import { useComponentPresetProp, useColors, useSize, useSizeProps } from '../../composables'
+import {
+  useComponentPresetProp,
+  useColors,
+  useSize, useSizeProps,
+  useKeyboardFocusClass, useKeyboardFocusClassProps,
+} from '../../composables'
 
 export default defineComponent({
   name: 'VaIcon',
   props: {
+    ...useKeyboardFocusClassProps,
     ...useSizeProps,
     ...useComponentPresetProp,
     name: { type: String, default: '' },
@@ -56,9 +63,12 @@ export default defineComponent({
       return spin === 'counter-clockwise' ? 'va-icon--spin-reverse' : 'va-icon--spin'
     }
 
+    const { keyboardFocusListeners, keyboardFocusClass } = useKeyboardFocusClass(props)
+
     const computedClass = computed(() => [
       iconConfig.value.class,
       getSpinClass(props.spin ?? iconConfig.value.spin),
+      keyboardFocusClass.value,
     ])
 
     const transformStyle = computed(() => {
@@ -80,12 +90,17 @@ export default defineComponent({
       lineHeight: sizeComputed.value,
     }))
 
+    const tabindexComputed = computed(() => attrs.tabindex as number | undefined ?? -1)
+    const ariaHiddenComputed = computed(() => attrs.role !== 'button' || tabindexComputed.value < 0)
+
     return {
       iconConfig,
       computedTag,
       computedAttrs,
       computedClass,
       computedStyle,
+      ariaHiddenComputed,
+      keyboardFocusListeners,
     }
   },
 })
@@ -101,10 +116,6 @@ export default defineComponent({
 
   &[role^="button"][tabindex]:not([tabindex^="-"]) {
     cursor: pointer;
-
-    &:focus {
-      @include focus-outline;
-    }
   }
 
   &#{&} {
@@ -120,6 +131,8 @@ export default defineComponent({
       animation-direction: reverse;
     }
   }
+
+  @include keyboard-focus;
 
   @keyframes va-icon--spin-animation {
     from {

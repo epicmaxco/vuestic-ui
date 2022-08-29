@@ -46,8 +46,8 @@
                 class="va-modal__close"
                 role="button"
                 aria-label="close"
-                aria-hidden="false"
                 tabindex="0"
+                :disable-focus-class="$props.disableFocusClass"
                 @click="cancel"
                 @keydown.space="cancel"
                 @keydown.enter="cancel"
@@ -133,19 +133,16 @@ import {
 } from 'vue'
 
 import {
-  useStateful,
-  useStatefulProps,
-  useStatefulEmits,
-  useColors,
-  useTextColor,
-  useWindow,
-  useDocument,
+  useStateful, useStatefulProps, useStatefulEmits,
+  useColors, useTextColor,
+  useWindow, useDocument,
+  useComponentPresetProp,
+  useKeyboardFocusClassProps,
   useTrapFocus,
   useModalLevel,
 } from '../../composables'
 
 import { VaButton } from '../va-button'
-import { useComponentPresetProp } from '../../composables/useComponentPreset'
 import { VaIcon } from '../va-icon'
 
 const ModalElement = defineComponent({
@@ -169,6 +166,7 @@ export default defineComponent({
     'cancel', 'ok', 'before-open', 'open', 'before-close', 'close', 'click-outside',
   ],
   props: {
+    ...useKeyboardFocusClassProps,
     ...useStatefulProps,
     modelValue: { type: Boolean, default: false },
     attachElement: { type: String, default: 'body' },
@@ -527,10 +525,6 @@ export default defineComponent({
     font-style: normal;
     color: var(--va-secondary);
     z-index: 1;
-
-    &:focus {
-      @include focus-outline;
-    }
   }
 
   &__footer {

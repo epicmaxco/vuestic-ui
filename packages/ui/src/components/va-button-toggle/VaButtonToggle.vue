@@ -1,5 +1,8 @@
 <template>
-  <va-button-group v-bind="buttonGroupPropsComputed">
+  <va-button-group
+    class="va-button-toggle"
+    v-bind="buttonGroupPropsComputed"
+  >
     <va-button
       v-for="option in options"
       :key="option.value"
@@ -96,3 +99,13 @@ export default defineComponent({
   },
 })
 </script>
+
+<style lang="scss">
+@import '../../styles/resources';
+
+.va-button-toggle {
+  .va-button {
+    @include keyboard-focus($radius: 'inherit', $offset: -2px);
+  }
+}
+</style>

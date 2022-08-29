@@ -41,10 +41,10 @@
             <va-button :backgroundOpacity="0.9" pressedBehaviur="opacity" :hoverOpacity="0.4">
               Hover me
             </va-button>
-            <va-button preset="primary" pressedBehaviur="mask" hoverMaskColor="warning" :hoverOpacity="1">
+            <va-button preset="primary" pressedBehavior="mask" :hoverOpacity="0.2">
               Hover me
             </va-button>
-            <va-button preset="secondary" pressedBehaviur="opacity" :hoverOpacity="0.4">
+            <va-button preset="secondary" pressedBehavior="opacity" :hoverOpacity="0.4">
               Hover me
             </va-button>
             <va-button preset="plain" hoverBehaviour="mask" hoverMaskColor="warning" :hoverOpacity="1">

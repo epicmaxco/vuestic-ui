@@ -44,6 +44,7 @@ export default defineComponent({
 
 <style lang="scss">
 @import "variables";
+@import '../../styles/resources';
 
 .va-button-group {
   display: var(--va-button-group-display);
@@ -72,10 +73,8 @@ export default defineComponent({
   .va-button {
     margin: var(--va-button-group-button-margin);
     box-shadow: none;
-  }
 
-  .va-button--focused {
-    outline-offset: -2px;
+    @include keyboard-focus($radius: 'inherit', $offset: -2px);
   }
 
   & > .va-button:last-child {

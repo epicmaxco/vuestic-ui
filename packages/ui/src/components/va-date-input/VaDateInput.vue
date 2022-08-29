@@ -97,17 +97,18 @@ import omit from 'lodash/omit'
 
 import { filterComponentProps, extractComponentProps, extractComponentEmits } from '../../utils/child-props'
 import {
+  useComponentPresetProp,
   useClearable, useClearableEmits, useClearableProps,
   useValidation, useValidationEmits, useValidationProps, ValidationProps,
   useStateful, useStatefulEmits,
   useParsable,
   useFocus, useFocusEmits,
+  useKeyboardFocusClassProps,
 } from '../../composables'
 import { useSyncProp } from '../va-date-picker/hooks/sync-prop'
 import { useRangeModelValueGuard } from './hooks/range-model-value-guard'
 import { useDateParser } from './hooks/input-text-parser'
 import { parseModelValue } from './hooks/model-value-parser'
-import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 import { isRange, isSingleDate, isDates } from '../va-date-picker/utils/date-utils'
 
@@ -133,6 +134,7 @@ export default defineComponent({
   },
 
   props: {
+    ...useKeyboardFocusClassProps,
     ...useClearableProps,
     ...VaInputWrapperProps,
     ...VaDatePickerProps,
@@ -318,6 +320,7 @@ export default defineComponent({
       name: props.icon,
       color: props.color,
       tabindex: iconTabindexComputed.value,
+      disableFocusClass: props.disableFocusClass,
     }))
 
     const computedInputWrapperProps = computed(() => ({

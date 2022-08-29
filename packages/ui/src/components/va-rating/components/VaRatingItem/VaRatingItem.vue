@@ -1,13 +1,15 @@
 <template>
   <div
     ref="rootEl"
-    class="va-rating-item"
     role="button"
+    class="va-rating-item"
+    :class="keyboardFocusClass"
     :tabindex="tabIndexComputed"
     @keyup.enter="onClick"
     @keyup.space="onClick"
     @mousemove="onMouseMove"
     @mouseleave="onMouseLeave"
+    v-on="keyboardFocusListeners"
   >
     <slot :props="{ value: visibleValue, onClick }">
       <va-icon
@@ -26,7 +28,7 @@
 <script lang="ts">
 import { computed, defineComponent, ref, shallowRef, watch } from 'vue'
 
-import { useColors, useSyncProp } from '../../../../composables'
+import { useColors, useSyncProp, useKeyboardFocusClass, useKeyboardFocusClassProps } from '../../../../composables'
 
 import { RatingValue } from '../../types'
 
@@ -38,6 +40,7 @@ export default defineComponent({
   components: { VaIcon },
 
   props: {
+    ...useKeyboardFocusClassProps,
     modelValue: { type: Number, default: 0 },
     icon: { type: String, default: 'star' },
     halfIcon: { type: String, default: 'star_half' },
@@ -101,7 +104,10 @@ export default defineComponent({
 
     watch(hoveredValue, () => emit('hover', hoveredValue.value || RatingValue.EMPTY))
 
+    const { keyboardFocusClass, keyboardFocusListeners } = useKeyboardFocusClass(props)
+
     return {
+      keyboardFocusClass,
       computedColor,
       rootEl,
       onEnter,
@@ -109,6 +115,8 @@ export default defineComponent({
       onMouseMove,
       onMouseLeave,
       visibleValue,
+      keyboardFocusListeners,
+
       computedIconName: computed(() => {
         if (props.halves && visibleValue.value === RatingValue.HALF) {
           return props.halfIcon
@@ -131,9 +139,7 @@ export default defineComponent({
 .va-rating-item {
   display: inline-block;
 
-  &:focus {
-    @include focus-outline();
-  }
+  @include keyboard-focus;
 
   &__wrapper {
     @include normalize-button();
