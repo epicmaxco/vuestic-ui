@@ -52,7 +52,7 @@ export default defineComponent({
   props: {
     ...useFormProps,
     modelValue: { type: [Boolean, Array, String, Object] as PropType<boolean | null | string | number | Record<any, unknown> | unknown[]>, default: null },
-    option: { default: null },
+    option: { type: [String, Boolean] },
     name: { type: String, default: '' },
     label: { type: String, default: '' },
     leftLabel: { type: Boolean, default: false },
