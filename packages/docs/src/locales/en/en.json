@@ -4252,6 +4252,14 @@
       "Color": {
         "title": "Color",
         "text": "You can change color of scrollbar by passing `color` prop."
+      },
+      "Horizontal": {
+        "title": "Horizontal",
+        "text": "You can specify if scroll container has horizontal scroll as well as vertical."
+      },
+      "Size": {
+        "title": "Size",
+        "text": "By default Veustic use `thin` scrollbar width. You can change it to `default` in GlobalConfig if you don't like `thin` size."
       }
     }
   }

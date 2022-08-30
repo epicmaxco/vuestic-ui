@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue'
+import { computed, defineComponent, PropType } from 'vue'
 import { useColors } from '../../composables'
 
 export default defineComponent({
@@ -26,6 +26,11 @@ export default defineComponent({
       type: String,
       default: 'secondary',
     },
+    /** Proxy for scrollbar-width css property. Can be changed in global config. */
+    size: {
+      type: String as PropType<'default' | 'thin' | 'none'>,
+      default: 'thin',
+    },
   },
 
   setup (props) {
@@ -35,6 +40,7 @@ export default defineComponent({
       overflowX: computed(() => props.horizontal ? 'auto' : 'hidden'),
       overflowY: computed(() => props.vertical ? 'auto' : 'hidden'),
       scrollColor: computed(() => getColor(props.color)),
+      scrollbarWidth: computed(() => props.size === 'default' ? 'auto' : props.size),
     }
   },
 })
@@ -50,6 +56,7 @@ export default defineComponent({
     overflow-y: v-bind(overflowY);
     width: 100%;
     height: 100%;
+    scrollbar-width: v-bind(scrollbarWidth);
 
     &__content {
       height: max-content;

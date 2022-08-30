@@ -24,6 +24,18 @@ const config: ApiDocsBlock[] = [
     'Color',
   ),
 
+  ...block.exampleBlock(
+    'scrollContainer.examples.Horizontal.title',
+    'scrollContainer.examples.Horizontal.text',
+    'Horizontal',
+  ),
+
+  ...block.exampleBlock(
+    'scrollContainer.examples.Size.title',
+    'scrollContainer.examples.Size.text',
+    'Size',
+  ),
+
   block.api(VaScrollContainer, apiOptions),
 ]
 

@@ -1,5 +1,5 @@
 <template>
-  <va-scroll-container vertical style="max-height: 300px;">
+  <va-scroll-container vertical size="default" style="max-height: 300px;">
     <va-list>
       <va-list-item v-for="i in 30" :key="i">
         {{ i }}
