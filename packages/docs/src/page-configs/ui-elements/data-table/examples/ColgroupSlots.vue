@@ -57,7 +57,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.table-example--slots {
-  background-color: #f0f0f0;
-}
+  .table-example--slots {
+    background-color: #f0f0f0;
+  }
 </style>

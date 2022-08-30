@@ -11,8 +11,8 @@ module.exports = {
     'selector-pseudo-class-no-unknown': null,
     'value-keyword-case': null,
     'length-zero-no-unit': null,
-    'indentation': [ 2, { baseIndentLevel: 1 } ],
-    'selector-pseudo-element-no-unknown': [true, { "ignorePseudoElements": ["v-deep"] }]
+    indentation: [2, { baseIndentLevel: 1 }],
+    'selector-pseudo-element-no-unknown': [true, { ignorePseudoElements: ['v-deep'] }],
   },
   ignoreFiles: ['dist/**/*'],
 }

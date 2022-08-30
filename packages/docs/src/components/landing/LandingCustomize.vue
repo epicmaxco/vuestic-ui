@@ -442,196 +442,196 @@ export default class Customize extends Vue {
 </script>
 
 <style lang="scss">
-@import "~@/assets/main.scss";
+  @import "~@/assets/main.scss";
 
-.customize {
-  width: 100%;
-  position: relative;
-  padding-top: 8.5rem;
-  padding-bottom: 12rem;
-  background-image: url("../../assets/landing/images/vector-bg.svg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-
-  // sm
-  @include sm(padding-top, 5rem);
-  @include sm(padding-bottom, 6rem);
-
-  &__bg {
-    background: linear-gradient(180.81deg, #182879 0.7%, #5b3c9b 99.3%);
-  }
-
-  &__wrapper {
-    @include wrapper();
-  }
-
-  &__inner {
-    @include row-flex();
-
-    align-items: center;
-  }
-
-  &__title {
-    @include col();
-    @include size(12);
-    @include title-font();
-
-    color: #ffffff;
-    text-align: center;
-  }
-
-  &__subtitle {
-    @include col();
-    @include size(12);
-    @include text-font();
-
-    color: #ffffff;
-    padding-top: 1rem;
-    text-align: center;
+  .customize {
+    width: 100%;
+    position: relative;
+    padding-top: 8.5rem;
+    padding-bottom: 12rem;
+    background-image: url("../../assets/landing/images/vector-bg.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
 
     // sm
-    @include sm(padding-top, 2rem);
-  }
+    @include sm(padding-top, 5rem);
+    @include sm(padding-bottom, 6rem);
 
-  &__content {
-    @include row-flex();
-    @include col();
-    @include size(8);
-    @include shift-left(2);
-
-    margin-top: 3rem;
-    justify-content: center;
-
-    // sm
-    @include size-sm(12);
-    @include shift-sm-left(0);
-    @include sm(margin-top, 2rem);
-
-    &--first {
-      background: #ffffff;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      padding: 2rem;
-      width: 100%;
-      border-radius: 1rem;
-      overflow-y: visible;
-      // xs
-      @include xs(padding, 2rem);
-
-      .table-wrapper {
-        overflow: auto;
-      }
+    &__bg {
+      background: linear-gradient(180.81deg, #182879 0.7%, #5b3c9b 99.3%);
     }
 
-    &--second {
-      background: #ffffff1a;
-      display: flex;
+    &__wrapper {
+      @include wrapper();
+    }
+
+    &__inner {
+      @include row-flex();
+
       align-items: center;
-      flex-direction: column;
-      padding: 1rem;
-      padding-bottom: 1rem;
-      width: 80%;
-      border-radius: 0 0 0.7rem 0.7rem;
     }
 
-    &__link {
-      @include link-font();
+    &__title {
+      @include col();
+      @include size(12);
+      @include title-font();
+
+      color: #ffffff;
+      text-align: center;
+    }
+
+    &__subtitle {
+      @include col();
+      @include size(12);
+      @include text-font();
 
       color: #ffffff;
       padding-top: 1rem;
-      line-height: 1.5rem;
+      text-align: center;
+
+      // sm
+      @include sm(padding-top, 2rem);
     }
-  }
-}
 
-.block {
-  &__components {
-    text-align: center;
-    align-items: center;
-
-    @include row-flex();
-
-    .component {
+    &__content {
+      @include row-flex();
       @include col();
-      @include size(3);
+      @include size(8);
+      @include shift-left(2);
 
-      // lg
-      @include size-lg(6);
-      @include lg(padding-bottom, 1rem);
+      margin-top: 3rem;
+      justify-content: center;
+
       // sm
       @include size-sm(12);
+      @include shift-sm-left(0);
+      @include sm(margin-top, 2rem);
+
+      &--first {
+        background: #ffffff;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        padding: 2rem;
+        width: 100%;
+        border-radius: 1rem;
+        overflow-y: visible;
+        // xs
+        @include xs(padding, 2rem);
+
+        .table-wrapper {
+          overflow: auto;
+        }
+      }
+
+      &--second {
+        background: #ffffff1a;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        padding: 1rem;
+        padding-bottom: 1rem;
+        width: 80%;
+        border-radius: 0 0 0.7rem 0.7rem;
+      }
+
+      &__link {
+        @include link-font();
+
+        color: #ffffff;
+        padding-top: 1rem;
+        line-height: 1.5rem;
+      }
     }
   }
-}
 
-.clipboard {
-  @include text-font();
+  .block {
+    &__components {
+      text-align: center;
+      align-items: center;
 
-  width: fit-content;
-  background-color: #b0e2a7;
-  color: #11380a;
-  padding: 0.5rem 1rem;
-  margin: 0.1rem 0;
-  opacity: 0;
-  transition: opacity 0.5s ease-in;
-  border-radius: 0.2rem;
-}
+      @include row-flex();
 
-.code-wrapper {
-  width: 100%;
-  height: 12rem;
-  padding: 0 4rem;
-  overflow: auto;
-  overflow-x: hidden;
-  cursor: pointer;
+      .component {
+        @include col();
+        @include size(3);
 
-  // sm
-  @include sm(padding, 0 0.5rem);
-
-  &::-webkit-scrollbar {
-    width: 4px;
+        // lg
+        @include size-lg(6);
+        @include lg(padding-bottom, 1rem);
+        // sm
+        @include size-sm(12);
+      }
+    }
   }
 
-  &::-webkit-scrollbar-track {
-    box-shadow: none;
-    border-radius: 10px;
+  .clipboard {
+    @include text-font();
+
+    width: fit-content;
+    background-color: #b0e2a7;
+    color: #11380a;
+    padding: 0.5rem 1rem;
+    margin: 0.1rem 0;
+    opacity: 0;
+    transition: opacity 0.5s ease-in;
+    border-radius: 0.2rem;
   }
 
-  &::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.728);
-    opacity: 0.3;
-    border-radius: 2px;
+  .code-wrapper {
+    width: 100%;
+    height: 12rem;
+    padding: 0 4rem;
+    overflow: auto;
+    overflow-x: hidden;
+    cursor: pointer;
+
+    // sm
+    @include sm(padding, 0 0.5rem);
+
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    &::-webkit-scrollbar-track {
+      box-shadow: none;
+      border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.728);
+      opacity: 0.3;
+      border-radius: 2px;
+    }
+
+    scrollbar-color: white transparent;
+    scrollbar-width: thin;
   }
 
-  scrollbar-color: white transparent;
-  scrollbar-width: thin;
-}
+  .code {
+    @include code-font();
 
-.code {
-  @include code-font();
-
-  color: #ffffff;
-  line-height: 1.4;
-}
-
-.tabs-wrapper {
-  width: 100%;
-}
-
-.tabs {
-  color: #ffffff88;
-
-  &__tab {
-    @include button-font();
-
-    margin-bottom: 1rem;
-    margin-left: 0.51rem;
-    margin-right: 0.51rem;
     color: #ffffff;
+    line-height: 1.4;
   }
 
-  padding-bottom: 1rem;
-}
+  .tabs-wrapper {
+    width: 100%;
+  }
+
+  .tabs {
+    color: #ffffff88;
+
+    &__tab {
+      @include button-font();
+
+      margin-bottom: 1rem;
+      margin-left: 0.51rem;
+      margin-right: 0.51rem;
+      color: #ffffff;
+    }
+
+    padding-bottom: 1rem;
+  }
 </style>
