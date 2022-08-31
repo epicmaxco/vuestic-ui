@@ -2,7 +2,7 @@
   <div class="docs-navigation">
     <va-button
       v-if="!hideShowCodeButton"
-      flat
+      preset="secondary"
       size="small"
       class="docs-navigation__button"
       color="gray"
@@ -13,7 +13,7 @@
     </va-button>
 
     <va-button
-      preset="plain"
+      preset="secondary"
       size="small"
       class="docs-navigation__button"
       color="gray"
@@ -24,7 +24,7 @@
     </va-button>
 
     <va-button
-      preset="plain"
+      preset="secondary"
       size="small"
       class="docs-navigation__button"
       color="gray"
@@ -38,7 +38,7 @@
     <form :action="sandboxDefineUrl" method="POST" target="_blank">
       <input type="hidden" name="parameters" :value="sandboxParams" />
       <va-button
-        preset="plain"
+        preset="secondary"
         type="submit"
         size="small"
         class="docs-navigation__button"
