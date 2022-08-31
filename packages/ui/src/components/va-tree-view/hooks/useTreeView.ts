@@ -71,27 +71,22 @@ const useTreeView: UseTreeViewFunc = (props, emit) => {
 
   const toggleCheckbox = (node: TreeNode, state: boolean) => {
     const stateValue = state === null ? true : state
-    const valueBy = getValue(node)
+    const values = [getValue(node)]
 
-    if (isLeafSelectionComputed.value) {
-      if (node.hasChildren) {
-        const values = [valueBy]
+    if (isLeafSelectionComputed.value && node.hasChildren) {
+      const cb = (childNode: TreeNode) => values.push(getValue(childNode))
 
-        iterateNodes(
-          node.children,
-          (childNode: TreeNode) => values.push(getValue(childNode)),
-        )
-        updateCheckedList(values, stateValue)
-      }
+      iterateNodes(node.children, cb)
     }
 
-    updateCheckedList([valueBy], stateValue)
+    updateCheckedList(values, stateValue)
   }
 
   const createNode: CreateNodeFunc = ({ node, level, children = [], computedFilterMethod }) => {
     const valueBy = getValue(node)
     const matchesFilter = filter.value ? computedFilterMethod.value?.(node, filter.value, textBy.value) : true
     const hasChildren = !!children.length
+    const disabled = getDisabled(node) || false
     let indeterminate = false
     let checked: boolean | null = node.checked || checkedList.value.includes(valueBy) || false
 
@@ -110,11 +105,11 @@ const useTreeView: UseTreeViewFunc = (props, emit) => {
       level,
       checked,
       children,
+      disabled,
       hasChildren,
       matchesFilter,
       indeterminate,
-      disabled: getDisabled(node) || false,
-      expanded: expandAll.value || getExpanded(node) || false,
+      expanded: (!disabled && expandAll.value) || getExpanded(node) || false,
     })
   }
 

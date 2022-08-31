@@ -41,8 +41,18 @@
         expand-all
         selectable
       />
+      <va-tree-view
+        v-model:checked="selectedNodes"
+        :nodes="nodesWithIcons"
+        :color="selectedColor"
+        :selection-type="selectionType"
+        expand-all
+        selectable
+      />
       <br />
       <p>
+        Selected nodes with custom value by property value:
+        <br />
         {{ JSON.stringify(selectedNodesValueBy) }}
       </p>
       <br />
