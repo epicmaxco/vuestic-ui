@@ -18,15 +18,35 @@
   dependencies:
     "@ag-grid-community/core" "~26.2.0"
 
+"@ag-grid-community/client-side-row-model@^28.1.1":
+  version "28.1.1"
+  resolved "https://registry.yarnpkg.com/@ag-grid-community/client-side-row-model/-/client-side-row-model-28.1.1.tgz#ad9f42978199fe6983b93827d34af11f4bf8dcb8"
+  integrity sha512-5lzXsdNzMQjRWYTI9VLn9KjhSyTc6TPBf63CoBWsBxxG5pSRbtKCVsx512SDxiRYZsrf/B/zImVyvHCoTBZ+Dg==
+  dependencies:
+    "@ag-grid-community/core" "~28.1.0"
+
 "@ag-grid-community/core@^26.1.0", "@ag-grid-community/core@~26.2.0":
   version "26.2.1"
   resolved "https://registry.yarnpkg.com/@ag-grid-community/core/-/core-26.2.1.tgz#b0c3478b0df14b3145c7d126b4da34a5f55a44ad"
   integrity sha512-E2e3rZoZ90QtgO320kmlrm7kFbzFkCyrvCWYUQshJJU/UzCqr6DffVAXTaeehPNLzHBybANxWbSbFab9LQLIwQ==
 
+"@ag-grid-community/core@^28.1.1", "@ag-grid-community/core@~28.1.0":
+  version "28.1.1"
+  resolved "https://registry.yarnpkg.com/@ag-grid-community/core/-/core-28.1.1.tgz#b0454ee818dd960d68b3bdd2bfaa80516f054dfe"
+  integrity sha512-0Mrvg1lERglcFd4oQijxvGpECnx1ZX1L/fPlmfxYPGAFMJzIKxfXtF1tL2h20QrntTZSHuDnm3aWkTFB1ybp2A==
+
 "@ag-grid-community/vue3@^26.1.0":
   version "26.2.0"
   resolved "https://registry.yarnpkg.com/@ag-grid-community/vue3/-/vue3-26.2.0.tgz#093ce65f79cf3adcc2351d90a3306069e256aa3b"
   integrity sha512-c+yJGfZ5FYaSpryRcDjjFWr1zqRIC8mU39Ke6ZvRiEN4/ggjfZaKNI+rEK0s/WfNXF4pxyLWpCRaUC8i3SCaig==
+
+"@ag-grid-community/vue3@^28.1.1":
+  version "28.1.1"
+  resolved "https://registry.yarnpkg.com/@ag-grid-community/vue3/-/vue3-28.1.1.tgz#d5878fccb88d2b107ceedbb382b82df584c54417"
+  integrity sha512-uTI3GErkThmWJ/UPGZE2JbttsMbEjG54dTA18EzVuih56kHOKt/drmPmLh9OCwn2hO7R+JykgPdKf9y6gBJVNw==
+  dependencies:
+    "@ag-grid-community/core" "~28.1.0"
+    vue "^3.0.0"
 
 "@algolia/autocomplete-core@1.7.1":
   version "1.7.1"
@@ -19827,7 +19847,7 @@ vue-tsc@^0.38.2:
   dependencies:
     "@volar/vue-typescript" "0.38.2"
 
-vue@*, vue@^3.0.4, vue@^3.2.37:
+vue@*, vue@^3.0.0, vue@^3.0.4, vue@^3.2.37:
   version "3.2.37"
   resolved "https://registry.yarnpkg.com/vue/-/vue-3.2.37.tgz#da220ccb618d78579d25b06c7c21498ca4e5452e"
   integrity sha512-bOKEZxrm8Eh+fveCqS1/NkG/n6aMidsI6hahas7pa0w/l7jkbssJVsRhVDs07IdDq7h9KHswZOgItnwJAgtVtQ==
