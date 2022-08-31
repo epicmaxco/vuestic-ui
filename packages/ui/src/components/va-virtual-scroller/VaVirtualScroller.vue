@@ -1,20 +1,20 @@
 <template>
   <div ref="wrapper" class="va-virtual-scroller">
     <div class="va-virtual-scroller__container" :style="containerStyleComputed">
-      <ul
+      <div
         ref="list"
+        role="list"
         class="va-virtual-scroller__list"
         :class="listClassComputed"
         :style="listStyleComputed"
       >
-        <li
+        <template
           v-for="(item, index) in renderBuffer"
           :key="uniqueKey(item, index)"
-          class="va-virtual-scroller__list-item"
         >
             <slot v-bind="{item, index: renderStartIndex + index}" />
-        </li>
-      </ul>
+        </template>
+      </div>
     </div>
   </div>
 </template>
@@ -22,6 +22,7 @@
 <script lang="ts">
 import { defineComponent, ref, computed } from 'vue'
 import pick from 'lodash/pick.js'
+import isArray from 'lodash/isArray.js'
 
 import { useEvent, useBem } from '../../composables'
 import { useVirtualScrollerSizes, useVirtualScrollerSizesProps } from './useVirtualScrollerSizes'
@@ -35,7 +36,8 @@ export default defineComponent({
     ...useVirtualScrollerSizesProps,
     items: { type: Array, required: true, validator: (v: any[]) => !!v.length },
     bench: { type: Number, default: 10, validator: (v: number) => v >= 0 },
-    key: { type: String, default: '' },
+    trackBy: { type: String, default: '' },
+    disabled: { type: Boolean, default: false },
   },
 
   setup: (props) => {
@@ -44,18 +46,20 @@ export default defineComponent({
       if (!wrapper.value) { return }
       currentListScroll.value = wrapper.value[props.horizontal ? 'scrollLeft' : 'scrollTop']
     }
-    useEvent('scroll', handleScroll, true)
+    !props.disabled && useEvent('scroll', handleScroll, true)
 
     const { list, wrapper, wrapperSize, itemSize } = useVirtualScrollerSizes(props, currentListScroll)
 
-    const uniqueKey = (item: Record<string, unknown>, index: number) => {
-      const customKey = item?.[props.key]
+    const uniqueKey = (item: unknown, index: number) => {
+      if (props.trackBy && item && typeof item === 'object' && !isArray(item)) {
+        const key = (item as Record<string, unknown>)[props.trackBy]
 
-      if (props.key && !customKey) {
-        warn(`[va-virtual-scroller] Key ${props.key} wasn't found in ${item}!`)
+        if (key || key === 0) { return `virtual-scroller-item-${key}` }
+
+        warn(`[va-virtual-scroller] Key ${props.trackBy} wasn't found in ${JSON.stringify(item)}!`)
       }
 
-      return `virtual-scroller-item-${customKey || renderStartIndex.value + index}`
+      return `virtual-scroller-item-${renderStartIndex.value + index}`
     }
 
     // forming items to render
@@ -63,7 +67,9 @@ export default defineComponent({
       return Math.max(0, Math.floor(currentListScroll.value / itemSize.value) - props.bench)
     })
     const renderItemsAmount = computed(() => {
-      return Math.min(props.items.length - renderStartIndex.value, Math.ceil(wrapperSize.value / itemSize.value) + props.bench * 2)
+      return props.disabled
+        ? props.items.length
+        : Math.min(props.items.length - renderStartIndex.value, Math.ceil(wrapperSize.value / itemSize.value) + props.bench * 2)
     })
     const renderEndIndex = computed(() => renderStartIndex.value + renderItemsAmount.value)
     const renderBuffer = computed(() => props.items.slice(renderStartIndex.value, renderEndIndex.value))

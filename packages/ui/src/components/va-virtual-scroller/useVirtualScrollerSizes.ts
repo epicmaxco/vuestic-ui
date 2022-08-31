@@ -8,7 +8,7 @@ export const useVirtualScrollerSizesProps = {
     type: [Number, String] as PropType<string | number>,
     default: 24,
     validator: (v: number | string) => {
-      if (typeof v === 'string') { return (v.endsWith('px') || v.endsWith('rem')) && parseInt(v) > 0 }
+      if (typeof v === 'string') { return (!isNaN(+v) || v.endsWith('px') || v.endsWith('rem')) && parseInt(v) > 0 }
       return v > 0
     },
   },
@@ -37,7 +37,9 @@ export const useVirtualScrollerSizes = (
       currentChild && sizes.push(currentChild[props.horizontal ? 'clientWidth' : 'clientHeight'])
     }
 
-    itemSizeCalculated.value = Math.ceil(sizes.reduce((acc, el) => acc + el) / itemsAmount)
+    itemSizeCalculated.value = itemsAmount
+      ? Math.trunc(sizes.reduce((acc, el) => acc + el, 0) / (itemsAmount - 1))
+      : 0
   }
   onMounted(() => {
     calcAverageItemsSize()
@@ -54,12 +56,22 @@ export const useVirtualScrollerSizes = (
   }
   useResizeObserver([wrapper], handleWrapperResize)
 
+  let oldItemSize = 0
   const itemSize = computed(() => {
     if (typeof props.itemSize === 'string') {
       const sizeParsed = parseInt(props.itemSize)
       return props.itemSize.endsWith('rem') ? sizeParsed * bodyFontSize.value : sizeParsed
     }
-    return Math.max(props.itemSize, itemSizeCalculated.value)
+
+    const result = Math.max(props.itemSize, itemSizeCalculated.value)
+    const diff = Math.abs(((oldItemSize / result) * 100) - 100)
+
+    if (diff > 5 || oldItemSize === 0) {
+      oldItemSize = result
+      return result
+    }
+
+    return oldItemSize
   })
 
   return { list, wrapper, wrapperSize, itemSize }

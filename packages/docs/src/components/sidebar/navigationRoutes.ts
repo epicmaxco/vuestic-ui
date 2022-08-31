@@ -323,6 +323,13 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'toast',
         displayName: 'menu.toast',
       },
+      {
+        name: 'virtual-scroller',
+        displayName: 'menu.virtualScroller',
+        meta: {
+          badge: 'new',
+        },
+      },
       // TODO: Color components not released yet
       // {
       //   category: 'menu.categories.color',
