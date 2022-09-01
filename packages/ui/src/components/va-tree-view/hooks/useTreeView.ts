@@ -38,6 +38,8 @@ type UseTreeViewFunc = (props: ExtractPropTypes<typeof useTreeViewProps>, emit: 
 
 type TreeBuilderFunc = (nodes: TreeNode[], level?: number) => TreeNode[]
 
+type TypeModelValue = (string | number | TreeNode)[]
+
 const useTreeView: UseTreeViewFunc = (props, emit) => {
   const { getColor } = useColors()
   const colorComputed = computed(() => getColor(props.color))
@@ -52,12 +54,10 @@ const useTreeView: UseTreeViewFunc = (props, emit) => {
     getNodeProperty,
   } = useTreeHelpers(props)
   const { nodes, expandAll, filter, filterMethod, textBy, checked, stateful } = toRefs(props)
-  const checkedList = ref(checked.value.length ? checked.value : [])
+  const checkedList = ref<TypeModelValue>(checked.value)
 
-  watch(() => checkedList.value, (newValue) => {
-    if (stateful.value) {
-      emit('update:checked', newValue)
-    }
+  watch(() => checked.value, (newValue) => {
+    checkedList.value = newValue
   })
 
   const updateCheckedList = (values: (string | number | TreeNode)[], state: boolean) => {
@@ -66,6 +66,10 @@ const useTreeView: UseTreeViewFunc = (props, emit) => {
         .filter((value, idx, self) => self.indexOf(value) === idx)
     } else {
       checkedList.value = checkedList.value.filter(v => !values.includes(v))
+    }
+
+    if (stateful.value) {
+      emit('update:checked', checkedList.value)
     }
   }
 

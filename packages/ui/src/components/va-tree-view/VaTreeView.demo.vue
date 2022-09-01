@@ -217,10 +217,14 @@ export default {
               { id: 4, label: 'Item' },
             ],
           },
+          {
+            id: 5,
+            label: 'Subcategory',
+          },
         ],
       },
       {
-        id: 5,
+        id: 6,
         label: 'Item',
         icon: 'mail',
         iconColor: 'var(--va-warning)',
