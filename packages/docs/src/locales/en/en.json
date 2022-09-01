@@ -4312,27 +4312,27 @@
   },
   "virtualScroller": {
     "title": "Virtual Scroller",
-    "summaryText": "`va-virtual-scroller` component allows you to use long lists without need to render every list child element but only ones visible depending on the current state of scroll.",
+    "summaryText": "The `va-virtual-scroller` component allows you to use long lists without need to render every list child element but only visible ones depending on the current state of the scroll.",
     "examples": {
       "default": {
         "title": "Default",
         "text": ""
       },
       "horizontal": {
-        "title": "Smooth scrolling",
-        "text": "`horizontal` prop allows you to change component's orientation."
+        "title": "Horizontal",
+        "text": "The `horizontal` prop allows you to change component's orientation."
       },
       "bench": {
         "title": "Bench",
-        "text": "`bench` prop allows you to make scrolling smooth via rendering additional but not visible items at the start-end of the list. For example, `bench` prop with value `10` will render additional ~10 item before visible list start and ~10 after visible list end."
+        "text": "The `bench` prop allows you to make scrolling smooth by rendering additional but not visible items at the start or end of the list. For example, `bench` prop with value `10` will render additional ~10 items before the visible list start and ~10 after the visible list end."
       },
       "customKey": {
         "title": "Custom Key",
-        "text": "`trackBy` prop allows you to specify the key name for list items rendering."
+        "text": "The `trackBy` prop allows you to specify the key name for list items rendering."
       },
       "itemSize": {
         "title": "Item Size",
-        "text": "`itemSize` prop allows you to specify the list item size (width or height - depends on `horizontal` prop value). We are recalculating average items size ourselves on every scroll event and max value (`itemSize` or calculated one) will be used."
+        "text": "The `itemSize` prop allows you to specify the list item size (width or height - depends on `horizontal` prop value). The component is recalculating average item's size ourselves on every scroll event and max value (`itemSize` or calculated one) will be used."
       },
       "differentContent": {
         "title": "Any list items",

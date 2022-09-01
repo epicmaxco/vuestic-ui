@@ -77,7 +77,7 @@
 
 <script>
 import { VaVirtualScroller } from './'
-import { VaBadge, VaButton } from '@/components'
+import { VaBadge, VaButton } from '../'
 
 export default {
   components: {

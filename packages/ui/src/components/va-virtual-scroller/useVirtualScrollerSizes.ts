@@ -6,10 +6,10 @@ export const useVirtualScrollerSizesProps = {
   horizontal: { type: Boolean, default: false },
   itemSize: {
     type: [Number, String] as PropType<string | number>,
-    default: 24,
+    default: 0,
     validator: (v: number | string) => {
-      if (typeof v === 'string') { return (!isNaN(+v) || v.endsWith('px') || v.endsWith('rem')) && parseInt(v) > 0 }
-      return v > 0
+      if (typeof v === 'string') { return (!isNaN(+v) || v.endsWith('px') || v.endsWith('rem')) && parseInt(v) >= 0 }
+      return v >= 0
     },
   },
 }
@@ -21,9 +21,9 @@ export const useVirtualScrollerSizes = (
   const wrapper = shallowRef<HTMLElement>()
   const list = shallowRef<HTMLElement>()
 
-  const itemSizeCalculated = ref<number>(0)
-  const wrapperSize = ref<number>(0)
-  const bodyFontSize = ref<number>(16)
+  const itemSizeCalculated = ref(0)
+  const wrapperSize = ref(0)
+  const bodyFontSize = ref(16)
 
   const calcAverageItemsSize = () => {
     if (!list.value) { return }
@@ -63,7 +63,7 @@ export const useVirtualScrollerSizes = (
       return props.itemSize.endsWith('rem') ? sizeParsed * bodyFontSize.value : sizeParsed
     }
 
-    const result = Math.max(props.itemSize, itemSizeCalculated.value)
+    const result = Math.max(props.itemSize, itemSizeCalculated.value, 1)
     const diff = Math.abs(((oldItemSize / result) * 100) - 100)
 
     if (diff > 5 || oldItemSize === 0) {

@@ -46,7 +46,7 @@ export default defineComponent({
       if (!wrapper.value) { return }
       currentListScroll.value = wrapper.value[props.horizontal ? 'scrollLeft' : 'scrollTop']
     }
-    !props.disabled && useEvent('scroll', handleScroll, true)
+    if (!props.disabled) { useEvent('scroll', handleScroll, true) }
 
     const { list, wrapper, wrapperSize, itemSize } = useVirtualScrollerSizes(props, currentListScroll)
 

@@ -11,10 +11,10 @@
 </template>
 
 <script>
-import { hugeObjectsArray } from './Default'
-
 export default {
   data: () => {
+    const hugeArrayBase = new Array(10000)
+    const hugeObjectsArray = hugeArrayBase.fill(null).map((el, index) => ({ value: index }))
     return { hugeObjectsArray }
   },
 }

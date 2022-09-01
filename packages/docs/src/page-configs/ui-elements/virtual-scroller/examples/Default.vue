@@ -9,12 +9,10 @@
 </template>
 
 <script>
-const hugeArrayBase = new Array(10000)
-export const hugeArray = hugeArrayBase.fill(null).map((_, index) => index + 1)
-export const hugeObjectsArray = hugeArrayBase.fill(null).map((el, index) => ({ value: index }))
-
 export default {
   data: () => {
+    const hugeArrayBase = new Array(10000)
+    const hugeArray = hugeArrayBase.fill(null).map((_, index) => index + 1)
     return { hugeArray }
   },
 }
