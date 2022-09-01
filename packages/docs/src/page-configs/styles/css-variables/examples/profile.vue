@@ -16,10 +16,10 @@
         </div>
 
         <va-card-action class="d-flex pt-2">
-          <va-button flat color="white" style="margin-left: -0.5rem;">Follow</va-button>
+          <va-button preset="secondary" color="white" style="margin-left: -0.5rem;">Follow</va-button>
           <va-spacer />
-          <va-button flat color="white" icon="message"></va-button>
-          <va-button flat color="white" icon="play_arrow"></va-button>
+          <va-button preset="secondary" color="white" icon="message"></va-button>
+          <va-button preset="secondary" color="white" icon="play_arrow"></va-button>
         </va-card-action>
       </div>
     </va-card-content>
