@@ -20,7 +20,7 @@
               class="ApiDocs__table__row"
             >
               <td>
-                <div class="d-flex align--center">
+                <div class="d-flex align-center">
                   <strong>{{ apiPropOption.name }}</strong>
                   <va-badge  v-if="apiPropOption.required" class="ml-2" text="required" color="primary" />
                 </div>
@@ -58,7 +58,7 @@
               class="ApiDocs__table__row"
             >
               <td>
-                <div class="d-flex align--center">
+                <div class="d-flex align-center">
                   <strong>{{ apiEventOption.name }}</strong>
                   <va-badge class="ml-2" color="info" v-if="apiEventOption.isDOMEvent" text="native" />
                 </div>

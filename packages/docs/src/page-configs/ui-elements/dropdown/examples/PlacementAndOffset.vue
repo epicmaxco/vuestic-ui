@@ -7,7 +7,7 @@
       </tr>
       <tr>
         <td colspan="2" style="padding: 4rem;">
-          <div class="d-flex flex-direction--column align--center">
+          <div class="d-flex flex-direction-column align-center">
             <va-dropdown
               :model-value="true"
               :placement="placement"
