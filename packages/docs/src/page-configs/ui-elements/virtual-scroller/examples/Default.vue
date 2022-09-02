@@ -11,8 +11,7 @@
 <script>
 export default {
   data: () => {
-    const hugeArrayBase = new Array(10000)
-    const hugeArray = hugeArrayBase.fill(null).map((_, index) => index + 1)
+    const hugeArray = new Array(10000).fill(null).map((_, index) => index + 1)
     return { hugeArray }
   },
 }

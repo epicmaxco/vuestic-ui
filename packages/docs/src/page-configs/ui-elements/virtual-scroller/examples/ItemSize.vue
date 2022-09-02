@@ -13,8 +13,7 @@
 <script>
 export default {
   data: () => {
-    const hugeArrayBase = new Array(10000)
-    const hugeObjectsArray = hugeArrayBase.fill(null).map((el, index) => ({ value: index }))
+    const hugeObjectsArray = new Array(10000).fill(null).map((el, index) => ({ value: index }))
     return { hugeObjectsArray }
   },
 }
