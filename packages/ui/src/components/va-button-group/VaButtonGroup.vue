@@ -11,7 +11,7 @@ import { defineComponent, computed } from 'vue'
 import { extractComponentProps } from '../../utils/child-props'
 import omit from 'lodash/omit.js'
 
-import { useBem, useDeprecatedProps, useComponentPresetProp, useTextColor, useColors } from '../../composables'
+import { useBem, useDeprecatedProps, useComponentPresetProp } from '../../composables'
 
 import { VaConfig } from '../va-config'
 import { VaButton } from '../va-button'
@@ -26,38 +26,18 @@ export default defineComponent({
     ...useComponentPresetProp,
   },
 
-  setup (props) {
-    const { getColor, getGradientBackground } = useColors()
-    const colorComputed = computed(() => getColor(props.color))
-    const isTransparentBackground = computed(() => Boolean(props.outline || props.flat))
-    const { textColorComputed } = useTextColor(colorComputed, isTransparentBackground)
+  setup: (props) => {
+    // TODO(1.6.0): Remove deprecated props
+    useDeprecatedProps(['flat', 'outline'])
 
-    const computedBackground = computed(() => {
-      if (props.outline || props.flat) { return '' }
-
-      return props.gradient ? getGradientBackground(colorComputed.value) : colorComputed.value
-    })
-
-    const computedStyle = computed(() => {
-      const backgroundProperty = props.gradient ? 'background-image' : 'background'
-
-      return {
-        [backgroundProperty]: computedBackground.value,
-        color: textColorComputed.value,
-      }
-    })
-
-    const buttonConfig = computed(() => ({
-      VaButton: {
-        ...props,
-        color: props.gradient ? '#00000000' : props.color,
-        textColor: textColorComputed.value,
-      },
+    const buttonConfig = computed(() => ({ VaButton: { ...props } }))
+    const computedClass = useBem('va-button-group', () => ({
+      square: !props.round,
+      small: props.size === 'small',
+      large: props.size === 'large',
     }))
 
-    const computedClass = computed(() => ({ 'va-button-group_square': !props.rounded }))
-
-    return { buttonConfig, computedClass, computedStyle }
+    return { buttonConfig, computedClass }
   },
 })
 </script>
