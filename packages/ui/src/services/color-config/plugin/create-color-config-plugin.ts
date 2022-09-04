@@ -3,6 +3,7 @@ import { GlobalConfig } from '../../global-config/global-config'
 import { isServer } from '../../../utils/ssr-utils'
 import { getGlobalProperty } from '../../../vuestic-plugin/utils'
 import { cssVariableName } from '../utils'
+import { getTextColor } from '../color-functions'
 
 export const setCSSVariable = (name: string, value: string, root: HTMLElement) => {
   root.style.setProperty(cssVariableName(name), value)
@@ -28,6 +29,10 @@ export const createColorConfigPlugin = (app: App) => {
     const colorNames = Object.keys(newValue)
     colorNames.forEach((key) => {
       setCSSVariable(key, newValue[key], root)
+    })
+
+    colorNames.forEach((key) => {
+      setCSSVariable(`on-${key}`, getTextColor(newValue[key], newValue.textDark, newValue.textLight), root)
     })
   }
 

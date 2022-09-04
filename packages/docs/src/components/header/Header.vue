@@ -22,22 +22,21 @@
       <algolia-search />
     </div>
     <div class="header__nav">
-      <div class="header__links">
-        <va-button
-            v-for="(link, index) in links"
-            :key="index"
-            preset="secondary"
-            class="header__links__button ml-2"
-            :to="link.to"
-            :href="link.url"
-            :target="link.target"
-          >
-            <va-icon class="button__icon" :class="link.icon" />
-            <span class="button__text">{{ link.text }}</span>
-          </va-button>
-      </div>
+
       <div class="header__prefences sm-hidden flex">
-       <color-dropdown class="mr-1" />
+        <va-button
+          v-for="(link, index) in links"
+          :key="index"
+          preset="secondary"
+          class="mr-1"
+          :to="link.to"
+          :href="link.url"
+          :target="link.target"
+        >
+          <va-icon class="button__icon" :class="link.icon" />
+          <span class="button__text">{{ link.text }}</span>
+        </va-button>
+        <color-dropdown class="mr-1" />
         <language-dropdown class="mr-3" />
         <version-dropdown />
       </div>
@@ -63,14 +62,14 @@ const PropsMixin = Vue.with(Props)
 @Options({
   name: 'DocsHeader',
   components: {
-  HeaderSelector,
-  LanguageDropdown,
-  ColorDropdown,
-  VersionDropdown,
-  VuesticLogo,
-  AlgoliaSearch,
+    HeaderSelector,
+    LanguageDropdown,
+    ColorDropdown,
+    VersionDropdown,
+    VuesticLogo,
+    AlgoliaSearch,
   },
-  })
+})
 export default class Header extends mixins(PropsMixin) {
   get locale () {
     return this.$root?.$i18n?.locale

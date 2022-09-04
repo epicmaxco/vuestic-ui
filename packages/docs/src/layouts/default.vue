@@ -52,10 +52,10 @@ import { getSortedNavigationRoutes } from '../helpers/NavigationRoutesHelper'
 @Options({
   name: 'DocsDefaultLayout',
   components: {
-  Header,
-  Sidebar,
+    Header,
+    Sidebar,
   },
-  })
+})
 export default class DocsLayout extends Vue {
   data () {
     return {
@@ -182,7 +182,7 @@ export default class DocsLayout extends Vue {
 
   html {
     font-family: $font-family-sans-serif;
-    // color: var(--va-dark);
+    color: var(--va-on-background-primary);
     font-size: $font-size-root;
   }
 

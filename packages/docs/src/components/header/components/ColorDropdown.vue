@@ -2,7 +2,7 @@
   <div class="color-dropdown">
     <va-button-dropdown
       class="color-dropdown__icon"
-      preset="plain"
+      preset="secondary"
       label="Colors"
       :offset="[0, 25]"
     >

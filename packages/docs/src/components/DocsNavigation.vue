@@ -5,7 +5,7 @@
       preset="secondary"
       size="small"
       class="docs-navigation__button"
-      color="gray"
+      color="secondary"
       @click="showCodeComputed = !showCodeComputed"
     >
       <va-icon class="docs-navigation__button__icon" name="fa4-code" size="13px" />
