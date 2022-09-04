@@ -104,136 +104,136 @@ export default class Header extends mixins(PropsMixin) {
 </script>
 
 <style lang="scss" scoped>
-@import "~vuestic-ui/src/styles/resources";
+  @import "~vuestic-ui/src/styles/resources";
 
-.header {
-  width: 100%;
-  height: 4rem;
-  box-shadow: 0 2px 8px rgba(122, 139, 173, 0.2);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 calc(1.2rem + 4px);
+  .header {
+    width: 100%;
+    height: 4rem;
+    box-shadow: 0 2px 8px rgba(122, 139, 173, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 calc(1.2rem + 4px);
 
-  @include media-breakpoint-down(sm) {
-    .sm-hidden {
-      display: none;
-    }
+    @include media-breakpoint-down(sm) {
+      .sm-hidden {
+        display: none;
+      }
 
-    .header__logo__wrapper {
-      margin-right: 0.25rem;
-    }
+      .header__logo__wrapper {
+        margin-right: 0.25rem;
+      }
 
-    .header__nav {
-      margin-left: 0.5rem;
-    }
+      .header__nav {
+        margin-left: 0.5rem;
+      }
 
-    .header__links__button {
-      --va-button-content-px: 0.25rem;
+      .header__links__button {
+        --va-button-content-px: 0.25rem;
 
-      margin-right: 0;
-      margin-left: 0.25rem;
+        margin-right: 0;
+        margin-left: 0.25rem;
+      }
+
+      &__links {
+        justify-content: flex-end !important;
+
+        @media screen and (max-width: 479px) {
+          justify-content: center !important;
+        }
+      }
+
+      &__prefences {
+        flex: 1 1 !important;
+        justify-content: space-between;
+
+        .language-dropdown {
+          display: flex;
+          justify-content: flex-end;
+        }
+
+        & .va-dropdown__anchor,
+        .color-dropdown {
+          display: flex;
+          justify-content: center;
+        }
+      }
     }
 
     &__links {
-      justify-content: flex-end !important;
+      display: flex;
 
-      @media screen and (max-width: 479px) {
-        justify-content: center !important;
+      &__button {
+        font-weight: 600;
+        margin-right: 1rem;
+
+        --va-button-content-px: 1rem;
+
+        .button__text {
+          margin-left: 0.375rem;
+        }
+
+        @media screen and (max-width: 1209px) {
+          .button__text {
+            display: none;
+          }
+        }
       }
+    }
+
+    &__logo {
+      display: flex;
+      align-items: center;
+      flex-grow: 1;
+
+      &__wrapper {
+        display: flex;
+        margin-right: 1.75rem;
+
+        &__selector {
+          flex-shrink: 0;
+        }
+
+        &__image {
+          flex-shrink: 0;
+
+          @media screen and (max-width: 945px) {
+            display: none;
+          }
+
+          @include media-breakpoint-down(sm) {
+            display: block;
+          }
+
+          @media screen and (max-width: 479px) {
+            display: none;
+          }
+
+          max-width: 162px;
+          min-width: 162px;
+          cursor: pointer;
+        }
+      }
+    }
+
+    &__nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     &__prefences {
-      flex: 1 1 !important;
-      justify-content: space-between;
-
-      .language-dropdown {
-        display: flex;
-        justify-content: flex-end;
-      }
-
-      & .va-dropdown__anchor,
-      .color-dropdown {
-        display: flex;
-        justify-content: center;
-      }
-    }
-  }
-
-  &__links {
-    display: flex;
-
-    &__button {
-      font-weight: 600;
-      margin-right: 1rem;
-
-      --va-button-content-px: 1rem;
-
-      .button__text {
-        margin-left: 0.375rem;
-      }
-
-      @media screen and (max-width: 1209px) {
-        .button__text {
-          display: none;
-        }
-      }
-    }
-  }
-
-  &__logo {
-    display: flex;
-    align-items: center;
-    flex-grow: 1;
-
-    &__wrapper {
       display: flex;
-      margin-right: 1.75rem;
+      align-items: center;
+      font-weight: $font-weight-bold;
 
-      &__selector {
-        flex-shrink: 0;
+      &__dropdown {
+        max-width: 100px;
       }
 
-      &__image {
-        flex-shrink: 0;
-
-        @media screen and (max-width: 945px) {
-          display: none;
-        }
-
-        @include media-breakpoint-down(sm) {
-          display: block;
-        }
-
-        @media screen and (max-width: 479px) {
-          display: none;
-        }
-
-        max-width: 162px;
-        min-width: 162px;
-        cursor: pointer;
+      &__option {
+        padding: 5px;
       }
     }
   }
-
-  &__nav {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  &__prefences {
-    display: flex;
-    align-items: center;
-    font-weight: $font-weight-bold;
-
-    &__dropdown {
-      max-width: 100px;
-    }
-
-    &__option {
-      padding: 5px;
-    }
-  }
-}
 </style>

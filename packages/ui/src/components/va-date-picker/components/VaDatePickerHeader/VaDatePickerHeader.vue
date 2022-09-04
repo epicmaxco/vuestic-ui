@@ -94,15 +94,15 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-.va-date-picker {
-  &__header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  .va-date-picker {
+    &__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
 
-    &__text {
-      color: var(--va-dark);
+      &__text {
+        color: var(--va-dark);
+      }
     }
   }
-}
 </style>

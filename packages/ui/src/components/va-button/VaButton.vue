@@ -203,222 +203,222 @@ export default defineComponent({
 </script>
 
 <style lang='scss'>
-@import 'variables';
-@import '../../styles/resources';
+  @import 'variables';
+  @import '../../styles/resources';
 
-.va-button {
-  position: relative;
-  margin: var(--va-button-margin);
-  padding: var(--va-button-padding);
-  display: var(--va-button-display);
-  justify-content: var(--va-button-justify-content);
-  align-items: var(--va-button-align-items);
-  border-width: var(--va-button-border-width);
-  border-color: var(--va-button-border-color);
-  border-style: var(--va-button-border-style);
-  background-image: var(--va-button-background-image);
-  box-shadow: var(--va-button-box-shadow);
-  font-family: var(--va-font-family);
-  font-weight: var(--va-button-font-weight);
-  text-decoration: none;
-  text-transform: initial;
-  transition: var(--va-button-transition);
-  box-sizing: border-box;
-  cursor: var(--va-button-cursor);
+  .va-button {
+    position: relative;
+    margin: var(--va-button-margin);
+    padding: var(--va-button-padding);
+    display: var(--va-button-display);
+    justify-content: var(--va-button-justify-content);
+    align-items: var(--va-button-align-items);
+    border-width: var(--va-button-border-width);
+    border-color: var(--va-button-border-color);
+    border-style: var(--va-button-border-style);
+    background-image: var(--va-button-background-image);
+    box-shadow: var(--va-button-box-shadow);
+    font-family: var(--va-font-family);
+    font-weight: var(--va-button-font-weight);
+    text-decoration: none;
+    text-transform: initial;
+    transition: var(--va-button-transition);
+    box-sizing: border-box;
+    cursor: var(--va-button-cursor);
 
-  &__content {
-    height: 100%;
-    display: flex;
-    align-items: center;
+    &__content {
+      height: 100%;
+      display: flex;
+      align-items: center;
 
-    &__title,
-    &__icon {
+      &__title,
+      &__icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: auto;
+        white-space: nowrap;
+      }
+
+      &--loading {
+        opacity: 0;
+      }
+    }
+
+    &--small {
+      font-size: var(--va-button-sm-font-size);
+      line-height: var(--va-button-sm-line-height);
+      border-radius: var(--va-button-sm-border-radius);
+      letter-spacing: var(--va-button-sm-letter-spacing);
+      min-height: var(--va-button-sm-size);
+      min-width: var(--va-button-sm-size);
+
+      .va-button__content {
+        padding: var(--va-button-sm-content-py) var(--va-button-sm-content-px);
+      }
+
+      &.va-button--bordered {
+        line-height: calc(var(--va-button-sm-line-height) - 2 * var(--va-button-bordered-border));
+      }
+
+      .va-button__left-icon,
+      .va-button__right-icon {
+        // until we haven't size config for icons
+        font-size: var(--va-button-sm-line-height) !important;
+      }
+
+      .va-button__left-icon {
+        margin-right: var(--va-button-sm-icons-spacing);
+      }
+
+      .va-button__right-icon {
+        margin-left: var(--va-button-sm-icons-spacing);
+      }
+
+      &.va-button--icon-only {
+        width: var(--va-button-sm-size);
+        height: var(--va-button-sm-size);
+
+        & .va-button__content {
+          padding-right: var(--va-button-sm-content-px);
+          padding-left: var(--va-button-sm-content-px);
+        }
+      }
+    }
+
+    &--normal {
+      font-size: var(--va-button-font-size);
+      line-height: var(--va-button-line-height);
+      border-radius: var(--va-button-border-radius);
+      letter-spacing: var(--va-button-letter-spacing);
+      min-height: var(--va-button-size);
+      min-width: var(--va-button-size);
+
+      .va-button__content {
+        padding: var(--va-button-content-py) var(--va-button-content-px);
+        line-height: var(--va-button-line-height);
+      }
+
+      &.va-button--icon-only {
+        width: var(--va-button-size);
+        height: var(--va-button-size);
+
+        & .va-button__content {
+          padding-right: var(--va-button-content-px);
+          padding-left: var(--va-button-content-px);
+        }
+      }
+
+      &.va-button--bordered {
+        & .va-button__content {
+          line-height: calc(var(--va-button-line-height) - 2 * var(--va-button-bordered-border));
+        }
+      }
+
+      .va-button__left-icon,
+      .va-button__right-icon {
+        // until we haven't size config for icons
+        font-size: var(--va-button-line-height) !important;
+      }
+
+      .va-button__left-icon {
+        margin-right: var(--va-button-icons-spacing);
+      }
+
+      .va-button__right-icon {
+        margin-left: var(--va-button-icons-spacing);
+      }
+    }
+
+    &--large {
+      font-size: var(--va-button-lg-font-size);
+      line-height: var(--va-button-lg-line-height);
+      border-radius: var(--va-button-lg-border-radius);
+      letter-spacing: var(--va-button-lg-letter-spacing);
+      min-height: var(--va-button-lg-size);
+      min-width: var(--va-button-lg-size);
+
+      .va-button__content {
+        padding: var(--va-button-lg-content-py) var(--va-button-lg-content-px);
+      }
+
+      &.va-button--icon-only {
+        width: var(--va-button-lg-size);
+        height: var(--va-button-lg-size);
+
+        & .va-button__content {
+          padding-right: var(--va-button-lg-content-px);
+          padding-left: var(--va-button-lg-content-px);
+        }
+      }
+
+      &.va-button--bordered {
+        line-height: calc(var(--va-button-lg-line-height) - 2 * var(--va-button-bordered-border));
+      }
+
+      .va-button__left-icon,
+      .va-button__right-icon {
+        // until we haven't size config for icons
+        font-size: var(--va-button-lg-line-height) !important;
+      }
+
+      .va-button__left-icon {
+        margin-right: var(--va-button-lg-icons-spacing);
+      }
+
+      .va-button__right-icon {
+        margin-left: var(--va-button-lg-icons-spacing);
+      }
+    }
+
+    &--plain {
+      min-width: auto;
+      min-height: auto;
+
+      & .va-button__content {
+        padding: 0;
+      }
+    }
+
+    &--round {
+      border-radius: 999px;
+    }
+
+    &--bordered {
+      border-width: var(--va-button-bordered-border);
+      border-style: var(--va-button-bordered-style);
+    }
+
+    &.va-button--disabled {
+      @include va-disabled;
+    }
+
+    &--icon-only {
+      .va-button__left-icon,
+      .va-button__right-icon {
+        margin-left: 0;
+        margin-right: 0;
+      }
+    }
+
+    @include keyboard-focus('inherit');
+
+    &--loading {
+      pointer-events: none;
+    }
+
+    &--block {
+      display: flex;
+      min-width: 100%;
+    }
+
+    &__loader {
+      position: absolute;
+      width: 100%;
+      height: 100%;
       display: flex;
       justify-content: center;
       align-items: center;
-      margin: auto;
-      white-space: nowrap;
-    }
-
-    &--loading {
-      opacity: 0;
     }
   }
-
-  &--small {
-    font-size: var(--va-button-sm-font-size);
-    line-height: var(--va-button-sm-line-height);
-    border-radius: var(--va-button-sm-border-radius);
-    letter-spacing: var(--va-button-sm-letter-spacing);
-    min-height: var(--va-button-sm-size);
-    min-width: var(--va-button-sm-size);
-
-    .va-button__content {
-      padding: var(--va-button-sm-content-py) var(--va-button-sm-content-px);
-    }
-
-    &.va-button--bordered {
-      line-height: calc(var(--va-button-sm-line-height) - 2 * var(--va-button-bordered-border));
-    }
-
-    .va-button__left-icon,
-    .va-button__right-icon {
-      // until we haven't size config for icons
-      font-size: var(--va-button-sm-line-height) !important;
-    }
-
-    .va-button__left-icon {
-      margin-right: var(--va-button-sm-icons-spacing);
-    }
-
-    .va-button__right-icon {
-      margin-left: var(--va-button-sm-icons-spacing);
-    }
-
-    &.va-button--icon-only {
-      width: var(--va-button-sm-size);
-      height: var(--va-button-sm-size);
-
-      & .va-button__content {
-        padding-right: var(--va-button-sm-content-px);
-        padding-left: var(--va-button-sm-content-px);
-      }
-    }
-  }
-
-  &--normal {
-    font-size: var(--va-button-font-size);
-    line-height: var(--va-button-line-height);
-    border-radius: var(--va-button-border-radius);
-    letter-spacing: var(--va-button-letter-spacing);
-    min-height: var(--va-button-size);
-    min-width: var(--va-button-size);
-
-    .va-button__content {
-      padding: var(--va-button-content-py) var(--va-button-content-px);
-      line-height: var(--va-button-line-height);
-    }
-
-    &.va-button--icon-only {
-      width: var(--va-button-size);
-      height: var(--va-button-size);
-
-      & .va-button__content {
-        padding-right: var(--va-button-content-px);
-        padding-left: var(--va-button-content-px);
-      }
-    }
-
-    &.va-button--bordered {
-      & .va-button__content {
-        line-height: calc(var(--va-button-line-height) - 2 * var(--va-button-bordered-border));
-      }
-    }
-
-    .va-button__left-icon,
-    .va-button__right-icon {
-      // until we haven't size config for icons
-      font-size: var(--va-button-line-height) !important;
-    }
-
-    .va-button__left-icon {
-      margin-right: var(--va-button-icons-spacing);
-    }
-
-    .va-button__right-icon {
-      margin-left: var(--va-button-icons-spacing);
-    }
-  }
-
-  &--large {
-    font-size: var(--va-button-lg-font-size);
-    line-height: var(--va-button-lg-line-height);
-    border-radius: var(--va-button-lg-border-radius);
-    letter-spacing: var(--va-button-lg-letter-spacing);
-    min-height: var(--va-button-lg-size);
-    min-width: var(--va-button-lg-size);
-
-    .va-button__content {
-      padding: var(--va-button-lg-content-py) var(--va-button-lg-content-px);
-    }
-
-    &.va-button--icon-only {
-      width: var(--va-button-lg-size);
-      height: var(--va-button-lg-size);
-
-      & .va-button__content {
-        padding-right: var(--va-button-lg-content-px);
-        padding-left: var(--va-button-lg-content-px);
-      }
-    }
-
-    &.va-button--bordered {
-      line-height: calc(var(--va-button-lg-line-height) - 2 * var(--va-button-bordered-border));
-    }
-
-    .va-button__left-icon,
-    .va-button__right-icon {
-      // until we haven't size config for icons
-      font-size: var(--va-button-lg-line-height) !important;
-    }
-
-    .va-button__left-icon {
-      margin-right: var(--va-button-lg-icons-spacing);
-    }
-
-    .va-button__right-icon {
-      margin-left: var(--va-button-lg-icons-spacing);
-    }
-  }
-
-  &--plain {
-    min-width: auto;
-    min-height: auto;
-
-    & .va-button__content {
-      padding: 0;
-    }
-  }
-
-  &--round {
-    border-radius: 999px;
-  }
-
-  &--bordered {
-    border-width: var(--va-button-bordered-border);
-    border-style: var(--va-button-bordered-style);
-  }
-
-  &.va-button--disabled {
-    @include va-disabled;
-  }
-
-  &--icon-only {
-    .va-button__left-icon,
-    .va-button__right-icon {
-      margin-left: 0;
-      margin-right: 0;
-    }
-  }
-
-  @include keyboard-focus('inherit');
-
-  &--loading {
-    pointer-events: none;
-  }
-
-  &--block {
-    display: flex;
-    min-width: 100%;
-  }
-
-  &__loader {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-}
 </style>

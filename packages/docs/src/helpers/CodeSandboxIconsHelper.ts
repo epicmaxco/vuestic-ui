@@ -1,4 +1,3 @@
-
 export const iconsStyles = `
   <!-- Font Awesome 5 -->
   <link
@@ -46,9 +45,7 @@ export const iconsConfig = `
   const app = createApp(App)
     .use(createVuestic({
       config: {
-        {
-          icons: createIconsConfig({ fonts }),
-        }
+        icons: createIconsConfig({ fonts }),
       }
     }))
 

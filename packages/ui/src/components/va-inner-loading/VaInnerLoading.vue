@@ -44,23 +44,23 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "variables";
+  @import "variables";
 
-.inner-loading {
-  position: var(--inner-loading-position);
-  min-width: var(--inner-loading-min-width);
-  width: var(--inner-loading-width);
-  font-family: var(--va-font-family);
+  .inner-loading {
+    position: var(--inner-loading-position);
+    min-width: var(--inner-loading-min-width);
+    width: var(--inner-loading-width);
+    font-family: var(--va-font-family);
 
-  &__overlay {
-    display: var(--inner-loading-overlay-display);
-    align-items: var(--inner-loading-overlay-align-items);
-    justify-content: var(--inner-loading-overlay-justify-content);
-    position: var(--inner-loading-overlay-position);
-    top: var(--inner-loading-overlay-top);
-    bottom: var(--inner-loading-overlay-bottom);
-    width: var(--inner-loading-overlay-width);
-    background: var(--inner-loading-overlay-background);
+    &__overlay {
+      display: var(--inner-loading-overlay-display);
+      align-items: var(--inner-loading-overlay-align-items);
+      justify-content: var(--inner-loading-overlay-justify-content);
+      position: var(--inner-loading-overlay-position);
+      top: var(--inner-loading-overlay-top);
+      bottom: var(--inner-loading-overlay-bottom);
+      width: var(--inner-loading-overlay-width);
+      background: var(--inner-loading-overlay-background);
+    }
   }
-}
 </style>

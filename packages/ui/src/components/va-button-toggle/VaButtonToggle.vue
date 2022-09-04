@@ -101,11 +101,11 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import '../../styles/resources';
+  @import '../../styles/resources';
 
-.va-button-toggle {
-  .va-button {
-    @include keyboard-focus($radius: 'inherit', $offset: -2px);
+  .va-button-toggle {
+    .va-button {
+      @include keyboard-focus($radius: 'inherit', $offset: -2px);
+    }
   }
-}
 </style>

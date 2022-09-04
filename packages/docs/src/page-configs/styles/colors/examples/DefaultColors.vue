@@ -15,12 +15,12 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-.color-description {
-  display: flex;
-  align-items: center;
+  .color-description {
+    display: flex;
+    align-items: center;
 
-  .color-indicator {
-    margin-left: 0.5rem;
+    .color-indicator {
+      margin-left: 0.5rem;
+    }
   }
-}
 </style>

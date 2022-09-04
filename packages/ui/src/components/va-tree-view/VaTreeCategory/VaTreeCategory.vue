@@ -173,68 +173,68 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "../../../styles/resources";
-@import 'variables';
+  @import "../../../styles/resources";
+  @import 'variables';
 
-.va-tree-category {
-  font-family: var(--va-font-family);
+  .va-tree-category {
+    font-family: var(--va-font-family);
 
-  &__header {
-    cursor: var(--va-tree-category-header-cursor);
-    display: var(--va-tree-category-header-display);
-    align-items: var(--va-tree-category-header-align-items);
-  }
+    &__header {
+      cursor: var(--va-tree-category-header-cursor);
+      display: var(--va-tree-category-header-display);
+      align-items: var(--va-tree-category-header-align-items);
+    }
 
-  &__header-switcher {
-    margin-right: 0.5rem;
-  }
+    &__header-switcher {
+      margin-right: 0.5rem;
+    }
 
-  &__header-checkbox {
-    margin-right: var(--va-tree-category-header-checkbox-margin-right);
-    height: var(--va-tree-category-header-checkbox-height);
-    width: var(--va-tree-category-header-checkbox-width);
-    display: var(--va-tree-category-header-checkbox-display);
-    align-items: var(--va-tree-category-header-checkbox-align-items);
-    justify-content: var(--va-tree-category-header-checkbox-justify-content);
+    &__header-checkbox {
+      margin-right: var(--va-tree-category-header-checkbox-margin-right);
+      height: var(--va-tree-category-header-checkbox-height);
+      width: var(--va-tree-category-header-checkbox-width);
+      display: var(--va-tree-category-header-checkbox-display);
+      align-items: var(--va-tree-category-header-checkbox-align-items);
+      justify-content: var(--va-tree-category-header-checkbox-justify-content);
 
-    .va-checkbox__square {
-      width: 1.5rem;
-      height: 1.5rem;
-      flex: 0 0 1.5rem;
+      .va-checkbox__square {
+        width: 1.5rem;
+        height: 1.5rem;
+        flex: 0 0 1.5rem;
+      }
+    }
+
+    &__header-icon {
+      color: var(--va-tree-category-header-icon-color);
+      margin-right: var(--va-tree-category-header-icon-margin-right);
+      font-size: var(--va-tree-category-header-icon-font-size);
+      line-height: var(--va-tree-category-header-icon-line-height);
+    }
+
+    &__header-label {
+      word-wrap: var(--va-tree-category-header-label-word-wrap);
+      overflow: var(--va-tree-category-header-label-overflow);
+      line-height: var(--va-tree-category-header-label-line-height);
+    }
+
+    &__list-container {
+      margin-top: var(--va-tree-category-list-container-margin-top);
+      padding-left: var(--va-tree-category-list-container-padding-left);
+    }
+
+    &__list-internal-container {
+      background-image: linear-gradient(#adb3b9 33%, rgba(255, 255, 255, 0) 0%);
+      background-position: left;
+      background-size: 1px 3px;
+      background-repeat: repeat-y;
+      padding-left: 1.1875rem;
+    }
+
+    & + .va-tree-category,
+    .va-tree-node + .va-tree-node,
+    .va-tree-category + .va-tree-node,
+    .va-tree-node + .va-tree-category {
+      margin-top: 0.75rem;
     }
   }
-
-  &__header-icon {
-    color: var(--va-tree-category-header-icon-color);
-    margin-right: var(--va-tree-category-header-icon-margin-right);
-    font-size: var(--va-tree-category-header-icon-font-size);
-    line-height: var(--va-tree-category-header-icon-line-height);
-  }
-
-  &__header-label {
-    word-wrap: var(--va-tree-category-header-label-word-wrap);
-    overflow: var(--va-tree-category-header-label-overflow);
-    line-height: var(--va-tree-category-header-label-line-height);
-  }
-
-  &__list-container {
-    margin-top: var(--va-tree-category-list-container-margin-top);
-    padding-left: var(--va-tree-category-list-container-padding-left);
-  }
-
-  &__list-internal-container {
-    background-image: linear-gradient(#adb3b9 33%, rgba(255, 255, 255, 0) 0%);
-    background-position: left;
-    background-size: 1px 3px;
-    background-repeat: repeat-y;
-    padding-left: 1.1875rem;
-  }
-
-  & + .va-tree-category,
-  .va-tree-node + .va-tree-node,
-  .va-tree-category + .va-tree-node,
-  .va-tree-node + .va-tree-category {
-    margin-top: 0.75rem;
-  }
-}
 </style>

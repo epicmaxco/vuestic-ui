@@ -339,14 +339,14 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "variables";
+  @import "variables";
 
-.va-time-input {
-  min-width: var(--va-time-input-min-width);
+  .va-time-input {
+    min-width: var(--va-time-input-min-width);
 
-  &__anchor {
-    flex: 1;
+    &__anchor {
+      flex: 1;
+    }
   }
-}
 
 </style>

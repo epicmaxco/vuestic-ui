@@ -4,7 +4,6 @@
   "license": "MIT",
   "repository": "https://github.com/epicmaxco/vuestic-ui",
   "devDependencies": {
-    "@vue/cli-plugin-typescript": "5.0.0-alpha.8",
     "lerna": "^3.20.2",
     "yorkie": "^2.0.0"
   },
@@ -27,6 +26,9 @@
     "push-production": "yarn workspace vuestic-ui push-production",
     "generate:docs": "yarn workspace docs generate:docspage",
     "generate:component": "yarn workspace docs generate:component",
+    "sandbox:vite": "yarn workspace sandbox dev:vite",
+    "sandbox:nuxt": "yarn workspace sandbox dev:nuxt",
+    "sandbox:vue-cli": "yarn workspace sandbox dev:vue-cli",
     "release": "yarn workspace deploy release"
   },
   "workspaces": {

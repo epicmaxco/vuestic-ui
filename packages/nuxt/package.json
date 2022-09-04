@@ -23,22 +23,23 @@
     "dist"
   ],
   "scripts": {
+    "build": "nuxt-module-build",
     "prepack": "nuxt-module-build",
     "dev": "nuxi dev playground",
     "dev:build": "nuxi build playground",
     "dev:prepare": "nuxt-module-build --stub && nuxi prepare playground"
   },
   "dependencies": {
+    "@nuxt/kit": "^3.0.0-rc.8",
+    "nuxt": "^3.0.0-rc.8",
+    "pathe": "^0.3.5",
     "vuestic-ui": "^1.4.9"
   },
   "devDependencies": {
-    "@nuxt/kit": "^3.0.0-rc.1",
     "@nuxt/module-builder": "latest",
-    "@nuxt/schema": "^3.0.0-rc.1",
-    "@nuxt/vite-builder": "^3.0.0-rc.1",
+    "@nuxt/schema": "^3.0.0-rc.8",
+    "@nuxt/vite-builder": "^3.0.0-rc.8",
     "@nuxtjs/eslint-config-typescript": "latest",
-    "eslint": "latest",
-    "nuxt": "^3.0.0-rc.1",
-    "vue": "^3.2.33"
+    "eslint": "latest"
   }
 }

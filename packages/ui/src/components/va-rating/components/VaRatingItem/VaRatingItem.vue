@@ -134,15 +134,15 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "../../../../styles/resources";
+  @import "../../../../styles/resources";
 
-.va-rating-item {
-  display: inline-block;
+  .va-rating-item {
+    display: inline-block;
 
-  @include keyboard-focus;
+    @include keyboard-focus;
 
-  &__wrapper {
-    @include normalize-button();
+    &__wrapper {
+      @include normalize-button();
+    }
   }
-}
 </style>

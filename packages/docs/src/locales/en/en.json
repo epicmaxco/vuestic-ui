@@ -1323,6 +1323,12 @@
       "methods": {},
       "slots": {}
     },
+    "VaScrollContainer": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
     "VaSplit": {
       "props": {
         "vertical": "Changes `va-split` orientation to vertical.",
@@ -1449,8 +1455,7 @@
     "nuxt": "Nuxt",
     "ssrGuide": "SSR",
     "spacer": "Spacer",
-    "dropdown": "Dropdown",
-    "split": "Split"
+    "dropdown": "Dropdown"
   },
   "all": {
     "examples": "Examples",
@@ -4197,6 +4202,14 @@
       "title": "Tree shaking",
       "description": "Vuestic UI is tree-shaking friendly in Nuxt as well. You can choose which css modules will be used. This can be configured in `nuxt.config.ts`. Components must be tree-shakable automatically.",
       "css": "In `css` options you can pass array of css modules that will be used in the project or `false` to remove all css from Vuestic exepct components css. Available modules: `typography`, `grid`, `reset`. In example below grid will not be used in project. This is helpful in case you already using some other library."
+    },
+    "options": {
+      "title": "Options",
+      "option": {
+        "config": "Vuestic [Global Config](/services/global-config)",
+        "css": "Choose which CSS modules will be added to nuxt. If `true` all CSS modules will be added",
+        "fonts": "Adds Vuestic default fonts to head"
+      }
     }
   },
   "ssrGuide": {
@@ -4250,47 +4263,9 @@
         "title": "Place on cursor",
         "text": "You can render dropdown content on cursor position. It is usefull to use `cursor` props with `auto-placement` so if content do not fit target it will be placed somewhere else."
       },
-      "PreventOverflow" : {
+      "PreventOverflow": {
         "title": "Prevent overflow",
         "text": "By default dropdown content is rendered as body child. This way we prevent any overflow. In example below `overflow: hidden` of green box is ignored. But we still able to respec overflow by changing `target` prop. In example below `overflow: hidden` of red box is hidding dropdown content."
-      }
-    }
-  },
-  "split": {
-    "title": "Split",
-    "summaryText": "`va-split` component splits container into 2 horizontal/vertical panels. You can change panels sizes via grabbing the separator-grabber between them.",
-    "examples": {
-      "default": {
-        "title": "Basic usage",
-        "text": ""
-      },
-      "vertical": {
-        "title": "Vertical",
-        "text": "Prop `vertical` changes components orientation to vertical."
-      },
-      "customGrabber": {
-        "title": "Custom grabber",
-        "text": "You can pass via `grabber` slot any content which will overwrite default grabber (`va-divider`)."
-      },
-      "customLimits": {
-        "title": "Limits",
-        "text": "`limits` prop allows you to set up panels min-max sizes. For example, `[[10, 'any'], ['50px', '30rem']]` (sum of different panels min and max size should be equal to 100%) will set up min size of the start panel to 10%, max - 100%. For the end panel - 50px and 30rem accordingly. If you don't need max sizes limits but only min ones, you can use this record form: `[10px, 50%]`."
-      },
-      "snapping": {
-        "title": "Snapping",
-        "text": "`snapping` and `snapping-range` props allow you to set up a virtual marks, splitter will be 'jumping' to when it will be near of them. For example, `snapping` with value `['20', 80]` and `snapping-range` with value `5` will set up 2 marks - 20 and 80 percents of the splitter container size. Meanwhile, splitter will 'jump' to it when there is at least 5 percents of the container size between them."
-      },
-      "nested": {
-        "title": "Nested",
-        "text": "Passing another `va-split` component via `start`/`end` slot you can gain different panels combinations."
-      },
-      "maximization": {
-        "title": "Maximization",
-        "text": "Prop `maximization` allows to maximize end panel size via double click on dragger (additional prop `maximizeStart` changes this logic - start panel maximizing instead)."
-      },
-      "disabled": {
-        "title": "Disabled",
-        "text": "`disabled` prop restricts to change panels size (including option via `maximization` prop)."
       }
     }
   }
