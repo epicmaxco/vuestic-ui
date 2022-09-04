@@ -27,9 +27,9 @@
 </template>
 
 <style lang="scss" scoped>
-.item {
-  border: 1px solid var(--va-background-form);
-  background-color: var(--va-background-tertiary);
-  text-align: center;
-}
+  .item {
+    border: 1px solid var(--va-background-form);
+    background-color: var(--va-background-tertiary);
+    text-align: center;
+  }
 </style>

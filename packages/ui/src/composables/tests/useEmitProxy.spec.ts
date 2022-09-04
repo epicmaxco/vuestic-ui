@@ -1,5 +1,6 @@
 import { useEmitProxy } from '../useEmitProxy'
 import { mount } from '@vue/test-utils'
+import { describe, it, expect } from 'vitest'
 
 const TestComponent = {
   template: '<p></p>',

@@ -1,12 +1,12 @@
 {
   "name": "vuestic-ui",
-  "version": "1.4.7",
+  "version": "1.4.9",
   "description": "Vue 3 UI Framework",
   "license": "MIT",
   "homepage": "https://vuestic.dev",
   "repository": "https://github.com/epicmaxco/vuestic-ui",
   "main": "dist/cjs/main.js",
-  "module": "dist/esm/main.js",
+  "module": "dist/es/main.js",
   "jsdelivr": "dist/iife/main.js",
   "unpkg": "dist/iife/main.js",
   "types": "dist/types/main.d.ts",
@@ -29,19 +29,16 @@
   "scripts": {
     "serve": "vue-cli-service serve --mode book",
     "serve:production": "vue-cli-service serve --mode production",
-    "build:dev": "tsc build/config.ts && webpack --config build/config.js --progress",
-    "build": "tsx ./build/vite/build.ts",
-    "build:rollup": "rollup -c",
+    "build": "tsx build/build.ts",
     "build:types": "vue-tsc --declaration --emitDeclarationOnly --outDir dist/types",
     "build:book": "vue-cli-service build --mode book",
     "lint": "vue-cli-service lint",
     "lint:style": "stylelint '**/*.{vue,html,css,scss}'",
-    "test:unit": "vue-cli-service test:unit -w 1",
-    "test:coverage": "vue-cli-service test:unit --coverage",
     "test:e2e": "vue-cli-service test:e2e",
+    "test:unit": "vitest",
     "push": "npm publish --tag=next",
     "push-production": "npm publish --tag=latest",
-    "precommit": "lint-staged --concurrent=false",
+    "precommit": "lint-staged --concurrent=false && yarn test:unit --run",
     "server:webapp": "npx http-server dist --push-state"
   },
   "dependencies": {
@@ -60,7 +57,6 @@
     "@rollup/plugin-commonjs": "^19.0.0",
     "@rollup/plugin-node-resolve": "^13.0.0",
     "@types/cleave.js": "^1.4.3",
-    "@types/jest": "^26.0.20",
     "@types/lodash": "^4.14.161",
     "@types/mini-css-extract-plugin": "^1.2.1",
     "@types/semver": "^7.3.6",
@@ -74,13 +70,13 @@
     "@vue/cli-plugin-eslint": "^5.0.0-alpha.3",
     "@vue/cli-plugin-router": "^5.0.0-alpha.3",
     "@vue/cli-plugin-typescript": "^5.0.0-alpha.3",
-    "@vue/cli-plugin-unit-jest": "^5.0.0-alpha.3",
     "@vue/cli-service": "^5.0.0-alpha.3",
     "@vue/compiler-sfc": "^3.1.4",
     "@vue/eslint-config-standard": "^6.0.0",
     "@vue/eslint-config-typescript": "^7.0.0",
     "@vue/test-utils": "2.0.0-beta.14",
     "babel-loader": "^8.2.1",
+    "c8": "^7.12.0",
     "core-js": "^3.8.2",
     "cross-env": "^7.0.2",
     "css-minimizer-webpack-plugin": "^3.0.0",
@@ -112,14 +108,13 @@
     "style-loader": "^2.0.0",
     "stylelint": "^13.13.1",
     "stylelint-config-standard": "^22.0.0",
-    "ts-jest": "^26.5.4",
     "ts-loader": "^8.0.14",
     "typescript": "4.7.4",
     "vite": "^2.9.8",
     "vite-plugin-chunk-split": "^0.2.2",
+    "vitest": "^0.18.1",
     "vue": "^3.0.4",
     "vue-book": "0.2.0-alpha.0",
-    "vue-jest": "^5.0.0-alpha.7",
     "vue-loader": "^16.3.0",
     "vue-tsc": "^0.38.2",
     "vuelidate": "^0.7.5",
@@ -152,19 +147,19 @@
     ".": {
       "import": {
         "node": "./dist/esm-node/main.mjs",
-        "default": "./dist/esm/main.js"
+        "default": "./dist/es/main.js"
       },
       "require": "./dist/cjs/main.js"
     },
     "./css": {
       "import": {
-        "node": "./dist/styles/index.css",
-        "default": "./dist/vuestic-ui.css"
+        "node": "./dist/vuestic-ui.css",
+        "default": "./dist/styles/index.css"
       }
     },
     "./iife": "./dist/iife/main.js",
     "./types": "./dist/types/main.d.ts",
-    "./styles/*": "./dist/styles/",
+    "./styles/*": "./dist/styles/*",
     "./dist/*": "./dist/*"
   }
 }

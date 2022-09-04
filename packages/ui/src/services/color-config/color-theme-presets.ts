@@ -3,7 +3,7 @@ import type { ColorConfigEssentialColors } from './types'
 export const colorsPresets: Record<string, ColorConfigEssentialColors> = {
   default: {
     // Accent
-    primary: '#2C82E0',
+    primary: '#154ec1',
     secondary: '#767C88',
     success: '#40e583',
     info: '#2c82e0',

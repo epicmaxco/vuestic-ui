@@ -2,8 +2,6 @@
   <div class="va-collapse" :class="computedClasses">
     <div
       class="va-collapse__header-wrapper"
-      v-on="keyboardFocusListeners"
-      @focus="$emit('focus')"
       @click="toggle"
       @keydown.enter="toggle"
       @keydown.space="toggle"
@@ -12,15 +10,18 @@
         name="header"
         v-bind="{
           value: computedModelValue,
-          hasKeyboardFocus: hasKeyboardFocus,
           bind: headerAttributes,
           attributes: headerAttributes,
+          keyboardFocusClass,
+          listeners: keyboardFocusListeners,
         }"
       >
         <div
           v-bind="headerAttributes"
           class="va-collapse__header"
+          :class="keyboardFocusClass"
           :style="headerStyle"
+          v-on="keyboardFocusListeners"
         >
           <va-icon
             v-if="icon"
@@ -39,26 +40,33 @@
         </div>
       </slot>
     </div>
-    <div
-      ref="body"
-      class="va-collapse__body"
-      role="region"
-      :style="contentStyle"
-      :id="panelIdComputed"
-      :aria-labelledby="headerIdComputed"
-    >
-      <slot />
+    <div class="va-collapse__body-wrapper" :style="contentStyle">
+      <div
+        class="va-collapse_body"
+        ref="body"
+        role="region"
+        :id="panelIdComputed"
+        :aria-labelledby="headerIdComputed"
+      >
+        <slot />
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, shallowRef } from 'vue'
+import { computed, defineComponent, ref, shallowRef } from 'vue'
 import pick from 'lodash/pick.js'
 
-import { useKeyboardOnlyFocus, useColors, useSyncProp, useTextColor, useBem } from '../../composables'
+import {
+  useColors, useTextColor,
+  useSyncProp,
+  useBem,
+  useResizeObserver,
+  useComponentPresetProp,
+  useKeyboardFocusClass, useKeyboardFocusClassProps,
+} from '../../composables'
 import { useAccordionItem } from '../va-accordion/hooks/useAccordion'
-import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 import { generateUniqueId } from '../../services/utils'
 
@@ -70,6 +78,7 @@ export default defineComponent({
     VaIcon,
   },
   props: {
+    ...useKeyboardFocusClassProps,
     ...useComponentPresetProp,
     modelValue: { type: Boolean, default: undefined },
     disabled: { type: Boolean, default: false },
@@ -80,7 +89,7 @@ export default defineComponent({
     textColor: { type: String, default: '' },
     colorAll: { type: Boolean, default: false },
   },
-  emits: ['focus', 'update:modelValue'],
+  emits: ['update:modelValue'],
 
   setup (props, { emit, slots }) {
     const body = shallowRef<HTMLElement>()
@@ -92,30 +101,12 @@ export default defineComponent({
 
     const { textColorComputed } = useTextColor()
 
-    const getTextNodeHeight = (textNode: Node) => {
-      const range = document.createRange()
-      range.selectNodeContents(textNode)
-      const rect = range.getBoundingClientRect()
-
-      return rect.bottom - rect.top
-    }
-
-    const getNodeHeight = (node: Node) => {
-      // https://developer.mozilla.org/en-US/docs/Web/API/Node/nodeName
-      if (node.nodeName === '#text') { return getTextNodeHeight(node) }
-      if (node.nodeName === '#comment') { return 0 }
-
-      return (node as Element).clientHeight
-    }
-
-    const height = computed(() => {
-      if (!computedModelValue.value || !body.value) { return 0 }
-
-      const nodes = Array.from(body.value.childNodes) as HTMLElement[]
-      return nodes.reduce((result: number, node: HTMLElement) => result + getNodeHeight(node), 0)
+    const bodyHeight = ref()
+    useResizeObserver([body], () => {
+      bodyHeight.value = body.value?.clientHeight ?? 0
     })
 
-    const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
+    const height = computed(() => computedModelValue.value ? bodyHeight.value : 0)
 
     const getTransition = () => {
       const duration = height.value / 1000 * 0.2
@@ -150,6 +141,8 @@ export default defineComponent({
       inset: !!(accordionProps.value.inset && computedModelValue.value),
     }))
 
+    const { keyboardFocusClass, keyboardFocusListeners } = useKeyboardFocusClass(props, 'va-collapse__header')
+
     return {
       body,
       height,
@@ -157,17 +150,16 @@ export default defineComponent({
       toggle,
       computedModelValue,
 
-      hasKeyboardFocus,
-      keyboardFocusListeners,
-
-      textColorComputed,
-
       headerIdComputed,
       headerAttributes,
       panelIdComputed,
       tabIndexComputed,
 
+      textColorComputed,
       computedClasses,
+      keyboardFocusClass,
+
+      keyboardFocusListeners,
 
       headerStyle: computed(() => ({
         paddingLeft: props.icon && 0,
@@ -191,77 +183,82 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "../../styles/resources";
-@import "variables";
+  @import "../../styles/resources";
+  @import "variables";
 
-.va-collapse {
-  transition: var(--va-collapse-transition, var(--va-swing-transition));
-  font-family: var(--va-font-family);
+  .va-collapse {
+    transition: var(--va-collapse-transition, var(--va-swing-transition));
+    font-family: var(--va-font-family);
 
-  &__body {
-    transition: var(--va-collapse-body-transition);
-    overflow: var(--va-collapse-body-overflow);
-  }
-
-  &__header {
-    display: var(--va-collapse-header-content-display);
-    justify-content: var(--va-collapse-header-content-justify-content);
-    cursor: var(--va-collapse-header-content-cursor);
-    background-color: var(--va-collapse-header-content-background-color);
-    box-shadow: var(--va-collapse-header-content-box-shadow, var(--va-block-box-shadow));
-    border-radius: var(--va-collapse-header-content-border-radius, var(--va-block-border-radius));
-    align-items: var(--va-collapse-header-content-align-items);
-    padding-top: var(--va-collapse-header-content-padding-top);
-    padding-bottom: var(--va-collapse-header-content-padding-bottom);
-    padding-left: var(--va-collapse-header-content-padding-left);
-
-    &__text {
-      width: var(--va-collapse-header-content-text-width);
+    &__body-wrapper {
+      position: relative;
+      transition: var(--va-collapse-body-transition);
+      overflow: hidden;
     }
 
-    &__icon {
-      @include flex-center();
-
-      min-width: var(--va-collapse-header-content-icon-min-width);
-      margin-left: var(--va-collapse-header-content-icon-margin-left);
-      margin-right: var(--va-collapse-header-content-icon-margin-right);
-      color: var(--va-collapse-header-content-icon-color);
+    &__body {
+      position: absolute;
+      top: 0;
+      left: 0;
     }
 
-    &:focus {
-      @include focus-outline(var(--va-collapse-header-content-border-radius));
-    }
-  }
+    &__header {
+      display: var(--va-collapse-header-content-display);
+      justify-content: var(--va-collapse-header-content-justify-content);
+      cursor: var(--va-collapse-header-content-cursor);
+      background-color: var(--va-collapse-header-content-background-color);
+      box-shadow: var(--va-collapse-header-content-box-shadow, var(--va-block-box-shadow));
+      border-radius: var(--va-collapse-header-content-border-radius, var(--va-block-border-radius));
+      align-items: var(--va-collapse-header-content-align-items);
+      padding-top: var(--va-collapse-header-content-padding-top);
+      padding-bottom: var(--va-collapse-header-content-padding-bottom);
+      padding-left: var(--va-collapse-header-content-padding-left);
 
-  &--solid {
-    box-shadow: var(--va-collapse-solid-box-shadow);
-    border-radius: var(--va-collapse-solid-border-radius);
-
-    .va-collapse {
-      &__header {
-        border-radius: var(--va-collapse-solid-header-content-border-radius, var(--va-block-border-radius));
-        transition: var(--va-collapse-solid-header-content-transition);
-        box-shadow: var(--va-collapse-solid-header-content-box-shadow, var(--va-block-box-shadow));
-        background-color: var(--va-collapse-solid-header-content-background-color);
+      &__text {
+        width: var(--va-collapse-header-content-text-width);
       }
 
-      &__body {
-        border-radius: var(--va-collapse-solid-body-border-radius);
-        margin-top: var(--va-collapse-solid-body-margin-top);
+      &__icon {
+        @include flex-center();
+
+        min-width: var(--va-collapse-header-content-icon-min-width);
+        margin-left: var(--va-collapse-header-content-icon-margin-left);
+        margin-right: var(--va-collapse-header-content-icon-margin-right);
+        color: var(--va-collapse-header-content-icon-color);
+      }
+
+      @include keyboard-focus(var(--va-collapse-header-content-border-radius));
+    }
+
+    &--solid {
+      box-shadow: var(--va-collapse-solid-box-shadow);
+      border-radius: var(--va-collapse-solid-border-radius);
+
+      .va-collapse {
+        &__header {
+          border-radius: var(--va-collapse-solid-header-content-border-radius, var(--va-block-border-radius));
+          transition: var(--va-collapse-solid-header-content-transition);
+          box-shadow: var(--va-collapse-solid-header-content-box-shadow, var(--va-block-box-shadow));
+          background-color: var(--va-collapse-solid-header-content-background-color);
+        }
+
+        &__body {
+          border-radius: var(--va-collapse-solid-body-border-radius);
+          margin-top: var(--va-collapse-solid-body-margin-top);
+        }
       }
     }
-  }
 
-  &--popout {
-    margin: var(--va-collapse-popout-margin);
-  }
+    &--popout {
+      margin: var(--va-collapse-popout-margin);
+    }
 
-  &--inset {
-    margin: var(--va-collapse-inset-margin);
-  }
+    &--inset {
+      margin: var(--va-collapse-inset-margin);
+    }
 
-  &--disabled {
-    @include va-disabled();
+    &--disabled {
+      @include va-disabled();
+    }
   }
-}
 </style>

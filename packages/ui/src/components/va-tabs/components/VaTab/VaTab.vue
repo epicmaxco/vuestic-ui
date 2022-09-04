@@ -20,11 +20,12 @@
   >
     <div
       class="va-tab__content"
-      v-on="keyboardFocusListeners"
+      :class="keyboardFocusClass"
       :tabindex="tabIndexComputed"
       @focus="onFocus"
       @click="onTabClick"
       @keydown.enter="onTabKeydown"
+      v-on="keyboardFocusListeners"
     >
       <slot>
         <va-icon
@@ -45,7 +46,12 @@
 <script lang="ts">
 import { computed, defineComponent, inject, onBeforeUnmount, onMounted, ref, shallowRef } from 'vue'
 
-import { useComponentPresetProp, useRouterLink, useRouterLinkProps, useKeyboardOnlyFocus, useColors } from '../../../../composables'
+import {
+  useComponentPresetProp,
+  useRouterLink, useRouterLinkProps,
+  useKeyboardFocusClass, useKeyboardFocusClassProps,
+  useColors,
+} from '../../../../composables'
 
 import { TabsViewKey, TabsView, TabComponent } from '../../types'
 
@@ -57,6 +63,7 @@ export default defineComponent({
   emits: ['click', 'keydown-enter', 'focus'],
 
   props: {
+    ...useKeyboardFocusClassProps,
     ...useRouterLinkProps,
     ...useComponentPresetProp,
     selected: { type: Boolean, default: false },
@@ -75,7 +82,13 @@ export default defineComponent({
     const hoverState = ref(false)
     const rightSidePosition = ref(0)
     const leftSidePosition = ref(0)
-    const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
+
+    const {
+      keyboardFocusClass,
+      keyboardFocusListeners,
+      hasKeyboardFocus,
+    } = useKeyboardFocusClass(props, 'va-tab__content')
+
     const { tagComputed, hrefComputed, isActiveRouterLink } = useRouterLink(props)
     const classComputed = computed(() => ({ 'va-tab--disabled': props.disabled }))
     const {
@@ -98,7 +111,7 @@ export default defineComponent({
     const colorComputed = computed(() => getColor(props.color))
 
     const computedStyle = computed(() => ({
-      color: hasKeyboardFocus.value || hoverState.value || isActive.value ? colorComputed.value : 'inherit',
+      color: hoverState.value || isActive.value ? colorComputed.value : 'inherit',
     }))
 
     const updateHoverState = (isHover: boolean) => {
@@ -159,8 +172,6 @@ export default defineComponent({
       parentDisabled,
       isActive,
       hoverState,
-      hasKeyboardFocus,
-      keyboardFocusListeners,
       tagComputed,
       hrefComputed,
       isActiveRouterLink,
@@ -175,51 +186,55 @@ export default defineComponent({
       onTabClick,
       onTabKeydown,
       onFocus,
+      keyboardFocusClass,
+      keyboardFocusListeners,
     }
   },
 })
 </script>
 
 <style lang="scss">
-@import "../../../../styles/resources";
-@import 'variables';
+  @import "../../../../styles/resources";
+  @import 'variables';
 
-.va-tab {
-  align-items: var(--va-tab-align-items);
-  display: var(--va-tab-display);
-  flex: var(--va-tab-flex);
-  font-weight: var(--va-tab-font-weight);
-  line-height: var(--va-tab-line-height);
-  height: var(--va-tab-height);
-  max-width: var(--va-tab-max-width);
-  text-align: var(--va-tab-text-align);
-  vertical-align: var(--va-tab-vertical-align);
-  color: var(--va-tab-color);
+  .va-tab {
+    align-items: var(--va-tab-align-items);
+    display: var(--va-tab-display);
+    flex: var(--va-tab-flex);
+    font-weight: var(--va-tab-font-weight);
+    line-height: var(--va-tab-line-height);
+    height: var(--va-tab-height);
+    max-width: var(--va-tab-max-width);
+    text-align: var(--va-tab-text-align);
+    vertical-align: var(--va-tab-vertical-align);
+    color: var(--va-tab-color);
 
-  &__content {
-    align-items: var(--va-tab-content-align-items);
-    color: var(--va-tab-content-color);
-    display: var(--va-tab-content-display);
-    flex: var(--va-tab-content-flex);
-    height: var(--va-tab-content-height);
-    justify-content: var(--va-tab-content-justify-content);
-    max-width: var(--va-tab-content-max-width);
-    text-decoration: var(--va-tab-content-text-decoration);
-    transition: var(--va-tab-content-transition);
-    user-select: var(--va-tab-content-user-select);
-    white-space: var(--va-tab-content-white-space);
-    padding: var(--va-tab-content-padding);
-    cursor: var(--va-tab-content-cursor);
+    &__content {
+      align-items: var(--va-tab-content-align-items);
+      color: var(--va-tab-content-color);
+      display: var(--va-tab-content-display);
+      flex: var(--va-tab-content-flex);
+      height: var(--va-tab-content-height);
+      justify-content: var(--va-tab-content-justify-content);
+      max-width: var(--va-tab-content-max-width);
+      text-decoration: var(--va-tab-content-text-decoration);
+      transition: var(--va-tab-content-transition);
+      user-select: var(--va-tab-content-user-select);
+      white-space: var(--va-tab-content-white-space);
+      padding: var(--va-tab-content-padding);
+      cursor: var(--va-tab-content-cursor);
+
+      @include keyboard-focus($offset: -2px);
+    }
+
+    &__icon {
+      margin-right: var(--va-tab-icon-margin-right);
+    }
+
+    &.va-tab--disabled {
+      @include va-disabled();
+
+      pointer-events: none;
+    }
   }
-
-  &__icon {
-    margin-right: var(--va-tab-icon-margin-right);
-  }
-
-  &.va-tab--disabled {
-    @include va-disabled();
-
-    pointer-events: none;
-  }
-}
 </style>

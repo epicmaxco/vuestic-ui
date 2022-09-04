@@ -13,6 +13,7 @@
         :key="block.type + index"
         :value="block.component"
         :path="block.path"
+        :bind="block.bind"
       />
       <DocsCode
         v-else-if="block.type === BlockType.CODE"
@@ -77,6 +78,18 @@
         :key="block.type + index"
         :file="block.file"
       />
+      <MarkdownView
+        v-else-if="block.type === BlockType.MARKDOWN"
+        :key="block.type + index"
+        :value="block.content"
+      />
+      <VaCollapse
+        v-else-if="block.type === BlockType.COLLAPSE"
+        :key="block.type + index"
+        :header="block.header"
+      >
+        <DocsContent :config="block.blocks" />
+      </VaCollapse>
     </template>
   </va-content>
 </template>

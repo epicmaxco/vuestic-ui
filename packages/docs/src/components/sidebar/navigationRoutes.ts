@@ -243,12 +243,23 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: 'menu.list',
       },
       {
+        name: 'split',
+        displayName: 'menu.split',
+        meta: {
+          badge: 'new',
+        },
+      },
+      {
         name: 'collapse',
         displayName: 'menu.collapse',
       },
       {
         name: 'accordion',
         displayName: 'menu.accordion',
+      },
+      {
+        name: 'scroll-container',
+        displayName: 'menu.scrollContainer',
       },
       {
         category: 'menu.categories.navigation',

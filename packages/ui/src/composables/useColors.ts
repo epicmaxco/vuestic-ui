@@ -12,6 +12,9 @@ import {
   shiftHSLAColor,
   setHSLAColor,
   isCSSVariable,
+  isLightBackground,
+  colorToRgba,
+  getStateMaskGradientBackground,
 } from '../services/color-config/color-functions'
 
 import { cssVariableName, normalizeColorName } from '../services/color-config/utils'
@@ -122,6 +125,9 @@ export const useColors = () => {
     shiftHSLAColor,
     setHSLAColor,
     colorsToCSSVariable,
+    isLightBackground,
+    colorToRgba,
+    getStateMaskGradientBackground,
   }
 }
 

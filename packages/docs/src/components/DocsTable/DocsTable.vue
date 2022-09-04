@@ -53,7 +53,7 @@ const PropsMixin = Vue.with(Props)
 @Options({
   name: 'DocsTable',
   components: { MarkdownView },
-})
+  })
 export default class DocsTable extends mixins(PropsMixin) {
   get columnsComputed () {
     return this.columns.map((col) => typeof col === 'string' ? { title: col } : col)
@@ -62,53 +62,53 @@ export default class DocsTable extends mixins(PropsMixin) {
 </script>
 
 <style lang="scss">
-@import "~vuestic-ui/src/styles/resources";
+  @import "~vuestic-ui/src/styles/resources";
 
-.DocsTable {
-  overflow-x: auto;
-  width: 100%;
-
-  &::-webkit-scrollbar {
-    width: 4px;
-    height: 8px;
-  }
-
-  &::-webkit-scrollbar-track {
-    box-shadow: none;
-    border-radius: 10px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: var(--va-primary);
-    border-radius: 2px;
-  }
-
-  scrollbar-color: var(--va-primary) transparent;
-  scrollbar-width: thin;
-
-  &__table {
+  .DocsTable {
+    overflow-x: auto;
     width: 100%;
-    font-family: "Source Code Pro";
-    font-size: 16px;
 
-    &__row {
-      border-bottom: 1px solid var(--va-background-secondary);
+    &::-webkit-scrollbar {
+      width: 4px;
+      height: 8px;
+    }
 
-      & .MarkdownView {
-        code,
-        p {
-          font-size: inherit;
-          margin-bottom: 0;
+    &::-webkit-scrollbar-track {
+      box-shadow: none;
+      border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: var(--va-primary);
+      border-radius: 2px;
+    }
+
+    scrollbar-color: var(--va-primary) transparent;
+    scrollbar-width: thin;
+
+    &__table {
+      width: 100%;
+      font-family: "Source Code Pro";
+      font-size: 16px;
+
+      &__row {
+        border-bottom: 1px solid var(--va-background-secondary);
+
+        & .MarkdownView {
+          code,
+          p {
+            font-size: inherit;
+            margin-bottom: 0;
+          }
         }
       }
-    }
 
-    th {
-      font-family: Source Sans Pro !important;
-      font-weight: 700 !important;
-      font-weight: bold !important;
-      padding: 0.75rem !important;
+      th {
+        font-family: Source Sans Pro !important;
+        font-weight: 700 !important;
+        font-weight: bold !important;
+        padding: 0.75rem !important;
+      }
     }
   }
-}
 </style>

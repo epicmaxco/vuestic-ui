@@ -189,7 +189,7 @@
 import { VaInfiniteScroll } from './index'
 import { VaCheckbox } from '../va-checkbox'
 import { VaProgressCircle } from '../va-progress-circle'
-import { getNewRecords, getInitialRecords } from '../../data/Records'
+import { getNewRecords, getInitialRecords } from './demo/Records'
 import { sleep } from '../../services/utils'
 
 export default {
@@ -218,8 +218,8 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-.scroll__container {
-  height: 400px;
-  width: 200px;
-}
+  .scroll__container {
+    height: 400px;
+    width: 200px;
+  }
 </style>

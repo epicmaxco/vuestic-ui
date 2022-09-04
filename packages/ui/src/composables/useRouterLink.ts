@@ -24,12 +24,34 @@ export const useRouterLink = (props: ExtractPropTypes<typeof useRouterLinkProps>
 
     if (props.href && !props.to) { return 'a' }
 
-    if (props.to) { return isNuxt.value ? 'nuxt-link' : 'router-link' }
+    // if (props.to) { return isNuxt.value ? 'nuxt-link' : 'router-link' }
+    // https://github.com/nuxt/framework/issues/6747
+    // TODO: may be we will be able to register NuxtLink component via @vuestic/nuxt and use resolveComponent
+    if (props.to) { return 'router-link' }
 
     return props.tag || 'div'
   })
 
   const isLinkTag = computed(() => ['a', 'router-link', 'nuxt-link'].includes(tagComputed.value))
+
+  const linkAttributesComputed = computed(() => {
+    if (!isLinkTag.value) { return {} }
+
+    return tagComputed.value === 'a'
+      ? {
+        target: props.target,
+        href: hrefComputed.value,
+      }
+      : {
+        target: props.target,
+        to: props.to,
+        replace: props.replace,
+        append: props.append,
+        activeClass: props.activeClass,
+        exact: props.exact,
+        exactActiveClass: props.exactActiveClass,
+      }
+  })
 
   const isActiveRouterLink = computed(() => {
     if (!vueRouter.value || !props.to) { return false }
@@ -48,9 +70,10 @@ export const useRouterLink = (props: ExtractPropTypes<typeof useRouterLinkProps>
   })
 
   return {
-    tagComputed,
-    isActiveRouterLink,
-    hrefComputed,
     isLinkTag,
+    tagComputed,
+    hrefComputed,
+    isActiveRouterLink,
+    linkAttributesComputed,
   }
 }

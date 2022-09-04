@@ -1,15 +1,19 @@
 // import colortranslator, { ColorTranslator as CTClass } from 'colortranslator'
-import { ColorTranslator, Mix } from 'colortranslator'
+import { ColorTranslator } from 'colortranslator'
 import { HSLObject, ColorInput } from 'colortranslator/dist/@types'
 
 export const colorToRgba = (color: ColorInput, opacity: number) => {
   return new ColorTranslator(color).setA(opacity).RGBA
 }
 
-export const getTextColor = (color: ColorInput, darkColor = 'textDark', lightColor = 'textLight') => {
+export const isLightBackground = (color: ColorInput, opacity = 1) => {
+  // TODO: replace with color mixin (doesn't play any role in dark theme)
   const { R, G, B } = new ColorTranslator(color)
-  const isLightBackground = Math.sqrt(R * R * 0.241 + G * G * 0.691 + B * B * 0.068) > 120
-  return isLightBackground ? darkColor : lightColor
+  return opacity < 0.6 || Math.sqrt(R * R * 0.241 + G * G * 0.691 + B * B * 0.068) > 120
+}
+
+export const getTextColor = (color: ColorInput, darkColor = 'textDark', lightColor = 'textLight') => {
+  return isLightBackground(color) ? darkColor : lightColor
 }
 
 export const getBoxShadowColor = (color: ColorInput) => {
@@ -100,6 +104,12 @@ export const getGradientBackground = (color: string) => {
   const colorRight = ColorTranslator.toHSLA(color)
 
   return `linear-gradient(to right, ${colorLeft}, ${colorRight})`
+}
+
+export const getStateMaskGradientBackground = (color: string, maskColor: string, maskOpacity: number) => {
+  const mask = colorToRgba(maskColor, maskOpacity)
+
+  return `linear-gradient(0deg, ${mask}, ${mask}), ${color}`
 }
 
 /**

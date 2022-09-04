@@ -1,7 +1,7 @@
 <template>
   <va-dropdown
     ref="dropdown"
-    class="va-select__dropdown va-select-dropdown"
+    class="va-select va-select__dropdown va-select-dropdown"
     :aria-label="`select option (currently selected: ${$props.modelValue})`"
     :placement="$props.placement"
     :disabled="$props.disabled"
@@ -10,24 +10,21 @@
     :stateful="false"
     :offset="[1, 0]"
     keep-anchor-width
+    keyboard-navigation
     inner-anchor-selector=".va-input-wrapper__field"
     v-model="showDropdownContentComputed"
-    @keydown.up.stop.prevent="showDropdown"
-    @keydown.down.stop.prevent="showDropdown"
-    @keydown.space.stop.prevent="showDropdown"
-    @keydown.enter.stop.prevent="showDropdown"
+    @close="focus"
   >
     <template #anchor>
       <va-input-wrapper
         ref="input"
-        class="va-select"
+        class="va-select__anchor va-select-anchor__input"
         :model-value="valueComputedString"
         :success="$props.success"
         :error="computedError"
         :color="$props.color"
         :label="$props.label"
         :loading="$props.loading"
-        :disabled="$props.disabled"
         :outline="$props.outline"
         :bordered="$props.bordered"
         :required-mark="$props.requiredMark"
@@ -63,9 +60,9 @@
           <va-icon
             v-if="showClearIcon"
             role="button"
-            aria-hidden="false"
             aria-label="reset"
             tabindex="0"
+            :disable-focus-class="$props.disableFocusClass"
             v-bind="clearIconProps"
             @click.stop="reset"
             @keydown.enter.stop="reset"
@@ -89,7 +86,7 @@
         >
           <span
             v-if="isPlaceholder"
-            class="va-select__placeholder"
+            class="va-select-anchor__placeholder"
           >
             {{ $props.placeholder }}
           </span>
@@ -112,14 +109,11 @@
     <va-dropdown-content
       class="va-select-dropdown__content"
       :style="{ width: $props.width }"
-      @keyup.enter.stop="() => undefined"
-      @keydown.tab.stop.prevent="() => undefined"
-      @keydown.esc.prevent="hideAndFocus"
     >
       <va-input
         v-if="showSearchInput"
         ref="searchBar"
-        class="va-select__input"
+        class="va-select-dropdown__content-search-input"
         placeholder="Search"
         aria-label="options filter"
         :tabindex="tabIndexComputed"
@@ -165,6 +159,7 @@ import { defineComponent, PropType, ref, computed, watch, nextTick, Ref, shallow
 
 import { warn } from '../../services/utils'
 import {
+  useKeyboardFocusClassProps,
   useComponentPresetProp,
   useSelectableList, useSelectableListProps,
   useValidation, useValidationProps, useValidationEmits, ValidationProps,
@@ -204,6 +199,7 @@ export default defineComponent({
   ],
 
   props: {
+    ...useKeyboardFocusClassProps,
     ...useSelectableListProps,
     ...useValidationProps as ValidationProps<SelectOption>,
     ...useLoadingProps,
@@ -263,10 +259,10 @@ export default defineComponent({
 
   setup (props, { emit }) {
     const optionList = shallowRef<typeof VaSelectOptionList>()
-    const input = shallowRef<typeof VaInput>()
+    const input = shallowRef<typeof VaInputWrapper>()
     const searchBar = shallowRef<typeof VaInput>()
 
-    const isInputFocused = useFocusDeep()
+    const isInputFocused = useFocusDeep(input as any)
     const isFocused = computed(() => isInputFocused.value || showDropdownContent.value)
 
     const { getHoverColor, getColor } = useColors()
@@ -308,7 +304,7 @@ export default defineComponent({
             return [value]
           }
 
-          return value.map((o) => getOptionByValue(o))
+          return value.map(getValue)
         }
 
         if (Array.isArray(value)) {
@@ -698,36 +694,45 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "../../styles/resources";
-@import "variables";
+  @import "../../styles/resources";
+  @import "variables";
 
-.va-select {
-  cursor: var(--va-select-cursor);
-
-  &__placeholder {
-    color: var(--va-input-placeholder-text-color);
-  }
-}
-
-.va-select-dropdown {
-  .va-dropdown__anchor {
-    display: block;
+  .va-select {
+    min-width: var(--va-select-min-width);
   }
 
-  &__content {
-    overflow: hidden;
-    border-bottom-right-radius: var(--va-select-dropdown-border-radius);
-    border-bottom-left-radius: var(--va-select-dropdown-border-radius);
-    border-top-right-radius: 0;
-    border-top-left-radius: 0;
-    box-shadow: var(--va-select-box-shadow);
-    padding: 0;
+  .va-select-anchor {
+    &__input {
+      cursor: var(--va-select-cursor);
+      flex: 1;
+    }
+
+    &__placeholder {
+      color: var(--va-input-placeholder-text-color);
+    }
   }
 
-  &__options-wrapper {
-    overflow-y: auto;
+  .va-select-dropdown {
+    &__content {
+      overflow: hidden;
+      border-bottom-right-radius: var(--va-select-dropdown-border-radius);
+      border-bottom-left-radius: var(--va-select-dropdown-border-radius);
+      border-top-right-radius: 0;
+      border-top-left-radius: 0;
+      box-shadow: var(--va-select-box-shadow);
+      padding: 0;
+    }
 
-    @include va-scroll(var(--va-background-secondary));
+    &__content-search-input {
+      min-width: auto;
+      width: 100%;
+    }
+
+    &__options-wrapper {
+      background: var(--va-select-dropdown-background);
+      overflow-y: auto;
+
+      @include va-scroll(var(--va-background-secondary));
+    }
   }
-}
 </style>

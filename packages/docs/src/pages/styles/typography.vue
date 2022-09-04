@@ -11,9 +11,9 @@ import typographyConfig
 @Options({
   name: 'DocsStylesTypography',
   components: {
-    DocsContent,
+  DocsContent,
   },
-})
+  })
 export default class Typography extends Vue {
   get configComputed () {
     return typographyConfig
@@ -22,10 +22,10 @@ export default class Typography extends Vue {
 </script>
 
 <style lang="scss">
-.DocsTable {
-  &__table {
-    font-family: unset;
-    font-size: unset;
+  .DocsTable {
+    &__table {
+      font-family: unset;
+      font-size: unset;
+    }
   }
-}
 </style>

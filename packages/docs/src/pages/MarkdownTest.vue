@@ -10,7 +10,7 @@ import MdView from '../components/markdown-view/MarkdownView.vue'
 @Options({
   name: 'MarkdownTest',
   components: { MdView },
-})
+  })
 export default class MarkdownTest extends Vue {
   get text () {
     return `## Some markdown
@@ -24,7 +24,7 @@ export default class MarkdownTest extends Vue {
 </script>
 
 <style lang="scss">
-.MarkdownTest {
+  .MarkdownTest {
 
-}
+  }
 </style>

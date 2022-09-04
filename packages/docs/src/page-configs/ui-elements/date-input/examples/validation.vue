@@ -1,20 +1,20 @@
 <template>
   <va-date-input
-    class="mb-2"
+    class="mb-4 mr-4"
     label="Success"
     v-model="value"
     success
   />
 
   <va-date-input
-    class="mb-2"
+    class="mb-4 mr-4"
     label="Error"
     v-model="value"
     error
   />
 
   <va-date-input
-    class="mb-2"
+    class="mb-4 mr-4"
     label="With rules"
     v-model="value"
     :rules="validationRules"

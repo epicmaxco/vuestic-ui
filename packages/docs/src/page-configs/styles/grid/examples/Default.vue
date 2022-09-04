@@ -16,11 +16,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~vuestic-ui/src/styles/resources';
+  @import '~vuestic-ui/src/styles/resources';
 
-.item {
-  border: 1px solid var(--va-background-form);
-  background-color: var(--va-background-tertiary);
-  text-align: center;
-}
+  .item {
+    border: 1px solid var(--va-background-form);
+    background-color: var(--va-background-tertiary);
+    text-align: center;
+  }
 </style>

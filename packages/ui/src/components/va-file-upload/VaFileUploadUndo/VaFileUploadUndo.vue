@@ -11,6 +11,7 @@
     <span class="va-file-upload-undo__text">{{ deletedFileMessage }}</span>
     <va-button
       class="va-file-upload-undo__button"
+      :aria-label="undoButtonText"
       size="small"
       outline
       @click="$emit('recover')"
@@ -21,12 +22,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, inject, ref, onMounted } from 'vue'
+import { defineComponent, computed, ref, onMounted } from 'vue'
 
-import { useBem } from '../../../composables'
+import { useBem, useStrictInject } from '../../../composables'
 import { VaFileUploadKey } from '../types'
 
 import { VaButton, VaProgressBar } from '../../index'
+
+const INJECTION_ERROR_MESSAGE = 'The VaFileUploadUndo component should be used in the context of VaFileUpload component'
 
 export default defineComponent({
   name: 'VaFileUploadUndo',
@@ -46,19 +49,15 @@ export default defineComponent({
     const progress = ref(100)
     const {
       undoDuration,
-      deletedFileMessage,
       undoButtonText,
-    } = inject(VaFileUploadKey, {
-      undoDuration: ref(3000),
-      deletedFileMessage: ref('File was successfully deleted'),
-      undoButtonText: ref('Undo'),
-    })
+      deletedFileMessage,
+    } = useStrictInject(VaFileUploadKey, INJECTION_ERROR_MESSAGE)
 
     const computedClasses = useBem('va-file-upload-undo', () => ({
       vertical: props.vertical,
     }))
 
-    const undoDurationStyle = computed(() => `${undoDuration.value}ms`)
+    const undoDurationStyle = computed(() => `${undoDuration.value ?? 0}ms`)
 
     onMounted(() => {
       const timer = setTimeout(() => {
@@ -80,43 +79,43 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import 'variables';
+  @import 'variables';
 
-.va-file-upload-undo-progress-bar {
-  position: absolute;
-  top: 0;
-  left: 0;
+  .va-file-upload-undo-progress-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
 
-  --va-progress-bar-transition: width v-bind(undoDurationStyle) linear;
-}
-
-.va-file-upload-undo {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-
-  &__button {
-    line-height: var(--va-file-upload-undo-button-line-height);
-    margin-left: var(--va-file-upload-undo-margin-left);
-    margin-top: var(--va-file-upload-undo-button-margin-top);
-    margin-bottom: var(--va-file-upload-undo-button-margin-bottom);
+    --va-progress-bar-transition: width v-bind(undoDurationStyle) linear;
   }
 
-  &--vertical {
-    justify-content: center;
+  .va-file-upload-undo {
+    display: flex;
     align-items: center;
-    align-content: center;
-    padding: var(--va-file-upload-undo-padding);
+    justify-content: space-between;
+    flex-wrap: wrap;
 
-    .va-file-upload-undo__text {
-      margin: 1rem 0 0;
-      text-align: center;
+    &__button {
+      line-height: var(--va-file-upload-undo-button-line-height);
+      margin-left: var(--va-file-upload-undo-margin-left);
+      margin-top: var(--va-file-upload-undo-button-margin-top);
+      margin-bottom: var(--va-file-upload-undo-button-margin-bottom);
     }
 
-    .va-file-upload-undo__button {
-      margin: 1rem 0 0;
+    &--vertical {
+      justify-content: center;
+      align-items: center;
+      align-content: center;
+      padding: var(--va-file-upload-undo-padding);
+
+      .va-file-upload-undo__text {
+        margin: 1rem 0 0;
+        text-align: center;
+      }
+
+      .va-file-upload-undo__button {
+        margin: 1rem 0 0;
+      }
     }
   }
-}
 </style>

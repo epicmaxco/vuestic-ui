@@ -11,8 +11,6 @@
               <th>Description</th>
               <th style="min-width: 200px;">Types</th>
               <th>Default</th>
-              <th>Required</th>
-              <th>Version</th>
             </tr>
           </thead>
           <tbody>
@@ -22,7 +20,10 @@
               class="ApiDocs__table__row"
             >
               <td>
-                <strong>{{ apiPropOption.name }}</strong>
+                <div class="d-flex align--center">
+                  <strong>{{ apiPropOption.name }}</strong>
+                  <va-badge  v-if="apiPropOption.required" class="ml-2" text="required" color="primary" />
+                </div>
               </td>
               <td>
                 <MarkdownView :value="$t(apiPropOption.description)" />
@@ -33,8 +34,6 @@
               <td>
                 <MarkdownView :value="cleanDefaultValue(apiPropOption.default)" />
               </td>
-              <td>{{ apiPropOption.required ? "+" : "" }}</td>
-              <td>{{ apiPropOption.version }}</td>
             </tr>
           </tbody>
         </table>
@@ -50,7 +49,6 @@
               <th>Name</th>
               <th>Description</th>
               <th>Types</th>
-              <th>Version</th>
             </tr>
           </thead>
           <tbody>
@@ -71,9 +69,6 @@
               <td>
                 <MarkdownView :value="apiEventOption.types" />
               </td>
-              <td>
-                {{ apiEventOption.version }}
-              </td>
             </tr>
           </tbody>
         </table>
@@ -89,7 +84,6 @@
             <tr>
               <th>Name</th>
               <th>Description</th>
-              <th>Version</th>
             </tr>
           </thead>
           <tbody>
@@ -103,9 +97,6 @@
               </td>
               <td>
                 <MarkdownView :value="$tie(apiSlotOption.description)" />
-              </td>
-              <td>
-                <pre>{{ apiSlotOption.version }}</pre>
               </td>
             </tr>
           </tbody>
@@ -123,7 +114,6 @@
               <th>Name</th>
               <th>Description</th>
               <th>Types</th>
-              <th>Version</th>
             </tr>
           </thead>
           <tbody>
@@ -140,9 +130,6 @@
               </td>
               <td>
                 <MarkdownView :value="apiMethodOption.types" />
-              </td>
-              <td>
-                <pre>{{ apiMethodOption.version }}</pre>
               </td>
             </tr>
           </tbody>
@@ -204,55 +191,55 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "~vuestic-ui/src/styles/resources";
+  @import "~vuestic-ui/src/styles/resources";
 
-.ApiDocs {
-  &__table-wrapper {
-    overflow-x: auto;
-    width: 100%;
+  .ApiDocs {
+    &__table-wrapper {
+      overflow-x: auto;
+      width: 100%;
 
-    &::-webkit-scrollbar {
-      width: 4px;
-      height: 8px;
+      &::-webkit-scrollbar {
+        width: 4px;
+        height: 8px;
+      }
+
+      &::-webkit-scrollbar-track {
+        box-shadow: none;
+        border-radius: 10px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: var(--va-primary);
+        border-radius: 2px;
+      }
+
+      scrollbar-color: var(--va-primary) transparent;
+      scrollbar-width: thin;
     }
 
-    &::-webkit-scrollbar-track {
-      box-shadow: none;
-      border-radius: 10px;
-    }
+    &__table {
+      width: 100%;
+      font-family: "Source Code Pro";
+      font-size: 16px;
 
-    &::-webkit-scrollbar-thumb {
-      background: var(--va-primary);
-      border-radius: 2px;
-    }
+      &__row {
+        border-bottom: 1px solid var(--va-background-secondary);
 
-    scrollbar-color: var(--va-primary) transparent;
-    scrollbar-width: thin;
-  }
-
-  &__table {
-    width: 100%;
-    font-family: "Source Code Pro";
-    font-size: 16px;
-
-    &__row {
-      border-bottom: 1px solid var(--va-background-secondary);
-
-      & .MarkdownView {
-        code,
-        p {
-          font-size: inherit;
-          margin-bottom: 0;
+        & .MarkdownView {
+          code,
+          p {
+            font-size: inherit;
+            margin-bottom: 0;
+          }
         }
       }
-    }
 
-    th {
-      font-family: Source Sans Pro !important;
-      font-weight: 700 !important;
-      font-weight: bold !important;
-      padding: 0.75rem !important;
+      th {
+        font-family: Source Sans Pro !important;
+        font-weight: 700 !important;
+        font-weight: bold !important;
+        padding: 0.75rem !important;
+      }
     }
   }
-}
 </style>

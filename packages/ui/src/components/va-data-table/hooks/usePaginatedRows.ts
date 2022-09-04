@@ -1,6 +1,6 @@
 import { Ref, computed } from 'vue'
 
-import { DataTableRow } from '../types'
+import type { DataTableRow } from '../types'
 
 interface useSelectableProps {
   perPage: number | undefined

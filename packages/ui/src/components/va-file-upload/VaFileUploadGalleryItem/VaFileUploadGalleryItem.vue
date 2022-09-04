@@ -1,7 +1,10 @@
 <template>
   <va-list-item
     class="va-file-upload-gallery-item"
+    tabindex="-1"
     :class="classesComputed"
+    :disabled="disabled"
+    :aria-disabled="disabled"
     @focus="onFocus"
     @blur="onBlur"
   >
@@ -29,11 +32,12 @@
           {{ file.name }}
         </div>
         <va-button
+          v-if="!disabled"
           flat
           color="danger"
           icon="delete_outline"
           class="va-file-upload-gallery-item__delete"
-          aria-label="remove image"
+          aria-label="remove file"
           @click="removeImage"
           @focus="onFocus"
           @blur="onBlur"
@@ -47,30 +51,39 @@
 import { defineComponent, onMounted, PropType, ref, watch, computed, toRef } from 'vue'
 
 import { colorToRgba } from '../../../services/color-config/color-functions'
-import { useFocus, useBem } from '../../../composables'
+import { useFocus, useBem, useStrictInject } from '../../../composables'
 
-import type { ConvertedFile } from '../types'
+import { VaFileUploadKey, ConvertedFile } from '../types'
 import { useTextColor } from '../../../composables/useTextColor'
 
 import { VaButton, VaListItem, VaListItemSection } from '../../index'
 import { VaFileUploadUndo } from '../VaFileUploadUndo'
 
+const INJECTION_ERROR_MESSAGE = 'The VaFileUploadGalleryItem component should be used in the context of VaFileUpload component'
+
 export default defineComponent({
   name: 'VaFileUploadGalleryItem',
+
   components: {
     VaFileUploadUndo,
     VaButton,
     VaListItem,
     VaListItemSection,
   },
+
   emits: ['remove'],
+
   props: {
     file: { type: Object as PropType<ConvertedFile>, default: null },
     color: { type: String, default: 'success' },
-    undo: { type: Boolean, default: false },
-    undoDuration: { type: Number, default: 3000 },
   },
+
   setup (props, { emit }) {
+    const {
+      undo,
+      disabled,
+      undoDuration,
+    } = useStrictInject(VaFileUploadKey, INJECTION_ERROR_MESSAGE)
     const { isFocused, onFocus, onBlur } = useFocus()
     const previewImage = ref('')
     const removed = ref(false)
@@ -86,7 +99,7 @@ export default defineComponent({
     }))
 
     const removeImage = () => {
-      if (props.undo) {
+      if (undo.value) {
         removed.value = true
 
         setTimeout(() => {
@@ -94,7 +107,7 @@ export default defineComponent({
 
           emit('remove')
           removed.value = false
-        }, props.undoDuration)
+        }, undoDuration.value ?? 0)
       } else {
         emit('remove')
         removed.value = false
@@ -124,8 +137,10 @@ export default defineComponent({
     watch(() => props.file, convertToImg)
 
     return {
+      undo,
       ...useTextColor(toRef(props, 'color')),
       removed,
+      disabled,
       isFocused,
       previewImage,
       classesComputed,
@@ -141,115 +156,122 @@ export default defineComponent({
 </script>
 
 <style lang='scss'>
-@import "variables";
-@import "../../../styles/resources";
+  @import "variables";
+  @import "../../../styles/resources";
 
-$max-image-size: 8.5714rem;
+  $max-image-size: 8.5714rem;
 
-.va-file-upload-gallery-item {
-  display: flex;
-  position: relative;
-  margin-bottom: 1rem;
-  margin-right: 0.5rem;
-  flex-basis: calc(14.2857% - 0.5rem);
-  max-width: calc(14.2857% - 0.5rem);
-  min-width: $max-image-size;
-  border-radius: 0.375rem;
-  overflow: hidden;
-  width: 100%;
-  align-items: stretch;
-
-  @include media-breakpoint-down(md) {
-    flex-basis: calc(16.667% - 0.5rem);
-    max-width: calc(16.667% - 0.5rem);
-  }
-
-  @include media-breakpoint-down(sm) {
-    flex-basis: calc(20% - 0.5rem);
-    max-width: calc(20% - 0.5rem);
-  }
-
-  @include media-breakpoint-down(xs) {
-    flex-basis: calc(50% - 0.5rem);
-    max-width: calc(50% - 0.5rem);
-  }
-
-  &:last-of-type {
-    margin-right: 0;
-  }
-
-  &:hover,
-  &:focus,
-  &--focused {
-    .va-file-upload-gallery-item__overlay {
-      z-index: 3;
-      opacity: 1;
-    }
-  }
-
-  &__overlay {
+  .va-file-upload-gallery-item {
     display: flex;
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    top: 0;
-    left: 0;
-    flex-direction: column;
-    padding: 0.5rem;
-    z-index: -1;
-    opacity: 0;
-  }
-
-  &__overlay-background {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    top: 0;
-    left: 0;
-    z-index: -1;
-  }
-
-  &__image {
-    width: 100%;
-    box-shadow: var(--va-box-shadow);
-    object-fit: cover;
-    z-index: 1;
-  }
-
-  &__name {
-    white-space: nowrap;
+    position: relative;
+    margin-bottom: 1rem;
+    margin-right: 0.5rem;
+    flex-basis: calc(14.2857% - 0.5rem);
+    max-width: calc(14.2857% - 0.5rem);
+    min-width: $max-image-size;
+    border-radius: 0.375rem;
     overflow: hidden;
-    text-overflow: ellipsis;
-    font-size: 0.875rem;
-  }
+    width: 100%;
+    align-items: stretch;
 
-  &__delete {
-    cursor: pointer;
-    font-size: 1.5rem;
-    margin-top: auto;
-  }
+    @include media-breakpoint-down(md) {
+      flex-basis: calc(16.667% - 0.5rem);
+      max-width: calc(16.667% - 0.5rem);
+    }
 
-  &--not-image {
-    .va-file-upload-gallery-item__overlay {
+    @include media-breakpoint-down(sm) {
+      flex-basis: calc(20% - 0.5rem);
+      max-width: calc(20% - 0.5rem);
+    }
+
+    @include media-breakpoint-down(xs) {
+      flex-basis: calc(50% - 0.5rem);
+      max-width: calc(50% - 0.5rem);
+    }
+
+    &:last-of-type {
+      margin-right: 0;
+    }
+
+    &:hover,
+    &:focus,
+    &--focused {
+      .va-file-upload-gallery-item__overlay {
+        z-index: 3;
+        opacity: 1;
+      }
+
+      .va-file-upload-gallery-item {
+        &__name {
+          color: var(--va-file-upload-gallery-item-text-hover);
+        }
+      }
+    }
+
+    &__overlay {
       display: flex;
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      top: 0;
+      left: 0;
+      flex-direction: column;
+      padding: 0.5rem;
+      z-index: -1;
+      opacity: 0;
+    }
+
+    &__overlay-background {
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    &__image {
+      width: 100%;
+      box-shadow: var(--va-box-shadow);
+      object-fit: cover;
+      z-index: 1;
+    }
+
+    &__name {
+      color: var(--va-file-upload-gallery-item-text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-size: 0.875rem;
+    }
+
+    &__delete {
+      cursor: pointer;
+      font-size: 1.5rem;
+      margin-top: auto;
+    }
+
+    &--not-image {
+      .va-file-upload-gallery-item__overlay {
+        display: flex;
+      }
+    }
+
+    &--undo {
+      .va-list-item__inner {
+        display: flex;
+        align-items: flex-start;
+        position: relative;
+      }
+
+      .va-list-item-section {
+        height: inherit;
+        padding: 0;
+      }
+
+      .va-file-upload-undo {
+        flex: 1;
+      }
     }
   }
-
-  &--undo {
-    .va-list-item__inner {
-      display: flex;
-      align-items: flex-start;
-      position: relative;
-    }
-
-    .va-list-item-section {
-      height: inherit;
-      padding: 0;
-    }
-
-    .va-file-upload-undo {
-      flex: 1;
-    }
-  }
-}
 </style>

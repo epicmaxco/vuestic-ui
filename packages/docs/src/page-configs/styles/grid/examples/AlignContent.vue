@@ -76,19 +76,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~vuestic-ui/src/styles/resources';
+  @import '~vuestic-ui/src/styles/resources';
 
-.row {
-  min-height: 10rem;
+  .row {
+    min-height: 10rem;
 
-  & + .row {
-    border-top: 1px solid var(--va-background-secondary);
+    & + .row {
+      border-top: 1px solid var(--va-background-secondary);
+    }
   }
-}
 
-.item {
-  border: 1px solid var(--va-background-form);
-  background-color: var(--va-background-tertiary);
-  text-align: center;
-}
+  .item {
+    border: 1px solid var(--va-background-form);
+    background-color: var(--va-background-tertiary);
+    text-align: center;
+  }
 </style>

@@ -104,19 +104,19 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-.customRowClass_1 {
-  color: darkblue;
-}
+  .customRowClass_1 {
+    color: darkblue;
+  }
 
-.customRowClass_2 {
-  background-color: rgb(205, 242, 174);
-}
+  .customRowClass_2 {
+    background-color: rgb(205, 242, 174);
+  }
 
-.customRowClass_3 {
-  color: rgb(244, 10, 10);
-}
+  .customRowClass_3 {
+    color: rgb(244, 10, 10);
+  }
 
-.customRowClass_4 {
-  background-color: rgb(213, 187, 241);
-}
+  .customRowClass_4 {
+    background-color: rgb(213, 187, 241);
+  }
 </style>

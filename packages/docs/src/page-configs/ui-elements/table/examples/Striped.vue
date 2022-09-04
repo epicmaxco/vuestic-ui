@@ -29,12 +29,37 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 
-import { users } from 'vuestic-ui/src/data/Users'
-
 export default defineComponent({
   data () {
     return {
-      users: users.slice(0, 4),
+      users: [{
+        id: 1,
+        fullName: 'Ashley Mcdaniel',
+        email: 'ashleymcdaniel@nebulean.com',
+        country: 'Cayman Islands',
+        status: 'warning',
+      },
+      {
+        id: 2,
+        fullName: 'Todd Sellers',
+        email: 'sellerstodd@nebulean.com',
+        country: 'Togo',
+        status: 'info',
+      },
+      {
+        id: 3,
+        fullName: 'Sherman Knowles',
+        email: 'shermanknowles@nebulean.com',
+        country: 'Central African Republic',
+        status: 'warning',
+      },
+      {
+        id: 4,
+        fullName: 'Vasquez Lawson',
+        email: 'vasquezlawson@nebulean.com',
+        country: 'Bouvet Island',
+        status: 'info',
+      }],
     }
   },
 })

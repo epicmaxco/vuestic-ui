@@ -105,7 +105,7 @@ export default defineComponent({
 </script>
 
 <style lang='scss'>
-.va-form {
-  font-family: var(--va-font-family);
-}
+  .va-form {
+    font-family: var(--va-font-family);
+  }
 </style>

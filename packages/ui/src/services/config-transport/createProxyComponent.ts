@@ -55,7 +55,7 @@ const patchInstanceProps = (instance: ComponentInternalInstance, props: Props) =
 export const createProxyComponent = <T extends DefineComponent>(component: T) => {
   const customSetup = (originalProps: Props, ctx: SetupContext) => {
     const instance = getCurrentInstance()! // Not null during setup call
-    const propsFromConfig = useComponentConfigProps(component, instance)
+    const propsFromConfig = useComponentConfigProps(component, originalProps)
 
     const props = createPropsWithCustomConfig(instance, propsFromConfig)
 

@@ -1,5 +1,6 @@
 import { useKeyboardOnlyFocus } from '../useKeyboardOnlyFocus'
 import { mount } from '@vue/test-utils'
+import { describe, it, expect } from 'vitest'
 
 describe('useKeyboardOnlyFocus', () => {
   it(

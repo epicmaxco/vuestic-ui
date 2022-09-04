@@ -27,5 +27,13 @@ module.exports = {
         '@vuestic/ag-grid-theme': resolve('../extensions/ag-grid-theme'),
       },
     },
+    module: {
+      rules: [
+        {
+          test: /\.md$/,
+          type: 'asset/source',
+        },
+      ],
+    },
   },
 }

@@ -1,6 +1,7 @@
 <template>
-  <VaInputWrapper
+  <va-input-wrapper
     v-bind="fieldListeners"
+    class="va-input"
     :class="$attrs.class"
     :style="$attrs.style"
     :color="$props.color"
@@ -33,10 +34,9 @@
       <va-icon
         v-if="canBeCleared"
         role="button"
-        aria-hidden="false"
         aria-label="reset"
-        class="va-input__icons__reset"
         :tabindex="tabIndexComputed"
+        :disable-focus-class="$props.disableFocusClass"
         v-bind="clearIconProps"
         @click.stop="reset"
         @keydown.enter.stop="reset"
@@ -66,7 +66,7 @@
       v-bind="{ ...computedInputAttributes, ...inputEvents }"
       :value="computedValue"
     >
-  </VaInputWrapper>
+  </va-input-wrapper>
 </template>
 
 <script lang="ts">
@@ -77,6 +77,7 @@ import pick from 'lodash/pick.js'
 import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
 
 import {
+  useKeyboardFocusClassProps,
   useComponentPresetProp,
   useFormProps,
   useValidation, useValidationProps, useValidationEmits, ValidationProps,
@@ -112,6 +113,7 @@ export default defineComponent({
   components: { VaInputWrapper, VaTextarea, VaIcon },
 
   props: {
+    ...useKeyboardFocusClassProps,
     ...useFormProps,
     ...useValidationProps as ValidationProps<string>,
     ...useClearableProps,

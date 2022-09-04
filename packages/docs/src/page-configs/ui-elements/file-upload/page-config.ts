@@ -45,6 +45,11 @@ const config: ApiDocsBlock[] = [
     'fileUpload.examples.undo.description',
     'Undo',
   ),
+  ...block.exampleBlock(
+    'fileUpload.examples.disabled.title',
+    'fileUpload.examples.disabled.description',
+    'Disabled',
+  ),
 
   block.subtitle('all.api'),
   block.api(VaFileUpload, apiOptions),

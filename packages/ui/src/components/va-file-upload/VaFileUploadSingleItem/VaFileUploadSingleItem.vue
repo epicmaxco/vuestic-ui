@@ -1,58 +1,84 @@
 <template>
-  <div class="va-file-upload-single-item">
-    <div class="va-file-upload-single-item__name">
-      {{ file && file.name }}
-    </div>
-    <va-button
-      class="va-file-upload-single-item__button"
-      size="small"
-      color="danger"
-      flat
-      @click="$emit('remove')"
-    >
-      Delete
-    </va-button>
-  </div>
+  <va-list-item
+    :disabled="disabled"
+    :aria-disabled="disabled"
+    class="va-file-upload-single-item"
+    tabindex="-1"
+  >
+    <va-list-item-section class="va-file-upload-single-item__content">
+      <div class="va-file-upload-single-item__name">
+        {{ file && file.name }}
+      </div>
+      <va-button
+        v-if="!disabled"
+        class="va-file-upload-single-item__button"
+        aria-label="remove file"
+        size="small"
+        color="danger"
+        flat
+        @click="$emit('remove')"
+      >
+        Delete
+      </va-button>
+    </va-list-item-section>
+  </va-list-item>
 </template>
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
+import { useStrictInject } from '../../../composables'
 
-import { VaButton } from '../../index'
+import { VaButton, VaListItem, VaListItemSection } from '../../index'
+import { VaFileUploadKey, ConvertedFile } from '../types'
 
-import { ConvertedFile } from '../types'
+const INJECTION_ERROR_MESSAGE = 'The VaFileUploadSingleItem component should be used in the context of VaFileUpload component'
 
 export default defineComponent({
   name: 'VaFileUploadSingleItem',
+
   components: {
     VaButton,
+    VaListItem,
+    VaListItemSection,
   },
+
   emits: ['remove'],
+
   props: {
     file: { type: Object as PropType<ConvertedFile | null>, default: null },
   },
+
+  setup: () => ({
+    disabled: useStrictInject(VaFileUploadKey, INJECTION_ERROR_MESSAGE).disabled,
+  }),
 })
 </script>
 
 <style lang='scss'>
-.va-file-upload-single-item {
-  display: flex;
-  align-items: center;
-  max-width: 100%;
+  .va-file-upload-single-item {
+    width: 100%;
 
-  &__name {
-    margin-right: 0.25rem;
-    max-width: 80%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    line-height: normal;
-  }
+    &__content {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      max-width: 100%;
+      width: 100%;
+    }
 
-  &__button {
-    margin-top: 0;
-    margin-bottom: 0;
-    font-weight: 700;
+    &__name {
+      margin-right: 0.25rem;
+      max-width: 80%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      line-height: normal;
+    }
+
+    &__button {
+      margin-top: 0;
+      margin-bottom: 0;
+      font-weight: 700;
+    }
   }
-}
 </style>

@@ -46,10 +46,9 @@
       class="va-pagination__input va-button"
       aria-label="enter the page number to go"
       v-model="inputValue"
-      :disabled="$props.disabled"
-      :placeholder="`${currentValue}/${lastPage}`"
       :style="inputStyleComputed"
       :class="{ 'va-pagination__input--flat': $props.flat }"
+      v-bind="inputAttributesComputed"
       @keydown.enter="changeValue"
       @focus="focusInput"
       @blur="changeValue"
@@ -220,6 +219,11 @@ export default defineComponent({
       }
     })
 
+    const inputAttributesComputed = computed(() => ({
+      disabled: props.disabled,
+      placeholder: `${currentValue.value}/${lastPage.value}`,
+    }))
+
     return {
       currentValue,
       lastPage,
@@ -233,80 +237,80 @@ export default defineComponent({
       paginationRange,
       focusInput,
       inputStyleComputed,
+      inputAttributesComputed,
     }
   },
 })
 </script>
 
 <style lang='scss'>
-@import "../../styles/resources";
-@import "variables";
+  @import "../../styles/resources";
+  @import "variables";
 
-.va-pagination {
-  font-family: var(--va-font-family);
+  .va-pagination {
+    font-family: var(--va-font-family);
 
-  &__input {
-    border-style: var(--va-pagination-input-border-style);
-    border-width: var(--va-pagination-input-border-width);
-    text-align: var(--va-pagination-input-text-align);
-    font-size: var(--va-pagination-input-font-size);
-    background: transparent;
+    &__input {
+      border-style: var(--va-pagination-input-border-style);
+      border-width: var(--va-pagination-input-border-width);
+      text-align: var(--va-pagination-input-text-align);
+      font-size: var(--va-pagination-input-font-size);
 
-    &--flat {
-      border-top-width: var(--va-pagination-input-flat-border-top-width);
-    }
-  }
-
-  &__numeric-button {
-    &.va-button {
-      .va-button__content {
-        // Remove paddings from button content
-        padding: 0;
-        justify-content: center;
+      &--flat {
+        border-top-width: var(--va-pagination-input-flat-border-top-width);
       }
+    }
 
-      // Add paddings to button content in min-width
-      &--normal {
+    &__numeric-button {
+      &.va-button {
         .va-button__content {
-          min-width: calc(var(--va-button-content-px) * 2 + var(--va-pagination-button-content-width));
+          // Remove paddings from button content
+          padding: 0;
+          justify-content: center;
+        }
+
+        // Add paddings to button content in min-width
+        &--normal {
+          .va-button__content {
+            min-width: calc(var(--va-button-content-px) * 2 + var(--va-pagination-button-content-width));
+          }
+        }
+
+        &--small {
+          .va-button__content {
+            min-width: calc(var(--va-button-sm-content-px) * 2 + var(--va-pagination-button-content-width));
+          }
+        }
+
+        &--large {
+          .va-button__content {
+            min-width: calc(var(--va-button-lg-content-px) * 2 + var(--va-pagination-button-content-width));
+          }
         }
       }
+    }
 
-      &--small {
-        .va-button__content {
-          min-width: calc(var(--va-button-sm-content-px) * 2 + var(--va-pagination-button-content-width));
-        }
+    .va-button {
+      &.va-input {
+        cursor: default;
       }
 
-      &--large {
-        .va-button__content {
-          min-width: calc(var(--va-button-lg-content-px) * 2 + var(--va-pagination-button-content-width));
-        }
+      &--ellipsis {
+        cursor: default;
+        opacity: 1;
+      }
+
+      &--ellipsis > .va-button__content {
+        opacity: 0.4;
+      }
+
+      &--outline.va-button--disabled {
+        opacity: 1;
+      }
+
+      &--outline.va-button--disabled > .va-button__content {
+        opacity: 0.4;
       }
     }
   }
-
-  .va-button {
-    &.va-input {
-      cursor: default;
-    }
-
-    &--ellipsis {
-      cursor: default;
-      opacity: 1;
-    }
-
-    &--ellipsis > .va-button__content {
-      opacity: 0.4;
-    }
-
-    &--outline.va-button--disabled {
-      opacity: 1;
-    }
-
-    &--outline.va-button--disabled > .va-button__content {
-      opacity: 0.4;
-    }
-  }
-}
 </style>

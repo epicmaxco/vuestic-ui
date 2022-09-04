@@ -12,6 +12,7 @@ export const useInViewPort = (element: Ref<HTMLElement | undefined>) => {
   watch(element, (newVal) => {
     if (newVal) {
       if (!observer) {
+        if (typeof IntersectionObserver === 'undefined') { return }
         observer = new IntersectionObserver(cb, {
           root: null,
           rootMargin: '50px',

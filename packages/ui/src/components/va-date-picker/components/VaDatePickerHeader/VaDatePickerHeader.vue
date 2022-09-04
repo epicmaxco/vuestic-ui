@@ -8,11 +8,12 @@
       <va-button
         :disabled="$props.disabled"
         icon="chevron_left"
-        flat
+        preset="plain"
         size="small"
         :color="color"
         :textColor="textColor"
         aria-label="next period"
+        round
         @click="prev"
       />
     </slot>
@@ -21,9 +22,8 @@
       <slot name="header" v-bind="{ year: syncView.year, month: syncView.month, monthNames, view: syncView, changeView, switchView }">
         <va-button
           :disabled="$props.disabled"
-          flat
+          preset="plain"
           size="small"
-          :rounded="false"
           :color="color"
           :textColor="textColor"
           aria-label="switch view"
@@ -42,12 +42,13 @@
       <va-button
         :disabled="$props.disabled"
         icon="chevron_right"
-        flat
+        preset="plain"
         size="small"
         :color="color"
         :textColor="textColor"
         aria-label="previous period"
         @click="next"
+        round
       />
     </slot>
   </div>
@@ -95,15 +96,15 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-.va-date-picker {
-  &__header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  .va-date-picker {
+    &__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
 
-    &__text {
-      color: currentColor;
+      &__text {
+        color: currentColor;
+      }
     }
   }
-}
 </style>
