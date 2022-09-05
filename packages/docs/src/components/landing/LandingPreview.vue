@@ -40,18 +40,18 @@
               <img src="@/assets/landing/images/features/components.svg" alt="responsive-components">
             </div>
             <h2 class="item__title">{{$t('landing.preview.features.components.title')}}</h2>
-            <router-link class="item__link text--primary" :to="`/${$root.$i18n.locale}/ui-elements/avatar`">
+            <router-link class="item__link text--primary" :to="`/${$root.$i18n.locale}/ui-elements/alert`">
               {{$t('landing.preview.features.components.text')}}
             </router-link>
           </div>
 
           <div class="item">
             <div class="item__frame">
-              <img src="@/assets/landing/images/features/keyboard-navigation.svg" alt="keyboard-navigation">
+              <img src="@/assets/landing/images/features/keyboard-navigation.svg" alt="accessability">
             </div>
-            <h2 class="item__title">{{$t('landing.preview.features.keyboard.title')}}</h2>
-            <router-link class="item__link text--primary" :to="`/${$root.$i18n.locale}/getting-started/accessibility-guide`">
-              {{$t('landing.preview.features.keyboard.text')}}
+            <h2 class="item__title">{{$t('landing.preview.features.accessability.title')}}</h2>
+            <router-link class="item__link text--primary" :to="`/${$root.$i18n.locale}/introduction/accessibility-guide`">
+              {{$t('landing.preview.features.accessability.text')}}
             </router-link>
           </div>
 
