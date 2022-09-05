@@ -1321,13 +1321,15 @@
         "filter": "Tree view filter.",
         "filterMethod":  "Custom tree view filter method.",
         "checked": "Array of pre-selected tree nodes",
-        "color":  "The checkboxes color."
+        "color":  "The checkboxes color.",
+        "expanded": "Array of pre-expanded tree nodes"
       },
       "slots": {
         "notFound": "No matching nodes to the filter message."
       },
       "events": {
-        "updateChecked": "The array of checked tree nodes."
+        "updateChecked": "The array of checked tree nodes.",
+        "updateExpanded": "The array of expanded tree nodes."
       }
     },
     "VaTreeNode": {
