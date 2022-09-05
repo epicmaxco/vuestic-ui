@@ -67,6 +67,7 @@
 
     <div class="va-carousel__content">
       <div
+        ref="slidesContainer"
         class="va-carousel__slides"
         :style="computedSlidesStyle"
         role="list"
@@ -93,11 +94,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, computed } from 'vue'
+import { defineComponent, shallowRef, PropType, computed, watch } from 'vue'
 import { useCarousel } from './hooks/useCarousel'
 import { useCarouselAnimation } from './hooks/useCarouselAnimation'
 import { useCarouselColor } from './hooks/useCarouselColors'
-import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables'
+import {
+  useStateful, useStatefulProps, useStatefulEmits,
+  useSwipe, useSwipeProps,
+} from '../../composables'
 import { VaImage } from '../va-image'
 import { VaButton } from '../va-button'
 import { VaHover } from '../va-hover'
@@ -108,6 +112,7 @@ export default defineComponent({
   components: { VaImage, VaButton, VaHover },
 
   props: {
+    ...useSwipeProps,
     ...useStatefulProps,
 
     modelValue: { type: Number, default: 0 },
@@ -154,6 +159,24 @@ export default defineComponent({
     })
     const isCurrentSlide = (index: number) => +index === currentSlide.value
 
+    const slidesContainer = shallowRef<HTMLElement>()
+    const { swipeDirection } = useSwipe(props, slidesContainer)
+    watch(swipeDirection, (newValue) => {
+      switch (newValue) {
+        case 'up':
+          props.vertical && withPause(next)
+          break
+        case 'down':
+          props.vertical && withPause(prev)
+          break
+        case 'left':
+          !props.vertical && withPause(prev)
+          break
+        case 'right':
+          !props.vertical && withPause(next)
+      }
+    })
+
     return {
       doShowNextButton,
       doShowPrevButton,
@@ -165,6 +188,7 @@ export default defineComponent({
       isObjectSlides,
       isCurrentSlide,
       ...useCarouselColor(),
+      slidesContainer,
     }
   },
 })
