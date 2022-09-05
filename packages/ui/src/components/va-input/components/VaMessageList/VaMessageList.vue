@@ -10,7 +10,7 @@
       class="va-message-list__message"
     >
       <va-icon
-        v-if="isError"
+        v-if="hasError"
         class="va-message-list__icon"
         name="warning"
         :size="16"
@@ -38,7 +38,7 @@ export default defineComponent({
     },
     limit: { type: Number, default: 1 },
     color: { type: String },
-    isError: { type: Boolean, default: false },
+    hasError: { type: Boolean, default: false },
   },
 
   setup (props) {
