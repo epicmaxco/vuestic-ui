@@ -115,7 +115,7 @@ const useTreeView: UseTreeViewFunc = (props, emit) => {
     const matchesFilter = filter.value ? computedFilterMethod.value?.(node, filter.value, textBy.value) : true
     const hasChildren = !!children.length
     const disabled = getDisabled(node) || false
-    const expanded = getExpanded(node) || expandedList.value.includes(valueBy) || false
+    const expanded = expandedList.value.includes(valueBy) || false
     let indeterminate = false
     let checked: boolean | null = node.checked || checkedList.value.includes(valueBy) || false
 
@@ -188,12 +188,19 @@ const useTreeView: UseTreeViewFunc = (props, emit) => {
 
   const treeItems = computed(() => buildTree(nodes.value))
 
-  if (expandAll.value) {
+  const checkAndUpdateExpandedList = () => {
     const values: TypeModelValue = []
 
-    iterateNodes(treeItems.value, (node) => values.push(getValue(node)))
+    if (expandAll.value) {
+      iterateNodes(treeItems.value, (node) => values.push(getValue(node)))
+    } else {
+      iterateNodes(treeItems.value, (node) => node.expanded && values.push(getValue(node)))
+    }
+
     updateModel(expandedList, values, true)
   }
+
+  checkAndUpdateExpandedList()
 
   return {
     treeItems,
