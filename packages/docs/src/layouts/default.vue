@@ -185,8 +185,8 @@ export default class DocsLayout extends Vue {
     color: var(--va-dark);
   }
 
-  a:not(.va-button, .va-sidebar__item):focus {
-    @include focus-outline();
+  a:not(.va-button, .va-sidebar__item):focus-visible {
+    @include focus-outline;
   }
 
   .base-layout {

@@ -1,3 +1,5 @@
+@import "../resources";
+
 @mixin va-title() {
   font-family: var(--va-font-family);
   font-size: 0.625rem;
@@ -182,6 +184,10 @@ $va-display-margins: (
     &:hover {
       color: var(--va-link-color);
       filter: brightness(125%);
+    }
+
+    &:focus-visible {
+      //@include focus-outline;
     }
   }
 }
