@@ -169,7 +169,7 @@ export default defineComponent({
       background-color: var(--va-primary);
       border-radius: var(--va-tree-node-border-radius);
       bottom: 0;
-      left: 0;
+      left: var(--va-tree-node-indent);
       opacity: 0;
       pointer-events: none;
       position: absolute;
