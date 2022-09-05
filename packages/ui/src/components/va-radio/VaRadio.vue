@@ -173,6 +173,10 @@ export default defineComponent({
         @include va-disabled;
       }
 
+      .va-radio__input:focus-visible + & {
+        @include focus-outline('inherit');
+      }
+
       &__dot {
         transition: var(--va-radio-dot-transition, var(--va-swing-transition));
         position: var(--va-radio-dot-position);
@@ -208,10 +212,6 @@ export default defineComponent({
         border-radius: var(--va-radio-background-border-radius);
         z-index: var(--va-radio-background-z-index);
         opacity: var(--va-radio-background-opacity);
-
-        .va-radio__input:focus + .va-radio__icon & {
-          opacity: 0.2;
-        }
 
         .va-radio:hover & {
           opacity: 0.2;
