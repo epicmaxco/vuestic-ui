@@ -14,6 +14,7 @@
       <va-rating-item
         v-for="itemNumber in $props.max"
         :key="itemNumber"
+        class="va-rating__item"
         v-bind="VaRatingItemProps"
         :aria-label="`vote rating ${itemNumber} of ${$props.max}`"
         :model-value="getItemValue(itemNumber - 1)"
@@ -22,15 +23,17 @@
         :readonly="$props.readonly"
         @hover="isInteractionsEnabled && onItemHoveredValueUpdate(itemNumber - 1, $event)"
         @update:model-value="isInteractionsEnabled && onItemValueUpdate(itemNumber - 1, $event)"
+        v-slot="{ value, onClick }"
       >
-        <template v-if="$props.numbers" v-slot="{ props }">
-          <VaRatingItemNumberButton
-            v-bind="VaRatingItemNumberButtonProps"
-            :model-value="props.value"
-            :item-number="itemNumber"
-            @click="props.onClick"
-          />
-        </template>
+        <slot name="item" v-bind="{ value: value, onClick: onClick, index: itemNumber }">
+          <template v-if="$props.numbers">
+            <VaRatingItemNumberButton
+              v-bind="VaRatingItemNumberButtonProps"
+              :model-value="value"
+              :item-number="itemNumber"
+            />
+          </template>
+        </slot>
       </va-rating-item>
     </div>
     <span
