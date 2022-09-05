@@ -29,6 +29,6 @@ export interface TreeView {
 }
 
 // TODO: Implement in future versions the update:selected emit
-export type TreeViewEmitsList = 'update:selected' | 'update:checked'
+export type TreeViewEmitsList = 'update:selected' | 'update:checked' | 'update:expanded'
 
 export const TreeViewKey = Symbol('TreeView') as InjectionKey<TreeView>

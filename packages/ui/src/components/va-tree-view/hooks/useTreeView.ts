@@ -5,6 +5,7 @@ import {
   ref,
   provide,
   watch,
+  Ref,
   ComputedRef,
   ExtractPropTypes,
 } from 'vue'
@@ -53,20 +54,25 @@ const useTreeView: UseTreeViewFunc = (props, emit) => {
     iterateNodes,
     getNodeProperty,
   } = useTreeHelpers(props)
-  const { nodes, expandAll, filter, filterMethod, textBy, checked, stateful } = toRefs(props)
+  const { nodes, expandAll, expanded, filter, filterMethod, textBy, checked, stateful } = toRefs(props)
+  const expandedList = ref<TypeModelValue>(expanded.value)
   const checkedList = ref<TypeModelValue>(checked.value)
 
   watch(() => checked.value, (newValue) => {
     checkedList.value = newValue
   })
 
-  const updateCheckedList = (values: (string | number | TreeNode)[], state: boolean) => {
+  const updateModel = (model: Ref<TypeModelValue>, values: TypeModelValue, state: boolean) => {
     if (state) {
-      checkedList.value = checkedList.value.concat(values)
+      model.value = model.value.concat(values)
         .filter((value, idx, self) => self.indexOf(value) === idx)
     } else {
-      checkedList.value = checkedList.value.filter(v => !values.includes(v))
+      model.value = model.value.filter(v => !values.includes(v))
     }
+  }
+
+  const updateCheckedList = (values: TypeModelValue, state: boolean) => {
+    updateModel(checkedList, values, state)
 
     if (stateful.value) {
       emit('update:checked', checkedList.value)
@@ -86,11 +92,30 @@ const useTreeView: UseTreeViewFunc = (props, emit) => {
     updateCheckedList(values, stateValue)
   }
 
+  watch(() => expanded.value, (newValue) => {
+    expandedList.value = newValue
+  })
+
+  const updateExpandedList = (values: TypeModelValue, state: boolean) => {
+    updateModel(expandedList, values, state)
+
+    if (stateful.value) {
+      emit('update:expanded', expandedList.value)
+    }
+  }
+
+  const toggleNode = (node: TreeNode): void => {
+    if (node.hasChildren && !node.disabled) {
+      updateExpandedList([getValue(node)], !node.expanded)
+    }
+  }
+
   const createNode: CreateNodeFunc = ({ node, level, children = [], computedFilterMethod }) => {
     const valueBy = getValue(node)
     const matchesFilter = filter.value ? computedFilterMethod.value?.(node, filter.value, textBy.value) : true
     const hasChildren = !!children.length
     const disabled = getDisabled(node) || false
+    const expanded = getExpanded(node) || expandedList.value.includes(valueBy) || false
     let indeterminate = false
     let checked: boolean | null = node.checked || checkedList.value.includes(valueBy) || false
 
@@ -98,7 +123,6 @@ const useTreeView: UseTreeViewFunc = (props, emit) => {
       const isAllChildrenChecked = children.every(c => c.checked)
 
       checked = isAllChildrenChecked
-      updateCheckedList([valueBy], isAllChildrenChecked)
       indeterminate = !isAllChildrenChecked && children.some(c => c.indeterminate || c.checked)
 
       if (indeterminate) { checked = null }
@@ -110,10 +134,10 @@ const useTreeView: UseTreeViewFunc = (props, emit) => {
       checked,
       children,
       disabled,
+      expanded,
       hasChildren,
       matchesFilter,
       indeterminate,
-      expanded: (!disabled && expandAll.value) || getExpanded(node) || false,
     })
   }
 
@@ -151,12 +175,6 @@ const useTreeView: UseTreeViewFunc = (props, emit) => {
     }, [])
   }
 
-  const toggleNode = (node: TreeNode): void => {
-    if (node.hasChildren && !node.disabled) {
-      node.expanded = !node.expanded
-    }
-  }
-
   provide(TreeViewKey, {
     colorComputed,
     selectable: props.selectable,
@@ -168,10 +186,17 @@ const useTreeView: UseTreeViewFunc = (props, emit) => {
     toggleCheckbox,
   })
 
+  const treeItems = computed(() => buildTree(nodes.value))
+
+  if (expandAll.value) {
+    const values: TypeModelValue = []
+
+    iterateNodes(treeItems.value, (node) => values.push(getValue(node)))
+    updateModel(expandedList, values, true)
+  }
+
   return {
-    treeItems: computed(() => {
-      return buildTree(nodes.value)
-    }),
+    treeItems,
     getText,
     getTrackBy,
     toggleCheckbox,
