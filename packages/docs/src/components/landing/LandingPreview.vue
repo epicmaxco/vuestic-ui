@@ -1,5 +1,5 @@
 <template>
-  <section class="preview">
+  <section class="preview" :style="{ color: textColor }">
     <div class="preview__wrapper">
       <div class="preview__inner">
         <h1 class="preview__title">{{$t('landing.preview.title')}}</h1>
@@ -72,8 +72,16 @@
 </template>
 
 <script>
+import { useElementTextColor } from 'vuestic-ui/src/main'
+
 export default {
   name: 'LandingPreview',
+
+  setup () {
+    return {
+      textColor: useElementTextColor('background-primary'),
+    }
+  },
 }
 </script>
 

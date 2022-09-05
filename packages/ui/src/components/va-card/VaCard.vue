@@ -42,7 +42,7 @@ export default defineComponent({
     stripeColor: { type: String, default: '' },
     gradient: { type: Boolean, default: false },
     textColor: { type: String },
-    color: { type: String, default: 'white' },
+    color: { type: String, default: 'background-tertiary' },
   },
   setup (props) {
     const { getColor } = useColors()

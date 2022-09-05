@@ -1,5 +1,5 @@
 <template>
-  <va-card color="background" style="padding: 0.75rem;">
+  <va-card color="background-secondary" style="padding: 0.75rem;">
     <div class="row">
       <!-- align-self--start -->
       <div class="flex xs3 align-self--start">
@@ -39,13 +39,13 @@ export default {
     min-height: 6rem;
 
     & + .row {
-      border-top: 1px solid $lighter-gray;
+      border-top: 1px solid var(--va-background-secondary);
     }
   }
 
   .item {
-    border: 1px solid $gray;
-    background-color: $white;
+    border: 1px solid var(--va-background-element);
+    background-color: var(--va-background-tertiary);
     text-align: center;
   }
 </style>

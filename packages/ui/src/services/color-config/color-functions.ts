@@ -2,9 +2,6 @@
 import { ColorTranslator } from 'colortranslator'
 import { HSLObject, ColorInput } from 'colortranslator/dist/@types'
 
-/** This is a hack for cjs and esm build when we can transpile colortranslator */
-// const ColorTranslator = CTClass || colortranslator.ColorTranslator
-
 export const colorToRgba = (color: ColorInput, opacity: number) => {
   return new ColorTranslator(color).setA(opacity).RGBA
 }
@@ -12,15 +9,19 @@ export const colorToRgba = (color: ColorInput, opacity: number) => {
 export const isLightBackground = (color: ColorInput, opacity = 1) => {
   // TODO: replace with color mixin (doesn't play any role in dark theme)
   const { R, G, B } = new ColorTranslator(color)
-  return opacity < 0.6 || Math.sqrt(R * R * 0.241 + G * G * 0.691 + B * B * 0.068) > 200
+  return opacity < 0.6 || Math.sqrt(R * R * 0.241 + G * G * 0.691 + B * B * 0.068) > 120
 }
 
-export const getTextColor = (color: ColorInput, darkColor = 'dark', lightColor = 'white') => {
+export const getTextColor = (color: ColorInput, darkColor = 'textDark', lightColor = 'textLight') => {
   return isLightBackground(color) ? darkColor : lightColor
 }
 
 export const getBoxShadowColor = (color: ColorInput) => {
   return new ColorTranslator(color).setA(0.4).RGBA
+}
+
+export const getBoxShadowColorFromBg = (background: ColorInput) => {
+  return (new ColorTranslator(background)).setA(0.4).RGBA
 }
 
 export const getHoverColor = (color: ColorInput) => {
@@ -126,3 +127,18 @@ export const isColor = (strColor: string): boolean => {
 }
 
 export const isCSSVariable = (strColor: string): boolean => /var\(--.+\)/.test(strColor)
+
+export const appyColors = (color1: ColorInput, color2: ColorInput) => {
+  const c1 = new ColorTranslator(color1)
+  const c2 = new ColorTranslator(color2)
+  const weight = c2.A
+
+  if (weight === 1) { return c2.RGBA }
+  if (weight === 0) { return c1.RGBA }
+
+  c1.setR(Math.round((c1.R) * (1 - weight) + (c2.R) * weight))
+  c1.setG(Math.round((c1.G) * (1 - weight) + (c2.G) * weight))
+  c1.setB(Math.round((c1.B) * (1 - weight) + (c2.B) * weight))
+
+  return c1.RGBA
+}

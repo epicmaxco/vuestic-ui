@@ -27,6 +27,7 @@
           v-if="file && file.name"
           class="va-file-upload-gallery-item__name"
           :title="file.name"
+          :style="{ color: textColorComputed }"
         >
           {{ file.name }}
         </div>
@@ -47,12 +48,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref, watch, computed, PropType } from 'vue'
+import { defineComponent, onMounted, PropType, ref, watch, computed, toRef } from 'vue'
 
 import { colorToRgba } from '../../../services/color-config/color-functions'
 import { useFocus, useBem, useStrictInject } from '../../../composables'
 
 import { VaFileUploadKey, ConvertedFile } from '../types'
+import { useTextColor } from '../../../composables/useTextColor'
 
 import { VaButton, VaListItem, VaListItemSection } from '../../index'
 import { VaFileUploadUndo } from '../VaFileUploadUndo'
@@ -136,6 +138,7 @@ export default defineComponent({
 
     return {
       undo,
+      ...useTextColor(toRef(props, 'color')),
       removed,
       disabled,
       isFocused,

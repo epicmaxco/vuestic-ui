@@ -5,7 +5,7 @@
       preset="secondary"
       size="small"
       class="docs-navigation__button"
-      color="gray"
+      color="secondary"
       @click="showCodeComputed = !showCodeComputed"
     >
       <va-icon class="docs-navigation__button__icon" name="fa4-code" size="13px" />
@@ -16,7 +16,7 @@
       preset="secondary"
       size="small"
       class="docs-navigation__button"
-      color="gray"
+      color="secondary"
       @click="copy"
     >
       <va-icon class="docs-navigation__button__icon" :name="copyButton.icon" size="13px" />
@@ -27,7 +27,7 @@
       preset="secondary"
       size="small"
       class="docs-navigation__button"
-      color="gray"
+      color="secondary"
       :href="gitLink"
       target="_blank"
     >
@@ -42,7 +42,7 @@
         type="submit"
         size="small"
         class="docs-navigation__button"
-        color="gray"
+        color="secondary"
       >
         <va-icon class="docs-navigation__button__icon" size="13px">
           <svg width="13" height="13" viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M0 88h88V0H0v88Zm79-9V9H9v70h70Z" /></svg>
@@ -115,7 +115,7 @@ const gitLink = computed(
   @import "~vuestic-ui/src/styles/resources";
 
   .docs-navigation {
-    background: $prism-background;
+    background: var(--va-background-secondary);
     margin: 0 0 0.2rem 0;
     border-radius: 0.25rem;
     border-top-left-radius: 0;

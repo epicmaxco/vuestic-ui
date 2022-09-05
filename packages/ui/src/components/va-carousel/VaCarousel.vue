@@ -153,7 +153,7 @@ export default defineComponent({
     const isObjectSlides = computed(() => {
       return props.items.length && props.items.every((el) => !!el && typeof el === 'object' && !!el?.src)
     })
-    const isCurrentSlide = (index: number) => +index === currentSlide.value
+    const isCurrentSlide = (index: number) => index === currentSlide.value
 
     return {
       doShowNextButton,

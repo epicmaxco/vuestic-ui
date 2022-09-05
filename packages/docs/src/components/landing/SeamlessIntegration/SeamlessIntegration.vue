@@ -80,12 +80,12 @@ import SeamlessIntegrationAnotherCheckbox from './SeamlessIntegrationAnotherChec
 @Options({
   name: 'SeamlessIntegration',
   components: {
-    SeamlessIntegrationAnotherButton,
-    SeamlessIntegrationAnotherSelect,
-    SeamlessIntegrationAnotherRangeSlider,
-    SeamlessIntegrationAnotherCheckbox,
+  SeamlessIntegrationAnotherButton,
+  SeamlessIntegrationAnotherSelect,
+  SeamlessIntegrationAnotherRangeSlider,
+  SeamlessIntegrationAnotherCheckbox,
   },
-})
+  })
 export default class Seamless extends Vue {
   value = true
   value2 = 45

@@ -1,8 +1,7 @@
 :root {
-  --va-input-color: var(--va-background, #f5f9fb);
-  --va-input-text-color: var(--va-dark, #262824);
-  --va-input-scroll-color: var(--va-divided, #e1e9f8);
-  --va-input-bordered-color: var(--va-divided, #e1e9f8);
+  --va-input-color: var(--va-background-secondary);
+  --va-input-scroll-color: var(--va-background-tertiary, #e1e9f8);
+  --va-input-bordered-color: var(--va-background-tertiary, #e1e9f8);
   --va-input-border-width: 1px;
   --va-input-border-radius: 4px;
   --va-input-min-height: 36px;

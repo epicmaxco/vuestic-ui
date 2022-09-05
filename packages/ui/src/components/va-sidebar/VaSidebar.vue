@@ -7,7 +7,9 @@
     @mouseleave="updateHoverState(false)"
   >
     <div class="va-sidebar__menu">
-      <slot />
+      <va-config :components="{ VaSidebarItem: vaSidebarItemProps }">
+        <slot />
+      </va-config>
     </div>
   </aside>
 </template>
@@ -24,7 +26,10 @@ export default defineComponent({
   name: 'VaSidebar',
   props: {
     ...useComponentPresetProp,
-    color: { type: String, default: 'background' },
+    activeColor: { type: String, default: 'primary' },
+    hoverColor: { type: String, default: undefined },
+    borderColor: { type: String, default: undefined },
+    color: { type: String, default: 'background-secondary' },
     textColor: { type: String },
     gradient: { type: Boolean, default: false },
     minimized: { type: Boolean, default: false },
@@ -41,7 +46,7 @@ export default defineComponent({
   },
   setup (props) {
     const { getColor } = useColors()
-    useSidebar()
+    useSidebar(props)
 
     const isHovered = ref(false)
 
@@ -59,13 +64,13 @@ export default defineComponent({
 
     const computedStyle = computed(() => {
       const backgroundColor = getColor(props.color)
-      const background = props.gradient ? getGradientBackground(backgroundColor) : backgroundColor
 
       const color = textColorComputed.value
 
       return {
         color,
-        background,
+        backgroundColor,
+        backgroundImage: props.gradient ? getGradientBackground(backgroundColor) : undefined,
         width: computedWidth.value,
       }
     })
@@ -84,6 +89,12 @@ export default defineComponent({
       computedClass,
       computedStyle,
       updateHoverState,
+      vaSidebarItemProps: computed(() => ({
+        textColor: props.textColor,
+        activeColor: props.activeColor,
+        hoverColor: props.hoverColor,
+        borderColor: props.borderColor,
+      })),
     }
   },
 })
@@ -111,6 +122,8 @@ export default defineComponent({
       padding-left: var(--va-sidebar-menu-padding-left);
       overflow-y: var(--va-sidebar-menu-overflow-y);
       overflow-x: var(--va-sidebar-menu-overflow-x);
+
+      @include va-scroll(var(--va-primary));
     }
 
     &--animated {

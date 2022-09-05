@@ -15,7 +15,7 @@
     border: 1px solid var(--va-input-color);
 
     &:focus {
-      border: 1px solid var(--va-light-gray); // keyboard focus color
+      border: 1px solid var(--va-background-tertiary); // keyboard focus color
     }
   }
 
@@ -24,7 +24,7 @@
   ////////////////////////////////////////
   .ag-list-item {
     &.ag-active-item {
-      background-color: var(--va-light-gray2);
+      background-color: var(--va-background-secondary);
     }
   }
 
@@ -42,7 +42,7 @@
       cursor: pointer;
       padding: 0 var(--va-input-content-horizontal-padding);
       background: var(--va-input-color);
-      border: 1px solid var(--va-light-gray);
+      border: 1px solid var(--va-background-tertiary);
       border-radius: var(--va-input-border-radius);
     }
 
@@ -62,13 +62,13 @@
 
     &::after {
       font-size: $radio-size;
-      color: var(--va-lighter-gray);
+      color: var(--va-background-primary);
       line-height: $radio-size;
     }
 
     &.ag-checked::after {
       font-size: $radio-size;
-      color: var(--va-vue-darkest-blue);
+      color: currentColor;
     }
   }
 
@@ -113,6 +113,6 @@
   }
 
   .ag-dnd-ghost-icon {
-    color: var(--va-vue-darkest-blue);
+    color: currentColor;
   }
 }

@@ -1,7 +1,7 @@
 <template>
-  <div class="mb-4" style="height: 16rem; border: 1px solid var(--va-secondary);">
-    <va-sidebar color="primary" text-color="white" minimizedWidth="64px" width="18rem">
-      <va-sidebar-item active-color="background" text-color="white">
+  <div class="mb-4" style="height: 16rem;">
+    <va-sidebar color="primary" minimizedWidth="64px" width="18rem">
+      <va-sidebar-item active-color="background">
         <va-sidebar-item-content>
           <va-sidebar-item-title>
             background primary and white text color
@@ -24,9 +24,9 @@
     </va-sidebar>
   </div>
 
-  <div class="mb-4" style="height: 16rem; border: 1px solid var(--va-secondary);">
-    <va-sidebar color="dark" minimizedWidth="64px" width="18rem">
-      <va-sidebar-item active-color="background">
+  <div class="mb-4" style="height: 16rem;">
+    <va-sidebar color="background-secondary" minimizedWidth="64px" width="18rem">
+      <va-sidebar-item>
         <va-sidebar-item-content>
           <va-sidebar-item-title>
             background dark and auto text color
@@ -37,7 +37,6 @@
         v-for="item in items"
         :key="item.title"
         :active="item.active"
-        active-color="background"
       >
         <va-sidebar-item-content>
           <va-icon :name="item.icon" />
@@ -74,9 +73,9 @@
     </va-sidebar>
   </div>
 
-  <div class="mb-4" style="height: 16rem; border: 1px solid var(--va-secondary);">
-    <va-sidebar color="danger" text-color="success" minimizedWidth="64px" width="18rem">
-      <va-sidebar-item active-color="background" text-color="success">
+  <div class="mb-4" style="height: 16rem;">
+    <va-sidebar color="danger" active-color="background" text-color="success" minimizedWidth="64px" width="18rem">
+      <va-sidebar-item>
         <va-sidebar-item-content>
           <va-sidebar-item-title>
             background danger and success text color
@@ -87,8 +86,6 @@
         v-for="item in items"
         :key="item.title"
         :active="item.active"
-        active-color="background"
-        text-color="success"
       >
         <va-sidebar-item-content>
           <va-icon :name="item.icon" />

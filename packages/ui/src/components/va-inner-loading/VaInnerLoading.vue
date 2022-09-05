@@ -60,7 +60,19 @@ export default defineComponent({
       top: var(--inner-loading-overlay-top);
       bottom: var(--inner-loading-overlay-bottom);
       width: var(--inner-loading-overlay-width);
-      background: var(--inner-loading-overlay-background);
+      z-index: 0;
+
+      &::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background: var(--inner-loading-overlay-background);
+        opacity: 0.3;
+        z-index: -1;
+      }
     }
   }
 </style>

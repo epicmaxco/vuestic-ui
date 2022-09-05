@@ -67,12 +67,12 @@ export default defineComponent({
     cursor: pointer;
     border-radius: 50%;
     text-align: center;
-    background-color: #d8dadd;
-    border: 0.125rem solid #d8dadd;
+    background-color: var(--va-background-element);
+    border: 0.125rem solid var(--va-background-element);
 
     &--selected {
-      background-color: $vue-darkest-blue;
-      border-color: $vue-darkest-blue;
+      background-color: var(--va-primary);
+      border-color: var(--va-primary);
     }
 
     &--hoverable &__core:hover,

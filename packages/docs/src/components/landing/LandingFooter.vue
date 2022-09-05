@@ -1,5 +1,5 @@
 <template>
-  <footer class="footer">
+  <footer class="footer" :style="{ color: textColor }">
     <div class="footer__wrapper">
       <div class="footer__inner">
         <LandingEpicmaxBanner />
@@ -82,45 +82,32 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component'
+import { useColors, useElementTextColor } from 'vuestic-ui/src/main'
+import { markRaw, defineComponent } from 'vue'
 import IconEpicmax from './icons/IconEpicmax.vue'
 import IconAdmin from './icons/IconAdmin.vue'
 import IconSpinners from './icons/IconSpinners.vue'
-import { useColors } from 'vuestic-ui/src/main'
-import { markRaw } from 'vue'
 import LandingEpicmaxBanner from '@/components/landing/LandingEpicmaxBanner.vue'
 
-@Options({
+export default defineComponent({
   name: 'LandingFooter',
+
   components: {
     LandingEpicmaxBanner,
   },
+
+  setup () {
+    const { getComputedColor } = useColors()
+
+    return {
+      textColor: useElementTextColor('background-primary'),
+      IconEpicmax: markRaw(IconEpicmax),
+      IconAdmin: markRaw(IconAdmin),
+      IconSpinners: markRaw(IconSpinners),
+      primaryColor: getComputedColor('primary'),
+    }
+  },
 })
-export default class Footer extends Vue {
-  IconEpicmax = markRaw(IconEpicmax);
-  IconAdmin = markRaw(IconAdmin);
-  IconSpinners = markRaw(IconSpinners);
-
-  get primaryColor () {
-    // TODO: Replace with setup FN
-    return useColors().getColor('primary')
-  }
-
-  get currentYear () {
-    const date = new Date() // 2009-11-10
-    return date.getFullYear()
-  }
-
-  get currentMonthName () {
-    const date = new Date() // 2009-11-10
-    return date.toLocaleString('en', { month: 'long' })
-  }
-
-  get developersCount () {
-    const currentMonth = new Date().getUTCMonth()
-    return currentMonth % 3 + 2
-  }
-}
 </script>
 
 <style lang="scss" scoped>

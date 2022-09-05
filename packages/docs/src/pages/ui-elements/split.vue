@@ -9,9 +9,9 @@ import splitConfig from '../../page-configs/ui-elements/split/page-config'
 
 @Options({
   components: {
-    DocsContent,
+  DocsContent,
   },
-})
+  })
 export default class Split extends Vue {
   get configComputed () {
     return splitConfig

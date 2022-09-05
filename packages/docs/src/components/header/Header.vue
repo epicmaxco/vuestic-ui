@@ -22,22 +22,21 @@
       <algolia-search />
     </div>
     <div class="header__nav">
-      <div class="header__links">
-        <va-button
-            v-for="(link, index) in links"
-            :key="index"
-            preset="secondary"
-            class="header__links__button ml-2"
-            :to="link.to"
-            :href="link.url"
-            :target="link.target"
-          >
-            <va-icon class="button__icon" :class="link.icon" />
-            <span class="button__text">{{ link.text }}</span>
-          </va-button>
-      </div>
+
       <div class="header__prefences sm-hidden flex">
-  <!--      <color-dropdown class="mr-1" />-->
+        <va-button
+          v-for="(link, index) in links"
+          :key="index"
+          preset="secondary"
+          class="mr-1"
+          :to="link.to"
+          :href="link.url"
+          :target="link.target"
+        >
+          <va-icon class="button__icon" :class="link.icon" />
+          <span class="button__text">{{ link.text }}</span>
+        </va-button>
+        <color-dropdown class="mr-1" />
         <language-dropdown class="mr-3" />
         <version-dropdown />
       </div>
@@ -105,11 +104,12 @@ export default class Header extends mixins(PropsMixin) {
 
 <style lang="scss" scoped>
   @import "~vuestic-ui/src/styles/resources";
+  @import "~vuestic-ui/src/styles/global";
 
   .header {
     width: 100%;
     height: 4rem;
-    box-shadow: 0 2px 8px rgba(122, 139, 173, 0.2);
+    box-shadow: 0 2px 8px var(--va-shadow);
     display: flex;
     justify-content: space-between;
     align-items: center;

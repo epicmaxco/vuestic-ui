@@ -40,7 +40,7 @@ export default defineComponent({
   props: {
     ...useFixedBarProps,
     ...useComponentPresetProp,
-    color: { type: String, default: 'secondary' },
+    color: { type: String, default: 'backgroundTertiary' },
     textColor: { type: String },
     shape: { type: Boolean, default: false },
   },

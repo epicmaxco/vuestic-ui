@@ -53,7 +53,7 @@ const PropsMixin = Vue.with(Props)
 @Options({
   name: 'DocsTable',
   components: { MarkdownView },
-})
+  })
 export default class DocsTable extends mixins(PropsMixin) {
   get columnsComputed () {
     return this.columns.map((col) => typeof col === 'string' ? { title: col } : col)
@@ -92,7 +92,7 @@ export default class DocsTable extends mixins(PropsMixin) {
       font-size: 16px;
 
       &__row {
-        border-bottom: 1px solid $prism-background;
+        border-bottom: 1px solid var(--va-background-secondary);
 
         & .MarkdownView {
           code,

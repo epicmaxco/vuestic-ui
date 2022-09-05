@@ -56,7 +56,7 @@ export default defineComponent({
     ...VaDropdownProps,
     ...useComponentPresetProp,
     trigger: { default: 'hover' },
-    color: { type: String, default: 'dark' },
+    color: { type: String, default: '#1b1a1f' }, // TODO: Make sure add this color to pallete
     textColor: { type: String },
     icon: { type: String, default: '' },
     title: { type: String, default: '' },

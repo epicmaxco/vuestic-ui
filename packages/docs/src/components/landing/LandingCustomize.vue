@@ -142,7 +142,7 @@ import { useColors } from 'vuestic-ui/src/composables'
 @Options({
   name: 'LandingCustomize',
   components: { Prism, LandingColorTab },
-})
+  })
 export default class Customize extends Vue {
   clicksCount = 0
   checkboxValue = true

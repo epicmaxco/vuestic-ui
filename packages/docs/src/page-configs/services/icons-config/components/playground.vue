@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="demo-header mb-2 row">
+    <div class="demo-header mb-2">
       <div class="col">
         <va-select
           v-model="exampleValue"
@@ -132,7 +132,7 @@ const copy = () => {
 
   .code-snippet {
     color: currentColor;
-    background: var(--va-background);
+    background: var(--va-background-secondary);
     position: relative;
 
     .copy-button {

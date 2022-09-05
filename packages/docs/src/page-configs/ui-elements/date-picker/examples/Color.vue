@@ -1,11 +1,37 @@
 <template>
-  <va-date-picker
-    v-model="range"
-    color="#ff00ff"
-    weekends-color="#00ffff"
-    highlight-weekend
-    show-other-months
-  />
+  <div class="flex row">
+    <div class="flex">
+      <va-date-picker
+        v-model="range"
+        color="warning"
+        weekends-color="info"
+        highlight-weekend
+        show-other-months
+      />
+    </div>
+
+    <div class="flex">
+      <va-date-picker
+        v-model="range"
+        color="warning"
+        weekends-color="info"
+        type="month"
+        highlight-weekend
+        show-other-months
+      />
+    </div>
+
+    <div class="flex">
+      <va-date-picker
+        v-model="range"
+        color="warning"
+        weekends-color="info"
+        type="year"
+        highlight-weekend
+        show-other-months
+      />
+    </div>
+  </div>
 </template>
 
 <script>

@@ -41,7 +41,7 @@ export default defineComponent({
     ...useSizeProps,
     ...useComponentPresetProp,
     color: { type: String, default: 'info' },
-    textColor: { type: String, default: 'white' },
+    textColor: { type: String },
     square: { type: Boolean, default: false },
     icon: { type: String, default: '' },
     src: { type: String, default: null },

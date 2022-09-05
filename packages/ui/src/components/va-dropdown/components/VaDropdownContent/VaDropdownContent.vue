@@ -17,7 +17,7 @@ export default defineComponent({
   name: 'VaDropdownContent',
   props: {
     noPadding: { type: Boolean, default: false },
-    background: { type: String, default: 'white' },
+    background: { type: String, default: 'background-tertiary' },
     textColor: { type: String },
   },
 

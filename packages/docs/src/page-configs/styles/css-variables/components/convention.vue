@@ -6,7 +6,7 @@
 
 <style lang="scss" scoped>
   .code-snippet {
-    background: var(--va-background);
+    background: var(--va-background-primary);
     color: var(--va-dark);
   }
 

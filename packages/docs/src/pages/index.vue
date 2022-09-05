@@ -36,16 +36,16 @@ import LandingCustomize from '../components/landing/LandingCustomize.vue'
 @Options({
   name: 'DocsLandingPage',
   components: {
-    LandingHeader,
-    LandingPreview,
-    LandingPartners,
-    LandingFooter,
-    LandingOpenSource,
-    LandingAdmin,
-    SeamlessIntegration,
-    LandingCustomize,
+  LandingHeader,
+  LandingPreview,
+  LandingPartners,
+  LandingFooter,
+  LandingOpenSource,
+  LandingAdmin,
+  SeamlessIntegration,
+  LandingCustomize,
   },
-})
+  })
 export default class Landing extends Vue {}
 </script>
 

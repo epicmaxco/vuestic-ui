@@ -238,9 +238,10 @@ export default defineComponent({
       cursor: pointer;
       transform: translateY(-50%);
       font-size: var(--va-toast-close-icon-font-siz);
+      opacity: 0.7;
 
       &:hover {
-        color: var(--va-toast-hover-color);
+        opacity: 1;
       }
     }
   }

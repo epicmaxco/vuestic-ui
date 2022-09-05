@@ -1,6 +1,9 @@
+import type { ColorConfig, CssColor } from '../services/color-config'
+import { computed } from 'vue'
 import { GlobalConfig, useGlobalConfigSafe } from '../services/global-config/global-config'
 import {
   getBoxShadowColor,
+  getBoxShadowColorFromBg,
   getHoverColor,
   getFocusColor,
   getGradientBackground,
@@ -14,8 +17,7 @@ import {
   getStateMaskGradientBackground,
 } from '../services/color-config/color-functions'
 
-export type CssColor = string
-export type ColorConfig = { [colorName: string]: CssColor }
+import { cssVariableName, normalizeColorName } from '../services/color-config/utils'
 
 /**
  * You can add these props to any component by destructuring them inside props option.
@@ -31,23 +33,25 @@ export const useColorProps = {
 }
 
 export const useColors = () => {
-  const globalConfig = useGlobalConfigSafe()
+  const gc = useGlobalConfigSafe()
 
-  if (!globalConfig) {
+  if (!gc) {
     throw new Error('useColors must be used in setup function or Vuestic GlobalConfigPlugin is not registered!')
   }
 
-  const { setGlobalConfig, getGlobalConfig } = globalConfig
+  const { setGlobalConfig, getGlobalConfig, globalConfig } = gc
 
-  const setColors = (colors: ColorConfig): void => {
+  const colors = computed(() => globalConfig.value.colors || {})
+
+  const setColors = (colors: Partial<ColorConfig>): void => {
     setGlobalConfig((config: GlobalConfig) => ({
       ...config,
-      colors: { ...config.colors, ...colors },
+      colors: { ...config.colors, ...colors } as ColorConfig,
     }))
   }
 
   const getColors = (): ColorConfig => {
-    return getGlobalConfig().colors || {}
+    return getGlobalConfig().colors!
   }
 
   /**
@@ -67,11 +71,13 @@ export const useColors = () => {
     const colors = getColors()
 
     if (!prop) {
-      prop = defaultColor
+      prop = getColor(defaultColor)
     }
 
-    if (colors[prop]) {
-      return preferVariables ? `var(--va-${prop})` : colors[prop]
+    const normalizedColor = normalizeColorName(prop)
+
+    if (colors[normalizedColor]) {
+      return preferVariables ? `var(${cssVariableName(prop)}` : colors[normalizedColor]
     }
 
     if (isColor(prop)) {
@@ -87,7 +93,11 @@ export const useColors = () => {
       names (https://vuestic.dev/en/styles/colors#default-color-themes)`)
     }
 
-    return defaultColor
+    return getColor(defaultColor)
+  }
+
+  const getComputedColor = (color: string) => {
+    return computed(() => getColor(color))
   }
 
   const colorsToCSSVariable = (colors: { [colorName: string]: string | undefined }, prefix = 'va') => {
@@ -101,10 +111,13 @@ export const useColors = () => {
   }
 
   return {
+    colors,
     setColors,
     getColors,
     getColor,
+    getComputedColor,
     getBoxShadowColor,
+    getBoxShadowColorFromBg,
     getHoverColor,
     getFocusColor,
     getGradientBackground,
@@ -117,3 +130,6 @@ export const useColors = () => {
     getStateMaskGradientBackground,
   }
 }
+
+export * from '../services/color-config/color-functions'
+export * from '../services/color-config'

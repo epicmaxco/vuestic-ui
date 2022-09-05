@@ -2,6 +2,7 @@
   <div
     v-if="syncView.type !== 'year'"
     class="va-date-picker-header va-date-picker__header"
+    :style="{ color: textColor }"
   >
     <slot name="buttonPrev" v-bind="{ onClick: prev }">
       <va-button
@@ -10,7 +11,7 @@
         preset="plain"
         size="small"
         :color="color"
-        textColor="dark"
+        :textColor="textColor"
         aria-label="next period"
         round
         @click="prev"
@@ -24,7 +25,7 @@
           preset="plain"
           size="small"
           :color="color"
-          textColor="dark"
+          :textColor="textColor"
           aria-label="switch view"
           @click="switchView"
         >
@@ -44,7 +45,7 @@
         preset="plain"
         size="small"
         :color="color"
-        textColor="dark"
+        :textColor="textColor"
         aria-label="previous period"
         @click="next"
         round
@@ -69,7 +70,8 @@ export default defineComponent({
   props: {
     monthNames: { type: Array, required: true },
     view: { type: Object as PropType<DatePickerView> },
-    color: { type: String, default: undefined },
+    color: { type: String },
+    textColor: { type: String },
     disabled: { type: Boolean, default: false },
   },
 
@@ -101,7 +103,7 @@ export default defineComponent({
       align-items: center;
 
       &__text {
-        color: var(--va-dark);
+        color: currentColor;
       }
     }
   }

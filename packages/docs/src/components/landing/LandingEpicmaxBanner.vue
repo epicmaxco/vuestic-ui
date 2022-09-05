@@ -24,7 +24,7 @@ import { Options, Vue } from 'vue-class-component'
 
 @Options({
   name: 'LandingEpicmaxBanner',
-})
+  })
 export default class EpicmaxBanner extends Vue {
   get currentMonthName () {
     const date = new Date() // 2009-11-10
