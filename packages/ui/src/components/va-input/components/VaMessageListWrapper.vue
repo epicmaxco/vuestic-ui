@@ -4,6 +4,7 @@
     <va-message-list
       :color="messagesColor"
       :limit="errorLimit"
+      :is-error="isError"
       :model-value="messagesComputed"
     />
   </div>
@@ -32,6 +33,7 @@ export default defineComponent({
         if (props.success) { return 'success' }
         return ''
       }),
+      isError: computed(() => props.error),
       messagesComputed: computed(() => props.error ? props.errorMessages : props.messages),
       errorLimit: computed(() => props.error ? Number(props.errorCount) : 99),
     }
