@@ -8,8 +8,9 @@
     @keyup.space="onClick"
     @mousemove="onMouseMove"
     @mouseleave="onMouseLeave"
+    @click="onClick"
   >
-    <slot :props="{ value: visibleValue, onClick }">
+    <slot v-bind="{ value: visibleValue, onClick }">
       <va-icon
         class="va-rating-item__wrapper"
         tabindex="-1"
