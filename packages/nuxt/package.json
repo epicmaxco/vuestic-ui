@@ -30,15 +30,15 @@
     "dev:prepare": "nuxt-module-build --stub && nuxi prepare playground"
   },
   "dependencies": {
-    "@nuxt/kit": "^3.0.0-rc.8",
-    "nuxt": "^3.0.0-rc.8",
+    "@nuxt/kit": "^3.0.0-rc.9",
+    "nuxt": "^3.0.0-rc.9",
     "pathe": "^0.3.5",
     "vuestic-ui": "^1.4.9"
   },
   "devDependencies": {
     "@nuxt/module-builder": "latest",
-    "@nuxt/schema": "^3.0.0-rc.8",
-    "@nuxt/vite-builder": "^3.0.0-rc.8",
+    "@nuxt/schema": "latest",
+    "@nuxt/vite-builder": "latest",
     "@nuxtjs/eslint-config-typescript": "latest",
     "eslint": "latest"
   }
