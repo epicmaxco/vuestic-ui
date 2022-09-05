@@ -39,7 +39,7 @@ export default {
   }
 
   .item {
-    border: 1px solid var(--va-background-form);
+    border: 1px solid var(--va-background-element);
     background-color: var(--va-background-tertiary);
     text-align: center;
   }

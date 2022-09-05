@@ -22,7 +22,7 @@ export const COLOR_THEMES: Record<ThemeName, Record<string, string>> = {
     backgroundPrimary: '#ffffff',
     backgroundTertiary: '#ffffff',
     backgroundSecondary: '#f4f8fa',
-    backgroundForm: '#babfc2',
+    backgroundElement: '#babfc2',
 
     // Default
     textLight: '#fff',
@@ -46,7 +46,7 @@ export const COLOR_THEMES: Record<ThemeName, Record<string, string>> = {
     backgroundPrimary: '#1F1F1F',
     backgroundSecondary: '#333333',
     backgroundTertiary: '#262626',
-    backgroundForm: '#767C88',
+    backgroundElement: '#767C88',
     // Misc
     shadow: 'rgba(0, 0, 0, 0.37)',
     focus: '#FF0',

@@ -16,7 +16,7 @@ export const colorsPresets: Record<string, ColorConfigEssentialColors> = {
     backgroundPrimary: '#161b21',
     backgroundSecondary: '#0d1118',
     backgroundTertiary: '#21262c',
-    backgroundForm: '#babfc2',
+    backgroundElement: '#babfc2',
     // Misc
     shadow: 'rgba(0, 0, 0, 0.12)',
     focus: '#ffc700',

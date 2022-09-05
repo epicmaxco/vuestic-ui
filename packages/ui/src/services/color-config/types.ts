@@ -14,7 +14,7 @@ export type ColorConfigEssentialColors = {
   backgroundSecondary: CssColor,
   // TODO: Think about better name
   /** Form background in switch and borders in checkbox, ratio etc */
-  backgroundForm: CssColor,
+  backgroundElement: CssColor,
   // Text colors
   textLight: CssColor,
   textDark: CssColor,
