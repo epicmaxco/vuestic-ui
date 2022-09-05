@@ -50,14 +50,14 @@ export default class Landing extends Vue {}
 </script>
 
 <style lang="scss">
-  @import "~vuestic-ui/src/styles/resources";
+  @import "~vuestic-ui/src/styles/typography/typography.scss";
   //@import "./../assets/main";
 
   .landing {
     font-family: Source Sans Pro;
 
-    a:not(.va-button):focus {
-      @include focus-outline(2px, 2px, 2px);
+    a {
+      @include link(2px);
     }
   }
 

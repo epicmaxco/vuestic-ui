@@ -186,8 +186,8 @@ export default class DocsLayout extends Vue {
     font-size: $font-size-root;
   }
 
-  a:not(.va-button, .va-sidebar__item):focus {
-    @include focus-outline();
+  a:not(.va-button, .va-sidebar__item):focus-visible {
+    @include focus-outline;
   }
 
   .base-layout {
