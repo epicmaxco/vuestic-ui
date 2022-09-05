@@ -194,7 +194,9 @@ const useTreeView: UseTreeViewFunc = (props, emit) => {
     if (expandAll.value) {
       iterateNodes(treeItems.value, (node) => values.push(getValue(node)))
     } else {
-      iterateNodes(treeItems.value, (node) => node.expanded && values.push(getValue(node)))
+      iterateNodes(nodes.value, (node) => {
+        getExpanded(node) && values.push(getValue(node))
+      })
     }
 
     updateModel(expandedList, values, true)
