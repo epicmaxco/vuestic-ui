@@ -47,11 +47,11 @@
 
           <div class="item">
             <div class="item__frame">
-              <img src="@/assets/landing/images/features/keyboard-navigation.svg" alt="keyboard-navigation">
+              <img src="@/assets/landing/images/features/keyboard-navigation.svg" alt="accessability">
             </div>
-            <h2 class="item__title">{{$t('landing.preview.features.keyboard.title')}}</h2>
+            <h2 class="item__title">{{$t('landing.preview.features.accessability.title')}}</h2>
             <router-link class="item__link text--primary" :to="`/${$root.$i18n.locale}/introduction/accessibility-guide`">
-              {{$t('landing.preview.features.keyboard.text')}}
+              {{$t('landing.preview.features.accessability.text')}}
             </router-link>
           </div>
 
