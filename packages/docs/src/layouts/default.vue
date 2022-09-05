@@ -223,7 +223,6 @@ export default class DocsLayout extends Vue {
     }
 
     &__header {
-      background-color: var(--va-background-soft);
       z-index: 1;
     }
 
