@@ -56,7 +56,7 @@ export default class Landing extends Vue {}
   .landing {
     font-family: Source Sans Pro;
 
-    a:not(.va-button):focus {
+    a:not(.va-button):focus-visible {
       @include focus-outline(2px, 2px, 2px);
     }
   }
