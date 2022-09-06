@@ -99,3 +99,14 @@ const getRandomString = (stringLength = 4): string => {
 export const generateUniqueId = () => {
   return `${getRandomString(8)}-${getRandomString(4)}-${getRandomString(4)}`
 }
+
+export const isParsablePositiveMeasure = (value: unknown) => {
+  if (typeof value === 'string') {
+    return (!isNaN(+value) ||
+      value.endsWith('px') ||
+      value.endsWith('rem')) &&
+      parseInt(value) >= 0
+  }
+  if (typeof value === 'number') { return value >= 0 }
+  return false
+}

@@ -1,30 +1,58 @@
 import { PropType, ExtractPropTypes, ref, Ref, shallowRef, computed, watch, onMounted } from 'vue'
 
-import { useResizeObserver } from '../../composables'
+import { useEvent } from '../../composables'
+import { warn, isParsablePositiveMeasure } from '../../services/utils'
+
+const validateSizeProp = (v: number | string, propName: string) => {
+  const isProperValue = isParsablePositiveMeasure(v)
+
+  !isProperValue &&
+  warn(`[va-virtual-scroller] ${propName} should be number or parsable int greater or equal to 0. Provided: ${v}.`)
+
+  return isProperValue
+}
 
 export const useVirtualScrollerSizesProps = {
   horizontal: { type: Boolean, default: false },
   itemSize: {
     type: [Number, String] as PropType<string | number>,
     default: 0,
-    validator: (v: number | string) => {
-      if (typeof v === 'string') { return (!isNaN(+v) || v.endsWith('px') || v.endsWith('rem')) && parseInt(v) >= 0 }
-      return v >= 0
-    },
+    validator: (v: number | string) => { return validateSizeProp(v, 'itemSize') },
+  },
+  wrapperSize: {
+    type: [Number, String] as PropType<string | number>,
+    default: 100,
+    validator: (v: number | string) => { return validateSizeProp(v, 'wrapperSize') },
   },
 }
 
 export const useVirtualScrollerSizes = (
   props: ExtractPropTypes<typeof useVirtualScrollerSizesProps>,
-  currentScroll: Ref<number>,
+  scrollPosition: Ref<number>,
 ) => {
-  const wrapper = shallowRef<HTMLElement>()
   const list = shallowRef<HTMLElement>()
+  const wrapper = shallowRef<HTMLElement>()
+
+  const parseSizeValue = (value: number | string) => {
+    if (typeof value === 'string') {
+      const parsedValue = parseInt(value)
+      return value.endsWith('rem') ? parsedValue * pageFontSize.value : parsedValue
+    } else {
+      return value
+    }
+  }
+
+  const wrapperSize = computed(() => {
+    return parseSizeValue(props.wrapperSize)
+  })
+
+  const pageFontSize = ref(16)
+  const handleWindowResize = () => {
+    pageFontSize.value = parseFloat(getComputedStyle(document.documentElement).fontSize)
+  }
+  useEvent('resize', handleWindowResize, true)
 
   const itemSizeCalculated = ref(0)
-  const wrapperSize = ref(0)
-  const bodyFontSize = ref(16)
-
   const calcAverageItemsSize = () => {
     if (!list.value) { return }
 
@@ -41,31 +69,23 @@ export const useVirtualScrollerSizes = (
       ? Math.trunc(sizes.reduce((acc, el) => acc + el, 0) / (itemsAmount - 1))
       : 0
   }
-  onMounted(() => {
-    calcAverageItemsSize()
-    handleWrapperResize()
-  })
-  watch(currentScroll, calcAverageItemsSize)
-
-  const handleWrapperResize = () => {
-    if (!wrapper.value) { return }
-
-    wrapperSize.value = props.horizontal ? wrapper.value.offsetWidth : wrapper.value.offsetHeight
-    bodyFontSize.value = parseFloat(getComputedStyle(document.documentElement).fontSize)
-    calcAverageItemsSize()
-  }
-  useResizeObserver([wrapper], handleWrapperResize)
+  onMounted(calcAverageItemsSize)
+  watch(scrollPosition, calcAverageItemsSize)
+  watch(wrapperSize, calcAverageItemsSize)
 
   let oldItemSize = 0
   const itemSize = computed(() => {
-    if (typeof props.itemSize === 'string') {
-      const sizeParsed = parseInt(props.itemSize)
-      return props.itemSize.endsWith('rem') ? sizeParsed * bodyFontSize.value : sizeParsed
-    }
+    const sizeParsed = parseSizeValue(props.itemSize)
 
-    const result = Math.max(props.itemSize, itemSizeCalculated.value, 1)
+    const result = Math.max(sizeParsed, itemSizeCalculated.value, 1)
     const diff = Math.abs(((oldItemSize / result) * 100) - 100)
 
+    /**
+     * 5 - empirically derived number, some kind of debounce but without freezes.
+     * While recalculating rendered items average size, if difference is too small, this can cause list 'shaking' because of algorithm:
+     * `rendering items -> calculating their size -> rebuilding list total size -> items offset -> rendering items`
+     * This smoothing is intended to prevent such cases.
+     */
     if (diff > 5 || oldItemSize === 0) {
       oldItemSize = result
       return result
@@ -74,5 +94,5 @@ export const useVirtualScrollerSizes = (
     return oldItemSize
   })
 
-  return { list, wrapper, wrapperSize, itemSize }
+  return { list, wrapper, itemSize, wrapperSize }
 }

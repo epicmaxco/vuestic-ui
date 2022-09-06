@@ -1,7 +1,7 @@
 <template>
   <va-virtual-scroller
     :items="hugeArray"
-    style="height: 200px;"
+    :wrapper-size="200"
     v-slot="{item, index}"
   >
     <va-badge class="pb-2" color="success" :text="`item ${item} with index ${index}`" />

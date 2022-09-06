@@ -1,5 +1,9 @@
 <template>
-  <div ref="wrapper" class="va-virtual-scroller">
+  <div
+    ref="wrapper"
+    class="va-virtual-scroller"
+    :style="wrapperStyleComputed"
+  >
     <div class="va-virtual-scroller__container" :style="containerStyleComputed">
       <div
         ref="list"
@@ -20,7 +24,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed } from 'vue'
+import { defineComponent, PropType, ref, computed } from 'vue'
 import pick from 'lodash/pick.js'
 import isArray from 'lodash/isArray.js'
 
@@ -34,45 +38,66 @@ export default defineComponent({
 
   props: {
     ...useVirtualScrollerSizesProps,
-    items: { type: Array, required: true, validator: (v: any[]) => !!v.length },
+    items: { type: Array, default: () => ([]) },
     bench: { type: Number, default: 10, validator: (v: number) => v >= 0 },
-    trackBy: { type: String, default: '' },
+    trackBy: { type: [String, Number] as PropType<string | number>, default: '' },
     disabled: { type: Boolean, default: false },
   },
 
   setup: (props) => {
-    const currentListScroll = ref<number>(0)
+    const listScrollPosition = ref(0)
     const handleScroll = () => {
       if (!wrapper.value) { return }
-      currentListScroll.value = wrapper.value[props.horizontal ? 'scrollLeft' : 'scrollTop']
+      listScrollPosition.value = wrapper.value[props.horizontal ? 'scrollLeft' : 'scrollTop']
     }
     if (!props.disabled) { useEvent('scroll', handleScroll, true) }
 
-    const { list, wrapper, wrapperSize, itemSize } = useVirtualScrollerSizes(props, currentListScroll)
+    const { list, wrapper, itemSize, wrapperSize } = useVirtualScrollerSizes(props, listScrollPosition)
 
     const uniqueKey = (item: unknown, index: number) => {
-      if (props.trackBy && item && typeof item === 'object' && !isArray(item)) {
-        const key = (item as Record<string, unknown>)[props.trackBy]
+      if (props.trackBy && item && typeof item === 'object') {
+        const isArrayItem = isArray(item)
 
-        if (key || key === 0) { return `virtual-scroller-item-${key}` }
+        let key: any
+        if (isArrayItem && !isNaN(+props.trackBy)) { key = (item as any[])[+props.trackBy] }
+        if (!isArrayItem) { key = (item as Record<string, any>)[props.trackBy] }
 
-        warn(`[va-virtual-scroller] Key ${props.trackBy} wasn't found in ${JSON.stringify(item)}!`)
+        if (key || key === 0) { return key }
+
+        warn(`[va-virtual-scroller] ${isArrayItem ? 'Index' : 'Key'} '${props.trackBy}' wasn't found in provided ${isArrayItem ? 'array' : 'object'}: `, item)
       }
 
-      return `virtual-scroller-item-${renderStartIndex.value + index}`
+      return renderStartIndex.value + index
     }
 
     // forming items to render
     const renderStartIndex = computed(() => {
-      return Math.max(0, Math.floor(currentListScroll.value / itemSize.value) - props.bench)
+      return Math.max(0, Math.floor(listScrollPosition.value / itemSize.value) - props.bench)
     })
     const renderItemsAmount = computed(() => {
+      if (!props.items?.length) { return 0 }
       return props.disabled
         ? props.items.length
         : Math.min(props.items.length - renderStartIndex.value, Math.ceil(wrapperSize.value / itemSize.value) + props.bench * 2)
     })
     const renderEndIndex = computed(() => renderStartIndex.value + renderItemsAmount.value)
-    const renderBuffer = computed(() => props.items.slice(renderStartIndex.value, renderEndIndex.value))
+    const renderBuffer = computed(() => {
+      if (!props.items?.length) { return [] }
+      return props.items.slice(renderStartIndex.value, renderEndIndex.value)
+    })
+
+    const sizeAttribute = computed(() => props.horizontal ? 'width' : 'height')
+
+    // wrapper styles
+    const wrapperStyleComputed = computed(() => ({
+      [sizeAttribute.value]: `${wrapperSize.value}px`,
+    }))
+
+    // container styles
+    const containerSize = computed(() => (props.items?.length ?? 0) * itemSize.value)
+    const containerStyleComputed = computed(() => ({
+      [sizeAttribute.value]: `${containerSize.value}px`,
+    }))
 
     // items list classes and styles
     const currentListOffset = computed(() => renderStartIndex.value * itemSize.value)
@@ -83,14 +108,9 @@ export default defineComponent({
       ...pick(props, ['horizontal']),
     }))
 
-    // container styles
-    const containerSize = computed(() => props.items.length * itemSize.value)
-    const containerStyleComputed = computed(() => ({
-      [props.horizontal ? 'width' : 'height']: `${containerSize.value}px`,
-    }))
-
     return {
       containerStyleComputed,
+      wrapperStyleComputed,
       listClassComputed,
       listStyleComputed,
       renderStartIndex,

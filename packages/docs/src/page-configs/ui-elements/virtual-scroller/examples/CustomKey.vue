@@ -1,7 +1,7 @@
 <template>
   <va-virtual-scroller
     :items="hugeObjectsArray"
-    style="height: 200px;"
+    :wrapper-size="200"
     :bench="10"
     track-by="value"
     v-slot="{item}"

@@ -1,14 +1,23 @@
 <template>
-  <VbDemo class="va-virtual-scroller-demo">
+  <VbDemo>
     <VbCard title="default">
       <va-virtual-scroller
         :items="hugeArray"
-        :bench="10"
-        :item-size="24"
-        style="height: 200px;"
-        v-slot="{item, index}"
+        :wrapper-size="200"
+        v-slot="{item}"
       >
-        <div>{{ index }} - {{ item }}</div>
+        <div>{{ item }}</div>
+      </va-virtual-scroller>
+    </VbCard>
+    <VbCard title="disabled">
+      <!-- without slice there are freezes on the page -->
+      <va-virtual-scroller
+        :items="hugeArray.slice(0, 1000)"
+        :wrapper-size="200"
+        v-slot="{item}"
+        disabled
+      >
+        <div>{{ item }}</div>
       </va-virtual-scroller>
     </VbCard>
     <VbCard title="horizontal">
@@ -17,7 +26,7 @@
         horizontal
         :bench="10"
         :item-size="24"
-        style="width: 200px;"
+        :wrapper-size="200"
         v-slot="{item, index}"
       >
         <div>{{ index }} - {{ item }} |&nbsp;</div>
@@ -28,7 +37,7 @@
         :items="hugeArray"
         :bench="0"
         :item-size="24"
-        style="height: 200px;"
+        :wrapper-size="200"
         v-slot="{item, index}"
       >
         <div>{{ index }} - {{ item }}</div>
@@ -40,7 +49,7 @@
         :bench="10"
         :item-size="24"
         custom-key="value"
-        style="height: 200px;"
+        :wrapper-size="200"
         v-slot="{item, index}"
       >
         <div>{{ index }} - {{ item.value }}</div>
@@ -52,7 +61,7 @@
         :bench="20"
         :item-size="18"
         custom-key="value"
-        style="height: 200px;"
+        :wrapper-size="200"
         v-slot="{item}"
       >
         <va-badge :text="`item ${item.value}`" color="success" />
@@ -63,8 +72,8 @@
         :items="hugeObjectsArray"
         :bench="20"
         :item-size="24"
-        custom-key="value"
-        style="height: 200px;"
+        track-by="value"
+        :wrapper-size="200"
         v-slot="{item, index}"
       >
         <div :class="index % 2 ? 'pb-1' : 'pb-5'">
@@ -72,29 +81,32 @@
         </div>
       </va-virtual-scroller>
     </VbCard>
+    <VbCard title="rem (same for px) wrapper & item size value">
+      <va-virtual-scroller
+        :items="hugeArray"
+        item-size="2rem"
+        wrapper-size="10rem"
+        v-slot="{item}"
+      >
+        <div>{{ item }}</div>
+      </va-virtual-scroller>
+    </VbCard>
+    <VbCard title="no items passed">
+      <va-virtual-scroller
+        :wrapper-size="200"
+        v-slot="{item}"
+      >
+        <div>{{ item }}</div>
+      </va-virtual-scroller>
+    </VbCard>
   </VbDemo>
 </template>
 
-<script>
-import { VaVirtualScroller } from './'
+<script setup lang="ts">
 import { VaBadge, VaButton } from '../'
+import { VaVirtualScroller } from './'
 
-export default {
-  components: {
-    VaBadge,
-    VaButton,
-    VaVirtualScroller,
-  },
-
-  data: () => {
-    const hugeArrayBase = new Array(10000)
-    const hugeArray = hugeArrayBase.fill(null).map((_, index) => index)
-    const hugeObjectsArray = hugeArrayBase.fill(null).map((el, index) => ({ value: index }))
-    return { hugeArray, hugeObjectsArray }
-  },
-}
+const hugeArrayBase = new Array(10000)
+const hugeArray = hugeArrayBase.fill(null).map((_, index) => index)
+const hugeObjectsArray = hugeArrayBase.fill(null).map((el, index) => ({ value: index }))
 </script>
-
-<style lang="scss">
-.va-virtual-scroller-demo {}
-</style>
