@@ -1908,6 +1908,10 @@
         "title": "Numbers",
         "text": "Want to see numbers instead of icons? We got you covered."
       },
+      "itemSlot": {
+        "title": "Item slot",
+        "text": "You can pass own html to the component using `item` slot. We still handle user events and accessability, but you can change appearance."
+      },
       "customIcons": {
         "title": "Custom Icons",
         "text": "Providing this prop to component allows you to add custom icons."
