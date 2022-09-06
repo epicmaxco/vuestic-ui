@@ -27,7 +27,7 @@ export const useSelectableProps = {
   ...useStatefulProps,
   ...useLoadingProps,
   ...useValidationProps,
-  arrayValue: { type: null as any as PropType<unknown>, default: null },
+  arrayValue: { type: [String, Boolean, Object, Number] as PropType<any>, default: null },
   label: { type: String, default: '' },
   leftLabel: { type: Boolean, default: false },
   trueValue: { type: null as any as PropType<unknown>, default: true },
