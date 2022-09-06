@@ -26,7 +26,6 @@
 <script lang="ts">
 import { defineComponent, PropType, ref, computed } from 'vue'
 import pick from 'lodash/pick.js'
-import isArray from 'lodash/isArray.js'
 
 import { useEvent, useBem } from '../../composables'
 import { useVirtualScrollerSizes, useVirtualScrollerSizesProps } from './useVirtualScrollerSizes'
@@ -56,7 +55,7 @@ export default defineComponent({
 
     const uniqueKey = (item: unknown, index: number) => {
       if (props.trackBy && item && typeof item === 'object') {
-        const isArrayItem = isArray(item)
+        const isArrayItem = Array.isArray(item)
 
         let key: any
         if (isArrayItem && !isNaN(+props.trackBy)) { key = (item as any[])[+props.trackBy] }
