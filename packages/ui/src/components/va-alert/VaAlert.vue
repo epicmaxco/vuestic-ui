@@ -54,14 +54,16 @@
         class="va-alert__close"
       >
         <div
-          :style="contentStyle"
-          class="va-alert__close--closeable"
           role="button"
+          class="va-alert__close--closeable"
           tabindex="0"
+          :class="keyboardFocusClass"
           :aria-label="closeText || 'close alert'"
-          @click="hide()"
-          @keydown.space="hide()"
-          @keydown.enter="hide()"
+          :style="contentStyle"
+          @click="hide"
+          @keydown.space="hide"
+          @keydown.enter="hide"
+          v-on="keyboardFocusListeners"
         >
           <slot name="close">
             <va-icon
@@ -82,7 +84,11 @@
 import { defineComponent, computed, PropType } from 'vue'
 
 import { generateUniqueId } from '../../services/utils'
-import { useComponentPresetProp, useStateful, useStatefulProps, useStatefulEmits } from '../../composables'
+import {
+  useComponentPresetProp,
+  useStateful, useStatefulProps, useStatefulEmits,
+  useKeyboardFocusClass, useKeyboardFocusClassProps,
+} from '../../composables'
 
 import { useAlertStyles } from './useAlertStyles'
 
@@ -93,6 +99,7 @@ export default defineComponent({
   components: { VaIcon },
   emits: useStatefulEmits,
   props: {
+    ...useKeyboardFocusClassProps,
     ...useStatefulProps,
     ...useComponentPresetProp,
     modelValue: { type: Boolean, default: true },
@@ -132,6 +139,8 @@ export default defineComponent({
     const titleIdComputed = computed(() => `aria-title-${uniqueId.value}`)
     const descriptionIdComputed = computed(() => `aria-description-${uniqueId.value}`)
 
+    const { keyboardFocusListeners, keyboardFocusClass } = useKeyboardFocusClass(props, 'va-alert__close')
+
     return {
       ...alertStyles,
       valueComputed,
@@ -142,114 +151,110 @@ export default defineComponent({
       hide,
       titleIdComputed,
       descriptionIdComputed,
+      keyboardFocusListeners,
+      keyboardFocusClass,
     }
   },
 })
 </script>
 
 <style lang='scss'>
-@import "../../styles/resources";
-@import "variables";
+  @import "../../styles/resources";
+  @import "variables";
 
-.va-alert {
-  position: var(--va-alert-position);
-  padding: var(--va-alert-padding-y) var(--va-alert-padding-x);
-  margin: var(--va-alert-margin-y) auto;
-  display: var(--va-alert-display);
-  align-items: var(--va-alert-align-items);
-  border: var(--va-alert-border-width, var(--va-control-border)) solid transparent;
-  border-radius: var(--va-alert-border-radius, var(--va-block-border-radius));
-  font-family: var(--va-font-family);
+  .va-alert {
+    position: var(--va-alert-position);
+    padding: var(--va-alert-padding-y) var(--va-alert-padding-x);
+    margin: var(--va-alert-margin-y) auto;
+    display: var(--va-alert-display);
+    align-items: var(--va-alert-align-items);
+    border: var(--va-alert-border-width, var(--va-control-border)) solid transparent;
+    border-radius: var(--va-alert-border-radius, var(--va-block-border-radius));
+    font-family: var(--va-font-family);
 
-  &__border {
-    content: "";
-    position: absolute;
+    &__border {
+      content: "";
+      position: absolute;
 
-    &--top {
-      border-radius: var(--va-alert-top-border-radius);
-      width: 100%;
-      height: var(--va-alert-stripe-border-size);
-      top: 0;
-      left: 0;
+      &--top {
+        border-radius: var(--va-alert-top-border-radius);
+        width: 100%;
+        height: var(--va-alert-stripe-border-size);
+        top: 0;
+        left: 0;
+      }
+
+      &--right {
+        border-radius: var(--va-alert-right-border-radius);
+        height: 100%;
+        width: var(--va-alert-stripe-border-size);
+        bottom: 0;
+        right: 0;
+      }
+
+      &--bottom {
+        border-radius: var(--va-alert-bottom-border-radius);
+        width: 100%;
+        height: var(--va-alert-stripe-border-size);
+        bottom: 0;
+        left: 0;
+      }
+
+      &--left {
+        border-radius: var(--va-alert-left-border-radius);
+        height: 100%;
+        width: var(--va-alert-stripe-border-size);
+        bottom: 0;
+        left: 0;
+      }
     }
 
-    &--right {
-      border-radius: var(--va-alert-right-border-radius);
-      height: 100%;
-      width: var(--va-alert-stripe-border-size);
-      bottom: 0;
-      right: 0;
+    &__icon {
+      display: flex;
+      align-items: center;
+      padding-right: var(--va-alert-padding-x);
     }
 
-    &--bottom {
-      border-radius: var(--va-alert-bottom-border-radius);
-      width: 100%;
-      height: var(--va-alert-stripe-border-size);
-      bottom: 0;
-      left: 0;
-    }
-
-    &--left {
-      border-radius: var(--va-alert-left-border-radius);
-      height: 100%;
-      width: var(--va-alert-stripe-border-size);
-      bottom: 0;
-      left: 0;
-    }
-  }
-
-  &__icon {
-    display: flex;
-    align-items: center;
-    padding-right: var(--va-alert-padding-x);
-  }
-
-  &__title {
-    display: flex;
-    align-items: center;
-    font-weight: var(--va-alert-title-font-weight);
-  }
-
-  &__content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    flex-grow: 1;
-    color: var(--va-alert-color);
-  }
-
-  &__close {
-    padding-left: var(--va-alert-close-padding-x);
-    font-size: var(--va-alert-close-font-size);
-
-    &--closeable {
+    &__title {
       display: flex;
       align-items: center;
       cursor: pointer;
-
-      &:focus {
-        @include focus-outline;
-      }
     }
-  }
 
-  @include media-breakpoint-down(xs) {
-    @at-root {
-      .va-alert {
-        &__content {
-          flex-direction: column;
-          align-items: flex-start;
-        }
+    @include keyboard-focus;
 
-        &__close {
-          align-self: flex-start;
-          display: flex;
-          align-items: flex-start;
-          padding: 0 var(--va-alert-close-padding-x) 0 0;
-          margin: 0;
+    &__close {
+      padding-left: var(--va-alert-close-padding-x);
+      font-size: var(--va-alert-close-font-size);
+
+      &--closeable {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+
+        &:focus {
+          @include focus-outline;
         }
       }
     }
+
+    @include media-breakpoint-down(xs) {
+      @at-root {
+        .va-alert {
+          &__content {
+            flex-direction: column;
+            align-items: flex-start;
+          }
+
+          &__close {
+            align-self: flex-start;
+            display: flex;
+            align-items: flex-start;
+            padding: 0 var(--va-alert-close-padding-x) 0 0;
+            margin: 0;
+          }
+        }
+      }
+    }
   }
-}
 </style>

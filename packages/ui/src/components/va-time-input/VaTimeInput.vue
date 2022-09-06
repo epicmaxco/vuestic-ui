@@ -93,6 +93,7 @@ import {
   useValidation, useValidationEmits, useValidationProps, ValidationProps,
   useClearable, useClearableEmits, useClearableProps,
   useFocus, useFocusEmits,
+  useKeyboardFocusClassProps,
 } from '../../composables'
 import { useTimeParser } from './hooks/time-text-parser'
 import { useTimeFormatter } from './hooks/time-text-formatter'
@@ -118,6 +119,7 @@ export default defineComponent({
   ],
 
   props: {
+    ...useKeyboardFocusClassProps,
     ...useComponentPresetProp,
     ...useClearableProps,
     ...VaInputWrapperProps,
@@ -290,6 +292,7 @@ export default defineComponent({
       name: props.icon,
       color: props.color,
       tabindex: iconTabindexComputed.value,
+      disableFocusClass: props.disableFocusClass,
     }))
 
     const inputAttributesComputed = computed(() => ({
@@ -336,14 +339,14 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "variables";
+  @import "variables";
 
-.va-time-input {
-  min-width: var(--va-time-input-min-width);
+  .va-time-input {
+    min-width: var(--va-time-input-min-width);
 
-  &__anchor {
-    flex: 1;
+    &__anchor {
+      flex: 1;
+    }
   }
-}
 
 </style>

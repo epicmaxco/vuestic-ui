@@ -1,8 +1,9 @@
-import type { VuesticOptions } from './../types';
 import { addPluginTemplate } from '@nuxt/kit'
 
 import { resolve } from 'pathe'
 import { distDir } from '../dirs'
+
+import type { VuesticOptions } from './../types';
 
 /** Register vuestic nuxt plugin */
 export const useVuesticPlugin = (options: VuesticOptions) => {

@@ -15,6 +15,7 @@
       :focused="focusedCellIndex === index"
       :highlight-today="highlightToday"
       :readonly="readonly"
+      :color="color"
       @click="onClick(year); focusedCellIndex = index"
       @mouseenter="hoveredIndex = index"
       @mouseleave="hoveredIndex = -1"
@@ -48,6 +49,7 @@ export default defineComponent({
     view: { type: Object as PropType<DatePickerView>, default: () => ({ type: 'year' }) },
     endYear: { type: Number, default: () => new Date().getFullYear() + 50 },
     readonly: { type: Boolean, default: false },
+    color: { type: String, default: 'primary' },
   },
 
   emits: ['update:modelValue', 'hover:year', 'click:year'],
@@ -140,12 +142,12 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-.va-year-picker {
-  display: flex;
-  flex-direction: column;
-  overflow: auto;
-  grid-gap: var(--va-date-picker-cell-gap);
-  max-height: 100%;
-  position: relative;
-}
+  .va-year-picker {
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    grid-gap: var(--va-date-picker-cell-gap);
+    max-height: 100%;
+    position: relative;
+  }
 </style>

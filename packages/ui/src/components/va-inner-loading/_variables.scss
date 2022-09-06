@@ -9,5 +9,5 @@
   --inner-loading-overlay-top: 0;
   --inner-loading-overlay-bottom: 0;
   --inner-loading-overlay-width: 100%;
-  --inner-loading-overlay-background: rgba(255, 255, 255, 0.5);
+  --inner-loading-overlay-background: var(--va-background-primary);
 }

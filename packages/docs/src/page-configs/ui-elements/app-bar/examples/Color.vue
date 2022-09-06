@@ -1,7 +1,7 @@
 <template>
   <div style="position: relative;">
     <va-app-bar
-      color="secondary"
+      color="danger"
     >
       <va-button icon="home" color="#fff" preset="plain" />
       <va-button icon="info" color="#fff" preset="plain" />

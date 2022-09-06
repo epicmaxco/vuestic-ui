@@ -25,19 +25,19 @@ export default {
 </script>
 
 <style lang="scss">
-.va-input-css-example {
-  max-width: 700px;
+  .va-input-css-example {
+    max-width: 700px;
 
-  .red {
-    color: red;
-  }
+    .red {
+      color: red;
+    }
 
-  .p-2 {
-    padding: 2rem 0;
-  }
+    .p-2 {
+      padding: 2rem 0;
+    }
 
-  .border-gray {
-    border: 1px solid darkgray;
+    .border-gray {
+      border: 1px solid darkgray;
+    }
   }
-}
 </style>

@@ -16,19 +16,19 @@ export function getType (fn: () => any) {
 export const getTypes = (componentProp: any): string[] => {
   const types = []
   switch (true) {
-  case isArray(componentProp):
-    types.push(...componentProp)
-    break
-  case isFunction(componentProp):
-    types.push(componentProp)
-    break
-  case isObject(componentProp):
-    if (componentProp.type) {
-      types.push(...(isArray(componentProp.type) ? componentProp.type : [componentProp.type]))
-    }
-    break
-  default:
-    return ['any']
+    case isArray(componentProp):
+      types.push(...componentProp)
+      break
+    case isFunction(componentProp):
+      types.push(componentProp)
+      break
+    case isObject(componentProp):
+      if (componentProp.type) {
+        types.push(...(isArray(componentProp.type) ? componentProp.type : [componentProp.type]))
+      }
+      break
+    default:
+      return ['any']
   }
 
   return types.length > 0 ? types.map(getType) : ['any']
@@ -95,12 +95,12 @@ function convertComponentPropToApiDocs<T extends string> (propName: T, propOptio
 
 function normalizeProps (props: any) {
   switch (true) {
-  case isArray(props):
-    return props.reduce((acc: Record<string, unknown>, prop: string) => ({ ...acc, [prop]: null }), {})
-  case isObject(props):
-    return props
-  default:
-    return {}
+    case isArray(props):
+      return props.reduce((acc: Record<string, unknown>, prop: string) => ({ ...acc, [prop]: null }), {})
+    case isObject(props):
+      return props
+    default:
+      return {}
   }
 }
 

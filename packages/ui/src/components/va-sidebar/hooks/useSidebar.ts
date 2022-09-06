@@ -1,19 +1,19 @@
-import { provide, inject, getCurrentInstance, toRef, ref } from 'vue'
+import { inject, provide, ExtractPropTypes } from 'vue'
 
-const key = Symbol('VaSidebar')
+const VaSidebarKey = Symbol('VaSidebar')
 
-export const useSidebar = () => {
-  const { props } = getCurrentInstance() as unknown as { props: { color?: string } }
+export const useSidebarProps = {
+  color: { type: String, default: 'background-secondary' },
+  textColor: { type: String },
+}
 
-  provide(key, {
-    color: toRef(props, 'color'),
-  })
+export const useSidebar = (props: ExtractPropTypes<typeof useSidebarProps>) => {
+  provide(VaSidebarKey, props)
 }
 
 export const useSidebarItem = () => {
-  const { color } = inject(key, { color: ref('white') })
-
-  return {
-    sidebarColor: color,
-  }
+  return inject<ExtractPropTypes<typeof useSidebarProps>>(VaSidebarKey, {
+    color: 'background-secondary',
+    // activeColor: 'primary',
+  })
 }

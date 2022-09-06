@@ -233,9 +233,9 @@ export default {
 </script>
 
 <style lang="scss">
-.va-button-toggle-demo {
-  .va-button-group {
-    margin-bottom: 16px;
+  .va-button-toggle-demo {
+    .va-button-group {
+      margin-bottom: 16px;
+    }
   }
-}
 </style>

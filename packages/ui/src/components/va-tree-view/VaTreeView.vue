@@ -64,10 +64,10 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import 'variables';
+  @import 'variables';
 
-.va-tree-view {
-  padding: var(--va-tree-view-padding);
-  font-family: var(--va-font-family);
-}
+  .va-tree-view {
+    padding: var(--va-tree-view-padding);
+    font-family: var(--va-font-family);
+  }
 </style>

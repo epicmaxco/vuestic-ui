@@ -12,7 +12,7 @@
   // background-shape
   --va-navbar-shape-width: 33%;
   --va-navbar-shape-max-width: 467px;
-  --va-navbar-shape-bg: var(--va-dark-blue);
+  --va-navbar-shape-bg: rgba(0, 0, 0, 0.5);
   --va-navbar-shape-border-left: 3.1875rem solid transparent;
   --va-navbar-shape-border-right: 3.1875rem solid transparent;
   --va-navbar-shape-transition: border-top-color 0.3s ease; // sidebar's bg color transitions as well -> consistency

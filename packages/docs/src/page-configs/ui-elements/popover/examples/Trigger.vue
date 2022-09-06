@@ -7,6 +7,7 @@
     <va-button>Click me</va-button>
   </va-popover>
   <va-popover
+    class="mb-2"
     message="popover text (doesn't hide when clicked outside)"
     trigger="click"
     :auto-hide="false"

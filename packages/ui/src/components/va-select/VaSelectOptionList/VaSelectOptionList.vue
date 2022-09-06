@@ -247,48 +247,48 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "../../../styles/resources";
-@import "variables";
+  @import "../../../styles/resources";
+  @import "variables";
 
-.va-select-option-list {
-  display: var(--va-select-option-list-display);
-  flex-direction: var(--va-select-option-list-flex-direction);
-  width: var(--va-select-option-list-width);
-  list-style: var(--va-select-option-list-list-style);
-  max-height: var(--va-select-option-list-max-height);
-  font-family: var(--va-font-family);
-  overflow: auto;
+  .va-select-option-list {
+    display: var(--va-select-option-list-display);
+    flex-direction: var(--va-select-option-list-flex-direction);
+    width: var(--va-select-option-list-width);
+    list-style: var(--va-select-option-list-list-style);
+    max-height: var(--va-select-option-list-max-height);
+    font-family: var(--va-font-family);
+    overflow: auto;
 
-  @include va-scroll();
+    @include va-scroll();
 
-  &__group-name {
-    padding: var(--va-select-option-list-group-name-padding);
-    font-size: var(--va-select-option-list-group-name-font-size);
-    color: var(--va-select-option-list-group-name-color);
-    font-weight: var(--va-select-option-list-group-name-font-weight);
-    text-transform: uppercase;
-  }
-
-  &__option {
-    cursor: var(--va-select-option-list-option-cursor);
-    display: var(--va-select-option-list-option-display);
-    align-items: var(--va-select-option-list-option-align-items);
-    padding: var(--va-select-option-list-option-padding);
-    min-height: var(--va-select-option-list-option-min-height);
-    word-break: var(--va-select-option-list-option-word-break);
-
-    &--icon {
-      margin-right: var(--va-select-option-list-icon-margin-right);
+    &__group-name {
+      padding: var(--va-select-option-list-group-name-padding);
+      font-size: var(--va-select-option-list-group-name-font-size);
+      color: var(--va-select-option-list-group-name-color);
+      font-weight: var(--va-select-option-list-group-name-font-weight);
+      text-transform: uppercase;
     }
 
-    &--selected-icon {
-      margin-left: var(--va-select-option-list-selected-icon-margin-left);
-      font-size: var(--va-select-option-list-selected-icon-font-size);
+    &__option {
+      cursor: var(--va-select-option-list-option-cursor);
+      display: var(--va-select-option-list-option-display);
+      align-items: var(--va-select-option-list-option-align-items);
+      padding: var(--va-select-option-list-option-padding);
+      min-height: var(--va-select-option-list-option-min-height);
+      word-break: var(--va-select-option-list-option-word-break);
+
+      &--icon {
+        margin-right: var(--va-select-option-list-icon-margin-right);
+      }
+
+      &--selected-icon {
+        margin-left: var(--va-select-option-list-selected-icon-margin-left);
+        font-size: var(--va-select-option-list-selected-icon-font-size);
+      }
+    }
+
+    &.no-options {
+      padding: 0.5rem;
     }
   }
-
-  &.no-options {
-    padding: 0.5rem;
-  }
-}
 </style>

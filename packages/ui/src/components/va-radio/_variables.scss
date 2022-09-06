@@ -17,7 +17,7 @@
   --va-radio-icon-height: 1.4rem;
   --va-radio-icon-border-radius: 100%;
   --va-radio-icon-position: relative;
-  --va-radio-icon-border: #adb3b9 solid 0.125rem;
+  --va-radio-icon-border: var(--va-background-element) solid 0.125rem;
   --va-radio-icon-box-sizing: border-box;
 
   /* Dot */
@@ -38,7 +38,7 @@
   --va-radio-background-left: -0.35rem;
   --va-radio-background-right: -0.35rem;
   --va-radio-background-bottom: -0.35rem;
-  --va-radio-background-background-color: #adb3b9;
+  --va-radio-background-background-color: var(--va-background-element);
   --va-radio-background-border-radius: 100%;
   --va-radio-background-z-index: 0;
   --va-radio-background-opacity: 0;
