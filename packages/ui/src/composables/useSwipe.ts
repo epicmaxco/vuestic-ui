@@ -49,8 +49,8 @@ export const useSwipe = (
 ) => {
   const swipeStarted = ref(false)
   const swipePath = reactive({
-    start: reactive({ x: 0, y: 0 }),
-    end: reactive({ x: 0, y: 0 }),
+    start: { x: 0, y: 0 },
+    end: { x: 0, y: 0 },
   }) as SwipePath
   const swipeDuration = reactive({
     start: 0,
