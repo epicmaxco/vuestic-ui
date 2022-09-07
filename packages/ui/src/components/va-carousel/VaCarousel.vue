@@ -94,7 +94,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, shallowRef, PropType, computed, watch } from 'vue'
+import { defineComponent, shallowRef, PropType, computed } from 'vue'
 import { useCarousel } from './hooks/useCarousel'
 import { useCarouselAnimation } from './hooks/useCarouselAnimation'
 import { useCarouselColor } from './hooks/useCarouselColors'
@@ -159,23 +159,20 @@ export default defineComponent({
     })
     const isCurrentSlide = (index: number) => +index === currentSlide.value
 
+    // swiping
     const slidesContainer = shallowRef<HTMLElement>()
-    const { swipeDirection } = useSwipe(props, slidesContainer)
-    watch(swipeDirection, (newValue) => {
-      switch (newValue) {
+    const onSwipe = () => {
+      switch (swipeState.direction) {
+        case 'right':
         case 'up':
-          props.vertical && withPause(next)
-          break
-        case 'down':
-          props.vertical && withPause(prev)
+          doShowPrevButton.value && prev()
           break
         case 'left':
-          !props.vertical && withPause(prev)
-          break
-        case 'right':
-          !props.vertical && withPause(next)
+        case 'down':
+          doShowNextButton.value && next()
       }
-    })
+    }
+    const { swipeState } = useSwipe(props, slidesContainer, onSwipe)
 
     return {
       doShowNextButton,
