@@ -170,7 +170,7 @@ export default defineComponent({
     }))
 
     // styles
-    const isLowContrastBg = computed(() => props.plain || isLightBackground(colorComputed.value, props.backgroundOpacity))
+    const isLowContrastBg = computed(() => props.plain || isLightBackground(colorComputed.value, props.backgroundOpacity, 200))
     const { textColorComputed } = useTextColor(colorComputed, isLowContrastBg.value)
 
     const backgroundComputed = useButtonBackground(colorComputed, isPressed, isHovered)
