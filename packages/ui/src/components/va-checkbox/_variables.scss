@@ -1,9 +1,9 @@
 :root {
-  --va-checkbox-display: block;
+  --va-checkbox-display: inline-block;
   --va-checkbox-max-width: fit-content;
   --va-checkbox-input-align-items: center;
   --va-checkbox-input-display: flex;
-  --va-checkbox-input-padding: 0 0.3rem;
+  --va-checkbox-input-padding: 0;
   --va-checkbox-input-cursor: pointer;
   --va-checkbox-disabled-cursor: default;
   --va-checkbox-readonly-cursor: initial;
