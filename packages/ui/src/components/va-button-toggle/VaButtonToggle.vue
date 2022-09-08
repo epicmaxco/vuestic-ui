@@ -106,6 +106,8 @@ export default defineComponent({
   .va-button-toggle {
     .va-button {
       @include keyboard-focus($radius: 'inherit', $offset: -2px);
+
+      height: auto;
     }
   }
 </style>
