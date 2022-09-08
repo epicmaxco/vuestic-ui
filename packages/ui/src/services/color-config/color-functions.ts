@@ -7,7 +7,10 @@ export const colorToRgba = (color: ColorInput, opacity: number) => {
 }
 
 export const isLightBackground = (color: ColorInput, opacity = 0.6, edge = 120) => {
-  // TODO: replace with color mixin (doesn't play any role in dark theme)
+  /**
+   *  TODO: replace with color mixin (doesn't play any role in dark theme)
+   *  OR move to VaButton (to choose text color - white or `color` prop - depending on background contrast ratio & opacity)
+   */
   const { R, G, B } = new ColorTranslator(color)
   return opacity < 0.6 || Math.sqrt(R * R * 0.241 + G * G * 0.691 + B * B * 0.068) > edge
 }
