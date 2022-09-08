@@ -207,6 +207,6 @@
 
 @mixin keyboard-focus-outline($radius: 2px, $width: 2px, $offset: null, $style: solid) {
   &:focus-visible {
-    @include focus-outline($radius, $width, $offset, $style)
+    @include focus-outline($radius, $width, $offset, $style);
   }
 }
