@@ -25,7 +25,6 @@
         :items="hugeArray"
         horizontal
         :bench="10"
-        :item-size="24"
         :wrapper-size="200"
         v-slot="{item, index}"
       >
@@ -36,7 +35,6 @@
       <va-virtual-scroller
         :items="hugeArray"
         :bench="0"
-        :item-size="24"
         :wrapper-size="200"
         v-slot="{item, index}"
       >
@@ -47,7 +45,6 @@
       <va-virtual-scroller
         :items="hugeObjectsArray"
         :bench="10"
-        :item-size="24"
         custom-key="value"
         :wrapper-size="200"
         v-slot="{item, index}"
@@ -59,7 +56,6 @@
       <va-virtual-scroller
         :items="hugeObjectsArray"
         :bench="20"
-        :item-size="18"
         custom-key="value"
         :wrapper-size="200"
         v-slot="{item}"
@@ -71,13 +67,12 @@
       <va-virtual-scroller
         :items="hugeObjectsArray"
         :bench="20"
-        :item-size="24"
         track-by="value"
         :wrapper-size="200"
         v-slot="{item, index}"
       >
-        <div :class="index % 2 ? 'pb-1' : 'pb-5'">
-          <va-button :size="index % 2 ? 'small' : 'large'">{{ item.value }}</va-button>
+        <div :class="index % 2 ? 'pb-1' : 'pb-4'">
+          <va-button :size="index % 2 ? 'small' : 'medium'">{{ item.value }}</va-button>
         </div>
       </va-virtual-scroller>
     </VbCard>

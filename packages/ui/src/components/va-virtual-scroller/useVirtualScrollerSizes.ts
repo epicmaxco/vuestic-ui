@@ -37,9 +37,8 @@ export const useVirtualScrollerSizes = (
     if (typeof value === 'string') {
       const parsedValue = parseInt(value)
       return value.endsWith('rem') ? parsedValue * pageFontSize.value : parsedValue
-    } else {
-      return value
     }
+    return value
   }
 
   const wrapperSize = computed(() => {
