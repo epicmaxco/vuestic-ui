@@ -2,10 +2,6 @@ import { useColors } from '../../../composables'
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { createTestComposable } from '../../../composables/tests/createTestComposable'
 
-// need this doc block to run test with right environment, when press integrated by Webstorm buttons near the test
-/**
- * @vitest-environment jsdom
- */
 describe('useColors', () => {
   const {
     composableWrapper: {

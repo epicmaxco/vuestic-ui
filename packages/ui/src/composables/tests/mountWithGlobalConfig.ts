@@ -1,7 +1,8 @@
 import { mount } from '@vue/test-utils'
 import { createGlobalConfig, GLOBAL_CONFIG } from '../../services/global-config/global-config'
 
-export function mountWithGlobalConfig (...args: Parameters<typeof mount>) {
+// FIXME replace any with something right, but Parameters<typeof mount> not working :(
+export function mountWithGlobalConfig (...args: any) {
   return mount(args[0], {
     ...args[1],
     global: {

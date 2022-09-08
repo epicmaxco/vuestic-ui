@@ -10,10 +10,6 @@ const TestComponent = {
   props: { ...useSelectableListProps },
 }
 
-// need this doc block to run test with right environment, when press integrated by Webstorm buttons near the test
-/**
- * @vitest-environment jsdom
- */
 describe('useSelectableList', () => {
   it.each([
     //   option                                                                 | props                                                                           | expected

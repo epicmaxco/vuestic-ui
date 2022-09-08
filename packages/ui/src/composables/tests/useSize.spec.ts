@@ -1,11 +1,7 @@
 import { useSize, useSizeProps } from '../useSize'
-import { mount } from '@vue/test-utils'
 import { describe, it, expect } from 'vitest'
 import { createTestComposable } from './createTestComposable'
-import {
-  GLOBAL_CONFIG,
-  createGlobalConfig,
-} from '../../services/global-config/global-config'
+import { mountWithGlobalConfig } from './mountWithGlobalConfig'
 
 const TestComponent = {
   template: '<p></p>',
@@ -14,10 +10,6 @@ const TestComponent = {
   },
 }
 
-// need this doc block to run test with right environment, when press integrated by Webstorm buttons near the test
-/**
- * @vitest-environment jsdom
- */
 describe('useSize', () => {
   it.each([
     [
@@ -41,13 +33,7 @@ describe('useSize', () => {
       { fontSizeComputed: '2rem', fontSizeInRem: 2, sizeComputed: '2rem' },
     ],
   ])('props %s should be %s', async (props, expected) => {
-    const wrapper = mount(TestComponent, {
-      global: {
-        provide: {
-          [GLOBAL_CONFIG]: createGlobalConfig(),
-        },
-      },
-    })
+    const wrapper = mountWithGlobalConfig(TestComponent)
     expect(wrapper.exists()).toBeTruthy()
 
     await wrapper.setProps(props)

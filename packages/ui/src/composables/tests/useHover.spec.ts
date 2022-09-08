@@ -3,10 +3,6 @@ import { mount } from '@vue/test-utils'
 import { ref } from 'vue'
 import { describe, it, expect } from 'vitest'
 
-// need this doc block to run test with right environment, when press integrated by Webstorm buttons near the test
-/**
- * @vitest-environment jsdom
- */
 describe('useHover', () => {
   it('mouse enter & leave should change isHovered value', async () => {
     const TestComponent = {
