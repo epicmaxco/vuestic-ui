@@ -240,10 +240,6 @@ export default defineComponent({
       &:hover {
         color: var(--va-toast-hover-color);
       }
-
-      &:focus {
-        @include focus-outline;
-      }
     }
   }
 

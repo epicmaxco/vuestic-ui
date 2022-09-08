@@ -525,10 +525,6 @@ export default defineComponent({
       font-style: normal;
       color: var(--va-secondary);
       z-index: 1;
-
-      &:focus {
-        @include focus-outline;
-      }
     }
 
     &__footer {
