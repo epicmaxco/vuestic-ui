@@ -1345,6 +1345,22 @@
         "start": "Start panel content.",
         "end": "End panel content."
       }
+    },
+    "VaVirtualScroller": {
+      "props": {
+        "bench": "Amount of items will be rendered before and after visible part of the list (for smooth scrolling).",
+        "horizontal": "Sets component state to horizontal orientation.",
+        "itemSize": "Average size (width or height) of the list items (can be number or string with \"px\"/\"rem\" value).",
+        "wrapperSize": "Size (width or height) of the component's viewport (can be number or string with \"px\"/\"rem\" value).",
+        "items": "Array of list items.",
+        "trackBy": "Property name for identifying item.",
+        "disable": "Disables virtual scrolling, all items are rendered."
+      },
+      "events": {},
+      "methods": {},
+      "slots": {
+        "default": "Slot for repeating content template."
+      }
     }
   },
   "menu": {
@@ -1457,7 +1473,8 @@
     "spacer": "Spacer",
     "dropdown": "Dropdown",
     "scrollContainer": "Scroll Container",
-    "split": "Split"
+    "split": "Split",
+    "virtualScroller": "Virtual Scroller"
   },
   "all": {
     "examples": "Examples",
@@ -4336,6 +4353,36 @@
       "disabled": {
         "title": "Disabled",
         "text": "`disabled` prop restricts to change panels size (including option via `maximization` prop)."
+      }
+    }
+  },
+  "virtualScroller": {
+    "title": "Virtual Scroller",
+    "summaryText": "The `va-virtual-scroller` component allows you to use long lists without need to render every list child element but only visible ones depending on the current state of the scroll.",
+    "examples": {
+      "default": {
+        "title": "Default",
+        "text": ""
+      },
+      "horizontal": {
+        "title": "Horizontal",
+        "text": "The `horizontal` prop allows you to change component's orientation."
+      },
+      "bench": {
+        "title": "Bench",
+        "text": "The `bench` prop allows you to make scrolling smooth by rendering additional but not visible items at the start or end of the list. For example, `bench` prop with value `10` will render additional ~10 items before the visible list start and ~10 after the visible list end."
+      },
+      "customKey": {
+        "title": "Custom Key",
+        "text": "The `trackBy` prop allows you to specify the key name for list items rendering."
+      },
+      "itemSize": {
+        "title": "Item Size",
+        "text": "The `itemSize` prop allows you to specify the list item size (width or height - depends on `horizontal` prop value). For example, acceptable values are: 5, \"5\", \"5px\", \"5rem\". The component is recalculating average item's size ourselves on every scroll event and max value (`itemSize` or calculated one) will be used."
+      },
+      "differentContent": {
+        "title": "Any list items",
+        "text": "`va-virtual-scroller` component allows you to create not only 'modest' list with primitive elements but also use it for scrolling card, table rows etc."
       }
     }
   }

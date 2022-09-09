@@ -75,7 +75,7 @@ import LandingStarsButton from './LandingStarsButton.vue'
 @Options({
   name: 'LandingAdmin',
   components: { LandingStarsButton },
-  })
+})
 export default class Admin extends Vue {}
 </script>
 

@@ -77,7 +77,7 @@ import { useColors } from 'vuestic-ui/src/composables'
 
 @Options({
   name: 'LandingColorTab',
-  })
+})
 export default class ColorTab extends Vue {
   selectedTheme: string | ThemeName = ThemeName.DEFAULT
 

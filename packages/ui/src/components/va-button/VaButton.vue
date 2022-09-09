@@ -108,7 +108,7 @@ export default defineComponent({
     useDeprecatedProps(['flat', 'outline'])
 
     // colors
-    const { getColor, isLightBackground } = useColors()
+    const { getColor } = useColors()
     const colorComputed = computed(() => getColor(props.color))
 
     // loader size
@@ -170,8 +170,8 @@ export default defineComponent({
     }))
 
     // styles
-    const isLowContrastBg = computed(() => props.plain || isLightBackground(colorComputed.value, props.backgroundOpacity))
-    const { textColorComputed } = useTextColor(colorComputed, isLowContrastBg.value)
+    const isTransparentBg = computed(() => props.plain || props.backgroundOpacity < 0.5)
+    const { textColorComputed } = useTextColor(colorComputed, isTransparentBg.value)
 
     const backgroundComputed = useButtonBackground(colorComputed, isPressed, isHovered)
     const contentColorComputed = useButtonTextColor(textColorComputed, colorComputed, isPressed, isHovered)
@@ -246,7 +246,6 @@ export default defineComponent({
     }
 
     &--small {
-      font-size: var(--va-button-sm-font-size);
       line-height: var(--va-button-sm-line-height);
       border-radius: var(--va-button-sm-border-radius);
       letter-spacing: var(--va-button-sm-letter-spacing);
@@ -254,6 +253,7 @@ export default defineComponent({
       min-width: var(--va-button-sm-size);
 
       .va-button__content {
+        font-size: var(--va-button-sm-font-size);
         padding: var(--va-button-sm-content-py) var(--va-button-sm-content-px);
       }
 
@@ -287,7 +287,6 @@ export default defineComponent({
     }
 
     &--normal {
-      font-size: var(--va-button-font-size);
       line-height: var(--va-button-line-height);
       border-radius: var(--va-button-border-radius);
       letter-spacing: var(--va-button-letter-spacing);
@@ -295,6 +294,7 @@ export default defineComponent({
       min-width: var(--va-button-size);
 
       .va-button__content {
+        font-size: var(--va-button-font-size);
         padding: var(--va-button-content-py) var(--va-button-content-px);
         line-height: var(--va-button-line-height);
       }
@@ -331,7 +331,6 @@ export default defineComponent({
     }
 
     &--large {
-      font-size: var(--va-button-lg-font-size);
       line-height: var(--va-button-lg-line-height);
       border-radius: var(--va-button-lg-border-radius);
       letter-spacing: var(--va-button-lg-letter-spacing);
@@ -339,6 +338,7 @@ export default defineComponent({
       min-width: var(--va-button-lg-size);
 
       .va-button__content {
+        font-size: var(--va-button-lg-font-size);
         padding: var(--va-button-lg-content-py) var(--va-button-lg-content-px);
       }
 

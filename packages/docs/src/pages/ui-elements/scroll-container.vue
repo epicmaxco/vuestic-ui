@@ -9,9 +9,9 @@ import scrollContainerConfig from '../../page-configs/ui-elements/scroll-contain
 
 @Options({
   components: {
-  DocsContent,
+    DocsContent,
   },
-  })
+})
 export default class ScrollContainer extends Vue {
   get configComputed () {
     return scrollContainerConfig

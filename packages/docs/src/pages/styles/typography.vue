@@ -11,9 +11,9 @@ import typographyConfig
 @Options({
   name: 'DocsStylesTypography',
   components: {
-  DocsContent,
+    DocsContent,
   },
-  })
+})
 export default class Typography extends Vue {
   get configComputed () {
     return typographyConfig

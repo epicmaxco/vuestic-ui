@@ -11,7 +11,7 @@ import packageUi from 'vuestic-ui/package.json'
 
 @Options({
   name: 'DocsVersionDropdown',
-  })
+})
 
 export default class VersionDropdown extends Vue {
   data () {
