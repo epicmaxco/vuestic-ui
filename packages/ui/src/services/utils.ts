@@ -100,13 +100,15 @@ export const generateUniqueId = () => {
   return `${getRandomString(8)}-${getRandomString(4)}-${getRandomString(4)}`
 }
 
-export const isParsablePositiveMeasure = (value: unknown) => {
+export const isParsableMeasure = (value: unknown) => {
   if (typeof value === 'string') {
     return (!isNaN(+value) ||
       value.endsWith('px') ||
-      value.endsWith('rem')) &&
-      parseInt(value) >= 0
+      value.endsWith('rem'))
   }
-  if (typeof value === 'number') { return value >= 0 }
-  return false
+  return typeof value === 'number'
+}
+
+export const isParsablePositiveMeasure = (value: unknown) => {
+  return isParsableMeasure(value) && parseInt(value) >= 0
 }

@@ -3,13 +3,13 @@
     ref="wrapper"
     class="va-virtual-scroller"
     :style="wrapperStyleComputed"
+    :class="wrapperClassComputed"
   >
     <div class="va-virtual-scroller__container" :style="containerStyleComputed">
       <div
         ref="list"
         role="list"
         class="va-virtual-scroller__list"
-        :class="listClassComputed"
         :style="listStyleComputed"
       >
         <template
@@ -24,22 +24,21 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref, computed } from 'vue'
+import { defineComponent, ref, computed } from 'vue'
 import pick from 'lodash/pick.js'
 
-import { useEvent, useBem } from '../../composables'
+import { useEvent, useBem, useTrackBy, useTrackByProps } from '../../composables'
 import { useVirtualScrollerSizes, useVirtualScrollerSizesProps } from './useVirtualScrollerSizes'
-
-import { warn } from '../../services/utils'
 
 export default defineComponent({
   name: 'VaVirtualScroller',
 
   props: {
+    ...useTrackByProps,
     ...useVirtualScrollerSizesProps,
     items: { type: Array, default: () => ([]) },
     bench: { type: Number, default: 10, validator: (v: number) => v >= 0 },
-    trackBy: { type: [String, Number] as PropType<string | number>, default: '' },
+
     disabled: { type: Boolean, default: false },
   },
 
@@ -53,21 +52,8 @@ export default defineComponent({
 
     const { list, wrapper, itemSize, wrapperSize } = useVirtualScrollerSizes(props, listScrollPosition)
 
-    const uniqueKey = (item: unknown, index: number) => {
-      if (props.trackBy && item && typeof item === 'object') {
-        const isArrayItem = Array.isArray(item)
-
-        let key: any
-        if (isArrayItem && !isNaN(+props.trackBy)) { key = (item as any[])[+props.trackBy] }
-        if (!isArrayItem) { key = (item as Record<string, any>)[props.trackBy] }
-
-        if (key || key === 0) { return key }
-
-        warn(`[va-virtual-scroller] ${isArrayItem ? 'Index' : 'Key'} '${props.trackBy}' wasn't found in provided ${isArrayItem ? 'array' : 'object'}: `, item)
-      }
-
-      return renderStartIndex.value + index
-    }
+    const { getKey } = useTrackBy(props)
+    const uniqueKey = (item: Array<any> | Record<string, any>, index: number, defaultValue?: any) => getKey(item, index, defaultValue)
 
     // forming items to render
     const renderStartIndex = computed(() => {
@@ -87,9 +73,12 @@ export default defineComponent({
 
     const sizeAttribute = computed(() => props.horizontal ? 'width' : 'height')
 
-    // wrapper styles
+    // wrapper styles and classes
     const wrapperStyleComputed = computed(() => ({
       [sizeAttribute.value]: `${wrapperSize.value}px`,
+    }))
+    const wrapperClassComputed = useBem('va-virtual-scroller', () => ({
+      ...pick(props, ['horizontal']),
     }))
 
     // container styles
@@ -98,19 +87,16 @@ export default defineComponent({
       [sizeAttribute.value]: `${containerSize.value}px`,
     }))
 
-    // items list classes and styles
+    // items list styles
     const currentListOffset = computed(() => renderStartIndex.value * itemSize.value)
     const listStyleComputed = computed(() => ({
       transform: `translate${props.horizontal ? 'X' : 'Y'}(${currentListOffset.value}px)`,
-    }))
-    const listClassComputed = useBem('va-virtual-scroller', () => ({
-      ...pick(props, ['horizontal']),
     }))
 
     return {
       containerStyleComputed,
       wrapperStyleComputed,
-      listClassComputed,
+      wrapperClassComputed,
       listStyleComputed,
       renderStartIndex,
       renderBuffer,
@@ -137,7 +123,7 @@ export default defineComponent({
     }
 
     &--horizontal {
-      &.va-virtual-scroller__list {
+      & .va-virtual-scroller__list {
         flex-direction: row;
       }
     }

@@ -45,7 +45,7 @@
       <va-virtual-scroller
         :items="hugeObjectsArray"
         :bench="10"
-        custom-key="value"
+        track-by="value"
         :wrapper-size="200"
         v-slot="{item, index}"
       >
@@ -56,7 +56,7 @@
       <va-virtual-scroller
         :items="hugeObjectsArray"
         :bench="20"
-        custom-key="value"
+        track-by="value"
         :wrapper-size="200"
         v-slot="{item}"
       >
