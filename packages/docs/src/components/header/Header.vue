@@ -132,7 +132,7 @@ export default class Header extends mixins(PropsMixin) {
     &__prefences {
       display: flex;
       align-items: center;
-      font-weight: $font-weight-bold;
+      font-weight: 700;
 
       &__button {
         --va-button-content-px: 1rem;
