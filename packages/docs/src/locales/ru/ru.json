@@ -1390,7 +1390,8 @@
     "spacer": "Spacer",
     "dropdown": "Dropdown",
     "split": "Split",
-    "virtualScroller": "Virtual Scroller"
+    "virtualScroller": "Virtual Scroller",
+    "scrollContainer": "Scroll Container"
   },
   "all": {
     "examples": "Примеры",
@@ -4077,7 +4078,10 @@
     }
   },
   "dropdown": {
-    "title": "-- Here is the title --"
+    "title": "Dropdown"
+  },
+  "scrollContainer": {
+    "title": "Scroll container"
   },
   "split": {
     "title": "Split",
