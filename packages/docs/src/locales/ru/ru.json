@@ -1372,7 +1372,9 @@
     "nuxt": "Nuxt",
     "ssrGuide": "SSR Guide",
     "spacer": "Spacer",
-    "dropdown": "Dropdown"
+    "dropdown": "Dropdown",
+    "scrollContainer": "Scroll Container",
+    "split": "Split"
   },
   "all": {
     "examples": "Примеры",
@@ -4059,6 +4061,12 @@
     }
   },
   "dropdown": {
-    "title": "-- Here is the title --"
+    "title": "Dropdown"
+  },
+  "scrollContainer": {
+    "title": "Scroll container"
+  },
+  "split": {
+    "title": "Split"
   }
 }
