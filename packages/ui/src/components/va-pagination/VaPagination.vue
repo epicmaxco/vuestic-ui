@@ -275,6 +275,7 @@ export default defineComponent({
       goNextPage,
       goPrevPage,
       buttonPropsComputed,
+      htmlInput,
     }
   },
 })
