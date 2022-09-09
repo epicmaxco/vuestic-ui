@@ -164,7 +164,7 @@
           </td>
         </tr>
         <tr>
-          <td>Custom active page border</td>
+          <td>Custom active page color</td>
           <td>
             <VbCard>
               <va-pagination
