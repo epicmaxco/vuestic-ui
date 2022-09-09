@@ -130,12 +130,12 @@ export default defineComponent({
 
     const inputValue = ref('')
 
-    const usedTotal = computed(() => !!((props.total || props.total === 0) && props.pageSize))
+    const usesTotal = computed(() => !!((props.total || props.total === 0) && props.pageSize))
 
     const { valueComputed } = useStateful<number>(props, emit)
 
     const currentValue = computed({
-      get: () => usedTotal.value ? Math.ceil(valueComputed.value / props.pageSize) || 1 : valueComputed.value,
+      get: () => usesTotal.value ? Math.ceil(valueComputed.value / props.pageSize) || 1 : valueComputed.value,
       set: (value) => { valueComputed.value = value },
     })
 
@@ -143,12 +143,12 @@ export default defineComponent({
       const { visiblePages, total, pageSize, boundaryNumbers, pages } = props
 
       const value = currentValue.value || 1
-      const totalPages = usedTotal.value ? Math.ceil(total / pageSize) : pages
+      const totalPages = usesTotal.value ? Math.ceil(total / pageSize) : pages
 
       return setPaginationRange(value, visiblePages, totalPages, boundaryNumbers)
     })
 
-    const lastPage = computed(() => usedTotal.value ? Math.ceil(props.total / props.pageSize) || 1 : +props.pages)
+    const lastPage = computed(() => usesTotal.value ? Math.ceil(props.total / props.pageSize) || 1 : +props.pages)
 
     const isLastPageNotVisible = computed(() => (!!props.visiblePages && lastPage.value > props.visiblePages))
 
@@ -171,7 +171,7 @@ export default defineComponent({
     const onUserInput = (pageNum: number | '...') => {
       if (pageNum === '...' || pageNum < 1 || pageNum > lastPage.value) { return }
 
-      currentValue.value = usedTotal.value ? (pageNum - 1) * props.pageSize + 1 : pageNum
+      currentValue.value = usesTotal.value ? (pageNum - 1) * props.pageSize + 1 : pageNum
     }
 
     const resetInput = () => {
@@ -210,8 +210,8 @@ export default defineComponent({
       opacity: props.disabled ? 0.4 : 1,
     }))
 
-    watch([usedTotal, () => props.pages], () => {
-      if (__DEV__ && usedTotal.value && props.pages) {
+    watch([usesTotal, () => props.pages], () => {
+      if (__DEV__ && usesTotal.value && props.pages) {
         throw new Error('Please, use either `total` and `page-size` props, or `pages`.')
       }
     })
