@@ -172,7 +172,7 @@ export default defineComponent({
 
     // styles
     const isTransparentBg = computed(() => props.plain || props.backgroundOpacity < 0.5)
-    const { textColorComputed } = useTextColor(colorComputed, isTransparentBg.value)
+    const { textColorComputed } = useTextColor(colorComputed, isTransparentBg)
 
     const backgroundComputed = useButtonBackground(colorComputed, isPressed, isHovered)
     const contentColorComputed = useButtonTextColor(textColorComputed, colorComputed, isPressed, isHovered)
