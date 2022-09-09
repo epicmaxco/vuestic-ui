@@ -87,7 +87,7 @@ export const useSelectable = (
   }
 
   const isIndeterminate = computed(() => props.indeterminate && valueComputed.value === props.indeterminateValue)
-  const modelIsArray = computed(() => props.arrayValue !== undefined)
+  const modelIsArray = computed(() => props.arrayValue !== undefined && props.arrayValue !== null)
   const isChecked = computed(() => {
     if (modelIsArray.value) {
       return (props.modelValue as unknown[])?.includes(props.arrayValue)
