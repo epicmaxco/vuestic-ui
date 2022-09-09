@@ -226,11 +226,11 @@ export default defineComponent({
       color: props.color,
       plain: props.preset ? undefined : props.plain,
       borderColor: props.borderColor,
-      preset: props.preset,
+      preset: props.preset || 'primary',
     }))
 
     const currentPageButtonProps = computed(() => ({
-      preset: !props.preset || props.preset === 'default' ? 'primary' : 'default',
+      preset: props.preset === 'default' ? 'primary' : 'default',
       color: props.activePageColor || 'primary',
     }))
 
