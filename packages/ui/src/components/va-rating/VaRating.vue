@@ -14,6 +14,7 @@
       <va-rating-item
         v-for="itemNumber in $props.max"
         :key="itemNumber"
+        class="va-rating__item"
         v-bind="VaRatingItemProps"
         :aria-label="`vote rating ${itemNumber} of ${$props.max}`"
         :model-value="getItemValue(itemNumber - 1)"
@@ -22,15 +23,17 @@
         :readonly="$props.readonly"
         @hover="isInteractionsEnabled && onItemHoveredValueUpdate(itemNumber - 1, $event)"
         @update:model-value="isInteractionsEnabled && onItemValueUpdate(itemNumber - 1, $event)"
+        v-slot="{ value, onClick }"
       >
-        <template v-if="$props.numbers" v-slot="{ props }">
-          <VaRatingItemNumberButton
-            v-bind="VaRatingItemNumberButtonProps"
-            :model-value="props.value"
-            :item-number="itemNumber"
-            @click="props.onClick"
-          />
-        </template>
+        <slot name="item" v-bind="{ value: value, onClick: onClick, index: itemNumber }">
+          <template v-if="$props.numbers">
+            <VaRatingItemNumberButton
+              v-bind="VaRatingItemNumberButtonProps"
+              :model-value="value"
+              :item-number="itemNumber"
+            />
+          </template>
+        </slot>
       </va-rating-item>
     </div>
     <span
@@ -99,67 +102,67 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "../../styles/resources";
-@import 'variables';
+  @import "../../styles/resources";
+  @import 'variables';
 
-.va-rating {
-  display: var(--va-rating-display);
-  font-family: var(--va-font-family);
+  .va-rating {
+    display: var(--va-rating-display);
+    font-family: var(--va-font-family);
 
-  &__number-item {
-    @include normalize-button();
+    &__number-item {
+      @include normalize-button();
 
-    font-size: var(--va-rating-number-item-font-size);
-    margin: var(--va-rating-number-item-margin);
-    font-weight: var(--va-rating-number-item-font-weight);
+      font-size: var(--va-rating-number-item-font-size);
+      margin: var(--va-rating-number-item-margin);
+      font-weight: var(--va-rating-number-item-font-weight);
 
-    @include flex-center();
+      @include flex-center();
 
-    cursor: pointer;
+      cursor: pointer;
 
-    @at-root {
+      @at-root {
+        .va-rating--disabled & {
+          @include va-disabled();
+        }
+
+        .va-rating--readonly & {
+          cursor: default;
+        }
+      }
+    }
+
+    &__item-wrapper {
+      display: var(--va-rating-item-wrapper-display);
+      cursor: var(--va-rating-item-wrapper-cursor);
+
+      @at-root {
+        .va-rating--readonly &,
+        .va-rating--disabled & {
+          cursor: default;
+        }
+      }
+    }
+
+    &-item {
+      display: var(--va-rating-item-display);
+
+      @include flex-center();
+
       .va-rating--disabled & {
         @include va-disabled();
+
+        &__wrapper {
+          cursor: initial !important;
+        }
       }
 
-      .va-rating--readonly & {
-        cursor: default;
-      }
-    }
-  }
-
-  &__item-wrapper {
-    display: var(--va-rating-item-wrapper-display);
-    cursor: var(--va-rating-item-wrapper-cursor);
-
-    @at-root {
-      .va-rating--readonly &,
-      .va-rating--disabled & {
-        cursor: default;
-      }
-    }
-  }
-
-  &-item {
-    display: var(--va-rating-item-display);
-
-    @include flex-center();
-
-    .va-rating--disabled & {
-      @include va-disabled();
-
-      &__wrapper {
+      .va-rating--readonly & &__wrapper {
         cursor: initial !important;
       }
     }
 
-    .va-rating--readonly & &__wrapper {
-      cursor: initial !important;
+    &__text-wrapper {
+      padding-left: 10px;
     }
   }
-
-  &__text-wrapper {
-    padding-left: 10px;
-  }
-}
 </style>

@@ -46,6 +46,16 @@ const config: ApiDocsBlock[] = [
     'Numbers',
   ),
   ...block.exampleBlock(
+    'rating.examples.customIcons.title',
+    'rating.examples.customIcons.text',
+    'CustomIcons',
+  ),
+  ...block.exampleBlock(
+    'rating.examples.itemSlot.title',
+    'rating.examples.itemSlot.text',
+    'ItemSlot',
+  ),
+  ...block.exampleBlock(
     'rating.examples.texts.title',
     'rating.examples.texts.text',
     'Texts',
@@ -54,11 +64,6 @@ const config: ApiDocsBlock[] = [
     'rating.examples.clearable.title',
     'rating.examples.clearable.text',
     'Clearable',
-  ),
-  ...block.exampleBlock(
-    'rating.examples.customIcons.title',
-    'rating.examples.customIcons.text',
-    'CustomIcons',
   ),
 
   block.subtitle('all.api'),

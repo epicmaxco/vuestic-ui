@@ -24,44 +24,44 @@ export default {
 </script>
 
 <style lang="scss">
-.split-demo {
-  position: relative;
-  height: 11rem;
-  padding: 1rem;
-  border: 1px solid gainsboro;
-
-  & .va-split__panel {
-    padding: 0.75rem;
-  }
-
-  &--image {
-    height: 22rem;
-    padding: 0;
+  .split-demo {
+    position: relative;
+    height: 11rem;
+    padding: 1rem;
+    border: 1px solid gainsboro;
 
     & .va-split__panel {
+      padding: 0.75rem;
+    }
+
+    &--image {
+      height: 22rem;
       padding: 0;
-    }
-  }
 
-  & .img-block {
-    position: relative;
-    height: 100%;
-    overflow: hidden;
-    user-select: none;
-  }
-
-  .img {
-    position: absolute;
-    top: 0;
-    width: 67vw;
-
-    &--start {
-      left: 0;
+      & .va-split__panel {
+        padding: 0;
+      }
     }
 
-    &--end {
-      right: 0;
+    & .img-block {
+      position: relative;
+      height: 100%;
+      overflow: hidden;
+      user-select: none;
+    }
+
+    .img {
+      position: absolute;
+      top: 0;
+      width: 67vw;
+
+      &--start {
+        left: 0;
+      }
+
+      &--end {
+        right: 0;
+      }
     }
   }
-}
 </style>

@@ -407,7 +407,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-.customRowClass {
-  background-color: gold;
-}
+  .customRowClass {
+    background-color: gold;
+  }
 </style>

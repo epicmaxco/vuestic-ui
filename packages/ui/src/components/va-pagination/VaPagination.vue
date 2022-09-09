@@ -279,44 +279,45 @@ export default defineComponent({
 </script>
 
 <style lang='scss'>
-@import "../../styles/resources";
-@import "variables";
+  @import "../../styles/resources";
+  @import "variables";
 
-.va-pagination {
-  display: flex;
-  font-family: var(--va-font-family);
+  .va-pagination {
+    display: flex;
+    font-family: var(--va-font-family);
 
-  &__input {
-    border-style: var(--va-pagination-input-border-style);
-    border-width: var(--va-pagination-input-border-width);
-    text-align: var(--va-pagination-input-text-align);
-    font-size: var(--va-pagination-input-font-size);
+    &__input {
+      border-style: var(--va-pagination-input-border-style);
+      border-width: var(--va-pagination-input-border-width);
+      text-align: var(--va-pagination-input-text-align);
+      font-size: var(--va-pagination-input-font-size);
 
-    &--plain {
-      border-top-width: var(--va-pagination-input-plain-border-top-width);
-    }
-  }
-
-  .va-button {
-    &.va-input {
-      cursor: default;
+      &--plain {
+        border-top-width: var(--va-pagination-input-plain-border-top-width);
+      }
     }
 
-    &--ellipsis {
-      cursor: default;
-      opacity: 1;
-    }
+    .va-button {
+      &.va-input {
+        cursor: default;
+      }
 
-    &--ellipsis > .va-button__content {
-      opacity: 0.4;
-    }
+      &--ellipsis {
+        cursor: default;
+        opacity: 1;
+      }
 
-    &--disabled {
-      opacity: 1;
-    }
+      &--ellipsis > .va-button__content {
+        opacity: 0.4;
+      }
 
-    &--focused {
-      outline-offset: -2px;
+      &--disabled {
+        opacity: 1;
+      }
+
+      &--focused {
+        outline-offset: -2px;
+      }
     }
   }
 
@@ -393,5 +394,4 @@ export default defineComponent({
       }
     }
   }
-}
 </style>

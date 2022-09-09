@@ -15,6 +15,7 @@
         :focused="hoveredIndex === monthIndex"
         :highlight-today="highlightToday"
         :readonly="readonly"
+        :color="color"
         @click="onClick(month); focusedCellIndex = monthIndex"
       >
         <slot name="month" v-bind="{ monthIndex, month: monthNames[monthIndex] }">
@@ -48,6 +49,7 @@ export default defineComponent({
     highlightToday: { type: Boolean, default: true },
     mode: { type: String as PropType<DatePickerMode>, default: 'auto' },
     readonly: { type: Boolean, default: false },
+    color: { type: String, default: 'primary' },
   },
 
   emits: ['update:modelValue', 'hover:month', 'click:month'],
@@ -95,18 +97,18 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-.va-month-picker {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); // 4 columns
-  grid-gap: var(--va-date-picker-cell-gap);
-  min-width: calc(var(--va-date-picker-cell-size) * 7 + var(--va-date-picker-cell-gap) * 6); // 7 days + gap
-  width: 100%;
+  .va-month-picker {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); // 4 columns
+    grid-gap: var(--va-date-picker-cell-gap);
+    min-width: calc(var(--va-date-picker-cell-size) * 7 + var(--va-date-picker-cell-gap) * 6); // 7 days + gap
+    width: 100%;
 
-  &__month-wrapper {
-    border-radius: var(--va-date-picker-cell-radius);
-    text-align: center;
-    user-select: none;
-    overflow: hidden;
+    &__month-wrapper {
+      border-radius: var(--va-date-picker-cell-radius);
+      text-align: center;
+      user-select: none;
+      overflow: hidden;
+    }
   }
-}
 </style>

@@ -29,7 +29,7 @@ export const useRouterLink = (props: ExtractPropTypes<typeof useRouterLinkProps>
     // TODO: may be we will be able to register NuxtLink component via @vuestic/nuxt and use resolveComponent
     if (props.to) { return 'router-link' }
 
-    return props.tag
+    return props.tag || 'div'
   })
 
   const isLinkTag = computed(() => ['a', 'router-link', 'nuxt-link'].includes(tagComputed.value))

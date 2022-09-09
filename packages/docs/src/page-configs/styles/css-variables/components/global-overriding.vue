@@ -6,9 +6,9 @@
 </template>
 
 <style>
-/* Do not override globally in demo to prevent docs bugs... */
-.rounded-checkbox-demo {
-  --va-checkbox-square-border-radius: 50%;
-  --va-input-border-radius: 99999px;
-}
+  /* Do not override globally in demo to prevent docs bugs... */
+  .rounded-checkbox-demo {
+    --va-checkbox-square-border-radius: 50%;
+    --va-input-border-radius: 99999px;
+  }
 </style>

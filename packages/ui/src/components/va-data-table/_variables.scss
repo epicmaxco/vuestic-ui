@@ -5,10 +5,10 @@
   --va-data-table-thead-font-weight: 700;
   --va-data-table-thead-text-transform: uppercase;
   --va-data-table-thead-letter-spacing: 0.6px;
-  --va-data-table-thead-border: 1px solid var(--va-dark);
-  --va-data-table-thead-border-top-shadow: inset 0 1px 0 0 var(--va-dark);
-  --va-data-table-thead-border-bottom-shadow: inset 0 -1px 0 0 var(--va-dark);
-  --va-data-table-thead-color: var(--va-dark);
+  --va-data-table-thead-border: 1px solid currentColor;
+  --va-data-table-thead-border-top-shadow: inset 0 1px 0 0 currentColor;
+  --va-data-table-thead-border-bottom-shadow: inset 0 -1px 0 0 currentColor;
+  --va-data-table-thead-color: currentColor;
 
   /* hover */
   --va-data-table-hover-th-opacity: 0.3;

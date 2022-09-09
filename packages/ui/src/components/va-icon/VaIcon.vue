@@ -2,11 +2,12 @@
   <component
     :is="computedTag"
     class="va-icon"
-    aria-hidden="true"
     :class="computedClass"
     :style="computedStyle"
-    v-bind="computedAttrs"
+    :aria-hidden="ariaHiddenComputed"
     notranslate
+    v-bind="computedAttrs"
+    v-on="keyboardFocusListeners"
   >
     <slot>
       <template v-if="iconConfig.content">
@@ -21,11 +22,17 @@ import { defineComponent, PropType, computed } from 'vue'
 import omit from 'lodash/omit.js'
 
 import { useIcons } from '../../services/icon-config/icon-config'
-import { useComponentPresetProp, useColors, useSize, useSizeProps } from '../../composables'
+import {
+  useComponentPresetProp,
+  useColors,
+  useSize, useSizeProps,
+  useKeyboardFocusClass, useKeyboardFocusClassProps,
+} from '../../composables'
 
 export default defineComponent({
   name: 'VaIcon',
   props: {
+    ...useKeyboardFocusClassProps,
     ...useSizeProps,
     ...useComponentPresetProp,
     name: { type: String, default: '' },
@@ -56,9 +63,12 @@ export default defineComponent({
       return spin === 'counter-clockwise' ? 'va-icon--spin-reverse' : 'va-icon--spin'
     }
 
+    const { keyboardFocusListeners, keyboardFocusClass } = useKeyboardFocusClass(props)
+
     const computedClass = computed(() => [
       iconConfig.value.class,
       getSpinClass(props.spin ?? iconConfig.value.spin),
+      keyboardFocusClass.value,
     ])
 
     const transformStyle = computed(() => {
@@ -80,60 +90,63 @@ export default defineComponent({
       lineHeight: sizeComputed.value,
     }))
 
+    const tabindexComputed = computed(() => attrs.tabindex as number | undefined ?? -1)
+    const ariaHiddenComputed = computed(() => attrs.role !== 'button' || tabindexComputed.value < 0)
+
     return {
       iconConfig,
       computedTag,
       computedAttrs,
       computedClass,
       computedStyle,
+      ariaHiddenComputed,
+      keyboardFocusListeners,
     }
   },
 })
 </script>
 
 <style lang="scss">
-@import "variables";
-@import '../../styles/resources';
+  @import "variables";
+  @import '../../styles/resources';
 
-.va-icon {
-  vertical-align: var(--va-icon-vertical-align);
-  user-select: var(--va-icon-user-select);
+  .va-icon {
+    vertical-align: var(--va-icon-vertical-align);
+    user-select: var(--va-icon-user-select);
 
-  &[role^="button"][tabindex]:not([tabindex^="-"]) {
-    cursor: pointer;
+    @include keyboard-focus;
 
-    &:focus {
-      @include focus-outline;
+    &[role^="button"][tabindex]:not([tabindex^="-"]) {
+      cursor: pointer;
     }
-  }
 
-  &#{&} {
-    // need 2 classes to make it work
-    font-style: normal;
-  }
+    &#{&} {
+      // need 2 classes to make it work
+      font-style: normal;
+    }
 
-  &--spin {
-    animation: va-icon--spin-animation 1500ms linear infinite;
-
-    &-reverse {
+    &--spin {
       animation: va-icon--spin-animation 1500ms linear infinite;
-      animation-direction: reverse;
-    }
-  }
 
-  @keyframes va-icon--spin-animation {
-    from {
-      transform: rotate(0deg);
+      &-reverse {
+        animation: va-icon--spin-animation 1500ms linear infinite;
+        animation-direction: reverse;
+      }
     }
 
-    to {
-      transform: rotate(360deg);
+    @keyframes va-icon--spin-animation {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    svg {
+      fill: currentColor;
+      height: 100%;
     }
   }
-
-  svg {
-    fill: currentColor;
-    height: 100%;
-  }
-}
 </style>

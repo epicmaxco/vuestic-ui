@@ -20,7 +20,7 @@
 }
 
 @mixin va-display($element) {
-  color: var(--va-dark);
+  color: currentColor;
   font-size: map-get($display-font-sizes, $element);
   margin: map-get($display-margins, $element);
   font-weight: 700;
@@ -103,8 +103,8 @@
   th {
     @include va-title();
 
-    color: $vue-darkest-blue;
-    border-bottom: 2px solid $vue-darkest-blue;
+    color: currentColor;
+    border-bottom: 2px solid currentColor;
   }
 
   td {
@@ -115,7 +115,7 @@
     tr {
       &:nth-child(even) {
         td {
-          background-color: $light-gray3;
+          background-color: var(--va-background-secondary);
         }
       }
     }
@@ -125,7 +125,7 @@
     tr {
       &:hover {
         td {
-          background-color: $light-gray2;
+          background-color: var(--va-background-primary);
         }
       }
     }
@@ -138,7 +138,7 @@
   }
 }
 
-@mixin va-scroll($color: var(--va-gray)) {
+@mixin va-scroll($color: var(--va-background-secondary)) {
   &::-webkit-scrollbar {
     width: 4px;
     height: 4px;
@@ -170,6 +170,7 @@
     background: $color;
     opacity: $opacity;
     z-index: $index;
+    transition: all 0.3s ease-in-out;
   }
 }
 
@@ -197,4 +198,10 @@
   outline: $width $style var(--va-focus) !important; // important in purpose to overwrite reset class
   border-radius: $radius;
   outline-offset: $offset;
+}
+
+@mixin keyboard-focus($radius: 2px, $width: 2px, $offset: null, $style: solid) {
+  &--keyboard-focus {
+    @include focus-outline($radius, $width, $offset, $style);
+  }
 }
