@@ -73,6 +73,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType, ref, shallowRef, computed, watch, nextTick } from 'vue'
+import clamp from 'lodash/clamp.js'
 import pick from 'lodash/pick.js'
 
 import { __DEV__ } from '../../utils/global-utils'
@@ -169,9 +170,10 @@ export default defineComponent({
     }
 
     const onUserInput = (pageNum: number | '...') => {
-      if (pageNum === '...' || pageNum < 1 || pageNum > lastPage.value) { return }
+      if (pageNum === '...') { return }
 
-      currentValue.value = usesTotal.value ? (pageNum - 1) * props.pageSize + 1 : pageNum
+      const limitedPageNum = clamp(pageNum, 1, lastPage.value)
+      currentValue.value = usesTotal.value ? (limitedPageNum - 1) * props.pageSize + 1 : limitedPageNum
     }
 
     const resetInput = () => {
