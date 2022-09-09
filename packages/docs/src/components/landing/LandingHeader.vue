@@ -84,9 +84,9 @@ import LandingStarsButton from './LandingStarsButton.vue'
 @Options({
   name: 'LandingHeader',
   components: {
-  LanguageDropdown, LandingStarsButton, VuesticLogo,
+    LanguageDropdown, LandingStarsButton, VuesticLogo,
   },
-  })
+})
 export default class Header extends Vue {
   value = false
   isHidden = true

@@ -27,7 +27,7 @@ const SidebarLinkPropsMixin = Vue.with(SidebarLinkProps)
 
 @Options({
   name: 'DocsSidebarLink',
-  })
+})
 export default class SidebarLink extends mixins(SidebarLinkPropsMixin) {
   isHovered = false
 

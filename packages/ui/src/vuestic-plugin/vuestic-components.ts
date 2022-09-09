@@ -76,4 +76,5 @@ export {
   VaTreeView as VaTreeRoot, // Re-export as VaTreeRoot, idk why, maybe some legacy support
   VaTreeView,
   VaScrollContainer,
+  VaVirtualScroller,
 } from '../components'
