@@ -315,81 +315,79 @@ export default defineComponent({
         opacity: 1;
       }
 
-      &--focused {
-        outline-offset: -2px;
+      @include keyboard-focus($radius: 'inherit', $offset: -2px);
+    }
+
+    & > :not(:first-child):not(:last-child) {
+      border-radius: 0;
+    }
+
+    & > :first-child {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    & > :last-child {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+
+    &--gapped {
+      &.va-pagination > .va-button {
+        border-radius: var(--va-button-border-radius);
+        margin-right: var(--va-pagination-gap);
+        border: 1px solid;
+
+        &:last-child {
+          margin-right: 0;
+        }
       }
     }
-  }
 
-  & > :not(:first-child):not(:last-child) {
-    border-radius: 0;
-  }
-
-  & > :first-child {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-  }
-
-  & > :last-child {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-  }
-
-  &--gapped {
-    &.va-pagination > .va-button {
-      border-radius: var(--va-button-border-radius);
-      margin-right: var(--va-pagination-gap);
-      border: 1px solid;
-
-      &:last-child {
-        margin-right: 0;
+    &--bordered {
+      &.va-pagination > .va-button {
+        border: 1px solid;
       }
     }
-  }
 
-  &--bordered {
-    &.va-pagination > .va-button {
-      border: 1px solid;
-    }
-  }
+    &--rounded {
+      &.va-pagination > .va-button {
+        border-radius: 9999px;
 
-  &--rounded {
-    &.va-pagination > .va-button {
-      border-radius: 9999px;
+        &.va-button--small:not(.va-button--plain) {
+          &.va-button--icon-only {
+            width: var(--va-button-sm-size);
+            height: var(--va-button-sm-size);
+          }
 
-      &.va-button--small:not(.va-button--plain) {
-        &.va-button--icon-only {
-          width: var(--va-button-sm-size);
-          height: var(--va-button-sm-size);
+          & .va-button__content {
+            padding-right: var(--va-button-sm-content-px);
+            padding-left: var(--va-button-sm-content-px);
+          }
         }
 
-        & .va-button__content {
-          padding-right: var(--va-button-sm-content-px);
-          padding-left: var(--va-button-sm-content-px);
-        }
-      }
+        &.va-button--normal:not(.va-button--plain) {
+          & .va-button--icon-only {
+            width: var(--va-button-sm-size);
+            height: var(--va-button-sm-size);
+          }
 
-      &.va-button--normal:not(.va-button--plain) {
-        & .va-button--icon-only {
-          width: var(--va-button-sm-size);
-          height: var(--va-button-sm-size);
-        }
-
-        & .va-button__content {
-          padding-right: var(--va-button-sm-content-px);
-          padding-left: var(--va-button-sm-content-px);
-        }
-      }
-
-      &.va-button--large:not(.va-button--plain) {
-        &.va-button--icon-only {
-          width: var(--va-button-sm-size);
-          height: var(--va-button-sm-size);
+          & .va-button__content {
+            padding-right: var(--va-button-sm-content-px);
+            padding-left: var(--va-button-sm-content-px);
+          }
         }
 
-        & .va-button__content {
-          padding-right: var(--va-button-sm-content-px);
-          padding-left: var(--va-button-sm-content-px);
+        &.va-button--large:not(.va-button--plain) {
+          &.va-button--icon-only {
+            width: var(--va-button-sm-size);
+            height: var(--va-button-sm-size);
+          }
+
+          & .va-button__content {
+            padding-right: var(--va-button-sm-content-px);
+            padding-left: var(--va-button-sm-content-px);
+          }
         }
       }
     }
