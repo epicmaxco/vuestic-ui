@@ -93,8 +93,8 @@
             <va-button color="info">Info</va-button>
             <va-button preset="primary" color="danger">Danger</va-button>
             <va-button preset="secondary" color="warning">Warning</va-button>
-            <va-button preset="plain" color="gray">Gray</va-button>
-            <va-button preset="plainOpacity" color="dark">Dark</va-button>
+            <va-button preset="plain" color="success">Success</va-button>
+            <va-button preset="plainOpacity" color="textDark">Dark</va-button>
           </td>
         </tr>
 
@@ -123,9 +123,9 @@
           <td>
             <va-config :components="{ VaIcon: { color: '#f00' } }">
               <va-button color="danger">
-                <va-icon name="gavel" color="white" />
+                <va-icon name="gavel" color="textLight" />
                 Colored icons
-                <va-icon name="shield" color="white" />
+                <va-icon name="shield" color="textLight" />
               </va-button>
               <va-button preset="plain" color="warning">
                 <va-icon name="gavel" color="warning" />
