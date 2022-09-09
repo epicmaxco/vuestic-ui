@@ -26,6 +26,18 @@
           </td>
         </tr>
         <tr>
+          <td>Disabled</td>
+          <td>
+            <VbCard>
+              <va-pagination
+                v-model="activePage"
+                :pages="5"
+                disabled
+              />
+            </VbCard>
+          </td>
+        </tr>
+        <tr>
           <td>Presets</td>
           <td>
             <VbCard>
@@ -104,24 +116,21 @@
             <VbCard>
               <va-pagination
                 v-model="activePage"
-                :pages="15"
-                :visible-pages="5"
+                :pages="5"
                 border-color="primary"
                 gapped
                 preset="default"
               />
               <va-pagination
                 v-model="activePage"
-                :pages="15"
-                :visible-pages="5"
+                :pages="5"
                 border-color="primary"
                 gapped
                 preset="primary"
               />
               <va-pagination
                 v-model="activePage"
-                :pages="15"
-                :visible-pages="5"
+                :pages="5"
                 border-color="primary"
                 gapped
                 preset="secondary"
@@ -135,8 +144,7 @@
             <VbCard>
               <va-pagination
                 v-model="activePage"
-                :pages="15"
-                :visible-pages="5"
+                :pages="5"
                 border-color="primary"
                 gapped
                 rounded
@@ -144,8 +152,7 @@
               />
               <va-pagination
                 v-model="activePage"
-                :pages="15"
-                :visible-pages="5"
+                :pages="5"
                 border-color="primary"
                 gapped
                 rounded
@@ -153,8 +160,7 @@
               />
               <va-pagination
                 v-model="activePage"
-                :pages="15"
-                :visible-pages="5"
+                :pages="5"
                 border-color="primary"
                 gapped
                 rounded
@@ -169,8 +175,7 @@
             <VbCard>
               <va-pagination
                 v-model="activePage"
-                :pages="15"
-                :visible-pages="5"
+                :pages="5"
                 preset="default"
                 active-page-color="warning"
                 gapped
@@ -178,8 +183,7 @@
               />
               <va-pagination
                 v-model="activePage"
-                :pages="15"
-                :visible-pages="5"
+                :pages="5"
                 preset="primary"
                 active-page-color="warning"
                 gapped
@@ -187,8 +191,7 @@
               />
               <va-pagination
                 v-model="activePage"
-                :pages="15"
-                :visible-pages="5"
+                :pages="5"
                 preset="secondary"
                 active-page-color="warning"
                 gapped
@@ -203,20 +206,17 @@
             <VbCard>
               <va-pagination
                 v-model="activePage"
-                :pages="10"
-                :visible-pages="3"
+                :pages="5"
                 size="small"
               />
               <va-pagination
                 v-model="activePage"
-                :pages="10"
-                :visible-pages="3"
+                :pages="5"
                 size="medium"
               />
               <va-pagination
                 v-model="activePage"
-                :pages="10"
-                :visible-pages="3"
+                :pages="5"
                 size="large"
               />
             </VbCard>
@@ -228,20 +228,17 @@
             <VbCard>
               <va-pagination
                 v-model="activePage"
-                :pages="15"
-                :visible-pages="4"
+                :pages="5"
                 color="info"
               />
               <va-pagination
                 v-model="activePage"
-                :pages="15"
-                :visible-pages="4"
+                :pages="5"
                 color="danger"
               />
               <va-pagination
                 v-model="activePage"
-                :pages="15"
-                :visible-pages="4"
+                :pages="5"
                 color="warning"
               />
             </VbCard>
@@ -253,8 +250,7 @@
             <VbCard>
               <va-pagination
                 v-model="activePage"
-                :pages="15"
-                :visible-pages="4"
+                :pages="5"
                 disabled
               />
             </VbCard>
@@ -327,7 +323,7 @@
             <VbCard>
               <va-pagination
                 v-model="activePage"
-                :pages="20"
+                :pages="10"
                 :visible-pages="5"
                 boundary-numbers
               />
@@ -346,8 +342,7 @@
             <VbCard>
               <va-pagination
                 v-model="activePage"
-                :pages="20"
-                :visible-pages="5"
+                :pages="5"
                 input
                 plain
               />
@@ -359,8 +354,7 @@
           <td>
             <VbCard>
               <va-pagination
-                :pages="10"
-                :visible-pages="5"
+                :pages="5"
                 stateful
               />
             </VbCard>
@@ -374,7 +368,6 @@
         VaPagination: {
           color: 'danger',
           pages: 10,
-          disabled: true,
           visiblePages: 3,
           input: true,
         }
@@ -423,10 +416,10 @@ export default {
     VaPagination,
     VaConfig,
   },
+
   data () {
     return {
       activePage: 4,
-      pageSizes: ['10', '20', '30', '40'],
       activeTotalPage: 3,
       pageSize: 10,
       total: 100,
