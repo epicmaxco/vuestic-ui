@@ -2,34 +2,52 @@
   <div id="docsearch" />
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import docsearch from '@docsearch/js'
-import { onMounted, defineComponent } from 'vue'
-import { __DEV__ } from 'vuestic-ui/src/utils/global-utils'
 import { useI18n } from 'vue-i18n'
+import { onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 
-export default defineComponent({
-  name: 'AlgoliaSearch',
-  setup () {
-    const { locale } = useI18n()
-
-    onMounted(() => {
-      const changeUrlToLocalhost: Parameters<typeof docsearch>[0]['transformItems'] = (items) => items.map((item) => ({
-        ...item,
-        url: item.url.replace(/^https.*\/en/, `${window.location.origin}/${locale.value}`),
-      }))
-      const transformItems = __DEV__ ? changeUrlToLocalhost : undefined
-
-      docsearch({
-        container: '#docsearch',
-        appId: 'DVNV64RN9R',
-        indexName: 'vuestic',
-        apiKey: 'cd8e70cb466bf6df138543a38c33ea5e',
-        transformItems,
-      })
-    })
-  },
+const { locale } = useI18n()
+const router = useRouter()
+onMounted(() => {
+  docsearch({
+    container: '#docsearch',
+    appId: 'DVNV64RN9R',
+    indexName: 'vuestic',
+    apiKey: 'cd8e70cb466bf6df138543a38c33ea5e',
+    // absolutely kekw but docsearch is based on React, so we need this to replace JSX
+    // @ts-ignore
+    hitComponent ({ hit, children }) {
+      return {
+        type: 'a',
+        ref: undefined,
+        constructor: undefined,
+        key: undefined,
+        props: {
+          href: hit.url,
+          target: '_blank',
+          onClick: (event: MouseEvent) => {
+            event.preventDefault()
+            router.push({
+              path: hit.url.replace(/^https.*\/[a-z]{2}\//, `/${locale.value}/`),
+            })
+          },
+          children,
+        },
+        __v: null,
+      }
+    },
+    navigator: { // keyboard navigation
+      navigate ({ itemUrl }) {
+        router.push({
+          path: itemUrl.replace(/^https.*\/[a-z]{2}\//, `/${locale.value}/`),
+        })
+      },
+    },
+  })
 })
+
 </script>
 
 <style lang="scss">
