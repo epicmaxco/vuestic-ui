@@ -8,7 +8,7 @@ import type { VuesticOptions } from './../types';
 /** Register vuestic nuxt plugin */
 export const useVuesticPlugin = (options: VuesticOptions) => {
   addPluginTemplate({
-    src: resolve(distDir, './runtime/plugin.mjs'),
+    src: resolve(distDir, './runtime/plugin.ts'),
     filename: 'plugin.mjs',
 
     // Use JSON.stringify() here, because it will be inserted in ejs template as string. Then we will JSON.parse it.
