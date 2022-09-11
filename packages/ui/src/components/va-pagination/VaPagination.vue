@@ -9,21 +9,31 @@
     @keydown.left.stop="onUserInput(currentValue - 1)"
     @keydown.right.stop="onUserInput(currentValue + 1)"
   >
-    <va-button
-      v-if="showBoundaryLinks"
-      aria-label="go first page"
-      :disabled="$props.disabled || currentValue === 1"
-      :icon="$props.boundaryIconLeft"
-      @click="onUserInput(1)"
-    />
-    <va-button
-      v-if="showDirectionLinks"
-      aria-label="go prev page"
-      outline
-      :disabled="$props.disabled || currentValue === 1"
-      :icon="$props.directionIconLeft"
-      @click="onUserInput(currentValue - 1)"
-    />
+    <slot
+      v-if="showBoundaryLinks" name="firstPageLink"
+      v-bind="{ onClick: () => onUserInput(1), disabled: $props.disabled || currentValue === 1 }"
+    >
+      <va-button
+        aria-label="go first page"
+        :disabled="$props.disabled || currentValue === 1"
+        :icon="$props.boundaryIconLeft"
+        @click="onUserInput(1)"
+      />
+    </slot>
+
+    <slot
+      v-if="showDirectionLinks" name="prevPageLink"
+      v-bind="{ onClick: () => onUserInput(currentValue - 1), disabled: $props.disabled || currentValue === 1 }"
+    >
+      <va-button
+        aria-label="go prev page"
+        outline
+        :disabled="$props.disabled || currentValue === 1"
+        :icon="$props.directionIconLeft"
+        @click="onUserInput(currentValue - 1)"
+      />
+    </slot>
+
     <slot v-if="!$props.input">
       <va-button
         v-for="(n, i) in paginationRange"
@@ -53,22 +63,33 @@
       @focus="focusInput"
       @blur="changeValue"
     />
-    <va-button
-      v-if="showDirectionLinks"
-      aria-label="go next page"
-      outline
-      :disabled="$props.disabled || currentValue === lastPage"
-      :icon="$props.directionIconRight"
-      @click="onUserInput(currentValue + 1)"
-    />
-    <va-button
-      v-if="showBoundaryLinks"
-      aria-label="go last page"
-      outline
-      :disabled="$props.disabled || currentValue === lastPage"
-      :icon="$props.boundaryIconRight"
-      @click="onUserInput(lastPage)"
-    />
+
+    <slot
+      v-if="showDirectionLinks" name="nextPageLink"
+      v-bind="{ onClick: () => onUserInput(currentValue + 1), disabled: $props.disabled || currentValue === lastPage }"
+    >
+      <va-button
+        aria-label="go next page"
+        outline
+        :disabled="$props.disabled || currentValue === lastPage"
+        :icon="$props.directionIconRight"
+        @click="onUserInput(currentValue + 1)"
+      />
+    </slot>
+
+    <slot
+      v-if="showBoundaryLinks" name="lastPageLink"
+      v-bind="{ onClick: () => onUserInput(lastPage), disabled: $props.disabled || currentValue === lastPage }"
+    >
+      <va-button
+        v-if="showBoundaryLinks"
+        aria-label="go last page"
+        outline
+        :disabled="$props.disabled || currentValue === lastPage"
+        :icon="$props.boundaryIconRight"
+        @click="onUserInput(lastPage)"
+      />
+    </slot>
   </va-button-group>
 </template>
 

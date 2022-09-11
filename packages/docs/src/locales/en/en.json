@@ -356,6 +356,12 @@
         "directionIconLeft": "Set the icon name for left direction icon",
         "directionIconRight": "Set the icon name for right direction icon",
         "size": "Specify size for component. \"small\", \"medium\", \"large\" sizes are available"
+      },
+      "slots": {
+        "firstPageLink": "For the first page link content",
+        "prevPageLink": "For the prev page link content",
+        "nextPageLink": "For the next page link content",
+        "lastPageLink": "For the last page link content"
       }
     },
     "VaTabs": {
@@ -2047,6 +2053,10 @@
       "totalAndPageSize": {
         "title": "Using `total` and `page-size`",
         "text": "You can provide `total` and `page-size` props to `va-pagination` component and let it calculate the length of pagination itself. The value of the component in this case would be equal to the number of the first item at the selected page."
+      },
+      "prevAndNextLinks": {
+        "title": "Custom links instead of icons",
+        "text": "The `prevPageLink` and `nextPageLink` slots allow you to set a different look to the buttons to go to the previous/next page."
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-pagination/_variables.scss)[[target=_blank]]",
@@ -2091,6 +2101,12 @@
         "title": "Content",
         "text": "Tabs with a custom content in the default slot."
       }
+    },
+    "slots": {
+      "default": "Custom style for slide item content",
+      "indicator": "Custom style for indicator button",
+      "nextArrow": "Custom style for next button",
+      "prevArrow": "Custom style for previous button"
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-tabs/_variables.scss)[[target=_blank]]",
     "faq": {
