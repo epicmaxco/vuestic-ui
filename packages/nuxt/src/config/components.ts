@@ -64,6 +64,7 @@ export default [
   'VaSidebarItem',
   'VaSidebarItemContent',
   'VaSidebarItemTitle',
+  'VaScrollContainer',
   'VaSlider',
   'VaSpacer',
   'VaSwitch',
