@@ -1,3 +1,5 @@
+import { warn } from '../../services/utils'
+
 export const setPaginationRange = (value = 1, visiblePages: number, pages: number, includeBoundary = false) => {
   let start = 0
 
@@ -18,7 +20,7 @@ export const setPaginationRange = (value = 1, visiblePages: number, pages: numbe
     } else {
       start = value + paginationMiddlePage > pages
         ? pages - visiblePages + 1
-        : Math.ceil(value - paginationMiddlePage) + Number(includeBoundary)
+        : Math.ceil(value - paginationMiddlePage)
     }
   }
 
@@ -28,7 +30,11 @@ export const setPaginationRange = (value = 1, visiblePages: number, pages: numbe
     range.push(start + i)
   }
 
-  if (includeBoundary) {
+  if (includeBoundary && visiblePages < 7) {
+    warn(
+      '[va-pagination] To work in a proper way, the `boundaryNumbers` prop needs at least 7 visible pages to be set via the `visiblePages` prop (first, last, 2 boundaries, current, previous, next).',
+    )
+  } else if (includeBoundary) {
     start !== 1 && range.splice(0, 2, 1, '...')
     range[range.length - 1] !== pages && range.splice(-2, 2, '...', pages)
   }

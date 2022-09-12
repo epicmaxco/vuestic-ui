@@ -337,12 +337,6 @@
             <VbCard>
               <va-pagination
                 v-model="activePage"
-                :pages="10"
-                :visible-pages="5"
-                boundary-numbers
-              />
-              <va-pagination
-                v-model="activePage"
                 :pages="20"
                 :visible-pages="7"
                 boundary-numbers
@@ -407,7 +401,7 @@
                 v-model="activeTotalPage"
                 :page-size="pageSize"
                 :total="total"
-                :visible-pages="5"
+                :visible-pages="7"
                 boundary-numbers
               />
               <div>
