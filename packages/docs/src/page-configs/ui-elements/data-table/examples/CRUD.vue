@@ -1,7 +1,7 @@
 <template>
   <va-data-table :items="items" :columns="columns" striped>
     <template #headerAppend>
-      <tr class="table-example--slot">
+      <tr class="table-example__slot">
         <th
           v-for="key in Object.keys(createdItem)"
           :key="key"
@@ -31,11 +31,12 @@
 
   <va-modal
     :model-value="!!editedItem"
-    message="Edit item"
+    title="Edit item"
+    size="small"
     @ok="editItem"
     @cancel="resetEditedItem"
   >
-    <slot>
+    <div class="table-example__modal-content">
       <va-input
         v-for="key in Object.keys(editedItem)"
         :key="key"
@@ -43,7 +44,7 @@
         :label="key"
         v-model="editedItem[key]"
       />
-    </slot>
+    </div>
   </va-modal>
 </template>
 
@@ -138,11 +139,28 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-  .table-example--slot {
-    th {
-      padding-top: 5px;
-      padding-bottom: 5px;
-      vertical-align: middle;
+  .table-example {
+    &__slot {
+      th {
+        padding-top: 5px;
+        padding-bottom: 5px;
+        vertical-align: middle;
+      }
+
+      .va-input {
+        --va-form-element-default-width: 80px;
+
+        width: 100%;
+      }
+    }
+
+    &__modal-content {
+      display: flex;
+      flex-direction: column;
+
+      .va-input {
+        width: 100%;
+      }
     }
   }
 </style>
