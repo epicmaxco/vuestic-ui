@@ -28,8 +28,8 @@
     <slot v-if="!$props.input">
       <va-button
         v-for="(n, i) in paginationRange"
-        :key="`pagination-page-${i}`"
-        :class="{ 'va-button--ellipsis': n === '...'}"
+        :key="i"
+        :class="{ 'va-button--ellipsis': n === '...', 'va-button--current': n === currentValue}"
         :aria-label="`go to the ${n} page`"
         :aria-current="n === currentValue"
         :disabled="$props.disabled || ['...', currentValue].includes(n)"
@@ -249,7 +249,7 @@ export default defineComponent({
     }))
 
     const classComputed = useBem('va-pagination', () => ({
-      ...pick(props, ['gapped', 'rounded']),
+      ...pick(props, ['gapped', 'rounded', 'disabled']),
       bordered: !!props.borderColor,
     }))
 
@@ -308,13 +308,13 @@ export default defineComponent({
       &--ellipsis {
         cursor: default;
         opacity: 1;
+
+        & > .va-button__content {
+          opacity: 0.4;
+        }
       }
 
-      &--ellipsis > .va-button__content {
-        opacity: 0.4;
-      }
-
-      &--disabled {
+      &--disabled.va-button--current:not(.va-pagination--disabled .va-button) {
         opacity: 1;
       }
 
