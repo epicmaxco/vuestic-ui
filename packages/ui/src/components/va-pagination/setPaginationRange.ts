@@ -18,7 +18,7 @@ export const setPaginationRange = (value = 1, visiblePages: number, pages: numbe
     } else {
       start = value + paginationMiddlePage > pages
         ? pages - visiblePages + 1
-        : Math.ceil(value - paginationMiddlePage)
+        : Math.ceil(value - paginationMiddlePage) + Number(includeBoundary)
     }
   }
 
