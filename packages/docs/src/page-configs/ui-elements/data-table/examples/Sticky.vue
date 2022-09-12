@@ -44,7 +44,22 @@
       footer-clone
       sticky-footer
       selected-color="warning"
-    />
+      :scrollEventsThreshold="10"
+      @scroll:bottom="onScrollDown"
+    >
+      <template #headerPrepend>
+        <tr>
+          <th colspan="6">With scroll events</th>
+        </tr>
+      </template>
+      <template #bodyAppend v-if="isLoading">
+        <tr>
+          <td colspan="6">
+            <va-inner-loading :loading="isLoading" style="height: 2rem;" />
+          </td>
+        </tr>
+      </template>
+    </va-data-table>
   </div>
 </template>
 
@@ -122,7 +137,31 @@ export default defineComponent({
 
     return {
       items: users,
+      isLoading: false,
     }
+  },
+
+  methods: {
+    onScrollDown () {
+      if (this.isLoading) { return }
+      this.isLoading = true
+      setTimeout(() => {
+        this.loadUsers()
+        this.isLoading = false
+      }, 1500)
+    },
+    loadUsers () {
+      const lastId = this.items[this.items.length - 1].id
+      const uploadedUser = {
+        name: 'New User',
+        username: 'NewUser',
+        email: 'newUser@nebulean.com',
+        phone: '(254)954-5289',
+        website: 'nebulean.info',
+      }
+      const loadedUsers = [1, 2, 3].map((id) => ({ ...uploadedUser, id: lastId + id }))
+      this.items = [...this.items, ...loadedUsers]
+    },
   },
 })
 </script>
