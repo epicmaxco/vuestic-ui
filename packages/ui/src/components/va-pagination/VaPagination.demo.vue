@@ -318,6 +318,20 @@
           </td>
         </tr>
         <tr>
+          <td>Input without links</td>
+          <td>
+            <VbCard>
+              <va-pagination
+                v-model="activePage"
+                :pages="20"
+                input
+                :boundary-links="false"
+                :direction-links="false"
+              />
+            </VbCard>
+          </td>
+        </tr>
+        <tr>
           <td>Boundary Icons</td>
           <td>
             <VbCard>

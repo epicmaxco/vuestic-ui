@@ -151,15 +151,15 @@ export default defineComponent({
 
     const lastPage = computed(() => usesTotal.value ? Math.ceil(props.total / props.pageSize) || 1 : +props.pages)
 
-    const isLastPageNotVisible = computed(() => (!!props.visiblePages && lastPage.value > props.visiblePages))
+    const isLastPageNotVisible = computed(() => ((!!props.visiblePages && lastPage.value > props.visiblePages)) || props.input)
 
     const showBoundaryLinks = computed(() => {
-      const { boundaryLinks, boundaryNumbers, input } = props
+      const { boundaryLinks, boundaryNumbers } = props
 
-      return input || (isLastPageNotVisible.value && boundaryLinks && !boundaryNumbers)
+      return isLastPageNotVisible.value && boundaryLinks && !boundaryNumbers
     })
 
-    const showDirectionLinks = computed(() => props.input || (isLastPageNotVisible.value && props.directionLinks))
+    const showDirectionLinks = computed(() => isLastPageNotVisible.value && props.directionLinks)
 
     const showPagination = computed(() => lastPage.value > 1 || (!props.hideOnSinglePage && lastPage.value <= 1))
 
@@ -246,6 +246,9 @@ export default defineComponent({
 
     const inputClassComputed = useBem('va-pagination__input', () => ({
       ...pick(props, ['plain']),
+      sm: props.size === 'small',
+      md: props.size === 'medium',
+      lg: props.size === 'large',
     }))
 
     const classComputed = useBem('va-pagination', () => ({
@@ -297,6 +300,18 @@ export default defineComponent({
 
       &--plain {
         border-top-width: var(--va-pagination-input-plain-border-top-width);
+      }
+
+      &--sm {
+        height: var(--va-button-sm-size);
+      }
+
+      &--md {
+        height: var(--va-button-size);
+      }
+
+      &--lg {
+        height: var(--va-button-lg-size);
       }
     }
 
