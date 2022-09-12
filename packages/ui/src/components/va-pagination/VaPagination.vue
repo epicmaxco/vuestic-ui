@@ -32,7 +32,7 @@
         :class="{ 'va-button--ellipsis': n === '...', 'va-button--current': n === currentValue}"
         :aria-label="`go to the ${n} page`"
         :aria-current="n === currentValue"
-        :disabled="$props.disabled || ['...', currentValue].includes(n)"
+        :disabled="$props.disabled || n === '...'"
         v-bind="getPageButtonProps(n)"
         @click="onUserInput(n)"
       >
@@ -170,7 +170,7 @@ export default defineComponent({
     }
 
     const onUserInput = (pageNum: number | '...') => {
-      if (pageNum === '...') { return }
+      if (pageNum === '...' || pageNum === currentValue.value) { return }
 
       const limitedPageNum = clamp(pageNum, 1, lastPage.value)
       currentValue.value = usesTotal.value ? (limitedPageNum - 1) * props.pageSize + 1 : limitedPageNum
@@ -312,10 +312,6 @@ export default defineComponent({
         & > .va-button__content {
           opacity: 0.4;
         }
-      }
-
-      &--disabled.va-button--current:not(.va-pagination--disabled .va-button) {
-        opacity: 1;
       }
 
       @include keyboard-focus($radius: 'inherit', $offset: -2px);
