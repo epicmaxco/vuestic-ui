@@ -73,10 +73,10 @@
         role="list"
       >
         <div
-          class="va-carousel__slide"
           v-for="(item, index) in slides" :key="item"
-          :style="effect === 'fade' ? { animation: fadeKeyframe } : ''"
           role="listitem"
+          class="va-carousel__slide"
+          :style="slideStyleComputed"
           :aria-hidden="!isCurrentSlide(index)"
           :aria-current="isCurrentSlide(index)"
           :aria-label="`slide ${index + 1} of ${slides.length}`"
@@ -94,7 +94,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, shallowRef, PropType, computed } from 'vue'
+import { defineComponent, shallowRef, PropType, computed, CSSProperties } from 'vue'
 import { useCarousel } from './hooks/useCarousel'
 import { useCarouselAnimation } from './hooks/useCarouselAnimation'
 import { useCarouselColor } from './hooks/useCarouselColors'
@@ -159,6 +159,11 @@ export default defineComponent({
     })
     const isCurrentSlide = (index: number) => +index === currentSlide.value
 
+    const slideStyleComputed = computed(() => ({
+      animation: props.effect === 'fade' ? 'fadeKeyframe' : undefined,
+      'user-select': props.swipable ? 'none' : undefined,
+    })) as CSSProperties
+
     // swiping
     const slidesContainer = shallowRef<HTMLElement>()
     const onSwipe = () => {
@@ -178,6 +183,7 @@ export default defineComponent({
       doShowNextButton,
       doShowPrevButton,
       computedSlidesStyle,
+      slideStyleComputed,
       goTo: withPause(goTo),
       prev: withPause(prev),
       next: withPause(next),

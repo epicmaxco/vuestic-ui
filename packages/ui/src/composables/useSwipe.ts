@@ -1,4 +1,4 @@
-import { ref, reactive, computed, watch, PropType, ShallowRef, ExtractPropTypes } from 'vue'
+import { ref, reactive, watch, PropType, ShallowRef, ExtractPropTypes, watchEffect } from 'vue'
 
 import { useEvent } from './'
 
@@ -27,7 +27,7 @@ const horizontalSpecificAllowedDirections = [...commonAllowedDirections.horizont
  */
 export const useSwipeProps = {
   swipable: { type: Boolean, default: false },
-  swipeDistance: { type: Number, default: 10 },
+  swipeDistance: { type: Number, default: 75 },
   swipeDirection: { type: String as PropType<AllowedSwipeDirection>, default: 'all' },
 }
 
@@ -91,13 +91,17 @@ export const useSwipe = (
     swipeStarted.value = false
   }
 
-  const isSwipeAllowed = computed(() => ({
-    vertical: verticalSpecificAllowedDirections.includes(props.swipeDirection),
-    horizontal: horizontalSpecificAllowedDirections.includes(props.swipeDirection),
-  }))
+  const isSwipeAllowed = reactive({
+    vertical: false,
+    horizontal: false,
+  })
+  watchEffect(() => {
+    isSwipeAllowed.horizontal = horizontalSpecificAllowedDirections.includes(props.swipeDirection)
+    isSwipeAllowed.vertical = verticalSpecificAllowedDirections.includes(props.swipeDirection)
+  })
 
   const calcDistance = (axis: 'x' | 'y') => {
-    return isSwipeAllowed.value[axis === 'x' ? 'horizontal' : 'vertical'] &&
+    return isSwipeAllowed[axis === 'x' ? 'horizontal' : 'vertical'] &&
     swipePath.start[axis] && swipePath.end[axis]
       ? Math.trunc(swipePath.start[axis] - swipePath.end[axis])
       : 0
@@ -113,10 +117,10 @@ export const useSwipe = (
     const yDistance = calcDistance('y')
 
     if ((xDistance || yDistance) && [xDistance, yDistance].some((el) => Math.abs(el) >= props.swipeDistance)) {
-      if (Math.abs(xDistance) > Math.abs(yDistance) && isSwipeAllowed.value.horizontal) {
+      if (Math.abs(xDistance) > Math.abs(yDistance) && isSwipeAllowed.horizontal) {
         const result = xDistance > 0 ? 'left' : 'right'
         swipeState.direction = getAcceptableValue('horizontal', result)
-      } else if (isSwipeAllowed.value.vertical) {
+      } else if (isSwipeAllowed.vertical) {
         const result = yDistance > 0 ? 'down' : 'up'
         swipeState.direction = getAcceptableValue('vertical', result)
       }
