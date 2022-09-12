@@ -72,7 +72,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref, shallowRef, computed, watch, nextTick } from 'vue'
+import { defineComponent, PropType, ref, toRefs, shallowRef, computed, watch, nextTick } from 'vue'
 import clamp from 'lodash/clamp.js'
 import pick from 'lodash/pick.js'
 
@@ -110,7 +110,6 @@ export default defineComponent({
     directionLinks: { type: Boolean, default: true },
     input: { type: Boolean, default: false },
     hideOnSinglePage: { type: Boolean, default: false },
-    plain: { type: Boolean, default: false },
     total: { type: Number, default: null },
     pageSize: { type: Number, default: null },
     boundaryIconLeft: { type: String, default: 'first_page' },
@@ -204,12 +203,29 @@ export default defineComponent({
       resetInput()
     }
 
-    const { getColor } = useColors()
+    const { getColor, colorToRgba } = useColors()
+
+    const inputBorderColorComputed = computed(() => {
+      const { color, preset } = toRefs(props)
+
+      if (!color.value) { return 'transparent' }
+
+      switch (preset.value) {
+        case 'default':
+          return getColor(color.value)
+        case undefined:
+        case 'primary':
+          return colorToRgba(getColor(color.value), 0.1)
+        default:
+          return 'transparent'
+      }
+    })
 
     const inputStyleComputed = computed(() => ({
       cursor: 'default',
       color: getColor(props.color),
       opacity: props.disabled ? 0.4 : 1,
+      borderColor: inputBorderColorComputed.value,
     }))
 
     watch([usesTotal, () => props.pages], () => {
@@ -226,7 +242,6 @@ export default defineComponent({
     const buttonPropsComputed = computed(() => ({
       size: props.size,
       color: props.color,
-      plain: props.preset ? undefined : props.plain,
       borderColor: props.borderColor,
       preset: props.preset || 'primary',
     }))
@@ -245,7 +260,6 @@ export default defineComponent({
     }
 
     const inputClassComputed = useBem('va-pagination__input', () => ({
-      ...pick(props, ['plain']),
       sm: props.size === 'small',
       md: props.size === 'medium',
       lg: props.size === 'large',
@@ -298,10 +312,7 @@ export default defineComponent({
       text-align: var(--va-pagination-input-text-align);
       font-size: var(--va-pagination-input-font-size);
 
-      &--plain {
-        border-top-width: var(--va-pagination-input-plain-border-top-width);
-      }
-
+      // by default input's height relies on va-button size
       &--sm {
         height: var(--va-button-sm-size);
       }
@@ -368,7 +379,7 @@ export default defineComponent({
       &.va-pagination > .va-button {
         border-radius: 9999px;
 
-        &.va-button--small:not(.va-button--plain) {
+        &.va-button--small {
           &.va-button--icon-only {
             width: var(--va-button-sm-size);
             height: var(--va-button-sm-size);
@@ -380,7 +391,7 @@ export default defineComponent({
           }
         }
 
-        &.va-button--normal:not(.va-button--plain) {
+        &.va-button--normal {
           & .va-button--icon-only {
             width: var(--va-button-sm-size);
             height: var(--va-button-sm-size);
@@ -392,7 +403,7 @@ export default defineComponent({
           }
         }
 
-        &.va-button--large:not(.va-button--plain) {
+        &.va-button--large {
           &.va-button--icon-only {
             width: var(--va-button-sm-size);
             height: var(--va-button-sm-size);
