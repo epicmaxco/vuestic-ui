@@ -5,6 +5,7 @@
     v-bind="computedAttributes"
     :loading="loading"
     :color="loadingColor"
+    @scroll="onScroll"
   >
     <table
       class="va-data-table__table"
@@ -245,6 +246,7 @@ import useSelectableRow from './hooks/useSelectableRow'
 import useStylable from './hooks/useStylable'
 import useBinding from './hooks/useBinding'
 import useAnimationName from './hooks/useAnimationName'
+import useTableScroll from './hooks/useTableScroll'
 
 import type {
   DataTableColumnSource,
@@ -271,7 +273,9 @@ type emitNames = 'update:modelValue' |
   'selectionChange' |
   'row:click' |
   'row:dblclick' |
-  'row:contextmenu'
+  'row:contextmenu' |
+  'scroll:top' |
+  'scroll:bottom'
 
 /*
   TODO: consider a possibility to lazy-load the hooks with dynamic imports based on respective props' values. E.G.
@@ -329,6 +333,7 @@ export default defineComponent({
     height: { type: [String, Number] },
     rowBind: { type: null as unknown as PropType<DataTableRowBind> },
     cellBind: { type: null as unknown as PropType<DataTableCellBind> },
+    scrollEventsThreshold: { type: Number },
   },
 
   emits: [
@@ -341,6 +346,8 @@ export default defineComponent({
     'row:click',
     'row:dblclick',
     'row:contextmenu',
+    'scroll:top',
+    'scroll:bottom',
   ],
 
   setup (props, { attrs, emit }) {
@@ -415,6 +422,8 @@ export default defineComponent({
       ? sortingOrderSync.value === 'asc' ? 'ascending' : 'descending'
       : 'none'
 
+    const { onScroll } = useTableScroll(props, emit)
+
     return {
       columnsComputed,
       rows: paginatedRows,
@@ -443,6 +452,7 @@ export default defineComponent({
       getColumnAriaSortOrder,
       getRowBind,
       getCellBind,
+      onScroll,
     }
   },
 })
