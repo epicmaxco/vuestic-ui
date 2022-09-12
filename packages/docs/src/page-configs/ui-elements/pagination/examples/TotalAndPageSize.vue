@@ -4,6 +4,7 @@
     v-model="value"
     :total="100"
     boundary-numbers
+    :direction-links="false"
     :page-size="10"
   />
   Current value: {{ value }}
