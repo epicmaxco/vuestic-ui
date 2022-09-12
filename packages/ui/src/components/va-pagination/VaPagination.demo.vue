@@ -402,6 +402,18 @@
             </VbCard>
           </td>
         </tr>
+
+        <tr>
+          <td>Hide on single page</td>
+          <td>
+            <VbCard>
+              <va-pagination
+                :pages="1"
+                hide-on-single-page
+              />
+            </VbCard>
+          </td>
+        </tr>
       </table>
     </VbCard>
   </VbDemo>
