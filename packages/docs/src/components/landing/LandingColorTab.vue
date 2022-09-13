@@ -113,48 +113,48 @@ export default class ColorTab extends Vue {
 </script>
 
 <style lang="scss">
-@import "../../../../ui/src/styles/resources";
+  @import "../../../../ui/src/styles/resources";
 
-.color-tab {
-  cursor: pointer;
+  .color-tab {
+    cursor: pointer;
 
-  &__icon {
-    .va-button__content {
-      font-weight: bold;
+    &__icon {
+      .va-button__content {
+        font-weight: bold;
+      }
+
+      position: relative;
+      display: flex;
+      align-items: center;
     }
 
-    position: relative;
-    display: flex;
-    align-items: center;
-  }
-
-  &__content {
-    border-radius: 0.5rem;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-
-    .color-picker-dropdown {
+    &__content {
+      border-radius: 0.5rem;
+      padding: 0;
       display: flex;
       justify-content: center;
+      align-items: center;
+      flex-direction: column;
 
-      &__badge {
-        /* Badges have 0.5rem to the right by default */
-        margin-left: 0.5rem;
-        cursor: pointer;
+      .color-picker-dropdown {
+        display: flex;
+        justify-content: center;
+
+        &__badge {
+          /* Badges have 0.5rem to the right by default */
+          margin-left: 0.5rem;
+          cursor: pointer;
+        }
       }
+    }
+
+    .va-dropdown__anchor {
+      display: inline-block;
     }
   }
 
-  .va-dropdown__anchor {
-    display: inline-block;
+  .button-restore {
+    display: flex;
+    margin: 0.375rem auto;
   }
-}
-
-.button-restore {
-  display: flex;
-  margin: 0.375rem auto;
-}
 </style>

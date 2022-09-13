@@ -43,86 +43,86 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "variables";
-@import '../../styles/resources';
+  @import "variables";
+  @import '../../styles/resources';
 
-.va-button-group {
-  display: var(--va-button-group-display);
-  justify-content: var(--va-button-group-justify-content);
-  border-radius: var(--va-button-group-border-radius);
-  font-family: var(--va-font-family);
-  width: max-content;
-  overflow: hidden;
+  .va-button-group {
+    display: var(--va-button-group-display);
+    justify-content: var(--va-button-group-justify-content);
+    border-radius: var(--va-button-group-border-radius);
+    font-family: var(--va-font-family);
+    width: max-content;
+    overflow: hidden;
 
-  &--square {
-    border-radius: var(--va-button-border-radius);
-  }
-
-  &--small {
-    &.va-button-group--square {
-      border-radius: var(--va-button-sm-border-radius);
-    }
-  }
-
-  &--large {
-    &.va-button-group--square {
-      border-radius: var(--va-button-lg-border-radius);
-    }
-  }
-
-  .va-button {
-    margin: var(--va-button-group-button-margin);
-    box-shadow: none;
-
-    @include keyboard-focus($radius: 'inherit', $offset: -2px);
-  }
-
-  & > .va-button:last-child {
-    width: var(--va-button-group-button-width);
-    padding-right: var(--va-button-group-button-padding);
-
-    &.va-button--small {
-      padding-right: var(--va-button-group-sm-button-padding);
+    &--square {
+      border-radius: var(--va-button-border-radius);
     }
 
-    &.va-button--large {
-      padding-right: var(--va-button-group-lg-button-padding);
+    &--small {
+      &.va-button-group--square {
+        border-radius: var(--va-button-sm-border-radius);
+      }
+    }
+
+    &--large {
+      &.va-button-group--square {
+        border-radius: var(--va-button-lg-border-radius);
+      }
+    }
+
+    .va-button {
+      margin: var(--va-button-group-button-margin);
+      box-shadow: none;
+
+      @include keyboard-focus($radius: 'inherit', $offset: -2px);
+    }
+
+    & > .va-button:last-child {
+      width: var(--va-button-group-button-width);
+      padding-right: var(--va-button-group-button-padding);
+
+      &.va-button--small {
+        padding-right: var(--va-button-group-sm-button-padding);
+      }
+
+      &.va-button--large {
+        padding-right: var(--va-button-group-lg-button-padding);
+      }
+    }
+
+    & > .va-button:first-child {
+      width: var(--va-button-group-button-width);
+      padding-left: var(--va-button-group-button-padding);
+
+      &.va-button--small {
+        padding-left: var(--va-button-group-sm-button-padding);
+      }
+
+      &.va-button--large {
+        padding-left: var(--va-button-group-lg-button-padding);
+      }
+    }
+
+    & > .va-button:not(:last-child) {
+      padding-right: var(--va-button-group-gap);
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      border-right: 0;
+
+      .va-button__content {
+        margin-right: 0;
+      }
+    }
+
+    & > .va-button + .va-button {
+      padding-left: var(--va-button-group-gap);
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      border-left: 0;
+
+      .va-button__content {
+        margin-left: 0;
+      }
     }
   }
-
-  & > .va-button:first-child {
-    width: var(--va-button-group-button-width);
-    padding-left: var(--va-button-group-button-padding);
-
-    &.va-button--small {
-      padding-left: var(--va-button-group-sm-button-padding);
-    }
-
-    &.va-button--large {
-      padding-left: var(--va-button-group-lg-button-padding);
-    }
-  }
-
-  & > .va-button:not(:last-child) {
-    padding-right: var(--va-button-group-gap);
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-    border-right: 0;
-
-    .va-button__content {
-      margin-right: 0;
-    }
-  }
-
-  & > .va-button + .va-button {
-    padding-left: var(--va-button-group-gap);
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    border-left: 0;
-
-    .va-button__content {
-      margin-left: 0;
-    }
-  }
-}
 </style>

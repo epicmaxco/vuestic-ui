@@ -16,6 +16,7 @@
       'va-date-picker-cell_focused': focused,
       'va-date-picker-cell_readonly': readonly,
     }"
+    :style="computedStyle"
     @click="onClick"
     @keypress.space.enter.prevent.stop="onClick"
   >
@@ -24,7 +25,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { useTextColor } from '../../../composables/useTextColor'
+import { computed, defineComponent, toRef } from 'vue'
 
 export default defineComponent({
   name: 'VaDatePickerCell',
@@ -41,6 +43,7 @@ export default defineComponent({
     highlightWeekend: { type: Boolean, default: false },
     highlightToday: { type: Boolean, default: false },
     readonly: { type: Boolean, default: false },
+    color: { type: String, default: 'primary' },
   },
 
   emits: ['click'],
@@ -50,93 +53,65 @@ export default defineComponent({
       if (!props.disabled) { emit('click') }
     }
 
+    const { textColorComputed } = useTextColor(toRef(props, 'color'))
+
+    const computedStyle = computed(() => {
+      if (props.selected) {
+        return { color: textColorComputed.value }
+      }
+      return {}
+    })
+
     return {
       onClick,
+      computedStyle,
     }
   },
 })
 </script>
 
 <style lang="scss">
-@import '../../../styles/resources';
+  @import '../../../styles/resources';
 
-.va-date-picker-cell {
-  position: relative;
-  color: var(--va-date-picker-text-color);
-  line-height: var(--va-date-picker-cell-size);
-  min-height: var(--va-date-picker-cell-size);
-  min-width: var(--va-date-picker-cell-size);
-  cursor: pointer;
-  user-select: none;
-  border-radius: var(--va-date-picker-cell-radius);
-  box-sizing: border-box;
-  text-align: center;
-  z-index: 1;
-
-  &::after,
-  &::before {
-    content: '';
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    left: 0;
-    z-index: -1;
+  .va-date-picker-cell {
+    position: relative;
+    color: var(--va-date-picker-text-color);
+    line-height: var(--va-date-picker-cell-size);
+    min-height: var(--va-date-picker-cell-size);
+    min-width: var(--va-date-picker-cell-size);
+    cursor: pointer;
     user-select: none;
-    box-sizing: border-box;
     border-radius: var(--va-date-picker-cell-radius);
-  }
+    box-sizing: border-box;
+    text-align: center;
+    z-index: 1;
 
-  &_clear {
-    cursor: default;
-    opacity: 0;
-  }
-
-  &_highlighted-weekend {
-    color: var(--va-date-picker-weekends-color);
-  }
-
-  // &_in-range:not(.va-date-picker-cell_disabled) {
-  // &_in-range { // should be like a the line above if the `range` value
-  // will exclude not allows dates
-  &_in-range {
-    color: var(--va-date-picker-color);
-
-    &::after {
-      background-color: var(--va-date-picker-selected-background);
-      opacity: var(--va-date-picker-cell-background-opacity-hover);
-    }
-  }
-
-  &_today {
-    color: var(--va-date-picker-color);
-    font-weight: bold;
-
+    &::after,
     &::before {
-      border: 2px solid var(--va-date-picker-color);
+      content: '';
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      left: 0;
+      z-index: -1;
+      user-select: none;
+      box-sizing: border-box;
+      border-radius: var(--va-date-picker-cell-radius);
     }
-  }
 
-  &_selected {
-    background-color: var(--va-date-picker-selected-background);
-    color: var(--va-date-picker-selected-text);
-  }
+    &_clear {
+      cursor: default;
+      opacity: 0;
+    }
 
-  &_other-month {
-    opacity: var(--va-date-picker-cell-opacity);
-  }
+    &_highlighted-weekend {
+      color: var(--va-date-picker-weekends-color);
+    }
 
-  &_focused {
-    @include focus-outline;
-  }
-
-  &:hover,
-  &_focused,
-  &_focused:hover {
-    &:not(
-    .va-date-picker-cell_selected):not(
-      .va-date-picker-cell_readonly):not(
-        .va-date-picker-cell_disabled):not(
-          .va-date-picker-cell_other-month) {
+    // &_in-range:not(.va-date-picker-cell_disabled) {
+    // &_in-range { // should be like a the line above if the `range` value
+    // will exclude not allows dates
+    &_in-range {
       color: var(--va-date-picker-color);
 
       &::after {
@@ -144,34 +119,72 @@ export default defineComponent({
         opacity: var(--va-date-picker-cell-background-opacity-hover);
       }
     }
-  }
 
-  &_disabled {
-    &:not(.va-date-picker-cell_today) {
-      color: var(--va-date-picker-secondary);
+    &_today {
+      color: var(--va-date-picker-color);
+      font-weight: bold;
+
+      &::before {
+        border: 2px solid var(--va-date-picker-color);
+      }
     }
 
-    cursor: not-allowed;
-    opacity: var(--va-date-picker-cell-opacity);
+    &_selected {
+      background-color: var(--va-date-picker-selected-background);
+      color: var(--va-date-picker-selected-text);
+    }
 
-    &::after { // Crossline
+    &_other-month {
       opacity: var(--va-date-picker-cell-opacity);
-      border: none;
-      height: 2px;
-      width: 50%;
-      background: currentColor;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+    }
+
+    &_focused {
+      @include focus-outline;
+    }
+
+    &:hover,
+    &_focused,
+    &_focused:hover {
+      &:not(
+      .va-date-picker-cell_selected):not(
+        .va-date-picker-cell_readonly):not(
+          .va-date-picker-cell_disabled):not(
+            .va-date-picker-cell_other-month) {
+        color: var(--va-date-picker-color);
+
+        &::after {
+          background-color: var(--va-date-picker-selected-background);
+          opacity: var(--va-date-picker-cell-background-opacity-hover);
+        }
+      }
+    }
+
+    &_disabled {
+      &:not(.va-date-picker-cell_today) {
+        opacity: 0.5;
+      }
+
+      cursor: not-allowed;
+      opacity: var(--va-date-picker-cell-opacity);
+
+      &::after { // Crossline
+        opacity: var(--va-date-picker-cell-opacity);
+        border: none;
+        height: 2px;
+        width: 50%;
+        background: currentColor;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+
+    &_readonly {
+      cursor: default;
+
+      &::before {
+        display: none;
+      }
     }
   }
-
-  &_readonly {
-    cursor: default;
-
-    &::before {
-      display: none;
-    }
-  }
-}
 </style>

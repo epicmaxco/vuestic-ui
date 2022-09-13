@@ -27,13 +27,13 @@
 </template>
 
 <style lang="scss">
-.user-card {
-  --va-card-display: inline-block;
-  --va-button-content-px: 0.5rem;
-  --va-avatar-border-radius: 60% 40% 58% 42% / 39% 48% 52% 61%;
+  .user-card {
+    --va-card-display: inline-block;
+    --va-button-content-px: 0.5rem;
+    --va-avatar-border-radius: 60% 40% 58% 42% / 39% 48% 52% 61%;
 
-  &:hover {
-    --va-avatar-border-radius: 28% 72% 24% 76% / 71% 17% 83% 29%;
+    &:hover {
+      --va-avatar-border-radius: 28% 72% 24% 76% / 71% 17% 83% 29%;
+    }
   }
-}
 </style>

@@ -233,10 +233,10 @@ export default {
 </script>
 
 <style lang="scss">
-.va-switch-demo {
-  .va-switch {
-    margin-right: 16px;
-    margin-bottom: 16px;
+  .va-switch-demo {
+    .va-switch {
+      margin-right: 16px;
+      margin-bottom: 16px;
+    }
   }
-}
 </style>

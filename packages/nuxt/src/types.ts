@@ -19,6 +19,19 @@ export interface VuesticOptions {
    * @see https://vuestic.dev/en/getting-started/tree-shaking#css-code-split
    */
   css: Array<'typography' | 'grid' | 'reset'> | boolean,
+
+  /**
+   * Use vuestic default fonts.
+   *
+   * If `false` you will need to install fonts manually. If you're going to use different font, don't forget to change `--va-font-family` CSS variable.
+   *
+   * @notice this option adds `Source Sans Pro` and `Material Icons` fonts.
+   *
+   * @default true
+   *
+   * @see https://vuestic.dev/en/getting-started/installation#assets-installation
+   */
+  fonts: boolean
 }
 
 /** Declare Vuestic module options in NuxtConfig */

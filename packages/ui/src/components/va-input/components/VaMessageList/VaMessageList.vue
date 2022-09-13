@@ -9,17 +9,27 @@
       :key="index"
       class="va-message-list__message"
     >
-      {{ message }}
+      <va-icon
+        v-if="hasError"
+        class="va-message-list__icon"
+        name="warning"
+        :size="16"
+      />{{ message }}
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent, PropType } from 'vue'
+
 import { useColors } from '../../../../composables'
+
+import { VaIcon } from '../../../va-icon'
 
 export default defineComponent({
   name: 'VaMessageList',
+
+  components: { VaIcon },
 
   props: {
     modelValue: {
@@ -28,6 +38,7 @@ export default defineComponent({
     },
     limit: { type: Number, default: 1 },
     color: { type: String },
+    hasError: { type: Boolean, default: false },
   },
 
   setup (props) {
@@ -46,16 +57,21 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "../../../../styles/resources/index.scss";
+  @import "../../../../styles/resources/index.scss";
 
-.va-message-list {
-  margin-top: var(--va-message-list--margin-top);
-  color: var(--va-message-list-color);
+  .va-message-list {
+    margin-top: var(--va-message-list-margin-top);
+    color: var(--va-message-list-color);
 
-  &__message {
-    vertical-align: var(--va-message-list-vertical-align);
-    font-size: var(--va-message-list-font-size);
-    line-height: var(--va-message-list-line-height);
+    &__message {
+      display: flex;
+      vertical-align: var(--va-message-list-vertical-align);
+      font-size: var(--va-message-list-font-size);
+      line-height: var(--va-message-list-line-height);
+    }
+
+    &__icon {
+      margin-right: var(--va-message-list-icon-margin-right);
+    }
   }
-}
 </style>

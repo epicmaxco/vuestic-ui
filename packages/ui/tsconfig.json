@@ -7,6 +7,7 @@
     "importHelpers": true,
     "moduleResolution": "node",
     "rootDir": "src",
+    "skipLibCheck": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "esModuleInterop": true,
@@ -36,6 +37,7 @@
     "tests/**/*.tsx"
   ],
   "exclude": [
+    "../node_modules",
     "node_modules",
     "src/**/*.spec.ts",
     "src/**/*.spec.disabled.ts",

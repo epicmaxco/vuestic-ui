@@ -1,5 +1,5 @@
 import type { ComponentConfig } from '../component-config/component-config'
-import type { ColorConfig } from '../../composables'
+import type { ColorConfig } from '../color-config'
 import type { IconConfig } from '../icon-config/types'
 
 export type GlobalConfig = {

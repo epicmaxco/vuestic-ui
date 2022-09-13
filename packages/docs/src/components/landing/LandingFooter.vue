@@ -1,5 +1,5 @@
 <template>
-  <footer class="footer">
+  <footer class="footer" :style="{ color: textColor }">
     <div class="footer__wrapper">
       <div class="footer__inner">
         <LandingEpicmaxBanner />
@@ -82,182 +82,169 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component'
+import { useColors, useElementTextColor } from 'vuestic-ui/src/main'
+import { markRaw, defineComponent } from 'vue'
 import IconEpicmax from './icons/IconEpicmax.vue'
 import IconAdmin from './icons/IconAdmin.vue'
 import IconSpinners from './icons/IconSpinners.vue'
-import { useColors } from 'vuestic-ui/src/main'
-import { markRaw } from 'vue'
 import LandingEpicmaxBanner from '@/components/landing/LandingEpicmaxBanner.vue'
 
-@Options({
+export default defineComponent({
   name: 'LandingFooter',
+
   components: {
     LandingEpicmaxBanner,
   },
+
+  setup () {
+    const { getComputedColor } = useColors()
+
+    return {
+      textColor: useElementTextColor('background-primary'),
+      IconEpicmax: markRaw(IconEpicmax),
+      IconAdmin: markRaw(IconAdmin),
+      IconSpinners: markRaw(IconSpinners),
+      primaryColor: getComputedColor('primary'),
+    }
+  },
 })
-export default class Footer extends Vue {
-  IconEpicmax = markRaw(IconEpicmax);
-  IconAdmin = markRaw(IconAdmin);
-  IconSpinners = markRaw(IconSpinners);
-
-  get primaryColor () {
-    // TODO: Replace with setup FN
-    return useColors().getColor('primary')
-  }
-
-  get currentYear () {
-    const date = new Date() // 2009-11-10
-    return date.getFullYear()
-  }
-
-  get currentMonthName () {
-    const date = new Date() // 2009-11-10
-    return date.toLocaleString('en', { month: 'long' })
-  }
-
-  get developersCount () {
-    const currentMonth = new Date().getUTCMonth()
-    return currentMonth % 3 + 2
-  }
-}
 </script>
 
 <style lang="scss" scoped>
-@import "src/assets/main";
+  @import "src/assets/main";
 
-.footer {
-  width: 100%;
-  position: relative;
-  padding-top: 4.5rem;
-  background: transparent;
-
-  // sm
-  @include sm(padding-top, 1rem);
-
-  &__wrapper {
-    @include wrapper();
-  }
-
-  &__inner {
-    @include row-flex();
-
-    align-items: center;
-  }
-
-  &__image {
-    @include col();
-    @include size(12);
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-top: 3.5rem;
-  }
-
-  &__subtitle {
-    @include col();
-    @include size(12);
-    @include text-font();
-
-    line-height: 1.5;
-    padding: 3rem 0 4rem;
-    text-align: center;
+  .footer {
+    width: 100%;
+    position: relative;
+    padding-top: 4.5rem;
+    background: transparent;
 
     // sm
-    @include sm(padding-top, 2rem);
-    @include sm(padding-bottom, 3rem);
-  }
+    @include sm(padding-top, 1rem);
 
-  &__buttons {
-    @include row-flex();
-    @include col();
-    @include size(8);
-    @include shift-left(2);
+    &__wrapper {
+      @include wrapper();
+    }
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    &__inner {
+      @include row-flex();
 
-    // lg
-    @include size-lg(10);
-    @include shift-lg-left(1);
-    // md
-    @include size-md(4);
-    @include shift-md-left(4);
-    // sm
-    @include size-md(6);
-    @include shift-md-left(3);
-    // xs
-    @include size-xs(12);
-    @include shift-xs-left(0);
+      align-items: center;
+    }
 
-    &__button {
+    &__image {
       @include col();
-      @include size(4);
-      @include button-font();
+      @include size(12);
 
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-top: 3.5rem;
+    }
+
+    &__subtitle {
+      @include col();
+      @include size(12);
+      @include text-font();
+
+      line-height: 1.5;
+      padding: 3rem 0 4rem;
+      text-align: center;
+
+      // sm
+      @include sm(padding-top, 2rem);
+      @include sm(padding-bottom, 3rem);
+    }
+
+    &__buttons {
+      @include row-flex();
+      @include col();
+      @include size(8);
+      @include shift-left(2);
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      // lg
+      @include size-lg(10);
+      @include shift-lg-left(1);
       // md
-      @include size-md(12);
-      @include md(margin-bottom, 1rem);
+      @include size-md(4);
+      @include shift-md-left(4);
+      // sm
+      @include size-md(6);
+      @include shift-md-left(3);
+      // xs
+      @include size-xs(12);
+      @include shift-xs-left(0);
 
-      .button-icon {
+      &__button {
+        @include col();
+        @include size(4);
+        @include button-font();
+
+        // md
+        @include size-md(12);
+        @include md(margin-bottom, 1rem);
+
+        .button-icon {
+          margin-right: 0.5rem;
+        }
+      }
+    }
+
+    &__social {
+      @include col();
+      @include size(12);
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding-top: 3rem;
+
+      // sm
+      @include sm(padding-top, 1.5rem);
+
+      &__item {
+        font-weight: 600;
+        margin-left: 0.5rem;
         margin-right: 0.5rem;
+        font-size: 1rem;
+      }
+    }
+
+    &__banner {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+
+      &-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: calc(100% - 4rem);
+        background: linear-gradient(180.81deg, #182879 0.7%, #5b3c9b 99.3%);
+        max-width: 53rem;
+        margin: 0 2rem 2rem 2rem;
+        padding: 1.7rem;
+        color: #ffffff;
+        border-radius: 0.5rem;
+
+        @include sm(flex-direction, column);
+        @include sm(align-items, start);
+      }
+
+      &-text {
+        line-height: 1.5;
+      }
+
+      &-logo {
+        margin-left: 3rem;
+
+        @include sm(margin-top, 1rem);
+        @include sm(align-self, end);
       }
     }
   }
-
-  &__social {
-    @include col();
-    @include size(12);
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-top: 3rem;
-
-    // sm
-    @include sm(padding-top, 1.5rem);
-
-    &__item {
-      font-weight: 600;
-      margin-left: 0.5rem;
-      margin-right: 0.5rem;
-      font-size: 1rem;
-    }
-  }
-
-  &__banner {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-
-    &-content {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: calc(100% - 4rem);
-      background: linear-gradient(180.81deg, #182879 0.7%, #5b3c9b 99.3%);
-      max-width: 53rem;
-      margin: 0 2rem 2rem 2rem;
-      padding: 1.7rem;
-      color: #ffffff;
-      border-radius: 0.5rem;
-
-      @include sm(flex-direction, column);
-      @include sm(align-items, start);
-    }
-
-    &-text {
-      line-height: 1.5;
-    }
-
-    &-logo {
-      margin-left: 3rem;
-
-      @include sm(margin-top, 1rem);
-      @include sm(align-self, end);
-    }
-  }
-}
 </style>

@@ -9,9 +9,10 @@
     @keyup.space="onClick"
     @mousemove="onMouseMove"
     @mouseleave="onMouseLeave"
+    @click="onClick"
     v-on="keyboardFocusListeners"
   >
-    <slot :props="{ value: visibleValue, onClick }">
+    <slot v-bind="{ value: visibleValue, onClick }">
       <va-icon
         class="va-rating-item__wrapper"
         tabindex="-1"
@@ -134,15 +135,15 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "../../../../styles/resources";
+  @import "../../../../styles/resources";
 
-.va-rating-item {
-  display: inline-block;
+  .va-rating-item {
+    display: inline-block;
 
-  @include keyboard-focus;
+    @include keyboard-focus;
 
-  &__wrapper {
-    @include normalize-button();
+    &__wrapper {
+      @include normalize-button();
+    }
   }
-}
 </style>

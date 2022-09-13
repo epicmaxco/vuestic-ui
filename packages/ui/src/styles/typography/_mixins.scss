@@ -1,3 +1,5 @@
+@import "../resources";
+
 @mixin va-title() {
   font-family: var(--va-font-family);
   font-size: 0.625rem;
@@ -163,8 +165,8 @@ $va-display-margins: (
   }
 }
 
-@mixin link {
-  &:not(.va-button) {
+@mixin link($offset: null) {
+  &:not(.va-button, .va-sidebar-item) {
     color: var(--va-link-color);
     cursor: pointer;
     font-family: var(--va-font-family);
@@ -182,6 +184,10 @@ $va-display-margins: (
     &:hover {
       color: var(--va-link-color);
       filter: brightness(125%);
+    }
+
+    &:focus-visible {
+      @include focus-outline($offset: $offset);
     }
   }
 }

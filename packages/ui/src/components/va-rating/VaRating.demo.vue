@@ -213,10 +213,10 @@ export default {
 </script>
 
 <style lang="scss">
-.wide {
-  .va-rating-item__wrapper {
-    background-color: lightblue !important;
-    width: 100px;
+  .wide {
+    .va-rating-item__wrapper {
+      background-color: lightblue !important;
+      width: 100px;
+    }
   }
-}
 </style>

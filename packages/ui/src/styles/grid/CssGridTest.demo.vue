@@ -246,11 +246,11 @@
 </template>
 
 <style lang="scss" scoped>
-@import '../resources';
-@import 'grid-global-styles';
+  @import '../resources';
+  @import 'grid-global-styles';
 
-._blue-rectangle {
-  background-color: #b6ecff;
-  border: 1px solid #738dff;
-}
+  ._blue-rectangle {
+    background-color: #b6ecff;
+    border: 1px solid #738dff;
+  }
 </style>

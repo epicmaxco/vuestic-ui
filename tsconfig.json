@@ -11,10 +11,12 @@
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "baseUrl": ".",
+    "skipLibCheck": true,
     "types": [
       "webpack-env",
       "jest",
-      "node"
+      "node",
+      "vite/client",
     ],
     "lib": [
       "esnext",

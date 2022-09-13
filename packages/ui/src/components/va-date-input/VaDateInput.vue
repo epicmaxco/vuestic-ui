@@ -400,27 +400,27 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "../../styles/resources";
+  @import "../../styles/resources";
 
-.va-date-input {
-  --va-date-picker-cell-size: 28px;
+  .va-date-input {
+    --va-date-picker-cell-size: 28px;
 
-  min-width: var(--va-date-input-min-width);
-  font-family: var(--va-font-family);
+    min-width: var(--va-date-input-min-width);
+    font-family: var(--va-font-family);
 
-  &__anchor {
-    flex: 1;
-  }
+    &__anchor {
+      flex: 1;
+    }
 
-  &__input {
-    &:read-only {
-      cursor: pointer;
+    &__input {
+      &:read-only {
+        cursor: pointer;
+      }
+    }
+
+    &__dropdown-content {
+      display: flex;
+      justify-content: center;
     }
   }
-
-  &__dropdown-content {
-    display: flex;
-    justify-content: center;
-  }
-}
 </style>
