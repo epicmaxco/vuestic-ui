@@ -366,7 +366,8 @@
         "directionIconRight": "Задает имя для иконки перемещения вправо.",
         "size": "Задает размер компонента, доступные опции: `small`, `medium` (по умолчанию) и `large`.",
         "activePageColor": "Устанавливает цвет активной кнопки пагинации.",
-        "gapped": "Добавляет пространство между кнопками пагинации."
+        "gapped": "Добавляет пространство между кнопками пагинации.",
+        "buttonsPreset": "Значение свойства `preset` для передачи в компонент `VaButton` ([подробнее](/ui-elements/button))."
       }
     },
     "VaTabs": {
@@ -1983,23 +1984,23 @@
       },
       "gapped": {
         "title": "Пробелы",
-        "description": "Свойство `gapped` добавляет пространства между элементами пагинации."
+        "text": "Свойство `gapped` добавляет пространства между элементами пагинации."
       },
       "presets": {
         "title": "Пресеты",
-        "description": "Мы предоставляем несколько встроенных стилевых решений: `default`, `primary`, `secondary` (наследуются от [VaButton](/ui-elements/button)). Вы можете переключаться между ними с помощью свойства `preset`."
+        "text": "Мы предоставляем несколько встроенных стилевых решений: `default`, `primary`, `secondary` (наследуются от [VaButton](/ui-elements/button)). Вы можете переключаться между ними с помощью свойства `buttons-preset`."
       },
       "bordered": {
         "title": "Границы",
-        "description": "Задав свойство `border-color`, вы активируете границы для элементов пагинации."
+        "text": "Задав свойство `border-color`, вы активируете границы для элементов пагинации."
       },
       "activeColor": {
         "title": "Цвет активного элемента",
-        "description": "Вы можете задать цвет текущего активного элемента с помощью свойства `active-page-color`."
+        "text": "Вы можете задать цвет текущего активного элемента с помощью свойства `active-page-color`."
       },
       "rounded": {
         "title": "Закругления",
-        "description": "Свойство `rounded` сделает элементы пагинации круглыми."
+        "text": "Свойство `rounded` сделает элементы пагинации круглыми."
       }
     },
     "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-pagination/_variables.scss)[[target=_blank]]",

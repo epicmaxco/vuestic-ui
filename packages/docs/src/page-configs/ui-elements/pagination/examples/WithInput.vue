@@ -10,13 +10,13 @@
     class="mb-3"
     :pages="20"
     input
-    preset="default"
+    buttons-preset="default"
   />
   <va-pagination
     v-model="value"
     :pages="20"
     input
-    preset="secondary"
+    buttons-preset="secondary"
   />
 </template>
 

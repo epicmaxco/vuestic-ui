@@ -364,7 +364,8 @@
         "directionIconRight": "Set the icon name for right direction icon.",
         "size": "Specify size for component. `small`, `medium`, `large` sizes are available.",
         "activePageColor": "Specifies color of the currently active page button.",
-        "gapped": "Enables gaps between page buttons."
+        "gapped": "Enables gaps between page buttons.",
+        "buttonsPreset": "Value of the `preset` prop for passing it to the `VaButton` component ([read more](/ui-elements/button))."
       }
     },
     "VaTabs": {
@@ -2101,7 +2102,7 @@
       },
       "presets": {
         "title": "Presets",
-        "text": "We provide several built-in style presets: `default`, `primary`, `secondary` (inherited from [VaButton](/ui-elements/button)). You can switch between them via `preset` prop."
+        "text": "We provide several built-in style presets: `default`, `primary`, `secondary` (inherited from [VaButton](/ui-elements/button)). You can switch between them via `buttons-preset` prop."
       },
       "bordered": {
         "title": "Borders",

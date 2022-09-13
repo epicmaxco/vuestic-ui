@@ -82,7 +82,6 @@ import {
   useComponentPresetProp,
   useColors,
   useStateful, useStatefulProps, useStatefulEmits,
-  useDeprecatedProps,
 } from '../../composables'
 import { setPaginationRange } from './setPaginationRange'
 
@@ -120,12 +119,10 @@ export default defineComponent({
     borderColor: { type: String, default: '' },
     rounded: { type: Boolean, default: false },
     activePageColor: { type: String, default: '' },
+    buttonsPreset: { type: String, default: 'primary' },
   },
 
   setup (props, { emit }) {
-    // TODO(1.6.0): Remove deprecated props
-    useDeprecatedProps(['flat', 'outline'])
-
     const htmlInput = shallowRef<HTMLInputElement>()
 
     const inputValue = ref('')
@@ -206,11 +203,11 @@ export default defineComponent({
     const { getColor, colorToRgba } = useColors()
 
     const inputBorderColorComputed = computed(() => {
-      const { color, preset } = toRefs(props)
+      const { color, buttonsPreset } = toRefs(props)
 
       if (!color.value) { return 'transparent' }
 
-      switch (preset.value) {
+      switch (buttonsPreset.value) {
         case 'default':
           return getColor(color.value)
         case undefined:
@@ -241,14 +238,14 @@ export default defineComponent({
 
     const buttonPropsComputed = computed(() => ({
       size: props.size,
+      preset: props.buttonsPreset,
       color: props.color,
       borderColor: props.borderColor,
-      preset: props.preset || 'primary',
     }))
 
     const currentPageButtonProps = computed(() => ({
-      preset: props.preset === 'default' ? 'primary' : 'default',
-      color: props.activePageColor || 'primary',
+      preset: props.buttonsPreset === 'default' ? 'primary' : 'default',
+      color: props.activePageColor || props.color,
     }))
 
     const getPageButtonProps = (n: number | '...') => {

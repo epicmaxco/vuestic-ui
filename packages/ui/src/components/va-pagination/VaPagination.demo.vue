@@ -44,17 +44,17 @@
               <va-pagination
                 v-model="activePage"
                 :pages="5"
-                preset="default"
+                buttons-preset="default"
               />
               <va-pagination
                 v-model="activePage"
                 :pages="5"
-                preset="primary"
+                buttons-preset="primary"
               />
               <va-pagination
                 v-model="activePage"
                 :pages="5"
-                preset="secondary"
+                buttons-preset="secondary"
               />
             </VbCard>
           </td>
@@ -67,19 +67,19 @@
                 v-model="activePage"
                 :pages="5"
                 gapped
-                preset="default"
+                buttons-preset="default"
               />
               <va-pagination
                 v-model="activePage"
                 :pages="5"
                 gapped
-                preset="primary"
+                buttons-preset="primary"
               />
               <va-pagination
                 v-model="activePage"
                 :pages="5"
                 gapped
-                preset="secondary"
+                buttons-preset="secondary"
               />
             </VbCard>
           </td>
@@ -93,19 +93,19 @@
                 v-model="activePage"
                 :pages="10"
                 :visible-pages="3"
-                preset="default"
+                buttons-preset="default"
               />
               <va-pagination
                 v-model="activePage"
                 :pages="10"
                 :visible-pages="3"
-                preset="primary"
+                buttons-preset="primary"
               />
               <va-pagination
                 v-model="activePage"
                 :pages="10"
                 :visible-pages="3"
-                preset="secondary"
+                buttons-preset="secondary"
               />
             </VbCard>
           </td>
@@ -119,21 +119,21 @@
                 :pages="5"
                 border-color="primary"
                 gapped
-                preset="default"
+                buttons-preset="default"
               />
               <va-pagination
                 v-model="activePage"
                 :pages="5"
                 border-color="primary"
                 gapped
-                preset="primary"
+                buttons-preset="primary"
               />
               <va-pagination
                 v-model="activePage"
                 :pages="5"
                 border-color="primary"
                 gapped
-                preset="secondary"
+                buttons-preset="secondary"
               />
             </VbCard>
           </td>
@@ -148,7 +148,7 @@
                 border-color="primary"
                 gapped
                 rounded
-                preset="default"
+                buttons-preset="default"
               />
               <va-pagination
                 v-model="activePage"
@@ -156,7 +156,7 @@
                 border-color="primary"
                 gapped
                 rounded
-                preset="primary"
+                buttons-preset="primary"
               />
               <va-pagination
                 v-model="activePage"
@@ -164,7 +164,7 @@
                 border-color="primary"
                 gapped
                 rounded
-                preset="secondary"
+                buttons-preset="secondary"
               />
             </VbCard>
           </td>
@@ -176,7 +176,7 @@
               <va-pagination
                 v-model="activePage"
                 :pages="5"
-                preset="default"
+                buttons-preset="default"
                 active-page-color="warning"
                 gapped
                 rounded
@@ -184,7 +184,7 @@
               <va-pagination
                 v-model="activePage"
                 :pages="5"
-                preset="primary"
+                buttons-preset="primary"
                 active-page-color="warning"
                 gapped
                 rounded
@@ -192,7 +192,7 @@
               <va-pagination
                 v-model="activePage"
                 :pages="5"
-                preset="secondary"
+                buttons-preset="secondary"
                 active-page-color="warning"
                 gapped
                 rounded
@@ -410,7 +410,6 @@
             </VbCard>
           </td>
         </tr>
-
         <tr>
           <td>Hide on single page</td>
           <td>
@@ -418,6 +417,16 @@
               <va-pagination
                 :pages="1"
                 hide-on-single-page
+              />
+            </VbCard>
+          </td>
+        </tr>
+        <tr>
+          <td>Long pagination (should be trunked)</td>
+          <td>
+            <VbCard>
+              <va-pagination
+                :pages="100"
               />
             </VbCard>
           </td>
