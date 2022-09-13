@@ -67,17 +67,17 @@
         </div>
       </div>
       <div class="row">
-        <div class="flex xs1 order--md3 order--lg2">
+        <div class="flex xs1 order-md3 order-lg2">
           <div class="_blue-rectangle">
             First
           </div>
         </div>
-        <div class="flex xs1 order--md1 order--lg3">
+        <div class="flex xs1 order-md1 order-lg3">
           <div class="_blue-rectangle">
             Second
           </div>
         </div>
-        <div class="flex xs1 order--md2 order--lg1">
+        <div class="flex xs1 order-md2 order-lg1">
           <div class="_blue-rectangle">
             Last
           </div>
@@ -92,17 +92,17 @@
         </div>
       </div>
       <div class="row">
-        <div class="flex xs1 offset--md3 offset--lg2">
+        <div class="flex xs1 offset-md3 offset-lg2">
           <div class="_blue-rectangle">
             First
           </div>
         </div>
-        <div class="flex xs1 offset--md1 offset--lg3">
+        <div class="flex xs1 offset-md1 offset-lg3">
           <div class="_blue-rectangle">
             Second
           </div>
         </div>
-        <div class="flex xs1 offset--md2 offset--lg1">
+        <div class="flex xs1 offset-md2 offset-lg1">
           <div class="_blue-rectangle">
             Last
           </div>

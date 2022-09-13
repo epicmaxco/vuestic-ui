@@ -25,12 +25,12 @@
   align-items: center;
 }
 
-@mixin va-container--fluid {
+@mixin va-container-fluid {
   box-sizing: border-box;
   max-width: 100%;
 }
 
-@mixin va-container--fill-height {
+@mixin va-container-fill-height {
   align-items: center;
   display: flex;
   height: 100%;
@@ -54,29 +54,29 @@
   }
 }
 
-@mixin va-flex--size($portion) {
+@mixin va-flex-size($portion) {
   flex-basis: percentage(math.div($portion, $grid-columns));
   flex-grow: 0;
   max-width: percentage(math.div($portion, $grid-columns));
 }
 
-@mixin va-flex--breakpoint($breakpoint) {
+@mixin va-flex-breakpoint($breakpoint) {
   @media all and (min-width: map-get($grid-breakpoints, $breakpoint)) {
     @content;
   }
 }
 
 // Example:
-// @include va-flex--size-many((xs: 12, md: 6, lg: 3, xl: 2));
-@mixin va-flex--size-many($breakpoint-map) {
+// @include va-flex-size-many((xs: 12, md: 6, lg: 3, xl: 2));
+@mixin va-flex-size-many($breakpoint-map) {
   @each $breakpoint, $portion in $breakpoint-map {
-    @include va-flex--breakpoint($breakpoint) {
-      @include va-flex--size($portion);
+    @include va-flex-breakpoint($breakpoint) {
+      @include va-flex-size($portion);
     }
   }
 }
 
-@mixin va-flex--offset($portion) {
+@mixin va-flex-offset($portion) {
   // Offsets can only ever work in row layouts
   margin-left: percentage(math.div($portion, $grid-columns));
 }
