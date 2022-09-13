@@ -12,16 +12,12 @@
           value: computedModelValue,
           bind: headerAttributes,
           attributes: headerAttributes,
-          keyboardFocusClass,
-          listeners: keyboardFocusListeners,
         }"
       >
         <div
           v-bind="headerAttributes"
           class="va-collapse__header"
-          :class="keyboardFocusClass"
           :style="headerStyle"
-          v-on="keyboardFocusListeners"
         >
           <va-icon
             v-if="icon"
@@ -64,7 +60,6 @@ import {
   useBem,
   useResizeObserver,
   useComponentPresetProp,
-  useKeyboardFocusClass, useKeyboardFocusClassProps,
 } from '../../composables'
 import { useAccordionItem } from '../va-accordion/hooks/useAccordion'
 
@@ -78,7 +73,6 @@ export default defineComponent({
     VaIcon,
   },
   props: {
-    ...useKeyboardFocusClassProps,
     ...useComponentPresetProp,
     modelValue: { type: Boolean, default: undefined },
     disabled: { type: Boolean, default: false },
@@ -141,8 +135,6 @@ export default defineComponent({
       inset: !!(accordionProps.value.inset && computedModelValue.value),
     }))
 
-    const { keyboardFocusClass, keyboardFocusListeners } = useKeyboardFocusClass(props, 'va-collapse__header')
-
     return {
       body,
       height,
@@ -157,9 +149,6 @@ export default defineComponent({
 
       textColorComputed,
       computedClasses,
-      keyboardFocusClass,
-
-      keyboardFocusListeners,
 
       headerStyle: computed(() => ({
         paddingLeft: props.icon && 0,
@@ -227,7 +216,7 @@ export default defineComponent({
         color: var(--va-collapse-header-content-icon-color);
       }
 
-      @include keyboard-focus(var(--va-collapse-header-content-border-radius));
+      @include keyboard-focus-outline(var(--va-collapse-header-content-border-radius));
     }
 
     &--solid {

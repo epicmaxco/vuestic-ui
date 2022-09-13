@@ -37,7 +37,6 @@
         aria-label="close"
         :tabindex="tabIndexComputed"
         :size="iconSize"
-        :disable-focus-class="$props.disableFocusClass"
         @click.stop="close"
         @keydown.enter.stop="close"
         @keydown.space.stop="close"
@@ -59,7 +58,6 @@ import {
   useStateful, useStatefulEmits, useStatefulProps,
   useHover,
   useTextColor,
-  useKeyboardFocusClassProps,
   useBem,
 } from '../../composables'
 
@@ -73,7 +71,6 @@ export default defineComponent({
   emits: [...useStatefulEmits, 'focus'],
 
   props: {
-    ...useKeyboardFocusClassProps,
     ...useRouterLinkProps,
     ...useColorProps,
     ...useStatefulProps,
