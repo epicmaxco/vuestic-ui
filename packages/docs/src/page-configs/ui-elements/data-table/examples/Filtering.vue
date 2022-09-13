@@ -1,16 +1,23 @@
 <template>
   <div class="row">
     <va-input
-      class="flex mb-2 md6"
+      class="flex mb-2 md6 xs12"
       placeholder="Filter..."
-      v-model="filter"
+      v-model="input"
     />
 
-    <va-checkbox
-      class="flex mb-2 md6"
-      label="Use custom filtering function (looks for an exact match)"
-      v-model="useCustomFilteringFn"
-    />
+    <div class="flex mb-2 md6 xs12">
+      <va-checkbox
+        class="mb-3"
+        label="Use custom filtering function (looks for an exact match)"
+        v-model="useCustomFilteringFn"
+      />
+
+      <va-checkbox
+        label="Debounce input"
+        v-model="isDebounceInput"
+      />
+    </div>
   </div>
 
   <va-data-table
@@ -31,6 +38,7 @@
 
 <script>
 import { defineComponent } from 'vue'
+import debounce from 'lodash/debounce.js'
 
 export default defineComponent({
   data () {
@@ -160,10 +168,14 @@ export default defineComponent({
       { key: 'address.zipcode', label: 'Zipcode' },
     ]
 
+    const input = ''
+
     return {
       items: users,
       columns,
-      filter: '',
+      input,
+      filter: input,
+      isDebounceInput: false,
       useCustomFilteringFn: false,
       filteredCount: users.length,
     }
@@ -180,8 +192,25 @@ export default defineComponent({
       if (this.filter === '') {
         return true
       }
-
       return source?.toString?.() === this.filter
+    },
+
+    updateFilter (filter) {
+      this.filter = filter
+    },
+
+    debouncedUpdateFilter: debounce(function (filter) {
+      this.updateFilter(filter)
+    }, 600),
+  },
+
+  watch: {
+    input (newValue) {
+      if (this.isDebounceInput) {
+        this.debouncedUpdateFilter(newValue)
+      } else {
+        this.updateFilter(newValue)
+      }
     },
   },
 })
