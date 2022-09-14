@@ -1,7 +1,7 @@
 import type { ComponentConfig } from '../component-config/component-config'
 import type { ColorConfig } from '../../composables'
 import type { IconConfig } from '../icon-config/types'
-import { BreakpointsConfig } from '../breakpoints'
+import type { BreakpointsConfig } from '../breakpoints'
 
 export type GlobalConfig = {
   colors?: ColorConfig,
