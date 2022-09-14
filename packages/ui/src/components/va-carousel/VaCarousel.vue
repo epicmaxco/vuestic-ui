@@ -67,15 +67,16 @@
 
     <div class="va-carousel__content">
       <div
+        ref="slidesContainer"
         class="va-carousel__slides"
         :style="computedSlidesStyle"
         role="list"
       >
         <div
-          class="va-carousel__slide"
           v-for="(item, index) in slides" :key="item"
-          :style="effect === 'fade' ? { animation: fadeKeyframe } : ''"
           role="listitem"
+          class="va-carousel__slide"
+          :style="slideStyleComputed"
           :aria-hidden="!isCurrentSlide(index)"
           :aria-current="isCurrentSlide(index)"
           :aria-label="`slide ${index + 1} of ${slides.length}`"
@@ -93,14 +94,20 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, computed } from 'vue'
+import { defineComponent, shallowRef, PropType, computed, CSSProperties } from 'vue'
 import { useCarousel } from './hooks/useCarousel'
 import { useCarouselAnimation } from './hooks/useCarouselAnimation'
 import { useCarouselColor } from './hooks/useCarouselColors'
-import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables'
+import {
+  useStateful, useStatefulProps, useStatefulEmits,
+  useSwipe, useSwipeProps,
+} from '../../composables'
+
 import { VaImage } from '../va-image'
 import { VaButton } from '../va-button'
 import { VaHover } from '../va-hover'
+
+import type { SwipeState } from '../../composables'
 
 export default defineComponent({
   name: 'VaCarousel',
@@ -108,6 +115,7 @@ export default defineComponent({
   components: { VaImage, VaButton, VaHover },
 
   props: {
+    ...useSwipeProps,
     ...useStatefulProps,
 
     modelValue: { type: Number, default: 0 },
@@ -154,10 +162,31 @@ export default defineComponent({
     })
     const isCurrentSlide = (index: number) => +index === currentSlide.value
 
+    const slideStyleComputed = computed(() => ({
+      animation: props.effect === 'fade' ? 'fadeKeyframe' : undefined,
+      'user-select': props.swipable ? 'none' : undefined,
+    })) as CSSProperties
+
+    // swiping
+    const slidesContainer = shallowRef<HTMLElement>()
+    const onSwipe = (state: SwipeState) => {
+      switch (state.direction) {
+        case 'right':
+        case 'up':
+          doShowPrevButton.value && prev()
+          break
+        case 'left':
+        case 'down':
+          doShowNextButton.value && next()
+      }
+    }
+    useSwipe(props, slidesContainer, onSwipe)
+
     return {
       doShowNextButton,
       doShowPrevButton,
       computedSlidesStyle,
+      slideStyleComputed,
       goTo: withPause(goTo),
       prev: withPause(prev),
       next: withPause(next),
@@ -165,6 +194,7 @@ export default defineComponent({
       isObjectSlides,
       isCurrentSlide,
       ...useCarouselColor(),
+      slidesContainer,
     }
   },
 })

@@ -1271,7 +1271,10 @@
         "loop": "If true, after last slide slider will scroll to first one through all items before.",
         "modelValue": "Slide index to be shown.",
         "vertical": "Change slider scroll orientation.",
-        "fadeKeyframe": "Custom keyframe name for fade animation"
+        "fadeKeyframe": "Custom keyframe name for fade animation",
+        "swipable": "Enables swiping behaviour.",
+        "swipeDirection": "Allowed directions for swiping: `all, horizontal, vertical, left, right, up, down`.",
+        "swipeDistance": "Distance in `px` considered sufficient for the swipe event."
       },
       "events": {},
       "methods": {},
@@ -4161,6 +4164,10 @@
       "Fade": {
         "title": "Fade",
         "text": "Additional carousel slide switch effect."
+      },
+      "swipe": {
+        "title": "Swipe",
+        "text": "The `swipable` prop enables swipe behaviour for the component."
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-carousel/_variables.scss)[[target=_blank]]"

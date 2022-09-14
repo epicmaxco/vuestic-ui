@@ -63,6 +63,12 @@ const config: ApiDocsBlock[] = [
     'Fade',
   ),
 
+  ...block.exampleBlock(
+    'carousel.examples.swipe.title',
+    'carousel.examples.swipe.text',
+    'Swipe',
+  ),
+
   block.api(VaCarousel, apiOptions),
 
   block.subtitle('all.cssVariables'),

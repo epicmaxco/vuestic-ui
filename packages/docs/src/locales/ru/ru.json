@@ -1177,7 +1177,10 @@
     },
     "VaCarousel": {
       "props": {
-        "items": "Массив слайдов. По умолчанию каждый элемент должен быть путем до изображения (или объектом со свойствами `src` и `alt`), но также допустимо использование свободной структуры элементов посредством слота `default`."
+        "items": "Массив слайдов. По умолчанию каждый элемент должен быть путем до изображения (или объектом со свойствами `src` и `alt`), но также допустимо использование свободной структуры элементов посредством слота `default`.",
+        "swipable": "Активирует возможность переключения слайдов посредством свайпа.",
+        "swipeDirection": "Обрабатываемые направления свайпа: `all, horizontal, vertical, left, right, up, down`.",
+        "swipeDistance": "Дистанция в `px`, достаточная для инициации события свайпа."
       },
       "events": {},
       "methods": {},
@@ -3976,7 +3979,13 @@
   },
   "carousel": {
     "title": "Карусель",
-    "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-carousel/_variables.scss)[[target=_blank]]"
+    "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-carousel/_variables.scss)[[target=_blank]]",
+    "examples": {
+      "swipe": {
+        "title": "Свайпинг",
+        "text": "Свойство `swipable` активирует возможность перелистывания слайдов посредством свайпа."
+      }
+    }
   },
   "treeShaking": {
     "title": "Tree shaking",
