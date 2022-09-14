@@ -337,7 +337,7 @@ export default defineComponent({
         }
       }
 
-      @include keyboard-focus($radius: 'inherit', $offset: -2px);
+      @include keyboard-focus-outline($offset: -2px);
     }
 
     & > :not(:first-child):not(:last-child) {
