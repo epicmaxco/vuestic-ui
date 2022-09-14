@@ -22,16 +22,8 @@ const app = createApp(App)
 
 const routes = [
   createRoute({
-    requireContext: require.context('../components', true, /.demo.vue$/),
+    requireContext: require.context('..', true, /.demo.vue$/),
     path: '/demo',
-  }),
-  createRoute({
-    requireContext: require.context('../styles/grid', false, /.demo.vue$/),
-    path: '/grid-demo',
-  }),
-  createRoute({
-    requireContext: require.context('../styles/resources', false, /.demo.vue$/),
-    path: '/resources-demo',
   }),
   {
     path: '/:pathMatch(.*)*',
