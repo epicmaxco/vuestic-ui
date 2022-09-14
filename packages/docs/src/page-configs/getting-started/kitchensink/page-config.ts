@@ -1,4 +1,4 @@
-import { ApiDocsBlock, BlockType } from '@/types/configTypes'
+import { ApiDocsBlock, BlockType, isTextBlock } from '@/types/configTypes'
 import { shallowReactive } from 'vue'
 
 const importedConfigsContext = require.context(
@@ -11,26 +11,25 @@ const importedConfigsContext = require.context(
 export const config = shallowReactive<ApiDocsBlock[]>([])
 
 importedConfigsContext.keys().forEach(async (filename) => {
-  let importedConfig = null
-  try {
-    importedConfig = (await importedConfigsContext(filename)).default
-  } catch {
+  let importedConfig: ApiDocsBlock[] | null = null
+  importedConfig = (await importedConfigsContext(filename))?.default
+
+  if (!importedConfig) {
     return
   }
 
-  config.push({ ...importedConfig[0], type: BlockType.SUBTITLE }) // title
-
+  const titleBlock = importedConfig.find(configBlock => configBlock.type === BlockType.TITLE)
   const example =
     importedConfig.find(
       (blockElement: any) =>
         blockElement.type === BlockType.EXAMPLE &&
         blockElement.component === 'Default',
-    ) ||
-    importedConfig.find(
-      (blockElement: any) => blockElement.type === BlockType.EXAMPLE,
     )
 
-  if (example) {
-    config.push(example)
+  if (!example || !titleBlock || !isTextBlock(titleBlock)) {
+    return
   }
+
+  config.push({ ...titleBlock, type: BlockType.SUBTITLE })
+  config.push(example)
 })

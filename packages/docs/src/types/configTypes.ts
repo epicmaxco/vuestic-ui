@@ -123,3 +123,7 @@ export type ApiDocsBlock =
     header: string,
     blocks: ApiDocsBlock[]
   }
+
+export function isTextBlock (block: ApiDocsBlock): block is TextBlock {
+  return block.type === BlockType.TITLE
+}
