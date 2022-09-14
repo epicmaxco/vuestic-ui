@@ -1,8 +1,9 @@
 <template>
-  <div class="va-date-picker" :class="classComputed" :style="colorsStyle">
+  <div class="va-date-picker" :class="classComputed" :style="styleComputed">
     <va-date-picker-header
       v-bind="headerProps"
       v-model:view="syncView"
+      :textColor="textColorComputed"
     >
       <template v-for="(_, name) in $slots" :key="name" v-slot:[name]="bind">
         <slot :name="name" v-bind="bind" />
@@ -62,6 +63,8 @@
 </template>
 
 <script lang="ts">
+import { useElementBackground } from '../../composables/useElementBackground'
+import { useTextColor } from '../../composables/useTextColor'
 import { computed, defineComponent, nextTick, PropType, ref, watch } from 'vue'
 
 import { filterComponentProps, extractComponentProps, extractComponentEmits } from '../../utils/child-props'
@@ -161,11 +164,16 @@ export default defineComponent({
     }
 
     const { colorsToCSSVariable } = useColors()
+    const { background } = useElementBackground()
+    const { textColorComputed } = useTextColor(background)
 
-    const colorsStyle = colorsToCSSVariable({
-      color: props.color,
-      'weekends-color': props.weekendsColor,
-    }, 'va-date-picker')
+    const styleComputed = computed(() => ({
+      color: textColorComputed.value,
+      ...colorsToCSSVariable({
+        color: props.color,
+        'weekends-color': props.weekendsColor,
+      }, 'va-date-picker'),
+    }))
 
     const focusCurrentPicker = () => currentPicker.value?.$el.focus()
 
@@ -199,8 +207,9 @@ export default defineComponent({
       onYearClick,
       onYearModelValueUpdate,
 
-      colorsStyle,
+      styleComputed,
       currentPicker,
+      textColorComputed,
       focusCurrentPicker,
 
       isPickerReadonly,
@@ -210,49 +219,49 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import 'variables';
+  @import 'variables';
 
-.va-date-picker {
-  --va-date-picker-content-height: calc(var(--va-date-picker-cell-size) * 7 + var(--va-date-picker-cell-gap) * 6);
+  .va-date-picker {
+    --va-date-picker-content-height: calc(var(--va-date-picker-cell-size) * 7 + var(--va-date-picker-cell-gap) * 6);
 
-  width: calc(var(--va-date-picker-cell-size) * 7 + var(--va-date-picker-cell-gap) * 6);
-  font-family: var(--va-font-family);
-  font-style: var(--va-date-picker-font-style);
-  font-weight: var(--va-date-picker-font-weight);
-  font-size: var(--va-date-picker-font-size);
-  line-height: var(--va-date-picker-line-height);
+    width: calc(var(--va-date-picker-cell-size) * 7 + var(--va-date-picker-cell-gap) * 6);
+    font-family: var(--va-font-family);
+    font-style: var(--va-date-picker-font-style);
+    font-weight: var(--va-date-picker-font-weight);
+    font-size: var(--va-date-picker-font-size);
+    line-height: var(--va-date-picker-line-height);
 
-  &__picker-wrapper {
-    height: var(--va-date-picker-content-height);
-  }
+    &__picker-wrapper {
+      height: var(--va-date-picker-content-height);
+    }
 
-  &_without-week-days {
-    --va-date-picker-content-height: calc(var(--va-date-picker-cell-size) * 6 + var(--va-date-picker-cell-gap) * 6);
-  }
+    &_without-week-days {
+      --va-date-picker-content-height: calc(var(--va-date-picker-cell-size) * 6 + var(--va-date-picker-cell-gap) * 6);
+    }
 
-  &_mobile {
-    .va-day-picker,
-    .va-month-picker,
-    .va-year-picker {
-      height: 100%;
+    &_mobile {
+      .va-day-picker,
+      .va-month-picker,
+      .va-year-picker {
+        height: 100%;
+      }
+    }
+
+    &_disabled {
+      opacity: 0.4;
+      position: relative;
+
+      &::before {
+        content: '';
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        z-index: 100;
+      }
     }
   }
 
-  &_disabled {
-    opacity: 0.4;
-    position: relative;
-
-    &::before {
-      content: '';
-      position: absolute;
-      height: 100%;
-      width: 100%;
-      z-index: 100;
-    }
+  .va-date-picker-header {
+    padding-bottom: 0.25rem;
   }
-}
-
-.va-date-picker-header {
-  padding-bottom: 0.25rem;
-}
 </style>

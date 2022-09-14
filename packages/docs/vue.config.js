@@ -24,6 +24,7 @@ module.exports = {
     resolve: {
       alias: {
         'vuestic-ui': resolve('../ui'),
+        '@vuestic/ag-grid-theme': resolve('../extensions/ag-grid-theme'),
       },
     },
     module: {

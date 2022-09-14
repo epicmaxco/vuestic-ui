@@ -9,5 +9,5 @@ export const useHoverStyleProps = {
     validator: (value: string) => ['opacity', 'mask'].includes(value),
   },
   hoverOpacity: { type: Number, default: 0.15 },
-  hoverMaskColor: { type: String, default: 'white' },
+  hoverMaskColor: { type: String, default: 'textLight' },
 }

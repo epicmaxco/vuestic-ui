@@ -216,25 +216,25 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-.table-example {
-  th {
-    background-color: #f0f0f0;
-    height: 60px;
-  }
+  .table-example {
+    th {
+      background-color: #f0f0f0;
+      height: 60px;
+    }
 
-  tr {
-    border-bottom: 1px solid #f0f0f0;
+    tr {
+      border-bottom: 1px solid #f0f0f0;
 
-    td {
-      height: 80px;
-      border-right: 1px solid #f0f0f0;
+      td {
+        height: 80px;
+        border-right: 1px solid #f0f0f0;
+      }
     }
   }
-}
 
-.additionalClass {
-  color: orange;
-  font-style: italic;
-  font-weight: 900;
-}
+  .additionalClass {
+    color: orange;
+    font-style: italic;
+    font-weight: 900;
+  }
 </style>

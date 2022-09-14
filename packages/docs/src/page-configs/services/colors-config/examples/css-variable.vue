@@ -1,14 +1,14 @@
 <template>
   <div class="">
     <div
-      class="primary-danger-gradient d-flex justify--space-around align--center"
+      class="primary-danger-gradient d-flex justify-space-around align-center"
     >
       <span class="px-2">Primary</span>
       <span class="px-2">Success</span>
       <span class="px-2">Danger</span>
     </div>
 
-    <div class="controls d-flex align--center">
+    <div class="controls d-flex align-center">
       <va-color-palette
         v-model="primaryColor"
         :palette="colorsToChange"
@@ -62,24 +62,24 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.primary-color {
-  color: var(--va-primary);
-}
-
-.primary-danger-gradient {
-  width: 100%;
-  height: 4rem;
-  background:
-    linear-gradient(
-      90deg,
-      var(--va-primary) 0%,
-      var(--va-success) 50%,
-      var(--va-danger) 100%
-    );
-
-  span {
-    background: var(--secondary);
-    border-radius: 2rem;
+  .primary-color {
+    color: var(--va-primary);
   }
-}
+
+  .primary-danger-gradient {
+    width: 100%;
+    height: 4rem;
+    background:
+      linear-gradient(
+        90deg,
+        var(--va-primary) 0%,
+        var(--va-success) 50%,
+        var(--va-danger) 100%
+      );
+
+    span {
+      background: var(--secondary);
+      border-radius: 2rem;
+    }
+  }
 </style>

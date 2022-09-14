@@ -8,13 +8,13 @@
   @include va-container();
 
   &.fluid {
-    @include va-container--fluid();
+    @include va-container-fluid();
   }
 
   // NOTE Not exactly sure on this one. Here's what manual says:
   // > Make sure that col element height is filled with parent and child. Important for Safari/Firefox if children is column element.
   &.fill-height {
-    @include va-container--fill-height();
+    @include va-container-fill-height();
 
     > .row {
       flex: 1 1 auto;
@@ -88,20 +88,20 @@
   @include va-flex();
 
   @each $size, $width in $grid-breakpoints {
-    @include va-flex--breakpoint($size) {
+    @include va-flex-breakpoint($size) {
       @for $n from 1 through $grid-columns {
         @if $n != 0 {
           &.#{$size}#{$n} {
-            @include va-flex--size($n);
+            @include va-flex-size($n);
           }
 
-          &.order--#{$size}#{$n} {
+          &.order-#{$size}#{$n} {
             order: $n;
           }
         }
         // 0 offset is used to override offset from lower breakpoint.
-        &.offset--#{$size}#{$n} {
-          @include va-flex--offset($n);
+        &.offset-#{$size}#{$n} {
+          @include va-flex-offset($n);
         }
       }
     }
@@ -117,121 +117,121 @@
 }
 
 .align {
-  &--start {
+  &-start {
     align-items: flex-start;
   }
 
-  &--end {
+  &-end {
     align-items: flex-end;
   }
 
-  &--center {
+  &-center {
     align-items: center;
   }
 
-  &--baseline {
+  &-baseline {
     align-items: baseline;
   }
 }
 
 .align-self {
-  &--start {
+  &-start {
     align-self: flex-start;
   }
 
-  &--end {
+  &-end {
     align-self: flex-end;
   }
 
-  &--center {
+  &-center {
     align-self: center;
   }
 
-  &--baseline {
+  &-baseline {
     align-self: baseline;
   }
 }
 
 .align-content {
-  &--start {
+  &-start {
     align-content: flex-start;
   }
 
-  &--end {
+  &-end {
     align-content: flex-end;
   }
 
-  &--center {
+  &-center {
     align-content: center;
   }
 
-  &--space-between {
+  &-space-between {
     align-content: space-between;
   }
 
-  &--space-around {
+  &-space-around {
     align-content: space-around;
   }
 }
 
 .justify {
-  &--start {
+  &-start {
     justify-content: flex-start;
   }
 
-  &--end {
+  &-end {
     justify-content: flex-end;
   }
 
-  &--center {
+  &-center {
     justify-content: center;
   }
 
-  &--space-around {
+  &-space-around {
     justify-content: space-around;
   }
 
-  &--space-between {
+  &-space-between {
     justify-content: space-between;
   }
 
-  &--space-evenly {
+  &-space-evenly {
     justify-content: space-evenly;
   }
 }
 
 .justify-self {
-  &--start {
+  &-start {
     justify-self: flex-start;
   }
 
-  &--end {
+  &-end {
     justify-self: flex-end;
   }
 
-  &--center {
+  &-center {
     justify-self: center;
   }
 
-  &--baseline {
+  &-baseline {
     justify-self: baseline;
   }
 }
 
 .flex-direction {
-  &--row {
+  &-row {
     flex-direction: row;
   }
 
-  &--row-reverse {
+  &-row-reverse {
     flex-direction: row-reverse;
   }
 
-  &--column {
+  &-column {
     flex-direction: column;
   }
 
-  &--column-reverse {
+  &-column-reverse {
     flex-direction: column-reverse;
   }
 }
@@ -248,12 +248,14 @@
   @include va-shrink();
 }
 
-.overflow--hidden {
-  overflow: hidden !important;
-}
+.overflow {
+  &-hidden {
+    overflow: hidden !important;
+  }
 
-.overflow--visible {
-  overflow: visible !important;
+  &-visible {
+    overflow: visible !important;
+  }
 }
 
 .overflow-y {

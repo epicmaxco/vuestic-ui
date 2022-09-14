@@ -85,35 +85,35 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "../../../styles/resources";
-@import 'variables.scss';
+  @import "../../../styles/resources";
+  @import 'variables.scss';
 
-.va-tree-node {
-  display: var(--va-tree-node-display);
-  align-items: var(--va-tree-node-align-items);
-  font-family: var(--va-font-family);
+  .va-tree-node {
+    display: var(--va-tree-node-display);
+    align-items: var(--va-tree-node-align-items);
+    font-family: var(--va-font-family);
 
-  .form-group {
-    margin-bottom: 0;
+    .form-group {
+      margin-bottom: 0;
+    }
+
+    &__icon {
+      margin-right: var(--va-tree-node-icon-margin-right);
+    }
+
+    &__icon-right {
+      margin-left: var(--va-tree-node-icon-margin-right);
+    }
+
+    &__label {
+      flex-grow: var(--va-tree-node-label-flex-grow);
+      word-wrap: var(--va-tree-node-label-word-wrap);
+      overflow: var(--va-tree-node-label-overflow);
+      line-height: var(--va-tree-node-label-line-height);
+    }
+
+    &--highlighted #{&}__label {
+      background-color: var(--va-tree-node-label-highlighted-bg);
+    }
   }
-
-  &__icon {
-    margin-right: var(--va-tree-node-icon-margin-right);
-  }
-
-  &__icon-right {
-    margin-left: var(--va-tree-node-icon-margin-right);
-  }
-
-  &__label {
-    flex-grow: var(--va-tree-node-label-flex-grow);
-    word-wrap: var(--va-tree-node-label-word-wrap);
-    overflow: var(--va-tree-node-label-overflow);
-    line-height: var(--va-tree-node-label-line-height);
-  }
-
-  &--highlighted #{&}__label {
-    background-color: var(--va-tree-node-label-highlighted-bg);
-  }
-}
 </style>

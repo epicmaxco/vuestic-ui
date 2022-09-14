@@ -1,12 +1,11 @@
 <template>
-  <div style="height: 13rem; border: 1px solid var(--va-secondary); position: relative;">
+  <div style="height: 13rem; position: relative;">
     <div class="content">Content</div>
 
     <va-sidebar
       v-model="enabled"
       :minimized="minimized"
       position="right"
-      textColor="dark"
       style="position: absolute;"
     >
       <va-sidebar-item
@@ -45,9 +44,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.content {
-  width: 100%;
-  height: 100%;
-  background-color: lightgrey;
-}
+  .content {
+    width: 100%;
+    height: 100%;
+    background-color: var(--va-background-primary);
+  }
 </style>

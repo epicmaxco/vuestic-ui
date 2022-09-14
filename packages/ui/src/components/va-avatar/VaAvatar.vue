@@ -41,7 +41,7 @@ export default defineComponent({
     ...useSizeProps,
     ...useComponentPresetProp,
     color: { type: String, default: 'info' },
-    textColor: { type: String, default: 'white' },
+    textColor: { type: String },
     square: { type: Boolean, default: false },
     icon: { type: String, default: '' },
     src: { type: String, default: null },
@@ -74,26 +74,26 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "variables";
+  @import "variables";
 
-.va-avatar {
-  align-items: var(--va-avatar-align-items);
-  display: var(--va-avatar-display);
-  justify-content: var(--va-avatar-justify-content);
-  line-height: var(--va-avatar-line-height);
-  position: var(--va-avatar-position);
-  text-align: var(--va-avatar-text-align);
-  vertical-align: var(--va-avatar-vertical-align);
-  border-radius: var(--va-avatar-border-radius);
-  font-family: var(--va-font-family);
+  .va-avatar {
+    align-items: var(--va-avatar-align-items);
+    display: var(--va-avatar-display);
+    justify-content: var(--va-avatar-justify-content);
+    line-height: var(--va-avatar-line-height);
+    position: var(--va-avatar-position);
+    text-align: var(--va-avatar-text-align);
+    vertical-align: var(--va-avatar-vertical-align);
+    border-radius: var(--va-avatar-border-radius);
+    font-family: var(--va-font-family);
 
-  img,
-  svg {
-    border-radius: inherit;
-    display: inline-flex;
-    height: inherit;
-    width: inherit;
-    margin: auto;
+    img,
+    svg {
+      border-radius: inherit;
+      display: inline-flex;
+      height: inherit;
+      width: inherit;
+      margin: auto;
+    }
   }
-}
 </style>

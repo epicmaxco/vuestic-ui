@@ -5,7 +5,7 @@
         <va-avatar src="https://randomuser.me/api/portraits/men/3.jpg" size="128px" />
       </div>
 
-      <div class="pl-2 d-flex flex-direction--column justify--end">
+      <div class="pl-2 d-flex flex-direction-column justify-end">
         <span class="title">Profile</span>
         <h5 class="display-5 ma-0" style="color: inherit;">User</h5>
 
@@ -16,10 +16,10 @@
         </div>
 
         <va-card-action class="d-flex pt-2">
-          <va-button flat color="white" style="margin-left: -0.5rem;">Follow</va-button>
+          <va-button preset="secondary" color="white" style="margin-left: -0.5rem;">Follow</va-button>
           <va-spacer />
-          <va-button flat color="white" icon="message"></va-button>
-          <va-button flat color="white" icon="play_arrow"></va-button>
+          <va-button preset="secondary" color="white" icon="message"></va-button>
+          <va-button preset="secondary" color="white" icon="play_arrow"></va-button>
         </va-card-action>
       </div>
     </va-card-content>
@@ -27,13 +27,13 @@
 </template>
 
 <style lang="scss">
-.user-card {
-  --va-card-display: inline-block;
-  --va-button-content-px: 0.5rem;
-  --va-avatar-border-radius: 60% 40% 58% 42% / 39% 48% 52% 61%;
+  .user-card {
+    --va-card-display: inline-block;
+    --va-button-content-px: 0.5rem;
+    --va-avatar-border-radius: 60% 40% 58% 42% / 39% 48% 52% 61%;
 
-  &:hover {
-    --va-avatar-border-radius: 28% 72% 24% 76% / 71% 17% 83% 29%;
+    &:hover {
+      --va-avatar-border-radius: 28% 72% 24% 76% / 71% 17% 83% 29%;
+    }
   }
-}
 </style>

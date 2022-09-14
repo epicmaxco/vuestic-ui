@@ -38,13 +38,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.r {
-  display: flex;
-  align-items: center;
-}
+  .r {
+    display: flex;
+    align-items: center;
+  }
 
-.name {
-  padding-right: 0.5rem;
-  width: 33%;
-}
+  .name {
+    padding-right: 0.5rem;
+    width: 33%;
+  }
 </style>

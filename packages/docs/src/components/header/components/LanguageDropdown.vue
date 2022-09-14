@@ -9,7 +9,7 @@
         <va-list-item
           v-for="(option, id) in options"
           :key="id"
-          class="language-dropdown__item row align--center py-2"
+          class="language-dropdown__item row align-center py-2"
           :class="{ active: option.code === locale }"
           @click="setLanguage(option.code)"
         >
@@ -17,7 +17,7 @@
             <span class="dropdown-item__text">{{ option.name }}</span>
           </va-list-item-section>
         </va-list-item>
-        <va-list-item class="language-dropdown__item row align--center py-2">
+        <va-list-item class="language-dropdown__item row align-center py-2">
           <va-list-item-section>
             <router-link :to="`/${locale}/contribution/translation`" class="dropdown-item__text" :style="{color: colors.primary}">{{t('landing.header.buttons.translation')}}</router-link>
           </va-list-item-section>
@@ -87,29 +87,29 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-.language-dropdown {
-  cursor: pointer;
-
-  .va-button__content {
-    font-weight: 600;
-  }
-
-  &__item {
-    padding-bottom: 0.625rem;
+  .language-dropdown {
     cursor: pointer;
-    flex-wrap: nowrap;
-    font-weight: 600;
 
-    &:hover,
-    &.active {
-      .dropdown-item__text {
-        color: var(--va-dark);
+    .va-button__content {
+      font-weight: 600;
+    }
+
+    &__item {
+      padding-bottom: 0.625rem;
+      cursor: pointer;
+      flex-wrap: nowrap;
+      font-weight: 600;
+
+      &:hover,
+      &.active {
+        .dropdown-item__text {
+          color: var(--va-dark);
+        }
       }
     }
-  }
 
-  .va-dropdown__anchor {
-    display: inline-block;
+    .va-dropdown__anchor {
+      display: inline-block;
+    }
   }
-}
 </style>

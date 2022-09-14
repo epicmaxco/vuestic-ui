@@ -115,21 +115,21 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "variables";
+  @import "variables";
 
-.va-breadcrumbs {
-  display: var(--va-breadcrumbs-display);
-  width: var(--va-breadcrumbs-width);
-  justify-content: var(--va-breadcrumbs-justify-content);
-  font-family: var(--va-font-family);
+  .va-breadcrumbs {
+    display: var(--va-breadcrumbs-display);
+    width: var(--va-breadcrumbs-width);
+    justify-content: var(--va-breadcrumbs-justify-content);
+    font-family: var(--va-font-family);
 
-  &__item {
-    display: var(--va-breadcrumbs-item-display);
+    &__item {
+      display: var(--va-breadcrumbs-item-display);
+    }
+
+    &__separator {
+      padding: var(--va-breadcrumbs-separator-padding);
+      display: var(--va-breadcrumbs-separator-display);
+    }
   }
-
-  &__separator {
-    padding: var(--va-breadcrumbs-separator-padding);
-    display: var(--va-breadcrumbs-separator-display);
-  }
-}
 </style>

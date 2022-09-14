@@ -21,7 +21,7 @@
     </VbCard>
 
     <VbCard title="ampm">
-      <div class="d-flex justify--center">
+      <div class="d-flex justify-center">
         <va-switch
           v-model="ampm"
           label="ampm"
@@ -37,7 +37,7 @@
     </VbCard>
 
     <VbCard title="value">
-      <div class="d-flex justify--space-around">
+      <div class="d-flex justify-space-around">
         <span>23:05:53</span>
         <span>{{ selectedTime }}</span>
       </div>
@@ -73,7 +73,7 @@
     </VbCard>
 
     <VbCard title="Visible cells count">
-      <div class="d-flex justify--space-around">
+      <div class="d-flex justify-space-around">
         <span>Show 2</span>
         <span>Show 5</span>
         <span>Show 12</span>

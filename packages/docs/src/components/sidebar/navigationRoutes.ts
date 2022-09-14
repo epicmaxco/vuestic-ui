@@ -262,6 +262,10 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: 'menu.accordion',
       },
       {
+        name: 'scroll-container',
+        displayName: 'menu.scrollContainer',
+      },
+      {
         category: 'menu.categories.navigation',
         name: 'pagination',
         displayName: 'menu.pagination',
@@ -326,6 +330,13 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: 'toast',
         displayName: 'menu.toast',
+      },
+      {
+        name: 'virtual-scroller',
+        displayName: 'menu.virtualScroller',
+        meta: {
+          badge: 'new',
+        },
       },
       // TODO: Color components not released yet
       // {

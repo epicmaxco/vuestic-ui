@@ -61,29 +61,29 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "../../../styles/resources";
-@import 'variables';
+  @import "../../../styles/resources";
+  @import 'variables';
 
-.va-timeline-separator {
-  display: var(--va-timeline-separator-display);
-  align-items: var(--va-timeline-separator-align-items);
+  .va-timeline-separator {
+    display: var(--va-timeline-separator-display);
+    align-items: var(--va-timeline-separator-align-items);
 
-  &--vertical {
-    flex-direction: var(--va-timeline-separator-vertical-flex-direction);
+    &--vertical {
+      flex-direction: var(--va-timeline-separator-vertical-flex-direction);
+    }
+
+    &__line {
+      transition: var(--va-timeline-separator-line-transition);
+      width: var(--va-timeline-separator-line-width);
+      height: var(--va-timeline-separator-line-height);
+      flex: var(--va-timeline-separator-line-flex);
+    }
+
+    &__center {
+      transition: var(--va-timeline-separator-center-transition);
+      width: var(--va-timeline-separator-center-width);
+      height: var(--va-timeline-separator-center-height);
+      border-radius: var(--va-timeline-separator-center-border-radius);
+    }
   }
-
-  &__line {
-    transition: var(--va-timeline-separator-line-transition);
-    width: var(--va-timeline-separator-line-width);
-    height: var(--va-timeline-separator-line-height);
-    flex: var(--va-timeline-separator-line-flex);
-  }
-
-  &__center {
-    transition: var(--va-timeline-separator-center-transition);
-    width: var(--va-timeline-separator-center-width);
-    height: var(--va-timeline-separator-center-height);
-    border-radius: var(--va-timeline-separator-center-border-radius);
-  }
-}
 </style>

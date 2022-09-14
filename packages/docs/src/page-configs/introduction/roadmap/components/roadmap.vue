@@ -72,43 +72,43 @@ const columns = computed(() => [
 
 <style lang="scss">
 
-$gap: 1rem;
+  $gap: 1rem;
 
-.docs-roadmap {
-  margin: 0 -$gap;
+  .docs-roadmap {
+    margin: 0 -$gap;
 
-  &__columns {
-    margin: calc($gap / 2);
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
+    &__columns {
+      margin: calc($gap / 2);
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
 
-    .docs-roadmap__column {
-      &-wrapper {
-        width: 100%;
-        min-width: 300px;
-        flex: 1;
-        padding: calc($gap / 2);
-      }
+      .docs-roadmap__column {
+        &-wrapper {
+          width: 100%;
+          min-width: 300px;
+          flex: 1;
+          padding: calc($gap / 2);
+        }
 
-      & > *:not(h6) {
-        margin-bottom: $gap;
-      }
+        & > *:not(h6) {
+          margin-bottom: $gap;
+        }
 
-      background-color: var(--va-background);
-      padding: $gap;
-      height: 100%;
+        background-color: var(--va-background);
+        padding: $gap;
+        height: 100%;
 
-      .docs-roadmap__image {
-        display: flex;
-        justify-content: center;
+        .docs-roadmap__image {
+          display: flex;
+          justify-content: center;
 
-        svg {
-          max-height: 150px;
-          max-width: 200px;
+          svg {
+            max-height: 150px;
+            max-width: 200px;
+          }
         }
       }
     }
   }
-}
 </style>

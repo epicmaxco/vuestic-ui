@@ -1,4 +1,4 @@
-import { computed, Ref, unref, watch, watchEffect, watchPostEffect } from 'vue'
+import { computed, Ref, unref, watchPostEffect } from 'vue'
 
 import { mapObject } from '../utils/map-object'
 import { useDomRect } from './useDomRect'
@@ -114,7 +114,13 @@ const getAutoPlacement = (placement: Placement, coords: Coords, content: DOMRect
 
 const findFirstRelativeParent = (el: Element | null) => {
   while (el) {
-    if (window.getComputedStyle(el).position === 'relative') { return el }
+    // TODO: Remove the el.style.position after fix of this issue: https://github.com/nuxt/framework/issues/3587
+    // TODO: Remove from the va-dropdown.vue the inline style (position: relative)
+    const positionValue = window.getComputedStyle(el).getPropertyValue('position') ||
+      (el as HTMLElement).style.position
+
+    if (positionValue === 'relative') { return el }
+
     el = el.parentElement
   }
 

@@ -1,5 +1,5 @@
 import { computed, shallowReactive } from 'vue'
-import { uniqueId } from 'lodash'
+import uniqueId from 'lodash/uniqueId.js'
 
 export type ModalInStack = {
   id: string;
