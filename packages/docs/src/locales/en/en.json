@@ -1650,7 +1650,7 @@
       "top": {
         "title": "Fixed at the top"
       },
-      "target": {
+      "default": {
         "title": "Fixes element relative to custom container"
       }
     },
