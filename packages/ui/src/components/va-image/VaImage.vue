@@ -16,6 +16,7 @@
         :style="imageStyles"
         :src="$props.src"
         :alt="$props.alt"
+        :draggable="$props.draggable"
         @error="handleError"
         @load="handleLoad"
       />
@@ -43,6 +44,7 @@ export default defineComponent({
     contain: { type: Boolean, default: false },
     src: { type: String, required: true },
     alt: { type: String, default: '' },
+    draggable: { type: Boolean, default: true },
   },
   setup (props, { emit }) {
     const loading = ref(true)
