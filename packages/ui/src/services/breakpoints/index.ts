@@ -1,5 +1,7 @@
 import { BreakpointsConfig, ThresholdsConfig } from './types'
 
+export const vaBreakpointsSymbol = Symbol('vaBreakpoints')
+
 const defaultThresholds: ThresholdsConfig = {
   xs: 0,
   sm: 640,

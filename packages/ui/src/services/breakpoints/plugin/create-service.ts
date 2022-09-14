@@ -70,9 +70,7 @@ export const createBreakpointsConfigPlugin = (app: App) => {
 
   const getDocument = useDocument()
   watch(currentBreakpoint, (newValue) => {
-    if (!newValue) { return }
-
-    if (!breakpointsConfig.value.bodyClass || !newValue || !getDocument.value) { return }
+    if (!newValue || !breakpointsConfig.value.bodyClass || !getDocument.value) { return }
 
     getDocument.value.body.classList.forEach((className: string) => {
       if ((Object.values(screenClasses.value) as string[]).includes(className)) {
