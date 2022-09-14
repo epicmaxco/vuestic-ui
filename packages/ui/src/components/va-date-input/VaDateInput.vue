@@ -103,7 +103,6 @@ import {
   useStateful, useStatefulEmits,
   useParsable,
   useFocus, useFocusEmits,
-  useKeyboardFocusClassProps,
 } from '../../composables'
 import { useSyncProp } from '../va-date-picker/hooks/sync-prop'
 import { useRangeModelValueGuard } from './hooks/range-model-value-guard'
@@ -134,7 +133,6 @@ export default defineComponent({
   },
 
   props: {
-    ...useKeyboardFocusClassProps,
     ...useClearableProps,
     ...VaInputWrapperProps,
     ...VaDatePickerProps,
@@ -320,7 +318,6 @@ export default defineComponent({
       name: props.icon,
       color: props.color,
       tabindex: iconTabindexComputed.value,
-      disableFocusClass: props.disableFocusClass,
     }))
 
     const computedInputWrapperProps = computed(() => ({

@@ -1,5 +1,5 @@
 <template>
-  <div class="row justify--center" style="height: 200px;">
+  <div class="row justify-center" style="height: 200px;">
     <va-slider class="mr-5" v-model="value" vertical track-label-visible />
     <va-slider class="mr-5" v-model="value" vertical track-label-visible pins :step="5" />
     <va-slider class="mr-5"

@@ -57,13 +57,11 @@
           role="button"
           class="va-alert__close--closeable"
           tabindex="0"
-          :class="keyboardFocusClass"
           :aria-label="closeText || 'close alert'"
           :style="contentStyle"
           @click="hide"
           @keydown.space="hide"
           @keydown.enter="hide"
-          v-on="keyboardFocusListeners"
         >
           <slot name="close">
             <va-icon
@@ -87,7 +85,6 @@ import { generateUniqueId } from '../../services/utils'
 import {
   useComponentPresetProp,
   useStateful, useStatefulProps, useStatefulEmits,
-  useKeyboardFocusClass, useKeyboardFocusClassProps,
 } from '../../composables'
 
 import { useAlertStyles } from './useAlertStyles'
@@ -99,7 +96,6 @@ export default defineComponent({
   components: { VaIcon },
   emits: useStatefulEmits,
   props: {
-    ...useKeyboardFocusClassProps,
     ...useStatefulProps,
     ...useComponentPresetProp,
     modelValue: { type: Boolean, default: true },
@@ -139,8 +135,6 @@ export default defineComponent({
     const titleIdComputed = computed(() => `aria-title-${uniqueId.value}`)
     const descriptionIdComputed = computed(() => `aria-description-${uniqueId.value}`)
 
-    const { keyboardFocusListeners, keyboardFocusClass } = useKeyboardFocusClass(props, 'va-alert__close')
-
     return {
       ...alertStyles,
       valueComputed,
@@ -151,8 +145,6 @@ export default defineComponent({
       hide,
       titleIdComputed,
       descriptionIdComputed,
-      keyboardFocusListeners,
-      keyboardFocusClass,
     }
   },
 })
@@ -221,7 +213,7 @@ export default defineComponent({
       cursor: pointer;
     }
 
-    @include keyboard-focus;
+    @include keyboard-focus-outline;
 
     &__close {
       padding-left: var(--va-alert-close-padding-x);

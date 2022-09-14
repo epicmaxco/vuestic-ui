@@ -7,7 +7,6 @@
     :aria-hidden="ariaHiddenComputed"
     notranslate
     v-bind="computedAttrs"
-    v-on="keyboardFocusListeners"
   >
     <slot>
       <template v-if="iconConfig.content">
@@ -26,13 +25,11 @@ import {
   useComponentPresetProp,
   useColors,
   useSize, useSizeProps,
-  useKeyboardFocusClass, useKeyboardFocusClassProps,
 } from '../../composables'
 
 export default defineComponent({
   name: 'VaIcon',
   props: {
-    ...useKeyboardFocusClassProps,
     ...useSizeProps,
     ...useComponentPresetProp,
     name: { type: String, default: '' },
@@ -63,12 +60,9 @@ export default defineComponent({
       return spin === 'counter-clockwise' ? 'va-icon--spin-reverse' : 'va-icon--spin'
     }
 
-    const { keyboardFocusListeners, keyboardFocusClass } = useKeyboardFocusClass(props)
-
     const computedClass = computed(() => [
       iconConfig.value.class,
       getSpinClass(props.spin ?? iconConfig.value.spin),
-      keyboardFocusClass.value,
     ])
 
     const transformStyle = computed(() => {
@@ -100,7 +94,6 @@ export default defineComponent({
       computedClass,
       computedStyle,
       ariaHiddenComputed,
-      keyboardFocusListeners,
     }
   },
 })
@@ -114,10 +107,10 @@ export default defineComponent({
     vertical-align: var(--va-icon-vertical-align);
     user-select: var(--va-icon-user-select);
 
-    @include keyboard-focus;
-
     &[role^="button"][tabindex]:not([tabindex^="-"]) {
       cursor: pointer;
+
+      @include keyboard-focus-outline($radius: 2px);
     }
 
     &#{&} {

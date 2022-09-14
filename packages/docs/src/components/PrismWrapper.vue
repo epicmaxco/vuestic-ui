@@ -37,3 +37,10 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+  pre {
+    white-space: nowrap;
+    padding: 0.5rem 2rem;
+  }
+</style>

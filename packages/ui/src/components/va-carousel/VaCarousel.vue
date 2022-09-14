@@ -300,7 +300,7 @@ export default defineComponent({
     }
 
     .va-button {
-      @include keyboard-focus($radius: 'inherit', $offset: -2px);
+      @include keyboard-focus-outline($offset: -2px);
     }
   }
 </style>

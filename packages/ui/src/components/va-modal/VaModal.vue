@@ -47,7 +47,6 @@
                 role="button"
                 aria-label="close"
                 tabindex="0"
-                :disable-focus-class="$props.disableFocusClass"
                 @click="cancel"
                 @keydown.space="cancel"
                 @keydown.enter="cancel"
@@ -137,7 +136,6 @@ import {
   useColors, useTextColor,
   useWindow, useDocument,
   useComponentPresetProp,
-  useKeyboardFocusClassProps,
   useTrapFocus,
   useModalLevel,
 } from '../../composables'
@@ -166,7 +164,6 @@ export default defineComponent({
     'cancel', 'ok', 'before-open', 'open', 'before-close', 'close', 'click-outside',
   ],
   props: {
-    ...useKeyboardFocusClassProps,
     ...useStatefulProps,
     modelValue: { type: Boolean, default: false },
     attachElement: { type: String, default: 'body' },

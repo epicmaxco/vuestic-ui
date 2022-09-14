@@ -1,14 +1,14 @@
 <template>
   <div class="">
     <div
-      class="primary-danger-gradient d-flex justify--space-around align--center"
+      class="primary-danger-gradient d-flex justify-space-around align-center"
     >
       <span class="px-2">Primary</span>
       <span class="px-2">Success</span>
       <span class="px-2">Danger</span>
     </div>
 
-    <div class="controls d-flex align--center">
+    <div class="controls d-flex align-center">
       <va-color-palette
         v-model="primaryColor"
         :palette="colorsToChange"
