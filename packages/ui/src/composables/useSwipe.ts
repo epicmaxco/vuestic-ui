@@ -6,7 +6,7 @@ type SwipeDirection = 'up' | 'down' | 'left' | 'right' | ''
 type SwipePosition = 'start' | 'end'
 type SwipeCoordinates = Record<'x' | 'y', number>
 type SwipePath = Record<SwipePosition, SwipeCoordinates>
-type SwipeState = { direction: SwipeDirection, duration: number }
+export type SwipeState = { direction: SwipeDirection, duration: number }
 
 type AllowedSwipeDirection = 'all' | 'horizontal' | 'vertical' | SwipeDirection
 
@@ -45,7 +45,7 @@ export const useSwipeProps = {
 export const useSwipe = (
   props: ExtractPropTypes<typeof useSwipeProps>,
   container: ShallowRef<HTMLElement | undefined>,
-  cb: () => void,
+  cb: (state: SwipeState) => void,
 ) => {
   const swipeStarted = ref(false)
   const swipePath = reactive({
@@ -117,10 +117,10 @@ export const useSwipe = (
     const yDistance = calcDistance('y')
 
     if ((xDistance || yDistance) && [xDistance, yDistance].some((el) => Math.abs(el) >= props.swipeDistance)) {
-      if (Math.abs(xDistance) > Math.abs(yDistance) && isSwipeAllowed.horizontal) {
+      if (Math.abs(xDistance) >= Math.abs(yDistance) && isSwipeAllowed.horizontal) {
         const result = xDistance > 0 ? 'left' : 'right'
         swipeState.direction = getAcceptableValue('horizontal', result)
-      } else if (isSwipeAllowed.vertical) {
+      } else if (Math.abs(xDistance) < Math.abs(yDistance) && isSwipeAllowed.vertical) {
         const result = yDistance > 0 ? 'down' : 'up'
         swipeState.direction = getAcceptableValue('vertical', result)
       }
@@ -131,7 +131,7 @@ export const useSwipe = (
     }
   }, { deep: true })
 
-  watch(swipeState, cb, { deep: true })
+  watch(swipeState, () => cb(swipeState), { deep: true })
 
   if (props.swipable) {
     useEvent(['touchstart', 'mousedown'], onSwipeStart, container)

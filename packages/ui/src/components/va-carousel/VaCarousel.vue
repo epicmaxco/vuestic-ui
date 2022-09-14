@@ -102,9 +102,12 @@ import {
   useStateful, useStatefulProps, useStatefulEmits,
   useSwipe, useSwipeProps,
 } from '../../composables'
+
 import { VaImage } from '../va-image'
 import { VaButton } from '../va-button'
 import { VaHover } from '../va-hover'
+
+import type { SwipeState } from '../../composables'
 
 export default defineComponent({
   name: 'VaCarousel',
@@ -166,8 +169,8 @@ export default defineComponent({
 
     // swiping
     const slidesContainer = shallowRef<HTMLElement>()
-    const onSwipe = () => {
-      switch (swipeState.direction) {
+    const onSwipe = (state: SwipeState) => {
+      switch (state.direction) {
         case 'right':
         case 'up':
           doShowPrevButton.value && prev()
@@ -177,7 +180,7 @@ export default defineComponent({
           doShowNextButton.value && next()
       }
     }
-    const { swipeState } = useSwipe(props, slidesContainer, onSwipe)
+    useSwipe(props, slidesContainer, onSwipe)
 
     return {
       doShowNextButton,
