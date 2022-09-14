@@ -85,6 +85,7 @@
             <va-image
               :src="isObjectSlides ? item.src : item"
               :alt="isObjectSlides ? item.alt : ''"
+              :draggable="false"
             />
           </slot>
         </div>
@@ -94,7 +95,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, shallowRef, PropType, computed, CSSProperties } from 'vue'
+import { defineComponent, shallowRef, PropType, computed } from 'vue'
 import { useCarousel } from './hooks/useCarousel'
 import { useCarouselAnimation } from './hooks/useCarouselAnimation'
 import { useCarouselColor } from './hooks/useCarouselColors'
@@ -164,8 +165,7 @@ export default defineComponent({
 
     const slideStyleComputed = computed(() => ({
       animation: props.effect === 'fade' ? 'fadeKeyframe' : undefined,
-      'user-select': props.swipable ? 'none' : undefined,
-    })) as CSSProperties
+    }))
 
     // swiping
     const slidesContainer = shallowRef<HTMLElement>()
