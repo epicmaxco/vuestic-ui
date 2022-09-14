@@ -532,9 +532,7 @@ export default defineComponent({
           display: flex;
           align-items: center;
 
-          &:focus {
-            @include focus-outline($offset: 2px);
-          }
+          @include keyboard-focus-outline($offset: 2px);
         }
 
         .va-data-table__table-th-sorting {

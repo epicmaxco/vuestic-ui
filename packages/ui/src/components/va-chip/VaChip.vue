@@ -206,10 +206,6 @@ export default defineComponent({
     &__close-icon {
       cursor: pointer;
 
-      &:focus {
-        @include focus-outline;
-      }
-
       @at-root {
         .va-chip--disabled {
           .va-chip__close-icon {

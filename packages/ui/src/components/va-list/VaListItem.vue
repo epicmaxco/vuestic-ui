@@ -64,8 +64,8 @@ export default defineComponent({
       @include va-disabled;
     }
 
-    &:focus:not(.va-list-item--disabled) {
-      @include focus-outline;
+    &:not(.va-list-item--disabled) {
+      @include keyboard-focus-outline;
     }
 
     &__inner {

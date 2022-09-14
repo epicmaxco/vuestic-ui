@@ -218,9 +218,7 @@ export default defineComponent({
         color: var(--va-collapse-header-content-icon-color);
       }
 
-      &:focus {
-        @include focus-outline(var(--va-collapse-header-content-border-radius));
-      }
+      @include keyboard-focus-outline(var(--va-collapse-header-content-border-radius));
     }
 
     &--solid {
