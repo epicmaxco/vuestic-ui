@@ -5,27 +5,27 @@
     :class="classComputed"
     :style="styleComputed"
     :focused="isFocused"
-    @keydown.up.prevent="increaseCount()"
-    @keydown.down.prevent="decreaseCount()"
+    @keydown.up.prevent="increaseCount"
+    @keydown.down.prevent="decreaseCount"
   >
     <template v-if="$props.buttons" #prepend="slotScope">
       <div class="va-counter__prepend-wrapper"
         :style="{ marginRight: marginComputed }"
-        @mousedown.prevent="focus()"
+        @mousedown.prevent="focus"
       >
         <slot name="decreaseAction" v-bind="{ ...slotScope, decreaseCount }">
           <va-button
             class="va-counter__button-decrease"
             aria-label="decrease counter"
             v-bind="decreaseButtonProps"
-            @click="decreaseCount()"
+            @click="decreaseCount"
           />
         </slot>
       </div>
     </template>
 
     <template v-else #prependInner="slotScope">
-      <div @mousedown.prevent="focus()">
+      <div @mousedown.prevent="focus">
         <slot name="decreaseAction" v-bind="{ ...slotScope, decreaseCount }">
           <va-icon
             class="va-counter__icon-decrease"
@@ -38,21 +38,21 @@
     <template v-if="$props.buttons"  #append="slotScope">
       <div class="va-counter__append-wrapper"
         :style="{ marginLeft: marginComputed }"
-        @mousedown.prevent="focus()"
+        @mousedown.prevent="focus"
       >
         <slot name="increaseAction" v-bind="{ ...slotScope, increaseCount }">
           <va-button
             class="va-counter__button-increase"
             aria-label="increase counter"
             v-bind="increaseButtonProps"
-            @click="increaseCount()"
+            @click="increaseCount"
           />
         </slot>
       </div>
     </template>
 
     <template v-else #appendInner="slotScope">
-      <div @mousedown.prevent="focus()">
+      <div @mousedown.prevent="focus">
         <slot name="increaseAction" v-bind="{ ...slotScope, increaseCount }">
           <va-icon
             class="va-counter__icon-increase"
@@ -63,7 +63,11 @@
     </template>
 
     <template v-if="$slots.content" #default="slotScope">
-      <div ref="input" tabindex="0">
+      <div
+        ref="input"
+        tabindex="0"
+        class="va-counter__content-wrapper"
+      >
         <slot name="content" v-bind="{ ...slotScope, value: Number(valueComputed) }" />
       </div>
     </template>
@@ -83,10 +87,11 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, InputHTMLAttributes, PropType, ComputedRef, shallowRef, watch } from 'vue'
+import { computed, defineComponent, InputHTMLAttributes, PropType, ComputedRef, shallowRef } from 'vue'
 import omit from 'lodash/omit'
 import pick from 'lodash/pick'
 
+import { safeCSSLength } from '../../utils/css-utils'
 import {
   useFormProps,
   useEmitProxy,
@@ -94,13 +99,11 @@ import {
   useStateful, useStatefulProps,
   useColors,
 } from '../../composables'
-import { safeCSSLength } from '../../utils/css-utils'
+import useCounterPropsValidation from './hooks/useCounterPropsValidation'
 
 import { VaInputWrapper } from '../va-input'
 import VaIcon from '../va-icon/VaIcon.vue'
 import VaButton from '../va-button/VaButton.vue'
-import { validateCounter } from './validateCounter'
-import { validateSlider } from '../va-slider/validateSlider'
 
 const { createEmits: createInputEmits, createListeners: createInputListeners } = useEmitProxy(
   ['change'],
@@ -191,7 +194,7 @@ export default defineComponent({
       if (props.max && (counterValue > props.max)) {
         // since the `props.step` may not be a multiple of `(props.max - props.min)`,
         // we must round the result taking into account the allowable value
-        valueComputed.value = getRoundDownWithStep(props.max)
+        valueComputed.value = (props.min && props.step) ? getRoundDownWithStep(props.max) : props.max
         return
       }
 
@@ -296,16 +299,7 @@ export default defineComponent({
 
     const marginComputed = computed(() => safeCSSLength(props.margins))
 
-    validateCounter(props.modelValue, props.step, props.min, props.max)
-
-    watch([
-      () => props.modelValue,
-      () => props.step,
-      () => props.min,
-      () => props.max,
-    ], ([value, step, min, max]) => {
-      validateCounter(value, step, min, max)
-    })
+    useCounterPropsValidation(props)
 
     return {
       input,
@@ -395,6 +389,12 @@ export default defineComponent({
           }
         }
       }
+    }
+
+    .va-counter__content-wrapper {
+      width: 100%;
+      display: flex;
+      justify-content: center;
     }
 
     .va-input__content__input {
