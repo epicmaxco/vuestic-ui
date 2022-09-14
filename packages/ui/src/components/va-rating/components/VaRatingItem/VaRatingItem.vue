@@ -133,7 +133,7 @@ export default defineComponent({
   .va-rating-item {
     display: inline-block;
 
-    @include keyboard-focus-outline;
+    @include keyboard-focus-outline($radius: 2px);
 
     &__wrapper {
       @include normalize-button();

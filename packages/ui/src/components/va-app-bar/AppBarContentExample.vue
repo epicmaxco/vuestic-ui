@@ -45,7 +45,7 @@ export default {
     align-items: center;
 
     .va-button {
-      @include keyboard-focus-outline($radius: 'inherit', $offset: -2px);
+      @include keyboard-focus-outline($offset: -2px);
     }
   }
 </style>

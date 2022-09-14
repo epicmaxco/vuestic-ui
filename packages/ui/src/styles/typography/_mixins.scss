@@ -186,6 +186,6 @@ $va-display-margins: (
       filter: brightness(125%);
     }
 
-    @include keyboard-focus-outline($offset: $offset);
+    @include keyboard-focus-outline($radius: 2px, $offset: $offset);
   }
 }

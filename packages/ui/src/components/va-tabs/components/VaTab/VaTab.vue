@@ -217,7 +217,7 @@ export default defineComponent({
       padding: var(--va-tab-content-padding);
       cursor: var(--va-tab-content-cursor);
 
-      @include keyboard-focus-outline($offset: -2px);
+      @include keyboard-focus-outline($radius: 2px, $offset: -2px);
     }
 
     &__icon {

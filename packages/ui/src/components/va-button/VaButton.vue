@@ -395,7 +395,7 @@ export default defineComponent({
       }
     }
 
-    @include keyboard-focus-outline('inherit');
+    @include keyboard-focus-outline;
 
     &--loading {
       pointer-events: none;
