@@ -43,19 +43,19 @@
 </template>
 
 <style lang="scss">
-@import '~vuestic-ui/src/styles/resources';
+  @import '~vuestic-ui/src/styles/resources';
 
-.gutters-demo {
-  padding: 0.75rem;
+  .gutters-demo {
+    padding: 0.75rem;
 
-  .layout {
-    background-color: $lighter-gray;
+    .layout {
+      background-color: $lighter-gray;
+    }
+
+    .item {
+      background-color: $white;
+      border: 1px solid $gray;
+      text-align: center;
+    }
   }
-
-  .item {
-    background-color: $white;
-    border: 1px solid $gray;
-    text-align: center;
-  }
-}
 </style>
