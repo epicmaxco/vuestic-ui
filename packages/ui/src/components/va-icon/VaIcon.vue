@@ -91,46 +91,46 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "variables";
-@import '../../styles/resources';
+  @import "variables";
+  @import '../../styles/resources';
 
-.va-icon {
-  vertical-align: var(--va-icon-vertical-align);
-  user-select: var(--va-icon-user-select);
+  .va-icon {
+    vertical-align: var(--va-icon-vertical-align);
+    user-select: var(--va-icon-user-select);
 
-  &[tabindex]:not([tabindex^="-"]) {
-    &:focus {
-      @include focus-outline;
+    &[role^="button"][tabindex]:not([tabindex^="-"]) {
+      cursor: pointer;
+
+      @include keyboard-focus-outline;
     }
-  }
 
-  &#{&} {
-    // need 2 classes to make it work
-    font-style: normal;
-  }
+    &#{&} {
+      // need 2 classes to make it work
+      font-style: normal;
+    }
 
-  &--spin {
-    animation: va-icon--spin-animation 1500ms linear infinite;
-
-    &-reverse {
+    &--spin {
       animation: va-icon--spin-animation 1500ms linear infinite;
-      animation-direction: reverse;
-    }
-  }
 
-  @keyframes va-icon--spin-animation {
-    from {
-      transform: rotate(0deg);
+      &-reverse {
+        animation: va-icon--spin-animation 1500ms linear infinite;
+        animation-direction: reverse;
+      }
     }
 
-    to {
-      transform: rotate(360deg);
+    @keyframes va-icon--spin-animation {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    svg {
+      fill: currentColor;
+      height: 100%;
     }
   }
-
-  svg {
-    fill: currentColor;
-    height: 100%;
-  }
-}
 </style>

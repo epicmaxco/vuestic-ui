@@ -8,6 +8,7 @@ module.exports = {
     'color-hex-length': 'long',
     'color-hex-case': 'lower',
     'at-rule-no-unknown': null,
+    'indentation': [ 2, { baseIndentLevel: 1 } ],
     "selector-pseudo-class-no-unknown": [true, {
       ignorePseudoClasses: ["deep"]
     }]

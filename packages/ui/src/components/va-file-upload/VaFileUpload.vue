@@ -227,89 +227,89 @@ export default defineComponent({
 </script>
 
 <style lang='scss'>
-@import "../../styles/resources";
-@import "variables";
+  @import "../../styles/resources";
+  @import "variables";
 
-.va-file-upload {
-  position: var(--va-file-upload-position);
-  font-family: var(--va-font-family);
-  margin: var(--va-file-upload-margin);
+  .va-file-upload {
+    position: var(--va-file-upload-position);
+    font-family: var(--va-font-family);
+    margin: var(--va-file-upload-margin);
 
-  .va-file-upload-list {
-    margin-top: var(--va-file-upload-list-margin-top);
-  }
-
-  &__field {
-    overflow: var(--va-file-upload-dropzone-field-overflow);
-    display: var(--va-file-upload-dropzone-field-display);
-    align-items: var(--va-file-upload-dropzone-field-align-items);
-    position: var(--va-file-upload-dropzone-field-position);
-
-    &__button {
-      margin: var(--va-file-upload-dropzone-field-button-margin);
-      z-index: var(--va-file-upload-dropzone-field-button-z-index);
+    .va-file-upload-list {
+      margin-top: var(--va-file-upload-list-margin-top);
     }
 
-    &__text {
-      padding-right: var(--va-file-upload-dropzone-field-text-pr);
-    }
+    &__field {
+      overflow: var(--va-file-upload-dropzone-field-overflow);
+      display: var(--va-file-upload-dropzone-field-display);
+      align-items: var(--va-file-upload-dropzone-field-align-items);
+      position: var(--va-file-upload-dropzone-field-position);
 
-    &__input {
-      position: absolute;
-      top: 0;
-      right: 0;
-      height: 100%;
-      width: 100%;
-      color: transparent;
-      opacity: 0;
-      cursor: pointer;
-
-      &::-webkit-file-upload-button {
-        cursor: pointer;
+      &__button {
+        margin: var(--va-file-upload-dropzone-field-button-margin);
+        z-index: var(--va-file-upload-dropzone-field-button-z-index);
       }
-    }
-  }
 
-  &--dropzone {
-    background-color: var(--va-file-upload-dropzone-background-color);
-    overflow: var(--va-file-upload-dropzone-overflow);
-    border-radius: var(--va-file-upload-dropzone-border-radius);
-    cursor: var(--va-file-upload-dropzone-cursor);
+      &__text {
+        padding-right: var(--va-file-upload-dropzone-field-text-pr);
+      }
 
-    .va-file-upload__field {
-      justify-content: center;
-      display: flex;
-      align-items: center;
-      padding: var(--va-file-upload-dropzone-field-padding);
-      transition: height 0.2s;
-      overflow: visible;
-      flex-wrap: wrap;
+      &__input {
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 100%;
+        width: 100%;
+        color: transparent;
+        opacity: 0;
+        cursor: pointer;
 
-      @include media-breakpoint-down(sm) {
-        flex-direction: column;
-        padding: var(--va-file-upload-dropzone-field-padding-sm);
-
-        &__text {
-          padding: var(--va-file-upload-dropzone-text-padding-sm);
-          text-align: center;
+        &::-webkit-file-upload-button {
+          cursor: pointer;
         }
       }
     }
 
-    .va-file-upload-list {
-      padding: var(--va-file-upload-dropzone-list-padding);
-      margin-top: 0;
+    &--dropzone {
+      background-color: var(--va-file-upload-dropzone-background-color);
+      overflow: var(--va-file-upload-dropzone-overflow);
+      border-radius: var(--va-file-upload-dropzone-border-radius);
+      cursor: var(--va-file-upload-dropzone-cursor);
+
+      .va-file-upload__field {
+        justify-content: center;
+        display: flex;
+        align-items: center;
+        padding: var(--va-file-upload-dropzone-field-padding);
+        transition: height 0.2s;
+        overflow: visible;
+        flex-wrap: wrap;
+
+        @include media-breakpoint-down(sm) {
+          flex-direction: column;
+          padding: var(--va-file-upload-dropzone-field-padding-sm);
+
+          &__text {
+            padding: var(--va-file-upload-dropzone-text-padding-sm);
+            text-align: center;
+          }
+        }
+      }
+
+      .va-file-upload-list {
+        padding: var(--va-file-upload-dropzone-list-padding);
+        margin-top: 0;
+      }
     }
-  }
 
-  &--disabled {
-    .va-file-upload__field__input {
-      cursor: default;
+    &--disabled {
+      .va-file-upload__field__input {
+        cursor: default;
 
-      &::-webkit-file-upload-button {
-        cursor: inherit;
+        &::-webkit-file-upload-button {
+          cursor: inherit;
+        }
       }
     }
   }
-}
 </style>

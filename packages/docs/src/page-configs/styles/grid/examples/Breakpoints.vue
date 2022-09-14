@@ -27,9 +27,9 @@
 </template>
 
 <style lang="scss" scoped>
-.item {
-  border: 1px solid rgb(212, 205, 205);
-  background-color: #ffffff;
-  text-align: center;
-}
+  .item {
+    border: 1px solid rgb(212, 205, 205);
+    background-color: #ffffff;
+    text-align: center;
+  }
 </style>

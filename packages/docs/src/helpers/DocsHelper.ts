@@ -138,6 +138,21 @@ export class PageGenerationHelper {
     }
   }
 
+  collapse (header: string, ...blocks: ApiDocsBlock[]): ApiDocsBlock {
+    return {
+      type: BlockType.COLLAPSE,
+      header,
+      blocks: blocks,
+    }
+  }
+
+  markdown (content: string): ApiDocsBlock {
+    return {
+      type: BlockType.MARKDOWN,
+      content,
+    }
+  }
+
   // ********** Higher level helpers ****************
   exampleBlock (title: TranslationString, description: TranslationString, example: string, exampleOptions: ExampleOptions = {}): ApiDocsBlock[] {
     return [

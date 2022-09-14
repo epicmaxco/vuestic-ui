@@ -178,74 +178,74 @@ export default class DocsLayout extends Vue {
 </script>
 
 <style lang="scss">
-@import '../../../ui/src/styles/resources';
+  @import '../../../ui/src/styles/resources';
 
-html {
-  font-family: var(--va-font-family);
-  color: var(--va-dark);
-}
-
-a:not(.va-button, .va-sidebar__item):focus {
-  @include focus-outline();
-}
-
-.base-layout {
-  height: 100vh;
-  position: fixed;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  flex-grow: 2;
-
-  &__breadcrumbs {
-    text-transform: capitalize;
-    margin-top: 1.5em;
-    margin-bottom: 1.5em;
-    justify-content: flex-start;
+  html {
+    font-family: var(--va-font-family);
+    color: var(--va-dark);
   }
 
-  .va-sidebar {
-    flex-grow: 20rem;
+  a:not(.va-button, .va-sidebar__item):focus {
+    @include focus-outline();
   }
 
-  &__main {
-    display: flex;
-    flex-direction: row;
-    height: 100%;
-    position: relative;
-    // Need to use flex-grow and overflow hidden to resize `main` to remaining height.
-    flex-grow: 2;
-    overflow: hidden;
-    z-index: 0;
-  }
-
-  &__header {
-    background-color: #ffffff;
-  }
-
-  &__content {
-    height: 100%;
+  .base-layout {
+    height: 100vh;
+    position: fixed;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 2;
 
-    &--expanded {
-      margin-left: 0;
+    &__breadcrumbs {
+      text-transform: capitalize;
+      margin-top: 1.5em;
+      margin-bottom: 1.5em;
+      justify-content: flex-start;
     }
 
-    padding: 2em;
-    padding-top: 0;
-    overflow-y: auto;
-    overflow-x: hidden;
-
-    & > .layout.gutter--xl {
-      padding-bottom: 2rem;
+    .va-sidebar {
+      flex-grow: 20rem;
     }
 
-    @media (max-width: 670px) {
+    &__main {
+      display: flex;
+      flex-direction: row;
+      height: 100%;
+      position: relative;
+      // Need to use flex-grow and overflow hidden to resize `main` to remaining height.
+      flex-grow: 2;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    &__header {
+      background-color: #ffffff;
+    }
+
+    &__content {
+      height: 100%;
+      width: 100%;
+
+      &--expanded {
+        margin-left: 0;
+      }
+
+      padding: 2em;
+      padding-top: 0;
+      overflow-y: auto;
+      overflow-x: hidden;
+
       & > .layout.gutter--xl {
-        padding: 0;
         padding-bottom: 2rem;
+      }
+
+      @media (max-width: 670px) {
+        & > .layout.gutter--xl {
+          padding: 0;
+          padding-bottom: 2rem;
+        }
       }
     }
   }
-}
 </style>

@@ -164,22 +164,24 @@ $va-display-margins: (
 }
 
 @mixin link {
-  color: var(--va-link-color);
-  cursor: pointer;
-  font-family: var(--va-font-family);
-
-  &:active {
+  &:not(.va-button) {
     color: var(--va-link-color);
-    filter: brightness(150%);
-  }
+    cursor: pointer;
+    font-family: var(--va-font-family);
 
-  &:visited {
-    color: var(--va-link-color);
-    filter: brightness(90%);
-  }
+    &:active {
+      color: var(--va-link-color);
+      filter: brightness(150%);
+    }
 
-  &:hover {
-    color: var(--va-link-color);
-    filter: brightness(125%);
+    &:visited {
+      color: var(--va-link-color);
+      filter: brightness(90%);
+    }
+
+    &:hover {
+      color: var(--va-link-color);
+      filter: brightness(125%);
+    }
   }
 }

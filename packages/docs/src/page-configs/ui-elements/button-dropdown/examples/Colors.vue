@@ -16,6 +16,7 @@
     Content
   </va-button-dropdown>
   <va-button-dropdown
+    class="mr-2 mb-2"
     color="#525252"
     label="#525252"
     split

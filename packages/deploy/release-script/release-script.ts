@@ -127,6 +127,7 @@ const runReleaseChecks = async (releaseConfig: ReleaseConfig, dryRun: boolean) =
     showSleepCheck,
     gitTag,
     distTag,
+    version
   } = releaseConfig
 
   if (!dryRun && requiredBranch && branch !== requiredBranch) {
@@ -147,8 +148,8 @@ const runReleaseChecks = async (releaseConfig: ReleaseConfig, dryRun: boolean) =
     console.log(chalk.red(`Tag ${gitTag} is already on upstream. You can remove it if it was by mistake.`))
     return false
   }
-  if (!await confirmNpmVersionAvailable(distTag)) {
-    console.log(chalk.red(`Version ${distTag} is already on NPM, you can bump version manually to fix that.`))
+  if (!await confirmNpmVersionAvailable(version)) {
+    console.log(chalk.red(`Version ${version} is already on NPM, you can bump version manually to fix that.`))
     return false
   }
   try {

@@ -90,19 +90,19 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.table-example--slots {
-  background-color: #f0f0f0;
-}
+  .table-example--slots {
+    background-color: #f0f0f0;
+  }
 
-.table-example--slots.slots-head {
-  background-color: #d1d1d1;
-}
+  .table-example--slots.slots-head {
+    background-color: #d1d1d1;
+  }
 
-.table-example--slots.slots-body {
-  background-color: #f1f1f1;
-}
+  .table-example--slots.slots-body {
+    background-color: #f1f1f1;
+  }
 
-.table-example--slots.slots-foot {
-  background-color: #e8e8e8;
-}
+  .table-example--slots.slots-foot {
+    background-color: #e8e8e8;
+  }
 </style>

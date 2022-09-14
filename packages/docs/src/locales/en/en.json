@@ -10,7 +10,7 @@
       }
     },
     "preview": {
-      "title": "Vue.js 3.0 UI Framework",
+      "title": "Vue 3 UI Framework",
       "buttons": {
         "start": "Get started",
         "github": "View on GitHub",
@@ -30,6 +30,9 @@
           "text": "Supported browsers list"
         }
       }
+    },
+    "partners": {
+      "title": "Partners & Sponsors ❤️"
     },
     "seamless": {
       "title": "Seamless Integration",
@@ -76,12 +79,19 @@
       }
     },
     "footer": {
-      "text": "Open source, free to use. Development inquiries:",
+      "text": "Vuestic UI. Open source, free to use. Development inquiries: ",
       "buttons": {
         "epicmax": "About Epicmax",
         "admin": "Vuestic Admin",
         "spinners": "Epic Spinners"
-      }
+      },
+      "contactUs": "Contact us",
+      "bannerText": [
+        "expert",
+        "s",
+        "available in",
+        "to build and launch your product"
+      ]
     }
   },
   "api": {
@@ -1305,6 +1315,12 @@
       },
       "methods": {},
       "slots": {}
+    },
+    "VaScrollContainer": {
+      "props": {},
+      "events": {},
+      "methods": {},
+      "slots": {}
     }
   },
   "menu": {
@@ -1415,7 +1431,8 @@
     "nuxt": "Nuxt",
     "ssrGuide": "SSR",
     "spacer": "Spacer",
-    "dropdown": "Dropdown"
+    "dropdown": "Dropdown",
+    "scrollContainer": "Scroll Container"
   },
   "all": {
     "examples": "Examples",
@@ -1862,6 +1879,10 @@
       "numbers": {
         "title": "Numbers",
         "text": "Want to see numbers instead of icons? We got you covered."
+      },
+      "itemSlot": {
+        "title": "Item slot",
+        "text": "You can pass own html to the component using `item` slot. We still handle user events and accessability, but you can change appearance."
       },
       "customIcons": {
         "title": "Custom Icons",
@@ -2530,6 +2551,13 @@
       "styles": {
         "title": "Styles",
         "text": "There are tree styles for input: Default (solid), outline, bordered."
+      },
+      "types": {
+        "title": "Input types",
+        "description": [
+          "With a `type` property you can set the type of the input which will render native `<input type=\"text/password/search/etc\" />`.",
+          "Watch available types [here](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#input_types) (some types aren't supported or have implemented as a Veustic UI component)."
+        ]
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-input/_variables.scss)[[target=_blank]]"
@@ -4150,6 +4178,14 @@
       "title": "Tree shaking",
       "description": "Vuestic UI is tree-shaking friendly in Nuxt as well. You can choose which css modules will be used. This can be configured in `nuxt.config.ts`. Components must be tree-shakable automatically.",
       "css": "In `css` options you can pass array of css modules that will be used in the project or `false` to remove all css from Vuestic exepct components css. Available modules: `typography`, `grid`, `reset`. In example below grid will not be used in project. This is helpful in case you already using some other library."
+    },
+    "options": {
+      "title": "Options",
+      "option": {
+        "config": "Vuestic [Global Config](/services/global-config)",
+        "css": "Choose which CSS modules will be added to nuxt. If `true` all CSS modules will be added",
+        "fonts": "Adds Vuestic default fonts to head"
+      }
     }
   },
   "ssrGuide": {
@@ -4203,9 +4239,31 @@
         "title": "Place on cursor",
         "text": "You can render dropdown content on cursor position. It is usefull to use `cursor` props with `auto-placement` so if content do not fit target it will be placed somewhere else."
       },
-      "PreventOverflow" : {
+      "PreventOverflow": {
         "title": "Prevent overflow",
         "text": "By default dropdown content is rendered as body child. This way we prevent any overflow. In example below `overflow: hidden` of green box is ignored. But we still able to respec overflow by changing `target` prop. In example below `overflow: hidden` of red box is hidding dropdown content."
+      }
+    }
+  },
+  "scrollContainer": {
+    "title": "Scroll container",
+    "description": "Scroll container with custom colored scrollbar. Useful in case you have long list.",
+    "examples": {
+      "Default": {
+        "title": "Default usage",
+        "text": ""
+      },
+      "Color": {
+        "title": "Color",
+        "text": "You can change color of scrollbar by passing `color` prop."
+      },
+      "Horizontal": {
+        "title": "Horizontal",
+        "text": "You can specify if scroll container has horizontal scroll as well as vertical."
+      },
+      "Size": {
+        "title": "Size",
+        "text": "By default Veustic use `thin` scrollbar width. You can change it to `default` in GlobalConfig if you don't like `thin` size."
       }
     }
   }

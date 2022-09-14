@@ -1,4 +1,3 @@
-
 export const iconsStyles = `
   <!-- Font Awesome 5 -->
   <link
@@ -15,7 +14,7 @@ export const iconsConfig = `
   import { createApp } from "vue"
   import App from "./App.vue"
   import { createVuestic, createIconsConfig } from "vuestic-ui"
-  import 'vuestic-ui/dist/vuestic-ui.css'
+  import 'vuestic-ui/css'
 
   const fonts = [
     {
@@ -46,9 +45,7 @@ export const iconsConfig = `
   const app = createApp(App)
     .use(createVuestic({
       config: {
-        {
-          icons: createIconsConfig({ fonts }),
-        }
+        icons: createIconsConfig({ fonts }),
       }
     }))
 

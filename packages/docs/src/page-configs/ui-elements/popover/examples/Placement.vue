@@ -23,6 +23,7 @@
   </va-popover>
 
   <va-popover
+    class="mb-2"
     placement="right"
     message="Placement Right"
   >
