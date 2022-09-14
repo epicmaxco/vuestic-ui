@@ -21,7 +21,7 @@ importedConfigsContext.keys().forEach(async (filename) => {
   const titleBlock = importedConfig.find(configBlock => configBlock.type === BlockType.TITLE)
   const example =
     importedConfig.find(
-      (blockElement: any) =>
+      (blockElement) =>
         blockElement.type === BlockType.EXAMPLE &&
         blockElement.component === 'Default',
     )
