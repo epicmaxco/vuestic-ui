@@ -20,7 +20,6 @@
   >
     <div
       class="va-tab__content"
-      :class="keyboardFocusClass"
       :tabindex="tabIndexComputed"
       @focus="onFocus"
       @click="onTabClick"
@@ -48,8 +47,8 @@ import { computed, defineComponent, inject, onBeforeUnmount, onMounted, ref, sha
 
 import {
   useComponentPresetProp,
+  useKeyboardOnlyFocus,
   useRouterLink, useRouterLinkProps,
-  useKeyboardFocusClass, useKeyboardFocusClassProps,
   useColors,
 } from '../../../../composables'
 
@@ -63,7 +62,6 @@ export default defineComponent({
   emits: ['click', 'keydown-enter', 'focus'],
 
   props: {
-    ...useKeyboardFocusClassProps,
     ...useRouterLinkProps,
     ...useComponentPresetProp,
     selected: { type: Boolean, default: false },
@@ -83,11 +81,7 @@ export default defineComponent({
     const rightSidePosition = ref(0)
     const leftSidePosition = ref(0)
 
-    const {
-      keyboardFocusClass,
-      keyboardFocusListeners,
-      hasKeyboardFocus,
-    } = useKeyboardFocusClass(props, 'va-tab__content')
+    const { keyboardFocusListeners, hasKeyboardFocus } = useKeyboardOnlyFocus()
 
     const { tagComputed, hrefComputed, isActiveRouterLink } = useRouterLink(props)
     const classComputed = computed(() => ({ 'va-tab--disabled': props.disabled }))
@@ -186,7 +180,6 @@ export default defineComponent({
       onTabClick,
       onTabKeydown,
       onFocus,
-      keyboardFocusClass,
       keyboardFocusListeners,
     }
   },
@@ -224,7 +217,7 @@ export default defineComponent({
       padding: var(--va-tab-content-padding);
       cursor: var(--va-tab-content-cursor);
 
-      @include keyboard-focus($offset: -2px);
+      @include keyboard-focus-outline($radius: 2px, $offset: -2px);
     }
 
     &__icon {
