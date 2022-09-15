@@ -74,7 +74,7 @@ export default defineComponent({
       margin: var(--va-button-group-button-margin);
       box-shadow: none;
 
-      @include keyboard-focus($radius: 'inherit', $offset: -2px);
+      @include keyboard-focus-outline($offset: -2px);
     }
 
     & > .va-button:last-child {

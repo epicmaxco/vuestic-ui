@@ -55,7 +55,7 @@ Some other ground rules:
 Every interactive item should be accessible via `Tab` button (should have `tabindex="0"` attribute).
 
 Some other ground rules:
-- `focused` state should be highlighted via `useKeyboardFocusClass` composable;
+- `focused` state should be highlighted via `keyboard-focus-outline` SCSS mixin;
 - `tabindex` attribute can be `-1` (excluded from tab navigation) or `0`, no other values;
 - elements with `tabindex="0"` shouldn't be hidden via `aria-hidden="true"` attribute;
 - interaction with an element should be reachable via the `enter`, `space` or other keys (list of them is specified in the source of truth for each role).

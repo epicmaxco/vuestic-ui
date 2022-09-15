@@ -6,7 +6,6 @@
     :class="computedClass"
     :style="computedStyle"
     v-bind="attributesComputed"
-    v-on="keyboardFocusListeners"
   >
     <span class="va-button__content" :class="wrapperClassComputed">
       <va-icon
@@ -41,7 +40,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, computed, shallowRef } from 'vue'
+import { defineComponent, PropType, computed, toRefs, shallowRef } from 'vue'
 
 import {
   useBem,
@@ -54,7 +53,6 @@ import {
   useRouterLink, useRouterLinkProps,
   useDeprecatedProps,
   useComponentPresetProp,
-  useKeyboardFocusClass, useKeyboardFocusClassProps,
 } from '../../composables'
 
 import { useButtonBackground } from './hooks/useButtonBackground'
@@ -71,7 +69,6 @@ export default defineComponent({
   name: 'VaButton',
   components: { VaIcon, VaProgressCircle },
   props: {
-    ...useKeyboardFocusClassProps,
     ...useComponentPresetProp,
     ...useSizeProps,
     ...useHoverStyleProps,
@@ -123,9 +120,10 @@ export default defineComponent({
     const attributesComputed = useButtonAttributes(props)
 
     // states
+    const { disabled } = toRefs(props)
     const button = shallowRef<HTMLElement>()
     const { focus, blur } = useFocus(button)
-    const { isHovered } = useHover(button)
+    const { isHovered } = useHover(button, disabled)
     const { isPressed } = usePressed(button)
 
     // icon attributes
@@ -156,7 +154,6 @@ export default defineComponent({
       return checkSlotChildrenDeep(slots.default, true)
     })
 
-    const { keyboardFocusListeners, hasKeyboardFocusClass } = useKeyboardFocusClass(props)
     const isOneIcon = computed(() => !!((props.iconRight && !props.icon) || (!props.iconRight && props.icon)))
     const computedClass = useBem('va-button', () => ({
       ...pick(props, ['disabled', 'block', 'loading', 'round', 'plain']),
@@ -166,12 +163,11 @@ export default defineComponent({
       opacity: props.textOpacity < 1,
       iconOnly: !isSlotContentPassed.value && isOneIcon.value,
       bordered: !!props.borderColor,
-      keyboardFocus: hasKeyboardFocusClass.value,
     }))
 
     // styles
     const isTransparentBg = computed(() => props.plain || props.backgroundOpacity < 0.5)
-    const { textColorComputed } = useTextColor(colorComputed, isTransparentBg.value)
+    const { textColorComputed } = useTextColor(colorComputed, isTransparentBg)
 
     const backgroundComputed = useButtonBackground(colorComputed, isPressed, isHovered)
     const contentColorComputed = useButtonTextColor(textColorComputed, colorComputed, isPressed, isHovered)
@@ -194,7 +190,6 @@ export default defineComponent({
       attributesComputed,
       wrapperClassComputed,
       iconAttributesComputed,
-      keyboardFocusListeners,
 
       ...publicMethods,
     }
@@ -401,7 +396,7 @@ export default defineComponent({
       }
     }
 
-    @include keyboard-focus('inherit');
+    @include keyboard-focus-outline;
 
     &--loading {
       pointer-events: none;
