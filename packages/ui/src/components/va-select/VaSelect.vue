@@ -407,6 +407,8 @@ export default defineComponent({
     const isValueComputedArray = (v: Ref<SelectOption | SelectOption[]>): v is Ref<SelectOption[]> => Array.isArray(v.value)
 
     const selectOption = (option: SelectOption) => {
+      console.log('va-select: selectOption', option)
+      console.log(hoveredOption.value)
       if (hoveredOption.value === null) {
         hideAndFocus()
         return

@@ -19,32 +19,40 @@
       >
         {{ groupName }}
       </span>
-      <div
-        v-for="option in options"
+      <va-virtual-scroller
+        role="option"
+        :items="options"
+        :wrapper-size="200"
+        v-slot="{ item: option }"
+      >
+        <div
+          :class="getOptionClass(option)"
+          :style="getOptionStyle(option)"
+          :aria-selected="!!$props.getSelectedState(option)"
+          @click="selectOption(option)"
+          @mouseover="updateHoveredOption(option)"
+        >
+          <va-icon
+            v-if="getOptionIcon(option)"
+            size="small"
+            class="va-select-option-list__option--icon"
+            :name="getOptionIcon(option)"
+          />
+          <span>{{ getText(option) }}</span>
+          <va-icon
+            v-show="$props.getSelectedState(option)"
+            class="va-select-option-list__option--selected-icon"
+            size="small"
+            name="done"
+            :color="getColor($props.color)"
+          />
+        </div>
+      </va-virtual-scroller>
+
+      <!--div
         :key="$props.getTrackBy(option)"
         :ref="setItemRef(option)"
-        role="option"
-        :aria-selected="!!$props.getSelectedState(option)"
-        :class="getOptionClass(option)"
-        :style="getOptionStyle(option)"
-        @click="selectOption(option)"
-        @mouseover="updateHoveredOption(option)"
-      >
-        <va-icon
-          v-if="getOptionIcon(option)"
-          size="small"
-          class="va-select-option-list__option--icon"
-          :name="getOptionIcon(option)"
-        />
-        <span>{{ getText(option) }}</span>
-        <va-icon
-          v-show="$props.getSelectedState(option)"
-          class="va-select-option-list__option--selected-icon"
-          size="small"
-          name="done"
-          :color="getColor($props.color)"
-        />
-      </div>
+      /-->
     </template>
     <div
       v-if="!filteredOptions.length"
@@ -61,11 +69,12 @@ import { defineComponent, PropType, watch, ref, computed, ComponentPublicInstanc
 import { scrollToElement } from '../../../utils/scroll-to-element'
 import { useComponentPresetProp, useColors, useColorProps, SelectableOption } from '../../../composables'
 
+import { VaVirtualScroller } from '../../va-virtual-scroller'
 import { VaIcon } from '../../va-icon'
 
 export default defineComponent({
   name: 'VaSelectOptionList',
-  components: { VaIcon },
+  components: { VaVirtualScroller, VaIcon },
   emits: [
     'select-option',
     'update:hoveredOption',
@@ -143,7 +152,10 @@ export default defineComponent({
       return groups
     }, { _noGroup: [] }))
 
-    const selectOption = (option: SelectableOption) => emit('select-option', option)
+    const selectOption = (option: SelectableOption) => {
+      console.log('selectOption', option)
+      emit('select-option', option)
+    }
 
     const getOptionIcon = (option: SelectableOption) => typeof option === 'object' ? (option.icon as string) : undefined
 

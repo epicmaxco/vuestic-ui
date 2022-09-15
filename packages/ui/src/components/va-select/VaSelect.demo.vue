@@ -605,7 +605,7 @@ export default {
       allowCreateValueMultiple: '',
       disabledValue: 'Selected option',
       defaultSingleSelect: {
-        options: ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'],
+        options: new Array(1000).fill(null).map((_, index) => index),
         value: '',
       },
       defaultMultiSelect: {
