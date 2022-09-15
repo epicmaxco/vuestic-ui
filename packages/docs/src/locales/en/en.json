@@ -3846,6 +3846,9 @@
     "configuring": {
       "title": "Configuring",
       "about": "You can specify your own thresholds values, disable threshold class support or the whole service via Vuestic UI configuration object."
+    },
+    "examples": {
+      "default": "Current breakpoint is:"
     }
   },
   "cssVariables": {

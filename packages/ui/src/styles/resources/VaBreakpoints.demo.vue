@@ -33,7 +33,7 @@ const breakpoints = useBreakpoints()
 
 const bodyClass = ref()
 const getBodyClass = () => {
-  bodyClass.value = document.querySelector('body')?.classList.value
+  bodyClass.value = document.querySelector('body')!.classList.value
 }
 onMounted(getBodyClass)
 useEvent('resize', getBodyClass, true)

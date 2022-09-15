@@ -32,6 +32,7 @@ const block = new PageGenerationHelper(__dirname)
 const config: ApiDocsBlock[] = [
   block.title('breakpoints.title'),
   block.paragraph('breakpoints.about'),
+  block.example('Default'),
 
   block.paragraph('breakpoints.sizes.intro'),
   block.paragraph('breakpoints.sizes.xs'),
