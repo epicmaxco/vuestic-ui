@@ -1370,7 +1370,7 @@
     "advancedIconsConfig": "Advanced Icons Config",
     "componentsConfig": "Компоненты",
     "colorsConfig": "Цвета",
-    "breakpoints": "Breakpoints",
+    "breakpoints": "Breakpoint",
     "cssVariables": "Переменные CSS",
     "smartHelpers": "Умные хелперы",
     "sidebarItem": "Sidebar Item",
@@ -2719,7 +2719,7 @@
   },
   "smartHelpers": {
     "title": "Умные помощники",
-    "summaryText": "Vuestic UI предоставляет ряд умных CSS хелперов, которые адаптируют свое значение под текущее разрешение экрана (смотрите также [Breakpoints Service](/services/breakpoints)).",
+    "summaryText": "Vuestic UI предоставляет ряд умных CSS хелперов, которые адаптируют свое значение под текущее разрешение экрана (смотрите также [Breakpoint Service](/services/breakpoints)).",
     "examples": {
       "gutters": {
         "title": "Отступ между блоками (gutters)",
@@ -3675,7 +3675,7 @@
     }
   },
   "breakpoints": {
-    "title": "Breakpoints",
+    "title": "Breakpoint",
     "about": "Vuestic UI предоставляет сервис, с помощью которого вы сможете контролировать каждый аспект работы вашего приложения, завязанный на размер пользовательского экрана.",
     "sizes": {
       "intro": "Мы используем следующие пороги:",

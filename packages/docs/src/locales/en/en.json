@@ -1453,7 +1453,7 @@
     "advancedIconsConfig": "Advanced Icons Config",
     "componentsConfig": "Components Config",
     "colorsConfig": "Colors Config",
-    "breakpoints": "Breakpoints",
+    "breakpoints": "Breakpoint Service",
     "cssVariables": "CSS Variables",
     "smartHelpers": "Smart Helpers",
     "sidebarItem": "Sidebar Item",
@@ -2833,7 +2833,7 @@
   },
   "smartHelpers": {
     "title": "Smart Helpers",
-    "summaryText": "Vuestic UI provides amount of smart CSS helpers which are adopting to the current breakpoint (see also [Breakpoints Service](/services/breakpoints)).",
+    "summaryText": "Vuestic UI provides amount of smart CSS helpers which are adopting to the current breakpoint (see also [Breakpoint Service](/services/breakpoints)).",
     "examples": {
       "gutters": {
         "title": "Gutters",
@@ -3815,8 +3815,8 @@
     }
   },
   "breakpoints": {
-    "title": "Breakpoints Service",
-    "about": "Vuestic UI provides breakpoints service that allows you to control every aspect of your application which depends on the window size.",
+    "title": "Breakpoint Service",
+    "about": "Vuestic UI provides breakpoint service that allows you to control every aspect of your application which depends on the window size.",
     "sizes": {
       "intro": "We use the following breakpoints:",
       "xs": "`.xs` - (< 640px) - Extra small devices",
@@ -3827,7 +3827,7 @@
     },
     "helpers": {
       "title": "Helpers",
-      "about": "Breakpoints service provides amount of helpers via `useBreakpoint` composable.",
+      "about": "Breakpoint service provides amount of helpers via `useBreakpoint` composable.",
       "list": {
         "title": "Helpers list:",
         "thresholds": "List of the current thresholds.",
