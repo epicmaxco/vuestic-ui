@@ -39,79 +39,11 @@
       >
         Default Button
       </va-rating>
-      <va-tree-root color="warning">
-        <va-tree-category label="Electronics">
-          <va-tree-node>Cellphones</va-tree-node>
-          <va-tree-node>Camera Body Kits</va-tree-node>
-          <va-tree-node>External HDDs</va-tree-node>
-        </va-tree-category>
-        <va-tree-category
-          is-open
-          label="Products"
-        >
-          <va-tree-category label="Cables">
-            <va-tree-node>Audio</va-tree-node>
-            <va-tree-node>Video</va-tree-node>
-            <va-tree-node>Optical</va-tree-node>
-          </va-tree-category>
-          <va-tree-node>Monitors</va-tree-node>
-          <va-tree-node>Keyboards</va-tree-node>
-        </va-tree-category>
-        <va-tree-category label="Apparel">
-          <va-tree-node>Jackets</va-tree-node>
-          <va-tree-node>Pants</va-tree-node>
-          <va-tree-node>Skirts</va-tree-node>
-        </va-tree-category>
-      </va-tree-root>
       <va-file-upload
         v-model="files"
         color="info"
       />
     </VbCard>
-    <!-- <VbCard title="Change color">
-      <div>
-        primary
-        <va-color-input-advanced
-          v-model="$themes.primary"
-          mode="advanced"
-        />
-      </div>
-      <div>
-        secondary
-        <va-color-input-advanced
-          v-model="$themes.secondary"
-          mode="advanced"
-        />
-      </div>
-      <div>
-        success
-        <va-color-input-advanced
-          v-model="$themes.success"
-          mode="advanced"
-        />
-      </div>
-      <div>
-        info
-        <va-color-input-advanced
-          v-model="$themes.info"
-          mode="advanced"
-        />
-      </div>
-      <div>
-        warning
-        <va-color-input-advanced
-          v-model="$themes.warning"
-          mode="advanced"
-        />
-      </div>
-      <div>
-        danger
-        <va-color-input-advanced
-          v-model="$themes.danger"
-          mode="advanced"
-        />
-      </div>
-    </VbCard> -->
     <VbCard title="These 2 badges share `info` theme">
       <va-badge
         color="info"
@@ -127,27 +59,20 @@
 </template>
 
 <script>
-import { VaButton } from './../../vuestic-components/va-button/VaButton'
+import VaButton from '../../components/va-button/VaButton'
 import VaAlert
-  from './../../vuestic-components/va-alert/VaAlert'
+  from '../../components/va-alert/VaAlert'
 import VaProgressBar
-  from '../../vuestic-components/va-progress-bar/VaProgressBar'
-import VaRating from '../../vuestic-components/va-rating/VaRating'
-import VaTreeRoot from '../../vuestic-components/va-tree-view/VaTreeRoot'
-import VaTreeCategory
-  from '../../vuestic-components/va-tree-view/VaTreeCategory/VaTreeCategory'
-import VaTreeNode from '../../vuestic-components/va-tree-view/VaTreeNode/VaTreeNode'
-import VaBadge from '../../vuestic-components/va-badge/VaBadge'
-import VaFileUpload from '../../vuestic-components/va-file-upload/VaFileUpload'
-import VaSlider from '../../vuestic-components/va-slider/VaSlider'
+  from '../../components/va-progress-bar/VaProgressBar'
+import VaRating from '../../components/va-rating/VaRating'
+import VaBadge from '../../components/va-badge/VaBadge'
+import VaFileUpload from '../../components/va-file-upload/VaFileUpload'
+import VaSlider from '../../components/va-slider/VaSlider'
 
 export default {
   components: {
     VaBadge,
     VaFileUpload,
-    VaTreeNode,
-    VaTreeCategory,
-    VaTreeRoot,
     VaRating,
     VaButton,
     VaAlert,
