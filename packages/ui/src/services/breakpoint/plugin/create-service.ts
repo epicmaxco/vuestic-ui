@@ -8,27 +8,27 @@ import { getGlobalProperty } from '../../../vuestic-plugin/utils'
 import { addOrUpdateStyleElement } from '../../dom-functions'
 
 import { GlobalConfig } from '../../global-config/types'
-import { ThresholdsKey, BreakpointsConfig, BodyClass } from '../types'
+import { ThresholdsKey, BreakpointConfig, BodyClass, BreakpointServiceObject, BreakpointHelpers } from '../types'
 
-export const createBreakpointsConfigPlugin = (app: App) => {
+export const createBreakpointConfigPlugin = (app: App) => {
   const globalConfig: Ref<GlobalConfig> | undefined = getGlobalProperty(app, '$vaConfig')?.globalConfig
   if (!globalConfig) {
-    warn('createBreakpointsConfigPlugin: globalConfig is not defined!')
+    warn('createBreakpointConfigPlugin: globalConfig is not defined!')
     return {}
   }
 
-  const breakpointsConfig: ComputedRef<BreakpointsConfig> = computed(() => {
-    const breakpoints = globalConfig.value.breakpoints
-    if (!breakpoints) { warn('createBreakpointsConfigPlugin: breakpointsConfig is not defined!') }
-    return breakpoints ?? {} as BreakpointsConfig
+  const breakpointConfig: ComputedRef<BreakpointConfig> = computed(() => {
+    const breakpoint = globalConfig.value.breakpoint
+    if (!breakpoint) { warn('createBreakpointConfigPlugin: breakpointConfig is not defined!') }
+    return breakpoint ?? {} as BreakpointConfig
   })
 
-  if (!breakpointsConfig.value.enabled) {
+  if (!breakpointConfig.value.enabled) {
     return {}
   }
 
-  if (!breakpointsConfig.value.thresholds || !Object.values(breakpointsConfig.value.thresholds).length) {
-    warn('createBreakpointsConfigPlugin: there are no defined thresholds!')
+  if (!breakpointConfig.value.thresholds || !Object.values(breakpointConfig.value.thresholds).length) {
+    warn('createBreakpointConfigPlugin: there are no defined thresholds!')
     return {}
   }
 
@@ -38,14 +38,14 @@ export const createBreakpointsConfigPlugin = (app: App) => {
   const currentBreakpoint = computed(() => {
     if (!isMounted.value || !windowSizes.width) { return }
 
-    return Object.entries(breakpointsConfig.value.thresholds).reduce((acc: string, [key, value]) => {
+    return Object.entries(breakpointConfig.value.thresholds).reduce((acc: string, [key, value]) => {
       if (windowSizes.width! >= value) { acc = key }
       return acc
     }, 'xs') as unknown as ThresholdsKey
   })
 
   const screenClasses = computed(() =>
-    (Object.keys(breakpointsConfig.value.thresholds) as ThresholdsKey[])
+    (Object.keys(breakpointConfig.value.thresholds) as ThresholdsKey[])
       .reduce((acc: Record<ThresholdsKey, BodyClass>, threshold: ThresholdsKey) => {
         acc[threshold] = `va-screen-${threshold}`
         return acc
@@ -54,7 +54,7 @@ export const createBreakpointsConfigPlugin = (app: App) => {
   const generateHelpersMediaCss = () => {
     let result = ''
 
-    Object.values(breakpointsConfig.value.thresholds)
+    Object.values(breakpointConfig.value.thresholds)
       .forEach((thresholdValue, index) => {
         result += `@media screen and (min-width: ${thresholdValue}px) {`
         // 0.2 coefficient for xs threshold and 1 for xl, experimental value for now
@@ -70,7 +70,7 @@ export const createBreakpointsConfigPlugin = (app: App) => {
 
   const getDocument = useDocument()
   watch(currentBreakpoint, (newValue) => {
-    if (!newValue || !breakpointsConfig.value.bodyClass || !getDocument.value) { return }
+    if (!newValue || !breakpointConfig.value.bodyClass || !getDocument.value) { return }
 
     getDocument.value.body.classList.forEach((className: string) => {
       if ((Object.values(screenClasses.value) as string[]).includes(className)) {
@@ -81,7 +81,7 @@ export const createBreakpointsConfigPlugin = (app: App) => {
     getDocument.value.body.classList.add(screenClasses.value[newValue])
   }, { immediate: true })
 
-  const breakpointsHelpers = computed(() => {
+  const breakpointHelpers = computed(() => {
     const isXs = currentBreakpoint.value === 'xs'
     const isSm = currentBreakpoint.value === 'sm'
     const isMd = currentBreakpoint.value === 'md'
@@ -103,17 +103,17 @@ export const createBreakpointsConfigPlugin = (app: App) => {
       mdDown: isXs || isSm || isMd,
       lgDown: isXs || isSm || isMd || isLg,
     }
-  })
+  }) as ComputedRef<BreakpointHelpers>
 
   const result = computed(() => ({
     width: windowSizes.width,
     height: windowSizes.height,
     current: currentBreakpoint.value,
-    thresholds: breakpointsConfig.value.thresholds,
-    ...breakpointsHelpers.value,
-  }))
+    thresholds: breakpointConfig.value.thresholds,
+    ...breakpointHelpers.value,
+  })) as ComputedRef<BreakpointServiceObject>
 
-  return new Proxy({}, {
+  return new Proxy({} as typeof result.value, {
     ownKeys: () => Reflect.ownKeys(result.value),
     getOwnPropertyDescriptor: (_, key) => Reflect.getOwnPropertyDescriptor(result.value, key),
     get: (_, key: string, receiver: any) => Reflect.get(result.value, key, receiver),

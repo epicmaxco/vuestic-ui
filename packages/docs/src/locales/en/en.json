@@ -3827,7 +3827,7 @@
     },
     "helpers": {
       "title": "Helpers",
-      "about": "Breakpoints service provides amount of helpers to use them in template or setup function.",
+      "about": "Breakpoints service provides amount of helpers via `useBreakpoint` composable.",
       "list": {
         "title": "Helpers list:",
         "thresholds": "List of the current thresholds.",

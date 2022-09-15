@@ -5,7 +5,7 @@ import { GlobalConfig, GlobalConfigUpdater } from './types'
 import { getComponentsDefaultConfig } from './config-default'
 import { createIconsConfig } from '../icon-config/icon-config-helpers'
 import { colorsPresets } from '../color-config/color-theme-presets'
-import { getBreakpointsDefaultConfig } from '../breakpoints'
+import { getBreakpointDefaultConfig } from '../breakpoint'
 import { getGlobalProperty } from '../../vuestic-plugin/utils'
 
 export type ProvidedGlobalConfig = {
@@ -26,7 +26,7 @@ export const createGlobalConfig = () => {
     colors: colorsPresets.default,
     icons: createIconsConfig({}),
     components: getComponentsDefaultConfig(),
-    breakpoints: getBreakpointsDefaultConfig(),
+    breakpoint: getBreakpointDefaultConfig(),
   })
 
   const getGlobalConfig = (): GlobalConfig => globalConfig.value

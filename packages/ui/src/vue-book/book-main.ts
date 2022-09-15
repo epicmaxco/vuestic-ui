@@ -14,7 +14,7 @@ import {
   VaToastPlugin,
   VaModalPlugin,
   VaDropdownPlugin,
-  BreakpointsConfigPlugin,
+  BreakpointConfigPlugin,
 } from '../main'
 import { colorsPresets } from '../services/color-config/color-theme-presets'
 
@@ -50,7 +50,7 @@ app.use(createVuesticEssential({
       banana: '#d0f55d',
     },
   },
-  plugins: { VaToastPlugin, VaDropdownPlugin, VaModalPlugin, BreakpointsConfigPlugin },
+  plugins: { VaToastPlugin, VaDropdownPlugin, VaModalPlugin, BreakpointConfigPlugin },
 }))
 
 app.mount('#app')

@@ -1,13 +1,13 @@
 import type { ComponentConfig } from '../component-config/component-config'
 import type { ColorConfig } from '../color-config'
 import type { IconConfig } from '../icon-config/types'
-import type { BreakpointsConfig } from '../breakpoints'
+import type { BreakpointConfig } from '../breakpoint'
 
 export type GlobalConfig = {
   colors?: ColorConfig,
   icons?: IconConfig,
   components?: ComponentConfig,
-  breakpoints?: BreakpointsConfig,
+  breakpoint?: BreakpointConfig,
 }
 
 export type SizeConfig = {
@@ -20,5 +20,5 @@ export type {
   ColorConfig,
   ComponentConfig,
   IconConfig,
-  BreakpointsConfig,
+  BreakpointConfig,
 }

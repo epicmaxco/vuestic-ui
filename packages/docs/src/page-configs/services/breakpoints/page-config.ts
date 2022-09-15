@@ -1,7 +1,7 @@
 import { ApiDocsBlock } from '@/types/configTypes'
 import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import { TableData, TableColumn } from '@/components/DocsTable/DocsTableTypes'
-import { helpersCodeSetup, helpersCodeTemplate, configCode, bodyClassCode } from '@/page-configs/services/breakpoints/code-examples'
+import { helpersCodeSetup, configCode, bodyClassCode } from '@/page-configs/services/breakpoints/code-examples'
 
 const columnsHelpersTypes: TableColumn[] = [
   'name',
@@ -43,7 +43,6 @@ const config: ApiDocsBlock[] = [
 
   block.subtitle('breakpoints.helpers.title'),
   block.paragraph('breakpoints.helpers.about'),
-  block.code(helpersCodeTemplate),
   block.code(helpersCodeSetup),
   block.paragraph('breakpoints.helpers.list.title'),
   block.table(columnsHelpersTypes, tableDataHelpersTypes),

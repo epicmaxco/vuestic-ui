@@ -3,7 +3,7 @@ import { createVuestic } from 'vuestic-ui'
 
 createApp(App)
   .use(createVuestic({
-    breakpoints: {
+    breakpoint: {
       enable: true,
       bodyClass: false,
       thresholds: {

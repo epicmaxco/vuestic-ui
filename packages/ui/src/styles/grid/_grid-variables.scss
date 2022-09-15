@@ -1,4 +1,4 @@
-// variables for runtime calculations, --va-media-ratio variable is overwritten by breakpoints service
+// variables for runtime calculations, --va-media-ratio variable is overwritten by breakpoint service
 :root {
   --va-media-ratio-default: var(--va-media-ratio, 1);
   --va-grid-gutter-default: 0.5rem;
@@ -7,7 +7,7 @@
   --va-grid-spacing-base: calc(var(--va-media-ratio-default) * var(--va-grid-spacing-default));
 }
 
-// breakpoints must be always synchronized with breakpoints service defaults
+// breakpoints must be always synchronized with breakpoint service defaults
 $grid-breakpoints: (
   xs: 0,
   sm: 640px,
@@ -18,7 +18,7 @@ $grid-breakpoints: (
 
 $grid-columns: 12 !default;
 
-// gutters are depending on the current breakpoint (provided by breakpoints service via --va-media-ratio)
+// gutters are depending on the current breakpoint (provided by breakpoint service via --va-media-ratio)
 $grid-gutters: (
   1: #{calc(var(--va-grid-gutter-base) * 0.25)},
   2: #{calc(var(--va-grid-gutter-base) * 0.5)},

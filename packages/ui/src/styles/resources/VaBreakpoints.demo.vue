@@ -1,10 +1,7 @@
 <template>
   <VbDemo>
-    <VbCard title="template variable">
-      {{ $vaBreakpoints }}
-    </VbCard>
     <VbCard title="composable variable">
-      {{ breakpoints }}
+      {{ breakpoint }}
     </VbCard>
     <VbCard title="body class">
       {{ bodyClass }}
@@ -17,8 +14,8 @@
     </VbCard>
     <VbCard title="breakpoint conditions">
       <div class="flex">
-        <p v-show="breakpoints.mdDown">Should be visible for `md` and down</p>
-        <p v-show="breakpoints.lgUp">Should be visible for `lg` and up</p>
+        <p v-show="breakpoint.mdDown">Should be visible for `md` and down</p>
+        <p v-show="breakpoint.lgUp">Should be visible for `lg` and up</p>
       </div>
     </VbCard>
   </VbDemo>
@@ -27,9 +24,9 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 
-import { useBreakpoints, useEvent } from '../../composables'
+import { useBreakpoint, useEvent } from '../../composables'
 
-const breakpoints = useBreakpoints()
+const breakpoint = useBreakpoint()
 
 const bodyClass = ref()
 const getBodyClass = () => {

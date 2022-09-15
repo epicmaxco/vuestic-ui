@@ -1,6 +1,6 @@
-import { BreakpointsConfig, ThresholdsConfig } from './types'
+import { BreakpointConfig, ThresholdsConfig } from './types'
 
-export const vaBreakpointsSymbol = Symbol('vaBreakpoints')
+export const vaBreakpointSymbol = Symbol('vaBreakpoint')
 
 const defaultThresholds: ThresholdsConfig = {
   xs: 0,
@@ -10,7 +10,7 @@ const defaultThresholds: ThresholdsConfig = {
   xl: 1920,
 }
 
-export const getBreakpointsDefaultConfig = (): BreakpointsConfig => ({
+export const getBreakpointDefaultConfig = (): BreakpointConfig => ({
   enabled: true,
   bodyClass: true,
   thresholds: defaultThresholds,
