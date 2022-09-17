@@ -24,6 +24,11 @@ const config: ApiDocsBlock[] = [
     'Default',
   ),
   ...block.exampleBlock(
+    'input.examples.extendedDefault.title',
+    'input.examples.extendedDefault.text',
+    'ExtendedDefault',
+  ),
+  ...block.exampleBlock(
     'input.examples.styles.title',
     'input.examples.styles.text',
     'Styles',
