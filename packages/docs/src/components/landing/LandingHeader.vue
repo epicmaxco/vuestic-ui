@@ -1,16 +1,14 @@
 <template>
   <header class="header">
     <div class="header__wrapper">
-      <div class="header__inner">
-        <div class="header__logo">
-          <a href="/" aria-label="go to the main page">
-            <vuestic-logo height="30" width="150" aria-hidden="true" />
-          </a>
-          <div class="menu" @click="onClick(!isHidden)" :style="{position: !isHidden ? 'fixed' : 'absolute'}">
-            <img v-if="!isHidden" src="../../assets/landing/images/hamburger.svg" alt="menu">
-            <img v-else src="../../assets/landing/images/cross.svg" alt="menu">
-          </div>
-        </div>
+      <div class="header__inner" :class="{'inner--opened': !isHidden}">
+        <a class="header__link" href="/" aria-label="go to the main page">
+          <vuestic-logo height="30" width="150" aria-hidden="true" />
+        </a>
+        <algolia-search class="header__search" />
+        <button class="menu" @click="toggleMobileMenu" :class="{'menu--opened': !isHidden}">
+          <img :src="mobileMenuIconSrc" alt="menu">
+        </button>
         <nav class="header__links">
           <!-- vuestic buttons -->
           <va-button :to="`/${$root.$i18n.locale}/introduction/overview`" class="header__links--link" preset="secondary">{{ $t('landing.header.buttons.overview') }}</va-button>
@@ -39,7 +37,7 @@
             <va-list-label color="#757B83" class="mobile-menu__label">
               {{ $t('landing.header.buttons.language') }}
             </va-list-label>
-            <div class="mobile-menu__languages">
+            <div class="mobile-menu__languages" v-if="false">
               <va-list-item
                 v-for="(option, id) in options"
                 :key="id"
@@ -73,58 +71,29 @@
   </header>
 </template>
 
-<script lang="ts">
-// @ts-nocheck
-import { Options, Vue } from 'vue-class-component'
-import { languages } from '../../locales'
+<script>
+</script>
+
+<script lang="ts" setup>
 import VuesticLogo from '../header/components/VuesticLogo.vue'
 import LanguageDropdown from '../header/components/LanguageDropdown.vue'
 import LandingStarsButton from './LandingStarsButton.vue'
+import AlgoliaSearch from '@/components/header/components/algolia-search/AlgoliaSearch.vue'
+import { ref, computed } from 'vue'
 
-@Options({
-  name: 'LandingHeader',
-  components: {
-    LanguageDropdown, LandingStarsButton, VuesticLogo,
-  },
-})
-export default class Header extends Vue {
-  value = false
-  isHidden = true
-  options = languages
+const value = ref(false)
+const isHidden = ref(true)
 
-  onClick (value: boolean) {
-    this.isHidden = value
-  }
-
-  get computedClass () {
-    return {
-      'mobile-menu--open': !this.isHidden,
-    }
-  }
-
-  setLanguage (locale: any) {
-    this.$root.$i18n.locale = locale
-    document.querySelector('html').setAttribute('lang', locale)
-    localStorage.setItem('VueAppLanguage', locale)
-    this.$nextTick(() => {
-      // a little hack to change the same route alias
-      const path = this.$localizePath(this.$route.fullPath, locale)
-      this.$router.replace({
-        path,
-        hash: `#${+new Date()}`,
-      }).then(() => this.$router.replace({ hash: '' }))
-    })
-  }
-
-  get currentLanguage () {
-    return (this as any).$root.$i18n.locale
-  }
-
-  get currentLanguageName () {
-    const result = (this as any).options.find(({ code }: any) => code === this.currentLanguage)
-    return result.name
-  }
+const toggleMobileMenu = () => {
+  isHidden.value = !isHidden.value
 }
+
+const computedClass = computed(() => ({
+  'mobile-menu--open': !isHidden.value,
+}))
+
+const iconsPaths = require.context('@/assets/landing/images', false, /(cross|hamburger).svg$/)
+const mobileMenuIconSrc = computed(() => iconsPaths(isHidden.value ? './cross.svg' : './hamburger.svg'))
 </script>
 
 <style lang="scss" scoped>
@@ -150,13 +119,10 @@ export default class Header extends Vue {
       height: 4.5rem;
     }
 
-    &__logo {
-      @include col();
-      @include size(3);
-      @include size-sm(12);
+    &__link {
+      display: block;
 
-      display: flex;
-      justify-content: space-between;
+      @include col();
     }
 
     ::v-deep(.va-dropdown__content) {
@@ -192,17 +158,26 @@ export default class Header extends Vue {
         @include sm(width, 100%);
       }
     }
+
+    &__search {
+      margin-left: auto;
+    }
   }
 
   .menu {
-    position: absolute;
-    right: 1.5rem;
-    top: 1.5rem;
+    @include sm(display, block);
+    @include col();
+
     z-index: 1000;
     display: none;
     cursor: pointer;
+    border: none;
+    background-color: transparent;
 
-    @include sm(display, block);
+    &--opened {
+      position: fixed;
+      right: 0;
+    }
 
     img {
       display: block;
@@ -319,4 +294,15 @@ export default class Header extends Vue {
       margin-left: 0.5rem;
     }
   }
+</style>
+
+<style lang="scss">
+  @import "~@/assets/main.scss";
+
+  .DocSearch-Container {
+    z-index: 3000;
+  }
+
+  .header__search .DocSearch-Button-Placeholder {
+    @include xs(display, none); }
 </style>

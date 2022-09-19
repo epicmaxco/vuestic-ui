@@ -19,7 +19,7 @@
           </a>
         </router-link>
       </div>
-      <algolia-search />
+      <algolia-search class="header__search" />
     </div>
     <div class="header__nav">
       <div class="header__prefences sm-hidden">
@@ -184,6 +184,10 @@ export default class Header extends mixins(PropsMixin) {
           cursor: pointer;
         }
       }
+    }
+
+    &__search {
+      flex-grow: 1;
     }
 
     &__nav {

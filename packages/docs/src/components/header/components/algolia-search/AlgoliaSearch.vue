@@ -1,5 +1,5 @@
 <template>
-  <div id="docsearch" />
+  <div id="docsearch" class="docsearch" />
 </template>
 
 <script lang="ts">
@@ -43,8 +43,7 @@ export default defineComponent({
     --docsearch-text-color: var(--va-secondary);
   }
 
-  #docsearch {
-    flex-grow: 1;
+  .docsearch {
     display: flex;
 
     .DocSearch-Button {
