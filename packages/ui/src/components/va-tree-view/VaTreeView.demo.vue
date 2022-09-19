@@ -3,67 +3,116 @@
     <VbCard title="Default">
       <va-tree-view :nodes="nodes" />
     </VbCard>
-    <VbCard title="Icons">
-      <va-tree-view :nodes="nodesWithIcons" />
-      <va-tree-view :nodes="nodesWithIcons">
-        <template #icon="node">
-          <va-icon
-            :name="node.icon"
-            :color="node.iconColor"
-            :title="node.label"
-            size="20px"
-          />
-        </template>
-      </va-tree-view>
+    <VbCard title="Stateless">
+      <va-tree-view :nodes="nodes" :stateful="false" />
     </VbCard>
-    <VbCard title="Selection and icons">
+    <VbCard title="Selectable">
+      <p>Default</p>
+      <va-tree-view :nodes="nodes" selectable />
+      <p>Selection strategy</p>
       <va-radio
         v-for="(option, index) in selectionTypeOptions"
         :key="index"
         v-model="selectionType"
         :option="option"
       />
-      <br />
+      <va-tree-view
+        :nodes="nodes"
+        :selection-type="selectionType"
+        selectable
+      />
+    </VbCard>
+    <VbCard title="Colored checkboxes">
       <va-color-palette
         v-model="selectedColor"
         :palette="colorsPalette"
       />
-      <br />
+      <va-tree-view
+        :nodes="nodes"
+        selectable
+        :color="selectedColor"
+      />
+    </VbCard>
+    <VbCard title="Selection model">
+      <p>Selection strategy</p>
+      <va-radio
+        v-for="(option, index) in selectionTypeOptions"
+        :key="index"
+        v-model="selectionType"
+        :option="option"
+      />
       <p>
+        Single selection model for two tree views:
+        <br />
         {{ JSON.stringify(selectedNodes) }}
       </p>
-      <br />
       <va-tree-view
         v-model:checked="selectedNodes"
-        :nodes="nodesWithIcons"
-        :color="selectedColor"
+        :nodes="nodes"
         :selection-type="selectionType"
-        expand-all
         selectable
       />
       <va-tree-view
         v-model:checked="selectedNodes"
-        :nodes="nodesWithIcons"
-        :color="selectedColor"
         :selection-type="selectionType"
-        expand-all
+        :nodes="nodes"
         selectable
       />
-      <br />
-      <p>
-        Selected nodes with custom value by property value:
-        <br />
-        {{ JSON.stringify(selectedNodesValueBy) }}
-      </p>
+    </VbCard>
+    <VbCard title="valueBy">
+      <p>{{ JSON.stringify(selectedNodesValueBy) }}</p>
       <br />
       <va-tree-view
         v-model:checked="selectedNodesValueBy"
-        :nodes="nodesWithIcons"
-        :color="selectedColor"
-        :selection-type="selectionType"
+        :nodes="nodes"
         :value-by="({id, label}) => `${id}_${label}`"
-        expand-all
         selectable
+      />
+    </VbCard>
+    <VbCard title="textBy">
+      <va-tree-view
+        :nodes="nodesTextBy"
+        text-by="title"
+      />
+    </VbCard>
+    <VbCard title="trackBy">
+      <va-tree-view
+        :nodes="nodesTrackBy"
+        track-by="trackId"
+      />
+    </VbCard>
+    <VbCard title="iconBy">
+      <va-tree-view
+        :nodes="nodesIconBy"
+        icon-by="image"
+      />
+    </VbCard>
+    <VbCard title="disabledBy">
+      <va-tree-view
+        :nodes="nodesDisabledBy"
+        disabled-by="inactive"
+      />
+    </VbCard>
+    <VbCard title="Expandable">
+      <p>Expand all</p>
+      <va-tree-view :nodes="nodes" expand-all />
+      <p>Expanded by</p>
+      <va-tree-view :nodes="nodes" expand-all />
+      <p>Expanded v-model: {{ JSON.stringify(expandedNodes) }}</p>
+      <va-tree-view v-model:expanded="expandedNodes" :nodes="nodes" />
+    </VbCard>
+    <VbCard title="Filter">
+      <va-input
+        v-model="filterValue"
+        placeholder="Filter the tree view"
+        style="margin-bottom: 1rem;"
+      />
+      <va-checkbox v-model="isFilterCaseSensitive" label="Case sensitive" />
+      <va-tree-view
+        :nodes="filterableNodes"
+        :filter="filterValue"
+        :filter-method="customFilterMethod"
+        expand-all
       />
     </VbCard>
     <VbCard title="With custom body">
@@ -84,16 +133,6 @@
           </div>
         </template>
       </va-tree-view>
-    </VbCard>
-    <VbCard title="Filter">
-      <va-input v-model="filterValue" placeholder="Filter the tree view" style="margin-bottom: 1rem;" />
-      <va-checkbox v-model="isFilterCaseSensitive" label="Case sensitive" />
-      <va-tree-view
-        :nodes="filterableNodes"
-        :filter="filterValue"
-        :filter-method="customFilterMethod"
-        expand-all
-      />
     </VbCard>
   </VbDemo>
 </template>
@@ -125,7 +164,6 @@ export default {
     VaTreeView,
     VaRadio,
     VaInput,
-    VaIcon,
     VaColorPalette,
     VaCheckbox,
   },
@@ -135,10 +173,117 @@ export default {
     selectionTypeOptions: ['leaf', 'independent'],
     selectedNodes: [],
     selectedNodesValueBy: [],
+    expandedNodes: [1],
     filterValue: '',
     colorsPalette: COLORS_PALETTE,
     selectedColor: COLORS_PALETTE[0],
-    checkedNodes: [],
+    nodes: [
+      {
+        id: 1,
+        label: 'Category',
+        children: [
+          {
+            id: 2,
+            label: 'Subcategory',
+            children: [
+              { id: 3, label: 'Item' },
+            ],
+          },
+        ],
+      },
+      { id: 4, label: 'Item' },
+    ],
+    nodesTextBy: [
+      {
+        id: 1,
+        title: 'Category',
+        children: [
+          {
+            id: 2,
+            title: 'Subcategory',
+            children: [
+              {
+                id: 3,
+                title: 'Item',
+              },
+            ],
+          },
+        ],
+      },
+      { id: 4, title: 'Item' },
+    ],
+    nodesTrackBy: [
+      {
+        trackId: 1,
+        label: 'Category',
+        children: [
+          {
+            trackId: 2,
+            label: 'Subcategory',
+            children: [
+              {
+                trackId: 3,
+                label: 'Item',
+              },
+            ],
+          },
+        ],
+      },
+      { trackId: 4, label: 'Item' },
+    ],
+    nodesIconBy: [
+      {
+        id: 1,
+        label: 'Category',
+        image: 'mail',
+        children: [
+          {
+            id: 2,
+            label: 'Subcategory',
+            image: 'mail',
+            children: [
+              { id: 3, label: 'Item' },
+            ],
+          },
+        ],
+      },
+      { id: 4, image: 'mail', label: 'Item' },
+    ],
+    nodesDisabledBy: [
+      {
+        id: 1,
+        label: 'Category',
+        children: [
+          {
+            id: 2,
+            label: 'Subcategory',
+            inactive: true,
+            children: [
+              { id: 3, label: 'Item' },
+            ],
+          },
+        ],
+      },
+      { id: 4, label: 'Item' },
+    ],
+    filterableNodes: [
+      {
+        id: 1,
+        label: 'One',
+        children: [
+          {
+            id: 2,
+            label: 'Two',
+            children: [
+              { id: 3, label: 'Three' },
+              { id: 4, label: 'Four' },
+            ],
+          },
+        ],
+      },
+      { id: 5, label: 'Five' },
+    ],
+    isFilterCaseSensitive: false,
     customBodyNodes: [
       {
         id: 1,
@@ -180,77 +325,6 @@ export default {
         ],
       },
     ],
-    nodes: [
-      {
-        id: 1,
-        label: 'Category',
-        children: [
-          {
-            id: 2,
-            label: 'Subcategory',
-            children: [
-              { id: 3, label: 'Item' },
-              { id: 4, label: 'Item' },
-            ],
-          },
-        ],
-      },
-      {
-        id: 11,
-        label: 'Item',
-      },
-    ],
-    nodesWithIcons: [
-      {
-        id: 1,
-        label: 'Category',
-        icon: 'mail',
-        iconColor: 'var(--va-danger)',
-        children: [
-          {
-            id: 2,
-            label: 'Subcategory',
-            icon: 'mail',
-            iconColor: '#4b0082',
-            children: [
-              { id: 3, label: 'Item' },
-              { id: 4, label: 'Item' },
-            ],
-          },
-          {
-            id: 5,
-            label: 'Subcategory',
-          },
-        ],
-      },
-      {
-        id: 6,
-        label: 'Item',
-        icon: 'mail',
-        iconColor: 'var(--va-warning)',
-      },
-    ],
-    filterableNodes: [
-      {
-        id: 1,
-        label: 'One',
-        children: [
-          {
-            id: 2,
-            label: 'Two',
-            children: [
-              { id: 3, label: 'Three' },
-              { id: 4, label: 'Four' },
-            ],
-          },
-        ],
-      },
-      {
-        id: 5,
-        label: 'Five',
-      },
-    ],
-    isFilterCaseSensitive: false,
   }),
 
   computed: {

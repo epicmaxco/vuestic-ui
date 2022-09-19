@@ -95,7 +95,7 @@ export const useTreeHelpers = (props: ExtractPropTypes<typeof useTreeViewProps>)
   const getText = (node: TreeNode) => getNodeProperty(node, props.textBy)
   const getDisabled = (node: TreeNode) => getNodeProperty(node, props.disabledBy)
   const getExpanded = (node: TreeNode) => getNodeProperty(node, props.expandedBy)
-  const getTrackBy = (node: TreeNode) => getNodeProperty(node, props.trackBy) || getText(node)
+  const getTrackBy = (node: TreeNode) => getNodeProperty(node, props.trackBy)
 
   const iterateNodes = (nodes: TreeNode[], cb: (node: TreeNode) => unknown) => {
     nodes.forEach((node: TreeNode) => {
