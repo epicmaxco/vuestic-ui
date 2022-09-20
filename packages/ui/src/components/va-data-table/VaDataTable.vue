@@ -537,6 +537,8 @@ export default defineComponent({
         .va-data-table__table-th-wrapper {
           display: flex;
           align-items: center;
+
+          @include keyboard-focus-outline($offset: 2px);
         }
 
         .va-data-table__table-th-sorting {
