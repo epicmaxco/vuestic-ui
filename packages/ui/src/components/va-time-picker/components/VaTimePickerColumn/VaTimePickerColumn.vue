@@ -57,7 +57,8 @@ export default defineComponent({
 
     const scrollTo = (index: number, animated = true) => {
       nextTick(() => {
-        rootElement.value!.scrollTo({
+        // see: https://github.com/vuejs/vue-test-utils/issues/319#issuecomment-354667621
+        rootElement.value?.scrollTo?.({
           behavior: animated ? 'smooth' : 'auto',
           top: index * props.cellHeight,
         })
