@@ -28,7 +28,7 @@
 <!--          </template>-->
 <!--        </va-breadcrumbs>-->
 
-        <div class="layout gutter--xl pb-6">
+        <div class="layout va-gutter-5 pb-6">
           <router-view />
         </div>
       </div>
@@ -241,12 +241,12 @@ export default class DocsLayout extends Vue {
 
       @include va-scroll(var(--va-primary));
 
-      & > .layout.gutter--xl {
+      & > .layout.va-gutter-5 {
         padding-bottom: 2rem;
       }
 
       @media (max-width: 670px) {
-        & > .layout.gutter--xl {
+        & > .layout.va-gutter-5 {
           padding: 0;
           padding-bottom: 2rem;
         }

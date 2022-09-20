@@ -22,31 +22,31 @@
     }
   }
 
-  // This applies gutters. Otherwise grid has none.
+  // generating gutter classes
   @each $size, $gutter in $grid-gutters {
-    &.gutter--#{$size} {
+    &.va-gutter-#{$size} {
       padding: $gutter;
 
       .row:only-child {
-        margin: -($gutter * 0.5);
+        margin: #{calc($gutter * (-0.5))};
       }
 
       .row:not(:only-child) {
-        margin: auto (-($gutter * 0.5));
+        margin: auto #{calc($gutter * (-0.5))};
       }
 
       *:not(:only-child) {
         .row:first-child {
-          margin-top: -($gutter * 0.5);
+          margin-top: #{calc($gutter * (-0.5))};
         }
 
         .row:last-child {
-          margin-bottom: -($gutter * 0.5);
+          margin-bottom: #{calc($gutter * (-0.5))};
         }
       }
 
       .row .flex {
-        padding: $gutter * 0.5;
+        padding: #{calc($gutter * 0.5)};
       }
     }
   }
