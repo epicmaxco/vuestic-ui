@@ -29,19 +29,30 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, nextTick, PropType, shallowRef, toRef } from 'vue'
+import {
+  computed,
+  defineComponent,
+  nextTick,
+  PropType,
+  shallowRef,
+  toRef,
+} from 'vue'
+
+import type { Placement } from '@floating-ui/dom'
+
 import pick from 'lodash/pick.js'
 import kebabCase from 'lodash/kebabCase.js'
 
 import { generateUniqueId } from '../../services/utils'
+import useFloating from './hooks/useFloating'
 
 import {
-  useStateful, useStatefulEmits, useStatefulProps,
+  useStateful,
+  useStatefulEmits,
+  useStatefulProps,
   useDebounceFn,
-  useDropdown, placementsPositions, Placement,
   useClickOutside,
   useBem,
-  useEvent,
   useIsMounted,
   useDocument,
   useHTMLElement,
@@ -49,6 +60,14 @@ import {
 import { useAnchorSelector } from './hooks/useAnchorSelector'
 import { useCursorAnchor } from './hooks/useCursorAnchor'
 import { useKeyboardNavigation, useMouseNavigation } from './hooks/useDropdownNavigation'
+import { TypeDropdownOffset } from './types'
+
+const placementsPositions = ['top', 'bottom', 'right', 'left'].reduce((acc, placement) => [
+  ...acc,
+  placement,
+  `${placement}-start`,
+  `${placement}-end`,
+], [] as string[])
 
 export default defineComponent({
   name: 'VaDropdown',
@@ -71,7 +90,7 @@ export default defineComponent({
     closeOnAnchorClick: { type: Boolean, default: true },
     hoverOverTimeout: { type: Number, default: 30 },
     hoverOutTimeout: { type: Number, default: 200 },
-    offset: { type: [Array, Number] as PropType<number | [number, number]>, default: 0 },
+    offset: { type: [Array, Number] as PropType<TypeDropdownOffset>, default: 0 },
     stickToEdges: { type: Boolean, default: false },
     autoPlacement: { type: Boolean, default: true },
     cursor: { type: Boolean, default: false },
@@ -82,7 +101,7 @@ export default defineComponent({
     },
     placement: {
       type: String as PropType<Placement>,
-      default: 'auto',
+      default: 'bottom',
       validator: (value: string) => placementsPositions.includes(value),
     },
     /** Not reactive */
@@ -214,22 +233,9 @@ export default defineComponent({
     })
 
     const teleportDisabled = computed(() => props.disabled || !isPopoverFloating.value)
-
-    useDropdown(
-      computed(() => props.cursor ? cursorAnchor.value : computedAnchorRef.value),
-      contentRef,
-      computed(() => ({
-        placement: props.placement,
-        keepAnchorWidth: props.keepAnchorWidth,
-        offset: props.offset,
-        stickToEdges: props.stickToEdges,
-        autoPlacement: props.autoPlacement,
-        root: teleportTargetComputed.value,
-        viewport: targetComputed.value,
-      })),
-    )
-
     const idComputed = computed(generateUniqueId)
+
+    useFloating(computedAnchorRef, contentRef, props)
 
     // useEvent('blur', () => {
     //   if (props.closeOnClickOutside && valueComputed.value) {
@@ -274,6 +280,7 @@ export default defineComponent({
     }
 
     &__content-wrapper {
+      position: absolute;
       z-index: var(--va-dropdown-content-wrapper-z-index);
       font-family: var(--va-font-family);
     }

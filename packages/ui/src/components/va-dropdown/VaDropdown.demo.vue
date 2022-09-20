@@ -444,11 +444,12 @@ export default {
   data () {
     return {
       possiblePositions: [
-        'auto',
         'top',
         'right',
         'bottom',
         'left',
+        'top-start',
+        'top-end',
         'bottom-start',
         'bottom-end',
         'right-start',
