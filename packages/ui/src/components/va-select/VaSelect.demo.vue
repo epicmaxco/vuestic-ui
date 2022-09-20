@@ -12,6 +12,18 @@
       <p>Value: {{ defaultSingleSelect.value }}</p>
     </VbCard>
     <VbCard
+      title="Virtual Scroller"
+      style="width: 400px;"
+    >
+      <va-select
+        v-model="withVirtualScroller.value"
+        class="mb-4"
+        :options="withVirtualScroller.options"
+        virtual-scroller
+      />
+      <p>Value: {{ withVirtualScroller.value }}</p>
+    </VbCard>
+    <VbCard
       title="Style"
       style="width: 400px;"
     >
@@ -538,7 +550,7 @@
       <va-select
         v-model="defaultSingleSelect.value"
         searchable
-        :options="CountriesList"
+        :options="countriesList"
         :loading="isLoading"
         @updateSearch="updateSearch"
       />
@@ -585,13 +597,12 @@
 </template>
 
 <script>
-import CountriesList from './demo/CountriesList'
+import { objectOptionsList, iconOptionsList, countriesList } from './demo/DemoData'
+
 import { VaIcon } from '../va-icon'
 import { VaCheckbox } from '../va-checkbox'
 import { VaChip } from '../va-chip'
 import { VaSelect } from './index'
-
-import { objectOptionsList, iconOptionsList } from './getDemoData'
 
 const positions = ['top', 'bottom']
 
@@ -605,6 +616,10 @@ export default {
       allowCreateValueMultiple: '',
       disabledValue: 'Selected option',
       defaultSingleSelect: {
+        options: ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'],
+        value: '',
+      },
+      withVirtualScroller: {
         options: new Array(1000).fill(null).map((_, index) => index),
         value: '',
       },
@@ -677,7 +692,7 @@ export default {
         },
       },
       multipleValue: [],
-      CountriesList,
+      countriesList,
       positions,
       isLoading: false,
       isClearable: true,

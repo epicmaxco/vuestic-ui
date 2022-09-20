@@ -2,7 +2,7 @@
   <va-dropdown
     ref="dropdown"
     class="va-select va-select__dropdown va-select-dropdown"
-    :aria-label="`select option (currently selected: ${$props.modelValue})`"
+    :aria-label="ariaLabelComputed"
     :placement="$props.placement"
     :disabled="$props.disabled"
     :max-height="$props.maxHeight"
@@ -140,6 +140,7 @@
           :no-options-text="$props.noOptionsText"
           :color="$props.color"
           :tabindex="tabIndexComputed"
+          :virtual-scroller="$props.virtualScroller"
           @select-option="selectOption"
           @no-previous-option-to-hover="focusSearchBar"
           @keydown.enter.stop.prevent="selectHoveredOption"
@@ -172,8 +173,8 @@ import {
 import { VaDropdown, VaDropdownContent } from '../va-dropdown'
 import { VaIcon } from '../va-icon'
 import { VaInput, VaInputWrapper } from '../va-input'
-import { VaSelectOptionList } from './VaSelectOptionList'
-import { SelectDropdownIcon, SelectOption, Placement } from './types'
+import { VaSelectOptionList } from './components/VaSelectOptionList'
+import type { SelectDropdownIcon, SelectOption, Placement } from './types'
 
 export default defineComponent({
   name: 'VaSelect',
@@ -245,6 +246,7 @@ export default defineComponent({
         return isOpenIconString && isCloseIconString
       },
     },
+    virtualScroller: { type: Boolean, default: false },
 
     // Input style
     outline: { type: Boolean, default: false },
@@ -274,9 +276,7 @@ export default defineComponent({
     const colorComputed = computed(() => getColor(props.color))
     const toggleIconColor = computed(() => props.readonly ? getHoverColor(colorComputed.value) : colorComputed.value)
 
-    const onScrollBottom = () => {
-      emit('scroll-bottom')
-    }
+    const onScrollBottom = () => emit('scroll-bottom')
 
     const searchInput = ref('')
     const showSearchInput = computed(() => props.searchable || props.allowCreate)
@@ -407,8 +407,6 @@ export default defineComponent({
     const isValueComputedArray = (v: Ref<SelectOption | SelectOption[]>): v is Ref<SelectOption[]> => Array.isArray(v.value)
 
     const selectOption = (option: SelectOption) => {
-      console.log('va-select: selectOption', option)
-      console.log(hoveredOption.value)
       if (hoveredOption.value === null) {
         hideAndFocus()
         return
@@ -533,7 +531,7 @@ export default defineComponent({
 
     const focusOptionList = () => {
       optionList.value?.focus()
-      !props.modelValue && optionList.value?.hoverFirstOption()
+      !props.modelValue && optionList.value?.focusFirstOption()
     }
 
     const focusSearchOrOptions = () => nextTick(() => {
@@ -640,6 +638,10 @@ export default defineComponent({
       hintedSearchQueryTimeoutIndex = setTimeout(() => { hintedSearchQuery = '' }, 1000)
     }
 
+    const ariaLabelComputed = computed(() => {
+      return props.modelValue ? `currently selected option: ${props.modelValue}` : 'option is not selected'
+    })
+
     return {
       isFocused,
 
@@ -687,6 +689,7 @@ export default defineComponent({
       onScrollBottom,
       clearIconProps,
       isPlaceholder,
+      ariaLabelComputed,
     }
   },
 })

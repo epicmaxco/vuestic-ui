@@ -2,7 +2,7 @@ import { computed, isRef, Ref, shallowRef, DefineComponent } from 'vue'
 
 import { useTemplateRef } from './'
 
-const extractHTMLElement = (el: any): HTMLElement => el && '$el' in el ? el.$el : el
+export const extractHTMLElement = (el: any): HTMLElement => el && '$el' in el ? el.$el : el
 
 export const useHTMLElement = (key?: string | Ref<HTMLElement | DefineComponent | undefined>): Ref<HTMLElement> => {
   if (isRef(key)) {
