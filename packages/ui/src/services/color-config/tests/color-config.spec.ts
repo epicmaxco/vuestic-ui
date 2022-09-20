@@ -31,9 +31,9 @@ describe('useColors', () => {
     })
 
     it.each([
-      [['primary', undefined, false], '#2C82E0'],
+      [['info', undefined, false], '#2C82E0'],
       [['#000', undefined, false], '#000'],
-      [['var(--va-primary)', undefined, false], '#2C82E0'],
+      [['var(--va-info)', undefined, false], 'var(--va-info)'],
       [['bad-color', '#000', false], '#000'],
       [['secondary', undefined, true], 'var(--va-secondary)'],
     ])(
@@ -47,7 +47,7 @@ describe('useColors', () => {
       [[{ color: '#000' }, 'va-test'], { '--va-test-color': '#000' }],
       [[{ color: 'secondary' }, 'va-test'], { '--va-test-color': 'var(--va-secondary)' }],
       [[{ color: 'var(--va-primary)' }, 'va-test'], { '--va-test-color': 'var(--va-primary)' }], // TODO call Oleg
-      [[{ color: 'bad-color' }, 'va-test'], { '--va-test-color': '#2C82E0' }],
+      [[{ color: 'bad-color' }, 'va-test'], { '--va-test-color': '#154EC1' }],
       [[{}, 'va-test'], {}],
     ])(
       'colorToCssVariableArgs %s should be %s',
@@ -130,9 +130,9 @@ describe('useColors', () => {
 
   it.each([
     [['#000000', '#CCCCCC', '#FFFFFF'], '#FFFFFF'],
-    [['rgb(255, 255, 255)'], 'dark'],
-    [[{ h: 0, s: 100, l: 27 }], 'white'],
-    [[{ c: 0, m: 0, y: 0, k: 0 }], 'dark'],
+    [['rgb(255, 255, 255)'], 'textDark'],
+    [[{ h: 0, s: 100, l: 27 }], 'textLight'],
+    [[{ c: 0, m: 0, y: 0, k: 0 }], 'textDark'],
   ])(
     'getTextColorArgs %s should return %s',
     (getTextColorArgs, expected) => {

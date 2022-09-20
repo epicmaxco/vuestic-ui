@@ -14,18 +14,18 @@ export const COLOR_THEMES: Record<ThemeName, Record<string, string>> = {
   [ThemeName.DEFAULT]: {
     primary: '#2550C0',
     secondary: '#767C88',
-    success: '#40e583',
-    info: '#2c82e0',
+    success: '#40E583',
+    info: '#2C82E0',
     danger: '#DE1041',
     warning: '#FFAC0A',
 
-    backgroundPrimary: '#ffffff',
-    backgroundTertiary: '#ffffff',
-    backgroundSecondary: '#f4f8fa',
-    backgroundElement: '#babfc2',
+    backgroundPrimary: '#FFFFFF',
+    backgroundTertiary: '#FFFFFF',
+    backgroundSecondary: '#F4F8FA',
+    backgroundElement: '#BABFC2',
 
     // Default
-    textLight: '#fff',
+    textLight: '#FFF',
     textDark: '#1B1A1F',
     // Misc
     shadow: 'rgba(0, 0, 0, 0.12)',
@@ -33,10 +33,10 @@ export const COLOR_THEMES: Record<ThemeName, Record<string, string>> = {
   },
   [ThemeName.DARK]: {
     // Accent
-    primary: '#00b4d8',
+    primary: '#00B4D8',
     secondary: '#767C88',
-    success: '#40e583',
-    info: '#2c82e0',
+    success: '#40E583',
+    info: '#2C82E0',
     danger: '#DE1041',
     warning: '#FFAC0A',
     // Text Colors
