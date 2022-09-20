@@ -139,7 +139,6 @@ export default defineComponent({
     }
 
     &_focused {
-      @include focus-outline;
     }
 
     &:hover,
