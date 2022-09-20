@@ -42,6 +42,7 @@
     "server:webapp": "npx http-server dist --push-state"
   },
   "dependencies": {
+    "@floating-ui/dom": "^1.0.1",
     "cleave.js": "^1.6.0",
     "colortranslator": "^1.9.2",
     "lodash": "^4.17.21"
