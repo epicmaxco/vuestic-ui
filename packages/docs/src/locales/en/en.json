@@ -1271,7 +1271,10 @@
         "loop": "If true, after last slide slider will scroll to first one through all items before.",
         "modelValue": "Slide index to be shown.",
         "vertical": "Change slider scroll orientation.",
-        "fadeKeyframe": "Custom keyframe name for fade animation"
+        "fadeKeyframe": "Custom keyframe name for fade animation",
+        "swipable": "Enables swiping behaviour.",
+        "swipeDirection": "Allowed directions for swiping: `all, horizontal, vertical, left, right, up, down`.",
+        "swipeDistance": "Distance in `px` considered sufficient for the swipe event."
       },
       "events": {},
       "methods": {},
@@ -1313,6 +1316,12 @@
         "clickOutside": "The event is triggered when clicked outside dropdown content and anchor",
         "contentClick": "The event is triggered when clicked inside dropdown content"
       },
+      "methods": {},
+      "slots": {}
+    },
+    "VaScrollContainer": {
+      "props": {},
+      "events": {},
       "methods": {},
       "slots": {}
     }
@@ -1425,7 +1434,8 @@
     "nuxt": "Nuxt",
     "ssrGuide": "SSR",
     "spacer": "Spacer",
-    "dropdown": "Dropdown"
+    "dropdown": "Dropdown",
+    "scrollContainer": "Scroll Container"
   },
   "all": {
     "examples": "Examples",
@@ -1872,6 +1882,10 @@
       "numbers": {
         "title": "Numbers",
         "text": "Want to see numbers instead of icons? We got you covered."
+      },
+      "itemSlot": {
+        "title": "Item slot",
+        "text": "You can pass own html to the component using `item` slot. We still handle user events and accessability, but you can change appearance."
       },
       "customIcons": {
         "title": "Custom Icons",
@@ -4150,6 +4164,10 @@
       "Fade": {
         "title": "Fade",
         "text": "Additional carousel slide switch effect."
+      },
+      "swipe": {
+        "title": "Swipe",
+        "text": "The `swipable` prop enables swipe behaviour for the component."
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-carousel/_variables.scss)[[target=_blank]]"
@@ -4228,9 +4246,31 @@
         "title": "Place on cursor",
         "text": "You can render dropdown content on cursor position. It is usefull to use `cursor` props with `auto-placement` so if content do not fit target it will be placed somewhere else."
       },
-      "PreventOverflow" : {
+      "PreventOverflow": {
         "title": "Prevent overflow",
         "text": "By default dropdown content is rendered as body child. This way we prevent any overflow. In example below `overflow: hidden` of green box is ignored. But we still able to respec overflow by changing `target` prop. In example below `overflow: hidden` of red box is hidding dropdown content."
+      }
+    }
+  },
+  "scrollContainer": {
+    "title": "Scroll container",
+    "description": "Scroll container with custom colored scrollbar. Useful in case you have long list.",
+    "examples": {
+      "Default": {
+        "title": "Default usage",
+        "text": ""
+      },
+      "Color": {
+        "title": "Color",
+        "text": "You can change color of scrollbar by passing `color` prop."
+      },
+      "Horizontal": {
+        "title": "Horizontal",
+        "text": "You can specify if scroll container has horizontal scroll as well as vertical."
+      },
+      "Size": {
+        "title": "Size",
+        "text": "By default Veustic use `thin` scrollbar width. You can change it to `default` in GlobalConfig if you don't like `thin` size."
       }
     }
   }

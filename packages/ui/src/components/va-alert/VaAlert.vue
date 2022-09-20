@@ -225,9 +225,7 @@ export default defineComponent({
         align-items: center;
         cursor: pointer;
 
-        &:focus {
-          @include focus-outline;
-        }
+        @include keyboard-focus-outline;
       }
     }
 

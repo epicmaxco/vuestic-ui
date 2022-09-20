@@ -251,6 +251,10 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: 'menu.accordion',
       },
       {
+        name: 'scroll-container',
+        displayName: 'menu.scrollContainer',
+      },
+      {
         category: 'menu.categories.navigation',
         name: 'pagination',
         displayName: 'menu.pagination',

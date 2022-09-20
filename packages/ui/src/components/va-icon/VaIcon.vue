@@ -101,9 +101,7 @@ export default defineComponent({
     &[role^="button"][tabindex]:not([tabindex^="-"]) {
       cursor: pointer;
 
-      &:focus {
-        @include focus-outline;
-      }
+      @include keyboard-focus-outline;
     }
 
     &#{&} {

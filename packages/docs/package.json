@@ -52,6 +52,7 @@
     "@vue/cli-plugin-unit-jest": "^5.0.7",
     "@vue/cli-plugin-vuex": "^5.0.7",
     "@vue/cli-service": "^5.0.7",
+    "@vue/cli-shared-utils": "5.0.7",
     "@vue/compiler-sfc": "^3.0.5",
     "@vue/eslint-config-standard": "^6.0.0",
     "@vue/eslint-config-typescript": "^7.0.0",
