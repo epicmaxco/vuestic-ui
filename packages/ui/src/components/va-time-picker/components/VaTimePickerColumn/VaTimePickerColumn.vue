@@ -11,6 +11,7 @@
     <VaTimePickerColumnCell
       @scroll.passive="onScroll"
       @touchmove.passive="onScroll"
+      @mousewheel.passive="onScroll"
     >
       <div
         v-for="(item, index) in items" :key="item"
