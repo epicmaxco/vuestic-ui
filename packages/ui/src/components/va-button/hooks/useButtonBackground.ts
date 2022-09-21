@@ -2,13 +2,18 @@ import { computed, Ref, ComputedRef, getCurrentInstance } from 'vue'
 
 import { useColors } from '../../../composables'
 
-import { ButtonPropsTypes } from '../types'
+import type { ButtonPropsTypes } from '../types'
 
 type UseButtonBackground = (
   colorComputed: Ref<string>,
   isPressed: Ref<boolean>,
   isHovered: Ref<boolean>,
-  ) => ComputedRef<{ background: string }>
+  ) => {
+  backgroundMaskOpacity: ComputedRef<number>;
+  backgroundMaskColor: ComputedRef<string>;
+  backgroundColor: ComputedRef<string>;
+  backgroundColorOpacity: ComputedRef<number>;
+}
 
 export const useButtonBackground: UseButtonBackground = (
   colorComputed,
@@ -17,48 +22,48 @@ export const useButtonBackground: UseButtonBackground = (
 ) => {
   const instance = getCurrentInstance()
   if (!instance) { throw new Error('`useButtonBackground` hook must be used only inside of setup function!') }
-
   const props = instance.props as Required<ButtonPropsTypes>
 
-  const { getColor, colorToRgba, getGradientBackground, getStateMaskGradientBackground } = useColors()
+  const { getColor, getGradientBackground } = useColors()
 
-  const isGradientBg = computed(() => props.gradient && props.backgroundOpacity === 1)
+  const backgroundColor = computed(() => {
+    if (props.plain) { return 'transparent' }
 
-  const backgroundColorComputed = computed(() => (
-    // may be we should change this to useElementBackground hook later
-    isGradientBg.value
+    return props.gradient
       ? getGradientBackground(colorComputed.value)
       : colorComputed.value
-  ))
-
-  const getOpacityStateBackground = (stateOpacity: number) => ({
-    background: isGradientBg.value
-      ? backgroundColorComputed.value
-      : colorToRgba(backgroundColorComputed.value, stateOpacity),
   })
 
-  const defaultBackground = computed(() => ({ ...getOpacityStateBackground(props.backgroundOpacity) }))
+  const hoveredBgState = computed(() => !props.plain && isHovered.value)
+  const pressedBgState = computed(() => !props.plain && isPressed.value)
 
-  const getStateBackground = (maskColor: string, stateOpacity: number, stateBehaviour: string) => {
-    if (stateBehaviour === 'opacity') { return { ...getOpacityStateBackground(stateOpacity) } }
+  const backgroundColorOpacity = computed(() => {
+    if (pressedBgState.value && props.pressedBehaviour === 'opacity') { return props.pressedOpacity }
+    if (hoveredBgState.value && props.hoverBehaviour === 'opacity') { return props.hoverOpacity }
 
-    const maskStateColor = getColor(maskColor)
-    return { background: getStateMaskGradientBackground(colorComputed.value, maskStateColor, stateOpacity) }
+    return props.backgroundOpacity
+  })
+
+  const hoveredMaskState = computed(() => hoveredBgState.value && props.hoverBehaviour === 'mask')
+  const pressedMaskState = computed(() => pressedBgState.value && props.pressedBehaviour === 'mask')
+
+  const backgroundMaskOpacity = computed(() => {
+    if (pressedMaskState.value) { return props.pressedOpacity }
+    if (hoveredMaskState.value) { return props.hoverOpacity }
+
+    return 0
+  })
+  const backgroundMaskColor = computed(() => {
+    if (pressedMaskState.value) { return getColor(props.pressedMaskColor) }
+    if (hoveredMaskState.value) { return getColor(props.hoverMaskColor) }
+
+    return 'transparent'
+  })
+
+  return {
+    backgroundColor,
+    backgroundColorOpacity,
+    backgroundMaskOpacity,
+    backgroundMaskColor,
   }
-
-  const hoverBackgroundComputed = computed(() => {
-    return getStateBackground(props.hoverMaskColor, props.hoverOpacity, props.hoverBehaviour)
-  })
-
-  const pressedBackgroundComputed = computed(() => {
-    return getStateBackground(props.pressedMaskColor, props.pressedOpacity, props.pressedBehaviour)
-  })
-
-  return computed(() => {
-    if (props.plain) { return { background: 'transparent' } }
-    if (isPressed.value) { return pressedBackgroundComputed.value }
-    if (isHovered.value) { return hoverBackgroundComputed.value }
-
-    return defaultBackground.value
-  })
 }
