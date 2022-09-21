@@ -22,7 +22,7 @@
 <script lang="ts">
 import { useColors } from 'vuestic-ui/src/main'
 import { computed, defineComponent } from 'vue'
-import { COLOR_THEMES } from '../../../config/theme-config'
+import { COLOR_THEMES, getThemeFromLocalStorage, setThemeToLocalStorage, ThemeName } from '../../../config/theme-config'
 
 export default defineComponent({
   name: 'DocsColorDropdown',
@@ -40,12 +40,12 @@ export default defineComponent({
     const themes = Object.keys(COLOR_THEMES).map((themeName) => ({ value: themeName, label: capitalizeFirstLetter(themeName) }))
 
     const setTheme = (theme: string) => {
-      localStorage.setItem('vuestic-docs-theme', theme)
+      setThemeToLocalStorage(theme as ThemeName)
       const colors = COLOR_THEMES[theme as keyof typeof COLOR_THEMES]
       setColors(colors)
     }
 
-    setTheme(localStorage.getItem('vuestic-docs-theme') || 'DEFAULT')
+    setColors(getThemeFromLocalStorage())
 
     return {
       themes,

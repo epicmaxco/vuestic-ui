@@ -1,3 +1,5 @@
+import { ColorConfig } from 'vuestic-ui/src/main'
+
 export const enum ThemeName {
   DEFAULT = 'DEFAULT',
   DARK = 'DARK',
@@ -10,7 +12,7 @@ export const ThemeNameIterator = [
   ThemeName.DARK,
 ]
 
-export const COLOR_THEMES: Record<ThemeName, Record<string, string>> = {
+export const COLOR_THEMES: Record<ThemeName, ColorConfig> = {
   [ThemeName.DEFAULT]: {
     primary: '#2550C0',
     secondary: '#767C88',
@@ -51,4 +53,15 @@ export const COLOR_THEMES: Record<ThemeName, Record<string, string>> = {
     shadow: 'rgba(0, 0, 0, 0.37)',
     focus: '#FF0',
   },
+}
+
+const THEME_LOCAL_STORAGE_KEY = 'vuestic-theme'
+
+export const getThemeFromLocalStorage = () => {
+  const themeName: ThemeName = localStorage.getItem(THEME_LOCAL_STORAGE_KEY) as ThemeName || 'DEFAULT'
+  return COLOR_THEMES[themeName]
+}
+
+export const setThemeToLocalStorage = (themeName: ThemeName) => {
+  localStorage.setItem(THEME_LOCAL_STORAGE_KEY, themeName)
 }
