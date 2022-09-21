@@ -1527,6 +1527,10 @@
     "showCode": "Show Code",
     "hideCode": "Hide Code"
   },
+  "kitchensink": {
+    "title": "Kitchesink",
+    "description": "Examples of all components"
+  },
   "documentationPage": {
     "compilesTo": "Compiles to:",
     "title": "Documentation Page",

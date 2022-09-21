@@ -5,6 +5,7 @@ import {
   isTextBlock,
 } from '@/types/configTypes'
 import { shallowReactive } from 'vue'
+import { PageGenerationHelper } from '@/helpers/DocsHelper'
 
 const importedConfigsContext = require.context(
   '@/page-configs/ui-elements/',
@@ -16,7 +17,12 @@ const EXCLUDED_COMPONENTS: string[] = ['backtop.title']
 const isNeedToExcludeComponent = (titleTranslationString: string) =>
   EXCLUDED_COMPONENTS.includes(titleTranslationString)
 
-export const config = shallowReactive<ApiDocsBlock[]>([])
+const block = new PageGenerationHelper(__dirname)
+
+export const config = shallowReactive<ApiDocsBlock[]>([
+  block.title('kitchensink.title'),
+  block.paragraph('kitchensink.description'),
+])
 
 importedConfigsContext.keys().forEach(async (filename) => {
   let importedConfig: ApiDocsBlock[] | null = null
