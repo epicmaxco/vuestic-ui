@@ -15,10 +15,10 @@
   >
     <span
       class="va-chip__inner"
-      v-on="keyboardFocusListeners"
       @focus="$emit('focus')"
       @mouseenter="onMouseEnter"
       @mouseleave="onMouseLeave"
+      v-on="keyboardFocusListeners"
     >
       <va-icon
         v-if="icon"
@@ -31,11 +31,10 @@
       </span>
       <va-icon
         v-if="closeable"
-        class="va-chip__close-icon"
-        name="close"
         role="button"
+        name="close"
+        class="va-chip__close-icon"
         aria-label="close"
-        aria-hidden="false"
         :tabindex="tabIndexComputed"
         :size="iconSize"
         @click.stop="close"
@@ -48,6 +47,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType, computed, toRef } from 'vue'
+import pick from 'lodash/pick'
 
 import { getBoxShadowColor, getHoverColor, getFocusColor } from '../../services/color-config/color-functions'
 import {
@@ -58,6 +58,7 @@ import {
   useStateful, useStatefulEmits, useStatefulProps,
   useHover,
   useTextColor,
+  useBem,
 } from '../../composables'
 
 import { VaIcon } from '../va-icon'
@@ -133,11 +134,10 @@ export default defineComponent({
 
       tabIndexComputed: computed(() => props.disabled ? -1 : 0),
 
-      computedClass: computed(() => ({
-        'va-chip--small': props.size === 'small',
-        'va-chip--large': props.size === 'large',
-        'va-chip--square': props.square,
-        'va-chip--disabled': props.disabled,
+      computedClass: useBem('va-chip', () => ({
+        ...pick(props, ['disabled', 'square']),
+        small: props.size === 'small',
+        large: props.size === 'large',
       })),
 
       computedStyle: computed(() => {
@@ -166,77 +166,73 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "../../styles/resources";
-@import "variables";
+  @import "../../styles/resources";
+  @import "variables";
 
-.va-chip {
-  display: var(--va-chip-display);
-  border: var(--va-chip-border, var(--va-control-border));
-  position: var(--va-chip-position);
-  border-radius: var(--va-chip-border-radius);
-  width: var(--va-chip-width);
-  height: var(--va-chip-height);
-  min-width: var(--va-chip-min-width);
-  min-height: var(--va-chip-min-height);
-  padding: var(--va-chip-padding);
-  color: var(--va-chip-color);
-  cursor: var(--va-chip-cursor);
-  font-size: var(--va-chip-font-size);
-  font-family: var(--va-font-family);
-  vertical-align: var(--va-chip-vertical-align);
+  .va-chip {
+    display: var(--va-chip-display);
+    border: var(--va-chip-border, var(--va-control-border));
+    position: var(--va-chip-position);
+    border-radius: var(--va-chip-border-radius);
+    width: var(--va-chip-width);
+    height: var(--va-chip-height);
+    min-width: var(--va-chip-min-width);
+    min-height: var(--va-chip-min-height);
+    padding: var(--va-chip-padding);
+    color: var(--va-chip-color);
+    cursor: var(--va-chip-cursor);
+    font-size: var(--va-chip-font-size);
+    font-family: var(--va-font-family);
+    vertical-align: var(--va-chip-vertical-align);
 
-  &__inner {
-    display: var(--va-chip-inner-display);
-    align-items: var(--va-chip-inner-align-items);
-    width: var(--va-chip-inner-width);
-    vertical-align: inherit;
-  }
-
-  &:hover {
-    opacity: var(--va-chip-hover-opacity);
-  }
-
-  &__content {
-    display: var(--va-chip-content-display);
-    justify-content: var(--va-chip-content-justify-content);
-    align-items: var(--va-chip-content-align-items);
-    padding: var(--va-chip-content-padding);
-    line-height: var(--va-chip-content-line-height);
-    width: var(--va-chip-content-width);
-  }
-
-  &__close-icon {
-    cursor: pointer;
-
-    &:focus {
-      @include focus-outline;
+    &__inner {
+      display: var(--va-chip-inner-display);
+      align-items: var(--va-chip-inner-align-items);
+      width: var(--va-chip-inner-width);
+      vertical-align: inherit;
     }
 
-    @at-root {
-      .va-chip--disabled {
-        .va-chip__close-icon {
-          cursor: default !important;
+    &:hover {
+      opacity: var(--va-chip-hover-opacity);
+    }
+
+    &__content {
+      display: var(--va-chip-content-display);
+      justify-content: var(--va-chip-content-justify-content);
+      align-items: var(--va-chip-content-align-items);
+      padding: var(--va-chip-content-padding);
+      line-height: var(--va-chip-content-line-height);
+      width: var(--va-chip-content-width);
+    }
+
+    &__close-icon {
+      cursor: pointer;
+
+      @at-root {
+        .va-chip--disabled {
+          .va-chip__close-icon {
+            cursor: default !important;
+          }
         }
       }
     }
-  }
 
-  &--square {
-    border-radius: var(--va-chip-square-border-radius, var(--va-square-border-radius));
-  }
+    &--square {
+      border-radius: var(--va-chip-square-border-radius, var(--va-square-border-radius));
+    }
 
-  &--small {
-    height: var(--va-sm-chip-height);
-    font-size: var(--va-sm-chip-font-size);
-  }
+    &--small {
+      height: var(--va-sm-chip-height);
+      font-size: var(--va-sm-chip-font-size);
+    }
 
-  &--large {
-    height: var(--va-lg-chip-height);
-    font-size: var(--va-lg-chip-font-size);
-  }
+    &--large {
+      height: var(--va-lg-chip-height);
+      font-size: var(--va-lg-chip-font-size);
+    }
 
-  &.va-chip--disabled {
-    @include va-disabled;
+    &.va-chip--disabled {
+      @include va-disabled;
+    }
   }
-}
 </style>

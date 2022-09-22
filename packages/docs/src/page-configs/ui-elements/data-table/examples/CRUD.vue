@@ -24,8 +24,8 @@
     </template>
 
     <template #cell(actions)="{ rowIndex }">
-      <va-button flat icon="edit" @click="openModalToEditItemById(rowIndex)" />
-      <va-button flat icon="delete" @click="deleteItemById(rowIndex)" />
+      <va-button preset="plain" icon="edit" @click="openModalToEditItemById(rowIndex)" />
+      <va-button preset="plain" icon="delete" @click="deleteItemById(rowIndex)" />
     </template>
   </va-data-table>
 
@@ -138,11 +138,11 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.table-example--slot {
-  th {
-    padding-top: 5px;
-    padding-bottom: 5px;
-    vertical-align: middle;
+  .table-example--slot {
+    th {
+      padding-top: 5px;
+      padding-bottom: 5px;
+      vertical-align: middle;
+    }
   }
-}
 </style>

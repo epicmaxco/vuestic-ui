@@ -1,15 +1,16 @@
 <template>
   <div
     ref="rootEl"
-    class="va-rating-item"
     role="button"
+    class="va-rating-item"
     :tabindex="tabIndexComputed"
     @keyup.enter="onClick"
     @keyup.space="onClick"
     @mousemove="onMouseMove"
     @mouseleave="onMouseLeave"
+    @click="onClick"
   >
-    <slot :props="{ value: visibleValue, onClick }">
+    <slot v-bind="{ value: visibleValue, onClick }">
       <va-icon
         class="va-rating-item__wrapper"
         tabindex="-1"
@@ -109,6 +110,7 @@ export default defineComponent({
       onMouseMove,
       onMouseLeave,
       visibleValue,
+
       computedIconName: computed(() => {
         if (props.halves && visibleValue.value === RatingValue.HALF) {
           return props.halfIcon
@@ -126,17 +128,15 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "../../../../styles/resources";
+  @import "../../../../styles/resources";
 
-.va-rating-item {
-  display: inline-block;
+  .va-rating-item {
+    display: inline-block;
 
-  &:focus {
-    @include focus-outline();
+    @include keyboard-focus-outline($radius: 2px);
+
+    &__wrapper {
+      @include normalize-button();
+    }
   }
-
-  &__wrapper {
-    @include normalize-button();
-  }
-}
 </style>

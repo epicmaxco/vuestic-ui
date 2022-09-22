@@ -1,9 +1,9 @@
 :root {
-  --va-checkbox-display: block;
+  --va-checkbox-display: inline-block;
   --va-checkbox-max-width: fit-content;
   --va-checkbox-input-align-items: center;
   --va-checkbox-input-display: flex;
-  --va-checkbox-input-padding: 0 0.3rem;
+  --va-checkbox-input-padding: 0;
   --va-checkbox-input-cursor: pointer;
   --va-checkbox-disabled-cursor: default;
   --va-checkbox-readonly-cursor: initial;
@@ -20,7 +20,7 @@
   --va-checkbox-square-min-width: 1.35rem;
   --va-checkbox-square-height: 1.35rem;
   --va-checkbox-square-position: relative;
-  --va-checkbox-square-background-color: var(--va-white);
-  --va-checkbox-square-border: solid 0.125rem var(--va-gray);
-  --va-checkbox-square-border-radius: 0.125rem;
+  --va-checkbox-square-background-color: var(--va-background-secondary);
+  --va-checkbox-square-border: solid 0.125rem var(--va-background-element);
+  --va-checkbox-square-border-radius: 0.25rem;
 }

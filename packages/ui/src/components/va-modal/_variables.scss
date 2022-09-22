@@ -27,7 +27,7 @@
   --va-modal-dialog-height: fit-content;
   --va-modal-dialog-border-radius: 0.375rem;
   --va-modal-dialog-margin: 1rem;
-  --va-modal-dialog-box-shadow: 0 4px 70px -18px #707070;
+  --va-modal-dialog-box-shadow: 0 4px 70px -18px var(--va-shadow);
   --va-modal-dialog-max-width: 768px;
   --va-modal-dialog-max-height: calc(100vh - 2rem);
   --va-modal-dialog-position: relative;

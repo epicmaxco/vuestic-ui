@@ -67,15 +67,16 @@
 
     <div class="va-carousel__content">
       <div
+        ref="slidesContainer"
         class="va-carousel__slides"
         :style="computedSlidesStyle"
         role="list"
       >
         <div
-          class="va-carousel__slide"
           v-for="(item, index) in slides" :key="item"
-          :style="effect === 'fade' ? { animation: fadeKeyframe } : ''"
           role="listitem"
+          class="va-carousel__slide"
+          :style="slideStyleComputed"
           :aria-hidden="!isCurrentSlide(index)"
           :aria-current="isCurrentSlide(index)"
           :aria-label="`slide ${index + 1} of ${slides.length}`"
@@ -84,6 +85,7 @@
             <va-image
               :src="isObjectSlides ? item.src : item"
               :alt="isObjectSlides ? item.alt : ''"
+              :draggable="false"
             />
           </slot>
         </div>
@@ -93,14 +95,20 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, computed } from 'vue'
+import { defineComponent, shallowRef, PropType, computed } from 'vue'
 import { useCarousel } from './hooks/useCarousel'
 import { useCarouselAnimation } from './hooks/useCarouselAnimation'
 import { useCarouselColor } from './hooks/useCarouselColors'
-import { useComponentPresetProp, useStateful, useStatefulProps, useStatefulEmits } from '../../composables'
+import {
+  useStateful, useStatefulProps, useStatefulEmits,
+  useSwipe, useSwipeProps, useComponentPresetProp,
+} from '../../composables'
+
 import { VaImage } from '../va-image'
 import { VaButton } from '../va-button'
 import { VaHover } from '../va-hover'
+
+import type { SwipeState } from '../../composables'
 
 export default defineComponent({
   name: 'VaCarousel',
@@ -108,6 +116,7 @@ export default defineComponent({
   components: { VaImage, VaButton, VaHover },
 
   props: {
+    ...useSwipeProps,
     ...useStatefulProps,
     ...useComponentPresetProp,
 
@@ -153,12 +162,32 @@ export default defineComponent({
     const isObjectSlides = computed(() => {
       return props.items.length && props.items.every((el) => !!el && typeof el === 'object' && !!el?.src)
     })
-    const isCurrentSlide = (index: number) => +index === currentSlide.value
+    const isCurrentSlide = (index: number) => index === currentSlide.value
+
+    const slideStyleComputed = computed(() => ({
+      animation: props.effect === 'fade' ? 'fadeKeyframe' : undefined,
+    }))
+
+    // swiping
+    const slidesContainer = shallowRef<HTMLElement>()
+    const onSwipe = (state: SwipeState) => {
+      switch (state.direction) {
+        case 'right':
+        case 'up':
+          doShowPrevButton.value && prev()
+          break
+        case 'left':
+        case 'down':
+          doShowNextButton.value && next()
+      }
+    }
+    useSwipe(props, slidesContainer, onSwipe)
 
     return {
       doShowNextButton,
       doShowPrevButton,
       computedSlidesStyle,
+      slideStyleComputed,
       goTo: withPause(goTo),
       prev: withPause(prev),
       next: withPause(next),
@@ -166,137 +195,142 @@ export default defineComponent({
       isObjectSlides,
       isCurrentSlide,
       ...useCarouselColor(),
+      slidesContainer,
     }
   },
 })
 </script>
 
 <style lang="scss">
-@import "../../styles/resources";
-@import "./_variables.scss";
+  @import "../../styles/resources";
+  @import "./_variables.scss";
 
-@keyframes va-carousel-fade-appear {
-  0% {
-    opacity: 0;
+  @keyframes va-carousel-fade-appear {
+    0% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+    }
   }
 
-  100% {
-    opacity: 1;
-  }
-}
-
-.va-carousel {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  background: var(--va-carousel-background);
-  box-shadow: var(--va-carousel-box-shadow);
-  border-radius: var(--va-carousel-border-radius);
-  position: relative;
-  overflow: hidden;
-
-  &__content {
-    flex: 1;
-    width: 100%;
-    white-space: nowrap;
-  }
-
-  &__slides {
-    width: 100%;
-    height: 100%;
-    transition: var(--va-carousel-slides-transition);
-  }
-
-  &__slide {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-  }
-
-  &__indicators {
-    width: 100%;
-    position: absolute;
-    bottom: var(--va-carousel-padding);
+  .va-carousel {
     display: flex;
-    justify-content: center;
-    z-index: 2;
-    overflow-x: auto;
-    left: 50%;
-    transform: translateX(-50%);
+    width: 100%;
+    height: 100%;
+    background: var(--va-carousel-background);
+    box-shadow: var(--va-carousel-box-shadow);
+    border-radius: var(--va-carousel-border-radius);
+    position: relative;
+    overflow: hidden;
 
-    @include va-scroll();
-
-    & > * {
-      margin: 0 var(--va-carousel-indicators-gap);
+    &__content {
+      flex: 1;
+      width: 100%;
+      white-space: nowrap;
     }
-  }
 
-  &__arrow {
-    z-index: 1;
-    width: max-content;
-    height: max-content;
+    &__slides {
+      width: 100%;
+      height: 100%;
+      transition: var(--va-carousel-slides-transition);
+    }
 
-    &--right {
-      right: var(--va-carousel-padding);
+    &__slide {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    &__indicators {
+      width: 100%;
       position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
+      bottom: var(--va-carousel-padding);
+      display: flex;
+      justify-content: center;
+      z-index: 2;
+      overflow-x: auto;
+      left: 50%;
+      transform: translateX(-50%);
+
+      @include va-scroll();
+
+      & > * {
+        margin: 0 var(--va-carousel-indicators-gap);
+      }
     }
 
-    &--left {
-      left: var(--va-carousel-padding);
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-    }
-  }
+    &__arrow {
+      z-index: 1;
+      width: max-content;
+      height: max-content;
 
-  &--vertical {
-    .va-carousel {
-      &__slide {
-        display: flex;
-      }
-
-      &__arrow {
-        z-index: 1;
-
-        &--right {
-          bottom: var(--va-carousel-padding);
-          top: auto;
-          left: 50%;
-          transform: translateX(-50%);
-        }
-
-        &--left {
-          top: var(--va-carousel-padding);
-          left: 50%;
-          transform: translateX(-50%);
-        }
-      }
-
-      &__indicators {
-        left: var(--va-carousel-padding);
-        flex-direction: column;
-        width: auto;
-        height: 100%;
+      &--right {
+        right: var(--va-carousel-padding);
+        position: absolute;
         top: 50%;
         transform: translateY(-50%);
-        overflow-x: hidden;
-        overflow-y: auto;
+      }
 
-        & > * {
-          margin: var(--va-carousel-indicators-gap) 0;
+      &--left {
+        left: var(--va-carousel-padding);
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
+
+    &--vertical {
+      .va-carousel {
+        &__slide {
+          display: flex;
+        }
+
+        &__arrow {
+          z-index: 1;
+
+          &--right {
+            bottom: var(--va-carousel-padding);
+            top: auto;
+            left: 50%;
+            transform: translateX(-50%);
+          }
+
+          &--left {
+            top: var(--va-carousel-padding);
+            left: 50%;
+            transform: translateX(-50%);
+          }
+        }
+
+        &__indicators {
+          left: var(--va-carousel-padding);
+          flex-direction: column;
+          width: auto;
+          height: 100%;
+          top: 50%;
+          transform: translateY(-50%);
+          overflow-x: hidden;
+          overflow-y: auto;
+
+          & > * {
+            margin: var(--va-carousel-indicators-gap) 0;
+          }
         }
       }
     }
-  }
 
-  .va-image {
-    height: 100%;
-    width: 100%;
+    .va-image {
+      height: 100%;
+      width: 100%;
+    }
+
+    .va-button {
+      @include keyboard-focus-outline($offset: -2px);
+    }
   }
-}
 </style>

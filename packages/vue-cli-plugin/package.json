@@ -1,13 +1,10 @@
 {
   "name": "vue-cli-plugin-vuestic-ui",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Vuestic UI plugin for Vue CLI v4+",
   "homepage": "https://vuestic.dev",
   "main": "index.js",
   "repository": "https://github.com/epicmaxco/vuestic-ui",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "keywords": [
     "vuestic",
     "plugin",

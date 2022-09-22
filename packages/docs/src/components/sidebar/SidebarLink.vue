@@ -35,28 +35,28 @@ export default class SidebarLink extends mixins(SidebarLinkPropsMixin) {
 
   get computedStyle () {
     return {
-      backgroundColor: this.isHovered ? getHoverColor(this.colorsCtx.getColor('primary', '#ECF4F8')) : '',
-      color: this.isHovered ? this.colorsCtx.getColor('primary', '#2C82E0') : '',
+      backgroundColor: this.isHovered ? getHoverColor(this.colorsCtx.getColor('primary', '#ecf4f8')) : '',
+      color: this.isHovered ? this.colorsCtx.getColor('primary', '#2c82e0') : '',
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-@import "../../../../ui/src/styles/resources";
+  @import "../../../../ui/src/styles/resources";
 
-.sidebar__link {
-  display: block;
-  color: inherit;
-  padding: 1rem 0 1rem 2rem;
-  line-height: normal;
-
-  .va-list-item-section {
+  .sidebar__link {
+    display: block;
     color: inherit;
+    padding: 1rem 0 1rem 2rem;
+    line-height: normal;
 
-    .va-list-item-label {
+    .va-list-item-section {
       color: inherit;
+
+      .va-list-item-label {
+        color: inherit;
+      }
     }
   }
-}
 </style>

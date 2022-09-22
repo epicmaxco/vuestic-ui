@@ -1,10 +1,12 @@
 <template>
   <va-pagination
-    :visible-pages="7"
     v-model="value"
+    class="mb-3"
+    :visible-pages="7"
     :total="100"
-    boundary-numbers
+    :direction-links="false"
     :page-size="10"
+    boundary-numbers
   />
   Current value: {{ value }}
 </template>

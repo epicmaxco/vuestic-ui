@@ -10,6 +10,7 @@ module.exports = {
     'at-rule-no-unknown': null,
     'value-list-max-empty-lines': 1,
     'value-keyword-case': null,
+    indentation: [2, { baseIndentLevel: 1 }],
   },
   ignoreFiles: ['dist/**/*'],
 }

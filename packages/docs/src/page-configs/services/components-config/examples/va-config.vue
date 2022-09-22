@@ -12,8 +12,7 @@
         <va-button icon="visibility">
           I already read it before
         </va-button>
-        <va-button color="danger">
-          <va-icon name="close" color="danger" />
+        <va-button color="danger" icon="close" icon-color="danger">
           Close
         </va-button>
       </div>
@@ -22,9 +21,9 @@
 </template>
 
 <style lang="scss" scoped>
-.alert-content {
-  .va-button {
-    margin-right: 0.5rem;
+  .alert-content {
+    .va-button {
+      margin-right: 0.5rem;
+    }
   }
-}
 </style>

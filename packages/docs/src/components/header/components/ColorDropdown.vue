@@ -2,12 +2,15 @@
   <div class="color-dropdown">
     <va-button-dropdown
       class="color-dropdown__icon"
-      color="primary"
-      flat
+      preset="secondary"
       label="Colors"
       :offset="[0, 25]"
     >
       <div class="color-dropdown__content px-1">
+        <va-button-toggle :options="themes" @update:model-value="setTheme">
+
+        </va-button-toggle>
+
         <div v-for="color in colorsArray" :key="color.name" class="color mt-1 mb-1">
           <va-color-indicator :color="color.name" /> <span class="color__title">{{ color.title }}</span>
         </div>
@@ -19,11 +22,12 @@
 <script lang="ts">
 import { useColors } from 'vuestic-ui/src/main'
 import { computed, defineComponent } from 'vue'
+import { COLOR_THEMES } from '../../../config/theme-config'
 
 export default defineComponent({
   name: 'DocsColorDropdown',
   setup () {
-    const { getColors } = useColors()
+    const { getColors, setColors } = useColors()
     const capitalizeFirstLetter = (text: string) => text.charAt(0).toUpperCase() + text.slice(1)
 
     const colorsArray = computed(() => {
@@ -33,53 +37,65 @@ export default defineComponent({
       return colorNames.map((c) => ({ name: c, title: capitalizeFirstLetter(c) }))
     })
 
+    const themes = Object.keys(COLOR_THEMES).map((themeName) => ({ value: themeName, label: capitalizeFirstLetter(themeName) }))
+
+    const setTheme = (theme: string) => {
+      localStorage.setItem('vuestic-docs-theme', theme)
+      const colors = COLOR_THEMES[theme as keyof typeof COLOR_THEMES]
+      setColors(colors)
+    }
+
+    setTheme(localStorage.getItem('vuestic-docs-theme') || 'DEFAULT')
+
     return {
+      themes,
       colorsArray,
+      setTheme,
     }
   },
 })
 </script>
 
 <style lang="scss">
-@import "~vuestic-ui/src/styles/resources";
+  @import "~vuestic-ui/src/styles/resources";
 
-.color-dropdown {
-  cursor: pointer;
+  .color-dropdown {
+    cursor: pointer;
 
-  &__icon {
-    .va-button__content {
-      font-weight: 600;
-    }
+    &__icon {
+      .va-button__content {
+        font-weight: 600;
+      }
 
-    position: relative;
-    display: flex;
-    align-items: center;
-  }
-
-  &__content {
-    border-radius: 0.5rem;
-    padding: 0;
-    font-weight: normal;
-
-    .color {
+      position: relative;
       display: flex;
       align-items: center;
+    }
 
-      &__title {
-        display: inline-block;
-        min-width: 4rem;
-        margin-left: 0.5rem;
+    &__content {
+      border-radius: 0.5rem;
+      padding: 0;
+      font-weight: normal;
+
+      .color {
+        display: flex;
+        align-items: center;
+
+        &__title {
+          display: inline-block;
+          min-width: 4rem;
+          margin-left: 0.5rem;
+        }
       }
+    }
+
+    .va-dropdown__anchor {
+      display: inline-block;
     }
   }
 
-  .va-dropdown__anchor {
-    display: inline-block;
+  .button-restore {
+    display: flex;
+    margin: 0.375rem auto;
   }
-}
-
-.button-restore {
-  display: flex;
-  margin: 0.375rem auto;
-}
 </style>

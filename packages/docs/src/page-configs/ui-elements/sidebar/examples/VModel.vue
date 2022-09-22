@@ -1,6 +1,6 @@
 <template>
-  <div style="height: 13rem; border: 1px solid var(--va-secondary);">
-    <va-sidebar v-model="enabled" textColor="dark">
+  <div style="height: 13rem;">
+    <va-sidebar v-model="enabled">
       <va-sidebar-item
         v-for="item in items"
         :key="item.title"

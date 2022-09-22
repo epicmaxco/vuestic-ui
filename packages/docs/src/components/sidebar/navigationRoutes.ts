@@ -79,6 +79,10 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: 'menu.grid',
       },
       {
+        name: 'smart-helpers',
+        displayName: 'menu.smartHelpers',
+      },
+      {
         name: 'colors',
         displayName: 'menu.colors',
       },
@@ -243,12 +247,23 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: 'menu.list',
       },
       {
+        name: 'split',
+        displayName: 'menu.split',
+        meta: {
+          badge: 'new',
+        },
+      },
+      {
         name: 'collapse',
         displayName: 'menu.collapse',
       },
       {
         name: 'accordion',
         displayName: 'menu.accordion',
+      },
+      {
+        name: 'scroll-container',
+        displayName: 'menu.scrollContainer',
       },
       {
         category: 'menu.categories.navigation',
@@ -315,6 +330,13 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: 'toast',
         displayName: 'menu.toast',
+      },
+      {
+        name: 'virtual-scroller',
+        displayName: 'menu.virtualScroller',
+        meta: {
+          badge: 'new',
+        },
       },
       // TODO: Color components not released yet
       // {
@@ -400,6 +422,10 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: 'colors-config',
         displayName: 'menu.colorsConfig',
+      },
+      {
+        name: 'breakpoints',
+        displayName: 'menu.breakpoints',
       },
       // GENERATOR_ADD - services
     ],

@@ -10,8 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import { nextTick } from 'process'
-import { computed, ref, defineProps, defineEmits, watch, onMounted, onUpdated } from 'vue'
+import { computed, ref, defineProps, defineEmits, watch, onMounted, onUpdated, nextTick } from 'vue'
 
 const props = defineProps({
   modelValue: { type: String },
@@ -58,6 +57,7 @@ onUpdated(() => {
       z-index: 1;
       font-family: inherit;
       font-size: inherit;
+      color: currentColor;
     }
 
     &::after {

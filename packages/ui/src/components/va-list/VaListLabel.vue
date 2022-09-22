@@ -32,15 +32,15 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "../../styles/resources";
-@import "variables";
+  @import "../../styles/resources";
+  @import "variables";
 
-.va-list-label {
-  font-family: var(--va-font-family);
+  .va-list-label {
+    font-family: var(--va-font-family);
 
-  @include va-title();
+    @include va-title();
 
-  text-align: var(--va-list-label-text-align);
-  padding: var(--va-list-label-padding);
-}
+    text-align: var(--va-list-label-text-align);
+    padding: var(--va-list-label-padding);
+  }
 </style>

@@ -65,6 +65,7 @@ export {
   VaSidebarItemTitle,
   VaSlider,
   VaSpacer,
+  VaSplit,
   VaSwitch,
   VaTabs, VaTab,
   VaTimeInput,
@@ -72,4 +73,6 @@ export {
   VaTimePicker,
   VaTreeNode,
   VaTreeView,
+  VaScrollContainer,
+  VaVirtualScroller,
 } from '../components'

@@ -1,24 +1,24 @@
 <template>
-  <va-card color="background" style="padding: 0.75rem;">
+  <va-card color="background-secondary" style="padding: 0.75rem;">
     <div class="row">
-      <!-- align-self--start -->
-      <div class="flex xs3 align-self--start">
-        <div class="item">align-self--start</div>
+      <!-- align-self-start -->
+      <div class="flex xs3 align-self-start">
+        <div class="item">align-self-start</div>
       </div>
 
-      <!-- align-self--end -->
-      <div class="flex xs3 align-self--end">
-        <div class="item">align-self--end</div>
+      <!-- align-self-end -->
+      <div class="flex xs3 align-self-end">
+        <div class="item">align-self-end</div>
       </div>
 
-      <!-- align-self--center -->
-      <div class="flex xs3 align-self--center">
-        <div class="item">align-self--center</div>
+      <!-- align-self-center -->
+      <div class="flex xs3 align-self-center">
+        <div class="item">align-self-center</div>
       </div>
 
-      <!-- align-self--baseline -->
-      <div class="flex xs3 align-self--baseline">
-        <div class="item">align-self--baseline</div>
+      <!-- align-self-baseline -->
+      <div class="flex xs3 align-self-baseline">
+        <div class="item">align-self-baseline</div>
       </div>
     </div>
   </va-card>
@@ -33,19 +33,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~vuestic-ui/src/styles/resources';
+  @import '~vuestic-ui/src/styles/resources';
 
-.row {
-  min-height: 6rem;
+  .row {
+    min-height: 6rem;
 
-  & + .row {
-    border-top: 1px solid $lighter-gray;
+    & + .row {
+      border-top: 1px solid var(--va-background-secondary);
+    }
   }
-}
 
-.item {
-  border: 1px solid $gray;
-  background-color: $white;
-  text-align: center;
-}
+  .item {
+    border: 1px solid var(--va-background-element);
+    background-color: var(--va-background-tertiary);
+    text-align: center;
+  }
 </style>

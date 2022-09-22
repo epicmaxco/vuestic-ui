@@ -65,32 +65,10 @@
         <va-button>
           Button inside va-config
         </va-button>
-        <hr />
-        <p>Config:</p>
-        <p>{ VaButton: { color: '<span style="background: #f34240;">color</span>', flat: true }}</p>
+        <va-button>
+          Button inside va-config
+        </va-button>
       </va-config>
-    </VbCard>
-
-    <VbCard title="Component preset">
-      <va-button :preset="buttonPresetName" @click="toggleButtonPreset()">
-        {{ presetActionDescription('button') }}
-      </va-button>
-      <va-card preset="highlightTop" class="mt-2">
-        <va-card-content>
-          <p>Props applied to this button from preset:</p>
-          <pre>{{ showButtonPreset }}</pre>
-        </va-card-content>
-      </va-card>
-
-      <va-button @click="togglePresetsConfig()" class="mt-3">
-        {{ presetActionDescription('config') }}
-      </va-button>
-      <va-card preset="highlightTop" class="mt-2">
-        <va-card-content>
-          <p>Current Components presets:</p>
-          <pre>{{ getComponentsPresets }}</pre>
-        </va-card-content>
-      </va-card>
     </VbCard>
   </VbDemo>
 </template>
@@ -103,8 +81,6 @@ import { VaButton } from '../va-button'
 import { VaRating } from '../va-rating/'
 import { VaChip } from '../va-chip'
 import { VaConfig } from './'
-import { VaCard } from '../va-card'
-import VaCardContent from '../va-card/VaCardContent'
 import { VaColorInput } from '../va-color-input/'
 
 export default {
@@ -113,8 +89,6 @@ export default {
     VaButton,
     VaConfig,
     VaChip,
-    VaCard,
-    VaCardContent,
     VaColorInput,
   },
   data () {
@@ -290,14 +264,14 @@ export default {
 </script>
 
 <style scoped>
-.center {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+  .center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 
-.addScroll {
-  overflow-y: auto;
-  max-height: 400px;
-}
+  .addScroll {
+    overflow-y: auto;
+    max-height: 400px;
+  }
 </style>

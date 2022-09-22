@@ -1,6 +1,6 @@
 <template>
   <va-hover v-model="value">
-    <va-button color="success" :flat="value">
+    <va-button color="success" :preset="value ? 'primary' : 'secondary'">
       {{ value }}
     </va-button>
   </va-hover>

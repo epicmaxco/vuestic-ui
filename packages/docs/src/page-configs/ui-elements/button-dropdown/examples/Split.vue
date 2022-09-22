@@ -1,39 +1,43 @@
 <template>
-  <va-button-dropdown
-    class="mr-2 mb-2"
-    split
-    label="Split"
-  >
-    Content
-  </va-button-dropdown>
+  <div style="display: flex; align-items: center;">
+    <va-button-dropdown
+      class="mr-2 mb-2"
+      split
+      label="Split"
+      round
+    >
+      Content
+    </va-button-dropdown>
 
-  <va-button-dropdown
-    class="mr-2 mb-2"
-    split
-    outline
-    leftIcon
-    label="Split"
-  >
-    Content
-  </va-button-dropdown>
+    <va-button-dropdown
+      class="mr-2 mb-2"
+      split
+      preset="secondary"
+      border-color="primary"
+      leftIcon
+      label="Split"
+      round
+    >
+      Content
+    </va-button-dropdown>
 
-  <va-button-dropdown
-    class="mr-2 mb-2"
-    split
-    label="Split"
-    :rounded="false"
-  >
-    Content
-  </va-button-dropdown>
+    <va-button-dropdown
+      class="mr-2 mb-2"
+      split
+      label="Split"
+    >
+      Content
+    </va-button-dropdown>
 
-  <va-button-dropdown
-    class="mr-2 mb-2"
-    split
-    outline
-    leftIcon
-    :rounded="false"
-    label="Split"
-  >
-    Content
-  </va-button-dropdown>
+    <va-button-dropdown
+      class="mr-2 mb-2"
+      split
+      preset="secondary"
+      border-color="primary"
+      leftIcon
+      label="Split"
+    >
+      Content
+    </va-button-dropdown>
+  </div>
 </template>

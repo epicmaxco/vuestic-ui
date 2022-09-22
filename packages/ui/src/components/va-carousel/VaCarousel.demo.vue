@@ -4,6 +4,10 @@
       <VaCarousel :items="items" v-model="currentSlide" />
     </VbCard>
 
+    <VbCard title="Swipable">
+      <VaCarousel :items="items" v-model="currentSlide" swipable />
+    </VbCard>
+
     <VbCard title="Arrows">
       <VaCarousel :items="items" v-model="currentSlide" arrows />
     </VbCard>
@@ -85,7 +89,7 @@ export default {
 </script>
 
 <style>
-.va-carousel {
-  min-width: 300px;
-}
+  .va-carousel {
+    min-width: 300px;
+  }
 </style>

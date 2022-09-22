@@ -16,6 +16,7 @@
         :style="imageStyles"
         :src="$props.src"
         :alt="$props.alt"
+        :draggable="$props.draggable"
         @error="handleError"
         @load="handleLoad"
       />
@@ -45,6 +46,7 @@ export default defineComponent({
     contain: { type: Boolean, default: false },
     src: { type: String, required: true },
     alt: { type: String, default: '' },
+    draggable: { type: Boolean, default: true },
   },
   setup (props, { emit }) {
     const loading = ref(true)
@@ -87,34 +89,34 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "../../styles/resources";
-@import "variables";
+  @import "../../styles/resources";
+  @import "variables";
 
-.va-image {
-  overflow: var(--va-image-overflow);
-  position: var(--va-image-position);
-  font-family: var(--va-font-family);
+  .va-image {
+    overflow: var(--va-image-overflow);
+    position: var(--va-image-position);
+    font-family: var(--va-font-family);
 
-  img {
-    height: 100%;
-    width: 100%;
+    img {
+      height: 100%;
+      width: 100%;
+    }
+
+    &__img,
+    &__loader,
+    &__error,
+    &__overlay {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+    }
+
+    &__loader,
+    &__error,
+    &__overlay {
+      @include flex-center();
+    }
   }
-
-  &__img,
-  &__loader,
-  &__error,
-  &__overlay {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-  }
-
-  &__loader,
-  &__error,
-  &__overlay {
-    @include flex-center();
-  }
-}
 </style>

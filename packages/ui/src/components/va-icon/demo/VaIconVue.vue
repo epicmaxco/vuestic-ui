@@ -34,17 +34,17 @@ export default {
 </script>
 
 <style lang="scss">
-.va-icon-vue {
-  display: inline-block;
-  width: 55px;
-  height: 47.8px;
+  .va-icon-vue {
+    display: inline-block;
+    width: 55px;
+    height: 47.8px;
 
-  .cls-1 {
-    fill: #4ae387;
-  }
+    .cls-1 {
+      fill: #4ae387;
+    }
 
-  .cls-2 {
-    fill: #34495e;
+    .cls-2 {
+      fill: #34495e;
+    }
   }
-}
 </style>

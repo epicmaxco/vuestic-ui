@@ -1,6 +1,6 @@
 ## Vuestic-UI monorepo packages
 
-- **bundlers-tests** - package for testing `Vuestic-UI` with vite (rollup) and vue-cli (webpack)
+- **sandbox** - package for testing `Vuestic-UI` with vite (rollup), vue-cli (webpack) and nuxt.
 - **deploy** - build scripts
 - **docs** - documentation for `Vuestic-UI`
 - **extensions** - folder with extras for `Vuestic-UI`, expanding main capabilities
