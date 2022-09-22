@@ -40,6 +40,7 @@
     "@nuxt/schema": "latest",
     "@nuxt/vite-builder": "latest",
     "@nuxtjs/eslint-config-typescript": "latest",
-    "eslint": "latest"
+    "eslint": "latest",
+    "when-dependencies-installed": "^1.0.0"
   }
 }
