@@ -18,7 +18,7 @@
 import { defineComponent, computed } from 'vue'
 
 import {
-  appyColors,
+  applyColors,
   useElementRef,
   useColors,
   useKeyboardOnlyFocus,
@@ -62,7 +62,7 @@ export default defineComponent({
       return '#ffffff00'
     })
 
-    const textBackground = computed(() => appyColors(getColor(sidebar?.color), backgroundColorComputed.value))
+    const textBackground = computed(() => applyColors(getColor(sidebar?.color), backgroundColorComputed.value))
     const { textColorComputed } = useTextColor(textBackground)
 
     const computedStyle = computed(() => {
