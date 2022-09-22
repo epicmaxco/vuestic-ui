@@ -1,7 +1,7 @@
 import { useInterval } from './useInterval'
 import { ColorArray, parseRGBA, getElementBackground } from './utils'
 import { ref, getCurrentInstance, watch, Ref, onMounted, computed } from 'vue'
-import { appyColors, useColors } from '../useColors'
+import { applyColors, useColors } from '../useColors'
 import { useInViewPort } from '../useInViewPort'
 import { useEl } from '../useEl'
 
@@ -22,7 +22,7 @@ const recursiveGetBackground = (element: Maybe<HTMLElement>): string => {
     return parentBg
   }
 
-  return appyColors(recursiveGetBackground(element.parentElement), bg)
+  return applyColors(recursiveGetBackground(element.parentElement), bg)
 }
 
 /** Can be null before component is mounted */
