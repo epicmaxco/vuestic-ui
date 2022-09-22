@@ -7,8 +7,6 @@
       <va-tree-view :nodes="nodes" :stateful="false" />
     </VbCard>
     <VbCard title="Selectable">
-      <p>Default</p>
-      <va-tree-view :nodes="nodes" selectable />
       <p>Selection strategy</p>
       <va-radio
         v-for="(option, index) in selectionTypeOptions"
@@ -98,8 +96,9 @@
       <va-tree-view :nodes="nodes" expand-all />
       <p>Expanded by</p>
       <va-tree-view :nodes="nodes" expand-all />
-      <p>Expanded v-model: {{ JSON.stringify(expandedNodes) }}</p>
+      <p>Expanded v-model: {{ expandedNodes }}</p>
       <va-tree-view v-model:expanded="expandedNodes" :nodes="nodes" />
+      <va-tree-view :modelValue:expanded="expandedNodes" :nodes="nodes" />
     </VbCard>
     <VbCard title="Filter">
       <va-input
