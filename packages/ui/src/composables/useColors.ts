@@ -88,10 +88,6 @@ export const useColors = () => {
       return prop
     }
 
-    if (isCSSVariable(prop)) {
-      return prop
-    }
-
     if (process.env.NODE_ENV !== 'production') {
       console.warn(`'${prop}' is not a proper color! Use HEX or default color themes
       names (https://vuestic.dev/en/styles/colors#default-color-themes)`)
