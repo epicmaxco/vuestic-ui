@@ -240,7 +240,7 @@ export default defineComponent({
     }
 
     &::before {
-      background-color: v-bind(backgroundColor);
+      background: v-bind(backgroundColor);
       opacity: v-bind(backgroundColorOpacity);
     }
 
