@@ -1,18 +1,23 @@
 <template>
-  <va-data-table :items="items" :columns="columns" striped>
+  <va-data-table
+    class="table-crud-example"
+    :items="items"
+    :columns="columns"
+    striped
+  >
     <template #headerAppend>
-      <tr class="table-example--slot">
+      <tr class="table-crud-example__slot">
         <th
           v-for="key in Object.keys(createdItem)"
           :key="key"
-          colspan="1"
+          class="pa-1"
         >
           <va-input
             :placeholder="key"
             v-model="createdItem[key]"
           />
         </th>
-        <th colspan="1">
+        <th class="pa-1">
           <va-button
             @click="addNewItem"
             :disabled="!isNewData"
@@ -30,20 +35,20 @@
   </va-data-table>
 
   <va-modal
+    class="modal-crud-example"
     :model-value="!!editedItem"
-    message="Edit item"
+    title="Edit item"
+    size="small"
     @ok="editItem"
     @cancel="resetEditedItem"
   >
-    <slot>
-      <va-input
-        v-for="key in Object.keys(editedItem)"
-        :key="key"
-        class="my-3"
-        :label="key"
-        v-model="editedItem[key]"
-      />
-    </slot>
+    <va-input
+      v-for="key in Object.keys(editedItem)"
+      :key="key"
+      class="my-3"
+      :label="key"
+      v-model="editedItem[key]"
+    />
   </va-modal>
 </template>
 
@@ -138,11 +143,23 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-  .table-example--slot {
-    th {
-      padding-top: 5px;
-      padding-bottom: 5px;
-      vertical-align: middle;
+  .table-crud-example {
+    --va-form-element-default-width: 0;
+
+    .va-input {
+      display: block;
+    }
+
+    &__slot {
+      th {
+        vertical-align: middle;
+      }
+    }
+  }
+
+  .modal-crud-example {
+    .va-input {
+      display: block;
     }
   }
 </style>
