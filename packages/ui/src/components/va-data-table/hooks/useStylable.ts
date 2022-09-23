@@ -37,7 +37,7 @@ export default function useStyleable (props: useStylableProps) {
   }))
 
   const stickyCSSVariables = computed(() => ({
-    stickyBg: (props.stickyHeader || props.stickyFooter) ? 'var(--va-data-table-sticky-background-color)' : undefined,
+    stickyBg: (props.stickyHeader || props.stickyFooter) ? 'var(--va-data-table-header-background)' : undefined,
     tableHeight: props.height ? safeCSSLength(props.height) : undefined,
   }))
 

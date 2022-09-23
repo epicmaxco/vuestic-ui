@@ -401,7 +401,6 @@ export default defineComponent({
         attrs.class,
       ],
       style: [attrs.style],
-      // style: [stickyCSSVariables.value, attrs.style],
     }) as HTMLAttributes)
 
     const computedTableAttributes = computed(() => ({
@@ -455,9 +454,9 @@ export default defineComponent({
   .va-data-table {
     --va-data-table-selected-color: v-bind(rowCSSVariables.selectedColor);
     --va-data-table-hover-color: v-bind(rowCSSVariables.hoverColor);
-    --va-data-table-sticky-thead-background-color: v-bind(stickyCSSVariables.stickyBg);
-    --va-data-table-sticky-tfoot-background-color: v-bind(stickyCSSVariables.stickyBg);
-    --va-data-table-scrolled-table-height: v-bind(stickyCSSVariables.tableHeight);
+    --va-data-table-thead-background: v-bind(stickyCSSVariables.stickyBg);
+    --va-data-table-tfoot-background: v-bind(stickyCSSVariables.stickyBg);
+    --va-data-table-height: v-bind(stickyCSSVariables.tableHeight);
 
     overflow-x: auto;
     overflow-y: hidden;
@@ -467,7 +466,7 @@ export default defineComponent({
     &--sticky,
     &--scroll {
       overflow-y: auto;
-      height: var(--va-data-table-scrolled-table-height);
+      height: var(--va-data-table-height);
 
       // 1) doesn't work in Firefox
       // 2) doesn't disappear on mac (the standard one does)
@@ -492,7 +491,7 @@ export default defineComponent({
           position: sticky;
           top: 0;
           z-index: 1;
-          background-color: var(--va-data-table-sticky-thead-background-color);
+          background: var(--va-data-table-thead-background);
         }
       }
 
@@ -516,7 +515,7 @@ export default defineComponent({
           position: sticky;
           bottom: 0;
           z-index: 1;
-          background-color: var(--va-data-table-sticky-tfoot-background-color);
+          background: var(--va-data-table-tfoot-background);
         }
       }
 
