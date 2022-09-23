@@ -1,5 +1,5 @@
 <template>
-  <va-list fit id="default-list-example">
+  <va-list id="default-list-example">
     <va-list-label>
       Contacts
     </va-list-label>
