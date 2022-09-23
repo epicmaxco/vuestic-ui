@@ -4,6 +4,7 @@ import {
   componentsConfigCodeExample,
   componentsConfigCodeExampleDefaultSizes,
   componentsAllConfigCodeExample,
+  componentsPresetsConfigCodeExample,
 } from './code-examples'
 import { TableColumn, TableData } from '../../../components/DocsTable/DocsTableTypes'
 
@@ -20,9 +21,14 @@ const tableData: TableData = [
     'componentsConfig.api.ComponentConfig',
   ],
   [
-    'Props',
+    'ComponentsAllConfig',
     '{ [propName: string]: any }',
     'componentsConfig.api.ComponentsAllConfig',
+  ],
+  [
+    'ComponentsPresetsConfig',
+    '{ [componentName: string]: { [propName: string]: any } }',
+    'componentsConfig.api.ComponentsPresetsConfig',
   ],
 ]
 
@@ -40,6 +46,10 @@ const config: ApiDocsBlock[] = [
   block.paragraph('componentsConfig.componentsAll.subtitle'),
   block.code(componentsAllConfigCodeExample),
   block.paragraph('componentsConfig.componentsAll.description'),
+
+  block.subtitle('componentsConfig.componentsPresets.title'),
+  block.paragraph('componentsConfig.componentsPresets.subtitle'),
+  block.code(componentsPresetsConfigCodeExample),
 
   block.subtitle('componentsConfig.vaConfig.title'),
   block.paragraph('componentsConfig.vaConfig.subtitle'),
