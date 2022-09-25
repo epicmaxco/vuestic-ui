@@ -1,6 +1,6 @@
-import type { ColorConfigEssentialColors } from './types'
+import type { EssentialVariables } from './types'
 
-export const colorsPresets: Record<string, ColorConfigEssentialColors> = {
+export const colorsPresets: Record<string, EssentialVariables> = {
   default: {
     // Accent
     primary: '#154ec1',

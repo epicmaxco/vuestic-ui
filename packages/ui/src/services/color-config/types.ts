@@ -1,6 +1,6 @@
 export type CssColor = string
 
-export type ColorConfigEssentialColors = {
+export type EssentialVariables = {
   // Accent colors
   primary: CssColor,
   secondary: CssColor,
@@ -25,4 +25,9 @@ export type ColorConfigEssentialColors = {
   focus: CssColor,
 }
 
-export type ColorConfig = { [colorName: string]: CssColor } & ColorConfigEssentialColors
+export type ColorVariables = { [colorName: string]: CssColor } & EssentialVariables
+
+export type ColorConfig = {
+  variables: ColorVariables,
+  threshold: number,
+}

@@ -23,7 +23,10 @@ export const GLOBAL_CONFIG = Symbol('GLOBAL_CONFIG')
 
 export const createGlobalConfig = () => {
   const globalConfig = ref<GlobalConfig>({
-    colors: colorsPresets.default,
+    colors: {
+      variables: colorsPresets.default,
+      threshold: 120,
+    },
     icons: createIconsConfig({}),
     components: getComponentsDefaultConfig(),
     breakpoint: getBreakpointDefaultConfig(),
