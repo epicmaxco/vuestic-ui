@@ -1,12 +1,18 @@
 <template>
   <va-inner-loading
+    ref="scrollContainer"
     class="va-data-table"
     aria-live="polite"
     v-bind="computedAttributes"
     :loading="loading"
     :color="loadingColor"
-    @scroll="onScroll"
   >
+    <div
+      v-if="scrollTopMargin !== undefined"
+      ref="topTrigger"
+      class="va-data-table__trigger"
+    />
+
     <table
       class="va-data-table__table"
       v-bind="computedTableAttributes"
@@ -229,6 +235,12 @@
         <slot name="footerAppend" />
       </tfoot>
     </table>
+
+    <div
+      v-if="scrollBottomMargin !== undefined"
+      ref="bottomTrigger"
+      class="va-data-table__trigger"
+    />
   </va-inner-loading>
 </template>
 
@@ -333,7 +345,8 @@ export default defineComponent({
     height: { type: [String, Number] },
     rowBind: { type: null as unknown as PropType<DataTableRowBind> },
     cellBind: { type: null as unknown as PropType<DataTableCellBind> },
-    scrollEventsThreshold: { type: Number },
+    scrollTopMargin: { type: Number },
+    scrollBottomMargin: { type: Number },
   },
 
   emits: [
@@ -422,9 +435,12 @@ export default defineComponent({
       ? sortingOrderSync.value === 'asc' ? 'ascending' : 'descending'
       : 'none'
 
-    const { onScroll } = useTableScroll(props, emit)
+    const { scrollContainer, topTrigger, bottomTrigger } = useTableScroll(props, emit)
 
     return {
+      scrollContainer,
+      topTrigger,
+      bottomTrigger,
       columnsComputed,
       rows: paginatedRows,
       ctrlSelectRow,
@@ -452,7 +468,6 @@ export default defineComponent({
       getColumnAriaSortOrder,
       getRowBind,
       getCellBind,
-      onScroll,
     }
   },
 })
@@ -659,6 +674,10 @@ export default defineComponent({
       .table-transition-shuffle-enter-active {
         transition: opacity var(--va-data-table-transition);
       }
+    }
+
+    &__trigger {
+      user-select: none;
     }
   }
 </style>
