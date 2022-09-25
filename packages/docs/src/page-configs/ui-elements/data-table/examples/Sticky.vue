@@ -43,8 +43,11 @@
       sticky-header
       footer-clone
       sticky-footer
+      height="220px"
       selected-color="warning"
-      :scrollEventsThreshold="10"
+      :scrollTopMargin="0"
+      :scrollBottomMargin="20"
+      @scroll:top="logger"
       @scroll:bottom="onScrollDown"
     >
       <template #headerPrepend>
@@ -142,6 +145,9 @@ export default defineComponent({
   },
 
   methods: {
+    logger () {
+      console.log('--- scroll top ---')
+    },
     onScrollDown () {
       if (this.isLoading) { return }
       this.isLoading = true
@@ -178,8 +184,6 @@ export default defineComponent({
 
     .my-custom-table-class {
       &.va-data-table--sticky {
-        height: 220px;
-
         .va-data-table__table-thead--sticky {
           background-color: gray;
 
