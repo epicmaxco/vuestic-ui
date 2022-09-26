@@ -2,11 +2,11 @@
   <component
     :is="computedTag"
     class="va-icon"
-    aria-hidden="true"
     :class="computedClass"
     :style="computedStyle"
-    v-bind="computedAttrs"
+    :aria-hidden="ariaHiddenComputed"
     notranslate
+    v-bind="computedAttrs"
   >
     <slot>
       <template v-if="iconConfig.content">
@@ -21,12 +21,17 @@ import { defineComponent, PropType, computed } from 'vue'
 import omit from 'lodash/omit.js'
 
 import { useIcons } from '../../services/icon-config/icon-config'
-import { useColors, useSize, useSizeProps } from '../../composables'
+import {
+  useComponentPresetProp,
+  useColors,
+  useSize, useSizeProps,
+} from '../../composables'
 
 export default defineComponent({
   name: 'VaIcon',
   props: {
     ...useSizeProps,
+    ...useComponentPresetProp,
     name: { type: String, default: '' },
     tag: { type: String },
     component: { type: Object as PropType<any> },
@@ -79,12 +84,16 @@ export default defineComponent({
       lineHeight: sizeComputed.value,
     }))
 
+    const tabindexComputed = computed(() => attrs.tabindex as number | undefined ?? -1)
+    const ariaHiddenComputed = computed(() => attrs.role !== 'button' || tabindexComputed.value < 0)
+
     return {
       iconConfig,
       computedTag,
       computedAttrs,
       computedClass,
       computedStyle,
+      ariaHiddenComputed,
     }
   },
 })
@@ -101,9 +110,7 @@ export default defineComponent({
     &[role^="button"][tabindex]:not([tabindex^="-"]) {
       cursor: pointer;
 
-      &:focus {
-        @include focus-outline;
-      }
+      @include keyboard-focus-outline($radius: 2px);
     }
 
     &#{&} {

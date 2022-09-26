@@ -9,11 +9,11 @@ app.use(createVuestic({
   config: {
     components: {
       VaButton: {
-        outline: true,
-        rounded: false,
-        size: 'small',
+        preset: "secondary",
+        borderColor: "primary",
+        size: "small",
       },
     },
-  } 
+  }
 }))
 `

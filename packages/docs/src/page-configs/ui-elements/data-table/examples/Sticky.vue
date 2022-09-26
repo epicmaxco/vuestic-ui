@@ -16,8 +16,8 @@
     <va-data-table
       :items="items"
       :style="{
-        '--va-data-table-scroll-table-height': '300px',
-        '--va-data-table-scroll-table-color': 'orange',
+        '--va-data-table-height': '300px',
+        '--va-data-table-header-background': 'linear-gradient(0deg, #ddd, #eff8ff)',
       }"
       sticky-header
       footer-clone
@@ -44,7 +44,6 @@
       footer-clone
       sticky-footer
       height="220px"
-      selected-color="warning"
       :scrollTopMargin="0"
       :scrollBottomMargin="20"
       @scroll:top="logger"
@@ -183,14 +182,11 @@ export default defineComponent({
     }
 
     .my-custom-table-class {
-      &.va-data-table--sticky {
-        .va-data-table__table-thead--sticky {
-          background-color: gray;
+      --va-data-table-thead-background: black;
+      --va-data-table-tfoot-background: gray;
 
-          .va-data-table__table-th {
-            color: white;
-          }
-        }
+      .va-data-table__table-th {
+        color: white;
       }
     }
   }

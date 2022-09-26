@@ -1,35 +1,24 @@
-import { CssColor } from '../../composables'
+import type { ColorConfigEssentialColors } from './types'
 
-type VuesticColorsPreset = {
-  primary: CssColor,
-  secondary: CssColor,
-  success: CssColor,
-  info: CssColor,
-  danger: CssColor,
-  warning: CssColor,
-  gray: CssColor,
-  dark: CssColor,
-  background: CssColor,
-  divider: CssColor,
-  white: CssColor,
-  black: CssColor,
-  focus: CssColor,
-}
-
-export const colorsPresets: Record<string, VuesticColorsPreset> = {
+export const colorsPresets: Record<string, ColorConfigEssentialColors> = {
   default: {
-    primary: '#2C82E0',
-    secondary: '#767C88',
-    background: '#f4f8fa',
+    // Accent
+    primary: '#154ec1',
+    secondary: '#767c88',
     success: '#40e583',
     info: '#2c82e0',
-    danger: '#DE1041',
-    warning: '#FFAC0A',
-    gray: '#babfc2',
-    dark: '#1B1A1F',
-    divider: '#E1E9F8',
-    white: '#ffffff',
-    black: '#000000',
+    danger: '#de1041',
+    warning: '#ffac0a',
+    // Text Colors
+    textDark: '#242424',
+    textLight: '#f1f1f1',
+    // Background Colors
+    backgroundPrimary: '#161b21',
+    backgroundSecondary: '#0d1118',
+    backgroundTertiary: '#21262c',
+    backgroundElement: '#babfc2',
+    // Misc
+    shadow: 'rgba(0, 0, 0, 0.12)',
     focus: '#ffc700',
   },
 }

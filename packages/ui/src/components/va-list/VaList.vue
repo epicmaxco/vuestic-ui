@@ -10,10 +10,12 @@
 
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 export default defineComponent({
   name: 'VaList',
   props: {
+    ...useComponentPresetProp,
     fit: { type: Boolean, default: false },
   },
 

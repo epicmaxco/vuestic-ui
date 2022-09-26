@@ -48,14 +48,12 @@ const rollupMjsBuildOptions: RollupOptions = {
 }
 
 const libBuildOptions = (format: 'iife' | 'es' | 'cjs') => ({
-  lib: {
-    entry: resolver(process.cwd(), 'src/main.ts'),
-    fileName: () => 'main.js',
-    formats: [format],
+  entry: resolver(process.cwd(), 'src/main.ts'),
+  fileName: () => 'main.js',
+  formats: [format],
 
-    // only for iife/umd
-    name: 'vuestic',
-  },
+  // only for iife/umd
+  name: 'vuestic',
 })
 
 export default function createViteConfig (format: BuildFormat) {
@@ -88,6 +86,8 @@ export default function createViteConfig (format: BuildFormat) {
         // disable mangling functions names
         keep_fnames: true,
       },
+
+      lib: libBuildOptions(isNode ? 'es' : format),
     },
 
     plugins: [
@@ -102,8 +102,6 @@ export default function createViteConfig (format: BuildFormat) {
   isEsm && config.plugins.push(chunkSplitPlugin({ strategy: 'unbundle' }))
   isEsm && !isNode && config.plugins.push(appendComponentCss())
   isEsm && config.plugins.push(fixImportHell())
-
-  if (!isNode) { config.build = { ...config.build, ...libBuildOptions(format) } }
 
   config.build.rollupOptions = isNode ? { ...external, ...rollupMjsBuildOptions } : external
 

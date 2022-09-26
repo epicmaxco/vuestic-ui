@@ -28,7 +28,6 @@
           class="va-toast__close-icon"
           role="button"
           aria-label="close toast"
-          aria-hidden="false"
           tabindex="0"
           size="small"
           :name="$props.icon"
@@ -43,7 +42,7 @@
 <script lang="ts">
 import { defineComponent, PropType, ref, computed, onMounted, shallowRef } from 'vue'
 
-import { useColors, useTimer, useTextColor } from '../../composables'
+import { useComponentPresetProp, useColors, useTimer, useTextColor } from '../../composables'
 
 import { ToastPosition } from './types'
 
@@ -62,6 +61,7 @@ export default defineComponent({
   components: { VaIcon, VaToastRenderer },
   emits: ['on-click', 'on-close'],
   props: {
+    ...useComponentPresetProp,
     title: { type: String, default: '' },
     offsetY: { type: Number, default: 16 },
     offsetX: { type: Number, default: 16 },
@@ -236,13 +236,10 @@ export default defineComponent({
       cursor: pointer;
       transform: translateY(-50%);
       font-size: var(--va-toast-close-icon-font-siz);
+      opacity: 0.7;
 
       &:hover {
-        color: var(--va-toast-hover-color);
-      }
-
-      &:focus {
-        @include focus-outline;
+        opacity: 1;
       }
     }
   }

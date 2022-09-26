@@ -21,6 +21,8 @@ import { defineComponent, computed, PropType, ref, nextTick, onMounted, onBefore
 import noop from 'lodash/noop.js'
 
 import { getWindow } from '../../utils/ssr-utils'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
+
 import {
   handleThrottledEvent,
   useEventsHandlerWithThrottle,
@@ -33,6 +35,7 @@ export default defineComponent({
   name: 'VaAffix',
   emits: ['change'],
   props: {
+    ...useComponentPresetProp,
     offsetTop: { type: Number, default: undefined },
     offsetBottom: { type: Number, default: undefined },
     target: { type: [Object, Function] as PropType<HTMLElement | Window | (() => HTMLElement | Window)>, default: getWindow },

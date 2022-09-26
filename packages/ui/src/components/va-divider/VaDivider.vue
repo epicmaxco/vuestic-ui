@@ -16,12 +16,14 @@
 
 <script lang="ts">
 import { defineComponent, computed, PropType } from 'vue'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 const prefixClass = 'va-divider'
 
 export default defineComponent({
   name: 'VaDivider',
   props: {
+    ...useComponentPresetProp,
     vertical: { type: Boolean, default: false },
     dashed: { type: Boolean, default: false },
     inset: { type: Boolean, default: false },

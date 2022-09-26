@@ -9,6 +9,11 @@ const config: ApiDocsBlock[] = [
 
   block.subtitle('accessibilityGuide.keyboardInteractions.title'),
   block.paragraph('accessibilityGuide.keyboardInteractions.description'),
+  block.example('KeyboardInteractions'),
+
+  block.subtitle('accessibilityGuide.waiAria.title'),
+  block.paragraph('accessibilityGuide.waiAria.description'),
+  block.example('WaiAria'),
 ]
 
 export default config

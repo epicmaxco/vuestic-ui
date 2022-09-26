@@ -115,7 +115,7 @@ export default defineComponent({
 
   .va-file-upload-list-item {
     background-color: var(--va-file-upload-list-item-background-color);
-    box-shadow: var(--va-file-upload-list-item, var(--va-block-box-shadow));
+    box-shadow: var(--va-file-upload-list-item-box-shadow, var(--va-block-box-shadow));
     border-radius: var(--va-file-upload-list-item-border-radius, var(--va-block-border-radius));
     position: relative;
     line-height: 1.5rem;

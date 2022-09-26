@@ -28,7 +28,7 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
 
-import { useColors, useTextColor, useSize, useSizeProps, useLoadingProps } from '../../composables'
+import { useComponentPresetProp, useColors, useTextColor, useSize, useSizeProps, useLoadingProps } from '../../composables'
 
 import { VaIcon } from '../va-icon'
 import { VaProgressCircle } from '../va-progress-circle'
@@ -39,8 +39,9 @@ export default defineComponent({
   props: {
     ...useLoadingProps,
     ...useSizeProps,
+    ...useComponentPresetProp,
     color: { type: String, default: 'info' },
-    textColor: { type: String, default: 'white' },
+    textColor: { type: String },
     square: { type: Boolean, default: false },
     icon: { type: String, default: '' },
     src: { type: String, default: null },

@@ -1,6 +1,6 @@
 <template>
   <va-button-toggle
-    toggle-color="black"
+    toggle-color="textDark"
     color="#7e06ae"
     v-model="model"
     :options="options"

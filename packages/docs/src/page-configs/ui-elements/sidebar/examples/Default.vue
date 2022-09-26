@@ -1,6 +1,6 @@
 <template>
-  <div style="height: 13rem; border: 1px solid var(--va-secondary);">
-    <va-sidebar textColor="dark">
+  <div style="height: 13rem;">
+    <va-sidebar>
       <va-sidebar-item>
         <va-sidebar-item-content>
           <va-icon name="dashboard" />

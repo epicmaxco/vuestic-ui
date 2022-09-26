@@ -15,6 +15,7 @@
     "serve:nuxt": "nuxt preview ./dist/nuxt",
     "test": "vitest",
     "test:ci": "vitest run",
+    "test:test-utils": "vitest run -r ./src -c ./vitest.config.ts",
     "build:vuestic": "yarn --cwd ../ui build",
     "build:vuestic-nuxt": "yarn --cwd ../nuxt build",
     "ci": "yarn build:vuestic && yarn build:vuestic-nuxt && yarn build && yarn test:ci"
@@ -26,6 +27,7 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^1.3.0",
+    "@vue/test-utils": "^2.0.2",
     "nuxt": "3.0.0-rc.8",
     "sass": "^1.54.4",
     "serve": "^12.0.0",
@@ -33,7 +35,7 @@
     "ts-node": "^10.8.1",
     "typescript": "^4.3.2",
     "vite": "^2.4.4",
-    "vitest": "^0.22.1",
+    "vitest": "*",
     "vue-bundle-renderer": "0.4.1",
     "vue-tsc": "^0.38.2",
     "webpack": "5",

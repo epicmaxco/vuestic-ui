@@ -11,3 +11,7 @@
 .visually-hidden {
   @include visually-hidden;
 }
+
+.fill-width {
+  width: 100%;
+}

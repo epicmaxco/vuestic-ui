@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex align--center">
+  <div class="d-flex align-center">
     <va-button>{{ buttonText }}</va-button>
 
     <va-color-palette v-model="primaryColor" :palette="colorsToChange" class="mx-4" />

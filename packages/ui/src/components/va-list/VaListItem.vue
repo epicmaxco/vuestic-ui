@@ -25,14 +25,20 @@
 
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
+import pick from 'lodash/pick'
 
-import { useRouterLink, useRouterLinkProps } from '../../composables'
+import {
+  useBem,
+  useComponentPresetProp,
+  useRouterLink, useRouterLinkProps,
+} from '../../composables'
 
 export default defineComponent({
   name: 'VaListItem',
   emits: ['focus', 'click'],
   props: {
     ...useRouterLinkProps,
+    ...useComponentPresetProp,
     tag: { type: String, default: 'div' },
     disabled: { type: Boolean, default: false },
   },
@@ -40,8 +46,8 @@ export default defineComponent({
   setup (props) {
     const tabIndexComputed = computed(() => props.disabled ? -1 : 0)
 
-    const computedClass = computed(() => ({
-      'va-list-item--disabled': props.disabled,
+    const computedClass = useBem('va-list-item', () => ({
+      ...pick(props, ['disabled']),
     }))
 
     return {
@@ -64,8 +70,8 @@ export default defineComponent({
       @include va-disabled;
     }
 
-    &:focus:not(.va-list-item--disabled) {
-      @include focus-outline;
+    &:not(.va-list-item--disabled) {
+      @include keyboard-focus-outline($radius: 2px, $offset: -2px);
     }
 
     &__inner {

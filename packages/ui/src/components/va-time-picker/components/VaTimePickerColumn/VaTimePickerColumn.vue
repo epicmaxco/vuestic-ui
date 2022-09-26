@@ -6,30 +6,38 @@
     @keydown.down.stop.prevent="makeActiveNext()"
     @keydown.space.stop.prevent="makeActiveNext(5)"
     @keydown.up.stop.prevent="makeActivePrev()"
-    @scroll.passive="onScroll"
-    @touchmove.passive="onScroll"
+    :style="styleComputed"
   >
-    <div
-      v-for="(item, index) in items" :key="item"
-      class="va-time-picker-cell"
-      :class="{ 'va-time-picker-cell--active': index === $props.activeItemIndex }"
-      @click="onCellClick(index)"
+    <VaTimePickerColumnCell
+      @scroll.passive="onScroll"
+      @touchmove.passive="onScroll"
+      @mousewheel.passive="onScroll"
     >
-      <slot name="cell" v-bind="{ item, index, activeItemIndex, items, formattedItem: formatCell(item) }">
-        {{ formatCell(item) }}
-      </slot>
-    </div>
+      <div
+        v-for="(item, index) in items" :key="item"
+        class="va-time-picker-cell"
+        :class="{ 'va-time-picker-cell--active': index === $props.activeItemIndex }"
+        @click="onCellClick(index)"
+      >
+        <slot name="cell" v-bind="{ item, index, activeItemIndex, items, formattedItem: formatCell(item) }">
+          {{ formatCell(item) }}
+        </slot>
+      </div>
+    </VaTimePickerColumnCell>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, nextTick, shallowRef, watch, onMounted, PropType } from 'vue'
+import VaTimePickerColumnCell from '../VaTimePickerColumnCell.vue'
+import { defineComponent, nextTick, shallowRef, watch, onMounted, PropType, computed } from 'vue'
 
+import { useElementBackground, useSyncProp, useFocus, useFocusEmits, useTextColor } from '../../../../composables'
 import debounce from 'lodash/debounce.js'
-import { useSyncProp, useFocus, useFocusEmits } from '../../../../composables'
 
 export default defineComponent({
   name: 'VaTimePickerColumn',
+
+  components: { VaTimePickerColumnCell },
 
   props: {
     items: { type: Array as PropType<string[] | number[]>, default: () => [] },
@@ -50,7 +58,8 @@ export default defineComponent({
 
     const scrollTo = (index: number, animated = true) => {
       nextTick(() => {
-        rootElement.value!.scrollTo({
+        // see: https://github.com/vuejs/vue-test-utils/issues/319#issuecomment-354667621
+        rootElement.value?.scrollTo?.({
           behavior: animated ? 'smooth' : 'auto',
           top: index * props.cellHeight,
         })
@@ -82,6 +91,12 @@ export default defineComponent({
       return n < 10 ? `0${n}` : `${n}`
     }
 
+    const { background } = useElementBackground(rootElement)
+    const { textColorComputed } = useTextColor(background)
+
+    const styleComputed = computed(() => ({
+      color: textColorComputed.value,
+    }))
     const getIndex = () => {
       const scrollTop = rootElement.value!.scrollTop
       const calculatedIndex = Math.max(
@@ -114,6 +129,8 @@ export default defineComponent({
 
       onCellClick,
       formatCell,
+
+      styleComputed,
 
       focus,
       blur,

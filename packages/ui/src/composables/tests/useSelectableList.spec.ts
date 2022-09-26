@@ -1,4 +1,7 @@
-import { useSelectableList, useSelectableListProps } from '../useSelectableList'
+import {
+  useSelectableList,
+  useSelectableListProps,
+} from '../useSelectableList'
 import { mount } from '@vue/test-utils'
 import { describe, it, expect } from 'vitest'
 
@@ -7,19 +10,68 @@ const TestComponent = {
   props: { ...useSelectableListProps },
 }
 
-// TODO Test broken. Getting error.
-describe.skip('useSelectableList', () => {
+describe('useSelectableList', () => {
   it.each([
-    /* eslint-disable */
-//   option                                                                 | props                                                                           | expected
-    [1                                                                   , {}                                                                           , { getGroupBy: 1, getOptionByValue: 1, getText: 1, getTrackBy: 1, getValue: 1, getDisabled: 1 }                                                                                                         ],
-    ['two'                                                               , {}                                                                           , { getGroupBy: 'two', getOptionByValue: 'two', getText: 'two', getTrackBy: 'two', getValue: 'two', getDisabled: 'two' }                                                                                 ],
-    [{ text: 'textValue', disabled: false }                              , {}                                                                           , { getGroupBy: undefined, getOptionByValue: { text: 'textValue', disabled: false }, getText: 'textValue', getTrackBy: undefined, getValue: { text: 'textValue', disabled: false }, getDisabled: false } ],
-    [{ id: 'uniqueId', product: 'goodThing', cost: 1, inStock: true }    , { trackBy: 'id', valueBy: 'cost', textBy: 'product', disabledBy: 'inStock' } , { getOptionByValue: { id: 'uniqueId', product: 'goodThing', cost: 1, inStock: true }, getValue: 1, getText: 'goodThing', getTrackBy: 'uniqueId', getGroupBy: undefined, getDisabled: true }            ],
-    /* eslint-enable */
+    //   option                                                                 | props                                                                           | expected
+    [
+      1,
+      {},
+      {
+        getGroupBy: 1,
+        getOptionByValue: 1,
+        getText: 1,
+        getTrackBy: 1,
+        getValue: 1,
+        getDisabled: 1,
+      },
+    ],
+    [
+      'two',
+      {},
+      {
+        getGroupBy: 'two',
+        getOptionByValue: 'two',
+        getText: 'two',
+        getTrackBy: 'two',
+        getValue: 'two',
+        getDisabled: 'two',
+      },
+    ],
+    [
+      { text: 'textValue', disabled: false },
+      {},
+      {
+        getGroupBy: undefined,
+        getOptionByValue: { text: 'textValue', disabled: false },
+        getText: 'textValue',
+        getTrackBy: undefined,
+        getValue: { text: 'textValue', disabled: false },
+        getDisabled: false,
+      },
+    ],
+    [
+      { id: 'uniqueId', product: 'goodThing', cost: 1, inStock: true },
+      {
+        trackBy: 'id',
+        valueBy: 'cost',
+        textBy: 'product',
+        disabledBy: 'inStock',
+      },
+      {
+        getOptionByValue: {
+          id: 'uniqueId',
+          product: 'goodThing',
+          cost: 1,
+          inStock: true,
+        },
+        getValue: 1,
+        getText: 'goodThing',
+        getTrackBy: 'uniqueId',
+        getGroupBy: undefined,
+        getDisabled: true,
+      },
+    ],
   ])('option %s & props %s should be %s', async (option, props, expected) => {
-    // TODO 2nd test is broken for some reason.
-
     const wrapper = mount(TestComponent)
     expect(wrapper.exists()).toBeTruthy()
 
@@ -45,6 +97,6 @@ describe.skip('useSelectableList', () => {
       getGroupBy: getGroupBy(option),
       getDisabled: getDisabled(option),
     }
-    expect(result).toMatchObject(expected)
+    expect(result).toEqual(expected)
   })
 })

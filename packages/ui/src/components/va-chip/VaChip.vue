@@ -15,10 +15,10 @@
   >
     <span
       class="va-chip__inner"
-      v-on="keyboardFocusListeners"
       @focus="$emit('focus')"
       @mouseenter="onMouseEnter"
       @mouseleave="onMouseLeave"
+      v-on="keyboardFocusListeners"
     >
       <va-icon
         v-if="icon"
@@ -31,11 +31,10 @@
       </span>
       <va-icon
         v-if="closeable"
-        class="va-chip__close-icon"
-        name="close"
         role="button"
+        name="close"
+        class="va-chip__close-icon"
         aria-label="close"
-        aria-hidden="false"
         :tabindex="tabIndexComputed"
         :size="iconSize"
         @click.stop="close"
@@ -48,15 +47,18 @@
 
 <script lang="ts">
 import { defineComponent, PropType, computed, toRef } from 'vue'
+import pick from 'lodash/pick'
 
 import { getBoxShadowColor, getHoverColor, getFocusColor } from '../../services/color-config/color-functions'
 import {
+  useComponentPresetProp,
   useKeyboardOnlyFocus,
   useRouterLink, useRouterLinkProps,
   useColors, useColorProps,
   useStateful, useStatefulEmits, useStatefulProps,
   useHover,
   useTextColor,
+  useBem,
 } from '../../composables'
 
 import { VaIcon } from '../va-icon'
@@ -72,6 +74,7 @@ export default defineComponent({
     ...useRouterLinkProps,
     ...useColorProps,
     ...useStatefulProps,
+    ...useComponentPresetProp,
     modelValue: { type: Boolean, default: true },
     closeable: { type: Boolean, default: false },
     outline: { type: Boolean, default: false },
@@ -131,11 +134,10 @@ export default defineComponent({
 
       tabIndexComputed: computed(() => props.disabled ? -1 : 0),
 
-      computedClass: computed(() => ({
-        'va-chip--small': props.size === 'small',
-        'va-chip--large': props.size === 'large',
-        'va-chip--square': props.square,
-        'va-chip--disabled': props.disabled,
+      computedClass: useBem('va-chip', () => ({
+        ...pick(props, ['disabled', 'square']),
+        small: props.size === 'small',
+        large: props.size === 'large',
       })),
 
       computedStyle: computed(() => {
@@ -205,10 +207,6 @@ export default defineComponent({
 
     &__close-icon {
       cursor: pointer;
-
-      &:focus {
-        @include focus-outline;
-      }
 
       @at-root {
         .va-chip--disabled {

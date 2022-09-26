@@ -4,6 +4,10 @@
       <VaCarousel :items="items" v-model="currentSlide" />
     </VbCard>
 
+    <VbCard title="Swipable">
+      <VaCarousel :items="items" v-model="currentSlide" swipable />
+    </VbCard>
+
     <VbCard title="Arrows">
       <VaCarousel :items="items" v-model="currentSlide" arrows />
     </VbCard>

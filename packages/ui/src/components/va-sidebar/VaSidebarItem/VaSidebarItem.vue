@@ -1,6 +1,6 @@
 <template>
   <component
-    ref="anchor"
+    ref="rootElement"
     class="va-sidebar__item va-sidebar-item"
     tabindex="0"
     :class="{ 'va-sidebar-item--active': $props.active }"
@@ -15,9 +15,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, shallowRef, StyleValue } from 'vue'
+import { defineComponent, computed } from 'vue'
 
 import {
+  applyColors,
+  useElementRef,
   useColors,
   useKeyboardOnlyFocus,
   useHover,
@@ -25,12 +27,14 @@ import {
   useTextColor,
 } from '../../../composables'
 import { useSidebarItem } from '../hooks/useSidebar'
+import { useComponentPresetProp } from '../../../composables/useComponentPreset'
 
 export default defineComponent({
   name: 'VaSidebarItem',
 
   props: {
     ...useRouterLinkProps,
+    ...useComponentPresetProp,
     active: { type: Boolean, default: false },
     textColor: { type: String, default: undefined },
     activeColor: { type: String, default: 'primary' },
@@ -39,32 +43,38 @@ export default defineComponent({
   },
 
   setup (props) {
-    const anchor = shallowRef<HTMLAnchorElement>()
+    const rootElement = useElementRef()
+    const sidebar = useSidebarItem()
 
-    const { isHovered } = useHover(anchor)
+    const { isHovered } = useHover(rootElement)
     const { getColor, getHoverColor, getFocusColor } = useColors()
     const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
-    const { sidebarColor } = useSidebarItem()
 
     const backgroundColorComputed = computed(() => {
       if (props.active && !isHovered.value && !hasKeyboardFocus.value) {
         return getColor(props.activeColor)
       }
 
-      return getColor(sidebarColor.value)
+      if (hasKeyboardFocus.value) {
+        return getFocusColor(getColor(props.hoverColor || props.activeColor))
+      }
+
+      return '#ffffff00'
     })
 
-    const { textColorComputed } = useTextColor(backgroundColorComputed)
+    const textBackground = computed(() => applyColors(getColor(sidebar?.color), backgroundColorComputed.value))
+    const { textColorComputed } = useTextColor(textBackground)
 
     const computedStyle = computed(() => {
-      const style: StyleValue = {
-        color: props.textColor,
+      const style: Record<string, string> = { color: textColorComputed.value }
+
+      if (isHovered.value || props.active || hasKeyboardFocus.value) {
+        style.backgroundColor = backgroundColorComputed.value
       }
 
       if (props.active) {
-        style.backgroundColor = backgroundColorComputed.value
-        style.color = textColorComputed.value
-        style.borderColor = getColor(props.borderColor || props.activeColor)
+        const mergedProps = { ...sidebar, ...props }
+        style.borderColor = getColor(mergedProps.borderColor || mergedProps.activeColor)
       }
 
       if (hasKeyboardFocus.value) {
@@ -81,12 +91,15 @@ export default defineComponent({
     const { tagComputed, hrefComputed } = useRouterLink(props)
 
     return {
-      anchor,
+      rootElement,
       computedStyle,
       keyboardFocusListeners,
       tagComputed,
       hrefComputed,
       isHovered,
+      backgroundColorComputed,
+      bg: getColor(sidebar?.color),
+      textBackground,
     }
   },
 })

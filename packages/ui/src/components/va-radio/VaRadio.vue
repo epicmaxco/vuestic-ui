@@ -44,13 +44,14 @@
 import { defineComponent, PropType, computed } from 'vue'
 
 import { generateUniqueId } from '../../services/utils'
-import { useColors, useFormProps, useForm } from '../../composables'
+import { useComponentPresetProp, useColors, useFormProps, useForm } from '../../composables'
 
 export default defineComponent({
   name: 'VaRadio',
   emits: ['update:modelValue', 'focus'],
   props: {
     ...useFormProps,
+    ...useComponentPresetProp,
     modelValue: { type: [Boolean, Array, String, Object, Number] as PropType<boolean | null | string | number | Record<any, unknown> | unknown[]>, default: null },
     option: { type: [String, Boolean, Object, Number] as PropType<any>, default: null },
     name: { type: String, default: '' },
@@ -172,6 +173,10 @@ export default defineComponent({
         @include va-disabled;
       }
 
+      .va-radio__input:focus-visible + & {
+        @include focus-outline('inherit');
+      }
+
       &__dot {
         transition: var(--va-radio-dot-transition, var(--va-swing-transition));
         position: var(--va-radio-dot-position);
@@ -207,10 +212,6 @@ export default defineComponent({
         border-radius: var(--va-radio-background-border-radius);
         z-index: var(--va-radio-background-z-index);
         opacity: var(--va-radio-background-opacity);
-
-        .va-radio__input:focus + .va-radio__icon & {
-          opacity: 0.2;
-        }
 
         .va-radio:hover & {
           opacity: 0.2;

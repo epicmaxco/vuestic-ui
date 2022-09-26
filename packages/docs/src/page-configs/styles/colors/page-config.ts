@@ -18,6 +18,11 @@ const config: ApiDocsBlock[] = [
   block.subtitle('colors.reactivity.subtitle'),
   block.paragraph('colors.reactivity.about'),
   block.paragraph('colors.reactivity.additional'),
+
+  block.subtitle('colors.theme'),
+  block.paragraph('colors.theme.auto-text-color'),
+  block.example('theme'),
+  block.example('theme-examples', { hideCode: true }),
 ]
 
 export default config

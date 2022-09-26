@@ -59,7 +59,7 @@
 <script lang="ts">
 import { computed, defineComponent, onMounted, ref, toRef, shallowRef, provide, PropType } from 'vue'
 
-import { useColors, useBem } from '../../composables'
+import { useColors, useComponentPresetProp, useBem } from '../../composables'
 
 import { VaFileUploadKey, VaFile } from './types'
 
@@ -76,6 +76,7 @@ export default defineComponent({
   },
 
   props: {
+    ...useComponentPresetProp,
     fileTypes: { type: String, default: '' },
     dropzone: { type: Boolean, default: false },
     hideFileList: { type: Boolean, default: false },
@@ -310,6 +311,10 @@ export default defineComponent({
           cursor: inherit;
         }
       }
+    }
+
+    .va-button {
+      @include keyboard-focus-outline($offset: -2px);
     }
   }
 </style>

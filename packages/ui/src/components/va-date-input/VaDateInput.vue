@@ -97,6 +97,7 @@ import omit from 'lodash/omit'
 
 import { filterComponentProps, extractComponentProps, extractComponentEmits } from '../../utils/child-props'
 import {
+  useComponentPresetProp,
   useClearable, useClearableEmits, useClearableProps,
   useValidation, useValidationEmits, useValidationProps, ValidationProps,
   useStateful, useStatefulEmits,
@@ -136,6 +137,7 @@ export default defineComponent({
     ...VaInputWrapperProps,
     ...VaDatePickerProps,
     ...useValidationProps as ValidationProps<DateInputModelValue>,
+    ...useComponentPresetProp,
 
     clearValue: { type: Date as PropType<DateInputModelValue>, default: undefined },
     modelValue: { type: [Date, Array, Object, String, Number] as PropType<DateInputModelValue> },
