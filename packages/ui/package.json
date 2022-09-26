@@ -42,6 +42,7 @@
     "server:webapp": "npx http-server dist --push-state"
   },
   "dependencies": {
+    "@types/lodash": "^4.14.161",
     "cleave.js": "^1.6.0",
     "colortranslator": "^1.9.2",
     "lodash": "^4.17.21"
@@ -57,7 +58,6 @@
     "@rollup/plugin-commonjs": "^19.0.0",
     "@rollup/plugin-node-resolve": "^13.0.0",
     "@types/cleave.js": "^1.4.7",
-    "@types/lodash": "^4.14.161",
     "@types/mini-css-extract-plugin": "^1.2.1",
     "@types/semver": "^7.3.6",
     "@types/webpack": "^5",
