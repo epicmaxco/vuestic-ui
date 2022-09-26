@@ -50,6 +50,7 @@ const config: ApiDocsBlock[] = [
   block.subtitle('componentsConfig.componentsPresets.title'),
   block.paragraph('componentsConfig.componentsPresets.subtitle'),
   block.code(componentsPresetsConfigCodeExample),
+  block.example('presets'),
 
   block.subtitle('componentsConfig.vaConfig.title'),
   block.paragraph('componentsConfig.vaConfig.subtitle'),

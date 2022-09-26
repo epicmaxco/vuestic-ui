@@ -30,11 +30,9 @@ export const componentsPresetsConfigCodeExample = `
 ...
 components: {
   presets: {
-    presets: {
-      VaButton: {
-        presetNameOne: { size: 'small', plain: true },
-        presetNameTwo: { size: 'large', round: true },
-      },
+    VaButton: {
+      addToCart: { size: 'large', round: true },
+      deleteFromCart: { size: 'small', plain: true },
     },
   },
 },
