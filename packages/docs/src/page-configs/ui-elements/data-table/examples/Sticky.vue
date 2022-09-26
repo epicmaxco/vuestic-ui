@@ -50,7 +50,7 @@
       @scroll:bottom="onScrollDown"
     >
       <template #headerPrepend>
-        <tr>
+        <tr class="va-data-table__table-th">
           <th colspan="6">With scroll events</th>
         </tr>
       </template>

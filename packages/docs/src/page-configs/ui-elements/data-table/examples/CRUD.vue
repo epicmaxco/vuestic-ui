@@ -21,6 +21,7 @@
           <va-button
             @click="addNewItem"
             :disabled="!isNewData"
+            block
           >
             Add
           </va-button>
