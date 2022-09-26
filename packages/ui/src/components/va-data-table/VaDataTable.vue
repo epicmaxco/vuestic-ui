@@ -38,6 +38,7 @@
           >
             <va-checkbox
               v-if="selectMode === 'multiple'"
+              class="va-data-table__table-cell-checkbox"
               aria-label="select all rows"
               :model-value="severalRowsSelected ? 'idl' : allRowsSelected"
               :true-value="true"
@@ -140,6 +141,7 @@
               @selectstart.prevent
             >
               <va-checkbox
+                class="va-data-table__table-cell-checkbox"
                 :model-value="isRowSelected(row)"
                 :color="selectedColor"
                 :aria-label="`select row ${row.initialIndex}`"
@@ -181,9 +183,10 @@
         <slot name="footerPrepend" />
 
         <tr v-if="!hideDefaultHeader" class="va-data-table__table-tr">
-          <th v-if="selectable" class="va-data-table__table-th">
+          <th v-if="selectable" class="va-data-table__table-th va-data-table__table-cell-select">
             <va-checkbox
               v-if="selectMode === 'multiple'"
+              class="va-data-table__table-cell-checkbox"
               aria-label="select all rows"
               :model-value="severalRowsSelected ? 'idl' : allRowsSelected"
               :true-value="true"
@@ -584,6 +587,10 @@ export default defineComponent({
             opacity: 1;
             pointer-events: initial;
           }
+
+          &:focus-visible {
+            opacity: 1;
+          }
         }
 
         span {
@@ -591,7 +598,7 @@ export default defineComponent({
         }
 
         &:hover {
-          .va-data-table__table-th-sorting-icon:not(.active) {
+          .va-data-table__table-th-sorting-icon:not(.active, :focus-visible) {
             opacity: var(--va-data-table-hover-th-opacity);
           }
         }
@@ -611,6 +618,10 @@ export default defineComponent({
           text-align: var(--va-data-table-selectable-cell-text-align);
           vertical-align: var(--va-data-table-selectable-cell-vertical-align);
           cursor: var(--va-data-table-selectable-tr-cursor);
+        }
+
+        & .va-data-table__table-cell-checkbox {
+          display: block;
         }
       }
 
@@ -633,7 +644,7 @@ export default defineComponent({
 
           &:nth-child(2n) {
             &:not(.selected) {
-              @include va-background(var(--va-data-table-striped-tr-background-color), var(--va-data-table-striped--tr-opacity), -1);
+              @include va-background(var(--va-data-table-striped-tr-background-color), var(--va-data-table-striped-tr-opacity), -1);
             }
           }
         }
@@ -641,17 +652,19 @@ export default defineComponent({
 
       &.selectable,
       &.hoverable {
-        .va-data-table__table-tr {
-          &:hover {
-            background-color: var(--va-data-table-hover-color);
+        :not(thead, tfoot) {
+          .va-data-table__table-tr {
+            &:hover {
+              background-color: var(--va-data-table-hover-color);
+            }
           }
-        }
 
-        .va-data-table__table-tr:nth-child(2n) {
-          &:hover {
-            background-color: var(--va-data-table-hover-color);
+          .va-data-table__table-tr:nth-child(2n) {
+            &:hover {
+              background-color: var(--va-data-table-hover-color);
 
-            @include va-background-opacity(transparent);
+              @include va-background-opacity(transparent);
+            }
           }
         }
       }

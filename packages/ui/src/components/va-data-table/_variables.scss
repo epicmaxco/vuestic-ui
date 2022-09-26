@@ -11,14 +11,14 @@
   --va-data-table-thead-color: currentColor;
 
   /* Sticky */
-  --va-data-table-header-background: var(--va-white);
+  --va-data-table-header-background: var(--va-background-primary);
 
   /* hover */
   --va-data-table-hover-th-opacity: 0.3;
 
   /* Striped */
-  --va-data-table-striped-tr-background-color: var(--va-gray);
-  --va-data-table-striped--tr-opacity: 0.2;
+  --va-data-table-striped-tr-background-color: var(--va-background-secondary);
+  --va-data-table-striped-tr-opacity: 1;
 
   /* Selectable */
   --va-data-table-selectable-tr-cursor: pointer;
