@@ -6,7 +6,7 @@
     :class="wrapperClassComputed"
   >
     <div class="va-virtual-scroller__container" :style="containerStyleComputed">
-      <div
+      <tbody
         ref="list"
         role="list"
         class="va-virtual-scroller__list"
@@ -18,7 +18,7 @@
         >
             <slot v-bind="{item, index: renderStartIndex + index}" />
         </template>
-      </div>
+      </tbody>
     </div>
   </div>
 </template>

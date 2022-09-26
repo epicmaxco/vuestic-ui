@@ -24,6 +24,20 @@
       </va-alert>
     </VbCard>
 
+    <VbCard title="Virtual Scrolling">
+      <va-data-table
+        :items="itemsHuge"
+        :clickable="clickable"
+        virtual-scroller
+        @row:click="rowEventType = $event.event.type, rowId = $event.item.id"
+        @row:dblclick="rowEventType = $event.event.type, rowId = $event.item.id"
+        @row:contextmenu="rowEventType = $event.event.type, rowId = $event.item.id"
+      >
+        <template #header(address)>Street</template>
+        <template #header(company)>Company Name</template>
+      </va-data-table>
+    </VbCard>
+
     <VbCard title="Use custom slots for address and company">
       <va-data-table :items="items">
         <template #header(address)>Street</template>
@@ -359,6 +373,7 @@ export default defineComponent({
 
     return {
       items: shuffle(cloneDeep(users)),
+      itemsHuge: new Array(1000).fill(null).map((_, i) => users[Number(i % 2)]),
       columns,
 
       filter: '',
