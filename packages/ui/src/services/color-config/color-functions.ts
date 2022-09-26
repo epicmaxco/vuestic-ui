@@ -9,7 +9,7 @@ export const colorToRgba = (color: ColorInput, opacity: number) => {
 export const isLightBackground = (color: ColorInput, threshold: number) => {
   // TODO: replace with color mixin (doesn't play any role in dark theme)
   const { R, G, B } = new ColorTranslator(color)
-  return Math.sqrt(R * R * 0.241 + G * G * 0.691 + B * B * 0.068) > 120
+  return Math.sqrt(R * R * 0.241 + G * G * 0.691 + B * B * 0.068) > threshold
 }
 
 export const getTextColor = (color: ColorInput, darkColor: string, lightColor: string, threshold: number) => {
