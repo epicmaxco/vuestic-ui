@@ -73,34 +73,25 @@ export default defineComponent({
     .va-button {
       margin: var(--va-button-group-button-margin);
       box-shadow: none;
+      outline: none;
 
-      @include keyboard-focus-outline($offset: -2px);
+      &:focus-visible {
+        outline: none !important;
+
+        &::before {
+          @include focus-outline($offset: -2px, $radius: 'inherit');
+        }
+      }
     }
 
     & > .va-button:last-child {
       width: var(--va-button-group-button-width);
       padding-right: var(--va-button-group-button-padding);
-
-      &.va-button--small {
-        padding-right: var(--va-button-group-sm-button-padding);
-      }
-
-      &.va-button--large {
-        padding-right: var(--va-button-group-lg-button-padding);
-      }
     }
 
     & > .va-button:first-child {
       width: var(--va-button-group-button-width);
       padding-left: var(--va-button-group-button-padding);
-
-      &.va-button--small {
-        padding-left: var(--va-button-group-sm-button-padding);
-      }
-
-      &.va-button--large {
-        padding-left: var(--va-button-group-lg-button-padding);
-      }
     }
 
     & > .va-button:not(:last-child) {
