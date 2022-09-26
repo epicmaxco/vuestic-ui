@@ -188,7 +188,7 @@
 
     <VbCard title="Ignores hidden overflow in container">
       <div style="width: 50px; height: 50px; overflow: hidden; border: 1px gray solid;">
-        <va-dropdown>
+        <va-dropdown prevent-overflow>
           <template #anchor>
             <button>
               Click
