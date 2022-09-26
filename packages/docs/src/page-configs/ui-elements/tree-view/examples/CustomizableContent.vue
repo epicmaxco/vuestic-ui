@@ -4,7 +4,7 @@
     class="customizable-content"
   >
     <template #content="node">
-      <div class="d-flex align--center">
+      <div class="d-flex align-center">
         <va-avatar
           v-if="node.image"
           :src="node.image"
@@ -12,8 +12,8 @@
         />
 
         <div style="margin-right: 0.5rem;">
-          <b v-if="node.label">{{ node.label }}</b>
-          <p v-if="node.description">{{ node.description }}</p>
+          <b v-if="node.label" class="display-6">{{ node.label }}</b>
+          <p v-if="node.description" class="text--secondary mb-0">{{ node.description }}</p>
         </div>
 
         <va-button
@@ -77,13 +77,3 @@ export default {
   }),
 }
 </script>
-
-<style scoped>
-.customizable-content b {
-  text-transform: uppercase;
-}
-
-.customizable-content p {
-  color: #767c88;
-}
-</style>

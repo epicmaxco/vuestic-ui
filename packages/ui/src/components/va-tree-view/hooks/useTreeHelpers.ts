@@ -46,6 +46,10 @@ export const useTreeViewProps = {
     type: [String, Function] as PropType<TreeViewPropKey>,
     default: 'expanded',
   },
+  checkedBy: {
+    type: [String, Function] as PropType<TreeViewPropKey>,
+    default: 'checked',
+  },
   expandAll: {
     type: Boolean,
     default: false,
@@ -93,6 +97,7 @@ export const useTreeHelpers = (props: ExtractPropTypes<typeof useTreeViewProps>)
   }
 
   const getText = (node: TreeNode) => getNodeProperty(node, props.textBy)
+  const getChecked = (node: TreeNode) => getNodeProperty(node, props.checkedBy)
   const getDisabled = (node: TreeNode) => getNodeProperty(node, props.disabledBy)
   const getExpanded = (node: TreeNode) => getNodeProperty(node, props.expandedBy)
   const getTrackBy = (node: TreeNode) => getNodeProperty(node, props.trackBy)
@@ -110,6 +115,7 @@ export const useTreeHelpers = (props: ExtractPropTypes<typeof useTreeViewProps>)
   return {
     getText,
     getValue,
+    getChecked,
     getTrackBy,
     getDisabled,
     getExpanded,

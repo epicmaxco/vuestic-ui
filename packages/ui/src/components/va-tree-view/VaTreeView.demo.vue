@@ -15,6 +15,7 @@
         :option="option"
       />
       <va-tree-view
+        v-model:checked="selectedNodes"
         :nodes="nodes"
         :selection-type="selectionType"
         selectable
@@ -26,9 +27,10 @@
         :palette="colorsPalette"
       />
       <va-tree-view
-        :nodes="nodes"
-        selectable
+        :nodes="nodesChecked"
         :color="selectedColor"
+        expand-all
+        selectable
       />
     </VbCard>
     <VbCard title="Selection model">
@@ -42,7 +44,7 @@
       <p>
         Single selection model for two tree views:
         <br />
-        {{ JSON.stringify(selectedNodes) }}
+        {{ selectedNodes }}
       </p>
       <va-tree-view
         v-model:checked="selectedNodes"
@@ -58,7 +60,7 @@
       />
     </VbCard>
     <VbCard title="valueBy">
-      <p>{{ JSON.stringify(selectedNodesValueBy) }}</p>
+      <p>{{ selectedNodesValueBy }}</p>
       <br />
       <va-tree-view
         v-model:checked="selectedNodesValueBy"
@@ -89,6 +91,8 @@
       <va-tree-view
         :nodes="nodesDisabledBy"
         disabled-by="inactive"
+        selectable
+        expand-all
       />
     </VbCard>
     <VbCard title="Expandable">
@@ -106,6 +110,7 @@
         placeholder="Filter the tree view"
         style="margin-bottom: 1rem;"
       />
+      <br />
       <va-checkbox v-model="isFilterCaseSensitive" label="Case sensitive" />
       <va-tree-view
         :nodes="filterableNodes"
@@ -181,16 +186,37 @@ export default {
         id: 1,
         label: 'Category',
         children: [
+          { id: 2, label: 'Item' },
+          {
+            id: 3,
+            label: 'Subcategory',
+            children: [
+              { id: 4, label: 'Item' },
+              { id: 5, label: 'Item' },
+            ],
+          },
+          { id: 6, label: 'Item' },
+        ],
+      },
+      { id: 7, label: 'Item' },
+    ],
+    nodesChecked: [
+      {
+        id: 1,
+        label: 'Category',
+        checked: true,
+        children: [
           {
             id: 2,
             label: 'Subcategory',
+            checked: true,
             children: [
-              { id: 3, label: 'Item' },
+              { id: 3, label: 'Item', checked: true },
             ],
           },
         ],
       },
-      { id: 4, label: 'Item' },
+      { id: 4, label: 'Item', checked: true },
     ],
     nodesTextBy: [
       {
@@ -253,17 +279,19 @@ export default {
         id: 1,
         label: 'Category',
         children: [
+          { id: 2, label: 'Item' },
           {
-            id: 2,
+            id: 3,
             label: 'Subcategory',
             inactive: true,
             children: [
-              { id: 3, label: 'Item' },
+              { id: 4, label: 'Item' },
             ],
           },
+          { id: 5, label: 'Item' },
         ],
       },
-      { id: 4, label: 'Item' },
+      { id: 6, label: 'Item' },
     ],
     filterableNodes: [
       {

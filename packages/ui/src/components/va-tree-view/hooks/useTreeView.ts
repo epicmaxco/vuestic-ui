@@ -48,6 +48,7 @@ const useTreeView: UseTreeViewFunc = (props, emit) => {
   const {
     getText,
     getValue,
+    getChecked,
     getTrackBy,
     getDisabled,
     getExpanded,
@@ -79,14 +80,27 @@ const useTreeView: UseTreeViewFunc = (props, emit) => {
     }
   }
 
-  const toggleCheckbox = (node: TreeNode, state: boolean) => {
-    const stateValue = state === null ? true : state
+  const toggleCheckbox = (node: TreeNode, state: boolean | null) => {
+    let stateValue = state === null ? true : state
+
+    if (state && node.indeterminate) {
+      stateValue = false
+    }
+
     const values = [getValue(node)]
 
     if (isLeafSelectionComputed.value && node.hasChildren) {
-      const cb = (childNode: TreeNode) => values.push(getValue(childNode))
+      const toggleChildren = (nodes: TreeNode[]) => {
+        nodes.forEach((node: TreeNode) => {
+          if (node.disabled) { return }
 
-      iterateNodes(node.children, cb)
+          if (node.children?.length) { toggleChildren(node.children) }
+
+          values.push(getValue(node))
+        })
+      }
+
+      toggleChildren(node.children)
     }
 
     updateCheckedList(values, stateValue)
@@ -105,7 +119,7 @@ const useTreeView: UseTreeViewFunc = (props, emit) => {
   }
 
   const toggleNode = (node: TreeNode): void => {
-    if (node.hasChildren && !node.disabled) {
+    if (node.hasChildren) {
       updateExpandedList([getValue(node)], !node.expanded)
     }
   }
@@ -115,9 +129,8 @@ const useTreeView: UseTreeViewFunc = (props, emit) => {
     const matchesFilter = filter.value ? computedFilterMethod.value?.(node, filter.value, textBy.value) : true
     const hasChildren = !!children.length
     const disabled = getDisabled(node) || false
-    const expanded = expandedList.value.includes(valueBy) || false
     let indeterminate = false
-    let checked: boolean | null = node.checked || checkedList.value.includes(valueBy) || false
+    let checked: boolean | null = checkedList.value.includes(valueBy) || false
 
     if (isLeafSelectionComputed.value && hasChildren) {
       const isAllChildrenChecked = children.every(c => c.checked)
@@ -129,12 +142,13 @@ const useTreeView: UseTreeViewFunc = (props, emit) => {
     }
 
     return reactive({
-      ...node,
+      id: getTrackBy(node),
+      label: getText(node),
       level,
       checked,
       children,
       disabled,
-      expanded,
+      expanded: expandedList.value.includes(valueBy) || false,
       hasChildren,
       matchesFilter,
       indeterminate,
@@ -188,21 +202,32 @@ const useTreeView: UseTreeViewFunc = (props, emit) => {
 
   const treeItems = computed(() => buildTree(nodes.value))
 
-  const checkAndUpdateExpandedList = () => {
-    const values: TypeModelValue = []
+  const checkForInitialValues = () => {
+    const expandedValues: TypeModelValue = []
+    const checkedValues: TypeModelValue = []
 
-    if (expandAll.value) {
-      iterateNodes(treeItems.value, (node) => values.push(getValue(node)))
-    } else {
-      iterateNodes(nodes.value, (node) => {
-        getExpanded(node) && values.push(getValue(node))
-      })
+    iterateNodes(nodes.value, (node) => {
+      if (expandAll.value) {
+        expandedValues.push(getValue(node))
+      } else {
+        getExpanded(node) && expandedValues.push(getValue(node))
+      }
+
+      if (getChecked(node)) {
+        checkedValues.push(getValue(node))
+      }
+    })
+
+    if (expandedValues.length) {
+      updateModel(expandedList, expandedValues, true)
     }
 
-    updateModel(expandedList, values, true)
+    if (checkedValues.length) {
+      updateModel(checkedList, checkedValues, true)
+    }
   }
 
-  checkAndUpdateExpandedList()
+  checkForInitialValues()
 
   return {
     treeItems,
