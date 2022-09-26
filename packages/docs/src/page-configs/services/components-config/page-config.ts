@@ -57,6 +57,10 @@ const config: ApiDocsBlock[] = [
   block.example('va-config'),
   block.paragraph('componentsConfig.vaConfig.explain'),
 
+  block.subtitle('componentsConfig.priority.title'),
+  block.paragraph('componentsConfig.priority.description'),
+  block.example('priority', { hideCode: true }),
+
   block.subtitle('componentsConfig.defaultSizes.title'),
   block.paragraph('componentsConfig.defaultSizes.description'),
   block.code(componentsConfigCodeExampleDefaultSizes),
