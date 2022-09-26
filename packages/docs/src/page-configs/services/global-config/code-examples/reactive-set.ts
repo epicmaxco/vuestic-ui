@@ -8,8 +8,11 @@ export default {
     const setNewLookForOurApplication = () => {
       setGlobalConfig({
         icons: [...],
-        components: { ... },
-        componentsAll: { ... },
+        components: {
+          ...,
+          all: { ... },
+          presets: { ... },
+        },
         colors: { ... },
       })
     }
