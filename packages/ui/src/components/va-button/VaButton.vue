@@ -169,12 +169,16 @@ export default defineComponent({
     const isTransparentBg = computed(() => props.plain || props.backgroundOpacity < 0.5)
     const { textColorComputed } = useTextColor(colorComputed, isTransparentBg)
 
-    const backgroundComputed = useButtonBackground(colorComputed, isPressed, isHovered)
+    const {
+      backgroundColor,
+      backgroundColorOpacity,
+      backgroundMaskOpacity,
+      backgroundMaskColor,
+    } = useButtonBackground(colorComputed, isPressed, isHovered)
     const contentColorComputed = useButtonTextColor(textColorComputed, colorComputed, isPressed, isHovered)
 
     const computedStyle = computed(() => ({
       borderColor: props.borderColor ? getColor(props.borderColor) : 'transparent',
-      ...backgroundComputed.value,
       ...contentColorComputed.value,
     }))
 
@@ -190,6 +194,11 @@ export default defineComponent({
       attributesComputed,
       wrapperClassComputed,
       iconAttributesComputed,
+
+      backgroundColor,
+      backgroundMaskColor,
+      backgroundMaskOpacity,
+      backgroundColorOpacity,
 
       ...publicMethods,
     }
@@ -221,10 +230,30 @@ export default defineComponent({
     box-sizing: border-box;
     cursor: var(--va-button-cursor);
 
+    &::after,
+    &::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: inherit;
+    }
+
+    &::before {
+      background: v-bind(backgroundColor);
+      opacity: v-bind(backgroundColorOpacity);
+    }
+
+    &::after {
+      background-color: v-bind(backgroundMaskColor);
+      opacity: v-bind(backgroundMaskOpacity);
+    }
+
     &__content {
       height: 100%;
       display: flex;
       align-items: center;
+      z-index: 1;
 
       &__title,
       &__icon {
@@ -372,6 +401,7 @@ export default defineComponent({
 
       & .va-button__content {
         padding: 0;
+        z-index: unset;
       }
     }
 

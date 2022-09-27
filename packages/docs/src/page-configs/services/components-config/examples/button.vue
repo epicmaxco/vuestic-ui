@@ -1,50 +1,41 @@
 <template>
-  <va-checkbox
-    v-for="(_, name) in buttonProps"
-    :key="name"
-    :label="name"
-    v-model="buttonProps[name]"
-  />
-  <va-button class="mt-2" @click="reset()">
-    {{ $t('componentsConfig.resetConfig') }}
-  </va-button>
+  <div class="d-flex flex-direction-column">
+    <va-checkbox
+      v-for="(_, name) in buttonProps" :key="name"
+      v-model="buttonProps[name]"
+      :label="name"
+      class="mb-3"
+    />
+    <va-button style="width: max-content;" @click="reset">
+      {{ $t('componentsConfig.resetConfig') }}
+    </va-button>
+  </div>
 </template>
 
-<script>
+<script setup>
 import { computed, ref, watch } from 'vue'
+
 import { useGlobalConfig } from 'vuestic-ui/src/main'
 
 const getDefaultButtonProps = () => ({
-  rounded: true,
-  outline: false,
-  flat: false,
+  round: false,
+  gradient: false,
+  plain: false,
 })
 
-export default {
-  setup () {
-    const buttonProps = ref(getDefaultButtonProps())
+const buttonProps = ref(getDefaultButtonProps())
 
-    const componentsConfig = computed(() => {
-      return { VaButton: buttonProps.value }
-    })
+const componentsConfig = computed(() => ({ VaButton: buttonProps.value }))
 
-    const { mergeGlobalConfig } = useGlobalConfig()
+const { mergeGlobalConfig } = useGlobalConfig()
 
-    watch(componentsConfig, componentsConfig => {
-      mergeGlobalConfig({
-        components: componentsConfig.value,
-      })
-    }, { deep: true })
+watch(componentsConfig, (newValue) => {
+  mergeGlobalConfig({
+    components: newValue,
+  })
+}, { deep: true })
 
-    const reset = () => {
-      buttonProps.value = getDefaultButtonProps()
-    }
-
-    return {
-      reset,
-      componentsConfig,
-      buttonProps,
-    }
-  },
+const reset = () => {
+  buttonProps.value = getDefaultButtonProps()
 }
 </script>

@@ -91,12 +91,12 @@ export default {
       console.log('darken')
       // NOTE For testing. So that we can observe theme changed
       const newTheme = {
-        primary: '#9A0931',
-        secondary: '#C50B0B',
-        success: '#06421E',
-        info: '#021C38',
+        primary: '#9a0931',
+        secondary: '#c50b0b',
+        success: '#06421e',
+        info: '#021c38',
         danger: '#440606',
-        warning: '#3C2D03',
+        warning: '#3c2d03',
         gray: '#babfc2',
         dark: '#34495e',
       }

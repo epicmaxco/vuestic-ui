@@ -70,7 +70,9 @@ export default defineComponent({
       @include va-disabled;
     }
 
-    @include keyboard-focus-outline($radius: 2px, $offset: -2px);
+    &:not(.va-list-item--disabled) {
+      @include keyboard-focus-outline($radius: 2px, $offset: -2px);
+    }
 
     &__inner {
       display: var(--va-list-item-display);

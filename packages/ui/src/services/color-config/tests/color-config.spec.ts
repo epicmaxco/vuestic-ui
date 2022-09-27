@@ -31,10 +31,10 @@ describe('useColors', () => {
     })
 
     it.each([
-      [['primary', undefined, false], '#2C82E0'],
-      [['#000', undefined, false], '#000'],
-      [['var(--va-primary)', undefined, false], '#2C82E0'],
-      [['bad-color', '#000', false], '#000'],
+      [['info', undefined, false], '#2c82e0'],
+      [['#000000', undefined, false], '#000000'],
+      [['var(--va-primary)', undefined, false], '#154ec1'],
+      [['bad-color', '#000000', false], '#000000'],
       [['secondary', undefined, true], 'var(--va-secondary)'],
     ])(
       'getColorArgs %s should be %s',
@@ -44,10 +44,10 @@ describe('useColors', () => {
     )
 
     it.each([
-      [[{ color: '#000' }, 'va-test'], { '--va-test-color': '#000' }],
+      [[{ color: '#000000' }, 'va-test'], { '--va-test-color': '#000000' }],
       [[{ color: 'secondary' }, 'va-test'], { '--va-test-color': 'var(--va-secondary)' }],
       [[{ color: 'var(--va-primary)' }, 'va-test'], { '--va-test-color': 'var(--va-primary)' }], // TODO call Oleg
-      [[{ color: 'bad-color' }, 'va-test'], { '--va-test-color': '#2C82E0' }],
+      [[{ color: 'bad-color' }, 'va-test'], { '--va-test-color': '#154ec1' }],
       [[{}, 'va-test'], {}],
     ])(
       'colorToCssVariableArgs %s should be %s',
@@ -59,7 +59,7 @@ describe('useColors', () => {
 
   it.each([
     [{ testColor1: '#000000' }],
-    [{ testColor1: '#000000', testColor2: '#FFFFFF' }],
+    [{ testColor1: '#000000', testColor2: '#ffffff' }],
     [{ primary: '#000000' }],
   ])(
     'setColorsArg %s should returned by getColorsValue',
@@ -129,10 +129,10 @@ describe('useColors', () => {
   )
 
   it.each([
-    [['#000000', '#CCCCCC', '#FFFFFF'], '#FFFFFF'],
-    [['rgb(255, 255, 255)'], 'dark'],
-    [[{ h: 0, s: 100, l: 27 }], 'white'],
-    [[{ c: 0, m: 0, y: 0, k: 0 }], 'dark'],
+    [['#000000', '#cccccc', '#ffffff'], '#ffffff'],
+    [['rgb(255, 255, 255)'], 'textDark'],
+    [[{ h: 0, s: 100, l: 27 }], 'textLight'],
+    [[{ c: 0, m: 0, y: 0, k: 0 }], 'textDark'],
   ])(
     'getTextColorArgs %s should return %s',
     (getTextColorArgs, expected) => {

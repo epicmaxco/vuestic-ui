@@ -12,5 +12,11 @@ export const VuesticConfig: GlobalConfig = {
     VaDropdown: {
       target: scrollWrapperSelector,
     },
+    presets: {
+      VaButton: {
+        addToCart: { size: 'large', round: true },
+        deleteFromCart: { size: 'small', plain: true },
+      },
+    },
   },
 }
