@@ -1477,6 +1477,7 @@
     "counter": "Counter",
     "nuxt": "Nuxt",
     "ssrGuide": "SSR",
+    "kitchensink": "Kitchen Sink",
     "spacer": "Spacer",
     "dropdown": "Dropdown",
     "scrollContainer": "Scroll Container",
@@ -1530,6 +1531,10 @@
   "docsExample": {
     "showCode": "Show Code",
     "hideCode": "Hide Code"
+  },
+  "kitchensink": {
+    "title": "Kitchesink",
+    "description": "At this page you can see examples for all components, this is a great place to get started with `Vuestic`. For even more examples you can check `UI Elements` tab in menu."
   },
   "documentationPage": {
     "compilesTo": "Compiles to:",
@@ -1654,7 +1659,7 @@
       "top": {
         "title": "Fixed at the top"
       },
-      "target": {
+      "default": {
         "title": "Fixes element relative to custom container"
       }
     },
@@ -2592,7 +2597,11 @@
     "examples": {
       "default": {
         "title": "Basic usage",
-        "text": "By default `va-input` doesn’t have attributes, but can be combined with a placeholder and/or label. It can also be disabled or readonly."
+        "text": "By default `va-input` doesn’t have attributes, but can be combined with a placeholder and/or label."
+      },
+      "extendedDefault": {
+        "title": "Readonly, disabled, symbols counter",
+        "text": "It can also be disabled, readonly and have symbols counter."
       },
       "hint": {
         "title": "Hint messages",

@@ -59,6 +59,10 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'ssr-guide',
         displayName: 'menu.ssrGuide',
       },
+      {
+        name: 'kitchensink',
+        displayName: 'menu.kitchensink',
+      },
       // GENERATOR_ADD - gettingStarted
     ],
   },

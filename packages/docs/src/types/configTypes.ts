@@ -69,15 +69,17 @@ export type ListBlock = {
   translationStringList: TranslationStringList,
 }
 
+export type ExampleBLock = {
+  type: BlockType.EXAMPLE,
+  path: string, // path to directory
+  component: string, // component name
+  exampleOptions?: ExampleOptions,
+}
+
 export type ApiDocsBlock =
   | TextBlock
   | ListBlock
-  | {
-    type: BlockType.EXAMPLE,
-    path: string, // path to directory
-    component: string, // component name
-    exampleOptions?: ExampleOptions,
-  }
+  | ExampleBLock
   | {
     type: BlockType.COMPONENT,
     path: string, // path to directory
@@ -123,3 +125,11 @@ export type ApiDocsBlock =
     header: string,
     blocks: ApiDocsBlock[]
   }
+
+export function isTextBlock (block: ApiDocsBlock): block is TextBlock {
+  return block.type === BlockType.TITLE
+}
+
+export function isExampleBlock (block: ApiDocsBlock): block is ExampleBLock {
+  return block.type === BlockType.EXAMPLE
+}
