@@ -54,14 +54,14 @@
         class="va-alert__close"
       >
         <div
-          :style="contentStyle"
-          class="va-alert__close--closeable"
           role="button"
+          class="va-alert__close--closeable"
           tabindex="0"
           :aria-label="closeText || 'close alert'"
-          @click="hide()"
-          @keydown.space="hide()"
-          @keydown.enter="hide()"
+          :style="contentStyle"
+          @click="hide"
+          @keydown.space="hide"
+          @keydown.enter="hide"
         >
           <slot name="close">
             <va-icon
@@ -82,7 +82,11 @@
 import { defineComponent, computed, PropType } from 'vue'
 
 import { generateUniqueId } from '../../services/utils'
-import { useStateful, useStatefulProps, useStatefulEmits } from '../../composables'
+import {
+  useComponentPresetProp,
+  useStateful, useStatefulProps, useStatefulEmits,
+} from '../../composables'
+
 import { useAlertStyles } from './useAlertStyles'
 
 import { VaIcon } from '../va-icon'
@@ -93,6 +97,7 @@ export default defineComponent({
   emits: useStatefulEmits,
   props: {
     ...useStatefulProps,
+    ...useComponentPresetProp,
     modelValue: { type: Boolean, default: true },
     color: { type: String, default: 'primary' },
     textColor: { type: String, default: '' },
@@ -205,16 +210,10 @@ export default defineComponent({
     &__title {
       display: flex;
       align-items: center;
-      font-weight: var(--va-alert-title-font-weight);
+      cursor: pointer;
     }
 
-    &__content {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      flex-grow: 1;
-      color: var(--va-alert-color);
-    }
+    @include keyboard-focus-outline;
 
     &__close {
       padding-left: var(--va-alert-close-padding-x);

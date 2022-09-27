@@ -1,8 +1,9 @@
 <template>
-  <div class="va-date-picker" :class="classComputed" :style="colorsStyle">
+  <div class="va-date-picker" :class="classComputed" :style="styleComputed">
     <va-date-picker-header
       v-bind="headerProps"
       v-model:view="syncView"
+      :textColor="textColorComputed"
     >
       <template v-for="(_, name) in $slots" :key="name" v-slot:[name]="bind">
         <slot :name="name" v-bind="bind" />
@@ -62,11 +63,14 @@
 </template>
 
 <script lang="ts">
+import { useElementBackground } from '../../composables/useElementBackground'
+import { useTextColor } from '../../composables/useTextColor'
 import { computed, defineComponent, nextTick, PropType, ref, watch } from 'vue'
 
 import { filterComponentProps, extractComponentProps, extractComponentEmits } from '../../utils/child-props'
 import { useColors, useStateful, useStatefulProps, useStatefulEmits } from '../../composables'
 import { useView } from './hooks/view'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 import { DatePickerModelValue, DatePickerType, DatePickerView } from './types'
 
@@ -85,6 +89,7 @@ export default defineComponent({
 
   props: {
     ...useStatefulProps,
+    ...useComponentPresetProp,
     ...extractComponentProps(VaDatePickerHeader),
     ...extractComponentProps(VaDayPicker),
     ...extractComponentProps(VaMonthPicker),
@@ -159,11 +164,16 @@ export default defineComponent({
     }
 
     const { colorsToCSSVariable } = useColors()
+    const { background } = useElementBackground()
+    const { textColorComputed } = useTextColor(background)
 
-    const colorsStyle = colorsToCSSVariable({
-      color: props.color,
-      'weekends-color': props.weekendsColor,
-    }, 'va-date-picker')
+    const styleComputed = computed(() => ({
+      color: textColorComputed.value,
+      ...colorsToCSSVariable({
+        color: props.color,
+        'weekends-color': props.weekendsColor,
+      }, 'va-date-picker'),
+    }))
 
     const focusCurrentPicker = () => currentPicker.value?.$el.focus()
 
@@ -197,8 +207,9 @@ export default defineComponent({
       onYearClick,
       onYearModelValueUpdate,
 
-      colorsStyle,
+      styleComputed,
       currentPicker,
+      textColorComputed,
       focusCurrentPicker,
 
       isPickerReadonly,

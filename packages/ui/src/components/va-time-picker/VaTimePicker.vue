@@ -27,6 +27,7 @@ import { useTimePicker } from './hooks/useTimePicker'
 import { VaTimePickerColumn } from './components/VaTimePickerColumn'
 
 import {
+  useComponentPresetProp,
   useStatefulProps,
   useStatefulEmits,
   useStateful,
@@ -44,6 +45,7 @@ export default defineComponent({
   props: {
     ...useStatefulProps,
     ...useFormProps,
+    ...useComponentPresetProp,
     modelValue: { type: Date, required: false },
     ampm: { type: Boolean, default: false },
     hidePeriodSwitch: { type: Boolean, default: false },

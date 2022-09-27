@@ -20,12 +20,14 @@
 </template>
 
 <script lang="ts">
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 import { defineComponent, PropType, ref, computed, onMounted, onBeforeUnmount, shallowRef } from 'vue'
 import { warn } from '../../services/utils'
 
 export default defineComponent({
   name: 'VaParallax',
   props: {
+    ...useComponentPresetProp,
     target: { type: [Object, String] as PropType<HTMLElement | string | undefined> },
     src: { type: String, default: '', required: true },
     alt: { type: String, default: 'parallax' },

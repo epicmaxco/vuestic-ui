@@ -28,7 +28,7 @@
 <!--          </template>-->
 <!--        </va-breadcrumbs>-->
 
-        <div class="layout gutter--xl pb-6">
+        <div class="layout va-gutter-5 pb-6">
           <router-view />
         </div>
       </div>
@@ -113,7 +113,7 @@ export default class DocsLayout extends Vue {
   }
 
   changeTheme (themeName) {
-    useColors().setColors(COLOR_THEMES[themeName] || COLOR_THEMES[ThemeName.DEFAULT])
+    // useColors().setColors(COLOR_THEMES[themeName] || COLOR_THEMES[ThemeName.DEFAULT])
   }
 
   // get crumbs () {
@@ -181,12 +181,13 @@ export default class DocsLayout extends Vue {
   @import '../../../ui/src/styles/resources';
 
   html {
-    font-family: var(--va-font-family);
-    color: var(--va-dark);
+    font-family: $font-family-sans-serif;
+    color: var(--va-on-background-primary);
+    font-size: $font-size-root;
   }
 
-  a:not(.va-button, .va-sidebar__item):focus {
-    @include focus-outline();
+  a:not(.va-button, .va-sidebar__item):focus-visible {
+    @include focus-outline;
   }
 
   .base-layout {
@@ -196,6 +197,8 @@ export default class DocsLayout extends Vue {
     display: flex;
     flex-direction: column;
     flex-grow: 2;
+    overflow: hidden;
+    z-index: 0;
 
     &__breadcrumbs {
       text-transform: capitalize;
@@ -220,7 +223,7 @@ export default class DocsLayout extends Vue {
     }
 
     &__header {
-      background-color: #ffffff;
+      z-index: 1;
     }
 
     &__content {
@@ -236,12 +239,14 @@ export default class DocsLayout extends Vue {
       overflow-y: auto;
       overflow-x: hidden;
 
-      & > .layout.gutter--xl {
+      @include va-scroll(var(--va-primary));
+
+      & > .layout.va-gutter-5 {
         padding-bottom: 2rem;
       }
 
       @media (max-width: 670px) {
-        & > .layout.gutter--xl {
+        & > .layout.va-gutter-5 {
           padding: 0;
           padding-bottom: 2rem;
         }

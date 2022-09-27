@@ -8,7 +8,7 @@ $ag-theme-vuestic-default-params: (
         data-color: ag-derived(foreground-color),
 
   // Colour of text and icons in UI elements that need to be slightly less emphasised to avoid distracting attention from data
-        secondary-foreground-color: var(--va-vue-darkest-blue),
+        secondary-foreground-color: currentColor,
 
   // Colour of text and icons in the header
         header-foreground-color: ag-derived(secondary-foreground-color),
@@ -32,7 +32,7 @@ $ag-theme-vuestic-default-params: (
         control-panel-background-color: null,
 
   // Background color of selected rows in the grid and in dropdown menus
-        selected-row-background-color: var(--va-light-gray2),
+        selected-row-background-color: var(--va-background-secondary),
 
   // Background colour applied to every other row or null to use background-color for all rows
         odd-row-background-color: null,

@@ -4,13 +4,14 @@
     <va-message-list
       :color="messagesColor"
       :limit="errorLimit"
+      :has-error="hasError"
       :model-value="messagesComputed"
     />
   </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue'
+import { computed, defineComponent, toRef } from 'vue'
 
 import { useValidationProps } from '../../../composables'
 
@@ -32,6 +33,7 @@ export default defineComponent({
         if (props.success) { return 'success' }
         return ''
       }),
+      hasError: toRef(props, 'error'),
       messagesComputed: computed(() => props.error ? props.errorMessages : props.messages),
       errorLimit: computed(() => props.error ? Number(props.errorCount) : 99),
     }

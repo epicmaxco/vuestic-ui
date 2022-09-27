@@ -12,7 +12,7 @@ type PropsType = {
  * @param isTransparent if transparent will return component color as text color.
  * @returns Computed text color based on component's color if `props.textColor` if provided.
  */
-export const useTextColor = (componentColor?: Ref<string> | undefined, isTransparent: boolean | Ref<boolean> = false) => {
+export const useTextColor = (componentColor?: Ref<string> | string | undefined, isTransparent: boolean | Ref<boolean> = false) => {
   const { props } = getCurrentInstance() as unknown as { props: PropsType }
   const { getColor, getTextColor } = useColors()
 

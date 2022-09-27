@@ -36,6 +36,7 @@ import kebabCase from 'lodash/kebabCase.js'
 import { generateUniqueId } from '../../services/utils'
 
 import {
+  useComponentPresetProp,
   useStateful, useStatefulEmits, useStatefulProps,
   useDebounceFn,
   useDropdown, placementsPositions, Placement,
@@ -55,6 +56,7 @@ export default defineComponent({
 
   props: {
     ...useStatefulProps,
+    ...useComponentPresetProp,
     stateful: { default: true },
     modelValue: { type: Boolean, default: false },
     disabled: { type: Boolean },

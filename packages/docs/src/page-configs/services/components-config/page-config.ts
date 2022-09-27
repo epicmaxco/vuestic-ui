@@ -4,6 +4,7 @@ import {
   componentsConfigCodeExample,
   componentsConfigCodeExampleDefaultSizes,
   componentsAllConfigCodeExample,
+  componentsPresetsConfigCodeExample,
 } from './code-examples'
 import { TableColumn, TableData } from '../../../components/DocsTable/DocsTableTypes'
 
@@ -20,9 +21,14 @@ const tableData: TableData = [
     'componentsConfig.api.ComponentConfig',
   ],
   [
-    'Props',
+    'ComponentsAllConfig',
     '{ [propName: string]: any }',
     'componentsConfig.api.ComponentsAllConfig',
+  ],
+  [
+    'ComponentsPresetsConfig',
+    '{ [componentName: string]: { [propName: string]: any } }',
+    'componentsConfig.api.ComponentsPresetsConfig',
   ],
 ]
 
@@ -41,10 +47,19 @@ const config: ApiDocsBlock[] = [
   block.code(componentsAllConfigCodeExample),
   block.paragraph('componentsConfig.componentsAll.description'),
 
+  block.subtitle('componentsConfig.componentsPresets.title'),
+  block.paragraph('componentsConfig.componentsPresets.subtitle'),
+  block.code(componentsPresetsConfigCodeExample),
+  block.example('presets'),
+
   block.subtitle('componentsConfig.vaConfig.title'),
   block.paragraph('componentsConfig.vaConfig.subtitle'),
   block.example('va-config'),
   block.paragraph('componentsConfig.vaConfig.explain'),
+
+  block.subtitle('componentsConfig.priority.title'),
+  block.paragraph('componentsConfig.priority.description'),
+  block.example('priority', { hideCode: true }),
 
   block.subtitle('componentsConfig.defaultSizes.title'),
   block.paragraph('componentsConfig.defaultSizes.description'),

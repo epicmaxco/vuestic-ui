@@ -1,4 +1,5 @@
 import { inject, provide, computed, toRefs, defineComponent, ComputedRef } from 'vue'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 import { ComponentConfig } from '../../services/component-config/component-config'
 
@@ -16,6 +17,7 @@ export function useLocalConfig (): ComputedRef<ComponentConfig[]> {
 export default defineComponent({
   name: 'VaConfig',
   props: {
+    ...useComponentPresetProp,
     components: { type: Object, default: () => ({}) },
   },
   setup (props) {

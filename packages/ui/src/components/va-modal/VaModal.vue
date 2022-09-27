@@ -46,7 +46,6 @@
                 class="va-modal__close"
                 role="button"
                 aria-label="close"
-                aria-hidden="false"
                 tabindex="0"
                 @click="cancel"
                 @keydown.space="cancel"
@@ -91,9 +90,9 @@
                   >
                     <va-button
                       v-if="$props.cancelText"
+                      preset="plain"
                       color="gray"
-                      class="mr-2"
-                      flat
+                      class="mr-3"
                       @click="cancel"
                     >
                       {{ $props.cancelText }}
@@ -133,13 +132,10 @@ import {
 } from 'vue'
 
 import {
-  useStateful,
-  useStatefulProps,
-  useStatefulEmits,
-  useColors,
-  useTextColor,
-  useWindow,
-  useDocument,
+  useStateful, useStatefulProps, useStatefulEmits,
+  useColors, useTextColor,
+  useWindow, useDocument,
+  useComponentPresetProp,
   useTrapFocus,
   useModalLevel,
 } from '../../composables'
@@ -151,6 +147,7 @@ const ModalElement = defineComponent({
   name: 'ModalElement',
   inheritAttrs: false,
   props: {
+    ...useComponentPresetProp,
     isTransition: { type: Boolean, default: true },
   },
   setup: (props, { slots, attrs }) => () => props.isTransition
@@ -194,8 +191,8 @@ export default defineComponent({
     overlay: { type: Boolean, default: true },
     overlayOpacity: { type: [Number, String], default: 0.6 },
     blur: { type: Boolean, default: false },
-    zIndex: { type: [Number, String] },
-    backgroundColor: { type: String, default: 'white' },
+    zIndex: { type: [Number, String], default: undefined },
+    backgroundColor: { type: String, default: 'background-tertiary' },
     noPadding: { type: Boolean, default: false },
   },
   setup (props, { emit }) {

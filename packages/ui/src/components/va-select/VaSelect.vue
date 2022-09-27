@@ -60,7 +60,6 @@
           <va-icon
             v-if="showClearIcon"
             role="button"
-            aria-hidden="false"
             aria-label="reset"
             tabindex="0"
             v-bind="clearIconProps"
@@ -159,6 +158,7 @@ import { defineComponent, PropType, ref, computed, watch, nextTick, Ref, shallow
 
 import { warn } from '../../services/utils'
 import {
+  useComponentPresetProp,
   useSelectableList, useSelectableListProps,
   useValidation, useValidationProps, useValidationEmits, ValidationProps,
   useFormProps,
@@ -173,7 +173,6 @@ import { VaDropdown, VaDropdownContent } from '../va-dropdown'
 import { VaIcon } from '../va-icon'
 import { VaInput, VaInputWrapper } from '../va-input'
 import { VaSelectOptionList } from './VaSelectOptionList'
-
 import { SelectDropdownIcon, SelectOption, Placement } from './types'
 
 export default defineComponent({
@@ -204,6 +203,7 @@ export default defineComponent({
     ...useMaxSelectionsProps,
     ...useClearableProps,
     ...useFormProps,
+    ...useComponentPresetProp,
 
     modelValue: {
       type: [String, Number, Array, Object] as PropType<SelectOption | SelectOption[]>,
@@ -729,7 +729,7 @@ export default defineComponent({
       background: var(--va-select-dropdown-background);
       overflow-y: auto;
 
-      @include va-scroll();
+      @include va-scroll(var(--va-background-secondary));
     }
   }
 </style>

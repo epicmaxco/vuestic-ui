@@ -34,9 +34,7 @@
       <va-icon
         v-if="canBeCleared"
         role="button"
-        aria-hidden="false"
         aria-label="reset"
-        class="va-input__icons__reset"
         :tabindex="tabIndexComputed"
         v-bind="clearIconProps"
         @click.stop="reset"
@@ -78,6 +76,7 @@ import pick from 'lodash/pick.js'
 import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
 
 import {
+  useComponentPresetProp,
   useFormProps,
   useValidation, useValidationProps, useValidationEmits, ValidationProps,
   useEmitProxy,
@@ -117,6 +116,7 @@ export default defineComponent({
     ...useClearableProps,
     ...useCleaveProps,
     ...VaTextareaProps,
+    ...useComponentPresetProp,
 
     // input
     placeholder: { type: String, default: '' },

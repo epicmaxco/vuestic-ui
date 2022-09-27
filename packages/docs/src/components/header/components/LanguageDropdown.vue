@@ -1,8 +1,7 @@
 <template>
   <div class="language-dropdown">
     <va-button-dropdown
-      color="primary"
-      flat
+      preset="secondary"
       :label="currentLanguageName"
       :offset="[0, 10]"
     >
@@ -10,7 +9,7 @@
         <va-list-item
           v-for="(option, id) in options"
           :key="id"
-          class="language-dropdown__item row align--center py-2"
+          class="language-dropdown__item row align-center py-2"
           :class="{ active: option.code === locale }"
           @click="setLanguage(option.code)"
         >
@@ -18,7 +17,7 @@
             <span class="dropdown-item__text">{{ option.name }}</span>
           </va-list-item-section>
         </va-list-item>
-        <va-list-item class="language-dropdown__item row align--center py-2">
+        <va-list-item class="language-dropdown__item row align-center py-2">
           <va-list-item-section>
             <router-link :to="`/${locale}/contribution/translation`" class="dropdown-item__text" :style="{color: colors.primary}">{{t('landing.header.buttons.translation')}}</router-link>
           </va-list-item-section>

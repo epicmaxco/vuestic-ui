@@ -1,8 +1,8 @@
 <template>
   <div
     ref="rootEl"
-    class="va-rating-item"
     role="button"
+    class="va-rating-item"
     :tabindex="tabIndexComputed"
     @keyup.enter="onClick"
     @keyup.space="onClick"
@@ -110,6 +110,7 @@ export default defineComponent({
       onMouseMove,
       onMouseLeave,
       visibleValue,
+
       computedIconName: computed(() => {
         if (props.halves && visibleValue.value === RatingValue.HALF) {
           return props.halfIcon
@@ -132,7 +133,7 @@ export default defineComponent({
   .va-rating-item {
     display: inline-block;
 
-    @include keyboard-focus-outline;
+    @include keyboard-focus-outline($radius: 2px);
 
     &__wrapper {
       @include normalize-button();
