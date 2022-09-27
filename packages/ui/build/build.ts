@@ -14,8 +14,8 @@ defineVuesticBuild(async () => {
     $('vite build --config ./build/configs/vite.mjs.ts', { successMessage: 'esm-node built' }),
   ])
 
-  await $('vite build --config ./build/configs/vite.styles.ts', { successMessage: 'styles built' })
   await $('vite build --config ./build/configs/vite.styles-essential.ts', { successMessage: 'essential styles built' })
+  await $('vite build --config ./build/configs/vite.styles.ts', { successMessage: 'styles built' })
 
   buildEnd()
 })
