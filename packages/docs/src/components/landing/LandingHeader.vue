@@ -15,15 +15,15 @@
           <a href="/" aria-label="go to the main page">
             <vuestic-logo height="30" width="150" aria-hidden="true" />
           </a>
-          <div class="menu" @click="onClick(!isHidden)" :style="{position: !isHidden ? 'fixed' : 'absolute'}">
+          <div class="menu" @click="toggleMobileMenu()" :style="{position: !isHidden ? 'fixed' : 'absolute'}">
             <img v-if="!isHidden" src="../../assets/landing/images/hamburger.svg" alt="menu">
             <img v-else src="../../assets/landing/images/cross.svg" alt="menu">
           </div>
         </div>
         <nav class="header__links">
           <!-- vuestic buttons -->
-          <va-button :to="`/${$root.$i18n.locale}/introduction/overview`" class="header__links--link" preset="secondary">{{ $t('landing.header.buttons.overview') }}</va-button>
-          <va-button href="https://discord.gg/u7fQdqQt8c" target="blank" class="header__links--link" preset="secondary">{{ $t('landing.header.buttons.discord') }}</va-button>
+          <va-button :to="`/${$root.$i18n.locale}/introduction/overview`" class="header__links--link" preset="secondary">{{ t('landing.header.buttons.overview') }}</va-button>
+          <va-button href="https://discord.gg/u7fQdqQt8c" target="blank" class="header__links--link" preset="secondary">{{ t('landing.header.buttons.discord') }}</va-button>
           <language-dropdown class="header__links--link ml-2" />
           <landing-stars-button class="ml-2" repo="epicmaxco/vuestic-ui" />
         </nav>
@@ -32,32 +32,32 @@
           <va-list>
             <va-list-item>
               <va-list-item-section class="mobile-menu__link">
-                <router-link :to="`/${$root.$i18n.locale}/introduction/overview`">{{ $t('landing.header.buttons.overview') }}</router-link>
+                <router-link :to="`/${locale}/introduction/overview`">{{ t('landing.header.buttons.overview') }}</router-link>
               </va-list-item-section>
             </va-list-item>
             <va-list-item>
               <va-list-item-section class="mobile-menu__link">
-                <router-link :to="`/${$root.$i18n.locale}/introduction/overview`">{{ $t('landing.header.buttons.docs') }}</router-link>
+                <router-link :to="`/${locale}/introduction/overview`">{{ t('landing.header.buttons.docs') }}</router-link>
               </va-list-item-section>
             </va-list-item>
             <va-list-item>
               <va-list-item-section class="mobile-menu__link">
-                <a href="https://discord.gg/u7fQdqQt8c" target="_blank">{{ $t('landing.header.buttons.discord') }}</a>
+                <a href="https://discord.gg/u7fQdqQt8c" target="_blank">{{ t('landing.header.buttons.discord') }}</a>
               </va-list-item-section>
             </va-list-item>
             <va-list-label color="#757B83" class="mobile-menu__label">
-              {{ $t('landing.header.buttons.language') }}
+              {{ t('landing.header.buttons.language') }}
             </va-list-label>
             <div class="mobile-menu__languages">
               <va-list-item
-                v-for="(option, id) in options"
+                v-for="(language, id) in languages"
                 :key="id"
                 class="mobile-menu__language"
-                :class="{ active: option.code === currentLanguage }"
-                @click="setLanguage(option.code)"
+                :class="{ active: language.code === currentLanguageName }"
+                @click="setLanguage(language.code)"
               >
                 <va-list-item-section class="mobile-menu__link">
-                  <span class="language">{{ option.name }}</span>
+                  <span class="language">{{ language.name }}</span>
                 </va-list-item-section>
               </va-list-item>
               <va-list-item>
@@ -66,7 +66,7 @@
                     class="mobile-menu__language"
                     :to="`/${$root.$i18n.locale}/contribution/translation`"
                   >
-                    {{ $t('landing.header.buttons.translation') }}
+                    {{ t('landing.header.buttons.translation') }}
                   </router-link>
                 </va-list-item-section>
               </va-list-item>
@@ -83,57 +83,47 @@
 </template>
 
 <script lang="ts">
-// @ts-nocheck
-import { Options, Vue } from 'vue-class-component'
-import { languages } from '../../locales'
 import VuesticLogo from '../header/components/VuesticLogo.vue'
 import LanguageDropdown from '../header/components/LanguageDropdown.vue'
 import LandingStarsButton from './LandingStarsButton.vue'
+import { defineComponent } from '@vue/runtime-core'
+import { computed, ref } from 'vue'
+import { useSharedChangeLanguage } from '@/composables/useChangeLanguage'
+import { useI18n } from 'vue-i18n'
 
-@Options({
+export default defineComponent({
   name: 'LandingHeader',
   components: {
     LanguageDropdown, LandingStarsButton, VuesticLogo,
   },
-})
-export default class Header extends Vue {
-  value = false
-  isHidden = true
-  options = languages
-
-  onClick (value: boolean) {
-    this.isHidden = value
-  }
-
-  get computedClass () {
-    return {
-      'mobile-menu--open': !this.isHidden,
+  setup () {
+    const { locale, t } = useI18n()
+    const {
+      languages,
+      setLanguage,
+      currentLanguageName,
+    } = useSharedChangeLanguage()
+    const isHidden = ref(true)
+    const toggleMobileMenu = () => {
+      isHidden.value = !isHidden.value
     }
-  }
+    const computedClass = computed(() => ({
+      'mobile-menu--open': !isHidden.value,
+    }))
 
-  setLanguage (locale: any) {
-    this.$root.$i18n.locale = locale
-    document.querySelector('html').setAttribute('lang', locale)
-    localStorage.setItem('VueAppLanguage', locale)
-    this.$nextTick(() => {
-      // a little hack to change the same route alias
-      const path = this.$localizePath(this.$route.fullPath, locale)
-      this.$router.replace({
-        path,
-        hash: `#${+new Date()}`,
-      }).then(() => this.$router.replace({ hash: '' }))
-    })
-  }
+    return {
+      isHidden,
+      toggleMobileMenu,
+      computedClass,
+      languages,
+      setLanguage,
+      currentLanguageName,
+      locale,
+      t,
+    }
+  },
+})
 
-  get currentLanguage () {
-    return (this as any).$root.$i18n.locale
-  }
-
-  get currentLanguageName () {
-    const result = (this as any).options.find(({ code }: any) => code === this.currentLanguage)
-    return result.name
-  }
-}
 </script>
 
 <style lang="scss" scoped>
