@@ -16,8 +16,7 @@
             <vuestic-logo height="30" width="150" aria-hidden="true" />
           </a>
           <div class="menu" @click="toggleMobileMenu()" :style="{position: !isHidden ? 'fixed' : 'absolute'}">
-            <img v-if="!isHidden" src="../../assets/landing/images/hamburger.svg" alt="menu">
-            <img v-else src="../../assets/landing/images/cross.svg" alt="menu">
+            <img :src="mobileMenuIconPath" alt="menu">
           </div>
         </div>
         <nav class="header__links">
@@ -111,6 +110,11 @@ export default defineComponent({
       'mobile-menu--open': !isHidden.value,
     }))
 
+    const mobileMenuIcons = require.context('@/assets/landing/images', false, /(cross|hamburger).svg$/)
+    const crossIconPath = mobileMenuIcons.keys().find(path => path.includes('cross'))
+    const hamburgerIconPath = mobileMenuIcons.keys().find(path => path.includes('hamburger'))
+    const mobileMenuIconPath = computed(() => mobileMenuIcons(isHidden.value ? crossIconPath! : hamburgerIconPath!))
+
     return {
       isHidden,
       toggleMobileMenu,
@@ -120,6 +124,7 @@ export default defineComponent({
       currentLanguageName,
       locale,
       t,
+      mobileMenuIconPath,
     }
   },
 })
