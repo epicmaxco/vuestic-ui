@@ -110,7 +110,7 @@ export default defineComponent({
       'mobile-menu--open': !isHidden.value,
     }))
 
-    const mobileMenuIcons = require.context('@/assets/landing/images', false, /(cross|hamburger).svg$/)
+    const mobileMenuIcons = require.context('@/assets/landing/images', false, /(cross|hamburger)\.svg$/)
     const crossIconPath = mobileMenuIcons.keys().find(path => path.includes('cross'))
     const hamburgerIconPath = mobileMenuIcons.keys().find(path => path.includes('hamburger'))
     const mobileMenuIconPath = computed(() => mobileMenuIcons(isHidden.value ? crossIconPath! : hamburgerIconPath!))
