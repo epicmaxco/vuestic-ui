@@ -21,9 +21,24 @@ const config: ApiDocsBlock[] = [
     'Default',
   ),
   ...block.exampleBlock(
+    'pagination.examples.limitVisible.title',
+    'pagination.examples.limitVisible.text',
+    'LimitVisible',
+  ),
+  ...block.exampleBlock(
+    'pagination.examples.presets.title',
+    'pagination.examples.presets.text',
+    'Presets',
+  ),
+  ...block.exampleBlock(
     'pagination.examples.colors.title',
     'pagination.examples.colors.text',
     'Colors',
+  ),
+  ...block.exampleBlock(
+    'pagination.examples.gapped.title',
+    'pagination.examples.gapped.text',
+    'Gapped',
   ),
   ...block.exampleBlock(
     'pagination.examples.sizes.title',
@@ -31,9 +46,19 @@ const config: ApiDocsBlock[] = [
     'Sizes',
   ),
   ...block.exampleBlock(
-    'pagination.examples.limitVisible.title',
-    'pagination.examples.limitVisible.text',
-    'LimitVisible',
+    'pagination.examples.bordered.title',
+    'pagination.examples.bordered.text',
+    'Bordered',
+  ),
+  ...block.exampleBlock(
+    'pagination.examples.rounded.title',
+    'pagination.examples.rounded.text',
+    'Rounded',
+  ),
+  ...block.exampleBlock(
+    'pagination.examples.activeColor.title',
+    'pagination.examples.activeColor.text',
+    'ActiveColor',
   ),
   ...block.exampleBlock(
     'pagination.examples.icons.title',

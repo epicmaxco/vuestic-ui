@@ -84,6 +84,6 @@ export default defineComponent({
 
 <style lang="scss" scoped>
   .expanded {
-    background-color: var(--va-background);
+    background-color: var(--va-background-primary);
   }
 </style>

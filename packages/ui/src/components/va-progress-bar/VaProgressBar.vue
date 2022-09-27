@@ -41,6 +41,7 @@
 </template>
 
 <script lang="ts">
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 import { computed, defineComponent, PropType, StyleValue } from 'vue'
 import clamp from 'lodash/clamp.js'
 
@@ -50,6 +51,7 @@ export default defineComponent({
   name: 'VaProgressBar',
 
   props: {
+    ...useComponentPresetProp,
     modelValue: { type: Number, default: 0 },
     indeterminate: { type: Boolean, default: false },
     color: { type: String, default: 'primary' },

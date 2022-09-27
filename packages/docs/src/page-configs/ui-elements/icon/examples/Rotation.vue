@@ -3,8 +3,8 @@
     class="mb-4"
     v-model="flip"
     :options="flipOptions"
-    :rounded="false"
-    outline
+    preset="secondary"
+    border-color="primary"
   />
 
   <va-switch

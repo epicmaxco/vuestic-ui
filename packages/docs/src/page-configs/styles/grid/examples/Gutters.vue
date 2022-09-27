@@ -1,5 +1,5 @@
 <template>
-  <va-card color="background" style="padding: 0.75rem;">
+  <va-card color="background-secondary" style="padding: 0.75rem;">
     <div class="layout gutter--md">
       <div class="row">
         <div class="flex xs6">
@@ -35,12 +35,12 @@ export default {
   @import '~vuestic-ui/src/styles/resources';
 
   .layout {
-    background-color: $lighter-gray;
+    background-color: var(--va-secondary);
   }
 
   .item {
-    border: 1px solid $gray;
-    background-color: $white;
+    border: 1px solid var(--va-background-element);
+    background-color: var(--va-background-tertiary);
     text-align: center;
   }
 </style>

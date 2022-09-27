@@ -1,5 +1,5 @@
 <template>
-  <section class="opensource">
+  <section class="opensource" :style="{ color: textColor }">
     <div class="opensource__wrapper">
       <div class="opensource__inner">
         <div class="opensource__info">
@@ -26,11 +26,18 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component'
-@Options({
+import { useElementTextColor } from 'vuestic-ui/src/main'
+import { defineComponent } from 'vue'
+
+export default defineComponent({
   name: 'LandingOpenSource',
+
+  setup () {
+    return {
+      textColor: useElementTextColor('background-primary'),
+    }
+  },
 })
-export default class OpenSource extends Vue {}
 </script>
 
 <style lang="scss" scoped>

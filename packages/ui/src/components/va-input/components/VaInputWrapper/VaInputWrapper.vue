@@ -17,7 +17,9 @@
       <div class="va-input-wrapper__field">
         <div
           v-if="$slots.prependInner"
-          class="va-input-wrapper__prepend-inner"
+          class="va-input__container"
+          ref="container"
+          :style="containerStyle"
           @click="$emit('click-prepend-inner', $event)"
         >
           <slot name="prependInner" />
@@ -94,10 +96,10 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue'
+import { computed, defineComponent, toRef } from 'vue'
 import pick from 'lodash/pick.js'
 
-import { useBem, useFormProps, useValidationProps, useColors, useCSSVariables } from '../../../../composables'
+import { useBem, useFormProps, useValidationProps, useColors, useTextColor, useCSSVariables } from '../../../../composables'
 
 import { VaMessageList } from '../VaMessageList'
 import { VaIcon } from '../../../va-icon'
@@ -115,6 +117,7 @@ export default defineComponent({
 
     label: { type: String, default: '' },
     color: { type: String, default: 'primary' },
+    background: { type: String, default: 'background-secondary' },
     outline: { type: Boolean, default: false },
     bordered: { type: Boolean, default: false },
     focused: { type: Boolean, default: false },
@@ -145,12 +148,22 @@ export default defineComponent({
     }))
 
     const colorComputed = computed(() => getColor(props.color))
+    const borderColorComputed = computed(() => props.focused ? colorComputed.value : undefined)
 
     const messagesComputed = computed(() => props.error ? props.errorMessages : props.messages)
 
     const hasMessages = computed(() => Boolean(
       typeof messagesComputed.value === 'string' ? messagesComputed.value : messagesComputed.value?.length,
     ))
+
+    const { textColorComputed } = useTextColor(toRef(props, 'background'))
+
+    const containerStyle = computed(() => ({
+      color: textColorComputed.value,
+      'caret-color': textColorComputed.value,
+      '--va-input-color': props.background ? getColor(props.background) : undefined,
+      borderColor: borderColorComputed.value,
+    }))
 
     const messagesColor = computed(() => {
       if (props.error) { return 'danger' }
@@ -165,12 +178,15 @@ export default defineComponent({
     )
 
     return {
+      containerStyle,
       wrapperClass,
       wrapperStyle,
+      textColorComputed,
 
       isCounterVisible,
       counterComputed,
       colorComputed,
+      borderColorComputed,
       messagesColor,
       messagesComputed,
       hasMessages,
@@ -214,6 +230,23 @@ export default defineComponent({
       z-index: 0;
       overflow: hidden;
 
+      @include va-background(var(--va-input-color), null, -1);
+
+      /* Creates gap between prepend, content, validation icons, append */
+      & > * {
+        padding-right: var(--va-input-content-items-gap);
+        line-height: 0;
+
+        &:last-child {
+          padding-right: 0;
+        }
+      }
+
+      input,
+      textarea {
+        color: v-bind(textColorComputed);
+      }
+      // TODO: Choose va-background
       @include va-background(var(--va-input-wrapper-background), var(--va-input-wrapper-background-opacity), -1);
     }
 
@@ -245,11 +278,11 @@ export default defineComponent({
     }
 
     &__text {
-      min-height: var(--va-input-line-height);
+      width: 100%;
       position: relative;
-      display: inline-flex;
+      min-height: var(--va-input-line-height);
+      display: flex;
       align-items: center;
-      flex: 1;
 
       input,
       textarea {
@@ -278,6 +311,26 @@ export default defineComponent({
 
         &::placeholder {
           color: var(--va-input-placeholder-text-color);
+        }
+      }
+    }
+
+    &__icons {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      & > * {
+        margin-right: calc(var(--va-input-content-items-gap) / 4);
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+
+      &__reset {
+        &:focus {
+          @include focus-outline;
         }
       }
     }

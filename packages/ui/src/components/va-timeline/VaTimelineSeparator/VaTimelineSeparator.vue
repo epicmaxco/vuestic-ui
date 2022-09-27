@@ -1,13 +1,14 @@
 <script lang="ts">
 import { defineComponent, h } from 'vue'
 
-import { useColors } from '../../../composables'
+import { useComponentPresetProp, useColors } from '../../../composables'
 
 const componentName = 'va-timeline-separator'
 
 export default defineComponent({
   name: componentName,
   props: {
+    ...useComponentPresetProp,
     color: { type: String, default: 'primary' },
     vertical: { type: Boolean },
     active: { type: Boolean },

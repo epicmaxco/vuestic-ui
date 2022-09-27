@@ -22,23 +22,20 @@
       <algolia-search />
     </div>
     <div class="header__nav">
-      <div class="header__links">
+      <div class="header__prefences sm-hidden">
         <va-button
-            v-for="(link, index) in links"
-            :key="index"
-            flat
-            class="header__links__button"
-            color="primary"
-            :to="link.to"
-            :href="link.url"
-            :target="link.target"
-          >
-            <va-icon class="button__icon" :class="link.icon" />
-            <span class="button__text">{{ link.text }}</span>
-          </va-button>
-      </div>
-      <div class="header__prefences sm-hidden flex">
-  <!--      <color-dropdown class="mr-1" />-->
+          v-for="(link, index) in links"
+          :key="index"
+          preset="secondary"
+          class="header__prefences__button"
+          :to="link.to"
+          :href="link.url"
+          :target="link.target"
+        >
+          <va-icon class="button__icon" :class="link.icon" />
+          <span class="button__text">{{ link.text }}</span>
+        </va-button>
+        <color-dropdown class="mr-1" />
         <language-dropdown class="mr-3" />
         <version-dropdown />
       </div>
@@ -72,6 +69,7 @@ const PropsMixin = Vue.with(Props)
     AlgoliaSearch,
   },
 })
+
 export default class Header extends mixins(PropsMixin) {
   get locale () {
     return this.$root?.$i18n?.locale
@@ -106,15 +104,16 @@ export default class Header extends mixins(PropsMixin) {
 
 <style lang="scss" scoped>
   @import "~vuestic-ui/src/styles/resources";
+  @import "~vuestic-ui/src/styles/global";
 
   .header {
     width: 100%;
     height: 4rem;
-    box-shadow: 0 2px 8px rgba(122, 139, 173, 0.2);
+    padding: 0 calc(1.2rem + 4px);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 calc(1.2rem + 4px);
+    box-shadow: 0 2px 8px var(--va-shadow);
 
     @include media-breakpoint-down(sm) {
       .sm-hidden {
@@ -128,47 +127,17 @@ export default class Header extends mixins(PropsMixin) {
       .header__nav {
         margin-left: 0.5rem;
       }
-
-      .header__links__button {
-        --va-button-content-px: 0.25rem;
-
-        margin-right: 0;
-        margin-left: 0.25rem;
-      }
-
-      &__links {
-        justify-content: flex-end !important;
-
-        @media screen and (max-width: 479px) {
-          justify-content: center !important;
-        }
-      }
-
-      &__prefences {
-        flex: 1 1 !important;
-        justify-content: space-between;
-
-        .language-dropdown {
-          display: flex;
-          justify-content: flex-end;
-        }
-
-        & .va-dropdown__anchor,
-        .color-dropdown {
-          display: flex;
-          justify-content: center;
-        }
-      }
     }
 
-    &__links {
+    &__prefences {
       display: flex;
+      align-items: center;
+      font-weight: 700;
 
       &__button {
-        font-weight: 600;
-        margin-right: 1rem;
-
         --va-button-content-px: 1rem;
+
+        margin-right: 0.25rem;
 
         .button__text {
           margin-left: 0.375rem;
@@ -221,20 +190,6 @@ export default class Header extends mixins(PropsMixin) {
       display: flex;
       justify-content: center;
       align-items: center;
-    }
-
-    &__prefences {
-      display: flex;
-      align-items: center;
-      font-weight: $font-weight-bold;
-
-      &__dropdown {
-        max-width: 100px;
-      }
-
-      &__option {
-        padding: 5px;
-      }
     }
   }
 </style>

@@ -1,33 +1,42 @@
-import { useStateful, useStatefulProps, StatefulProps } from '../useStateful'
+import { useStateful, useStatefulProps } from '../useStateful'
 import { mount } from '@vue/test-utils'
 import { describe, it, expect } from 'vitest'
-import { fromTable } from '../../utils/test-utils'
+import { defineComponent } from 'vue'
 
-const TestComponent = {
+const TestComponentRich = defineComponent({
   template: '<p></p>',
   props: { ...useStatefulProps },
-}
+  setup (props, { emit }) {
+    const { valueComputed } = useStateful(props, emit)
+
+    return {
+      valueComputed,
+    }
+  },
+  emits: ['update:modelValue'],
+})
 
 describe('useStateful', () => {
-  it.each(fromTable`
-    props                                            | defaultValue |  expected        | setExpected
-    ${{ stateful: true, modelValue: 'modelValue' }}  | ${true}      |  ${true}         | ${'newModelValue'}
-    ${{ stateful: false, modelValue: 'modelValue' }} | ${true}      |  ${'modelValue'} | ${'modelValue'}
-    ${{ stateful: true, modelValue: 'modelValue' }}  | ${undefined} |  ${'modelValue'} | ${'newModelValue'}
-    ${{ stateful: false, modelValue: 'modelValue' }} | ${undefined} |  ${'modelValue'} | ${'modelValue'}
-  `)(
-    'props %s & defaultValue %s should be %s & then %s',
-    async (props, defaultValue, expected, setExpected) => {
-      const wrapper = mount(TestComponent)
-      expect(wrapper.exists()).toBeTruthy()
-      await wrapper.setProps(props)
+  // stateful
+  //   value updates on internal value change attempt
 
-      const { valueComputed } = useStateful(wrapper.props() as StatefulProps<string>, wrapper.vm.$emit, defaultValue)
-      expect(valueComputed.value).toBe(expected)
+  // both
+  //   should react to prop change
+  //   should emit on internal value change attempt
 
-      valueComputed.value = setExpected
-      expect(wrapper.emitted()['update:modelValue'][0]).toEqual([setExpected])
-      expect(valueComputed.value).toBe(props.stateful ? setExpected : expected)
-    },
-  )
+  it.each([
+    /* eslint-disable */
+   // stateful | valueToSet | internalValue
+    [ true,      true,        true      ],
+    [ false,     true,        undefined ],
+    /* eslint-enable */
+  ])('stateful %s', async (stateful: boolean, valueToSet: boolean, internalValue?: true) => {
+    const wrapper = mount(TestComponentRich, { props: { stateful } })
+    wrapper.vm.valueComputed = valueToSet
+    expect(wrapper.emitted()['update:modelValue']).toBeTruthy()
+    expect(wrapper.vm.valueComputed).toBe(internalValue)
+
+    await wrapper.setProps({ modelValue: false })
+    expect(wrapper.vm.valueComputed).toBe(false)
+  })
 })

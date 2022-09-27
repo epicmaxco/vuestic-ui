@@ -3,7 +3,6 @@
     class="stars-button"
     target="blank"
     :href="url"
-    :rounded="false"
     color="dark"
     size="small"
   >

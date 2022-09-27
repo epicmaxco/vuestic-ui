@@ -209,7 +209,7 @@ export default class Customize extends Vue {
   }
 
   get themeColor () {
-    return this.theme === 'light' ? '#2C82E0' : '#042F83'
+    return this.theme === 'light' ? '#2c82e0' : '#042f83'
   }
 
   get code () {
@@ -347,7 +347,6 @@ export default class Customize extends Vue {
               <div class="component">
                 <va-button-toggle
                   v-model="theme"
-                  color="primary"
                   :options="themeToggleOptions"
                   @input="updateTheme"
                 />
@@ -367,7 +366,7 @@ export default class Customize extends Vue {
               </div>
 
               <div class="component">
-                <va-button color="primary">
+                <va-button>
                   Submit
                 </va-button>
               </div>
@@ -403,7 +402,7 @@ export default class Customize extends Vue {
             methods: {
               updateTheme (value) {
                 this.setTheme({
-                  primary: value === 'light' ? '#2C82E0' : '#042F83'
+                  primary: value === 'light' ? '#2c82e0' : '#042f83'
                 })
               }
             }

@@ -10,6 +10,13 @@ export const GlobalConfigPlugin = defineVuesticPlugin((config: GlobalConfig | un
 
     if (config) { globalConfig.mergeGlobalConfig(config) }
 
+    // @ts-ignore
+    if (config?.componentsAll) {
+      console.warn('Global config -> `componentsAll` was moved to Global config -> components.all. ' +
+        'Please replace this to make it work. ' +
+        'More info here: https://github.com/epicmaxco/vuestic-ui/issues/1967')
+    }
+
     app.provide(GLOBAL_CONFIG, globalConfig)
 
     defineGlobalProperty(app, '$vaConfig', globalConfig)

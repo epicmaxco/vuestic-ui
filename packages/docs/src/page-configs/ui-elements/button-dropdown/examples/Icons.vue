@@ -25,6 +25,7 @@
     label="custom icon && icon-open"
     icon="info"
     opened-icon="check_circle"
+    icon-color="danger"
   >
     Content
   </va-button-dropdown>

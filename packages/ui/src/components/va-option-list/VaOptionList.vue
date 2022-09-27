@@ -49,6 +49,7 @@ import pick from 'lodash/pick'
 
 import { __DEV__ } from '../../utils/global-utils'
 import {
+  useComponentPresetProp,
   useSelectableList, useSelectableListProps, SelectableOption,
   useValidation, useValidationProps,
   useStateful, useStatefulProps, useStatefulEmits,
@@ -72,6 +73,7 @@ export default defineComponent({
   },
   emits: [...useStatefulEmits],
   props: {
+    ...useComponentPresetProp,
     ...useSelectableListProps,
     ...useValidationProps,
     ...useStatefulProps,

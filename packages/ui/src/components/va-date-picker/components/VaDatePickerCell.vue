@@ -16,6 +16,7 @@
       'va-date-picker-cell_focused': focused,
       'va-date-picker-cell_readonly': readonly,
     }"
+    :style="computedStyle"
     @click="onClick"
     @keypress.space.enter.prevent.stop="onClick"
   >
@@ -24,7 +25,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { useTextColor } from '../../../composables/useTextColor'
+import { computed, defineComponent, toRef } from 'vue'
 
 export default defineComponent({
   name: 'VaDatePickerCell',
@@ -41,6 +43,7 @@ export default defineComponent({
     highlightWeekend: { type: Boolean, default: false },
     highlightToday: { type: Boolean, default: false },
     readonly: { type: Boolean, default: false },
+    color: { type: String, default: 'primary' },
   },
 
   emits: ['click'],
@@ -50,8 +53,18 @@ export default defineComponent({
       if (!props.disabled) { emit('click') }
     }
 
+    const { textColorComputed } = useTextColor(toRef(props, 'color'))
+
+    const computedStyle = computed(() => {
+      if (props.selected) {
+        return { color: textColorComputed.value }
+      }
+      return {}
+    })
+
     return {
       onClick,
+      computedStyle,
     }
   },
 })
@@ -148,7 +161,7 @@ export default defineComponent({
 
     &_disabled {
       &:not(.va-date-picker-cell_today) {
-        color: var(--va-date-picker-secondary);
+        opacity: 0.5;
       }
 
       cursor: not-allowed;

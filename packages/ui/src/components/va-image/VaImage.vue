@@ -16,6 +16,7 @@
         :style="imageStyles"
         :src="$props.src"
         :alt="$props.alt"
+        :draggable="$props.draggable"
         @error="handleError"
         @load="handleLoad"
       />
@@ -34,15 +35,18 @@
 
 <script lang="ts">
 import { defineComponent, computed, watch, ref } from 'vue'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 export default defineComponent({
   name: 'VaImage',
   emits: ['loaded', 'error'],
   props: {
+    ...useComponentPresetProp,
     ratio: { type: Number, default: 1 },
     contain: { type: Boolean, default: false },
     src: { type: String, required: true },
     alt: { type: String, default: '' },
+    draggable: { type: Boolean, default: true },
   },
   setup (props, { emit }) {
     const loading = ref(true)

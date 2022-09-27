@@ -32,7 +32,7 @@
           <va-list-label
             v-if="childRoute.category"
             class="va-sidebar__child__label"
-            color="gray"
+            color="secondary"
           >
             {{ t(childRoute.category) }}
           </va-list-label>
@@ -42,7 +42,6 @@
             :activeColor="activeColor"
             :hover-color="hoverColor"
             border-color="primary"
-            text-color="dark"
             @click="onSidebarItemClick"
           >
             <va-sidebar-item-content>

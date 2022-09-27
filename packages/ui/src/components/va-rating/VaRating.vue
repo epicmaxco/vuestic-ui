@@ -55,6 +55,7 @@ import { useRating, useRatingProps } from './hooks/useRating'
 import { useVaRatingColors, useVaRatingColorsProps } from './hooks/useVaRatingColors'
 
 import { RatingValue } from './types'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 import VaRatingItem from './components/VaRatingItem/VaRatingItem.vue'
 import VaRatingItemNumberButton from './components/VaRatingItemNumberButton.vue'
@@ -70,6 +71,7 @@ export default defineComponent({
     ...useFormProps,
     ...VaRatingItemProps,
     ...VaRatingItemNumberButtonProps,
+    ...useComponentPresetProp,
     numbers: { type: Boolean, default: false },
     halves: { type: Boolean, default: false },
     max: { type: Number, default: 5 },

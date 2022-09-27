@@ -55,7 +55,7 @@
             @click.exact="column.sortable && toggleSorting(column)"
             @keydown.enter.stop="column.sortable && toggleSorting(column)"
           >
-            <div class="va-data-table__table-th-wrapper" :tabindex="column.sortable ? 0 : -1">
+            <div class="va-data-table__table-th-wrapper">
               <span v-if="`header(${column.name})` in $slots">
                 <slot :name="`header(${column.name})`" v-bind="{ label: column.label, key: column.key }" />
               </span>
@@ -71,6 +71,8 @@
                 @selectstart.prevent
               >
                 <va-icon
+                  :role="column.sortable ? 'button' : undefined"
+                  :tabindex="column.sortable ? 0 : -1"
                   :name="sortingOrderIconName"
                   size="small"
                   class="va-data-table__table-th-sorting-icon"
@@ -84,10 +86,7 @@
         <slot name="headerAppend" />
       </thead>
 
-      <tbody
-        class="va-data-table__table-tbody"
-        :style="rowCSSVariables"
-      >
+      <tbody class="va-data-table__table-tbody">
         <slot name="bodyPrepend" />
 
         <transition-group
@@ -200,7 +199,7 @@
             @click.exact="allowFooterSorting && column.sortable && toggleSorting(column)"
             @keydown.enter.stop="allowFooterSorting && column.sortable && toggleSorting(column)"
           >
-            <div class="va-data-table__table-th-wrapper" :tabindex="allowFooterSorting && column.sortable ? 0 : -1">
+            <div class="va-data-table__table-th-wrapper">
               <span v-if="`footer(${column.name})` in $slots">
                 <slot :name="`footer(${column.name})`" v-bind="{ label: column.label, key: column.key }" />
               </span>
@@ -215,6 +214,8 @@
                 @selectstart.prevent
               >
                 <va-icon
+                  :role="allowFooterSorting && column.sortable ? 'button' : undefined"
+                  :tabindex="allowFooterSorting && column.sortable ? 0 : -1"
                   :name="sortingOrderIconName"
                   size="small"
                   class="va-data-table__table-th-sorting-icon"
@@ -245,6 +246,7 @@ import useSelectableRow from './hooks/useSelectableRow'
 import useStylable from './hooks/useStylable'
 import useBinding from './hooks/useBinding'
 import useAnimationName from './hooks/useAnimationName'
+import { useComponentPresetProp } from '../../composables'
 
 import type {
   DataTableColumnSource,
@@ -295,6 +297,7 @@ export default defineComponent({
   inheritAttrs: false,
 
   props: {
+    ...useComponentPresetProp,
     columns: { type: Array as PropType<DataTableColumnSource[]>, default: () => [] as DataTableColumnSource[] },
     items: { type: Array as PropType<DataTableItem[]>, default: () => [] as DataTableItem[] },
     itemsTrackBy: { type: [String, Function] as PropType<string | ((item: DataTableItem) => any)>, default: '' },
@@ -403,7 +406,7 @@ export default defineComponent({
         { 'va-data-table--scroll': !!props.height },
         attrs.class,
       ],
-      style: [stickyCSSVariables.value, attrs.style],
+      style: [attrs.style],
     }) as HTMLAttributes)
 
     const computedTableAttributes = computed(() => ({
@@ -428,6 +431,7 @@ export default defineComponent({
       sortingOrderSync,
       toggleSorting,
       sortingOrderIconName,
+      stickyCSSVariables,
       rowCSSVariables,
       getHeaderCSSVariables,
       getCellCSSVariables,
@@ -454,6 +458,12 @@ export default defineComponent({
   // The calculated variables are taken from a respective element's `style` attribute. See the `useStylable` hook
 
   .va-data-table {
+    --va-data-table-selected-color: v-bind(rowCSSVariables.selectedColor);
+    --va-data-table-hover-color: v-bind(rowCSSVariables.hoverColor);
+    --va-data-table-thead-background: v-bind(stickyCSSVariables.stickyBg);
+    --va-data-table-tfoot-background: v-bind(stickyCSSVariables.stickyBg);
+    --va-data-table-height: v-bind(stickyCSSVariables.tableHeight);
+
     overflow-x: auto;
     overflow-y: hidden;
     min-width: unset;
@@ -462,7 +472,7 @@ export default defineComponent({
     &--sticky,
     &--scroll {
       overflow-y: auto;
-      height: var(--va-data-table-scroll-table-height);
+      height: var(--va-data-table-height);
 
       // 1) doesn't work in Firefox
       // 2) doesn't disappear on mac (the standard one does)
@@ -487,7 +497,7 @@ export default defineComponent({
           position: sticky;
           top: 0;
           z-index: 1;
-          background-color: var(--va-data-table-scroll-table-color);
+          background: var(--va-data-table-thead-background);
         }
       }
 
@@ -511,7 +521,7 @@ export default defineComponent({
           position: sticky;
           bottom: 0;
           z-index: 1;
-          background-color: var(--va-data-table-scroll-table-color);
+          background: var(--va-data-table-tfoot-background);
         }
       }
 
@@ -532,9 +542,7 @@ export default defineComponent({
           display: flex;
           align-items: center;
 
-          &:focus {
-            @include focus-outline($offset: 2px);
-          }
+          @include keyboard-focus-outline($offset: 2px);
         }
 
         .va-data-table__table-th-sorting {
