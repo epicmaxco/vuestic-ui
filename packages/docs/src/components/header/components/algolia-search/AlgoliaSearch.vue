@@ -17,6 +17,7 @@ onMounted(() => {
     indexName: 'vuestic',
     apiKey: 'cd8e70cb466bf6df138543a38c33ea5e',
     // absolutely kekw but docsearch is based on React, so we need this to replace JSX
+    // need all of this undefined fields and __v, idk why, but without them it wouldn't work, MAGIC
     // @ts-ignore
     hitComponent ({ hit, children }) {
       return {
