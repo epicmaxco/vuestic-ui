@@ -142,8 +142,7 @@ const useTreeView: UseTreeViewFunc = (props, emit) => {
     }
 
     return reactive({
-      id: getTrackBy(node),
-      label: getText(node),
+      ...node,
       level,
       checked,
       children,
