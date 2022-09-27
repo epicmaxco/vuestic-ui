@@ -366,6 +366,12 @@
         "activePageColor": "Specifies color of the currently active page button.",
         "gapped": "Enables gaps between page buttons.",
         "buttonsPreset": "Value of the `preset` prop for passing it to the `VaButton` component ([read more](/ui-elements/button))."
+      },
+      "slots": {
+        "firstPageLink": "For the first page link content",
+        "prevPageLink": "For the prev page link content",
+        "nextPageLink": "For the next page link content",
+        "lastPageLink": "For the last page link content"
       }
     },
     "VaTabs": {
@@ -2106,6 +2112,10 @@
       "totalAndPageSize": {
         "title": "Using `total` and `page-size`",
         "text": "You can provide `total` and `page-size` props to `va-pagination` component and let it calculate the length of pagination itself. The value of the component in this case would be equal to the number of the first item at the selected page."
+      },
+      "prevAndNextLinks": {
+        "title": "Custom links instead of icons",
+        "text": "The `prevPageLink` and `nextPageLink` slots allow you to set a different look to the buttons to go to the previous/next page."
       },
       "gapped": {
         "title": "Gaps",
