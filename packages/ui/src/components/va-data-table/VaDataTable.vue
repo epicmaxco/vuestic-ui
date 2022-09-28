@@ -394,8 +394,7 @@ export default defineComponent({
     } = useSelectableRow(paginatedRows, props, emit)
 
     const {
-      rowCSSVariables,
-      stickyCSSVariables,
+      CSSVariables,
       getHeaderCSSVariables,
       getCellCSSVariables,
       getFooterCSSVariables,
@@ -463,8 +462,7 @@ export default defineComponent({
       sortingOrderSync,
       toggleSorting,
       sortingOrderIconName,
-      stickyCSSVariables,
-      rowCSSVariables,
+      CSSVariables,
       getHeaderCSSVariables,
       getCellCSSVariables,
       getFooterCSSVariables,
@@ -492,11 +490,11 @@ export default defineComponent({
   // The calculated variables are taken from a respective element's `style` attribute. See the `useStylable` hook
 
   .va-data-table {
-    --va-data-table-selected-color: v-bind(rowCSSVariables.selectedColor);
-    --va-data-table-hover-color: v-bind(rowCSSVariables.hoverColor);
-    --va-data-table-thead-background: v-bind(stickyCSSVariables.stickyBg);
-    --va-data-table-tfoot-background: v-bind(stickyCSSVariables.stickyBg);
-    --va-data-table-height: v-bind(stickyCSSVariables.tableHeight);
+    --va-data-table-selected-color: v-bind(CSSVariables.selectedColor);
+    --va-data-table-hover-color: v-bind(CSSVariables.hoverColor);
+    --va-data-table-height--computed: v-bind(CSSVariables.tableHeight);
+    --va-data-table-thead-background--computed: v-bind(CSSVariables.theadBg);
+    --va-data-table-tfoot-background--computed: v-bind(CSSVariables.tfootBg);
 
     overflow-x: auto;
     overflow-y: hidden;
@@ -506,7 +504,8 @@ export default defineComponent({
     &--sticky,
     &--scroll {
       overflow-y: auto;
-      height: var(--va-data-table-height);
+      height: var(--va-data-table-height--computed);
+      max-height: var(--va-data-table-max-height);
 
       // 1) doesn't work in Firefox
       // 2) doesn't disappear on mac (the standard one does)
@@ -519,8 +518,8 @@ export default defineComponent({
       white-space: nowrap;
 
       .va-data-table__table-thead {
-        border-bottom: var(--va-data-table-thead-border);
         color: var(--va-data-table-thead-color);
+        border-bottom: var(--va-data-table-thead-border);
 
         th {
           border-bottom: none;
@@ -531,7 +530,7 @@ export default defineComponent({
           position: sticky;
           top: 0;
           z-index: 1;
-          background: var(--va-data-table-thead-background);
+          background: var(--va-data-table-thead-background--computed);
         }
       }
 
@@ -543,8 +542,8 @@ export default defineComponent({
       }
 
       .va-data-table__table-tfoot {
+        color: var(--va-data-table-tfoot-color);
         border-top: var(--va-data-table-thead-border);
-        color: var(--va-data-table-thead-color);
 
         th {
           border-bottom: none;
@@ -555,7 +554,7 @@ export default defineComponent({
           position: sticky;
           bottom: 0;
           z-index: 1;
-          background: var(--va-data-table-tfoot-background);
+          background: var(--va-data-table-tfoot-background--computed);
         }
       }
 
