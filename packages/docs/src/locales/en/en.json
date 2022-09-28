@@ -941,8 +941,8 @@
         "height": "Sets the height to the table and enables scrolling",
         "rowBind": "Adds attributes to a table row using `v-bind`. This can be an object type (with attributes that vue supports) or a function that returns such an object. The function receives a table row element (`DataTableItem` type) and an index as arguments",
         "cellBind": "Adds attributes to a table cell using `v-bind`. This can be an object type (with attributes that vue supports) or a function that returns such an object. As arguments, the function receives a table cell element (`any` type), a row (`DataTableItem` type), a column (`TableColumn` type), and a row index",
-        "scrollTopMargin": "Sets the threshold (`px`) for scrolling up when the `scroll:top` event is enabled. Disable event emitting when `undefined`.",
-        "scrollBottomMargin": "Sets the threshold (`px`) for scrolling down when the `scroll:bottom` event is enabled. Disable event emitting when `undefined`."
+        "scrollTopMargin": "Sets the threshold (`px`) for scrolling up when the `scroll:top` event is enabled.",
+        "scrollBottomMargin": "Sets the threshold (`px`) for scrolling down when the `scroll:bottom` event is enabled."
       },
       "events": {
         "updateSortBy": "Emits when `sort-by` changed",
