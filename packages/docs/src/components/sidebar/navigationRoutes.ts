@@ -59,6 +59,10 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'ssr-guide',
         displayName: 'menu.ssrGuide',
       },
+      {
+        name: 'kitchensink',
+        displayName: 'menu.kitchensink',
+      },
       // GENERATOR_ADD - gettingStarted
     ],
   },
@@ -77,6 +81,10 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: 'grid',
         displayName: 'menu.grid',
+      },
+      {
+        name: 'smart-helpers',
+        displayName: 'menu.smartHelpers',
       },
       {
         name: 'colors',
@@ -414,6 +422,10 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: 'colors-config',
         displayName: 'menu.colorsConfig',
+      },
+      {
+        name: 'breakpoints',
+        displayName: 'menu.breakpoints',
       },
       // GENERATOR_ADD - services
     ],

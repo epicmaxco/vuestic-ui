@@ -90,9 +90,9 @@
                   >
                     <va-button
                       v-if="$props.cancelText"
+                      preset="plain"
                       color="gray"
-                      class="mr-2"
-                      flat
+                      class="mr-3"
                       @click="cancel"
                     >
                       {{ $props.cancelText }}

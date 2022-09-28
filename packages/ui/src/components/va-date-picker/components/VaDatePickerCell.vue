@@ -25,7 +25,7 @@
 </template>
 
 <script lang="ts">
-import { useTextColor } from '../../../composables/useTextColor'
+import { useTextColor } from '../../../composables'
 import { computed, defineComponent, toRef } from 'vue'
 
 export default defineComponent({
@@ -136,10 +136,6 @@ export default defineComponent({
 
     &_other-month {
       opacity: var(--va-date-picker-cell-opacity);
-    }
-
-    &_focused {
-      @include focus-outline;
     }
 
     &:hover,

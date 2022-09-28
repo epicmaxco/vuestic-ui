@@ -1,6 +1,6 @@
-import type { GlobalConfig } from '../../services/global-config/global-config'
+import type { GlobalConfig } from '../../services/global-config/types'
 import { defineVuesticPlugin, usePlugin } from '../utils'
-import { GlobalConfigPlugin, VaDropdownPlugin, VaToastPlugin, VaModalPlugin, ColorConfigPlugin } from '../vuestic-plugins'
+import { GlobalConfigPlugin, VaDropdownPlugin, VaToastPlugin, VaModalPlugin, ColorConfigPlugin, BreakpointConfigPlugin } from '../vuestic-plugins'
 import * as vuesticComponents from '../vuestic-components'
 import type { VuesticComponents } from '../global-components'
 
@@ -24,6 +24,7 @@ export const createVuestic = defineVuesticPlugin((options: { config?: GlobalConf
     })
 
     usePlugin(app, GlobalConfigPlugin(config))
+    usePlugin(app, BreakpointConfigPlugin)
     usePlugin(app, ColorConfigPlugin)
     usePlugin(app, VaDropdownPlugin)
     usePlugin(app, VaToastPlugin)

@@ -1,5 +1,14 @@
 <template>
   <header class="header">
+    <div class="header__banner">
+      <div>
+        🔥🔥🔥<span class="pl-2">Our CTO, Yauheni Prakopchyk, will be a speaker at North America’s premier Vue.js Conference -
+        VueConf Toronto</span> <strong>(1-3 Nov 2022)</strong>.
+      </div>
+      <a href="https://www.vuetoronto.com/" target="_blank" class="header__banner-btn">
+        Join the Conference
+      </a>
+    </div>
     <div class="header__wrapper">
       <div class="header__inner">
         <div class="header__logo">
@@ -137,6 +146,25 @@ export default class Header extends Vue {
     left: 0;
     width: 100%;
     background: transparent;
+
+    &__banner {
+      display: flex;
+      min-height: 50px;
+      padding: 10px 20px;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      background-color: #5cb76c;
+      font-size: 0.8rem;
+      color: white;
+
+      &-btn {
+        padding: 7px 8px;
+        border-radius: 5px;
+        background-color: #fdfdfd;
+        margin-left: 7px;
+      }
+    }
 
     &__wrapper {
       @include wrapper();

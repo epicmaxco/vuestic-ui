@@ -6,7 +6,7 @@ import { useValidation, useValidationProps, ValidationProps, useValidationEmits 
 import { useFocus } from './useFocus'
 
 export type SelectableProps<V = any> = StatefulProps<V> & LoadingProps & ExtractPropTypes<ValidationProps<V>> & {
-  arrayValue: V | null,
+  arrayValue: V | undefined,
   label: string,
   leftLabel: boolean,
   trueValue: boolean,
@@ -27,7 +27,7 @@ export const useSelectableProps = {
   ...useStatefulProps,
   ...useLoadingProps,
   ...useValidationProps,
-  arrayValue: { type: null as any as PropType<unknown>, default: null },
+  arrayValue: { type: [String, Boolean, Object, Number], default: undefined },
   label: { type: String, default: '' },
   leftLabel: { type: Boolean, default: false },
   trueValue: { type: null as any as PropType<unknown>, default: true },
@@ -87,7 +87,7 @@ export const useSelectable = (
   }
 
   const isIndeterminate = computed(() => props.indeterminate && valueComputed.value === props.indeterminateValue)
-  const modelIsArray = computed(() => props.arrayValue !== null)
+  const modelIsArray = computed(() => props.arrayValue !== undefined && props.arrayValue !== null)
   const isChecked = computed(() => {
     if (modelIsArray.value) {
       return (props.modelValue as unknown[])?.includes(props.arrayValue)

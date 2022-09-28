@@ -1,5 +1,6 @@
 export { GlobalConfigPlugin } from '../services/global-config/plugin'
 export { ColorConfigPlugin } from '../services/color-config/plugin'
+export { BreakpointConfigPlugin } from '../services/breakpoint/plugin'
 export { VaToastPlugin } from '../components/va-toast/plugin'
 export { VaDropdownPlugin } from '../components/va-dropdown/plugin'
 export { VaModalPlugin } from '../components/va-modal/plugin'
