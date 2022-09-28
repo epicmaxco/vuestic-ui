@@ -836,7 +836,8 @@
         "prependInner": "Adds an item inside the input and before input content",
         "append": "Adds an item outside the input and after input content",
         "appendInner": "Adds an item inside the input and after input content",
-        "content": "Adds an item instead the input"
+        "content": "Adds an item instead the input",
+        "option": "Allows to specify option template"
       }
     },
     "VaParallax": {
@@ -3062,7 +3063,7 @@
       "slots": {
         "title": "Slots",
         "text": [
-          "Includes `content`, `prepend`, `prepend-inner`, `append` and `append-inner` slots.",
+          "Includes `option`, `content`, `prepend`, `prepend-inner`, `append` and `append-inner` slots.",
           "The content of the `content` slot replaces the `input` element in the component."
         ]
       },

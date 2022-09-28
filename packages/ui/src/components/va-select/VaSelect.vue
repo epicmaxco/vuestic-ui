@@ -148,7 +148,10 @@
           @keydown.tab.stop.prevent="searchBar && searchBar.focus()"
           @keydown="onHintedSearch"
           @scroll-bottom="onScrollBottom"
-        />
+          v-slot="slotData"
+        >
+          <slot name="option" v-bind="slotData || {}" />
+        </va-select-option-list>
       </div>
     </va-dropdown-content>
   </va-dropdown>

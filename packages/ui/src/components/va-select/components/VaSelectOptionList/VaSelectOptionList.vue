@@ -26,27 +26,36 @@
         :track-by="$props.getTrackBy"
         :wrapper-size="rootHeight"
         @scrolled-to-end="handleScrollToBottom"
-        v-slot="{ item: option }"
+        v-slot="{ item: option, index }"
       >
         <va-select-option
+          v-if="!isSlotContentPassed"
           :option="option"
           :current-option="currentOptionComputed"
           v-bind="selectOptionProps"
           @click="selectOption(option)"
           @mousemove="updateHoveredOption(option)"
         />
+        <template v-else>
+          <slot v-bind="{ option, index, selectOption }" />
+        </template>
       </va-virtual-scroller>
 
       <template v-else>
-        <va-select-option
-          v-for="option in options" :key="$props.getTrackBy(option)"
-          :ref="setItemRef($props.getTrackBy(option))"
-          :current-option="currentOptionComputed"
-          :option="option"
-          v-bind="selectOptionProps"
-          @click="selectOption(option)"
-          @mousemove="updateHoveredOption(option)"
-        />
+        <template v-for="(option, index) in options" :key="$props.getTrackBy(option)">
+          <va-select-option
+            v-if="!isSlotContentPassed"
+            :ref="setItemRef($props.getTrackBy(option))"
+            :current-option="currentOptionComputed"
+            :option="option"
+            v-bind="selectOptionProps"
+            @click="selectOption(option)"
+            @mousemove="updateHoveredOption(option)"
+          />
+          <template v-else>
+            <slot v-bind="{ option, index, selectOption }" />
+          </template>
+        </template>
       </template>
     </template>
     <div
@@ -62,8 +71,10 @@
 import { defineComponent, PropType, ref, shallowRef, watch, computed } from 'vue'
 import pick from 'lodash/pick.js'
 
-import { scrollToElement } from '../../../../utils/scroll-to-element'
 import { useComponentPresetProp, useColorProps, extractHTMLElement, useObjectRefs } from '../../../../composables'
+
+import { scrollToElement } from '../../../../utils/scroll-to-element'
+import { checkSlotChildrenDeep } from '../../../../services/utils'
 
 import { VaVirtualScroller } from '../../../va-virtual-scroller'
 import { VaSelectOption } from '../VaSelectOption'
@@ -95,7 +106,7 @@ export default defineComponent({
     virtualScroller: { type: Boolean, default: true },
   },
 
-  setup (props, { emit }) {
+  setup (props, { emit, slots }) {
     const root = shallowRef<HTMLElement>()
     const focus = () => {
       // Prevent scroll since element in dropdown and it causes scrolling to page end.
@@ -162,6 +173,8 @@ export default defineComponent({
       () => pick(props, ['getSelectedState', 'getText', 'getTrackBy', 'color']),
     )
 
+    const isSlotContentPassed = computed(() => checkSlotChildrenDeep(slots.default))
+
     // public
     const focusPreviousOption = () => {
       if (!currentOptionComputed.value) {
@@ -222,6 +235,7 @@ export default defineComponent({
       optionGroups,
       filteredOptions,
       selectOptionProps,
+      isSlotContentPassed,
       currentOptionComputed,
 
       onScroll,

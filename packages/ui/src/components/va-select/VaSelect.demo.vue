@@ -12,6 +12,26 @@
       <p>Value: {{ defaultSingleSelect.value }}</p>
     </VbCard>
     <VbCard
+      title="Option slot"
+      style="width: 400px;"
+    >
+      <va-select
+        v-model="defaultSingleSelect.value"
+        class="mb-4"
+        :options="defaultSingleSelect.options"
+      >
+        <template v-slot:option="{ option, index, selectOption }">
+          <div
+            class="mb-2"
+            @click="selectOption(option)"
+          >
+            option {{ option }} with index {{ index }}
+          </div>
+        </template>
+      </va-select>
+      <p>Value: {{ defaultSingleSelect.value }}</p>
+    </VbCard>
+    <VbCard
       title="Virtual Scroller"
       style="width: 400px;"
     >
