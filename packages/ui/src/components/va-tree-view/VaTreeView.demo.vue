@@ -4,7 +4,23 @@
       <va-tree-view :nodes="nodes" />
     </VbCard>
     <VbCard title="Stateless">
-      <va-tree-view :nodes="nodes" :stateful="false" />
+      checked model: {{stateChecked}}
+      <br />
+      expanded model: {{stateExpanded}}
+      <br />
+      <va-tree-view
+        v-model:checked="stateChecked"
+        v-model:expanded="stateExpanded"
+        :stateful="false"
+        :nodes="nodes"
+        selectable
+      />
+      <br />
+      <va-tree-view
+        :stateful="false"
+        :nodes="nodes"
+        selectable
+      />
     </VbCard>
     <VbCard title="Selectable">
       <p>Selection strategy</p>
@@ -173,6 +189,9 @@ export default {
   },
 
   data: () => ({
+    stateChecked: [],
+    stateExpanded: [],
+
     selectionType: 'leaf',
     selectionTypeOptions: ['leaf', 'independent'],
     selectedNodes: [],

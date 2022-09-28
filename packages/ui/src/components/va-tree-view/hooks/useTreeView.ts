@@ -2,18 +2,17 @@ import {
   computed,
   reactive,
   toRefs,
-  ref,
   provide,
-  watch,
   Ref,
   ComputedRef,
   ExtractPropTypes,
+  nextTick,
 } from 'vue'
 
 import type { TreeNode, TreeViewPropKey, TreeViewFilterMethod, TreeViewEmitsList } from '../types'
 import { useTreeHelpers, useTreeViewProps } from './useTreeHelpers'
 import { TreeViewKey } from '../types'
-import { useColors } from '../../../composables'
+import { useColors, useSyncProp } from '../../../composables'
 
 type CreateNodeProps = {
   node: TreeNode
@@ -40,7 +39,11 @@ type UseTreeViewFunc = (props: ExtractPropTypes<typeof useTreeViewProps>, emit: 
 type TreeBuilderFunc = (nodes: TreeNode[], level?: number) => TreeNode[]
 
 type TypeModelValue = (string | number | TreeNode)[]
-
+/*
+* нужны две демки
+* одна где все v-model проброшены
+* 2 кейса stateless (stateful = false)
+* */
 const useTreeView: UseTreeViewFunc = (props, emit) => {
   const { getColor } = useColors()
   const colorComputed = computed(() => getColor(props.color))
@@ -55,29 +58,23 @@ const useTreeView: UseTreeViewFunc = (props, emit) => {
     iterateNodes,
     getNodeProperty,
   } = useTreeHelpers(props)
-  const { nodes, expandAll, expanded, filter, filterMethod, textBy, checked, stateful } = toRefs(props)
-  const expandedList = ref<TypeModelValue>(expanded.value)
-  const checkedList = ref<TypeModelValue>(checked.value)
-
-  watch(() => checked.value, (newValue) => {
-    checkedList.value = newValue
-  })
+  const { nodes, expandAll, filter, filterMethod, textBy } = toRefs(props)
+  const [expandedList] = useSyncProp('expanded', props, emit, [], props.stateful)
+  const [checkedList] = useSyncProp('checked', props, emit, [], props.stateful)
 
   const updateModel = (model: Ref<TypeModelValue>, values: TypeModelValue, state: boolean) => {
-    if (state) {
-      model.value = model.value.concat(values)
-        .filter((value, idx, self) => self.indexOf(value) === idx)
-    } else {
-      model.value = model.value.filter(v => !values.includes(v))
-    }
+    nextTick(() => {
+      if (state) {
+        model.value = model.value.concat(values)
+          .filter((value, idx, self) => self.indexOf(value) === idx)
+      } else {
+        model.value = model.value.filter(v => !values.includes(v))
+      }
+    })
   }
 
   const updateCheckedList = (values: TypeModelValue, state: boolean) => {
     updateModel(checkedList, values, state)
-
-    if (stateful.value) {
-      emit('update:checked', checkedList.value)
-    }
   }
 
   const toggleCheckbox = (node: TreeNode, state: boolean | null) => {
@@ -106,21 +103,9 @@ const useTreeView: UseTreeViewFunc = (props, emit) => {
     updateCheckedList(values, stateValue)
   }
 
-  watch(() => expanded.value, (newValue) => {
-    expandedList.value = newValue
-  })
-
-  const updateExpandedList = (values: TypeModelValue, state: boolean) => {
-    updateModel(expandedList, values, state)
-
-    if (stateful.value) {
-      emit('update:expanded', expandedList.value)
-    }
-  }
-
   const toggleNode = (node: TreeNode): void => {
     if (node.hasChildren) {
-      updateExpandedList([getValue(node)], !node.expanded)
+      updateModel(expandedList, [getValue(node)], !node.expanded)
     }
   }
 
@@ -130,6 +115,7 @@ const useTreeView: UseTreeViewFunc = (props, emit) => {
     const hasChildren = !!children.length
     const disabled = getDisabled(node) || false
     let indeterminate = false
+    // @ts-ignore
     let checked: boolean | null = checkedList.value.includes(valueBy) || false
 
     if (isLeafSelectionComputed.value && hasChildren) {
@@ -147,6 +133,7 @@ const useTreeView: UseTreeViewFunc = (props, emit) => {
       checked,
       children,
       disabled,
+      // @ts-ignore
       expanded: expandedList.value.includes(valueBy) || false,
       hasChildren,
       matchesFilter,
