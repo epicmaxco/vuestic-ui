@@ -17,7 +17,9 @@
       :items="items"
       :style="{
         '--va-data-table-height': '300px',
-        '--va-data-table-header-background': 'linear-gradient(0deg, #ddd, #eff8ff)',
+        '--va-data-table-thead-background': 'var(--va-secondary)',
+        '--va-data-table-tfoot-background': 'var(--va-background-element)',
+        '--va-data-table-thead-color': 'var(--va-warning)',
       }"
       sticky-header
       footer-clone
@@ -38,19 +40,18 @@
     </va-data-table>
 
     <va-data-table
-      :items="items"
       class="my-custom-table-class"
+      :items="items"
+      height="100%"
       sticky-header
       footer-clone
       sticky-footer
-      height="220px"
-      :scrollTopMargin="0"
       :scrollBottomMargin="20"
       @scroll:top="logger"
       @scroll:bottom="onScrollDown"
     >
       <template #headerPrepend>
-        <tr class="va-data-table__table-th">
+        <tr>
           <th colspan="6">With scroll events</th>
         </tr>
       </template>
@@ -174,7 +175,7 @@ export default defineComponent({
 <style lang="scss">
   .sticky-table-example {
     .va-data-table {
-      border: 1px solid;
+      border: 1px solid var(--va-background-element);
     }
 
     .va-data-table + .va-data-table {
@@ -182,12 +183,11 @@ export default defineComponent({
     }
 
     .my-custom-table-class {
-      --va-data-table-thead-background: black;
-      --va-data-table-tfoot-background: gray;
-
-      .va-data-table__table-th {
-        color: white;
-      }
+      --va-data-table-thead-background: linear-gradient(0deg, var(--va-primary), var(--va-info));
+      --va-data-table-tfoot-background: linear-gradient(0deg, var(--va-info), var(--va-primary));
+      --va-data-table-max-height: 250px;
+      --va-data-table-thead-color: var(--va-text-light);
+      --va-data-table-tfoot-color: var(--va-text-light);
     }
   }
 </style>

@@ -218,16 +218,16 @@ export default defineComponent({
 <style lang="scss">
   .table-example {
     th {
-      background-color: #f0f0f0;
-      height: 60px;
+      background-color: var(--va-background-secondary);
+      border: 1px solid currentColor;
+      height: 50px;
     }
 
     tr {
-      border-bottom: 1px solid #f0f0f0;
+      border-bottom: 1px solid currentColor;
 
       td {
-        height: 80px;
-        border-right: 1px solid #f0f0f0;
+        height: 70px;
       }
     }
   }
