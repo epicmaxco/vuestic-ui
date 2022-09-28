@@ -145,7 +145,6 @@ const useTreeView: UseTreeViewFunc = (props, emit) => {
       checked,
       children,
       disabled,
-      // @ts-ignore
       expanded: expandedList.value.includes(valueBy) || false,
       hasChildren,
       matchesFilter,
@@ -159,17 +158,21 @@ const useTreeView: UseTreeViewFunc = (props, emit) => {
     return (node, filter) => getText(node).toLowerCase().includes(filter.toLowerCase())
   })
 
-  const buildTree: TreeBuilderFunc = (nodes: TreeNode[], level = 0) => {
-    return nodes.map((node: TreeNode) => {
-      if (node.children?.length) {
-        const children = buildTree(node.children, level + 1)
+  const buildTree: TreeBuilderFunc = (nodes: TreeNode[], level = 0) => nodes.map((node: TreeNode) => {
+    if (node.children?.length) {
+      const children = buildTree(node.children, level + 1)
 
-        return createNode({ node, level, children, computedFilterMethod })
-      }
+      return createNode({ node, level, children, computedFilterMethod })
+    }
 
-      return createNode({ node, level, computedFilterMethod })
-    })
-  }
+    return createNode({ node, level, computedFilterMethod })
+  })
+
+  const getFilteredNodes = (nodes: TreeNode[]): TreeNode[] => nodes.slice().filter((node) => {
+    if (node.hasChildren) { getFilteredNodes(node.children.slice()) }
+
+    return node.matchesFilter ? node : false
+  })
 
   provide(TreeViewKey, {
     colorComputed,
@@ -212,7 +215,7 @@ const useTreeView: UseTreeViewFunc = (props, emit) => {
   checkForInitialValues()
 
   return {
-    treeItems,
+    treeItems: computed(() => getFilteredNodes(treeItems.value)),
     getText,
     getTrackBy,
     toggleCheckbox,
