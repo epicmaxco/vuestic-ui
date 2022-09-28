@@ -3,10 +3,11 @@ import {
   reactive,
   toRefs,
   provide,
+  nextTick,
   Ref,
   ComputedRef,
   ExtractPropTypes,
-  nextTick,
+  WritableComputedRef,
 } from 'vue'
 
 import type { TreeNode, TreeViewPropKey, TreeViewFilterMethod, TreeViewEmitsList } from '../types'
@@ -39,11 +40,7 @@ type UseTreeViewFunc = (props: ExtractPropTypes<typeof useTreeViewProps>, emit: 
 type TreeBuilderFunc = (nodes: TreeNode[], level?: number) => TreeNode[]
 
 type TypeModelValue = (string | number | TreeNode)[]
-/*
-* нужны две демки
-* одна где все v-model проброшены
-* 2 кейса stateless (stateful = false)
-* */
+
 const useTreeView: UseTreeViewFunc = (props, emit) => {
   const { getColor } = useColors()
   const colorComputed = computed(() => getColor(props.color))
@@ -59,8 +56,20 @@ const useTreeView: UseTreeViewFunc = (props, emit) => {
     getNodeProperty,
   } = useTreeHelpers(props)
   const { nodes, expandAll, filter, filterMethod, textBy } = toRefs(props)
-  const [expandedList] = useSyncProp('expanded', props, emit, [], props.stateful)
-  const [checkedList] = useSyncProp('checked', props, emit, [], props.stateful)
+  const [expandedList]: WritableComputedRef<TypeModelValue>[] = useSyncProp(
+    'expanded',
+    props,
+    emit,
+    [],
+    props.stateful,
+  )
+  const [checkedList]: WritableComputedRef<TypeModelValue>[] = useSyncProp(
+    'checked',
+    props,
+    emit,
+    [],
+    props.stateful,
+  )
 
   const updateModel = (model: Ref<TypeModelValue>, values: TypeModelValue, state: boolean) => {
     nextTick(() => {
@@ -111,11 +120,10 @@ const useTreeView: UseTreeViewFunc = (props, emit) => {
 
   const createNode: CreateNodeFunc = ({ node, level, children = [], computedFilterMethod }) => {
     const valueBy = getValue(node)
-    const matchesFilter = filter.value ? computedFilterMethod.value?.(node, filter.value, textBy.value) : true
+    let matchesFilter = true
     const hasChildren = !!children.length
     const disabled = getDisabled(node) || false
     let indeterminate = false
-    // @ts-ignore
     let checked: boolean | null = checkedList.value.includes(valueBy) || false
 
     if (isLeafSelectionComputed.value && hasChildren) {
@@ -125,6 +133,10 @@ const useTreeView: UseTreeViewFunc = (props, emit) => {
       indeterminate = !isAllChildrenChecked && children.some(c => c.indeterminate || c.checked)
 
       if (indeterminate) { checked = null }
+    }
+
+    if (filter.value) {
+      matchesFilter = children?.some(c => c.matchesFilter) || computedFilterMethod.value?.(node, filter.value, textBy.value)
     }
 
     return reactive({
@@ -148,31 +160,15 @@ const useTreeView: UseTreeViewFunc = (props, emit) => {
   })
 
   const buildTree: TreeBuilderFunc = (nodes: TreeNode[], level = 0) => {
-    return nodes.reduce((acc: TreeNode[], node: TreeNode) => {
+    return nodes.map((node: TreeNode) => {
       if (node.children?.length) {
         const children = buildTree(node.children, level + 1)
-        const treeNode = createNode({
-          node,
-          level,
-          children,
-          computedFilterMethod,
-        })
 
-        if (!treeNode.matchesFilter) {
-          treeNode.matchesFilter = treeNode.children.some(n => n.matchesFilter)
-        }
-
-        if (treeNode.matchesFilter) { acc.push(treeNode) }
-
-        return acc
+        return createNode({ node, level, children, computedFilterMethod })
       }
 
-      const treeNode = createNode({ node, level, computedFilterMethod })
-
-      if (treeNode.matchesFilter) { acc.push(treeNode) }
-
-      return acc
-    }, [])
+      return createNode({ node, level, computedFilterMethod })
+    })
   }
 
   provide(TreeViewKey, {
