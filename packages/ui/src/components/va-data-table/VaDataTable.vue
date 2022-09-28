@@ -8,9 +8,9 @@
     :color="loadingColor"
   >
     <div
-      v-if="scrollTopMargin !== undefined"
+      v-if="isTopTriggerListener"
       ref="topTrigger"
-      class="va-data-table__trigger"
+      class="va-data-table__scroll-trigger"
     />
 
     <table
@@ -241,9 +241,9 @@
     </table>
 
     <div
-      v-if="scrollBottomMargin !== undefined"
+      v-if="isBottomTriggerListener"
       ref="bottomTrigger"
-      class="va-data-table__trigger"
+      class="va-data-table__scroll-trigger"
     />
   </va-inner-loading>
 </template>
@@ -263,7 +263,7 @@ import useSelectableRow from './hooks/useSelectableRow'
 import useStylable from './hooks/useStylable'
 import useBinding from './hooks/useBinding'
 import useAnimationName from './hooks/useAnimationName'
-import useTableScroll from './hooks/useTableScroll'
+import useTableScroll, { useTableScrollProps, useTableScrollEmits } from './hooks/useTableScroll'
 
 import type {
   DataTableColumnSource,
@@ -317,6 +317,7 @@ export default defineComponent({
 
   props: {
     ...useComponentPresetProp,
+    ...useTableScrollProps,
     columns: { type: Array as PropType<DataTableColumnSource[]>, default: () => [] as DataTableColumnSource[] },
     items: { type: Array as PropType<DataTableItem[]>, default: () => [] as DataTableItem[] },
     itemsTrackBy: { type: [String, Function] as PropType<string | ((item: DataTableItem) => any)>, default: '' },
@@ -351,8 +352,6 @@ export default defineComponent({
     height: { type: [String, Number] },
     rowBind: { type: null as unknown as PropType<DataTableRowBind> },
     cellBind: { type: null as unknown as PropType<DataTableCellBind> },
-    scrollTopMargin: { type: Number },
-    scrollBottomMargin: { type: Number },
   },
 
   emits: [
@@ -365,8 +364,7 @@ export default defineComponent({
     'row:click',
     'row:dblclick',
     'row:contextmenu',
-    'scroll:top',
-    'scroll:bottom',
+    ...useTableScrollEmits,
   ],
 
   setup (props, { attrs, emit }) {
@@ -441,7 +439,13 @@ export default defineComponent({
       ? sortingOrderSync.value === 'asc' ? 'ascending' : 'descending'
       : 'none'
 
-    const { scrollContainer, topTrigger, bottomTrigger } = useTableScroll(props, emit)
+    const {
+      scrollContainer,
+      topTrigger,
+      bottomTrigger,
+      isTopTriggerListener,
+      isBottomTriggerListener,
+    } = useTableScroll(props, emit)
 
     return {
       scrollContainer,
@@ -475,6 +479,8 @@ export default defineComponent({
       getColumnAriaSortOrder,
       getRowBind,
       getCellBind,
+      isTopTriggerListener,
+      isBottomTriggerListener,
     }
   },
 })
@@ -697,7 +703,7 @@ export default defineComponent({
       }
     }
 
-    &__trigger {
+    &__scroll-trigger {
       user-select: none;
     }
   }

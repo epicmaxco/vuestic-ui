@@ -1,101 +1,65 @@
-import { shallowRef, onMounted, computed, onBeforeUnmount, watch, nextTick } from 'vue'
+import { getCurrentInstance, computed, ExtractPropTypes } from 'vue'
 
-import { useHTMLElement } from '../../../composables'
+import { useIntersectionObserver, useElementRef } from '../../../composables'
 
-interface useTableScrollProps {
-  stickyHeader: boolean
-  stickyFooter: boolean
-  height: string | number | undefined
-  scrollTopMargin: number | undefined
-  scrollBottomMargin: number | undefined
+export const useTableScrollProps = {
+  scrollTopMargin: { type: Number, default: 0 },
+  scrollBottomMargin: { type: Number, default: 0 },
 }
 
+export const useTableScrollEmits = ['scroll:top', 'scroll:bottom']
+
 export default function useTableScroll (
-  props: useTableScrollProps,
+  props: ExtractPropTypes<typeof useTableScrollProps>,
   emit: (event: 'scroll:bottom' | 'scroll:top', ...args: any[]) => void,
 ) {
-  let observer: IntersectionObserver
+  // TODO: replace 'vNodeProps' with 'attrs' when we bump vue to ^3.2
+  // NOTE: unfortunately, this is not reactive
+  const vNodeProps = getCurrentInstance()?.vnode.props
+  const isTopTriggerListener = vNodeProps?.['onScroll:top'] !== undefined
+  const isBottomTriggerListener = vNodeProps?.['onScroll:bottom'] !== undefined
 
-  const scrollContainer = shallowRef<HTMLDivElement>()
-  const scrollContainerHTML = useHTMLElement(scrollContainer)
+  const scrollContainer = useElementRef()
+  const topTrigger = useElementRef()
+  const bottomTrigger = useElementRef()
 
-  const topTrigger = shallowRef<HTMLDivElement>()
-  const topTriggerHTML = useHTMLElement(topTrigger)
-
-  const bottomTrigger = shallowRef<HTMLDivElement>()
-  const bottomTriggerHTML = useHTMLElement(bottomTrigger)
-
-  const isScrollable = computed(() => !!(props.height))
-  const isTriggers = computed(
-    () => !!(props.scrollTopMargin !== undefined || props.scrollBottomMargin !== undefined),
-  )
-  const isObservable = computed(() => isScrollable.value && isTriggers.value)
-
-  const margins = computed(
-    () => `${props.scrollTopMargin ?? 0}px 0px ${props.scrollBottomMargin ?? 0}px 0px`,
+  const isObservable = computed(
+    () => (isTopTriggerListener || isBottomTriggerListener) && !!scrollContainer.value,
   )
 
   const intersectionHandler = (entries: IntersectionObserverEntry[]) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        entry.target === topTriggerHTML.value
+        entry.target === topTrigger.value
           ? emit('scroll:top')
           : emit('scroll:bottom')
       }
     })
   }
 
-  const disconnectObserver = () => {
-    observer && observer.disconnect()
-  }
+  const targets = computed<HTMLElement[]>(() => {
+    const list: HTMLElement[] = []
 
-  const observeTarget = (target: HTMLElement | undefined) => {
-    target && observer.observe(target)
-  }
-
-  const unObserveTarget = (target: HTMLElement | undefined) => {
-    target && observer.unobserve(target)
-  }
-
-  const initObserver = () => {
-    observer = new IntersectionObserver(intersectionHandler, {
-      root: scrollContainerHTML.value,
-      rootMargin: margins.value,
-    })
-
-    props.scrollTopMargin !== undefined && observeTarget(topTriggerHTML.value)
-    props.scrollBottomMargin !== undefined && observeTarget(bottomTriggerHTML.value)
-  }
-
-  watch(isObservable, (newValue) => {
-    newValue
-      ? nextTick(initObserver)
-      : disconnectObserver()
-  })
-
-  watch(() => props.scrollTopMargin, (newValue) => {
     if (isObservable.value) {
-      newValue !== undefined
-        ? nextTick(() => observeTarget(topTriggerHTML.value))
-        : unObserveTarget(topTriggerHTML.value)
+      topTrigger.value && list.push(topTrigger.value)
+      bottomTrigger.value && list.push(bottomTrigger.value)
     }
+
+    return list
   })
 
-  watch(() => props.scrollBottomMargin, (newValue) => {
-    if (isObservable.value) {
-      newValue !== undefined
-        ? nextTick(() => observeTarget(bottomTriggerHTML.value))
-        : unObserveTarget(bottomTriggerHTML.value)
-    }
-  })
+  const options = computed<IntersectionObserverInit>(() => ({
+    root: scrollContainer.value,
+    rootMargin: `${props.scrollTopMargin ?? 0}px 0px ${props.scrollBottomMargin ?? 0}px 0px`,
+  }))
 
-  onMounted(() => isObservable.value && initObserver())
-
-  onBeforeUnmount(disconnectObserver)
+  useIntersectionObserver(intersectionHandler, options, targets)
 
   return {
     scrollContainer,
     topTrigger,
     bottomTrigger,
+    isTopTriggerListener,
+    isBottomTriggerListener,
   }
 }
