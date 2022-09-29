@@ -11,6 +11,8 @@ import { useRouter } from 'vue-router'
 const { locale } = useI18n()
 const router = useRouter()
 onMounted(() => {
+  const generateAppRouteFromAlgoliaURL = (url: string) => url.replace(/^https.*\/[a-z]{2}\//, `/${locale.value}/`)
+
   docsearch({
     container: '#docsearch',
     appId: 'DVNV64RN9R',
@@ -19,10 +21,7 @@ onMounted(() => {
     // absolutely kekw but docsearch is based on React, so we simulate React.createElement()
     // @ts-ignore
     hitComponent ({ hit, children }) {
-      const url = new URL(hit.url)
-
-      url.hostname = window.location.hostname
-
+      const url = generateAppRouteFromAlgoliaURL(hit.url)
       return {
         type: 'a',
         props: {
@@ -31,19 +30,20 @@ onMounted(() => {
           onClick: (event: MouseEvent) => {
             event.preventDefault()
             router.push({
-              path: hit.url.replace(/^https.*\/[a-z]{2}\//, `/${locale.value}/`),
+              path: url,
             })
           },
           children,
         },
-        // Need to create empty contructor and __v as null.
+        // Need to create empty constructor and __v as null.
         __v: null,
         constructor: undefined,
       }
+    },
     navigator: { // keyboard navigation
       navigate ({ itemUrl }) {
         router.push({
-          path: itemUrl.replace(/^https.*\/[a-z]{2}\//, `/${locale.value}/`),
+          path: generateAppRouteFromAlgoliaURL(itemUrl),
         })
       },
     },
