@@ -696,6 +696,11 @@ export default defineComponent({
 
   .va-select {
     min-width: var(--va-select-min-width);
+
+    & .va-input-wrapper__text {
+      line-height: normal;
+      flex-wrap: wrap;
+    }
   }
 
   .va-select-anchor {

@@ -2947,10 +2947,11 @@
       },
       "slots": {
         "title": "Слоты",
-        "text": [
-          "Поддерживаемые слоты: `content`, `prepend`, `prepend-inner`, `append` и `append-inner`.",
-          "Содержимое слота `content` заменяет собой элемент `input` в компоненте."
-        ]
+        "text": "Поддерживаемые слоты: `content`, `prepend`, `prepend-inner`, `append` и `append-inner`."
+      },
+      "tagging": {
+        "title": "Теггирование",
+        "text": "Слот `content` позволяет заменить элемент `input` в компоненте на любой другой. Таким образом, используя `VaChip`, вы получите `select` с теггированием выбранных значений:"
       },
       "state": {
         "title": "Состояния",
