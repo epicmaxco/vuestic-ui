@@ -75,6 +75,11 @@ const config: ApiDocsBlock[] = [
     'pagination.examples.totalAndPageSize.text',
     'TotalAndPageSize',
   ),
+  ...block.exampleBlock(
+    'pagination.examples.prevAndNextLinks.title',
+    'pagination.examples.prevAndNextLinks.text',
+    'PrevAndNextLinks',
+  ),
 
   block.subtitle('all.api'),
   block.api(VaPagination, apiOptions),

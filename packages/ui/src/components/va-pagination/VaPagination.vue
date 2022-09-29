@@ -9,26 +9,37 @@
     @keydown.up.stop="goPrevPage"
     @keydown.down.stop="goNextPage"
   >
-    <va-button
-      v-if="showBoundaryLinks"
-      aria-label="go to the first page"
-      :disabled="$props.disabled || currentValue === 1"
-      :icon="$props.boundaryIconLeft"
-      v-bind="buttonPropsComputed"
-      @click="onUserInput(1)"
-    />
-    <va-button
-      v-if="showDirectionLinks"
-      aria-label="go to the previous page"
-      :disabled="$props.disabled || currentValue === 1"
-      :icon="$props.directionIconLeft"
-      v-bind="buttonPropsComputed"
-      @click="goPrevPage"
-    />
+    <slot
+      v-if="showBoundaryLinks" name="firstPageLink"
+      v-bind="{ onClick: () => onUserInput(1), disabled: $props.disabled || currentValue === 1 }"
+    >
+      <va-button
+        v-if="showBoundaryLinks"
+        aria-label="go to the first page"
+        :disabled="$props.disabled || currentValue === 1"
+        :icon="$props.boundaryIconLeft"
+        v-bind="buttonPropsComputed"
+        @click="onUserInput(1)"
+      />
+    </slot>
+    <slot
+      v-if="showDirectionLinks" name="prevPageLink"
+      v-bind="{ onClick: goPrevPage, disabled: $props.disabled || currentValue === 1 }"
+    >
+      <va-button
+        v-if="showDirectionLinks"
+        aria-label="go to the previous page"
+        :disabled="$props.disabled || currentValue === 1"
+        :icon="$props.directionIconLeft"
+        v-bind="buttonPropsComputed"
+        @click="goPrevPage"
+      />
+    </slot>
+
     <slot v-if="!$props.input">
       <va-button
-        v-for="(n, i) in paginationRange"
-        :key="i"
+        v-for="(n, i) in paginationRange" :key="i"
+        :ref="setItemRefByIndex(i)"
         :class="{ 'va-button--ellipsis': n === '...', 'va-button--current': n === currentValue}"
         :aria-label="`go to the ${n} page`"
         :aria-current="n === currentValue"
@@ -52,22 +63,33 @@
       @focus="focusInput"
       @blur="changeValue"
     />
-    <va-button
-      v-if="showDirectionLinks"
-      aria-label="go next page"
-      :disabled="$props.disabled || currentValue === lastPage"
-      :icon="$props.directionIconRight"
-      v-bind="buttonPropsComputed"
-      @click="goNextPage"
-    />
-    <va-button
-      v-if="showBoundaryLinks"
-      aria-label="go last page"
-      :disabled="$props.disabled || currentValue === lastPage"
-      :icon="$props.boundaryIconRight"
-      v-bind="buttonPropsComputed"
-      @click="onUserInput(lastPage)"
-    />
+
+    <slot
+      v-if="showDirectionLinks" name="nextPageLink"
+      v-bind="{ onClick: goNextPage, disabled: $props.disabled || currentValue === lastPage }"
+    >
+      <va-button
+        v-if="showDirectionLinks"
+        aria-label="go next page"
+        :disabled="$props.disabled || currentValue === lastPage"
+        :icon="$props.directionIconRight"
+        v-bind="buttonPropsComputed"
+        @click="goNextPage"
+      />
+    </slot>
+    <slot
+      v-if="showBoundaryLinks" name="lastPageLink"
+      v-bind="{ onClick: () => onUserInput(lastPage), disabled: $props.disabled || currentValue === lastPage }"
+    >
+      <va-button
+        v-if="showBoundaryLinks"
+        aria-label="go last page"
+        :disabled="$props.disabled || currentValue === lastPage"
+        :icon="$props.boundaryIconRight"
+        v-bind="buttonPropsComputed"
+        @click="onUserInput(lastPage)"
+      />
+    </slot>
   </nav>
 </template>
 
@@ -82,6 +104,7 @@ import {
   useComponentPresetProp,
   useColors,
   useStateful, useStatefulProps, useStatefulEmits,
+  useArrayRefs,
 } from '../../composables'
 import { setPaginationRange } from './setPaginationRange'
 
@@ -165,11 +188,16 @@ export default defineComponent({
       nextTick(() => htmlInput.value?.setSelectionRange(0, htmlInput.value.value.length))
     }
 
+    const { setItemRefByIndex, itemRefs } = useArrayRefs()
     const onUserInput = (pageNum: number | '...') => {
       if (pageNum === '...' || pageNum === currentValue.value) { return }
 
       const limitedPageNum = clamp(pageNum, 1, lastPage.value)
-      currentValue.value = usesTotal.value ? (limitedPageNum - 1) * props.pageSize + 1 : limitedPageNum
+      currentValue.value = usesTotal.value
+        ? (limitedPageNum - 1) * props.pageSize + 1
+        : limitedPageNum
+
+      itemRefs.value[pageNum - 1]?.focus()
     }
 
     const resetInput = () => {
@@ -290,6 +318,7 @@ export default defineComponent({
       goPrevPage,
       buttonPropsComputed,
       htmlInput,
+      setItemRefByIndex,
     }
   },
 })
@@ -337,7 +366,13 @@ export default defineComponent({
         }
       }
 
-      @include keyboard-focus-outline($offset: -2px);
+      &:focus-visible {
+        outline-offset: -2px;
+
+        &::before {
+          @include focus-outline($offset: -2px, $radius: 'inherit');
+        }
+      }
     }
 
     & > :not(:first-child):not(:last-child) {
@@ -358,7 +393,7 @@ export default defineComponent({
       &.va-pagination > .va-button {
         border-radius: var(--va-button-border-radius);
         margin-right: var(--va-pagination-gap);
-        border: 1px solid;
+        border-style: solid;
 
         &:last-child {
           margin-right: 0;
@@ -368,13 +403,21 @@ export default defineComponent({
 
     &--bordered {
       &.va-pagination > .va-button {
-        border: 1px solid;
+        border-style: solid;
+
+        &::before {
+          border-radius: unset;
+        }
       }
     }
 
     &--rounded {
       &.va-pagination > .va-button {
         border-radius: 9999px;
+
+        &::before {
+          border-radius: inherit;
+        }
 
         &.va-button--small {
           &.va-button--icon-only {
