@@ -1,19 +1,20 @@
 import {
   computed,
-  reactive,
   toRefs,
   provide,
-  nextTick,
   Ref,
   ComputedRef,
   ExtractPropTypes,
   WritableComputedRef,
+  ref,
+  watch,
 } from 'vue'
+
+import { useColors } from '../../../composables'
 
 import type { TreeNode, TreeViewPropKey, TreeViewFilterMethod, TreeViewEmitsList } from '../types'
 import { useTreeHelpers, useTreeViewProps } from './useTreeHelpers'
 import { TreeViewKey } from '../types'
-import { useColors, useSyncProp } from '../../../composables'
 
 type CreateNodeProps = {
   node: TreeNode
@@ -41,6 +42,39 @@ type TreeBuilderFunc = (nodes: TreeNode[], level?: number) => TreeNode[]
 
 type TypeModelValue = (string | number | TreeNode)[]
 
+const useNamedStateful = <T>(
+  propName: string,
+  props: any,
+  emit: (event: any, newValue: T) => void,
+  defaultValue?: any,
+): WritableComputedRef<T> => {
+  const valueState = ref(defaultValue === undefined ? props[propName] : defaultValue) as Ref<T>
+  let unwatchModelValue: Function
+
+  const watchModelValue = () => {
+    unwatchModelValue = watch(() => props[propName], (modelValue) => {
+      valueState.value = modelValue
+    })
+  }
+
+  watch(() => props.stateful, (stateful: boolean) => {
+    stateful ? watchModelValue() : unwatchModelValue?.()
+  }, { immediate: true })
+
+  return computed<T>({
+    get () {
+      if (props.stateful) { return valueState.value }
+
+      return props[propName]
+    },
+    set (value: T) {
+      if (props.stateful) { valueState.value = value }
+
+      emit(`update:${propName}`, value)
+    },
+  })
+}
+
 const useTreeView: UseTreeViewFunc = (props, emit) => {
   const { getColor } = useColors()
   const colorComputed = computed(() => getColor(props.color))
@@ -56,34 +90,16 @@ const useTreeView: UseTreeViewFunc = (props, emit) => {
     getNodeProperty,
   } = useTreeHelpers(props)
   const { nodes, expandAll, filter, filterMethod, textBy } = toRefs(props)
-  const [expandedList]: WritableComputedRef<TypeModelValue>[] = useSyncProp(
-    'expanded',
-    props,
-    emit,
-    [],
-    props.stateful,
-  )
-  const [checkedList]: WritableComputedRef<TypeModelValue>[] = useSyncProp(
-    'checked',
-    props,
-    emit,
-    [],
-    props.stateful,
-  )
+  const expandedList = useNamedStateful<TypeModelValue>('expanded', props, emit, [])
+  const checkedList = useNamedStateful<TypeModelValue>('checked', props, emit, [])
 
-  const updateModel = (model: Ref<TypeModelValue>, values: TypeModelValue, state: boolean) => {
-    nextTick(() => {
-      if (state) {
-        model.value = model.value.concat(values)
-          .filter((value, idx, self) => self.indexOf(value) === idx)
-      } else {
-        model.value = model.value.filter(v => !values.includes(v))
-      }
-    })
-  }
-
-  const updateCheckedList = (values: TypeModelValue, state: boolean) => {
-    updateModel(checkedList, values, state)
+  const updateModel = (model: WritableComputedRef<TypeModelValue>, values: TypeModelValue, state: boolean) => {
+    if (state) {
+      model.value = model.value.concat(values)
+        .filter((value, idx, self) => self.indexOf(value) === idx)
+    } else {
+      model.value = model.value.filter(v => !values.includes(v))
+    }
   }
 
   const toggleCheckbox = (node: TreeNode, state: boolean | null) => {
@@ -109,7 +125,7 @@ const useTreeView: UseTreeViewFunc = (props, emit) => {
       toggleChildren(node.children)
     }
 
-    updateCheckedList(values, stateValue)
+    updateModel(checkedList, values, stateValue)
   }
 
   const toggleNode = (node: TreeNode): void => {
@@ -139,7 +155,7 @@ const useTreeView: UseTreeViewFunc = (props, emit) => {
       matchesFilter = children?.some(c => c.matchesFilter) || computedFilterMethod.value?.(node, filter.value, textBy.value)
     }
 
-    return reactive({
+    return {
       ...node,
       level,
       checked,
@@ -149,7 +165,7 @@ const useTreeView: UseTreeViewFunc = (props, emit) => {
       hasChildren,
       matchesFilter,
       indeterminate,
-    })
+    }
   }
 
   const computedFilterMethod = computed<TreeViewFilterMethod>(() => {
