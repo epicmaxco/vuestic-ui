@@ -86,7 +86,7 @@
         <slot name="headerAppend" />
       </thead>
 
-      <div
+      <tbody
         class="va-data-table__table-tbody"
         :style="rowCSSVariables"
       >
@@ -119,104 +119,55 @@
             />
           </tr>
 
-          <va-virtual-scroller v-if="$props.virtualScroller" :items="rows" :wrapper-size="500" v-slot = "{ item: row }">
-            <tr
-              class="va-data-table__table-tr"
-              :class="[{ selected: isRowSelected(row) }]"
-              v-bind="getRowBind(row)"
-              @click="onRowClickHandler('row:click', $event, row)"
-              @dblclick="onRowClickHandler('row:dblclick', $event, row)"
-              @contextmenu="onRowClickHandler('row:contextmenu', $event, row)"
+          <tr
+            v-for="row in rows"
+            :key="`table-row_${row.initialIndex}`"
+            class="va-data-table__table-tr"
+            :class="[{ selected: isRowSelected(row) }]"
+            v-bind="getRowBind(row)"
+            @click="onRowClickHandler('row:click', $event, row)"
+            @dblclick="onRowClickHandler('row:dblclick', $event, row)"
+            @contextmenu="onRowClickHandler('row:contextmenu', $event, row)"
+          >
+            <td
+              v-if="selectable"
+              class="va-data-table__table-td va-data-table__table-cell-select"
+              :key="`selectable_${row.initialIndex}`"
+              @selectstart.prevent
             >
-              <td
-                v-if="selectable"
-                class="va-data-table__table-td va-data-table__table-cell-select"
-                :key="`selectable_${row.initialIndex}`"
-                @selectstart.prevent
-              >
-                <va-checkbox
-                  :model-value="isRowSelected(row)"
-                  :color="selectedColor"
-                  :aria-label="`select row ${row.initialIndex}`"
-                  @click.shift.exact.stop="shiftSelectRows(row)"
-                  @click.ctrl.exact.stop="ctrlSelectRow(row)"
-                  @click.exact.stop="ctrlSelectRow(row)"
-                />
-              </td>
+              <va-checkbox
+                :model-value="isRowSelected(row)"
+                :color="selectedColor"
+                :aria-label="`select row ${row.initialIndex}`"
+                @click.shift.exact.stop="shiftSelectRows(row)"
+                @click.ctrl.exact.stop="ctrlSelectRow(row)"
+                @click.exact.stop="ctrlSelectRow(row)"
+              />
+            </td>
 
-              <td
-                v-for="cell in row.cells"
-                :key="`table-cell_${cell.column.name + cell.rowIndex}`"
-                class="va-data-table__table-td"
-                :class="getClass(cell.column.tdClass)"
-                :style="[getCellCSSVariables(cell), getStyle(cell.column.tdStyle)]"
-                v-bind="getCellBind(cell, row)"
-              >
-                <slot
-                  v-if="`cell(${cell.column.name})` in $slots"
-                  :name="`cell(${cell.column.name})`"
-                  v-bind="cell"
-                />
-
-                <slot v-else name="cell" v-bind="cell">
-                  {{ cell.value }}
-                </slot>
-              </td>
-            </tr>
-          </va-virtual-scroller>
-
-          <template v-else>
-            <tr
-              v-for="row in rows"
-              :key="`table-row_${row.initialIndex}`"
-              class="va-data-table__table-tr"
-              :class="[{ selected: isRowSelected(row) }]"
-              v-bind="getRowBind(row)"
-              @click="onRowClickHandler('row:click', $event, row)"
-              @dblclick="onRowClickHandler('row:dblclick', $event, row)"
-              @contextmenu="onRowClickHandler('row:contextmenu', $event, row)"
+            <td
+              v-for="cell in row.cells"
+              :key="`table-cell_${cell.column.name + cell.rowIndex}`"
+              class="va-data-table__table-td"
+              :class="getClass(cell.column.tdClass)"
+              :style="[getCellCSSVariables(cell), getStyle(cell.column.tdStyle)]"
+              v-bind="getCellBind(cell, row)"
             >
-              <td
-                v-if="selectable"
-                class="va-data-table__table-td va-data-table__table-cell-select"
-                :key="`selectable_${row.initialIndex}`"
-                @selectstart.prevent
-              >
-                <va-checkbox
-                  :model-value="isRowSelected(row)"
-                  :color="selectedColor"
-                  :aria-label="`select row ${row.initialIndex}`"
-                  @click.shift.exact.stop="shiftSelectRows(row)"
-                  @click.ctrl.exact.stop="ctrlSelectRow(row)"
-                  @click.exact.stop="ctrlSelectRow(row)"
-                />
-              </td>
+              <slot
+                v-if="`cell(${cell.column.name})` in $slots"
+                :name="`cell(${cell.column.name})`"
+                v-bind="cell"
+              />
 
-              <td
-                v-for="cell in row.cells"
-                :key="`table-cell_${cell.column.name + cell.rowIndex}`"
-                class="va-data-table__table-td"
-                :class="getClass(cell.column.tdClass)"
-                :style="[getCellCSSVariables(cell), getStyle(cell.column.tdStyle)]"
-                v-bind="getCellBind(cell, row)"
-              >
-                <slot
-                  v-if="`cell(${cell.column.name})` in $slots"
-                  :name="`cell(${cell.column.name})`"
-                  v-bind="cell"
-                />
-
-                <slot v-else name="cell" v-bind="cell">
-                  {{ cell.value }}
-                </slot>
-              </td>
-            </tr>
-          </template>
-
+              <slot v-else name="cell" v-bind="cell">
+                {{ cell.value }}
+              </slot>
+            </td>
+          </tr>
         </transition-group>
 
         <slot name="bodyAppend" />
-      </div>
+      </tbody>
 
       <tfoot
         v-if="footerClone"
@@ -313,7 +264,6 @@ import type {
   DataTableItemKey,
 } from './types'
 
-import { VaVirtualScroller } from '../va-virtual-scroller'
 import { VaInnerLoading } from '../va-inner-loading'
 import { VaCheckbox } from '../va-checkbox'
 import { VaIcon } from '../va-icon'
@@ -342,7 +292,6 @@ export default defineComponent({
   name: 'VaDataTable',
 
   components: {
-    VaVirtualScroller,
     VaInnerLoading,
     VaCheckbox,
     VaIcon,
@@ -386,7 +335,6 @@ export default defineComponent({
     height: { type: [String, Number] },
     rowBind: { type: null as unknown as PropType<DataTableRowBind> },
     cellBind: { type: null as unknown as PropType<DataTableCellBind> },
-    virtualScroller: { type: Boolean, default: false },
   },
 
   emits: [
