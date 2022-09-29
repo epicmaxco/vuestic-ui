@@ -16,17 +16,17 @@ onMounted(() => {
     appId: 'DVNV64RN9R',
     indexName: 'vuestic',
     apiKey: 'cd8e70cb466bf6df138543a38c33ea5e',
-    // absolutely kekw but docsearch is based on React, so we need this to replace JSX
-    // need all of this undefined fields and __v, idk why, but without them it wouldn't work, MAGIC
+    // absolutely kekw but docsearch is based on React, so we simulate React.createElement()
     // @ts-ignore
     hitComponent ({ hit, children }) {
+      const url = new URL(hit.url)
+
+      url.hostname = window.location.hostname
+
       return {
         type: 'a',
-        ref: undefined,
-        constructor: undefined,
-        key: undefined,
         props: {
-          href: hit.url,
+          href: url,
           target: '_blank',
           onClick: (event: MouseEvent) => {
             event.preventDefault()
@@ -36,9 +36,10 @@ onMounted(() => {
           },
           children,
         },
+        // Need to create empty contructor and __v as null.
         __v: null,
+        constructor: undefined,
       }
-    },
     navigator: { // keyboard navigation
       navigate ({ itemUrl }) {
         router.push({
