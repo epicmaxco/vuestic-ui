@@ -4,10 +4,13 @@
       <va-tree-view :nodes="nodes" />
     </VbCard>
     <VbCard title="Stateless">
-      checked model: {{stateChecked}}
-      <br />
-      expanded model: {{stateExpanded}}
-      <br />
+      <p>
+        expansion/selection should work:
+        <br />
+        checked model: {{stateChecked}}
+        <br />
+        expanded model: {{stateExpanded}}
+      </p>
       <va-tree-view
         v-model:checked="stateChecked"
         v-model:expanded="stateExpanded"
@@ -15,7 +18,9 @@
         :nodes="nodes"
         selectable
       />
-      <br />
+      <p>
+        expansion/selection shouldn't work:
+      </p>
       <va-tree-view
         :stateful="false"
         :nodes="nodes"
