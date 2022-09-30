@@ -100,10 +100,6 @@
                   </va-alert>
                 </div>
               </div>
-
-              <div v-else>
-                <landing-color-tab />
-              </div>
             </div>
             <!-- /First block -->
 
@@ -131,7 +127,6 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
-import LandingColorTab from './LandingColorTab.vue'
 import 'prismjs'
 import dedent from 'dedent'
 // @ts-ignore
@@ -141,7 +136,7 @@ import { useColors } from 'vuestic-ui/src/composables'
 
 @Options({
   name: 'LandingCustomize',
-  components: { Prism, LandingColorTab },
+  components: { Prism },
 })
 export default class Customize extends Vue {
   clicksCount = 0

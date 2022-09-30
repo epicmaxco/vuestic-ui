@@ -30,4 +30,10 @@ export type ColorVariables = { [colorName: string]: CssColor } & EssentialVariab
 export type ColorConfig = {
   variables: ColorVariables,
   threshold: number,
+  presets: {
+    light: ColorVariables,
+    dark: ColorVariables,
+    [presetName: string]: ColorVariables,
+  },
+  currentPresetName: string,
 }

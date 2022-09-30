@@ -24,8 +24,13 @@ export const GLOBAL_CONFIG = Symbol('GLOBAL_CONFIG')
 export const createGlobalConfig = () => {
   const globalConfig = ref<GlobalConfig>({
     colors: {
-      variables: colorsPresets.default,
+      variables: colorsPresets.light,
       threshold: 120,
+      presets: {
+        light: colorsPresets.light,
+        dark: colorsPresets.dark,
+      },
+      currentPresetName: 'light',
     },
     icons: createIconsConfig({}),
     components: getComponentsDefaultConfig(),
