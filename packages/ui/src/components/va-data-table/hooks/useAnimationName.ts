@@ -1,5 +1,8 @@
 import { computed, Ref, ref, watch } from 'vue'
+
 import type { DataTableRow } from '../types'
+
+type AnimationName = 'shuffle' | 'fade'
 
 interface useAnimationNameProps {
   currentPage: number | undefined
@@ -10,7 +13,7 @@ export default function useAnimationName (
   props: useAnimationNameProps,
   rows: Ref<DataTableRow[]>,
 ) {
-  const animationType = ref('shuffle')
+  const animationType = ref<AnimationName>('shuffle')
 
   const animationName = computed(() => props.animated ? `table-transition-${animationType.value}` : '')
 
