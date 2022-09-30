@@ -1,18 +1,10 @@
 <template>
   <va-dropdown
     ref="dropdown"
+    v-model="showDropdownContentComputed"
     class="va-select va-select__dropdown va-select-dropdown"
     :aria-label="`select option (currently selected: ${$props.modelValue})`"
-    :placement="$props.placement"
-    :disabled="$props.disabled"
-    :max-height="$props.maxHeight"
-    :close-on-content-click="closeOnContentClick"
-    :stateful="false"
-    :offset="[1, 0]"
-    keep-anchor-width
-    keyboard-navigation
-    inner-anchor-selector=".va-input-wrapper__field"
-    v-model="showDropdownContentComputed"
+    v-bind="dropdownPropsComputed"
     @close="focus"
   >
     <template #anchor>
@@ -169,11 +161,17 @@ import {
   useFocusDeep,
 } from '../../composables'
 
+import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
+
 import { VaDropdown, VaDropdownContent } from '../va-dropdown'
 import { VaIcon } from '../va-icon'
 import { VaInput, VaInputWrapper } from '../va-input'
 import { VaSelectOptionList } from './VaSelectOptionList'
 import { SelectDropdownIcon, SelectOption, Placement } from './types'
+
+const VaDropdownProps = extractComponentProps(VaDropdown,
+  ['keyboardNavigation', 'offset', 'stateful', 'keepAnchorWidth', 'closeOnContentClick', 'innerAnchorSelector', 'modelValue'],
+)
 
 export default defineComponent({
   name: 'VaSelect',
@@ -197,6 +195,7 @@ export default defineComponent({
   ],
 
   props: {
+    ...VaDropdownProps,
     ...useSelectableListProps,
     ...useValidationProps as ValidationProps<SelectOption>,
     ...useLoadingProps,
@@ -638,6 +637,16 @@ export default defineComponent({
       hintedSearchQueryTimeoutIndex = setTimeout(() => { hintedSearchQuery = '' }, 1000)
     }
 
+    const dropdownPropsComputed = computed(() => ({
+      ...filterComponentProps(props, VaDropdownProps).value,
+      closeOnContentClick: closeOnContentClick.value,
+      stateful: false,
+      offset: [1, 0],
+      keepAnchorWidth: true,
+      keyboardNavigation: true,
+      innerAnchorSelector: '.va-input-wrapper__field',
+    }))
+
     return {
       isFocused,
 
@@ -666,7 +675,6 @@ export default defineComponent({
       computedError,
       filteredOptions,
       checkIsOptionSelected,
-      closeOnContentClick,
       selectOption,
       selectOrAddOption,
       selectHoveredOption,
@@ -685,6 +693,7 @@ export default defineComponent({
       onScrollBottom,
       clearIconProps,
       isPlaceholder,
+      dropdownPropsComputed,
     }
   },
 })

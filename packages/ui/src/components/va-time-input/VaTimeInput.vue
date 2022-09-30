@@ -2,14 +2,9 @@
   <va-dropdown
     v-model="doShowDropdown"
     class="va-time-input"
-    placement="bottom-start"
-    inner-anchor-selector=".va-input-wrapper__field"
     :class="$attrs.class"
     :style="$attrs.style"
-    :offset="[2, 0]"
-    :close-on-content-click="false"
-    :disabled="$props.disabled"
-    keyboard-navigation
+    v-bind="dropdownPropsComputed"
   >
     <template #anchor>
       <va-input-wrapper
@@ -103,6 +98,9 @@ import VaIcon from '../va-icon/VaIcon.vue'
 import { VaDropdown, VaDropdownContent } from '../va-dropdown'
 
 const VaInputWrapperProps = extractComponentProps(VaInputWrapper, ['focused', 'maxLength', 'counterValue', 'disabled'])
+const VaDropdownProps = extractComponentProps(VaDropdown,
+  ['keyboardNavigation', 'offset', 'placement', 'closeOnContentClick', 'innerAnchorSelector', 'modelValue'],
+)
 
 export default defineComponent({
   name: 'VaTimeInput',
@@ -118,6 +116,7 @@ export default defineComponent({
   ],
 
   props: {
+    ...VaDropdownProps,
     ...useComponentPresetProp,
     ...useClearableProps,
     ...VaInputWrapperProps,
@@ -304,11 +303,21 @@ export default defineComponent({
       ...omit(attrs, ['class', 'style']),
     }))
 
+    const dropdownPropsComputed = computed(() => ({
+      ...filterComponentProps(props, VaDropdownProps).value,
+      closeOnContentClick: false,
+      offset: [2, 0],
+      keyboardNavigation: true,
+      placement: 'bottom-start',
+      innerAnchorSelector: '.va-input-wrapper__field',
+    }))
+
     return {
       input,
       timePicker,
 
       timePickerProps: filterComponentProps(props, extractComponentProps(VaTimePicker)),
+      dropdownPropsComputed,
       computedInputWrapperProps,
       computedInputListeners,
       isOpenSync,
