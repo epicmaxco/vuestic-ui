@@ -1,8 +1,7 @@
-import { useInterval } from './useInterval'
-import { ColorArray, parseRGBA, getElementBackground } from './utils'
-import { ref, getCurrentInstance, watch, Ref, onMounted, computed } from 'vue'
+import { useDomChangesObserver } from './useDomChangesObserver'
+import { getElementBackground } from './utils'
+import { ref, Ref } from 'vue'
 import { applyColors, useColors } from '../useColors'
-import { useInViewPort } from '../useInViewPort'
 import { useEl } from '../useEl'
 
 type Maybe<T> = T | null | undefined
@@ -31,18 +30,14 @@ export const useElementBackground = (element?: Ref<HTMLElement | undefined>) => 
   const { getColor } = useColors()
   const background = ref(getColor('background-primary'))
 
-  const isInViewPort = useInViewPort(el)
-
   const updateBackground = () => {
-    if (!isInViewPort.value) { return }
-
     requestAnimationFrame(() => {
       const bg = recursiveGetBackground(el.value)
       background.value = bg
     })
   }
 
-  useInterval(updateBackground)
+  useDomChangesObserver(updateBackground, el)
 
   return {
     background,
