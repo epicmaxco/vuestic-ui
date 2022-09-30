@@ -1,16 +1,13 @@
 import {
-  computed,
   toRefs,
   provide,
-  Ref,
+  computed,
   ComputedRef,
   ExtractPropTypes,
   WritableComputedRef,
-  ref,
-  watch,
 } from 'vue'
 
-import { useColors } from '../../../composables'
+import { useColors, useStateful } from '../../../composables'
 
 import type { TreeNode, TreeViewPropKey, TreeViewFilterMethod, TreeViewEmitsList } from '../types'
 import { useTreeHelpers, useTreeViewProps } from './useTreeHelpers'
@@ -24,8 +21,9 @@ type CreateNodeProps = {
 }
 
 type CreateNodeFunc = (props: CreateNodeProps) => TreeNode
-
-type TreeViewEmitsFunc = (event: TreeViewEmitsList, newValues: unknown) => void
+type TreeViewEmitsFunc = (event: string, newValues: unknown) => void
+type TreeBuilderFunc = (nodes: TreeNode[], level?: number) => TreeNode[]
+type TypeModelValue = (string | number | TreeNode)[]
 
 type UseTreeViewFunc = (props: ExtractPropTypes<typeof useTreeViewProps>, emit: TreeViewEmitsFunc) => {
   treeItems: ComputedRef<TreeNode[]>
@@ -36,43 +34,6 @@ type UseTreeViewFunc = (props: ExtractPropTypes<typeof useTreeViewProps>, emit: 
   getTrackBy?: (node: TreeNode) => TreeNode | string | number
   getNodeProperty?: (node: TreeNode, key: TreeViewPropKey) => unknown
   toggleCheckbox?: (node: TreeNode, state: boolean) => void
-}
-
-type TreeBuilderFunc = (nodes: TreeNode[], level?: number) => TreeNode[]
-
-type TypeModelValue = (string | number | TreeNode)[]
-
-const useNamedStateful = <T>(
-  propName: string,
-  props: any,
-  emit: (event: any, newValue: T) => void,
-  defaultValue?: any,
-): WritableComputedRef<T> => {
-  const valueState = ref(defaultValue === undefined ? props[propName] : defaultValue) as Ref<T>
-  let unwatchModelValue: Function
-
-  const watchModelValue = () => {
-    unwatchModelValue = watch(() => props[propName], (modelValue) => {
-      valueState.value = modelValue
-    })
-  }
-
-  watch(() => props.stateful, (stateful: boolean) => {
-    stateful ? watchModelValue() : unwatchModelValue?.()
-  }, { immediate: true })
-
-  return computed<T>({
-    get () {
-      if (props.stateful) { return valueState.value }
-
-      return props[propName]
-    },
-    set (value: T) {
-      if (props.stateful) { valueState.value = value }
-
-      emit(`update:${propName}`, value)
-    },
-  })
 }
 
 const useTreeView: UseTreeViewFunc = (props, emit) => {
@@ -90,8 +51,8 @@ const useTreeView: UseTreeViewFunc = (props, emit) => {
     getNodeProperty,
   } = useTreeHelpers(props)
   const { nodes, expandAll, filter, filterMethod, textBy } = toRefs(props)
-  const expandedList = useNamedStateful<TypeModelValue>('expanded', props, emit, [])
-  const checkedList = useNamedStateful<TypeModelValue>('checked', props, emit, [])
+  const { valueComputed: expandedList } = useStateful<TypeModelValue>(props, emit, undefined, 'expanded')
+  const { valueComputed: checkedList } = useStateful<TypeModelValue>(props, emit, undefined, 'checked')
 
   const updateModel = (model: WritableComputedRef<TypeModelValue>, values: TypeModelValue, state: boolean) => {
     if (state) {

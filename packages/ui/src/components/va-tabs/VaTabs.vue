@@ -115,7 +115,7 @@ export default defineComponent({
     const tabsContentOffset = ref(0)
     const startingXPoint = ref(0)
     const animationIncluded = ref(false)
-    const { valueComputed: tabSelected } = useStateful<string | number | null>(props, emit)
+    const { valueComputed: tabSelected } = useStateful<string | number | null>(props, emit as (emit: string, value: any) => void)
     const tabConfig = reactive({
       VaTab: {
         color: props.color,

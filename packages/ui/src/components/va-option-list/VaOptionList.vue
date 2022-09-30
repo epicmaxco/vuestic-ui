@@ -123,7 +123,7 @@ export default defineComponent({
 
     const isDisabled = (option: SelectableOption) => props.disabled || getDisabled(option)
 
-    const reset = () => { valueComputed.value = undefined }
+    const reset = () => { valueComputed.value = null }
 
     const focus = () => {
       const firstActiveEl = Array.isArray(itemRefs.value) && itemRefs.value.find(el => !(el as HTMLInputElement).disabled)
