@@ -24,10 +24,10 @@ export const useStatefulEmits = ['update:modelValue']
  * Record<any, any> & Record<'modelValue', T>
  */
 export function useStateful<VALUE extends any> (
-  props: StatefulProps,
-  emit: (event: string, newValue: VALUE) => void,
+  props: StatefulProps, // pass all props
+  emit: (event: string, newValue: VALUE) => void, // pass all emits
   defaultValue = undefined as VALUE,
-  propName = 'modelValue',
+  propName = 'modelValue', // could also be something like 'modelValue:selected'
 ) {
   const valueState = ref(defaultValue === undefined ? props[propName] : defaultValue) as Ref<VALUE>
   let unwatchModelValue: Function
