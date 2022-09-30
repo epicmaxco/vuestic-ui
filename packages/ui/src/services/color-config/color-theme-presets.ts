@@ -27,11 +27,11 @@ export const colorsPresets: Record<string, EssentialVariables> = {
     secondary: '#767C88',
     success: '#40e583',
     info: '#2c82e0',
-    danger: '#DE1041',
-    warning: '#FFAC0A',
+    danger: '#de1041',
+    warning: '#ffac0a',
     // Text Colors
     textDark: '#242424',
-    textLight: '#F1F1F1',
+    textLight: '#f1f1f1',
     // Background Colors
     backgroundPrimary: '#1F1F1F',
     backgroundSecondary: '#333333',

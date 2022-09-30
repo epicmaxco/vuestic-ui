@@ -35,8 +35,8 @@ export default class SidebarLink extends mixins(SidebarLinkPropsMixin) {
 
   get computedStyle () {
     return {
-      backgroundColor: this.isHovered ? getHoverColor(this.colorsCtx.getColor('primary', '#ECF4F8')) : '',
-      color: this.isHovered ? this.colorsCtx.getColor('primary', '#2C82E0') : '',
+      backgroundColor: this.isHovered ? getHoverColor(this.colorsCtx.getColor('primary', '#ecf4f8')) : '',
+      color: this.isHovered ? this.colorsCtx.getColor('primary', '#2c82e0') : '',
     }
   }
 }

@@ -54,7 +54,9 @@ export default defineComponent({
 
   .DocSearch-Container {
     z-index: 0;
-    &::after, &::before {
+
+    &::after,
+    &::before {
       content: '';
       z-index: -1;
       position: absolute;

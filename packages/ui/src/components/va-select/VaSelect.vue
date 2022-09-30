@@ -426,7 +426,7 @@ export default defineComponent({
           valueComputed.value = valueComputed.value.filter((optionSelected) => !compareOptions(getValue(option), getValue(optionSelected)))
         } else {
           if (exceedsMaxSelections()) { return }
-          addOption(getValue(option))
+          addOption(getText(option) || getValue(option))
         }
       } else {
         valueComputed.value = typeof option === 'string' || typeof option === 'number' ? option : { ...option }
@@ -696,6 +696,11 @@ export default defineComponent({
 
   .va-select {
     min-width: var(--va-select-min-width);
+
+    & .va-input-wrapper__text {
+      line-height: normal;
+      flex-wrap: wrap;
+    }
   }
 
   .va-select-anchor {
