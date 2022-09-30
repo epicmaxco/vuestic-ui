@@ -2,7 +2,7 @@ import type { EssentialVariables } from './types'
 
 export const colorsPresets: Record<string, EssentialVariables> = {
   light: {
-    primary: '#2550C0',
+    primary: '#154ec1',
     secondary: '#767C88',
     success: '#40e583',
     info: '#2c82e0',
