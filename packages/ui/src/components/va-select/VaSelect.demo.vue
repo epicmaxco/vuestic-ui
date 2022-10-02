@@ -476,6 +476,14 @@
         multiple
         searchable
       />
+       <va-select
+        v-model="defaultSingleSelect.value"
+        class="mb-4"
+        label="Searchable changed text"
+        :options="defaultSingleSelect.options"
+        searchable
+        searchtext="test"
+      />
     </VbCard>
     <VbCard
       title="Allow create new"
@@ -538,6 +546,7 @@
       <va-select
         v-model="defaultSingleSelect.value"
         searchable
+        searchtext="test"
         :options="CountriesList"
         :loading="isLoading"
         @updateSearch="updateSearch"
