@@ -105,7 +105,7 @@
         v-if="showSearchInput"
         ref="searchBar"
         class="va-select-dropdown__content-search-input"
-        placeholder="Search"
+        :placeholder="searchtext"
         aria-label="options filter"
         :tabindex="tabIndexComputed"
         :bordered="true"
@@ -250,6 +250,7 @@ export default defineComponent({
     bordered: { type: Boolean, default: false },
     label: { type: String, default: '' },
     placeholder: { type: String, default: '' },
+    searchtext: { type: String, default: 'Search' }, //placeholder for search bar
     requiredMark: { type: Boolean, default: false },
   },
 
@@ -556,6 +557,8 @@ export default defineComponent({
         : validate()
     }
 
+    const searchtext = computed(() => props.searchtext)
+
     /** @public */
     const focus = () => {
       if (props.disabled) { return }
@@ -694,6 +697,7 @@ export default defineComponent({
       clearIconProps,
       isPlaceholder,
       dropdownPropsComputed,
+      searchtext,
     }
   },
 })
