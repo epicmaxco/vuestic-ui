@@ -1,4 +1,4 @@
-import { onBeforeUnmount, ref, Ref, unref, watch, WatchStopHandle } from 'vue'
+import { onBeforeUnmount, ref, Ref, unref, watch } from 'vue'
 
 type MaybeRef<T> = T | Ref<T>
 
@@ -27,30 +27,25 @@ export const useIntersectionObserver = <T extends HTMLElement | undefined>(
     observer.value = new IntersectionObserver(cb, unref(options))
   }
 
-  let unwatchOptions: WatchStopHandle
+  watch([targetsList, options], ([newList, newOptions], [oldList, oldOptions]) => {
+    disconnectObserver()
 
-  const watchOptions = () => {
-    unwatchOptions = watch(options, () => {
-      disconnectObserver()
-      initObserver()
-      observeAll(targetsList)
-    }, { immediate: true })
-  }
+    if (newOptions !== oldOptions) {
+      if (newList.length) {
+        initObserver()
+        observeAll(newList)
+      }
 
-  watch(targetsList, (newList, oldList) => {
-    if (!newList.length) {
-      disconnectObserver()
-      unwatchOptions?.()
       return
     }
 
-    if (oldList?.length) {
-      disconnectObserver()
+    if (newList.length) {
+      if (!observer.value) {
+        initObserver()
+      }
+
       observeAll(newList)
-      return
     }
-
-    watchOptions()
   }, { immediate: true })
 
   onBeforeUnmount(disconnectObserver)

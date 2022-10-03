@@ -13,8 +13,8 @@ export default function useTableScroll (
   props: ExtractPropTypes<typeof useTableScrollProps>,
   emit: (event: 'scroll:bottom' | 'scroll:top', ...args: any[]) => void,
 ) {
-  // TODO: replace 'vNodeProps' with 'attrs' when we bump vue to ^3.2
   // NOTE: unfortunately, this is not reactive
+  // TODO: replace 'vNodeProps' with '$listeners' when it's available in vue 3
   const vNodeProps = getCurrentInstance()?.vnode.props
   const isTopTriggerListener = vNodeProps?.['onScroll:top'] !== undefined
   const isBottomTriggerListener = vNodeProps?.['onScroll:bottom'] !== undefined
@@ -23,9 +23,7 @@ export default function useTableScroll (
   const topTrigger = useElementRef()
   const bottomTrigger = useElementRef()
 
-  const isObservable = computed(
-    () => (isTopTriggerListener || isBottomTriggerListener) && !!scrollContainer.value,
-  )
+  const isObservable = computed(() => !!scrollContainer.value)
 
   const intersectionHandler = (entries: IntersectionObserverEntry[]) => {
     entries.forEach((entry) => {
