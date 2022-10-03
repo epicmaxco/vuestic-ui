@@ -2,18 +2,6 @@
   <div style="max-width: 300px;">
     <va-select
       class="mb-4"
-      label="String"
-      :options="options"
-      v-model="value"
-      multiple
-    >
-      <template #content="{ valueString }">
-        {{ valueString }}
-      </template>
-    </va-select>
-
-    <va-select
-      class="mb-4"
       label="Custom chips (first 3)"
       :options="options"
       v-model="value"
@@ -32,7 +20,6 @@
     </va-select>
 
     <va-select
-      class="mb-4"
       label="Removable chips"
       :options="options"
       v-model="value"
