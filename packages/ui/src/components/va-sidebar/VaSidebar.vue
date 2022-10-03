@@ -6,7 +6,7 @@
     @mouseenter="updateHoverState(true)"
     @mouseleave="updateHoverState(false)"
   >
-    <div class="va-sidebar__menu">
+    <div class="va-sidebar__menu" :style="`width: ${computedWidth};`">
       <va-config :components="{ VaSidebarItem: vaSidebarItemProps }">
         <slot />
       </va-config>
@@ -71,7 +71,6 @@ export default defineComponent({
         color,
         backgroundColor,
         backgroundImage: props.gradient ? getGradientBackground(backgroundColor) : undefined,
-        width: computedWidth.value,
       }
     })
 
@@ -86,6 +85,7 @@ export default defineComponent({
     }
 
     return {
+      computedWidth,
       computedClass,
       computedStyle,
       updateHoverState,

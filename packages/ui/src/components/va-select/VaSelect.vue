@@ -720,6 +720,11 @@ export default defineComponent({
 
     &__placeholder {
       color: var(--va-input-placeholder-text-color);
+      line-height: normal;
+      white-space: nowrap !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+      flex: 1;
     }
   }
 
