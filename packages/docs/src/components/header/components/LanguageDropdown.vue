@@ -1,9 +1,14 @@
 <template>
   <div class="language-dropdown">
     <va-button-dropdown
-      preset="secondary"
       :label="currentLanguageName"
-      :offset="[0, 10]"
+      :offset="[10, 0]"
+      size="medium"
+      plain
+      hover-mask-color="textDark"
+      hover-behaviour="mask"
+      :hover-opacity="1"
+      prevent-overflow
     >
       <div class="language-dropdown__content">
         <va-list-item
@@ -17,9 +22,14 @@
             <span class="dropdown-item__text">{{ option.name }}</span>
           </va-list-item-section>
         </va-list-item>
-        <va-list-item class="language-dropdown__item row align-center py-2">
-          <va-list-item-section>
-            <router-link :to="`/${locale}/contribution/translation`" class="dropdown-item__text" :style="{color: colors.primary}">{{t('landing.header.buttons.translation')}}</router-link>
+        <va-list-item
+          class="language-dropdown__item row align-center py-2"
+          :to="`/${locale}/contribution/translation`"
+        >
+          <va-list-item-section :style="{color: colors.primary}">
+            <span class="dropdown-item__text">
+              {{ $t('landing.header.buttons.translation') }}
+            </span>
           </va-list-item-section>
         </va-list-item>
       </div>
@@ -103,13 +113,21 @@ export default defineComponent({
       &:hover,
       &.active {
         .dropdown-item__text {
-          color: var(--va-dark);
+          color: var(--va-text-dark);
         }
       }
     }
 
     .va-dropdown__anchor {
       display: inline-block;
+    }
+
+    &:hover,
+    &:focus {
+      .va-icon {
+        /* There is issue with button icon color on hover/focus */
+        color: var(--va-text-dark) !important;
+      }
     }
   }
 </style>

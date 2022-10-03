@@ -22,10 +22,31 @@
         </div>
         <nav class="header__links">
           <!-- vuestic buttons -->
-          <va-button :to="`/${$root.$i18n.locale}/introduction/overview`" class="header__links--link" preset="secondary">{{ $t('landing.header.buttons.overview') }}</va-button>
-          <va-button href="https://discord.gg/u7fQdqQt8c" target="blank" class="header__links--link" preset="secondary">{{ $t('landing.header.buttons.discord') }}</va-button>
-          <language-dropdown class="header__links--link ml-2" />
-          <landing-stars-button class="ml-2" repo="epicmaxco/vuestic-ui" />
+          <va-button
+            :to="`/${$root.$i18n.locale}/introduction/overview`"
+            class="header__links--link"
+            size="large"
+            plain
+            hover-behaviour="mask"
+            hover-mask-color="textDark"
+            :hover-opacity="1"
+          >
+            {{ $t('landing.header.buttons.overview') }}
+          </va-button>
+          <va-button
+            href="https://discord.gg/u7fQdqQt8c"
+            target="blank"
+            class="header__links--link ml-4"
+            size="large"
+            plain
+            hover-behaviour="mask"
+            hover-mask-color="textDark"
+            :hover-opacity="1"
+          >
+            {{ $t('landing.header.buttons.discord') }}
+          </va-button>
+          <language-dropdown class="header__links--link ml-4" />
+          <landing-stars-button class="ml-4" repo="epicmaxco/vuestic-ui" />
         </nav>
         <!-- mobile -->
         <nav class="mobile-menu" :class="computedClass">
@@ -140,6 +161,9 @@ export default class Header extends Vue {
   @import "~@/assets/main.scss";
 
   .header {
+    --header-nav-font-size: 1rem;
+    --va-button-font-size: 1.1rem;
+
     z-index: 2000;
     position: absolute;
     top: 0;
@@ -207,13 +231,9 @@ export default class Header extends Vue {
 
       &--link {
         @include link-font();
-
-        line-height: 1.5rem;
-        margin-left: 0.5rem;
-        background: transparent !important;
-        white-space: nowrap;
-
         @include sm(width, 100%);
+
+        white-space: nowrap;
       }
 
       &--dropdown {
@@ -267,6 +287,7 @@ export default class Header extends Vue {
 
     .dropdown-item__text {
       color: #2550c0;
+      font-size: var(--header-nav-font-size);
     }
 
     .va-dropdown__anchor {
