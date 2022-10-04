@@ -1,8 +1,13 @@
-import { ref, computed, PropType, Ref, watch } from 'vue'
+import { ref, computed, watch, PropType, Ref } from 'vue'
 
 export type StatefulProps = {
   stateful: boolean
   [key: string]: any
+}
+
+export type StatefulOptions<T> = {
+  eventName?: string
+  defaultValue: T
 }
 
 /**
@@ -19,21 +24,23 @@ export const useStatefulProps = {
 export const useStatefulEmits = ['update:modelValue']
 
 /**
- * Returns `valueComputed` that is proxy for `modelValue`
+ * Returns `valueComputed` that is proxy for `modelValue` or given key of the props
  * if `stateful` prop is `false`
  * Record<any, any> & Record<'modelValue', T>
  */
-export function useStateful<VALUE extends any> (
-  props: StatefulProps, // pass all props
-  emit: (event: string, newValue: VALUE) => void, // pass all emits
-  defaultValue = undefined as VALUE,
-  propName = 'modelValue', // could also be something like 'modelValue:selected'
-) {
-  const valueState = ref(defaultValue === undefined ? props[propName] : defaultValue) as Ref<VALUE>
+export const useStateful = <Props extends StatefulProps, Name extends string, Key extends keyof Props>(
+  props: Props,
+  emit: (name: Name, ...args: any[]) => void,
+  key: Key = 'modelValue' as Key,
+  options = {} as StatefulOptions<Props[Key]>,
+) => {
+  const { defaultValue, eventName } = options
+  const event = (eventName || eventName || `update:${key.toString()}`) as Name
+  const valueState = ref(defaultValue === undefined ? props[key] : defaultValue) as Ref
   let unwatchModelValue: Function
 
   const watchModelValue = () => {
-    unwatchModelValue = watch(() => props[propName], (modelValue) => {
+    unwatchModelValue = watch(() => props[key], (modelValue) => {
       valueState.value = modelValue
     })
   }
@@ -42,16 +49,16 @@ export function useStateful<VALUE extends any> (
     stateful ? watchModelValue() : unwatchModelValue?.()
   }, { immediate: true })
 
-  const valueComputed = computed<VALUE>({
+  const valueComputed = computed({
     get: () => {
       if (props.stateful) { return valueState.value }
 
-      return props[propName]
+      return props[key]
     },
-    set: (value: VALUE) => {
+    set: (value) => {
       if (props.stateful) { valueState.value = value }
 
-      emit(`update:${propName}`, value)
+      emit(event, value)
     },
   })
 
