@@ -93,6 +93,7 @@ export default defineComponent({
 
     .va-button__content {
       font-weight: 600;
+      font-size: 1rem;
     }
 
     &__item {

@@ -3,10 +3,11 @@
     "header": {
       "buttons": {
         "overview": "Overview",
-        "docs": "Docs",
+        "github": "GitHub",
         "discord": "Join on Discord",
         "translation": "Add translation...",
-        "language": "Language"
+        "language": "Language",
+        "blog": "Blog"
       }
     },
     "preview": {
@@ -1435,7 +1436,8 @@
     "ssrGuide": "SSR",
     "spacer": "Spacer",
     "dropdown": "Dropdown",
-    "scrollContainer": "Scroll Container"
+    "scrollContainer": "Scroll Container",
+    "team": "Meet The Team"
   },
   "all": {
     "examples": "Examples",
@@ -3448,6 +3450,18 @@
     "configurable": "Allows **to configure components** globally via config and CSS variables",
     "responsive": "Fully **responsive** and **supports modern browsers** (no IE11, sorry)",
     "translatable": "Integrates seamlessly with **i18n**"
+  },
+  "team": {
+    "title": "Meet the Team",
+    "description": "With multiple contributors to Vuestic, the list of people you can meet below is by no means exhaustive. Just remember to thank everyone using Vuestic and supporting us, because together we all help you push your products light-years ahead of your competition.",
+    "coreTeam": "Core Team \uD83E\uDD13",
+    "coreTeamDescription": "[Epicmax](https://epicmax.co/)[[target=_blank]] is committed to open source project from its beginning. Vuestic was created by Epicmax, and is supported through all years. Please meet the core contributors. Write to [Discord](https://discord.com/invite/u7fQdqQt8c)[[target=_blank]] anytime and get a quick response from the Vuestic core team.",
+    "featureRich": "Contains a **50+ feature-rich components** that can be used in any design solution",
+    "configurable": "Allows **to configure components** globally via config and CSS variables",
+    "responsive": "Fully **responsive** and **supports modern browsers** (no IE11, sorry)",
+    "translatable": "Integrates seamlessly with **i18n**",
+    "specialThanks": "Special Thanks \uD83D\uDE4C",
+    "specialThanksDescription": "We’d like to thank all contributors, not only to those who push commits and leave their suggestions on how to improve Vuestic, but all of you, who use Vuestic to bring your power your projects."
   },
   "translation": {
     "title": "Translation",

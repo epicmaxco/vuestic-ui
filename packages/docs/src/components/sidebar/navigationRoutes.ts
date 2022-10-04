@@ -14,6 +14,10 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: 'menu.overview',
       },
       {
+        name: 'team',
+        displayName: 'menu.team',
+      },
+      {
         name: 'roadmap',
         displayName: 'menu.roadmap',
       },

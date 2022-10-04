@@ -50,10 +50,7 @@ export default class EpicmaxBanner extends Vue {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      width: calc(100% - 4rem);
       background: linear-gradient(180.81deg, #182879 0.7%, #5b3c9b 99.3%);
-      max-width: 53rem;
-      margin: 0 2rem 2rem 2rem;
       padding: 1.7rem;
       color: #ffffff;
       border-radius: 0.5rem;

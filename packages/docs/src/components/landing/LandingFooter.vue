@@ -153,6 +153,12 @@ export default class Footer extends Vue {
       @include row-flex();
 
       align-items: center;
+
+      .epicmax__banner-content {
+        width: calc(100% - 4rem);
+        max-width: 53rem;
+        margin: 0 2rem 2rem 2rem;
+      }
     }
 
     &__image {
