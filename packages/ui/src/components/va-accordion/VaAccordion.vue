@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue'
+import { defineComponent, PropType, WritableComputedRef } from 'vue'
 
 import { useComponentPresetProp, useStateful, useStatefulProps, useStatefulEmits } from '../../composables'
 import { useAccordion } from './hooks/useAccordion'
@@ -23,7 +23,7 @@ export default defineComponent({
   },
 
   setup (props, { emit }) {
-    const { valueComputed } = useStateful(props, emit, [] as boolean[])
+    const { valueComputed }: { valueComputed: WritableComputedRef<boolean[]>} = useStateful(props, emit, 'modelValue', { defaultValue: [] as boolean[] })
 
     const { items } = useAccordion(props, valueComputed)
 

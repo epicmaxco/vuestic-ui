@@ -51,8 +51,8 @@ const useTreeView: UseTreeViewFunc = (props, emit) => {
     getNodeProperty,
   } = useTreeHelpers(props)
   const { nodes, expandAll, filter, filterMethod, textBy } = toRefs(props)
-  const { valueComputed: expandedList } = useStateful<TypeModelValue>(props, emit, undefined, 'expanded')
-  const { valueComputed: checkedList } = useStateful<TypeModelValue>(props, emit, undefined, 'checked')
+  const { valueComputed: expandedList } = useStateful(props, emit, 'expanded')
+  const { valueComputed: checkedList } = useStateful(props, emit, 'checked')
 
   const updateModel = (model: WritableComputedRef<TypeModelValue>, values: TypeModelValue, state: boolean) => {
     if (state) {

@@ -92,7 +92,7 @@ export default defineComponent({
   },
 
   setup (props, { emit }) {
-    const { valueComputed } = useStateful(props, emit, props.defaultValue)
+    const { valueComputed } = useStateful(props, emit, 'modelValue', { defaultValue: props.defaultValue })
 
     const { getValue, getText, getTrackBy, getDisabled } = useSelectableList(props)
 
