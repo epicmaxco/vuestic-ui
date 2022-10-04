@@ -11,7 +11,23 @@ import { useRouter } from 'vue-router'
 const { locale } = useI18n()
 const router = useRouter()
 onMounted(() => {
-  const generateAppRouteFromAlgoliaURL = (url: string) => url.replace(/^https.*\/[a-z]{2}\//, `/${locale.value}/`)
+  const getPathFromAlgoliaResponse = (url: string): string => {
+    // sometimes is response we have relative url,
+    // so this regexp try to parse absolute url, then try to parse relative url
+    const [, pathFromAbsoluteUrl, pathFromRelativeUrl] = /^https.+?\/[a-z]{2}\/(.*)|^\/[a-z]{2}\/(.*)/.exec(url) || []
+
+    return pathFromAbsoluteUrl || pathFromRelativeUrl || ''
+  }
+  const createPathWithCurrentLocale = (path: string) => `/${locale.value}/${path}`
+  const navigateToPath = (path: string) => {
+    if (!path.length) {
+      return
+    }
+
+    router.push({
+      path: createPathWithCurrentLocale(path),
+    })
+  }
 
   docsearch({
     container: '#docsearch',
@@ -21,17 +37,15 @@ onMounted(() => {
     // absolutely kekw but docsearch is based on React, so we simulate React.createElement()
     // @ts-ignore
     hitComponent ({ hit, children }) {
-      const url = generateAppRouteFromAlgoliaURL(hit.url)
+      const path = getPathFromAlgoliaResponse(hit.url)
       return {
         type: 'a',
         props: {
-          href: url,
+          href: createPathWithCurrentLocale(path),
           target: '_blank',
           onClick: (event: MouseEvent) => {
             event.preventDefault()
-            router.push({
-              path: url,
-            })
+            navigateToPath(path)
           },
           children,
         },
@@ -42,9 +56,8 @@ onMounted(() => {
     },
     navigator: { // keyboard navigation
       navigate ({ itemUrl }) {
-        router.push({
-          path: generateAppRouteFromAlgoliaURL(itemUrl),
-        })
+        const path = getPathFromAlgoliaResponse(itemUrl)
+        navigateToPath(path)
       },
     },
   })
