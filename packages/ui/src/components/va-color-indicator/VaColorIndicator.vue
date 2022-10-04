@@ -17,13 +17,14 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
 
-import { useColors, useStateful, useStatefulProps, useStatefulEmits } from '../../composables'
+import { useComponentPresetProp, useColors, useStateful, useStatefulProps, useStatefulEmits } from '../../composables'
 
 export default defineComponent({
   name: 'VaColorIndicator',
   emits: useStatefulEmits,
   props: {
     ...useStatefulProps,
+    ...useComponentPresetProp,
     modelValue: { type: Boolean, default: null },
     color: { type: String, default: '' },
     square: { type: Boolean, default: false },
@@ -66,12 +67,12 @@ export default defineComponent({
     cursor: pointer;
     border-radius: 50%;
     text-align: center;
-    background-color: #d8dadd;
-    border: 0.125rem solid #d8dadd;
+    background-color: var(--va-background-element);
+    border: 0.125rem solid var(--va-background-element);
 
     &--selected {
-      background-color: $vue-darkest-blue;
-      border-color: $vue-darkest-blue;
+      background-color: var(--va-primary);
+      border-color: var(--va-primary);
     }
 
     &--hoverable &__core:hover,

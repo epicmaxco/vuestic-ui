@@ -188,7 +188,7 @@
 
     <VbCard title="Ignores hidden overflow in container">
       <div style="width: 50px; height: 50px; overflow: hidden; border: 1px gray solid;">
-        <va-dropdown>
+        <va-dropdown prevent-overflow>
           <template #anchor>
             <button>
               Click
@@ -431,10 +431,27 @@
         </va-dropdown>
       </div>
     </VbCard>
+
+    <VbCard title="Ref Target">
+      <div class="target" ref="target">
+        <va-dropdown keep-anchor-width :target="target" placement="left" prevent-overflow>
+          <template #anchor>
+            Position left, but parent is target
+          </template>
+
+          <va-dropdown-content>
+            <p>Minsk</p>
+            <p>Kyiv</p>
+            <p>London</p>
+          </va-dropdown-content>
+        </va-dropdown>
+      </div>
+    </VbCard>
   </VbDemo>
 </template>
 
 <script>
+import { ref } from 'vue'
 import { VaDropdown, VaDropdownContent } from './'
 import DropdownCloseButton from './__demo__/DropdownCloseButton'
 import { VaInput } from '../va-input'
@@ -464,5 +481,19 @@ export default {
       keepAnchorWidth: true,
     }
   },
+
+  setup () {
+    return {
+      target: ref(null),
+    }
+  },
 }
 </script>
+
+<style lang="scss" scoped>
+  .target {
+    width: 300px;
+    background-color: #222222;
+    height: 100px;
+  }
+</style>

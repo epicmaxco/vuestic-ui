@@ -74,21 +74,22 @@ export const getValueByPath = <T extends Record<string, unknown>>(option: T, pro
 }
 
 /**
- * Finds value of nested property inside of an object.
+ * Finds value of nested property inside an object.
  *
- * @param option - Object to look properties inside
- * @param prop - string or function used to find nested property
+ * @param option - Object to look properties inside.
+ * @param prop - String or function used to find nested property.
  */
-export const getValueByKey = <T extends (string | number | Record<string, unknown>)> (
+export const getValueByKey = <T extends Record<string, unknown>> (
   option: T,
   prop: string | ((option: T) => any),
 ): any => {
-  // Can't access not object option
-  if (typeof option !== 'object' || !option) { return undefined }
+  if (!option || typeof option !== 'object' || Array.isArray(option)) { return undefined }
 
   if (!prop) { return option }
   if (typeof prop === 'string') { return getValueByPath(option, prop) }
   if (typeof prop === 'function') { return prop(option) }
+
+  // if `prop` has different to string or function type and can't be processed
   return option
 }
 
@@ -98,4 +99,17 @@ const getRandomString = (stringLength = 4): string => {
 
 export const generateUniqueId = () => {
   return `${getRandomString(8)}-${getRandomString(4)}-${getRandomString(4)}`
+}
+
+export const isParsableMeasure = (value: unknown) => {
+  if (typeof value === 'string') {
+    return (!isNaN(+value) ||
+      value.endsWith('px') ||
+      value.endsWith('rem'))
+  }
+  return typeof value === 'number'
+}
+
+export const isParsablePositiveMeasure = (value: unknown) => {
+  return isParsableMeasure(value) && parseInt(value) >= 0
 }

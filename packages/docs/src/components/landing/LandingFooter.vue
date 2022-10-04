@@ -1,5 +1,5 @@
 <template>
-  <footer class="footer">
+  <footer class="footer" :style="{ color: textColor }">
     <div class="footer__wrapper">
       <div class="footer__inner">
         <LandingEpicmaxBanner class="mb-4 " />
@@ -8,9 +8,7 @@
             class="footer__buttons__button"
             href="https://epicmax.co/about"
             target="blank"
-            :rounded="false"
-            color="primary"
-            flat
+            preset="plain"
           >
             <va-icon class="button-icon" :component="IconEpicmax" />
             {{ $t("landing.footer.buttons.epicmax") }}
@@ -19,9 +17,7 @@
             class="footer__buttons__button"
             href="https://github.com/epicmaxco/vuestic-admin"
             target="blank"
-            :rounded="false"
-            color="primary"
-            flat
+            preset="plain"
           >
             <va-icon class="button-icon" :component="IconAdmin" />
             {{ $t("landing.footer.buttons.admin") }}
@@ -30,9 +26,7 @@
             class="footer__buttons__button"
             href="https://github.com/epicmaxco/epic-spinners"
             target="blank"
-            :rounded="false"
-            color="primary"
-            flat
+            preset="plain"
           >
             <va-icon class="button-icon" :component="IconSpinners" />
             {{ $t("landing.footer.buttons.spinners") }}
@@ -44,8 +38,7 @@
             href="https://github.com/epicmaxco/vuestic-ui/"
             aria-label="go to the vuestic ui github page"
             target="blank"
-            color="primary"
-            flat
+            preset="plain"
           >
             <va-icon class="mdi mdi-github" />
           </va-button>
@@ -54,8 +47,7 @@
             href="https://discord.gg/u7fQdqQt8c"
             aria-label="go to the vuestic ui discord channel"
             target="blank"
-            color="primary"
-            flat
+            preset="plain"
           >
             <va-icon class="mdi mdi-discord" />
           </va-button>
@@ -64,8 +56,7 @@
             href="https://www.facebook.com/epicmaxco/"
             aria-label="go to the vuestic ui facebook page"
             target="blank"
-            color="primary"
-            flat
+            preset="plain"
           >
             <va-icon class="mdi mdi-facebook" />
           </va-button>
@@ -74,8 +65,7 @@
             href="https://twitter.com/epicmaxco"
             aria-label="go to the vuestic ui twitter page"
             target="blank"
-            color="primary"
-            flat
+            preset="plain"
           >
             <va-icon class="mdi mdi-twitter" />
           </va-button>
@@ -92,45 +82,32 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component'
+import { useColors, useElementTextColor } from 'vuestic-ui/src/main'
+import { markRaw, defineComponent } from 'vue'
 import IconEpicmax from './icons/IconEpicmax.vue'
 import IconAdmin from './icons/IconAdmin.vue'
 import IconSpinners from './icons/IconSpinners.vue'
-import { useColors } from 'vuestic-ui/src/main'
-import { markRaw } from 'vue'
 import LandingEpicmaxBanner from '@/components/landing/LandingEpicmaxBanner.vue'
 
-@Options({
+export default defineComponent({
   name: 'LandingFooter',
+
   components: {
     LandingEpicmaxBanner,
   },
+
+  setup () {
+    const { getComputedColor } = useColors()
+
+    return {
+      textColor: useElementTextColor('background-primary'),
+      IconEpicmax: markRaw(IconEpicmax),
+      IconAdmin: markRaw(IconAdmin),
+      IconSpinners: markRaw(IconSpinners),
+      primaryColor: getComputedColor('primary'),
+    }
+  },
 })
-export default class Footer extends Vue {
-  IconEpicmax = markRaw(IconEpicmax);
-  IconAdmin = markRaw(IconAdmin);
-  IconSpinners = markRaw(IconSpinners);
-
-  get primaryColor () {
-    // TODO: Replace with setup FN
-    return useColors().getColor('primary')
-  }
-
-  get currentYear () {
-    const date = new Date() // 2009-11-10
-    return date.getFullYear()
-  }
-
-  get currentMonthName () {
-    const date = new Date() // 2009-11-10
-    return date.toLocaleString('en', { month: 'long' })
-  }
-
-  get developersCount () {
-    const currentMonth = new Date().getUTCMonth()
-    return currentMonth % 3 + 2
-  }
-}
 </script>
 
 <style lang="scss" scoped>

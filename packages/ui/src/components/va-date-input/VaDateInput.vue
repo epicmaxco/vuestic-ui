@@ -2,14 +2,9 @@
   <va-dropdown
     v-model="isOpenSync"
     class="va-date-input"
-    inner-anchor-selector=".va-input-wrapper__field"
     :class="$attrs.class"
     :style="$attrs.style"
-    :offset="[2, 0]"
-    :close-on-content-click="false"
-    :stateful="false"
-    :disabled="$props.disabled"
-    keyboard-navigation
+    v-bind="dropdownPropsComputed"
     @open="focusDatePicker"
     @close="focus"
   >
@@ -97,6 +92,7 @@ import omit from 'lodash/omit'
 
 import { filterComponentProps, extractComponentProps, extractComponentEmits } from '../../utils/child-props'
 import {
+  useComponentPresetProp,
   useClearable, useClearableEmits, useClearableProps,
   useValidation, useValidationEmits, useValidationProps, ValidationProps,
   useStateful, useStatefulEmits,
@@ -119,6 +115,9 @@ import { VaIcon } from '../va-icon'
 
 const VaInputWrapperProps = extractComponentProps(VaInputWrapper, ['focused', 'maxLength', 'counterValue', 'disabled'])
 const VaDatePickerProps = extractComponentProps(VaDatePicker)
+const VaDropdownProps = extractComponentProps(VaDropdown,
+  ['innerAnchorSelector', 'stateful', 'offset', 'keyboardNavigation', 'closeOnContentClick', 'modelValue'],
+)
 
 export default defineComponent({
   name: 'VaDateInput',
@@ -132,10 +131,12 @@ export default defineComponent({
   },
 
   props: {
+    ...VaDropdownProps,
     ...useClearableProps,
     ...VaInputWrapperProps,
     ...VaDatePickerProps,
     ...useValidationProps as ValidationProps<DateInputModelValue>,
+    ...useComponentPresetProp,
 
     clearValue: { type: Date as PropType<DateInputModelValue>, default: undefined },
     modelValue: { type: [Date, Array, Object, String, Number] as PropType<DateInputModelValue> },
@@ -359,6 +360,15 @@ export default defineComponent({
       ...omit(attrs, ['class', 'style']),
     }))
 
+    const dropdownPropsComputed = computed(() => ({
+      ...filterComponentProps(props, VaDropdownProps).value,
+      offset: [2, 0],
+      stateful: false,
+      keyboardNavigation: true,
+      closeOnContentClick: false,
+      innerAnchorSelector: '.va-input-wrapper__field',
+    }))
+
     return {
       datePicker,
       valueText,
@@ -374,6 +384,7 @@ export default defineComponent({
       inputListeners: computedInputListeners,
       inputAttributesComputed,
       datePickerProps: filterComponentProps(props, VaDatePickerProps),
+      dropdownPropsComputed,
 
       filterSlots,
       canBeCleared,

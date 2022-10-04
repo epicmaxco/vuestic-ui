@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="demo-header mb-2 row">
+    <div class="demo-header mb-2">
       <div class="col">
         <va-select
           v-model="exampleValue"
@@ -33,7 +33,7 @@
     </div>
 
     <div class="demo-footer mt-2">
-      <div class="d-flex align--center">
+      <div class="d-flex align-center">
         <div style="width: 64px;" class="code-snippet code-snippet--icon mr-2" v-html="renderHTML(iconName)" />
         <div class="code-snippet" style="width: 100%;">{{ renderHTML(iconName) }}</div>
       </div>
@@ -132,7 +132,7 @@ const copy = () => {
 
   .code-snippet {
     color: currentColor;
-    background: var(--va-background);
+    background: var(--va-background-secondary);
     position: relative;
 
     .copy-button {

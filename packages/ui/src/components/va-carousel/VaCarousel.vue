@@ -101,7 +101,7 @@ import { useCarouselAnimation } from './hooks/useCarouselAnimation'
 import { useCarouselColor } from './hooks/useCarouselColors'
 import {
   useStateful, useStatefulProps, useStatefulEmits,
-  useSwipe, useSwipeProps,
+  useSwipe, useSwipeProps, useComponentPresetProp,
 } from '../../composables'
 
 import { VaImage } from '../va-image'
@@ -118,6 +118,7 @@ export default defineComponent({
   props: {
     ...useSwipeProps,
     ...useStatefulProps,
+    ...useComponentPresetProp,
 
     modelValue: { type: Number, default: 0 },
     items: { type: Array as PropType<any[]>, required: true },
@@ -161,7 +162,7 @@ export default defineComponent({
     const isObjectSlides = computed(() => {
       return props.items.length && props.items.every((el) => !!el && typeof el === 'object' && !!el?.src)
     })
-    const isCurrentSlide = (index: number) => +index === currentSlide.value
+    const isCurrentSlide = (index: number) => index === currentSlide.value
 
     const slideStyleComputed = computed(() => ({
       animation: props.effect === 'fade' ? 'fadeKeyframe' : undefined,
@@ -326,6 +327,10 @@ export default defineComponent({
     .va-image {
       height: 100%;
       width: 100%;
+    }
+
+    .va-button {
+      @include keyboard-focus-outline($offset: -2px);
     }
   }
 </style>

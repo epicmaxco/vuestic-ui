@@ -1,21 +1,17 @@
 <template>
-  <section class="preview">
+  <section class="preview" :style="{ color: textColor }">
     <div class="preview__wrapper">
       <div class="preview__inner">
         <h1 class="preview__title">{{$t('landing.preview.title')}}</h1>
         <div class="preview__buttons">
           <va-button class="preview__buttons--button"
             :to="`/${$root.$i18n.locale}/getting-started/installation`"
-            :rounded="false"
-            color="primary"
           >
             {{$t('landing.preview.buttons.start')}}
           </va-button>
           <va-button class="preview__buttons--button" href="https://github.com/epicmaxco/vuestic-ui"
                        target="_blank"
-                       :rounded="false"
-                       color="primary"
-                       flat
+                       preset="plain"
             >
               <va-icon class="fa fa-github" style="margin-right: 0.5rem;" />
               {{$t('landing.preview.buttons.github')}}
@@ -44,18 +40,18 @@
               <img src="@/assets/landing/images/features/components.svg" alt="responsive-components">
             </div>
             <h2 class="item__title">{{$t('landing.preview.features.components.title')}}</h2>
-            <router-link class="item__link text--primary" :to="`/${$root.$i18n.locale}/ui-elements/avatar`">
+            <router-link class="item__link text--primary" :to="`/${$root.$i18n.locale}/ui-elements/alert`">
               {{$t('landing.preview.features.components.text')}}
             </router-link>
           </div>
 
           <div class="item">
             <div class="item__frame">
-              <img src="@/assets/landing/images/features/keyboard-navigation.svg" alt="keyboard-navigation">
+              <img src="@/assets/landing/images/features/keyboard-navigation.svg" alt="accessability">
             </div>
-            <h2 class="item__title">{{$t('landing.preview.features.keyboard.title')}}</h2>
-            <router-link class="item__link text--primary" :to="`/${$root.$i18n.locale}/getting-started/accessibility-guide`">
-              {{$t('landing.preview.features.keyboard.text')}}
+            <h2 class="item__title">{{$t('landing.preview.features.accessability.title')}}</h2>
+            <router-link class="item__link text--primary" :to="`/${$root.$i18n.locale}/introduction/accessibility-guide`">
+              {{$t('landing.preview.features.accessability.text')}}
             </router-link>
           </div>
 
@@ -76,8 +72,16 @@
 </template>
 
 <script>
+import { useElementTextColor } from 'vuestic-ui/src/main'
+
 export default {
   name: 'LandingPreview',
+
+  setup () {
+    return {
+      textColor: useElementTextColor('background-primary'),
+    }
+  },
 }
 </script>
 

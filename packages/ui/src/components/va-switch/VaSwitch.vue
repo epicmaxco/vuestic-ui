@@ -82,6 +82,7 @@ import pick from 'lodash/pick.js'
 import { generateUniqueId } from '../../services/utils'
 
 import {
+  useComponentPresetProp,
   useKeyboardOnlyFocus,
   useSelectable, useSelectableProps, useSelectableEmits,
   useColors, useTextColor,
@@ -100,6 +101,7 @@ export default defineComponent({
   ],
   props: {
     ...useSelectableProps,
+    ...useComponentPresetProp,
     id: { type: String, default: '' },
     name: { type: String, default: '' },
     modelValue: {
@@ -111,7 +113,7 @@ export default defineComponent({
     trueInnerLabel: { type: String, default: null },
     falseInnerLabel: { type: String, default: null },
     color: { type: String, default: 'primary' },
-    offColor: { type: String, default: 'gray' },
+    offColor: { type: String, default: 'background-element' },
     size: {
       type: String as PropType<'medium' | 'small' | 'large'>,
       default: 'medium',
@@ -167,7 +169,7 @@ export default defineComponent({
       small: props.size === 'small',
       large: props.size === 'large',
       error: computedError.value,
-      onKeyboardFocus: hasKeyboardFocus.value,
+      keyboardFocus: hasKeyboardFocus.value,
     }))
 
     const styleComputed = computed(() => ({
@@ -367,7 +369,7 @@ export default defineComponent({
       transition: var(--va-switch-track-transition);
 
       @at-root {
-        .va-switch--on-keyboard-focus#{&} {
+        .va-switch--keyboard-focus#{&} {
           @include focus-outline('inherit');
         }
 

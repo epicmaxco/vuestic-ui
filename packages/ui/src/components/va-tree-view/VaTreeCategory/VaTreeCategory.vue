@@ -60,6 +60,7 @@ import VaIcon from '../../va-icon/VaIcon.vue'
 import { useColors } from '../../../composables'
 import { TreeCategory, TreeNodeCommon, TreeCategoryKey, TreeNodeComponent, TreeViewKey } from '../types'
 import VaTreeNode from '../VaTreeNode/VaTreeNode.vue'
+import { useComponentPresetProp } from '../../../composables/useComponentPreset'
 
 export default defineComponent({
   name: 'VaTreeCategory',
@@ -68,6 +69,7 @@ export default defineComponent({
     VaIcon,
   },
   props: {
+    ...useComponentPresetProp,
     label: {
       type: [String, Number],
       default: '',
@@ -221,7 +223,7 @@ export default defineComponent({
     }
 
     &__list-internal-container {
-      background-image: linear-gradient(#adb3b9 33%, rgba(255, 255, 255, 0) 0%);
+      background-image: linear-gradient(var(--va-background-element) 33%, rgba(255, 255, 255, 0) 0%);
       background-position: left;
       background-size: 1px 3px;
       background-repeat: repeat-y;

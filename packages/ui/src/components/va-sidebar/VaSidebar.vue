@@ -6,8 +6,10 @@
     @mouseenter="updateHoverState(true)"
     @mouseleave="updateHoverState(false)"
   >
-    <div class="va-sidebar__menu">
-      <slot />
+    <div class="va-sidebar__menu" :style="`width: ${computedWidth};`">
+      <va-config :components="{ VaSidebarItem: vaSidebarItemProps }">
+        <slot />
+      </va-config>
     </div>
   </aside>
 </template>
@@ -18,11 +20,16 @@ import { defineComponent, computed, ref, PropType } from 'vue'
 import { getGradientBackground } from '../../services/color-config/color-functions'
 import { useColors, useTextColor, useBem } from '../../composables'
 import { useSidebar } from './hooks/useSidebar'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 export default defineComponent({
   name: 'VaSidebar',
   props: {
-    color: { type: String, default: 'background' },
+    ...useComponentPresetProp,
+    activeColor: { type: String, default: 'primary' },
+    hoverColor: { type: String, default: undefined },
+    borderColor: { type: String, default: undefined },
+    color: { type: String, default: 'background-secondary' },
     textColor: { type: String },
     gradient: { type: Boolean, default: false },
     minimized: { type: Boolean, default: false },
@@ -39,7 +46,7 @@ export default defineComponent({
   },
   setup (props) {
     const { getColor } = useColors()
-    useSidebar()
+    useSidebar(props)
 
     const isHovered = ref(false)
 
@@ -57,14 +64,13 @@ export default defineComponent({
 
     const computedStyle = computed(() => {
       const backgroundColor = getColor(props.color)
-      const background = props.gradient ? getGradientBackground(backgroundColor) : backgroundColor
 
       const color = textColorComputed.value
 
       return {
         color,
-        background,
-        width: computedWidth.value,
+        backgroundColor,
+        backgroundImage: props.gradient ? getGradientBackground(backgroundColor) : undefined,
       }
     })
 
@@ -79,9 +85,16 @@ export default defineComponent({
     }
 
     return {
+      computedWidth,
       computedClass,
       computedStyle,
       updateHoverState,
+      vaSidebarItemProps: computed(() => ({
+        textColor: props.textColor,
+        activeColor: props.activeColor,
+        hoverColor: props.hoverColor,
+        borderColor: props.borderColor,
+      })),
     }
   },
 })
@@ -109,6 +122,8 @@ export default defineComponent({
       padding-left: var(--va-sidebar-menu-padding-left);
       overflow-y: var(--va-sidebar-menu-overflow-y);
       overflow-x: var(--va-sidebar-menu-overflow-x);
+
+      @include va-scroll(var(--va-primary));
     }
 
     &--animated {

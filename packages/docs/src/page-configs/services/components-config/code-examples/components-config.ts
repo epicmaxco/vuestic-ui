@@ -3,7 +3,7 @@ export const componentsConfigCodeExample = `
 components: {
   VaAvatar: {
     square: true,
-    icon: 'spinner'
+    icon: 'spinner',
   },
   VaCard: {
     color: 'secondary',
@@ -17,9 +17,25 @@ components: {
 
 export const componentsAllConfigCodeExample = `
 ...
-componentsAll: {
-  color: '#d91698',
-  disabled: 'true',
+components: {
+  all: {
+    color: '#d91698',
+    disabled: 'true',
+  },
+},
+...
+`
+
+export const componentsPresetsConfigCodeExample = `
+...
+components: {
+  presets: {
+    VaButton: {
+      addToCart: { size: 'large', round: true },
+      deleteFromCart: { size: 'small', plain: true },
+    },
+  },
+},
 ...
 `
 

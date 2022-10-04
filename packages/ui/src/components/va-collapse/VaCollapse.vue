@@ -2,8 +2,6 @@
   <div class="va-collapse" :class="computedClasses">
     <div
       class="va-collapse__header-wrapper"
-      v-on="keyboardFocusListeners"
-      @focus="$emit('focus')"
       @click="toggle"
       @keydown.enter="toggle"
       @keydown.space="toggle"
@@ -12,7 +10,6 @@
         name="header"
         v-bind="{
           value: computedModelValue,
-          hasKeyboardFocus: hasKeyboardFocus,
           bind: headerAttributes,
           attributes: headerAttributes,
         }"
@@ -57,7 +54,13 @@
 import { computed, defineComponent, ref, shallowRef } from 'vue'
 import pick from 'lodash/pick.js'
 
-import { useKeyboardOnlyFocus, useColors, useSyncProp, useTextColor, useBem, useResizeObserver } from '../../composables'
+import {
+  useColors, useTextColor,
+  useSyncProp,
+  useBem,
+  useResizeObserver,
+  useComponentPresetProp,
+} from '../../composables'
 import { useAccordionItem } from '../va-accordion/hooks/useAccordion'
 
 import { generateUniqueId } from '../../services/utils'
@@ -70,16 +73,17 @@ export default defineComponent({
     VaIcon,
   },
   props: {
+    ...useComponentPresetProp,
     modelValue: { type: Boolean, default: undefined },
     disabled: { type: Boolean, default: false },
     header: { type: String, default: '' },
     icon: { type: String, default: '' },
     solid: { type: Boolean, default: false },
-    color: { type: String, default: 'background' },
+    color: { type: String, default: 'background-secondary' },
     textColor: { type: String, default: '' },
     colorAll: { type: Boolean, default: false },
   },
-  emits: ['focus', 'update:modelValue'],
+  emits: ['update:modelValue'],
 
   setup (props, { emit, slots }) {
     const body = shallowRef<HTMLElement>()
@@ -97,8 +101,6 @@ export default defineComponent({
     })
 
     const height = computed(() => computedModelValue.value ? bodyHeight.value : 0)
-
-    const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
 
     const getTransition = () => {
       const duration = height.value / 1000 * 0.2
@@ -140,16 +142,12 @@ export default defineComponent({
       toggle,
       computedModelValue,
 
-      hasKeyboardFocus,
-      keyboardFocusListeners,
-
-      textColorComputed,
-
       headerIdComputed,
       headerAttributes,
       panelIdComputed,
       tabIndexComputed,
 
+      textColorComputed,
       computedClasses,
 
       headerStyle: computed(() => ({

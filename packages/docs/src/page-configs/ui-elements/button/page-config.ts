@@ -20,6 +20,11 @@ const config: ApiDocsBlock[] = [
     'Default',
   ),
   ...block.exampleBlock(
+    'button.examples.presets.title',
+    'button.examples.presets.text',
+    'Presets',
+  ),
+  ...block.exampleBlock(
     'button.examples.withColor.title',
     'button.examples.withColor.text',
     'WithColor',
@@ -40,9 +45,14 @@ const config: ApiDocsBlock[] = [
     'WithSize',
   ),
   ...block.exampleBlock(
-    'button.examples.withStyle.title',
-    'button.examples.withStyle.text',
-    'WithStyle',
+    'button.examples.withRound.title',
+    'button.examples.withRound.text',
+    'WithRound',
+  ),
+  ...block.exampleBlock(
+    'button.examples.withOutline.title',
+    'button.examples.withOutline.text',
+    'WithOutline',
   ),
   ...block.exampleBlock(
     'button.examples.withIcon.title',
@@ -50,14 +60,14 @@ const config: ApiDocsBlock[] = [
     'WithIcon',
   ),
   ...block.exampleBlock(
-    'button.examples.withConfig.title',
-    'button.examples.withConfig.text',
-    'WithConfig',
-  ),
-  ...block.exampleBlock(
     'button.examples.withLoading.title',
     'button.examples.withLoading.text',
     'WithLoading',
+  ),
+  ...block.exampleBlock(
+    'button.examples.behaviour.title',
+    'button.examples.behaviour.text',
+    'Behaviour',
   ),
   ...block.exampleBlock(
     'button.examples.disabled.title',

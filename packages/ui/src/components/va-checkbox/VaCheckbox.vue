@@ -62,6 +62,7 @@ import { defineComponent, computed, PropType, shallowRef } from 'vue'
 
 import { generateUniqueId } from '../../services/utils'
 import {
+  useComponentPresetProp,
   useKeyboardOnlyFocus,
   useColors, useTextColor,
   useSelectable, useSelectableProps, useSelectableEmits, Elements,
@@ -78,6 +79,7 @@ export default defineComponent({
   emits: useSelectableEmits,
   props: {
     ...useSelectableProps,
+    ...useComponentPresetProp,
     modelValue: { type: VaCheckboxValueType, default: false },
     color: { type: String, default: 'primary' },
     checkedIcon: { type: String, default: 'check' },
@@ -227,7 +229,7 @@ export default defineComponent({
       min-width: var(--va-checkbox-square-min-width);
       height: var(--va-checkbox-square-height);
       position: var(--va-checkbox-square-position);
-      background-color: var(--va-checkbox-square-background-color, var(--va-background-color));
+      background-color: var(--va-checkbox-square-background-color);
       border: var(--va-checkbox-square-border, var(--va-control-border));
       border-radius: var(--va-checkbox-square-border-radius);
 

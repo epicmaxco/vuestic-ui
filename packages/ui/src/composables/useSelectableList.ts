@@ -35,8 +35,11 @@ export function useSelectableList (props: ExtractPropTypes<typeof useSelectableL
   }
 
   const getText = (option: SelectableOption) => getOptionProperty(option, props.textBy)
-  const getDisabled = (option: SelectableOption) => getValueByKey(option, props.disabledBy)
-  const getTrackBy = (option: SelectableOption) => getOptionProperty(option, props.trackBy)
+  const getDisabled = (option: SelectableOption) => getOptionProperty(option, props.disabledBy)
+  const getTrackBy = (option: SelectableOption) => {
+    if (props.trackBy) { return getOptionProperty(option, props.trackBy) }
+    return getValue(option)
+  }
   const getGroupBy = (option: SelectableOption) => getOptionProperty(option, props.groupBy)
 
   return {

@@ -46,7 +46,7 @@ describe('Testing vuestic-ui build', () => {
 
   describe('Nuxt', () => {
     const _nuxtDir = readdirSync('./dist/nuxt/public/_nuxt/')
-    const indexJs = readFileSync('./dist/nuxt/public/_nuxt/' + _nuxtDir.find((n) => /entry\..*\.mjs/.test(n))).toString('utf8')
+    const indexJs = readFileSync('./dist/nuxt/public/_nuxt/' + _nuxtDir.find((n) => /entry\..*\.js/.test(n))).toString('utf8')
     const indexCss = readFileSync('./dist/nuxt/public/_nuxt/' + _nuxtDir.find((n) => /entry\..*\.css/.test(n))).toString('utf8')
 
     it('Should include VaInput and do not include VaSelect', () => {

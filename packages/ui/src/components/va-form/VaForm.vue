@@ -11,6 +11,7 @@
 import { defineComponent, ref, Ref, onMounted, onUnmounted, nextTick, provide, inject } from 'vue'
 
 import { FormServiceKey, FormChild, Form } from './consts'
+import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 const isVaForm = (value: any): value is Form => !!value.focusInvalid
 
@@ -18,6 +19,7 @@ export default defineComponent({
   name: 'VaForm',
   emits: ['validation'],
   props: {
+    ...useComponentPresetProp,
     autofocus: { type: Boolean, default: false },
     tag: { type: String, default: 'div' },
   },

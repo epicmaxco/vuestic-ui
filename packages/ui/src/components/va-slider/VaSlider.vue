@@ -163,7 +163,7 @@ import { defineComponent, watch, PropType, ref, computed, onMounted, onBeforeUnm
 import pick from 'lodash/pick.js'
 
 import { generateUniqueId } from '../../services/utils'
-import { useColors, useArrayRefs, useBem } from '../../composables'
+import { useComponentPresetProp, useColors, useArrayRefs, useBem } from '../../composables'
 import { validateSlider } from './validateSlider'
 
 import { VaIcon } from '../va-icon'
@@ -173,6 +173,7 @@ export default defineComponent({
   components: { VaIcon },
   emits: ['drag-start', 'drag-end', 'change', 'update:modelValue'],
   props: {
+    ...useComponentPresetProp,
     range: { type: Boolean, default: false },
     modelValue: ({ type: [Number, Array] as PropType<number | number[]>, default: 0 }),
     trackLabel: ({ type: [Function, String] as PropType<string | ((val: number, order?: number) => string) | undefined> }),
