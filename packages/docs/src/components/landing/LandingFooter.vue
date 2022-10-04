@@ -2,7 +2,7 @@
   <footer class="footer">
     <div class="footer__wrapper">
       <div class="footer__inner">
-        <LandingEpicmaxBanner />
+        <LandingEpicmaxBanner class="mb-4 " />
         <div class="footer__buttons">
           <va-button
             class="footer__buttons__button"
@@ -153,12 +153,6 @@ export default class Footer extends Vue {
       @include row-flex();
 
       align-items: center;
-
-      .epicmax__banner-content {
-        width: calc(100% - 4rem);
-        max-width: 53rem;
-        margin: 0 2rem 2rem 2rem;
-      }
     }
 
     &__image {
