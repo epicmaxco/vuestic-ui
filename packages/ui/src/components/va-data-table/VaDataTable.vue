@@ -93,7 +93,6 @@
           :name="animationName"
           appear
         >
-
           <tr
             v-if="showNoDataHtml"
             key="showNoDataHtml"
