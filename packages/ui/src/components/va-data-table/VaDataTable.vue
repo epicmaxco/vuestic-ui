@@ -1,7 +1,7 @@
 <template>
   <va-virtual-scroller
     class="va-data-table"
-    v-bind="virtualScrollerPropsComputed"
+    v-bind="computedAttributes"
   >
     <template
       #content="{
@@ -269,7 +269,7 @@
 </template>
 
 <script lang="ts">
-import { PropType, defineComponent, computed, HTMLAttributes, TableHTMLAttributes } from 'vue'
+import { PropType, defineComponent, computed, TableHTMLAttributes } from 'vue'
 import omit from 'lodash/omit.js'
 import pick from 'lodash/pick.js'
 
@@ -476,7 +476,7 @@ export default defineComponent({
       ],
       style: [attrs.style],
       ...virtualScrollerPropsComputed.value,
-    }) as HTMLAttributes)
+    }))
 
     const {
       scrollContainer,
