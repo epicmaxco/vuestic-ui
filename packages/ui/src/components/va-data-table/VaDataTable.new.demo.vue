@@ -24,6 +24,18 @@
       </va-alert>
     </VbCard>
 
+    <VbCard title="With virtual scroll">
+      <va-data-table
+        :items="itemsHuge"
+        :wrapper-size="400"
+        :item-size="44"
+        virtual-scroller
+      >
+        <template #header(address)>Street</template>
+        <template #header(company)>Company Name</template>
+      </va-data-table>
+    </VbCard>
+
     <VbCard title="Use custom slots for address and company">
       <va-data-table :items="items">
         <template #header(address)>Street</template>
@@ -359,6 +371,7 @@ export default defineComponent({
 
     return {
       items: shuffle(cloneDeep(users)),
+      itemsHuge: new Array(500).fill(null).map((_, idx) => idx % 2 ? users[0] : users[1]),
       columns,
 
       filter: '',

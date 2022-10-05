@@ -133,7 +133,7 @@ export default defineComponent({
       border: 1px solid;
     }
 
-    .va-data-table + .va-data-table {
+    .va-virtual-scroller + .va-virtual-scroller {
       margin-top: 2rem;
     }
 
