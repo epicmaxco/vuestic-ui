@@ -202,7 +202,7 @@ export default defineComponent({
     const target = useHTMLElementSelector(computed(() => props.target || 'body'))
 
     const targetComputed = computed(() => {
-      if (computedAnchorRef.value && !target.value.contains(computedAnchorRef.value)) { return document.value?.body }
+      if (computedAnchorRef.value && !target.value?.contains?.(computedAnchorRef.value)) { return document.value?.body }
 
       return target.value
     })
