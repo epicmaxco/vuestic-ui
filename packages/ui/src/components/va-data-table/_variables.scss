@@ -1,4 +1,4 @@
-:root {
+.va-data-table {
   --va-data-table-cell-padding: 0.625rem;
   --va-data-table-thead-line-height: 1.6;
   --va-data-table-thead-font-size: 0.625rem;
@@ -9,6 +9,9 @@
   --va-data-table-thead-border-top-shadow: inset 0 1px 0 0 currentColor;
   --va-data-table-thead-border-bottom-shadow: inset 0 -1px 0 0 currentColor;
   --va-data-table-thead-color: currentColor;
+
+  /* Sticky */
+  --va-data-table-header-background: var(--va-white);
 
   /* hover */
   --va-data-table-hover-th-opacity: 0.3;

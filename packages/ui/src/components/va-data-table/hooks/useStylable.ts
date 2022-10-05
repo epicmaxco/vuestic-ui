@@ -27,18 +27,18 @@ const getClass = (classes: DataTableColumnClass) => isFunction(classes) ? classe
 const getStyle = (styles: DataTableColumnStyle) => isFunction(styles) ? styles() : styles
 
 export default function useStyleable (props: useStylableProps) {
-  const { getColor, getFocusColor, getHoverColor, shiftHSLAColor } = useColors()
+  const { getColor, getFocusColor, getHoverColor } = useColors()
 
   const color = computed(() => getColor(props.selectedColor))
 
   const rowCSSVariables = computed(() => ({
-    [`${prefix}-hover-color`]: getHoverColor(color.value),
-    [`${prefix}-selected-color`]: props.selectable ? getFocusColor(color.value) : undefined,
+    hoverColor: getHoverColor(color.value),
+    selectedColor: props.selectable ? getFocusColor(color.value) : undefined,
   }))
 
   const stickyCSSVariables = computed(() => ({
-    [`${prefix}-scroll-table-color`]: (props.height || props.stickyHeader || props.stickyFooter) && shiftHSLAColor(color.value, { l: 40 }),
-    [`${prefix}-scroll-table-height`]: props.height ? safeCSSLength(props.height) : undefined,
+    stickyBg: (props.stickyHeader || props.stickyFooter) ? 'var(--va-data-table-header-background)' : undefined,
+    tableHeight: props.height ? safeCSSLength(props.height) : undefined,
   }))
 
   const getHeaderCSSVariables = (column: DataTableColumnInternal) => ({

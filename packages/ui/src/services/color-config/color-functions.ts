@@ -128,7 +128,7 @@ export const isColor = (strColor: string): boolean => {
 
 export const isCSSVariable = (strColor: string): boolean => /var\(--.+\)/.test(strColor)
 
-export const appyColors = (color1: ColorInput, color2: ColorInput) => {
+export const applyColors = (color1: ColorInput, color2: ColorInput) => {
   const c1 = new ColorTranslator(color1)
   const c2 = new ColorTranslator(color2)
   const weight = c2.A

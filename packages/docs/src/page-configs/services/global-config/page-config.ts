@@ -17,7 +17,8 @@ const columns: TableColumn[] = [
 const tableData: TableData = [
   ['icons', 'IconsConfig', 'globalConfig.api.icons'],
   ['components', 'ComponentsConfig', 'globalConfig.api.components'],
-  ['componentsAll', 'Props', 'globalConfig.api.componentsAll'],
+  ['components.all', 'Props', 'globalConfig.api.componentsAll'],
+  ['components.presets', '[presetName: string]: Props', 'globalConfig.api.componentsPresets'],
   ['colors', 'ColorsConfig', 'globalConfig.api.colors'],
 ]
 

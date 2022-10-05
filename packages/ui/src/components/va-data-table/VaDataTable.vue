@@ -104,7 +104,6 @@
           <tbody
             ref="list"
             class="va-data-table__table-tbody"
-            :style="rowCSSVariables"
           >
           <slot name="bodyPrepend" />
 
@@ -439,7 +438,7 @@ export default defineComponent({
         { 'va-data-table--virtual-scroller': props.virtualScroller },
         attrs.class,
       ],
-      style: [stickyCSSVariables.value, attrs.style],
+      style: [attrs.style],
     }) as HTMLAttributes)
 
     const computedTableAttributes = computed(() => ({
@@ -471,6 +470,7 @@ export default defineComponent({
       sortingOrderSync,
       toggleSorting,
       sortingOrderIconName,
+      stickyCSSVariables,
       rowCSSVariables,
       getHeaderCSSVariables,
       getCellCSSVariables,
@@ -498,6 +498,12 @@ export default defineComponent({
   // The calculated variables are taken from a respective element's `style` attribute. See the `useStylable` hook
 
   .va-data-table {
+    --va-data-table-selected-color: v-bind(rowCSSVariables.selectedColor);
+    --va-data-table-hover-color: v-bind(rowCSSVariables.hoverColor);
+    --va-data-table-thead-background: v-bind(stickyCSSVariables.stickyBg);
+    --va-data-table-tfoot-background: v-bind(stickyCSSVariables.stickyBg);
+    --va-data-table-height: v-bind(stickyCSSVariables.tableHeight);
+
     min-width: unset;
     font-family: var(--va-font-family);
 
@@ -509,7 +515,7 @@ export default defineComponent({
     &--sticky:not(.va-data-table--virtual-scroller),
     &--scroll {
       overflow-y: auto;
-      height: var(--va-data-table-scroll-table-height);
+      height: var(--va-data-table-height);
     }
 
     .va-data-table__table {
@@ -530,7 +536,7 @@ export default defineComponent({
           position: sticky;
           top: 0;
           z-index: 1;
-          background-color: var(--va-data-table-scroll-table-color);
+          background: var(--va-data-table-thead-background);
         }
       }
 
@@ -554,7 +560,7 @@ export default defineComponent({
           position: sticky;
           bottom: 0;
           z-index: 1;
-          background-color: var(--va-data-table-scroll-table-color);
+          background: var(--va-data-table-tfoot-background);
         }
       }
 
