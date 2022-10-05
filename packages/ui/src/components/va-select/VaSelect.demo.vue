@@ -582,7 +582,7 @@
       <va-select
         v-model="preloadable.value"
         :options="preloadable.options"
-        @scrollBottom="onLoadMore()"
+        @scroll-bottom="onLoadMore"
       />
     </VbCard>
     <VbCard
@@ -648,7 +648,7 @@ export default {
         value: [],
       },
       preloadable: {
-        options: [random(), random(), random(), random(), random()],
+        options: [random(), random(), random(), random(), random(), random(), random(), random(), random(), random()],
         value: '',
       },
       allowCreateSelect: {
