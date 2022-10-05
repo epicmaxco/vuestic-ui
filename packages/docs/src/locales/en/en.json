@@ -1381,9 +1381,10 @@
         "expandAll":  "Expand or hide all nodes by default.",
         "filter": "Tree view filter.",
         "filterMethod":  "Custom tree view filter method.",
-        "checked": "Array of pre-selected tree nodes",
+        "checked": "Array of pre-selected tree nodes.",
+        "checkedBy": "The key to set the checked field in the tree view model.",
         "color":  "The checkboxes color.",
-        "expanded": "Array of pre-expanded tree nodes"
+        "expanded": "Array of pre-expanded tree nodes."
       },
       "slots": {
         "notFound": "No matching nodes to the filter message."
