@@ -17,7 +17,7 @@
     />
 
     <va-input
-      class="flex mb-2 md3"
+      class="flex mb-2 md6"
       placeholder="Filter..."
       v-model="filter"
     />
@@ -33,8 +33,9 @@
     @filtered="filtered = $event.items"
   >
     <template #bodyAppend>
-      <tr><td colspan="8" class="table-example--pagination">
+      <tr><td colspan="8">
         <va-pagination
+          class="table-example--pagination"
           v-model="currentPage"
           input
           :pages="pages"
@@ -122,7 +123,6 @@ export default defineComponent({
 
 <style lang="scss" scoped>
   .table-example--pagination {
-    text-align: center;
-    text-align: -webkit-center;
+    justify-content: center;
   }
 </style>

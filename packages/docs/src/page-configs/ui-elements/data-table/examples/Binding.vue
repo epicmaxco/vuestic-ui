@@ -1,13 +1,13 @@
 <template>
-  <div class="row">
+  <div class="row mb-4">
     <va-checkbox
-      class="flex mb-1 md6"
+      class="flex md3 sm4 xs6"
       label="Row bind"
       v-model="isRowBind"
     />
 
     <va-checkbox
-      class="flex mb-1 md6"
+      class="flex md3 sm4 xs6"
       label="Cell bind"
       v-model="isCellBind"
     />
