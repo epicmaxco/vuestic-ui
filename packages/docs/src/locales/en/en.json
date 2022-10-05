@@ -1372,6 +1372,44 @@
       "slots": {
         "default": "Slot for repeating content template."
       }
+    },
+    "VaTreeView": {
+      "props": {
+        "nodes": "Tree nodes array.",
+        "selectable": "Selectable.",
+        "selectionType": "Selection type where is a `leaf` current and all children nodes, `independent` - single selectable nodes.",
+        "valueBy":  "The key to track the value.",
+        "textBy": "The key to show the value of node item.",
+        "trackBy": "The key to index nodes.",
+        "iconBy": "The key where is node placed.",
+        "disabledBy":  "The key which describes the disabled property.",
+        "expandedBy": "The where is placed the expanded property.",
+        "expandAll":  "Expand or hide all nodes by default.",
+        "filter": "Tree view filter.",
+        "filterMethod":  "Custom tree view filter method.",
+        "checked": "Array of pre-selected tree nodes.",
+        "checkedBy": "The key to set the checked field in the tree view model.",
+        "color":  "The checkboxes color.",
+        "expanded": "Array of pre-expanded tree nodes."
+      },
+      "slots": {
+        "notFound": "No matching nodes to the filter message."
+      },
+      "events": {
+        "updateChecked": "The array of checked tree nodes.",
+        "updateExpanded": "The array of expanded tree nodes."
+      }
+    },
+    "VaTreeNode": {
+      "props": {
+        "node": "Tree node object."
+      },
+      "slots": {
+        "content": "Configurable node content.",
+        "checkbox": "Checkbox icon placeholder.",
+        "icon": "Additional icon placeholder.",
+        "iconToggle": "Node leaf icon."
+      }
     }
   },
   "menu": {
@@ -1488,7 +1526,9 @@
     "dropdown": "Dropdown",
     "scrollContainer": "Scroll Container",
     "split": "Split",
-    "virtualScroller": "Virtual Scroller"
+    "virtualScroller": "Virtual Scroller",
+    "spacer": "Spacer",
+    "treeView": "Tree view"
   },
   "all": {
     "examples": "Examples",
@@ -4373,6 +4413,29 @@
         "title": "Vitesse",
         "description": "Learn more about [Vitesse](https://github.com/antfu/vitesse) and [useHead](https://github.com/vueuse/head#server-side-rendering)"
       }
+    }
+  },
+  "treeView": {
+    "title": "Tree view",
+    "description": "Component for the hierarchical and nested data",
+    "examples": {
+      "default": {
+        "title": "Basic usage"
+      },
+      "customizableContent": {
+        "title": "Customizable content",
+        "description": "You can customize the body of node"
+      },
+      "filters": {
+        "title": "Filters"
+      },
+      "selectable": {
+        "title": "Selectable"
+      }
+    },
+    "api": {
+      "treeViewTitle": "Tree view API",
+      "treeNodeTitle": "Tree node API"
     }
   },
   "spacer": {

@@ -1,64 +1,43 @@
 <template>
-  <div class="va-tree-view">
-    <slot />
+  <div class="va-tree-view" role="tree">
+    <template v-if="$props.filter && !treeItems.length">
+      <slot name="not-found">No matching nodes found</slot>
+    </template>
+    <template v-else>
+      <va-tree-node
+        v-for="nodeItem in treeItems"
+        :key="getTrackBy(nodeItem)"
+        :node="nodeItem"
+      >
+        <template v-for="(_, name) in $slots" :key="name" v-slot:[name]="slotScope">
+          <slot :name="name" v-bind="slotScope" />
+        </template>
+      </va-tree-node>
+    </template>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, nextTick, provide, ref } from 'vue'
-import { useColors } from '../../composables'
-import { TreeCategory, TreeViewKey, TreeViewProvide } from './types'
-import { useComponentPresetProp } from '../../composables/useComponentPreset'
+import { defineComponent } from 'vue'
+
+import useTreeView from './hooks/useTreeView'
+import { useTreeViewProps, useTreeViewEmits } from './hooks/useTreeHelpers'
+
+import { VaTreeNode } from './components/VaTreeNode'
 
 export default defineComponent({
   name: 'VaTreeView',
-  props: {
-    ...useComponentPresetProp,
-    color: {
-      type: String,
-      default: '',
-    },
-  },
-  setup: (props) => {
-    const categories = ref<TreeCategory[]>([])
 
-    const collapse = () => {
-      nextTick(() => {
-        categories.value.forEach((child: TreeCategory) => {
-          child.collapse()
-        })
-      })
-    }
+  props: { ...useTreeViewProps },
 
-    const expand = () => {
-      nextTick(() => {
-        categories.value.forEach((child: TreeCategory) => {
-          child.expand()
-        })
-      })
-    }
+  emits: [...useTreeViewEmits],
 
-    const onChildMounted = (category: TreeCategory) => {
-      categories.value.push(category)
-    }
+  components: { VaTreeNode },
 
-    const onChildUnmounted = (removableCategory: TreeCategory) => {
-      categories.value = categories.value.filter((category: TreeCategory) => category !== removableCategory)
-    }
+  setup: (props, { emit }) => {
+    const { treeItems, getTrackBy } = useTreeView(props, emit)
 
-    const treeView: TreeViewProvide = {
-      color: props.color,
-      onChildMounted,
-      onChildUnmounted,
-    }
-
-    provide(TreeViewKey, treeView)
-
-    return {
-      collapse,
-      expand,
-      ...useColors(),
-    }
+    return { treeItems, getTrackBy }
   },
 })
 </script>

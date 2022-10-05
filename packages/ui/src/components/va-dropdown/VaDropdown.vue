@@ -42,10 +42,11 @@ import {
   useDropdown, placementsPositions, Placement,
   useClickOutside,
   useBem,
-  useEvent,
+  useHTMLElementSelector,
   useIsMounted,
   useDocument,
   useHTMLElement,
+  MaybeHTMLElementOrSelector,
 } from '../../composables'
 import { useAnchorSelector } from './hooks/useAnchorSelector'
 import { useCursorAnchor } from './hooks/useCursorAnchor'
@@ -64,7 +65,7 @@ export default defineComponent({
     anchorSelector: { type: String, default: '' },
     innerAnchorSelector: { type: String, default: '' },
     /** Element where dropdown content will be rendered */
-    target: { type: String, default: undefined },
+    target: { type: String as PropType<MaybeHTMLElementOrSelector>, default: undefined },
     preventOverflow: { type: Boolean, default: false },
     keepAnchorWidth: { type: Boolean, default: false },
     isContentHoverable: { type: Boolean, default: true },
@@ -198,14 +199,12 @@ export default defineComponent({
     const document = useDocument()
     const isPopoverFloating = computed(() => props.preventOverflow || props.cursor)
 
+    const target = useHTMLElementSelector(computed(() => props.target || 'body'))
+
     const targetComputed = computed(() => {
-      const target = document.value?.querySelector<HTMLElement>(props.target || 'body')
+      if (computedAnchorRef.value && !target.value.contains(computedAnchorRef.value)) { return document.value?.body }
 
-      if (!target) { return document.value?.body }
-
-      if (computedAnchorRef.value && !target.contains(computedAnchorRef.value)) { return document.value?.body }
-
-      return target
+      return target.value
     })
 
     const teleportTargetComputed = computed(() => {
