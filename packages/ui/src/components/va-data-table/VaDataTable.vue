@@ -1,5 +1,6 @@
 <template>
   <va-virtual-scroller
+    class="va-data-table"
     v-bind="virtualScrollerPropsComputed"
   >
     <template
@@ -14,11 +15,9 @@
       <va-inner-loading
         ref="scrollContainer"
         aria-live="polite"
-        class="va-data-table"
         :style="containerStyleComputed"
         :loading="loading"
         :color="loadingColor"
-        v-bind="computedAttributes"
       >
         <div
           v-if="doRenderTopTrigger"
@@ -451,16 +450,6 @@ export default defineComponent({
       }
     }
 
-    const computedAttributes = computed(() => ({
-      class: [
-        { 'va-data-table--sticky': props.stickyHeader || props.stickyFooter },
-        { 'va-data-table--scroll': !!props.height },
-        { 'va-data-table--virtual-scroller': props.virtualScroller },
-        attrs.class,
-      ],
-      style: [attrs.style],
-    }) as HTMLAttributes)
-
     const computedTableAttributes = computed(() => ({
       ...omit(attrs, ['class', 'style']),
       class: pick(props, ['striped', 'selectable', 'hoverable', 'clickable']),
@@ -477,6 +466,17 @@ export default defineComponent({
       disabled: !props.virtualScroller,
       table: true,
     }))
+
+    const computedAttributes = computed(() => ({
+      class: [
+        { 'va-data-table--sticky': props.stickyHeader || props.stickyFooter },
+        { 'va-data-table--scroll': !!props.height },
+        { 'va-data-table--virtual-scroller': props.virtualScroller },
+        attrs.class,
+      ],
+      style: [attrs.style],
+      ...virtualScrollerPropsComputed.value,
+    }) as HTMLAttributes)
 
     const {
       scrollContainer,
@@ -516,7 +516,6 @@ export default defineComponent({
       getColumnAriaSortOrder,
       getRowBind,
       getCellBind,
-      virtualScrollerPropsComputed,
       doRenderTopTrigger,
       doRenderBottomTrigger,
     }
