@@ -58,6 +58,6 @@ export default defineComponent({
 
 <style lang="scss" scoped>
   .table-example--slots {
-    background-color: #f0f0f0;
+    background-color: var(--va-background-secondary);
   }
 </style>

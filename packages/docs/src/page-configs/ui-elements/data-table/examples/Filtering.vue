@@ -8,12 +8,13 @@
 
     <div class="flex mb-2 md6 xs12">
       <va-checkbox
-        class="mb-3"
+        class="mb-3 d-block"
         label="Use custom filtering function (looks for an exact match)"
         v-model="useCustomFilteringFn"
       />
 
       <va-checkbox
+        class="d-block"
         label="Debounce input"
         v-model="isDebounceInput"
       />

@@ -942,7 +942,9 @@
         "stickyFooter": "Включает закрепление `tfoot` таблицы (путем установки CSS свойства `position: sticky`)",
         "height": "Устанавливает высоту таблицы и включает прокрутку",
         "rowBind": "Добавляет атрибуты в строку таблицы с помощью `v-bind`. Это может быть тип объекта (с атрибутами, которые поддерживает vue) или функция, которая возвращает такой объект. Функция получает элемент строки таблицы (тип `DataTableItem`) и индекс в качестве аргументов",
-        "cellBind": "Добавляет атрибуты в ячейку таблицы, используя `v-bind`. Это может быть тип объекта (с атрибутами, которые поддерживает vue) или функция, которая возвращает такой объект. В качестве аргументов функция получает элемент ячейки таблицы (`any` тип), строку (тип `DataTableItem`), столбец (тип `TableColumn`) и индекс строки"
+        "cellBind": "Добавляет атрибуты в ячейку таблицы, используя `v-bind`. Это может быть тип объекта (с атрибутами, которые поддерживает vue) или функция, которая возвращает такой объект. В качестве аргументов функция получает элемент ячейки таблицы (`any` тип), строку (тип `DataTableItem`), столбец (тип `TableColumn`) и индекс строки",
+        "scrollTopMargin": "Устанавливает порог (в `px`) для прокрутки вверх, когда включено событие `scroll:top`.",
+        "scrollBottomMargin": "Устанавливает порог (в `px`) для прокрутки вниз, когда включено событие `scroll:bottom`."
       },
       "events": {
         "updateSortBy": "Событие генерируется при изменении `sort-by`",
@@ -952,7 +954,9 @@
         "rowClick": "При щелчке по строке возникает событие со следующим параметром: `RowClickEmit` = \n &#123;\n &nbsp; `event: Event`,\n &nbsp; `item: DataTableItem`,\n &nbsp; `itemIndex: number`\n &#125;",
         "rowDblclick": "Двойной щелчок по строке вызывает событие с параметром `RowClickEmit`",
         "rowContextmenu": "При щелчке контекстного меню по строке возникает событие с параметром `RowClickEmit`",
-        "selectionChange": "Событие `selectionChange` генерируется каждый раз при изменении выделения строк. Он предоставляет следующий объект: `SelectionChangeEmit` = \n&#123;\n &nbsp; `currentSelectedItems: (DataTableItem | DataTableItemKey)[]`,\n &nbsp; `previousSelectedItems: (DataTableItem | DataTableItemKey)[]`\n &#125;"
+        "selectionChange": "Событие `selectionChange` генерируется каждый раз при изменении выделения строк. Он предоставляет следующий объект: `SelectionChangeEmit` = \n&#123;\n &nbsp; `currentSelectedItems: (DataTableItem | DataTableItemKey)[]`,\n &nbsp; `previousSelectedItems: (DataTableItem | DataTableItemKey)[]`\n &#125;",
+        "scrollBottom": "Событие генерируется, когда прокрутка таблицы вниз достигает `scrollBottomMargin`.",
+        "scrollTop": "Событие генерируется, когда прокрутка таблицы вверх достигает `scrollTopMargin`."
       },
       "methods": {},
       "slots": {

@@ -1,11 +1,18 @@
 <template>
   <va-inner-loading
+    ref="scrollContainer"
     class="va-data-table"
     aria-live="polite"
     v-bind="computedAttributes"
     :loading="loading"
     :color="loadingColor"
   >
+    <div
+      v-if="doRenderTopTrigger"
+      ref="topTrigger"
+      class="va-data-table__scroll-trigger"
+    />
+
     <table
       class="va-data-table__table"
       v-bind="computedTableAttributes"
@@ -31,6 +38,7 @@
           >
             <va-checkbox
               v-if="selectMode === 'multiple'"
+              class="va-data-table__table-cell-checkbox"
               aria-label="select all rows"
               :model-value="severalRowsSelected ? 'idl' : allRowsSelected"
               :true-value="true"
@@ -132,6 +140,7 @@
               @selectstart.prevent
             >
               <va-checkbox
+                class="va-data-table__table-cell-checkbox"
                 :model-value="isRowSelected(row)"
                 :color="selectedColor"
                 :aria-label="`select row ${row.initialIndex}`"
@@ -173,9 +182,10 @@
         <slot name="footerPrepend" />
 
         <tr v-if="!hideDefaultHeader" class="va-data-table__table-tr">
-          <th v-if="selectable" class="va-data-table__table-th">
+          <th v-if="selectable" class="va-data-table__table-th va-data-table__table-cell-select">
             <va-checkbox
               v-if="selectMode === 'multiple'"
+              class="va-data-table__table-cell-checkbox"
               aria-label="select all rows"
               :model-value="severalRowsSelected ? 'idl' : allRowsSelected"
               :true-value="true"
@@ -228,6 +238,12 @@
         <slot name="footerAppend" />
       </tfoot>
     </table>
+
+    <div
+      v-if="doRenderBottomTrigger"
+      ref="bottomTrigger"
+      class="va-data-table__scroll-trigger"
+    />
   </va-inner-loading>
 </template>
 
@@ -236,6 +252,7 @@ import { computed, defineComponent, HTMLAttributes, PropType, TableHTMLAttribute
 import omit from 'lodash/omit.js'
 import pick from 'lodash/pick.js'
 
+import { useComponentPresetProp } from '../../composables'
 import useColumns, { sortingOptionsValidator } from './hooks/useColumns'
 import useRows from './hooks/useRows'
 import useFilterable from './hooks/useFilterable'
@@ -245,7 +262,7 @@ import useSelectableRow from './hooks/useSelectableRow'
 import useStylable from './hooks/useStylable'
 import useBinding from './hooks/useBinding'
 import useAnimationName from './hooks/useAnimationName'
-import { useComponentPresetProp } from '../../composables'
+import useTableScroll, { useTableScrollProps, useTableScrollEmits } from './hooks/useTableScroll'
 
 import type {
   DataTableColumnSource,
@@ -272,7 +289,9 @@ type emitNames = 'update:modelValue' |
   'selectionChange' |
   'row:click' |
   'row:dblclick' |
-  'row:contextmenu'
+  'row:contextmenu' |
+  'scroll:top' |
+  'scroll:bottom'
 
 /*
   TODO: consider a possibility to lazy-load the hooks with dynamic imports based on respective props' values. E.G.
@@ -297,6 +316,7 @@ export default defineComponent({
 
   props: {
     ...useComponentPresetProp,
+    ...useTableScrollProps,
     columns: { type: Array as PropType<DataTableColumnSource[]>, default: () => [] as DataTableColumnSource[] },
     items: { type: Array as PropType<DataTableItem[]>, default: () => [] as DataTableItem[] },
     itemsTrackBy: { type: [String, Function] as PropType<string | ((item: DataTableItem) => any)>, default: '' },
@@ -343,6 +363,7 @@ export default defineComponent({
     'row:click',
     'row:dblclick',
     'row:contextmenu',
+    ...useTableScrollEmits,
   ],
 
   setup (props, { attrs, emit }) {
@@ -372,8 +393,7 @@ export default defineComponent({
     } = useSelectableRow(paginatedRows, props, emit)
 
     const {
-      rowCSSVariables,
-      stickyCSSVariables,
+      CSSVariables,
       getHeaderCSSVariables,
       getCellCSSVariables,
       getFooterCSSVariables,
@@ -417,7 +437,18 @@ export default defineComponent({
       ? sortingOrderSync.value === 'asc' ? 'ascending' : 'descending'
       : 'none'
 
+    const {
+      scrollContainer,
+      topTrigger,
+      bottomTrigger,
+      doRenderTopTrigger,
+      doRenderBottomTrigger,
+    } = useTableScroll(props, emit)
+
     return {
+      scrollContainer,
+      topTrigger,
+      bottomTrigger,
       columnsComputed,
       rows: paginatedRows,
       ctrlSelectRow,
@@ -430,8 +461,7 @@ export default defineComponent({
       sortingOrderSync,
       toggleSorting,
       sortingOrderIconName,
-      stickyCSSVariables,
-      rowCSSVariables,
+      CSSVariables,
       getHeaderCSSVariables,
       getCellCSSVariables,
       getFooterCSSVariables,
@@ -446,6 +476,8 @@ export default defineComponent({
       getColumnAriaSortOrder,
       getRowBind,
       getCellBind,
+      doRenderTopTrigger,
+      doRenderBottomTrigger,
     }
   },
 })
@@ -457,11 +489,11 @@ export default defineComponent({
   // The calculated variables are taken from a respective element's `style` attribute. See the `useStylable` hook
 
   .va-data-table {
-    --va-data-table-selected-color: v-bind(rowCSSVariables.selectedColor);
-    --va-data-table-hover-color: v-bind(rowCSSVariables.hoverColor);
-    --va-data-table-thead-background: v-bind(stickyCSSVariables.stickyBg);
-    --va-data-table-tfoot-background: v-bind(stickyCSSVariables.stickyBg);
-    --va-data-table-height: v-bind(stickyCSSVariables.tableHeight);
+    --va-data-table-selected-color: v-bind(CSSVariables.selectedColor);
+    --va-data-table-hover-color: v-bind(CSSVariables.hoverColor);
+    --va-data-table-height--computed: v-bind(CSSVariables.tableHeight);
+    --va-data-table-thead-background--computed: v-bind(CSSVariables.theadBg);
+    --va-data-table-tfoot-background--computed: v-bind(CSSVariables.tfootBg);
 
     overflow-x: auto;
     overflow-y: hidden;
@@ -471,7 +503,8 @@ export default defineComponent({
     &--sticky,
     &--scroll {
       overflow-y: auto;
-      height: var(--va-data-table-height);
+      height: var(--va-data-table-height--computed);
+      max-height: var(--va-data-table-max-height);
 
       // 1) doesn't work in Firefox
       // 2) doesn't disappear on mac (the standard one does)
@@ -484,8 +517,8 @@ export default defineComponent({
       white-space: nowrap;
 
       .va-data-table__table-thead {
-        border-bottom: var(--va-data-table-thead-border);
         color: var(--va-data-table-thead-color);
+        border-bottom: var(--va-data-table-thead-border);
 
         th {
           border-bottom: none;
@@ -496,7 +529,7 @@ export default defineComponent({
           position: sticky;
           top: 0;
           z-index: 1;
-          background: var(--va-data-table-thead-background);
+          background: var(--va-data-table-thead-background--computed);
         }
       }
 
@@ -508,8 +541,8 @@ export default defineComponent({
       }
 
       .va-data-table__table-tfoot {
+        color: var(--va-data-table-tfoot-color);
         border-top: var(--va-data-table-thead-border);
-        color: var(--va-data-table-thead-color);
 
         th {
           border-bottom: none;
@@ -520,7 +553,7 @@ export default defineComponent({
           position: sticky;
           bottom: 0;
           z-index: 1;
-          background: var(--va-data-table-tfoot-background);
+          background: var(--va-data-table-tfoot-background--computed);
         }
       }
 
@@ -558,6 +591,10 @@ export default defineComponent({
             opacity: 1;
             pointer-events: initial;
           }
+
+          &:focus-visible {
+            opacity: 1;
+          }
         }
 
         span {
@@ -565,7 +602,7 @@ export default defineComponent({
         }
 
         &:hover {
-          .va-data-table__table-th-sorting-icon:not(.active) {
+          .va-data-table__table-th-sorting-icon:not(.active, :focus-visible) {
             opacity: var(--va-data-table-hover-th-opacity);
           }
         }
@@ -585,6 +622,10 @@ export default defineComponent({
           text-align: var(--va-data-table-selectable-cell-text-align);
           vertical-align: var(--va-data-table-selectable-cell-vertical-align);
           cursor: var(--va-data-table-selectable-tr-cursor);
+        }
+
+        & .va-data-table__table-cell-checkbox {
+          display: block;
         }
       }
 
@@ -607,7 +648,7 @@ export default defineComponent({
 
           &:nth-child(2n) {
             &:not(.selected) {
-              @include va-background(var(--va-data-table-striped-tr-background-color), var(--va-data-table-striped--tr-opacity), -1);
+              @include va-background(var(--va-data-table-striped-tr-background-color), var(--va-data-table-striped-tr-opacity), -1);
             }
           }
         }
@@ -615,17 +656,19 @@ export default defineComponent({
 
       &.selectable,
       &.hoverable {
-        .va-data-table__table-tr {
-          &:hover {
-            background-color: var(--va-data-table-hover-color);
+        :not(thead, tfoot) {
+          .va-data-table__table-tr {
+            &:hover {
+              background-color: var(--va-data-table-hover-color);
+            }
           }
-        }
 
-        .va-data-table__table-tr:nth-child(2n) {
-          &:hover {
-            background-color: var(--va-data-table-hover-color);
+          .va-data-table__table-tr:nth-child(2n) {
+            &:hover {
+              background-color: var(--va-data-table-hover-color);
 
-            @include va-background-opacity(transparent);
+              @include va-background-opacity(transparent);
+            }
           }
         }
       }
@@ -656,6 +699,10 @@ export default defineComponent({
       .table-transition-shuffle-enter-active {
         transition: opacity var(--va-data-table-transition);
       }
+    }
+
+    &__scroll-trigger {
+      user-select: none;
     }
   }
 </style>

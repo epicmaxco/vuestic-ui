@@ -46,6 +46,12 @@ export default defineManualApi({
     'row:dblclick': {
       types: '`() => RowClickEmit`',
     },
+    'scroll:bottom': {
+      types: '`() => Event`',
+    },
+    'scroll:top': {
+      types: '`() => Event`',
+    },
   },
   slots: {
     colgroup: {},
