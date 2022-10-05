@@ -8,7 +8,7 @@
     :color="loadingColor"
   >
     <div
-      v-if="isTopTriggerListener"
+      v-if="doRenderTopTrigger"
       ref="topTrigger"
       class="va-data-table__scroll-trigger"
     />
@@ -241,7 +241,7 @@
     </table>
 
     <div
-      v-if="isBottomTriggerListener"
+      v-if="doRenderBottomTrigger"
       ref="bottomTrigger"
       class="va-data-table__scroll-trigger"
     />
@@ -442,8 +442,8 @@ export default defineComponent({
       scrollContainer,
       topTrigger,
       bottomTrigger,
-      isTopTriggerListener,
-      isBottomTriggerListener,
+      doRenderTopTrigger,
+      doRenderBottomTrigger,
     } = useTableScroll(props, emit)
 
     return {
@@ -477,8 +477,8 @@ export default defineComponent({
       getColumnAriaSortOrder,
       getRowBind,
       getCellBind,
-      isTopTriggerListener,
-      isBottomTriggerListener,
+      doRenderTopTrigger,
+      doRenderBottomTrigger,
     }
   },
 })

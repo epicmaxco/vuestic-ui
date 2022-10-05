@@ -16,8 +16,8 @@ export default function useTableScroll (
   // NOTE: unfortunately, this is not reactive
   // TODO: replace 'vNodeProps' with '$listeners' when it's available in vue 3
   const vNodeProps = getCurrentInstance()?.vnode.props
-  const isTopTriggerListener = vNodeProps?.['onScroll:top'] !== undefined
-  const isBottomTriggerListener = vNodeProps?.['onScroll:bottom'] !== undefined
+  const doRenderTopTrigger = vNodeProps?.['onScroll:top'] !== undefined
+  const doRenderBottomTrigger = vNodeProps?.['onScroll:bottom'] !== undefined
 
   const scrollContainer = useElementRef()
   const topTrigger = useElementRef()
@@ -57,7 +57,7 @@ export default function useTableScroll (
     scrollContainer,
     topTrigger,
     bottomTrigger,
-    isTopTriggerListener,
-    isBottomTriggerListener,
+    doRenderTopTrigger,
+    doRenderBottomTrigger,
   }
 }
