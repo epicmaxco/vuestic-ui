@@ -1,0 +1,10 @@
+:root {
+  --va-tree-node-contents-gap: 8px;
+  --va-tree-node-padding: 6px;
+  --va-tree-node-border-radius: 4px;
+  --va-tree-node-indent: 28px;
+  --va-tree-node-content-item-flex: 0 0 var(--va-tree-node-indent);
+  --va-tree-node-content-body-item-flex: 1;
+  --va-tree-node-interactive-bg-opacity: 0.1;
+  --va-tree-node-children-background: linear-gradient(#adb3b9 33%, rgba(255, 255, 255, 0) 0%) 15px/1px 3px repeat-y transparent;
+}

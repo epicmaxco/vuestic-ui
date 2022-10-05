@@ -1,12 +1,12 @@
 <template>
   <va-data-table :items="items" :columns="columns" footer-clone>
     <template #headerPrepend>
-      <tr class="table-example--slots slots-head">
+      <tr class="table-example-slots__head">
         <th colspan="6">Custom cell which span all cells (headPrepend slot)</th>
       </tr>
     </template>
     <template #headerAppend>
-      <tr class="table-example--slots slots-head">
+      <tr class="table-example-slots__head">
         <th colspan="1">#</th>
         <th colspan="2">User info</th>
         <th colspan="3">Contact info</th>
@@ -14,26 +14,26 @@
     </template>
 
     <template #bodyPrepend>
-      <tr class="table-example--slots slots-body">
+      <tr class="table-example-slots__body">
         <td colspan="4">Custom cell which span 4 cells (bodyPrepend slot)</td>
         <td colspan="2">Custom cell which span 2 cells (bodyPrepend slot)</td>
       </tr>
     </template>
     <template #bodyAppend>
-      <tr class="table-example--slots slots-body">
+      <tr class="table-example-slots__body">
         <td colspan="6">Custom cell which span all cells (bodyAppend slot)</td>
       </tr>
     </template>
 
     <template #footerPrepend>
-      <tr class="table-example--slots slots-foot">
+      <tr class="table-example-slots__foot">
         <th colspan="3">Span 3 cells</th>
         <th colspan="2">Span 2 cells</th>
         <th colspan="1">Span 1 cells</th>
       </tr>
     </template>
     <template #footerAppend>
-      <tr class="table-example--slots slots-foot">
+      <tr class="table-example-slots__foot">
         <th colspan="6">Span all cells (footAppend slot)</th>
       </tr>
     </template>
@@ -90,19 +90,15 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-  .table-example--slots {
-    background-color: #f0f0f0;
+  .table-example-slots__head {
+    background-color: var(--va-secondary);
   }
 
-  .table-example--slots.slots-head {
-    background-color: #d1d1d1;
+  .table-example-slots__body {
+    background-color: var(--va-background-secondary);
   }
 
-  .table-example--slots.slots-body {
-    background-color: #f1f1f1;
-  }
-
-  .table-example--slots.slots-foot {
-    background-color: #e8e8e8;
+  .table-example-slots__foot {
+    background-color: var(--va-background-element);
   }
 </style>

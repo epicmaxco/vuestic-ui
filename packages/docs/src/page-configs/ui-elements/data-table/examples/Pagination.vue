@@ -17,7 +17,7 @@
     />
 
     <va-input
-      class="flex mb-2 md3"
+      class="flex mb-2 md6"
       placeholder="Filter..."
       v-model="filter"
     />
