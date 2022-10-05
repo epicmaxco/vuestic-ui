@@ -9,14 +9,14 @@ import {
 
 import { useColors, useStateful } from '../../../composables'
 
-import type { TreeNode, TreeViewPropKey, TreeViewFilterMethod, TreeViewEmitsList } from '../types'
+import type { TreeNode, TreeViewFilterMethod } from '../types'
 import { useTreeHelpers, useTreeViewProps } from './useTreeHelpers'
 import { TreeViewKey } from '../types'
 
 type CreateNodeProps = {
   node: TreeNode
   level: number
-  children?: TreeNode[]
+  children: TreeNode[]
   computedFilterMethod: ComputedRef<TreeViewFilterMethod>
 }
 
@@ -27,13 +27,9 @@ type TypeModelValue = (string | number | TreeNode)[]
 
 type UseTreeViewFunc = (props: ExtractPropTypes<typeof useTreeViewProps>, emit: TreeViewEmitsFunc) => {
   treeItems: ComputedRef<TreeNode[]>
-  getValue?: (node: TreeNode) => TreeNode
-  getNodeByValue?: (node: TreeNode) => TreeNode
-  getText?: (node: TreeNode) => string | number
-  getDisabled?: (node: TreeNode) => boolean
-  getTrackBy?: (node: TreeNode) => TreeNode | string | number
-  getNodeProperty?: (node: TreeNode, key: TreeViewPropKey) => unknown
-  toggleCheckbox?: (node: TreeNode, state: boolean) => void
+  getText: (node: TreeNode) => string | number
+  getTrackBy: (node: TreeNode) => string | number
+  toggleCheckbox: (node: TreeNode, state: boolean) => void
 }
 
 const useTreeView: UseTreeViewFunc = (props, emit) => {
@@ -142,7 +138,7 @@ const useTreeView: UseTreeViewFunc = (props, emit) => {
       return createNode({ node, level, children, computedFilterMethod })
     }
 
-    return createNode({ node, level, computedFilterMethod })
+    return createNode({ node, level, computedFilterMethod, children: [] })
   })
 
   const getFilteredNodes = (nodes: TreeNode[]): TreeNode[] => nodes.slice().filter((node) => {
@@ -153,13 +149,13 @@ const useTreeView: UseTreeViewFunc = (props, emit) => {
 
   provide(TreeViewKey, {
     colorComputed,
-    selectable: props.selectable,
     iconBy: props.iconBy,
+    selectable: props.selectable,
     getText,
     getTrackBy,
     toggleNode,
-    getNodeProperty,
     toggleCheckbox,
+    getNodeProperty,
   })
 
   const treeItems = computed(() => buildTree(nodes.value))

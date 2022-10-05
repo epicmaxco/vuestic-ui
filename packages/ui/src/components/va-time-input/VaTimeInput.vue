@@ -88,6 +88,7 @@ import {
   useValidation, useValidationEmits, useValidationProps, ValidationProps,
   useClearable, useClearableEmits, useClearableProps,
   useFocus, useFocusEmits,
+  Placement,
 } from '../../composables'
 import { useTimeParser } from './hooks/time-text-parser'
 import { useTimeFormatter } from './hooks/time-text-formatter'
@@ -96,6 +97,7 @@ import VaTimePicker from '../va-time-picker/VaTimePicker.vue'
 import { VaInputWrapper } from '../va-input'
 import VaIcon from '../va-icon/VaIcon.vue'
 import { VaDropdown, VaDropdownContent } from '../va-dropdown'
+import type { DropdownOffsetProp } from '../va-dropdown/types'
 
 const VaInputWrapperProps = extractComponentProps(VaInputWrapper, ['focused', 'maxLength', 'counterValue', 'disabled'])
 const VaDropdownProps = extractComponentProps(VaDropdown,
@@ -306,9 +308,9 @@ export default defineComponent({
     const dropdownPropsComputed = computed(() => ({
       ...filterComponentProps(props, VaDropdownProps).value,
       closeOnContentClick: false,
-      offset: [2, 0],
+      offset: [2, 0] as DropdownOffsetProp,
       keyboardNavigation: true,
-      placement: 'bottom-start',
+      placement: 'bottom-start' as Placement,
       innerAnchorSelector: '.va-input-wrapper__field',
     }))
 

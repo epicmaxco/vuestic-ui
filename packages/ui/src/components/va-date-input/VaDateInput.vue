@@ -116,7 +116,8 @@ import { parseModelValue } from './hooks/model-value-parser'
 
 import { isRange, isSingleDate, isDates } from '../va-date-picker/utils/date-utils'
 
-import { DateInputModelValue, DateInputValue } from './types'
+import type { DateInputModelValue, DateInputValue } from './types'
+import type { DropdownOffsetProp } from '../va-dropdown/types'
 
 import VaDatePicker from '../va-date-picker/VaDatePicker.vue'
 import { VaDropdown, VaDropdownContent } from '../va-dropdown'
@@ -372,7 +373,7 @@ export default defineComponent({
 
     const dropdownPropsComputed = computed(() => ({
       ...filterComponentProps(props, VaDropdownProps).value,
-      offset: [2, 0],
+      offset: [2, 0] as DropdownOffsetProp,
       stateful: false,
       keyboardNavigation: true,
       closeOnContentClick: false,
