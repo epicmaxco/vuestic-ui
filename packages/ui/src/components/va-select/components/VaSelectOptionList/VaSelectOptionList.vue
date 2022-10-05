@@ -25,7 +25,7 @@
         :items="options"
         :track-by="$props.getTrackBy"
         :wrapper-size="rootHeight"
-        @scrolled-to-end="handleScrollToBottom"
+        @scroll:bottom="handleScrollToBottom"
         v-slot="{ item: option, index }"
       >
         <va-select-option
@@ -143,7 +143,7 @@ export default defineComponent({
 
     const optionGroups = computed(() => filteredOptions.value
       .reduce((groups: Record<string, SelectOption[]>, option) => {
-        if (typeof option !== 'object' || !option.group) {
+        if (typeof option !== 'object' || !!props.getGroupBy(option)) {
           groups._noGroup.push(option)
         } else {
           const groupBy = props.getGroupBy(option)
@@ -266,7 +266,7 @@ export default defineComponent({
       padding: var(--va-select-option-list-empty-block-padding);
     }
 
-    @include va-scroll();
+    @include va-scroll(var(--va-primary));
 
     &__group-name {
       padding: var(--va-select-option-list-group-name-padding);

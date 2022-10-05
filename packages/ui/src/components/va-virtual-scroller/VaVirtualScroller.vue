@@ -41,7 +41,7 @@ export default defineComponent({
     disabled: { type: Boolean, default: false },
   },
 
-  emits: ['scrolled-to-end'],
+  emits: ['scroll:bottom'],
 
   setup: (props, { emit }) => {
     const listScrollPosition = ref(0)
@@ -59,7 +59,7 @@ export default defineComponent({
 
     watch(listScrollPosition, (newValue) => {
       if (newValue + wrapperSize.value === containerSize.value) {
-        emit('scrolled-to-end')
+        emit('scroll:bottom')
       }
     })
 

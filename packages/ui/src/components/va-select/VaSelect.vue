@@ -125,34 +125,33 @@
         @keydown.enter.prevent="selectOrAddOption"
         @focus="hoveredOption = null"
       />
-      <div class="va-select-dropdown__options-wrapper">
-        <va-select-option-list
-          ref="optionList"
-          v-model:hoveredOption="hoveredOption"
-          :style="{ maxHeight: $props.maxHeight }"
-          :options="filteredOptions"
-          :selected-value="valueComputed"
-          :get-selected-state="checkIsOptionSelected"
-          :get-text="getText"
-          :get-track-by="getTrackBy"
-          :get-group-by="getGroupBy"
-          :search="searchInput"
-          :no-options-text="$props.noOptionsText"
-          :color="$props.color"
-          :tabindex="tabIndexComputed"
-          :virtual-scroller="$props.virtualScroller"
-          @select-option="selectOption"
-          @no-previous-option-to-hover="focusSearchBar"
-          @keydown.enter.stop.prevent="selectHoveredOption"
-          @keydown.space.stop.prevent="selectHoveredOption"
-          @keydown.tab.stop.prevent="searchBar && searchBar.focus()"
-          @keydown="onHintedSearch"
-          @scroll-bottom="onScrollBottom"
-          v-slot="slotData"
-        >
-          <slot name="option" v-bind="slotData || {}" />
-        </va-select-option-list>
-      </div>
+      <va-select-option-list
+        ref="optionList"
+        class="va-select-dropdown__options-wrapper"
+        v-model:hoveredOption="hoveredOption"
+        :style="{ maxHeight: $props.maxHeight }"
+        :options="filteredOptions"
+        :selected-value="valueComputed"
+        :get-selected-state="checkIsOptionSelected"
+        :get-text="getText"
+        :get-track-by="getTrackBy"
+        :get-group-by="getGroupBy"
+        :search="searchInput"
+        :no-options-text="$props.noOptionsText"
+        :color="$props.color"
+        :tabindex="tabIndexComputed"
+        :virtual-scroller="$props.virtualScroller"
+        @select-option="selectOption"
+        @no-previous-option-to-hover="focusSearchBar"
+        @keydown.enter.stop.prevent="selectHoveredOption"
+        @keydown.space.stop.prevent="selectHoveredOption"
+        @keydown.tab.stop.prevent="searchBar && searchBar.focus()"
+        @keydown="onHintedSearch"
+        @scroll-bottom="onScrollBottom"
+        v-slot="slotData"
+      >
+        <slot name="option" v-bind="slotData || {}" />
+      </va-select-option-list>
     </va-dropdown-content>
   </va-dropdown>
 </template>

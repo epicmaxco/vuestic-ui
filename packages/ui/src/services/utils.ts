@@ -123,7 +123,7 @@ export const isParsablePositiveMeasure = (value: unknown) => {
  * @example checkSlotChildrenDeep(slots.default)
  */
 export const checkSlotChildrenDeep = (v: any, initial = true): boolean => {
-  if (!v || (initial && (!isFunction(v) || !v() || !v().length))) { return false }
+  if (!v || (initial && (!isFunction(v) || !v()?.length))) { return false }
 
   const slotData = initial ? v() : v
 

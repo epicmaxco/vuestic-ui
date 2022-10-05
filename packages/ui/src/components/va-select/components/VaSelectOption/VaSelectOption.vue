@@ -9,13 +9,13 @@
     <va-icon
       v-if="optionIcon"
       size="small"
-      class="va-select-option--icon"
+      class="va-select-option__icon"
       :name="optionIcon"
     />
     {{ optionText }}
     <va-icon
       v-show="isSelected"
-      class="va-select-option--selected-icon"
+      class="va-select-option__selected-icon"
       size="small"
       name="done"
       :color="optionIconColor"
@@ -95,11 +95,11 @@ export default defineComponent({
     word-break: var(--va-select-option-list-option-word-break);
     cursor: var(--va-select-option-list-option-cursor);
 
-    &--icon {
+    &__icon {
       margin-right: var(--va-select-option-list-option-icon-margin-right);
     }
 
-    &--selected-icon {
+    &__selected-icon {
       margin-left: var(--va-select-option-list-option-selected-icon-margin-left);
       font-size: var(--va-select-option-list-option-selected-icon-font-size);
     }
