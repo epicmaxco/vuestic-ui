@@ -2,14 +2,9 @@
   <va-dropdown
     v-model="isOpenSync"
     class="va-date-input"
-    inner-anchor-selector=".va-input-wrapper__field"
     :class="$attrs.class"
     :style="$attrs.style"
-    :offset="[2, 0]"
-    :close-on-content-click="false"
-    :stateful="false"
-    :disabled="$props.disabled"
-    keyboard-navigation
+    v-bind="dropdownPropsComputed"
     @open="focusDatePicker"
     @close="focus"
   >
@@ -92,7 +87,17 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, toRefs, watch, ref, shallowRef, nextTick } from 'vue'
+import {
+  computed,
+  defineComponent,
+  PropType,
+  toRefs,
+  watch,
+  ref,
+  shallowRef,
+  nextTick,
+  WritableComputedRef,
+} from 'vue'
 import omit from 'lodash/omit'
 
 import { filterComponentProps, extractComponentProps, extractComponentEmits } from '../../utils/child-props'
@@ -120,6 +125,9 @@ import { VaIcon } from '../va-icon'
 
 const VaInputWrapperProps = extractComponentProps(VaInputWrapper, ['focused', 'maxLength', 'counterValue', 'disabled'])
 const VaDatePickerProps = extractComponentProps(VaDatePicker)
+const VaDropdownProps = extractComponentProps(VaDropdown,
+  ['innerAnchorSelector', 'stateful', 'offset', 'keyboardNavigation', 'closeOnContentClick', 'modelValue'],
+)
 
 export default defineComponent({
   name: 'VaDateInput',
@@ -133,6 +141,7 @@ export default defineComponent({
   },
 
   props: {
+    ...VaDropdownProps,
     ...useClearableProps,
     ...VaInputWrapperProps,
     ...VaDatePickerProps,
@@ -177,7 +186,7 @@ export default defineComponent({
     const datePicker = ref<typeof VaDatePicker>()
 
     const { isOpen, resetOnClose } = toRefs(props)
-    const { valueComputed: statefulValue } = useStateful<DateInputModelValue>(props, emit)
+    const { valueComputed: statefulValue }: { valueComputed: WritableComputedRef<DateInputModelValue> } = useStateful(props, emit)
     const { syncProp: isOpenSync } = useSyncProp(isOpen, 'is-open', emit, false)
 
     const { isFocused, focus, blur, onFocus: focusListener, onBlur: blurListener } = useFocus(input)
@@ -361,6 +370,15 @@ export default defineComponent({
       ...omit(attrs, ['class', 'style']),
     }))
 
+    const dropdownPropsComputed = computed(() => ({
+      ...filterComponentProps(props, VaDropdownProps).value,
+      offset: [2, 0],
+      stateful: false,
+      keyboardNavigation: true,
+      closeOnContentClick: false,
+      innerAnchorSelector: '.va-input-wrapper__field',
+    }))
+
     return {
       datePicker,
       valueText,
@@ -376,6 +394,7 @@ export default defineComponent({
       inputListeners: computedInputListeners,
       inputAttributesComputed,
       datePickerProps: filterComponentProps(props, VaDatePickerProps),
+      dropdownPropsComputed,
 
       filterSlots,
       canBeCleared,

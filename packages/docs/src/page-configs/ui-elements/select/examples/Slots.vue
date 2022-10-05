@@ -2,6 +2,17 @@
   <div style="max-width: 300px;">
     <va-select
       class="mb-4"
+      label="Content slot"
+      :options="options"
+      v-model="value"
+      multiple
+    >
+      <template #content="{ valueString }">
+        {{ valueString }}
+      </template>
+    </va-select>
+    <va-select
+      class="mb-4"
       label="Prepend slot"
       :options="options"
       v-model="value"
@@ -37,7 +48,6 @@
       </template>
     </va-select>
     <va-select
-      class="mb-4"
       label="Append slot"
       :options="options"
       v-model="value"

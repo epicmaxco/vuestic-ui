@@ -94,7 +94,17 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref, toRefs, shallowRef, computed, watch, nextTick } from 'vue'
+import {
+  defineComponent,
+  PropType,
+  ref,
+  toRefs,
+  shallowRef,
+  computed,
+  watch,
+  nextTick,
+  WritableComputedRef,
+} from 'vue'
 import clamp from 'lodash/clamp.js'
 import pick from 'lodash/pick.js'
 
@@ -152,7 +162,7 @@ export default defineComponent({
 
     const usesTotal = computed(() => !!((props.total || props.total === 0) && props.pageSize))
 
-    const { valueComputed } = useStateful<number>(props, emit)
+    const { valueComputed }: { valueComputed: WritableComputedRef<number> } = useStateful(props, emit)
 
     const currentValue = computed({
       get: () => usesTotal.value ? Math.ceil(valueComputed.value / props.pageSize) || 1 : valueComputed.value,

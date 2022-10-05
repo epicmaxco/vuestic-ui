@@ -31,14 +31,16 @@ export default function useStyleable (props: useStylableProps) {
 
   const color = computed(() => getColor(props.selectedColor))
 
-  const rowCSSVariables = computed(() => ({
+  const CSSVariables = computed(() => ({
     hoverColor: getHoverColor(color.value),
     selectedColor: props.selectable ? getFocusColor(color.value) : undefined,
-  }))
-
-  const stickyCSSVariables = computed(() => ({
-    stickyBg: (props.stickyHeader || props.stickyFooter) ? 'var(--va-data-table-header-background)' : undefined,
-    tableHeight: props.height ? safeCSSLength(props.height) : undefined,
+    tableHeight: props.height ? safeCSSLength(props.height) : 'var(--va-data-table-height)',
+    theadBg: props.stickyHeader
+      ? 'var(--va-data-table-thead-background, var(--va-data-table-header-background))'
+      : 'var(--va-data-table-thead-background)',
+    tfootBg: props.stickyFooter
+      ? 'var(--va-data-table-tfoot-background, var(--va-data-table-header-background))'
+      : 'var(--va-data-table-tfoot-background)',
   }))
 
   const getHeaderCSSVariables = (column: DataTableColumnInternal) => ({
@@ -60,8 +62,7 @@ export default function useStyleable (props: useStylableProps) {
   })
 
   return {
-    rowCSSVariables,
-    stickyCSSVariables,
+    CSSVariables,
     getHeaderCSSVariables,
     getCellCSSVariables,
     getFooterCSSVariables,
