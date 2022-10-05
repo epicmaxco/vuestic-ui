@@ -92,7 +92,7 @@ export default defineComponent({
   },
 
   setup (props, { emit }) {
-    const { valueComputed } = useStateful(props, emit, props.defaultValue)
+    const { valueComputed } = useStateful(props, emit, 'modelValue', { defaultValue: props.defaultValue })
 
     const { getValue, getText, getTrackBy, getDisabled } = useSelectableList(props)
 
@@ -123,7 +123,7 @@ export default defineComponent({
 
     const isDisabled = (option: SelectableOption) => props.disabled || getDisabled(option)
 
-    const reset = () => { valueComputed.value = undefined }
+    const reset = () => { valueComputed.value = null }
 
     const focus = () => {
       const firstActiveEl = Array.isArray(itemRefs.value) && itemRefs.value.find(el => !(el as HTMLInputElement).disabled)

@@ -1251,6 +1251,45 @@
       "methods": {},
       "slots": {}
     },
+    "VaTreeView": {
+      "props": {
+        "nodes": "Массив элементов дерева.",
+        "selectable": "Отображение чекбоксов.",
+        "selectionType": "Способ выбора элементов дерева, где `leaf` выбор текущего и дочерних элементов дерева, `independent` - одиночный выбор элементов.",
+        "valueBy":  "Ключ для отслеживания элементов дерева.",
+        "textBy": "Ключ для отображения значения элемента дерева.",
+        "trackBy": "Ключ для индексации элементов дерева.",
+        "iconBy": "Ключ, по которому расположение название иконки.",
+        "disabledBy":  "Ключ, который указывает на disabled состояние элемента дерева.",
+        "expandedBy": "Ключ, по-которому указано состояние раскрытого элемента дерева.",
+        "expandAll": "Раскрыть все элементы дерева по умолчанию.",
+        "filter": "Фильтр tree view.",
+        "filterMethod": "Кастомный метод фильтра tree view.",
+        "checked": "Массив пред-выбранных элементов дерева.",
+        "checkedBy": "Ключ для установки поля значения чекбокса в модели компонента.",
+        "color":  "Цвет чекбоксов.",
+        "expanded": "Массив пред-раскрытых элементов дерева"
+      },
+      "slots": {
+        "notFound": "Сообщение о не найденных соответствующих фильтру элементов дерева."
+      },
+      "events": {
+        "updateChecked": "Массив выбранных элементов дерева.",
+        "updateExpanded": "Массив раскрытых элементов дерева"
+      }
+    },
+    "VaTreeNode": {
+      "props": {
+        "node": "Объект элемента дерева."
+      },
+      "slots": {
+        "content": "Настраиваемое отображение элемента дерева.",
+        "checkbox": "Настраиваемый чекбокс.",
+        "icon": "Дополнительная иконка.",
+        "iconToggle": "Иконка для отображения свернутого/развернутого элемента дерева.",
+        "notFound": "Сообщение о не найденных элементов дерева, соответствующих фильтру."
+      }
+    },
     "VaScrollContainer": {
       "props": {},
       "events": {},
@@ -1405,7 +1444,9 @@
     "dropdown": "Dropdown",
     "split": "Split",
     "virtualScroller": "Virtual Scroller",
-    "scrollContainer": "Scroll Container"
+    "scrollContainer": "Scroll Container",
+    "spacer": "Spacer",
+    "treeView": "Tree view"
   },
   "all": {
     "examples": "Примеры",
@@ -4184,6 +4225,29 @@
   },
   "ssrGuide": {
     "title": "SSR Guide"
+  },
+  "treeView": {
+    "title": "Tree view",
+    "description": "Компонент для отображения иерархических или вложенных данных",
+    "examples": {
+      "default": {
+        "title": "Базовое использование"
+      },
+      "customizableContent": {
+        "title": "Настраиваемый контент",
+        "description": "Вы можете настроить содержимое элементов дерева"
+      },
+      "filters": {
+        "title": "Фильтры"
+      },
+      "selectable": {
+        "title": "Чекбоксы"
+      }
+    },
+    "api": {
+      "treeViewTitle": "Tree view API",
+      "treeNodeTitle": "Tree node API"
+    }
   },
   "spacer": {
     "title": "Spacer component",

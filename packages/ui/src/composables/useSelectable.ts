@@ -5,7 +5,7 @@ import { useLoadingProps, LoadingProps } from './useLoading'
 import { useValidation, useValidationProps, ValidationProps, useValidationEmits } from './useValidation'
 import { useFocus } from './useFocus'
 
-export type SelectableProps<V = any> = StatefulProps<V> & LoadingProps & ExtractPropTypes<ValidationProps<V>> & {
+export type SelectableProps<V = any> = StatefulProps & LoadingProps & ExtractPropTypes<ValidationProps<V>> & {
   arrayValue: V | undefined,
   label: string,
   leftLabel: boolean,
