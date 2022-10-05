@@ -643,7 +643,7 @@ export default defineComponent({
       ...filterComponentProps(props, VaDropdownProps).value,
       closeOnContentClick: closeOnContentClick.value,
       stateful: false,
-      offset: [1, 0],
+      offset: [1, 0] as [number, number],
       keepAnchorWidth: true,
       keyboardNavigation: true,
       innerAnchorSelector: '.va-input-wrapper__field',
