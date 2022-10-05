@@ -64,7 +64,19 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, provide, reactive, ref, unref, watch, Ref, shallowRef, StyleValue } from 'vue'
+import {
+  computed,
+  defineComponent,
+  provide,
+  reactive,
+  ref,
+  unref,
+  watch,
+  Ref,
+  shallowRef,
+  StyleValue,
+  WritableComputedRef,
+} from 'vue'
 
 import {
   useComponentPresetProp,
@@ -73,7 +85,7 @@ import {
   useResizeObserver,
 } from '../../composables'
 
-import { TabsViewKey, TabComponent } from './types'
+import { TabsViewKey, TabComponent, TabSelected } from './types'
 
 import { VaButton } from '../va-button'
 import { VaConfig } from '../va-config'
@@ -115,7 +127,8 @@ export default defineComponent({
     const tabsContentOffset = ref(0)
     const startingXPoint = ref(0)
     const animationIncluded = ref(false)
-    const { valueComputed: tabSelected } = useStateful<string | number | null>(props, emit)
+    const { valueComputed: tabSelected }: { valueComputed: WritableComputedRef<TabSelected> } = useStateful(props, emit)
+
     const tabConfig = reactive({
       VaTab: {
         color: props.color,

@@ -372,6 +372,10 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'dropdown',
         displayName: 'menu.dropdown',
       },
+      {
+        name: 'tree-view',
+        displayName: 'menu.treeView',
+      },
       // GENERATOR_ADD - uiElements
     ],
   },

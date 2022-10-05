@@ -8,17 +8,20 @@
   --va-data-table-thead-border: 1px solid currentColor;
   --va-data-table-thead-border-top-shadow: inset 0 1px 0 0 currentColor;
   --va-data-table-thead-border-bottom-shadow: inset 0 -1px 0 0 currentColor;
+  --va-data-table-height: unset;
+  --va-data-table-max-height: unset;
   --va-data-table-thead-color: currentColor;
-
-  /* Sticky */
-  --va-data-table-header-background: var(--va-white);
+  --va-data-table-tfoot-color: currentColor;
+  --va-data-table-header-background: var(--va-background-primary);
+  // --va-data-table-thead-background - set if you need more fine tuning
+  // --va-data-table-tfoot-background - set if you need more fine tuning
 
   /* hover */
   --va-data-table-hover-th-opacity: 0.3;
 
   /* Striped */
-  --va-data-table-striped-tr-background-color: var(--va-gray);
-  --va-data-table-striped--tr-opacity: 0.2;
+  --va-data-table-striped-tr-background-color: var(--va-background-secondary);
+  --va-data-table-striped-tr-opacity: 1;
 
   /* Selectable */
   --va-data-table-selectable-tr-cursor: pointer;
