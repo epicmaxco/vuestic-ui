@@ -22,9 +22,13 @@
         </div>
         <nav class="header__links">
           <!-- vuestic buttons -->
-          <va-button :to="`/${$root.$i18n.locale}/introduction/overview`" class="header__links--link" flat color="primary">{{ $t('landing.header.buttons.overview') }}</va-button>
-          <va-button href="https://discord.gg/u7fQdqQt8c" target="blank" flat color="primary"> <va-icon name="discord" class="mr-1" size="small" /> {{ $t('landing.header.buttons.discord') }}</va-button>
-          <va-button href="https://epicmax.co/blog" target="blank" flat color="primary"><va-icon name="exit_to_app" class="mr-1" size="small" /> {{ $t('landing.header.buttons.blog') }}</va-button>
+          <va-button :to="`/${$root.$i18n.locale}/introduction/overview`" class="header__links--link" preset="secondary">{{ $t('landing.header.buttons.overview') }}</va-button>
+          <va-button href="https://discord.gg/u7fQdqQt8c" target="blank" class="header__links--link" preset="secondary">
+            <va-icon name="discord" class="mr-1" size="small" /> {{ $t('landing.header.buttons.discord') }}
+          </va-button>
+          <va-button href="https://epicmax.co/blog" target="blank" class="header__links--link" preset="secondary">
+            <va-icon name="exit_to_app" class="mr-1" size="small" /> {{ $t('landing.header.buttons.blog') }}
+          </va-button>
           <language-dropdown class="header__links--link ml-2" />
           <landing-stars-button class="ml-2" repo="epicmaxco/vuestic-ui" />
         </nav>
@@ -43,7 +47,16 @@
             </va-list-item>
             <va-list-item>
               <va-list-item-section class="mobile-menu__link">
-                <a href="https://discord.gg/u7fQdqQt8c" target="_blank">{{ $t('landing.header.buttons.discord') }}</a>
+                <a href="https://discord.gg/u7fQdqQt8c" target="_blank">
+                  <va-icon name="discord" class="mr-1" size="small" />  {{ $t('landing.header.buttons.discord') }}
+                </a>
+              </va-list-item-section>
+            </va-list-item>
+            <va-list-item>
+              <va-list-item-section class="mobile-menu__link">
+                <a href="https://epicmax.co/blog" target="_blank">
+                  <va-icon name="exit_to_app" class="mr-1" size="small" /> {{ $t('landing.header.buttons.blog') }}
+                </a>
               </va-list-item-section>
             </va-list-item>
             <va-list-label color="#757B83" class="mobile-menu__label">
