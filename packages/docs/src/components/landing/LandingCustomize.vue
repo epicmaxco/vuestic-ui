@@ -536,6 +536,9 @@ const copyText = () => {
       &__link {
         @include link-font();
 
+        // sm
+        @include sm(text-align, center);
+
         color: #ffffff;
         padding-top: 1rem;
         line-height: 1.5rem;
@@ -623,6 +626,9 @@ const copyText = () => {
 
     &__tab {
       @include button-font();
+
+      // sm
+      @include sm(margin, 0 0 1rem);
 
       margin-bottom: 1rem;
       margin-left: 0.51rem;
