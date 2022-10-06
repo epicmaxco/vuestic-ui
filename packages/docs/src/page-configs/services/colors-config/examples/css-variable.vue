@@ -25,8 +25,7 @@
 
 <script>
 import { computed } from 'vue'
-import { useColors } from 'vuestic-ui/src/main'
-import { COLOR_THEMES } from '../../../../config/theme-config'
+import { useColors, useTheme } from 'vuestic-ui/src/main'
 
 export default {
   props: {
@@ -34,10 +33,11 @@ export default {
     buttonText: { type: String, default: 'Primary color button' },
   },
   setup () {
+    const { presets } = useTheme()
     const { setColors, getColor } = useColors()
 
     const colorsToChange = [
-      COLOR_THEMES.DEFAULT.primary,
+      presets.value.light.primary,
       '#ef476f',
       '#ffd166',
       '#06d6a0',
