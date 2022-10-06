@@ -3663,7 +3663,7 @@
       "title": "Quick start",
       "description": "If you want to make some changes get a local copy of VausticUI:",
       "steps": {
-        "1": "Fork Vaustic repository",
+        "1": "Fork Vuestic repository",
         "2": "Clone your fork",
         "3": "Install dependencies with `yarn install`"
       }
@@ -3686,7 +3686,7 @@
       "title": "Commonly used scripts",
       "list": {
         "demo": "`yarn serve` - this will run project with demos, where you can test component features.",
-        "docs": "`yarn serve:docs` - this will run docs from [vuestic.dev](https://vuestic.dev)."
+        "docs": "`yarn serve:docs` - this will run project with docs (deployed here [vuestic.dev](https://vuestic.dev))."
       },
       "notice": "You can find more scripts in `package.json` of each package."
     },
@@ -3695,7 +3695,7 @@
       "description": "We have few generate scripts for you to make your life easier.",
       "scripts": {
         "docs": "`yarn generate:docs` will make new docs page.",
-        "component": "`yarn generate:components` will make new component."
+        "component": "`yarn generate:component` will make new component."
       }
     },
     "pullRequests": {
