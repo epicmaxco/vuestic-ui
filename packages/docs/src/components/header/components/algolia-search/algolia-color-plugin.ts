@@ -16,9 +16,7 @@ const AlgoliaColorPlugin = {
   install (app: App) {
     app.mixin({
       setup () {
-        const { getColors } = useColors()
-        const colors = computed(() => getColors())
-        return { colors }
+        return useColors()
       },
       created () {
         watch(() => this.colors, (colors) => {

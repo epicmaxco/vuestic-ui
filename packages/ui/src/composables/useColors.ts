@@ -11,7 +11,7 @@ import {
   shiftHSLAColor,
   setHSLAColor,
   isCSSVariable,
-  isLightBackground,
+  getTextColor as getTextColorBase,
   colorToRgba,
   getStateMaskGradientBackground,
 } from '../services/color-config/color-functions'
@@ -117,7 +117,7 @@ export const useColors = () => {
   }
 
   const getTextColor = (color: ColorInput, darkColor = 'textDark', lightColor = 'textLight') => {
-    return isLightBackground(color, 120) ? darkColor : lightColor
+    return getTextColorBase(color, darkColor, lightColor, 120)
   }
 
   return {
@@ -135,7 +135,6 @@ export const useColors = () => {
     shiftHSLAColor,
     setHSLAColor,
     colorsToCSSVariable,
-    isLightBackground,
     colorToRgba,
     getStateMaskGradientBackground,
   }

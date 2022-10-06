@@ -39,8 +39,8 @@ export const createColorConfigPlugin = (app: App) => {
 
   updateColors(globalConfig.value.colors!.variables)
 
-  watch(() => globalConfig.value.colors, (newValue) => {
-    updateColors(newValue?.variables)
+  watch(() => globalConfig.value.colors!.variables, (newValue) => {
+    updateColors(newValue)
   }, { immediate: true, deep: true })
 
   return {
