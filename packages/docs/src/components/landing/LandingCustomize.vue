@@ -8,17 +8,20 @@
           <div class="customize__content">
             <!-- Tabs -->
             <div class="tabs-wrapper">
-              <va-tabs v-model="tabValue" class="tabs" color="#fff" center grow>
-                <template #tabs="scope">
-                  <div :class="scope.class">
-                    <va-tab
-                      class="tabs__tab"
-                      v-for="tab in tabs"
-                      :key="tab"
-                    >
-                      {{ tab }}
-                    </va-tab>
-                  </div>
+              <va-tabs
+                v-model="tabValue"
+                class="tabs"
+                color="#fff"
+                center
+              >
+                <template #tabs>
+                  <va-tab
+                    class="tabs__tab"
+                    v-for="tab in tabs"
+                    :key="tab"
+                  >
+                    {{ tab }}
+                  </va-tab>
                 </template>
               </va-tabs>
             </div>
