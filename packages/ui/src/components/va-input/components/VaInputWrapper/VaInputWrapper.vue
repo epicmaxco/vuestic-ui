@@ -283,6 +283,7 @@ export default defineComponent({
       min-height: var(--va-input-line-height);
       display: flex;
       align-items: center;
+      overflow: hidden;
 
       input,
       textarea {

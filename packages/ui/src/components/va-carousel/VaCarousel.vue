@@ -151,7 +151,7 @@ export default defineComponent({
   emits: useStatefulEmits,
 
   setup (props, { emit }) {
-    const { valueComputed: currentSlide } = useStateful(props, emit, 0)
+    const { valueComputed: currentSlide } = useStateful(props, emit, 'modelValue', { defaultValue: 0 })
 
     const {
       goTo, next, prev,

@@ -380,6 +380,7 @@ export default defineComponent({
 
     &__container {
       z-index: var(--va-modal-container-z-index);
+      max-width: 100%;
     }
 
     &-enter-from &__container,
