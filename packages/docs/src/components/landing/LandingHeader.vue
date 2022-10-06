@@ -43,7 +43,11 @@
             hover-mask-color="textDark"
             :hover-opacity="1"
           >
+            <va-icon name="discord" class="mr-1" size="small" />
             {{ $t('landing.header.buttons.discord') }}
+          </va-button>
+          <va-button href="https://epicmax.co/blog" target="blank" class="header__links--link" preset="secondary">
+            <va-icon name="exit_to_app" class="mr-1" size="small" /> {{ $t('landing.header.buttons.blog') }}
           </va-button>
           <language-dropdown class="header__links--link ml-4" />
           <landing-stars-button class="ml-4" repo="epicmaxco/vuestic-ui" />
@@ -63,7 +67,16 @@
             </va-list-item>
             <va-list-item>
               <va-list-item-section class="mobile-menu__link">
-                <a href="https://discord.gg/u7fQdqQt8c" target="_blank">{{ $t('landing.header.buttons.discord') }}</a>
+                <a href="https://discord.gg/u7fQdqQt8c" target="_blank">
+                  <va-icon name="discord" class="mr-1 mt-1" size="small" />
+                  {{ $t('landing.header.buttons.discord') }}</a>
+              </va-list-item-section>
+            </va-list-item>
+            <va-list-item>
+              <va-list-item-section class="mobile-menu__link">
+                <a href="https://epicmax.co/blog" target="_blank">
+                  <va-icon name="exit_to_app" class="mr-1 mt-1" size="small" />
+                  {{ $t('landing.header.buttons.blog') }}</a>
               </va-list-item-section>
             </va-list-item>
             <va-list-label color="#757B83" class="mobile-menu__label">
@@ -343,6 +356,9 @@ export default class Header extends Vue {
       a {
         color: #2550c0;
         padding: 0.5rem 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
         &:hover {
           color: #1b1a1f;

@@ -3,10 +3,11 @@
     "header": {
       "buttons": {
         "overview": "Overview",
-        "docs": "Docs",
+        "github": "GitHub",
         "discord": "Join on Discord",
         "translation": "Add translation...",
-        "language": "Language"
+        "language": "Language",
+        "blog": "Blog"
       }
     },
     "preview": {
@@ -21,7 +22,7 @@
           "title": "52 Responsive Components",
           "text": "Available components docs"
         },
-        "accessability": {
+        "accessibility": {
           "title": "Accessibility",
           "text": "Accessibility guides"
         },
@@ -715,7 +716,7 @@
         "immediateValidation": "Sets the validation to be performed when the component is mounted",
         "inputClass": "Classes for `input` (not its wrapper)",
         "pattern": "The pattern prop specifies a regular expression the input value should match",
-        "inputmode": "The inputmode prop is an enumerated prop that hints at the type of data that might be entered by the user while editing the element or its contents. This alows a browser to display an apropriate virtual keyboard",
+        "inputmode": "The inputmode prop is an enumerated prop that hints at the type of data that might be entered by the user while editing the element or its contents. This allows a browser to display an apropriate virtual keyboard",
         "counter": "Show a counter of value length",
         "maxLength": "Specify a max length of value"
       },
@@ -1531,8 +1532,8 @@
     "scrollContainer": "Scroll Container",
     "split": "Split",
     "virtualScroller": "Virtual Scroller",
-    "spacer": "Spacer",
-    "treeView": "Tree view"
+    "treeView": "Tree view",
+    "team": "Meet The Team"
   },
   "all": {
     "examples": "Examples",
@@ -1547,7 +1548,7 @@
         "componentDirectory": "component directory",
         "componentItself": "component itself",
         "componentDemo": "component demo",
-        "componentTests": "compoennt tests"
+        "componentTests": "component tests"
       },
       "npmScripts": {
         "runVueBookDevServer": "Run vue-book dev server",
@@ -1991,7 +1992,7 @@
       },
       "itemSlot": {
         "title": "Item slot",
-        "text": "You can pass own html to the component using `item` slot. We still handle user events and accessability, but you can change appearance."
+        "text": "You can pass own html to the component using `item` slot. We still handle user events and accessibility, but you can change appearance."
       },
       "customIcons": {
         "title": "Custom Icons",
@@ -2623,7 +2624,7 @@
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-progress-circle/_variables.scss)[[target=_blank]]"
   },
   "infiniteScroll": {
-    "title": "Inifinite Scroll",
+    "title": "Infinite Scroll",
     "summaryText": "The `va-infinite-scroll` component is a wrapper component which is intended to be used to create lists with dynamically added content. It provides rich interface to customize scrolling behavior and much more.",
     "examples": {
       "default": {
@@ -2693,7 +2694,7 @@
         "title": "Input types",
         "description": [
           "With a `type` property you can set the type of the input which will render native `<input type=\"text/password/search/etc\" />`.",
-          "Watch available types [here](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#input_types) (some types aren't supported or have implemented as a Veustic UI component)."
+          "Watch available types [here](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#input_types) (some types aren't supported or have implemented as a Vuestic UI component)."
         ]
       }
     },
@@ -2775,7 +2776,7 @@
       "default": {
         "title": "Default",
         "text": "Basic usage of the component with different icon fonts.",
-        "alert": "Notice that Vuestic UI uses only Material Icons by default. You need to manualy install additional libraries."
+        "alert": "Notice that Vuestic UI uses only Material Icons by default. You need to manually install additional libraries."
       },
       "color": {
         "title": "Color",
@@ -3600,10 +3601,22 @@
     "description": "We’ve designed the framework in such a way that it satisfies the most sophisticated design fantasies and allows you to implement them.",
     "featuresOverview": "Features overview",
     "vueThreeCompatible": "Fully **Vue.js 3 compatible**",
-    "featureRich": "Contains a **50+ feature-rich components** that can be used in any design solution",
+    "featureRich": "Contains **50+ feature-rich components** that can be used in any design solution",
     "configurable": "Allows **to configure components** globally via config and CSS variables",
     "responsive": "Fully **responsive** and **supports modern browsers** (no IE11, sorry)",
     "translatable": "Integrates seamlessly with **i18n**"
+  },
+  "team": {
+    "title": "Meet the Team",
+    "description": "With multiple contributors to Vuestic, the list of people you can meet below is by no means exhaustive. Just remember to thank everyone using Vuestic and supporting us, because together we all help you push your products light-years ahead of your competition.",
+    "coreTeam": "Core Team \uD83E\uDD13",
+    "coreTeamDescription": "[Epicmax](https://epicmax.co/)[[target=_blank]] is committed to open source project from its beginning. Vuestic was created by Epicmax, and is supported through all years. Please meet the core contributors. Write to [Discord](https://discord.com/invite/u7fQdqQt8c)[[target=_blank]] anytime and get a quick response from the Vuestic core team.",
+    "featureRich": "Contains a **50+ feature-rich components** that can be used in any design solution",
+    "configurable": "Allows **to configure components** globally via config and CSS variables",
+    "responsive": "Fully **responsive** and **supports modern browsers** (no IE11, sorry)",
+    "translatable": "Integrates seamlessly with **i18n**",
+    "specialThanks": "Special Thanks \uD83D\uDE4C",
+    "specialThanksDescription": "We’d like to thank all contributors, not only to those who push commits and leave their suggestions on how to improve Vuestic, but all of you, who use Vuestic to bring your power your projects."
   },
   "translation": {
     "title": "Translation",
@@ -4236,9 +4249,9 @@
     },
     "requirements": {
       "title": "Requirements and rules",
-      "esModules": "We need to use ES module (esm format) and Named Exports (`export { somthing }` instead of `export default somthing`). Export default breaks tree shaking for importend file. It will fully loaded by bundler.",
+      "esModules": "We need to use ES module (esm format) and Named Exports (`export { something }` instead of `export default something`). Export default breaks tree shaking for importend file. It will fully loaded by bundler.",
       "dependencies": "TreeShaking works only with node modules, that is written in esm format. For example, we use `lodash-es` instead of `lodash`. That way we compile only functional we need instead of full library.",
-      "beforeBuild": "Before release check dist with `bundlers-tests`. We need to check build with Webpack, Vite (Rollup) because vuestic-ui can work diffent for this two."
+      "beforeBuild": "Before release check dist with `bundlers-tests`. We need to check build with Webpack, Vite (Rollup) because vuestic-ui can work different for this two."
     }
   },
   "timePicker": {
@@ -4346,7 +4359,7 @@
       },
       "Indicators": {
         "title": "Indicator buttons",
-        "text": "Indicators (or dots) used to quicly change slide by it's index."
+        "text": "Indicators (or dots) used to quickly change slide by it's index."
       },
       "Vertical": {
         "title": "Vertical",
@@ -4387,7 +4400,7 @@
     "treeShaking": {
       "title": "Tree shaking",
       "description": "Vuestic UI is tree-shaking friendly in Nuxt as well. You can choose which css modules will be used. This can be configured in `nuxt.config.ts`. Components must be tree-shakable automatically.",
-      "css": "In `css` options you can pass array of css modules that will be used in the project or `false` to remove all css from Vuestic exepct components css. Available modules: `typography`, `grid`, `reset`. In example below grid will not be used in project. This is helpful in case you already using some other library."
+      "css": "In `css` options you can pass array of css modules that will be used in the project or `false` to remove all css from Vuestic expect components css. Available modules: `typography`, `grid`, `reset`. In example below grid will not be used in project. This is helpful in case you already using some other library."
     },
     "options": {
       "title": "Options",
@@ -4466,15 +4479,15 @@
       },
       "Trigger": {
         "title": "Trigger",
-        "text": "You can use `click`, `hover` or `none` trigger which will open dropdown. If you want dropdown to be opened only programatically use `none` trigger"
+        "text": "You can use `click`, `hover` or `none` trigger which will open dropdown. If you want dropdown to be opened only programmatically use `none` trigger"
       },
       "Cursor": {
         "title": "Place on cursor",
-        "text": "You can render dropdown content on cursor position. It is usefull to use `cursor` props with `auto-placement` so if content do not fit target it will be placed somewhere else."
+        "text": "You can render dropdown content on cursor position. It is useful to use `cursor` props with `auto-placement` so if content do not fit target it will be placed somewhere else."
       },
       "PreventOverflow": {
         "title": "Prevent overflow",
-        "text": "By default dropdown content is rendered as body child. This way we prevent any overflow. In example below `overflow: hidden` of green box is ignored. But we still able to respec overflow by changing `target` prop. In example below `overflow: hidden` of red box is hidding dropdown content."
+        "text": "By default dropdown content is rendered as body child. This way we prevent any overflow. In example below `overflow: hidden` of green box is ignored. But we still able to respec overflow by changing `target` prop. In example below `overflow: hidden` of red box is hiding dropdown content."
       }
     }
   },
@@ -4496,7 +4509,7 @@
       },
       "Size": {
         "title": "Size",
-        "text": "By default Veustic use `thin` scrollbar width. You can change it to `default` in GlobalConfig if you don't like `thin` size."
+        "text": "By default Vuestic use `thin` scrollbar width. You can change it to `default` in GlobalConfig if you don't like `thin` size."
       }
     }
   },
