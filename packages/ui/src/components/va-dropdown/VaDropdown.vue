@@ -51,6 +51,7 @@ import {
 import { useAnchorSelector } from './hooks/useAnchorSelector'
 import { useCursorAnchor } from './hooks/useCursorAnchor'
 import { useKeyboardNavigation, useMouseNavigation } from './hooks/useDropdownNavigation'
+import type { DropdownOffsetProp } from './types'
 
 export default defineComponent({
   name: 'VaDropdown',
@@ -58,8 +59,6 @@ export default defineComponent({
   props: {
     ...useStatefulProps,
     ...useComponentPresetProp,
-    stateful: { default: true },
-    modelValue: { type: Boolean, default: false },
     disabled: { type: Boolean },
     readonly: { type: Boolean },
     anchorSelector: { type: String, default: '' },
@@ -74,7 +73,7 @@ export default defineComponent({
     closeOnAnchorClick: { type: Boolean, default: true },
     hoverOverTimeout: { type: Number, default: 30 },
     hoverOutTimeout: { type: Number, default: 200 },
-    offset: { type: [Array, Number] as PropType<number | [number, number]>, default: 0 },
+    offset: { type: [Array, Number] as PropType<DropdownOffsetProp>, default: 0 },
     stickToEdges: { type: Boolean, default: false },
     autoPlacement: { type: Boolean, default: true },
     cursor: { type: Boolean, default: false },

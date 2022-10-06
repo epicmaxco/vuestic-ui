@@ -1,3 +1,4 @@
+import { ColorVariables } from './../types'
 import { App, watch } from 'vue'
 import { GlobalConfig } from '../../global-config/global-config'
 import { isServer } from '../../../utils/ssr-utils'
@@ -13,14 +14,14 @@ export const createColorConfigPlugin = (app: App) => {
   const globalConfig = getGlobalProperty(app, '$vaConfig').globalConfig
 
   /** Renders CSS variables string. Use this in SSR mode */
-  const renderCSSVariables = (colors: GlobalConfig['colors'] = globalConfig.value.colors) => {
+  const renderCSSVariables = (colors: ColorVariables | undefined = globalConfig.value.colors?.variables) => {
     if (!colors) { return }
 
     const colorNames = Object.keys(colors)
     return colorNames.map((key) => `${cssVariableName(key)}: ${colors[key]}`).join(';')
   }
 
-  const updateColors = (newValue: GlobalConfig['colors']) => {
+  const updateColors = (newValue: ColorVariables | undefined) => {
     if (!newValue) { return }
     if (isServer()) { return }
 
@@ -32,20 +33,17 @@ export const createColorConfigPlugin = (app: App) => {
     })
 
     colorNames.forEach((key) => {
-      setCSSVariable(`on-${key}`, getTextColor(newValue[key], newValue.textDark, newValue.textLight), root)
+      setCSSVariable(`on-${key}`, getTextColor(newValue[key], newValue.textDark, newValue.textLight, globalConfig.value.colors!.threshold), root)
     })
   }
 
-  updateColors(globalConfig.value.colors)
+  updateColors(globalConfig.value.colors!.variables)
 
-  watch(() => globalConfig.value.colors, (newValue) => {
+  watch(() => globalConfig.value.colors!.variables, (newValue) => {
     updateColors(newValue)
   }, { immediate: true, deep: true })
 
   return {
-    // Let's have this method for a while, it is used in nuxt plugin that uses `latest` vuestic-ui version.
-    /** @deprecated it's typo here, lol */
-    renderCSSVarialbes: renderCSSVariables,
     renderCSSVariables,
     updateColors,
   }

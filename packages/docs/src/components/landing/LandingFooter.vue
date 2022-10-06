@@ -105,6 +105,7 @@ export default defineComponent({
       IconAdmin: markRaw(IconAdmin),
       IconSpinners: markRaw(IconSpinners),
       primaryColor: getComputedColor('primary'),
+      currentYear: new Date().getFullYear(),
     }
   },
 })
