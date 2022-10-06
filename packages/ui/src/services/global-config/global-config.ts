@@ -1,7 +1,7 @@
 import merge from 'lodash/merge.js'
 import cloneDeep from 'lodash/cloneDeep.js'
 import { ref, inject, Ref, getCurrentInstance } from 'vue'
-import { GlobalConfig, GlobalConfigUpdater } from './types'
+import { GlobalConfig, DeepPartial, GlobalConfigUpdater, PartialGlobalConfig } from './types'
 import { getComponentsDefaultConfig } from './config-default'
 import { createIconsConfig } from '../icon-config/icon-config-helpers'
 import { colorsPresets } from '../color-config/color-theme-presets'
@@ -15,8 +15,8 @@ export type ProvidedGlobalConfig = {
    * Set new global config
    * @see mergeGlobalConfig if you want to update existing config
    */
-  setGlobalConfig: (updater: GlobalConfig | GlobalConfigUpdater) => void,
-  mergeGlobalConfig: (updater: GlobalConfig | GlobalConfigUpdater) => void
+  setGlobalConfig: (updater: GlobalConfig | GlobalConfigUpdater<GlobalConfig>) => void,
+  mergeGlobalConfig: (updater: PartialGlobalConfig | GlobalConfigUpdater<PartialGlobalConfig>) => void
 }
 
 export const GLOBAL_CONFIG = Symbol('GLOBAL_CONFIG')
@@ -38,12 +38,12 @@ export const createGlobalConfig = () => {
   })
 
   const getGlobalConfig = (): GlobalConfig => globalConfig.value
-  const setGlobalConfig = (updater: GlobalConfig | GlobalConfigUpdater) => {
+  const setGlobalConfig = (updater: GlobalConfig | GlobalConfigUpdater<GlobalConfig>) => {
     const config = typeof updater === 'function' ? updater(globalConfig.value) : updater
     globalConfig.value = cloneDeep(config)
   }
 
-  const mergeGlobalConfig = (updater: GlobalConfig | GlobalConfigUpdater) => {
+  const mergeGlobalConfig = (updater: PartialGlobalConfig | GlobalConfigUpdater<PartialGlobalConfig>) => {
     const config = typeof updater === 'function' ? updater(globalConfig.value) : updater
     globalConfig.value = merge(cloneDeep(globalConfig.value), config)
   }
