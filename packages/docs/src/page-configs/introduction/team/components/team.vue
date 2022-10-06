@@ -2,7 +2,7 @@
   <div class="docs-team d-flex flex-wrap">
     <div class="docs-team__row d-flex flex-wrap">
       <div class="docs-team__avatar-wrapper" v-for="item in items" :key="item.index">
-        <va-avatar :size="140" class="docs-team__avatar">
+        <va-avatar :size="146" class="docs-team__avatar">
             <img :src=item.image :alt="item.name" />
         </va-avatar>
         <strong class="mt-3 mb-1">{{ item.name }}</strong>
@@ -58,26 +58,27 @@ const items = computed(() => {
     }
 
     &__avatar {
-      background-image: linear-gradient(108.62deg, #e9439d, #e5419e, #9e23b2 100%, #ffffff);
+      padding: 3px;
+      background: linear-gradient(108.62deg, #e9439d, #e5419e, #9e23b2 100%, #ffffff) border-box;
+      -webkit-mask: linear-gradient(108.62deg, #e9439d, #e5419e, #9e23b2 100%, #ffffff) padding-box;
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
       overflow: hidden;
-      border: 2px solid;
-      border-image-source: linear-gradient(108.62deg, #e9439d, #e5419e, #9e23b2 100%, #ffffff);
-
-      //&-border {
-      //  margin: 10px;
-      //  background: white;
-      //}
 
       img {
         object-fit: cover;
         height: 100%;
         width: 100%;
-        border: 5px solid white;
+        border: 4px solid white;
       }
     }
 
     .fa-github {
-      color: black;
+      color: var(--va-on-background-primary);
+    }
+
+    .fa-facebook {
+      color: #3b5998;
     }
 
     .fa-twitter {

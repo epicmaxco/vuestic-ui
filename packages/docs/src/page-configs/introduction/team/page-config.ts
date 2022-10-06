@@ -15,7 +15,7 @@ const config: ApiDocsBlock[] = [
         {
           name: 'Andrey Hrabouski',
           jobTitle: 'CEO',
-          image: require('../team/images/andei.jpg'),
+          image: require('../team/images/andrei.jpg'),
           socNetworks: [
             {
               name: 'fa fa-github',
@@ -75,7 +75,7 @@ const config: ApiDocsBlock[] = [
         {
           name: 'Oleg Kirillov',
           jobTitle: 'Developer - Vuestic UI',
-          image: require('../team/images/oleg.jpeg'),
+          image: require('../team/images/oleg.jpg'),
           socNetworks: [
             {
               name: 'fa fa-github',
@@ -86,7 +86,7 @@ const config: ApiDocsBlock[] = [
         {
           name: 'Rustem Nasyrov',
           jobTitle: 'Developer - Vuestic UI',
-          image: require('../team/images/rustem.png'),
+          image: require('../team/images/rustem.jpg'),
           socNetworks: [
             {
               name: 'fa fa-github',
