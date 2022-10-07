@@ -47,9 +47,9 @@
       "title": "Customize Everything",
       "text": "Make Vuestic UI components match your designs with powerful dynamic configs.",
       "tabs": [
-        "Large Modern",
-        "Styles",
-        "Multiple Themes"
+        "Form elements",
+        "Table",
+        "Misc"
       ],
       "copy": "Copied to clipboard",
       "configuration": "See our configuration guides"
