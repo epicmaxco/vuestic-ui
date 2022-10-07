@@ -1,4 +1,3 @@
-import merge from 'lodash/merge.js'
 import cloneDeep from 'lodash/cloneDeep.js'
 import { ref, inject, Ref, getCurrentInstance } from 'vue'
 import { GlobalConfig, DeepPartial, GlobalConfigUpdater, PartialGlobalConfig } from './types'
@@ -7,6 +6,7 @@ import { createIconsConfig } from '../icon-config/icon-config-helpers'
 import { colorsPresets } from '../color-config/color-theme-presets'
 import { getBreakpointDefaultConfig } from '../breakpoint'
 import { getGlobalProperty } from '../../vuestic-plugin/utils'
+import { mergeDeep } from '../../utils/merge-deep'
 
 export type ProvidedGlobalConfig = {
   globalConfig: Ref<GlobalConfig>,
@@ -45,7 +45,7 @@ export const createGlobalConfig = () => {
 
   const mergeGlobalConfig = (updater: PartialGlobalConfig | GlobalConfigUpdater<PartialGlobalConfig>) => {
     const config = typeof updater === 'function' ? updater(globalConfig.value) : updater
-    globalConfig.value = merge(cloneDeep(globalConfig.value), config)
+    globalConfig.value = mergeDeep(cloneDeep(globalConfig.value), config)
   }
 
   return {
