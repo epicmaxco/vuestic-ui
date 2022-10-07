@@ -16,7 +16,7 @@
           v-for="(item, index) in renderBuffer"
           :key="uniqueKey(item, index)"
         >
-            <slot v-bind="{item, index: renderStartIndex + index}" />
+            <slot v-bind="{ item, index: renderStartIndex + index }" />
         </template>
       </div>
     </div>
@@ -24,7 +24,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed } from 'vue'
+import { defineComponent, ref, computed, watch } from 'vue'
 import pick from 'lodash/pick.js'
 
 import { useEvent, useBem, useTrackBy, useTrackByProps } from '../../composables'
@@ -38,15 +38,17 @@ export default defineComponent({
     ...useVirtualScrollerSizesProps,
     items: { type: Array, default: () => ([]) },
     bench: { type: Number, default: 10, validator: (v: number) => v >= 0 },
-
     disabled: { type: Boolean, default: false },
   },
 
-  setup: (props) => {
+  emits: ['scroll:bottom'],
+
+  setup: (props, { emit }) => {
     const listScrollPosition = ref(0)
+    const scrollDirection = computed(() => props.horizontal ? 'scrollLeft' : 'scrollTop')
     const handleScroll = () => {
       if (!wrapper.value) { return }
-      listScrollPosition.value = wrapper.value[props.horizontal ? 'scrollLeft' : 'scrollTop']
+      listScrollPosition.value = wrapper.value[scrollDirection.value]
     }
     if (!props.disabled) { useEvent('scroll', handleScroll, true) }
 
@@ -54,6 +56,12 @@ export default defineComponent({
 
     const { getKey } = useTrackBy(props)
     const uniqueKey = (item: Array<any> | Record<string, any>, index: number, defaultValue?: any) => getKey(item, index, defaultValue)
+
+    watch(listScrollPosition, (newValue) => {
+      if (newValue + wrapperSize.value === containerSize.value) {
+        emit('scroll:bottom')
+      }
+    })
 
     // forming items to render
     const renderStartIndex = computed(() => {
@@ -93,12 +101,21 @@ export default defineComponent({
       transform: `translate${props.horizontal ? 'X' : 'Y'}(${currentListOffset.value}px)`,
     }))
 
+    // public
+    const scrollToAttribute = computed(() => props.horizontal ? 'left' : 'top')
+    const virtualScrollTo = (index: number) => {
+      if (!index && index !== 0) { return }
+
+      wrapper.value?.scrollTo({ [scrollToAttribute.value]: index * itemSize.value })
+    }
+
     return {
       containerStyleComputed,
       wrapperStyleComputed,
       wrapperClassComputed,
       listStyleComputed,
       renderStartIndex,
+      virtualScrollTo,
       renderBuffer,
       uniqueKey,
       wrapper,

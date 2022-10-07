@@ -833,7 +833,8 @@
         "prependInner": "Добавляет элемент внутри компонента и перед его содержимым",
         "append": "Добавляет элемент за пределами компонента и после его содержимого",
         "appendInner": "Добавляет элемент внутри компонента и после его содержимого",
-        "content": "Добавляет элемент вместо `input`"
+        "content": "Добавляет элемент вместо `input`",
+        "option": "Позволяет задать шаблон опции"
       }
     },
     "VaParallax": {
@@ -2994,7 +2995,7 @@
       },
       "slots": {
         "title": "Слоты",
-        "text": "Поддерживаемые слоты: `content`, `prepend`, `prepend-inner`, `append` и `append-inner`."
+        "text": "Поддерживаемые слоты: `option`, `content`, `prepend`, `prepend-inner`, `append` и `append-inner`."
       },
       "tagging": {
         "title": "Теггирование",

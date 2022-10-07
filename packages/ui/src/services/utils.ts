@@ -1,5 +1,7 @@
 //  @ts-nocheck
 import isObject from 'lodash/isObject.js'
+import isFunction from 'lodash/isFunction.js'
+
 import { __DEV__ } from '../utils/global-utils'
 
 export const sleep = (ms = 0) => {
@@ -112,4 +114,24 @@ export const isParsableMeasure = (value: unknown) => {
 
 export const isParsablePositiveMeasure = (value: unknown) => {
   return isParsableMeasure(value) && parseInt(value) >= 0
+}
+
+/**
+ * @description checks if empty slot was passed
+ * @param v - any slot
+ * @param initial - flag for initial function call
+ * @example checkSlotChildrenDeep(slots.default)
+ */
+export const checkSlotChildrenDeep = (v: any, initial = true): boolean => {
+  if (!v || (initial && (!isFunction(v) || !v()?.length))) { return false }
+
+  const slotData = initial ? v() : v
+
+  if (Array.isArray(slotData)) {
+    return slotData.some((el: any) => {
+      return Array.isArray(el.children) ? checkSlotChildrenDeep(el.children, false) : el.children || el.props
+    })
+  }
+
+  return !!slotData.children
 }

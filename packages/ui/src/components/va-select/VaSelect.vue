@@ -117,30 +117,33 @@
         @keydown.enter.prevent="selectOrAddOption"
         @focus="hoveredOption = null"
       />
-      <div class="va-select-dropdown__options-wrapper">
-        <va-select-option-list
-          ref="optionList"
-          v-model:hoveredOption="hoveredOption"
-          :style="{ maxHeight: $props.maxHeight }"
-          :options="filteredOptions"
-          :selected-value="valueComputed"
-          :get-selected-state="checkIsOptionSelected"
-          :get-text="getText"
-          :get-track-by="getTrackBy"
-          :get-group-by="getGroupBy"
-          :search="searchInput"
-          :no-options-text="$props.noOptionsText"
-          :color="$props.color"
-          :tabindex="tabIndexComputed"
-          @select-option="selectOption"
-          @no-previous-option-to-hover="focusSearchBar"
-          @keydown.enter.stop.prevent="selectHoveredOption"
-          @keydown.space.stop.prevent="selectHoveredOption"
-          @keydown.tab.stop.prevent="searchBar && searchBar.focus()"
-          @keydown="onHintedSearch"
-          @scroll-bottom="onScrollBottom"
-        />
-      </div>
+      <va-select-option-list
+        ref="optionList"
+        class="va-select-dropdown__options-wrapper"
+        v-model:hoveredOption="hoveredOption"
+        :style="{ maxHeight: $props.maxHeight }"
+        :options="filteredOptions"
+        :selected-value="valueComputed"
+        :get-selected-state="checkIsOptionSelected"
+        :get-text="getText"
+        :get-track-by="getTrackBy"
+        :get-group-by="getGroupBy"
+        :search="searchInput"
+        :no-options-text="$props.noOptionsText"
+        :color="$props.color"
+        :tabindex="tabIndexComputed"
+        :virtual-scroller="$props.virtualScroller"
+        @select-option="selectOption"
+        @no-previous-option-to-hover="focusSearchBar"
+        @keydown.enter.stop.prevent="selectHoveredOption"
+        @keydown.space.stop.prevent="selectHoveredOption"
+        @keydown.tab.stop.prevent="searchBar && searchBar.focus()"
+        @keydown="onHintedSearch"
+        @scroll-bottom="onScrollBottom"
+        v-slot="slotData"
+      >
+        <slot name="option" v-bind="slotData || {}" />
+      </va-select-option-list>
     </va-dropdown-content>
   </va-dropdown>
 </template>
@@ -166,7 +169,7 @@ import { extractComponentProps, filterComponentProps } from '../../utils/child-p
 import { VaDropdown, VaDropdownContent } from '../va-dropdown'
 import { VaIcon } from '../va-icon'
 import { VaInput, VaInputWrapper } from '../va-input'
-import { VaSelectOptionList } from './VaSelectOptionList'
+import { VaSelectOptionList } from './components/VaSelectOptionList'
 
 import type { SelectDropdownIcon, SelectOption, Placement } from './types'
 import type { DropdownOffsetProp } from '../va-dropdown/types'
@@ -246,6 +249,7 @@ export default defineComponent({
         return isOpenIconString && isCloseIconString
       },
     },
+    virtualScroller: { type: Boolean, default: false },
 
     // Input style
     outline: { type: Boolean, default: false },
@@ -275,9 +279,7 @@ export default defineComponent({
     const colorComputed = computed(() => getColor(props.color))
     const toggleIconColor = computed(() => props.readonly ? getHoverColor(colorComputed.value) : colorComputed.value)
 
-    const onScrollBottom = () => {
-      emit('scroll-bottom')
-    }
+    const onScrollBottom = () => emit('scroll-bottom')
 
     const searchInput = ref('')
     const showSearchInput = computed(() => props.searchable || props.allowCreate)
@@ -532,7 +534,7 @@ export default defineComponent({
 
     const focusOptionList = () => {
       optionList.value?.focus()
-      !props.modelValue && optionList.value?.hoverFirstOption()
+      !props.modelValue && optionList.value?.focusFirstOption()
     }
 
     const focusSearchOrOptions = () => nextTick(() => {
@@ -647,6 +649,7 @@ export default defineComponent({
       keepAnchorWidth: true,
       keyboardNavigation: true,
       innerAnchorSelector: '.va-input-wrapper__field',
+      'aria-label': props.modelValue ? `currently selected option: ${props.modelValue}` : 'option is not selected',
     }))
 
     return {

@@ -23,5 +23,6 @@ export default defineManualApi({
     append: { },
     appendInner: { },
     content: { },
+    option: { },
   },
 })

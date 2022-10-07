@@ -1,18 +1,24 @@
 import { PropType, ExtractPropTypes } from 'vue'
+import isFunction from 'lodash/isFunction.js'
 
 import { warn } from '../services/utils'
 
+type AnyRecordOrArray = Array<any> | Record<string, any>
+
 export const useTrackByProps = {
-  trackBy: { type: [String, Number] as PropType<string | number>, default: '' },
+  trackBy: {
+    type: [String, Number, Function] as PropType<string | number | ((item: AnyRecordOrArray) => string | number)>,
+    default: '',
+  },
 }
 
 export const useTrackBy = (props: ExtractPropTypes<typeof useTrackByProps>) => {
   const getKey = (
-    item: Array<any> | Record<string, any>,
+    item: AnyRecordOrArray,
     index: number,
     defaultValue?: any,
   ) => {
-    if (props.trackBy && item && typeof item === 'object') {
+    if (props.trackBy && item && typeof item === 'object' && !isFunction(props.trackBy)) {
       const isArrayItem = Array.isArray(item)
 
       let key: any
@@ -22,6 +28,10 @@ export const useTrackBy = (props: ExtractPropTypes<typeof useTrackByProps>) => {
       if (key || key === 0) { return key }
 
       warn(`${isArrayItem ? 'Index' : 'Key'} '${props.trackBy}' wasn't found in provided ${isArrayItem ? 'array' : 'object'}: `, item)
+    }
+
+    if (isFunction(props.trackBy)) {
+      return props.trackBy(item)
     }
 
     return defaultValue
