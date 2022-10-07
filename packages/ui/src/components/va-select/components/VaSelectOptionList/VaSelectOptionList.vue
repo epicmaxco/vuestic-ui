@@ -143,7 +143,7 @@ export default defineComponent({
 
     const optionGroups = computed(() => filteredOptions.value
       .reduce((groups: Record<string, SelectOption[]>, option) => {
-        if (typeof option !== 'object' || !!props.getGroupBy(option)) {
+        if (typeof option !== 'object' || !props.getGroupBy(option)) {
           groups._noGroup.push(option)
         } else {
           const groupBy = props.getGroupBy(option)
