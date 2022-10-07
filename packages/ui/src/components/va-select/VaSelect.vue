@@ -170,7 +170,9 @@ import { VaDropdown, VaDropdownContent } from '../va-dropdown'
 import { VaIcon } from '../va-icon'
 import { VaInput, VaInputWrapper } from '../va-input'
 import { VaSelectOptionList } from './components/VaSelectOptionList'
+
 import type { SelectDropdownIcon, SelectOption, Placement } from './types'
+import type { DropdownOffsetProp } from '../va-dropdown/types'
 
 const VaDropdownProps = extractComponentProps(VaDropdown,
   ['keyboardNavigation', 'offset', 'stateful', 'keepAnchorWidth', 'closeOnContentClick', 'innerAnchorSelector', 'modelValue'],
@@ -643,7 +645,7 @@ export default defineComponent({
       ...filterComponentProps(props, VaDropdownProps).value,
       closeOnContentClick: closeOnContentClick.value,
       stateful: false,
-      offset: [1, 0] as [number, number],
+      offset: [1, 0] as DropdownOffsetProp,
       keepAnchorWidth: true,
       keyboardNavigation: true,
       innerAnchorSelector: '.va-input-wrapper__field',
