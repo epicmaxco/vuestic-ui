@@ -10,8 +10,9 @@ export type GlobalConfig = {
   breakpoint: BreakpointConfig,
 }
 
-export type DeepPartial<T> = T extends Record<string, any> ? {
-  [P in keyof T]?: DeepPartial<T[P]>;
+type DeepPartial<T> = T extends Record<string, any> ? {
+  // Prevent deep nesting so we ignore 'components' here. 'components' is anyway partial
+  [P in keyof T]?: P extends 'components' ? T[P] : DeepPartial<T[P]>;
 } : T;
 
 export type PartialGlobalConfig = DeepPartial<GlobalConfig>
