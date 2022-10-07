@@ -1,4 +1,4 @@
-import type { GlobalConfig } from '../../services/global-config/types'
+import type { PartialGlobalConfig } from '../../services/global-config/types'
 import { defineVuesticPlugin, usePlugin } from '../utils'
 import { GlobalConfigPlugin, VaDropdownPlugin, VaToastPlugin, VaModalPlugin, ColorConfigPlugin, BreakpointConfigPlugin } from '../vuestic-plugins'
 import * as vuesticComponents from '../vuestic-components'
@@ -15,7 +15,7 @@ declare module 'vue' {
  * @notice using this method will bundle all vuestic components.
  * Use `createVuesticEssential` if you want tree shaking to work.
  */
-export const createVuestic = defineVuesticPlugin((options: { config?: GlobalConfig } = {}) => ({
+export const createVuestic = defineVuesticPlugin((options: { config?: PartialGlobalConfig } = {}) => ({
   install (app) {
     const { config } = options
 

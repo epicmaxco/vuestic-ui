@@ -151,7 +151,7 @@ export default {
 
     const buttonRoundConfigValue = computed(() => {
       const globalConfig = getGlobalConfig()
-      const value = globalConfig.components.VaButton?.rounded
+      const value = globalConfig.components.VaButton?.round
       return value === undefined ? true : value
     })
 
@@ -189,7 +189,7 @@ export default {
           ...config.components,
           VaButton: {
             ...config.components.VaButton,
-            rounded: !this.buttonRoundConfigValue,
+            round: !this.buttonRoundConfigValue,
           },
         },
       }))
@@ -198,7 +198,7 @@ export default {
       this.mergeGlobalConfig({
         components: {
           VaButton: {
-            rounded: !this.buttonRoundConfigValue,
+            round: !this.buttonRoundConfigValue,
           },
         },
       })
