@@ -1,4 +1,14 @@
-import { PropType, ExtractPropTypes, ref, Ref, shallowRef, computed, watch, onMounted } from 'vue'
+import {
+  PropType,
+  ExtractPropTypes,
+  ref,
+  Ref,
+  shallowRef,
+  computed,
+  watch,
+  onMounted,
+  getCurrentInstance,
+} from 'vue'
 
 import { useEvent } from '../../composables'
 import { warn, isParsablePositiveMeasure } from '../../services/utils'
@@ -71,7 +81,12 @@ export const useVirtualScrollerSizes = (
       ? Math.trunc(sizes.reduce((acc, el) => acc + el, 0) / (itemsAmount - 1))
       : 0
   }
-  onMounted(calcAverageItemsSize)
+
+  const instance = getCurrentInstance()
+  onMounted(() => {
+    if (!list.value) { list.value = instance?.parent?.refs?.list as HTMLElement | undefined }
+    calcAverageItemsSize()
+  })
   watch(scrollPosition, calcAverageItemsSize)
   watch(wrapperSize, calcAverageItemsSize)
 

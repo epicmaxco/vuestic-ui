@@ -68,6 +68,11 @@ const config: ApiDocsBlock[] = [
     'dataTable.examples.binding.text',
     'Binding',
   ),
+  ...block.exampleBlock(
+    'dataTable.examples.virtualScroll.title',
+    'dataTable.examples.virtualScroll.text',
+    'VirtualScroll',
+  ),
 
   block.headline('dataTable.examples.sticky.title'),
   block.paragraph('dataTable.examples.sticky.text[0]'),

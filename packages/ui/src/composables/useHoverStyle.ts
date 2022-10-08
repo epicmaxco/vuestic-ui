@@ -1,6 +1,4 @@
-import { PropType, ref, Ref, onMounted } from 'vue'
-
-import { useHTMLElement, useEvent } from './'
+import { PropType } from 'vue'
 
 export const useHoverStyleProps = {
   hoverBehaviour: {

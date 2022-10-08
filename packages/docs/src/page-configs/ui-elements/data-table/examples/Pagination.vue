@@ -34,12 +34,13 @@
   >
     <template #bodyAppend>
       <tr><td colspan="8">
-        <va-pagination
-          class="table-example--pagination"
-          v-model="currentPage"
-          input
-          :pages="pages"
+        <div class="table-example--pagination">
+          <va-pagination
+            v-model="currentPage"
+            input
+            :pages="pages"
         />
+        </div>
       </td></tr>
     </template>
   </va-data-table>
@@ -123,6 +124,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
   .table-example--pagination {
+    display: flex;
     justify-content: center;
   }
 </style>

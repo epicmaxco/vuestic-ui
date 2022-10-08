@@ -5,21 +5,29 @@
     :style="wrapperStyleComputed"
     :class="wrapperClassComputed"
   >
-    <div class="va-virtual-scroller__container" :style="containerStyleComputed">
+    <slot
+      name="content"
+      v-bind="{ containerStyleComputed, listStyleComputed, renderBuffer, uniqueKey, currentListOffset }"
+    >
       <div
-        ref="list"
-        role="list"
-        class="va-virtual-scroller__list"
-        :style="listStyleComputed"
+        class="va-virtual-scroller__container"
+        :style="containerStyleComputed"
       >
-        <template
-          v-for="(item, index) in renderBuffer"
-          :key="uniqueKey(item, index)"
+        <div
+          ref="list"
+          role="list"
+          class="va-virtual-scroller__list"
+          :style="listStyleComputed"
         >
-            <slot v-bind="{ item, index: renderStartIndex + index }" />
-        </template>
+          <template
+            v-for="(item, index) in renderBuffer"
+            :key="uniqueKey(item, index)"
+          >
+            <slot name="default" v-bind="{ item, index: renderStartIndex + index }" />
+          </template>
+        </div>
       </div>
-    </div>
+    </slot>
   </div>
 </template>
 
@@ -39,6 +47,7 @@ export default defineComponent({
     items: { type: Array, default: () => ([]) },
     bench: { type: Number, default: 10, validator: (v: number) => v >= 0 },
     disabled: { type: Boolean, default: false },
+    table: { type: Boolean, default: false },
   },
 
   emits: ['scroll:bottom'],
@@ -82,8 +91,10 @@ export default defineComponent({
     const sizeAttribute = computed(() => props.horizontal ? 'width' : 'height')
 
     // wrapper styles and classes
+    const isDisabledVirtualTable = computed(() => props.table && props.disabled)
+
     const wrapperStyleComputed = computed(() => ({
-      [sizeAttribute.value]: `${wrapperSize.value}px`,
+      [sizeAttribute.value]: isDisabledVirtualTable.value ? undefined : `${wrapperSize.value}px`,
     }))
     const wrapperClassComputed = useBem('va-virtual-scroller', () => ({
       ...pick(props, ['horizontal']),
@@ -92,7 +103,7 @@ export default defineComponent({
     // container styles
     const containerSize = computed(() => (props.items?.length ?? 0) * itemSize.value)
     const containerStyleComputed = computed(() => ({
-      [sizeAttribute.value]: `${containerSize.value}px`,
+      [sizeAttribute.value]: isDisabledVirtualTable.value ? undefined : `${containerSize.value}px`,
     }))
 
     // items list styles
@@ -114,6 +125,7 @@ export default defineComponent({
       wrapperStyleComputed,
       wrapperClassComputed,
       listStyleComputed,
+      currentListOffset,
       renderStartIndex,
       virtualScrollTo,
       renderBuffer,

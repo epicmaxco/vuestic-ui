@@ -3,22 +3,25 @@
     <div class="customize">
       <div class="customize__wrapper">
         <div class="customize__inner">
-          <h2 class="customize__title">{{ $t('landing.customize.title') }}</h2>
-          <div class="customize__subtitle">{{ $t('landing.customize.text') }}</div>
+          <h2 class="customize__title">{{ t('landing.customize.title') }}</h2>
+          <div class="customize__subtitle">{{ t('landing.customize.text') }}</div>
           <div class="customize__content">
             <!-- Tabs -->
             <div class="tabs-wrapper">
-              <va-tabs v-model="tabValue" class="tabs" color="#fff" center grow>
-                <template #tabs="scope">
-                  <div :class="scope.class">
-                    <va-tab
-                      class="tabs__tab"
-                      v-for="tab in [`${$t('landing.customize.tabs[0]')}`, `${$t('landing.customize.tabs[1]')}`, `${$t('landing.customize.tabs[2]')}`]"
-                      :key="tab"
-                    >
-                      {{ tab }}
-                    </va-tab>
-                  </div>
+              <va-tabs
+                v-model="tabValue"
+                class="tabs"
+                color="#fff"
+                center
+              >
+                <template #tabs>
+                  <va-tab
+                    class="tabs__tab"
+                    v-for="tab in tabs"
+                    :key="tab"
+                  >
+                    {{ tab }}
+                  </va-tab>
                 </template>
               </va-tabs>
             </div>
@@ -111,12 +114,12 @@
                   <input type="hidden" ref="codeInput" :value="code">
                 </div>
               </div>
-              <div class="clipboard" ref="message">{{ $t('landing.customize.copy') }}</div>
+              <div class="clipboard" ref="message">{{ t('landing.customize.copy') }}</div>
             </div>
             <!-- /Second block -->
 
-            <router-link class="customize__content__link" :to="`/${$root.$i18n.locale}/getting-started/configuration-guide`">
-              {{ $t('landing.customize.configuration') }}
+            <router-link class="customize__content__link" :to="`/${locale}/getting-started/configuration-guide`">
+              {{ t('landing.customize.configuration') }}
             </router-link>
           </div>
         </div>
@@ -125,98 +128,98 @@
   </section>
 </template>
 
-<script lang="ts">
-import { Options, Vue } from 'vue-class-component'
+<script lang="ts" setup>
+import { ref, computed, shallowRef } from 'vue'
 import 'prismjs'
 import dedent from 'dedent'
-// @ts-ignore
-import Prism from '../PrismWrapper'
+
 import { shiftHSLAColor } from 'vuestic-ui/src/services/color-config/color-functions'
 import { useColors } from 'vuestic-ui/src/composables'
+import { useI18n } from 'vue-i18n'
 
-@Options({
-  name: 'LandingCustomize',
-  components: { Prism },
-})
-export default class Customize extends Vue {
-  clicksCount = 0
-  checkboxValue = true
-  sliderValue = 45
-  selectValue = 'Spain'
-  options = ['Spain', 'Germany', 'France', 'Italy', 'China', 'Japan', 'Poland', 'Belarus', 'USA']
-  tabValue = 0
+import Prism from '../PrismWrapper'
 
-  switchValue = true
-  theme = 'light'
-  themeToggleOptions = [{
-    label: 'Light',
-    value: 'light',
-  }, {
-    label: 'Dark',
-    value: 'dark',
-  }]
+const { t, locale } = useI18n()
 
-  users = [{
-    id: 1,
-    fullName: 'Ashley Mcdaniel',
-    email: 'ashleymcdaniel@nebulean.com',
-    country: 'Cayman Islands',
-    status: 'warning',
-  },
-  {
-    id: 2,
-    fullName: 'Todd Sellers',
-    email: 'sellerstodd@nebulean.com',
-    country: 'Togo',
-    status: 'info',
-  },
-  {
-    id: 3,
-    fullName: 'Sherman Knowles',
-    email: 'shermanknowles@nebulean.com',
-    country: 'Central African Republic',
-    status: 'warning',
-  },
-  {
-    id: 4,
-    fullName: 'Vasquez Lawson',
-    email: 'vasquezlawson@nebulean.com',
-    country: 'Bouvet Island',
-    status: 'info',
-  }]
+const colors = useColors().getColors()
+const clicksCount = ref(0)
+const checkboxValue = ref(true)
+const sliderValue = ref(45)
+const selectValue = ref('Spain')
+const options = ref(['Spain', 'Germany', 'France', 'Italy', 'China', 'Japan', 'Poland', 'Belarus', 'USA'])
 
-  get bgGradientStyle () {
-    return {
-      //  background: `linear-gradient(180.81deg, ${this.$themes.primary} 0.7%, ${colorToRgba(this.$themes.primary, 0.8)} 99.3%)`,
-      background: `linear-gradient(180.81deg, ${shiftHSLAColor(this.colors.primary, {
-        s: -15,
-        l: -20,
-      })} 0.7%, ${shiftHSLAColor(this.colors.primary, {
-        h: 10,
-        s: -5,
-        l: -10,
-      })} 99.3%)`,
-    }
-  }
+const tabValue = ref(0)
+const tabs = computed(() => ([
+  t('landing.customize.tabs[0]'),
+  t('landing.customize.tabs[1]'),
+  t('landing.customize.tabs[2]'),
+]))
 
-  get colors () {
-    return useColors().getColors()
-  }
+const switchValue = ref(true)
+const theme = ref('light')
+const themeToggleOptions = ref([{
+  label: 'Light',
+  value: 'light',
+}, {
+  label: 'Dark',
+  value: 'dark',
+}])
 
-  get themeColor () {
-    return this.theme === 'light' ? '#2c82e0' : '#042f83'
-  }
+const users = [{
+  id: 1,
+  fullName: 'Ashley Mcdaniel',
+  email: 'ashleymcdaniel@nebulean.com',
+  country: 'Cayman Islands',
+  status: 'warning',
+},
+{
+  id: 2,
+  fullName: 'Todd Sellers',
+  email: 'sellerstodd@nebulean.com',
+  country: 'Togo',
+  status: 'info',
+},
+{
+  id: 3,
+  fullName: 'Sherman Knowles',
+  email: 'shermanknowles@nebulean.com',
+  country: 'Central African Republic',
+  status: 'warning',
+},
+{
+  id: 4,
+  fullName: 'Vasquez Lawson',
+  email: 'vasquezlawson@nebulean.com',
+  country: 'Bouvet Island',
+  status: 'info',
+}]
 
-  get code () {
-    switch (this.tabValue) {
-      case 0:
-        return dedent`
+const bgGradientStyle = computed(() => ({
+  //  background: `linear-gradient(180.81deg, ${this.$themes.primary} 0.7%, ${colorToRgba(this.$themes.primary, 0.8)} 99.3%)`,
+  background: `linear-gradient(180.81deg, ${shiftHSLAColor(colors.primary, {
+    s: -15,
+    l: -20,
+  })} 0.7%, ${shiftHSLAColor(colors.primary, {
+    h: 10,
+    s: -5,
+    l: -10,
+  })} 99.3%)`,
+}))
+
+const themeColor = computed(() => theme.value === 'light' ? '#2c82e0' : '#042f83')
+
+const btnClick = () => {
+  clicksCount.value++
+}
+
+const code = computed(() => {
+  switch (tabValue.value) {
+    case 0:
+      return dedent`
       <template>
             <div class="components">
               <div class="component">
-                <va-button @click="btnClick">
-                  Submit
-                </va-button>
+                <va-button @click="btnClick">Submit</va-button>
               </div>
 
               <div class="component">
@@ -238,16 +241,16 @@ export default class Customize extends Vue {
                 />
               </div>
             </div>
-          </template>
+          </template>\n
 
           ${'<' + 'script>'}
           export default {
             data() {
               return {
-                clicksCount: ${this.clicksCount},
-                checkboxValue: ${this.checkboxValue},
-                sliderValue: ${this.sliderValue},
-                selectValue: ${this.selectValue},
+                clicksCount: ${clicksCount.value},
+                checkboxValue: ${checkboxValue.value},
+                sliderValue: ${sliderValue.value},
+                selectValue: ${selectValue.value},
                 options = [
                   'Spain',
                   'Germany',
@@ -270,8 +273,8 @@ export default class Customize extends Vue {
           }
           ${'</' + 'script>'}
         `
-      case 1:
-        return dedent`
+    case 1:
+      return dedent`
       <template>
             <table class="va-table va-table--striped va-table--hoverable">
               <thead>
@@ -335,8 +338,8 @@ export default class Customize extends Vue {
           }
           ${'</' + 'script>'}
       `
-      case 2:
-        return dedent`
+    case 2:
+      return dedent`
       <template>
             <div class="components">
               <div class="component">
@@ -383,7 +386,7 @@ export default class Customize extends Vue {
 
             data() {
               return {
-                theme: ${this.theme},
+                theme: ${theme.value},
                 themeToggleOptions: [{
                   label: 'Light',
                   value: 'light',
@@ -404,34 +407,34 @@ export default class Customize extends Vue {
           }
           ${'</' + 'script>'}
       `
-      default:
-        return ''
-    }
+    default:
+      return ''
   }
+})
 
-  btnClick () {
-    this.clicksCount++
-  }
+const codeInput = shallowRef()
+const message = shallowRef()
 
-  copyText () {
-    const testingCodeToCopy: any = this.$refs.codeInput
-    testingCodeToCopy.setAttribute('type', 'text')
-    testingCodeToCopy.select()
-    try {
-      // @ts-ignore
-      document.execCommand('copy')
-      ;(this as any).$refs.message.style.opacity = 1
-      setTimeout(() => {
-        (this as any).$refs.message.style.opacity = 0
-      }, 2000)
-    } catch (err) {
-      // @ts-ignore
-      alert('Oops, unable to copy')
-    }
-    testingCodeToCopy.setAttribute('type', 'hidden')
+const copyText = () => {
+  const testingCodeToCopy: any = codeInput.value
+
+  testingCodeToCopy.setAttribute('type', 'text')
+  testingCodeToCopy.select()
+  try {
+    document?.execCommand?.('copy')
+
+    message.value.style.opacity = 1
+
+    setTimeout(() => {
+      message.value.style.opacity = 0
+    }, 2000)
+  } catch (err) {
     // @ts-ignore
-    ;(window as any).getSelection().removeAllRanges()
+    alert('Oops, unable to copy')
   }
+  testingCodeToCopy.setAttribute('type', 'hidden')
+
+  window?.getSelection?.()?.removeAllRanges?.()
 }
 </script>
 
@@ -533,6 +536,9 @@ export default class Customize extends Vue {
       &__link {
         @include link-font();
 
+        // sm
+        @include sm(text-align, center);
+
         color: #ffffff;
         padding-top: 1rem;
         line-height: 1.5rem;
@@ -608,6 +614,7 @@ export default class Customize extends Vue {
 
     color: #ffffff;
     line-height: 1.4;
+    white-space: pre;
   }
 
   .tabs-wrapper {
@@ -619,6 +626,9 @@ export default class Customize extends Vue {
 
     &__tab {
       @include button-font();
+
+      // sm
+      @include sm(margin, 0 0 1rem);
 
       margin-bottom: 1rem;
       margin-left: 0.51rem;
