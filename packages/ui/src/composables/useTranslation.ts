@@ -19,7 +19,7 @@ export const useTranslation = () => {
   const config = computed(() => globalConfig.value.i18n)
 
   return {
-    /** Translate prop. Translate only if key has `t:` prefix */
+    /** Translate prop. Translate only if key has `$t:` prefix */
     tp: <Key extends string | undefined>(key: Key): Key => {
       if (!key) { return undefined as Key }
 
