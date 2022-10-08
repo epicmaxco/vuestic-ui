@@ -948,6 +948,11 @@
         "stickyFooter": "Enables sticky footer (sticky footer is achieved through CSS with `position: sticky` for `tfoot`)",
         "height": "Sets the height to the table and enables scrolling",
         "rowBind": "Adds attributes to a table row using `v-bind`. This can be an object type (with attributes that vue supports) or a function that returns such an object. The function receives a table row element (`DataTableItem` type) and an index as arguments",
+        "bench": "Amount of rows will be rendered before and after visible part of the table (for smooth scrolling). Suitable only for the state with the virtual scrolling enabled.",
+        "itemSize": "Average size (width or height) of the row (can be number or string with \"px\"/\"rem\" value). Suitable only for the state with the virtual scrolling enabled.",
+        "virtualScroller": "Enables virtual scrolling for `tbody` rows.",
+        "virtualTrackBy": "Property name for row identifying. Suitable only for the state with the virtual scrolling enabled.",
+        "wrapperSize": "Size (width or height) of the component's viewport (can be number or string with \"px\"/\"rem\" value). Suitable only for the state with the virtual scrolling enabled.",
         "cellBind": "Adds attributes to a table cell using `v-bind`. This can be an object type (with attributes that vue supports) or a function that returns such an object. As arguments, the function receives a table cell element (`any` type), a row (`DataTableItem` type), a column (`TableColumn` type), and a row index",
         "scrollTopMargin": "Sets the threshold (`px`) for scrolling up when the `scroll:top` event is enabled.",
         "scrollBottomMargin": "Sets the threshold (`px`) for scrolling down when the `scroll:bottom` event is enabled."
@@ -1370,13 +1375,15 @@
         "itemSize": "Average size (width or height) of the list items (can be number or string with \"px\"/\"rem\" value).",
         "wrapperSize": "Size (width or height) of the component's viewport (can be number or string with \"px\"/\"rem\" value).",
         "items": "Array of list items.",
+        "table": "Switches component to work with table rows.",
         "trackBy": "Property name for identifying item.",
         "disable": "Disables virtual scrolling, all items are rendered."
       },
       "events": {},
       "methods": {},
       "slots": {
-        "default": "Slot for repeating content template."
+        "default": "Slot for repeating content template.",
+        "content": "Slot to overwrite entire component's template (in case of complicated integrations)."
       }
     },
     "VaTreeView": {
@@ -4204,6 +4211,10 @@
           "To work correctly, it is important to limit the height (set the value in the `height` property of the component or using the CSS `height` or `max-height` properties) of the table and assign a background color (set the CSS value `background-color`) of the table header."
         ]
       },
+      "virtualScroll": {
+        "title": "Virtual scroll",
+        "text": "The `virtual-scroller` prop enables virtual scroll for `tbody` rows ([read more](/ui-elements/virtual-scroll)). Pay your attention, that CSS transition is disabled here because of possible performance problems."
+      },
       "other": {
         "title": "Other",
         "text": [
@@ -4574,7 +4585,7 @@
       },
       "itemSize": {
         "title": "Item Size",
-        "text": "The `itemSize` prop allows you to specify the list item size (width or height - depends on `horizontal` prop value). For example, acceptable values are: 5, \"5\", \"5px\", \"5rem\". The component is recalculating average item's size ourselves on every scroll event and max value (`itemSize` or calculated one) will be used."
+        "text": "The `itemSize` prop allows you to specify the list item size (width or height - depends on `horizontal` prop value). For example, acceptable values are: 5, \"5\", \"5px\", \"5rem\". The component is recalculating average item's size ourselves on every scroll event and max value (`itemSize` or calculated one) will be used. We recommend to set at least minimal item size via this prop to prevent possible performance issues during first rendering."
       },
       "differentContent": {
         "title": "Any list items",
