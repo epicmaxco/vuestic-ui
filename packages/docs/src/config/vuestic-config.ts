@@ -3,7 +3,7 @@ import { icons } from './icons-config/icons-config'
 
 const scrollWrapperSelector = '.base-layout__content'
 
-export const VuesticConfig: GlobalConfig = {
+export const VuesticConfig: Partial<GlobalConfig> = {
   icons,
   components: {
     VaParallax: {
