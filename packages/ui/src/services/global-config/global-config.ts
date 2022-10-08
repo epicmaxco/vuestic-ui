@@ -1,6 +1,6 @@
 import cloneDeep from 'lodash/cloneDeep.js'
 import { ref, inject, Ref, getCurrentInstance } from 'vue'
-import { GlobalConfig, DeepPartial, GlobalConfigUpdater, PartialGlobalConfig } from './types'
+import { GlobalConfig, GlobalConfigUpdater, PartialGlobalConfig } from './types'
 import { getComponentsDefaultConfig } from './config-default'
 import { createIconsConfig } from '../icon-config/icon-config-helpers'
 import { colorsPresets } from '../color-config/color-theme-presets'
