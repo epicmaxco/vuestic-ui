@@ -269,7 +269,7 @@
 </template>
 
 <script lang="ts">
-import { PropType, defineComponent, computed, TableHTMLAttributes } from 'vue'
+import { PropType, defineComponent, computed, TableHTMLAttributes, StyleValue } from 'vue'
 import omit from 'lodash/omit.js'
 import pick from 'lodash/pick.js'
 
@@ -472,9 +472,9 @@ export default defineComponent({
         { 'va-data-table--sticky': props.stickyHeader || props.stickyFooter },
         { 'va-data-table--scroll': !!props.height },
         { 'va-data-table--virtual-scroller': props.virtualScroller },
-        attrs.class,
+        attrs.class as string[],
       ],
-      style: [attrs.style],
+      style: [attrs.style as StyleValue],
       ...virtualScrollerPropsComputed.value,
     }))
 

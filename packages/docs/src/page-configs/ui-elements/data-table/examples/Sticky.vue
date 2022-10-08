@@ -178,7 +178,7 @@ export default defineComponent({
       border: 1px solid var(--va-background-element);
     }
 
-    .va-virtual-scroller + .va-virtual-scroller {
+    .va-data-table + .va-data-table {
       margin-top: 2rem;
     }
 
