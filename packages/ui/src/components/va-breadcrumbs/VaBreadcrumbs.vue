@@ -1,7 +1,7 @@
 <script lang="ts">
 import { computed, defineComponent, Fragment, h, ref, VNode } from 'vue'
 
-import { useComponentPresetProp, useAlign, useAlignProps, useColors } from '../../composables'
+import { useComponentPresetProp, useAlign, useAlignProps, useColors, useTranslation } from '../../composables'
 import { hasOwnProperty } from '../../services/utils'
 
 export default defineComponent({
@@ -104,11 +104,13 @@ export default defineComponent({
       return children
     }
 
+    const { t } = useTranslation()
+
     return () => h('div', {
       class: 'va-breadcrumbs',
       style: alignComputed.value,
       role: isAllChildLinks.value ? 'navigation' : undefined,
-      ariaLabel: isAllChildLinks.value ? 'breadcrumbs' : undefined,
+      ariaLabel: isAllChildLinks.value ? t('breadcrumbs') : undefined,
     }, getChildren())
   },
 })

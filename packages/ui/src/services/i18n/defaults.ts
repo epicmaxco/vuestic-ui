@@ -72,6 +72,12 @@ export const getI18nConfigDefaults = () => ({
   selectedOption: 'Selected option',
   /** Select aria-label if no option is selected */
   noSelectedOption: 'Option is not selected',
+
+  breadcrumbs: 'breadcrumbs',
+  counterValue: 'counter value',
+  selectedDate: 'selected date',
+  selectedTime: 'selected time',
+  progressState: 'progress state',
 })
 
 export type I18nConfig = ReturnType<typeof getI18nConfigDefaults>

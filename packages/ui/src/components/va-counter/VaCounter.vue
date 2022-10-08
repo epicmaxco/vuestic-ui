@@ -276,9 +276,11 @@ export default defineComponent({
       disabled: isIncreaseActionDisabled.value,
     }))
 
+    const { t } = useTranslation()
+
     const inputAttributesComputed = computed(() => ({
       tabindex: tabIndexComputed.value,
-      ariaLabel: props.label || 'counter value',
+      ariaLabel: props.label || t('counterValue'),
       ariaValuemin: props.min,
       ariaValuemax: props.max,
       ...omit(attrs, ['class', 'style']),

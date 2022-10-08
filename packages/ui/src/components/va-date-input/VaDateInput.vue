@@ -359,11 +359,13 @@ export default defineComponent({
       },
     }))
 
+    const { t } = useTranslation()
+
     const inputAttributesComputed = computed(() => ({
       readonly: props.readonly || !props.manualInput,
       tabindex: props.disabled ? -1 : 0,
       value: valueText.value,
-      ariaLabel: props.label || 'selected date',
+      ariaLabel: props.label || t('selectedDate'),
       ariaRequired: props.requiredMark,
       ariaDisabled: props.disabled,
       ariaReadOnly: props.readonly,
@@ -381,7 +383,7 @@ export default defineComponent({
     }))
 
     return {
-      ...useTranslation(),
+      t,
       datePicker,
       valueText,
       valueWithoutText,

@@ -35,7 +35,7 @@
 import { computed, defineComponent } from 'vue'
 import clamp from 'lodash/clamp.js'
 
-import { useComponentPresetProp, useColors, useSize, useSizeProps } from '../../composables'
+import { useComponentPresetProp, useColors, useSize, useSizeProps, useTranslation } from '../../composables'
 
 export default defineComponent({
   name: 'VaProgressCircle',
@@ -60,6 +60,8 @@ export default defineComponent({
     const dashoffset = computed(() => dasharray.value * (1 - clamp(props.modelValue, 0, 100) / 100))
     const colorComputed = computed(() => getColor(props.color, undefined, true))
 
+    const { t } = useTranslation()
+
     return {
       infoStyle: computed(() => ({ color: colorComputed.value })),
       rootStyle: computed(() => ({
@@ -71,7 +73,7 @@ export default defineComponent({
       })),
       ariaAttributesComputed: computed(() => ({
         role: 'progressbar',
-        ariaLabel: 'progress state',
+        ariaLabel: t('progressState'),
         ariaValuenow: !props.indeterminate ? props.modelValue : undefined,
       })),
 
