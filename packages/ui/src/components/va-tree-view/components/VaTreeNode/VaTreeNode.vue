@@ -5,7 +5,7 @@
     role="treeitem"
     :aria-expanded="$props.node.expanded"
     :aria-disabled="$props.node.disabled"
-    :aria-checked="$props.node.checked"
+    :aria-checked="!!$props.node.checked"
     :tabindex="tabIndexComputed"
     @keydown.right.stop.prevent="handleToggleNode($event, $props.node)"
     @keydown.left.stop.prevent="handleToggleNode($event, $props.node)"
@@ -88,7 +88,6 @@ export default defineComponent({
     node: {
       type: Object as PropType<TreeNode>,
       required: true,
-      default: () => ({}),
     },
   },
 

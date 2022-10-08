@@ -41,6 +41,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType, computed, toRefs, shallowRef } from 'vue'
+import pick from 'lodash/pick.js'
 
 import {
   useBem,
@@ -59,11 +60,10 @@ import { useButtonBackground } from './hooks/useButtonBackground'
 import { useButtonAttributes } from './hooks/useButtonAttributes'
 import { useButtonTextColor } from './hooks/useButtonTextColor'
 
+import { checkSlotChildrenDeep } from '../../services/utils'
+
 import { VaIcon } from '../va-icon'
 import { VaProgressCircle } from '../va-progress-circle'
-
-import pick from 'lodash/pick.js'
-import isFunction from 'lodash/isFunction.js'
 
 export default defineComponent({
   name: 'VaButton',
@@ -136,23 +136,7 @@ export default defineComponent({
     // classes
     const wrapperClassComputed = computed(() => ({ 'va-button__content--loading': props.loading }))
 
-    const checkSlotChildrenDeep = (v: any, initial: boolean): boolean => {
-      if (!v || (initial && (!isFunction(v) || !v() || !v().length))) { return false }
-
-      const slotData = initial ? v() : v
-
-      if (Array.isArray(slotData)) {
-        return slotData.some((el: any) => {
-          return Array.isArray(el.children) ? checkSlotChildrenDeep(el.children, false) : el.children || el.props
-        })
-      }
-
-      return !!slotData.children
-    }
-
-    const isSlotContentPassed = computed(() => {
-      return checkSlotChildrenDeep(slots.default, true)
-    })
+    const isSlotContentPassed = computed(() => checkSlotChildrenDeep(slots.default))
 
     const isOneIcon = computed(() => !!((props.iconRight && !props.icon) || (!props.iconRight && props.icon)))
     const computedClass = useBem('va-button', () => ({

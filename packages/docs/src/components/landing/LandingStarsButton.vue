@@ -3,7 +3,7 @@
     class="stars-button"
     target="blank"
     :href="url"
-    color="dark"
+    color="textDark"
     size="small"
   >
     <va-icon name="star_empty" class="mr-1" size="small" /> {{ stars }}

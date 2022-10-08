@@ -20,13 +20,13 @@
 </template>
 
 <script lang="ts">
-import { useColors } from 'vuestic-ui/src/main'
+import { useColors, useTheme } from 'vuestic-ui/src/main'
 import { computed, defineComponent } from 'vue'
-import { COLOR_THEMES } from '../../../config/theme-config'
 
 export default defineComponent({
   name: 'DocsColorDropdown',
   setup () {
+    const { applyPreset, presets } = useTheme()
     const { getColors, setColors } = useColors()
     const capitalizeFirstLetter = (text: string) => text.charAt(0).toUpperCase() + text.slice(1)
 
@@ -37,12 +37,11 @@ export default defineComponent({
       return colorNames.map((c) => ({ name: c, title: capitalizeFirstLetter(c) }))
     })
 
-    const themes = Object.keys(COLOR_THEMES).map((themeName) => ({ value: themeName, label: capitalizeFirstLetter(themeName) }))
+    const themes = Object.keys(presets.value).map((themeName) => ({ value: themeName, label: capitalizeFirstLetter(themeName) }))
 
     const setTheme = (theme: string) => {
       localStorage.setItem('vuestic-docs-theme', theme)
-      const colors = COLOR_THEMES[theme as keyof typeof COLOR_THEMES]
-      setColors(colors)
+      applyPreset(theme)
     }
 
     setTheme(localStorage.getItem('vuestic-docs-theme') || 'DEFAULT')

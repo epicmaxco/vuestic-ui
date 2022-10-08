@@ -3,13 +3,13 @@ import { ComputedRef, InjectionKey } from 'vue'
 export interface TreeNode {
   id: number | string
   children: TreeNode[]
-  level?: number
-  checked?: boolean | null
-  disabled?: boolean
-  expanded?: boolean
-  hasChildren?: boolean
-  matchesFilter?: boolean
-  indeterminate?: boolean
+  level: number
+  checked: boolean | null
+  disabled: boolean
+  expanded: boolean
+  hasChildren: boolean
+  matchesFilter: boolean
+  indeterminate: boolean
   [key: string]: any
 }
 
@@ -24,8 +24,8 @@ export interface TreeView {
   getText: (node: TreeNode) => string
   toggleNode: (node: TreeNode) => void
   getTrackBy: (node: TreeNode) => string
-  getNodeProperty: (node: TreeNode, key: TreeViewPropKey) => unknown
-  toggleCheckbox: (node: TreeNode, state: boolean) => void
+  getNodeProperty: (node: TreeNode, key: TreeViewPropKey) => any
+  toggleCheckbox: (node: TreeNode, state: boolean | null) => void
 }
 
 // TODO: Implement in future versions the update:selected emit

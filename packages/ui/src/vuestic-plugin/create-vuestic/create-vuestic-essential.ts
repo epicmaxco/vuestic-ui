@@ -1,6 +1,6 @@
 import type { VuesticComponent, VuesticPlugin, VuesticPluginFabric } from '../types'
 import { defineVuesticPlugin } from '../types'
-import type { GlobalConfig } from '../../services/global-config/global-config'
+import type { PartialGlobalConfig } from '../../services/global-config/global-config'
 import { usePlugin } from '../utils'
 
 import { GlobalConfigPlugin, ColorConfigPlugin } from '../vuestic-plugins'
@@ -23,7 +23,7 @@ const ESSENTIAL_PLUGIN_NAMES = ['GlobalConfigPlugin', 'ColorConfigPlugin']
  * ```
  */
 export const createVuesticEssential = defineVuesticPlugin((options: {
-  config?: GlobalConfig,
+  config?: PartialGlobalConfig,
   components?: Record<string, VuesticComponent>,
   plugins?: Record<string, VuesticPlugin | VuesticPluginFabric>
  } = {}) => ({

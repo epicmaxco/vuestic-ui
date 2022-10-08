@@ -74,6 +74,40 @@ onMounted(() => {
     --docsearch-primary-color: var(--va-primary);
     --docsearch-searchbox-shadow: inset 0 0 0 var(--va-input-border-width) var(--va-primary);
     --docsearch-text-color: var(--va-secondary);
+    --docsearch-modal-background: var(--va-background-primary);
+    --docsearch-footer-background: var(--va-background-secondary);
+    --docsearch-hit-background: var(--va-background-secondary);
+    --docsearch-hit-color: var(--va-on-background-secondary);
+    --docsearch-searchbox-focus-background: var(--va-background-secondary);
+    --docsearch-modal-shadow: unset;
+    --docsearch-footer-shadow: unset;
+    --docsearch-hit-shadow: unset;
+    --docsearch-container-background: transparent;
+  }
+
+  .DocSearch-Container {
+    z-index: 0;
+
+    &::after,
+    &::before {
+      content: '';
+      z-index: -1;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    &::after {
+      background: var(--va-primary);
+      opacity: 0.1;
+    }
+
+    &::before {
+      background: rgba(85, 85, 85, 0.473);
+      opacity: 0.8;
+    }
   }
 
   #docsearch {

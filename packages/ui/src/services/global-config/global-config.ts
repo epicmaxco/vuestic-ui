@@ -1,12 +1,12 @@
-import merge from 'lodash/merge.js'
 import cloneDeep from 'lodash/cloneDeep.js'
 import { ref, inject, Ref, getCurrentInstance } from 'vue'
-import { GlobalConfig, GlobalConfigUpdater } from './types'
+import { GlobalConfig, DeepPartial, GlobalConfigUpdater, PartialGlobalConfig } from './types'
 import { getComponentsDefaultConfig } from './config-default'
 import { createIconsConfig } from '../icon-config/icon-config-helpers'
 import { colorsPresets } from '../color-config/color-theme-presets'
 import { getBreakpointDefaultConfig } from '../breakpoint'
 import { getGlobalProperty } from '../../vuestic-plugin/utils'
+import { mergeDeep } from '../../utils/merge-deep'
 
 export type ProvidedGlobalConfig = {
   globalConfig: Ref<GlobalConfig>,
@@ -15,29 +15,37 @@ export type ProvidedGlobalConfig = {
    * Set new global config
    * @see mergeGlobalConfig if you want to update existing config
    */
-  setGlobalConfig: (updater: GlobalConfig | GlobalConfigUpdater) => void,
-  mergeGlobalConfig: (updater: GlobalConfig | GlobalConfigUpdater) => void
+  setGlobalConfig: (updater: GlobalConfig | GlobalConfigUpdater<GlobalConfig>) => void,
+  mergeGlobalConfig: (updater: PartialGlobalConfig | GlobalConfigUpdater<PartialGlobalConfig>) => void
 }
 
 export const GLOBAL_CONFIG = Symbol('GLOBAL_CONFIG')
 
 export const createGlobalConfig = () => {
   const globalConfig = ref<GlobalConfig>({
-    colors: colorsPresets.default,
+    colors: {
+      variables: colorsPresets.light,
+      threshold: 120,
+      presets: {
+        light: colorsPresets.light,
+        dark: colorsPresets.dark,
+      },
+      currentPresetName: 'light',
+    },
     icons: createIconsConfig({}),
     components: getComponentsDefaultConfig(),
     breakpoint: getBreakpointDefaultConfig(),
   })
 
   const getGlobalConfig = (): GlobalConfig => globalConfig.value
-  const setGlobalConfig = (updater: GlobalConfig | GlobalConfigUpdater) => {
+  const setGlobalConfig = (updater: GlobalConfig | GlobalConfigUpdater<GlobalConfig>) => {
     const config = typeof updater === 'function' ? updater(globalConfig.value) : updater
     globalConfig.value = cloneDeep(config)
   }
 
-  const mergeGlobalConfig = (updater: GlobalConfig | GlobalConfigUpdater) => {
+  const mergeGlobalConfig = (updater: PartialGlobalConfig | GlobalConfigUpdater<PartialGlobalConfig>) => {
     const config = typeof updater === 'function' ? updater(globalConfig.value) : updater
-    globalConfig.value = merge(cloneDeep(globalConfig.value), config)
+    globalConfig.value = mergeDeep(cloneDeep(globalConfig.value), config)
   }
 
   return {
