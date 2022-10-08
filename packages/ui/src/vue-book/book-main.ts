@@ -46,8 +46,9 @@ app.use(createVuesticEssential({
       fonts: demoIconFonts,
     }),
     colors: {
-      ...colorsPresets.default,
-      banana: '#d0f55d',
+      variables: {
+        banana: '#d0f55d',
+      },
     },
   },
   plugins: { VaToastPlugin, VaDropdownPlugin, VaModalPlugin, BreakpointConfigPlugin },

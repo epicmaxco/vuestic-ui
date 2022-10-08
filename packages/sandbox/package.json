@@ -18,7 +18,8 @@
     "test:test-utils": "vitest run -r ./src -c ./vitest.config.ts",
     "build:vuestic": "yarn --cwd ../ui build",
     "build:vuestic-nuxt": "yarn --cwd ../nuxt build",
-    "ci": "yarn build:vuestic && yarn build:vuestic-nuxt && yarn build && yarn test:ci"
+    "ci": "yarn build:vuestic && yarn build:vuestic-nuxt && yarn build && yarn test:ci",
+    "dependenciesInstalled": "node ./scripts/stud-nuxt.mjs"
   },
   "dependencies": {
     "@vue/cli-service": "5",
@@ -39,6 +40,7 @@
     "vue-bundle-renderer": "0.4.1",
     "vue-tsc": "^0.38.2",
     "webpack": "5",
-    "webpack-cli": "^4.9.2"
+    "webpack-cli": "^4.9.2",
+    "when-dependencies-installed": "^1.0.0"
   }
 }

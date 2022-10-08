@@ -1,7 +1,6 @@
-import { onBeforeUpdate, ComponentPublicInstance } from 'vue'
-import { shallowRef } from '@vue/reactivity'
+import { shallowRef, onBeforeUpdate, ComponentPublicInstance } from 'vue'
 
-type TemplateRef = HTMLElement | (ComponentPublicInstance & HTMLElement)
+export type TemplateRef = HTMLElement | (ComponentPublicInstance & HTMLElement)
 
 /**
  * @usage use setItemRef function as :ref property on v-for construction (or without v-for)

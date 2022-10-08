@@ -6,8 +6,7 @@
 <script>
 import { defineComponent } from '@vue/runtime-core'
 import emitter from 'tiny-emitter/instance'
-import { useColors, useToast } from '../../ui/src/main'
-import { COLOR_THEMES, ThemeName } from './config/theme-config'
+import { useToast } from '../../ui/src/main'
 
 const eventBus = {
   $on: (...args) => emitter.on(...args),
@@ -37,8 +36,6 @@ export default defineComponent({
         duration: 3000,
       })
     }
-
-    useColors().setColors(COLOR_THEMES[ThemeName.DEFAULT])
   },
 })
 </script>

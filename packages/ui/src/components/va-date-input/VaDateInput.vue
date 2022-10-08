@@ -87,7 +87,17 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, toRefs, watch, ref, shallowRef, nextTick } from 'vue'
+import {
+  computed,
+  defineComponent,
+  PropType,
+  toRefs,
+  watch,
+  ref,
+  shallowRef,
+  nextTick,
+  WritableComputedRef,
+} from 'vue'
 import omit from 'lodash/omit'
 
 import { filterComponentProps, extractComponentProps, extractComponentEmits } from '../../utils/child-props'
@@ -106,7 +116,8 @@ import { parseModelValue } from './hooks/model-value-parser'
 
 import { isRange, isSingleDate, isDates } from '../va-date-picker/utils/date-utils'
 
-import { DateInputModelValue, DateInputValue } from './types'
+import type { DateInputModelValue, DateInputValue } from './types'
+import type { DropdownOffsetProp } from '../va-dropdown/types'
 
 import VaDatePicker from '../va-date-picker/VaDatePicker.vue'
 import { VaDropdown, VaDropdownContent } from '../va-dropdown'
@@ -176,7 +187,7 @@ export default defineComponent({
     const datePicker = ref<typeof VaDatePicker>()
 
     const { isOpen, resetOnClose } = toRefs(props)
-    const { valueComputed: statefulValue } = useStateful<DateInputModelValue>(props, emit)
+    const { valueComputed: statefulValue }: { valueComputed: WritableComputedRef<DateInputModelValue> } = useStateful(props, emit)
     const { syncProp: isOpenSync } = useSyncProp(isOpen, 'is-open', emit, false)
 
     const { isFocused, focus, blur, onFocus: focusListener, onBlur: blurListener } = useFocus(input)
@@ -362,7 +373,7 @@ export default defineComponent({
 
     const dropdownPropsComputed = computed(() => ({
       ...filterComponentProps(props, VaDropdownProps).value,
-      offset: [2, 0],
+      offset: [2, 0] as DropdownOffsetProp,
       stateful: false,
       keyboardNavigation: true,
       closeOnContentClick: false,

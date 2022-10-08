@@ -1,7 +1,8 @@
 import { ComputedRef, Ref } from 'vue'
 
 export const TabsViewKey = Symbol('TabsView')
-export const TabKey = Symbol('Tab')
+
+export type TabSelected = string | number | null
 
 export interface TabComponent {
   id: string | number | null,

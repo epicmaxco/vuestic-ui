@@ -1,4 +1,4 @@
-import type { ColorConfig, CssColor } from '../services/color-config'
+import type { ColorConfig, ColorVariables, CssColor } from '../services/color-config'
 import { computed } from 'vue'
 import { GlobalConfig, useGlobalConfigSafe } from '../services/global-config/global-config'
 import {
@@ -8,16 +8,16 @@ import {
   getFocusColor,
   getGradientBackground,
   isColor,
-  getTextColor,
   shiftHSLAColor,
   setHSLAColor,
   isCSSVariable,
-  isLightBackground,
+  getTextColor as getTextColorBase,
   colorToRgba,
   getStateMaskGradientBackground,
 } from '../services/color-config/color-functions'
 
 import { cssVariableName, normalizeColorName } from '../services/color-config/utils'
+import { ColorInput } from 'colortranslator/dist/@types'
 
 /**
  * You can add these props to any component by destructuring them inside props option.
@@ -39,23 +39,29 @@ export const useColors = () => {
     throw new Error('useColors must be used in setup function or Vuestic GlobalConfigPlugin is not registered!')
   }
 
-  const { setGlobalConfig, getGlobalConfig, globalConfig } = gc
+  const { setGlobalConfig, globalConfig } = gc
 
-  const colors = computed(() => globalConfig.value.colors || {})
+  const colors = computed<ColorVariables>(() => globalConfig.value.colors!.variables)
 
-  const setColors = (colors: Partial<ColorConfig>): void => {
+  const setColors = (colors: Partial<ColorVariables>): void => {
     setGlobalConfig((config: GlobalConfig) => ({
       ...config,
-      colors: { ...config.colors, ...colors } as ColorConfig,
+      colors: {
+        ...config.colors!,
+        variables: {
+          ...config.colors!.variables,
+          ...colors as ColorVariables,
+        },
+      },
     }))
   }
 
-  const getColors = (): ColorConfig => {
-    return getGlobalConfig().colors!
+  const getColors = (): ColorVariables => {
+    return colors.value
   }
 
   /**
-   * Returns color from config by name or return prop if color is a valid hex, hsl, hsla, rgb or rgba color.
+   * Returns color from config variables by name or return prop if color is a valid hex, hsl, hsla, rgb or rgba color.
    * @param prop - should be color name or color in hex, hsl, hsla, rgb or rgba format.
    * @param preferVariables - function should return (if possible) CSS variable instead of hex (hex is needed to set opacity).
    * @param defaultColor - this color will be used if prop is invalid.
@@ -110,6 +116,10 @@ export const useColors = () => {
       }, {})
   }
 
+  const getTextColor = (color: ColorInput, darkColor = 'textDark', lightColor = 'textLight') => {
+    return getTextColorBase(color, darkColor, lightColor, 120)
+  }
+
   return {
     colors,
     setColors,
@@ -125,7 +135,6 @@ export const useColors = () => {
     shiftHSLAColor,
     setHSLAColor,
     colorsToCSSVariable,
-    isLightBackground,
     colorToRgba,
     getStateMaskGradientBackground,
   }

@@ -17,7 +17,9 @@
       :items="items"
       :style="{
         '--va-data-table-height': '300px',
-        '--va-data-table-header-background': 'linear-gradient(0deg, #ddd, #eff8ff)',
+        '--va-data-table-thead-background': 'var(--va-secondary)',
+        '--va-data-table-tfoot-background': 'var(--va-background-element)',
+        '--va-data-table-thead-color': 'var(--va-warning)',
       }"
       sticky-header
       footer-clone
@@ -38,12 +40,29 @@
     </va-data-table>
 
     <va-data-table
-      :items="items"
       class="my-custom-table-class"
+      :items="items"
+      height="100%"
       sticky-header
       footer-clone
       sticky-footer
-    />
+      :scrollBottomMargin="20"
+      @scroll:top="logger"
+      @scroll:bottom="onScrollDown"
+    >
+      <template #headerPrepend>
+        <tr>
+          <th colspan="6">With scroll events</th>
+        </tr>
+      </template>
+      <template #bodyAppend v-if="isLoading">
+        <tr>
+          <td colspan="6">
+            <va-inner-loading :loading="isLoading" style="height: 2rem;" />
+          </td>
+        </tr>
+      </template>
+    </va-data-table>
   </div>
 </template>
 
@@ -121,7 +140,34 @@ export default defineComponent({
 
     return {
       items: users,
+      isLoading: false,
     }
+  },
+
+  methods: {
+    logger () {
+      console.log('--- scroll top ---')
+    },
+    onScrollDown () {
+      if (this.isLoading) { return }
+      this.isLoading = true
+      setTimeout(() => {
+        this.loadUsers()
+        this.isLoading = false
+      }, 1500)
+    },
+    loadUsers () {
+      const lastId = this.items[this.items.length - 1].id
+      const uploadedUser = {
+        name: 'New User',
+        username: 'NewUser',
+        email: 'newUser@nebulean.com',
+        phone: '(254)954-5289',
+        website: 'nebulean.info',
+      }
+      const loadedUsers = [1, 2, 3].map((id) => ({ ...uploadedUser, id: lastId + id }))
+      this.items = [...this.items, ...loadedUsers]
+    },
   },
 })
 </script>
@@ -129,7 +175,7 @@ export default defineComponent({
 <style lang="scss">
   .sticky-table-example {
     .va-data-table {
-      border: 1px solid;
+      border: 1px solid var(--va-background-element);
     }
 
     .va-data-table + .va-data-table {
@@ -137,13 +183,11 @@ export default defineComponent({
     }
 
     .my-custom-table-class {
-      --va-data-table-thead-background: black;
-      --va-data-table-tfoot-background: gray;
-      --va-data-table-height: 250px;
-
-      .va-data-table__table-th {
-        color: white;
-      }
+      --va-data-table-thead-background: linear-gradient(0deg, var(--va-primary), var(--va-info));
+      --va-data-table-tfoot-background: linear-gradient(0deg, var(--va-info), var(--va-primary));
+      --va-data-table-max-height: 250px;
+      --va-data-table-thead-color: var(--va-text-light);
+      --va-data-table-tfoot-color: var(--va-text-light);
     }
   }
 </style>

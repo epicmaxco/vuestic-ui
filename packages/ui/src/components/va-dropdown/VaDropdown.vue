@@ -42,14 +42,16 @@ import {
   useDropdown, placementsPositions, Placement,
   useClickOutside,
   useBem,
-  useEvent,
+  useHTMLElementSelector,
   useIsMounted,
   useDocument,
   useHTMLElement,
+  MaybeHTMLElementOrSelector,
 } from '../../composables'
 import { useAnchorSelector } from './hooks/useAnchorSelector'
 import { useCursorAnchor } from './hooks/useCursorAnchor'
 import { useKeyboardNavigation, useMouseNavigation } from './hooks/useDropdownNavigation'
+import type { DropdownOffsetProp } from './types'
 
 export default defineComponent({
   name: 'VaDropdown',
@@ -57,14 +59,12 @@ export default defineComponent({
   props: {
     ...useStatefulProps,
     ...useComponentPresetProp,
-    stateful: { default: true },
-    modelValue: { type: Boolean, default: false },
     disabled: { type: Boolean },
     readonly: { type: Boolean },
     anchorSelector: { type: String, default: '' },
     innerAnchorSelector: { type: String, default: '' },
     /** Element where dropdown content will be rendered */
-    target: { type: String, default: undefined },
+    target: { type: String as PropType<MaybeHTMLElementOrSelector>, default: undefined },
     preventOverflow: { type: Boolean, default: false },
     keepAnchorWidth: { type: Boolean, default: false },
     isContentHoverable: { type: Boolean, default: true },
@@ -73,7 +73,7 @@ export default defineComponent({
     closeOnAnchorClick: { type: Boolean, default: true },
     hoverOverTimeout: { type: Number, default: 30 },
     hoverOutTimeout: { type: Number, default: 200 },
-    offset: { type: [Array, Number] as PropType<number | [number, number]>, default: 0 },
+    offset: { type: [Array, Number] as PropType<DropdownOffsetProp>, default: 0 },
     stickToEdges: { type: Boolean, default: false },
     autoPlacement: { type: Boolean, default: true },
     cursor: { type: Boolean, default: false },
@@ -198,14 +198,12 @@ export default defineComponent({
     const document = useDocument()
     const isPopoverFloating = computed(() => props.preventOverflow || props.cursor)
 
+    const target = useHTMLElementSelector(computed(() => props.target || 'body'))
+
     const targetComputed = computed(() => {
-      const target = document.value?.querySelector<HTMLElement>(props.target || 'body')
+      if (computedAnchorRef.value && !target.value?.contains?.(computedAnchorRef.value)) { return document.value?.body }
 
-      if (!target) { return document.value?.body }
-
-      if (computedAnchorRef.value && !target.contains(computedAnchorRef.value)) { return document.value?.body }
-
-      return target
+      return target.value
     })
 
     const teleportTargetComputed = computed(() => {

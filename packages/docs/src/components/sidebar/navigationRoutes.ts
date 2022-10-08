@@ -14,6 +14,10 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: 'menu.overview',
       },
       {
+        name: 'team',
+        displayName: 'menu.team',
+      },
+      {
         name: 'roadmap',
         displayName: 'menu.roadmap',
       },
@@ -367,6 +371,10 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: 'dropdown',
         displayName: 'menu.dropdown',
+      },
+      {
+        name: 'tree-view',
+        displayName: 'menu.treeView',
       },
       // GENERATOR_ADD - uiElements
     ],
