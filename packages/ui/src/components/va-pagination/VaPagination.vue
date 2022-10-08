@@ -2,7 +2,7 @@
   <nav
     v-if="showPagination"
     class="va-pagination"
-    aria-label="pagination"
+    :aria-label="t('pagination')"
     :class="classComputed"
     @keydown.left.stop="goPrevPage"
     @keydown.right.stop="goNextPage"
@@ -15,7 +15,7 @@
     >
       <va-button
         v-if="showBoundaryLinks"
-        aria-label="go to the first page"
+        :aria-label="t('goToTheFirstPage')"
         :disabled="$props.disabled || currentValue === 1"
         :icon="$props.boundaryIconLeft"
         v-bind="buttonPropsComputed"
@@ -28,7 +28,7 @@
     >
       <va-button
         v-if="showDirectionLinks"
-        aria-label="go to the previous page"
+        :aria-label="t('goToPreviousPage')"
         :disabled="$props.disabled || currentValue === 1"
         :icon="$props.directionIconLeft"
         v-bind="buttonPropsComputed"
@@ -41,7 +41,7 @@
         v-for="(n, i) in paginationRange" :key="i"
         :ref="setItemRefByIndex(i)"
         :class="{ 'va-button--ellipsis': n === '...', 'va-button--current': n === currentValue}"
-        :aria-label="`go to the ${n} page`"
+        :aria-label="t(`goToSpecificPage`, { page: n })"
         :aria-current="n === currentValue"
         :disabled="$props.disabled || n === '...'"
         v-bind="getPageButtonProps(n)"
@@ -55,7 +55,7 @@
       v-model="inputValue"
       ref="htmlInput"
       class="va-pagination__input va-button"
-      aria-label="enter the page number to go"
+      :aria-label="t('goToSpecificPageInput')"
       :style="inputStyleComputed"
       :class="inputClassComputed"
       v-bind="inputAttributesComputed"
@@ -70,7 +70,7 @@
     >
       <va-button
         v-if="showDirectionLinks"
-        aria-label="go next page"
+        :aria-label="t('goNextPage')"
         :disabled="$props.disabled || currentValue === lastPage"
         :icon="$props.directionIconRight"
         v-bind="buttonPropsComputed"
@@ -83,7 +83,7 @@
     >
       <va-button
         v-if="showBoundaryLinks"
-        aria-label="go last page"
+        :aria-label="t('goLastPage')"
         :disabled="$props.disabled || currentValue === lastPage"
         :icon="$props.boundaryIconRight"
         v-bind="buttonPropsComputed"
@@ -115,6 +115,7 @@ import {
   useColors,
   useStateful, useStatefulProps, useStatefulEmits,
   useArrayRefs,
+  useTranslation,
 } from '../../composables'
 import { setPaginationRange } from './setPaginationRange'
 
@@ -309,6 +310,7 @@ export default defineComponent({
     const goPrevPage = () => onUserInput(currentValue.value - 1)
 
     return {
+      ...useTranslation(),
       getPageButtonProps,
       inputClassComputed,
       classComputed,

@@ -2,7 +2,7 @@
   <div
     class="va-rating"
     :class="rootClass"
-    :aria-label="`current rating ${$props.modelValue} of ${$props.max}`"
+    :aria-label="t('currentRating', { max: $props.max, value: $props.modelValue })"
   >
     <div
       class="va-rating__item-wrapper"
@@ -16,7 +16,7 @@
         :key="itemNumber"
         class="va-rating__item"
         v-bind="VaRatingItemProps"
-        :aria-label="`vote rating ${itemNumber} of ${$props.max}`"
+        :aria-label="t('voteRating', { max: $props.max, value: $props.modelValue })"
         :model-value="getItemValue(itemNumber - 1)"
         :tabindex="tabIndexComputed"
         :disabled="$props.disabled"
@@ -50,7 +50,7 @@
 import { defineComponent, computed, PropType } from 'vue'
 
 import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
-import { useForm, useFormProps } from '../../composables'
+import { useForm, useFormProps, useTranslation } from '../../composables'
 import { useRating, useRatingProps } from './hooks/useRating'
 import { useVaRatingColors, useVaRatingColorsProps } from './hooks/useVaRatingColors'
 
@@ -85,6 +85,7 @@ export default defineComponent({
     const isInteractionsEnabled = computed(() => !props.disabled && !props.readonly)
 
     return {
+      ...useTranslation(),
       ...useVaRatingColors(props),
       ...rating,
       rootClass,

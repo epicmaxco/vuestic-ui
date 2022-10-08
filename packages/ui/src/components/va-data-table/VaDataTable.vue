@@ -39,7 +39,7 @@
             <va-checkbox
               v-if="selectMode === 'multiple'"
               class="va-data-table__table-cell-checkbox"
-              aria-label="select all rows"
+              :aria-label="t('selectAllRows')"
               :model-value="severalRowsSelected ? 'idl' : allRowsSelected"
               :true-value="true"
               :false-value="false"
@@ -55,7 +55,7 @@
             :key="column.name"
             scope="col"
             :aria-sort="getColumnAriaSortOrder(column.name)"
-            :aria-label="column.sortable ? `sort column by ${column.label}` : undefined"
+            :aria-label="column.sortable ? t(`sortColumnBy`, { name: column.label }) : undefined"
             :title="column.thTitle"
             class="va-data-table__table-th"
             :class="getClass(column.thClass)"
@@ -143,7 +143,7 @@
                 class="va-data-table__table-cell-checkbox"
                 :model-value="isRowSelected(row)"
                 :color="selectedColor"
-                :aria-label="`select row ${row.initialIndex}`"
+                :aria-label="t(`selectRowBy`, { index: row.initialIndex })"
                 @click.shift.exact.stop="shiftSelectRows(row)"
                 @click.ctrl.exact.stop="ctrlSelectRow(row)"
                 @click.exact.stop="ctrlSelectRow(row)"
@@ -186,7 +186,7 @@
             <va-checkbox
               v-if="selectMode === 'multiple'"
               class="va-data-table__table-cell-checkbox"
-              aria-label="select all rows"
+              :aria-label="t('selectAllRows')"
               :model-value="severalRowsSelected ? 'idl' : allRowsSelected"
               :true-value="true"
               :false-value="false"
@@ -201,7 +201,7 @@
             v-for="column in columnsComputed"
             :key="column.name"
             :title="column.thTitle"
-            :aria-label="allowFooterSorting && column.sortable ? `sort column by ${column.label}` : undefined"
+            :aria-label="allowFooterSorting && column.sortable ? t(`sortColumnBy`, { name: column.label }) : undefined"
             class="va-data-table__table-th"
             :class="getClass(column.thClass)"
             :style="[getFooterCSSVariables(column), getStyle(column.thStyle)]"
@@ -252,7 +252,7 @@ import { computed, defineComponent, HTMLAttributes, PropType, TableHTMLAttribute
 import omit from 'lodash/omit.js'
 import pick from 'lodash/pick.js'
 
-import { useComponentPresetProp } from '../../composables'
+import { useComponentPresetProp, useTranslation } from '../../composables'
 import useColumns, { sortingOptionsValidator } from './hooks/useColumns'
 import useRows from './hooks/useRows'
 import useFilterable from './hooks/useFilterable'
@@ -446,6 +446,7 @@ export default defineComponent({
     } = useTableScroll(props, emit)
 
     return {
+      ...useTranslation(),
       scrollContainer,
       topTrigger,
       bottomTrigger,

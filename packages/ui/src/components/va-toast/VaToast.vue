@@ -27,7 +27,7 @@
           v-if="$props.closeable"
           class="va-toast__close-icon"
           role="button"
-          aria-label="close toast"
+          :aria-label="t('closeToast')"
           tabindex="0"
           size="small"
           :name="$props.icon"
@@ -42,7 +42,7 @@
 <script lang="ts">
 import { defineComponent, PropType, ref, computed, onMounted, shallowRef } from 'vue'
 
-import { useComponentPresetProp, useColors, useTimer, useTextColor } from '../../composables'
+import { useComponentPresetProp, useColors, useTimer, useTextColor, useTranslation } from '../../composables'
 
 import { ToastPosition } from './types'
 
@@ -154,6 +154,7 @@ export default defineComponent({
     })
 
     return {
+      ...useTranslation(),
       visible,
       toastClasses,
       toastStyles,

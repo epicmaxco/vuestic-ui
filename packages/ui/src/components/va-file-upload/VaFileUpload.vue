@@ -10,18 +10,18 @@
           v-if="dropzone"
           class="va-file-upload__field__text"
         >
-          {{ dropZoneText }}
+          {{ tp(dropZoneText) }}
         </div>
         <va-button
           class="va-file-upload__field__button"
           :disabled="disabled"
           :aria-disabled="disabled"
           :color="colorComputed"
-          :style="{ 'pointer-events': dropzoneHighlight ? 'none' : '' }"
+          :style="{ 'pointer-events': dropzoneHighlight ? 'none' : undefined }"
           @change="changeFieldValue"
           @click="callFileDialogue"
         >
-          {{ uploadButtonText }}
+          {{ tp(uploadButtonText) }}
         </va-button>
       </div>
     </slot>
@@ -59,7 +59,7 @@
 <script lang="ts">
 import { computed, defineComponent, onMounted, ref, toRef, shallowRef, provide, PropType } from 'vue'
 
-import { useColors, useComponentPresetProp, useBem } from '../../composables'
+import { useColors, useComponentPresetProp, useBem, useTranslation } from '../../composables'
 
 import { VaFileUploadKey, VaFile } from './types'
 
@@ -84,10 +84,10 @@ export default defineComponent({
     disabled: { type: Boolean, default: false },
     undo: { type: Boolean, default: false },
     undoDuration: { type: Number, default: 3000 },
-    undoButtonText: { type: String, default: 'Undo' },
-    dropZoneText: { type: String, default: 'Drag’n’drop files or' },
-    uploadButtonText: { type: String, default: 'Upload file' },
-    deletedFileMessage: { type: String, default: 'File was successfully deleted' },
+    undoButtonText: { type: String, default: '$t:undo' },
+    dropZoneText: { type: String, default: '$t:dropzone' },
+    uploadButtonText: { type: String, default: '$t:uploadFile' },
+    deletedFileMessage: { type: String, default: '$t:fileDeleted' },
     modelValue: {
       type: [Object, Array] as PropType<VaFile | VaFile[]>,
       default: () => [],
@@ -201,12 +201,14 @@ export default defineComponent({
       }
     })
 
+    const { tp } = useTranslation()
+
     provide(VaFileUploadKey, {
       undo: toRef(props, 'undo'),
       disabled: toRef(props, 'disabled'),
       undoDuration: toRef(props, 'undoDuration'),
-      undoButtonText: toRef(props, 'undoButtonText'),
-      deletedFileMessage: toRef(props, 'deletedFileMessage'),
+      undoButtonText: computed(() => tp(props.undoButtonText)),
+      deletedFileMessage: computed(() => tp(props.deletedFileMessage)),
     })
 
     return {
@@ -217,6 +219,7 @@ export default defineComponent({
       computedStyle,
       computedClasses,
       files,
+      tp,
       uploadFile,
       changeFieldValue,
       removeFile,

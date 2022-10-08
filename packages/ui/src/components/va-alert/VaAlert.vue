@@ -57,7 +57,7 @@
           role="button"
           class="va-alert__close--closeable"
           tabindex="0"
-          :aria-label="closeText || 'close alert'"
+          :aria-label="closeText || t('closeAlert')"
           :style="contentStyle"
           @click="hide"
           @keydown.space="hide"
@@ -85,6 +85,7 @@ import { generateUniqueId } from '../../services/utils'
 import {
   useComponentPresetProp,
   useStateful, useStatefulProps, useStatefulEmits,
+  useTranslation,
 } from '../../composables'
 
 import { useAlertStyles } from './useAlertStyles'
@@ -136,6 +137,7 @@ export default defineComponent({
     const descriptionIdComputed = computed(() => `aria-description-${uniqueId.value}`)
 
     return {
+      ...useTranslation(),
       ...alertStyles,
       valueComputed,
       hasIcon,

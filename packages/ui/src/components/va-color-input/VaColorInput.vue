@@ -3,7 +3,7 @@
     <va-color-indicator
       class="va-color-input__dot"
       role="button"
-      aria-label="open color picker"
+      :aria-label="t('openColorPicker')"
       :aria-disabled="$props.disabled"
       :tabindex="tabIndexComputed"
       :color="valueComputed"
@@ -32,7 +32,7 @@
 <script lang="ts">
 import { defineComponent, PropType, shallowRef, computed } from 'vue'
 
-import { useComponentPresetProp, useStateful, useStatefulProps, useStatefulEmits } from '../../composables'
+import { useComponentPresetProp, useStateful, useStatefulProps, useStatefulEmits, useTranslation } from '../../composables'
 
 import { VaColorIndicator } from '../va-color-indicator'
 import { VaInput } from '../va-input'
@@ -65,6 +65,7 @@ export default defineComponent({
     const tabIndexComputed = computed(() => props.disabled ? -1 : 0)
 
     return {
+      ...useTranslation(),
       valueComputed,
       callPickerDialog,
       colorPicker,
