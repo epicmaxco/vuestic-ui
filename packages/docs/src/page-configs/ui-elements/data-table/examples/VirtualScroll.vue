@@ -33,7 +33,11 @@ export default defineComponent({
     ]
 
     return {
-      items: new Array(500).fill(null).map((_, idx) => idx % 2 ? users[0] : users[1]),
+      items: new Array(1000).fill(null).map((_, idx) => {
+        const u = { ...(idx % 2 ? users[0] : users[1]) }
+        u.id = idx
+        return u
+      }),
     }
   },
 })
