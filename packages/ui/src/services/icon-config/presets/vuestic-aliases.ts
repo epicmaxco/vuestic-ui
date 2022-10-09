@@ -18,11 +18,11 @@ export const VuesticIconAliases: IconConfiguration[] = [
     to: 'mi-chevron_left',
   },
   {
-    name: 'va-expand',
+    name: 'va-arrow-down',
     to: 'mi-expand_more',
   },
   {
-    name: 'va-collapse',
+    name: 'va-arrow-up',
     to: 'mi-expand_less',
   },
   {
@@ -54,11 +54,7 @@ export const VuesticIconAliases: IconConfiguration[] = [
     to: 'mi-close',
   },
   {
-    name: 'va-done',
-    to: 'mi-done',
-  },
-  {
-    name: 'va-loop',
+    name: 'va-loading',
     to: 'mi-loop',
   },
 ]

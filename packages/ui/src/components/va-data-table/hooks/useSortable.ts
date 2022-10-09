@@ -131,9 +131,9 @@ export default function useSortable (
 
   const sortingOrderIconName = computed(() => {
     return sortingOrderSync.value === 'asc'
-      ? 'va-collapse'
+      ? 'va-arrow-up'
       : sortingOrderSync.value === 'desc'
-        ? 'va-expand'
+        ? 'va-arrow-down'
         : 'unfold_more'
   })
 
