@@ -2,7 +2,7 @@
   <div>
     <va-carousel :items="items" v-model="value" :ratio="1/1" />
   </div>
-  <div>
+  <div class="mt-4">
     <va-carousel :items="items" v-model="value" :ratio="21/9" />
   </div>
 </template>
