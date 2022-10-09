@@ -47,7 +47,7 @@
         <va-icon
           v-if="success"
           color="success"
-          name="check_circle"
+          name="va-check-circle"
           size="small"
         />
         <va-icon

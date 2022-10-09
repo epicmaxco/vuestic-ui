@@ -34,12 +34,12 @@ export const VuesticIconAliases: IconConfiguration[] = [
     to: 'mi-delete_outline',
   },
   {
-    name: 'clear',
-    to: 'clear',
-  },
-  {
     name: 'va-check',
     to: 'mi-check',
+  },
+  {
+    name: 'va-check-circle',
+    to: 'mi-check_circle',
   },
   {
     name: 'va-warning',

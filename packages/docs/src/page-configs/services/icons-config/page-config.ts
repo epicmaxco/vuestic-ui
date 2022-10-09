@@ -68,6 +68,10 @@ const config: ApiDocsBlock[] = [
   block.headline('iconsConfig.aliases.example.title'),
   block.code(aliasCodeExample),
 
+  block.headline('iconsConfig.aliases.vaAliases.title'),
+  block.paragraph('iconsConfig.aliases.vaAliases.text'),
+  block.component('icon-aliases'),
+
   // setup
   block.subtitle('iconsConfig.setup.title'),
   block.paragraph('iconsConfig.setup.about'),
