@@ -32,7 +32,7 @@
       <va-icon
         v-if="closeable"
         role="button"
-        name="close"
+        name="va-close"
         class="va-chip__close-icon"
         aria-label="close"
         :tabindex="tabIndexComputed"

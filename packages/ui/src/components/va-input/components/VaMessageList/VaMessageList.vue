@@ -12,7 +12,7 @@
       <va-icon
         v-if="hasError"
         class="va-message-list__icon"
-        name="warning"
+        name="va-warning"
         :size="16"
       />{{ message }}
     </div>

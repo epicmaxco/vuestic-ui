@@ -14,7 +14,7 @@ interface ClearableProps {
 
 export const useClearableProps = {
   clearable: { type: Boolean, default: false },
-  clearableIcon: { type: String, default: 'highlight_off' },
+  clearableIcon: { type: String, default: 'va-clear' },
   clearValue: { type: String, default: '' },
 }
 

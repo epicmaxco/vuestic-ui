@@ -30,7 +30,7 @@
           </div>
           <va-icon
             class="va-collapse__header__icon"
-            :name="computedModelValue ? 'expand_less' : 'expand_more'"
+            :name="computedModelValue ? 'va-collapse' : 'va-expand'"
             :color="textColorComputed"
           />
         </div>

@@ -239,8 +239,8 @@ export default defineComponent({
     dropdownIcon: {
       type: [String, Object] as PropType<string | SelectDropdownIcon>,
       default: (): SelectDropdownIcon => ({
-        open: 'expand_more',
-        close: 'expand_less',
+        open: 'va-expand',
+        close: 'va-collapse',
       }),
       validator: (value: string | SelectDropdownIcon) => {
         if (typeof value === 'string') { return true }

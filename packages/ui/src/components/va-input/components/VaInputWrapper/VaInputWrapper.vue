@@ -53,7 +53,7 @@
         <va-icon
           v-if="error"
           color="danger"
-          name="warning"
+          name="va-warning"
           size="small"
         />
         <slot name="icon" />

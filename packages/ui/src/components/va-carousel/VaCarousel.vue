@@ -20,7 +20,7 @@
           <va-hover #default="{ hover }" stateful>
             <va-button
               :color="hover ? computedHoverColor : computedColor"
-              :icon="vertical ? 'expand_less' : 'chevron_left'"
+              :icon="vertical ? 'va-collapse' : 'va-arrow-left'"
               aria-label="go previous slide"
             />
           </va-hover>
@@ -36,7 +36,7 @@
           <va-hover #default="{ hover }" stateful>
             <va-button
               :color="hover ? computedHoverColor : computedColor"
-              :icon="vertical ? 'expand_more' : 'chevron_right'"
+              :icon="vertical ? 'va-expand' : 'va-arrow-right'"
               aria-label="go next slide"
             />
           </va-hover>

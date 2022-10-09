@@ -82,7 +82,7 @@ export default defineComponent({
     ...useComponentPresetProp,
     modelValue: { type: VaCheckboxValueType, default: false },
     color: { type: String, default: 'primary' },
-    checkedIcon: { type: String, default: 'check' },
+    checkedIcon: { type: String, default: 'va-check' },
     indeterminate: { type: Boolean, default: false },
     indeterminateValue: { type: VaCheckboxValueType, default: null },
     indeterminateIcon: { type: String, default: 'remove' },

@@ -42,7 +42,7 @@
             >
               <va-icon
                 v-if="$props.fullscreen"
-                name="close"
+                name="va-close"
                 class="va-modal__close"
                 role="button"
                 aria-label="close"

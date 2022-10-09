@@ -2,83 +2,63 @@ import { IconConfiguration } from './../types'
 
 export const VuesticIconAliases: IconConfiguration[] = [
   {
-    name: 'arrow_back_ios',
-    to: 'arrow_back_ios',
+    name: 'va-arrow-first',
+    to: 'mi-first_page',
   },
   {
-    name: 'arrow_forward_ios',
-    to: 'arrow_forward_ios',
+    name: 'va-arrow-last',
+    to: 'mi-last_page',
   },
   {
-    name: 'first_page',
-    to: 'first_page',
+    name: 'va-arrow-right',
+    to: 'mi-chevron_right',
   },
   {
-    name: 'last_page',
-    to: 'last_page',
+    name: 'va-arrow-left',
+    to: 'mi-chevron_left',
   },
   {
-    name: 'chevron_right',
-    to: 'chevron_right',
+    name: 'va-expand',
+    to: 'mi-expand_more',
   },
   {
-    name: 'chevron_left',
-    to: 'chevron_left',
+    name: 'va-collapse',
+    to: 'mi-expand_less',
   },
   {
-    name: 'expand_more',
-    to: 'expand_more',
+    name: 'va-calendar',
+    to: 'mi-calendar_today',
   },
   {
-    name: 'expand_less',
-    to: 'expand_less',
-  },
-  {
-    name: 'arrow_drop_down',
-    to: 'arrow_drop_down',
-  },
-  {
-    name: 'arrow_drop_up',
-    to: 'arrow_drop_up',
-  },
-  {
-    name: 'calendar_today',
-    to: 'calendar_today',
-  },
-  {
-    name: 'delete_outline',
-    to: 'delete_outline',
+    name: 'va-delete',
+    to: 'mi-delete_outline',
   },
   {
     name: 'clear',
     to: 'clear',
   },
   {
-    name: 'check',
-    to: 'check',
+    name: 'va-check',
+    to: 'mi-check',
   },
   {
-    name: 'warning',
-    to: 'warning',
+    name: 'va-warning',
+    to: 'mi-warning',
   },
   {
-    name: 'highlight_off',
-    to: 'highlight_off',
+    name: 'va-clear',
+    to: 'mi-highlight_off',
   },
   {
-    name: 'close',
-    to: 'close',
+    name: 'va-close',
+    to: 'mi-close',
   },
   {
-    name: 'done',
-    to: 'done',
+    name: 'va-done',
+    to: 'mi-done',
   },
   {
-    name: 'cancel',
-    to: 'cancel',
-  },
-  {
-    name: 'loop',
-    to: 'loop',
+    name: 'va-loop',
+    to: 'mi-loop',
   },
 ]

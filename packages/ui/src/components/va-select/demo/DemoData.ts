@@ -31,7 +31,7 @@ export const iconOptionsList = [
   },
   {
     text: 'three',
-    icon: 'warning',
+    icon: 'va-warning',
     value: 3,
   },
 ]
