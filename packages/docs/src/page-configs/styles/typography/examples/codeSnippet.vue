@@ -1,5 +1,5 @@
 <template>
-  <pre class="code-snippet">
+  <pre class="va-code-snippet">
 &lt;p class="code-snippet">
   This is a wonderful example.
   &lt;a href="#" onClick="">Read more&lt;/a>

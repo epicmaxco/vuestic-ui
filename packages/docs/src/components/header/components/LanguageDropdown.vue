@@ -12,7 +12,7 @@
       <va-list-item
         v-for="(option, id) in options"
         :key="id"
-        class="language-dropdown__item row align-center py-2"
+        class="language-dropdown__item row align-center py-2 va-link"
         :class="{ active: option.code === locale }"
         @click="setLanguage(option.code)"
       >
@@ -21,7 +21,7 @@
         </va-list-item-section>
       </va-list-item>
       <va-list-item
-        class="language-dropdown__item row align-center py-2"
+        class="language-dropdown__item va-link row align-center py-2"
         :to="`/${locale}/contribution/translation`"
       >
         <va-list-item-section :style="{color: colors.primary}">
@@ -106,13 +106,6 @@ export default defineComponent({
       cursor: pointer;
       flex-wrap: nowrap;
       font-weight: 600;
-
-      &:hover,
-      &.active {
-        .dropdown-item__text {
-          color: var(--va-text-dark);
-        }
-      }
     }
 
     .va-dropdown__anchor {
