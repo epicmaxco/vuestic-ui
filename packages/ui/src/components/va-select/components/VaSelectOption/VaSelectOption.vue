@@ -17,7 +17,7 @@
       v-show="isSelected"
       class="va-select-option__selected-icon"
       size="small"
-      name="done"
+      name="va-check"
       :color="optionIconColor"
     />
   </div>

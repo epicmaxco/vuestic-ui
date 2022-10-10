@@ -35,7 +35,7 @@
           v-if="!disabled"
           flat
           color="danger"
-          icon="delete_outline"
+          icon="va-delete"
           class="va-file-upload-gallery-item__delete"
           aria-label="remove file"
           @click="removeImage"

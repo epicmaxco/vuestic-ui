@@ -109,8 +109,8 @@ export default defineComponent({
     hideSlider: { type: Boolean, default: false },
     vertical: { type: Boolean, default: false },
     color: { type: String, default: 'primary' },
-    prevIcon: { type: String, default: 'chevron_left' },
-    nextIcon: { type: String, default: 'chevron_right' },
+    prevIcon: { type: String, default: 'va-arrow-left' },
+    nextIcon: { type: String, default: 'va-arrow-right' },
   },
 
   setup: (props, { emit }) => {

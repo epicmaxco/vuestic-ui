@@ -3844,6 +3844,10 @@
         "title": "Example aliases config",
         "about": "Below we can see how the icons would be transformed",
         "explain": "As you can see alias config is more important than font config. And `va-icon` props take precedence over both."
+      },
+      "vaAliases": {
+        "title": "Vuestic component alises",
+        "text": "We use some icons in our components by default. You can redefine them by changing it's alias."
       }
     },
     "setup": {

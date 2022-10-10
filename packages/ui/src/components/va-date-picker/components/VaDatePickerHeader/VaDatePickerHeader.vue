@@ -7,7 +7,7 @@
     <slot name="buttonPrev" v-bind="{ onClick: prev }">
       <va-button
         :disabled="$props.disabled"
-        icon="chevron_left"
+        icon="va-arrow-left"
         preset="plain"
         size="small"
         :color="color"
@@ -41,7 +41,7 @@
     <slot name="buttonNext" v-bind="{ onClick: next }">
       <va-button
         :disabled="$props.disabled"
-        icon="chevron_right"
+        icon="va-arrow-right"
         preset="plain"
         size="small"
         :color="color"

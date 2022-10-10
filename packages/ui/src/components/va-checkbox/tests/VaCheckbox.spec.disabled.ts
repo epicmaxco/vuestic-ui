@@ -39,9 +39,9 @@ describe('VaCheckbox', () => {
     const wrapper = shallowMount(VaCheckbox)
     expect((wrapper.vm as any).computedClass).toBeDefined()
   })
-  it('computedIconName should be "check" ', () => {
+  it('computedIconName should be "va-check" ', () => {
     const wrapper = shallowMount(VaCheckbox)
-    expect((wrapper.vm as any).computedIconName).toBe('check')
+    expect((wrapper.vm as any).computedIconName).toBe('va-check')
   })
   it('is Selectable Component', () => {
     expect(() => testIsSelectableComponent(VaCheckbox)).not.toThrow()

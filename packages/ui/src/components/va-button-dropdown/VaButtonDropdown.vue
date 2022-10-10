@@ -122,8 +122,8 @@ export default defineComponent({
     modelValue: { type: Boolean, default: false },
     stateful: { type: Boolean, default: true },
 
-    icon: { type: String, default: 'expand_more' },
-    openedIcon: { type: String, default: 'expand_less' },
+    icon: { type: String, default: 'va-arrow-down' },
+    openedIcon: { type: String, default: 'va-arrow-up' },
     hideIcon: { type: Boolean, default: false },
     leftIcon: { type: Boolean, default: false },
 

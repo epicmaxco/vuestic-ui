@@ -2,83 +2,59 @@ import { IconConfiguration } from './../types'
 
 export const VuesticIconAliases: IconConfiguration[] = [
   {
-    name: 'arrow_back_ios',
-    to: 'arrow_back_ios',
+    name: 'va-arrow-first',
+    to: 'mi-first_page',
   },
   {
-    name: 'arrow_forward_ios',
-    to: 'arrow_forward_ios',
+    name: 'va-arrow-last',
+    to: 'mi-last_page',
   },
   {
-    name: 'first_page',
-    to: 'first_page',
+    name: 'va-arrow-right',
+    to: 'mi-chevron_right',
   },
   {
-    name: 'last_page',
-    to: 'last_page',
+    name: 'va-arrow-left',
+    to: 'mi-chevron_left',
   },
   {
-    name: 'chevron_right',
-    to: 'chevron_right',
+    name: 'va-arrow-down',
+    to: 'mi-expand_more',
   },
   {
-    name: 'chevron_left',
-    to: 'chevron_left',
+    name: 'va-arrow-up',
+    to: 'mi-expand_less',
   },
   {
-    name: 'expand_more',
-    to: 'expand_more',
+    name: 'va-calendar',
+    to: 'mi-calendar_today',
   },
   {
-    name: 'expand_less',
-    to: 'expand_less',
+    name: 'va-delete',
+    to: 'mi-delete_outline',
   },
   {
-    name: 'arrow_drop_down',
-    to: 'arrow_drop_down',
+    name: 'va-check',
+    to: 'mi-check',
   },
   {
-    name: 'arrow_drop_up',
-    to: 'arrow_drop_up',
+    name: 'va-check-circle',
+    to: 'mi-check_circle',
   },
   {
-    name: 'calendar_today',
-    to: 'calendar_today',
+    name: 'va-warning',
+    to: 'mi-warning',
   },
   {
-    name: 'delete_outline',
-    to: 'delete_outline',
+    name: 'va-clear',
+    to: 'mi-highlight_off',
   },
   {
-    name: 'clear',
-    to: 'clear',
+    name: 'va-close',
+    to: 'mi-close',
   },
   {
-    name: 'check',
-    to: 'check',
-  },
-  {
-    name: 'warning',
-    to: 'warning',
-  },
-  {
-    name: 'highlight_off',
-    to: 'highlight_off',
-  },
-  {
-    name: 'close',
-    to: 'close',
-  },
-  {
-    name: 'done',
-    to: 'done',
-  },
-  {
-    name: 'cancel',
-    to: 'cancel',
-  },
-  {
-    name: 'loop',
-    to: 'loop',
+    name: 'va-loading',
+    to: 'mi-loop',
   },
 ]

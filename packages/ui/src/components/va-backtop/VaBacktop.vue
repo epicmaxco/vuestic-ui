@@ -11,7 +11,7 @@
     <slot>
       <va-button
         aria-hidden="true"
-        icon="expand_less"
+        icon="va-arrow-up"
         :color="color"
       />
     </slot>

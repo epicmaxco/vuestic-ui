@@ -45,7 +45,7 @@
         v-if="$props.loading"
         :color="$props.color"
         size="small"
-        name="loop"
+        name="va-loading"
         spin="counter-clockwise"
       />
       <slot name="icon" v-bind="slotScope" />

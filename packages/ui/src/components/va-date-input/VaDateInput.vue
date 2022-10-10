@@ -167,7 +167,7 @@ export default defineComponent({
 
     color: { type: String, default: 'primary' },
     leftIcon: { type: Boolean, default: false },
-    icon: { type: String, default: 'calendar_today' },
+    icon: { type: String, default: 'va-calendar' },
   },
 
   emits: [
