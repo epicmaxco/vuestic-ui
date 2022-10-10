@@ -24,6 +24,10 @@ export default defineComponent({
   props: {
     ...VaButtonProps,
     ...useComponentPresetProp,
+    grow: {
+      type: Boolean,
+      default: false,
+    },
   },
 
   setup: (props) => {
@@ -33,6 +37,7 @@ export default defineComponent({
     const buttonConfig = computed(() => ({ VaButton: { ...props } }))
     const computedClass = useBem('va-button-group', () => ({
       square: !props.round,
+      grow: props.grow,
       small: props.size === 'small',
       large: props.size === 'large',
     }))
@@ -54,6 +59,12 @@ export default defineComponent({
     width: max-content;
     overflow: hidden;
 
+    &--grow {
+      width: 100%;
+
+      --va-button-group-button-width: 100%;
+    }
+
     &--square {
       border-radius: var(--va-button-border-radius);
     }
@@ -72,6 +83,7 @@ export default defineComponent({
 
     .va-button {
       margin: var(--va-button-group-button-margin);
+      width: var(--va-button-group-button-width);
       box-shadow: none;
       outline: none;
 
@@ -85,12 +97,10 @@ export default defineComponent({
     }
 
     & > .va-button:last-child {
-      width: var(--va-button-group-button-width);
       padding-right: var(--va-button-group-button-padding);
     }
 
     & > .va-button:first-child {
-      width: var(--va-button-group-button-width);
       padding-left: var(--va-button-group-button-padding);
     }
 

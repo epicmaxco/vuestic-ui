@@ -3354,6 +3354,10 @@
         "title": "Sizes",
         "text": "You can set different sizes."
       },
+      "grow": {
+        "title": "Grow",
+        "text": "Makes button group grow to the width of its container."
+      },
       "styles": {
         "title": "Presets & styles",
         "text": "You can use the same presets and styles as in [va-button](https://vuestic.dev/ui-elements/button)[[target=_blank]]."
