@@ -3847,7 +3847,7 @@
       },
       "vaAliases": {
         "title": "Vuestic component alises",
-        "text": "We use some icons in our components by default. You can redefined them by changing it's alias."
+        "text": "We use some icons in our components by default. You can redefine them by changing it's alias."
       }
     },
     "setup": {
