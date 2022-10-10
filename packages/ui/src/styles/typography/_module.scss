@@ -112,7 +112,7 @@
   }
 
   @each $element, $size in $display-font-sizes {
-    .va-display-#{$element} {
+    .va-h#{$element} {
       @include va-display($element);
     }
   }
