@@ -21,8 +21,7 @@ describe('useMaxSelections', () => {
 
       expect(exceedsMaxSelections()).toBe(false)
 
-      addOption(1)
-      selections.value.push(...((wrapper.emitted()['update:modelValue'] as Array<Array<Array<number>>>)[0][0]))
+      selections.value = addOption(1)
 
       expect(selections.value[0]).toBe(1)
       expect(exceedsMaxSelections()).toBe(true)

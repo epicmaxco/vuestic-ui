@@ -23,9 +23,8 @@ export function useMaxSelections (
     return selections.value.length >= maxSelections.value
   }
 
-  const addOption = (optionToAdd: any): void => {
-    const newSelectedOptions = [...selections.value, optionToAdd]
-    emit('update:modelValue', newSelectedOptions)
+  const addOption = <T>(optionToAdd: T) => {
+    return [...selections.value, optionToAdd]
   }
 
   return {
