@@ -17,7 +17,7 @@ describe('useMaxSelections', () => {
       await wrapper.setProps({ maxSelections: 1 })
 
       const selections = ref([] as number[])
-      const { addOption, exceedsMaxSelections } = useMaxSelections(selections, ref(wrapper.props().maxSelections), wrapper.vm.$emit)
+      const { addOption, exceedsMaxSelections } = useMaxSelections(selections, ref(wrapper.props().maxSelections))
 
       expect(exceedsMaxSelections()).toBe(false)
 

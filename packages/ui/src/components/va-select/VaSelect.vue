@@ -303,7 +303,7 @@ export default defineComponent({
             return [getOptionByValue(props.modelValue)]
           }
 
-          return props.modelValue.map((v) => getOptionByValue(v))
+          return props.modelValue.map(getOptionByValue)
         }
 
         const value = getOptionByValue(props.modelValue)
@@ -421,7 +421,7 @@ export default defineComponent({
       }
 
       if (props.multiple && isValueComputedArray(valueComputed)) {
-        const { exceedsMaxSelections, addOption } = useMaxSelections(valueComputed, ref(props.maxSelections), emit)
+        const { exceedsMaxSelections, addOption } = useMaxSelections(valueComputed, ref(props.maxSelections))
 
         const isSelected = checkIsOptionSelected(getValue(option))
 

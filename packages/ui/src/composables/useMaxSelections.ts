@@ -16,7 +16,6 @@ export const useMaxSelectionsProps = {
 export function useMaxSelections (
   selections: Ref<any[]>,
   maxSelections: Ref<number | string | undefined>,
-  emit: (event: 'update:modelValue', ...args: any[]) => void,
 ) {
   const exceedsMaxSelections = (): boolean => {
     if (maxSelections.value === undefined || isNaN(+maxSelections.value)) { return false }
