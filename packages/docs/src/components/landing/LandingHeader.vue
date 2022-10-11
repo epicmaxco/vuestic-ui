@@ -32,12 +32,13 @@
           <va-button
             href="https://discord.gg/u7fQdqQt8c"
             class="header__links--link"
+            target="_blank"
             preset="landingHeader"
           >
             <va-icon name="discord" class="mr-1" size="small" />
             {{ $t('landing.header.buttons.discord') }}
           </va-button>
-          <va-button href="https://epicmax.co/blog" class="header__links--link" preset="landingHeader">
+          <va-button href="https://epicmax.co/blog" class="header__links--link" preset="landingHeader" target="_blank">
             <va-icon name="exit_to_app" class="mr-1" size="small" /> {{ $t('landing.header.buttons.blog') }}
           </va-button>
           <language-dropdown class="header__links--link" preset="landingHeader" />

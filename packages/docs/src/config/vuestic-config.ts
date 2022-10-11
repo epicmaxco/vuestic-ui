@@ -17,7 +17,6 @@ export const VuesticConfig: Partial<GlobalConfig> = {
         addToCart: { size: 'large', round: true },
         deleteFromCart: { size: 'small', plain: true },
         landingHeader: {
-          target: '_blank',
           size: 'large',
           plain: true,
           'hover-behaviour': 'mask',
