@@ -1,4 +1,4 @@
-import { inject, onBeforeUnmount, onMounted, PropType, watch, ExtractPropTypes, computed } from 'vue'
+import { inject, onBeforeUnmount, onMounted, PropType, watch, ExtractPropTypes, computed, Ref } from 'vue'
 import flatten from 'lodash/flatten.js'
 import isFunction from 'lodash/isFunction.js'
 import isString from 'lodash/isString.js'
@@ -8,6 +8,12 @@ import { useFocus } from './useFocus'
 import { FormServiceKey } from '../components/va-form/consts'
 
 type ValidationRule<V extends any = any> = ((v: V) => any | string)
+
+type UseValidationOptions = {
+  reset: () => void
+  focus: () => void,
+  isValueReset?: Ref<boolean>
+}
 
 const normalizeValidationRules = (rules: string | ValidationRule[] = [], callArguments: unknown = null) => {
   if (isString(rules)) { rules = [rules] as any }
@@ -37,9 +43,9 @@ export const useValidationEmits = ['update:error', 'update:errorMessages']
 export const useValidation = <V, P extends ExtractPropTypes<typeof useValidationProps>>(
   props: P,
   emit: (event: any, ...args: any[]) => void,
-  reset: () => any,
-  focus: () => any,
+  options: UseValidationOptions,
 ) => {
+  const { isValueReset, reset, focus } = options
   const { isFocused, onFocus, onBlur } = useFocus()
 
   const [computedError] = useSyncProp('error', props, emit, false)
@@ -78,7 +84,10 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
 
   watch(isFocused, (newVal) => !newVal && validate())
 
-  watch(() => props.modelValue, () => validate(), { immediate: props.immediateValidation })
+  watch(() => props.modelValue, () => {
+    if (isValueReset?.value) { return }
+    validate()
+  }, { immediate: props.immediateValidation })
 
   const context = {
     resetValidation,

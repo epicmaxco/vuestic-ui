@@ -151,6 +151,35 @@
         </va-button>
       </va-form>
     </VbCard>
+
+    <VbCard title="reset form">
+      <va-button @click="$refs.resetForm.reset()">Reset form</va-button>
+      <va-form ref="resetForm">
+        <va-date-input
+          v-model="resetForm.date"
+          :rules="resetForm.validationRules"
+        />
+        <va-input
+          v-model="resetForm.input"
+          :rules="resetForm.validationRules"
+        />
+        <va-option-list
+          type="radio"
+          v-model="resetForm.optionsListValue"
+          :options="resetForm.options"
+          :rules="resetForm.validationRules"
+        />
+        <va-select
+          v-model="resetForm.select"
+          :options="resetForm.options"
+          :rules="resetForm.validationRules"
+        />
+        <va-time-input
+          v-model="resetForm.time"
+          :rule="resetForm.validationRules"
+        />
+      </va-form>
+    </VbCard>
   </VbDemo>
 </template>
 
@@ -161,6 +190,10 @@ import { VaSelect } from '../va-select'
 import { VaButton } from '../va-button'
 import VaFormReset from './VaForm-reset'
 import { VaDateInput } from '../va-date-input'
+import { VaTimeInput } from '../va-time-input'
+import { VaOptionList } from '../va-option-list'
+
+const OPTIONS = ['One', 'Two', 'Three']
 
 export default {
   components: {
@@ -170,6 +203,8 @@ export default {
     VaSelect,
     VaButton,
     VaDateInput,
+    VaTimeInput,
+    VaOptionList,
   },
   data () {
     return {
@@ -190,6 +225,16 @@ export default {
       },
       username: '',
       password: '',
+
+      resetForm: {
+        input: 'value',
+        date: new Date(),
+        time: new Date(),
+        options: OPTIONS,
+        select: OPTIONS[0],
+        optionsListValue: OPTIONS[0],
+        validationRules: [(value) => !!value || 'Field is required'],
+      },
     }
   },
   methods: {
