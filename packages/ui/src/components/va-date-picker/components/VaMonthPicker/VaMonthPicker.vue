@@ -14,7 +14,7 @@
         :today="!!isToday(month)"
         :focused="hoveredIndex === monthIndex"
         :highlight-today="highlightToday"
-        :readonly="readonly"
+        :readonly="$props.readonly"
         :color="color"
         @click="onClick(month); focusedCellIndex = monthIndex"
       >

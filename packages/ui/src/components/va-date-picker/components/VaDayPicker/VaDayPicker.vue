@@ -29,7 +29,7 @@
         :focused="hoveredIndex === index"
         :highlight-today="highlightToday"
         :highlight-weekend="highlightWeekend"
-        :readonly="readonly"
+        :readonly="$props.readonly"
         :color="color"
         @click="onClick(date); focusedCellIndex = index"
       >
