@@ -14,9 +14,9 @@ const config: ApiDocsBlock[] = [
   block.paragraph('accordion.examples.default.text'),
   block.example('Default'),
 
-  block.headline('accordion.examples.multiply.title'),
-  block.paragraph('accordion.examples.multiply.text'),
-  block.example('Multiply'),
+  block.headline('accordion.examples.multiple.title'),
+  block.paragraph('accordion.examples.multiple.text'),
+  block.example('Multiple'),
 
   block.headline('accordion.examples.inset.title'),
   block.paragraph('accordion.examples.inset.text'),

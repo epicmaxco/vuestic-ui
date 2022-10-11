@@ -6,7 +6,7 @@
   >
     <va-accordion
       v-model="value"
-      multiply
+      multiple
     >
       <va-collapse
         v-for="(route, key) in navigationRoutes"
