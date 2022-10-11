@@ -210,7 +210,14 @@ export default defineComponent({
     &__title {
       display: flex;
       align-items: center;
-      cursor: pointer;
+    }
+
+    &__content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      flex-grow: 1;
+      color: var(--va-alert-color);
     }
 
     @include keyboard-focus-outline;
