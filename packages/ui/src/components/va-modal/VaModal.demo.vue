@@ -363,7 +363,9 @@
 <script>
 import { VaModal } from './'
 import { VaButton } from '../va-button'
-import { VaCollapse, VaInput, VaDatePicker } from '@/components'
+import { VaCollapse } from '../va-collapse'
+import { VaInput } from '../va-input'
+import { VaDatePicker } from '../va-date-picker'
 
 export default {
   components: { VaModal, VaButton, VaCollapse, VaInput, VaDatePicker },
