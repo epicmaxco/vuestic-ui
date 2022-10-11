@@ -1,3 +1,3 @@
 <template>
-  <div class="title">Title heading</div>
+  <div class="va-title">Title heading</div>
 </template>

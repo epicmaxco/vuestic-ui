@@ -56,7 +56,7 @@ declare type ExtractComponentProps<T extends ClassComponent | DefineComponentOpt
  * Works only with defineComponent function.
  * @notion Be aware that `withConfigTransport` you will lose prop types
  */
-export function extractComponentProps<T> (component: T, ignoreProps?: string[]): ExtractComponentProps<T> {
+export function extractComponentProps<T extends ClassComponent | DefineComponentOptions> (component: T, ignoreProps?: string[]): ExtractComponentProps<T> {
   const props: any = getComponentProps(component as any)
 
   if (ignoreProps) {

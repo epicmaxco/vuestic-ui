@@ -35,6 +35,11 @@ const config: ApiDocsBlock[] = [
     'Sizes',
   ),
   ...block.exampleBlock(
+    'buttonGroup.examples.grow.title',
+    'buttonGroup.examples.grow.text',
+    'Grow',
+  ),
+  ...block.exampleBlock(
     'buttonGroup.examples.styles.title',
     'buttonGroup.examples.styles.text',
     'Styles',

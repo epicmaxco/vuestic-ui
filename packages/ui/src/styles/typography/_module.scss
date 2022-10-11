@@ -3,12 +3,7 @@
 
 /** Isolated typography so it can be used in VaContent */
 @mixin va-typography {
-  ::selection {
-    background-color: var(--va-text-selected);
-    color: var(--va-white);
-  }
-
-  .link {
+  .va-link {
     @include link();
 
     // TODO:(1.5.0) Move to CSS Helpers. Why no BEM?
@@ -17,7 +12,7 @@
     }
   }
 
-  .title {
+  .va-title {
     @include va-title();
 
     &--va-info {
@@ -37,7 +32,7 @@
     }
   }
 
-  .text {
+  .va-text {
     &--bold {
       font-weight: bold;
     }
@@ -97,7 +92,7 @@
     }
   }
 
-  .code-snippet {
+  .va-code-snippet {
     @include va-code-snippet();
   }
 
@@ -117,7 +112,7 @@
   }
 
   @each $element, $size in $display-font-sizes {
-    .display-#{$element} {
+    .va-h#{$element} {
       @include va-display($element);
     }
   }
@@ -146,18 +141,9 @@
     @include va-table();
   }
 
-  .text-block {
+  .va-text-block {
     padding: 1.2rem;
     background-color: var(--va-text-block);
-  }
-
-  // TODO:(1.5.0) Looks like we don't even need it.
-  .muted {
-    color: var(--va-muted);
-  }
-
-  i {
-    font-style: italic;
   }
 
   hr.va-separator {

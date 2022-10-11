@@ -32,7 +32,7 @@
           :href="link.url"
           :target="link.target"
         >
-          <va-icon class="button__icon" :class="link.icon" />
+          <va-icon class="button__icon" :class="link.icon" size="small" />
           <span class="button__text">{{ link.text }}</span>
         </va-button>
         <color-dropdown class="mr-1" />
@@ -104,7 +104,6 @@ export default class Header extends mixins(PropsMixin) {
 
 <style lang="scss" scoped>
   @import "~vuestic-ui/src/styles/resources";
-  @import "~vuestic-ui/src/styles/global";
 
   .header {
     width: 100%;

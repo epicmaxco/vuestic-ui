@@ -25,31 +25,23 @@
           <va-button
             :to="`/${$root.$i18n.locale}/introduction/overview`"
             class="header__links--link"
-            size="large"
-            plain
-            hover-behaviour="mask"
-            hover-mask-color="textDark"
-            :hover-opacity="1"
+            preset="landingHeader"
           >
             {{ $t('landing.header.buttons.overview') }}
           </va-button>
           <va-button
             href="https://discord.gg/u7fQdqQt8c"
-            target="blank"
-            class="header__links--link ml-4"
-            size="large"
-            plain
-            hover-behaviour="mask"
-            hover-mask-color="textDark"
-            :hover-opacity="1"
+            class="header__links--link"
+            target="_blank"
+            preset="landingHeader"
           >
             <va-icon name="discord" class="mr-1" size="small" />
             {{ $t('landing.header.buttons.discord') }}
           </va-button>
-          <va-button href="https://epicmax.co/blog" target="blank" class="header__links--link" preset="secondary">
+          <va-button href="https://epicmax.co/blog" class="header__links--link" preset="landingHeader" target="_blank">
             <va-icon name="exit_to_app" class="mr-1" size="small" /> {{ $t('landing.header.buttons.blog') }}
           </va-button>
-          <language-dropdown class="header__links--link ml-4" />
+          <language-dropdown class="header__links--link" preset="landingHeader" />
           <landing-stars-button class="ml-4" repo="epicmaxco/vuestic-ui" />
         </nav>
         <!-- mobile -->
@@ -247,6 +239,11 @@ export default class Header extends Vue {
         @include sm(width, 100%);
 
         white-space: nowrap;
+        margin-left: 1.25rem;
+
+        &:first-child {
+          margin-left: 0;
+        }
       }
 
       &--dropdown {
