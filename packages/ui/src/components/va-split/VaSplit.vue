@@ -8,7 +8,7 @@
       class="va-split__panel"
       :style="getPanelStyle('start')"
     >
-      <slot name="start" />
+      <slot name="start" v-bind="{ containerSize }" />
     </div>
     <div class="va-split__dragger">
       <div
@@ -32,7 +32,7 @@
       class="va-split__panel"
       :style="getPanelStyle('end')"
     >
-      <slot name="end" />
+      <slot name="end" v-bind="{ containerSize }" />
     </div>
   </section>
 </template>
@@ -95,7 +95,8 @@ export default defineComponent({
     const bodyFontSize = ref(16)
 
     const handleContainerResize = () => {
-      containerSize.value = props.vertical ? splitPanelsContainer.value?.offsetHeight : splitPanelsContainer.value?.offsetWidth
+      const { width, height } = splitPanelsContainer.value?.getBoundingClientRect() || { width: 0, height: 0 }
+      containerSize.value = props.vertical ? height : width
       bodyFontSize.value = parseFloat(getComputedStyle(document.documentElement).fontSize)
     }
     onMounted(handleContainerResize)
@@ -278,6 +279,7 @@ export default defineComponent({
 
     return {
       splitPanelsContainer,
+      containerSize,
 
       startDragging,
       getPanelStyle,
@@ -292,6 +294,7 @@ export default defineComponent({
 
 <style lang="scss">
   @import 'variables';
+  @import '../../styles/resources';
 
   .va-split {
     position: relative;
@@ -313,6 +316,8 @@ export default defineComponent({
 
     &__panel {
       overflow: var(--va-split-panel-overflow);
+
+      @include va-scroll(var(--va-primary));
     }
 
     &--dragging {
@@ -337,7 +342,7 @@ export default defineComponent({
       flex-direction: column;
 
       & > .va-split__dragger {
-        height: 1px;
+        height: 0;
 
         .va-split__dragger__overlay {
           top: calc((var(--va-split-dragger-overlay-size) / -2));
@@ -355,7 +360,7 @@ export default defineComponent({
       flex-direction: row;
 
       & > .va-split__dragger {
-        width: 1px;
+        width: 0;
 
         .va-split__dragger__overlay {
           left: calc((var(--va-split-dragger-overlay-size) / -2));

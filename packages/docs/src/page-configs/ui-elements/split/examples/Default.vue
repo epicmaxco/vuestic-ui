@@ -1,13 +1,13 @@
 <template>
   <va-split class="split-demo split-demo--image" :limits="[10, 10]">
-    <template #start>
+    <template #start="{ containerSize }">
       <div class="img-block">
-        <img src="https://picsum.photos/seed/picsum/1536/800" draggable="false" class="img img--start" alt="" />
+        <img src="https://picsum.photos/seed/picsum/1536/800" :style="{ width: `${containerSize}px` }" draggable="false" class="img img--start" alt="" />
       </div>
     </template>
-    <template #end>
+    <template #end="{ containerSize }">
       <div class="img-block">
-        <img src="https://picsum.photos/seed/picsum/1536/800?grayscale" draggable="false" class="img img--end" alt="" />
+        <img src="https://picsum.photos/seed/picsum/1536/800?grayscale" :style="{ width: `${containerSize}px` }" draggable="false" class="img img--end" alt="" />
       </div>
     </template>
   </va-split>
@@ -28,7 +28,6 @@ export default {
     position: relative;
     height: 11rem;
     padding: 1rem;
-    border: 1px solid gainsboro;
 
     & .va-split__panel {
       padding: 0.75rem;
