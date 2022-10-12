@@ -294,19 +294,19 @@ export default defineComponent({
 
     const valueComputed = computed<SelectOption | SelectOption[]>({
       get () {
-        const value = getOptionByValue(props.modelValue)
-
         if (props.multiple) {
-          if (!value) {
+          if (!props.modelValue) {
             return []
           }
 
-          if (!Array.isArray(value)) {
-            return [value]
+          if (!Array.isArray(props.modelValue)) {
+            return [getOptionByValue(props.modelValue)]
           }
 
-          return value.map(getValue)
+          return props.modelValue.map(getOptionByValue)
         }
+
+        const value = getOptionByValue(props.modelValue)
 
         if (Array.isArray(value)) {
           warn('Model value should be a string or a number for a single Select.')
@@ -421,7 +421,7 @@ export default defineComponent({
       }
 
       if (props.multiple && isValueComputedArray(valueComputed)) {
-        const { exceedsMaxSelections, addOption } = useMaxSelections(valueComputed, ref(props.maxSelections), emit)
+        const { exceedsMaxSelections, addOption } = useMaxSelections(valueComputed, ref(props.maxSelections))
 
         const isSelected = checkIsOptionSelected(getValue(option))
 
@@ -430,7 +430,7 @@ export default defineComponent({
           valueComputed.value = valueComputed.value.filter((optionSelected) => !compareOptions(getValue(option), getValue(optionSelected)))
         } else {
           if (exceedsMaxSelections()) { return }
-          addOption(getText(option) || getValue(option))
+          valueComputed.value = addOption(option)
         }
       } else {
         valueComputed.value = typeof option === 'string' || typeof option === 'number' ? option : { ...option }
