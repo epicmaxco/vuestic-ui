@@ -5,7 +5,7 @@
       'va-carousel--vertical': $props.vertical,
       [`va-carousel--${$props.effect}`]: true
     }"
-    :style="{ height }"
+    :style="{ height: ratio ? 'auto' : height }"
     role="region"
     aria-label="carousel"
   >
@@ -145,14 +145,14 @@ export default defineComponent({
       validator: (value: string) => ['click', 'hover'].includes(value),
     },
     vertical: { type: Boolean, default: false },
-    height: { type: String, default: 'auto' },
+    height: { type: String, default: '300px' },
     effect: {
       type: String as PropType<'fade' | 'transition'>,
       default: 'transition',
       validator: (value: string) => ['fade', 'transition'].includes(value),
     },
     color: { type: String, default: 'primary' },
-    ratio: { type: Number, default: 16 / 9 },
+    ratio: { type: Number },
   },
 
   emits: useStatefulEmits,
@@ -228,7 +228,7 @@ export default defineComponent({
     width: 100%;
     height: 100%;
     max-height: 100%;
-    min-height: 100px;
+    min-height: var(--va-carousel-min-height);
     background: var(--va-carousel-background);
     box-shadow: var(--va-carousel-box-shadow);
     border-radius: var(--va-carousel-border-radius);
