@@ -69,7 +69,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, InputHTMLAttributes, shallowRef, toRefs, ref } from 'vue'
+import { computed, defineComponent, InputHTMLAttributes, shallowRef, toRefs } from 'vue'
 import omit from 'lodash/omit.js'
 import pick from 'lodash/pick.js'
 
@@ -153,16 +153,13 @@ export default defineComponent({
     const input = shallowRef<HTMLInputElement | typeof VaTextarea>()
 
     const isFocused = useFocusDeep()
-    const isValueReset = ref(false)
 
-    const reset = () => {
-      isValueReset.value = true
+    const reset = () => withoutValidation(() => {
       emit('update:modelValue', props.clearValue)
       emit('clear')
-    }
+    })
 
     const focus = () => {
-      isValueReset.value = false
       input.value?.focus()
     }
 
@@ -180,11 +177,8 @@ export default defineComponent({
       computedErrorMessages,
       listeners: validationListeners,
       validationAriaAttributes,
-    } = useValidation(props, emit, {
-      reset,
-      focus,
-      isValueReset,
-    })
+      withoutValidation,
+    } = useValidation(props, emit, { reset, focus })
 
     const { modelValue } = toRefs(props)
     const {

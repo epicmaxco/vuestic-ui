@@ -44,7 +44,7 @@
 </template>
 
 <script lang="ts">
-import { computed, ref, defineComponent, PropType, onMounted } from 'vue'
+import { computed, defineComponent, PropType, onMounted } from 'vue'
 import pick from 'lodash/pick'
 
 import { __DEV__ } from '../../utils/global-utils'
@@ -123,17 +123,12 @@ export default defineComponent({
 
     const isDisabled = (option: SelectableOption) => props.disabled || getDisabled(option)
 
-    const isValueReset = ref(false)
-
-    const reset = () => {
-      isValueReset.value = true
+    const reset = () => withoutValidation(() => {
       valueComputed.value = null
       emit('clear')
-    }
+    })
 
     const focus = () => {
-      isValueReset.value = true
-
       const firstActiveEl = Array.isArray(itemRefs.value) && itemRefs.value.find(el => !(el as HTMLInputElement).disabled)
 
       if (firstActiveEl && typeof firstActiveEl.focus === 'function') {
@@ -141,7 +136,11 @@ export default defineComponent({
       }
     }
 
-    const { computedError, computedErrorMessages } = useValidation(props, emit, { reset, focus, isValueReset })
+    const {
+      computedError,
+      computedErrorMessages,
+      withoutValidation,
+    } = useValidation(props, emit, { reset, focus })
 
     const computedProps = computed(() => pick(props, ['name', 'color', 'readonly', 'leftLabel']))
 

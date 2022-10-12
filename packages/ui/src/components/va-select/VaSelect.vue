@@ -271,11 +271,8 @@ export default defineComponent({
     const { getHoverColor, getColor } = useColors()
     const { getOptionByValue, getValue, getText, getTrackBy, getGroupBy } = useSelectableList(props)
 
-    const isValueReset = ref(false)
     /** @public */
-    const reset = () => {
-      isValueReset.value = true
-
+    const reset = () => withoutValidation(() => {
       if (props.multiple) {
         valueComputed.value = Array.isArray(props.clearValue) ? props.clearValue : []
       } else {
@@ -284,12 +281,11 @@ export default defineComponent({
 
       searchInput.value = ''
       emit('clear')
-    }
+    })
 
     /** @public */
     const focus = () => {
       if (props.disabled) { return }
-      isValueReset.value = false
       input.value?.focus()
     }
 
@@ -297,7 +293,8 @@ export default defineComponent({
       validate,
       computedError,
       computedErrorMessages,
-    } = useValidation(props, emit, { reset, focus, isValueReset })
+      withoutValidation,
+    } = useValidation(props, emit, { reset, focus })
 
     const colorComputed = computed(() => getColor(props.color))
     const toggleIconColor = computed(() => props.readonly ? getHoverColor(colorComputed.value) : colorComputed.value)

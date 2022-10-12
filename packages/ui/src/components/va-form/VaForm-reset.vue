@@ -43,7 +43,7 @@
       />
       <va-time-input
         v-model="resetForm.time"
-        :rule="resetForm.validationRules"
+        :rules="resetForm.validationRules"
       />
     </va-form>
   </VbCard>

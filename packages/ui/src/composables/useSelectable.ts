@@ -1,4 +1,4 @@
-import { PropType, computed, ref, SetupContext, ShallowRef, ExtractPropTypes } from 'vue'
+import { PropType, computed, SetupContext, ShallowRef, ExtractPropTypes } from 'vue'
 
 import { useStateful, useStatefulProps, StatefulProps } from './useStateful'
 import { useLoadingProps, LoadingProps } from './useLoading'
@@ -62,16 +62,12 @@ export const useSelectable = (
 ) => {
   checkDuplicates(props)
 
-  const isValueReset = ref(false)
-
   /** @public */
-  const reset = () => {
-    isValueReset.value = true
+  const reset = () => withoutValidation(() => {
     emit('update:modelValue', false)
-  }
+  })
 
   const focus = () => {
-    isValueReset.value = false
     input.value?.focus()
   }
 
@@ -80,11 +76,8 @@ export const useSelectable = (
     computedErrorMessages,
     validate,
     validationAriaAttributes,
-  } = useValidation(props, emit, {
-    reset,
-    focus,
-    isValueReset,
-  })
+    withoutValidation,
+  } = useValidation(props, emit, { reset, focus })
   const { valueComputed } = useStateful(props, emit)
   const { isFocused } = useFocus()
 

@@ -78,7 +78,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, shallowRef, nextTick, ref } from 'vue'
+import { computed, defineComponent, PropType, shallowRef, nextTick } from 'vue'
 import omit from 'lodash/omit'
 
 import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
@@ -200,20 +200,19 @@ export default defineComponent({
 
     // const changePeriodToPm = () => changePeriod(true)
     // const changePeriodToAm = () => changePeriod(false)
-    const isValueReset = ref(false)
 
-    const reset = (): void => {
-      isValueReset.value = true
+    const reset = () => withoutValidation(() => {
       emit('update:modelValue', props.clearValue)
       emit('clear')
-    }
+    })
 
     const {
       computedError,
       computedErrorMessages,
       listeners,
       validationAriaAttributes,
-    } = useValidation(props, emit, { reset, focus, isValueReset })
+      withoutValidation,
+    } = useValidation(props, emit, { reset, focus })
 
     const {
       canBeCleared,
@@ -237,8 +236,6 @@ export default defineComponent({
     const computedInputListeners = computed(() => ({
       focus: () => {
         if (props.disabled) { return }
-
-        isValueReset.value = false
 
         focusListener()
 

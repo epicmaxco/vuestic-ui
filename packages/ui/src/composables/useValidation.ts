@@ -1,4 +1,13 @@
-import { inject, onBeforeUnmount, onMounted, PropType, watch, ExtractPropTypes, computed, Ref } from 'vue'
+import {
+  ref,
+  watch,
+  inject,
+  computed,
+  onMounted,
+  onBeforeUnmount,
+  PropType,
+  ExtractPropTypes,
+} from 'vue'
 import flatten from 'lodash/flatten.js'
 import isFunction from 'lodash/isFunction.js'
 import isString from 'lodash/isString.js'
@@ -11,8 +20,7 @@ type ValidationRule<V extends any = any> = ((v: V) => any | string)
 
 type UseValidationOptions = {
   reset: () => void
-  focus: () => void,
-  isValueReset?: Ref<boolean>
+  focus: () => void
 }
 
 const normalizeValidationRules = (rules: string | ValidationRule[] = [], callArguments: unknown = null) => {
@@ -45,8 +53,9 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
   emit: (event: any, ...args: any[]) => void,
   options: UseValidationOptions,
 ) => {
-  const { isValueReset, reset, focus } = options
+  const { reset, focus } = options
   const { isFocused, onFocus, onBlur } = useFocus()
+  const canValidate = ref(true)
 
   const [computedError] = useSyncProp('error', props, emit, false)
   const [computedErrorMessages] = useSyncProp('errorMessages', props, emit, [] as string[])
@@ -56,8 +65,16 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
     computedErrorMessages.value = []
   }
 
+  const withoutValidation = (cb: () => any): void => {
+    canValidate.value = false
+    cb()
+    resetValidation()
+  }
+
   const validate = (): boolean => {
-    if (!props.rules || !props.rules.length) {
+    if (!props.rules || !props.rules.length || !canValidate.value) {
+      canValidate.value = true
+
       return true
     }
 
@@ -84,10 +101,7 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
 
   watch(isFocused, (newVal) => !newVal && validate())
 
-  watch(() => props.modelValue, () => {
-    if (isValueReset?.value) { return }
-    validate()
-  }, { immediate: props.immediateValidation })
+  watch(() => props.modelValue, () => validate(), { immediate: props.immediateValidation })
 
   const context = {
     resetValidation,
@@ -120,6 +134,7 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
     listeners: { onFocus, onBlur },
     validate,
     resetValidation,
+    withoutValidation,
     validationAriaAttributes,
   }
 }
