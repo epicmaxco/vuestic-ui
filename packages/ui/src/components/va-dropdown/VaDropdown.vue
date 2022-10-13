@@ -37,7 +37,7 @@ import { generateUniqueId } from '../../services/utils'
 
 import {
   useComponentPresetProp,
-  useStateful, useStatefulEmits, useStatefulProps,
+  useStateful, useStatefulEmits, createStatefulProps,
   useDebounceFn,
   useDropdown, placementsPositions, Placement,
   useClickOutside,
@@ -57,7 +57,7 @@ export default defineComponent({
   name: 'VaDropdown',
 
   props: {
-    ...useStatefulProps,
+    ...createStatefulProps(Boolean, true),
     ...useComponentPresetProp,
     disabled: { type: Boolean },
     readonly: { type: Boolean },

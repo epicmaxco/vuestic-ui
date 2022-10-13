@@ -1,6 +1,6 @@
 <template>
   <va-hover disabled v-model="value">
-    <va-button preset="secondary" :border-color="{'primary' : value}">
+    <va-button preset="secondary" :border-color="value ? 'primary' : ''">
       {{ value }}
     </va-button>
   </va-hover>

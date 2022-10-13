@@ -11,13 +11,13 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 
-import { useComponentPresetProp, useStateful, useStatefulProps, useStatefulEmits } from '../../composables'
+import { useComponentPresetProp, useStateful, createStatefulProps, useStatefulEmits } from '../../composables'
 
 export default defineComponent({
   name: 'VaHover',
 
   props: {
-    ...useStatefulProps,
+    ...createStatefulProps(Boolean, true),
     ...useComponentPresetProp,
     disabled: { type: Boolean, default: false },
     modelValue: { type: Boolean, default: false },
