@@ -1,24 +1,27 @@
 <template>
   <div class="va-color-input">
-    <va-color-indicator
-      class="va-color-input__dot"
-      role="button"
-      aria-label="open color picker"
-      :aria-disabled="$props.disabled"
-      :tabindex="tabIndexComputed"
-      :color="valueComputed"
-      :indicator="$props.indicator"
-      @click="callPickerDialog"
-      @keydown.space="callPickerDialog"
-      @keydown.enter="callPickerDialog"
-    />
     <va-input
       class="va-color-input__input"
       placeholder="input color"
       v-model="valueComputed"
       :tabindex="tabIndexComputed"
       :disabled="$props.disabled"
-    />
+    >
+      <template #appendInner>
+        <va-color-indicator
+          class="va-color-input__dot"
+          role="button"
+          aria-label="open color picker"
+          :aria-disabled="$props.disabled"
+          :tabindex="tabIndexComputed"
+          :color="valueComputed"
+          :indicator="$props.indicator"
+          @click="callPickerDialog"
+          @keydown.space="callPickerDialog"
+          @keydown.enter="callPickerDialog"
+        />
+      </template>
+    </va-input>
     <input
       ref="colorPicker"
       type="color"
