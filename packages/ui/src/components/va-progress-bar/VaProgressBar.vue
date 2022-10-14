@@ -162,7 +162,7 @@ export default defineComponent({
     }
 
     &--square &__wrapper {
-      border-radius: var(--va-progress-bar-square-border-radius);
+      --va-progress-bar-border-radius: 0;
     }
 
     &__buffer {
