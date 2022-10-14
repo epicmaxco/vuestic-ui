@@ -6,6 +6,13 @@ type Props = Record<string, unknown>;
 /** Raw props */
 type RawProps = Record<string, unknown>;
 
+const toCamelCase = (str: string) => str.replace(/-([a-z])/g, (g) => g[1].toUpperCase())
+
+const findCamelCased = (obj: Record<string, unknown>, key: string) => {
+  const found = Object.keys(obj).find((k) => toCamelCase(k) === key)
+  return found && obj[found]
+}
+
 /**
  * @param propsFromConfig Ref of custom props. Required to be ref so vue can rerender component on custom props change.
  * @returns new props object, where some props replaced with props from config.
@@ -19,6 +26,8 @@ const createPropsWithCustomConfig = (instance: ComponentInternalInstance, propsF
 
   return new Proxy(instanceProps, {
     get: (target, key: string) => {
+      if (typeof key !== 'string') { return target[key] }
+
       /**
        * Props passed to VNode. Not compiled at all and not reactive.
        * VNode props contained only props passed from parent.
@@ -33,9 +42,14 @@ const createPropsWithCustomConfig = (instance: ComponentInternalInstance, propsF
        */
       const originalProp = target[key]
       const propFromConfig = propsFromConfig.value?.[key]
+      const incomingProp = findCamelCased(incomingProps, key)
+
+      if (incomingProp !== undefined) {
+        return incomingProp
+      }
 
       // Return prop from config only if user didn't pass props manually
-      if (incomingProps[key] === undefined && propFromConfig !== undefined) {
+      if (propFromConfig !== undefined) {
         return propFromConfig
       }
 
@@ -54,6 +68,7 @@ const patchInstanceProps = (instance: ComponentInternalInstance, props: Props) =
 
 export const createProxyComponent = <T extends DefineComponent>(component: T) => {
   const customSetup = (originalProps: Props, ctx: SetupContext) => {
+    console.log(component.name)
     const instance = getCurrentInstance()! // Not null during setup call
     const propsFromConfig = useComponentConfigProps(component, originalProps)
 
