@@ -112,6 +112,7 @@ export default defineComponent({
     left: var(--va-sidebar-left);
     z-index: var(--va-sidebar-z-index);
     font-family: var(--va-font-family);
+    display: inline-flex;
 
     &__menu {
       display: flex;
