@@ -64,6 +64,7 @@ export default defineComponent({
   @import "variables";
 
   .va-list-item {
+    display: block;
     font-family: var(--va-font-family);
 
     &--disabled {

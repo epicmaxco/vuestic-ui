@@ -83,7 +83,6 @@
       placement="bottom"
     />
     <va-select
-      class="mb-4"
       label="Custom list height (320px)"
       :options="options"
       v-model="value"

@@ -1,10 +1,11 @@
 <template>
-  <va-list>
+  <va-list id="disabled-list-example">
     <va-list-label color="#ff0000">
       Blocked
     </va-list-label>
 
     <va-list-item
+      class="list__item"
       v-for="(contact, index) in contacts"
       :key="index"
       disabled
@@ -49,3 +50,13 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+  #disabled-list-example {
+    padding: 0;
+
+    .list__item:not(:last-child) {
+      margin-bottom: 20px;
+    }
+  }
+</style>

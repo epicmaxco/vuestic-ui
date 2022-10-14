@@ -37,7 +37,6 @@
     />
     <va-select
       v-model="value"
-      class="mb-4"
       label="Bordered (Purple color)"
       :options="options"
       color="#990099"

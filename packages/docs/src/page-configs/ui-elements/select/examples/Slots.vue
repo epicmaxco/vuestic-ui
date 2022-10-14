@@ -48,6 +48,7 @@
       </template>
     </va-select>
     <va-select
+      class="mb-4"
       label="Append slot"
       :options="options"
       v-model="value"
@@ -59,7 +60,6 @@
       </template>
     </va-select>
     <va-select
-      class="mb-4"
       label="Option slot"
       :options="options"
       v-model="value"

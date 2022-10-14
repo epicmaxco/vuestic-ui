@@ -1,10 +1,11 @@
 <template>
-  <va-list>
+  <va-list id="lines-list-example">
     <va-list-label>
       Lines
     </va-list-label>
 
     <va-list-item
+      class="list__item"
       v-for="(contact, index) in contacts"
       :key="index"
     >
@@ -48,3 +49,13 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+  #lines-list-example {
+    padding: 0;
+
+    .list__item:not(:last-child) {
+      margin-bottom: 20px;
+    }
+  }
+</style>
