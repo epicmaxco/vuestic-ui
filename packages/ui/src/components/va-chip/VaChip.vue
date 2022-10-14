@@ -222,13 +222,13 @@ export default defineComponent({
     }
 
     &--small {
-      height: var(--va-sm-chip-height);
-      font-size: var(--va-sm-chip-font-size);
+      height: var(--va-chip-sm-height);
+      font-size: var(--va-chip-sm-font-size);
     }
 
     &--large {
-      height: var(--va-lg-chip-height);
-      font-size: var(--va-lg-chip-font-size);
+      height: var(--va-chip-lg-height);
+      font-size: var(--va-chip-lg-font-size);
     }
 
     &.va-chip--disabled {

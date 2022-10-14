@@ -132,7 +132,7 @@ export default defineComponent({
     }
 
     &__item-wrapper {
-      display: var(--va-rating-item-wrapper-display);
+      display: flex;
       cursor: var(--va-rating-item-wrapper-cursor);
 
       @at-root {
@@ -144,7 +144,7 @@ export default defineComponent({
     }
 
     &-item {
-      display: var(--va-rating-item-display);
+      display: flex;
 
       @include flex-center();
 

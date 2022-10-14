@@ -181,7 +181,6 @@ export default defineComponent({
     border-radius: var(--va-toast-border-radius);
     border: 1px solid var(--va-toast-border-color);
     background-color: var(--va-toast-background-color);
-    color: var(--va-toast-color);
     box-shadow: var(--va-toast-box-shadow);
     transition: var(--va-toast-transition);
     overflow: hidden;

@@ -239,8 +239,8 @@ export default defineComponent({
 
     @at-root {
       .va-switch__container {
-        display: var(--va-switch-container-display);
-        align-items: var(--va-switch-container-align-items);
+        display: inline-flex;
+        align-items: center;
       }
     }
 
@@ -252,8 +252,8 @@ export default defineComponent({
 
     &__inner {
       cursor: var(--va-switch-inner-cursor);
-      display: var(--va-switch-inner-display);
-      position: var(--va-switch-inner-position);
+      display: inline-block;
+      position: relative;
       height: var(--va-switch-inner-height);
       width: var(--va-switch-inner-width);
       min-width: var(--va-switch-inner-min-width);
@@ -359,8 +359,8 @@ export default defineComponent({
     }
 
     #{&}__track {
-      display: var(--va-switch-track-display);
-      overflow: var(--va-switch-track-overflow);
+      display: flex;
+      overflow: hidden;
       border-radius: var(--va-switch-track-border-radius);
       height: var(--va-switch-track-height);
       width: var(--va-switch-track-width);
@@ -416,9 +416,9 @@ export default defineComponent({
     }
 
     &__checker {
-      position: var(--va-switch-checker-position);
-      top: var(--va-switch-checker-top);
-      bottom: var(--va-switch-checker-bottom);
+      position: absolute;
+      top: 0;
+      bottom: 0;
       margin: var(--va-switch-checker-margin);
       transform: var(--va-switch-checker-transform);
       height: var(--va-switch-checker-height);
@@ -427,14 +427,14 @@ export default defineComponent({
       border-radius: var(--va-switch-checker-border-radius);
       box-shadow: var(--va-switch-checker-box-shadow);
       transition: var(--va-switch-checker-transition);
-      display: var(--va-switch-checker-display);
-      justify-content: var(--va-switch-checker-justify-content);
-      align-items: var(--va-switch-checker-align-items);
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     &__checker-wrapper {
-      position: var(--va-switch-checker-wrapper-position);
-      margin: var(--va-switch-checker-wrapper-margin);
+      position: absolute;
+      margin: auto;
       transform: var(--va-switch-checker-wrapper-transform);
       top: var(--va-switch-checker-wrapper-top);
       left: var(--va-switch-checker-wrapper-left);

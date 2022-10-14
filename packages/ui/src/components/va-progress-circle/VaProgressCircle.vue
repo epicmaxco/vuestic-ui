@@ -95,15 +95,15 @@ export default defineComponent({
     font-family: var(--va-font-family);
 
     &__wrapper {
-      position: var(--va-progress-circle-wrapper-position);
-      top: var(--va-progress-circle-wrapper-top);
-      left: var(--va-progress-circle-wrapper-left);
-      bottom: var(--va-progress-circle-wrapper-bottom);
-      right: var(--va-progress-circle-wrapper-right);
-      margin: var(--va-progress-circle-wrapper-margin);
-      transform: var(--va-progress-circle-wrapper-transform);
-      width: var(--va-progress-circle-wrapper-width);
-      height: var(--va-progress-circle-wrapper-height);
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      margin: auto;
+      transform: rotate(-90deg);
+      width: var(--va-progress-circle-width);
+      height: var(--va-progress-circle-height);
 
       @include flex-center();
 
@@ -125,11 +125,11 @@ export default defineComponent({
     }
 
     &__info {
-      font-size: var(--va-progress-circle-info-font-size);
-      position: var(--va-progress-circle-info-position);
-      left: var(--va-progress-circle-info-left);
-      top: var(--va-progress-circle-info-top);
-      transform: var(--va-progress-circle-info-transform);
+      font-size: var(--va-progress-circle-font-size);
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
     }
   }
 

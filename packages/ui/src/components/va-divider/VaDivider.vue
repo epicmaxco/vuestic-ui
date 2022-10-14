@@ -50,11 +50,11 @@ export default defineComponent({
 
   .va-divider {
     display: var(--va-divider-display);
-    margin: var(--va-divider-margin);
+    margin: var(--va-divider-margin) 0;
     font-family: var(--va-font-family);
 
     &--vertical {
-      margin: var(--va-divider-vertical-margin);
+      margin: 0 var(--va-divider-margin);
       border-top: var(--va-divider-vertical-border-top);
       border-right-width: var(--va-divider-vertical-border-right-width);
       border-right-style: var(--va-divider-vertical-border-right-style);
