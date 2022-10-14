@@ -128,8 +128,8 @@ export default defineComponent({
     $p: &;
 
     width: var(--va-progress-bar-width);
-    position: var(--va-progress-bar-position);
-    overflow: var(--va-progress-bar-overflow);
+    position: relative;
+    overflow: hidden;
     font-family: var(--va-font-family);
     line-height: var(--va-progress-bar-line-height);
 
@@ -144,9 +144,9 @@ export default defineComponent({
     }
 
     &__wrapper {
-      position: var(--va-progress-bar--wrapper-position);
-      overflow: var(--va-progress-bar--wrapper-overflow);
-      border-radius: var(--va-progress-bar--wrapper-border-radius);
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--va-progress-bar-border-radius);
 
       #{$p}--small & {
         height: var(--va-progress-bar-sm-height);
@@ -162,12 +162,12 @@ export default defineComponent({
     }
 
     &--square &__wrapper {
-      border-radius: var(--va-progress-bar-square-border-radius);
+      --va-progress-bar-border-radius: 0;
     }
 
     &__buffer {
-      position: var(--va-progress-bar-buffer-position);
-      top: var(--va-progress-bar-buffer-top);
+      position: absolute;
+      top: 0;
       height: inherit;
       border-radius: inherit;
       transition: var(--va-progress-bar-buffer-transition);

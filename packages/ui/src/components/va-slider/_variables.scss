@@ -1,13 +1,5 @@
 :root {
-  --va-slider-display: flex;
-  --va-slider-align-items: center;
-
-  /* Input wrapper */
-  --va-slider-input-wrapper-position: relative;
-  --va-slider-input-wrapper-display: flex;
-
   /* Track */
-  --va-slider-track-position: absolute;
   --va-slider-track-border-radius: 0.25rem;
   --va-slider-track-transition: 0.5s ease-out;
   --va-slider-track-opacity: 1;
@@ -16,7 +8,6 @@
   --va-slider-pin-transition: background-color 0.3s ease-out 0.1s;
 
   /* Handler */
-  --va-slider-handler-position: absolute;
   --va-slider-handler-width: 1.25rem;
   --va-slider-handler-height: 1.25rem;
   --va-slider-handler-background: var(--va-background-primary);
@@ -31,7 +22,6 @@
   --va-slider-dot-display: block;
   --va-slider-dot-width: 1.75rem;
   --va-slider-dot-height: 1.75rem;
-  --va-slider-dot-position: absolute;
   --va-slider-dot-border-radius: 50%;
   --va-slider-dot-opacity: 0.2;
   --va-slider-dot-pointer-events: none;
@@ -61,8 +51,6 @@
   --va-slider-input-label-inverse-text-transform: uppercase;
 
   /* Horizontal */
-  --va-slider-horizontal-input-wrapper-flex-basis: fit-content;
-  --va-slider-horizontal-input-wrapper-flex-grow: 0;
   --va-slider-horizontal-input-wrapper-margin-right: 1rem;
 
   /* Horizontal Track */
@@ -73,7 +61,6 @@
   --va-slider-horizontal-handler-transform: translateX(-50%);
 
   /* Horizontal Dot */
-  --va-slider-horizontal-dot-value-position: absolute;
   --va-slider-horizontal-dot-value-top: -8px;
   --va-slider-horizontal-dot-value-left: 50%;
 
@@ -89,12 +76,8 @@
   --va-slider-vertical-label-inverse-margin-top: 0.625rem;
 
   /* Vertical Input Wrapper */
-  --va-slider-vertical-input-wrapper-flex-basis: fit-content;
-  --va-slider-vertical-input-wrapper-flex-grow: 0;
   --va-slider-vertical-input-wrapper-max-width: 1rem;
   --va-slider-vertical-input-wrapper-min-width: 2.5rem;
-  --va-slider-vertical-input-wrapper-position: relative;
-  --va-slider-vertical-input-wrapper-display: flex;
 
   /* Vertical Track */
   --va-slider-vertical-track-height: 100%;
@@ -105,7 +88,6 @@
   --va-slider-vertical-handler-transform: translateY(50%);
 
   /* Vertical Dot Value */
-  --va-slider-vertical-dot-value-position: relative;
   --va-slider-vertical-dot-value-top: 0.625rem;
   --va-slider-vertical-dot-value-left: 1.25rem;
 }

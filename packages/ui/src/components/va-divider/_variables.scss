@@ -2,10 +2,8 @@
   --va-divider-display: flex;
   --va-divider-color: var(--va-background-secondary);
 
-  /* This is a bit tricky one in case of a horizontal divider,
-  but in fact, it adds gaps at the top and bottom of the divider line
-  In case of a vertical divider, it adds gaps at the right and left as expected */
-  --va-divider-margin: 0.5rem 0;
+  /* Margin around divider, not the same as CSS margin. Should be one value. */
+  --va-divider-margin: 0.5rem;
   --va-divider-line-width: 1px;
   --va-divider-border-top-style: solid;
   --va-divider-border-top-color: var(--va-divider-color);
@@ -19,7 +17,6 @@
   --va-divider-text-horizontal-offset: 1.25rem;
 
   /* Vertical */
-  --va-divider-vertical-margin: 0 var(--va-divider-margin);
   --va-divider-vertical-border-top: 0;
   --va-divider-vertical-border-right-width: 1px;
   --va-divider-vertical-border-right-style: solid;

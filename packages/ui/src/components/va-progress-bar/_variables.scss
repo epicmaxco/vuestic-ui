@@ -3,6 +3,7 @@
   --va-progress-bar-position: relative;
   --va-progress-bar-overflow: hidden;
   --va-progress-bar-height: 0.5rem;
+  --va-progress-bar-border-radius: 9999999px;
 
   /* Small */
   --va-progress-bar-sm-height: 2px;
@@ -16,17 +17,7 @@
   --va-progress-bar-info-text-transform: uppercase;
   --va-progress-bar-info-not-empty-margin-bottom: 0.1rem;
 
-  /* Wrapper */
-  --va-progress-bar--wrapper-position: relative;
-  --va-progress-bar--wrapper-overflow: hidden;
-  --va-progress-bar--wrapper-border-radius: 9999999px;
-
-  /* Square */
-  --va-progress-bar-square-border-radius: 0;
-
   /* Buffer */
-  --va-progress-bar-buffer-position: absolute;
-  --va-progress-bar-buffer-top: 0;
   --va-progress-bar-buffer-opacity: 0.3;
   --va-progress-bar-buffer-transition: width ease 2s;
 

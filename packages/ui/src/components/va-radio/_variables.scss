@@ -1,7 +1,5 @@
 :root {
   --va-radio-display: inline-flex;
-  --va-radio-flex-direction: row;
-  --va-radio-align-items: center;
   --va-radio-cursor: pointer;
   --va-radio-position: relative;
   --va-radio-margin-top: 0;
@@ -11,18 +9,13 @@
 
   /* Icon */
   --va-radio-icon-transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
-  --va-radio-icon-display: inline-flex;
-  --va-radio-icon-align-items: center;
   --va-radio-icon-width: 1.4rem;
   --va-radio-icon-height: 1.4rem;
   --va-radio-icon-border-radius: 100%;
-  --va-radio-icon-position: relative;
   --va-radio-icon-border: var(--va-background-element) solid 0.125rem;
-  --va-radio-icon-box-sizing: border-box;
 
   /* Dot */
   --va-radio-dot-transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
-  --va-radio-dot-position: absolute;
   --va-radio-dot-top: 50%;
   --va-radio-dot-left: 50%;
   --va-radio-dot-right: 50%;
@@ -33,7 +26,6 @@
 
   /* Background */
   --va-radio-background-transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
-  --va-radio-background-position: absolute;
   --va-radio-background-top: -0.35rem;
   --va-radio-background-left: -0.35rem;
   --va-radio-background-right: -0.35rem;

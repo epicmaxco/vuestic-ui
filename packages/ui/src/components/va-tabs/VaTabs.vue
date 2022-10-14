@@ -444,7 +444,7 @@ export default defineComponent({
   .va-tabs {
     display: var(--va-tabs-display);
     align-items: var(--va-tabs-align-items-horizontal);
-    position: var(--va-tabs-position);
+    position: relative;
     font-family: var(--va-font-family);
 
     &__wrapper {
@@ -459,13 +459,13 @@ export default defineComponent({
     }
 
     .va-tabs__container {
-      overflow: var(--va-tabs-container-overflow);
-      flex: var(--va-tabs-container-flex);
-      display: var(--va-tabs-container-display);
+      overflow: hidden;
+      flex: 1 1 auto;
+      display: flex;
       height: var(--va-tabs-container-height);
       margin: var(--va-tabs-container-margin);
-      white-space: var(--va-tabs-container-white-space);
-      position: var(--va-tabs-container-position);
+      white-space: nowrap;
+      position: relative;
 
       .va-tabs__tabs {
         position: absolute;
@@ -542,7 +542,7 @@ export default defineComponent({
     .va-tabs__slider-wrapper {
       bottom: var(--va-tabs-slider-wrapper-bottom);
       margin: var(--va-tabs-slider-wrapper-margin);
-      position: var(--va-tabs-slider-wrapper-position);
+      position: absolute;
       z-index: var(--va-tabs-slider-wrapper-z-index);
 
       .va-tabs__slider {

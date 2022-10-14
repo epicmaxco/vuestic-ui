@@ -122,8 +122,7 @@ export default defineComponent({
 
   .va-radio {
     display: var(--va-radio-display);
-    flex-direction: var(--va-radio-flex-direction);
-    align-items: var(--va-radio-align-items);
+    align-items: center;
     cursor: var(--va-radio-cursor);
     position: var(--va-radio-position);
     margin-top: var(--va-radio-margin-top);
@@ -160,14 +159,14 @@ export default defineComponent({
 
     &__icon {
       transition: var(--va-radio-icon-transition);
-      display: var(--va-radio-icon-display);
-      align-items: var(--va-radio-icon-align-items);
+      display: flex;
+      align-items: center;
       width: var(--va-radio-icon-width);
       height: var(--va-radio-icon-height);
       border-radius: var(--va-radio-icon-border-radius);
-      position: var(--va-radio-icon-position);
+      position: relative;
       border: var(--va-radio-icon-border);
-      box-sizing: var(--va-radio-icon-box-sizing);
+      box-sizing: border-box;
 
       .va-radio__input:disabled + & {
         @include va-disabled;
@@ -179,7 +178,7 @@ export default defineComponent({
 
       &__dot {
         transition: var(--va-radio-dot-transition, var(--va-swing-transition));
-        position: var(--va-radio-dot-position);
+        position: absolute;
         top: var(--va-radio-dot-top);
         left: var(--va-radio-dot-left);
         right: var(--va-radio-dot-right);
@@ -203,7 +202,7 @@ export default defineComponent({
             --va-radio-background-transition,
             var(--va-swing-transition)
           );
-        position: var(--va-radio-background-position);
+        position: absolute;
         top: var(--va-radio-background-top);
         left: var(--va-radio-background-left);
         right: var(--va-radio-background-right);
