@@ -14,15 +14,15 @@
   .va-title {
     @include va-title();
 
-    &-va-info {
+    &-info {
       color: var(--va-info);
     }
 
-    &-va-danger {
+    &-danger {
       color: var(--va-danger);
     }
 
-    &-va-warning {
+    &-warning {
       color: var(--va-warning);
     }
   }
