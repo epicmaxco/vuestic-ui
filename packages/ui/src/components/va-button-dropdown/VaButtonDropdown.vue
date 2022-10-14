@@ -2,13 +2,9 @@
   <div class="va-button-dropdown" :class="computedClass">
     <va-dropdown
       v-if="!$props.split"
+      v-bind="vaDropdownProps"
       v-model="valueComputed"
-      :disabled="$props.disabled"
-      :placement="$props.placement"
-      :offset="$props.offset"
-      :keep-anchor-width="$props.keepAnchorWidth"
-      :close-on-content-click="$props.closeOnContentClick"
-      :stateful="$props.stateful"
+      :disabled="$props.disabled || $props.disableDropdown"
     >
       <template #anchor>
         <va-button
@@ -46,11 +42,7 @@
       <va-dropdown
         v-model="valueComputed"
         :disabled="$props.disabled || $props.disableDropdown"
-        :placement="$props.placement"
-        :offset="$props.offset"
-        :stateful="$props.stateful"
-        :close-on-content-click="$props.closeOnContentClick"
-        prevent-overflow
+        v-bind="vaDropdownProps"
       >
         <template #anchor>
           <va-button
@@ -82,7 +74,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType, computed } from 'vue'
-import { extractComponentProps } from '../../utils/child-props'
+import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
 
 import {
   useBem,
@@ -105,6 +97,7 @@ const { createEmits: createMainButtonEmits, createVOnListeners: createMainButton
 )
 
 const VaButtonProps = omit(extractComponentProps(VaButton), ['iconRight', 'block'])
+const VaDropdownProps = extractComponentProps(VaDropdown)
 
 export default defineComponent({
   name: 'VaButtonDropdown',
@@ -118,6 +111,7 @@ export default defineComponent({
   props: {
     ...useComponentPresetProp,
     ...VaButtonProps,
+    ...VaDropdownProps,
     ...useStatefulProps,
     modelValue: { type: Boolean, default: false },
     stateful: { type: Boolean, default: true },
@@ -203,6 +197,7 @@ export default defineComponent({
     const hideDropdown = () => { valueComputed.value = false }
 
     return {
+      vaDropdownProps: filterComponentProps(props, VaDropdownProps),
       hideDropdown,
       valueComputed,
       computedIcon,

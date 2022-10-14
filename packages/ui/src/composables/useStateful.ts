@@ -21,6 +21,13 @@ export const useStatefulProps = {
   modelValue: { type: undefined as any },
 }
 
+export const createStatefulProps = <T>(modelValueType?: T, statefulDefault = false) => {
+  return {
+    stateful: { type: Boolean as PropType<boolean>, default: statefulDefault },
+    modelValue: { type: modelValueType },
+  }
+}
+
 export const useStatefulEmits = ['update:modelValue']
 
 /**
