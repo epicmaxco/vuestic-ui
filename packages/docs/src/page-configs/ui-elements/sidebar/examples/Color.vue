@@ -1,7 +1,7 @@
 <template>
   <div class="mb-4" style="height: 16rem;">
     <va-sidebar color="primary" minimizedWidth="64px" width="18rem">
-      <va-sidebar-item active-color="background">
+      <va-sidebar-item active-color="backgroundPrimary">
         <va-sidebar-item-content>
           <va-sidebar-item-title>
             background primary and white text color
@@ -12,7 +12,7 @@
         v-for="item in items"
         :key="item.title"
         :active="item.active"
-        active-color="background"
+        active-color="backgroundPrimary"
       >
         <va-sidebar-item-content>
           <va-icon :name="item.icon" />
@@ -50,7 +50,7 @@
 
   <div class="mb-4" style="height: 16rem; border: 1px solid var(--va-secondary);">
     <va-sidebar color="success" minimizedWidth="64px" width="18rem">
-      <va-sidebar-item active-color="background">
+      <va-sidebar-item active-color="backgroundPrimary">
         <va-sidebar-item-content>
           <va-sidebar-item-title>
             background success and auto text color
@@ -61,7 +61,7 @@
         v-for="item in items"
         :key="item.title"
         :active="item.active"
-        active-color="background"
+        active-color="backgroundPrimary"
       >
         <va-sidebar-item-content>
           <va-icon :name="item.icon" />
@@ -74,7 +74,7 @@
   </div>
 
   <div class="mb-4" style="height: 16rem;">
-    <va-sidebar color="danger" active-color="background" text-color="success" minimizedWidth="64px" width="18rem">
+    <va-sidebar color="danger" active-color="backgroundPrimary" text-color="success" minimizedWidth="64px" width="18rem">
       <va-sidebar-item>
         <va-sidebar-item-content>
           <va-sidebar-item-title>
