@@ -8,7 +8,7 @@ import { colorsPresets } from 'vuestic-ui/src/services/color-config/color-theme-
 export default defineComponent({
   name: 'DefaultColors',
   setup () {
-    const colors = colorsPresets.default
+    const colors = colorsPresets.light
     return { colors }
   },
 })
