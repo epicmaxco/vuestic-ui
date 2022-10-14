@@ -6,7 +6,6 @@
   .va-link {
     @include link();
 
-    // TODO:(1.5.0) Move to CSS Helpers. Why no BEM?
     &-secondary {
       color: var(--va-link-color-secondary);
     }
@@ -15,80 +14,76 @@
   .va-title {
     @include va-title();
 
-    &--va-info {
+    &-info {
       color: var(--va-info);
     }
 
-    &--va-danger {
+    &-danger {
       color: var(--va-danger);
     }
 
-    &--va-warning {
+    &-warning {
       color: var(--va-warning);
-    }
-
-    &--va-gray {
-      color: var(--brand-gray);
     }
   }
 
   .va-text {
-    &--bold {
+    &-bold {
       font-weight: bold;
     }
 
-    &--highlighted {
+    &-highlighted {
       background-color: var(--va-text-highlighted);
     }
 
-    &--left {
+    &-left {
       text-align: left !important;
     }
 
-    &--right {
+    &-right {
       text-align: right !important;
     }
 
-    &--center {
+    &-center {
       text-align: center !important;
     }
 
-    &--justify {
+    &-justify {
       text-align: justify !important;
     }
 
-    &--uppercase {
+    &-uppercase {
       text-transform: uppercase !important;
     }
 
-    &--lowercase {
+    &-lowercase {
       text-transform: lowercase !important;
     }
 
-    &--capitalize {
+    &-capitalize {
       text-transform: capitalize !important;
     }
 
-    &--no-wrap {
+    &-no-wrap {
       white-space: nowrap !important;
     }
 
-    &--truncate {
+    &-truncate {
       white-space: nowrap !important;
       overflow: hidden !important;
       text-overflow: ellipsis !important;
     }
 
-    &--code {
+    &-code {
       @include va-code;
 
       padding: 0.1rem 0.2rem;
     }
 
-    // Colors
-    // TODO: Move it to CSS Helpers
-    &--secondary {
-      color: var(--va-secondary);
+    @each $color in primary, secondary, warning, success, danger, info, text-dark, text-light {
+      &-#{$color} {
+        color: var(--va-#{$color});
+      }
     }
   }
 
