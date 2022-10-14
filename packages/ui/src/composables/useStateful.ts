@@ -42,7 +42,7 @@ export const useStateful = <Props extends StatefulProps, Name extends string, Ke
   options = {} as StatefulOptions<Props[Key]>,
 ) => {
   const { defaultValue, eventName } = options
-  const event = (eventName || eventName || `update:${key.toString()}`) as Name
+  const event = (eventName || `update:${key.toString()}`) as Name
   const valueState = ref(defaultValue === undefined ? props[key] : defaultValue) as Ref
   let unwatchModelValue: Function
 
