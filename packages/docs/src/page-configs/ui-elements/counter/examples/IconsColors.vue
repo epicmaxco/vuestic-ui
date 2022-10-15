@@ -18,7 +18,7 @@
     <va-counter class="mx-4 my-2"
       v-model="value"
       outline
-      :flat="false"
+      preset="secondary"
       margins="0"
       color="#262824"
       buttons

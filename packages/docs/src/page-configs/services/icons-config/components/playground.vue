@@ -29,7 +29,7 @@
         })
       </div>
       }]
-      <va-button class="copy-button" flat icon="content_copy" @click="copy" />
+      <va-button class="copy-button" preset="secondary" icon="content_copy" @click="copy" />
     </div>
 
     <div class="demo-footer mt-2">
