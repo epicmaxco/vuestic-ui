@@ -1434,6 +1434,10 @@
       "new": {
         "text": "new",
         "title": "Recently added"
+      },
+      "updated": {
+        "text": "updated",
+        "title": "Recently updated"
       }
     },
     "categories": {

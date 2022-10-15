@@ -75,7 +75,7 @@ import { useI18n } from 'vue-i18n'
 
 import { useColors } from 'vuestic-ui/src/main'
 
-import { NavigationRoute } from './NavigationRoute'
+import { NavigationRoute } from './navigationRoutes'
 
 export default defineComponent({
   name: 'DocsSidebar',
@@ -132,7 +132,7 @@ export default defineComponent({
       routeHasActiveChild,
       isActiveChildRoute,
       onSidebarItemClick,
-      badgeColors: { wip: 'primary', new: 'success' },
+      badgeColors: { wip: 'primary', new: 'success', updated: 'warning' },
       activeColor: computed(() => getFocusColor(getColor('primary'))),
       hoverColor: computed(() => getHoverColor(getColor('primary'))),
 

@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { NavigationRoute } from '../components/sidebar/NavigationRoute'
+import { NavigationRoute } from '../components/sidebar/navigationRoutes'
 
 export const getSortedNavigationRoutes = (routes): NavigationRoute[] => {
   // ToDO: normalize navigation routes with better structure. This sort is temporary solution
