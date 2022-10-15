@@ -22,12 +22,10 @@
 </template>
 
 <style lang="scss">
-  @import '~vuestic-ui/src/styles/resources';
-
   .spacing-demo {
     .rectangle {
       padding: 0.5rem;
-      background-color: $lighter-gray;
+      background-color: var(--va-background-secondary);
     }
   }
 </style>
