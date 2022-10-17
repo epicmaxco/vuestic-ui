@@ -4408,6 +4408,14 @@
       "swipe": {
         "title": "Swipe",
         "text": "The `swipable` prop enables swipe behaviour for the component."
+      },
+      "Ratio": {
+        "title": "Ratio",
+        "text": "The `ratio` prop allows you to set the aspect ratio of the carousel."
+      },
+      "Height": {
+        "title": "Height",
+        "text": "If you need specific height instead of ratio, you can use `height` prop."
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-carousel/_variables.scss)[[target=_blank]]"
