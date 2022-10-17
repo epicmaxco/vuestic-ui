@@ -14,7 +14,7 @@
       :today="isToday(year)"
       :focused="focusedCellIndex === index"
       :highlight-today="highlightToday"
-      :readonly="readonly"
+      :readonly="$props.readonly"
       :color="color"
       @click="onClick(year); focusedCellIndex = index"
       @mouseenter="hoveredIndex = index"

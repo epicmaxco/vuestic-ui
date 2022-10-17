@@ -17,7 +17,7 @@ export default defineComponent({
     ...useStatefulProps,
     ...useComponentPresetProp,
     modelValue: { type: Array as PropType<boolean[]>, default: () => [] as boolean[] },
-    multiply: { type: Boolean, default: false },
+    multiple: { type: Boolean, default: false },
     inset: { type: Boolean, default: false },
     popout: { type: Boolean, default: false },
   },

@@ -661,7 +661,7 @@
     "VaAccordion": {
       "props": {
         "value": "The array of currently opened collapses",
-        "multiply": "Allows to expand multiply components",
+        "multiple": "Allows to expand multiple components",
         "inset": "Collapse becomes smaller when activated",
         "popout": "Collapse becomes bigger when activated"
       },
@@ -2871,9 +2871,9 @@
         "title": "Default",
         "text": "Default usage  of the `va-accordion` component."
       },
-      "multiply": {
-        "title": "Multiply",
-        "text": "Accordion component allows you to select multiply collapses."
+      "multiple": {
+        "title": "Multiple",
+        "text": "Accordion component allows you to select multiple collapses."
       },
       "inset": {
         "title": "Inset",

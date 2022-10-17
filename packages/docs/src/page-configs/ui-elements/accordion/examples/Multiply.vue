@@ -2,7 +2,7 @@
   <va-accordion
     v-model="value"
     style="width: 400px;"
-    multiply
+    multiple
   >
     <va-collapse
       v-for="(collapse, index) in collapses"

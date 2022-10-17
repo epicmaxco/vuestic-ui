@@ -22,6 +22,8 @@
 import { defineComponent, PropType, ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { useComponentPresetProp } from '../../composables'
 import { VaButton } from '../va-button'
+import { isServer } from '../../utils/ssr-utils'
+import { warn } from '../../services/utils'
 
 export default defineComponent({
   name: 'VaBacktop',
@@ -58,9 +60,18 @@ export default defineComponent({
 
     let targetElement: Element | Window
 
-    const getTargetElement = () => {
-      if (!props.target) { return window as Window }
-      if (typeof props.target === 'string') { return document.querySelector(props.target) as Element }
+    const getTargetElement = (): Element | Window => {
+      if (!props.target) {
+        return window
+      }
+      if (typeof props.target === 'string') {
+        const target = document.querySelector(props.target) as Element
+        if (!target) {
+          warn(`Target element [${props.target}] is not found, falling back to window.`)
+          return window
+        }
+        return target
+      }
       return props.target as Element
     }
 
@@ -99,13 +110,22 @@ export default defineComponent({
         : targetElement.scrollTop
     }
 
-    const visible = computed(() => targetScrollValue.value > props.visibilityHeight)
+    const server = isServer()
 
-    onMounted(() => {
-      targetElement = getTargetElement()
-      targetElement.addEventListener('scroll', handleScroll, true)
+    const visible = computed(() => {
+      if (server) {
+        return false
+      }
+      return targetScrollValue.value > props.visibilityHeight
     })
-    onBeforeUnmount(() => targetElement?.removeEventListener('scroll', handleScroll))
+
+    if (!server) {
+      onMounted(() => {
+        targetElement = getTargetElement()
+        targetElement.addEventListener('scroll', handleScroll, true)
+      })
+      onBeforeUnmount(() => targetElement?.removeEventListener('scroll', handleScroll))
+    }
 
     return {
       computedStyle,
