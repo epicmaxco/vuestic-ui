@@ -12,13 +12,13 @@
       </div>
 
       <div class="col" style="width: 100%;">
-        <div class="code-snippet">
+        <div class="va-code-snippet">
           <span class="tag">va-icon name="<CodeInput class="code-input" v-model="iconName" />" /</span>
         </div>
       </div>
     </div>
 
-    <div class="code-snippet">
+    <div class="va-code-snippet">
       const fonts = [{
       <div class="ml-4">
         <div>name: '<CodeInput class="code-input" v-model="configName" />',</div>
@@ -29,13 +29,13 @@
         })
       </div>
       }]
-      <va-button class="copy-button" flat icon="content_copy" @click="copy" />
+      <va-button class="copy-button" preset="secondary" icon="content_copy" @click="copy" />
     </div>
 
     <div class="demo-footer mt-2">
       <div class="d-flex align-center">
-        <div style="width: 64px;" class="code-snippet code-snippet--icon mr-2" v-html="renderHTML(iconName)" />
-        <div class="code-snippet" style="width: 100%;">{{ renderHTML(iconName) }}</div>
+        <div style="width: 64px;" class="va-code-snippet va-code-snippet--icon mr-2" v-html="renderHTML(iconName)" />
+        <div class="va-code-snippet" style="width: 100%;">{{ renderHTML(iconName) }}</div>
       </div>
     </div>
 
@@ -130,7 +130,7 @@ const copy = () => {
     }
   }
 
-  .code-snippet {
+  .va-code-snippet {
     color: currentColor;
     background: var(--va-background-secondary);
     position: relative;
@@ -159,7 +159,7 @@ const copy = () => {
       & > * { width: 100%; }
     }
 
-    .code-snippet {
+    .va-code-snippet {
       display: flex;
       align-items: center;
       width: 100%;
@@ -170,7 +170,7 @@ const copy = () => {
   }
 
   .demo-footer {
-    .code-snippet {
+    .va-code-snippet {
       height: 48px;
       display: flex;
       align-items: center;

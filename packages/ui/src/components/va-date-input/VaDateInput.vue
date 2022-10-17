@@ -33,7 +33,7 @@
             <slot :name="name" v-bind="slotScope" />
           </template>
 
-          <template #prependInner="slotScope">
+          <template #prependInner="slotScope" v-if="$slots.prependInner || $props.leftIcon">
             <slot name="prependInner" v-bind="slotScope" />
             <va-icon
               v-if="$props.leftIcon"

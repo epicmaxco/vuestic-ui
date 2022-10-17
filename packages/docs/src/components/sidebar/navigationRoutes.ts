@@ -1,4 +1,17 @@
-import { NavigationRoute } from './NavigationRoute'
+import { TranslationString } from '../DocsApi/ManualApiOptions'
+
+export type NavigationRoute = {
+  name: string,
+  category?: TranslationString,
+  displayName: TranslationString,
+  meta?: {
+    iconClass?: string,
+    badge?: 'wip' | 'new' | 'updated'
+  },
+  disabled?: boolean,
+  children?: NavigationRoute[],
+  path?: string,
+}
 
 export const navigationRoutes: NavigationRoute[] = [
   {
@@ -55,9 +68,6 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: 'nuxt',
         displayName: 'menu.nuxt',
-        meta: {
-          badge: 'new',
-        },
       },
       {
         name: 'ssr-guide',
@@ -66,6 +76,9 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: 'kitchensink',
         displayName: 'menu.kitchensink',
+        meta: {
+          badge: 'new',
+        },
       },
       // GENERATOR_ADD - gettingStarted
     ],
@@ -89,10 +102,16 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: 'smart-helpers',
         displayName: 'menu.smartHelpers',
+        meta: {
+          badge: 'new',
+        },
       },
       {
         name: 'colors',
         displayName: 'menu.colors',
+        meta: {
+          badge: 'updated',
+        },
       },
       {
         name: 'css-variables',
@@ -125,6 +144,9 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: 'button',
         displayName: 'menu.button',
+        meta: {
+          badge: 'updated',
+        },
       },
       {
         name: 'button-group',
@@ -149,9 +171,6 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: 'carousel',
         displayName: 'menu.carousel',
-        meta: {
-          badge: 'new',
-        },
       },
       {
         name: 'chip',
@@ -193,9 +212,6 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: 'counter',
         displayName: 'menu.counter',
-        meta: {
-          badge: 'new',
-        },
       },
       {
         name: 'radio',
@@ -272,6 +288,9 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: 'scroll-container',
         displayName: 'menu.scrollContainer',
+        meta: {
+          badge: 'new',
+        },
       },
       {
         category: 'menu.categories.navigation',
@@ -375,6 +394,9 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: 'tree-view',
         displayName: 'menu.treeView',
+        meta: {
+          badge: 'new',
+        },
       },
       // GENERATOR_ADD - uiElements
     ],
@@ -434,6 +456,9 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: 'breakpoints',
         displayName: 'menu.breakpoints',
+        meta: {
+          badge: 'new',
+        },
       },
       // GENERATOR_ADD - services
     ],

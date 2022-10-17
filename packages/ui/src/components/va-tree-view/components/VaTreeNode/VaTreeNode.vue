@@ -231,7 +231,7 @@ export default defineComponent({
       }
     }
 
-    &:focus > .va-tree-node-root {
+    &:focus-visible > .va-tree-node-root {
       @include focus-outline;
 
       &::before {

@@ -201,7 +201,7 @@ export default defineComponent({
       }
     }
 
-    &:focus {
+    &:focus-visible {
       .va-time-picker-cell {
         &--active {
           @include focus-outline($radius: 4px, $offset: -2px);
