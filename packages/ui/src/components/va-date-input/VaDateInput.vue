@@ -255,7 +255,7 @@ export default defineComponent({
       }
     }
 
-    const reset = () => withoutValidation(() => {
+    const reset = () => withValidationReset(() => {
       statefulValue.value = props.clearValue
       emit('clear')
     })
@@ -299,7 +299,7 @@ export default defineComponent({
       computedErrorMessages,
       listeners,
       validationAriaAttributes,
-      withoutValidation,
+      withValidationReset,
     } = useValidation(props, emit, { reset, focus })
 
     const hasError = computed(() => (!isValid.value && valueComputed.value !== props.clearValue) || computedError.value)

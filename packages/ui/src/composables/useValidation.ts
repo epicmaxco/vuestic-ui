@@ -1,5 +1,4 @@
 import {
-  ref,
   watch,
   inject,
   computed,
@@ -55,7 +54,7 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
 ) => {
   const { reset, focus } = options
   const { isFocused, onFocus, onBlur } = useFocus()
-  const canValidate = ref(true)
+  let canValidate = true
 
   const [computedError] = useSyncProp('error', props, emit, false)
   const [computedErrorMessages] = useSyncProp('errorMessages', props, emit, [] as string[])
@@ -65,15 +64,15 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
     computedErrorMessages.value = []
   }
 
-  const withoutValidation = (cb: () => any): void => {
-    canValidate.value = false
+  const withValidationReset = (cb: () => any): void => {
+    canValidate = false
     cb()
     resetValidation()
   }
 
   const validate = (): boolean => {
-    if (!props.rules || !props.rules.length || !canValidate.value) {
-      canValidate.value = true
+    if (!props.rules || !props.rules.length || !canValidate) {
+      canValidate = true
 
       return true
     }
@@ -134,7 +133,7 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
     listeners: { onFocus, onBlur },
     validate,
     resetValidation,
-    withoutValidation,
+    withValidationReset,
     validationAriaAttributes,
   }
 }
