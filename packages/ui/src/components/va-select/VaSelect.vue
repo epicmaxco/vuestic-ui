@@ -272,7 +272,7 @@ export default defineComponent({
     const { getOptionByValue, getValue, getText, getTrackBy, getGroupBy } = useSelectableList(props)
 
     /** @public */
-    const reset = () => withValidationReset(() => {
+    const reset = () => onValueReset(() => {
       if (props.multiple) {
         valueComputed.value = Array.isArray(props.clearValue) ? props.clearValue : []
       } else {
@@ -281,6 +281,7 @@ export default defineComponent({
 
       searchInput.value = ''
       emit('clear')
+      resetValidation()
     })
 
     /** @public */
@@ -293,7 +294,8 @@ export default defineComponent({
       validate,
       computedError,
       computedErrorMessages,
-      withValidationReset,
+      onValueReset,
+      resetValidation,
     } = useValidation(props, emit, { reset, focus })
 
     const colorComputed = computed(() => getColor(props.color))

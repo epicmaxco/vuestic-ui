@@ -255,9 +255,10 @@ export default defineComponent({
       }
     }
 
-    const reset = () => withValidationReset(() => {
+    const reset = () => onValueReset(() => {
       statefulValue.value = props.clearValue
       emit('clear')
+      resetValidation()
     })
 
     const hideAndFocus = (): void => {
@@ -299,7 +300,8 @@ export default defineComponent({
       computedErrorMessages,
       listeners,
       validationAriaAttributes,
-      withValidationReset,
+      onValueReset,
+      resetValidation,
     } = useValidation(props, emit, { reset, focus })
 
     const hasError = computed(() => (!isValid.value && valueComputed.value !== props.clearValue) || computedError.value)
