@@ -406,20 +406,20 @@ export const navigationRoutes: NavigationRoute[] = [
     displayName: 'menu.contribution',
     children: [
       {
-        name: 'documentation-page',
-        displayName: 'menu.documentationPage',
-      },
-      {
-        name: 'translation',
-        displayName: 'menu.translation',
-      },
-      {
         name: 'guide',
         displayName: 'menu.guide',
       },
       {
         name: 'ui-element-guide',
         displayName: 'menu.uiElementGuide',
+      },
+      {
+        name: 'documentation-page',
+        displayName: 'menu.documentationPage',
+      },
+      {
+        name: 'translation',
+        displayName: 'menu.translation',
       },
       {
         name: 'tree-shaking-requirements',

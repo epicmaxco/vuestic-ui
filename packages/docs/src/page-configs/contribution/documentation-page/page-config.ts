@@ -8,8 +8,6 @@ import {
   tableDataBlock,
   apiOptions,
   configFolderStructure,
-  configFileStructure,
-  blockHelper,
 } from './code-examples'
 
 const block = new PageGenerationHelper(__dirname)
@@ -24,9 +22,8 @@ const config: ApiDocsBlock[] = [
   // Page Config
   block.subtitle('documentationPage.pageConfig.title'),
   block.paragraph('documentationPage.pageConfig.descriptionStructure'),
-  block.code(configFolderStructure, 'bash'),
+  block.code(configFolderStructure, 'plain'),
   block.paragraph('documentationPage.pageConfig.descriptionFile'),
-  block.code(configFileStructure, 'javascript'),
 
   // Generators
   block.subtitle('documentationPage.generators.title'),
@@ -36,9 +33,6 @@ const config: ApiDocsBlock[] = [
 
   // BlockTypes
   block.subtitle('documentationPage.blocktypes.title'),
-  block.paragraph('documentationPage.blocktypes.descriptionHelper'),
-  block.code(blockHelper, 'javascript'),
-  block.paragraph('documentationPage.blocktypes.description'),
 
   block.headline('documentationPage.blocktypes.titleBlock.title'),
   block.paragraph('documentationPage.blocktypes.titleBlock.text'),

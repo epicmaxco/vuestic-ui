@@ -9,7 +9,7 @@ import { DefineComponent } from 'vue'
 import { VueConstructor } from 'vue-class-component'
 
 export type CodeStringOrObject = string | Record<string, string>
-export type CodeLanguage = 'javascript' | 'scss' | 'bash' | 'html'
+export type CodeLanguage = 'javascript' | 'scss' | 'bash' | 'html' | 'plain'
 // example: for `/examples/va-affix/Bottom.vue` use `va-affix/Bottom.vue` here.
 
 export type Dependencies = {

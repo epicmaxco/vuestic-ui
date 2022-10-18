@@ -1455,7 +1455,7 @@
     "uiElements": "UI Elements",
     "contribution": "Contribution",
     "extensions": "Extensions",
-    "documentationPage": "Documentation Page",
+    "documentationPage": "Documentation Guide",
     "affix": "Affix",
     "avatar": "Avatar",
     "breadcrumbs": "Breadcrumbs",
@@ -1601,7 +1601,7 @@
   },
   "documentationPage": {
     "compilesTo": "Compiles to:",
-    "title": "Documentation Page",
+    "title": "Working with documentation",
     "description": "This page is intended for Vuestic-UI contributors. It explains the ways to create and modify the documentation.",
     "introduction": {
       "title": "Introduction",
@@ -3752,6 +3752,45 @@
   "guide": {
     "title": "Contribution guide",
     "description": "This guide describes the possible ways in which you can become a part of the ongoing development of Vuestic UI. We are really excited that you are interested in helping us make Vuestic better!",
+    "quickStart": {
+      "title": "Quick start",
+      "description": "If you want to make some changes get a local copy of VausticUI:",
+      "steps": {
+        "1": "Fork Vuestic repository",
+        "2": "Clone your fork",
+        "3": "Install dependencies with `yarn install`"
+      }
+    },
+    "packages": {
+      "title": "Pacakges",
+      "description": "Vuestic has few packages in order of importance for newcommers:",
+      "list": {
+        "ui": "`packages/ui` - UI lib with demos. Here all vuestic components stored.",
+        "docs": "`packages/docs` - [vuestic.dev](https://vuestic.dev) source code.",
+        "nuxt": "`packages/nuxt` - `@vuestic/nuxt` module for Nuxt3.",
+        "sandbox": "`packages/sandbox` - Package for testing build and treeshaking.",
+        "vue-cli-plugin": "`packages/vue-cli-plugin` - vue add vuestic-ui plugin for vue-cli.",
+        "ag-grid-theme": "`packages/ag-grid-theme` - AgGrid extension styles.",
+        "deploy": "`packages/deploy` - Release scripts for core contributors."
+      },
+      "notice": "Likely you will deal only with `ui` and `docs` packages."
+    },
+    "commonlyUsedScripts": {
+      "title": "Commonly used scripts",
+      "list": {
+        "demo": "`yarn serve` - this will run project with demos, where you can test component features.",
+        "docs": "`yarn serve:docs` - this will run project with docs (deployed here [vuestic.dev](https://vuestic.dev))."
+      },
+      "notice": "You can find more scripts in `package.json` of each package."
+    },
+    "creating": {
+      "title": "Making new components or docs pages",
+      "description": "We have few generate scripts for you to make your life easier.",
+      "scripts": {
+        "docs": "`yarn generate:docs` will make new docs page.",
+        "component": "`yarn generate:component` will make new component."
+      }
+    },
     "pullRequests": {
       "title": "Pull Request Guidelines",
       "description": {
@@ -3765,13 +3804,7 @@
     "branches": {
       "title": "Branches",
       "publicBranches": "Public branches (**epicmax/vuestic-ui**):\n  * `master` - releases and hotfixes only. Do not submit PR's to `master`!\n  * `develop` - main development branch.",
-      "localBranches": "Local branches\n  * For local branches prepend your messages with `feat/` (e.g. for a tabs-related fix it would be `feat/fix-tabs`). This is necessary to keep local branches visually separated from the public ones."
-    },
-    "fileNaming": {
-      "title": "File naming",
-      "camelCase": "`testIsContextableComponent.ts` - helpers and instants",
-      "kebabCase": "`api-options.ts` - configs",
-      "pascalCase": "`DocsCode.vue` - components, classes, types"
+      "localBranches": "Local branches\n  * For local branches prepend your messages with `feat/` or `fix/` (e.g. for a tabs-related fix it would be `fix/tabs`, `feat/date-picker` or `fix#1000/important-bug`). This is necessary to keep local branches visually separated from the public ones."
     },
     "forCoreContributors": {
       "title": "For the core contributors",
@@ -3787,14 +3820,8 @@
       "workInBook": "If you work on UI components - work in the book environment (`yarn serve:book`). We want to keep global stuff out of components."
     },
     "componentFolderStructure": {
-      "title": "Component folder structure"
-    },
-    "beforeReleaseWorkflow": {
-      "title": "Before release workflow",
-      "description": "Update packages' versions. Update the lock files (for both `npm` and `yarn`)\n"
-    },
-    "npmScripts": {
-      "title": "Commonly used NPM scripts"
+      "title": "Component folder structure",
+      "link": "See detailed guide here."
     },
     "credits": {
       "title": "Credits",
