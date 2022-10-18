@@ -33,11 +33,12 @@ const config: ApiDocsBlock[] = [
     'image.examples.defaultSlot.text',
     'DefaultSlot',
   ),
-  ...block.exampleBlock(
-    'image.examples.loaderSlot.title',
-    'image.examples.loaderSlot.text',
-    'LoaderSlot',
-  ),
+  // TODO Disabled because loading doesn't work properly.
+  // ...block.exampleBlock(
+  //   'image.examples.loaderSlot.title',
+  //   'image.examples.loaderSlot.text',
+  //   'LoaderSlot',
+  // ),
   ...block.exampleBlock(
     'image.examples.errorSlot.title',
     'image.examples.errorSlot.text',
