@@ -45,7 +45,7 @@ const createPropsWithCustomConfig = (instance: ComponentInternalInstance, propsF
       const incomingProp = findCamelCased(incomingProps, key)
 
       if (incomingProp !== undefined) {
-        return incomingProp
+        return originalProp
       }
 
       // Return prop from config only if user didn't pass props manually
