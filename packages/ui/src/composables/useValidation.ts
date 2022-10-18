@@ -64,7 +64,7 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
     computedErrorMessages.value = []
   }
 
-  const onValueReset = (cb: () => any): void => {
+  const withoutValidation = (cb: () => any): void => {
     canValidate = false
     cb()
   }
@@ -132,7 +132,7 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
     listeners: { onFocus, onBlur },
     validate,
     resetValidation,
-    onValueReset,
+    withoutValidation,
     validationAriaAttributes,
   }
 }

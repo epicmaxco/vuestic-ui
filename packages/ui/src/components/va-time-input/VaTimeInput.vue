@@ -201,7 +201,7 @@ export default defineComponent({
     // const changePeriodToPm = () => changePeriod(true)
     // const changePeriodToAm = () => changePeriod(false)
 
-    const reset = () => onValueReset(() => {
+    const reset = () => withoutValidation(() => {
       emit('update:modelValue', props.clearValue)
       emit('clear')
       resetValidation()
@@ -212,7 +212,7 @@ export default defineComponent({
       computedErrorMessages,
       listeners,
       validationAriaAttributes,
-      onValueReset,
+      withoutValidation,
       resetValidation,
     } = useValidation(props, emit, { reset, focus })
 

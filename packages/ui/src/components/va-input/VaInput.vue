@@ -154,7 +154,7 @@ export default defineComponent({
 
     const isFocused = useFocusDeep()
 
-    const reset = () => onValueReset(() => {
+    const reset = () => withoutValidation(() => {
       emit('update:modelValue', props.clearValue)
       emit('clear')
       resetValidation()
@@ -178,7 +178,7 @@ export default defineComponent({
       computedErrorMessages,
       listeners: validationListeners,
       validationAriaAttributes,
-      onValueReset,
+      withoutValidation,
       resetValidation,
     } = useValidation(props, emit, { reset, focus })
 

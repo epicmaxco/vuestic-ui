@@ -272,7 +272,7 @@ export default defineComponent({
     const { getOptionByValue, getValue, getText, getTrackBy, getGroupBy } = useSelectableList(props)
 
     /** @public */
-    const reset = () => onValueReset(() => {
+    const reset = () => withoutValidation(() => {
       if (props.multiple) {
         valueComputed.value = Array.isArray(props.clearValue) ? props.clearValue : []
       } else {
@@ -294,7 +294,7 @@ export default defineComponent({
       validate,
       computedError,
       computedErrorMessages,
-      onValueReset,
+      withoutValidation,
       resetValidation,
     } = useValidation(props, emit, { reset, focus })
 
