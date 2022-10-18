@@ -1,10 +1,10 @@
 // breakpoints must be always synchronized with breakpoint service defaults
 $grid-breakpoints: (
   xs: 0,
-  sm: 640px,
-  md: 1024px,
-  lg: 1440px,
-  xl: 1920px,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
 ) !default;
 
 $grid-columns: 12 !default;
