@@ -271,11 +271,32 @@ export default defineComponent({
     const { getHoverColor, getColor } = useColors()
     const { getOptionByValue, getValue, getText, getTrackBy, getGroupBy } = useSelectableList(props)
 
+    /** @public */
+    const reset = () => withoutValidation(() => {
+      if (props.multiple) {
+        valueComputed.value = Array.isArray(props.clearValue) ? props.clearValue : []
+      } else {
+        valueComputed.value = props.clearValue
+      }
+
+      searchInput.value = ''
+      emit('clear')
+      resetValidation()
+    })
+
+    /** @public */
+    const focus = () => {
+      if (props.disabled) { return }
+      input.value?.focus()
+    }
+
     const {
       validate,
       computedError,
       computedErrorMessages,
-    } = useValidation(props, emit, () => reset(), () => focus())
+      withoutValidation,
+      resetValidation,
+    } = useValidation(props, emit, { reset, focus })
 
     const colorComputed = computed(() => getColor(props.color))
     const toggleIconColor = computed(() => props.readonly ? getHoverColor(colorComputed.value) : colorComputed.value)
@@ -562,30 +583,12 @@ export default defineComponent({
     }
 
     /** @public */
-    const focus = () => {
-      if (props.disabled) { return }
-      input.value?.focus()
-    }
-
-    /** @public */
     const blur = () => {
       if (showDropdownContentComputed.value) {
         showDropdownContentComputed.value = false
       }
 
       nextTick(input.value?.blur)
-    }
-
-    /** @public */
-    const reset = () => {
-      if (props.multiple) {
-        valueComputed.value = Array.isArray(props.clearValue) ? props.clearValue : []
-      } else {
-        valueComputed.value = props.clearValue
-      }
-
-      searchInput.value = ''
-      emit('clear')
     }
 
     const tabIndexComputed = computed(() => props.disabled ? -1 : props.tabindex)

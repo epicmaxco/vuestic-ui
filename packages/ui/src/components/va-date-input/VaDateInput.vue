@@ -255,10 +255,11 @@ export default defineComponent({
       }
     }
 
-    const reset = (): void => {
+    const reset = () => withoutValidation(() => {
       statefulValue.value = props.clearValue
       emit('clear')
-    }
+      resetValidation()
+    })
 
     const hideAndFocus = (): void => {
       isOpenSync.value = false
@@ -294,7 +295,14 @@ export default defineComponent({
       nextTick(focusDatePicker)
     }
 
-    const { computedError, computedErrorMessages, listeners, validationAriaAttributes } = useValidation(props, emit, reset, focus)
+    const {
+      computedError,
+      computedErrorMessages,
+      listeners,
+      validationAriaAttributes,
+      withoutValidation,
+      resetValidation,
+    } = useValidation(props, emit, { reset, focus })
 
     const hasError = computed(() => (!isValid.value && valueComputed.value !== props.clearValue) || computedError.value)
 
