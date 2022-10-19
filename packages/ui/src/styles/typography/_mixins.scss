@@ -166,7 +166,7 @@ $va-display-margins: (
 }
 
 @mixin link($offset: null) {
-  &:not(.va-button, .va-sidebar-item) {
+  & {
     color: var(--va-link-color);
     cursor: pointer;
     font-family: var(--va-font-family);

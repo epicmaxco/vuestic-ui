@@ -82,7 +82,7 @@ export default defineComponent({
     ...useComponentPresetProp,
     modelValue: { type: VaCheckboxValueType, default: false },
     color: { type: String, default: 'primary' },
-    checkedIcon: { type: String, default: 'check' },
+    checkedIcon: { type: String, default: 'va-check' },
     indeterminate: { type: Boolean, default: false },
     indeterminateValue: { type: VaCheckboxValueType, default: null },
     indeterminateIcon: { type: String, default: 'remove' },
@@ -194,12 +194,12 @@ export default defineComponent({
 
   .va-checkbox {
     display: var(--va-checkbox-display);
-    max-width: var(--va-checkbox-max-width);
+    max-width: fit-content;
     font-family: var(--va-font-family);
 
     &__input-container {
-      align-items: var(--va-checkbox-input-align-items);
-      display: var(--va-checkbox-input-display);
+      align-items: center;
+      display: flex;
       padding: var(--va-checkbox-input-padding);
       cursor: var(--va-checkbox-input-cursor);
       font-size: var(--va-checkbox-font-size);
@@ -228,7 +228,7 @@ export default defineComponent({
       width: var(--va-checkbox-square-width);
       min-width: var(--va-checkbox-square-min-width);
       height: var(--va-checkbox-square-height);
-      position: var(--va-checkbox-square-position);
+      position: relative;
       background-color: var(--va-checkbox-square-background-color);
       border: var(--va-checkbox-square-border, var(--va-control-border));
       border-radius: var(--va-checkbox-square-border-radius);
@@ -247,12 +247,12 @@ export default defineComponent({
 
     &__label {
       display: var(--va-checkbox-label-display);
-      position: var(--va-checkbox-label-position);
+      position: relative;
     }
 
     &__icon {
-      pointer-events: var(--va-checkbox-icon-pointer-events);
-      position: var(--va-checkbox-icon-position);
+      pointer-events: none;
+      position: absolute;
     }
 
     &--selected {

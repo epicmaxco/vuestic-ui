@@ -45,7 +45,7 @@
         v-if="$props.loading"
         :color="$props.color"
         size="small"
-        name="loop"
+        name="va-loading"
         spin="counter-clockwise"
       />
       <slot name="icon" v-bind="slotScope" />
@@ -155,10 +155,11 @@ export default defineComponent({
 
     const isFocused = useFocusDeep()
 
-    const reset = () => {
+    const reset = () => withoutValidation(() => {
       emit('update:modelValue', props.clearValue)
       emit('clear')
-    }
+      resetValidation()
+    })
 
     const focus = () => {
       input.value?.focus()
@@ -178,7 +179,9 @@ export default defineComponent({
       computedErrorMessages,
       listeners: validationListeners,
       validationAriaAttributes,
-    } = useValidation(props, emit, reset, focus)
+      withoutValidation,
+      resetValidation,
+    } = useValidation(props, emit, { reset, focus })
 
     const { modelValue } = toRefs(props)
     const {

@@ -762,13 +762,13 @@ export default defineComponent({
   @import "variables";
 
   .va-slider {
-    display: var(--va-slider-display);
-    align-items: var(--va-slider-align-items);
+    display: flex;
+    align-items: center;
     font-family: var(--va-font-family);
 
     &__input-wrapper {
-      position: var(--va-slider-input-wrapper-position);
-      display: var(--va-slider-input-wrapper-display);
+      position: relative;
+      display: flex;
     }
 
     &__container {
@@ -779,7 +779,7 @@ export default defineComponent({
     }
 
     &__track {
-      position: var(--va-slider-track-position);
+      position: absolute;
       border-radius: var(--va-slider-track-border-radius);
       transition: var(--va-slider-track-transition);
       opacity: var(--va-slider-track-opacity);
@@ -794,7 +794,7 @@ export default defineComponent({
     }
 
     &__handler {
-      position: var(--va-slider-handler-position);
+      position: absolute;
       width: var(--va-slider-handler-width);
       height: var(--va-slider-handler-height);
       background: var(--va-slider-handler-background);
@@ -806,10 +806,10 @@ export default defineComponent({
 
       &__dot--focus {
         transform: var(--va-slider-dot-transform);
-        display: var(--va-slider-dot-display);
+        display: block;
         width: var(--va-slider-dot-width);
         height: var(--va-slider-dot-height);
-        position: var(--va-slider-dot-position);
+        position: absolute;
         border-radius: var(--va-slider-dot-border-radius);
         opacity: var(--va-slider-dot-opacity);
         pointer-events: var(--va-slider-dot-pointer-events);
@@ -868,8 +868,8 @@ export default defineComponent({
 
   .va-slider--horizontal {
     .va-slider__input-wrapper {
-      flex-basis: var(--va-slider-horizontal-input-wrapper-flex-basis);
-      flex-grow: var(--va-slider-horizontal-input-wrapper-flex-grow);
+      flex-basis: fit-content;
+      flex-grow: 0;
       margin-right: var(--va-slider-horizontal-input-wrapper-margin-right);
 
       &:last-of-type {
@@ -902,7 +902,7 @@ export default defineComponent({
         }
 
         &__dot--value {
-          position: var(--va-slider-horizontal-dot-value-position);
+          position: absolute;
           top: var(--va-slider-horizontal-dot-value-top);
           left: var(--va-slider-horizontal-dot-value-left);
         }
@@ -935,12 +935,12 @@ export default defineComponent({
 
     .va-slider {
       &__input-wrapper {
-        flex-basis: var(--va-slider-vertical-input-wrapper-flex-basis);
-        flex-grow: var(--va-slider-vertical-input-wrapper-flex-grow);
+        flex-basis: fit-content;
+        flex-grow: 0;
         max-width: var(--va-slider-vertical-input-wrapper-max-width);
         min-width: var(--va-slider-vertical-input-wrapper-min-width);
-        position: var(--va-slider-vertical-input-wrapper-position);
-        display: var(--va-slider-vertical-input-wrapper-display);
+        position: relative;
+        display: flex;
 
         &:last-of-type {
           margin-top: 1rem;
@@ -973,7 +973,7 @@ export default defineComponent({
         }
 
         &__dot--value {
-          position: var(--va-slider-vertical-dot-value-position);
+          position: relative;
           top: var(--va-slider-vertical-dot-value-top);
           left: var(--va-slider-vertical-dot-value-left);
         }

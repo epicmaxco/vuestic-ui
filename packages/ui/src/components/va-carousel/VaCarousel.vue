@@ -5,7 +5,7 @@
       'va-carousel--vertical': $props.vertical,
       [`va-carousel--${$props.effect}`]: true
     }"
-    :style="{ height }"
+    :style="{ height: ratio ? 'auto' : height }"
     role="region"
     :aria-label="t('carousel')"
   >
@@ -20,7 +20,7 @@
           <va-hover #default="{ hover }" stateful>
             <va-button
               :color="hover ? computedHoverColor : computedColor"
-              :icon="vertical ? 'expand_less' : 'chevron_left'"
+              :icon="vertical ? 'va-arrow-up' : 'va-arrow-left'"
               :aria-label="t('goPreviousSlide')"
             />
           </va-hover>
@@ -36,7 +36,7 @@
           <va-hover #default="{ hover }" stateful>
             <va-button
               :color="hover ? computedHoverColor : computedColor"
-              :icon="vertical ? 'expand_more' : 'chevron_right'"
+              :icon="vertical ? 'va-arrow-down' : 'va-arrow-right'"
               :aria-label="t('goNextSlide')"
             />
           </va-hover>
@@ -83,6 +83,7 @@
         >
           <slot v-bind="{ item, index, goTo, isActive: isCurrentSlide(index) }">
             <va-image
+              v-bind="vaImageProps"
               :src="isObjectSlides ? item.src : item"
               :alt="isObjectSlides ? item.alt : ''"
               :draggable="false"
@@ -111,6 +112,10 @@ import { VaHover } from '../va-hover'
 
 import type { SwipeState } from '../../composables'
 
+import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
+
+const VaImageProps = extractComponentProps(VaImage, ['src', 'alt'])
+
 export default defineComponent({
   name: 'VaCarousel',
 
@@ -120,6 +125,7 @@ export default defineComponent({
     ...useSwipeProps,
     ...useStatefulProps,
     ...useComponentPresetProp,
+    ...VaImageProps,
 
     modelValue: { type: Number, default: 0 },
     items: { type: Array as PropType<any[]>, required: true },
@@ -147,6 +153,7 @@ export default defineComponent({
       validator: (value: string) => ['fade', 'transition'].includes(value),
     },
     color: { type: String, default: 'primary' },
+    ratio: { type: Number },
   },
 
   emits: useStatefulEmits,
@@ -185,6 +192,7 @@ export default defineComponent({
     useSwipe(props, slidesContainer, onSwipe)
 
     return {
+      vaImageProps: filterComponentProps(props, VaImageProps),
       doShowNextButton,
       doShowPrevButton,
       computedSlidesStyle,
@@ -221,6 +229,8 @@ export default defineComponent({
     display: flex;
     width: 100%;
     height: 100%;
+    max-height: 100%;
+    min-height: var(--va-carousel-min-height);
     background: var(--va-carousel-background);
     box-shadow: var(--va-carousel-box-shadow);
     border-radius: var(--va-carousel-border-radius);

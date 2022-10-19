@@ -33,7 +33,7 @@
           />
         </template>
 
-        <template #prependInner="slotScope">
+        <template #prependInner="slotScope" v-if="$slots.prependInner || $props.leftIcon">
           <slot
             name="prependInner"
             v-bind="{ ...slotScope, toggleDropdown, showDropdown, hideDropdown, isOpen: isOpenSync, focus }"
@@ -202,12 +202,20 @@ export default defineComponent({
     // const changePeriodToPm = () => changePeriod(true)
     // const changePeriodToAm = () => changePeriod(false)
 
-    const reset = (): void => {
+    const reset = () => withoutValidation(() => {
       emit('update:modelValue', props.clearValue)
       emit('clear')
-    }
+      resetValidation()
+    })
 
-    const { computedError, computedErrorMessages, listeners, validationAriaAttributes } = useValidation(props, emit, reset, focus)
+    const {
+      computedError,
+      computedErrorMessages,
+      listeners,
+      validationAriaAttributes,
+      withoutValidation,
+      resetValidation,
+    } = useValidation(props, emit, { reset, focus })
 
     const {
       canBeCleared,

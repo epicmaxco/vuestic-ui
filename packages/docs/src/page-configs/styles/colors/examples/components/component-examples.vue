@@ -10,7 +10,7 @@
       </va-card-content>
 
       <va-card-actions align="between">
-        <va-button flat color="secondary">Go back</va-button>
+        <va-button color="secondary">Go back</va-button>
         <va-button>Login</va-button>
       </va-card-actions>
     </va-card>

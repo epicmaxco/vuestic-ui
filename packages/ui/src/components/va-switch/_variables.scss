@@ -2,9 +2,6 @@
   --va-switch-display: inline-block;
 
   /* Checker */
-  --va-switch-checker-position: absolute;
-  --va-switch-checker-top: 0;
-  --va-switch-checker-bottom: 0;
   --va-switch-checker-margin: auto 0.3rem;
   --va-switch-checker-transform: translateX(0);
   --va-switch-checker-height: 1.5rem;
@@ -13,13 +10,8 @@
   --va-switch-checker-border-radius: 50%;
   --va-switch-checker-box-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.3);
   --va-switch-checker-transition: all 0.2s ease;
-  --va-switch-checker-display: flex;
-  --va-switch-checker-justify-content: center;
-  --va-switch-checker-align-items: center;
 
   /* Checker Wrapper */
-  --va-switch-checker-wrapper-position: absolute;
-  --va-switch-checker-wrapper-margin: auto;
   --va-switch-checker-wrapper-transform: translateX(0);
   --va-switch-checker-wrapper-top: 0;
   --va-switch-checker-wrapper-left: 0;
@@ -35,8 +27,6 @@
   --va-switch-label-right-padding: 0.3rem;
 
   /* Track */
-  --va-switch-track-display: flex;
-  --va-switch-track-overflow: hidden;
   --va-switch-track-border-radius: 1rem;
   --va-switch-track-height: 100%;
   --va-switch-track-width: 100%;
@@ -44,14 +34,8 @@
   --va-switch-track-box-shadow: inset 0 0.1rem 0.2rem rgba(0, 0, 0, 0.1);
   --va-switch-track-transition: background-color 0.2s ease;
 
-  /* Container */
-  --va-switch-container-display: inline-flex;
-  --va-switch-container-align-items: center;
-
   /* Inner */
   --va-switch-inner-cursor: pointer;
-  --va-switch-inner-display: inline-block;
-  --va-switch-inner-position: relative;
   --va-switch-inner-height: 2rem;
   --va-switch-inner-width: auto;
   --va-switch-inner-min-width: 4rem;

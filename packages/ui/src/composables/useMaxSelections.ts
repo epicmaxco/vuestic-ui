@@ -16,16 +16,14 @@ export const useMaxSelectionsProps = {
 export function useMaxSelections (
   selections: Ref<any[]>,
   maxSelections: Ref<number | string | undefined>,
-  emit: (event: 'update:modelValue', ...args: any[]) => void,
 ) {
   const exceedsMaxSelections = (): boolean => {
     if (maxSelections.value === undefined || isNaN(+maxSelections.value)) { return false }
     return selections.value.length >= maxSelections.value
   }
 
-  const addOption = (optionToAdd: any): void => {
-    const newSelectedOptions = [...selections.value, optionToAdd]
-    emit('update:modelValue', newSelectedOptions)
+  const addOption = <T>(optionToAdd: T) => {
+    return [...selections.value, optionToAdd]
   }
 
   return {

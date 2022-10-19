@@ -157,34 +157,34 @@ export default defineComponent({
 
   .va-parallax {
     display: var(--va-parallax-display);
-    position: var(--va-parallax-position);
-    overflow: var(--va-parallax-overflow);
+    position: relative;
+    overflow: hidden;
     width: var(--va-parallax-width);
     z-index: var(--va-parallax-z-index);
     font-family: var(--va-font-family);
 
     &__image-container {
-      position: var(--va-parallax-image-container-position);
-      top: var(--va-parallax-image-container-top);
-      left: var(--va-parallax-image-container-left);
-      right: var(--va-parallax-image-container-right);
-      bottom: var(--va-parallax-image-container-bottom);
-      z-index: var(--va-parallax-image-container-z-index);
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 1;
       contain: var(--va-parallax-image-container-contain);
       user-select: var(--va-parallax-image-container-user-select);
     }
 
     &__image {
-      position: var(--va-parallax-image-position);
-      bottom: var(--va-parallax-image-bottom);
-      left: var(--va-parallax-image-left);
-      min-width: var(--va-parallax-image-min-width);
-      min-height: var(--va-parallax-image-min-height);
-      display: var(--va-parallax-image-display);
-      transform: var(--va-parallax-image-transform);
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      min-width: 100%;
+      min-height: 100%;
+      display: none;
+      transform: translate(-50%, 0);
       will-change: var(--va-parallax-image-will-change);
       transition: var(--va-parallax-image-transition);
-      z-index: var(--va-parallax-image-z-index);
+      z-index: 1;
     }
 
     &__item-container {

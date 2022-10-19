@@ -7,7 +7,7 @@
       :offset="[0, 25]"
     >
       <div class="color-dropdown__content px-1">
-        <va-button-toggle :options="themes" @update:model-value="setTheme">
+        <va-button-toggle :options="themes" @update:model-value="setTheme" grow>
 
         </va-button-toggle>
 

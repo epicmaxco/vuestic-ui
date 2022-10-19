@@ -33,7 +33,7 @@
             <slot :name="name" v-bind="slotScope" />
           </template>
 
-          <template #prependInner="slotScope">
+          <template #prependInner="slotScope" v-if="$slots.prependInner || $props.leftIcon">
             <slot name="prependInner" v-bind="slotScope" />
             <va-icon
               v-if="$props.leftIcon"
@@ -167,7 +167,7 @@ export default defineComponent({
 
     color: { type: String, default: 'primary' },
     leftIcon: { type: Boolean, default: false },
-    icon: { type: String, default: 'calendar_today' },
+    icon: { type: String, default: 'va-calendar' },
   },
 
   emits: [
@@ -255,10 +255,11 @@ export default defineComponent({
       }
     }
 
-    const reset = (): void => {
+    const reset = () => withoutValidation(() => {
       statefulValue.value = props.clearValue
       emit('clear')
-    }
+      resetValidation()
+    })
 
     const hideAndFocus = (): void => {
       isOpenSync.value = false
@@ -294,7 +295,14 @@ export default defineComponent({
       nextTick(focusDatePicker)
     }
 
-    const { computedError, computedErrorMessages, listeners, validationAriaAttributes } = useValidation(props, emit, reset, focus)
+    const {
+      computedError,
+      computedErrorMessages,
+      listeners,
+      validationAriaAttributes,
+      withoutValidation,
+      resetValidation,
+    } = useValidation(props, emit, { reset, focus })
 
     const hasError = computed(() => (!isValid.value && valueComputed.value !== props.clearValue) || computedError.value)
 

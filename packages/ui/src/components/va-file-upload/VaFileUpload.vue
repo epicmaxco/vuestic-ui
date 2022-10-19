@@ -244,14 +244,14 @@ export default defineComponent({
     }
 
     &__field {
-      overflow: var(--va-file-upload-dropzone-field-overflow);
-      display: var(--va-file-upload-dropzone-field-display);
-      align-items: var(--va-file-upload-dropzone-field-align-items);
-      position: var(--va-file-upload-dropzone-field-position);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      position: relative;
 
       &__button {
         margin: var(--va-file-upload-dropzone-field-button-margin);
-        z-index: var(--va-file-upload-dropzone-field-button-z-index);
+        z-index: 10;
       }
 
       &__text {
@@ -276,7 +276,7 @@ export default defineComponent({
 
     &--dropzone {
       background-color: var(--va-file-upload-dropzone-background-color);
-      overflow: var(--va-file-upload-dropzone-overflow);
+      overflow: hidden;
       border-radius: var(--va-file-upload-dropzone-border-radius);
       cursor: var(--va-file-upload-dropzone-cursor);
 

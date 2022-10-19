@@ -1,5 +1,5 @@
 <template>
-  <va-card class="gutters-demo" color="background">
+  <va-card class="gutters-demo" color="background-primary">
     <div class="layout va-gutter-1">
       <div class="row">
         <div v-for="i in 2" :key="i" class="flex xs6">
@@ -43,18 +43,16 @@
 </template>
 
 <style lang="scss">
-  @import '~vuestic-ui/src/styles/resources';
-
   .gutters-demo {
     padding: 0.75rem;
 
     .layout {
-      background-color: $lighter-gray;
+      background-color: var(--va-background-secondary);
     }
 
     .item {
-      background-color: $white;
-      border: 1px solid $gray;
+      background-color: var(--va-background-tertiary);
+      border: 1px solid var(--va-background-element);
       text-align: center;
     }
   }

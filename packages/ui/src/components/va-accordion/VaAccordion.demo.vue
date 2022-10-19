@@ -28,8 +28,8 @@
         </va-collapse>
       </va-accordion>
     </VbCard>
-    <VbCard title="Multiply with custom headers">
-      <va-accordion v-model="valueArray" style="width: 400px;" multiply>
+    <VbCard title="Multiple with custom headers">
+      <va-accordion v-model="valueArray" style="width: 400px;" multiple>
         <va-collapse
           v-for="(collapse, index) in collapses"
           :key="index"
@@ -43,8 +43,8 @@
         </va-collapse>
       </va-accordion>
     </VbCard>
-    <VbCard title="Multiply">
-      <va-accordion v-model="valueArray" multiply style="width: 400px;">
+    <VbCard title="Multiple">
+      <va-accordion v-model="valueArray" multiple style="width: 400px;">
         <va-collapse
           v-for="(collapse, index) in collapses"
           :key="index"
@@ -71,8 +71,8 @@
       </va-accordion>
     </VbCard>
 
-    <VbCard title="Inset multiply">
-      <va-accordion v-model="valueArray" inset multiply style="width: 400px;">
+    <VbCard title="Inset multiple">
+      <va-accordion v-model="valueArray" inset multiple style="width: 400px;">
         <va-collapse
           v-for="(collapse, index) in collapses"
           :key="index"
@@ -99,8 +99,8 @@
       </va-accordion>
     </VbCard>
 
-    <VbCard title="Popout multiply">
-      <va-accordion v-model="valueArray" popout multiply style="width: 400px;">
+    <VbCard title="Popout multiple">
+      <va-accordion v-model="valueArray" popout multiple style="width: 400px;">
         <va-collapse
           v-for="(collapse, index) in collapses"
           :key="index"

@@ -123,7 +123,11 @@ export default defineComponent({
 
     const isDisabled = (option: SelectableOption) => props.disabled || getDisabled(option)
 
-    const reset = () => { valueComputed.value = null }
+    const reset = () => withoutValidation(() => {
+      valueComputed.value = null
+      emit('clear')
+      resetValidation()
+    })
 
     const focus = () => {
       const firstActiveEl = Array.isArray(itemRefs.value) && itemRefs.value.find(el => !(el as HTMLInputElement).disabled)
@@ -133,7 +137,12 @@ export default defineComponent({
       }
     }
 
-    const { computedError, computedErrorMessages } = useValidation(props, emit, reset, focus)
+    const {
+      computedError,
+      computedErrorMessages,
+      withoutValidation,
+      resetValidation,
+    } = useValidation(props, emit, { reset, focus })
 
     const computedProps = computed(() => pick(props, ['name', 'color', 'readonly', 'leftLabel']))
 

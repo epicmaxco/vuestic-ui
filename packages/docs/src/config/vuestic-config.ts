@@ -16,6 +16,13 @@ export const VuesticConfig: Partial<GlobalConfig> = {
       VaButton: {
         addToCart: { size: 'large', round: true },
         deleteFromCart: { size: 'small', plain: true },
+        landingHeader: {
+          size: 'large',
+          plain: true,
+          'hover-behaviour': 'mask',
+          'hover-mask-color': 'textDark',
+          'hover-opacity': '1',
+        },
       },
     },
   },

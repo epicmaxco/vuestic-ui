@@ -8,7 +8,7 @@
       <va-button icon="battery" color="#fff" preset="plain" />
       <va-spacer />
       <va-button color="#fff" preset="plain">Login</va-button>
-      <va-button-dropdown size="small" preset="plain" color="secondary" icon="ellipsis">
+      <va-button-dropdown size="small" preset="plain" color="secondary" icon="ellipsis" prevent-overflow>
         Content
       </va-button-dropdown>
     </va-app-bar>

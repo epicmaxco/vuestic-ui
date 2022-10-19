@@ -88,6 +88,7 @@ export default defineComponent({
     margin-bottom: 0.2rem !important;
     background: var(--va-background-secondary);
     font-size: calc(1rem / 1.4);
+    border-radius: 0.25rem;
 
     code[class*="language-"],
     pre[class*="language-"] {

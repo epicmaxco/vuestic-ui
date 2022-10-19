@@ -41,6 +41,6 @@ export default {
 <style lang="scss" scoped>
   pre {
     white-space: nowrap;
-    padding: 0.5rem 2rem;
+    padding: 0.75rem 1.5rem;
   }
 </style>

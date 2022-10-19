@@ -362,8 +362,8 @@ export default defineComponent({
           width: unset;
 
           .va-button__content {
-            padding-right: var(--va-counter-button-padding--inner);
-            padding-left: var(--va-counter-button-padding--outer);
+            padding-right: var(--va-counter-button-inner-padding);
+            padding-left: var(--va-counter-button-outer-padding);
           }
         }
       }
@@ -378,8 +378,8 @@ export default defineComponent({
           width: unset;
 
           .va-button__content {
-            padding-left: var(--va-counter-button-padding--inner);
-            padding-right: var(--va-counter-button-padding--outer);
+            padding-left: var(--va-counter-button-inner-padding);
+            padding-right: var(--va-counter-button-outer-padding);
           }
         }
       }

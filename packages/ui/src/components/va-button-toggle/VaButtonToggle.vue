@@ -28,7 +28,7 @@ import { VaButtonGroup } from '../va-button-group'
 
 import omit from 'lodash/omit.js'
 
-const VaButtonProps = omit(extractComponentProps(VaButton), ['block'])
+const VaButtonGroupProps = extractComponentProps(VaButtonGroup)
 
 export default defineComponent({
   name: 'VaButtonToggle',
@@ -38,7 +38,7 @@ export default defineComponent({
   },
   emits: ['update:modelValue'],
   props: {
-    ...VaButtonProps,
+    ...VaButtonGroupProps,
     ...useComponentPresetProp,
     modelValue: { type: [String, Number], default: '' },
     options: {
@@ -54,6 +54,7 @@ export default defineComponent({
     useDeprecatedProps(['flat', 'outline'])
 
     const { getColor, shiftHSLAColor } = useColors()
+    const p = VaButtonGroupProps.color
     const colorComputed = computed(() => getColor(props.color))
 
     const isToggled = (value: any) => value === props.modelValue

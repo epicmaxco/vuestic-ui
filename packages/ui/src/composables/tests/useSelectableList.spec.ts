@@ -22,7 +22,7 @@ describe('useSelectableList', () => {
         getText: 1,
         getTrackBy: 1,
         getValue: 1,
-        getDisabled: 1,
+        getDisabled: false,
       },
     ],
     [
@@ -34,7 +34,7 @@ describe('useSelectableList', () => {
         getText: 'two',
         getTrackBy: 'two',
         getValue: 'two',
-        getDisabled: 'two',
+        getDisabled: false,
       },
     ],
     [

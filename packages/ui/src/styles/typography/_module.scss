@@ -3,101 +3,91 @@
 
 /** Isolated typography so it can be used in VaContent */
 @mixin va-typography {
-  ::selection {
-    background-color: var(--va-text-selected);
-    color: var(--va-white);
-  }
-
-  .link {
+  .va-link {
     @include link();
 
-    // TODO:(1.5.0) Move to CSS Helpers. Why no BEM?
     &-secondary {
       color: var(--va-link-color-secondary);
     }
   }
 
-  .title {
+  .va-title {
     @include va-title();
 
-    &--va-info {
+    &-info {
       color: var(--va-info);
     }
 
-    &--va-danger {
+    &-danger {
       color: var(--va-danger);
     }
 
-    &--va-warning {
+    &-warning {
       color: var(--va-warning);
-    }
-
-    &--va-gray {
-      color: var(--brand-gray);
     }
   }
 
-  .text {
-    &--bold {
+  .va-text {
+    &-bold {
       font-weight: bold;
     }
 
-    &--highlighted {
+    &-highlighted {
       background-color: var(--va-text-highlighted);
     }
 
-    &--left {
+    &-left {
       text-align: left !important;
     }
 
-    &--right {
+    &-right {
       text-align: right !important;
     }
 
-    &--center {
+    &-center {
       text-align: center !important;
     }
 
-    &--justify {
+    &-justify {
       text-align: justify !important;
     }
 
-    &--uppercase {
+    &-uppercase {
       text-transform: uppercase !important;
     }
 
-    &--lowercase {
+    &-lowercase {
       text-transform: lowercase !important;
     }
 
-    &--capitalize {
+    &-capitalize {
       text-transform: capitalize !important;
     }
 
-    &--no-wrap {
+    &-no-wrap {
       white-space: nowrap !important;
     }
 
-    &--truncate {
+    &-truncate {
       white-space: nowrap !important;
       overflow: hidden !important;
       text-overflow: ellipsis !important;
     }
 
-    &--code {
+    &-code {
       @include va-code;
 
       padding: 0.1rem 0.2rem;
     }
 
-    // Colors
-    // TODO: Move it to CSS Helpers
-    &--secondary {
-      color: var(--va-secondary);
+    @each $color in primary, secondary, warning, success, danger, info, text-dark, text-light {
+      &-#{$color} {
+        color: var(--va-#{$color});
+      }
     }
   }
 
-  .code-snippet {
+  .va-code-snippet {
     @include va-code-snippet();
   }
 
@@ -117,7 +107,7 @@
   }
 
   @each $element, $size in $display-font-sizes {
-    .display-#{$element} {
+    .va-h#{$element} {
       @include va-display($element);
     }
   }
@@ -146,18 +136,9 @@
     @include va-table();
   }
 
-  .text-block {
+  .va-text-block {
     padding: 1.2rem;
     background-color: var(--va-text-block);
-  }
-
-  // TODO:(1.5.0) Looks like we don't even need it.
-  .muted {
-    color: var(--va-muted);
-  }
-
-  i {
-    font-style: italic;
   }
 
   hr.va-separator {
