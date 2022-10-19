@@ -3,7 +3,7 @@
     v-if="visible"
     class="va-backtop"
     role="button"
-    aria-label="back to top"
+    :aria-label="t('backToTop')"
     :style="computedStyle"
     @click="scrollToTop"
     @keydown.enter.stop="scrollToTop"
@@ -20,7 +20,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType, ref, computed, onMounted, onBeforeUnmount } from 'vue'
-import { useComponentPresetProp } from '../../composables'
+import { useComponentPresetProp, useTranslation } from '../../composables'
 import { VaButton } from '../va-button'
 import { isServer } from '../../utils/ssr-utils'
 import { warn } from '../../services/utils'
@@ -131,6 +131,7 @@ export default defineComponent({
       computedStyle,
       visible,
       scrollToTop,
+      ...useTranslation(),
     }
   },
 })

@@ -23,7 +23,7 @@
           color="danger"
           icon="clear"
           class="va-file-upload-list-item__delete"
-          aria-label="remove file"
+          :aria-label="t('removeFile')"
           @click.stop="removeFile"
           @keydown.enter.stop="removeFile"
           @keydown.space.stop="removeFile"
@@ -38,7 +38,7 @@
 <script lang="ts">
 import { defineComponent, ref, PropType } from 'vue'
 
-import { useBem, useFocus, useStrictInject } from '../../../composables'
+import { useBem, useFocus, useStrictInject, useTranslation } from '../../../composables'
 import { VaFileUploadKey, ConvertedFile } from '../types'
 
 import { VaListItem, VaListItemSection, VaButton } from '../../index'
@@ -95,6 +95,7 @@ export default defineComponent({
     }))
 
     return {
+      ...useTranslation(),
       undo,
       removed,
       disabled,

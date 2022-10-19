@@ -37,7 +37,7 @@
           color="danger"
           icon="va-delete"
           class="va-file-upload-gallery-item__delete"
-          aria-label="remove file"
+          :aria-label="t('removeFile')"
           @click="removeImage"
           @focus="onFocus"
           @blur="onBlur"
@@ -51,7 +51,7 @@
 import { defineComponent, onMounted, PropType, ref, watch, computed, toRef } from 'vue'
 
 import { colorToRgba } from '../../../services/color-config/color-functions'
-import { useFocus, useBem, useStrictInject } from '../../../composables'
+import { useFocus, useBem, useStrictInject, useTranslation } from '../../../composables'
 
 import { VaFileUploadKey, ConvertedFile } from '../types'
 import { useTextColor } from '../../../composables/useTextColor'
@@ -137,6 +137,7 @@ export default defineComponent({
     watch(() => props.file, convertToImg)
 
     return {
+      ...useTranslation(),
       undo,
       ...useTextColor(toRef(props, 'color')),
       removed,

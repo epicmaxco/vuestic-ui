@@ -173,7 +173,7 @@ export default defineComponent({
     }
 
     @include media-breakpoint-down(sm) {
-      height: $top-mobile-nav-height;
+      height: top-mobile-nav-height;
       padding: var(--va-navbar-sm-padding);
 
       &__center,

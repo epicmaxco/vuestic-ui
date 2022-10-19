@@ -34,7 +34,7 @@
         role="button"
         name="va-close"
         class="va-chip__close-icon"
-        aria-label="close"
+        :aria-label="t('close')"
         :tabindex="tabIndexComputed"
         :size="iconSize"
         @click.stop="close"
@@ -59,6 +59,7 @@ import {
   useHover,
   useTextColor,
   useBem,
+  useTranslation,
 } from '../../composables'
 
 import { VaIcon } from '../va-icon'
@@ -116,6 +117,7 @@ export default defineComponent({
     const { isHovered, onMouseEnter, onMouseLeave } = useHover()
 
     return {
+      ...useTranslation(),
       keyboardFocusListeners,
       valueComputed,
       hrefComputed,

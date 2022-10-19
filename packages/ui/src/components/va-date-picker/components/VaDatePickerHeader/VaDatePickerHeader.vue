@@ -12,7 +12,7 @@
         size="small"
         :color="color"
         :textColor="textColor"
-        aria-label="next period"
+        :aria-label="t('nextPeriod')"
         round
         @click="prev"
       />
@@ -26,7 +26,7 @@
           size="small"
           :color="color"
           :textColor="textColor"
-          aria-label="switch view"
+          :aria-label="t('switchView')"
           @click="switchView"
         >
           <slot name="year" v-bind="{ year: syncView.year }">{{ syncView.year }}</slot>
@@ -46,7 +46,7 @@
         size="small"
         :color="color"
         :textColor="textColor"
-        aria-label="previous period"
+        :aria-label="t('previousPeriod')"
         @click="next"
         round
       />
@@ -62,6 +62,7 @@ import { useView } from '../../hooks/view'
 import { DatePickerView } from '../../types'
 
 import { VaButton } from '../../../va-button'
+import { useTranslation } from '../../../../composables'
 
 export default defineComponent({
   name: 'VaDatePickerHeader',
@@ -90,7 +91,14 @@ export default defineComponent({
       syncView.value = view
     }
 
-    return { prev, next, changeView, switchView, syncView }
+    return {
+      ...useTranslation(),
+      prev,
+      next,
+      changeView,
+      switchView,
+      syncView,
+    }
   },
 })
 </script>

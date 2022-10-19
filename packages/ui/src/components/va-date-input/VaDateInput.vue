@@ -37,7 +37,7 @@
             <slot name="prependInner" v-bind="slotScope" />
             <va-icon
               v-if="$props.leftIcon"
-              aria-label="toggle dropdown"
+              :aria-label="t('toggleDropdown')"
               v-bind="iconProps"
             />
           </template>
@@ -45,7 +45,7 @@
           <template #icon>
             <va-icon
               v-if="canBeCleared"
-              aria-label="reset date"
+              :aria-label="t('resetDate')"
               v-bind="{ ...iconProps, ...clearIconProps }"
               @click.stop="reset"
               @keydown.enter.stop="reset"
@@ -53,7 +53,7 @@
             />
             <va-icon
               v-else-if="!$props.leftIcon"
-              aria-label="toggle dropdown"
+              :aria-label="t('toggleDropdown')"
               v-bind="iconProps"
             />
           </template>
@@ -107,7 +107,7 @@ import {
   useValidation, useValidationEmits, useValidationProps, ValidationProps,
   useStateful, useStatefulEmits,
   useParsable,
-  useFocus, useFocusEmits,
+  useFocus, useFocusEmits, useTranslation,
 } from '../../composables'
 import { useSyncProp } from '../va-date-picker/hooks/sync-prop'
 import { useRangeModelValueGuard } from './hooks/range-model-value-guard'
@@ -367,11 +367,13 @@ export default defineComponent({
       },
     }))
 
+    const { t } = useTranslation()
+
     const inputAttributesComputed = computed(() => ({
       readonly: props.readonly || !props.manualInput,
       tabindex: props.disabled ? -1 : 0,
       value: valueText.value,
-      ariaLabel: props.label || 'selected date',
+      ariaLabel: props.label || t('selectedDate'),
       ariaRequired: props.requiredMark,
       ariaDisabled: props.disabled,
       ariaReadOnly: props.readonly,
@@ -389,6 +391,7 @@ export default defineComponent({
     }))
 
     return {
+      t,
       datePicker,
       valueText,
       valueWithoutText,

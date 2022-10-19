@@ -4,7 +4,7 @@
     :class="computedClass"
     ref="anchorRef"
     role="button"
-    aria-label="toggle dropdown"
+    :aria-label="t('toggleDropdown')"
     :aria-disabled="$props.disabled"
     :aria-expanded="!!valueComputed"
     :aria-controls="idComputed"
@@ -47,6 +47,7 @@ import {
   useDocument,
   useHTMLElement,
   MaybeHTMLElementOrSelector,
+  useTranslation,
 } from '../../composables'
 import { useAnchorSelector } from './hooks/useAnchorSelector'
 import { useCursorAnchor } from './hooks/useCursorAnchor'
@@ -238,6 +239,7 @@ export default defineComponent({
     // })
 
     return {
+      ...useTranslation(),
       teleportTargetComputed,
       teleportDisabled,
       isMounted: useIsMounted(),

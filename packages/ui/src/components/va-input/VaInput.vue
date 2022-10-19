@@ -34,7 +34,7 @@
       <va-icon
         v-if="canBeCleared"
         role="button"
-        aria-label="reset"
+        :aria-label="t('reset')"
         :tabindex="tabIndexComputed"
         v-bind="clearIconProps"
         @click.stop="reset"
@@ -82,6 +82,7 @@ import {
   useEmitProxy,
   useClearable, useClearableProps, useClearableEmits,
   useFocusDeep,
+  useTranslation,
 } from '../../composables'
 import { useCleave, useCleaveProps } from './hooks/useCleave'
 
@@ -238,6 +239,7 @@ export default defineComponent({
     )
 
     return {
+      ...useTranslation(),
       input,
       inputEvents,
 

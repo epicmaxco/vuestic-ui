@@ -16,7 +16,7 @@
         <slot name="decreaseAction" v-bind="{ ...slotScope, decreaseCount }">
           <va-button
             class="va-counter__button-decrease"
-            aria-label="decrease counter"
+            :aria-label="t('decreaseCounter')"
             v-bind="decreaseButtonProps"
             @click="decreaseCount"
           />
@@ -43,7 +43,7 @@
         <slot name="increaseAction" v-bind="{ ...slotScope, increaseCount }">
           <va-button
             class="va-counter__button-increase"
-            aria-label="increase counter"
+            :aria-label="t('increaseCounter')"
             v-bind="increaseButtonProps"
             @click="increaseCount"
           />
@@ -99,6 +99,7 @@ import {
   useFocus, useFocusEmits,
   useStateful, useStatefulProps,
   useColors,
+  useTranslation,
 } from '../../composables'
 import useCounterPropsValidation from './hooks/useCounterPropsValidation'
 
@@ -275,9 +276,11 @@ export default defineComponent({
       disabled: isIncreaseActionDisabled.value,
     }))
 
+    const { t } = useTranslation()
+
     const inputAttributesComputed = computed(() => ({
       tabindex: tabIndexComputed.value,
-      ariaLabel: props.label || 'counter value',
+      ariaLabel: props.label || t('counterValue'),
       ariaValuemin: props.min,
       ariaValuemax: props.max,
       ...omit(attrs, ['class', 'style']),
@@ -304,6 +307,7 @@ export default defineComponent({
     useCounterPropsValidation(props)
 
     return {
+      ...useTranslation(),
       input,
       valueComputed,
       isFocused,

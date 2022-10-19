@@ -12,7 +12,7 @@
       <va-button
         v-if="!disabled"
         class="va-file-upload-single-item__button"
-        aria-label="remove file"
+        :aria-label="t('removeFile')"
         size="small"
         color="danger"
         flat
@@ -26,7 +26,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
-import { useStrictInject } from '../../../composables'
+import { useStrictInject, useTranslation } from '../../../composables'
 
 import { VaButton, VaListItem, VaListItemSection } from '../../index'
 import { VaFileUploadKey, ConvertedFile } from '../types'
@@ -49,6 +49,7 @@ export default defineComponent({
   },
 
   setup: () => ({
+    ...useTranslation(),
     disabled: useStrictInject(VaFileUploadKey, INJECTION_ERROR_MESSAGE).disabled,
   }),
 })

@@ -1,5 +1,5 @@
 export * from './vuestic-plugin'
-export { useColors, useBreakpoint, useTheme } from './composables'
+export { useColors, useBreakpoint, useTheme, useI18nConfig } from './composables'
 export { useGlobalConfig } from './services/global-config/global-config'
 export {
   useIcons,

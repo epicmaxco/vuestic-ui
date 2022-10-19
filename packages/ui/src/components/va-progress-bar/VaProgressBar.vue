@@ -45,7 +45,7 @@ import { useComponentPresetProp } from '../../composables/useComponentPreset'
 import { computed, defineComponent, PropType, StyleValue } from 'vue'
 import clamp from 'lodash/clamp.js'
 
-import { useColors, useTextColor } from '../../composables'
+import { useColors, useTextColor, useTranslation } from '../../composables'
 
 export default defineComponent({
   name: 'VaProgressBar',
@@ -80,6 +80,8 @@ export default defineComponent({
       return props.size
     }
 
+    const { t } = useTranslation()
+
     return {
       rootClass: computed(() => ({
         'va-progress-bar--square': !props.rounded,
@@ -112,7 +114,7 @@ export default defineComponent({
 
       ariaAttributesComputed: computed(() => ({
         role: 'progressbar',
-        ariaLabel: 'progress state',
+        ariaLabel: t('progressState'),
         ariaValuenow: !props.indeterminate ? props.modelValue : undefined,
       })),
     }

@@ -3,7 +3,6 @@
     ref="dropdown"
     v-model="showDropdownContentComputed"
     class="va-select va-select__dropdown va-select-dropdown"
-    :aria-label="`select option (currently selected: ${$props.modelValue})`"
     v-bind="dropdownPropsComputed"
     @close="focus"
   >
@@ -52,7 +51,7 @@
           <va-icon
             v-if="showClearIcon"
             role="button"
-            aria-label="reset"
+            :aria-label="t('reset')"
             tabindex="0"
             v-bind="clearIconProps"
             @click.stop="reset"
@@ -105,10 +104,10 @@
         v-if="showSearchInput"
         ref="searchBar"
         class="va-select-dropdown__content-search-input"
-        aria-label="options filter"
+        :aria-label="t('optionsFilter')"
         :tabindex="tabIndexComputed"
         :bordered="true"
-        :placeholder="$props.searchPlaceholderText"
+        :placeholder="tp($props.searchPlaceholderText)"
         v-model="searchInput"
         @keydown.up.stop.prevent="hoverPreviousOption"
         @keydown.left.stop.prevent="hoverPreviousOption"
@@ -129,7 +128,7 @@
         :get-track-by="getTrackBy"
         :get-group-by="getGroupBy"
         :search="searchInput"
-        :no-options-text="$props.noOptionsText"
+        :no-options-text="tp($props.noOptionsText)"
         :color="$props.color"
         :tabindex="tabIndexComputed"
         :virtual-scroller="$props.virtualScroller"
@@ -162,6 +161,7 @@ import {
   useMaxSelections, useMaxSelectionsProps,
   useClearableProps, useClearable, useClearableEmits,
   useFocusDeep,
+  useTranslation,
 } from '../../composables'
 
 import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
@@ -233,7 +233,7 @@ export default defineComponent({
     separator: { type: String, default: ', ' },
     width: { type: String, default: '100%' },
     maxHeight: { type: String, default: '256px' },
-    noOptionsText: { type: String, default: 'Items not found' },
+    noOptionsText: { type: String, default: '$t:noOptions' },
     hideSelected: { type: Boolean, default: false },
     tabindex: { type: Number, default: 0 },
     dropdownIcon: {
@@ -256,7 +256,7 @@ export default defineComponent({
     bordered: { type: Boolean, default: false },
     label: { type: String, default: '' },
     placeholder: { type: String, default: '' },
-    searchPlaceholderText: { type: String, default: 'Search' },
+    searchPlaceholderText: { type: String, default: '$t:search' },
     requiredMark: { type: Boolean, default: false },
   },
 
@@ -645,6 +645,8 @@ export default defineComponent({
       hintedSearchQueryTimeoutIndex = setTimeout(() => { hintedSearchQuery = '' }, 1000)
     }
 
+    const { tp, t } = useTranslation()
+
     const dropdownPropsComputed = computed(() => ({
       ...filterComponentProps(props, VaDropdownProps).value,
       closeOnContentClick: closeOnContentClick.value,
@@ -653,10 +655,11 @@ export default defineComponent({
       keepAnchorWidth: true,
       keyboardNavigation: true,
       innerAnchorSelector: '.va-input-wrapper__field',
-      'aria-label': props.modelValue ? `currently selected option: ${props.modelValue}` : 'option is not selected',
+      'aria-label': props.modelValue ? `${t('selectedOption')}: ${props.modelValue}` : t('noSelectedOption'),
     }))
 
     return {
+      ...useTranslation(),
       isFocused,
 
       input,
@@ -666,6 +669,8 @@ export default defineComponent({
       reset,
       focus,
       blur,
+
+      tp,
 
       onInputFocus,
       onInputBlur,

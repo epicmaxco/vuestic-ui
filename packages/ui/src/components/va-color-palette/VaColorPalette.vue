@@ -3,13 +3,13 @@
     <ul
       class="va-color-palette__colors"
       role="listbox"
-      aria-label="color selection"
+      :aria-label="t('colorSelection')"
     >
       <va-color-indicator
         v-for="(color, index) in palette"
         :key="index"
         role="option"
-        :aria-label="`color ${color}`"
+        :aria-label="t('color', { color })"
         :aria-selected="isSelected(color)"
         tabindex="0"
         :modelValue="isSelected(color)"
@@ -24,7 +24,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
 
-import { useComponentPresetProp, useStateful, useStatefulProps, useStatefulEmits } from '../../composables'
+import { useComponentPresetProp, useStateful, useStatefulProps, useStatefulEmits, useTranslation } from '../../composables'
 
 import { VaColorIndicator } from '../va-color-indicator'
 
@@ -47,6 +47,7 @@ export default defineComponent({
     const { valueComputed } = useStateful(props, emit)
 
     return {
+      ...useTranslation(),
       valueComputed,
       isSelected: (color: string) => valueComputed.value === color,
     }

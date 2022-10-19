@@ -45,7 +45,7 @@
                 name="va-close"
                 class="va-modal__close"
                 role="button"
-                aria-label="close"
+                :aria-label="t('close')"
                 tabindex="0"
                 @click="cancel"
                 @keydown.space="cancel"
@@ -95,10 +95,10 @@
                       class="mr-3"
                       @click="cancel"
                     >
-                      {{ $props.cancelText }}
+                      {{ tp($props.cancelText) }}
                     </va-button>
                     <va-button @click="ok">
-                      {{ $props.okText }}
+                      {{ tp($props.okText) }}
                     </va-button>
                   </div>
                   <div
@@ -138,6 +138,7 @@ import {
   useComponentPresetProp,
   useTrapFocus,
   useModalLevel,
+  useTranslation,
 } from '../../composables'
 
 import { VaButton } from '../va-button'
@@ -170,8 +171,8 @@ export default defineComponent({
     disableAttachment: { type: Boolean, default: false },
     title: { type: String, default: '' },
     message: { type: String, default: '' },
-    okText: { type: String, default: 'OK' },
-    cancelText: { type: String, default: 'Cancel' },
+    okText: { type: String, default: '$t:ok' },
+    cancelText: { type: String, default: '$t:cancel' },
     hideDefaultActions: { type: Boolean, default: false },
     fullscreen: { type: Boolean, default: false },
     mobileFullscreen: { type: Boolean, default: true },
@@ -319,6 +320,7 @@ export default defineComponent({
     })
 
     const publicMethods = {
+      ...useTranslation(),
       show,
       hide,
       toggle,
