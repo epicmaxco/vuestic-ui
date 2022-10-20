@@ -10,7 +10,7 @@
 
     <va-select class="mb-4" label="value by (function)" v-model="value" :options="options" :value-by="(option) => option.valueBy" />
 
-    <va-alert color="info" class="mb-4">
+    <va-alert color="info">
       <template #title>
         Value
       </template>
