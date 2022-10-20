@@ -3,93 +3,98 @@
     <template v-for="(block, index) in config">
       <DocsExample
         v-if="block.type === BlockType.EXAMPLE"
-        :key="block.type + index"
+        :key="BlockType.EXAMPLE + index"
         :value="block.component"
         :path="block.path"
         :example-options="block.exampleOptions"
       />
       <DocsComponent
         v-if="block.type === BlockType.COMPONENT"
-        :key="block.type + index"
+        :key="BlockType.COMPONENT + index"
         :value="block.component"
         :path="block.path"
         :bind="block.bind"
       />
       <DocsCode
         v-else-if="block.type === BlockType.CODE"
-        :key="block.type + index"
+        :key="BlockType.CODE + index"
         :code="block.code"
         :language="block.language"
       />
       <ApiDocs
         v-else-if="block.type === BlockType.API"
-        :key="block.type + index"
+        :key="BlockType.API + index"
         :component-options="block.componentOptions"
         :api-options="block.apiOptions"
       />
       <MarkdownView
         v-else-if="block.type === BlockType.TITLE"
         class="docs-title"
-        :key="block.type + index"
+        :key="BlockType.TITLE + index"
         :value="`# ${$t(block.translationString)}`"
       />
       <DocsSubtitle
         v-else-if="block.type === BlockType.SUBTITLE"
-        :key="block.type + index"
+        :key="BlockType.SUBTITLE + index"
         :text="block.translationString"
       />
       <DocsHeadline
         v-else-if="block.type === BlockType.HEADLINE"
-        :key="block.type + index"
+        :key="BlockType.HEADLINE + index"
         :text="block.translationString"
       />
       <MarkdownView
         v-else-if="block.type === BlockType.PARAGRAPH"
-        :key="block.type + index"
+        :key="BlockType.PARAGRAPH + index"
         :value="`${$tie(block.translationString)}`"
       />
       <MarkdownView
         v-else-if="block.type === BlockType.LIST"
-        :key="block.type + index"
+        :key="BlockType.LIST + index"
         :value="translateAndMark(block.translationStringList)"
       />
       <DocsTable
         v-else-if="block.type === BlockType.TABLE"
-        :key="block.type + index"
+        :key="BlockType.TABLE + index"
         :columns="block.columns"
         :tableData="block.tableData"
         :title="block.title"
       />
       <DocsLink
         v-else-if="block.type === BlockType.LINK"
-        :key="block.type + index"
+        :key="BlockType.LINK + index"
         :href="block.href"
         :text="block.text"
         v-bind="block.options"
       />
       <DocsAlert
         v-else-if="block.type === BlockType.ALERT"
-        :key="block.type + index"
+        :key="BlockType.ALERT + index"
         :text="block.translationString"
         :color="block.color"
       />
       <DocsFile
         v-else-if="block.type === BlockType.FILE"
-        :key="block.type + index"
+        :key="BlockType.FILE + index"
         :file="block.file"
       />
       <MarkdownView
         v-else-if="block.type === BlockType.MARKDOWN"
-        :key="block.type + index"
+        :key="BlockType.MARKDOWN + index"
         :value="block.content"
       />
       <VaCollapse
         v-else-if="block.type === BlockType.COLLAPSE"
-        :key="block.type + index"
+        :key="BlockType.COLLAPSE + index"
         :header="block.header"
       >
         <DocsContent :config="block.blocks" />
       </VaCollapse>
+      <DocsFileStructure
+        v-else-if="block.type === BlockType.FILE_STRUCTURE"
+        :key="BlockType.FILE_STRUCTURE + index"
+        :files="block.files"
+      />
     </template>
   </va-content>
 </template>
@@ -109,6 +114,7 @@ import DocsTable from './DocsTable/DocsTable.vue'
 import DocsLink from './DocsLink.vue'
 import DocsAlert from './DocsAlert.vue'
 import DocsFile from './DocsFile.vue'
+import DocsFileStructure from './DocsFileStructure.vue'
 
 export default defineComponent({
   name: 'DocsContent',
@@ -127,6 +133,7 @@ export default defineComponent({
     DocsLink,
     DocsAlert,
     DocsFile,
+    DocsFileStructure,
   },
   setup: () => {
     const translateAndMark = (translations: string[]): string => translations

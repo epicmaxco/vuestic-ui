@@ -49,6 +49,7 @@ export enum BlockType {
   ALERT = 'ALERT',
   LIST = 'LIST',
   FILE = 'FILE',
+  FILE_STRUCTURE = 'FILE_STRUCTURE',
   MARKDOWN = 'MARKDOWN',
   COLLAPSE = 'COLLAPSE',
 }
@@ -75,6 +76,8 @@ export type ExampleBLock = {
   component: string, // component name
   exampleOptions?: ExampleOptions,
 }
+
+export type ApiDocsFileStructureItem = { name: string, description?: string, icon?: string, children?: ApiDocsFileStructureItem[] }
 
 export type ApiDocsBlock =
   | TextBlock
@@ -117,6 +120,10 @@ export type ApiDocsBlock =
       file: Promise<Record<string, any>>
     }
   | {
+      type: BlockType.FILE_STRUCTURE,
+      files: ApiDocsFileStructureItem[]
+    }
+  | {
     type: BlockType.MARKDOWN,
     content: string,
   }
@@ -125,6 +132,8 @@ export type ApiDocsBlock =
     header: string,
     blocks: ApiDocsBlock[]
   }
+
+export type GetApiBlock<Type = BlockType, P extends ApiDocsBlock = ApiDocsBlock> = P extends { type: Type } ? P : never
 
 export function isTextBlock (block: ApiDocsBlock): block is TextBlock {
   return block.type === BlockType.TITLE

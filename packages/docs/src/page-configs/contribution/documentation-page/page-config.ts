@@ -22,7 +22,48 @@ const config: ApiDocsBlock[] = [
   // Page Config
   block.subtitle('documentationPage.pageConfig.title'),
   block.paragraph('documentationPage.pageConfig.descriptionStructure'),
-  block.code(configFolderStructure, 'plain'),
+  block.fileStructure([
+    {
+      name: 'code-examples',
+      children: [
+        {
+          name: '[code-examples].ts',
+        },
+        {
+          name: 'index.ts',
+          description: 'Must re-export all code examples using named exports',
+        },
+      ],
+    },
+    {
+      name: 'examples',
+      description: 'Folder where docs examples must be stored',
+      children: [
+        {
+          name: '[example].vue',
+          description: 'Example vue component. Better to have it in Options API with Js. Keep it small. Examples code will be visible to user.',
+        },
+      ],
+    },
+    {
+      name: 'components',
+      description: 'If you have complex docs page and need a bit of interactivity.',
+      children: [
+        {
+          name: '[component].vue',
+          description: 'Component code will not be shown to user.',
+        },
+      ],
+    },
+    {
+      name: 'api-options.ts',
+      description: 'Api options for this component at the bottom of component page',
+    },
+    {
+      name: 'page-config.ts',
+      description: 'Entry file where docs page defined',
+    },
+  ]),
   block.paragraph('documentationPage.pageConfig.descriptionFile'),
 
   // Generators

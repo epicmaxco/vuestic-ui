@@ -3768,7 +3768,7 @@
       "list": {
         "ui": "`packages/ui` - UI lib with demos. Here all vuestic components stored.",
         "docs": "`packages/docs` - [vuestic.dev](https://vuestic.dev) source code.",
-        "nuxt": "`packages/nuxt` - `@vuestic/nuxt` module for Nuxt3.",
+        "nuxt": "`packages/nuxt` - {'`@vuestic/nuxt`'} module for Nuxt3.",
         "sandbox": "`packages/sandbox` - Package for testing build and treeshaking.",
         "vue-cli-plugin": "`packages/vue-cli-plugin` - vue add vuestic-ui plugin for vue-cli.",
         "ag-grid-theme": "`packages/ag-grid-theme` - AgGrid extension styles.",
