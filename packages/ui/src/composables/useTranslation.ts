@@ -1,10 +1,15 @@
 import { computed } from 'vue'
 import { useGlobalConfig } from '../services/global-config/global-config'
 import { I18nConfig } from '../services/i18n/defaults'
+import { warn } from '../services/utils'
 
 type Stringable = number | string | boolean | undefined
 
 const applyI18nTemplate = (key: string, values?: Record<string, Stringable>) => {
+  if (!key) {
+    warn(`${key} not found in VuesticUI i18n config`)
+    return ''
+  }
   if (!values) { return key }
 
   Object.keys(values).forEach((valueKey) => {
