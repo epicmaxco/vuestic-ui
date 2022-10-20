@@ -58,34 +58,34 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  @import "../../styles/resources";
+@import "../../styles/resources";
 
-  .va-color-indicator {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    border-radius: 50%;
-    text-align: center;
-    background-color: var(--va-background-element);
-    border: 0.125rem solid var(--va-background-element);
+.va-color-indicator {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 50%;
+  text-align: center;
+  background-color: var(--va-background-element);
+  border: 0.125rem solid var(--va-background-element);
 
-    &--selected {
-      background-color: var(--va-primary);
-      border-color: var(--va-primary);
-    }
-
-    &--hoverable &__core:hover,
-    &:focus {
-      transform: scale(1.1);
-      transition: transform 0.1s linear;
-    }
-
-    &__core {
-      transition: transform 0.1s linear;
-      border-radius: 50%;
-      width: 1rem;
-      height: 1rem;
-    }
+  &--selected {
+    background-color: var(--va-primary);
+    border-color: var(--va-primary);
   }
+
+  &--hoverable &__core:hover,
+  &:focus {
+    transform: scale(1.1);
+    transition: transform 0.1s linear;
+  }
+
+  &__core {
+    transition: transform 0.1s linear;
+    border-radius: 50%;
+    width: 1rem;
+    height: 1rem;
+  }
+}
 </style>

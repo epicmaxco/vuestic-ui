@@ -97,18 +97,18 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  .va-month-picker {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); // 4 columns
-    grid-gap: var(--va-date-picker-cell-gap);
-    min-width: calc(var(--va-date-picker-cell-size) * 7 + var(--va-date-picker-cell-gap) * 6); // 7 days + gap
-    width: 100%;
+.va-month-picker {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); // 4 columns
+  grid-gap: var(--va-date-picker-cell-gap);
+  min-width: calc(var(--va-date-picker-cell-size) * 7 + var(--va-date-picker-cell-gap) * 6); // 7 days + gap
+  width: 100%;
 
-    &__month-wrapper {
-      border-radius: var(--va-date-picker-cell-radius);
-      text-align: center;
-      user-select: none;
-      overflow: hidden;
-    }
+  &__month-wrapper {
+    border-radius: var(--va-date-picker-cell-radius);
+    text-align: center;
+    user-select: none;
+    overflow: hidden;
   }
+}
 </style>

@@ -88,73 +88,73 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  @import "../../styles/resources";
-  @import "variables";
+@import "../../styles/resources";
+@import "variables";
 
-  .va-progress-circle {
-    position: var(--va-progress-circle-position);
-    overflow: var(--va-progress-circle-overflow); // Prevents resizing container back and forth.
-    font-family: var(--va-font-family);
+.va-progress-circle {
+  position: var(--va-progress-circle-position);
+  overflow: var(--va-progress-circle-overflow); // Prevents resizing container back and forth.
+  font-family: var(--va-font-family);
 
-    &__wrapper {
-      position: absolute;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      right: 0;
-      margin: auto;
-      transform: rotate(-90deg);
-      width: var(--va-progress-circle-width);
-      height: var(--va-progress-circle-height);
+  &__wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    transform: rotate(-90deg);
+    width: var(--va-progress-circle-width);
+    height: var(--va-progress-circle-height);
 
-      @include flex-center();
+    @include flex-center();
 
-      @at-root {
-        .va-progress-circle--indeterminate & {
-          animation: va-progress-circle__wrapper--indeterminate 2s linear infinite;
-        }
+    @at-root {
+      .va-progress-circle--indeterminate & {
+        animation: va-progress-circle__wrapper--indeterminate 2s linear infinite;
       }
     }
+  }
 
-    &__overlay {
-      transition: var(--va-progress-circle-overlay-transition);
+  &__overlay {
+    transition: var(--va-progress-circle-overlay-transition);
 
-      @at-root {
-        .va-progress-circle--indeterminate & {
-          animation: va-progress-circle__overlay--indeterminate 2s ease-in-out infinite;
-        }
+    @at-root {
+      .va-progress-circle--indeterminate & {
+        animation: va-progress-circle__overlay--indeterminate 2s ease-in-out infinite;
       }
     }
-
-    &__info {
-      font-size: var(--va-progress-circle-font-size);
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-    }
   }
 
-  @keyframes va-progress-circle__wrapper--indeterminate {
-    100% {
-      transform: rotate(270deg);
-    }
+  &__info {
+    font-size: var(--va-progress-circle-font-size);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@keyframes va-progress-circle__wrapper--indeterminate {
+  100% {
+    transform: rotate(270deg);
+  }
+}
+
+@keyframes va-progress-circle__overlay--indeterminate {
+  0% {
+    stroke-dasharray: 1, 125;
+    stroke-dashoffset: 0;
   }
 
-  @keyframes va-progress-circle__overlay--indeterminate {
-    0% {
-      stroke-dasharray: 1, 125;
-      stroke-dashoffset: 0;
-    }
-
-    50% {
-      stroke-dasharray: 125, 125;
-      stroke-dashoffset: -65px;
-    }
-
-    100% {
-      stroke-dasharray: 125, 125;
-      stroke-dashoffset: -125px;
-    }
+  50% {
+    stroke-dasharray: 125, 125;
+    stroke-dashoffset: -65px;
   }
+
+  100% {
+    stroke-dasharray: 125, 125;
+    stroke-dashoffset: -125px;
+  }
+}
 </style>

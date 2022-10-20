@@ -26,15 +26,15 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  @import "../../styles/resources";
-  @import "variables";
+@import "../../styles/resources";
+@import "variables";
 
-  .va-list {
-    width: var(--va-list-width);
-    font-family: var(--va-font-family);
+.va-list {
+  width: var(--va-list-width);
+  font-family: var(--va-font-family);
 
-    &--fit {
-      width: fit-content;
-    }
+  &--fit {
+    width: fit-content;
   }
+}
 </style>

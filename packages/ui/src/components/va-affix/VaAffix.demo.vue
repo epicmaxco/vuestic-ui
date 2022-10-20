@@ -69,22 +69,22 @@ export default {
 </script>
 
 <style scoped>
-  .VbCard {
-    width: 23%;
-  }
+.VbCard {
+  width: 23%;
+}
 
-  .demo-affix {
-    padding: 10px 30px;
-    background-color: lightblue;
-  }
+.demo-affix {
+  padding: 10px 30px;
+  background-color: lightblue;
+}
 
-  .demo-content {
-    margin: 1rem 0;
-  }
+.demo-content {
+  margin: 1rem 0;
+}
 
-  .demo-target {
-    height: 500px;
-    margin: 10rem 0;
-    overflow-y: scroll;
-  }
+.demo-target {
+  height: 500px;
+  margin: 10rem 0;
+  overflow-y: scroll;
+}
 </style>

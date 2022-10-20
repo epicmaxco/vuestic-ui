@@ -111,59 +111,59 @@ export default defineComponent({
 </script>
 
 <style lang='scss'>
-  @import "../../../styles/resources";
-  @import "variables";
+@import "../../../styles/resources";
+@import "variables";
 
-  .va-file-upload-list-item {
-    background-color: var(--va-file-upload-list-item-background-color);
-    box-shadow: var(--va-file-upload-list-item-box-shadow, var(--va-block-box-shadow));
-    border-radius: var(--va-file-upload-list-item-border-radius, var(--va-block-border-radius));
+.va-file-upload-list-item {
+  background-color: var(--va-file-upload-list-item-background-color);
+  box-shadow: var(--va-file-upload-list-item-box-shadow, var(--va-block-box-shadow));
+  border-radius: var(--va-file-upload-list-item-border-radius, var(--va-block-border-radius));
+  position: relative;
+  line-height: 1.5rem;
+  padding: 1.125rem 0.5rem 1rem 1rem;
+  max-width: 100%;
+  width: 100%;
+
+  & + & {
+    margin-top: 0.5rem;
+  }
+
+  .va-list-item__inner {
+    padding: 0;
+    overflow: hidden;
+  }
+
+  &__content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__name {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    flex-basis: 60%;
+    overflow: hidden;
+  }
+
+  &__size {
+    color: var(--va-file-upload-list-item-size-text-color);
+  }
+
+  &__delete {
+    font-size: 1.5rem;
+    cursor: pointer;
+
+    --va-button-size: 1.5rem;
+  }
+
+  &--undo {
+    overflow: hidden;
     position: relative;
-    line-height: 1.5rem;
-    padding: 1.125rem 0.5rem 1rem 1rem;
-    max-width: 100%;
-    width: 100%;
 
-    & + & {
-      margin-top: 0.5rem;
-    }
-
-    .va-list-item__inner {
+    .va-list-item-section {
       padding: 0;
-      overflow: hidden;
-    }
-
-    &__content {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    &__name {
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      flex-basis: 60%;
-      overflow: hidden;
-    }
-
-    &__size {
-      color: var(--va-file-upload-list-item-size-text-color);
-    }
-
-    &__delete {
-      font-size: 1.5rem;
-      cursor: pointer;
-
-      --va-button-size: 1.5rem;
-    }
-
-    &--undo {
-      overflow: hidden;
-      position: relative;
-
-      .va-list-item-section {
-        padding: 0;
-      }
     }
   }
+}
 </style>

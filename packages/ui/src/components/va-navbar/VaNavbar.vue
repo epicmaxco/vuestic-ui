@@ -70,116 +70,116 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  @import "../../styles/resources";
-  @import "variables";
+@import "../../styles/resources";
+@import "variables";
 
-  .va-navbar {
-    transition: var(--va-navbar-transition);
-    position: var(--va-navbar-position);
-    height: var(--va-navbar-height);
-    padding-left: var(--va-navbar-padding-left);
-    padding-right: var(--va-navbar-padding-right);
-    background-color: var(--va-primary);
+.va-navbar {
+  transition: var(--va-navbar-transition);
+  position: var(--va-navbar-position);
+  height: var(--va-navbar-height);
+  padding-left: var(--va-navbar-padding-left);
+  padding-right: var(--va-navbar-padding-right);
+  background-color: var(--va-primary);
+  display: flex;
+  font-family: var(--va-font-family);
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-width: 100%;
+  z-index: var(--va-navbar-z-index);
+
+  &__content {
     display: flex;
-    font-family: var(--va-font-family);
-    top: 0;
-    left: 0;
+    justify-content: space-between;
+    align-items: center;
     width: 100%;
-    min-width: 100%;
-    z-index: var(--va-navbar-z-index);
-
-    &__content {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 100%;
-
-      @include media-breakpoint-down(sm) {
-        flex-direction: column;
-        align-items: center;
-
-        & > * {
-          width: 100%;
-        }
-      }
-    }
-
-    &__center {
-      display: flex;
-
-      & > .va-navbar__item {
-        margin: 0 var(--va-navbar-item-margin);
-
-        &:last-child {
-          margin-right: 0;
-        }
-
-        &:first-child {
-          margin-left: 0;
-        }
-      }
-    }
-
-    &__left {
-      display: flex;
-      flex-direction: row;
-
-      & > .va-navbar__item {
-        margin-right: var(--va-navbar-item-margin-side);
-
-        &:last-child {
-          margin-right: 0;
-        }
-      }
-
-      @include media-breakpoint-down(sm) {
-        justify-content: center;
-        align-items: center;
-      }
-    }
-
-    &__right {
-      display: flex;
-      flex-direction: row;
-      justify-content: flex-end;
-
-      & > .va-navbar__item {
-        margin-right: var(--va-navbar-item-margin-side);
-
-        &:last-child {
-          margin-right: 0;
-        }
-      }
-
-      @include media-breakpoint-down(sm) {
-        justify-content: center;
-        align-items: center;
-      }
-    }
-
-    &__background-shape {
-      transition: var(--va-navbar-shape-transition);
-      width: var(--va-navbar-shape-width);
-      max-width: var(--va-navbar-shape-max-width);
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 0;
-      margin: auto;
-      border-top: var(--va-navbar-height) solid var(--va-navbar-shape-bg);
-      border-left: var(--va-navbar-shape-border-left);
-      border-right: var(--va-navbar-shape-border-right);
-      height: 0;
-    }
 
     @include media-breakpoint-down(sm) {
-      height: top-mobile-nav-height;
-      padding: var(--va-navbar-sm-padding);
+      flex-direction: column;
+      align-items: center;
 
-      &__center,
-      &__background-shape {
-        display: none;
+      & > * {
+        width: 100%;
       }
     }
   }
+
+  &__center {
+    display: flex;
+
+    & > .va-navbar__item {
+      margin: 0 var(--va-navbar-item-margin);
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+  }
+
+  &__left {
+    display: flex;
+    flex-direction: row;
+
+    & > .va-navbar__item {
+      margin-right: var(--va-navbar-item-margin-side);
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+
+    @include media-breakpoint-down(sm) {
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  &__right {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+
+    & > .va-navbar__item {
+      margin-right: var(--va-navbar-item-margin-side);
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+
+    @include media-breakpoint-down(sm) {
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  &__background-shape {
+    transition: var(--va-navbar-shape-transition);
+    width: var(--va-navbar-shape-width);
+    max-width: var(--va-navbar-shape-max-width);
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    margin: auto;
+    border-top: var(--va-navbar-height) solid var(--va-navbar-shape-bg);
+    border-left: var(--va-navbar-shape-border-left);
+    border-right: var(--va-navbar-shape-border-right);
+    height: 0;
+  }
+
+  @include media-breakpoint-down(sm) {
+    height: top-mobile-nav-height;
+    padding: var(--va-navbar-sm-padding);
+
+    &__center,
+    &__background-shape {
+      display: none;
+    }
+  }
+}
 </style>

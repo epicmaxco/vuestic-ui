@@ -89,34 +89,34 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  @import "../../styles/resources";
-  @import "variables";
+@import "../../styles/resources";
+@import "variables";
 
-  .va-image {
-    overflow: var(--va-image-overflow);
-    position: var(--va-image-position);
-    font-family: var(--va-font-family);
+.va-image {
+  overflow: var(--va-image-overflow);
+  position: var(--va-image-position);
+  font-family: var(--va-font-family);
 
-    img {
-      height: 100%;
-      width: 100%;
-    }
-
-    &__img,
-    &__loader,
-    &__error,
-    &__overlay {
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-    }
-
-    &__loader,
-    &__error,
-    &__overlay {
-      @include flex-center();
-    }
+  img {
+    height: 100%;
+    width: 100%;
   }
+
+  &__img,
+  &__loader,
+  &__error,
+  &__overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+
+  &__loader,
+  &__error,
+  &__overlay {
+    @include flex-center();
+  }
+}
 </style>

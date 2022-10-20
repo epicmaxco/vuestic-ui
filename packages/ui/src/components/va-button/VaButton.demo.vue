@@ -226,15 +226,15 @@ export default {
 </script>
 
 <style lang="scss">
-  .va-button-demo {
-    & .va-button {
-      margin-right: 16px;
-    }
-
-    & td {
-      padding-top: 16px;
-      display: flex;
-      align-items: center;
-    }
+.va-button-demo {
+  & .va-button {
+    margin-right: 16px;
   }
+
+  & td {
+    padding-top: 16px;
+    display: flex;
+    align-items: center;
+  }
+}
 </style>

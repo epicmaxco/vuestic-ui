@@ -128,52 +128,52 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  @import './_variables.scss';
+@import './_variables.scss';
 
-  @mixin after-overlay {
+@mixin after-overlay {
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+  }
+}
+
+.va-time-picker {
+  display: var(--va-time-picker-display);
+  justify-content: center;
+  overflow: hidden;
+  height: var(--va-time-picker-height);
+  font-family: var(--va-font-family);
+
+  &--readonly {
+    @include after-overlay();
+  }
+
+  &--disabled {
+    @include after-overlay();
+
+    opacity: var(--va-time-picker-disabled-opacity);
+  }
+
+  &--framed {
     position: relative;
 
-    &::after {
-      content: '';
-      position: absolute;
-      height: 100%;
+    &::before {
+      content: "";
+      height: var(--va-time-picker-cell-height);
       width: 100%;
-      z-index: 1;
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      border-top: 1px solid var(--va-divider);
+      border-bottom: 1px solid var(--va-divider);
+      z-index: 0;
     }
   }
-
-  .va-time-picker {
-    display: var(--va-time-picker-display);
-    justify-content: center;
-    overflow: hidden;
-    height: var(--va-time-picker-height);
-    font-family: var(--va-font-family);
-
-    &--readonly {
-      @include after-overlay();
-    }
-
-    &--disabled {
-      @include after-overlay();
-
-      opacity: var(--va-time-picker-disabled-opacity);
-    }
-
-    &--framed {
-      position: relative;
-
-      &::before {
-        content: "";
-        height: var(--va-time-picker-cell-height);
-        width: 100%;
-        position: absolute;
-        top: 50%;
-        left: 0;
-        transform: translateY(-50%);
-        border-top: 1px solid var(--va-divider);
-        border-bottom: 1px solid var(--va-divider);
-        z-index: 0;
-      }
-    }
-  }
+}
 </style>

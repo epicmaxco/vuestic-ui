@@ -296,85 +296,85 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  @import 'variables';
-  @import '../../styles/resources';
+@import 'variables';
+@import '../../styles/resources';
 
-  .va-split {
+.va-split {
+  position: relative;
+  display: flex;
+
+  &__dragger {
     position: relative;
-    display: flex;
 
-    &__dragger {
-      position: relative;
+    &__overlay {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      display: var(--va-split-dragger-display);
+      z-index: 1;
+    }
+  }
 
-      &__overlay {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        right: 0;
-        left: 0;
-        display: var(--va-split-dragger-display);
-        z-index: 1;
+  &__panel {
+    overflow: var(--va-split-panel-overflow);
+
+    @include va-scroll(var(--va-primary));
+  }
+
+  &--dragging {
+    & .va-split__panel {
+      user-select: none;
+      cursor: var(--va-split-dragging-cursor);
+    }
+  }
+
+  &__dragger__default {
+    opacity: 0.7;
+  }
+
+  &:focus,
+  &:hover {
+    .va-split__dragger__default {
+      opacity: 1;
+    }
+  }
+
+  &--vertical {
+    flex-direction: column;
+
+    & > .va-split__dragger {
+      height: 0;
+
+      .va-split__dragger__overlay {
+        top: calc((var(--va-split-dragger-overlay-size) / -2));
+        height: var(--va-split-dragger-overlay-size);
+        align-items: var(--va-split-dragger-align-items);
       }
-    }
 
-    &__panel {
-      overflow: var(--va-split-panel-overflow);
-
-      @include va-scroll(var(--va-primary));
-    }
-
-    &--dragging {
-      & .va-split__panel {
-        user-select: none;
-        cursor: var(--va-split-dragging-cursor);
-      }
-    }
-
-    &__dragger__default {
-      opacity: 0.7;
-    }
-
-    &:focus,
-    &:hover {
       .va-split__dragger__default {
-        opacity: 1;
-      }
-    }
-
-    &--vertical {
-      flex-direction: column;
-
-      & > .va-split__dragger {
-        height: 0;
-
-        .va-split__dragger__overlay {
-          top: calc((var(--va-split-dragger-overlay-size) / -2));
-          height: var(--va-split-dragger-overlay-size);
-          align-items: var(--va-split-dragger-align-items);
-        }
-
-        .va-split__dragger__default {
-          width: 100%;
-        }
-      }
-    }
-
-    &--horizontal {
-      flex-direction: row;
-
-      & > .va-split__dragger {
-        width: 0;
-
-        .va-split__dragger__overlay {
-          left: calc((var(--va-split-dragger-overlay-size) / -2));
-          width: var(--va-split-dragger-overlay-size);
-          justify-content: var(--va-split-dragger-justify-content);
-        }
-
-        .va-split__dragger__default {
-          height: 100%;
-        }
+        width: 100%;
       }
     }
   }
+
+  &--horizontal {
+    flex-direction: row;
+
+    & > .va-split__dragger {
+      width: 0;
+
+      .va-split__dragger__overlay {
+        left: calc((var(--va-split-dragger-overlay-size) / -2));
+        width: var(--va-split-dragger-overlay-size);
+        justify-content: var(--va-split-dragger-justify-content);
+      }
+
+      .va-split__dragger__default {
+        height: 100%;
+      }
+    }
+  }
+}
 </style>

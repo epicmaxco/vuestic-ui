@@ -9,9 +9,9 @@ export default {
 </script>
 
 <style lang="scss">
-  @import "./book-main";
+@import "./book-main";
 
-  .book-app {
+.book-app {
 
-  }
+}
 </style>

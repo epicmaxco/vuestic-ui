@@ -52,25 +52,25 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  @import "variables";
+@import "variables";
 
-  .va-app-bar {
-    display: flex;
-    align-items: center;
-    position: var(--va-app-bar-position);
-    transition: all 0.5s ease;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: var(--va-app-bar-height);
-    min-height: var(--va-app-bar-height);
-    min-width: 100%;
-    font-family: var(--va-font-family);
-    z-index: var(--va-app-bar-z-index);
+.va-app-bar {
+  display: flex;
+  align-items: center;
+  position: var(--va-app-bar-position);
+  transition: all 0.5s ease;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--va-app-bar-height);
+  min-height: var(--va-app-bar-height);
+  min-width: 100%;
+  font-family: var(--va-font-family);
+  z-index: var(--va-app-bar-z-index);
 
-    &--bottom {
-      top: 100%;
-      transform: translateY(-100%);
-    }
+  &--bottom {
+    top: 100%;
+    transform: translateY(-100%);
   }
+}
 </style>

@@ -101,47 +101,47 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  @import "../../styles/resources";
-  @import "variables";
+@import "../../styles/resources";
+@import "variables";
 
-  .va-sidebar {
-    min-height: var(--va-sidebar-min-height);
-    height: var(--va-sidebar-height);
-    position: var(--va-sidebar-position);
-    top: var(--va-sidebar-top);
-    left: var(--va-sidebar-left);
-    z-index: var(--va-sidebar-z-index);
-    font-family: var(--va-font-family);
-    display: inline-flex;
+.va-sidebar {
+  min-height: var(--va-sidebar-min-height);
+  height: var(--va-sidebar-height);
+  position: var(--va-sidebar-position);
+  top: var(--va-sidebar-top);
+  left: var(--va-sidebar-left);
+  z-index: var(--va-sidebar-z-index);
+  font-family: var(--va-font-family);
+  display: inline-flex;
 
-    &__menu {
-      display: flex;
-      flex-direction: column;
-      max-height: var(--va-sidebar-menu-max-height);
-      margin-bottom: var(--va-sidebar-menu-margin-bottom);
-      list-style: var(--va-sidebar-menu-list-style);
-      padding-left: var(--va-sidebar-menu-padding-left);
-      overflow-y: var(--va-sidebar-menu-overflow-y);
-      overflow-x: var(--va-sidebar-menu-overflow-x);
+  &__menu {
+    display: flex;
+    flex-direction: column;
+    max-height: var(--va-sidebar-menu-max-height);
+    margin-bottom: var(--va-sidebar-menu-margin-bottom);
+    list-style: var(--va-sidebar-menu-list-style);
+    padding-left: var(--va-sidebar-menu-padding-left);
+    overflow-y: var(--va-sidebar-menu-overflow-y);
+    overflow-x: var(--va-sidebar-menu-overflow-x);
 
-      @include va-scroll(var(--va-primary));
-    }
+    @include va-scroll(var(--va-primary));
+  }
 
-    &--animated {
-      transition: var(--va-sidebar-transition);
-    }
+  &--animated {
+    transition: var(--va-sidebar-transition);
+  }
 
-    &--minimized {
-      left: 0;
+  &--minimized {
+    left: 0;
 
-      .va-sidebar__title {
-        display: none;
-      }
-    }
-
-    &--right {
-      left: auto;
-      right: 0;
+    .va-sidebar__title {
+      display: none;
     }
   }
+
+  &--right {
+    left: auto;
+    right: 0;
+  }
+}
 </style>

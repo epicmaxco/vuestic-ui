@@ -105,56 +105,56 @@ export default {
 </script>
 
 <style lang="scss">
-  @import 'variables';
+@import 'variables';
 
-  .va-timeline {
-    display: var(--va-timeline-display);
-    flex-wrap: var(--va-timeline-flex-wrap);
-    font-family: var(--va-font-family);
+.va-timeline {
+  display: var(--va-timeline-display);
+  flex-wrap: var(--va-timeline-flex-wrap);
+  font-family: var(--va-font-family);
 
-    &--vertical {
-      flex-direction: var(--va-timeline-vertical-flex-direction);
-      padding-left: var(--va-timeline-vertical-padding-left);
-      padding-right: var(--va-timeline-vertical-padding-right);
+  &--vertical {
+    flex-direction: var(--va-timeline-vertical-flex-direction);
+    padding-left: var(--va-timeline-vertical-padding-left);
+    padding-right: var(--va-timeline-vertical-padding-right);
+  }
+
+  &--align-top {
+    .va-timeline-item__before,
+    .va-timeline-item__after {
+      flex: 0;
     }
+  }
 
-    &--align-top {
-      .va-timeline-item__before,
-      .va-timeline-item__after {
-        flex: 0;
+  .va-timeline-item {
+    flex: 1;
+  }
+
+  .va-timeline-item--vertical {
+    .va-timeline-separator--vertical .va-timeline-separator__line {
+      &:first-child {
+        flex: 0 0 1rem;
       }
     }
 
-    .va-timeline-item {
-      flex: 1;
-    }
-
-    .va-timeline-item--vertical {
+    &.va-timeline-item--is-first {
       .va-timeline-separator--vertical .va-timeline-separator__line {
         &:first-child {
-          flex: 0 0 1rem;
+          flex-basis: 2rem;
         }
       }
 
-      &.va-timeline-item--is-first {
-        .va-timeline-separator--vertical .va-timeline-separator__line {
-          &:first-child {
-            flex-basis: 2rem;
-          }
-        }
-
-        .va-timeline-item__after,
-        .va-timeline-item__before {
-          padding-top: 2rem;
-        }
+      .va-timeline-item__after,
+      .va-timeline-item__before {
+        padding-top: 2rem;
       }
+    }
 
-      &.va-timeline-item--vertical.va-timeline-item--is-last {
-        .va-timeline-item__after,
-        .va-timeline-item__before {
-          padding-bottom: 2rem;
-        }
+    &.va-timeline-item--vertical.va-timeline-item--is-last {
+      .va-timeline-item__after,
+      .va-timeline-item__before {
+        padding-bottom: 2rem;
       }
     }
   }
+}
 </style>

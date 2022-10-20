@@ -152,66 +152,66 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .row {
-    display: flex;
-    flex: 1 0 100%;
-    flex-wrap: wrap;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
+.row {
+  display: flex;
+  flex: 1 0 100%;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.row + .row {
+  margin-top: 20px;
+}
+
+.image {
+  width: 200px;
+  height: 200px;
+}
+
+.image--medium {
+  width: 400px;
+  height: 400px;
+}
+
+.image--large {
+  width: 600px;
+  height: 600px;
+}
+
+.image--landscape {
+  width: 400px;
+  height: 250px;
+}
+
+.image--portrait {
+  width: 250px;
+  height: 400px;
+}
+
+.loading,
+.error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  text-align: center;
+  padding: 20px;
+  color: white;
+  background: rgba(0, 0, 0, 0.2);
+
+  &--top {
+    top: 0;
   }
 
-  .row + .row {
-    margin-top: 20px;
+  &--bottom {
+    bottom: 0;
   }
-
-  .image {
-    width: 200px;
-    height: 200px;
-  }
-
-  .image--medium {
-    width: 400px;
-    height: 400px;
-  }
-
-  .image--large {
-    width: 600px;
-    height: 600px;
-  }
-
-  .image--landscape {
-    width: 400px;
-    height: 250px;
-  }
-
-  .image--portrait {
-    width: 250px;
-    height: 400px;
-  }
-
-  .loading,
-  .error {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .overlay {
-    position: absolute;
-    left: 0;
-    right: 0;
-    text-align: center;
-    padding: 20px;
-    color: white;
-    background: rgba(0, 0, 0, 0.2);
-
-    &--top {
-      top: 0;
-    }
-
-    &--bottom {
-      bottom: 0;
-    }
-  }
+}
 </style>

@@ -89,7 +89,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .va-navbar {
-    color: white;
-  }
+.va-navbar {
+  color: white;
+}
 </style>

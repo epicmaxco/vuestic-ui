@@ -37,8 +37,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .demo-big-thing {
-    width: 999px;
-    height: 999px;
-  }
+.demo-big-thing {
+  width: 999px;
+  height: 999px;
+}
 </style>

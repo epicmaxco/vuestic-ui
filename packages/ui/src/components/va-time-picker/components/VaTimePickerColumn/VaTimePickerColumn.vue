@@ -140,73 +140,73 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  @import 'variables';
-  @import '../../../../styles/resources';
+@import 'variables';
+@import '../../../../styles/resources';
 
-  @mixin hiddenYScroll {
-    overflow-y: scroll;
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
-    &::-webkit-scrollbar { /* WebKit */
-      display: none;
+@mixin hiddenYScroll {
+  overflow-y: scroll;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+  &::-webkit-scrollbar { /* WebKit */
+    display: none;
+  }
+}
+
+.va-time-picker-column {
+  @include hiddenYScroll();
+
+  height: 100%;
+  border-right: var(--va-time-picker-column-border-right);
+
+  &::before,
+  &::after {
+    content: "";
+    display: block;
+    height: var(--va-time-picker-column-gap-height);
+    width: 100%;
+  }
+
+  &:last-child {
+    border-right: 0;
+  }
+
+  .va-time-picker-cell {
+    height: var(--va-time-picker-cell-height);
+    line-height: var(--va-time-picker-cell-height);
+    width: var(--va-time-picker-cell-width);
+    text-align: center;
+    cursor: var(--va-time-picker-cell-cursor);
+    user-select: none;
+
+    &--active {
+      position: relative;
+      color: var(--va-time-picker-cell-active-color);
+      z-index: 0;
+
+      &::before {
+        background: var(--va-time-picker-cell-active-background);
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        left: 0;
+        right: 0;
+        content: '';
+        z-index: -1;
+        opacity: var(--va-time-picker-cell-active-background-opacity);
+      }
+    }
+
+    &:hover {
+      background: var(--va-time-picker-cell-background-color-hover);
     }
   }
 
-  .va-time-picker-column {
-    @include hiddenYScroll();
-
-    height: 100%;
-    border-right: var(--va-time-picker-column-border-right);
-
-    &::before,
-    &::after {
-      content: "";
-      display: block;
-      height: var(--va-time-picker-column-gap-height);
-      width: 100%;
-    }
-
-    &:last-child {
-      border-right: 0;
-    }
-
+  &:focus-visible {
     .va-time-picker-cell {
-      height: var(--va-time-picker-cell-height);
-      line-height: var(--va-time-picker-cell-height);
-      width: var(--va-time-picker-cell-width);
-      text-align: center;
-      cursor: var(--va-time-picker-cell-cursor);
-      user-select: none;
-
       &--active {
-        position: relative;
-        color: var(--va-time-picker-cell-active-color);
-        z-index: 0;
-
-        &::before {
-          background: var(--va-time-picker-cell-active-background);
-          position: absolute;
-          height: 100%;
-          width: 100%;
-          left: 0;
-          right: 0;
-          content: '';
-          z-index: -1;
-          opacity: var(--va-time-picker-cell-active-background-opacity);
-        }
-      }
-
-      &:hover {
-        background: var(--va-time-picker-cell-background-color-hover);
-      }
-    }
-
-    &:focus-visible {
-      .va-time-picker-cell {
-        &--active {
-          @include focus-outline($radius: 4px, $offset: -2px);
-        }
+        @include focus-outline($radius: 4px, $offset: -2px);
       }
     }
   }
+}
 </style>

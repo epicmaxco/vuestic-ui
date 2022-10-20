@@ -48,82 +48,82 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  @import "variables";
-  @import '../../styles/resources';
+@import "variables";
+@import '../../styles/resources';
 
-  .va-button-group {
-    display: var(--va-button-group-display);
-    justify-content: var(--va-button-group-justify-content);
-    border-radius: var(--va-button-group-border-radius);
-    font-family: var(--va-font-family);
-    width: max-content;
-    overflow: hidden;
+.va-button-group {
+  display: var(--va-button-group-display);
+  justify-content: var(--va-button-group-justify-content);
+  border-radius: var(--va-button-group-border-radius);
+  font-family: var(--va-font-family);
+  width: max-content;
+  overflow: hidden;
 
-    &--grow {
-      width: 100%;
+  &--grow {
+    width: 100%;
 
-      --va-button-group-button-width: 100%;
+    --va-button-group-button-width: 100%;
+  }
+
+  &--square {
+    border-radius: var(--va-button-border-radius);
+  }
+
+  &--small {
+    &.va-button-group--square {
+      border-radius: var(--va-button-sm-border-radius);
     }
+  }
 
-    &--square {
-      border-radius: var(--va-button-border-radius);
+  &--large {
+    &.va-button-group--square {
+      border-radius: var(--va-button-lg-border-radius);
     }
+  }
 
-    &--small {
-      &.va-button-group--square {
-        border-radius: var(--va-button-sm-border-radius);
-      }
-    }
+  .va-button {
+    margin: var(--va-button-group-button-margin);
+    width: var(--va-button-group-button-width);
+    box-shadow: none;
+    outline: none;
 
-    &--large {
-      &.va-button-group--square {
-        border-radius: var(--va-button-lg-border-radius);
-      }
-    }
+    &:focus-visible {
+      outline: none !important;
 
-    .va-button {
-      margin: var(--va-button-group-button-margin);
-      width: var(--va-button-group-button-width);
-      box-shadow: none;
-      outline: none;
-
-      &:focus-visible {
-        outline: none !important;
-
-        &::before {
-          @include focus-outline($offset: -2px, $radius: 'inherit');
-        }
-      }
-    }
-
-    & > .va-button:last-child {
-      padding-right: var(--va-button-group-button-padding);
-    }
-
-    & > .va-button:first-child {
-      padding-left: var(--va-button-group-button-padding);
-    }
-
-    & > .va-button:not(:last-child) {
-      padding-right: var(--va-button-group-gap);
-      border-top-right-radius: 0;
-      border-bottom-right-radius: 0;
-      border-right: 0;
-
-      .va-button__content {
-        margin-right: 0;
-      }
-    }
-
-    & > .va-button + .va-button {
-      padding-left: var(--va-button-group-gap);
-      border-top-left-radius: 0;
-      border-bottom-left-radius: 0;
-      border-left: 0;
-
-      .va-button__content {
-        margin-left: 0;
+      &::before {
+        @include focus-outline($offset: -2px, $radius: 'inherit');
       }
     }
   }
+
+  & > .va-button:last-child {
+    padding-right: var(--va-button-group-button-padding);
+  }
+
+  & > .va-button:first-child {
+    padding-left: var(--va-button-group-button-padding);
+  }
+
+  & > .va-button:not(:last-child) {
+    padding-right: var(--va-button-group-gap);
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-right: 0;
+
+    .va-button__content {
+      margin-right: 0;
+    }
+  }
+
+  & > .va-button + .va-button {
+    padding-left: var(--va-button-group-gap);
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left: 0;
+
+    .va-button__content {
+      margin-left: 0;
+    }
+  }
+}
 </style>

@@ -111,9 +111,9 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  .textarea {
-    padding: 0;
-    border: 0;
-    font-family: var(--va-font-family);
-  }
+.textarea {
+  padding: 0;
+  border: 0;
+  font-family: var(--va-font-family);
+}
 </style>

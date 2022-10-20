@@ -193,7 +193,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .collapse-content {
-    padding: 1rem;
-  }
+.collapse-content {
+  padding: 1rem;
+}
 </style>

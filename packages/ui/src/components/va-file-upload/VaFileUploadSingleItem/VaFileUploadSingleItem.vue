@@ -56,30 +56,30 @@ export default defineComponent({
 </script>
 
 <style lang='scss'>
-  .va-file-upload-single-item {
+.va-file-upload-single-item {
+  width: 100%;
+
+  &__content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    max-width: 100%;
     width: 100%;
-
-    &__content {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      max-width: 100%;
-      width: 100%;
-    }
-
-    &__name {
-      margin-right: 0.25rem;
-      max-width: 80%;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      line-height: normal;
-    }
-
-    &__button {
-      margin-top: 0;
-      margin-bottom: 0;
-      font-weight: 700;
-    }
   }
+
+  &__name {
+    margin-right: 0.25rem;
+    max-width: 80%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: normal;
+  }
+
+  &__button {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-weight: 700;
+  }
+}
 </style>

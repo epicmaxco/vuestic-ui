@@ -37,19 +37,19 @@ useEvent('resize', getBodyClass, true)
 </script>
 
 <style lang="scss" scoped>
-  .sized {
-    width: calc(200px * var(--va-media-ratio));
-  }
+.sized {
+  width: calc(200px * var(--va-media-ratio));
+}
 
-  .va-screen-lg {
-    & .colored {
-      color: red;
-    }
+.va-screen-lg {
+  & .colored {
+    color: red;
   }
+}
 
-  .va-screen-sm {
-    & .colored {
-      color: green;
-    }
+.va-screen-sm {
+  & .colored {
+    color: green;
   }
+}
 </style>

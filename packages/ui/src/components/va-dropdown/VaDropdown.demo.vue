@@ -491,9 +491,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .target {
-    width: 300px;
-    background-color: #222222;
-    height: 100px;
-  }
+.target {
+  width: 300px;
+  background-color: #222222;
+  height: 100px;
+}
 </style>

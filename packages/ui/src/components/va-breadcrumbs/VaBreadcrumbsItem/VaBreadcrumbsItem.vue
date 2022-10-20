@@ -39,22 +39,22 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  @import "variables";
+@import "variables";
 
-  .va-breadcrumb-item {
-    display: var(--va-breadcrumb-item-display);
-    color: var(--va-breadcrumb-item-color);
+.va-breadcrumb-item {
+  display: var(--va-breadcrumb-item-display);
+  color: var(--va-breadcrumb-item-color);
 
-    &--link {
-      color: inherit;
+  &--link {
+    color: inherit;
 
-      &:hover {
-        opacity: var(--va-breadcrumb-item-hover-opacity);
-      }
+    &:hover {
+      opacity: var(--va-breadcrumb-item-hover-opacity);
+    }
 
-      &:focus {
-        text-decoration: var(--va-breadcrumb-item-focus-text-decoration);
-      }
+    &:focus {
+      text-decoration: var(--va-breadcrumb-item-focus-text-decoration);
     }
   }
+}
 </style>
