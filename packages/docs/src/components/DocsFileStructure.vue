@@ -5,9 +5,12 @@
         <span>{{ node.label }}</span>
 
         <va-popover v-if="node.description" :message="node.description" stick-to-edges>
-          <va-icon class="ml-2" name="help" size="small" />
+          <va-icon class="ml-2" name="help" size="small" color="backgroundElement" />
         </va-popover>
       </div>
+    </template>
+    <template #icon="node">
+      <va-icon :name="node.icon" :color="node.isDirectory ? 'warning' : 'info'" />
     </template>
   </va-tree-view>
 </template>
