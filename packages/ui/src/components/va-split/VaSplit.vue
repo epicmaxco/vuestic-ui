@@ -1,9 +1,10 @@
 <template>
   <section
     ref="splitPanelsContainer"
-    aria-label="split panels"
     class="va-split"
-    :class="classComputed">
+    :class="classComputed"
+    :aria-label="t('splitPanels')"
+  >
     <div
       class="va-split__panel"
       :style="getPanelStyle('start')"
@@ -48,6 +49,7 @@ import {
   useComponentPresetProp,
   useStateful, useStatefulEmits, useStatefulProps,
   useResizeObserver,
+  useTranslation,
 } from '../../composables'
 import { useSplitDragger, useSplitDraggerProps } from './useSplitDragger'
 
@@ -278,6 +280,7 @@ export default defineComponent({
     }))
 
     return {
+      ...useTranslation(),
       splitPanelsContainer,
       containerSize,
 

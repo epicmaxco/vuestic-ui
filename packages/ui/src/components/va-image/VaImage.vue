@@ -49,7 +49,7 @@ export default defineComponent({
     draggable: { type: Boolean, default: true },
   },
   setup (props, { emit }) {
-    const loading = ref(true)
+    const loading = ref(false)
     const loadingError = ref(false)
 
     const imageStyles = computed(() => ({

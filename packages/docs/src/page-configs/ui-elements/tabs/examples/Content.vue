@@ -17,7 +17,7 @@
 
     <va-card square outlined>
       <va-card-title>
-        <va-icon :name="currentTab.icon" size="small" class="mr-2" color="gray" />
+        <va-icon :name="currentTab.icon" size="small" class="mr-2" color="backgroundElement" />
         {{ currentTab.title }}
       </va-card-title>
       <va-card-content>

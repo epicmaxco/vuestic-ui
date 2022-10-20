@@ -1,7 +1,9 @@
 <template>
-  <va-checkbox class="mb-2" v-model="value" :label="label" />
-  <va-checkbox class="mb-2" v-model="value" :label="longLabel" />
-  <va-checkbox class="mb-2" v-model="value" :label="leftLabel" left-label />
+  <div class="d-flex flex-direction-column">
+    <va-checkbox class="mb-4" v-model="value" :label="label" />
+    <va-checkbox class="mb-4" v-model="value" :label="longLabel" />
+    <va-checkbox v-model="value" :label="leftLabel" left-label />
+  </div>
 </template>
 
 <script>

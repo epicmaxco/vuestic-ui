@@ -2,16 +2,16 @@
   <div class="wrapper">
     <va-app-bar
       shadow-on-scroll
-      color="gray"
+      color="backgroundElement"
       shadow-color="danger"
       target="#va-app-bar-shadow"
     >
-      <va-button icon="home" color="#fff" preset="plain" />
-      <va-button icon="info" color="#fff" preset="plain" />
-      <va-button icon="battery" color="#fff" preset="plain" />
+      <va-button icon="home" color="textLight" preset="plain" />
+      <va-button icon="info" color="textLight" preset="plain" />
+      <va-button icon="battery" color="textLight" preset="plain" />
       <va-spacer />
-      <va-button color="#fff" preset="plain">Login</va-button>
-      <va-button-dropdown size="small" preset="plain" color="gray" icon="ellipsis">
+      <va-button color="textLight" preset="plain">Login</va-button>
+      <va-button-dropdown size="small" preset="plain" color="textLight" icon="ellipsis" stick-to-edges>
         Content
       </va-button-dropdown>
     </va-app-bar>

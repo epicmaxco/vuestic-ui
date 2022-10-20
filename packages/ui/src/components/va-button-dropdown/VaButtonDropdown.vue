@@ -46,7 +46,7 @@
       >
         <template #anchor>
           <va-button
-            aria-label="toggle dropdown"
+            :aria-label="t('toggleDropdown')"
             :disabled="$props.disabled || $props.disableDropdown"
             :icon="computedIcon"
             v-on="listeners"
@@ -83,6 +83,7 @@ import {
   useStateful, useStatefulProps,
   useEmitProxy,
   Placement, placementsPositions,
+  useTranslation,
 } from '../../composables'
 
 import { VaButton } from '../va-button'
@@ -197,6 +198,7 @@ export default defineComponent({
     const hideDropdown = () => { valueComputed.value = false }
 
     return {
+      ...useTranslation(),
       vaDropdownProps: filterComponentProps(props, VaDropdownProps),
       hideDropdown,
       valueComputed,

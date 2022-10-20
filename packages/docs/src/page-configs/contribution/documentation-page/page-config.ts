@@ -8,8 +8,6 @@ import {
   tableDataBlock,
   apiOptions,
   configFolderStructure,
-  configFileStructure,
-  blockHelper,
 } from './code-examples'
 
 const block = new PageGenerationHelper(__dirname)
@@ -24,9 +22,49 @@ const config: ApiDocsBlock[] = [
   // Page Config
   block.subtitle('documentationPage.pageConfig.title'),
   block.paragraph('documentationPage.pageConfig.descriptionStructure'),
-  block.code(configFolderStructure, 'bash'),
+  block.fileStructure([
+    {
+      name: 'code-examples',
+      children: [
+        {
+          name: '[code-examples].ts',
+        },
+        {
+          name: 'index.ts',
+          description: 'Must re-export all code examples using named exports',
+        },
+      ],
+    },
+    {
+      name: 'examples',
+      description: 'Folder where docs examples must be stored',
+      children: [
+        {
+          name: '[example].vue',
+          description: 'Example vue component. Better to have it in Options API with Js. Keep it small. Examples code will be visible to user.',
+        },
+      ],
+    },
+    {
+      name: 'components',
+      description: 'If you have complex docs page and need a bit of interactivity.',
+      children: [
+        {
+          name: '[component].vue',
+          description: 'Component code will not be shown to user.',
+        },
+      ],
+    },
+    {
+      name: 'api-options.ts',
+      description: 'Api options for this component at the bottom of component page',
+    },
+    {
+      name: 'page-config.ts',
+      description: 'Entry file where docs page defined',
+    },
+  ]),
   block.paragraph('documentationPage.pageConfig.descriptionFile'),
-  block.code(configFileStructure, 'javascript'),
 
   // Generators
   block.subtitle('documentationPage.generators.title'),
@@ -36,9 +74,6 @@ const config: ApiDocsBlock[] = [
 
   // BlockTypes
   block.subtitle('documentationPage.blocktypes.title'),
-  block.paragraph('documentationPage.blocktypes.descriptionHelper'),
-  block.code(blockHelper, 'javascript'),
-  block.paragraph('documentationPage.blocktypes.description'),
 
   block.headline('documentationPage.blocktypes.titleBlock.title'),
   block.paragraph('documentationPage.blocktypes.titleBlock.text'),

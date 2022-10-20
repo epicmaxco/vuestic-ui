@@ -1,3 +1,5 @@
+import { isServer } from '../utils/ssr-utils'
+
 /**
  * Create and append to head provided styles or update if exists.
  *
@@ -7,6 +9,10 @@
 export const addOrUpdateStyleElement = (id: string, getStyles: () => string): void => {
   if (!id) {
     throw new Error('Style id is required')
+  }
+
+  if (isServer()) {
+    return
   }
 
   let stylesElement = document.getElementById(id)

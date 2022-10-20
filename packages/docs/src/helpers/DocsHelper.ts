@@ -6,7 +6,7 @@ import {
   TextBlock,
   CodeStringOrObject,
   LinkOptions,
-  ExampleOptions, CodeLanguage, ListBlock,
+  ExampleOptions, CodeLanguage, ListBlock, GetApiBlock,
 } from '../types/configTypes'
 import { DefineComponent } from 'vue'
 import { VueConstructor } from 'vue-class-component'
@@ -166,6 +166,13 @@ export class PageGenerationHelper {
     return {
       type: BlockType.FILE,
       file,
+    }
+  }
+
+  fileStructure (files: GetApiBlock<BlockType.FILE_STRUCTURE>['files']): ApiDocsBlock {
+    return {
+      type: BlockType.FILE_STRUCTURE,
+      files,
     }
   }
 }

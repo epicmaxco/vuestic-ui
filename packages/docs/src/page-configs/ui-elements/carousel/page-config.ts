@@ -20,6 +20,16 @@ const config: ApiDocsBlock[] = [
     'carousel.examples.Default.text',
     'Default',
   ),
+  ...block.exampleBlock(
+    'carousel.examples.Ratio.title',
+    'carousel.examples.Ratio.text',
+    'Ratio',
+  ),
+  ...block.exampleBlock(
+    'carousel.examples.Height.title',
+    'carousel.examples.Height.text',
+    'Height',
+  ),
 
   ...block.exampleBlock(
     'carousel.examples.Arrows.title',

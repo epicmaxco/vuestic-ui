@@ -5,9 +5,9 @@
       'va-carousel--vertical': $props.vertical,
       [`va-carousel--${$props.effect}`]: true
     }"
-    :style="{ height }"
+    :style="{ height: ratio ? 'auto' : height }"
     role="region"
-    aria-label="carousel"
+    :aria-label="t('carousel')"
   >
     <template v-if="$props.arrows">
       <div
@@ -21,7 +21,7 @@
             <va-button
               :color="hover ? computedHoverColor : computedColor"
               :icon="vertical ? 'va-arrow-up' : 'va-arrow-left'"
-              aria-label="go previous slide"
+              :aria-label="t('goPreviousSlide')"
             />
           </va-hover>
         </slot>
@@ -37,7 +37,7 @@
             <va-button
               :color="hover ? computedHoverColor : computedColor"
               :icon="vertical ? 'va-arrow-down' : 'va-arrow-right'"
-              aria-label="go next slide"
+              :aria-label="t('goNextSlide')"
             />
           </va-hover>
         </slot>
@@ -54,7 +54,7 @@
         <slot name="indicator" v-bind="{ item, index, goTo, isActive: isCurrentSlide(index) }">
           <va-hover #default="{ hover }" stateful>
             <va-button
-              :aria-label="`go slide #${index + 1}`"
+              :aria-label="t(`goSlide`, { index: index + 1 })"
               round
               :color="isCurrentSlide(index) ? computedActiveColor : (hover ? computedHoverColor : computedColor)"
             >
@@ -79,10 +79,11 @@
           :style="slideStyleComputed"
           :aria-hidden="!isCurrentSlide(index)"
           :aria-current="isCurrentSlide(index)"
-          :aria-label="`slide ${index + 1} of ${slides.length}`"
+          :aria-label="t('slideOf', { index: index + 1, length: slides.length })"
         >
           <slot v-bind="{ item, index, goTo, isActive: isCurrentSlide(index) }">
             <va-image
+              v-bind="vaImageProps"
               :src="isObjectSlides ? item.src : item"
               :alt="isObjectSlides ? item.alt : ''"
               :draggable="false"
@@ -102,6 +103,7 @@ import { useCarouselColor } from './hooks/useCarouselColors'
 import {
   useStateful, useStatefulProps, useStatefulEmits,
   useSwipe, useSwipeProps, useComponentPresetProp,
+  useTranslation,
 } from '../../composables'
 
 import { VaImage } from '../va-image'
@@ -109,6 +111,10 @@ import { VaButton } from '../va-button'
 import { VaHover } from '../va-hover'
 
 import type { SwipeState } from '../../composables'
+
+import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
+
+const VaImageProps = extractComponentProps(VaImage, ['src', 'alt'])
 
 export default defineComponent({
   name: 'VaCarousel',
@@ -119,6 +125,7 @@ export default defineComponent({
     ...useSwipeProps,
     ...useStatefulProps,
     ...useComponentPresetProp,
+    ...VaImageProps,
 
     modelValue: { type: Number, default: 0 },
     items: { type: Array as PropType<any[]>, required: true },
@@ -146,6 +153,7 @@ export default defineComponent({
       validator: (value: string) => ['fade', 'transition'].includes(value),
     },
     color: { type: String, default: 'primary' },
+    ratio: { type: Number },
   },
 
   emits: useStatefulEmits,
@@ -184,6 +192,7 @@ export default defineComponent({
     useSwipe(props, slidesContainer, onSwipe)
 
     return {
+      vaImageProps: filterComponentProps(props, VaImageProps),
       doShowNextButton,
       doShowPrevButton,
       computedSlidesStyle,
@@ -195,6 +204,7 @@ export default defineComponent({
       isObjectSlides,
       isCurrentSlide,
       ...useCarouselColor(),
+      ...useTranslation(),
       slidesContainer,
     }
   },
@@ -219,6 +229,8 @@ export default defineComponent({
     display: flex;
     width: 100%;
     height: 100%;
+    max-height: 100%;
+    min-height: var(--va-carousel-min-height);
     background: var(--va-carousel-background);
     box-shadow: var(--va-carousel-box-shadow);
     border-radius: var(--va-carousel-border-radius);

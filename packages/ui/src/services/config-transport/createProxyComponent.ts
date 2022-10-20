@@ -45,7 +45,7 @@ const createPropsWithCustomConfig = (instance: ComponentInternalInstance, propsF
       const incomingProp = findCamelCased(incomingProps, key)
 
       if (incomingProp !== undefined) {
-        return incomingProp
+        return originalProp
       }
 
       // Return prop from config only if user didn't pass props manually
@@ -68,7 +68,6 @@ const patchInstanceProps = (instance: ComponentInternalInstance, props: Props) =
 
 export const createProxyComponent = <T extends DefineComponent>(component: T) => {
   const customSetup = (originalProps: Props, ctx: SetupContext) => {
-    console.log(component.name)
     const instance = getCurrentInstance()! // Not null during setup call
     const propsFromConfig = useComponentConfigProps(component, originalProps)
 

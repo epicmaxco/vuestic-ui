@@ -4,6 +4,7 @@ import { GlobalConfig, GlobalConfigUpdater, PartialGlobalConfig } from './types'
 import { getComponentsDefaultConfig } from './config-default'
 import { createIconsConfig } from '../icon-config/icon-config-helpers'
 import { colorsPresets } from '../color-config/color-theme-presets'
+import { getI18nConfigDefaults } from '../i18n'
 import { getBreakpointDefaultConfig } from '../breakpoint'
 import { getGlobalProperty } from '../../vuestic-plugin/utils'
 import { mergeDeep } from '../../utils/merge-deep'
@@ -35,6 +36,7 @@ export const createGlobalConfig = () => {
     icons: createIconsConfig({}),
     components: getComponentsDefaultConfig(),
     breakpoint: getBreakpointDefaultConfig(),
+    i18n: getI18nConfigDefaults(),
   })
 
   const getGlobalConfig = (): GlobalConfig => globalConfig.value

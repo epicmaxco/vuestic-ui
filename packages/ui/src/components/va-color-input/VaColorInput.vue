@@ -1,24 +1,27 @@
 <template>
   <div class="va-color-input">
-    <va-color-indicator
-      class="va-color-input__dot"
-      role="button"
-      aria-label="open color picker"
-      :aria-disabled="$props.disabled"
-      :tabindex="tabIndexComputed"
-      :color="valueComputed"
-      :indicator="$props.indicator"
-      @click="callPickerDialog"
-      @keydown.space="callPickerDialog"
-      @keydown.enter="callPickerDialog"
-    />
     <va-input
       class="va-color-input__input"
       placeholder="input color"
       v-model="valueComputed"
       :tabindex="tabIndexComputed"
       :disabled="$props.disabled"
-    />
+    >
+      <template #appendInner>
+        <va-color-indicator
+          class="va-color-input__dot"
+          role="button"
+          :aria-label="t('openColorPicker')"
+          :aria-disabled="$props.disabled"
+          :tabindex="tabIndexComputed"
+          :color="valueComputed"
+          :indicator="$props.indicator"
+          @click="callPickerDialog"
+          @keydown.space="callPickerDialog"
+          @keydown.enter="callPickerDialog"
+        />
+      </template>
+    </va-input>
     <input
       ref="colorPicker"
       type="color"
@@ -32,7 +35,7 @@
 <script lang="ts">
 import { defineComponent, PropType, shallowRef, computed } from 'vue'
 
-import { useComponentPresetProp, useStateful, useStatefulProps, useStatefulEmits } from '../../composables'
+import { useComponentPresetProp, useStateful, useStatefulProps, useStatefulEmits, useTranslation } from '../../composables'
 
 import { VaColorIndicator } from '../va-color-indicator'
 import { VaInput } from '../va-input'
@@ -65,6 +68,7 @@ export default defineComponent({
     const tabIndexComputed = computed(() => props.disabled ? -1 : 0)
 
     return {
+      ...useTranslation(),
       valueComputed,
       callPickerDialog,
       colorPicker,

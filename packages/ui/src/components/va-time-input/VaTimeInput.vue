@@ -40,7 +40,7 @@
           />
           <va-icon
             v-if="$props.leftIcon"
-            aria-label="toggle dropdown"
+            :aria-label="t('toggleDropdown')"
             v-bind="iconProps"
           />
         </template>
@@ -48,15 +48,15 @@
         <template #icon>
           <va-icon
             v-if="canBeClearedComputed"
-            aria-label="reset time"
             v-bind="{ ...iconProps, ...clearIconProps }"
+            :aria-label="t('resetTime')"
             @click.stop="reset"
             @keydown.enter.stop="reset"
             @keydown.space.stop="reset"
           />
           <va-icon
             v-else-if="!$props.leftIcon"
-            aria-label="toggle dropdown"
+            :aria-label="t('toggleDropdown')"
             v-bind="iconProps"
           />
         </template>
@@ -89,6 +89,7 @@ import {
   useClearable, useClearableEmits, useClearableProps,
   useFocus, useFocusEmits,
   Placement,
+  useTranslation,
 } from '../../composables'
 import { useTimeParser } from './hooks/time-text-parser'
 import { useTimeFormatter } from './hooks/time-text-formatter'
@@ -201,12 +202,20 @@ export default defineComponent({
     // const changePeriodToPm = () => changePeriod(true)
     // const changePeriodToAm = () => changePeriod(false)
 
-    const reset = (): void => {
+    const reset = () => withoutValidation(() => {
       emit('update:modelValue', props.clearValue)
       emit('clear')
-    }
+      resetValidation()
+    })
 
-    const { computedError, computedErrorMessages, listeners, validationAriaAttributes } = useValidation(props, emit, reset, focus)
+    const {
+      computedError,
+      computedErrorMessages,
+      listeners,
+      validationAriaAttributes,
+      withoutValidation,
+      resetValidation,
+    } = useValidation(props, emit, { reset, focus })
 
     const {
       canBeCleared,
@@ -293,11 +302,13 @@ export default defineComponent({
       tabindex: iconTabindexComputed.value,
     }))
 
+    const { t } = useTranslation()
+
     const inputAttributesComputed = computed(() => ({
       readonly: props.readonly || !props.manualInput,
       tabindex: props.disabled ? -1 : 0,
       value: valueText.value,
-      ariaLabel: props.label || 'selected date',
+      ariaLabel: props.label || t('selectedTime'),
       ariaRequired: props.requiredMark,
       ariaDisabled: props.disabled,
       ariaReadOnly: props.readonly,
@@ -315,6 +326,7 @@ export default defineComponent({
     }))
 
     return {
+      t,
       input,
       timePicker,
 

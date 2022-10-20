@@ -14,7 +14,6 @@
       multiple
     />
     <va-select
-      class="mb-4"
       label="Multiple select, Max 2 selections"
       :options="options"
       v-model="valueMultipleMax"

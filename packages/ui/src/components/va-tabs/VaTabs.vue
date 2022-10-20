@@ -12,7 +12,7 @@
       <va-button
         v-if="showPagination"
         class="va-tabs__pagination"
-        aria-label="move pagination left"
+        :aria-label="t('movePaginationLeft')"
         size="medium"
         :disabled="disablePaginationLeft"
         :color="color"
@@ -48,7 +48,7 @@
       <va-button
         v-if="showPagination"
         class="va-tabs__pagination"
-        aria-label="move pagination right"
+        :aria-label="t('movePaginationRight')"
         size="medium"
         :color="color"
         :disabled="disablePaginationRight"
@@ -83,6 +83,7 @@ import {
   useStateful, useStatefulProps,
   useColors,
   useResizeObserver,
+  useTranslation,
 } from '../../composables'
 
 import { TabsViewKey, TabComponent, TabSelected } from './types'
@@ -400,6 +401,7 @@ export default defineComponent({
     useResizeObserver([wrapper, tabs], redrawTabs)
 
     return {
+      ...useTranslation(),
       wrapper,
       container,
       tabs,

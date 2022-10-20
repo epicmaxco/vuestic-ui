@@ -2,12 +2,14 @@ import type { ComponentConfig } from '../component-config/component-config'
 import type { ColorConfig } from '../color-config'
 import type { IconConfig } from '../icon-config/types'
 import type { BreakpointConfig } from '../breakpoint'
+import type { I18nConfig } from '../i18n'
 
 export type GlobalConfig = {
   colors: ColorConfig,
   icons: IconConfig,
   components: ComponentConfig,
   breakpoint: BreakpointConfig,
+  i18n: I18nConfig,
 }
 
 type DeepPartial<T> = T extends Record<string, any> ? {
