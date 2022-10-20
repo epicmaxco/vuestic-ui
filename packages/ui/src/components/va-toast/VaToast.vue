@@ -169,94 +169,94 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  @import "../../styles/resources";
-  @import "variables";
+@import "../../styles/resources";
+@import "variables";
 
-  .va-toast {
-    position: fixed;
-    box-sizing: border-box;
-    width: var(--va-toast-width);
-    padding: var(--va-toast-padding);
-    display: flex;
-    align-items: center;
-    border-radius: var(--va-toast-border-radius);
-    border: 1px solid var(--va-toast-border-color);
-    background-color: var(--va-toast-background-color);
-    box-shadow: var(--va-toast-box-shadow);
-    transition: var(--va-toast-transition);
-    overflow: hidden;
-    z-index: var(--va-toast-z-index);
-    font-family: var(--va-font-family);
+.va-toast {
+  position: fixed;
+  box-sizing: border-box;
+  width: var(--va-toast-width);
+  padding: var(--va-toast-padding);
+  display: flex;
+  align-items: center;
+  border-radius: var(--va-toast-border-radius);
+  border: 1px solid var(--va-toast-border-color);
+  background-color: var(--va-toast-background-color);
+  box-shadow: var(--va-toast-box-shadow);
+  transition: var(--va-toast-transition);
+  overflow: hidden;
+  z-index: var(--va-toast-z-index);
+  font-family: var(--va-font-family);
 
-    &--multiline {
-      min-height: 70px;
-    }
+  &--multiline {
+    min-height: 70px;
+  }
 
-    &--right {
-      right: 16px;
-    }
+  &--right {
+    right: 16px;
+  }
 
-    &--left {
-      left: 16px;
-    }
+  &--left {
+    left: 16px;
+  }
 
-    &__group {
-      margin-left: var(--va-toast-group-margin-left);
-      margin-right: var(--va-toast-group-margin-right);
-    }
+  &__group {
+    margin-left: var(--va-toast-group-margin-left);
+    margin-right: var(--va-toast-group-margin-right);
+  }
 
-    &__title {
-      font-weight: var(--va-toast-title-font-weight);
-      font-size: var(--va-toast-title-font-size);
-      color: var(--va-toast-title-color);
-      margin: var(--va-toast-title-margin);
-    }
+  &__title {
+    font-weight: var(--va-toast-title-font-weight);
+    font-size: var(--va-toast-title-font-size);
+    color: var(--va-toast-title-color);
+    margin: var(--va-toast-title-margin);
+  }
 
-    &__content {
-      font-size: var(--va-toast-content-font-size);
-      line-height: var(--va-toast-content-line-height);
-      padding-right: var(--va-toast-content-padding-right);
+  &__content {
+    font-size: var(--va-toast-content-font-size);
+    line-height: var(--va-toast-content-line-height);
+    padding-right: var(--va-toast-content-padding-right);
 
-      p,
-      div {
-        margin: 0;
-      }
-    }
-
-    &__icon {
-      height: var(--va-toast-icon-height);
-      width: var(--va-toast-icon-width);
-      font-size: var(--va-toast-icon-font-size);
-    }
-
-    &__close-icon {
-      position: absolute;
-      top: 50%;
-      right: var(--va-toast-close-icon-right);
-      cursor: pointer;
-      transform: translateY(-50%);
-      font-size: var(--va-toast-close-icon-font-siz);
-      opacity: 0.7;
-
-      &:hover {
-        opacity: 1;
-      }
+    p,
+    div {
+      margin: 0;
     }
   }
 
-  .va-toast-fade-enter {
-    &.right {
-      right: 0;
-      transform: translateX(100%);
-    }
-
-    &.left {
-      left: 0;
-      transform: translateX(-100%);
-    }
+  &__icon {
+    height: var(--va-toast-icon-height);
+    width: var(--va-toast-icon-width);
+    font-size: var(--va-toast-icon-font-size);
   }
 
-  .va-toast-fade-leave-active {
-    opacity: 0;
+  &__close-icon {
+    position: absolute;
+    top: 50%;
+    right: var(--va-toast-close-icon-right);
+    cursor: pointer;
+    transform: translateY(-50%);
+    font-size: var(--va-toast-close-icon-font-siz);
+    opacity: 0.7;
+
+    &:hover {
+      opacity: 1;
+    }
   }
+}
+
+.va-toast-fade-enter {
+  &.right {
+    right: 0;
+    transform: translateX(100%);
+  }
+
+  &.left {
+    left: 0;
+    transform: translateX(-100%);
+  }
+}
+
+.va-toast-fade-leave-active {
+  opacity: 0;
+}
 </style>

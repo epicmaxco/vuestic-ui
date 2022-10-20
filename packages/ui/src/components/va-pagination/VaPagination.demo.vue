@@ -458,9 +458,9 @@ export default {
 </script>
 
 <style lang="scss">
-  .va-pagination-demo {
-    & .va-pagination {
-      padding: 1rem;
-    }
+.va-pagination-demo {
+  & .va-pagination {
+    padding: 1rem;
   }
+}
 </style>

@@ -187,15 +187,15 @@ export default {
 </script>
 
 <style scoped>
-  .demo__sidebar-container {
-    position: relative;
-    height: 10rem;
-    width: 20rem;
-  }
+.demo__sidebar-container {
+  position: relative;
+  height: 10rem;
+  width: 20rem;
+}
 
-  .demo__sidebar-container-2x {
-    position: relative;
-    height: 10rem;
-    width: 40rem;
-  }
+.demo__sidebar-container-2x {
+  position: relative;
+  height: 10rem;
+  width: 40rem;
+}
 </style>

@@ -102,13 +102,13 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  @import '../../styles/resources';
+@import '../../styles/resources';
 
-  .va-button-toggle {
-    .va-button {
-      @include keyboard-focus-outline($offset: -2px);
+.va-button-toggle {
+  .va-button {
+    @include keyboard-focus-outline($offset: -2px);
 
-      height: auto;
-    }
+    height: auto;
   }
+}
 </style>

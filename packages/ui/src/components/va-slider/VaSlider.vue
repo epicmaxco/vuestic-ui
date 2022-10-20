@@ -758,226 +758,226 @@ export default defineComponent({
 </script>
 
 <style lang='scss'>
-  @import "../../styles/resources";
-  @import "variables";
+@import "../../styles/resources";
+@import "variables";
 
-  .va-slider {
+.va-slider {
+  display: flex;
+  align-items: center;
+  font-family: var(--va-font-family);
+
+  &__input-wrapper {
+    position: relative;
+    display: flex;
+  }
+
+  &__container {
+    position: relative;
     display: flex;
     align-items: center;
-    font-family: var(--va-font-family);
+    cursor: grab;
+  }
 
-    &__input-wrapper {
-      position: relative;
-      display: flex;
-    }
+  &__track {
+    position: absolute;
+    border-radius: var(--va-slider-track-border-radius);
+    transition: var(--va-slider-track-transition);
+    opacity: var(--va-slider-track-opacity);
 
-    &__container {
-      position: relative;
-      display: flex;
-      align-items: center;
-      cursor: grab;
-    }
-
-    &__track {
-      position: absolute;
-      border-radius: var(--va-slider-track-border-radius);
-      transition: var(--va-slider-track-transition);
-      opacity: var(--va-slider-track-opacity);
-
-      &--active {
-        transition: 0s;
-      }
-    }
-
-    &__track--selected {
-      opacity: 1;
-    }
-
-    &__handler {
-      position: absolute;
-      width: var(--va-slider-handler-width);
-      height: var(--va-slider-handler-height);
-      background: var(--va-slider-handler-background);
-      border: var(--va-slider-handler-border);
-      border-radius: var(--va-slider-handler-border-radius);
-      outline: var(--va-slider-handler-outline);
-      left: var(--va-slider-handler-left);
-      transition: var(--va-slider-handler-transition);
-
-      &__dot--focus {
-        transform: var(--va-slider-dot-transform);
-        display: block;
-        width: var(--va-slider-dot-width);
-        height: var(--va-slider-dot-height);
-        position: absolute;
-        border-radius: var(--va-slider-dot-border-radius);
-        opacity: var(--va-slider-dot-opacity);
-        pointer-events: var(--va-slider-dot-pointer-events);
-      }
-
-      &__dot--value {
-        transform: var(--va-slider-dot-value-transform);
-        user-select: var(--va-slider-dot-value-user-select);
-        font-size: var(--va-slider-dot-value-font-size);
-        letter-spacing: var(--va-slider-dot-value-letter-spacing);
-        line-height: var(--va-slider-dot-value-line-height);
-        font-weight: var(--va-slider-dot-value-font-weight);
-        text-transform: var(--va-slider-dot-value-text-transform);
-        white-space: var(--va-slider-dot-value-white-space);
-      }
-    }
-
-    .va-input__label {
-      user-select: var(--va-slider-input-label-user-select);
-      font-size: var(--va-slider-input-label-font-size);
-      letter-spacing: var(--va-slider-input-label-letter-spacing);
-      line-height: var(--va-slider-input-label-line-height);
-      font-weight: var(--va-slider-input-label-font-weight);
-      text-transform: var(--va-slider-input-label-text-transform);
-    }
-
-    .va-input__label--inverse {
-      user-select: var(--va-slider-input-label-inverse-user-select);
-      font-size: var(--va-slider-input-label-inverse-font-size);
-      letter-spacing: var(--va-slider-input-label-inverse-letter-spacing);
-      line-height: var(--va-slider-input-label-inverse-line-height);
-      font-weight: var(--va-slider-input-label-inverse-font-weight);
-      text-transform: var(--va-slider-input-label-inverse-text-transform);
-    }
-
-    &--grabbing {
-      .va-slider__container {
-        cursor: grabbing;
-      }
-    }
-
-    &--disabled {
-      @include va-disabled;
-
-      .va-slider__container {
-        cursor: default;
-      }
-    }
-
-    &--readonly {
-      .va-slider__container {
-        cursor: default;
-      }
+    &--active {
+      transition: 0s;
     }
   }
 
-  .va-slider--horizontal {
-    .va-slider__input-wrapper {
-      flex-basis: fit-content;
-      flex-grow: 0;
-      margin-right: var(--va-slider-horizontal-input-wrapper-margin-right);
+  &__track--selected {
+    opacity: 1;
+  }
 
-      &:last-of-type {
-        margin-left: 1rem;
-      }
+  &__handler {
+    position: absolute;
+    width: var(--va-slider-handler-width);
+    height: var(--va-slider-handler-height);
+    background: var(--va-slider-handler-background);
+    border: var(--va-slider-handler-border);
+    border-radius: var(--va-slider-handler-border-radius);
+    outline: var(--va-slider-handler-outline);
+    left: var(--va-slider-handler-left);
+    transition: var(--va-slider-handler-transition);
+
+    &__dot--focus {
+      transform: var(--va-slider-dot-transform);
+      display: block;
+      width: var(--va-slider-dot-width);
+      height: var(--va-slider-dot-height);
+      position: absolute;
+      border-radius: var(--va-slider-dot-border-radius);
+      opacity: var(--va-slider-dot-opacity);
+      pointer-events: var(--va-slider-dot-pointer-events);
     }
 
-    .va-slider {
-      &__container {
-        width: 100%;
-        height: 1.5rem;
-      }
-
-      &__track {
-        height: var(--va-slider-horizontal-track-height);
-        width: var(--va-slider-horizontal-track-width);
-      }
-
-      &__mark {
-        position: absolute;
-        width: 0.125rem;
-        height: 0.75rem;
-      }
-
-      &__handler {
-        transform: var(--va-slider-horizontal-handler-transform);
-
-        &--inactive {
-          transition: left 0.5s ease-out;
-        }
-
-        &__dot--value {
-          position: absolute;
-          top: var(--va-slider-horizontal-dot-value-top);
-          left: var(--va-slider-horizontal-dot-value-left);
-        }
-      }
+    &__dot--value {
+      transform: var(--va-slider-dot-value-transform);
+      user-select: var(--va-slider-dot-value-user-select);
+      font-size: var(--va-slider-dot-value-font-size);
+      letter-spacing: var(--va-slider-dot-value-letter-spacing);
+      line-height: var(--va-slider-dot-value-line-height);
+      font-weight: var(--va-slider-dot-value-font-weight);
+      text-transform: var(--va-slider-dot-value-text-transform);
+      white-space: var(--va-slider-dot-value-white-space);
     }
+  }
 
-    .va-input__label {
-      margin-right: 1rem;
+  .va-input__label {
+    user-select: var(--va-slider-input-label-user-select);
+    font-size: var(--va-slider-input-label-font-size);
+    letter-spacing: var(--va-slider-input-label-letter-spacing);
+    line-height: var(--va-slider-input-label-line-height);
+    font-weight: var(--va-slider-input-label-font-weight);
+    text-transform: var(--va-slider-input-label-text-transform);
+  }
+
+  .va-input__label--inverse {
+    user-select: var(--va-slider-input-label-inverse-user-select);
+    font-size: var(--va-slider-input-label-inverse-font-size);
+    letter-spacing: var(--va-slider-input-label-inverse-letter-spacing);
+    line-height: var(--va-slider-input-label-inverse-line-height);
+    font-weight: var(--va-slider-input-label-inverse-font-weight);
+    text-transform: var(--va-slider-input-label-inverse-text-transform);
+  }
+
+  &--grabbing {
+    .va-slider__container {
+      cursor: grabbing;
     }
+  }
 
-    .va-input__label--inverse {
+  &--disabled {
+    @include va-disabled;
+
+    .va-slider__container {
+      cursor: default;
+    }
+  }
+
+  &--readonly {
+    .va-slider__container {
+      cursor: default;
+    }
+  }
+}
+
+.va-slider--horizontal {
+  .va-slider__input-wrapper {
+    flex-basis: fit-content;
+    flex-grow: 0;
+    margin-right: var(--va-slider-horizontal-input-wrapper-margin-right);
+
+    &:last-of-type {
       margin-left: 1rem;
     }
   }
 
-  .va-slider--vertical {
-    height: var(--va-slider-vertical-height);
-    padding: var(--va-slider-vertical-padding);
-    flex-direction: var(--va-slider-vertical-flex-direction);
-    align-items: var(--va-slider-vertical-align-items);
-
-    .va-input__label {
-      margin-bottom: var(--va-slider-vertical-label-margin-bottom);
+  .va-slider {
+    &__container {
+      width: 100%;
+      height: 1.5rem;
     }
 
-    .va-input__label--inverse {
-      left: var(--va-slider-vertical-label-inverse-left);
-      margin-top: var(--va-slider-vertical-label-inverse-margin-top);
+    &__track {
+      height: var(--va-slider-horizontal-track-height);
+      width: var(--va-slider-horizontal-track-width);
     }
 
-    .va-slider {
-      &__input-wrapper {
-        flex-basis: fit-content;
-        flex-grow: 0;
-        max-width: var(--va-slider-vertical-input-wrapper-max-width);
-        min-width: var(--va-slider-vertical-input-wrapper-min-width);
-        position: relative;
-        display: flex;
+    &__mark {
+      position: absolute;
+      width: 0.125rem;
+      height: 0.75rem;
+    }
 
-        &:last-of-type {
-          margin-top: 1rem;
-        }
+    &__handler {
+      transform: var(--va-slider-horizontal-handler-transform);
+
+      &--inactive {
+        transition: left 0.5s ease-out;
       }
 
-      &__container {
-        height: 100%;
-        width: 0.5rem;
-      }
-
-      &__track {
-        height: var(--va-slider-vertical-track-height);
-        width: var(--va-slider-vertical-track-width);
-        bottom: var(--va-slider-vertical-track-bottom);
-      }
-
-      &__mark {
+      &__dot--value {
         position: absolute;
-        width: 0.75rem;
-        height: 0.125rem;
-        left: -2px;
-      }
-
-      &__handler {
-        transform: var(--va-slider-vertical-handler-transform);
-
-        &--inactive {
-          transition: bottom 0.5s ease-out;
-        }
-
-        &__dot--value {
-          position: relative;
-          top: var(--va-slider-vertical-dot-value-top);
-          left: var(--va-slider-vertical-dot-value-left);
-        }
+        top: var(--va-slider-horizontal-dot-value-top);
+        left: var(--va-slider-horizontal-dot-value-left);
       }
     }
   }
+
+  .va-input__label {
+    margin-right: 1rem;
+  }
+
+  .va-input__label--inverse {
+    margin-left: 1rem;
+  }
+}
+
+.va-slider--vertical {
+  height: var(--va-slider-vertical-height);
+  padding: var(--va-slider-vertical-padding);
+  flex-direction: var(--va-slider-vertical-flex-direction);
+  align-items: var(--va-slider-vertical-align-items);
+
+  .va-input__label {
+    margin-bottom: var(--va-slider-vertical-label-margin-bottom);
+  }
+
+  .va-input__label--inverse {
+    left: var(--va-slider-vertical-label-inverse-left);
+    margin-top: var(--va-slider-vertical-label-inverse-margin-top);
+  }
+
+  .va-slider {
+    &__input-wrapper {
+      flex-basis: fit-content;
+      flex-grow: 0;
+      max-width: var(--va-slider-vertical-input-wrapper-max-width);
+      min-width: var(--va-slider-vertical-input-wrapper-min-width);
+      position: relative;
+      display: flex;
+
+      &:last-of-type {
+        margin-top: 1rem;
+      }
+    }
+
+    &__container {
+      height: 100%;
+      width: 0.5rem;
+    }
+
+    &__track {
+      height: var(--va-slider-vertical-track-height);
+      width: var(--va-slider-vertical-track-width);
+      bottom: var(--va-slider-vertical-track-bottom);
+    }
+
+    &__mark {
+      position: absolute;
+      width: 0.75rem;
+      height: 0.125rem;
+      left: -2px;
+    }
+
+    &__handler {
+      transform: var(--va-slider-vertical-handler-transform);
+
+      &--inactive {
+        transition: bottom 0.5s ease-out;
+      }
+
+      &__dot--value {
+        position: relative;
+        top: var(--va-slider-vertical-dot-value-top);
+        left: var(--va-slider-vertical-dot-value-left);
+      }
+    }
+  }
+}
 </style>

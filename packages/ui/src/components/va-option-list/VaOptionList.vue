@@ -170,11 +170,11 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  @import 'variables';
+@import 'variables';
 
-  .va-option-list {
-    &__list {
-      line-height: var(--va-option-list-line-height);
-    }
+.va-option-list {
+  &__list {
+    line-height: var(--va-option-list-line-height);
   }
+}
 </style>

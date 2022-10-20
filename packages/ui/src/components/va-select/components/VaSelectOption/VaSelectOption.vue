@@ -85,23 +85,23 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  @import "variables";
+@import "variables";
 
-  .va-select-option {
-    min-height: var(--va-select-option-list-option-min-height);
-    padding: var(--va-select-option-list-option-padding);
-    display: var(--va-select-option-list-option-display);
-    align-items: var(--va-select-option-list-option-align-items);
-    word-break: var(--va-select-option-list-option-word-break);
-    cursor: var(--va-select-option-list-option-cursor);
+.va-select-option {
+  min-height: var(--va-select-option-list-option-min-height);
+  padding: var(--va-select-option-list-option-padding);
+  display: var(--va-select-option-list-option-display);
+  align-items: var(--va-select-option-list-option-align-items);
+  word-break: var(--va-select-option-list-option-word-break);
+  cursor: var(--va-select-option-list-option-cursor);
 
-    &__icon {
-      margin-right: var(--va-select-option-list-option-icon-margin-right);
-    }
-
-    &__selected-icon {
-      margin-left: var(--va-select-option-list-option-selected-icon-margin-left);
-      font-size: var(--va-select-option-list-option-selected-icon-font-size);
-    }
+  &__icon {
+    margin-right: var(--va-select-option-list-option-icon-margin-right);
   }
+
+  &__selected-icon {
+    margin-left: var(--va-select-option-list-option-selected-icon-margin-left);
+    font-size: var(--va-select-option-list-option-selected-icon-font-size);
+  }
+}
 </style>

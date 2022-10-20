@@ -699,30 +699,30 @@ export default {
 </script>
 
 <style lang="scss">
-  .va-input-css-classes-demo {
-    .va-input-wrapper {
-      margin-bottom: 1rem;
-    }
-
-    .mb-4 {
-      margin-bottom: 4rem;
-    }
-
-    .red {
-      color: red;
-    }
-
-    .p-2 {
-      padding: 2rem;
-    }
-
-    .border-blue {
-      border: 1px solid blue;
-    }
-
-    .custom-message {
-      color: rgb(153, 0, 255);
-      font-size: 16px;
-    }
+.va-input-css-classes-demo {
+  .va-input-wrapper {
+    margin-bottom: 1rem;
   }
+
+  .mb-4 {
+    margin-bottom: 4rem;
+  }
+
+  .red {
+    color: red;
+  }
+
+  .p-2 {
+    padding: 2rem;
+  }
+
+  .border-blue {
+    border: 1px solid blue;
+  }
+
+  .custom-message {
+    color: rgb(153, 0, 255);
+    font-size: 16px;
+  }
+}
 </style>

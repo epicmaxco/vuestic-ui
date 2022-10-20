@@ -27,18 +27,18 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  @import "../../styles/resources";
+@import "../../styles/resources";
 
-  .va-list-separator {
-    height: 1px;
-    background-color: $separator-color;
+.va-list-separator {
+  height: 1px;
+  background-color: $separator-color;
 
-    &--offset {
-      margin-left: 1.5rem;
-    }
-
-    &--spaced {
-      margin: 1.5rem 0;
-    }
+  &--offset {
+    margin-left: 1.5rem;
   }
+
+  &--spaced {
+    margin: 1.5rem 0;
+  }
+}
 </style>

@@ -231,93 +231,93 @@ export default defineComponent({
 </script>
 
 <style lang='scss'>
-  @import "../../styles/resources";
-  @import "variables";
+@import "../../styles/resources";
+@import "variables";
 
-  .va-file-upload {
-    position: var(--va-file-upload-position);
-    font-family: var(--va-font-family);
-    margin: var(--va-file-upload-margin);
+.va-file-upload {
+  position: var(--va-file-upload-position);
+  font-family: var(--va-font-family);
+  margin: var(--va-file-upload-margin);
 
-    .va-file-upload-list {
-      margin-top: var(--va-file-upload-list-margin-top);
+  .va-file-upload-list {
+    margin-top: var(--va-file-upload-list-margin-top);
+  }
+
+  &__field {
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    &__button {
+      margin: var(--va-file-upload-dropzone-field-button-margin);
+      z-index: 10;
     }
 
-    &__field {
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      position: relative;
+    &__text {
+      padding-right: var(--va-file-upload-dropzone-field-text-pr);
+    }
 
-      &__button {
-        margin: var(--va-file-upload-dropzone-field-button-margin);
-        z-index: 10;
-      }
+    &__input {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+      width: 100%;
+      color: transparent;
+      opacity: 0;
+      cursor: pointer;
 
-      &__text {
-        padding-right: var(--va-file-upload-dropzone-field-text-pr);
-      }
-
-      &__input {
-        position: absolute;
-        top: 0;
-        right: 0;
-        height: 100%;
-        width: 100%;
-        color: transparent;
-        opacity: 0;
+      &::-webkit-file-upload-button {
         cursor: pointer;
-
-        &::-webkit-file-upload-button {
-          cursor: pointer;
-        }
       }
-    }
-
-    &--dropzone {
-      background-color: var(--va-file-upload-dropzone-background-color);
-      overflow: hidden;
-      border-radius: var(--va-file-upload-dropzone-border-radius);
-      cursor: var(--va-file-upload-dropzone-cursor);
-
-      .va-file-upload__field {
-        justify-content: center;
-        display: flex;
-        align-items: center;
-        padding: var(--va-file-upload-dropzone-field-padding);
-        transition: height 0.2s;
-        overflow: visible;
-        flex-wrap: wrap;
-
-        @include media-breakpoint-down(sm) {
-          flex-direction: column;
-          padding: var(--va-file-upload-dropzone-field-padding-sm);
-
-          &__text {
-            padding: var(--va-file-upload-dropzone-text-padding-sm);
-            text-align: center;
-          }
-        }
-      }
-
-      .va-file-upload-list {
-        padding: var(--va-file-upload-dropzone-list-padding);
-        margin-top: 0;
-      }
-    }
-
-    &--disabled {
-      .va-file-upload__field__input {
-        cursor: default;
-
-        &::-webkit-file-upload-button {
-          cursor: inherit;
-        }
-      }
-    }
-
-    .va-button {
-      @include keyboard-focus-outline($offset: -2px);
     }
   }
+
+  &--dropzone {
+    background-color: var(--va-file-upload-dropzone-background-color);
+    overflow: hidden;
+    border-radius: var(--va-file-upload-dropzone-border-radius);
+    cursor: var(--va-file-upload-dropzone-cursor);
+
+    .va-file-upload__field {
+      justify-content: center;
+      display: flex;
+      align-items: center;
+      padding: var(--va-file-upload-dropzone-field-padding);
+      transition: height 0.2s;
+      overflow: visible;
+      flex-wrap: wrap;
+
+      @include media-breakpoint-down(sm) {
+        flex-direction: column;
+        padding: var(--va-file-upload-dropzone-field-padding-sm);
+
+        &__text {
+          padding: var(--va-file-upload-dropzone-text-padding-sm);
+          text-align: center;
+        }
+      }
+    }
+
+    .va-file-upload-list {
+      padding: var(--va-file-upload-dropzone-list-padding);
+      margin-top: 0;
+    }
+  }
+
+  &--disabled {
+    .va-file-upload__field__input {
+      cursor: default;
+
+      &::-webkit-file-upload-button {
+        cursor: inherit;
+      }
+    }
+  }
+
+  .va-button {
+    @include keyboard-focus-outline($offset: -2px);
+  }
+}
 </style>

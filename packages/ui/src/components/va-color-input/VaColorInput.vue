@@ -79,22 +79,22 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  .va-color-input {
-    display: flex;
-    align-items: center !important;
+.va-color-input {
+  display: flex;
+  align-items: center !important;
 
-    .form-group {
-      margin-bottom: 0;
-    }
+  .form-group {
+    margin-bottom: 0;
+  }
 
-    &__input {
-      margin-bottom: 0;
-      margin-left: 0.25rem;
-      min-width: 5.6rem;
+  &__input {
+    margin-bottom: 0;
+    margin-left: 0.25rem;
+    min-width: 5.6rem;
 
-      &__pointer {
-        cursor: pointer;
-      }
+    &__pointer {
+      cursor: pointer;
     }
   }
+}
 </style>

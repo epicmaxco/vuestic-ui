@@ -138,23 +138,23 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  .va-virtual-scroller {
-    overflow: auto;
+.va-virtual-scroller {
+  overflow: auto;
 
-    &__container {
-      position: relative;
-      overflow: hidden;
-    }
+  &__container {
+    position: relative;
+    overflow: hidden;
+  }
 
-    &__list {
-      display: flex;
-      flex-direction: column;
-    }
+  &__list {
+    display: flex;
+    flex-direction: column;
+  }
 
-    &--horizontal {
-      & .va-virtual-scroller__list {
-        flex-direction: row;
-      }
+  &--horizontal {
+    & .va-virtual-scroller__list {
+      flex-direction: row;
     }
   }
+}
 </style>

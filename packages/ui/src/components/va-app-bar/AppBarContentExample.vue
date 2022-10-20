@@ -35,17 +35,17 @@ export default {
 </script>
 
 <style lang="scss">
-  @import "../../styles/resources";
-  @import "./_variables.scss";
+@import "../../styles/resources";
+@import "./_variables.scss";
 
-  .app-bar-content-example {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.app-bar-content-example {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
-    .va-button {
-      @include keyboard-focus-outline($offset: -2px);
-    }
+  .va-button {
+    @include keyboard-focus-outline($offset: -2px);
   }
+}
 </style>

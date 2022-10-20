@@ -13,11 +13,11 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  @import "../../../styles/resources";
+@import "../../../styles/resources";
 
-  .va-navbar__item {
-    display: flex;
-    align-items: center;
-    font-family: var(--va-font-family);
-  }
+.va-navbar__item {
+  display: flex;
+  align-items: center;
+  font-family: var(--va-font-family);
+}
 </style>

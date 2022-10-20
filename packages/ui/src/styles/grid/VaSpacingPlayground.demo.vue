@@ -99,26 +99,26 @@ export default {
 </script>
 
 <style lang="scss">
-  @import "../resources";
+@import "../resources";
 
-  .spacing-playground {
-    .playground-component {
-      display: flex;
-      background-color: #ffd093;
+.spacing-playground {
+  .playground-component {
+    display: flex;
+    background-color: #ffd093;
 
-      &__margin {
-        width: 100%;
-      }
+    &__margin {
+      width: 100%;
+    }
 
-      &__padding {
-        background-color: #c9f7db;
-      }
+    &__padding {
+      background-color: #c9f7db;
+    }
 
-      &__inner {
-        background-color: white;
-        border: 1px solid rgba(0, 0, 0, 0.2);
-        height: 20px;
-      }
+    &__inner {
+      background-color: white;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      height: 20px;
     }
   }
+}
 </style>

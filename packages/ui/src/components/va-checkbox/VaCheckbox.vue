@@ -189,86 +189,86 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  @import "../../styles/resources";
-  @import "variables";
+@import "../../styles/resources";
+@import "variables";
 
-  .va-checkbox {
-    display: var(--va-checkbox-display);
-    max-width: fit-content;
-    font-family: var(--va-font-family);
+.va-checkbox {
+  display: var(--va-checkbox-display);
+  max-width: fit-content;
+  font-family: var(--va-font-family);
 
-    &__input-container {
-      align-items: center;
-      display: flex;
-      padding: var(--va-checkbox-input-padding);
-      cursor: var(--va-checkbox-input-cursor);
-      font-size: var(--va-checkbox-font-size);
-      line-height: var(--va-checkbox-line-height);
+  &__input-container {
+    align-items: center;
+    display: flex;
+    padding: var(--va-checkbox-input-padding);
+    cursor: var(--va-checkbox-input-cursor);
+    font-size: var(--va-checkbox-font-size);
+    line-height: var(--va-checkbox-line-height);
 
-      @at-root {
-        .va-checkbox--disabled & {
-          @include va-disabled();
+    @at-root {
+      .va-checkbox--disabled & {
+        @include va-disabled();
 
-          cursor: var(--va-checkbox-disabled-cursor);
-        }
-
-        .va-checkbox--readonly & {
-          cursor: var(--va-checkbox-readonly-cursor);
-        }
-
-        .va-checkbox--left-label & {
-          flex-direction: row-reverse;
-        }
+        cursor: var(--va-checkbox-disabled-cursor);
       }
-    }
 
-    #{&}__square {
-      @include flex-center();
-
-      width: var(--va-checkbox-square-width);
-      min-width: var(--va-checkbox-square-min-width);
-      height: var(--va-checkbox-square-height);
-      position: relative;
-      background-color: var(--va-checkbox-square-background-color);
-      border: var(--va-checkbox-square-border, var(--va-control-border));
-      border-radius: var(--va-checkbox-square-border-radius);
-
-      @at-root {
-        .va-checkbox--on-keyboard-focus#{&} {
-          transition: all, 0.6s, ease-in;
-          box-shadow: 0 0 0.5rem 0 rgba(0, 0, 0, 0.3);
-        }
+      .va-checkbox--readonly & {
+        cursor: var(--va-checkbox-readonly-cursor);
       }
-    }
 
-    &__input {
-      @include visually-hidden;
-    }
-
-    &__label {
-      display: var(--va-checkbox-label-display);
-      position: relative;
-    }
-
-    &__icon {
-      pointer-events: none;
-      position: absolute;
-    }
-
-    &--selected {
-      .va-checkbox {
-        &__icon {
-          color: var(--va-checkbox-selected-icon-color);
-        }
-      }
-    }
-
-    &--indeterminate {
-      .va-checkbox {
-        &__icon {
-          color: var(--va-checkbox-indeterminate-icon-color);
-        }
+      .va-checkbox--left-label & {
+        flex-direction: row-reverse;
       }
     }
   }
+
+  #{&}__square {
+    @include flex-center();
+
+    width: var(--va-checkbox-square-width);
+    min-width: var(--va-checkbox-square-min-width);
+    height: var(--va-checkbox-square-height);
+    position: relative;
+    background-color: var(--va-checkbox-square-background-color);
+    border: var(--va-checkbox-square-border, var(--va-control-border));
+    border-radius: var(--va-checkbox-square-border-radius);
+
+    @at-root {
+      .va-checkbox--on-keyboard-focus#{&} {
+        transition: all, 0.6s, ease-in;
+        box-shadow: 0 0 0.5rem 0 rgba(0, 0, 0, 0.3);
+      }
+    }
+  }
+
+  &__input {
+    @include visually-hidden;
+  }
+
+  &__label {
+    display: var(--va-checkbox-label-display);
+    position: relative;
+  }
+
+  &__icon {
+    pointer-events: none;
+    position: absolute;
+  }
+
+  &--selected {
+    .va-checkbox {
+      &__icon {
+        color: var(--va-checkbox-selected-icon-color);
+      }
+    }
+  }
+
+  &--indeterminate {
+    .va-checkbox {
+      &__icon {
+        color: var(--va-checkbox-indeterminate-icon-color);
+      }
+    }
+  }
+}
 </style>

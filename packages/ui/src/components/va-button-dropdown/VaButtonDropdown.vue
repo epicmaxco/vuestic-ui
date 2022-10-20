@@ -216,52 +216,52 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  @import 'variables';
-  @import '../../styles/resources';
+@import 'variables';
+@import '../../styles/resources';
 
-  .va-button-dropdown {
-    display: inline-block;
-    font-family: var(--va-font-family);
-    vertical-align: middle;
+.va-button-dropdown {
+  display: inline-block;
+  font-family: var(--va-font-family);
+  vertical-align: middle;
 
-    .va-button {
-      margin: var(--va-button-dropdown-button-margin);
+  .va-button {
+    margin: var(--va-button-dropdown-button-margin);
+  }
+
+  &--split {
+    .va-dropdown {
+      .va-dropdown__anchor {
+        margin: var(--va-button-dropdown-button-margin);
+      }
     }
 
-    &--split {
+    .va-button-group__left-icon {
       .va-dropdown {
-        .va-dropdown__anchor {
-          margin: var(--va-button-dropdown-button-margin);
+        .va-button {
+          border-top-right-radius: 0;
+          border-bottom-right-radius: 0;
         }
       }
 
-      .va-button-group__left-icon {
-        .va-dropdown {
-          .va-button {
-            border-top-right-radius: 0;
-            border-bottom-right-radius: 0;
-          }
-        }
+      > .va-button {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        border-left: none;
+      }
+    }
 
-        > .va-button {
+    :not(.va-button-group__left-icon) {
+      .va-dropdown {
+        .va-button {
           border-top-left-radius: 0;
           border-bottom-left-radius: 0;
-          border-left: none;
         }
-      }
-
-      :not(.va-button-group__left-icon) {
-        .va-dropdown {
-          .va-button {
-            border-top-left-radius: 0;
-            border-bottom-left-radius: 0;
-          }
-        }
-      }
-
-      .va-button {
-        @include keyboard-focus-outline($offset: -2px);
       }
     }
+
+    .va-button {
+      @include keyboard-focus-outline($offset: -2px);
+    }
   }
+}
 </style>

@@ -152,49 +152,49 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  @import "../../styles/resources";
-  @import "variables";
+@import "../../styles/resources";
+@import "variables";
 
-  .va-parallax {
-    display: var(--va-parallax-display);
-    position: relative;
-    overflow: hidden;
-    width: var(--va-parallax-width);
-    z-index: var(--va-parallax-z-index);
-    font-family: var(--va-font-family);
+.va-parallax {
+  display: var(--va-parallax-display);
+  position: relative;
+  overflow: hidden;
+  width: var(--va-parallax-width);
+  z-index: var(--va-parallax-z-index);
+  font-family: var(--va-font-family);
 
-    &__image-container {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 1;
-      contain: var(--va-parallax-image-container-contain);
-      user-select: var(--va-parallax-image-container-user-select);
-    }
-
-    &__image {
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      min-width: 100%;
-      min-height: 100%;
-      display: none;
-      transform: translate(-50%, 0);
-      will-change: var(--va-parallax-image-will-change);
-      transition: var(--va-parallax-image-transition);
-      z-index: 1;
-    }
-
-    &__item-container {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 2;
-      contain: strict;
-    }
+  &__image-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    contain: var(--va-parallax-image-container-contain);
+    user-select: var(--va-parallax-image-container-user-select);
   }
+
+  &__image {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    display: none;
+    transform: translate(-50%, 0);
+    will-change: var(--va-parallax-image-will-change);
+    transition: var(--va-parallax-image-transition);
+    z-index: 1;
+  }
+
+  &__item-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+    contain: strict;
+  }
+}
 </style>

@@ -123,118 +123,118 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  @import "../../styles/resources";
-  @import 'variables';
+@import "../../styles/resources";
+@import 'variables';
 
-  .va-progress-bar {
-    $p: &;
+.va-progress-bar {
+  $p: &;
 
-    width: var(--va-progress-bar-width);
+  width: var(--va-progress-bar-width);
+  position: relative;
+  overflow: hidden;
+  font-family: var(--va-font-family);
+  line-height: var(--va-progress-bar-line-height);
+
+  &__info {
+    font-weight: var(--va-progress-bar-info-font-weight);
+    text-align: var(--va-progress-bar-info-text-align);
+    text-transform: var(--va-progress-bar-info-text-transform);
+
+    &:not(:empty) {
+      margin-bottom: var(--va-progress-bar-info-not-empty-margin-bottom);
+    }
+  }
+
+  &__wrapper {
     position: relative;
     overflow: hidden;
-    font-family: var(--va-font-family);
-    line-height: var(--va-progress-bar-line-height);
+    border-radius: var(--va-progress-bar-border-radius);
 
-    &__info {
-      font-weight: var(--va-progress-bar-info-font-weight);
-      text-align: var(--va-progress-bar-info-text-align);
-      text-transform: var(--va-progress-bar-info-text-transform);
-
-      &:not(:empty) {
-        margin-bottom: var(--va-progress-bar-info-not-empty-margin-bottom);
-      }
+    #{$p}--small & {
+      height: var(--va-progress-bar-sm-height);
     }
 
-    &__wrapper {
-      position: relative;
-      overflow: hidden;
-      border-radius: var(--va-progress-bar-border-radius);
-
-      #{$p}--small & {
-        height: var(--va-progress-bar-sm-height);
-      }
-
-      #{$p}--medium & {
-        height: var(--va-progress-bar-height);
-      }
-
-      #{$p}--large & {
-        height: var(--va-progress-bar-lg-height);
-      }
+    #{$p}--medium & {
+      height: var(--va-progress-bar-height);
     }
 
-    &--square &__wrapper {
-      --va-progress-bar-border-radius: 0;
+    #{$p}--large & {
+      height: var(--va-progress-bar-lg-height);
     }
+  }
 
-    &__buffer {
-      position: absolute;
-      top: 0;
-      height: inherit;
-      border-radius: inherit;
-      transition: var(--va-progress-bar-buffer-transition);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      letter-spacing: var(--va-progress-bar-letter-spacing);
-      font-size: var(--va-progress-bar-font-size);
-      font-weight: var(--va-progress-bar-font-weight);
-      background-color: var(--va-progress-bar-background-color);
-    }
+  &--square &__wrapper {
+    --va-progress-bar-border-radius: 0;
+  }
 
-    &__progress {
-      height: inherit;
-      border-radius: inherit;
-      transition: var(--va-progress-bar-transition);
+  &__buffer {
+    position: absolute;
+    top: 0;
+    height: inherit;
+    border-radius: inherit;
+    transition: var(--va-progress-bar-buffer-transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: var(--va-progress-bar-letter-spacing);
+    font-size: var(--va-progress-bar-font-size);
+    font-weight: var(--va-progress-bar-font-weight);
+    background-color: var(--va-progress-bar-background-color);
+  }
+
+  &__progress {
+    height: inherit;
+    border-radius: inherit;
+    transition: var(--va-progress-bar-transition);
+    background-color: var(--va-progress-bar-color);
+
+    &--indeterminate-start {
       background-color: var(--va-progress-bar-color);
+      animation: va-progress-bar-indeterminate-start 2s ease-in infinite;
+      position: absolute;
+      height: inherit;
+    }
 
-      &--indeterminate-start {
-        background-color: var(--va-progress-bar-color);
-        animation: va-progress-bar-indeterminate-start 2s ease-in infinite;
-        position: absolute;
-        height: inherit;
-      }
-
-      &--indeterminate-end {
-        background-color: var(--va-progress-bar-color);
-        animation: va-progress-bar-indeterminate-end 2s ease-out 1s infinite;
-        position: absolute;
-        height: inherit;
-      }
+    &--indeterminate-end {
+      background-color: var(--va-progress-bar-color);
+      animation: va-progress-bar-indeterminate-end 2s ease-out 1s infinite;
+      position: absolute;
+      height: inherit;
     }
   }
+}
 
-  @keyframes va-progress-bar-indeterminate-start {
-    0% {
-      width: 10%;
-      left: -10%;
-    }
-
-    50% {
-      width: 100%;
-      left: 100%;
-    }
-
-    100% {
-      width: 100%;
-      left: 100%;
-    }
+@keyframes va-progress-bar-indeterminate-start {
+  0% {
+    width: 10%;
+    left: -10%;
   }
 
-  @keyframes va-progress-bar-indeterminate-end {
-    0% {
-      width: 100%;
-      left: -100%;
-    }
-
-    50% {
-      width: 10%;
-      left: 100%;
-    }
-
-    100% {
-      width: 10%;
-      left: 100%;
-    }
+  50% {
+    width: 100%;
+    left: 100%;
   }
+
+  100% {
+    width: 100%;
+    left: 100%;
+  }
+}
+
+@keyframes va-progress-bar-indeterminate-end {
+  0% {
+    width: 100%;
+    left: -100%;
+  }
+
+  50% {
+    width: 10%;
+    left: 100%;
+  }
+
+  100% {
+    width: 10%;
+    left: 100%;
+  }
+}
 </style>

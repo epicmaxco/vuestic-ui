@@ -525,224 +525,224 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  @import "../../styles/resources/index.scss";
-  @import "variables";
-  // The calculated variables are taken from a respective element's `style` attribute. See the `useStylable` hook
+@import "../../styles/resources/index.scss";
+@import "variables";
+// The calculated variables are taken from a respective element's `style` attribute. See the `useStylable` hook
 
-  .va-data-table {
-    --va-data-table-selected-color: v-bind(CSSVariables.selectedColor);
-    --va-data-table-hover-color: v-bind(CSSVariables.hoverColor);
-    --va-data-table-height--computed: v-bind(CSSVariables.tableHeight);
-    --va-data-table-thead-background--computed: v-bind(CSSVariables.theadBg);
-    --va-data-table-tfoot-background--computed: v-bind(CSSVariables.tfootBg);
+.va-data-table {
+  --va-data-table-selected-color: v-bind(CSSVariables.selectedColor);
+  --va-data-table-hover-color: v-bind(CSSVariables.hoverColor);
+  --va-data-table-height--computed: v-bind(CSSVariables.tableHeight);
+  --va-data-table-thead-background--computed: v-bind(CSSVariables.theadBg);
+  --va-data-table-tfoot-background--computed: v-bind(CSSVariables.tfootBg);
 
-    min-width: unset;
-    font-family: var(--va-font-family);
+  min-width: unset;
+  font-family: var(--va-font-family);
 
-    &:not(.va-data-table--virtual-scroller) {
-      overflow-x: auto;
-      overflow-y: hidden;
+  &:not(.va-data-table--virtual-scroller) {
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  &--sticky:not(.va-data-table--virtual-scroller),
+  &--scroll {
+    overflow-y: auto;
+    height: var(--va-data-table-height--computed);
+    max-height: var(--va-data-table-max-height);
+  }
+
+  .va-data-table__table {
+    width: 100%;
+    cursor: default;
+    white-space: nowrap;
+
+    .va-data-table__table-thead {
+      color: var(--va-data-table-thead-color);
+      border-bottom: var(--va-data-table-thead-border);
+
+      th {
+        border-bottom: none;
+        box-shadow: var(--va-data-table-thead-border-bottom-shadow);
+      }
+
+      &--sticky {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+        background: var(--va-data-table-thead-background--computed);
+      }
     }
 
-    &--sticky:not(.va-data-table--virtual-scroller),
-    &--scroll {
-      overflow-y: auto;
-      height: var(--va-data-table-height--computed);
-      max-height: var(--va-data-table-max-height);
+    .va-data-table__table-tbody {
+      .no-data {
+        text-align: var(--va-data-table-no-data-text-align);
+        vertical-align: var(--va-data-table-no-data-vertical-align);
+      }
     }
 
-    .va-data-table__table {
-      width: 100%;
-      cursor: default;
-      white-space: nowrap;
+    .va-data-table__table-tfoot {
+      color: var(--va-data-table-tfoot-color);
+      border-top: var(--va-data-table-thead-border);
 
-      .va-data-table__table-thead {
-        color: var(--va-data-table-thead-color);
-        border-bottom: var(--va-data-table-thead-border);
-
-        th {
-          border-bottom: none;
-          box-shadow: var(--va-data-table-thead-border-bottom-shadow);
-        }
-
-        &--sticky {
-          position: sticky;
-          top: 0;
-          z-index: 1;
-          background: var(--va-data-table-thead-background--computed);
-        }
+      th {
+        border-bottom: none;
+        box-shadow: var(--va-data-table-thead-border-top-shadow);
       }
 
-      .va-data-table__table-tbody {
-        .no-data {
-          text-align: var(--va-data-table-no-data-text-align);
-          vertical-align: var(--va-data-table-no-data-vertical-align);
-        }
+      &--sticky {
+        position: sticky;
+        bottom: 0;
+        z-index: 1;
+        background: var(--va-data-table-tfoot-background--computed);
+      }
+    }
+
+    .va-data-table__table-th {
+      padding: var(--va-data-table-cell-padding);
+      width: var(--va-data-table-width);
+      min-width: var(--va-data-table-width);
+      text-align: var(--va-data-table-align);
+      vertical-align: var(--va-data-table-vertical-align);
+      font-size: var(--va-data-table-thead-font-size);
+      line-height: var(--va-data-table-thead-line-height);
+      font-weight: var(--va-data-table-thead-font-weight);
+      text-transform: var(--va-data-table-thead-text-transform);
+      letter-spacing: var(--va-data-table-thead-letter-spacing);
+      cursor: var(--va-data-table-cursor);
+
+      .va-data-table__table-th-wrapper {
+        display: flex;
+        align-items: center;
+
+        @include keyboard-focus-outline($offset: 2px);
       }
 
-      .va-data-table__table-tfoot {
-        color: var(--va-data-table-tfoot-color);
-        border-top: var(--va-data-table-thead-border);
-
-        th {
-          border-bottom: none;
-          box-shadow: var(--va-data-table-thead-border-top-shadow);
-        }
-
-        &--sticky {
-          position: sticky;
-          bottom: 0;
-          z-index: 1;
-          background: var(--va-data-table-tfoot-background--computed);
-        }
+      .va-data-table__table-th-sorting {
+        justify-self: end;
+        line-height: 1;
       }
 
-      .va-data-table__table-th {
-        padding: var(--va-data-table-cell-padding);
-        width: var(--va-data-table-width);
-        min-width: var(--va-data-table-width);
-        text-align: var(--va-data-table-align);
-        vertical-align: var(--va-data-table-vertical-align);
-        font-size: var(--va-data-table-thead-font-size);
-        line-height: var(--va-data-table-thead-line-height);
-        font-weight: var(--va-data-table-thead-font-weight);
-        text-transform: var(--va-data-table-thead-text-transform);
-        letter-spacing: var(--va-data-table-thead-letter-spacing);
-        cursor: var(--va-data-table-cursor);
-
-        .va-data-table__table-th-wrapper {
-          display: flex;
-          align-items: center;
-
-          @include keyboard-focus-outline($offset: 2px);
-        }
-
-        .va-data-table__table-th-sorting {
-          justify-self: end;
-          line-height: 1;
-        }
-
-        .va-data-table__table-th-sorting-icon {
-          opacity: 0;
-          user-select: none;
-          pointer-events: none;
-
-          &.active {
-            opacity: 1;
-            pointer-events: initial;
-          }
-
-          &:focus-visible {
-            opacity: 1;
-          }
-        }
-
-        span {
-          flex-grow: 1;
-        }
-
-        &:hover {
-          .va-data-table__table-th-sorting-icon:not(.active, :focus-visible) {
-            opacity: var(--va-data-table-hover-th-opacity);
-          }
-        }
-      }
-
-      .va-data-table__table-td {
-        padding: var(--va-data-table-cell-padding);
-        text-align: var(--va-data-table-align);
-        vertical-align: var(--va-data-table-vertical-align);
-      }
-
-      .va-data-table__table-th,
-      .va-data-table__table-td {
-        &.va-data-table__table-cell-select {
-          width: var(--va-data-table-selectable-cell-width);
-          min-width: var(--va-data-table-selectable-cell-width);
-          text-align: var(--va-data-table-selectable-cell-text-align);
-          vertical-align: var(--va-data-table-selectable-cell-vertical-align);
-          cursor: var(--va-data-table-selectable-tr-cursor);
-        }
-
-        & .va-data-table__table-cell-checkbox {
-          display: block;
-        }
-      }
-
-      .va-data-table__table-tr {
-        &.selected {
-          background-color: var(--va-data-table-selected-color);
-        }
-      }
-
-      &.clickable {
-        .va-data-table__table-tr {
-          cursor: pointer;
-        }
-      }
-
-      &.striped {
-        .va-data-table__table-tr {
-          position: relative;
-          z-index: 0;
-
-          &:nth-child(2n) {
-            &:not(.selected) {
-              @include va-background(var(--va-data-table-striped-tr-background-color), var(--va-data-table-striped-tr-opacity), -1);
-            }
-          }
-        }
-      }
-
-      &.selectable,
-      &.hoverable {
-        :not(thead, tfoot) {
-          .va-data-table__table-tr {
-            &:hover {
-              background-color: var(--va-data-table-hover-color);
-            }
-          }
-
-          .va-data-table__table-tr:nth-child(2n) {
-            &:hover {
-              background-color: var(--va-data-table-hover-color);
-
-              @include va-background-opacity(transparent);
-            }
-          }
-        }
-      }
-
-      .table-transition-fade-leave-active {
-        transition: opacity var(--va-data-table-transition);
-      }
-
-      .table-transition-fade-enter-active {
-        transition: opacity var(--va-data-table-transition) 0.2s;
-      }
-
-      .table-transition-fade-enter-from,
-      .table-transition-shuffle-enter-from,
-      .table-transition-fade-leave-to,
-      .table-transition-shuffle-leave-to {
+      .va-data-table__table-th-sorting-icon {
         opacity: 0;
+        user-select: none;
+        pointer-events: none;
+
+        &.active {
+          opacity: 1;
+          pointer-events: initial;
+        }
+
+        &:focus-visible {
+          opacity: 1;
+        }
       }
 
-      .table-transition-shuffle-move {
-        transition: transform var(--va-data-table-transition);
+      span {
+        flex-grow: 1;
       }
 
-      .table-transition-shuffle-leave-active {
-        transition: none;
-      }
-
-      .table-transition-shuffle-enter-active {
-        transition: opacity var(--va-data-table-transition);
+      &:hover {
+        .va-data-table__table-th-sorting-icon:not(.active, :focus-visible) {
+          opacity: var(--va-data-table-hover-th-opacity);
+        }
       }
     }
 
-    &__scroll-trigger {
-      user-select: none;
+    .va-data-table__table-td {
+      padding: var(--va-data-table-cell-padding);
+      text-align: var(--va-data-table-align);
+      vertical-align: var(--va-data-table-vertical-align);
+    }
+
+    .va-data-table__table-th,
+    .va-data-table__table-td {
+      &.va-data-table__table-cell-select {
+        width: var(--va-data-table-selectable-cell-width);
+        min-width: var(--va-data-table-selectable-cell-width);
+        text-align: var(--va-data-table-selectable-cell-text-align);
+        vertical-align: var(--va-data-table-selectable-cell-vertical-align);
+        cursor: var(--va-data-table-selectable-tr-cursor);
+      }
+
+      & .va-data-table__table-cell-checkbox {
+        display: block;
+      }
+    }
+
+    .va-data-table__table-tr {
+      &.selected {
+        background-color: var(--va-data-table-selected-color);
+      }
+    }
+
+    &.clickable {
+      .va-data-table__table-tr {
+        cursor: pointer;
+      }
+    }
+
+    &.striped {
+      .va-data-table__table-tr {
+        position: relative;
+        z-index: 0;
+
+        &:nth-child(2n) {
+          &:not(.selected) {
+            @include va-background(var(--va-data-table-striped-tr-background-color), var(--va-data-table-striped-tr-opacity), -1);
+          }
+        }
+      }
+    }
+
+    &.selectable,
+    &.hoverable {
+      :not(thead, tfoot) {
+        .va-data-table__table-tr {
+          &:hover {
+            background-color: var(--va-data-table-hover-color);
+          }
+        }
+
+        .va-data-table__table-tr:nth-child(2n) {
+          &:hover {
+            background-color: var(--va-data-table-hover-color);
+
+            @include va-background-opacity(transparent);
+          }
+        }
+      }
+    }
+
+    .table-transition-fade-leave-active {
+      transition: opacity var(--va-data-table-transition);
+    }
+
+    .table-transition-fade-enter-active {
+      transition: opacity var(--va-data-table-transition) 0.2s;
+    }
+
+    .table-transition-fade-enter-from,
+    .table-transition-shuffle-enter-from,
+    .table-transition-fade-leave-to,
+    .table-transition-shuffle-leave-to {
+      opacity: 0;
+    }
+
+    .table-transition-shuffle-move {
+      transition: transform var(--va-data-table-transition);
+    }
+
+    .table-transition-shuffle-leave-active {
+      transition: none;
+    }
+
+    .table-transition-shuffle-enter-active {
+      transition: opacity var(--va-data-table-transition);
     }
   }
+
+  &__scroll-trigger {
+    user-select: none;
+  }
+}
 </style>

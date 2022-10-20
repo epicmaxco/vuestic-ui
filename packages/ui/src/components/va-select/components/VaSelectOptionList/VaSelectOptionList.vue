@@ -251,29 +251,29 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  @import "../../../../styles/resources";
-  @import "variables";
+@import "../../../../styles/resources";
+@import "variables";
 
-  .va-select-option-list {
-    overflow: auto;
-    width: var(--va-select-option-list-width);
-    max-height: var(--va-select-option-list-max-height);
-    display: flex;
-    flex-direction: column;
-    font-family: var(--va-font-family);
+.va-select-option-list {
+  overflow: auto;
+  width: var(--va-select-option-list-width);
+  max-height: var(--va-select-option-list-max-height);
+  display: flex;
+  flex-direction: column;
+  font-family: var(--va-font-family);
 
-    &--empty {
-      padding: var(--va-select-option-list-empty-block-padding);
-    }
-
-    @include va-scroll(var(--va-primary));
-
-    &__group-name {
-      padding: var(--va-select-option-list-group-name-padding);
-      font-size: var(--va-select-option-list-group-name-font-size);
-      color: var(--va-select-option-list-group-name-color);
-      font-weight: var(--va-select-option-list-group-name-font-weight);
-      text-transform: var(--va-select-option-list-group-name-text-transform);
-    }
+  &--empty {
+    padding: var(--va-select-option-list-empty-block-padding);
   }
+
+  @include va-scroll(var(--va-primary));
+
+  &__group-name {
+    padding: var(--va-select-option-list-group-name-padding);
+    font-size: var(--va-select-option-list-group-name-font-size);
+    color: var(--va-select-option-list-group-name-color);
+    font-weight: var(--va-select-option-list-group-name-font-weight);
+    text-transform: var(--va-select-option-list-group-name-text-transform);
+  }
+}
 </style>

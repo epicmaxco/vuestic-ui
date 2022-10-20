@@ -202,8 +202,8 @@ export default {
 </script>
 
 <style scoped>
-  .table {
-    border-collapse: separate;
-    border-spacing: 1rem;
-  }
+.table {
+  border-collapse: separate;
+  border-spacing: 1rem;
+}
 </style>

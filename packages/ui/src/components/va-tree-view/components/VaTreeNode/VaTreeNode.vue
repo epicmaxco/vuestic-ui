@@ -154,89 +154,89 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  @import "../../../../styles/resources/index";
-  @import 'variables';
+@import "../../../../styles/resources/index";
+@import 'variables';
 
-  .va-tree-node {
-    &-root {
-      display: flex;
-      padding: var(--va-tree-node-padding);
-      position: relative;
+.va-tree-node {
+  &-root {
+    display: flex;
+    padding: var(--va-tree-node-padding);
+    position: relative;
 
-      &::before {
-        content: "";
-        background-color: var(--va-primary);
-        border-radius: var(--va-tree-node-border-radius);
-        bottom: 0;
-        left: 0;
-        opacity: 0;
-        pointer-events: none;
-        position: absolute;
-        right: 0;
-        top: 0;
-      }
-
-      &:hover::before {
-        opacity: var(--va-tree-node-interactive-bg-opacity);
-      }
+    &::before {
+      content: "";
+      background-color: var(--va-primary);
+      border-radius: var(--va-tree-node-border-radius);
+      bottom: 0;
+      left: 0;
+      opacity: 0;
+      pointer-events: none;
+      position: absolute;
+      right: 0;
+      top: 0;
     }
 
-    &-content {
-      display: flex;
-      flex-wrap: nowrap;
-      align-items: center;
-      width: 100%;
-
-      &__item {
-        flex: var(--va-tree-node-content-item-flex);
-        min-width: var(--va-tree-node-indent);
-        line-height: 1;
-
-        &--leaf {
-          cursor: pointer;
-        }
-      }
-
-      &__body {
-        flex: var(--va-tree-node-content-body-item-flex);
-        width: 100%;
-      }
-
-      &--indent {
-        margin-left: var(--va-tree-node-indent);
-      }
-    }
-
-    &-children {
-      display: none;
-      background: var(--va-tree-node-children-background);
-      padding-left: var(--va-tree-node-indent);
-      width: 100%;
-
-      &--expanded {
-        display: block;
-      }
-    }
-
-    &__checkbox {
-      --va-checkbox-input-padding: 0;
-    }
-
-    &--disabled {
-      @include va-disabled;
-
-      .va-tree-node-content__item--leaf {
-        cursor: pointer;
-        pointer-events: all;
-      }
-    }
-
-    &:focus-visible > .va-tree-node-root {
-      @include focus-outline;
-
-      &::before {
-        opacity: var(--va-tree-node-interactive-bg-opacity);
-      }
+    &:hover::before {
+      opacity: var(--va-tree-node-interactive-bg-opacity);
     }
   }
+
+  &-content {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    width: 100%;
+
+    &__item {
+      flex: var(--va-tree-node-content-item-flex);
+      min-width: var(--va-tree-node-indent);
+      line-height: 1;
+
+      &--leaf {
+        cursor: pointer;
+      }
+    }
+
+    &__body {
+      flex: var(--va-tree-node-content-body-item-flex);
+      width: 100%;
+    }
+
+    &--indent {
+      margin-left: var(--va-tree-node-indent);
+    }
+  }
+
+  &-children {
+    display: none;
+    background: var(--va-tree-node-children-background);
+    padding-left: var(--va-tree-node-indent);
+    width: 100%;
+
+    &--expanded {
+      display: block;
+    }
+  }
+
+  &__checkbox {
+    --va-checkbox-input-padding: 0;
+  }
+
+  &--disabled {
+    @include va-disabled;
+
+    .va-tree-node-content__item--leaf {
+      cursor: pointer;
+      pointer-events: all;
+    }
+  }
+
+  &:focus-visible > .va-tree-node-root {
+    @include focus-outline;
+
+    &::before {
+      opacity: var(--va-tree-node-interactive-bg-opacity);
+    }
+  }
+}
 </style>

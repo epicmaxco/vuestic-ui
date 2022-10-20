@@ -337,136 +337,136 @@ export default defineComponent({
 </script>
 
 <style lang='scss'>
-  @import "../../styles/resources";
-  @import "variables";
+@import "../../styles/resources";
+@import "variables";
 
-  .va-pagination {
-    display: flex;
-    font-family: var(--va-font-family);
+.va-pagination {
+  display: flex;
+  font-family: var(--va-font-family);
 
-    &__input {
-      border-style: var(--va-pagination-input-border-style);
-      border-width: var(--va-pagination-input-border-width);
-      text-align: var(--va-pagination-input-text-align);
-      font-size: var(--va-pagination-input-font-size);
+  &__input {
+    border-style: var(--va-pagination-input-border-style);
+    border-width: var(--va-pagination-input-border-width);
+    text-align: var(--va-pagination-input-text-align);
+    font-size: var(--va-pagination-input-font-size);
 
-      // by default input's height relies on va-button size
-      &--sm {
-        height: var(--va-button-sm-size);
-      }
+    // by default input's height relies on va-button size
+    &--sm {
+      height: var(--va-button-sm-size);
+    }
 
-      &--md {
-        height: var(--va-button-size);
-      }
+    &--md {
+      height: var(--va-button-size);
+    }
 
-      &--lg {
-        height: var(--va-button-lg-size);
+    &--lg {
+      height: var(--va-button-lg-size);
+    }
+  }
+
+  .va-button {
+    &.va-input {
+      cursor: default;
+    }
+
+    &--ellipsis {
+      cursor: default;
+      opacity: 1;
+
+      & > .va-button__content {
+        opacity: 0.4;
       }
     }
 
-    .va-button {
-      &.va-input {
-        cursor: default;
-      }
+    &:focus-visible {
+      outline-offset: -2px;
 
-      &--ellipsis {
-        cursor: default;
-        opacity: 1;
-
-        & > .va-button__content {
-          opacity: 0.4;
-        }
-      }
-
-      &:focus-visible {
-        outline-offset: -2px;
-
-        &::before {
-          @include focus-outline($offset: -2px, $radius: 'inherit');
-        }
+      &::before {
+        @include focus-outline($offset: -2px, $radius: 'inherit');
       }
     }
+  }
 
-    & > :not(:first-child):not(:last-child) {
-      border-radius: 0;
-    }
+  & > :not(:first-child):not(:last-child) {
+    border-radius: 0;
+  }
 
-    & > :first-child {
-      border-top-right-radius: 0;
-      border-bottom-right-radius: 0;
-    }
+  & > :first-child {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
 
-    & > :last-child {
-      border-top-left-radius: 0;
-      border-bottom-left-radius: 0;
-    }
+  & > :last-child {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
 
-    &--gapped {
-      &.va-pagination > .va-button {
-        border-radius: var(--va-button-border-radius);
-        margin-right: var(--va-pagination-gap);
-        border-style: solid;
+  &--gapped {
+    &.va-pagination > .va-button {
+      border-radius: var(--va-button-border-radius);
+      margin-right: var(--va-pagination-gap);
+      border-style: solid;
 
-        &:last-child {
-          margin-right: 0;
-        }
+      &:last-child {
+        margin-right: 0;
       }
     }
+  }
 
-    &--bordered {
-      &.va-pagination > .va-button {
-        border-style: solid;
+  &--bordered {
+    &.va-pagination > .va-button {
+      border-style: solid;
 
-        &::before {
-          border-radius: unset;
-        }
+      &::before {
+        border-radius: unset;
       }
     }
+  }
 
-    &--rounded {
-      &.va-pagination > .va-button {
-        border-radius: 9999px;
+  &--rounded {
+    &.va-pagination > .va-button {
+      border-radius: 9999px;
 
-        &::before {
-          border-radius: inherit;
+      &::before {
+        border-radius: inherit;
+      }
+
+      &.va-button--small {
+        &.va-button--icon-only {
+          width: var(--va-button-sm-size);
+          height: var(--va-button-sm-size);
         }
 
-        &.va-button--small {
-          &.va-button--icon-only {
-            width: var(--va-button-sm-size);
-            height: var(--va-button-sm-size);
-          }
+        & .va-button__content {
+          padding-right: var(--va-button-sm-content-px);
+          padding-left: var(--va-button-sm-content-px);
+        }
+      }
 
-          & .va-button__content {
-            padding-right: var(--va-button-sm-content-px);
-            padding-left: var(--va-button-sm-content-px);
-          }
+      &.va-button--normal {
+        & .va-button--icon-only {
+          width: var(--va-button-sm-size);
+          height: var(--va-button-sm-size);
         }
 
-        &.va-button--normal {
-          & .va-button--icon-only {
-            width: var(--va-button-sm-size);
-            height: var(--va-button-sm-size);
-          }
+        & .va-button__content {
+          padding-right: var(--va-button-sm-content-px);
+          padding-left: var(--va-button-sm-content-px);
+        }
+      }
 
-          & .va-button__content {
-            padding-right: var(--va-button-sm-content-px);
-            padding-left: var(--va-button-sm-content-px);
-          }
+      &.va-button--large {
+        &.va-button--icon-only {
+          width: var(--va-button-sm-size);
+          height: var(--va-button-sm-size);
         }
 
-        &.va-button--large {
-          &.va-button--icon-only {
-            width: var(--va-button-sm-size);
-            height: var(--va-button-sm-size);
-          }
-
-          & .va-button__content {
-            padding-right: var(--va-button-sm-content-px);
-            padding-left: var(--va-button-sm-content-px);
-          }
+        & .va-button__content {
+          padding-right: var(--va-button-sm-content-px);
+          padding-left: var(--va-button-sm-content-px);
         }
       }
     }
   }
+}
 </style>

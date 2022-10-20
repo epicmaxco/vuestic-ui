@@ -14,7 +14,7 @@ export default {
 </script>
 
 <style lang="scss">
-  .dropdown-close-button- {
+.dropdown-close-button- {
 
-  }
+}
 </style>

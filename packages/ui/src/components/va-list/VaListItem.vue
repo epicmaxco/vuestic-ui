@@ -60,26 +60,26 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  @import "../../styles/resources";
-  @import "variables";
+@import "../../styles/resources";
+@import "variables";
 
-  .va-list-item {
-    display: block;
-    font-family: var(--va-font-family);
+.va-list-item {
+  display: block;
+  font-family: var(--va-font-family);
 
-    &--disabled {
-      @include va-disabled;
-    }
-
-    &:not(.va-list-item--disabled) {
-      @include keyboard-focus-outline($radius: 2px, $offset: -2px);
-    }
-
-    &__inner {
-      display: var(--va-list-item-display);
-      align-items: var(--va-list-item-align-items);
-      width: var(--va-list-item-width);
-      height: var(--va-list-item-height);
-    }
+  &--disabled {
+    @include va-disabled;
   }
+
+  &:not(.va-list-item--disabled) {
+    @include keyboard-focus-outline($radius: 2px, $offset: -2px);
+  }
+
+  &__inner {
+    display: var(--va-list-item-display);
+    align-items: var(--va-list-item-align-items);
+    width: var(--va-list-item-width);
+    height: var(--va-list-item-height);
+  }
+}
 </style>

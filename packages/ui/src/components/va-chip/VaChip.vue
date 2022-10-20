@@ -168,73 +168,73 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  @import "../../styles/resources";
-  @import "variables";
+@import "../../styles/resources";
+@import "variables";
 
-  .va-chip {
-    display: var(--va-chip-display);
-    border: var(--va-chip-border, var(--va-control-border));
-    position: var(--va-chip-position);
-    border-radius: var(--va-chip-border-radius);
-    width: var(--va-chip-width);
-    height: var(--va-chip-height);
-    min-width: var(--va-chip-min-width);
-    min-height: var(--va-chip-min-height);
-    padding: var(--va-chip-padding);
-    color: var(--va-chip-color);
-    cursor: var(--va-chip-cursor);
-    font-size: var(--va-chip-font-size);
-    font-family: var(--va-font-family);
-    vertical-align: var(--va-chip-vertical-align);
+.va-chip {
+  display: var(--va-chip-display);
+  border: var(--va-chip-border, var(--va-control-border));
+  position: var(--va-chip-position);
+  border-radius: var(--va-chip-border-radius);
+  width: var(--va-chip-width);
+  height: var(--va-chip-height);
+  min-width: var(--va-chip-min-width);
+  min-height: var(--va-chip-min-height);
+  padding: var(--va-chip-padding);
+  color: var(--va-chip-color);
+  cursor: var(--va-chip-cursor);
+  font-size: var(--va-chip-font-size);
+  font-family: var(--va-font-family);
+  vertical-align: var(--va-chip-vertical-align);
 
-    &__inner {
-      display: var(--va-chip-inner-display);
-      align-items: var(--va-chip-inner-align-items);
-      width: var(--va-chip-inner-width);
-      vertical-align: inherit;
-    }
+  &__inner {
+    display: var(--va-chip-inner-display);
+    align-items: var(--va-chip-inner-align-items);
+    width: var(--va-chip-inner-width);
+    vertical-align: inherit;
+  }
 
-    &:hover {
-      opacity: var(--va-chip-hover-opacity);
-    }
+  &:hover {
+    opacity: var(--va-chip-hover-opacity);
+  }
 
-    &__content {
-      display: var(--va-chip-content-display);
-      justify-content: var(--va-chip-content-justify-content);
-      align-items: var(--va-chip-content-align-items);
-      padding: var(--va-chip-content-padding);
-      line-height: var(--va-chip-content-line-height);
-      width: var(--va-chip-content-width);
-    }
+  &__content {
+    display: var(--va-chip-content-display);
+    justify-content: var(--va-chip-content-justify-content);
+    align-items: var(--va-chip-content-align-items);
+    padding: var(--va-chip-content-padding);
+    line-height: var(--va-chip-content-line-height);
+    width: var(--va-chip-content-width);
+  }
 
-    &__close-icon {
-      cursor: pointer;
+  &__close-icon {
+    cursor: pointer;
 
-      @at-root {
-        .va-chip--disabled {
-          .va-chip__close-icon {
-            cursor: default !important;
-          }
+    @at-root {
+      .va-chip--disabled {
+        .va-chip__close-icon {
+          cursor: default !important;
         }
       }
     }
-
-    &--square {
-      border-radius: var(--va-chip-square-border-radius, var(--va-square-border-radius));
-    }
-
-    &--small {
-      height: var(--va-chip-sm-height);
-      font-size: var(--va-chip-sm-font-size);
-    }
-
-    &--large {
-      height: var(--va-chip-lg-height);
-      font-size: var(--va-chip-lg-font-size);
-    }
-
-    &.va-chip--disabled {
-      @include va-disabled;
-    }
   }
+
+  &--square {
+    border-radius: var(--va-chip-square-border-radius, var(--va-square-border-radius));
+  }
+
+  &--small {
+    height: var(--va-chip-sm-height);
+    font-size: var(--va-chip-sm-font-size);
+  }
+
+  &--large {
+    height: var(--va-chip-lg-height);
+    font-size: var(--va-chip-lg-font-size);
+  }
+
+  &.va-chip--disabled {
+    @include va-disabled;
+  }
+}
 </style>

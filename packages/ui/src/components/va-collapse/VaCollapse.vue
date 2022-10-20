@@ -172,82 +172,82 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  @import "../../styles/resources";
-  @import "variables";
+@import "../../styles/resources";
+@import "variables";
 
-  .va-collapse {
-    transition: var(--va-collapse-transition, var(--va-swing-transition));
-    font-family: var(--va-font-family);
+.va-collapse {
+  transition: var(--va-collapse-transition, var(--va-swing-transition));
+  font-family: var(--va-font-family);
 
-    &__body-wrapper {
-      position: relative;
-      transition: var(--va-collapse-body-transition);
-      overflow: hidden;
+  &__body-wrapper {
+    position: relative;
+    transition: var(--va-collapse-body-transition);
+    overflow: hidden;
+  }
+
+  &__body {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  &__header {
+    display: var(--va-collapse-header-content-display);
+    justify-content: var(--va-collapse-header-content-justify-content);
+    cursor: var(--va-collapse-header-content-cursor);
+    background-color: var(--va-collapse-header-content-background-color);
+    box-shadow: var(--va-collapse-header-content-box-shadow, var(--va-block-box-shadow));
+    border-radius: var(--va-collapse-header-content-border-radius, var(--va-block-border-radius));
+    align-items: var(--va-collapse-header-content-align-items);
+    padding-top: var(--va-collapse-header-content-padding-top);
+    padding-bottom: var(--va-collapse-header-content-padding-bottom);
+    padding-left: var(--va-collapse-header-content-padding-left);
+
+    &__text {
+      width: var(--va-collapse-header-content-text-width);
     }
 
-    &__body {
-      position: absolute;
-      top: 0;
-      left: 0;
+    &__icon {
+      @include flex-center();
+
+      min-width: var(--va-collapse-header-content-icon-min-width);
+      margin-left: var(--va-collapse-header-content-icon-margin-left);
+      margin-right: var(--va-collapse-header-content-icon-margin-right);
+      color: var(--va-collapse-header-content-icon-color);
     }
 
-    &__header {
-      display: var(--va-collapse-header-content-display);
-      justify-content: var(--va-collapse-header-content-justify-content);
-      cursor: var(--va-collapse-header-content-cursor);
-      background-color: var(--va-collapse-header-content-background-color);
-      box-shadow: var(--va-collapse-header-content-box-shadow, var(--va-block-box-shadow));
-      border-radius: var(--va-collapse-header-content-border-radius, var(--va-block-border-radius));
-      align-items: var(--va-collapse-header-content-align-items);
-      padding-top: var(--va-collapse-header-content-padding-top);
-      padding-bottom: var(--va-collapse-header-content-padding-bottom);
-      padding-left: var(--va-collapse-header-content-padding-left);
+    @include keyboard-focus-outline(var(--va-collapse-header-content-border-radius));
+  }
 
-      &__text {
-        width: var(--va-collapse-header-content-text-width);
+  &--solid {
+    box-shadow: var(--va-collapse-solid-box-shadow);
+    border-radius: var(--va-collapse-solid-border-radius);
+
+    .va-collapse {
+      &__header {
+        border-radius: var(--va-collapse-solid-header-content-border-radius, var(--va-block-border-radius));
+        transition: var(--va-collapse-solid-header-content-transition);
+        box-shadow: var(--va-collapse-solid-header-content-box-shadow, var(--va-block-box-shadow));
+        background-color: var(--va-collapse-solid-header-content-background-color);
       }
 
-      &__icon {
-        @include flex-center();
-
-        min-width: var(--va-collapse-header-content-icon-min-width);
-        margin-left: var(--va-collapse-header-content-icon-margin-left);
-        margin-right: var(--va-collapse-header-content-icon-margin-right);
-        color: var(--va-collapse-header-content-icon-color);
+      &__body {
+        border-radius: var(--va-collapse-solid-body-border-radius);
+        margin-top: var(--va-collapse-solid-body-margin-top);
       }
-
-      @include keyboard-focus-outline(var(--va-collapse-header-content-border-radius));
-    }
-
-    &--solid {
-      box-shadow: var(--va-collapse-solid-box-shadow);
-      border-radius: var(--va-collapse-solid-border-radius);
-
-      .va-collapse {
-        &__header {
-          border-radius: var(--va-collapse-solid-header-content-border-radius, var(--va-block-border-radius));
-          transition: var(--va-collapse-solid-header-content-transition);
-          box-shadow: var(--va-collapse-solid-header-content-box-shadow, var(--va-block-box-shadow));
-          background-color: var(--va-collapse-solid-header-content-background-color);
-        }
-
-        &__body {
-          border-radius: var(--va-collapse-solid-body-border-radius);
-          margin-top: var(--va-collapse-solid-body-margin-top);
-        }
-      }
-    }
-
-    &--popout {
-      margin: var(--va-collapse-popout-margin);
-    }
-
-    &--inset {
-      margin: var(--va-collapse-inset-margin);
-    }
-
-    &--disabled {
-      @include va-disabled();
     }
   }
+
+  &--popout {
+    margin: var(--va-collapse-popout-margin);
+  }
+
+  &--inset {
+    margin: var(--va-collapse-inset-margin);
+  }
+
+  &--disabled {
+    @include va-disabled();
+  }
+}
 </style>

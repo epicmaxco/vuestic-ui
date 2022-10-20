@@ -96,13 +96,13 @@ export default defineComponent({
 </script>
 
 <style lang='scss'>
-  .va-file-upload-list {
-    display: flex;
-    flex-wrap: wrap;
-    padding: 0 0 1.5rem;
+.va-file-upload-list {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 0 1.5rem;
 
-    &--gallery {
-      padding-bottom: 0.5rem;
-    }
+  &--gallery {
+    padding-bottom: 0.5rem;
   }
+}
 </style>

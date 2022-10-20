@@ -264,14 +264,14 @@ export default {
 </script>
 
 <style scoped>
-  .center {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+.center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-  .addScroll {
-    overflow-y: auto;
-    max-height: 400px;
-  }
+.addScroll {
+  overflow-y: auto;
+  max-height: 400px;
+}
 </style>

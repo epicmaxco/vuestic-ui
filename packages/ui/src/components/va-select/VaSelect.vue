@@ -714,55 +714,55 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  @import "../../styles/resources";
-  @import "variables";
+@import "../../styles/resources";
+@import "variables";
 
-  .va-select {
-    min-width: var(--va-select-min-width);
+.va-select {
+  min-width: var(--va-select-min-width);
 
-    & .va-input-wrapper__text {
-      line-height: normal;
-      flex-wrap: wrap;
-    }
+  & .va-input-wrapper__text {
+    line-height: normal;
+    flex-wrap: wrap;
+  }
+}
+
+.va-select-anchor {
+  &__input {
+    cursor: var(--va-select-cursor);
+    flex: 1;
   }
 
-  .va-select-anchor {
-    &__input {
-      cursor: var(--va-select-cursor);
-      flex: 1;
-    }
+  &__placeholder {
+    color: var(--va-input-placeholder-text-color);
+    line-height: normal;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    flex: 1;
+  }
+}
 
-    &__placeholder {
-      color: var(--va-input-placeholder-text-color);
-      line-height: normal;
-      white-space: nowrap !important;
-      overflow: hidden !important;
-      text-overflow: ellipsis !important;
-      flex: 1;
-    }
+.va-select-dropdown {
+  &__content {
+    overflow: hidden;
+    border-bottom-right-radius: var(--va-select-dropdown-border-radius);
+    border-bottom-left-radius: var(--va-select-dropdown-border-radius);
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+    box-shadow: var(--va-select-box-shadow);
+    padding: 0;
   }
 
-  .va-select-dropdown {
-    &__content {
-      overflow: hidden;
-      border-bottom-right-radius: var(--va-select-dropdown-border-radius);
-      border-bottom-left-radius: var(--va-select-dropdown-border-radius);
-      border-top-right-radius: 0;
-      border-top-left-radius: 0;
-      box-shadow: var(--va-select-box-shadow);
-      padding: 0;
-    }
-
-    &__content-search-input {
-      min-width: auto;
-      width: 100%;
-    }
-
-    &__options-wrapper {
-      background: var(--va-select-dropdown-background);
-      overflow-y: auto;
-
-      @include va-scroll(var(--va-background-secondary));
-    }
+  &__content-search-input {
+    min-width: auto;
+    width: 100%;
   }
+
+  &__options-wrapper {
+    background: var(--va-select-dropdown-background);
+    overflow-y: auto;
+
+    @include va-scroll(var(--va-background-secondary));
+  }
+}
 </style>
