@@ -130,10 +130,6 @@ const gitLink = computed(
       margin-right: 0.25rem;
       font-weight: bold;
 
-      div {
-        color: var(--va-gray);
-      }
-
       &:hover {
         background: none !important;
         opacity: 0.7;

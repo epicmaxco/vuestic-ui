@@ -22,7 +22,8 @@
         />
       </template>
     </va-tabs>
-    <va-tabs v-model="value" color="secondary">
+
+    <va-tabs class="mt-2" v-model="value" color="secondary">
       <template #tabs>
         <va-tab color="success">First tab</va-tab>
         <va-tab color="warning">Second tab</va-tab>

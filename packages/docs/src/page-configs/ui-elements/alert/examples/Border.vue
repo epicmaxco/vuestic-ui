@@ -11,7 +11,7 @@
   <va-alert color="warning" border="left" class="mb-4">
     {{ $t('alert.misc.warning') }}
   </va-alert>
-  <va-alert color="gray" border="top" border-color="danger" class="mb-4">
+  <va-alert color="danger" border="top" class="mb-4">
     {{ $t('alert.misc.danger') }}
   </va-alert>
 </template>
