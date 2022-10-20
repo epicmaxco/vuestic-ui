@@ -3625,13 +3625,9 @@
   },
   "team": {
     "title": "Meet the Team",
-    "description": "With multiple contributors to Vuestic, the list of people you can meet below is by no means exhaustive. Just remember to thank everyone using Vuestic and supporting us, because together we all help you push your products light-years ahead of your competition.",
+    "description": "Hi there, we are really pleased to meet you too!\n\nVuestic started as a small admin template back in 2017. It was released on GitHub and was warmly embraced by the Vue.js community. Since then we’ve been contributing to Vuestic daily and today it’s grown into a full-fledged framework with a decent ecosystem around it.\n\nThe team behind Vuestic is in ❤️ with Vue.js and Open Source. We’re doing our best to make developers’ lives easier and  joyful.",
     "coreTeam": "Core Team \uD83E\uDD13",
-    "coreTeamDescription": "[Epicmax](https://epicmax.co/)[[target=_blank]] is committed to open source project from its beginning. Vuestic was created by Epicmax, and is supported through all years. Please meet the core contributors. Write to [Discord](https://discord.com/invite/u7fQdqQt8c)[[target=_blank]] anytime and get a quick response from the Vuestic core team.",
-    "featureRich": "Contains a **50+ feature-rich components** that can be used in any design solution",
-    "configurable": "Allows **to configure components** globally via config and CSS variables",
-    "responsive": "Fully **responsive** and **supports modern browsers** (no IE11, sorry)",
-    "translatable": "Integrates seamlessly with **i18n**",
+    "coreTeamDescription": "Established in 2017, [Epicmax](https://epicmax.co/)[[target=_blank]] is a Vue.js development company with over 55 successfully completed projects for it’s clients all over the world.\n\nThe company is committed to Open Source from its beginning. Vuestic was created and backed by Epicmax, and is supported through all the years. You can support us by ordering a consultation or web development services. \n\nAnd now, please meet the core contributors \uD83C\uDF89",
     "specialThanks": "Special Thanks \uD83D\uDE4C",
     "specialThanksDescription": "We’d like to thank all contributors, not only to those who push commits and leave their suggestions on how to improve Vuestic, but all of you, who use Vuestic to bring your power your projects."
   },

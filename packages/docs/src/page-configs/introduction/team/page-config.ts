@@ -26,8 +26,8 @@ const config: ApiDocsBlock[] = [
               url: 'https://twitter.com/Epicmaxco',
             },
             {
-              name: 'fa fa-facebook',
-              url: 'https://www.facebook.com/profile.php?id=100007598655934',
+              name: 'fa fa-discord',
+              url: 'https://discordapp.com/users/344501320117387265',
             },
           ],
         },
@@ -41,12 +41,8 @@ const config: ApiDocsBlock[] = [
               url: 'https://github.com/asvae',
             },
             {
-              name: 'fa fa-twitter',
-              url: 'https://twitter.com/asvaee',
-            },
-            {
-              name: 'fa fa-facebook',
-              url: 'https://www.facebook.com/yauheni.prakopchyk',
+              name: 'fa fa-discord',
+              url: 'https://discordapp.com/users/212184431610298369',
             },
           ],
         },
