@@ -1597,7 +1597,8 @@
   },
   "kitchensink": {
     "title": "Kitchesink",
-    "description": "At this page you can see examples for all components, this is a great place to get started with `Vuestic`. For even more examples you can check `UI Elements` tab in menu."
+    "description": "At this page you can see examples for all components, this is a great place to get started with `Vuestic`. For even more examples you can check `UI Elements` tab in menu.",
+    "seeMore": "See more"
   },
   "documentationPage": {
     "compilesTo": "Compiles to:",
