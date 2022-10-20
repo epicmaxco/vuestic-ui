@@ -91,7 +91,7 @@
                     <va-button
                       v-if="$props.cancelText"
                       preset="plain"
-                      color="gray"
+                      color="secondary"
                       class="mr-3"
                       @click="cancel"
                     >

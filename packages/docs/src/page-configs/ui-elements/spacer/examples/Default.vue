@@ -1,5 +1,5 @@
 <template>
-  <va-card color="background">
+  <va-card>
     <va-card-content>
       <div class="d-flex">
         <va-button>Button</va-button>

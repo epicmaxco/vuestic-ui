@@ -41,6 +41,8 @@ importedConfigsContext.keys().forEach(async (filename) => {
       blockElement.component === 'Default',
   )
 
+  const path = `/ui-elements/${filename.replace('/page-config.ts', '').replace('./', '')}`
+
   if (
     !example ||
     !titleBlock ||
@@ -57,5 +59,10 @@ importedConfigsContext.keys().forEach(async (filename) => {
     exampleOptions: {
       hideCode: true,
     },
+  })
+  config.push({
+    type: BlockType.LINK,
+    text: 'kitchensink.seeMore',
+    href: path,
   })
 })

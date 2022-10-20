@@ -10,7 +10,7 @@ export default defineComponent({
     ...useAlignProps,
     ...useComponentPresetProp,
     separator: { type: String, default: '/' },
-    color: { type: String, default: 'gray' },
+    color: { type: String, default: 'secondary' },
     activeColor: { type: String, default: null },
     separatorColor: { type: String, default: null },
   },
