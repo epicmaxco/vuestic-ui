@@ -6,10 +6,6 @@ import { warn } from '../services/utils'
 type Stringable = number | string | boolean | undefined
 
 const applyI18nTemplate = (key: string, values?: Record<string, Stringable>) => {
-  if (!key) {
-    warn(`${key} not found in VuesticUI i18n config`)
-    return ''
-  }
   if (!values) { return key }
 
   Object.keys(values).forEach((valueKey) => {
@@ -35,7 +31,12 @@ export const useTranslation = () => {
       return key
     },
     t (key: string, values?: Record<string, Stringable>) {
-      return (applyI18nTemplate(config.value[key as keyof I18nConfig], values) || key)
+      const translated = config.value[key as keyof I18nConfig]
+      if (!translated) {
+        warn(`${key} not found in VuesticUI i18n config`)
+        return key
+      }
+      return (applyI18nTemplate(translated, values) || key)
     },
   }
 }
