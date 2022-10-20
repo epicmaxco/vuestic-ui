@@ -1,5 +1,5 @@
 <template>
-  <va-list id="lines-list-example">
+  <va-list>
     <va-list-label>
       Lines
     </va-list-label>
@@ -51,11 +51,7 @@ export default {
 </script>
 
 <style lang="scss">
-  #lines-list-example {
-    padding: 0;
-
-    .list__item:not(:last-child) {
-      margin-bottom: 20px;
-    }
+  .list__item + .list__item {
+    margin-top: 20px;
   }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <va-list id="disabled-list-example">
+  <va-list>
     <va-list-label color="#ff0000">
       Blocked
     </va-list-label>
@@ -52,11 +52,7 @@ export default {
 </script>
 
 <style lang="scss">
-  #disabled-list-example {
-    padding: 0;
-
-    .list__item:not(:last-child) {
-      margin-bottom: 20px;
-    }
+  .list__item + .list__item {
+    margin-top: 20px;
   }
 </style>
