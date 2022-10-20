@@ -2,15 +2,14 @@
   <va-tree-view :nodes="nodes" expand-all>
     <template #content="node">
       <div class="d-flex align-center">
+        <va-icon class="mr-2" :name="nodeIcon(node)" :color="nodeColor(node)" />
+
         <span>{{ node.label }}</span>
 
         <va-popover v-if="node.description" :message="node.description" stick-to-edges>
           <va-icon class="ml-2" name="help" size="small" color="backgroundElement" />
         </va-popover>
       </div>
-    </template>
-    <template #icon="node">
-      <va-icon :name="node.icon" :color="node.isDirectory ? 'warning' : 'info'" />
     </template>
   </va-tree-view>
 </template>
@@ -34,15 +33,16 @@ export default defineComponent({
       id: id,
       label: file.name,
       description: file.description,
-      icon: file.icon ? file.icon : file.children?.length ? 'folder' : 'description',
-      isDirectory: (file.children?.length || 0) > 0,
       children: file.children?.map((child, index) => compileNode(child, id + index)) as TreeNode[],
     })
 
+    const nodeIcon = (node: TreeNode) => node.icon || (node.hasChildren ? 'folder' : 'description')
+    const nodeColor = (node: TreeNode) => node.hasChildren ? 'warning' : 'info'
+
     return {
-      nodes: computed(() => {
-        return props.files.map(compileNode)
-      }),
+      nodeIcon,
+      nodeColor,
+      nodes: computed(() => props.files.map(compileNode)),
     }
   },
 })
