@@ -3627,9 +3627,9 @@
     "title": "Meet the Team",
     "description": "Hi there, we are really pleased to meet you too!\n\nVuestic started as a small admin template back in 2017. It was released on GitHub and was warmly embraced by the Vue.js community. Since then we’ve been contributing to Vuestic daily and today it’s grown into a full-fledged framework with a decent ecosystem around it.\n\nThe team behind Vuestic is in ❤️ with Vue.js and Open Source. We’re doing our best to make developers’ lives easier and  joyful.",
     "coreTeam": "Core Team \uD83E\uDD13",
-    "coreTeamDescription": "Established in 2017, [Epicmax](https://epicmax.co/)[[target=_blank]] is a Vue.js development company with over 55 successfully completed projects for it’s clients all over the world.\n\nThe company is committed to Open Source from its beginning. Vuestic was created and backed by Epicmax, and is supported through all the years. You can support us by ordering a consultation or web development services. \n\nAnd now, please meet the core contributors \uD83C\uDF89",
+    "coreTeamDescription": "Established in 2017, [Epicmax](https://epicmax.co/)[[target=_blank]] is a Vue.js development company with over 55 successfully completed projects for it’s clients all over the world.\n\nThe company is committed to Open Source from its beginning. Vuestic was created and backed by Epicmax, and is supported through all the years. You can request a consultation or order web development services by Epicmax via this [form](https://epicmax.co/contacts)[[target=_blank]]\n\nAnd now, please meet the core contributors \uD83C\uDF89",
     "specialThanks": "Special Thanks \uD83D\uDE4C",
-    "specialThanksDescription": "We’d like to thank all contributors, not only to those who push commits and leave their suggestions on how to improve Vuestic, but all of you, who use Vuestic to bring your power your projects."
+    "specialThanksDescription": "We’d like to thank all contributors and users of Vuestic. Your constant assistance, insights and feedback not only help Vuestic to get a better ecosystem, but also charges the core team with energy and enthusiasm to go an extra mile. With you everything is possible."
   },
   "translation": {
     "title": "Translation",
