@@ -19,7 +19,7 @@ export const VuesticConfig: Partial<GlobalConfig> = {
         landingHeader: {
           size: 'large',
           plain: true,
-          'hover-behaviour': 'mask',
+          'hover-behavior': 'mask',
           'hover-mask-color': 'textDark',
           'hover-opacity': '1',
         },

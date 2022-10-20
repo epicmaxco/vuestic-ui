@@ -167,8 +167,8 @@ export default defineComponent({
       const presetProps = [
         'plain',
         'textOpacity', 'backgroundOpacity',
-        'hoverOpacity', 'hoverBehaviour', 'hoverOpacity',
-        'pressedOpacity', 'pressedBehaviour', 'pressedOpacity',
+        'hoverOpacity', 'hoverBehavior', 'hoverOpacity',
+        'pressedOpacity', 'pressedBehavior', 'pressedOpacity',
       ]
 
       if (props.preset) {

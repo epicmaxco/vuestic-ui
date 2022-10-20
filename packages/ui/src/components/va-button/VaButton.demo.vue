@@ -15,19 +15,19 @@
 
         <tr>
           <td>
-            Custom hover behaviour
+            Custom hover behavior
           </td>
           <td>
-            <va-button :backgroundOpacity="0.9" hoverBehaviour="opacity" :hoverOpacity="0.4">
+            <va-button :backgroundOpacity="0.9" hoverBehavior="opacity" :hoverOpacity="0.4">
               Hover me
             </va-button>
-            <va-button preset="primary" hoverBehaviour="mask" hoverMaskColor="warning" :hoverOpacity="1">
+            <va-button preset="primary" hoverBehavior="mask" hoverMaskColor="warning" :hoverOpacity="1">
               Hover me
             </va-button>
-            <va-button preset="secondary" hoverBehaviour="opacity" :hoverOpacity="0.4">
+            <va-button preset="secondary" hoverBehavior="opacity" :hoverOpacity="0.4">
               Hover me
             </va-button>
-            <va-button preset="plain" hoverBehaviour="mask" hoverMaskColor="warning" :hoverOpacity="1">
+            <va-button preset="plain" hoverBehavior="mask" hoverMaskColor="warning" :hoverOpacity="1">
               Hover me
             </va-button>
           </td>
@@ -35,20 +35,20 @@
 
         <tr>
           <td>
-            Custom press behaviour
+            Custom press behavior
           </td>
           <td>
             <va-button :backgroundOpacity="0.9" pressedBehaviur="opacity" :hoverOpacity="0.4">
-              Hover me
+              Press me
             </va-button>
             <va-button preset="primary" pressedBehavior="mask" :hoverOpacity="0.2">
-              Hover me
+              Press me
             </va-button>
             <va-button preset="secondary" pressedBehavior="opacity" :hoverOpacity="0.4">
-              Hover me
+              Press me
             </va-button>
-            <va-button preset="plain" hoverBehaviour="mask" hoverMaskColor="warning" :hoverOpacity="1">
-              Hover me
+            <va-button preset="plain" hoverBehavior="mask" hoverMaskColor="warning" :hoverOpacity="1">
+              Press me
             </va-button>
           </td>
         </tr>

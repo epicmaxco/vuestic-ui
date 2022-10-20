@@ -38,14 +38,14 @@ export const useButtonBackground: UseButtonBackground = (
   const pressedBgState = computed(() => !props.plain && isPressed.value)
 
   const backgroundColorOpacity = computed(() => {
-    if (pressedBgState.value && props.pressedBehaviour === 'opacity') { return props.pressedOpacity }
-    if (hoveredBgState.value && props.hoverBehaviour === 'opacity') { return props.hoverOpacity }
+    if (pressedBgState.value && props.pressedBehavior === 'opacity') { return props.pressedOpacity }
+    if (hoveredBgState.value && props.hoverBehavior === 'opacity') { return props.hoverOpacity }
 
     return props.backgroundOpacity
   })
 
-  const hoveredMaskState = computed(() => hoveredBgState.value && props.hoverBehaviour === 'mask')
-  const pressedMaskState = computed(() => pressedBgState.value && props.pressedBehaviour === 'mask')
+  const hoveredMaskState = computed(() => hoveredBgState.value && props.hoverBehavior === 'mask')
+  const pressedMaskState = computed(() => pressedBgState.value && props.pressedBehavior === 'mask')
 
   const backgroundMaskOpacity = computed(() => {
     if (pressedMaskState.value) { return props.pressedOpacity }
