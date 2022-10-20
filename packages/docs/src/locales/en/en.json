@@ -160,12 +160,12 @@
         "hideOnScroll": "Hides component when scrolling.",
         "bottom": "Sets the component position to the bottom (`fixed` state).",
         "backgroundOpacity": "Sets up button background opacity.",
-        "hoverBehaviour": "Behaviour of the button, when it's being hovered. Can be `mask` (superimposes color mask on the background or text color for plain state) or `opacity` (adds opacity to the background or text color for plain state).",
-        "hoverMaskColor": "Mask color for `mask` behaviour.",
-        "hoverOpacity": "Opacity value for `opacity` behaviour and mask opacity for `mask` behaviour.",
-        "pressedBehaviour": "Behaviour of the button, when it's being pressed. Can be `mask` (superimposes color mask on the background or text color for plain state) or `opacity` (adds opacity to the background or text color for plain state).",
-        "pressedMaskColor": "Mask color for `mask` behaviour.",
-        "pressedOpacity": "Opacity value for `opacity` behaviour and mask opacity for `mask` behaviour.",
+        "hoverBehavior": "Behavior of the button, when it's being hovered. Can be `mask` (superimposes color mask on the background or text color for plain state) or `opacity` (adds opacity to the background or text color for plain state).",
+        "hoverMaskColor": "Mask color for `mask` behavior.",
+        "hoverOpacity": "Opacity value for `opacity` behavior and mask opacity for `mask` behavior.",
+        "pressedBehavior": "Behavior of the button, when it's being pressed. Can be `mask` (superimposes color mask on the background or text color for plain state) or `opacity` (adds opacity to the background or text color for plain state).",
+        "pressedMaskColor": "Mask color for `mask` behavior.",
+        "pressedOpacity": "Opacity value for `opacity` behavior and mask opacity for `mask` behavior.",
         "textOpacity": "Sets up button text opacity.",
         "iconColor": "Sets up an icon color.",
         "type": "Will be used as value for html `type` attribute.",
@@ -1298,7 +1298,7 @@
         "modelValue": "Slide index to be shown.",
         "vertical": "Change slider scroll orientation.",
         "fadeKeyframe": "Custom keyframe name for fade animation",
-        "swipable": "Enables swiping behaviour.",
+        "swipable": "Enables swiping behavior.",
         "swipeDirection": "Allowed directions for swiping: `all, horizontal, vertical, left, right, up, down`.",
         "swipeDistance": "Distance in `px` considered sufficient for the swipe event."
       },
@@ -1851,9 +1851,9 @@
         "title": "Disabled",
         "text": "The `disabled` prop prevents any actions with button."
       },
-      "behaviour": {
-        "title": "Behaviour",
-        "text": "You can change hover or pressed behavior of the button via `hover`/`pressedBehaviour`, `hover`/`pressedMaskColor` and `hover`/`pressedOpacity` props."
+      "behavior": {
+        "title": "Behavior",
+        "text": "You can change hover or pressed behavior of the button via `hover`/`pressedBehavior`, `hover`/`pressedMaskColor` and `hover`/`pressedOpacity` props."
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-button/_variables.scss)[[target=_blank]]"
@@ -2115,7 +2115,7 @@
     },
     "hidingOverlay": {
       "title": "Hiding the overlay",
-      "text": "Hide the modal's overlay via setting the `overlay` prop to `false`.\n\nNote that clicking outside of the modal will still close the modal even though the overlay is hidden. You can disable this behaviour by setting the `no-outside-dismiss` prop on `va-modal`."
+      "text": "Hide the modal's overlay via setting the `overlay` prop to `false`.\n\nNote that clicking outside of the modal will still close the modal even though the overlay is hidden. You can disable this behavior by setting the `no-outside-dismiss` prop on `va-modal`."
     },
     "blurredOverlay": {
       "title": "Blurred overlay",
@@ -4435,7 +4435,7 @@
       },
       "swipe": {
         "title": "Swipe",
-        "text": "The `swipable` prop enables swipe behaviour for the component."
+        "text": "The `swipable` prop enables swipe behavior for the component."
       },
       "Ratio": {
         "title": "Ratio",

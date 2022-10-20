@@ -65,9 +65,9 @@ const config: ApiDocsBlock[] = [
     'WithLoading',
   ),
   ...block.exampleBlock(
-    'button.examples.behaviour.title',
-    'button.examples.behaviour.text',
-    'Behaviour',
+    'button.examples.behavior.title',
+    'button.examples.behavior.text',
+    'Behavior',
   ),
   ...block.exampleBlock(
     'button.examples.disabled.title',

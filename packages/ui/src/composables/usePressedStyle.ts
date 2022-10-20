@@ -1,7 +1,7 @@
 import { PropType } from 'vue'
 
 export const usePressedStyleProps = {
-  pressedBehaviour: {
+  pressedBehavior: {
     type: String as PropType<'opacity' | 'mask'>,
     default: 'mask',
     validator: (value: string) => ['opacity', 'mask'].includes(value),
