@@ -7,9 +7,7 @@
       :offset="[0, 25]"
     >
       <div class="color-dropdown__content px-1">
-        <va-button-toggle :options="themes" @update:model-value="setTheme" grow>
-
-        </va-button-toggle>
+        <va-button-toggle :options="themes" @update:model-value="setTheme" grow class="mb-2" />
 
         <div v-for="color in colorsArray" :key="color.name" class="color mt-1 mb-1">
           <va-color-indicator :color="color.name" /> <span class="color__title">{{ color.title }}</span>
