@@ -349,6 +349,7 @@ export default defineComponent({
     border-width: var(--va-pagination-input-border-width);
     text-align: var(--va-pagination-input-text-align);
     font-size: var(--va-pagination-input-font-size);
+    background-color: transparent;
 
     // by default input's height relies on va-button size
     &--sm {
