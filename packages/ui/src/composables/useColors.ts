@@ -117,11 +117,23 @@ export const useColors = () => {
   }
 
   const getTextColor = (color: ColorInput, darkColor = 'textDark', lightColor = 'textLight') => {
-    return getTextColorBase(color, darkColor, lightColor, 120)
+  const currentPresetName = computed(() => globalConfig.value.colors!.currentPresetName)
+
+  const presets = computed(() => globalConfig.value.colors!.presets)
+
+  const applyPreset = (presetName: string) => {
+    globalConfig.value.colors!.currentPresetName = presetName
+    if (!globalConfig.value.colors!.presets[presetName]) {
+      return warn(`Preset ${presetName} does not exist`)
+    }
+    globalConfig.value.colors!.variables = globalConfig.value.colors!.presets[presetName]
   }
 
   return {
     colors,
+    currentPresetName,
+    presets,
+    applyPreset,
     setColors,
     getColors,
     getColor,
