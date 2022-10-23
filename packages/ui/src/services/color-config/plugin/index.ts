@@ -1,4 +1,3 @@
-import type { Plugin } from 'vue'
 import { createColorConfigPlugin } from './create-color-config-plugin'
 import { defineGlobalProperty, defineVuesticPlugin } from '../../../vuestic-plugin/utils'
 

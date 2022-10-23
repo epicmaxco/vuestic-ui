@@ -1,4 +1,4 @@
-import type { ColorConfig, ColorVariables, CssColor } from '../services/color-config'
+import type { ColorVariables, CssColor } from '../services/color-config'
 import { computed } from 'vue'
 import { GlobalConfig, useGlobalConfigSafe } from '../services/global-config/global-config'
 import {
@@ -14,10 +14,13 @@ import {
   getTextColor as getTextColorBase,
   colorToRgba,
   getStateMaskGradientBackground,
+  getColorLightness,
 } from '../services/color-config/color-functions'
+import { warn } from '../services/utils'
 
 import { cssVariableName, normalizeColorName } from '../services/color-config/utils'
 import { ColorInput } from 'colortranslator/dist/@types'
+import { useCache } from '../services/cache/useCache'
 
 /**
  * You can add these props to any component by destructuring them inside props option.
@@ -116,7 +119,24 @@ export const useColors = () => {
       }, {})
   }
 
+  const cache = useCache()
+
+  const getColorLightnessFromCache = (color: ColorInput) => {
+    if (typeof color !== 'string') {
+      return getColorLightness(color)
+    }
+
+    if (!cache.colorContrast[color]) {
+      cache.colorContrast[color] = getColorLightness(color)
+    }
+
+    return cache.colorContrast[color]
+  }
+
   const getTextColor = (color: ColorInput, darkColor = 'textDark', lightColor = 'textLight') => {
+    return getColorLightnessFromCache(color) > globalConfig.value.colors.threshold ? darkColor : lightColor
+  }
+
   const currentPresetName = computed(() => globalConfig.value.colors!.currentPresetName)
 
   const presets = computed(() => globalConfig.value.colors!.presets)

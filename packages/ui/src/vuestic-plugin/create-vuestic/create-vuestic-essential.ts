@@ -3,7 +3,7 @@ import { defineVuesticPlugin } from '../types'
 import type { PartialGlobalConfig } from '../../services/global-config/global-config'
 import { usePlugin } from '../utils'
 
-import { GlobalConfigPlugin, ColorConfigPlugin } from '../vuestic-plugins'
+import { GlobalConfigPlugin, ColorConfigPlugin, CachePlugin } from '../vuestic-plugins'
 
 const ESSENTIAL_PLUGIN_NAMES = ['GlobalConfigPlugin', 'ColorConfigPlugin']
 
@@ -33,6 +33,7 @@ export const createVuesticEssential = defineVuesticPlugin((options: {
     /** Register essential plugins before any other */
     usePlugin(app, plugins?.GlobalConfigPlugin || GlobalConfigPlugin, config)
     usePlugin(app, plugins?.ColorConfigPlugin || ColorConfigPlugin)
+    usePlugin(app, plugins?.ColorConfigPlugin || CachePlugin)
 
     if (plugins) {
       Object.entries(plugins).forEach(([name, plugin]) => {

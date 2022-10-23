@@ -6,14 +6,14 @@ export const colorToRgba = (color: ColorInput, opacity: number) => {
   return new ColorTranslator(color).setA(opacity).RGBA
 }
 
-export const isLightBackground = (color: ColorInput, threshold: number) => {
+export const getColorLightness = (color: ColorInput) => {
   // TODO: replace with color mixin (doesn't play any role in dark theme)
   const { R, G, B } = new ColorTranslator(color)
-  return Math.sqrt(R * R * 0.241 + G * G * 0.691 + B * B * 0.068) > threshold
+  return Math.sqrt(R * R * 0.241 + G * G * 0.691 + B * B * 0.068)
 }
 
 export const getTextColor = (color: ColorInput, darkColor: string, lightColor: string, threshold: number) => {
-  return isLightBackground(color, threshold) ? darkColor : lightColor
+  return getColorLightness(color) > threshold ? darkColor : lightColor
 }
 
 export const getBoxShadowColor = (color: ColorInput) => {
