@@ -3,6 +3,7 @@ import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import {
   colorsConfig,
   iconsInstallObject,
+  iconsSetup,
   iconsConfig,
   componentsConfig,
 } from './code-examples'
@@ -18,8 +19,10 @@ const config: ApiDocsBlock[] = [
   block.link('configurationGuide.readMore', '/services/colors-config'),
 
   block.subtitle('configurationGuide.icons.title'),
-  block.paragraph('configurationGuide.icons.description'),
+  block.paragraph('configurationGuide.icons.description[0]'),
   block.code(iconsInstallObject, 'bash'),
+  block.paragraph('configurationGuide.icons.description[1]'),
+  block.code(iconsSetup),
 
   block.headline('configurationGuide.icons.subtitle'),
   block.paragraph('configurationGuide.icons.subDescription'),
