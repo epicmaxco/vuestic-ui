@@ -1,5 +1,5 @@
 <template>
-  <va-card color="background-secondary" style="padding: 0.75rem;">
+  <va-card color="background-element" style="padding: 0.75rem;">
     <div class="row">
       <div class="flex md12">
         <div class="item">md12</div>
@@ -29,7 +29,7 @@
 <style lang="scss" scoped>
   .item {
     border: 1px solid var(--va-background-element);
-    background-color: var(--va-background-tertiary);
+    background-color: var(--va-background-secondary);
     text-align: center;
   }
 </style>

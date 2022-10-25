@@ -16,7 +16,7 @@
     border-radius: 50%;
 
     &:hover {
-      background: var(--va-background-tertiary);
+      background: var(--va-background-secondary);
     }
   }
 
@@ -39,7 +39,7 @@
   .ag-keyboard-focus {
     .ag-paging-button {
       &:focus {
-        background: var(--va-background-tertiary);
+        background: var(--va-background-secondary);
 
         &::after {
           display: none;

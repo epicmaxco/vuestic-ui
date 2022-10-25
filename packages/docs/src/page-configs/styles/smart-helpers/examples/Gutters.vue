@@ -47,11 +47,11 @@
     padding: 0.75rem;
 
     .layout {
-      background-color: var(--va-background-secondary);
+      background-color: var(--va-background-element);
     }
 
     .item {
-      background-color: var(--va-background-tertiary);
+      background-color: var(--va-background-secondary);
       border: 1px solid var(--va-background-element);
       text-align: center;
     }

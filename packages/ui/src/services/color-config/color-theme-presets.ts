@@ -2,21 +2,23 @@ import type { EssentialVariables } from './types'
 
 export const colorsPresets: Record<string, EssentialVariables> = {
   light: {
+    // Accent
     primary: '#154ec1',
     secondary: '#767C88',
-    success: '#40e583',
-    info: '#2c82e0',
-    danger: '#DE1041',
-    warning: '#FFAC0A',
+    success: '#3D9209',
+    info: '#158DE3',
+    danger: '#E42222',
+    warning: '#FFD43A',
 
+    // Background Colors
     backgroundPrimary: '#ffffff',
-    backgroundTertiary: '#ffffff',
-    backgroundSecondary: '#f4f8fa',
-    backgroundElement: '#babfc2',
+    backgroundSecondary: '#F5F9FB',
+    backgroundElement: '#F5F9FB',
+    backgroundBorder: '#DEE5F2',
 
-    // Default
-    textLight: '#fff',
-    textDark: '#1B1A1F',
+    // Text Colors
+    textInverted: '#fff',
+    textPrimary: '#262824',
     // Misc
     shadow: 'rgba(0, 0, 0, 0.12)',
     focus: '#FF0',
@@ -25,18 +27,20 @@ export const colorsPresets: Record<string, EssentialVariables> = {
     // Accent
     primary: '#00b4d8',
     secondary: '#767C88',
-    success: '#40e583',
-    info: '#2c82e0',
-    danger: '#de1041',
-    warning: '#ffac0a',
+    success: '#3D9209',
+    info: '#158DE3',
+    danger: '#E42222',
+    warning: '#FFD43A',
     // Text Colors
-    textDark: '#242424',
-    textLight: '#f1f1f1',
+    textPrimary: '#242424',
+    textInverted: '#f1f1f1',
     // Background Colors
     backgroundPrimary: '#1F1F1F',
-    backgroundSecondary: '#333333',
-    backgroundTertiary: '#262626',
-    backgroundElement: '#767C88',
+    backgroundElement: '#262626',
+    backgroundSecondary: '#262626',
+    backgroundBorder: '#363636',
+
+    // backgroundElementTEMP: '#767C88',
     // Misc
     shadow: 'rgba(0, 0, 0, 0.37)',
     focus: '#FF0',

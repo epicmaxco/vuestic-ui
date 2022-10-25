@@ -20,7 +20,7 @@ export const VuesticConfig: Partial<GlobalConfig> = {
           size: 'large',
           plain: true,
           'hover-behavior': 'mask',
-          'hover-mask-color': 'textDark',
+          'hover-mask-color': 'textPrimary',
           'hover-opacity': '1',
         },
       },

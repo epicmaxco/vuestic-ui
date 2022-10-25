@@ -193,7 +193,7 @@ export default defineComponent({
     overlayOpacity: { type: [Number, String], default: 0.6 },
     blur: { type: Boolean, default: false },
     zIndex: { type: [Number, String], default: undefined },
-    backgroundColor: { type: String, default: 'background-tertiary' },
+    backgroundColor: { type: String, default: 'background-primary' },
     noPadding: { type: Boolean, default: false },
   },
   setup (props, { emit }) {

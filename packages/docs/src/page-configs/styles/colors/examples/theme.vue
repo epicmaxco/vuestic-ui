@@ -28,15 +28,13 @@ const useTheme = () => {
     light: {
       // Background
       backgroundPrimary: '#ffffff',
-      backgroundTertiary: '#ffffff',
-      backgroundSecondary: '#f4f8fa',
+      backgroundElement: '#f4f8fa',
       form: '#babfc2',
     },
     dark: {
       // Background
       backgroundPrimary: '#0d1117',
-      backgroundSecondary: '#0a0d12',
-      backgroundTertiary: '#161b22',
+      backgroundElement: '#0a0d12',
       form: '#404954',
     },
   }

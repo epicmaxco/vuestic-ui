@@ -5,12 +5,12 @@
 
       <va-card-content>
         <va-input stateful label="Email" class="mb-2" />
-        <va-input stateful label="City" class="mb-2" />
-        <va-select stateful label="Country" class="mb-2" />
+        <va-input stateful label="City" class="mb-2" :rules="[(v) => v.length > 3]" />
+        <va-select stateful label="Country" class="mb-2" :options="['Ukraine', 'Georgia', 'Poland']" />
       </va-card-content>
 
       <va-card-actions align="between">
-        <va-button color="secondary">Go back</va-button>
+        <va-button preset="secondary" color="secondary">Go back</va-button>
         <va-button>Login</va-button>
       </va-card-actions>
     </va-card>

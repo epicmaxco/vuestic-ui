@@ -31,7 +31,7 @@ describe('useColors', () => {
     })
 
     it.each([
-      [['info', undefined, false], '#2c82e0'],
+      [['info', undefined, false], '#158DE3'],
       [['#000000', undefined, false], '#000000'],
       [['var(--va-primary)', undefined, false], '#154ec1'],
       [['bad-color', '#000000', false], '#000000'],
@@ -130,9 +130,9 @@ describe('useColors', () => {
 
   it.each([
     [['#000000', '#cccccc', '#ffffff'], '#ffffff'],
-    [['rgb(255, 255, 255)'], 'textDark'],
-    [[{ h: 0, s: 100, l: 27 }], 'textLight'],
-    [[{ c: 0, m: 0, y: 0, k: 0 }], 'textDark'],
+    [['rgb(255, 255, 255)'], 'textPrimary'],
+    [[{ h: 0, s: 100, l: 27 }], 'textInverted'],
+    [[{ c: 0, m: 0, y: 0, k: 0 }], 'textPrimary'],
   ])(
     'getTextColorArgs %s should return %s',
     (getTextColorArgs, expected) => {

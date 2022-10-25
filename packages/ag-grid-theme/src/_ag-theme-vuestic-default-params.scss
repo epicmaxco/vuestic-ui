@@ -32,7 +32,7 @@ $ag-theme-vuestic-default-params: (
         control-panel-background-color: null,
 
   // Background color of selected rows in the grid and in dropdown menus
-        selected-row-background-color: var(--va-background-secondary),
+        selected-row-background-color: var(--va-background-element),
 
   // Background colour applied to every other row or null to use background-color for all rows
         odd-row-background-color: null,

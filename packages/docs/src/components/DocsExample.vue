@@ -115,7 +115,7 @@ function parseTemplate (target: string, template: string) {
 
 <style lang="scss" scoped>
   .docs-example-card {
-    --va-card-outlined-border: 3px solid var(--va-background-secondary);
+    --va-card-outlined-border: 3px solid var(--va-background-element);
     --va-card-border-radius: 0.25rem;
 
     border-bottom-left-radius: 0;

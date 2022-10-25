@@ -33,7 +33,7 @@ export const createColorConfigPlugin = (app: App) => {
     })
 
     colorNames.forEach((key) => {
-      setCSSVariable(`on-${key}`, getTextColor(newValue[key], newValue.textDark, newValue.textLight, globalConfig.value.colors!.threshold), root)
+      setCSSVariable(`on-${key}`, getTextColor(newValue[key], newValue.textPrimary, newValue.textInverted, globalConfig.value.colors!.threshold), root)
     })
   }
 

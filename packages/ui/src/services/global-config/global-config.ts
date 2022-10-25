@@ -26,7 +26,7 @@ export const createGlobalConfig = () => {
   const globalConfig = ref<GlobalConfig>({
     colors: {
       variables: colorsPresets.light,
-      threshold: 120,
+      threshold: 150,
       presets: {
         light: colorsPresets.light,
         dark: colorsPresets.dark,
