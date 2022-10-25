@@ -26,8 +26,10 @@ export const createVuestic = defineVuesticPlugin((options: { config?: PartialGlo
       app.component(name, component)
     })
 
+    // These plugins have dependant plugins, so have to be registered first.
     usePlugin(app, GlobalConfigPlugin(config))
     usePlugin(app, CachePlugin)
+
     usePlugin(app, BreakpointConfigPlugin)
     usePlugin(app, ColorConfigPlugin)
     usePlugin(app, VaDropdownPlugin)
