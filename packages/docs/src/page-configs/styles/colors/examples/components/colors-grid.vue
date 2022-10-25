@@ -5,22 +5,7 @@
       v-for="[name, value] in colorsComputed"
       :key="name"
     >
-      <va-hover
-        class="color-grid__item"
-        :style="{ backgroundColor: value, color: getColor(getTextColor(value)) }"
-        stateful
-        #default="{ hover }"
-      >
-        <p>
-          {{ name }}
-          <template v-if="hover">
-            {{ value }}
-          </template>
-        </p>
-        <p>
-          var(--va-{{ name }})
-        </p>
-      </va-hover>
+      <ColorsGridCard :value="getColor(value)" :name="name" />
     </div>
   </div>
 </template>
@@ -28,8 +13,9 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useColors } from 'vuestic-ui/src/main'
+import ColorsGridCard from './colors-grid-card.vue'
 
-const { colors, getTextColor, getColor } = useColors()
+const { colors, getColor } = useColors()
 
 const colorsComputed = computed(() => Object.entries(colors.value))
 </script>
@@ -42,6 +28,10 @@ const colorsComputed = computed(() => Object.entries(colors.value))
     flex-wrap: wrap;
     margin: -$gap;
     padding: $gap 0;
+
+    p {
+      margin-bottom: 0.25rem;
+    }
 
     &__item {
       padding: 16px;

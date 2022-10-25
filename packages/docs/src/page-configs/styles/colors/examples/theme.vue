@@ -21,29 +21,15 @@ import { ref, watchEffect, computed } from 'vue'
 import { useColors } from 'vuestic-ui/src/main'
 
 const useTheme = () => {
-  const { setColors } = useColors()
+  const { setColors, presets } = useColors()
 
   const theme = ref(localStorage.getItem('vuestic-docs-theme')?.toLowerCase() || 'light')
-  const themes = {
-    light: {
-      // Background
-      backgroundPrimary: '#ffffff',
-      backgroundElement: '#f4f8fa',
-      form: '#babfc2',
-    },
-    dark: {
-      // Background
-      backgroundPrimary: '#0d1117',
-      backgroundElement: '#0a0d12',
-      form: '#404954',
-    },
-  }
 
   watchEffect(() => {
-    setColors(themes[theme.value])
+    setColors(presets.value[theme.value])
   })
 
-  return { theme, themes }
+  return { theme, presets }
 }
 
 const usePrimaryColor = () => {
@@ -60,7 +46,7 @@ const usePrimaryColor = () => {
 
 export default {
   setup () {
-    const { theme, themes } = useTheme()
+    const { theme, presets } = useTheme()
 
     const primaryColorVariants = ['#2c82e0', '#ef476f', '#ffd166', '#06d6a0', '#8338ec']
 
@@ -68,7 +54,7 @@ export default {
 
     return {
       theme,
-      themeOptions: Object.keys(themes).map((themeName) => ({
+      themeOptions: Object.keys(presets.value).map((themeName) => ({
         value: themeName,
         label: themeName,
       })),
