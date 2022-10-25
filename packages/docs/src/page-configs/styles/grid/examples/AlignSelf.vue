@@ -39,13 +39,13 @@ export default {
     min-height: 6rem;
 
     & + .row {
-      border-top: 1px solid var(--va-background-element);
+      border-top: 1px solid var(--va-background-border);
     }
   }
 
   .item {
-    border: 1px solid var(--va-background-element);
-    background-color: var(--va-background-secondary);
+    border: 1px solid var(--va-background-border);
+    background-color: var(--va-background-primary);
     text-align: center;
   }
 </style>

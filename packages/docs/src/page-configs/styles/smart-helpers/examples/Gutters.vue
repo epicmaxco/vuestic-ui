@@ -51,8 +51,8 @@
     }
 
     .item {
-      background-color: var(--va-background-secondary);
-      border: 1px solid var(--va-background-element);
+      background-color: var(--va-background-primary);
+      border: 1px solid var(--va-background-border);
       text-align: center;
     }
   }
