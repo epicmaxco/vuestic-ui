@@ -345,11 +345,11 @@ export default defineComponent({
   font-family: var(--va-font-family);
 
   &__input {
+    background: var(--va-pagination-input-background);
     border-style: var(--va-pagination-input-border-style);
     border-width: var(--va-pagination-input-border-width);
     text-align: var(--va-pagination-input-text-align);
     font-size: var(--va-pagination-input-font-size);
-    background-color: transparent;
 
     // by default input's height relies on va-button size
     &--sm {
