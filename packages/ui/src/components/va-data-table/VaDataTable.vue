@@ -161,7 +161,7 @@
                   class="va-data-table__table-cell-checkbox"
                   :model-value="isRowSelected(row)"
                   :color="selectedColor"
-                  :aria-label="t(`selectRowBy`, { index: row.initialIndex })"
+                  :aria-label="t(`selectRowByIndex`, { index: row.initialIndex })"
                   @click.shift.exact.stop="shiftSelectRows(row)"
                   @click.ctrl.exact.stop="ctrlSelectRow(row)"
                   @click.exact.stop="ctrlSelectRow(row)"
