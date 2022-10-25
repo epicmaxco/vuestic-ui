@@ -17,8 +17,8 @@ export const colorsPresets: Record<string, EssentialVariables> = {
     backgroundBorder: '#DEE5F2',
 
     // Text Colors
-    textInverted: '#fff',
     textPrimary: '#262824',
+    textInverted: '#fff',
     // Misc
     shadow: 'rgba(0, 0, 0, 0.12)',
     focus: '#FF0',
@@ -32,8 +32,8 @@ export const colorsPresets: Record<string, EssentialVariables> = {
     danger: '#E42222',
     warning: '#FFD43A',
     // Text Colors
-    textPrimary: '#242424',
-    textInverted: '#f1f1f1',
+    textPrimary: '#f1f1f1',
+    textInverted: '#242424',
     // Background Colors
     backgroundPrimary: '#1F1F1F',
     backgroundElement: '#262626',

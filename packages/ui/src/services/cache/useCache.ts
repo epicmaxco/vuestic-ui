@@ -1,4 +1,4 @@
-import { inject } from 'vue'
+import { inject } from '../current-app'
 import { VaAppCachePluginKey, VaAppCachePluginKeyValue } from './plugin/index'
 
 export const useCache = () => {

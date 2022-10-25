@@ -3,6 +3,7 @@ import { defineVuesticPlugin, usePlugin } from '../utils'
 import { GlobalConfigPlugin, VaDropdownPlugin, VaToastPlugin, VaModalPlugin, ColorConfigPlugin, BreakpointConfigPlugin, CachePlugin } from '../vuestic-plugins'
 import * as vuesticComponents from '../vuestic-components'
 import type { VuesticComponents } from '../global-components'
+import { getCurrentApp, setCurrentApp } from '../../services/current-app'
 
 // Declare all components globally
 declare module 'vue' {
@@ -19,6 +20,8 @@ export const createVuestic = defineVuesticPlugin((options: { config?: PartialGlo
   install (app) {
     const { config } = options
 
+    setCurrentApp(app)
+
     Object.entries(vuesticComponents).forEach(([name, component]) => {
       app.component(name, component)
     })
@@ -30,5 +33,7 @@ export const createVuestic = defineVuesticPlugin((options: { config?: PartialGlo
     usePlugin(app, VaDropdownPlugin)
     usePlugin(app, VaToastPlugin)
     usePlugin(app, VaModalPlugin)
+
+    setCurrentApp(null)
   },
 }))

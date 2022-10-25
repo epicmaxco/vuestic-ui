@@ -133,7 +133,17 @@ export const useColors = () => {
     return cache.colorContrast[color]
   }
 
-  const getTextColor = (color: ColorInput, darkColor = 'textPrimary', lightColor = 'textInverted') => {
+  const computedDarkColor = computed(() => {
+    return getColorLightnessFromCache(getColor('textPrimary')) > globalConfig.value.colors.threshold ? 'textInverted' : 'textPrimary'
+  })
+
+  const computedLightColor = computed(() => {
+    return getColorLightnessFromCache(getColor('textPrimary')) > globalConfig.value.colors.threshold ? 'textPrimary' : 'textInverted'
+  })
+
+  const getTextColor = (color: ColorInput, darkColor?: string, lightColor?: string) => {
+    darkColor = darkColor || computedDarkColor.value
+    lightColor = lightColor || computedLightColor.value
     return getColorLightnessFromCache(color) > globalConfig.value.colors.threshold ? darkColor : lightColor
   }
 
