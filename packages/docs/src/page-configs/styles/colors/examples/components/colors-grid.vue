@@ -5,7 +5,7 @@
       v-for="[name, value] in colorsComputed"
       :key="name"
     >
-      <ColorsGridCard :value="getColor(value)" :name="name" />
+      <ColorsGridCard class="color-grid__item " :value="getColor(value)" :name="name" />
     </div>
   </div>
 </template>
@@ -34,14 +34,13 @@ const colorsComputed = computed(() => Object.entries(colors))
     }
 
     &__item {
-      padding: 16px;
       box-sizing: border-box;
       border: 1px solid rgba(58, 58, 58, 0.307);
       border-radius: 5px;
 
       &-wrapper {
         padding: $gap;
-        width: 25%;
+        width: 50%;
       }
     }
   }
