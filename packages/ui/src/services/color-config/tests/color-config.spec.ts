@@ -33,7 +33,7 @@ describe('useColors', () => {
     it.each([
       [['info', undefined, false], '#158DE3'],
       [['#000000', undefined, false], '#000000'],
-      [['var(--va-primary)', undefined, false], '#154ec1'],
+      [['var(--va-primary)', undefined, false], '#154EC1'],
       [['bad-color', '#000000', false], '#000000'],
       [['secondary', undefined, true], 'var(--va-secondary)'],
     ])(
@@ -47,7 +47,7 @@ describe('useColors', () => {
       [[{ color: '#000000' }, 'va-test'], { '--va-test-color': '#000000' }],
       [[{ color: 'secondary' }, 'va-test'], { '--va-test-color': 'var(--va-secondary)' }],
       [[{ color: 'var(--va-primary)' }, 'va-test'], { '--va-test-color': 'var(--va-primary)' }], // TODO call Oleg
-      [[{ color: 'bad-color' }, 'va-test'], { '--va-test-color': '#154ec1' }],
+      [[{ color: 'bad-color' }, 'va-test'], { '--va-test-color': '#154EC1' }],
       [[{}, 'va-test'], {}],
     ])(
       'colorToCssVariableArgs %s should be %s',

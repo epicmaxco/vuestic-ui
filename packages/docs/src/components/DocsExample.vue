@@ -121,16 +121,18 @@ function parseTemplate (target: string, template: string) {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
 
-    &::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: var(--va-background-primary);
-      opacity: 0.3;
-      z-index: -1;
+    .va-card-content {
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--va-background-primary);
+        opacity: 0.5;
+        z-index: -1;
+      }
     }
   }
 </style>
