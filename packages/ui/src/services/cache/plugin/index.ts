@@ -1,6 +1,5 @@
 import type { App } from 'vue'
 import { AppCache } from '../types'
-import { reactive } from 'vue'
 import { defineVuesticPlugin } from '../../../vuestic-plugin/utils'
 
 const createAppCachePlugin = (app: App) => {
