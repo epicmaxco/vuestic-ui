@@ -17,7 +17,7 @@ import ColorsGridCard from './colors-grid-card.vue'
 
 const { colors, getColor } = useColors()
 
-const colorsComputed = computed(() => Object.entries(colors.value))
+const colorsComputed = computed(() => Object.entries(colors))
 </script>
 
 <style lang="scss" scoped>

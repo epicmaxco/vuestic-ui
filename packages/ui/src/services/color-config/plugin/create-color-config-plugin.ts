@@ -36,7 +36,7 @@ export const createColorConfigPlugin = (app: App) => {
     })
   }
 
-  updateColors(colors.value)
+  updateColors(colors)
 
   watch(colors, (newValue) => {
     updateColors(newValue)

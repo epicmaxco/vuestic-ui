@@ -18,8 +18,9 @@ import {
 import { warn } from '../services/utils'
 
 import { cssVariableName, normalizeColorName } from '../services/color-config/utils'
-import { ColorInput } from 'colortranslator/dist/@types'
+import type { ColorInput } from 'colortranslator/dist/@types'
 import { useCache } from '../services/cache/useCache'
+import { useReactiveComputed } from './useReactiveComputed'
 
 /**
  * You can add these props to any component by destructuring them inside props option.
@@ -43,7 +44,10 @@ export const useColors = () => {
 
   const { setGlobalConfig, globalConfig } = gc
 
-  const colors = computed<ColorVariables>(() => globalConfig.value.colors!.variables)
+  const colors = useReactiveComputed<ColorVariables>({
+    get: () => globalConfig.value.colors!.variables,
+    set: (v: ColorVariables) => { setColors(v) },
+  })
 
   const setColors = (colors: Partial<ColorVariables>): void => {
     globalConfig.value.colors!.variables = {
@@ -53,7 +57,7 @@ export const useColors = () => {
   }
 
   const getColors = (): ColorVariables => {
-    return colors.value
+    return colors
   }
 
   /**
