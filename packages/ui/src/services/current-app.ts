@@ -11,5 +11,7 @@ export const getCurrentApp = () => app
 
 /** Wrapper around vue inject, so it can be used in plugins */
 export const inject = ((key: string, value?: any) => {
-  return vueInject(key) || getCurrentApp()?._context.provides[key] || value
+  const app = getCurrentApp()?._context.provides[key]
+
+  return app || vueInject(key, value)
 }) as unknown as typeof vueInject

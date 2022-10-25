@@ -11,7 +11,6 @@ import {
   shiftHSLAColor,
   setHSLAColor,
   isCSSVariable,
-  getTextColor as getTextColorBase,
   colorToRgba,
   getStateMaskGradientBackground,
   getColorLightness,
@@ -47,16 +46,10 @@ export const useColors = () => {
   const colors = computed<ColorVariables>(() => globalConfig.value.colors!.variables)
 
   const setColors = (colors: Partial<ColorVariables>): void => {
-    setGlobalConfig((config: GlobalConfig) => ({
-      ...config,
-      colors: {
-        ...config.colors!,
-        variables: {
-          ...config.colors!.variables,
-          ...colors as ColorVariables,
-        },
-      },
-    }))
+    globalConfig.value.colors!.variables = {
+      ...globalConfig.value.colors.variables,
+      ...colors,
+    } as ColorVariables
   }
 
   const getColors = (): ColorVariables => {
@@ -156,7 +149,7 @@ export const useColors = () => {
     if (!globalConfig.value.colors!.presets[presetName]) {
       return warn(`Preset ${presetName} does not exist`)
     }
-    globalConfig.value.colors!.variables = globalConfig.value.colors!.presets[presetName]
+    globalConfig.value.colors!.variables = { ...globalConfig.value.colors!.presets[presetName] }
   }
 
   return {

@@ -21,12 +21,12 @@ import { ref, watchEffect, computed } from 'vue'
 import { useColors } from 'vuestic-ui/src/main'
 
 const useTheme = () => {
-  const { setColors, presets } = useColors()
+  const { presets, applyPreset } = useColors()
 
   const theme = ref(localStorage.getItem('vuestic-docs-theme')?.toLowerCase() || 'light')
 
   watchEffect(() => {
-    setColors(presets.value[theme.value])
+    applyPreset(theme.value)
   })
 
   return { theme, presets }
