@@ -3,6 +3,15 @@ export const iconsInstallObject = {
   npm: 'npm install material-design-icons-iconfont -D',
 }
 
+export const iconsSetup = `
+// main.js
+...
+import { createVuestic, createIconsConfig } from 'vuestic-ui/src/main'
+import 'vuestic-ui/css'
+import 'material-design-icons-iconfont/dist/material-design-icons.min.css'
+...
+`
+
 export const iconsConfig = `
 // main.js
 ...
