@@ -9,6 +9,9 @@
         "language": "Language",
         "team": "Team",
         "blog": "Blog"
+      },
+      "banner": {
+        "text": "Vuestic v1.5 has been released! Check out the project on GitHub for more information"
       }
     },
     "preview": {

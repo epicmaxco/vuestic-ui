@@ -2,11 +2,13 @@
   <header class="header">
     <div class="header__banner">
       <div>
-        🔥🔥🔥<span class="pl-2">Our CTO, Yauheni Prakopchyk, will be a speaker at North America’s premier Vue.js Conference -
-        VueConf Toronto</span> <strong>(1-3 Nov 2022)</strong>.
+        🔥🔥🔥
+        <span class="pl-2">
+          {{ $t('landing.header.banner.text') }}
+        </span>
       </div>
-      <a href="https://www.vuetoronto.com/" target="_blank" class="header__banner-btn">
-        Join the Conference
+      <a href="https://github.com/epicmaxco/vuestic-ui" target="_blank" class="header__banner-btn">
+        GitHub
       </a>
     </div>
     <div class="header__wrapper">
