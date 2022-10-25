@@ -32,7 +32,7 @@
           <va-navbar-item>Hello!</va-navbar-item>
         </template>
       </va-navbar>
-      <va-navbar color="dark">
+      <va-navbar color="textPrimary">
         <template #left>
           <va-icon-menu-collapsed :collapsed="isSidebarCollapsed" @click="isSidebarCollapsed = !isSidebarCollapsed" class="va-navbar__item" />
           <va-navbar-item>LONG LOGO</va-navbar-item>
@@ -56,7 +56,7 @@
           <va-navbar-item>Hello!</va-navbar-item>
         </template>
       </va-navbar>
-      <va-navbar color="white">
+      <va-navbar color="backgroundPrimary">
         <template #left>
           <va-icon-menu-collapsed :collapsed="isSidebarCollapsed" @click="isSidebarCollapsed = !isSidebarCollapsed" class="va-navbar__item" />
           <va-navbar-item>LONG LOGO</va-navbar-item>

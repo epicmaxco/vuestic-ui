@@ -11,7 +11,7 @@
     </template>
   </va-navbar>
 
-  <va-navbar color="dark" shape class="mb-2">
+  <va-navbar color="textPrimary" shape class="mb-2">
     <template #left>
       <va-navbar-item>LOGO HERE</va-navbar-item>
     </template>
