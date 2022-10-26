@@ -11,7 +11,7 @@ export const colorsPresets: Record<string, EssentialVariables> = {
     warning: '#FFD43A',
 
     // Background Colors
-    backgroundPrimary: '#FFFFFF',
+    backgroundPrimary: '#f5f9fa',
     backgroundSecondary: '#FFFFFF',
     backgroundElement: '#F5F9FB',
     backgroundBorder: '#DEE5F2',
@@ -26,22 +26,22 @@ export const colorsPresets: Record<string, EssentialVariables> = {
   },
   dark: {
     // Accent
-    primary: '#00B4D8',
+    primary: '#3472F0',
     secondary: '#767C88',
-    success: '#3D9209',
-    info: '#158DE3',
-    danger: '#E42222',
-    warning: '#FFD43A',
+    success: '#66BE33',
+    info: '#3EAAF8',
+    danger: '#F34030',
+    warning: '#FFD952',
 
     // Background Colors
-    backgroundPrimary: '#1F1F1F',
-    backgroundSecondary: '#191919',
-    backgroundElement: '#262626',
-    backgroundBorder: '#363636',
+    backgroundPrimary: '#050A10',
+    backgroundSecondary: '#1F262F',
+    backgroundElement: '#131A22',
+    backgroundBorder: '#3D4C58',
 
     // Text Colors
     textPrimary: '#F1F1F1',
-    textInverted: '#242424',
+    textInverted: '#0B121A',
 
     // Misc
     shadow: 'rgba(0, 0, 0, 0.37)',
