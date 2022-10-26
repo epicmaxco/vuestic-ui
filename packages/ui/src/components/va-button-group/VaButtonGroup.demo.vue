@@ -218,7 +218,7 @@
           <td>Mixed Button Groups</td>
           <td>
             <VbCard>
-              <va-button-group color="gray">
+              <va-button-group color="secondary">
                 <va-button size="small" icon="create">
                   First
                 </va-button>
@@ -229,7 +229,7 @@
                   Third
                 </va-button>
               </va-button-group>
-              <va-button-group color="dark" preset="primary">
+              <va-button-group color="textPrimary" preset="primary">
                 <va-button>One</va-button>
                 <va-button>Two</va-button>
                 <va-button>Three</va-button>
@@ -271,9 +271,9 @@ export default {
 </script>
 
 <style lang="scss">
-  .va-button-group-demo {
-    .va-button-group {
-      margin-bottom: 16px;
-    }
+.va-button-group-demo {
+  .va-button-group {
+    margin-bottom: 16px;
   }
+}
 </style>

@@ -217,10 +217,10 @@ export default {
 </script>
 
 <style lang="scss">
-  .va-button-dropdown-demo {
-    .va-button-dropdown {
-      margin-right: 16px;
-      margin-bottom: 16px;
-    }
+.va-button-dropdown-demo {
+  .va-button-dropdown {
+    margin-right: 16px;
+    margin-bottom: 16px;
   }
+}
 </style>

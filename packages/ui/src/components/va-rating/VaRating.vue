@@ -2,7 +2,7 @@
   <div
     class="va-rating"
     :class="rootClass"
-    :aria-label="`current rating ${$props.modelValue} of ${$props.max}`"
+    :aria-label="t('currentRating', { max: $props.max, value: $props.modelValue })"
   >
     <div
       class="va-rating__item-wrapper"
@@ -16,7 +16,7 @@
         :key="itemNumber"
         class="va-rating__item"
         v-bind="VaRatingItemProps"
-        :aria-label="`vote rating ${itemNumber} of ${$props.max}`"
+        :aria-label="t('voteRating', { max: $props.max, value: $props.modelValue })"
         :model-value="getItemValue(itemNumber - 1)"
         :tabindex="tabIndexComputed"
         :disabled="$props.disabled"
@@ -50,7 +50,7 @@
 import { defineComponent, computed, PropType } from 'vue'
 
 import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
-import { useForm, useFormProps } from '../../composables'
+import { useForm, useFormProps, useTranslation } from '../../composables'
 import { useRating, useRatingProps } from './hooks/useRating'
 import { useVaRatingColors, useVaRatingColorsProps } from './hooks/useVaRatingColors'
 
@@ -85,6 +85,7 @@ export default defineComponent({
     const isInteractionsEnabled = computed(() => !props.disabled && !props.readonly)
 
     return {
+      ...useTranslation(),
       ...useVaRatingColors(props),
       ...rating,
       rootClass,
@@ -102,67 +103,67 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  @import "../../styles/resources";
-  @import 'variables';
+@import "../../styles/resources";
+@import 'variables';
 
-  .va-rating {
-    display: var(--va-rating-display);
-    font-family: var(--va-font-family);
+.va-rating {
+  display: var(--va-rating-display);
+  font-family: var(--va-font-family);
 
-    &__number-item {
-      @include normalize-button();
+  &__number-item {
+    @include normalize-button();
 
-      font-size: var(--va-rating-number-item-font-size);
-      margin: var(--va-rating-number-item-margin);
-      font-weight: var(--va-rating-number-item-font-weight);
+    font-size: var(--va-rating-number-item-font-size);
+    margin: var(--va-rating-number-item-margin);
+    font-weight: var(--va-rating-number-item-font-weight);
 
-      @include flex-center();
+    @include flex-center();
 
-      cursor: pointer;
+    cursor: pointer;
 
-      @at-root {
-        .va-rating--disabled & {
-          @include va-disabled();
-        }
-
-        .va-rating--readonly & {
-          cursor: default;
-        }
-      }
-    }
-
-    &__item-wrapper {
-      display: var(--va-rating-item-wrapper-display);
-      cursor: var(--va-rating-item-wrapper-cursor);
-
-      @at-root {
-        .va-rating--readonly &,
-        .va-rating--disabled & {
-          cursor: default;
-        }
-      }
-    }
-
-    &-item {
-      display: var(--va-rating-item-display);
-
-      @include flex-center();
-
+    @at-root {
       .va-rating--disabled & {
         @include va-disabled();
-
-        &__wrapper {
-          cursor: initial !important;
-        }
       }
 
-      .va-rating--readonly & &__wrapper {
+      .va-rating--readonly & {
+        cursor: default;
+      }
+    }
+  }
+
+  &__item-wrapper {
+    display: flex;
+    cursor: var(--va-rating-item-wrapper-cursor);
+
+    @at-root {
+      .va-rating--readonly &,
+      .va-rating--disabled & {
+        cursor: default;
+      }
+    }
+  }
+
+  &-item {
+    display: flex;
+
+    @include flex-center();
+
+    .va-rating--disabled & {
+      @include va-disabled();
+
+      &__wrapper {
         cursor: initial !important;
       }
     }
 
-    &__text-wrapper {
-      padding-left: 10px;
+    .va-rating--readonly & &__wrapper {
+      cursor: initial !important;
     }
   }
+
+  &__text-wrapper {
+    padding-left: 10px;
+  }
+}
 </style>

@@ -115,7 +115,7 @@
     tr {
       &:nth-child(even) {
         td {
-          background-color: var(--va-background-secondary);
+          background-color: var(--va-background-element);
         }
       }
     }
@@ -138,7 +138,7 @@
   }
 }
 
-@mixin va-scroll($color: var(--va-background-secondary)) {
+@mixin va-scroll($color: var(--va-background-element)) {
   &::-webkit-scrollbar {
     width: 4px;
     height: 4px;

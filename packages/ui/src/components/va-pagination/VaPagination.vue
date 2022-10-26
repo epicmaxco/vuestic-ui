@@ -2,7 +2,7 @@
   <nav
     v-if="showPagination"
     class="va-pagination"
-    aria-label="pagination"
+    :aria-label="t('pagination')"
     :class="classComputed"
     @keydown.left.stop="goPrevPage"
     @keydown.right.stop="goNextPage"
@@ -15,7 +15,7 @@
     >
       <va-button
         v-if="showBoundaryLinks"
-        aria-label="go to the first page"
+        :aria-label="t('goToTheFirstPage')"
         :disabled="$props.disabled || currentValue === 1"
         :icon="$props.boundaryIconLeft"
         v-bind="buttonPropsComputed"
@@ -28,7 +28,7 @@
     >
       <va-button
         v-if="showDirectionLinks"
-        aria-label="go to the previous page"
+        :aria-label="t('goToPreviousPage')"
         :disabled="$props.disabled || currentValue === 1"
         :icon="$props.directionIconLeft"
         v-bind="buttonPropsComputed"
@@ -41,7 +41,7 @@
         v-for="(n, i) in paginationRange" :key="i"
         :ref="setItemRefByIndex(i)"
         :class="{ 'va-button--ellipsis': n === '...', 'va-button--current': n === currentValue}"
-        :aria-label="`go to the ${n} page`"
+        :aria-label="t(`goToSpecificPage`, { page: n })"
         :aria-current="n === currentValue"
         :disabled="$props.disabled || n === '...'"
         v-bind="getPageButtonProps(n)"
@@ -55,7 +55,7 @@
       v-model="inputValue"
       ref="htmlInput"
       class="va-pagination__input va-button"
-      aria-label="enter the page number to go"
+      :aria-label="t('goToSpecificPageInput')"
       :style="inputStyleComputed"
       :class="inputClassComputed"
       v-bind="inputAttributesComputed"
@@ -70,7 +70,7 @@
     >
       <va-button
         v-if="showDirectionLinks"
-        aria-label="go next page"
+        :aria-label="t('goNextPage')"
         :disabled="$props.disabled || currentValue === lastPage"
         :icon="$props.directionIconRight"
         v-bind="buttonPropsComputed"
@@ -83,7 +83,7 @@
     >
       <va-button
         v-if="showBoundaryLinks"
-        aria-label="go last page"
+        :aria-label="t('goLastPage')"
         :disabled="$props.disabled || currentValue === lastPage"
         :icon="$props.boundaryIconRight"
         v-bind="buttonPropsComputed"
@@ -115,6 +115,7 @@ import {
   useColors,
   useStateful, useStatefulProps, useStatefulEmits,
   useArrayRefs,
+  useTranslation,
 } from '../../composables'
 import { setPaginationRange } from './setPaginationRange'
 
@@ -309,6 +310,7 @@ export default defineComponent({
     const goPrevPage = () => onUserInput(currentValue.value - 1)
 
     return {
+      ...useTranslation(),
       getPageButtonProps,
       inputClassComputed,
       classComputed,
@@ -335,136 +337,135 @@ export default defineComponent({
 </script>
 
 <style lang='scss'>
-  @import "../../styles/resources";
-  @import "variables";
+@import "../../styles/resources";
+@import "variables";
 
-  .va-pagination {
-    display: flex;
-    font-family: var(--va-font-family);
+.va-pagination {
+  display: flex;
+  font-family: var(--va-font-family);
 
-    &__input {
-      border-style: var(--va-pagination-input-border-style);
-      border-width: var(--va-pagination-input-border-width);
-      text-align: var(--va-pagination-input-text-align);
-      font-size: var(--va-pagination-input-font-size);
+  &__input {
+    background: var(--va-pagination-input-background);
+    border-style: var(--va-pagination-input-border-style);
+    border-width: var(--va-pagination-input-border-width);
+    text-align: var(--va-pagination-input-text-align);
+    font-size: var(--va-pagination-input-font-size);
 
-      // by default input's height relies on va-button size
-      &--sm {
-        height: var(--va-button-sm-size);
-      }
+    // by default input's height relies on va-button size
+    &--sm {
+      height: var(--va-button-sm-size);
+    }
 
-      &--md {
-        height: var(--va-button-size);
-      }
+    &--md {
+      height: var(--va-button-size);
+    }
 
-      &--lg {
-        height: var(--va-button-lg-size);
+    &--lg {
+      height: var(--va-button-lg-size);
+    }
+  }
+
+  .va-button {
+    &.va-input {
+      cursor: default;
+    }
+
+    &--ellipsis {
+      cursor: default;
+      opacity: 1;
+
+      & > .va-button__content {
+        opacity: 0.4;
       }
     }
 
-    .va-button {
-      &.va-input {
-        cursor: default;
-      }
+    &:focus-visible {
+      outline-offset: -2px;
 
-      &--ellipsis {
-        cursor: default;
-        opacity: 1;
-
-        & > .va-button__content {
-          opacity: 0.4;
-        }
-      }
-
-      &:focus-visible {
-        outline-offset: -2px;
-
-        &::before {
-          @include focus-outline($offset: -2px, $radius: 'inherit');
-        }
-      }
+      @include keyboard-focus-outline();
     }
+  }
 
-    & > :not(:first-child):not(:last-child) {
-      border-radius: 0;
-    }
+  & > :not(:first-child):not(:last-child) {
+    border-radius: 0;
+  }
 
-    & > :first-child {
-      border-top-right-radius: 0;
-      border-bottom-right-radius: 0;
-    }
+  & > :first-child {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
 
-    & > :last-child {
-      border-top-left-radius: 0;
-      border-bottom-left-radius: 0;
-    }
+  & > :last-child {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
 
-    &--gapped {
-      &.va-pagination > .va-button {
-        border-radius: var(--va-button-border-radius);
-        margin-right: var(--va-pagination-gap);
-        border-style: solid;
+  &--gapped {
+    &.va-pagination > .va-button {
+      border-radius: var(--va-button-border-radius);
+      margin-right: var(--va-pagination-gap);
+      border-style: solid;
 
-        &:last-child {
-          margin-right: 0;
-        }
+      &:last-child {
+        margin-right: 0;
       }
     }
+  }
 
-    &--bordered {
-      &.va-pagination > .va-button {
-        border-style: solid;
+  &--bordered {
+    &.va-pagination > .va-button {
+      border-style: solid;
 
-        &::before {
-          border-radius: unset;
-        }
+      &::before {
+        border-radius: unset;
       }
     }
+  }
 
-    &--rounded {
-      &.va-pagination > .va-button {
-        border-radius: 9999px;
+  &--rounded {
+    &.va-pagination > .va-button {
+      border-radius: 9999px;
 
-        &::before {
-          border-radius: inherit;
+      &::before {
+        border-radius: inherit;
+      }
+
+      &.va-button--small {
+        &.va-button--icon-only {
+          width: var(--va-button-sm-size);
+          height: var(--va-button-sm-size);
         }
 
-        &.va-button--small {
-          &.va-button--icon-only {
-            width: var(--va-button-sm-size);
-            height: var(--va-button-sm-size);
-          }
+        & .va-button__content {
+          padding-right: var(--va-button-sm-content-px);
+          padding-left: var(--va-button-sm-content-px);
+        }
+      }
 
-          & .va-button__content {
-            padding-right: var(--va-button-sm-content-px);
-            padding-left: var(--va-button-sm-content-px);
-          }
+      &.va-button--normal {
+        & .va-button--icon-only {
+          width: var(--va-button-sm-size);
+          height: var(--va-button-sm-size);
         }
 
-        &.va-button--normal {
-          & .va-button--icon-only {
-            width: var(--va-button-sm-size);
-            height: var(--va-button-sm-size);
-          }
+        & .va-button__content {
+          padding-right: var(--va-button-sm-content-px);
+          padding-left: var(--va-button-sm-content-px);
+        }
+      }
 
-          & .va-button__content {
-            padding-right: var(--va-button-sm-content-px);
-            padding-left: var(--va-button-sm-content-px);
-          }
+      &.va-button--large {
+        &.va-button--icon-only {
+          width: var(--va-button-sm-size);
+          height: var(--va-button-sm-size);
         }
 
-        &.va-button--large {
-          &.va-button--icon-only {
-            width: var(--va-button-sm-size);
-            height: var(--va-button-sm-size);
-          }
-
-          & .va-button__content {
-            padding-right: var(--va-button-sm-content-px);
-            padding-left: var(--va-button-sm-content-px);
-          }
+        & .va-button__content {
+          padding-right: var(--va-button-sm-content-px);
+          padding-left: var(--va-button-sm-content-px);
         }
       }
     }
   }
+}
 </style>

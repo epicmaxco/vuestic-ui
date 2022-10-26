@@ -15,19 +15,19 @@
 
         <tr>
           <td>
-            Custom hover behaviour
+            Custom hover behavior
           </td>
           <td>
-            <va-button :backgroundOpacity="0.9" hoverBehaviour="opacity" :hoverOpacity="0.4">
+            <va-button :backgroundOpacity="0.9" hoverBehavior="opacity" :hoverOpacity="0.4">
               Hover me
             </va-button>
-            <va-button preset="primary" hoverBehaviour="mask" hoverMaskColor="warning" :hoverOpacity="1">
+            <va-button preset="primary" hoverBehavior="mask" hoverMaskColor="warning" :hoverOpacity="1">
               Hover me
             </va-button>
-            <va-button preset="secondary" hoverBehaviour="opacity" :hoverOpacity="0.4">
+            <va-button preset="secondary" hoverBehavior="opacity" :hoverOpacity="0.4">
               Hover me
             </va-button>
-            <va-button preset="plain" hoverBehaviour="mask" hoverMaskColor="warning" :hoverOpacity="1">
+            <va-button preset="plain" hoverBehavior="mask" hoverMaskColor="warning" :hoverOpacity="1">
               Hover me
             </va-button>
           </td>
@@ -35,20 +35,20 @@
 
         <tr>
           <td>
-            Custom press behaviour
+            Custom press behavior
           </td>
           <td>
             <va-button :backgroundOpacity="0.9" pressedBehaviur="opacity" :hoverOpacity="0.4">
-              Hover me
+              Press me
             </va-button>
             <va-button preset="primary" pressedBehavior="mask" :hoverOpacity="0.2">
-              Hover me
+              Press me
             </va-button>
             <va-button preset="secondary" pressedBehavior="opacity" :hoverOpacity="0.4">
-              Hover me
+              Press me
             </va-button>
-            <va-button preset="plain" hoverBehaviour="mask" hoverMaskColor="warning" :hoverOpacity="1">
-              Hover me
+            <va-button preset="plain" hoverBehavior="mask" hoverMaskColor="warning" :hoverOpacity="1">
+              Press me
             </va-button>
           </td>
         </tr>
@@ -94,7 +94,7 @@
             <va-button preset="primary" color="danger">Danger</va-button>
             <va-button preset="secondary" color="warning">Warning</va-button>
             <va-button preset="plain" color="success">Success</va-button>
-            <va-button preset="plainOpacity" color="textDark">Dark</va-button>
+            <va-button preset="plainOpacity" color="textPrimary">Dark</va-button>
           </td>
         </tr>
 
@@ -123,9 +123,9 @@
           <td>
             <va-config :components="{ VaIcon: { color: '#f00' } }">
               <va-button color="danger">
-                <va-icon name="gavel" color="textLight" />
+                <va-icon name="gavel" color="textInverted" />
                 Colored icons
-                <va-icon name="shield" color="textLight" />
+                <va-icon name="shield" color="textInverted" />
               </va-button>
               <va-button preset="plain" color="warning">
                 <va-icon name="gavel" color="warning" />
@@ -226,15 +226,15 @@ export default {
 </script>
 
 <style lang="scss">
-  .va-button-demo {
-    & .va-button {
-      margin-right: 16px;
-    }
-
-    & td {
-      padding-top: 16px;
-      display: flex;
-      align-items: center;
-    }
+.va-button-demo {
+  & .va-button {
+    margin-right: 16px;
   }
+
+  & td {
+    padding-top: 16px;
+    display: flex;
+    align-items: center;
+  }
+}
 </style>

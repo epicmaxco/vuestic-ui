@@ -9,7 +9,7 @@ export interface AccordionItemProps {
 
 export interface AccordionProps extends AccordionItemProps {
   modelValue: boolean[],
-  multiply: boolean,
+  multiple: boolean,
 }
 
 export interface AccordionItem {
@@ -39,7 +39,7 @@ export const useAccordion = (props: AccordionProps, state: WritableComputedRef<b
           return item.state.value
         }
 
-        if (!props.multiply) {
+        if (!props.multiple) {
           item.state.value = false
         }
 

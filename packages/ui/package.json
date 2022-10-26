@@ -33,7 +33,7 @@
     "build:types": "vue-tsc --declaration --emitDeclarationOnly --outDir dist/types",
     "build:book": "vue-cli-service build --mode book",
     "lint": "vue-cli-service lint",
-    "lint:style": "stylelint '**/*.{vue,html,css,scss}'",
+    "lint:style": "stylelint '**/*.{vue,html,css,scss}' --fix",
     "test:e2e": "vue-cli-service test:e2e",
     "test:unit": "vitest",
     "push": "npm publish --tag=next",

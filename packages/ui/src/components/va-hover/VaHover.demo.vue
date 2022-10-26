@@ -58,9 +58,9 @@ export default {
 </script>
 
 <style scoped>
-  .demo-block {
-    background-color: #babfc2;
-    width: 100px;
-    height: 100px;
-  }
+.demo-block {
+  background-color: #babfc2;
+  width: 100px;
+  height: 100px;
+}
 </style>

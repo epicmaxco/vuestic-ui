@@ -75,10 +75,10 @@ onMounted(() => {
     --docsearch-searchbox-shadow: inset 0 0 0 var(--va-input-border-width) var(--va-primary);
     --docsearch-text-color: var(--va-secondary);
     --docsearch-modal-background: var(--va-background-primary);
-    --docsearch-footer-background: var(--va-background-secondary);
-    --docsearch-hit-background: var(--va-background-secondary);
-    --docsearch-hit-color: var(--va-on-background-secondary);
-    --docsearch-searchbox-focus-background: var(--va-background-secondary);
+    --docsearch-footer-background: var(--va-background-element);
+    --docsearch-hit-background: var(--va-background-element);
+    --docsearch-hit-color: var(--va-on-background-element);
+    --docsearch-searchbox-focus-background: var(--va-background-element);
     --docsearch-modal-shadow: unset;
     --docsearch-footer-shadow: unset;
     --docsearch-hit-shadow: unset;

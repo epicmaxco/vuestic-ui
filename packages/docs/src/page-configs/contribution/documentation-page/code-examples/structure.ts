@@ -1,35 +1,12 @@
 export const configFolderStructure = `
-page-configs
-      |
-      |____section (ex: contribution)
-            |
-            |____page (ex: documentation-page)
-                  |
-                  |____page-config.ts
-                  |
-                  |____components
-                  |       |
-                  |       |____ComponentName.vue
-                  |
-                  |____examples
-                          |
-                          |____ComponentName.vue
-`
-
-export const configFileStructure = `
-// page-config.ts
-import { ApiDocsBlock } from '@/types/configTypes'
-import { PageGenerationHelper } from '@/helpers/DocsHelper'
-
-const block = new PageGenerationHelper(__dirname)
-
-const config: ApiDocsBlock[] = [
-  // block.BlockType(props)
-]
-
-export default config
-`
-
-export const blockHelper = `
-const block = new PageGenerationHelper(__dirname)
+[page-config-name]
+  |- 📁 code-examples
+  |---- 📝 [code-example].ts
+  |---- 📝 index.ts // Must re-export all code examples using named exports
+  |- 📁 examples  // Prefer using composables, but store here stuff to make component clean (not recomended folder)
+  |---- 📝 [example].vue // Example vue component. Better to have it in Options API with Js. Keep it small.
+  |- 📁 components // if you have complex docs page and need a bit of interactivity.
+  |---- [component].vue
+  |- 📝 api-options.ts // api options for this component at the bottom of component page
+  |- 📝 page-config.ts // Entry file where docs page defined
 `

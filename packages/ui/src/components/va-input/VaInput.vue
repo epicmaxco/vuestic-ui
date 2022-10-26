@@ -34,7 +34,7 @@
       <va-icon
         v-if="canBeCleared"
         role="button"
-        aria-label="reset"
+        :aria-label="t('reset')"
         :tabindex="tabIndexComputed"
         v-bind="clearIconProps"
         @click.stop="reset"
@@ -82,6 +82,7 @@ import {
   useEmitProxy,
   useClearable, useClearableProps, useClearableEmits,
   useFocusDeep,
+  useTranslation,
 } from '../../composables'
 import { useCleave, useCleaveProps } from './hooks/useCleave'
 
@@ -154,10 +155,11 @@ export default defineComponent({
 
     const isFocused = useFocusDeep()
 
-    const reset = () => {
+    const reset = () => withoutValidation(() => {
       emit('update:modelValue', props.clearValue)
       emit('clear')
-    }
+      resetValidation()
+    })
 
     const focus = () => {
       input.value?.focus()
@@ -177,7 +179,9 @@ export default defineComponent({
       computedErrorMessages,
       listeners: validationListeners,
       validationAriaAttributes,
-    } = useValidation(props, emit, reset, focus)
+      withoutValidation,
+      resetValidation,
+    } = useValidation(props, emit, { reset, focus })
 
     const { modelValue } = toRefs(props)
     const {
@@ -235,6 +239,7 @@ export default defineComponent({
     )
 
     return {
+      ...useTranslation(),
       input,
       inputEvents,
 

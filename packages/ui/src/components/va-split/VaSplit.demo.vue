@@ -144,22 +144,22 @@ export default {
 </script>
 
 <style lang="scss">
-  .va-split-demo {
-    & .va-split {
-      height: 10rem;
+.va-split-demo {
+  & .va-split {
+    height: 10rem;
 
-      &__panel {
-        padding: 0.75rem;
-      }
-    }
-
-    & .custom-grabber {
-      height: 100%;
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background-color: greenyellow;
+    &__panel {
+      padding: 0.75rem;
     }
   }
+
+  & .custom-grabber {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: greenyellow;
+  }
+}
 </style>

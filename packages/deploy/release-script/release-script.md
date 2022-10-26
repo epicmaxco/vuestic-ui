@@ -12,7 +12,7 @@ Here's what script does:
 * build vuestic-ui;
 * publish vuestic-ui to npm.
 
-There are a couple of cli arguments you can pass to script to modify its behaviour:
+There are a couple of cli arguments you can pass to script to modify its behavior:
 
 ```sh
 npx tsx release-script/release-script.ts

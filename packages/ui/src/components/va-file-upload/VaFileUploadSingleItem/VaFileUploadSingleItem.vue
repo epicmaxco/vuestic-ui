@@ -12,7 +12,7 @@
       <va-button
         v-if="!disabled"
         class="va-file-upload-single-item__button"
-        aria-label="remove file"
+        :aria-label="t('removeFile')"
         size="small"
         color="danger"
         flat
@@ -26,7 +26,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
-import { useStrictInject } from '../../../composables'
+import { useStrictInject, useTranslation } from '../../../composables'
 
 import { VaButton, VaListItem, VaListItemSection } from '../../index'
 import { VaFileUploadKey, ConvertedFile } from '../types'
@@ -49,36 +49,37 @@ export default defineComponent({
   },
 
   setup: () => ({
+    ...useTranslation(),
     disabled: useStrictInject(VaFileUploadKey, INJECTION_ERROR_MESSAGE).disabled,
   }),
 })
 </script>
 
 <style lang='scss'>
-  .va-file-upload-single-item {
+.va-file-upload-single-item {
+  width: 100%;
+
+  &__content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    max-width: 100%;
     width: 100%;
-
-    &__content {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      max-width: 100%;
-      width: 100%;
-    }
-
-    &__name {
-      margin-right: 0.25rem;
-      max-width: 80%;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      line-height: normal;
-    }
-
-    &__button {
-      margin-top: 0;
-      margin-bottom: 0;
-      font-weight: 700;
-    }
   }
+
+  &__name {
+    margin-right: 0.25rem;
+    max-width: 80%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: normal;
+  }
+
+  &__button {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-weight: 700;
+  }
+}
 </style>

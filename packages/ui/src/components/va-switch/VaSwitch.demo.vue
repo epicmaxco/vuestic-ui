@@ -22,11 +22,11 @@
       />
       <va-switch
         v-model="value"
-        color="gray"
+        color="secondary"
       />
       <va-switch
         v-model="value"
-        color="dark"
+        color="textPrimary"
       />
     </VbCard>
     <VbCard title="With label">
@@ -233,10 +233,10 @@ export default {
 </script>
 
 <style lang="scss">
-  .va-switch-demo {
-    .va-switch {
-      margin-right: 16px;
-      margin-bottom: 16px;
-    }
+.va-switch-demo {
+  .va-switch {
+    margin-right: 16px;
+    margin-bottom: 16px;
   }
+}
 </style>

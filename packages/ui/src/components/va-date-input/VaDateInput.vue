@@ -33,11 +33,11 @@
             <slot :name="name" v-bind="slotScope" />
           </template>
 
-          <template #prependInner="slotScope">
+          <template #prependInner="slotScope" v-if="$slots.prependInner || $props.leftIcon">
             <slot name="prependInner" v-bind="slotScope" />
             <va-icon
               v-if="$props.leftIcon"
-              aria-label="toggle dropdown"
+              :aria-label="t('toggleDropdown')"
               v-bind="iconProps"
             />
           </template>
@@ -45,7 +45,7 @@
           <template #icon>
             <va-icon
               v-if="canBeCleared"
-              aria-label="reset date"
+              :aria-label="t('resetDate')"
               v-bind="{ ...iconProps, ...clearIconProps }"
               @click.stop="reset"
               @keydown.enter.stop="reset"
@@ -53,7 +53,7 @@
             />
             <va-icon
               v-else-if="!$props.leftIcon"
-              aria-label="toggle dropdown"
+              :aria-label="t('toggleDropdown')"
               v-bind="iconProps"
             />
           </template>
@@ -107,7 +107,7 @@ import {
   useValidation, useValidationEmits, useValidationProps, ValidationProps,
   useStateful, useStatefulEmits,
   useParsable,
-  useFocus, useFocusEmits,
+  useFocus, useFocusEmits, useTranslation,
 } from '../../composables'
 import { useSyncProp } from '../va-date-picker/hooks/sync-prop'
 import { useRangeModelValueGuard } from './hooks/range-model-value-guard'
@@ -255,10 +255,11 @@ export default defineComponent({
       }
     }
 
-    const reset = (): void => {
+    const reset = () => withoutValidation(() => {
       statefulValue.value = props.clearValue
       emit('clear')
-    }
+      resetValidation()
+    })
 
     const hideAndFocus = (): void => {
       isOpenSync.value = false
@@ -294,7 +295,14 @@ export default defineComponent({
       nextTick(focusDatePicker)
     }
 
-    const { computedError, computedErrorMessages, listeners, validationAriaAttributes } = useValidation(props, emit, reset, focus)
+    const {
+      computedError,
+      computedErrorMessages,
+      listeners,
+      validationAriaAttributes,
+      withoutValidation,
+      resetValidation,
+    } = useValidation(props, emit, { reset, focus })
 
     const hasError = computed(() => (!isValid.value && valueComputed.value !== props.clearValue) || computedError.value)
 
@@ -359,11 +367,13 @@ export default defineComponent({
       },
     }))
 
+    const { t } = useTranslation()
+
     const inputAttributesComputed = computed(() => ({
       readonly: props.readonly || !props.manualInput,
       tabindex: props.disabled ? -1 : 0,
       value: valueText.value,
-      ariaLabel: props.label || 'selected date',
+      ariaLabel: props.label || t('selectedDate'),
       ariaRequired: props.requiredMark,
       ariaDisabled: props.disabled,
       ariaReadOnly: props.readonly,
@@ -381,6 +391,7 @@ export default defineComponent({
     }))
 
     return {
+      t,
       datePicker,
       valueText,
       valueWithoutText,
@@ -417,27 +428,27 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  @import "../../styles/resources";
+@import "../../styles/resources";
 
-  .va-date-input {
-    --va-date-picker-cell-size: 28px;
+.va-date-input {
+  --va-date-picker-cell-size: 28px;
 
-    min-width: var(--va-date-input-min-width);
-    font-family: var(--va-font-family);
+  min-width: var(--va-date-input-min-width);
+  font-family: var(--va-font-family);
 
-    &__anchor {
-      flex: 1;
-    }
+  &__anchor {
+    flex: 1;
+  }
 
-    &__input {
-      &:read-only {
-        cursor: pointer;
-      }
-    }
-
-    &__dropdown-content {
-      display: flex;
-      justify-content: center;
+  &__input {
+    &:read-only {
+      cursor: pointer;
     }
   }
+
+  &__dropdown-content {
+    display: flex;
+    justify-content: center;
+  }
+}
 </style>

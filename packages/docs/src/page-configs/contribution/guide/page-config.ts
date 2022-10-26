@@ -1,12 +1,49 @@
 import { ApiDocsBlock } from '@/types/configTypes'
 import { PageGenerationHelper } from '@/helpers/DocsHelper'
-import { npmScripts, componentFolderStructure } from './code-examples'
+import { componentFolderStructure } from './code-examples'
 
 const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [
   block.title('guide.title'),
   block.paragraph('guide.description'),
+
+  block.subtitle('guide.quickStart.title'),
+  block.paragraph('guide.quickStart.description'),
+  block.list([
+    'guide.quickStart.steps.1',
+    'guide.quickStart.steps.2',
+    'guide.quickStart.steps.3',
+  ]),
+
+  block.subtitle('guide.packages.title'),
+  block.paragraph('guide.packages.description'),
+  block.list([
+    'guide.packages.list.ui',
+    'guide.packages.list.docs',
+    'guide.packages.list.nuxt',
+    'guide.packages.list.sandbox',
+    'guide.packages.list.vue-cli-plugin',
+    'guide.packages.list.ag-grid-theme',
+    'guide.packages.list.deploy',
+  ]),
+  block.paragraph('guide.packages.notice'),
+
+  block.subtitle('guide.branches.title'),
+  block.list([
+    'guide.branches.publicBranches',
+    'guide.branches.localBranches',
+  ]),
+
+  block.subtitle('guide.commonlyUsedScripts.title'),
+  block.list([
+    'guide.commonlyUsedScripts.list.demo',
+    'guide.commonlyUsedScripts.list.docs',
+  ]),
+  block.paragraph('guide.commonlyUsedScripts.notice'),
+
+  block.subtitle('guide.componentFolderStructure.title'),
+  block.link('guide.componentFolderStructure.link', 'https://github.com/epicmaxco/vuestic-ui/issues/1907'),
 
   block.subtitle('guide.pullRequests.title'),
   block.list([
@@ -15,19 +52,6 @@ const config: ApiDocsBlock[] = [
     'guide.pullRequests.description.checkoutFeat',
     'guide.pullRequests.description.multipleSmallCommits',
     'guide.pullRequests.description.fixBugSteps',
-  ]),
-
-  block.subtitle('guide.branches.title'),
-  block.list([
-    'guide.branches.publicBranches',
-    'guide.branches.localBranches',
-  ]),
-
-  block.subtitle('guide.fileNaming.title'),
-  block.list([
-    'guide.fileNaming.camelCase',
-    'guide.fileNaming.kebabCase',
-    'guide.fileNaming.pascalCase',
   ]),
 
   block.subtitle('guide.forCoreContributors.title'),
@@ -43,15 +67,6 @@ const config: ApiDocsBlock[] = [
     'guide.forCoreContributors.recommendedTools',
     'guide.forCoreContributors.workInBook',
   ]),
-
-  block.subtitle('guide.componentFolderStructure.title'),
-  block.code(componentFolderStructure),
-
-  block.subtitle('guide.beforeReleaseWorkflow.title'),
-  block.paragraph('guide.beforeReleaseWorkflow.description'),
-
-  block.subtitle('guide.npmScripts.title'),
-  block.code(npmScripts),
 
   block.subtitle('guide.credits.title'),
   block.paragraph('guide.credits.description'),

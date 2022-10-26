@@ -5,6 +5,7 @@
     </va-list-label>
 
     <va-list-item
+      class="list__item"
       v-for="(contact, index) in contacts"
       :key="index"
     >
@@ -27,7 +28,7 @@
       <va-list-item-section icon>
         <va-icon
           name="remove_red_eye"
-          color="gray"
+          color="background-tertiary"
         />
       </va-list-item-section>
     </va-list-item>
@@ -48,3 +49,9 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+  .list__item + .list__item {
+    margin-top: 20px;
+  }
+</style>

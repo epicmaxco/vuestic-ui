@@ -14,7 +14,7 @@
       :today="isToday(year)"
       :focused="focusedCellIndex === index"
       :highlight-today="highlightToday"
-      :readonly="readonly"
+      :readonly="$props.readonly"
       :color="color"
       @click="onClick(year); focusedCellIndex = index"
       @mouseenter="hoveredIndex = index"
@@ -142,12 +142,12 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  .va-year-picker {
-    display: flex;
-    flex-direction: column;
-    overflow: auto;
-    grid-gap: var(--va-date-picker-cell-gap);
-    max-height: 100%;
-    position: relative;
-  }
+.va-year-picker {
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  grid-gap: var(--va-date-picker-cell-gap);
+  max-height: 100%;
+  position: relative;
+}
 </style>

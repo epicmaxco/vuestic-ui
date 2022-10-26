@@ -1,4 +1,12 @@
-import { inject, onBeforeUnmount, onMounted, PropType, watch, ExtractPropTypes, computed } from 'vue'
+import {
+  watch,
+  inject,
+  computed,
+  onMounted,
+  onBeforeUnmount,
+  PropType,
+  ExtractPropTypes,
+} from 'vue'
 import flatten from 'lodash/flatten.js'
 import isFunction from 'lodash/isFunction.js'
 import isString from 'lodash/isString.js'
@@ -8,6 +16,11 @@ import { useFocus } from './useFocus'
 import { FormServiceKey } from '../components/va-form/consts'
 
 type ValidationRule<V extends any = any> = ((v: V) => any | string)
+
+type UseValidationOptions = {
+  reset: () => void
+  focus: () => void
+}
 
 const normalizeValidationRules = (rules: string | ValidationRule[] = [], callArguments: unknown = null) => {
   if (isString(rules)) { rules = [rules] as any }
@@ -37,10 +50,11 @@ export const useValidationEmits = ['update:error', 'update:errorMessages']
 export const useValidation = <V, P extends ExtractPropTypes<typeof useValidationProps>>(
   props: P,
   emit: (event: any, ...args: any[]) => void,
-  reset: () => any,
-  focus: () => any,
+  options: UseValidationOptions,
 ) => {
+  const { reset, focus } = options
   const { isFocused, onFocus, onBlur } = useFocus()
+  let canValidate = true
 
   const [computedError] = useSyncProp('error', props, emit, false)
   const [computedErrorMessages] = useSyncProp('errorMessages', props, emit, [] as string[])
@@ -50,8 +64,15 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
     computedErrorMessages.value = []
   }
 
+  const withoutValidation = (cb: () => any): void => {
+    canValidate = false
+    cb()
+  }
+
   const validate = (): boolean => {
-    if (!props.rules || !props.rules.length) {
+    if (!props.rules || !props.rules.length || !canValidate) {
+      canValidate = true
+
       return true
     }
 
@@ -111,6 +132,7 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
     listeners: { onFocus, onBlur },
     validate,
     resetValidation,
+    withoutValidation,
     validationAriaAttributes,
   }
 }

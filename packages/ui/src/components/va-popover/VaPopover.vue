@@ -99,35 +99,35 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  @import '../../styles/resources';
-  @import 'variables';
+@import '../../styles/resources';
+@import 'variables';
 
-  .va-popover {
-    display: var(--va-popover-display);
+.va-popover {
+  display: var(--va-popover-display);
 
-    &__content {
-      background-color: var(--va-popover-content-background-color);
-      opacity: var(--va-popover-content-opacity);
-      display: var(--va-popover-content-display);
-      align-items: var(--va-popover-content-align-items);
-      padding: var(--va-popover-content-padding);
-      border-radius: var(--va-popover-content-border-radius, var(--va-block-border-radius));
-      font-size: var(--va-popover-content-font-size);
-    }
-
-    &__icon + div {
-      padding-left: 0.75rem;
-      overflow: hidden;
-      width: 100%;
-    }
-
-    &__title {
-      font-weight: var(--va-popover-title-font-weight);
-      margin-bottom: var(--va-popover-title-margin-bottom);
-    }
-
-    &__body {
-      line-height: var(--va-popover-body-line-height);
-    }
+  &__content {
+    background-color: var(--va-popover-content-background-color);
+    opacity: var(--va-popover-content-opacity);
+    display: var(--va-popover-content-display);
+    align-items: var(--va-popover-content-align-items);
+    padding: var(--va-popover-content-padding);
+    border-radius: var(--va-popover-content-border-radius, var(--va-block-border-radius));
+    font-size: var(--va-popover-content-font-size);
   }
+
+  &__icon + div {
+    padding-left: 0.75rem;
+    overflow: hidden;
+    width: 100%;
+  }
+
+  &__title {
+    font-weight: var(--va-popover-title-font-weight);
+    margin-bottom: var(--va-popover-title-margin-bottom);
+  }
+
+  &__body {
+    line-height: var(--va-popover-body-line-height);
+  }
+}
 </style>

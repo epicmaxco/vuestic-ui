@@ -1,27 +1,26 @@
 export type CssColor = string
 
 export type EssentialVariables = {
-  // Accent colors
+  // Accent
   primary: CssColor,
   secondary: CssColor,
   success: CssColor,
   info: CssColor,
   danger: CssColor,
   warning: CssColor,
-  // Background colors
+
+  // Background Colors
   backgroundPrimary: CssColor,
-  backgroundTertiary: CssColor,
   backgroundSecondary: CssColor,
-  // TODO: Think about better name
-  /** Form background in switch and borders in checkbox, ratio etc */
   backgroundElement: CssColor,
-  // Text colors
-  textLight: CssColor,
-  textDark: CssColor,
+  backgroundBorder: CssColor,
+
+  // Text Colors
+  textPrimary: CssColor,
+  textInverted: CssColor,
+
   // Misc
-  /** Cards, Navbar etc. shadow */
   shadow: CssColor,
-  /** Outline color when component is focused */
   focus: CssColor,
 }
 

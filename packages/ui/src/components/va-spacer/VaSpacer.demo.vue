@@ -27,12 +27,12 @@ export default {
 </script>
 
 <style lang="scss">
-  .example-spacer {
-    text-align: center;
-    border: 2px dashed var(--va-secondary);
+.example-spacer {
+  text-align: center;
+  border: 2px dashed var(--va-secondary);
 
-    &::after {
-      content: "VaSpacer is here!";
-    }
+  &::after {
+    content: "VaSpacer is here!";
   }
+}
 </style>

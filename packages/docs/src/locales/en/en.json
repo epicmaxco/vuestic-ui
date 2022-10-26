@@ -7,7 +7,11 @@
         "discord": "Join on Discord",
         "translation": "Add translation...",
         "language": "Language",
+        "team": "Team",
         "blog": "Blog"
+      },
+      "banner": {
+        "text": "Vuestic v1.5 has been released! Check out the project on GitHub for more information"
       }
     },
     "preview": {
@@ -160,12 +164,12 @@
         "hideOnScroll": "Hides component when scrolling.",
         "bottom": "Sets the component position to the bottom (`fixed` state).",
         "backgroundOpacity": "Sets up button background opacity.",
-        "hoverBehaviour": "Behaviour of the button, when it's being hovered. Can be `mask` (superimposes color mask on the background or text color for plain state) or `opacity` (adds opacity to the background or text color for plain state).",
-        "hoverMaskColor": "Mask color for `mask` behaviour.",
-        "hoverOpacity": "Opacity value for `opacity` behaviour and mask opacity for `mask` behaviour.",
-        "pressedBehaviour": "Behaviour of the button, when it's being pressed. Can be `mask` (superimposes color mask on the background or text color for plain state) or `opacity` (adds opacity to the background or text color for plain state).",
-        "pressedMaskColor": "Mask color for `mask` behaviour.",
-        "pressedOpacity": "Opacity value for `opacity` behaviour and mask opacity for `mask` behaviour.",
+        "hoverBehavior": "Behavior of the button, when it's being hovered. Can be `mask` (superimposes color mask on the background or text color for plain state) or `opacity` (adds opacity to the background or text color for plain state).",
+        "hoverMaskColor": "Mask color for `mask` behavior.",
+        "hoverOpacity": "Opacity value for `opacity` behavior and mask opacity for `mask` behavior.",
+        "pressedBehavior": "Behavior of the button, when it's being pressed. Can be `mask` (superimposes color mask on the background or text color for plain state) or `opacity` (adds opacity to the background or text color for plain state).",
+        "pressedMaskColor": "Mask color for `mask` behavior.",
+        "pressedOpacity": "Opacity value for `opacity` behavior and mask opacity for `mask` behavior.",
         "textOpacity": "Sets up button text opacity.",
         "iconColor": "Sets up an icon color.",
         "type": "Will be used as value for html `type` attribute.",
@@ -661,7 +665,7 @@
     "VaAccordion": {
       "props": {
         "value": "The array of currently opened collapses",
-        "multiply": "Allows to expand multiply components",
+        "multiple": "Allows to expand multiple components",
         "inset": "Collapse becomes smaller when activated",
         "popout": "Collapse becomes bigger when activated"
       },
@@ -1298,7 +1302,7 @@
         "modelValue": "Slide index to be shown.",
         "vertical": "Change slider scroll orientation.",
         "fadeKeyframe": "Custom keyframe name for fade animation",
-        "swipable": "Enables swiping behaviour.",
+        "swipable": "Enables swiping behavior.",
         "swipeDirection": "Allowed directions for swiping: `all, horizontal, vertical, left, right, up, down`.",
         "swipeDistance": "Distance in `px` considered sufficient for the swipe event."
       },
@@ -1434,6 +1438,10 @@
       "new": {
         "text": "new",
         "title": "Recently added"
+      },
+      "updated": {
+        "text": "updated",
+        "title": "Recently updated"
       }
     },
     "categories": {
@@ -1451,7 +1459,7 @@
     "uiElements": "UI Elements",
     "contribution": "Contribution",
     "extensions": "Extensions",
-    "documentationPage": "Documentation Page",
+    "documentationPage": "Documentation Guide",
     "affix": "Affix",
     "avatar": "Avatar",
     "breadcrumbs": "Breadcrumbs",
@@ -1593,11 +1601,12 @@
   },
   "kitchensink": {
     "title": "Kitchesink",
-    "description": "At this page you can see examples for all components, this is a great place to get started with `Vuestic`. For even more examples you can check `UI Elements` tab in menu."
+    "description": "At this page you can see examples for all components, this is a great place to get started with `Vuestic`. For even more examples you can check `UI Elements` tab in menu.",
+    "seeMore": "See more"
   },
   "documentationPage": {
     "compilesTo": "Compiles to:",
-    "title": "Documentation Page",
+    "title": "Working with documentation",
     "description": "This page is intended for Vuestic-UI contributors. It explains the ways to create and modify the documentation.",
     "introduction": {
       "title": "Introduction",
@@ -1846,9 +1855,9 @@
         "title": "Disabled",
         "text": "The `disabled` prop prevents any actions with button."
       },
-      "behaviour": {
-        "title": "Behaviour",
-        "text": "You can change hover or pressed behavior of the button via `hover`/`pressedBehaviour`, `hover`/`pressedMaskColor` and `hover`/`pressedOpacity` props."
+      "behavior": {
+        "title": "Behavior",
+        "text": "You can change hover or pressed behavior of the button via `hover`/`pressedBehavior`, `hover`/`pressedMaskColor` and `hover`/`pressedOpacity` props."
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-button/_variables.scss)[[target=_blank]]"
@@ -2110,7 +2119,7 @@
     },
     "hidingOverlay": {
       "title": "Hiding the overlay",
-      "text": "Hide the modal's overlay via setting the `overlay` prop to `false`.\n\nNote that clicking outside of the modal will still close the modal even though the overlay is hidden. You can disable this behaviour by setting the `no-outside-dismiss` prop on `va-modal`."
+      "text": "Hide the modal's overlay via setting the `overlay` prop to `false`.\n\nNote that clicking outside of the modal will still close the modal even though the overlay is hidden. You can disable this behavior by setting the `no-outside-dismiss` prop on `va-modal`."
     },
     "blurredOverlay": {
       "title": "Blurred overlay",
@@ -2867,9 +2876,9 @@
         "title": "Default",
         "text": "Default usage  of the `va-accordion` component."
       },
-      "multiply": {
-        "title": "Multiply",
-        "text": "Accordion component allows you to select multiply collapses."
+      "multiple": {
+        "title": "Multiple",
+        "text": "Accordion component allows you to select multiple collapses."
       },
       "inset": {
         "title": "Inset",
@@ -3586,7 +3595,10 @@
     },
     "icons": {
       "title": "Icon fonts",
-      "description": "By default Vuestic UI uses **material icons**, so make sure to install the package:",
+      "description": [
+        "By default Vuestic UI uses **material icons**, so make sure to install the package:",
+        "After installing the **material icons** package, you need to import its styles into the `main.js` file."
+      ],
       "subtitle": "Using custom icons",
       "subDescription": "With icons config you can use any icon font you'd like by simply transforming the icon names to respective props."
     },
@@ -3620,15 +3632,11 @@
   },
   "team": {
     "title": "Meet the Team",
-    "description": "With multiple contributors to Vuestic, the list of people you can meet below is by no means exhaustive. Just remember to thank everyone using Vuestic and supporting us, because together we all help you push your products light-years ahead of your competition.",
+    "description": "Hi there, we are really pleased to meet you too!\n\nVuestic started as a small admin template back in 2017. It was released on GitHub and was warmly embraced by the Vue.js community. Since then we’ve been contributing to Vuestic daily and today it’s grown into a full-fledged framework with a decent ecosystem around it.\n\nThe team behind Vuestic is in ❤️ with Vue.js and Open Source. We’re doing our best to make developers’ lives easier and  joyful.",
     "coreTeam": "Core Team \uD83E\uDD13",
-    "coreTeamDescription": "[Epicmax](https://epicmax.co/)[[target=_blank]] is committed to open source project from its beginning. Vuestic was created by Epicmax, and is supported through all years. Please meet the core contributors. Write to [Discord](https://discord.com/invite/u7fQdqQt8c)[[target=_blank]] anytime and get a quick response from the Vuestic core team.",
-    "featureRich": "Contains a **50+ feature-rich components** that can be used in any design solution",
-    "configurable": "Allows **to configure components** globally via config and CSS variables",
-    "responsive": "Fully **responsive** and **supports modern browsers** (no IE11, sorry)",
-    "translatable": "Integrates seamlessly with **i18n**",
+    "coreTeamDescription": "Established in 2017, [Epicmax](https://epicmax.co/)[[target=_blank]] is a Vue.js development company with over 55 successfully completed projects for it’s clients all over the world.\n\nThe company is committed to Open Source from its beginning. Vuestic was created and backed by Epicmax, and is supported through all the years. You can request a consultation or order web development services by Epicmax via this [form](https://epicmax.co/contacts)[[target=_blank]]\n\nAnd now, please meet the core contributors \uD83C\uDF89",
     "specialThanks": "Special Thanks \uD83D\uDE4C",
-    "specialThanksDescription": "We’d like to thank all contributors, not only to those who push commits and leave their suggestions on how to improve Vuestic, but all of you, who use Vuestic to bring your power your projects."
+    "specialThanksDescription": "We’d like to thank all contributors and users of Vuestic. Your constant assistance, insights and feedback not only help Vuestic to get a better ecosystem, but also charges the core team with energy and enthusiasm to go an extra mile. With you everything is possible."
   },
   "translation": {
     "title": "Translation",
@@ -3748,6 +3756,45 @@
   "guide": {
     "title": "Contribution guide",
     "description": "This guide describes the possible ways in which you can become a part of the ongoing development of Vuestic UI. We are really excited that you are interested in helping us make Vuestic better!",
+    "quickStart": {
+      "title": "Quick start",
+      "description": "If you want to make some changes get a local copy of VausticUI:",
+      "steps": {
+        "1": "Fork Vuestic repository",
+        "2": "Clone your fork",
+        "3": "Install dependencies with `yarn install`"
+      }
+    },
+    "packages": {
+      "title": "Pacakges",
+      "description": "Vuestic has few packages in order of importance for newcommers:",
+      "list": {
+        "ui": "`packages/ui` - UI lib with demos. Here all vuestic components stored.",
+        "docs": "`packages/docs` - [vuestic.dev](https://vuestic.dev) source code.",
+        "nuxt": "`packages/nuxt` - {'`@vuestic/nuxt`'} module for Nuxt3.",
+        "sandbox": "`packages/sandbox` - Package for testing build and treeshaking.",
+        "vue-cli-plugin": "`packages/vue-cli-plugin` - vue add vuestic-ui plugin for vue-cli.",
+        "ag-grid-theme": "`packages/ag-grid-theme` - AgGrid extension styles.",
+        "deploy": "`packages/deploy` - Release scripts for core contributors."
+      },
+      "notice": "Likely you will deal only with `ui` and `docs` packages."
+    },
+    "commonlyUsedScripts": {
+      "title": "Commonly used scripts",
+      "list": {
+        "demo": "`yarn serve` - this will run project with demos, where you can test component features.",
+        "docs": "`yarn serve:docs` - this will run project with docs (deployed here [vuestic.dev](https://vuestic.dev))."
+      },
+      "notice": "You can find more scripts in `package.json` of each package."
+    },
+    "creating": {
+      "title": "Making new components or docs pages",
+      "description": "We have few generate scripts for you to make your life easier.",
+      "scripts": {
+        "docs": "`yarn generate:docs` will make new docs page.",
+        "component": "`yarn generate:component` will make new component."
+      }
+    },
     "pullRequests": {
       "title": "Pull Request Guidelines",
       "description": {
@@ -3761,13 +3808,7 @@
     "branches": {
       "title": "Branches",
       "publicBranches": "Public branches (**epicmax/vuestic-ui**):\n  * `master` - releases and hotfixes only. Do not submit PR's to `master`!\n  * `develop` - main development branch.",
-      "localBranches": "Local branches\n  * For local branches prepend your messages with `feat/` (e.g. for a tabs-related fix it would be `feat/fix-tabs`). This is necessary to keep local branches visually separated from the public ones."
-    },
-    "fileNaming": {
-      "title": "File naming",
-      "camelCase": "`testIsContextableComponent.ts` - helpers and instants",
-      "kebabCase": "`api-options.ts` - configs",
-      "pascalCase": "`DocsCode.vue` - components, classes, types"
+      "localBranches": "Local branches\n  * For local branches prepend your messages with `feat/` or `fix/` (e.g. for a tabs-related fix it would be `fix/tabs`, `feat/date-picker` or `fix#1000/important-bug`). This is necessary to keep local branches visually separated from the public ones."
     },
     "forCoreContributors": {
       "title": "For the core contributors",
@@ -3783,14 +3824,8 @@
       "workInBook": "If you work on UI components - work in the book environment (`yarn serve:book`). We want to keep global stuff out of components."
     },
     "componentFolderStructure": {
-      "title": "Component folder structure"
-    },
-    "beforeReleaseWorkflow": {
-      "title": "Before release workflow",
-      "description": "Update packages' versions. Update the lock files (for both `npm` and `yarn`)\n"
-    },
-    "npmScripts": {
-      "title": "Commonly used NPM scripts"
+      "title": "Component folder structure",
+      "link": "See detailed guide here."
     },
     "credits": {
       "title": "Credits",
@@ -4356,14 +4391,31 @@
       "availableCss": "Available CSS variables",
       "colorsUsed": "Each default color of Vuestic UI  (including overridden colors) and the new custom color have their own `CSS variables`."
     },
-    "defaultColorThemes": {
-      "title": "Default color themes",
-      "description": "All the default colors of Vuestic UI are listed below:"
-    },
     "reactivity": {
       "subtitle": "Reactivity",
       "about": "These variables reactive relative to `Colors Config`. This means that they will be updated when the configuration changes. Read more about how to update the configuration [here](https://vuestic.dev/en/services/colors-config#icon-config-service-api).",
       "additional": "Please note that changing `CSS variables` of the colors directly, in turn, will not update `Colors Config`."
+    },
+    "theme": {
+      "title": "Color presets",
+      "description": "Vuestic is shipped with two built-in color pressets: light and dark. You can switch between them using `applyPreset` method from `useColors`. You can check example bellow:",
+      "autoTextColor": "We use abstract color names instead of absolute names. You can click on each color above to see its description and where is it used.",
+      "colors": {
+        "primary": "Accent color used on button, links and other interactive elements",
+        "secondary": "Accent color used on non important interactive elements",
+        "success": "Accent color for success validation, alerts or toasts",
+        "danger": "Accent color for error validation, alerts or toasts",
+        "info": "Accent color for info toasts or alerts",
+        "warning": "Accent color for warning toasts or alerts",
+        "backgroundPrimary": "Page background",
+        "backgroundSecondary": "Card, Modal, Dropdown background",
+        "backgroundElement": "Input, switch, divider background colors",
+        "backgroundBorder": "Used as border color in elements like input, switch etc.",
+        "textPrimary": "Main text used on page. Used as default color on background colors.",
+        "textInverted": "Used as text color, if `textPrimary` doesn't have enough contrast with background color.",
+        "shadow": "Color of shadows that used in elements like cards, modals etc.",
+        "focus": "Keyboard focus outline color"
+      }
     }
   },
   "carousel": {
@@ -4403,7 +4455,15 @@
       },
       "swipe": {
         "title": "Swipe",
-        "text": "The `swipable` prop enables swipe behaviour for the component."
+        "text": "The `swipable` prop enables swipe behavior for the component."
+      },
+      "Ratio": {
+        "title": "Ratio",
+        "text": "The `ratio` prop allows you to set the aspect ratio of the carousel."
+      },
+      "Height": {
+        "title": "Height",
+        "text": "If you need specific height instead of ratio, you can use `height` prop."
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-carousel/_variables.scss)[[target=_blank]]"

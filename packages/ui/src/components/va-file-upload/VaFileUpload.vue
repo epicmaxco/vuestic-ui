@@ -10,18 +10,18 @@
           v-if="dropzone"
           class="va-file-upload__field__text"
         >
-          {{ dropZoneText }}
+          {{ tp(dropZoneText) }}
         </div>
         <va-button
           class="va-file-upload__field__button"
           :disabled="disabled"
           :aria-disabled="disabled"
           :color="colorComputed"
-          :style="{ 'pointer-events': dropzoneHighlight ? 'none' : '' }"
+          :style="{ 'pointer-events': dropzoneHighlight ? 'none' : undefined }"
           @change="changeFieldValue"
           @click="callFileDialogue"
         >
-          {{ uploadButtonText }}
+          {{ tp(uploadButtonText) }}
         </va-button>
       </div>
     </slot>
@@ -59,7 +59,7 @@
 <script lang="ts">
 import { computed, defineComponent, onMounted, ref, toRef, shallowRef, provide, PropType } from 'vue'
 
-import { useColors, useComponentPresetProp, useBem } from '../../composables'
+import { useColors, useComponentPresetProp, useBem, useTranslation } from '../../composables'
 
 import { VaFileUploadKey, VaFile } from './types'
 
@@ -84,10 +84,10 @@ export default defineComponent({
     disabled: { type: Boolean, default: false },
     undo: { type: Boolean, default: false },
     undoDuration: { type: Number, default: 3000 },
-    undoButtonText: { type: String, default: 'Undo' },
-    dropZoneText: { type: String, default: 'Drag’n’drop files or' },
-    uploadButtonText: { type: String, default: 'Upload file' },
-    deletedFileMessage: { type: String, default: 'File was successfully deleted' },
+    undoButtonText: { type: String, default: '$t:undo' },
+    dropZoneText: { type: String, default: '$t:dropzone' },
+    uploadButtonText: { type: String, default: '$t:uploadFile' },
+    deletedFileMessage: { type: String, default: '$t:fileDeleted' },
     modelValue: {
       type: [Object, Array] as PropType<VaFile | VaFile[]>,
       default: () => [],
@@ -201,12 +201,14 @@ export default defineComponent({
       }
     })
 
+    const { tp } = useTranslation()
+
     provide(VaFileUploadKey, {
       undo: toRef(props, 'undo'),
       disabled: toRef(props, 'disabled'),
       undoDuration: toRef(props, 'undoDuration'),
-      undoButtonText: toRef(props, 'undoButtonText'),
-      deletedFileMessage: toRef(props, 'deletedFileMessage'),
+      undoButtonText: computed(() => tp(props.undoButtonText)),
+      deletedFileMessage: computed(() => tp(props.deletedFileMessage)),
     })
 
     return {
@@ -217,6 +219,7 @@ export default defineComponent({
       computedStyle,
       computedClasses,
       files,
+      tp,
       uploadFile,
       changeFieldValue,
       removeFile,
@@ -228,93 +231,93 @@ export default defineComponent({
 </script>
 
 <style lang='scss'>
-  @import "../../styles/resources";
-  @import "variables";
+@import "../../styles/resources";
+@import "variables";
 
-  .va-file-upload {
-    position: var(--va-file-upload-position);
-    font-family: var(--va-font-family);
-    margin: var(--va-file-upload-margin);
+.va-file-upload {
+  position: var(--va-file-upload-position);
+  font-family: var(--va-font-family);
+  margin: var(--va-file-upload-margin);
 
-    .va-file-upload-list {
-      margin-top: var(--va-file-upload-list-margin-top);
+  .va-file-upload-list {
+    margin-top: var(--va-file-upload-list-margin-top);
+  }
+
+  &__field {
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    &__button {
+      margin: var(--va-file-upload-dropzone-field-button-margin);
+      z-index: 10;
     }
 
-    &__field {
-      overflow: var(--va-file-upload-dropzone-field-overflow);
-      display: var(--va-file-upload-dropzone-field-display);
-      align-items: var(--va-file-upload-dropzone-field-align-items);
-      position: var(--va-file-upload-dropzone-field-position);
+    &__text {
+      padding-right: var(--va-file-upload-dropzone-field-text-pr);
+    }
 
-      &__button {
-        margin: var(--va-file-upload-dropzone-field-button-margin);
-        z-index: var(--va-file-upload-dropzone-field-button-z-index);
-      }
+    &__input {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+      width: 100%;
+      color: transparent;
+      opacity: 0;
+      cursor: pointer;
 
-      &__text {
-        padding-right: var(--va-file-upload-dropzone-field-text-pr);
-      }
-
-      &__input {
-        position: absolute;
-        top: 0;
-        right: 0;
-        height: 100%;
-        width: 100%;
-        color: transparent;
-        opacity: 0;
+      &::-webkit-file-upload-button {
         cursor: pointer;
-
-        &::-webkit-file-upload-button {
-          cursor: pointer;
-        }
       }
-    }
-
-    &--dropzone {
-      background-color: var(--va-file-upload-dropzone-background-color);
-      overflow: var(--va-file-upload-dropzone-overflow);
-      border-radius: var(--va-file-upload-dropzone-border-radius);
-      cursor: var(--va-file-upload-dropzone-cursor);
-
-      .va-file-upload__field {
-        justify-content: center;
-        display: flex;
-        align-items: center;
-        padding: var(--va-file-upload-dropzone-field-padding);
-        transition: height 0.2s;
-        overflow: visible;
-        flex-wrap: wrap;
-
-        @include media-breakpoint-down(sm) {
-          flex-direction: column;
-          padding: var(--va-file-upload-dropzone-field-padding-sm);
-
-          &__text {
-            padding: var(--va-file-upload-dropzone-text-padding-sm);
-            text-align: center;
-          }
-        }
-      }
-
-      .va-file-upload-list {
-        padding: var(--va-file-upload-dropzone-list-padding);
-        margin-top: 0;
-      }
-    }
-
-    &--disabled {
-      .va-file-upload__field__input {
-        cursor: default;
-
-        &::-webkit-file-upload-button {
-          cursor: inherit;
-        }
-      }
-    }
-
-    .va-button {
-      @include keyboard-focus-outline($offset: -2px);
     }
   }
+
+  &--dropzone {
+    background-color: var(--va-file-upload-dropzone-background-color);
+    overflow: hidden;
+    border-radius: var(--va-file-upload-dropzone-border-radius);
+    cursor: var(--va-file-upload-dropzone-cursor);
+
+    .va-file-upload__field {
+      justify-content: center;
+      display: flex;
+      align-items: center;
+      padding: var(--va-file-upload-dropzone-field-padding);
+      transition: height 0.2s;
+      overflow: visible;
+      flex-wrap: wrap;
+
+      @include media-breakpoint-down(sm) {
+        flex-direction: column;
+        padding: var(--va-file-upload-dropzone-field-padding-sm);
+
+        &__text {
+          padding: var(--va-file-upload-dropzone-text-padding-sm);
+          text-align: center;
+        }
+      }
+    }
+
+    .va-file-upload-list {
+      padding: var(--va-file-upload-dropzone-list-padding);
+      margin-top: 0;
+    }
+  }
+
+  &--disabled {
+    .va-file-upload__field__input {
+      cursor: default;
+
+      &::-webkit-file-upload-button {
+        cursor: inherit;
+      }
+    }
+  }
+
+  .va-button {
+    @include keyboard-focus-outline($offset: -2px);
+  }
+}
 </style>

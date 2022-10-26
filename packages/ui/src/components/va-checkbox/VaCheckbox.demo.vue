@@ -221,10 +221,10 @@ export default {
 </script>
 
 <style lang="scss">
-  .va-checkbox-demo {
-    & .VbCard {
-      display: flex;
-      flex-direction: column;
-    }
+.va-checkbox-demo {
+  & .VbCard {
+    display: flex;
+    flex-direction: column;
   }
+}
 </style>

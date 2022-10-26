@@ -106,17 +106,17 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  @import "../variables";
-  @import "../../../styles/resources";
+@import "../variables";
+@import "../../../styles/resources";
 
-  .va-sidebar__item {
-    border-left: var(--va-sidebar-item-active-border-size) solid transparent;
-    padding-right: var(--va-sidebar-item-active-border-size);
-    display: inline-block;
-    width: 100%;
-    font-family: var(--va-font-family);
-    transition: var(--va-sidebar-item-transition);
-    box-sizing: border-box;
-    color: currentColor;
-  }
+.va-sidebar__item {
+  border-left: var(--va-sidebar-item-active-border-size) solid transparent;
+  padding-right: var(--va-sidebar-item-active-border-size);
+  display: inline-block;
+  width: 100%;
+  font-family: var(--va-font-family);
+  transition: var(--va-sidebar-item-transition);
+  box-sizing: border-box;
+  color: currentColor;
+}
 </style>

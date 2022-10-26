@@ -28,19 +28,19 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  @import "variables";
+@import "variables";
 
-  .va-list-item-label {
-    font-family: var(--va-font-family);
-    color: var(--va-list-item-label-color);
-    display: var(--va-list-item-label-display);
-    -webkit-box-orient: var(--va-list-item-label-box-orient);
-    overflow: var(--va-list-item-label-overflow);
-    line-height: var(--va-list-item-label-line-height);
+.va-list-item-label {
+  font-family: var(--va-font-family);
+  color: var(--va-list-item-label-color);
+  display: var(--va-list-item-label-display);
+  -webkit-box-orient: var(--va-list-item-label-box-orient);
+  overflow: var(--va-list-item-label-overflow);
+  line-height: var(--va-list-item-label-line-height);
 
-    &--caption {
-      font-size: var(--va-list-item-label-caption-font-size);
-      color: var(--va-list-item-label-caption-color);
-    }
+  &--caption {
+    font-size: var(--va-list-item-label-caption-font-size);
+    color: var(--va-list-item-label-caption-color);
   }
+}
 </style>

@@ -44,7 +44,6 @@
       success
     />
     <va-select
-      class="mb-4"
       label="Success state with messages"
       :options="options"
       v-model="value"

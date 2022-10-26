@@ -271,13 +271,13 @@
 </template>
 
 <style lang="scss">
-  @import '../resources';
-  @import 'grid-global-styles';
+@import '../resources';
+@import 'grid-global-styles';
 
-  .grid-demo {
-    & ._blue-rectangle {
-      background-color: #b6ecff;
-      border: 1px solid #738dff;
-    }
+.grid-demo {
+  & ._blue-rectangle {
+    background-color: #b6ecff;
+    border: 1px solid #738dff;
   }
+}
 </style>

@@ -743,7 +743,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-  .demo {
-    width: 500px;
-  }
+.demo {
+  width: 500px;
+}
 </style>

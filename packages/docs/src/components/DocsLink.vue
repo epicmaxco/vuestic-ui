@@ -7,7 +7,10 @@
       v-if="preText"
       :value="$tie(preText)"
     />
-    <router-link :to="linkHref">
+    <a v-if="externalLink" class="MarkdownView__link--external" :href="href" target="_blank">
+      {{ $tie(text) }}
+    </a>
+    <router-link v-else :to="linkHref">
       {{ $tie(text) }}
     </router-link>
     <MarkdownView
@@ -53,14 +56,20 @@ export default defineComponent({
   setup (props) {
     const { locale } = useI18n()
 
+    const externalLink = computed(() => {
+      return /^(http:\/\/|https:\/\/)/.test(props.href)
+    })
+
     const linkHref = computed(() => {
       if (props.href.startsWith('/')) {
         return `/${locale.value}${props.href}`
       }
+
       return `/${locale.value}/${props.href}`
     })
 
     return {
+      externalLink,
       linkHref,
     }
   },

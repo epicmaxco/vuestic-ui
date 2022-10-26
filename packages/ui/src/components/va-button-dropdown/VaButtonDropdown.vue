@@ -2,13 +2,9 @@
   <div class="va-button-dropdown" :class="computedClass">
     <va-dropdown
       v-if="!$props.split"
+      v-bind="vaDropdownProps"
       v-model="valueComputed"
-      :disabled="$props.disabled"
-      :placement="$props.placement"
-      :offset="$props.offset"
-      :keep-anchor-width="$props.keepAnchorWidth"
-      :close-on-content-click="$props.closeOnContentClick"
-      :stateful="$props.stateful"
+      :disabled="$props.disabled || $props.disableDropdown"
     >
       <template #anchor>
         <va-button
@@ -45,16 +41,12 @@
 
       <va-dropdown
         v-model="valueComputed"
+        v-bind="vaDropdownProps"
         :disabled="$props.disabled || $props.disableDropdown"
-        :placement="$props.placement"
-        :offset="$props.offset"
-        :stateful="$props.stateful"
-        :close-on-content-click="$props.closeOnContentClick"
-        prevent-overflow
       >
         <template #anchor>
           <va-button
-            aria-label="toggle dropdown"
+            :aria-label="t('toggleDropdown')"
             :disabled="$props.disabled || $props.disableDropdown"
             :icon="computedIcon"
             v-on="listeners"
@@ -82,7 +74,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType, computed } from 'vue'
-import { extractComponentProps } from '../../utils/child-props'
+import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
 
 import {
   useBem,
@@ -91,6 +83,7 @@ import {
   useStateful, useStatefulProps,
   useEmitProxy,
   Placement, placementsPositions,
+  useTranslation,
 } from '../../composables'
 
 import { VaButton } from '../va-button'
@@ -105,6 +98,7 @@ const { createEmits: createMainButtonEmits, createVOnListeners: createMainButton
 )
 
 const VaButtonProps = omit(extractComponentProps(VaButton), ['iconRight', 'block'])
+const VaDropdownProps = extractComponentProps(VaDropdown)
 
 export default defineComponent({
   name: 'VaButtonDropdown',
@@ -118,6 +112,7 @@ export default defineComponent({
   props: {
     ...useComponentPresetProp,
     ...VaButtonProps,
+    ...VaDropdownProps,
     ...useStatefulProps,
     modelValue: { type: Boolean, default: false },
     stateful: { type: Boolean, default: true },
@@ -172,8 +167,8 @@ export default defineComponent({
       const presetProps = [
         'plain',
         'textOpacity', 'backgroundOpacity',
-        'hoverOpacity', 'hoverBehaviour', 'hoverOpacity',
-        'pressedOpacity', 'pressedBehaviour', 'pressedOpacity',
+        'hoverOpacity', 'hoverBehavior', 'hoverOpacity',
+        'pressedOpacity', 'pressedBehavior', 'pressedOpacity',
       ]
 
       if (props.preset) {
@@ -203,6 +198,8 @@ export default defineComponent({
     const hideDropdown = () => { valueComputed.value = false }
 
     return {
+      ...useTranslation(),
+      vaDropdownProps: filterComponentProps(props, VaDropdownProps),
       hideDropdown,
       valueComputed,
       computedIcon,
@@ -219,52 +216,52 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  @import 'variables';
-  @import '../../styles/resources';
+@import 'variables';
+@import '../../styles/resources';
 
-  .va-button-dropdown {
-    display: inline-block;
-    font-family: var(--va-font-family);
-    vertical-align: middle;
+.va-button-dropdown {
+  display: inline-block;
+  font-family: var(--va-font-family);
+  vertical-align: middle;
 
-    .va-button {
-      margin: var(--va-button-dropdown-button-margin);
+  .va-button {
+    margin: var(--va-button-dropdown-button-margin);
+  }
+
+  &--split {
+    .va-dropdown {
+      .va-dropdown__anchor {
+        margin: var(--va-button-dropdown-button-margin);
+      }
     }
 
-    &--split {
+    .va-button-group__left-icon {
       .va-dropdown {
-        .va-dropdown__anchor {
-          margin: var(--va-button-dropdown-button-margin);
+        .va-button {
+          border-top-right-radius: 0;
+          border-bottom-right-radius: 0;
         }
       }
 
-      .va-button-group__left-icon {
-        .va-dropdown {
-          .va-button {
-            border-top-right-radius: 0;
-            border-bottom-right-radius: 0;
-          }
-        }
+      > .va-button {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        border-left: none;
+      }
+    }
 
-        > .va-button {
+    :not(.va-button-group__left-icon) {
+      .va-dropdown {
+        .va-button {
           border-top-left-radius: 0;
           border-bottom-left-radius: 0;
-          border-left: none;
         }
-      }
-
-      :not(.va-button-group__left-icon) {
-        .va-dropdown {
-          .va-button {
-            border-top-left-radius: 0;
-            border-bottom-left-radius: 0;
-          }
-        }
-      }
-
-      .va-button {
-        @include keyboard-focus-outline($offset: -2px);
       }
     }
+
+    .va-button {
+      @include keyboard-focus-outline($offset: -2px);
+    }
   }
+}
 </style>

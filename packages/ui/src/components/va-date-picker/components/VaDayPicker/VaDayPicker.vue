@@ -29,7 +29,7 @@
         :focused="hoveredIndex === index"
         :highlight-today="highlightToday"
         :highlight-weekend="highlightWeekend"
-        :readonly="readonly"
+        :readonly="$props.readonly"
         :color="color"
         @click="onClick(date); focusedCellIndex = index"
       >
@@ -141,18 +141,18 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  .va-day-picker {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr); // 7 columns
-    grid-gap: var(--va-date-picker-cell-gap);
+.va-day-picker {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr); // 7 columns
+  grid-gap: var(--va-date-picker-cell-gap);
 
-    &__weekday {
-      height: var(--va-date-picker-cell-size);
-      color: var(--va-secondary);
-      text-align: center;
-      font-size: var(--va-date-picker-weekday-font-size);
-      font-weight: bold;
-      line-height: var(--va-date-picker-cell-size);
-    }
+  &__weekday {
+    height: var(--va-date-picker-cell-size);
+    color: var(--va-secondary);
+    text-align: center;
+    font-size: var(--va-date-picker-weekday-font-size);
+    font-weight: bold;
+    line-height: var(--va-date-picker-cell-size);
   }
+}
 </style>

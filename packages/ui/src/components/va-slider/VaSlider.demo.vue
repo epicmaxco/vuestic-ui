@@ -539,7 +539,7 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-  .VbCard {
-    min-width: 400px;
-  }
+.VbCard {
+  min-width: 400px;
+}
 </style>

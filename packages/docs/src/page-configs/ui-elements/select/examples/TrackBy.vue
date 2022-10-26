@@ -4,7 +4,7 @@
 
     <va-select class="mb-4" label="track by (function)" v-model="value" :options="options" :track-by="(option) => option.id" />
 
-    <va-alert color="info" class="mb-4">
+    <va-alert color="info">
       <template #title>
         Value
       </template>

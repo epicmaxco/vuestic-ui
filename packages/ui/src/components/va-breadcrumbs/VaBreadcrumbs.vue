@@ -1,7 +1,7 @@
 <script lang="ts">
 import { computed, defineComponent, Fragment, h, ref, VNode } from 'vue'
 
-import { useComponentPresetProp, useAlign, useAlignProps, useColors } from '../../composables'
+import { useComponentPresetProp, useAlign, useAlignProps, useColors, useTranslation } from '../../composables'
 import { hasOwnProperty } from '../../services/utils'
 
 export default defineComponent({
@@ -10,7 +10,7 @@ export default defineComponent({
     ...useAlignProps,
     ...useComponentPresetProp,
     separator: { type: String, default: '/' },
-    color: { type: String, default: 'gray' },
+    color: { type: String, default: 'secondary' },
     activeColor: { type: String, default: null },
     separatorColor: { type: String, default: null },
   },
@@ -104,32 +104,34 @@ export default defineComponent({
       return children
     }
 
+    const { t } = useTranslation()
+
     return () => h('div', {
       class: 'va-breadcrumbs',
       style: alignComputed.value,
       role: isAllChildLinks.value ? 'navigation' : undefined,
-      ariaLabel: isAllChildLinks.value ? 'breadcrumbs' : undefined,
+      ariaLabel: isAllChildLinks.value ? t('breadcrumbs') : undefined,
     }, getChildren())
   },
 })
 </script>
 
 <style lang="scss">
-  @import "variables";
+@import "variables";
 
-  .va-breadcrumbs {
-    display: var(--va-breadcrumbs-display);
-    width: var(--va-breadcrumbs-width);
-    justify-content: var(--va-breadcrumbs-justify-content);
-    font-family: var(--va-font-family);
+.va-breadcrumbs {
+  display: var(--va-breadcrumbs-display);
+  width: var(--va-breadcrumbs-width);
+  justify-content: var(--va-breadcrumbs-justify-content);
+  font-family: var(--va-font-family);
 
-    &__item {
-      display: var(--va-breadcrumbs-item-display);
-    }
-
-    &__separator {
-      padding: var(--va-breadcrumbs-separator-padding);
-      display: var(--va-breadcrumbs-separator-display);
-    }
+  &__item {
+    display: var(--va-breadcrumbs-item-display);
   }
+
+  &__separator {
+    padding: var(--va-breadcrumbs-separator-padding);
+    display: var(--va-breadcrumbs-separator-display);
+  }
+}
 </style>

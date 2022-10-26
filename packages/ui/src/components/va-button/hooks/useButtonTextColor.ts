@@ -38,21 +38,21 @@ export const useButtonTextColor: UseButtonTextColor = (
     opacity: getPlainTextOpacity.value,
   }))
 
-  const getStateColor = (maskColor: string, stateOpacity: number, stateBehaviour: string) => {
+  const getStateColor = (maskColor: string, stateOpacity: number, stateBehavior: string) => {
     const maskStateColor = getColor(maskColor)
 
-    const res = stateBehaviour === 'opacity'
+    const res = stateBehavior === 'opacity'
       ? { color: colorToRgba(textColorComputed.value, stateOpacity) }
       : { background: getStateMaskGradientBackground(colorComputed.value, maskStateColor, stateOpacity) }
     return { ...plainColorStyles.value, ...res }
   }
 
   const hoverTextColorComputed = computed(() => {
-    return getStateColor(props.hoverMaskColor, props.hoverOpacity, props.hoverBehaviour)
+    return getStateColor(props.hoverMaskColor, props.hoverOpacity, props.hoverBehavior)
   })
 
   const pressedTextColorComputed = computed(() => {
-    return getStateColor(props.pressedMaskColor, props.pressedOpacity, props.pressedBehaviour)
+    return getStateColor(props.pressedMaskColor, props.pressedOpacity, props.pressedBehavior)
   })
 
   const getPlainTextOpacity = computed(() => {

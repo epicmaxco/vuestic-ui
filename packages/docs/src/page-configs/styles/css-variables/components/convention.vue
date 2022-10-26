@@ -1,11 +1,11 @@
 <template>
-  <p class="code-snippet">
+  <p class="va-code-snippet">
     --va-<span class="text--highlighted">component-name</span>-<span class="text--highlighted">variable-name</span>
   </p>
 </template>
 
 <style lang="scss" scoped>
-  .code-snippet {
+  .va-code-snippet {
     background: var(--va-background-primary);
     color: var(--va-dark);
   }

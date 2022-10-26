@@ -4,7 +4,7 @@
     :class="computedClass"
     ref="anchorRef"
     role="button"
-    aria-label="toggle dropdown"
+    :aria-label="t('toggleDropdown')"
     :aria-disabled="$props.disabled"
     :aria-expanded="!!valueComputed"
     :aria-controls="idComputed"
@@ -37,7 +37,7 @@ import { generateUniqueId } from '../../services/utils'
 
 import {
   useComponentPresetProp,
-  useStateful, useStatefulEmits, useStatefulProps,
+  useStateful, useStatefulEmits, createStatefulProps,
   useDebounceFn,
   useDropdown, placementsPositions, Placement,
   useClickOutside,
@@ -47,6 +47,7 @@ import {
   useDocument,
   useHTMLElement,
   MaybeHTMLElementOrSelector,
+  useTranslation,
 } from '../../composables'
 import { useAnchorSelector } from './hooks/useAnchorSelector'
 import { useCursorAnchor } from './hooks/useCursorAnchor'
@@ -57,7 +58,7 @@ export default defineComponent({
   name: 'VaDropdown',
 
   props: {
-    ...useStatefulProps,
+    ...createStatefulProps(Boolean, true),
     ...useComponentPresetProp,
     disabled: { type: Boolean },
     readonly: { type: Boolean },
@@ -238,6 +239,7 @@ export default defineComponent({
     // })
 
     return {
+      ...useTranslation(),
       teleportTargetComputed,
       teleportDisabled,
       isMounted: useIsMounted(),
@@ -257,25 +259,25 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  @import '../../styles/resources';
-  @import 'variables';
+@import '../../styles/resources';
+@import 'variables';
 
-  .va-dropdown {
-    /* Solved the alignment problem (if we try to align inline and block elements) */
-    line-height: var(--va-dropdown-line-height);
-    font-family: var(--va-font-family);
-    display: var(--va-dropdown-display);
-    position: relative;
-    max-width: 100%;
-    vertical-align: middle;
+.va-dropdown {
+  /* Solved the alignment problem (if we try to align inline and block elements) */
+  line-height: var(--va-dropdown-line-height);
+  font-family: var(--va-font-family);
+  display: var(--va-dropdown-display);
+  position: relative;
+  max-width: 100%;
+  vertical-align: middle;
 
-    &--disabled {
-      @include va-disabled;
-    }
-
-    &__content-wrapper {
-      z-index: var(--va-dropdown-content-wrapper-z-index);
-      font-family: var(--va-font-family);
-    }
+  &--disabled {
+    @include va-disabled;
   }
+
+  &__content-wrapper {
+    z-index: var(--va-dropdown-content-wrapper-z-index);
+    font-family: var(--va-font-family);
+  }
+}
 </style>

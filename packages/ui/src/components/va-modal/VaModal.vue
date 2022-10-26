@@ -45,7 +45,7 @@
                 name="va-close"
                 class="va-modal__close"
                 role="button"
-                aria-label="close"
+                :aria-label="t('close')"
                 tabindex="0"
                 @click="cancel"
                 @keydown.space="cancel"
@@ -90,15 +90,15 @@
                   >
                     <va-button
                       v-if="$props.cancelText"
-                      preset="plain"
-                      color="gray"
+                      preset="secondary"
+                      color="secondary"
                       class="mr-3"
                       @click="cancel"
                     >
-                      {{ $props.cancelText }}
+                      {{ tp($props.cancelText) }}
                     </va-button>
                     <va-button @click="ok">
-                      {{ $props.okText }}
+                      {{ tp($props.okText) }}
                     </va-button>
                   </div>
                   <div
@@ -138,6 +138,7 @@ import {
   useComponentPresetProp,
   useTrapFocus,
   useModalLevel,
+  useTranslation,
 } from '../../composables'
 
 import { VaButton } from '../va-button'
@@ -170,8 +171,8 @@ export default defineComponent({
     disableAttachment: { type: Boolean, default: false },
     title: { type: String, default: '' },
     message: { type: String, default: '' },
-    okText: { type: String, default: 'OK' },
-    cancelText: { type: String, default: 'Cancel' },
+    okText: { type: String, default: '$t:ok' },
+    cancelText: { type: String, default: '$t:cancel' },
     hideDefaultActions: { type: Boolean, default: false },
     fullscreen: { type: Boolean, default: false },
     mobileFullscreen: { type: Boolean, default: true },
@@ -192,7 +193,7 @@ export default defineComponent({
     overlayOpacity: { type: [Number, String], default: 0.6 },
     blur: { type: Boolean, default: false },
     zIndex: { type: [Number, String], default: undefined },
-    backgroundColor: { type: String, default: 'background-tertiary' },
+    backgroundColor: { type: String, default: 'background-secondary' },
     noPadding: { type: Boolean, default: false },
   },
   setup (props, { emit }) {
@@ -319,6 +320,7 @@ export default defineComponent({
     })
 
     const publicMethods = {
+      ...useTranslation(),
       show,
       hide,
       toggle,
@@ -348,193 +350,193 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  @import "../../styles/resources";
-  @import "variables";
+@import "../../styles/resources";
+@import "variables";
 
-  .va-modal-overlay-background--blurred > :not(div[class*="va-"]) {
-    filter: blur(var(--va-modal-overlay-background-blur-radius));
-    position: absolute;
-    height: 100%;
-    width: 100%;
+.va-modal-overlay-background--blurred > :not(div[class*="va-"]) {
+  filter: blur(var(--va-modal-overlay-background-blur-radius));
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
+.va-modal {
+  position: var(--va-modal-position);
+  display: var(--va-modal-display);
+  align-items: var(--va-modal-align-items);
+  justify-content: var(--va-modal-justify-content);
+  width: var(--va-modal-width);
+  height: var(--va-modal-height);
+  top: var(--va-modal-top);
+  left: var(--va-modal-left);
+  overflow: var(--va-modal-overflow);
+  outline: var(--va-modal-outline);
+  z-index: var(--va-modal-z-index);
+  font-family: var(--va-font-family);
+
+  &__title {
+    margin-bottom: 1.5rem;
+
+    @include va-title();
   }
 
-  .va-modal {
-    position: var(--va-modal-position);
-    display: var(--va-modal-display);
-    align-items: var(--va-modal-align-items);
-    justify-content: var(--va-modal-justify-content);
-    width: var(--va-modal-width);
-    height: var(--va-modal-height);
-    top: var(--va-modal-top);
-    left: var(--va-modal-left);
-    overflow: var(--va-modal-overflow);
-    outline: var(--va-modal-outline);
-    z-index: var(--va-modal-z-index);
-    font-family: var(--va-font-family);
+  &__container {
+    z-index: var(--va-modal-container-z-index);
+    max-width: 100%;
+  }
 
-    &__title {
-      margin-bottom: 1.5rem;
+  &-enter-from &__container,
+  &-leave-to &__container {
+    opacity: 0;
+    transform: translateY(-30%);
+  }
 
-      @include va-title();
-    }
+  &-enter-active &__container,
+  &-leave-active &__container {
+    transition: var(--va-modal-opacity-transition), var(--va-modal-transform-transition);
+  }
 
-    &__container {
-      z-index: var(--va-modal-container-z-index);
-      max-width: 100%;
-    }
+  &__dialog {
+    min-height: var(--va-modal-dialog-min-height);
+    height: var(--va-modal-dialog-height);
+    border-radius: var(--va-modal-dialog-border-radius, var(--va-block-border-radius));
+    margin: var(--va-modal-dialog-margin);
+    box-shadow: var(--va-modal-dialog-box-shadow, var(--va-block-box-shadow));
+    max-width: var(--va-modal-dialog-max-width);
+    max-height: var(--va-modal-dialog-max-height);
+    position: var(--va-modal-dialog-position);
+    overflow: auto;
+  }
 
-    &-enter-from &__container,
-    &-leave-to &__container {
-      opacity: 0;
-      transform: translateY(-30%);
-    }
+  &__overlay {
+    position: var(--va-modal-overlay-position);
+    top: var(--va-modal-overlay-top);
+    left: var(--va-modal-overlay-left);
+    z-index: var(--va-modal-overlay-z-index);
+    width: var(--va-modal-overlay-width);
+    height: var(--va-modal-overlay-height);
+  }
 
-    &-enter-active &__container,
-    &-leave-active &__container {
-      transition: var(--va-modal-opacity-transition), var(--va-modal-transform-transition);
-    }
+  &-enter-from &__overlay,
+  &-leave-to &__overlay {
+    opacity: 0;
+  }
 
-    &__dialog {
-      min-height: var(--va-modal-dialog-min-height);
-      height: var(--va-modal-dialog-height);
-      border-radius: var(--va-modal-dialog-border-radius, var(--va-block-border-radius));
-      margin: var(--va-modal-dialog-margin);
-      box-shadow: var(--va-modal-dialog-box-shadow, var(--va-block-box-shadow));
-      max-width: var(--va-modal-dialog-max-width);
-      max-height: var(--va-modal-dialog-max-height);
-      position: var(--va-modal-dialog-position);
-      overflow: auto;
-    }
+  &-enter-active &__overlay,
+  &-leave-active &_overlay {
+    transition: var(--va-modal-overlay-opacity-transition);
+  }
 
-    &__overlay {
-      position: var(--va-modal-overlay-position);
-      top: var(--va-modal-overlay-top);
-      left: var(--va-modal-overlay-left);
-      z-index: var(--va-modal-overlay-z-index);
-      width: var(--va-modal-overlay-width);
-      height: var(--va-modal-overlay-height);
-    }
+  &--fullscreen {
+    min-width: 100vw !important;
+    min-height: 100vh !important;
+    border-radius: 0;
+    margin: 0;
+  }
 
-    &-enter-from &__overlay,
-    &-leave-to &__overlay {
-      opacity: 0;
-    }
-
-    &-enter-active &__overlay,
-    &-leave-active &_overlay {
-      transition: var(--va-modal-overlay-opacity-transition);
-    }
-
-    &--fullscreen {
+  &--mobile-fullscreen {
+    @media all and (max-width: map-get($grid-breakpoints, sm)) {
+      margin: 0 !important;
       min-width: 100vw !important;
       min-height: 100vh !important;
       border-radius: 0;
-      margin: 0;
     }
+  }
 
-    &--mobile-fullscreen {
+  &--size {
+    &-small {
+      max-width: map_get($grid-breakpoints, sm);
+
       @media all and (max-width: map-get($grid-breakpoints, sm)) {
-        margin: 0 !important;
-        min-width: 100vw !important;
-        min-height: 100vh !important;
-        border-radius: 0;
+        max-width: 100vw !important;
       }
-    }
 
-    &--size {
-      &-small {
+      .va-modal__inner {
         max-width: map_get($grid-breakpoints, sm);
 
         @media all and (max-width: map-get($grid-breakpoints, sm)) {
           max-width: 100vw !important;
         }
-
-        .va-modal__inner {
-          max-width: map_get($grid-breakpoints, sm);
-
-          @media all and (max-width: map-get($grid-breakpoints, sm)) {
-            max-width: 100vw !important;
-          }
-        }
       }
+    }
 
-      &-large {
+    &-large {
+      max-width: map-get($grid-breakpoints, lg);
+
+      .va-modal__inner {
         max-width: map-get($grid-breakpoints, lg);
-
-        .va-modal__inner {
-          max-width: map-get($grid-breakpoints, lg);
-        }
-      }
-    }
-
-    &--fixed-layout {
-      .va-modal__inner {
-        overflow: hidden;
-        padding: var(--va-modal-padding-top) 0 var(--va-modal-padding-bottom);
-        max-height: calc(100vh - 2rem);
-
-        .va-modal__header,
-        .va-modal__footer,
-        .va-modal__title {
-          padding: 0 var(--va-modal-padding-right) 0 var(--va-modal-padding-left);
-        }
-
-        .va-modal__message {
-          padding: 0 var(--va-modal-padding-right) 0 var(--va-modal-padding-left);
-          overflow: auto;
-        }
-      }
-
-      .va-modal__dialog {
-        overflow: hidden;
-      }
-    }
-
-    &--no-padding {
-      .va-modal__inner {
-        padding: 0;
-      }
-    }
-
-    &__message {
-      margin-bottom: 1.5rem;
-    }
-
-    &__inner {
-      overflow: visible;
-      display: flex;
-      position: relative;
-      flex-flow: column;
-      padding: var(--va-modal-padding);
-      max-width: map_get($grid-breakpoints, md);
-      margin: auto;
-
-      > div:last-of-type {
-        margin-bottom: 0;
-      }
-    }
-
-    &__close {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      cursor: pointer;
-      font-size: 1.5rem;
-      font-style: normal;
-      color: var(--va-secondary);
-      z-index: 1;
-    }
-
-    &__footer {
-      margin-top: auto;
-      min-height: fit-content;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-
-      &:last-of-type {
-        margin-bottom: 0;
       }
     }
   }
+
+  &--fixed-layout {
+    .va-modal__inner {
+      overflow: hidden;
+      padding: var(--va-modal-padding-top) 0 var(--va-modal-padding-bottom);
+      max-height: calc(100vh - 2rem);
+
+      .va-modal__header,
+      .va-modal__footer,
+      .va-modal__title {
+        padding: 0 var(--va-modal-padding-right) 0 var(--va-modal-padding-left);
+      }
+
+      .va-modal__message {
+        padding: 0 var(--va-modal-padding-right) 0 var(--va-modal-padding-left);
+        overflow: auto;
+      }
+    }
+
+    .va-modal__dialog {
+      overflow: hidden;
+    }
+  }
+
+  &--no-padding {
+    .va-modal__inner {
+      padding: 0;
+    }
+  }
+
+  &__message {
+    margin-bottom: 1.5rem;
+  }
+
+  &__inner {
+    overflow: visible;
+    display: flex;
+    position: relative;
+    flex-flow: column;
+    padding: var(--va-modal-padding);
+    max-width: map_get($grid-breakpoints, md);
+    margin: auto;
+
+    > div:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+
+  &__close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    cursor: pointer;
+    font-size: 1.5rem;
+    font-style: normal;
+    color: var(--va-secondary);
+    z-index: 1;
+  }
+
+  &__footer {
+    margin-top: auto;
+    min-height: fit-content;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+}
 </style>

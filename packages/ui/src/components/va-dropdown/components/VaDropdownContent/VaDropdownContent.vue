@@ -17,7 +17,7 @@ export default defineComponent({
   name: 'VaDropdownContent',
   props: {
     noPadding: { type: Boolean, default: false },
-    background: { type: String, default: 'background-tertiary' },
+    background: { type: String, default: 'background-secondary' },
     textColor: { type: String },
   },
 
@@ -37,14 +37,14 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  @import "variables";
+@import "variables";
 
-  .va-dropdown {
-    &__content {
-      padding: var(--va-dropdown-content-padding);
-      box-shadow: var(--va-dropdown-content-box-shadow);
-      border-radius: var(--va-dropdown-content-border-radius);
-      font-family: var(--va-font-family);
-    }
+.va-dropdown {
+  &__content {
+    padding: var(--va-dropdown-content-padding);
+    box-shadow: var(--va-dropdown-content-box-shadow);
+    border-radius: var(--va-dropdown-content-border-radius);
+    font-family: var(--va-font-family);
   }
+}
 </style>

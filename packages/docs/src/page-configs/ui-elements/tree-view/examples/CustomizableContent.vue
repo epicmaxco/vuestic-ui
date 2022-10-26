@@ -18,7 +18,7 @@
 
         <va-button
           v-if="node.hasAction"
-          flat
+          preset="secondary"
           icon="add"
           size="small"
           style="margin-left: auto;"

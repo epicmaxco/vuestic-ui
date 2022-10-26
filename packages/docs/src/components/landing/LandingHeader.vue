@@ -2,11 +2,13 @@
   <header class="header">
     <div class="header__banner">
       <div>
-        🔥🔥🔥<span class="pl-2">Our CTO, Yauheni Prakopchyk, will be a speaker at North America’s premier Vue.js Conference -
-        VueConf Toronto</span> <strong>(1-3 Nov 2022)</strong>.
+        🔥🔥🔥
+        <span class="pl-2">
+          {{ $t('landing.header.banner.text') }}
+        </span>
       </div>
-      <a href="https://www.vuetoronto.com/" target="_blank" class="header__banner-btn">
-        Join the Conference
+      <a href="https://github.com/epicmaxco/vuestic-ui" target="_blank" class="header__banner-btn">
+        GitHub
       </a>
     </div>
     <div class="header__wrapper">
@@ -37,6 +39,9 @@
           >
             <va-icon name="discord" class="mr-1" size="small" />
             {{ $t('landing.header.buttons.discord') }}
+          </va-button>
+          <va-button  :to="`/${$root.$i18n.locale}/introduction/team`" class="header__links--link" preset="landingHeader" target="_blank">
+            <va-icon name="group" class="mr-1" size="small" /> {{ $t('landing.header.buttons.team') }}
           </va-button>
           <va-button href="https://epicmax.co/blog" class="header__links--link" preset="landingHeader" target="_blank">
             <va-icon name="exit_to_app" class="mr-1" size="small" /> {{ $t('landing.header.buttons.blog') }}

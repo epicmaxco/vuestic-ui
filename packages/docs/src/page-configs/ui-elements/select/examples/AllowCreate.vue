@@ -30,7 +30,6 @@
     />
     <va-select
       label="'unique' mode and multi select"
-      class="mb-4"
       :options="options"
       :track-by="(option) => option.id"
       v-model="allowUniqueValueMultiple"

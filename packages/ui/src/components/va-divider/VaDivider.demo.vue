@@ -138,7 +138,7 @@ export default {
 }
 </script>
 <style scoped>
-  .container {
-    background-color: #f5f8f9;
-  }
+.container {
+  background-color: #f5f8f9;
+}
 </style>

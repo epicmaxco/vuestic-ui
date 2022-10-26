@@ -63,10 +63,23 @@ export const useSelectable = (
   checkDuplicates(props)
 
   /** @public */
-  const reset = () => emit('update:modelValue', false)
-  const focus = () => input.value?.focus()
+  const reset = () => withoutValidation(() => {
+    emit('update:modelValue', false)
+    resetValidation()
+  })
 
-  const { computedError, computedErrorMessages, validate, validationAriaAttributes } = useValidation(props, emit, reset, focus)
+  const focus = () => {
+    input.value?.focus()
+  }
+
+  const {
+    computedError,
+    computedErrorMessages,
+    validate,
+    validationAriaAttributes,
+    withoutValidation,
+    resetValidation,
+  } = useValidation(props, emit, { reset, focus })
   const { valueComputed } = useStateful(props, emit)
   const { isFocused } = useFocus()
 

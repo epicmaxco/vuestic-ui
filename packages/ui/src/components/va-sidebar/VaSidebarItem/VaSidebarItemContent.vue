@@ -14,20 +14,20 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  @import '../variables';
+@import '../variables';
 
-  .va-sidebar__item__content {
-    display: flex;
-    align-items: center;
-    padding: var(--va-sidebar-item-content-padding);
-    min-height: 58px;
+.va-sidebar__item__content {
+  display: flex;
+  align-items: center;
+  padding: var(--va-sidebar-item-content-padding);
+  min-height: 58px;
 
-    & > * {
-      margin-right: var(--va-sidebar-item-content-gap);
+  & > * {
+    margin-right: var(--va-sidebar-item-content-gap);
 
-      &:last-child {
-        margin-right: 0;
-      }
+    &:last-child {
+      margin-right: 0;
     }
   }
+}
 </style>
