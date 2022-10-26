@@ -138,7 +138,7 @@ export class PageGenerationHelper {
     }
   }
 
-  collapse (header: string, ...blocks: ApiDocsBlock[]): ApiDocsBlock {
+  collapse (header: string, blocks: ApiDocsBlock[]): ApiDocsBlock {
     return {
       type: BlockType.COLLAPSE,
       header,
