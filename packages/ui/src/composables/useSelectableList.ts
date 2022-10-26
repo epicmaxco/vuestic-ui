@@ -9,7 +9,7 @@ type StringOrFunction = string | ((option: SelectableOption) => unknown)
 export const useSelectableListProps = {
   options: { type: Array as PropType<SelectableOption[]>, default: () => [] },
   textBy: { type: [String, Function] as PropType<StringOrFunction>, default: 'text' },
-  valueBy: { type: [String, Function] as PropType<StringOrFunction>, default: 'value' },
+  valueBy: { type: [String, Function] as PropType<StringOrFunction>, default: '' },
   trackBy: { type: [String, Function] as PropType<StringOrFunction>, default: '' },
   disabledBy: { type: [String, Function] as PropType<StringOrFunction>, default: 'disabled' },
   groupBy: { type: [String, Function] as PropType<StringOrFunction>, default: 'group' },
