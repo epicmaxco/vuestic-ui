@@ -208,7 +208,6 @@ export default defineComponent({
 
 .va-input-wrapper {
   position: relative;
-  color: var(--va-input-text-color);
   cursor: var(--va-input-cursor);
   font-family: var(--va-font-family);
   display: var(--va-input-wrapper-display);
@@ -293,7 +292,6 @@ export default defineComponent({
       width: 100%;
       // Use line-height as min-height for empty content slot
       min-height: var(--va-input-line-height);
-      color: var(--va-input-text-color);
       background-color: transparent;
       border-style: none;
       outline: none;
