@@ -186,8 +186,8 @@ export default defineComponent({
       --va-data-table-thead-background: linear-gradient(0deg, var(--va-primary), var(--va-info));
       --va-data-table-tfoot-background: linear-gradient(0deg, var(--va-info), var(--va-primary));
       --va-data-table-max-height: 250px;
-      --va-data-table-thead-color: var(--va-text-light);
-      --va-data-table-tfoot-color: var(--va-text-light);
+      --va-data-table-thead-color: var(--va-text-inverted);
+      --va-data-table-tfoot-color: var(--va-text-inverted);
     }
   }
 </style>

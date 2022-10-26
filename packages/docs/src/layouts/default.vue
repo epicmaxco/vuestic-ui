@@ -12,7 +12,7 @@
       >
 <!--        <va-breadcrumbs-->
 <!--          align="left"-->
-<!--          color="gray"-->
+<!--          color="secondary"-->
 <!--          class="base-layout__breadcrumbs"-->
 <!--        >-->
 <!--          <va-breadcrumbs-item-->

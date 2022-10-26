@@ -7,5 +7,5 @@ export const usePressedStyleProps = {
     validator: (value: string) => ['opacity', 'mask'].includes(value),
   },
   pressedOpacity: { type: Number, default: 0.13 },
-  pressedMaskColor: { type: String, default: 'textDark' },
+  pressedMaskColor: { type: String, default: 'textPrimary' },
 }

@@ -223,7 +223,7 @@ export default defineComponent({
       font-size: 16px;
 
       &__row {
-        border-bottom: 1px solid var(--va-background-secondary);
+        border-bottom: 1px solid var(--va-background-element);
 
         & .MarkdownView {
           code,

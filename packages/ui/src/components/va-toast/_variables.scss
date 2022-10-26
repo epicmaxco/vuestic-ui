@@ -3,9 +3,9 @@
   --va-toast-width: 330px;
   --va-toast-padding: 14px 26px 14px 13px;
   --va-toast-border-radius: 8px;
-  --va-toast-border: 1px solid var(--va-background-tertiary);
-  --va-toast-background-color: var(--va-background-tertiary);
-  --va-toast-border-color: var(--va-background-tertiary);
+  --va-toast-border: 1px solid var(--va-background-secondary);
+  --va-toast-background-color: var(--va-background-secondary);
+  --va-toast-border-color: var(--va-background-secondary);
   --va-toast-box-shadow: 0 2px 12px 0 var(--va-shadow);
   --va-toast-transition: opacity 0.3s, transform 0.3s, left 0.3s, right 0.3s, top 0.4s, bottom 0.3s;
   --va-toast-z-index: calc(var(--va-z-index-teleport-overlay) + 100);

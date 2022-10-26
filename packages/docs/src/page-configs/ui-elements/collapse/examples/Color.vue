@@ -40,7 +40,7 @@
       solid
       color="#000"
       color-all
-      text-color="white"
+      text-color="backgroundPrimary"
       icon="info"
       class="mb-4"
     >

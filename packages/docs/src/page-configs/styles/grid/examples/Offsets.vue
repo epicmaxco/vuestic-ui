@@ -1,5 +1,5 @@
 <template>
-  <va-card color="background-secondary" style="padding: 0.75rem;">
+  <va-card color="background-element" style="padding: 0.75rem;">
     <div class="row">
       <div class="flex xs1 offset-md3 offset-lg2">
         <div class="item">{{ $t('grid.examples.offsets.first') }}</div>
@@ -37,8 +37,8 @@ export default {
   @import '~vuestic-ui/src/styles/resources';
 
   .item {
-    border: 1px solid var(--va-background-element);
-    background-color: var(--va-background-tertiary);
+    border: 1px solid var(--va-background-border);
+    background-color: var(--va-background-primary);
     text-align: center;
   }
 </style>

@@ -9,12 +9,12 @@
     :style="styleComputed"
   >
     <VaTimePickerColumnCell
+      v-for="(item, index) in items" :key="item"
       @scroll.passive="onScroll"
       @touchmove.passive="onScroll"
       @mousewheel.passive="onScroll"
     >
       <div
-        v-for="(item, index) in items" :key="item"
         class="va-time-picker-cell"
         :class="{ 'va-time-picker-cell--active': index === $props.activeItemIndex }"
         @click="onCellClick(index)"

@@ -80,7 +80,7 @@
       padding: 0.1rem 0.2rem;
     }
 
-    @each $color in primary, secondary, warning, success, danger, info, text-dark, text-light {
+    @each $color in primary, secondary, warning, success, danger, info, text-primary, text-inverted {
       &-#{$color} {
         color: var(--va-#{$color});
       }

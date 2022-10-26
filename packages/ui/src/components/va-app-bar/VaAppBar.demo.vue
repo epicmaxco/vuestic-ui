@@ -4,7 +4,7 @@
       <div class="frame">
         <div class="display">
           <va-app-bar>
-            <AppBarContentExample color="gray" />
+            <AppBarContentExample color="secondary" />
           </va-app-bar>
         </div>
       </div>
@@ -33,7 +33,7 @@
             bottom
             target="#scrollable-element"
           >
-            <AppBarContentExample color="gray" />
+            <AppBarContentExample color="secondary" />
           </va-app-bar>
         </div>
       </div>
@@ -46,7 +46,7 @@
             target="#scrollable-element2"
             hide-on-scroll
           >
-            <AppBarContentExample color="gray" />
+            <AppBarContentExample color="secondary" />
           </va-app-bar>
           <div
             class="content"
@@ -72,7 +72,7 @@
             hide-on-scroll
             target="#scrollable-element6"
           >
-            <AppBarContentExample color="gray" />
+            <AppBarContentExample color="secondary" />
           </va-app-bar>
         </div>
       </div>
@@ -85,7 +85,7 @@
             target="#scrollable-element3"
             shadow-on-scroll
           >
-            <AppBarContentExample color="gray" />
+            <AppBarContentExample color="secondary" />
           </va-app-bar>
           <div
             class="content"
@@ -111,7 +111,7 @@
             shadow-on-scroll
             target="#scrollable-element4"
           >
-            <AppBarContentExample color="gray" />
+            <AppBarContentExample color="secondary" />
           </va-app-bar>
         </div>
       </div>
@@ -125,7 +125,7 @@
             shadow-color="danger"
             target="#scrollable-element5"
           >
-            <AppBarContentExample color="gray" />
+            <AppBarContentExample color="secondary" />
           </va-app-bar>
           <div
             class="content"

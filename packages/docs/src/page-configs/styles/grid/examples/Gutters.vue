@@ -1,5 +1,5 @@
 <template>
-  <va-card color="background-secondary" style="padding: 0.75rem;">
+  <va-card color="background-element" style="padding: 0.75rem;">
     <div class="layout gutter--md">
       <div class="row">
         <div class="flex xs6">
@@ -39,8 +39,8 @@ export default {
   }
 
   .item {
-    border: 1px solid var(--va-background-element);
-    background-color: var(--va-background-tertiary);
+    border: 1px solid var(--va-background-border);
+    background-color: var(--va-background-primary);
     text-align: center;
   }
 </style>

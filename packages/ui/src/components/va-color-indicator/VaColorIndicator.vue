@@ -68,7 +68,7 @@ export default defineComponent({
   border-radius: 50%;
   text-align: center;
   background-color: var(--va-background-element);
-  border: 0.125rem solid var(--va-background-element);
+  border: 0.125rem solid var(--va-background-border);
 
   &--selected {
     background-color: var(--va-primary);

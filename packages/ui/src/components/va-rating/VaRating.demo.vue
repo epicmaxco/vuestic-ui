@@ -41,8 +41,8 @@
       <va-rating color="info" v-model="value" />
       <va-rating color="warning" v-model="value" />
       <va-rating color="danger" v-model="value" />
-      <va-rating color="dark" v-model="value" />
-      <va-rating color="white" v-model="value" />
+      <va-rating color="textPrimary" v-model="value" />
+      <va-rating color="backgroundPrimary" v-model="value" />
     </VbCard>
     <VbCard title="Custom color for unselected">
       <va-rating
@@ -151,7 +151,7 @@
       <va-rating numbers color="info" v-model="value" />
       <va-rating numbers color="warning" v-model="value" />
       <va-rating numbers color="danger" v-model="value" />
-      <va-rating numbers color="dark" v-model="value" />
+      <va-rating numbers color="textPrimary" v-model="value" />
       <va-rating numbers color="#ffff00" v-model="value" />
     </VbCard>
     <VbCard title="Custom color for unselected">

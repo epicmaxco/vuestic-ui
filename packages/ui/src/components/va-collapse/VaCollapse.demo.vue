@@ -79,7 +79,7 @@
         solid
         color="#000"
         color-all
-        text-color="white"
+        text-color="backgroundPrimary"
         icon="info"
       >
         <div class="collapse-content">

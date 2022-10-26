@@ -1,6 +1,6 @@
 <template>
   <div class="mb-3">
-    <va-card outlined class="docs-example-card">
+    <va-card outlined class="docs-example-card" color="background-primary">
       <va-card-content>
         <component :is="component" />
       </va-card-content>
@@ -115,22 +115,10 @@ function parseTemplate (target: string, template: string) {
 
 <style lang="scss" scoped>
   .docs-example-card {
-    --va-card-outlined-border: 3px solid var(--va-background-secondary);
+    --va-card-outlined-border: 3px solid var(--va-background-element);
     --va-card-border-radius: 0.25rem;
 
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
-
-    &::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: var(--va-background-primary);
-      opacity: 0.3;
-      z-index: -1;
-    }
   }
 </style>

@@ -113,6 +113,7 @@ export default class Header extends mixins(PropsMixin) {
     justify-content: space-between;
     align-items: center;
     box-shadow: 0 2px 8px var(--va-shadow);
+    background-color: var(--va-background-secondary);
 
     @include media-breakpoint-down(sm) {
       .sm-hidden {

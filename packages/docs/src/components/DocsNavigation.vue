@@ -115,7 +115,7 @@ const gitLink = computed(
   @import "~vuestic-ui/src/styles/resources";
 
   .docs-navigation {
-    background: var(--va-background-secondary);
+    background: var(--va-background-element);
     margin: 0 0 0.2rem 0;
     border-radius: 0.25rem;
     border-top-left-radius: 0;

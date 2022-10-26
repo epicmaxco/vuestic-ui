@@ -117,10 +117,10 @@
             <va-popover
               placement="right"
               message="Popover dummy text"
-              color="dark"
+              color="textPrimary"
               class="mr-4"
             >
-              <va-button color="dark">
+              <va-button color="textPrimary">
                 Hover me
               </va-button>
             </va-popover>
@@ -128,10 +128,10 @@
             <va-popover
               placement="right"
               message="Popover dummy text"
-              color="gray"
+              color="secondary"
               class="mr-4"
             >
-              <va-button color="gray">
+              <va-button color="secondary">
                 Hover me
               </va-button>
             </va-popover>

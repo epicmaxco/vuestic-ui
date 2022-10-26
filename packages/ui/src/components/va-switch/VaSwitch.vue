@@ -336,6 +336,7 @@ export default defineComponent({
       &__checker {
         margin: auto -0.3rem;
         transform: translateX(-100%);
+        background-color: var(--va-switch-checker-active-background-color);
       }
 
       &__checker-wrapper {

@@ -22,11 +22,11 @@
       />
       <va-switch
         v-model="value"
-        color="gray"
+        color="secondary"
       />
       <va-switch
         v-model="value"
-        color="dark"
+        color="textPrimary"
       />
     </VbCard>
     <VbCard title="With label">

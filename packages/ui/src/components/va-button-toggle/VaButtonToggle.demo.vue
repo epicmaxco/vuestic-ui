@@ -73,12 +73,12 @@
               :options="options"
             />
             <va-button-toggle
-              color="gray"
+              color="secondary"
               v-model="model"
               :options="options"
             />
             <va-button-toggle
-              color="dark"
+              color="textPrimary"
               v-model="model"
               :options="options"
             />
@@ -94,13 +94,13 @@
               :options="options"
             />
             <va-button-toggle
-              border-color="dark"
+              border-color="textPrimary"
               v-model="model"
               preset="primary"
               :options="options"
             />
             <va-button-toggle
-              border-color="gray"
+              border-color="secondary"
               v-model="model"
               preset="primary"
               :options="options"
@@ -179,7 +179,7 @@
             />
             <va-button-toggle
               v-model="model"
-              toggle-color="dark"
+              toggle-color="textPrimary"
               color="info"
               :options="options"
               preset="plain"
