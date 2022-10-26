@@ -236,7 +236,7 @@ export default defineComponent({
     @at-root {
       .va-checkbox--on-keyboard-focus#{&} {
         transition: all, 0.6s, ease-in;
-        box-shadow: 0 0 0.5rem 0 rgba(0, 0, 0, 0.3);
+        outline: 2px solid var(--va-focus);
       }
     }
   }

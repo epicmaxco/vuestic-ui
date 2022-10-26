@@ -58,16 +58,16 @@
         />
         Change a few things up and try submitting again.
       </va-alert>
-      <va-alert color="gray">
+      <va-alert color="secondary">
         <va-badge
-          color="gray"
+          color="secondary"
           label="Processing"
         />
         Better check yourself, you're not looking too good.
       </va-alert>
-      <va-alert color="dark">
+      <va-alert color="textPrimary">
         <va-badge
-          color="dark"
+          color="textPrimary"
           label="New Label"
         />
         Change a few things up and try submitting again.
@@ -97,10 +97,10 @@
       <va-alert color="danger" border="left">
         Change a few things up and try submitting again.
       </va-alert>
-      <va-alert color="gray" border="top" border-color="danger">
+      <va-alert color="secondary" border="top" border-color="danger">
         Better check yourself, you're not looking too good.
       </va-alert>
-      <va-alert color="dark" border="top" border-color="#117ae4">
+      <va-alert color="textPrimary" border="top" border-color="#117ae4">
         Change a few things up and try submitting again.
       </va-alert>
     </VbCard>

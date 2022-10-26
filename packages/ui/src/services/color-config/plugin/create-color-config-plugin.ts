@@ -1,20 +1,20 @@
 import { ColorVariables } from './../types'
 import { App, watch } from 'vue'
-import { GlobalConfig } from '../../global-config/global-config'
 import { isServer } from '../../../utils/ssr-utils'
 import { getGlobalProperty } from '../../../vuestic-plugin/utils'
 import { cssVariableName } from '../utils'
 import { getTextColor } from '../color-functions'
+import { useColors } from '../../../composables'
 
 export const setCSSVariable = (name: string, value: string, root: HTMLElement) => {
   root.style.setProperty(cssVariableName(name), value)
 }
 
 export const createColorConfigPlugin = (app: App) => {
-  const globalConfig = getGlobalProperty(app, '$vaConfig').globalConfig
+  const { colors, getTextColor, getColor } = useColors()
 
   /** Renders CSS variables string. Use this in SSR mode */
-  const renderCSSVariables = (colors: ColorVariables | undefined = globalConfig.value.colors?.variables) => {
+  const renderCSSVariables = (colors: ColorVariables | undefined) => {
     if (!colors) { return }
 
     const colorNames = Object.keys(colors)
@@ -31,15 +31,14 @@ export const createColorConfigPlugin = (app: App) => {
     colorNames.forEach((key) => {
       setCSSVariable(key, newValue[key], root)
     })
-
     colorNames.forEach((key) => {
-      setCSSVariable(`on-${key}`, getTextColor(newValue[key], newValue.textDark, newValue.textLight, globalConfig.value.colors!.threshold), root)
+      setCSSVariable(`on-${key}`, getColor(getTextColor(newValue[key])), root)
     })
   }
 
-  updateColors(globalConfig.value.colors!.variables)
+  updateColors(colors)
 
-  watch(() => globalConfig.value.colors!.variables, (newValue) => {
+  watch(colors, (newValue) => {
     updateColors(newValue)
   }, { immediate: true, deep: true })
 

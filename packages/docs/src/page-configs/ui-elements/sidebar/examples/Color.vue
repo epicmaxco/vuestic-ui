@@ -25,7 +25,7 @@
   </div>
 
   <div class="mb-4" style="height: 16rem;">
-    <va-sidebar color="background-secondary" minimizedWidth="64px" width="18rem">
+    <va-sidebar color="background-element" minimizedWidth="64px" width="18rem">
       <va-sidebar-item>
         <va-sidebar-item-content>
           <va-sidebar-item-title>

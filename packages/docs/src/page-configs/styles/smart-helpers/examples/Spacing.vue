@@ -25,7 +25,7 @@
   .spacing-demo {
     .rectangle {
       padding: 0.5rem;
-      background-color: var(--va-background-secondary);
+      background-color: var(--va-background-element);
     }
   }
 </style>

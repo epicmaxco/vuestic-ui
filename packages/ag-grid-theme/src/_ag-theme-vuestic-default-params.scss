@@ -2,7 +2,7 @@
 
 $ag-theme-vuestic-default-params: (
   // Colour of text and icons in primary UI elements like menus
-        foreground-color: var(--va-dark),
+        foreground-color: var(--va-text-primary),
 
   // Colour of text in grid cells
         data-color: ag-derived(foreground-color),
@@ -17,7 +17,7 @@ $ag-theme-vuestic-default-params: (
         disabled-foreground-color: rgba(0, 0, 0, 0.5),
 
   // Background colour of the grid
-        background-color: var(--va-white),
+        background-color: transparent,
 
   // Background colour for all headers, including the grid header, panels etc
         header-background-color: null,
@@ -32,7 +32,7 @@ $ag-theme-vuestic-default-params: (
         control-panel-background-color: null,
 
   // Background color of selected rows in the grid and in dropdown menus
-        selected-row-background-color: var(--va-background-secondary),
+        selected-row-background-color: var(--va-background-element),
 
   // Background colour applied to every other row or null to use background-color for all rows
         odd-row-background-color: null,
@@ -83,8 +83,8 @@ $ag-theme-vuestic-default-params: (
         value-change-value-highlight-background-color: rgba(#16A085, 0.5),
 
   // Colours to apply when a value increases or decreases in an agAnimateShowChangeCellRenderer cell
-        value-change-delta-up-color: #43a047,
-        value-change-delta-down-color: #e53935,
+        value-change-delta-up-color: var(--va-success, #43a047),
+        value-change-delta-down-color: var(--va-danger, #e53935),
 
   // Colour for the "chip" that repersents a column that has been dragged onto a drop zone
         chip-background-color: null,
@@ -115,7 +115,7 @@ $ag-theme-vuestic-default-params: (
         border-radius: 0px,
 
   // Colour for border around major UI components like the grid itself, headers, footers and tool panels
-        border-color: ag-derived(secondary-foreground-color),
+        border-color: var(--va-background-border),
 
   // Colour for borders used to separate elements within a major UI component
         secondary-border-color: transparent,

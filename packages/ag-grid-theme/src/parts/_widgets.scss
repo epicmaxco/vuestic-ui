@@ -15,7 +15,7 @@
     border: 1px solid var(--va-input-color);
 
     &:focus {
-      border: 1px solid var(--va-background-tertiary); // keyboard focus color
+      border: 1px solid var(--va-background-secondary); // keyboard focus color
     }
   }
 
@@ -24,7 +24,7 @@
   ////////////////////////////////////////
   .ag-list-item {
     &.ag-active-item {
-      background-color: var(--va-background-secondary);
+      background-color: var(--va-background-element);
     }
   }
 
@@ -42,7 +42,7 @@
       cursor: pointer;
       padding: 0 var(--va-input-content-horizontal-padding);
       background: var(--va-input-color);
-      border: 1px solid var(--va-background-tertiary);
+      border: 1px solid var(--va-background-secondary);
       border-radius: var(--va-input-border-radius);
     }
 

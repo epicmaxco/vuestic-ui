@@ -258,6 +258,7 @@ export default defineComponent({
     width: var(--va-switch-inner-width);
     min-width: var(--va-switch-inner-min-width);
     border-radius: var(--va-switch-inner-border-radius);
+    outline: 1px solid var(--va-radio-border-color);
 
     &:focus {
       outline: 0;

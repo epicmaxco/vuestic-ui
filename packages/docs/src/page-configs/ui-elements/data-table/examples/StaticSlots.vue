@@ -95,7 +95,7 @@ export default defineComponent({
   }
 
   .table-example-slots__body {
-    background-color: var(--va-background-secondary);
+    background-color: var(--va-background-element);
   }
 
   .table-example-slots__foot {

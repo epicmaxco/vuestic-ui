@@ -382,9 +382,7 @@ export default defineComponent({
     &:focus-visible {
       outline-offset: -2px;
 
-      &::before {
-        @include focus-outline($offset: -2px, $radius: 'inherit');
-      }
+      @include keyboard-focus-outline();
     }
   }
 

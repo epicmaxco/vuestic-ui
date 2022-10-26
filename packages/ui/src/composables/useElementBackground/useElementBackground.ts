@@ -1,6 +1,6 @@
 import { useDomChangesObserver } from './useDomChangesObserver'
 import { getElementBackground } from './utils'
-import { ref, Ref } from 'vue'
+import { ref, Ref, onMounted } from 'vue'
 import { applyColors, useColors } from '../useColors'
 import { useEl } from '../useEl'
 
@@ -38,6 +38,8 @@ export const useElementBackground = (element?: Ref<HTMLElement | undefined>) => 
   }
 
   useDomChangesObserver(updateBackground, el)
+
+  onMounted(updateBackground)
 
   return {
     background,

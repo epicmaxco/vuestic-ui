@@ -117,7 +117,7 @@ export default defineComponent({
 
     label: { type: String, default: '' },
     color: { type: String, default: 'primary' },
-    background: { type: String, default: 'background-secondary' },
+    background: { type: String, default: 'background-element' },
     outline: { type: Boolean, default: false },
     bordered: { type: Boolean, default: false },
     focused: { type: Boolean, default: false },

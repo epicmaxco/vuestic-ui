@@ -1,4 +1,4 @@
-import type { ColorConfig, ColorVariables, CssColor } from '../services/color-config'
+import type { ColorVariables, CssColor } from '../services/color-config'
 import { computed } from 'vue'
 import { GlobalConfig, useGlobalConfigSafe } from '../services/global-config/global-config'
 import {
@@ -11,13 +11,16 @@ import {
   shiftHSLAColor,
   setHSLAColor,
   isCSSVariable,
-  getTextColor as getTextColorBase,
   colorToRgba,
   getStateMaskGradientBackground,
+  getColorLightness,
 } from '../services/color-config/color-functions'
+import { warn } from '../services/utils'
 
 import { cssVariableName, normalizeColorName } from '../services/color-config/utils'
-import { ColorInput } from 'colortranslator/dist/@types'
+import type { ColorInput } from 'colortranslator/dist/@types'
+import { useCache } from '../services/cache/useCache'
+import { useReactiveComputed } from './useReactiveComputed'
 
 /**
  * You can add these props to any component by destructuring them inside props option.
@@ -41,23 +44,20 @@ export const useColors = () => {
 
   const { setGlobalConfig, globalConfig } = gc
 
-  const colors = computed<ColorVariables>(() => globalConfig.value.colors!.variables)
+  const colors = useReactiveComputed<ColorVariables>({
+    get: () => globalConfig.value.colors!.variables,
+    set: (v: ColorVariables) => { setColors(v) },
+  })
 
   const setColors = (colors: Partial<ColorVariables>): void => {
-    setGlobalConfig((config: GlobalConfig) => ({
-      ...config,
-      colors: {
-        ...config.colors!,
-        variables: {
-          ...config.colors!.variables,
-          ...colors as ColorVariables,
-        },
-      },
-    }))
+    globalConfig.value.colors!.variables = {
+      ...globalConfig.value.colors.variables,
+      ...colors,
+    } as ColorVariables
   }
 
   const getColors = (): ColorVariables => {
-    return colors.value
+    return colors
   }
 
   /**
@@ -116,12 +116,51 @@ export const useColors = () => {
       }, {})
   }
 
-  const getTextColor = (color: ColorInput, darkColor = 'textDark', lightColor = 'textLight') => {
-    return getTextColorBase(color, darkColor, lightColor, 120)
+  const cache = useCache()
+
+  const getColorLightnessFromCache = (color: ColorInput) => {
+    if (typeof color !== 'string') {
+      return getColorLightness(color)
+    }
+
+    if (!cache.colorContrast[color]) {
+      cache.colorContrast[color] = getColorLightness(color)
+    }
+
+    return cache.colorContrast[color]
+  }
+
+  const computedDarkColor = computed(() => {
+    return getColorLightnessFromCache(getColor('textPrimary')) > globalConfig.value.colors.threshold ? 'textInverted' : 'textPrimary'
+  })
+
+  const computedLightColor = computed(() => {
+    return getColorLightnessFromCache(getColor('textPrimary')) > globalConfig.value.colors.threshold ? 'textPrimary' : 'textInverted'
+  })
+
+  const getTextColor = (color: ColorInput, darkColor?: string, lightColor?: string) => {
+    darkColor = darkColor || computedDarkColor.value
+    lightColor = lightColor || computedLightColor.value
+    return getColorLightnessFromCache(color) > globalConfig.value.colors.threshold ? darkColor : lightColor
+  }
+
+  const currentPresetName = computed(() => globalConfig.value.colors!.currentPresetName)
+
+  const presets = computed(() => globalConfig.value.colors!.presets)
+
+  const applyPreset = (presetName: string) => {
+    globalConfig.value.colors!.currentPresetName = presetName
+    if (!globalConfig.value.colors!.presets[presetName]) {
+      return warn(`Preset ${presetName} does not exist`)
+    }
+    globalConfig.value.colors!.variables = { ...globalConfig.value.colors!.presets[presetName] }
   }
 
   return {
     colors,
+    currentPresetName,
+    presets,
+    applyPreset,
     setColors,
     getColors,
     getColor,

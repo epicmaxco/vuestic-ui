@@ -4391,14 +4391,31 @@
       "availableCss": "Available CSS variables",
       "colorsUsed": "Each default color of Vuestic UI  (including overridden colors) and the new custom color have their own `CSS variables`."
     },
-    "defaultColorThemes": {
-      "title": "Default color themes",
-      "description": "All the default colors of Vuestic UI are listed below:"
-    },
     "reactivity": {
       "subtitle": "Reactivity",
       "about": "These variables reactive relative to `Colors Config`. This means that they will be updated when the configuration changes. Read more about how to update the configuration [here](https://vuestic.dev/en/services/colors-config#icon-config-service-api).",
       "additional": "Please note that changing `CSS variables` of the colors directly, in turn, will not update `Colors Config`."
+    },
+    "theme": {
+      "title": "Color presets",
+      "description": "Vuestic is shipped with two built-in color pressets: light and dark. You can switch between them using `applyPreset` method from `useColors`. You can check example bellow:",
+      "autoTextColor": "We use abstract color names instead of absolute names. You can click on each color above to see its description and where is it used.",
+      "colors": {
+        "primary": "Accent color used on button, links and other interactive elements",
+        "secondary": "Accent color used on non important interactive elements",
+        "success": "Accent color for success validation, alerts or toasts",
+        "danger": "Accent color for error validation, alerts or toasts",
+        "info": "Accent color for info toasts or alerts",
+        "warning": "Accent color for warning toasts or alerts",
+        "backgroundPrimary": "Page background",
+        "backgroundSecondary": "Card, Modal, Dropdown background",
+        "backgroundElement": "Input, switch, divider background colors",
+        "backgroundBorder": "Used as border color in elements like input, switch etc.",
+        "textPrimary": "Main text used on page. Used as default color on background colors.",
+        "textInverted": "Used as text color, if `textPrimary` doesn't have enough contrast with background color.",
+        "shadow": "Color of shadows that used in elements like cards, modals etc.",
+        "focus": "Keyboard focus outline color"
+      }
     }
   },
   "carousel": {

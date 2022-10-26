@@ -90,7 +90,7 @@
                   >
                     <va-button
                       v-if="$props.cancelText"
-                      preset="plain"
+                      preset="secondary"
                       color="secondary"
                       class="mr-3"
                       @click="cancel"
@@ -193,7 +193,7 @@ export default defineComponent({
     overlayOpacity: { type: [Number, String], default: 0.6 },
     blur: { type: Boolean, default: false },
     zIndex: { type: [Number, String], default: undefined },
-    backgroundColor: { type: String, default: 'background-tertiary' },
+    backgroundColor: { type: String, default: 'background-secondary' },
     noPadding: { type: Boolean, default: false },
   },
   setup (props, { emit }) {

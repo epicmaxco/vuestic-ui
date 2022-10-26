@@ -16,7 +16,7 @@
             <va-badge text="Default" />
             <va-badge
               text="Dark theme color"
-              text-color="dark"
+              text-color="textPrimary"
             />
           </VbCard>
         </td>
