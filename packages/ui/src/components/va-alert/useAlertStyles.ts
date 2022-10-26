@@ -50,7 +50,7 @@ export const useAlertStyles = (props: AlertStyleProps) => {
   const contentStyle = computed(() => {
     return {
       alignItems: props.center ? 'center' : '',
-      color: props.border ? getColor(getTextColor(background.value), undefined, true) : textColorComputed.value,
+      color: (props.border || props.outline) ? getColor(getTextColor(background.value), undefined, true) : textColorComputed.value,
     }
   })
 
