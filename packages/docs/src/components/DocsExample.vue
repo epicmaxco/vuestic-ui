@@ -1,6 +1,6 @@
 <template>
   <div class="mb-3">
-    <va-card outlined class="docs-example-card">
+    <va-card outlined class="docs-example-card" color="background-primary">
       <va-card-content>
         <component :is="component" />
       </va-card-content>
@@ -120,19 +120,5 @@ function parseTemplate (target: string, template: string) {
 
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
-
-    .va-card-content {
-      &::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: var(--va-background-primary);
-        opacity: 0.5;
-        z-index: -1;
-      }
-    }
   }
 </style>

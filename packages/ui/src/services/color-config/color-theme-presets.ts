@@ -11,9 +11,9 @@ export const colorsPresets: Record<string, EssentialVariables> = {
     warning: '#FFD43A',
 
     // Background Colors
-    backgroundPrimary: '#f5f9fa',
+    backgroundPrimary: '#f6f6f6',
     backgroundSecondary: '#FFFFFF',
-    backgroundElement: '#F5F9FB',
+    backgroundElement: '#EBF1F4',
     backgroundBorder: '#DEE5F2',
 
     // Text Colors
