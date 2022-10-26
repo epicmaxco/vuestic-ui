@@ -6,9 +6,10 @@
   --va-switch-checker-transform: translateX(0);
   --va-switch-checker-height: 1.5rem;
   --va-switch-checker-width: 1.5rem;
-  --va-switch-checker-background-color: var(--va-background-primary);
+  --va-switch-checker-active-background-color: #ffffff;
+  --va-switch-checker-background-color: var(--va-secondary);
   --va-switch-checker-border-radius: 50%;
-  --va-switch-checker-box-shadow: 0 0.1rem 0.2rem var(--va-shadow);
+  --va-switch-checker-box-shadow: 0 0 0 var(--va-background-border);
   --va-switch-checker-transition: all 0.2s ease;
 
   /* Checker Wrapper */
@@ -31,7 +32,7 @@
   --va-switch-track-height: 100%;
   --va-switch-track-width: 100%;
   --va-switch-track-background: var(--va-background-element);
-  --va-switch-track-box-shadow: inset 0 0.1rem 0.2rem var(--va-shadow);
+  --va-switch-track-box-shadow: inset 0 0 0 var(--va-shadow);
   --va-switch-track-transition: background-color 0.2s ease;
 
   /* Inner */
