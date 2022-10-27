@@ -38,7 +38,7 @@
     </div>
     <div class="va-collapse__body-wrapper" :style="contentStyle">
       <div
-        class="va-collapse_body"
+        class="va-collapse__body"
         ref="body"
         role="region"
         :id="panelIdComputed"
