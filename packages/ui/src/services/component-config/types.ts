@@ -1,4 +1,4 @@
-import type { VuesticComponentsMap } from '../../vuestic-plugin'
+import type { VuesticComponentsMap } from '../vue-plugin'
 import type { DefineComponent, VNodeProps, AllowedComponentProps } from 'vue'
 
 export type VuesticComponentName = keyof VuesticComponentsMap

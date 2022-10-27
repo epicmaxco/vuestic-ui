@@ -1,5 +1,5 @@
 import type { AppCache } from '../types'
-import { defineVuesticPlugin } from '../../../vuestic-plugin/utils'
+import { defineVuesticPlugin } from '../../vue-plugin/utils'
 
 export type VaAppCachePluginKeyValue = AppCache
 export const VaAppCachePluginKey = Symbol('VaAppCachePlugin')

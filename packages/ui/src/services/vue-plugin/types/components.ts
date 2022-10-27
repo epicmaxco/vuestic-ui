@@ -1,6 +1,6 @@
-import * as vuesticComponents from './vuestic-components'
+import type * as vuesticComponents from '../components'
 
-/** Utility type: Show type instad of import word */
+/** Utility type: Show type instead of import word */
 type Map<O extends Record<any, any>> = { [K in keyof O]: O[K] }
 /** Utility type: Check if key exist in object before access */
 type SafeAccess<O, K> = K extends keyof O ? O[K] : never
@@ -38,5 +38,3 @@ export type VuesticComponentName = keyof VuesticComponentsMap
 export type VuesticComponents<NAMES extends string = VuesticComponentName> = {
   [name in NAMES]: SafeAccess<VuesticComponentsMap, name>
 }
-
-export {}

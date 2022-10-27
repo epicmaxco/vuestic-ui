@@ -5,7 +5,7 @@ import { useDocument, useWindowSize, useReactiveComputed } from '../../../compos
 import { isClient } from '../../../utils/ssr'
 import { warn } from '../../../utils/console'
 import { generateUniqueId } from '../../../utils/uuid'
-import { getGlobalProperty } from '../../../vuestic-plugin/utils'
+import { getGlobalProperty } from '../../vue-plugin/utils'
 import { addOrUpdateStyleElement } from '../../../utils/dom'
 
 import { GlobalConfig } from '../../global-config/types'

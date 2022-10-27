@@ -6,7 +6,7 @@ import { getIconDefaultConfig } from '../icon-config'
 import { getColorDefaultConfig } from '../color-config'
 import { getI18nConfigDefaults } from '../i18n'
 import { getBreakpointDefaultConfig } from '../breakpoint'
-import { getGlobalProperty } from '../../vuestic-plugin/utils'
+import { getGlobalProperty } from '../vue-plugin/utils'
 import { inject } from '../current-app'
 import { mergeDeep } from '../../utils/merge-deep'
 

@@ -75,4 +75,4 @@ export {
   VaTreeView,
   VaScrollContainer,
   VaVirtualScroller,
-} from '../components'
+} from '../../components'

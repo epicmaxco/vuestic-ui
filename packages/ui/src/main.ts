@@ -1,8 +1,7 @@
-export * from './vuestic-plugin'
-export { useColors, useBreakpoint, useI18nConfig } from './composables'
+export * from './services/vue-plugin'
+export { useColors, useBreakpoint, useI18nConfig, useIcon as useIcons } from './composables'
 export { useGlobalConfig } from './services/global-config'
 export {
-  useIcon as useIcons,
   createIconsConfig,
   VuesticIconFonts,
   VuesticIconAliases,
