@@ -86,7 +86,7 @@ import {
 } from '../../composables'
 import { useCleave, useCleaveProps } from './hooks/useCleave'
 
-import type { AnyStringPropType } from '../../types/prop-type'
+import type { AnyStringPropType } from '../../utils/types/prop-type'
 
 import VaInputWrapper from './components/VaInputWrapper/VaInputWrapper.vue'
 import VaTextarea from './components/VaTextarea/VaTextarea.vue'
