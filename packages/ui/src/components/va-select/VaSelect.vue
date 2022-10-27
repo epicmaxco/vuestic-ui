@@ -150,7 +150,7 @@
 <script lang="ts">
 import { defineComponent, PropType, ref, computed, watch, nextTick, Ref, shallowRef } from 'vue'
 
-import { warn } from '../../services/utils'
+import { warn } from '../../utils/console'
 import {
   useComponentPresetProp,
   useSelectableList, useSelectableListProps,

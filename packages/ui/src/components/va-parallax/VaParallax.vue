@@ -22,7 +22,7 @@
 <script lang="ts">
 import { useComponentPresetProp } from '../../composables/useComponentPreset'
 import { defineComponent, PropType, ref, computed, onMounted, onBeforeUnmount, shallowRef } from 'vue'
-import { warn } from '../../services/utils'
+import { warn } from '../../utils/console'
 
 export default defineComponent({
   name: 'VaParallax',

@@ -190,7 +190,7 @@ import { VaInfiniteScroll } from './index'
 import { VaCheckbox } from '../va-checkbox'
 import { VaProgressCircle } from '../va-progress-circle'
 import { getNewRecords, getInitialRecords } from './demo/Records'
-import { sleep } from '../../services/utils'
+import { sleep } from '../../utils/sleep'
 
 export default {
   components: {

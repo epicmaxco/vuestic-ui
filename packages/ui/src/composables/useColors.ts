@@ -15,7 +15,7 @@ import {
   getStateMaskGradientBackground,
   getColorLightness,
 } from '../services/color-config/color-functions'
-import { warn } from '../services/utils'
+import { warn } from '../utils/console'
 
 import { cssVariableName, normalizeColorName } from '../services/color-config/utils'
 import type { ColorInput } from 'colortranslator/dist/@types'

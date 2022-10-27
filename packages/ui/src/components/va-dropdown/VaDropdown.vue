@@ -33,7 +33,7 @@ import { computed, defineComponent, nextTick, PropType, shallowRef, toRef } from
 import pick from 'lodash/pick.js'
 import kebabCase from 'lodash/kebabCase.js'
 
-import { generateUniqueId } from '../../services/utils'
+import { generateUniqueId } from '../../utils/uuid'
 
 import {
   useComponentPresetProp,

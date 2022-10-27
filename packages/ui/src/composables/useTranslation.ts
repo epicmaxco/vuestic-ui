@@ -1,7 +1,7 @@
 import { computed } from 'vue'
 import { useGlobalConfig } from '../services/global-config/global-config'
 import { I18nConfig } from '../services/i18n/defaults'
-import { warn } from '../services/utils'
+import { warn } from '../utils/console'
 
 type Stringable = number | string | boolean | undefined
 

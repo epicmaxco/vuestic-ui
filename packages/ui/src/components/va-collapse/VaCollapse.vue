@@ -63,7 +63,7 @@ import {
 } from '../../composables'
 import { useAccordionItem } from '../va-accordion/hooks/useAccordion'
 
-import { generateUniqueId } from '../../services/utils'
+import { generateUniqueId } from '../../utils/uuid'
 
 import { VaIcon } from '../va-icon'
 

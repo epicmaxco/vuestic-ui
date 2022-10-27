@@ -3,7 +3,8 @@ import { App, Ref, computed, watch, ComputedRef } from 'vue'
 import { useDocument, useWindowSize } from '../../../composables'
 
 import { isClient } from '../../../utils/ssr'
-import { warn, generateUniqueId } from '../../utils'
+import { warn } from '../../../utils/console'
+import { generateUniqueId } from '../../../utils/uuid'
 import { getGlobalProperty } from '../../../vuestic-plugin/utils'
 import { addOrUpdateStyleElement } from '../../dom-functions'
 

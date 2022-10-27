@@ -54,13 +54,12 @@ import {
   useRouterLink, useRouterLinkProps,
   useDeprecatedProps,
   useComponentPresetProp,
+  useSlotPassed,
 } from '../../composables'
 
 import { useButtonBackground } from './hooks/useButtonBackground'
 import { useButtonAttributes } from './hooks/useButtonAttributes'
 import { useButtonTextColor } from './hooks/useButtonTextColor'
-
-import { checkSlotChildrenDeep } from '../../services/utils'
 
 import { VaIcon } from '../va-icon'
 import { VaProgressCircle } from '../va-progress-circle'
@@ -136,7 +135,7 @@ export default defineComponent({
     // classes
     const wrapperClassComputed = computed(() => ({ 'va-button__content--loading': props.loading }))
 
-    const isSlotContentPassed = computed(() => checkSlotChildrenDeep(slots.default))
+    const isSlotContentPassed = useSlotPassed()
 
     const isOneIcon = computed(() => !!((props.iconRight && !props.icon) || (!props.iconRight && props.icon)))
     const isOnlyIcon = computed(() => !isSlotContentPassed.value && isOneIcon.value)

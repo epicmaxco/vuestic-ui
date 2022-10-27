@@ -23,7 +23,7 @@ import { defineComponent, PropType, ref, computed, onMounted, onBeforeUnmount } 
 import { useComponentPresetProp, useTranslation } from '../../composables'
 import { VaButton } from '../va-button'
 import { isServer } from '../../utils/ssr'
-import { warn } from '../../services/utils'
+import { warn } from '../../utils/console'
 
 export default defineComponent({
   name: 'VaBacktop',

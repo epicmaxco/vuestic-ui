@@ -79,7 +79,7 @@
 import { defineComponent, PropType, computed, shallowRef } from 'vue'
 import pick from 'lodash/pick.js'
 
-import { generateUniqueId } from '../../services/utils'
+import { generateUniqueId } from '../../utils/uuid'
 
 import {
   useComponentPresetProp,
