@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://vuestic.dev" target="_blank">
-      <img alt="Vuestic UI Logo" width="400" src="packages/ui/src/assets/vuestic-ui-logo.png">
+      <img alt="Vuestic UI Logo" width="400" src=".github/assets/vuestic-ui-logo.png">
   </a>
       <br>
   Vue.js 3.0 UI Library
@@ -43,7 +43,7 @@
 <a href="https://discord.gg/u7fQdqQt8c">Discord</a> to help us improve Vuestic UI experience.
 
   <p align="center">
-    <img src="./packages/ui/src/assets/vuestic-ui-image.jpg">
+    <img src=".github/assets/vuestic-ui-image.jpg">
   </p>
 
 ### Why use Vuestic UI?
