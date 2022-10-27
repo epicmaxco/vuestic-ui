@@ -762,7 +762,7 @@ export default defineComponent({
     background: var(--va-select-dropdown-background);
     overflow-y: auto;
 
-    @include va-scroll(var(--va-background-secondary));
+    @include va-scroll(var(--va-background-element));
   }
 }
 </style>

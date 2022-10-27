@@ -10,7 +10,7 @@
 
 <script>
 import { computed } from 'vue'
-import { useColors, useTheme } from 'vuestic-ui/src/main'
+import { useColors } from 'vuestic-ui/src/main'
 
 export default {
   props: {
@@ -18,8 +18,7 @@ export default {
     buttonText: { type: String, default: 'Primary color button' },
   },
   setup () {
-    const { presets } = useTheme()
-    const { setColors, getColor } = useColors()
+    const { presets, setColors, getColor } = useColors()
 
     const colorsToChange = [
       presets.value.light.primary,

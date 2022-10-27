@@ -139,14 +139,17 @@ export default defineComponent({
     const isSlotContentPassed = computed(() => checkSlotChildrenDeep(slots.default))
 
     const isOneIcon = computed(() => !!((props.iconRight && !props.icon) || (!props.iconRight && props.icon)))
+    const isOnlyIcon = computed(() => !isSlotContentPassed.value && isOneIcon.value)
     const computedClass = useBem('va-button', () => ({
       ...pick(props, ['disabled', 'block', 'loading', 'round', 'plain']),
       small: props.size === 'small',
       normal: !props.size || props.size === 'medium',
       large: props.size === 'large',
       opacity: props.textOpacity < 1,
-      iconOnly: !isSlotContentPassed.value && isOneIcon.value,
       bordered: !!props.borderColor,
+      iconOnly: isOnlyIcon.value,
+      leftIcon: !isOnlyIcon.value && !!props.icon && !props.iconRight,
+      rightIcon: !isOnlyIcon.value && !props.icon && !!props.iconRight,
     }))
 
     // styles
@@ -283,6 +286,26 @@ export default defineComponent({
       margin-left: var(--va-button-sm-icons-spacing);
     }
 
+    &.va-button--left-icon {
+      .va-button__content {
+        padding-left: var(--va-button-sm-icon-side-padding);
+      }
+
+      .va-button__left-icon {
+        margin-right: 2px;
+      }
+    }
+
+    &.va-button--right-icon {
+      .va-button__content {
+        padding-right: var(--va-button-sm-icon-side-padding);
+      }
+
+      .va-button__right-icon {
+        margin-left: 2px;
+      }
+    }
+
     &.va-button--icon-only {
       width: var(--va-button-sm-size);
       height: var(--va-button-sm-size);
@@ -307,16 +330,6 @@ export default defineComponent({
       line-height: var(--va-button-line-height);
     }
 
-    &.va-button--icon-only {
-      width: var(--va-button-size);
-      height: var(--va-button-size);
-
-      & .va-button__content {
-        padding-right: var(--va-button-content-px);
-        padding-left: var(--va-button-content-px);
-      }
-    }
-
     &.va-button--bordered {
       & .va-button__content {
         line-height: calc(var(--va-button-line-height) - 2 * var(--va-button-bordered-border));
@@ -336,6 +349,36 @@ export default defineComponent({
     .va-button__right-icon {
       margin-left: var(--va-button-icons-spacing);
     }
+
+    &.va-button--left-icon {
+      .va-button__content {
+        padding-left: var(--va-button-icon-side-padding);
+      }
+
+      .va-button__left-icon {
+        margin-right: 2px;
+      }
+    }
+
+    &.va-button--right-icon {
+      .va-button__content {
+        padding-right: var(--va-button-icon-side-padding);
+      }
+
+      .va-button__right-icon {
+        margin-left: 2px;
+      }
+    }
+
+    &.va-button--icon-only {
+      width: var(--va-button-size);
+      height: var(--va-button-size);
+
+      & .va-button__content {
+        padding-right: var(--va-button-content-px);
+        padding-left: var(--va-button-content-px);
+      }
+    }
   }
 
   &--large {
@@ -348,16 +391,6 @@ export default defineComponent({
     .va-button__content {
       font-size: var(--va-button-lg-font-size);
       padding: var(--va-button-lg-content-py) var(--va-button-lg-content-px);
-    }
-
-    &.va-button--icon-only {
-      width: var(--va-button-lg-size);
-      height: var(--va-button-lg-size);
-
-      & .va-button__content {
-        padding-right: var(--va-button-lg-content-px);
-        padding-left: var(--va-button-lg-content-px);
-      }
     }
 
     &.va-button--bordered {
@@ -376,6 +409,36 @@ export default defineComponent({
 
     .va-button__right-icon {
       margin-left: var(--va-button-lg-icons-spacing);
+    }
+
+    &.va-button--left-icon {
+      .va-button__content {
+        padding-left: var(--va-button-lg-icon-side-padding);
+      }
+
+      .va-button__left-icon {
+        margin-right: 4px;
+      }
+    }
+
+    &.va-button--right-icon {
+      .va-button__content {
+        padding-right: var(--va-button-lg-icon-side-padding);
+      }
+
+      .va-button__right-icon {
+        margin-left: 4px;
+      }
+    }
+
+    &.va-button--icon-only {
+      width: var(--va-button-lg-size);
+      height: var(--va-button-lg-size);
+
+      & .va-button__content {
+        padding-right: var(--va-button-lg-content-px);
+        padding-left: var(--va-button-lg-content-px);
+      }
     }
   }
 

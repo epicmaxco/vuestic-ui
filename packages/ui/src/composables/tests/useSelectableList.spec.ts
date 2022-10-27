@@ -44,7 +44,7 @@ describe('useSelectableList', () => {
         getGroupBy: undefined,
         getOptionByValue: { text: 'textValue', disabled: false },
         getText: 'textValue',
-        getTrackBy: undefined,
+        getTrackBy: { text: 'textValue', disabled: false },
         getValue: { text: 'textValue', disabled: false },
         getDisabled: false,
       },

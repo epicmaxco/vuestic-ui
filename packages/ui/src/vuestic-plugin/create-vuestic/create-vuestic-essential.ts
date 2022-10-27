@@ -2,8 +2,9 @@ import type { VuesticComponent, VuesticPlugin, VuesticPluginFabric } from '../ty
 import { defineVuesticPlugin } from '../types'
 import type { PartialGlobalConfig } from '../../services/global-config/global-config'
 import { usePlugin } from '../utils'
+import { setCurrentApp } from '../../services/current-app'
 
-import { GlobalConfigPlugin, ColorConfigPlugin } from '../vuestic-plugins'
+import { GlobalConfigPlugin, ColorConfigPlugin, CachePlugin } from '../vuestic-plugins'
 
 const ESSENTIAL_PLUGIN_NAMES = ['GlobalConfigPlugin', 'ColorConfigPlugin']
 
@@ -30,8 +31,12 @@ export const createVuesticEssential = defineVuesticPlugin((options: {
   install (app) {
     const { config, components, plugins } = options
 
-    /** Register essential plugins before any other */
+    setCurrentApp(app)
+
+    // These plugins have dependant plugins, so have to be registered first.
     usePlugin(app, plugins?.GlobalConfigPlugin || GlobalConfigPlugin, config)
+    usePlugin(app, plugins?.CachePlugin || CachePlugin)
+
     usePlugin(app, plugins?.ColorConfigPlugin || ColorConfigPlugin)
 
     if (plugins) {
@@ -46,5 +51,7 @@ export const createVuesticEssential = defineVuesticPlugin((options: {
         app.component(name, component)
       })
     }
+
+    setCurrentApp(null)
   },
 }))

@@ -7,7 +7,7 @@
         <span>{{ node.label }}</span>
 
         <va-popover v-if="node.description" :message="node.description" stick-to-edges>
-          <va-icon class="ml-2" name="help" size="small" color="backgroundElement" />
+          <va-icon class="ml-2" name="help" size="small" color="background-tertiary" />
         </va-popover>
       </div>
     </template>

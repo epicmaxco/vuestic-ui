@@ -45,14 +45,14 @@ $va-display-margins: (
   font-family: var(--va-font-family);
   // TODO: currentColor?
   color: currentColor;
-  // TODO:(1.5.0) rename to textDark
+  // TODO:(1.5.0) rename to textPrimary
   // color: var(--va-dark);
   font-weight: 700;
 }
 
 @mixin va-code {
   font-size: 14px;
-  // TODO:(1.5.0) rename to textDark
+  // TODO:(1.5.0) rename to textPrimary
   color: var(--va-dark);
   font-family: 'Source Code Pro';
   // TODO:(1.5.0) rename to background

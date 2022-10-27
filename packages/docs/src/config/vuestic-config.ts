@@ -1,9 +1,9 @@
-import { GlobalConfig } from 'vuestic-ui/src/main'
+import { PartialGlobalConfig } from 'vuestic-ui/src/main'
 import { icons } from './icons-config/icons-config'
 
 const scrollWrapperSelector = '.base-layout__content'
 
-export const VuesticConfig: Partial<GlobalConfig> = {
+export const VuesticConfig: Partial<PartialGlobalConfig> = {
   icons,
   components: {
     VaParallax: {
@@ -20,9 +20,16 @@ export const VuesticConfig: Partial<GlobalConfig> = {
           size: 'large',
           plain: true,
           'hover-behavior': 'mask',
-          'hover-mask-color': 'textDark',
+          'hover-mask-color': 'textPrimary',
           'hover-opacity': '1',
         },
+      },
+    },
+  },
+  colors: {
+    presets: {
+      light: {
+        backgroundPrimary: '#FFFFFF',
       },
     },
   },

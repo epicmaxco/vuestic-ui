@@ -29,7 +29,7 @@ export default defineComponent({
     activeColor: { type: String, default: 'primary' },
     hoverColor: { type: String, default: undefined },
     borderColor: { type: String, default: undefined },
-    color: { type: String, default: 'background-secondary' },
+    color: { type: String, default: 'background-element' },
     textColor: { type: String },
     gradient: { type: Boolean, default: false },
     minimized: { type: Boolean, default: false },

@@ -18,7 +18,7 @@
     // keyboard focus
     .ag-has-focus .ag-cell-focus:not(.ag-cell-range-selected) {
       border: none;
-      background-color: var(--va-background-tertiary);
+      background-color: var(--va-background-secondary);
     }
   }
 
@@ -33,7 +33,7 @@
 @mixin vuestic-theme-striped {
   &--striped {
     .ag-row-odd {
-      background-color: var(--va-background-secondary);
+      background-color: var(--va-background-element);
 
       &.ag-row-selected {
         background-color: ag-param(selected-row-background-color);

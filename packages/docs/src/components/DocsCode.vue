@@ -86,7 +86,7 @@ export default defineComponent({
   // Here class is being applied twice, while it should have been applied only on external container
   .DocsCode {
     margin-bottom: 0.2rem !important;
-    background: var(--va-background-secondary);
+    background: var(--va-background-element);
     font-size: calc(1rem / 1.4);
     border-radius: 0.25rem;
 

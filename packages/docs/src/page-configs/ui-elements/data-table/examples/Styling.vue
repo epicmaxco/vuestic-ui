@@ -218,7 +218,7 @@ export default defineComponent({
 <style lang="scss">
   .table-example {
     th {
-      background-color: var(--va-background-secondary);
+      background-color: var(--va-background-element);
       border: 1px solid currentColor;
       height: 50px;
     }

@@ -117,7 +117,7 @@ export default defineComponent({
 
     label: { type: String, default: '' },
     color: { type: String, default: 'primary' },
-    background: { type: String, default: 'background-secondary' },
+    background: { type: String, default: 'background-element' },
     outline: { type: Boolean, default: false },
     bordered: { type: Boolean, default: false },
     focused: { type: Boolean, default: false },
@@ -208,13 +208,13 @@ export default defineComponent({
 
 .va-input-wrapper {
   position: relative;
-  color: var(--va-input-text-color);
   cursor: var(--va-input-cursor);
   font-family: var(--va-font-family);
   display: var(--va-input-wrapper-display);
   vertical-align: var(--va-input-wrapper-vertical-align);
   min-width: var(--va-input-wrapper-min-width);
   max-width: 100%;
+  flex: 1;
 
   &__field {
     position: relative;
@@ -292,7 +292,6 @@ export default defineComponent({
       width: 100%;
       // Use line-height as min-height for empty content slot
       min-height: var(--va-input-line-height);
-      color: var(--va-input-text-color);
       background-color: transparent;
       border-style: none;
       outline: none;

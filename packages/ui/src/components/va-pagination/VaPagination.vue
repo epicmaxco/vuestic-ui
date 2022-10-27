@@ -345,6 +345,7 @@ export default defineComponent({
   font-family: var(--va-font-family);
 
   &__input {
+    background: var(--va-pagination-input-background);
     border-style: var(--va-pagination-input-border-style);
     border-width: var(--va-pagination-input-border-width);
     text-align: var(--va-pagination-input-text-align);
@@ -381,9 +382,7 @@ export default defineComponent({
     &:focus-visible {
       outline-offset: -2px;
 
-      &::before {
-        @include focus-outline($offset: -2px, $radius: 'inherit');
-      }
+      @include keyboard-focus-outline();
     }
   }
 

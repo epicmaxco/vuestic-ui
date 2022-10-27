@@ -57,7 +57,6 @@ export default defineComponent({
   border-radius: var(--va-button-group-border-radius);
   font-family: var(--va-font-family);
   width: max-content;
-  overflow: hidden;
 
   &--grow {
     width: 100%;
