@@ -1,5 +1,5 @@
 import type { VuesticComponentsMap } from '../vue-plugin'
-import type { DefineComponent, VNodeProps, AllowedComponentProps } from 'vue'
+import type { VNodeProps, AllowedComponentProps } from 'vue'
 
 export type VuesticComponentName = keyof VuesticComponentsMap
 export type VueDefaultPropNames = keyof (VNodeProps & AllowedComponentProps) | `on${string}`

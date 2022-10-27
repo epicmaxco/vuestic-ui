@@ -2,7 +2,7 @@ import VaAvatar from '../VaAvatar.vue'
 import { mount } from '@vue/test-utils'
 import { testIsLoadingMixin } from '../../mixins/LoadingMixin/testIsLoadingMixin'
 import { testHasColorThemeMixin } from '../../../services/testHasColorThemeMixin'
-import ColorMixin from '../../../services/color-config/ColorMixin'
+import ColorMixin from '../../../services/color/ColorMixin'
 
 describe('VaAvatar', () => {
   it('should render without an error', () => {

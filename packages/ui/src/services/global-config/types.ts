@@ -1,6 +1,6 @@
 import type { ComponentConfig } from '../component-config'
-import type { ColorConfig } from '../color-config'
-import type { IconConfig } from '../icon-config'
+import type { ColorConfig } from '../color'
+import type { IconConfig } from '../icon'
 import type { BreakpointConfig } from '../breakpoint'
 import type { I18nConfig } from '../i18n'
 import type { Ref } from 'vue'

@@ -1,4 +1,4 @@
-import { IconConfig } from './../types'
+import { IconConfig } from '../types'
 
 export const VuesticIconFonts: IconConfig = [
   {

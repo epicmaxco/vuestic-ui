@@ -1,4 +1,4 @@
-import { IconConfiguration } from './../types'
+import { IconConfiguration } from '../types'
 
 export const VuesticIconAliases: IconConfiguration[] = [
   {

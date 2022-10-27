@@ -1,4 +1,4 @@
-import { getIconConfiguration } from '../services/icon-config/utils/get-icon-configuration'
+import { getIconConfiguration } from '../services/icon/utils/get-icon-configuration'
 import { useGlobalConfig } from '../services/global-config'
 
 export const useIcon = () => {

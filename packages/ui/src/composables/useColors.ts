@@ -1,5 +1,5 @@
 import type { ColorInput } from 'colortranslator/dist/@types'
-import type { ColorVariables, CssColor } from '../services/color-config'
+import type { ColorVariables, CssColor } from '../services/color'
 import { computed } from 'vue'
 import { useGlobalConfigSafe } from '../services/global-config/global-config'
 import { warn } from '../utils/console'
@@ -20,7 +20,7 @@ import {
   getColorLightness,
   cssVariableName,
   normalizeColorName,
-} from '../services/color-config/utils'
+} from '../services/color/utils'
 
 /**
  * You can add these props to any component by destructuring them inside props option.
@@ -179,5 +179,5 @@ export const useColors = () => {
   }
 }
 
-export * from '../services/color-config/utils'
-export * from '../services/color-config'
+export * from '../services/color/utils'
+export * from '../services/color'

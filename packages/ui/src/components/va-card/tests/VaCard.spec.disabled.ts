@@ -3,7 +3,7 @@ import VaCard from '../VaCard.vue'
 
 import { testIsContextableComponent } from '../../../context-test/context-provide/testIsContextableComponent'
 import { testHasColorThemeMixin } from '../../../services/testHasColorThemeMixin'
-import { ColorMixin } from '../../../services/color-config/ColorMixin'
+import { ColorMixin } from '../../../services/color/ColorMixin'
 
 describe('VaCard', () => {
   it('should render without an error', () => {
