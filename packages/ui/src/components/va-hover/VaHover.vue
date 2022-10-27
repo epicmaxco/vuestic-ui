@@ -40,3 +40,10 @@ export default defineComponent({
   },
 })
 </script>
+
+<style lang="scss">
+.va-hover {
+  dispaly: flex;
+  flex: 1;
+}
+</style>
