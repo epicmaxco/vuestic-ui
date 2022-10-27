@@ -1,6 +1,6 @@
 import type { EssentialVariables } from './types'
 
-export const colorsPresets: Record<string, EssentialVariables> = {
+export const presets: Record<string, EssentialVariables> = {
   light: {
     // Accent
     primary: '#154EC1',

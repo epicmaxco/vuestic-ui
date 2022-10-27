@@ -1,9 +1,7 @@
 import { ColorVariables } from './../types'
 import { App, watch } from 'vue'
 import { isServer } from '../../../utils/ssr'
-import { getGlobalProperty } from '../../../vuestic-plugin/utils'
 import { cssVariableName } from '../utils'
-import { getTextColor } from '../color-functions'
 import { useColors } from '../../../composables'
 
 export const setCSSVariable = (name: string, value: string, root: HTMLElement) => {

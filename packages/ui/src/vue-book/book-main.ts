@@ -16,7 +16,6 @@ import {
   VaDropdownPlugin,
   BreakpointConfigPlugin,
 } from '../main'
-import { colorsPresets } from '../services/color-config/color-theme-presets'
 
 const app = createApp(App)
 

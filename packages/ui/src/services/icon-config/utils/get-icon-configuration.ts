@@ -1,6 +1,6 @@
 import merge from 'lodash/merge.js'
-import { isMatchDynamicSegments, dynamicSegments } from './utils/dynamic-segment'
-import { isMatchRegex, regexGroupsValues } from './utils/regex'
+import { isMatchDynamicSegments, dynamicSegments } from './dynamic-segment'
+import { isMatchRegex, regexGroupsValues } from './regex'
 import {
   IconConfig,
   IconConfiguration,
@@ -9,7 +9,7 @@ import {
   isIconConfigurationString,
   isIconConfigurationRegex,
   IconProps,
-} from './types'
+} from '../types'
 
 const isMatchConfiguration = (iconName: string, iconConfiguration: IconConfiguration) => {
   if (isIconConfigurationString(iconConfiguration)) {

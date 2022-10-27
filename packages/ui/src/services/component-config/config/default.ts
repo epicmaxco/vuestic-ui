@@ -1,4 +1,4 @@
-import { ComponentConfig } from '../../component-config/component-config'
+import { ComponentConfig } from '../types'
 
 export const getComponentsDefaultConfig = (): ComponentConfig =>
   // TODO: Should be handled in size service

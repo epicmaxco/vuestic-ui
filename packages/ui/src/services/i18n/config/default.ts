@@ -80,5 +80,3 @@ export const getI18nConfigDefaults = () => ({
   progressState: 'progress state',
   color: 'color',
 })
-
-export type I18nConfig = ReturnType<typeof getI18nConfigDefaults>

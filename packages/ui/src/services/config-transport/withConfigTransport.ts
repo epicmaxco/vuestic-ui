@@ -1,7 +1,4 @@
-import { ComponentPublicInstance, DefineComponent } from 'vue'
 import { createProxyComponent } from './createProxyComponent'
-
-type WithConfigTransport<T> = T
 
 const CLASS_COMPONENT_KEY = '__c'
 
@@ -11,10 +8,10 @@ const patchClassComponent = (component: { [CLASS_COMPONENT_KEY]: any }): any => 
 }
 
 /** Allows props to be passed from vuestic config if they were not provided */
-export const withConfigTransport = <T>(component: T): WithConfigTransport<T> => {
-  if ('setup' in component) {
+export const withConfigTransport = <T>(component: T): T => {
+  if ('setup' in (component as any)) {
     return createProxyComponent(component as any)
-  } else if (CLASS_COMPONENT_KEY in component) {
+  } else if (CLASS_COMPONENT_KEY in (component as any)) {
     // TODO: Remove this. We don't want to use class components
     return patchClassComponent(component as any)
   } else {

@@ -1,6 +1,10 @@
+import type { ColorInput } from 'colortranslator/dist/@types'
 import type { ColorVariables, CssColor } from '../services/color-config'
 import { computed } from 'vue'
 import { useGlobalConfigSafe } from '../services/global-config/global-config'
+import { warn } from '../utils/console'
+import { useCache } from './useCache'
+import { useReactiveComputed } from './useReactiveComputed'
 import {
   getBoxShadowColor,
   getBoxShadowColorFromBg,
@@ -14,13 +18,9 @@ import {
   colorToRgba,
   getStateMaskGradientBackground,
   getColorLightness,
-} from '../services/color-config/color-functions'
-import { warn } from '../utils/console'
-
-import { cssVariableName, normalizeColorName } from '../services/color-config/utils'
-import type { ColorInput } from 'colortranslator/dist/@types'
-import { useCache } from './useCache'
-import { useReactiveComputed } from './useReactiveComputed'
+  cssVariableName,
+  normalizeColorName,
+} from '../services/color-config/utils'
 
 /**
  * You can add these props to any component by destructuring them inside props option.
@@ -179,5 +179,5 @@ export const useColors = () => {
   }
 }
 
-export * from '../services/color-config/color-functions'
+export * from '../services/color-config/utils'
 export * from '../services/color-config'

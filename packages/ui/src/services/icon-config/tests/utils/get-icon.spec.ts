@@ -1,5 +1,5 @@
-import { getIconConfiguration } from '../../icon-helpers'
-import { IconConfig } from '../../icon-config'
+import type { IconConfig } from '../../types'
+import { getIconConfiguration } from '../../utils/get-icon-configuration'
 import { describe, it, expect } from 'vitest'
 
 describe('IconConfig', () => {
