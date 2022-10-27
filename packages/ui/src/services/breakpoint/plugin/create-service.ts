@@ -6,7 +6,7 @@ import { isClient } from '../../../utils/ssr'
 import { warn } from '../../../utils/console'
 import { generateUniqueId } from '../../../utils/uuid'
 import { getGlobalProperty } from '../../../vuestic-plugin/utils'
-import { addOrUpdateStyleElement } from '../../dom-functions'
+import { addOrUpdateStyleElement } from '../../../utils/dom'
 
 import { GlobalConfig } from '../../global-config/types'
 import { ThresholdsKey, BreakpointConfig, BodyClass, BreakpointServiceObject, BreakpointHelpers } from '../types'

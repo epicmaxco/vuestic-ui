@@ -1,4 +1,4 @@
-import { isServer } from '../utils/ssr'
+import { isServer } from './ssr'
 
 /**
  * Create and append to head provided styles or update if exists.
@@ -7,10 +7,6 @@ import { isServer } from '../utils/ssr'
  * @param getStyles - closure to get styles
  */
 export const addOrUpdateStyleElement = (id: string, getStyles: () => string): void => {
-  if (!id) {
-    throw new Error('Style id is required')
-  }
-
   if (isServer()) {
     return
   }
