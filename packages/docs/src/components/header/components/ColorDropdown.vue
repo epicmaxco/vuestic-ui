@@ -53,45 +53,45 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  @import "~vuestic-ui/src/styles/resources";
+@import "~vuestic-ui/src/styles/resources";
 
-  .color-dropdown {
-    cursor: pointer;
+.color-dropdown {
+  cursor: pointer;
 
-    &__icon {
-      .va-button__content {
-        font-weight: 600;
-      }
+  &__icon {
+    .va-button__content {
+      font-weight: 600;
+    }
 
-      position: relative;
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  &__content {
+    border-radius: 0.5rem;
+    padding: 0;
+    font-weight: normal;
+
+    .color {
       display: flex;
       align-items: center;
-    }
 
-    &__content {
-      border-radius: 0.5rem;
-      padding: 0;
-      font-weight: normal;
-
-      .color {
-        display: flex;
-        align-items: center;
-
-        &__title {
-          display: inline-block;
-          min-width: 4rem;
-          margin-left: 0.5rem;
-        }
+      &__title {
+        display: inline-block;
+        min-width: 4rem;
+        margin-left: 0.5rem;
       }
     }
-
-    .va-dropdown__anchor {
-      display: inline-block;
-    }
   }
 
-  .button-restore {
-    display: flex;
-    margin: 0.375rem auto;
+  .va-dropdown__anchor {
+    display: inline-block;
   }
+}
+
+.button-restore {
+  display: flex;
+  margin: 0.375rem auto;
+}
 </style>

@@ -5,12 +5,12 @@
 </template>
 
 <style lang="scss" scoped>
-  .va-code-snippet {
-    background: var(--va-background-primary);
-    color: var(--va-dark);
-  }
+.va-code-snippet {
+  background: var(--va-background-primary);
+  color: var(--va-dark);
+}
 
-  .text--highlighted {
-    padding: 0 4px;
-  }
+.text--highlighted {
+  padding: 0 4px;
+}
 </style>

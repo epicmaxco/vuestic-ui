@@ -9,14 +9,14 @@ import LandingEpicmaxBanner from '@/components/landing/LandingEpicmaxBanner.vue'
 </script>
 
 <style lang="scss">
-  $gap: 1rem;
+$gap: 1rem;
 
-  .docs-team {
-    margin: 0 -$gap;
-  }
+.docs-team {
+  margin: 0 -$gap;
+}
 
-  .team-banner .epicmax__banner-content {
-    width: 100%;
-    margin-top: 2rem;
-  }
+.team-banner .epicmax__banner-content {
+  width: 100%;
+  margin-top: 2rem;
+}
 </style>

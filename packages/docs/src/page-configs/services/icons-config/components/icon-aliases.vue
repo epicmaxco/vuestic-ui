@@ -22,24 +22,24 @@ import { VuesticIconAliases } from 'vuestic-ui/src/services/icon-config/presets/
 </script>
 
 <style lang="scss" scoped>
-  .va-list {
-    width: 100%;
+.va-list {
+  width: 100%;
 
-    .va-list-item {
-      width: 25%;
-      display: inline-block;
+  .va-list-item {
+    width: 25%;
+    display: inline-block;
 
-      @media screen and (max-width: 1024px) {
-        width: 33%;
-      }
+    @media screen and (max-width: 1024px) {
+      width: 33%;
+    }
 
-      @media screen and (max-width: 768px) {
-        width: 50%;
-      }
+    @media screen and (max-width: 768px) {
+      width: 50%;
+    }
 
-      @media screen and (max-width: 480px) {
-        width: 100%;
-      }
+    @media screen and (max-width: 480px) {
+      width: 100%;
     }
   }
+}
 </style>

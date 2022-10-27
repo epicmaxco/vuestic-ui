@@ -94,22 +94,22 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  .language-dropdown {
-    cursor: pointer;
+.language-dropdown {
+  cursor: pointer;
 
-    .va-button__content {
-      font-weight: 600;
-    }
-
-    &__item {
-      padding-bottom: 0.625rem;
-      cursor: pointer;
-      flex-wrap: nowrap;
-      font-weight: 600;
-    }
-
-    .va-dropdown__anchor {
-      display: inline-block;
-    }
+  .va-button__content {
+    font-weight: 600;
   }
+
+  &__item {
+    padding-bottom: 0.625rem;
+    cursor: pointer;
+    flex-wrap: nowrap;
+    font-weight: 600;
+  }
+
+  .va-dropdown__anchor {
+    display: inline-block;
+  }
+}
 </style>
