@@ -1,6 +1,6 @@
 import type { ColorVariables, CssColor } from '../services/color-config'
 import { computed } from 'vue'
-import { GlobalConfig, useGlobalConfigSafe } from '../services/global-config/global-config'
+import { useGlobalConfigSafe } from '../services/global-config/global-config'
 import {
   getBoxShadowColor,
   getBoxShadowColorFromBg,
@@ -19,7 +19,7 @@ import { warn } from '../utils/console'
 
 import { cssVariableName, normalizeColorName } from '../services/color-config/utils'
 import type { ColorInput } from 'colortranslator/dist/@types'
-import { useCache } from '../services/cache/useCache'
+import { useCache } from './useCache'
 import { useReactiveComputed } from './useReactiveComputed'
 
 /**

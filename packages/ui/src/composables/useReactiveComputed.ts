@@ -1,6 +1,6 @@
-import { computed, unref, WritableComputedOptions, isRef, reactive } from 'vue'
+import { computed, unref, WritableComputedOptions, ComputedOptions, isRef, reactive } from 'vue'
 
-export const useReactiveComputed = <T extends object>(obj: WritableComputedOptions<T>) => {
+export const useReactiveComputed = <T extends object>(obj: WritableComputedOptions<T> | ComputedGetter<T>) => {
   const objectRef = computed(obj)
 
   const proxy = new Proxy({}, {
