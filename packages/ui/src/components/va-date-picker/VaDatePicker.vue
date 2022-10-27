@@ -67,7 +67,7 @@ import { useElementBackground } from '../../composables/useElementBackground'
 import { useTextColor } from '../../composables/useTextColor'
 import { computed, defineComponent, nextTick, PropType, ref, watch } from 'vue'
 
-import { filterComponentProps, extractComponentProps, extractComponentEmits } from '../../utils/child-props'
+import { filterComponentProps, extractComponentProps, extractComponentEmits } from '../../utils/component-options'
 import { useColors, useStateful, useStatefulProps, useStatefulEmits } from '../../composables'
 import { useView } from './hooks/view'
 import { useComponentPresetProp } from '../../composables/useComponentPreset'
@@ -189,10 +189,10 @@ export default defineComponent({
     }
 
     return {
-      dayPickerProps: filterComponentProps(props, extractComponentProps(VaDayPicker)),
-      headerProps: filterComponentProps(props, extractComponentProps(VaDatePickerHeader)),
-      monthPickerProps: filterComponentProps(props, extractComponentProps(VaMonthPicker)),
-      yearPickerProps: filterComponentProps(props, extractComponentProps(VaYearPicker)),
+      dayPickerProps: filterComponentProps(extractComponentProps(VaDayPicker)),
+      headerProps: filterComponentProps(extractComponentProps(VaDatePickerHeader)),
+      monthPickerProps: filterComponentProps(extractComponentProps(VaMonthPicker)),
+      yearPickerProps: filterComponentProps(extractComponentProps(VaYearPicker)),
 
       syncView,
 

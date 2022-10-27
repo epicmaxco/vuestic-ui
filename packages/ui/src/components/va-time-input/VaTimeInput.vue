@@ -81,7 +81,7 @@
 import { computed, defineComponent, PropType, shallowRef, nextTick } from 'vue'
 import omit from 'lodash/omit'
 
-import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
+import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 import {
   useComponentPresetProp,
   useSyncProp,
@@ -229,7 +229,7 @@ export default defineComponent({
     ))
 
     const computedInputWrapperProps = computed(() => ({
-      ...filterComponentProps(props, VaInputWrapperProps).value,
+      ...filterComponentProps(VaInputWrapperProps).value,
       focused: isFocused.value,
       error: computedError.value,
       errorMessages: computedErrorMessages.value,
@@ -317,7 +317,7 @@ export default defineComponent({
     }))
 
     const dropdownPropsComputed = computed(() => ({
-      ...filterComponentProps(props, VaDropdownProps).value,
+      ...filterComponentProps(VaDropdownProps).value,
       closeOnContentClick: false,
       offset: [2, 0] as DropdownOffsetProp,
       keyboardNavigation: true,
@@ -330,7 +330,7 @@ export default defineComponent({
       input,
       timePicker,
 
-      timePickerProps: filterComponentProps(props, extractComponentProps(VaTimePicker)),
+      timePickerProps: filterComponentProps(extractComponentProps(VaTimePicker)),
       dropdownPropsComputed,
       computedInputWrapperProps,
       computedInputListeners,

@@ -1,4 +1,4 @@
-import { getWindow } from '../../utils/ssr-utils'
+import { getWindow } from '../../utils/ssr'
 
 export type ColorArray = [number, number, number, number]
 

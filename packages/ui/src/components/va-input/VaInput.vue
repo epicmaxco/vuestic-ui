@@ -73,7 +73,7 @@ import { computed, defineComponent, InputHTMLAttributes, shallowRef, toRefs } fr
 import omit from 'lodash/omit.js'
 import pick from 'lodash/pick.js'
 
-import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
+import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 
 import {
   useComponentPresetProp,
@@ -246,7 +246,7 @@ export default defineComponent({
       valueLengthComputed,
       computedChildAttributes,
       computedInputAttributes,
-      textareaProps: filterComponentProps(props, VaTextareaProps),
+      textareaProps: filterComponentProps(VaTextareaProps),
       computedValue,
       tabIndexComputed,
 

@@ -1,7 +1,7 @@
 <script lang="ts">
 import { defineComponent, h } from 'vue'
 import { useComponentPresetProp } from '../../../composables'
-import { extractComponentProps, filterComponentProps } from '../../../utils/child-props'
+import { extractComponentProps, filterComponentProps } from '../../../utils/component-options'
 
 import { VaTimelineSeparator } from '../VaTimelineSeparator'
 
@@ -22,7 +22,7 @@ export default defineComponent({
     const children = [
       h(
         VaTimelineSeparator,
-        { ...filterComponentProps(props, VaTimelineSeparatorProps).value },
+        { ...filterComponentProps(VaTimelineSeparatorProps).value },
       ),
     ]
 

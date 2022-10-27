@@ -2,7 +2,7 @@
 import isObject from 'lodash/isObject.js'
 import isFunction from 'lodash/isFunction.js'
 
-import { __DEV__ } from '../utils/global-utils'
+import { __DEV__ } from '../utils/env'
 
 export const sleep = (ms = 0) => {
   return new Promise(resolve => setTimeout(resolve, ms))

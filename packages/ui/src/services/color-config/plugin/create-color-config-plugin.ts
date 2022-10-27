@@ -1,6 +1,6 @@
 import { ColorVariables } from './../types'
 import { App, watch } from 'vue'
-import { isServer } from '../../../utils/ssr-utils'
+import { isServer } from '../../../utils/ssr'
 import { getGlobalProperty } from '../../../vuestic-plugin/utils'
 import { cssVariableName } from '../utils'
 import { getTextColor } from '../color-functions'

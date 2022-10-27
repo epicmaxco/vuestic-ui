@@ -49,7 +49,7 @@
 <script lang="ts">
 import { defineComponent, computed, PropType } from 'vue'
 
-import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
+import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 import { useForm, useFormProps, useTranslation } from '../../composables'
 import { useRating, useRatingProps } from './hooks/useRating'
 import { useVaRatingColors, useVaRatingColorsProps } from './hooks/useVaRatingColors'
@@ -89,8 +89,8 @@ export default defineComponent({
       ...useVaRatingColors(props),
       ...rating,
       rootClass,
-      VaRatingItemProps: filterComponentProps(props, VaRatingItemProps),
-      VaRatingItemNumberButtonProps: filterComponentProps(props, VaRatingItemNumberButtonProps),
+      VaRatingItemProps: filterComponentProps(VaRatingItemProps),
+      VaRatingItemNumberButtonProps: filterComponentProps(VaRatingItemNumberButtonProps),
       isInteractionsEnabled,
       tabIndexComputed: computed(() => isInteractionsEnabled.value ? 0 : undefined),
       onArrowKeyPress: (direction: 1 | -1) => {

@@ -164,7 +164,7 @@ import {
   useTranslation,
 } from '../../composables'
 
-import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
+import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 
 import { VaDropdown, VaDropdownContent } from '../va-dropdown'
 import { VaIcon } from '../va-icon'
@@ -648,7 +648,7 @@ export default defineComponent({
     const { tp, t } = useTranslation()
 
     const dropdownPropsComputed = computed(() => ({
-      ...filterComponentProps(props, VaDropdownProps).value,
+      ...filterComponentProps(VaDropdownProps).value,
       closeOnContentClick: closeOnContentClick.value,
       stateful: false,
       offset: [1, 0] as DropdownOffsetProp,

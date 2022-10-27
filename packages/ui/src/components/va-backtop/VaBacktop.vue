@@ -22,7 +22,7 @@
 import { defineComponent, PropType, ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { useComponentPresetProp, useTranslation } from '../../composables'
 import { VaButton } from '../va-button'
-import { isServer } from '../../utils/ssr-utils'
+import { isServer } from '../../utils/ssr'
 import { warn } from '../../services/utils'
 
 export default defineComponent({

@@ -1,4 +1,5 @@
-import { ComponentOptions, DefineComponent } from 'vue'
+import type { ComponentOptions } from 'vue'
+import type { DefineComponentOptions, ExtractComponentProps } from './types'
 
 function normalizeProps (props: any) {
   switch (true) {
@@ -24,7 +25,7 @@ function mergeProps (to: Record<string, any>, from: Record<string, any>, options
   }
 }
 
-function getComponentOptions (component: DefineComponent): ComponentOptions {
+function getComponentOptions (component: DefineComponentOptions): ComponentOptions {
   if (component.options) {
     return component.options
   }
@@ -52,6 +53,7 @@ function resolveProps (options: any, optionsType = 'props') {
   return result
 }
 
-export const getComponentProps = (component: DefineComponent) => {
-  return resolveProps(getComponentOptions(component))
+/** Extract all component props, from mixins and VueClassComponent */
+export const getComponentProps = <T extends DefineComponentOptions>(component: T) => {
+  return resolveProps(getComponentOptions(component)) as ExtractComponentProps<T>
 }

@@ -1,6 +1,6 @@
 import { computed } from 'vue'
 
-import { safeCSSLength } from '../../../utils/css-utils'
+import { safeCSSLength } from '../../../utils/css'
 import { useColors } from '../../../composables'
 
 import type {

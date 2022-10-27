@@ -1,4 +1,4 @@
-import { isServer } from '../utils/ssr-utils'
+import { isServer } from '../utils/ssr'
 
 /**
  * Create and append to head provided styles or update if exists.

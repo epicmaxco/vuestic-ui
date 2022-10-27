@@ -100,7 +100,7 @@ import {
 } from 'vue'
 import omit from 'lodash/omit'
 
-import { filterComponentProps, extractComponentProps, extractComponentEmits } from '../../utils/child-props'
+import { filterComponentProps, extractComponentProps, extractComponentEmits } from '../../utils/component-options'
 import {
   useComponentPresetProp,
   useClearable, useClearableEmits, useClearableProps,
@@ -339,7 +339,7 @@ export default defineComponent({
     }))
 
     const computedInputWrapperProps = computed(() => ({
-      ...filterComponentProps(props, VaInputWrapperProps).value,
+      ...filterComponentProps(VaInputWrapperProps).value,
       focused: isFocused.value,
       error: hasError.value,
       errorMessages: computedErrorMessages.value,
@@ -382,7 +382,7 @@ export default defineComponent({
     }))
 
     const dropdownPropsComputed = computed(() => ({
-      ...filterComponentProps(props, VaDropdownProps).value,
+      ...filterComponentProps(VaDropdownProps).value,
       offset: [2, 0] as DropdownOffsetProp,
       stateful: false,
       keyboardNavigation: true,
@@ -405,7 +405,7 @@ export default defineComponent({
       inputWrapperProps: computedInputWrapperProps,
       inputListeners: computedInputListeners,
       inputAttributesComputed,
-      datePickerProps: filterComponentProps(props, VaDatePickerProps),
+      datePickerProps: filterComponentProps(VaDatePickerProps),
       dropdownPropsComputed,
 
       filterSlots,

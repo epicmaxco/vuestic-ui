@@ -286,7 +286,7 @@ import useTableScroll, { useTableScrollProps, useTableScrollEmits } from './hook
 
 import { useComponentPresetProp, useTranslation } from '../../composables'
 
-import { extractComponentProps } from '../../utils/child-props'
+import { extractComponentProps } from '../../utils/component-options'
 
 import type {
   DataTableColumnSource,
