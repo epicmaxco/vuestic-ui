@@ -7,7 +7,13 @@
       :offset="[0, 25]"
     >
       <div class="color-dropdown__content px-1">
-        <va-button-toggle :options="themes" @update:model-value="setTheme" grow class="mb-2" />
+        <va-button-toggle
+          :options="themes"
+          @update:model-value="setTheme"
+          :model-value="currentTheme"
+          grow
+          class="mb-2"
+        />
 
         <div v-for="color in colorsArray" :key="color.name" class="color mt-1 mb-1">
           <va-color-indicator :color="color.name" /> <span class="color__title">{{ color.title }}</span>
@@ -19,7 +25,7 @@
 
 <script lang="ts">
 import { useColors } from 'vuestic-ui/src/main'
-import { computed, defineComponent } from 'vue'
+import { computed, defineComponent, ref } from 'vue'
 
 export default defineComponent({
   name: 'DocsColorDropdown',
@@ -35,6 +41,7 @@ export default defineComponent({
     })
 
     const themes = Object.keys(presets.value).map((themeName) => ({ value: themeName, label: capitalizeFirstLetter(themeName) }))
+    const currentTheme = ref(localStorage.getItem('vuestic-docs-theme') || 'DEFAULT')
 
     const setTheme = (theme: string) => {
       localStorage.setItem('vuestic-docs-theme', theme)
@@ -46,6 +53,7 @@ export default defineComponent({
     return {
       themes,
       colorsArray,
+      currentTheme,
       setTheme,
     }
   },
