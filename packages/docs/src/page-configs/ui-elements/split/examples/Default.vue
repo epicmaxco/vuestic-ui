@@ -14,29 +14,29 @@
 </template>
 
 <style lang="scss" scoped>
-  .split-demo {
-    position: relative;
-    height: 33rem;
+.split-demo {
+  position: relative;
+  height: 33rem;
 
-    & .img-block {
-      position: relative;
-      height: 100%;
-      overflow: hidden;
-      user-select: none;
+  & .img-block {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+    user-select: none;
+  }
+
+  .img {
+    position: absolute;
+    top: 0;
+    width: 67vw;
+
+    &--start {
+      left: 0;
     }
 
-    .img {
-      position: absolute;
-      top: 0;
-      width: 67vw;
-
-      &--start {
-        left: 0;
-      }
-
-      &--end {
-        right: 0;
-      }
+    &--end {
+      right: 0;
     }
   }
+}
 </style>

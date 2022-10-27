@@ -89,69 +89,69 @@
 </template>
 
 <style lang="scss" scoped>
-  .cards {
-    position: relative;
-    height: 500px;
-    overflow: hidden;
-    margin: 16px 0;
-    background: var(--va-background-primary);
+.cards {
+  position: relative;
+  height: 500px;
+  overflow: hidden;
+  margin: 16px 0;
+  background: var(--va-background-primary);
+}
+
+.card {
+  position: absolute;
+  width: 33%;
+
+  &-1 {
+    right: 16px;
+    z-index: 3;
+    top: 50%;
+    min-width: 300px;
+    transform: translateY(-50%);
   }
 
-  .card {
-    position: absolute;
-    width: 33%;
-
-    &-1 {
-      right: 16px;
-      z-index: 3;
-      top: 50%;
-      min-width: 300px;
-      transform: translateY(-50%);
-    }
-
-    &-2 {
-      left: 20%;
-      z-index: 4;
-      max-width: 400px;
-      top: 16px;
-      min-width: 300px;
-    }
-
-    &-3 {
-      top: 70%;
-      left: 50%;
-      z-index: 1;
-      transform: translateY(-50%);
-    }
-
-    &-4 {
-      height: 100%;
-      z-index: 0;
-      top: 50%;
-      transform: translateY(-50%);
-    }
-
-    &-5 {
-      top: 10%;
-      right: 10%;
-    }
-
-    &-6 {
-      bottom: 5%;
-      right: 10%;
-      z-index: 2;
-      min-width: 250px;
-    }
-
-    &-7 {
-      right: 0;
-      top: 36px;
-      z-index: 0;
-    }
-
-    &-8 {
-      left: 16px;
-      bottom: 16px;
-    }
+  &-2 {
+    left: 20%;
+    z-index: 4;
+    max-width: 400px;
+    top: 16px;
+    min-width: 300px;
   }
+
+  &-3 {
+    top: 70%;
+    left: 50%;
+    z-index: 1;
+    transform: translateY(-50%);
+  }
+
+  &-4 {
+    height: 100%;
+    z-index: 0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  &-5 {
+    top: 10%;
+    right: 10%;
+  }
+
+  &-6 {
+    bottom: 5%;
+    right: 10%;
+    z-index: 2;
+    min-width: 250px;
+  }
+
+  &-7 {
+    right: 0;
+    top: 36px;
+    z-index: 0;
+  }
+
+  &-8 {
+    left: 16px;
+    bottom: 16px;
+  }
+}
 </style>

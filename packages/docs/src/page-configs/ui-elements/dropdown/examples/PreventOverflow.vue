@@ -20,23 +20,23 @@
 </template>
 
 <style lang="scss" scoped>
-  .demo-square {
-    background-color: var(--va-primary);
-    width: 100px;
-    height: 100vh;
-  }
+.demo-square {
+  background-color: var(--va-primary);
+  width: 100px;
+  height: 100vh;
+}
 
-  .demo-viewport {
-    overflow: hidden;
-    position: relative;
-    padding: 4rem;
-    border: 2px solid var(--va-danger);
-  }
+.demo-viewport {
+  overflow: hidden;
+  position: relative;
+  padding: 4rem;
+  border: 2px solid var(--va-danger);
+}
 
-  .demo-ignore-overflow {
-    padding: 4rem;
-    overflow: hidden;
-    position: relative;
-    border: 2px solid var(--va-success);
-  }
+.demo-ignore-overflow {
+  padding: 4rem;
+  overflow: hidden;
+  position: relative;
+  border: 2px solid var(--va-success);
+}
 </style>

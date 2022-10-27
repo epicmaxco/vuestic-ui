@@ -37,12 +37,12 @@ const props = defineProps({
 </script>
 
 <style lang="scss" scoped>
-  .color-grid-item {
-    padding: 0.5rem 1rem;
+.color-grid-item {
+  padding: 0.5rem 1rem;
 
-    &__header {
-      display: flex;
-      justify-content: space-between;
-    }
+  &__header {
+    display: flex;
+    justify-content: space-between;
   }
+}
 </style>

@@ -25,25 +25,25 @@ export default {
 </script>
 
 <style lang="scss">
-  .demo-rating {
-    .va-rating-item {
-      margin: 0 4px;
+.demo-rating {
+  .va-rating-item {
+    margin: 0 4px;
 
-      &:first-child {
-        margin-left: 0;
-      }
-
-      &:last-child {
-        margin-right: 0;
-      }
+    &:first-child {
+      margin-left: 0;
     }
 
-    &__item {
-      width: 24px;
-      height: 24px;
-      line-height: 24px;
-      text-align: center;
-      border: 1px solid var(--va-secondary);
+    &:last-child {
+      margin-right: 0;
     }
   }
+
+  &__item {
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    text-align: center;
+    border: 1px solid var(--va-secondary);
+  }
+}
 </style>

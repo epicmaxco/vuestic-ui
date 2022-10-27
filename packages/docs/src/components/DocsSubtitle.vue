@@ -37,16 +37,16 @@ export default class DocsSubtitle extends mixins(PropsMixin) {
 </script>
 
 <style lang="scss" scoped>
-  .docs-subtitle {
-    margin-top: 4rem;
-    margin-bottom: 1.5rem;
+.docs-subtitle {
+  margin-top: 4rem;
+  margin-bottom: 1.5rem;
 
-    .docs-title + & {
-      margin-top: 1.25rem;
-    }
-
-    & > :not(:last-child) {
-      padding-right: 0.25rem;
-    }
+  .docs-title + & {
+    margin-top: 1.25rem;
   }
+
+  & > :not(:last-child) {
+    padding-right: 0.25rem;
+  }
+}
 </style>

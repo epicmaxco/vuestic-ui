@@ -42,42 +42,42 @@ onUpdated(() => {
 </script>
 
 <style lang="scss" scoped>
-  .code-input {
-    color: currentColor;
-    width: min-content;
+.code-input {
+  color: currentColor;
+  width: min-content;
+  position: relative;
+  display: inline-block;
+
+  &__input {
     position: relative;
-    display: inline-block;
-
-    &__input {
-      position: relative;
-      border: none;
-      padding: 0px 4px;
-      box-sizing: content-box;
-      background: transparent;
-      z-index: 1;
-      font-family: inherit;
-      font-size: inherit;
-      color: currentColor;
-    }
-
-    &::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: var(--va-primary);
-      z-index: 0;
-      opacity: 0.2;
-      border-radius: 4px;
-    }
-
-    &__text {
-      position: fixed;
-      white-space: pre;
-      opacity: 0;
-      left: -200%;
-    }
+    border: none;
+    padding: 0px 4px;
+    box-sizing: content-box;
+    background: transparent;
+    z-index: 1;
+    font-family: inherit;
+    font-size: inherit;
+    color: currentColor;
   }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--va-primary);
+    z-index: 0;
+    opacity: 0.2;
+    border-radius: 4px;
+  }
+
+  &__text {
+    position: fixed;
+    white-space: pre;
+    opacity: 0;
+    left: -200%;
+  }
+}
 </style>
