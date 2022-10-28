@@ -214,7 +214,7 @@ export default defineComponent({
   vertical-align: var(--va-input-wrapper-vertical-align);
   min-width: var(--va-input-wrapper-min-width);
   max-width: 100%;
-  flex:1;
+  flex: 1;
 
   &__field {
     position: relative;

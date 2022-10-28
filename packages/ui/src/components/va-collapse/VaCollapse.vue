@@ -181,7 +181,7 @@ export default defineComponent({
 
   &__body-wrapper {
     position: relative;
-    transition: var(--va-collapse-body-transition);
+    transition: var(--va-collapse-body-wrapper-transition);
     overflow: hidden;
   }
 
@@ -189,6 +189,7 @@ export default defineComponent({
     position: absolute;
     top: 0;
     left: 0;
+    width: var(--va-collapse-body-width);
   }
 
   &__header {
