@@ -4,13 +4,11 @@ import { computed } from 'vue'
 
 export default {
   setup () {
-    const { getGlobalConfig } = useGlobalConfig()
+    const { globalConfig } = useGlobalConfig()
 
-    const config = computed(() => getGlobalConfig())
+    console.log(globalConfig.value)
 
-    console.log(config.value)
-
-    return { config }
+    return { globalConfig }
   }
 }
 `
