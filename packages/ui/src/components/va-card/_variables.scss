@@ -9,7 +9,7 @@
   --va-card-padding: 1.25rem;
 
   /* Outlined */
-  --va-card-outlined-border: thin solid rgba(52, 56, 85, 0.25);
+  --va-card-outlined-border: 3px solid var(--va-background-element);
   --va-card-outlined-box-shadow: none;
 
   /* Stripe */

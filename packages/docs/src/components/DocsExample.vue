@@ -15,6 +15,7 @@
         :git-component="file"
         :hide-show-code-button="exampleOptions.forceShowCode"
         v-model:show-code="showCode"
+        class="docs-example-navigation"
       />
 
       <template v-if="showCode || exampleOptions.forceShowCode">
@@ -115,10 +116,11 @@ function parseTemplate (target: string, template: string) {
 
 <style lang="scss" scoped>
 .docs-example-card {
-  --va-card-outlined-border: 3px solid var(--va-background-element);
-  --va-card-border-radius: 0.25rem;
-
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
+}
+
+.docs-example-navigation {
+  margin-top: -3px;
 }
 </style>
