@@ -37,8 +37,8 @@ const computedStyle = computed(() => {
 </script>
 
 <style lang="scss" scoped>
-  .placement-coordinates {
-    border: 1px solid var(--va-divider);
-    padding: 4px;
-  }
+.placement-coordinates {
+  border: 1px solid var(--va-divider);
+  padding: 4px;
+}
 </style>

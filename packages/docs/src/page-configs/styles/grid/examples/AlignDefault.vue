@@ -39,19 +39,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import '~vuestic-ui/src/styles/resources';
+@import '~vuestic-ui/src/styles/resources';
 
-  .row {
-    min-height: 6rem;
+.row {
+  min-height: 6rem;
 
-    & + .row {
-      border-top: 1px solid var(--va-background-border);
-    }
+  & + .row {
+    border-top: 1px solid var(--va-background-border);
   }
+}
 
-  .item {
-    border: 1px solid var(--va-background-border);
-    background-color: var(--va-background-primary);
-    text-align: center;
-  }
+.item {
+  border: 1px solid var(--va-background-border);
+  background-color: var(--va-background-primary);
+  text-align: center;
+}
 </style>

@@ -1,6 +1,6 @@
 import { writeFileSync, mkdirSync, existsSync } from 'fs'
 
-if (existsSync('./playground/.nuxt')) {
+if (existsSync('./playground/.nuxt/tsconfig.json')) {
   process.exit()
 }
 

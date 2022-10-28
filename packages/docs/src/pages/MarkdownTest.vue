@@ -24,7 +24,7 @@ export default class MarkdownTest extends Vue {
 </script>
 
 <style lang="scss">
-  .MarkdownTest {
+.MarkdownTest {
 
-  }
+}
 </style>

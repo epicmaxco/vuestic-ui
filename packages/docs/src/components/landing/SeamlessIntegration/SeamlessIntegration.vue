@@ -95,133 +95,133 @@ export default class Seamless extends Vue {
 </script>
 
 <style lang="scss" scoped>
-  @import "~@/assets/main.scss";
+@import "~@/assets/main.scss";
 
-  .seamless {
-    width: 100%;
-    position: relative;
-    padding-top: 8.5rem;
-    padding-bottom: 12rem;
-    background-image: url("../../../assets/landing/images/pattern-3.svg");
-    background-size: cover;
-    background-color: $bg-light-sky;
-    background-repeat: no-repeat;
-    background-position: top;
+.seamless {
+  width: 100%;
+  position: relative;
+  padding-top: 8.5rem;
+  padding-bottom: 12rem;
+  background-image: url("../../../assets/landing/images/pattern-3.svg");
+  background-size: cover;
+  background-color: $bg-light-sky;
+  background-repeat: no-repeat;
+  background-position: top;
+
+  // sm
+  @include sm(padding-top, 5rem);
+  @include sm(padding-bottom, 6rem);
+
+  &__wrapper {
+    @include wrapper();
+  }
+
+  &__inner {
+    @include row-flex();
+
+    align-items: center;
+  }
+
+  &__title {
+    @include col();
+    @include size(12);
+    @include title-font();
+
+    text-align: center;
+  }
+
+  &__subtitle {
+    @include col();
+    @include size(12);
+    @include text-font();
+
+    padding-top: 1rem;
+    text-align: center;
 
     // sm
-    @include sm(padding-top, 5rem);
-    @include sm(padding-bottom, 6rem);
+    @include sm(padding-top, 2rem);
+  }
 
-    &__wrapper {
-      @include wrapper();
+  &__content {
+    @include row-flex();
+    @include col();
+    @include size(8);
+    @include shift-left(2);
+
+    margin-top: 3rem;
+    background: #ffffff;
+    box-shadow: 0 47px 72px -39px rgba(155, 179, 206, 0.8);
+    border-radius: 1rem;
+    justify-content: center;
+
+    // sm
+    @include size-sm(12);
+    @include shift-sm-left(0);
+    @include sm(margin-top, 2rem);
+
+    &--first {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      padding: 2rem 3rem 3rem 3rem;
+      border-bottom: 1px solid #d9e8e6;
+      width: 100%;
+
+      // xs
+      @include xs(padding, 1rem 2rem 2rem 2rem);
+
+      img {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%, 50%);
+
+        // sm
+        @include sm(height,25%);
+        @include sm(width, 25%);
+      }
     }
 
-    &__inner {
-      @include row-flex();
+    &--second {
+      padding: 3rem;
+      width: 100%;
 
-      align-items: center;
+      // xs
+      @include xs(padding, 2rem);
     }
+  }
+}
 
-    &__title {
+.block {
+  &__label {
+    font-size: 0.8rem;
+    text-align: center;
+    color: $dark;
+    padding-bottom: 2rem;
+    letter-spacing: 0.4px;
+    font-weight: 700;
+    text-transform: uppercase;
+
+    &--vuestic {
+      color: $lavender;
+    }
+  }
+
+  &__components {
+    @include row-flex();
+
+    .component {
       @include col();
-      @include size(12);
-      @include title-font();
+      @include size(3);
 
-      text-align: center;
-    }
+      margin: auto;
 
-    &__subtitle {
-      @include col();
-      @include size(12);
-      @include text-font();
-
-      padding-top: 1rem;
-      text-align: center;
-
-      // sm
-      @include sm(padding-top, 2rem);
-    }
-
-    &__content {
-      @include row-flex();
-      @include col();
-      @include size(8);
-      @include shift-left(2);
-
-      margin-top: 3rem;
-      background: #ffffff;
-      box-shadow: 0 47px 72px -39px rgba(155, 179, 206, 0.8);
-      border-radius: 1rem;
-      justify-content: center;
-
+      // lg
+      @include size-lg(6);
+      @include lg(padding-bottom, 1rem);
       // sm
       @include size-sm(12);
-      @include shift-sm-left(0);
-      @include sm(margin-top, 2rem);
-
-      &--first {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        padding: 2rem 3rem 3rem 3rem;
-        border-bottom: 1px solid #d9e8e6;
-        width: 100%;
-
-        // xs
-        @include xs(padding, 1rem 2rem 2rem 2rem);
-
-        img {
-          position: absolute;
-          bottom: 0;
-          left: 50%;
-          transform: translate(-50%, 50%);
-
-          // sm
-          @include sm(height,25%);
-          @include sm(width, 25%);
-        }
-      }
-
-      &--second {
-        padding: 3rem;
-        width: 100%;
-
-        // xs
-        @include xs(padding, 2rem);
-      }
     }
   }
-
-  .block {
-    &__label {
-      font-size: 0.8rem;
-      text-align: center;
-      color: $dark;
-      padding-bottom: 2rem;
-      letter-spacing: 0.4px;
-      font-weight: 700;
-      text-transform: uppercase;
-
-      &--vuestic {
-        color: $lavender;
-      }
-    }
-
-    &__components {
-      @include row-flex();
-
-      .component {
-        @include col();
-        @include size(3);
-
-        margin: auto;
-
-        // lg
-        @include size-lg(6);
-        @include lg(padding-bottom, 1rem);
-        // sm
-        @include size-sm(12);
-      }
-    }
-  }
+}
 </style>

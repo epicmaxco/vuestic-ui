@@ -105,22 +105,22 @@ function parseTemplate (target: string, template: string) {
 </script>
 
 <style lang="scss">
-  .docs-example {
-    &__show-code-button {
-      --va-button-sm-content-px: 6px;
+.docs-example {
+  &__show-code-button {
+    --va-button-sm-content-px: 6px;
 
-      transform: translateX(calc(var(--va-button-sm-content-px) * -1));
-    }
+    transform: translateX(calc(var(--va-button-sm-content-px) * -1));
   }
+}
 </style>
 
 <style lang="scss" scoped>
-  .docs-example-card {
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-  }
+.docs-example-card {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
 
-  .docs-example-navigation {
-    margin-top: -3px;
-  }
+.docs-example-navigation {
+  margin-top: -3px;
+}
 </style>

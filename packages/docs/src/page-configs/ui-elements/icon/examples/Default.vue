@@ -19,7 +19,7 @@
 </template>
 
 <style lang="scss">
-  .va-icon + .va-icon {
-    margin-left: 2rem;
-  }
+.va-icon + .va-icon {
+  margin-left: 2rem;
+}
 </style>

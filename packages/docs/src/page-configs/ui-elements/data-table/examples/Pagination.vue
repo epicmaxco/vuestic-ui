@@ -123,8 +123,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-  .table-example--pagination {
-    display: flex;
-    justify-content: center;
-  }
+.table-example--pagination {
+  display: flex;
+  justify-content: center;
+}
 </style>

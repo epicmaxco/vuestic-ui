@@ -144,23 +144,23 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-  .table-crud-example {
-    --va-form-element-default-width: 0;
+.table-crud-example {
+  --va-form-element-default-width: 0;
 
-    .va-input {
-      display: block;
-    }
-
-    &__slot {
-      th {
-        vertical-align: middle;
-      }
-    }
+  .va-input {
+    display: block;
   }
 
-  .modal-crud-example {
-    .va-input {
-      display: block;
+  &__slot {
+    th {
+      vertical-align: middle;
     }
   }
+}
+
+.modal-crud-example {
+  .va-input {
+    display: block;
+  }
+}
 </style>
