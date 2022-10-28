@@ -278,6 +278,8 @@ export default defineComponent({
   &__content-wrapper {
     z-index: var(--va-dropdown-content-wrapper-z-index);
     font-family: var(--va-font-family);
+    top: 0;
+    left: 0;
   }
 }
 </style>
