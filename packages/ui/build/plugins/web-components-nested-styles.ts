@@ -18,7 +18,7 @@ const processFile = (componentPath) => {
 
   const componentContent = readFileSync(componentPath, 'utf8')
 
-  const vars = [...componentContent.matchAll(/const (_style_.*) = /gm)].map(([a, b]) => b)
+  const vars = [...componentContent.matchAll(/[const|var] (_style_.*) = /gm)].map(([a, b]) => b)
 
   const componentList = getComponentsList(componentContent)
 

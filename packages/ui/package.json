@@ -157,9 +157,15 @@
         "default": "./dist/styles/index.css"
       }
     },
+    "./web-components": "./dist/web-components/main.js",
     "./iife": "./dist/iife/main.js",
     "./types": "./dist/types/main.d.ts",
     "./styles/*": "./dist/styles/*",
     "./dist/*": "./dist/*"
+  },
+  "typesVersions": {
+    "*": {
+      "web-components": ["dist/types/main.d.ts"]
+    }
   }
 }
