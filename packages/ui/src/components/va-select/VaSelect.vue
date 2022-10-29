@@ -141,7 +141,7 @@
         @scroll-bottom="onScrollBottom"
         v-slot="slotData"
       >
-        <slot name="option" v-bind="slotData || {}" />
+        <slot v-if="$slots.option" name="option" v-bind="slotData || {}" />
       </va-select-option-list>
     </va-dropdown-content>
   </va-dropdown>

@@ -33,7 +33,7 @@
           :option="option"
           :current-option="currentOptionComputed"
           v-bind="selectOptionProps"
-          @click="selectOption(option)"
+          @click.stop="selectOption(option)"
           @mousemove="updateHoveredOption(option)"
         />
         <template v-else>
@@ -49,7 +49,7 @@
             :current-option="currentOptionComputed"
             :option="option"
             v-bind="selectOptionProps"
-            @click="selectOption(option)"
+            @click.stop="selectOption(option)"
             @mousemove="updateHoveredOption(option)"
           />
           <template v-else>
