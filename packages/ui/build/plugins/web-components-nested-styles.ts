@@ -25,12 +25,12 @@ const processFile = (componentPath) => {
   if (componentList.length === 0) { return }
 
   writeFileSync(componentPath, componentContent
+    // _export_sfc(_sfc_main, [["render", _sfc_render], ["styles", [/* variables */]]])
     .replace(/_export_sfc\(.*, \["styles", \[(.*)\]\]\]\)/, (str, substr) => {
       return str.replace(substr, listToStyles(componentList) + ', ' + vars.join(', '))
     })
     // _export_sfc(_sfc_main, [["render", _sfc_render]])
     .replace(/_export_sfc\(.*(\[\["render", _sfc_render\]\])\)/, (str, substr) => {
-      console.log('Replace', substr, 'with', `["render", _sfc_render], ["styles", [${listToStyles(componentList)}, ${vars.join(', ')}]]`)
       return str.replace(substr, `[["render", _sfc_render], ["styles", [${listToStyles(componentList)}, ${vars.join(', ')}]]]`)
     }),
   )
@@ -49,6 +49,7 @@ export const processFiles = (componentsDir) => {
     })
 }
 
+/** Merge styles to custom element from child components */
 export const webComponentsNestedStyles = (): Plugin => {
   let outDir = ''
 
