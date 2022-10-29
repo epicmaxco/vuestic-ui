@@ -61,7 +61,7 @@ export const createGlobalConfig = () => {
 
 /** Use this function if you don't want to throw error if hook used outside setup function by useGlobalConfig */
 export function useGlobalConfigSafe () {
-  return inject<ProvidedGlobalConfig>(GLOBAL_CONFIG)
+  return inject<ProvidedGlobalConfig>(GLOBAL_CONFIG) || createGlobalConfig() as unknown as ProvidedGlobalConfig
 }
 
 export function useGlobalConfig (): ProvidedGlobalConfig {
@@ -69,16 +69,12 @@ export function useGlobalConfig (): ProvidedGlobalConfig {
 
   if (!injected) {
     // TODO: Hotfix, maybe deal with inject
-    const vm = getCurrentInstance()
-    if (!vm) { throw new Error('useGlobalConfig must be called in setup function') }
+    // const vm = getCurrentInstance()
+    // if (!vm) { throw new Error('useGlobalConfig must be called in setup function') }
 
-    const config = getGlobalProperty(vm.appContext, '$vaConfig')
-
-    if (!config) {
-      throw new Error('Vuestic GlobalConfigPlugin is not registered')
-    }
-
-    return config
+    // const config = getGlobalProperty(vm.appContext, '$vaConfig')
+    return createGlobalConfig()
+    throw new Error('Vuestic GlobalConfigPlugin is not registered')
   }
 
   return injected
