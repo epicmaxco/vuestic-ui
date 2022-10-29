@@ -32,7 +32,6 @@ export {
   VaDivider,
   VaDropdown,
   VaDropdownContent,
-  VaFileUpload,
   VaForm,
   VaHover,
   VaIcon,
@@ -75,4 +74,5 @@ export {
   VaTreeView,
   VaScrollContainer,
   VaVirtualScroller,
+  VaFileUpload,
 } from '../components'

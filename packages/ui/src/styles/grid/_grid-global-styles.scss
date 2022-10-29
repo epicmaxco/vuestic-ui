@@ -5,7 +5,8 @@
 @import "grid-spacing";
 
 // variables for runtime calculations, --va-media-ratio variable is overwritten by breakpoint service
-:root {
+:root,
+:host {
   --va-media-ratio-default: var(--va-media-ratio, 1);
   --va-grid-gutter-default: 0.5rem;
   --va-grid-gutter-base: calc(var(--va-media-ratio-default) * var(--va-grid-gutter-default));
