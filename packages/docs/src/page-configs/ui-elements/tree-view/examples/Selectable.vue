@@ -1,5 +1,5 @@
 <template>
-  <va-chip square outline>
+  <va-chip square outline readonly class="mb-3">
     {{ selectedNodes.length ? selectedNodes.join(',') : 'Please, select nodes' }}
   </va-chip>
   <va-color-palette
