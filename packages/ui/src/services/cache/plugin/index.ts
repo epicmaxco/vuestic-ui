@@ -1,8 +1,8 @@
+import type { InjectionKey } from 'vue'
 import type { AppCache } from '../types'
 import { defineVuesticPlugin } from '../../vue-plugin/utils'
 
-export type VaAppCachePluginKeyValue = AppCache
-export const VaAppCachePluginKey = Symbol('VaAppCachePlugin')
+export const VaAppCachePluginKey = Symbol('VaAppCachePlugin') as InjectionKey<AppCache>
 
 /** Creates color css variables and reactively updates on ColorConfig changes. */
 export const CachePlugin = defineVuesticPlugin(() => ({
