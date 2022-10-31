@@ -13,6 +13,11 @@ const window = getWindow()
 /** Remove `var()` from css variable declaration */
 const getCSSVariableNameFromDeclaration = (color: string) => color.slice(4, -1)
 
+/**
+ * Super slow function. Must be covered with cache as much as possible.
+ * It actually goes trough all CSS and search for value.
+ * This is needed to prevent transition delay when changing background color.
+ */
 export const getElementBackgroundFromCSS = (el: HTMLElement) => {
   const color = [...el.ownerDocument.styleSheets]
     .filter((s) => {
@@ -33,15 +38,26 @@ export const getElementBackgroundFromCSS = (el: HTMLElement) => {
       }
       return bg
     }, '')
+    .trim()
 
   if (isCSSVariable(color)) {
     return window?.getComputedStyle(el)
-      .getPropertyValue(getCSSVariableNameFromDeclaration(color))
+      .getPropertyValue(getCSSVariableNameFromDeclaration(color)).trim()
   }
 
   return color
 }
 
+const EMPTY_TRANSITION = 'all 0s ease 0s'
+
 export const getElementBackground = (element: HTMLElement) => {
-  return window?.getComputedStyle(element).backgroundColor
+  const computedStyle = window?.getComputedStyle(element)
+
+  if (!computedStyle) { return }
+
+  if (computedStyle.transition.trim() !== EMPTY_TRANSITION) {
+    return getElementBackgroundFromCSS(element)
+  }
+
+  return computedStyle.backgroundColor
 }
