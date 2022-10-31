@@ -7,14 +7,14 @@
           :minimized="isSidebarVisible"
           @toggleSidebar="toggleSidebar"
         />
-        <router-link to="/" custom v-slot="{ navigate, href }">
+        <router-link :to="currentRoute" custom v-slot="{ href }">
           <a :href="href" aria-label="go to the documentation main page">
             <vuestic-logo
               class="header__logo__wrapper__image"
               height="30"
               width="150"
               aria-hidden="true"
-              @click="navigate"
+              @click="$router.go(0)"
             />
           </a>
         </router-link>
@@ -32,11 +32,10 @@
           :href="link.url"
           :target="link.target"
         >
-          <va-icon class="button__icon" :class="link.icon" size="small" />
-          <span class="button__text">{{ link.text }}</span>
+          {{ link.text }}
         </va-button>
         <color-dropdown class="mr-1" />
-        <language-dropdown class="mr-3" />
+        <language-dropdown class="mr-3" preset="secondary" />
         <version-dropdown />
       </div>
     </div>
@@ -79,21 +78,22 @@ export default class Header extends mixins(PropsMixin) {
     return [
       {
         text: this.$t('menu.overview'),
-        icon: 'fa fa-eye',
-        to: `/${this.locale}/introduction/overview`,
+        to: `/${this.locale}`,
       },
       {
         text: this.$t('menu.github'),
-        icon: 'fa fa-github',
         url: 'https://github.com/epicmaxco/vuestic-ui',
         target: '_blank',
       },
       {
         text: this.$t('menu.contribution'),
-        icon: 'fa fa-share-alt',
         to: `/${this.locale}/contribution/documentation-page`,
       },
     ]
+  }
+
+  get currentRoute () {
+    return { to: this.$route.path }
   }
 
   toggleSidebar () {

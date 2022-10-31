@@ -1,9 +1,7 @@
 <template>
   <va-button-dropdown
-    preset="secondary"
     :label="currentLanguageName"
     :offset="[10, 0]"
-    size="medium"
     class="language-dropdown"
     prevent-overflow
     v-bind="$attrs"

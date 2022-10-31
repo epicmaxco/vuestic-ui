@@ -3,6 +3,7 @@
     "header": {
       "buttons": {
         "overview": "Overview",
+        "docs": "Docs",
         "github": "GitHub",
         "discord": "Join on Discord",
         "translation": "Add translation...",
@@ -23,7 +24,7 @@
       },
       "features": {
         "components": {
-          "title": "52 Responsive Components",
+          "title": "60 Responsive Components",
           "text": "Available components docs"
         },
         "accessibility": {

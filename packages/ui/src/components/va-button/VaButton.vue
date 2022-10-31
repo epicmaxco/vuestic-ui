@@ -356,7 +356,7 @@ export default defineComponent({
       }
 
       .va-button__left-icon {
-        margin-right: 2px;
+        margin-right: 4px;
       }
     }
 
@@ -366,7 +366,7 @@ export default defineComponent({
       }
 
       .va-button__right-icon {
-        margin-left: 2px;
+        margin-left: 4px;
       }
     }
 

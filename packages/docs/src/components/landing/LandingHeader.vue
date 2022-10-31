@@ -29,7 +29,7 @@
             class="header__links--link"
             preset="landingHeader"
           >
-            {{ $t('landing.header.buttons.overview') }}
+            {{ $t('landing.header.buttons.docs') }}
           </va-button>
           <va-button
             href="https://discord.gg/u7fQdqQt8c"
@@ -243,6 +243,7 @@ export default class Header extends Vue {
       @include link-font();
       @include sm(width, 100%);
 
+      border-radius: 0;
       white-space: nowrap;
       margin-left: 1.25rem;
 
