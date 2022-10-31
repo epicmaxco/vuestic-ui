@@ -20,10 +20,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .custom-upload-file-area {
-    width: max-content;
-    padding: 1rem;
-    border: 1px solid #cccccc;
-    text-align: center;
-  }
+.custom-upload-file-area {
+  width: max-content;
+  padding: 1rem;
+  border: 1px solid #cccccc;
+  text-align: center;
+}
 </style>

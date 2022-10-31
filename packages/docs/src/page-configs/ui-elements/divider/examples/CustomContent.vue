@@ -32,10 +32,10 @@
 </template>
 
 <style scoped>
-  .example-item {
-    height: 50px;
-    line-height: 50px;
-    vertical-align: middle;
-    color: #7f828b;
-  }
+.example-item {
+  height: 50px;
+  line-height: 50px;
+  vertical-align: middle;
+  color: #7f828b;
+}
 </style>

@@ -90,15 +90,15 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-  .table-example-slots__head {
-    background-color: var(--va-secondary);
-  }
+.table-example-slots__head {
+  background-color: var(--va-secondary);
+}
 
-  .table-example-slots__body {
-    background-color: var(--va-background-element);
-  }
+.table-example-slots__body {
+  background-color: var(--va-background-element);
+}
 
-  .table-example-slots__foot {
-    background-color: var(--va-background-element);
-  }
+.table-example-slots__foot {
+  background-color: var(--va-background-element);
+}
 </style>

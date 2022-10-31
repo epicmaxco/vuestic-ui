@@ -33,7 +33,7 @@ export default {
 </script>
 
 <style lang="scss">
-  .va-carousel__slide {
-    font-size: 48px;
-  }
+.va-carousel__slide {
+  font-size: 48px;
+}
 </style>

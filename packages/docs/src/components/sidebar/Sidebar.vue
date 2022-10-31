@@ -142,78 +142,78 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  @import "~vuestic-ui/src/styles/resources";
+@import "~vuestic-ui/src/styles/resources";
 
-  .sidebar {
-    &__collapse-custom-header {
-      position: relative;
-      padding: 1rem 1.2rem;
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
-      height: 56px;
+.sidebar {
+  &__collapse-custom-header {
+    position: relative;
+    padding: 1rem 1.2rem;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 56px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    cursor: pointer;
+
+    &:hover {
+      ::before {
+        opacity: 0.2;
+      }
+    }
+
+    &--keyboard-focused {
+      ::before {
+        opacity: 0.3;
+      }
+    }
+
+    &--active {
+      color: var(--va-primary);
+    }
+  }
+
+  &.va-sidebar {
+    z-index: 1;
+    height: 100%;
+    color: var(--va-dark, #323742);
+
+    @include media-breakpoint-down(sm) {
+      z-index: 100;
+      position: absolute;
+    }
+
+    .va-sidebar-item-content {
+      cursor: pointer;
+    }
+
+    .va-sidebar-item {
+      cursor: pointer;
+    }
+
+    .va-sidebar-item-title {
       font-weight: 500;
       font-size: 16px;
       line-height: 20px;
-      cursor: pointer;
+    }
+  }
 
-      &:hover {
-        ::before {
-          opacity: 0.2;
-        }
-      }
-
-      &--keyboard-focused {
-        ::before {
-          opacity: 0.3;
-        }
-      }
-
-      &--active {
-        color: var(--va-primary);
-      }
+  .va-sidebar__child {
+    &__label {
+      padding-left: 2rem;
+      text-align: left;
     }
 
-    &.va-sidebar {
-      z-index: 1;
-      height: 100%;
-      color: var(--va-dark, #323742);
-
-      @include media-breakpoint-down(sm) {
-        z-index: 100;
-        position: absolute;
-      }
-
-      .va-sidebar-item-content {
-        cursor: pointer;
-      }
-
-      .va-sidebar-item {
-        cursor: pointer;
-      }
-
-      .va-sidebar-item-title {
-        font-weight: 500;
-        font-size: 16px;
-        line-height: 20px;
-      }
+    .va-sidebar-item-content {
+      padding-left: 3rem;
     }
 
-    .va-sidebar__child {
-      &__label {
-        padding-left: 2rem;
-        text-align: left;
-      }
-
-      .va-sidebar-item-content {
-        padding-left: 3rem;
-      }
-
-      &:first-child {
-        .va-sidebar__child__label {
-          padding-top: 0;
-        }
+    &:first-child {
+      .va-sidebar__child__label {
+        padding-top: 0;
       }
     }
   }
+}
 </style>

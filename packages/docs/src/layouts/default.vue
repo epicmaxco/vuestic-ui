@@ -178,79 +178,79 @@ export default class DocsLayout extends Vue {
 </script>
 
 <style lang="scss">
-  @import '../../../ui/src/styles/resources';
+@import '../../../ui/src/styles/resources';
 
-  html {
-    font-family: $font-family-sans-serif;
-    color: var(--va-on-background-primary);
-    font-size: $font-size-root;
+html {
+  font-family: $font-family-sans-serif;
+  color: var(--va-on-background-primary);
+  font-size: $font-size-root;
+}
+
+a:not(.va-button, .va-sidebar__item):focus-visible {
+  @include focus-outline;
+}
+
+.base-layout {
+  height: 100vh;
+  position: fixed;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 2;
+  overflow: hidden;
+  z-index: 0;
+
+  &__breadcrumbs {
+    text-transform: capitalize;
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+    justify-content: flex-start;
   }
 
-  a:not(.va-button, .va-sidebar__item):focus-visible {
-    @include focus-outline;
+  .va-sidebar {
+    flex-grow: 20rem;
   }
 
-  .base-layout {
-    height: 100vh;
-    position: fixed;
-    width: 100%;
+  &__main {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    height: 100%;
+    position: relative;
+    // Need to use flex-grow and overflow hidden to resize `main` to remaining height.
     flex-grow: 2;
     overflow: hidden;
     z-index: 0;
+  }
 
-    &__breadcrumbs {
-      text-transform: capitalize;
-      margin-top: 1.5em;
-      margin-bottom: 1.5em;
-      justify-content: flex-start;
+  &__header {
+    z-index: 1;
+  }
+
+  &__content {
+    height: 100%;
+    width: 100%;
+
+    &--expanded {
+      margin-left: 0;
     }
 
-    .va-sidebar {
-      flex-grow: 20rem;
+    padding: 2em;
+    padding-top: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    @include va-scroll(var(--va-primary));
+
+    & > .layout.va-gutter-5 {
+      padding-bottom: 2rem;
     }
 
-    &__main {
-      display: flex;
-      flex-direction: row;
-      height: 100%;
-      position: relative;
-      // Need to use flex-grow and overflow hidden to resize `main` to remaining height.
-      flex-grow: 2;
-      overflow: hidden;
-      z-index: 0;
-    }
-
-    &__header {
-      z-index: 1;
-    }
-
-    &__content {
-      height: 100%;
-      width: 100%;
-
-      &--expanded {
-        margin-left: 0;
-      }
-
-      padding: 2em;
-      padding-top: 0;
-      overflow-y: auto;
-      overflow-x: hidden;
-
-      @include va-scroll(var(--va-primary));
-
+    @media (max-width: 670px) {
       & > .layout.va-gutter-5 {
+        padding: 0;
         padding-bottom: 2rem;
-      }
-
-      @media (max-width: 670px) {
-        & > .layout.va-gutter-5 {
-          padding: 0;
-          padding-bottom: 2rem;
-        }
       }
     }
   }
+}
 </style>

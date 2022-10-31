@@ -66,7 +66,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-  .va-table-responsive {
-    overflow: auto;
-  }
+.va-table-responsive {
+  overflow: auto;
+}
 </style>

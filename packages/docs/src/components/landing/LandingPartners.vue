@@ -102,59 +102,59 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import "src/assets/main";
+@import "src/assets/main";
 
-  .partners {
+.partners {
+  width: 100%;
+  position: relative;
+  padding: 3rem 0;
+  border-top: 1px solid #f2f2f2;
+  border-bottom: 1px solid #f2f2f2;
+  background: #f4f9fc8c;
+
+  &__wrapper {
+    @include wrapper();
+  }
+
+  &__inner {
+    @include row-flex();
+
+    align-items: center;
+  }
+
+  &__title {
+    text-align: center;
     width: 100%;
-    position: relative;
-    padding: 3rem 0;
-    border-top: 1px solid #f2f2f2;
-    border-bottom: 1px solid #f2f2f2;
-    background: #f4f9fc8c;
+    font-size: 1.4rem;
+  }
 
-    &__wrapper {
-      @include wrapper();
-    }
+  &__logos {
+    @include size(12);
 
-    &__inner {
-      @include row-flex();
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
 
-      align-items: center;
-    }
+  &__logo {
+    margin-top: 1.3rem;
+    word-wrap: break-word;
+    margin-left: 15px;
+    margin-right: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
 
-    &__title {
-      text-align: center;
-      width: 100%;
-      font-size: 1.4rem;
-    }
-
-    &__logos {
-      @include size(12);
-
-      margin-left: auto;
-      margin-right: auto;
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    &__logo {
-      margin-top: 1.3rem;
-      word-wrap: break-word;
-      margin-left: 15px;
-      margin-right: 15px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-
-      &-text {
-        position: relative;
-        bottom: -2px;
-        font-size: 12px;
-        color: var(--va-secondary);
-      }
+    &-text {
+      position: relative;
+      bottom: -2px;
+      font-size: 12px;
+      color: var(--va-secondary);
     }
   }
+}
 </style>

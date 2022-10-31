@@ -112,43 +112,43 @@ const gitLink = computed(
 </script>
 
 <style lang="scss">
-  @import "~vuestic-ui/src/styles/resources";
+@import "~vuestic-ui/src/styles/resources";
 
-  .docs-navigation {
-    background: var(--va-background-element);
-    margin: 0 0 0.2rem 0;
-    border-radius: 0.25rem;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    padding: 0 calc(var(--va-card-padding) - var(--va-button-sm-content-px) / 2);
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
+.docs-navigation {
+  background: var(--va-background-element);
+  margin: 0 0 0.2rem 0;
+  border-radius: 0.25rem;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  padding: 0 calc(var(--va-card-padding) - var(--va-button-sm-content-px) / 2);
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
 
-    &__button {
-      padding: 0.5rem 0rem;
-      margin-right: 0.25rem;
-      font-weight: bold;
+  &__button {
+    padding: 0.5rem 0rem;
+    margin-right: 0.25rem;
+    font-weight: bold;
 
-      &:hover {
-        background: none !important;
-        opacity: 0.7;
-      }
-
-      &:focus {
-        background: none !important;
-        opacity: 0.7;
-        box-shadow: none !important;
-      }
-
-      &__icon {
-        font-style: normal !important;
-        margin-right: 0.5rem;
-      }
+    &:hover {
+      background: none !important;
+      opacity: 0.7;
     }
 
-    form {
-      display: inline-flex;
+    &:focus {
+      background: none !important;
+      opacity: 0.7;
+      box-shadow: none !important;
+    }
+
+    &__icon {
+      font-style: normal !important;
+      margin-right: 0.5rem;
     }
   }
+
+  form {
+    display: inline-flex;
+  }
+}
 </style>
