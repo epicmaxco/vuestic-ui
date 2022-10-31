@@ -2,10 +2,18 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { resolve as resolver } from 'path'
 import { chunkSplitPlugin } from 'vite-plugin-chunk-split'
-import { appendComponentCss } from '../plugins/append-component-css'
 import { fixImportHell } from '../plugins/fix-import-hell'
 import { webComponentsNestedStyles } from '../plugins/web-components-nested-styles'
 import { readFileSync } from 'fs'
+
+/**
+ * Build web components folder. It is a separated build of vuestic-ui for SPA-only (?: maybe for SPA-only).
+ * We use vue customElement compiler option here, so all components will be compiled optimized for web components.
+ * Then user need to use defineCustomElement, where vuestic component is a first argument.
+ *
+ * Vue makes all custom elements to be in its own isolated Shadow Dom, so we need to inject css into this shadow dom.
+ * Vue makes it automatically, but not for child components, so we have web-components-nested-styles plugin here.
+ */
 
 const packageJSON = JSON.parse(readFileSync(resolver(process.cwd(), './package.json')).toString())
 const dependencies = [...Object.keys(packageJSON.dependencies), ...Object.keys(packageJSON.peerDependencies)]
@@ -44,8 +52,8 @@ export default () => defineConfig({
       customElement: true,
     }),
     chunkSplitPlugin({ strategy: 'unbundle' }),
-    appendComponentCss(),
     fixImportHell(),
     webComponentsNestedStyles(),
+    // TODO: Make plugin to clean up empty generated files, for example `types.js`
   ],
 })
