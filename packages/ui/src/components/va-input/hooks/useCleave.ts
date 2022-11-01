@@ -1,4 +1,4 @@
-import { computed, onBeforeUnmount, onMounted, PropType, ref, Ref, watch } from 'vue'
+import { computed, onBeforeUnmount, onMounted, PropType, ref, Ref, watch, ExtractPropTypes } from 'vue'
 import Cleave from 'cleave.js'
 import { CleaveOptions } from 'cleave.js/options'
 
@@ -24,18 +24,12 @@ const DEFAULT_MASK_TOKENS: Record<string, Record<string, unknown>> = {
 export const useCleaveProps = {
   mask: { type: [String, Object] as PropType<string | Record<string, number[]>>, default: '' },
   returnRaw: { type: Boolean, default: true },
-  modelValue: { type: String },
-}
-
-type Props = {
-  mask: string | Record<string, number[]>,
-  returnRaw: boolean,
-  modelValue: string | number,
+  modelValue: { type: [String, Number], default: '' },
 }
 
 export const useCleave = (
   element: Ref<HTMLInputElement | undefined>,
-  props: Props,
+  props: ExtractPropTypes<typeof useCleaveProps>,
   emit: (event: 'update:modelValue' | any, ...args: any[]) => any,
 ) => {
   const cleave = ref<Cleave>()
@@ -88,6 +82,9 @@ export const useCleave = (
         emit('update:modelValue', cleave.value.getRawValue())
         return
       }
+
+      emit('update:modelValue', cleave.value.getFormattedValue())
+      return
     }
 
     emit('update:modelValue', value)
