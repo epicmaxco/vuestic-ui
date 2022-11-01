@@ -3507,13 +3507,12 @@
         "checkbox": "Checkbox is now `inline-block` instead of `block`.",
         "services": "Services",
         "colors": "Colors",
-        "colors_0": "In `1.5.0` we must make major changes to support dark theme.",
-        "colors_1": "Color config is now extended with variables (where previous colors are stored). `dark`, `white`, `background`, `gray` colors have been removed. Text color in components is calculated automatically, but you can force text to be `textDark` or `textLight`. There are 4 types of background color now: `backgroundPrimary`, `backgroundSecondary`, `backgroundTertiary`, `backgroundElement`. Read more: [colors](https://vuestic.dev/styles/colors)[[target=_blank]]",
-        "colors_2": "* Additionally `useColors` has the same API, but we added `useTheme`, so if you have implemented `useColors`, it is recommended to switch to `useTheme`.",
+        "colors_0": "In `1.5.0` there are a lot of changes to support dark theme.",
+        "colors_1": "* Color config is now extended with variables (where previous colors are stored);\n* `dark`, `white`, `background`, `gray` colors have been removed;\n* text color in components is calculated automatically, but you can force text to be `textDark` or `textLight`;\n* there are 4 types of background color now: `backgroundPrimary`, `backgroundSecondary`, `backgroundTertiary`, `backgroundElement`;\n* read more: [colors](https://vuestic.dev/styles/colors)[[target=_blank]].",
+        "colors_2": "* use `useTheme` instead of `useColors` - it has all the same methods.",
         "styles": "Styles",
-        "stylesDescription": "* `justify--center` renamed to `justify-center`,\n* `link` renamed to `va-link`,\n* `text--right` renamed to `va-text-right`,\n* `text--center` renamed to `va-text-center`.",
-        "typography": "Typography",
-        "typography_1": "* All typography classes now have `va-` prefix added and `--` removed.\n* `display-1` has been renamed to `va-h1`, similarly with 2, 3, 4, 5, 6\n* `title` renamed to `va-title`"
+        "stylesDescription": "* All typography classes now have `va` prefix. For instance: link renamed to `va-link`, `text--right` renamed to `va-text-right`",
+        "typography_1": "* `display-1` has been renamed to `va-h1`, same for 2 to 6"
       }
     }
   },

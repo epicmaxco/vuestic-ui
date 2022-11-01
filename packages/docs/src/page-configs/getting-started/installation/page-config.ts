@@ -55,7 +55,6 @@ const config: ApiDocsBlock[] = [
     block.paragraph('installation.migrationGuide.1_5.colors_2'),
     block.subtitle('installation.migrationGuide.1_5.styles'),
     block.paragraph('installation.migrationGuide.1_5.stylesDescription'),
-    block.headline('installation.migrationGuide.1_5.typography'),
     block.paragraph('installation.migrationGuide.1_5.typography_1'),
   ]),
 
