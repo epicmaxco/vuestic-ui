@@ -8,7 +8,6 @@
           <va-button class="admin__buttons--button"
                      href="https://vuestic.epicmax.co/admin/dashboard"
                      target="blank"
-                     preset="plain"
           >
             {{ $t('landing.admin.buttons.demo') }}
           </va-button>
