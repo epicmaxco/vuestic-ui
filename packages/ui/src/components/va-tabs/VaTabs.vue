@@ -46,7 +46,7 @@
         </div>
       </div>
       <va-button
-        v-if="showPagination  && !$props.hidePagination"
+        v-if="showPagination && !$props.hidePagination"
         class="va-tabs__pagination"
         :aria-label="t('movePaginationRight')"
         size="medium"
