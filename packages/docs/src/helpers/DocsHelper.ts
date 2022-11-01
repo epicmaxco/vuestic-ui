@@ -11,6 +11,7 @@ import {
 import { DefineComponent } from 'vue'
 import { VueConstructor } from 'vue-class-component'
 import { TableData, TableColumn } from './../components/DocsTable/DocsTableTypes'
+import i18n from '../plugins/i18n'
 
 export const getOptimizedPathFromPath = (path: string): string => {
   /**
@@ -141,7 +142,7 @@ export class PageGenerationHelper {
   collapse (header: string, ...blocks: ApiDocsBlock[]): ApiDocsBlock {
     return {
       type: BlockType.COLLAPSE,
-      header,
+      header: i18n.global.t(header),
       blocks: blocks,
     }
   }
