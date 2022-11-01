@@ -460,6 +460,13 @@ export const navigationRoutes: NavigationRoute[] = [
           badge: 'new',
         },
       },
+      {
+        name: 'i18n',
+        displayName: 'menu.i18n',
+        meta: {
+          badge: 'new',
+        },
+      },
       // GENERATOR_ADD - services
     ],
   },

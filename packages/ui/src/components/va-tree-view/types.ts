@@ -3,13 +3,13 @@ import { ComputedRef, InjectionKey } from 'vue'
 export interface TreeNode {
   id: number | string
   children: TreeNode[]
-  level: number
-  checked: boolean | null
-  disabled: boolean
-  expanded: boolean
-  hasChildren: boolean
-  matchesFilter: boolean
-  indeterminate: boolean
+  level?: number
+  checked?: boolean | null
+  disabled?: boolean
+  expanded?: boolean
+  hasChildren?: boolean
+  matchesFilter?: boolean
+  indeterminate?: boolean
   [key: string]: any
 }
 

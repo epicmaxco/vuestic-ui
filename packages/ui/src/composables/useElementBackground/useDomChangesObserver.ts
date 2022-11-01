@@ -1,20 +1,22 @@
 import { onBeforeUnmount, onMounted, Ref } from 'vue'
 
-type Handler = { cb: (() => void), el: Ref<HTMLElement | undefined> }
+type Handler<K = any, V = any> = { cb: ((cache: Map<K, V>) => void), el: Ref<HTMLElement | undefined> }
 
 let observer: MutationObserver | null
 let callbacks: Handler[] = []
 
 const createMutationObserver = () => {
-  const runCallbacks = (mutations: MutationRecord[]) => {
-    for (let i = 0; i < callbacks.length; i++) {
-      if (mutations.some((m) => m.target.contains(callbacks[i].el.value || null))) {
-        callbacks[i].cb()
+  if (!observer) {
+    const runCallbacks = (mutations: MutationRecord[]) => {
+      const cache = new Map()
+
+      for (let i = 0; i < callbacks.length; i++) {
+        if (mutations.some((m) => m.target.contains(callbacks[i].el.value || null))) {
+          callbacks[i].cb(cache)
+        }
       }
     }
-  }
 
-  if (!observer) {
     observer = new MutationObserver((mutations) => {
       runCallbacks(mutations)
     })
@@ -35,7 +37,7 @@ const destroyMutationObserver = () => {
 }
 
 /** Creates on global watched for dom changes */
-export const useDomChangesObserver = (cb: () => void, el: Ref<HTMLElement | undefined>) => {
+export const useDomChangesObserver = <K, V>(cb: Handler<K, V>['cb'], el: Ref<HTMLElement | undefined>) => {
   onMounted(() => {
     createMutationObserver()
     callbacks.push({ cb, el })

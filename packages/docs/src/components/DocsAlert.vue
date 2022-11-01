@@ -17,7 +17,7 @@ export default defineComponent({
     MarkdownView,
   },
   props: {
-    text: { type: String as PropType<TranslationString> },
+    text: { type: String as PropType<TranslationString>, required: true },
     color: { type: String as PropType<string>, default: 'info' },
   },
 })
