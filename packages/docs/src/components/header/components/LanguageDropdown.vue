@@ -98,6 +98,7 @@ export default defineComponent({
   cursor: pointer;
 
   .va-button__content {
+    font-size: 0.95rem;
     font-weight: 600;
   }
 

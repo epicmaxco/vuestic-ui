@@ -23,7 +23,7 @@
       },
       "features": {
         "components": {
-          "title": "52 Responsive Components",
+          "title": "60 Responsive Components",
           "text": "Available components docs"
         },
         "accessibility": {
@@ -1595,7 +1595,7 @@
     "hideCode": "Hide Code"
   },
   "kitchensink": {
-    "title": "Kitchesink",
+    "title": "Kitchensink",
     "description": "At this page you can see examples for all components, this is a great place to get started with `Vuestic`. For even more examples you can check `UI Elements` tab in menu.",
     "seeMore": "See more"
   },

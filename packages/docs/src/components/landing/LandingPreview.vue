@@ -108,7 +108,7 @@ export default {
     @include col();
     @include title-font();
 
-    padding-top: 4.5rem;
+    padding-top: 7.5rem;
     font-size: 5rem;
     width: 100%;
     text-align: center;
@@ -117,11 +117,11 @@ export default {
     -webkit-text-fill-color: transparent;
 
     // lg
-    @include lg(padding-top, 5rem);
+    @include lg(padding-top, 6rem);
     @include lg(font-size, 4rem);
 
     // md
-    @include md(font-size, 3.5rem);
+    @include md(font-size, 5.5rem);
 
     // sm
     @include sm(padding-top, 4rem);
@@ -150,7 +150,8 @@ export default {
     }
 
     &--button:nth-child(1) {
-      margin-right: 1rem;
+      margin-right: 2rem;
+      padding: 0 3rem;
 
       @include xs(margin-right, 0);
     }
@@ -184,6 +185,7 @@ export default {
 
 .va-button__content {
   height: 100%;
+  font-size: 0.95rem;
 }
 
 .item {
