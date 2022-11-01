@@ -180,13 +180,11 @@ export default defineComponent({
   font-family: var(--va-font-family);
 
   &__body-wrapper {
-    position: relative;
-    transition: var(--va-collapse-body-wrapper-transition);
+    transition: var(--va-collapse-body-transition);
     overflow: hidden;
   }
 
   &__body {
-    position: absolute;
     top: 0;
     left: 0;
     width: var(--va-collapse-body-width);
