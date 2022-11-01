@@ -195,6 +195,7 @@ export default defineComponent({
     zIndex: { type: [Number, String], default: undefined },
     backgroundColor: { type: String, default: 'background-secondary' },
     noPadding: { type: Boolean, default: false },
+    beforeClose: { type: Function as PropType<(hide: () => void) => any> },
   },
   setup (props, { emit }) {
     const rootElement = shallowRef<HTMLElement>()
@@ -240,10 +241,16 @@ export default defineComponent({
     })
 
     const show = () => { valueComputed.value = true }
-    const hide = () => { valueComputed.value = false }
+    const hide = (cb?: () => void) => {
+      const _hide = () => {
+        valueComputed.value = false
+        cb?.()
+      }
+      props.beforeClose ? props.beforeClose(_hide) : _hide()
+    }
     const toggle = () => { valueComputed.value = !valueComputed.value }
-    const cancel = () => { hide(); emit('cancel') }
-    const ok = () => { hide(); emit('ok') }
+    const cancel = () => { hide(() => emit('cancel')) }
+    const ok = () => { hide(() => emit('ok')) }
     const trapFocusInModal = () => {
       nextTick(() => { // trapFocusIn use querySelector, so need nextTick, to be sure, that DOM has been updated after modal has been opened
         if (modalDialog.value) {

@@ -2141,6 +2141,10 @@
       "title": "Modal functional API",
       "text": "To make it easier to create modal we have a shorthands. For options API it is `$vaModal` that provides the VaModalPlugin (automatically installed with createVuestic). For composition Api we have `useModal` hook. Hook and global object have similar API."
     },
+    "beforeClose": {
+      "title": "Before close",
+      "text": "You can set custom before close event to prevent modal from closing."
+    },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-modal/_variables.scss)[[target=_blank]]"
   },
   "pagination": {
