@@ -1395,18 +1395,18 @@
         "nodes": "Tree nodes array.",
         "selectable": "Selectable.",
         "selectionType": "Selection type where is a `leaf` current and all children nodes, `independent` - single selectable nodes.",
-        "valueBy":  "The key to track the value.",
+        "valueBy": "The key to track the value.",
         "textBy": "The key to show the value of node item.",
         "trackBy": "The key to index nodes.",
         "iconBy": "The key where is node placed.",
-        "disabledBy":  "The key which describes the disabled property.",
+        "disabledBy": "The key which describes the disabled property.",
         "expandedBy": "The where is placed the expanded property.",
-        "expandAll":  "Expand or hide all nodes by default.",
+        "expandAll": "Expand or hide all nodes by default.",
         "filter": "Tree view filter.",
-        "filterMethod":  "Custom tree view filter method.",
+        "filterMethod": "Custom tree view filter method.",
         "checked": "Array of pre-selected tree nodes.",
         "checkedBy": "The key to set the checked field in the tree view model.",
-        "color":  "The checkboxes color.",
+        "color": "The checkboxes color.",
         "expanded": "Array of pre-expanded tree nodes."
       },
       "slots": {
@@ -1542,7 +1542,8 @@
     "split": "Split",
     "virtualScroller": "Virtual Scroller",
     "treeView": "Tree view",
-    "team": "Meet The Team"
+    "team": "Meet The Team",
+    "i18n": "I18n"
   },
   "all": {
     "examples": "Examples",
@@ -3630,9 +3631,9 @@
   "team": {
     "title": "Meet the Team",
     "description": "Hi there, we are really pleased to meet you too!\n\nVuestic started as a small admin template back in 2017. It was released on GitHub and was warmly embraced by the Vue.js community. Since then we’ve been contributing to Vuestic daily and today it’s grown into a full-fledged framework with a decent ecosystem around it.\n\nThe team behind Vuestic is in ❤️ with Vue.js and Open Source. We’re doing our best to make developers’ lives easier and  joyful.",
-    "coreTeam": "Core Team \uD83E\uDD13",
-    "coreTeamDescription": "Established in 2017, [Epicmax](https://epicmax.co/)[[target=_blank]] is a Vue.js development company with over 55 successfully completed projects for it’s clients all over the world.\n\nThe company is committed to Open Source from its beginning. Vuestic was created and backed by Epicmax, and is supported through all the years. You can request a consultation or order web development services by Epicmax via this [form](https://epicmax.co/contacts)[[target=_blank]]\n\nAnd now, please meet the core contributors \uD83C\uDF89",
-    "specialThanks": "Special Thanks \uD83D\uDE4C",
+    "coreTeam": "Core Team 🤓",
+    "coreTeamDescription": "Established in 2017, [Epicmax](https://epicmax.co/)[[target=_blank]] is a Vue.js development company with over 55 successfully completed projects for it’s clients all over the world.\n\nThe company is committed to Open Source from its beginning. Vuestic was created and backed by Epicmax, and is supported through all the years. You can request a consultation or order web development services by Epicmax via this [form](https://epicmax.co/contacts)[[target=_blank]]\n\nAnd now, please meet the core contributors 🎉",
+    "specialThanks": "Special Thanks 🙌",
     "specialThanksDescription": "We’d like to thank all contributors and users of Vuestic. Your constant assistance, insights and feedback not only help Vuestic to get a better ecosystem, but also charges the core team with energy and enthusiasm to go an extra mile. With you everything is possible."
   },
   "translation": {
@@ -4652,6 +4653,26 @@
         "title": "Any list items",
         "text": "`va-virtual-scroller` component allows you to create not only 'modest' list with primitive elements but also use it for scrolling card, table rows etc."
       }
+    }
+  },
+  "i18n": {
+    "title": "i18n",
+    "description": "We made a separeted config for i18n messages, so you can redefine messages we use in components.",
+    "config": {
+      "title": "i18n default messages",
+      "changeDefault": {
+        "title": "Change default messages",
+        "description": "Default messages can be set in `GlobalConfig`. Config is fully typed, so you can use autocomplete to find messages you want to change."
+       }
+    },
+    "runtimeUpdate": {
+      "title": "Changing language in runtime",
+      "description": "If you have more than one language, you can update messages in runtime with `useI18nConfig` hook from VuesticUI."
+    },
+    "useWithVueI18n": {
+      "title": "Using with vue-i18n",
+      "description": "If you use vue-i18n we can recommend to store VuesticUI messages under specific key",
+      "exampleConfig": "Recommended config structure"
     }
   }
 }
