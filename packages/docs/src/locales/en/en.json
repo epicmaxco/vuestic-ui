@@ -807,7 +807,7 @@
         "textBy": "When `options` prop is an object, this key will be used as displayed text. Can be string (path to the key) or function of type: `(option) => option.text`",
         "groupBy": "When `options` prop is an object, this key will be used to group up options. Can be string (path to the key) or function of type: `(option) => option.group`",
         "placeholder": "Sets the placeholder text to input",
-        "placement": "Sets option list placement",
+        "placement": "Sets option list placement. [More about placements](/ui-elements/dropdown#placement-and-offset)",
         "tagMax": "Sets maximum tag count after whom selection will be cropped",
         "tags": "Sets selection display as tags",
         "deletableTags": "Sets ability to delete tags",
@@ -887,7 +887,7 @@
         "leftIcon": "Sets the icon position to the left.",
         "hideIcon": "Hide icon (when `split` is disabled).",
         "openedIcon": "Applies a custom icon in the dropdown section when the dropdown is opened.",
-        "placement": "Sets the placement of the dropdown content.",
+        "placement": "Sets the placement of the dropdown content. [More about placements](/ui-elements/dropdown#placement-and-offset)",
         "keepAnchorWidth": "Keeps anchor position the same.",
         "offset": "Sets the distance between dropdown and anchor.",
         "modelValue": "Sets a dropdown state.",
@@ -1178,7 +1178,7 @@
         "message": "Message which showed in a popover",
         "trigger": "Event on which popover is triggered",
         "open": "Shows popover",
-        "placement": "Sets a popover position",
+        "placement": "Sets a popover position. [More about placements](/ui-elements/dropdown#placement-and-offset)",
         "autoHide": "Adds the ability to hide popover when clicked outside",
         "hoverOverTimeout": "Delay before opening",
         "hoverOutTimeout": "Delay before closing"
@@ -4116,7 +4116,7 @@
       },
       "placement": {
         "title": "Placement",
-        "text": "A component can be set in a different position. Use a position property to set it: `top`, `left`, `right` and `bottom` are available."
+        "text": "A component can be set in a different position. Use a position property to set it: `top`, `left`, `right` and `bottom` are available. [More about placements](/ui-elements/dropdown#placement-and-offset)"
       },
       "icon": {
         "title": "Icon",
