@@ -386,7 +386,7 @@
         "vertical": "Align all items vertically",
         "prevIcon": "Icon to be used for scrolling backward in pagination",
         "nextIcon": "Icon to be used for scrolling forward in pagination",
-        "withPagination": "pagination arrows are hidden"
+        "withPagination": "pagination arrows are shown or hidden"
       },
       "events": {
         "clickNext": "Emits when pagination **next** is clicked",
