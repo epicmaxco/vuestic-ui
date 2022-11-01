@@ -28,6 +28,7 @@
         <div
           ref="tabs"
           class="va-tabs__tabs"
+          :class="paginationControlledClass"
           :style="paginationControlledStyles"
         >
           <div
@@ -106,6 +107,7 @@ export default defineComponent({
     right: { type: Boolean, default: false },
     center: { type: Boolean, default: false },
     grow: { type: Boolean, default: false },
+    withPagination: { type: Boolean, default: true },
     disabled: { type: Boolean, default: false },
     hideSlider: { type: Boolean, default: false },
     vertical: { type: Boolean, default: false },
@@ -146,6 +148,12 @@ export default defineComponent({
         'va-tabs__container--grow': grow,
         'va-tabs__container--disabled': disabled,
       }
+    })
+
+    const paginationControlledClass = computed(()=>{
+      const { withPagination } = props
+
+      return withPagination ? '' : 'pagination-none'
     })
 
     const computedTabsClass = computed(() => ({ 'va-tabs--vertical': props.vertical }))
@@ -420,6 +428,7 @@ export default defineComponent({
       computedTabsClass,
       tabSelected,
       sliderStyles,
+      paginationControlledClass,
       paginationControlledStyles,
       disablePaginationLeft,
       disablePaginationRight,
@@ -472,6 +481,10 @@ export default defineComponent({
     .va-tabs__tabs {
       position: absolute;
       height: 100%;
+
+      &.pagination-none{
+        position: unset;
+      }
     }
 
     .va-tabs__tabs-items {
