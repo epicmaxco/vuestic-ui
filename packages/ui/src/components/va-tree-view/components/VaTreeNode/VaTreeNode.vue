@@ -19,7 +19,7 @@
           v-if="$props.node.hasChildren"
           class="va-tree-node-content__item va-tree-node-content__item--leaf"
         >
-          <slot v-bind="$props.node" name="icon-toggle">
+          <slot name="icon-toggle" v-bind="$props.node">
             <va-icon
               :name="isExpandedComputed ? 'keyboard_arrow_down' : 'keyboard_arrow_right'"
               size="20px"
@@ -31,7 +31,7 @@
           class="va-tree-node-content__item"
           @click.stop
         >
-          <slot name="checkbox">
+          <slot name="checkbox" v-bind="$props.node">
             <va-checkbox
               :model-value="$props.node.checked"
               :color="colorComputed"

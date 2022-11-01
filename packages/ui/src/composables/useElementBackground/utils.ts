@@ -1,4 +1,5 @@
 import { getWindow } from '../../utils/ssr-utils'
+import { isCSSVariable } from '../useColors'
 
 export type ColorArray = [number, number, number, number]
 
@@ -9,6 +10,54 @@ export const parseRGBA = (color: string): ColorArray | undefined => color
 
 const window = getWindow()
 
+/** Remove `var()` from css variable declaration */
+const getCSSVariableNameFromDeclaration = (color: string) => color.slice(4, -1)
+
+/**
+ * Super slow function. Must be covered with cache as much as possible.
+ * It actually goes trough all CSS and search for value.
+ * This is needed to prevent transition delay when changing background color.
+ */
+export const getElementBackgroundFromCSS = (el: HTMLElement) => {
+  const color = [...el.ownerDocument.styleSheets]
+    .filter((s) => {
+      try {
+        // Might be a cross-origin stylesheet
+        return (s as CSSStyleSheet).cssRules
+      } catch {
+        return false
+      }
+    })
+    .map(s => [...s.cssRules || []])
+    .flat()
+    .reduce((bg, cssRule) => {
+      if (!el.matches((cssRule as CSSPageRule).selectorText)) { return bg }
+
+      if (cssRule instanceof CSSStyleRule) {
+        return cssRule.style.background || cssRule.style.backgroundColor || bg
+      }
+      return bg
+    }, '')
+    .trim()
+
+  if (isCSSVariable(color)) {
+    return window?.getComputedStyle(el)
+      .getPropertyValue(getCSSVariableNameFromDeclaration(color)).trim()
+  }
+
+  return color
+}
+
+const EMPTY_TRANSITION = 'all 0s ease 0s'
+
 export const getElementBackground = (element: HTMLElement) => {
-  return window?.getComputedStyle(element).backgroundColor
+  const computedStyle = window?.getComputedStyle(element)
+
+  if (!computedStyle) { return }
+
+  if (computedStyle.transition.trim() !== EMPTY_TRANSITION) {
+    return getElementBackgroundFromCSS(element)
+  }
+
+  return computedStyle.backgroundColor
 }

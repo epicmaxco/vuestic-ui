@@ -85,6 +85,11 @@ const config: ApiDocsBlock[] = [
     'modal.nestedModals.text',
     'NestedModals',
   ),
+  ...block.exampleBlock(
+    'modal.beforeClose.title',
+    'modal.beforeClose.text',
+    'BeforeClose',
+  ),
 
   block.subtitle('all.api'),
   block.api(VaModal, apiOptions),
