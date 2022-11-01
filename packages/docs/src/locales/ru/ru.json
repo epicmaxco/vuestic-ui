@@ -4269,9 +4269,6 @@
       "selectable": {
         "title": "Чекбоксы"
       }
-    },
-    "api": {
-      "treeViewTitle": "Tree view API"
     }
   },
   "spacer": {

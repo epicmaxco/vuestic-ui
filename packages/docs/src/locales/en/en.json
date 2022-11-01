@@ -4522,9 +4522,6 @@
       "selectable": {
         "title": "Selectable"
       }
-    },
-    "api": {
-      "treeViewTitle": "Tree view API"
     }
   },
   "spacer": {

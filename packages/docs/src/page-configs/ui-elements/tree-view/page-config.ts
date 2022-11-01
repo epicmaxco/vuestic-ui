@@ -3,6 +3,21 @@ import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import { VaTreeViewOptions } from './api-options'
 import VaTreeView from 'vuestic-ui/src/components/va-tree-view/VaTreeView.vue'
 
+const treeNodeType = `
+interface TreeNode {
+  id: number | string
+  children: TreeNode[]
+  level?: number
+  checked?: boolean | null
+  disabled?: boolean
+  expanded?: boolean
+  hasChildren?: boolean
+  matchesFilter?: boolean
+  indeterminate?: boolean
+  [key: string]: any
+}
+`
+
 const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [
@@ -27,8 +42,9 @@ const config: ApiDocsBlock[] = [
   block.example('Selectable'),
 
   // API
-  block.subtitle('treeView.api.treeViewTitle'),
+  block.subtitle('api'),
   block.api(VaTreeView, VaTreeViewOptions),
+  block.collapse('interface TreeNode', block.code(treeNodeType)),
 ]
 
 export default config
