@@ -389,7 +389,8 @@
         "hideSlider": "Remove slider which underlines selected item",
         "vertical": "Align all items vertically",
         "prevIcon": "Icon to be used for scrolling backward in pagination",
-        "nextIcon": "Icon to be used for scrolling forward in pagination"
+        "nextIcon": "Icon to be used for scrolling forward in pagination",
+        "hidePagination": "Hide or show pagination arrows"
       },
       "events": {
         "clickNext": "Emits when pagination **next** is clicked",
