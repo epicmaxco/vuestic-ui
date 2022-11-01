@@ -195,7 +195,7 @@ export default defineComponent({
     zIndex: { type: [Number, String], default: undefined },
     backgroundColor: { type: String, default: 'background-tertiary' },
     noPadding: { type: Boolean, default: false },
-    beforeClose: { type: Function },
+    beforeClose: { type: Function as PropType<(hide: () => void) => any> },
   },
   setup (props, { emit }) {
     const rootElement = shallowRef<HTMLElement>()
