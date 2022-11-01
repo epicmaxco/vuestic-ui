@@ -71,7 +71,6 @@ export {
   VaTimeInput,
   VaTimeline, VaTimelineItem,
   VaTimePicker,
-  VaTreeNode,
   VaTreeView,
   VaScrollContainer,
   VaVirtualScroller,

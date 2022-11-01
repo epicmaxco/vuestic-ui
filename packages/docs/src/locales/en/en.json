@@ -1410,22 +1410,15 @@
         "expanded": "Array of pre-expanded tree nodes."
       },
       "slots": {
-        "notFound": "No matching nodes to the filter message."
-      },
-      "events": {
-        "updateChecked": "The array of checked tree nodes.",
-        "updateExpanded": "The array of expanded tree nodes."
-      }
-    },
-    "VaTreeNode": {
-      "props": {
-        "node": "Tree node object."
-      },
-      "slots": {
+        "notFound": "No matching nodes to the filter message.",
         "content": "Configurable node content.",
         "checkbox": "Checkbox icon placeholder.",
         "icon": "Additional icon placeholder.",
         "iconToggle": "Node leaf icon."
+      },
+      "events": {
+        "updateChecked": "The array of checked tree nodes.",
+        "updateExpanded": "The array of expanded tree nodes."
       }
     }
   },
@@ -4533,10 +4526,6 @@
       "selectable": {
         "title": "Selectable"
       }
-    },
-    "api": {
-      "treeViewTitle": "Tree view API",
-      "treeNodeTitle": "Tree node API"
     }
   },
   "spacer": {
