@@ -41,6 +41,23 @@ const config: ApiDocsBlock[] = [
   block.paragraph('installation.quickStart.description'),
   block.code(quickStart),
 
+  block.headline('installation.migrationGuide.title'),
+  block.collapse('1.4 -> 1.5', [
+    block.subtitle('installation.migrationGuide.1_5.components'),
+    block.headline('VaButton'),
+    block.paragraph('installation.migrationGuide.1_5.button'),
+    block.headline('VaCheckbox'),
+    block.paragraph('installation.migrationGuide.1_5.checkbox'),
+    block.subtitle('installation.migrationGuide.1_5.services'),
+    block.headline('installation.migrationGuide.1_5.colors'),
+    block.alert('installation.migrationGuide.1_5.colors_0', 'info'),
+    block.paragraph('installation.migrationGuide.1_5.colors_1'),
+    block.paragraph('installation.migrationGuide.1_5.colors_2'),
+    block.subtitle('installation.migrationGuide.1_5.styles'),
+    block.paragraph('installation.migrationGuide.1_5.stylesDescription'),
+    block.paragraph('installation.migrationGuide.1_5.typography_1'),
+  ]),
+
   block.subtitle('installation.codesandbox.title'),
   block.component('OpenCodeSandbox'),
 

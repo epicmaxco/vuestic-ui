@@ -3497,6 +3497,22 @@
       "node": "[Node.js](https://nodejs.org/en/)[[target=_blank]] (>=v14.0.0)",
       "npm": "[npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)[[target=_blank]] (>=v3.0.0) (or [yarn](https://yarnpkg.com/lang/en/docs/install)[[target=_blank]] (>= v1.16.0)) and [Git](https://git-scm.com/)[[target=_blank]]",
       "afterCheck": "After checking the prerequisites, install Vuestic UI via npm or yarn:"
+    },
+    "migrationGuide": {
+      "title": "Migration guide",
+      "1_5": {
+        "components": "Components",
+        "button": "* Button has been changed visually and its API changed too:\n* `flat` prop has been moved to `preset=\"secondary\"`.\n* Prop `rounded` renamed to `round` and is now `false` by default.",
+        "checkbox": "Checkbox is now `inline-block` instead of `block`.",
+        "services": "Services",
+        "colors": "Colors",
+        "colors_0": "In `1.5.0` there are a lot of changes to support dark theme.",
+        "colors_1": "* Color config is now extended with variables (where previous colors are stored);\n* `dark`, `white`, `background`, `gray` colors have been removed;\n* text color in components is calculated automatically, but you can force text to be `textDark` or `textLight`;\n* there are 4 types of background color now: `backgroundPrimary`, `backgroundSecondary`, `backgroundTertiary`, `backgroundElement`;\n* read more: [colors](https://vuestic.dev/styles/colors)[[target=_blank]].",
+        "colors_2": "* use `useTheme` instead of `useColors` - it has all the same methods.",
+        "styles": "Styles",
+        "stylesDescription": "* All typography classes now have `va` prefix. For instance: link renamed to `va-link`, `text--right` renamed to `va-text-right`",
+        "typography_1": "* `display-1` has been renamed to `va-h1`, same for 2 to 6"
+      }
     }
   },
   "treeShaking": {

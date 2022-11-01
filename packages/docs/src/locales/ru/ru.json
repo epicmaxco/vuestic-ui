@@ -3357,6 +3357,22 @@
       "npm": "[npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)[[target=_blank]] версия 3+ (или [yarn](https://yarnpkg.com/lang/en/docs/install)[[target=_blank]] версия 1.16+) и [Git](https://git-scm.com/)[[target=_blank]]",
       "afterCheck": "После проверки предварительных требований установите Vuestic UI через `npm/yarn`:"
     },
+    "migrationGuide": {
+      "title": "Инструкция по миграции",
+      "1_5": {
+        "components": "Компоненты",
+        "button": "* `VaButton` изменился как визуально, так по интерфейсу:\n* `flat` пропа переехала в `preset=\"secondary\"`.\n* Пропа `rounded` стала называться `round` и сейчас `false` по умолчанию.",
+        "checkbox": "`VaCheckbox` стал `inline-block` вместо `block`.",
+        "services": "Сервисы",
+        "colors": "Цвета",
+        "colors_0": "Версия `1.5.0` внесла множество измнений для работы темной темы.",
+        "colors_1": "Цвета из конфига сайчас дополняются css переменными. Пропали цвета `dark`, `white`, `background`, `gray`. Цвет текста в компонентах сейчас высчитывается автоматически, но можно жестко установить его как `textDark` или `textLight`. Сейчас осталось 4 цвета фона: `backgroundPrimary`, `backgroundSecondary`, `backgroundTertiary`, `backgroundElement`. Читать дальше: [colors](https://vuestic.dev/styles/colors)[[target=_blank]].",
+        "colors_2": "* вместо `useTheme` используете `useColor` - методы остались прежними.",
+        "styles": "Стили",
+        "stylesDescription": "* Все классы типографии получили префикс `va`. Например, `link` переименован в `va-link` `text--right` переименован в `va-text-right`",
+        "typography_1": "* `display-1` переименован в `va-h1`, то же с 2, 3, 4, 5, 6"
+      }
+    },
     "treeShaking": {
       "title": "Tree shaking",
       "description": "Если вы планируете использовать только несколько компонентов в своем приложении и, таким образом, хотите уменьшить размер вашего пакета, вы можете использовать сборку Vuestic ESM. Webpack (vue-cli) и Vite делают это автоматически.",
