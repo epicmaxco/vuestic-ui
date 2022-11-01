@@ -241,16 +241,16 @@ export default defineComponent({
     })
 
     const show = () => { valueComputed.value = true }
-    const hide = (cb?:() => void) => { 
+    const hide = (cb?: () => void) => {
       const _hide = () => {
         valueComputed.value = false
         cb?.()
       }
       props.beforeClose ? props.beforeClose(_hide) : _hide()
-     }
+    }
     const toggle = () => { valueComputed.value = !valueComputed.value }
-    const cancel = () => { hide(() => emit('cancel'))}
-    const ok = () => { hide(() => emit('ok'))}
+    const cancel = () => { hide(() => emit('cancel')) }
+    const ok = () => { hide(() => emit('ok')) }
     const trapFocusInModal = () => {
       nextTick(() => { // trapFocusIn use querySelector, so need nextTick, to be sure, that DOM has been updated after modal has been opened
         if (modalDialog.value) {
