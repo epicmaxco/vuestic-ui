@@ -10,7 +10,7 @@
       :aria-disabled="$props.disabled"
     >
       <va-button
-        v-if="showPagination"
+        v-if="showPagination && !$props.hidePagination"
         class="va-tabs__pagination"
         :aria-label="t('movePaginationLeft')"
         size="medium"
@@ -28,7 +28,6 @@
         <div
           ref="tabs"
           class="va-tabs__tabs"
-          :class="paginationControlledClass"
           :style="paginationControlledStyles"
         >
           <div
@@ -47,7 +46,7 @@
         </div>
       </div>
       <va-button
-        v-if="showPagination"
+        v-if="showPagination  && !$props.hidePagination"
         class="va-tabs__pagination"
         :aria-label="t('movePaginationRight')"
         size="medium"
@@ -107,7 +106,7 @@ export default defineComponent({
     right: { type: Boolean, default: false },
     center: { type: Boolean, default: false },
     grow: { type: Boolean, default: false },
-    withPagination: { type: Boolean, default: true },
+    hidePagination: { type: Boolean, default: false },
     disabled: { type: Boolean, default: false },
     hideSlider: { type: Boolean, default: false },
     vertical: { type: Boolean, default: false },
@@ -150,12 +149,6 @@ export default defineComponent({
       }
     })
 
-    const paginationControlledClass = computed(()=>{
-      const { withPagination } = props
-
-      return withPagination ? '' : 'pagination-none'
-    })
-
     const computedTabsClass = computed(() => ({ 'va-tabs--vertical': props.vertical }))
 
     const { getColor } = useColors()
@@ -186,6 +179,7 @@ export default defineComponent({
       return {
         transform: `translateX(${startingXPoint.value - tabsContentOffset.value}px)`,
         transition: animationIncluded.value ? 'var(--va-tabs-slider-transition)' : '',
+        position: props.hidePagination ? 'unset' : 'absolute',
       }
     })
 
@@ -428,7 +422,6 @@ export default defineComponent({
       computedTabsClass,
       tabSelected,
       sliderStyles,
-      paginationControlledClass,
       paginationControlledStyles,
       disablePaginationLeft,
       disablePaginationRight,
@@ -479,12 +472,7 @@ export default defineComponent({
     position: relative;
 
     .va-tabs__tabs {
-      position: absolute;
       height: 100%;
-
-      &.pagination-none{
-        position: unset;
-      }
     }
 
     .va-tabs__tabs-items {
