@@ -8,7 +8,7 @@
         {{ name }}
       </p>
       <p style="font-size: 14px;">
-        var(--va-{{ name }})<span class="ml-2">{{ value }}</span>
+        var(--va-{{ kebabCase(name) }})<span class="ml-2">{{ value }}</span>
       </p>
     </div>
     <div class="color-grid-item__content">
@@ -20,6 +20,7 @@
 <script setup lang="ts">
 import { defineProps } from 'vue'
 import { useElementBackground, useTextColor } from 'vuestic-ui/src/composables'
+import kebabCase from 'lodash/kebabCase'
 
 const { background } = useElementBackground()
 const { textColorComputed } = useTextColor(background)
