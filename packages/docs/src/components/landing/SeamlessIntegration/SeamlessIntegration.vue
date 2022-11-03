@@ -151,6 +151,7 @@ export default class Seamless extends Vue {
 
     margin-top: 3rem;
     background: #ffffff;
+    color: #000000;
     box-shadow: 0 47px 72px -39px rgba(155, 179, 206, 0.8);
     border-radius: 1rem;
     justify-content: center;
