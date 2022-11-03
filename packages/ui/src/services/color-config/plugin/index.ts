@@ -1,10 +1,11 @@
+import { PartialGlobalConfig } from './../../global-config/types'
 import { createColorConfigPlugin } from './create-color-config-plugin'
 import { defineGlobalProperty, defineVuesticPlugin } from '../../../vuestic-plugin/utils'
 
 /** Creates color css variables and reactively updates on ColorConfig changes. */
-export const ColorConfigPlugin = defineVuesticPlugin(() => ({
+export const ColorConfigPlugin = defineVuesticPlugin((config?: PartialGlobalConfig) => ({
   install (app) {
-    defineGlobalProperty(app, '$vaColorConfig', createColorConfigPlugin(app))
+    defineGlobalProperty(app, '$vaColorConfig', createColorConfigPlugin(app, config))
   },
 }))
 
