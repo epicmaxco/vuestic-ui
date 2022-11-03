@@ -14,7 +14,7 @@
         :class="{ active: option.code === locale }"
         @click="setLanguage(option.code)"
       >
-        <va-list-item-section :style="{color: colors.primary}">
+        <va-list-item-section :style="{ color: option.code === locale ? colors.textPrimary : colors.primary }">
           <span class="dropdown-item__text">{{ option.name }}</span>
         </va-list-item-section>
       </va-list-item>
@@ -96,7 +96,6 @@ export default defineComponent({
   cursor: pointer;
 
   .va-button__content {
-    font-size: 0.95rem;
     font-weight: 600;
   }
 
