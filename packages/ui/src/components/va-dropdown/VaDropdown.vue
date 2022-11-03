@@ -65,7 +65,7 @@ export default defineComponent({
     anchorSelector: { type: String, default: '' },
     innerAnchorSelector: { type: String, default: '' },
     /** Element where dropdown content will be rendered */
-    target: { type: String as PropType<MaybeHTMLElementOrSelector>, default: undefined },
+    target: { type: [String, Object] as PropType<MaybeHTMLElementOrSelector>, default: undefined },
     preventOverflow: { type: Boolean, default: false },
     keepAnchorWidth: { type: Boolean, default: false },
     isContentHoverable: { type: Boolean, default: true },

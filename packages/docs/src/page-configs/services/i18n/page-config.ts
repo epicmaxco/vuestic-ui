@@ -9,8 +9,9 @@ const config: ApiDocsBlock[] = [
   block.title('i18n.title'),
   block.paragraph('i18n.description'),
 
-  block.collapse('i18n.config.title',
-    block.code(JSON.stringify(getI18nConfigDefaults(), null, 2)),
+  block.collapse(
+    'i18n.config.title',
+    [block.code(JSON.stringify(getI18nConfigDefaults(), null, 2))],
   ),
 
   block.subtitle('i18n.config.changeDefault.title'),
@@ -26,7 +27,7 @@ const config: ApiDocsBlock[] = [
   block.paragraph('i18n.useWithVueI18n.description'),
 
   block.code(runtimeVueI18nCodeExample),
-  block.collapse('i18n.useWithVueI18n.exampleConfig', block.code(vueI18nExampleConfig)),
+  block.collapse('i18n.useWithVueI18n.exampleConfig', [block.code(vueI18nExampleConfig)]),
 ]
 
 export default config

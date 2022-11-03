@@ -99,17 +99,43 @@ const calculateClipToEdge = (coords: Coords, offsetCoords: Coords, content: DOMR
 }
 
 const getAutoPlacement = (placement: Placement, coords: Coords, content: DOMRect, viewport: DOMRect): Placement => {
-  const { position, align } = parsePlacement(placement)
+  const { position } = parsePlacement(placement)
   const overflow = calculateContentOverflow(coords, content, viewport)
 
   const newPlacements = {
-    top: ['bottom', align].join('-') as Placement,
-    bottom: ['top', align].join('-') as Placement,
-    right: ['left', align].join('-') as Placement,
-    left: ['right', align].join('-') as Placement,
+    top: 'bottom' as Placement,
+    bottom: 'top' as Placement,
+    right: 'left' as Placement,
+    left: 'right' as Placement,
   }
 
-  return overflow[position] ? newPlacements[position] : placement
+  if (!overflow[position]) { return placement }
+
+  // TODO: This is not recursive, if there is overflow in left and right - still will be a problem
+  // Might need to use some different algorithm here
+  const newPlacement = newPlacements[position]
+
+  if (newPlacement === 'bottom' || newPlacement === 'top') {
+    // cross: →
+    if (overflow.left) {
+      return [newPlacement, 'start'].join('-') as Placement
+    }
+    if (overflow.right) {
+      return [newPlacement, 'end'].join('-') as Placement
+    }
+  }
+
+  if (newPlacement === 'left' || newPlacement === 'right') {
+    // cross: ↓
+    if (overflow.top) {
+      return [newPlacement, 'start'].join('-') as Placement
+    }
+    if (overflow.bottom) {
+      return [newPlacement, 'end'].join('-') as Placement
+    }
+  }
+
+  return newPlacement
 }
 
 const findFirstRelativeParent = (el: Element | null) => {
