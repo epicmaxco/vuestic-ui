@@ -104,7 +104,8 @@ export default class Seamless extends Vue {
   padding-bottom: 12rem;
   background-image: url("../../../assets/landing/images/pattern-3.svg");
   background-size: cover;
-  background-color: $bg-light-sky;
+  background-color: var(--va-background-landing);
+  color: var(--va-on-background-landing);
   background-repeat: no-repeat;
   background-position: top;
 
@@ -164,7 +165,7 @@ export default class Seamless extends Vue {
       display: flex;
       flex-direction: column;
       padding: 2rem 3rem 3rem 3rem;
-      border-bottom: 1px solid #d9e8e6;
+      border-bottom: 1px solid var(--va-background-border);
       width: 100%;
 
       // xs
@@ -203,7 +204,7 @@ export default class Seamless extends Vue {
     text-transform: uppercase;
 
     &--vuestic {
-      color: $lavender;
+      color: var(--va-primary);
     }
   }
 
