@@ -37,14 +37,23 @@
             target="_blank"
             preset="landingHeader"
           >
-            <va-icon name="discord" class="mr-1" size="small" />
             {{ $t('landing.header.buttons.discord') }}
           </va-button>
-          <va-button  :to="`/${$root.$i18n.locale}/introduction/team`" class="header__links--link" preset="landingHeader" target="_blank">
-            <va-icon name="group" class="mr-1" size="small" /> {{ $t('landing.header.buttons.team') }}
+          <va-button
+            :to="`/${$root.$i18n.locale}/introduction/team`"
+            class="header__links--link"
+            preset="landingHeader"
+            target="_blank"
+          >
+            {{ $t('landing.header.buttons.team') }}
           </va-button>
-          <va-button href="https://epicmax.co/blog" class="header__links--link" preset="landingHeader" target="_blank">
-            <va-icon name="exit_to_app" class="mr-1" size="small" /> {{ $t('landing.header.buttons.blog') }}
+          <va-button
+            href="https://epicmax.co/blog"
+            class="header__links--link"
+            preset="landingHeader"
+            target="_blank"
+          >
+            {{ $t('landing.header.buttons.blog') }}
           </va-button>
           <language-dropdown class="header__links--link" preset="landingHeader" />
           <landing-stars-button class="ml-4" repo="epicmaxco/vuestic-ui" />
