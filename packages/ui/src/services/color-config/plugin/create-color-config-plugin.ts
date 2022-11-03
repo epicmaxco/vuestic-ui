@@ -9,7 +9,7 @@ export const setCSSVariable = (name: string, value: string, root: HTMLElement) =
   root.style.setProperty(cssVariableName(name), value)
 }
 
-export const createColorConfigPlugin = (app: App, config: PartialGlobalConfig | undefined) => {
+export const createColorConfigPlugin = (app: App, config?: PartialGlobalConfig) => {
   const { colors, getTextColor, getColor, currentPresetName, applyPreset } = useColors()
 
   /** Renders CSS variables string. Use this in SSR mode */
