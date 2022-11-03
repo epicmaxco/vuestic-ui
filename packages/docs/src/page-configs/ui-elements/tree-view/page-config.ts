@@ -44,7 +44,7 @@ const config: ApiDocsBlock[] = [
   // API
   block.subtitle('api'),
   block.api(VaTreeView, VaTreeViewOptions),
-  block.collapse('TreeNode type', block.code(treeNodeType)),
+  block.collapse('TreeNode type', [block.code(treeNodeType)]),
 ]
 
 export default config

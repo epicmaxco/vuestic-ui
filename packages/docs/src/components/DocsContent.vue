@@ -87,8 +87,11 @@
         v-else-if="block.type === BlockType.COLLAPSE"
         :key="BlockType.COLLAPSE + index"
         :header="block.header"
+        solid
       >
-        <DocsContent :config="block.blocks" />
+        <div class="pa-4">
+          <DocsContent :config="block.blocks" />
+        </div>
       </VaCollapse>
       <DocsFileStructure
         v-else-if="block.type === BlockType.FILE_STRUCTURE"
