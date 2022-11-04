@@ -20,15 +20,15 @@ export const useVuesticCSS = (options: VuesticOptions) => {
 
   if (Array.isArray(options.css)) {
     /** Register essential css. Vuestic will not work without essential.css */
-    nuxt.options.css.push('vuestic-ui/dist/styles/essential.css')
+    nuxt.options.css.push('vuestic-ui/styles/essential.css')
 
     /** Register other css modules that user has chosen */
     options.css.forEach((cssModuleName) => {
-      nuxt.options.css.push(`vuestic-ui/dist/styles/${cssModuleName}.css`)
+      nuxt.options.css.push(`vuestic-ui/styles/${cssModuleName}.css`)
     })
   } else if (options.css === true) {
     /** Register all CSS */
-    nuxt.options.css.push('vuestic-ui/dist/vuestic-ui.css')
+    nuxt.options.css.push('vuestic-ui/css')
   }
 
   if (options.fonts) {

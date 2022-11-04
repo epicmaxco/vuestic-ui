@@ -1,0 +1,16 @@
+{
+  "private": true,
+  "name": "nuxt-docs",
+  "version": "0.0.1",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "test": "vitest"
+  },
+  "devDependencies": {
+    "nuxt": "3.0.0-rc.8",
+    "vitest": "^0.18.1"
+  }
+}
