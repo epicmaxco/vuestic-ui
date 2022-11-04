@@ -3,7 +3,7 @@
     <template #checker>
       <va-icon
         size="18px"
-        :name="isDark ? 'dark_mode' : 'brightness_5'"
+        :name="isDark ? 'dark_mode' : 'light_mode'"
         :color="isDark? '#fff' : 'warning'"
       />
     </template>
