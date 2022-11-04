@@ -9,6 +9,3 @@ export type PageConfigBlockFabric = {
   component: PageConfigComponent
   example: PageConfigExample
 }
-
-export * from './component'
-export * from './example'

@@ -11,5 +11,5 @@ const props = defineProps({
 </script>
 
 <template>
-  <component :is="props.config.component" />
+  <component :is="props.config.component" v-bind="config.props" />
 </template>

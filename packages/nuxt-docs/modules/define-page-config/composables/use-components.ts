@@ -1,7 +1,7 @@
 import { addComponent, useNuxt } from '@nuxt/kit';
 import { resolve } from 'pathe'
 
-const COMPONENT_PATH = 'blocks/index.vue'
+const COMPONENT_PATH = 'compiler/blocks/index.vue'
 
 const componentPath = resolve(__dirname, '..', COMPONENT_PATH)
 

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { PropType } from 'vue';
-import { CompiledPageConfig } from '..';
+import { CompiledPageConfig } from '../..';
 
 import PageConfigComponent from './component/index.vue'
 import PageConfigExample from './example/index.vue'

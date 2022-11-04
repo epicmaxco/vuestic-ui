@@ -1,5 +1,5 @@
 import { FilterPattern } from '@rollup/pluginutils'
-import { PageConfigBlockFabric, PageConfigBlockCompiled } from './blocks'
+import { PageConfigBlockFabric, PageConfigBlockCompiled } from './compiler/blocks'
 
 export type DefinePageConfigOptions = {
   include: FilterPattern,

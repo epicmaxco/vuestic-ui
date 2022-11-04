@@ -5,7 +5,7 @@ export default definePageConfig({
   },
 
   blocks: [
-    block.component('default'),
+    block.component('default', { text: 'Hello' }),
     block.example('test'),
   ]
 })

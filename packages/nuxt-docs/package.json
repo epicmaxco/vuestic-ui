@@ -10,6 +10,8 @@
     "test": "vitest"
   },
   "devDependencies": {
+    "acorn": "^8.8.1",
+    "acorn-walk": "^8.2.0",
     "nuxt": "3.0.0-rc.8",
     "vitest": "^0.18.1"
   }

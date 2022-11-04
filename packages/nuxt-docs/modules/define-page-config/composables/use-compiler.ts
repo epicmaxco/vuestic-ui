@@ -1,18 +1,7 @@
 import { DefinePageConfigOptions } from './../types';
 import { useNuxt } from '@nuxt/kit';
-import { compileComponentBlock, compileExampleBlock } from '../blocks'
+import { transformPageConfig } from '../compiler'
 import { createFilter } from '@rollup/pluginutils'
-
-const removeDefinePageConfig = (code: string) => {
-  return code.replace(/definePageConfig\(([\w|\W]*)\)/, '$1')
-}
-
-const transformCode = (code: string, id: string) => {
-  code = removeDefinePageConfig(code)
-  code = compileComponentBlock(code)
-  code = compileExampleBlock(code)
-  return code
-}
 
 export const useCompiler = (options: DefinePageConfigOptions) => {
   const nuxt = useNuxt()
@@ -23,13 +12,24 @@ export const useCompiler = (options: DefinePageConfigOptions) => {
     vite.plugins?.push({
       name: 'vuestic:define-page-config:compiler',
 
-      transform(code, id) {
+      enforce: 'pre',
+
+      transform(inCode, id) {
         if (!filter(id)) { return }
 
-        console.log('Compiling Page config', id)
+        const { code, files } = transformPageConfig(inCode, id)
 
-        return transformCode(code, id)
-      }
+        files.forEach((file) => {
+          // TODO: This doesn't work for now: https://github.com/vitejs/vite/pull/9723
+          this.addWatchFile(file)
+        })
+
+        this.addWatchFile(id)
+
+        return {
+          code,
+        }
+      },
     })
   })
 }
