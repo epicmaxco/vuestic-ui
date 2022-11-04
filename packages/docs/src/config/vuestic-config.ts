@@ -32,9 +32,11 @@ export const VuesticConfig: Partial<PartialGlobalConfig> = {
       light: {
         backgroundPrimary: '#FFFFFF',
         backgroundLanding: '#f4f9fc',
+        backgroundLandingBorder: 'rgba(155, 179, 206, 0.8)',
       },
       dark: {
-        backgroundLanding: '#131A22',
+        backgroundLanding: '#070d14',
+        backgroundLandingBorder: 'rgba(43, 49, 56, 0.8)',
       },
     },
   },
