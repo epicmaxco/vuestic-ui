@@ -5,18 +5,16 @@
         class="color-dropdown__icon"
         preset="secondary"
         label="Colors"
-        :offset="[0, 25]"
+        :offset="[16, 0]"
         prevent-overflow
         :close-on-content-click="false"
       >
         <div class="color-dropdown__content px-1">
-          <va-button-toggle
-            :options="themes"
-            @update:model-value="setTheme"
-            :model-value="currentTheme"
-            grow
-            class="my-2"
-          />
+          <div class="d-flex justify-center">
+            <ThemeSwitch />
+          </div>
+
+          <va-divider style="margin: 0.5rem -0.6rem;" />
 
           <div v-for="color in colorsArray" :key="color.name" class="color mt-1 mb-1">
             <va-color-indicator :color="color.name" /> <span class="color__title">{{ color.title }}</span>
@@ -30,9 +28,13 @@
 <script lang="ts">
 import { useColors } from 'vuestic-ui/src/main'
 import { computed, defineComponent, ref } from 'vue'
+import ThemeSwitch from '../../ThemeSwitch.vue'
 
 export default defineComponent({
   name: 'DocsColorDropdown',
+
+  components: { ThemeSwitch },
+
   setup () {
     const { applyPreset, presets, getColors, setColors } = useColors()
     const capitalizeFirstLetter = (text: string) => text.charAt(0).toUpperCase() + text.slice(1)

@@ -7,6 +7,11 @@
         :color="isDark? '#fff' : 'warning'"
       />
     </template>
+    <template #innerLabel>
+      <span style="width: 46px; display: inline-block; text-align: center;">
+        {{ isDark ? 'Dark' : 'Light' }}
+      </span>
+    </template>
   </va-switch>
 </template>
 

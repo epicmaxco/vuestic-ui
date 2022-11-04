@@ -56,7 +56,7 @@
             {{ $t('landing.header.buttons.blog') }}
           </va-button>
           <language-dropdown class="header__links--link" preset="landingHeader" />
-          <LandingThemeSwitchButton class="ml-2" />
+          <!-- <LandingThemeSwitchButton class="ml-2" /> -->
           <landing-stars-button class="ml-2" repo="epicmaxco/vuestic-ui" />
         </nav>
         <!-- mobile -->
@@ -130,7 +130,7 @@ import { languages } from '../../locales'
 import VuesticLogo from '../header/components/VuesticLogo.vue'
 import LanguageDropdown from '../header/components/LanguageDropdown.vue'
 import LandingStarsButton from './LandingStarsButton.vue'
-import LandingThemeSwitchButton from './LandingThemeSwitchButton.vue'
+import LandingThemeSwitchButton from '../ThemeSwitch.vue'
 
 @Options({
   name: 'LandingHeader',
