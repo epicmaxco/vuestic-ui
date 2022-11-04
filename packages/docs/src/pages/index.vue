@@ -66,5 +66,6 @@ export default class Landing extends Vue {}
   background-size: unset;
   background-repeat: no-repeat;
   background-position: top;
+  background-color: var(--va-background-secondary);
 }
 </style>

@@ -140,6 +140,8 @@ export default {
     padding-top: 1.5rem;
 
     &--button {
+      --va-button-font-size: 1.1rem;
+
       @include button-font();
 
       margin-top: 1rem;
