@@ -47,12 +47,16 @@
           </div>
           <div class="va-switch__checker-wrapper">
             <span class="va-switch__checker">
-              <va-progress-circle
-                v-if="$props.loading"
-                indeterminate
-                :size="progressCircleSize"
-                :color="trackStyle.backgroundColor"
-              />
+              <slot name="checker" v-bind="{ value: isChecked }">
+                <div class="va-switch__checker-circle">
+                  <va-progress-circle
+                    v-if="$props.loading"
+                    indeterminate
+                    :size="progressCircleSize"
+                    :color="trackStyle.backgroundColor"
+                  />
+                </div>
+              </slot>
             </span>
           </div>
         </div>
@@ -193,6 +197,7 @@ export default defineComponent({
 
     const trackLabelStyle = computed(() => ({
       color: textColorComputed.value,
+      'text-align': isChecked.value ? 'left' as const : 'right' as const,
     }))
 
     const ariaLabelIdComputed = computed(() => `aria-label-id-${generateUniqueId()}`)
@@ -241,6 +246,7 @@ export default defineComponent({
     .va-switch__container {
       display: inline-flex;
       align-items: center;
+      height: 100%;
     }
   }
 
@@ -273,7 +279,7 @@ export default defineComponent({
         min-width: var(--va-switch-sm-inner-min-width);
       }
 
-      &__checker {
+      &__checker-circle {
         height: 1.1rem;
         width: 1.1rem;
       }
@@ -288,7 +294,7 @@ export default defineComponent({
         min-width: var(--va-switch-lg-inner-min-width);
       }
 
-      &__checker {
+      &__checker-circle {
         height: 1.8rem;
         width: 1.8rem;
       }
@@ -336,6 +342,9 @@ export default defineComponent({
       &__checker {
         margin: auto -0.3rem;
         transform: translateX(-100%);
+      }
+
+      &__checker-circle {
         background-color: var(--va-switch-checker-active-background-color);
       }
 
@@ -388,6 +397,7 @@ export default defineComponent({
     color: $white;
     margin: auto 0.5rem auto 2rem;
     user-select: none;
+    width: 100%;
 
     @at-root {
       .va-switch--checked#{&} {
@@ -422,15 +432,18 @@ export default defineComponent({
     bottom: 0;
     margin: var(--va-switch-checker-margin);
     transform: var(--va-switch-checker-transform);
-    height: var(--va-switch-checker-height);
-    width: var(--va-switch-checker-width);
-    background-color: var(--va-switch-checker-background-color);
-    border-radius: var(--va-switch-checker-border-radius);
     box-shadow: var(--va-switch-checker-box-shadow);
     transition: var(--va-switch-checker-transition);
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  &__checker-circle {
+    height: var(--va-switch-checker-height);
+    width: var(--va-switch-checker-width);
+    background-color: var(--va-switch-checker-background-color);
+    border-radius: var(--va-switch-checker-border-radius);
   }
 
   &__checker-wrapper {
