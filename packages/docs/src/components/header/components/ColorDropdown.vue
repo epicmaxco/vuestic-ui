@@ -7,6 +7,7 @@
         label="Colors"
         :offset="[0, 25]"
         prevent-overflow
+        :close-on-content-click="false"
       >
         <div class="color-dropdown__content px-1">
           <va-button-toggle
@@ -14,7 +15,7 @@
             @update:model-value="setTheme"
             :model-value="currentTheme"
             grow
-            class="mb-2"
+            class="my-2"
           />
 
           <div v-for="color in colorsArray" :key="color.name" class="color mt-1 mb-1">
