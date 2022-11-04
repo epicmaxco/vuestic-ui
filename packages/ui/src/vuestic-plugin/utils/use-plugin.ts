@@ -1,7 +1,7 @@
 import type { App } from 'vue'
 import { VuesticPluginFabric, VuesticPlugin } from '../types'
 
-const isPluginFabric = (plugin: VuesticPlugin | VuesticPluginFabric): plugin is VuesticPluginFabric => typeof plugin === 'function'
+const isPluginFabric = <O extends any[]>(plugin: VuesticPlugin | VuesticPluginFabric<O>): plugin is VuesticPluginFabric<O> => typeof plugin === 'function'
 
 /**
  * Allow user to use plugin as function or just pass it.

@@ -27,14 +27,14 @@
           v-for="(link, index) in links"
           :key="index"
           preset="secondary"
-          class="header__prefences__button"
+          class="header__prefences__button mr-1"
           :to="link.to"
           :href="link.url"
           :target="link.target"
         >
           {{ link.text }}
         </va-button>
-        <color-dropdown class="mr-1" />
+        <color-dropdown class="mr-2" />
         <language-dropdown class="mr-3" preset="secondary" />
         <version-dropdown />
       </div>
@@ -136,8 +136,6 @@ export default class Header extends mixins(PropsMixin) {
 
     &__button {
       --va-button-content-px: 1rem;
-
-      margin-right: 0.25rem;
 
       .button__text {
         margin-left: 0.375rem;

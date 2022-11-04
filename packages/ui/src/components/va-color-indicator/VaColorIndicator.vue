@@ -28,6 +28,7 @@ export default defineComponent({
     modelValue: { type: Boolean, default: null },
     color: { type: String, default: '' },
     square: { type: Boolean, default: false },
+    size: { type: String, default: '1rem' },
   },
   setup (props, { emit }) {
     const { valueComputed } = useStateful(props, emit)
@@ -38,6 +39,8 @@ export default defineComponent({
     const computedStyle = computed(() => ({
       borderRadius: props.square ? '0px' : '50%',
       backgroundColor: colorComputed.value,
+      height: props.size,
+      width: props.size,
     }))
 
     const computedClass = computed(() => ({
@@ -69,6 +72,7 @@ export default defineComponent({
   text-align: center;
   background-color: var(--va-background-element);
   border: 0.125rem solid var(--va-background-border);
+  box-sizing: content-box;
 
   &--selected {
     background-color: var(--va-primary);
