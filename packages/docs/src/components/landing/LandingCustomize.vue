@@ -506,7 +506,8 @@ const copyText = () => {
     @include sm(margin-top, 2rem);
 
     &--first {
-      background: #ffffff;
+      background: var(--va-background-secondary);
+      color: var(--va-on-background-secondary);
       position: relative;
       display: flex;
       flex-direction: column;

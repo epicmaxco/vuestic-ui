@@ -36,8 +36,7 @@ export const createVuesticEssential = defineVuesticPlugin((options: {
     // These plugins have dependant plugins, so have to be registered first.
     usePlugin(app, plugins?.GlobalConfigPlugin || GlobalConfigPlugin, config)
     usePlugin(app, plugins?.CachePlugin || CachePlugin)
-
-    usePlugin(app, plugins?.ColorConfigPlugin || ColorConfigPlugin)
+    usePlugin(app, plugins?.ColorConfigPlugin || ColorConfigPlugin, config)
 
     if (plugins) {
       Object.entries(plugins).forEach(([name, plugin]) => {

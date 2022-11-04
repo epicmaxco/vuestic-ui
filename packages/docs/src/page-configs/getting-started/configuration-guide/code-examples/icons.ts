@@ -5,16 +5,13 @@ export const iconsInstallObject = {
 
 export const iconsSetup = `
 // main.js
-...
 import { createVuestic, createIconsConfig } from 'vuestic-ui/src/main'
 import 'vuestic-ui/css'
 import 'material-design-icons-iconfont/dist/material-design-icons.min.css'
-...
 `
 
 export const iconsConfig = `
 // main.js
-...
 import { createVuestic, createIconsConfig } from 'vuestic-ui/src/main'
 import 'vuestic-ui/css'
 
@@ -49,4 +46,5 @@ createApp(App)
       // ...
     }
   }))
+  .mount('#app')
 `

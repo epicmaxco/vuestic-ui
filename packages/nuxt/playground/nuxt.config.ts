@@ -4,12 +4,10 @@ export default defineNuxtConfig({
   modules: ['@vuestic/nuxt'],
 
   vuestic: {
-    withoutComponents: false,
     config: {
       components: {
         VaButton: {
-          outline: true,
-          rounded: false,
+          round: false,
           size: 'small'
         }
       }
