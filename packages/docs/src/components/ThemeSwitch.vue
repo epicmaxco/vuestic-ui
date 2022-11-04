@@ -1,16 +1,13 @@
 <template>
-  <va-switch class="theme-switch-button" v-model="isDark" color="#5e548e" off-color="#222" size="small" style="height: 1.8rem;">
-    <template #checker>
-      <va-icon
-        size="18px"
-        :name="isDark ? 'dark_mode' : 'light_mode'"
-        :color="isDark? '#fff' : 'warning'"
-      />
-    </template>
+  <va-switch class="theme-switch-button" v-model="isDark" color="#5123a1" off-color="#ffd300" style="--va-switch-checker-background-color: #252723;">
     <template #innerLabel>
-      <span style="width: 46px; display: inline-block; text-align: center;">
-        {{ isDark ? 'Dark' : 'Light' }}
-      </span>
+      <div class="va-text-center">
+        <va-icon
+          size="24px"
+          :name="isDark ? 'dark_mode' : 'light_mode'"
+          class="mx-1"
+        />
+      </div>
     </template>
   </va-switch>
 </template>
@@ -29,6 +26,8 @@ const isDark = computed({
 
 <style lang="scss">
 .theme-switch-button {
-  --va-switch-sm-inner-height: 1.8rem;
+  --va-switch-inner-height: 2.25rem;
+  --va-switch-inner-width: 100%;
+  --va-switch-track-border-radius: 9999px;
 }
 </style>

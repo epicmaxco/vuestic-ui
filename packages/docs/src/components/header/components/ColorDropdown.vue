@@ -11,13 +11,13 @@
       >
         <div class="color-dropdown__content px-1">
           <div class="d-flex justify-center">
-            <ThemeSwitch />
+            <ThemeSwitch style="width: 100%;" />
           </div>
 
-          <va-divider style="margin: 0.5rem -0.6rem;" />
+          <va-divider style="margin: 0.5rem -0.5rem;" />
 
-          <div v-for="color in colorsArray" :key="color.name" class="color mt-1 mb-1">
-            <va-color-indicator :color="color.name" /> <span class="color__title">{{ color.title }}</span>
+          <div v-for="color in colorsArray" :key="color.name" class="color my-3 d-flex align-center">
+            <va-color-indicator size="1.25rem" :color="color.name" /> <span class="color__title">{{ color.title }}</span>
           </div>
         </div>
       </va-button-dropdown>
@@ -71,6 +71,7 @@ export default defineComponent({
 
 .color-dropdown {
   cursor: pointer;
+  font-family: var(--va-font-family);
 
   .va-badge__text-wrapper {
     top: 50%;
