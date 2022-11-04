@@ -118,7 +118,7 @@ export default defineComponent({
   width: 100%;
   position: relative;
   padding-top: 4.5rem;
-  background: transparent;
+  background: var(--va-background-secondary);
 
   // sm
   @include sm(padding-top, 1rem);
