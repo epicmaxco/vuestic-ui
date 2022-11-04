@@ -10,7 +10,6 @@
             target="blank"
             preset="plain"
           >
-            <va-icon class="button-icon" :component="IconEpicmax" />
             {{ $t("landing.footer.buttons.epicmax") }}
           </va-button>
           <va-button
@@ -19,7 +18,6 @@
             target="blank"
             preset="plain"
           >
-            <va-icon class="button-icon" :component="IconAdmin" />
             {{ $t("landing.footer.buttons.admin") }}
           </va-button>
           <va-button
@@ -28,7 +26,6 @@
             target="blank"
             preset="plain"
           >
-            <va-icon class="button-icon" :component="IconSpinners" />
             {{ $t("landing.footer.buttons.spinners") }}
           </va-button>
         </div>
