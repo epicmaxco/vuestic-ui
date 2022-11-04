@@ -41,14 +41,14 @@ export default defineComponent({
     })
 
     const themes = Object.keys(presets.value).map((themeName) => ({ value: themeName, label: capitalizeFirstLetter(themeName) }))
-    const currentTheme = ref(localStorage.getItem('vuestic-docs-theme') || 'DEFAULT')
+    const currentTheme = ref(localStorage.getItem('vuestic-docs-theme') || 'light')
 
     const setTheme = (theme: string) => {
       localStorage.setItem('vuestic-docs-theme', theme)
       applyPreset(theme)
     }
 
-    setTheme(localStorage.getItem('vuestic-docs-theme') || 'DEFAULT')
+    setTheme(localStorage.getItem('vuestic-docs-theme') || 'dark')
 
     return {
       themes,

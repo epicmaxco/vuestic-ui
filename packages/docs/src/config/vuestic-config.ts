@@ -27,9 +27,16 @@ export const VuesticConfig: Partial<PartialGlobalConfig> = {
     },
   },
   colors: {
+    currentPresetName: localStorage.getItem('vuestic-docs-theme') || 'light',
     presets: {
       light: {
         backgroundPrimary: '#FFFFFF',
+        backgroundLanding: '#f4f9fc',
+        backgroundLandingBorder: 'rgba(155, 179, 206, 0.8)',
+      },
+      dark: {
+        backgroundLanding: '#070d14',
+        backgroundLandingBorder: 'rgba(43, 49, 56, 0.8)',
       },
     },
   },

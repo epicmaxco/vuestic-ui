@@ -47,7 +47,8 @@
             <va-icon name="exit_to_app" class="mr-1" size="small" /> {{ $t('landing.header.buttons.blog') }}
           </va-button>
           <language-dropdown class="header__links--link" preset="landingHeader" />
-          <landing-stars-button class="ml-4" repo="epicmaxco/vuestic-ui" />
+          <LandingThemeSwitchButton class="ml-2" />
+          <landing-stars-button class="ml-2" repo="epicmaxco/vuestic-ui" />
         </nav>
         <!-- mobile -->
         <nav class="mobile-menu" :class="computedClass">
@@ -120,11 +121,15 @@ import { languages } from '../../locales'
 import VuesticLogo from '../header/components/VuesticLogo.vue'
 import LanguageDropdown from '../header/components/LanguageDropdown.vue'
 import LandingStarsButton from './LandingStarsButton.vue'
+import LandingThemeSwitchButton from './LandingThemeSwitchButton.vue'
 
 @Options({
   name: 'LandingHeader',
   components: {
-    LanguageDropdown, LandingStarsButton, VuesticLogo,
+    LanguageDropdown,
+    LandingStarsButton,
+    VuesticLogo,
+    LandingThemeSwitchButton,
   },
 })
 export default class Header extends Vue {
