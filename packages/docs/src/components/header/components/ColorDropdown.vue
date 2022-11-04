@@ -27,6 +27,7 @@
 
 <script lang="ts">
 import { useColors } from 'vuestic-ui/src/main'
+import { colorsPresets } from 'vuestic-ui/src/services/color-config/color-theme-presets'
 import { computed, defineComponent, ref } from 'vue'
 import ThemeSwitch from '../../ThemeSwitch.vue'
 
@@ -36,12 +37,11 @@ export default defineComponent({
   components: { ThemeSwitch },
 
   setup () {
-    const { applyPreset, presets, getColors, setColors } = useColors()
+    const { applyPreset, presets, getColors } = useColors()
     const capitalizeFirstLetter = (text: string) => text.charAt(0).toUpperCase() + text.slice(1)
 
     const colorsArray = computed(() => {
-      const colors = getColors()
-      const colorNames = Object.keys(colors)
+      const colorNames = Object.keys(colorsPresets.light)
 
       return colorNames.map((c) => ({ name: c, title: capitalizeFirstLetter(c) }))
     })
