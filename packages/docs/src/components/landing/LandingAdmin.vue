@@ -86,7 +86,7 @@ export default class Admin extends Vue {}
   position: relative;
   padding-top: 4.5rem;
   padding-bottom: 8.5rem;
-  background-color: var(--va-background-secondary);
+  background-color: $bg-light-sky;
 
   // sm
   @include sm(padding-top, 3rem);
