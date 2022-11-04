@@ -10,7 +10,6 @@
             target="blank"
             preset="plain"
           >
-            <va-icon class="button-icon" :component="IconEpicmax" />
             {{ $t("landing.footer.buttons.epicmax") }}
           </va-button>
           <va-button
@@ -19,7 +18,6 @@
             target="blank"
             preset="plain"
           >
-            <va-icon class="button-icon" :component="IconAdmin" />
             {{ $t("landing.footer.buttons.admin") }}
           </va-button>
           <va-button
@@ -28,7 +26,6 @@
             target="blank"
             preset="plain"
           >
-            <va-icon class="button-icon" :component="IconSpinners" />
             {{ $t("landing.footer.buttons.spinners") }}
           </va-button>
         </div>
@@ -118,7 +115,7 @@ export default defineComponent({
   width: 100%;
   position: relative;
   padding-top: 4.5rem;
-  background: transparent;
+  background: var(--va-background-secondary);
 
   // sm
   @include sm(padding-top, 1rem);

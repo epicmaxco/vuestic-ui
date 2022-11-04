@@ -27,7 +27,7 @@ export default class VersionDropdown extends Vue {
 
 <style lang="scss">
 .version-dropdown {
-  color: var(--va-primary);
+  color: var(--va-text-primary);
   font-weight: 600;
 }
 </style>

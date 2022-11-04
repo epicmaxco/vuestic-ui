@@ -3,6 +3,7 @@
     "header": {
       "buttons": {
         "overview": "Overview",
+        "docs": "Docs",
         "github": "GitHub",
         "discord": "Discord",
         "translation": "Add translation...",

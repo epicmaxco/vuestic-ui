@@ -3,6 +3,15 @@ import { icons } from './icons-config/icons-config'
 
 const scrollWrapperSelector = '.base-layout__content'
 
+const VaButtonLandingHeader = {
+  round: false,
+  size: 'large',
+  plain: true,
+  'hover-behavior': 'mask',
+  'hover-mask-color': 'textPrimary',
+  'hover-opacity': '1',
+}
+
 export const VuesticConfig: Partial<PartialGlobalConfig> = {
   icons,
   components: {
@@ -16,13 +25,10 @@ export const VuesticConfig: Partial<PartialGlobalConfig> = {
       VaButton: {
         addToCart: { size: 'large', round: true },
         deleteFromCart: { size: 'small', plain: true },
-        landingHeader: {
-          size: 'large',
-          plain: true,
-          'hover-behavior': 'mask',
-          'hover-mask-color': 'textPrimary',
-          'hover-opacity': '1',
-        },
+        landingHeader: VaButtonLandingHeader,
+      },
+      VaButtonDropdown: {
+        landingHeader: VaButtonLandingHeader,
       },
     },
   },

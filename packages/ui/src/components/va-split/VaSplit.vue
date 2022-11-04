@@ -320,7 +320,7 @@ export default defineComponent({
   &__panel {
     overflow: var(--va-split-panel-overflow);
 
-    @include va-scroll(var(--va-primary));
+    @include va-scroll();
   }
 
   &--dragging {

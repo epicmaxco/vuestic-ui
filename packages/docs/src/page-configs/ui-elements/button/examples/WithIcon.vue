@@ -1,8 +1,8 @@
 <template>
-  <div style="display: flex; align-items: center;">
-    <va-button icon="clear" icon-color="danger" class="mr-4 mb-2">Clear</va-button>
-    <va-button icon-right="create" icon-color="warning" class="mr-4 mb-2">Edit</va-button>
-    <va-button icon="block" class="mr-4 mb-2" />
-    <va-button icon="palette" icon-right="create" class="mr-4 mb-2" />
+  <div class="d-flex align-center">
+    <va-button icon="clear" color="danger" class="mr-3 mb-2">Delete</va-button>
+    <va-button icon-right="arrow_forward" icon-color="#ffffff50" class="mr-3 mb-2">Continue</va-button>
+    <va-button icon="add" color="warning" icon-color="#812E9E" class="mr-3 mb-2" />
+    <va-button icon="star" icon-right="unfold_more" class="mb-2" />
   </div>
 </template>

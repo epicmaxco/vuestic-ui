@@ -29,7 +29,7 @@
             class="header__links--link"
             preset="landingHeader"
           >
-            {{ $t('landing.header.buttons.overview') }}
+            {{ $t('landing.header.buttons.docs') }}
           </va-button>
           <va-button
             href="https://discord.gg/u7fQdqQt8c"
@@ -37,14 +37,23 @@
             target="_blank"
             preset="landingHeader"
           >
-            <va-icon name="discord" class="mr-1" size="small" />
             {{ $t('landing.header.buttons.discord') }}
           </va-button>
-          <va-button  :to="`/${$root.$i18n.locale}/introduction/team`" class="header__links--link" preset="landingHeader" target="_blank">
-            <va-icon name="group" class="mr-1" size="small" /> {{ $t('landing.header.buttons.team') }}
+          <va-button
+            :to="`/${$root.$i18n.locale}/introduction/team`"
+            class="header__links--link"
+            preset="landingHeader"
+            target="_blank"
+          >
+            {{ $t('landing.header.buttons.team') }}
           </va-button>
-          <va-button href="https://epicmax.co/blog" class="header__links--link" preset="landingHeader" target="_blank">
-            <va-icon name="exit_to_app" class="mr-1" size="small" /> {{ $t('landing.header.buttons.blog') }}
+          <va-button
+            href="https://epicmax.co/blog"
+            class="header__links--link"
+            preset="landingHeader"
+            target="_blank"
+          >
+            {{ $t('landing.header.buttons.blog') }}
           </va-button>
           <language-dropdown class="header__links--link" preset="landingHeader" />
           <LandingThemeSwitchButton class="ml-2" />
@@ -248,6 +257,7 @@ export default class Header extends Vue {
       @include link-font();
       @include sm(width, 100%);
 
+      border-radius: 0;
       white-space: nowrap;
       margin-left: 1.25rem;
 

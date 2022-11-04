@@ -1,25 +1,29 @@
 <template>
   <div class="color-dropdown">
-    <va-button-dropdown
-      class="color-dropdown__icon"
-      preset="secondary"
-      label="Colors"
-      :offset="[0, 25]"
-    >
-      <div class="color-dropdown__content px-1">
-        <va-button-toggle
-          :options="themes"
-          @update:model-value="setTheme"
-          :model-value="currentTheme"
-          grow
-          class="mb-2"
-        />
+    <va-badge text="new">
+      <va-button-dropdown
+        class="color-dropdown__icon"
+        preset="secondary"
+        label="Colors"
+        :offset="[0, 25]"
+        prevent-overflow
+        :close-on-content-click="false"
+      >
+        <div class="color-dropdown__content px-1">
+          <va-button-toggle
+            :options="themes"
+            @update:model-value="setTheme"
+            :model-value="currentTheme"
+            grow
+            class="my-2"
+          />
 
-        <div v-for="color in colorsArray" :key="color.name" class="color mt-1 mb-1">
-          <va-color-indicator :color="color.name" /> <span class="color__title">{{ color.title }}</span>
+          <div v-for="color in colorsArray" :key="color.name" class="color mt-1 mb-1">
+            <va-color-indicator :color="color.name" /> <span class="color__title">{{ color.title }}</span>
+          </div>
         </div>
-      </div>
-    </va-button-dropdown>
+      </va-button-dropdown>
+    </va-badge>
   </div>
 </template>
 
@@ -66,6 +70,13 @@ export default defineComponent({
 .color-dropdown {
   cursor: pointer;
 
+  .va-badge__text-wrapper {
+    top: 50%;
+    left: unset;
+    right: 0;
+    transform: translate(0, -50%);
+  }
+
   &__icon {
     .va-button__content {
       font-weight: 600;
@@ -74,6 +85,7 @@ export default defineComponent({
     position: relative;
     display: flex;
     align-items: center;
+    margin-right: 2rem;
   }
 
   &__content {
