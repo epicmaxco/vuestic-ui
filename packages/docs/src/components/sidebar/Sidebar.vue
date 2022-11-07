@@ -46,20 +46,16 @@
           >
             <va-sidebar-item-content>
               <va-sidebar-item-title>
-                {{ t(childRoute.displayName) }}
-              </va-sidebar-item-title>
-              <div
-                class="va-sidebar-item-badges"
-                v-if="childRoute.meta && childRoute.meta.badge"
-              >
-                <va-chip
+                <va-badge
+                  class="sidebar-item-badge"
                   size="small"
-                  :color="badgeColors[childRoute.meta.badge]"
-                  :title="t(`menu.badges.${childRoute.meta.badge}.title`)"
+                  :text="childRoute.meta && t(`menu.badges.${childRoute.meta.badge}.text`)"
+                  :color="childRoute.meta && badgeColors[childRoute.meta.badge]"
+                  :visible-empty="false"
                 >
-                  {{ t(`menu.badges.${childRoute.meta.badge}.text`) }}
-                </va-chip>
-              </div>
+                  {{ t(childRoute.displayName) }}
+                </va-badge>
+              </va-sidebar-item-title>
             </va-sidebar-item-content>
           </va-sidebar-item>
         </div>
@@ -70,7 +66,7 @@
 
 <script lang="ts">
 import { defineComponent, watch, ref, computed, PropType } from 'vue'
-import { useRoute, RouteRecord } from 'vue-router'
+import { useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 
 import { useColors } from 'vuestic-ui/src/main'
@@ -132,7 +128,7 @@ export default defineComponent({
       routeHasActiveChild,
       isActiveChildRoute,
       onSidebarItemClick,
-      badgeColors: { wip: 'primary', new: 'success', updated: 'warning' },
+      badgeColors: { wip: 'primary', new: 'danger', updated: 'warning' },
       activeColor: computed(() => getFocusColor(getColor('primary'))),
       hoverColor: computed(() => getHoverColor(getColor('primary'))),
 
@@ -145,6 +141,12 @@ export default defineComponent({
 @import "~vuestic-ui/src/styles/resources";
 
 .sidebar {
+  &-item-badge {
+    .va-badge__text-wrapper {
+      transform: translate(5px, 2px);
+    }
+  }
+
   &__collapse-custom-header {
     position: relative;
     padding: 1rem 1.2rem;

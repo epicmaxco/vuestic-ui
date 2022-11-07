@@ -1,6 +1,6 @@
 import * as vuesticComponents from './vuestic-components'
 
-/** Utility type: Show type instad of import word */
+/** Utility type: Show type instead of import word */
 type Map<O extends Record<any, any>> = { [K in keyof O]: O[K] }
 /** Utility type: Check if key exist in object before access */
 type SafeAccess<O, K> = K extends keyof O ? O[K] : never

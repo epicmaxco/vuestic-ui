@@ -7,7 +7,7 @@
     </template>
     <template #grabber>
       <div class="custom-grabber">
-        <va-icon name="face" />
+        <va-icon name="swap_horiz" />
       </div>
     </template>
     <template #end>
@@ -36,7 +36,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: greenyellow;
+    background-color: var(--va-background-element);
   }
 }
 </style>

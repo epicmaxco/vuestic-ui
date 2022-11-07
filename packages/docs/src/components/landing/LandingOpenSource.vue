@@ -45,6 +45,7 @@ export default defineComponent({
 
 .opensource {
   width: 100%;
+  background-color: var(--va-background-secondary);
   position: relative;
   padding-top: 10rem;
   padding-bottom: 10rem;

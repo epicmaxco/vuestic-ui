@@ -49,14 +49,16 @@
 ### Why use Vuestic UI?
 
 - Vue.js 3.0 compatible
-- MIT license
-- Feature-rich: more than 52 customizable components
+- Accessibility
+- Dark Theme support
+- Feature-rich: more than 60 customizable components
 - Two built-in color scheme presets
 - Powerful configurations:
     - Local - configure components in-depth
     - Global - configure framework overall
 - Cross-browser and responsive
 - i18n-ready
+- MIT license
 
 ### Installation
 
@@ -140,9 +142,15 @@ We design Vuestic UI to support the latest modern web browsers.
 | Edge | last 2 versions  | last 2 versions | last 2 versions | last 2 versions |
 
 ### Can I hire you guys?
+[Epicmax](https://epicmax.co) is committed to Open Source from its beginning.
+[Vuestic UI](https://vuestic.dev) was created and backed by Epicmax, and is supported through all the years. 
+You can request a consultation or order web development services by Epicmax via this [form](https://epicmax.co/contacts) 😎
 
-Yes! Say hi: <a href="mailto:hello@epicmax.co">hello@epicmax.co</a>
-We will be happy to work with you! [Other work](https://epicmax.co) we’ve done
+Say hi: <a href="mailto:hello@epicmax.co">hello@epicmax.co</a>. We will be happy to work with you! 
+
+[Other work](https://epicmax.co) we’ve done 🤘
+
+[Meet the Team](https://vuestic.dev/team)
 
 ### Follow us
 

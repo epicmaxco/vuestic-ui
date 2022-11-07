@@ -439,6 +439,9 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: 'components-config',
         displayName: 'menu.componentsConfig',
+        meta: {
+          badge: 'updated',
+        },
       },
       {
         name: 'icons-config',

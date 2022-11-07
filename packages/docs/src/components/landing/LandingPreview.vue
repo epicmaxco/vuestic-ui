@@ -9,13 +9,11 @@
           >
             {{$t('landing.preview.buttons.start')}}
           </va-button>
-          <va-button class="preview__buttons--button" href="https://github.com/epicmaxco/vuestic-ui"
-                       target="_blank"
-                       preset="plain"
-            >
-              <va-icon class="fa fa-github" style="margin-right: 0.5rem;" />
-              {{$t('landing.preview.buttons.github')}}
-            </va-button>
+
+          <a class="preview__buttons--link" href="https://github.com/epicmaxco/vuestic-ui" target="_blank">
+            <va-icon class="fa fa-github" style="margin-right: 0.5rem;" />
+            {{ $t('landing.preview.buttons.github') }}
+          </a>
         </div>
 <!--        <div class="preview__image">-->
 <!--          <div class="components-slideshow">-->
@@ -138,15 +136,25 @@ export default {
     width: 100%;
     justify-content: center;
     align-items: center;
+    align-content: center;
     padding-top: 1.5rem;
 
     &--button {
+      --va-button-font-size: 1.1rem;
+
       @include button-font();
 
       margin-top: 1rem;
       height: 3rem;
 
       @include xs(width, 100%);
+    }
+
+    &--link {
+      @include button-font();
+      @include xs(width, 100%);
+
+      margin-top: 0.75rem;
     }
 
     &--button:nth-child(1) {

@@ -29,7 +29,7 @@
             class="header__links--link"
             preset="landingHeader"
           >
-            {{ $t('landing.header.buttons.overview') }}
+            {{ $t('landing.header.buttons.docs') }}
           </va-button>
           <va-button
             href="https://discord.gg/u7fQdqQt8c"
@@ -37,17 +37,27 @@
             target="_blank"
             preset="landingHeader"
           >
-            <va-icon name="discord" class="mr-1" size="small" />
             {{ $t('landing.header.buttons.discord') }}
           </va-button>
-          <va-button  :to="`/${$root.$i18n.locale}/introduction/team`" class="header__links--link" preset="landingHeader" target="_blank">
-            <va-icon name="group" class="mr-1" size="small" /> {{ $t('landing.header.buttons.team') }}
+          <va-button
+            :to="`/${$root.$i18n.locale}/introduction/team`"
+            class="header__links--link"
+            preset="landingHeader"
+            target="_blank"
+          >
+            {{ $t('landing.header.buttons.team') }}
           </va-button>
-          <va-button href="https://epicmax.co/blog" class="header__links--link" preset="landingHeader" target="_blank">
-            <va-icon name="exit_to_app" class="mr-1" size="small" /> {{ $t('landing.header.buttons.blog') }}
+          <va-button
+            href="https://epicmax.co/blog"
+            class="header__links--link"
+            preset="landingHeader"
+            target="_blank"
+          >
+            {{ $t('landing.header.buttons.blog') }}
           </va-button>
           <language-dropdown class="header__links--link" preset="landingHeader" />
-          <landing-stars-button class="ml-4" repo="epicmaxco/vuestic-ui" />
+          <!-- <LandingThemeSwitchButton class="ml-2" /> -->
+          <landing-stars-button class="ml-2" repo="epicmaxco/vuestic-ui" />
         </nav>
         <!-- mobile -->
         <nav class="mobile-menu" :class="computedClass">
@@ -120,11 +130,15 @@ import { languages } from '../../locales'
 import VuesticLogo from '../header/components/VuesticLogo.vue'
 import LanguageDropdown from '../header/components/LanguageDropdown.vue'
 import LandingStarsButton from './LandingStarsButton.vue'
+import LandingThemeSwitchButton from '../ThemeSwitch.vue'
 
 @Options({
   name: 'LandingHeader',
   components: {
-    LanguageDropdown, LandingStarsButton, VuesticLogo,
+    LanguageDropdown,
+    LandingStarsButton,
+    VuesticLogo,
+    LandingThemeSwitchButton,
   },
 })
 export default class Header extends Vue {
@@ -243,6 +257,7 @@ export default class Header extends Vue {
       @include link-font();
       @include sm(width, 100%);
 
+      border-radius: 0;
       white-space: nowrap;
       margin-left: 1.25rem;
 
