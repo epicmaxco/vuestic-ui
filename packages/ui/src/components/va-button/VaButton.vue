@@ -216,6 +216,7 @@ export default defineComponent({
   transition: var(--va-button-transition);
   box-sizing: border-box;
   cursor: var(--va-button-cursor);
+  word-break: keep-all;
 
   &::after,
   &::before {
