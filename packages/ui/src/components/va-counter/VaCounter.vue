@@ -87,7 +87,15 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, InputHTMLAttributes, PropType, ComputedRef, shallowRef } from 'vue'
+import {
+  toRefs,
+  computed,
+  shallowRef,
+  defineComponent,
+  InputHTMLAttributes,
+  PropType,
+  ComputedRef,
+} from 'vue'
 import omit from 'lodash/omit'
 import pick from 'lodash/pick'
 
@@ -163,6 +171,7 @@ export default defineComponent({
 
   setup (props, { emit, attrs }) {
     const input = shallowRef<HTMLInputElement | HTMLDivElement>()
+    const { min, max, step } = toRefs(props)
 
     const {
       isFocused,
@@ -181,23 +190,26 @@ export default defineComponent({
     }
 
     const getRoundDownWithStep = (value: number) => {
-      if (!props.min || !props.step) { return value }
+      if (typeof min.value === 'undefined' || !step.value) { return value }
 
       // If the user enters a value manually, then we must round it to the nearest valid value,
       // taking into account the initial value (`props.min`) and the step size (`props.step`)
-      return props.min + props.step * Math.floor((value - props.min) / props.step)
+      return min.value + step.value * Math.floor((value - min.value) / step.value)
     }
 
     const calculateCounterValue = (counterValue: number) => {
-      if (props.min && counterValue < props.min) {
-        valueComputed.value = props.min
+      if (typeof min.value !== 'undefined' && counterValue < min.value) {
+        valueComputed.value = min.value
         return
       }
 
-      if (props.max && (counterValue > props.max)) {
+      if (max.value && (counterValue > max.value)) {
         // since the `props.step` may not be a multiple of `(props.max - props.min)`,
         // we must round the result taking into account the allowable value
-        valueComputed.value = (props.min && props.step) ? getRoundDownWithStep(props.max) : props.max
+        valueComputed.value = (typeof min.value !== 'undefined' && step.value)
+          ? getRoundDownWithStep(max.value)
+          : max.value
+
         return
       }
 
@@ -205,16 +217,17 @@ export default defineComponent({
     }
 
     const isMinReached = computed(() => {
-      if (!props.min) { return false }
-      return Number(valueComputed.value) <= props.min
+      if (typeof min.value === 'undefined') { return false }
+
+      return Number(valueComputed.value) <= min.value
     })
 
     const isMaxReached = computed(() => {
-      if (!props.max) { return false }
+      if (!max.value) { return false }
 
-      return props.step
-        ? Number(valueComputed.value) > (props.max - props.step)
-        : Number(valueComputed.value) >= props.max
+      return step.value
+        ? Number(valueComputed.value) > (max.value - step.value)
+        : Number(valueComputed.value) >= max.value
     })
 
     const tabIndexComputed = computed(() => props.disabled ? -1 : 0)
@@ -229,12 +242,12 @@ export default defineComponent({
 
     const decreaseCount = () => {
       if (isDecreaseActionDisabled.value) { return }
-      calculateCounterValue(Number(valueComputed.value) - props.step)
+      calculateCounterValue(Number(valueComputed.value) - step.value)
     }
 
     const increaseCount = () => {
       if (isIncreaseActionDisabled.value) { return }
-      calculateCounterValue(Number(valueComputed.value) + props.step)
+      calculateCounterValue(Number(valueComputed.value) + step.value)
     }
 
     const { getColor } = useColors()
@@ -281,8 +294,8 @@ export default defineComponent({
     const inputAttributesComputed = computed(() => ({
       tabindex: tabIndexComputed.value,
       ariaLabel: props.label || t('counterValue'),
-      ariaValuemin: props.min,
-      ariaValuemax: props.max,
+      ariaValuemin: min.value,
+      ariaValuemax: max.value,
       ...omit(attrs, ['class', 'style']),
       ...pick(props, ['disabled', 'min', 'max', 'step']),
       readonly: props.readonly || !props.manualInput,
