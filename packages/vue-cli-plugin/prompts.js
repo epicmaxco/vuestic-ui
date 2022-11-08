@@ -6,13 +6,13 @@ module.exports = pkg => {
     {
       type: 'confirm',
       name: 'treeshaking',
-      message: 'Use treeshaking? You can configure it later.',
-      default: true
+      message: 'Use treeshaking? You will need to register all components manually.',
+      default: false
     },
     {
       type: 'checkbox',
       name: 'treeshakingOptions',
-      message: 'Select features that you want to use',
+      message: 'Select CSS features that you want to use',
       default: [
         'grid', 'normalize', 'typography'
       ],

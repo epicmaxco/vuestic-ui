@@ -2,6 +2,7 @@ const fs = require('fs')
 const { EOL } = require('os')
 
 const insertVuesticPlugin = require('./utils/insertPlugin')
+const insertCssImports = require('./utils/insertCssImports')
 const configs = require('./configs')
 const executeIfFunction = require('./utils/executeIfFunction')
 const resolveDependency = require('./utils/resolveDependency')
@@ -9,15 +10,9 @@ const resolveDependency = require('./utils/resolveDependency')
 const renderTemplates = (api, config, answers) => {
   // Changing project template. Adds icons to index.html.
   if (resolveDependency('vite')) {
-    const normalize = answers.treeshakingOptions ? answers.treeshakingOptions.includes('normalize') : true
-    const typescript = resolveDependency('typescript')
-
-    // Adds rollup alias to resolve normalize.css
     api.render({
         './index.html': './templates/vite/index.html',
-        [`./vite.config.${typescript ? 'ts' : 'js'}`]: './templates/vite/vite.config.ejs'
-      }, 
-      { normalize }
+      }
     )
   } else {
     api.render({
@@ -48,8 +43,14 @@ const applyConfig = (api, config, answers) => {
   
       const linesWithVuesticPlugin = config.vueUse
         .reduce((l, pluginName) => insertVuesticPlugin(l, pluginName), lines)
-        
-      fs.writeFileSync(api.resolve(api.entryFile), linesWithVuesticPlugin.join(EOL), { encoding: 'utf-8' })
+
+      const css = executeIfFunction(config.css, answers)
+
+      // For some reason css imports like `import 'style.css'` do not work with importStrings
+      // So we need to insert them manually
+      const linesWithCss = insertCssImports(linesWithVuesticPlugin, css)
+
+      fs.writeFileSync(api.resolve(api.entryFile), linesWithCss.join(EOL), { encoding: 'utf-8' })
     })
   }
 }
