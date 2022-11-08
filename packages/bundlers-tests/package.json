@@ -1,0 +1,12 @@
+{
+  "name": "bundler-test",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "test:manual": "cypress run",
+    "test": "tsx test-scipt/test-script.ts"
+  },
+  "dependencies": {
+    "cypress": "^10.11.0"
+  }
+}
