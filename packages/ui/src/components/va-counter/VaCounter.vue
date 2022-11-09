@@ -27,10 +27,7 @@
     <template v-else #prependInner="slotScope">
       <div @mousedown.prevent="focus">
         <slot name="decreaseAction" v-bind="{ ...slotScope, decreaseCount }">
-          <va-icon
-            class="va-counter__icon-decrease"
-            v-bind="decreaseIconProps"
-          />
+          <va-button v-bind="decreaseIconProps" />
         </slot>
       </div>
     </template>
@@ -54,10 +51,7 @@
     <template v-else #appendInner="slotScope">
       <div @mousedown.prevent="focus">
         <slot name="increaseAction" v-bind="{ ...slotScope, increaseCount }">
-          <va-icon
-            class="va-counter__icon-increase"
-            v-bind="increaseIconProps"
-          />
+          <va-button v-bind="increaseIconProps" />
         </slot>
       </div>
     </template>
@@ -256,14 +250,20 @@ export default defineComponent({
     const decreaseIconProps = computed(() => ({
       class: { 'va-counter__icon--inactive': isDecreaseActionDisabled.value },
       color: colorComputed.value,
-      name: props.decreaseIcon,
+      icon: props.decreaseIcon,
+      plain: true,
+      disabled: isDecreaseActionDisabled.value,
+      tabindex: -1,
       ...(!isDecreaseActionDisabled.value && { onClick: decreaseCount }),
     }))
 
     const increaseIconProps = computed(() => ({
       class: { 'va-counter__icon--inactive': isIncreaseActionDisabled.value },
       color: colorComputed.value,
-      name: props.increaseIcon,
+      icon: props.increaseIcon,
+      plain: true,
+      disabled: isIncreaseActionDisabled.value,
+      tabindex: -1,
       ...(!isIncreaseActionDisabled.value && { onClick: increaseCount }),
     }))
 
@@ -431,10 +431,14 @@ export default defineComponent({
     }
   }
 
-  .va-counter__icon--inactive {
-    cursor: inherit;
-    user-select: none;
-    opacity: 0.4;
+  .va-input-wrapper__field {
+    align-items: stretch;
+    padding: 0;
+
+    .va-input-wrapper__text,
+    .va-input__container {
+      padding-right: 0;
+    }
   }
 }
 </style>
