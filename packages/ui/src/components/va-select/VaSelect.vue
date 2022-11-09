@@ -109,10 +109,10 @@
         :bordered="true"
         :placeholder="tp($props.searchPlaceholderText)"
         v-model="searchInput"
-        @keydown.up.stop.prevent="hoverPreviousOption"
-        @keydown.left.stop.prevent="hoverPreviousOption"
-        @keydown.down.stop.prevent="hoverNextOption"
-        @keydown.right.stop.prevent="hoverNextOption"
+        @keydown.up.stop.prevent="focusPreviousOption"
+        @keydown.left.stop.prevent="focusPreviousOption"
+        @keydown.down.stop.prevent="focusNextOption"
+        @keydown.right.stop.prevent="focusNextOption"
         @keydown.enter.prevent="selectOrAddOption"
         @focus="hoveredOption = null"
       />
@@ -495,13 +495,9 @@ export default defineComponent({
       }
     }
 
-    const hoverPreviousOption = () => {
-      optionList.value?.hoverPreviousOption()
-    }
+    const focusPreviousOption = () => optionList.value?.focusPreviousOption()
 
-    const hoverNextOption = () => {
-      optionList.value?.hoverNextOption()
-    }
+    const focusNextOption = () => optionList.value?.focusNextOption()
 
     // Dropdown content
 
@@ -692,8 +688,8 @@ export default defineComponent({
       selectOption,
       selectOrAddOption,
       selectHoveredOption,
-      hoverPreviousOption,
-      hoverNextOption,
+      focusPreviousOption,
+      focusNextOption,
       showDropdownContentComputed,
       showDropdown,
       hideDropdown,
