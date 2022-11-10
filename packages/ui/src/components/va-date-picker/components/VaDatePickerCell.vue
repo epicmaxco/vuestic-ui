@@ -16,7 +16,6 @@
       'va-date-picker-cell_focused': focused,
       'va-date-picker-cell_readonly': readonly,
     }"
-    :style="computedStyle"
     @click="onClick"
     @keypress.space.enter.prevent.stop="onClick"
   >
@@ -25,7 +24,7 @@
 </template>
 
 <script lang="ts">
-import { useTextColor } from '../../../composables'
+import { useTextColor, useColors } from '../../../composables'
 import { computed, defineComponent, toRef } from 'vue'
 
 export default defineComponent({
@@ -53,18 +52,16 @@ export default defineComponent({
       if (!props.disabled) { emit('click') }
     }
 
-    const { textColorComputed } = useTextColor(toRef(props, 'color'))
+    const { getColor } = useColors()
 
-    const computedStyle = computed(() => {
-      if (props.selected) {
-        return { color: textColorComputed.value }
-      }
-      return {}
-    })
+    const bg = computed(() => getColor(props.color))
+
+    const { textColorComputed } = useTextColor(bg)
 
     return {
+      bg,
       onClick,
-      computedStyle,
+      textColorComputed,
     }
   },
 })
@@ -130,8 +127,8 @@ export default defineComponent({
   }
 
   &_selected {
-    background-color: var(--va-date-picker-selected-background);
-    color: var(--va-date-picker-selected-text);
+    background-color: v-bind(bg);
+    color: v-bind(textColorComputed);
   }
 
   &_other-month {
