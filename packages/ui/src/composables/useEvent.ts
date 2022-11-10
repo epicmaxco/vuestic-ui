@@ -28,12 +28,12 @@ export const useEvent = <N extends UseEventEventName, E extends Event>(
 
   watch(source, (newValue, oldValue) => {
     if (!Array.isArray(event)) {
-      unref(newValue)?.addEventListener?.(event, listener as any, capture)
-      unref(oldValue)?.removeEventListener?.(event, listener as any, capture)
+      unref(newValue)?.addEventListener(event, listener as any, capture)
+      unref(oldValue)?.removeEventListener(event, listener as any, capture)
     } else {
       event.forEach((e) => {
-        unref(newValue)?.addEventListener?.(e, listener as any, capture)
-        unref(oldValue)?.removeEventListener?.(e, listener as any, capture)
+        unref(newValue)?.addEventListener(e, listener as any, capture)
+        unref(oldValue)?.removeEventListener(e, listener as any, capture)
       })
     }
   }, { immediate: true })
