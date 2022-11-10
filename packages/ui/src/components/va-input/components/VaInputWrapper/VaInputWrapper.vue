@@ -275,6 +275,7 @@ export default defineComponent({
     justify-content: center;
     align-content: center;
     align-items: center;
+    white-space: nowrap;
   }
 
   &__text {
