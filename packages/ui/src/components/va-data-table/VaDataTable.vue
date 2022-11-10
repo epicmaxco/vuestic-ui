@@ -2,6 +2,7 @@
   <va-virtual-scroller
     class="va-data-table"
     v-bind="computedAttributes"
+    ref="scrollContainer"
   >
     <template
       #content="{
@@ -13,7 +14,6 @@
       }"
     >
       <va-inner-loading
-        ref="scrollContainer"
         aria-live="polite"
         :style="containerStyleComputed"
         :loading="loading"
@@ -530,11 +530,11 @@ export default defineComponent({
 // The calculated variables are taken from a respective element's `style` attribute. See the `useStylable` hook
 
 .va-data-table {
-  --va-data-table-selected-color: v-bind(CSSVariables.selectedColor);
-  --va-data-table-hover-color: v-bind(CSSVariables.hoverColor);
-  --va-data-table-height--computed: v-bind(CSSVariables.tableHeight);
-  --va-data-table-thead-background--computed: v-bind(CSSVariables.theadBg);
-  --va-data-table-tfoot-background--computed: v-bind(CSSVariables.tfootBg);
+  --va-data-table-selected-color: v-bind('CSSVariables.selectedColor');
+  --va-data-table-hover-color: v-bind('CSSVariables.hoverColor');
+  --va-data-table-height--computed: v-bind('CSSVariables.tableHeight');
+  --va-data-table-thead-background--computed: v-bind('CSSVariables.theadBg');
+  --va-data-table-tfoot-background--computed: v-bind('CSSVariables.tfootBg');
 
   min-width: unset;
   font-family: var(--va-font-family);
