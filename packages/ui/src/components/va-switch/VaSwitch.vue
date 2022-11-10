@@ -400,6 +400,7 @@ export default defineComponent({
     margin: auto 0.5rem auto 2rem;
     user-select: none;
     width: 100%;
+    white-space: nowrap;
 
     @at-root {
       .va-switch--checked#{&} {
