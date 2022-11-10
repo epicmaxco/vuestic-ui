@@ -440,6 +440,9 @@
       "events": {
         "fileAdded": "Emits after files are added",
         "fileRemoved": "Emits after file is removed"
+      },
+      "slots": {
+        "default": "Default slot allows to create custom file upload area."
       }
     },
     "VaHover": {
