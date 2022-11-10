@@ -1,9 +1,9 @@
-const { spawn } = require("child_process")
+const {spawn} = require("child_process")
 const devServerProcess = spawn("yarn", ['workspace', 'docs', 'serve'])
-const DEV_SERVER_SUCCESSFULLY_RUNNING_MESSAGE = 'App running at:'
+const DEV_SERVER_SUCCESSFULLY_RUNNING_MESSAGE = '- Local:'
 
-const startCypressTesting = () => {
-  const testProcess = spawn('yarn', ['workspace', 'bundler-test', 'test:manual'])
+const startCypressTesting = (devServerUrl: string) => {
+  const testProcess = spawn('cypress', ['run', '--config', `baseUrl=${devServerUrl}`])
 
   testProcess.stdout.on('data', data => {
     console.log('Cypress message: ', data.toString())
@@ -13,17 +13,26 @@ const startCypressTesting = () => {
 
     if (code === 0) {
       console.log('Test passed!')
-      devServerProcess.kill()
-      console.log('Dev server closed')
     }
+
+    devServerProcess.kill()
+    console.log('Dev server closed')
   })
 }
 
 devServerProcess.stdout.on('data', (data) => {
   if (data.includes(DEV_SERVER_SUCCESSFULLY_RUNNING_MESSAGE)) {
-    console.log('Dev server running, not bad!')
-    console.log('Start cypress testing.')
+    let [,serverUrl] = data.toString().match(/.*- Local:.* (htt.+)/)
+    serverUrl = serverUrl.trim()
 
-    startCypressTesting()
+    console.log('Dev server running, not bad!')
+
+    if (!/^http.+\d{4}\/$/.test(serverUrl)) {
+      console.error('Can\'t parse where dev server running')
+      devServerProcess.kill()
+      return
+    }
+
+    startCypressTesting(serverUrl)
   }
 });
