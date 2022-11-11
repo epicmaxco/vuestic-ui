@@ -1,0 +1,17 @@
+version: '3.2'
+services:
+  vite_test:
+    build: .
+    ports:
+      - "8080:80"
+  cypress:
+    image: "cypress/included:10.11.0"
+    depends_on:
+      - vite_test
+    # command: "cypress run --browser chromium"
+    environment:
+      - CYPRESS_baseUrl=http://vite_test:80
+    volumes:
+      - ./tsconfig.json:/tsconfig.json
+      - ./cypress:/cypress
+      - ./cypress.config.ts:/cypress.config.ts
