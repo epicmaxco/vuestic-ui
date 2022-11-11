@@ -70,12 +70,12 @@ export default function useSortable (
       return filteredRows.value
     }
 
-    const column = columns.value.find(column => column.name === sortBySync.value)
-    const columnIndex = column
-      ? columns.value.findIndex(({ name, sortable }) => sortBySync.value === name && sortable)
-      : -1
+    const columnIndex = columns.value.findIndex(
+      ({ name, sortable }) => sortBySync.value === name && sortable,
+    )
+    const column = columns.value[columnIndex]
 
-    if (!column || !column.sortable || columnIndex === -1) {
+    if (!column) {
       return filteredRows.value
     }
 
