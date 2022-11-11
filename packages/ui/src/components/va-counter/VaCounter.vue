@@ -106,7 +106,6 @@ import {
 import useCounterPropsValidation from './hooks/useCounterPropsValidation'
 
 import { VaInputWrapper } from '../va-input'
-import VaIcon from '../va-icon/VaIcon.vue'
 import VaButton from '../va-button/VaButton.vue'
 
 const { createEmits: createInputEmits, createListeners: createInputListeners } = useEmitProxy(
@@ -123,7 +122,7 @@ const { createEmits: createFieldEmits, createListeners: createFieldListeners } =
 export default defineComponent({
   name: 'VaCounter',
 
-  components: { VaInputWrapper, VaIcon, VaButton },
+  components: { VaInputWrapper, VaButton },
 
   props: {
     ...useFormProps,
