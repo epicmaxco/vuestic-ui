@@ -1,5 +1,5 @@
 import { getCurrentInstance, ComponentInternalInstance, DefineComponent, SetupContext, Ref, shallowReadonly } from 'vue'
-import { useComponentConfigProps } from '../component-config/component-config'
+import { useComponentConfigProps } from '../component-config/utils/use-component-config-props'
 
 /** Compiled and reactive props. By default they passed to setup fn */
 type Props = Record<string, unknown>;

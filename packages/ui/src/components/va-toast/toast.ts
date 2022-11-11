@@ -1,6 +1,6 @@
 import { VNode, createVNode, render, AppContext } from 'vue'
 
-import { getGlobal } from '../../utils/ssr-utils'
+import { getGlobal } from '../../utils/ssr'
 import type { ToastOptions } from './types'
 
 import { VaToast } from './index'

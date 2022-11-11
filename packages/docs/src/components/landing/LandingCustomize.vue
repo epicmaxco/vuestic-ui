@@ -133,7 +133,7 @@ import { ref, computed, shallowRef } from 'vue'
 import 'prismjs'
 import dedent from 'dedent'
 
-import { shiftHSLAColor } from 'vuestic-ui/src/services/color-config/color-functions'
+import { shiftHSLAColor } from 'vuestic-ui/src/services/color'
 import { useColors } from 'vuestic-ui/src/composables'
 import { useI18n } from 'vue-i18n'
 

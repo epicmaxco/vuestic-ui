@@ -60,7 +60,7 @@
 <script lang="ts">
 import { defineComponent, computed, PropType, shallowRef } from 'vue'
 
-import { generateUniqueId } from '../../services/utils'
+import { generateUniqueId } from '../../utils/uuid'
 import {
   useComponentPresetProp,
   useKeyboardOnlyFocus,

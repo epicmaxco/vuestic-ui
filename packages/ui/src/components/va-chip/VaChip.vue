@@ -49,7 +49,7 @@
 import { defineComponent, PropType, computed, toRef } from 'vue'
 import pick from 'lodash/pick'
 
-import { getBoxShadowColor, getHoverColor, getFocusColor } from '../../services/color-config/color-functions'
+import { getBoxShadowColor, getHoverColor, getFocusColor } from '../../services/color'
 import {
   useComponentPresetProp,
   useKeyboardOnlyFocus,

@@ -43,7 +43,7 @@
 <script lang="ts">
 import { defineComponent, PropType, computed } from 'vue'
 
-import { generateUniqueId } from '../../services/utils'
+import { generateUniqueId } from '../../utils/uuid'
 import { useComponentPresetProp, useColors, useFormProps, useForm } from '../../composables'
 
 export default defineComponent({

@@ -1,7 +1,7 @@
 import { reactive, computed, watch } from 'vue'
 
 import { useEvent } from './'
-import { isClient } from '../utils/ssr-utils'
+import { isClient } from '../utils/ssr'
 
 type WindowSizes = Record<'width' | 'height', number | undefined>
 

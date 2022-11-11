@@ -11,7 +11,24 @@ import {
 } from 'vue'
 
 import { useEvent } from '../../composables'
-import { warn, isParsablePositiveMeasure } from '../../services/utils'
+import { warn } from '../../utils/console'
+
+// TODO: Move this to composable?
+export const isParsableMeasure = (value: unknown): value is string => {
+  if (typeof value === 'string') {
+    return (!isNaN(+value) ||
+      value.endsWith('px') ||
+      value.endsWith('rem'))
+  }
+  return false
+}
+
+export const isParsablePositiveMeasure = (value: unknown) => {
+  if (typeof value === 'number') {
+    return value >= 0
+  }
+  return isParsableMeasure(value) && parseInt(value) >= 0
+}
 
 const validateSizeProp = (v: number | string, propName: string) => {
   const isProperValue = isParsablePositiveMeasure(v)

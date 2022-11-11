@@ -20,7 +20,7 @@
 import { defineComponent, computed, PropType, ref, nextTick, onMounted, onBeforeUnmount, shallowRef } from 'vue'
 import noop from 'lodash/noop.js'
 
-import { getWindow } from '../../utils/ssr-utils'
+import { getWindow } from '../../utils/ssr'
 import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 import {

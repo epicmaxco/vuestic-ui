@@ -59,7 +59,7 @@ import { useI18n } from 'vue-i18n'
 import { CodesandboxConfig } from '../types/configTypes'
 import getCodesandboxExample from '../helpers/CodeSandboxExample'
 import { applyTranslations } from '../helpers/TranslationsHelper'
-import { getWindow } from 'vuestic-ui/src/utils/ssr-utils'
+import { getWindow } from 'vuestic-ui/src/utils/ssr'
 
 const query = '?query=file=/src/App.vue'
 

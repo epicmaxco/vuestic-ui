@@ -40,7 +40,7 @@
 <script lang="ts">
 import { computed, defineComponent, PropType } from 'vue'
 
-import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
+import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 import { useComponentPresetProp, useColors, useTextColor } from '../../composables'
 
 import { VaDropdown, VaIcon } from '../'
@@ -66,7 +66,7 @@ export default defineComponent({
   },
 
   setup (props, { slots }) {
-    const VaDropdownPropValues = filterComponentProps(props, VaDropdownProps)
+    const VaDropdownPropValues = filterComponentProps(VaDropdownProps)
 
     const { getColor, getBoxShadowColor } = useColors()
 

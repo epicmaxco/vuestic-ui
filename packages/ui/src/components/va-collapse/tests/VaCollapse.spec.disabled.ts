@@ -4,7 +4,7 @@ import { testHasStatefulMixin } from '../../mixins/StatefulMixin/testHasStateful
 import { testHasColorThemeMixin } from '../../../services/testHasColorThemeMixin'
 import { testHasKeyboardOnlyFocusMixin } from '../../mixins/KeyboardOnlyFocusMixin/testHasKeyboardOnlyFocusMixin'
 
-import ColorMixin from '../../../services/color-config/ColorMixin'
+import ColorMixin from '../../../services/color/ColorMixin'
 import { StatefulMixin } from '../../mixins/StatefulMixin/StatefulMixin'
 import { KeyboardOnlyFocusMixin } from '../../mixins/KeyboardOnlyFocusMixin/KeyboardOnlyFocusMixin'
 

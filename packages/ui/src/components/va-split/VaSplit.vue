@@ -53,7 +53,7 @@ import {
 } from '../../composables'
 import { useSplitDragger, useSplitDraggerProps } from './useSplitDragger'
 
-import { warn } from '../../services/utils'
+import { warn } from '../../utils/console'
 
 import { SplitLimit, SnappingMark } from './types'
 

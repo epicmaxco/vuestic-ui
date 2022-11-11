@@ -4,7 +4,7 @@ import Vue from 'vue'
 import VaCheckbox from '../VaCheckbox.vue'
 import { shallowMount } from '@vue/test-utils'
 
-import { ColorThemePlugin } from '../../../services/color-config/ColorMixin'
+import { ColorThemePlugin } from '../../../services/color/ColorMixin'
 import { testIsSelectableComponent } from '../../mixins/SelectableMixin/testIsSelectableComponent'
 
 // @ts-ignore

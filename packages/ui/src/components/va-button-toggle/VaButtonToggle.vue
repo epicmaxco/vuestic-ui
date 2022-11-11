@@ -17,7 +17,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType, computed } from 'vue'
-import { extractComponentProps } from '../../utils/child-props'
+import { extractComponentProps } from '../../utils/component-options'
 
 import { useDeprecatedProps, useComponentPresetProp, useColors } from '../../composables'
 

@@ -1,7 +1,7 @@
 import { mount, shallowMount } from '@vue/test-utils'
 import VaChip from '../VaChip.vue'
 import { testHasColorThemeMixin } from '../../../services/testHasColorThemeMixin'
-import { ColorMixin } from '../../../services/color-config/ColorMixin'
+import { ColorMixin } from '../../../services/color/ColorMixin'
 
 describe('VaChip', () => {
   it('should render without an error', () => {
