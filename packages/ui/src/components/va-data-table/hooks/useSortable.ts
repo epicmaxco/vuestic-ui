@@ -71,23 +71,24 @@ export default function useSortable (
     }
 
     const column = columns.value.find(column => column.name === sortBySync.value)
+    const columnIndex = column
+      ? columns.value.findIndex(({ name, sortable }) => sortBySync.value === name && sortable)
+      : -1
 
-    if (!column || !column.sortable) {
+    if (!column || !column.sortable || columnIndex === -1) {
       return filteredRows.value
     }
 
-    const columnIndex = columns.value.indexOf(column)
+    const sortingOrderRatio = sortingOrderSync.value === 'desc' ? -1 : 1
 
     return [...filteredRows.value].sort((a, b) => {
-      const firstValue = a.cells[columnIndex].value
-      const secondValue = b.cells[columnIndex].value
-      const firstSource = a.cells[columnIndex].source
-      const secondSource = b.cells[columnIndex].source
-
       if (sortingOrderSync.value === null) {
         return a.initialIndex - b.initialIndex
       } else {
-        const sortingOrderRatio = sortingOrderSync.value === 'desc' ? -1 : 1
+        const firstValue = a.cells[columnIndex].value
+        const secondValue = b.cells[columnIndex].value
+        const firstSource = a.cells[columnIndex].source
+        const secondSource = b.cells[columnIndex].source
 
         return sortingOrderRatio * (
           typeof column.sortingFn === 'function'
