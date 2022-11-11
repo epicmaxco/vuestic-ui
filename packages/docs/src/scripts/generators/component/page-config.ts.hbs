@@ -11,11 +11,11 @@ const config: ApiDocsBlock[] = [
   block.subtitle('all.examples'),
 
   // examples
-  // ...block.exampleBlock(
-  //   '{{camelCase name}}.examples.yourExample.title',
-  //   '{{camelCase name}}.examples.yourExample.text',
-  //   'Example',
-  // ),
+  ...block.exampleBlock(
+    '{{camelCase name}}.examples.yourExample.title',
+    '{{camelCase name}}.examples.yourExample.text',
+    'Example',
+  ),
 
   block.api(Va{{properCase name}}, apiOptions),
 ]
