@@ -1,1 +1,0 @@
-export { defineVuesticPlugin } from '../types'

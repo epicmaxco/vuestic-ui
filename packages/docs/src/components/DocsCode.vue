@@ -94,7 +94,7 @@ export default defineComponent({
   pre[class*="language-"] {
     color: currentColor;
     background: none;
-    font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+    font-family: var(--va-font-family, Consolas, Monaco, "Andale Mono", "Ubuntu Mono"), monospace;
     font-size: 1rem;
     text-align: left;
     white-space: pre;

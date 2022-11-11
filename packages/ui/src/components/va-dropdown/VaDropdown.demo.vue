@@ -408,7 +408,7 @@
 
     <VbCard title="Dropdown Content">
       <div>
-        <va-dropdown keep-anchor-width>
+        <va-dropdown keep-anchor-width stateful>
           <template #anchor>
             <va-input placeholder="Auto complete" />
           </template>
@@ -419,7 +419,7 @@
             <p>London</p>
           </va-dropdown-content>
         </va-dropdown>
-        <va-dropdown>
+        <va-dropdown stateful>
           <template #anchor>
             <va-input placeholder="Auto complete" />
           </template>
@@ -447,6 +447,35 @@
         </va-dropdown>
       </div>
     </VbCard>
+
+    <VbCard title="Auto placement">
+      <div class="target" ref="autoPlacementTarget">
+        <va-dropdown :target="autoPlacementTarget" placement="top" auto-placement prevent-overflow>
+          <template #anchor>
+            <va-badge right text="vertical overflow">
+              a
+            </va-badge>
+          </template>
+
+          <va-dropdown-content>
+            <p>Minsk</p>
+            <p>Kyiv</p>
+            <p>London</p>
+          </va-dropdown-content>
+        </va-dropdown>
+        <va-dropdown :target="autoPlacementTarget" placement="left" auto-placement prevent-overflow>
+          <template #anchor>
+            <va-badge bottom text="horizontal overflow">
+              rrrrrrrrrrrrrrrrrr
+            </va-badge>
+          </template>
+
+          <va-dropdown-content>
+            rrrrrrrrrrrrrrrrrrrr
+          </va-dropdown-content>
+        </va-dropdown>
+      </div>
+    </VbCard>
   </VbDemo>
 </template>
 
@@ -455,9 +484,10 @@ import { ref } from 'vue'
 import { VaDropdown, VaDropdownContent } from './'
 import DropdownCloseButton from './__demo__/DropdownCloseButton'
 import { VaInput } from '../va-input'
+import { VaBadge } from '../va-badge'
 
 export default {
-  components: { DropdownCloseButton, VaDropdown, VaInput, VaDropdownContent },
+  components: { DropdownCloseButton, VaDropdown, VaInput, VaDropdownContent, VaBadge },
   data () {
     return {
       possiblePositions: [
@@ -485,6 +515,7 @@ export default {
   setup () {
     return {
       target: ref(null),
+      autoPlacementTarget: ref(null),
     }
   },
 }
@@ -493,7 +524,7 @@ export default {
 <style lang="scss" scoped>
 .target {
   width: 300px;
-  background-color: #222222;
+  background-color: #eeeeee;
   height: 100px;
 }
 </style>

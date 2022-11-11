@@ -1,15 +1,16 @@
 import { addPluginTemplate } from '@nuxt/kit'
 
-import { resolve } from 'pathe'
-import { distDir } from '../dirs'
+import { resolveInRuntime } from '../utils/resolve'
 
 import type { VuesticOptions } from './../types';
 
 /** Register vuestic nuxt plugin */
 export const useVuesticPlugin = (options: VuesticOptions) => {
+  const pluginPath = resolveInRuntime('./runtime/plugin.mjs')
+
   addPluginTemplate({
-    src: resolve(distDir, './runtime/plugin.mjs'),
-    filename: 'plugin.mjs',
+    src: pluginPath,
+    filename: pluginPath.split('/').pop(),
 
     // Use JSON.stringify() here, because it will be inserted in ejs template as string. Then we will JSON.parse it.
     options: {

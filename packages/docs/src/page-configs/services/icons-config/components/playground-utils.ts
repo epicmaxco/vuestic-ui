@@ -1,5 +1,5 @@
-import { dynamicSegments } from 'vuestic-ui/src/services/icon-config/utils/dynamic-segment'
-import { regexGroupsValues } from 'vuestic-ui/src/services/icon-config/utils/regex'
+import { dynamicSegments } from 'vuestic-ui/src/services/icon/utils/dynamic-segment'
+import { regexGroupsValues } from 'vuestic-ui/src/services/icon/utils/regex'
 
 /** Imitate JS execution with scope */
 const callStringWithScope = (scope: Record<string, any>, code: string) => {

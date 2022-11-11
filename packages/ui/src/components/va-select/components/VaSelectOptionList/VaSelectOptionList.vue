@@ -71,10 +71,9 @@
 import { defineComponent, PropType, ref, shallowRef, watch, computed } from 'vue'
 import pick from 'lodash/pick.js'
 
-import { useComponentPresetProp, useColorProps, extractHTMLElement, useObjectRefs } from '../../../../composables'
+import { useComponentPresetProp, useColorProps, extractHTMLElement, useObjectRefs, useSlotPassed } from '../../../../composables'
 
 import { scrollToElement } from '../../../../utils/scroll-to-element'
-import { checkSlotChildrenDeep } from '../../../../services/utils'
 
 import { VaVirtualScroller } from '../../../va-virtual-scroller'
 import { VaSelectOption } from '../VaSelectOption'
@@ -173,7 +172,7 @@ export default defineComponent({
       () => pick(props, ['getSelectedState', 'getText', 'getTrackBy', 'color']),
     )
 
-    const isSlotContentPassed = computed(() => checkSlotChildrenDeep(slots.default))
+    const isSlotContentPassed = useSlotPassed()
 
     // public
     const focusPreviousOption = () => {

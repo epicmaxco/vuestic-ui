@@ -108,7 +108,7 @@ import {
 import clamp from 'lodash/clamp.js'
 import pick from 'lodash/pick.js'
 
-import { __DEV__ } from '../../utils/global-utils'
+import { __DEV__ } from '../../utils/env'
 import {
   useBem,
   useComponentPresetProp,

@@ -20,11 +20,11 @@
 import { defineComponent, PropType, computed } from 'vue'
 import omit from 'lodash/omit.js'
 
-import { useIcons } from '../../services/icon-config/icon-config'
 import {
   useComponentPresetProp,
   useColors,
   useSize, useSizeProps,
+  useIcon,
 } from '../../composables'
 
 export default defineComponent({
@@ -47,7 +47,7 @@ export default defineComponent({
   setup (props, { attrs }) {
     const { getColor } = useColors()
     const { sizeComputed } = useSize(props)
-    const { getIcon } = useIcons(props)
+    const { getIcon } = useIcon()
 
     const iconConfig = computed(() => getIcon(props.name))
 

@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils'
 
 import {
-  GlobalConfig,
+  PartialGlobalConfig,
   useGlobalConfig,
   GLOBAL_CONFIG, createGlobalConfig,
 } from '../../global-config/global-config'
@@ -12,11 +12,11 @@ describe('GlobalConfigPlugin', () => {
   describe('setGlobalConfig', () => {
     let instance: any
 
-    const initialConfig: GlobalConfig = {
+    const initialConfig: PartialGlobalConfig = {
       colors: undefined,
       components: {
         VaComponent: { propValue: 'propValue' },
-      },
+      } as any,
     }
 
     beforeEach(() => {
@@ -59,7 +59,7 @@ describe('GlobalConfigPlugin', () => {
     })
 
     it('overridable by function', () => {
-      instance.setGlobalConfig((config: GlobalConfig) => ({
+      instance.setGlobalConfig((config: PartialGlobalConfig) => ({
         components: {
           VaComponent: {
             propValue: 'newPropValue',

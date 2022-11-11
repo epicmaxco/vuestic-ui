@@ -53,7 +53,7 @@ import {
 } from '../../composables'
 import { useSplitDragger, useSplitDraggerProps } from './useSplitDragger'
 
-import { warn } from '../../services/utils'
+import { warn } from '../../utils/console'
 
 import { SplitLimit, SnappingMark } from './types'
 
@@ -320,7 +320,7 @@ export default defineComponent({
   &__panel {
     overflow: var(--va-split-panel-overflow);
 
-    @include va-scroll(var(--va-primary));
+    @include va-scroll();
   }
 
   &--dragging {

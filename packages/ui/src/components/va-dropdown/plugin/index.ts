@@ -1,4 +1,4 @@
-import { defineVuesticPlugin, defineGlobalProperty } from '../../../vuestic-plugin/utils'
+import { defineVuesticPlugin, defineGlobalProperty } from '../../../services/vue-plugin/utils'
 
 const vaDropdownPlugin = {
   closeDropdown () {

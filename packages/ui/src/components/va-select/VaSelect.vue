@@ -109,10 +109,10 @@
         :bordered="true"
         :placeholder="tp($props.searchPlaceholderText)"
         v-model="searchInput"
-        @keydown.up.stop.prevent="hoverPreviousOption"
-        @keydown.left.stop.prevent="hoverPreviousOption"
-        @keydown.down.stop.prevent="hoverNextOption"
-        @keydown.right.stop.prevent="hoverNextOption"
+        @keydown.up.stop.prevent="focusPreviousOption"
+        @keydown.left.stop.prevent="focusPreviousOption"
+        @keydown.down.stop.prevent="focusNextOption"
+        @keydown.right.stop.prevent="focusNextOption"
         @keydown.enter.prevent="selectOrAddOption"
         @focus="hoveredOption = null"
       />
@@ -150,7 +150,7 @@
 <script lang="ts">
 import { defineComponent, PropType, ref, computed, watch, nextTick, Ref, shallowRef } from 'vue'
 
-import { warn } from '../../services/utils'
+import { warn } from '../../utils/console'
 import {
   useComponentPresetProp,
   useSelectableList, useSelectableListProps,
@@ -164,7 +164,7 @@ import {
   useTranslation,
 } from '../../composables'
 
-import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
+import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 
 import { VaDropdown, VaDropdownContent } from '../va-dropdown'
 import { VaIcon } from '../va-icon'
@@ -495,13 +495,9 @@ export default defineComponent({
       }
     }
 
-    const hoverPreviousOption = () => {
-      optionList.value?.hoverPreviousOption()
-    }
+    const focusPreviousOption = () => optionList.value?.focusPreviousOption()
 
-    const hoverNextOption = () => {
-      optionList.value?.hoverNextOption()
-    }
+    const focusNextOption = () => optionList.value?.focusNextOption()
 
     // Dropdown content
 
@@ -648,7 +644,7 @@ export default defineComponent({
     const { tp, t } = useTranslation()
 
     const dropdownPropsComputed = computed(() => ({
-      ...filterComponentProps(props, VaDropdownProps).value,
+      ...filterComponentProps(VaDropdownProps).value,
       closeOnContentClick: closeOnContentClick.value,
       stateful: false,
       offset: [1, 0] as DropdownOffsetProp,
@@ -692,8 +688,8 @@ export default defineComponent({
       selectOption,
       selectOrAddOption,
       selectHoveredOption,
-      hoverPreviousOption,
-      hoverNextOption,
+      focusPreviousOption,
+      focusNextOption,
       showDropdownContentComputed,
       showDropdown,
       hideDropdown,

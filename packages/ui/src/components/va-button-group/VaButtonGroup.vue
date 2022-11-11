@@ -8,7 +8,7 @@
 
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
-import { extractComponentProps } from '../../utils/child-props'
+import { extractComponentProps } from '../../utils/component-options'
 import omit from 'lodash/omit.js'
 
 import { useBem, useDeprecatedProps, useComponentPresetProp } from '../../composables'

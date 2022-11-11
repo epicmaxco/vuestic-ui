@@ -1,6 +1,6 @@
 import { App } from 'vue'
 
-import { defineVuesticPlugin, defineGlobalProperty } from '../../../vuestic-plugin/utils'
+import { defineVuesticPlugin, defineGlobalProperty } from '../../../services/vue-plugin/utils'
 import { createToastInstance, closeById, closeAllNotifications, NotificationOptions } from '../toast'
 
 const createVaToastPlugin = (app: App) => ({

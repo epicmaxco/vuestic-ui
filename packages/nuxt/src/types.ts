@@ -1,4 +1,4 @@
-import type { GlobalConfig, VuesticComponentName } from 'vuestic-ui'
+import type { PartialGlobalConfig } from 'vuestic-ui'
 
 export interface VuesticOptions {
   /**
@@ -6,7 +6,7 @@ export interface VuesticOptions {
    *
    * @see https://vuestic.dev/en/services/global-config
    */
-  config: GlobalConfig,
+  config: PartialGlobalConfig,
 
   /**
    * Choose which CSS modules will be added to nuxt

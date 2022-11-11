@@ -22,8 +22,8 @@
 import { defineComponent, PropType, ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { useComponentPresetProp, useTranslation } from '../../composables'
 import { VaButton } from '../va-button'
-import { isServer } from '../../utils/ssr-utils'
-import { warn } from '../../services/utils'
+import { isServer } from '../../utils/ssr'
+import { warn } from '../../utils/console'
 
 export default defineComponent({
   name: 'VaBacktop',

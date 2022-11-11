@@ -1,4 +1,4 @@
-import { __DEV__ } from '../utils/global-utils'
+import { __DEV__ } from '../utils/env'
 import { unref, Ref, getCurrentInstance } from 'vue'
 
 export function useDeprecatedProps (deprecatedProps: Ref<string[]> | string[]) {

@@ -1,7 +1,7 @@
-import { inject, provide, computed, toRefs, defineComponent, ComputedRef } from 'vue'
+import { inject, provide, computed, defineComponent, ComputedRef } from 'vue'
 import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
-import { ComponentConfig } from '../../services/component-config/component-config'
+import { ComponentConfig } from '../../services/component-config'
 
 /**
  * We need another key to provide injected value.
@@ -21,10 +21,9 @@ export default defineComponent({
     components: { type: Object, default: () => ({}) },
   },
   setup (props) {
-    const { components } = toRefs(props)
     const prevChain = useLocalConfig()
     // We want it to be an array and not a merged object for optimization purposes
-    const nextChain = computed(() => [...prevChain.value, components.value])
+    const nextChain = computed(() => [...prevChain.value, props.components])
 
     provide(LocalConfigKey, nextChain)
 

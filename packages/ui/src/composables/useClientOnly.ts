@@ -1,5 +1,5 @@
 import { onMounted, ref, UnwrapRef } from 'vue'
-import { isServer } from '../utils/ssr-utils'
+import { isServer } from '../utils/ssr'
 
 /** Returns cb result only on client. Returns null on server  */
 export const useClientOnly = <T>(cb: () => T) => {

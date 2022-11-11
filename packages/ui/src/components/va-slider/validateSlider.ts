@@ -1,4 +1,4 @@
-import { warn } from '../../services/utils'
+import { warn } from '../../utils/console'
 
 export const validateSlider = (value: number | number[], step: number, min: number, max: number, range: boolean) => {
   if ((Array.isArray(value) && !range) || (!Array.isArray(value) && range)) {

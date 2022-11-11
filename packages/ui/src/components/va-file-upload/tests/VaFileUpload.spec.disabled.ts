@@ -1,6 +1,6 @@
 import Vue from 'vue'
 
-import { ColorThemePlugin } from '../../../services/color-config/ColorMixin'
+import { ColorThemePlugin } from '../../../services/color/ColorMixin'
 import { testIsContextableComponent } from '../../../context-test/context-provide/testIsContextableComponent'
 import VaFileUpload from '../VaFileUpload.vue'
 

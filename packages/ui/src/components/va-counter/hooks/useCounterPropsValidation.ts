@@ -1,6 +1,6 @@
 import { watch } from 'vue'
 
-import { warn } from '../../../services/utils'
+import { warn } from '../../../utils/console'
 
 interface useCounterPropsValidationProps {
   modelValue: string | number,

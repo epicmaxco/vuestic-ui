@@ -46,7 +46,7 @@ const config: ApiDocsBlock[] = [
 
   block.collapse(
     'useDropdown hook specs',
-    block.markdown(specs),
+    [block.markdown(specs)],
   ),
 ]
 

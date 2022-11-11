@@ -1,7 +1,7 @@
 import { computed } from 'vue'
-import { useGlobalConfig } from '../services/global-config/global-config'
-import { I18nConfig } from '../services/i18n/defaults'
-import { warn } from '../services/utils'
+import { useGlobalConfig } from '../composables'
+import { I18nConfig } from '../services/i18n'
+import { warn } from '../utils/console'
 
 type Stringable = number | string | boolean | undefined
 
@@ -15,7 +15,7 @@ const applyI18nTemplate = (key: string, values?: Record<string, Stringable>) => 
 }
 
 export const useTranslation = () => {
-  const { globalConfig, mergeGlobalConfig } = useGlobalConfig()
+  const { globalConfig } = useGlobalConfig()
 
   const config = computed(() => globalConfig.value.i18n)
 

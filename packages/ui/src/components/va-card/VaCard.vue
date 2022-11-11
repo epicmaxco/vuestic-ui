@@ -22,7 +22,7 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
 
-import { getGradientBackground } from '../../services/color-config/color-functions'
+import { getGradientBackground } from '../../services/color'
 import { useComponentPresetProp, useColors, useTextColor, useRouterLink, useRouterLinkProps } from '../../composables'
 
 export default defineComponent({

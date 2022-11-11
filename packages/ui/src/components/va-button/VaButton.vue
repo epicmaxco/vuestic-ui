@@ -54,13 +54,12 @@ import {
   useRouterLink, useRouterLinkProps,
   useDeprecatedProps,
   useComponentPresetProp,
+  useSlotPassed,
 } from '../../composables'
 
 import { useButtonBackground } from './hooks/useButtonBackground'
 import { useButtonAttributes } from './hooks/useButtonAttributes'
 import { useButtonTextColor } from './hooks/useButtonTextColor'
-
-import { checkSlotChildrenDeep } from '../../services/utils'
 
 import { VaIcon } from '../va-icon'
 import { VaProgressCircle } from '../va-progress-circle'
@@ -136,7 +135,7 @@ export default defineComponent({
     // classes
     const wrapperClassComputed = computed(() => ({ 'va-button__content--loading': props.loading }))
 
-    const isSlotContentPassed = computed(() => checkSlotChildrenDeep(slots.default))
+    const isSlotContentPassed = useSlotPassed()
 
     const isOneIcon = computed(() => !!((props.iconRight && !props.icon) || (!props.iconRight && props.icon)))
     const isOnlyIcon = computed(() => !isSlotContentPassed.value && isOneIcon.value)
@@ -307,8 +306,8 @@ export default defineComponent({
     }
 
     &.va-button--icon-only {
-      width: var(--va-button-sm-size);
-      height: var(--va-button-sm-size);
+      min-width: var(--va-button-sm-size);
+      min-height: var(--va-button-sm-size);
 
       & .va-button__content {
         padding-right: var(--va-button-sm-content-px);
@@ -356,7 +355,7 @@ export default defineComponent({
       }
 
       .va-button__left-icon {
-        margin-right: 2px;
+        margin-right: 4px;
       }
     }
 
@@ -366,13 +365,13 @@ export default defineComponent({
       }
 
       .va-button__right-icon {
-        margin-left: 2px;
+        margin-left: 4px;
       }
     }
 
     &.va-button--icon-only {
-      width: var(--va-button-size);
-      height: var(--va-button-size);
+      min-width: var(--va-button-size);
+      min-height: var(--va-button-size);
 
       & .va-button__content {
         padding-right: var(--va-button-content-px);
@@ -432,8 +431,8 @@ export default defineComponent({
     }
 
     &.va-button--icon-only {
-      width: var(--va-button-lg-size);
-      height: var(--va-button-lg-size);
+      min-width: var(--va-button-lg-size);
+      min-height: var(--va-button-lg-size);
 
       & .va-button__content {
         padding-right: var(--va-button-lg-content-px);

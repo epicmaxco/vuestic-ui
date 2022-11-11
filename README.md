@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://vuestic.dev" target="_blank">
-      <img alt="Vuestic UI Logo" width="400" src="packages/ui/src/assets/vuestic-ui-logo.png">
+      <img alt="Vuestic UI Logo" width="400" src=".github/assets/vuestic-ui-logo.png">
   </a>
       <br>
   Vue.js 3.0 UI Library
@@ -43,20 +43,22 @@
 <a href="https://discord.gg/u7fQdqQt8c">Discord</a> to help us improve Vuestic UI experience.
 
   <p align="center">
-    <img src="./packages/ui/src/assets/vuestic-ui-image.jpg">
+    <img src=".github/assets/vuestic-ui-image.jpg">
   </p>
 
 ### Why use Vuestic UI?
 
 - Vue.js 3.0 compatible
-- MIT license
-- Feature-rich: more than 52 customizable components
+- Accessibility
+- Dark Theme support
+- Feature-rich: more than 60 customizable components
 - Two built-in color scheme presets
 - Powerful configurations:
     - Local - configure components in-depth
     - Global - configure framework overall
 - Cross-browser and responsive
 - i18n-ready
+- MIT license
 
 ### Installation
 
@@ -84,11 +86,11 @@ Make sure you've imported both styles and plugin into your entry file:
 import { createApp } from 'vue'
 import App from './App.vue'
 import { createVuestic } from 'vuestic-ui'
-import 'vuestic-ui/dist/vuestic-ui.css'
-//...
-const app = createApp(App)
-app.use(createVuestic())
-//...
+import 'vuestic-ui/css'
+
+createApp(App)
+  .use(createVuestic())
+  .mount('#app')
 ```
 
 ### Documentation
@@ -140,9 +142,15 @@ We design Vuestic UI to support the latest modern web browsers.
 | Edge | last 2 versions  | last 2 versions | last 2 versions | last 2 versions |
 
 ### Can I hire you guys?
+[Epicmax](https://epicmax.co) is committed to Open Source from its beginning.
+[Vuestic UI](https://vuestic.dev) was created and backed by Epicmax, and is supported through all the years. 
+You can request a consultation or order web development services by Epicmax via this [form](https://epicmax.co/contacts) 😎
 
-Yes! Say hi: <a href="mailto:hello@epicmax.co">hello@epicmax.co</a>
-We will be happy to work with you! [Other work](https://epicmax.co) we’ve done
+Say hi: <a href="mailto:hello@epicmax.co">hello@epicmax.co</a>. We will be happy to work with you! 
+
+[Other work](https://epicmax.co) we’ve done 🤘
+
+[Meet the Team](https://vuestic.dev/team)
 
 ### Follow us
 

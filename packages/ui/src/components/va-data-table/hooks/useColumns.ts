@@ -2,7 +2,7 @@ import { computed } from 'vue'
 import startCase from 'lodash/startCase.js'
 import merge from 'lodash/merge.js'
 
-import { warn } from '../../../services/utils'
+import { warn } from '../../../utils/console'
 import type {
   DataTableColumnSource,
   DataTableColumnInternal,

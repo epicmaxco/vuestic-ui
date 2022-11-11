@@ -439,6 +439,9 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: 'components-config',
         displayName: 'menu.componentsConfig',
+        meta: {
+          badge: 'updated',
+        },
       },
       {
         name: 'icons-config',
@@ -456,6 +459,13 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: 'breakpoints',
         displayName: 'menu.breakpoints',
+        meta: {
+          badge: 'new',
+        },
+      },
+      {
+        name: 'i18n',
+        displayName: 'menu.i18n',
         meta: {
           badge: 'new',
         },

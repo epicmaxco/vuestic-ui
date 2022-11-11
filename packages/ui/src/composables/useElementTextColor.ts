@@ -3,7 +3,7 @@ import type { CssColor } from '../composables/useColors'
 import { useElementBackground } from './useElementBackground'
 import { useTextColor } from './useTextColor'
 
-const isRefString = (r: any): r is Ref<string> => typeof r.value === 'string'
+const isRefString = (r: any): r is Ref<string> => typeof r?.value === 'string'
 
 /**
  * Returns text color based on element background.

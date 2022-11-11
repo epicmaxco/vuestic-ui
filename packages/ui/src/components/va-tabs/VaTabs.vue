@@ -10,13 +10,13 @@
       :aria-disabled="$props.disabled"
     >
       <va-button
-        v-if="showPagination"
+        v-if="showPagination && !$props.hidePagination"
         class="va-tabs__pagination"
         :aria-label="t('movePaginationLeft')"
         size="medium"
         :disabled="disablePaginationLeft"
         :color="color"
-        flat
+        preset="secondary"
         :icon="$props.prevIcon"
         @click="movePaginationLeft"
       />
@@ -46,13 +46,13 @@
         </div>
       </div>
       <va-button
-        v-if="showPagination"
+        v-if="showPagination && !$props.hidePagination"
         class="va-tabs__pagination"
         :aria-label="t('movePaginationRight')"
         size="medium"
         :color="color"
         :disabled="disablePaginationRight"
-        flat
+        preset="secondary"
         :icon="$props.nextIcon"
         @click="movePaginationRight"
       />
@@ -106,6 +106,7 @@ export default defineComponent({
     right: { type: Boolean, default: false },
     center: { type: Boolean, default: false },
     grow: { type: Boolean, default: false },
+    hidePagination: { type: Boolean, default: false },
     disabled: { type: Boolean, default: false },
     hideSlider: { type: Boolean, default: false },
     vertical: { type: Boolean, default: false },
@@ -178,6 +179,7 @@ export default defineComponent({
       return {
         transform: `translateX(${startingXPoint.value - tabsContentOffset.value}px)`,
         transition: animationIncluded.value ? 'var(--va-tabs-slider-transition)' : '',
+        position: props.hidePagination ? 'unset' : 'absolute',
       }
     })
 
@@ -250,7 +252,7 @@ export default defineComponent({
       const containerClientWidth = getClientWidth(container.value)
       const tabsClientWidth = getClientWidth(tabs.value)
 
-      if (tabsContentOffset.value + containerClientWidth > tabsClientWidth && tabsList.value) {
+      if (tabsContentOffset.value + containerClientWidth > tabsClientWidth && tabsList.value.length) {
         moveToTab(tabsList.value[0])
       }
 
@@ -268,18 +270,16 @@ export default defineComponent({
       const containerClientWidth = getClientWidth(container.value)
       let offsetToSet = tabsContentOffset.value - containerClientWidth
 
-      if (tabsList.value) {
-        for (let i = 0; i < tabsList.value.length - 1; i++) {
-          const currentTabLeftSidePosition = unref(tabsList.value[i]?.leftSidePosition)
-          const nextTabLeftSidePosition = unref(tabsList.value[i + 1]?.leftSidePosition)
+      for (let i = 0; i < tabsList.value.length - 1; i++) {
+        const currentTabLeftSidePosition = unref(tabsList.value[i]?.leftSidePosition)
+        const nextTabLeftSidePosition = unref(tabsList.value[i + 1]?.leftSidePosition)
 
-          if (
-            (currentTabLeftSidePosition > offsetToSet && currentTabLeftSidePosition < tabsContentOffset.value) ||
-            nextTabLeftSidePosition >= tabsContentOffset.value
-          ) {
-            offsetToSet = currentTabLeftSidePosition
-            break
-          }
+        if (
+          (currentTabLeftSidePosition > offsetToSet && currentTabLeftSidePosition < tabsContentOffset.value) ||
+          nextTabLeftSidePosition >= tabsContentOffset.value
+        ) {
+          offsetToSet = currentTabLeftSidePosition
+          break
         }
       }
 
@@ -293,16 +293,14 @@ export default defineComponent({
       const containerRightSide = tabsContentOffset.value + containerClientWidth
       let offsetToSet = containerRightSide
 
-      if (tabsList.value) {
-        for (let i = 0; i < tabsList.value.length - 1; i++) {
-          const rightSidePosition = unref(tabsList.value[i].rightSidePosition)
+      for (let i = 0; i < tabsList.value.length - 1; i++) {
+        const rightSidePosition = unref(tabsList.value[i].rightSidePosition)
 
-          if (rightSidePosition > containerRightSide) {
-            offsetToSet = unref(tabsList.value[i].leftSidePosition)
+        if (rightSidePosition > containerRightSide) {
+          offsetToSet = unref(tabsList.value[i].leftSidePosition)
 
-            if (tabsContentOffset.value < offsetToSet) {
-              break
-            }
+          if (tabsContentOffset.value < offsetToSet) {
+            break
           }
         }
       }
@@ -470,7 +468,6 @@ export default defineComponent({
     position: relative;
 
     .va-tabs__tabs {
-      position: absolute;
       height: 100%;
     }
 

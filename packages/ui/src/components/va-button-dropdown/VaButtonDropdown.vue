@@ -18,9 +18,11 @@
         </va-button>
       </template>
 
-      <va-dropdown-content>
-        <slot />
-      </va-dropdown-content>
+      <slot name="content">
+        <va-dropdown-content>
+          <slot />
+        </va-dropdown-content>
+      </slot>
     </va-dropdown>
 
     <va-button-group
@@ -74,7 +76,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType, computed } from 'vue'
-import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
+import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 
 import {
   useBem,
@@ -199,7 +201,7 @@ export default defineComponent({
 
     return {
       ...useTranslation(),
-      vaDropdownProps: filterComponentProps(props, VaDropdownProps),
+      vaDropdownProps: filterComponentProps(VaDropdownProps),
       hideDropdown,
       valueComputed,
       computedIcon,
