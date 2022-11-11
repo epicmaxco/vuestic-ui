@@ -21,27 +21,27 @@ const colorsComputed = computed(() => Object.entries(colors))
 </script>
 
 <style lang="scss" scoped>
-  $gap: 12px;
+$gap: 12px;
 
-  .color-grid {
-    display: flex;
-    flex-wrap: wrap;
-    margin: -$gap;
-    padding: $gap 0;
+.color-grid {
+  display: flex;
+  flex-wrap: wrap;
+  margin: -$gap;
+  padding: $gap 0;
 
-    p {
-      margin-bottom: 0.25rem;
-    }
+  p {
+    margin-bottom: 0.25rem;
+  }
 
-    &__item {
-      box-sizing: border-box;
-      border: 1px solid rgba(58, 58, 58, 0.307);
-      border-radius: 5px;
+  &__item {
+    box-sizing: border-box;
+    border: 1px solid rgba(58, 58, 58, 0.307);
+    border-radius: 5px;
 
-      &-wrapper {
-        padding: $gap;
-        width: 50%;
-      }
+    &-wrapper {
+      padding: $gap;
+      width: 50%;
     }
   }
+}
 </style>

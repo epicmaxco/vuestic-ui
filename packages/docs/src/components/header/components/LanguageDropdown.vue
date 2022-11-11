@@ -1,9 +1,7 @@
 <template>
   <va-button-dropdown
-    preset="secondary"
     :label="currentLanguageName"
-    :offset="[10, 0]"
-    size="medium"
+    :offset="[16, 0]"
     class="language-dropdown"
     prevent-overflow
     v-bind="$attrs"
@@ -16,7 +14,7 @@
         :class="{ active: option.code === locale }"
         @click="setLanguage(option.code)"
       >
-        <va-list-item-section :style="{color: colors.primary}">
+        <va-list-item-section :style="{ color: option.code === locale ? colors.textPrimary : colors.primary }">
           <span class="dropdown-item__text">{{ option.name }}</span>
         </va-list-item-section>
       </va-list-item>
@@ -94,22 +92,22 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  .language-dropdown {
-    cursor: pointer;
+.language-dropdown {
+  cursor: pointer;
 
-    .va-button__content {
-      font-weight: 600;
-    }
-
-    &__item {
-      padding-bottom: 0.625rem;
-      cursor: pointer;
-      flex-wrap: nowrap;
-      font-weight: 600;
-    }
-
-    .va-dropdown__anchor {
-      display: inline-block;
-    }
+  .va-button__content {
+    font-weight: 600;
   }
+
+  &__item {
+    padding-bottom: 0.625rem;
+    cursor: pointer;
+    flex-wrap: nowrap;
+    font-weight: 600;
+  }
+
+  .va-dropdown__anchor {
+    display: inline-block;
+  }
+}
 </style>

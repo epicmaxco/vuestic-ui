@@ -357,6 +357,13 @@
         </va-modal>
       </va-modal>
     </VbCard>
+    <VbCard title="beforeClose">
+      <button @click="showBeforeHideModal = !showBeforeHideModal">
+        Show first modal
+      </button>
+
+      <va-modal v-model="showBeforeHideModal" :message="message" :beforeClose="beforeClose" />
+    </VbCard>
   </VbDemo>
 </template>
 
@@ -403,6 +410,7 @@ export default {
       showNoPaddingModal: false,
       showModalFocusTrap1: false,
       showModalFocusTrap2: false,
+      showBeforeHideModal: false,
       message: this.$vb.lorem(),
       longMessage: this.$vb.lorem(5000),
       collapseValue: false,
@@ -433,6 +441,12 @@ export default {
       setTimeout(() => {
         this.$vaModal.init('Second Modal')
       }, 3000)
+    },
+
+    beforeClose (hide) {
+      if (window.confirm('Are you sure?')) {
+        hide()
+      }
     },
   },
 }

@@ -7,7 +7,7 @@
     "build": "vue-cli-service build",
     "build:ci": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "lint:style": "stylelint '**/*.{vue,html,css,scss}'",
+    "lint:style": "stylelint '**/*.{vue,html,css,scss}' --fix",
     "test:unit": "vue-cli-service test:unit",
     "generate:component": "plop --plopfile src/scripts/generators/index.ts",
     "generate:docspage": "plop --plopfile src/scripts/generators/documentation.ts",

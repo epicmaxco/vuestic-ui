@@ -32,15 +32,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import '~vuestic-ui/src/styles/resources';
+@import '~vuestic-ui/src/styles/resources';
 
-  .layout {
-    background-color: var(--va-secondary);
-  }
+.layout {
+  background-color: var(--va-secondary);
+}
 
-  .item {
-    border: 1px solid var(--va-background-border);
-    background-color: var(--va-background-primary);
-    text-align: center;
-  }
+.item {
+  border: 1px solid var(--va-background-border);
+  background-color: var(--va-background-primary);
+  text-align: center;
+}
 </style>

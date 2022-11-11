@@ -9,6 +9,6 @@ export type VuesticPlugin = {
   install: PluginInstallFn<[]>,
 } & Plugin
 
-export type VuesticPluginFabric<O extends any[] = []> = (...args: O) => VuesticPlugin
+export type VuesticPluginFabric<O extends any[] = any[]> = (...args: O) => VuesticPlugin
 
 export * from './components'

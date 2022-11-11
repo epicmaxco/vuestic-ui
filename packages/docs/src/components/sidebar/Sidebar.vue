@@ -46,20 +46,16 @@
           >
             <va-sidebar-item-content>
               <va-sidebar-item-title>
-                {{ t(childRoute.displayName) }}
-              </va-sidebar-item-title>
-              <div
-                class="va-sidebar-item-badges"
-                v-if="childRoute.meta && childRoute.meta.badge"
-              >
-                <va-chip
+                <va-badge
+                  class="sidebar-item-badge"
                   size="small"
-                  :color="badgeColors[childRoute.meta.badge]"
-                  :title="t(`menu.badges.${childRoute.meta.badge}.title`)"
+                  :text="childRoute.meta && t(`menu.badges.${childRoute.meta.badge}.text`)"
+                  :color="childRoute.meta && badgeColors[childRoute.meta.badge]"
+                  :visible-empty="false"
                 >
-                  {{ t(`menu.badges.${childRoute.meta.badge}.text`) }}
-                </va-chip>
-              </div>
+                  {{ t(childRoute.displayName) }}
+                </va-badge>
+              </va-sidebar-item-title>
             </va-sidebar-item-content>
           </va-sidebar-item>
         </div>
@@ -70,7 +66,7 @@
 
 <script lang="ts">
 import { defineComponent, watch, ref, computed, PropType } from 'vue'
-import { useRoute, RouteRecord } from 'vue-router'
+import { useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 
 import { useColors } from 'vuestic-ui/src/main'
@@ -132,7 +128,7 @@ export default defineComponent({
       routeHasActiveChild,
       isActiveChildRoute,
       onSidebarItemClick,
-      badgeColors: { wip: 'primary', new: 'success', updated: 'warning' },
+      badgeColors: { wip: 'primary', new: 'danger', updated: 'warning' },
       activeColor: computed(() => getFocusColor(getColor('primary'))),
       hoverColor: computed(() => getHoverColor(getColor('primary'))),
 
@@ -142,78 +138,84 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  @import "~vuestic-ui/src/styles/resources";
+@import "~vuestic-ui/src/styles/resources";
 
-  .sidebar {
-    &__collapse-custom-header {
-      position: relative;
-      padding: 1rem 1.2rem;
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
-      height: 56px;
+.sidebar {
+  &-item-badge {
+    .va-badge__text-wrapper {
+      transform: translate(5px, 2px);
+    }
+  }
+
+  &__collapse-custom-header {
+    position: relative;
+    padding: 1rem 1.2rem;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 56px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    cursor: pointer;
+
+    &:hover {
+      ::before {
+        opacity: 0.2;
+      }
+    }
+
+    &--keyboard-focused {
+      ::before {
+        opacity: 0.3;
+      }
+    }
+
+    &--active {
+      color: var(--va-primary);
+    }
+  }
+
+  &.va-sidebar {
+    z-index: 1;
+    height: 100%;
+    color: var(--va-dark, #323742);
+
+    @include media-breakpoint-down(sm) {
+      z-index: 100;
+      position: absolute;
+    }
+
+    .va-sidebar-item-content {
+      cursor: pointer;
+    }
+
+    .va-sidebar-item {
+      cursor: pointer;
+    }
+
+    .va-sidebar-item-title {
       font-weight: 500;
       font-size: 16px;
       line-height: 20px;
-      cursor: pointer;
+    }
+  }
 
-      &:hover {
-        ::before {
-          opacity: 0.2;
-        }
-      }
-
-      &--keyboard-focused {
-        ::before {
-          opacity: 0.3;
-        }
-      }
-
-      &--active {
-        color: var(--va-primary);
-      }
+  .va-sidebar__child {
+    &__label {
+      padding-left: 2rem;
+      text-align: left;
     }
 
-    &.va-sidebar {
-      z-index: 1;
-      height: 100%;
-      color: var(--va-dark, #323742);
-
-      @include media-breakpoint-down(sm) {
-        z-index: 100;
-        position: absolute;
-      }
-
-      .va-sidebar-item-content {
-        cursor: pointer;
-      }
-
-      .va-sidebar-item {
-        cursor: pointer;
-      }
-
-      .va-sidebar-item-title {
-        font-weight: 500;
-        font-size: 16px;
-        line-height: 20px;
-      }
+    .va-sidebar-item-content {
+      padding-left: 3rem;
     }
 
-    .va-sidebar__child {
-      &__label {
-        padding-left: 2rem;
-        text-align: left;
-      }
-
-      .va-sidebar-item-content {
-        padding-left: 3rem;
-      }
-
-      &:first-child {
-        .va-sidebar__child__label {
-          padding-top: 0;
-        }
+    &:first-child {
+      .va-sidebar__child__label {
+        padding-top: 0;
       }
     }
   }
+}
 </style>

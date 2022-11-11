@@ -13,7 +13,7 @@ export default {
           all: { color: 'secondary' },
           presets: { VaButton: { presetName: { size: 'small' } } },
         },
-        colors: { 'primary': '#ff0', 'secondary': '#d91698' },
+        colors: { variables: { 'primary': '#ff0', 'secondary': '#d91698' } },
       })
     }
 

@@ -38,7 +38,7 @@
     </div>
     <div class="va-collapse__body-wrapper" :style="contentStyle">
       <div
-        class="va-collapse_body"
+        class="va-collapse__body"
         ref="body"
         role="region"
         :id="panelIdComputed"
@@ -180,15 +180,14 @@ export default defineComponent({
   font-family: var(--va-font-family);
 
   &__body-wrapper {
-    position: relative;
-    transition: var(--va-collapse-body-transition);
+    transition: var(--va-collapse-body-wrapper-transition);
     overflow: hidden;
   }
 
   &__body {
-    position: absolute;
     top: 0;
     left: 0;
+    width: var(--va-collapse-body-width);
   }
 
   &__header {

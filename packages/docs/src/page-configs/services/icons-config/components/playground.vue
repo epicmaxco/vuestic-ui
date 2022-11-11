@@ -116,70 +116,70 @@ const copy = () => {
 </script>
 
 <style lang="scss" scoped>
-  .params {
-    color: var(--va-primary);
+.params {
+  color: var(--va-primary);
+}
+
+.tag {
+  &::before {
+    content: '<';
   }
 
-  .tag {
-    &::before {
-      content: '<';
-    }
+  &::after {
+    content: '>';
+  }
+}
 
-    &::after {
-      content: '>';
-    }
+.va-code-snippet {
+  color: currentColor;
+  background: var(--va-background-element);
+  position: relative;
+
+  .copy-button {
+    position: absolute;
+    right: 8px;
+    top: 8px;
+  }
+}
+
+.demo-header {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  margin: -0.5rem;
+
+  & > * {
+    padding: 0.5rem;
+  }
+
+  @media screen and (max-width: 1024px) {
+    flex-direction: column;
+    align-items: stretch;
+
+    & > * { width: 100%; }
   }
 
   .va-code-snippet {
-    color: currentColor;
-    background: var(--va-background-element);
-    position: relative;
-
-    .copy-button {
-      position: absolute;
-      right: 8px;
-      top: 8px;
-    }
-  }
-
-  .demo-header {
     display: flex;
     align-items: center;
-    flex-wrap: nowrap;
-    margin: -0.5rem;
+    width: 100%;
+    height: var(--va-input-min-height);
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}
 
-    & > * {
-      padding: 0.5rem;
-    }
+.demo-footer {
+  .va-code-snippet {
+    height: 48px;
+    display: flex;
+    align-items: center;
 
-    @media screen and (max-width: 1024px) {
-      flex-direction: column;
-      align-items: stretch;
-
-      & > * { width: 100%; }
-    }
-
-    .va-code-snippet {
-      display: flex;
-      align-items: center;
-      width: 100%;
-      height: var(--va-input-min-height);
-      padding-top: 0;
-      padding-bottom: 0;
+    &--icon {
+      width: 48px;
+      justify-content: center;
+      padding: 0;
     }
   }
-
-  .demo-footer {
-    .va-code-snippet {
-      height: 48px;
-      display: flex;
-      align-items: center;
-
-      &--icon {
-        width: 48px;
-        justify-content: center;
-        padding: 0;
-      }
-    }
-  }
+}
 </style>

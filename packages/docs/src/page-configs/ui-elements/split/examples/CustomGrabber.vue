@@ -7,7 +7,7 @@
     </template>
     <template #grabber>
       <div class="custom-grabber">
-        <va-icon name="face" />
+        <va-icon name="swap_horiz" />
       </div>
     </template>
     <template #end>
@@ -29,14 +29,14 @@ export default {
 </script>
 
 <style lang="scss">
-  .split-demo {
-    & .custom-grabber {
-      height: 100%;
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background-color: greenyellow;
-    }
+.split-demo {
+  & .custom-grabber {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--va-background-element);
   }
+}
 </style>

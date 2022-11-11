@@ -66,6 +66,7 @@ export default [
   'VaSidebarItemTitle',
   'VaSlider',
   'VaSpacer',
+  'VaSplit',
   'VaSwitch',
   'VaTabs',
   'VaTab',
@@ -73,7 +74,7 @@ export default [
   'VaTimeline',
   'VaTimelineItem',
   'VaTimePicker',
-  'VaTreeCategory',
-  'VaTreeNode',
-  'VaTreeView'
+  'VaTreeView',
+  'VaScrollContainer',
+  'VaVirtualScroller'
 ]

@@ -7,14 +7,14 @@
           :minimized="isSidebarVisible"
           @toggleSidebar="toggleSidebar"
         />
-        <router-link to="/" custom v-slot="{ navigate, href }">
+        <router-link :to="currentRoute" custom v-slot="{ href }">
           <a :href="href" aria-label="go to the documentation main page">
             <vuestic-logo
               class="header__logo__wrapper__image"
               height="30"
               width="150"
               aria-hidden="true"
-              @click="navigate"
+              @click="$router.go(0)"
             />
           </a>
         </router-link>
@@ -27,16 +27,15 @@
           v-for="(link, index) in links"
           :key="index"
           preset="secondary"
-          class="header__prefences__button"
+          class="header__prefences__button mr-1"
           :to="link.to"
           :href="link.url"
           :target="link.target"
         >
-          <va-icon class="button__icon" :class="link.icon" size="small" />
-          <span class="button__text">{{ link.text }}</span>
+          {{ link.text }}
         </va-button>
-        <color-dropdown class="mr-1" />
-        <language-dropdown class="mr-3" />
+        <color-dropdown class="mr-2" />
+        <language-dropdown class="mr-3" preset="secondary" />
         <version-dropdown />
       </div>
     </div>
@@ -79,21 +78,22 @@ export default class Header extends mixins(PropsMixin) {
     return [
       {
         text: this.$t('menu.overview'),
-        icon: 'fa fa-eye',
-        to: `/${this.locale}/introduction/overview`,
+        to: `/${this.locale}`,
       },
       {
         text: this.$t('menu.github'),
-        icon: 'fa fa-github',
         url: 'https://github.com/epicmaxco/vuestic-ui',
         target: '_blank',
       },
       {
         text: this.$t('menu.contribution'),
-        icon: 'fa fa-share-alt',
         to: `/${this.locale}/contribution/documentation-page`,
       },
     ]
+  }
+
+  get currentRoute () {
+    return { to: this.$route.path }
   }
 
   toggleSidebar () {
@@ -103,93 +103,91 @@ export default class Header extends mixins(PropsMixin) {
 </script>
 
 <style lang="scss" scoped>
-  @import "~vuestic-ui/src/styles/resources";
+@import "~vuestic-ui/src/styles/resources";
 
-  .header {
-    width: 100%;
-    height: 4rem;
-    padding: 0 calc(1.2rem + 4px);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 2px 8px var(--va-shadow);
-    background-color: var(--va-background-secondary);
+.header {
+  width: 100%;
+  height: 4rem;
+  padding: 0 calc(1.2rem + 4px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 8px var(--va-shadow);
+  background-color: var(--va-background-secondary);
 
-    @include media-breakpoint-down(sm) {
-      .sm-hidden {
-        display: none;
-      }
-
-      .header__logo__wrapper {
-        margin-right: 0.25rem;
-      }
-
-      .header__nav {
-        margin-left: 0.5rem;
-      }
+  @include media-breakpoint-down(sm) {
+    .sm-hidden {
+      display: none;
     }
 
-    &__prefences {
-      display: flex;
-      align-items: center;
-      font-weight: 700;
-
-      &__button {
-        --va-button-content-px: 1rem;
-
-        margin-right: 0.25rem;
-
-        .button__text {
-          margin-left: 0.375rem;
-        }
-
-        @media screen and (max-width: 1209px) {
-          .button__text {
-            display: none;
-          }
-        }
-      }
+    .header__logo__wrapper {
+      margin-right: 0.25rem;
     }
 
-    &__logo {
-      display: flex;
-      align-items: center;
-      flex-grow: 1;
-
-      &__wrapper {
-        display: flex;
-        margin-right: 1.75rem;
-
-        &__selector {
-          flex-shrink: 0;
-        }
-
-        &__image {
-          flex-shrink: 0;
-
-          @media screen and (max-width: 945px) {
-            display: none;
-          }
-
-          @include media-breakpoint-down(sm) {
-            display: block;
-          }
-
-          @media screen and (max-width: 479px) {
-            display: none;
-          }
-
-          max-width: 162px;
-          min-width: 162px;
-          cursor: pointer;
-        }
-      }
-    }
-
-    &__nav {
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    .header__nav {
+      margin-left: 0.5rem;
     }
   }
+
+  &__prefences {
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+
+    &__button {
+      --va-button-content-px: 1rem;
+
+      .button__text {
+        margin-left: 0.375rem;
+      }
+
+      @media screen and (max-width: 1209px) {
+        .button__text {
+          display: none;
+        }
+      }
+    }
+  }
+
+  &__logo {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+
+    &__wrapper {
+      display: flex;
+      margin-right: 1.75rem;
+
+      &__selector {
+        flex-shrink: 0;
+      }
+
+      &__image {
+        flex-shrink: 0;
+
+        @media screen and (max-width: 945px) {
+          display: none;
+        }
+
+        @include media-breakpoint-down(sm) {
+          display: block;
+        }
+
+        @media screen and (max-width: 479px) {
+          display: none;
+        }
+
+        max-width: 162px;
+        min-width: 162px;
+        cursor: pointer;
+      }
+    }
+  }
+
+  &__nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
 </style>

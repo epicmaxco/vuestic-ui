@@ -18,9 +18,11 @@
         </va-button>
       </template>
 
-      <va-dropdown-content>
-        <slot />
-      </va-dropdown-content>
+      <slot name="content">
+        <va-dropdown-content>
+          <slot />
+        </va-dropdown-content>
+      </slot>
     </va-dropdown>
 
     <va-button-group

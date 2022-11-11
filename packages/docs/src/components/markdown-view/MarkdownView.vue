@@ -53,38 +53,38 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  @import "~vuestic-ui/src/styles/resources";
+@import "~vuestic-ui/src/styles/resources";
 
-  .MarkdownView {
+.MarkdownView {
+  color: currentColor;
+
+  code {
+    margin: 0 0.3rem;
+    color: $markdown-code;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  li,
+  span {
     color: currentColor;
-
-    code {
-      margin: 0 0.3rem;
-      color: $markdown-code;
-    }
-
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6,
-    p,
-    li,
-    span {
-      color: currentColor;
-    }
   }
+}
 
-  .MarkdownView__link--external {
+.MarkdownView__link--external {
+  position: relative;
+
+  &::after {
+    content: '\279A';
     position: relative;
-
-    &::after {
-      content: '\279A';
-      position: relative;
-      opacity: 0.35;
-      line-height: 1;
-      vertical-align: text-top;
-    }
+    opacity: 0.35;
+    line-height: 1;
+    vertical-align: text-top;
   }
+}
 </style>

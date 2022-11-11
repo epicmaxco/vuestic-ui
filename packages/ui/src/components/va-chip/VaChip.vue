@@ -80,6 +80,7 @@ export default defineComponent({
     closeable: { type: Boolean, default: false },
     outline: { type: Boolean, default: false },
     disabled: { type: Boolean, default: false },
+    readonly: { type: Boolean, default: false },
     square: { type: Boolean, default: false },
     shadow: { type: Boolean, default: false },
     flat: { type: Boolean, default: false },
@@ -137,7 +138,7 @@ export default defineComponent({
       tabIndexComputed: computed(() => props.disabled ? -1 : 0),
 
       computedClass: useBem('va-chip', () => ({
-        ...pick(props, ['disabled', 'square']),
+        ...pick(props, ['disabled', 'readonly', 'square']),
         small: props.size === 'small',
         large: props.size === 'large',
       })),
@@ -153,7 +154,7 @@ export default defineComponent({
         if (props.outline || props.flat) {
           if (hasKeyboardFocus.value) {
             result.background = getFocusColor(colorComputed.value)
-          } else if (isHovered.value) {
+          } else if (!props.readonly && isHovered.value) {
             result.background = getHoverColor(colorComputed.value)
           }
         } else {
@@ -194,7 +195,7 @@ export default defineComponent({
     vertical-align: inherit;
   }
 
-  &:hover {
+  &:hover:not(&--readonly) {
     opacity: var(--va-chip-hover-opacity);
   }
 

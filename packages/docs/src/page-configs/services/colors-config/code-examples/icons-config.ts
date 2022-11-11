@@ -5,9 +5,11 @@ createApp(App)
   .use(createVuestic({
     config: {
       colors: {
-        primary: '#ff00ff',
-        'player-icon': '#aaa',
-        success: '#0fb'
+        variables: {
+          primary: '#ff00ff',
+          'player-icon': '#aaa',
+          success: '#0fb'
+        }
       },
       icons: createIconsConfig({ 
         aliases: [

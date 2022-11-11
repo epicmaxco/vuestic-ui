@@ -216,25 +216,25 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  .table-example {
-    th {
-      background-color: var(--va-background-element);
-      border: 1px solid currentColor;
-      height: 50px;
-    }
-
-    tr {
-      border-bottom: 1px solid currentColor;
-
-      td {
-        height: 70px;
-      }
-    }
+.table-example {
+  th {
+    background-color: var(--va-background-element);
+    border: 1px solid currentColor;
+    height: 50px;
   }
 
-  .additionalClass {
-    color: orange;
-    font-style: italic;
-    font-weight: 900;
+  tr {
+    border-bottom: 1px solid currentColor;
+
+    td {
+      height: 70px;
+    }
   }
+}
+
+.additionalClass {
+  color: orange;
+  font-style: italic;
+  font-weight: 900;
+}
 </style>

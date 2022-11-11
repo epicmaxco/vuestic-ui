@@ -1,11 +1,4 @@
 <template>
-  <va-chip square outline>
-    {{ selectedNodes.length ? selectedNodes.join(',') : 'Please, select nodes' }}
-  </va-chip>
-  <va-color-palette
-    v-model="selectedColor"
-    :palette="colorsPalette"
-  />
   <va-tree-view
     v-model:checked="selectedNodes"
     :nodes="nodes"
@@ -13,6 +6,19 @@
     selectable
     expand-all
   />
+
+  <p class="mt-4">
+    Selected nodes: {{ selectedNodes.join(',') || 'none' }}
+  </p>
+
+  <p class="d-flex align-center">
+    Color:
+    <va-color-palette
+      v-model="selectedColor"
+      class="ml-2"
+      :palette="colorsPalette"
+    />
+  </p>
 </template>
 
 <script>
@@ -77,7 +83,3 @@ export default {
   }),
 }
 </script>
-
-<style scoped>
-
-</style>

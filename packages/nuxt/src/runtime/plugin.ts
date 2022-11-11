@@ -1,8 +1,8 @@
-import { defineNuxtPlugin } from '#app'
 import { createVuesticEssential, VaDropdownPlugin, VaToastPlugin, VaModalPlugin } from 'vuestic-ui'
 import { ref } from 'vue'
 
 import type { VuesticOptions } from '../types'
+import { defineNuxtPlugin } from '#app'
 
 function getGlobalProperty (app, key) {
   return app.config.globalProperties[key]
@@ -15,12 +15,12 @@ export default defineNuxtPlugin((nuxtApp) => {
   const { config }: VuesticOptions = JSON.parse(`<%= options.value %>`)
 
   /** Use tree-shaking by default and do not register any component. Components will be registered by nuxt in use-components. */
-  app.use(createVuesticEssential({ 
+  app.use(createVuesticEssential({
     config,
     // TODO: Would be nice to tree-shake plugins, but they're small so we don't cant for now.
     plugins: { VaDropdownPlugin, VaToastPlugin, VaModalPlugin },
     /** Do not import any components. Nuxt will import them automatically */
-    components: {},
+    components: {}
   }))
 
   /**

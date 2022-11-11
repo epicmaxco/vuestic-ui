@@ -1,3 +1,4 @@
+import { PartialGlobalConfig } from './../../global-config/types'
 import { ColorVariables } from './../types'
 import { App, watch } from 'vue'
 import { isServer } from '../../../utils/ssr'
@@ -8,8 +9,8 @@ export const setCSSVariable = (name: string, value: string, root: HTMLElement) =
   root.style.setProperty(cssVariableName(name), value)
 }
 
-export const createColorConfigPlugin = (app: App) => {
-  const { colors, getTextColor, getColor } = useColors()
+export const createColorConfigPlugin = (app: App, config?: PartialGlobalConfig) => {
+  const { colors, getTextColor, getColor, currentPresetName, applyPreset } = useColors()
 
   /** Renders CSS variables string. Use this in SSR mode */
   const renderCSSVariables = (colors: ColorVariables | undefined) => {
@@ -34,11 +35,13 @@ export const createColorConfigPlugin = (app: App) => {
     })
   }
 
-  updateColors(colors)
-
   watch(colors, (newValue) => {
     updateColors(newValue)
   }, { immediate: true, deep: true })
+
+  if (config?.colors?.currentPresetName) {
+    applyPreset(config.colors.currentPresetName)
+  }
 
   return {
     renderCSSVariables,

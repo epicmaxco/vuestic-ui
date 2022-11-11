@@ -22,10 +22,10 @@
 </template>
 
 <style lang="scss">
-  .spacing-demo {
-    .rectangle {
-      padding: 0.5rem;
-      background-color: var(--va-background-element);
-    }
+.spacing-demo {
+  .rectangle {
+    padding: 0.5rem;
+    background-color: var(--va-background-element);
   }
+}
 </style>

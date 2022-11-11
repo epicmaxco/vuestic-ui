@@ -43,17 +43,17 @@
 </template>
 
 <style lang="scss">
-  .gutters-demo {
-    padding: 0.75rem;
+.gutters-demo {
+  padding: 0.75rem;
 
-    .layout {
-      background-color: var(--va-background-element);
-    }
-
-    .item {
-      background-color: var(--va-background-primary);
-      border: 1px solid var(--va-background-border);
-      text-align: center;
-    }
+  .layout {
+    background-color: var(--va-background-element);
   }
+
+  .item {
+    background-color: var(--va-background-primary);
+    border: 1px solid var(--va-background-border);
+    text-align: center;
+  }
+}
 </style>
