@@ -3802,7 +3802,9 @@
       "title": "Commonly used scripts",
       "list": {
         "demo": "`yarn serve` - this will run project with demos, where you can test component features.",
-        "docs": "`yarn serve:docs` - this will run project with docs (deployed here [vuestic.dev](https://vuestic.dev))."
+        "docs": "`yarn serve:docs` - this will run project with docs (deployed here [vuestic.dev](https://vuestic.dev)).",
+        "generateDocspage": "`yarn generate:docspage` - this will generate docs page, so you can write some guide or tutorial.",
+        "generateComponent": "`yarn generate:component` - this will make component template with docs page and demo page, so you can easily start making new component."
       },
       "notice": "You can find more scripts in `package.json` of each package."
     },
