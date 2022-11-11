@@ -1,6 +1,6 @@
 import { ApiDocsBlock } from '@/types/configTypes'
 import { PageGenerationHelper } from '@/helpers/DocsHelper'
-import { getI18nConfigDefaults } from 'vuestic-ui/src/services/i18n/defaults'
+import { getI18nConfigDefaults } from 'vuestic-ui/src/services/i18n/config/default'
 import { setupExampleCode, runtimeCodeExample, runtimeVueI18nCodeExample, vueI18nExampleConfig } from './code-examples'
 
 const block = new PageGenerationHelper(__dirname)
