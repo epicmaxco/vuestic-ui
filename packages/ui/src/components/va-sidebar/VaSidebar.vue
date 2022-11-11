@@ -129,6 +129,10 @@ export default defineComponent({
 
   &--animated {
     transition: var(--va-sidebar-transition);
+
+    .va-sidebar__menu {
+      transition: var(--va-sidebar-transition);
+    }
   }
 
   &--minimized {
