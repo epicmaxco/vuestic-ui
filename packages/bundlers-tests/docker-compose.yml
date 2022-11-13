@@ -1,17 +1,42 @@
 version: '3.2'
 services:
   vite_test:
-    build: .
+    build:
+      context: .
+      dockerfile: vite.Dockerfile
     ports:
       - "8080:80"
-  cypress:
+    profiles:
+      - "vite"
+  cli_test:
+    build:
+      context: .
+      dockerfile: cli.Dockerfile
+    ports:
+      - "8080:80"
+    profiles:
+      - "cli"
+  cypress_vite:
     image: "cypress/included:10.11.0"
     depends_on:
       - vite_test
-    # command: "cypress run --browser chromium"
     environment:
       - CYPRESS_baseUrl=http://vite_test:80
     volumes:
       - ./tsconfig.json:/tsconfig.json
-      - ./cypress:/cypress
+      - ./cypress/e2e/start-page.cy.ts:/cypress/e2e/start-page.cy.ts
       - ./cypress.config.ts:/cypress.config.ts
+    profiles:
+      - "vite"
+  cypress_cli:
+    image: "cypress/included:10.11.0"
+    depends_on:
+      - cli_test
+    environment:
+      - CYPRESS_baseUrl=http://cli_test:80
+    volumes:
+      - ./tsconfig.json:/tsconfig.json
+      - ./cypress/e2e/start-page.cy.ts:/cypress/e2e/start-page.cy.ts
+      - ./cypress.config.ts:/cypress.config.ts
+    profiles:
+      - "cli"
