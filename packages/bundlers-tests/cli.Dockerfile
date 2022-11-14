@@ -5,7 +5,7 @@ RUN vue create cli-app --default
 WORKDIR /cli-app
 RUN yarn add vuestic-ui
 
-COPY ./templates ./src
+COPY ./templates/src ./src
 
 RUN yarn build
 

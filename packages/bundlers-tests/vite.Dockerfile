@@ -4,7 +4,7 @@ RUN yarn create vite vite-app --template vue
 WORKDIR /vite-app
 RUN yarn add vuestic-ui
 
-COPY ./templates ./src
+COPY ./templates/src ./src
 
 RUN yarn build
 

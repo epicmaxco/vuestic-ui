@@ -1,4 +1,9 @@
 version: '3.2'
+
+x-base-cypress: &base-cypress
+  image: "cypress/included:10.11.0"
+  working_dir: /app-testing
+
 services:
   vite_test:
     build:
@@ -16,27 +21,41 @@ services:
       - "8080:80"
     profiles:
       - "cli"
+  nuxt_test:
+    build:
+      context: .
+      dockerfile: nuxt.Dockerfile
+    ports:
+      - "8080:3000"
+    profiles:
+      - "nuxt"
   cypress_vite:
-    image: "cypress/included:10.11.0"
+    <<: *base-cypress
+    volumes:
+      - ./docker-tests/vite:/app-testing
     depends_on:
       - vite_test
     environment:
       - CYPRESS_baseUrl=http://vite_test:80
-    volumes:
-      - ./tsconfig.json:/tsconfig.json
-      - ./cypress/e2e/start-page.cy.ts:/cypress/e2e/start-page.cy.ts
-      - ./cypress.config.ts:/cypress.config.ts
     profiles:
       - "vite"
   cypress_cli:
-    image: "cypress/included:10.11.0"
+    <<: *base-cypress
+    volumes:
+      - ./docker-tests/cli:/app-testing
     depends_on:
       - cli_test
     environment:
       - CYPRESS_baseUrl=http://cli_test:80
-    volumes:
-      - ./tsconfig.json:/tsconfig.json
-      - ./cypress/e2e/start-page.cy.ts:/cypress/e2e/start-page.cy.ts
-      - ./cypress.config.ts:/cypress.config.ts
     profiles:
       - "cli"
+  cypress_nuxt:
+    <<: *base-cypress
+    volumes:
+      - ./docker-tests/nuxt:/app-testing
+    depends_on:
+      - nuxt_test
+    environment:
+      - CYPRESS_baseUrl=http://nuxt_test:3000
+    profiles:
+      - "nuxt"
