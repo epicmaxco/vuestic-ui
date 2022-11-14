@@ -95,9 +95,11 @@ export default defineComponent({
     const {
       iconBy,
       selectable,
-      colorComputed,
       expandNodeBy,
+      colorComputed,
+      selectedNodeComputed,
       getText,
+      getValue,
       getTrackBy,
       toggleNode,
       getNodeProperty,
@@ -128,6 +130,8 @@ export default defineComponent({
       if (expandNodeBy === type) {
         toggleNode(props.node)
       }
+
+      selectedNodeComputed.value = props.node
     }
 
     const handleToggleNode = (event: Event, node: TreeNode) => {

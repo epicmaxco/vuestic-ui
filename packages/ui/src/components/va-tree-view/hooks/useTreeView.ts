@@ -1,4 +1,5 @@
 import {
+  ref,
   toRefs,
   provide,
   computed,
@@ -49,6 +50,19 @@ const useTreeView: UseTreeViewFunc = (props, emit) => {
   const { nodes, expandAll, filter, filterMethod, textBy } = toRefs(props)
   const { valueComputed: expandedList } = useStateful(props, emit, 'expanded')
   const { valueComputed: checkedList } = useStateful(props, emit, 'checked')
+
+  const selectedNode = ref()
+  const selectedNodeComputed: WritableComputedRef<string | number | Record<string, unknown>> = computed({
+    get: () => selectedNode.value,
+    set: (node: TreeNode) => {
+      const value = getValue(node)
+
+      if (selectedNode.value !== value) {
+        selectedNode.value = getValue(node)
+        emit('update:selected', node)
+      }
+    },
+  })
 
   const updateModel = (model: WritableComputedRef<TypeModelValue>, values: TypeModelValue, state: boolean) => {
     if (state) {
@@ -148,11 +162,13 @@ const useTreeView: UseTreeViewFunc = (props, emit) => {
   })
 
   provide(TreeViewKey, {
+    selectedNodeComputed,
     colorComputed,
     iconBy: props.iconBy,
     selectable: props.selectable,
     expandNodeBy: props.expandNodeBy,
     getText,
+    getValue,
     getTrackBy,
     toggleNode,
     toggleCheckbox,
