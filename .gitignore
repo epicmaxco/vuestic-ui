@@ -3,11 +3,8 @@ node_modules
 dist
 .nuxt
 
-/tests/e2e/videos/
-/tests/e2e/screenshots/
-
-/tests/e2e/videos/
-/tests/e2e/screenshots/
+/packages/bundlers-tests/**/screenshots
+/packages/bundlers-tests/**/video
 
 # local env files
 .env.local
