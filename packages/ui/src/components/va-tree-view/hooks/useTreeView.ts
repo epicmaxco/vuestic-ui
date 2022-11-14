@@ -151,6 +151,7 @@ const useTreeView: UseTreeViewFunc = (props, emit) => {
     colorComputed,
     iconBy: props.iconBy,
     selectable: props.selectable,
+    expandNodeBy: props.expandNodeBy,
     getText,
     getTrackBy,
     toggleNode,

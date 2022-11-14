@@ -10,14 +10,12 @@
     @keydown.right.stop.prevent="handleToggleNode($event, $props.node)"
     @keydown.left.stop.prevent="handleToggleNode($event, $props.node)"
   >
-    <div
-      class="va-tree-node-root"
-      @click.stop="toggleNode($props.node)"
-    >
-      <div class="va-tree-node-content" :class="indentClassComputed">
+    <div class="va-tree-node-root">
+      <div class="va-tree-node-content" :class="indentClassComputed" @click="onNodeClick('node')">
         <div
           v-if="$props.node.hasChildren"
           class="va-tree-node-content__item va-tree-node-content__item--leaf"
+          @click.stop="onNodeClick('leaf')"
         >
           <slot name="icon-toggle" v-bind="$props.node">
             <va-icon
@@ -98,6 +96,7 @@ export default defineComponent({
       iconBy,
       selectable,
       colorComputed,
+      expandNodeBy,
       getText,
       getTrackBy,
       toggleNode,
@@ -123,6 +122,14 @@ export default defineComponent({
 
     const tabIndexComputed = computed(() => props.node.disabled ? -1 : 0)
 
+    const onNodeClick = (type: typeof expandNodeBy) => {
+      type = expandNodeBy === 'node' && type === 'leaf' ? 'node' : type
+
+      if (expandNodeBy === type) {
+        toggleNode(props.node)
+      }
+    }
+
     const handleToggleNode = (event: Event, node: TreeNode) => {
       if (node.expanded) {
         (event.target as HTMLElement)?.blur()
@@ -133,10 +140,12 @@ export default defineComponent({
 
     return {
       selectable,
+      expandNodeBy,
 
       getText,
       getTrackBy,
       toggleNode,
+      onNodeClick,
       handleToggleNode,
       toggleCheckbox,
 

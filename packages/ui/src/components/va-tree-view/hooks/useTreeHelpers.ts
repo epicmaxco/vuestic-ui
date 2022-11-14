@@ -58,6 +58,10 @@ export const useTreeViewProps = {
     type: Array as PropType<(string | number | TreeNode)[]>,
     default: [],
   },
+  expandNodeBy: {
+    type: String as PropType<'leaf' | 'node'>,
+    default: 'leaf',
+  },
   filter: {
     type: String,
     default: '',

@@ -20,6 +20,7 @@ export type TreeViewFilterMethod = (node: TreeNode, filter: string, textBy: Tree
 export interface TreeView {
   selectable: boolean
   iconBy: TreeViewPropKey
+  expandNodeBy: 'leaf' | 'node'
   colorComputed: ComputedRef<string>
   getText: (node: TreeNode) => string
   toggleNode: (node: TreeNode) => void
