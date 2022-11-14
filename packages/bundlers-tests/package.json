@@ -4,7 +4,10 @@
   "version": "0.0.0",
   "scripts": {
     "test:manual": "cypress run",
-    "test": "tsx test-scipt/test-script.ts"
+    "test:vite": "docker-compose --profile vite up --build --exit-code-from cypress_vite",
+    "test:cli": "docker-compose --profile cli up --build --exit-code-from cypress_cli",
+    "test:nuxt": "docker-compose --profile nuxt up --build --exit-code-from cypress_nuxt",
+    "test": "yarn test:vite && yarn test:cli && yarn test:nuxt"
   },
   "dependencies": {
     "cypress": "^10.11.0"

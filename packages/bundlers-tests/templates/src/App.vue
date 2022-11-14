@@ -51,5 +51,9 @@ export default {
       return m % this.divisor === 0
     },
   },
+  // test error
+  // mounted() {
+  //   throw new Error('alksdhjka')
+  // }
 }
 </script>
