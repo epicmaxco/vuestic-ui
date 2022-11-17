@@ -401,6 +401,8 @@ export default defineComponent({
   }
 
   &--outline {
+    --va-input-wrapper-background: transparent;
+  
     .va-input-wrapper__field {
       border-radius: 0;
     }
@@ -439,7 +441,7 @@ export default defineComponent({
   }
 
   // States
-  &--focused {
+  &--focused:not(.va-input-wrapper--outline) {
     --va-input-wrapper-border-color: var(--va-input-wrapper-color);
   }
 
