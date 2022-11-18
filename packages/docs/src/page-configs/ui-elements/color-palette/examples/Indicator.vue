@@ -1,7 +1,7 @@
 <template>
   <va-color-palette
     v-model="value"
-    :palette="['#4ae387', '#e34a4a', '#4ab2e3', '#db76df', '#f7cc36', '#f3f3f3', '#000']"
+    :palette="['#154EC1', '#767C88', '#262824', '#FFFFFF', '#FFD43A', '#E42222']"
     indicator="square"
   />
 </template>
