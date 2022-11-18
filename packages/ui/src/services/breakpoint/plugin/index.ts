@@ -1,5 +1,5 @@
 import { createBreakpointConfigPlugin } from './create-service'
-import { defineGlobalProperty, defineVuesticPlugin } from '../../../vuestic-plugin/utils'
+import { defineGlobalProperty, defineVuesticPlugin } from '../../vue-plugin/utils'
 
 import { vaBreakpointSymbol } from '../'
 

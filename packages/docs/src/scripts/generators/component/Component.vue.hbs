@@ -1,16 +1,31 @@
 <template>
-  <div>-- Component template --</div>
+  <div class="va-{{kebabCase name}}">
+    <button class="va-{{kebabCase name}}__button" @click="count++">
+      Component template \{{ count }}
+    </button>
+  </div>
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component'
+import { defineComponent, ref } from 'vue'
 
-@Options({
+export default defineComponent({
   name: 'Va{{properCase name}}',
-})
-export default class Va{{properCase name}} extends Vue {
 
-}
+  props: {
+    // Define props here
+  },
+
+  emits: [/* Define emits here */],
+
+  setup () {
+    const count = ref(0)
+
+    return {
+      count,
+    }
+  },
+})
 </script>
 
 <style lang="scss">

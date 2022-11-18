@@ -16,7 +16,7 @@
 </template>
 <script lang='ts'>
 import { Options, Vue, prop, mixins, setup } from 'vue-class-component'
-import { getHoverColor } from 'vuestic-ui/src/services/color-config/color-functions'
+import { getHoverColor } from 'vuestic-ui/src/services/color'
 import { useColors } from 'vuestic-ui/src/main'
 
 class SidebarLinkProps {

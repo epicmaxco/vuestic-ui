@@ -1,6 +1,6 @@
-import { useGlobalConfig } from '../services/global-config/global-config'
+import { useGlobalConfig } from '../services/global-config'
 import { computed } from 'vue'
-import type { I18nConfig } from '../services/i18n/defaults'
+import type { I18nConfig } from '../services/i18n'
 
 // Composable for users, not for inner development
 // Name it as useI18nConfig to avoid confusion with useI18n from `vue-i18n`

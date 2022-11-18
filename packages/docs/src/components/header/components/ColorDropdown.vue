@@ -27,7 +27,7 @@
 
 <script lang="ts">
 import { useColors } from 'vuestic-ui/src/main'
-import { colorsPresets } from 'vuestic-ui/src/services/color-config/color-theme-presets'
+import { presets as colorsPresets } from 'vuestic-ui/src/services/color/presets'
 import { computed, defineComponent, ref } from 'vue'
 import ThemeSwitch from '../../ThemeSwitch.vue'
 

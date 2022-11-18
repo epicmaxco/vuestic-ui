@@ -5,7 +5,7 @@ import VaInfiniteScroll from '../VaInfiniteScroll.vue'
 
 import { testIsContextableComponent } from '../../../context-test/context-provide/testIsContextableComponent'
 
-import { ColorThemePlugin } from '../../../services/color-config/ColorMixin'
+import { ColorThemePlugin } from '../../../services/color/ColorMixin'
 import { ContextPlugin } from '../../../context-test/context-provide/ContextPlugin'
 
 // @ts-ignore

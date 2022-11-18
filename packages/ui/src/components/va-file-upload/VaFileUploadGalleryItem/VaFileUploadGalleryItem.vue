@@ -50,7 +50,7 @@
 <script lang="ts">
 import { defineComponent, onMounted, PropType, ref, watch, computed, toRef } from 'vue'
 
-import { colorToRgba } from '../../../services/color-config/color-functions'
+import { colorToRgba } from '../../../services/color'
 import { useFocus, useBem, useStrictInject, useTranslation } from '../../../composables'
 
 import { VaFileUploadKey, ConvertedFile } from '../types'

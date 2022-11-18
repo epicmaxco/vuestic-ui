@@ -1,4 +1,10 @@
-import { createVuesticEssential, VaDropdownPlugin, VaToastPlugin, VaModalPlugin } from 'vuestic-ui'
+import {
+  createVuesticEssential,
+  VaDropdownPlugin,
+  VaToastPlugin,
+  VaModalPlugin,
+  BreakpointConfigPlugin,
+} from 'vuestic-ui'
 import { ref } from 'vue'
 
 import type { VuesticOptions } from '../types'
@@ -18,7 +24,13 @@ export default defineNuxtPlugin((nuxtApp) => {
   app.use(createVuesticEssential({
     config,
     // TODO: Would be nice to tree-shake plugins, but they're small so we don't cant for now.
-    plugins: { VaDropdownPlugin, VaToastPlugin, VaModalPlugin },
+    // Should be synced with create-vuestic.ts
+    plugins: {
+      BreakpointConfigPlugin,
+      VaDropdownPlugin,
+      VaToastPlugin,
+      VaModalPlugin,
+    },
     /** Do not import any components. Nuxt will import them automatically */
     components: {}
   }))

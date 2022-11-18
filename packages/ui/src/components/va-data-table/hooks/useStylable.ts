@@ -1,6 +1,6 @@
 import { computed } from 'vue'
 
-import { safeCSSLength } from '../../../utils/css-utils'
+import { safeCSSLength } from '../../../utils/css'
 import { useColors } from '../../../composables'
 
 import type {
@@ -26,7 +26,7 @@ interface useStylableProps {
 const getClass = (classes: DataTableColumnClass) => isFunction(classes) ? classes() : classes
 const getStyle = (styles: DataTableColumnStyle) => isFunction(styles) ? styles() : styles
 
-export default function useStyleable (props: useStylableProps) {
+export default function useStylable (props: useStylableProps) {
   const { getColor, getFocusColor, getHoverColor } = useColors()
 
   const color = computed(() => getColor(props.selectedColor))

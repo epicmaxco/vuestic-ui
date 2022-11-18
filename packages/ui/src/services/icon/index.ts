@@ -1,0 +1,5 @@
+export * from './config/default'
+export * from './types'
+export { createIconsConfig } from './create-icons-config'
+export { VuesticIconAliases, VuesticIconFonts } from './presets'
+export type { IconConfig } from './types'

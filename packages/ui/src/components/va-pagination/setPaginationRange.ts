@@ -1,4 +1,4 @@
-import { warn } from '../../services/utils'
+import { warn } from '../../utils/console'
 
 export const setPaginationRange = (
   currentPage = 1,

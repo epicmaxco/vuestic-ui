@@ -112,7 +112,7 @@ import { VaHover } from '../va-hover'
 
 import type { SwipeState } from '../../composables'
 
-import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
+import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 
 const VaImageProps = extractComponentProps(VaImage, ['src', 'alt'])
 
@@ -192,7 +192,7 @@ export default defineComponent({
     useSwipe(props, slidesContainer, onSwipe)
 
     return {
-      vaImageProps: filterComponentProps(props, VaImageProps),
+      vaImageProps: filterComponentProps(VaImageProps),
       doShowNextButton,
       doShowPrevButton,
       computedSlidesStyle,

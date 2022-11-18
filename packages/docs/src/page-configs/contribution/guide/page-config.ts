@@ -39,6 +39,8 @@ const config: ApiDocsBlock[] = [
   block.list([
     'guide.commonlyUsedScripts.list.demo',
     'guide.commonlyUsedScripts.list.docs',
+    'guide.commonlyUsedScripts.list.generateDocspage',
+    'guide.commonlyUsedScripts.list.generateComponent',
   ]),
   block.paragraph('guide.commonlyUsedScripts.notice'),
 

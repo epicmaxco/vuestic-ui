@@ -17,7 +17,7 @@
 <script lang="ts">
 import { defineComponent, computed, ref, PropType } from 'vue'
 
-import { getGradientBackground } from '../../services/color-config/color-functions'
+import { getGradientBackground } from '../../services/color'
 import { useColors, useTextColor, useBem } from '../../composables'
 import { useSidebar } from './hooks/useSidebar'
 import { useComponentPresetProp } from '../../composables/useComponentPreset'
@@ -129,6 +129,10 @@ export default defineComponent({
 
   &--animated {
     transition: var(--va-sidebar-transition);
+
+    .va-sidebar__menu {
+      transition: var(--va-sidebar-transition);
+    }
   }
 
   &--minimized {

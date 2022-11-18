@@ -3,7 +3,7 @@ import { computed, Ref, unref, ComputedRef } from 'vue'
 import isFunction from 'lodash/isFunction.js'
 import kebab from 'lodash/kebabCase.js'
 
-import { __DEV__ } from '../utils/global-utils'
+import { __DEV__ } from '../utils/env'
 
 type Key<Prefix extends string, ModifierKey extends string> = `${Prefix}--${ModifierKey | string}`
 

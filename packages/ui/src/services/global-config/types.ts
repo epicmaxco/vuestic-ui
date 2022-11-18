@@ -1,8 +1,9 @@
-import type { ComponentConfig } from '../component-config/component-config'
-import type { ColorConfig } from '../color-config'
-import type { IconConfig } from '../icon-config/types'
+import type { ComponentConfig } from '../component-config'
+import type { ColorConfig } from '../color'
+import type { IconConfig } from '../icon'
 import type { BreakpointConfig } from '../breakpoint'
 import type { I18nConfig } from '../i18n'
+import type { Ref } from 'vue'
 
 export type GlobalConfig = {
   colors: ColorConfig,
@@ -30,4 +31,15 @@ export type {
   ComponentConfig,
   IconConfig,
   BreakpointConfig,
+}
+
+export type ProvidedGlobalConfig = {
+  globalConfig: Ref<GlobalConfig>,
+  getGlobalConfig: () => GlobalConfig,
+  /**
+   * Set new global config
+   * @see mergeGlobalConfig if you want to update existing config
+   */
+  setGlobalConfig: (updater: GlobalConfig | GlobalConfigUpdater<GlobalConfig>) => void,
+  mergeGlobalConfig: (updater: PartialGlobalConfig | GlobalConfigUpdater<PartialGlobalConfig>) => void
 }
