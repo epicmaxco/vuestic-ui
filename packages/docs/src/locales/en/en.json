@@ -656,7 +656,8 @@
         "header": "Text content to place in the header",
         "icon": "The icon to be displayed inside a header",
         "solid": "Adds borders to the collapse",
-        "colorAll": "Applies color to collapse contents background"
+        "colorAll": "Applies color to collapse contents background",
+        "flat": "Disables shadows and borders"
       },
       "events": {
         "input": "Emits when collapse is clicked"
@@ -2867,6 +2868,9 @@
       "color": {
         "title": "Color",
         "text": "Use two color schemes."
+      },
+      "flat": {
+        "title": "Flat"
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-collapse/_variables.scss)[[target=_blank]]"
@@ -2890,6 +2894,9 @@
       "popout": {
         "title": "Popout",
         "text": "Active collapse component becomes bigger."
+      },
+      "flat": {
+        "title": "Flat"
       }
     }
   },
