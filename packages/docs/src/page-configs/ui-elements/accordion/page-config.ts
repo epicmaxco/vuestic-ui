@@ -10,21 +10,36 @@ const config: ApiDocsBlock[] = [
   block.paragraph('accordion.summaryText'),
 
   block.subtitle('all.examples'),
-  block.headline('accordion.examples.default.title'),
-  block.paragraph('accordion.examples.default.text'),
-  block.example('Default'),
 
-  block.headline('accordion.examples.multiple.title'),
-  block.paragraph('accordion.examples.multiple.text'),
-  block.example('Multiple'),
+  ...block.exampleBlock(
+    'accordion.examples.default.title',
+    'accordion.examples.default.text',
+    'Default',
+  ),
 
-  block.headline('accordion.examples.inset.title'),
-  block.paragraph('accordion.examples.inset.text'),
-  block.example('Inset'),
+  ...block.exampleBlock(
+    'accordion.examples.multiple.title',
+    'accordion.examples.multiple.text',
+    'Multiple',
+  ),
 
-  block.headline('accordion.examples.popout.title'),
-  block.paragraph('accordion.examples.popout.text'),
-  block.example('Popout'),
+  ...block.exampleBlock(
+    'accordion.examples.inset.title',
+    'accordion.examples.inset.text',
+    'Inset',
+  ),
+
+  ...block.exampleBlock(
+    'accordion.examples.popout.title',
+    'accordion.examples.popout.text',
+    'Popout',
+  ),
+
+  ...block.exampleBlock(
+    'accordion.examples.flat.title',
+    '',
+    'Flat',
+  ),
 
   block.subtitle('all.api'),
   block.api(VaAccordion, apiOptions),
