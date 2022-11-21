@@ -4,6 +4,10 @@
   "version": "0.0.0",
   "scripts": {
     "test:manual": "cypress run",
+    "build:local-vuestic": "docker-compose --profile local-vuestic build --no-cache",
+    "run:vite": "docker-compose --profile run-vite up --build",
+    "run:cli": "docker-compose --profile run-cli up --build",
+    "run:nuxt": "docker-compose --profile run-nuxt up --build",
     "test:vite": "docker-compose --profile vite up --build --exit-code-from cypress_vite",
     "test:cli": "docker-compose --profile cli up --build --exit-code-from cypress_cli",
     "test:nuxt": "docker-compose --profile nuxt up --build --exit-code-from cypress_nuxt",

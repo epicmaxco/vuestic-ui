@@ -5,6 +5,15 @@ x-base-cypress: &base-cypress
   working_dir: /app-testing
 
 services:
+  local-vuestic:
+    build:
+      context: ./../
+      dockerfile: ./bundlers-tests/local-vuestic.Dockerfile
+      args:
+        progress: "plain"
+    image: "local-vuestic:latest"
+    profiles:
+      - "local-vuestic"
   vite_test:
     build:
       context: ./../
@@ -13,7 +22,7 @@ services:
       - "8080:80"
     profiles:
       - "vite"
-      - "test"
+      - "run-vite"
   cli_test:
     build:
       context: .
@@ -22,6 +31,7 @@ services:
       - "8080:80"
     profiles:
       - "cli"
+      - "run-cli"
   nuxt_test:
     build:
       context: .
@@ -30,6 +40,7 @@ services:
       - "8080:3000"
     profiles:
       - "nuxt"
+      - "run-nuxt"
   cypress_vite:
     <<: *base-cypress
     volumes:

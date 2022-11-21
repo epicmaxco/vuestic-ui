@@ -1,14 +1,9 @@
-FROM node:17-alpine as build
+FROM local-vuestic:latest as build
 
-WORKDIR /local-vuestic
-COPY /ui .
-RUN yarn link
-
-WORKDIR /
 RUN yarn create vite vite-app --template vue
 WORKDIR /vite-app
-RUN yarn add vuestic-ui
-RUN yarn link vuestic-ui
+
+RUN yarn add file:/local-vuestic
 
 COPY /bundlers-tests/templates/src ./src
 
