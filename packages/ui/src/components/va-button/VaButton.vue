@@ -98,6 +98,7 @@ export default defineComponent({
     icon: { type: String, default: '' },
     iconRight: { type: String, default: '' },
     iconColor: { type: String, default: '' },
+    iconProps: { type: Object, default: () => ({}) },
   },
   setup (props, { slots }) {
     // TODO: Remove deprecated props in 1.6.0
@@ -130,6 +131,7 @@ export default defineComponent({
     const iconAttributesComputed = computed(() => ({
       size: props.size,
       color: iconColorComputed.value,
+      ...props.iconProps,
     }))
 
     // classes
