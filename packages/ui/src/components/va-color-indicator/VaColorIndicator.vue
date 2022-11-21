@@ -45,7 +45,6 @@ export default defineComponent({
 
     const computedClass = computed(() => ({
       'va-color-indicator--selected': valueComputed.value,
-      'va-color-indicator--hoverable': valueComputed.value !== undefined,
     }))
 
     const toggleModelValue = () => { valueComputed.value = !valueComputed.value }
@@ -81,15 +80,9 @@ export default defineComponent({
   }
 
   &__core {
-    transition: transform 0.1s linear;
     border-radius: v-bind(borderRadiusComputed);
     height: 1rem;
     width: 1rem;
-  }
-
-  &--hoverable:hover &__core {
-    transform: scale(1.1);
-    transition: transform 0.1s linear;
   }
 
   &:focus {
