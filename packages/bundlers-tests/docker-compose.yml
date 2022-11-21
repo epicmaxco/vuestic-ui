@@ -8,16 +8,14 @@ services:
   local-vuestic:
     build:
       context: ./../
-      dockerfile: ./bundlers-tests/local-vuestic.Dockerfile
-      args:
-        progress: "plain"
+      dockerfile: ./bundlers-tests/vuestic.Dockerfile
     image: "local-vuestic:latest"
     profiles:
       - "local-vuestic"
   vite_test:
     build:
-      context: ./../
-      dockerfile: ./bundlers-tests/vite.Dockerfile
+      context: .
+      dockerfile: vite.Dockerfile
     ports:
       - "8080:80"
     profiles:
