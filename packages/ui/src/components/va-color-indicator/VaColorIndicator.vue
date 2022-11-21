@@ -35,9 +35,9 @@ export default defineComponent({
     const { getColor } = useColors()
 
     const colorComputed = computed(() => getColor(props.color))
+    const borderRadiusComputed = computed(() => props.square ? '0px' : '50%')
 
     const computedStyle = computed(() => ({
-      borderRadius: props.square ? '0px' : '50%',
       backgroundColor: colorComputed.value,
       height: props.size,
       width: props.size,
@@ -54,6 +54,7 @@ export default defineComponent({
       valueComputed,
       computedStyle,
       computedClass,
+      borderRadiusComputed,
       toggleModelValue,
     }
   },
@@ -68,7 +69,7 @@ export default defineComponent({
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  border-radius: 50%;
+  border-radius: v-bind(borderRadiusComputed);
   text-align: center;
   background-color: var(--va-background-element);
   border: 0.125rem solid var(--va-background-border);
@@ -79,17 +80,20 @@ export default defineComponent({
     border-color: var(--va-primary);
   }
 
-  &--hoverable &__core:hover,
-  &:focus {
+  &__core {
+    transition: transform 0.1s linear;
+    border-radius: v-bind(borderRadiusComputed);
+    height: 1rem;
+    width: 1rem;
+  }
+
+  &--hoverable:hover &__core {
     transform: scale(1.1);
     transition: transform 0.1s linear;
   }
 
-  &__core {
-    transition: transform 0.1s linear;
-    border-radius: 50%;
-    width: 1rem;
-    height: 1rem;
+  &:focus {
+    @include focus-outline(v-bind(borderRadiusComputed));
   }
 }
 </style>
