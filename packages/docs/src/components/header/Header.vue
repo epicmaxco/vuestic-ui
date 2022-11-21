@@ -7,8 +7,8 @@
           :minimized="isSidebarVisible"
           @toggleSidebar="toggleSidebar"
         />
-        <router-link to="overview" custom v-slot="{ navigate, href }">
-          <a :href="href" aria-label="go to the documentation main page">
+        <router-link :to="overviewLink.to" custom v-slot="{ navigate, href }">
+          <a :href="href" :aria-label="overviewLink.text" :title="overviewLink.text">
             <vuestic-logo
               class="header__logo__wrapper__image"
               height="30"
@@ -74,11 +74,18 @@ export default class Header extends mixins(PropsMixin) {
     return this.$root?.$i18n?.locale
   }
 
+  get overviewLink () {
+    return {
+      text: this.$t('menu.overview'),
+      to: `/${this.locale}/introduction/overview`,
+    }
+  }
+
   get links () {
     return [
       {
         text: this.$t('menu.overview'),
-        to: `/${this.locale}/introduction/overview`,
+        to: `/${this.locale}`,
       },
       {
         text: this.$t('menu.github'),
