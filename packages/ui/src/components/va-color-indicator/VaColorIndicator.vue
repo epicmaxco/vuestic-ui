@@ -6,6 +6,7 @@
     @click="toggleModelValue"
     @keydown.enter="toggleModelValue"
     @keydown.space="toggleModelValue"
+    v-on="keyboardFocusListeners"
   >
     <div
       class="va-color-indicator__core"
@@ -17,7 +18,14 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
 
-import { useComponentPresetProp, useColors, useStateful, useStatefulProps, useStatefulEmits } from '../../composables'
+import {
+  useColors,
+  useStateful,
+  useStatefulProps,
+  useStatefulEmits,
+  useKeyboardOnlyFocus,
+  useComponentPresetProp,
+} from '../../composables'
 
 export default defineComponent({
   name: 'VaColorIndicator',
@@ -33,6 +41,7 @@ export default defineComponent({
   setup (props, { emit }) {
     const { valueComputed } = useStateful(props, emit)
     const { getColor } = useColors()
+    const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
 
     const colorComputed = computed(() => getColor(props.color))
     const borderRadiusComputed = computed(() => props.square ? '0px' : '50%')
@@ -45,6 +54,7 @@ export default defineComponent({
 
     const computedClass = computed(() => ({
       'va-color-indicator--selected': valueComputed.value,
+      'va-color-indicator--on-keyboard-focus': hasKeyboardFocus.value,
     }))
 
     const toggleModelValue = () => { valueComputed.value = !valueComputed.value }
@@ -54,6 +64,7 @@ export default defineComponent({
       computedStyle,
       computedClass,
       borderRadiusComputed,
+      keyboardFocusListeners,
       toggleModelValue,
     }
   },
@@ -74,18 +85,18 @@ export default defineComponent({
   border: 0.125rem solid var(--va-background-border);
   box-sizing: content-box;
 
-  &--selected {
-    background-color: var(--va-primary);
-    border-color: var(--va-primary);
-  }
-
   &__core {
     border-radius: v-bind(borderRadiusComputed);
     height: 1rem;
     width: 1rem;
   }
 
-  &:focus {
+  &--selected {
+    background-color: var(--va-primary);
+    border-color: var(--va-primary);
+  }
+
+  &--on-keyboard-focus {
     @include focus-outline(v-bind(borderRadiusComputed));
   }
 }
