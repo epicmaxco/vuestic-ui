@@ -82,6 +82,7 @@ export default defineComponent({
     color: { type: String, default: 'background-element' },
     textColor: { type: String, default: '' },
     colorAll: { type: Boolean, default: false },
+    flat: { type: Boolean, default: false },
   },
   emits: ['update:modelValue'],
 
@@ -128,7 +129,7 @@ export default defineComponent({
     }))
 
     const computedClasses = useBem('va-collapse', () => ({
-      ...pick(props, ['disabled', 'solid']),
+      ...pick(props, ['disabled', 'solid', 'flat']),
       expanded: computedModelValue.value,
       active: props.solid && computedModelValue.value,
       popout: !!(accordionProps.value.popout && computedModelValue.value),
@@ -243,6 +244,14 @@ export default defineComponent({
 
   &--inset {
     margin: var(--va-collapse-inset-margin);
+  }
+
+  &--flat {
+    .va-collapse__header {
+      box-shadow: none;
+      border: 0;
+      border-radius: 0;
+    }
   }
 
   &--disabled {
