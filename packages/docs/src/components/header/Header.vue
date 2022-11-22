@@ -7,8 +7,8 @@
           :minimized="isSidebarVisible"
           @toggleSidebar="toggleSidebar"
         />
-        <router-link :to="overviewLink.to" custom v-slot="{ navigate, href }">
-          <a :href="href" :aria-label="overviewLink.text" :title="overviewLink.text">
+        <router-link :to="landing.to" custom v-slot="{ navigate, href }">
+          <a :href="href" :aria-label="landing.text" :title="landing.text">
             <vuestic-logo
               class="header__logo__wrapper__image"
               height="30"
@@ -74,10 +74,10 @@ export default class Header extends mixins(PropsMixin) {
     return this.$root?.$i18n?.locale
   }
 
-  get overviewLink () {
+  get landing () {
     return {
-      text: this.$t('menu.overview'),
-      to: `/${this.locale}/introduction/overview`,
+      text: this.$t('menu.home'),
+      to: `/${this.locale}`,
     }
   }
 
