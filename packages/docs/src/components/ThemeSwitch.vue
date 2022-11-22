@@ -10,14 +10,17 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { defineEmits, computed } from 'vue'
 import { useColors } from 'vuestic-ui/src/main'
 
-const { currentPresetName, applyPreset } = useColors()
+const { currentPresetName } = useColors()
+const emit = defineEmits(['switch-theme'])
 
 const isDark = computed({
   get: () => currentPresetName.value === 'dark',
-  set: (value) => applyPreset(value ? 'dark' : 'light'),
+  set: (value) => {
+    emit('switch-theme', value ? 'dark' : 'light')
+  },
 })
 </script>
 

@@ -11,7 +11,7 @@
       >
         <div class="color-dropdown__content px-1">
           <div class="d-flex justify-center">
-            <ThemeSwitch @update:model-value="setTheme" style="width: 100%;" />
+            <ThemeSwitch @switch-theme="setTheme" style="width: 100%;" />
           </div>
 
           <va-divider style="margin: 0.5rem -0.5rem;" />
@@ -49,15 +49,13 @@ export default defineComponent({
     const themes = Object.keys(presets.value).map((themeName) => ({ value: themeName, label: capitalizeFirstLetter(themeName) }))
     const currentTheme = ref(localStorage.getItem('vuestic-docs-theme') || 'light')
 
-    const setTheme = (isDark: boolean) => {
-      const theme = isDark ? 'dark' : 'light'
-
+    const setTheme = (theme: string) => {
       applyPreset(theme)
       localStorage.setItem('vuestic-docs-theme', theme)
       document.documentElement.style.colorScheme = theme
     }
 
-    setTheme((localStorage.getItem('vuestic-docs-theme') || 'dark') === 'dark')
+    setTheme(localStorage.getItem('vuestic-docs-theme') || 'light')
 
     return {
       themes,
