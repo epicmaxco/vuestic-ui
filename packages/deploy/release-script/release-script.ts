@@ -182,6 +182,7 @@ const runReleaseScript = async (releaseConfig: ReleaseConfig, dryRun: boolean) =
   } else {
     // For test it's pain to wait for build as you can test build separately.
     await executeAndLog('cd ../ui && npm run build')
+    await runTests()
   }
 
   // **** Update version strings ****
@@ -249,6 +250,9 @@ const checkIfTooLate = async () => {
     }
     return result
   }
+const runTests= async () => {
+  await executeAndLog('cd ./../bundlers-tests && npm run test')
+}
 
 ;(async () => {
   const releaseType = await inquireReleaseType()

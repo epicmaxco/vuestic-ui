@@ -5,7 +5,9 @@ RUN vue create app --default
 
 WORKDIR /app
 RUN yarn add file:/local-vuestic
-COPY ./templates/src ./src
+
+WORKDIR /app/src
+COPY /templates/src .
 
 RUN yarn build
 
