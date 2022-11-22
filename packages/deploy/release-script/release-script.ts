@@ -182,8 +182,11 @@ const runReleaseScript = async (releaseConfig: ReleaseConfig, dryRun: boolean) =
   } else {
     // For test it's pain to wait for build as you can test build separately.
     await executeAndLog('cd ../ui && npm run build')
-    await runTests()
   }
+
+  // **** run e2e tests
+  
+  await runTests()
 
   // **** Update version strings ****
 
