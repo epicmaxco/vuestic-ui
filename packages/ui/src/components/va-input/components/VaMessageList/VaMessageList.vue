@@ -62,6 +62,7 @@ export default defineComponent({
 .va-message-list {
   margin-top: var(--va-message-list-margin-top);
   color: var(--va-message-list-color);
+  position: absolute;
 
   &__message {
     display: flex;

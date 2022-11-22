@@ -8,7 +8,8 @@ assignees: ''
 
 **Vuestic-ui version:** 1.5.1
 
-**Steps to reproduce**
+**Steps to reproduce** https://stackblitz.com/edit/vitejs-vite-d73ugv?file=src/App.vue
+
 
 **What is the expected behavior?**
 
