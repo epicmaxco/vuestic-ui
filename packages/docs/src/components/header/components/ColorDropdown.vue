@@ -88,7 +88,7 @@ export default defineComponent({
     position: relative;
     display: flex;
     align-items: center;
-    margin-right: 2rem;
+    padding-right: 2.25rem;
   }
 
   &__content {
