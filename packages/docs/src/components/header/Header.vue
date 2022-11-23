@@ -36,6 +36,7 @@
         </va-button>
         <color-dropdown class="mr-2" />
         <language-dropdown class="mr-3" preset="secondary" />
+        <theme-switch />
         <version-dropdown />
       </div>
     </div>
@@ -50,6 +51,7 @@ import ColorDropdown from './components/ColorDropdown.vue'
 import HeaderSelector from './components/HeaderSelector.vue'
 import VuesticLogo from './components/VuesticDocsLogo.vue'
 import AlgoliaSearch from './components/algolia-search/AlgoliaSearch.vue'
+import ThemeSwitch from '@/components/ThemeSwitch.vue'
 
 class Props {
   isSidebarVisible = prop<boolean>({ type: Boolean, default: false })
@@ -60,6 +62,7 @@ const PropsMixin = Vue.with(Props)
 @Options({
   name: 'DocsHeader',
   components: {
+    ThemeSwitch,
     HeaderSelector,
     LanguageDropdown,
     ColorDropdown,
@@ -83,10 +86,6 @@ export default class Header extends mixins(PropsMixin) {
 
   get links () {
     return [
-      {
-        text: this.$t('menu.overview'),
-        to: `/${this.locale}`,
-      },
       {
         text: this.$t('menu.github'),
         url: 'https://github.com/epicmaxco/vuestic-ui',
