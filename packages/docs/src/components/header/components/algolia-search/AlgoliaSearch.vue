@@ -140,4 +140,10 @@ onMounted(() => {
     @include xs(display, none);
   }
 }
+
+.DocSearch-Modal {
+  top: 3rem;
+
+  @include md(top, 0);
+}
 </style>
