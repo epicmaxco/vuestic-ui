@@ -114,10 +114,6 @@ export default defineComponent({
   font-family: var(--va-font-family);
   display: inline-flex;
 
-  @media screen and (max-width: 767px) {
-    padding-bottom: 4rem;
-  }
-
   &__menu {
     display: flex;
     flex-direction: column;
