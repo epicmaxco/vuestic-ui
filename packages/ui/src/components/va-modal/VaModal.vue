@@ -28,7 +28,6 @@
             v-if="$props.overlay"
             class="va-modal__overlay"
             :style="computedOverlayStyles"
-            @click="onOutsideClick"
           />
           <div
             class="va-modal__container"
@@ -139,6 +138,7 @@ import {
   useTrapFocus,
   useModalLevel,
   useTranslation,
+  useClickOutside,
 } from '../../composables'
 
 import { VaButton } from '../va-button'
@@ -259,13 +259,6 @@ export default defineComponent({
       })
     }
 
-    const onOutsideClick = () => {
-      if (props.noOutsideDismiss || props.noDismiss) { return }
-
-      emit('click-outside')
-      cancel()
-    }
-
     const onBeforeEnterTransition = (el: HTMLElement) => emit('before-open', el)
     const onAfterEnterTransition = (el: HTMLElement) => emit('open', el)
     const onBeforeLeaveTransition = (el: HTMLElement) => emit('before-close', el)
@@ -280,6 +273,13 @@ export default defineComponent({
 
       setTimeout(hideModal)
     }
+
+    useClickOutside([modalDialog], () => {
+      if (!valueComputed.value || props.noOutsideDismiss || props.noDismiss || !isTopLevelModal.value) { return }
+
+      emit('click-outside')
+      cancel()
+    })
 
     const window = useWindow()
     const document = useDocument()
@@ -333,7 +333,6 @@ export default defineComponent({
       toggle,
       cancel,
       ok,
-      onOutsideClick,
       onBeforeEnterTransition,
       onAfterEnterTransition,
       onBeforeLeaveTransition,
