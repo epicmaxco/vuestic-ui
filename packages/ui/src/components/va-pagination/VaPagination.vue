@@ -372,18 +372,18 @@ export default defineComponent({
     }
 
     &--small {
-      height: var(--va-button-sm-size);
-      width: var(--va-button-sm-size);
+      height: var(--va-pagination-button-sm-size);
+      width: var(--va-pagination-button-sm-size);
     }
 
     &--normal {
-      height: var(--va-button-size);
-      width: var(--va-button-size);
+      height: var(--va-pagination-button-size);
+      width: var(--va-pagination-button-size);
     }
 
     &--large {
-      height: var(--va-button-lg-size);
-      width: var(--va-button-lg-size);
+      height: var(--va-pagination-button-lg-size);
+      width: var(--va-pagination-button-lg-size);
     }
 
     &--ellipsis {
