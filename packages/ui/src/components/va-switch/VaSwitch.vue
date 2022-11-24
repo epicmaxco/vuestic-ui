@@ -55,6 +55,7 @@
                     :size="progressCircleSize"
                     :color="trackStyle.backgroundColor"
                   />
+                  <slot v-else name="circle" />
                 </div>
               </slot>
             </span>
@@ -442,10 +443,19 @@ export default defineComponent({
   }
 
   &__checker-circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     height: var(--va-switch-checker-height);
     width: var(--va-switch-checker-width);
     background-color: var(--va-switch-checker-background-color);
     border-radius: var(--va-switch-checker-border-radius);
+
+    i {
+      font-size: v-bind(progressCircleSize);
+      width: v-bind(progressCircleSize);
+      height: v-bind(progressCircleSize);
+    }
   }
 
   &__checker-wrapper {

@@ -3,7 +3,6 @@
     :is="computedTag"
     class="va-icon"
     :class="computedClass"
-    :style="computedStyle"
     :aria-hidden="ariaHiddenComputed"
     notranslate
     v-bind="computedAttrs"
@@ -63,6 +62,13 @@ export default defineComponent({
     const computedClass = computed(() => [
       iconConfig.value.class,
       getSpinClass(props.spin ?? iconConfig.value.spin),
+      `h-[${sizeComputed.value}]`,
+      `font-[${sizeComputed.value}]`,
+      `leading-[${sizeComputed.value}]`,
+      `scale-[${transformStyle.value.scale}]`,
+      `rotate-[${transformStyle.value.rotate}]`,
+      `cursor-[${attrs.onClick ? 'pointer' : null}]`,
+      `text-[${props.color ? getColor(props.color, undefined, true) : iconConfig.value.color}]`,
     ])
 
     const transformStyle = computed(() => {
@@ -72,17 +78,20 @@ export default defineComponent({
       const flipX = (props.flip === 'horizontal' || props.flip === 'both') ? -1 : 1
       const scale = props.flip === 'off' ? '' : `scale(${flipY}, ${flipX})`
 
-      return `${scale} ${rotation}`.trim()
+      return {
+        scale,
+        rotate: `${props.rotation}deg`,
+      }
     })
 
-    const computedStyle = computed(() => ({
-      transform: transformStyle.value,
-      cursor: attrs.onClick ? 'pointer' : null,
-      color: props.color ? getColor(props.color, undefined, true) : iconConfig.value.color,
-      fontSize: sizeComputed.value,
-      height: sizeComputed.value,
-      lineHeight: sizeComputed.value,
-    }))
+    // const computedStyle = computed(() => ({
+    //   transform: transformStyle.value,
+    //   cursor: attrs.onClick ? 'pointer' : null,
+    //   color: props.color ? getColor(props.color, undefined, true) : iconConfig.value.color,
+    //   fontSize: sizeComputed.value,
+    //   height: sizeComputed.value,
+    //   lineHeight: sizeComputed.value,
+    // }))
 
     const tabindexComputed = computed(() => attrs.tabindex as number | undefined ?? -1)
     const ariaHiddenComputed = computed(() => attrs.role !== 'button' || tabindexComputed.value < 0)
@@ -92,7 +101,7 @@ export default defineComponent({
       computedTag,
       computedAttrs,
       computedClass,
-      computedStyle,
+      // computedStyle,
       ariaHiddenComputed,
     }
   },
