@@ -33,7 +33,7 @@
     </template>
   </va-navbar>
 
-  <va-navbar color="#111111" class="mb-3" text-color="#BAFFC5">
+  <va-navbar v-bind="darkNavbarColors" class="mb-3">
     <template #left>
       <va-navbar-item class="logo">LOGO</va-navbar-item>
     </template>
@@ -42,14 +42,35 @@
       <va-navbar-item>Reports</va-navbar-item>
       <va-navbar-item>Users</va-navbar-item>
       <va-navbar-item>
-        <va-icon name="mdi-magnify" color="#BAFFC5" />
+        <va-icon :color="darkNavbarColors.textColor" name="mdi-magnify" />
       </va-navbar-item>
       <va-navbar-item>
-        <va-icon name="mdi-account-circle-outline" color="#BAFFC5" />
+        <va-icon :color="darkNavbarColors.textColor" name="mdi-account-circle-outline" />
       </va-navbar-item>
     </template>
   </va-navbar>
 </template>
+
+<script setup>
+import { computed } from 'vue'
+import { useColors } from 'vuestic-ui/src/main'
+
+const { currentPresetName } = useColors()
+
+const darkNavbarColors = computed(() => {
+  if (currentPresetName.value === 'light') {
+    return {
+      color: '#111111',
+      textColor: '#BAFFC5',
+    }
+  } else {
+    return {
+      color: '#FBCAF6',
+      textColor: '#481269',
+    }
+  }
+})
+</script>
 
 <style scoped>
 .logo {
