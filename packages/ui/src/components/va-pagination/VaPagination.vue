@@ -371,6 +371,21 @@ export default defineComponent({
       cursor: default;
     }
 
+    &--small {
+      height: var(--va-button-sm-size);
+      width: var(--va-button-sm-size);
+    }
+
+    &--normal {
+      height: var(--va-button-size);
+      width: var(--va-button-size);
+    }
+
+    &--large {
+      height: var(--va-button-lg-size);
+      width: var(--va-button-lg-size);
+    }
+
     &--ellipsis {
       cursor: default;
       opacity: 1;
