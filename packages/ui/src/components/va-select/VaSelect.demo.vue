@@ -12,6 +12,17 @@
       <p>Value: {{ defaultSingleSelect.value }}</p>
     </VbCard>
     <VbCard
+      title="Disabled options"
+      style="width: 400px;"
+    >
+      <va-select
+        v-model="disabledOptions.value"
+        class="mb-4"
+        :options="disabledOptions.options"
+      />
+      <p>Value: {{ disabledOptions.value }}</p>
+    </VbCard>
+    <VbCard
       title="Option slot"
       style="width: 400px;"
     >
@@ -672,6 +683,16 @@ export default {
         valueMultiple: [],
         allowUniqueValueMultiple: [],
         valueMultipleMax: [],
+      },
+      disabledOptions: {
+        options: [
+          { id: '0', text: 'one', value: 'one', disabled: true },
+          { id: '1', text: 'two', value: 'two' },
+          { id: '2', text: 'three', value: 'three' },
+          { id: '3', text: 'four', value: 'four', disabled: true },
+          { id: '4', text: 'five', value: 'five' },
+        ],
+        value: '',
       },
       objectSingleSelect: {
         value: '',
