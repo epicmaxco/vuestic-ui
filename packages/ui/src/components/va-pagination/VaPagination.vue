@@ -351,18 +351,19 @@ export default defineComponent({
     border-width: var(--va-pagination-input-border-width);
     text-align: var(--va-pagination-input-text-align);
     font-size: var(--va-pagination-input-font-size);
+    font-weight: normal;
 
     // by default input's height relies on va-button size
     &--sm {
-      height: var(--va-button-sm-size);
+      height: var(--va-pagination-button-sm-size);
     }
 
     &--md {
-      height: var(--va-button-size);
+      height: var(--va-pagination-button-size);
     }
 
     &--lg {
-      height: var(--va-button-lg-size);
+      height: var(--va-pagination-button-lg-size);
     }
   }
 
@@ -373,17 +374,17 @@ export default defineComponent({
 
     &--small {
       height: var(--va-pagination-button-sm-size);
-      width: var(--va-pagination-button-sm-size);
+      min-width: var(--va-pagination-button-sm-size);
     }
 
     &--normal {
       height: var(--va-pagination-button-size);
-      width: var(--va-pagination-button-size);
+      min-width: var(--va-pagination-button-size);
     }
 
     &--large {
       height: var(--va-pagination-button-lg-size);
-      width: var(--va-pagination-button-lg-size);
+      min-width: var(--va-pagination-button-lg-size);
     }
 
     &--ellipsis {
@@ -448,8 +449,8 @@ export default defineComponent({
 
       &.va-button--small {
         &.va-button--icon-only {
-          height: var(--va-button-sm-size);
-          width: var(--va-button-sm-size);
+          height: var(--va-pagination-button-sm-size);
+          width: var(--va-pagination-button-sm-size);
         }
 
         & .va-button__content {
@@ -459,9 +460,9 @@ export default defineComponent({
       }
 
       &.va-button--normal {
-        & .va-button--icon-only {
-          height: var(--va-button-size);
-          width: var(--va-button-size);
+        &.va-button--icon-only {
+          height: var(--va-pagination-button-size);
+          width: var(--va-pagination-button-size);
         }
 
         & .va-button__content {
@@ -472,8 +473,8 @@ export default defineComponent({
 
       &.va-button--large {
         &.va-button--icon-only {
-          height: var(--va-button-lg-size);
-          width: var(--va-button-lg-size);
+          height: var(--va-pagination-button-lg-size);
+          width: var(--va-pagination-button-lg-size);
         }
 
         & .va-button__content {
