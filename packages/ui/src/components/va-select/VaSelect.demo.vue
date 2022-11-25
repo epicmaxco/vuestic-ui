@@ -688,9 +688,10 @@ export default {
         options: [
           { id: '0', text: 'one', value: 'one', disabled: true },
           { id: '1', text: 'two', value: 'two' },
-          { id: '2', text: 'three', value: 'three' },
-          { id: '3', text: 'four', value: 'four', disabled: true },
+          { id: '2', text: 'three', value: 'three', disabled: true },
+          { id: '3', text: 'four', value: 'four' },
           { id: '4', text: 'five', value: 'five' },
+          { id: '5', text: 'six', value: 'six', disabled: true },
         ],
         value: '',
       },

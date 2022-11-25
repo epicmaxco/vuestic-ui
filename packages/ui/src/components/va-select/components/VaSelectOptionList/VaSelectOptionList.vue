@@ -223,7 +223,7 @@ export default defineComponent({
 
       const nextOptionIndex = currentOptionIndex.value + 1
       const nextOption = currentOptions.value[nextOptionIndex]
-      const nextOptionCheck = isValueExists(nextOption) && !(nextOptionIndex === 0 && getDisabled(nextOption))
+      const nextOptionCheck = isValueExists(nextOption) && !(nextOptionIndex === currentOptions.value.length - 1 && getDisabled(nextOption))
       if (nextOptionCheck) {
         updateFocusedOption(findNextActiveOption(currentOptionIndex.value + 1))
       }
