@@ -306,10 +306,7 @@ export default defineComponent({
     }
 
     &.va-button--icon-only {
-      min-width: var(--va-button-sm-size);
-      min-height: var(--va-button-sm-size);
-
-      & .va-button__content {
+      .va-button__content {
         padding-right: var(--va-button-sm-content-px);
         padding-left: var(--va-button-sm-content-px);
       }
@@ -370,10 +367,7 @@ export default defineComponent({
     }
 
     &.va-button--icon-only {
-      min-width: var(--va-button-size);
-      min-height: var(--va-button-size);
-
-      & .va-button__content {
+      .va-button__content {
         padding-right: var(--va-button-content-px);
         padding-left: var(--va-button-content-px);
       }
@@ -431,10 +425,7 @@ export default defineComponent({
     }
 
     &.va-button--icon-only {
-      min-width: var(--va-button-lg-size);
-      min-height: var(--va-button-lg-size);
-
-      & .va-button__content {
+      .va-button__content {
         padding-right: var(--va-button-lg-content-px);
         padding-left: var(--va-button-lg-content-px);
       }

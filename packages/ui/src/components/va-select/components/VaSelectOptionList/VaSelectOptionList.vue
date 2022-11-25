@@ -23,7 +23,7 @@
         v-if="$props.virtualScroller"
         ref="virtualScrollerRef"
         :items="options"
-        :track-by="$props.getTrackBy"
+        :track-by="getTrackBy"
         :wrapper-size="rootHeight"
         @scroll:bottom="handleScrollToBottom"
         v-slot="{ item: option, index }"
@@ -32,6 +32,7 @@
           v-if="!isSlotContentPassed"
           :option="option"
           :current-option="currentOptionComputed"
+          :disabled="getDisabled(option)"
           v-bind="selectOptionProps"
           @click="selectOption(option)"
           @mousemove="updateHoveredOption(option)"
@@ -42,12 +43,13 @@
       </va-virtual-scroller>
 
       <template v-else>
-        <template v-for="(option, index) in options" :key="$props.getTrackBy(option)">
+        <template v-for="(option, index) in options" :key="getTrackBy(option)">
           <va-select-option
             v-if="!isSlotContentPassed"
-            :ref="setItemRef($props.getTrackBy(option))"
+            :ref="setItemRef(getTrackBy(option))"
             :current-option="currentOptionComputed"
             :option="option"
+            :disabled="getDisabled(option)"
             v-bind="selectOptionProps"
             @click="selectOption(option)"
             @mousemove="updateHoveredOption(option)"
@@ -71,7 +73,14 @@
 import { defineComponent, PropType, ref, shallowRef, watch, computed } from 'vue'
 import pick from 'lodash/pick.js'
 
-import { useComponentPresetProp, useColorProps, extractHTMLElement, useObjectRefs, useSlotPassed } from '../../../../composables'
+import {
+  useComponentPresetProp,
+  useColorProps,
+  extractHTMLElement,
+  useObjectRefs,
+  useSlotPassed,
+  useSelectableList, useSelectableListProps,
+} from '../../../../composables'
 
 import { scrollToElement } from '../../../../utils/scroll-to-element'
 
@@ -92,12 +101,9 @@ export default defineComponent({
   props: {
     ...useColorProps,
     ...useComponentPresetProp,
-    options: { type: Array as PropType<SelectOption[]>, default: () => [] },
+    ...useSelectableListProps,
     noOptionsText: { type: String, default: 'Items not found' },
     getSelectedState: { type: Function as PropType<(option: SelectOption) => boolean>, required: true },
-    getText: { type: Function as PropType<(option: SelectOption) => string>, required: true },
-    getTrackBy: { type: Function as PropType<(option: SelectOption) => number>, required: true },
-    getGroupBy: { type: Function as PropType<(option: SelectOption) => string>, required: true },
     multiple: { type: Boolean, default: false },
     search: { type: String, default: '' },
     tabindex: { type: Number, default: 0 },
@@ -105,7 +111,7 @@ export default defineComponent({
     virtualScroller: { type: Boolean, default: true },
   },
 
-  setup (props, { emit, slots }) {
+  setup (props, { emit }) {
     const root = shallowRef<HTMLElement>()
     const focus = () => {
       // Prevent scroll since element in dropdown and it causes scrolling to page end.
@@ -124,17 +130,19 @@ export default defineComponent({
     }
 
     const lastInteractionSource = ref<EventSource>('')
-    const currentOptionComputed = computed(() => props.hoveredOption || null)
+    const currentOptionComputed = computed(() => props.hoveredOption ?? null)
     const updateCurrentOption = (option: SelectOption | null, source: EventSource) => {
       emit('update:hoveredOption', option)
       lastInteractionSource.value = source
     }
 
+    const { getText, getGroupBy, getTrackBy, getDisabled } = useSelectableList(props)
+
     const filteredOptions = computed(() => {
       if (!props.search) { return props.options }
 
       return props.options.filter((option: SelectOption) => {
-        const optionText = props.getText(option).toString().toUpperCase()
+        const optionText = getText(option).toString().toUpperCase()
         const search = props.search.toUpperCase()
         return optionText.includes(search)
       })
@@ -142,10 +150,10 @@ export default defineComponent({
 
     const optionGroups = computed(() => filteredOptions.value
       .reduce((groups: Record<string, SelectOption[]>, option) => {
-        if (typeof option !== 'object' || !props.getGroupBy(option)) {
+        if (typeof option !== 'object' || !getGroupBy(option)) {
           groups._noGroup.push(option)
         } else {
-          const groupBy = props.getGroupBy(option)
+          const groupBy = getGroupBy(option)
 
           if (!groups[groupBy]) { groups[groupBy] = [] }
 
@@ -155,60 +163,80 @@ export default defineComponent({
         return groups
       }, { _noGroup: [] }))
 
+    const isValueExists = (value: SelectOption | null | undefined) => !!value || value === 0
+
     const updateHoveredOption = (option?: SelectOption) => {
-      if (option === currentOptionComputed.value) { return }
+      if (option === currentOptionComputed.value || (isValueExists(option) && getDisabled(option!))) { return }
 
-      updateCurrentOption(option || null, 'mouse')
+      updateCurrentOption(option ?? null, 'mouse')
     }
-    const updateFocusedOption = (option?: SelectOption) => { updateCurrentOption(option || null, 'keyboard') }
+    const updateFocusedOption = (option?: SelectOption) => { updateCurrentOption(option ?? null, 'keyboard') }
 
-    const selectOption = (option: SelectOption) => emit('select-option', option)
+    const selectOption = (option: SelectOption) => !getDisabled(option) && emit('select-option', option)
 
-    const currentOptionIndex = computed(() => filteredOptions.value.findIndex((option) => {
-      return !!currentOptionComputed.value && props.getTrackBy(option) === props.getTrackBy(currentOptionComputed.value)
+    const groupedOptions = computed(() => Object.values(optionGroups.value).flat())
+    const currentOptions = computed(() =>
+      filteredOptions.value.some((el) => getGroupBy(el)) ? groupedOptions.value : filteredOptions.value)
+
+    const currentOptionIndex = computed(() => currentOptions.value.findIndex((option) => {
+      return isValueExists(currentOptionComputed.value) && getTrackBy(option) === getTrackBy(currentOptionComputed.value!)
     }))
 
-    const selectOptionProps = computed(
-      () => pick(props, ['getSelectedState', 'getText', 'getTrackBy', 'color']),
-    )
+    const selectOptionProps = computed(() => ({
+      ...pick(props, ['getSelectedState', 'color']),
+      getText,
+      getTrackBy,
+    }))
 
     const isSlotContentPassed = useSlotPassed()
 
+    const findNextActiveOption = (startSearchIndex: number, reversedSearch = false) => {
+      const searchBase = [...(currentOptions.value || [])]
+      const searchBaseOrdered = reversedSearch ? searchBase.reverse() : searchBase
+      const startIndex = reversedSearch ? (startSearchIndex * -1) - 1 : startSearchIndex
+
+      return searchBaseOrdered.slice(startIndex).find((option) => !getDisabled(option))
+    }
+
     // public
     const focusPreviousOption = () => {
-      if (!currentOptionComputed.value) {
-        // Hover last option from list
-        filteredOptions.value.length && updateFocusedOption(filteredOptions.value.at(-1))
+      if (!isValueExists(currentOptionComputed.value)) {
+        updateFocusedOption(findNextActiveOption(0, true))
         return
       }
 
-      if (filteredOptions.value[currentOptionIndex.value - 1]) {
-        updateFocusedOption(filteredOptions.value[currentOptionIndex.value - 1])
+      const previousOptionIndex = currentOptionIndex.value - 1
+      const previousOption = currentOptions.value[previousOptionIndex]
+      const previousOptionCheck = isValueExists(previousOption) && !(previousOptionIndex === 0 && getDisabled(previousOption))
+      if (previousOptionCheck) {
+        updateFocusedOption(findNextActiveOption(currentOptionIndex.value - 1, true))
       } else {
         emit('no-previous-option-to-hover')
       }
     }
 
     const focusNextOption = () => {
-      if (!currentOptionComputed.value) {
-        // Hover first option from list
-        filteredOptions.value.length && updateFocusedOption(filteredOptions.value[0])
+      if (!isValueExists(currentOptionComputed.value)) {
+        focusFirstOption()
         return
       }
 
-      if (filteredOptions.value[currentOptionIndex.value + 1]) {
-        updateFocusedOption(filteredOptions.value[currentOptionIndex.value + 1])
+      const nextOptionIndex = currentOptionIndex.value + 1
+      const nextOption = currentOptions.value[nextOptionIndex]
+      const nextOptionCheck = isValueExists(nextOption) && !(nextOptionIndex === currentOptions.value.length - 1 && getDisabled(nextOption))
+      if (nextOptionCheck) {
+        updateFocusedOption(findNextActiveOption(currentOptionIndex.value + 1))
       }
     }
 
-    const focusFirstOption = () => updateFocusedOption(filteredOptions.value?.[0])
+    const focusFirstOption = () => updateFocusedOption(findNextActiveOption(0))
 
     const { itemRefs, setItemRef } = useObjectRefs()
     const virtualScrollerRef = shallowRef<Array<InstanceType<typeof VaVirtualScroller>>>()
     const scrollToOption = (option: SelectOption) => {
-      if (!option) { return }
+      if (!isValueExists(option)) { return }
 
-      const element = itemRefs.value[props.getTrackBy(option)]
+      const element = itemRefs.value[getTrackBy(option)]
       if (element) { scrollToElement(extractHTMLElement(element)) }
 
       if (props.virtualScroller) { virtualScrollerRef.value?.[0].virtualScrollTo(currentOptionIndex.value) }
@@ -223,7 +251,7 @@ export default defineComponent({
     }
 
     watch(() => props.hoveredOption, (newOption: SelectOption | null) => {
-      (!lastInteractionSource.value || lastInteractionSource.value === 'keyboard') && newOption && scrollToOption(newOption)
+      (!lastInteractionSource.value || lastInteractionSource.value === 'keyboard') && (isValueExists(newOption)) && scrollToOption(newOption!)
     })
 
     return {
@@ -238,7 +266,9 @@ export default defineComponent({
       currentOptionComputed,
 
       onScroll,
+      getTrackBy,
       setItemRef,
+      getDisabled,
       selectOption,
       updateHoveredOption,
       handleScrollToBottom,
