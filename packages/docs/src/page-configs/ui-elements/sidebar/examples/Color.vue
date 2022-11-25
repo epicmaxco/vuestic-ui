@@ -62,7 +62,6 @@
     <va-sidebar
       color="#F0F7ED"
       text-color="#009600"
-      :hover-opacity="0.75"
       minimized-width="64px"
       width="18rem"
       class="colored-sidebar"
@@ -80,6 +79,7 @@
         :active="item.active"
         active-color="#009600"
         :text-color="item.active ? '#F0F7ED' : '#009600'"
+        :hover-opacity="item.active ? 0.75 : 0.2"
       >
         <va-sidebar-item-content>
           <va-icon :name="item.icon" />
@@ -96,7 +96,6 @@
       color="#FFD300"
       active-color="#FFD300"
       text-color="textPrimary"
-      :hover-opacity="0.75"
       minimized-width="64px"
       width="18rem"
       class="colored-sidebar"
@@ -114,6 +113,7 @@
         :active="item.active"
         active-color="textPrimary"
         :text-color="item.active ? '#FFD300' : 'textPrimary'"
+        :hover-opacity="item.active ? 0.75 : 0.2"
       >
         <va-sidebar-item-content>
           <va-icon :name="item.icon" />
