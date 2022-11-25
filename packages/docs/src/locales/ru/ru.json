@@ -1365,6 +1365,7 @@
       "color": "Цвет",
       "other": "Другое"
     },
+    "home": "Главная",
     "introduction": "Введение",
     "gettingStarted": "Начало работы",
     "styles": "Стили",
@@ -3894,6 +3895,9 @@
       "shape": {
         "title": "Shape",
         "text": "Свойство `shape` добавляет фигуру на фон панели навигации. Цвет фигуры будет автоматически взят из свойства `color`."
+      },
+      "height": {
+        "title": "Высота"
       }
     },
     "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-navbar/_variables.scss)[[target=_blank]]"

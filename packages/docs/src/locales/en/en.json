@@ -1452,6 +1452,7 @@
       "color": "Color",
       "other": "Other"
     },
+    "home": "Home",
     "introduction": "Introduction",
     "gettingStarted": "Getting Started",
     "styles": "Styles",
@@ -4080,6 +4081,9 @@
       "shape": {
         "title": "Shape",
         "text": "You can add the shape to navbar background. Shape color will be taken automatic from `color` prop."
+      },
+      "height": {
+        "title": "Height"
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-navbar/_variables.scss)[[target=_blank]]"

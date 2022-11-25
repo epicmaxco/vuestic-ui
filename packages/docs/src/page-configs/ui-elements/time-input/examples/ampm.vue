@@ -1,7 +1,6 @@
 <template>
   <div class="d-flex">
-    <va-time-input v-model="value" />
-    <va-divider vertical />
+    <va-time-input v-model="value" class="mr-3" />
     <va-time-input v-model="value" ampm />
   </div>
 </template>

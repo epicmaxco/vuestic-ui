@@ -1,49 +1,80 @@
 <template>
-  <va-navbar color="primary" class="mb-2">
+  <va-navbar color="primary" class="mb-3">
     <template #left>
-      <va-navbar-item>LOGO HERE</va-navbar-item>
-    </template>
-    <template #center>
-      <va-navbar-item>Primary</va-navbar-item>
+      <va-navbar-item class="logo">LOGO</va-navbar-item>
     </template>
     <template #right>
-      <va-navbar-item>Auto font color</va-navbar-item>
+      <va-navbar-item>Dashboard</va-navbar-item>
+      <va-navbar-item>Reports</va-navbar-item>
+      <va-navbar-item>Users</va-navbar-item>
+      <va-navbar-item>
+        <va-icon name="mdi-magnify" color="textInverted" />
+      </va-navbar-item>
+      <va-navbar-item>
+        <va-icon name="mdi-account-circle-outline" color="textInverted" />
+      </va-navbar-item>
     </template>
   </va-navbar>
 
-  <va-navbar color="secondary" class="mb-2">
+  <va-navbar color="warning" class="mb-3">
     <template #left>
-      <va-navbar-item>LOGO HERE</va-navbar-item>
-    </template>
-    <template #center>
-      <va-navbar-item>Secondary</va-navbar-item>
+      <va-navbar-item class="logo">LOGO</va-navbar-item>
     </template>
     <template #right>
-      <va-navbar-item>Auto font color</va-navbar-item>
+      <va-navbar-item>Dashboard</va-navbar-item>
+      <va-navbar-item>Reports</va-navbar-item>
+      <va-navbar-item>Users</va-navbar-item>
+      <va-navbar-item>
+        <va-icon name="mdi-magnify" />
+      </va-navbar-item>
+      <va-navbar-item>
+        <va-icon name="mdi-account-circle-outline" />
+      </va-navbar-item>
     </template>
   </va-navbar>
 
-  <va-navbar color="#ff00ff" class="mb-2">
+  <va-navbar v-bind="darkNavbarColors" class="mb-3">
     <template #left>
-      <va-navbar-item>LOGO HERE</va-navbar-item>
-    </template>
-    <template #center>
-      <va-navbar-item>#ff00ff</va-navbar-item>
+      <va-navbar-item class="logo">LOGO</va-navbar-item>
     </template>
     <template #right>
-      <va-navbar-item>Auto font color</va-navbar-item>
-    </template>
-  </va-navbar>
-
-  <va-navbar color="#111111" text-color="#cdcdcd" class="mb-2">
-    <template #left>
-      <va-navbar-item>Dark background</va-navbar-item>
-    </template>
-    <template #center>
-      <va-navbar-item>#111111</va-navbar-item>
-    </template>
-    <template #right>
-      <va-navbar-item>#cdcdcd text color</va-navbar-item>
+      <va-navbar-item>Dashboard</va-navbar-item>
+      <va-navbar-item>Reports</va-navbar-item>
+      <va-navbar-item>Users</va-navbar-item>
+      <va-navbar-item>
+        <va-icon :color="darkNavbarColors.textColor" name="mdi-magnify" />
+      </va-navbar-item>
+      <va-navbar-item>
+        <va-icon :color="darkNavbarColors.textColor" name="mdi-account-circle-outline" />
+      </va-navbar-item>
     </template>
   </va-navbar>
 </template>
+
+<script setup>
+import { computed } from 'vue'
+import { useColors } from 'vuestic-ui/src/main'
+
+const { currentPresetName } = useColors()
+
+const darkNavbarColors = computed(() => {
+  if (currentPresetName.value === 'light') {
+    return {
+      color: '#111111',
+      textColor: '#BAFFC5',
+    }
+  } else {
+    return {
+      color: '#FBCAF6',
+      textColor: '#481269',
+    }
+  }
+})
+</script>
+
+<style scoped>
+.logo {
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+</style>
