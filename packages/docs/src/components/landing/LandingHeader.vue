@@ -7,8 +7,7 @@
           {{ $t('landing.header.banner.text') }}
         </span>
       </div>
-      <a href="https://github.com/epicmaxco/vuestic-ui" target="_blank" class="header__banner-btn">
-        GitHub
+      <a href="https://www.producthunt.com/upcoming/vuestic-ui" target="_blank" class="header__banner-btn">Upcoming page 🚀
       </a>
     </div>
     <div class="header__wrapper">
@@ -200,15 +199,16 @@ export default class Header extends Vue {
     align-items: center;
     justify-content: center;
     width: 100%;
-    background-color: #5cb76c;
-    font-size: 0.8rem;
+    background-color: #ef6c05;
+    font-size: 1rem;
     color: white;
 
     &-btn {
-      padding: 7px 8px;
+      padding: 10px;
       border-radius: 5px;
       background-color: #fdfdfd;
-      margin-left: 7px;
+      color: #e06301 !important;
+      margin-left: 15px;
     }
   }
 
