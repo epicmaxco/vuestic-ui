@@ -1,15 +1,37 @@
 <template>
-  <va-pagination v-model="value" color="success" :pages="5" class="mb-4" />
-  <va-pagination v-model="value" color="danger" :pages="5" class="mb-4" />
-  <va-pagination v-model="value" color="#aa3b6a" :pages="5" class="mb-4" />
+  <va-pagination
+    v-model="value"
+    preset="darkPagination"
+    :pages="5"
+    class="mb-4"
+  />
+  <va-pagination
+    v-model="value"
+    preset="redPagination"
+    :pages="5" />
 </template>
 
-<script>
-export default {
-  data () {
-    return {
-      value: 3,
-    }
+<script setup>
+import { ref } from 'vue'
+import { useGlobalConfig } from 'vuestic-ui/src/services/global-config'
+
+const value = ref(3)
+const { mergeGlobalConfig } = useGlobalConfig()
+
+mergeGlobalConfig({
+  components: {
+    presets: {
+      VaPagination: {
+        darkPagination: {
+          color: 'textPrimary',
+          activePageColor: 'textPrimary',
+        },
+        redPagination: {
+          color: 'danger',
+          activePageColor: 'danger',
+        },
+      },
+    },
   },
-}
+})
 </script>

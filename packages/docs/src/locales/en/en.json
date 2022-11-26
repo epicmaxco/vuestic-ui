@@ -12,7 +12,7 @@
         "blog": "Blog"
       },
       "banner": {
-        "text": "Vuestic v1.5 has been released! Check out the project on GitHub for more information"
+        "text": "Vuestic UI is launching on Product Hunt next Friday! We'd love to get your support! \uD83D\uDE4F"
       }
     },
     "preview": {
@@ -1163,6 +1163,7 @@
       "props": {
         "activeColor": "Used to set accent color for active `VaSidebarItem`",
         "hoverColor": "Used to set accent color for hovered `VaSidebarItem`",
+        "hoverOpacity": "Used to set opacity of the color for hovered `VaSidebarItem`",
         "active": "If `true` this sidebar item will be highlighted"
       },
       "events": {},
@@ -1451,6 +1452,7 @@
       "color": "Color",
       "other": "Other"
     },
+    "home": "Home",
     "introduction": "Introduction",
     "gettingStarted": "Getting Started",
     "styles": "Styles",
@@ -4079,6 +4081,9 @@
       "shape": {
         "title": "Shape",
         "text": "You can add the shape to navbar background. Shape color will be taken automatic from `color` prop."
+      },
+      "height": {
+        "title": "Height"
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-navbar/_variables.scss)[[target=_blank]]"

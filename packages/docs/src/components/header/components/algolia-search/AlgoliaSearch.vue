@@ -1,5 +1,5 @@
 <template>
-  <div id="docsearch" />
+  <div id="docsearch" class="docsearch-container" />
 </template>
 
 <script lang="ts" setup>
@@ -120,24 +120,33 @@ onMounted(() => {
     max-width: 320px;
     border-radius: var(--va-input-border-radius);
     background-color: var(--va-input-wrapper-background);
+
+    @media screen and (max-width: $break_xs) {
+      background: transparent;
+      min-width: 2rem;
+      padding: 0;
+      justify-content: center;
+    }
   }
 
   .DocSearch-Button-Placeholder {
-    @media (max-width: 768px) {
-      display: block;
-    }
-
-    @media (max-width: 480px) {
-      display: block;
-    }
+    @include md(display, block);
+    @include xs(display, none);
   }
 
   .DocSearch-Button-Keys {
-    @media (max-width: 768px) {
-      display: flex;
-    }
-
+    @include md(display, flex);
     @include xs(display, none);
+  }
+
+  .DocSearch-Button-Container {
+    svg {
+      @include sm(color, var(--va-primary));
+    }
+  }
+
+  @media screen and (max-width: $break_xs) {
+    flex-grow: 0;
   }
 }
 </style>

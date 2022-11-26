@@ -1,43 +1,30 @@
 <template>
   <div class="color-dropdown">
-    <va-badge text="new">
-      <va-button-dropdown
-        class="color-dropdown__icon"
-        preset="secondary"
-        label="Colors"
-        :offset="[16, 0]"
-        prevent-overflow
-        :close-on-content-click="false"
-      >
-        <div class="color-dropdown__content px-1">
-          <div class="d-flex justify-center">
-            <ThemeSwitch style="width: 100%;" />
-          </div>
-
-          <va-divider style="margin: 0.5rem -0.5rem;" />
-
-          <div v-for="color in colorsArray" :key="color.name" class="color my-3 d-flex align-center">
-            <va-color-indicator size="1.25rem" :color="color.name" /> <span class="color__title">{{ color.title }}</span>
-          </div>
+    <va-button-dropdown
+      class="color-dropdown__icon"
+      preset="secondary"
+      label="Colors"
+      :offset="[16, 0]"
+      prevent-overflow
+      :close-on-content-click="false"
+    >
+      <div class="color-dropdown__content px-1">
+        <div v-for="color in colorsArray" :key="color.name" class="color my-3 d-flex align-center">
+          <va-color-indicator size="1.25rem" :color="color.name" /> <span class="color__title">{{ color.title }}</span>
         </div>
-      </va-button-dropdown>
-    </va-badge>
+      </div>
+    </va-button-dropdown>
   </div>
 </template>
 
 <script lang="ts">
-import { useColors } from 'vuestic-ui/src/main'
 import { presets as colorsPresets } from 'vuestic-ui/src/services/color/presets'
-import { computed, defineComponent, ref } from 'vue'
-import ThemeSwitch from '../../ThemeSwitch.vue'
+import { computed, defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'DocsColorDropdown',
 
-  components: { ThemeSwitch },
-
   setup () {
-    const { applyPreset, presets, getColors } = useColors()
     const capitalizeFirstLetter = (text: string) => text.charAt(0).toUpperCase() + text.slice(1)
 
     const colorsArray = computed(() => {
@@ -46,21 +33,8 @@ export default defineComponent({
       return colorNames.map((c) => ({ name: c, title: capitalizeFirstLetter(c) }))
     })
 
-    const themes = Object.keys(presets.value).map((themeName) => ({ value: themeName, label: capitalizeFirstLetter(themeName) }))
-    const currentTheme = ref(localStorage.getItem('vuestic-docs-theme') || 'light')
-
-    const setTheme = (theme: string) => {
-      localStorage.setItem('vuestic-docs-theme', theme)
-      applyPreset(theme)
-    }
-
-    setTheme(localStorage.getItem('vuestic-docs-theme') || 'dark')
-
     return {
-      themes,
       colorsArray,
-      currentTheme,
-      setTheme,
     }
   },
 })
@@ -72,24 +46,6 @@ export default defineComponent({
 .color-dropdown {
   cursor: pointer;
   font-family: var(--va-font-family);
-
-  .va-badge__text-wrapper {
-    top: 50%;
-    left: unset;
-    right: 0;
-    transform: translate(0, -50%);
-  }
-
-  &__icon {
-    .va-button__content {
-      font-weight: 600;
-    }
-
-    position: relative;
-    display: flex;
-    align-items: center;
-    padding-right: 2.25rem;
-  }
 
   &__content {
     border-radius: 0.5rem;
