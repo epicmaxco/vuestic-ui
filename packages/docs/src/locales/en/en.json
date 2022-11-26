@@ -199,7 +199,9 @@
         "block": "Applies block styling (will take 100% of container width)."
       },
       "slots": {
-        "default": "Slot for button content"
+        "default": "Slot for button content",
+        "prepend": "Slot from the left of the content",
+        "append": "Slot from the right of the content"
       },
       "events": {
         "click": "Emitted when user clicks on button"

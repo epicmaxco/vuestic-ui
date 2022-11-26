@@ -3,6 +3,8 @@ import { defineManualApi } from '../../../components/DocsApi/ManualApiOptions'
 export default defineManualApi({
   slots: {
     default: { },
+    prepend: { },
+    append: { },
   },
   events: {
     click: { types: '`() => Event`', isDOMEvent: true },
