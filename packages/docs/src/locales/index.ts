@@ -13,6 +13,12 @@ export const languages = [
     status: 'full',
     translationPath: 'translation.language.ru',
   },
+  {
+    code: 'zh-CN',
+    name: '简体中文',
+    status: 'part',
+    translationPath: 'translation.language.zh-CN',
+  },
   // GENERATOR_ADD - language
 ]
 

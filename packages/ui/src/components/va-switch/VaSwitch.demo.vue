@@ -78,7 +78,7 @@
         v-model="value"
         label="left"
         left-label
-      />
+      ></va-switch>
     </VbCard>
     <VbCard title="Custom labels">
       <div>
@@ -202,15 +202,27 @@
     <VbCard title="Stateful">
       <va-switch stateful />
     </VbCard>
+    <VbCard title="circle slot">
+      <va-switch
+        v-model="value"
+        label="left"
+      >
+      <template #circle>
+        <va-icon name="book"></va-icon>
+      </template>
+    </va-switch>
+    </VbCard>
   </VbDemo>
 </template>
 
 <script>
 import { VaSwitch } from './index'
+import { VaIcon } from '../va-icon'
 
 export default {
   components: {
     VaSwitch,
+    VaIcon,
   },
   data () {
     return {
