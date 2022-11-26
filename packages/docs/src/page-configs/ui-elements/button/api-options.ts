@@ -5,6 +5,7 @@ export default defineManualApi({
     default: { },
     prepend: { },
     append: { },
+    loading: { },
   },
   events: {
     click: { types: '`() => Event`', isDOMEvent: true },
