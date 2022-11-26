@@ -8,7 +8,10 @@
     v-bind="attributesComputed"
   >
     <span class="va-button__content" :class="wrapperClassComputed">
-      <slot name="prepend">
+      <slot
+        name="prepend"
+        v-bind="{ icon, iconAttributes: iconAttributesComputed }"
+      >
         <va-icon
           v-if="icon"
           class="va-button__left-icon"
@@ -17,7 +20,10 @@
         />
       </slot>
       <slot />
-      <slot name="append">
+      <slot
+        name="append"
+        v-bind="{ icon: iconRight, iconAttributes: iconAttributesComputed }"
+      >
         <va-icon
           v-if="iconRight"
           class="va-button__right-icon"
