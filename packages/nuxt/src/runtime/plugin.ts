@@ -36,7 +36,7 @@ export default defineNuxtPlugin((nuxtApp) => {
   }))
 
   /**
-   * Nuxt uses @vueuse/head so we can inject css variales in head.
+   * Nuxt uses @vueuse/head so we can inject css variables in head.
    * @see https://github.com/vueuse/head
    */
   const head = getGlobalProperty(app, '$head')
