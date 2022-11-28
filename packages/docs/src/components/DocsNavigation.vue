@@ -15,7 +15,7 @@
     <va-button
       preset="secondary"
       size="small"
-      class="docs-navigation__button"
+      class="docs-navigation__button mobile-hidden"
       color="secondary"
       @click="copy"
     >
@@ -35,7 +35,7 @@
       <span class="docs-navigation__button__text">{{ $t('docsNavigation.openGithub') }}</span>
     </va-button>
 
-    <form :action="sandboxDefineUrl" method="POST" target="_blank">
+    <form :action="sandboxDefineUrl" method="POST" target="_blank" class="mobile-hidden">
       <input type="hidden" name="parameters" :value="sandboxParams" />
       <va-button
         preset="secondary"
@@ -113,13 +113,12 @@ const gitLink = computed(
 
 <style lang="scss">
 @import "~vuestic-ui/src/styles/resources";
+@import "~@/assets/main.scss";
 
 .docs-navigation {
   background: var(--va-background-element);
   margin: 0 0 0.2rem 0;
-  border-radius: 0.25rem;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
+  border-radius: 0 0 0.25rem 0.25rem;
   padding: 0 calc(var(--va-card-padding) - var(--va-button-sm-content-px) / 2);
   display: flex;
   align-items: center;
@@ -149,6 +148,10 @@ const gitLink = computed(
 
   form {
     display: inline-flex;
+  }
+
+  .mobile-hidden {
+    @include sm(display, none);
   }
 }
 </style>

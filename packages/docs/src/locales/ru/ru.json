@@ -3352,7 +3352,7 @@
     "cli": {
       "title": "Установка через Vue CLI",
       "prepare": "Перед установкой убедитесь, что [Vue CLI](https://cli.vuejs.org/guide/installation.html)[[target=_blank]] установлен глобально и имеет версию 4+:",
-      "upgrade": "Ознакомьтесь с [руководством](https://cli.vuejs.org/migrating-from-v3/#migrating-from-v3)[[target=_blank]] для Vue CLI версии 3, которое поможет вам обновить приложение.",
+      "upgrade": "Ознакомьтесь с [руководством](https://cli.vuejs.org/migrations/migrate-from-v3.html)[[target=_blank]] для Vue CLI версии 3, которое поможет вам обновить приложение.",
       "description": "Простой способ установки Vuestic UI с помощью Vue-CLI. Работает как с vite, так и с webpack.",
       "attention": "Установка Vuestic UI изменит файлы `package.json` и `main.(js`&#124;`ts)`. Убедитесь, что вы закоммитили свой код перед его установкой, чтобы избежать потери данных",
       "codeAnnotation": "Затем установите Vuestic UI как плагин Vue-CLI:"
@@ -4095,7 +4095,7 @@
       "sticky": {
         "title": "Липкий заголовок и футер",
         "text": [
-          "Липкий заголовок задается свойством `sticky-header`, футер - `sticky-footer`. Липкое поведение достигается с помощью CSS установкой `position: sticky`. Это НЕ поддерживается во всех браузерах. Проверьте [caniuse.com](https://caniuse.com/?search=sticky)[[target=_blank]], прежде чем использовать этот метод.",
+          "Липкий (фиксированный) заголовок задается свойством `sticky-header`, футер - `sticky-footer`. Липкое (зафиксированное) поведение достигается с помощью CSS установки `position: sticky`.",
           "Для корректной работы важно ограничить высоту (установить значение в свойство `height` компонента или с помощью CSS свойств `height` или `max-height`) таблицы и назначить цвет фона (установить CSS `background-color`) заголовка таблицы."
         ]
       },
