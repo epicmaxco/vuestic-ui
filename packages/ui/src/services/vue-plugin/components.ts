@@ -13,6 +13,7 @@ export {
   VaButtonGroup,
   VaButtonToggle,
   VaCard,
+  VaCardBlock,
   VaCardActions,
   VaCardContent,
   VaCardTitle,
