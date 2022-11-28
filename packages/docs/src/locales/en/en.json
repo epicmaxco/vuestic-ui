@@ -199,7 +199,10 @@
         "block": "Applies block styling (will take 100% of container width)."
       },
       "slots": {
-        "default": "Slot for button content"
+        "default": "Slot for button content",
+        "prepend": "Slot from the left of the content. In the slot scope you have access to the name and attributes of the icon: `{ icon, iconAttributes }`",
+        "append": "Slot from the right of the content. In the slot scope you have access to the name and attributes of the icon: `{ icon, iconAttributes }`",
+        "loading": "Slot for displaying any process that take a lot of time. Available options: `{ size, color }`"
       },
       "events": {
         "click": "Emitted when user clicks on button"
