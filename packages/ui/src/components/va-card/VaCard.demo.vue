@@ -200,6 +200,35 @@
         </va-card>
       </div>
     </VbCard>
+    <VbCard title="Horizontal">
+      <div class="d-flex">
+        <div class="flex">
+          <va-card class="mr-4" style="width: 400px;">
+            <va-card-block horizontal>
+              <va-image class="flex md6" src="https://picsum.photos/200/280" />
+              <div class="flex md6">
+                <va-card-title>Title</va-card-title>
+                <va-card-content>
+                  {{ lorem }}
+                </va-card-content>
+              </div>
+            </va-card-block>
+          </va-card>
+        </div>
+        <div class="flex">
+          <va-card style="width: 300px;">
+            <va-card-block horizontal>
+              <va-image class="flex" style="flex: 1 0;" src="https://picsum.photos/250/250" />
+              <va-card-actions class="flex" vertical align="center">
+                <va-button icon="heart" size="small" color="success" plain />
+                <va-button icon="bookmark" size="small" plain />
+                <va-button icon="close" size="small" color="danger" plain />
+              </va-card-actions>
+            </va-card-block>
+          </va-card>
+        </div>
+      </div>
+    </VbCard>
     <VbCard title="From zeplin">
       <span title="Shouldn't be in demo. But should be fine to keep it in docs.">❗❗</span>
       <div style="display: flex;">
@@ -312,7 +341,7 @@
 </template>
 
 <script>
-import { VaCard, VaCardContent, VaCardTitle, VaCardActions } from './index'
+import { VaCard, VaCardContent, VaCardTitle, VaCardActions, VaCardBlock } from './index'
 import { VaButton } from '../va-button'
 import { VaImage } from '../va-image'
 import { VaConfig } from '../va-config'
@@ -326,6 +355,7 @@ export default {
     VaButton,
     VaImage,
     VaConfig,
+    VaCardBlock,
   },
   data () {
     return {
