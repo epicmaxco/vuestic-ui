@@ -104,6 +104,16 @@ export default defineComponent({
   &__inner {
     width: 100%;
     height: 100%;
+
+    & > div:first-child {
+      border-top-right-radius: var(--va-card-border-radius);
+      border-top-left-radius: var(--va-card-border-radius);
+    }
+
+    & > div:last-child {
+      border-bottom-right-radius: var(--va-card-border-radius);
+      border-bottom-left-radius: var(--va-card-border-radius);
+    }
   }
 
   &--square {
