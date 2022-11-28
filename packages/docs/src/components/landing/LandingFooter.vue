@@ -74,6 +74,7 @@
           </a>
         </div>
       </div>
+      <LandingNewsBanner v-if="phLaunchTimeEnd > currentDateTime && currentDateTime > phLaunchTimeStart" />
     </div>
   </footer>
 </template>
@@ -85,12 +86,14 @@ import IconEpicmax from './icons/IconEpicmax.vue'
 import IconAdmin from './icons/IconAdmin.vue'
 import IconSpinners from './icons/IconSpinners.vue'
 import LandingEpicmaxBanner from '@/components/landing/LandingEpicmaxBanner.vue'
+import LandingNewsBanner from '@/components/landing/LandingNewsBanner.vue'
 
 export default defineComponent({
   name: 'LandingFooter',
 
   components: {
     LandingEpicmaxBanner,
+    LandingNewsBanner,
   },
 
   setup () {
@@ -103,6 +106,9 @@ export default defineComponent({
       IconSpinners: markRaw(IconSpinners),
       primaryColor: getComputedColor('primary'),
       currentYear: new Date().getFullYear(),
+      currentDateTime: new Date(),
+      phLaunchTimeStart: new Date('December 2, 2022 11:00:00'),
+      phLaunchTimeEnd: new Date('December 3, 2022 11:00:00'),
     }
   },
 })
