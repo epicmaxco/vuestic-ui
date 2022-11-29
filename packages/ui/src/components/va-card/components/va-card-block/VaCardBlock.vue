@@ -1,5 +1,5 @@
 <template>
-  <div class="va-card-block row" :class="classComputed">
+  <div class="va-card-block" :class="classComputed">
     <slot />
   </div>
 </template>
@@ -27,6 +27,7 @@ export default defineComponent({
 
 <style lang="scss">
 .va-card-block {
+  display: flex;
   flex-direction: column;
 
   & > div:first-child {
@@ -39,6 +40,10 @@ export default defineComponent({
     border-bottom-left-radius: var(--va-card-border-radius);
   }
 
+  & > div {
+    flex: auto;
+  }
+
   &--horizontal {
     flex-direction: row;
 
@@ -48,6 +53,10 @@ export default defineComponent({
 
     & > div:last-child {
       border-radius: 0 var(--va-card-border-radius) var(--va-card-border-radius) 0;
+    }
+
+    & > .va-divider {
+      flex: 0;
     }
   }
 }
