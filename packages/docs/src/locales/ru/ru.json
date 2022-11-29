@@ -2289,6 +2289,9 @@
         "purpose": "Компонент `VaCardActions` предназначен для применения margins к контенту и выравнивания содержимого (ожидаются` VaButtons`).",
         "props": "Могут быть переданы два свойства: `align` (**string**, определяет выравнивание) и` vertical` (**boolean**, отображать действия одно под другим).",
         "values": "Допустимые значения для `align`: left, center, right, between, around, stretch."
+      },
+      "horizontal": {
+        "title": "Горизонтально"
       }
     },
     "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-card/_variables.scss)[[target=_blank]]",
