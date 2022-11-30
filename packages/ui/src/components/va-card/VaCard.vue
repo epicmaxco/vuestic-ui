@@ -22,7 +22,7 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
 
-import pick from 'lodash/pick'
+import pick from 'lodash/pick.js'
 import { getGradientBackground } from '../../services/color'
 import {
   useBem,

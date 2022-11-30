@@ -48,11 +48,17 @@ export default defineComponent({
     flex-direction: row;
 
     & > div:first-child {
-      border-radius: var(--va-card-border-radius) 0 0 var(--va-card-border-radius);
+      border-top-left-radius: var(--va-card-border-radius);
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: var(--va-card-border-radius);
     }
 
     & > div:last-child {
-      border-radius: 0 var(--va-card-border-radius) var(--va-card-border-radius) 0;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      border-top-right-radius: var(--va-card-border-radius);
+      border-bottom-right-radius: var(--va-card-border-radius);
     }
 
     & > .va-divider {
