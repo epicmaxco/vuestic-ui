@@ -2,7 +2,7 @@
   <component
     :is="tagComputed"
     class="va-card"
-    :class="cardClasses"
+    :class="classComputed"
     :style="cardStyles"
     :href="hrefComputed"
     :target="target"
@@ -22,8 +22,16 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
 
+import pick from 'lodash/pick.js'
 import { getGradientBackground } from '../../services/color'
-import { useComponentPresetProp, useColors, useTextColor, useRouterLink, useRouterLinkProps } from '../../composables'
+import {
+  useBem,
+  useComponentPresetProp,
+  useColors,
+  useTextColor,
+  useRouterLink,
+  useRouterLinkProps,
+} from '../../composables'
 
 export default defineComponent({
   name: 'VaCard',
@@ -51,27 +59,25 @@ export default defineComponent({
 
     const stripeStyles = computed(() => ({ background: getColor(props.stripeColor) }))
 
-    const cardClasses = computed(() => ({
-      'va-card--square': props.square,
-      'va-card--outlined': props.outlined,
-      'va-card--no-border': !props.bordered,
-      'va-card--disabled': props.disabled,
-      'va-card--link': isLinkTag.value,
+    const classComputed = useBem('va-card', () => ({
+      ...pick(props, ['square', 'outlined', 'disabled']),
+      noBorder: !props.bordered,
+      link: isLinkTag.value,
     }))
 
     const cardStyles = computed(() => {
-      if (props.gradient && props.color) {
-        return {
-          background: getGradientBackground(getColor(props.color)),
-          color: textColorComputed.value,
-        }
-      }
+      const background = props.gradient && props.color
+        ? getGradientBackground(getColor(props.color))
+        : getColor(props.color)
 
-      return { background: getColor(props.color), color: textColorComputed.value }
+      return {
+        background,
+        color: textColorComputed.value,
+      }
     })
 
     return {
-      cardClasses,
+      classComputed,
       cardStyles,
       stripeStyles,
       tagComputed,
@@ -98,6 +104,16 @@ export default defineComponent({
   &__inner {
     width: 100%;
     height: 100%;
+
+    & > div:first-child {
+      border-top-right-radius: var(--va-card-border-radius);
+      border-top-left-radius: var(--va-card-border-radius);
+    }
+
+    & > div:last-child {
+      border-bottom-right-radius: var(--va-card-border-radius);
+      border-bottom-left-radius: var(--va-card-border-radius);
+    }
   }
 
   &--square {
@@ -133,7 +149,7 @@ export default defineComponent({
   &__title,
   &__content,
   &__actions,
-  &__actions_vertical {
+  &__actions--vertical {
     padding: var(--va-card-padding);
 
     + .va-card__title,

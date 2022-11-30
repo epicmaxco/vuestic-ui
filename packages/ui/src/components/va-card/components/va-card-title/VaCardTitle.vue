@@ -10,7 +10,7 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
 
-import { useComponentPresetProp, useColors } from '../../composables'
+import { useComponentPresetProp, useColors } from '../../../../composables'
 
 export default defineComponent({
   name: 'VaCardTitle',

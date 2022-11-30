@@ -45,6 +45,9 @@ const config: ApiDocsBlock[] = [
   block.headline('card.examples.image.title'),
   block.example('Image'),
 
+  block.headline('card.examples.horizontal.title'),
+  block.example('Horizontal'),
+
   block.headline('card.examples.actions.title'),
   block.paragraph('card.examples.actions.purpose'),
   block.paragraph('card.examples.actions.props'),
