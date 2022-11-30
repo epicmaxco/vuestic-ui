@@ -201,7 +201,10 @@
         "block": "Применяет стиль `block` (элемент будет занимать 100% ширины контейнера)."
       },
       "slots": {
-        "default": "Контент кнопки"
+        "default": "Контент кнопки",
+        "prepend": "Слот слева от контента, в скоупе слота доступны название и аттрибуты иконки: `{ icon, iconAttributes }`",
+        "append": "Слот справа от контента, в скоупе слота доступны название и аттрибуты иконки: `{ icon, iconAttributes }`",
+        "loading": "Слот для отображения какого-либо долгого процесса обработки. Доступны следующие свойства: `{ size, color }`"
       },
       "events": {
         "click": "Событие вызывается когда пользователь кликает на кнопку"
@@ -657,7 +660,8 @@
         "header": "Текст заголовка",
         "icon": "Иконка в заголовке",
         "solid": "Включает обводку компонента",
-        "colorAll": "Применяет цвет ко всему компоненту"
+        "colorAll": "Применяет цвет ко всему компоненту",
+        "flat": "Отключает тени, рамки, тем самым делая компонент плоским"
       },
       "events": {
         "input": "Событие вызывается при изменении значения компонента (клик по панели)"
@@ -1157,6 +1161,7 @@
       "props": {
         "activeColor": "Задает активный цвет (поддерживаемые темой опции или `HEX`)",
         "hoverColor": "Задает цвет при наведении (поддерживаемые темой опции или `HEX`)",
+        "hoverOpacity": "Задает прозрачность цвета при наведении (поддерживаемые темой опции или `HEX`)",
         "active": "Задает выделение элемента, как активной ссылки"
       },
       "events": {},
@@ -1364,6 +1369,7 @@
       "color": "Цвет",
       "other": "Другое"
     },
+    "home": "Главная",
     "introduction": "Введение",
     "gettingStarted": "Начало работы",
     "styles": "Стили",
@@ -2284,6 +2290,9 @@
         "purpose": "Компонент `VaCardActions` предназначен для применения margins к контенту и выравнивания содержимого (ожидаются` VaButtons`).",
         "props": "Могут быть переданы два свойства: `align` (**string**, определяет выравнивание) и` vertical` (**boolean**, отображать действия одно под другим).",
         "values": "Допустимые значения для `align`: left, center, right, between, around, stretch."
+      },
+      "horizontal": {
+        "title": "Горизонтально"
       }
     },
     "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-card/_variables.scss)[[target=_blank]]",
@@ -2745,6 +2754,9 @@
       "color": {
         "title": "Цвет",
         "text": "Свойство `color` используется для изменения цвета компонента (предопределенные опции цвета или `HEX`)."
+      },
+      "flat": {
+        "title": "Flat"
       }
     },
     "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-collapse/_variables.scss)[[target=_blank]]"
@@ -2768,6 +2780,9 @@
       "popout": {
         "title": "Увеличение активной панели",
         "text": "Свойство `popout` увеличивает активную панель."
+      },
+      "flat": {
+        "title": "Flat"
       }
     }
   },
@@ -3344,7 +3359,7 @@
     "cli": {
       "title": "Установка через Vue CLI",
       "prepare": "Перед установкой убедитесь, что [Vue CLI](https://cli.vuejs.org/guide/installation.html)[[target=_blank]] установлен глобально и имеет версию 4+:",
-      "upgrade": "Ознакомьтесь с [руководством](https://cli.vuejs.org/migrating-from-v3/#migrating-from-v3)[[target=_blank]] для Vue CLI версии 3, которое поможет вам обновить приложение.",
+      "upgrade": "Ознакомьтесь с [руководством](https://cli.vuejs.org/migrations/migrate-from-v3.html)[[target=_blank]] для Vue CLI версии 3, которое поможет вам обновить приложение.",
       "description": "Простой способ установки Vuestic UI с помощью Vue-CLI. Работает как с vite, так и с webpack.",
       "attention": "Установка Vuestic UI изменит файлы `package.json` и `main.(js`&#124;`ts)`. Убедитесь, что вы закоммитили свой код перед его установкой, чтобы избежать потери данных",
       "codeAnnotation": "Затем установите Vuestic UI как плагин Vue-CLI:"
@@ -3887,6 +3902,9 @@
       "shape": {
         "title": "Shape",
         "text": "Свойство `shape` добавляет фигуру на фон панели навигации. Цвет фигуры будет автоматически взят из свойства `color`."
+      },
+      "height": {
+        "title": "Высота"
       }
     },
     "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-navbar/_variables.scss)[[target=_blank]]"
@@ -4084,7 +4102,7 @@
       "sticky": {
         "title": "Липкий заголовок и футер",
         "text": [
-          "Липкий заголовок задается свойством `sticky-header`, футер - `sticky-footer`. Липкое поведение достигается с помощью CSS установкой `position: sticky`. Это НЕ поддерживается во всех браузерах. Проверьте [caniuse.com](https://caniuse.com/?search=sticky)[[target=_blank]], прежде чем использовать этот метод.",
+          "Липкий (фиксированный) заголовок задается свойством `sticky-header`, футер - `sticky-footer`. Липкое (зафиксированное) поведение достигается с помощью CSS установки `position: sticky`.",
           "Для корректной работы важно ограничить высоту (установить значение в свойство `height` компонента или с помощью CSS свойств `height` или `max-height`) таблицы и назначить цвет фона (установить CSS `background-color`) заголовка таблицы."
         ]
       },

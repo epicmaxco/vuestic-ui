@@ -139,6 +139,7 @@ export default defineComponent({
 
 <style lang="scss">
 @import "~vuestic-ui/src/styles/resources";
+@import "~@/assets/main.scss";
 
 .sidebar {
   &-item-badge {
@@ -217,5 +218,8 @@ export default defineComponent({
       }
     }
   }
+
+  // two safari mobile panels, 44px each, can be both bottom
+  @include md(padding-bottom, 5.5rem);
 }
 </style>

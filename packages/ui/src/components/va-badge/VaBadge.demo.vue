@@ -333,7 +333,7 @@
 import VaBadge from './VaBadge'
 import { VaButton } from '../va-button'
 import { VaCard } from '../va-card'
-import VaCardContent from '../va-card/VaCardContent'
+import VaCardContent from '../va-card/components/va-card-content/VaCardContent.vue'
 import { VaIcon } from '../va-icon/'
 import BadgeAvatarDemo from './BadgeAvatarDemo'
 

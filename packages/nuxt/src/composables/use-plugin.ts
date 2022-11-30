@@ -2,7 +2,7 @@ import { addPluginTemplate } from '@nuxt/kit'
 
 import { resolveInRuntime } from '../utils/resolve'
 
-import type { VuesticOptions } from './../types';
+import type { VuesticOptions } from '../types'
 
 /** Register vuestic nuxt plugin */
 export const useVuesticPlugin = (options: VuesticOptions) => {

@@ -16,20 +16,20 @@ export const getColorLightness = (color: ColorInput) => {
   return Math.sqrt(R * R * 0.241 + G * G * 0.691 + B * B * 0.068)
 }
 
-export const getBoxShadowColor = (color: ColorInput) => {
-  return new ColorTranslator(color).setA(0.4).RGBA
+export const getBoxShadowColor = (color: ColorInput, opacity = 0.4) => {
+  return new ColorTranslator(color).setA(opacity).RGBA
 }
 
-export const getBoxShadowColorFromBg = (background: ColorInput) => {
-  return new ColorTranslator(background).setA(0.4).RGBA
+export const getBoxShadowColorFromBg = (background: ColorInput, opacity = 0.4) => {
+  return new ColorTranslator(background).setA(opacity).RGBA
 }
 
-export const getHoverColor = (color: ColorInput) => {
-  return new ColorTranslator(color).setA(0.2).RGBA
+export const getHoverColor = (color: ColorInput, opacity = 0.2) => {
+  return new ColorTranslator(color).setA(opacity).RGBA
 }
 
-export const getFocusColor = (color: ColorInput) => {
-  return new ColorTranslator(color).setA(0.3).RGBA
+export const getFocusColor = (color: ColorInput, opacity = 0.3) => {
+  return new ColorTranslator(color).setA(opacity).RGBA
 }
 
 export const shiftHSLAColor = (color: ColorInput, offset: { h?: number; s?: number; l?: number; a?: number }) => {

@@ -7,8 +7,7 @@
           {{ $t('landing.header.banner.text') }}
         </span>
       </div>
-      <a href="https://github.com/epicmaxco/vuestic-ui" target="_blank" class="header__banner-btn">
-        GitHub
+      <a href="https://www.producthunt.com/upcoming/vuestic-ui" target="_blank" class="header__banner-btn">Upcoming page 🚀
       </a>
     </div>
     <div class="header__wrapper">
@@ -22,6 +21,7 @@
             <img v-else src="../../assets/landing/images/cross.svg" alt="menu">
           </div>
         </div>
+        <algolia-search class="header__search" />
         <nav class="header__links">
           <!-- vuestic buttons -->
           <va-button
@@ -75,14 +75,12 @@
             <va-list-item>
               <va-list-item-section class="mobile-menu__link">
                 <a href="https://discord.gg/u7fQdqQt8c" target="_blank">
-                  <va-icon name="discord" class="mr-1 mt-1" size="small" />
                   {{ $t('landing.header.buttons.discord') }}</a>
               </va-list-item-section>
             </va-list-item>
             <va-list-item>
               <va-list-item-section class="mobile-menu__link">
                 <a href="https://epicmax.co/blog" target="_blank">
-                  <va-icon name="exit_to_app" class="mr-1 mt-1" size="small" />
                   {{ $t('landing.header.buttons.blog') }}</a>
               </va-list-item-section>
             </va-list-item>
@@ -131,6 +129,7 @@ import VuesticLogo from '../header/components/VuesticLogo.vue'
 import LanguageDropdown from '../header/components/LanguageDropdown.vue'
 import LandingStarsButton from './LandingStarsButton.vue'
 import LandingThemeSwitchButton from '../ThemeSwitch.vue'
+import AlgoliaSearch from '../header/components/algolia-search/AlgoliaSearch.vue'
 
 @Options({
   name: 'LandingHeader',
@@ -139,6 +138,7 @@ import LandingThemeSwitchButton from '../ThemeSwitch.vue'
     LandingStarsButton,
     VuesticLogo,
     LandingThemeSwitchButton,
+    AlgoliaSearch,
   },
 })
 export default class Header extends Vue {
@@ -202,15 +202,16 @@ export default class Header extends Vue {
     align-items: center;
     justify-content: center;
     width: 100%;
-    background-color: #5cb76c;
-    font-size: 0.8rem;
+    background-color: #ef6c05;
+    font-size: 1rem;
     color: white;
 
     &-btn {
-      padding: 7px 8px;
+      padding: 10px;
       border-radius: 5px;
       background-color: #fdfdfd;
-      margin-left: 7px;
+      color: #e06301 !important;
+      margin-left: 15px;
     }
   }
 
@@ -228,7 +229,8 @@ export default class Header extends Vue {
 
   &__logo {
     @include col();
-    @include size(3);
+    @include size(2);
+    @include size-md(3);
     @include size-sm(12);
 
     display: flex;
@@ -239,9 +241,19 @@ export default class Header extends Vue {
     background: #f6f8f9 !important;
   }
 
+  &__search {
+    @include col();
+    @include size(4);
+
+    @media screen and (max-width: 960px) {
+      display: none !important;
+    }
+  }
+
   &__links {
     @include col();
-    @include size(9);
+    @include size(6);
+    @include size-md(9);
 
     display: flex;
     justify-content: flex-end;
@@ -341,6 +353,10 @@ export default class Header extends Vue {
   @include sm(top, 0);
   @include sm(left, 0);
 
+  .va-list-item {
+    margin-bottom: 0.5rem;
+  }
+
   &--open {
     @include sm(display, flex);
   }
@@ -360,12 +376,14 @@ export default class Header extends Vue {
 
   &__label {
     font-size: 10px;
-    padding-top: 3rem;
+    padding-top: 4.5rem;
     padding-bottom: 0.5rem;
   }
 
   &__link {
     @include link-font();
+    @include sm(font-size, 1.2rem);
+    @include xs(font-size, 1.2rem);
 
     text-align: center;
 

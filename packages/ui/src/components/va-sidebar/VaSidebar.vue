@@ -28,6 +28,11 @@ export default defineComponent({
     ...useComponentPresetProp,
     activeColor: { type: String, default: 'primary' },
     hoverColor: { type: String, default: undefined },
+    hoverOpacity: {
+      type: Number,
+      default: 0.2,
+      validator: (v: number) => v >= 0 && v <= 1,
+    },
     borderColor: { type: String, default: undefined },
     color: { type: String, default: 'background-element' },
     textColor: { type: String },
@@ -94,6 +99,7 @@ export default defineComponent({
         activeColor: props.activeColor,
         hoverColor: props.hoverColor,
         borderColor: props.borderColor,
+        hoverOpacity: props.hoverOpacity,
       })),
     }
   },

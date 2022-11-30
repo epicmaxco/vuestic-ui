@@ -25,6 +25,11 @@ const config: ApiDocsBlock[] = [
     'Colors',
   ),
   ...block.exampleBlock(
+    'navbar.examples.height.title',
+    '',
+    'Height',
+  ),
+  ...block.exampleBlock(
     'navbar.examples.shape.title',
     'navbar.examples.shape.text',
     'Shape',

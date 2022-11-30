@@ -12,7 +12,7 @@
         "blog": "Blog"
       },
       "banner": {
-        "text": "Vuestic v1.5 has been released! Check out the project on GitHub for more information"
+        "text": "Vuestic UI is launching on Product Hunt next Friday! We'd love to get your support! \uD83D\uDE4F"
       }
     },
     "preview": {
@@ -199,7 +199,10 @@
         "block": "Applies block styling (will take 100% of container width)."
       },
       "slots": {
-        "default": "Slot for button content"
+        "default": "Slot for button content",
+        "prepend": "Slot from the left of the content. In the slot scope you have access to the name and attributes of the icon: `{ icon, iconAttributes }`",
+        "append": "Slot from the right of the content. In the slot scope you have access to the name and attributes of the icon: `{ icon, iconAttributes }`",
+        "loading": "Slot for displaying any process that take a lot of time. Available options: `{ size, color }`"
       },
       "events": {
         "click": "Emitted when user clicks on button"
@@ -656,7 +659,8 @@
         "header": "Text content to place in the header",
         "icon": "The icon to be displayed inside a header",
         "solid": "Adds borders to the collapse",
-        "colorAll": "Applies color to collapse contents background"
+        "colorAll": "Applies color to collapse contents background",
+        "flat": "Disables shadows and borders"
       },
       "events": {
         "input": "Emits when collapse is clicked"
@@ -1162,6 +1166,7 @@
       "props": {
         "activeColor": "Used to set accent color for active `VaSidebarItem`",
         "hoverColor": "Used to set accent color for hovered `VaSidebarItem`",
+        "hoverOpacity": "Used to set opacity of the color for hovered `VaSidebarItem`",
         "active": "If `true` this sidebar item will be highlighted"
       },
       "events": {},
@@ -1451,6 +1456,7 @@
       "color": "Color",
       "other": "Other"
     },
+    "home": "Home",
     "introduction": "Introduction",
     "gettingStarted": "Getting Started",
     "styles": "Styles",
@@ -2407,6 +2413,9 @@
         "purpose": "The `VaCardActions` component is designed to apply margins and alignment to content (`VaButtons` expected).",
         "props": "Two properties can be passed: `align` (**string**, specify how to align actions) and `vertical` (**boolean**, display actions one below the other).",
         "values": "Valid values for `align`: left, center, right, between, around, stretch."
+      },
+      "horizontal": {
+        "title": "Horizontal"
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-card/_variables.scss)[[target=_blank]]",
@@ -2868,6 +2877,9 @@
       "color": {
         "title": "Color",
         "text": "Use two color schemes."
+      },
+      "flat": {
+        "title": "Flat"
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-collapse/_variables.scss)[[target=_blank]]"
@@ -2891,6 +2903,9 @@
       "popout": {
         "title": "Popout",
         "text": "Active collapse component becomes bigger."
+      },
+      "flat": {
+        "title": "Flat"
       }
     }
   },
@@ -3488,7 +3503,7 @@
       "description": "Recommended way to install Vuestic UI is using the Vue CLI plugin. Works fine with vite or webpack.",
       "attention": "Installing Vuestic UI via the plugin would modify your `package.json` and `main.(js`&#124;`ts)` files, so make sure you’ve committed your code before proceeding to avoid data loss.",
       "prepare": "First, make sure you've got [Vue CLI](https://cli.vuejs.org/guide/installation.html)[[target=_blank]] installed globally:",
-      "upgrade": "Notice also that the minimum supported version of Vue CLI is v4.0.0. In case you've got an older version installed, please, consider [upgrading](https://cli.vuejs.org/migrating-from-v3/#migrating-from-v3)[[target=_blank]] it.",
+      "upgrade": "Notice also that the minimum supported version of Vue CLI is v4.0.0. In case you've got an older version installed, please, consider [upgrading](https://cli.vuejs.org/migrations/migrate-from-v3.html)[[target=_blank]] it.",
       "codeAnnotation": "If everything's fine then you can finally install the plugin with the following command (**don't forget to commit**):"
     },
     "codesandbox": {
@@ -4073,6 +4088,9 @@
       "shape": {
         "title": "Shape",
         "text": "You can add the shape to navbar background. Shape color will be taken automatic from `color` prop."
+      },
+      "height": {
+        "title": "Height"
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-navbar/_variables.scss)[[target=_blank]]"
@@ -4272,7 +4290,7 @@
       "sticky": {
         "title": "Sticky header and footer",
         "text": [
-          "The sticky header and footer are set by the `sticky-header` and `sticky-footer` properties. Sticky behavior is achieved through CSS with `position: sticky`. This is NOT supported on all browsers. Check [caniuse.com](https://caniuse.com/?search=sticky)[[target=_blank]] before using this technique.",
+          "The sticky header and footer are set by the `sticky-header` and `sticky-footer` properties. Sticky behavior is achieved through CSS with `position: sticky`.",
           "To work correctly, it is important to limit the height (set the value in the `height` property of the component or using the CSS `height` or `max-height` properties) of the table and assign a background color (set the CSS value `background-color`) of the table header."
         ]
       },
