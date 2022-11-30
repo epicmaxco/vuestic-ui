@@ -18,24 +18,20 @@
   position: relative;
   height: 33rem;
 }
-
 .split-demo .img-block {
   position: relative;
   height: 100%;
   overflow: hidden;
   user-select: none;
 }
-
 .split-demo .img {
   position: absolute;
   top: 0;
   width: 67vw;
 }
-
 .split-demo .img--start {
   left: 0;
 }
-
 .split-demo .img--end {
   right: 0;
 }

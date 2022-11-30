@@ -5,6 +5,7 @@
   "scripts": {
     "test:manual": "cypress run",
     "build:local-vuestic": "docker image prune -f && docker container prune -f && docker-compose --profile local-vuestic build --no-cache",
+    "build:test-page": "tsx ./create-test-page.ts",
     "run:vite": "docker-compose --profile run-vite up",
     "run:cli": "docker-compose --profile run-cli up",
     "run:nuxt": "docker-compose --profile run-nuxt up",

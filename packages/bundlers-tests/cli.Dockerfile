@@ -1,10 +1,12 @@
 FROM local-vuestic:latest as build
 
 RUN yarn global add @vue/cli
-RUN vue create app --default
+COPY /templates/configs/vuerc.json /vuerc.json
+RUN vue create --preset /vuerc.json app
 
 WORKDIR /app
 RUN yarn add file:/local-vuestic
+RUN yarn add material-design-icons-iconfont -D
 
 WORKDIR /app/src
 COPY /templates/src .

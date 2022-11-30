@@ -4,8 +4,10 @@ RUN yarn create vite vite-app --template vue
 WORKDIR /vite-app
 
 RUN yarn add file:/local-vuestic
+RUN yarn add material-design-icons-iconfont -D
 
-COPY /templates/src ./src
+WORKDIR /vite-app/src
+COPY /templates/src .
 
 RUN yarn build
 

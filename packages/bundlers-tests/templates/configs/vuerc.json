@@ -1,0 +1,7 @@
+{
+  "useConfigFiles": false,
+  "plugins": {
+    "@vue/cli-plugin-babel": {}
+  },
+  "vueVersion": "3"
+}
