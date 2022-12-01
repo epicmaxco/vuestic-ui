@@ -1,64 +1,35 @@
 import { ApiDocsBlock } from '@/types/configTypes'
 import { PageGenerationHelper } from '@/helpers/DocsHelper'
 
+import { installationObject, packageCommands, configuringVuesticFull, configuringVuesticPartial, configExample } from './code-examples'
+
 const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [
   block.title('grid.title'),
   block.paragraph('grid.summaryText'),
 
-  block.headline('grid.examples.default.title'),
-  block.example('Default'),
+  block.alert('grid.deprecated', 'primary'),
 
-  block.headline('grid.examples.breakpoints.title'),
-  block.paragraph('grid.examples.breakpoints.text'),
-  block.paragraph('grid.examples.breakpoints.sizes.xs'),
-  block.paragraph('grid.examples.breakpoints.sizes.sm'),
-  block.paragraph('grid.examples.breakpoints.sizes.md'),
-  block.paragraph('grid.examples.breakpoints.sizes.lg'),
-  block.paragraph('grid.examples.breakpoints.sizes.xl'),
-  block.example('Breakpoints'),
+  block.headline('grid.features.integration.title'),
+  block.paragraph('grid.features.integration.text'),
 
-  block.headline('grid.examples.offsets.title'),
-  block.paragraph('grid.examples.offsets.text'),
-  block.paragraph('grid.examples.offsets.sizes.xs'),
-  block.paragraph('grid.examples.offsets.sizes.sm'),
-  block.paragraph('grid.examples.offsets.sizes.md'),
-  block.paragraph('grid.examples.offsets.sizes.lg'),
-  block.paragraph('grid.examples.offsets.sizes.xl'),
-  block.example('Offsets'),
+  block.paragraph('grid.features.integration.instructionIntro'),
 
-  block.subtitle('all.api'),
-  block.headline('grid.api.align.title'),
-  block.paragraph('grid.api.align.variants[0]'),
-  block.paragraph('grid.api.align.variants[1]'),
-  block.paragraph('grid.api.align.variants[2]'),
-  block.paragraph('grid.api.align.variants[3]'),
-  block.example('AlignDefault'),
+  block.paragraph('grid.features.integration.instruction[0]'),
+  block.code(installationObject, 'bash'),
 
-  block.headline('grid.api.alignSelf.title'),
-  block.paragraph('grid.api.alignSelf.variants[0]'),
-  block.paragraph('grid.api.alignSelf.variants[1]'),
-  block.paragraph('grid.api.alignSelf.variants[2]'),
-  block.paragraph('grid.api.alignSelf.variants[3]'),
-  block.example('AlignSelf'),
+  block.paragraph('grid.features.integration.instruction[1]'),
+  block.code(packageCommands),
 
-  block.headline('grid.api.alignContent.title'),
-  block.paragraph('grid.api.alignContent.variants[0]'),
-  block.paragraph('grid.api.alignContent.variants[1]'),
-  block.paragraph('grid.api.alignContent.variants[2]'),
-  block.paragraph('grid.api.alignContent.variants[3]'),
-  block.paragraph('grid.api.alignContent.variants[4]'),
-  block.example('AlignContent'),
+  block.paragraph('grid.features.integration.instruction[2]'),
+  block.code(configuringVuesticFull),
 
-  block.headline('grid.api.justify.title'),
-  block.paragraph('grid.api.justify.variants[0]'),
-  block.paragraph('grid.api.justify.variants[1]'),
-  block.paragraph('grid.api.justify.variants[2]'),
-  block.paragraph('grid.api.justify.variants[3]'),
-  block.paragraph('grid.api.justify.variants[4]'),
-  block.paragraph('grid.api.justify.variants[5]'),
-  block.example('AlignJustify'),
+  block.paragraph('grid.features.integration.instruction[3]'),
+  block.code(configuringVuesticPartial),
+
+  block.paragraph('grid.features.integration.instruction[4]'),
+  block.code(configExample),
 ]
 
 export default config

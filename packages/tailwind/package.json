@@ -1,0 +1,27 @@
+{
+  "name": "@vuestic/tailwind",
+  "description": "Script for config syncing between Tailwind CSS and Vuestic UI.",
+  "keywords": [
+    "vuesticui",
+    "vuestic",
+    "tailwindcss",
+    "tailwind",
+    "uikit",
+    "uiframework"
+  ],
+  "version": "1.0.0",
+  "license": "MIT",
+  "main": "./dist/sync.cjs",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "vite build"
+  },
+  "peerDependencies": {
+    "tailwindcss": "^3.2.4"
+  },
+  "devDependencies": {
+    "vite": "^2.9.8"
+  }
+}

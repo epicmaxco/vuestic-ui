@@ -1459,7 +1459,6 @@
     "introduction": "Introduction",
     "gettingStarted": "Getting Started",
     "styles": "Styles",
-    "reset": "CSS Reset",
     "uiElements": "UI Elements",
     "contribution": "Contribution",
     "extensions": "Extensions",
@@ -2981,86 +2980,20 @@
     }
   },
   "grid": {
-    "title": "Grid System",
-    "summaryText": "Vuestic UI provides you with some flexbox helper classes. Of course, you can opt out using CSS Grid instead (or any other layout-scheme you'd like), but if you prefer using flexbox, we've got you covered. Still, the final decision is totally up to you.",
-    "examples": {
-      "default": {
-        "title": "Enabling flexbox",
-        "example": "Now I'm flexible"
-      },
-      "breakpoints": {
-        "title": "Breakpoints",
-        "text": "Use the following classes (`breakpoints`) to apply provided styling to screens of certain widths exclusively.",
-        "sizes": {
-          "xs": "`.xs` - (< 640px) - Extra small devices",
-          "sm": "`.sm` - (>= 640px && < 1024px) - Small devices",
-          "md": "`.md` - (>= 1024px && < 1440px) - Medium devices",
-          "lg": "`.lg` - (>= 1440px && < 1920px) - Large devices",
-          "xl": "`.xl` - (>= 1920) - Extra large devices"
-        }
-      },
-      "offsets": {
-        "title": "Offsets",
-        "text": "You can use the `offset`-classes to set spaces between a given element and the one to the left from it.",
-        "sizes": {
-          "xs": "`.offset-xs` - Extra small devices",
-          "sm": "`.offset-sm` - Small devices",
-          "md": "`.offset-md` - Medium devices",
-          "lg": "`.offset-lg` - Large devices",
-          "xl": "`.offset-xl` - Extra large devices"
-        },
-        "first": "First",
-        "second": "Second",
-        "last": "Last"
-      }
-    },
-    "api": {
-      "align": {
-        "title": "`align`:",
-        "variants": [
-          "`.align-start` - cross-start margin edge of the items is placed on the cross-start line",
-          "`.align-end` - cross-end margin edge of the items is placed on the cross-end line",
-          "`.align-center` - items are centered in the cross-axis",
-          "`.align-baseline` - items are aligned the way their baselines align"
-        ]
-      },
-      "alignSelf": {
-        "title": "`align-self`:",
-        "variants": [
-          "`.align-self-start` - cross-start margin edge of the items is placed on the cross-start line",
-          "`.align-self-end` - cross-end margin edge of the items is placed on the cross-end line",
-          "`.align-self-center` - items are centered in the cross-axis",
-          "`.align-self-baseline` - items are aligned the way their baselines align"
-        ]
-      },
-      "alignContent": {
-        "title": "`align-content`:",
-        "variants": [
-          "`.align-content-start` - lines packed to the start of the container",
-          "`.align-content-end` - lines packed to the end of the container",
-          "`.align-content-center` - lines packed to the center of the container",
-          "`.align-content-space-between` - lines evenly distributed; the first line is at the start of the container while the last one is at the end",
-          "`.align-content-space-around` - lines evenly distributed with equal space between them"
-        ]
-      },
-      "justify": {
-        "title": "`justify`:",
-        "variants": [
-          "`.justify-start` - items are packed toward the start line",
-          "`.justify-end` - items are packed toward to end line",
-          "`.justify-center` - items are centered along the line",
-          "`.justify-space-around` - items are evenly distributed in the line, items have equal space around on either end",
-          "`.justify-space-between` - items are evenly distributed in the line; first item is on the start line, last item is on the end line",
-          "`.justify-space-evenly` - items are evenly distributed in the line; items have equal space around them"
-        ]
-      },
-      "justifySelf": {
-        "title": "`justify-self`:",
-        "variants": [
-          "`.justify-self-start` - The item is packed flush to each other toward the start edge of the alignment container in the appropriate axis.",
-          "`.justify-self-end` - The item is packed flush to each other toward the end edge of the alignment container in the appropriate axis.",
-          "`.justify-self-center` - For items that are not children of a flex container, this value is treated as `.justify-self-start`.",
-          "`.justify-self-baseline` - The items are aligned according to baselines"
+    "title": "Grid Layout",
+    "summaryText": "We decided to abandon the concept of creating our own CSS helpers (with the exception of [smart helpers](/styles/smart-helpers)[[target=_blank]]). Therefore, now we recommend our users to use [Tailwind CSS](https://tailwindcss.com/)[[target=_blank]] as the most convenient and modern solution to the issue.",
+    "deprecated": "CSS helpers and the CSS reset file will remain in the Vuestic UI bundle until version 1.7.0, after which they will be permanently removed.",
+    "features": {
+      "integration": {
+        "title": "Synchronization of the Vuestic UI and Tailwind CSS configurations",
+        "text": "To increase the comfort of using Vuestic with Tailwind, we have formed a separate package `@vuestic/tailwind`, which will allow you to synchronize configurations and use Tailwind breakpoint settings (for example, in [Breakpoint Service](/services/breakpoints)[[target=_blank]]) and colors in Vuestic components.",
+        "instructionIntro": "To start using it, you need to:",
+        "instruction": [
+          "1.&nbsp;Install this package via the commands below:",
+          "2.&nbsp;After installation, two commands become available to you: `tsx node_modules/@vuestic/tailwind/dist/sync.cjs ` and `tsx node_modules/@vuestic/tailwind/dist/watch.cjs`. The first one formats and transfers the color and breakpoints settings from the `tailwind.config.*` file (and in its absence, it uses the default Tailwind CSS configuration) to the root file `vuestic.config.ts` (also added by this command). The second command, `watch`, starts the process of tracking the file `tailwind.config.*` to synchronize the Vuestic UI configuration on the fly. We recommend adding these commands to your `package.json` for easier access:",
+          "3.&nbsp;Import the `config` configuration in your `main.*` and specify it when initializing the application:",
+          "Also, you may want to synchronize the configuration partially:",
+          "4.&nbsp;As a result you will be able to use Tailwind colors and breakpoints setting in Vuestic. For example, the result of synchronization default Tailwind settings will be a Vuestic settings file:"
         ]
       }
     }
@@ -3206,16 +3139,6 @@
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/tree/develop/packages/ui/src/components/va-backtop/_variables.scss)[[target=_blank]]"
-  },
-  "reset": {
-    "title": "CSS Reset",
-    "description": "We use `reset.scss` to reset and normalize basic CSS styles",
-    "features": {
-      "title": "Reset features",
-      "info": "Below is a list of features that are provided by reset.scss:",
-      "list": "* Margin and padding reset. \n * Border reset. \n * Hide quotes. \n * Font reset. \n * Hidden-attribute fix for newer browsers. \n * HTML5 display-role reset for older browsers",
-      "more": "For a complete list of all applied styles, see the [reset.scss](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/styles/global/reset.scss)[[target=_blank]] stylesheet."
-    }
   },
   "colorInput": {
     "title": "Color Input",
