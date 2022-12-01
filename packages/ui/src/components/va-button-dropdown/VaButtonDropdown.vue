@@ -51,6 +51,7 @@
             :aria-label="t('toggleDropdown')"
             :disabled="$props.disabled || $props.disableDropdown"
             :icon="computedIcon"
+            :icon-color="$props.iconColor"
             v-on="listeners"
             @keydown.esc.prevent="hideDropdown"
           />
@@ -123,6 +124,7 @@ export default defineComponent({
     openedIcon: { type: String, default: 'va-arrow-up' },
     hideIcon: { type: Boolean, default: false },
     leftIcon: { type: Boolean, default: false },
+    iconColor: { type: String, default: '' },
 
     disabled: { type: Boolean, default: false },
     disableButton: { type: Boolean, default: false },

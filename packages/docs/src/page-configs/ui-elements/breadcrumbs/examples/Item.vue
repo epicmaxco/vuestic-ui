@@ -5,7 +5,7 @@
     <va-breadcrumbs-item label="Three" to="#examples" />
     <va-breadcrumbs-item label="Four" />
     <va-breadcrumbs-item label="Five">
-      <span style="font-style: italic; color: red;">Slotted content</span>
+      <span style="font-style: italic; color: var(--va-danger);">Slotted content</span>
     </va-breadcrumbs-item>
   </va-breadcrumbs>
 </template>

@@ -1,13 +1,13 @@
 <template>
   <div class="va-input-css-example">
     <va-input
-      class="mb-3"
-      input-class="text--right red mb-2"
+      class="mr-3"
+      input-class="text--right color mb-2"
       :model-value="$t('input.examples.inputClass.exampleTexts[0]')"
     />
     <va-input
-      class="mb-3 border-gray"
-      input-class="red p-2"
+      class="border-gray"
+      input-class="color p-2"
       :model-value="$t('input.examples.inputClass.exampleTexts[1]')"
       type="textarea"
     />
@@ -28,8 +28,8 @@ export default {
 .va-input-css-example {
   max-width: 700px;
 
-  .red {
-    color: red;
+  .color {
+    color: var(--va-success);
   }
 
   .p-2 {
