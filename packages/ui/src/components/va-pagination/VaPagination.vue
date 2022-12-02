@@ -296,10 +296,12 @@ export default defineComponent({
       return buttonPropsComputed.value
     }
 
+    const isStandAloneInput = computed(() => props.input && !props.boundaryLinks && !props.directionLinks)
     const inputClassComputed = useBem('va-pagination__input', () => ({
-      sm: props.size === 'small',
-      md: props.size === 'medium',
-      lg: props.size === 'large',
+      sm: props.size === 'small' && isStandAloneInput.value,
+      md: props.size === 'medium' && isStandAloneInput.value,
+      lg: props.size === 'large' && isStandAloneInput.value,
+      auto: !isStandAloneInput.value,
     }))
 
     const classComputed = useBem('va-pagination', () => ({
@@ -364,6 +366,10 @@ export default defineComponent({
 
     &--lg {
       height: var(--va-pagination-button-lg-size);
+    }
+
+    &--auto {
+      height: auto;
     }
   }
 
