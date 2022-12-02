@@ -35,6 +35,7 @@ const isCloseableAlertVisible = ref(true)
   right: 1rem;
   left: auto;
   width: 16rem;
+  z-index: 10000;
 
   &-content {
     display: flex;
