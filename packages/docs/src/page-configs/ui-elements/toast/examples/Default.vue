@@ -23,7 +23,7 @@
   <va-button
     class="mb-2"
     @click="$vaToast.init({
-      message: '<em>Message</em> <span style=\'color: red\'>from</span> <strong>HTML</strong>',
+      message: '<em>Message</em> <span style=\'color: var(--va-danger);\'>from</span> <strong>HTML</strong>',
       dangerouslyUseHtmlString: true,
     })"
   >

@@ -7,7 +7,7 @@
           {{ $t('landing.header.banner.text') }}
         </span>
       </div>
-      <a href="https://www.producthunt.com/upcoming/vuestic-ui" target="_blank" class="header__banner-btn">Upcoming page 🚀
+      <a href="https://www.producthunt.com/posts/vuestic-ui" target="_blank" class="header__banner-btn">Launch page 🚀
       </a>
     </div>
     <div class="header__wrapper">
@@ -21,7 +21,6 @@
             <img v-else src="../../assets/landing/images/cross.svg" alt="menu">
           </div>
         </div>
-        <algolia-search class="header__search" />
         <nav class="header__links">
           <!-- vuestic buttons -->
           <va-button
@@ -129,7 +128,6 @@ import VuesticLogo from '../header/components/VuesticLogo.vue'
 import LanguageDropdown from '../header/components/LanguageDropdown.vue'
 import LandingStarsButton from './LandingStarsButton.vue'
 import LandingThemeSwitchButton from '../ThemeSwitch.vue'
-import AlgoliaSearch from '../header/components/algolia-search/AlgoliaSearch.vue'
 
 @Options({
   name: 'LandingHeader',
@@ -138,7 +136,6 @@ import AlgoliaSearch from '../header/components/algolia-search/AlgoliaSearch.vue
     LandingStarsButton,
     VuesticLogo,
     LandingThemeSwitchButton,
-    AlgoliaSearch,
   },
 })
 export default class Header extends Vue {
@@ -229,8 +226,7 @@ export default class Header extends Vue {
 
   &__logo {
     @include col();
-    @include size(2);
-    @include size-md(3);
+    @include size(3);
     @include size-sm(12);
 
     display: flex;
@@ -241,19 +237,9 @@ export default class Header extends Vue {
     background: #f6f8f9 !important;
   }
 
-  &__search {
-    @include col();
-    @include size(4);
-
-    @media screen and (max-width: 960px) {
-      display: none !important;
-    }
-  }
-
   &__links {
     @include col();
-    @include size(6);
-    @include size-md(9);
+    @include size(9);
 
     display: flex;
     justify-content: flex-end;

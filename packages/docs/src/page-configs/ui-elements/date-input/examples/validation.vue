@@ -1,25 +1,26 @@
 <template>
-  <va-date-input
-    class="mb-4 mr-4"
-    label="Success"
-    v-model="value"
-    success
-  />
+  <div style="display: flex; align-items: flex-start;">
+    <va-date-input
+      class="mr-4"
+      label="Success"
+      v-model="value"
+      success
+    />
 
-  <va-date-input
-    class="mb-4 mr-4"
-    label="Error"
-    v-model="value"
-    error
-  />
+    <va-date-input
+      class="mr-4"
+      label="Error"
+      v-model="value"
+      error
+    />
 
-  <va-date-input
-    class="mb-4 mr-4"
-    label="With rules"
-    v-model="value"
-    :rules="validationRules"
-    clearable
-  />
+    <va-date-input
+      label="With rules"
+      v-model="value"
+      :rules="validationRules"
+      clearable
+    />
+  </div>
 </template>
 
 <script>
