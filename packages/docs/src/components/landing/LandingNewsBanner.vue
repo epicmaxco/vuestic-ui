@@ -15,33 +15,13 @@
           </a>
         </div>
     </va-alert>
-
   </div>
 </template>
 
-<script lang="ts">
-import { Options, Vue } from 'vue-class-component'
+<script lang="ts" setup>
+import { ref } from 'vue'
 
-@Options({
-  name: 'LandingNewsBanner',
-  data () {
-    return {
-      isCloseableAlertVisible: true,
-    }
-  },
-})
-
-export default class NewsBanner extends Vue {
-  get currentMonthName () {
-    const date = new Date() // 2009-11-10
-    return date.toLocaleString('en', { month: 'long' })
-  }
-
-  get developersCount () {
-    const currentMonth = new Date().getUTCMonth()
-    return currentMonth % 3 + 1
-  }
-}
+const isCloseableAlertVisible = ref(true)
 </script>
 
 <style lang="scss" scoped>

@@ -74,44 +74,21 @@
           </a>
         </div>
       </div>
-      <LandingNewsBanner v-if="phLaunchTimeEnd > currentDateTime && currentDateTime > phLaunchTimeStart" />
+      <LandingNewsBanner />
     </div>
   </footer>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { useColors, useElementTextColor } from 'vuestic-ui/src/main'
-import { markRaw, defineComponent } from 'vue'
-import IconEpicmax from './icons/IconEpicmax.vue'
-import IconAdmin from './icons/IconAdmin.vue'
-import IconSpinners from './icons/IconSpinners.vue'
 import LandingEpicmaxBanner from '@/components/landing/LandingEpicmaxBanner.vue'
 import LandingNewsBanner from '@/components/landing/LandingNewsBanner.vue'
 
-export default defineComponent({
-  name: 'LandingFooter',
+const { getComputedColor } = useColors()
 
-  components: {
-    LandingEpicmaxBanner,
-    LandingNewsBanner,
-  },
-
-  setup () {
-    const { getComputedColor } = useColors()
-
-    return {
-      textColor: useElementTextColor('background-primary'),
-      IconEpicmax: markRaw(IconEpicmax),
-      IconAdmin: markRaw(IconAdmin),
-      IconSpinners: markRaw(IconSpinners),
-      primaryColor: getComputedColor('primary'),
-      currentYear: new Date().getFullYear(),
-      currentDateTime: new Date(),
-      phLaunchTimeStart: new Date('December 2, 2022 11:00:00'),
-      phLaunchTimeEnd: new Date('December 3, 2022 11:00:00'),
-    }
-  },
-})
+const textColor = useElementTextColor('background-primary')
+const primaryColor = getComputedColor('primary')
+const currentYear = new Date().getFullYear()
 </script>
 
 <style lang="scss" scoped>
