@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils'
-import VaCardActions from '../VaCardActions.vue'
+import VaCardActions from '../components/va-card-actions/VaCardActions.vue'
 
 describe('VaCardActions', () => {
   let wrapper: any
