@@ -7,6 +7,8 @@ import { useDocument } from './useDocument'
 export type PlacementPosition = 'top' | 'bottom' | 'left' | 'right'
 export type PlacementAlignment = 'start' | 'end' | 'center'
 export type Placement = PlacementPosition | 'auto' | `${PlacementPosition}-${PlacementAlignment}`
+export type PlacementAlias = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'
+export type PlacementWithAlias = Placement | PlacementAlias
 export type Offset = number | [number, number]
 
 type Coords = { x: number, y: number }
@@ -15,7 +17,24 @@ type AlignCoords = { main: number, cross: number }
 export const placementsPositions = ['top', 'bottom', 'left', 'right']
   .reduce((acc, position) => [...acc, position, `${position}-start`, `${position}-end`, `${position}-center`], ['auto'] as string[])
 
+export const placementAliasesPositions = ['top', 'bottom']
+  .flatMap(position => [`${position}-left`, `${position}-right`])
+
+export const placementsPositionsWithAliases = [...placementsPositions, ...placementAliasesPositions]
+
 const coordsToCss = ({ x, y }: Coords) => ({ left: `${x}px`, top: `${y}px` })
+
+export const aliasToPlacement: Record<string, Placement> = {
+  'top-left': 'top-start',
+  'top-right': 'top-end',
+  'bottom-left': 'bottom-start',
+  'bottom-right': 'bottom-end',
+}
+
+const parsePlacementWithAlias = (placementWithAlias: PlacementWithAlias) => {
+  const placement = aliasToPlacement[placementWithAlias] || placementWithAlias
+  return parsePlacement(placement)
+}
 
 const parsePlacement = (placement: Placement) => {
   let [position, align] = placement.split('-') as [PlacementPosition | 'auto', PlacementAlignment | undefined]
@@ -38,7 +57,7 @@ const calculateContentAlignment = (align: PlacementAlignment, anchorStart: numbe
 }
 
 const calculateContentCoords = (placement: Placement, anchor: DOMRect, content: DOMRect) => {
-  const { position, align } = parsePlacement(placement)
+  const { position, align } = parsePlacementWithAlias(placement)
 
   const alignmentX = calculateContentAlignment(align, anchor.left, anchor.width, content.width)
   const alignmentY = calculateContentAlignment(align, anchor.top, anchor.height, content.height)
@@ -53,7 +72,7 @@ const calculateContentCoords = (placement: Placement, anchor: DOMRect, content: 
 }
 
 const calculateOffsetCoords = (placement: Placement, offset: Offset): Coords => {
-  const { position } = parsePlacement(placement)
+  const { position } = parsePlacementWithAlias(placement)
   const { main, cross } = parseOffset(offset)
 
   switch (position) {
@@ -99,7 +118,7 @@ const calculateClipToEdge = (coords: Coords, offsetCoords: Coords, content: DOMR
 }
 
 const getAutoPlacement = (placement: Placement, coords: Coords, content: DOMRect, viewport: DOMRect): Placement => {
-  const { position } = parsePlacement(placement)
+  const { position } = parsePlacementWithAlias(placement)
   const overflow = calculateContentOverflow(coords, content, viewport)
 
   const newPlacements = {
