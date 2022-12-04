@@ -1,5 +1,5 @@
 import { Ref, unref, watch } from 'vue'
-import { useClientOnly } from './useClientOnly'
+import { useWindow } from './useWindow'
 
 type MaybeRef<T> = Ref<T> | T
 
@@ -23,7 +23,7 @@ export const useEvent = <N extends UseEventEventName, E extends Event>(
   listener: (this: GlobalEventHandlers, event: UseEventEvent<N, E>) => any,
   target?: MaybeRef<GlobalEventHandlers | undefined | null> | boolean,
 ) => {
-  const source = target && typeof target !== 'boolean' ? target : useClientOnly(() => window)
+  const source = target && typeof target !== 'boolean' ? target : useWindow()
   const capture = typeof target === 'boolean' ? target : false
 
   watch(source, (newValue, oldValue) => {
