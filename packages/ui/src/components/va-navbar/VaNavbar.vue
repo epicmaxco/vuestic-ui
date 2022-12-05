@@ -4,19 +4,19 @@
     class="va-navbar"
     :style="computedStyle"
   >
-    <div class="va-navbar__content">
-      <div v-if="$slots.left" class="va-navbar__left">
-        <slot name="left" />
-      </div>
-
-      <div v-if="$slots.center" class="va-navbar__center">
-        <slot name="center" />
-      </div>
-
-      <div v-if="$slots.right" class="va-navbar__right">
-        <slot name="right" />
-      </div>
+    <div v-if="$slots.left" class="va-navbar__left">
+      <slot name="left" />
     </div>
+
+    <div v-if="$slots.center || $slots.default" class="va-navbar__center">
+      <slot v-if="$slots.center && !$slots.default" name="center" />
+      <slot v-if="$slots.default && !$slots.center" />
+    </div>
+
+    <div v-if="$slots.right" class="va-navbar__right">
+      <slot name="right" />
+    </div>
+
     <div
       v-if="shape"
       class="va-navbar__background-shape"
@@ -74,13 +74,15 @@ export default defineComponent({
 @import "variables";
 
 .va-navbar {
+  display: grid;
+  grid-template: "left center right" / 1fr 1fr 1fr;
+  align-items: center;
   transition: var(--va-navbar-transition);
   position: var(--va-navbar-position);
   height: var(--va-navbar-height);
   padding-left: var(--va-navbar-padding-left);
   padding-right: var(--va-navbar-padding-right);
   background-color: var(--va-primary);
-  display: flex;
   font-family: var(--va-font-family);
   top: 0;
   left: 0;
@@ -88,41 +90,11 @@ export default defineComponent({
   min-width: 100%;
   z-index: var(--va-navbar-z-index);
 
-  &__content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-
-    @include media-breakpoint-down(sm) {
-      flex-direction: column;
-      align-items: center;
-
-      & > * {
-        width: 100%;
-      }
-    }
-  }
-
-  &__center {
-    display: flex;
-
-    & > .va-navbar__item {
-      margin: 0 var(--va-navbar-item-margin);
-
-      &:last-child {
-        margin-right: 0;
-      }
-
-      &:first-child {
-        margin-left: 0;
-      }
-    }
-  }
-
   &__left {
     display: flex;
     flex-direction: row;
+    grid-area: left;
+    justify-self: start;
 
     & > .va-navbar__item {
       margin-right: var(--va-navbar-item-margin-side);
@@ -138,10 +110,30 @@ export default defineComponent({
     }
   }
 
+  &__center {
+    display: flex;
+    grid-area: center;
+    justify-self: center;
+
+    & > .va-navbar__item {
+      margin: 0 var(--va-navbar-item-margin);
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+  }
+
   &__right {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
+    grid-area: right;
+    justify-self: end;
 
     & > .va-navbar__item {
       margin-right: var(--va-navbar-item-margin-side);
@@ -173,8 +165,14 @@ export default defineComponent({
   }
 
   @include media-breakpoint-down(sm) {
-    height: top-mobile-nav-height;
+    flex-direction: column;
+    align-items: center;
+    height: $top-mobile-nav-height;
     padding: var(--va-navbar-sm-padding);
+
+    & > * {
+      width: 100%;
+    }
 
     &__center,
     &__background-shape {
