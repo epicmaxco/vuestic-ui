@@ -14,7 +14,7 @@ export const languages = [
     translationPath: 'translation.language.ru',
   },
   {
-    code: 'zh-CN',
+    code: 'zh-cn',
     name: '简体中文',
     status: 'part',
     translationPath: 'translation.language.zh-CN',
