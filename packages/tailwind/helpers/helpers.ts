@@ -8,17 +8,22 @@ export const convertValueToString = (value: any, nestingLevel = 1): string => {
 
   if (typeof value === 'object' && !Array.isArray(value)) {
     result.push('{\n')
+
     for (const prop in value) {
       // if prop contains both numbers and literals we wrap it with quotes
       const correctProp = /(?=.*\d)(?=.*[a-z])/i.test(prop) ? `'${prop}'` : prop
+
       result.push('\t'.repeat(nestingLevel) + correctProp, ': ', convertValueToString(value[prop], nestingLevel + 1), ',\n')
     }
+
     result.push('\t'.repeat(nestingLevel - 1) + '}')
   } else if (typeof value === 'object' && Array.isArray(value)) {
     result.push('[\n')
+
     for (const prop in value) {
       result.push(convertValueToString(value[prop], nestingLevel + 1), ',\n')
     }
+
     result.push(']')
   } else if (typeof value === 'function') {
     result.push(value.toString())

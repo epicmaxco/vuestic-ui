@@ -1,10 +1,11 @@
 type VuesticColorsList = Record<string, string>
+type TailwindColorsConfig = Record<string, string | Record<string, string>>
 
 /**
  * @param colors tailwind css colors options
  * @returns vuestic ui colors options
  */
-export const convertColors = (colors: Record<string, string | Record<string, string>>): VuesticColorsList => {
+export const convertColors = (colors: TailwindColorsConfig): VuesticColorsList => {
   // system and deprecated by tailwind
   const ignoredColors = ['inherit', 'current', 'transparent', 'coolGray', 'blueGray', 'trueGray', 'warmGray', 'lightBlue']
   const result = {} as VuesticColorsList
@@ -44,7 +45,7 @@ export const proceedColors = (tailwindConfig?: Record<string, any>): VuesticColo
   if (!tailwindColors) {
     tailwindColors = tailwindDefaultColorsConverted
   } else if (tailwindColors && !isTailwindColorsConfigOverwritten) {
-    tailwindColors = { ...tailwindDefaultColorsConverted, ...tailwindColors, }
+    tailwindColors = { ...tailwindDefaultColorsConverted, ...tailwindColors }
   }
 
   return tailwindColors

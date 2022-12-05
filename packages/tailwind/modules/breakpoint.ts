@@ -1,17 +1,22 @@
 type VuesticThresholdsList = Record<string, number>
+type TailwindScreensConfig = Record<string, string>
 
 /**
  * @param thresholds tailwind css screens settings
  * @returns vuestic ui thresholds settings
  */
-export const convertThresholds = (thresholds: Record<string, string>): VuesticThresholdsList => {
-  return Object.fromEntries(
-    Object.entries(thresholds)
-      .map(([key, value]) => {
-        const vuesticValue = Number(value.substring(0, value.length - 2))
-        return [key, vuesticValue]
-      }),
-  )
+export const convertThresholds = (thresholds: TailwindScreensConfig): VuesticThresholdsList => {
+  return Object.entries(thresholds)
+    .reduce((acc, [key, value]) => {
+      const vuesticThreshold = Number(value.substring(0, value.length - 2))
+
+      isNaN(vuesticThreshold) && console.warn(`${value} isn't correct Tailwind CSS screen!`)
+      if (!isNaN(vuesticThreshold)) {
+        acc[key] = vuesticThreshold
+      }
+
+      return acc
+    }, {} as VuesticThresholdsList)
 }
 
 /**
