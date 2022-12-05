@@ -26,13 +26,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, inject } from 'vue'
+import { defineComponent, computed } from 'vue'
 
 import {
-  useComponentPresetProp,
-  useColors, useTextColor,
+  useColors,
   setupScroll,
-  useFixedBar, useFixedBarProps,
+  useFixedBar,
+  useTextColor,
+  useDeprecated,
+  useFixedBarProps,
+  useComponentPresetProp,
 } from '../../composables'
 
 export default defineComponent({
@@ -46,6 +49,9 @@ export default defineComponent({
   },
 
   setup (props) {
+    // TODO(1.6.0): Remove deprecated slots
+    useDeprecated(['center'], 'slots')
+
     const { scrollRoot, isScrolledDown } = setupScroll(props.fixed)
     const { fixedBarStyleComputed } = useFixedBar(props, isScrolledDown)
 
