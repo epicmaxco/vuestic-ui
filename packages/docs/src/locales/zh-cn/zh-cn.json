@@ -626,7 +626,7 @@
           "dense": "Reduces alert paddings"
         },
         "methods": {
-          "hide": "Hide alert. On stateless alert only emits `input`"
+          "hide": "Hides alert (on stateless alert only emits `input`)"
         },
         "slots": {
           "default": "Content of alert body",
