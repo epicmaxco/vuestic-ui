@@ -2,7 +2,7 @@ import { computed, Ref, unref, watchPostEffect } from 'vue'
 
 import { mapObject } from '../utils/map-object'
 import { useDomRect } from './useDomRect'
-import { useClientOnly } from './useClientOnly'
+import { useDocument } from './useDocument'
 
 export type PlacementPosition = 'top' | 'bottom' | 'left' | 'right'
 export type PlacementAlignment = 'start' | 'end' | 'center'
@@ -173,7 +173,7 @@ export const useDropdown = (
   contentRef: Ref<HTMLElement | undefined>,
   options: usePopoverOptions | Ref<usePopoverOptions>,
 ) => {
-  const documentRef = useClientOnly(() => document)
+  const documentRef = useDocument()
   const rootRef = computed(() => {
     if (!documentRef.value) { return undefined }
 
