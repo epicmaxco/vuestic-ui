@@ -29,8 +29,7 @@ export interface TreeView {
   getTrackBy: (node: TreeNode) => string
   getNodeProperty: (node: TreeNode, key: TreeViewPropKey) => any
   toggleCheckbox: (node: TreeNode, state: boolean | null) => void
+  handleKeyboardNavigation: (event: KeyboardEvent, node: TreeNode) => void
 }
-
-export type TreeViewEmitsList = 'update:selected' | 'update:checked' | 'update:expanded'
 
 export const TreeViewKey = Symbol('TreeView') as InjectionKey<TreeView>

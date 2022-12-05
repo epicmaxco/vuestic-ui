@@ -13,6 +13,7 @@ import { useColors, useStateful } from '../../../composables'
 import type { TreeNode, TreeViewFilterMethod } from '../types'
 import { useTreeHelpers, useTreeViewProps } from './useTreeHelpers'
 import { TreeViewKey } from '../types'
+import useTreeKeyboardNavigation from './useTreeKeyboardNavigation'
 
 type CreateNodeProps = {
   node: TreeNode
@@ -161,6 +162,8 @@ const useTreeView: UseTreeViewFunc = (props, emit) => {
     return node.matchesFilter ? node : false
   })
 
+  const { handleKeyboardNavigation } = useTreeKeyboardNavigation(toggleNode)
+
   provide(TreeViewKey, {
     selectedNodeComputed,
     colorComputed,
@@ -173,6 +176,7 @@ const useTreeView: UseTreeViewFunc = (props, emit) => {
     toggleNode,
     toggleCheckbox,
     getNodeProperty,
+    handleKeyboardNavigation,
   })
 
   const treeItems = computed(() => buildTree(nodes.value))

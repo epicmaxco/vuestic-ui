@@ -2,13 +2,15 @@
   <div
     class="va-tree-node"
     :class="treeNodeClassComputed"
-    role="treeitem"
-    :aria-expanded="$props.node.expanded"
+    :role="roleComputed"
+    :aria-expanded="isExpandedComputed"
     :aria-disabled="$props.node.disabled"
     :aria-checked="!!$props.node.checked"
     :tabindex="tabIndexComputed"
-    @keydown.right.stop.prevent="handleToggleNode($event, $props.node)"
-    @keydown.left.stop.prevent="handleToggleNode($event, $props.node)"
+    @keydown.up.stop.prevent="handleKeyboardNavigation($event, $props.node)"
+    @keydown.right.stop.prevent="handleKeyboardNavigation($event, $props.node)"
+    @keydown.down.stop.prevent="handleKeyboardNavigation($event, $props.node)"
+    @keydown.left.stop.prevent="handleKeyboardNavigation($event, $props.node)"
   >
     <div class="va-tree-node-root">
       <div class="va-tree-node-content" :class="indentClassComputed" @click="onNodeClick('node')">
@@ -51,7 +53,6 @@
     </div>
     <div
       v-show="$props.node.hasChildren"
-      role="group"
       :aria-hidden="!$props.node.expanded"
       class="va-tree-node-children"
       :class="expandedClassComputed"
@@ -99,23 +100,24 @@ export default defineComponent({
       colorComputed,
       selectedNodeComputed,
       getText,
-      getValue,
       getTrackBy,
       toggleNode,
-      getNodeProperty,
       toggleCheckbox,
+      getNodeProperty,
+      handleKeyboardNavigation,
     } = useStrictInject(TreeViewKey, INJECTION_ERROR_MESSAGE)
 
     const labelComputed = computed(() => getText(props.node) || '')
-    const isExpandedComputed = computed(() => !!props.node.expanded)
+    const isExpandedComputed = computed(() => props.node.hasChildren ? !!props.node.expanded : undefined)
     const iconComputed = computed(() => getNodeProperty(props.node, iconBy))
+    const roleComputed = computed(() => props.node.hasChildren ? 'group' : 'treeitem')
 
     const treeNodeClassComputed = useBem('va-tree-node', () => ({
       disabled: !!props.node.disabled,
     }))
 
     const expandedClassComputed = useBem('va-tree-node-children', () => ({
-      expanded: isExpandedComputed.value,
+      expanded: !!isExpandedComputed.value,
     }))
 
     const indentClassComputed = useBem('va-tree-node-content', () => ({
@@ -134,14 +136,6 @@ export default defineComponent({
       selectedNodeComputed.value = props.node
     }
 
-    const handleToggleNode = (event: Event, node: TreeNode) => {
-      if (node.expanded) {
-        (event.target as HTMLElement)?.blur()
-      } else {
-        toggleNode(node)
-      }
-    }
-
     return {
       selectable,
       expandNodeBy,
@@ -150,9 +144,10 @@ export default defineComponent({
       getTrackBy,
       toggleNode,
       onNodeClick,
-      handleToggleNode,
+      handleKeyboardNavigation,
       toggleCheckbox,
 
+      roleComputed,
       iconComputed,
       labelComputed,
       colorComputed,
