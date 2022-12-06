@@ -52,8 +52,8 @@ const useTreeKeyboardNavigation = (toggleNode: (node: TreeNode) => void) => {
     }
   }
 
-  const moveTo = (currentElement: HTMLElement, dir: 'prev' | 'next') => {
-    if (dir === 'prev') {
+  const onVerticalMove = (currentElement: HTMLElement, dir: 'up' | 'down') => {
+    if (dir === 'up') {
       const previousElement = getPreviousElement(currentElement)
 
       if (previousElement) {
@@ -67,7 +67,7 @@ const useTreeKeyboardNavigation = (toggleNode: (node: TreeNode) => void) => {
           previousElement.focus()
         }
       }
-    } else if (dir === 'next') {
+    } else if (dir === 'down') {
       const nextElement = getNextElement(currentElement)
 
       if (nextElement) {
@@ -87,7 +87,7 @@ const useTreeKeyboardNavigation = (toggleNode: (node: TreeNode) => void) => {
 
     switch (event.code) {
       case 'ArrowUp': {
-        moveTo(currentElement, 'prev')
+        onVerticalMove(currentElement, 'up')
         break
       }
       case 'ArrowRight': {
@@ -100,7 +100,7 @@ const useTreeKeyboardNavigation = (toggleNode: (node: TreeNode) => void) => {
         break
       }
       case 'ArrowDown': {
-        moveTo(currentElement, 'next')
+        onVerticalMove(currentElement, 'down')
         break
       }
       case 'ArrowLeft': {
