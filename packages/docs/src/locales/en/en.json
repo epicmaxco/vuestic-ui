@@ -173,12 +173,13 @@
         "pressedBehavior": "Behavior of the button, when it's being pressed. Can be `mask` (superimposes color mask on the background or text color for plain state) or `opacity` (adds opacity to the background or text color for plain state).",
         "pressedMaskColor": "Mask color for `mask` behavior.",
         "pressedOpacity": "Opacity value for `opacity` behavior and mask opacity for `mask` behavior.",
-        "textOpacity": "Sets up button text opacity.",
-        "iconColor": "Sets up an icon color.",
+        "textOpacity": "Sets button text opacity.",
+        "iconColor": "Sets an icon color.",
         "type": "Will be used as value for html `type` attribute.",
         "plain": "Applies `plain` styling.",
         "round": "Adds rounded corners (or make a button fully rounded if only icon is passed).",
-        "iconRight": "The icon to be displayed to the right of a title."
+        "iconRight": "The icon to be displayed to the right of a title.",
+        "keyboardNavigation": "Enables keyboard navigation for the component."
       }
     },
     "VaBadge": {
@@ -189,7 +190,8 @@
         "multiLine": "Badge text will wrap to next line.",
         "visibleEmpty": "Badge will be shown even when there is no text.",
         "dot": "Shows dot instead of full badge. Useful to notify user without grabbing too much attention.",
-        "left": "Position badge to the left"
+        "left": "Sets the component position to the left-top corner.",
+        "bottom": "Sets the component position to the bottom-right corner."
       }
     },
     "VaButton": {
@@ -201,7 +203,10 @@
         "block": "Applies block styling (will take 100% of container width)."
       },
       "slots": {
-        "default": "Slot for button content"
+        "default": "Default slot for button's content.",
+        "append": "Slot to input before button's content. Slot scope properties available: `{ icon, iconAttributes }`.",
+        "prepend": "Slot to input after button's content. Slot scope properties available: `{ icon, iconAttributes }`.",
+        "loading": "Slot for loading state. Slot scope properties available: `{ icon, iconAttributes }`."
       },
       "events": {
         "click": "Emitted when user clicks on button"
@@ -628,7 +633,7 @@
         "dense": "Reduces alert paddings"
       },
       "methods": {
-        "hide": "Hide alert. On stateless alert only emits `input`"
+        "hide": "Hides alert (on stateless alert only emits `input`)"
       },
       "slots": {
         "default": "Content of alert body",
@@ -900,7 +905,19 @@
         "offset": "Sets the distance between dropdown and anchor.",
         "modelValue": "Sets a dropdown state.",
         "closeOnContentClick": "Sets dropdown content on click behavior.",
-        "gradient": "Makes the button background color a gradient (only if `backgroundColor` prop is equal to `1`)."
+        "gradient": "Makes the button background color a gradient (only if `backgroundColor` prop is equal to `1`).",
+        "trigger": "Action that will open and close dropdown.",
+        "preventOverflow": "If true, dropdown will be teleported to target ignoring `overflow: hidden` on relative position elements.",
+        "stickToEdges": "Dropdown will not be rendered outside of viewport. It will be moved in opposite direction",
+        "isContentHoverable": "If true, dropdown content will be hoverable",
+        "innerAnchorSelector": "Anchor CSS selector inside passed slot.",
+        "hoverOutTimeout": "Time in `ms` after mouse leave dropdown before it will be closed",
+        "hoverOverTimeout": "Time in `ms` after mouse enter dropdown before it will be opened",
+        "cursor": "Dropdown will be rendered relative to cursor position",
+        "closeOnAnchorClick": "Dropdown will be closed when anchor is clicked",
+        "closeOnClickOutside": "Dropdown will be closed when clicked outside dropdown content and anchor",
+        "anchorSelector": "Anchor CSS selector instead of passing slot",
+        "autoPlacement": "If dropdown doesn't fit viewport, it will be placed automatically to fit viewport"
       },
       "events": {
         "click": "Emitted when user clicks on button.",
@@ -1712,18 +1729,31 @@
       },
       "size": {
         "title": "Different sizes",
-        "text": "The `size` prop prop allows you to specify custom size for an avatar. By default, font size will be scaled depending on the value of the `size` prop. But you can use the `font-size` prop prop to force text size you need."
+        "text": "The `size` prop allows you to specify custom size for an avatar. By default, font size will be scaled depending on the value of the `size` prop. But you can use the `font-size` prop to force text size you need."
       },
       "color": {
-        "title": "Different colors"
+        "title": "Different colors",
+        "text": "The `color` prop is used to set the color of the component and `text-color` for its textual content."
+      },
+      "loading": {
+        "title": "Loading",
+        "text": "The `loading` prop sets a loading state for the component via spinner icon."
       },
       "withImage": {
-        "title": "With images",
-        "text": "The `src` prop prop is used to add custom icons to a component."
+        "title": "With image",
+        "text": "The `src` prop is used to add custom image to a component."
+      },
+      "withBadge": {
+        "title": "With badge",
+        "text": "You may combine `va-avatar` with `va-badge`, for example, to output amount of the new notifications."
+      },
+      "square": {
+        "title": "Square",
+        "text": "The `square` prop is used to change components form from round to square."
       },
       "withIcon": {
-        "title": "With icons",
-        "text": "The `icon` prop is used to display icons inside an avatar."
+        "title": "With icon",
+        "text": "The `icon` prop is used to display icon inside an avatar."
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/tree/develop/packages/ui/src/components/va-avatar/_variables.scss)[[target=_blank]]"
@@ -1788,29 +1818,39 @@
   },
   "badge": {
     "title": "Badge",
-    "summaryText": "VaBadge is used to highlight information related to other element, such as missed notifications on top of avatar.",
+    "summaryText": "VaBadge is used to highlight information related to other element, such as missed notifications near the user's avatar.",
     "examples": {
       "default": {
         "title": "Default",
         "text": "Useful for information views and tables."
       },
-      "withAvatar": {
-        "title": "With Avatar"
-      },
-      "withCard": {
-        "title": "With Card"
-      },
       "position": {
-        "title": "Position left and bottom"
+        "title": "Position",
+        "text": "`left` and `bottom` properties allows you to align the badge by left-top or right-bottom corner (relatively to the base element)."
       },
       "dot": {
-        "title": "Dot"
+        "title": "Dot",
+        "text": "The `dot` property puts the component in a minimalist mode in order to accentuate the base element."
       },
       "transparent": {
-        "title": "Transparent"
+        "title": "Transparent",
+        "text": "The `transparent` property adds transparency to the component."
+      },
+      "overlap": {
+        "title": "Overlap",
+        "text": "The `overlap` property allows badge to overlap the base element."
       },
       "color": {
-        "title": "Color"
+        "title": "Color",
+        "text": "The `color` property sets the color of the component (respectively, `text-color` sets the color of the content), both preset and HEX colors are available."
+      },
+      "withOtherComponents": {
+        "title": "Usage with other components",
+        "text": "By combining a component with others, you can add information to them or focus attention on them."
+      },
+      "noContent": {
+        "title": "Without content",
+        "text": "By default, the component is hidden unless content is passed to it via a slot or the `text` property. The `visible-empty` property allows displaying an empty component as a colored square."
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/tree/develop/packages/ui/src/components/va-badge/_variables.scss)[[target=_blank]]"
@@ -1866,6 +1906,10 @@
       "behavior": {
         "title": "Behavior",
         "text": "You can change hover or pressed behavior of the button via `hover`/`pressedBehavior`, `hover`/`pressedMaskColor` and `hover`/`pressedOpacity` props."
+      },
+      "tag": {
+        "title": "Tag",
+        "text": "You can change the tag of the button wrapper to any other necessary one. However, we recommend to use other properties. For example, if the `href` property is set, then `button` will be replaced with `a`, and if the value of the `to` property is passed, the button tag will automatically change to `router-link`."
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-button/_variables.scss)[[target=_blank]]"
@@ -2734,7 +2778,7 @@
   },
   "alert": {
     "title": "Alert",
-    "summaryText": "Alert displays an important message to attract user attention.",
+    "summaryText": "Displays an important message to attract user attention.",
     "examples": {
       "default": {
         "title": "Default",
@@ -2744,11 +2788,11 @@
       },
       "color": {
         "title": "Color",
-        "text": "Use `color` property to change the color of the component."
+        "text": "Use `color` property to change the color of the component and `text-color` to change the textual content color."
       },
       "styles": {
         "title": "Different styles",
-        "text": "We have 3 styles available: `color`, `outlined` and `border` styled alerts."
+        "text": "3 styles are available: `color`, `outlined` and `border` styled alerts."
       },
       "border": {
         "title": "Border",
@@ -2779,10 +2823,9 @@
       "title": "Title",
       "close": "close",
       "slottedTitle": "Slotted title",
-      "dense": "Dense alert.",
-      "color": "Alert with color style.",
-      "outlined": "Alert with outline style.",
-      "border": "Alert with colorful border.",
+      "color": "Colored background.",
+      "outlined": "Outline.",
+      "border": "Colored border.",
       "primary": "You read this important alert message.",
       "primarySlotted": "You read this important slotted alert message.",
       "success": "You successfully read this important alert message.",
@@ -3390,7 +3433,7 @@
       },
       "styles": {
         "title": "Presets & styles",
-        "text": "You can use the same presets and styles as in [va-button](https://vuestic.dev/ui-elements/button)[[target=_blank]]."
+        "text": "You can use the same `preset`'s (`default`, `primary`, `secondary`, `plain`, `plainOpacity`) and styles (`round`, outline via `borderColor` property) as in [va-button](https://vuestic.dev/ui-elements/button)[[target=_blank]]."
       },
       "icons": {
         "title": "Icons",
@@ -3424,12 +3467,12 @@
         "text": "You can provide size presets to the component."
       },
       "styles": {
-        "title": "Presets & styles",
-        "text": "You can use the same presets and styles as in [va-button](https://vuestic.dev/ui-elements/button)[[target=_blank]]."
+        "title": "Presets and styles",
+        "text": "You can use the same `preset`'s (`default`, `primary`, `secondary`, `plain`, `plainOpacity`) and styles (`round`, outline via `borderColor` property) as in [va-button](https://vuestic.dev/ui-elements/button)[[target=_blank]]."
       },
       "disabled": {
         "title": "Disabled",
-        "text": "The component can be disabled."
+        "text": "The component can be disabled via `disabled` prop."
       },
       "icons": {
         "title": "Icons",
@@ -4099,43 +4142,39 @@
   },
   "buttonDropdown": {
     "title": "Button Dropdown",
-    "summaryText": "This is a button that displays drop-down content when clicked.",
+    "summaryText": "Component with a button that displays dropdown content when getting clicked. It inherits properties, provided by [VaButton](/ui-elements/button) and [VaDropdown](/ui-elements/dropdown) components.",
     "examples": {
       "default": {
         "title": "Basic usage",
-        "text": "By default, wraps your content in `va-button-dropdown` component."
+        "text": "Just wrap your content with `va-button-dropdown` component and it will become available only via click."
       },
       "split": {
         "title": "Split",
-        "text": "You can split the button in two."
+        "text": "The `split` prop allows you to split the button into two, with different purposes of using. One of them can be a link (you can set href for it via `split-to` or `split-href` props, which are analogues of the `to` and `href` attributes)."
       },
       "colors": {
         "title": "Colors",
-        "text": "The `va-dropdown-button` can be colored."
+        "text": "The component can be colored via `color`, `gradient` and `text-color` props."
       },
       "sizes": {
         "title": "Sizes",
-        "text": "Component can apply button sizes."
+        "text": "You are able to set component's size via `size` prop (`small`, `medium` or `large` presets are available, `px` and `rem` values are also suitable)."
       },
       "styles": {
-        "title": "Presets & styles",
-        "text": "You can use the same presets and styles as in [va-button](https://vuestic.dev/ui-elements/button)[[target=_blank]]."
+        "title": "Presets and styles",
+        "text": "You can use the same `preset`'s (`default`, `primary`, `secondary`, `plain`, `plainOpacity`) and styles (`round`, outline via `borderColor` property) as in [va-button](https://vuestic.dev/ui-elements/button)[[target=_blank]]."
       },
       "disabled": {
         "title": "Disabled",
-        "text": "The component can be disabled."
+        "text": "The component can be disabled via `disabled` prop. For the `split` state can be disabled both or only one button (via `disableButton` and `disableDropdown` props)."
       },
       "icons": {
         "title": "Icons",
-        "text": "You can set the dropdown icon and its color."
-      },
-      "events": {
-        "title": "Events",
-        "text": "The `va-dropdown-button` can handle click events."
+        "text": "You can set the dropdown icon and its color via `icon` and `icon-color` props. Also you are able to change icon's position from right to  left side of the button via `left-icon` boolean prop. If you want to remove icon at all, use the `hide-icon` property. Opened-state icon can be changed using `openedIcon` prop."
       },
       "clickInside": {
         "title": "Click inside",
-        "text": "You could set the dropdown to be closed or not after clicking on its content."
+        "text": "You are able to set up the dropdown to be closed or not after clicking on its content using the `close-on-content-click` prop."
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-button-dropdown/_variables.scss)[[target=_blank]]"
