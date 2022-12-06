@@ -9,6 +9,7 @@
     </va-badge>
 
     <va-badge
+      color="primary"
       text="3"
       overlap
       class="mr-4"
@@ -18,7 +19,9 @@
 
     <va-badge
       class="mr-4"
+      color="success"
       dot
+      overlap
     >
       <va-avatar
         square
@@ -26,10 +29,10 @@
       />
     </va-badge>
 
-    <va-badge
-      text="5 notifications"
-      overlap
-    >
+    <va-badge overlap>
+      <template #text>
+        <va-icon name="mdi-bell" size="12px" /> 5+
+      </template>
       <va-button preset="primary">Profile</va-button>
     </va-badge>
   </div>

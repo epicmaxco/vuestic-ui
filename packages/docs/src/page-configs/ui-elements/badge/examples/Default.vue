@@ -1,12 +1,12 @@
 <template>
   <va-badge
     class="mr-4"
-    text="Payed"
+    text="Paid"
     color="success"
   />
 
   <va-badge
-    text="Rejected"
+    text="Declined"
     color="danger"
   />
 </template>
