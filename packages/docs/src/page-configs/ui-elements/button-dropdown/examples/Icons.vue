@@ -15,17 +15,18 @@
   </va-button-dropdown>
   <va-button-dropdown
     class="mr-2 mb-2"
-    label="custom icon"
+    label="custom left icon"
     icon="info"
+    left-icon
   >
     Content
   </va-button-dropdown>
   <va-button-dropdown
     class="mr-2 mb-2"
-    label="custom icon && icon-open"
+    label="custom icon + icon-open"
     icon="info"
     opened-icon="check_circle"
-    icon-color="danger"
+    icon-color="warning"
   >
     Content
   </va-button-dropdown>
