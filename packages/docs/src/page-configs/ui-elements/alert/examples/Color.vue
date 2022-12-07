@@ -20,4 +20,7 @@
   <va-alert color="#540C0C" class="mb-4">
     {{ $t('alert.misc.danger') }}
   </va-alert>
+  <va-alert color="warning" text-color="primary">
+    {{ $t('alert.misc.primary') }}
+  </va-alert>
 </template>

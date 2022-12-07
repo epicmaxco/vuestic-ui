@@ -20,23 +20,47 @@ const config: ApiDocsBlock[] = [
     'Default',
   ),
 
-  block.headline('badge.examples.position.title'),
-  block.example('Position'),
+  ...block.exampleBlock(
+    'badge.examples.position.title',
+    'badge.examples.position.text',
+    'Position',
+  ),
 
-  block.headline('badge.examples.color.title'),
-  block.example('Color'),
+  ...block.exampleBlock(
+    'badge.examples.color.title',
+    'badge.examples.color.text',
+    'Color',
+  ),
 
-  block.headline('badge.examples.dot.title'),
-  block.example('Dot'),
+  ...block.exampleBlock(
+    'badge.examples.dot.title',
+    'badge.examples.dot.text',
+    'Dot',
+  ),
 
-  block.headline('badge.examples.transparent.title'),
-  block.example('Transparent'),
+  ...block.exampleBlock(
+    'badge.examples.overlap.title',
+    'badge.examples.overlap.text',
+    'Overlap',
+  ),
 
-  block.headline('badge.examples.withCard.title'),
-  block.example('WithCard'),
+  ...block.exampleBlock(
+    'badge.examples.transparent.title',
+    'badge.examples.transparent.text',
+    'Transparent',
+  ),
 
-  block.headline('badge.examples.withAvatar.title'),
-  block.example('WithAvatar'),
+  ...block.exampleBlock(
+    'badge.examples.withOtherComponents.title',
+    'badge.examples.withOtherComponents.text',
+    'WithOtherComponents',
+  ),
+
+  ...block.exampleBlock(
+    'badge.examples.noContent.title',
+    'badge.examples.noContent.text',
+    'NoContent',
+  ),
 
   block.subtitle('all.api'),
   block.api(VaBadge, apiOptions),

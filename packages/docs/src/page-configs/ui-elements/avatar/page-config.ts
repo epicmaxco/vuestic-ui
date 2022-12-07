@@ -20,22 +20,47 @@ const config: ApiDocsBlock[] = [
     'avatar.examples.default.text',
     'Default',
   ),
-  block.headline('avatar.examples.color.title'),
-  block.example('Color'),
-  ...block.exampleBlock(
-    'avatar.examples.size.title',
-    'avatar.examples.size.text',
-    'Size',
-  ),
+
   ...block.exampleBlock(
     'avatar.examples.withImage.title',
     'avatar.examples.withImage.text',
     'WithImage',
   ),
+
   ...block.exampleBlock(
     'avatar.examples.withIcon.title',
     'avatar.examples.withIcon.text',
     'WithIcon',
+  ),
+
+  ...block.exampleBlock(
+    'avatar.examples.color.title',
+    'avatar.examples.color.text',
+    'Color',
+  ),
+
+  ...block.exampleBlock(
+    'avatar.examples.size.title',
+    'avatar.examples.size.text',
+    'Size',
+  ),
+
+  ...block.exampleBlock(
+    'avatar.examples.square.title',
+    'avatar.examples.square.text',
+    'Square',
+  ),
+
+  ...block.exampleBlock(
+    'avatar.examples.loading.title',
+    'avatar.examples.loading.text',
+    'Loading',
+  ),
+
+  ...block.exampleBlock(
+    'avatar.examples.withBadge.title',
+    'avatar.examples.withBadge.text',
+    'WithBadge',
   ),
 
   block.subtitle('all.api'),
