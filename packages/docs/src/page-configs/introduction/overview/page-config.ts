@@ -9,10 +9,12 @@ const config: ApiDocsBlock[] = [
   block.subtitle('overview.featuresOverview'),
   block.list([
     'overview.vueThreeCompatible',
-    'overview.featureRich',
+    'overview.darkTheme',
+    'overview.accessibility',
     'overview.configurable',
     'overview.responsive',
     'overview.translatable',
+    'overview.support',
   ]),
 ]
 

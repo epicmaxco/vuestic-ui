@@ -74,7 +74,7 @@
           </a>
         </div>
       </div>
-      <LandingNewsBanner />
+<!--      <LandingNewsBanner />-->
     </div>
   </footer>
 </template>
@@ -82,7 +82,7 @@
 <script lang="ts" setup>
 import { useColors, useElementTextColor } from 'vuestic-ui/src/main'
 import LandingEpicmaxBanner from '@/components/landing/LandingEpicmaxBanner.vue'
-import LandingNewsBanner from '@/components/landing/LandingNewsBanner.vue'
+// import LandingNewsBanner from '@/components/landing/LandingNewsBanner.vue'
 
 const { getComputedColor } = useColors()
 

@@ -3707,13 +3707,16 @@
   },
   "overview": {
     "title": "What is Vuestic UI",
-    "description": "We’ve designed the framework in such a way that it satisfies the most sophisticated design fantasies and allows you to implement them.",
+    "description": "Vuestic UI is an OpenSource Vue 3 based UI framework. It is a MIT-licensed UI framework that provides ready-to-use frontend components that are easily configurable and speed up development of responsive and fast-loading web interfaces. It was initially released in May 2021 by [Epicmax](https://epicmax.co/)[[target=_blank]] and that is what Vuestic UI today:\n\n",
     "featuresOverview": "Features overview",
-    "vueThreeCompatible": "Fully **Vue.js 3 compatible**",
-    "featureRich": "Contains **50+ feature-rich components** that can be used in any design solution",
-    "configurable": "Allows **to configure components** globally via config and CSS variables",
-    "responsive": "Fully **responsive** and **supports modern browsers** (no IE11, sorry)",
-    "translatable": "Integrates seamlessly with **i18n**"
+    "vueThreeCompatible": "Fully Vue 3 compatible \uD83E\uDD18",
+    "featureRich": "Contains 60+ ready-to-use classy UI components that can be used in any design solution \uD83D\uDC85",
+    "darkTheme": "Dark Theme ready to make your app look sexy \uD83D\uDDA4",
+    "accessibility": "Accessible - because it’s important❗",
+    "configurable": "Allows to configure components globally via config and CSS variables",
+    "responsive": "Fully responsive and supports modern browsers (no IE11, sorry)",
+    "translatable": "Integrates seamlessly with i18n",
+    "support": "Fast & professional technical support from [the core team](https://vuestic.dev/en/introduction/team)[[target=_blank]] \uD83E\uDEC2"
   },
   "team": {
     "title": "Meet the Team",
