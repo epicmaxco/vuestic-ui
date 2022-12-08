@@ -11,6 +11,7 @@
         class="va-time-input__anchor"
         :style="cursorStyleComputed"
         v-bind="computedInputWrapperProps"
+        @click.stop="toggleDropdown"
       >
         <template #default>
           <input
@@ -42,6 +43,9 @@
             v-if="$props.leftIcon"
             :aria-label="t('toggleDropdown')"
             v-bind="iconProps"
+            @click.stop="showDropdown"
+            @keydown.enter.stop="showDropdown"
+            @keydown.space.stop="showDropdown"
           />
         </template>
 
@@ -55,8 +59,11 @@
             @keydown.space.stop="reset"
           />
           <va-icon
-            v-else-if="!$props.leftIcon"
+            v-else-if="!$props.leftIcon && $props.icon"
             :aria-label="t('toggleDropdown')"
+            @click.stop="showDropdown"
+            @keydown.enter.stop="showDropdown"
+            @keydown.space.stop="showDropdown"
             v-bind="iconProps"
           />
         </template>
@@ -170,6 +177,8 @@ export default defineComponent({
     const { isFocused, focus, blur, onFocus: focusListener, onBlur: blurListener } = useFocus(input)
 
     const onInputTextChanged = (e: Event) => {
+      if (props.disabled) { return }
+
       const val = (e.target as HTMLInputElement)?.value
       if (!val) {
         return reset()
@@ -306,6 +315,7 @@ export default defineComponent({
 
     const inputAttributesComputed = computed(() => ({
       readonly: props.readonly || !props.manualInput,
+      disabled: props.disabled,
       tabindex: props.disabled ? -1 : 0,
       value: valueText.value,
       ariaLabel: props.label || t('selectedTime'),

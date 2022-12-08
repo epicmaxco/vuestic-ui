@@ -41,6 +41,12 @@ const config: ApiDocsBlock[] = [
     'Flat',
   ),
 
+  ...block.exampleBlock(
+    'accordion.examples.menu.title',
+    'accordion.examples.menu.text',
+    'Menu',
+  ),
+
   block.subtitle('all.api'),
   block.api(VaAccordion, apiOptions),
 ]

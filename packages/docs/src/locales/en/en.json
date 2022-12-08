@@ -671,8 +671,9 @@
       },
       "methods": {},
       "slots": {
-        "default": "Content of the collapse component",
-        "header": "Replaces content of the header to custom"
+        "default": "Collapsable content of the component",
+        "header": "Replaces the whole component's header block",
+        "headerContent": "Replaces component's header block inner content"
       }
     },
     "VaAccordion": {
@@ -2951,6 +2952,10 @@
       },
       "flat": {
         "title": "Flat"
+      },
+      "menu": {
+        "title": "Menu",
+        "text": "One of the interesting ways to use the component is a collapsing menu."
       }
     }
   },
