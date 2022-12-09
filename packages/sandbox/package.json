@@ -4,7 +4,8 @@
   "version": "0.0.1",
   "scripts": {
     "build": "rm -rf ./dist && yarn build:vite && yarn build:vue-cli && yarn build:nuxt",
-    "build:vite": "vue-tsc --noEmit && vite build",
+    "build:vite": "vue-tsc --noEmit && vite build --config ./configs/vite/vite.base.ts",
+    "build:bundle-analysis": "tsx ./scripts/bundle-analysis.ts",
     "build:vue-cli": "vue-cli-service build",
     "build:nuxt": "nuxt build",
     "dev:vite": "vite",
@@ -29,7 +30,9 @@
   "devDependencies": {
     "@vitejs/plugin-vue": "^1.3.0",
     "@vue/test-utils": "^2.0.2",
+    "lodash": "^4.17.21",
     "nuxt": "3.0.0-rc.8",
+    "rollup-plugin-analyzer": "^4.0.0",
     "sass": "^1.54.4",
     "serve": "^12.0.0",
     "ts-loader": "^9.3.0",
