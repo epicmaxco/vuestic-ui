@@ -1177,7 +1177,11 @@
         },
         "events": {},
         "methods": {},
-        "slots": {}
+        "slots": {
+          "left": "Place VaNavbar items on the left",
+          "default": "Place VaNavbar items on the center (default)",
+          "right": "Place VaNavbar items on the right"
+        }
       },
       "VaPopover": {
         "props": {

@@ -81,7 +81,7 @@ import { extractComponentProps, filterComponentProps } from '../../utils/compone
 
 import {
   useBem,
-  useDeprecatedProps,
+  useDeprecated,
   useComponentPresetProp,
   useStateful, useStatefulProps,
   useEmitProxy,
@@ -149,7 +149,7 @@ export default defineComponent({
 
   setup (props, { emit, slots }) {
     // TODO(1.6.0): Remove deprecated props
-    useDeprecatedProps(['flat', 'outline'])
+    useDeprecated(['flat', 'outline'])
 
     const { valueComputed } = useStateful(props, emit)
 

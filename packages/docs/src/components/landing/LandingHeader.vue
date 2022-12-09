@@ -1,15 +1,15 @@
 <template>
   <header class="header">
-    <div class="header__banner">
-      <div>
-        🔥🔥🔥
-        <span class="pl-2">
-          {{ $t('landing.header.banner.text') }}
-        </span>
-      </div>
-      <a href="https://www.producthunt.com/posts/vuestic-ui" target="_blank" class="header__banner-btn">Launch page 🚀
-      </a>
-    </div>
+<!--    <div class="header__banner">-->
+<!--      <div>-->
+<!--        🔥🔥🔥-->
+<!--        <span class="pl-2">-->
+<!--          {{ $t('landing.header.banner.text') }}-->
+<!--        </span>-->
+<!--      </div>-->
+<!--      <a href="https://www.producthunt.com/posts/vuestic-ui" target="_blank" class="header__banner-btn">Launch page 🚀-->
+<!--      </a>-->
+<!--    </div>-->
     <div class="header__wrapper">
       <div class="header__inner">
         <div class="header__logo">

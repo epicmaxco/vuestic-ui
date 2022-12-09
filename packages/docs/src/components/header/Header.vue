@@ -110,6 +110,8 @@ export default class Header extends mixins(PropsMixin) {
 @import '@/assets/smart-grid.scss';
 
 .header {
+  --va-navbar-mobile-height: auto;
+
   box-shadow: 0 2px 8px var(--va-shadow);
 
   .va-navbar__left {
